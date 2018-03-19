@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Common
         /// <param name="dataReader"></param>
         /// <param name="closeReaderFinishing"></param>
         /// <returns></returns>
-        public static List<TSource> MapToCollection<TSource>(this IDataReader dataReader, bool closeReaderFinishing = false) where TSource : class, new()
+        public static List<TSource> MapToCollection<TSource>(this IDataReader dataReader, bool ignoreAttrib = false, bool closeReaderFinishing = false) where TSource : class, new()
         {
             var businessEntityType = typeof(TSource);
             var entities = new List<TSource>();
@@ -29,6 +29,12 @@ namespace Portal.Consultoras.Common
 
             foreach (var propertyInfo in properties)
             {
+                if (ignoreAttrib)
+                {
+                    propertiesToMap[propertyInfo.Name.ToUpper()] = propertyInfo;
+                    continue;
+                }
+
                 var columnName = GetColunmName(propertyInfo);
                 if (!string.IsNullOrEmpty(columnName))
                 {
@@ -69,7 +75,7 @@ namespace Portal.Consultoras.Common
 
         public static TSource MapToObject<TSource>(this IDataReader dataReader, bool nullable = false, bool closeReaderFinishing = false) where TSource : class, new()
         {
-            return MapToCollection<TSource>(dataReader, closeReaderFinishing).FirstOrDefault() ?? (nullable ? null : new TSource());
+            return MapToCollection<TSource>(dataReader, closeReaderFinishing: closeReaderFinishing).FirstOrDefault() ?? (nullable ? null : new TSource());
         }
 
         private static string GetColunmName(PropertyInfo property)

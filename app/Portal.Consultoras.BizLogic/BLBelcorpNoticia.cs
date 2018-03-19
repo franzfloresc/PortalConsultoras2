@@ -28,10 +28,10 @@ namespace Portal.Consultoras.BizLogic
             var daBelcorpNoticia = new DABelcorpNoticia(paisID);
 
             using (IDataReader reader = daBelcorpNoticia.GetBelcorpNoticiaById(BelcorpNoticiaID))
-            if (reader.Read())
-            {
-                entidad = new BEBelcorpNoticia(reader);
-            }
+                if (reader.Read())
+                {
+                    entidad = new BEBelcorpNoticia(reader);
+                }
 
             return entidad;
         }

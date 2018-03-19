@@ -42,7 +42,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@PaisID", DbType.Byte, pedidoweb.PaisID);
             Context.Database.AddInParameter(command, "@IPUsuario", DbType.AnsiString, pedidoweb.IPUsuario);
             Context.Database.AddOutParameter(command, "@PedidoID", DbType.Int32, pedidoweb.PedidoID);
-            Context.Database.AddInParameter(command, "@CodigoUsuarioCreacion", DbType.String, pedidoweb.CodigoUsuarioCreacion);         
+            Context.Database.AddInParameter(command, "@CodigoUsuarioCreacion", DbType.String, pedidoweb.CodigoUsuarioCreacion);
 
             Context.ExecuteNonQuery(command);
             return Convert.ToInt32(command.Parameters["@PedidoID"].Value);
@@ -605,7 +605,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        
+
         public int ValidarDesactivaRevistaGana(int campaniaID, string codigoZona)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarDesactivaRevistaGana");
@@ -644,7 +644,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        
+
         public IDataReader GetPedidosIngresadoFacturado(int consultoraID, int campaniaID, int top)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosIngresadoFacturado_SB2");
@@ -712,7 +712,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@maxDias", DbType.Int32, maxDias);
 
             return Context.ExecuteReader(command);
-        }            
+        }
 
         public IDataReader GetPedidosFacturadoDetalle(int pedidoID)
         {
@@ -721,19 +721,20 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        
+
         public IDataReader ObtenerUltimaDescargaPedido()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimaDescargaPedido");
             return Context.ExecuteReader(command);
         }
         public IDataReader DesmarcarUltimaDescargaPedido()
-        {                
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DesmarcarUltimaDescargaPedido");            
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DesmarcarUltimaDescargaPedido");
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader ObtenerUltimaDescargaExitosa() {
+        public IDataReader ObtenerUltimaDescargaExitosa()
+        {
             DbCommand Command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimaDescargaExitosa");
             return Context.ExecuteReader(Command);
         }

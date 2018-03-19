@@ -87,6 +87,7 @@ var Estrategia = function (config) {
             imagenes: [],
             imagen: _obtenerImagenGrilla(id),
             descripcionOriginal: jQuery("#list").jqGrid('getCell', _idImagen, 'DescripcionCUV2'),
+            //EsOfertaIndependiente: true //jQuery("#list").jqGrid('getCell', id, 'EsOfertaIndependiente'), BPT-369
             ValidarImagen: data.ValidarImagen,
             PesoMaximo: data.PesoMaximo
         };
@@ -286,6 +287,7 @@ var Estrategia = function (config) {
 
             _agregarCamposLanzamiento('img-fondo-desktop', data.ImgFondoDesktop);
             _agregarCamposLanzamiento('img-prev-desktop', data.ImgPrevDesktop);
+            //_agregarCamposLanzamiento('img-fondo-mobile', data.ImgFondoMobile);
             _agregarCamposLanzamiento('img-ficha-desktop', data.ImgFichaDesktop);
             _agregarCamposLanzamiento('img-ficha-mobile', data.ImgFichaMobile);
             _agregarCamposLanzamiento('img-ficha-fondo-desktop', data.ImgFichaFondoDesktop);
@@ -452,6 +454,7 @@ var Estrategia = function (config) {
         $("#txtTextoLibre").val("");
         _limpiarCamposLanzamiento('img-fondo-desktop');
         _limpiarCamposLanzamiento('img-prev-desktop');
+        //_limpiarCamposLanzamiento('img-fondo-mobile');
         _limpiarCamposLanzamiento('img-ficha-desktop');
         _limpiarCamposLanzamiento('img-ficha-mobile');
         _limpiarCamposLanzamiento('img-ficha-fondo-desktop');
@@ -531,7 +534,12 @@ var Estrategia = function (config) {
                             $("#txtGanancia").val(data.ganancia);
                         }
                         else if (data.wsprecio === 0.0) {
-                            $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
+                            if (data.precio === 0.0) {
+                                $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
+                            }
+                            else {
+                                $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
+                            }
                         }
                         else if (data.wsprecio == -1) {
                             $("#txtPrecio2")[0].disabled = true;
@@ -737,10 +745,10 @@ function AddTitleCustom() {
         var nombre = img.src.match(/[-_\w]+[.][\w]+$/i)[0];
         img.title = extension + ' (' + img.naturalWidth + ' x ' + img.naturalHeight + ' pixels)';
         if (nombre == 'prod_grilla_vacio.png') {
-            img.title = 'No se ha seleccionado imagen';
+            img.title = '';
         }
         if (img.naturalWidth == 0) {
-            img.title = 'Inaccesible';
+            img.title = '';
         }
     });
 }

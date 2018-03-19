@@ -1,0 +1,44 @@
+﻿@model Portal.Consultoras.Web.Models.AdministrarComponenteModel
+
+<div class="div-3">
+    <div class="titG" id="divPalancaDatos_Titulo">Actualizar Registro</div>
+</div>
+
+<div class="div-3">
+    <div class="titG">Palanca:</div>
+    <div class="selectP2 borde_redondeado">
+        @Html.DropDownListFor(model => model.PalancaCodigo, new SelectList(Model.ListaPalanca, "Codigo", "Codigo"), "-- Seleccionar --", new { id = "ddlPalanca" })
+    </div>
+</div>
+
+<div class="div-3">
+    <div class="titG">Componente:</div>
+    <div class="selectP2 borde_redondeado">
+        @Html.DropDownListFor(model => model.Componente, new SelectList(Model.ListaCompomente, "Codigo", "Nombre"), "-- Seleccionar --", new { id = "ddlComponente" })
+    </div>
+</div>
+
+<div class="div-3">
+    <div class="titG">Campaña:</div>
+    <div class="selectP2 borde_redondeado">
+        @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampanias, "CampaniaID", "NombreCorto"), "Base", new { id = "ddlCampania" })
+    </div>
+    <div id="msjObservacionCabecera"></div>
+</div>
+
+<div class="div-3">
+    <div class="titG">Activo:</div>
+    <div class="titG">
+        @Html.CheckBoxFor(m => m.Estado)
+    </div>
+</div>
+
+<div class="div-3">
+    <div class="titG">Plantilla:</div>
+    <div class="selectP2 borde_redondeado">
+        Única
+    </div>
+</div>
+<div class="Content_modal" id="contenido-palanca-datos">
+    @Html.Partial("~/Views/AdministrarPalanca/Partials/MantenimientoPalancaDatos.cshtml", Model)
+</div>

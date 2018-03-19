@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Portal.Consultoras.Web.Models
+﻿namespace Portal.Consultoras.Web.Models
 {
     public class ClienteOnlineDetalleModel
     {

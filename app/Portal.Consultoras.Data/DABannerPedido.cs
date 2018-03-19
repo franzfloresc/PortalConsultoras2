@@ -12,6 +12,7 @@ namespace Portal.Consultoras.Data
         {
 
         }
+
         public IDataReader SelectBannerPedido(int paisID, int campaniaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetBannerPedidoPaisCampania");
@@ -47,7 +48,7 @@ namespace Portal.Consultoras.Data
             cmd.Parameters.Add("@PaisID", SqlDbType.Int).Value = entidad.PaisID;
             cmd.Parameters.Add("@CampaniaIDInicio", SqlDbType.Int).Value = entidad.CampaniaIDInicio;
             cmd.Parameters.Add("@CampaniaIDFin", SqlDbType.Int).Value = entidad.CampaniaIDFin;
-            cmd.Parameters.Add("@ConsultoraID", SqlDbType.BigInt).Value = entidad.ConsultoraID;            
+            cmd.Parameters.Add("@ConsultoraID", SqlDbType.BigInt).Value = entidad.ConsultoraID;
             cmd.Parameters.Add("@ArchivoPortada", SqlDbType.VarChar).Value = entidad.ArchivoPortada;
             cmd.Parameters.Add("@ArchivoPDF", SqlDbType.VarChar).Value = entidad.Archivo;
             cmd.Parameters.Add("@Url", SqlDbType.VarChar).Value = entidad.Url;
@@ -65,7 +66,7 @@ namespace Portal.Consultoras.Data
             cmd.Parameters.Add("@BannerPedidoID", SqlDbType.Int).Value = BannerPedidoID;
 
             return Context.ExecuteNonQuery(cmd);
-        }   
-    
+        }
+
     }
 }

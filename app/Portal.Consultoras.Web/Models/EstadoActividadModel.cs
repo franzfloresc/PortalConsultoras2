@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Portal.Consultoras.Web.Models
+﻿namespace Portal.Consultoras.Web.Models
 {
     public class EstadoActividadModel
     {
@@ -11,7 +6,5 @@ namespace Portal.Consultoras.Web.Models
         public int PaisId { get; set; }
         public string CodigoEstadoActividad { get; set; }
         public string Descripcion { get; set; }
-
-
     }
 }

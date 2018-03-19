@@ -6,7 +6,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ConsultoraDigitalesController : BaseController
     {
-
         public ActionResult Index()
         {
 
@@ -52,7 +51,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
 
     }
 }

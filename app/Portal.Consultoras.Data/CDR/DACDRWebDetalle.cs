@@ -5,7 +5,7 @@ using System.Data.Common;
 
 namespace Portal.Consultoras.Data.CDR
 {
-    public class DACDRWebDetalle  : DataAccess
+    public class DACDRWebDetalle : DataAccess
     {
         public DACDRWebDetalle(int paisID)
             : base(paisID, EDbSource.Portal)
@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Data.CDR
             var result = Context.ExecuteNonQuery(command);
 
             return result;
-        }        
+        }
 
         public IDataReader GetCDRWebDetalle(BECDRWebDetalle entity, int pedidoId)
         {

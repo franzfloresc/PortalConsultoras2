@@ -27,7 +27,6 @@ namespace Portal.Consultoras.BizLogic
             daComunicado.UpdComunicadoByConsultora(CodigoConsultora);
         }
 
-        /**GR 1209 Obtener comunicado configurable en la tabla */
         /// <summary>
         /// Obtener los comunicados por consultora y tipo de dispositivo(Desktop o Mobile).
         /// </summary>

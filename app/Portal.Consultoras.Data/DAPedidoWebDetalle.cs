@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        
+
         public IDataReader GetClientesByCampaniaByClienteID(int CampaniaID, long ConsultoraID, string ClienteID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetClientesByCampaniaByClienteID");
@@ -63,7 +63,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@EsKitNueva", DbType.Boolean, pedidowebdetalle.EsKitNueva);
             Context.Database.AddInParameter(command, "@OrigenPedidoWeb", DbType.Int16, pedidowebdetalle.OrigenPedidoWeb);
             Context.Database.AddOutParameter(command, "@PedidoDetalleID", DbType.Int16, 2);
-            
+
             Context.ExecuteNonQuery(command);
 
             pedidowebdetalle.PedidoDetalleID = Convert.ToInt16(command.Parameters["@PedidoDetalleID"].Value);
@@ -114,7 +114,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        
+
         public IDataReader GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebDetalleByCampania");

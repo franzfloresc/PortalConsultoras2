@@ -17,7 +17,6 @@
             font-family: 'Lato';
             padding-left: 7px;
             font-size: 12px;
-            /* margin-right: 10px; */
             border: 1px solid rgba(0, 0, 0, .21);
             float: left;
             margin-left: 1%;
@@ -95,7 +94,6 @@
 @section scripts{
 <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
-        /*var tipoOrigenPantalla = 1;*/
         var urlOfertaCargarProductos = '@Url.Action("GNDObtenerProductos", "GuiaNegocio", new { area = ""})';
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.GNDMobileLanding';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital", new { area = "" })';
@@ -115,8 +113,6 @@
             '@ViewBag.CampaniaSiguiente': '@ViewBag.CodigoRevistaSiguiente'
         };
 
-        /*var alturaimgnd = $(".revistagnd .contrevistagnd .imgrevista img").height();
-        $(".revistagnd .contrevistagnd .inforevista").css("height", alturaimgnd);*/
 </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/GuiaNegocio-Landing")
 }

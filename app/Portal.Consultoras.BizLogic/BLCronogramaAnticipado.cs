@@ -16,7 +16,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daCronograma.GetCronogramaByCampania(CampaniaID, ZonaID, TipoCronogramaID))
                 while (reader.Read())
                 {
-                    var cronograma = new BECronograma(reader) {PaisID = paisID};
+                    var cronograma = new BECronograma(reader) { PaisID = paisID };
                     cronogramas.Add(cronograma);
                 }
 
@@ -58,7 +58,6 @@ namespace Portal.Consultoras.BizLogic
             var daCronograma = new DACronogramaAnticipado(paisID);
             return daCronograma.GetCronogramaDA(fechaFacturacion);
         }
-
 
     }
 }

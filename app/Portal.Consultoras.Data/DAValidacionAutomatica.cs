@@ -143,7 +143,7 @@ namespace Portal.Consultoras.Data
         #endregion
 
         #region PROL AUTO ADMIN
-        
+
         public int GetEstadoProcesoPROLAuto(DateTime FechaHoraFacturacion)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("GetEstadoProcesoPROLAuto");

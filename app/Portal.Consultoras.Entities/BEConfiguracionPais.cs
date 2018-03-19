@@ -1,9 +1,5 @@
-﻿using Portal.Consultoras.Common;
-
-using System;
-using System.Data;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Portal.Consultoras.Entities
 {
@@ -101,39 +97,5 @@ namespace Portal.Consultoras.Entities
                 detalle = value;
             }
         }
-
-        //public BEConfiguracionPais()
-        //{
-        //    Detalle = new BEConfiguracionPaisDetalle();
-        //}
-
-        //public BEConfiguracionPais(IDataRecord row)
-        //{
-        //    if (row.HasColumn("ConfiguracionPaisID")) ConfiguracionPaisID = Convert.ToInt32(row["ConfiguracionPaisID"]);
-        //    if (row.HasColumn("Codigo")) Codigo = Convert.ToString(row["Codigo"]);
-        //    if (row.HasColumn("Excluyente")) Excluyente = Convert.ToBoolean(row["Excluyente"]);
-        //    if (row.HasColumn("Descripcion")) Descripcion = Convert.ToString(row["Descripcion"]);
-        //    if (row.HasColumn("Estado")) Estado = Convert.ToBoolean(row["Estado"]);
-        //    if (row.HasColumn("TienePerfil")) TienePerfil = Convert.ToBoolean(row["TienePerfil"]);
-        //    if (row.HasColumn("DesdeCampania")) DesdeCampania = Convert.ToInt32(row["DesdeCampania"]);
-        //    if (row.HasColumn("MobileTituloMenu")) MobileTituloMenu = Convert.ToString(row["MobileTituloMenu"]);
-        //    if (row.HasColumn("DesktopTituloMenu")) DesktopTituloMenu = Convert.ToString(row["DesktopTituloMenu"]);
-        //    if (row.HasColumn("Logo")) Logo = Convert.ToString(row["Logo"]);
-        //    if (row.HasColumn("Orden")) Orden = Convert.ToInt32(row["Orden"]);
-        //    if (row.HasColumn("DesktopTituloBanner")) DesktopTituloBanner = Convert.ToString(row["DesktopTituloBanner"]);
-        //    if (row.HasColumn("MobileTituloBanner")) MobileTituloBanner = Convert.ToString(row["MobileTituloBanner"]);
-        //    if (row.HasColumn("DesktopSubTituloBanner")) DesktopSubTituloBanner = Convert.ToString(row["DesktopSubTituloBanner"]);
-        //    if (row.HasColumn("MobileSubTituloBanner")) MobileSubTituloBanner = Convert.ToString(row["MobileSubTituloBanner"]);
-        //    if (row.HasColumn("DesktopFondoBanner")) DesktopFondoBanner = Convert.ToString(row["DesktopFondoBanner"]);
-        //    if (row.HasColumn("MobileFondoBanner")) MobileFondoBanner = Convert.ToString(row["MobileFondoBanner"]);
-        //    if (row.HasColumn("DesktopLogoBanner")) DesktopLogoBanner = Convert.ToString(row["DesktopLogoBanner"]);
-        //    if (row.HasColumn("MobileLogoBanner")) MobileLogoBanner = Convert.ToString(row["MobileLogoBanner"]);
-        //    if (row.HasColumn("UrlMenu")) UrlMenu = Convert.ToString(row["UrlMenu"]);
-        //    if (row.HasColumn("OrdenBpt")) OrdenBpt = Convert.ToInt32(row["OrdenBpt"]);
-        //    if (row.HasColumn("BloqueoRevistaImpresa")) BloqueoRevistaImpresa = Convert.ToBoolean(row["BloqueoRevistaImpresa"]);
-        //    if (row.HasColumn("MobileOrden")) MobileOrden = Convert.ToInt32(row["MobileOrden"]);
-        //    if (row.HasColumn("MobileOrdenBPT")) MobileOrdenBpt = Convert.ToInt32(row["MobileOrdenBPT"]);
-        //    Detalle = new BEConfiguracionPaisDetalle();
-        //}
     }
 }

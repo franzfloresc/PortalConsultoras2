@@ -373,7 +373,7 @@ function CargarPopupsConsultora() {
         VerTutorialMobile();
     }
     else if (TipoPopUpMostrar == popupRevistaDigitalSuscripcion) {
-        AbrirPopupFade("#PopRDSuscripcion");
+        rdPopup.Mostrar();
     }
 };
 

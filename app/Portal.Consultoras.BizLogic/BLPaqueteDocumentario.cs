@@ -46,7 +46,7 @@ namespace Portal.Consultoras.BizLogic
 
         public string[] GenerarPaqueteDocumentario(int paisID)
         {
-            string[] resultadoOperacion = {"OK"};
+            string[] resultadoOperacion = { "OK" };
 
             try
             {
@@ -83,14 +83,14 @@ namespace Portal.Consultoras.BizLogic
 
                 FtpWebResponse response = (FtpWebResponse)reqFtp.GetResponse();
                 response.Close();
-                
+
                 return resultadoOperacion;
             }
             catch (Exception)
             {
                 return null;
             }
-            
+
         }
     }
 }

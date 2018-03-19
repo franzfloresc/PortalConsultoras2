@@ -21,7 +21,8 @@ SET NOCOUNT ON;
 	from ods.Consultora with(nolock)
 	where Codigo = @CodigoConsultora
 
-	SELECT distinct
+	SELECT * from (
+	select distinct 
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -76,8 +77,9 @@ SET NOCOUNT ON;
 		AND E.Activo = 1
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.NumeroPedido = @NumeroPedido
+	) as TablaTem
 	order by
-		te.Orden ASC, CASE WHEN ISNULL(e.Orden,0) = 0 THEN te.Orden ELSE e.Orden END ASC, EstrategiaID ASC
+		Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 
 SET NOCOUNT OFF
@@ -108,7 +110,8 @@ SET NOCOUNT ON;
 	from ods.Consultora with(nolock)
 	where Codigo = @CodigoConsultora
 
-	SELECT distinct
+	SELECT * from (
+	select distinct 
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -163,8 +166,9 @@ SET NOCOUNT ON;
 		AND E.Activo = 1
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.NumeroPedido = @NumeroPedido
+	) as TablaTem
 	order by
-		te.Orden ASC, CASE WHEN ISNULL(e.Orden,0) = 0 THEN te.Orden ELSE e.Orden END ASC, EstrategiaID ASC
+		Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 
 SET NOCOUNT OFF
@@ -195,7 +199,8 @@ SET NOCOUNT ON;
 	from ods.Consultora with(nolock)
 	where Codigo = @CodigoConsultora
 
-	SELECT distinct
+	SELECT * from (
+	select distinct 
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -250,8 +255,9 @@ SET NOCOUNT ON;
 		AND E.Activo = 1
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.NumeroPedido = @NumeroPedido
+	) as TablaTem
 	order by
-		te.Orden ASC, CASE WHEN ISNULL(e.Orden,0) = 0 THEN te.Orden ELSE e.Orden END ASC, EstrategiaID ASC
+		Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 
 SET NOCOUNT OFF
@@ -282,7 +288,8 @@ SET NOCOUNT ON;
 	from ods.Consultora with(nolock)
 	where Codigo = @CodigoConsultora
 
-	SELECT distinct
+	SELECT * from (
+	select distinct 
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -337,8 +344,9 @@ SET NOCOUNT ON;
 		AND E.Activo = 1
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.NumeroPedido = @NumeroPedido
+	) as TablaTem
 	order by
-		te.Orden ASC, CASE WHEN ISNULL(e.Orden,0) = 0 THEN te.Orden ELSE e.Orden END ASC, EstrategiaID ASC
+		Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 
 SET NOCOUNT OFF
@@ -369,7 +377,8 @@ SET NOCOUNT ON;
 	from ods.Consultora with(nolock)
 	where Codigo = @CodigoConsultora
 
-	SELECT distinct
+	SELECT * from (
+	select distinct 
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -424,8 +433,9 @@ SET NOCOUNT ON;
 		AND E.Activo = 1
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.NumeroPedido = @NumeroPedido
+	) as TablaTem
 	order by
-		te.Orden ASC, CASE WHEN ISNULL(e.Orden,0) = 0 THEN te.Orden ELSE e.Orden END ASC, EstrategiaID ASC
+		Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 
 SET NOCOUNT OFF
@@ -456,7 +466,8 @@ SET NOCOUNT ON;
 	from ods.Consultora with(nolock)
 	where Codigo = @CodigoConsultora
 
-	SELECT distinct
+	SELECT * from (
+	select distinct 
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -511,8 +522,9 @@ SET NOCOUNT ON;
 		AND E.Activo = 1
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.NumeroPedido = @NumeroPedido
+	) as TablaTem
 	order by
-		te.Orden ASC, CASE WHEN ISNULL(e.Orden,0) = 0 THEN te.Orden ELSE e.Orden END ASC, EstrategiaID ASC
+		Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 
 SET NOCOUNT OFF
@@ -543,7 +555,8 @@ SET NOCOUNT ON;
 	from ods.Consultora with(nolock)
 	where Codigo = @CodigoConsultora
 
-	SELECT distinct
+	SELECT * from (
+	select distinct 
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -598,8 +611,9 @@ SET NOCOUNT ON;
 		AND E.Activo = 1
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.NumeroPedido = @NumeroPedido
+	) as TablaTem
 	order by
-		te.Orden ASC, CASE WHEN ISNULL(e.Orden,0) = 0 THEN te.Orden ELSE e.Orden END ASC, EstrategiaID ASC
+		Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 
 SET NOCOUNT OFF
@@ -630,7 +644,8 @@ SET NOCOUNT ON;
 	from ods.Consultora with(nolock)
 	where Codigo = @CodigoConsultora
 
-	SELECT distinct
+	SELECT * from (
+	select distinct 
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -685,8 +700,9 @@ SET NOCOUNT ON;
 		AND E.Activo = 1
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.NumeroPedido = @NumeroPedido
+	) as TablaTem
 	order by
-		te.Orden ASC, CASE WHEN ISNULL(e.Orden,0) = 0 THEN te.Orden ELSE e.Orden END ASC, EstrategiaID ASC
+		Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 
 SET NOCOUNT OFF
@@ -717,7 +733,8 @@ SET NOCOUNT ON;
 	from ods.Consultora with(nolock)
 	where Codigo = @CodigoConsultora
 
-	SELECT distinct
+	SELECT * from (
+	select distinct 
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -772,8 +789,9 @@ SET NOCOUNT ON;
 		AND E.Activo = 1
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.NumeroPedido = @NumeroPedido
+	) as TablaTem
 	order by
-		te.Orden ASC, CASE WHEN ISNULL(e.Orden,0) = 0 THEN te.Orden ELSE e.Orden END ASC, EstrategiaID ASC
+		Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 
 SET NOCOUNT OFF
@@ -804,7 +822,8 @@ SET NOCOUNT ON;
 	from ods.Consultora with(nolock)
 	where Codigo = @CodigoConsultora
 
-	SELECT distinct
+	SELECT * from (
+	select distinct 
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -859,8 +878,9 @@ SET NOCOUNT ON;
 		AND E.Activo = 1
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.NumeroPedido = @NumeroPedido
+	) as TablaTem
 	order by
-		te.Orden ASC, CASE WHEN ISNULL(e.Orden,0) = 0 THEN te.Orden ELSE e.Orden END ASC, EstrategiaID ASC
+		Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 
 SET NOCOUNT OFF
@@ -891,7 +911,8 @@ SET NOCOUNT ON;
 	from ods.Consultora with(nolock)
 	where Codigo = @CodigoConsultora
 
-	SELECT distinct
+	SELECT * from (
+	select distinct 
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -946,8 +967,9 @@ SET NOCOUNT ON;
 		AND E.Activo = 1
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.NumeroPedido = @NumeroPedido
+	) as TablaTem
 	order by
-		te.Orden ASC, CASE WHEN ISNULL(e.Orden,0) = 0 THEN te.Orden ELSE e.Orden END ASC, EstrategiaID ASC
+		Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 
 SET NOCOUNT OFF
@@ -978,7 +1000,8 @@ SET NOCOUNT ON;
 	from ods.Consultora with(nolock)
 	where Codigo = @CodigoConsultora
 
-	SELECT distinct
+	SELECT * from (
+	select distinct 
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -1033,8 +1056,9 @@ SET NOCOUNT ON;
 		AND E.Activo = 1
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.NumeroPedido = @NumeroPedido
+	) as TablaTem
 	order by
-		te.Orden ASC, CASE WHEN ISNULL(e.Orden,0) = 0 THEN te.Orden ELSE e.Orden END ASC, EstrategiaID ASC
+		Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 
 SET NOCOUNT OFF
@@ -1065,7 +1089,8 @@ SET NOCOUNT ON;
 	from ods.Consultora with(nolock)
 	where Codigo = @CodigoConsultora
 
-	SELECT distinct
+	SELECT * from (
+	select distinct 
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -1120,8 +1145,9 @@ SET NOCOUNT ON;
 		AND E.Activo = 1
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.NumeroPedido = @NumeroPedido
+	) as TablaTem
 	order by
-		te.Orden ASC, CASE WHEN ISNULL(e.Orden,0) = 0 THEN te.Orden ELSE e.Orden END ASC, EstrategiaID ASC
+		Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 
 SET NOCOUNT OFF

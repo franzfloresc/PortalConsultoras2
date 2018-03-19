@@ -2898,6 +2898,14 @@
     color: #000;
 }
 
+.producto_nombre_descripcion .nombre_producto {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    height: 40px;
+}
 
 .block_inscribete_predio {
     margin: 15px 0;

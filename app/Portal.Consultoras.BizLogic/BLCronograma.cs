@@ -16,7 +16,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daCronograma.GetCronogramaByCampania(CampaniaID, ZonaID, TipoCronogramaID))
                 while (reader.Read())
                 {
-                    var cronograma = new BECronograma(reader) {PaisID = paisID};
+                    var cronograma = new BECronograma(reader) { PaisID = paisID };
                     cronogramas.Add(cronograma);
                 }
 
@@ -31,7 +31,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daCronograma.GetCronogramaByCampaniayZona(CampaniaID, ZonaID))
                 if (reader.Read())
                 {
-                    cronograma = new BECronograma(reader) {PaisID = paisID};
+                    cronograma = new BECronograma(reader) { PaisID = paisID };
                 }
             return cronograma;
         }
@@ -56,7 +56,7 @@ namespace Portal.Consultoras.BizLogic
             return cronogramas;
         }
 
-        public List<BELogActualizacionFacturacion> UpdLogActualizacionFacturacion(int paisID, string CampaniaCodigo, string Codigos, int Tipo, DateTime FechaFacturacion,DateTime FechaReFacturacion, string CodigoUsuario)
+        public List<BELogActualizacionFacturacion> UpdLogActualizacionFacturacion(int paisID, string CampaniaCodigo, string Codigos, int Tipo, DateTime FechaFacturacion, DateTime FechaReFacturacion, string CodigoUsuario)
         {
             var cronogramas = new List<BELogActualizacionFacturacion>();
             var daCronograma = new DACronograma(paisID);
@@ -118,7 +118,7 @@ namespace Portal.Consultoras.BizLogic
         public int GetCampaniaFacturacionPais(int paisID)
         {
             var oDaCronograma = new DACronograma(paisID);
-            return oDaCronograma.GetCampaniaFacturacionPais(); 
+            return oDaCronograma.GetCampaniaFacturacionPais();
         }
 
         public List<BEPaisCampana> GetCampaniaActivaPais(int paisID, DateTime fechaConsulta)
