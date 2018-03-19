@@ -99,6 +99,14 @@
     background: #e81c36;
 }
 
+.activar_boton_lbel_no_animado {
+    background-color: #e81c36 !important;
+}
+
+.activar_boton_rojo_a_blanco a {
+    background: linear-gradient(to right, #e81c36 50%, white 50%);
+}
+
 .logo_no_suscrita {
     background: url(/Content/Images/Esika/RevistaDigital/logo_esika_diagonal.png) !important;
     background-size: cover !important;

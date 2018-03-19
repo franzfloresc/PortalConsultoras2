@@ -319,7 +319,8 @@ img.icono-submenu-tabs {
 }
 
 img.icono-logo-submenu-tabs {
-    width: 43px;
+    height: 21px;
+    width: auto;
 }
 
 .opcion_home_vistaOfertas {

@@ -3317,7 +3317,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     overflow: hidden;
     padding-top: 10px;
     box-sizing: border-box;
-    top: -95px;
 }
 
 .control_carousel_flechaArriba {

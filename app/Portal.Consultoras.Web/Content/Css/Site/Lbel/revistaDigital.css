@@ -99,6 +99,14 @@
     background: #613c87;
 }
 
+.activar_boton_lbel_no_animado {
+    background-color: #613c87 !important;
+}
+
+.activar_boton_rojo_a_blanco a {
+    background: linear-gradient(to right, #613c87 50%, white 50%);
+}
+
 /*LOGO NO SUSCRITA GANA+*/
 .logo_no_suscrita {
     background: url(/Content/Images/Lbel/RevistaDigital/logo_lbel_diagonal.png) !important;
