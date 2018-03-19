@@ -21700,7 +21700,6 @@ body {
 
                 .revista_content .revista_content2 .revistatxt .contrevista a {
                     width: 173px;
-                    /* height: 30px; */
                     padding: 8px;
                     margin: auto;
                     display: block;
@@ -32604,7 +32603,6 @@ h1#penmostreo .campana {
     max-width: 1024px;
     height: 500px;
     margin: auto, auto;
-    /*background: #000;*/
     padding: 10px 0;
 }
 
@@ -32730,17 +32728,6 @@ h1#penmostreo .campana {
 }
 
 .right_set_hoy {
-/*    width: 45%;
-    float: left;
-    min-height: 100px;
-    background: white;
-    margin-left: 0;
-    padding: 20px;
-    font-family: 'Lato';
-    border: 1px solid rgba(0, 0, 0, .03);
-    -webkit-box-shadow: 0 15px 13px -8px rgba(236,236,236,1);
-    -moz-box-shadow: 0 15px 13px -8px rgba(236,236,236,1);
-    box-shadow: 0 15px 13px -8px rgba(236,236,236,1)*/
     float: left;
     width: 49%;
     margin-right: 5%;
@@ -32759,7 +32746,6 @@ h1#penmostreo .campana {
 
 .content_pop_oferta_dia .liquidacion_rango_right_pedido {
     background: transparent !important;
-    /*border: 1px solid white;*/
 }
 /*POP UP GENERALES*/
 .Content_general_pop_up {
@@ -35232,7 +35218,6 @@ height:30px;
 .info_recuerda_cupon {
     float: left;
     width: 33%;
-    /*margin-top: 12px;*/       
     font-family: 'Lato';
     font-size: 13px;
     height: 72px;
@@ -36035,7 +36020,6 @@ height:30px;
 .icono_regalo_sorpresa {
     margin: 0 auto 8px auto;
     width: 80px;
-    /*background: url('/Content/Images/gif-regalo-blanco.png')*/
 }
 
     .icono_regalo_sorpresa img {
@@ -36115,7 +36099,6 @@ height:30px;
     width: 207px;
     display: block;
     margin: 0 auto 15px auto;
-    /* height: 460px; */
     min-height: 293px;
     border: 1px solid #e7e1e1;
     box-shadow: 0 15px 18px -7px rgba(0,0,0,1);
@@ -36200,7 +36183,6 @@ height:30px;
 }
 
 .btn_regresa_OF {
-    /* background: url(../../../Images/Esika/regresar.png) no-repeat; */
     cursor: pointer;
     left: 15px;
     position: absolute;

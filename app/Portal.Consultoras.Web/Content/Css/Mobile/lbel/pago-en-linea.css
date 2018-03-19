@@ -244,7 +244,6 @@
 }
 
 .campo_seleccion_monto_a_pagar{    
-    /*display:none;*/
     margin-bottom:29px;
 }
 
@@ -286,8 +285,6 @@
 
 .icono_marca_tarjeta{
     margin-right:14px;
-    /*filter:grayscale(100%);
-    -webkit-filter: grayscale(100%);*/
 }
 
 .marca_tarjeta{
@@ -528,7 +525,6 @@
     top: -4.5px;
     right: 45%;
     background-color: #bbbbbb;
-    /* background-image: url(../../../images/icono-paso-completado.svg); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: 60%;
@@ -672,19 +668,10 @@
     
 }
 
-/*.visa_y_mastercard{
-    display:none;
-}*/
-
 .icono_marca_visa{
-    /*margin-right:10px;*/
     width: 29px;
     margin-bottom:3px;
 }
-
-/*.icono_marca_mastercard{
-    display:none;
-}*/
 
 .cta_pago_en_linea{
     position:fixed;
@@ -719,98 +706,6 @@
     margin-bottom:0;
     padding-top:7px;
 }
-
-/*.redireccion_proveedor_de_pago{
-    margin-top:40px;
-    text-align:center;
-}
-
-.info_redireccion_proveedor_de_pago{
-    text-transform: uppercase;
-    color: #000;
-    font-size: 14px;
-    font-weight: bold;
-    margin: 0 auto 36px auto;
-    max-width: 212px;
-}
-
-.animacion_precarga_redireccion_proveedor_pago{
-    margin:0 auto;
-    width:60px;
-    height:56px;
-    background-image:url(../../../Images/Esika/precarga-pago-en-linea.svg);
-    background-repeat:no-repeat;
-    background-size:100%;
-    background-position:center;
-    animation-name:rotacionPrecarga;
-    animation-duration:1s;
-    animation-timing-function:linear;
-    animation-iteration-count:infinite;
-}
-
-@-webkit-keyframes rotacionPrecarga{
-
-    0%{
-        transform:rotate(0deg);
-    }
-
-    50%{
-        transform:rotate(180deg);
-    }
-
-    100%{
-        transform:rotate(360deg);
-    }
-
-}
-
-@-moz-keyframes rotacionPrecarga{
-
-    0%{
-        transform:rotate(0deg);
-    }
-
-    50%{
-        transform:rotate(180deg);
-    }
-
-    100%{
-        transform:rotate(360deg);
-    }
-
-}
-
-@-o-keyframes rotacionPrecarga{
-
-    0%{
-        transform:rotate(0deg);
-    }
-
-    50%{
-        transform:rotate(180deg);
-    }
-
-    100%{
-        transform:rotate(360deg);
-    }
-
-}
-
-@keyframes rotacionPrecarga{
-
-    0%{
-        transform:rotate(0deg);
-    }
-
-    50%{
-        transform:rotate(180deg);
-    }
-
-    100%{
-        transform:rotate(360deg);
-    }
-
-}*/
 
 .pago_exitoso,
 .pago_rechazado
