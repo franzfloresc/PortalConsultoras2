@@ -162,7 +162,7 @@ GO
 
 USE BelcorpColombia
 GO
-select * from ods.region
+
 BEGIN
 DECLARE @ConfiguracionPaisID INT
 SELECT @ConfiguracionPaisID = [ConfiguracionPaisID] FROM ConfiguracionPais WHERE Codigo = 'RD'
