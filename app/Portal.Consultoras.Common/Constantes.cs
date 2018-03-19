@@ -1234,18 +1234,6 @@ namespace Portal.Consultoras.Common
 
             public static class RDR
             {
-                //public const string LogoComercial = "LogoComercial";
-                //public const string LogoComercialFondo = "LogoComercialFondo";
-                //public const string DBienvenidaRdr = "DBienvenidaRdr";
-                //public const string DPedidoRdr = "DPedidoRdr";
-                //public const string DCatalogoRdr = "DCatalogoRdr";
-                //public const string MBienvenidaRdr = "MBienvenidaRdr";
-                //public const string MPedidoRdr = "MPedidoRdr";
-                //public const string MCatalogoRdr = "MCatalogoRdr";
-                //public const string DRDRLandingBanner = "DRDRLandingBanner";
-                //public const string MRDRLandingBanner = "MRDRLandingBanner";
-                //public const string LogoMenuOfertas = "LogoMenuOfertas";
-
                 public const string BloquearProductoGnd = "BloquearProductoGnd";
             }
 
