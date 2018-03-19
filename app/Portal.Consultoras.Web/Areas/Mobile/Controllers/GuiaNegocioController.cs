@@ -14,7 +14,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                if (GNDValidarAcceso(revistaDigital))
+                if (GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
                 {
                     return ViewLanding();
                 }
