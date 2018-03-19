@@ -558,7 +558,6 @@
 }
 
     .banner_pedido_masofertas .btn_diagonal {
-        /*background: white;*/
         width: 70%;
         position: absolute;
         left: 50%;
@@ -801,11 +800,9 @@
         .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas {
             background: transparent;
             max-width: 1050px;
-            /* margin-left: 10%; */
             margin: auto;
             margin-bottom: 25px;
             margin-top: -1px;
-            /* margin-left: 67px; */
             position: relative;
             left: -2px;
         }
