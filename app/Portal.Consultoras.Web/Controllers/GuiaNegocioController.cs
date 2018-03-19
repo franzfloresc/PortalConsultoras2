@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "GuiaNegocioController.Index");
             }
 
             return RedirectToAction("Index", "Bienvenida");
@@ -64,6 +64,5 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
     }
 }
