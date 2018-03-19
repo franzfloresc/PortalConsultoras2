@@ -82,7 +82,7 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 daMiAcademia.UpdLetCursoDescarga(nroLote, 2, string.Empty, string.Empty, nombreCabecera, System.Environment.MachineName);
-                
+
             }
             catch (Exception ex)
             {
@@ -90,10 +90,12 @@ namespace Portal.Consultoras.BizLogic
                 {
                     string error = "Error desconocido: " + ex.Message;
                     string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
-                    try {
+                    try
+                    {
                         daMiAcademia.UpdLetCursoDescarga(nroLote, 99, error, errorExcepcion, string.Empty, string.Empty);
                     }
-                    catch (Exception ex2) {
+                    catch (Exception ex2)
+                    {
                         LogManager.SaveLog(ex2, Usuario, PaisISO);
                     }
                     MailUtilities.EnviarMailProcesoDescargaExcepcion("Descarga de pedidos", PaisISO, FechaProceso, Enumeradores.TipoDescargaPedidos.GenerarLideres.ToString(), error, errorExcepcion);

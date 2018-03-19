@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Common
             {
                 ip = GetFirstValidIpFromString(request.UserHostAddress, skipPrivate);
             }
-            
+
             if (!string.IsNullOrWhiteSpace(ip))
             {
                 var indOf = ip.IndexOf(":");

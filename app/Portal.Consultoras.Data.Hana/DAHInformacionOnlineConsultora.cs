@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Data.Hana
                 string responseFromServer = Util.ObtenerJsonServicioHana(urlConParametros);
                 List<InformacionOnlineConsultoraHana> listaInformacionOnlineConsultoraHana = JsonConvert.DeserializeObject<List<InformacionOnlineConsultoraHana>>(responseFromServer);
 
-                if(listaInformacionOnlineConsultoraHana != null && listaInformacionOnlineConsultoraHana.Count > 0)
+                if (listaInformacionOnlineConsultoraHana != null && listaInformacionOnlineConsultoraHana.Count > 0)
                 {
                     var informacionOnlineConsultoraHana = listaInformacionOnlineConsultoraHana[0];
 
@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Data.Hana
                     decimal montoMaximo;
                     bool esMontoMaximo = decimal.TryParse(informacionOnlineConsultoraHana.MontoMaximoPedido, out montoMaximo);
                     beUsuario.MontoMaximoPedido = esMontoMaximo ? montoMaximo : 0;
-                                       
+
                     beUsuario.MontoDeuda = informacionOnlineConsultoraHana.SALDOTOTALCAM;
 
                     beUsuario.IndicadorFlexiPago = informacionOnlineConsultoraHana.Indicador_Activa;
@@ -45,7 +45,7 @@ namespace Portal.Consultoras.Data.Hana
                     decimal montoMinimoFlexipago;
                     bool esMontoMinimoFlexipago = decimal.TryParse(informacionOnlineConsultoraHana.IMP_MONT_MINI, out montoMinimoFlexipago);
                     beUsuario.MontoMinimoFlexipago = esMontoMinimoFlexipago ? montoMinimoFlexipago : 0;
-                    
+
                     /* por confirmar para que sirven estos campos o cuales son sus equivalentes.
                      * AutorizaPedido           no se usa
                      * FECHAVENCAM              no se usa
@@ -56,7 +56,7 @@ namespace Portal.Consultoras.Data.Hana
                     */
                 }
             }
-            catch(Exception) { beUsuario = null; }
+            catch (Exception) { beUsuario = null; }
 
             return beUsuario;
         }

@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Models
         public string CuerpoMensaje1 { get; set; }
         public List<string> CuerpoDetalles { get; set; }
         public string CuerpoMensaje2 { get; set; }
-        /*HD-732*/
+ 
         public string simbolo { get; set; }
         public string mGanancia { get; set; }
     }

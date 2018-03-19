@@ -1,9 +1,5 @@
 ﻿using Portal.Consultoras.Web.Models;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Models
 {
@@ -39,6 +35,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public IEnumerable<ConfiguracionOfertaModel> lstConfiguracionOferta { get; set; }
         public IEnumerable<PaisModel> lstPais { get; set; }
         public IEnumerable<CampaniaModel> lstCampania { get; set; }
-        public List<OfertaProductoMobilModel> listaProductosEnLiquidacion  { get; set; }
+        public List<OfertaProductoMobilModel> listaProductosEnLiquidacion { get; set; }
     }
 }

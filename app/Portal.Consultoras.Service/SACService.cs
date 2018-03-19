@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
+using Portal.Consultoras.BizLogic.Estrategia;
+using Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.Service
 {
@@ -575,7 +577,7 @@ namespace Portal.Consultoras.Service
             int lintPosicion;
             try
             {
-                lintPosicion= BLLugarPago.InsertLugarPago(entidad);
+                lintPosicion = BLLugarPago.InsertLugarPago(entidad);
             }
             catch
             {
@@ -589,7 +591,7 @@ namespace Portal.Consultoras.Service
             int lintPosicion;
             try
             {
-                lintPosicion= BLLugarPago.UpdateLugarPago(entidad);
+                lintPosicion = BLLugarPago.UpdateLugarPago(entidad);
             }
             catch
             {
@@ -1314,7 +1316,7 @@ namespace Portal.Consultoras.Service
         {
             return BLProveedorDespachoCobranza.GetProveedorDespachoCobranzaBYiD(paisID, entity);
         }
-        
+
         public bool EnviarProactivaChatbot(string paisISO, string urlRelativa, List<BEChatbotProactivaMensaje> listMensajeProactiva)
         {
 
@@ -1342,7 +1344,7 @@ namespace Portal.Consultoras.Service
             return _blApp.ObtenerApps(paisID);
         }
         #endregion
-        
+
         #region ConfiguracionPais
         public List<BEConfiguracionPais> ListConfiguracionPais(int paisId, bool tienePerfil)
         {
@@ -1398,6 +1400,51 @@ namespace Portal.Consultoras.Service
         {
             var bl = new BLAdministrarEstrategia();
             return bl.ActualizarTonoEstrategia(paisId, estrategiaId, codigoEstrategia, tieneVariedad);
+        }
+
+        #endregion
+
+        #region UpSelling
+
+        public IEnumerable<UpSelling> UpSellingObtener(int paisId, string codigoCampana, bool incluirDetalle = false)
+        {
+            return new UpSellingBusinessLogic(paisId).Obtener(codigoCampana, incluirDetalle);
+        }
+
+        public UpSelling UpSellingInsertar(int paisId, UpSelling upSelling)
+        {
+            var upSellingBusinessLogic = new UpSellingBusinessLogic(paisId);
+
+            if (upSelling.UpSellingId != default(int))
+                throw new ArgumentException("UpSellingId debe ser 0 para insertar");
+
+            return upSellingBusinessLogic.Insertar(upSelling);
+        }
+
+        public UpSelling UpSellingActualizar(int paisId, UpSelling upSelling, bool soloCabecera)
+        {
+            return new UpSellingBusinessLogic(paisId).Actualizar(upSelling, soloCabecera);
+        }
+
+        public void UpSellingEliminar(int paisId, int upSellingId)
+        {
+            new UpSellingBusinessLogic(paisId).Eliminar(upSellingId);
+        }
+
+        public UpSellingDetalle UpSellingDetalleObtener(int paisId, int upSellingDetalleId)
+        {
+            return new UpSellingBusinessLogic(paisId).ObtenerDetalle(upSellingDetalleId);
+        }
+
+        public IEnumerable<UpSellingDetalle> UpSellingDetallesObtener(int paisId, int upSellingId)
+        {
+            return new UpSellingBusinessLogic(paisId).ObtenerDetalles(upSellingId);
+        }
+
+
+        public IEnumerable<OfertaFinalMontoMeta> ObtenerOfertaFinalMontoMeta(int paisId, int upSellingId)
+        {
+            return new UpSellingBusinessLogic(paisId).ObtenerOfertaFinalMontoMeta( upSellingId);
         }
         #endregion
 

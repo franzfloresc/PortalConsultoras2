@@ -129,6 +129,7 @@
         <xs:sequence>
           <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
           <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Componente" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ConfiguracionPais" nillable="true" type="tns:BEConfiguracionPais" />
           <xs:element minOccurs="0" name="ConfiguracionPaisID" type="xs:int" />
           <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />

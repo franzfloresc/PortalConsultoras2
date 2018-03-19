@@ -117,15 +117,15 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #endregion
-        
+
         public BEResultadoSolicitud InsertarSolicitudCliente(int paisID, BEEntradaSolicitudCliente entidadSolicitud)
         {
             BEResultadoSolicitud resultado = null;
             try
             {
                 var daSolicitudCliente = new DASolicitudCliente(paisID);
-                IEnumerable<BESolicitudClienteDetalle> listaSolicitudDetalle = entidadSolicitud.DetalleSolicitud == null 
-                    ? new List<BESolicitudClienteDetalle>().ToList() 
+                IEnumerable<BESolicitudClienteDetalle> listaSolicitudDetalle = entidadSolicitud.DetalleSolicitud == null
+                    ? new List<BESolicitudClienteDetalle>().ToList()
                     : entidadSolicitud.DetalleSolicitud.ToList();
 
                 using (IDataReader reader = daSolicitudCliente.InsertarSolicitudCliente(entidadSolicitud, listaSolicitudDetalle))
@@ -165,7 +165,7 @@ namespace Portal.Consultoras.BizLogic
                 return resultado;
             }
         }
-        
+
         public BESolicitudCliente GetSolicitudClienteBySolicitudId(int paisID, long solicitudClienteId)
         {
             BESolicitudCliente solicitudCliente = null;
@@ -229,7 +229,6 @@ namespace Portal.Consultoras.BizLogic
         {
             Util.EnviarMail(From, To, CCO, Subject, Message, isHTML);
         }
-
 
         public void UpdSolicitudCliente(int paisID, BESolicitudCliente entidadSolicitud)
         {
@@ -404,6 +403,7 @@ namespace Portal.Consultoras.BizLogic
             var daSolicitudCliente = new DASolicitudCliente(paisID);
             return daSolicitudCliente.EnviarSolicitudClienteaGZ(entidadSolicitudCliente);
         }
+
         public List<BESolicitudCliente> BuscarSolicitudAnuladasRechazadas(int paisID, BESolicitudCliente entidadSolicitudCliente)
         {
             var listaSolicitudes = new List<BESolicitudCliente>();
@@ -418,6 +418,7 @@ namespace Portal.Consultoras.BizLogic
             }
             return listaSolicitudes;
         }
+
         public BESolicitudCliente DetalleSolicitudAnuladasRechazadas(int paisID, BESolicitudCliente entidadSolicitudCliente)
         {
             var daSolicitudCliente = new DASolicitudCliente(paisID);
@@ -441,7 +442,7 @@ namespace Portal.Consultoras.BizLogic
                     listaDetalleSolicitudCliente.Add(solicitudClienteDetalle);
                 }
             }
-            
+
             resultadoSolicitudCliente.DetalleSolicitud = listaDetalleSolicitudCliente;
 
             return resultadoSolicitudCliente;
@@ -507,8 +508,8 @@ namespace Portal.Consultoras.BizLogic
                 var misPedidos = new List<BEMisPedidosAppCatalogo>();
 
                 IDataReader reader;
-                
-                if(tipoUsuario == 1) reader = daMisPedidos.GetPedidosClienteAppCatalogo(dispositivoID, campania);
+
+                if (tipoUsuario == 1) reader = daMisPedidos.GetPedidosClienteAppCatalogo(dispositivoID, campania);
                 else reader = daMisPedidos.GetPedidosConsultoraAppCatalogo(consultoraID, campania);
 
                 using (reader)
@@ -535,7 +536,7 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 resultado = new BEResultadoPedidoDetalleAppCatalogo(false, "OK");
-                
+
                 var daMisPedidos = new DAConsultoraOnline(PaisID);
                 var miPedidoDetalles = new List<BEMisPedidosDetalleAppCatalogo>();
 

@@ -28,7 +28,7 @@ namespace Portal.Consultoras.BizLogic
         public void InsLogModificacionCronogramaMasivo(int paisID, string CodigoUsuario, List<BELogModificacionCronograma> listaEntidades)
         {
             TransactionOptions transactionOptions =
-                new TransactionOptions {IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted};
+                new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
             var daLogModificacionCronograma = new DALogModificacionCronograma(paisID);
 
             using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
@@ -44,7 +44,7 @@ namespace Portal.Consultoras.BizLogic
         public void InsLogConfiguracionCronogramaMasivo(int paisID, string CodigoUsuario, List<BELogConfiguracionCronograma> listaEntidades)
         {
             TransactionOptions transactionOptions =
-                new TransactionOptions {IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted};
+                new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
             var daLogModificacionCronograma = new DALogModificacionCronograma(paisID);
 
             string xml = CrearLogCongiraucionCronogramaXxml(listaEntidades);

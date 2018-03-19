@@ -55,7 +55,7 @@ namespace Portal.Consultoras.BizLogic
 
                     lista.Add(bePedidoFacturado);
                 }
-            }            
+            }
 
             return lista;
         }

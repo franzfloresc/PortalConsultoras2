@@ -72,7 +72,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                PedidoSb2Model model = new PedidoSb2Model {CodigoIso = userData.CodigoISO};
+                PedidoSb2Model model = new PedidoSb2Model { CodigoIso = userData.CodigoISO };
                 var listaDetalle = ObtenerPedidoFICDetalle() ?? new List<BEPedidoFICDetalle>();
 
                 decimal total = listaDetalle.Sum(p => p.ImporteTotal);
@@ -160,7 +160,7 @@ namespace Portal.Consultoras.Web.Controllers
                 PaisID = userData.PaisID,
                 TipoOfertaSisID = model.TipoOfertaSisID,
                 ConfiguracionOfertaID = model.ConfiguracionOfertaID,
-                ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short) 0 : Convert.ToInt16(model.ClienteID),
+                ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID),
                 PedidoID = userData.PedidoID,
                 OfertaWeb = false,
                 IndicadorMontoMinimo = Convert.ToInt32(model.IndicadorMontoMinimo)
@@ -213,14 +213,14 @@ namespace Portal.Consultoras.Web.Controllers
                 PedidoDetalleID = model.PedidoDetalleID,
                 Cantidad = Convert.ToInt32(model.Cantidad),
                 PrecioUnidad = model.PrecioUnidad,
-                ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short) 0 : Convert.ToInt16(model.ClienteID),
+                ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID),
                 CUV = model.CUV,
                 TipoOfertaSisID = model.TipoOfertaSisID,
                 Stock = model.Stock,
                 Flag = model.Flag,
                 DescripcionProd = model.DescripcionProd
             };
-            
+
             obePedidoFicDetalle.ImporteTotal = obePedidoFicDetalle.Cantidad * obePedidoFicDetalle.PrecioUnidad;
             obePedidoFicDetalle.Nombre = obePedidoFicDetalle.ClienteID == 0 ? userData.NombreConsultora : model.ClienteDescripcion;
             bool errorServer;

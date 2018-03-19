@@ -113,6 +113,10 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
 
 function registrarLogError(objError) {
 
+    if (isPagina("localhost")) {
+        console.log(objError);
+    }
+
     if (!urlLogDynamo) return;
 
     var urlLogError = urlLogDynamo + "Api/LogError";

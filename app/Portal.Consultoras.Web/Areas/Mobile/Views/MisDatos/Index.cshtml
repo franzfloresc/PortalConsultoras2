@@ -252,16 +252,6 @@
                     return false;
                 }
 
-                /*
-                if (viewBagPaisID == 4) {//Validacion solo para Colombia, numero de celular debe empezar con 3.
-                    if ($('#txtCelularMD').val().substr(0, 1) != "3") {
-                        AbrirMensaje("Número de celular tiene formato incorrecto.");
-                        $('#txtCelularMD').focus();
-                        return false;
-                    }
-                }
-                */
-
                 if ($("#txtTelefonoTrabajoMD").val().trim() != "") {
                     var MinCaracterOtroTelefono = limitarMinimo($('#txtTelefonoTrabajoMD').val(), $("#hdn_CaracterMinimo").val(), 3);
                     if (!MinCaracterOtroTelefono) {
