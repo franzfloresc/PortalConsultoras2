@@ -1,3 +1,3 @@
-# Portal Consultoras 2.20
+# Portal Consultoras 2.X
 
-Nivelacion bug
+Pase 22-03-2018
