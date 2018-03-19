@@ -2,6 +2,7 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -41,6 +42,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ((!revistaDigital.EsSuscrita && (!revistaDigital.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion|| !revistaDigital.SociaEmpresariaSuscritaActivaCancelarSuscripcion)) ||
                 (revistaDigital.EsSuscrita && !revistaDigital.EsActiva && !revistaDigital.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion) ||
                 (revistaDigital.EsSuscrita && revistaDigital.EsActiva && !revistaDigital.SociaEmpresariaSuscritaActivaCancelarSuscripcion)));
+            modelo.CancelarSuscripcion = CancelarSuscripcion(revistaDigital.SuscripcionModel.Origen, userData.CodigoISO);
 
             return View("template-informativa", modelo);
         }
@@ -162,17 +164,7 @@ namespace Portal.Consultoras.Web.Controllers
         private string GetVideoInformativo()
         {
             var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.InformativoVideo) ?? new ConfiguracionPaisDatosModel();
-            string video;
-            if (IsMobile())
-            {
-                video = Util.Trim(dato.Valor2);
-            }
-            else
-            {
-                video = Util.Trim(dato.Valor1);
-            }
-
-            return video;
+            return Util.Trim(IsMobile() ? dato.Valor2 : dato.Valor1);
         }
 
         public string GetValorDato(string codigo, int valor = 1)
@@ -189,5 +181,21 @@ namespace Portal.Consultoras.Web.Controllers
             return Util.Trim(valorDato);
         }
 
+        private bool CancelarSuscripcion(string origen, string pais)
+        {
+            if (origen.IsNullOrEmptyTrim()) return false;
+            string paises;
+            if (origen.Equals(Constantes.RevistaDigitalOrigen.Unete))
+            {
+                paises = ConfigurationManager.AppSettings.Get(Constantes.ConfiguracionManager.PaisesCancelarSuscripcionRDUnete) ?? string.Empty;
+                if (paises.Contains(pais)) return true;
+            }
+            else if (origen.Equals(Constantes.RevistaDigitalOrigen.Nueva))
+            {
+                paises = ConfigurationManager.AppSettings.Get(Constantes.ConfiguracionManager.PaisesCancelarSuscripcionRDNuevas) ?? string.Empty;
+                if (paises.Contains(pais)) return true;
+            }
+            return false;
+        }
     }
 }

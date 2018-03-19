@@ -3317,7 +3317,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     overflow: hidden;
     padding-top: 10px;
     box-sizing: border-box;
-    top: -95px;
 }
 
 .control_carousel_flechaArriba {
@@ -3509,6 +3508,8 @@ a.subir_carousel, a.bajar_carousel {
     font-size: 16px;
     width: 50%;
     padding-left: 5px;
+    position:relative;
+    top:-3.5px;
 }
 
 .boton_elegirTono {
@@ -19807,28 +19808,7 @@ label.checkpop.c_on {
     margin-right: 5px;
     text-decoration:underline;
 }
-.nombre_consultora_2018 {
-    width: 100%;
-    word-wrap: break-word;
-    font-size: 14px;
-    margin-bottom: 10px;
-}
 
-    .nombre_consultora_2018 a {
-        display: inline-block;
-        color: #c39934;
-        transition: .3s;
-        text-decoration: underline;
-    }
-        .nombre_consultora_2018 a.mis_datos {
-            display: inline-block;
-            color: #848484;
-            transition: .3s;
-            text-decoration: none;
-            margin-top: 0px;
-            top: -1px;
-            margin-left: 5px;
-        }
 .info_cam_belcorp {
     float: left;
     height: 41px;
@@ -32776,21 +32756,43 @@ margin-top:0;
 
 
 .btn_compartir_facebook_ficha {
-width:45%;
-float:none;
-margin-left:0;
-
-display: inline-block;
-}
-.btn_compartir_facebook_ficha_fix {
-    width: 35%;
+    width: 25px;
     float: left;
     margin-right: 5px;
     text-align: center;
+    margin-left: 0;
+    display: inline-block;
 }
-.btn_compartir_facebook_ficha img{
-float:left;
+
+    .btn_compartir_facebook_ficha img {
+        float: left;
+    }
+
+.btn_compartir_facebook_ficha_fix {
+    width: 30%;
+    float: left;
+    margin-right: 2%;
+    text-align: center;
+    height: 25px;
 }
+
+    .btn_compartir_facebook_ficha_fix img {
+        height: 100%;
+    }
+
+.btn_compartir_facebook_ficha_fix_ODD {
+    width: 25px;
+    float: left;
+    margin-right: 5px;
+    text-align: center;
+    margin-left: initial;
+    display: initial;
+}
+
+    .btn_compartir_facebook_ficha_fix_ODD img {
+        float: initial;
+    }
+
 .content_right_ficha {
     float: right;
     width: 55%;
@@ -33131,6 +33133,7 @@ float:left;
     display: inline-block;
     text-align: center;
     width: 100%;
+    padding: 12px 0;
 }
 .texto_compartelo {
     float: left;
@@ -33140,15 +33143,12 @@ float:left;
     margin-top: 3px;
 }
 .texto_compartelo_fix {
-    float: left;
     font-family: 'Lato';
     font-size: 12px;
-    /* margin-top: 3px; */
-    width: 60%;
+    width: 62%;
     text-align: right;
     margin-right: 3%;
     height: 42px;
-    padding: 12px 0px;
 }
 .texto_compartelo_fix p {
 display: block;
@@ -33767,19 +33767,15 @@ height:30px;
 /*SHOWROOM*/
 .set-productos-showroom {
     background-color: white;
-    margin-right: 2.6%;
-    float: left;
-    position: relative;
-    width: 23%;
-    margin-bottom: 15px;
-    margin-top: 15px;
-    padding-bottom: 12px;
+    border: 1px solid #e6e3e3;
     -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
-    margin-bottom: 15px;
-    margin-top: 15px;
-    border: 1px solid #e6e3e3;
+    display: inline-block;
+    margin: 15px 2.44% 15px 0;
+    padding-bottom: 12px;
+    position: relative;
+    width: 23%;
 }
 
     .set-productos-showroom:nth-child(4n) {
