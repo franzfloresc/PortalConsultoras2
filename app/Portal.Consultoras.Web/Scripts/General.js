@@ -220,6 +220,7 @@ jQuery(document).ready(function () {
                     case null:
                         ret = typeof a == "boolean";
                         bool = ret ? a : false;
+                        ret = true;
                         break;
                     default: break;
                 }

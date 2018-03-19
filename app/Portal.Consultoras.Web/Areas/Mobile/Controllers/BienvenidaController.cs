@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
-using System.Globalization;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -226,18 +225,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return tipoPopUpMostrar;
             }
 
-            if (userData.TieneCupon == 1)
+            if (userData.TieneCupon == 1 && userData.CodigoISO == "PE")
             {
-                if (userData.CodigoISO == "PE")
+                var cupon = ObtenerCuponDesdeServicio();
+                if (cupon != null)
                 {
-                    var cupon = ObtenerCuponDesdeServicio();
-                    if (cupon != null)
-                    {
-                        tipoPopUpMostrar = Constantes.TipoPopUp.CuponForzado;
-                        Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
+                    tipoPopUpMostrar = Constantes.TipoPopUp.CuponForzado;
+                    Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
 
-                        return tipoPopUpMostrar;
-                    }
+                    return tipoPopUpMostrar;
                 }
             }
 

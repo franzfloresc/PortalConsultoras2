@@ -1706,7 +1706,8 @@ h4.re3 {
     }
 
 .fecha_notificaciones {
-    margin-top: 10px;
+    margin-top: 5px;
+    display: block;
 }
 
 .block-noti {
@@ -4531,6 +4532,12 @@ table > thead > tr > th {
     margin-top: 66px;
     position: relative;
 }
+.wrapper_resumen_mobile {
+    width: 100%;
+    padding-left: 14px;
+    padding-right: 14px;
+    position: relative;
+}
 
 .wrapper_resumen_mobile {
     width: 100%;
@@ -4543,6 +4550,28 @@ table > thead > tr > th {
     border-bottom: 1px solid black;
 }
 
+.nombre_consultora_2018 {
+    width: 100%;
+    word-wrap: break-word;
+    font-size: 14px;
+}
+
+    .nombre_consultora_2018 a {
+        display: inline-block;
+        color: #c39934;
+        transition: .3s;
+        text-decoration: underline;
+    }
+
+        .nombre_consultora_2018 a.mis_datos {
+            display: inline-block;
+            color: #848484;
+            transition: .3s;
+            text-decoration: none;
+            margin-top: 0px;
+            top: -1px;
+            margin-left: 5px;
+        }
 .content_320 {
     width: 292px;
     height: auto;
@@ -4595,7 +4624,11 @@ table > thead > tr > th {
     font-family: 'Lato';
     vertical-align: middle;
 }
-
+.content_resumen_dato_mobile a.txtdorado{
+    color: #a18328;
+    text-decoration: underline;
+    margin-right: 5px;
+}
 .saludo_mobile {
     width: 24%;
     font-size: 17px;
@@ -5055,7 +5088,6 @@ table > thead > tr > th {
     width: 100%;
     padding-left: 8%;
     padding-right: 8%;
-    margin-bottom: 16px;
     height: auto;
     font-family: 'Lato';
     letter-spacing: .2px;
@@ -14345,174 +14377,6 @@ span.icon-advertencia {
     }
 /*FIN BANNER APP*/
 
-/* POP UP ACTUALIZA DATOS*/
-.boton_popup_confirmacion_datos {
-    background: #613c87 !important;
-}
-
-.popup_confirmacion_datos .estructura_confirmar_datos {
-    box-shadow: none !important;
-    background: white;
-}
-
-.popup_confirmacion_datos .contenido-table-datos {
-    display: table;
-    height: 432px;
-    width: 100%;
-}
-
-    .popup_confirmacion_datos .contenido-table-datos .cont-datos {
-        vertical-align: middle;
-        display: table-cell;
-    }
-
-.popup_confirmacion_datos {
-    padding: 0px 40px;
-}
-
-    .popup_confirmacion_datos p.felicidades {
-        display: block;
-        font-size: 17px;
-        font-weight: bolder;
-        margin-bottom: 0;
-        letter-spacing: 1px;
-        text-align: center;
-        color: black;
-    }
-
-    .popup_confirmacion_datos .contenido-popup-nuevo-2017 .estructura_confirmar_datos .centrar-vertical-contenido .form-confirmacion .loader-confirmacion {
-        background: url(../../../Images/Lbel/loading_circle.gif);
-        width: 50px;
-        height: 50px;
-        display: block;
-        margin: auto;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-    }
-
-    .popup_confirmacion_datos p.estasganando {
-        display: block;
-        text-align: center;
-        font-size: 17px;
-        font-weight: bolder;
-        letter-spacing: 1px;
-        color: #613c87;
-        margin-bottom: 20px;
-    }
-
-    .popup_confirmacion_datos span.confirmanos {
-        display: block;
-        text-align: center;
-        letter-spacing: 0.5px;
-        font-size: 11px;
-        margin-bottom: 15px;
-        line-height: 13px;
-        color: black;
-        text-transform: initial;
-    }
-
-    .popup_confirmacion_datos .form-datos button {
-        background: #e0e0e0;
-        letter-spacing: 1px;
-        color: white;
-        border: none;
-        font-size: 13px;
-        text-align: center;
-        display: block;
-        font-weight: bolder;
-        width: 100%;
-        /* padding: 15px 50px; */
-        /* margin-top: 5px; */
-        /* margin-bottom: 20px; */
-        width: 240px;
-        margin: auto;
-        height: 45px;
-        margin-bottom: 20px;
-        margin-top: 20px;
-    }
-
-    .popup_confirmacion_datos .form-datos {
-        margin-bottom: opx;
-    }
-
-        .popup_confirmacion_datos .form-datos .input {
-            margin-bottom: 15px;
-        }
-
-            .popup_confirmacion_datos .form-datos .input:last-child {
-                margin-bottom: 0;
-            }
-
-            .popup_confirmacion_datos .form-datos .input img {
-                display: inline;
-                position: absolute;
-                padding: 0px 10px;
-                margin-top: 14px;
-            }
-
-                .popup_confirmacion_datos .form-datos .input img.phone {
-                    margin-top: 10px;
-                    margin-left: 4px;
-                    width: 32px;
-                    height: auto;
-                }
-
-    .popup_confirmacion_datos .form_datos .input img.envelope {
-        width: 40px;
-        height: auto;
-    }
-
-                .popup_confirmacion_datos .form-datos .input img.info {
-                    display: block;
-                    padding: 0px;
-                    margin-top: 4px;
-                    border: none;
-                    background: none;
-                    width: 20px;
-                    height: 20px;
-                }
-
-            .popup_confirmacion_datos .form-datos .input input {
-                display: inline;
-                padding: 12px 40px;
-                width: 100%;
-                border: 1px solid #e0e0e0;
-                height: 40px;
-                color: black;
-                letter-spacing: 0.5px;
-            }
-
-            .popup_confirmacion_datos .form-datos .input span {
-                text-align: left;
-                display: block;
-                /* padding: 12pt 27px; */
-                width: 100%;
-                padding-left: 30px;
-                color: #808080;
-                line-height: 13px;
-                font-size: 11px;
-                text-transform: initial;
-                letter-spacing: 0.5px;
-            }
-
-.desactivar_boton_popup_confirma_datos {
-    background: #e0e0e0;
-}
-
-.activar_boton_popup_confirma_datos {
-    background: #613c87 !important;
-}
-
-@media (max-width:400px) {
-    .popup_confirmacion_datos {
-        padding: 0px 15px !important;
-    }
-
-        .popup_confirmacion_datos .centrar-vertical-contenido {
-            padding: 25px;
-        }
-}
 /* */
 @-webkit-keyframes flash {
     0% {
@@ -14554,6 +14418,7 @@ span.icon-advertencia {
     }
 }
 
+/* FIN NUEVO POPUP SUSCRIBIRSE */
 
 /* INI: VISTA ACTUALIZAR CONTRASEÑA */
 .contenedor_vista_cambio_contrasenia,

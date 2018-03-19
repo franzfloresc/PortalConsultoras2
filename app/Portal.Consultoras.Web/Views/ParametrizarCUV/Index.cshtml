@@ -143,10 +143,9 @@
                 { name: 'ParametroID', index: 'ParametroID', width: 20, editable: true, resizable: false, hidden: true },
                 { name: 'PaisID', index: 'PaisID', width: 20, editable: true, resizable: false, hidden: true },
                 { name: 'CampaniaID', index: 'CampaniaID', width: 80, editable: true, hidden: true },
-                { name: 'Mensaje', index: 'Mensaje', width: 120, editable: true, resizable: false }, // 1654
+                { name: 'Mensaje', index: 'Mensaje', width: 120, editable: true, resizable: false },
                 { name: 'CUVs', index: 'CUVs', width: 80, editable: true, resizable: false },
                 { name: 'Options', index: 'Options', width: 12, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions, hidden: false }
-                //{ name: 'FechaFinDD', index: 'FechaFinDD', width: 80, editable: true, resizable: false },
             ],
             jsonReader:
             {
@@ -240,7 +239,6 @@
                                 if (data.success == true) {
                                     alert(data.message);
                                     HideDialog("DialogAdministracionMensajeCUV");
-                                    //Limpiar();
                                     $("#hdTipoConsulta").val("1");
                                     jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
                                 }
