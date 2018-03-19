@@ -4565,6 +4565,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.EsSuscrita = revistaDigital.EsSuscrita;
             ViewBag.EsActiva = revistaDigital.EsActiva;
             ViewBag.TieneRDC = revistaDigital.TieneRDC;
+            ViewBag.TieneHV = herramientasVenta.TieneHV;
 
             var menuActivo = GetMenuActivo(userData, revistaDigital, herramientasVenta);
             ViewBag.MenuContenedorActivo = menuActivo;
