@@ -14,7 +14,7 @@ BEGIN
 	DECLARE @tablaFaltante TABLE (CUV VARCHAR(6))
 	DECLARE @CategoriaApoyada bit
 
-	select @CategoriaApoyada  =CategoriaApoyada from upselling where codigocampana = @CampaniaID
+	select @CategoriaApoyada = CategoriaApoyada from upselling where codigocampana = @CampaniaID
 
 	INSERT INTO @tablaFaltante
 	SELECT DISTINCT ltrim(rtrim(CUV))
@@ -88,7 +88,7 @@ BEGIN
 	DECLARE @tablaFaltante TABLE (CUV VARCHAR(6))
 	DECLARE @CategoriaApoyada bit
 
-	select @CategoriaApoyada  =CategoriaApoyada from upselling where codigocampana = @CampaniaID
+	select @CategoriaApoyada = CategoriaApoyada from upselling where codigocampana = @CampaniaID
 
 	INSERT INTO @tablaFaltante
 	SELECT DISTINCT ltrim(rtrim(CUV))
@@ -161,7 +161,7 @@ BEGIN
 	DECLARE @tablaFaltante TABLE (CUV VARCHAR(6))
 	DECLARE @CategoriaApoyada bit
 
-	select @CategoriaApoyada  =CategoriaApoyada from upselling where codigocampana = @CampaniaID
+	select @CategoriaApoyada = CategoriaApoyada from upselling where codigocampana = @CampaniaID
 
 	INSERT INTO @tablaFaltante
 	SELECT DISTINCT ltrim(rtrim(CUV))
@@ -234,7 +234,7 @@ BEGIN
 	DECLARE @tablaFaltante TABLE (CUV VARCHAR(6))
 	DECLARE @CategoriaApoyada bit
 
-	select @CategoriaApoyada  =CategoriaApoyada from upselling where codigocampana = @CampaniaID
+	select @CategoriaApoyada = CategoriaApoyada from upselling where codigocampana = @CampaniaID
 
 	INSERT INTO @tablaFaltante
 	SELECT DISTINCT ltrim(rtrim(CUV))
@@ -307,7 +307,7 @@ BEGIN
 	DECLARE @tablaFaltante TABLE (CUV VARCHAR(6))
 	DECLARE @CategoriaApoyada bit
 
-	select @CategoriaApoyada  =CategoriaApoyada from upselling where codigocampana = @CampaniaID
+	select @CategoriaApoyada = CategoriaApoyada from upselling where codigocampana = @CampaniaID
 
 	INSERT INTO @tablaFaltante
 	SELECT DISTINCT ltrim(rtrim(CUV))
@@ -380,7 +380,7 @@ BEGIN
 	DECLARE @tablaFaltante TABLE (CUV VARCHAR(6))
 	DECLARE @CategoriaApoyada bit
 
-	select @CategoriaApoyada  =CategoriaApoyada from upselling where codigocampana = @CampaniaID
+	select @CategoriaApoyada = CategoriaApoyada from upselling where codigocampana = @CampaniaID
 
 	INSERT INTO @tablaFaltante
 	SELECT DISTINCT ltrim(rtrim(CUV))
@@ -454,7 +454,7 @@ BEGIN
 	DECLARE @tablaFaltante TABLE (CUV VARCHAR(6))
 	DECLARE @CategoriaApoyada bit
 
-	select @CategoriaApoyada  =CategoriaApoyada from upselling where codigocampana = @CampaniaID
+	select @CategoriaApoyada = CategoriaApoyada from upselling where codigocampana = @CampaniaID
 
 	INSERT INTO @tablaFaltante
 	SELECT DISTINCT ltrim(rtrim(CUV))
@@ -527,7 +527,7 @@ BEGIN
 	DECLARE @tablaFaltante TABLE (CUV VARCHAR(6))
 	DECLARE @CategoriaApoyada bit
 
-	select @CategoriaApoyada  =CategoriaApoyada from upselling where codigocampana = @CampaniaID
+	select @CategoriaApoyada = CategoriaApoyada from upselling where codigocampana = @CampaniaID
 
 	INSERT INTO @tablaFaltante
 	SELECT DISTINCT ltrim(rtrim(CUV))
@@ -600,7 +600,7 @@ BEGIN
 	DECLARE @tablaFaltante TABLE (CUV VARCHAR(6))
 	DECLARE @CategoriaApoyada bit
 
-	select @CategoriaApoyada  =CategoriaApoyada from upselling where codigocampana = @CampaniaID
+	select @CategoriaApoyada = CategoriaApoyada from upselling where codigocampana = @CampaniaID
 
 	INSERT INTO @tablaFaltante
 	SELECT DISTINCT ltrim(rtrim(CUV))
@@ -673,7 +673,7 @@ BEGIN
 	DECLARE @tablaFaltante TABLE (CUV VARCHAR(6))
 	DECLARE @CategoriaApoyada bit
 
-	select @CategoriaApoyada  =CategoriaApoyada from upselling where codigocampana = @CampaniaID
+	select @CategoriaApoyada = CategoriaApoyada from upselling where codigocampana = @CampaniaID
 
 	INSERT INTO @tablaFaltante
 	SELECT DISTINCT ltrim(rtrim(CUV))
@@ -746,7 +746,7 @@ BEGIN
 	DECLARE @tablaFaltante TABLE (CUV VARCHAR(6))
 	DECLARE @CategoriaApoyada bit
 
-	select @CategoriaApoyada  =CategoriaApoyada from upselling where codigocampana = @CampaniaID
+	select @CategoriaApoyada = CategoriaApoyada from upselling where codigocampana = @CampaniaID
 
 	INSERT INTO @tablaFaltante
 	SELECT DISTINCT ltrim(rtrim(CUV))
@@ -819,7 +819,7 @@ BEGIN
 	DECLARE @tablaFaltante TABLE (CUV VARCHAR(6))
 	DECLARE @CategoriaApoyada bit
 
-	select @CategoriaApoyada  =CategoriaApoyada from upselling where codigocampana = @CampaniaID
+	select @CategoriaApoyada = CategoriaApoyada from upselling where codigocampana = @CampaniaID
 
 	INSERT INTO @tablaFaltante
 	SELECT DISTINCT ltrim(rtrim(CUV))
