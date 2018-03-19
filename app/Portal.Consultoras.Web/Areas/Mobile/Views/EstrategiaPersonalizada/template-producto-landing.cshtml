@@ -1,27 +1,34 @@
 ﻿@using Portal.Consultoras.Common
 <script id="producto-landing-template" type="text/x-handlebars-template">
     {{#each this.lista as |item|}}
-    {{#iff EsBanner}}
+    {{#if EsBanner}}
     <div data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
         <div class="content_item_home_bpt box_producto_mobile_fix content_item_carrusel_clubganamas" style="cursor:pointer; ">
-            <img src="/Content/Images/etiqueta-club-ganamas-blanco-independiente.svg" alt="content" class="clubganamas_logo" />
-            <p class="primero">DISFRUTA DE MÁS Y MEJORES OFERTAS</p>
-            <p class="segundo">ÚNETE AL CLUB GANA<sup>+</sup></p>
+            <img src="/Content/Images/etiqueta-club-ganamas-blanco-independiente.svg" alt="" class="clubganamas_logo" />
+            <p class="primero" style="font-size:15px">DISFRUTA DE MÁS Y MEJORES OFERTAS</p>
+            <p class="segundo" style="font-size:19px">ÚNETE AL CLUB GANA+</p>
             <a href="@Url.Action("Informacion", "RevistaDigital")">SUSCRÍBETE GRATIS</a>
         </div>
     </div>
     {{else}}
-    {{#iff EsLanzamiento}}
-    <!--Brayan aqui-->
+    {{#if EsLanzamiento}}
     <div data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
         <div class="content_item_home_bpt box_producto_mobile_fix content_item_carrusel_clubganamas content_item_carrusel_clubganamas_off" style="cursor:pointer; ">
-            <img src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_2018238541_umdwfcuazj.png" alt="content" class="clubganamas_logo" />
+             {{#iff TipoEstrategiaDetalle.ImgFichaMobile '!=' ''}}
+                <img src="{{TipoEstrategiaDetalle.ImgFichaMobile}}" alt="" class="clubganamas_logo" />
+            {{/iff}}
             {{#iff TipoEstrategiaDetalle.ImgHomeMobile '!=' ''}}
             <img src="{{TipoEstrategiaDetalle.ImgHomeMobile}}" class="portada">
             {{/iff}}
-            <p class="tercero">Conoce {{DescripcionResumen}}</p>
+            <div class="centrar-tercero">
+                <div class="centrar-tercero-centro">
+                    <p class="tercero">
+                        Conoce {{DescripcionResumen}}
+                    </p>
+                </div>
+            </div>
             <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento, '@Constantes.ConfiguracionPais.Lanzamiento')" class="portada portada_off">VER LANZAMIENTOS</a>
         </div>
     </div>
@@ -51,9 +58,11 @@
                 </div>
                 <div class="producto_nombre_descripcion_bpt">
                     <div {{#iff TieneVerDetalle }} style="cursor:pointer;" {{/iff}}>
-                        {{#iff DescripcionMarca '!=' ''}}
-                        <h6>{{DescripcionMarca}}</h6>
-                        {{/iff}}
+                        {{#IsNullOrEmpty DescripcionMarca '!='}}
+                            <h6>{{DescripcionMarca}}</h6>
+                        {{else}}
+                            <h6>&ensp;&nbsp;</h6>
+                        {{/IsNullOrEmpty}}
 
                         {{#iff DescripcionResumen '!=' ''}}
                         <p class="nombre_producto_bpt" style="cursor:pointer;">
@@ -122,8 +131,8 @@
             {{/if}}
         </div>
     </div>
-    {{/iff}}
+    {{/if}}
 
-    {{/iff}}
+    {{/if}}
     {{/each}}
 </script>

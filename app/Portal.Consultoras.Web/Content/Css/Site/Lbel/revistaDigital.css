@@ -81,6 +81,10 @@
     background: #613c87;
 }
 
+.como-funciona .caja-club-derecha hr.dorado {
+    background: #c39934 !important;
+}
+
 /* POPUP CONFIRMACION DE DATOS */
 .boton_popup_confirmacion_datos {
     background: #613c87 !important;
@@ -88,4 +92,24 @@
 
 .popup_confirmacion_datos .contenido-table-datos .cont-datos .form-confirmacion .loader-confirmacion {
     background: url('/Content/Images/Lbel/loading_circle.gif');
+}
+
+/*BOTON NO ANIMADO*/
+.bg_activar_boton_no_animado {
+    background: #613c87;
+}
+
+.activar_boton_lbel_no_animado {
+    background-color: #613c87 !important;
+}
+
+.activar_boton_rojo_a_blanco a {
+    background: linear-gradient(to right, #613c87 50%, white 50%);
+}
+
+/*LOGO NO SUSCRITA GANA+*/
+.logo_no_suscrita {
+    background: url(/Content/Images/Lbel/RevistaDigital/logo_lbel_diagonal.png) !important;
+    background-size: cover !important;
+    background-repeat: no-repeat;
 }

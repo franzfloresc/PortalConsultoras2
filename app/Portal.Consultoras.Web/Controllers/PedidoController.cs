@@ -3390,8 +3390,9 @@ namespace Portal.Consultoras.Web.Controllers
                     return;
                 }
 
-                if (!flagkit) //Kit en 2 y 3 pedido
-                    if (obeConfiguracionProgramaNuevas.IndProgObli != "1") return;
+                // flagkit => Kit en 2 y 3 pedido
+                if (!flagkit && obeConfiguracionProgramaNuevas.IndProgObli != "1")
+                    return;
 
                 var listaTempListado = ObtenerPedidoWebDetalle();
 

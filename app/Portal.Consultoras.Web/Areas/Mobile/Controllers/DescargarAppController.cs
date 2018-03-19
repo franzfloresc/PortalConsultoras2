@@ -1,5 +1,5 @@
 ﻿using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.ServiceSAC;
+
 using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,9 +13,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             var lstComunicados = await ObtenerComunicadoPorConsultoraAsync();
             var oComunicado = lstComunicados.FirstOrDefault(x => x.Descripcion == Constantes.Comunicado.BannerDescargarAppNuevas);
+
             if (oComunicado != null) ViewBag.Url = oComunicado.DescripcionAccion;
             else return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
 
+            ViewBag.ComunicadoId = oComunicado.ComunicadoId;
             ViewBag.EsPaisEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO) ? "1" : "0";
 
             Session[Constantes.ConstSession.ConsultoraNuevaBannerAppMostrar] = true;

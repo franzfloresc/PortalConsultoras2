@@ -20,8 +20,8 @@
                 <div class="zonadecolor dorado">
                     <img src="~/Content/Images/etiqueta-club-ganamas-blanco-independiente.svg" class="logo-club-etiqueta" />
                     <span>
-                       <p class="primero">Consultoras ya suscritas</p> 
-                        <p class="segundo">¡Ganan hasta 10% más!</p>
+                        <p class="primero">@Html.Raw(configuracionPaisDatosModel.Valor1)</p> 
+                        <p class="segundo">@Html.Raw(configuracionPaisDatosModel.Valor2)</p>
                     </span>
                     <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')" class="boton-ver-mas">
                         VER MÁS OFERTAS
@@ -31,9 +31,9 @@
                 <div class="zona-items">
                     @if (revistaDigital.EsActiva)
                      {
-                    <div id="divContenedorListaEstrategia">
+                    <div id="divContenedorListaEstrategia" style="background:transparent;padding:0;">
                         <hr class="clear" />
-                        <div class="fondo_gris wrapper_resumen_mobile" style="padding-top:20px; background:transparent;">
+                        <div style="padding-top:20px; background:transparent;">
                             <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"
                                  data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion" style="width: 100%;"></div>
                         </div>
@@ -46,7 +46,7 @@
                             { "Source", 3 },
                             { "NombreConsultora", revistaDigital.NombreConsultora },
                             { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
-                            { "NombrePalanca" , revistaDigital.NombreComercialNoActiva} });
+                            { "NombrePalanca", revistaDigital.NombreComercialNoActiva} });
                     }
 
                 </div>
@@ -57,9 +57,10 @@
         {
             <div class="wrapper_resumen_mobile_clubganamas">
                 <div class="zonadecolor">
-                    <img src="~/Content/Images/etiqueta-ganamas-esika.svg" class="logo-club-etiqueta" />
-                    <span>
-                        @revistaDigital.NombreConsultora , TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>
+                    <div class="logo-club-etiqueta logo_no_suscrita">
+                    </div>  
+                    <span class="margin_top">
+                        @Html.Raw(configuracionPaisDatosModel.Valor1) 
                     </span>
                     <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')" class="boton-ver-mas">
                         VER MÁS OFERTAS
@@ -70,9 +71,9 @@
 
                     @if (revistaDigital.EsActiva)
                     {
-                    <div id="divContenedorListaEstrategia" style="background:transparent;">
+                    <div id="divContenedorListaEstrategia" style="background:transparent;padding:0;">
                         <hr class="clear" />
-                        <div class="fondo_gris wrapper_resumen_mobile" style="padding-top:20px; background:transparent;">
+                        <div style="padding-top:20px; background:transparent;">
                             <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"
                                  data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion" style="width: 100%;"></div>
                         </div>
@@ -86,7 +87,7 @@
                             { "Source", 3 },
                             { "NombreConsultora", revistaDigital.NombreConsultora },
                             { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
-                            { "NombrePalanca" , revistaDigital.NombreComercialNoActiva} });
+                            { "NombrePalanca", revistaDigital.NombreComercialNoActiva} });
                     }
                 </div>
           </div>
@@ -120,7 +121,7 @@ else if (revistaDigital.TieneRDI)
 { "Source", 2 },
 { "NombreConsultora", revistaDigital.NombreConsultora },
 { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
-{ "NombrePalanca" , revistaDigital.NombreComercialNoActiva}
+{ "NombrePalanca", revistaDigital.NombreComercialNoActiva}
                                             });
 }
 else if (revistaDigital.TieneRDR)
@@ -173,6 +174,6 @@ else
 { "Source", 1 },
 { "NombreConsultora", revistaDigital.NombreConsultora },
 { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
-{ "NombrePalanca" , revistaDigital.NombreComercialNoActiva}
+{ "NombrePalanca", revistaDigital.NombreComercialNoActiva}
                                             });
 }

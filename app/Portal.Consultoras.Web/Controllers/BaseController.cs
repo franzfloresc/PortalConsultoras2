@@ -589,7 +589,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 permiso.OnClickFunt = "RedirectMenu('" + permiso.UrlItem + "', '' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + " , '" + permiso.Descripcion + "')";
                             }
                         }
-                        
+
                         permiso.UrlImagen = permiso.EsSoloImagen ? permiso.UrlImagen : "";
                     }
                     else
@@ -2146,13 +2146,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected string GetRevistaCodigoIssuu(string campania)
         {
-            string codigo                       = null;
-            string requestUrl                   = null;
-            bool esRevistaPiloto                = false;
-            var Grupos                          = GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Grupos + userData.CodigoISO + campania);
-            string codeGrupo                    = null;
-            string nroCampania                  = string.Empty;
-            string anioCampania                 = string.Empty;
+            string codigo = null;
+            string requestUrl = null;
+            bool esRevistaPiloto = false;
+            var Grupos = GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Grupos + userData.CodigoISO + campania);
+            string codeGrupo = null;
+            string nroCampania = string.Empty;
+            string anioCampania = string.Empty;
 
             if (!string.IsNullOrEmpty(Grupos))
             {
@@ -2170,18 +2170,18 @@ namespace Portal.Consultoras.Web.Controllers
             else
                 esRevistaPiloto = false;
 
-            codigo                              = GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoRevistaIssuu);
+            codigo = GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoRevistaIssuu);
             if (campania.Length >= 6)
-                nroCampania                     = campania.Substring(4, 2);
+                nroCampania = campania.Substring(4, 2);
             if (campania.Length >= 6)
-                anioCampania                    = campania.Substring(0, 4);
+                anioCampania = campania.Substring(0, 4);
 
             if (esRevistaPiloto)
-                requestUrl                      = string.Format(codigo, userData.CodigoISO.ToLower(), nroCampania, anioCampania, codeGrupo.Replace(Constantes.ConfiguracionManager.RevistaPiloto_Escenario, ""));
+                requestUrl = string.Format(codigo, userData.CodigoISO.ToLower(), nroCampania, anioCampania, codeGrupo.Replace(Constantes.ConfiguracionManager.RevistaPiloto_Escenario, ""));
             else
             {
-                requestUrl                      = string.Format(codigo, userData.CodigoISO.ToLower(), nroCampania, anioCampania, "");
-                requestUrl                      = Util.Trim(requestUrl.Substring(requestUrl.Length - 1)) == "." ? requestUrl.Substring(0, requestUrl.Length - 1) : requestUrl;
+                requestUrl = string.Format(codigo, userData.CodigoISO.ToLower(), nroCampania, anioCampania, "");
+                requestUrl = Util.Trim(requestUrl.Substring(requestUrl.Length - 1)) == "." ? requestUrl.Substring(0, requestUrl.Length - 1) : requestUrl;
             }
             return requestUrl;
         }
@@ -2342,7 +2342,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
             }
         }
-        protected void RegistrarLogGestionSacUnete(string solicitudId, string pantalla,string accion)
+        protected void RegistrarLogGestionSacUnete(string solicitudId, string pantalla, string accion)
         {
             var dataString = string.Empty;
             try
@@ -2353,8 +2353,8 @@ namespace Portal.Consultoras.Web.Controllers
                     Pais = userData.CodigoISO,
                     Rol = userData.RolDescripcion,
                     Usuario = userData.CodigoUsuario,
-                    Pantalla  = pantalla,
-                    Accion =  accion,
+                    Pantalla = pantalla,
+                    Accion = accion,
                     SolicitudId = solicitudId
                 };
 
@@ -2610,7 +2610,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 url = (url ?? urlReferrer).Replace("#", "/").ToLower() + "/";
 
-                result =  url.Contains("/mobile/") || url.Contains("/g/");
+                result = url.Contains("/mobile/") || url.Contains("/g/");
             }
             catch
             {
@@ -3139,7 +3139,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     #endregion
 
-                    RemplazarTagNombreConfiguracionOferta(ref entConf,Constantes.TagCadenaRd.Nombre1, userData.Sobrenombre);
+                    RemplazarTagNombreConfiguracionOferta(ref entConf, Constantes.TagCadenaRd.Nombre1, userData.Sobrenombre);
 
                     var seccion = new ConfiguracionSeccionHomeModel
                     {
@@ -3271,7 +3271,7 @@ namespace Portal.Consultoras.Web.Controllers
             var configuracionesPais = sessionManager.GetConfiguracionesPaisModel();
             if (configuracionesPais != null)
             {
-                var cp = configuracionesPais.FirstOrDefault(x=> x.Codigo == configuracionPais.Codigo);
+                var cp = configuracionesPais.FirstOrDefault(x => x.Codigo == configuracionPais.Codigo);
                 result = cp != null && cp.ConfiguracionPaisID >= 0 && !string.IsNullOrWhiteSpace(cp.Codigo);
 
             }
@@ -3670,7 +3670,7 @@ namespace Portal.Consultoras.Web.Controllers
                     config.MobileFondoBanner = string.Empty;
                     config.MobileLogoBanner = revistaDigital.MLogoComercialFondoNoActiva;
                 }
-                if(revistaDigital.TieneRevistaDigital())
+                if (revistaDigital.TieneRevistaDigital())
                 {
                     config.DesktopFondoBanner = revistaDigital.BannerOfertasNoActivaNoSuscrita;
                     config.DesktopLogoBanner = revistaDigital.DLogoComercialFondoNoActiva;
@@ -3819,12 +3819,12 @@ namespace Portal.Consultoras.Web.Controllers
             return menuContenedor;
         }
 
-        private ConfiguracionPaisModel ActualizarTituloYSubtituloBanner(ConfiguracionPaisModel cp,RevistaDigitalModel revistaDigital)
+        private ConfiguracionPaisModel ActualizarTituloYSubtituloBanner(ConfiguracionPaisModel cp, RevistaDigitalModel revistaDigital)
         {
             var codigo = string.Empty;
             var codigoMobile = string.Empty;
 
-            if(cp.Codigo == Constantes.ConfiguracionPais.Inicio &&
+            if (cp.Codigo == Constantes.ConfiguracionPais.Inicio &&
                 revistaDigital.TieneRDI)
             {
                 codigo = Constantes.ConfiguracionPaisDatos.RDI.DLandingBannerIntriga;
@@ -3893,7 +3893,7 @@ namespace Portal.Consultoras.Web.Controllers
                 codigoMobile = Constantes.ConfiguracionPaisDatos.RD.MLandingBannerNoActivaNoSuscrita;
             }
 
-            if (cp.Codigo == Constantes.ConfiguracionPais.RevistaDigital && 
+            if (cp.Codigo == Constantes.ConfiguracionPais.RevistaDigital &&
                 revistaDigital.TieneRDR)
             {
                 codigo = Constantes.ConfiguracionPaisDatos.RDR.DRDRLandingBanner;
@@ -3913,7 +3913,7 @@ namespace Portal.Consultoras.Web.Controllers
                 cp.MobileTituloBanner = Util.Trim(datoMobile.Valor1);
                 cp.MobileSubTituloBanner = Util.Trim(datoMobile.Valor2);
             }
-            
+
 
             return cp;
         }
@@ -4721,7 +4721,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return lstComunicados.ToList();
             }
         }
-        
+
         protected MensajeProductoBloqueadoModel HVMensajeProductoBloqueado()
         {
             var model = new MensajeProductoBloqueadoModel();

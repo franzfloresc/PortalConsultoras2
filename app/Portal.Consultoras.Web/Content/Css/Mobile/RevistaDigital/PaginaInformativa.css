@@ -334,6 +334,10 @@
         width: 100%;
     }
 
+    .bloques-gana-mas .contenedor-mobile-fix .caja-club-derecha hr.dorado{
+        background:#c39934 !important;
+    }
+
     .bloques-gana-mas .contenedor-mobile-fix .caja-club-izquierda img {
         width: 288px !important;
         display: block;
@@ -554,7 +558,7 @@ a.btn-suscribete-video {
 /* PREGUNTAS FRECUENTAS NUEVAS */
 .preguntas-frecuentes-cont-sus {
     margin-bottom: 30px;
-    margin-top: -20px;
+    margin-top: 20px;
 }
 
     .preguntas-frecuentes-cont-sus .contenedor-mobile-fix {

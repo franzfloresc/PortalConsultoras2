@@ -345,6 +345,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         int UpdUsuarioFotoPerfil(int paisID, string codigoUsuario, string fileName);
 
+        [OperationContract]
+        string RecuperarContrasenia(int paisId, string textoRecuperacion);
+
         #region Restaurar Contraseña
         [OperationContract]
         BEUsuarioCorreo GetRestaurarClaveByCodUsuario(string ValorRestauracion, int PaisID);

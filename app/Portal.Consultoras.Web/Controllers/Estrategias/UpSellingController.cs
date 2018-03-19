@@ -94,7 +94,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             return Json(ResultModel<UpSellingModel>.BuildOk(result), JsonRequestBehavior.AllowGet);
         }
 
-  
+
         private UpSellingModel SetAuditInfo(UpSellingModel model)
         {
             model.UsuarioCreacion = userData.UsuarioNombre;
@@ -141,14 +141,14 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
         public bool FileExistsInS3(string carpetaPais, string fileName)
         {
-            var url = ConfigS3.GetUrlFileS3(carpetaPais, fileName);
-
             HttpWebResponse response = null;
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "HEAD";
-
             try
             {
+                var url = ConfigS3.GetUrlFileS3(carpetaPais, fileName);
+
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "HEAD";
+
                 response = (HttpWebResponse)request.GetResponse();
             }
             catch (WebException ex)
@@ -164,6 +164,9 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 }
             }
 
+            if (response == null)
+                return false;
+
             return response.StatusCode == HttpStatusCode.OK;
         }
 
@@ -174,7 +177,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             {
                 regalo.Imagen = ConfigS3.GetUrlFileS3(carpetaPais, regalo.Imagen, carpetaPais);
             });
-        } 
+        }
 
 
 
@@ -188,7 +191,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
         public async Task<ActionResult> ExportarExcel(int upSellingIdListaGanadoras)
         {
-            var upSelling = await _upSellingProvider.ObtenerOfertaFinalMontoMeta(userData.PaisID, upSellingIdListaGanadoras);   
+            var upSelling = await _upSellingProvider.ObtenerOfertaFinalMontoMeta(userData.PaisID, upSellingIdListaGanadoras);
 
 
             Dictionary<string, string> dic =

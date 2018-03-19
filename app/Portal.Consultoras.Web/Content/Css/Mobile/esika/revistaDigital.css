@@ -1,4 +1,15 @@
 ﻿
+.rd_logo {
+    background: rgba(233,27,55,1);
+    background: -moz-linear-gradient(-45deg, rgba(233,27,55,1) 0, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -webkit-gradient(left top, right bottom, color-stop(0, rgba(233,27,55,1)), color-stop(31%, rgba(233,27,55,1)), color-stop(100%, rgba(157,7,29,1)));
+    background: -webkit-linear-gradient(-45deg, rgba(233,27,55,1) 0, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(233,27,55,1) 0, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(233,27,55,1) 0, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: linear-gradient(135deg, rgba(233,27,55,1) 0, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e91b37', endColorstr='#9d071d', GradientType=1 );
+}
+
 /* SECCIÓN REVISTA DIGITAL VISTA BIENVENIDA - PEDIDO - CATALOGO */
 .revistadigital .boxoffer .fondo_boton, .contenedor_botonVerMasOfertas .boxoffer .fondo_boton {
     background: #e81c36;
@@ -44,4 +55,9 @@
     background: url(/Content/Images/Esika/loading_circle.gif);
 }
 /* FIN POP UP ACTUALIZA DATOS */
+.logo_no_suscrita {
+    background: url(/Content/Images/Esika/RevistaDigital/logo_esika_diagonal.png) !important;
+    background-size: cover !important;
+    background-repeat: no-repeat;
+}
 

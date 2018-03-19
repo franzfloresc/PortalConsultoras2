@@ -8,9 +8,9 @@
     <div data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
         <div class="content_item_carrusel content_item_carrusel_clubganamas" style="cursor:pointer; ">
-            <img src="/Content/Images/etiqueta-club-ganamas-blanco-independiente.svg" alt="content" class="clubganamas_logo" />
+            <img src="/Content/Images/etiqueta-club-ganamas-blanco-independiente.svg" alt="" class="clubganamas_logo" />
             <p class="primero">DISFRUTA DE MÁS Y MEJORES OFERTAS</p>
-            <p class="segundo">ÚNETE AL CLUB GANA<sup>+</sup></p>
+            <p class="segundo">ÚNETE AL CLUB GANA+</p>
             <a href="@Url.Action("Informacion", "RevistaDigital")">SUSCRÍBETE GRATIS</a>
         </div>
     </div>
@@ -19,7 +19,9 @@
     <div data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
         <div class="content_item_carrusel content_item_carrusel_clubganamas content_item_carrusel_clubganamas_off" style="cursor:pointer; ">
-            <img src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_2018238541_umdwfcuazj.png" alt="content" class="clubganamas_logo" />
+            {{#iff TipoEstrategiaDetalle.ImgFichaDesktop '!=' ''}}
+                <img src="{{TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" class="clubganamas_logo" />
+            {{/iff}}
             {{#iff TipoEstrategiaDetalle.ImgHomeDesktop '!=' ''}}
             <img src="{{TipoEstrategiaDetalle.ImgHomeDesktop}}" class="portada" />
             {{/iff}}
@@ -53,9 +55,12 @@
                 {{/iff}}
                 {{/iff}}
                 <div class="producto_nombre_descripcion" data-item-tag="descripcion">
-                    {{#iff DescripcionMarca '!=' ''}}
-                    <h6>{{DescripcionMarca}}</h6>
-                    {{/iff}}
+                    {{#IsNullOrEmpty DescripcionMarca '!='}}
+                        <h6>{{DescripcionMarca}}</h6>
+                    {{else}}
+                        <h6>&ensp;&nbsp;</h6>
+                    {{/IsNullOrEmpty}}
+
                     {{#iff DescripcionResumen '!=' ''}}
                     <p class="nombre_producto"><b>{{DescripcionResumen}}</b></p>
                     {{/iff}}

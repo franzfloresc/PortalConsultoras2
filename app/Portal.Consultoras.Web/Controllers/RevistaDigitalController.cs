@@ -109,7 +109,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return RedirectToAction("Index", "Ofertas");
         }
-        
+
         public ActionResult MensajeBloqueado()
         {
             try
@@ -160,27 +160,16 @@ namespace Portal.Consultoras.Web.Controllers
                 var listModelCompleta = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
 
                 listModelCompleta = listModelCompleta.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
-                
+
                 var listModel = listModelCompleta;
 
-                var mdo0 = false;
-                if (revistaDigital.ActivoMdo)
-                {
-                    if (!revistaDigital.EsActiva)
-                    {
-                        mdo0 = true;
-                    }
-                }
-                
+                var mdo0 = revistaDigital.ActivoMdo && !revistaDigital.EsActiva;
 
-                if (mdo0)
+                if (mdo0 && model.CampaniaID == userData.CampaniaID)
                 {
-                    if (model.CampaniaID == userData.CampaniaID)
-                    {
-                        var listaRd = listModelCompleta.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi && e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso).ToList();
-                        listModel = listModelCompleta.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.OfertasParaMi && e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.PackAltoDesembolso).ToList();
-                        listModel.AddRange(listaRd.Where(e => e.FlagRevista == Constantes.FlagRevista.Publico));
-                    }
+                    var listaRd = listModelCompleta.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi || e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso).ToList();
+                    listModel = listModelCompleta.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.OfertasParaMi && e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.PackAltoDesembolso).ToList();
+                    listModel.AddRange(listaRd.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor0));
                 }
 
                 var cantidadTotal = listModel.Count;
@@ -191,18 +180,21 @@ namespace Portal.Consultoras.Web.Controllers
                     if (mdo0)
                     {
                         listPerdio = listModelCompleta.Where(e =>
-                            e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-                            && e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
-                            && e.FlagRevista == Constantes.FlagRevista.Perdiste
+                            (e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+                            || e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso)
+                            && e.FlagRevista == Constantes.FlagRevista.Valor2
                             ).ToList();
+                        listPerdio.ForEach(e =>
+                        {
+                            e.ClaseBloqueada = "btn_desactivado_general";
+                            e.IsAgregado = false;
+                        });
                     }
                     else
                     {
                         var listPerdio1 = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
-                        listPerdio1 = listPerdio1.Where(p => p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas).ToList();
+                        listPerdio1 = listPerdio1.Where(p => p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas && p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
                         listPerdio = ConsultarEstrategiasFormatearModelo(listPerdio1, 1);
-
-                        listPerdio = listPerdio.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
                     }
                 }
                 
@@ -502,7 +494,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var setSession = false;
 
                 var listaDatosPopup = revistaDigital.ConfiguracionPaisDatos.Where(d => d.Componente == Constantes.ConfiguracionPaisComponente.RD.PopupClubGanaMas);
-                
+
                 var campaniaPopup = (listaDatosPopup.FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).CampaniaID;
                 if (listaDatosPopup.Any(d => d.CampaniaID != campaniaPopup))
                 {
@@ -584,7 +576,7 @@ namespace Portal.Consultoras.Web.Controllers
                         Codigo = Constantes.ConfiguracionPais.RevistaDigital
                     }
                 };
-                
+
                 using (var sv = new UsuarioServiceClient())
                 {
                     var beEntidades = sv.GetConfiguracionPaisComponenteDatos(beEntidad).ToList();

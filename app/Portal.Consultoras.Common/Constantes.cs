@@ -404,6 +404,8 @@ namespace Portal.Consultoras.Common
 
             public const string RevistaPiloto_Grupos = "RevistaPiloto_Grupos_";
             public const string RevistaPiloto_Escenario = "ESC";
+            public const string PaisesCancelarSuscripcionRDUnete = "PaisesCancelarSuscripcionRDUnete";
+            public const string PaisesCancelarSuscripcionRDNuevas = "PaisesCancelarSuscripcionRDNuevas";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
@@ -955,6 +957,7 @@ namespace Portal.Consultoras.Common
         {
             public const string RD = "RD";
             public const string Unete = "UNETE";
+            public const string Nueva = "NUEVA";
         }
 
         public static class MatrizNemotecnicoMensajes
@@ -1005,6 +1008,7 @@ namespace Portal.Consultoras.Common
             public const string Ofertas = "OFERTAS";
             public const string GuiaNegocio = "GUIANEGOCIO";
             public const string RevistaDigitalInformacion = "REVISTADIGITALINFORMACION";
+            public const string LiquidacionWeb = "LIQUIDACIONWEB";
         }
 
         public static class EstadoCuentaTipoMovimiento
@@ -1842,9 +1846,9 @@ namespace Portal.Consultoras.Common
 
         public class FlagRevista
         {
-            public const int Publico = 0;
-            public const int Compra = 1;
-            public const int Perdiste = 2;
+            public const int Valor0 = 0;
+            public const int Valor1 = 1;
+            public const int Valor2 = 2;
         }
     }
 }

@@ -791,6 +791,12 @@ namespace Portal.Consultoras.Service
             return _usuarioBusinessLogic.UpdUsuarioFotoPerfil(paisID, codigoUsuario, fileName);
         }
 
+        public string RecuperarContrasenia(int paisId, string textoRecuperacion)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.RecuperarContrasenia(paisId, textoRecuperacion);
+        }
+
         #region Restaurar Contraseña
         public BEUsuarioCorreo GetRestaurarClaveByCodUsuario(string ValorRestauracion, int PaisID)
         {
