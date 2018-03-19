@@ -1302,9 +1302,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                     revistaDigitalModel.TieneRDR = !revistaDigitalModel.TieneRDC && revistaDigitalModel.TieneRDR;
                     revistaDigitalModel.Campania = usuarioModel.CampaniaID % 100;
-                    revistaDigitalModel.CampaniaMasUno =
-                        Util.AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1, usuarioModel.NroCampanias) % 100;
+                    revistaDigitalModel.CampaniaMasUno = Util.AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1, usuarioModel.NroCampanias) % 100;
                     revistaDigitalModel.NombreConsultora = usuarioModel.Sobrenombre;
+                    //
+                    guiaNegocio.BloqueoProductoDigital = guiaNegocio.BloqueoProductoDigital || (revistaDigitalModel.EsSuscritaActiva() && revistaDigitalModel.SociaEmpresariaExperienciaGanaMas);
+                    //
                     sessionManager.SetGuiaNegocio(guiaNegocio);
                     sessionManager.SetRevistaDigital(revistaDigitalModel);
                     sessionManager.SetConfiguracionesPaisModel(configuracionesPaisModels);
