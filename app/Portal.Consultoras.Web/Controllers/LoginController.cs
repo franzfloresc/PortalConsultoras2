@@ -808,10 +808,8 @@ namespace Portal.Consultoras.Web.Controllers
                     oRestaurarClave = sv.GetRestaurarClaveByCodUsuario(textoRecuperacion, paisId);
                 }
 
-                if (oRestaurarClave != null)
+                if (oRestaurarClave != null && oRestaurarClave.Cantidad != 0)
                 {
-                    if (oRestaurarClave.Cantidad != 0)
-                    {
                         oRestaurarClave.ContextoBase = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
                         Session["RestaurarClave"] = oRestaurarClave;
 
@@ -871,71 +869,32 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 switch (paisId)
                                 {
-                                    case 2:
-                                        {
-                                            //BOLIVIA
-                                            oRestaurarClave.TelefonoCentral = "901-105678"; break;
-                                        };
-                                    case 3:
-                                        {
-                                            //CHILE
-                                            oRestaurarClave.TelefonoCentral = "02-28762100"; break;
-                                        };
-                                    case 4:
-                                        {
-                                            //COLOMBIA
-                                            oRestaurarClave.TelefonoCentral = "01-8000-9-37452,5948060"; break;
-                                        };
-                                    case 5:
-                                        {
-                                            //COSTA RICA
-                                            oRestaurarClave.TelefonoCentral = "800-000-5235,22019601,22019602"; break;
-                                        };
-                                    case 6:
-                                        {
-                                            //ECUADOR
-                                            oRestaurarClave.TelefonoCentral = "1800-76667"; break;
-                                        };
-                                    case 7:
-                                        {
-                                            //EL SALVADOR
-                                            oRestaurarClave.TelefonoCentral = "800-37452-000,25101198,25101199"; break;
-                                        };
-                                    case 8:
-                                        {
-                                            //GUATEMALA
-                                            oRestaurarClave.TelefonoCentral = "1-801-81-37452,22856185,23843795"; break;
-                                        };
-                                    case 9:
-                                        {
-                                            //MEXICO
-                                            oRestaurarClave.TelefonoCentral = "01-800-2352677"; break;
-                                        };
-                                    case 10:
-                                        {
-                                            //PANAMA
-                                            oRestaurarClave.TelefonoCentral = "800-5235,377-9399"; break;
-                                        };
-                                    case 11:
-                                        {
-                                            //PERU
-                                            oRestaurarClave.TelefonoCentral = "01-2113614,080-11-3030"; break;
-                                        };
-                                    case 12:
-                                        {
-                                            //PUERTO RICO
-                                            oRestaurarClave.TelefonoCentral = "1-866-366-3235,787-622-3235"; break;
-                                        };
-                                    case 13:
-                                        {
-                                            //REPUBLICA DOMINICANA
-                                            oRestaurarClave.TelefonoCentral = "1-809-200-5235,809-620-5235"; break;
-                                        };
-                                    case 14:
-                                        {
-                                            //VENEZUELA
-                                            oRestaurarClave.TelefonoCentral = "0501-2352677"; break;
-                                        };
+                                    case Constantes.PaisID.Bolivia:
+                                        oRestaurarClave.TelefonoCentral = "901-105678"; break;
+                                    case Constantes.PaisID.Chile:
+                                        oRestaurarClave.TelefonoCentral = "02-28762100"; break;
+                                    case Constantes.PaisID.Colombia:
+                                        oRestaurarClave.TelefonoCentral = "01-8000-9-37452,5948060"; break;
+                                    case Constantes.PaisID.CostaRica:
+                                        oRestaurarClave.TelefonoCentral = "800-000-5235,22019601,22019602"; break;
+                                    case Constantes.PaisID.Ecuador:
+                                        oRestaurarClave.TelefonoCentral = "1800-76667"; break;
+                                    case Constantes.PaisID.ElSalvador:
+                                        oRestaurarClave.TelefonoCentral = "800-37452-000,25101198,25101199"; break;
+                                    case Constantes.PaisID.Guatemala:
+                                        oRestaurarClave.TelefonoCentral = "1-801-81-37452,22856185,23843795"; break;
+                                    case Constantes.PaisID.Mexico:
+                                        oRestaurarClave.TelefonoCentral = "01-800-2352677"; break;
+                                    case Constantes.PaisID.Panama:
+                                        oRestaurarClave.TelefonoCentral = "800-5235,377-9399"; break;
+                                    case Constantes.PaisID.Peru:
+                                        oRestaurarClave.TelefonoCentral = "01-2113614,080-11-3030"; break;
+                                    case Constantes.PaisID.PuertoRico:
+                                        oRestaurarClave.TelefonoCentral = "1-866-366-3235,787-622-3235"; break;
+                                    case Constantes.PaisID.RepublicaDominicana:
+                                        oRestaurarClave.TelefonoCentral = "1-809-200-5235,809-620-5235"; break;
+                                    case Constantes.PaisID.Venezuela:
+                                        oRestaurarClave.TelefonoCentral = "0501-2352677"; break;
                                 }
 
                                 if (oRestaurarClave.TelefonoCentral.Length > 0)
@@ -950,7 +909,6 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             resul = "prioridad3";
                         }
-                    }
                 }
 
                 return Json(new
