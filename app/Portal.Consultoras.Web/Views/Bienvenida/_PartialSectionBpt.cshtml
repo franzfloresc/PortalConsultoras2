@@ -156,12 +156,12 @@ else if (revistaDigital.TieneRDI)
     </div>
     <hr class="clear" />
     @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml",
-                                                new ViewDataDictionary {
-                                                    { "NombreConsultora", revistaDigital.NombreConsultora },
-                                                    { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome },
-                                                    { "NombrePalanca", revistaDigital.NombreComercialNoActiva }
-                                                                                                                    });
-                                                    }
+                         new ViewDataDictionary {
+                        { "Source", 1 },
+                        { "NombreConsultora", revistaDigital.NombreConsultora },
+                        { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome },
+                        { "NombrePalanca", revistaDigital.NombreComercialNoActiva }});
+}
 else if (revistaDigital.TieneRDR)
 {
     <div class="home_block_rd home_rd" style="position:relative; z-index:1">

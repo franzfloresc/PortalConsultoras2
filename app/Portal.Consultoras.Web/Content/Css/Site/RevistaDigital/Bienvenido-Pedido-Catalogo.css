@@ -1032,3 +1032,12 @@ margin-left: 5px;
     top: -37px;
     margin-left: -24px !important;
 }
+
+.btn_stroke2 {
+    background: #ffffff !important;
+    box-shadow: inset 0 0 0 1px black !important;
+}
+
+.margin_bottom_60 {
+    margin-bottom: 60px !important;
+}
