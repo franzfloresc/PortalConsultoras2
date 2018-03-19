@@ -353,13 +353,21 @@ namespace Portal.Consultoras.ServiceContracts
         BEUsuarioCorreo GetRestaurarClaveByCodUsuario(string ValorRestauracion, int PaisID);
 
         [OperationContract]
-        string EnviaClaveAEmail(int paisId, string textoRecuperacion, bool EsMobile, int nroVeces, BEUsuarioCorreo pRestaurar);
+        bool EnviarEmail(int paisID, BEUsuarioCorreo objEmail);
+        #endregion
+
+        #region Pin Autenticidad
+        [OperationContract]
+        BEPinAutenticacion GetPinAutenticidad(int paisID, int TablaLogicaID, string CodigoUsuario);
 
         [OperationContract]
-        void UpdFechaBloqueoRestaurarClave(int paisId, string CodigoUsuario);
+        string GetCodigoGenerado(int PaisID, BEUsuarioCorreo oUsuCorreo, string CodGenerado);
 
         [OperationContract]
-        string GetCodigoSMS(int paisID, string CodigoConsultora, string Origen);
+        BEUsuarioCorreo GetOpcionHabilitada(int PaisID, BEUsuarioCorreo oUsuCorreo);
+
+        [OperationContract]
+        void UpdFlagAutenticacion(int paisID, string CodigoUsuario);
         #endregion
     }
 }

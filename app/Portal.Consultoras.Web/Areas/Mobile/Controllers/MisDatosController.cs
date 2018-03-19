@@ -13,11 +13,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class MisDatosController : BaseMobileController
     {
-        public ActionResult Index(bool vc = false)
+        public ActionResult Index(bool vc = false, string opcionCambiaClave = "")
         {
             ViewBag.DatosIniciales = new BienvenidaHomeModel();
 
             var model = new MisDatosModel();
+
+            model.VerCambiarClave = opcionCambiaClave;
 
             if (userData.PaisID == 9)
             {

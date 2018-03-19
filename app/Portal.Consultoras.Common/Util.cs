@@ -3122,6 +3122,21 @@ namespace Portal.Consultoras.Common
             return ruta;
         }
 
+        public static string GenerarCodigoRandom()
+        {
+            try
+            {
+                Random rnd = new Random();
+                string NroGenrado = Convert.ToString(rnd.Next(111111, 999999));
+
+                return NroGenrado;
+            }
+            catch (Exception)
+            {
+                return "";
+            }
+        }
+
         public static string ColorFormato(string colorStr, string defecto = "")
         {
             var transparent = "transparent";

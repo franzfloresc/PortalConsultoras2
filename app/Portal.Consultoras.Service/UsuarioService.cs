@@ -804,22 +804,36 @@ namespace Portal.Consultoras.Service
             return BLUsuario.GetRestaurarClaveByCodUsuario(ValorRestauracion, PaisID);
         }
 
-        public string EnviaClaveAEmail(int paisId, string textoRecuperacion, bool EsMobile, int nroVeces, BEUsuarioCorreo pRestaurar)
+        public bool EnviarEmail(int paisID, BEUsuarioCorreo objEmail)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.EnviaClaveAEmail(paisId, textoRecuperacion, EsMobile, nroVeces, pRestaurar);
+            return BLUsuario.EnviarEmail(paisID, objEmail);
+        }
+        #endregion
+
+        #region Pin Autenticacion
+        public BEPinAutenticacion GetPinAutenticidad(int paisID, int TablaLogicaID, string CodigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetPinAutenticidad(paisID, TablaLogicaID, CodigoUsuario);
         }
 
-        public void UpdFechaBloqueoRestaurarClave(int paisId, string CodigoUsuario)
+        public string GetCodigoGenerado(int PaisID, BEUsuarioCorreo oUsuCorreo, string CodGenerado)
         {
             var BLUsuario = new BLUsuario();
-            BLUsuario.UpdFechaBloqueoRestaurarClave(paisId, CodigoUsuario);
+            return (BLUsuario.GetCodigoGenerado(PaisID, oUsuCorreo, CodGenerado));
         }
 
-        public string GetCodigoSMS(int paisID, string CodigoConsultora, string Origen)
+        public BEUsuarioCorreo GetOpcionHabilitada(int PaisID, BEUsuarioCorreo oUsuCorreo)
         {
             var BLUsuario = new BLUsuario();
-            return (BLUsuario.GetCodigoSMS(paisID, CodigoConsultora, Origen));
+            return BLUsuario.GetOpcionHabilitada(PaisID, oUsuCorreo);
+        }
+
+        public void UpdFlagAutenticacion(int paisID, string CodigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            BLUsuario.UpdFlagAutenticacion(paisID, CodigoUsuario);
         }
         #endregion
     }

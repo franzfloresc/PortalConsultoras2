@@ -182,6 +182,18 @@
                 success: function (response) {
 
                     if (response.success) {
+
+                        var resul = "";
+                        if (response.data != null) {
+                            resul = response.data.resultado;
+                        }
+
+                        if (resul.length > 1) {
+                            var datos = response.data;
+                            MostrarPopupPin(datos);
+                            closeWaitingDialog();
+                        }
+
                         if (response.redirectTo !== "") {
                             analytics.invocarEventoPixel("FacebookLoginValidExternalUser");
                             document.location.href = response.redirectTo;
@@ -549,32 +561,47 @@
                 <a id="btnCerrarContraseniaPopup" href="#" class="cerrar" onclick="CerrarPopup2();"></a>
                 <div id="header">
                     <div class="fondo_sesgado"></div>
-                    <span>
+                    <span id="tituloPopup">
                         CAMBIO DE <b>CONTRASEÑA</b>
                     </span>
                     <div class="indicador_lbel"></div>
                 </div>
                 <div class="mensaje_pop_up2">
-                    <span id="spnNombreConsultora">Cosultora, no te preocupes.</span>
+                    <span id="spnNombreConsultora"></span>
                     <!-- INICIO - MENSAJE CUANDO LA CONSULTORA TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CORREO Y SMS) -->
                     <b id="menPrioridad1" style="display:none;">Elige cómo prefieres cambiar tu contraseña.</b>
                     <!-- FIN - MENSAJE CUANDO LA CONSULTORA TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CORREO Y SMS) -->
+
                     <!-- INICIO - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CORREO REGISTRADO (OPCIÓN CORREO) -->
                     <b id="menPrioridad1_correo" style="display:none;">Te enviaremos un e-mail al siguiente correo: </b>
                     <!-- FIN - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CORREO REGISTRADO (OPCIÓN CORREO) -->
+
                     <!-- INICIO - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CELULAR REGISTRADO (OPCIÓN SMS) -->
                     <b id="menPrioridad1_sms" style="display:none;">Te enviaremos un mensaje de texto al siguiente número:</b>
                     <!-- FIN - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CELULAR REGISTRADO (OPCIÓN SMS) -->
+
                     <!-- INICIO - MENSAJE CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CHATEA CON NOSOTROS) -->
                     <b id="menPrioridad2_chat" style="display:none;">Puedes comunicarte con nosotros por este medio:</b>
                     <!-- FIN - MENSAJE CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CHATEA CON NOSOTROS) -->
+
                     <!-- INICIO - MENSAJE CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN LLAMADA) -->
                     <b id="menPrioridad2_llamada" style="display:none;">Puedes comunicarte con nosotros llamando a nuestra central telefónica:</b>
                     <!-- FIN - MENSAJE CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN LLAMADA) -->
+
                     <!-- INICIO - MENSAJE SI NO HAY CORREO, SMS, CHAT NI LLAMADAS -->
-                    <span id="menPrioridad3" class="texto_disculpa" style="display:none;">Sofía, discúlpanos, en estos momentos no podemos atenderte.</span>
-                    <b style="display:none;">Puedes comunicarte con nosotros llamando a nuestra central telefónica en el siguiente horario:</b>
+                    <span class="texto_disculpa menPrioridad3" style="display:none;">discúlpanos, en estos momentos no podemos atenderte.</span>
+                    <b class="menPrioridad3" style="display:none;">Puedes comunicarte con nosotros llamando a nuestra central telefónica en el siguiente horario:</b>
                     <!-- FIN - MENSAJE SI NO HAY CORREO, SMS, CHAT NI LLAMADAS -->
+
+                    <!-- INICIO - MENSAJE PARA PIN DE AUTENTICACION CONSULTORA NUEVA -->
+                    <span id="menAutenticacionNueva" class="texto_disculpa" style="display:none;">por ser la primera vez que ingresas, 
+                    para verificar la autenticidad te enviaremos un PIN a tu celular o a tu e-mail según la opción que elijas:</span>
+                    <!-- FIN - MENSAJE PARA PIN DE AUTENTICACION CONSULTORA NUEVA-->
+
+                    <!-- INICIO - MENSAJE PARA PIN DE AUTENTICACION CONSULTORA REACTIVADA -->
+                    <span id="menAutenticacionReactivada" class="texto_disculpa" style="display:none;">ya que has vuelto después de tiempo, 
+                    para verificar la autenticidad te enviaremos un PIN a tu celular o a tu e-mail según la opción que elijas:</span>
+                    <!-- FIN - MENSAJE PARA PIN DE AUTENTICACION CONSULTORA REACTIVADA -->
                 </div>
 
                 <div class="opciones_recuperacion_contrasenia">
@@ -599,6 +626,7 @@
                         </a>
                     </div>
                     <!-- FIN - CUANDO LA CONSULTORA TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CORREO Y SMS) -->
+
                     <!-- INICIO - CUANDO LA CONSULTORA TIENE SÓLO CORREO REGISTRADO (OPCIÓN CORREO) -->
                     <div id="prioridad1_correo" class="opcion_recuperacion_contrasenia" style="display:none;">
                         <div class="contenedor_solo_una_opcion">
@@ -612,6 +640,7 @@
                         <div class="mensajeDeBloqueoCorreo" style="display:none;font-size: 10px; padding-top:5px;">Esta opción está bloqueada temporalmente.</div>
                     </div>
                     <!-- FIN - CUANDO LA CONSULTORA TIENE SÓLO CORREO REGISTRADO (OPCIÓN CORREO) -->
+
                     <!-- INICIO - CUANDO LA CONSULTORA TIENE SÓLO CELULAR REGISTRADO (OPCIÓN SMS) -->
                     <div id="prioridad1_sms" class="opcion_recuperacion_contrasenia" style="display:none;">
                         <div class="contenedor_solo_una_opcion">
@@ -625,6 +654,7 @@
                         <div class="mensajeDeBloqueoSMS" style="display:none;font-size: 10px; padding-top:5px;">Esta opción está bloqueada temporalmente.</div>
                     </div>
                     <!-- FIN - CUANDO LA CONSULTORA TIENE SÓLO CELULAR REGISTRADO (OPCIÓN SMS) -->
+
                     <!-- INICIO - CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CHATEA CON NOSOTROS) -->
                     <div id="prioridad2_chat" class="opcion_recuperacion_contrasenia" style="display:none;">
                         <div class="contenedor_solo_una_opcion">
@@ -637,6 +667,7 @@
                         <button class="btn_ingresar_chat" id="divChatearConNosotros">Ingresar al chat</button>
                     </div>
                     <!-- FIN - CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CHATEA CON NOSOTROS) -->
+
                     <!-- INICIO - CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN LLAMADA) -->
                     <div id="Opcionesllamada" class="opcion_recuperacion_contrasenia sinMargenesMobile" style="display:none;">
                         <!-- INICIO - OPCIÓN LLAMADA DESKTOP -->
@@ -650,6 +681,7 @@
                             </div>
                         </div>
                         <!-- FIN - OPCIÓN LLAMADA DESKTOP -->
+
                         <!-- INICIO - OPCIÓN LLAMADA MOBILE -->
                         <div class="contenedor_solo_una_opcion opcionLlamada_mobile">
                             <!-- INICIO - CENTRALES TELEFÓNICAS PERÚ -->
@@ -660,6 +692,7 @@
                         <!-- FIN - OPCIÓN LLAMADA MOBILE -->
                     </div>
                     <!-- FIN - CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN LLAMADA) -->
+
                     <!-- INICIO - SI NO HAY CORREO, SMS, CHAT NI LLAMADAS -->
                     <div id="prioridad3" style="display:none;">
                         <div class="contenedor_solo_una_opcion">
@@ -695,8 +728,8 @@
                     <a id="vermasopciones1" title="Ver más opciones" data-recuperar="2" style="cursor:pointer;">
                         Ver más opciones
                     </a>
-
                     <a id="linkvolverInicio" class="accion_alternativa_posterior_envio_password aVolverInicio" title="Reenviar mensaje a mi correo" style="cursor:pointer;display:none;">Volver al inicio</a>
+                    <a id="MenInferiorPin" style="display:none;color:black; cursor:pointer; text-decoration:none;"><b>Si necesitas actualizar alguno de tus datos de contacto, comunícate con el Call Center.</b></a>
                 </div>
             </div>
         </div>
@@ -722,8 +755,7 @@
                     <br />
                     <br />
                     <div class="icono_correo">
-                        @if (ViewBag.PaisID == 2 || ViewBag.PaisID == 3 || ViewBag.PaisID == 4 || ViewBag.PaisID == 6 || ViewBag.PaisID == 7 || ViewBag.PaisID == 8 || ViewBag.PaisID == 11 || ViewBag.PaisID == 13 || ViewBag.PaisID == 14)
-                        {
+                        @if (ViewBag.PaisID == 2 || ViewBag.PaisID == 3 || ViewBag.PaisID == 4 || ViewBag.PaisID == 6 || ViewBag.PaisID == 7 || ViewBag.PaisID == 8 || ViewBag.PaisID == 11 || ViewBag.PaisID == 13 || ViewBag.PaisID == 14) {
                             <img src="~/Content/Images/Login2/Icons/icono-envelope-esika.png" alt="Nuevo Correo" />
                         }
                         else if (ViewBag.PaisID == 5 || ViewBag.PaisID == 9 || ViewBag.PaisID == 10 || ViewBag.PaisID == 12)
@@ -733,26 +765,45 @@
                     </div>
                     <br />
                     <br />
-                    <p>
+                    <!-- INICIO - MARCADOR RESTAURAR CONTRASEÑA -->
+                    <p class="pMenCorreoEnviado_RC" style="display:none;">
                         Te hemos enviado las instrucciones a :
-                        <br />
-                    <p id="correoDestino" style="font: bold;"><strong></strong></p>
                     </p>
+                    <p class="pMenCorreoEnviado_RC correoDestino" style="font: bold; display:none;"><strong></strong></p>
+                    <!-- FIN - MARCADOR RESTAURAR CONTRASEÑA -->
+
+                    <!-- INICIO - MARCADOR PIN AUTENTICACION -->
+                    <p class="MenCorreoEnviado_Pin" style="display:none">
+                        Te hemos enviado un código a : <strong class="NumCelularDestino correoDestino"></strong>
+                    </p>
+                    <p class="texto_informativo_ingreso_codigo MenCorreoEnviado_Pin" style="display:none">
+                        Una vez recibido, ingrésalo aquí
+                    </p>
+                    <div class="ingreso_codigo MenCorreoEnviado_Pin" style="display:none">
+                        <input type="text" maxlength="1" id="1aDigito" class="codigoSms">
+                        <input type="text" maxlength="1" id="2aDigito" class="codigoSms">
+                        <input type="text" maxlength="1" id="3aDigito" class="codigoSms">
+                        <input type="text" maxlength="1" id="4aDigito" class="codigoSms">
+                        <input type="text" maxlength="1" id="5aDigito" class="codigoSms">
+                        <input type="text" maxlength="1" id="6aDigito" class="codigoSms">
+                        <div class="tiempo_validez_codigoSms">
+                            <span id="spnMin">03</span>:<span id="spnSeg">00</span>
+                        </div>
+                        <div class="mensaje_error_codigo codigoInvalido" style="display:none;">
+                            <span class="icono_alerta_error"></span>
+                            <span>Código inválido</span>
+                        </div>
+                    </div>
+                    <!-- FIN - MARCADOR PIN AUTENTICACION -->
+
                     <!-- INICIO - 1ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
                     <a id="divPrimerInteto" class="accion_alternativa_posterior_envio_password RecuperarPorCorreo" title="Reenviar mensaje a mi correo" style="cursor:pointer;">Reenviar mensaje a mi correo</a>
                     <!-- FIN - 1ER INTENTO -->
                     <!-- INICIO - 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
                     <a class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo" style="display:none;">Intentar nuevamente</a>
                     <!-- FIN - 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
-                    <!-- INICIO - 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
-                    @*<div style="display:none;">
-                            <span class="txto_no_llego_mensaje">No me llego el correo.</span>
-                            <a href="" class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo">
-                                <span>Ver más opciones</span>
-                                <span class="flecha_ver_mas_opciones"></span>
-                            </a>
-                        </div>*@
 
+                    <!-- INICIO - 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
                     <div id="divVolverInicio" style="display:none;">
                         <span class="texto_no_llego_mensaje">No me llegó el mensaje.</span>
                         <a class="accion_alternativa_posterior_envio_password aVolverInicio" title="Reenviar mensaje a mi correo" style="cursor:pointer;">Volver al inicio</a>
@@ -760,6 +811,7 @@
                     <!-- FIN - 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
                 </div>
                 <!-- FIN - INFORMACIÓN CONTRASEÑA ENVIADA A CORREO DE CONSULTORA -->
+
                 <!-- INICIO - INGRESO CÓDIGO ENVIADO MEDIANTE MENSAJE SMS A CELULAR DE CONSULTORA REGISTRADO -->
                 <div id="divPopupIntentosSMS" class="mensaje_pop_up_contraseniaEnviada" style="display:none;">
                     <h1 id="MenPrimerIntentoSms" style="display:none;">Por favor, revisa tu celular</h1>
@@ -776,12 +828,12 @@
                         Una vez recibido, ingrésalo aquí
                     </p>
                     <div class="ingreso_codigo">
-                        <input type="text" maxlength="1" id="1Digito" name="primerDigito" class="codigoSms" value="">
-                        <input type="text" maxlength="1" id="2Digito" name="segundoDigito" class="codigoSms" value="">
-                        <input type="text" maxlength="1" id="3Digito" name="tercerDigito" class="codigoSms" value="">
-                        <input type="text" maxlength="1" id="4Digito" name="cuartoDigito" class="codigoSms" value="">
-                        <input type="text" maxlength="1" id="5Digito" name="quintoDigito" class="codigoSms" value="">
-                        <input type="text" maxlength="1" id="6Digito" name="sextoDigito" class="codigoSms" value="">
+                        <input type="text" maxlength="1" id="1cDigito" class="codigoSms" >
+                        <input type="text" maxlength="1" id="2cDigito" class="codigoSms" >
+                        <input type="text" maxlength="1" id="3cDigito" class="codigoSms" >
+                        <input type="text" maxlength="1" id="4cDigito" class="codigoSms" >
+                        <input type="text" maxlength="1" id="5cDigito" class="codigoSms" >
+                        <input type="text" maxlength="1" id="6cDigito" class="codigoSms" >
                         <div class="tiempo_validez_codigoSms">
                             <span id="spnMin">03</span>:<span id="spnSeg">00</span>
                         </div>
@@ -809,6 +861,7 @@
                     <!-- Fin donde contiene el link -->
                 </div>
                 <!-- FIN - INGRESO CÓDIGO ENVIADO MEDIANTE MENSAJE SMS A CELULAR DE CONSULTORA REGISTRADO -->
+
                 <!-- INICIO - MÁS OPCIONES -->
                 <div class="mensaje_pop_up_contraseniaEnviada" style="display:none;">
                     <!-- INICIO - MÁS OPCIONES - CHATEA CON NOSOTROS -->
@@ -1014,7 +1067,7 @@
         <hr class="clear" />
     </div>
 
-    @using (@Html.BeginForm("Login", "Login", FormMethod.Post, new { id = "frmLogin" }))
+    @using (@Html.BeginForm("", "", FormMethod.Post, new { id = "frmLogin" }))
     {
         <div id="loginanterior" class="formCont">
             <input type="hidden" id="hdfContrasenia" />
@@ -1238,7 +1291,6 @@
     </div>
 </div>
 
-
 <script type="text/javascript">
     var paisesEsika = '@System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika")';
     var paisesLBel = '@System.Configuration.ConfigurationManager.AppSettings.Get("PaisesLBel")';
@@ -1246,12 +1298,13 @@
     var isoPais = '@ViewBag.IsoPais';
     var banderaOk = '@ViewBag.BanderaOk';
     var avisoASP = '@ViewBag.AvisoASP';
-    var urlRecuperarContrasenia = '@Url.Action("RecuperarContrasenia", "Login")';
-    var urlEnviaClaveAEmail = '@Url.Action("EnviaClaveAEmail", "Login")';
-    var urlEnviaCodigoSMS = '@Url.Action("EnviaCodigoSMS", "Login")';
+    var urlObtenerDatosUsuario = '@Url.Action("ObtenerDatosUsuario", "Login")';
+    var urlProcesaEnvioCorreo = '@Url.Action("ProcesaEnvioCorreo", "Login")';
+    var urlProcesaEnvioSms = '@Url.Action("ProcesaEnvioSms", "Login")';
     var urlLoginAcceder = '@Url.Action("Login", "Login")';
     var urlChatBelCorp = '@Url.Action("ChatBelcorp", "Login")';
-    var urlObtenerCodigoSms = '@Url.Action("ObtenerCodigoSms", "Login")';
+    var urlObtenerCodigoGenerado = '@Url.Action("ObtenerCodigoGenerado", "Login")';
+    var urlIniciarLogin = '@Url.Action("Login", "Login")';
 </script>
 
 @if (TempData["errorLogin"] != null)
