@@ -404,7 +404,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "</td>";
                     mailBody += "<td style=\"width:15%; text-align:left;border-right:1px solid #FFF;\">";
                     mailBody += "<a href=\"http://www.cyzone.com\" style=\"width:100%; display:block;\">";
-                    mailBody += "<img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/qZf6NJ5d9D75LCO/logo-cyzone.png\" alt=\"Logo Cyzone\" />";
+                    mailBody += "<img src=\"https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Correo/logo-cyzone.png\" alt=\"Logo Cyzone\" />";
                     mailBody += "</a>";
                     mailBody += "</td>";
                     mailBody += "<td style=\"width:15%; font-family:'Calibri'; font-weight:400; font-size:13px; color:#FFF; vertical-align:middle;\">";

@@ -464,9 +464,9 @@ namespace Portal.Consultoras.BizLogic
             usuario.DiasCierre = usuarioConsultoraTask.Result.DiasCierre;
             usuario.FechaVencimiento = usuarioConsultoraTask.Result.FechaVencimiento;
 
-            usuario.EsAniversario = (bool)consultoraAniversarioTask.Result[0];
+            usuario.EsAniversario = consultoraAniversarioTask.Result.Count == 2 ? (bool)consultoraAniversarioTask.Result[0] : false;
             usuario.EsCumpleanio = consultoraCumpleanioTask.Result;
-            usuario.AniosPermanencia = (int)consultoraAniversarioTask.Result[1];
+            usuario.AniosPermanencia = consultoraAniversarioTask.Result.Count == 2 ? (int)consultoraAniversarioTask.Result[1] : 0;
 
             usuario.CodigosConcursos = incentivosConcursosTask.Result.Count == 2 ? incentivosConcursosTask.Result[0] : string.Empty;
             usuario.CodigosProgramaNuevas = incentivosConcursosTask.Result.Count == 2 ? incentivosConcursosTask.Result[1] : string.Empty;
@@ -478,6 +478,7 @@ namespace Portal.Consultoras.BizLogic
             usuario.CuponEstado = cuponTask.Result.EstadoCupon;
             usuario.CuponPctDescuento = cuponTask.Result.ValorAsociado;
             usuario.CuponMontoMaxDscto = cuponTask.Result.MontoMaximoDescuento;
+            usuario.CuponTipoCondicion = cuponTask.Result.TipoCondicion;
 
             return usuario;
         }
@@ -2006,6 +2007,53 @@ namespace Portal.Consultoras.BizLogic
         public int UpdUsuarioFotoPerfil(int paisID, string codigoUsuario, string fileName)
         {
             return new DAUsuario(paisID).UpdUsuarioFotoPerfil(codigoUsuario, fileName);
+        }
+
+        public string RecuperarContrasenia(int paisId, string textoRecuperacion)
+        {
+            string resultado = string.Empty;
+            string urlportal = string.Empty;
+            string v_correo = string.Empty;
+            string v_codigousuario = string.Empty;
+            string v_nombre = string.Empty;
+            string v_clave = string.Empty;
+            List<BEUsuarioCorreo> lst = null;
+
+            try
+            {
+                urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
+                lst = new List<BEUsuarioCorreo>();
+                lst = SelectByValorRestauracion(textoRecuperacion, paisId).ToList();
+                v_codigousuario = lst[0].CodigoUsuario;
+                v_nombre = lst[0].NombreCompleto.Trim().Split(' ').First();
+                v_clave = lst[0].Clave;
+                if (lst[0].Cantidad == 0 && lst[0].Correo.Trim().Length == 0)
+                {
+                    resultado = "0" + "|" + "2";
+                }
+                else
+                {
+                    resultado = "1" + "|" + "4" + "|" + lst[0].Correo + "|" + v_nombre + "|" + v_clave + "|" + v_codigousuario + "|" + urlportal;
+                }
+            }
+            catch (Exception ex)
+            {
+                resultado = "0" + "|" + "6" + "|" + ex.Message;
+                LogManager.SaveLog(ex, string.Empty, string.Empty);
+            }
+
+            return resultado;
+        }
+        public List<BEUsuarioCorreo> SelectByValorRestauracion(string ValorRestauracion, int paisID)
+        {
+            List<BEUsuarioCorreo> UsuarioCorreo = new List<BEUsuarioCorreo>();
+            var DAUsuario = new DAUsuario(paisID);
+            using (IDataReader reader = DAUsuario.GetRestaurarClaveUsuario(ValorRestauracion, paisID))
+                while (reader.Read())
+                {
+                    UsuarioCorreo.Add(new BEUsuarioCorreo(reader));
+                }
+            return UsuarioCorreo;
         }
 
         #region Restaurar Contraseña

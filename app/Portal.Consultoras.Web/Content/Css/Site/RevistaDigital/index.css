@@ -213,7 +213,6 @@
         overflow: hidden;
         font-weight: bold;
         margin-bottom: 15px;
-        display: -webkit-box;
         -webkit-line-clamp: 2;
         text-overflow: ellipsis;
         -webkit-box-orient: vertical;
@@ -223,14 +222,12 @@
         margin: 0 auto;
         width: 100%;
         max-width: 177px;
-        overflow: hidden;
-        height: 40px;
-        display: flex;
+        display: -webkit-box;
+        display: block;
         justify-content: center;
         align-content: center;
         flex-direction: column;
         line-height: 18px;
-        display: block;
     }
 
     .revistadigital-landing .content_item_carrusel_clubganamas p.primero {
@@ -299,13 +296,14 @@
 
     .btn_diagonal:after {
         content: '';
+        color: #fff;
         position: absolute;
         top: 0;
         width: 208px;
         height: 298px;
         z-index: -1;
         transform-origin: 0 0;
-        transform: translateX(calc(20% - 25px)) translateY(10%) rotate(-45deg);
+        transform: translateX(calc(20% + 25px)) translateY(10%) rotate(-45deg);
         transform: translateY(40%) translateX(270px) rotate(-75deg);
         transition: transform .5s;
     }
@@ -336,7 +334,13 @@
         transition: all .6s ease-in-out;
         letter-spacing: 1px;
     }
+.btn_stroke2:hover::after {
+    transform: translateY(40%) translateX(-180px) rotate(-75deg) !important;
+}
 
+.btn_stroke2:hover a {
+    color: #ffffff !important;
+}
 /* boton rojo */
 .rd_btn_rojo {
     width: 260px;
@@ -553,3 +557,11 @@
 }
 
 /* fin nuevo landing de revista 6.11.2017 */
+
+.banner_pedido_masofertas .btn_diagonal img {
+    position: relative;
+    top: 1px;
+    width: 8px;
+    height: 12px;
+    margin-left: 5px;
+}

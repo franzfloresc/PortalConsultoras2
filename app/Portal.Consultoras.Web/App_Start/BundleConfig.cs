@@ -155,7 +155,15 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/asesora-online.css"
             ));
 
-            bundles.Add(new StyleBundle("~/Content/Css/Site/Esika/Contenedor").Include("~/Content/Css/Site/Esika/Contenedor.css"));
+            bundles.Add(new StyleBundle("~/Content/Css/Site/Esika/Contenedor").Include(
+                "~/Content/Css/Site/Contenedor/Index.css",
+                "~/Content/Css/Site/Esika/Contenedor.css"
+            ));
+            
+            bundles.Add(new StyleBundle("~/Content/Css/Mobile/Esika/Contenedor").Include(
+                "~/Content/Css/Mobile/Contenedor/Index.css",
+                "~/Content/Css/Mobile/Esika/Contenedor.css"
+            ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/Lbel/CssSB2").Include(
                "~/Content/Css/Site/flipclock.css",
@@ -166,9 +174,17 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/RevistaDigital/index.css",
                "~/Content/Css/Site/Lbel/revistaDigital.css",
                "~/Content/Css/Site/Lbel/seccion-descarga-imprime.css"
-               ));
+            ));
 
-            bundles.Add(new StyleBundle("~/Content/Css/Site/Lbel/Contenedor").Include("~/Content/Css/Site/Lbel/Contenedor.css"));
+            bundles.Add(new StyleBundle("~/Content/Css/Site/Lbel/Contenedor").Include(
+                "~/Content/Css/Site/Contenedor/Index.css",
+                "~/Content/Css/Site/Lbel/Contenedor.css"
+            ));
+
+            bundles.Add(new StyleBundle("~/Content/Css/Mobile/Lbel/Contenedor").Include(
+                "~/Content/Css/Mobile/Contenedor/Index.css",
+                "~/Content/Css/Mobile/Lbel/Contenedor.css"
+            ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Mobile/esika/CssSB2Mobile").Include(
                "~/Content/Css/Mobile/Esika/icomon.css",

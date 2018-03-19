@@ -4,16 +4,6 @@
 
 /* SECCIÓN REVISTA DIGITAL VISTA BIENVENIDA - PEDIDO - CATALOGO */
 
-.rd_logo {
-    background: rgba(233,27,55,1);
-    background: -moz-linear-gradient(-45deg, rgba(233,27,55,1) 0, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
-    background: -webkit-gradient(left top, right bottom, color-stop(0, rgba(233,27,55,1)), color-stop(31%, rgba(233,27,55,1)), color-stop(100%, rgba(157,7,29,1)));
-    background: -webkit-linear-gradient(-45deg, rgba(233,27,55,1) 0, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
-    background: -o-linear-gradient(-45deg, rgba(233,27,55,1) 0, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
-    background: -ms-linear-gradient(-45deg, rgba(233,27,55,1) 0, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
-    background: linear-gradient(135deg, rgba(233,27,55,1) 0, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e91b37', endColorstr='#9d071d', GradientType=1 );
-}
 .rd_logo_dorado {
     background-image: linear-gradient(to right, #b3842f, #d9b43c);
     box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.3);
@@ -235,12 +225,13 @@
     width: 100%;
     padding-left: 8px;
     padding-right: 8px;
-    margin-bottom: 16px;
+    padding-bottom: 16px;
     height: auto;
     font-family: 'Lato';
     letter-spacing: .2px;
     text-align: center;
     color: black;
+    overflow: hidden;
 }
 
     .producto_nombre_descripcion_bpt h6 {
@@ -249,8 +240,8 @@
         font-size: 11px;
         font-weight: 300;
         color: #000;
-        margin-top: 8px;
-        margin-bottom: 2px;
+        padding-top: 8px;
+        padding-bottom: 2px;
         text-transform: uppercase;
     }
 
@@ -261,7 +252,7 @@
         color: black;
         margin: 0 auto;
         width: 100%;
-        margin-top: 6px;
+        padding-top: 6px;
         font-weight: 900;
         overflow: hidden;
         display: -webkit-box;
@@ -287,7 +278,6 @@
     font-family: 'Lato';
     letter-spacing: .2px;
     color: #000;
-    margin-bottom: 12px;
 }
 .producto_precio_bpt .producto_precio_oferta_bpt b{
     position: relative;

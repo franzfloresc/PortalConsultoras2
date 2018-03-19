@@ -23,9 +23,9 @@
 
                 <div class="club_gana_mas_pedido club_gana_mas_pedido_activo" style="height: 289px; padding-bottom: 0;">
                     <div class="logo_club logo_club_activo"></div>
-                    <p class="primer-texto">CONSULTORAS YA SUSCRITAS</p>
+                    <p class="primer-texto">@Html.Raw(configuracionPaisDatosModel.Valor1)</p>
                     <p class="segundo-texto">
-                        ¡GANAN HASTA 10% MÁS!
+                        @Html.Raw(configuracionPaisDatosModel.Valor2)
                     </p>
                     <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">VER OFERTAS</a>
                 </div>
@@ -61,11 +61,8 @@
 
                 <div class="club_gana_mas_pedido">
                     <div class="logo_club"></div>
-                    <p class="primer-texto">@revistaDigital.NombreConsultora.ToUpper(), TODAS </p>
-                    <p class="segundo-texto">
-                        TUS OFERTAS EN UN<br/>
-                        SOLO LUGAR
-                    </p>
+                    <p class="primer-texto"> @Html.Raw(configuracionPaisDatosModel.Valor1)</p> 
+                    <p class="segundo-texto">@Html.Raw(configuracionPaisDatosModel.Valor2)<p>
                     <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">VER OFERTAS</a>
                 </div>
 
@@ -109,12 +106,12 @@ else if (revistaDigital.TieneRDI)
                     <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
                 </div>
                 <div class="banner_pedido_masofertas">
-                    <div class="banner_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
-                    <div class="btn_diagonal btn_stroke">
+                    <div class="banner_pedido_text margin_bottom_60">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
+                    <div class="btn_diagonal btn_stroke btn_stroke2">
                         <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalIntriga')">
                             VER TODAS MIS OFERTAS
                             <img class="rd_arrowrightnegro" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                            <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
 
                         </a>
                     </div>
@@ -124,11 +121,10 @@ else if (revistaDigital.TieneRDI)
             <!-- FIN PASE PEDIDO INSCRITAS C-11 -->
             @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
                                              new ViewDataDictionary {
-{ "Source", 2 },
-{ "NombreConsultora", revistaDigital.NombreConsultora },
-{ "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido },
-{ "NombrePalanca", revistaDigital.NombreComercialNoActiva }
-                                             });
+                                            { "Source", 2 },
+                                            { "NombreConsultora", revistaDigital.NombreConsultora },
+                                            { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido },
+                                            { "NombrePalanca", revistaDigital.NombreComercialNoActiva }});
 }
 else if (revistaDigital.TieneRDR)
 {

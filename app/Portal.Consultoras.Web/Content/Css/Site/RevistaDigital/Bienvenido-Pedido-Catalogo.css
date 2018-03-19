@@ -864,11 +864,15 @@
                     margin-bottom: 0;
                 }
 
-                .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt .centrar_vertical .centrar_cont_club {
-                    display: table-cell;
-                    vertical-align: middle;
-                    width: 100%;
-                }
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt .centrar_vertical .centrar_cont_club {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt .centrar_vertical .centrar_cont_club p b {
+    font-weight: 900;
+}
 
             .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_btn {
                 display: inline-block;
@@ -966,7 +970,6 @@
         text-decoration: none;
         line-height: 45px;
         letter-spacing: 1px;
-        background: linear-gradient(to right, #e81c36 50%, white 50%);
         background-size: 200% 100%;
         background-position: left bottom;
         transition: all .2s ease;
@@ -988,7 +991,6 @@
 
 /*BOTON LBEL NO ANIMADO: ROJO*/
 .activar_boton_lbel_no_animado {
-    background-color: #613c87 !important;
     color: white !important;
     padding: 15px 0px;
 }
@@ -1029,4 +1031,13 @@ margin-left: 5px;
     background-position-y: 8px !important;
     top: -37px;
     margin-left: -24px !important;
+}
+
+.btn_stroke2 {
+    background: #ffffff !important;
+    box-shadow: inset 0 0 0 1px black !important;
+}
+
+.margin_bottom_60 {
+    margin-bottom: 60px !important;
 }
