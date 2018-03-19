@@ -125,7 +125,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             {
                 var controller = new BaseControllerStub00(/*sessionManager.Object*/);
                 var userData = new UsuarioModel { ClaseLogoSB = "ClaseLogoSB" };
-                var revistaDigital = new RevistaDigitalModel { TieneRDC = false, TieneRDR = false };
+                var revistaDigital = new RevistaDigitalModel { TieneRDC = false };
 
                 var menuOferta = controller.BuildMenu(userData, revistaDigital);
 
@@ -470,7 +470,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     var userData = new UsuarioModel { };
                     var revistaDigital = new RevistaDigitalModel {
                         TieneRDC = false,
-                        TieneRDR = false,
                         TieneRDI = false,
                     };
 
@@ -491,7 +490,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     var revistaDigital = new RevistaDigitalModel
                     {
                         TieneRDC = true,
-                        TieneRDR = false,
                         TieneRDI = false,
                         EsSuscrita = false,
                         EsActiva = false,
@@ -513,7 +511,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     var revistaDigital = new RevistaDigitalModel
                     {
                         TieneRDC = true,
-                        TieneRDR = false,
                         TieneRDI = false,
                         EsSuscrita = false,
                         EsActiva = true,
@@ -535,11 +532,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     var revistaDigital = new RevistaDigitalModel
                     {
                         TieneRDC = true,
-                        TieneRDR = false,
-                        //
                         EsSuscrita = true,
                         EsActiva = false,
-                        //
                         LogoMenuOfertasActiva = "club-gana-mas.gif"
                     };
 
@@ -558,11 +552,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     var revistaDigital = new RevistaDigitalModel
                     {
                         TieneRDC = true,
-                        TieneRDR = false,
-                        //
                         EsSuscrita = true,
                         EsActiva = true,
-                        //
                         LogoMenuOfertasActiva = "club-gana-mas.gif"
                     };
 
@@ -590,7 +581,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     var revistaDigital = new RevistaDigitalModel
                     {
                         TieneRDC = false,
-                        TieneRDR = false,
                         TieneRDI = true,
                         LogoMenuOfertasNoActiva = "gana-mas.gif"
                     };
@@ -620,7 +610,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     });
                     var controller = new BaseController(sessionManager.Object);
                     var userData = new UsuarioModel { };
-                    var revistaDigital = new RevistaDigitalModel { TieneRDC = false, TieneRDR = false, TieneRDI = false };
+                    var revistaDigital = new RevistaDigitalModel { TieneRDC = false, TieneRDI = false };
 
                     var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
 
@@ -647,7 +637,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     var revistaDigital = new RevistaDigitalModel
                     {
                         TieneRDC = true,
-                        TieneRDR = false, 
                         TieneRDI = false,
                         EsSuscrita = false,
                         EsActiva = false
@@ -676,7 +665,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     var revistaDigital = new RevistaDigitalModel
                     {
                         TieneRDC = true,
-                        TieneRDR = false,
                         TieneRDI = false,
                         EsSuscrita = false,
                         EsActiva = true
@@ -705,9 +693,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     var revistaDigital = new RevistaDigitalModel
                     {
                         TieneRDC = true,
-                        TieneRDR = false,
                         TieneRDI = false,
-                        //
                         EsSuscrita = true,
                         EsActiva = false
                     };
@@ -735,8 +721,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     var revistaDigital = new RevistaDigitalModel
                     {
                         TieneRDC = true,
-                        TieneRDR = false,
-                        //
                         EsSuscrita = true,
                         EsActiva = true,
                     };
@@ -786,7 +770,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     var userData = new UsuarioModel { };
                     var revistaDigital = new RevistaDigitalModel {
                         TieneRDC = false,
-                        TieneRDR = false,
                         TieneRDI = true
                     };
 

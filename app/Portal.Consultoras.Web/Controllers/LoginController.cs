@@ -1506,7 +1506,6 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneOpt(true);
                     sessionManager.SetTieneOpm(true);
                     sessionManager.SetTieneOpmX1(true);
-                    sessionManager.SetTieneRdr(true);
 
                     usuarioModel.FotoPerfil = usuario.FotoPerfil;
                 }
@@ -2107,18 +2106,6 @@ namespace Portal.Consultoras.Web.Controllers
                                 revistaDigitalModel.BloqueoRevistaImpresa = revistaDigitalModel.BloqueoRevistaImpresa || c.BloqueoRevistaImpresa;
                                 break;
 
-                            //if (revistaDigitalModel.TieneRDC)
-                            //    break;
-
-                            //revistaDigitalModel = ConfiguracionPaisDatosRevistaDigitalReducida(revistaDigitalModel,
-                            //    listaPaisDatos
-                            //        .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
-                            //        .ToList(), usuarioModel.CodigoISO);
-
-                            //revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel, usuarioModel.Sobrenombre);
-                            //revistaDigitalModel.TieneRDR = true;
-                            //break;
-
                             case Constantes.ConfiguracionPais.RevistaDigitalIntriga:
                                 if (revistaDigitalModel.TieneRDC)
                                 {
@@ -2185,8 +2172,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 break;
                         }
                     }
-
-                    revistaDigitalModel.TieneRDR = !revistaDigitalModel.TieneRDC && revistaDigitalModel.TieneRDR;
+                    
                     revistaDigitalModel.Campania = usuarioModel.CampaniaID % 100;
                     revistaDigitalModel.CampaniaMasUno =
                         Util.AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1, usuarioModel.NroCampanias) % 100;
@@ -2403,60 +2389,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return herramientasVentaModel;
         }
-
-        public virtual RevistaDigitalModel ConfiguracionPaisDatosRevistaDigitalReducida(RevistaDigitalModel revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
-        {
-            try
-            {
-                revistaDigitalModel.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
-
-                if (listaDatos == null || !listaDatos.Any())
-                    return revistaDigitalModel;
-
-                var value1 =
-                    listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercial);
-                if (value1 != null)
-                {
-                    revistaDigitalModel.DLogoComercialNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
-                    revistaDigitalModel.MLogoComercialNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
-                }
-
-                value1 = listaDatos.FirstOrDefault(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercialFondo);
-                if (value1 != null)
-                {
-                    revistaDigitalModel.DLogoComercialFondoNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
-                    revistaDigitalModel.MLogoComercialFondoNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
-                }
-
-                value1 = listaDatos.FirstOrDefault(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoMenuOfertas);
-                if (value1 != null)
-                    revistaDigitalModel.LogoMenuOfertasNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
-
-                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
-                if (value1 != null) revistaDigitalModel.BloqueoProductoDigital = value1.Valor1 == "1";
-
-                listaDatos.RemoveAll(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercial
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercialFondo
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoMenuOfertas
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital
-                );
-
-                revistaDigitalModel.ConfiguracionPaisDatos =
-                    Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ??
-                    new List<ConfiguracionPaisDatosModel>();
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty,
-                    "LoginController.ConfiguracionPaisDatosRevistaDigitalReducida");
-            }
-
-            return revistaDigitalModel;
-        }
-
+        
         public virtual RevistaDigitalModel ConfiguracionPaisDatosRevistaDigitalIntriga(RevistaDigitalModel revistaDigital, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
         {
             try
@@ -2532,7 +2465,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             revistaDigitalModel.TieneRDC = true;
             revistaDigitalModel.TieneRDS = true;
-            revistaDigitalModel.TieneRDR = false;
             ActualizarSubscripciones(revistaDigitalModel, usuarioModel);
 
             #region Campanias y Estados Es Activas - Es Suscrita

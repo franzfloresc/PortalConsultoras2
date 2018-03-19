@@ -46,7 +46,6 @@ namespace Portal.Consultoras.Web.Models
         public string EstadoRdcAnalytics { get; set; }
 
         public bool TieneRDI { get; set; }
-        public bool TieneRDR { get; set; }
         public bool TieneRDCR { get; set; }
         public bool TieneRDC { get; set; }
         public bool TieneRDS { get; set; }
@@ -138,7 +137,7 @@ namespace Portal.Consultoras.Web.Models
 
         public bool TieneRevistaDigital()
         {
-            return TieneRDC || TieneRDR;
+            return TieneRDC;
         }
     }
 }

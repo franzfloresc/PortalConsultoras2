@@ -3346,21 +3346,18 @@ namespace Portal.Consultoras.Web.Controllers
         public bool RDObtenerTitulosSeccion(ref string titulo, ref string subtitulo, string codigo)
         {
             if (codigo == Constantes.ConfiguracionPais.RevistaDigital && !revistaDigital.TieneRDC) return false;
-
-            if (codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida && !revistaDigital.TieneRDR) return false;
-
+            
             titulo = revistaDigital.TieneRDC
                 ? (revistaDigital.EsActiva || revistaDigital.EsSuscrita)
                     ? "OFERTAS CLUB GANA+"
                     : "OFERTAS GANA+"
-                : revistaDigital.TieneRDR ? "OFERTAS GANA+" : "";
+                : "";
 
             subtitulo = userData.Sobrenombre.ToUpper() + ", PRUEBA LAS VENTAJAS DE COMPRAR OFERTAS PERSONALIZADAS";
 
             if (codigo == Constantes.ConfiguracionPais.OfertasParaTi)
             {
                 if (revistaDigital.TieneRDC) return false;
-                if (revistaDigital.TieneRDR) return false;
 
                 titulo = "MÁS OFERTAS PARA TI " + userData.Sobrenombre.ToUpper();
                 subtitulo = "EXCLUSIVAS SÓLO POR WEB";
@@ -3623,10 +3620,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 menuContenedor = menuContenedor.Where(e => e.Codigo != Constantes.ConfiguracionPais.RevistaDigital).ToList();
             }
-            if (campaniaIdMenuActivo == campaniaIdUsuario && !sessionManager.GetTieneRdr())
-            {
-                menuContenedor = menuContenedor.Where(e => e.Codigo != Constantes.ConfiguracionPais.RevistaDigitalReducida).ToList();
-            }
             if (campaniaIdMenuActivo == campaniaIdUsuario && !sessionManager.GetTieneHv())
             {
                 menuContenedor = menuContenedor.Where(e => e.Codigo != Constantes.ConfiguracionPais.HerramientasVenta).ToList();
@@ -3721,6 +3714,7 @@ namespace Portal.Consultoras.Web.Controllers
                         config.Descripcion = string.Empty;
                         config = ActualizarTituloYSubtituloBanner(config, revistaDigital);
                         break;
+
                     case Constantes.ConfiguracionPais.Inicio:
                         if (revistaDigital.TieneRevistaDigital())
                             continue;
@@ -3892,14 +3886,7 @@ namespace Portal.Consultoras.Web.Controllers
                 codigo = Constantes.ConfiguracionPaisDatos.RD.DLandingBannerNoActivaNoSuscrita;
                 codigoMobile = Constantes.ConfiguracionPaisDatos.RD.MLandingBannerNoActivaNoSuscrita;
             }
-
-            if (cp.Codigo == Constantes.ConfiguracionPais.RevistaDigital &&
-                revistaDigital.TieneRDR)
-            {
-                codigo = Constantes.ConfiguracionPaisDatos.RDR.DRDRLandingBanner;
-                codigoMobile = Constantes.ConfiguracionPaisDatos.RDR.MRDRLandingBanner;
-            }
-
+            
             if (!string.IsNullOrEmpty(codigo))
             {
                 var datoDesktop = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();

@@ -247,54 +247,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 Assert.IsNotNull(result.ConfiguracionPaisDatos);
                 Assert.AreEqual(result.ConfiguracionPaisDatos.Codigo, Constantes.ConfiguracionPaisDatos.RD.DBienvenidaNoInscritaNoActiva);
             }
-
-
-
-
-            [TestMethod]
-            public void GetPartialSectionBptModel_RevistaDigitalModelNoTieneDBienvenidaRdr_ResultConfiguracionPaisDatosIsNotNull()
-            {
-                var controller = new BienvenidaController(logManager.Object);
-                var revistaDigitalModel = new RevistaDigitalModel
-                {
-                    TieneRDR = true,
-                    ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel> { }
-                };
-
-                var result = controller.GetPartialSectionBptModel(revistaDigitalModel);
-
-
-                Assert.IsNotNull(result.ConfiguracionPaisDatos);
-                Assert.IsNull(result.ConfiguracionPaisDatos.Codigo);
-
-            }
-
-            [TestMethod]
-            public void GetPartialSectionBptModel_RevistaDigitalModelTieneDBienvenidaRdr_ResultTieneDBienvenidaRdr()
-            {
-                var controller = new BienvenidaController(logManager.Object);
-                var revistaDigitalModel = new RevistaDigitalModel
-                {
-                    TieneRDR = true,
-                    ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>
-                    {
-                        new ConfiguracionPaisDatosModel
-                        {
-                            Codigo = Constantes.ConfiguracionPaisDatos.RDR.DBienvenidaRdr
-                        }
-                    }
-                };
-
-                var result = controller.GetPartialSectionBptModel(revistaDigitalModel);
-
-
-                Assert.IsNotNull(result.ConfiguracionPaisDatos);
-                Assert.AreEqual(result.ConfiguracionPaisDatos.Codigo, Constantes.ConfiguracionPaisDatos.RDR.DBienvenidaRdr);
-            }
-
-
-
-
+            
 
             [TestMethod]
             public void GetPartialSectionBptModel_RevistaDigitalModelNoTieneDBienvenidaIntriga_ResultConfiguracionPaisDatosIsNotNull()
