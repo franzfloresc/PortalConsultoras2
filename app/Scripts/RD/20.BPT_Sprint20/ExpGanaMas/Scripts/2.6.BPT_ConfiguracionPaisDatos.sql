@@ -73,6 +73,8 @@ update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'MPedidoNoInscritaNoActiva')
 update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>', Valor2 = '' where Codigo = 'MPedidoNoInscritaNoActiva'
 
+GO
+
 USE BelcorpMexico
 GO
 
@@ -147,6 +149,8 @@ update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN 
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'MPedidoNoInscritaNoActiva')
 update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>', Valor2 = '' where Codigo = 'MPedidoNoInscritaNoActiva'
+
+GO
 
 USE BelcorpColombia
 GO
@@ -223,6 +227,8 @@ update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'MPedidoNoInscritaNoActiva')
 update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>', Valor2 = '' where Codigo = 'MPedidoNoInscritaNoActiva'
 
+GO
+
 USE BelcorpSalvador
 GO
 
@@ -297,6 +303,8 @@ update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN 
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'MPedidoNoInscritaNoActiva')
 update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>', Valor2 = '' where Codigo = 'MPedidoNoInscritaNoActiva'
+
+GO
 
 USE BelcorpPuertoRico
 GO
@@ -373,6 +381,8 @@ update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'MPedidoNoInscritaNoActiva')
 update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>', Valor2 = '' where Codigo = 'MPedidoNoInscritaNoActiva'
 
+GO
+
 USE BelcorpPanama
 GO
 
@@ -447,6 +457,8 @@ update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN 
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'MPedidoNoInscritaNoActiva')
 update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>', Valor2 = '' where Codigo = 'MPedidoNoInscritaNoActiva'
+
+GO
 
 USE BelcorpGuatemala
 GO
@@ -523,6 +535,8 @@ update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'MPedidoNoInscritaNoActiva')
 update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>', Valor2 = '' where Codigo = 'MPedidoNoInscritaNoActiva'
 
+GO
+
 USE BelcorpEcuador
 GO
 
@@ -597,6 +611,8 @@ update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN 
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'MPedidoNoInscritaNoActiva')
 update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>', Valor2 = '' where Codigo = 'MPedidoNoInscritaNoActiva'
+
+GO
 
 USE BelcorpDominicana
 GO
@@ -673,6 +689,8 @@ update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'MPedidoNoInscritaNoActiva')
 update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>', Valor2 = '' where Codigo = 'MPedidoNoInscritaNoActiva'
 
+GO
+
 USE BelcorpCostaRica
 GO
 
@@ -747,6 +765,8 @@ update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN 
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'MPedidoNoInscritaNoActiva')
 update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>', Valor2 = '' where Codigo = 'MPedidoNoInscritaNoActiva'
+
+GO
 
 USE BelcorpChile
 GO
@@ -823,6 +843,8 @@ update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'MPedidoNoInscritaNoActiva')
 update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>', Valor2 = '' where Codigo = 'MPedidoNoInscritaNoActiva'
 
+GO
+
 USE BelcorpBolivia
 GO
 
@@ -897,4 +919,6 @@ update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN 
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'MPedidoNoInscritaNoActiva')
 update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>', Valor2 = '' where Codigo = 'MPedidoNoInscritaNoActiva'
+
+GO
 
