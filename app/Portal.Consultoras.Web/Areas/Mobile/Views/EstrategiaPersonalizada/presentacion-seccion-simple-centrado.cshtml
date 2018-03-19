@@ -1,13 +1,21 @@
 ﻿
 @model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
 
+@{
+    var headerClass = "";
+
+    if (ViewBag.EsSuscrita)
+    {
+        headerClass += " seccion-titulo-dorado";
+    }
+}
 
 <div class="bc_plantilla_estrategia_personalizada" style="padding: 0 10%;" data-plantilla="simple-centrado">
     @if (@Model.Titulo != "")
     {
         <div class="titulo" style="text-align: center;">
-            <h2>@Model.Titulo</h2>
+            <h2 class="@headerClass">@Model.Titulo</h2>
         </div>
     }
-    <div class="contenido" data-seccion-productos="" ></div>
+    <div class="contenido" data-seccion-productos=""></div>
 </div>

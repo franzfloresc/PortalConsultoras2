@@ -151,6 +151,8 @@
                                         @{
                                             var opcion = "CATÁLOGOS Y REVISTAS";
                                             var tooltip = "Mis Catálogos y Revistas";
+                                            opcion = ViewBag.TieneRDC? ViewBag.EsSuscrita ? "CATÁLOGOS" : opcion : opcion;
+                                            tooltip = ViewBag.TieneRDC? ViewBag.EsSuscrita ? "Mis Catálogos" : tooltip : tooltip;
                                         }
                                         <a href="javascript:;" class="menu_imagen" onclick="RedirectMenu('Index', 'MisCatalogosRevistas', 0, 'MisCatalogosRevistas')" target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="@tooltip" id="lnk-pri-miscatalogosrevistas">
                                             <img role="menu" region="Principal" parent="MI NEGOCIO" title="@tooltip" src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_01.png" />

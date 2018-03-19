@@ -189,7 +189,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.MontoEscala = pedidoWeb.MontoEscala;
                     model.TotalConDescuento = model.Total - model.MontoDescuento;
 
-                    model.ListaParametriaOfertaFinal = GetParametriaOfertaFinal(GetOfertaFinal().Algoritmo);
+                    model.ListaParametriaOfertaFinal = GetParametriaOfertaFinal(sessionManager.GetOfertaFinalModel().Algoritmo);
                 }
                 else
                 {
@@ -338,7 +338,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.Ambiente = GetBucketNameFromConfig();
                 ViewBag.CodigoConsultora = userData.CodigoConsultora;
                 model.TieneMasVendidos = userData.TieneMasVendidos;
-                var ofertaFinal = GetOfertaFinal();
+                var ofertaFinal = sessionManager.GetOfertaFinalModel();
                 ViewBag.OfertaFinalEstado = ofertaFinal.Estado;
                 ViewBag.OfertaFinalAlgoritmo = ofertaFinal.Algoritmo;
                 ViewBag.UrlFranjaNegra = GetUrlFranjaNegra();
@@ -3390,8 +3390,9 @@ namespace Portal.Consultoras.Web.Controllers
                     return;
                 }
 
-                if (!flagkit) //Kit en 2 y 3 pedido
-                    if (obeConfiguracionProgramaNuevas.IndProgObli != "1") return;
+                // flagkit => Kit en 2 y 3 pedido
+                if (!flagkit && obeConfiguracionProgramaNuevas.IndProgObli != "1")
+                    return;
 
                 var listaTempListado = ObtenerPedidoWebDetalle();
 
@@ -3824,7 +3825,7 @@ namespace Portal.Consultoras.Web.Controllers
                 descuentoprol = listPedido[0].DescuentoProl;
             }
 
-            var ofertaFinal = GetOfertaFinal();
+            var ofertaFinal = sessionManager.GetOfertaFinalModel();
             var objOfertaFinal = new ListaParametroOfertaFinal
             {
                 ZonaID = userData.ZonaID,

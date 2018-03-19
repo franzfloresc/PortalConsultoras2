@@ -1,0 +1,537 @@
+﻿.revistadigital .boxoffer, .contenedor_botonVerMasOfertas .boxoffer {
+    width: 102px;
+    height: 60px;
+    position: absolute;
+    top: 275px;
+    right: -5px;
+    background: transparent;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+}
+
+    .revistadigital .boxoffer:hover, .contenedor_botonVerMasOfertas .boxoffer:hover {
+        opacity: .95;
+    }
+
+    .revistadigital .boxoffer .fondo_boton, .contenedor_botonVerMasOfertas .boxoffer .fondo_boton {
+        width: 100%;
+        height: 67px;
+        transform: skewX(-14deg);
+        position: absolute;
+        left: -14px;
+        background: -moz-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
+        background: -webkit-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
+        background: -o-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
+        background: -ms-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
+        background: linear-gradient(to bottom, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
+        box-shadow: 3px 2px 5px rgba(0,0,0,.25);
+        -moz-box-shadow: 3px 2px 5px rgba(0,0,0,.25);
+        -o-box-shadow: 3px 2px 5px rgba(0,0,0,.25);
+        -ms-box-shadow: 3px 2px 5px rgba(0,0,0,.25);
+        -webkit-box-shadow: 3px 2px 5px rgba(0,0,0,.25);
+    }
+
+    .revistadigital .boxoffer .texto_boton, .contenedor_botonVerMasOfertas .boxoffer .texto_boton {
+        position: absolute;
+        font-family: 'Lato';
+        font-size: 11px;
+        color: #fff;
+        top: 8px;
+        left: 12px;
+        text-align: left;
+        width: 72px;
+        line-height: 15px;
+    }
+
+        .revistadigital .boxoffer .texto_boton:after, .contenedor_botonVerMasOfertas .boxoffer .texto_boton:after {
+            width: 13px;
+            height: 32px;
+            position: absolute;
+            content: '';
+            top: 7px;
+            right: 5px;
+            background: url('/Content/Images/flecha-right.svg') no-repeat center center;
+            background-size: 100%;
+            z-index: 100;
+        }
+
+.revistadigital .content_item_home .etiqueta-producto {
+    display: block;
+    width: 95px;
+    height: 28px;
+    position: relative;
+    overflow: hidden;
+}
+
+.revistadigital .content_item_home .fondo-etiqueta {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    transform: skew(-17deg);
+    left: -5px;
+}
+
+.revistadigital .content_item_home .etiqueta-producto span {
+    display: block;
+    color: #fff;
+    font-family: 'Lato';
+    font-size: 13px;
+    position: relative;
+    text-align: left;
+    padding-top: 4px;
+    padding-left: 10px;
+    letter-spacing: 3.5px;
+}
+
+.contenedor_carrusel_home .content_item_carrusel_clubganamas {
+    background-image: linear-gradient(48deg, #b3842f, #d9b43c) !important;
+    border: none !important;
+    min-height: 378px !important;
+    padding: 111px 30px 33px 30px;
+}
+
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas .clubganamas_logo {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas p {
+        display: block;
+        width: 100%;
+        height: 161px;
+        font-family: Lato;
+        font-size: 24px;
+        font-weight: 900;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 1.8px;
+        text-align: center;
+        margin: auto;
+        color: #ffffff;
+        margin-bottom: 22px;
+        /* margin-left: -6%; */
+        word-wrap: break-word;
+    }
+
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas a {
+        font-size: 13px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.31;
+        letter-spacing: 1px;
+        text-align: center;
+        color: #ffffff;
+        width: 100%;
+        border: 1px solid white;
+        /* padding: 18.6px 0px; */
+        height: 46px;
+        padding: 13px 0px;
+        display: block;
+    }
+
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas p.primero {
+        display: block;
+        width: 100%;
+        height: auto;
+        font-family: Lato;
+        font-size: 16px;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 1.8px;
+        text-align: center;
+        margin: auto;
+        margin-bottom: auto;
+        color: #ffffff;
+        word-wrap: break-word;
+        margin-bottom: 10px;
+        font-weight: normal !important;
+    }
+
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas p.segundo {
+        display: block;
+        width: 100%;
+        height: auto;
+        font-family: Lato;
+        font-size: 16px;
+        font-weight: 900;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 1.8px;
+        text-align: center;
+        margin: auto;
+        margin-bottom: auto;
+        color: #ffffff;
+        margin-bottom: 22px;
+        word-wrap: break-word;
+    }
+
+@media only screen and (max-width: 991px) {
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas {
+        padding: 111px 20px 33px 20px;
+    }
+
+        .contenedor_carrusel_home .content_item_carrusel_clubganamas p {
+            font-size: 15px;
+        }
+}
+
+.contenedor_carrusel_home .content_item_carrusel_clubganamas_off {
+    background-image: linear-gradient(48deg, white, white) !important;
+    padding: 20px 20px;
+    height: 379px !important;
+    border: 1px solid #e7e1e1 !important;
+}
+
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas_off img.portada {
+        width: 100%;
+        margin-top: 22px;
+        height: 145px;
+    }
+
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas_off a.portada {
+        border: 1px solid black !important;
+        color: black !important;
+        font-size: 13px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.31;
+        letter-spacing: 1px;
+        text-align: center;
+        color: #ffffff;
+        width: 100%;
+        border: 1px solid white;
+        padding: 14px 0px;
+        margin-top: 5px;
+        height:45px !important;
+    }
+
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas_off .centrar-tercero {
+        display: table;
+        height: 93px;
+        width:100%;
+    }
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas_off .centrar-tercero-centro {
+        display: table-cell;
+        vertical-align: middle;
+        height: 107px;
+        width: 100%;
+    }
+
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas_off p.tercero {
+        overflow: hidden;
+        font-weight: bold;
+        margin-bottom: 15px;
+        -webkit-line-clamp: 2;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        padding: 0;
+        font-size: 13px;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 177px;
+        height: 40px;
+        display: -webkit-box;
+        display: block;
+        justify-content: center;
+        align-content: center;
+        flex-direction: column;
+        line-height: 18px;
+        color: black;
+    }
+
+/* SECCIÓN REVISTA DIGITAL VISTA CATÁLOGOS Y REVISTAS */
+
+div#tab_revistasdigital_mobile {
+    margin: -35px auto 0 auto;
+    width: 100%;
+    max-width: 400px;
+}
+
+.contenedor_seccionRevistaDigital {
+    display: block;
+    margin: 0 15px;
+    padding-left: 34px;
+}
+
+.seccionRevistaDigital_logo_marca {
+    height: 97px;
+    display: block;
+}
+
+    .seccionRevistaDigital_logo_marca img {
+        text-align: left;
+        width: auto;
+        height: 100%;
+    }
+
+.contenido_seccionRevistaDigital {
+    display: block;
+    margin-top: 9px;
+    position: relative;
+    z-index: 5;
+}
+
+    .contenido_seccionRevistaDigital span {
+        font-family: 'Lato';
+        font-weight: bold;
+        width: 100%;
+    }
+
+        .contenido_seccionRevistaDigital span:first-child {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .contenido_seccionRevistaDigital span:last-child {
+            font-size: 13px;
+        }
+
+.contenedor_botonVerMasOfertas {
+    display: block;
+    position: relative;
+    margin-top: 32px;
+}
+
+    .contenedor_botonVerMasOfertas .boxoffer {
+        left: 0;
+        right: 0;
+        top: 0;
+    }
+
+.rd_logo {
+    text-align: center;
+    position: relative;
+}
+
+    .rd_logo:after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 0;
+        height: 0;
+        clear: both;
+    }
+
+.banner_pedido_rd {
+    height: auto;
+    width: 100%;
+    position: relative;
+    background-color: #F6F6F6;
+    height: auto;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, .2);
+    margin-bottom: 20px;
+    font-family: 'Lato';
+}
+
+.cabecera_pedido_rd {
+    background-color: black;
+}
+
+    .cabecera_pedido_rd .rd_logo {
+        width: 120px;
+        height: 85px;
+        text-transform: uppercase;
+    }
+
+        .cabecera_pedido_rd .rd_logo img {
+            width: 79%;
+            margin: auto;
+            display: block;
+            padding: 5px 5px 10px 0;
+        }
+
+        .cabecera_pedido_rd .rd_logo:after {
+            border-left: 20px solid transparent;
+            border-right: 0 solid transparent;
+            border-bottom: 85px solid #000;
+        }
+
+        .cabecera_pedido_rd .rd_logo img.small {
+            width: 80px;
+            padding-top: 22px;
+        }
+
+.cabecera_pedido_text {
+    color: white;
+    position: absolute;
+    top: 13px;
+    left: 130px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    line-height: 18px;
+    font-size: 13px;
+    text-align: left;
+    text-transform: uppercase;
+    padding-right: 8px;
+}
+
+
+.wrapper_resumen_mobile_clubganamas {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 580px;
+}
+
+    .wrapper_resumen_mobile_clubganamas .zonadecolor {
+        width: 100%;
+        height: 247px;
+        background: black;
+    }
+
+    .wrapper_resumen_mobile_clubganamas .dorado {
+        background: linear-gradient(62deg, #b3842f, #d9b43c) !important;
+    }
+
+    .wrapper_resumen_mobile_clubganamas .zonadecolor div.logo-club-etiqueta {
+        width: 90px;
+        height: 42px;
+        position: absolute;
+    }
+
+    .wrapper_resumen_mobile_clubganamas .zonadecolor span {
+        display: block;
+        width: 209px;
+        margin: auto;
+        line-height: 1.31;
+        letter-spacing: 0.5px;
+        text-align: center;
+        color: #ffffff;
+        font-size: 13px;
+        padding: 10px 0 15px 0;
+        text-transform: uppercase;
+    }
+
+        .wrapper_resumen_mobile_clubganamas .zonadecolor span.margin_top {
+            padding-top: 50px !important;
+        }
+        .wrapper_resumen_mobile_clubganamas .zonadecolor span p.primero {
+            display: block;
+            font-weight: normal !important;
+            margin-bottom: 3px;
+        }
+
+        .wrapper_resumen_mobile_clubganamas .zonadecolor span p.segundo {
+            display: block;
+            font-weight: 900;
+            margin-bottom: 0;
+        }
+
+    .wrapper_resumen_mobile_clubganamas .zonadecolor a.boton-ver-mas {
+        display: block;
+        width: 209px;
+        text-transform: uppercase;
+        text-align: center;
+        font-size: 13px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.31;
+        letter-spacing: 1px;
+        color: #ffffff;
+        margin: auto;
+        border: 1px solid white;
+        padding: 13px 0px;
+    }
+
+    .wrapper_resumen_mobile_clubganamas .zona-items {
+        height: 440px;
+        overflow: hidden;
+        width: 100%;
+        margin-top: -88px;
+    }
+
+.banner_pedido_masofertas {
+    padding: 25px 20px;
+    text-align: center;
+}
+
+.banner_pedido_text {
+    font-size: 16px;
+    line-height: 20px;
+    text-transform: uppercase;
+}
+
+.banner_pedido_text_dorado{
+    padding:0 10px;
+}
+
+.btn_red, .btn_black_solid, .btn_white_stroke {
+    margin: 20px 0;
+}
+.btn_dorado a {
+    background: #c39934 !important;
+    border: none;
+    color: white;
+}
+    .btn_red a {
+        text-decoration: none;
+        padding: 15px;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: .5px;
+        font-family: 'Lato';
+        display: block;
+        width: 100%;
+        word-wrap: break-word;
+    }
+
+    .btn_black_solid a, .btn_white_stroke a {
+        background-color: black;
+        color: white;
+        text-decoration: none;
+        padding: 15px 25px;
+        border: 1px solid black;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: .5px;
+    }
+
+    .btn_white_stroke a {
+        border-color: white;
+    }
+
+.mob_home_bpt {
+    font-family: 'Lato';
+    text-align: center;
+}
+
+.rd_lanzamiento {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 20px 0 20px;
+}
+
+.rd_lanzamiento_producto {
+    width: 100%;
+    max-width: 320px;
+    margin: 20px 0;
+}
+
+.rd_verofertas {
+    background-color: black;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.mob_carrusel_bpt {
+    background-color: #F2EEF0;
+    padding-bottom: 30px;
+    font-weight: 600;
+}

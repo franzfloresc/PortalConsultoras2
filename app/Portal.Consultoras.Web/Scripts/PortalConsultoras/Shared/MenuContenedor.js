@@ -16,10 +16,15 @@ var menuModule = (function () {
         seccionMenuFija: "#seccion-fixed-menu",
         header: "header",
         bcMenuEstrategia: ".bc_menu_estrategia",
+        subnavegadorUl: "ul.subnavegador",
         aHover: "ul.subnavegador li a",
-        aMenuActivo: "ul.subnavegador li a.activo",
-        bcParaTiMenu: ".op_menu-horizontal ul li a",
-        bcParaTiMenuActivo: ".op_menu-horizontal ul li a.activo",
+        aMenuActivo: function () {
+            return "ul.subnavegador li a." + this.claseActivo;
+        },//"ul.subnavegador li a.activo",
+        bcParaTiMenu: ".op_menu-horizontal ul li a",    
+        bcParaTiMenuActivo: function () {
+            return ".op_menu-horizontal ul li a." + this.claseActivo;
+        },//".op_menu-horizontal ul li a.activo",
         mobContent: "#mob-content-layout",
         menuMobHome: ".opcion_home_vistaOfertas"
     },
@@ -47,11 +52,15 @@ var menuModule = (function () {
             $(elementos.menu2Ul).slick('slickGoTo', parseInt(posicionMenu));
         }
     }
-    function _changeLogoMobile() {
-        var img = $.trim($(elementos.menuMobHome).find('img').attr("src"));
+    function _changeLogoMenuDesktopAndMobile() {
+        if (!isMobile())_changeLogoMenu(elementos.subnavegadorUl);
+        if (isMobile())_changeLogoMenu(elementos.menuMobHome);
+    }
+    function _changeLogoMenu(selector) {
+        var img = $.trim($(selector).find('img').attr("src"));
         if (img !== "") {
             img = img.replace("_hover.", "_normal.");
-            $(elementos.menuMobHome).find('img').attr("src", img);
+            $(selector).find('img').attr("src", img);
         }
     }
     function _animateScrollTo(codigo, topHeight) {
@@ -68,6 +77,12 @@ var menuModule = (function () {
         alturaH = _getHeight(elementos.header);
         alturaE = alturaH + _getHeight(elementos.bcMenuEstrategia);
 
+        var esSuscrita = $(elementos.subnavegadorUl).data("es-suscrita");
+        var esActiva = $(elementos.subnavegadorUl).data("es-activa");
+        if (esSuscrita) {
+            elementos.claseActivo = "activo-dorado";
+        }
+
         url = document.location.href;
         $(elementos.seccionMenuMobile).height(_getHeight(elementos.seccionMenuFija) + 5);
         if ($(elementos.bcParaTiMenu).hasClass(elementos.claseActivo)) {
@@ -76,10 +91,10 @@ var menuModule = (function () {
             $(elementos.bcParaTiMenuActivo).find('img.click-menu').css('display', 'inline');
         }
         if ($(elementos.aHover).hasClass(elementos.claseActivo)) {
-            var img = $.trim($(elementos.aMenuActivo).find('img').attr("src"));
+            var img = $.trim($(elementos.aMenuActivo()).find('img').attr("src"));
             if (img !== "") {
                 img = img.replace("_normal.", "_hover.");
-                $(elementos.aMenuActivo).find('img').attr("src", img);
+                $(elementos.aMenuActivo()).find('img').attr("src", img);
             }
         }
     }
@@ -168,7 +183,7 @@ var menuModule = (function () {
                         _animateScrollTo(elementos.html, menuHeight);
                     }
                 }
-                _changeLogoMobile();
+                _changeLogoMenuDesktopAndMobile();
             }
         }
     }
@@ -184,7 +199,7 @@ var menuModule = (function () {
         objHtmlEvent.find("a").addClass(elementos.claseActivo);
 
         if (esAncla === "True") {
-            _changeLogoMobile();
+            _changeLogoMenuDesktopAndMobile();
             if (currentLocation.indexOf("/ofertasparati") > -1) {
                 var indexOf = currentLocation.replace("?", "&").indexOf("&campaniaid=");
                 var controller = "Ofertas#";

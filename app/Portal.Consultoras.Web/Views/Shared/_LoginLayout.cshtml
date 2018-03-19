@@ -9,22 +9,26 @@
     <meta http-equiv="pragma" content="no-cache" />
     <meta http-equiv="cache-control" content="no-cache" />
     <meta name="expires" content="0" />
-    <title data-id="titulo" id="tituloPagina">@ViewBag.TituloPagina</title>
     <meta name="description" content="Pasa tu pedido e informate de lo último de las marcas de Belcorp." />
     <meta name="author" content="Belcorp" />
     <meta property="og:title" content="Somos Belcorp| Cree en ti" />
     <meta property="og:description" content="Pasa tu pedido e informate de lo último de las marcas de Belcorp." />
     <meta property="og:image" content="~/Content/Images/Login2/logo_intro.png" />
     <meta property="og:site_name" content="Somos Belcorp" />
+
+    <title data-id="titulo" id="tituloPagina">@ViewBag.TituloPagina</title>
+
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
+
     <link rel="shortcut icon" type="image/x-icon" id="iconoPagina" data-id="iconPagina" href="@ViewBag.IconoPagina" />
-    
+
     <div data-id="cssStyle" id="cssStyle" @(ViewBag.EsPaisEsika == false ? "disabled='disabled'" : "")>
         @Styles.Render("~/Content/Css/Site/Login2/Esika")
     </div>
     <div data-id="cssStyleLbel" id="cssStyleLbel" @(ViewBag.EsPaisLbel == false ? "disabled='disabled'" : "")>
         @Styles.Render("~/Content/Css/Site/Login2/Lbel")
     </div>
-     
+
     @Styles.Render("~/Content/Css/Login")
 
     <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css' />
@@ -97,15 +101,22 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <!-- Google Tag Manager -->
-    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8" height="0" width="0" style="display:none;visibility:hidden;"></iframe>
+    </noscript>
     <script>
         (function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l !== 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-M8QMC8');
     </script>
     <!-- End Google Tag Manager -->

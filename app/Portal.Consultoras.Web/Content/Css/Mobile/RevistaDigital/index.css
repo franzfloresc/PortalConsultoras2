@@ -1,0 +1,393 @@
+﻿body {
+    overflow-x: hidden;
+}
+
+/* SECCIÓN REVISTA DIGITAL VISTA BIENVENIDA - PEDIDO - CATALOGO */
+
+.rd_logo_dorado {
+    background-image: linear-gradient(to right, #b3842f, #d9b43c);
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* FIN BIENVENIDA - PEDIDO - CATALOGO */
+
+.content_carrusel_landing {
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+    .content_carrusel_landing .btn_negro a {
+        border: none;
+    }
+
+.tabs_pagos li a {
+    padding: 15px 0px;
+    margin-bottom: 4px;
+}
+
+.content_item_ept {
+    background: white;
+    border: 1px solid #e7e1e1;
+    -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    position: relative;
+    margin-bottom: 20px;
+    padding: 0;
+}
+
+.titulo_set_banner_ept {
+    text-align: center;
+    padding-left: 8%;
+    padding-right: 8%;
+    font-family: 'Lato';
+    font-size: 13px;
+    color: #FF1534;
+}
+
+.detalle_set_banner_ept {
+    text-align: center;
+    padding-left: 8%;
+    padding-right: 8%;
+    font-family: 'Lato';
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 2px;
+}
+
+.btn_mas_info_set {
+    text-align: center;
+    font-family: 'Lato';
+    font-size: 13px;
+    display: block;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.etiqueta_nuevo_ept {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.content_set_imagen_banner {
+    text-align: center;
+    margin-top: 34px;
+    height: 111px;
+}
+
+    .content_set_imagen_banner img {
+        width: auto;
+        height: 106px;
+    }
+
+.slick-slider {
+    margin-top: 0;
+}
+
+.subtitulo_landing {
+    float: left;
+    width: auto;
+    background: #D6251F;
+    font-family: 'LAto';
+    font-size: 17px;
+    height: 45px;
+    line-height: 45px;
+    color: white;
+    padding-left: 15px;
+    padding-right: 20px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    position: relative;
+}
+
+    .subtitulo_landing:after {
+        content: '';
+        position: absolute;
+        right: -19px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 45px 20px 0 0;
+        border-color: #d6251f transparent transparent transparent;
+    }
+
+.ofertaProductoslanding .content_item_home {
+    margin-bottom: 35px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border: 0;
+}
+
+.nombre_producto_bpt {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.title-compartir {
+    font-family: 'Lato';
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn-ofertas-margen-fix {
+    margin-top: 10px;
+}
+
+@media (max-width : 800px) {
+    .js-slick-prev {
+        padding-right: 10px;
+    }
+
+    .js-slick-next {
+        padding-left: 10px;
+    }
+
+    .js-slick-prev img {
+        width: 25px;
+    }
+
+    .js-slick-next img {
+        width: 25px;
+    }
+}
+
+/*TRANSITIONS*/
+@keyframes bounceLeft {
+    0%, 20%, 60%, 100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+
+    40% {
+        -webkit-transform: translateX(-8px);
+        transform: translateX(-8px);
+    }
+
+    80% {
+        -webkit-transform: translateX(-4px);
+        transform: translateX(-4px);
+    }
+}
+
+@keyframes bounceRight {
+    0%, 20%, 60%, 100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+
+    40% {
+        -webkit-transform: translateX(8px);
+        transform: translateX(8px);
+    }
+
+    80% {
+        -webkit-transform: translateX(4px);
+        transform: translateX(4px);
+    }
+}
+
+/* Producto */
+.content_item_home_bpt {
+    background: white;
+    border: 1px solid #e7e1e1;
+    -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.box_producto_mobile_fix {
+    margin-left: 4%;
+    margin-right: 4%;
+}
+
+.producto_img_mobile_bpt {
+    height: 125px;
+    overflow: hidden;
+    text-align: center;
+    margin-top: 15px;
+}
+
+    .producto_img_mobile_bpt img {
+        width: auto;
+        height: 100%;
+        max-width: 100% !important;
+    }
+
+.producto_nombre_descripcion_bpt {
+    width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-bottom: 16px;
+    height: auto;
+    font-family: 'Lato';
+    letter-spacing: .2px;
+    text-align: center;
+    color: black;
+    overflow: hidden;
+}
+
+    .producto_nombre_descripcion_bpt h6 {
+        margin: 0;
+        padding: 0;
+        font-size: 11px;
+        font-weight: 300;
+        color: #000;
+        padding-top: 8px;
+        padding-bottom: 2px;
+        text-transform: uppercase;
+    }
+
+    .producto_nombre_descripcion_bpt .nombre_producto_bpt {
+        padding: 0;
+        font-size: 13px;
+        font-family: 'Lato';
+        color: black;
+        margin: 0 auto;
+        width: 100%;
+        padding-top: 6px;
+        font-weight: 900;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+    }
+
+        .producto_nombre_descripcion_bpt .nombre_producto_bpt b {
+            display: block;
+            overflow: hidden;
+            height: 35px !important;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            text-overflow: ellipsis;
+            -webkit-box-orient: vertical;
+        }
+
+.producto_precio_bpt {
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: 'Lato';
+    letter-spacing: .2px;
+    color: #000;
+}
+.producto_precio_bpt .producto_precio_oferta_bpt b{
+    position: relative;
+    top: 0px;
+    margin-left: 5px;
+}
+/* FIN Producto */
+
+.rd_producto_bloqueado {
+    min-height: 75px;
+    width: 100%;
+    background-color: black;
+    position: fixed;
+    bottom: 0;
+    z-index: 1;
+    text-align: center;
+    color: white;
+    font-family: 'Lato';
+    letter-spacing: 1px;
+    padding: 10px 0;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, .25);
+}
+
+    .rd_producto_bloqueado a {
+        color: white;
+        padding: 10px 0;
+        font-size: 12px;
+    }
+
+.rd_producto_bloqueado_tit {
+    margin-bottom: 4px;
+}
+
+.btn_inscribirse {
+    font-family: Lato;
+    font-size: 13px;
+    color: white;
+    width: 75%;
+    max-width: 320px;
+    height: 45px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 44px;
+    display: block;
+    margin-top: 20px;
+}
+
+/*BLOQUE HOME INSCRITAS C-12*/
+
+.content_inscribirte {
+    margin-top: 10px;
+    background: #ececec;
+    padding-top: 30px;
+    padding-bottom: 10px;
+    font-family: 'Lato';
+    font-size: 13px;
+    text-align: center;
+    padding-left: 14px;
+    padding-right: 14px;
+}
+
+.enterate_aqui {
+    display: block;
+    font-family: 'Lato';
+    font-size: 11px;
+    margin: 0 auto;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 270px;
+    font-weight: 400;
+}
+
+.block_inscribete_predio {
+    text-align: center;
+}
+
+.hblock_title_perdio {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-top: 22px;
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.hblock_title_perdio2 {
+    height: auto;
+    left: 300px;
+    font-size: 17px;
+    font-weight: 100;
+    padding-top: 13px;
+    line-height: 24px;
+    letter-spacing: 2px;
+    display: block;
+}
+
+/* NUEVO LANDING SUSCRIPCION MOBILE */
+
+/* FIN NUEVO LANDING SUSCRIPCION MOBILE */
+
+
+/* POP UP ACTUALIZA DATOS*/
+
+/* FIN POP UP ACTUALIZA DATOS */
+
+/*BOTON ESIKA NO ANIMADO: ROJO*/
+.activar_boton_esika_no_animado {
+    background-color: #e81c36 !important;
+    color: white !important;
+    padding: 15px 0px;
+}
