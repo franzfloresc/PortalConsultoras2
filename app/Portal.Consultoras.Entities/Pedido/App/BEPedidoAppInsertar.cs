@@ -6,6 +6,12 @@ namespace Portal.Consultoras.Entities.Pedido.App
     [DataContract]
     public class BEPedidoAppInsertar
     {
+        public BEPedidoAppInsertar()
+        {
+            RevistaDigital = new BERevistaDigital();
+            Producto = new BEProducto();
+        }
+
         [DataMember]
         public int PaisID { get; set; }
         [DataMember]
@@ -48,5 +54,17 @@ namespace Portal.Consultoras.Entities.Pedido.App
         public string CodigoZona { get; set; }
         [DataMember]
         public int ConsultoraNueva { get; set; }
+        [DataMember]
+        public string IPUsuario { get; set; }
+        [DataMember]
+        public int PedidoID { get; set; }
+        [DataMember]
+        public int OrigenPedidoWeb { get; set; }
+        [DataMember]
+        public short ClienteID { get; set; }
+        [DataMember]
+        public string ClienteDescripcion { get; set; }
+        [DataMember]
+        public string CodigoUsuario { get; set; }
     }
 }

@@ -490,6 +490,7 @@ namespace Portal.Consultoras.Common
             public const int BannerDesktopHome = 1111;
             public const int DesktopPedido = 12;
             public const int MobilePedido = 22;
+            public const int AppPedido = 42;
 
 
             #region OfertasParaTi
@@ -1882,6 +1883,12 @@ namespace Portal.Consultoras.Common
                     }
                 }
             }
+        }
+
+        public static class PedidoAccion
+        {
+            public const string INSERT = "I";
+            public const string UPDATE = "U";
         }
     }
 }

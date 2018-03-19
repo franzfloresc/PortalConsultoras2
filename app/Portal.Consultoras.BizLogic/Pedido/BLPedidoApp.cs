@@ -272,12 +272,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     CampaniaId = pedidoInsertar.CampaniaID,
                     ConsultoraId = pedidoInsertar.ConsultoraID,
                     Consultora = pedidoInsertar.NombreConsultora,
-                    EsBpt = EsOpt(pedidoInsertar.RevistaDigital ?? new BERevistaDigital()) == 1,
+                    EsBpt = EsOpt(pedidoInsertar.RevistaDigital) == 1,
                     CodigoPrograma = pedidoInsertar.CodigoPrograma,
                     NumeroPedido = pedidoInsertar.ConsecutivoNueva
                 };
 
                 detallesPedidoWeb = _pedidoWebDetalleBusinessLogic.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
+
+                pedidoInsertar.PedidoID = detallesPedidoWeb.Any() ? detallesPedidoWeb.First().PedidoID : 0;
             }
             catch { }
 
@@ -326,6 +328,38 @@ namespace Portal.Consultoras.BizLogic.Pedido
             try
             {
                 var result = InsertarValidarKitInicio(pedidoInsertar, out mensaje);
+                if (!result) return result;
+
+                var tipoEstrategiaID = 0;
+                int.TryParse(pedidoInsertar.Producto.TipoEstrategiaID, out tipoEstrategiaID);
+
+                var obePedidoWebDetalle = new BEPedidoWebDetalle
+                {
+                    PaisID = pedidoInsertar.PaisID,
+                    IPUsuario = pedidoInsertar.IPUsuario,
+                    CampaniaID = pedidoInsertar.CampaniaID,
+                    ConsultoraID = pedidoInsertar.ConsultoraID,
+                    PedidoID = pedidoInsertar.PedidoID,
+                    SubTipoOfertaSisID = 0,
+                    TipoOfertaSisID = pedidoInsertar.Producto.TipoOfertaSisID,
+                    CUV = pedidoInsertar.Producto.CUV,
+                    Cantidad = pedidoInsertar.Cantidad,
+                    PrecioUnidad = pedidoInsertar.Producto.PrecioCatalogo,
+                    TipoEstrategiaID = tipoEstrategiaID,
+                    OrigenPedidoWeb = Constantes.OrigenPedidoWeb.AppPedido,
+                    ConfiguracionOfertaID = pedidoInsertar.Producto.ConfiguracionOfertaID,
+                    ClienteID = pedidoInsertar.ClienteID,
+                    OfertaWeb = false,
+                    IndicadorMontoMinimo = pedidoInsertar.Producto.IndicadorMontoMinimo,
+                    EsSugerido = false,
+                    EsKitNueva = false,
+                    MarcaID = Convert.ToByte(pedidoInsertar.Producto.MarcaID),
+                    DescripcionProd = pedidoInsertar.Producto.Descripcion,
+                    ImporteTotal = pedidoInsertar.Cantidad * pedidoInsertar.Producto.PrecioCatalogo,
+                    Nombre = pedidoInsertar.ClienteID == 0 ? pedidoInsertar.NombreConsultora : pedidoInsertar.ClienteDescripcion
+                };
+
+                AdministradorPedido(pedidoInsertar, obePedidoWebDetalle, Constantes.PedidoAccion.INSERT);
             }
             catch { }
 
@@ -388,6 +422,107 @@ namespace Portal.Consultoras.BizLogic.Pedido
             catch { }
 
             return configuracionProgramaNuevas;
+        }
+
+        public void AdministradorPedido(BEPedidoAppInsertar pedidoInsertar, BEPedidoWebDetalle obePedidoWebDetalle, string tipoAdm)
+        {
+            try
+            {
+                var olstTempListado = ObtenerPedidoWebDetalle(pedidoInsertar);
+
+                if (obePedidoWebDetalle.PedidoDetalleID == 0)
+                {
+                    if (olstTempListado.Any(p => p.CUV == obePedidoWebDetalle.CUV))
+                        obePedidoWebDetalle.TipoPedido = "X";
+                }
+                else
+                {
+                    if (olstTempListado.Any(p => p.PedidoDetalleID == obePedidoWebDetalle.PedidoDetalleID))
+                        obePedidoWebDetalle.TipoPedido = "X";
+                }
+
+                if (tipoAdm == Constantes.PedidoAccion.INSERT)
+                {
+                    var cantidad = 0;
+                    var result = ValidarInsercion(olstTempListado, obePedidoWebDetalle, out cantidad);
+                    if (result != 0)
+                    {
+                        tipoAdm = Constantes.PedidoAccion.UPDATE;
+                        obePedidoWebDetalle.Stock = obePedidoWebDetalle.Cantidad;
+                        obePedidoWebDetalle.Cantidad += cantidad;
+                        obePedidoWebDetalle.ImporteTotal = obePedidoWebDetalle.Cantidad * obePedidoWebDetalle.PrecioUnidad;
+                        obePedidoWebDetalle.PedidoDetalleID = result;
+                        obePedidoWebDetalle.Flag = 2;
+                        obePedidoWebDetalle.OrdenPedidoWD = 1;
+                    }
+                }
+
+                var totalClientes = CalcularTotalCliente(olstTempListado, obePedidoWebDetalle, tipoAdm == "D" ? obePedidoWebDetalle.PedidoDetalleID : (short)0, tipoAdm);
+                var totalImporte = CalcularTotalImporte(olstTempListado, obePedidoWebDetalle, tipoAdm == "I" ? (short)0 : obePedidoWebDetalle.PedidoDetalleID, tipoAdm);
+
+                obePedidoWebDetalle.ImporteTotalPedido = totalImporte;
+                obePedidoWebDetalle.Clientes = totalClientes;
+
+                obePedidoWebDetalle.CodigoUsuarioCreacion = pedidoInsertar.CodigoUsuario;
+                obePedidoWebDetalle.CodigoUsuarioModificacion = pedidoInsertar.CodigoUsuario;
+
+                var quitoCantBackOrder = false;
+                if (tipoAdm == Constantes.PedidoAccion.UPDATE && obePedidoWebDetalle.PedidoDetalleID != 0)
+                {
+                    var oldPedidoWebDetalle = olstTempListado.FirstOrDefault(x => x.PedidoDetalleID == obePedidoWebDetalle.PedidoDetalleID) ?? new BEPedidoWebDetalle();
+
+                    if (oldPedidoWebDetalle.AceptoBackOrder && obePedidoWebDetalle.Cantidad < oldPedidoWebDetalle.Cantidad)
+                        quitoCantBackOrder = true;
+                }
+
+                var indPedidoAutentico = new BEIndicadorPedidoAutentico
+                {
+                    PedidoID = obePedidoWebDetalle.PedidoID,
+                    CampaniaID = obePedidoWebDetalle.CampaniaID,
+                    PedidoDetalleID = obePedidoWebDetalle.PedidoDetalleID,
+                    IndicadorIPUsuario = obePedidoWebDetalle.IPUsuario,
+                    IndicadorFingerprint = string.Empty,
+                    IndicadorToken = Session["TokenPedidoAutentico"] != null
+                        ? Session["TokenPedidoAutentico"].ToString()
+                        : string.Empty
+                };
+                obePedidoWebDetalle.IndicadorPedidoAutentico = indPedidoAutentico;
+                obePedidoWebDetalle.OrigenPedidoWeb = ProcesarOrigenPedido(obePedidoWebDetalle.OrigenPedidoWeb);
+            }
+            catch { }
+        }
+
+        private short ValidarInsercion(List<BEPedidoWebDetalle> pedido, BEPedidoWebDetalle itemPedido, out int cantidad)
+        {
+            var temp = new List<BEPedidoWebDetalle>(pedido);
+            var obe = temp.FirstOrDefault(p => p.ClienteID == itemPedido.ClienteID && p.CUV == itemPedido.CUV) ?? new BEPedidoWebDetalle();
+            cantidad = obe.Cantidad;
+            return obe.PedidoDetalleID;
+        }
+
+        private int CalcularTotalCliente(List<BEPedidoWebDetalle> pedido, BEPedidoWebDetalle itemPedido, short pedidoDetalleId, string adm)
+        {
+            var temp = new List<BEPedidoWebDetalle>(pedido);
+            if (pedidoDetalleId == 0)
+            {
+                if (adm == Constantes.PedidoAccion.INSERT) temp.Add(itemPedido);
+                else temp.Where(p => p.PedidoDetalleID == itemPedido.PedidoDetalleID).Update(p => p.ClienteID = itemPedido.ClienteID);
+            }
+            else
+            {
+                temp = temp.Where(p => p.PedidoDetalleID != pedidoDetalleId).ToList();
+            }
+
+            return temp.Where(p => p.ClienteID != 0).Select(p => p.ClienteID).Distinct().Count();
+        }
+
+        private decimal CalcularTotalImporte(List<BEPedidoWebDetalle> pedido, BEPedidoWebDetalle itemPedido, short pedidoDetalleId, string adm)
+        {
+            var temp = new List<BEPedidoWebDetalle>(pedido);
+            if (pedidoDetalleId == 0) temp.Add(itemPedido);
+            else temp = temp.Where(p => p.PedidoDetalleID != pedidoDetalleId).ToList();
+
+            return temp.Sum(p => p.ImporteTotal) + (adm == "U" ? itemPedido.ImporteTotal : 0);
         }
         #endregion
     }
