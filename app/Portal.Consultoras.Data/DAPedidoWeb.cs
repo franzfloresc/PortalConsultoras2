@@ -89,6 +89,24 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
+        public int UpdPedidoWebReserva(BEPedidoWeb pedidoWeb, decimal gananciaEstimada)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdPedidoWebReserva");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, pedidoWeb.CampaniaID);
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoWeb.PedidoID);
+            Context.Database.AddInParameter(command, "@CodigoUsuarioModificacion", DbType.String, pedidoWeb.CodigoUsuarioModificacion);
+            Context.Database.AddInParameter(command, "@MontoTotalProl", DbType.Decimal, pedidoWeb.MontoTotalProl);
+            //Context.Database.AddInParameter(command, "@MontoAhorroCatalogo", DbType.Decimal, pedidoWeb.MontoAhorroCatalogo);
+            //Context.Database.AddInParameter(command, "@MontoAhorroRevista", DbType.Decimal, pedidoWeb.MontoAhorroRevista);
+            //Context.Database.AddInParameter(command, "@MontoDescuento", DbType.Decimal, pedidoWeb.DescuentoProl);
+            //Context.Database.AddInParameter(command, "@MontoEscala", DbType.Decimal, pedidoWeb.MontoEscala);
+            Context.Database.AddInParameter(command, "@EstimadoGanancia", DbType.Decimal, gananciaEstimada);
+            Context.Database.AddInParameter(command, "@EstadoPedido", DbType.Int16, pedidoWeb.EstadoPedido);
+            Context.Database.AddInParameter(command, "@VersionProl", DbType.Byte, pedidoWeb.VersionProl);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
         public int UpdPedidoWebByEstadoConTotales(int CampaniaID, int PedidoID, short EstadoPedido, bool ModificaPedidoReservado, int Clientes, decimal TotalPedido, string codigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdPedidoWebGeneral");

@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.BizLogic.Reserva;
 using Portal.Consultoras.BizLogic.RevistaDigital;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.CargaMasiva;
@@ -14,6 +15,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using Estrategia = Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.Service
@@ -1164,7 +1166,7 @@ namespace Portal.Consultoras.Service
 
         public void InsPedidoWebDetallePROLv2(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProl, decimal DescuentoProl)
         {
-            BLPedidoWebDetalle.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, ValidacionAbierta, CodigoUsuario, MontoTotalProl, DescuentoProl);
+            BLPedidoWebDetalle.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, CodigoUsuario, MontoTotalProl, DescuentoProl);
         }
 
         public BENovedadFacturacion GetPedidoRechazadoByConsultora(int PaisID, string CampaniaId, string CodigoConsultora, DateTime Fecha)
@@ -1948,14 +1950,14 @@ namespace Portal.Consultoras.Service
             return new BLShowRoomEvento().GetEventoConsultoraRecibido(paisID, CodigoConsultora, CampaniaID);
         }
 
-        public BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo)
+        public async Task<BEResultadoReservaProl> CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo)
         {
-            return new BLReservaProl().CargarSesionAndEjecutarReservaProl(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil, enviarCorreo);
+            return await new BLReserva().CargarSesionAndEjecutarReservaProl(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil, enviarCorreo);
         }
 
-        public BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input)
+        public async Task<BEResultadoReservaProl> EjecutarReservaProl(BEInputReservaProl input)
         {
-            return new BLReservaProl().EjecutarReservaProl(input);
+            return await new BLReserva().EjecutarReservaProl(input);
         }
 
         public int InsMatrizComercialImagen(BEMatrizComercialImagen entity)
@@ -1970,22 +1972,22 @@ namespace Portal.Consultoras.Service
 
         public bool EnviarCorreoReservaProl(BEInputReservaProl input)
         {
-            return new BLReservaProl().EnviarCorreoReservaProl(input);
+            return new BLReserva().EnviarCorreoReservaProl(input);
         }
 
         public int InsertarDesglose(BEInputReservaProl input)
         {
-            return new BLReservaProl().InsertarDesglose(input);
+            return new BLReserva().InsertarDesglose(input);
         }
 
         public string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo)
         {
-            return new BLReservaProl().CargarSesionAndDeshacerPedidoValidado(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, tipo);
+            return new BLReserva().CargarSesionAndDeshacerPedidoValidado(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, tipo);
         }
 
         public string DeshacerPedidoValidado(BEUsuario usuario, string tipo)
         {
-            return new BLReservaProl().DeshacerPedidoValidado(usuario, tipo);
+            return new BLReserva().DeshacerPedidoValidado(usuario, tipo);
         }
 
         public string GetTokenIndicadorPedidoAutentico(int paisID, string paisISO, string codigoRegion, string codigoZona)

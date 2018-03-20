@@ -1789,8 +1789,7 @@ namespace Portal.Consultoras.BizLogic
 
             using (IDataReader reader = daUsuario.GetUsuarioExternoByCodigoUsuario(codigoUsuario))
             {
-                if (reader.Read())
-                    entidad = new BEUsuarioExterno(reader);
+                if (reader.Read()) entidad = new BEUsuarioExterno(reader);
             }
 
             return entidad;

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-
+using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
@@ -13,26 +13,22 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.SessionManager;
-
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.ServiceModel;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using System.Threading.Tasks;
-using System.Text.RegularExpressions;
-
 using WebGrease.Css.Extensions;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using Newtonsoft.Json;
-using System.Text;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -1327,8 +1323,6 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.FechaFinFIC = usuario.FechaFinFIC;
                     usuarioModel.MenuNotificaciones = 1;                    
 
-                    usuarioModel.NuevoPROL = usuario.NuevoPROL;
-                    usuarioModel.ZonaNuevoPROL = usuario.ZonaNuevoPROL;
 
                     usuarioModel.SegmentoConstancia = usuario.SegmentoConstancia ?? "";
                     usuarioModel.SeccionAnalytics = usuario.SeccionAnalytics;

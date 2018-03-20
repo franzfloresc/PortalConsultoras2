@@ -51,6 +51,9 @@ namespace Portal.Consultoras.Entities.ReservaProl
         [DataMember]
         public string ListaConcursosPuntajeExigido { get; set; }
 
+        public decimal MontoTotalProl { get; set; }
+        public List<BEPedidoWebDetalle> ListDetalleBackOrder { get; set; }
+
         #region Atributos Cargar Session
         [DataMember]
         public string Simbolo { get; set; }
@@ -68,6 +71,7 @@ namespace Portal.Consultoras.Entities.ReservaProl
         {
             CodigoMensaje = "";
             ListPedidoObservacion = new List<BEPedidoObservacion>();
+            ListDetalleBackOrder = new List<BEPedidoWebDetalle>();
         }
     }
 }

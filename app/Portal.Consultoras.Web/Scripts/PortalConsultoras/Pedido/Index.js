@@ -2176,10 +2176,12 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
                     $("#divMensajeObservacionesPROL").html("Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.");
                 }
             }
-        } else {
+        }
+        else {
             if (response.data.EsDiaProl) {
                 $("#divTituloObservacionesPROL").html("Importante");
-            } else {
+            }
+            else {
                 $("#divTituloObservacionesPROL").html("Aviso");
             }
 
@@ -2209,7 +2211,8 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
                         html += "<li>" + item.Descripcion + "</li>";
 
                         mensajePedido += item.Caso + " " + item.Descripcion + " ";
-                    } else {
+                    }
+                    else {
                         if (msgDefaultCont == 0) {
                             html += html == "" ? msgDefault : html == msgDefault ? "" : msgDefault;
                         }
@@ -2223,7 +2226,8 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
             $("#divMensajeObservacionesPROL").html(html);
         }
         mensajePedido = "-1 " + mensajePedido;
-    } else {
+    }
+    else {
         mensajePedido = response.data.ListaObservacionesProl[0].Descripcion;
 
         $("#divTituloObservacionesPROL").html("ERROR");
@@ -2270,7 +2274,8 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
         $("#spnMontoDescuento").html(DecimalToStringFormat(montoDescuento));
         $("#spnMontoEscala").html(" " + DecimalToStringFormat(totalConDescuento));
         $("#divMontosEscalaDescuento").css("display", "block");
-    } else {
+    }
+    else {
         $("#divMontosEscalaDescuentoTexto").html("");
         $("#divMontosEscalaDescuento").html("");
 

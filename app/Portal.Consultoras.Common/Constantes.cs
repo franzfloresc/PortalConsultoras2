@@ -1374,6 +1374,7 @@ namespace Portal.Consultoras.Common
             public const int ValoresImagenesResize = 121;
             public const short ExtensionBannerGanaMasApp = 136;
             public const short MontoLimiteCupon = 103;
+            public const short ProlObsCod = 5;
         }
 
         public struct MensajesCDRExpress
@@ -1818,6 +1819,42 @@ namespace Portal.Consultoras.Common
             public const string EnEjecucion = "En ejecución";
             public const string Finalizado = "Terminado";
             public const string Error = "Error";
+        }
+        public class ProlCodigoRechazo
+        {
+            public const string MontoMinimo = "XXXXX";
+            public const string MontoMaximo = "YYYYY";
+            public const string Deuda = "ZZZZZ";
+        }
+        public class ProlObsCod
+        {
+            public const string Deuda = "Deuda";
+            public const string MontoMinimoVenta = "MontoMinimoVenta";
+            public const string MontoMinimoFact = "MontoMinimoFact";
+            public const string MontoMaximo  = "MontoMaximo";
+            public const string LimiteVenta0 = "LimiteVenta0";
+            public const string LimiteVenta = "LimiteVenta";
+            public const string Promocion2003 = "Promocion2003";
+            public const string Promocion = "Promocion";
+            public const string Reemplazo = "Reemplazo";
+            public const string SinStock0 = "SinStock0";
+            public const string SinStock = "SinStock";
+        }
+        public class ProlSiccObs
+        {
+            public const string Promocion = "PROMOCION NO CUMPLE";
+        }
+        public class ProlObsToken
+        {
+            public const string Simbolo = "{simb}";
+            public const string DeudaMonto = "{dueMon}";
+            public const string MaximoMonto = "{maxMon}";
+            public const string MinimoMonto = "{minMon}";
+            public const string DetalleCuv = "{detCuv}";
+            public const string LimiteVenta = "{limVen}";
+            public const string ReemplazoCuv = "{remCuv}";
+            public const string ReemplazoDesc = "{remDes}";
+            public const string Stock = "{stock}";
         }
     }
 }

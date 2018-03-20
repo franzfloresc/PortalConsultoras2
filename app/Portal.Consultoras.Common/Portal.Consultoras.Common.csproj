@@ -155,6 +155,7 @@
     <Compile Include="NeoGridCipher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegexUtilities.cs" />
+    <Compile Include="RestClient.cs" />
     <Compile Include="Settings\ServiceSettings.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="WebConfig.cs" />
