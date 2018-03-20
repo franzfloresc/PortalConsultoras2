@@ -454,6 +454,8 @@ $(document).ready(function () {
     });
 
     MostrarBarra(null, '1');
+    
+    LayoutMenu();
 });
 $(window).load(function () {
     VerSeccionBienvenida(verSeccion);

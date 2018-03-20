@@ -557,7 +557,7 @@ namespace Portal.Consultoras.Web.Controllers
                     || (
                         (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
                         || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas)
-                        && (revistaDigital.TieneRDC || revistaDigital.TieneRDR))
+                        && (revistaDigital.TieneRDC || revistaDigital.TieneRDR || revistaDigital.TieneRDI))
                     || tipo == 1
                     || tipo == 2
                     ? "revistadigital-landing" : "";

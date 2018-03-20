@@ -16,7 +16,7 @@
 }
 
 @{
-    Model.NombreConsultora = Util.SubStr(Model.NombreConsultora, 0);
+    Model.NombreConsultora = Util.SubStr(Model.NombreConsultora, 0).ToUpper();
     var nombreConsultora = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
     var nombreConsultoraSin = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "");
     var nroCampania = Util.SubStr(Model.CampaniaActual.ToString(), 4, 2);

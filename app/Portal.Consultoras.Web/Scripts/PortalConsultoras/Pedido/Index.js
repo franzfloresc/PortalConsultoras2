@@ -441,6 +441,9 @@ $(document).ready(function () {
     MostrarBarra();
     CargarDialogMesajePostulantePedido();
     EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-pedido]");
+
+    LayoutMenu();
+
 });
 
 function CargarDetallePedido(page, rows) {
