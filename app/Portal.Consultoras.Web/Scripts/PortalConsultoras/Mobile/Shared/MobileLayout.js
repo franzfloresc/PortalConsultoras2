@@ -6,6 +6,7 @@
     }
 
     var ventanaChat = null;
+    OcultarChatEmtelco();
 
     SetFormatDecimalPais(formatDecimalPaisMain);
 
@@ -179,7 +180,7 @@
 
         $('.header_slider').css("display", "none");
         $('.wrapper_resumen_mobile').css("margin-top", "0px");
-        $('.content_320').css("margin-top","75px");
+        $('.content_320').css("margin-top", "75px");
 
         OcultarBannerTop();
     });
@@ -211,7 +212,7 @@
 
     var URLactual = window.location.href;
     var urlBienvenida = URLactual.indexOf("Bienvenida");
-    
+
     $(".bannersi").on("click", function () {
 
         var eventId = $("#hdEventoIDShowRoom").val();
@@ -318,12 +319,12 @@
             'ecommerce': {
                 'promoClick': {
                     'promotions': [
-                    {
-                        'id': '001',
-                        'name': 'Showroom',
-                        'position': controllerName + ' - Banner superior',
-                        'creative': 'Banner'
-                    }]
+                        {
+                            'id': '001',
+                            'name': 'Showroom',
+                            'position': controllerName + ' - Banner superior',
+                            'creative': 'Banner'
+                        }]
                 }
             }
         });
@@ -361,11 +362,29 @@ function loadBannerLP20() {
             pauseOnAction: false,
             animationSpeed: 1600
         });
-
-
-
     }
 }
+
+function OcultarChatEmtelco() {
+    var url = window.location.href.toLowerCase().split('/');
+    var urlPedido = url[url.length - 1];
+
+    if ((urlPedido !== 'pedido' &&
+        urlPedido !== 'pagoenlinea' &&
+        !(window.location.href.toLowerCase().indexOf('pedido/detalle') > 0))) {
+        $(".CMXD-help").show();
+    }
+
+    var urlMobile = url[url.length - 2];
+    if (urlPedido == 'pedidofic') {
+        $(".CMXD-help").hide();
+    }
+    if (urlMobile == 'pedidofic' && urlPedido == 'detalle') {
+        $(".CMXD-help").hide();
+    }
+
+}
+
 
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
@@ -812,6 +831,8 @@ function messageInfoError(message, fnAceptar) {
     $('#popupInformacionSB2Error .btn_ok_mobile').on('click', function () {
         $('#popupInformacionSB2Error').hide();
     });
+    if (titulo != "")
+        $(".titulo_compartir").html("<b>" + titulo + "</b>");
 
 }
 
@@ -863,7 +884,7 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
                     $('.num-menu-shop').removeClass('microefecto_color');
                     setTimeout(function () { $('.num-menu-shop').addClass('microefecto_color') }, 250);
                 }
-                
+
             }
         },
         error: function (data, error) { }
@@ -883,7 +904,7 @@ function CargarCantidadNotificacionesSinLeer() {
                     $('.notificaciones_mobiles').html(data.cantidadNotificaciones);
                     $("#divNotificacionesSinLeer").show();
                 }
-                
+
             }
         },
         error: function (data, error) { }
@@ -925,7 +946,7 @@ function SeparadorMiles(pnumero) {
 
     if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
 
-    for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
+    for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i-- , j++)
         resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
 
     if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
@@ -1056,12 +1077,12 @@ function BannerApp() {
             'ecommerce': {
                 'promoClick': {
                     'promotions': [
-                    {
-                        'id': '003',
-                        'name': 'Descargar app consultora',
-                        'position': controllerName + ' - Banner superior',
-                        'creative': 'Banner'
-                    }]
+                        {
+                            'id': '003',
+                            'name': 'Descargar app consultora',
+                            'position': controllerName + ' - Banner superior',
+                            'creative': 'Banner'
+                        }]
                 }
             }
         });
