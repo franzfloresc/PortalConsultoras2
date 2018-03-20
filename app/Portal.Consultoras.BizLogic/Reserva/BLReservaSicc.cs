@@ -74,6 +74,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 Enumeradores.ResultadoReserva.NoReservadoObservaciones;
 
             resultado.CodigoMensaje = resultado.ResultadoReservaEnum == Enumeradores.ResultadoReserva.Reservado ? "00" : "01";
+            resultado.PedidoSapId = respuestaSicc.oidPedidoSap.ToInt64Secure();
 
             return resultado;
         }
