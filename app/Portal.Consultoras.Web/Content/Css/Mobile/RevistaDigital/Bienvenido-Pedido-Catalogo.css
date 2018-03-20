@@ -310,6 +310,11 @@ div#tab_revistasdigital_mobile {
         top: 0;
     }
 
+.rd_logo_dorado {
+    background-image: linear-gradient(to right, #b3842f, #d9b43c);
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
 .rd_logo {
     text-align: center;
     position: relative;
