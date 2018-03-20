@@ -6,6 +6,7 @@ using Portal.Consultoras.Entities.ReservaProl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using ServSicc = Portal.Consultoras.Data.ServiceSicc;
 
 namespace Portal.Consultoras.BizLogic.Reserva
@@ -21,12 +22,12 @@ namespace Portal.Consultoras.BizLogic.Reserva
             blTablaLogicaDatos = new BLTablaLogicaDatos();
         }
 
-        public BEResultadoReservaProl ReservarPedido(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        public async Task<BEResultadoReservaProl> ReservarPedido(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             var resultado = new BEResultadoReservaProl();
             if (listPedidoWebDetalle.Count == 0) return resultado;
 
-            ServSicc.Pedido respuestaSicc = ConsumirServicioSicc(input, listPedidoWebDetalle);
+            ServSicc.Pedido respuestaSicc = await ConsumirServicioSicc(input, listPedidoWebDetalle);
             if (respuestaSicc == null) return resultado;
 
             var listDetExp = NewListPedidoWebDetalleExplotado(input, respuestaSicc.posiciones);
@@ -75,15 +76,14 @@ namespace Portal.Consultoras.BizLogic.Reserva
             return resultado;
         }
 
-        private ServSicc.Pedido ConsumirServicioSicc(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        private async Task<ServSicc.Pedido> ConsumirServicioSicc(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             var inputPedido = new Data.ServiceSicc.Pedido
             {
                 codigoPais = Util.GetPaisIsoSicc(input.PaisID),
                 codigoPeriodo = input.CampaniaID.ToString(),
                 codigoCliente = input.CodigoConsultora,
-                indEnvioSap = input.FechaHoraReserva ? "1" : "0",
-                indValiProl = "0",
+                indValiProl = input.FechaHoraReserva ? "1" : "0",
                 //FALTA CODIGO CONCURSOS
                 posiciones = listPedidoWebDetalle.Select(d => new Data.ServiceSicc.Detalle
                 {
@@ -99,7 +99,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             //    if (cuponNueva != null) detalle.cuv = cuponNueva.CUV;
             //}
 
-            var respuestaSicc = restClient.PostAsync<Data.ServiceSicc.Pedido>("/Service.svc/EjecutarCuadreOfertas", inputPedido).Result;
+            var respuestaSicc = await restClient.PostAsync<Data.ServiceSicc.Pedido>("/Service.svc/EjecutarCuadreOfertas", inputPedido);
 
             //if(respuestaSicc != null && respuestaSicc.posiciones != null)
             //{

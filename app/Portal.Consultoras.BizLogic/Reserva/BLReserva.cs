@@ -10,6 +10,7 @@ using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic.Reserva
@@ -119,7 +120,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             return "";
         }
 
-        public BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo)
+        public async Task<BEResultadoReservaProl> CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo)
         {
             int paisId = Util.GetPaisID(paisISO);
             try
@@ -203,7 +204,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                     input.MontoMaximo = usuario.MontoMaximoPedido;
                 }
 
-                var resultado = EjecutarReservaProl(input);
+                var resultado = await EjecutarReservaProl(input);
                 resultado.Simbolo = input.Simbolo;
                 resultado.MontoMinimo = input.MontoMinimo;
                 resultado.MontoMaximo = input.MontoMaximo;
@@ -279,7 +280,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             return true;
         }
         
-        public BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input)
+        public async Task<BEResultadoReservaProl> EjecutarReservaProl(BEInputReservaProl input)
         {
             if (!input.ZonaValida) return new BEResultadoReservaProl { Reserva = true, ResultadoReservaEnum = Enumeradores.ResultadoReserva.ReservaNoDisponible };
             if (!input.ValidacionInteractiva) return new BEResultadoReservaProl { ResultadoReservaEnum = Enumeradores.ResultadoReserva.ReservaNoDisponible };
@@ -305,7 +306,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
                 input.VersionProl = (byte)(new BLConfiguracionValidacion().EstaActivoProl3(input.PaisID) ? 3 : 2);
                 var reservaExternaBL = input.VersionProl == 3 ? new BLReservaSicc() as IReservaExternaBL : new BLReservaProl2() as IReservaExternaBL;
-                BEResultadoReservaProl resultado = reservaExternaBL.ReservarPedido(input, listPedidoWebDetalle);
+                BEResultadoReservaProl resultado = await reservaExternaBL.ReservarPedido(input, listPedidoWebDetalle);
                 resultado.MontoGanancia = resultado.MontoAhorroCatalogo + resultado.MontoAhorroRevista;
                 resultado.MontoTotal = listPedidoWebDetalle.Sum(pd => pd.ImporteTotal) - resultado.MontoDescuento;
                 resultado.UnidadesAgregadas = listPedidoWebDetalle.Sum(pd => pd.Cantidad);

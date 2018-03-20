@@ -7,17 +7,18 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic.Reserva
 {
     public class BLReservaProl2 : IReservaExternaBL
     {
-        public BEResultadoReservaProl ReservarPedido(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        public async Task<BEResultadoReservaProl> ReservarPedido(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             var resultado = new BEResultadoReservaProl();
             if (listPedidoWebDetalle.Count == 0) return resultado;
 
-            RespuestaProl respuestaProl = ConsumirServicioProl(input, listPedidoWebDetalle);
+            RespuestaProl respuestaProl = await ConsumirServicioProl(input, listPedidoWebDetalle);
             if (respuestaProl == null) return resultado;
 
             resultado.MontoAhorroCatalogo = respuestaProl.montoAhorroCatalogo.ToDecimalSecure();
@@ -56,7 +57,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             return resultado;
         }
 
-        private RespuestaProl ConsumirServicioProl(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        private async Task<RespuestaProl> ConsumirServicioProl(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             string listaProductos = string.Join("|", listPedidoWebDetalle.Select(x => x.CUV).ToArray());
             string listaCantidades = string.Join("|", listPedidoWebDetalle.Select(x => x.Cantidad).ToArray());
@@ -66,8 +67,9 @@ namespace Portal.Consultoras.BizLogic.Reserva
             using (var sv = new ServiceStockSsic())
             {
                 sv.Url = ConfigurationManager.AppSettings["Prol_" + input.PaisISO];
-                if (input.FechaHoraReserva) respuestaProl = sv.wsValidacionInteractiva(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, input.MontoMinimo, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo, input.CodigosConcursos, input.SegmentoInternoID.ToString());
-                else respuestaProl = sv.wsValidacionEstrategia(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, input.MontoMinimo, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo, input.CodigosConcursos);
+                                
+                if (!input.FechaHoraReserva) respuestaProl = await Task.Run(() => sv.wsValidacionEstrategia(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, input.MontoMinimo, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo, input.CodigosConcursos));
+                else respuestaProl = await Task.Run(() => sv.wsValidacionInteractiva(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, input.MontoMinimo, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo, input.CodigosConcursos, input.SegmentoInternoID.ToString()));
             }
 
             if (respuestaProl != null)

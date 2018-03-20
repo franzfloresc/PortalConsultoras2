@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:simpleType name="Enumeradores.RechazoBannerUrl">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Ninguna" />
+      <xs:enumeration value="Deuda" />
+      <xs:enumeration value="ModificaPedido" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Enumeradores.RechazoBannerUrl" nillable="true" type="tns:Enumeradores.RechazoBannerUrl" />
   <xs:simpleType name="Enumeradores.MotivoPedidoLock">
     <xs:restriction base="xs:string">
       <xs:enumeration value="Ninguno" />
@@ -44,15 +52,8 @@
       <xs:enumeration value="NoReservadoMontoMinimo" />
       <xs:enumeration value="NoReservadoMontoMaximo" />
       <xs:enumeration value="ReservaNoDisponible" />
+      <xs:enumeration value="NoReservadoDeuda" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Enumeradores.ResultadoReserva" nillable="true" type="tns:Enumeradores.ResultadoReserva" />
-  <xs:simpleType name="Enumeradores.RechazoBannerUrl">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="Ninguna" />
-      <xs:enumeration value="Deuda" />
-      <xs:enumeration value="ModificaPedido" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="Enumeradores.RechazoBannerUrl" nillable="true" type="tns:Enumeradores.RechazoBannerUrl" />
 </xs:schema>
