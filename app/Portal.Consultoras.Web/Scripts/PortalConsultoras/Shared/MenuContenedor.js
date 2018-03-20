@@ -47,7 +47,7 @@ var menuModule = (function () {
     }
     function _moverSubMenuContenedorOfertasMobile() {
         if ($(elementos.menu2Ul).length) {
-            var menuContendorActivo = $(elementos.menu2Ul + " li").find(".activo")[0];
+            var menuContendorActivo = $(elementos.menu2Ul + " li").find("." + elementos.claseActivo)[0];
             var posicionMenu = $(menuContendorActivo).parent("li").attr("data-slick-index");
             $(elementos.menu2Ul).slick('slickGoTo', parseInt(posicionMenu));
         }
