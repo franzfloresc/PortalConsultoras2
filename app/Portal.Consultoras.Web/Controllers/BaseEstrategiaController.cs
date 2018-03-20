@@ -404,7 +404,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (listaRevista.Count > top)
                         listaRevista.RemoveRange(top, listaRevista.Count - top);
 
-                    if (listaRevista.Count > cantMax - top)
+                    if (listaPackNueva.Count > 0 && listaPackNueva.Count > cantMax - top)
                         listaPackNueva.RemoveRange(cantMax - top, listaPackNueva.Count - (cantMax - top));
 
                     listModel = new List<BEEstrategia>();
