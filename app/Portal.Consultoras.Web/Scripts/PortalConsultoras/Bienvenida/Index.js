@@ -454,6 +454,8 @@ $(document).ready(function () {
     });
 
     MostrarBarra(null, '1');
+    
+    LayoutMenu();
 });
 $(window).load(function () {
     VerSeccionBienvenida(verSeccion);
@@ -972,7 +974,7 @@ function EstructurarDataCarouselLiquidaciones(array) {
 
         item.Simbolo = viewBagSimbolo;
         item.Posicion = i + 1;
-
+        item.TallaColor = $.trim(item.TallaColor);
         if (item.TallaColor.length > 1 && item.TallaColor.indexOf('^') > -1) {
             item.TipoTallaColor = item.TallaColor.split("^")[0];
             item.TextoBotonTallaColor = (item.TipoTallaColor == "C" ? "ELEGIR TONO" : "ELEGIR COLOR");
@@ -981,7 +983,6 @@ function EstructurarDataCarouselLiquidaciones(array) {
         } else {
             item.TipoTallaColor = "";
             item.TextoBotonTallaColor = "";
-            item.TallaColor = "";
             item.TieneTallaColor = false;
         };
     });

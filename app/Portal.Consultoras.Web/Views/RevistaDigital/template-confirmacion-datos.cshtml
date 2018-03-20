@@ -28,7 +28,7 @@
                             <img src="~/Content/Images/phoneIcon.png" alt="" class="phone">
                             <input type="hidden" id="hdn_CaracterMinimo" value="@Model.LimiteMin"/>
                             <input id="Celular" type="text" value="@Model.Celular" placeholder="Tu teléfono" class="txtformvalidar"
-                                   onkeydown="return limitarMaximo(event, this.value, @Model.LimiteMax, 'Celular')"/>
+                                   onkeydown="return FuncionesGenerales.ValidarSoloNumeros(event)&&limitarMaximo(event, this.value, @Model.LimiteMax, 'Celular')"/>
                             <p id="errorPhone" class="txtvalidar" style="display: none">Debe ingresar un número válido</p>
                         </div>
                         
