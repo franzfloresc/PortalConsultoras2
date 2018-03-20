@@ -102,6 +102,7 @@ namespace Portal.Consultoras.Data
             //Context.Database.AddInParameter(command, "@MontoEscala", DbType.Decimal, pedidoWeb.MontoEscala);
             Context.Database.AddInParameter(command, "@EstimadoGanancia", DbType.Decimal, gananciaEstimada);
             Context.Database.AddInParameter(command, "@EstadoPedido", DbType.Int16, pedidoWeb.EstadoPedido);
+            Context.Database.AddInParameter(command, "@PedidoSapId", DbType.Byte, pedidoWeb.PedidoSapId);
             Context.Database.AddInParameter(command, "@VersionProl", DbType.Byte, pedidoWeb.VersionProl);
 
             return Context.ExecuteNonQuery(command);
@@ -505,6 +506,15 @@ namespace Portal.Consultoras.Data
         public IDataReader GetPedidoWebID(int CampaniaID, long ConsultoraID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebID");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetPedidoSapId(int CampaniaID, long ConsultoraID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoSapId");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
 

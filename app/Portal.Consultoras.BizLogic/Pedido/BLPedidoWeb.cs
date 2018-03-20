@@ -1655,6 +1655,19 @@ namespace Portal.Consultoras.BizLogic
             return pedidoId;
         }
 
+        public long GetPedidoSapId(int paisID, int campaniaID, long consultoraID)
+        {
+            var daPedidoWeb = new DAPedidoWeb(paisID);
+            using (IDataReader reader = daPedidoWeb.GetPedidoWebID(campaniaID, consultoraID))
+            {
+                if (reader.Read())
+                {
+                    return Convert.ToInt64(reader["PedidoSapId"]);
+                }
+            }
+            return 0;
+        }
+
         public int GetFechaNoHabilFacturacion(int paisID, string CodigoZona, DateTime Fecha)
         {
             var daPedidoWeb = new DAPedidoWeb(paisID);

@@ -4,7 +4,7 @@ BEGIN
 	drop procedure dbo.ActualizarInsertarPuntosConcurso_Prol3
 END
 GO
-ALTER PROCEDURE dbo.ActualizarInsertarPuntosConcurso_Prol3
+CREATE PROCEDURE dbo.ActualizarInsertarPuntosConcurso_Prol3
 	@CodigoConsultora VARCHAR(15),
 	@CodigoCampania VARCHAR(6),
 	@CodigoConcurso VARCHAR(8000),

@@ -35,7 +35,14 @@ BEGIN
 			('Promocion', 'Este producto ({detCuv}) NO se facturará debido a que no cumples con la condición para adquirirlo. Por favor revisa las condiciones requeridas.'),
 			('Reemplazo', 'Lo sentimos, el producto {detCuv} está agotado. Lo hemos reemplazado por el producto {remCuv} - {remDes} que es igual o similar.'),
 			('SinStock0', 'Lo sentimos, el producto {detCuv} está agotado.'),
-			('SinStock', 'Por el momento sólo contamos con {stock} unidades del producto {detCuv}. Modifica las unidades ingresadas.')
+			('SinStock', 'Por el momento sólo contamos con {stock} unidades del producto {detCuv}. Modifica las unidades ingresadas.'),
+			('AutoLimiteVenta0', 'Se eliminó el producto {detCuv} - por estar agotado.'),
+			('AutoLimiteVenta', 'Se eliminó  el producto {detCuv} porque sólo puedes pedir un máximo de {limVen} unidades en la campaña actual. Ingresa nuevamente el código con las unidades correctas.'),
+			('AutoPromocion2003', 'Se eliminó el producto {detCuv} - por no cumplir la condición que aparece en el catálogo.'),			
+			('AutoPromocion', 'Se eliminó el producto {detCuv} - por no cumplir la condición que aparece en el catálogo.'),
+			('AutoReemplazo', 'El producto {detCuv} está agotado - se reemplazó por el producto {remCuv} - {remDes} que es igual o similar.'),			
+			('AutoSinStock0', 'Se eliminó el producto {detCuv} - por estar agotado.'),
+			('AutoSinStock', 'Se eliminó porque solo contamos con {stock} unidades del producto {detCuv}.')	
 		) Obs1(Codigo,Descripcion)
 	)Obs2;
 END

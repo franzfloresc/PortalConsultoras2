@@ -15,11 +15,13 @@ namespace Portal.Consultoras.BizLogic.Reserva
     {
         private readonly RestClient restClient;
         ITablaLogicaDatosBusinessLogic blTablaLogicaDatos;
+        BLPedidoWeb blPedidoWeb;
 
         public BLReservaSicc()
         {
             restClient = new RestClient();
             blTablaLogicaDatos = new BLTablaLogicaDatos();
+            blPedidoWeb = new BLPedidoWeb();
         }
 
         public async Task<BEResultadoReservaProl> ReservarPedido(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
@@ -78,12 +80,14 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
         private async Task<ServSicc.Pedido> ConsumirServicioSicc(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
+            var pedidoSapId = blPedidoWeb.GetPedidoSapId(input.PaisID, input.CampaniaID, input.ConsultoraID);
             var inputPedido = new Data.ServiceSicc.Pedido
             {
                 codigoPais = Util.GetPaisIsoSicc(input.PaisID),
                 codigoPeriodo = input.CampaniaID.ToString(),
                 codigoCliente = input.CodigoConsultora,
                 indValiProl = input.FechaHoraReserva ? "1" : "0",
+                oidPedidoSap = pedidoSapId == 0 ? "" : pedidoSapId.ToString(),
                 //FALTA CODIGO CONCURSOS
                 posiciones = listPedidoWebDetalle.Select(d => new Data.ServiceSicc.Detalle
                 {

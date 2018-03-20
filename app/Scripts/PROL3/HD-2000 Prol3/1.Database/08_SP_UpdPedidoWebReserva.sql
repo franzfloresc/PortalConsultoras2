@@ -15,6 +15,7 @@ create proc dbo.UpdPedidoWebReserva
 	--@MontoEscala money,
 	@EstimadoGanancia money,
 	@EstadoPedido smallint,
+	@PedidoSapId bigint,
 	@VersionProl tinyint
 as
 begin
@@ -39,6 +40,7 @@ begin
 		EstadoPedido = @EstadoPedido,
 		ValidacionAbierta = 0,
 		ModificaPedidoReservado = 0,
+		@PedidoSapId = @PedidoSapId,
 		VersionProl = @VersionProl
 	where CampaniaID = @CampaniaID AND PedidoID = @PedidoID;
 end
