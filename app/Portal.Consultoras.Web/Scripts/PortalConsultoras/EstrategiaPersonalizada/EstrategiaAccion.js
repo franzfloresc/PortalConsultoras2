@@ -569,23 +569,7 @@ function EstrategiaAgregar(event, popup, limite) {
 
 function EstrategiaValidarBloqueada(objInput, estrategia) {
     var clonarItem = true;
-    if ($.trim($(objInput).attr("data-bloqueada")) == "") {
-        return false;
-    }
-
-    if (isMobile()) {
-        EstrategiaVerDetalleMobile(estrategia);
-        return true;
-    }
-
     var divMensaje = $("#divMensajeBloqueada");
-
-    if (estrategia.CodigoEstrategia == '011' &&
-        (isPagina('ofertas') || isPagina('herramientasventa') )&&
-        !isMobile()) {
-        divMensaje = $("#divHVMensajeBloqueada");
-        divMensaje.find('.cerrar_fichaProducto').attr('data-popup-close', 'divHVMensajeBloqueada');
-    }
 
     if (estrategia.CodigoEstrategia == '007') {
         if (revistaDigital) {
@@ -607,6 +591,22 @@ function EstrategiaValidarBloqueada(objInput, estrategia) {
                     clonarItem = false;
                 }
             }
+        }
+    } else {
+        if ($.trim($(objInput).attr("data-bloqueada")) == "") {
+            return false;
+        }
+
+        if (isMobile()) {
+            EstrategiaVerDetalleMobile(estrategia);
+            return true;
+        }
+
+        if (estrategia.CodigoEstrategia == '011' &&
+            (isPagina('ofertas') || isPagina('herramientasventa')) &&
+            !isMobile()) {
+            divMensaje = $("#divHVMensajeBloqueada");
+            divMensaje.find('.cerrar_fichaProducto').attr('data-popup-close', 'divHVMensajeBloqueada');
         }
     }
     

@@ -362,17 +362,19 @@ function OfertaArmarEstrategias(response, busquedaModel) {
 
     if (revistaDigital) {
         if (revistaDigital.TieneRDC) {
-            var ExperienciaGanaMas = new Object();
-            ExperienciaGanaMas.OcultarAgregar = !revistaDigital.EsActiva ? true : false;
-            ExperienciaGanaMas.OcultarVerDetalle = ExperienciaGanaMas.OcultarAgregar;
-            ExperienciaGanaMas.MostrarLoQuieres = revistaDigital.EsSuscrita && !revistaDigital.EsActiva ? false : true;
+            if (!revistaDigital.EsActiva) {
+                var ExperienciaGanaMas = new Object();
+                ExperienciaGanaMas.OcultarAgregar = true;
+                ExperienciaGanaMas.OcultarVerDetalle = true;
+                ExperienciaGanaMas.MostrarLoQuieres = !revistaDigital.EsSuscrita && !revistaDigital.EsActiva ? true : false;
 
-            $.each(modeloTemp.lista, function (ind, tem) {
-                if (tem.ClaseBloqueada != '') {
-                    tem.ExperienciaGanaMas = ExperienciaGanaMas;
-                    tem.TieneVerDetalle = !ExperienciaGanaMas.OcultarVerDetalle;
-                }
-            });
+                $.each(modeloTemp.lista, function (ind, tem) {
+                    if (tem.ClaseBloqueada != '') {
+                        tem.ExperienciaGanaMas = ExperienciaGanaMas;
+                        tem.TieneVerDetalle = !ExperienciaGanaMas.OcultarVerDetalle;
+                    }
+                });
+            }
         }
     }
 
@@ -400,15 +402,19 @@ function OfertaArmarEstrategias(response, busquedaModel) {
 
             if (revistaDigital) {
                 if (revistaDigital.TieneRDC) {
-                    var ExperienciaGanaMas = new Object();
-                    ExperienciaGanaMas.OcultarAgregar = !revistaDigital.EsActiva ? true : false;
-                    ExperienciaGanaMas.OcultarVerDetalle = ExperienciaGanaMas.OcultarAgregar;
-                    ExperienciaGanaMas.MostrarLoQuieres = revistaDigital.EsSuscrita && !revistaDigital.EsActiva ? false : true;
+                    if (!revistaDigital.EsActiva) {
+                        var ExperienciaGanaMas = new Object();
+                        ExperienciaGanaMas.OcultarAgregar = true;
+                        ExperienciaGanaMas.OcultarVerDetalle = true;
+                        ExperienciaGanaMas.MostrarLoQuieres = !revistaDigital.EsSuscrita && !revistaDigital.EsActiva ? true : false;
 
-                    $.each(modeloTemp.lista, function (ind, tem) {
-                        tem.ExperienciaGanaMas = ExperienciaGanaMas;
-                        tem.TieneVerDetalle = !ExperienciaGanaMas.OcultarVerDetalle;
-                    });
+                        $.each(modeloTemp.lista, function (ind, tem) {
+                            if (tem.ClaseBloqueada != '') {
+                                tem.ExperienciaGanaMas = ExperienciaGanaMas;
+                                tem.TieneVerDetalle = !ExperienciaGanaMas.OcultarVerDetalle;
+                            }
+                        });
+                    }
                 }
             }
             
