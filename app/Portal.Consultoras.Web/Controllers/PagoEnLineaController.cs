@@ -126,7 +126,9 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public ActionResult ConsultaReporte(string sidx, string sord, int page, int rows, string CampaniaID, string RegionID,
-                                                         string ZonaID, string PaisID, string CodigoConsultora, string Estado)
+                                                         string ZonaID, string PaisID, string CodigoConsultora, string Estado,
+                                                         string FechaPagoDesde, string FechaPagoHasta, string FechaProcesoDesde,
+                                                         string FechaProcesoHasta)
         {
             if (ModelState.IsValid)
             {
@@ -136,6 +138,10 @@ namespace Portal.Consultoras.Web.Controllers
                 filtro.ZonaId = ZonaID == "" ? 0 : int.Parse(ZonaID);
                 filtro.CodigoConsultora = CodigoConsultora;
                 filtro.Estado = Estado;
+                filtro.FechaPagoDesde = FechaPagoDesde == "" ? default(DateTime) : Convert.ToDateTime(FechaPagoDesde);
+                filtro.FechaPagoHasta = FechaPagoHasta == "" ? default(DateTime) : Convert.ToDateTime(FechaPagoHasta);
+                filtro.FechaProcesoDesde = FechaProcesoDesde == "" ? default(DateTime) : Convert.ToDateTime(FechaProcesoDesde);
+                filtro.FechaProcesoHasta = FechaProcesoHasta == "" ? default(DateTime) : Convert.ToDateTime(FechaProcesoHasta);
 
                 List<BEPagoEnLineaResultadoLogReporte> lst = new List<BEPagoEnLineaResultadoLogReporte>();
 
@@ -145,6 +151,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 lst.Update(p => p.NombreCompleto = (p.PrimerNombre ?? "") + " " + (p.SegundoNombre ?? "") + " " + (p.PrimerApellido ?? "") + " " + (p.SegundoApellido ?? ""));
+
+                lst.Update(p => p.FechaTransaccionFormat = p.FechaTransaccion.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : p.FechaTransaccion.ToString("dd/MM/yyyy"));
+                lst.Update(p => p.FechaTransaccionHoraFormat = p.FechaTransaccion.ToString("dd/MM/yyyy") == "01/01/0001" ? "" : p.FechaTransaccion.ToString("HH:mm"));
+
                 lst.Update(p => p.FechaCreacionFormat = p.FechaCreacion.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : p.FechaCreacion.ToString("dd/MM/yyyy"));
                 lst.Update(p => p.FechaCreacionHoraFormat = p.FechaCreacion.ToString("dd/MM/yyyy") == "01/01/0001" ? "" : p.FechaCreacion.ToString("HH:mm"));
 
@@ -330,8 +340,8 @@ namespace Portal.Consultoras.Web.Controllers
                             a.IdUnicoTransaccion ?? string.Empty,
                             a.PagoEnLineaResultadoLogId.ToString(),
                             a.NombreCompleto ?? string.Empty,
-                            a.FechaCreacionFormat ?? string.Empty,
-                            a.FechaCreacionHoraFormat ?? string.Empty,
+                            a.FechaTransaccionFormat ?? string.Empty,
+                            a.FechaTransaccionHoraFormat ?? string.Empty,
                             a.CodigoConsultora ?? string.Empty,
                             a.NumeroDocumento ?? string.Empty,
                             a.Canal ?? string.Empty,
@@ -347,7 +357,9 @@ namespace Portal.Consultoras.Web.Controllers
                             a.NumeroTarjeta ?? string.Empty,
                             a.NumeroOrdenTienda ?? string.Empty,
                             a.MensajeError ?? string.Empty,
-                            a.CodigoError ?? string.Empty
+                            a.CodigoError ?? string.Empty,
+                            a.FechaCreacionFormat ?? string.Empty,
+                            a.FechaCreacionHoraFormat ?? string.Empty,
                                }
                            }
                 };
