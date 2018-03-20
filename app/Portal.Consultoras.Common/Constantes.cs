@@ -1867,6 +1867,7 @@ namespace Portal.Consultoras.Common
                     public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
                     public const string ERROR_STOCK_ESTRATEGIA = "2102";
                     public const string ERROR_KIT_INICIO = "2103";
+                    public const string ERROR_GRABAR = "2104";
                 }
 
                 public static Dictionary<string, string> Message
@@ -1878,7 +1879,8 @@ namespace Portal.Consultoras.Common
                                 {Code.SUCCESS, "OK"},
                                 {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, string.Empty},
                                 {Code.ERROR_STOCK_ESTRATEGIA, string.Empty},
-                                {Code.ERROR_KIT_INICIO, string.Empty},
+                                {Code.ERROR_KIT_INICIO, "Ocurrió un error al ejecutar la operación."},
+                                {Code.ERROR_GRABAR, "Ocurrió un error al insertar el pedido."},
                             });
                     }
                 }
@@ -1889,6 +1891,7 @@ namespace Portal.Consultoras.Common
         {
             public const string INSERT = "I";
             public const string UPDATE = "U";
+            public const string DELETE = "D";
         }
     }
 }

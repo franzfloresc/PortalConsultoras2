@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Pedido.App;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.PublicService.Cryptography;
 
 using System;
 using System.Linq;
@@ -114,16 +115,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
 
             var esOfertaNueva = (pedidoInsertar.Producto.FlagNueva == "1");
+            if (esOfertaNueva) AgregarProductoZE(pedidoInsertar);
 
-            if (!esOfertaNueva)
-            {
-                result = PedidoInsertar(pedidoInsertar, out mensaje);
-                if (!result) return PedidoInsertarRespuesta(Constantes.PedidoAppValidacion.PedidoInsertar.Code.ERROR_KIT_INICIO, mensaje);
-            }
-            else
-            {
-
-            }
+            var codeResult = PedidoInsertar(pedidoInsertar);
+            if (codeResult != Constantes.PedidoAppValidacion.PedidoInsertar.Code.SUCCESS) return PedidoInsertarRespuesta(codeResult);
 
             return PedidoInsertarRespuesta(Constantes.PedidoAppValidacion.PedidoInsertar.Code.SUCCESS);
         }
@@ -255,7 +250,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     mensaje = string.Format("Haz superado el límite de tu línea de crédito de {0}{1}. Por favor modifica tu pedido para que sea {2} con éxito.", pedidoInsertar.Simbolo, pedidoInsertar.MontoMaximoPedido, strmen);
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, pedidoInsertar.ConsultoraID, pedidoInsertar.PaisID);
+            }
 
             return mensaje;
         }
@@ -281,7 +279,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 pedidoInsertar.PedidoID = detallesPedidoWeb.Any() ? detallesPedidoWeb.First().PedidoID : 0;
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, pedidoInsertar.ConsultoraID, pedidoInsertar.PaisID);
+            }
 
             return detallesPedidoWeb;
         }
@@ -316,19 +317,20 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 mensaje = Util.Trim(mensaje);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, pedidoInsertar.ConsultoraID, pedidoInsertar.PaisID);
+            }
 
             return mensaje == "OK" ? string.Empty : mensaje;
         }
 
-        private bool PedidoInsertar(BEPedidoAppInsertar pedidoInsertar, out string mensaje)
+        private string PedidoInsertar(BEPedidoAppInsertar pedidoInsertar)
         {
-            mensaje = string.Empty;
-
             try
             {
-                var result = InsertarValidarKitInicio(pedidoInsertar, out mensaje);
-                if (!result) return result;
+                var result = InsertarValidarKitInicio(pedidoInsertar);
+                if (!result) return Constantes.PedidoAppValidacion.PedidoInsertar.Code.ERROR_KIT_INICIO;
 
                 var tipoEstrategiaID = 0;
                 int.TryParse(pedidoInsertar.Producto.TipoEstrategiaID, out tipoEstrategiaID);
@@ -359,17 +361,20 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     Nombre = pedidoInsertar.ClienteID == 0 ? pedidoInsertar.NombreConsultora : pedidoInsertar.ClienteDescripcion
                 };
 
-                AdministradorPedido(pedidoInsertar, obePedidoWebDetalle, Constantes.PedidoAccion.INSERT);
+                result = AdministradorPedido(pedidoInsertar, obePedidoWebDetalle, Constantes.PedidoAccion.INSERT);
+                if (!result) return Constantes.PedidoAppValidacion.PedidoInsertar.Code.ERROR_GRABAR;
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, pedidoInsertar.ConsultoraID, pedidoInsertar.PaisID);
+            }
 
-            return (mensaje == string.Empty);
+            return Constantes.PedidoAppValidacion.PedidoInsertar.Code.SUCCESS;
         }
 
-        private bool InsertarValidarKitInicio(BEPedidoAppInsertar pedidoInsertar, out string mensaje)
+        private bool InsertarValidarKitInicio(BEPedidoAppInsertar pedidoInsertar)
         {
             var resultado = true;
-            mensaje = string.Empty;
 
             if (pedidoInsertar.EsConsultoraNueva)
             {
@@ -380,17 +385,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 {
                     var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas(pedidoInsertar);
                     if (obeConfiguracionProgramaNuevas.IndProgObli == "1" && obeConfiguracionProgramaNuevas.CUVKit == detCuv.CUV)
-                    {
                         resultado = false;
-                        mensaje = "Ocurrió un error al ejecutar la operación.";
-                    }
                 }
             }
 
             return resultado;
         }
 
-        protected BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(BEPedidoAppInsertar pedidoInsertar)
+        private BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(BEPedidoAppInsertar pedidoInsertar)
         {
             var configuracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
 
@@ -419,13 +421,18 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     obeConfiguracionProgramaNuevas = _configuracionProgramaNuevasBusinessLogic.GetConfiguracionProgramaNuevas(pedidoInsertar.PaisID, obeConfiguracionProgramaNuevas);
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, pedidoInsertar.ConsultoraID, pedidoInsertar.PaisID);
+            }
 
             return configuracionProgramaNuevas;
         }
 
-        public void AdministradorPedido(BEPedidoAppInsertar pedidoInsertar, BEPedidoWebDetalle obePedidoWebDetalle, string tipoAdm)
+        private bool AdministradorPedido(BEPedidoAppInsertar pedidoInsertar, BEPedidoWebDetalle obePedidoWebDetalle, string tipoAdm)
         {
+            var resultado = true;
+
             try
             {
                 var olstTempListado = ObtenerPedidoWebDetalle(pedidoInsertar);
@@ -482,12 +489,33 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     PedidoDetalleID = obePedidoWebDetalle.PedidoDetalleID,
                     IndicadorIPUsuario = obePedidoWebDetalle.IPUsuario,
                     IndicadorFingerprint = string.Empty,
-                    IndicadorToken = string.Empty
+                    IndicadorToken = string.IsNullOrEmpty(pedidoInsertar.Identifier) ? string.Empty : AESAlgorithm.Encrypt(pedidoInsertar.Identifier)
                 };
                 obePedidoWebDetalle.IndicadorPedidoAutentico = indPedidoAutentico;
-                obePedidoWebDetalle.OrigenPedidoWeb = ProcesarOrigenPedido(obePedidoWebDetalle.OrigenPedidoWeb);
+
+                switch (tipoAdm)
+                {
+                    case Constantes.PedidoAccion.INSERT:
+                        _pedidoWebDetalleBusinessLogic.InsPedidoWebDetalle(obePedidoWebDetalle);
+                        break;
+                    case Constantes.PedidoAccion.UPDATE:
+                        _pedidoWebDetalleBusinessLogic.UpdPedidoWebDetalle(obePedidoWebDetalle);
+                        break;
+                    case Constantes.PedidoAccion.DELETE:
+                        _pedidoWebDetalleBusinessLogic.DelPedidoWebDetalle(obePedidoWebDetalle);
+                        break;
+                }
+
+                if (tipoAdm == Constantes.PedidoAccion.UPDATE && quitoCantBackOrder)
+                    _pedidoWebDetalleBusinessLogic.QuitarBackOrderPedidoWebDetalle(obePedidoWebDetalle);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, pedidoInsertar.ConsultoraID, pedidoInsertar.PaisID);
+                resultado = false;
+            }
+
+            return resultado;
         }
 
         private short ValidarInsercion(List<BEPedidoWebDetalle> pedido, BEPedidoWebDetalle itemPedido, out int cantidad)
@@ -523,18 +551,31 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return temp.Sum(p => p.ImporteTotal) + (adm == "U" ? itemPedido.ImporteTotal : 0);
         }
 
-        private int ProcesarOrigenPedido(int origenActual)
+        private void AgregarProductoZE(BEPedidoAppInsertar pedidoInsertar)
         {
-            if (origenActual.ToString().StartsWith("2") || origenActual.ToString().StartsWith("0"))
+            pedidoInsertar.OrigenPedidoWeb = pedidoInsertar.OrigenPedidoWeb < 0 ? 0 : pedidoInsertar.OrigenPedidoWeb;
+            var tipoEstrategiaID = 0;
+            int.TryParse(pedidoInsertar.Producto.TipoEstrategiaID, out tipoEstrategiaID);
+            pedidoInsertar.Producto.TipoOfertaSisID = pedidoInsertar.Producto.TipoOfertaSisID > 0 ? pedidoInsertar.Producto.TipoOfertaSisID : tipoEstrategiaID;
+            pedidoInsertar.Producto.ConfiguracionOfertaID = pedidoInsertar.Producto.ConfiguracionOfertaID > 0 ? pedidoInsertar.Producto.ConfiguracionOfertaID : pedidoInsertar.Producto.TipoOfertaSisID;
+
+            EliminarDetallePackNueva(pedidoInsertar);
+        }
+
+        private void EliminarDetallePackNueva(BEPedidoAppInsertar pedidoInsertar)
+        {
+            var lstPedidoWebDetalle = ObtenerPedidoWebDetalle(pedidoInsertar);
+            var packNuevas = lstPedidoWebDetalle.Where(x => x.FlagNueva && !x.EsOfertaIndependiente);
+
+            foreach (var item in packNuevas)
             {
-                var nuevoOrigen = origenActual.ToString()
-                .Remove(0, 1)
-                .Insert(0, "4");
-
-                origenActual = int.Parse(nuevoOrigen);
+                DeletePedido(pedidoInsertar, item);
             }
+        }
 
-            return origenActual;
+        private void DeletePedido(BEPedidoAppInsertar pedidoInsertar, BEPedidoWebDetalle obe)
+        {
+            AdministradorPedido(pedidoInsertar, obe, Constantes.PedidoAccion.DELETE);
         }
         #endregion
     }

@@ -66,5 +66,7 @@ namespace Portal.Consultoras.Entities.Pedido.App
         public string ClienteDescripcion { get; set; }
         [DataMember]
         public string CodigoUsuario { get; set; }
+        [DataMember]
+        public string Identifier { get; set; }
     }
 }
