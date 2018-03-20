@@ -61,7 +61,7 @@
 
     .bc_para_ti-menu ul li {
         display: inline-block;
-        width: 33.3% !important;
+        width: 33.3%;
         cursor: pointer;
         margin-top: 0;
     }
@@ -332,8 +332,8 @@ img.icono-submenu-tabs {
 }
 
 img.icono-logo-submenu-tabs {
-    height: auto;
-    width: 55px;
+    height: 21px;
+    width: auto;
 }
 
 .opcion_home_vistaOfertas {
