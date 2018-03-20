@@ -75,61 +75,14 @@
         if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
         {
 
-            <style>
-                .contenedor_ganamas {
-                    width: 100%;
-                    max-height: 500px;
-                    overflow: hidden;
-                }
-
-                    .contenedor_ganamas .sb_contenedor_ganamas_bg {
-                        width: 100%;
-                        height: 230px;
-                        background-color: #deaf0c;
-                        position: relative;
-                        z-index: 150;
-                    }
-
-                    .contenedor_ganamas .sb_contenedor_ganamas_bg_two {
-                        width: 100%;
-                        height: 150px;
-                        background-color: #deaf0c;
-                        position: relative;
-                        z-index: 60;
-                    }
-
-                /*.contenedor_ganamas .sb_contenedor_ganamas {
-                        max-width: 1189px;
-                        margin: auto;
-                        position: relative;
-                        top: -200px;
-                        z-index: 100;
-                    }
-
-                    .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_logo {
-                        display: inline-block;
-                        width: 20%;
-                    }*/
-
-                .contenido_gana_mas_ns {
-                    top: -100px;
-                    z-index: 100;
-                }
-            </style>
+            
 
 
             <!--Bryan NO SUSCRITA Historia 636-->
 
-            <div id="block_inscribete" class="contenedor_ganamas">
-                <div class="sb_contenedor_ganamas_bg"></div>
-                <div class="sb_contenedor_ganamas_bg_two"></div>
-            </div>
+            
 
-            <div class="contenido_gana_mas_ns">
-                <hr class="clear" />
-                <div id="divOfertaProductosPerdio" data-content-perdido="@Model.CampaniaID" style="text-align: center;"></div>
-                <hr class="clear" />
-            </div>
+            
 
 }
 else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
@@ -164,6 +117,35 @@ else
             </div>
     </div>
     <hr class="clear" />
+    <!-- INICIO ZONA DORADA-->
+    <div class="zona_dorada_contenedor_desktop">
+
+    </div>
+    <div class="contenido_zona_dorada_contenedor_desktop">
+        <div class="fix-zona-dorada">
+            <div class="block-cont cont-uno">
+                <div class="block-cell">
+                    <div class="logo-dorado-contenedor"></div>
+                </div>
+            </div>
+            <div class="block-cont cont-dos">
+                <div class="block-cell">
+                    <p>ÚNETE AL CLUB Y <b>OBTÉN OFERTAS ADICIONALES</b></p>
+                </div>
+            </div>
+            <div class="block-cont cont-tres">
+                <div class="block-cell">
+                    <a href="#">SUSCRÍBETE GRATIS</a>
+                </div>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+    <div id="divOfertaProductosPerdio" data-content-perdido="@Model.CampaniaID" style="text-align: center; max-width: 1098px;
+    margin: auto;
+    position: relative;
+    top: -230px; margin-right: 80px;"></div>
+    <!-- FIN ZONA DORADA-->
     <div id="divOfertaProductosLoad" style="display: none;">Cargando Productos<br></div>
     <hr class="clear" />
 </div>
@@ -198,7 +180,36 @@ else
         var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
         var tieneMasVendidos = 0;
         var campaniaId = @Model.CampaniaID;
-        var revistaDigital= @Html.Raw(Json.Encode(revistaDigital));
+        var revistaDigital = @Html.Raw(Json.Encode(revistaDigital));
+
+        /* aqui kevin */
+        var stickyOffsetZonaDorada = $('.zona_dorada_contenedor_desktop').offset().top;
+        $(window).scroll(function () {
+            if ($(window).scrollTop() >= stickyOffsetZonaDorada) {
+                $('.zona_dorada_contenedor_desktop').css('position', 'fixed');
+                $('.zona_dorada_contenedor_desktop').css('top', '62px');
+                $('.contenido_zona_dorada_contenedor_desktop').css('margin-top', '317px');
+                $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('padding', '25px 0px');
+                $('.contenido_zona_dorada_contenedor_desktop').css('position', 'fixed');
+                $('.contenido_zona_dorada_contenedor_desktop').css('width', '100%');
+                $('.contenido_zona_dorada_contenedor_desktop').css('z-index', '99');
+                $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('margin', 'auto');
+                $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('width', '1050px');
+                $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('margin-left', '203px');
+                $('#divOfertaProductosPerdio').css('top', '-255px');
+                $('#divOfertaProductosPerdio').css('z-index', '1');
+            }
+            else {
+                $('#divOfertaProductosPerdio').css('top', '-230px');
+                $('.contenido_zona_dorada_contenedor_desktop').css('position', 'initial');
+                $('.contenido_zona_dorada_contenedor_desktop').css('margin-top', '-255px');
+                $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('padding', '0px 0px');
+                $('.contenido_zona_dorada_contenedor_desktop').css('z-index', 'initial');
+                $('.zona_dorada_contenedor_desktop').css('position', 'initial');
+                $('#divOfertaProductosPerdio').css('top', '25px');
+                $('#divOfertaProductosPerdio').css('z-index', 'initial');
+            }
+        });
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Landing")
 }
