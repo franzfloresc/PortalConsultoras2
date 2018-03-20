@@ -1507,6 +1507,8 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneOpm(true);
                     sessionManager.SetTieneOpmX1(true);
                     sessionManager.SetTieneRdr(true);
+                    sessionManager.SetTieneHv(true);
+                    sessionManager.SetTieneHvX1(true);
 
                     usuarioModel.FotoPerfil = usuario.FotoPerfil;
                 }
