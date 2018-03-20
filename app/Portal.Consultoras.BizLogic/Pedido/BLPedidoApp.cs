@@ -482,9 +482,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     PedidoDetalleID = obePedidoWebDetalle.PedidoDetalleID,
                     IndicadorIPUsuario = obePedidoWebDetalle.IPUsuario,
                     IndicadorFingerprint = string.Empty,
-                    IndicadorToken = Session["TokenPedidoAutentico"] != null
-                        ? Session["TokenPedidoAutentico"].ToString()
-                        : string.Empty
+                    IndicadorToken = string.Empty
                 };
                 obePedidoWebDetalle.IndicadorPedidoAutentico = indPedidoAutentico;
                 obePedidoWebDetalle.OrigenPedidoWeb = ProcesarOrigenPedido(obePedidoWebDetalle.OrigenPedidoWeb);
@@ -523,6 +521,20 @@ namespace Portal.Consultoras.BizLogic.Pedido
             else temp = temp.Where(p => p.PedidoDetalleID != pedidoDetalleId).ToList();
 
             return temp.Sum(p => p.ImporteTotal) + (adm == "U" ? itemPedido.ImporteTotal : 0);
+        }
+
+        private int ProcesarOrigenPedido(int origenActual)
+        {
+            if (origenActual.ToString().StartsWith("2") || origenActual.ToString().StartsWith("0"))
+            {
+                var nuevoOrigen = origenActual.ToString()
+                .Remove(0, 1)
+                .Insert(0, "4");
+
+                origenActual = int.Parse(nuevoOrigen);
+            }
+
+            return origenActual;
         }
         #endregion
     }
