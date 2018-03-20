@@ -80,7 +80,23 @@
 
                 <hr class="clear" />
                 @if (Model.ProductosPerdio)
-                {
+    {
+
+        if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+        {
+            <!--Bryan BannerMobile NO SUSCRITA Historia 637-->
+            <div id="block_inscribete" style="padding: 20px 0;">
+                <div class="content_belcorp">
+                    <div class="block_inscribete_predio">
+                        <span class="hblock_title_perdio">@Model.PerdioTitulo</span>
+                        <span class="hblock_title_perdio2">@Model.PerdioSubTitulo</span>
+                    </div>
+                </div>
+            </div>
+        }
+        else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+        {
+                    <!--Bryan BannerMobile SUSCRITA INACTIVA Historia 643-->
                     <div id="block_inscribete" style="padding: 20px 0;">
                         <div class="content_belcorp">
                             <div class="block_inscribete_predio">
@@ -89,12 +105,25 @@
                             </div>
                         </div>
                     </div>
-                    <hr class="clear" />
-                    <div id="divOfertaProductosPerdio" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding"
-                         data-content-perdido="@Model.CampaniaID"
-                         class="flex-container" style="display: inline-flex;flex-wrap: wrap;justify-content: center;"></div>
-                    <hr class="clear" />
-                }
+        }
+        else
+        {
+                    <div id="block_inscribete" style="padding: 20px 0;">
+                        <div class="content_belcorp">
+                            <div class="block_inscribete_predio">
+                                <span class="hblock_title_perdio">@Model.PerdioTitulo</span>
+                                <span class="hblock_title_perdio2">@Model.PerdioSubTitulo</span>
+                            </div>
+                        </div>
+                    </div>
+        }
+
+            <hr class="clear" />
+            <div id="divOfertaProductosPerdio" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding"
+                 data-content-perdido="@Model.CampaniaID"
+                 class="flex-container" style="display: inline-flex;flex-wrap: wrap;justify-content: center;"></div>
+            <hr class="clear" />
+}
             </div>
         </div>
     </div>

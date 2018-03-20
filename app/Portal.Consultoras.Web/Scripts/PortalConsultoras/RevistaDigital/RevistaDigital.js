@@ -360,6 +360,22 @@ function OfertaArmarEstrategias(response, busquedaModel) {
         });
     }
 
+    if (revistaDigital) {
+        if (revistaDigital.TieneRDC) {
+            var ExperienciaGanaMas = new Object();
+            ExperienciaGanaMas.OcultarAgregar = !revistaDigital.EsActiva ? true : false;
+            ExperienciaGanaMas.OcultarVerDetalle = ExperienciaGanaMas.OcultarAgregar;
+            ExperienciaGanaMas.MostrarLoQuieres = revistaDigital.EsSuscrita && !revistaDigital.EsActiva ? false : true;
+
+            $.each(modeloTemp.lista, function (ind, tem) {
+                if (tem.ClaseBloqueada != '') {
+                    tem.ExperienciaGanaMas = ExperienciaGanaMas;
+                    tem.TieneVerDetalle = !ExperienciaGanaMas.OcultarVerDetalle;
+                }
+            });
+        }
+    }
+
     var htmlDiv = SetHandlebars("#producto-landing-template", modeloTemp);
     divProd.find('#divOfertaProductos').append(htmlDiv);
     if (response.cantidadTotal == 0) {
@@ -383,15 +399,17 @@ function OfertaArmarEstrategias(response, busquedaModel) {
             });
 
             if (revistaDigital) {
-                var ExperienciaGanaMas = new Object();
-                ExperienciaGanaMas.OcultarAgregar = revistaDigital.TieneRDC && !revistaDigital.EsActiva ? true : false;
-                ExperienciaGanaMas.OcultarVerDetalle = ExperienciaGanaMas.OcultarAgregar;
-                ExperienciaGanaMas.MostrarLoQuieres = revistaDigital.TieneRDC && revistaDigital.EsSuscrita && !revistaDigital.EsActiva ? false : true;
+                if (revistaDigital.TieneRDC) {
+                    var ExperienciaGanaMas = new Object();
+                    ExperienciaGanaMas.OcultarAgregar = !revistaDigital.EsActiva ? true : false;
+                    ExperienciaGanaMas.OcultarVerDetalle = ExperienciaGanaMas.OcultarAgregar;
+                    ExperienciaGanaMas.MostrarLoQuieres = revistaDigital.EsSuscrita && !revistaDigital.EsActiva ? false : true;
 
-                $.each(modeloTemp.lista, function (ind, tem) {
-                    tem.ExperienciaGanaMas = ExperienciaGanaMas;
-                    tem.TieneVerDetalle = !ExperienciaGanaMas.OcultarVerDetalle;
-                });
+                    $.each(modeloTemp.lista, function (ind, tem) {
+                        tem.ExperienciaGanaMas = ExperienciaGanaMas;
+                        tem.TieneVerDetalle = !ExperienciaGanaMas.OcultarVerDetalle;
+                    });
+                }
             }
             
 

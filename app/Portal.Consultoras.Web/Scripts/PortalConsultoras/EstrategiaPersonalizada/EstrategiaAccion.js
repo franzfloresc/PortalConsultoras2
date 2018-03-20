@@ -591,7 +591,7 @@ function EstrategiaValidarBloqueada(objInput, estrategia) {
         if (revistaDigital) {
             clonarItem = !(revistaDigital.TieneRDC && !revistaDigital.EsSuscrita) ? !(revistaDigital.TieneRDC && revistaDigital.EsSuscrita && !revistaDigital.EsActiva) ? true:false : false;
         }
-
+        clonarItem = true;
         if (clonarItem) {
             var itemClone = EstrategiaObtenerObjHtmlLanding(objInput);
             if (itemClone.length > 0) {
