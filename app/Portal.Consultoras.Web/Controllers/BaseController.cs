@@ -4604,6 +4604,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.TokenPedidoAutenticoOk = (Session["TokenPedidoAutentico"] != null) ? 1 : 0;
             ViewBag.CodigoEstrategia = GetCodigoEstrategia();
+            //
+            ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
+            int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
+            if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
         }
 
         #endregion
