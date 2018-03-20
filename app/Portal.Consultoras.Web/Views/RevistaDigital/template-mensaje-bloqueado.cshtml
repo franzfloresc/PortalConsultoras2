@@ -7,22 +7,35 @@
     var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalModel();
 }
 
-@if (revistaDigital.TieneRDC && !revistaDigital.EsSuscrita)
+@if (revistaDigital.TieneRDC && !revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
 {
     <!--BRYAN POPUP NOSUSCRITA HISTORIA 636//637-->
-    <div class="Content_general_pop_up" id="@divid" style="display: none;" data-popup-main="">
-        Banner no Suscrita
+    <div class="Content_general_pop_up" id="divNSPopupBloqueadoDesk" style="display: none;" data-popup-main="">
+        <div class="popup_rd_bloqueado" data-popup-body="">
+            <span>Banner no Suscrita</span>
+        </div>
     </div>
-}
-else if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
-{
+    <div class="Content_general_pop_up" id="divNSPopupBloqueadoMob" style="display: none;" data-popup-main="">
+        <div class="popup_rd_bloqueado" data-popup-body="">
+            <span>no Suscrita Mobile</span>
+        </div>
+    </div>
+    }
+    else if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+    {
     <!--BRYAN POPUP SUSCRITA NOACTIVA HISTORIA 642//643 -->
-    <div class="Content_general_pop_up" id="@divid" style="display: none;" data-popup-main="">
-        Banner Suscrita Inactiva
+    <div class="Content_general_pop_up" id="divSNAPopupBloqueadoDesk" style="display: none;" data-popup-main="">
+        <div class="popup_rd_bloqueado" data-popup-body="">
+            <span>Banner no Suscrita</span>
+        </div>
     </div>
-}
-else
-{
+    <div class="Content_general_pop_up" id="divSNAPopupBloqueadoMob" style="display: none;" data-popup-main="">
+        <div class="popup_rd_bloqueado" data-popup-body="">
+            <span>Banner no Suscrita Mobile</span>
+        </div>
+    </div>
+    }
+
     <div class="Content_general_pop_up" id="@divid" style="display: none;" data-popup-main="">
         <div class="popup_rd_bloqueado" data-popup-body="">
             <a class="cerrar_fichaProducto" style="position: absolute; top:0px; right: -35px;" href="javascript:;" data-popup-close="divMensajeBloqueada">
@@ -49,4 +62,3 @@ else
             }
         </div>
     </div>
-}

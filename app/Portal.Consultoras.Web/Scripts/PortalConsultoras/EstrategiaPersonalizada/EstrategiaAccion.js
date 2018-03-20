@@ -568,6 +568,7 @@ function EstrategiaAgregar(event, popup, limite) {
 }
 
 function EstrategiaValidarBloqueada(objInput, estrategia) {
+    var clonarItem = true;
     if ($.trim($(objInput).attr("data-bloqueada")) == "") {
         return false;
     }
@@ -586,12 +587,31 @@ function EstrategiaValidarBloqueada(objInput, estrategia) {
         divMensaje.find('.cerrar_fichaProducto').attr('data-popup-close', 'divHVMensajeBloqueada');
     }
 
-    if (divMensaje.length > 0) {
-        var clonarItem = true;
+    if (estrategia.CodigoEstrategia == '007') {
         if (revistaDigital) {
-            clonarItem = !(revistaDigital.TieneRDC && !revistaDigital.EsSuscrita) ? !(revistaDigital.TieneRDC && revistaDigital.EsSuscrita && !revistaDigital.EsActiva) ? true:false : false;
+            if (revistaDigital.TieneRDC) {
+                if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva) {
+                    if (isMobile()) {
+                        divMensaje = $("#divNSPopupBloqueadoMob");
+                    } else {
+                        divMensaje = $("#divNSPopupBloqueadoDesk");
+                    }
+                    clonarItem = false;
+
+                } else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva) {
+                    if (isMobile()) {
+                        divMensaje = $("#divSNAPopupBloqueadoMob");
+                    } else {
+                        divMensaje = $("#divSNAPopupBloqueadoDesk");
+                    }
+                    clonarItem = false;
+                }
+            }
         }
-        clonarItem = true;
+    }
+    
+
+    if (divMensaje.length > 0) {
         if (clonarItem) {
             var itemClone = EstrategiaObtenerObjHtmlLanding(objInput);
             if (itemClone.length > 0) {
