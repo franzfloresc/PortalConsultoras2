@@ -209,14 +209,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string rutaImagen = entidad.ImagenProducto.Clone().ToString();
                 var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
-                if (rutaImagen.ToLower().Contains(valorAppCatalogo))
-                {
-                    listaImagenesResize = ObtenerListaImagenesResizeAppCatalogo(entidad.ImagenProducto);
-                }
-                else
-                {
-                    listaImagenesResize = ObtenerListaImagenesResize(entidad.ImagenProducto);
-                }
+                listaImagenesResize = ObtenerListaImagenesResize(entidad.ImagenProducto, rutaImagen.ToLower().Contains(valorAppCatalogo));
 
                 if (listaImagenesResize != null && listaImagenesResize.Count > 0)
                     MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
@@ -259,67 +252,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
-        #region Imagenes Resize App Catalogo
-
-        public List<EntidadMagickResize> ObtenerListaImagenesResizeAppCatalogo(string rutaImagen)
-        {
-            var listaImagenesResize = new List<EntidadMagickResize>();
-
-            if (Util.ExisteUrlRemota(rutaImagen))
-            {
-                string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
-                string soloExtension = Path.GetExtension(rutaImagen);
-
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
-                var extensionNombreImagenSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall;
-                var rutaImagenSmall = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + extensionNombreImagenSmall + soloExtension);
-
-                var extensionNombreImagenMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium;
-                var rutaImagenMedium = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + extensionNombreImagenMedium + soloExtension);
-
-                var listaValoresImagenesResize = ObtenerParametrosTablaLogica(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, true);
-
-                EntidadMagickResize entidadResize;
-                if (!Util.ExisteUrlRemota(rutaImagenSmall))
-                {
-                    entidadResize = new EntidadMagickResize
-                    {
-                        RutaImagenOriginal = rutaImagen,
-                        RutaImagenResize = rutaImagenSmall,
-                        Width = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize,
-                            Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhSmall),
-                        Height = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize,
-                            Constantes.TablaLogicaDato.ValoresImagenesResizeHeightSmall),
-                        TipoImagen = Constantes.ConfiguracionImagenResize.TipoImagenSmall,
-                        CodigoIso = userData.CodigoISO
-                    };
-                    listaImagenesResize.Add(entidadResize);
-                }
-
-                if (!Util.ExisteUrlRemota(rutaImagenMedium))
-                {
-                    entidadResize = new EntidadMagickResize
-                    {
-                        RutaImagenOriginal = rutaImagen,
-                        RutaImagenResize = rutaImagenMedium,
-                        Width = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize,
-                            Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMedium),
-                        Height = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize,
-                            Constantes.TablaLogicaDato.ValoresImagenesResizeHeightMedium),
-                        TipoImagen = Constantes.ConfiguracionImagenResize.TipoImagenMedium,
-                        CodigoIso = userData.CodigoISO
-                    };
-                    listaImagenesResize.Add(entidadResize);
-                }
-            }
-
-            return listaImagenesResize;
-        }
-
-        #endregion
-
+        
         [HttpPost]
         public JsonResult Deshabilitar(AdministrarProductoSugeridoModel model)
         {
@@ -421,14 +354,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     string rutaImagen = item.RutaImagen.Clone().ToString();
                     var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
-                    if (rutaImagen.ToLower().Contains(valorAppCatalogo))
-                    {
-                        listaImagenesResize = ObtenerListaImagenesResizeAppCatalogo(item.RutaImagen);
-                    }
-                    else
-                    {
-                        listaImagenesResize = ObtenerListaImagenesResize(item.RutaImagen);
-                    }
+                    listaImagenesResize = ObtenerListaImagenesResize(item.RutaImagen, rutaImagen.ToLower().Contains(valorAppCatalogo));
 
                     if (listaImagenesResize != null && listaImagenesResize.Count > 0)
                         mensajeError = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
