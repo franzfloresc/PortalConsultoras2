@@ -126,6 +126,8 @@
             font-size: 12px;
             text-transform: uppercase;
             transition: .3s;
+            position: relative;
+            top: 7px;
         }
 
             .bc_para_ti-menu-opciones ul li a p {
