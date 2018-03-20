@@ -166,7 +166,7 @@ else
                     <div class="titA"></div>
                     <input type="button" value="Guardar" data-bind="click:$root.save,
                                                                 value: $root.upSellingSeleccionadoIsDirty() ? '*Guardar': 'Guardar',
-                                            style: { background: $root.upSellingSeleccionadoIsDirty()? '#5bc0de':'#652b82' }" />
+                                            style: { background: $root.upSellingSeleccionadoIsDirty()? '#5bc0de':'' }" />
                     <input type="button" value="Cancelar" data-bind="click:$root.cancel" />
                 </div>
             </div>
@@ -219,7 +219,6 @@ else
                 idFormReporteListaGanadoras: 'reporteListaGanadorasForm',
                 urlListaGanadorasObtener: '@Url.Action("ObtenerOfertaFinalMontoMeta", "UpSelling")' ,
                 paisNombre: '@Model.PaisNombre',
-                idDivPopUpRegalo: 'editRegaloPopUp',
                 urlFileUpload : '@Url.Action("ImageLanzamientoUpload", "FileUpload")',
                 urlTemporal: '@Url.Content("~/Content/Temporales")/',
                 divPreviewPopUp: $('#previewPopUp'),
