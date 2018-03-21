@@ -2300,70 +2300,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
             }
         }
-
-        #region CargaMasivaImagenes
-
-        public JsonResult CargaMasivaImagenes(int campaniaId)
-        {
-            try
-            {
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                List<BECargaMasivaImagenes> listaEstrategias;
-
-                using (var ps = new PedidoServiceClient())
-                {
-                    listaEstrategias = ps.GetListaImagenesEstrategiasByCampania(userData.PaisID, campaniaId).ToList();
-                }
-
-                var cuvNoGenerados = "";
-                var cuvNoExistentes = "";
-
-                foreach (var estrategia in listaEstrategias)
-                {
-                    var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.RutaImagen);
-                    var mensajeError = "";
-                    var listaImagenesResize = ObtenerListaImagenesResize(rutaImagenCompleta);
-                    if (listaImagenesResize != null && listaImagenesResize.Count > 0)
-                        mensajeError = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
-                    else
-                        cuvNoExistentes += estrategia.Cuv + ",";
-
-                    if (mensajeError != "")
-                    {
-                        cuvNoGenerados += estrategia.Cuv + ",";
-                    }
-                }
-
-                var mensaje = "Se generaron las imagenes SMALL y MEDIUM de todas las imagenes.";
-                if (cuvNoGenerados != "")
-                {
-                    mensaje += " Excepto los siguientes Cuvs: " + cuvNoGenerados;
-                }
-                if (cuvNoExistentes != "")
-                {
-                    mensaje += " Excepto los siguientes Cuvs (imagen orignal no encontrada o ya existen): " +
-                               cuvNoExistentes;
-                }
-
-                return Json(new
-                {
-                    success = true,
-                    message = mensaje,
-                    extra = ""
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
+                
         public string GuardarImagenMiniAmazon(string nombreImagen, string nombreImagenAnterior, int paisId, bool keepFile = false)
         {
             string nombreImagenFinal;
@@ -2386,7 +2323,6 @@ namespace Portal.Consultoras.Web.Controllers
             else nombreImagenFinal = nombreImagen;
             return nombreImagenFinal;
         }
-        #endregion
 
         [HttpPost]
         public ActionResult UploadFileSetStrategyShowroom(DescripcionMasivoModel model)

@@ -3698,39 +3698,6 @@
         clickAceptarMasivo3: function() {
             HideDialog("DialogNuevoMasivo");
         },
-        clickCargaMasivaImagenes: function() {
-            if ($("#ddlPais").val() == "") {
-                _toastHelper.error("Debe seleccionar el País, verifique.");
-                return false;
-            }
-            if ($("#ddlCampania").val() == "") {
-                _toastHelper.error("Debe seleccionar la Campaña, verifique.");
-                return false;
-            }
-
-            var campaniaId = $("#ddlCampania").val();
-            var params = {
-                campaniaID: campaniaId
-            };
-
-            waitingDialog({});
-            jQuery.ajax({
-                type: "POST",
-                url: baseUrl + "AdministrarEstrategia/CargaMasivaImagenes",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(params),
-                async: true,
-                success: function(data) {
-                    //if(data.success)
-                    closeWaitingDialog();
-                    _toastHelper.success(data.message);
-                },
-                error: function(data, error) {
-                    _toastHelper.error(data.message);
-                }
-            });
-        },
         clickImagenEstrategia: function() {
             $(this).css("color", "white");
             $(this).css("background", "#00A2E8");
@@ -4214,7 +4181,6 @@
         $("body").on("click", "#btnCancelarMasivo1", _eventos.clickCancelarMasivo1);
         $("body").on("click", "#btnCancelarMasivo2", _eventos.clickCancelarMasivo2);
         $("body").on("click", "#btnAceptarMasivo3", _eventos.clickAceptarMasivo3);
-        $("body").on("click", "#btnCargaMasivaImagenes", _eventos.clickCargaMasivaImagenes);
         $("body").on("click", "#divImagenEstrategia", _eventos.clickImagenEstrategia);
         $("body").on("click", "#divInformacionAdicionalEstrategia", _eventos.clickInformacionAdicionalEstrategia);
         $("body").on("click", "#linkTallaColor", _eventos.clickLinkTallaColor);
