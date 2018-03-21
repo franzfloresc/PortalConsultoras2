@@ -153,12 +153,16 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     dato = revistaDigital.ConfiguracionPaisDatos
                    .FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.NSPerdiste);
+                    dato.Valor1 = dato.Valor1.ToUpper();
+                    dato.Valor2 = dato.Valor2.ToUpper();
                 }
                 else if(revistaDigital.EsSuscrita&&!revistaDigital.EsActiva)
                 {
                     dato = revistaDigital.ConfiguracionPaisDatos
                    .FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.SNAPerdiste);
-                    dato.Valor2 = dato.Valor2.Replace("#campania", revistaDigital.CampaniaActiva);
+                    dato.Valor2 = dato.Valor2.Replace("#campania", string.Concat("C",revistaDigital.CampaniaActiva));
+                    dato.Valor1 = dato.Valor1.ToUpper();
+                    dato.Valor2 = dato.Valor2.ToUpper();
                 }
                 else
                 {

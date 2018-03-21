@@ -37,14 +37,24 @@ $.fn.followTo = function (elem) {
                     $('header').css("position", "relative");
                     $('#seccion-fixed-menu').css("position", "relative");
                 } else {
-                    topAltura = alturaH;
+                    topAltura = alturaH+'px';
                     //$bumper.addClass("menu-fixed");
-                    $bumper.css("position", "fixed");
+                    //$bumper.css("position", "fixed");
+                        $('.zona_dorada_contenedor_desktop').css('position', 'fixed');
+                        $('.zona_dorada_contenedor_desktop').css('top', topAltura);
+                        $('.contenido_zona_dorada_contenedor_desktop').css('margin-top', '317px');
+                        $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('padding', '25px 0px');
+                        $('.contenido_zona_dorada_contenedor_desktop').css('position', 'fixed');
+                        $('.contenido_zona_dorada_contenedor_desktop').css('width', '100%');
+                        $('.contenido_zona_dorada_contenedor_desktop').css('z-index', '99');
+                        $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('margin', 'auto');
+                        $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('width', '1050px');
+                        $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('margin-left', '195px');
                 }
                 
-                $bumper.css({
-                    top: topAltura 
-                });
+                //$bumper.css({
+                //    top: topAltura 
+                //});
             } else {
                 if (isMobile()) {
                     $bumper.css("position", "");
@@ -55,11 +65,19 @@ $.fn.followTo = function (elem) {
                     //$('#seccion-fixed-menu').css("top", "29px");
 
                 } else {
-                    $bumper.css("position", "");
+                    //$bumper.css("position", "");
+                    $('#divOfertaProductosPerdio').css('top', '-230px');
+                    $('.contenido_zona_dorada_contenedor_desktop').css('position', 'initial');
+                    $('.contenido_zona_dorada_contenedor_desktop').css('margin-top', '-255px');
+                    $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('padding', '0px 0px');
+                    $('.contenido_zona_dorada_contenedor_desktop').css('z-index', 'initial');
+                    $('.zona_dorada_contenedor_desktop').css('position', 'initial');
+                    $('#divOfertaProductosPerdio').css('top', '25px');
+                    $('#divOfertaProductosPerdio').css('z-index', 'initial');
                 }
-                $bumper.css({
-                    top: 0
-                });
+                //$bumper.css({
+                //    top: 0
+                //});
             }
         };
     $window.resize(function () {
@@ -77,17 +95,17 @@ $(document).ready(function () {
 
     isDetalle = (window.location.pathname.toLowerCase() + "/").indexOf(sProps.UrlRevistaDigitalDetalle) >= 0;
 
-    //if (revistaDigital) {
-    //    if (!revistaDigital.EsActiva) {
-    //        if (tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 27) {
-    //            if (isMobile()) {
-    //                $('#seccion-fixed-menu').followTo('#block_inscribete');
-    //            } else {
-    //                $('header').followTo('#block_inscribete');
-    //            }
-    //        }
-    //    }
-    //}
+    if (revistaDigital) {
+        if (!revistaDigital.EsActiva) {
+            if (tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 27) {
+                if (isMobile()) {
+                    $('#seccion-fixed-menu').followTo('#block_inscribete');
+                } else {
+                    $('header').followTo('#block_inscribete');
+                }
+            }
+        }
+    }
     
 
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
