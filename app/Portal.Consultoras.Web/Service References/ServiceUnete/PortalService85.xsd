@@ -33,7 +33,6 @@
       <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IsSelected" type="xs:boolean" />
       <xs:element minOccurs="0" name="Titulo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Valor" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FuenteIngresoModelSAC" nillable="true" type="tns:FuenteIngresoModelSAC" />
@@ -58,7 +57,6 @@
       <xs:element minOccurs="0" name="CampanaCreacionCodigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CampanaIngreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CampanaRegistro" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="ClaseAdicionalFila" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ClasePostulantesNuevasApp" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ClaseRechazoZonaSeccion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
