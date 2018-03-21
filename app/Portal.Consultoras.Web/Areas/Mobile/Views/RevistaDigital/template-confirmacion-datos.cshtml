@@ -15,6 +15,9 @@
                         </span>
                         <div class="form-datos">
                             <div class="input">
+                                <p id="errorCampos" class="txtvalidar" style="display: none">Debe ingresar al menos un campo.</p>
+                            </div>
+                            <div class="input">
                                 <img src="~/Content/Images/mailIcon.png" alt="" class="envelope" />
                                 <input id="CorreoAnterior" type="hidden" value="@Model.Email" />
                                 <input id="Email" type="text" value="@Model.Email" placeholder="Tu correo electrónico" class="txtformvalidar" />
@@ -23,10 +26,11 @@
                             <div class="input">
                                 <img src="~/Content/Images/phoneIcon.png" alt="" class="phone" />
                                 <input type="hidden" id="hdn_CaracterMinimo" value="@Model.LimiteMin" />
-                                <input id="Celular" type="text" value="@Model.Celular" placeholder="Tu teléfono" class="txtformvalidar" onkeydown="return FuncionesGenerales.ValidarSoloNumeros(event) && limitarMaximo(event,this.value,@Model.LimiteMax,'Celular')" />
+                                <input type="hidden" id="hdn_CaracterMaximo" value="@Model.LimiteMax" />
+                                <input id="Celular" type="text" value="@Model.Celular" placeholder="Tu teléfono" class="txtformvalidar" />
                                 <p id="errorPhone" class="txtvalidar" style="display: none">Debe ingresar un número válido</p>
                             </div>
-                            
+
                             <div class="validar_chk">
                                 <div class="inputchk">
                                     <input type="checkbox" name="chkinput" id="chkinput" />
@@ -37,7 +41,7 @@
                                 </div>
                                 <div style="clear:both;"></div>
                             </div>
-                            <button onclick="javascript:return RDConfirmarDatos();">CONFIRMAR DATOS</button>
+                            <button>CONFIRMAR DATOS</button>
                         </div>
                     </div>
                 </div>
