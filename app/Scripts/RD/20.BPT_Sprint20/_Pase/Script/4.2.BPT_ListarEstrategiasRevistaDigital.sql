@@ -227,7 +227,7 @@ SET NOCOUNT ON;
 	FROM #TEMPORAL T
 		LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	ORDER BY
-		Orden1 ASC, CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
+		CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
 	
 	DROP TABLE #TEMPORAL
 
@@ -465,7 +465,7 @@ SET NOCOUNT ON;
 	FROM #TEMPORAL T
 		LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	ORDER BY
-		Orden1 ASC, CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
+		CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
 	
 	DROP TABLE #TEMPORAL
 
@@ -703,7 +703,7 @@ SET NOCOUNT ON;
 	FROM #TEMPORAL T
 		LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	ORDER BY
-		Orden1 ASC, CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
+		CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
 	
 	DROP TABLE #TEMPORAL
 
@@ -941,7 +941,7 @@ SET NOCOUNT ON;
 	FROM #TEMPORAL T
 		LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	ORDER BY
-		Orden1 ASC, CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
+		CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
 	
 	DROP TABLE #TEMPORAL
 
@@ -1179,7 +1179,7 @@ SET NOCOUNT ON;
 	FROM #TEMPORAL T
 		LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	ORDER BY
-		Orden1 ASC, CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
+		CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
 	
 	DROP TABLE #TEMPORAL
 
@@ -1417,7 +1417,7 @@ SET NOCOUNT ON;
 	FROM #TEMPORAL T
 		LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	ORDER BY
-		Orden1 ASC, CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
+		CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
 	
 	DROP TABLE #TEMPORAL
 
@@ -1655,7 +1655,7 @@ SET NOCOUNT ON;
 	FROM #TEMPORAL T
 		LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	ORDER BY
-		Orden1 ASC, CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
+		CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
 	
 	DROP TABLE #TEMPORAL
 
@@ -1893,7 +1893,7 @@ SET NOCOUNT ON;
 	FROM #TEMPORAL T
 		LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	ORDER BY
-		Orden1 ASC, CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
+		CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
 	
 	DROP TABLE #TEMPORAL
 
@@ -2131,7 +2131,7 @@ SET NOCOUNT ON;
 	FROM #TEMPORAL T
 		LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	ORDER BY
-		Orden1 ASC, CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
+		CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
 	
 	DROP TABLE #TEMPORAL
 
@@ -2369,7 +2369,7 @@ SET NOCOUNT ON;
 	FROM #TEMPORAL T
 		LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	ORDER BY
-		Orden1 ASC, CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
+		CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
 	
 	DROP TABLE #TEMPORAL
 
@@ -2607,7 +2607,7 @@ SET NOCOUNT ON;
 	FROM #TEMPORAL T
 		LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	ORDER BY
-		Orden1 ASC, CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
+		CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
 	
 	DROP TABLE #TEMPORAL
 
@@ -2845,7 +2845,7 @@ SET NOCOUNT ON;
 	FROM #TEMPORAL T
 		LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	ORDER BY
-		Orden1 ASC, CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
+		CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
 	
 	DROP TABLE #TEMPORAL
 

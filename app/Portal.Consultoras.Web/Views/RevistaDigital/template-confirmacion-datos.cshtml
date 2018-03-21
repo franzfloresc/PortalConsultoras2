@@ -26,9 +26,9 @@
                         </div>
                         <div class="input">
                             <img src="~/Content/Images/phoneIcon.png" alt="" class="phone">
-                            <input type="hidden" id="hdn_CaracterMinimo" value="@Model.LimiteMin"/>
-                            <input id="Celular" type="text" value="@Model.Celular" placeholder="Tu teléfono" class="txtformvalidar"
-                                   onkeydown="return limitarMaximo(event, this.value, @Model.LimiteMax, 'Celular')"/>
+                            <input type="hidden" id="hdn_CaracterMinimo" value="@Model.LimiteMin" />
+                            <input type="hidden" id="hdn_CaracterMaximo" value="@Model.LimiteMax" />
+                            <input id="Celular" type="text" value="@Model.Celular" placeholder="Tu teléfono" class="txtformvalidar"/>
                             <p id="errorPhone" class="txtvalidar" style="display: none">Debe ingresar un número válido</p>
                         </div>
                         
@@ -42,7 +42,7 @@
                             </div>
                             <div style="clear: both;"></div>
                         </div>
-                        <button onclick="javascript:return RDConfirmarDatos();">CONFIRMAR DATOS</button>
+                        <button>CONFIRMAR DATOS</button>
                     </div>
                 </div>
             </div>
