@@ -15,5 +15,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string FechaUltimoMovimientoFormatDiaMes { get; set; }
         public List<EstadoCuentaDetalleMobilModel> ListaEstadoCuentaDetalle { get; set; }
         public EstadoCuentaModel UltimoMovimiento { get; set; }
+
+        public bool TienePagoEnLinea { get; set; }
     }
 }
