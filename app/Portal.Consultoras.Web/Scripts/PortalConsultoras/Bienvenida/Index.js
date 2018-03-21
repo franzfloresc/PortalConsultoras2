@@ -1217,7 +1217,7 @@ function CargarBanners() {
                                 attibutes += " rel=\"banner-inferior=\"";
                             }
 
-                            $('#bannerBajos').append("<a class='enlaces_home' href='javascript:void();' " + attibutes + "><div class='div-img hidden' style='margin-bottom: 10px;'><img class='banner-img' data-src='" + fileName + "' data-lazy-seccion-banner-home=''/></div><div class='btn_enlaces'>" + trackingText + "</div></a>");
+                            $('#bannerBajos').append("<a class='enlaces_home' href='javascript:void(0);' " + attibutes + "><div class='div-img hidden' style='margin-bottom: 10px;'><img class='banner-img' data-src='" + fileName + "' data-lazy-seccion-banner-home=''/></div><div class='btn_enlaces'>" + trackingText + "</div></a>");
                             promotionsBajos.push({
                                 id: objData.BannerID,
                                 name: objData.Titulo,
