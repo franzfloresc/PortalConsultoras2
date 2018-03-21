@@ -124,92 +124,6 @@
 <!--Fin seccion landing-->
 <hr class="clear" />
 
-<!--aqui empieza la zona dorada-->
-<style>
-    .contenido_zona_dorada_contenedor_desktop {
-        width: 100%;
-        height: 157px;
-        display: table;
-        background-image: linear-gradient(to left, #d9b43c, #cdaa37);
-        position: relative;
-        padding: 60px 0px 25px 0px;
-    }
-        .contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop {
-            background: url('/Content/Images/RevistaDigital/etiqueta-club-ganamas-blanco-independiente.svg');
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 97px;
-            height: 45px;
-            background-size: contain;
-            background-repeat: no-repeat;
-        }
-    .contenido_zona_dorada_contenedor_desktop .fix-zona-dorada{
-        height:auto;
-        display:table-cell;
-        vertical-align:middle;
-    }
-        .contenido_zona_dorada_contenedor_desktop .fix-zona-dorada p {
-            font-size: 13px;
-            font-weight: normal;
-            font-style: normal;
-            font-stretch: normal;
-            line-height: normal;
-            letter-spacing: 0.5px;
-            text-align: center;
-            color: #ffffff;
-            display: block;
-            width: 200px;
-            margin: auto;
-            padding: 0px 0px 5px 0px;
-        }
-        .contenido_zona_dorada_contenedor_desktop .fix-zona-dorada a {
-            font-size: 13px;
-            font-weight: bold;
-            font-style: normal;
-            font-stretch: normal;
-            line-height: normal;
-            letter-spacing: 0.5px;
-            text-align: center;
-            color: #c39934;
-            display: block;
-            width: 200px;
-            margin: auto;
-            background: white;
-            padding: 9.5px 10px;
-        }
-    .fix_zona_dorada_mobile {
-        background-image: linear-gradient(to left, #d9b43c, #cdaa37);
-        margin-top: -1px;
-        padding: 0px 15px 17px 15px;
-    }
-    .fix_zona_dorada_mobile .content_item_home_bpt{
-        -webkit-box-shadow: 0 15px 13px -8px rgba(0, 0, 0, 0.15) !important;
-    -moz-box-shadow: 0 15px 13px -8px rgba(0, 0, 0, 0.15) !important;
-    box-shadow: 0 15px 13px -8px rgba(0, 0, 0, 0.15) !important;
-    }
-    .scroll_posicionar_zona_dorada_cabecera {
-        position: fixed;
-        top: 105px;
-        z-index: 2;
-        height: auto !important;
-        padding: 25px 0px 25px 0px !important;
-    }
-    .scroll_posicionar_zona_dorada_cabecera_fix {
-        top: 135px !important;
-    }
-    .scroll_posicionar_zona_dorada_cabecera_fix2 {
-        top: 135px !important;
-    }
-    .scroll_posicionar_fix-zona-dorada {
-        /*height: 102px !important;*/
-    }
-    .scroll_posicionar_zona_dorada_items {
-        margin-top: 70px;
-        position: relative;
-        z-index:1;
-    }
-</style>
 <div class="contenido_zona_dorada_contenedor_desktop">
     <div class="logo-dorado-desktop"></div>
     <div class="fix-zona-dorada">
@@ -242,7 +156,29 @@
         var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
         var tieneMasVendidos = 0;
         var campaniaId = @Model.CampaniaID;
-        var revistaDigital= @Html.Raw(Json.Encode(revistaDigital));
+        var revistaDigital = @Html.Raw(Json.Encode(revistaDigital));
+
+        /*Holi kevin aqui el script*/
+
+        var stickyOffsetZonaDoradaMobile = $('#divOfertaProductos').height();
+        var fixstickyZonaDoradaMobile = $('#seccion-fixed-menu');
+        $(window).scroll(function () {
+            if ($(window).scrollTop() >= stickyOffsetZonaDoradaMobile) {
+                $('.bc_mobil_para-mi').css('display', 'none !important');
+                $('.contenido_zona_dorada_contenedor_desktop').addClass('scroll_posicionar_zona_dorada_cabecera');
+                $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').addClass('scroll_posicionar_fix-zona-dorada');
+                $('#divOfertaProductosPerdio').addClass('scroll_posicionar_zona_dorada_items');
+                $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').css('display', 'none');
+            }
+            else {
+                $('.bc_mobil_para-mi').css('display', 'block !important');
+                $('.contenido_zona_dorada_contenedor_desktop').removeClass('scroll_posicionar_zona_dorada_cabecera');
+                $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').removeClass('scroll_posicionar_fix-zona-dorada');
+                $('#divOfertaProductosPerdio').removeClass('scroll_posicionar_zona_dorada_items');
+                $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').css('display', 'block');
+
+            }
+        });
 </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/RevistaDigital-Landing")
 }
