@@ -70,6 +70,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     model.FechaVencimiento = userData.FechaLimPago.ToString("dd/MM/yyyy");
                     model.MontoPagarStr = Util.DecimalToStringFormat(userData.MontoDeuda, userData.CodigoISO);
                 }
+
+                model.TienePagoEnLinea = userData.TienePagoEnLinea;
             }
             catch (FaultException ex)
             {

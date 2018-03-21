@@ -48,9 +48,13 @@ else
             <span>Vencimiento :</span>
             <span>@Model.FechaVencimiento</span>
         </div>
-        <a href="@Url.Action("Index","PagoEnLinea")" class="btn_paga_en_linea_con_credito_visa">
-            Paga en línea con visa
-        </a>
+
+        @if (Model.TienePagoEnLinea)
+        {
+            <a href="@Url.Action("Index", "PagoEnLinea")" class="btn_paga_en_linea_con_credito_visa">
+                Paga en línea con visa
+            </a>
+        }
     </div>
 
     @if (!string.IsNullOrEmpty(Model.UltimoMovimiento.Glosa))
