@@ -24,128 +24,140 @@
         @if (!Model.ProductosPerdio)
         {
             <div id="orderby-filter" style="padding: 0px 2%;">
-            <div id="divBusquedaFiltros" class="rd-busqueda-filtros">
-                <div class="rd-seccion2" style="padding: 0px 0%; height:auto;">
+                <div id="divBusquedaFiltros" class="rd-busqueda-filtros">
+                    <div class="rd-seccion2" style="padding: 0px 0%; height:auto;">
 
-                    <div id="divCantProductos" class="cantidad_productos_fix cantidad_productos_fav" style="text-align:left;">
-                        <div class="rd-cantidad">
-                            Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span>
-                        </div>
-                        <div class="rd-filtro-limpiar">
-                            <div id="div-delete-filters" style="display: none; margin-right: 0px;">
-                                <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="@idBorrar" style="text-decoration: underline;">Borrar Filtros</a>
+                        <div id="divCantProductos" class="cantidad_productos_fix cantidad_productos_fav" style="text-align:left;">
+                            <div class="rd-cantidad">
+                                Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span>
+                            </div>
+                            <div class="rd-filtro-limpiar">
+                                <div id="div-delete-filters" style="display: none; margin-right: 0px;">
+                                    <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="@idBorrar" style="text-decoration: underline;">Borrar Filtros</a>
+                                </div>
                             </div>
                         </div>
+                        <div id="divFiltros" class="rd-fitlros-fix rd-filtros">
+                            @if (Model.FiltersByBrand.Any())
+                            {
+                                <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
+                                    @foreach (var item in Model.FiltersByBrand)
+                                    {
+                                        <option value="@item.Codigo">@item.Descripcion</option>
+                                    }
+                                </select>
+                            }
+                            @if (Model.FiltersBySorting.Any())
+                            {
+                                <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
+                                    @foreach (var item1 in Model.FiltersBySorting)
+                                    {
+                                        <option value="@item1.Codigo">@item1.Descripcion</option>
+                                    }
+                                </select>
+                            }
+                        </div>
+                        <div style="clear:both;"></div>
                     </div>
-                    <div id="divFiltros" class="rd-fitlros-fix rd-filtros">
-                        @if (Model.FiltersByBrand.Any())
-                        {
-                            <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
-                                @foreach (var item in Model.FiltersByBrand)
-                                {
-                                    <option value="@item.Codigo">@item.Descripcion</option>
-                                }
-                            </select>
-                        }
-                        @if (Model.FiltersBySorting.Any())
-                        {
-                            <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
-                                @foreach (var item1 in Model.FiltersBySorting)
-                                {
-                                    <option value="@item1.Codigo">@item1.Descripcion</option>
-                                }
-                            </select>
-                        }
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <div id="RDListado" data-content-item="@Model.CampaniaID"
+         data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding"
+         data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingPopUp">
+
+        <div id="divOfertaProductos" style="text-align: center;"></div>
+        <hr class="clear" />
+        @if (Model.ProductosPerdio)
+    {
+        if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+        {
+            <!--Bryan NO SUSCRITA Historia 636-->
+            <!-- INICIO ZONA DORADA-->
+            <div class="zona_dorada_contenedor_desktop">
+
+            </div>
+            <div class="contenido_zona_dorada_contenedor_desktop">
+                <div class="fix-zona-dorada">
+                    <div class="block-cont cont-uno">
+                        <div class="block-cell">
+                            <div class="logo-dorado-contenedor"></div>
+                        </div>
+                    </div>
+                    <div class="block-cont cont-dos">
+                        <div class="block-cell">
+                            <p>ÚNETE AL CLUB Y <b>OBTÉN OFERTAS ADICIONALES</b></p>
+                        </div>
+                    </div>
+                    <div class="block-cont cont-tres">
+                        <div class="block-cell">
+                            <a href="#">SUSCRÍBETE GRATIS</a>
+                        </div>
                     </div>
                     <div style="clear:both;"></div>
                 </div>
             </div>
-        </div>
-        }
+            <!-- FIN ZONA DORADA-->
 
-       
-            <div id="RDListado" data-content-item="@Model.CampaniaID"
-                 data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding"
-                 data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingPopUp">
 
-                <div id="divOfertaProductos" style="text-align: center;"></div>
-                <hr class="clear" />
-                @if (Model.ProductosPerdio)
+
+
+    }
+    else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
     {
-        if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
-        {
+        <!-- INICIO ZONA DORADA-->
+        <div class="zona_dorada_contenedor_desktop">
 
-            
-
-
-            <!--Bryan NO SUSCRITA Historia 636-->
-
-            
-
-            
-
-}
-else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
-{
-            <!--Bryan SUSCRITA INACTIVA Historia 642-->
-            <div id="block_inscribete">
-                <div class="content_belcorp">
-                    <div class="block_inscribete_predio">
-                        <span class="hblock_title_perdio">@Model.PerdioTitulo</span><br />
-                        <span class="hblock_title_perdio2">@Model.PerdioSubTitulo</span>
+        </div>
+        <div class="contenido_zona_dorada_contenedor_desktop">
+            <div class="fix-zona-dorada">
+                <div class="block-cont cont-uno">
+                    <div class="block-cell">
+                        <div class="logo-dorado-contenedor"></div>
                     </div>
                 </div>
+                <div class="block-cont cont-dos">
+                    <div class="block-cell">
+                        <p>ÚNETE AL CLUB Y <b>OBTÉN OFERTAS ADICIONALES</b></p>
+                    </div>
+                </div>
+                <div class="block-cont cont-tres">
+                    <div class="block-cell">
+                        <a href="#">SUSCRÍBETE GRATIS</a>
+                    </div>
+                </div>
+                <div style="clear:both;"></div>
             </div>
+        </div>
+        <!-- FIN ZONA DORADA-->
 }
 else
 {
-            <div>
-                <div id="block_inscribete">
-                    <div class="content_belcorp">
-                        <div class="block_inscribete_predio">
-                            <span class="hblock_title_perdio">@Model.PerdioTitulo</span><br />
-                            <span class="hblock_title_perdio2">@Model.PerdioSubTitulo</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-}
-
-
-}
-            </div>
-    </div>
-    <hr class="clear" />
-    <!-- INICIO ZONA DORADA-->
-    <div class="zona_dorada_contenedor_desktop">
-
-    </div>
-    <div class="contenido_zona_dorada_contenedor_desktop">
-        <div class="fix-zona-dorada">
-            <div class="block-cont cont-uno">
-                <div class="block-cell">
-                    <div class="logo-dorado-contenedor"></div>
+    <div>
+        <div id="block_inscribete">
+            <div class="content_belcorp">
+                <div class="block_inscribete_predio">
+                    <span class="hblock_title_perdio">@Model.PerdioTitulo</span><br />
+                    <span class="hblock_title_perdio2">@Model.PerdioSubTitulo</span>
                 </div>
             </div>
-            <div class="block-cont cont-dos">
-                <div class="block-cell">
-                    <p>ÚNETE AL CLUB Y <b>OBTÉN OFERTAS ADICIONALES</b></p>
-                </div>
-            </div>
-            <div class="block-cont cont-tres">
-                <div class="block-cell">
-                    <a href="#">SUSCRÍBETE GRATIS</a>
-                </div>
-            </div>
-            <div style="clear:both;"></div>
         </div>
+
     </div>
+}
+
     <div id="divOfertaProductosPerdio" data-content-perdido="@Model.CampaniaID" style="text-align: center; max-width: 1098px;
     margin: auto;
     position: relative;
     top: -230px; margin-right: 80px;"></div>
-    <!-- FIN ZONA DORADA-->
+
+
+}
+    </div>
+    <hr class="clear" />
     <div id="divOfertaProductosLoad" style="display: none;">Cargando Productos<br></div>
     <hr class="clear" />
 </div>

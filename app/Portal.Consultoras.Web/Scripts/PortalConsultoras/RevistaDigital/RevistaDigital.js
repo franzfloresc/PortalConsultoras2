@@ -77,17 +77,17 @@ $(document).ready(function () {
 
     isDetalle = (window.location.pathname.toLowerCase() + "/").indexOf(sProps.UrlRevistaDigitalDetalle) >= 0;
 
-    if (revistaDigital) {
-        if (!revistaDigital.EsActiva) {
-            if (tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 27) {
-                if (isMobile()) {
-                    $('#seccion-fixed-menu').followTo('#block_inscribete');
-                } else {
-                    $('header').followTo('#block_inscribete');
-                }
-            }
-        }
-    }
+    //if (revistaDigital) {
+    //    if (!revistaDigital.EsActiva) {
+    //        if (tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 27) {
+    //            if (isMobile()) {
+    //                $('#seccion-fixed-menu').followTo('#block_inscribete');
+    //            } else {
+    //                $('header').followTo('#block_inscribete');
+    //            }
+    //        }
+    //    }
+    //}
     
 
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
