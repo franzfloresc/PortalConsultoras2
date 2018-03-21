@@ -48,6 +48,7 @@ namespace Portal.Consultoras.Service
         private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
         private readonly IConfiguracionProgramaNuevasBusinessLogic _configuracionProgramaNuevasBusinessLogic;
         private readonly ITrackingBusinessLogic _trackingBusinessLogic;
+        private readonly BLCuponesProgramaNuevas BLCuponesProgramaNuevas;
 
         public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb(), new BLConfiguracionProgramaNuevas(), new BLTracking())
         {
@@ -75,6 +76,7 @@ namespace Portal.Consultoras.Service
             BLRevistaDigitalSuscripcion = new BLRevistaDigitalSuscripcion();
             BLCuponConsultora = new BLCuponConsultora();
             blFichaProducto = new BLFichaProducto();
+            BLCuponesProgramaNuevas = new BLCuponesProgramaNuevas();
         }
 
         public PedidoService(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic, IPedidoWebBusinessLogic pedidoWebBusinessLogic,
@@ -2278,6 +2280,11 @@ namespace Portal.Consultoras.Service
         public List<int> InsertarProductoShowroomMasiva(BEEstrategiaMasiva entidad)
         {
             return new BLEstrategia().InsertarProductoShowroomMasiva(entidad);
+        }
+
+        public List<string> ObtenerListadoCuvCupon(int paisId, int campaniaId)
+        {
+            return BLCuponesProgramaNuevas.ObtenerListadoCuvCupon(paisId, campaniaId);
         }
     }
 }

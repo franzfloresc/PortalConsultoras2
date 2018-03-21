@@ -37,7 +37,8 @@ namespace Portal.Consultoras.BizLogic
         SeccionConfiguracionOfertasHome,
         ConfiguracionEventoFestivo,
         GNDEstrategia,
-        HVEstrategia
+        HVEstrategia,
+        CuponesProgramaNuevas
     }
 
     internal class CacheManager<T>
