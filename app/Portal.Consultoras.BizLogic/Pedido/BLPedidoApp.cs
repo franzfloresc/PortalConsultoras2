@@ -2,10 +2,12 @@
 using Portal.Consultoras.Entities.Pedido.App;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
+using Portal.Consultoras.Data.ServiceCalculoPROL;
 
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic.Pedido
 {
@@ -16,25 +18,29 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private readonly IPedidoWebDetalleBusinessLogic _pedidoWebDetalleBusinessLogic;
         private readonly IEstrategiaBusinessLogic _estrategiaBusinessLogic;
         private readonly IConfiguracionProgramaNuevasBusinessLogic _configuracionProgramaNuevasBusinessLogic;
+        private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
 
         public BLPedidoApp() : this(new BLProducto(), 
                                     new BLPedidoWeb(),
                                     new BLPedidoWebDetalle(),
                                     new BLEstrategia(),
-                                    new BLConfiguracionProgramaNuevas())
+                                    new BLConfiguracionProgramaNuevas(),
+                                    new BLConsultoraConcurso())
         { }
 
         public BLPedidoApp(IProductoBusinessLogic productoBusinessLogic, 
                             IPedidoWebBusinessLogic pedidoWebBusinessLogic,
                             IPedidoWebDetalleBusinessLogic pedidoWebDetalleBusinessLogic,
                             IEstrategiaBusinessLogic estrategiaBusinessLogic,
-                            IConfiguracionProgramaNuevasBusinessLogic configuracionProgramaNuevasBusinessLogic)
+                            IConfiguracionProgramaNuevasBusinessLogic configuracionProgramaNuevasBusinessLogic,
+                            IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic)
         {
             _productoBusinessLogic = productoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
             _pedidoWebDetalleBusinessLogic = pedidoWebDetalleBusinessLogic;
             _estrategiaBusinessLogic = estrategiaBusinessLogic;
             _configuracionProgramaNuevasBusinessLogic = configuracionProgramaNuevasBusinessLogic;
+            _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
         }
 
         public BEProductoApp GetCUV(BEProductoAppBuscar productoBuscar)
@@ -95,6 +101,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             var mensaje = string.Empty;
 
+            pedidoInsertar.CodigoISO = Util.GetPaisISO(pedidoInsertar.PaisID);
+
             var validacionHorario = _pedidoWebBusinessLogic.ValidacionModificarPedido(pedidoInsertar.PaisID,
                                                                 pedidoInsertar.ConsultoraID,
                                                                 pedidoInsertar.CampaniaID,
@@ -120,7 +128,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var codeResult = PedidoInsertar(pedidoInsertar);
             if (codeResult != Constantes.PedidoAppValidacion.PedidoInsertar.Code.SUCCESS) return PedidoInsertarRespuesta(codeResult);
 
-            return PedidoInsertarRespuesta(Constantes.PedidoAppValidacion.PedidoInsertar.Code.SUCCESS);
+            return PedidoInsertarRespuesta(Constantes.PedidoAppValidacion.PedidoInsertar.Code.SUCCESS, null, pedidoInsertar);
         }
 
         #region GetCUV
@@ -197,12 +205,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
         #endregion
 
         #region Insert
-        private BEPedidoAppInsertarResult PedidoInsertarRespuesta(string codigoRespuesta, string mensajeRespuesta = null)
+        private BEPedidoAppInsertarResult PedidoInsertarRespuesta(string codigoRespuesta, string mensajeRespuesta = null, BEPedidoAppInsertar pedidoDetalle = null)
         {
             return new BEPedidoAppInsertarResult()
             {
                 CodigoRespuesta = codigoRespuesta,
-                MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoAppValidacion.PedidoInsertar.Message[codigoRespuesta] : mensajeRespuesta
+                MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoAppValidacion.PedidoInsertar.Message[codigoRespuesta] : mensajeRespuesta,
+                PedidoDetalle = pedidoDetalle
             };
         }
 
@@ -410,7 +419,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         pedidoInsertar.ConsecutivoNueva == Constantes.ConsecutivoNuevaConsultora.Consecutivo3)
                 {
                     var PaisesFraccionKit = WebConfig.PaisesFraccionKitNuevas;
-                    if (PaisesFraccionKit.Contains(Util.GetPaisISO(pedidoInsertar.PaisID)))
+                    if (PaisesFraccionKit.Contains(pedidoInsertar.CodigoISO))
                     {
                         obeConfiguracionProgramaNuevas.CodigoNivel = pedidoInsertar.ConsecutivoNueva == 1 ? "02" : pedidoInsertar.ConsecutivoNueva == 2 ? "03" : string.Empty;
                         obeConfiguracionProgramaNuevas = _configuracionProgramaNuevasBusinessLogic.GetConfiguracionProgramaDespuesPrimerPedido(pedidoInsertar.PaisID, obeConfiguracionProgramaNuevas);
@@ -508,6 +517,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 if (tipoAdm == Constantes.PedidoAccion.UPDATE && quitoCantBackOrder)
                     _pedidoWebDetalleBusinessLogic.QuitarBackOrderPedidoWebDetalle(obePedidoWebDetalle);
+
+                //UpdPedidoWebMontosPROL(pedidoInsertar);
+                //new Thread(() =>
+                //{
+                //    Thread.CurrentThread.IsBackground = true;
+                //    UpdPedidoWebMontosPROL(pedidoInsertar);
+                //}).Start();
+                Task task = Task.Run(() => UpdPedidoWebMontosPROL(pedidoInsertar));
             }
             catch (Exception ex)
             {
@@ -576,6 +593,70 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private void DeletePedido(BEPedidoAppInsertar pedidoInsertar, BEPedidoWebDetalle obe)
         {
             AdministradorPedido(pedidoInsertar, obe, Constantes.PedidoAccion.DELETE);
+        }
+
+        private void UpdPedidoWebMontosPROL(BEPedidoAppInsertar pedidoInsertar)
+        {
+            decimal montoAhorroCatalogo = 0, montoAhorroRevista = 0, montoDescuento = 0, montoEscala = 0;
+            var puntajes = string.Empty;
+            var puntajesExigidos = string.Empty;
+
+            var lista = ServicioProl_CalculoMontosProl(pedidoInsertar);
+
+            if (lista.Any())
+            {
+                var oRespuestaProl = lista[0];
+
+                decimal.TryParse(oRespuestaProl.AhorroCatalogo, out montoAhorroCatalogo);
+                decimal.TryParse(oRespuestaProl.AhorroRevista, out montoAhorroRevista);
+                decimal.TryParse(oRespuestaProl.MontoTotalDescuento, out montoDescuento);
+                decimal.TryParse(oRespuestaProl.MontoEscala, out montoEscala);
+
+                if (oRespuestaProl.ListaConcursoIncentivos != null)
+                {
+                    puntajes = string.Join("|", oRespuestaProl.ListaConcursoIncentivos.Select(c => c.puntajeconcurso.Split('|')[0]).ToArray());
+                    puntajesExigidos = string.Join("|", oRespuestaProl.ListaConcursoIncentivos.Select(c => (c.puntajeconcurso.IndexOf('|') > -1 ? c.puntajeconcurso.Split('|')[1] : "0")).ToArray());
+                }
+            }
+
+            var bePedidoWeb = new BEPedidoWeb
+            {
+                PaisID = pedidoInsertar.PaisID,
+                CampaniaID = pedidoInsertar.CampaniaID,
+                ConsultoraID = pedidoInsertar.ConsultoraID,
+                CodigoConsultora = pedidoInsertar.CodigoConsultora,
+                MontoAhorroCatalogo = montoAhorroCatalogo,
+                MontoAhorroRevista = montoAhorroRevista,
+                DescuentoProl = montoDescuento,
+                MontoEscala = montoEscala
+            };
+
+            _pedidoWebBusinessLogic.UpdateMontosPedidoWeb(bePedidoWeb);
+
+            if (!string.IsNullOrEmpty(pedidoInsertar.CodigosConcursos))
+                _consultoraConcursoBusinessLogic.ActualizarInsertarPuntosConcurso(pedidoInsertar.PaisID, pedidoInsertar.CodigoConsultora, pedidoInsertar.CampaniaID.ToString(), pedidoInsertar.CodigosConcursos, puntajes, puntajesExigidos);
+        }
+
+        protected List<ObjMontosProl> ServicioProl_CalculoMontosProl(BEPedidoAppInsertar pedidoInsertar)
+        {
+            var montosProl = new List<ObjMontosProl> { new ObjMontosProl() };
+
+            var detallesPedidoWeb = ObtenerPedidoWebDetalle(pedidoInsertar);
+
+            if (detallesPedidoWeb.Any())
+            {
+                var cuvs = string.Join("|", detallesPedidoWeb.Select(p => p.CUV).ToArray());
+                var cantidades = string.Join("|", detallesPedidoWeb.Select(p => p.Cantidad).ToArray());
+
+                using (var sv = new ServicesCalculoPrecioNiveles())
+                {
+                    sv.Url = WebConfig.Ambiente.ToUpper() == "QA" ? WebConfig.QA_Prol_ServicesCalculos : WebConfig.PR_Prol_ServicesCalculos;
+                    montosProl = sv.CalculoMontosProlxIncentivos(pedidoInsertar.CodigoISO, pedidoInsertar.CampaniaID.ToString(), pedidoInsertar.CodigoConsultora, pedidoInsertar.CodigoZona, cuvs, cantidades, pedidoInsertar.CodigosConcursos).ToList();
+                    montosProl = montosProl ?? new List<ObjMontosProl>();
+                }
+            }
+
+            return montosProl;
         }
         #endregion
     }
