@@ -24,17 +24,59 @@
     else if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
     {
     <!--BRYAN POPUP SUSCRITA NOACTIVA HISTORIA 642//643 -->
-    <div class="Content_general_pop_up" id="divSNAPopupBloqueadoDesk" style="display: none;" data-popup-main="">
+    <div class="Content_general_pop_up" id="" style="display: none;" data-popup-main="">
         <div class="popup_rd_bloqueado" data-popup-body="">
             <span>Banner no Suscrita</span>
         </div>
     </div>
-    <div class="Content_general_pop_up" id="divSNAPopupBloqueadoMob" style="display: none;" data-popup-main="">
-        <div class="popup_rd_bloqueado" data-popup-body="">
-            <span>Banner no Suscrita Mobile</span>
+    <!---->
+    <div class="contenedor_fondo_popup contenido-popup-nuevo-2017" id="divSNAPopupBloqueadoDesk"
+         data-popup-main="" data-popup-function-hide="rdPopup.Cerrar()" style="display:none;">
+        <div class="centrar-estructura" data-popup-body="" style="border: 5px solid #C39934; background:transparent;">
+            <a class="cerrar-popup" data-popup-close=""><img src="@Url.Content("~/Content/Images/close-icon.svg")" alt=""></a>
+
+
+            <div class="centrar-vertical-contenido">
+                <div class="clear"></div>
+                <p class="primer-texto" style="">
+                    ¿LO QUIERES?
+                </p>
+                <p class="segundo-texto" style="">
+                    LAS MEJORES OFERTAS SOLO ESTÁN EN CLUB GANA+
+                </p>
+                <a href="javascript: rdPopup.RedireccionarInformacion(2)" class="btn-popup" style="">
+                    <span>SUSCRÍBETE GRATIS</span>
+                </a>
+            </div>
         </div>
     </div>
-    }
+    
+    <!-- MOBILE -->
+    <div class="contenedor_fondo_popup content_general_pop_up" id="divSNAPopupBloqueadoMob"
+         data-popup-main="" data-popup-function-hide="rdPopup.Cerrar()" style="display:none;">
+        <div class="content_pop_up_intriga" data-popup-body="">
+            <div class="contenido-popup-nuevo-2017">
+                <div class="centrar-estructura" data-popup-body="" style="border: 5px solid #C39934; background:transparent;">
+                    <a class="cerrar-popup" data-popup-close=""><img src="@Url.Content("~/Content/Images/close-icon.svg")" alt=""></a>
+
+
+                    <div class="centrar-vertical-contenido">
+                        <div class="clear"></div>
+                        <p class="primer-texto" style="">
+                            ¿LO QUIERES?
+                        </p>
+                        <p class="segundo-texto" style="">
+                            LAS MEJORES OFERTAS SOLO ESTÁN EN CLUB GANA+
+                        </p>
+                        <a href="javascript: rdPopup.RedireccionarInformacion(2)" class="btn-popup" style="">
+                            <span>SUSCRÍBETE GRATIS</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
     <div class="Content_general_pop_up" id="@divid" style="display: none;" data-popup-main="">
         <div class="popup_rd_bloqueado" data-popup-body="">
