@@ -30,12 +30,17 @@ $.fn.followTo = function (elem) {
                 var alturaH = $('header').outerHeight(true);
                 var topAltura = 0;
                 if (isMobile()) {
-                    var seccionMenuMobileHeight = $('.slick-slider-fixed-mobile').outerHeight(true);
+                    //var seccionMenuMobileHeight = $('.slick-slider-fixed-mobile').outerHeight(true);
                     //topAltura = alturaH + seccionMenuMobileHeight;
-                    $bumper.css("position", "fixed");
-                    $bumper.css("z-index", "50");
-                    $('header').css("position", "relative");
-                    $('#seccion-fixed-menu').css("position", "relative");
+                    //$bumper.css("position", "fixed");
+                    //$bumper.css("z-index", "50");
+                    //$('#seccion-banner-mobile').css('display', 'none');
+                    $('.contenido_zona_dorada_contenedor_desktop').addClass('scroll_posicionar_zona_dorada_cabecera');
+                    $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').addClass('scroll_posicionar_fix-zona-dorada');
+                    $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').css('display', 'none');
+
+                    //$('header').css("position", "relative");
+                    //$('#seccion-fixed-menu').css("position", "relative");
                 } else {
                     topAltura = alturaH+'px';
                     //$bumper.addClass("menu-fixed");
@@ -57,12 +62,16 @@ $.fn.followTo = function (elem) {
                 //});
             } else {
                 if (isMobile()) {
-                    $bumper.css("position", "");
-                    $('header').css("position", "fixed");
+                    //$bumper.css("position", "");
+                    //$('header').css("position", "fixed");
                     //$('#seccion-fixed-menu').css("z-index", "10");
                     //$('#seccion-fixed-menu').css("width", "100%");
                     //$('#seccion-fixed-menu').css("position", "fixed");
                     //$('#seccion-fixed-menu').css("top", "29px");
+                     //$('#seccion-banner-mobile').css('display', 'block');
+                     $('.contenido_zona_dorada_contenedor_desktop').removeClass('scroll_posicionar_zona_dorada_cabecera');
+                     $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').removeClass('scroll_posicionar_fix-zona-dorada');
+                     $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').css('display', 'block');
 
                 } else {
                     //$bumper.css("position", "");
