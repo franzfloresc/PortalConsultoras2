@@ -26,10 +26,10 @@ IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'MCatalogoNoInscr
 update ConfiguracionPaisDatos set Valor1 = 'TU NUEVO ESPACIO DE OFERTAS EXCLUSIVAS', Valor2 = 'DISFRUTA DE LOS BENEFICIOS QUE EL CLUB TIENE PARA TI.' where Codigo = 'MCatalogoNoInscritaNoActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaInscritaActiva')
-update ConfiguracionPaisDatos set Valor1 = '<b>CONSULTORAS YA SUSCRITAS ¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaActiva'
+update ConfiguracionPaisDatos set Valor1 = 'CONSULTORAS YA SUSCRITAS <b>¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaInscritaNoActiva')
-update ConfiguracionPaisDatos set Valor1 = '<b>CONSULTORAS YA SUSCRITAS ¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaNoActiva'
+update ConfiguracionPaisDatos set Valor1 = 'CONSULTORAS YA SUSCRITAS <b>¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaNoActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaNoInscritaActiva')
 update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>', Valor2 = '' where Codigo = 'DBienvenidaNoInscritaActiva'
@@ -103,10 +103,10 @@ IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'MCatalogoNoInscr
 update ConfiguracionPaisDatos set Valor1 = 'TU NUEVO ESPACIO DE OFERTAS EXCLUSIVAS', Valor2 = 'DISFRUTA DE LOS BENEFICIOS QUE EL CLUB TIENE PARA TI.' where Codigo = 'MCatalogoNoInscritaNoActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaInscritaActiva')
-update ConfiguracionPaisDatos set Valor1 = '<b>CONSULTORAS YA SUSCRITAS ¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaActiva'
+update ConfiguracionPaisDatos set Valor1 = 'CONSULTORAS YA SUSCRITAS <b>¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaInscritaNoActiva')
-update ConfiguracionPaisDatos set Valor1 = '<b>CONSULTORAS YA SUSCRITAS ¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaNoActiva'
+update ConfiguracionPaisDatos set Valor1 = 'CONSULTORAS YA SUSCRITAS <b>¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaNoActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaNoInscritaActiva')
 update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>', Valor2 = '' where Codigo = 'DBienvenidaNoInscritaActiva'
@@ -180,10 +180,10 @@ IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'MCatalogoNoInscr
 update ConfiguracionPaisDatos set Valor1 = 'TU NUEVO ESPACIO DE OFERTAS EXCLUSIVAS', Valor2 = 'DISFRUTA DE LOS BENEFICIOS QUE EL CLUB TIENE PARA TI.' where Codigo = 'MCatalogoNoInscritaNoActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaInscritaActiva')
-update ConfiguracionPaisDatos set Valor1 = '<b>CONSULTORAS YA SUSCRITAS ¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaActiva'
+update ConfiguracionPaisDatos set Valor1 = 'CONSULTORAS YA SUSCRITAS <b>¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaInscritaNoActiva')
-update ConfiguracionPaisDatos set Valor1 = '<b>CONSULTORAS YA SUSCRITAS ¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaNoActiva'
+update ConfiguracionPaisDatos set Valor1 = 'CONSULTORAS YA SUSCRITAS <b>¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaNoActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaNoInscritaActiva')
 update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>', Valor2 = '' where Codigo = 'DBienvenidaNoInscritaActiva'
@@ -257,10 +257,10 @@ IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'MCatalogoNoInscr
 update ConfiguracionPaisDatos set Valor1 = 'TU NUEVO ESPACIO DE OFERTAS EXCLUSIVAS', Valor2 = 'DISFRUTA DE LOS BENEFICIOS QUE EL CLUB TIENE PARA TI.' where Codigo = 'MCatalogoNoInscritaNoActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaInscritaActiva')
-update ConfiguracionPaisDatos set Valor1 = '<b>CONSULTORAS YA SUSCRITAS ¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaActiva'
+update ConfiguracionPaisDatos set Valor1 = 'CONSULTORAS YA SUSCRITAS <b>¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaInscritaNoActiva')
-update ConfiguracionPaisDatos set Valor1 = '<b>CONSULTORAS YA SUSCRITAS ¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaNoActiva'
+update ConfiguracionPaisDatos set Valor1 = 'CONSULTORAS YA SUSCRITAS <b>¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaNoActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaNoInscritaActiva')
 update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>', Valor2 = '' where Codigo = 'DBienvenidaNoInscritaActiva'
@@ -334,10 +334,10 @@ IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'MCatalogoNoInscr
 update ConfiguracionPaisDatos set Valor1 = 'TU NUEVO ESPACIO DE OFERTAS EXCLUSIVAS', Valor2 = 'DISFRUTA DE LOS BENEFICIOS QUE EL CLUB TIENE PARA TI.' where Codigo = 'MCatalogoNoInscritaNoActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaInscritaActiva')
-update ConfiguracionPaisDatos set Valor1 = '<b>CONSULTORAS YA SUSCRITAS ¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaActiva'
+update ConfiguracionPaisDatos set Valor1 = 'CONSULTORAS YA SUSCRITAS <b>¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaInscritaNoActiva')
-update ConfiguracionPaisDatos set Valor1 = '<b>CONSULTORAS YA SUSCRITAS ¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaNoActiva'
+update ConfiguracionPaisDatos set Valor1 = 'CONSULTORAS YA SUSCRITAS <b>¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaNoActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaNoInscritaActiva')
 update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>', Valor2 = '' where Codigo = 'DBienvenidaNoInscritaActiva'
@@ -411,10 +411,10 @@ IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'MCatalogoNoInscr
 update ConfiguracionPaisDatos set Valor1 = 'TU NUEVO ESPACIO DE OFERTAS EXCLUSIVAS', Valor2 = 'DISFRUTA DE LOS BENEFICIOS QUE EL CLUB TIENE PARA TI.' where Codigo = 'MCatalogoNoInscritaNoActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaInscritaActiva')
-update ConfiguracionPaisDatos set Valor1 = '<b>CONSULTORAS YA SUSCRITAS ¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaActiva'
+update ConfiguracionPaisDatos set Valor1 = 'CONSULTORAS YA SUSCRITAS <b>¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaInscritaNoActiva')
-update ConfiguracionPaisDatos set Valor1 = '<b>CONSULTORAS YA SUSCRITAS ¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaNoActiva'
+update ConfiguracionPaisDatos set Valor1 = 'CONSULTORAS YA SUSCRITAS <b>¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaNoActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaNoInscritaActiva')
 update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>', Valor2 = '' where Codigo = 'DBienvenidaNoInscritaActiva'
@@ -488,10 +488,10 @@ IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'MCatalogoNoInscr
 update ConfiguracionPaisDatos set Valor1 = 'TU NUEVO ESPACIO DE OFERTAS EXCLUSIVAS', Valor2 = 'DISFRUTA DE LOS BENEFICIOS QUE EL CLUB TIENE PARA TI.' where Codigo = 'MCatalogoNoInscritaNoActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaInscritaActiva')
-update ConfiguracionPaisDatos set Valor1 = '<b>CONSULTORAS YA SUSCRITAS ¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaActiva'
+update ConfiguracionPaisDatos set Valor1 = 'CONSULTORAS YA SUSCRITAS <b>¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaInscritaNoActiva')
-update ConfiguracionPaisDatos set Valor1 = '<b>CONSULTORAS YA SUSCRITAS ¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaNoActiva'
+update ConfiguracionPaisDatos set Valor1 = 'CONSULTORAS YA SUSCRITAS <b>¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaNoActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaNoInscritaActiva')
 update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>', Valor2 = '' where Codigo = 'DBienvenidaNoInscritaActiva'
@@ -565,10 +565,10 @@ IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'MCatalogoNoInscr
 update ConfiguracionPaisDatos set Valor1 = 'TU NUEVO ESPACIO DE OFERTAS EXCLUSIVAS', Valor2 = 'DISFRUTA DE LOS BENEFICIOS QUE EL CLUB TIENE PARA TI.' where Codigo = 'MCatalogoNoInscritaNoActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaInscritaActiva')
-update ConfiguracionPaisDatos set Valor1 = '<b>CONSULTORAS YA SUSCRITAS ¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaActiva'
+update ConfiguracionPaisDatos set Valor1 = 'CONSULTORAS YA SUSCRITAS <b>¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaInscritaNoActiva')
-update ConfiguracionPaisDatos set Valor1 = '<b>CONSULTORAS YA SUSCRITAS ¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaNoActiva'
+update ConfiguracionPaisDatos set Valor1 = 'CONSULTORAS YA SUSCRITAS <b>¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaNoActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaNoInscritaActiva')
 update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>', Valor2 = '' where Codigo = 'DBienvenidaNoInscritaActiva'
@@ -642,10 +642,10 @@ IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'MCatalogoNoInscr
 update ConfiguracionPaisDatos set Valor1 = 'TU NUEVO ESPACIO DE OFERTAS EXCLUSIVAS', Valor2 = 'DISFRUTA DE LOS BENEFICIOS QUE EL CLUB TIENE PARA TI.' where Codigo = 'MCatalogoNoInscritaNoActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaInscritaActiva')
-update ConfiguracionPaisDatos set Valor1 = '<b>CONSULTORAS YA SUSCRITAS ¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaActiva'
+update ConfiguracionPaisDatos set Valor1 = 'CONSULTORAS YA SUSCRITAS <b>¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaInscritaNoActiva')
-update ConfiguracionPaisDatos set Valor1 = '<b>CONSULTORAS YA SUSCRITAS ¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaNoActiva'
+update ConfiguracionPaisDatos set Valor1 = 'CONSULTORAS YA SUSCRITAS <b>¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaNoActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaNoInscritaActiva')
 update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>', Valor2 = '' where Codigo = 'DBienvenidaNoInscritaActiva'
@@ -719,10 +719,10 @@ IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'MCatalogoNoInscr
 update ConfiguracionPaisDatos set Valor1 = 'TU NUEVO ESPACIO DE OFERTAS EXCLUSIVAS', Valor2 = 'DISFRUTA DE LOS BENEFICIOS QUE EL CLUB TIENE PARA TI.' where Codigo = 'MCatalogoNoInscritaNoActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaInscritaActiva')
-update ConfiguracionPaisDatos set Valor1 = '<b>CONSULTORAS YA SUSCRITAS ¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaActiva'
+update ConfiguracionPaisDatos set Valor1 = 'CONSULTORAS YA SUSCRITAS <b>¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaInscritaNoActiva')
-update ConfiguracionPaisDatos set Valor1 = '<b>CONSULTORAS YA SUSCRITAS ¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaNoActiva'
+update ConfiguracionPaisDatos set Valor1 = 'CONSULTORAS YA SUSCRITAS <b>¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaNoActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaNoInscritaActiva')
 update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>', Valor2 = '' where Codigo = 'DBienvenidaNoInscritaActiva'
@@ -796,10 +796,10 @@ IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'MCatalogoNoInscr
 update ConfiguracionPaisDatos set Valor1 = 'TU NUEVO ESPACIO DE OFERTAS EXCLUSIVAS', Valor2 = 'DISFRUTA DE LOS BENEFICIOS QUE EL CLUB TIENE PARA TI.' where Codigo = 'MCatalogoNoInscritaNoActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaInscritaActiva')
-update ConfiguracionPaisDatos set Valor1 = '<b>CONSULTORAS YA SUSCRITAS ¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaActiva'
+update ConfiguracionPaisDatos set Valor1 = 'CONSULTORAS YA SUSCRITAS <b>¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaInscritaNoActiva')
-update ConfiguracionPaisDatos set Valor1 = '<b>CONSULTORAS YA SUSCRITAS ¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaNoActiva'
+update ConfiguracionPaisDatos set Valor1 = 'CONSULTORAS YA SUSCRITAS <b>¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaNoActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaNoInscritaActiva')
 update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>', Valor2 = '' where Codigo = 'DBienvenidaNoInscritaActiva'
@@ -873,10 +873,10 @@ IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'MCatalogoNoInscr
 update ConfiguracionPaisDatos set Valor1 = 'TU NUEVO ESPACIO DE OFERTAS EXCLUSIVAS', Valor2 = 'DISFRUTA DE LOS BENEFICIOS QUE EL CLUB TIENE PARA TI.' where Codigo = 'MCatalogoNoInscritaNoActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaInscritaActiva')
-update ConfiguracionPaisDatos set Valor1 = '<b>CONSULTORAS YA SUSCRITAS ¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaActiva'
+update ConfiguracionPaisDatos set Valor1 = 'CONSULTORAS YA SUSCRITAS <b>¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaInscritaNoActiva')
-update ConfiguracionPaisDatos set Valor1 = '<b>CONSULTORAS YA SUSCRITAS ¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaNoActiva'
+update ConfiguracionPaisDatos set Valor1 = 'CONSULTORAS YA SUSCRITAS <b>¡GANAN HASTA 10% MÁS!</b>', Valor2 = '' where Codigo = 'DBienvenidaInscritaNoActiva'
 
 IF EXISTS (SELECT 1 FROM ConfiguracionPaisDatos where Codigo = 'DBienvenidaNoInscritaActiva')
 update ConfiguracionPaisDatos set Valor1 = '#NOMBRE, TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>', Valor2 = '' where Codigo = 'DBienvenidaNoInscritaActiva'
