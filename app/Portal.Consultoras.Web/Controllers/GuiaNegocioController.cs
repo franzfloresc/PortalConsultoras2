@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using System;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -41,6 +42,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var listaFinal1 = ConsultarEstrategiasModel("", 0, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
+
+                if (revistaDigital.TieneRDCR)
+                    listModel = listModel.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor1).ToList();
 
                 int cantidadTotal = listModel.Count;
 

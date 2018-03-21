@@ -9,10 +9,6 @@
     {
         urlLogo = revistaDigital.MLogoComercialActiva;
     }
-    else if (revistaDigital.TieneRDR)
-    {
-        urlLogo = revistaDigital.MLogoComercialFondoNoActiva;
-    }
     
 }
 <div class="content_revistas_mob" style="margin: 15px 0;">
@@ -61,31 +57,6 @@
                             VER TODAS MIS OFERTAS
                         </a>
                     </div>
-                </div>
-            </div>
-        </div>
-    }
-    else if (revistaDigital.TieneRDR)
-    {
-        <hr class="clear" />
-        <div id="tab_revistasdigital_mobile">
-            <div class="contenedor_seccionRevistaDigital">
-                <div class="seccionRevistaDigital_logo_marca">
-                    <img src="@urlLogo" alt="Club Gana+" class="small" style="padding-top: 30px;" />
-                </div>
-                <div class="clear"></div>
-                <div class="contenido_seccionRevistaDigital">
-                    <span>@Html.Raw(configuracionPaisDatosModel.Valor1)</span>
-                    <span>@Html.Raw(configuracionPaisDatosModel.Valor2)</span>
-                </div>
-                <div class="clear"></div>
-                <div class="revistadigital contenedor_botonVerMasOfertas">
-                    <div class="boxoffer" style="cursor: pointer; position: relative !important;"
-                         onclick="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital');">
-                        <div class="fondo_boton"></div>
-                        <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
-                    </div>
-                    <br /><br />
                 </div>
             </div>
         </div>

@@ -281,7 +281,6 @@ namespace Portal.Consultoras.Common
             public const string TieneOpt = "TieneOpt";
             public const string TieneOpm = "TieneOpm";
             public const string TieneOpmX1 = "TieneOpmX1";
-            public const string TieneRdr = "TieneRdr";
             public const string TieneHv = "TieneHv";
             public const string TieneHvX1 = "TieneHvX1";
 
@@ -1040,6 +1039,7 @@ namespace Portal.Consultoras.Common
         public class CatalogoUrlIssu
         {
             public const string Buscador = "//search.issuu.com/api/2_0/document?username=somosbelcorp&q=";
+            public const string RDR = "rdr";
         }
 
         public static class RevistaNombre
@@ -1240,17 +1240,7 @@ namespace Portal.Consultoras.Common
 
             public static class RDR
             {
-                public const string LogoComercial = "LogoComercial";
-                public const string LogoComercialFondo = "LogoComercialFondo";
-                public const string DBienvenidaRdr = "DBienvenidaRdr";
-                public const string DPedidoRdr = "DPedidoRdr";
-                public const string DCatalogoRdr = "DCatalogoRdr";
-                public const string MBienvenidaRdr = "MBienvenidaRdr";
-                public const string MPedidoRdr = "MPedidoRdr";
-                public const string MCatalogoRdr = "MCatalogoRdr";
-                public const string DRDRLandingBanner = "DRDRLandingBanner";
-                public const string MRDRLandingBanner = "MRDRLandingBanner";
-                public const string LogoMenuOfertas = "LogoMenuOfertas";
+                public const string BloquearProductoGnd = "BloquearProductoGnd";
             }
 
             public static class RDI

@@ -27,8 +27,8 @@ namespace Portal.Consultoras.Web.Controllers
                 CampaniaActual = userData.CampaniaID.ToString(),
                 CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString(),
                 CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString(),
-                TieneSeccionRD = (revistaDigital.TieneRDC && (!userData.TieneGND || (userData.TieneGND && revistaDigital.EsActiva))) || revistaDigital.TieneRDI || revistaDigital.TieneRDR,
-                TieneSeccionRevista = !revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva),
+                TieneSeccionRD = (revistaDigital.TieneRDC && (!userData.TieneGND || revistaDigital.EsActiva)) || revistaDigital.TieneRDI,
+                TieneSeccionRevista = !revistaDigital.TieneRDC || !revistaDigital.EsActiva,
                 TieneGND = userData.TieneGND
             };
 
@@ -545,6 +545,9 @@ namespace Portal.Consultoras.Web.Controllers
                 string codigo = GetRevistaCodigoIssuu(campania);
                 if (string.IsNullOrEmpty(codigo)) return Json(new { success = false }, JsonRequestBehavior.AllowGet);
 
+                if (revistaDigital.TieneRDCR)
+                    codigo += Constantes.CatalogoUrlIssu.RDR;
+
                 string url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlIssuu);
                 url = string.Format(url, codigo);
                 return Json(new { success = true, urlRevista = url }, JsonRequestBehavior.AllowGet);
@@ -607,10 +610,6 @@ namespace Portal.Consultoras.Web.Controllers
                 else if (revistaDigital.TieneRDI)
                 {
                     partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.DCatalogoIntriga) ?? new ConfiguracionPaisDatosModel();
-                }
-                else if (revistaDigital.TieneRDR)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DCatalogoRdr) ?? new ConfiguracionPaisDatosModel();
                 }
             }
             catch (Exception ex)

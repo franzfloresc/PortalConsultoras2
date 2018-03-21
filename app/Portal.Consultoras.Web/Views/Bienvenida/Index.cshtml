@@ -1304,12 +1304,6 @@
     </div>
 </div>
 
-
-@if (revistaDigital.TieneRDR || (revistaDigital.TieneRDC && revistaDigital.EsActiva))
-{
-    @Html.Partial("~/Views/Bienvenida/template-seccion-bpt.cshtml", new ViewDataDictionary { { "NombreConsultora", Model.SobreNombre } })
-}
-
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")

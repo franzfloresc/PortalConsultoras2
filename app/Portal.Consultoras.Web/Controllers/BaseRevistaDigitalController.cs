@@ -14,10 +14,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (revistaDigital.TieneRDI)
                 return View("template-informativa-rdi");
-
-            if (revistaDigital.TieneRDR)
-                return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
-
+            
             if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDS)
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
 
@@ -173,6 +170,7 @@ namespace Portal.Consultoras.Web.Controllers
             var valorDato = "";
             switch (valor)
             {
+                case 0: valorDato = IsMobile() ? dato.Valor1 : dato.Valor2; break;
                 case 1: valorDato = dato.Valor1; break;
                 case 2: valorDato = dato.Valor2; break;
                 case 3: valorDato = dato.Valor3; break;

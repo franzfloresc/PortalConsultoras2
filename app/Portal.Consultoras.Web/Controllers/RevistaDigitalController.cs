@@ -148,7 +148,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    palanca = model.CampaniaID != userData.CampaniaID || revistaDigital.TieneRDR
+                    palanca = model.CampaniaID != userData.CampaniaID
                         || (revistaDigital.TieneRDC && revistaDigital.EsActiva)
                         ? Constantes.TipoEstrategiaCodigo.RevistaDigital
                         : "";
@@ -237,7 +237,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.Lanzamiento);
 
-                var perdio = revistaDigital.TieneRDR ? 0 : TieneProductosPerdio(model.CampaniaID) ? 1 : 0;
+                var perdio = TieneProductosPerdio(model.CampaniaID) ? 1 : 0;
 
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, perdio);
 

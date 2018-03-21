@@ -3878,7 +3878,6 @@
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-mensaje-bloqueado.cshtml" />
     <Content Include="Areas\Mobile\Views\Catalogo\template-carrusel-issue.cshtml" />
     <Compile Include="Models\TipoProductoComentarioModel.cs" />
-    <Content Include="Areas\Mobile\Views\Bienvenida\template-bpt-seccion.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
     <Content Include="Content\Css\Site\fonts\icomoon\iconos-cambio-pass.ttf" />
     <Content Include="Content\Css\Site\fonts\icomoon\iconos-cambio-pass.woff" />
@@ -4754,7 +4753,6 @@
     <Content Include="Views\Login\SesionExpirada.cshtml" />
     <Content Include="Views\Login\UserUnknown.cshtml" />
     <Content Include="Views\Bienvenida\ActualizarContrasenia.cshtml" />
-    <Content Include="Views\Bienvenida\template-seccion-bpt.cshtml" />
     <Content Include="Views\ConsultaPedido\BloqueoPedido.cshtml" />
     <Content Include="Views\ConsultaPedido\BloqueoPedidoImp.cshtml" />
     <Content Include="Views\ConsultaPedido\ConsultaPedido.cshtml" />
