@@ -1044,7 +1044,7 @@ margin-left: 5px;
 .club_gana_mas_pedido {
     height: 289px;
     background: black;
-    padding: 64px 50px;
+    padding: 65px 50px;
 }
 
     .club_gana_mas_pedido .logo_club {
@@ -1107,7 +1107,7 @@ margin-left: 5px;
 }
 
     .club_gana_mas_pedido_activo .logo_club_activo {
-        background: url(../../../Images/etiqueta-club-ganamas-dorado-independiente.png);
+        background: url(/Content/Images/etiqueta-club-ganamas-dorado-independiente.png);
         height: 45px;
         position: absolute;
         left: 0;

@@ -465,7 +465,7 @@
     height: 100%;
     display: none;
     position: relative;
-    background: transparent url('../../../Images/bg_popups.png') repeat left top;
+    background: transparent url('/Content/Images/bg_popups.png') repeat left top;
     z-index: 1000;
     overflow: auto;
     position: fixed;
