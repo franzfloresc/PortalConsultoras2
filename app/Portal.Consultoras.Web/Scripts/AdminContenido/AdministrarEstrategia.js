@@ -4055,6 +4055,8 @@
         clickBloqueoCuv: function () {
            
             $("#divCuvsBloqueados").hide();
+            $("#divCuvsBloqueados").show();
+            $("#listCuvsBloqueados").html("");
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val())
             };
@@ -4067,9 +4069,11 @@
                 data: JSON.stringify(params),
                 async: true,
                 success: function (data) {
-                    if (data.success) {
+                    if (data.success && data.valor != null && data.valor !== "") {
                         $("#divCuvsBloqueados").show();
                         $("#listCuvsBloqueados").html(data.valor);
+                    } else {
+                        $("#divCuvsBloqueados").hide();
                     }
                 },
                 error: function (data, error) {
