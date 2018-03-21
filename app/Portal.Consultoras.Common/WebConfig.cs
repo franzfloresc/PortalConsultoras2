@@ -24,6 +24,15 @@ namespace Portal.Consultoras.Common
                 return ConfigurationManager.AppSettings["WebTrackingConfirmacion"] ?? string.Empty;
             }
         }
+
+        public static string UrlMicroservicioPersonalizacionSearch
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["UrlMicroservicioPersonalizacionSearch"] ?? string.Empty;
+            }
+        }
+
         #endregion
     }
 }

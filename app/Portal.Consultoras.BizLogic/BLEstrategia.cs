@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
@@ -428,29 +429,24 @@ namespace Portal.Consultoras.BizLogic
             var daEstrategia = new DAEstrategia(paisId);
             return daEstrategia.InsertEstrategiaOfertaParaTi(lista, campaniaId, codigoUsuario, estrategiaId);
         }
-
-        public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
+        
+        public async Task<IList<BEEstrategia>> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
-            var listaEstrategias = new List<BEEstrategia>();
             var daEstrategia = new DAEstrategia(paisID);
 
-            using (var reader = daEstrategia.GetEstrategiaODD(codCampania, codConsultora, fechaInicioFact))
-            {
-                while (reader.Read())
-                {
-                    listaEstrategias.Add(new BEEstrategia(reader));
-                }
-            }
+            var diaInicio = DateTime.Now.Date.Subtract(fechaInicioFact.Date).Days;
+
+            var listaEstrategias = await daEstrategia.GetEstrategiaODD(codCampania, codConsultora, diaInicio);
 
             var codigoIso = Util.GetPaisISO(paisID);
             var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
 
-            listaEstrategias.ForEach(item =>
+            foreach (var item in listaEstrategias)
             {
                 item.FotoProducto01 = string.IsNullOrEmpty(item.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, item.FotoProducto01, carpetaPais);
                 item.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
-            });
-
+            }
+            
             return listaEstrategias;
         }
 

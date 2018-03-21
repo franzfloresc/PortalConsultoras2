@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using Estrategia = Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.ServiceContracts
@@ -1019,7 +1020,7 @@ namespace Portal.Consultoras.ServiceContracts
         int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId);
 
         [OperationContract]
-        List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact);
+        Task<IList<BEEstrategia>> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact);
 
         [OperationContract]
         int ActivarDesactivarEstrategias(int PaisID, string Usuario, string EstrategiasActivas, string EstrategiasDesactivas);
