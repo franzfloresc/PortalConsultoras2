@@ -114,7 +114,6 @@
     background-repeat: no-repeat;
 }
 
-
 .club_gana_mas_pedido .logo_club {
-    background: url(../../../Images/Lbel/RevistaDigital/logo_lbel_diagonal.png);
+    background: url(/Content/Images/Lbel/RevistaDigital/logo_lbel_diagonal.png);
 }
