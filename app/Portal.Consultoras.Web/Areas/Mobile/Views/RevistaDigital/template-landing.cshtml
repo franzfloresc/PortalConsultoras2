@@ -84,15 +84,7 @@
 
         if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
         {
-            <!--Bryan BannerMobile NO SUSCRITA Historia 637-->
-            <div id="block_inscribete" style="padding: 20px 0;">
-                <div class="content_belcorp">
-                    <div class="block_inscribete_predio">
-                        <span class="hblock_title_perdio">@Model.PerdioTitulo</span>
-                        <span class="hblock_title_perdio2">@Model.PerdioSubTitulo</span>
-                    </div>
-                </div>
-            </div>
+            
         }
         else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
         {
@@ -100,7 +92,7 @@
                     <div id="block_inscribete" style="padding: 20px 0;">
                         <div class="content_belcorp">
                             <div class="block_inscribete_predio">
-                                <span class="hblock_title_perdio">@Model.PerdioTitulo</span>
+                                <span class="hblock_title_perdio">@Model.PerdioTitulo xx</span>
                                 <span class="hblock_title_perdio2">@Model.PerdioSubTitulo</span>
                             </div>
                         </div>
@@ -111,7 +103,7 @@
                     <div id="block_inscribete" style="padding: 20px 0;">
                         <div class="content_belcorp">
                             <div class="block_inscribete_predio">
-                                <span class="hblock_title_perdio">@Model.PerdioTitulo</span>
+                                <span class="hblock_title_perdio">@Model.PerdioTitulo xxx</span>
                                 <span class="hblock_title_perdio2">@Model.PerdioSubTitulo</span>
                             </div>
                         </div>
@@ -119,9 +111,7 @@
         }
 
             <hr class="clear" />
-            <div id="divOfertaProductosPerdio" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding"
-                 data-content-perdido="@Model.CampaniaID"
-                 class="flex-container" style="display: inline-flex;flex-wrap: wrap;justify-content: center;"></div>
+            
             <hr class="clear" />
 }
             </div>
@@ -133,6 +123,102 @@
 </div>
 <!--Fin seccion landing-->
 <hr class="clear" />
+
+<!--aqui empieza la zona dorada-->
+<style>
+    .contenido_zona_dorada_contenedor_desktop {
+        width: 100%;
+        height: 157px;
+        display: table;
+        background-image: linear-gradient(to left, #d9b43c, #cdaa37);
+        position: relative;
+        padding: 60px 0px 25px 0px;
+    }
+        .contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop {
+            background: url('/Content/Images/RevistaDigital/etiqueta-club-ganamas-blanco-independiente.svg');
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 97px;
+            height: 45px;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+    .contenido_zona_dorada_contenedor_desktop .fix-zona-dorada{
+        height:auto;
+        display:table-cell;
+        vertical-align:middle;
+    }
+        .contenido_zona_dorada_contenedor_desktop .fix-zona-dorada p {
+            font-size: 13px;
+            font-weight: normal;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: 0.5px;
+            text-align: center;
+            color: #ffffff;
+            display: block;
+            width: 200px;
+            margin: auto;
+            padding: 0px 0px 5px 0px;
+        }
+        .contenido_zona_dorada_contenedor_desktop .fix-zona-dorada a {
+            font-size: 13px;
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: 0.5px;
+            text-align: center;
+            color: #c39934;
+            display: block;
+            width: 200px;
+            margin: auto;
+            background: white;
+            padding: 9.5px 10px;
+        }
+    .fix_zona_dorada_mobile {
+        background-image: linear-gradient(to left, #d9b43c, #cdaa37);
+        margin-top: -1px;
+        padding: 0px 15px 17px 15px;
+    }
+    .fix_zona_dorada_mobile .content_item_home_bpt{
+        -webkit-box-shadow: 0 15px 13px -8px rgba(0, 0, 0, 0.15) !important;
+    -moz-box-shadow: 0 15px 13px -8px rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 15px 13px -8px rgba(0, 0, 0, 0.15) !important;
+    }
+    .scroll_posicionar_zona_dorada_cabecera {
+        position: fixed;
+        top: 105px;
+        z-index: 2;
+        height: auto !important;
+        padding: 25px 0px 25px 0px !important;
+    }
+    .scroll_posicionar_zona_dorada_cabecera_fix {
+        top: 135px !important;
+    }
+    .scroll_posicionar_fix-zona-dorada {
+        /*height: 102px !important;*/
+    }
+    .scroll_posicionar_zona_dorada_items {
+        margin-top: 70px;
+        position: relative;
+        z-index:1;
+    }
+</style>
+<div class="contenido_zona_dorada_contenedor_desktop">
+    <div class="logo-dorado-desktop"></div>
+    <div class="fix-zona-dorada">
+        <p>ÚNETE AL CLUB Y <b>OBTÉN OFERTAS ADICIONALES</b></p>
+        <a href="#">SUSCRÍBETE GRATIS</a>
+    </div>
+</div>
+<!-- termina zona dorada-->
+<div id="divOfertaProductosPerdio" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding"
+     data-content-perdido="@Model.CampaniaID"
+     class="flex-container fix_zona_dorada_mobile " style="display: inline-flex;flex-wrap: wrap;justify-content: center;"></div>
+
 
 @Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 <div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding"></div>
