@@ -2,9 +2,6 @@ USE BelcorpMexico
 GO
 
 --ACTIVA PIN
-ALTER TABLE TablaLogicaDatos
-ALTER COLUMN Codigo varchar(20);
-GO
 delete from TablaLogicaDatos where TablaLogicaID = 137
 delete from TablaLogica where TablaLogicaID = 137
 GO

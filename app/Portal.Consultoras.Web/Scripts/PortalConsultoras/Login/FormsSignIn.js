@@ -1627,11 +1627,13 @@ function MostrarPopupPin(data) {
 
     var nomConsultora = "<b>" + primerNombre + "</b>"
     $("#spnNombreConsultora").append(nomConsultora);
+    
+    var strNuevas = "1,2";
+    var strReactivadas = "6,7,8";
 
-    if (data.IdEstadoActividad == "1")
+    if (strNuevas.includes(data.IdEstadoActividad))
         $("#menAutenticacionNueva").show();
-
-    if (data.IdEstadoActividad == "7")
+    else if (strReactivadas.includes(data.IdEstadoActividad))
         $("#menAutenticacionReactivada").show();
 
     var e_correo = "";
