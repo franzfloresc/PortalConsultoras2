@@ -66,7 +66,7 @@ function CargarPedido(firstLoad) {
             if (!checkTimeout(data)) {
                 return false;
             }
-
+            registerEsShowRoomPais();
             SetHandlebars("#template-Detalle", data.data, '#divProductosDetalle');
 
             if ($('#divContenidoDetalle').find(".icono_advertencia_notificacion").length > 0) {
@@ -88,6 +88,22 @@ function CargarPedido(firstLoad) {
         }
     }).always(function () {
         CloseLoading();
+    });
+}
+
+function registerEsShowRoomPais() {
+
+    if (Handlebars.helpers.isShowRoomPais) {
+        return;
+    }
+
+    Handlebars.registerHelper('isShowRoomPais', function (pais, sisId, opts) {
+
+        var productShowRoom = sisId == "1707";
+
+        return productShowRoom && sesionEsShowRoom == '1' && pais === IsoPais
+            ? opts.inverse(this)
+            : opts.fn(this);
     });
 }
 

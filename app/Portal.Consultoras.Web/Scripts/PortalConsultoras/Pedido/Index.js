@@ -974,7 +974,24 @@ function ArmarDetallePedidoPaginador(data) {
 }
 
 function ArmarDetallePedido(array) {
+    registerEsShowRoomPais();
+
     return SetHandlebars("#producto-template", array);
+}
+
+function registerEsShowRoomPais() {
+
+    if (Handlebars.helpers.isShowRoomPais) {
+        return;
+    }
+
+    Handlebars.registerHelper('isShowRoomPais', function (pais, sisId, opts) {
+        var productShowRoom = sisId == "1707";
+
+        return productShowRoom && sesionEsShowRoom && pais === paisISO
+            ? opts.inverse(this)
+            : opts.fn(this);
+    });
 }
 
 function AgregarProductoListado() {
