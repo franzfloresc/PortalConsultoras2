@@ -234,7 +234,7 @@ function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetall
     var valCant = $.trim($('#Cantidad_' + PedidoDetalleID).val());
     var valTemp = $.trim($('#CantidadTemporal_' + PedidoDetalleID).val());
 
-    if (valCant === "" || valTemp === "" || isNaN(cantVal) || isNaN(valTemp)) 
+    if (valCant === "" || valTemp === "" || isNaN(valCant) || isNaN(valTemp)) 
         return false;
 
     var cantidadActual = parseInt(valCant);
