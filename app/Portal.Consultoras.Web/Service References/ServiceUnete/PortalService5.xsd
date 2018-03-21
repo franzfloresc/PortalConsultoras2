@@ -206,13 +206,6 @@
           </xs:appinfo>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="ComoLlegueUnete">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">34</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Enums.TipoParametro" nillable="true" type="tns:Enums.TipoParametro" />
@@ -303,6 +296,8 @@
       <xs:enumeration value="PortalGZ" />
       <xs:enumeration value="PortalSE" />
       <xs:enumeration value="HerramientaGestionSAC" />
+      <xs:enumeration value="MovilGZ" />
+      <xs:enumeration value="MovilGR" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Enums.Aplicacion" nillable="true" type="tns:Enums.Aplicacion" />

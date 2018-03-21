@@ -89,6 +89,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -153,6 +154,10 @@
     <Compile Include="MapUtil.cs" />
     <Compile Include="MaxMind\MaxMindReader.cs" />
     <Compile Include="NeoGridCipher.cs" />
+    <Compile Include="PagoEnLinea\Data.cs" />
+    <Compile Include="PagoEnLinea\DataRequestAut.cs" />
+    <Compile Include="PagoEnLinea\JsonHelper.cs" />
+    <Compile Include="PagoEnLinea\RespuestaAutorizacionVisa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegexUtilities.cs" />
     <Compile Include="Settings\ServiceSettings.cs" />

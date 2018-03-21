@@ -61,21 +61,7 @@
                     ZonaCodigoEliminar = ZonaCodigoEliminar + "," + frmActivar[i].innerHTML;
                 }
             }            
-
-            //jQuery.ajax({
-            //    type: 'POST',
-            //    url: baseUrl + 'CronogramaFIC/EstablecerSesion',
-            //    dataType: 'json',
-            //    contentType: 'application/json; charset=utf-8',
-            //    data: JSON.stringify({ ZonaCodigoEliminar: ZonaCodigoEliminar }),
-            //    async: true,
-            //    success: function (data) {
-                   
-            //    },
-            //    error: function (data, error) {
-            //        alert(data.message);
-            //    }
-            //});
+    
             jQuery.ajax({
                 type: 'POST',
                 url: baseUrl + 'CronogramaFIC/MantenerCronogramaFIC',
@@ -95,20 +81,6 @@
 
             });
             closeWaitingDialog();
-            //alert(ZonaCodigoEliminar);
-            //alert(ZonaCodigoEliminar2);            
-            //$.getJSON(baseUrl + 'CronogramaFIC/MantenerCronogramaFIC', { PaisID: PaisID, CampaniaID: CampaniaID, ZonaCodigoEliminar: ZonaCodigoEliminar, ZonaCodigoInsertar: ZonaCodigoInsertar }, function (data) {            
-            //$.getJSON(baseUrl + 'CronogramaFIC/MantenerCronogramaFIC', { PaisID: PaisID, CampaniaID: CampaniaID, ZonaCodigoEliminar: "", ZonaCodigoInsertar: ZonaCodigoInsertar }, function (data) {
-            //    if (data.success == true) {
-            //        Limpiar();
-            //        $("#ddlPais").val("");
-            //        $("#ddlCampania").val("0");
-            //    }
-            //    else {
-            //        alert(data.message);
-            //    }
-            //    closeWaitingDialog();
-            //});
         });
 
         // Establece los efectos para cada uno de los Tabs
@@ -163,9 +135,7 @@
                         text: data.lstZonasActivas[i].Codigo
                     }));
                 }
-                //for (var item in data.lstZonasInactivas) {
 
-                //}
                 var divac = document.getElementById("lbHasNot");
 
                 for (var i = 0; i < data.lstZonasActivas.length; i++) {
@@ -180,9 +150,6 @@
                     divac.appendChild(lab);
                 }
 
-                //for (var item in data.lstZonasInactivas) {
-
-                //}
             }
             closeWaitingDialog();
         });
@@ -245,9 +212,7 @@
                                         text: data.lstZonasActivas[i].Codigo
                                     }));
                                 }
-                                //for (var item in data.lstZonasInactivas) {
 
-                                //}
                                 var divac = document.getElementById("lbHasNot");
 
                                 for (var i = 0; i < data.lstZonasActivas.length; i++) {
@@ -262,9 +227,6 @@
                                     divac.appendChild(lab);
                                 }
 
-                                //for (var item in data.lstZonasInactivas) {
-
-                                //}
                             }
 
                         }
@@ -320,9 +282,7 @@
                                         text: data.lstZonasActivas[i].Codigo
                                     }));
                                 }
-                                //for (var item in data.lstZonasInactivas) {
 
-                                //}
                                 var divac = document.getElementById("lbHasNot");
 
                                 for (var i = 0; i < data.lstZonasActivas.length; i++) {
@@ -337,9 +297,6 @@
                                     divac.appendChild(lab);
                                 }
 
-                                //for (var item in data.lstZonasInactivas) {
-
-                                //}
                             }
                         }
                         else {
@@ -406,9 +363,7 @@
                                 text: data.lstZonasActivas[i].Codigo
                             }));
                         }
-                        //for (var item in data.lstZonasInactivas) {
 
-                        //}
                         var divac = document.getElementById("lbHasNot");
 
                         for (var i = 0; i < data.lstZonasActivas.length; i++) {
@@ -423,9 +378,6 @@
                             divac.appendChild(lab);
                         }
 
-                        //for (var item in data.lstZonasInactivas) {
-
-                        //}
                     }
 
                 }
@@ -488,9 +440,7 @@
                                 text: data.lstZonasActivas[i].Codigo
                             }));
                         }
-                        //for (var item in data.lstZonasInactivas) {
 
-                        //}
                         var divac = document.getElementById("lbHasNot");
 
                         for (var i = 0; i < data.lstZonasActivas.length; i++) {
@@ -505,9 +455,6 @@
                             divac.appendChild(lab);
                         }
 
-                        //for (var item in data.lstZonasInactivas) {
-
-                        //}
                     }
                 }
                 else {
@@ -525,8 +472,6 @@
                 chkId.push(id);
                 $('#lbHasNot').find('label').removeClass("active");
                 elem.className = "active"
-                //event.cancelBubble = true;
-                //return false;
             });
         else
             elem.addEventListener('click', function () {
@@ -534,8 +479,6 @@
                 chkId.push(id);
                 $('#lbHasNot').find('label').removeClass("active");
                 elem.className = "active";
-                //event.stopPropagation();
-                //event.cancelBubble = true;
             }, false);
     }
 
@@ -599,31 +542,6 @@
         }
 
         waitingDialog({});
-        //jQuery.ajax({
-        //    type: 'POST',
-        //    url: baseUrl + 'GestionFaltantes/ProcesarMasivo',
-        //    dataType: 'json',
-        //    contentType: 'application/json; charset=utf-8',
-        //    data: JSON.stringify({
-        //        path: uplArchivo,
-        //        paisID: paisID,
-        //        campaniaID: campaniaID
-        //    }),
-        //    async: true,
-        //    success: function (data) {
-        //        closeWaitingDialog();
-        //        if (data.success == true) {
-        //            alert(data.message);
-        //            limpiarM();
-        //        }
-        //        else
-        //            alert(data.message);
-        //    },
-        //    error: function (data, error) {
-        //        closeWaitingDialog();
-        //        alert("Ocurrrió un error inesperado al procesar la carga masiva de Faltantes. Consulte con su administrador del sistema para obtener mayor información");
-        //    }
-        //});
         $("#frmProcesarMasivo").submit();
     }
 

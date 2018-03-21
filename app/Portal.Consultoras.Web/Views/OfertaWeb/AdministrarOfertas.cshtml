@@ -46,7 +46,6 @@
         $("#chkImagenProducto01").click(function () {
             if ($("#chkImagenProducto01").attr('checked')) {
                 $("#ImagenProducto").val($("#preview1").attr('src').replace(/^.*[\\\/]/, ''));
-                // 1664
                 var img01 = $('#ImagenProducto').val();
                 if (img01.lastIndexOf("?") >= 0) {
                     img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -60,7 +59,6 @@
         $("#chkImagenProducto02").click(function () {
             if ($("#chkImagenProducto02").attr('checked')) {
                 $("#ImagenProducto").val($("#preview2").attr('src').replace(/^.*[\\\/]/, ''));
-                // 1664
                 var img01 = $('#ImagenProducto').val();
                 if (img01.lastIndexOf("?") >= 0) {
                     img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -75,7 +73,6 @@
         $("#chkImagenProducto03").click(function () {
             if ($("#chkImagenProducto03").attr('checked')) {
                 $("#ImagenProducto").val($("#preview3").attr('src').replace(/^.*[\\\/]/, ''));
-                // 1664
                 var img01 = $('#ImagenProducto').val();
                 if (img01.lastIndexOf("?") >= 0) {
                     img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -304,10 +301,7 @@
 
         function ShowImage(cellvalue, options, rowObject) {
             var image = "";
-            //var filename = rowObject[7].replace(/^.*[\\\/]/, '')
             if (rowObject[8] != "") {
-                // 1664
-                // image = '<img src="' + '@Url.Content("~/Content/Matriz/")' + rowObject[8] + '" alt="" width="70px" height="60px" title="" border="0" />';
                 image = '<img src="' +  rowObject[8] + '" alt="" width="70px" height="60px" title="" border="0" />';
             } else {
                 image = '<img src=" @Url.Content("~/Content/Images/prod_grilla_vacio.png")" alt="" width="60px" height="60px" title="" border="0" />';
@@ -324,10 +318,8 @@
                 $.getJSON(baseUrl + 'OfertaWeb/ObtenerImagenesByCodigoSAP', { paisID: paisID, codigoSAP: CodigoSAP }, function (data) {
                     if (data.lista.length > 0) {
                         if (data.lista[0].FotoProducto01 != "") {
-                            // $('#preview1').attr('src', '@Url.Content("~/Content/Matriz/")' + ISO + "/" + data.lista[0].FotoProducto01);
-                            $('#preview1').attr('src', data.lista[0].FotoProducto01); // 1664
+                            $('#preview1').attr('src', data.lista[0].FotoProducto01);
                             $("#chkImagenProducto01").val($('#preview1').attr('src').replace(/^.*[\\\/]/, ''));
-                            // 1664
                             var img01 = $('#chkImagenProducto01').val();
                             if (img01.lastIndexOf("?") >= 0) {
                                 img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -338,10 +330,8 @@
                         } else
                             $("#chkImagenProducto01").attr('disabled', true);
                         if (data.lista[0].FotoProducto02 != "") {
-                            // $('#preview2').attr('src', '@Url.Content("~/Content/Matriz/")' + ISO + "/" + data.lista[0].FotoProducto02);
-                            $('#preview2').attr('src', data.lista[0].FotoProducto02); // 1664
+                            $('#preview2').attr('src', data.lista[0].FotoProducto02);
                             $("#chkImagenProducto02").val($('#preview2').attr('src').replace(/^.*[\\\/]/, ''));
-                            // 1664
                             var img01 = $('#chkImagenProducto02').val();
                             if (img01.lastIndexOf("?") >= 0) {
                                 img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -352,10 +342,8 @@
                         } else
                             $("#chkImagenProducto02").attr('disabled', true);
                         if (data.lista[0].FotoProducto03 != "") {
-                            // $('#preview3').attr('src', '@Url.Content("~/Content/Matriz/")' + ISO + "/" + data.lista[0].FotoProducto03);
-                            $('#preview3').attr('src', data.lista[0].FotoProducto03); // 1664
+                            $('#preview3').attr('src', data.lista[0].FotoProducto03);
                             $("#chkImagenProducto03").val($('#preview3').attr('src').replace(/^.*[\\\/]/, ''));
-                            // 1664
                             var img01 = $('#chkImagenProducto03').val();
                             if (img01.lastIndexOf("?") >= 0) {
                                 img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -365,11 +353,6 @@
                             $("#chkImagenProducto03").removeAttr('disabled');
                         } else
                             $("#chkImagenProducto03").attr('disabled', true);
-                        //if (data.lista[0].Descripcion == "") {
-                        //    $('#txtDescripcionModal').val(data.lista[0].Descripcion);
-                        //    flagDescripcion = 1;
-                        //} else
-                        //    flagDescripcion = 0;
                     } else {
                         $("#chkImagenProducto02").attr('disabled', true);
                         $("#chkImagenProducto03").attr('disabled', true);
@@ -404,7 +387,6 @@
 
                     if (imagen != "prod_grilla_vacio.png") {
                         $('#ImagenProductoAnterior').val(imagen);
-                        // 1664
                         var img01 = $('#ImagenProductoAnterior').val();
                         if (img01.lastIndexOf("?") >= 0) {
                             img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -412,7 +394,6 @@
                         }
 
                         $('#ImagenProducto').val(imagen);
-                        // 1664
                         var img02 = $('#ImagenProducto').val();
                         if (img02.lastIndexOf("?") >= 0) {
                             img02 = img02.substring(0, img02.lastIndexOf("?"));
@@ -423,17 +404,16 @@
                         $('#ImagenProductoAnterior').val("");
                         $('#ImagenProducto').val("");
                     }
-                    // 1664
                     var img02 = $($("#list").jqGrid('getCell', ID, 'Imagen')).attr('src').replace(/^.*[\\\/]/, '');
                     if (img02.lastIndexOf("?") >= 0) {
                         img02 = img02.substring(0, img02.lastIndexOf("?"));
                     }
 
-                    if ($("#chkImagenProducto03").val() == img02) // 1644
+                    if ($("#chkImagenProducto03").val() == img02)
                         $('#chkImagenProducto03').attr('checked', true);
-                    if ($("#chkImagenProducto02").val() == img02) // 1644
+                    if ($("#chkImagenProducto02").val() == img02)
                         $('#chkImagenProducto02').attr('checked', true);
-                    if ($("#chkImagenProducto01").val() == img02) // 1644
+                    if ($("#chkImagenProducto01").val() == img02)
                         $('#chkImagenProducto01').attr('checked', true);
 
                     if (FlagCheck == 1)
@@ -441,12 +421,6 @@
                     else
                         $('#chkHabilitarOferta').removeAttr('checked');
                     $('#hdCodigoOferta').val(CodigoOferta);
-                    //if (Flag != "0") {
-                    //    src = $($("#list").jqGrid('getCell', ID, 'Imagen')).attr('src');
-                    //    if (src != "") {
-                    //        $('#preview').attr('src', src);
-                    //    }
-                    //}
                     showDialog("DialogRegistroOfertaWeb");
                 });
             } else {
@@ -540,10 +514,6 @@
                         vMessage += "- Debe ingresar la Descripción del Producto.\n";
                     if (jQuery.trim($('#txtOrdenModal').val()) == "" || jQuery.trim($('#txtOrdenModal').val()) == "0")
                         vMessage += "- Debe ingresar un Orden de Priorización válido.\n";
-                    //if ($('#preview1').attr('src').replace(/^.*[\\\/]/, '') == "" && $('#preview2').attr('src').replace(/^.*[\\\/]/, '') == "" && $('#preview3').attr('src').replace(/^.*[\\\/]/, '') == "")
-                    //{
-                    //    if($("#chkImagenProducto01")) 
-                    //}
                     if (vMessage != "") {
                         alert(vMessage);
                         return false;
