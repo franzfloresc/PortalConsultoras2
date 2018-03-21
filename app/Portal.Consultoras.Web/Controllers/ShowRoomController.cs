@@ -80,6 +80,15 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index(string query)
         {
+            // ShowRoom Personalizado PE
+            if (userData.CodigoISO == "PE")
+            {
+                if (!ValidarIngresoShowRoom(false))
+                    return RedirectToAction("Index", "Bienvenida");
+                else
+                    return RedirectToAction("Personalizado", "ShowRoom");
+            }
+
             ViewBag.TerminoMostrar = 1;
 
             try
