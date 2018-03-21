@@ -82,6 +82,7 @@
             </div>
             <div class="clear"></div>
             <div class="producto_nombre_descripcion" data-item-tag="agregar">
+                {{#iff PuedeAgregarProducto '==' true}}
                 <div>
                     {{#iff TipoAccionAgregar '==' '1'}}
                     <div class="texto_elige_tono"></div>
@@ -120,6 +121,7 @@
                     {{/iff}}
                 </div>
                 <div class="clear"></div>
+                {{/iff}}
                 <div style="margin: 9px 0;height: 15px;">
                     <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
                         AGREGADO

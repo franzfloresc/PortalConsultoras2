@@ -2170,18 +2170,20 @@ namespace Portal.Consultoras.Web.Controllers
             else
                 esRevistaPiloto = false;
 
-            codigo = GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoRevistaIssuu);
+            codigo                              = GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoRevistaIssuu);
             if (campania.Length >= 6)
-                nroCampania = campania.Substring(4, 2);
+                nroCampania                     = campania.Substring(4, 2);
             if (campania.Length >= 6)
-                anioCampania = campania.Substring(0, 4);
+                anioCampania                    = campania.Substring(0, 4);
 
             if (esRevistaPiloto)
-                requestUrl = string.Format(codigo, userData.CodigoISO.ToLower(), nroCampania, anioCampania, codeGrupo.Replace(Constantes.ConfiguracionManager.RevistaPiloto_Escenario, ""));
+                requestUrl                      = string.Format(codigo, userData.CodigoISO.ToLower(), nroCampania, anioCampania, codeGrupo.Replace(Constantes.ConfiguracionManager.RevistaPiloto_Escenario, ""));
             else
             {
-                requestUrl = string.Format(codigo, userData.CodigoISO.ToLower(), nroCampania, anioCampania, "");
-                requestUrl = Util.Trim(requestUrl.Substring(requestUrl.Length - 1)) == "." ? requestUrl.Substring(0, requestUrl.Length - 1) : requestUrl;
+                requestUrl                      = string.Format(codigo, userData.CodigoISO.ToLower(), nroCampania, anioCampania, "") ?? string.Empty;
+                requestUrl                      = !string.IsNullOrEmpty(requestUrl) && requestUrl.Substring(requestUrl.Length - 1) == "." ? 
+                                                requestUrl.Substring(0, requestUrl.Length - 1) : 
+                                                requestUrl;
             }
             return requestUrl;
         }
@@ -3167,7 +3169,7 @@ namespace Portal.Consultoras.Web.Controllers
                     switch (entConf.ConfiguracionPais.Codigo)
                     {
                         case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
-                            if (!GNDValidarAcceso(revistaDigital))
+                            if (!GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
                                 continue;
 
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "GuiaNegocio";
@@ -3397,7 +3399,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private MenuContenedorModel UpdateConfiguracionPais(MenuContenedorModel menuActivo, UsuarioModel userData, RevistaDigitalModel revistaDigital)
         {
-            var menuContenedor = BuildMenuContenedor(userData, revistaDigital);
+            var menuContenedor = BuildMenuContenedor(userData, revistaDigital,guiaNegocio);
             menuActivo.ConfiguracionPais = GetConfiguracionPaisBy(menuContenedor, menuActivo, userData);
             return menuActivo;
         }
@@ -3599,7 +3601,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<ConfiguracionPaisModel> GetMenuContenedorByMenuActivoCampania(int campaniaIdMenuActivo, int campaniaIdUsuario)
         {
-            var menuContenedor = BuildMenuContenedor(userData, revistaDigital);
+            var menuContenedor = BuildMenuContenedor(userData, revistaDigital,guiaNegocio);
 
             menuContenedor = menuContenedor.Where(e => e.CampaniaId == campaniaIdMenuActivo).ToList();
 
@@ -3639,7 +3641,8 @@ namespace Portal.Consultoras.Web.Controllers
             return menuContenedor;
         }
 
-        public List<ConfiguracionPaisModel> BuildMenuContenedor(UsuarioModel userData, RevistaDigitalModel revistaDigital)
+        public List<ConfiguracionPaisModel> BuildMenuContenedor(UsuarioModel userData,
+            RevistaDigitalModel revistaDigital, GuiaNegocioModel guiaNegocio)
         {
             var menuContenedor = sessionManager.GetMenuContenedor();
             var configuracionesPais = sessionManager.GetConfiguracionesPaisModel();
@@ -3796,7 +3799,7 @@ namespace Portal.Consultoras.Web.Controllers
                         config.UrlMenu = "#";
                         break;
                     case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
-                        if (!GNDValidarAcceso(revistaDigital))
+                        if (!GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
                             continue;
 
                         config.UrlMenu = "GuiaNegocio";
@@ -4013,10 +4016,11 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region Guia de Negocio Digitalizada
-        public virtual bool GNDValidarAcceso(RevistaDigitalModel revistaDigital)
+        public virtual bool GNDValidarAcceso(bool esConsultoraLider,  GuiaNegocioModel guiaNegocio, RevistaDigitalModel revistaDigital)
         {
-            var acceso = !(revistaDigital.TieneRDC && revistaDigital.EsActiva);
-            return acceso;
+            var tieneAcceso = (guiaNegocio.TieneGND && !(revistaDigital.EsSuscritaActiva() || revistaDigital.EsNoSuscritaActiva())) ||
+                (esConsultoraLider && guiaNegocio.TieneGND && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva());
+            return tieneAcceso;
         }
         #endregion
 

@@ -259,6 +259,8 @@
 
     @if ((Model.ClaseBloqueada ?? "") == "")
     {
+        if (Model.PuedeAgregarProducto)
+        {
         <div class="row">
             <div class="content_btn_agregar">
                 <div class="content_320">
@@ -277,6 +279,7 @@
                 </div>
             </div>
         </div>
+        }
     }
 </div>
 

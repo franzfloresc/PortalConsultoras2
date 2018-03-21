@@ -11,14 +11,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (GNDValidarAcceso(revistaDigital))
+                if (GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
                 {
                     return ViewLanding();
                 }
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "GuiaNegocioController.Index");
             }
 
             return RedirectToAction("Index", "Bienvenida");
@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!GNDValidarAcceso(revistaDigital))
+                if (!GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
                 {
                     return Json(new
                     {
@@ -64,6 +64,5 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
     }
 }
