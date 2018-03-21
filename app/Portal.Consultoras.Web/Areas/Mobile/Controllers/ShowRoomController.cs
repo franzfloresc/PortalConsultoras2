@@ -392,7 +392,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
 
-            return View("DetalleOfertaPersonalizado", modelo);
+            return View(modelo);
         }
     }
 }
