@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Common;
+﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Estrategia;
 using System;
@@ -9,23 +7,11 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Data
 {
     public class DAEstrategia : DataAccess
     {
-        private readonly static HttpClient httpClient = new HttpClient();
-
-        static DAEstrategia()
-        {
-            httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSearch);
-            httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        }
-
         public DAEstrategia(int paisID)
             : base(paisID, EDbSource.Portal)
         {
@@ -507,47 +493,18 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        public async Task<IList<BEEstrategia>> GetEstrategiaODD(int codCampania, string codConsultora, int diaInicio)
+        public IDataReader GetEstrategiaODD(int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
-            var estrategias = new List<BEEstrategia>();
-
-            var path = string.Format("api/Oferta/ODD/{0}/{1}/{2}", codCampania, codConsultora, diaInicio);
-
-            var httpResponse = await httpClient.GetAsync(path);
-
-            var jsonString = await httpResponse.Content.ReadAsStringAsync();
-
-            var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString);
-
-            foreach (var item in list)
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasODD"))
             {
-                var estrategia = new BEEstrategia
-                {
-                    EstrategiaID = Convert.ToInt32(item.estrategiaId),
-                    CodigoEstrategia = item.codigoEstrategia,
-                    CUV2 = item.cuV2,
-                    DescripcionCUV2 = item.descripcionCUV2,
-                    Precio = Convert.ToDecimal(item.precio),
-                    Precio2 = Convert.ToDecimal(item.precio2),
-                    FotoProducto01 = item.imagenURL,
-                    ImagenURL = item.imagenEstrategia,
-                    LimiteVenta = Convert.ToInt32(item.limiteVenta),
-                    TextoLibre = item.textoLibre,
-                    MarcaID = Convert.ToInt32(item.marcaId),
-                    DescripcionMarca = item.marcaDescripcion,
-                    IndicadorMontoMinimo = Convert.ToInt32(item.indicadorMontoMinimo),
-                    CodigoProducto = item.codigoProducto,
-                    DescripcionEstrategia = item.descripcionTipoEstrategia,
-                    Orden = Convert.ToInt32(item.orden),
-                    TipoEstrategiaID = 0,
-                    FlagNueva = 0,
-                    TipoEstrategiaImagenMostrar = 6
-                };
-
-                estrategias.Add(estrategia);
+                Context.Database.AddInParameter(command, "@CodCampania", DbType.Int32, codCampania);
+                Context.Database.AddInParameter(command, "@CodConsultora", DbType.String, codConsultora);
+                if (fechaInicioFact == default(DateTime))
+                    Context.Database.AddInParameter(command, "@FechaInicioFact", DbType.Date, DBNull.Value);
+                else
+                    Context.Database.AddInParameter(command, "@FechaInicioFact", DbType.Date, fechaInicioFact);
+                return Context.ExecuteReader(command);
             }
-
-            return estrategias;
         }
 
         public int ActivarDesactivarEstrategias(string UsuarioModificacion, string EstrategiasActivas, string EstrategiasDesactivas)
