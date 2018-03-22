@@ -2232,7 +2232,7 @@
         asesoraOnlineObj.asignarEventos(paisISO, viewBagCodigoConsultora);
         var verSeccion = '@ViewBag.VerSeccion' || '';
         var OrigenDesktopODD = 1;
-        var nombreAlias = '@Util.SubStr(Model.NombreConsultora, 0)';
+        var nombreAlias = '@Util.SubStr(Model.NombreConsultora, 0)';    
         var viewBagTieneHV = '@((ViewBag.TieneHV ??  false).ToString().ToLower())' == 'true';
 </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
