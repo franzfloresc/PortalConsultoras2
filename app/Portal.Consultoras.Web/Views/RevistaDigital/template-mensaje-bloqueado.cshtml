@@ -24,7 +24,7 @@
                 <p class="segundo-texto" style="">
                     @Model.MensajePopupSegundo
                 </p>
-                <a href="@Url.Action("Informacion", "RevistaDigital")" class="btn-popup" style="">
+                <a href="@Url.Action("Informacion", "RevistaDigital")" class="mobile_btn-popup" style="">
                     <span>ENTÉRATE CÓMO</span>
                 </a>
             </div>
@@ -34,20 +34,20 @@
     <div class="contenedor_fondo_popup content_general_pop_up" id="divNSPopupBloqueadoMob"
          data-popup-main="" data-popup-function-hide="rdPopup.Cerrar()" style="display:none;">
         <div class="content_pop_up_intriga" data-popup-body="">
-            <div class="contenido-popup-nuevo-2017">
-                <div class="centrar-estructura" data-popup-body="" style="border: 5px solid #C39934; background:transparent;">
-                    <a class="cerrar-popup" data-popup-close=""><img src="@Url.Content("~/Content/Images/close-icon.svg")" alt=""></a>
+            <div class="mobile_contenido-popup-nuevo-2017">
+                <div class="mobile_centrar-estructura" data-popup-body="" style="border: 5px solid #C39934; background:transparent;">
+                    <a class="mobile_cerrar-popup" data-popup-close=""><img src="@Url.Content("~/Content/Images/close-icon.svg")" alt=""></a>
 
 
-                    <div class="centrar-vertical-contenido">
+                    <div class="mobile_centrar-vertical-contenido">
                         <div class="clear"></div>
-                        <p class="primer-texto" style="">
+                        <p class="mobile_primer-texto" style="">
                             @Model.MensajePopupPrimero
                         </p>
-                        <p class="segundo-texto" style="">
+                        <p class="mobile_segundo-texto" style="">
                             @Model.MensajePopupSegundo
                         </p>
-                        <a href="@Url.Action("Informacion", "RevistaDigital")" class="btn-popup" style="">
+                        <a href="@Url.Action("Informacion", "RevistaDigital")" class="mobile_btn-popup" style="">
                             <span>ENTÉRATE CÓMO</span>
                         </a>
                     </div>
@@ -74,30 +74,30 @@ else if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita && !revistaDigital
                 <p class="segundo-texto" style="">
                     @Model.MensajePopupSegundo
                 </p>
-                <a href="javascript: void(0)" data-popup-close="" class="btn-popup" style="">
+                <a href="javascript: void(0)" data-popup-close="" class="mobile_btn-popup" style="">
                     <span>DE ACUERDO</span>
                 </a>
             </div>
         </div>
     </div>
 
-    <div class="contenedor_fondo_popup content_general_pop_up" id="divSNAPopupBloqueadoMob"
+    <div class="contenedor_fondo_popup content_general_pop_up" id="divNSPopupBloqueadoMob"
          data-popup-main="" data-popup-function-hide="rdPopup.Cerrar()" style="display:none;">
         <div class="content_pop_up_intriga" data-popup-body="">
-            <div class="contenido-popup-nuevo-2017">
-                <div class="centrar-estructura" data-popup-body="" style="border: 5px solid #C39934; background:transparent;">
-                    <a class="cerrar-popup" data-popup-close=""><img src="@Url.Content("~/Content/Images/close-icon.svg")" alt=""></a>
+            <div class="mobile_contenido-popup-nuevo-2017">
+                <div class="mobile_centrar-estructura" data-popup-body="" style="border: 5px solid #C39934; background:transparent;">
+                    <a class="mobile_cerrar-popup" data-popup-close=""><img src="@Url.Content("~/Content/Images/close-icon.svg")" alt=""></a>
 
 
-                    <div class="centrar-vertical-contenido">
+                    <div class="mobile_centrar-vertical-contenido">
                         <div class="clear"></div>
-                        <p class="primer-texto" style="">
+                        <p class="mobile_primer-texto" style="">
                             @Model.MensajePopupPrimero
                         </p>
-                        <p class="segundo-texto" style="">
+                        <p class="mobile_segundo-texto" style="">
                             @Model.MensajePopupSegundo
                         </p>
-                        <a href="javascript: void(0)" class="btn-popup" data-popup-close="" style="">
+                        <a href="@Url.Action("Informacion", "RevistaDigital")" class="mobile_btn-popup" style="">
                             <span>DE ACUERDO</span>
                         </a>
                     </div>
