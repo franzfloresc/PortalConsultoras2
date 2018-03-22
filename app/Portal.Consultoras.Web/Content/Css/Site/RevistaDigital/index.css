@@ -664,6 +664,7 @@
 
         .contenido-popup-nuevo-2017 .centrar-estructura .logogndplus {
             WIDTH: 100%;
+            position:absolute;
             text-align: left;
         }
 
