@@ -4704,13 +4704,13 @@ namespace Portal.Consultoras.Web.Controllers
 
             if(resultado.Split('|')[0] != "0")
             {
-                var userData = UserData();
+                var userDataX = UserData();
                 if (usuario.EMail != correoAnterior)
                 {
-                    userData.EMail = usuario.EMail;
+                    userDataX.EMail = usuario.EMail;
                 }
-                userData.Celular = usuario.Celular;
-                sessionManager.SetUserData(userData);
+                userDataX.Celular = usuario.Celular;
+                sessionManager.SetUserData(userDataX);
             }
 
             return resultado;
