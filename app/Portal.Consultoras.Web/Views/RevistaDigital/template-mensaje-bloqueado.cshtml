@@ -10,7 +10,7 @@
 @if (revistaDigital.TieneRDC && !revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
 {
     <!--Cambios Brayan Engreido-->
-    <div class="contenedor_fondo_popup contenido-popup-nuevo-2017" id="divNSPopupBloqueadoDesk"
+    <div class="Content_general_pop_up contenedor_fondo_popup contenido-popup-nuevo-2017" id="divNSPopupBloqueadoDesk"
          data-popup-main="" data-popup-function-hide="rdPopup.Cerrar()" style="display:none;">
         <div class="centrar-estructura" data-popup-body="" style="border: 5px solid #C39934; background:transparent;">
             <a class="cerrar-popup" data-popup-close=""><img src="@Url.Content("~/Content/Images/close-icon.svg")" alt=""></a>
@@ -24,14 +24,14 @@
                 <p class="segundo-texto" style="">
                     @Model.MensajePopupSegundo
                 </p>
-                <a href="@Url.Action("Informacion", "RevistaDigital")" class="mobile_btn-popup" style="">
+                <a href="@Url.Action("Informacion", "RevistaDigital")" class="btn-popup" style="">
                     <span>ENTÉRATE CÓMO</span>
                 </a>
             </div>
         </div>
     </div>
 
-    <div class="contenedor_fondo_popup content_general_pop_up" id="divNSPopupBloqueadoMob"
+    <div class="Content_general_pop_up contenedor_fondo_popup content_general_pop_up" id="divNSPopupBloqueadoMob"
          data-popup-main="" data-popup-function-hide="rdPopup.Cerrar()" style="display:none;">
         <div class="content_pop_up_intriga" data-popup-body="">
             <div class="mobile_contenido-popup-nuevo-2017">
@@ -60,7 +60,7 @@
 else if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
 {
 
-    <div class="contenedor_fondo_popup contenido-popup-nuevo-2017" id="divSNAPopupBloqueadoDesk"
+    <div class="Content_general_pop_up contenedor_fondo_popup contenido-popup-nuevo-2017" id="divSNAPopupBloqueadoDesk"
          data-popup-main="" data-popup-function-hide="rdPopup.Cerrar()" style="display:none;">
         <div class="centrar-estructura" data-popup-body="" style="border: 5px solid #C39934; background:transparent;">
             <a class="cerrar-popup" data-popup-close=""><img src="@Url.Content("~/Content/Images/close-icon.svg")" alt=""></a>
@@ -74,14 +74,14 @@ else if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita && !revistaDigital
                 <p class="segundo-texto" style="">
                     @Model.MensajePopupSegundo
                 </p>
-                <a href="javascript: void(0)" data-popup-close="" class="mobile_btn-popup" style="">
+                <a href="javascript: void(0)" data-popup-close="" class="btn-popup" style="">
                     <span>DE ACUERDO</span>
                 </a>
             </div>
         </div>
     </div>
 
-    <div class="contenedor_fondo_popup content_general_pop_up" id="divNSPopupBloqueadoMob"
+    <div class="Content_general_pop_up contenedor_fondo_popup content_general_pop_up" id="divNSPopupBloqueadoMob"
          data-popup-main="" data-popup-function-hide="rdPopup.Cerrar()" style="display:none;">
         <div class="content_pop_up_intriga" data-popup-body="">
             <div class="mobile_contenido-popup-nuevo-2017">
