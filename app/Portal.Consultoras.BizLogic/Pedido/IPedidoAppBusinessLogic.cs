@@ -5,6 +5,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
     public interface IPedidoAppBusinessLogic
     {
         BEProductoApp GetCUV(BEProductoAppBuscar productoBuscar);
-        BEPedidoAppInsertarResult Insert(BEPedidoAppInsertar pedidoInsertar);
+        BEPedidoDetalleAppResult Insert(BEPedidoDetalleApp pedidoDetalle);
+        void UpdateProl(BEPedidoDetalleApp pedidoDetalle);
     }
 }

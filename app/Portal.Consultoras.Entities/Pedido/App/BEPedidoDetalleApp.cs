@@ -4,9 +4,9 @@ using System.Runtime.Serialization;
 namespace Portal.Consultoras.Entities.Pedido.App
 {
     [DataContract]
-    public class BEPedidoAppInsertar
+    public class BEPedidoDetalleApp
     {
-        public BEPedidoAppInsertar()
+        public BEPedidoDetalleApp()
         {
             RevistaDigital = new BERevistaDigital();
             Producto = new BEProducto();

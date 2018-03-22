@@ -128,8 +128,8 @@
     <Compile Include="Mobile\BEApp.cs" />
     <Compile Include="Oferta\BEGuiaNegocio.cs" />
     <Compile Include="Oferta\BEOfertaDelDia.cs" />
-    <Compile Include="Pedido\App\BEPedidoAppInsertar.cs" />
-    <Compile Include="Pedido\App\BEPedidoAppInsertarResult.cs" />
+    <Compile Include="Pedido\App\BEPedidoDetalleApp.cs" />
+    <Compile Include="Pedido\App\BEPedidoDetalleAppResult.cs" />
     <Compile Include="Pedido\BEMisPedidosCampania.cs" />
     <Compile Include="Pedido\BEMisPedidosFacturados.cs" />
     <Compile Include="Pedido\BEMisPedidosFacturadosDetalle.cs" />
