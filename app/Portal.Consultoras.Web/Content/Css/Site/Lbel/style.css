@@ -3115,7 +3115,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     background: #f8f8f8;
     box-sizing: border-box;
     margin-bottom: 28px;
-    top: -115px;
 }
 
 .caja_carousel_productos .ver_mas_productos {
@@ -3168,6 +3167,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     overflow: hidden;
     padding-top: 10px;
     box-sizing: border-box;
+    top: -115px;
 }
 
 .control_carousel_flechaArriba {
