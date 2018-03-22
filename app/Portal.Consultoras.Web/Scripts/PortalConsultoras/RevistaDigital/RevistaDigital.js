@@ -689,7 +689,8 @@ $.fn.followTo = function (elem) {
                 var topAltura = 0;
                 if (isMobile()) {
                     var seccionMenuMobileHeight = $('.slick-slider-fixed-mobile').outerHeight(true);
-                    topAltura = alturaH + seccionMenuMobileHeight;
+                    topAltura = alturaH + seccionMenuMobileHeight + 'px';
+                    $('.contenido_zona_dorada_contenedor_desktop').css('top', topAltura)
                     $('.contenido_zona_dorada_contenedor_desktop').addClass('scroll_posicionar_zona_dorada_cabecera');
                     $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').addClass('scroll_posicionar_fix-zona-dorada');
                     $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').css('display', 'none');
