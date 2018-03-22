@@ -235,7 +235,7 @@ namespace Portal.Consultoras.Service
             return blPayPalConfiguracion.GetReporteAbonos(paisID, chrCodigoPais, chrCodigoConsultora, intDia, intMes, intAnho, chrRETCodigoTransaccion);
         }
 
-        #endregion
+        #endregion        
 
         #region RevistaGana
         public Int32 CrearContenidoRevista(int paisId, string nroCampania, string rutaImagenPortada)

@@ -34,7 +34,6 @@
             if ($("#chkImagenProducto01").attr('checked')) {
                 $("#ImagenProducto").val($("#preview1").attr('src').replace(/^.*[\\\/]/, ''));
 
-                // 1664
                 var img01 = $('#ImagenProducto').val();
                 if (img01.lastIndexOf("?") >= 0) {
                     img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -49,7 +48,6 @@
             if ($("#chkImagenProducto02").attr('checked')) {
                 $("#ImagenProducto").val($("#preview2").attr('src').replace(/^.*[\\\/]/, ''));
 
-                // 1664
                 var img01 = $('#ImagenProducto').val();
                 if (img01.lastIndexOf("?") >= 0) {
                     img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -65,7 +63,6 @@
             if ($("#chkImagenProducto03").attr('checked')) {
                 $("#ImagenProducto").val($("#preview3").attr('src').replace(/^.*[\\\/]/, ''));
 
-                // 1664
                 var img01 = $('#ImagenProducto').val();
                 if (img01.lastIndexOf("?") >= 0) {
                     img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -222,10 +219,7 @@
 
         function ShowImage(cellvalue, options, rowObject) {
             var image = "";
-            //var filename = rowObject[7].replace(/^.*[\\\/]/, '')
             if (rowObject[5] != "") {
-                // image = '<img src="' + '@Url.Content("~/Content/Matriz/")' + rowObject[5] + '" alt="" width="70px" height="60px" title="" border="0" />';
-                // 1664
                 image = '<img src="' + rowObject[5] + '" alt="" width="70px" height="60px" title="" border="0" />';
             } else {
                 image = '<img src="@Url.Content("~/Content/Images/prod_grilla_vacio.png")" alt="" width="60px" height="60px" title="" border="0" />';
@@ -244,12 +238,9 @@
                 $.getJSON(baseUrl + 'OfertaWeb/ObtenerImagenesByCodigoSAP', { paisID: paisID, codigoSAP: CodigoSAP }, function (data) {
                     if (data.lista.length > 0) {
                         if (data.lista[0].FotoProducto01 != "") {
-                            // $('#preview1').attr('src', '@Url.Content("~/Content/Matriz/")' + ISO + "/" + data.lista[0].FotoProducto01);
-                            // 1664
                             $('#preview1').attr('src', data.lista[0].FotoProducto01);
                             $("#chkImagenProducto01").val($('#preview1').attr('src').replace(/^.*[\\\/]/, ''));
 
-                            // 1664
                             var img01 = $('#chkImagenProducto01').val();
                             if (img01.lastIndexOf("?") >= 0) {
                                 img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -260,12 +251,9 @@
                         } else
                             $("#chkImagenProducto01").attr('disabled', true);
                         if (data.lista[0].FotoProducto02 != "") {
-                            // $('#preview2').attr('src', '@Url.Content("~/Content/Matriz/")' + ISO + "/" + data.lista[0].FotoProducto02);
-                            // 1664
                             $('#preview2').attr('src', data.lista[0].FotoProducto02);
                             $("#chkImagenProducto02").val($('#preview2').attr('src').replace(/^.*[\\\/]/, ''));
 
-                            // 1664
                             var img01 = $('#chkImagenProducto02').val();
                             if (img01.lastIndexOf("?") >= 0) {
                                 img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -276,12 +264,9 @@
                         } else
                             $("#chkImagenProducto02").attr('disabled', true);
                         if (data.lista[0].FotoProducto03 != "") {
-                            // $('#preview3').attr('src', '@Url.Content("~/Content/Matriz/")' + ISO + "/" + data.lista[0].FotoProducto03);
-                            // 1664
                             $('#preview3').attr('src', data.lista[0].FotoProducto03);
                             $("#chkImagenProducto03").val($('#preview3').attr('src').replace(/^.*[\\\/]/, ''));
 
-                            // 1664
                             var img01 = $('#chkImagenProducto03').val();
                             if (img01.lastIndexOf("?") >= 0) {
                                 img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -310,7 +295,6 @@
                     $('#txtPrecioOfertaModal').val(jQuery("#list").jqGrid('getCell', ID, 'PrecioOferta'));
                     var imagen = $($("#list").jqGrid('getCell', ID, 'Imagen')).attr('src').replace(/^.*[\\\/]/, '');
 
-                    // 1664
                     if (imagen.lastIndexOf("?") >= 0) {
                         imagen = imagen.substring(0, imagen.lastIndexOf("?"));
                     }
@@ -323,11 +307,11 @@
                         $('#ImagenProducto').val("");
                     }
 
-                    if ($("#chkImagenProducto03").val() == imagen) // $($("#list").jqGrid('getCell', ID, 'Imagen')).attr('src').replace(/^.*[\\\/]/, ''))
+                    if ($("#chkImagenProducto03").val() == imagen)
                         $('#chkImagenProducto03').attr('checked', true);
-                    if ($("#chkImagenProducto02").val() == imagen) // $($("#list").jqGrid('getCell', ID, 'Imagen')).attr('src').replace(/^.*[\\\/]/, ''))
+                    if ($("#chkImagenProducto02").val() == imagen)
                         $('#chkImagenProducto02').attr('checked', true);
-                    if ($("#chkImagenProducto01").val() == imagen) // $($("#list").jqGrid('getCell', ID, 'Imagen')).attr('src').replace(/^.*[\\\/]/, ''))
+                    if ($("#chkImagenProducto01").val() == imagen)
                         $('#chkImagenProducto01').attr('checked', true);
 
                     if (FlagCheck == 1)
@@ -437,7 +421,6 @@
                         return false;
                     }
                     else {
-                        //
                         RegistrarAdmCrossSelling();
                     }
                 },
