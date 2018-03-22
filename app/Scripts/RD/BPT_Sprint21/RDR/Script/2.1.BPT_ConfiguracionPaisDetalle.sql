@@ -40,6 +40,12 @@ begin
 		, 1
 	)
 
+	update ConfiguracionPais
+	set Estado = 1
+	, Excluyente = 0
+	, DesdeCampania = 201807
+	where ConfiguracionPaisID = @ConfPaisId 
+
 end
 go
 
@@ -85,6 +91,12 @@ begin
 		, 1
 		, 1
 	)
+
+	update ConfiguracionPais
+	set Esatdo = 1
+	, Excluyente = 0
+	, DesdeCampana = 201807
+	where ConfiguracionPaisID = @ConfPaisId 
 
 end
 go
