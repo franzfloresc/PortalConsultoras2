@@ -13669,7 +13669,6 @@ a {
 
 .btn_regalo_sorpresa {
     background-repeat: no-repeat;
-    /*background-size: 100% 100%;*/
     background-position: center center;
     height: 92px;
     vertical-align: middle;
@@ -13680,28 +13679,41 @@ a {
     float: left;
     font-family: 'Lato';
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     padding: 15px 0 0 4%;
-    text-transform: uppercase;
     width: 60%;
 }
 
 .span_1_regalo_sorpresa {
-    font-size: 13px;
-    line-height: 1.46;
-}
-
-.span_2_regalo_sorpresa {
-    font-size: 14.5px;
+    font-size: 15px;
+    letter-spacing: .5px;
     line-height: 1.27;
 }
 
-.span_link_regalo_sorpresa {
-    font-size: 11px;
+.span_2_regalo_sorpresa {
+    font-size: 13px;
     font-weight: normal;
-    letter-spacing: 0.4px;
-    line-height: 1.64;
-    text-decoration: underline;
+    line-height: 1.8;
+}
+
+.span_3_regalo_sorpresa {
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1.5;
+}
+
+.span_4_regalo_sorpresa {
+    font-size: 14px;
+    line-height: 1.29;
+}
+
+.span_link_regalo_sorpresa {
+    background: #000;
+    font-size: 10px;
+    font-weight: normal;
+    letter-spacing: normal;
+    line-height: 1.8;
+    padding: 4px 16px 4px 16px;
 }
 
 .img_regalos_sorpresa {
@@ -13759,22 +13771,31 @@ a {
 }
 
 .btn_regresa_OF {
-    background: url(../../../Images/Esika/regresar.png) no-repeat;
-    background-position: 15px 10px;
-    text-transform: uppercase;
-    height: 40px;
+    cursor: pointer;
+    left: 16px;
+    padding-bottom: 25px;
+    position: relative;
+    top: 16px;
+}
+
+.img_regresa_OF {
+    position: relative;
+    width: 14px;
+}
+
+.span_regresa_OF {
+    color: #fff;
     font-family: 'Lato';
-    color: white;
     font-size: 11px;
     letter-spacing: .5px;
-    line-height: 39px;
-    padding-left: 35px;
+    position: relative;
+    padding-left: 10px;
+    text-transform: uppercase;
 }
 
 .icono_regalo_sorpresa {
     margin: 0 auto 12px auto;
     width: 70px;
-    /*background: url('../../../Images/gif-regalo-blanco.png') no-repeat;*/
 }
 
     .icono_regalo_sorpresa img {
@@ -13792,14 +13813,28 @@ a {
 }
 
 .span_1_regalo_sorpresa_popup {
-    font-size: 17px;
-    letter-spacing: 0.9px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 1.2px;
 }
 
 .span_2_regalo_sorpresa_popup {
-    font-size: 22px;
-    font-weight: 900;
+    font-size: 10.5px;
+    letter-spacing: .5px;
+}
+
+.span_3_regalo_sorpresa_popup {
+    font-size: 16px;
+    letter-spacing: .9px;
+    line-height: normal;
+}
+
+.span_4_regalo_sorpresa_popup {
+    font-size: 20px;
+    font-weight: 700;
     letter-spacing: 1px;
+    line-height: normal;
 }
 
 .titulo_regalo_sorpresa {
@@ -13890,7 +13925,7 @@ a {
     margin: 0 auto 0 auto;
     width: 90%;
     vertical-align: top;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
 }
 
 .titulo_regalo_producto {
@@ -13996,21 +14031,32 @@ a {
     }
 
 .span_1_regalo_sorpresa_producto {
-    font-size: 10.4px;
-}
-
-.span_1_regalo_sorpresa_producto_2 {
+    font-size: 10.5px;
     letter-spacing: .5px;
 }
 
 .span_2_regalo_sorpresa_producto {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 900;
-    letter-spacing: .8px;
+    letter-spacing: .9px;
 }
 
-.span_2_regalo_sorpresa_producto_2 {
-    letter-spacing: .9px;
+.span_1_regalo_ganaste_producto {
+    font-size: 13px;
+    line-height: 1.15;
+    letter-spacing: .4px;
+}
+
+.bold_1_regalo_ganaste_producto {
+    letter-spacing: .5px;
+    font-weight: 700;
+}
+
+.span_2_regalo_ganaste_producto {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.29;
+    letter-spacing: .5px;
 }
 
 .txt_paginacion_premio {
@@ -14036,6 +14082,10 @@ a {
     line-height: 1.31;
 }
 
+.span_nota_premio {
+    font-weight: 900;
+}
+
 .btn_legal_RS {
     font-family: 'Lato';
     font-size: 13px;
@@ -14043,7 +14093,7 @@ a {
     color: white;
     text-align: center;
     text-decoration: underline;
-    margin-bottom: 25px;
+    margin: 0 0 25px 0;
 }
 
 .enlace_chat a {
