@@ -676,7 +676,7 @@ function RDDetalleVolver(campaniaId) {
     window.location = urlVolver + "#LAN";
 }
 
-
+//Prueba Subida
 $.fn.followTo = function (elem) {
     var $this = this,
         $window = $(windw),
