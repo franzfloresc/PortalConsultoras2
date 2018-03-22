@@ -85,7 +85,7 @@
     var inizializer = function (parameters) {
         setting.TieneCupon = (parameters.tieneCupon == CONS_CUPON.MOSTRAR_CUPON);
         setting.PaginaOrigen = parseInt(parameters.paginaOrigenCupon);
-        setting.EsEmailActivo = (parameters.esEmailActivo.toLowerCase() == "true" || parameters.paisISO == 'PE');
+        setting.EsEmailActivo = (parameters.esEmailActivo.toLowerCase() == "true");     
         setting.BaseUrl = parameters.baseUrl;
         setting.SimboloMoneda = parameters.simboloMoneda;
         setting.CampaniaActual = parameters.campaniaActual;
@@ -273,9 +273,11 @@
                 $(elements.ContenedorPadreCupon).show();
 
                 if (setting.MostrarContenedorInfo) {
-                    mostrarContenedorInfo();
-                } else {
-                    mostrarContenedorConocelo();
+                    mostrarContenedorInfo();        
+                }
+                else {
+                    //mostrarContenedorConocelo();      
+                    $(elements.ContenedorPadreCupon).hide();        
                 }
 
             } else {
@@ -283,9 +285,10 @@
             }
         }
 
-        if (setting.PaisISO == "PE") {
-            $('[data-cupon-info-opt]').hide();
-        }
+        $('[data-cupon-info-opt]').hide();          
+        //if (setting.PaisISO == "PE") {        
+        //    $('[data-cupon-info-opt]').hide();        
+        //}     
     }
 
     var revisarMostrarContenedorCupon = function () {
@@ -323,7 +326,8 @@
                     if (setting.Cupon) {
                         finishLoadCuponContenedorInfo = true;
                         setting.MostrarContenedorPadreCupon = setting.TieneCupon;
-                        setting.MostrarContenedorInfo = (setting.Cupon.EstadoCupon == CONS_CUPON.CUPON_ACTIVO && setting.EsEmailActivo);
+                        //setting.MostrarContenedorInfo = (setting.Cupon.EstadoCupon == CONS_CUPON.CUPON_ACTIVO && setting.EsEmailActivo);          
+                        setting.MostrarContenedorInfo = (setting.Cupon.EstadoCupon == CONS_CUPON.CUPON_ACTIVO);         
                         mostrarContenedorCuponPorPagina();
                     }
                 }
@@ -494,25 +498,23 @@
         var campania = setting.CampaniaActual.substring(4);
 
         $(elements.ContenedorTituloGanaste).empty();
-        if (setting.PaisISO == "PE") {
-            $(elements.ContenedorTituloGanaste).append("¡TIENES UN CUPÓN DE " + valor + simbolo + " DE DSCTO!");
-        }
-        else {
-            $(elements.ContenedorTituloGanaste).append("¡ACTIVASTE TU CUPÓN DE " + valor + simbolo + " DE DSCTO!");
-        }
+                            
+        $(elements.ContenedorTituloGanaste).append(nombreAlias.toUpperCase() + " ¡PUEDES GANAR UN CUPÓN DE " + valor + simbolo + " DE DSCTO!");             
+        //$(elements.ContenedorTituloGanaste).append("¡ACTIVASTE TU CUPÓN DE " + valor + simbolo + " DE DSCTO!");              
+
         $(elements.ContenedorTexto02Ganaste).empty();
-        $(elements.ContenedorTextoDetalleCuponCampania).empty();
-        $(elements.ContenedorTextoDetalleCuponCampania).append("Sólo válido en la campaña C" + campania);
-        $(elements.ContenedorMontoLimitePopupGanaste).empty();
-        $(elements.ContenedorMontoLimitePopupGanaste).append('Tu dscto lo verás reflejado en tu <br/>facturación (dscto hasta ' + setting.SimboloMoneda + ' ' + setting.Cupon.MontoLimiteFormateado + ')');
+        $(elements.ContenedorTextoDetalleCuponCampania).empty();    
+        $(elements.ContenedorTextoDetalleCuponCampania).append("Válido sólo en C" + campania + " (Dscto. máximo " + setting.SimboloMoneda + " " + setting.Cupon.MontoLimiteFormateado + "). El Dscto. se reflejará en tu facturación");     
+        $(elements.ContenedorMontoLimitePopupGanaste).empty();  
+        $(elements.ContenedorMontoLimitePopupGanaste).append("Agrega mínimo 1 oferta Gana+ pasando pedido por el App " + (isEsika ? "Ésika" : "L'bel") + " Conmigo *"); 
 
         $(elements.PopupGanaste).show();
         $(elements.PopupCuponGana).hide();
         $(elements.PopupConfirmacion).hide();
 
-        if (setting.PaisISO == "PE") {
-            $('[data-cupon-ganaste-condicion2]').hide();
-        }
+        //if (setting.PaisISO == "PE") {            
+        //    $('[data-cupon-ganaste-condicion2]').hide();      
+        //}     
     }
 
     var mostrarPopupGana = function () {
@@ -545,24 +547,24 @@
             if (response.success) {
                 setting.CumpleMostrarContenedorCupon = true;
                 setting.TieneOfertasPlan20 = response.tieneOfertasPlan20;
-                if (response.tieneOfertasPlan20) {
-                    if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {
-                        mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + simbolo + " " + valor + " ES VÁLIDO!</b><br>Lo verás reflejado en tu facturación";
+                if (response.tieneOfertasPlan20) {      
+                    if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {       
+                        mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + simbolo + " " + valor + " ES VÁLIDO!</b><br>Lo verás reflejado en tu facturación";      
                     } else {
-                        if (setting.PaisISO == 'PE') {
-                            mensaje = "<b style='font-weight: 900'>¡TIENES UN CUPÓN DE DSCTO DE " + valor + simbolo + "!</b><br>MONTO MÁXIMO DE DSCTO DE " + setting.SimboloMoneda + setting.Cupon.MontoLimiteFormateado + "<br>Lo verás reflejado en tu facturación";
-                        }
-                        else {
-                            mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + valor + simbolo + " ES VÁLIDO!</b><br>Lo verás reflejado en tu facturación";
-                        }
+                        mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + valor + simbolo + " ES VÁLIDO!</b><br>Lo verás reflejado en tu facturación";                            
                     }
+
+                    $("#divCondicionesCupon").hide();       
                 }
                 else {
-                    if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {
-                        mensaje = "Agrega alguna oferta exclusiva web para hacer <span class=\'contenedor-texto-agregar\'><b style='font-weight: 900'>válido tu dscto de " + simbolo + " " + valor + "</b></span>";
-                    } else {
-                        mensaje = "Agrega alguna oferta exclusiva web para hacer <span class=\'contenedor-texto-agregar\'><b style='font-weight: 900'>válido tu dscto de " + valor + simbolo + "</b></span>";
-                    }
+                    var marca = isEsika ? "Ésika" : "L'bel";      
+                    if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {       
+                        mensaje = "Agrega 1 oferta de Gana+ pasando pedido por el app " + marca + " Conmigo para hacer <span><b style='font-weight: 900'>válido tu " + simbolo + " " + valor + " DSCTO *</b></span>";       
+                    } else {    
+                        mensaje = "Agrega 1 oferta de Gana+ pasando pedido por el app " + marca + " Conmigo para hacer <span><b style='font-weight: 900'>válido tu " + valor + simbolo + " DSCTO *</b></span>";     
+                    }   
+
+                    $("#divCondicionesCupon").show();   
                 }
 
                 $(elements.ContenedorCuponInfo).each(function (index) {
