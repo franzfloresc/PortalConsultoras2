@@ -25,8 +25,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             int limiteMinimoTelef, limiteMaximoTelef;
             GetLimitNumberPhone(out limiteMinimoTelef, out limiteMaximoTelef);
-            var usuario = GetUsuario();
-
             var modelo = new RevistaDigitalInformativoModel
             {
                 EsSuscrita = revistaDigital.EsSuscrita,
@@ -36,8 +34,8 @@ namespace Portal.Consultoras.Web.Controllers
                 UrlPreguntasFrecuentes = GetValorDato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes),
                 Origen = revistaDigital.SuscripcionModel.Origen,
                 NombreConsultora = userData.Sobrenombre.ToUpper(),
-                Email = usuario.EMail,
-                Celular = usuario.Celular,
+                Email = userData.EMail,
+                Celular = userData.Celular,
                 LimiteMax = limiteMaximoTelef,
                 LimiteMin = limiteMinimoTelef,
                 UrlTerminosCondicionesDatosUsuario = GetUrlTerminosCondicionesDatosUsuario(),
@@ -46,24 +44,6 @@ namespace Portal.Consultoras.Web.Controllers
             };
 
             return View("template-informativa", modelo);
-        }
-
-        private BEUsuario GetUsuario()
-        {
-            var usuario = (BEUsuario) null;
-            try
-            {
-                using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                {
-                    usuario = sv.Select(UserData().PaisID, UserData().CodigoUsuario);
-                }
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "BaseRevistaDigitalController.getUsuario");
-            }
-
-            return usuario;
         }
 
         public ActionResult ViewLanding(int tipo)

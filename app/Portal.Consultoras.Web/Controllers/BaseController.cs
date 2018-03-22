@@ -4702,6 +4702,17 @@ namespace Portal.Consultoras.Web.Controllers
                 resultado = svr.ActualizarMisDatos(usuario, correoAnterior);
             }
 
+            if(resultado.Split('|')[0] != "0")
+            {
+                var userData = UserData();
+                if (usuario.EMail != correoAnterior)
+                {
+                    userData.EMail = usuario.EMail;
+                }
+                userData.Celular = usuario.Celular;
+                sessionManager.SetUserData(userData);
+            }
+
             return resultado;
         }
 
