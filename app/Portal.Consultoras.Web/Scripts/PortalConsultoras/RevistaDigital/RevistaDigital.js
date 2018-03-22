@@ -683,14 +683,13 @@ $.fn.followTo = function (elem) {
         $bumper = $(elem),
         bumperPos = $bumper.offset().top,
         thisHeight = $this.outerHeight(),
+        topAltura = 0,
         setPosition = function () {
             if ($window.scrollTop() > (bumperPos - thisHeight)) {
                 var alturaH = $('header').outerHeight(true);
-                var topAltura = 0;
                 if (isMobile()) {
                     var seccionMenuMobileHeight = $('.slick-slider-fixed-mobile').outerHeight(true);
                     topAltura = alturaH + seccionMenuMobileHeight + 'px';
-                    //$('.contenido_zona_dorada_contenedor_desktop').css('top', topAltura)
                     $('.contenido_zona_dorada_contenedor_desktop').addClass('scroll_posicionar_zona_dorada_cabecera');
                     $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').addClass('scroll_posicionar_fix-zona-dorada');
                     $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').css('display', 'none');
@@ -709,7 +708,6 @@ $.fn.followTo = function (elem) {
                 }
             } else {
                 if (isMobile()) {
-                    $('.contenido_zona_dorada_contenedor_desktop').css('top', 'initial')
                     $('.contenido_zona_dorada_contenedor_desktop').removeClass('scroll_posicionar_zona_dorada_cabecera');
                     $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').removeClass('scroll_posicionar_fix-zona-dorada');
                     $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').css('display', 'block');
