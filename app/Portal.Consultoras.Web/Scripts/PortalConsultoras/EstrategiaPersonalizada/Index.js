@@ -262,6 +262,26 @@ function SeccionMostrarProductos(data) {
         });
     }
 
+    if (revistaDigital) {
+        if (revistaDigital.TieneRDC) {
+            if (data.Seccion.Codigo === CONS_CODIGO_SECCION.RD) {
+                if (!revistaDigital.EsActiva) {
+                    var ExperienciaGanaMas = new Object();
+                    ExperienciaGanaMas.OcultarAgregar = true;
+                    ExperienciaGanaMas.OcultarVerDetalle = true;
+                    ExperienciaGanaMas.MostrarLoQuieres = !revistaDigital.EsSuscrita && !revistaDigital.EsActiva ? true : false;
+
+                    $.each(data.lista, function (ind, tem) {
+                        if (tem.ClaseBloqueada != '') {
+                            tem.ExperienciaGanaMas = ExperienciaGanaMas;
+                            tem.TieneVerDetalle = !ExperienciaGanaMas.OcultarVerDetalle;
+                        }
+                    });
+                }
+            }
+        }
+    }
+
     SetHandlebars(data.Seccion.TemplateProducto, data, divListadoProductos);
 
     if (data.Seccion.TemplateProducto == "#producto-landing-template") {

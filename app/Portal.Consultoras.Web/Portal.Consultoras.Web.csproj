@@ -3196,6 +3196,8 @@
     <Content Include="Content\Images\RevistaDigital\esika-para-mi-blanco.svg" />
     <Content Include="Content\Images\RevistaDigital\esika-para-mi-blanco2.svg" />
     <Content Include="Content\Images\RevistaDigital\etiqueta-club-ganamas-blanco-independiente.png" />
+    <Content Include="Content\Images\RevistaDigital\etiqueta-club-ganamas-blanco-independiente.svg" />
+    <Content Include="Content\Images\RevistaDigital\etiqueta-club-ganamas-dorado-independiente.svg" />
     <Content Include="Content\Images\RevistaDigital\exclamacion_blanco.png" />
     <Content Include="Content\Images\RevistaDigital\fill-1.svg" />
     <Content Include="Content\Images\RevistaDigital\fondo.png" />
@@ -3219,12 +3221,18 @@
     <Content Include="Content\Images\RevistaDigital\fondo_srd2.svg" />
     <Content Include="Content\Images\RevistaDigital\Kadiavisual2.png" />
     <Content Include="Content\Images\RevistaDigital\logo-club-ganamas-blanco.png" />
+    <Content Include="Content\Images\RevistaDigital\logo-club-ganamas-blanco.svg" />
     <Content Include="Content\Images\RevistaDigital\logo-club-ganamas-dorado.png" />
+    <Content Include="Content\Images\RevistaDigital\logo-club-ganamas-dorado.svg" />
     <Content Include="Content\Images\RevistaDigital\logo-club-ganamas-negro.png" />
+    <Content Include="Content\Images\RevistaDigital\logo-club-ganamas-negro.svg" />
     <Content Include="Content\Images\RevistaDigital\logo-ganamas-blanco.png" />
+    <Content Include="Content\Images\RevistaDigital\logo-ganamas-blanco.svg" />
     <Content Include="Content\Images\RevistaDigital\logo-ganamas-morado.png" />
     <Content Include="Content\Images\RevistaDigital\logo-ganamas-negro.png" />
+    <Content Include="Content\Images\RevistaDigital\logo-ganamas-negro.svg" />
     <Content Include="Content\Images\RevistaDigital\logo-ganamas-rojo.png" />
+    <Content Include="Content\Images\RevistaDigital\logo-ganamas-rojo.svg" />
     <Content Include="Content\Images\RevistaDigital\logotipo-club-ganamas-blanco.svg" />
     <Content Include="Content\Images\RevistaDigital\logotipo-club-ganamas-morado.svg" />
     <Content Include="Content\Images\RevistaDigital\logotipo-club-ganamas-negro.svg" />

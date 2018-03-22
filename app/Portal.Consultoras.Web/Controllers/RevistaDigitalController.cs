@@ -142,6 +142,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var palanca = "";
 
+                revistaDigital.ActivoMdo = false;
+
                 if (revistaDigital.ActivoMdo)
                 {
                     palanca = Constantes.TipoEstrategiaCodigo.RevistaDigital;
@@ -195,6 +197,7 @@ namespace Portal.Consultoras.Web.Controllers
                         listPerdio = ConsultarEstrategiasFormatearModelo(listPerdio1, 1);
                     }
                 }
+                
 
                 return Json(new
                 {
