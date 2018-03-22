@@ -32,8 +32,8 @@
                         <div class="banner_pedido_text banner_pedido_text_dorado">
                             @Html.Raw(configuracionPaisDatosModel.Valor2)
                         </div>
-                        <div class="btn_red btn_dorado">
-                            <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                        <div class="btn_red btn_dorado"  onclick="RedireccionarContenedorInformativa(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion)">
+                            <a class="rd_arrowright" href="#">
                                 SUSCRÍBETE GRATIS
                             </a>
                         </div>
@@ -81,7 +81,7 @@
                 <div class="clear"></div>
                 <div class="revistadigital contenedor_botonVerMasOfertas">
                     <div class="boxoffer" style="cursor: pointer; position: relative !important;"
-                         onclick="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital');">
+                         onclick="RedireccionarContenedorInformativa(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion);">
                         <div class="fondo_boton"></div>
                         <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
                     </div>

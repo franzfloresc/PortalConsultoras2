@@ -221,3 +221,11 @@ function RedireccionarContenedorComprar(origenWeb, codigo) {
     codigo = $.trim(codigo);
     window.location = (isMobile() ? "/Mobile" : "") + "/Ofertas" + (codigo !== "" ? "#" + codigo : "");
 }
+
+function RedireccionarContenedorInformativa(origenWeb) {
+    origenWeb = $.trim(origenWeb);
+    if (origenWeb !== "")
+        rdAnalyticsModule.Access(origenWeb);
+
+    window.location = (isMobile() ? "/Mobile" : "") + "/RevistaDigital/Informacion";
+}
