@@ -2,6 +2,8 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceCDR;
+using Portal.Consultoras.Web.Areas.Mobile.Models;
+using Portal.Consultoras.Web.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (userData.TieneCDR == 0) return RedirectToAction("Index", "Bienvenida");
             MisReclamosModel model = new MisReclamosModel();
             List<CDRWebModel> listaCdrWebModel;
+            var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
 
             try
             {
@@ -36,7 +39,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             string urlPoliticaCdr = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPoliticasCDR) ?? "{0}";
             model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
             model.ListaCDRWeb = listaCdrWebModel.FindAll(p => p.CantidadDetalle > 0);
-            model.MensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitadaYChatEnLinea();
+            model.MensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitadaYChatEnLinea(mobileConfiguracion.EsAppMobile);
 
             if (!string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return View(model);
             if (model.ListaCDRWeb.Count == 0) return RedirectToAction("Reclamo");
@@ -45,10 +48,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Reclamo(int pedidoId = 0)
         {
+            var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
             var model = new MisReclamosModel
             {
                 PedidoID = pedidoId,
-                MensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitadaYChatEnLinea()
+                MensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitadaYChatEnLinea(mobileConfiguracion.EsAppMobile)
             };
             if (pedidoId == 0 && !string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return RedirectToAction("Index");
 

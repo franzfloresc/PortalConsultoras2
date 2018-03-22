@@ -3,8 +3,9 @@
 @using Portal.Consultoras.Web.Helpers
 @model Portal.Consultoras.Web.Models.MisReclamosModel
 @{
-    var layout = ViewContext.MobileLayout();
-    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+	var layout = ViewContext.MobileLayout();
+	Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+	MobileAppConfiguracionModel mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 
 @section styles
@@ -21,7 +22,7 @@
 
 <div class="titulo_mobile fijarTituloMobile">
     @{
-        var mobileConfiguracion = Html.MobileAppConfiguracion();
+        
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>

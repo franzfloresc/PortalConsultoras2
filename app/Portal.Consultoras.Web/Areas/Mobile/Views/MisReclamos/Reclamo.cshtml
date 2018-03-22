@@ -4,8 +4,9 @@
 @model Portal.Consultoras.Web.Models.MisReclamosModel
 
 @{
-    var layout = ViewContext.MobileLayout();
-    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+	var layout = ViewContext.MobileLayout();
+	Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+	MobileAppConfiguracionModel mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 
 @section styles
@@ -28,7 +29,7 @@
 
 <div class="titulo_mobile fijarTituloMobile">
     @{
-        var mobileConfiguracion = Html.MobileAppConfiguracion();
+        
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a class="enlace_regresar catalogosR" title="Regresar" style="display:none;"></a>
@@ -625,8 +626,9 @@
         var UrlDetalleEliminar = '@Url.Action("DetalleEliminar", "MisReclamos", new { area = "" })';
 
         var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
-        var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea)';
-        
+		var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha)';
+		if (!mobileConfiguracion.EsAppMobile) mensajeCdrFueraDeFechaCompleto = mensajeCdrFueraDeFechaCompleto + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea;
+		
         var OrigenCDR = true;
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Reclamo.js")"></script>

@@ -685,6 +685,8 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("RevistaDigital", "Informacion", null);
                     case Constantes.IngresoExternoPagina.LiquidacionWeb:
                         return RedirectToUniqueRoute("OfertaLiquidacion", "Index", null);
+                    case Constantes.IngresoExternoPagina.CambiosDevoluciones:
+                        return RedirectToUniqueRoute("MisReclamos", "Index", null);
                 }
             }
             catch (Exception ex)
