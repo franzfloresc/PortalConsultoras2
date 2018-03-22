@@ -1241,6 +1241,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         #endregion
 
-
+        [OperationContract]
+        List<string> ObtenerListadoCuvCupon(int paisId, int campaniaId);
     }
 }

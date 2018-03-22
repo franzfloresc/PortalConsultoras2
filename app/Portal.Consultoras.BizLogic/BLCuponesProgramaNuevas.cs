@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Data;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,6 @@ namespace Portal.Consultoras.BizLogic
     {
         public List<string> ObtenerListadoCuvCupon(int paisId, int campaniaId)
         {
-            //var lista = new List<string>();
             var lista = (List<string>)CacheManager<string>.GetData(paisId, ECacheItem.CuponesProgramaNuevas, campaniaId.ToString());
 
             if (lista == null || lista.Count == 0)
@@ -23,9 +23,11 @@ namespace Portal.Consultoras.BizLogic
                 {
                     while (reader.Read())
                     {
-                        lista.Add(reader.ToString());
+                        if (DataRecord.HasColumn(reader, "CodigoCupon"))
+                            lista.Add(Convert.ToString(reader["CodigoCupon"]));
                     }
                 }
+                CacheManager<string>.AddData(paisId, ECacheItem.CuponesProgramaNuevas, campaniaId.ToString(), lista);
             }                
 
             return lista;

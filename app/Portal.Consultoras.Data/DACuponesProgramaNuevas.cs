@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader ObtenerListadoCuvCupon(int campaniaId)
         {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategias"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCuponesProgramaNuevas"))
             {
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
                 return Context.ExecuteReader(command);

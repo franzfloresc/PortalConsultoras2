@@ -1479,7 +1479,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var userModel = userData;
 
                 var puedeIngresarCuvProgramaNuevas = PuedeIngresarCuvProgramaNuevas(model.CUV);
-                if (puedeIngresarCuvProgramaNuevas)
+                if (!puedeIngresarCuvProgramaNuevas)
                 {
                     productosModel.Add(GetProductoValidoProgramaNuevas());
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
@@ -1582,7 +1582,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using(PedidoServiceClient ps = new PedidoServiceClient())
             {
-                lista = ps.ObtenerListadoCuvCupon(userData.PaisID, userData.CampaniaID);
+                lista = ps.ObtenerListadoCuvCupon(userData.PaisID, userData.CampaniaID).ToList();
             }
 
             return lista;
