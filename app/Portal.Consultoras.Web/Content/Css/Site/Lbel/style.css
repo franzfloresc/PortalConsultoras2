@@ -3167,6 +3167,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     overflow: hidden;
     padding-top: 10px;
     box-sizing: border-box;
+    top: -115px;
 }
 
 .control_carousel_flechaArriba {
@@ -26186,6 +26187,20 @@ div.subir_archivo {
     cursor: pointer;
 }
 
+input[type='checkbox']:checked + span:after {
+    content: '■';
+    content: '■';
+    position: absolute;
+    z-index: 1002;
+    top: 2px;
+    overflow: hidden;
+    width: 10px;
+    height: 10px;
+    left: 2px;
+    background: #613c87;
+    color: #613c87;
+    font-size: 10px;
+}
 
 .check_label {
     float: left;

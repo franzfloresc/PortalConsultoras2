@@ -787,10 +787,14 @@ namespace Portal.Consultoras.Web.Controllers
                 menu.Descripcion = Util.Trim(menu.Descripcion);
                 menu.MenuPadreDescripcion = Util.Trim(menu.MenuPadreDescripcion);
                 menu.Posicion = Util.Trim(menu.Posicion);
-
+                
                 if (menu.MenuMobileID == Constantes.MenuMobileId.NecesitasAyuda)
                 {
                     menu.EstiloMenu = "background: url(" + menu.UrlImagen.Replace("~", "") + ") no-repeat; background-position: 7px 16px; background-size: 12px 12px;";
+                }
+                else if (menu.MenuMobileID == 1002)
+                {
+                    menu.Descripcion = ViewBag.TituloCatalogo ? menu.Descripcion  : "Catálogos";
                 }
 
                 if (menu.Posicion.ToLower() != "menu")
@@ -4567,6 +4571,9 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TieneRDC = revistaDigital.TieneRDC;
             ViewBag.TieneHV = herramientasVenta.TieneHV;
 
+            ViewBag.TituloCatalogo = ((revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI || revistaDigital.TieneRDR)
+                || (!revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva));
+
             var menuActivo = GetMenuActivo(userData, revistaDigital, herramientasVenta);
             ViewBag.MenuContenedorActivo = menuActivo;
             ViewBag.MenuContenedor = GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID);
@@ -4693,6 +4700,17 @@ namespace Portal.Consultoras.Web.Controllers
             using (UsuarioServiceClient svr = new UsuarioServiceClient())
             {
                 resultado = svr.ActualizarMisDatos(usuario, correoAnterior);
+            }
+
+            if(resultado.Split('|')[0] != "0")
+            {
+                var userData = UserData();
+                if (usuario.EMail != correoAnterior)
+                {
+                    userData.EMail = usuario.EMail;
+                }
+                userData.Celular = usuario.Celular;
+                sessionManager.SetUserData(userData);
             }
 
             return resultado;

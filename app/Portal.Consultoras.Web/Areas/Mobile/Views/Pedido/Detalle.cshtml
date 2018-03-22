@@ -375,13 +375,11 @@
                 </div>
                 {{else}}
                 
-                {{#isShowRoomPais 'PE' TipoOfertaSisID}}
                 <div class="icono_eliminar_item_pedido">
                     <a href="javascript:;" title="Eliminar" onclick="EliminarPedidoEvento(event)" data-pedidodetalleid="{{detalle.PedidoDetalleID}}">
                         <img src="@Url.Content("~/Content/Images/Esika/tacho-copy.png")" alt="Eliminar" />
                     </a>
                 </div>
-                {{/isShowRoomPais}}
                 
                 {{/if}}
             </div>
@@ -539,15 +537,12 @@
         </span>
     </div>
     
-    @if (!(ViewBag.paisISO == "PE" && SessionManager.Instance.GetEsShowRoom()))
-    {
-        <div class="mensaje_eliminarPedido">
-            <span>
-                Para eliminar el pedido completo
-                <a href="javascript:;" title="Haz click aquí" onclick="PedidoDetalleEliminarTodoConfirmar()">haz click aquí</a>
-            </span>
-        </div>
-    }
+    <div class="mensaje_eliminarPedido">
+        <span>
+            Para eliminar el pedido completo
+            <a href="javascript:;" title="Haz click aquí" onclick="PedidoDetalleEliminarTodoConfirmar()">haz click aquí</a>
+        </span>
+    </div>
     
 </script>
 
