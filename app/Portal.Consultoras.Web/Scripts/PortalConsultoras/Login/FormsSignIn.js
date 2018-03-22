@@ -955,11 +955,11 @@ function ProcesaEnvioEmail() {
                     $(".MenCorreoEnviado_Pin").hide()
                     $(".pMenCorreoEnviado_RC").show();
                 }                    
-
+                
                 $("#popupRestaurarClave").hide();
                 $("#popup2").show();  
                 $("#divPopupIntentosCorreo").show();
-                $(".correoDestino").html("<b>" + $("#spcorreo").html() + "</b>");
+                $(".correoDestino").html("<b>" + correoRecuperar + "</b>");
                 $("#1aDigito").focus();
                 
                 if (nroIntentosCo === 1) {
@@ -1147,7 +1147,7 @@ function RecuperarContrasenia() {
 
                 var e_correo = "";
                 var e_numero = "";
-                correoRecuperar = $.trim(datos.Correo);
+                correoRecuperar = Enmascarar_Correo(email);
 
                 //$("#hd_CONTEXTO_BASE").val(response.data.ContextoBase);
                 $("#linkvolverInicio").hide();  
@@ -1635,10 +1635,10 @@ function MostrarPopupPin(data) {
         $("#menAutenticacionNueva").show();
     else if (strReactivadas.includes(data.IdEstadoActividad))
         $("#menAutenticacionReactivada").show();
-
+    
     var e_correo = "";
     var e_numero = "";
-    correoRecuperar = $.trim(data.Correo);
+    correoRecuperar = Enmascarar_Correo(email);
 
     $("#linkvolverInicio").hide();
     $("#vermasopciones1").hide();
