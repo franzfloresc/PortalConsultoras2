@@ -7,16 +7,9 @@
 }
 
 @{
-    var title = "Catálogos y Revistas";
-    var EsconderRevista = "block";
-    var EsconderBanner = "block";
     var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
-    title = revistaDigital.TieneRDC ? revistaDigital.EsSuscrita ? "Catálogos" : title : title;
-    EsconderRevista = revistaDigital.TieneRDC ? revistaDigital.EsSuscrita ? "none" : EsconderRevista : EsconderRevista;
-    EsconderBanner = EsconderRevista;
-
+    var title = Model.Titulo;
     ViewBag.Title = title;
-
 }
 
 <input type="hidden" id="hdPaisNombre" value="@Model.PaisNombre" />
@@ -68,7 +61,7 @@
     </div>
     <!-- FIN CATALOGO -->
 
-    <div class="expoferta_revista" style="display:@EsconderRevista">
+    <div class="expoferta_revista">
         @if (Model.TieneSeccionRevista)
         {
             @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml",

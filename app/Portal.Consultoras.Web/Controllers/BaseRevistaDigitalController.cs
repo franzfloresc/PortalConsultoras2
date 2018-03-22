@@ -1,6 +1,8 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceUsuario;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -23,6 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             int limiteMinimoTelef, limiteMaximoTelef;
             GetLimitNumberPhone(out limiteMinimoTelef, out limiteMaximoTelef);
+            var usuario = GetUsuario();
 
             var modelo = new RevistaDigitalInformativoModel
             {
@@ -33,8 +36,8 @@ namespace Portal.Consultoras.Web.Controllers
                 UrlPreguntasFrecuentes = GetValorDato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes),
                 Origen = revistaDigital.SuscripcionModel.Origen,
                 NombreConsultora = userData.Sobrenombre.ToUpper(),
-                Email = userData.EMail,
-                Celular = userData.Celular,
+                Email = usuario.EMail,
+                Celular = usuario.Celular,
                 LimiteMax = limiteMaximoTelef,
                 LimiteMin = limiteMinimoTelef,
                 UrlTerminosCondicionesDatosUsuario = GetUrlTerminosCondicionesDatosUsuario(),
@@ -43,6 +46,24 @@ namespace Portal.Consultoras.Web.Controllers
             };
 
             return View("template-informativa", modelo);
+        }
+
+        private BEUsuario GetUsuario()
+        {
+            var usuario = (BEUsuario) null;
+            try
+            {
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    usuario = sv.Select(UserData().PaisID, UserData().CodigoUsuario);
+                }
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "BaseRevistaDigitalController.getUsuario");
+            }
+
+            return usuario;
         }
 
         public ActionResult ViewLanding(int tipo)
