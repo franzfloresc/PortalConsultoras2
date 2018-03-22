@@ -4004,7 +4004,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 codigo = Constantes.ConfiguracionPaisDatos.RD.PopupBloqueadoSNA;
                 var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
-                model.MensajePopupPrimero = dato == null ? "" : Util.Trim(dato.Valor1);
+                model.MensajePopupPrimero = dato == null ? "" : Util.Trim(dato.Valor1.Replace("#campania", string.Concat("C", revistaDigital.CampaniaActiva)));
                 model.MensajePopupSegundo = dato == null ? "" : Util.Trim(dato.Valor2);
             }
             else if (!revistaDigital.EsSuscrita&&!revistaDigital.EsActiva)

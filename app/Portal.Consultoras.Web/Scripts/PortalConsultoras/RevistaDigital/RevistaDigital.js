@@ -19,85 +19,6 @@ var sProps = {
 
 var windw = this;
 
-$.fn.followTo = function (elem) {
-    var $this = this,
-        $window = $(windw),
-        $bumper = $(elem),
-        bumperPos = $bumper.offset().top,
-        thisHeight = $this.outerHeight(),
-        setPosition = function () {
-            if ($window.scrollTop() > (bumperPos - thisHeight)) {
-                var alturaH = $('header').outerHeight(true);
-                var topAltura = 0;
-                if (isMobile()) {
-                    //var seccionMenuMobileHeight = $('.slick-slider-fixed-mobile').outerHeight(true);
-                    //topAltura = alturaH + seccionMenuMobileHeight;
-                    //$bumper.css("position", "fixed");
-                    //$bumper.css("z-index", "50");
-                    //$('#seccion-banner-mobile').css('display', 'none');
-                    $('.contenido_zona_dorada_contenedor_desktop').addClass('scroll_posicionar_zona_dorada_cabecera');
-                    $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').addClass('scroll_posicionar_fix-zona-dorada');
-                    $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').css('display', 'none');
-
-                    //$('header').css("position", "relative");
-                    //$('#seccion-fixed-menu').css("position", "relative");
-                } else {
-                    topAltura = alturaH+'px';
-                    //$bumper.addClass("menu-fixed");
-                    //$bumper.css("position", "fixed");
-                        $('.zona_dorada_contenedor_desktop').css('position', 'fixed');
-                        $('.zona_dorada_contenedor_desktop').css('top', topAltura);
-                        $('.contenido_zona_dorada_contenedor_desktop').css('margin-top', '317px');
-                        $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('padding', '25px 0px');
-                        $('.contenido_zona_dorada_contenedor_desktop').css('position', 'fixed');
-                        $('.contenido_zona_dorada_contenedor_desktop').css('width', '100%');
-                        $('.contenido_zona_dorada_contenedor_desktop').css('z-index', '99');
-                        $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('margin', 'auto');
-                        $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('width', '1050px');
-                        $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('margin-left', '195px');
-                }
-                
-                //$bumper.css({
-                //    top: topAltura 
-                //});
-            } else {
-                if (isMobile()) {
-                    //$bumper.css("position", "");
-                    //$('header').css("position", "fixed");
-                    //$('#seccion-fixed-menu').css("z-index", "10");
-                    //$('#seccion-fixed-menu').css("width", "100%");
-                    //$('#seccion-fixed-menu').css("position", "fixed");
-                    //$('#seccion-fixed-menu').css("top", "29px");
-                     //$('#seccion-banner-mobile').css('display', 'block');
-                     $('.contenido_zona_dorada_contenedor_desktop').removeClass('scroll_posicionar_zona_dorada_cabecera');
-                     $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').removeClass('scroll_posicionar_fix-zona-dorada');
-                     $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').css('display', 'block');
-
-                } else {
-                    //$bumper.css("position", "");
-                    $('#divOfertaProductosPerdio').css('top', '-230px');
-                    $('.contenido_zona_dorada_contenedor_desktop').css('position', 'initial');
-                    $('.contenido_zona_dorada_contenedor_desktop').css('margin-top', '-255px');
-                    $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('padding', '0px 0px');
-                    $('.contenido_zona_dorada_contenedor_desktop').css('z-index', 'initial');
-                    $('.zona_dorada_contenedor_desktop').css('position', 'initial');
-                    $('#divOfertaProductosPerdio').css('top', '25px');
-                    $('#divOfertaProductosPerdio').css('z-index', 'initial');
-                }
-                //$bumper.css({
-                //    top: 0
-                //});
-            }
-        };
-    $window.resize(function () {
-        bumperPos = pos.offset().top;
-        thisHeight = $this.outerHeight();
-        setPosition();
-    });
-    $window.scroll(setPosition);
-    setPosition();
-};
-
 
 $(document).ready(function () {
     "use strict";
@@ -754,3 +675,60 @@ function RDDetalleVolver(campaniaId) {
     }
     window.location = urlVolver + "#LAN";
 }
+
+
+$.fn.followTo = function (elem) {
+    var $this = this,
+        $window = $(windw),
+        $bumper = $(elem),
+        bumperPos = $bumper.offset().top,
+        thisHeight = $this.outerHeight(),
+        setPosition = function () {
+            if ($window.scrollTop() > (bumperPos - thisHeight)) {
+                var alturaH = $('header').outerHeight(true);
+                var topAltura = 0;
+                if (isMobile()) {
+                    var seccionMenuMobileHeight = $('.slick-slider-fixed-mobile').outerHeight(true);
+                    topAltura = alturaH + seccionMenuMobileHeight;
+                    $('.contenido_zona_dorada_contenedor_desktop').addClass('scroll_posicionar_zona_dorada_cabecera');
+                    $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').addClass('scroll_posicionar_fix-zona-dorada');
+                    $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').css('display', 'none');
+                } else {
+                    topAltura = alturaH + 'px';
+                    $('.zona_dorada_contenedor_desktop').css('position', 'fixed');
+                    $('.zona_dorada_contenedor_desktop').css('top', topAltura);
+                    $('.contenido_zona_dorada_contenedor_desktop').css('margin-top', '317px');
+                    $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('padding', '25px 0px');
+                    $('.contenido_zona_dorada_contenedor_desktop').css('position', 'fixed');
+                    $('.contenido_zona_dorada_contenedor_desktop').css('width', '100%');
+                    $('.contenido_zona_dorada_contenedor_desktop').css('z-index', '99');
+                    $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('margin', 'auto');
+                    $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('width', '1050px');
+                    $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('margin-left', '195px');
+                }
+            } else {
+                if (isMobile()) {
+                    $('.contenido_zona_dorada_contenedor_desktop').removeClass('scroll_posicionar_zona_dorada_cabecera');
+                    $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').removeClass('scroll_posicionar_fix-zona-dorada');
+                    $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').css('display', 'block');
+
+                } else {
+                    $('#divOfertaProductosPerdio').css('top', '-230px');
+                    $('.contenido_zona_dorada_contenedor_desktop').css('position', 'initial');
+                    $('.contenido_zona_dorada_contenedor_desktop').css('margin-top', '-255px');
+                    $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('padding', '0px 0px');
+                    $('.contenido_zona_dorada_contenedor_desktop').css('z-index', 'initial');
+                    $('.zona_dorada_contenedor_desktop').css('position', 'initial');
+                    $('#divOfertaProductosPerdio').css('top', '25px');
+                    $('#divOfertaProductosPerdio').css('z-index', 'initial');
+                }
+            }
+        };
+    $window.resize(function () {
+        bumperPos = pos.offset().top;
+        thisHeight = $this.outerHeight();
+        setPosition();
+    });
+    $window.scroll(setPosition);
+    setPosition();
+};
