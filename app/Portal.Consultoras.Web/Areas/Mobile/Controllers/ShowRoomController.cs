@@ -80,8 +80,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
             var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
-
             bool mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
+
+            if (userData.CodigoISO == "PE")
+            {
+                bool esShowRoomFlag = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
+                if (esShowRoomFlag)
+                {
+                    return RedirectToAction("Personalizado", "ShowRoom", new { area = "Mobile" });
+                }
+            }
 
             if (mostrarPopupIntriga)
             {
