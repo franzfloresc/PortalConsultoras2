@@ -1452,5 +1452,10 @@ namespace Portal.Consultoras.Service
         {
             return new BLHorario().GetHorarioByCodigo(paisID, codigo, loadEstaDisponible);
         }
+
+        public string RemoveDataCache(int paisID, string cacheItemString, string customKey)
+        {
+            return new BLCache().RemoveData(paisID, cacheItemString, customKey);
+        }
     }
 }

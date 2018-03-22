@@ -96,6 +96,7 @@
     <Compile Include="BLAsesoraOnline.cs" />
     <Compile Include="BLConfiguracionPaisDatos.cs" />
     <Compile Include="BLCupon.cs" />
+    <Compile Include="Cache\BLCache.cs" />
     <Compile Include="Cliente\BLClienteDB.cs" />
     <Compile Include="Comunicado\IComunicadoBusinessLogic.cs" />
     <Compile Include="Configuracion\IConfiguracionPaisBusinessLogic.cs" />
@@ -234,7 +235,7 @@
     <Compile Include="BLUbigeo.cs" />
     <Compile Include="BLValidacionAutomatica.cs" />
     <Compile Include="BLZonificacion.cs" />
-    <Compile Include="CacheManager.cs" />
+    <Compile Include="Cache\CacheManager.cs" />
     <Compile Include="BLLugarPago.cs" />
     <Compile Include="BLIncentivo.cs" />
     <Compile Include="CDR\BLCDRParametria.cs" />

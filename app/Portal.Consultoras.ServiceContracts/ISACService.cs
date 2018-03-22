@@ -735,5 +735,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IEnumerable<OfertaFinalMontoMeta> ObtenerOfertaFinalMontoMeta(int paisId, int upSellingId);
         #endregion
+
+        [OperationContract]
+        string RemoveDataCache(int paisID, string cacheItemString, string customKey);
     }
 }

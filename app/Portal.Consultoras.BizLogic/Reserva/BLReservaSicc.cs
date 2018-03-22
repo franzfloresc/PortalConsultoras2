@@ -81,7 +81,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
         private async Task<ServSicc.Pedido> ConsumirServicioSicc(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
-            var pedidoSapId = blPedidoWeb.GetPedidoSapId(input.PaisID, input.CampaniaID, input.ConsultoraID);
+            var pedidoSapId = blPedidoWeb.GetPedidoSapId(input.PaisID, input.CampaniaID, input.PedidoID);
             var inputPedido = new Data.ServiceSicc.Pedido
             {
                 codigoPais = Util.GetPaisIsoSicc(input.PaisID),

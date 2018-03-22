@@ -512,11 +512,11 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetPedidoSapId(int CampaniaID, long ConsultoraID)
+        public IDataReader GetPedidoSapId(int campaniaID, int pedidoID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoSapId");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
-            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoID);
 
             return Context.ExecuteReader(command);
         }

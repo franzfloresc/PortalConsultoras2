@@ -1655,10 +1655,10 @@ namespace Portal.Consultoras.BizLogic
             return pedidoId;
         }
 
-        public long GetPedidoSapId(int paisID, int campaniaID, long consultoraID)
+        public long GetPedidoSapId(int paisID, int campaniaID, int pedidoID)
         {
             var daPedidoWeb = new DAPedidoWeb(paisID);
-            using (IDataReader reader = daPedidoWeb.GetPedidoWebID(campaniaID, consultoraID))
+            using (IDataReader reader = daPedidoWeb.GetPedidoSapId(campaniaID, pedidoID))
             {
                 if (reader.Read())
                 {

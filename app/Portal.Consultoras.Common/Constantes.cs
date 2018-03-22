@@ -402,6 +402,7 @@ namespace Portal.Consultoras.Common
 
             public const string RevistaPiloto_Grupos = "RevistaPiloto_Grupos_";
             public const string RevistaPiloto_Escenario = "ESC";
+            public const string EnabledRemoveCache = "EnabledRemoveCache";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
@@ -1081,6 +1082,7 @@ namespace Portal.Consultoras.Common
             public const string ReportePedidoDDWeb_DescargaDetalle = "Ocurrió un error al intentar descargar los detalles de sus pedidos. Inténtelo más tarde.";
             public const string LimiteDescargaSobrepasado = "El archivo no se puede descargar debido a que se sobrepaso el máximo de items ({0}).";
             public const string PaqueteDocumentario_ConsumirServicio = "Ocurrió un error al intentar obtener la información. Por favor, vuelva a intentar dentro de unos minutos.";
+            public const string Cache_Eliminar = "Ocurrió un error al eliminar la caché. Inténtelo más tarde";
         }
 
         public static class ConfiguracionPais

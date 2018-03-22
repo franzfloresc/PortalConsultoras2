@@ -290,6 +290,7 @@
     <Compile Include="Controllers\BaseShowRoomController.cs" />
     <Compile Include="Controllers\CampaniaController.cs" />
     <Compile Include="Controllers\DescargablesController.cs" />
+    <Compile Include="Controllers\CacheController.cs" />
     <Compile Include="Controllers\EstrategiaProductoComentarioController.cs" />
     <Compile Include="Controllers\CatalogosBelcorpController.cs" />
     <Compile Include="Controllers\HerramientasVentaController.cs" />
@@ -4784,6 +4785,7 @@
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoPalancaDatosCabecera.cshtml" />
     <Content Include="Views\HerramientasVenta\template-landing.cshtml" />
     <Content Include="Views\RevistaDigital\template-popup-suscripcion.cshtml" />
+    <Content Include="Views\Cache\Index.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
