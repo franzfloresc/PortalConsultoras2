@@ -34796,11 +34796,12 @@ height:30px;
     float: left;
     margin-left: 38px;
     line-height: 1.17;
+    width: 185px;           
 }
 
 .content_cupon {
     width: 664px;
-    height: 280px;
+    height: 360px;
     position: relative;
     top: 50%;
     margin: 13% auto auto auto;
@@ -34908,7 +34909,7 @@ height:30px;
 .titulo_cupon2 {
     font-family: 'LAto';
     font-size: 20px;
-    font-weight: 900;
+    font-weight: 700;   
     letter-spacing: 1px;
 }
 
@@ -34961,22 +34962,22 @@ height:30px;
 
 .texto_cupon3 {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 5px;
     font-size: 14px;
 }
 
 .info_recuerda_cupon {
     float: left;
     width: 33%;
-    margin-top: 12px;
+    /*margin-top: 12px;*/       
     font-family: 'Lato';
-    font-size: 12px;
+    font-size: 13px;
     height: 72px;
 }
 
     .info_recuerda_cupon span {
         display: block;
-        margin-top: 5px;
+        margin-top: 14px;
         line-height: 15px;
     }
 
@@ -34987,7 +34988,7 @@ height:30px;
 .info_recuerda_cupon_ganaste {
     display: inline-table;
     float: none;
-    width: 40%;
+    width: 40%;         
 }
 
 .info_recuerda_cupon_line {
