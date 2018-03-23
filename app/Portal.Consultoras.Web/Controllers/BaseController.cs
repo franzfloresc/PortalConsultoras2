@@ -787,14 +787,14 @@ namespace Portal.Consultoras.Web.Controllers
                 menu.Descripcion = Util.Trim(menu.Descripcion);
                 menu.MenuPadreDescripcion = Util.Trim(menu.MenuPadreDescripcion);
                 menu.Posicion = Util.Trim(menu.Posicion);
-                
+
                 if (menu.MenuMobileID == Constantes.MenuMobileId.NecesitasAyuda)
                 {
                     menu.EstiloMenu = "background: url(" + menu.UrlImagen.Replace("~", "") + ") no-repeat; background-position: 7px 16px; background-size: 12px 12px;";
                 }
                 else if (menu.MenuMobileID == 1002)
                 {
-                    menu.Descripcion = ViewBag.TituloCatalogo ? menu.Descripcion  : "Catálogos";
+                    menu.Descripcion = ViewBag.TituloCatalogo ? menu.Descripcion : "Catálogos";
                 }
 
                 if (menu.Posicion.ToLower() != "menu")
@@ -3460,7 +3460,7 @@ namespace Portal.Consultoras.Web.Controllers
         public bool RDObtenerTitulosSeccion(ref string titulo, ref string subtitulo, string codigo)
         {
             if (codigo == Constantes.ConfiguracionPais.RevistaDigital && !revistaDigital.TieneRDC) return false;
-            
+
             titulo = revistaDigital.TieneRDC
                 ? (revistaDigital.EsActiva || revistaDigital.EsSuscrita)
                     ? "OFERTAS CLUB GANA+"
@@ -3508,7 +3508,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private MenuContenedorModel UpdateConfiguracionPais(MenuContenedorModel menuActivo, UsuarioModel userData, RevistaDigitalModel revistaDigital)
         {
-            var menuContenedor = BuildMenuContenedor(userData, revistaDigital,guiaNegocio);
+            var menuContenedor = BuildMenuContenedor(userData, revistaDigital, guiaNegocio);
             menuActivo.ConfiguracionPais = GetConfiguracionPaisBy(menuContenedor, menuActivo, userData);
             return menuActivo;
         }
@@ -3710,7 +3710,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<ConfiguracionPaisModel> GetMenuContenedorByMenuActivoCampania(int campaniaIdMenuActivo, int campaniaIdUsuario)
         {
-            var menuContenedor = BuildMenuContenedor(userData, revistaDigital,guiaNegocio);
+            var menuContenedor = BuildMenuContenedor(userData, revistaDigital, guiaNegocio);
 
             menuContenedor = menuContenedor.Where(e => e.CampaniaId == campaniaIdMenuActivo).ToList();
 
@@ -3764,10 +3764,8 @@ namespace Portal.Consultoras.Web.Controllers
                 var config = confiModel;
                 config.Codigo = Util.Trim(config.Codigo).ToUpper();
                 config.CampaniaId = userData.CampaniaID;
-                //
                 config.DesktopFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, config.DesktopFondoBanner);
                 config.DesktopLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, config.DesktopLogoBanner);
-                //
                 config.MobileFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, config.MobileFondoBanner);
                 config.MobileLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, config.MobileLogoBanner);
 
@@ -4001,7 +3999,7 @@ namespace Portal.Consultoras.Web.Controllers
                 codigo = Constantes.ConfiguracionPaisDatos.RD.DLandingBannerNoActivaNoSuscrita;
                 codigoMobile = Constantes.ConfiguracionPaisDatos.RD.MLandingBannerNoActivaNoSuscrita;
             }
-            
+
             if (!string.IsNullOrEmpty(codigo))
             {
                 var datoDesktop = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
@@ -4102,14 +4100,14 @@ namespace Portal.Consultoras.Web.Controllers
                 var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
                 model.MensajeTitulo = dato == null ? "" : Util.Trim(dato.Valor1);
             }
-            else if(revistaDigital.EsSuscrita&&!revistaDigital.EsActiva)
+            else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
             {
                 codigo = Constantes.ConfiguracionPaisDatos.RD.PopupBloqueadoSNA;
                 var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
                 model.MensajePopupPrimero = dato == null ? "" : Util.Trim(dato.Valor1.Replace("#campania", string.Concat("C", revistaDigital.CampaniaActiva)));
                 model.MensajePopupSegundo = dato == null ? "" : Util.Trim(dato.Valor2);
             }
-            else if (!revistaDigital.EsSuscrita&&!revistaDigital.EsActiva)
+            else if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
             {
                 codigo = Constantes.ConfiguracionPaisDatos.RD.PopupBloqueadoNS;
                 var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
@@ -4117,14 +4115,14 @@ namespace Portal.Consultoras.Web.Controllers
                 model.MensajePopupSegundo = dato == null ? "" : Util.Trim(dato.Valor2);
             }
 
-           
+
 
             return model;
         }
         #endregion
 
         #region Guia de Negocio Digitalizada
-        public virtual bool GNDValidarAcceso(bool esConsultoraLider,  GuiaNegocioModel guiaNegocio, RevistaDigitalModel revistaDigital)
+        public virtual bool GNDValidarAcceso(bool esConsultoraLider, GuiaNegocioModel guiaNegocio, RevistaDigitalModel revistaDigital)
         {
             var tieneAcceso = (guiaNegocio.TieneGND && !(revistaDigital.EsSuscritaActiva() || revistaDigital.EsNoSuscritaActiva())) ||
                 (esConsultoraLider && guiaNegocio.TieneGND && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva());
@@ -4610,7 +4608,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.TokenPedidoAutenticoOk = (Session["TokenPedidoAutentico"] != null) ? 1 : 0;
             ViewBag.CodigoEstrategia = GetCodigoEstrategia();
-            //
             ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
             int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
             if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
@@ -4701,7 +4698,7 @@ namespace Portal.Consultoras.Web.Controllers
                 resultado = svr.ActualizarMisDatos(usuario, correoAnterior);
             }
 
-            if(resultado.Split('|')[0] != "0")
+            if (resultado.Split('|')[0] != "0")
             {
                 var userDataX = UserData();
                 if (usuario.EMail != correoAnterior)
@@ -4969,7 +4966,7 @@ namespace Portal.Consultoras.Web.Controllers
             HttpWebResponse responseSesion;
             responseSesion = requestSesion.GetResponse() as HttpWebResponse;
             StreamReader postStreamReaderSesion = new StreamReader(responseSesion.GetResponseStream());
-            //string respuestaSesion = postStreamReaderSesion.ReadToEnd();
+
             postStreamReaderSesion.ReadToEnd();
             postStreamReaderSesion.Close();
 
@@ -4994,15 +4991,6 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
 
             #region Variables para el formulario de pago visa
-
-            //buttonSize = "";
-            //buttonColor = "";
-            //merchantName = "";
-            //showAmount = "";
-            //cardholderName = "";
-            //cardholderlastName = "";
-            //cardholderEmail = "";
-            //userToken = "";
 
             pagoVisaModel.MerchantLogo = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlLogoPasarelaPago);
             pagoVisaModel.FormButtonColor = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.ColorBotonPagarPasarelaPago);
@@ -5088,7 +5076,6 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.MontoDeuda = model.SaldoPendiente;
                     sessionManager.SetUserData(userData);
 
-                    //userData.EMail = "tucorreo@gmail.com";
                     if (!string.IsNullOrEmpty(userData.EMail))
                     {
                         string template = ObtenerTemplatePagoEnLinea(model);
@@ -5122,10 +5109,6 @@ namespace Portal.Consultoras.Web.Controllers
             string credentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(accessKeyId + ":" + secretAccessKey));
 
             Common.PagoEnLinea.Data data = new Common.PagoEnLinea.Data();
-            //data.numreferencia = "12345678901234567890";
-            //data.codasociado = "12345";
-            //data.nombreasociado = "prueba";
-            //data.mcc = "3030";
 
             DataRequestAut dataAutorizacionRQ = new DataRequestAut();
             dataAutorizacionRQ.transactionToken = transactionToken;
@@ -5159,11 +5142,6 @@ namespace Portal.Consultoras.Web.Controllers
                 respuestaAutorizacion = postStreamReaderAutorizacion.ReadToEnd();
                 postStreamReaderAutorizacion.Close();
             }
-
-            //Response.Clear();
-            //Response.ContentType = "application/json; charset=utf-8";
-            //Response.Write(respuestaAutorizacion);
-            //Response.End();
 
             return respuestaAutorizacion;
         }
