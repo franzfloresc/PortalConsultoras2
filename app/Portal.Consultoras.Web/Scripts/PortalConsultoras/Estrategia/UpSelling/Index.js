@@ -422,7 +422,8 @@ belcorp.estrategias.upselling.initialize = function (config) {
             trackChange: {
                 track: true,
                 cb: self.upSellingViewModel.actualizarRutaPrefixRegalo
-            }
+            },
+            required: "Imagen Requerida"
         });
         selfm.Stock = ko.observable(data.Stock).extend({
             trackChange: {
@@ -459,7 +460,8 @@ belcorp.estrategias.upselling.initialize = function (config) {
             return !(selfm.CUV.hasError() ||
                 selfm.Nombre.hasError() ||
                 selfm.Stock.hasError() ||
-                selfm.Orden.hasError());
+                selfm.Orden.hasError() ||
+                selfm.Imagen.hasError());
         }
     }
 

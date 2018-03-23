@@ -22,10 +22,10 @@
 .draw_close {
     display: flex;
     flex-direction: column;
-    height: 35px;
+    height: 20px;
     justify-content: center;
     position: relative;
-    width: 35px;
+    width: 20px;
 }
 
     .draw_close::before,
