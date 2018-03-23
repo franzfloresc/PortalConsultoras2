@@ -572,7 +572,7 @@
 		}
 		.contenido_zona_dorada_contenedor_desktop .cont-uno{
 			width:90px;
-			float:left;
+			position: absolute;
 		}
         .contenido_zona_dorada_contenedor_desktop .logo-dorado-contenedor{
             width:100%;
@@ -582,7 +582,7 @@
         }
 		.contenido_zona_dorada_contenedor_desktop .cont-dos{
 			width:760px;
-			float:left;
+			padding-left: 90px;
 		}
 		.contenido_zona_dorada_contenedor_desktop .cont-dos p{
 			font-size: 13px;
@@ -617,6 +617,10 @@
 		  text-decoration: none;
     padding: 11.5px;
 		}
-        .contenido_zona_dorada_contenedor_desktop .fix-zona-dorada{
-            background-color: #c39934;
-        }
+            .contenido_zona_dorada_contenedor_desktop .fix-zona-dorada {
+                background-color: #c39934;
+                text-align: center;
+                max-width: 83.5%;
+                margin: auto;
+                margin-left: 14%;
+            }
