@@ -56,7 +56,7 @@
 .showroom_banner_boton {
     cursor: pointer;
     right: 25px;
-    top: 20px;
+    top: 25px;
     position: absolute;
     z-index: 901;
 }
