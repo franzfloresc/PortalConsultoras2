@@ -681,13 +681,12 @@ $.fn.followTo = function (elem) {
     var $this = this,
         $window = $(windw),
         $bumper = $(elem),
-        //bumperPos = 927,
         bumperPos = $bumper.offset().top,
-        divOfertaProductos = $('#divOfertaProductos').outerHeight(true),
         thisHeight = $this.outerHeight(true),
         topAltura = 0,
         setPosition = function () {
-            if ($window.scrollTop() >= (bumperPos - thisHeight)) {
+            bumperPos = $('#divOfertaProductos').outerHeight(true);
+            if ($window.scrollTop() >= (bumperPos + thisHeight)) {
                 var alturaH = $('header').outerHeight(true);
                 if (isMobile()) {
                     var seccionMenuMobileHeight = $('.slick-slider-fixed-mobile').outerHeight(true);
@@ -695,14 +694,6 @@ $.fn.followTo = function (elem) {
                     $('.contenido_zona_dorada_contenedor_desktop').addClass('scroll_posicionar_zona_dorada_cabecera');
                     $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').addClass('scroll_posicionar_fix-zona-dorada');
                     $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').css('display', 'none');
-                    //$bumper.css('position', 'fixed');
-                    //$bumper.css('top', topAltura);
-                    //console.log(bumperPos);
-                    //console.log($bumper.offset().top);
-                    //console.log(thisHeight);
-                    //console.log($window.scrollTop());
-                    console.log(divOfertaProductos);
-                    console.log($('#divOfertaProductos').outerHeight(true));
                 } else {
                     topAltura = alturaH + 'px';
                     $('.zona_dorada_contenedor_desktop').css('position', 'fixed');
