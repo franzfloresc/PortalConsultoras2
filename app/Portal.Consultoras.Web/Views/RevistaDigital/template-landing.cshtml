@@ -8,6 +8,7 @@
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
     var idBorrar = "borrar" + Model.CampaniaID;
     var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalModel();
+    var MostrarFiltros = !Model.ProductosPerdio ? (revistaDigital.TieneRDC && !revistaDigital.EsActiva) ? false : true : false;
 }
 
 @section styles{
@@ -21,7 +22,7 @@
 
     <div class="content_belcorp" data-listado-content="" style="margin: 0 80px 0 180px;">
 
-        @if (!Model.ProductosPerdio)
+        @if (MostrarFiltros)
         {
             <div id="orderby-filter" style="padding: 0px 2%;">
                 <div id="divBusquedaFiltros" class="rd-busqueda-filtros">
