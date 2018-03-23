@@ -476,58 +476,131 @@ namespace Portal.Consultoras.Web.Controllers
         {
             ShowRoomOfertaModel ofertaShowRoomModelo = new ShowRoomOfertaModel();
             if (idOferta <= 0) return ofertaShowRoomModelo;
+
             List<ShowRoomOfertaModel> listadoOfertasTodasModel = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
             ofertaShowRoomModelo = listadoOfertasTodasModel.Find(o => o.OfertaShowRoomID == idOferta) ?? new ShowRoomOfertaModel();
             if (ofertaShowRoomModelo.OfertaShowRoomID <= 0) return ofertaShowRoomModelo;
+
             ofertaShowRoomModelo.ImagenProducto = Util.Trim(ofertaShowRoomModelo.ImagenProducto);
-            ofertaShowRoomModelo.ImagenProducto = ofertaShowRoomModelo.ImagenProducto == "" ? "/Content/Images/showroom/no_disponible.png" : ofertaShowRoomModelo.ImagenProducto;
+            ofertaShowRoomModelo.ImagenProducto = ofertaShowRoomModelo.ImagenProducto == "" ? 
+                "/Content/Images/showroom/no_disponible.png" : 
+                ofertaShowRoomModelo.ImagenProducto;
+
             /*TONOS-INI*/
-            #region Obtener productos de tabla dbo.EstrategiaProducto con el servicio svc.GetEstrategiaProducto
-            List<BEEstrategiaProducto> listEstrategiaProductos = new List<BEEstrategiaProducto>();
-            EstrategiaPedidoModel estrategia = new EstrategiaPedidoModel() { PaisID = userData.PaisID, EstrategiaID = idOferta };
+            #region Obtener productos por estrategia
+            List<BEEstrategiaProducto> listaEstrategiaProducto = new List<BEEstrategiaProducto>();
             using (PedidoServiceClient svc = new PedidoServiceClient())
             {
-                listEstrategiaProductos = svc.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, BEEstrategia>(estrategia)).ToList();
+                BEEstrategia estrategia = new BEEstrategia() { PaisID = userData.PaisID, EstrategiaID = idOferta };
+                listaEstrategiaProducto = svc.GetEstrategiaProducto(estrategia).ToList();
             }
+
+            // filtrar solo activos
+            listaEstrategiaProducto = listaEstrategiaProducto.Where(x => x.Activo == 1).ToList();
+            string codigoVariante = listaEstrategiaProducto.Select(o => o.CodigoEstrategia).FirstOrDefault();
             #endregion
-            #region Obtener tonos de AppCatalogo con el servicio svc.ObtenerProductosPorCampaniasBySap
+
+            #region Obtener tonos de AppCatalogo por codigosap
             StringBuilder listaCodigosSAP = new StringBuilder();
             const string separador = "|";
             listaCodigosSAP.Append(separador);
-            foreach (BEEstrategiaProducto producto in listEstrategiaProductos.Where(producto => producto != null))
+
+            if (codigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos || codigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija)
             {
-                producto.SAP = Util.Trim(producto.SAP);
-                if (producto.SAP != string.Empty && !listaCodigosSAP.ToString().Contains(separador + producto.SAP + separador))
+                foreach (BEEstrategiaProducto producto in listaEstrategiaProducto.Where(producto => producto != null && string.IsNullOrEmpty(producto.ImagenProducto) == true))
                 {
-                    listaCodigosSAP.Append(producto.SAP + separador);
+                    producto.SAP = Util.Trim(producto.SAP);
+                    if (producto.SAP != string.Empty && !listaCodigosSAP.ToString().Contains(separador + producto.SAP + separador))
+                    {
+                        listaCodigosSAP.Append(producto.SAP + separador);
+                    }
                 }
             }
-            if (listaCodigosSAP.ToString() == separador) return ofertaShowRoomModelo;
-            string listaDeCUV = listaCodigosSAP.ToString().Substring(1, listaCodigosSAP.ToString().Length - 2);
-            List<Producto> listaAppCatalogo;
-            int numeroCampanias = Convert.ToInt32(GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
-            using (ProductoServiceClient svc = new ProductoServiceClient())
+            else if (codigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
             {
-                listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, userData.CampaniaID, listaDeCUV, numeroCampanias).ToList();
+                foreach (BEEstrategiaProducto producto in listaEstrategiaProducto.Where(producto => producto != null))
+                {
+                    producto.SAP = Util.Trim(producto.SAP);
+                    if (producto.SAP != string.Empty && !listaCodigosSAP.ToString().Contains(separador + producto.SAP + separador))
+                    {
+                        listaCodigosSAP.Append(producto.SAP + separador);
+                    }
+                }
             }
-            if (!listaAppCatalogo.Any()) return ofertaShowRoomModelo;
+
+            List<Producto> listaAppCatalogo = new List<Producto>();
+            if (listaCodigosSAP.ToString() != separador)
+            {
+                string listaDeCUV = listaCodigosSAP.ToString().Substring(1, listaCodigosSAP.ToString().Length - 2);
+                int numeroCampanias = Convert.ToInt32(GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
+                using (ProductoServiceClient svc = new ProductoServiceClient())
+                {
+                    listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, userData.CampaniaID, listaDeCUV, numeroCampanias).ToList();
+                }
+            }
             #endregion
+
             #region Algoritmo para relacionar productos con tonos
             List<ProductoModel> listaInfoAppCatalogo = Mapper.Map<List<Producto>, List<ProductoModel>>(listaAppCatalogo);
-            string codigoVariante = listEstrategiaProductos.Select(o => o.CodigoEstrategia).FirstOrDefault();
             foreach (ProductoModel producto in listaInfoAppCatalogo)
             {
-                BEEstrategiaProducto estrategiaProducto = listEstrategiaProductos.FirstOrDefault(p => p.CUV == producto.CUV);
+                BEEstrategiaProducto estrategiaProducto = listaEstrategiaProducto.FirstOrDefault(p => p.CUV == producto.CUV);
                 if (estrategiaProducto == null) continue;
                 producto.Digitable = estrategiaProducto.Digitable;
             }
-                List<ProductoModel> listaProductoTemporal = new List<ProductoModel>();
-                listEstrategiaProductos = listEstrategiaProductos.OrderBy(p => p.Grupo).ToList();
+
+            List<ProductoModel> listaProductoTemporal = new List<ProductoModel>();
+
+            if (codigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos || codigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija)
+            {
+                foreach (BEEstrategiaProducto item in listaEstrategiaProducto)
+                {
+                    string imagenProducto = string.Empty;
+                    if (!string.IsNullOrEmpty(item.ImagenProducto))
+                    {
+                        imagenProducto = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + userData.CodigoISO, item.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO);
+                    }
+                    else
+                    {
+                        foreach (ProductoModel app in listaInfoAppCatalogo)
+                        {
+                            if (app.CodigoProducto == item.SAP)
+                            {
+                                imagenProducto = app.Imagen;
+                            }
+                        }
+                    }
+
+                    ProductoModel prod = new ProductoModel()
+                    {
+                        NombreComercial = item.NombreProducto,
+                        Descripcion = item.Descripcion1,
+                        Imagen = imagenProducto,
+                        DescripcionMarca = item.NombreMarca,
+                        Orden = item.Orden,
+                        Grupo = item.Grupo,
+                        PrecioCatalogo = item.Precio,
+                        PrecioCatalogoString = Util.DecimalToStringFormat(item.Precio, userData.CodigoISO),
+                        Digitable = item.Digitable,
+                        CUV = Util.Trim(item.CUV),
+                        Cantidad = item.Cantidad,
+                        FactorCuadre = item.FactorCuadre > 0 ? item.FactorCuadre : 1
+                    };
+                    listaProductoTemporal.Add(prod);
+                }
+
+                listaProductoTemporal.ForEach(h => { h.Digitable = 0; h.NombreComercial = Util.Trim(h.NombreComercial); });
+                listaProductoTemporal = listaProductoTemporal.Where(h => h.NombreComercial != "").ToList();
+            }
+            else if (codigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
+            {
+                listaEstrategiaProducto = listaEstrategiaProducto.OrderBy(p => p.Grupo).ToList();
                 listaInfoAppCatalogo = listaInfoAppCatalogo.OrderBy(p => p.CodigoProducto).ToList();
                 int idPk = 1;
                 listaInfoAppCatalogo.ForEach(h => h.ID = idPk++);
                 idPk = 0;
-                foreach (BEEstrategiaProducto item in listEstrategiaProductos)
+
+                foreach (BEEstrategiaProducto item in listaEstrategiaProducto)
                 {
                     ProductoModel prod = (ProductoModel)(listaInfoAppCatalogo.FirstOrDefault(p => item.SAP == p.CodigoProducto) ?? new ProductoModel()).Clone();
                     if (Util.Trim(prod.CodigoProducto) == "") continue;
@@ -556,35 +629,30 @@ namespace Portal.Consultoras.Web.Controllers
                     listaProductoTemporal.Add(prod);
                     idPk = prod.ID;
                 }
-                if (codigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos || codigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija)
-                {
-                    listaProductoTemporal.ForEach(h => { h.Digitable = 0; h.NombreComercial = Util.Trim(h.NombreComercial); });
-                    listaProductoTemporal = listaProductoTemporal.Where(h => h.NombreComercial != "").ToList();
-                }
-                else if (codigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
-                {
-                    List<ProductoModel> listaHermanosR = new List<ProductoModel>();
-                    foreach (ProductoModel hermano in listaProductoTemporal.Select(item => (ProductoModel)item.Clone()))
-                    {
-                        hermano.Hermanos = new List<ProductoModel>();
-                        if (hermano.Digitable == 1)
-                        {
-                            bool existe = false;
-                            foreach (ProductoModel itemR in listaHermanosR)
-                            {
-                                existe = itemR.Hermanos.Any(h => h.CUV == hermano.CUV);
-                                if (existe) break;
-                            }
-                            if (existe) continue;
 
-                            hermano.Hermanos = listaProductoTemporal.Where(p => p.Grupo == hermano.Grupo).OrderBy(p => p.Orden).ToList();
+                List<ProductoModel> listaHermanosR = new List<ProductoModel>();
+                foreach (ProductoModel hermano in listaProductoTemporal.Select(item => (ProductoModel)item.Clone()))
+                {
+                    hermano.Hermanos = new List<ProductoModel>();
+                    if (hermano.Digitable == 1)
+                    {
+                        bool existe = false;
+                        foreach (ProductoModel itemR in listaHermanosR)
+                        {
+                            existe = itemR.Hermanos.Any(h => h.CUV == hermano.CUV);
+                            if (existe) break;
                         }
-                        listaHermanosR.Add(hermano);
+                        if (existe) continue;
+
+                        hermano.Hermanos = listaProductoTemporal.Where(p => p.Grupo == hermano.Grupo).OrderBy(p => p.Orden).ToList();
                     }
-                    listaProductoTemporal = listaHermanosR.OrderBy(p => p.Orden).ToList();
+                    listaHermanosR.Add(hermano);
                 }
-                listaInfoAppCatalogo = listaProductoTemporal;
-          
+                listaProductoTemporal = listaHermanosR.OrderBy(p => p.Orden).ToList();
+            }
+
+            listaInfoAppCatalogo = listaProductoTemporal;
+
             #endregion
             #region Algoritmo para considerar FactorCuadre
             List<ProductoModel> listaProductoConFactorCuadre = new List<ProductoModel>();
@@ -598,12 +666,14 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
             #endregion
-            
+
             ofertaShowRoomModelo.ProductoTonos = listaProductoConFactorCuadre;
             ofertaShowRoomModelo.CodigoEstrategia = codigoVariante;
             /*TONOS-FIN*/
+
             return ofertaShowRoomModelo;
         }
+
         public List<ShowRoomOfertaModel> GetOfertaListadoExcepto(int idOferta)
         {
             var listaOferta = new List<ShowRoomOfertaModel>();

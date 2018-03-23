@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Web.Controllers
                 new BETablaLogicaDatos
                 {
                     Codigo = Constantes.GuiaNegocioTipoOrdenamiento.ValorPrecio.Predefinido,
-                    Descripcion = IsMobile() ? "ORDENAR POR" : "ORDENAR POR"
+                    Descripcion = "ORDENAR POR"
                 },
                 new BETablaLogicaDatos
                 {
@@ -61,7 +61,7 @@ namespace Portal.Consultoras.Web.Controllers
                 new BETablaLogicaDatos
                 {
                     Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.Predefinido,
-                    Descripcion = IsMobile() ? "FILTRAR POR" : "FILTRAR POR"
+                    Descripcion = "FILTRAR POR"
                 },
                 new BETablaLogicaDatos
                 {

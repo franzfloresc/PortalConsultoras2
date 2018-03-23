@@ -104,6 +104,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public byte VersionProl { get; set; }
 
+        public long PedidoSapId { get; set; }
+
         public BEPedidoWeb()
         { }
 

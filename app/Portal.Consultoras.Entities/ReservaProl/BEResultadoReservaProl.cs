@@ -52,6 +52,7 @@ namespace Portal.Consultoras.Entities.ReservaProl
         public string ListaConcursosPuntajeExigido { get; set; }
 
         public decimal MontoTotalProl { get; set; }
+        public long PedidoSapId { get; set; }
         public List<BEPedidoWebDetalle> ListDetalleBackOrder { get; set; }
 
         #region Atributos Cargar Session

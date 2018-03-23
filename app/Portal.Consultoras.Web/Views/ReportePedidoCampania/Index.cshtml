@@ -209,7 +209,6 @@
                         range.select();
                     }
                     var posicion = getSelectionStart(document.getElementById('txtCodigos'));
-                    //var posicion = $("#txtCodigos").prop('selectionStart');
                     var part = split(request.term.substring(0, posicion));
                     var last = part[part.length - 1] || "";
                     last = jQuery.trim(last.substring(last.lastIndexOf(' ')));
@@ -369,7 +368,7 @@
     });
 
     function split(val) {
-        return val.split(/^[,\s]*|\s*,\s*|[,\s]+$|^$/);//val.split(/,\s*|\s*,\s*|^$/);
+        return val.split(/^[,\s]*|\s*,\s*|[,\s]+$|^$/);
     }
 
     if (!Array.prototype.filter) {
@@ -440,11 +439,8 @@
         var jsonIDS = "";
 
         if ($("#txtCodigos").val() == "") {
-            //alert("Debe seleccionar al menos una consultora.");
-            //return false;
         } else {
             var ConsultoraIDs = jQuery.parseJSON($("#hdConsultoraId").val());
-            //ConsultoraIDs.items[0]
             for (var i in ConsultoraIDs.items) {
                 if (!ConsultoraIDs.items.hasOwnProperty(i)) continue;
                 if (jsonIDS == "")
@@ -541,11 +537,8 @@
         var jsonIDS = "";
 
         if ($("#txtCodigos").val() == "") {
-            //alert("Debe seleccionar al menos una consultora.");
-            //return false;
         } else {
             var ConsultoraIDs = jQuery.parseJSON($("#hdConsultoraId").val());
-            //ConsultoraIDs.items[0]
             for (var i in ConsultoraIDs.items) {
                 if (!ConsultoraIDs.items.hasOwnProperty(i)) continue;
                 if (jsonIDS == "")
@@ -581,7 +574,7 @@
                         codigo = jQuery.trim($('#txtCodigos').val());
                     }
                     return codigo
-                } //{ return jsonIDS; },
+                }
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
@@ -657,17 +650,7 @@
 
         var vCodigos = "";
         if ($("#txtCodigos").val() == "") {
-            //alert("Debe seleccionar al menos una consultora.");
-            //return false;
         } else {
-            //var arr = jQuery.parseJSON($("#txtCodigos").val()) || { items: [] };
-            //for (var p in arr.items) {
-            //    if (!arr.items.hasOwnProperty(p)) break;
-            //    if (arr.items[+p]) {
-            //        vCodigos = arr.items[+p].id;
-            //        break;
-            //    }
-            //}
             vCodigos = jQuery.trim($('#txtCodigos').val());
         }
 

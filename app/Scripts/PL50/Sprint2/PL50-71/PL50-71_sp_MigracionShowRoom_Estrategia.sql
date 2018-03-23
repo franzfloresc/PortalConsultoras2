@@ -1,3 +1,11 @@
+DELETE --OfertaShowRoomID
+				FROM dbo.Estrategia
+				WHERE OfertaShowRoomID IS NOT NULL
+
+DELETE --OfertaShowRoomDetalleID
+				FROM dbo.EstrategiaProducto
+				WHERE OfertaShowRoomDetalleID IS NOT NULL
+
 USE BelcorpPeru
 GO
 
@@ -10,7 +18,7 @@ GO
 
 CREATE PROCEDURE MigracionShowRoom_Estrategia (@Campanias VARCHAR(250))
 AS
---MigracionShowRoom_Estrategia '201801,201802'
+--MigracionShowRoom_Estrategia '201804,201805'
 BEGIN
 	BEGIN TRANSACTION Migracion_showRoom
 
@@ -284,7 +292,7 @@ BEGIN
 			AND e.CampaniaId = c.Codigo
 		INNER JOIN @MarcaEquivalencias m ON LOWER(osd.MarcaProducto) = m.Descripcion
 		WHERE osd.OfertaShowRoomDetalleID NOT IN (
-				SELECT OfertaShowRoomDetalleID
+				SELECT *--OfertaShowRoomDetalleID
 				FROM dbo.EstrategiaProducto
 				WHERE OfertaShowRoomDetalleID IS NOT NULL
 				);

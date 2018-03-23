@@ -388,7 +388,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 MontoAhorroCatalogo = resultado.MontoAhorroCatalogo,
                 MontoAhorroRevista = resultado.MontoAhorroRevista,
                 DescuentoProl = resultado.MontoDescuento,
-                MontoEscala = resultado.MontoEscala
+                MontoEscala = resultado.MontoEscala,
+                PedidoSapId = resultado.PedidoSapId
             };
         }
 

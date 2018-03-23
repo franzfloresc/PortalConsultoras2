@@ -154,7 +154,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.MontoEscala = pedidoWeb.MontoEscala;
                     model.TotalConDescuento = model.Total - model.MontoDescuento;
 
-                    model.ListaParametriaOfertaFinal = GetParametriaOfertaFinal(GetOfertaFinal().Algoritmo);
+                    model.ListaParametriaOfertaFinal = GetParametriaOfertaFinal(sessionManager.GetOfertaFinalModel().Algoritmo);
                 }
                 else
                 {
@@ -303,7 +303,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.Ambiente = GetBucketNameFromConfig();
                 ViewBag.CodigoConsultora = userData.CodigoConsultora;
                 model.TieneMasVendidos = userData.TieneMasVendidos;
-                var ofertaFinal = GetOfertaFinal();
+                var ofertaFinal = sessionManager.GetOfertaFinalModel();
                 ViewBag.OfertaFinalEstado = ofertaFinal.Estado;
                 ViewBag.OfertaFinalAlgoritmo = ofertaFinal.Algoritmo;
                 ViewBag.UrlFranjaNegra = GetUrlFranjaNegra();
@@ -3297,8 +3297,9 @@ namespace Portal.Consultoras.Web.Controllers
                     return;
                 }
 
-                if (!flagkit) //Kit en 2 y 3 pedido
-                    if (obeConfiguracionProgramaNuevas.IndProgObli != "1") return;
+                // flagkit => Kit en 2 y 3 pedido
+                if (!flagkit && obeConfiguracionProgramaNuevas.IndProgObli != "1")
+                    return;
 
                 var listaTempListado = ObtenerPedidoWebDetalle();
 
@@ -3504,21 +3505,22 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [Obsolete("Nuevo UpSelling")]
         public JsonResult ObtenerOfertaFinalRegalo()
         {
             try
             {
                 RegaloOfertaFinalModel model = null;
-                using (var ps = new ProductoServiceClient())
+                using (var svc = new ProductoServiceClient())
                 {
-                    var regalo = ps.ObtenerRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
-
-                    if (regalo != null)
+                    var entidad = svc.ObtenerRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
+                    if (entidad != null)
                     {
-                        model = Mapper.Map<RegaloOfertaFinal, RegaloOfertaFinalModel>(regalo);
+                        model = Mapper.Map<RegaloOfertaFinal, RegaloOfertaFinalModel>(entidad);
                         model.CodigoISO = userData.CodigoISO;
                         var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                        model.RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais, regalo.RegaloImagenUrl, carpetaPais);
+                        model.RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais, entidad.RegaloImagenUrl, carpetaPais);
+                        model.FormatoMontoMeta = Util.DecimalToStringFormat(model.MontoMeta, userData.CodigoISO);
                     }
                 }
 
@@ -3539,14 +3541,48 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [Obsolete("Nuevo UpSelling")]
+        public JsonResult ObtenerRegaloMontoMeta()
+        {
+            try
+            {
+                RegaloOfertaFinalModel model = null;
+                using (var svc = new ProductoServiceClient())
+                {
+                    var entidad = svc.ObtenerRegaloMontoMeta(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
+                    if (entidad != null)
+                    {
+                        model = Mapper.Map<RegaloOfertaFinal, RegaloOfertaFinalModel>(entidad);
+                        model.FormatoMontoMeta = Util.DecimalToStringFormat(model.MontoMeta, userData.CodigoISO);
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    data = model
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                });
+            }
+        }
+
+        [Obsolete("Nuevo UpSelling")]
         public JsonResult InsertarOfertaFinalRegalo()
         {
             try
             {
-                using (var ps = new ProductoServiceClient())
+                using (var svc = new ProductoServiceClient())
                 {
                     var montoTotal = Convert.ToDouble(ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal));
-                    ps.InsertarRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID, montoTotal, GetOfertaFinal().Algoritmo);
+                    svc.InsertarRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID, montoTotal, "OFR");
                 }
 
                 return Json(new
@@ -3696,7 +3732,7 @@ namespace Portal.Consultoras.Web.Controllers
                 descuentoprol = listPedido[0].DescuentoProl;
             }
 
-            var ofertaFinal = GetOfertaFinal();
+            var ofertaFinal = sessionManager.GetOfertaFinalModel();
             var objOfertaFinal = new ListaParametroOfertaFinal
             {
                 ZonaID = userData.ZonaID,
@@ -3715,17 +3751,18 @@ namespace Portal.Consultoras.Web.Controllers
                 Estado = ofertaFinal.Estado
             };
 
-
             List<Producto> lista;
             using (var ps = new ProductoServiceClient())
             {
                 lista = ps.ObtenerProductosOfertaFinal(objOfertaFinal).ToList();
             }
+
             var listaProductoModel = Mapper.Map<List<Producto>, List<ProductoModel>>(lista);
             if (listaProductoModel.Count(x => x.ID == 0) == listaProductoModel.Count)
             {
                 for (var i = 0; i <= listaProductoModel.Count - 1; i++) { listaProductoModel[i].ID = i; }
             }
+
             if (lista.Count != 0)
             {
                 var tipoCross = lista[0].TipoCross;

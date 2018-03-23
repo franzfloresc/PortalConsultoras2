@@ -25,6 +25,11 @@ namespace Portal.Consultoras.Web.Models
         public string NombreComercialActiva { get; set; }
         public string NombreComercialNoActiva { get; set; }
 
+        public string DLogoMenuInicioActiva { get; set; }
+        public string DLogoMenuInicioNoActiva { get; set; }
+        public string MLogoMenuInicioActiva { get; set; }
+        public string MLogoMenuInicioNoActiva { get; set; }
+
         public string DLogoComercialActiva { get; set; }
         public string DLogoComercialNoActiva { get; set; }
         public string MLogoComercialActiva { get; set; }
@@ -46,6 +51,8 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneRDS { get; set; }
         public bool EsActiva { get; set; }
         public bool EsSuscrita { get; set; }
+
+        public bool ActivoMdo { get; set; }
 
         public string NombreConsultora { get; set; }
         public string CampaniaActual { get; set; }
@@ -85,6 +92,10 @@ namespace Portal.Consultoras.Web.Models
         public bool SubscripcionAutomaticaAVirtualCoach { get; set; }
 
         public bool BloqueoProductoDigital { get; set; }
+        public string BannerOfertasNoActivaNoSuscrita { get; set; }
+        public string BannerOfertasNoActivaSuscrita { get; set; }
+        public string BannerOfertasActivaNoSuscrita { get; set; }
+        public string BannerOfertasActivaSuscrita { get; set; }
 
         public bool EsSuscritaInactiva()
         {
