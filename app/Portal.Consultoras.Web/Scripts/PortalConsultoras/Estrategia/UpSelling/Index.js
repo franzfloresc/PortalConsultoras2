@@ -21,7 +21,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
         idDivPopUpRegalo: config.idDivPopUpRegalo,
         idTabs: config.idTabs,
         idTargetDiv: config.idTargetDiv,
-        campanasPais: config.campanasPais,        
+        campanasPais: config.campanasPais,
         idListaGanadorasHidden: config.idListaGanadorasHidden,
         idFormReporteListaGanadoras: config.idFormReporteListaGanadoras,
         urlListaGanadorasObtener: config.urlListaGanadorasObtener,
@@ -214,10 +214,20 @@ belcorp.estrategias.upselling.initialize = function (config) {
             modal: true,
             width: 910,
             height: "auto",
-            title: "Details"
+            title: "Details",
+            closeOnScape: false,
+            draggable: true
         };
 
-        $("#" + divId).dialog(opt).dialog("open");
+        $("#" + divId)
+            .dialog(opt)
+            .on("dialogbeforeclose", function (event, ui) {
+                if ($(this).dialog("isOpen") && self.upSellingViewModel.regaloSeleccionado()) {
+                    self.upSellingViewModel.regaloCerrar();
+                }
+            })
+            .dialog("open");
+
         $("#ui-datepicker-div").css("z-index", "9999");
         return false;
     }
@@ -622,6 +632,11 @@ belcorp.estrategias.upselling.initialize = function (config) {
         }
 
         selfvm.regaloActualizar = function () {
+            if (!selfvm.regaloSeleccionado().isValid()) {
+                alert("Los campos marcados son necesarios");
+                return;
+            }
+
             selfvm.ordernarRegalos();
             selfvm.regaloSeleccionado(null);
             HideDialog(settings.idDivPopUpRegalo);
@@ -669,7 +684,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
         selfvm.recargarGanadoras = ko.observable(true);
 
         selfvm.TraerListaGanadoras = function () {
-          
+
             if (selfvm.recargarGanadoras()) {
                 cargarGrillaListaGanadoras(selfvm.upSellingSeleccionado().UpSellingId());
                 selfvm.recargarGanadoras(false);
