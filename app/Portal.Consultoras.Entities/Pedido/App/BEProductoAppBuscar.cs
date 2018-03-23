@@ -8,6 +8,8 @@ namespace Portal.Consultoras.Entities.Pedido.App
         [DataMember]
         public int PaisID { get; set; }
         [DataMember]
+        public long ConsultoraID { get; set; }
+        [DataMember]
         public int CampaniaID { get; set; }
         [DataMember]
         public string CodigoDescripcion { get; set; }

@@ -1869,6 +1869,7 @@ namespace Portal.Consultoras.Common
                 public static class Code
                 {
                     public const string SUCCESS = "0000";
+                    public const string ERROR_INTERNO = "9999";
                     public const string ERROR_PRODUCTO_NOEXISTE = "1101";
                     public const string ERROR_PRODUCTO_AGOTADO = "1102";
                     public const string ERROR_PRODUCTO_LIQUIDACION = "1103";
@@ -1885,6 +1886,7 @@ namespace Portal.Consultoras.Common
                         return _Message ?? (_Message = new Dictionary<string, string>
                     {
                         {Code.SUCCESS, "OK"},
+                        {Code.ERROR_INTERNO, string.Empty},
                         {Code.ERROR_PRODUCTO_NOEXISTE, "Este producto no existe."},
                         {Code.ERROR_PRODUCTO_AGOTADO, "Este producto está agotado."},
                         {Code.ERROR_PRODUCTO_LIQUIDACION, "Este producto solo está disponible desde la sección de Liquidación Web."},
@@ -1904,6 +1906,7 @@ namespace Portal.Consultoras.Common
                 public static class Code
                 {
                     public const string SUCCESS = "0000";
+                    public const string ERROR_INTERNO = "9999";
                     public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
                     public const string ERROR_STOCK_ESTRATEGIA = "2102";
                     public const string ERROR_KIT_INICIO = "2103";
@@ -1917,6 +1920,7 @@ namespace Portal.Consultoras.Common
                         return _Message ?? (_Message = new Dictionary<string, string>
                             {
                                 {Code.SUCCESS, "OK"},
+                                {Code.ERROR_INTERNO, string.Empty},
                                 {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, string.Empty},
                                 {Code.ERROR_STOCK_ESTRATEGIA, string.Empty},
                                 {Code.ERROR_KIT_INICIO, "Ocurrió un error al ejecutar la operación."},
