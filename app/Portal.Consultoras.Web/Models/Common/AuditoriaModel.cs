@@ -12,7 +12,7 @@ namespace Portal.Consultoras.Web.Models.Common
         
         public DateTime FechaCreacion { get; set; }
         
-        public string UsuarioModicacion { get; set; }
+        public string UsuarioModificacion { get; set; }
         
         public DateTime? FechaModificacion { get; set; }
     }

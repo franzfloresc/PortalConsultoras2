@@ -133,6 +133,69 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 : View(showRoomEventoModel);
         }
 
+        public ActionResult Personalizado(string query)
+        {
+
+            if (!(sessionManager.GetEsShowRoom() && userData.CodigoISO == "PE"))
+            {
+                return RedirectToAction("Index");
+            }
+
+            var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
+            var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
+
+            bool mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
+
+            if (mostrarPopupIntriga)
+            {
+                return RedirectToAction("Intriga", "ShowRoom", new { area = "Mobile" });
+            }
+
+            ActionExecutingMobile();
+            var showRoomEventoModel = OfertaShowRoom();
+
+            if (!string.IsNullOrEmpty(query))
+            {
+                string param = Util.Decrypt(query);
+                string[] lista = param.Split(';');
+
+                if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
+                {
+                    RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                }
+
+                if (lista[0] == CodigoProceso)
+                {
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
+                    {
+                        blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
+                    }
+
+                    if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !blnRecibido)
+                    {
+                        BEShowRoomEventoConsultora entidad = new BEShowRoomEventoConsultora
+                        {
+                            CodigoConsultora = lista[2],
+                            CampaniaID = Convert.ToInt32(lista[3])
+                        };
+
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, entidad);
+                        }
+                    }
+                }
+                else
+                {
+                    RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                }
+            }
+
+            return showRoomEventoModel == null
+                ? (ActionResult)RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
+                : View(showRoomEventoModel);
+        }
+
         public ActionResult Intriga()
         {
             try
@@ -309,6 +372,27 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
 
             return View("DetalleOferta", modelo);
+        }
+
+        public ActionResult DetalleOfertaPersonalizado(int id)
+        {
+            ActionExecutingMobile();
+            if (!ValidarIngresoShowRoom(false))
+                return RedirectToAction("Index", "Bienvenida");
+
+            var modelo = ViewDetalleOferta(id);
+            modelo.EstrategiaId = id;
+            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+            bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+
+            var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, userData.BeShowRoom.EventoID,
+                        userData.BeShowRoom.CampaniaID);
+            modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
+            modelo.TieneCompraXcompra = userData.BeShowRoom.TieneCompraXcompra;
+
+            ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
+
+            return View(modelo);
         }
     }
 }

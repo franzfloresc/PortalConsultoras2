@@ -9,6 +9,11 @@
     ViewBag.SourcePage = 2;
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var mobileConfiguracion = Html.MobileAppConfiguracion();
+    var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
+}
+@section styles
+{
+    @Styles.Render("~/bundles/Css/Mobile/Site/CssPedido")
 }
 <div class="wrapper_resumen_mobile sin_padding">
     @if (!mobileConfiguracion.EsAppMobile)
@@ -32,7 +37,7 @@
                 {
                     <input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" />
                 }
-               
+
                 <input type="tel" name="codigoProducto" value="" placeholder="Código" id="txtCodigoProducto" oninput="FuncionesGenerales.MaxLengthCheck(this, 5)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
             </form>
         </div>
@@ -296,7 +301,6 @@
 
 </div>
 <!--FIN-->
-
 <!-- POPUP MIS GANANCIAS -->
 
 <div class="contenedor_fondo_popup_ganancia" id="popupGanancias" style="display:none;">
@@ -331,7 +335,6 @@
 
 
 <!-- FIN POPUP MIS GANANCIAS -->
-
 <!-- POPUP AGREGAR CLIENTE -->
 <div class="contenedor_popup_clientes modal" id="divAgregarCliente" style="display: none;">
     <div class="popup_agregarCliente">
@@ -484,13 +487,14 @@
         var VirtualCoachCuv = '@ViewBag.VirtualCoachCuv';
         var VirtualCoachCampana = '@ViewBag.VirtualCoachCampana' || 0;
         var dataBarra = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.DataBarra))');
-        var listaMensajeMeta = dataBarra == null ? null :dataBarra.ListaMensajeMeta;
+        var listaMensajeMeta = dataBarra == null ? null : dataBarra.ListaMensajeMeta;
+        var revistaDigital= @Html.Raw(Json.Encode(revistaDigital));
     </script>
 
     @if (mobileConfiguracion.EsAppMobile)
     {
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
                 belcorp.estrategia.initialize();
                 belcorp.pedido.initialize();
                 belcorp.pedido.subscribe("onProductoAgregado", MostrarBarra);

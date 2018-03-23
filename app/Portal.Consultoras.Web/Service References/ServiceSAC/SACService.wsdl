@@ -224,6 +224,36 @@
   <wsdl:message name="ISACService_ObtenerOfertaFinalMontoMeta_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerOfertaFinalMontoMetaResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_InsertUpSellingRegalo_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertUpSellingRegalo" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsertUpSellingRegalo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertUpSellingRegaloResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpsellingMarcaCategoriaObtener_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpsellingMarcaCategoriaObtener" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpsellingMarcaCategoriaObtener_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpsellingMarcaCategoriaObtenerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpsellingMarcaCategoriaInsertar_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpsellingMarcaCategoriaInsertar" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpsellingMarcaCategoriaInsertar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpsellingMarcaCategoriaInsertarResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpsellingMarcaCategoriaEliminar_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpsellingMarcaCategoriaEliminar" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpsellingMarcaCategoriaEliminar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpsellingMarcaCategoriaEliminarResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpsellingMarcaCategoriaFlagsEditar_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpsellingMarcaCategoriaFlagsEditar" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpsellingMarcaCategoriaFlagsEditar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpsellingMarcaCategoriaFlagsEditarResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_RemoveDataCache_InputMessage">
     <wsdl:part name="parameters" element="tns:RemoveDataCache" />
   </wsdl:message>
@@ -1375,6 +1405,26 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ObtenerOfertaFinalMontoMeta" message="tns:ISACService_ObtenerOfertaFinalMontoMeta_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ObtenerOfertaFinalMontoMetaResponse" message="tns:ISACService_ObtenerOfertaFinalMontoMeta_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="InsertUpSellingRegalo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertUpSellingRegalo" message="tns:ISACService_InsertUpSellingRegalo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertUpSellingRegaloResponse" message="tns:ISACService_InsertUpSellingRegalo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpsellingMarcaCategoriaObtener">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpsellingMarcaCategoriaObtener" message="tns:ISACService_UpsellingMarcaCategoriaObtener_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpsellingMarcaCategoriaObtenerResponse" message="tns:ISACService_UpsellingMarcaCategoriaObtener_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpsellingMarcaCategoriaInsertar">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpsellingMarcaCategoriaInsertar" message="tns:ISACService_UpsellingMarcaCategoriaInsertar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpsellingMarcaCategoriaInsertarResponse" message="tns:ISACService_UpsellingMarcaCategoriaInsertar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpsellingMarcaCategoriaEliminar">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpsellingMarcaCategoriaEliminar" message="tns:ISACService_UpsellingMarcaCategoriaEliminar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpsellingMarcaCategoriaEliminarResponse" message="tns:ISACService_UpsellingMarcaCategoriaEliminar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpsellingMarcaCategoriaFlagsEditar">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpsellingMarcaCategoriaFlagsEditar" message="tns:ISACService_UpsellingMarcaCategoriaFlagsEditar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpsellingMarcaCategoriaFlagsEditarResponse" message="tns:ISACService_UpsellingMarcaCategoriaFlagsEditar_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="RemoveDataCache">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/RemoveDataCache" message="tns:ISACService_RemoveDataCache_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/RemoveDataCacheResponse" message="tns:ISACService_RemoveDataCache_OutputMessage" />
@@ -2334,6 +2384,51 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerOfertaFinalMontoMeta">
       <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerOfertaFinalMontoMeta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertUpSellingRegalo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertUpSellingRegalo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpsellingMarcaCategoriaObtener">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpsellingMarcaCategoriaObtener" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpsellingMarcaCategoriaInsertar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpsellingMarcaCategoriaInsertar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpsellingMarcaCategoriaEliminar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpsellingMarcaCategoriaEliminar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpsellingMarcaCategoriaFlagsEditar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpsellingMarcaCategoriaFlagsEditar" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4156,6 +4251,51 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerOfertaFinalMontoMeta">
       <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerOfertaFinalMontoMeta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertUpSellingRegalo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertUpSellingRegalo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpsellingMarcaCategoriaObtener">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpsellingMarcaCategoriaObtener" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpsellingMarcaCategoriaInsertar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpsellingMarcaCategoriaInsertar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpsellingMarcaCategoriaEliminar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpsellingMarcaCategoriaEliminar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpsellingMarcaCategoriaFlagsEditar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpsellingMarcaCategoriaFlagsEditar" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

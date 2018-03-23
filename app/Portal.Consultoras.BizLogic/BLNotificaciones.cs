@@ -9,11 +9,11 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLNotificaciones
     {
-        public IList<BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR)
+        public IList<BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea)
         {
             var daNotificaciones = new DANotificaciones(PaisID);
             var notificaciones = new List<BENotificaciones>();
-            using (IDataReader reader = daNotificaciones.GetNotificacionesConsultora(ConsultoraId, indicadorBloqueoCDR))
+            using (IDataReader reader = daNotificaciones.GetNotificacionesConsultora(ConsultoraId, indicadorBloqueoCDR, tienePagoEnLinea))
                 while (reader.Read())
                 {
                     var entidad = new BENotificaciones(reader);
@@ -26,10 +26,10 @@ namespace Portal.Consultoras.BizLogic
             return notificaciones;
         }
 
-        public int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR)
+        public int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea)
         {
             var daNotificaciones = new DANotificaciones(PaisID);
-            return daNotificaciones.GetNotificacionesSinLeer(ConsultoraId, indicadorBloqueoCDR);
+            return daNotificaciones.GetNotificacionesSinLeer(ConsultoraId, indicadorBloqueoCDR, tienePagoEnLinea);
         }
 
         public IList<BENotificacionesDetalle> GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen)

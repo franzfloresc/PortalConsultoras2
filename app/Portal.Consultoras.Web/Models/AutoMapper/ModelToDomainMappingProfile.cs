@@ -445,6 +445,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<UpSellingRegaloModel, UpSellingDetalle>()
                 .ForMember(t => t.UpSellingDetalleId, f => f.MapFrom(c => c.UpSellingRegaloId));
 
+            Mapper.CreateMap<RegaloOfertaFinalModel, UpSellingRegalo>();
+
         }
     }
 }

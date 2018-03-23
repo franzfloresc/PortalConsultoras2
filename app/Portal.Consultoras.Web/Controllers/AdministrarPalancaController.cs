@@ -450,7 +450,7 @@ namespace Portal.Consultoras.Web.Controllers
                            }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
-                
+
             }
             catch (Exception ex)
             {
@@ -497,7 +497,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         admDato.Dato.Valor1 = SaveFileS3(admDato.Dato.Valor1);
                     }
-                    
+
                     listaEntidad.Add(Mapper.Map<ConfiguracionPaisDatosModel, ServiceUsuario.BEConfiguracionPaisDatos>(admDato.Dato));
                 }
 
@@ -597,11 +597,11 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             modelo.Observacion = "Ya existe un registro con la misma campaña";
                         }
-                        
+
                         beEntidadesMdel = Mapper.Map<IList<ServiceUsuario.BEConfiguracionPaisDatos>, List<ConfiguracionPaisDatosModel>>(beEntidades);
                     }
                 }
-                
+
                 modelo.ListaDatos = ComponenteDatosFormato(entidad, beEntidadesMdel);
                 modelo.Estado = beEntidadesMdel.Any() && beEntidadesMdel.FirstOrDefault().Estado;
 

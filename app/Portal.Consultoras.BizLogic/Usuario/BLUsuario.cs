@@ -2015,17 +2015,20 @@ namespace Portal.Consultoras.BizLogic
             string v_correo = string.Empty;
             string v_codigousuario = string.Empty;
             string v_nombre = string.Empty;
-            string v_clave = string.Empty;
+            string v_clave = string.Empty;
+
             List<BEUsuarioCorreo> lst = null;
 
             try
             {
                 urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
                 lst = new List<BEUsuarioCorreo>();
-                lst = SelectByValorRestauracion(textoRecuperacion, paisId).ToList();
+                lst = SelectByValorRestauracion(textoRecuperacion, paisId).ToList();
+
                 v_codigousuario = lst[0].CodigoUsuario;
                 v_nombre = lst[0].NombreCompleto.Trim().Split(' ').First();
-                v_clave = lst[0].Clave;
+                v_clave = lst[0].Clave;
+
                 if (lst[0].Cantidad == 0 && lst[0].Correo.Trim().Length == 0)
                 {
                     resultado = "0" + "|" + "2";
@@ -2042,16 +2045,19 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return resultado;
-        }
+        }
+
         public List<BEUsuarioCorreo> SelectByValorRestauracion(string ValorRestauracion, int paisID)
         {
             List<BEUsuarioCorreo> UsuarioCorreo = new List<BEUsuarioCorreo>();
-            var DAUsuario = new DAUsuario(paisID);
+            var DAUsuario = new DAUsuario(paisID);
+
             using (IDataReader reader = DAUsuario.GetRestaurarClaveUsuario(ValorRestauracion, paisID))
                 while (reader.Read())
                 {
                     UsuarioCorreo.Add(new BEUsuarioCorreo(reader));
-                }
+                }
+
             return UsuarioCorreo;
         }
 

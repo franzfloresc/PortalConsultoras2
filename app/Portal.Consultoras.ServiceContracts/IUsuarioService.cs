@@ -151,10 +151,10 @@ namespace Portal.Consultoras.ServiceContracts
 
 
         [OperationContract]
-        IList<BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR);
+        IList<BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea);
 
         [OperationContract]
-        int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR);
+        int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea);
 
         [OperationContract]
         IList<BENotificacionesDetalle> GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen);
@@ -251,6 +251,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void UpdNotificacionCdrCulminadoVisualizacion(int paisID, long procesoId);
+
+        [OperationContract]
+        void UpdNotificacionPagoEnLineaVisualizacion(int paisId, int procesoId);
 
         [OperationContract]
         int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono);
