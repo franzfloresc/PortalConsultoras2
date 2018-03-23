@@ -181,7 +181,6 @@
             .popup_confirmacion_datos .form-datos .input p.txtvalidar {
                 margin: 0;
                 padding: 0;
-                /* line-height: 2em; */
                 text-align: left;
                 display: block;
                 padding: 5px 0px 0px 40px;
@@ -203,7 +202,6 @@
                 text-align: left;
                 display: block;
                 width: 90%;
-                /* padding-left: 30px; */
                 color: #808080;
                 line-height: 13px;
                 font-size: 11px;

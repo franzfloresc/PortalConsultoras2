@@ -144,18 +144,18 @@ else
 
 
             @if (Model.PortalLideres && Model.Lider == 1)
-    {
-        <a href="@Url.Action("Index", "Lider", new { area = "" })" role="menu" region="Medio" parent="Socias empresarias" id="lnk-med-sociasempresarias" class="enlace_sociasEmpresarias" title="Ir A Socias Empresarias">
-            @if (Model.NombrePais == "Venezuela")
-    {
-        <span class="btn_seguirp_mobile"></span><span class="texto_enlace_socias">&nbsp;Ir a Socias Empresarias</span>
-}
-else
-{
-        <span class="btn_seguirp_mobile"></span><span class="texto_enlace_socias">&nbsp;Ir a Socias Empresarias</span>
-}
-        </a>
-}
+            {
+                <a href="@Url.Action("Index", "Lider", new { area = "" })" role="menu" region="Medio" parent="Socias empresarias" id="lnk-med-sociasempresarias" class="enlace_sociasEmpresarias" title="Ir A Socias Empresarias">
+                    @if (Model.NombrePais == "Venezuela")
+                    {
+                        <span class="btn_seguirp_mobile"></span><span class="texto_enlace_socias">&nbsp;Ir a Socias Empresarias</span>
+                    }
+                    else
+                    {
+                        <span class="btn_seguirp_mobile"></span><span class="texto_enlace_socias">&nbsp;Ir a Socias Empresarias</span>
+                    }
+                </a>
+            }
 
             <hr class="clear" />
             <div class="info_cam_mobile">
@@ -164,19 +164,19 @@ else
             </div>
             <div class="borde_gris"></div>
             @if (ViewBag.Dias == 0)
-    {
-        <div class="info_cam_mobile">
-            EL CIERRE ES
-            <span>Hoy</span>
-        </div>
-}
-else
-{
-        <div class="info_cam_mobile">
-            EL CIERRE ES EN
-            <span>@(Model.DiasParaCierre) días</span>
-        </div>
-}
+            {
+                <div class="info_cam_mobile">
+                    EL CIERRE ES
+                    <span>Hoy</span>
+                </div>
+            }
+            else
+            {
+                <div class="info_cam_mobile">
+                    EL CIERRE ES EN
+                    <span>@(Model.DiasParaCierre) días</span>
+                </div>
+            }
         </div>
         <hr class="clear" />
         <!--FIN RESUMEN-->
@@ -276,20 +276,41 @@ else
                 @Model.Simbolo <span>@Util.DecimalToStringFormat(Model.MontoDeuda, Model.CodigoISO)</span>
             </div>
             <div class="texto_inferior js-div-vencimiento">Vencimiento: <span>@Model.FechaVencimiento</span></div>
-            @if (Model.PaisID == 3) //Chile
+            @if (Model.TienePagoEnLinea)
             {
-                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a>
+                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index","PagoEnLinea")" >
+                    @*<div class="logo_visa">
+                        <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
+                    </div>*@
+                    <div class="texto_btn_pago_en_linea">
+                        <span>PAGA EN LÍNEA</span>
+                        <span>con Crédito Visa</span>
+                    </div>
+                    @*<div class="logo_mastercard">
+                    <img src="@Url.Content("~/Content/Images/logo-mastercard.svg")" alt="Mastercard" />
+                </div>*@
+                </a>
+                <p class="info_lugares_de_pago">
+                    Lugares de pago <a href="" title="Lugares de pago">aquí</a>
+                </p>
             }
-            else if (Model.PaisID == 4) //Colombia
+            else
             {
-                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="https://www.zonapagos.com/t_belstar/pagos.asp" target="_blank"> PAGA EN L&Iacute;NEA</a>
-            }
-            else if (Model.PaisID == 12) //Puerto Rico
-            {
-                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index", "Paypal", new { area = "Mobile" })"> PAGA EN L&Iacute;NEA</a>
-            }
-            else if (Model.PaisID == 6 || Model.PaisID == 11)
-            {
+                if (Model.PaisID == 3) //Chile
+                {
+                    <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a>
+                }
+                else if (Model.PaisID == 4) //Colombia
+                {
+                    <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="https://www.zonapagos.com/t_belstar/pagos.asp" target="_blank"> PAGA EN L&Iacute;NEA</a>
+                }
+                else if (Model.PaisID == 12) //Puerto Rico
+                {
+                    <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index", "Paypal", new { area = "Mobile" })"> PAGA EN L&Iacute;NEA</a>
+                }
+                else if (Model.PaisID == 6 || Model.PaisID == 11)
+                {
+                }
             }
         </div>
         <!--FIN ITEM 2-->
@@ -837,6 +858,7 @@ else
         var OrigenDesktopODD = 1;
         var consultoraNuevaBannerAppMostrar = '@Model.ConsultoraNuevaBannerAppMostrar';
         var mostrarPopupCuponGanaste = (@Model.TipoPopUpMostrar == 11) ? 'true' : 'false';
+        var nombreAlias = '@Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!")';      
         var revistaDigital= @Html.Raw(Json.Encode(Model.RevistaDigital));
         
 

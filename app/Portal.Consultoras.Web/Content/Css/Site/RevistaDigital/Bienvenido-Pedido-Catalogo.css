@@ -558,7 +558,6 @@
 }
 
     .banner_pedido_masofertas .btn_diagonal {
-        /*background: white;*/
         width: 70%;
         position: absolute;
         left: 50%;
@@ -801,11 +800,9 @@
         .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas {
             background: transparent;
             max-width: 1050px;
-            /* margin-left: 10%; */
             margin: auto;
             margin-bottom: 25px;
             margin-top: -1px;
-            /* margin-left: 67px; */
             position: relative;
             left: -2px;
         }
@@ -1041,3 +1038,90 @@ margin-left: 5px;
 .margin_bottom_60 {
     margin-bottom: 60px !important;
 }
+
+
+
+.club_gana_mas_pedido {
+    height: 289px;
+    background: black;
+    padding: 65px 50px;
+}
+
+    .club_gana_mas_pedido .logo_club {
+        height: 45px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 97px;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    .club_gana_mas_pedido p.primer-texto {
+        font-size: 17px;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.47;
+        letter-spacing: 0.5px;
+        text-align: center;
+        color: #ffffff;
+        margin-bottom: 0;
+        display: block;
+        padding: 0 35px;
+        display: block;
+        word-wrap: break-word;
+        text-transform: uppercase;
+    }
+
+    .club_gana_mas_pedido p.segundo-texto {
+        font-size: 17px;
+        font-weight: 900;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.47;
+        letter-spacing: 0.5px;
+        text-align: center;
+        color: #ffffff;
+        display: block;
+        word-wrap: break-word;
+        text-transform: uppercase;
+    }
+
+    .club_gana_mas_pedido a {
+        color: white;
+        border: 1px solid white;
+        width: 100%;
+        display: block;
+        text-align: center;
+        padding: 15px 0px;
+        font-size: 13px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 1px;
+    }
+
+.club_gana_mas_pedido_activo {
+    background: #f8f8f8;
+}
+
+    .club_gana_mas_pedido_activo .logo_club_activo {
+        background: url(/Content/Images/etiqueta-club-ganamas-dorado-independiente.png);
+        height: 45px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 97px;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    .club_gana_mas_pedido_activo a {
+        background-color: #c39934;
+        border: none;
+    }
+
+    .club_gana_mas_pedido_activo p.primer-texto, .club_gana_mas_pedido_activo p.segundo-texto {
+        color: black;
+    }

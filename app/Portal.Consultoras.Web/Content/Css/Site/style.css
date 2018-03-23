@@ -1107,16 +1107,6 @@ ul.tabs {
 }
 
 .addlist_tab input {
-    /*width: 100px;
-    height: 40px;
-    line-height: 40px;
-    padding: 0;
-    margin: 0 10px 0 0;
-    background: url(../../Images/buscar.png) 0 0 no-repeat;
-    color: #fff;
-    font-size: 14px;
-    border: 0;
-    float: left;*/
     background: #3a9ee0;
     background-image: -webkit-linear-gradient(top, #3a9ee0, #4a94c2);
     background-image: -moz-linear-gradient(top, #3a9ee0, #4a94c2);
@@ -1608,16 +1598,17 @@ ul.tabs {
 }
 
 .div-3 .titG2 {
-    float: left;
-    width: 95px;
-    height: auto;
-    padding: 9px;
     background: none;
-    color: #702789;
-    font-size: 14px;
-    margin: 0;
     border: 0;
+    color: #702789;
+    display: inline-block;
+    font-size: 14px;
+    height: auto;
+    margin: 0;
+    padding: 9px;
+    position: relative;
     text-align: left;
+    width: 95px;
 }
 .div-3 .titG3 {
     float: left;
@@ -2238,14 +2229,14 @@ ul.tabs {
     }
 
 .div-3 .pdr_modal {
-    float: left;
-    width: 35px;
-    height: auto;
-    padding: 10px;
     background: #fff;
-    color: #702789;
-    margin-right: 10px;
     border: 1px solid #cfcfcf;
+    color: #702789;
+    height: auto;
+    margin: auto;
+    padding: 10px;
+    position: relative;
+    width: 35px;
 }
 
 .div-3 .pdr_modal2 {
@@ -2260,11 +2251,9 @@ ul.tabs {
 }
 
 .div-3 .pdr_modal_check {
-    float: left;
-    width: 56px;
-    height: auto;
-    padding: 0 0 0 0;
-    margin-right: 10px;
+    margin: auto;
+    position: relative;
+    width: 20px;
 }
 
 .div-3 .selectP2 {
@@ -2550,15 +2539,6 @@ ul.tabs {
     }
 
 .div-3 .input_search input {
-    /*float: left;
-    width: 100px;
-    height: 40px;
-    line-height: 40px;
-    padding: 0;
-    background: url(../../Images/buscar.png) 0 0 no-repeat;
-    color: #fff;
-    font-size: 14px;
-    border: 0;*/
     background: #3a9ee0;
     background-image: -webkit-linear-gradient(top, #3a9ee0, #4a94c2);
     background-image: -moz-linear-gradient(top, #3a9ee0, #4a94c2);
@@ -2580,15 +2560,6 @@ ul.tabs {
 }
 
     .div-3 .input_search input:hover {
-        /*float: left;
-        width: 100px;
-        height: 40px;
-        line-height: 40px;
-        padding: 0;
-        background: url(../../Images/buscar.png) 0 0 no-repeat;
-        color: #fff;
-        font-size: 14px;
-        border: 0;*/
         background: #6bc6ff;
         background-image: -webkit-linear-gradient(top, #6bc6ff, #53a3d9);
         background-image: -moz-linear-gradient(top, #6bc6ff, #53a3d9);
@@ -2599,16 +2570,6 @@ ul.tabs {
     }
 
 .div-3 .input_horizontal input {
-    /*float: left;
-    width: 100px;
-    height: 40px;
-    line-height: 40px;
-    padding: 0;
-    background: url(../../Images/buscar.png) 0 0 no-repeat;
-    color: #fff;
-    font-size: 14px;
-    border: 0;
-    margin-right: 5px;*/
     background: #3a9ee0;
     background-image: -webkit-linear-gradient(top, #3a9ee0, #4a94c2);
     background-image: -moz-linear-gradient(top, #3a9ee0, #4a94c2);
@@ -2797,16 +2758,6 @@ ul.tabs {
 }
 
 .div-3 .input_modifica_pedido input {
-    /*float: left;.input_modifica_pedido
-    width: auto;
-    height: 40px;
-    line-height: 40px;
-    padding: 0 10px 0 10px;
-    background: url('../../Images/btn_modifica_pedido.png') 0 0 no-repeat;
-    color: #fff;
-    font-size: 14px;
-    border: 0;
-    margin: 0 5px 0 0;*/
     background: #3a9ee0;
     background-image: -webkit-linear-gradient(top, #3a9ee0, #4a94c2);
     background-image: -moz-linear-gradient(top, #3a9ee0, #4a94c2);
@@ -10099,17 +10050,6 @@ ul.tabs-nav li.active {
 }
 
 .qq-upload-button {
-    /*background: url('../../Images/buscar.png') no-repeat scroll 0 0 transparent;
-    border: 0 none;
-    color: #fff;
-    float: left;
-    font-size: 13px;
-    height: 40px;
-    line-height: 40px;
-    padding: 0;
-    width: 100px;
-    cursor: pointer;
-    text-align: center;*/
     background: #3a9ee0;
     background-image: -webkit-linear-gradient(top, #3a9ee0, #4a94c2);
     background-image: -moz-linear-gradient(top, #3a9ee0, #4a94c2);
@@ -10126,23 +10066,11 @@ ul.tabs-nav li.active {
     font-family: Arial;
     font-size: 14px;
     margin: 0 5px 0 0;
-    /*min-width: 100px;*/
     padding: 12px 20px 12px 20px;
     text-decoration: none;
 }
 
     .qq-upload-button-hover {
-        /*float: left;
-        width: 100px;
-        height: 40px;
-        line-height: 40px;
-        padding: 0;
-        background: url('../../Images/buscar.png') 0 0 no-repeat;
-        color: #fff;
-        font-size: 13px;
-        border: 0;
-        cursor: pointer;
-        text-align: center;*/
         background: #6bc6ff;
         background-image: -webkit-linear-gradient(top, #6bc6ff, #53a3d9);
         background-image: -moz-linear-gradient(top, #6bc6ff, #53a3d9);
@@ -12720,7 +12648,7 @@ label.checkpop {
 
 .matriz-comercial-zona-estrategia {
     margin: 0 auto;
-    width: 570px;
+    width: 580px;
 }
 
 .matriz-campania .div-img-matriz-comercial {

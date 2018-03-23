@@ -839,7 +839,15 @@ FuncionesGenerales = {
         var te = String.fromCharCode(tecla);
         return patron.test(te);
     },
-
+    ValidarSoloDecimalPositivo: function (event, element, validarDecimal) {
+        event = event || window.event;
+        var charCode = event.which || event.keyCode;
+        if (charCode == 8 || charCode == 13 || (validarDecimal ? (element.value.indexOf('.') == -1 ? charCode == 46 : false) : false))
+            return true;
+        else if ((charCode < 48) || (charCode > 57))
+            return false;
+        return true;
+    },
     ValidarSoloNumerosAndSpecialCharater: function (e) {
         var tecla = (document.all) ? e.keyCode : e.which;
         if (tecla == 8) return true;

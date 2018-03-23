@@ -56,7 +56,7 @@ namespace Portal.Consultoras.ServiceContracts
         void LoadConsultoraCodigo(int paisID);
 
         [OperationContract]
-        decimal GetSaldoActualConsultora(int paisID, string Codigo);
+        decimal GetSaldoActualConsultora(int paisID, string Codigo);        
 
         [OperationContract]
         IList<BEMensajeCUV> GetMensajesCUVsByPaisAndCampania(int CampaniaID, int paisID);

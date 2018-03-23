@@ -45,6 +45,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.CompartirDatos = beusuario.CompartirDatos;
                 model.AceptoContrato = beusuario.AceptoContrato;
                 model.UsuarioPrueba = userData.UsuarioPrueba;
+                model.CodigoUsuarioReal = userData.CodigoUsuario;
                 model.NombreArchivoContrato = GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
 
                 BEZona[] bezona;

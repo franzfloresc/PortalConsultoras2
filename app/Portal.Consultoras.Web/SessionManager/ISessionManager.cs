@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
+using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
@@ -138,5 +139,9 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetStartSession(DateTime StartSession);
 
         DateTime GetStartSession();
+        
+        void SetDatosPagoVisa(PagoEnLineaModel model);
+
+        PagoEnLineaModel GetDatosPagoVisa();
     }
 }

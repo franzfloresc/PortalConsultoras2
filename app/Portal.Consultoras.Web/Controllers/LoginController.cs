@@ -811,105 +811,105 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (oRestaurarClave != null && oRestaurarClave.Cantidad != 0)
                 {
-                        oRestaurarClave.ContextoBase = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
-                        Session["RestaurarClave"] = oRestaurarClave;
+                    oRestaurarClave.ContextoBase = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
+                    Session["RestaurarClave"] = oRestaurarClave;
 
-                        if (nroOpcion == "1")
+                    if (nroOpcion == "1")
+                    {
+                        if (oRestaurarClave.Correo != "" && oRestaurarClave.Celular != "")
+                            resul = "prioridad1";
+                        else if (oRestaurarClave.Correo != "" && oRestaurarClave.Celular == "")
+                            resul = "prioridad1_correo";
+                        else if (oRestaurarClave.Correo == "" && oRestaurarClave.Celular != "")
+                            resul = "prioridad1_sms";
+
+                        if (resul == "")
+                            nroOpcion = "2";
+                    }
+
+                    if (nroOpcion == "2")
+                    {
+                        BEHorario horarioChat;
+                        using (SACServiceClient sv = new SACServiceClient())
                         {
-                            if (oRestaurarClave.Correo != "" && oRestaurarClave.Celular != "")
-                                resul = "prioridad1";
-                            else if (oRestaurarClave.Correo != "" && oRestaurarClave.Celular == "")
-                                resul = "prioridad1_correo";
-                            else if (oRestaurarClave.Correo == "" && oRestaurarClave.Celular != "")
-                                resul = "prioridad1_sms";
-
-                            if (resul == "")
-                                nroOpcion = "2";
+                            horarioChat = sv.GetHorarioByCodigo(paisId, Constantes.CodigoHorario.ChatEmtelco, true);
                         }
 
-                        if (nroOpcion == "2")
+                        bool mostrarChat = false;
+                        bool habilitarChat = false;
+
+                        if (horarioChat != null)
                         {
-                            BEHorario horarioChat;
-                            using (SACServiceClient sv = new SACServiceClient())
-                            {
-                                horarioChat = sv.GetHorarioByCodigo(paisId, Constantes.CodigoHorario.ChatEmtelco, true);
-                            }
-
-                            bool mostrarChat = false;
-                            bool habilitarChat = false;
-
-                            if (horarioChat != null)
-                            {
-                                string paisISO = Util.GetPaisISO(paisId);
-                                mostrarChat = (ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"] ?? "").Contains(paisISO);
-                                oRestaurarClave.descripcionHorario = horarioChat.Resumen;
-                                habilitarChat = horarioChat.EstaDisponible;
-                            }
-
-                            if (mostrarChat && habilitarChat)
-                                resul = "prioridad2_chat";
-
-                            if (resul == "")
-                                nroOpcion = "3";
+                            string paisISO = Util.GetPaisISO(paisId);
+                            mostrarChat = (ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"] ?? "").Contains(paisISO);
+                            oRestaurarClave.descripcionHorario = horarioChat.Resumen;
+                            habilitarChat = horarioChat.EstaDisponible;
                         }
 
-                        if (nroOpcion == "3")
+                        if (mostrarChat && habilitarChat)
+                            resul = "prioridad2_chat";
+
+                        if (resul == "")
+                            nroOpcion = "3";
+                    }
+
+                    if (nroOpcion == "3")
+                    {
+                        BEHorario horarioBResponde;
+                        bool habilitarBResponde = false;
+
+                        using (SACServiceClient sv = new SACServiceClient())
                         {
-                            BEHorario horarioBResponde;
-                            bool habilitarBResponde = false;
-
-                            using (SACServiceClient sv = new SACServiceClient())
-                            {
-                                horarioBResponde = sv.GetHorarioByCodigo(paisId, Constantes.CodigoHorario.BelcorpResponde, true);
-                            }
-
-                            oRestaurarClave.descripcionHorario = horarioBResponde.Resumen;
-                            habilitarBResponde = horarioBResponde.EstaDisponible;
-
-                            if (habilitarBResponde)
-                            {
-                                switch (paisId)
-                                {
-                                    case Constantes.PaisID.Bolivia:
-                                        oRestaurarClave.TelefonoCentral = "901-105678"; break;
-                                    case Constantes.PaisID.Chile:
-                                        oRestaurarClave.TelefonoCentral = "02-28762100"; break;
-                                    case Constantes.PaisID.Colombia:
-                                        oRestaurarClave.TelefonoCentral = "01-8000-9-37452,5948060"; break;
-                                    case Constantes.PaisID.CostaRica:
-                                        oRestaurarClave.TelefonoCentral = "800-000-5235,22019601,22019602"; break;
-                                    case Constantes.PaisID.Ecuador:
-                                        oRestaurarClave.TelefonoCentral = "1800-76667"; break;
-                                    case Constantes.PaisID.ElSalvador:
-                                        oRestaurarClave.TelefonoCentral = "800-37452-000,25101198,25101199"; break;
-                                    case Constantes.PaisID.Guatemala:
-                                        oRestaurarClave.TelefonoCentral = "1-801-81-37452,22856185,23843795"; break;
-                                    case Constantes.PaisID.Mexico:
-                                        oRestaurarClave.TelefonoCentral = "01-800-2352677"; break;
-                                    case Constantes.PaisID.Panama:
-                                        oRestaurarClave.TelefonoCentral = "800-5235,377-9399"; break;
-                                    case Constantes.PaisID.Peru:
-                                        oRestaurarClave.TelefonoCentral = "01-2113614,080-11-3030"; break;
-                                    case Constantes.PaisID.PuertoRico:
-                                        oRestaurarClave.TelefonoCentral = "1-866-366-3235,787-622-3235"; break;
-                                    case Constantes.PaisID.RepublicaDominicana:
-                                        oRestaurarClave.TelefonoCentral = "1-809-200-5235,809-620-5235"; break;
-                                    case Constantes.PaisID.Venezuela:
-                                        oRestaurarClave.TelefonoCentral = "0501-2352677"; break;
-                                }
-
-                                if (oRestaurarClave.TelefonoCentral.Length > 0)
-                                    resul = "prioridad2_llamada";
-                            }
-
-                            if (resul == "")
-                                nroOpcion = "4";
+                            horarioBResponde = sv.GetHorarioByCodigo(paisId, Constantes.CodigoHorario.BelcorpResponde, true);
                         }
 
-                        if (nroOpcion == "4")
+                        oRestaurarClave.descripcionHorario = horarioBResponde.Resumen;
+                        habilitarBResponde = horarioBResponde.EstaDisponible;
+
+                        if (habilitarBResponde)
                         {
-                            resul = "prioridad3";
+                            switch (paisId)
+                            {
+                                case Constantes.PaisID.Bolivia:
+                                    oRestaurarClave.TelefonoCentral = "901-105678"; break;
+                                case Constantes.PaisID.Chile:
+                                    oRestaurarClave.TelefonoCentral = "02-28762100"; break;
+                                case Constantes.PaisID.Colombia:
+                                    oRestaurarClave.TelefonoCentral = "01-8000-9-37452,5948060"; break;
+                                case Constantes.PaisID.CostaRica:
+                                    oRestaurarClave.TelefonoCentral = "800-000-5235,22019601,22019602"; break;
+                                case Constantes.PaisID.Ecuador:
+                                    oRestaurarClave.TelefonoCentral = "1800-76667"; break;
+                                case Constantes.PaisID.ElSalvador:
+                                    oRestaurarClave.TelefonoCentral = "800-37452-000,25101198,25101199"; break;
+                                case Constantes.PaisID.Guatemala:
+                                    oRestaurarClave.TelefonoCentral = "1-801-81-37452,22856185,23843795"; break;
+                                case Constantes.PaisID.Mexico:
+                                    oRestaurarClave.TelefonoCentral = "01-800-2352677"; break;
+                                case Constantes.PaisID.Panama:
+                                    oRestaurarClave.TelefonoCentral = "800-5235,377-9399"; break;
+                                case Constantes.PaisID.Peru:
+                                    oRestaurarClave.TelefonoCentral = "01-2113614,080-11-3030"; break;
+                                case Constantes.PaisID.PuertoRico:
+                                    oRestaurarClave.TelefonoCentral = "1-866-366-3235,787-622-3235"; break;
+                                case Constantes.PaisID.RepublicaDominicana:
+                                    oRestaurarClave.TelefonoCentral = "1-809-200-5235,809-620-5235"; break;
+                                case Constantes.PaisID.Venezuela:
+                                    oRestaurarClave.TelefonoCentral = "0501-2352677"; break;
+                            }
+
+                            if (oRestaurarClave.TelefonoCentral.Length > 0)
+                                resul = "prioridad2_llamada";
                         }
+
+                        if (resul == "")
+                            nroOpcion = "4";
+                    }
+
+                    if (nroOpcion == "4")
+                    {
+                        resul = "prioridad3";
+                    }
                 }
 
                 return Json(new
@@ -1226,40 +1226,6 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.PrimerNombre = usuario.PrimerNombre;
                     usuarioModel.PrimerApellido = usuario.PrimerApellido;
 
-                    #region LLamadas asincronas 
-
-                    var flexiPagoTask = Task.Run(() => GetPermisoFlexipago(usuario));
-                    var notificacionTask = Task.Run(() => TieneNotificaciones(usuario));
-                    var fechaPromesaTask = Task.Run(() => GetFechaPromesaEntrega(usuario));
-                    var linkPaisTask = Task.Run(() => GetLinksPorPais(usuario.PaisID));
-                    var usuarioComunidadTask = Task.Run(() => EsUsuarioComunidad(usuario));
-
-                    Task.WaitAll(flexiPagoTask, notificacionTask, fechaPromesaTask, linkPaisTask, usuarioComunidadTask);
-
-                    usuarioModel.IndicadorPermisoFlexipago = flexiPagoTask.Result;
-                    usuarioModel.TieneNotificaciones = notificacionTask.Result;
-
-                    var fechaPromesa = fechaPromesaTask.Result;
-                    if (!string.IsNullOrEmpty(fechaPromesa))
-                    {
-                        var arrValores = fechaPromesa.Split('|');
-                        usuarioModel.TipoCasoPromesa = arrValores[2].ToString();
-                        usuarioModel.DiasCasoPromesa = Convert.ToInt16(arrValores[1].ToString());
-                        usuarioModel.FechaPromesaEntrega = Convert.ToDateTime(arrValores[0].ToString());
-                    }
-
-                    var lista = linkPaisTask.Result;
-                    if (lista.Count > 0)
-                    {
-                        usuarioModel.UrlAyuda = lista.Find(x => x.TipoLinkID == 301).Url;
-                        usuarioModel.UrlCapedevi = lista.Find(x => x.TipoLinkID == 302).Url;
-                        usuarioModel.UrlTerminos = lista.Find(x => x.TipoLinkID == 303).Url;
-                    }
-
-                    usuarioModel.EsUsuarioComunidad = usuarioComunidadTask.Result;
-
-                    #endregion
-
                     if (usuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
                     {
                         usuarioModel.MensajePedidoDesktop = usuario.MensajePedidoDesktop;
@@ -1330,6 +1296,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     usuarioModel.CodigoPrograma = usuario.CodigoPrograma;
                     usuarioModel.ConsecutivoNueva = usuario.ConsecutivoNueva;
+
+                    usuarioModel.DocumentoIdentidad = usuario.DocumentoIdentidad;
 
                     #endregion
 
@@ -1448,7 +1416,41 @@ namespace Portal.Consultoras.Web.Controllers
 
                         usuarioModel = await ConfiguracionPaisUsuario(usuarioModel);
 
-                        #endregion                        
+                        #endregion
+
+                        #region LLamadas asincronas 
+
+                        var flexiPagoTask = Task.Run(() => GetPermisoFlexipago(usuario));
+                        var notificacionTask = Task.Run(() => TieneNotificaciones(usuario, usuarioModel.TienePagoEnLinea));
+                        var fechaPromesaTask = Task.Run(() => GetFechaPromesaEntrega(usuario));
+                        var linkPaisTask = Task.Run(() => GetLinksPorPais(usuario.PaisID));
+                        var usuarioComunidadTask = Task.Run(() => EsUsuarioComunidad(usuario));
+
+                        Task.WaitAll(flexiPagoTask, notificacionTask, fechaPromesaTask, linkPaisTask, usuarioComunidadTask);
+
+                        usuarioModel.IndicadorPermisoFlexipago = flexiPagoTask.Result;
+                        usuarioModel.TieneNotificaciones = notificacionTask.Result;
+
+                        var fechaPromesa = fechaPromesaTask.Result;
+                        if (!string.IsNullOrEmpty(fechaPromesa))
+                        {
+                            var arrValores = fechaPromesa.Split('|');
+                            usuarioModel.TipoCasoPromesa = arrValores[2].ToString();
+                            usuarioModel.DiasCasoPromesa = Convert.ToInt16(arrValores[1].ToString());
+                            usuarioModel.FechaPromesaEntrega = Convert.ToDateTime(arrValores[0].ToString());
+                        }
+
+                        var lista = linkPaisTask.Result;
+                        if (lista.Count > 0)
+                        {
+                            usuarioModel.UrlAyuda = lista.Find(x => x.TipoLinkID == 301).Url;
+                            usuarioModel.UrlCapedevi = lista.Find(x => x.TipoLinkID == 302).Url;
+                            usuarioModel.UrlTerminos = lista.Find(x => x.TipoLinkID == 303).Url;
+                        }
+
+                        usuarioModel.EsUsuarioComunidad = usuarioComunidadTask.Result;
+
+                        #endregion
                     }
 
                     if (usuarioModel.CatalogoPersonalizado != 0)
@@ -1502,14 +1504,14 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        private async Task<int> TieneNotificaciones(ServiceUsuario.BEUsuario usuario)
+        private async Task<int> TieneNotificaciones(ServiceUsuario.BEUsuario usuario, bool tienePagoEnLinea)
         {
             if (usuario.TipoUsuario != Constantes.TipoUsuario.Consultora) return 0;
 
             int tiene;
             using (var sv = new UsuarioServiceClient())
             {
-                tiene = await sv.GetNotificacionesSinLeerAsync(usuario.PaisID, usuario.ConsultoraID, usuario.IndicadorBloqueoCDR);
+                tiene = await sv.GetNotificacionesSinLeerAsync(usuario.PaisID, usuario.ConsultoraID, usuario.IndicadorBloqueoCDR, tienePagoEnLinea);
             }
 
             return tiene;
@@ -1554,6 +1556,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Mapper.Map<IList<BETipoLink>, List<TipoLinkModel>>(listModel);
         }
+
 
         private async Task<bool> EsUsuarioComunidad(ServiceUsuario.BEUsuario usuario)
         {
@@ -2071,7 +2074,7 @@ namespace Portal.Consultoras.Web.Controllers
                                         "LoginController.ConfiguracionPaisUsuario");
                                     break;
                                 }
-                                revistaDigitalModel = ConfiguracionPaisDatosRevistaDigitalIntriga(revistaDigitalModel,configuracionPaisDatos, usuarioModel.CodigoISO);
+                                revistaDigitalModel = ConfiguracionPaisDatosRevistaDigitalIntriga(revistaDigitalModel, configuracionPaisDatos, usuarioModel.CodigoISO);
                                 revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel, usuarioModel.Sobrenombre);
                                 revistaDigitalModel.TieneRDI = true;
                                 break;
@@ -2105,19 +2108,23 @@ namespace Portal.Consultoras.Web.Controllers
                                 if (c.Estado)
                                     usuarioModel.OfertaFinalGanaMas = 1;
                                 break;
+                            case Constantes.ConfiguracionPais.PagoEnLinea:
+                                if (c.Estado)
+                                    usuarioModel.TienePagoEnLinea = true;
+                                break;
                             case Constantes.ConfiguracionPais.HerramientasVenta:
                                 herramientasVentaModel.TieneHV = true;
-                                herramientasVentaModel = ConfiguracionPaisHerramientasVenta(herramientasVentaModel,configuracionPaisDatos);
+                                herramientasVentaModel = ConfiguracionPaisHerramientasVenta(herramientasVentaModel, configuracionPaisDatos);
                                 break;
                         }
                     }
-                    
+
                     revistaDigitalModel.Campania = usuarioModel.CampaniaID % 100;
                     revistaDigitalModel.CampaniaMasUno = Util.AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1, usuarioModel.NroCampanias) % 100;
                     revistaDigitalModel.NombreConsultora = usuarioModel.Sobrenombre;
-                    
+
                     guiaNegocio.BloqueoProductoDigital = guiaNegocio.BloqueoProductoDigital || (revistaDigitalModel.EsSuscritaActiva() && revistaDigitalModel.SociaEmpresariaExperienciaGanaMas);
-                    
+
                     sessionManager.SetGuiaNegocio(guiaNegocio);
                     sessionManager.SetRevistaDigital(revistaDigitalModel);
                     sessionManager.SetConfiguracionesPaisModel(configuracionesPaisModels);
@@ -2174,8 +2181,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region ConfiguracioRevistaDigital
 
-        public virtual RevistaDigitalModel ConfiguracionPaisDatosRevistaDigital(RevistaDigitalModel revistaDigitalModel, 
-            List<BEConfiguracionPaisDatos> configuracionesPaisDatos, 
+        public virtual RevistaDigitalModel ConfiguracionPaisDatosRevistaDigital(RevistaDigitalModel revistaDigitalModel,
+            List<BEConfiguracionPaisDatos> configuracionesPaisDatos,
             string codigoIso)
         {
             try
@@ -2197,29 +2204,29 @@ namespace Portal.Consultoras.Web.Controllers
                 revistaDigitalModel.DLogoComercialNoActiva = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoComercialNoActiva, codigoIso);
                 revistaDigitalModel.MLogoComercialNoActiva = GetValor2WithS3AndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoComercialNoActiva, codigoIso);
                 //
-                revistaDigitalModel.DLogoMenuInicioActiva = GetValor1WithS3(configuracionesPaisDatos,Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioActiva,codigoIso);
-                revistaDigitalModel.MLogoMenuInicioActiva = GetValor2WithS3AndDelete(configuracionesPaisDatos,Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioActiva,codigoIso);
+                revistaDigitalModel.DLogoMenuInicioActiva = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioActiva, codigoIso);
+                revistaDigitalModel.MLogoMenuInicioActiva = GetValor2WithS3AndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioActiva, codigoIso);
                 //
-                revistaDigitalModel.DLogoMenuInicioNoActiva = GetValor1WithS3(configuracionesPaisDatos,Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioNoActiva,codigoIso);
-                revistaDigitalModel.MLogoMenuInicioNoActiva = GetValor2WithS3AndDelete(configuracionesPaisDatos,Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioNoActiva,codigoIso);
+                revistaDigitalModel.DLogoMenuInicioNoActiva = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioNoActiva, codigoIso);
+                revistaDigitalModel.MLogoMenuInicioNoActiva = GetValor2WithS3AndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioNoActiva, codigoIso);
                 //
-                revistaDigitalModel.DLogoComercialFondoActiva = GetValor1WithS3(configuracionesPaisDatos,Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoActiva,codigoIso);
-                revistaDigitalModel.MLogoComercialFondoActiva = GetValor2WithS3AndDelete(configuracionesPaisDatos,Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoActiva,codigoIso);
+                revistaDigitalModel.DLogoComercialFondoActiva = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoActiva, codigoIso);
+                revistaDigitalModel.MLogoComercialFondoActiva = GetValor2WithS3AndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoActiva, codigoIso);
                 //
-                revistaDigitalModel.DLogoComercialFondoNoActiva = GetValor1WithS3(configuracionesPaisDatos,Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoNoActiva,codigoIso);
-                revistaDigitalModel.MLogoComercialFondoNoActiva = GetValor2WithS3AndDelete(configuracionesPaisDatos,Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoNoActiva,codigoIso);
+                revistaDigitalModel.DLogoComercialFondoNoActiva = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoNoActiva, codigoIso);
+                revistaDigitalModel.MLogoComercialFondoNoActiva = GetValor2WithS3AndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoNoActiva, codigoIso);
                 //
-                revistaDigitalModel.LogoMenuOfertasActiva = GetValor1WithS3(configuracionesPaisDatos,Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasActiva,codigoIso);
-                revistaDigitalModel.LogoMenuOfertasNoActiva = GetValor1WithS3(configuracionesPaisDatos,Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva,codigoIso);
-                revistaDigitalModel.BloquearRevistaImpresaGeneral = GetValor1ToIntAndDelete(configuracionesPaisDatos,Constantes.ConfiguracionPaisDatos.RD.BloquearPedidoRevistaImp);
-                revistaDigitalModel.BloquearProductosSugeridos = GetValor1ToInt(configuracionesPaisDatos,Constantes.ConfiguracionPaisDatos.RD.BloquearSugerenciaProducto);
-                revistaDigitalModel.SubscripcionAutomaticaAVirtualCoach = GetValor1ToBoolAndDelete(configuracionesPaisDatos,Constantes.ConfiguracionPaisDatos.RD.SubscripcionAutomaticaAVirtualCoach);
-                revistaDigitalModel.BloqueoProductoDigital = GetValor1ToBoolAndDelete(configuracionesPaisDatos,Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
-                revistaDigitalModel.ActivoMdo = GetValor1ToBoolAndDelete(configuracionesPaisDatos,Constantes.ConfiguracionPaisDatos.ActivoMdo);
-                revistaDigitalModel.BannerOfertasNoActivaNoSuscrita = GetValor1WithS3(configuracionesPaisDatos,Constantes.ConfiguracionPaisDatos.RD.BannerOfertasNoActivaNoSuscrita,codigoIso);
-                revistaDigitalModel.BannerOfertasNoActivaSuscrita = GetValor1WithS3(configuracionesPaisDatos,Constantes.ConfiguracionPaisDatos.RD.BannerOfertasNoActivaSuscrita,codigoIso);
-                revistaDigitalModel.BannerOfertasActivaNoSuscrita = GetValor1WithS3(configuracionesPaisDatos,Constantes.ConfiguracionPaisDatos.RD.BannerOfertasActivaNoSuscrita,codigoIso);
-                revistaDigitalModel.BannerOfertasActivaSuscrita = GetValor1WithS3(configuracionesPaisDatos,Constantes.ConfiguracionPaisDatos.RD.BannerOfertasActivaSuscrita,codigoIso);
+                revistaDigitalModel.LogoMenuOfertasActiva = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasActiva, codigoIso);
+                revistaDigitalModel.LogoMenuOfertasNoActiva = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva, codigoIso);
+                revistaDigitalModel.BloquearRevistaImpresaGeneral = GetValor1ToIntAndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.BloquearPedidoRevistaImp);
+                revistaDigitalModel.BloquearProductosSugeridos = GetValor1ToInt(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.BloquearSugerenciaProducto);
+                revistaDigitalModel.SubscripcionAutomaticaAVirtualCoach = GetValor1ToBoolAndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.SubscripcionAutomaticaAVirtualCoach);
+                revistaDigitalModel.BloqueoProductoDigital = GetValor1ToBoolAndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+                revistaDigitalModel.ActivoMdo = GetValor1ToBoolAndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.ActivoMdo);
+                revistaDigitalModel.BannerOfertasNoActivaNoSuscrita = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.BannerOfertasNoActivaNoSuscrita, codigoIso);
+                revistaDigitalModel.BannerOfertasNoActivaSuscrita = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.BannerOfertasNoActivaSuscrita, codigoIso);
+                revistaDigitalModel.BannerOfertasActivaNoSuscrita = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.BannerOfertasActivaNoSuscrita, codigoIso);
+                revistaDigitalModel.BannerOfertasActivaSuscrita = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.BannerOfertasActivaSuscrita, codigoIso);
 
                 #region SociaEmpresaria
                 revistaDigitalModel.SociaEmpresariaExperienciaGanaMas = GetValor1ToBoolAndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.SociaEEmpresariaExperienciaClub);
@@ -2245,7 +2252,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return herramientasVentaModel;
         }
-        
+
         public virtual RevistaDigitalModel ConfiguracionPaisDatosRevistaDigitalIntriga(RevistaDigitalModel revistaDigital, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
         {
             try
@@ -2946,7 +2953,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 if (!listDatos.Any()) return false;
                 var first = listDatos.FirstOrDefault();
-                result =  first != null && first.Codigo.Equals("1");
+                result = first != null && first.Codigo.Equals("1");
             }
             catch (Exception ex)
             {

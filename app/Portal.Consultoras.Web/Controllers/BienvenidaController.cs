@@ -202,6 +202,8 @@ namespace Portal.Consultoras.Web.Controllers
                 TempData.Keep("MostrarPopupCuponGanaste");
 
                 ViewBag.VerSeccion = verSeccion;
+
+                model.TienePagoEnLinea = userData.TienePagoEnLinea;
             }
             catch (FaultException ex)
             {

@@ -18,7 +18,6 @@
     if (revistaDigital.EsSuscrita)
     {
 
-
             <div class="fondo_gris" style="background:transparent !important;">
 
                 <div class="club_gana_mas_pedido club_gana_mas_pedido_activo" style="height: 289px; padding-bottom: 0;">
@@ -32,13 +31,14 @@
 
                 @if (revistaDigital.EsActiva)
                 {
-                    <div id="divContenedorListaEstrategia" style="top: -80px;position: relative;">
+                    <div id="divContenedorListaEstrategia">
                         <div class="contenedor_carousel">
-                            <hr class="clear" />
-                            <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" style="padding-bottom: 25px;"
-                                 data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion"
-                                 data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoPopUp"></div>
-                            <hr class="clear" />
+                            <div class="contenedor_productos">
+                                <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" style="padding-bottom: 25px;"
+                                     data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion"
+                                     data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoPopUp"></div>
+                                <hr class="clear" />
+                            </div>
                         </div>
                     </div>
                 }
@@ -71,7 +71,6 @@
 
                     <div id="divContenedorListaEstrategia">
                         <div class="contenedor_carousel">
-                            <hr class="clear" />
                             <div class="contenedor_productos">
                                 <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" style="padding-bottom: 25px;"
                                      data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion"

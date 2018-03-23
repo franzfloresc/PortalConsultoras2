@@ -113,3 +113,7 @@
     background-size: cover !important;
     background-repeat: no-repeat;
 }
+
+.club_gana_mas_pedido .logo_club {
+    background: url(/Content/Images/Lbel/RevistaDigital/logo_lbel_diagonal.png);
+}

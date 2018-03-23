@@ -11,6 +11,10 @@ namespace Portal.Consultoras.Entities
         private string miConsultoraCodigo;
         private string msPaisCodigo;
 
+        public BEGrupoConsultora()
+        {
+        }
+
         public BEGrupoConsultora(IDataRecord row)
         {
             miPaisID = Convert.ToInt32(row["PaisID"]);

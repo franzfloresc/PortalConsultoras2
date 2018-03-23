@@ -1,6 +1,8 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceUsuario;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -14,13 +16,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (revistaDigital.TieneRDI)
                 return View("template-informativa-rdi");
-            
+
             if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDS)
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
 
             int limiteMinimoTelef, limiteMaximoTelef;
             GetLimitNumberPhone(out limiteMinimoTelef, out limiteMaximoTelef);
-
             var modelo = new RevistaDigitalInformativoModel();
             modelo.EsSuscrita = revistaDigital.EsSuscrita;
             modelo.EstadoSuscripcion = revistaDigital.EstadoSuscripcion;
@@ -35,8 +36,8 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.LimiteMin = limiteMinimoTelef;
             modelo.UrlTerminosCondicionesDatosUsuario = GetUrlTerminosCondicionesDatosUsuario();
             modelo.CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString().Substring(4);
-            modelo.MostrarCancelarSuscripcion = !(userData.esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas && 
-                ((!revistaDigital.EsSuscrita && (!revistaDigital.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion|| !revistaDigital.SociaEmpresariaSuscritaActivaCancelarSuscripcion)) ||
+            modelo.MostrarCancelarSuscripcion = !(userData.esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas &&
+                ((!revistaDigital.EsSuscrita && (!revistaDigital.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion || !revistaDigital.SociaEmpresariaSuscritaActivaCancelarSuscripcion)) ||
                 (revistaDigital.EsSuscrita && !revistaDigital.EsActiva && !revistaDigital.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion) ||
                 (revistaDigital.EsSuscrita && revistaDigital.EsActiva && !revistaDigital.SociaEmpresariaSuscritaActivaCancelarSuscripcion)));
             modelo.CancelarSuscripcion = CancelarSuscripcion(revistaDigital.SuscripcionModel.Origen, userData.CodigoISO);
@@ -155,11 +156,11 @@ namespace Portal.Consultoras.Web.Controllers
                     dato.Valor1 = dato.Valor1.ToUpper();
                     dato.Valor2 = dato.Valor2.ToUpper();
                 }
-                else if(revistaDigital.EsSuscrita&&!revistaDigital.EsActiva)
+                else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
                 {
                     dato = revistaDigital.ConfiguracionPaisDatos
                    .FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.SNAPerdiste);
-                    dato.Valor2 = dato.Valor2.Replace("#campania", string.Concat("C",revistaDigital.CampaniaActiva));
+                    dato.Valor2 = dato.Valor2.Replace("#campania", string.Concat("C", revistaDigital.CampaniaActiva));
                     dato.Valor1 = dato.Valor1.ToUpper();
                     dato.Valor2 = dato.Valor2.ToUpper();
                 }
@@ -168,7 +169,7 @@ namespace Portal.Consultoras.Web.Controllers
                     dato = revistaDigital.ConfiguracionPaisDatos
                     .FirstOrDefault(d => d.Codigo == (IsMobile() ? Constantes.ConfiguracionPaisDatos.RD.MPerdiste : Constantes.ConfiguracionPaisDatos.RD.DPerdiste));
                 }
-                
+
                 dato = dato ?? new ConfiguracionPaisDatosModel();
                 dato.Estado = true;
             }
