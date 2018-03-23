@@ -16,14 +16,13 @@
 <script type="text/javascript">
 
     jQuery(function () {
-        IniFecha();//R2293
+        IniFecha();
         $("#txtPais").val('@Util.SinAcentosCaracteres(ViewBag.NombrePais)');
         $("#btnGenerar").click(function () {
             GenerarReserva();
         });
     });
 
-    //R2293
     function GenerarReserva() {
         var vMessage = "";
 
@@ -78,7 +77,6 @@
 
     }
 
-    //R2293
     function IniFecha() {
         $("#txtFechaGeneracion").datepicker({
             showOn: "button",

@@ -476,25 +476,35 @@ namespace Portal.Consultoras.Web.Controllers
         {
             ShowRoomOfertaModel ofertaShowRoomModelo = new ShowRoomOfertaModel();
             if (idOferta <= 0) return ofertaShowRoomModelo;
+
             List<ShowRoomOfertaModel> listadoOfertasTodasModel = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
             ofertaShowRoomModelo = listadoOfertasTodasModel.Find(o => o.OfertaShowRoomID == idOferta) ?? new ShowRoomOfertaModel();
             if (ofertaShowRoomModelo.OfertaShowRoomID <= 0) return ofertaShowRoomModelo;
+
             ofertaShowRoomModelo.ImagenProducto = Util.Trim(ofertaShowRoomModelo.ImagenProducto);
-            ofertaShowRoomModelo.ImagenProducto = ofertaShowRoomModelo.ImagenProducto == "" ? "/Content/Images/showroom/no_disponible.png" : ofertaShowRoomModelo.ImagenProducto;
+            ofertaShowRoomModelo.ImagenProducto = ofertaShowRoomModelo.ImagenProducto == "" ? 
+                "/Content/Images/showroom/no_disponible.png" : 
+                ofertaShowRoomModelo.ImagenProducto;
+
             /*TONOS-INI*/
-            #region Obtener productos de tabla dbo.EstrategiaProducto con el servicio svc.GetEstrategiaProducto
+            #region Obtener productos por estrategia
             List<BEEstrategiaProducto> listaEstrategiaProducto = new List<BEEstrategiaProducto>();
             using (PedidoServiceClient svc = new PedidoServiceClient())
             {
                 BEEstrategia estrategia = new BEEstrategia() { PaisID = userData.PaisID, EstrategiaID = idOferta };
                 listaEstrategiaProducto = svc.GetEstrategiaProducto(estrategia).ToList();
             }
+
+            // filtrar solo activos
+            listaEstrategiaProducto = listaEstrategiaProducto.Where(x => x.Activo == 1).ToList();
             string codigoVariante = listaEstrategiaProducto.Select(o => o.CodigoEstrategia).FirstOrDefault();
             #endregion
-            #region Obtener imagen/tonos de AppCatalogo con el servicio svc.ObtenerProductosPorCampaniasBySap
+
+            #region Obtener tonos de AppCatalogo por codigosap
             StringBuilder listaCodigosSAP = new StringBuilder();
             const string separador = "|";
             listaCodigosSAP.Append(separador);
+
             if (codigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos || codigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija)
             {
                 foreach (BEEstrategiaProducto producto in listaEstrategiaProducto.Where(producto => producto != null && string.IsNullOrEmpty(producto.ImagenProducto) == true))
@@ -517,6 +527,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
             }
+
             List<Producto> listaAppCatalogo = new List<Producto>();
             if (listaCodigosSAP.ToString() != separador)
             {
@@ -528,6 +539,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
             #endregion
+
             #region Algoritmo para relacionar productos con tonos
             List<ProductoModel> listaInfoAppCatalogo = Mapper.Map<List<Producto>, List<ProductoModel>>(listaAppCatalogo);
             foreach (ProductoModel producto in listaInfoAppCatalogo)
@@ -536,11 +548,11 @@ namespace Portal.Consultoras.Web.Controllers
                 if (estrategiaProducto == null) continue;
                 producto.Digitable = estrategiaProducto.Digitable;
             }
+
             List<ProductoModel> listaProductoTemporal = new List<ProductoModel>();
 
             if (codigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos || codigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija)
             {
-
                 foreach (BEEstrategiaProducto item in listaEstrategiaProducto)
                 {
                     string imagenProducto = string.Empty;
@@ -587,6 +599,7 @@ namespace Portal.Consultoras.Web.Controllers
                 int idPk = 1;
                 listaInfoAppCatalogo.ForEach(h => h.ID = idPk++);
                 idPk = 0;
+
                 foreach (BEEstrategiaProducto item in listaEstrategiaProducto)
                 {
                     ProductoModel prod = (ProductoModel)(listaInfoAppCatalogo.FirstOrDefault(p => item.SAP == p.CodigoProducto) ?? new ProductoModel()).Clone();
@@ -637,6 +650,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 listaProductoTemporal = listaHermanosR.OrderBy(p => p.Orden).ToList();
             }
+
             listaInfoAppCatalogo = listaProductoTemporal;
 
             #endregion
@@ -652,11 +666,14 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
             #endregion
+
             ofertaShowRoomModelo.ProductoTonos = listaProductoConFactorCuadre;
             ofertaShowRoomModelo.CodigoEstrategia = codigoVariante;
             /*TONOS-FIN*/
+
             return ofertaShowRoomModelo;
         }
+
         public List<ShowRoomOfertaModel> GetOfertaListadoExcepto(int idOferta)
         {
             var listaOferta = new List<ShowRoomOfertaModel>();

@@ -11,7 +11,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (GNDValidarAcceso())
+                if (GNDValidarAcceso(revistaDigital))
                 {
                     return ViewLanding();
                 }
@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!GNDValidarAcceso())
+                if (!GNDValidarAcceso(revistaDigital))
                 {
                     return Json(new
                     {

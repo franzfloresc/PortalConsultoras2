@@ -12,6 +12,8 @@ using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.ServiceContracts;
 using Estrategia = Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.BizLogic.Pedido;
+using Portal.Consultoras.Entities.PagoEnLinea;
+using Portal.Consultoras.BizLogic.PagoEnlinea;
 
 using System;
 using System.Collections.Generic;
@@ -47,6 +49,7 @@ namespace Portal.Consultoras.Service
         private readonly BLRevistaDigitalSuscripcion BLRevistaDigitalSuscripcion;
         private readonly BLCuponConsultora BLCuponConsultora;
         private readonly BLFichaProducto blFichaProducto;
+        private BLPagoEnLinea BLPagoEnLinea;
 
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
         private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
@@ -81,6 +84,7 @@ namespace Portal.Consultoras.Service
             BLRevistaDigitalSuscripcion = new BLRevistaDigitalSuscripcion();
             BLCuponConsultora = new BLCuponConsultora();
             blFichaProducto = new BLFichaProducto();
+            BLPagoEnLinea = new BLPagoEnLinea();
         }
 
         public PedidoService(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic, IPedidoWebBusinessLogic pedidoWebBusinessLogic,
@@ -1621,9 +1625,9 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.EliminarOfertaShowRoomDetalleAll(paisID, campaniaID, cuv);
         }
 
-        public int EliminarEstrategiaProductoAll(int paisID, int estrategiaID)
+        public int EliminarEstrategiaProductoAll(int paisID, int estrategiaID, string usuario)
         {
-            return BLShowRoomEvento.EliminarEstrategiaProductoAll(paisID, estrategiaID);
+            return BLShowRoomEvento.EliminarEstrategiaProductoAll(paisID, estrategiaID, usuario);
         }
 
         public IList<BEShowRoomPerfil> GetShowRoomPerfiles(int paisId, int eventoId)
@@ -2275,6 +2279,40 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoWeb.ObtenerCertificadoDigital(paisId, campaniaId, consultoraId, tipoCert);
         }
+        #endregion
+
+        #region Pago en Linea
+
+        public int InsertPagoEnLineaResultadoLog(int paisId, BEPagoEnLineaResultadoLog entidad)
+        {
+            return BLPagoEnLinea.InsertPagoEnLineaResultadoLog(paisId, entidad);
+        }
+
+        public string ObtenerTokenTarjetaGuardadaByConsultora(int paisId, string codigoConsultora)
+        {
+            return BLPagoEnLinea.ObtenerTokenTarjetaGuardadaByConsultora(paisId, codigoConsultora);
+        }
+
+        public void UpdateMontoDeudaConsultora(int paisId, string codigoConsultora, decimal montoDeuda)
+        {
+            BLPagoEnLinea.UpdateMontoDeudaConsultora(paisId, codigoConsultora, montoDeuda);
+        }
+
+        public BEPagoEnLineaResultadoLog ObtenerPagoEnLineaById(int paisId, int pagoEnLineaResultadoLogId)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaById(paisId, pagoEnLineaResultadoLogId);
+        }
+
+        public BEPagoEnLineaResultadoLog ObtenerUltimoPagoEnLineaByConsultoraId(int paisId, long consultoraId)
+        {
+            return BLPagoEnLinea.ObtenerUltimoPagoEnLineaByConsultoraId(paisId, consultoraId);
+        }
+
+        public List<BEPagoEnLineaResultadoLogReporte> ObtenerPagoEnLineaByFiltro(int paisId, BEPagoEnLineaFiltro filtro)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaByFiltro(paisId, filtro);
+        }
+
         #endregion
 
 
