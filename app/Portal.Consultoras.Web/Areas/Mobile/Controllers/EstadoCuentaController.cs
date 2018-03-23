@@ -33,12 +33,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         {
                             Glosa = item.Glosa,
                             FechaVencimiento = item.Fecha.ToString("dd/MM/yyyy"),
-                            TipoMovimiento = item.Abono > 0 ? Constantes.EstadoCuentaTipoMovimiento.Abono :
-                                item.Cargo > 0 ? Constantes.EstadoCuentaTipoMovimiento.Cargo : 0,
+                            FechaVencimientoFormatDiaMes = ObtenerFormatoDiaMes(item.Fecha),
+                            TipoMovimiento = item.Abono > 0
+                                ? Constantes.EstadoCuentaTipoMovimiento.Abono
+                                : item.Cargo > 0
+                                    ? Constantes.EstadoCuentaTipoMovimiento.Cargo
+                                    : 0,
                             MontoStr = Util.DecimalToStringFormat(item.Abono > 0 ? item.Abono : item.Cargo, userData.CodigoISO),
                             Fecha = item.Fecha
                         });
                 }
+
+                model.UltimoMovimiento = ObtenerUltimoMovimientoEstadoCuenta();
+
+                model.FechaVencimiento = userData.FechaLimPago.ToString("dd/MM/yyyy");
+                model.MontoPagarStr = Util.DecimalToStringFormat(userData.MontoDeuda, userData.CodigoISO);
 
                 if (model.ListaEstadoCuentaDetalle.Count == 0)
                 {
@@ -48,18 +57,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 else
                 {
                     model.ListaEstadoCuentaDetalle = model.ListaEstadoCuentaDetalle.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).ToList();
-                    var ultimoMovimiento = model.ListaEstadoCuentaDetalle.FirstOrDefault();
+                    //var ultimoMovimiento = model.ListaEstadoCuentaDetalle.FirstOrDefault();
 
-                    if (ultimoMovimiento != null)
-                    {
-                        model.FechaUltimoMovimiento = ultimoMovimiento.FechaVencimiento;
-                        model.Glosa = ultimoMovimiento.Glosa;
-                        model.MontoStr = ultimoMovimiento.MontoStr;
-                    }
+                    //if (ultimoMovimiento != null)
+                    //{
+                    //    model.FechaUltimoMovimiento = ultimoMovimiento.FechaVencimiento;
+                    //    model.FechaUltimoMovimientoFormatDiaMes = ultimoMovimiento.FechaVencimientoFormatDiaMes;
+                    //    model.Glosa = ultimoMovimiento.Glosa;
+                    //    model.MontoStr = ultimoMovimiento.MontoStr;
+                    //}
 
                     model.FechaVencimiento = userData.FechaLimPago.ToString("dd/MM/yyyy");
                     model.MontoPagarStr = Util.DecimalToStringFormat(userData.MontoDeuda, userData.CodigoISO);
                 }
+
+                model.TienePagoEnLinea = userData.TienePagoEnLinea;
             }
             catch (FaultException ex)
             {
@@ -221,7 +233,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
             return cadena;
-        }
+        }        
 
         #endregion
     }

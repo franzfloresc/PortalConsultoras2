@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Transactions;
-using System.Xml.Serialization;
 using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
 using Portal.Consultoras.Data.Estrategia;
 using Portal.Consultoras.Entities.Estrategia;
@@ -53,6 +49,10 @@ namespace Portal.Consultoras.BizLogic.Estrategia
                 if (upSellingOriginal == null)
                     throw new NullReferenceException("UpSelling no encontrado");
 
+                var upSellingsByCampana = _upSellingDataAccess.Obtener(null, upSelling.CodigoCampana);
+                if (upSellingsByCampana.Count(us => us.CodigoCampana == upSelling.CodigoCampana && us.UpSellingId != upSelling.UpSellingId) > 0)
+                    throw new ArgumentException("Esta campaña ya cuenta con Upselling asociado");
+
                 upSellingOriginal.Regalos = _upSellingDataAccess.ObtenerDetalles(upSelling.UpSellingId);
 
                 var entidad = _upSellingDataAccess.Actualizar(upSelling);
@@ -83,9 +83,14 @@ namespace Portal.Consultoras.BizLogic.Estrategia
                         where entidad.Regalos.All(upSellingDetalle => upSellingDetalle.UpSellingDetalleId != o.UpSellingDetalleId)
                         select o.UpSellingDetalleId;
 
-                    EliminarDetalle(detallesEliminar);
-                    //if (upSelling.Regalos != null && upSelling.Regalos.Count != upSellingOriginal.Regalos.Count - regalosEliminados)
-                    //    throw new ArgumentException("UpSelling detalle no coincide con los detalles originales");
+                    try
+                    {
+                        EliminarDetalle(detallesEliminar);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new ArgumentException("No se puede eliminar el Upselling por que uno de sus regalos ya fue ganado por alguna consultora", ex);
+                    }
                 }
 
                 transaction.Complete();
@@ -100,7 +105,7 @@ namespace Portal.Consultoras.BizLogic.Estrategia
             {
                 var upSellings = _upSellingDataAccess.Obtener(null, upSelling.CodigoCampana);
                 if (upSellings != null && upSellings.Any())
-                    throw new ArgumentOutOfRangeException("Solo se permite 1 Upselling por Campana " + upSelling.CodigoCampana);
+                    throw new ArgumentException("Esta campaña ya cuenta con Upselling asociado");
 
                 var entidad = _upSellingDataAccess.Insertar(upSelling);
                 if (upSelling.Regalos != null)
@@ -117,7 +122,6 @@ namespace Portal.Consultoras.BizLogic.Estrategia
 
                 return entidad;
             }
-
         }
 
         public int Eliminar(int upSellingId)
@@ -186,11 +190,30 @@ namespace Portal.Consultoras.BizLogic.Estrategia
             return _upSellingDataAccess.ObtenerDetalles(upSellingId);
         }
 
-
         public IEnumerable<OfertaFinalMontoMeta> ObtenerOfertaFinalMontoMeta(int upSellingId)
         {
-            var OfertaFinalList = _upSellingDataAccess.ObtenerOfertaFinalMontoMeta( upSellingId);  
+            var OfertaFinalList = _upSellingDataAccess.ObtenerOfertaFinalMontoMeta(upSellingId);
             return OfertaFinalList ?? new List<OfertaFinalMontoMeta>();
         }
+
+        public int InsertarRegalo(UpSellingRegalo entidad)
+        {
+            using (var transaction = new TransactionScope())
+            {
+                var result = _upSellingDataAccess.InsertarRegalo(entidad);
+
+                transaction.Complete();
+
+                //var upsellings = Obtener(entidad.CampaniaId.ToString(), true);
+                //var huboStock = upsellings.Any(x => x.Regalos.Any(r => r.CUV == entidad.CUV && r.Stock >= 0));
+                //if (huboStock)
+                //{
+                //    transaction.Complete();
+                //}
+
+                return result;
+            }
+        }
+
     }
 }

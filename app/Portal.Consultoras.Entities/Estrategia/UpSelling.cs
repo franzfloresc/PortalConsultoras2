@@ -28,24 +28,36 @@ namespace Portal.Consultoras.Entities.Estrategia
         public string CodigoCampana { get; set; }
 
         [DataMember]
-        [Column("MontoMeta")]
-        public decimal MontoMeta { get; set; }
+        [Column("TextoMetaPrincipal")]
+        public string TextoMetaPrincipal { get; set; }
 
         [DataMember]
-        [Column("TextoMeta1")]
-        public string TextoMeta { get; set; }
+        [Column("TextoInferior")]
+        public string TextoInferior { get; set; }
 
         [DataMember]
-        [Column("TextoMeta2")]
-        public string TextoMetaSecundario { get; set; }
+        [Column("TextoGanastePrincipal")]
+        public string TextoGanastePrincipal { get; set; }
 
         [DataMember]
-        [Column("TextoGanaste1")]
-        public string TextoGanaste { get; set; }
+        [Column("TextoGanasteBoton")]
+        public string TextoGanasteBoton { get; set; }
 
         [DataMember]
-        [Column("TextoGanaste2")]
-        public string TextoGanasteSecundario { get; set; }
+        [Column("TextoGanastePremio")]
+        public string TextoGanastePremio { get; set; }
+
+        [DataMember]
+        [Column("ImagenFondoPrincipalDesktop")]
+        public string ImagenFondoPrincipalDesktop { get; set; }
+
+        [DataMember]
+        [Column("ImagenFondoPrincipalMobile")]
+        public string ImagenFondoPrincipalMobile { get; set; }
+
+        [DataMember]
+        [Column("ImagenFondoGanasteMobile")]
+        public string ImagenFondoGanasteMobile { get; set; }
 
         [DataMember]
         [Column("Activo")]
