@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.BizLogic.CDR;
+using Portal.Consultoras.BizLogic.PagoEnlinea;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.ServiceContracts;
@@ -298,16 +299,16 @@ namespace Portal.Consultoras.Service
             blUsuario.UpdUsuarioDD(usuario);
         }
 
-        public IList<BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR)
+        public IList<BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea)
         {
             var blNotificaciones = new BLNotificaciones();
-            return blNotificaciones.GetNotificacionesConsultora(PaisID, ConsultoraId, indicadorBloqueoCDR);
+            return blNotificaciones.GetNotificacionesConsultora(PaisID, ConsultoraId, indicadorBloqueoCDR, tienePagoEnLinea);
         }
 
-        public int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR)
+        public int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea)
         {
             var blNotificaciones = new BLNotificaciones();
-            return blNotificaciones.GetNotificacionesSinLeer(PaisID, ConsultoraId, indicadorBloqueoCDR);
+            return blNotificaciones.GetNotificacionesSinLeer(PaisID, ConsultoraId, indicadorBloqueoCDR, tienePagoEnLinea);
         }
 
         public IList<BENotificacionesDetalle> GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen)
@@ -577,6 +578,12 @@ namespace Portal.Consultoras.Service
         {
             var blLogCdrWebCulminado = new BLLogCDRWebCulminado();
             blLogCdrWebCulminado.UpdateVisualizado(paisID, procesoId);
+        }
+
+        public void UpdNotificacionPagoEnLineaVisualizacion(int paisId, int procesoId)
+        {
+            var bLPagoEnLinea = new BLPagoEnLinea();
+            bLPagoEnLinea.UpdateVisualizado(paisId, procesoId);
         }
 
         public int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono)

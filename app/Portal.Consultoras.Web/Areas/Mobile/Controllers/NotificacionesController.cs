@@ -2,8 +2,10 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServiceCliente;
+using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServicePedidoRechazado;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
@@ -379,6 +381,38 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
         }
 
+        public ActionResult DetallePagoEnLinea(int solicitudId)
+        {
+            var pagoEnLinea = new BEPagoEnLineaResultadoLog();
+
+            using (PedidoServiceClient ps = new PedidoServiceClient())
+            {
+                pagoEnLinea = ps.ObtenerPagoEnLineaById(userData.PaisID, solicitudId);
+            }
+
+            if (!pagoEnLinea.Visualizado)
+            {
+                using (UsuarioServiceClient us = new UsuarioServiceClient())
+                {
+                    us.UpdNotificacionPagoEnLineaVisualizacion(userData.PaisID, solicitudId);
+                }
+            }
+
+            var pagoEnLineaModel = new PagoEnLineaModel();
+            pagoEnLineaModel.CodigoIso = userData.CodigoISO;
+            pagoEnLineaModel.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
+            pagoEnLineaModel.NumeroOperacion = pagoEnLinea.NumeroOrdenTienda;
+            pagoEnLineaModel.Simbolo = userData.Simbolo;
+            pagoEnLineaModel.MontoDeuda = pagoEnLinea.MontoPago;
+            pagoEnLineaModel.MontoGastosAdministrativosNot = pagoEnLinea.MontoGastosAdministrativos;
+            pagoEnLineaModel.MontoDeudaConGastosNot = pagoEnLinea.ImporteAutorizado;
+
+            pagoEnLineaModel.FechaCreacion = pagoEnLinea.FechaCreacion;
+            pagoEnLineaModel.FechaVencimiento = pagoEnLinea.FechaVencimiento;
+
+            return View("DetallePagoEnLinea", pagoEnLineaModel);
+        }
+
         #endregion
 
         #region Metodos
@@ -389,7 +423,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             List<BENotificaciones> list;
             using (var sv = new UsuarioServiceClient())
             {
-                list = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR).ToList();
+                list = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR, userData.TienePagoEnLinea).ToList();
             }
             return list;
         }

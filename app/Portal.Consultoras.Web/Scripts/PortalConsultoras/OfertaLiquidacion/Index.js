@@ -416,6 +416,7 @@ function EstructurarDataCarouselLiquidaciones(array) {
         item.Descripcion = (item.Descripcion.length > 159 ? item.Descripcion.substring(0, 159) + "..." : item.Descripcion);
         item.Posicion = contadorLq;
 
+        item.TallaColor = $.trim(item.TallaColor);
         if (item.TallaColor.length > 2 && item.TallaColor.indexOf('^') > -1) {
             item.TipoTallaColor = item.TallaColor.split("^")[0];
             item.TextoBotonTallaColor = (item.TipoTallaColor == "C" ? "ELEGIR TONO" : "ELEGIR COLOR");
@@ -424,7 +425,6 @@ function EstructurarDataCarouselLiquidaciones(array) {
         } else {
             item.TipoTallaColor = "";
             item.TextoBotonTallaColor = "";
-            item.TallaColor = "";
             item.TieneTallaColor = false;
         };
         contadorLq++;

@@ -150,10 +150,6 @@
                 value: "",
                 text: "-- Seleccionar --"
             }));
-            //ddlTC.append($('<option/>', {
-            //    value: "1",
-            //    text: "Por Perfil"
-            //}));
             ddlTC.append($('<option/>', {
                 value: "2",
                 text: "Por CUV"
@@ -315,16 +311,14 @@
     function fnGrilla() {
         var TipoCrossseling = $('#ddlTC').val();
         if (TipoCrossseling == 2 || TipoCrossseling == "") {
-            //$("#list_Segmentacion").jqGrid("clearGridData", true).trigger("reloadGrid");
-			$('#tbl_list_perfil').hide();//1673CC
+            $('#tbl_list_perfil').hide();
             $('#tbl_list_Segmentacion').hide();
             $('#tbl_list').show();
             subgrilla();
         }
         else {
             if (TipoCrossseling == 1) {
-                //$("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
-				$('#tbl_list_perfil').show();//1673C
+                $('#tbl_list_perfil').show();
                 $('#tbl_list').hide();
                 $('#tbl_list_Segmentacion').show();
                 subgrilla_Segmentacion();
@@ -732,7 +726,6 @@
                     success: function (data) {
                         if (checkTimeout(data)) {
                             closeWaitingDialog();
-                            //LimpiarDatos();
                             $("#txtCUVModal").val("");
                             $("#txtDescripcionModal").val("");
                             $("#txtDescripcionAsociadoModal").val("");
@@ -774,7 +767,7 @@
         $("#ddlCUVAsociado2")[0].selectedIndex = 0;
         $("#txtSegmentoPla").val("");
         $("#SegmentoTexto").val("");
-		$("#txtEtiquetaPrecio").val("");//1673CC
+        $("#txtEtiquetaPrecio").val("");
     }
 
 	// Función que colocará el caracter "." como separador de miles.
@@ -837,8 +830,6 @@
                             }
                             else {
                                 if (TipoCros == 1) {
-                                    //$("#txtPaisModal").val("");
-                                    //$("#txtCampaniaModal").val("");
                                     $("#txtCUVModal").val("");
                                     $("#txtDescripcionModal").val("");
                                     $("#txtDescripcionAsociadoModal").val("");
@@ -846,8 +837,6 @@
                                     $("#txtDescripcionAsociadoModal2").val("");
                                     $("#ddlCUVAsociado2")[0].selectedIndex = 0;
                                     $("#txtEtiquetaPrecio").val("");
-                                    //$("#txtSegmentoPla").val("");
-                                    //$("#SegmentoTexto").val("");
                                     jQuery("#list_perfil").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
 
                                 }
