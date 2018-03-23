@@ -1,8 +1,18 @@
 ﻿
 @model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
+
+@{
+    var seccionTituloClass = "seccion-titulo";
+
+    if (ViewBag.EsSuscrita)
+    {
+        seccionTituloClass += " seccion-titulo-dorado";
+    }
+}
+
 <div class="bc_slider previsualizales-ofertas parche_presentacion_contenedor" data-plantilla="carrusel-previsuales">
     <div class="bloque-titulo">
-        <div class="seccion-titulo">
+        <div class="@seccionTituloClass">
             <span>@Model.Titulo</span>
         </div>
         <div class="parche_clear"></div>

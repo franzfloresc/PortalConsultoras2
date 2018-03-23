@@ -4,92 +4,126 @@
 
 @model EstadoCuentaMobilModel
 @{
-    var layout =  ViewContext.MobileLayout();
+    var layout = ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 
-<div class="titulo_mobile">
+@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Esika/estado-cuenta.css")">
+}
+else
+{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Lbel/estado-cuenta.css")">
+}
+
+<div class="titulo_mobile nombre_vista">
     @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
         }
     }
-    &nbsp;&nbsp;&nbsp;&nbsp;ESTADO DE CUENTA
+    ESTADO DE CUENTA
 </div>
-<div class="fondo_f2f2f2" style="border-bottom:0; background:white">
+
+<div class="fondo_f2f2f2" style="border-bottom:0; background:white;">
     <div class="pestana_esika"></div>
     <div class="pestana_lbel"></div>
-</div>
+</div>   
 
-<div class="block-success" style="margin-top:0;padding-top:15px; background:white">
-    <div class="text-center">
-        MONTO TOTAL A PAGAR <br />
-        <div class="text-lg">
-            @Model.Simbolo @Model.MontoPagarStr
+<!-- NUEVA VISTA ESTADO DE CUENTA -->
+
+<div class="vista_estado_de_cuenta">
+
+    <div class="deuda_actual_estado_cuenta">
+        <div class="texto_mi_deuda_actual">
+            Mi deuda actual es
         </div>
-        <br />
-
-        FECHA DE VENCIMIENTO <br />
-        <div class="text-lg">
-            @Model.FechaVencimiento
+        <div class="monto_deuda_actual">
+            <div class="tipo_moneda_pais">@Model.Simbolo</div>
+            <div class="monto_pago_deuda_actual">@Model.MontoPagarStr</div>
         </div>
+        <div class="fecha_vencimiento_deuda_actual">
+            <span>Vencimiento :</span>
+            <span>@Model.FechaVencimiento</span>
+        </div>
+
+        @if (Model.TienePagoEnLinea)
+        {
+            <a href="@Url.Action("Index", "PagoEnLinea")" class="btn_paga_en_linea_con_credito_visa">
+                Paga en línea con visa
+            </a>
+        }
     </div>
-</div>
 
-<div class="header-icon upper">
-    <img src="@Url.Content("~/Content/Images/mobile/img-icon/icon-tarjeta.png")" alt="Tarjeta" class="" width="65" height="65" />
-    <span class="pcolor">Último pago recibido</span>
-</div>
+    @if (!string.IsNullOrEmpty(Model.UltimoMovimiento.Glosa))
+    {
+        <div class="ultimo_pago_recibido">
+            <span>Último pago recibido</span>
+            <span>@Model.UltimoMovimiento.FechaVencimientoFormatDiaMes</span>
+        </div>
+        <p class="info_horarios_efectivos_pagos mb-32">
+            Los pagos realizados después de las 10 p.m podrás verlos al día siguiente.
+        </p>
+    }    
 
-<div class="col-xs-12">
-    <div id="ultimoEstadoCuenta" style="display:none;">
-        <ul class="lista-movimientos">
-            <li>
-                <b>@Model.Glosa</b>
-                <br />
-                <span>@Model.FechaUltimoMovimiento</span>
-                <span class="pull-right color_belcorp">@Model.Simbolo @Model.MontoStr</span>
-            </li>
-        </ul>
-
-        <a href="javascript:;" class="btn_ver_pedido_reservado" onclick="return MostrarOcultarListaEstado();">
-            <i id="iconCollpase" class="icon-lg icon-angle-down"></i> Ver listado de movimientos
-        </a>
-        <br />
-    </div>
-    <div id="listaEstadoCuenta" style="display: none;">
-        <ul class="lista-movimientos">
+    <div class="contenedor_detalle_movimientos_estado_de_cuenta">
+        <div class="titulo_movimientos_estado_cuenta">
+            Movimientos
+            <div class="barra_titulo_movimientos_estado_cuenta"></div>
+        </div>
+        <div class="grilla_detalle_movimientos_estado_de_cuenta">
             @foreach (var item in Model.ListaEstadoCuentaDetalle)
             {
-                <li>
-                    <div class="mb-10" style="font-size: 14px;"><b>@item.Glosa </b></div>
-                    <div style="font-size: 14px;">
-                        <span>@item.FechaVencimiento</span>
-                        @if (item.TipoMovimiento == Constantes.EstadoCuentaTipoMovimiento.Abono)
-                        {
-                            <span class="inline-center" style="margin-left: 20px;">Abono</span>
-                            <span class="pull-right"><strong>@Model.Simbolo @item.MontoStr</strong></span>
-                        }
-                        else
-                        {
-                            <span class="inline-center" style="margin-left: 20px;">Pedido</span>
-                            <span class="pull-right text-danger"><strong>@Model.Simbolo @item.MontoStr</strong></span>
-                        }
-                    </div>
-                </li>
-            }
-        </ul>
-        <br />
-        <div class="row">
-            <a href="javascript:;" class="btn_editar_pedido" onclick="EnviarCorreoConsultora();">
-                Enviar listado a mi correo
-            </a>
-        </div>
+                var estiloGris = "";
+                var tipoMovimiento = "";
+                var signo = "";
 
-        @Html.Hidden("hdn_Correo", Model.CorreoConsultora)
+                if (item.TipoMovimiento == Constantes.EstadoCuentaTipoMovimiento.Abono)
+                {
+                    tipoMovimiento = "Abono";
+                    signo = "-";
+                }
+                else
+                {
+                    tipoMovimiento = "Pedido";
+                    estiloGris = "fila_gris_detalle_movimiento";
+                }
+                
+                <div class="fila_grilla_detalle_movimiento @estiloGris">
+                    <div class="col_grilla_detalle_movimientos fecha_movimiento_estado_de_cuenta">
+                        @item.FechaVencimientoFormatDiaMes
+                    </div>
+                    <div class="col_grilla_detalle_movimientos descripcion_movimiento_estado_de_cuenta">
+                    
+                    <div class="tipo_movimiento">
+                        @tipoMovimiento
+                    </div>
+                        
+                    <div class="descripcion_tipo_movimiento">
+                        @item.Glosa
+                    </div>
+                    </div>
+                    <div class="col_grilla_detalle_movimientos monto_movimiento_estado_de_cuenta">
+                        <span class="tipo_moneda_pais">@signo @Model.Simbolo</span>
+                        <span class="monto_movimiento">@item.MontoStr</span>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
+
+    <a href="javascript:;" class="enlace_enviar_detalle_a_correo" title="Enviar detalle a mi correo" onclick="EnviarCorreoConsultora();">
+        <span class="icono_enlace_enviar_detalle_a_correo">
+            <img src="@Url.Content("~/Content/Images/icono_enviar_detalle_correo.svg")" alt="Enviar detalle a correo" />
+        </span>
+        <span>Enviar detalle a mi correo</span>
+    </a>
+    @Html.Hidden("hdn_Correo", Model.CorreoConsultora)
 </div>
+
+<!-- FIN - NUEVA VISTA ESTADO DE CUENTA -->
 
 @section scripts{
     <script type="text/javascript">

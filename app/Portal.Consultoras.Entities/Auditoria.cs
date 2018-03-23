@@ -16,8 +16,8 @@ namespace Portal.Consultoras.Entities
         public DateTime FechaCreacion { get; set; }
 
         [DataMember]
-        [Column("UsuarioModicacion")]
-        public string UsuarioModicacion { get; set; }
+        [Column("UsuarioModificacion")]
+        public string UsuarioModificacion { get; set; }
 
         [DataMember]
         [Column("FechaModificacion")]

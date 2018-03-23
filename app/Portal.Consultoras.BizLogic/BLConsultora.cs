@@ -54,7 +54,7 @@ namespace Portal.Consultoras.BizLogic
         {
             var daConsultora = new DAConsultora(paisID);
             return daConsultora.GetSaldoActualConsultora(Codigo);
-        }
+        }        
 
         public IList<BEConsultoraCodigo> SelectConsultoraCodigo(int paisID, int regionID, int zonaID, string codigo, int rowCount)
         {

@@ -4,6 +4,9 @@
     var sinLeer = Model.ListaNotificaciones.Where(x => x.Visualizado == false).Count();
 }
 
+@section styles{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/pago-en-linea.css")">
+}
 <style type="text/css">
     .Content_modal_home {
         background: #FFF;
