@@ -8,7 +8,7 @@
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
     var nameTagScrollTo = "divTopFiltros" + @Model.CampaniaID;
     var idBorrar = "borrar" + Model.CampaniaID;
-    var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalModel();
+    var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
 }
 
 @section styles{
@@ -32,7 +32,7 @@
 
     <div data-listado-content="" style="display: none;">
         <div>
-            @if (!Model.ProductosPerdio)
+            @if (Model.MostrarFiltros)
             {
                 <div class="subtitulo_landing" style="display: none;">OFERTAS CLUB GANA+</div>
                 <hr class="clear" />
@@ -134,7 +134,7 @@
 <!-- termina zona dorada-->
 
 
-@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
+@Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 <div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding"></div>
 
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
@@ -154,28 +154,6 @@
         var tieneMasVendidos = 0;
         var campaniaId = @Model.CampaniaID;
         var revistaDigital = @Html.Raw(Json.Encode(revistaDigital));
-
-        /*Holi kevin aqui el script*/
-
-        //var stickyOffsetZonaDoradaMobile = $('#divOfertaProductos').height();
-        //var fixstickyZonaDoradaMobile = $('#seccion-fixed-menu');
-        //$(window).scroll(function () {
-        //    if ($(window).scrollTop() >= stickyOffsetZonaDoradaMobile) {
-        //        $('.bc_mobil_para-mi').css('display', 'none !important');
-        //        $('.contenido_zona_dorada_contenedor_desktop').addClass('scroll_posicionar_zona_dorada_cabecera');
-        //        $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').addClass('scroll_posicionar_fix-zona-dorada');
-        //        $('#divOfertaProductosPerdio').addClass('scroll_posicionar_zona_dorada_items');
-        //        $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').css('display', 'none');
-        //    }
-        //    else {
-        //        $('.bc_mobil_para-mi').css('display', 'block !important');
-        //        $('.contenido_zona_dorada_contenedor_desktop').removeClass('scroll_posicionar_zona_dorada_cabecera');
-        //        $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').removeClass('scroll_posicionar_fix-zona-dorada');
-        //        $('#divOfertaProductosPerdio').removeClass('scroll_posicionar_zona_dorada_items');
-        //        $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').css('display', 'block');
-
-        //    }
-        //});
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/RevistaDigital-Landing")
 }
