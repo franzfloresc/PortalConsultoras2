@@ -72,10 +72,6 @@
                 return true;
             }
 
-            //alert(this.id);
-            //alert(ModificacionCronogramaModel.DiasDuracionCronograma);
-            //alert(ModificacionCronogramaModel.EntradasConfiguracionValidacionZona.length)
-
             objEntradaLog = {
                 CodigosRegionZona: this.parentNode.parentNode.id + ';' + this.id,
                 DiasParametroCargaAnterior: this.attributes[2].value,
@@ -83,13 +79,11 @@
             };
             ParametroDiasCargaPedidoModel.EntradasLog.push(objEntradaLog);
             objConfiguracionParametroCarga = {
-                //CampaniaID: "201301",
                 ZonaID: this.id,
                 DiasParametroCarga: ParametroDiasCargaPedidoModel.DiasParametroCarga
             };
             ParametroDiasCargaPedidoModel.EntradasConfiguracionParametroCarga.push(objConfiguracionParametroCarga);
         });
-        //alert(ModificacionCronogramaModel.EntradasConfiguracionValidacionZona);
 
         // se envian los ids al servidor para ser grabados
         if (ParametroDiasCargaPedidoModel.EntradasConfiguracionParametroCarga.length == 0) {
@@ -129,9 +123,6 @@
             return false;
         }
 
-        //var vZona = jQuery.trim($("#ddlZona option:selected").text());
-        //var vRegion = jQuery.trim($("#ddlRegion option:selected").text());
-
         waitingDialog({});
 
         setTimeout(function () {
@@ -139,13 +130,8 @@
         }, 0);
     }
 
-    //function DownloadAttachExcel(vPaisID, vCampania, vRegion, vZona, vCodigos) {
     function DownloadAttachExcel(PaisID) {
         if (checkTimeout()) {
-            //var content = baseUrl + "ModificacionCronograma/ExportarExcel?" +
-            //    "vPaisID=" + vPaisID +
-            //    "&vRegionID=" + vRegion +
-            //    "&vZonaID=" + vZona;
             var content = baseUrl + "ParametroDiasCargaPedido/ExportarExcel?PaisID=" + PaisID;
 
             var iframe_ = document.createElement("iframe");
@@ -209,7 +195,6 @@
                 { name: 'CodigoUsuario', index: 'CodigoUsuario', width: 30, editable: true, resizable: false },
                 { name: 'Fecha', index: 'Fecha', width: 40, editable: true, resizable: false },
                 { name: 'CodigosRegionZona', index: 'CodigosRegionZona', width: 100, editable: true, resizable: false },
-                //{ name: 'DiasParametroCargaAnterior', index: 'DiasParametroCargaAnterior', width: 60, editable: true, resizable: false },
                 { name: 'DiasParametroCargaActual', index: 'DiasParametroCargaActual', width: 60, editable: true, resizable: false },
             ],
             jsonReader:
@@ -291,16 +276,6 @@
                                         }
                                     }
                                 }
-                                //if (data.listaZonas.length > 0) {
-                                //    for (var item in data.listaZonas) {
-                                //        if (data.listaZonas.hasOwnProperty(item)) {
-                                //            ddlZona.append($('<option/>', {
-                                //                value: data.listaZonas[item].ZonaID,
-                                //                text: data.listaZonas[item].Codigo
-                                //            }));
-                                //        }
-                                //    }
-                                //}
                             }
                             closeWaitingDialog();
                         }
@@ -384,12 +359,6 @@
                     }
                 }
             },
-            //checkbox: {
-            //    real_checkboxes: true,
-            //    real_checkboxes_names: function (n) {
-            //        return [("check_" + (n[0].id || Math.ceil(Math.random() * 10000))), n[0].id]
-            //    }
-            //},
             "themes": {
                 "theme": "apple",
                 "dots": true,
@@ -397,9 +366,6 @@
             },
             plugins: ["themes", "json_data", "ui", "checkbox"]
         });
-        //.bind("loaded.jstree", function (event, data) {
-        //    $('#demoTree').jstree('check_node', 'li[selected=selected]');
-        //});
 
         $('#txtDiasDuracionCronograma').val("1");
 
@@ -421,10 +387,7 @@
         });
 
         $("#chkSeleccionar").click(function () {
-            //alert(this.status);
-            //$.jstree._reference($("#arbolRegionZona")).check_all();
             if (this.checked)
-                //$.jstree._reference($("#arbolRegionZona")).get_checked(null, true)
                 $.jstree._reference($("#arbolRegionZona")).check_all();
             else
                 $.jstree._reference($("#arbolRegionZona")).uncheck_all();

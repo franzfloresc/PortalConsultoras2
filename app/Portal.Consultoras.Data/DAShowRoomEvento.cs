@@ -506,10 +506,11 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        public int EliminarEstrategiaProductoAll(int estrategiaID)
+        public int EliminarEstrategiaProductoAll(int estrategiaID, string usuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DeleteEstrategiaProductoAll");
             Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, estrategiaID);
+            Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.String, usuario);
 
             return Context.ExecuteNonQuery(command);
         }

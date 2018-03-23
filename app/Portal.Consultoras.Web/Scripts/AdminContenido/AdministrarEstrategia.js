@@ -113,6 +113,8 @@
     var _mostrarListaImagenes = function(editData) {
         SetHandlebars("#matriz-comercial-item-template", editData, "#matriz-comercial-images");
         $(".qq-upload-list").css("display", "none");
+
+        setInterval(function () { AddTitleCustom(); }, 1000);
     };
 
     var _agregarCamposLanzamiento = function(nombreCampo, valor) {
@@ -4614,7 +4616,29 @@
             }
         });
     }
-    
+
+    function AddTitleCustom() {
+        $('[name^=picture-]').each(function () {
+            var img = document.getElementById($(this).attr('id'));
+            var uri = (img.src.substring(img.src.lastIndexOf("/") + 1)).toUpperCase();
+            if (img.src === "unknown") {
+                img.src = _config.rutaImagenVacia;
+            }
+            if (uri.indexOf(".") == -1) {
+                img.src = _config.rutaImagenVacia;
+            }
+            var extension = (img.src.substring(img.src.lastIndexOf(".") + 1)).toUpperCase();
+            var nombre = img.src.match(/[-_\w]+[.][\w]+$/i)[0];
+            img.title = extension + ' (' + img.naturalWidth + ' x ' + img.naturalHeight + ' pixels)';
+            if (nombre == 'prod_grilla_vacio.png') {
+                img.title = '';
+            }
+            if (img.naturalWidth == 0) {
+                img.title = '';
+            }
+        });
+    }
+
     function Inicializar() {
         _iniDialog();
         _bindingEvents();

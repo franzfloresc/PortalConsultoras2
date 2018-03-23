@@ -1,8 +1,7 @@
-﻿using System.Runtime.Serialization;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Portal.Consultoras.Entities.Comunicado;
 using System.Collections.Generic;
-
-using Portal.Consultoras.Entities.Comunicado;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {

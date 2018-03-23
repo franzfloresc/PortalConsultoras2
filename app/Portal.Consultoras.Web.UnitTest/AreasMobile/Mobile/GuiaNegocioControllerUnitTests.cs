@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Moq;
 using Portal.Consultoras.Web.SessionManager;
 using Portal.Consultoras.Web.LogManager;
+using Portal.Consultoras.Web.Models;
 
 namespace Portal.Consultoras.Web.UnitTest.AreasMobile.Mobile
 {
@@ -48,7 +49,7 @@ namespace Portal.Consultoras.Web.UnitTest.AreasMobile.Mobile
                     this.logManager = logManager;
                 }
 
-                public override bool GNDValidarAcceso()
+                public override bool GNDValidarAcceso(RevistaDigitalModel revistaDigital)
                 {
                     return true;
                 }
