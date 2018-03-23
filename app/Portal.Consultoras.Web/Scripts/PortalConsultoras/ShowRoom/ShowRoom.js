@@ -735,10 +735,12 @@ function AsignarPosicionAListaOfertas(listaOfertas) {
     var posicion = 0;
     var nuevaListaOfertas = [];
     $.each(listaOfertas, function (index, value) {
-        posicion++;
-        value.Posicion = posicion;
-        value.Contenido = ConstruirDescripcionOferta(value.ListaDetalleOfertaShowRoom);
-        nuevaListaOfertas.push(value);
+        if (value != null && value.ListaDetalleOfertaShowRoom != null) {
+            posicion++;
+            value.Posicion = posicion;
+            value.Contenido = ConstruirDescripcionOferta(value.ListaDetalleOfertaShowRoom);
+            nuevaListaOfertas.push(value);
+        }
     });
 
     return nuevaListaOfertas;

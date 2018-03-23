@@ -1782,7 +1782,7 @@
         </div>
         <div class="arrow_box" id="content-regalo-agrega" style="display:none;">
             <div class="txt_regalo_sorpresa_popup">
-                <div class="span_2_regalo_sorpresa_producto"><b>TE FALTA <span id="of-regalo-agrega">$119.00</span></b><br></div>
+                <div class="span_2_regalo_sorpresa_producto"><b>TE FALTA <span data-regalo-agrega="">$119.00</span></b><br></div>
                 <div class="span_1_regalo_sorpresa_producto">PARA TU META DE <span id="of-regalo-montometa">$300.00</span></div>
             </div>
         </div>
@@ -1816,26 +1816,8 @@
             <span class="span_paginacion_premio_1" id="of-regalo-actual">1</span>
             <span> / </span><span id="of-regalo-total">3</span>
         </div>
-        <div class="txt_nota_premio">Recuerda <span class="span_nota_premio">pasar pedido en la siguiente<br />campaña</span> para recibir tu premio</div>
+        <div class="txt_nota_premio" data-regalo-recuerda="">Recuerda <b>pasar pedido en la siguiente<br />campaña</b> para recibir tu premio</div>
         <a class="btn_legal_RS" target="_blank" href="@ViewBag.UrlTerminosOfertaFinalRegalo" id="of-regalo-terminos">*Descargar términos y condiciones</a>
-        @*<div class="icono_regalo_sorpresa mt-11"></div>
-        <div class="titulo_regalo_sorpresa" id="of-regalo-msg1" style="display: none;"><b>¡GANA ESTE PREMIO*</b><br/>@titulo1OFRegalo</div>
-        <div class="titulo_regalo_2" id="of-regalo-msg2" style="display: none;">FELICIDADES @ViewBag.NombreConsultora <br /><span class="font_32">¡GANASTE!</span></div>
-        <div class="titulo_regalo_2" id="of-regalo-msg3" style="display: none;">¡FELICIDADES @ViewBag.NombreConsultora <span class="bold_900">ESTE PREMIO YA ES TUYO!</span></div>
-        
-        <div class="fondo_blanco_regalo">
-            <div class="content_detalle_monto" id="of-regalo-montos" style="display: none;">
-                TU META ES <span id="of-regalo-montometa">$200.000</span><br />
-                <b>¡AGREGA <span id="of-regalo-montosaldo">$23.999</span> Y LISTO!</b>
-            </div>
-            <div class="titulo_regalo_producto" id="of-regalo-descripcion">Bicicleta Rockrider 340 Azul</div>
-            <div class="content_imagen_sorpresa"><img id="of-regalo-imagen" src="" alt="" /></div>
-            <div class="descripcion_regalo">
-                <span id="of-regalo-descripcion-larga" class="oferta_final_descripcion">Pedalier de acero con triple plato, con protección de plástico de color azul. Tamaño 80cm x 120cm.</span>
-                <a target="_blank" href="@ViewBag.UrlTerminosOfertaFinalRegalo" id="of-regalo-terminos">*Leer términos y condiciones</a>
-            </div>
-        </div>
-        *@
     </div>
     <div id="divGanoRegalo" class="content_regalo_sorpresa" style="display: none; background-image: url('/Content/Images/PL20/Banner_desktop.png');">
         <div class="btn_regresa_OF" id="btnCambiarRegalo1">
@@ -1846,13 +1828,13 @@
             <img src="/Content/Images/gif-regalo-gano.gif" alt="">
         </div>
         <div class="txt_regalo_sorpresa_popup box_regalo_sorpresa_popup">
-            <span class="span_1_regalo_ganaste_popup" id="of-regalo-msg1">¡GANASTE @ViewBag.NombreConsultora!<br></span>
-            <span class="span_2_regalo_ganaste_popup" id="of-regalo-msg3">LLEGASTE A TU META DE <span id="of-regalo-montometa-msg3">$300.00</span><br></span>
+            <span class="span_1_regalo_ganaste_popup" id="of-gano-msg1">¡GANASTE @ViewBag.NombreConsultora!<br></span>
+            <span class="span_2_regalo_ganaste_popup" id="of-gano-msg3">LLEGASTE A TU META DE <span id="of-regalo-montometa-msg3">$300.00</span><br></span>
         </div>
         <div class="arrow_box arrow_box_2">
             <div class="txt_regalo_sorpresa_popup">
                 <div class="span_2_regalo_ganaste_producto" id="of-regalo-estuyo"><b>SOLO RECUERDA</b><br></div>
-                <div class="span_1_regalo_ganaste_producto" id="of-regalo-recuerda"><span class="bold_1_regalo_ganaste_producto"><b>Pasar pedido en la siguiente<br>campaña</b></span> para recibir tu premio*</div>
+                <div class="span_1_regalo_ganaste_producto" data-regalo-recuerda="">Pasar pedido en la siguiente<br>campaña para recibir tu premio*</div>
             </div>
         </div>
         <div class="content_info_regalo">

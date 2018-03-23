@@ -83,9 +83,9 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 if (upsellingActivo == null)
                     return Json(ResultModel<string>.BuildBad("no hay upselling activo", string.Empty), JsonRequestBehavior.AllowGet);
 
-                var available = upsellingActivo.Regalos.Any(r => r.Activo);
+                var gifs = upsellingActivo.Regalos.Any(r => r.Activo);
 
-                if (!available)
+                if (!gifs)
                     return Json(ResultModel<string>.BuildBad("no hay regalos o no estan activos", string.Empty), JsonRequestBehavior.AllowGet);
 
                 upsellingActivo.Meta = await _upSellingProvider.ObtenerMontoMeta(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
@@ -95,7 +95,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
