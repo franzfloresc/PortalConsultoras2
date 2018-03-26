@@ -355,6 +355,13 @@ namespace Portal.Consultoras.Web
             bundles.Add(new StyleBundle("~/Content/Css/Site/Login2/Lbel").Include(
                "~/Content/Css/Site/Login2/style_lbel.css"
             ));
+            bundles.Add(new ScriptBundle("~/bundles/JsMobile/PedidoFICDetalle").Include(
+                "~/Scripts/PortalConsultoras/Mobile/PedidoFIC/Detalle.js",
+                "~/Scripts/PortalConsultoras/Pedido/ofertaFinal.js",
+                "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
+                "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"
+            ));
 
             bundles.Add(new ScriptBundle("~/bundles/ActualizarMatrizCampaniaModuleMin").Include(
                 "~/Scripts/fileuploader.js",

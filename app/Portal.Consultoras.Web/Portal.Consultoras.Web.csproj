@@ -219,6 +219,7 @@
     <Compile Include="Areas\Mobile\Controllers\OfertasParaTiController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PaypalController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PedidoClienteController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\PedidoFICController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PedidosFacturadosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ProductosAgotadosController.cs" />
@@ -251,6 +252,7 @@
     <Compile Include="Areas\Mobile\Models\OfertaProductoPrincipalMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\PaypalMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\PedidoDetalleMobileDetalleModel.cs" />
+    <Compile Include="Areas\Mobile\Models\PedidoFICDetalleMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\PedidoDetalleMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\PedidoValidacionPROLMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\PedidoMobileModel.cs" />
@@ -3618,6 +3620,8 @@
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\FichaProducto\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\GuiaNegocio\GuiaNegocio-Landing.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\PedidoFIC\Detalle.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\PedidoFIC\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\SeguimientoPedido\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\MisReclamos\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\MisReclamos\Reclamo.js" />
@@ -4018,6 +4022,8 @@
     <Content Include="Areas\Mobile\Views\HerramientasVenta\template-mensaje-bloqueado.cshtml" />
     <Content Include="Areas\Mobile\Views\ShowRoom\Personalizado.cshtml" />
     <Content Include="Areas\Mobile\Views\ShowRoom\DetalleOfertaPersonalizado.cshtml" />
+    <Content Include="Areas\Mobile\Views\PedidoFIC\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\PedidoFIC\Detalle.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
