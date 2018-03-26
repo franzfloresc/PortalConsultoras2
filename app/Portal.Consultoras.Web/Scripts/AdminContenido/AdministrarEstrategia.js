@@ -1362,7 +1362,7 @@
         formData.append("Pais", $("#ddlPais").val());
         formData.append("CampaniaId", $("#ddlCampania").val());
         formData.append("TipoEstrategia", $("#ddlTipoEstrategia").val());
-
+        
         $.ajax({
             url: _config.urlUploadBloqueoCuv,
             type: "POST",
@@ -1371,6 +1371,7 @@
             contentType: false,
             processData: false,
             success: function (data) {
+                
                 $("#listCargaBloqueoCuv").jqGrid("GridUnload");
                 var gridJson = {
                     page: 1,
@@ -1407,9 +1408,12 @@
                     hoverrows: false,
                     caption: ""
                 });
-
+                $("#titleCuvBloqueado").fadeOut();
+                $("#listCuvsBloqueados").fadeOut();
                 $("#divBloqueoCuvPaso1").fadeOut(function () {
                     $("#divBloqueoCuvPaso2").fadeIn();
+                    $("#titleCuvBloqueado").html("Nuevas Cuvs cargados:").fadeIn();
+                    $("#listCuvsBloqueados").html(data.valor).fadeIn();
                 });
             },
             error: function (data) {
@@ -4053,9 +4057,9 @@
             showDialog("DialogDescMasivo");
         },
         clickBloqueoCuv: function () {
-           
             $("#divCuvsBloqueados").hide();
             $("#divCuvsBloqueados").show();
+            $("#titleCuvBloqueado").html("Cuvs cargados:");
             $("#listCuvsBloqueados").html("");
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val())
@@ -4191,7 +4195,6 @@
                 });
 
         },
-
         keyUpCuv: function() {
             if ($(this).val().length == 5) {
 

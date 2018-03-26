@@ -66,7 +66,7 @@ var rdAnalyticsModule = (function () {
         noDisponible: "NO DISPONIBLE",
         estandar: "Estándar",
         epm: "Ésika para mí",
-        exception: "Exception on analytics RD ",
+        exception: "Exception on analytics RD",
         comprarCampania: "Comprar campaña ",
         verCampania: "Ver campaña ",
         saberMas: "Conoce todo sobre Club Gana+",

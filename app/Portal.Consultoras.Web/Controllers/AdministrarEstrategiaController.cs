@@ -2795,7 +2795,8 @@ namespace Portal.Consultoras.Web.Controllers
                
                 return Json(new
                 {
-                    listActualizado = count
+                    listActualizado = count,
+                    valor = valor1.ToString()
                 });
             }
             catch (Exception ex)
