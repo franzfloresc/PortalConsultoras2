@@ -9,16 +9,21 @@
       <xs:element minOccurs="0" name="estadoPedidoMontoMaximo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="estadoPedidoMontoMinimo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="formaPagoGanador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="indDeuda" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="indNueva" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="indValiProl" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="montoTotalDcto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="montoBaseDcto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="montoBaseDctoAcum" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="montoDeuda" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="montoMaximo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="montoPedidoMontoMaximo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="montoPedidoMontoMinimo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="montoTiendaVirtual" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="montoTotalDcto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="montoTotalOporAhorro" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="montoVentaRetail" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="oidOfertaGanador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="oidPedidoSap" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="oidProductoGanador" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="porcDescFijoAlca" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="porcDescVariAlca" nillable="true" type="xs:string" />
@@ -26,11 +31,6 @@
       <xs:element minOccurs="0" name="precioGanador" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="valRangFinaVari" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="valRangInicVari" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="indDeuda" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="montoDeuda" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="montoTotalOporAhorro" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="indEnvioSap" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="oidPedidoSap" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Pedido" nillable="true" type="tns:Pedido" />
@@ -42,8 +42,9 @@
   <xs:element name="ArrayOfDetalle" nillable="true" type="tns:ArrayOfDetalle" />
   <xs:complexType name="Detalle">
     <xs:sequence>
-      <xs:element minOccurs="0" name="codigoSap" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoSap" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionSap" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="escalaDescuento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="factorCuadre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="factorRepeticion" nillable="true" type="xs:string" />
@@ -70,6 +71,7 @@
       <xs:element minOccurs="0" name="oidProducto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="oidSubtipoPosicion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="oidTipoPosicion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="oportunidadAhorro" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="pagina" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="porcentajeDescuento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="precioCatalogo" nillable="true" type="xs:string" />
@@ -79,9 +81,8 @@
       <xs:element minOccurs="0" name="ranking" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="unidadesDemandadas" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="unidadesPorAtender" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="valCodiOrig" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="oportunidadAhorro" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="unidadesReservadasSap" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="valCodiOrig" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Detalle" nillable="true" type="tns:Detalle" />
