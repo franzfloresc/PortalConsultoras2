@@ -705,8 +705,8 @@ $.fn.fixedTo = function (elem) {
                     $('.contenido_zona_dorada_contenedor_desktop').css('width', '100%');
                     $('.contenido_zona_dorada_contenedor_desktop').css('z-index', '99');
                     $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('margin', 'auto');
-                    $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('width', '1050px');
-                    $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('margin-left', '195px');
+                    //$('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('width', '1050px');
+                    //$('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('margin-left', '195px');
                 }
             } else {
                 if (isMobile()) {
