@@ -93,7 +93,7 @@ begin
 	)
 
 	update ConfiguracionPais
-	set Esatdo = 1
+	set Estado = 1
 	, Excluyente = 0
 	, DesdeCampana = 201807
 	where ConfiguracionPaisID = @ConfPaisId 
