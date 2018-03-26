@@ -513,6 +513,7 @@ namespace Portal.Consultoras.Common
             public const int BannerDesktopHome = 1111;
             public const int DesktopPedido = 12;
             public const int MobilePedido = 22;
+            public const int AppPedido = 42;
 
 
             #region OfertasParaTi
@@ -1809,7 +1810,6 @@ namespace Portal.Consultoras.Common
             public const string ProductName = "nombre producto";
             public const string Description = "descripcion";
             public const string BrandProduct = "marca producto";
-
             public enum Position { CUV = 0, Order = 1, ProductName = 2, Description = 3, BrandProduct = 4 };
         }
 
@@ -1859,6 +1859,84 @@ namespace Portal.Consultoras.Common
             public const string EnEjecucion = "En ejecución";
             public const string Finalizado = "Terminado";
             public const string Error = "Error";
+        }
+
+        public static class PedidoAppValidacion
+        {
+            public static class ProductoBuscar
+            {
+                private static Dictionary<string, string> _Message;
+
+                public static class Code
+                {
+                    public const string SUCCESS = "0000";
+                    public const string ERROR_INTERNO = "9999";
+                    public const string ERROR_PRODUCTO_NOEXISTE = "1101";
+                    public const string ERROR_PRODUCTO_AGOTADO = "1102";
+                    public const string ERROR_PRODUCTO_LIQUIDACION = "1103";
+                    public const string ERROR_PRODUCTO_SHOWROOM = "1104";
+                    public const string ERROR_PRODUCTO_SHOWROOM_NODISPONIBLE = "1105";
+                    public const string ERROR_PRODUCTO_OFERTAREVISTA_ESIKA = "1106";
+                    public const string ERROR_PRODUCTO_OFERTAREVISTA_LBEL = "1107";
+                }
+
+                public static Dictionary<string, string> Message
+                {
+                    get
+                    {
+                        return _Message ?? (_Message = new Dictionary<string, string>
+                    {
+                        {Code.SUCCESS, "OK"},
+                        {Code.ERROR_INTERNO, string.Empty},
+                        {Code.ERROR_PRODUCTO_NOEXISTE, "Este producto no existe."},
+                        {Code.ERROR_PRODUCTO_AGOTADO, "Este producto está agotado."},
+                        {Code.ERROR_PRODUCTO_LIQUIDACION, "Este producto solo está disponible desde la sección de Liquidación Web."},
+                        {Code.ERROR_PRODUCTO_SHOWROOM, "Este producto solo está disponible desde la sección de Venta Digital."},
+                        {Code.ERROR_PRODUCTO_SHOWROOM_NODISPONIBLE, "Esta promoción no se encuentra disponible."},
+                        {Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, "Este producto está de oferta en la Guía de Negocio Ésika."},
+                        {Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, "Este producto está de oferta en Mi Negocio L’Bel."},
+                    });
+                    }
+                }
+            }
+
+            public class PedidoInsertar
+            {
+                private static Dictionary<string, string> _Message;
+
+                public static class Code
+                {
+                    public const string SUCCESS = "0000";
+                    public const string ERROR_INTERNO = "9999";
+                    public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
+                    public const string ERROR_STOCK_ESTRATEGIA = "2102";
+                    public const string ERROR_KIT_INICIO = "2103";
+                    public const string ERROR_GRABAR = "2104";
+                }
+
+                public static Dictionary<string, string> Message
+                {
+                    get
+                    {
+                        return _Message ?? (_Message = new Dictionary<string, string>
+                            {
+                                {Code.SUCCESS, "OK"},
+                                {Code.ERROR_INTERNO, string.Empty},
+                                {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, string.Empty},
+                                {Code.ERROR_STOCK_ESTRATEGIA, string.Empty},
+                                {Code.ERROR_KIT_INICIO, "Ocurrió un error al ejecutar la operación."},
+                                {Code.ERROR_GRABAR, "Ocurrió un error al insertar el pedido."},
+                            });
+                    }
+                }
+            }
+        }
+
+        public static class PedidoAccion
+        {
+            public const string INSERT = "I";
+            public const string UPDATE = "U";
+            public const string DELETE = "D";
         }
 
         public class FlagRevista

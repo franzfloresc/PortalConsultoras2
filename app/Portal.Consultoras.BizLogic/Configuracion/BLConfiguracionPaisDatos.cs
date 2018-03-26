@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,7 +9,7 @@ using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLConfiguracionPaisDatos
+    public class BLConfiguracionPaisDatos : IConfiguracionPaisDatosBusinessLogic
     {
         public List<BEConfiguracionPaisDatos> GetList(BEConfiguracionPaisDatos entidad)
         {

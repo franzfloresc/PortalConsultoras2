@@ -6,6 +6,7 @@ using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.PublicService.Cryptography;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -23,25 +24,29 @@ namespace Portal.Consultoras.BizLogic
         private readonly IRevistaDigitalSuscripcionBusinessLogic _revistaDigitalSuscripcionBusinessLogic;
         private readonly IConfiguracionPaisBusinessLogic _configuracionPaisBusinessLogic;
         private readonly ICuponConsultoraBusinessLogic _cuponConsultoraBusinessLogic;
+        private readonly IConfiguracionPaisDatosBusinessLogic _configuracionPaisDatosBusinessLogic;
 
         public BLUsuario() : this(new BLTablaLogicaDatos(),
                                     new BLConsultoraConcurso(),
                                     new BLRevistaDigitalSuscripcion(),
                                     new BLConfiguracionPais(),
-                                    new BLCuponConsultora())
+                                    new BLCuponConsultora(),
+                                    new BLConfiguracionPaisDatos())
         { }
 
         public BLUsuario(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic,
                         IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic,
                         IRevistaDigitalSuscripcionBusinessLogic revistaDigitalSuscripcionBusinessLogic,
                         IConfiguracionPaisBusinessLogic configuracionPaisBusinessLogic,
-                        ICuponConsultoraBusinessLogic cuponConsultoraBusinessLogic)
+                        ICuponConsultoraBusinessLogic cuponConsultoraBusinessLogic,
+                        IConfiguracionPaisDatosBusinessLogic configuracionPaisDatosBusinessLogic)
         {
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
             _revistaDigitalSuscripcionBusinessLogic = revistaDigitalSuscripcionBusinessLogic;
             _configuracionPaisBusinessLogic = configuracionPaisBusinessLogic;
             _cuponConsultoraBusinessLogic = cuponConsultoraBusinessLogic;
+            _configuracionPaisDatosBusinessLogic = configuracionPaisDatosBusinessLogic;
         }
 
         public BEUsuario Select(int paisID, string codigoUsuario)
@@ -425,16 +430,18 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
 
-            var terminosCondicionesTask = Task.Run(() => this.GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppTerminosCondiciones));
-            var politicaPrivacidadTask = Task.Run(() => this.GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppPoliticaPrivacidad));
+            var terminosCondicionesTask = Task.Run(() => GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppTerminosCondiciones));
+            var politicaPrivacidadTask = Task.Run(() => GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppPoliticaPrivacidad));
             var destinatariosFeedBack = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.CorreoFeedbackAppConsultora));
-            var gprBannerTask = Task.Run(() => this.GetGPRBanner(usuario));
-            var usuarioConsultoraTask = Task.Run(() => this.GetUsuarioConsultora(usuario));
-            var consultoraAniversarioTask = Task.Run(() => this.GetConsultoraAniversario(usuario));
-            var consultoraCumpleanioTask = Task.Run(() => this.GetConsultoraCumpleanio(usuario));
-            var incentivosConcursosTask = Task.Run(() => this.GetIncentivosConcursos(usuario));
-            var revistaDigitalSuscripcionTask = Task.Run(() => this.GetRevistaDigitalSuscripcion(usuario));
-            var cuponTask = Task.Run(() => this.GetCupon(usuario));
+            var gprBannerTask = Task.Run(() => GetGPRBanner(usuario));
+            var usuarioConsultoraTask = Task.Run(() => GetUsuarioConsultora(usuario));
+            var consultoraAniversarioTask = Task.Run(() => GetConsultoraAniversario(usuario));
+            var consultoraCumpleanioTask = Task.Run(() => GetConsultoraCumpleanio(usuario));
+            var incentivosConcursosTask = Task.Run(() => GetIncentivosConcursos(usuario));
+            var revistaDigitalSuscripcionTask = Task.Run(() => GetRevistaDigitalSuscripcion(usuario));
+            var cuponTask = Task.Run(() => GetCupon(usuario));
+            var configuracionPaisTask = Task.Run(() => ConfiguracionPaisUsuario(usuario));
+            var codigosRevistasTask = Task.Run(() => ObtenerCodigoRevistaFisica(usuario.PaisID));
 
             Task.WaitAll(
                             terminosCondicionesTask,
@@ -446,7 +453,9 @@ namespace Portal.Consultoras.BizLogic
                             consultoraCumpleanioTask,
                             incentivosConcursosTask,
                             revistaDigitalSuscripcionTask,
-                            cuponTask);
+                            cuponTask,
+                            configuracionPaisTask,
+                            codigosRevistasTask);
 
             if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                 usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
@@ -479,6 +488,10 @@ namespace Portal.Consultoras.BizLogic
             usuario.CuponPctDescuento = cuponTask.Result.ValorAsociado;
             usuario.CuponMontoMaxDscto = cuponTask.Result.MontoMaximoDescuento;
             usuario.CuponTipoCondicion = cuponTask.Result.TipoCondicion;
+
+            usuario = configuracionPaisTask.Result;
+
+            usuario.CodigosRevistaImpresa = codigosRevistasTask.Result;
 
             return usuario;
         }
@@ -2135,6 +2148,575 @@ namespace Portal.Consultoras.BizLogic
         {
             var DAUsuario = new DAUsuario(paisID);
             return DAUsuario.GetCodigoSMS(CodigoConsultora, Origen);
+        }
+        #endregion
+
+        #region UserData
+        private BEUsuario ConfiguracionPaisUsuario(BEUsuario usuarioModel)
+        {
+            var revistaDigitalModel = new BERevistaDigital { NoVolverMostrar = true };
+            var guiaNegocio = new BEGuiaNegocio();
+
+            var configuracionesPaisModels = GetConfiguracionPais(usuarioModel);
+
+            if (configuracionesPaisModels.Any())
+            {
+                var listaPaisDatos = GetConfiguracionPaisDatos(usuarioModel);
+
+                foreach (var c in configuracionesPaisModels)
+                {
+                    switch (c.Codigo)
+                    {
+                        case Constantes.ConfiguracionPais.RevistaDigital:
+                            revistaDigitalModel = ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel,
+                                    listaPaisDatos
+                                        .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
+                                        .ToList(), usuarioModel.CodigoISO);
+
+                            revistaDigitalModel = ConfiguracionPaisRevistaDigital(revistaDigitalModel, usuarioModel);
+                            revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel, usuarioModel.Sobrenombre);
+                            revistaDigitalModel.BloqueoRevistaImpresa = c.BloqueoRevistaImpresa;
+                            break;
+                        case Constantes.ConfiguracionPais.RevistaDigitalReducida:
+                            if (revistaDigitalModel.TieneRDC)
+                                break;
+
+                            revistaDigitalModel = ConfiguracionPaisDatosRevistaDigitalReducida(revistaDigitalModel,
+                                listaPaisDatos
+                                    .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
+                                    .ToList(), usuarioModel.CodigoISO);
+
+                            revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel, usuarioModel.Sobrenombre);
+                            revistaDigitalModel.TieneRDR = true;
+                            break;
+                        case Constantes.ConfiguracionPais.RevistaDigitalIntriga:
+                            if (revistaDigitalModel.TieneRDC) break;
+
+                            revistaDigitalModel = ConfiguracionPaisDatosRevistaDigitalIntriga(revistaDigitalModel,
+                                listaPaisDatos
+                                    .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
+                                    .ToList(), usuarioModel.CodigoISO);
+                            revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel, usuarioModel.Sobrenombre);
+                            revistaDigitalModel.TieneRDI = true;
+                            break;
+                        case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
+                            usuarioModel.TieneValidacionMontoMaximo = c.Estado;
+                            break;
+                        case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
+                            guiaNegocio = ConfiguracionPaisDatosGuiaNegocio(listaPaisDatos
+                                    .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
+                                    .ToList());
+                            guiaNegocio.TieneGND = true;
+                            usuarioModel.TieneGND = true;
+                            break;
+                        case Constantes.ConfiguracionPais.OfertaDelDia:
+                            usuarioModel.OfertaDelDiaModel = ConfiguracionPaisDatosOfertaDelDia(usuarioModel.OfertaDelDiaModel, listaPaisDatos
+                                .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
+                                .ToList());
+                            break;
+                        case Constantes.ConfiguracionPais.OfertasParaTi:
+                            usuarioModel = ConfiguracionPaisDatosUsuario(usuarioModel, listaPaisDatos
+                                .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
+                                .ToList());
+                            break;
+                    }
+                }
+
+                revistaDigitalModel.TieneRDR = !revistaDigitalModel.TieneRDC && revistaDigitalModel.TieneRDR;
+                revistaDigitalModel.Campania = usuarioModel.CampaniaID % 100;
+                revistaDigitalModel.CampaniaMasUno = Common.Util.AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1, usuarioModel.NroCampanias) % 100;
+                revistaDigitalModel.NombreConsultora = usuarioModel.Sobrenombre;
+
+                usuarioModel.RevistaDigital = revistaDigitalModel;
+            }
+
+            return usuarioModel;
+        }
+
+        private List<BEConfiguracionPais> GetConfiguracionPais(BEUsuario usuario)
+        {
+            try
+            {
+                var config = new BEConfiguracionPais
+                {
+                    DesdeCampania = usuario.CampaniaID,
+                    Detalle = new BEConfiguracionPaisDetalle
+                    {
+                        PaisID = usuario.PaisID,
+                        CodigoConsultora = usuario.CodigoConsultora,
+                        CodigoRegion = usuario.CodigorRegion,
+                        CodigoZona = usuario.CodigoZona,
+                        CodigoSeccion = usuario.SeccionAnalytics
+                    }
+                };
+
+                return _configuracionPaisBusinessLogic.GetList(config);
+            }
+            catch { }
+
+            return new List<BEConfiguracionPais>();
+        }
+
+        private List<BEConfiguracionPaisDatos> GetConfiguracionPaisDatos(BEUsuario usuario)
+        {
+            try
+            {
+                var entidad = new BEConfiguracionPaisDatos
+                {
+                    PaisID = usuario.PaisID,
+                    CampaniaID = usuario.CampaniaID,
+                    ConfiguracionPais = new BEConfiguracionPais
+                    {
+                        Detalle = new BEConfiguracionPaisDetalle
+                        {
+                            CodigoConsultora = usuario.CodigoConsultora,
+                            CodigoRegion = usuario.CodigorRegion,
+                            CodigoZona = usuario.CodigoZona,
+                            CodigoSeccion = usuario.SeccionAnalytics
+                        }
+                    }
+                };
+
+                return _configuracionPaisDatosBusinessLogic.GetList(entidad);
+            }
+            catch { }
+
+            return new List<BEConfiguracionPaisDatos>();
+        }
+
+        private BERevistaDigital ConfiguracionPaisDatosRevistaDigital(BERevistaDigital revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
+        {
+            try
+            {
+                if (revistaDigitalModel == null)
+                    throw new ArgumentNullException("revistaDigitalModel", "no puede ser nulo");
+
+                if (listaDatos == null)
+                    throw new ArgumentNullException("listaDatos", "no puede ser nulo");
+
+                if (paisIso == null)
+                    throw new ArgumentNullException("paisIso", "no puede ser nulo");
+
+                if (!listaDatos.Any())
+                    return revistaDigitalModel;
+
+                var value1 = listaDatos.FirstOrDefault(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearDiasAntesFacturar);
+                if (value1 != null) revistaDigitalModel.BloquearDiasAntesFacturar = Convert.ToInt32(value1.Valor1);
+
+                value1 = listaDatos.FirstOrDefault(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.CantidadCampaniaEfectiva);
+                if (value1 != null) revistaDigitalModel.CantidadCampaniaEfectiva = Convert.ToInt32(value1.Valor1);
+
+                value1 = listaDatos.FirstOrDefault(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.NombreComercialActiva);
+                if (value1 != null) revistaDigitalModel.NombreComercialActiva = value1.Valor1;
+
+                value1 = listaDatos.FirstOrDefault(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.NombreComercialNoActiva);
+                if (value1 != null) revistaDigitalModel.NombreComercialNoActiva = value1.Valor1;
+
+                value1 = listaDatos.FirstOrDefault(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialActiva);
+                if (value1 != null)
+                {
+                    revistaDigitalModel.DLogoComercialActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
+                    revistaDigitalModel.MLogoComercialActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
+                }
+
+                value1 = listaDatos.FirstOrDefault(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialNoActiva);
+                if (value1 != null)
+                {
+                    revistaDigitalModel.DLogoComercialNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
+                    revistaDigitalModel.MLogoComercialNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
+                }
+
+                value1 = listaDatos.FirstOrDefault(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoActiva);
+                if (value1 != null)
+                {
+                    revistaDigitalModel.DLogoComercialFondoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
+                    revistaDigitalModel.MLogoComercialFondoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
+                }
+
+                value1 = listaDatos.FirstOrDefault(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoNoActiva);
+                if (value1 != null)
+                {
+                    revistaDigitalModel.DLogoComercialFondoNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
+                    revistaDigitalModel.MLogoComercialFondoNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
+                }
+
+                value1 = listaDatos.FirstOrDefault(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasActiva);
+                if (value1 != null)
+                    revistaDigitalModel.LogoMenuOfertasActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
+
+                value1 = listaDatos.FirstOrDefault(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva);
+                if (value1 != null)
+                    revistaDigitalModel.LogoMenuOfertasNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
+
+                value1 = listaDatos.FirstOrDefault(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearPedidoRevistaImp);
+                if (value1 != null) revistaDigitalModel.BloquearRevistaImpresaGeneral = Convert.ToInt32(value1.Valor1);
+
+                value1 = listaDatos.FirstOrDefault(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearSugerenciaProducto);
+                if (value1 != null) revistaDigitalModel.BloquearProductosSugeridos = Convert.ToInt32(value1.Valor1);
+
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.SubscripcionAutomaticaAVirtualCoach);
+                if (value1 != null) revistaDigitalModel.SubscripcionAutomaticaAVirtualCoach = value1.Valor1 == "1";
+
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+                if (value1 != null) revistaDigitalModel.BloqueoProductoDigital = value1.Valor1 == "1";
+
+                listaDatos.RemoveAll(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearDiasAntesFacturar
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.CantidadCampaniaEfectiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.NombreComercialActiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.NombreComercialNoActiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialActiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialNoActiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasActiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearPedidoRevistaImp
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearSugerenciaProducto
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.SubscripcionAutomaticaAVirtualCoach
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital
+                );
+
+                revistaDigitalModel.ConfiguracionPaisDatos = listaDatos ?? new List<BEConfiguracionPaisDatos>();
+            }
+            catch { }
+
+            return revistaDigitalModel;
+        }
+
+        private BERevistaDigital ConfiguracionPaisRevistaDigital(BERevistaDigital revistaDigitalModel, BEUsuario usuarioModel)
+        {
+            revistaDigitalModel.TieneRDC = true;
+            revistaDigitalModel.TieneRDS = true;
+            revistaDigitalModel.TieneRDR = false;
+            ActualizarSubscripciones(revistaDigitalModel, usuarioModel);
+
+            #region Campanias y Estados Es Activas - Es Suscrita
+
+            revistaDigitalModel.EstadoSuscripcion = revistaDigitalModel.SuscripcionModel.EstadoRegistro;
+            revistaDigitalModel.CampaniaActual = Common.Util.SubStr(usuarioModel.CampaniaID.ToString(), 4, 2);
+            revistaDigitalModel.CampaniaFuturoActiva = Common.Util.SubStr(
+                Common.Util.AddCampaniaAndNumero(usuarioModel.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva,
+                    usuarioModel.NroCampanias).ToString(), 4, 2);
+
+            revistaDigitalModel.CampaniaSuscripcion =
+                Common.Util.SubStr(revistaDigitalModel.SuscripcionModel.CampaniaID.ToString(), 4, 2);
+
+            if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+            {
+                var ca = Common.Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID,
+                    revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
+
+                if (ca >= revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva)
+                    ca = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva;
+
+                revistaDigitalModel.CampaniaActiva = Common.Util.SubStr(ca.ToString(), 4, 2);
+                revistaDigitalModel.EsActiva = ca <= usuarioModel.CampaniaID;
+
+            }
+            else if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro ==
+                     Constantes.EstadoRDSuscripcion.SinRegistroDB)
+            {
+                if (revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                {
+                    var ca = Common.Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionModel.CampaniaID,
+                        revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
+                    if (ca >= revistaDigitalModel.SuscripcionModel.CampaniaEfectiva)
+                        ca = revistaDigitalModel.SuscripcionModel.CampaniaEfectiva;
+
+                    revistaDigitalModel.CampaniaActiva = Common.Util.SubStr(ca.ToString(), 4, 2);
+                    revistaDigitalModel.EsActiva = ca <= usuarioModel.CampaniaID;
+                }
+                else
+                {
+                    revistaDigitalModel.CampaniaActiva = "";
+                    revistaDigitalModel.EsActiva = false;
+                }
+
+            }
+            else
+            {
+                var ca = Common.Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID,
+                    revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
+
+                if (ca < revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva)
+                    ca = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva;
+
+                revistaDigitalModel.CampaniaActiva = Common.Util.SubStr(ca.ToString(), 4, 2);
+
+                revistaDigitalModel.EsActiva = ca > usuarioModel.CampaniaID;
+            }
+
+            revistaDigitalModel.EsSuscrita = revistaDigitalModel.SuscripcionModel.EstadoRegistro ==
+                                             Constantes.EstadoRDSuscripcion.Activo;
+
+            #endregion
+
+            revistaDigitalModel.BloqueoProductoDigital = revistaDigitalModel.BloqueoProductoDigital || !revistaDigitalModel.EsActiva;
+
+            revistaDigitalModel.EstadoRdcAnalytics = GetEstadoRdAnalytics(revistaDigitalModel);
+
+            #region DiasAntesFacturaHoy - NoVolverMostrar
+
+            if (DateTime.Now.AddHours(usuarioModel.ZonaHoraria).Date >=
+                usuarioModel.FechaInicioFacturacion.Date.AddDays(-1 * revistaDigitalModel.BloquearDiasAntesFacturar)
+                && revistaDigitalModel.BloquearDiasAntesFacturar > 0)
+                return revistaDigitalModel;
+
+            switch (revistaDigitalModel.SuscripcionModel.EstadoRegistro)
+            {
+                case Constantes.EstadoRDSuscripcion.Activo:
+                    revistaDigitalModel.NoVolverMostrar = true;
+                    break;
+                case Constantes.EstadoRDSuscripcion.SinRegistroDB:
+                case Constantes.EstadoRDSuscripcion.Desactivo:
+                    revistaDigitalModel.NoVolverMostrar = false;
+                    break;
+                case Constantes.EstadoRDSuscripcion.NoPopUp:
+                    revistaDigitalModel.NoVolverMostrar =
+                        revistaDigitalModel.SuscripcionModel.CampaniaID == usuarioModel.CampaniaID;
+                    break;
+            }
+
+            #endregion
+
+            return revistaDigitalModel;
+        }
+
+        private void ActualizarSubscripciones(BERevistaDigital revistaDigitalModel, BEUsuario usuarioModel)
+        {
+            var rds = new BERevistaDigitalSuscripcion
+            {
+                PaisID = usuarioModel.PaisID,
+                CodigoConsultora = usuarioModel.CodigoConsultora
+            };
+
+            revistaDigitalModel.SuscripcionModel = _revistaDigitalSuscripcionBusinessLogic.Single(rds);
+            rds.CampaniaID = usuarioModel.CampaniaID;
+            revistaDigitalModel.SuscripcionEfectiva = _revistaDigitalSuscripcionBusinessLogic.SingleActiva(rds);
+        }
+
+        private string GetEstadoRdAnalytics(BERevistaDigital revistaDigital)
+        {
+            if (revistaDigital == null || !revistaDigital.TieneRDC) return "(not available)";
+            if (revistaDigital.EsSuscrita)
+                return revistaDigital.EsActiva ? "Inscrita Activa" : "Inscrita No Activa";
+
+            return revistaDigital.EsActiva ? "No Inscrita Activa" : "No Inscrita No Activa";
+        }
+
+        private BERevistaDigital FormatTextConfiguracionPaisDatosModel(BERevistaDigital revistaDigital,
+                    string nombreConsultora)
+        {
+            if (revistaDigital == null)
+                throw new ArgumentNullException("revistaDigital", "No puede ser nulo.");
+
+            if (string.IsNullOrWhiteSpace(nombreConsultora))
+                throw new ArgumentNullException("nombreConsultora", "No puede ser nulo o vacío.");
+
+            if (revistaDigital.ConfiguracionPaisDatos == null) return revistaDigital;
+
+            foreach (var configuracionPaisDato in revistaDigital.ConfiguracionPaisDatos)
+            {
+                configuracionPaisDato.Valor1 = RemplazaTagNombre(configuracionPaisDato.Valor1, nombreConsultora);
+                configuracionPaisDato.Valor2 = RemplazaTagNombre(configuracionPaisDato.Valor2, nombreConsultora);
+            }
+
+            return revistaDigital;
+        }
+
+        private string RemplazaTagNombre(string cadena, string nombre)
+        {
+            cadena = Common.Util.Trim(cadena);
+            nombre = Common.Util.Trim(nombre);
+            return cadena.Replace(Constantes.TagCadenaRd.Nombre, nombre)
+                .Replace(Constantes.TagCadenaRd.Nombre1, nombre)
+                .Replace(Constantes.TagCadenaRd.Nombre2, nombre);
+        }
+
+        private BERevistaDigital ConfiguracionPaisDatosRevistaDigitalReducida(BERevistaDigital revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
+        {
+            try
+            {
+                revistaDigitalModel.ConfiguracionPaisDatos = new List<BEConfiguracionPaisDatos>();
+
+                if (listaDatos == null || !listaDatos.Any())
+                    return revistaDigitalModel;
+
+                var value1 =
+                    listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercial);
+                if (value1 != null)
+                {
+                    revistaDigitalModel.DLogoComercialNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
+                    revistaDigitalModel.MLogoComercialNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
+                }
+
+                value1 = listaDatos.FirstOrDefault(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercialFondo);
+                if (value1 != null)
+                {
+                    revistaDigitalModel.DLogoComercialFondoNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
+                    revistaDigitalModel.MLogoComercialFondoNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
+                }
+
+                value1 = listaDatos.FirstOrDefault(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoMenuOfertas);
+                if (value1 != null)
+                    revistaDigitalModel.LogoMenuOfertasNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
+
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+                if (value1 != null) revistaDigitalModel.BloqueoProductoDigital = value1.Valor1 == "1";
+
+                listaDatos.RemoveAll(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercial
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercialFondo
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoMenuOfertas
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital
+                );
+
+                revistaDigitalModel.ConfiguracionPaisDatos = listaDatos ?? new List<BEConfiguracionPaisDatos>();
+            }
+            catch { }
+
+            return revistaDigitalModel;
+        }
+
+        private BERevistaDigital ConfiguracionPaisDatosRevistaDigitalIntriga(BERevistaDigital revistaDigital, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
+        {
+            try
+            {
+                if (revistaDigital == null)
+                    throw new ArgumentNullException("revistaDigital", "no puede ser nulo");
+
+                if (listaDatos == null)
+                    throw new ArgumentNullException("listaDatos", "no puede ser nulo");
+
+                if (paisIso == null)
+                    throw new ArgumentNullException("paisIso", "no puede ser nulo");
+
+                revistaDigital.ConfiguracionPaisDatos = new List<BEConfiguracionPaisDatos>();
+
+                if (!listaDatos.Any())
+                    return revistaDigital;
+
+                var confPaisDatoTmp = listaDatos.FirstOrDefault(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.LogoMenuOfertas);
+                if (confPaisDatoTmp != null)
+                    revistaDigital.LogoMenuOfertasNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, confPaisDatoTmp.Valor1);
+
+                confPaisDatoTmp =
+                    listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.LogoComercial);
+                if (confPaisDatoTmp != null)
+                {
+                    revistaDigital.DLogoComercialNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, confPaisDatoTmp.Valor1);
+                    revistaDigital.MLogoComercialNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, confPaisDatoTmp.Valor2);
+                }
+
+                confPaisDatoTmp = listaDatos.FirstOrDefault(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.LogoComercialFondo);
+                if (confPaisDatoTmp != null)
+                {
+                    revistaDigital.DLogoComercialFondoNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, confPaisDatoTmp.Valor1);
+                    revistaDigital.MLogoComercialFondoNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, confPaisDatoTmp.Valor2);
+                }
+
+                confPaisDatoTmp =
+                    listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.NombreComercial);
+                if (confPaisDatoTmp != null)
+                {
+                    revistaDigital.NombreComercialNoActiva = confPaisDatoTmp.Valor1;
+                }
+
+                confPaisDatoTmp = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+                if (confPaisDatoTmp != null) revistaDigital.BloqueoProductoDigital = confPaisDatoTmp.Valor1 == "1";
+
+                listaDatos.RemoveAll(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.LogoComercial
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.LogoComercialFondo
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.LogoMenuOfertas
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.NombreComercial
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital
+
+                );
+
+                revistaDigital.ConfiguracionPaisDatos = listaDatos ?? new List<BEConfiguracionPaisDatos>();
+            }
+            catch { }
+
+            return revistaDigital;
+        }
+
+        private string ObtenerCodigoRevistaFisica(int paisId)
+        {
+            var lst = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.CodigoRevistaFisica);
+            var tablaLogicaDatos = lst.FirstOrDefault();
+            return (tablaLogicaDatos == null ? string.Empty : tablaLogicaDatos.Codigo);
+        }
+
+        private BEUsuario ConfiguracionPaisDatosUsuario(BEUsuario modelo, List<BEConfiguracionPaisDatos> listaDatos)
+        {
+            try
+            {
+                if (listaDatos == null || !listaDatos.Any()) return modelo;
+
+                var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+                if (value1 != null) modelo.OptBloqueoProductoDigital = (value1.Valor1 == "1");
+            }
+            catch { }
+
+            return modelo;
+        }
+
+        private BEOfertaDelDia ConfiguracionPaisDatosOfertaDelDia(BEOfertaDelDia modelo, List<BEConfiguracionPaisDatos> listaDatos)
+        {
+            try
+            {
+                modelo = modelo ?? new BEOfertaDelDia();
+                if (listaDatos == null || !listaDatos.Any())
+                    return modelo;
+
+                var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+                if (value1 != null) modelo.BloqueoProductoDigital = value1.Valor1 == "1";
+
+                listaDatos.RemoveAll(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+
+                modelo.ConfiguracionPaisDatos = listaDatos ?? new List<BEConfiguracionPaisDatos>();
+
+            }
+            catch { }
+
+            return modelo;
+
+        }
+
+        private BEGuiaNegocio ConfiguracionPaisDatosGuiaNegocio(List<BEConfiguracionPaisDatos> listaDatos)
+        {
+            var modelo = new BEGuiaNegocio();
+
+            try
+            {
+                if (listaDatos == null || !listaDatos.Any()) return modelo;
+
+                var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+                if (value1 != null) modelo.BloqueoProductoDigital = value1.Valor1 == "1";
+
+                listaDatos.RemoveAll(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+
+                modelo.ConfiguracionPaisDatos = listaDatos ?? new List<BEConfiguracionPaisDatos>();
+            }
+            catch { }
+
+            return modelo;
         }
         #endregion
     }
