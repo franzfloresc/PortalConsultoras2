@@ -133,6 +133,7 @@
     <Compile Include="Pedido\BEMisPedidosIngresadosDetalle.cs" />
     <Compile Include="Pedido\BETrackinDetalle.cs" />
     <Compile Include="Pedido\BETracking.cs" />
+    <Compile Include="Pedido\DEWrapperPDF.cs" />
     <Compile Include="ReservaProl\BEPedidoObservacion.cs" />
     <Compile Include="ReservaProl\BEInputReservaProl.cs" />
     <Compile Include="BEPedidoWebDetalleInvariant.cs" />
