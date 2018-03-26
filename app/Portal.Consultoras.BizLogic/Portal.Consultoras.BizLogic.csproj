@@ -207,6 +207,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MotivoRechazoMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Usuario\IResumenCampaniaBusinessLogic.cs" />
     <Compile Include="Usuario\IUsuarioBusinessLogic.cs" />
     <Compile Include="Pedido\BLPedidoRechazado.cs" />
     <Compile Include="BLPedidoReporteLider.cs" />
@@ -222,7 +223,7 @@
     <Compile Include="BLProductoSugerido.cs" />
     <Compile Include="BLProveedorDespachoCobranza.cs" />
     <Compile Include="BLReporteIntegradoWebDD.cs" />
-    <Compile Include="BLResumenCampania.cs" />
+    <Compile Include="Usuario\BLResumenCampania.cs" />
     <Compile Include="BLRol.cs" />
     <Compile Include="BLRolPermiso.cs" />
     <Compile Include="BLSegmentoPlaneamiento.cs" />
