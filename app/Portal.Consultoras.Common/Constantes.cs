@@ -1028,6 +1028,7 @@ namespace Portal.Consultoras.Common
             public const string GuiaNegocio = "GUIANEGOCIO";
             public const string RevistaDigitalInformacion = "REVISTADIGITALINFORMACION";
             public const string LiquidacionWeb = "LIQUIDACIONWEB";
+            public const string CambiosDevoluciones = "CAMBIODEVOLUCIONES";
         }
 
         public static class EstadoCuentaTipoMovimiento
