@@ -669,7 +669,7 @@ namespace Portal.Consultoras.BizLogic
             var uFechaNacimiento = usuario.FechaNacimiento;
             var uFechaActual = usuario.FechaActualPais;
 
-            if (uFechaNacimiento != uFechaActual)
+            if (uFechaNacimiento.Date != uFechaActual.Date)
             {
                 if (uFechaNacimiento.Month == uFechaActual.Month && uFechaNacimiento.Day == uFechaActual.Day) esCumpleanio = true;
             }
