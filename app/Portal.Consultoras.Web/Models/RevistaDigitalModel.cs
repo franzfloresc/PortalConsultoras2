@@ -140,4 +140,6 @@ namespace Portal.Consultoras.Web.Models
             return TieneRDC || TieneRDR;
         }
     }
+
+
 }

@@ -91,6 +91,8 @@ namespace Portal.Consultoras.Web.Controllers
             model.MensajeProductoBloqueado = MensajeProductoBloqueado();
             model.CantidadFilas = 10;
 
+            model.MostrarFiltros = !model.ProductosPerdio ? (revistaDigital.TieneRDC && !revistaDigital.EsActiva) ? false : true : false;
+
             return PartialView("template-landing", model);
         }
 
@@ -156,11 +158,11 @@ namespace Portal.Consultoras.Web.Controllers
                     dato.Valor1 = dato.Valor1.ToUpper();
                     dato.Valor2 = dato.Valor2.ToUpper();
                 }
-                else if(revistaDigital.EsSuscrita&&!revistaDigital.EsActiva)
+                else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
                 {
                     dato = revistaDigital.ConfiguracionPaisDatos
                    .FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.SNAPerdiste);
-                    dato.Valor2 = dato.Valor2.Replace("#campania", string.Concat("C",revistaDigital.CampaniaActiva));
+                    dato.Valor2 = dato.Valor2.Replace("#campania", string.Concat("C", revistaDigital.CampaniaActiva));
                     dato.Valor1 = dato.Valor1.ToUpper();
                     dato.Valor2 = dato.Valor2.ToUpper();
                 }
@@ -169,7 +171,7 @@ namespace Portal.Consultoras.Web.Controllers
                     dato = revistaDigital.ConfiguracionPaisDatos
                     .FirstOrDefault(d => d.Codigo == (IsMobile() ? Constantes.ConfiguracionPaisDatos.RD.MPerdiste : Constantes.ConfiguracionPaisDatos.RD.DPerdiste));
                 }
-                
+
                 dato = dato ?? new ConfiguracionPaisDatosModel();
                 dato.Estado = true;
             }
