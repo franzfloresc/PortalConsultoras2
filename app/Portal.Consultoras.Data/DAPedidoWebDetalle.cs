@@ -359,13 +359,15 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        public bool InsertPedidoWebSet(int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList)
+        public bool InsertPedidoWebSet(int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList,int EstrategiaId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertPedidoWebSet");
             Context.Database.AddInParameter(command, "@Campaniaid", DbType.Int32, Campaniaid);
             Context.Database.AddInParameter(command, "@PedidoID", DbType.Int64, PedidoID);
             Context.Database.AddInParameter(command, "@CantidadSet", DbType.Int32, CantidadSet);
             Context.Database.AddInParameter(command, "@CuvSet", DbType.String, CuvSet);
+            Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, EstrategiaId);
+            
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, ConsultoraId);
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.String, CodigoUsuario);
             Context.Database.AddInParameter(command, "@CuvsStringList", DbType.String, CuvsStringList);

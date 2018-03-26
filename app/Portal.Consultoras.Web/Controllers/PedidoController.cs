@@ -4294,7 +4294,7 @@ namespace Portal.Consultoras.Web.Controllers
                     using (var pedidoServiceClient = new PedidoServiceClient())
                     {
                         pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), estrategia.CUV2
-                            , userData.ConsultoraID, "", strCuvs);
+                            , userData.ConsultoraID, "", strCuvs, estrategia.EstrategiaID);
                     }
                 }
 
