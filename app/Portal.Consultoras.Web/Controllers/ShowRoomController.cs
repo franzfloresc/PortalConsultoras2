@@ -1658,6 +1658,18 @@ namespace Portal.Consultoras.Web.Controllers
 
                 InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
 
+
+                if (tipo == 1)
+                {
+
+
+                    using (var pedidoServiceClient = new PedidoServiceClient())
+                    {
+                        pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
+                            , userData.ConsultoraID, "", string.Format("{0}:1",model.CUV));
+                    }
+                }
+
                 return Json(new
                 {
                     success = true,

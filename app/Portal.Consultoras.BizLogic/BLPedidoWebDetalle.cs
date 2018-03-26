@@ -586,5 +586,16 @@ namespace Portal.Consultoras.BizLogic
                 daPedidoWebDetalle.InsPedidoWebAccionesPROL(item, Tipo, Accion);
             }
         }
+
+        public bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList)
+        {
+            var pedidoWebDetalle = new List<BEPedidoWebDetalle>();
+            var daPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
+
+            var result = daPedidoWebDetalle.InsertPedidoWebSet(Campaniaid, PedidoID, CantidadSet, CuvSet, ConsultoraId, CodigoUsuario, CuvsStringList);
+
+
+            return result;
+        }
     }
 }

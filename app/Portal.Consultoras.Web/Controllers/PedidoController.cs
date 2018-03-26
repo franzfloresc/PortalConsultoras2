@@ -4258,6 +4258,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 var tonos = listCuvTonos.Split('|');
                 var respuesta = new JsonResult();
+                List<string> ListaCuvsTemporal = new List<string>();
+
                 foreach (var tono in tonos)
                 {
                     var listSp = tono.Split(';');
@@ -4266,7 +4268,37 @@ namespace Portal.Consultoras.Web.Controllers
                     estrategia.Precio2 = listSp.Length > 2 ? Convert.ToDecimal(listSp[2]) : estrategia.Precio2;
 
                     respuesta = EstrategiaAgregarProducto(ref mensaje, estrategia, model);
+
+                    ListaCuvsTemporal.Add(listSp.Length > 0 ? listSp[0] : estrategia.CUV2);
                 }
+
+
+                if (respuesta.Data.ToString().Contains("success = True"))
+                {
+
+
+                    string strCuvs = string.Empty;
+                    if (ListaCuvsTemporal.Any())
+                    {
+
+                        ListaCuvsTemporal.OrderByDescending(x => x).Distinct().Each(x =>
+                        {
+
+                            strCuvs = string.Format("{0}:{1}", x, ListaCuvsTemporal.Count(a => a == x));
+
+                        });
+                    }
+
+
+
+                    using (var pedidoServiceClient = new PedidoServiceClient())
+                    {
+                        pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), estrategia.CUV2
+                            , userData.ConsultoraID, "", strCuvs);
+                    }
+                }
+
+
 
                 return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
 

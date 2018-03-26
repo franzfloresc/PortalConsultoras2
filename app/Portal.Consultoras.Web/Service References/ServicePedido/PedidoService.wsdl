@@ -67,6 +67,12 @@
   <wsdl:message name="IPedidoService_ObtenerCertificadoDigital_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerCertificadoDigitalResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_InsertPedidoWebSet_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertPedidoWebSet" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsertPedidoWebSet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertPedidoWebSetResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_InsertEstrategiaOfertaParaTi_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertEstrategiaOfertaParaTi" />
   </wsdl:message>
@@ -2388,6 +2394,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerCertificadoDigital" message="tns:IPedidoService_ObtenerCertificadoDigital_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerCertificadoDigitalResponse" message="tns:IPedidoService_ObtenerCertificadoDigital_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="InsertPedidoWebSet">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertPedidoWebSet" message="tns:IPedidoService_InsertPedidoWebSet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertPedidoWebSetResponse" message="tns:IPedidoService_InsertPedidoWebSet_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsertEstrategiaOfertaParaTi">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertEstrategiaOfertaParaTi" message="tns:IPedidoService_InsertEstrategiaOfertaParaTi_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertEstrategiaOfertaParaTiResponse" message="tns:IPedidoService_InsertEstrategiaOfertaParaTi_OutputMessage" />
@@ -3956,6 +3966,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerCertificadoDigital">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerCertificadoDigital" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertPedidoWebSet">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPedidoWebSet" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7452,6 +7471,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerCertificadoDigital">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerCertificadoDigital" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertPedidoWebSet">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPedidoWebSet" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

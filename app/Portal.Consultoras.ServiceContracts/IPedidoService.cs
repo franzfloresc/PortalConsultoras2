@@ -1242,5 +1242,8 @@ namespace Portal.Consultoras.ServiceContracts
         #endregion
 
 
+        [OperationContract]
+        bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList);
+
     }
 }

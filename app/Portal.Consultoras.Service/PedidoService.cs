@@ -2279,5 +2279,12 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().InsertarProductoShowroomMasiva(entidad);
         }
+
+        public bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList)
+        {
+            return BLPedidoWebDetalle.InsertPedidoWebSet(paisID, Campaniaid, PedidoID, CantidadSet, CuvSet, ConsultoraId, CodigoUsuario, CuvsStringList);
+
+        }
+
     }
 }
