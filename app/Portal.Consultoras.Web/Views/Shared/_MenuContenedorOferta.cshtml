@@ -3,6 +3,7 @@
 @using Portal.Consultoras.Web.Models.Layout
 
 @{
+    var tagContenedor = "Contenedor";
     var menuList = (List<ConfiguracionPaisModel>)ViewBag.MenuContenedor ?? new List<ConfiguracionPaisModel>();
     var menuActivo = (MenuContenedorModel)ViewBag.MenuContenedorActivo ?? new MenuContenedorModel();
     menuActivo.ConfiguracionPais = menuActivo.ConfiguracionPais ?? new ConfiguracionPaisModel();
@@ -105,12 +106,12 @@
                         onclick="menuModule.menuClick(this, '@menuhijo.UrlMenu')">
 
                         <div class="contenedorMenu">
-                            <a href="javascript:;" class="@claseActivo" role="menu" region="Lateral" parent="Contenedor - @menuActivo.NombreOrigenPantalla" title="@menuhijo.DesktopSubTituloMenu">
+                            <a href="javascript:;" class="@claseActivo" role="menu" region="Lateral" parent="@tagContenedor - @menuActivo.NombreOrigenPantalla" title="@menuhijo.DesktopSubTituloMenu">
                                 <div class="contenedorInformacion">
                                     @if (!string.IsNullOrEmpty(menuhijo.DesktopLogoMenu))
                                     {
                                         <div class="contenedorImagen">
-                                            <img style="display:inline;" src="@menuhijo.DesktopLogoMenu" role="menu" region="Lateral" parent="Contenedor - @menuActivo.NombreOrigenPantalla" title="@menuhijo.DesktopSubTituloMenu" alt="" />
+                                            <img style="display:inline;" src="@menuhijo.DesktopLogoMenu" role="menu" region="Lateral" parent="@tagContenedor - @menuActivo.NombreOrigenPantalla" title="@menuhijo.DesktopSubTituloMenu" alt="" />
                                         </div>
                                     }
                                     @if (!string.IsNullOrEmpty(menuhijo.DesktopTituloMenu))

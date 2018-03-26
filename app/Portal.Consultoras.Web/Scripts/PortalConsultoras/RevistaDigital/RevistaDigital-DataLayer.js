@@ -88,7 +88,7 @@ var rdAnalyticsModule = (function () {
         banner: "Banner",
         popup: "Home pop-up - 1",
         notAvailable: "(not available)",
-        contenedor: "Contendor",
+        contenedor: "Contenedor",
         enterate: "Click en botón - Entérate aquí",
         cerrarPopup: "Cerrar popup",
         suscribete: "Suscríbete gratis aquí",
