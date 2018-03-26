@@ -308,7 +308,9 @@
     <Content Include="Templates\mailing_proceso_descarga_excepcion.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\mailing_proceso_Pin_Autenticacion.html" />
+    <Content Include="Templates\mailing_proceso_Pin_Autenticacion.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Templates\mailing_proceso_recuperar_contrasenia.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
