@@ -150,6 +150,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 IdPosicion = d.oidPosicion.ToInt32Secure(),
                 IdProducto = d.oidProducto.ToInt32Secure(),
                 IdSubTipoPosicion = d.oidSubtipoPosicion.ToInt32Secure(),
+                DescripcionSap = d.descripcionSap,
                 IdTipoPosicion = d.oidTipoPosicion.ToInt32Secure(),
                 Pagina = d.pagina.ToInt32Secure(),
                 PorcentajeDescuento = d.porcentajeDescuento.ToDecimalSecure(),
@@ -255,8 +256,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 descKey = Constantes.ProlObsCod.Reemplazo;
                 caso = 0;
                 dictToken.Add(Constantes.ProlObsToken.ReemplazoCuv, reemplazo.CUV);
-                //AGREGAR DESCRIPCION DE REEMPLAZO EN DATABASE
-                dictToken.Add(Constantes.ProlObsToken.ReemplazoDesc, "");
+                dictToken.Add(Constantes.ProlObsToken.ReemplazoDesc, reemplazo.DescripcionSap);
             }
             else if (detalle.UnidadesReservadasSap < detalle.UnidadesPorAtender)
             {

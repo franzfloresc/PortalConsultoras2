@@ -73,20 +73,9 @@ namespace Portal.Consultoras.BizLogic.Reserva
         public string DeshacerPedidoValidado(BEUsuario usuario, string tipo)
         {
             if (usuario.IndicadorGPRSB == 1) return string.Format("En este momento nos encontramos facturando tu pedido de C{0}, inténtalo más tarde", usuario.CampaniaID.Substring(4, 2));
-
-            bool valida = true;
-            if (!usuario.NuevoPROL && !usuario.ZonaNuevoPROL && tipo == "PV")
-            {
-                using (ServiceStockSsic sv = new ServiceStockSsic())
-                {
-                    sv.Url = ConfigurationManager.AppSettings["Prol_" + usuario.CodigoISO];
-                    valida = sv.wsDesReservarPedido(usuario.CodigoConsultora, usuario.CodigoISO);
-                }
-            }
-            if (!valida) return "";
-
-            var bLPedidoWebDetalle = new BLPedidoWebDetalle();
-            bool validacionAbierta = usuario.NuevoPROL && usuario.ZonaNuevoPROL && tipo == "PV";
+            
+            var codigoUsuario = usuario.UsuarioPrueba == 1 ? usuario.ConsultoraAsociada : usuario.CodigoUsuario;
+            bool validacionAbierta = tipo == "PV";
             short estado = validacionAbierta ? Constantes.EstadoPedido.Procesado : Constantes.EstadoPedido.Pendiente;
             int pedidoId;
 
@@ -100,7 +89,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 NumeroPedido = usuario.ConsecutivoNueva
             };
 
-            var listPedidoWebDetalle = bLPedidoWebDetalle.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
+            var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
             if (listPedidoWebDetalle.Count == 0)
             {
                 pedidoId = new BLPedidoWeb().GetPedidoWebID(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
@@ -108,13 +97,24 @@ namespace Portal.Consultoras.BizLogic.Reserva
             }
             else pedidoId = listPedidoWebDetalle[0].PedidoID;
 
-            var codigoUsuario = usuario.UsuarioPrueba == 1 ? usuario.ConsultoraAsociada : usuario.CodigoUsuario;
-            bLPedidoWebDetalle.UpdPedidoWebByEstado(usuario.PaisID, usuario.CampaniaID, pedidoId, estado, false, true, codigoUsuario, validacionAbierta);
+            var daPedidoWeb = new DAPedidoWeb(usuario.PaisID);
+            var daPedidoWebDetalle = new DAPedidoWebDetalle(usuario.PaisID);
 
-            if (tipo == "PI")
+            TransactionOptions transOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
+            using (TransactionScope transScope = new TransactionScope(TransactionScopeOption.Required, transOptions))
             {
-                List<BEPedidoWebDetalle> listReemplazo = listPedidoWebDetalle.Where(p => !string.IsNullOrEmpty(p.Mensaje)).ToList();
-                if (listReemplazo.Count != 0) bLPedidoWebDetalle.InsPedidoWebAccionesPROL(listReemplazo, 100, 103);
+                daPedidoWebDetalle.DelPedidoWebDetalleDesglosePedido(usuario.CampaniaID, pedidoId);
+                daPedidoWeb.UpdPedidoWebDesReserva(usuario.CampaniaID, pedidoId, estado, false, codigoUsuario, validacionAbierta);
+
+                if (tipo == "PI")
+                {
+                    List<BEPedidoWebDetalle> listReemplazo = listPedidoWebDetalle.Where(p => !string.IsNullOrEmpty(p.Mensaje)).ToList();
+                    foreach (var item in listReemplazo)
+                    {
+                        daPedidoWebDetalle.InsPedidoWebAccionesPROL(item, 100, 103);
+                    }
+                }
+                transScope.Complete();
             }
 
             return "";
@@ -352,8 +352,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
             var daPedidoWeb = new DAPedidoWeb(input.PaisID);
             var daPedidoWebDetalle = new DAPedidoWebDetalle(input.PaisID);
             var daConcurso = new DAConcurso(input.PaisID);
-            TransactionOptions transOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted };
 
+            TransactionOptions transOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
             using (TransactionScope transScope = new TransactionScope(TransactionScopeOption.Required, transOptions))
             {
                 daPedidoWeb.UpdateMontosPedidoWeb(pedidoWeb);

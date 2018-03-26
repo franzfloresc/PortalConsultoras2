@@ -102,7 +102,7 @@ namespace Portal.Consultoras.Data
             //Context.Database.AddInParameter(command, "@MontoEscala", DbType.Decimal, pedidoWeb.MontoEscala);
             Context.Database.AddInParameter(command, "@EstimadoGanancia", DbType.Decimal, gananciaEstimada);
             Context.Database.AddInParameter(command, "@EstadoPedido", DbType.Int16, pedidoWeb.EstadoPedido);
-            Context.Database.AddInParameter(command, "@PedidoSapId", DbType.Byte, pedidoWeb.PedidoSapId);
+            Context.Database.AddInParameter(command, "@PedidoSapId", DbType.Int64, pedidoWeb.PedidoSapId);
             Context.Database.AddInParameter(command, "@VersionProl", DbType.Byte, pedidoWeb.VersionProl);
 
             return Context.ExecuteNonQuery(command);
