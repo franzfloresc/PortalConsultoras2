@@ -17,5 +17,8 @@ namespace Portal.Consultoras.Web.Models
         public bool MensajeTieneDudas { get; set; }
         public string MensajePopupPrimero { get; set; }
         public string MensajePopupSegundo { get; set; }
+        public string MensajeBtnPopup { get; set; }
+        public string IdPopup { get; set; }
+        public string UrlBtnPopup { get; set; }
     }
 }

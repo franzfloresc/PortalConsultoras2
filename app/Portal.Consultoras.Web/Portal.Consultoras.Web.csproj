@@ -644,6 +644,7 @@
     <Compile Include="Models\RevistaDigitalPopupModel.cs" />
     <Compile Include="Models\HerramientasVentaModel.cs" />
     <Compile Include="Models\RevistaDigitalModel.cs" />
+    <Compile Include="Models\RevistaDigitalShortModel.cs" />
     <Compile Include="Models\RevistaDigitalSuscripcionModel.cs" />
     <Compile Include="Models\RolModel.cs" />
     <Compile Include="Models\RootMiCurso.cs" />

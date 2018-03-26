@@ -274,11 +274,13 @@
     letter-spacing: .2px;
     color: #000;
 }
-.producto_precio_bpt .producto_precio_oferta_bpt b{
-    position: relative;
-    top: 0px;
-    margin-left: 5px;
+.producto_precio_bpt > span{
+    display:block;
 }
+    .producto_precio_bpt .producto_precio_oferta_bpt b {
+        display: block;
+        width: 100%;
+    }
 /* FIN Producto */
 
 .rd_producto_bloqueado {

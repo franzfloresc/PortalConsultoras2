@@ -4106,6 +4106,9 @@ namespace Portal.Consultoras.Web.Controllers
                 var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
                 model.MensajePopupPrimero = dato == null ? "" : Util.Trim(dato.Valor1.Replace("#campania", string.Concat("C", revistaDigital.CampaniaActiva)));
                 model.MensajePopupSegundo = dato == null ? "" : Util.Trim(dato.Valor2);
+                model.MensajeBtnPopup = "DE ACUERDO";
+                model.IdPopup = !IsMobile() ? "divSNAPopupBloqueadoDesk" : "divSNAPopupBloqueadoMob";
+                model.UrlBtnPopup = "javascript: void(0)";
             }
             else if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
             {
@@ -4113,9 +4116,10 @@ namespace Portal.Consultoras.Web.Controllers
                 var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
                 model.MensajePopupPrimero = dato == null ? "" : Util.Trim(dato.Valor1);
                 model.MensajePopupSegundo = dato == null ? "" : Util.Trim(dato.Valor2);
+                model.MensajeBtnPopup = "ENTÉRATE CÓMO";
+                model.IdPopup = !IsMobile() ? "divNSPopupBloqueadoDesk" : "divNSPopupBloqueadoMob";
+                model.UrlBtnPopup = "/RevistaDigital/Informacion/";
             }
-
-
 
             return model;
         }
@@ -4566,7 +4570,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.EsActiva = revistaDigital.EsActiva;
             ViewBag.TieneRDC = revistaDigital.TieneRDC;
             ViewBag.TieneHV = herramientasVenta.TieneHV;
-            ViewBag.revistaDigital = revistaDigital;
+            ViewBag.revistaDigital = getRevistaDigitalShortModel();
 
             ViewBag.TituloCatalogo = ((revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI)
                 || (!revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva));
@@ -4897,6 +4901,22 @@ namespace Portal.Consultoras.Web.Controllers
                     limiteMaximoTelef = 15;
                     break;
             }
+        }
+
+        public RevistaDigitalShortModel getRevistaDigitalShortModel()
+        {
+            RevistaDigitalShortModel _RevistaDigitalShortModel = null;
+            if (revistaDigital != null)
+            {
+                _RevistaDigitalShortModel = new RevistaDigitalShortModel();
+                _RevistaDigitalShortModel.TieneRDC = revistaDigital.TieneRDC;
+                _RevistaDigitalShortModel.TieneRDI = revistaDigital.TieneRDI;
+                _RevistaDigitalShortModel.TieneRDS = revistaDigital.TieneRDS;
+                _RevistaDigitalShortModel.EsSuscrita = revistaDigital.EsSuscrita;
+                _RevistaDigitalShortModel.EsActiva = revistaDigital.EsActiva;
+            }
+
+            return _RevistaDigitalShortModel;
         }
 
         #region PagoEnLinea

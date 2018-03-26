@@ -91,6 +91,8 @@ namespace Portal.Consultoras.Web.Controllers
             model.MensajeProductoBloqueado = MensajeProductoBloqueado();
             model.CantidadFilas = 10;
 
+            model.MostrarFiltros = !model.ProductosPerdio ? (revistaDigital.TieneRDC && !revistaDigital.EsActiva) ? false : true : false;
+
             return PartialView("template-landing", model);
         }
 
