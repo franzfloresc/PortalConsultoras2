@@ -13,10 +13,18 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     [ClearSessionMobileApp(UniqueRoute.IdentifierKey, "MobileAppConfiguracion", "StartSession")]
     public class LanzamientosController : BaseLanzamientosController
     {
-        // GET: Mobile/Lanzamientos
-        public ActionResult Index()
+        public override ActionResult Detalle(string cuv, int campaniaId)
         {
-            return View();
+            try
+            {
+                return base.Detalle(cuv, campaniaId);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return RedirectToAction("Index", "Ofertas");
         }
     }
 }
