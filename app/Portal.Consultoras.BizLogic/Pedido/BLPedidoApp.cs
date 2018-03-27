@@ -62,6 +62,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     productoBuscar.ValidarOpt).FirstOrDefault();
                 if (producto == null) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.ProductoBuscar.Code.ERROR_PRODUCTO_NOEXISTE);
 
+                var bloqueoProductoCatalogo = BloqueoProductosCatalogo(producto, productoBuscar);
+                if (!bloqueoProductoCatalogo) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.ProductoBuscar.Code.ERROR_PRODUCTO_NOEXISTE);
+
+                //Validación Gana +
+                var bloqueoProductoDigitales = BloqueoProductosDigitales(producto, productoBuscar);
+                if (!bloqueoProductoDigitales) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.ProductoBuscar.Code.ERROR_PRODUCTO_NOEXISTE);
+
                 //Validación producto agotado
                 if (!producto.TieneStock) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.ProductoBuscar.Code.ERROR_PRODUCTO_AGOTADO);
 
@@ -89,13 +96,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         else return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.ProductoBuscar.Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL);
                     }
                 }
-
-                var bloqueoProductoCatalogo = BloqueoProductosCatalogo(producto, productoBuscar);
-                if (!bloqueoProductoCatalogo) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.ProductoBuscar.Code.ERROR_PRODUCTO_NOEXISTE);
-
-                //Validación Gana +
-                var bloqueoProductoDigitales = BloqueoProductosDigitales(producto, productoBuscar);
-                if (!bloqueoProductoDigitales) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.ProductoBuscar.Code.ERROR_PRODUCTO_NOEXISTE);
 
                 return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.ProductoBuscar.Code.SUCCESS, null, producto);
             }
