@@ -26,37 +26,36 @@ function mostrarImagenPortadaRevista(codigoCampania) {
 function GNDMostrarIssu() {
     var imggndnueva = $("#imgPortadaRevista").attr("src");
     var imgfake = "revista_no_disponible";
-    if (imggndnueva.indexOf(imgfake) != -1) {
-        var alturaimggnd = $('.desplegablegnd .gndcontenido .contenedorgnd .portadagnd img').height();
-        var alturacontenedorgnd = alturaimggnd + 30;
-        var alturanrognd = $('.desplegablegnd .gndcontenido .nrognd').height();
 
-        $('.desplegablegnd .gndcontenido .contenedorgnd').css("height", alturacontenedorgnd);
+    var alturaimggnd = $('.desplegablegnd .gndcontenido .contenedorgnd .portadagnd img').height();
+    var alturacontenedorgnd = alturaimggnd + 30;
+    var alturanrognd = $('.desplegablegnd .gndcontenido .nrognd').height();
 
-        $('.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd').css("height", alturaimggnd);
-        
-        var esconderparaanimaciongnd = alturacontenedorgnd + 1;
-        $('.desplegablegnd').css("bottom", -esconderparaanimaciongnd);
+    $('.desplegablegnd .gndcontenido .contenedorgnd').css("height", alturacontenedorgnd);
 
-        var contadorgnddesktop = 1;
+    $('.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd').css("height", alturaimggnd);
 
-        $('.desplegablegnd .gndcontenido .nrognd').click(function () {
-            if (contadorgnddesktop == 1) {
-                $('.desplegablegnd').animate({
-                    bottom: '0'
-                });
-                $('.desplegablegnd .gndcontenido .nrognd .flechitagnd img').css('transform', 'rotate(0deg)');
+    var esconderparaanimaciongnd = alturacontenedorgnd + 1;
+    $('.desplegablegnd').css("bottom", -esconderparaanimaciongnd);
 
-                contadorgnddesktop = 0;
-            } else {
-                contadorgnddesktop = 1;
-                $('.desplegablegnd').animate({
-                    bottom: -esconderparaanimaciongnd
-                });
-                $('.desplegablegnd .gndcontenido .nrognd .flechitagnd img').css('transform', 'rotate(180deg)');
-            }
-        });
-    }
+    var contadorgnddesktop = 1;
+
+    $('.desplegablegnd .gndcontenido .nrognd').click(function () {
+        if (contadorgnddesktop == 1) {
+            $('.desplegablegnd').animate({
+                bottom: '0'
+            });
+            $('.desplegablegnd .gndcontenido .nrognd .flechitagnd img').css('transform', 'rotate(0deg)');
+
+            contadorgnddesktop = 0;
+        } else {
+            contadorgnddesktop = 1;
+            $('.desplegablegnd').animate({
+                bottom: -esconderparaanimaciongnd
+            });
+            $('.desplegablegnd .gndcontenido .nrognd .flechitagnd img').css('transform', 'rotate(180deg)');
+        }
+    });
 }
 
 function getUrlImagenPortadaRevistaPromise(codigoCampania) {
