@@ -786,6 +786,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return Json(objvalida);
             }
+            //Traer data de "dbo.PedidoWebSetDetalle"
+            //generar objeto de siempre
+            //Aumentar cantidad asignado
+
 
             var obePedidoWebDetalle = new BEPedidoWebDetalle
             {

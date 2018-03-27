@@ -2689,7 +2689,8 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
         PrecioUnidad: PrecioUnidad,
         Nombre: CliDes,
         DescripcionProd: DesProd,
-        ClienteID_: ClienteID_
+        ClienteID_: ClienteID_,
+        SetId:19
     };
 
     AbrirSplash();
