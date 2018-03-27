@@ -4014,7 +4014,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
             {
-                model.MensajeBtnPopup = "ENTÉRATE CÓMO";
+                model.MensajeBtnPopup = "SUSCRBETE GRATIS";
                 model.IdPopup = !model.IsMobile ? "divNSPopupBloqueadoDesk" : "divNSPopupBloqueadoMob";
                 model.UrlBtnPopup = (model.IsMobile ? "/Mobile" : "") + "/RevistaDigital/Informacion/";
 
