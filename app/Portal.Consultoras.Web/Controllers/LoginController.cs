@@ -2083,6 +2083,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var herramientasVentaModel = new HerramientasVentaModel();
 
                 var configuracionesPaisModels = await GetConfiguracionPais(usuarioModel);
+                var listaConfiPaisModel = new List<ConfiguracionPaisModel>();
                 if (configuracionesPaisModels.Any())
                 {
                     var listaPaisDatos = await GetConfiguracionPaisDatos(usuarioModel);
@@ -2105,7 +2106,7 @@ namespace Portal.Consultoras.Web.Controllers
                             case Constantes.ConfiguracionPais.RevistaDigitalReducida:
                                 revistaDigitalModel.TieneRDCR = true;
                                 revistaDigitalModel.BloqueoRevistaImpresa = revistaDigitalModel.BloqueoRevistaImpresa || c.BloqueoRevistaImpresa;
-                                break;
+                                continue;
 
                             case Constantes.ConfiguracionPais.RevistaDigitalIntriga:
                                 if (revistaDigitalModel.TieneRDC)
@@ -2172,15 +2173,17 @@ namespace Portal.Consultoras.Web.Controllers
                                         listaPaisDatos.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList());
                                 break;
                         }
+
+                        listaConfiPaisModel.Add(c);
                     }
-                    
+
                     revistaDigitalModel.Campania = usuarioModel.CampaniaID % 100;
                     revistaDigitalModel.CampaniaMasUno =
                         Util.AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1, usuarioModel.NroCampanias) % 100;
                     revistaDigitalModel.NombreConsultora = usuarioModel.Sobrenombre;
                     sessionManager.SetGuiaNegocio(guiaNegocio);
                     sessionManager.SetRevistaDigital(revistaDigitalModel);
-                    sessionManager.SetConfiguracionesPaisModel(configuracionesPaisModels);
+                    sessionManager.SetConfiguracionesPaisModel(listaConfiPaisModel);
                     sessionManager.SetOfertaFinalModel(ofertaFinalModel);
                     sessionManager.SetHerramientasVenta(herramientasVentaModel);
                 }
@@ -2390,7 +2393,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return herramientasVentaModel;
         }
-        
+
         public virtual RevistaDigitalModel ConfiguracionPaisDatosRevistaDigitalIntriga(RevistaDigitalModel revistaDigital, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
         {
             try
