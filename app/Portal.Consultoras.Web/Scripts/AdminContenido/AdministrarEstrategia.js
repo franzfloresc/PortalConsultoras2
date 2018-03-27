@@ -4057,42 +4057,44 @@
             showDialog("DialogDescMasivo");
         },
         clickBloqueoCuv: function () {
-            $("#divCuvsBloqueados").hide();
-            $("#divCuvsBloqueados").show();
-            $("#titleCuvBloqueado").html("Cuvs cargados:");
-            $("#listCuvsBloqueados").html("");
-            var params = {
-                campaniaId: parseInt($("#ddlCampania").val())
-            };
+            if (_basicFieldsValidation()) {
+                $("#divCuvsBloqueados").hide();
+                $("#divCuvsBloqueados").show();
+                $("#titleCuvBloqueado").html("Cuvs cargados:");
+                $("#listCuvsBloqueados").html("");
+                var params = {
+                    campaniaId: parseInt($("#ddlCampania").val())
+                };
 
-            jQuery.ajax({
-                type: "POST",
-                url: baseUrl + "AdministrarEstrategia/GetCuvsBloqueados",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(params),
-                async: true,
-                success: function (data) {
-                    if (data.success && data.valor != null && data.valor !== "") {
-                        $("#divCuvsBloqueados").show();
-                        $("#listCuvsBloqueados").html(data.valor);
-                    } else {
-                        $("#divCuvsBloqueados").hide();
+                jQuery.ajax({
+                    type: "POST",
+                    url: baseUrl + "AdministrarEstrategia/GetCuvsBloqueados",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(params),
+                    async: true,
+                    success: function(data) {
+                        if (data.success && data.valor != null && data.valor !== "") {
+                            $("#divCuvsBloqueados").show();
+                            $("#listCuvsBloqueados").html(data.valor);
+                        } else {
+                            $("#divCuvsBloqueados").hide();
+                        }
+                    },
+                    error: function(data, error) {
+                        _toastHelper.error(data.message);
                     }
-                },
-                error: function (data, error) {
-                    _toastHelper.error(data.message);
-                }
-            });
-            
-            $("#divBloqueoCuvPaso1").show();
-            $("#divBloqueoCuvPaso2").hide();
-            if ($("#ddlTipoEstrategia").find(":selected").data("codigo") !== _codigoEstrategia.GuiaDeNegocio) {
-                _toastHelper.error("Seleccionar Tipo de Estrategia Guia de Negocio.");
-            } else {
+                });
+
+                $("#divBloqueoCuvPaso1").show();
                 $("#divBloqueoCuvPaso2").hide();
-                showDialog("DialogBloqueoCuv");
-            }
+                if ($("#ddlTipoEstrategia").find(":selected").data("codigo") !== _codigoEstrategia.GuiaDeNegocio) {
+                    _toastHelper.error("Seleccionar Tipo de Estrategia Guia de Negocio.");
+                } else {
+                    $("#divBloqueoCuvPaso2").hide();
+                    showDialog("DialogBloqueoCuv");
+                }
+            } 
         },
         clickAceptarBloqueoCuv1: function () {
             _uploadFileBloqueoCuv();
