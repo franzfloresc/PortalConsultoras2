@@ -3992,34 +3992,38 @@ namespace Portal.Consultoras.Web.Controllers
             model.IsMobile = IsMobile();
 
             string codigo = String.Empty;
+            var dato = new ConfiguracionPaisDatosModel();
             if (revistaDigital.EsActiva)
             {
                 model.MensajeIconoSuperior = true;
-                codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaSuscrita;
                 model.BtnInscribirse = false;
-                var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
-                model.MensajeTitulo = dato == null ? "" : Util.Trim(dato.Valor1);
+
+                codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaSuscrita;
+                dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+                model.MensajeTitulo = Util.Trim(dato.Valor1);
+                return model;
             }
-            else if(revistaDigital.EsSuscrita&&!revistaDigital.EsActiva)
+
+            if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
             {
-                codigo = Constantes.ConfiguracionPaisDatos.RD.PopupBloqueadoSNA;
-                var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
-                model.MensajePopupPrimero = dato == null ? "" : Util.Trim(dato.Valor1.Replace("#campania", string.Concat("C", revistaDigital.CampaniaActiva)));
-                model.MensajePopupSegundo = dato == null ? "" : Util.Trim(dato.Valor2);
                 model.MensajeBtnPopup = "DE ACUERDO";
-                model.IdPopup = !IsMobile()? "divSNAPopupBloqueadoDesk" : "divSNAPopupBloqueadoMob";
-                model.UrlBtnPopup = "javascript: void(0)"; 
+                model.IdPopup = !model.IsMobile ? "divSNAPopupBloqueadoDesk" : "divSNAPopupBloqueadoMob";
+                model.UrlBtnPopup = "javascript: void(0)";
+
+                codigo = Constantes.ConfiguracionPaisDatos.RD.PopupBloqueadoSNA;
             }
-            else if (!revistaDigital.EsSuscrita&&!revistaDigital.EsActiva)
+            else if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
             {
-                codigo = Constantes.ConfiguracionPaisDatos.RD.PopupBloqueadoNS;
-                var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
-                model.MensajePopupPrimero = dato == null ? "" : Util.Trim(dato.Valor1);
-                model.MensajePopupSegundo = dato == null ? "" : Util.Trim(dato.Valor2);
                 model.MensajeBtnPopup = "ENTÉRATE CÓMO";
-                model.IdPopup = !IsMobile() ? "divNSPopupBloqueadoDesk" : "divNSPopupBloqueadoMob";
-                model.UrlBtnPopup = "/RevistaDigital/Informacion/";
+                model.IdPopup = !model.IsMobile ? "divNSPopupBloqueadoDesk" : "divNSPopupBloqueadoMob";
+                model.UrlBtnPopup = (model.IsMobile ? "/Mobile" : "") + "/RevistaDigital/Informacion/";
+
+                codigo = Constantes.ConfiguracionPaisDatos.RD.PopupBloqueadoNS;
             }
+
+            dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+            model.MensajePopupPrimero = RemplazaTag(dato.Valor1, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
+            model.MensajePopupSegundo = RemplazaTag(dato.Valor2, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
 
             return model;
         }
@@ -4075,7 +4079,7 @@ namespace Portal.Consultoras.Web.Controllers
             return config;
         }
 
-        private string RemplazaTag(string cadena, string tag, string valor)
+        public string RemplazaTag(string cadena, string tag, string valor)
         {
             cadena = cadena ?? "";
             tag = tag ?? "";
@@ -4787,7 +4791,7 @@ namespace Portal.Consultoras.Web.Controllers
         public RevistaDigitalShortModel getRevistaDigitalShortModel()
         {
             RevistaDigitalShortModel _RevistaDigitalShortModel = null;
-            if (revistaDigital!=null)
+            if (revistaDigital != null)
             {
                 _RevistaDigitalShortModel = new RevistaDigitalShortModel();
                 _RevistaDigitalShortModel.TieneRDC = revistaDigital.TieneRDC;
