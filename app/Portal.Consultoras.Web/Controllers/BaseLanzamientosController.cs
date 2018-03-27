@@ -13,11 +13,11 @@ namespace Portal.Consultoras.Web.Controllers
         public virtual ActionResult Detalle(string cuv, int campaniaId)
         {
             var modelo = (EstrategiaPersonalizadaProductoModel)Session[Constantes.ConstSession.ProductoTemporal];
+
             if (modelo == null || modelo.EstrategiaID == 0 || modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
             {
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
             }
-
             if (!revistaDigital.TieneRevistaDigital())
             {
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
@@ -35,15 +35,9 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.ListaDescripcionDetalle = modelo.ListaDescripcionDetalle ?? new List<string>();
 
             ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
-
-            //var dato = ObtenerPerdio(modelo.CampaniaID);
-            //ViewBag.TieneProductosPerdio = dato.Estado;
-            //ViewBag.PerdioTitulo = dato.Valor1;
-            //ViewBag.PerdioSubTitulo = dato.Valor2;
-
             ViewBag.Campania = campaniaId;
+            
             return View(modelo);
-
         }
     }
 }

@@ -177,10 +177,20 @@ $(document).ready(function () {
         if (obj.CUV2 != "") {
             rdAnalyticsModule.VerDetalleLan(obj);
             var guardo = EstrategiaGuardarTemporal(obj);
-            if (guardo)
-                return window.location = urlOfertaDetalleProducto +
+            if (guardo) {
+                obj
+                var url = urlOfertaDetalleProducto;
+
+                if (obj.CodigoEstrategia) {
+                    url = urlOfertaDetalleProductoLan;
+                }
+
+                url = url + 
                     "?cuv=" + obj.CUV2 +
                     "&campaniaId=" + obj.CampaniaID;
+
+                return window.location = url;
+            }
         }
     });
 

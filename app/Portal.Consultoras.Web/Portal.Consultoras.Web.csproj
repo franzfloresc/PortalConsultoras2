@@ -4922,6 +4922,7 @@
     <Content Include="Views\RevistaDigital\template-popup-suscripcion.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_GoogleOptimize.cshtml" />
     <Content Include="Views\ShowRoom\Personalizado.cshtml" />
+    <Content Include="Views\Lanzamientos\Detalle.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -5250,7 +5251,6 @@
     <Folder Include="Views\Campania\" />
     <Folder Include="Views\Cupon\" />
     <Folder Include="Views\EstrategiaProductoComentario\" />
-    <Folder Include="Views\Lanzamientos\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
