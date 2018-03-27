@@ -1,4 +1,4 @@
-USE BelcorpPeru_Bpt
+﻿USE BelcorpPeru_Bpt
 GO
 
 BEGIN
