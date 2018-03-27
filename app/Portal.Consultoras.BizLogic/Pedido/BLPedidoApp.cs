@@ -226,35 +226,34 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         private bool BloqueoProductosDigitales(BEProducto producto, BEProductoAppBuscar productoBuscar)
         {
+            var result = true;
             if (producto == null) return true;
 
-            var revistaDigital = productoBuscar.RevistaDigital ?? new BERevistaDigital();
-
-            if (revistaDigital.BloqueoProductoDigital)
+            if (productoBuscar.RevistaDigital != null && productoBuscar.RevistaDigital.BloqueoProductoDigital)
             {
-                return !(
+                result = !(
                             producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
                           || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
                           || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
                         );
             }
 
-            if (productoBuscar.OfertaDelDiaModel != null && productoBuscar.OfertaDelDiaModel.BloqueoProductoDigital)
+            if (result && productoBuscar.OfertaDelDiaModel != null && productoBuscar.OfertaDelDiaModel.BloqueoProductoDigital)
             {
-                return (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaDelDia);
+                result =(producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaDelDia);
             }
 
-            if (productoBuscar.GuiaNegocio != null && productoBuscar.GuiaNegocio.BloqueoProductoDigital)
+            if (result && productoBuscar.GuiaNegocio != null && productoBuscar.GuiaNegocio.BloqueoProductoDigital)
             {
-                return (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
+                result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
             }
 
-            if (productoBuscar.OptBloqueoProductoDigital)
+            if (result && productoBuscar.OptBloqueoProductoDigital)
             {
-                return (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaParaTi);
+                result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaParaTi);
             }
 
-            return true;
+            return result;
         }
 
         private BEProductoApp ProductoBuscarRespuesta(string codigoRespuesta, string mensajeRespuesta = null, BEProducto producto = null)
