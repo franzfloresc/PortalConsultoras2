@@ -1,4 +1,4 @@
-USE BelcorpPeru_Bpt
+ï»¿USE BelcorpPeru_Bpt
 GO
 
 BEGIN
@@ -33,7 +33,7 @@ IF NOT EXISTS(SELECT 1 FROM ConfiguracionPaisDatos CPD
 BEGIN
 	print('Insertando en ConfiguracionPaisDatos : PopupBloqueadoNS')
 	insert into [ConfiguracionPaisDatos] values
-	(@RevistaDigitalId,'PopupBloqueadoNS',0,'aprovecha esta y más ofertas','suscribiéndote al club gana+','','Popup Bloqueado No Suscrita',1,null);
+	(@RevistaDigitalId,'PopupBloqueadoNS',0,'¿LO QUIERES?','ESTE Y OTROS PRODUCTOS SOLO EN CLUB GANA+','','Popup Bloqueado No Suscrita',1,null);
 END
 
 IF NOT EXISTS(SELECT 1 FROM ConfiguracionPaisDatos CPD
