@@ -36,12 +36,12 @@
             }
         }
 
-        ready(function () {
-            ready(belcorp.showroom.initialize({
+        ready(function() {
+            belcorp.showroom.initialize({
                 banner: document.getElementById("showroom_banner_inferior"),
                 botonCerrar: document.getElementById("showroom_banner_boton"),
                 urlDesactivarBarra: '@Url.Action("DesactivarBannerInferior", "ShowRoom")'
-            }));
-        })
+            });
+        });
     </script>
 }

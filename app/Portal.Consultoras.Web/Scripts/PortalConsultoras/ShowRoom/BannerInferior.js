@@ -7,10 +7,9 @@ belcorp.showroom.initialize = function (config) {
 
     function initBindings() {
         if (config.botonCerrar) {
-            config.botonCerrar.addEventListener("click", desactivarBanner)
-        }        
+            config.botonCerrar.addEventListener("click", desactivarBanner);
+        }
     }
-
 
     function desactivarBanner(banner) {
         desactivarPromise()
