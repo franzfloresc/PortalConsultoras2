@@ -159,25 +159,8 @@ else
 
             <hr class="clear" />
             <div class="info_cam_mobile">
-                @*ESTÁS EN
-                <span>C@(Model.NumeroCampania)</span>*@
                 <span><b>C@(Model.NumeroCampania) @(ViewBag.MensajeFechaPromesa)</b></span>
             </div>
-            @*<div class="borde_gris"></div>
-            @if (ViewBag.Dias == 0)
-            {
-                <div class="info_cam_mobile">
-                    EL CIERRE ES
-                    <span>Hoy</span>
-                </div>
-            }
-            else
-            {
-                <div class="info_cam_mobile">
-                    EL CIERRE ES EN
-                    <span>@(Model.DiasParaCierre) días</span>
-                </div>
-            }*@
             <a role="link" region="Central" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="btn_seguirp_mobile seguimientoPedido2" href="/Mobile/SeguimientoPedido">SIGUE TU PEDIDO</a>
         </div>
         <hr class="clear" />
@@ -202,24 +185,6 @@ else
 }
 
 <!--FIN-->
-@*<div class="fondo_faf5e6">
-    @if (ViewBag.CantPedidosPendientes <= 0)
-    {
-        <div class="pestana_lbel"></div>
-        <div class="triangulo_home"></div>
-    }
-
-    @if (ViewBag.CantPedidosPendientes > 0)
-    {
-        <br />
-    }
-    @(Html.Raw(ViewBag.MensajeCierreCampania))
-    <br />
-    <a role="link" region="Central" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido"
-       class="btn_seguirp_mobile seguimientoPedido" href="@Url.Action("Index", "SeguimientoPedido", new { area = "Mobile" })">SEGUIMIENTO A TU PEDIDO</a>
-
-    <a role="link" region="Central" parent="Mira el Video de Bienvenida" title="Mira el Video de Bienvenida" class="btn_seguirp_mobile ver_video_introductorio" href="javascript:;">MIRA EL VIDEO DE BIENVENIDA</a>
-</div>*@
 <div class="wrapper_resumen_mobile">
     <div class="content_320">
         <!--ITEM 1-->
