@@ -727,6 +727,8 @@ $.fn.fixedTo = function (elem) {
                     $('.zona_dorada_contenedor_desktop').css('position', 'initial');
                     $('#divOfertaProductosPerdio').css('top', '25px');
                     $('#divOfertaProductosPerdio').css('z-index', 'initial');
+                    $('footer').css('z-index', '100');
+                    $('footer').css('position', 'absolute');
                 }
             }
         };
