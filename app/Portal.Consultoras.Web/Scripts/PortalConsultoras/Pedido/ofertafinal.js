@@ -523,10 +523,10 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     }
 
     if (tipoOrigen === "1") {
-        if ($("#id_btn_noGracias_agregarProductos").length > 0) {
-            $("#id_btn_noGracias_agregarProductos").css({ 'margin': "auto", "line-height": "49px" });
-            $("#id_btn_noGracias_agregarProductos").hide();
-            $("#id_btn_noGracias_agregarProductos").show();
+        if ($("#btnNoGraciasOfertaFinal").length > 0) {
+            $("#btnNoGraciasOfertaFinal").css({ 'margin': "auto", "line-height": "49px" });
+            $("#btnNoGraciasOfertaFinal").hide();
+            $("#btnNoGraciasOfertaFinal").show();
         }
     }
 
@@ -586,7 +586,13 @@ function MostrarOfertaFinalRegalo(totalPedido) {
         //url terminos y condiciones
         if (objUpselling.Meta.TipoRango != null && objUpselling.Meta.TipoRango != "") {
             var href = $('#of-regalo-terminos').attr('href');
-            var xhref = href.replace('RGX', objUpselling.Meta.TipoRango);
+            var xhref = "";
+            if (paisISO == "MX") {
+                var lp = objUpselling.Meta.TipoRango.lastIndexOf('/');
+                var xhref = objUpselling.Meta.TipoRango.substring(0, lp) + '/TyC_RegaloSorpresa.pdf';
+            }
+            else
+                xhref = href.replace('RGX', objUpselling.Meta.TipoRango);
             $('#of-regalo-terminos').attr('href', xhref);
         }
     }
