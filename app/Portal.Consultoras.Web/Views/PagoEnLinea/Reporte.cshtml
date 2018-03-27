@@ -301,17 +301,22 @@
         var ZonaID = jQuery.trim($("#ddlZona").val());
         var codigoConsultora = jQuery.trim($('#CodigoConsultora').val());
         var Estado = jQuery.trim($("#ddlEstado").val());
+        var FechaPagoDesde = jQuery.trim($('#FechaPagoDesde').val());
+        var FechaPagoHasta = jQuery.trim($('#FechaPagoHasta').val());
+        var FechaProcesoDesde = jQuery.trim($('#FechaProcesoDesde').val());
+        var FechaProcesoHasta = jQuery.trim($('#FechaProcesoHasta').val());
         waitingDialog({});
 
         setTimeout(function () {
-            DownloadAttachExcel(CodigoCampania, RegionID, ZonaID, PaisID, codigoConsultora, Estado)
+            DownloadAttachExcel(CodigoCampania, RegionID, ZonaID, PaisID, codigoConsultora, Estado, FechaPagoDesde, FechaPagoHasta, FechaProcesoDesde, FechaProcesoHasta)
         }, 0);
     }
 
-    function DownloadAttachExcel(CodigoCampania, RegionID, ZonaID, PaisID, CodigoConsultora, Estado) {
+    function DownloadAttachExcel(CodigoCampania, RegionID, ZonaID, PaisID, CodigoConsultora, Estado, FechaPagoDesde, FechaPagoHasta, FechaProcesoDesde, FechaProcesoHasta) {
         if (checkTimeout()) {
             var content = baseUrl + "PagoEnLinea/ExportarExcel?CampaniaID=" + CodigoCampania + "&RegionID=" + RegionID + "&ZonaID="
-                + ZonaID + "&PaisID=" + PaisID + "&CodigoConsultora=" + CodigoConsultora + "&Estado=" + Estado;
+                + ZonaID + "&PaisID=" + PaisID + "&CodigoConsultora=" + CodigoConsultora + "&Estado=" + Estado + "&FechaPagoDesde="
+                + FechaPagoDesde + "&FechaPagoHasta=" + FechaPagoHasta + "&FechaProcesoDesde=" + FechaProcesoDesde + "&FechaProcesoHasta=" + FechaProcesoHasta;
             var iframe_ = document.createElement("iframe");
             iframe_.style.display = "none";
             iframe_.setAttribute("src", content);
