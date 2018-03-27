@@ -4251,6 +4251,47 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
+        #region Sesiones 
+        public object GetSession(string nameSession)
+        {
+            return System.Web.HttpContext.Current.Session[nameSession] ?? new object();
+        }
+
+        public List<ConfiguracionPaisModel> ListConfiguracionPais()
+        {
+            return sessionManager.GetConfiguracionesPaisModel() ??
+                   new List<ConfiguracionPaisModel>();
+        }
+
+        public ConfiguracionPaisModel ConfiguracionPaisObtener(string codigo)
+        {
+            codigo = Util.Trim(codigo).ToUpper();
+            var listado = ListConfiguracionPais();
+            var entidad = listado.FirstOrDefault(c => c.Codigo == codigo) ?? new ConfiguracionPaisModel();
+
+            return entidad;
+        }
+        public EventoFestivoDataModel GetEventoFestivoData()
+        {
+            return sessionManager.GetEventoFestivoDataModel() ??
+                   new EventoFestivoDataModel();
+        }
+
+
+        public OfertaFinalModel GetOfertaFinal()
+        {
+            return sessionManager.GetOfertaFinalModel() ??
+                   new OfertaFinalModel();
+        }
+
+        public MenuContenedorModel GetSessionMenuActivo()
+        {
+            return GetSession(Constantes.ConstSession.MenuContenedorActivo) as MenuContenedorModel ??
+                   new MenuContenedorModel();
+        }
+
+        #endregion
+
         #region ConfigurationManager
 
         public string GetConfiguracionManager(string key)
