@@ -7,16 +7,15 @@
     height: auto;
     overflow: hidden;
     position: fixed;
-    left: 7%;
-    width: 86%;
-    z-index: 900;
+    width: 100%;
+    z-index: 1001;
 }
 
 .showroom_banner_img {
     display: block;
     height: 73px;
     object-fit: cover;
-    width: 86vw;
+    width: 100vw;
 }
 
 .draw_close {
@@ -55,8 +54,8 @@
 
 .showroom_banner_boton {
     cursor: pointer;
-    right: 25px;
-    top: 25px;
+    right: 10px;
+    top: 10px;
     position: absolute;
     z-index: 901;
 }
