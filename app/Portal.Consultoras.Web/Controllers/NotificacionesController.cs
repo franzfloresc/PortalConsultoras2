@@ -308,6 +308,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.CodigoISO),
                 Origen = TipoOrigen
             };
+            ViewBag.PaisIso = userData.CodigoISO;
 
             return PartialView("DetalleNotificacionesPedido", model);
         }
