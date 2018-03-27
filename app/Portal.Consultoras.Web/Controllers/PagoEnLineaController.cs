@@ -400,7 +400,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             Dictionary<string, string> dic = new Dictionary<string, string>
             {
-                {"Campanña", "CampaniaId"},
+                {"Campaña", "CampaniaId"},
                 {"Nombre de Comercio", "NombreComercio"},
                 {"Id de Pago", "IdUnicoTransaccion"},
                 {"Nro. de Pago", "PagoEnLineaResultadoLogId"},
