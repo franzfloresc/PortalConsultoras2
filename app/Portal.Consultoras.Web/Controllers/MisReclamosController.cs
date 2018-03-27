@@ -97,36 +97,10 @@ namespace Portal.Consultoras.Web.Controllers
                 ExpressFlete = SetMensajeFleteExpress(model.FleteDespacho)
             };
 
-            if (userData.PaisID == 9)
-            {
-                model.limiteMinimoTelef = 5;
-                model.limiteMaximoTelef = 15;
-            }
-            else if (userData.PaisID == 11)
-            {
-                model.limiteMinimoTelef = 7;
-                model.limiteMaximoTelef = 9;
-            }
-            else if (userData.PaisID == 4)
-            {
-                model.limiteMinimoTelef = 10;
-                model.limiteMaximoTelef = 10;
-            }
-            else if (userData.PaisID == 8 || userData.PaisID == 7 || userData.PaisID == 10 || userData.PaisID == 5)
-            {
-                model.limiteMinimoTelef = 8;
-                model.limiteMaximoTelef = 8;
-            }
-            else if (userData.PaisID == 6)
-            {
-                model.limiteMinimoTelef = 9;
-                model.limiteMaximoTelef = 10;
-            }
-            else
-            {
-                model.limiteMinimoTelef = 0;
-                model.limiteMaximoTelef = 15;
-            }
+            int limiteMinimoTelef, limiteMaximoTelef;
+            GetLimitNumberPhone(out limiteMinimoTelef, out limiteMaximoTelef);
+            model.limiteMinimoTelef = limiteMinimoTelef;
+            model.limiteMaximoTelef = limiteMaximoTelef;
 
             return View(model);
         }

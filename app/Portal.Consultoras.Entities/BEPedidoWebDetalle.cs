@@ -85,7 +85,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int SubTipoOfertaSisID { get; set; }
         [DataMember]
-        private string TipoPedido { get; set; }
+        public string TipoPedido { get; set; }
         [DataMember]
         public string DescripcionOferta { get; set; }
         [DataMember]
@@ -155,6 +155,10 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public bool ProgramaNuevoActivado { get; set; }
+
+        [DataMember]
+        public string CodigoTipoOferta { get; set; }
+
 
         public BEPedidoWebDetalle()
         { }
@@ -252,7 +256,11 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "FlagNueva"))
                 FlagNueva = Convert.ToBoolean(row["FlagNueva"]);
             if (DataRecord.HasColumn(row, "ProgramaNuevoActivado"))
-                ProgramaNuevoActivado = Convert.ToBoolean(row["ProgramaNuevoActivado"]);               
+                ProgramaNuevoActivado = Convert.ToBoolean(row["ProgramaNuevoActivado"]);
+            if (DataRecord.HasColumn(row, "CodigoTipoOferta"))
+                CodigoTipoOferta = Convert.ToString(row["CodigoTipoOferta"]);
+
+
         }
 
         public BEPedidoWebDetalle(IDataRecord row, string Consultora)
@@ -363,6 +371,9 @@ namespace Portal.Consultoras.Entities
                 FlagNueva = Convert.ToBoolean(row["FlagNueva"]);
             if (DataRecord.HasColumn(row, "ProgramaNuevoActivado"))
                 ProgramaNuevoActivado = Convert.ToBoolean(row["ProgramaNuevoActivado"]);
+            if (DataRecord.HasColumn(row, "CodigoTipoOferta"))
+                CodigoTipoOferta = Convert.ToString(row["CodigoTipoOferta"]);
+
         }
     }
 

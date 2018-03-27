@@ -7,7 +7,7 @@ namespace Portal.Consultoras.Entities
     {
         [DataMember]
         public int ConfiguracionPaisID { get; set; }
-        
+
         private BEConfiguracionPais privConfiguracionPais = new BEConfiguracionPais();
         [DataMember]
         public BEConfiguracionPais ConfiguracionPais

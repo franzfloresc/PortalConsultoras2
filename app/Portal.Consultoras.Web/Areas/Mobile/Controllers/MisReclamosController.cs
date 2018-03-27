@@ -2,6 +2,8 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceCDR;
+using Portal.Consultoras.Web.Areas.Mobile.Models;
+using Portal.Consultoras.Web.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +15,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     {
         public ActionResult Index()
         {
-            if (userData.TieneCDR == 0) return RedirectToAction("Index", "Bienvenida");
+            if (userData.TieneCDR == 0) return RedirectToAction("Index", "Bienvenida",new { area = "Mobile" });
             MisReclamosModel model = new MisReclamosModel();
             List<CDRWebModel> listaCdrWebModel;
+            var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
 
             try
             {
@@ -36,30 +39,31 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             string urlPoliticaCdr = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPoliticasCDR) ?? "{0}";
             model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
             model.ListaCDRWeb = listaCdrWebModel.FindAll(p => p.CantidadDetalle > 0);
-            model.MensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitadaYChatEnLinea();
+            model.MensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitadaYChatEnLinea(mobileConfiguracion.EsAppMobile);
 
             if (!string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return View(model);
-            if (model.ListaCDRWeb.Count == 0) return RedirectToAction("Reclamo");
+            if (model.ListaCDRWeb.Count == 0) return RedirectToAction("Reclamo","MisReclamos",new { area = "Mobile" });
             return View(model);
         }
 
         public ActionResult Reclamo(int pedidoId = 0)
         {
+            var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
             var model = new MisReclamosModel
             {
                 PedidoID = pedidoId,
-                MensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitadaYChatEnLinea()
+                MensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitadaYChatEnLinea(mobileConfiguracion.EsAppMobile)
             };
-            if (pedidoId == 0 && !string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return RedirectToAction("Index");
+            if (pedidoId == 0 && !string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return RedirectToAction("Index","MisReclamos", new { area = "Mobile" });
 
             CargarInformacion();
             model.ListaCampania = (List<CampaniaModel>)Session[Constantes.ConstSession.CDRCampanias];
-            if (model.ListaCampania.Count <= 1) return RedirectToAction("Index");
+            if (model.ListaCampania.Count <= 1) return RedirectToAction("Index","MisReclamos", new { area = "Mobile" });
 
             if (pedidoId != 0)
             {
                 var listaCdr = CargarBECDRWeb(new MisReclamosModel { PedidoID = pedidoId });
-                if (listaCdr.Count == 0) return RedirectToAction("Index");
+                if (listaCdr.Count == 0) return RedirectToAction("Index","MisReclamos", new { area = "Mobile" });
 
                 if (listaCdr.Count == 1)
                 {
@@ -75,36 +79,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.Telefono = userData.Celular;
             model.MontoMinimo = userData.MontoMinimo;
 
-            if (userData.PaisID == 9)
-            {
-                model.limiteMinimoTelef = 5;
-                model.limiteMaximoTelef = 15;
-            }
-            else if (userData.PaisID == 11)
-            {
-                model.limiteMinimoTelef = 7;
-                model.limiteMaximoTelef = 9;
-            }
-            else if (userData.PaisID == 4)
-            {
-                model.limiteMinimoTelef = 10;
-                model.limiteMaximoTelef = 10;
-            }
-            else if (userData.PaisID == 8 || userData.PaisID == 7 || userData.PaisID == 10 || userData.PaisID == 5)
-            {
-                model.limiteMinimoTelef = 8;
-                model.limiteMaximoTelef = 8;
-            }
-            else if (userData.PaisID == 6)
-            {
-                model.limiteMinimoTelef = 9;
-                model.limiteMaximoTelef = 10;
-            }
-            else
-            {
-                model.limiteMinimoTelef = 0;
-                model.limiteMaximoTelef = 15;
-            }
+            int limiteMinimoTelef, limiteMaximoTelef;
+            GetLimitNumberPhone(out limiteMinimoTelef, out limiteMaximoTelef);
+            model.limiteMinimoTelef = limiteMinimoTelef;
+            model.limiteMaximoTelef = limiteMaximoTelef;
 
             return View(model);
         }
@@ -143,7 +121,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.CantidadRechazados = listaCdrWebDetalle.Count(f => f.Estado == Constantes.EstadoCDRWeb.Observado);
 
             Session["ListaCDRDetalle"] = model;
-            return RedirectToAction("Detalle");
+            return RedirectToAction("Detalle","MisReclamos", new { area = "Mobile" });
         }
 
         public ActionResult DetalleCDR(long solicitudId)
@@ -179,7 +157,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.CantidadRechazados = listaCdrWebDetalle.Count(f => f.Estado == Constantes.EstadoCDRWeb.Observado);
 
             Session["ListaCDRDetalle"] = model;
-            return RedirectToAction("Detalle");
+            return RedirectToAction("Detalle", "MisReclamos", new { area = "Mobile" });
         }
 
         public ActionResult Detalle()

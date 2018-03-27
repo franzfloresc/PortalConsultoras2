@@ -1,12 +1,10 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities.Estrategia;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Entities.Estrategia;
+
 
 namespace Portal.Consultoras.Data.Estrategia
 {
@@ -14,8 +12,6 @@ namespace Portal.Consultoras.Data.Estrategia
     {
         public UpSellingDataAccess(int paisId) : base(paisId, EDbSource.Portal)
         { }
-
-        //todo: complete access
 
         /// <summary>
         /// No stored procedure created yet
@@ -48,16 +44,17 @@ namespace Portal.Consultoras.Data.Estrategia
             using (var command = Context.Database.GetStoredProcCommand("dbo.UpSelling_Insert"))
             {
                 Context.Database.AddInParameter(command, "@CodigoCampana", DbType.Int32, upSelling.CodigoCampana);
-                Context.Database.AddInParameter(command, "@MontoMeta", DbType.Decimal, upSelling.MontoMeta);
-                Context.Database.AddInParameter(command, "@TextoMeta1", DbType.String, upSelling.TextoMeta);
-                Context.Database.AddInParameter(command, "@TextoMeta2", DbType.String, upSelling.TextoMetaSecundario);
-                Context.Database.AddInParameter(command, "@TextoGanaste1", DbType.String, upSelling.TextoGanaste);
-                Context.Database.AddInParameter(command, "@TextoGanaste2", DbType.String, upSelling.TextoGanasteSecundario);
+                Context.Database.AddInParameter(command, "@TextoMetaPrincipal", DbType.String, upSelling.TextoMetaPrincipal);
+                Context.Database.AddInParameter(command, "@TextoInferior", DbType.String, upSelling.TextoInferior);
+                Context.Database.AddInParameter(command, "@TextoGanastePrincipal", DbType.String, upSelling.TextoGanastePrincipal);
+                Context.Database.AddInParameter(command, "@TextoGanasteBoton", DbType.String, upSelling.TextoGanasteBoton);
+                Context.Database.AddInParameter(command, "@TextoGanastePremio", DbType.String, upSelling.TextoGanastePremio);
+                Context.Database.AddInParameter(command, "@ImagenFondoPrincipalDesktop", DbType.String, upSelling.ImagenFondoPrincipalDesktop);
+                Context.Database.AddInParameter(command, "@ImagenFondoPrincipalMobile", DbType.String, upSelling.ImagenFondoPrincipalMobile);
+                Context.Database.AddInParameter(command, "@ImagenFondoGanasteMobile", DbType.String, upSelling.ImagenFondoGanasteMobile);
                 Context.Database.AddInParameter(command, "@Activo", DbType.Boolean, upSelling.Activo);
                 Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.String, upSelling.UsuarioCreacion);
                 Context.Database.AddInParameter(command, "@FechaCreacion", DbType.DateTime, upSelling.FechaCreacion);
-                Context.Database.AddInParameter(command, "@UsuarioModicacion", DbType.String, upSelling.UsuarioModicacion);
-                Context.Database.AddInParameter(command, "@FechaModificacion", DbType.DateTime, upSelling.FechaModificacion);
 
                 var reader = Context.ExecuteReader(command);
                 return reader.MapToObject<UpSelling>(closeReaderFinishing: true);
@@ -69,15 +66,16 @@ namespace Portal.Consultoras.Data.Estrategia
             using (var command = Context.Database.GetStoredProcCommand("dbo.UpSelling_Update"))
             {
                 Context.Database.AddInParameter(command, "@CodigoCampana", DbType.Int32, upSelling.CodigoCampana);
-                Context.Database.AddInParameter(command, "@MontoMeta", DbType.Decimal, upSelling.MontoMeta);
-                Context.Database.AddInParameter(command, "@TextoMeta1", DbType.String, upSelling.TextoMeta);
-                Context.Database.AddInParameter(command, "@TextoMeta2", DbType.String, upSelling.TextoMetaSecundario);
-                Context.Database.AddInParameter(command, "@TextoGanaste1", DbType.String, upSelling.TextoGanaste);
-                Context.Database.AddInParameter(command, "@TextoGanaste2", DbType.String, upSelling.TextoGanasteSecundario);
+                Context.Database.AddInParameter(command, "@TextoMetaPrincipal", DbType.String, upSelling.TextoMetaPrincipal);
+                Context.Database.AddInParameter(command, "@TextoInferior", DbType.String, upSelling.TextoInferior);
+                Context.Database.AddInParameter(command, "@TextoGanastePrincipal", DbType.String, upSelling.TextoGanastePrincipal);
+                Context.Database.AddInParameter(command, "@TextoGanasteBoton", DbType.String, upSelling.TextoGanasteBoton);
+                Context.Database.AddInParameter(command, "@TextoGanastePremio", DbType.String, upSelling.TextoGanastePremio);
+                Context.Database.AddInParameter(command, "@ImagenFondoPrincipalDesktop", DbType.String, upSelling.ImagenFondoPrincipalDesktop);
+                Context.Database.AddInParameter(command, "@ImagenFondoPrincipalMobile", DbType.String, upSelling.ImagenFondoPrincipalMobile);
+                Context.Database.AddInParameter(command, "@ImagenFondoGanasteMobile", DbType.String, upSelling.ImagenFondoGanasteMobile);
                 Context.Database.AddInParameter(command, "@Activo", DbType.Boolean, upSelling.Activo);
-                Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.String, upSelling.UsuarioCreacion);
-                Context.Database.AddInParameter(command, "@FechaCreacion", DbType.DateTime, upSelling.FechaCreacion);
-                Context.Database.AddInParameter(command, "@UsuarioModicacion", DbType.String, upSelling.UsuarioModicacion);
+                Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.String, upSelling.UsuarioModificacion);
                 Context.Database.AddInParameter(command, "@FechaModificacion", DbType.DateTime, upSelling.FechaModificacion);
                 Context.Database.AddInParameter(command, "@UpSellingId", DbType.Int32, upSelling.UpSellingId);
 
@@ -121,8 +119,6 @@ namespace Portal.Consultoras.Data.Estrategia
                 Context.Database.AddInParameter(command, "@UpSellingId", DbType.Int32, regalo.UpSellingId);
                 Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.String, regalo.UsuarioCreacion);
                 Context.Database.AddInParameter(command, "@FechaCreacion", DbType.DateTime, regalo.FechaCreacion);
-                Context.Database.AddInParameter(command, "@UsuarioModicacion", DbType.String, regalo.UsuarioModicacion);
-                Context.Database.AddInParameter(command, "@FechaModificacion", DbType.DateTime, regalo.FechaModificacion);
 
                 var reader = Context.ExecuteReader(command);
                 return reader.MapToObject<UpSellingDetalle>(closeReaderFinishing: true);
@@ -152,9 +148,7 @@ namespace Portal.Consultoras.Data.Estrategia
                 Context.Database.AddInParameter(command, "@Orden", DbType.Int32, regalo.Orden);
                 Context.Database.AddInParameter(command, "@Activo", DbType.Boolean, regalo.Activo);
                 Context.Database.AddInParameter(command, "@UpSellingId", DbType.Int32, regalo.UpSellingId);
-                Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.String, regalo.UsuarioCreacion);
-                Context.Database.AddInParameter(command, "@FechaCreacion", DbType.DateTime, regalo.FechaCreacion);
-                Context.Database.AddInParameter(command, "@UsuarioModicacion", DbType.String, regalo.UsuarioModicacion);
+                Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.String, regalo.UsuarioModificacion);
                 Context.Database.AddInParameter(command, "@FechaModificacion", DbType.DateTime, regalo.FechaModificacion);
                 Context.Database.AddInParameter(command, "@UpSellingDetalleId", DbType.Int32, regalo.UpSellingDetalleId);
 
@@ -178,8 +172,6 @@ namespace Portal.Consultoras.Data.Estrategia
             }
         }
 
-
-
         public IEnumerable<OfertaFinalMontoMeta> ObtenerOfertaFinalMontoMeta(int upSellingId)
         {
             using (var command = Context.Database.GetStoredProcCommand("dbo.OfertaFinalMontoMeta_Select"))
@@ -192,5 +184,24 @@ namespace Portal.Consultoras.Data.Estrategia
             }
         }
 
+        public int InsertarRegalo(UpSellingRegalo entidad)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.InsertUpSellingRegalo"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, entidad.CampaniaId);
+                Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int32, entidad.ConsultoraId);
+                Context.Database.AddInParameter(command, "@MontoPedido", DbType.Decimal, entidad.MontoPedido);
+                Context.Database.AddInParameter(command, "@GapMinimo", DbType.Decimal, entidad.GapMinimo);
+                Context.Database.AddInParameter(command, "@GapMaximo", DbType.Decimal, entidad.GapMaximo);
+                Context.Database.AddInParameter(command, "@GapAgregar", DbType.Decimal, entidad.GapAgregar);
+                Context.Database.AddInParameter(command, "@MontoMeta", DbType.Decimal, entidad.MontoMeta);
+                Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV);
+                Context.Database.AddInParameter(command, "@TipoRango", DbType.String, entidad.TipoRango);
+                Context.Database.AddInParameter(command, "@MontoPedidoFinal", DbType.Decimal, entidad.MontoPedidoFinal);
+                Context.Database.AddInParameter(command, "@UpSellingDetalleId", DbType.Int32, entidad.UpSellingDetalleId);
+
+                return Convert.ToInt32(Context.ExecuteScalar(command));
+            }
+        }
     }
 }

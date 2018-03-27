@@ -15,7 +15,8 @@ namespace Portal.Consultoras.Web.Models
         public int Orden { get; set; }
 
         public bool TienePerfil { get; set; }
-        public string Logo { get; set; }
+        public string DesktopLogoMenu { get; set; }
+        public string MobileLogoMenu { get; set; }
         public string DesktopTituloMenu { get; set; }
         public string MobileTituloMenu { get; set; }
         public string DesktopSubTituloMenu { get; set; }
@@ -31,9 +32,21 @@ namespace Portal.Consultoras.Web.Models
         public string MobileLogoBanner { get; set; }
 
         public string UrlMenu { get; set; }
-        public string UrlMenuMobile { get; set; }
+        public string UrlMenuMobile
+        {
+            get
+            {
+                return "/Mobile/" + UrlMenu ?? string.Empty;
+            }
+        }
 
-        public bool EsAncla { get; set; }
+        public bool EsAncla
+        {
+            get
+            {
+                return UrlMenu != null && UrlMenu.Contains("#");
+            }
+        }
         public int CampaniaId { get; set; }
 
         public int OrdenBpt { get; set; }

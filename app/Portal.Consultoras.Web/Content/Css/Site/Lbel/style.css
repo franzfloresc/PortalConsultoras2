@@ -2589,11 +2589,11 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     font-family: 'Lato';
 }
 
-.titulo_mis_pedidos {
+.titulo_mis_pedidos, .titulo_pedidos_fic {
     float: left;
 }
 
-    .titulo_mis_pedidos h1 {
+    .titulo_mis_pedidos h1, .titulo_pedidos_fic h1 {
         text-align: center;
         font-weight: 300 !important;
         font-size: 17px;
@@ -3021,6 +3021,15 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     float: right;
     width: 28.1%;
 }
+.flexiPago_belcorp {
+    display: block;
+    width: 28.1%;
+    height: auto;
+    margin-top: 27px;
+    float: right;
+    position: absolute;
+    right: 0;
+}
 
 .flexiPago_belcorp {
     display: block;
@@ -3158,6 +3167,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     overflow: hidden;
     padding-top: 10px;
     box-sizing: border-box;
+    top: -115px;
 }
 
 .control_carousel_flechaArriba {
@@ -3325,8 +3335,8 @@ a.subir_carousel, a.bajar_carousel {
 
 .producto_precio {
     width: 100%;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 10px;
+    padding-right: 10px;
     font-family: 'Lato';
     letter-spacing: .2px;
     color: #000;
@@ -3350,6 +3360,8 @@ a.subir_carousel, a.bajar_carousel {
     font-size: 16px;
     width: 50%;
     padding-left: 5px;
+    position: relative;
+    top: -3.5px;
 }
 
 .boton_elegirTono {
@@ -17892,9 +17904,6 @@ body, html {
     }
 
         #paForm ul li input {
-            /*
-	width: 212px;
-	line-*/
             background: url('../../Images/afiliacion/enterate_mas.png') 0 0 no-repeat;
             border: 0;
             width: 190px;
@@ -19766,14 +19775,23 @@ label.checkpop.c_on {
     width: 100%;
     overflow: hidden;
     color: black;
+    font-size:15px;
 }
 
 .consultora_home {
     margin-bottom: 6px;
     display: block;
     color: black;
+    font-size: 13px !important;
     margin-top: -5px;
     float: left;
+}
+.consultora_home a.txtdorado{
+    display: inline;
+    font-size: 13px !important;
+    color: #d4ae3a !important;
+    margin-right: 5px;
+    text-decoration:underline;
 }
 
 .info_cam_belcorp {
@@ -20018,15 +20036,15 @@ label.checkpop.c_on {
     float: right;
     margin-top: 30px;
     height: 45px;
-    border: 1px solid #613c87;
-    color: #613c87;
+    border: 1px solid black;
+    color: #000;
     text-align: center;
     font-family: 'lato';
     font-size: 13px;
     font-weight: 700;
     padding-top: 13px;
     padding-left: 45px;
-    background: white url('../../../Images/Lbel/tarjeta.png') no-repeat;
+    background: white url('../../../Images/icono-tarjeta.svg') no-repeat;
     background-position: 23px 10px;
 }
 
@@ -20172,6 +20190,11 @@ label.checkpop.c_on {
     margin: auto;
     left: 0;
     right: 0;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
 }
 
     .btn_comparte:hover {
@@ -20202,11 +20225,17 @@ label.checkpop.c_on {
     font-size: 9px;
     letter-spacing: .1px;
     color: #848484;
-    margin-top: 5px;
+    margin-top: -2px;
     margin-left: 10px;
-    float: left;
+    display: inline;
+    top: -2px;
+    position: relative;
 }
-
+    .mis_datos img {
+        margin-left: 5px;
+        position: relative;
+        top: 1px;
+    }
     .mis_datos:hover {
         text-decoration: underline;
     }
@@ -20222,7 +20251,23 @@ label.checkpop.c_on {
 
 .btn_100_paga {
     width: 100%;
-    background-position: 34% 10px;
+    background-position: 27.5% 10px;
+    margin-left: auto;
+    margin-right: auto;
+    float: none;
+    margin-top:27px;
+    padding-top: 12px;
+    padding-left: 20px;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+.btn_100_paga:hover{
+    color:#FFF;
+    background: #000 url('../../../Images/icono-tarjeta-blanco.svg') 27.5% 10px no-repeat;
 }
 
 .btn_100_facturacion {
@@ -20298,6 +20343,67 @@ label.checkpop.c_on {
     font-weight: 600;
 }
 
+.draw_arrow_left {
+    left: 0;
+    margin-left: -8%;
+}
+
+.draw_arrow_right {
+    right: 0;
+    margin-right: -8%;
+}
+
+.draw_line {
+    margin-left: 0;
+    width: 40px;
+    border: 0;
+    border-top: 2px solid #000;
+    height: auto;
+    background: initial;
+    transition: all;
+    text-align: initial;
+}
+
+.color_white {
+    border-top: 2px solid #fff;
+}
+
+.line_1_right {
+    -webkit-transform: rotate(235deg);
+    -moz-transform: rotate(235deg);
+    -ms-transform: rotate(235deg);
+    -o-transform: rotate(235deg);
+    transform: rotate(235deg);
+    margin-top: 16px;
+}
+
+.line_2_right {
+    -webkit-transform: rotate(305deg);
+    -moz-transform: rotate(305deg);
+    -ms-transform: rotate(305deg);
+    -o-transform: rotate(305deg);
+    transform: rotate(305deg);
+    margin-top: 30px;
+}
+
+.line_1_left {
+    -webkit-transform: rotate(125deg);
+    -moz-transform: rotate(125deg);
+    -ms-transform: rotate(125deg);
+    -o-transform: rotate(125deg);
+    transform: rotate(125deg);
+    margin-top: 16px;
+}
+
+.line_2_left {
+    -webkit-transform: rotate(235deg);
+    -moz-transform: rotate(235deg);
+    -ms-transform: rotate(235deg);
+    -o-transform: rotate(235deg);
+    transform: rotate(235deg);
+    margin-top: 30px;
+}
+
 .previous_ofertas {
     height: 329px;
     top: 0;
@@ -20345,6 +20451,7 @@ label.checkpop.c_on {
     margin: 0 auto;
     height: 335px;
     border: 1px solid #e7e1e1;
+    padding: 15px 0 15px 0;
     -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
@@ -21513,7 +21620,6 @@ letter-spacing: 0.3px;
 }
 .revista_content .revista_content2 .revistatxt .contrevista a {
 width: 173px;
-/* height: 30px; */
 padding: 8px;
 margin: auto;
 display: block;
@@ -27533,14 +27639,14 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         font-size: 14.5px;
     }
 
-.titulo_pedidos_fic {
+/*.titulo_pedidos_fic {
     float: left;
     text-align: left;
     font-size: 22px;
     letter-spacing: 3px;
     color: #000;
     font-family: 'Lato';
-}
+}*/
 
 .content_paginador {
     float: right;
@@ -32478,7 +32584,6 @@ h1#penmostreo .campana {
     max-width: 1024px;
     height: 490px;
     margin: auto, auto;
-    /*background: #000;*/
     padding: 10px 0;
 }
 
@@ -32622,7 +32727,6 @@ h1#penmostreo .campana {
 
 .content_pop_oferta_dia .liquidacion_rango_right_pedido {
     background: transparent !important;
-    /*border: 1px solid #fff;*/
 }
 /*PAYPAL*/
 .monto_texto {
@@ -32736,24 +32840,30 @@ h1#penmostreo .campana {
     margin-top: 0;
 }
 
-
 .btn_compartir_facebook_ficha {
-    width: 45%;
-    float: none;
+    width: 25px;
+    float: left;
+    margin-right: 5px;
+    text-align: center;
     margin-left: 0;
     display: inline-block;
 }
 
+    .btn_compartir_facebook_ficha img {
+        float: left;
+    }
+
 .btn_compartir_facebook_ficha_fix {
-    width: 35%;
+    width: 30%;
     float: left;
-    margin-right: 5px;
+    margin-right: 2%;
     text-align: center;
+    height: 25px;
 }
 
-.btn_compartir_facebook_ficha img {
-    float: left;
-}
+    .btn_compartir_facebook_ficha_fix img {
+        height: 100%;
+    }
 
 .btn_compartir_facebook_ficha_fix_ODD {
     width: 25px;
@@ -33025,6 +33135,7 @@ h1#penmostreo .campana {
     display: inline-block;
     text-align: center;
     width: 100%;
+    padding: 12px 0;
 }
 .texto_compartelo {
     float: left;
@@ -33036,12 +33147,10 @@ h1#penmostreo .campana {
 .texto_compartelo_fix {
     font-family: 'Lato';
     font-size: 12px;
-    /* margin-top: 3px; */
-    width: 60%;
+    width: 62%;
     text-align: right;
     margin-right: 3%;
     height: 42px;
-    padding: 12px 0px;
 }
 .texto_compartelo_fix p {
 display: block;
@@ -33053,13 +33162,6 @@ padding: 10px 0px;
 .texto_compartelo_fix p div{
 display:block;
 height:30px;
-}
-
-.btn_compartir_facebook_ficha {
-    width: 25px;
-    float: left;
-    margin-right: 5px;
-    text-align: center;
 }
 
 .opcion_escala_descuento {
@@ -33130,10 +33232,6 @@ height:30px;
     padding-left: 20px;
     background: url('../../../Images/Esika/arrow_left.png') no-repeat left;
     background-size: 18px 18px;
-}
-
-.btn_compartir_facebook_ficha:nth-child(3) {
-    margin-right: 0;
 }
 
 .notificacion_cantidad {
@@ -34796,11 +34894,12 @@ height:30px;
     float: left;
     margin-left: 38px;
     line-height: 1.17;
+    width: 185px;           
 }
 
 .content_cupon {
     width: 664px;
-    height: 280px;
+    height: 360px;
     position: relative;
     top: 50%;
     margin: 13% auto auto auto;
@@ -34908,7 +35007,7 @@ height:30px;
 .titulo_cupon2 {
     font-family: 'LAto';
     font-size: 20px;
-    font-weight: 900;
+    font-weight: 700;   
     letter-spacing: 1px;
 }
 
@@ -34961,22 +35060,21 @@ height:30px;
 
 .texto_cupon3 {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 5px;
     font-size: 14px;
 }
 
 .info_recuerda_cupon {
     float: left;
     width: 33%;
-    margin-top: 12px;
     font-family: 'Lato';
-    font-size: 12px;
+    font-size: 13px;
     height: 72px;
 }
 
     .info_recuerda_cupon span {
         display: block;
-        margin-top: 5px;
+        margin-top: 14px;
         line-height: 15px;
     }
 
@@ -34987,7 +35085,7 @@ height:30px;
 .info_recuerda_cupon_ganaste {
     display: inline-table;
     float: none;
-    width: 40%;
+    width: 40%;         
 }
 
 .info_recuerda_cupon_line {
@@ -35635,18 +35733,17 @@ height:30px;
 }
 /*SPRINT 18*/
 .content_regalo_sorpresa {
-    display: inline-block;
-    width: 310px;
-    min-height: 608px;
-    margin-top: 35px;
+    background-repeat: no-repeat;
     background-size: 100% 100%;
-    vertical-align: top;
-    margin-right: -25px;
-    z-index: 21;
+    background-position: center center;
+    display: inline-block;
+    margin: 35px -13px 0 0;
+    min-height: 608px;
+    padding: 25px 25px 0 25px;
     position: relative;
-    padding-top: 25px;
-    padding-left: 32px;
-    padding-right: 25px;
+    vertical-align: top;
+    width: 308px;
+    z-index: 21;
 }
 
 .fondo_blanco_regalo {
@@ -35674,44 +35771,29 @@ height:30px;
 
 .titulo_regalo_producto {
     font-family: 'Lato';
-    font-size: 13px;
     font-weight: 700;
     color: black;
-    margin-bottom: 15px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 21px;
-    line-height: 16px;
+    font-size: 13px;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 .content_imagen_sorpresa {
-    height: 178px;
-    width: 180px;
+    width: 163px;
     margin: 0 auto;
-    margin-bottom: 12px;
+    text-align: center;
 }
+
+    .content_imagen_sorpresa img {
+        width: 100%;
+    }
 
 .descripcion_regalo {
     font-family: 'Lato';
     font-size: 10px;
-    color: black;
-    line-height: 12px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 18px;
+    margin-top: 16px;
+    text-align: center;
 }
-
-    .descripcion_regalo .oferta_final_descripcion {
-        display: block;
-        margin-bottom: 7px;
-        overflow-wrap: break-word;
-    }
-
-    .descripcion_regalo a {
-        display: block;
-        text-decoration: underline;
-        margin-top: 7px;
-    }
 
 .content_detalle_monto {
     font-family: 'Lato';
@@ -35752,16 +35834,200 @@ height:30px;
 }
 
 .icono_regalo_sorpresa {
-    width: 85px;
-    height: 55px;
-    background: url('https://image.prntscr.com/image/FsgNYCifSjqEzkw5UjWyBw.png');
-    margin: 0 auto;
-    margin-top: 13px;
+    margin: 0 auto 8px auto;
+    width: 80px;
 }
 
-    .icono_regalo_sorpresa.mt-11 {
-        margin-top: 11px;
+    .icono_regalo_sorpresa img {
+        width: 100%;
     }
+
+.txt_regalo_sorpresa_popup {
+    font-family: 'Lato';
+    text-align: center;
+    color: #ffffff;
+}
+
+.box_regalo_sorpresa_popup {
+    margin-bottom: 15px;
+}
+
+.span_1_regalo_sorpresa_popup {
+    font-size: 13px;
+    letter-spacing: 1.1px;
+}
+
+.span_2_regalo_sorpresa_popup {
+    font-size: 16px;
+    font-weight: 900;
+    line-height: normal;
+    letter-spacing: 1.1px;
+}
+
+.arrow_box {
+    position: relative;
+    background: #000000;
+    width: 207px;
+    margin: 0 auto 0px auto;
+    padding: 5px 0 5px 0;
+    z-index: 1;
+}
+
+    .arrow_box:after {
+        top: 100%;
+        left: 50%;
+        content: " ";
+        border: solid transparent;
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-color: rgba(0, 0, 0, 0);
+        border-top-color: #000000;
+        border-width: 10px;
+        margin-left: -10px;
+    }
+
+.arrow_box_2 {
+    padding: 11px 0 11px 0;
+}
+
+.span_1_regalo_sorpresa_producto {
+    font-size: 10.5px;
+}
+
+.span_1_regalo_sorpresa_producto_2 {
+    font-size: 10.4px;
+    line-height: 1.24;
+    letter-spacing: .2px;
+}
+
+.span_2_regalo_sorpresa_producto {
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: .9px;
+}
+
+.content_info_regalo {
+    position: relative;
+    padding: 22px 10px 22px 10px;
+    background: #FFF;
+    width: 207px;
+    display: block;
+    margin: 0 auto 15px auto;
+    min-height: 293px;
+    border: 1px solid #e7e1e1;
+    box-shadow: 0 15px 18px -7px rgba(0,0,0,1);
+    -moz-box-shadow: 0 15px 18px -7px rgba(0,0,0,1);
+    -o-box-shadow: 0 15px 18px -7px rgba(0,0,0,1);
+    -ms-box-shadow: 0 15px 18px -7px rgba(0,0,0,1);
+    -webkit-box-shadow: 0 15px 18px -7px rgba(0,0,0,1);
+}
+
+.boton_quiero_este_premio {
+    display: block;
+    height: 38px;
+    line-height: 37px;
+    background: black;
+    color: white;
+    text-align: center;
+    border: 1px solid #000;
+    font-size: 13px;
+    cursor: pointer;
+    margin: 17px auto 0 auto;
+    width: 95%;
+    vertical-align: top;
+    letter-spacing: .5px;
+}
+
+.content_regalo_sinstock {
+    background-color: #ffffffb3;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.txt_agotado {
+    font-family: Lato;
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: 1.3px;
+    color: #d0021b;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.txt_paginacion_premio {
+    color: #fff;
+    font-family: Lato;
+    font-size: 11.7px;
+    letter-spacing: .7px;
+    text-align: center;
+    width: 100%;
+}
+
+.span_paginacion_premio_1 {
+    font-weight: bold;
+}
+
+.txt_nota_premio {
+    margin-top: 16px;
+    font-family: 'Lato';
+    font-size: 12px;
+    display: block;
+    color: white;
+    text-align: center;
+    line-height: 1.25;
+}
+
+.btn_legal_RS {
+    font-family: 'Lato';
+    font-size: 12px;
+    display: block;
+    color: white;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.btn_regresa_OF {
+    cursor: pointer;
+    left: 15px;
+    position: absolute;
+    top: 15px;
+}
+
+.img_regresa_OF {
+    margin-top: 3.2px;
+    position: absolute;
+    width: 8px;
+}
+
+.span_regresa_OF {
+    color: white;
+    font-family: 'Lato';
+    font-size: 11px;
+    letter-spacing: .5px;
+    position: relative;
+    padding-left: 15px;
+    text-transform: uppercase;
+}
+
+#divGanoRegalo .btn_legal_RS {
+    margin-top: 30px;
+}
+
+#divCarruselRegalo .content_item_carrusel_ofertaFinal {
+    height: auto;
+}
 
 .contenedor_boton_reservarPedido {
     display: block;
@@ -35983,7 +36249,7 @@ height:30px;
 }
 
 .activar_boton_popup_confirma_datos {
-    background: #613c87 !important;
+    background: #c39934 !important;
 }
 
 @-webkit-keyframes flash {
