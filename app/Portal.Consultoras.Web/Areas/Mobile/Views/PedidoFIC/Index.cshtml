@@ -15,11 +15,11 @@
     {
         <div class="titulo_mobile agregarSombraInferior">
             <a href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
-            <div class="titulo_vista text-uppercase">
-                Ingresar Pedido Fic C@(Model.CampaniaNro)
+            <div class="titulo_vista text-uppercase">           
+                Ingresar Pedido Fic C<span>@ViewBag.Campania</span>
                 <div class="text-lowercase">
                     <span>
-                        hasta el <span>26/02</span>
+                        hasta el <span>@ViewBag.FechaFinFIC</span>
                     </span>
                 </div>
             </div>
