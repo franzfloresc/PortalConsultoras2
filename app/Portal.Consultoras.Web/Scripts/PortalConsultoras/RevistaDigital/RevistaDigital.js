@@ -11,12 +11,12 @@ var revistaDigital = revistaDigital || null;
 var sliderWay = 0;
 
 var sProps = {
-    UrlRevistaDigitalInformacion: baseUrl + "revistadigital/Informacion",
-    UrlRevistaDigitalComprar: baseUrl + "revistadigital/Comprar",
-    UrlRevistaDigitalRevisar: baseUrl + "revistadigital/Revisar",
-    UrlRevistaDigitalDetalle: baseUrl + "revistadigital/detalle/",
-    UrlContenedorComprar: baseUrl + "Ofertas/",
-    UrlContenedorRevisar: baseUrl + "Ofertas/Revisar"
+    UrlRevistaDigitalInformacion: baseUrl + 'revistadigital/Informacion',
+    UrlRevistaDigitalComprar: baseUrl + 'revistadigital/Comprar',
+    UrlRevistaDigitalRevisar: baseUrl + 'revistadigital/Revisar',
+    UrlRevistaDigitalDetalle: baseUrl + 'revistadigital/detalle/',
+    UrlContenedorComprar: baseUrl + 'Ofertas/',
+    UrlContenedorRevisar: baseUrl + 'Ofertas/Revisar'
 };
 
 var windw = this;
@@ -50,7 +50,7 @@ $(document).ready(function () {
         $.each(obj, function (ind, objTag) {
             $(objTag).fadeIn(300).show();
             if (tag == 0 && !isMobile()) {
-                $(objTag).css("padding-top", "50px");
+                $(objTag).css('padding-top', '50px');
             }
         });
         // Registrar valores de analytics
@@ -97,63 +97,63 @@ $(document).ready(function () {
         }
     }
 
-    $(".flecha_scroll").on("click", function (e) {
+    $(".flecha_scroll").on('click', function (e) {
 
         e.preventDefault();
         var posicion = $(window).scrollTop();
         if (posicion + $(window).height() == $(document).height()) {
 
-            $("html, body").animate({
-                scrollTop: $("html, body").offset().top
-            }, 1000, "swing");
+            $('html, body').animate({
+                scrollTop: $('html, body').offset().top
+            }, 1000, 'swing');
 
         } else {
 
-            $("html, body").animate({
+            $('html, body').animate({
                 scrollTop: posicion + 700
-            }, 1000, "swing");
+            }, 1000, 'swing');
 
         }
 
     });
 
-    $(".flecha_scroll_mob").on("click", function (e) {
+    $('.flecha_scroll_mob').on('click', function (e) {
 
         e.preventDefault();
-        if ($("#divTopFiltros").length > 0) {
-            var topFiltros = ($("#divTopFiltros").position() || {}).top || 0;
-            $("html, body").animate({
+        if ($('#divTopFiltros').length > 0) {
+            var topFiltros = ($('#divTopFiltros').position() || {}).top || 0;
+            $('html, body').animate({
                 scrollTop: topFiltros - 60
-            }, 1000, "swing");
+            }, 1000, 'swing');
         }
     });
 
-    $(".tit_pregunta_ept").click(function (e) {
+    $('.tit_pregunta_ept').click(function (e) {
         e.preventDefault();
 
         var $this = $(this);
-        if ($this.next().hasClass("show1")) {
-            $this.next().removeClass("show1");
+        if ($this.next().hasClass('show1')) {
+            $this.next().removeClass('show1');
             $this.next().slideUp(350);
         } else {
-            $this.parent().parent().find(".text_respuesta_ept").removeClass("show1");
-            $this.parent().parent().find(".text_respuesta_ept").slideUp(350);
-            $this.next().toggleClass("show1");
+            $this.parent().parent().find('.text_respuesta_ept').removeClass('show1');
+            $this.parent().parent().find('.text_respuesta_ept').slideUp(350);
+            $this.next().toggleClass('show1');
             $this.next().slideToggle(350);
         }
         return false;
     });
 
-    $(".tit_pregunta_ept2").click(function (e) {
+    $('.tit_pregunta_ept2').click(function (e) {
         e.preventDefault();
         var $this = $(this);
-        if ($this.next().hasClass("show")) {
-            $this.next().removeClass("show");
+        if ($this.next().hasClass('show')) {
+            $this.next().removeClass('show');
             $this.next().slideUp(350);
         } else {
-            $this.parent().parent().find(".text_respuesta_ept2").removeClass("show");
-            $this.parent().parent().find(".text_respuesta_ept2").slideUp(350);
-            $this.next().toggleClass("show");
+            $this.parent().parent().find('.text_respuesta_ept2').removeClass('show');
+            $this.parent().parent().find('.text_respuesta_ept2').slideUp(350);
+            $this.next().toggleClass('show');
             $this.next().slideToggle(350);
         }
         return false;
@@ -197,20 +197,20 @@ $(document).ready(function () {
 });
 
 function FlechaScrollDown(idCamapania) {
-    var topListado = $("[data-listado-campania=" + idCamapania + "]");
+    var topListado = $('[data-listado-campania=' + idCamapania + ']');
     if (topListado.length > 0) {
         topListado = (top.position() || {}).top || 0;
 
-        $("html, body").animate({
+        $('html, body').animate({
             scrollTop: topListado - 70
-        }, 1000, "swing");
+        }, 1000, 'swing');
     }
 }
 
 function RDMostrarPosicion() {
-    if ($("[data-tag-html]").length == 1) {
-        $("[data-tag-html]").show();
-        campaniaId = $("[data-tag-html]").attr("data-tag-html") || 0;
+    if ($('[data-tag-html]').length == 1) {
+        $('[data-tag-html]').show();
+        campaniaId = $('[data-tag-html]').attr('data-tag-html') || 0;
         campaniaId = parseInt(campaniaId);
     }
     else {
@@ -266,7 +266,7 @@ function OfertaArmarEstrategias(response, busquedaModel) {
     }
 
     response.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
-    response.ClassEstrategia = "revistadigital-landing";
+    response.ClassEstrategia = 'revistadigital-landing';
     response.Consultora = usuarioNombre.toUpperCase();
 
     response.Mobile = isMobile();
@@ -295,7 +295,7 @@ function OfertaArmarEstrategias(response, busquedaModel) {
         filtroCampania[lsListaRD + indCampania].response.Completo = 1;
     }
     else {
-        console.log("filtroCampania" + indCampania + " - " + response.CampaniaID);
+        console.log('filtroCampania' + indCampania + ' - ' + response.CampaniaID);
     }
     // Listado de producto
     var modeloTemp = Clone(response);
@@ -333,9 +333,9 @@ function OfertaArmarEstrategias(response, busquedaModel) {
     }
 
     var htmlDiv = SetHandlebars("#producto-landing-template", modeloTemp);
-    divProd.find("#divOfertaProductos").append(htmlDiv);
+    divProd.find('#divOfertaProductos').append(htmlDiv);
     if (response.cantidadTotal == 0) {
-        divProd.find("#no-productos").show();
+        divProd.find('#no-productos').show();
     }
 
     /*Logica para agregar atributos para el EfectoLazy*/
@@ -346,7 +346,7 @@ function OfertaArmarEstrategias(response, busquedaModel) {
 
     if (response.listaPerdio != undefined) {
         var divPredio = $("#divOfertaProductosPerdio");
-        if (response.listaPerdio.length > 0 && divPredio.children("div").length < response.listaPerdio.length) {
+        if (response.listaPerdio.length > 0 && divPredio.children('div').length < response.listaPerdio.length) {
             modeloTemp.lista = response.listaPerdio;
 
             $.each(modeloTemp.lista, function (ind, tem) {
@@ -495,7 +495,7 @@ function RDFiltrarLista(response, busquedaModel) {
                         });
                     }
                     else if (filtro.Tipo == "precio") {
-                        var listaValDet = val.split(",");
+                        var listaValDet = val.split(',');
                         var valorDesde = parseFloat(listaValDet[0]);
                         var valorHasta = parseFloat(listaValDet[1]);
 
@@ -531,22 +531,22 @@ function RDFiltrarLista(response, busquedaModel) {
 
 function ResizeBoxContnet() {
     try {
-        var image = $(".flex-container").find("img");
+        var image = $('.flex-container').find('img');
         image.each(function () {
             var that = $(this);
-            that.on("load", function () {
+            that.on('load', function () {
                 if (that.width() < 115) {
-                    that.closest(".content_item_home_bpt").find(".nombre_producto_bpt").css("maxWidth", "105px");
-                    that.closest(".content_item_home_bpt").find(".producto_precio_bpt").css("minWidth", "100%");
+                    that.closest('.content_item_home_bpt').find('.nombre_producto_bpt').css("maxWidth", "105px");
+                    that.closest('.content_item_home_bpt').find('.producto_precio_bpt').css("minWidth", "100%");
                 }
                 else if (that.width() < 150) {
-                    that.closest(".content_item_home_bpt").find(".nombre_producto_bpt").css("maxWidth", "140px");
-                    that.closest(".content_item_home_bpt").find(".producto_precio_bpt").css("minWidth", "100%");
+                    that.closest('.content_item_home_bpt').find('.nombre_producto_bpt').css("maxWidth", "140px");
+                    that.closest('.content_item_home_bpt').find('.producto_precio_bpt').css("minWidth", "100%");
                 }
                 else if (that.width() < 200) {
 
-                    that.closest(".content_item_home_bpt").find(".nombre_producto_bpt").css("maxWidth", "190px");
-                    that.closest(".content_item_home_bpt").find(".producto_precio_bpt").css("minWidth", "100%");
+                    that.closest('.content_item_home_bpt').find('.nombre_producto_bpt').css("maxWidth", "190px");
+                    that.closest('.content_item_home_bpt').find('.producto_precio_bpt').css("minWidth", "100%");
                 }
             });
         });
@@ -557,12 +557,12 @@ function ResizeBoxContnet() {
 
 function RDDetalleObtener() {
 
-    var param = location.href.toLowerCase().split("?");
+    var param = location.href.toLowerCase().split('?');
     var cuv = "", campania = "";
     if (param.length > 1) {
-        param = param[1].split("&");
+        param = param[1].split('&');
         $.each(param, function (ind, pa) {
-            var paramD = pa.split("=");
+            var paramD = pa.split('=');
             if (paramD[0] == "cuv") {
                 cuv = $.trim(paramD[1]);
             }
@@ -612,8 +612,8 @@ function RenderCarrusel(divProd) {
     if (divProd == undefined) {
         return false;
     }
-    divProd.find("#divCarruselLan.slick-initialized").slick("unslick");
-    divProd.find("#divCarruselLan").not(".slick-initialized").slick({
+    divProd.find('#divCarruselLan.slick-initialized').slick('unslick');
+    divProd.find('#divCarruselLan').not('.slick-initialized').slick({
         vertical: false,
         dots: false,
         infinite: true,
@@ -621,9 +621,9 @@ function RenderCarrusel(divProd) {
         slidesToShow: 1,
         autoplay: true,
         autoplaySpeed: 5000,
-        prevArrow: '<a class="previous_ofertas_ept js-slick-prev"><img src="' + baseUrl + "Content/Images/RevistaDigital/" + GetArrowNamePrev() + '" alt="" /></a>',
-        nextArrow: '<a class="previous_ofertas_ept js-slick-next"><img src="' + baseUrl + "Content/Images/RevistaDigital/" + GetArrowNameNext() + '" alt="" /></a>'
-    }).on("afterChange", function (event, slick, currentSlide) {
+        prevArrow: '<a class="previous_ofertas_ept js-slick-prev"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNamePrev() + '" alt="" /></a>',
+        nextArrow: '<a class="previous_ofertas_ept js-slick-next"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNameNext() + '" alt="" /></a>'
+    }).on('afterChange', function (event, slick, currentSlide) {
 
         var slides = (slick || new Object()).$slides || new Array();
         if (slides.length == 0) {
@@ -662,8 +662,8 @@ function RenderCarrusel(divProd) {
 }
 
 function RDPageInformativa() {
-    $("#popupDetalleCarousel_packNuevas").hide();
-    $("#popupDetalleCarousel_lanzamiento").hide();
+    $('#popupDetalleCarousel_packNuevas').hide();
+    $('#popupDetalleCarousel_lanzamiento').hide();
     CerrarPopup("#divMensajeBloqueada");
     $(window).scrollTop(0);
     $('ul[data-tab="tab"] li a[data-tag="0"]').click();
@@ -682,6 +682,29 @@ function RDDetalleVolver(campaniaId) {
     window.location = urlVolver + "#LAN";
 }
 
+function CheckClickCarrousel(action, source) {
+    if (action === "next") {
+        sliderWay = 1;
+    } else if (action === "prev") {
+        sliderWay = 2;
+    }
+
+    if (source === "normal") {
+        clickedSlider = 1;
+    } 
+    CallAnalitycsClickArrow();
+}
+
+function CallAnalitycsClickArrow() {
+    if (sliderWay !== 0 && clickedSlider !== 0) {
+        if (typeof rdAnalyticsModule !== "undefined") {
+            console.log("values of direction : " + sliderWay);
+            rdAnalyticsModule.ClickArrowLan(sliderWay);
+        }
+        sliderWay = 0;
+        clickedSlider = 0;
+    }
+}
 //Prueba Subida
 $.fn.fixedTo = function (elem) {
     var $this = this,
@@ -733,6 +756,8 @@ $.fn.fixedTo = function (elem) {
                     $('.zona_dorada_contenedor_desktop').css('position', 'initial');
                     $('#divOfertaProductosPerdio').css('top', '25px');
                     $('#divOfertaProductosPerdio').css('z-index', 'initial');
+                    $('footer').css('z-index', '100');
+                    $('footer').css('position', 'absolute');
                 }
             }
         };
@@ -745,26 +770,3 @@ $.fn.fixedTo = function (elem) {
     setPosition();
 };
 
-function CheckClickCarrousel(action, source) {
-    if (action === "next") {
-        sliderWay = 1;
-    } else if (action === "prev") {
-        sliderWay = 2;
-    }
-
-    if (source === "normal") {
-        clickedSlider = 1;
-    } 
-    CallAnalitycsClickArrow();
-}
-
-function CallAnalitycsClickArrow() {
-    if (sliderWay !== 0 && clickedSlider !== 0) {
-        if (typeof rdAnalyticsModule !== "undefined") {
-            console.log("values of direction : " + sliderWay);
-            rdAnalyticsModule.ClickArrowLan(sliderWay);
-        }
-        sliderWay = 0;
-        clickedSlider = 0;
-    }
-}

@@ -88,6 +88,7 @@
     display: block;
     height: auto;
     border: 1px solid transparent;
+    margin-bottom:2px;
 }
 
 /* Icons */
@@ -303,4 +304,12 @@
 .next_compraxcompra {
     background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/y8cBzWHovUJe1F1/flecha_arriba.png') no-repeat center top !important;
     border-bottom: 0 !important;
+}
+
+.fix-margen-vertical-dorado {
+    height: 1565px;
+}
+
+.fix-margen-vertical-nodorado {
+    height: 1585px;
 }

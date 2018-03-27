@@ -7,6 +7,7 @@
     RevistaDigitalModel revistaDigital = Model.RevistaDigital;
 
     var urlLogo = revistaDigital.DLogoComercialNoActiva;
+    var margenvertical = revistaDigital.EsSuscrita ? "fix-margen-vertical-dorado" : "fix-margen-vertical-nodorado";
     if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita)
     {
         urlLogo = revistaDigital.DLogoComercialActiva;
@@ -32,7 +33,7 @@
                 @if (revistaDigital.EsActiva)
                 {
                     <div id="divContenedorListaEstrategia">
-                        <div class="contenedor_carousel">
+                        <div class="contenedor_carousel @margenvertical">
                             <div class="contenedor_productos">
                                 <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" style="padding-bottom: 25px;"
                                      data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion"
@@ -49,7 +50,8 @@
         { "Source", 3 },
         { "NombreConsultora", revistaDigital.NombreConsultora },
         { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido },
-        { "NombrePalanca", revistaDigital.NombreComercialNoActiva }});
+        { "NombrePalanca", revistaDigital.NombreComercialNoActiva },
+        { "Margenvertical", margenvertical }                                              });
                 }
 
             </div>
@@ -70,7 +72,7 @@
                 {
 
                     <div id="divContenedorListaEstrategia">
-                        <div class="contenedor_carousel">
+                        <div class="contenedor_carousel @margenvertical">
                             <div class="contenedor_productos">
                                 <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" style="padding-bottom: 25px;"
                                      data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion"
@@ -88,7 +90,8 @@
         { "Source", 3 },
         { "NombreConsultora", revistaDigital.NombreConsultora },
         { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido },
-        { "NombrePalanca", revistaDigital.NombreComercialNoActiva }});
+        { "NombrePalanca", revistaDigital.NombreComercialNoActiva },
+        { "Margenvertical", margenvertical }});
                 }
             </div>
     }
@@ -123,7 +126,8 @@ else if (revistaDigital.TieneRDI)
                 { "Source", 2 },
                 { "NombreConsultora", revistaDigital.NombreConsultora },
                 { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido },
-                { "NombrePalanca", revistaDigital.NombreComercialNoActiva }
+                { "NombrePalanca", revistaDigital.NombreComercialNoActiva },
+        { "Margenvertical", margenvertical }
             });
 }
 else
@@ -133,6 +137,7 @@ else
     { "Source", 1 },
     { "NombreConsultora", ViewBag.NombreConsultora },
     { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido },
-    { "NombrePalanca", revistaDigital.NombreComercialNoActiva }
+    { "NombrePalanca", revistaDigital.NombreComercialNoActiva },
+        { "Margenvertical", margenvertical }
     });
 }
