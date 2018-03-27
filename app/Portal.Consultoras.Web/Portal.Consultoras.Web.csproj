@@ -1255,6 +1255,7 @@
     <Content Include="Content\Css\Site\Contenedor\Index.css" />
     <Content Include="Content\Css\Site\Images\carrusel_next_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
+    <Content Include="Content\Css\Site\Lanzamientos\Detalle.css" />
     <Content Include="Content\Css\Site\ProductoListado\Landing.css" />
     <Content Include="Content\Css\Site\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Site\RevistaDigital\ConfirmarDatos.css" />
@@ -4924,6 +4925,7 @@
     <Content Include="Views\Shared\VistaParcialMainLayout\_GoogleOptimize.cshtml" />
     <Content Include="Views\ShowRoom\Personalizado.cshtml" />
     <Content Include="Views\Lanzamientos\Detalle.cshtml" />
+    <Content Include="Views\RevistaDigital\Detalle.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -4950,7 +4952,6 @@
     <Content Include="Views\Shared\Cupon\popupCuponGanaste.cshtml" />
     <Content Include="Views\Shared\Cupon\popupCuponGanasteMobile.cshtml" />
     <Content Include="Views\Shared\Cupon\popupCuponGanaMobile.cshtml" />
-    <Content Include="Views\RevistaDigital\Detalle.cshtml" />
     <Content Include="Views\Shared\Cupon\popupCuponConfirmarMobile.cshtml" />
     <Content Include="Views\Unete\_ConfirmarPosicion.cshtml" />
     <Content Include="Views\Unete\_TemplateMensaje.cshtml" />

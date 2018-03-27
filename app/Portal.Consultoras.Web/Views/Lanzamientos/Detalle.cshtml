@@ -4,23 +4,24 @@
 @model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaProductoModel
 
 @{
-    ViewBag.Title = "Lanzamientos - Detalle";
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
 }
 @section styles{
-    @System.Web.Optimization.Styles.Render("~/bundles/css/Site/RevistaDigital-Detalle")
+    @System.Web.Optimization.Styles.Render("~/bundles/css/Site/Lanzamientos-Detalle")
     <style>
         .rd_volver, .content_belcorp {
             padding: 0 8%;
         }
     </style>
 }
-<div class="revista_ficha" style='background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/5343216/ilf4s4o6bKMIp0t/banner%20de%20lanzamiento%20%231%20en%20desktop.jpg); background-color: #24303c !important;'
+<div class="revista_ficha" style='background: url(@Model.TipoEstrategiaDetalle.ImgFichaFondoDesktop); background-color: #24303c !important;'
      data-estadoregistro="@ViewBag.EstadoSuscripcion">
     <div class="content_belcorp">
         <div class="detalle-prod">
             <div class="detalle-img">
-                <div class="img-portada" style="background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/5343216/biR3uHXLVdTEhBF/lanzamiento%20%231%20en%20mobile.png);"></div>
+                
+                @*<div class="img-portada" style="background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/5343216/biR3uHXLVdTEhBF/lanzamiento%20%231%20en%20mobile.png);"></div>*@
+                <div class="img-portada" style="background:url(@Model.TipoEstrategiaDetalle.ImgFichaDesktop);"></div>
                 <div class="detalle-compartir">
                     Comparte este producto con tus clientes
                     <img src="~/Content/Images/Esika/facebook.png" class="fb" />
