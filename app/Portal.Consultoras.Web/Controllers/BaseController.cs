@@ -3553,7 +3553,7 @@ namespace Portal.Consultoras.Web.Controllers
                         ? Constantes.OrigenPantallaWeb.MRevistaDigitalInfo
                         : Constantes.OrigenPantallaWeb.DRevistaDigitalInfo;
                     break;
-                case Constantes.UrlMenuContenedor.RdDetalle:
+                case Constantes.UrlMenuContenedor.LanDetalle:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Lanzamiento;
                     menuActivo.OrigenPantalla = IsMobile()
                         ? Constantes.OrigenPantallaWeb.MRevistaDigitalDetalle
