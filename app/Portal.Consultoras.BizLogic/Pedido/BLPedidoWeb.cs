@@ -2025,10 +2025,10 @@ namespace Portal.Consultoras.BizLogic
             return listaResultado;
         }
 
-        public List<BEPedidoWeb> GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int top, int usuarioPrueba, string  consultoraAsociada)
+        public List<BEPedidoWeb> GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora,  int usuarioPrueba, string  consultoraAsociada)
         {
             List<BEPedidoWeb> listaPedidosFacturados = new List<BEPedidoWeb>();
-            listaPedidosFacturados = GetPedidosIngresadoFacturado(paisID, consultoraID, campaniaID, codigoConsultora, top);
+            listaPedidosFacturados = GetPedidosIngresadoFacturado(paisID, consultoraID, campaniaID, codigoConsultora, 6);
             
 
             if (listaPedidosFacturados.Count > 0)
