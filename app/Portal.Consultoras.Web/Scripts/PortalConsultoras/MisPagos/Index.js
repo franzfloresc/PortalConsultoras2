@@ -97,6 +97,7 @@ function fnGrilla() {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.Rows.length > 0) {
+                    RenderUltimoMovimiento(data.UltimoMovimiento);
                     RenderGrilla(data);
                 }
                 else {
@@ -108,6 +109,15 @@ function fnGrilla() {
             $("#dellateContenido").html("");
         }
     });
+}
+
+function RenderUltimoMovimiento(ultimoMovimiento) {
+    if (ultimoMovimiento.Glosa == null || ultimoMovimiento.Glosa == "") {
+        $("#divUltimoMovimiento").css("display", "none");
+    } else {
+        $("#divUltimoMovimiento").css("display", "block");
+        $("#spnUltimoPagoRecibido").html(ultimoMovimiento.FechaVencimientoFormatDiaMes);
+    }
 }
 
 function RenderGrilla(data) {

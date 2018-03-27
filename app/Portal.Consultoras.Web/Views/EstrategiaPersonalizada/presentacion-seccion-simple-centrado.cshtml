@@ -1,5 +1,16 @@
-﻿
-@model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
+﻿@model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
+
+@{
+    var seccionTituloClass = "seccion-titulo";
+    var vermasClass = "";
+
+    if (ViewBag.EsSuscrita)
+    {
+        seccionTituloClass += " seccion-titulo-dorado";
+        vermasClass += " dorado";
+    }
+}
+
 <style>
     .slick-slider {
         margin-top: 15px !important;
@@ -9,17 +20,17 @@
      data-plantilla="simple-centrado">
     <div class="parche_presentacion_contenedor">
         <div class="bloque-titulo">
-            <div class="seccion-titulo">
+            <div class="@seccionTituloClass">
                 <span>@Model.Titulo</span>
             </div>
-            <div class="cantidad" style="display:none;"data-productos-info="">
+            <div class="cantidad" style="display:none;" data-productos-info="">
                 <span id="divCantProductos">Mostrando <span data-productos-mostrar="">@Model.CantidadMostrar</span> de <span data-productos-total="">@Model.CantidadProductos</span></span>
             </div>
 
             @if (Model.VerMas)
             {
                 <div class="ir">
-                    <a href="javascript: menuModule.sectionClick('@Model.UrlLandig', '@Model.TituloBtnAnalytics')">VER MÁS OFERTAS</a>
+                    <a class="@vermasClass" href="javascript: menuModule.sectionClick('@Model.UrlLandig', '@Model.TituloBtnAnalytics')">VER MÁS OFERTAS</a>
                 </div>
             }
             <div class="parche_clear"></div>

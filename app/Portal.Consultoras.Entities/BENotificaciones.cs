@@ -54,7 +54,7 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "Visualizado"))
                 this.Visualizado = Convert.ToBoolean(row["Visualizado"]);
-            
+
             this.FlagProcedencia = Convert.ToBoolean(row["FlagProcedencia"]);
         }
     }
