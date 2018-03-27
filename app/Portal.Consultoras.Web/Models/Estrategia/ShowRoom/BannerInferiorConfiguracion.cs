@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace Portal.Consultoras.Web.Models.Estrategia.ShowRoom
 {
+    [Serializable]
     public class BannerInferiorConfiguracion : IBannerInferiorConfiguracion
     {
         public bool Activo { get; set; }
