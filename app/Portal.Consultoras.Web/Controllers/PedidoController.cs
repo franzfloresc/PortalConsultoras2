@@ -2,6 +2,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServiceODS;
@@ -36,6 +37,12 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly int CRITERIO_BUSQUEDA_DESC_PRODUCTO = 2;
         private readonly int CRITERIO_BUSQUEDA_PRODUCTO_CANT = 10;
         private readonly int CUV_NO_TIENE_CREDITO = 2;
+        private readonly ProductoSetProvider _pedidoSetProvider;
+
+        public PedidoController()
+        {
+            _pedidoSetProvider = new ProductoSetProvider();
+        }
 
         public ActionResult Index(bool lanzarTabConsultoraOnline = false, string cuv = "", int campana = 0)
         {
@@ -845,19 +852,50 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Delete(int CampaniaID, int PedidoID, short PedidoDetalleID, int TipoOfertaSisID, string CUV, int Cantidad, string ClienteID, string CUVReco, bool EsBackOrder, int setId)
         {
-            try
-            {
-                if (setId > 0)
-                {
-                    //todo: buscar el set y sus productos
-                    //eliminar el set completo y sus registros en la tabla set
+            var lastResult = new Tuple<bool, JsonResult>(false, Json(new { }));
 
+            if (setId > 0)
+            {
+                //todo: buscar el set y sus productos
+                //eliminar el set completo y sus registros en la tabla set
+
+                var set = _pedidoSetProvider.ObtenerPorId(setId);
+
+                foreach (var detalle in set.Detalles)
+                {
+                    lastResult = DeletePedidoWeb(CampaniaID, PedidoID,
+                        (short)detalle.PedidoDetalleId,
+                        detalle.TipoOfertaSisID,
+                        detalle.CUV,
+                        set.Cantidad * detalle.FactorRepeticion,
+                        ClienteID,
+                        CUVReco,
+                        EsBackOrder);
+
+                    if (!lastResult.Item1)
+                        break;
                 }
 
+                //eliminar de la tabla set 
+                _pedidoSetProvider.EliminarSet(setId);
+            }
+            else
+            {
+                lastResult = DeletePedidoWeb(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, Cantidad,
+                    ClienteID, CUVReco, EsBackOrder);
+            }
+
+            return lastResult.Item2;
+        }
+
+        private Tuple<bool, JsonResult> DeletePedidoWeb(int campaniaId, int pedidoID, short pedidoDetalleId, int tipoOfertaSisId, string CUV, int cantidad, string clienteId, string CUVReco, bool esBackOrder)
+        {
+            try
+            {
                 var listaPedidoWebDetalle = sessionManager.GetDetallesPedido() ?? new List<BEPedidoWebDetalle>();
                 var pedidoEliminado = listaPedidoWebDetalle.FirstOrDefault(x => x.CUV == CUV);
                 if (pedidoEliminado == null)
-                    return ErrorJson(Constantes.MensajesError.DeletePedido_CuvNoExiste);
+                    return new Tuple<bool, JsonResult>(false, ErrorJson(Constantes.MensajesError.DeletePedido_CuvNoExiste));
 
                 pedidoEliminado.DescripcionOferta = !string.IsNullOrEmpty(pedidoEliminado.DescripcionOferta)
                     ? pedidoEliminado.DescripcionOferta.Replace("[", "").Replace("]", "").Trim() : "";
@@ -865,16 +903,16 @@ namespace Portal.Consultoras.Web.Controllers
                 var obe = new BEPedidoWebDetalle
                 {
                     PaisID = userData.PaisID,
-                    CampaniaID = CampaniaID,
-                    PedidoID = PedidoID,
-                    PedidoDetalleID = PedidoDetalleID,
-                    TipoOfertaSisID = TipoOfertaSisID,
+                    CampaniaID = campaniaId,
+                    PedidoID = pedidoID,
+                    PedidoDetalleID = pedidoDetalleId,
+                    TipoOfertaSisID = tipoOfertaSisId,
                     CUV = CUV,
-                    Cantidad = Cantidad,
+                    Cantidad = cantidad,
                     Mensaje = string.Empty
                 };
 
-                if (EsBackOrder) obe.Mensaje = Constantes.BackOrder.LogAccionCancelar;
+                if (esBackOrder) obe.Mensaje = Constantes.BackOrder.LogAccionCancelar;
                 else obe.Mensaje = GetObservacionesProlPorCuv(CUV);
 
                 bool errorServer;
@@ -899,7 +937,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    formatoTotalCliente = PedidoWebTotalClienteFormato(ClienteID, olstPedidoWebDetalle);
+                    formatoTotalCliente = PedidoWebTotalClienteFormato(clienteId, olstPedidoWebDetalle);
                 }
 
                 var listaCliente = ListarClienteSegunPedido("", olstPedidoWebDetalle);
@@ -910,7 +948,7 @@ namespace Portal.Consultoras.Web.Controllers
                             : tipo.Length > 1 ? tipo
                             : "Ocurrió un error al ejecutar la operación.";
 
-                return Json(new
+                return new Tuple<bool, JsonResult>(false, Json(new
                 {
                     success = !errorServer,
                     message,
@@ -930,12 +968,12 @@ namespace Portal.Consultoras.Web.Controllers
                         TipoEstrategiaID = pedidoEliminado.TipoEstrategiaID
                     },
                     cantidadTotalProductos = olstPedidoWebDetalle.Sum(x => x.Cantidad)
-                });
+                }));
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return ErrorJson(ex.Message);
+                return new Tuple<bool, JsonResult>(false, ErrorJson(ex.Message));
             }
         }
 
