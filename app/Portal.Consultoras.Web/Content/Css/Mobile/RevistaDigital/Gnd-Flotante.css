@@ -24,15 +24,15 @@
 
             .desplegablegnd .gndcontenido .nrognd .numeritognd {
                 text-align: left;
-                width: 50%;
-                display: inline-block;
+                width: 80%;
                 font-size: 11px;
                 letter-spacing: 2px;
+                float: left;
             }
 
             .desplegablegnd .gndcontenido .nrognd .flechitagnd {
                 text-align: right;
-                width: 50%;
+                width: 10%;
                 display: inline-block;
             }
 
