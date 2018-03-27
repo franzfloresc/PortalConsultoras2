@@ -180,6 +180,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int FlagEstrellaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool FlagIndividualField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int FlagMostrarImgField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -252,9 +255,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string ImgHomeMobileField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ImgPrevDesktopField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IndicadorMontoMinimoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -310,6 +310,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SimboloField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SloganField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TallaColorField;
@@ -847,6 +850,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool FlagIndividual {
+            get {
+                return this.FlagIndividualField;
+            }
+            set {
+                if ((this.FlagIndividualField.Equals(value) != true)) {
+                    this.FlagIndividualField = value;
+                    this.RaisePropertyChanged("FlagIndividual");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int FlagMostrarImg {
             get {
                 return this.FlagMostrarImgField;
@@ -1159,19 +1175,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ImgPrevDesktop {
-            get {
-                return this.ImgPrevDesktopField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ImgPrevDesktopField, value) != true)) {
-                    this.ImgPrevDesktopField = value;
-                    this.RaisePropertyChanged("ImgPrevDesktop");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public int IndicadorMontoMinimo {
             get {
                 return this.IndicadorMontoMinimoField;
@@ -1414,6 +1417,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.SimboloField, value) != true)) {
                     this.SimboloField = value;
                     this.RaisePropertyChanged("Simbolo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Slogan {
+            get {
+                return this.SloganField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SloganField, value) != true)) {
+                    this.SloganField = value;
+                    this.RaisePropertyChanged("Slogan");
                 }
             }
         }
@@ -2072,6 +2088,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int EstrategiaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool FlagIndividualField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImgFichaDesktopField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2096,7 +2115,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string ImgHomeMobileField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ImgPrevDesktopField;
+        private string SloganField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UrlVideoDesktopField;
@@ -2123,6 +2142,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.EstrategiaIDField.Equals(value) != true)) {
                     this.EstrategiaIDField = value;
                     this.RaisePropertyChanged("EstrategiaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool FlagIndividual {
+            get {
+                return this.FlagIndividualField;
+            }
+            set {
+                if ((this.FlagIndividualField.Equals(value) != true)) {
+                    this.FlagIndividualField = value;
+                    this.RaisePropertyChanged("FlagIndividual");
                 }
             }
         }
@@ -2232,14 +2264,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ImgPrevDesktop {
+        public string Slogan {
             get {
-                return this.ImgPrevDesktopField;
+                return this.SloganField;
             }
             set {
-                if ((object.ReferenceEquals(this.ImgPrevDesktopField, value) != true)) {
-                    this.ImgPrevDesktopField = value;
-                    this.RaisePropertyChanged("ImgPrevDesktop");
+                if ((object.ReferenceEquals(this.SloganField, value) != true)) {
+                    this.SloganField = value;
+                    this.RaisePropertyChanged("Slogan");
                 }
             }
         }
