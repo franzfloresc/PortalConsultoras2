@@ -2789,6 +2789,7 @@ namespace Portal.Consultoras.Common
 
         public static string SubStrCortarNombre(string cadena, int cant, string strFin = "")
         {
+            cadena = Trim(cadena);
             var str = SubStr(cadena, 0, cant);
             str = str == cadena && cadena != "" ? str + strFin : (str + "...");
             str = str == "..." ? "" : str;
