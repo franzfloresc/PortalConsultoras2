@@ -719,5 +719,10 @@ namespace Portal.Consultoras.Web.Controllers
                     return Constantes.ConfiguracionPais.OfertasParaTi;
             }
         }
+
+        public bool EsCampaniaFalsa(int campaniaId)
+        {
+            return (campaniaId < userData.CampaniaID || campaniaId > AddCampaniaAndNumero(userData.CampaniaID, 1));
+        }
     }
 }
