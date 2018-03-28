@@ -1893,6 +1893,7 @@ namespace Portal.Consultoras.Common
         public class ProlSiccObs
         {
             public const string Promocion = "PROMOCION NO CUMPLE";
+            public const string Reemplazo = "Reemp. ";
         }
         public class ProlObsToken
         {

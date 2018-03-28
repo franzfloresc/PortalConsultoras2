@@ -14,14 +14,20 @@ namespace Portal.Consultoras.BizLogic.Reserva
     public class BLReservaSicc : IReservaExternaBL
     {
         private readonly RestClient restClient;
-        ITablaLogicaDatosBusinessLogic blTablaLogicaDatos;
-        BLPedidoWeb blPedidoWeb;
+        private readonly ITablaLogicaDatosBusinessLogic blTablaLogicaDatos;
+        private readonly BLPedidoWeb blPedidoWeb;
+
+        private readonly int codReemplazoLength;
+        private readonly int codReemplazoFullLength;
 
         public BLReservaSicc()
         {
             restClient = new RestClient();
             blTablaLogicaDatos = new BLTablaLogicaDatos();
             blPedidoWeb = new BLPedidoWeb();
+
+            codReemplazoLength = Constantes.ProlObsCod.Reemplazo.Length;
+            codReemplazoFullLength = codReemplazoLength + 5; //5 de tamaño del cuv
         }
 
         public async Task<BEResultadoReservaProl> ReservarPedido(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
@@ -33,7 +39,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
             if (respuestaSicc == null) return resultado;
 
             var listDetExp = NewListPedidoWebDetalleExplotado(input, respuestaSicc.posiciones);
-            GuardarExplotado(input, GetExplotadoSinKitNueva(listDetExp, listPedidoWebDetalle));
+            var listDetExpDescarga = GetExplotadoSinKitNueva(listDetExp, listPedidoWebDetalle).Where(d => d.UnidadesReservadasSap > 0).ToList();
+            GuardarExplotado(input, listDetExpDescarga);
 
             resultado.MontoTotalProl = respuestaSicc.montoPedidoMontoMaximo.ToDecimalSecure(); //montoPedidoMontoMinimo devuelve lo mismo.
             resultado.MontoDescuento = respuestaSicc.montoTotalDcto.ToDecimalSecure();
@@ -52,6 +59,10 @@ namespace Portal.Consultoras.BizLogic.Reserva
             var pedidoObservacion = CreatePedidoObservacion(input, respuestaSicc, listMensajeObs);
             if (pedidoObservacion != null) resultado.ListPedidoObservacion.Add(pedidoObservacion);
 
+            //ELIMINAR REPETIDOS
+            //ELIMINAR REPETIDOS
+            //ELIMINAR REPETIDOS
+            //listDetExp.GroupBy(d => d.CUV).ForEach(g => g.First().).Select(g => g.First().)
             listDetExp = listDetExp.OrderByDescending(detExp => detExp.UnidadesDemandadas).ToList(); //Primero agregarán las observaciones de los padres.
             foreach (var detExp in listDetExp)
             {
@@ -171,7 +182,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
         {
             var daPedidoWebDetalleExplotado = new DAPedidoWebDetalleExplotado(input.PaisID);
             daPedidoWebDetalleExplotado.DeleteByPedidoID(input.CampaniaID, input.PedidoID);
-            daPedidoWebDetalleExplotado.InsertList(listDetalleExp);
+            daPedidoWebDetalleExplotado.InsertList(listDetalleExp.Where(d => d.UnidadesReservadasSap > 0).ToList());
         }
 
         private List<BEPedidoWebDetalleExplotado> GetExplotadoSinKitNueva(List<BEPedidoWebDetalleExplotado> listDetalleExp, List<BEPedidoWebDetalle> listPedidoWebDetalle)
@@ -223,12 +234,20 @@ namespace Portal.Consultoras.BizLogic.Reserva
         {
             if (detalle.Observaciones != Constantes.ProlSiccObs.Promocion && detalle.PrecioUnitario == 0) return null;
 
-            List<string> listCuvPadre = null;
-            bool esHijo = detalle.UnidadesDemandadas == 0;
-            if (esHijo)
+            List<string> listCuvOrigen = null;
+            bool esExplotado = detalle.UnidadesDemandadas == 0;
+            if (esExplotado)
             {
-                listCuvPadre = listDetalle.Where(d => d.IdOferta == detalle.IdOferta && d.UnidadesDemandadas > 0).Select(d => d.CUV).ToList();
-                if (!listCuvPadre.Any()) return null;
+                listCuvOrigen = listDetalle.Where(d => d.IdOferta == detalle.IdOferta && d.UnidadesDemandadas > 0).Select(d => d.CUV).ToList();
+                if (!listCuvOrigen.Any()) return null;
+            }
+            else {
+                esExplotado = !string.IsNullOrEmpty(detalle.ValCodiOrig);
+                if(esExplotado)
+                {
+                    if(listDetalle.Any(d => d.CUV == detalle.ValCodiOrig)) return null;
+                    listCuvOrigen = new List<string> { detalle.ValCodiOrig };
+                }
             }
 
             var dictToken = new Dictionary<string, string>();
@@ -243,14 +262,21 @@ namespace Portal.Consultoras.BizLogic.Reserva
             }
             else if (detalle.Observaciones == Constantes.ProlSiccObs.Promocion)
             {
-                if (esHijo) return null;
+                //VALCODEORIG
+                //VALCODEORIG
+                //VALCODEORIG
+                if (esExplotado) return null;
                 
                 descKey = detalle.IdEstrategia == 2003 ? Constantes.ProlObsCod.Promocion2003 : Constantes.ProlObsCod.Promocion;
                 caso = detalle.IdEstrategia == 2003 ? 1 : 7;
             }
             else if (detalle.IdSubTipoPosicion == 2030)
             {
-                var reemplazo = listDetalle.FirstOrDefault(d => d.IdSubTipoPosicion == 2029 && d.ValCodiOrig == detalle.CUV);
+                if (string.IsNullOrEmpty(detalle.Observaciones) || detalle.Observaciones.Length != this.codReemplazoFullLength) return null;
+                if (detalle.Observaciones.Substring(0, this.codReemplazoLength) != Constantes.ProlSiccObs.Reemplazo) return null;
+
+                var reemplazoCuv = detalle.Observaciones.Substring(this.codReemplazoLength);
+                var reemplazo = listDetalle.FirstOrDefault(d => d.IdSubTipoPosicion == 2029 && detalle.CUV == reemplazoCuv);
                 if (reemplazo == null) return null;
 
                 descKey = Constantes.ProlObsCod.Reemplazo;
@@ -270,16 +296,16 @@ namespace Portal.Consultoras.BizLogic.Reserva
             dictToken.Add(Constantes.ProlObsToken.DetalleCuv, detalle.CUV);
             var pedidoObservacion = new BEPedidoObservacion(caso, ReplaceTokens(listMensajeObs, descKey, dictToken));
 
-            if (esHijo) return CreateListPedidoObservacionHijo(pedidoObservacion, listCuvPadre);
-            return CreateListPedidoObservacionPadre(pedidoObservacion, detalle);
+            if (esExplotado) return CreateListPedidoObservacionExplotado(pedidoObservacion, listCuvOrigen);
+            return CreateListPedidoObservacionOrigen(pedidoObservacion, detalle);
         }
 
-        private List<BEPedidoObservacion> CreateListPedidoObservacionHijo(BEPedidoObservacion pedidoObservacion, List<string> listCuvPadre)
+        private List<BEPedidoObservacion> CreateListPedidoObservacionExplotado(BEPedidoObservacion pedidoObservacion, List<string> listCuvOrigen)
         {
-            return listCuvPadre.Select(cuv => new BEPedidoObservacion(0, cuv, pedidoObservacion.Descripcion)).ToList();
+            return listCuvOrigen.Select(cuv => new BEPedidoObservacion(0, cuv, pedidoObservacion.Descripcion)).ToList();
         }
 
-        private List<BEPedidoObservacion> CreateListPedidoObservacionPadre(BEPedidoObservacion pedidoObservacion, BEPedidoWebDetalleExplotado detalle)
+        private List<BEPedidoObservacion> CreateListPedidoObservacionOrigen(BEPedidoObservacion pedidoObservacion, BEPedidoWebDetalleExplotado detalle)
         {
             pedidoObservacion.Tipo = 2;
             pedidoObservacion.CUV = detalle.CUV;
