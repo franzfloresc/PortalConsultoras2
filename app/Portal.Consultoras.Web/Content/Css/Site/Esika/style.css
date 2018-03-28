@@ -3170,6 +3170,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     margin-bottom: 28px;
 }
 
+
 .caja_carousel_productos .ver_mas_productos {
     position: absolute;
     top: 12px;
@@ -3412,8 +3413,7 @@ a.subir_carousel, a.bajar_carousel {
     font-size: 16px;
     width: 50%;
     padding-left: 5px;
-    position:relative;
-    top:-3.5px;
+    position: relative;
 }
 
 .boton_elegirTono {
@@ -14410,7 +14410,7 @@ table.falsa {
 }
 /* -------------------------------------------------- */
 /*	Back to Top
-	/* -------------------------------------------------- */
+/* -------------------------------------------------- */
 #back-top {
     position: fixed;
     z-index: 99;
@@ -14451,7 +14451,7 @@ table.falsa {
 }
 /* -------------------------------------------------- */
 /*	Page Header
-	/* -------------------------------------------------- */
+/* -------------------------------------------------- */
 .page-header {
     margin: 0 20px 30px 20px;
     padding-bottom: 25px;
@@ -14511,7 +14511,7 @@ table.falsa {
 }
 /* -------------------------------------------------- */
 /*	Service List
-	/* -------------------------------------------------- */
+/* -------------------------------------------------- */
 .services-sidebar {
     width: 260px;
     float: left;
@@ -36449,4 +36449,18 @@ height:30px;
     background: #e5e5e5;
     border: 1px solid #d2d2d2;
     color: #b9b9b9;
+}
+
+/* metodo para centrar todos los contenedores con productos en el landing RevistaDigital */
+
+.divOfertaProductosfix, .divOfertaProductosPerdiofix {
+    text-align: center;
+    max-width: 1100px;
+    margin: auto;
+    margin-left: 15%;
+}
+
+.divOfertaProductosfixNoDorado {
+    max-width: 1189px;
+    margin: 0 80px 0 180px;
 }

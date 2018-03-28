@@ -20,6 +20,8 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using System.Xml.Linq;
+using Portal.Consultoras.Web.ServiceUsuario;
+using BEConfiguracionPaisDatos = Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -2245,11 +2247,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (model.Documento == null || model.Documento.ContentLength <= 0)
                     throw new ArgumentException("El archivo esta vacío.");
-                if (model.Documento.ContentLength > 4 * 1024 * 1024) throw new ArgumentException("El archivo es demasiado extenso para ser procesado.");
-                if (!model.Documento.FileName.EndsWith(".csv"))
-                    throw new ArgumentException("El archivo no tiene la extensión correcta.");
                 if (model.Documento.ContentLength > 4 * 1024 * 1024)
                     throw new ArgumentException("El archivo es demasiado extenso para ser procesado.");
+                if (!model.Documento.FileName.EndsWith(".csv"))
+                    throw new ArgumentException("El archivo no tiene la extensión correcta.");
 
                 var fileContent = new List<BEDescripcionEstrategia>();
                 var sd = new StreamReader(model.Documento.InputStream, Encoding.Default);
@@ -2729,6 +2730,118 @@ namespace Portal.Consultoras.Web.Controllers
                 .Aggregate(stringNiveles, (current, nivelEstrategia) => current + (nivelEstrategia.nivel + "X" + "-" + (nivelEstrategia.precio * nivelEstrategia.nivel) + "|"));
             
             return stringNiveles != "" ? stringNiveles.Remove(stringNiveles.Length - 1) : "";
+        }
+
+        [HttpPost]
+        public ActionResult UploadBloqueoCuvs(DescripcionMasivoModel model)
+        {
+            try
+            {
+                if (model.Documento == null || model.Documento.ContentLength <= 0)
+                    throw new ArgumentException("El archivo esta vacío.");
+                if (model.Documento.ContentLength > 4 * 1024 * 1024)
+                    throw new ArgumentException("El archivo es demasiado extenso para ser procesado.");
+                if (!model.Documento.FileName.EndsWith(".csv"))
+                    throw new ArgumentException("El archivo no tiene la extensión correcta.");
+
+                var sd = new StreamReader(model.Documento.InputStream, Encoding.Default);
+
+                var readLine = sd.ReadLine();
+                if (readLine != null)
+                {
+                    var arraySplitHeader = readLine.Split(',');
+                    if (!arraySplitHeader[0].ToLower().Equals("cuv"))
+                    {
+                        throw new ArgumentException("Verificar los títulos de las columnas del archivo.");
+                    }
+                }
+                
+                var valor1 = new StringBuilder();
+                var count = 0;
+                do
+                {
+                    readLine = sd.ReadLine();
+                    if (readLine == null) continue;
+                    var arraySplit = readLine.Split(',');
+                    if (arraySplit[0] == "") continue;
+                    
+                    if (count > 0) valor1.Append(",");
+                    valor1.Append(arraySplit[0]);
+                    count++;
+                } while (readLine != null);
+
+
+                ServiceSAC.BEConfiguracionPais configuracionPais;
+                
+                using (var sac = new SACServiceClient())
+                {
+                    configuracionPais = sac.GetConfiguracionPaisByCode(userData.PaisID, Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada);
+                }
+                
+                var configuracionPaisDatos = new BEConfiguracionPaisDatos
+                {
+                    ConfiguracionPaisID = configuracionPais.ConfiguracionPaisID,
+                    CampaniaID = Convert.ToInt32(model.CampaniaId),
+                    Componente = "",
+                    Codigo = Constantes.ConfiguracionPaisDatos.RDR.BloquearProductoGnd,
+                    Valor1 = valor1.ToString(),
+                    Estado = true
+                };
+
+                using (var svc = new UsuarioServiceClient())
+                {
+                   svc.ConfiguracionPaisDatosGuardar(userData.PaisID, new[] { configuracionPaisDatos });
+                }
+               
+                return Json(new
+                {
+                    listActualizado = count,
+                    valor = valor1.ToString()
+                });
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        public JsonResult GetCuvsBloqueados(int campaniaId)
+        {
+            try
+            {
+                var configuracionPaisDatos = new ServiceSAC.BEConfiguracionPaisDatos()
+                {
+                    PaisID = userData.PaisID,
+                    Codigo = Constantes.ConfiguracionPaisDatos.RDR.BloquearProductoGnd,
+                    CampaniaID = campaniaId,
+                    ConfiguracionPais = new ServiceSAC.BEConfiguracionPais()
+                    {
+                       Codigo = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada
+                    }
+                };
+                using (var sac = new SACServiceClient())
+                {
+                    configuracionPaisDatos = sac.GetConfiguracionPaisDatos(configuracionPaisDatos);
+                }
+                return Json(new
+                {
+                    success = true,
+                    message = "Ok",
+                    valor = configuracionPaisDatos.Valor1
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    valor = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            
         }
     }
 }

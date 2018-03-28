@@ -21,27 +21,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
     public class BaseControllerUnitTest
     {
         [TestClass]
-        public class Base
-        {
-            protected Mock<ISessionManager> sessionManager;
-            protected Mock<ILogManager> logManager;
-
-            [TestInitialize]
-            public void Test_Initialize()
-            {
-                sessionManager = new Mock<ISessionManager>();
-                logManager = new Mock<ILogManager>();
-            }
-
-            [TestCleanup]
-            public void Test_Cleanup()
-            {
-                sessionManager = null;
-                logManager = null;
-            }
-        }
-
-        [TestClass]
         public class BuildMenuMobile : Base
         {
             [TestMethod]
@@ -125,7 +104,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             {
                 var controller = new BaseControllerStub00(/*sessionManager.Object*/);
                 var userData = new UsuarioModel { ClaseLogoSB = "ClaseLogoSB" };
-                var revistaDigital = new RevistaDigitalModel { TieneRDC = false, TieneRDR = false };
+                var revistaDigital = new RevistaDigitalModel { TieneRDC = false };
 
                 var menuOferta = controller.BuildMenu(userData, revistaDigital);
 
@@ -185,9 +164,10 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     });
                 var userData = new UsuarioModel { };
                 var revistaDigital = new RevistaDigitalModel { TieneRDC = false };
+                var guiaNegocio = new GuiaNegocioModel { };
                 var controller = new BaseController(sessionManager.Object, logManager.Object);
 
-                var result = controller.BuildMenuContenedor(userData, revistaDigital);
+                var result = controller.BuildMenuContenedor(userData, revistaDigital, guiaNegocio);
 
                 Assert.IsNotNull(result);
                 Assert.AreEqual(2, result.Count);
@@ -219,9 +199,10 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     });
                 var userData = new UsuarioModel { CampaniaID = 201804, Sobrenombre= "vvilelaj" };
                 var revistaDigital = new RevistaDigitalModel { TieneRDC = false };
+                var guiaNegocio = new GuiaNegocioModel { };
                 var controller = new BaseController(sessionManager.Object,logManager.Object);
 
-                var result = controller.BuildMenuContenedor(userData, revistaDigital).First();
+                var result = controller.BuildMenuContenedor(userData, revistaDigital, guiaNegocio).First();
 
                 Assert.IsNotNull(result);
                 Assert.AreEqual(Constantes.ConfiguracionPais.Inicio, result.Codigo);
@@ -261,9 +242,10 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 sessionManager.Setup(x => x.GetEsShowRoom()).Returns(true);
                 var userData = new UsuarioModel { CampaniaID = 201804, Sobrenombre = "vvilelaj" };
                 var revistaDigital = new RevistaDigitalModel { TieneRDC = false };
+                var guiaNegocio = new GuiaNegocioModel { };
                 var controller = new BaseController(sessionManager.Object, logManager.Object);
 
-                var result = controller.BuildMenuContenedor(userData, revistaDigital).First();
+                var result = controller.BuildMenuContenedor(userData, revistaDigital, guiaNegocio).First();
 
                 Assert.IsNotNull(result);
                 Assert.AreEqual(Constantes.ConfiguracionPais.ShowRoom, result.Codigo);
@@ -301,9 +283,10 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     });
                 var userData = new UsuarioModel { CampaniaID = 201804, Sobrenombre = "vvilelaj" };
                 var revistaDigital = new RevistaDigitalModel { TieneRDC = false };
+                var guiaNegocio = new GuiaNegocioModel { TieneGND=true };
                 var controller = new BaseController(sessionManager.Object, logManager.Object);
 
-                var result = controller.BuildMenuContenedor(userData, revistaDigital).First();
+                var result = controller.BuildMenuContenedor(userData, revistaDigital, guiaNegocio).First();
 
                 Assert.IsNotNull(result);
                 Assert.AreEqual(Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada, result.Codigo);
@@ -342,9 +325,10 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     });
                 var userData = new UsuarioModel { CampaniaID = 201804, Sobrenombre = "vvilelaj" };
                 var revistaDigital = new RevistaDigitalModel { TieneRDC = false };
+                var guiaNegocio = new GuiaNegocioModel { };
                 var controller = new BaseController(sessionManager.Object, logManager.Object);
 
-                var result = controller.BuildMenuContenedor(userData, revistaDigital).First();
+                var result = controller.BuildMenuContenedor(userData, revistaDigital, guiaNegocio).First();
 
                 Assert.IsNotNull(result);
                 Assert.AreEqual(Constantes.ConfiguracionPais.HerramientasVenta, result.Codigo);
@@ -413,10 +397,11 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     });
                 var userData = new UsuarioModel { CampaniaID = 201804, Sobrenombre = "vvilelaj" };
                 var revistaDigital = new RevistaDigitalModel { TieneRDC = true };
+                var guiaNegocio = new GuiaNegocioModel { };
                 var controller = new BaseController(sessionManager.Object, logManager.Object);
 
                 var result = controller
-                    .BuildMenuContenedor(userData, revistaDigital)
+                    .BuildMenuContenedor(userData, revistaDigital, guiaNegocio)
                     .Where(x => x.CampaniaId == userData.CampaniaID)
                     .ToList();
 
@@ -470,7 +455,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     var userData = new UsuarioModel { };
                     var revistaDigital = new RevistaDigitalModel {
                         TieneRDC = false,
-                        TieneRDR = false,
                         TieneRDI = false,
                     };
 
@@ -491,7 +475,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     var revistaDigital = new RevistaDigitalModel
                     {
                         TieneRDC = true,
-                        TieneRDR = false,
                         TieneRDI = false,
                         EsSuscrita = false,
                         EsActiva = false,
@@ -513,7 +496,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     var revistaDigital = new RevistaDigitalModel
                     {
                         TieneRDC = true,
-                        TieneRDR = false,
                         TieneRDI = false,
                         EsSuscrita = false,
                         EsActiva = true,
@@ -535,11 +517,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     var revistaDigital = new RevistaDigitalModel
                     {
                         TieneRDC = true,
-                        TieneRDR = false,
-                        //
                         EsSuscrita = true,
                         EsActiva = false,
-                        //
                         LogoMenuOfertasActiva = "club-gana-mas.gif"
                     };
 
@@ -558,11 +537,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     var revistaDigital = new RevistaDigitalModel
                     {
                         TieneRDC = true,
-                        TieneRDR = false,
-                        //
                         EsSuscrita = true,
                         EsActiva = true,
-                        //
                         LogoMenuOfertasActiva = "club-gana-mas.gif"
                     };
 
@@ -590,7 +566,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     var revistaDigital = new RevistaDigitalModel
                     {
                         TieneRDC = false,
-                        TieneRDR = false,
                         TieneRDI = true,
                         LogoMenuOfertasNoActiva = "gana-mas.gif"
                     };
@@ -620,7 +595,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     });
                     var controller = new BaseController(sessionManager.Object);
                     var userData = new UsuarioModel { };
-                    var revistaDigital = new RevistaDigitalModel { TieneRDC = false, TieneRDR = false, TieneRDI = false };
+                    var revistaDigital = new RevistaDigitalModel { TieneRDC = false, TieneRDI = false };
 
                     var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
 
@@ -647,7 +622,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     var revistaDigital = new RevistaDigitalModel
                     {
                         TieneRDC = true,
-                        TieneRDR = false, 
                         TieneRDI = false,
                         EsSuscrita = false,
                         EsActiva = false
@@ -676,7 +650,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     var revistaDigital = new RevistaDigitalModel
                     {
                         TieneRDC = true,
-                        TieneRDR = false,
                         TieneRDI = false,
                         EsSuscrita = false,
                         EsActiva = true
@@ -705,9 +678,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     var revistaDigital = new RevistaDigitalModel
                     {
                         TieneRDC = true,
-                        TieneRDR = false,
                         TieneRDI = false,
-                        //
                         EsSuscrita = true,
                         EsActiva = false
                     };
@@ -735,8 +706,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     var revistaDigital = new RevistaDigitalModel
                     {
                         TieneRDC = true,
-                        TieneRDR = false,
-                        //
                         EsSuscrita = true,
                         EsActiva = true,
                     };
@@ -786,7 +755,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     var userData = new UsuarioModel { };
                     var revistaDigital = new RevistaDigitalModel {
                         TieneRDC = false,
-                        TieneRDR = false,
                         TieneRDI = true
                     };
 
@@ -1098,6 +1066,179 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var result = controller.ObtenerConfiguracionSeccion(revistaDigital).FirstOrDefault();
 
                 Assert.IsNull(result);
+            }
+        }
+
+        [TestClass]
+        public class GNDValidarAcceso : Base
+        {
+            [TestMethod]
+            public void EsConsultoraYNoTieneGuiaNegocioYNoTieneRevistaDigital_RetornaFalso()
+            {
+                var esSociaEmpresaria = false;
+                var guiaNegocio = new GuiaNegocioModel { };
+                var revistaDigital = new RevistaDigitalModel { };
+                var controller = new BaseController();
+
+
+                var result = controller.GNDValidarAcceso(esSociaEmpresaria, guiaNegocio, revistaDigital);
+
+                Assert.AreEqual(false, result);
+            }
+
+            [TestMethod]
+            public void EsConsultoraYTieneGuiaNegocioYNoTieneRevistaDigital_RetornaVerdadero()
+            {
+                var esSociaEmpresaria = false;
+                var guiaNegocio = new GuiaNegocioModel { TieneGND = true };
+                var revistaDigital = new RevistaDigitalModel { TieneRDC =false };
+                var controller = new BaseController();
+
+
+                var result = controller.GNDValidarAcceso(esSociaEmpresaria, guiaNegocio, revistaDigital);
+
+                Assert.AreEqual(true, result);
+            }
+
+            [DataRow(true, DisplayName = "Suscrita, NoActiva")]
+            [DataRow(false,DisplayName ="No Suscrita, NoActiva")]
+            [DataTestMethod]
+            public void EsConsultoraYTieneGuiaNegocioYEsNoActiva_RetornaVerdadero(bool esSuscrita)
+            {
+                var esSociaEmpresaria = false;
+                var guiaNegocio = new GuiaNegocioModel { TieneGND =true };
+                var revistaDigital = new RevistaDigitalModel { TieneRDC=true,EsSuscrita= esSuscrita, EsActiva =false };
+                var controller = new BaseController();
+
+                var result = controller.GNDValidarAcceso(esSociaEmpresaria, guiaNegocio, revistaDigital);
+
+                Assert.AreEqual(true, result);
+            }
+
+            [DataRow(true, DisplayName = "Suscrita, Activa")]
+            [DataRow(false, DisplayName = "No Suscrita, Activa")]
+            [DataTestMethod]
+            public void EsConsultoraYTieneGuiaNegocioYEsActiva_RetornaFalso(bool esSuscrita)
+            {
+                var esSociaEmpresaria = false;
+                var guiaNegocio = new GuiaNegocioModel { TieneGND = true };
+                var revistaDigital = new RevistaDigitalModel { TieneRDC = true, EsSuscrita = esSuscrita, EsActiva = true };
+                var controller = new BaseController();
+
+                var result = controller.GNDValidarAcceso(esSociaEmpresaria, guiaNegocio, revistaDigital);
+
+                Assert.AreEqual(false, result);
+            }
+
+
+
+            [TestMethod]
+            public void EsSociaEmpresariaYNoTieneGuiaNegocioYNoTieneRevistaDigital_RetornaFalso()
+            {
+                var esSociaEmpresaria = true;
+                var guiaNegocio = new GuiaNegocioModel { };
+                var revistaDigital = new RevistaDigitalModel { };
+                var controller = new BaseController();
+
+                var result = controller.GNDValidarAcceso(esSociaEmpresaria, guiaNegocio, revistaDigital);
+
+                Assert.AreEqual(false, result);
+            }
+
+            [TestMethod]
+            public void EsSociaEmpresariaYTieneGuiaNegocioYNoTieneRevistaDigital_RetornaVerdadero()
+            {
+                var esSociaEmpresaria = true;
+                var guiaNegocio = new GuiaNegocioModel { TieneGND = true };
+                var revistaDigital = new RevistaDigitalModel { };
+                var controller = new BaseController();
+
+
+                var result = controller.GNDValidarAcceso(esSociaEmpresaria, guiaNegocio, revistaDigital);
+
+                Assert.AreEqual(true, result);
+            }
+
+            [DataRow(true, DisplayName = "Suscrita, NoActiva")]
+            [DataRow(false, DisplayName = "No Suscrita, NoActiva")]
+            [DataTestMethod]
+            public void EsSociaYTieneGuiaNegocioYEsNoActiva_RetornaVerdadero(bool esSuscrita)
+            {
+                var esSociaEmpresaria = true;
+                var guiaNegocio = new GuiaNegocioModel { TieneGND = true };
+                var revistaDigital = new RevistaDigitalModel
+                {
+                    TieneRDC = true,
+                    EsSuscrita = esSuscrita,
+                    EsActiva = false
+                };
+                var controller = new BaseController();
+
+                var result = controller.GNDValidarAcceso(esSociaEmpresaria, guiaNegocio, revistaDigital);
+
+                Assert.AreEqual(true, result);
+            }
+
+            [DataRow(true, DisplayName = "Suscrita, Activa")]
+            [DataRow(false, DisplayName = "No Suscrita, Activa")]
+            [DataTestMethod]
+            public void EsSociaYTieneGuiaNegocioYEsActivaYNoTieneExpSocEmpresaria_RetornaFalso(bool esSuscrita)
+            {
+                var esSociaEmpresaria = true;
+                var guiaNegocio = new GuiaNegocioModel { TieneGND = true };
+                var revistaDigital = new RevistaDigitalModel
+                {
+                    TieneRDC = true,
+                    EsSuscrita = esSuscrita,
+                    EsActiva = true,
+                    //
+                    SociaEmpresariaExperienciaGanaMas=false
+                };
+                var controller = new BaseController();
+
+                var result = controller.GNDValidarAcceso(esSociaEmpresaria, guiaNegocio, revistaDigital);
+
+                Assert.AreEqual(false, result);
+            }
+
+            [TestMethod]
+            public void EsSociaYTieneGuiaNegocioYEsNoSuscritaYEsActivaYTieneExpSocEmpresaria_RetornaFalso()
+            {
+                var esSociaEmpresaria = true;
+                var guiaNegocio = new GuiaNegocioModel { TieneGND = true };
+                var revistaDigital = new RevistaDigitalModel
+                {
+                    TieneRDC = true,
+                    EsSuscrita = false,
+                    EsActiva = true,
+                    //
+                    SociaEmpresariaExperienciaGanaMas = true
+                };
+                var controller = new BaseController();
+
+                var result = controller.GNDValidarAcceso(esSociaEmpresaria, guiaNegocio, revistaDigital);
+
+                Assert.AreEqual(false, result);
+            }
+
+            [TestMethod]
+            public void EsSociaYTieneGuiaNegocioYEsSuscritaYEsActivaYTieneExpSocEmpresaria_RetornaVerdadero()
+            {
+                var esSociaEmpresaria = true;
+                var guiaNegocio = new GuiaNegocioModel { TieneGND = true };
+                var revistaDigital = new RevistaDigitalModel
+                {
+                    TieneRDC = true,
+                    EsSuscrita = true,
+                    EsActiva = true,
+                    //
+                    SociaEmpresariaExperienciaGanaMas = true
+                };
+                var controller = new BaseController();
+
+                var result = controller.GNDValidarAcceso(esSociaEmpresaria, guiaNegocio, revistaDigital);
+
+                Assert.AreEqual(true, result);
             }
         }
     }

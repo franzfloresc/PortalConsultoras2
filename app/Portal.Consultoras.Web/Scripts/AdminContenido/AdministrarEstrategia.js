@@ -44,7 +44,9 @@
         imagenEliminar: config.imagenEliminar, 
         imagenProductoVacio: config.imagenProductoVacio,
         urlUploadFileStrategyShowroom: config.urlUploadFileStrategyShowroom,
-        urlUploadFileProductStrategyShowroom: config.urlUploadFileProductStrategyShowroom
+        urlUploadFileProductStrategyShowroom: config.urlUploadFileProductStrategyShowroom,
+        urlCargarArbolRegionesZonas: config.urlCargarArbolRegionesZonas,
+        rutastylejstree: config.rutastylejstree
     };
 
     var _variables = {
@@ -428,16 +430,16 @@
             $("#imgSeleccionada").attr("src", _config.rutaImagenVacia);
 
             if (data.ImagenMiniaturaURL == "") {
-                $("#imgMiniSeleccionada").attr('src', _config.rutaImagenVacia);
-                $("#hdImagenMiniaturaURLAnterior").val('');
+                $("#imgMiniSeleccionada").attr("src", _config.rutaImagenVacia);
+                $("#hdImagenMiniaturaURLAnterior").val("");
             } else {
-                $("#imgMiniSeleccionada").attr('src', data.ImagenMiniaturaURL);
-                $("#hdImagenMiniaturaURLAnterior").val(data.ImagenMiniaturaURL.replace(/^.*[\\\/]/, ''));
+                $("#imgMiniSeleccionada").attr("src", data.ImagenMiniaturaURL);
+                $("#hdImagenMiniaturaURLAnterior").val(data.ImagenMiniaturaURL.replace(/^.*[\\\/]/, ""));
             }
             if (data.EsSubCampania == 1) {
-                $('#chkEsSubCampania').attr('checked', true);
+                $("#chkEsSubCampania").attr("checked", true);
             } else {
-                $('#chkEsSubCampania').removeAttr('checked');
+                $("#chkEsSubCampania").removeAttr("checked");
             }
             
             $("#divInformacionAdicionalEstrategiaContenido").hide();
@@ -550,7 +552,7 @@
             $("#txtPrecioPublico").val(data.PrecioPublico);
             $("#txtGanancia").val(data.Ganancia);
             closeWaitingDialog();
-            if ($('#ddlTipoEstrategia').find(':selected').data('codigo') == "030") {
+            if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == "030") {
                 _vistaNuevoProductoShowroon();
             } else {
                 _vistaNuevoProductoGeneral();
@@ -987,9 +989,9 @@
 
         $("#imgSeleccionada").attr("src", _config.rutaImagenVacia);
         $("#imgZonaEstrategia").attr("src", _config.rutaImagenVacia);
-        $('#imgMiniSeleccionada').attr("src", _config.rutaImagenVacia);
-        $("#hdImagenMiniaturaURLAnterior").val('');
-        $('#chkEsSubCampania').removeAttr('checked');
+        $("#imgMiniSeleccionada").attr("src", _config.rutaImagenVacia);
+        $("#hdImagenMiniaturaURLAnterior").val("");
+        $("#chkEsSubCampania").removeAttr("checked");
 
         $("#divImagenEstrategiaContenido").show();
         $("#divInformacionAdicionalEstrategiaContenido").hide();
@@ -1351,7 +1353,88 @@
             }
         });
     }
+    var _uploadFileBloqueoCuv = function () {
+        var formData = new FormData();
+        var totalFiles = document.getElementById("fileBloqueoCuv").files.length;
+        if (totalFiles <= 0) {
+            _toastHelper.error("Seleccione al menos un archivo.");
+            return false;
+        }
+        var file = document.getElementById("fileBloqueoCuv").files[0];
+        var filename = file.name;
+        if ((file.size / 1024 / 1024) > 4) {
+            _toastHelper.error("El archivo es demasiado extenso para ser procesado.");
+            return false;
+        }
+        
+        if (filename.substring(filename.lastIndexOf(".") + 1) !== "csv") {
+            _toastHelper.error("El archivo no tiene la extensión correcta.");
+            return false;
+        }
+        
+        formData.append("Documento", document.getElementById("fileBloqueoCuv").files[0]);
+        formData.append("Pais", $("#ddlPais").val());
+        formData.append("CampaniaId", $("#ddlCampania").val());
+        formData.append("TipoEstrategia", $("#ddlTipoEstrategia").val());
+        
+        $.ajax({
+            url: _config.urlUploadBloqueoCuv,
+            type: "POST",
+            dataType: "JSON",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                
+                $("#listCargaBloqueoCuv").jqGrid("GridUnload");
+                var gridJson = {
+                    page: 1,
+                    total: 2,
+                    records: 10,
+                    rows: [
+                        {
+                            Descripcion: "CUVs Cargados",
+                            Cantidad: data.listActualizado 
+                        }
+                    ]
+                };
 
+                $("#listCargaBloqueoCuv").empty().jqGrid({
+                    datatype: "jsonstring",
+                    datastr: gridJson,
+                    colNames: ["Descripcion", "Cantidad"],
+                    colModel: [
+                        { name: "Descripcion", index: "Descripcion", sortable: false },
+                        { name: "Cantidad", index: "Cantidad", width: 30, sortable: false }
+                    ],
+                    pager: false,
+                    jsonReader: {
+                        repeatitems: false
+                    },
+                    width: 540,
+                    height: "auto",
+                    scrollOffset: 20,
+                    rowNum: 10,
+                    rowList: [10, 15, 20, 25],
+                    sortname: "Label",
+                    sortorder: "asc",
+                    viewrecords: true,
+                    hoverrows: false,
+                    caption: ""
+                });
+                $("#titleCuvBloqueado").fadeOut();
+                $("#listCuvsBloqueados").fadeOut();
+                $("#divBloqueoCuvPaso1").fadeOut(function () {
+                    $("#divBloqueoCuvPaso2").fadeIn();
+                    $("#titleCuvBloqueado").html("Nuevas Cuvs cargados:").fadeIn();
+                    $("#listCuvsBloqueados").html(data.valor).fadeIn();
+                });
+            },
+            error: function (data) {
+                _toastHelper.error(data.statusText);
+            }
+        });
+    }
     var _actualizarTonos = function() {
         waitingDialog({});
         var params = {
@@ -2586,9 +2669,9 @@
             }
 
         formData.append("Documento", document.getElementById("fileDescMasivo").files[0]);
-        formData.append("Pais", $('#ddlPais').val());
-        formData.append("CampaniaId", $('#ddlCampania').val());
-        formData.append("TipoEstrategia", $('#ddlTipoEstrategia').val());
+        formData.append("Pais", $("#ddlPais").val());
+        formData.append("CampaniaId", $("#ddlCampania").val());
+        formData.append("TipoEstrategia", $("#ddlTipoEstrategia").val());
 
         $.ajax({
                 url: _config.urlUploadFileProductStrategyShowroom,
@@ -2599,24 +2682,24 @@
                 processData: false,
                 success: function (data) {
                     $("#listCargaDescMasiva").jqGrid("GridUnload");
-                var mensaje = '';
+                var mensaje = "";
                 if (data.listActualizado == 0) {
                     mensaje = 'No se realizó ninguna actualización (Verificar que los CUVs existan en la tabla "ods.EstrategiaProducto").';
                     }
                     else {
-                    mensaje = 'El procedimiento culmino con éxito, se actualizaron '+ data.listActualizado +' producto(s)';
+                    mensaje = "El procedimiento culmino con éxito, se actualizaron "+ data.listActualizado +" producto(s)";
                 }
                 closeWaitingDialog();
-                $("#estadoCargaMasiva").css('color', 'black');
-                $('#estadoCargaMasiva').html(mensaje);
+                $("#estadoCargaMasiva").css("color", "black");
+                $("#estadoCargaMasiva").html(mensaje);
                 $("#divDescMasivoPaso1").fadeOut(function() {
                     $("#divDescMasivoPaso2").fadeIn();
                 });
 
                 },
                     error: function(data) {
-                 $("#estadoCargaMasiva").css('color', 'red');
-                 $('#estadoCargaMasiva').html(data.statusText);
+                 $("#estadoCargaMasiva").css("color", "red");
+                 $("#estadoCargaMasiva").html(data.statusText);
                  $("#divDescMasivoPaso1").fadeOut(function() {
                         $("#divDescMasivoPaso2").fadeIn();
                  });
@@ -2904,7 +2987,7 @@
                         return false;
                     }
                     $("#hdZonas").val(zonas);
-                    _toastHelper.error("Se agregaron las zonas seleccionadas.");
+                    _toastHelper.success("Se agregaron las zonas seleccionadas.");
                     $(this).dialog("close");
                 },
                 "Salir": function() {
@@ -3138,6 +3221,16 @@
             width: 600,
             draggable: false,
             title: "Lista de CUVs actualizados."
+        });
+        
+        $("#DialogBloqueoCuv").dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 600,
+            draggable: false,
+            title: "Carga CUVs Bloqueados"
         });
         
         // SHOWROOM-INICIO
@@ -3417,6 +3510,7 @@
             
             HideDialog("DialogZona");
             showDialog("DialogAdministracionEstrategia");
+            $("#linkAlcance").click();
             return true;
         },
         clickActivarDesactivar: function() {
@@ -3596,7 +3690,6 @@
             } else {
                 _uploadFileCvs();
             }
-            
         },
         clickActualizarTonos: function() {
             if (_validarMasivo()) _actualizarTonos();
@@ -3970,13 +4063,57 @@
                     return false;
                 }
             }
-            $("#ui-id-10").text('Carga masiva de productos Showroom');
+            $("#ui-id-10").text("Carga masiva de productos Showroom");
             $("#divDescMasivoPaso2").hide();
             $("#seccionFormatoArchivoSetShowroon").hide();
             $("#seccionFormatoArchivoGeneral").hide();
             $("#divDescMasivoPaso1").show();
             $("#seccionFormatoArchivoProductoShowroon").show();
             showDialog("DialogDescMasivo");
+        },
+        clickBloqueoCuv: function () {
+            if (_basicFieldsValidation()) {
+                document.getElementById("fileBloqueoCuv").value = "";
+                $("#divCuvsBloqueados").hide();
+                $("#divCuvsBloqueados").show();
+                $("#titleCuvBloqueado").html("Cuvs cargados:");
+                $("#listCuvsBloqueados").html("");
+                var params = {
+                    campaniaId: parseInt($("#ddlCampania").val())
+                };
+
+                jQuery.ajax({
+                    type: "POST",
+                    url: baseUrl + "AdministrarEstrategia/GetCuvsBloqueados",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(params),
+                    async: true,
+                    success: function(data) {
+                        if (data.success && data.valor != null && data.valor !== "") {
+                            $("#divCuvsBloqueados").show();
+                            $("#listCuvsBloqueados").html(data.valor);
+                        } else {
+                            $("#divCuvsBloqueados").hide();
+                        }
+                    },
+                    error: function(data, error) {
+                        _toastHelper.error(data.message);
+                    }
+                });
+
+                $("#divBloqueoCuvPaso1").show();
+                $("#divBloqueoCuvPaso2").hide();
+                if ($("#ddlTipoEstrategia").find(":selected").data("codigo") !== _codigoEstrategia.GuiaDeNegocio) {
+                    _toastHelper.error("Seleccionar Tipo de Estrategia Guia de Negocio.");
+                } else {
+                    $("#divBloqueoCuvPaso2").hide();
+                    showDialog("DialogBloqueoCuv");
+                }
+            } 
+        },
+        clickAceptarBloqueoCuv1: function () {
+            _uploadFileBloqueoCuv();
         },
         
         changeTipoEstrategia: function() {
@@ -3985,6 +4122,7 @@
             $("#btnNuevoMasivo").hide();
             $("#btnDescripcionMasivo").hide();
             $("#btnActualizarTonos").hide();
+            $("#btnCargaBloqueoCuv").hide();
 
             if (aux2.in(_codigoEstrategia.OfertaParaTi,
                 _codigoEstrategia.OfertaDelDia,
@@ -4000,6 +4138,7 @@
                 $("#btnDescripcionMasivo").show();
                 
                 if (aux2 !== _codigoEstrategia.HerramientaVenta) $("#btnActualizarTonos").show();
+                if (aux2 === _codigoEstrategia.GuiaDeNegocio) $("#btnCargaBloqueoCuv").show();
                 if (aux2 === _codigoEstrategia.ShowRoom) {
                     $("#btnDescripcionMasivo").val("Descrip. Masivo Set");
                     $("#btnDescripcionMasivoProd").show();
@@ -4056,7 +4195,7 @@
                                 }
                             }
                         }
-                        //cargarArbol();
+                        cargarArbol();
                         closeWaitingDialog();
                     }
                 },
@@ -4074,7 +4213,6 @@
                 });
 
         },
-
         keyUpCuv: function() {
             if ($(this).val().length == 5) {
 
@@ -4196,8 +4334,41 @@
             $("#imgSeleccionada").attr("src", _config.rutaImagenVacia);
             $("#imgSeleccionada").attr("data-id", "0");
             _mostrarInformacionCuv(cuvIngresado);
+        },
+        clickAlcance: function () {
+            var strZonas = $("#hdZonas").val();
+            if (strZonas != "") {
+                $.jstree._reference($("#arbolRegionZona")).uncheck_all();
+                var strZonasArreglo = strZonas.split(",");
+                for (i = 0; i < strZonasArreglo.length; i++) {
+                    $("#arbolRegionZona").jstree("check_node", "#" + strZonasArreglo[i], true);
+                }
+                $("#chkSeleccionar").attr("checked", true);
+                $.jstree._reference($("#arbolRegionZona")).get_unchecked(null, true).each(function () {
+                    if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
+                        return true;
+                    }
+                    $("#chkSeleccionar").attr("checked", false);
+                });
+            } else {
+                $.jstree._reference($("#arbolRegionZona")).check_all();
+                var zonas = "";
+                $.jstree._reference($("#arbolRegionZona")).get_checked(null, true).each(function () {
+                    if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
+                        return true;
+                    }
+                    zonas += this.id + ",";
+                });
+                if (zonas != "") {
+                    zonas = zonas.substring(0, zonas.length - 1);
+                }
+                $("#hdZonas").val(zonas);
+                $("#chkSeleccionar").attr("checked", true);
+            }
+            $('#arbolRegionZona').jstree('close_all');
+            showDialog("DialogZona");
+            return false;
         }
-
     }
      
     var _bindingEvents = function(){
@@ -4225,8 +4396,11 @@
         $("body").on("click", "#btnNuevoDetalle", _eventos.clickNuevoDetalle);
         $("body").on("click", "#imgMiniSeleccionada", _eventos.clickImgSeleccionada);
         $("body").on("click", "#btnDescripcionMasivoProd", _eventos.clickDescripcionMasivoProd);
+        $("body").on("click", "#btnCargaBloqueoCuv", _eventos.clickBloqueoCuv);
+        $("body").on("click", "#btnAceptarBloqueoCuv1", _eventos.clickAceptarBloqueoCuv1);
+        $("body").on("click", "#linkAlcance", _eventos.clickAlcance);
 
-        $("#matriz-comercial-header").on("click", "#matriz-busqueda-nemotecnico #btnBuscarNemotecnico",_eventos.clickBuscarNemotencnico);
+        $("#matriz-comercial-header").on("click", "#matriz-busqueda-nemotecnico #btnBuscarNemotecnico", _eventos.clickBuscarNemotencnico);
         $("#matriz-comercial-header").on("click", "#matriz-busqueda-nemotecnico #btnLimpiarBusquedaNemotecnico", _eventos.clickLimipiarNemotecnico);
         $(".chkImagenProducto").on("click", _eventos.clickChkImagenProducto);
         $("#imgSeleccionada").on("click", _eventos.clickImgSeleccionada);
@@ -4243,7 +4417,31 @@
         $("body").on("keyup", "#txtCUV2", _eventos.keyUpCuv2);
     }
 
-    
+    function cargarArbol() {
+        $("#arbolRegionZona").jstree({
+            json_data: {
+                ajax: {
+                    url: _config.urlCargarArbolRegionesZonas,
+                    data: function (n) {
+                        return { pais: $("#ddlPais").val(), region: 0, zona: 0 };
+                    },
+                    type: "GET",
+                    error: function (XMLHttpRequest, textStatus, errorThrown) { },
+                    success: function (data, textStatus, jqXHR) { },
+                    complete: function () {
+                        $("#arbolRegionZona").jstree("set_theme", "apple", _config.rutastylejstree);
+                        closeWaitingDialog();
+                    }
+                }
+            },
+            "themes": {
+                "theme": "apple",
+                "dots": true,
+                "icons": false
+            },
+            plugins: ["themes", "json_data", "ui", "checkbox"]
+        });
+    }
     // Public functions 
     function VerCuvsTipo(tipo) {
         _fnGrillaCuv1(tipo);
@@ -4322,7 +4520,7 @@
     function Remover(id, event) {
         event.preventDefault();
         event.stopPropagation();
-        var elimina = confirm('¿Está seguro que desea eliminar el set seleccionado?');
+        var elimina = confirm("¿Está seguro que desea eliminar el set seleccionado?");
         if (!elimina){
             return false;
         }
@@ -4331,10 +4529,10 @@
             $("#hdEstrategiaID").val(id);
             var params = { EstrategiaID: $("#hdEstrategiaID").val() };
             jQuery.ajax({
-                type: 'POST',
+                type: "POST",
                 url: _config.urlEliminarEstrategia,
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(params),
                 async: true,
                 success: function (data) {
@@ -4638,7 +4836,7 @@
             }
         });
     }
-
+    
     function Inicializar() {
         _iniDialog();
         _bindingEvents();
