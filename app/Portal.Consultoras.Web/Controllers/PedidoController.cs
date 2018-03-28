@@ -880,10 +880,13 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                 }
 
-                //eliminar de la tabla set 
-                var setDeleted = _pedidoSetProvider.EliminarSet(userData.PaisID, setId);
-                if (!setDeleted.Success)
-                    return ErrorJson(setDeleted.Message, allowGet: true);
+                //eliminar de la tabla set si todo fue ok
+                if (lastResult.Item1)
+                {
+                    var setDeleted = _pedidoSetProvider.EliminarSet(userData.PaisID, setId);
+                    if (!setDeleted.Success)
+                        return ErrorJson(setDeleted.Message, allowGet: true);
+                }
             }
             else
             {
@@ -954,7 +957,7 @@ namespace Portal.Consultoras.Web.Controllers
                             : tipo.Length > 1 ? tipo
                             : "Ocurrió un error al ejecutar la operación.";
 
-                return new Tuple<bool, JsonResult>(false, Json(new
+                return new Tuple<bool, JsonResult>(!errorServer, Json(new
                 {
                     success = !errorServer,
                     message,
