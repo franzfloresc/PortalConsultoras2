@@ -1,9 +1,9 @@
-
+ï»¿
 // 1: escritorio Home    11 : escritorio Pedido 
 // 2: mobile  Home       21 : mobile pedido
 var tipoOrigenEstrategia = tipoOrigenEstrategia || "";
 
-// Cuarto Dígito
+// Cuarto DÃ­gito
 // 0. Sin popUp         1. Con popUp
 var conPopup = conPopup || "";
 
@@ -284,6 +284,8 @@ function ArmarCarouselEstrategias(data) {
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
     $('#divListadoEstrategia.slick-initialized').slick('unslick');
+
+    data.Lista = data.Lista || [];
 
     if (data.Lista.length == 0) {
         $('#divListaEstrategias').show();
@@ -579,7 +581,7 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
             'brand': recomendado.DescripcionMarcaEstrategiaAgregarProducto,
             'category': 'NO DISPONIBLE',
             'variant': recomendado.DescripcionEstrategia,
-            'list': 'Ofertas para ti – ' + origen,
+            'list': 'Ofertas para ti - ' + origen,
             'position': recomendado.Posicion
         };
 
@@ -610,7 +612,7 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
             'brand': recomendado.DescripcionMarca,
             'category': 'NO DISPONIBLE',
             'variant': recomendado.DescripcionEstrategia,
-            'list': 'Ofertas para ti – ' + origen,
+            'list': 'Ofertas para ti - ' + origen,
             'position': recomendado.Posicion
         };
 
@@ -1003,7 +1005,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
     }
 
     if (!$.isNumeric(cantidad)) {
-        AbrirMensajeEstrategia("Ingrese un valor numérico.");
+        AbrirMensajeEstrategia("Ingrese un valor numÃ©rico.");
         $('.liquidacion_rango_cantidad_pedido').val(1);
         CerrarLoad();
         return false;
@@ -1015,7 +1017,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
         return false;
     }
     if (parseInt(cantidad) > parseInt(cantidadLimite)) {
-        AbrirMensajeEstrategia("La cantidad no debe ser mayor que la cantidad límite ( " + cantidadLimite + " ).");
+        AbrirMensajeEstrategia("La cantidad no debe ser mayor que la cantidad lÃ­mite ( " + cantidadLimite + " ).");
         CerrarLoad();
         return false;
     }
