@@ -365,10 +365,12 @@ function OfertaArmarEstrategias(response, busquedaModel) {
                     }
                 }
             }
-            
+
 
             var htmlDivPerdio = SetHandlebars("#producto-landing-template", modeloTemp);
             divPredio.append(htmlDivPerdio);
+        } else {
+            $("#block_inscribete").hide();
         }
     }
 
