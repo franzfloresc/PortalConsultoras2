@@ -406,6 +406,9 @@
         var itemsCompraXCompra = '@Model.ListaShowRoomCompraPorCompra.Count';
         var tieneSubCampania = '@Model.TieneSubCampania';
         var itemsSubCampania = @Model.ListaShowRoomOferta.Where(p => p.EsSubCampania).OrderBy(p => p.Orden).ToList().Count;
+        var vfallSpeed = 4;
+        var vnumObjects = 8;
+        var esShowRoom = true;
 
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")"></script>
