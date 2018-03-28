@@ -12,13 +12,17 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public virtual ActionResult Detalle(string cuv, int campaniaId)
         {
-            var modelo = (EstrategiaPersonalizadaProductoModel)Session[Constantes.ConstSession.ProductoTemporal];
-
-            if (modelo == null || modelo.EstrategiaID == 0 || modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
+            if (!(revistaDigital.TieneRevistaDigital() && revistaDigital.EsActiva))
             {
-                return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
+                return RedirectToAction("Index", "Bienvenida", new { area = IsMobile() ? "Mobile" : "" });
             }
-            if (!revistaDigital.TieneRevistaDigital())
+            if (string.IsNullOrWhiteSpace(cuv) || campaniaId <= 0)
+            {
+                return RedirectToAction("Index", "Bienvenida", new { area = IsMobile() ? "Mobile" : "" });
+            }
+
+            var modelo = (EstrategiaPersonalizadaProductoModel)Session[Constantes.ConstSession.ProductoTemporal];
+            if (modelo == null || modelo.EstrategiaID == 0 || modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
             {
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
             }
