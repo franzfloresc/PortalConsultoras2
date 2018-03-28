@@ -74,35 +74,28 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             {
                 var upsellings = await GetUpSellingsService(userData.CampaniaID.ToString(), true);
 
-                if (upsellings.Any())
-                {
-                    var upselling = upsellings.Where(x => x.Activo).FirstOrDefault();
-                    var available = 0;
+                if (upsellings == null || !upsellings.Any())
+                    return Json(ResultModel<string>.BuildBad("no hay upsellings", string.Empty), JsonRequestBehavior.AllowGet);
 
-                    foreach (var item in upselling.Regalos)
-                    {
-                        if (item.Stock > 0 && item.Activo)
-                            available++;
-                    }
 
-                    if (available > 0)
-                    {
-                        upselling.Meta = await _upSellingProvider.ObtenerMontoMeta(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
+                var upsellingActivo = upsellings.FirstOrDefault(x => x.Activo);
 
-                        return Json(new
-                        {
-                            success = true,
-                            data = upselling
-                        }, JsonRequestBehavior.AllowGet);
-                    }
-                }
+                if (upsellingActivo == null)
+                    return Json(ResultModel<string>.BuildBad("no hay upselling activo", string.Empty), JsonRequestBehavior.AllowGet);
 
-                return Json(new { success = false, message = string.Empty }, JsonRequestBehavior.AllowGet);
+                var gifs = upsellingActivo.Regalos.Any(r => r.Activo);
+
+                if (!gifs)
+                    return Json(ResultModel<string>.BuildBad("no hay regalos o no estan activos", string.Empty), JsonRequestBehavior.AllowGet);
+
+                upsellingActivo.Meta = await _upSellingProvider.ObtenerMontoMeta(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
+
+                return Json(ResultModel<UpSellingModel>.BuildOk(upsellingActivo), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 

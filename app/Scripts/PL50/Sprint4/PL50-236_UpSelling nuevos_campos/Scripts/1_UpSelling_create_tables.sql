@@ -2,6 +2,17 @@
 		SELECT *
 		FROM sys.objects
 		WHERE type = 'U'
+			AND name = 'Upselling_Marca_Categoria'
+		)
+BEGIN
+	DROP TABLE [dbo].[Upselling_Marca_Categoria]
+END
+GO
+
+IF EXISTS (
+		SELECT *
+		FROM sys.objects
+		WHERE type = 'U'
 			AND name = 'UpSellingDetalle'
 		)
 BEGIN

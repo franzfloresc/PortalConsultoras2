@@ -1416,7 +1416,8 @@ namespace Portal.Consultoras.Common
                 var titlesStyle = wb.Style;
                 titlesStyle.Font.Bold = true;
                 titlesStyle.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                titlesStyle.Fill.BackgroundColor = XLColor.FromHtml("#669966");
+                titlesStyle.Fill.BackgroundColor = XLColor.FromHtml("#993399");
+                titlesStyle.Font.FontColor = XLColor.White;
 
                 wb.NamedRanges.NamedRange("Titles").Ranges.Style = titlesStyle;
 

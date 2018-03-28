@@ -633,6 +633,22 @@
     </div>
 </div>
 
+<div id="divAvisoEliminarRegaloGenerico" style="display: none;">
+    <div class="terminos_title_2">
+        IMPORTANTE
+    </div>
+    <div id="dataEliminar" data-campaniaId="" data-pedidoId="" data-pedidoDetalleId="" data-tipoOfertaSisId="" data-cuv="" 
+         data-cantidad="" data-clienteId="" data-cuvReco="" data-esBackOrder="" ></div>
+
+    <div class="pop_pedido_mensaje">
+        ¿Estás segura que quieres eliminar el producto?<br /><br />
+        Recuerda que tienes un premio ganado, si eliminas este producto podrías perderlo.<br /> ¿Deseas continuar?
+    </div>
+    <div style="text-align: center; margin-top: 30px;">
+        <input id="btnEliminarPedidoCompletoNo" type="button" value="No" onclick="CerrarAvisoEliminarRegalo()" class="input_modifica_horizontal" style="width: 100px; margin-left: 0;" />
+        <input id="btnEliminarPedidoCompletoSi" type="button" value="Si" onclick="ContinuarEliminacion()" class="input_modifica_horizontal" style="width: 100px; margin-left: 20px;" />
+    </div>
+</div>
 <input type="hidden" id="hdfAccionPROL" value="@Model.Prol" />
 <input type="hidden" id="hdfReserva" value="@Model.Reserva" />
 <input type="hidden" id="hdfObsInfor" value="@Model.ObservacionInformativa" />
@@ -1694,8 +1710,7 @@
             {{#iff DescripcionLarga 'Contains' '\''}}
             {{Replace DescripcionLarga '\'' ''}}
             {{/iff}}
-
-            <a onclick="DeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}');"
+                    <a onclick="ConfirmarEliminarRegaloGenerico('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}');"
                 id="btnLPDelete{{PedidoDetalleID}}" style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
             
             {{/if}}
@@ -1711,7 +1726,7 @@
             <div class="texto_stock" style="margin-top: 10PX;width:60%">No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña?</div>
             <div class="text_stock" style="margin-top:10px;float:left;width:35%;margin-left:35px;">
 
-                <a class="btn_no_stock" style="font-size:9px;float:left;margin-left:9px;" onclick="DeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', '{{EsBackOrder}}');">NO, GRACIAS</a>
+                        <a class="btn_no_stock" style="font-size:9px;float:left;margin-left:9px;" onclick="ConfirmarEliminarRegaloGenerico('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', '{{EsBackOrder}}');">NO, GRACIAS</a>
 
                 <a class="btn_si_stock" style="float:right;height:35px;line-height:39px;" onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" href="javascript:;">¡SI, POR FAVOR!</a>
 
@@ -1779,12 +1794,7 @@
 
 <script id="ofertaFinal-template" type="text/x-handlebars-template">
 
-    @{
-        //var imagenFondoOFRegalo = (ViewBag.ImagenFondoOFRegalo != null) ? ViewBag.ImagenFondoOFRegalo : "";
-        //var titulo1OFRegalo = (ViewBag.Titulo1OFRegalo != null) ? ViewBag.Titulo1OFRegalo : "";
-    }
-
-    <div class="content_regalo_sorpresa" id="container-of-regalo" style="display: none; background-image: url('/Content/Images/PL20/Banner_desktop.png');" data-popup-body="">
+    <div class="content_regalo_sorpresa" id="container-of-regalo" data-popup-body="" style="display: none; background-image: url('/Content/Images/PL20/Banner_desktop.png');">
         <div class="icono_regalo_sorpresa">
             <img src="/Content/Images/gif-regalo-gano.gif" alt="">
         </div>
@@ -1795,8 +1805,8 @@
         </div>
         <div class="arrow_box" id="content-regalo-agrega" style="display:none;">
             <div class="txt_regalo_sorpresa_popup">
-                <div class="span_2_regalo_sorpresa_producto"><b>AGREGA <span id="of-regalo-agrega">$119.00</span></b><br></div>
-                <div class="span_1_regalo_sorpresa_producto">TU META ES <span id="of-regalo-montometa">$300.00</span></div>
+                <div class="span_2_regalo_sorpresa_producto"><b>TE FALTA <span data-regalo-agrega="">$119.00</span></b><br></div>
+                <div class="span_1_regalo_sorpresa_producto">PARA TU META DE <span id="of-regalo-montometa">$300.00</span></div>
             </div>
         </div>
         <div class="slider center" id="divCarruselRegalo" style="width: 100%; margin: 0 auto 0 auto;">
@@ -1829,43 +1839,26 @@
             <span class="span_paginacion_premio_1" id="of-regalo-actual">1</span>
             <span> / </span><span id="of-regalo-total">3</span>
         </div>
-        <div class="txt_nota_premio">Recuerda pasar pedido en la siguiente <br />para recibir tu premio</div>
+        <div class="txt_nota_premio" data-regalo-recuerda="">Recuerda <b>pasar pedido en la siguiente<br />campaña</b> para recibir tu premio</div>
         <a class="btn_legal_RS" target="_blank" href="@ViewBag.UrlTerminosOfertaFinalRegalo" id="of-regalo-terminos">*Descargar términos y condiciones</a>
-        @*<div class="icono_regalo_sorpresa mt-11"></div>
-        <div class="titulo_regalo_sorpresa" id="of-regalo-msg1" style="display: none;"><b>¡GANA ESTE PREMIO*</b><br />@titulo1OFRegalo</div>
-        <div class="titulo_regalo_2" id="of-regalo-msg2" style="display: none;">FELICIDADES @ViewBag.NombreConsultora <br /><span class="font_32">¡GANASTE!</span></div>
-        <div class="titulo_regalo_2" id="of-regalo-msg3" style="display: none;">¡FELICIDADES @ViewBag.NombreConsultora <span class="bold_900">ESTE PREMIO YA ES TUYO!</span></div>
-        
-        <div class="fondo_blanco_regalo">
-            <div class="content_detalle_monto" id="of-regalo-montos" style="display: none;">
-                TU META ES <span id="of-regalo-montometa">$200.000</span><br />
-                <b>¡AGREGA <span id="of-regalo-montosaldo">$23.999</span> Y LISTO!</b>
-            </div>
-            <div class="titulo_regalo_producto" id="of-regalo-descripcion">Bicicleta Rockrider 340 Azul</div>
-            <div class="content_imagen_sorpresa"><img id="of-regalo-imagen" src="" alt="" /></div>
-            <div class="descripcion_regalo">
-                <span id="of-regalo-descripcion-larga" class="oferta_final_descripcion">Pedalier de acero con triple plato, con protección de plástico de color azul. Tamaño 80cm x 120cm.</span>
-                <a target="_blank" href="@ViewBag.UrlTerminosOfertaFinalRegalo" id="of-regalo-terminos">*Leer términos y condiciones</a>
-            </div>
-        </div>
-        *@
     </div>
-    <div id="divGanoRegalo" class="content_regalo_sorpresa" style="display: none; background-image: url('/Content/Images/PL20/Banner_desktop.png');">
+
+    <div id="divGanoRegalo" class="content_regalo_sorpresa" data-popup-body="" style="display: none; background-image: url('/Content/Images/PL20/Banner_desktop.png');">
         <div class="btn_regresa_OF" id="btnCambiarRegalo1">
             <img class="img_regresa_OF" img="" src="/Content/Images/Esika/regresar.png" alt="">
             <span class="span_regresa_OF">CAMBIAR REGALO</span>
         </div>
-        <div class="icono_regalo_sorpresa" style="margin-top: 18px;">
+        <div class="icono_regalo_sorpresa" style="margin-top: 22px;">
             <img src="/Content/Images/gif-regalo-gano.gif" alt="">
         </div>
         <div class="txt_regalo_sorpresa_popup box_regalo_sorpresa_popup">
-            <span class="span_1_regalo_sorpresa_popup" id="of-regalo-msg1">FELICIDADES @ViewBag.NombreConsultora<br></span>
-            <span class="span_2_regalo_sorpresa_popup" id="of-regalo-msg3"><b>¡GANASTE!</b><br></span>
+            <span class="span_1_regalo_ganaste_popup" id="of-gano-msg1">¡GANASTE @ViewBag.NombreConsultora!<br></span>
+            <span class="span_2_regalo_ganaste_popup" id="of-gano-msg3">SUPERASTE TU META DE <span id="of-regalo-montometa-msg3">$300.00</span><br></span>
         </div>
         <div class="arrow_box arrow_box_2">
             <div class="txt_regalo_sorpresa_popup">
-                <div class="span_2_regalo_sorpresa_producto" id="of-regalo-estuyo"><b>¡EL PREMIO ES TUYO!</b><br></div>
-                <div class="span_1_regalo_sorpresa_producto_2" id="of-regalo-recuerda">Recuerda pasar pedido en la siguiente<br>campaña para recibir tu premio</div>
+                <div class="span_2_regalo_ganaste_producto" id="of-regalo-estuyo"><b>SOLO RECUERDA</b><br></div>
+                <div class="span_1_regalo_ganaste_producto" data-regalo-recuerda="">Pasar pedido en la siguiente<br>campaña para recibir tu premio*</div>
             </div>
         </div>
         <div class="content_info_regalo">
@@ -2024,7 +2017,8 @@
                 </div>
                 <div style="display: block; position: relative;">
                     <div class="contenedor_boton_reservarPedido">
-                        <a id="id_btn_noGracias_agregarProductos" name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal icono_terminar_pedido" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}" onclick="of_google_analytics_cerrar_popup()">
+                        <a id="btnNoGraciasOfertaFinal" name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal icono_terminar_pedido" 
+                           style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}" onclick="of_google_analytics_cerrar_popup()">
                             RESERVA TU PEDIDO
                         </a>
                     </div>

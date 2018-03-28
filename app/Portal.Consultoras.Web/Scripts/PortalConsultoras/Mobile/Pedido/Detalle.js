@@ -405,6 +405,20 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
     };
     PedidoUpdate(item);
 }
+function ConfigurarPopUpConfirmacion() {
+    var regalo = GetUpSellingGanado();
+
+    if (ofertaFinalEstado == 'True' && ofertaFinalAlgoritmo == 'OFR' && regalo) {
+        $('#mensaleAvisoRegalo').show();
+    }
+    else {
+        $('#mensaleAvisoRegalo').hide();
+    }
+
+    $("#popup-eliminar-item").show();
+
+ 
+}
 
 function EliminarPedidoEvento(evento, esBackOrder) {
     var obj = $(evento.currentTarget);
@@ -420,7 +434,7 @@ function EliminarPedidoEvento(evento, esBackOrder) {
 
 function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, Cantidad, DescripcionProd, PrecioUnidad, MarcaID, DescripcionOferta, esBackOrder) {
 
-    $("#popup-eliminar-item").show();
+    ConfigurarPopUpConfirmacion();
 
     fnEliminarProducto = function () {
         var param = ({

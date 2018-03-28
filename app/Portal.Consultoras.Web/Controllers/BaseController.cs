@@ -37,6 +37,7 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
 using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Controllers
 {

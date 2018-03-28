@@ -35741,7 +35741,7 @@ height:30px;
     display: inline-block;
     margin: 35px -13px 0 0;
     min-height: 608px;
-    padding: 25px 25px 0 25px;
+    padding: 15px 25px 15px 25px;
     position: relative;
     vertical-align: top;
     width: 308px;
@@ -35773,7 +35773,7 @@ height:30px;
 
 .titulo_regalo_producto {
     font-family: 'Lato';
-    font-weight: 700;
+    font-weight: 900;
     color: black;
     font-size: 13px;
     text-align: center;
@@ -35866,6 +35866,17 @@ height:30px;
     letter-spacing: 1.1px;
 }
 
+.span_1_regalo_ganaste_popup {
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+}
+
+.span_2_regalo_ganaste_popup {
+    font-size: 10.5px;
+    letter-spacing: .5px;
+}
+
 .arrow_box {
     position: relative;
     background: #000000;
@@ -35896,18 +35907,31 @@ height:30px;
 
 .span_1_regalo_sorpresa_producto {
     font-size: 10.5px;
-}
-
-.span_1_regalo_sorpresa_producto_2 {
-    font-size: 10.4px;
-    line-height: 1.24;
-    letter-spacing: .2px;
+    letter-spacing: .5px;
 }
 
 .span_2_regalo_sorpresa_producto {
     font-size: 14px;
     font-weight: 900;
     letter-spacing: .9px;
+}
+
+.span_1_regalo_ganaste_producto {
+    font-size: 12px;
+    line-height: 1.17;
+    letter-spacing: .4px;
+}
+
+.bold_1_regalo_ganaste_producto {
+    letter-spacing: .5px;
+    font-weight: 700;
+}
+
+.span_2_regalo_ganaste_producto {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.38;
+    letter-spacing: .5px;
 }
 
 .content_info_regalo {
@@ -35991,6 +36015,10 @@ height:30px;
     line-height: 1.25;
 }
 
+.span_nota_premio {
+    font-weight: 900;
+}
+
 .btn_legal_RS {
     font-family: 'Lato';
     font-size: 12px;
@@ -36002,7 +36030,7 @@ height:30px;
 
 .btn_regresa_OF {
     cursor: pointer;
-    left: 15px;
+    left: 25px;
     position: absolute;
     top: 15px;
 }

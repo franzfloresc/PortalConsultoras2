@@ -1266,6 +1266,7 @@
     <Content Include="Content\Css\Site\RevistaDigital\PopupSuscripcion.css" />
     <Content Include="Content\Css\Site\RevistaDigital\index.css" />
     <Content Include="Content\Css\Site\ShowRoom.css" />
+    <Content Include="Content\Css\Site\ShowRoom.css" />
     <Content Include="Content\Images\carrusel_n_blanco.png" />
     <Content Include="Content\Images\carrusel_p_blanco.png" />
     <Content Include="Content\Images\colorpicker\blank.gif" />
@@ -4925,6 +4926,7 @@
     <Content Include="Views\UpSelling\_DetalleEdit.cshtml" />
     <Content Include="Views\RevistaDigital\template-popup-suscripcion.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_GoogleOptimize.cshtml" />
+    <Content Include="Views\ShowRoom\_BannerInferior.cshtml" />
     <Content Include="Views\ShowRoom\_BannerInferior.cshtml" />
     <Content Include="Views\ShowRoom\Personalizado.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
