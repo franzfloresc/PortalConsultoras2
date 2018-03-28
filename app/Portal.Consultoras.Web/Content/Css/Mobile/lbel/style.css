@@ -12846,12 +12846,12 @@ span.icon-advertencia {
 
 .texto_cupon_monto {
     text-align: left;
-    font-size: 12px;
+    font-size: 11px;
     font-family: 'LAto';
     float: left;
     margin-left: 35px;      
-    line-height: 1.17;
-    width: 55%;         
+    line-height: 1.47;
+    width: 65%;         
 }
 
 .link_cupon_home {
@@ -13242,7 +13242,7 @@ span.icon-advertencia {
 .texto_recuerda_cupon {
     font-family: 'LAto';
     font-size: 14px;
-    margin-top: 63px;   
+    margin-top: 80px;   
     text-align: center; 
 }
 
