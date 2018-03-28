@@ -587,7 +587,7 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        public bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList,int EstrategiaId)
+        public bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId)
         {
             var pedidoWebDetalle = new List<BEPedidoWebDetalle>();
             var daPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
@@ -596,6 +596,26 @@ namespace Portal.Consultoras.BizLogic
 
 
             return result;
+        }
+
+        public bool UpdCantidadPedidoWebSet(int paisID, int SetId, int Cantidad)
+        {
+            DAPedidoWebDetalle daPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
+            return daPedidoWebDetalle.UpdCantidadPedidoWebSet(SetId, Cantidad);
+        }
+
+        public IList<BEPedidoWebDetalle> GetPedidoWebSetProducto(int paisID, int Campania, int ConsultoraId, int Cantidad)
+        {
+            DAPedidoWebDetalle daPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
+            List<BEPedidoWebDetalle> listaPedidoWebDetalle = new List<BEPedidoWebDetalle>();
+
+            using (IDataReader reader = daPedidoWebDetalle.GetPedidoWebSetProducto(Campania, ConsultoraId, Cantidad))
+                while (reader.Read())
+                {
+                    BEPedidoWebDetalle entidad = new BEPedidoWebDetalle(reader);
+                    listaPedidoWebDetalle.Add(entidad);
+                }
+            return listaPedidoWebDetalle;
         }
     }
 }

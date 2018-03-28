@@ -374,5 +374,21 @@ namespace Portal.Consultoras.Data
             return Convert.ToInt32(Context.ExecuteScalar(command)) > 0;
         }
 
+        public bool UpdCantidadPedidoWebSet(int SetId, int Cantidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdCantidadPedidoWebSet");
+            Context.Database.AddInParameter(command, "@SetId", DbType.Int32, SetId);
+            Context.Database.AddInParameter(command, "@Cantidad", DbType.Int32, Cantidad);
+            return Convert.ToInt32(Context.ExecuteScalar(command)) > 0;
+        }
+
+        public IDataReader GetPedidoWebSetProducto(int Campania, int ConsultoraId, int Cantidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebSetProducto");
+            Context.Database.AddInParameter(command, "@Campania", DbType.Int32, Campania);
+            Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int32, ConsultoraId);
+            Context.Database.AddInParameter(command, "@Cantidad", DbType.Int32, Cantidad);
+            return Context.ExecuteReader(command);
+        }
     }
 }
