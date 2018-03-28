@@ -182,6 +182,7 @@ namespace Portal.Consultoras.Web.Controllers
                             || e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso)
                             && e.FlagRevista == Constantes.FlagRevista.Valor2
                             ).ToList();
+
                         listPerdio.ForEach(e =>
                         {
                             e.ClaseBloqueada = "btn_desactivado_general";
