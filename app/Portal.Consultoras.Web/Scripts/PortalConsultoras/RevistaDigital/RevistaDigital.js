@@ -695,6 +695,7 @@ $.fn.fixedTo = function (elem) {
                     $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').addClass('scroll_posicionar_fix-zona-dorada');
                     $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').css('display', 'none');
                     $('#seccion-fixed-menu').css('top', '29px');
+                    $('#divOfertaProductosPerdio').css('padding-top', '170px');
                 } else {
                     topAltura = alturaH + 'px';
                     $('.zona_dorada_contenedor_desktop').css('position', 'fixed');
@@ -705,8 +706,6 @@ $.fn.fixedTo = function (elem) {
                     $('.contenido_zona_dorada_contenedor_desktop').css('width', '100%');
                     $('.contenido_zona_dorada_contenedor_desktop').css('z-index', '99');
                     $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('margin', 'auto');
-                    //$('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('width', '1050px');
-                    //$('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('margin-left', '195px');
                 }
             } else {
                 if (isMobile()) {
@@ -714,6 +713,7 @@ $.fn.fixedTo = function (elem) {
                     $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').removeClass('scroll_posicionar_fix-zona-dorada');
                     $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').css('display', 'block');
                     $('#seccion-fixed-menu').css('top', '29px');
+                    $('#divOfertaProductosPerdio').css('padding-top', '');
                     if ($window.scrollTop() <= 29) {
                         $('#seccion-fixed-menu').css('top', '');
                     }
