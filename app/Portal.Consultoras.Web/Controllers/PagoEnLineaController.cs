@@ -143,7 +143,7 @@ namespace Portal.Consultoras.Web.Controllers
                 filtro.FechaProcesoDesde = FechaProcesoDesde == "" ? default(DateTime) : Convert.ToDateTime(FechaProcesoDesde);
                 filtro.FechaProcesoHasta = FechaProcesoHasta == "" ? default(DateTime) : Convert.ToDateTime(FechaProcesoHasta);
 
-                List<BEPagoEnLineaResultadoLogReporte> lst = new List<BEPagoEnLineaResultadoLogReporte>();
+                List<BEPagoEnLineaResultadoLogReporte> lst;
 
                 using (PedidoServiceClient ps = new PedidoServiceClient())
                 {

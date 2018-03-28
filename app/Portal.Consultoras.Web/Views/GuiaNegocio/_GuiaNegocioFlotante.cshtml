@@ -2,12 +2,13 @@
     <div class="gndcontenido">
         <div class="gnd">
             <span class="gndcerrar">
-                <span id="tituloGuiaNegocioFloteante">REVISTA C17 </span> <img src="~/Content/Images/expand-button.png" class="flechitagnd" />
+                <span id="tituloGuiaNegocioFloteante"></span>
+                <img src="~/Content/Images/expand-button.png" class="flechitagnd" />
             </span> 
             <div class="gndbloque">
                 <img id="imgPortadaRevista" src="~/Content/Images/revista_no_disponible.jpg" alt="">
                 <p class="txtgnd">Encuentra aquí las mismas ofertas de la guía de negocio impresa </p>
-                <a href="#" class="irgnd" id="btnVerGuiaNegocio">VER GUÍA</a>
+                <a href="javascript:;" class="irgnd" id="btnVerGuiaNegocio">VER GUÍA</a>
                 <div style="display: none;">
                     @using (Html.BeginForm("MiRevista", "MisCatalogosRevistas", FormMethod.Post, new { id = "frmGuiaNegocio", target = "_blank" }))
                     {

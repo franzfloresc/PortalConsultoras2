@@ -557,7 +557,7 @@ namespace Portal.Consultoras.Web.Controllers
                     || (
                         (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
                         || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas)
-                        && (revistaDigital.TieneRDC || revistaDigital.TieneRDR || revistaDigital.TieneRDI))
+                        && (revistaDigital.TieneRDC || revistaDigital.TieneRDI))
                     || tipo == 1
                     || tipo == 2
                     ? "revistadigital-landing" : "";
@@ -652,6 +652,10 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     prodModel.PrecioNiveles = estrategia.Niveles ?? string.Empty;
+                }
+                if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)
+                {
+                    prodModel.PuedeAgregarProducto = !(userData.esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva());
                 }
                 listaRetorno.Add(prodModel);
             });

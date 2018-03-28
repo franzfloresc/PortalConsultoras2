@@ -1,7 +1,10 @@
 ﻿
 @model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaModel
+@using Portal.Consultoras.Web.Models
 @{
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
+
+    var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalModel();
 }
 @section styles{
     @System.Web.Optimization.Styles.Render("~/bundles/css/Site/ccsOfertas")
@@ -59,7 +62,8 @@
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")
 
 @Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
-@if(Model.MensajeProductoBloqueado2 != null) { 
+@if (Model.MensajeProductoBloqueado2 != null)
+{
     @Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado2)
 }
 
@@ -79,6 +83,7 @@
     var TipoOrigenPantallaODD = 111;
     var tipoOrigenEstrategia = 107;
     var OrigenDesktopODD = 3;
+    var revistaDigital= @Html.Raw(Json.Encode(revistaDigital));
 </script>
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Ofertas")
