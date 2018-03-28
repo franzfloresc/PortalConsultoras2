@@ -14,6 +14,7 @@ var divAgregado = null;
 
 $(document).ready(function () {
     $('body').on('click', '[data-tono-change]', function (e) {
+        debugger;
         var accion = $(this).attr("data-tono-change");
 
         var hideSelect = $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible");
@@ -26,9 +27,9 @@ $(document).ready(function () {
         }
 
         if (accion == 1) {
-            $("[data-tono]").find('.content_tonos_select').hide();
-            $("[data-tono]").find('.content_tonos_select').attr("data-visible", "0");
-            $("[data-tono]").find("[data-tono-change='1']").parent().removeClass("tono_por_elegir");
+//            $("[data-tono]").find('.content_tonos_select').hide();
+//           $("[data-tono]").find('.content_tonos_select').attr("data-visible", "0");
+//           $("[data-tono]").find("[data-tono-change='1']").parent().removeClass("tono_por_elegir");
 
             $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible", "1");
             $(this).parents("[data-tono]").find('.content_tonos_select').show();
