@@ -55,11 +55,75 @@
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-carrusel-previsuales-producto.cshtml")
 
+
+
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
 
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")
+
+<!-- nuevo carrusel -->
+    <!-- No Suscrita - No activa -->
+	<div class="lonuevo_carrusel" style="background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/5343216/ilf4s4o6bKMIp0t/banner%20de%20lanzamiento%20%231%20en%20desktop.jpg); background-color: #24303c !important;">
+		<img class="logo-club" src="~/Content/Images/RevistaDigital/etiqueta-club-ganamas-dorado-independiente.svg" />
+        <div class="lonuevo_carrusel_portada">
+			<div class="cont">
+                <div class="foto_prod" style="background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/5343216/0MpYozOzq338MEB/producto-350px.png);
+                    ">
+                </div>
+            </div>
+		</div>
+		<div class="lonuevo_carrusel_info">
+			<div class="cont">
+			<p>PERFUME VIBRANZA </p>
+			<span>Realza tu sensualidad</span>
+			<a href="">¿LO QUIERES?</a>
+			</div>
+		</div>
+		<div style="clear:both;"></div>
+    </div>
+
+<!-- Suscrita - No activa -->
+<div class="lonuevo_carrusel" style="background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/5343216/ilf4s4o6bKMIp0t/banner%20de%20lanzamiento%20%231%20en%20desktop.jpg); background-color: #24303c !important;">
+    <img class="logo-club" src="~/Content/Images/RevistaDigital/etiqueta-club-ganamas-dorado-independiente.svg" />
+    <div class="lonuevo_carrusel_portada">
+        <div class="cont">
+            <div class="foto_prod" style="background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/5343216/0MpYozOzq338MEB/producto-350px.png);
+                    ">
+            </div>
+        </div>
+    </div>
+    <div class="lonuevo_carrusel_info">
+        <div class="cont">
+            <p>PERFUME VIBRANZA </p>
+            <span>Realza tu sensualidad</span>
+            <span class="noti">Podrás comprar este y <b>NUEVOS PRODUCTOS ¡DESDE LA C03!</b></span>
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+</div>
+
+<!-- Suscrita - activa / no Suscrita - activa -->
+<div class="lonuevo_carrusel" style="background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/5343216/ilf4s4o6bKMIp0t/banner%20de%20lanzamiento%20%231%20en%20desktop.jpg); background-color: #24303c !important;">
+    <img class="logo-club logo-club-negro" src="~/Content/Images/RevistaDigital/nuevo.png" />
+    <div class="lonuevo_carrusel_portada">
+        <div class="cont">
+            <div class="foto_prod" style="background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/5343216/0MpYozOzq338MEB/producto-350px.png);
+                    ">
+            </div>
+        </div>
+    </div>
+    <div class="lonuevo_carrusel_info">
+        <div class="cont">
+            <p>PERFUME VIBRANZA </p>
+            <span>Realza tu sensualidad</span>
+            <a href="" class="negro">VER PRODUCTO</a>
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+</div>
+<!-- fin nuevo carrusel -->
 
 @Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 @if (Model.MensajeProductoBloqueado2 != null)
