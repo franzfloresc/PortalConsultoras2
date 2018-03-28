@@ -33,7 +33,10 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new BienvenidaHomeModel { ShowPopupMisDatos = showPopupMisDatos };
 
             if (userData.RolID != Constantes.Rol.Consultora)
-                return View("IndexSAC", model);
+                if (userData.RolID == 0)
+                    return RedirectToAction("LogOut", "Login");
+                else
+                    return View("IndexSAC", model);
 
             try
             {
