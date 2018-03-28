@@ -1386,6 +1386,14 @@
     <Content Include="Content\Css\Toast\jquery.toast.min.css" />
     <Content Include="Content\Css\Site\calc.css" />
     <Content Include="Content\Css\Site\fonts\icomoon\iconos-cambio-pass.svg" />
+    <Content Include="Content\Images\dateTimePicker\cal.gif" />
+    <Content Include="Content\Images\dateTimePicker\cal_close.gif" />
+    <Content Include="Content\Images\dateTimePicker\cal_fastforward.gif" />
+    <Content Include="Content\Images\dateTimePicker\cal_fastreverse.gif" />
+    <Content Include="Content\Images\dateTimePicker\cal_forward.gif" />
+    <Content Include="Content\Images\dateTimePicker\cal_minus.gif" />
+    <Content Include="Content\Images\dateTimePicker\cal_plus.gif" />
+    <Content Include="Content\Images\dateTimePicker\cal_reverse.gif" />
     <Content Include="Content\Images\flecha-campo-select.svg" />
     <Content Include="Content\Images\icono-calendario.svg" />
     <Content Include="Content\Images\Lbel\icono_check_lbel.png" />
@@ -3628,6 +3636,7 @@
     <Content Include="Scripts\PortalConsultoras\Mobile\SeguimientoPedido\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\MisReclamos\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\MisReclamos\Reclamo.js" />
+    <Content Include="Scripts\DatetimePicker\datetimepicker_css.js" />
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\Index.js" />
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\PagoVisa.js" />
     <Content Include="Scripts\PortalConsultoras\ProductoComentario\ProductoComentarioAdmModule.js" />
@@ -5238,6 +5247,7 @@
     <Folder Include="Areas\Mobile\Views\EstrategiaProductoComentario\" />
     <Folder Include="Content\ArchivoNivelGeografico\" />
     <Folder Include="GestionPasos\Asignaciones\" />
+    <Folder Include="Scripts\NewFolder1\" />
     <Folder Include="Views\App\" />
     <Folder Include="Views\BaseHerramientasVenta\" />
     <Folder Include="Views\BaseShowRoom\" />
