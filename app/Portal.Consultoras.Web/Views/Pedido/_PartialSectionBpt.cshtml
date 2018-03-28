@@ -12,6 +12,24 @@
     {
         urlLogo = revistaDigital.DLogoComercialActiva;
     }
+
+    if (revistaDigital.EsActiva)
+    {
+        <style>
+            .slick-list {
+                height: 1580px !important;
+                overflow: hidden !important;
+            }
+        </style>
+    }
+    else
+    {
+        <style>
+            .prev-flecha-dorada {
+                top: -9px;
+            }
+        </style>
+    }
 }
 
 @if (revistaDigital.TieneRDC)
