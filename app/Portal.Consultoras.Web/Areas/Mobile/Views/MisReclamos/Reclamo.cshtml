@@ -605,17 +605,17 @@
 </script>
 
 @section scripts{
-	<script type="text/javascript">
+<script type="text/javascript">
         var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
-        var UrlBuscarCuv = '@Url.Action("BuscarCUV", "MisReclamos", new { area = "" } )';
-        var UrlBuscarMotivo = '@Url.Action("BuscarMotivo", "MisReclamos", new { area = "" } )';
-        var UrlBuscarOperacion = '@Url.Action("BuscarOperacion", "MisReclamos", new { area = ""} )';
-        var UrlDetalleGuardar = '@Url.Action("DetalleGuardar", "MisReclamos", new { area = ""})';
-        var UrlDetalleCargar = '@Url.Action("DetalleCargar", "MisReclamos", new { area = "" } )';
-        var UrlValidarPaso1 = '@Url.Action("ValidarPaso1", "MisReclamos", new { area = ""} )';
-        var UrlObtenerMontosProdcutos = '@Url.Action("ObtenerMontoProductosCdrByCodigoOperacion", "MisReclamos", new { area = ""} )';
-        var UrlBuscarCuvCambiar = '@Url.Action("BuscarCuvCambiar", "MisReclamos", new { area = ""} )';
-        var urlRegresar = '@Url.Action("Index","MisReclamos", new { area = "Mobile" })';
+        var UrlBuscarCuv = '@Url.Action("BuscarCUV", "MisReclamos", new { area = "" })';
+        var UrlBuscarMotivo = '@Url.Action("BuscarMotivo", "MisReclamos", new { area = "" })';
+        var UrlBuscarOperacion = '@Url.Action("BuscarOperacion", "MisReclamos", new { area = "" })';
+        var UrlDetalleGuardar = '@Url.Action("DetalleGuardar", "MisReclamos", new { area = "" })';
+        var UrlDetalleCargar = '@Url.Action("DetalleCargar", "MisReclamos", new { area = "" })';
+        var UrlValidarPaso1 = '@Url.Action("ValidarPaso1", "MisReclamos", new { area = "" })';
+        var UrlObtenerMontosProdcutos = '@Url.Action("ObtenerMontoProductosCdrByCodigoOperacion", "MisReclamos", new { area = "" })';
+        var UrlBuscarCuvCambiar = '@Url.Action("BuscarCuvCambiar", "MisReclamos", new { area = "" })';
+        var urlRegresar = '@Url.Action("Index", "MisReclamos", new { area = "Mobile" })';
         var UrlSolicitudEnviar = '@Url.Action("SolicitudEnviar", "MisReclamos", new { area = "" })';
         var UrlValidarNoPack = '@Url.Action("ValidarNoPack", "MisReclamos", new { area = "" })';
         var UrlValidarCorreoDuplicado = '@Url.Action("ValidarCorreoDuplicado", "MisReclamos", new { area = "" })';
@@ -628,9 +628,11 @@
 
         var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
 		var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha)';
-		if (!mobileConfiguracion.EsAppMobile) mensajeCdrFueraDeFechaCompleto = String.Format("{0} {1}",  mensajeCdrFueraDeFechaCompleto , Constantes.CdrWebMensajes.ContactateChatEnLinea);
+
+		var flagAppMobile = @(!mobileConfiguracion.EsAppMobile ? 0 : 1);
+		if (flagAppMobile == 0) mensajeCdrFueraDeFechaCompleto = String.Format("{0} {1}",  mensajeCdrFueraDeFechaCompleto , Constantes.CdrWebMensajes.ContactateChatEnLinea);
 
         var OrigenCDR = true;
-	</script>
+</script>
 	<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Reclamo.js")"></script>
 }
