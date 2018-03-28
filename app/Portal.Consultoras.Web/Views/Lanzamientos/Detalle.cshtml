@@ -19,38 +19,38 @@
     <div class="content_belcorp">
         <div class="detalle-prod">
             <div class="detalle-img">
-                
-                @*<div class="img-portada" style="background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/5343216/biR3uHXLVdTEhBF/lanzamiento%20%231%20en%20mobile.png);"></div>*@
-                <div class="img-portada" style="background:url(@Model.TipoEstrategiaDetalle.ImgFichaDesktop);"></div>
+                <div class="img-portada" style="background:url(@Model.FotoProducto01);"></div>
                 <div class="detalle-compartir">
                     Comparte este producto con tus clientes
                     <img src="~/Content/Images/Esika/facebook.png" class="fb" />
-                    <img src="~/Content/Images/Login2/email.png" class="emailico" />
                 </div>
             </div>
             <div class="detalle-info">
                 <div class="label-nuevo">
-                    <img src="~/Content/Images/RevistaDigital/nuevo.png" />
+                    <img src="@Model.TipoEstrategiaDetalle.ImgFichaDesktop" />
                 </div>
                 <div class="detalle-bloque-uno">
                     <div class="bloque1">
-                        <p>ÉSIKA</p>
-                        <h1>VIBRANZA</h1>
+                        <p>@Model.DescripcionMarca</p>
+                        <h1>@Model.DescripcionResumen</h1>
                         <span>4g/.</span>
                     </div>
                     <div class="bloque2">
-                        <span class="precio-tachado">S/.200</span>
-                        <span class="precio-para-ti">precio para tí<b>S/.110</b></span>
-                        <span class="gana-rojo">GANA S/.90</span>
+                        <span class="precio-tachado">@Model.Simbolo @Model.PrecioVenta</span>
+                        <span class="precio-para-ti">precio para tí<b>@Model.Simbolo @Model.PrecioTachado</b></span>
+                        <span class="gana-rojo">GANA @Model.Simbolo @Model.GananciaString</span>
                     </div>
                     <div style="clear:both;"></div>
                 </div>
                 <div class="detalle-bloque-dos">
-                    <p>REALZA TU SENSUALIDAD</p>
+                    <p>@Model.TipoEstrategiaDetalle.Slogan</p>
                     <ul>
-                        <li>Hidrata tus labios con una textura velvet de larga duración.</li>
-                        <li>Hidrata tus labios con una textura velvet de larga duración.</li>
+                        @foreach (var DescDetalle in Model.ListaDescripcionDetalle)
+                        {
+                        <li>@DescDetalle.Trim()</li>
+                        }
                     </ul>
+                    
                 </div>
                 <div class="detalle-bloque-tres">
                     lista tonos aqui
@@ -75,8 +75,41 @@
 </div>
 <div class="set_encuentras_producto_video">
     <div class="content_belcorp">
-        <!-- aqui video -->
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate, autem mollitia, sequi eos nam, nobis, praesentium quidem ullam expedita ab totam. Reiciendis quos minus suscipit, nostrum neque aut? Neque, id.
+        @if ((Model.TipoEstrategiaDetalle.UrlVideoDesktop ?? "") != "")
+        {
+        <div class="revista_producto_video" style="width: 100%">
+            <div id="player"></div>
+            <script>
+                    var tag = document.createElement('script');
+
+                    tag.src = "https://www.youtube.com/iframe_api";
+                    var firstScriptTag = document.getElementsByTagName('script')[0];
+                    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+                    var player;
+                    function onYouTubeIframeAPIReady() {
+                        player = new YT.Player('player', {
+                            height: '415',
+                            width: '100%',
+                            videoId: '@Model.TipoEstrategiaDetalle.UrlVideoDesktop',
+                            events: {
+                                'onStateChange': onPlayerStateChange
+                            }
+                        });
+                    }
+
+                    function onPlayerStateChange(event) {
+                        if (event.data == YT.PlayerState.PLAYING) {
+                            rdAnalyticsModule.CompartirProducto("YTI", player.getVideoUrl(), "@Model.DescripcionResumen");
+                        }
+                        if (event.data == YT.PlayerState.ENDED) {
+                            rdAnalyticsModule.CompartirProducto("YTF", player.getVideoUrl(), "@Model.DescripcionResumen");
+                        }
+                    }
+
+            </script>   
+        </div>
+        }
     </div>
 </div>
 @Html.Action("MensajeBloqueado", "RevistaDigital")
