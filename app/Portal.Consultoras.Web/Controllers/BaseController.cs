@@ -4429,6 +4429,13 @@ namespace Portal.Consultoras.Web.Controllers
                             ViewBag.MensajeCierreCampania = "El <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> desde las <b>" + FormatearHora(userData.HoraFacturacion) + "</b> hasta las <b>" + FormatearHora(HoraCierrePortal) + "</b> podrás validar los productos que te llegarán en el pedido";
                         }
                     }
+
+                    if (IsMobile())
+                    {
+                        DateTime time = DateTime.Today.Add(HoraCierrePortal);
+                        string hrCierrePortal = time.ToString("hh:mm tt").Replace(". ", "").ToUpper();
+                        ViewBag.MensajeFechaPromesa = " CIERRA EL " + userData.FechaInicioCampania.Day + " " + NombreMes(userData.FechaInicioCampania.Month).ToUpper() + " - " + hrCierrePortal.Replace(".", "");
+                    }
                 }
                 else
                 {
@@ -4454,6 +4461,13 @@ namespace Portal.Consultoras.Web.Controllers
                                 TextoPromesaEspecial = true;
                             }
                         }
+                    }
+
+                    if (IsMobile())
+                    {
+                        DateTime time = DateTime.Today.Add(HoraCierrePortal);
+                        string hrCierrePortal = time.ToString("hh:mm tt").Replace(". ", "").ToUpper();
+                        ViewBag.MensajeFechaPromesa = " CIERRA HOY - " + hrCierrePortal.Replace(".", "");
                     }
                 }
             }
