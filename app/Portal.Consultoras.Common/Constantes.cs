@@ -154,6 +154,18 @@ namespace Portal.Consultoras.Common
             public const int ValoresImagenesResizeHeightSmall = 12102;
             public const int ValoresImagenesResizeWitdhMedium = 12103;
             public const int ValoresImagenesResizeHeightMedium = 12104;
+
+            public const int MerchantId = 12201;
+            public const int AccessKeyId = 12202;
+            public const int SecretAccessKey = 12203;
+            public const int UrlSessionBotonPago = 12204;
+            public const int UrlGenerarNumeroPedido = 12205;
+            public const int PorcentajeGastosAdministrativos = 12206;
+            public const int UrlLibreriaPagoVisa = 12207;
+            public const int UrlAutorizacionBotonPago = 12208;
+            public const int UrlLogoPasarelaPago = 12209;
+            public const int ColorBotonPagarPasarelaPago = 12210;
+            public const int MensajeInformacionPagoExitoso = 12211;
         }
 
         public static class ParametrosNames
@@ -282,10 +294,12 @@ namespace Portal.Consultoras.Common
             public const string TieneOpm = "TieneOpm";
             public const string TieneOpmX1 = "TieneOpmX1";
             public const string TieneRdr = "TieneRdr";
+            public const string TieneHv = "TieneHv";
+            public const string TieneHvX1 = "TieneHvX1";
 
             public const string MisCertificados = "MisCertificados";
             public const string MisCertificadosData = "MisCertificadosData";
-
+            public const string DatosPagoVisa = "DatosPagoVisa";
             //ODD
             public const string ConfiguracionEstrategiaOdd = "ConfiguracionEstrategiaOdd";
             public const string GuiaNegocio = "GuiaNegocio";
@@ -402,6 +416,15 @@ namespace Portal.Consultoras.Common
 
             public const string RevistaPiloto_Grupos = "RevistaPiloto_Grupos_";
             public const string RevistaPiloto_Escenario = "ESC";
+            public const string PaisesCancelarSuscripcionRDUnete = "PaisesCancelarSuscripcionRDUnete";
+            public const string PaisesCancelarSuscripcionRDNuevas = "PaisesCancelarSuscripcionRDNuevas";
+
+            public const string Catalogo_Piloto_Escenario = "ESC";
+            public const string Catalogo_Piloto_Zonas = "Catalogo_Piloto_Zonas_";
+            public const string Catalogo_Piloto_Grupos = "Catalogo_Piloto_Grupos_";
+            public const string Catalogo_Marca_Piloto = "Catalogo_Marca_Piloto_";
+            public const string SubGuion = "_";
+
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
@@ -953,6 +976,7 @@ namespace Portal.Consultoras.Common
         {
             public const string RD = "RD";
             public const string Unete = "UNETE";
+            public const string Nueva = "NUEVA";
         }
 
         public static class MatrizNemotecnicoMensajes
@@ -1104,6 +1128,7 @@ namespace Portal.Consultoras.Common
             public const string Descargables = "DES-NAV";
             public const string GuiaDeNegocioDigitalizada = "GND";
             public const string HerramientasVenta = "HV";
+            public const string PagoEnLinea = "PAYONLINE";
         }
 
         public static class ConfiguracionPaisComponente
@@ -1117,6 +1142,7 @@ namespace Portal.Consultoras.Common
         public static class ConfiguracionPaisDatos
         {
             public const string BloqueoProductoDigital = "BloqueoProductoDigital";
+            public const string ActivoMdo = "ActivoMDO";
 
             public static class RD
             {
@@ -1125,6 +1151,8 @@ namespace Portal.Consultoras.Common
                 public const string CantidadCampaniaEfectiva = "CantidadCampaniaEfectiva";
                 public const string NombreComercialActiva = "NombreComercialActiva";
                 public const string NombreComercialNoActiva = "NombreComercialNoActiva";
+                public const string LogoMenuInicioActiva = "LogoMenuInicioActiva";
+                public const string LogoMenuInicioNoActiva = "LogoMenuInicioNoActiva";
                 public const string LogoComercialActiva = "LogoComercialActiva";
                 public const string LogoComercialNoActiva = "LogoComercialNoActiva";
                 public const string LogoComercialFondoActiva = "LogoComercialFondoActiva";
@@ -1134,6 +1162,10 @@ namespace Portal.Consultoras.Common
                 public const string BloquearPedidoRevistaImp = "BloquearPedidoRevistaImp";
                 public const string BloquearSugerenciaProducto = "BloquearSugerenciaProducto";
                 public const string SubscripcionAutomaticaAVirtualCoach = "SubscripcionAutomaticaAVirtualCoach";
+                public const string BannerOfertasNoActivaNoSuscrita = "BannerOfertasNoActivaNoSuscrita";
+                public const string BannerOfertasNoActivaSuscrita = "BannerOfertasNoActivaSuscrita";
+                public const string BannerOfertasActivaNoSuscrita = "BannerOfertasActivaNoSuscrita";
+                public const string BannerOfertasActivaSuscrita = "BannerOfertasActivaSuscrita";
                 #endregion
 
                 #region Bienvenida
@@ -1179,6 +1211,13 @@ namespace Portal.Consultoras.Common
                 #region Revista Digital Lo que te perdiste
                 public const string DPerdiste = "DPerdiste";
                 public const string MPerdiste = "MPerdiste";
+                #endregion
+
+                #region Inicio Revista Digital - Banner
+                public const string DLandingBannerInicioRdActivaNoSuscrita = "DLandingBannerInicioRdActivaNoSuscrita";
+                public const string DLandingBannerInicioRdNoActivaNoSuscrita = "DLandingBannerInicioRdNoActivaNoSuscrita";
+                public const string DLandingBannerInicioRdNoActivaSuscrita = "DLandingBannerInicioRdNoActivaSuscrita";
+                public const string DLandingBannerInicioRdActivaSuscrita = "DLandingBannerInicioRdActivaSuscrita";
                 #endregion
 
                 #region Revista Digital Landing Productos - Banner
@@ -1374,6 +1413,7 @@ namespace Portal.Consultoras.Common
             public const int ValoresImagenesResize = 121;
             public const short ExtensionBannerGanaMasApp = 136;
             public const short MontoLimiteCupon = 103;
+            public const int ValoresPagoEnLinea = 122;
         }
 
         public struct MensajesCDRExpress
@@ -1758,7 +1798,7 @@ namespace Portal.Consultoras.Common
             public const string IsSubcampaign = "essubcampania";
             public const string OfferStatus = "estado de oferta";
 
-            public enum Position { CUV = 0, NormalPrice = 1, AllowedUnits = 2, NameSet = 3, BusinessTip=4, IsSubcampaign = 5 , OfferStatus  = 6};
+            public enum Position { CUV = 0, NormalPrice = 1, AllowedUnits = 2, NameSet = 3, BusinessTip = 4, IsSubcampaign = 5, OfferStatus = 6 };
         }
 
         public static class ColumnsProductStrategyShowroom
@@ -1818,6 +1858,13 @@ namespace Portal.Consultoras.Common
             public const string EnEjecucion = "En ejecución";
             public const string Finalizado = "Terminado";
             public const string Error = "Error";
+        }
+
+        public class FlagRevista
+        {
+            public const int Valor0 = 0;
+            public const int Valor1 = 1;
+            public const int Valor2 = 2;
         }
 
         #region Pin Autenticidad

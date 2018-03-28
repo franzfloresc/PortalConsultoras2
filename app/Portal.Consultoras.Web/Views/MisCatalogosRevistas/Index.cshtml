@@ -3,13 +3,13 @@
 @model MisCatalogosRevistasModel
 
 @section styles{
-    <link href="~/Content/Css/Site/jquery.tag-editor.css" rel="stylesheet" />
+    @System.Web.Optimization.Styles.Render("~/bundles/Css/Site/MisCatalogoRevista")
 }
 
 @{
-    var title = "Catálogos y Revistas";
+    var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
+    var title = Model.Titulo;
     ViewBag.Title = title;
-
 }
 
 <input type="hidden" id="hdPaisNombre" value="@Model.PaisNombre" />
@@ -65,12 +65,12 @@
         @if (Model.TieneSeccionRevista)
         {
             @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml",
-            new ViewDataDictionary {
-                { "TieneGnd", Model.TieneGND },
-                { "EsConsultoraNueva", ViewBag.EsConsultoraNueva}
-            })
+                 new ViewDataDictionary {
+            { "TieneGnd", Model.TieneGND },
+            { "EsConsultoraNueva", ViewBag.EsConsultoraNueva}
+                 })
         }
-        
+
         @if (Model.TieneSeccionRD)
         {
             @Html.Partial("~/Views/MisCatalogosRevistas/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
@@ -84,11 +84,11 @@
             <div class="revista_content" id="contenedorExpofertaMCR" style="display: none;">
                 <div style="text-align: center; font-family: 'lato'; font-size: 16pt; color: black; letter-spacing: 0.25px; font-weight: 700; margin-top: 48px; margin-bottom: 28px;">EXPOFERTA C-@(Model.CampaniaActual.Substring(4, 2))</div>
                 <div id="catalogoExpoferta" class="revista_carrusel">
-                    <img src="@Url.Content("~/Content/Images/Esika/expoferta_c13.png")"/>
+                    <img src="@Url.Content("~/Content/Images/Esika/expoferta_c13.png")" />
                 </div>
             </div>
         }
-        <hr class="clear"/>
+        <hr class="clear" />
     </div>
 </div>
 

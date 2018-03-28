@@ -5,17 +5,19 @@
         <div class="rd_lanzamiento">
             <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
             <div onclick="javascript: VerDetalleEstrategia(event);">
-                {{#iff TipoEstrategiaDetalle.ImgHomeMobile '!=' ''}}
-                <img class="rd_lanzamiento_producto" src="{{TipoEstrategiaDetalle.ImgHomeMobile}}">
-                {{/iff}}
+                <div>
+                    {{#iff TipoEstrategiaDetalle.ImgHomeMobile '!=' ''}}
+                    <img class="rd_lanzamiento_producto" src="{{TipoEstrategiaDetalle.ImgHomeMobile}}">
+                    {{/iff}}
+                </div>
+                <div>CONOCE {{DescripcionResumen}}</div>
+                <div class="btn_black_solid" style="display:none;"><a href="javascript:;" onclick="RDRedireccionarDetalle(event)">DESCUBRE ESTA NOVEDAD</a></div>
+                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento, '@Constantes.ConfiguracionPais.Lanzamiento')">
+                    VER MÁS LANZAMIENTOS
+                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" />
+                </a>
             </div>
-            <div>CONOCE {{DescripcionResumen}}</div>
-            <div class="btn_black_solid"><a href="javascript:;" onclick="RDRedireccionarDetalle(event)">DESCUBRE ESTA NOVEDAD</a></div>
-            <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento, '@Constantes.ConfiguracionPais.Lanzamiento')">
-                VER MÁS LANZAMIENTOS 
-                <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" />
-            </a>
-        </div>
+         </div>
     </div>
     <hr class="clear" />
     {{/each}}

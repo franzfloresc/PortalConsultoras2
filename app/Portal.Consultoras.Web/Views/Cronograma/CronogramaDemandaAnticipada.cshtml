@@ -171,9 +171,7 @@
                     { name: 'CampaniaID', index: 'CampaniaID', width: 20, editable: true, resizable: false, hidden: true },
                     { name: 'Zona', index: 'Zona', width: 80, editable: true, resizable: false },
                     { name: 'FechaInicioWeb', index: 'FechaInicioWeb', width: 80, editable: true, resizable: false },
-                    //{ name: 'FechaFinWeb', index: 'FechaFinWeb', width: 80, editable: true, resizable: false },
                     { name: 'FechaInicioDD', index: 'FechaInicioDD', width: 80, editable: true, resizable: false },
-                    //{ name: 'FechaFinDD', index: 'FechaFinDD', width: 80, editable: true, resizable: false },
                     { name: 'Acciones', index: 'Acciones', width: 15, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions },
                     { name: 'ZonaID', index: 'ZonaID', width: 20, editable: true, resizable: false, hidden: true },
                 ],
@@ -221,38 +219,7 @@
 
         $.jgrid.extend({
             Editar: function (Id, Zona, Campania, Pais, CampaniaID) {
-                //$.ajax({
-                //    url: baseUrl + "Cronograma/GetCronogramaByCampaniayZona", type: "GET", dataType: "json",
-                //    data: {
-                //        PaisID: $("#ddlPais option:selected").val(),
-                //        CampaniaID: CampaniaID,
-                //        ZonaID: Id
-                //    },
-                //    success: function (data) {
-                //        if (checkTimeout(data)) {
-                //            if (data.success) {
-                //                var FechaInicioWeb = data.json.CodigoZona; 
-                //                var FechaFinWeb = data.json.CodigoZona; 
-                //                var FechaInicioDD = data.json.ZonaNombre; 
-                //                var FechaFinDD = data.json.ZonaNombre; 
-
-                //                $('#txtFecIniFac').val(jQuery("#list").jqGrid('getCell', Id, 'FechaInicioWeb'));
-                //                $('#txtFecIniReFac').val(jQuery("#list").jqGrid('getCell', Id, 'FechaInicioDD'));
-
-                //                if (jQuery("#list").jqGrid('getCell', Id, 'FechaInicioWeb') != FechaInicioWeb) {
-                //                    $('#txtFecIniFacN').val(jQuery("#list").jqGrid('getCell', Id, 'FechaInicioWeb'));
-                //                }
-
-                //                if (jQuery("#list").jqGrid('getCell', Id, 'FechaInicioDD') != FechaInicioDD) {
-                //                    if ($.trim($('#txtFecIniFacN').val() != "")) {
-                //                        $('#txtFecIniReFacN').val(jQuery("#list").jqGrid('getCell', Id, 'FechaInicioDD'));
-                //                    }
-                //                }
-                //            }
-                //        }
-                //    }
-                //});
-
+                
                 $('#txtFecIniFac').val(jQuery("#list").jqGrid('getCell', Id, 'FechaInicioWeb'));
                 $('#txtFecIniReFac').val(jQuery("#list").jqGrid('getCell', Id, 'FechaInicioDD'));
 

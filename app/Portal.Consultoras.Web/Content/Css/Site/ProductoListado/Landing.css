@@ -1,0 +1,72 @@
+﻿
+.BloqueLandingRD {
+    margin-top: 35px;
+    min-height: 600px;
+}
+
+    .BloqueLandingRD .cantidad_productos_fav {
+        float: none;
+        text-align: right;
+    }
+
+    .BloqueLandingRD .rd-cantidad {
+    }
+
+    .BloqueLandingRD .rd-filtro-limpiar {
+        display: inline-block;
+        margin: 0 0 0 15px;
+    }
+
+    .BloqueLandingRD .fix-search {
+        position: fixed;
+        top: 61px;
+        width: 100%;
+        background: #000;
+        left: 0;
+        padding: 0 80px;
+        z-index: 100;
+        box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5);
+        -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5);
+        -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5);
+    }
+
+        .BloqueLandingRD .fix-search .cantidad_productos_fav {
+            background: transparent;
+            padding: 0 0 0 7px;
+            color: #fff;
+            float: right;
+            text-align: right;
+            margin-left: 2%;
+        }
+
+        .BloqueLandingRD .fix-search .clear {
+            clear: initial;
+        }
+
+        .BloqueLandingRD .fix-search .rd-busqueda-filtros {
+            padding: 15px 0;
+            overflow: hidden;
+        }
+
+            .BloqueLandingRD .fix-search .rd-busqueda-filtros .rd-seccion2 {
+                width: 75%;
+                overflow: hidden;
+            }
+
+            .BloqueLandingRD .fix-search .rd-busqueda-filtros .rd-filtros {
+                width: 75%;
+                overflow: hidden;
+                float: left;
+            }
+
+        .BloqueLandingRD .fix-search .rd-cantidad {
+            display: block;
+        }
+
+        .BloqueLandingRD .fix-search span {
+            color: #ffffff !important;
+        }
+
+        .BloqueLandingRD .fix-search .btn_diagonal {
+            margin-top: 15px;
+        }

@@ -1,5 +1,5 @@
-﻿using System.Runtime.Serialization;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
@@ -18,5 +18,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("Descripcion")]
         public string Descripcion { get; set; }
+
+        [DataMember]
+        [Column("Valor")]
+        public string Valor { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Portal.Consultoras.Common;
-
 using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities

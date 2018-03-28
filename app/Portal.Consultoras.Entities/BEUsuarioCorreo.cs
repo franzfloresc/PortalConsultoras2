@@ -51,14 +51,14 @@ namespace Portal.Consultoras.Entities
         public string TelefonoCentral { get; set; }
 
         [DataMember]
-        public string descripcionHorario {get; set;}
+        public string descripcionHorario { get; set; }
 
         [DataMember]
         public string ContextoBase { get; set; }
 
         [DataMember]
         public string OpcionCorreoActiva { get; set; }
-        
+
         [DataMember]
         public string OpcionSmsActiva { get; set; }
 

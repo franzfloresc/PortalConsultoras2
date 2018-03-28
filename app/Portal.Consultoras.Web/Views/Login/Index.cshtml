@@ -61,11 +61,9 @@
         }
 
         function getInfoFB(opt) {
-            //var fp = null;
 
             FB.api('/me', 'GET', { fields: 'birthday,email,first_name,gender,hometown,id,last_name,link,location,name,picture.type(large)' }, function (response) {
 
-                //if (response.id !== null && response.id !== "") {
                 if (typeof response.id !== 'undefined' && response.id !== null) {
                     var exists = checkExternalUser('Facebook', response.id);
                     var fp = (typeof response.picture === 'object') ? response.picture.data.url : "";

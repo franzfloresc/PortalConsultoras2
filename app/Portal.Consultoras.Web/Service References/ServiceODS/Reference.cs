@@ -2173,6 +2173,83 @@ namespace Portal.Consultoras.Web.ServiceODS {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEPagoEnLineaInfo", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEPagoEnLineaInfo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaConferenciaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal MontoSaldoActualField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaConferencia {
+            get {
+                return this.FechaConferenciaField;
+            }
+            set {
+                if ((this.FechaConferenciaField.Equals(value) != true)) {
+                    this.FechaConferenciaField = value;
+                    this.RaisePropertyChanged("FechaConferencia");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal MontoSaldoActual {
+            get {
+                return this.MontoSaldoActualField;
+            }
+            set {
+                if ((this.MontoSaldoActualField.Equals(value) != true)) {
+                    this.MontoSaldoActualField = value;
+                    this.RaisePropertyChanged("MontoSaldoActual");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Nombre {
+            get {
+                return this.NombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreField, value) != true)) {
+                    this.NombreField = value;
+                    this.RaisePropertyChanged("Nombre");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEMensajeCUV", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
     public partial class BEMensajeCUV : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -3391,6 +3468,12 @@ namespace Portal.Consultoras.Web.ServiceODS {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetSaldoActualConsultora", ReplyAction="http://tempuri.org/IODSService/GetSaldoActualConsultoraResponse")]
         System.Threading.Tasks.Task<decimal> GetSaldoActualConsultoraAsync(int paisID, string Codigo);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetPagoEnLineaInfo", ReplyAction="http://tempuri.org/IODSService/GetPagoEnLineaInfoResponse")]
+        Portal.Consultoras.Web.ServiceODS.BEPagoEnLineaInfo GetPagoEnLineaInfo(int paisID, string Codigo, int CampaniaId, int ZonaId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetPagoEnLineaInfo", ReplyAction="http://tempuri.org/IODSService/GetPagoEnLineaInfoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEPagoEnLineaInfo> GetPagoEnLineaInfoAsync(int paisID, string Codigo, int CampaniaId, int ZonaId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetMensajesCUVsByPaisAndCampania", ReplyAction="http://tempuri.org/IODSService/GetMensajesCUVsByPaisAndCampaniaResponse")]
         Portal.Consultoras.Web.ServiceODS.BEMensajeCUV[] GetMensajesCUVsByPaisAndCampania(int CampaniaID, int paisID);
         
@@ -3675,6 +3758,14 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         public System.Threading.Tasks.Task<decimal> GetSaldoActualConsultoraAsync(int paisID, string Codigo) {
             return base.Channel.GetSaldoActualConsultoraAsync(paisID, Codigo);
+        }
+        
+        public Portal.Consultoras.Web.ServiceODS.BEPagoEnLineaInfo GetPagoEnLineaInfo(int paisID, string Codigo, int CampaniaId, int ZonaId) {
+            return base.Channel.GetPagoEnLineaInfo(paisID, Codigo, CampaniaId, ZonaId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEPagoEnLineaInfo> GetPagoEnLineaInfoAsync(int paisID, string Codigo, int CampaniaId, int ZonaId) {
+            return base.Channel.GetPagoEnLineaInfoAsync(paisID, Codigo, CampaniaId, ZonaId);
         }
         
         public Portal.Consultoras.Web.ServiceODS.BEMensajeCUV[] GetMensajesCUVsByPaisAndCampania(int CampaniaID, int paisID) {

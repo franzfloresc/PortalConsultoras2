@@ -2,6 +2,23 @@
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
   <xs:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:element name="UpdateUsuarioEmailTelefono">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+        <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateUsuarioEmailTelefonoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdateUsuarioEmailTelefonoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetValidarLoginSB2">
     <xs:complexType>
       <xs:sequence>
@@ -1256,6 +1273,7 @@
         <xs:element minOccurs="0" name="PaisID" type="xs:int" />
         <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
         <xs:element minOccurs="0" name="indicadorBloqueoCDR" type="xs:int" />
+        <xs:element minOccurs="0" name="tienePagoEnLinea" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1272,6 +1290,7 @@
         <xs:element minOccurs="0" name="PaisID" type="xs:int" />
         <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
         <xs:element minOccurs="0" name="indicadorBloqueoCDR" type="xs:int" />
+        <xs:element minOccurs="0" name="tienePagoEnLinea" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1825,21 +1844,17 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="UpdateUsuarioEmailTelefono">
+  <xs:element name="UpdNotificacionPagoEnLineaVisualizacion">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
-        <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="paisId" type="xs:int" />
+        <xs:element minOccurs="0" name="procesoId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="UpdateUsuarioEmailTelefonoResponse">
+  <xs:element name="UpdNotificacionPagoEnLineaVisualizacionResponse">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="UpdateUsuarioEmailTelefonoResult" type="xs:int" />
-      </xs:sequence>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
 </xs:schema>
