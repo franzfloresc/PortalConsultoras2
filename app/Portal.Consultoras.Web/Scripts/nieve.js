@@ -1,13 +1,16 @@
 var fallingObjects = new Array();
 var listaIconoLluvia = listaIconoLluvia || null;
 var esMobile = esMobile || false;
+var vfallSpeed = vfallSpeed || 15;
+var vnumObjects = vnumObjects || 100;
 
 var closeImagenRain = 0;    //si es 0 se mostrara,
 var timeCloseRain = timeCloseRain || 30000;   //tiempo de visualización del efecto
+var esShowRoom = esShowRoom || false;
 
-var numObjects = 100,
+var numObjects = vnumObjects,
 	waft = 50,
-	fallSpeed = 15,
+    fallSpeed = vfallSpeed,
 	wind = 0;
 
 var heightIcon = esMobile ? 7 : 15;
@@ -20,8 +23,14 @@ if (listaIconoLluvia != null) {
     });
 }
 else {
-    newObject(iconoLluvia, heightIcon, widthIcon);
-    newObject(iconoLluvia, heightIcon, widthIcon);
+    if (esShowRoom) {
+        newObject(iconoLluvia, 22, 22);
+        newObject(iconoLluvia, 35, 35);
+    }
+    else {
+        newObject(iconoLluvia, heightIcon, widthIcon);
+        newObject(iconoLluvia, heightIcon, widthIcon);
+    }
 }
 
 var objects = new Array(),
