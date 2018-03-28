@@ -44,6 +44,37 @@
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-carrusel-previsuales-producto.cshtml")
 
+<!-- AQUI LOS NUEVOS VISUALES PARA EL CARRUSEL MOBILE -->
+<div class="mobile_lanzamientos_contenedor">
+    
+    <div class="mobile_label_lanzamientos_contenedor">
+        <img src="~/Content/Images/RevistaDigital/etiqueta-club-ganamas-dorado-independiente.svg" />
+    </div>
+</div>
+<div class="mobile_producto_lanzamientos_contenedor">
+    <div class="mobile_producto_lanzamientos_sbcont">
+        <img class="imgportada" src="https://s3.amazonaws.com/uploads.hipchat.com/583104/5343216/0MpYozOzq338MEB/producto-350px.png"/>
+        <p class="titulo">VIBRANZA</p>
+        <span class="slogan-uno">Podrás comprar este y NUEVOS PRODUCTOS</span>
+        <span class="slogan-dos">¡DESDE LA C03!</span>
+    </div>
+</div>
+
+<div class="mobile_lanzamientos_contenedor">
+
+    <div class="mobile_label_lanzamientos_contenedor">
+        <img src="~/Content/Images/RevistaDigital/nuevo.png" />
+    </div>
+</div>
+<div class="mobile_producto_lanzamientos_contenedor">
+    <div class="mobile_producto_lanzamientos_sbcont">
+        <img class="imgportada" src="https://s3.amazonaws.com/uploads.hipchat.com/583104/5343216/0MpYozOzq338MEB/producto-350px.png" />
+        <p class="titulo">VIBRANZA</p>
+        <span class="slogan-uno slogan-uno-fix">REALZA TU SENSUALIDAD</span>
+        <a href="#">VER PRODUCTO</a>
+    </div>
+</div>
+
 @section scripts{
     <script type="text/javascript">
     var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
