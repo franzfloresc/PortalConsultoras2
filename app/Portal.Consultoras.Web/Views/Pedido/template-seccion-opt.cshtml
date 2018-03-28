@@ -1,4 +1,8 @@
-﻿<div>
+﻿@{
+    var topProd = ViewBag.Source == 2 ? "Top: 0;" : "";
+}
+
+<div>
     <div class="contenedorCupon">
             <div class="contenedorCuponConocelo content_cupon_pedido" style="display: none;">
                 Tienes un dscto exclusivo para ti,
@@ -36,7 +40,7 @@
                 }
 
             <hr class="clear" />
-            <div class="contenedor_productos">
+            <div class="contenedor_productos" style="@topProd">
                 <div id="cierreCarousel" class="background_carousel" style="display: none;"></div>
                 <div class="contenedor_carousel_productos content_carrusel_agregado slider center" id="divListadoEstrategia">
                 </div>

@@ -307,9 +307,9 @@
 }
 
 .fix-margen-vertical-dorado {
-    height: 1565px;
+    max-height: 1565px;
 }
 
 .fix-margen-vertical-nodorado {
-    height: 1585px;
+    max-height: 1585px;
 }
