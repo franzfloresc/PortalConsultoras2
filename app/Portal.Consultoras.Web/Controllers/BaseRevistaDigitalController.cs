@@ -1,8 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceUsuario;
-using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -91,7 +89,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.MensajeProductoBloqueado = MensajeProductoBloqueado();
             model.CantidadFilas = 10;
 
-            model.MostrarFiltros = !model.ProductosPerdio ? (revistaDigital.TieneRDC && !revistaDigital.EsActiva) ? false : true : false;
+            model.MostrarFiltros = !model.ProductosPerdio && !(revistaDigital.TieneRDC && !revistaDigital.EsActiva);
 
             return PartialView("template-landing", model);
         }

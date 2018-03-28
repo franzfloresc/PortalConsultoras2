@@ -1986,12 +1986,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         public EstadoCuentaModel ObtenerUltimoMovimientoEstadoCuenta()
         {
-            var ultimoMovimiento = new EstadoCuentaModel();
-            ultimoMovimiento.Glosa = "";
+            var ultimoMovimiento = new EstadoCuentaModel
+            {
+                Glosa = ""
+            };
 
             if (userData.TienePagoEnLinea)
             {
-                var ultimoPagoEnLinea = new BEPagoEnLineaResultadoLog();
+                BEPagoEnLineaResultadoLog ultimoPagoEnLinea;
                 using (PedidoServiceClient ps = new PedidoServiceClient())
                 {
                     ultimoPagoEnLinea = ps.ObtenerUltimoPagoEnLineaByConsultoraId(userData.PaisID, userData.ConsultoraID);
@@ -4092,7 +4094,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.IsMobile = IsMobile();
 
             string codigo = String.Empty;
-            var dato = new ConfiguracionPaisDatosModel();
+            ConfiguracionPaisDatosModel dato;
             if (revistaDigital.EsActiva)
             {
                 model.MensajeIconoSuperior = true;
