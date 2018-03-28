@@ -88,7 +88,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 codigoPeriodo = input.CampaniaID.ToString(),
                 codigoCliente = input.CodigoConsultora,
                 indValiProl = input.FechaHoraReserva ? "1" : "0",
-                oidPedidoSap = pedidoSapId == 0 ? "" : pedidoSapId.ToString(),
+                oidPedidoSap = pedidoSapId.ToString(),
                 //FALTA CODIGO CONCURSOS
                 posiciones = listPedidoWebDetalle.Select(d => new Data.ServiceSicc.Detalle
                 {
