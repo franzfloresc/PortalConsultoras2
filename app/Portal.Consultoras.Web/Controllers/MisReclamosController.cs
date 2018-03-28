@@ -320,7 +320,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return Json(new
                         {
                             success = false,
-                            message = "No está permitido el reclamo de Packs y Sets por este medio. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.",
+                            message = "No está permitido el reclamo de Packs y Sets por este medio. Por favor, contáctate con nuestro <span>Chat en Línea</span>.",
                         }, JsonRequestBehavior.AllowGet);
                 }
             }
