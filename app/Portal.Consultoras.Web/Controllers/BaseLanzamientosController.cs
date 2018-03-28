@@ -38,6 +38,12 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.TipoEstrategiaDetalle = modelo.TipoEstrategiaDetalle ?? new EstrategiaDetalleModelo();
             modelo.ListaDescripcionDetalle = modelo.ListaDescripcionDetalle ?? new List<string>();
 
+            var EstrategiaDetalle = EstrategiaGetDetalle(modelo.EstrategiaID);
+            if (EstrategiaDetalle.Hermanos != null)
+            {
+                modelo.Hermanos = EstrategiaDetalle.Hermanos;
+            }
+
             ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
             ViewBag.Campania = campaniaId;
             
