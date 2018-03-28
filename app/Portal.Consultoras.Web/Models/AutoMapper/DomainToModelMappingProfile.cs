@@ -14,6 +14,7 @@ using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using Portal.Consultoras.Web.Models.Estrategia;
+using Portal.Consultoras.Web.Models.Pedido;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -553,6 +554,14 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<OfertaFinalMontoMeta, OfertaFinalMontoMetaModel>();
 
+            Mapper.CreateMap<BEPedidoWebSet, PedidoWebSetModel>()
+                .ForMember(t => t.Campania, f => f.MapFrom(c => c.Campania))
+                .ForMember(t => t.SetId, f => f.MapFrom(c => c.SetId))
+                .ForMember(t => t.Detalles, f => f.MapFrom(c => c.Detalles));
+
+            Mapper.CreateMap<BEPedidoWebSetDetalle, PedidoWebSetDetalleModel>()
+                .ForMember(t => t.CUV, f => f.MapFrom(c => c.CuvProducto))
+                .ForMember(t => t.TipoOfertaSisId, f => f.MapFrom(c => c.TipoOfertaSisId));
 
         }
     }

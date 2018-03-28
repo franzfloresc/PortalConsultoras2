@@ -684,7 +684,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Providers\ProductoSetProvider.cs" />
+    <Compile Include="Providers\PedidoSetProvider.cs" />
     <Compile Include="Providers\ShowRoomProvider.cs" />
     <Compile Include="Providers\TablaLogicaProvider.cs" />
     <Compile Include="Providers\UpSellingProvider.cs" />

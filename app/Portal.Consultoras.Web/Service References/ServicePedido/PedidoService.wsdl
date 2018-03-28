@@ -349,6 +349,18 @@
   <wsdl:message name="IPedidoService_GetPedidoWebSetProducto_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPedidoWebSetProductoResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPedidoWebSet_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPedidoWebSet" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPedidoWebSet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPedidoWebSetResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_EliminarPedidoWebSet_InputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarPedidoWebSet" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_EliminarPedidoWebSet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarPedidoWebSetResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_UpdOfertaShowRoom_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdOfertaShowRoom" />
   </wsdl:message>
@@ -2594,6 +2606,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidoWebSetProducto" message="tns:IPedidoService_GetPedidoWebSetProducto_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidoWebSetProductoResponse" message="tns:IPedidoService_GetPedidoWebSetProducto_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerPedidoWebSet">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPedidoWebSet" message="tns:IPedidoService_ObtenerPedidoWebSet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPedidoWebSetResponse" message="tns:IPedidoService_ObtenerPedidoWebSet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminarPedidoWebSet">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/EliminarPedidoWebSet" message="tns:IPedidoService_EliminarPedidoWebSet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/EliminarPedidoWebSetResponse" message="tns:IPedidoService_EliminarPedidoWebSet_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UpdOfertaShowRoom">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdOfertaShowRoom" message="tns:IPedidoService_UpdOfertaShowRoom_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdOfertaShowRoomResponse" message="tns:IPedidoService_UpdOfertaShowRoom_OutputMessage" />
@@ -4409,6 +4429,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetPedidoWebSetProducto">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidoWebSetProducto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPedidoWebSet">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPedidoWebSet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarPedidoWebSet">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/EliminarPedidoWebSet" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7932,6 +7970,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetPedidoWebSetProducto">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidoWebSetProducto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPedidoWebSet">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPedidoWebSet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarPedidoWebSet">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/EliminarPedidoWebSet" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -37,11 +37,11 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly int CRITERIO_BUSQUEDA_DESC_PRODUCTO = 2;
         private readonly int CRITERIO_BUSQUEDA_PRODUCTO_CANT = 10;
         private readonly int CUV_NO_TIENE_CREDITO = 2;
-        private readonly ProductoSetProvider _pedidoSetProvider;
+        private readonly PedidoSetProvider _pedidoSetProvider;
 
         public PedidoController()
         {
-            _pedidoSetProvider = new ProductoSetProvider();
+            _pedidoSetProvider = new PedidoSetProvider();
         }
 
         public ActionResult Index(bool lanzarTabConsultoraOnline = false, string cuv = "", int campana = 0)
@@ -863,14 +863,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 //todo: buscar el set y sus productos
                 //eliminar el set completo y sus registros en la tabla set
-
-                var set = _pedidoSetProvider.ObtenerPorId(setId);
+                var set = _pedidoSetProvider.ObtenerPorId(userData.PaisID, setId);
 
                 foreach (var detalle in set.Detalles)
                 {
                     lastResult = DeletePedidoWeb(CampaniaID, PedidoID,
                         (short)detalle.PedidoDetalleId,
-                        detalle.TipoOfertaSisID,
+                        detalle.TipoOfertaSisId,
                         detalle.CUV,
                         set.Cantidad * detalle.FactorRepeticion,
                         ClienteID,
@@ -882,7 +881,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 //eliminar de la tabla set 
-                _pedidoSetProvider.EliminarSet(setId);
+                var setDeleted = _pedidoSetProvider.EliminarSet(userData.PaisID, setId);
+                if (!setDeleted.Success)
+                    return ErrorJson(setDeleted.Message, allowGet: true);
             }
             else
             {
