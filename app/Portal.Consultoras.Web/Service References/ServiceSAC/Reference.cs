@@ -3627,6 +3627,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private short TablaLogicaIDField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ValorField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -3685,6 +3688,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.TablaLogicaIDField.Equals(value) != true)) {
                     this.TablaLogicaIDField = value;
                     this.RaisePropertyChanged("TablaLogicaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Valor {
+            get {
+                return this.ValorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ValorField, value) != true)) {
+                    this.ValorField = value;
+                    this.RaisePropertyChanged("Valor");
                 }
             }
         }

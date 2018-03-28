@@ -107,6 +107,7 @@
     <Compile Include="Controllers\LoginControllerUnitTest.cs" />
     <Compile Include="Models\RevistaDigitalModelUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\ShowRoomProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

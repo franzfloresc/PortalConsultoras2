@@ -142,6 +142,8 @@ namespace Portal.Consultoras.Web.SessionManager
         
         void SetDatosPagoVisa(PagoEnLineaModel model);
 
+        IShowRoom ShowRoom { get; }
+
         PagoEnLineaModel GetDatosPagoVisa();
     }
 }
