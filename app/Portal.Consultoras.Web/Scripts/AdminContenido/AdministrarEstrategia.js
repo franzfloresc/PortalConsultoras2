@@ -1357,7 +1357,18 @@
             _toastHelper.error("Seleccione al menos un archivo.");
             return false;
         }
-
+        var file = document.getElementById("fileBloqueoCuv").files[0];
+        var filename = file.name;
+        if ((file.size / 1024 / 1024) > 4) {
+            _toastHelper.error("El archivo es demasiado extenso para ser procesado.");
+            return false;
+        }
+        
+        if (filename.substring(filename.lastIndexOf(".") + 1) !== "csv") {
+            _toastHelper.error("El archivo no tiene la extensión correcta.");
+            return false;
+        }
+        
         formData.append("Documento", document.getElementById("fileBloqueoCuv").files[0]);
         formData.append("Pais", $("#ddlPais").val());
         formData.append("CampaniaId", $("#ddlCampania").val());
@@ -4058,6 +4069,7 @@
         },
         clickBloqueoCuv: function () {
             if (_basicFieldsValidation()) {
+                document.getElementById("fileBloqueoCuv").value = "";
                 $("#divCuvsBloqueados").hide();
                 $("#divCuvsBloqueados").show();
                 $("#titleCuvBloqueado").html("Cuvs cargados:");
