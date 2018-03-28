@@ -1,16 +1,16 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru_Bpt
 GO
 
-print DB_NAME()
+BEGIN
+print DB_NAME();
 
-declare @RevistaDigitalId int = 0
-declare @RevistaDigitalCodigo varchar(30) = 'RD'
+declare @RevistaDigitalId int = 0;
+declare @RevistaDigitalCodigo varchar(30) = 'RD';
 
 select 
 @RevistaDigitalId = cp.ConfiguracionPaisID
 from ConfiguracionPais cp
 where cp.Codigo = @RevistaDigitalCodigo;
-
 
 IF EXISTS(	SELECT 1 
 			FROM ConfiguracionPaisDatos CPD
@@ -23,7 +23,6 @@ BEGIN
 	WHERE ConfiguracionPaisID = @RevistaDigitalId 
 	AND  Codigo = 'NSPerdiste'
 END
-GO
 
 IF EXISTS(	SELECT 1 
 			FROM ConfiguracionPaisDatos CPD
@@ -36,7 +35,6 @@ BEGIN
 	WHERE ConfiguracionPaisID = @RevistaDigitalId 
 	AND  Codigo = 'SNAPerdiste'
 END
-GO
 
 IF EXISTS(	SELECT 1 
 			FROM ConfiguracionPaisDatos CPD
@@ -49,7 +47,6 @@ BEGIN
 	WHERE ConfiguracionPaisID = @RevistaDigitalId 
 	AND  Codigo = 'PopupBloqueadoNS'
 END
-GO
 
 IF EXISTS(	SELECT 1 
 			FROM ConfiguracionPaisDatos CPD
@@ -61,5 +58,7 @@ BEGIN
 	FROM ConfiguracionPaisDatos 
 	WHERE ConfiguracionPaisID = @RevistaDigitalId 
 	AND  Codigo = 'PopupBloqueadoSNA'
+END
+
 END
 GO

@@ -276,7 +276,7 @@
         width: auto;
     }
 
-   
+
 
 /* FIN Diseño de los productos */
 
@@ -336,6 +336,7 @@
         transition: all .6s ease-in-out;
         letter-spacing: 1px;
     }
+
 .btn_stroke2:hover::after {
     transform: translateY(40%) translateX(-180px) rotate(-75deg) !important;
 }
@@ -570,6 +571,10 @@
 
 /**/
 
+.popup-prod-bloqueado .centrar-vertical-contenido {
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
 .contenido-popup-nuevo-2017 {
     display: table-cell;
     vertical-align: middle;
@@ -585,12 +590,12 @@
         display: table;
     }
 
+
         .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido {
             vertical-align: middle;
             padding: 20px;
             display: table-cell;
             height: 422px;
-            background-color: rgba(0, 0, 0, 0.85);
         }
 
             .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
@@ -602,10 +607,10 @@
                 letter-spacing: 1px;
                 text-align: center;
                 color: #ffffff;
-                display:block;
-                margin:auto;
-                width:280px;
-                margin-bottom:5px;
+                display: block;
+                margin: auto;
+                width: 280px;
+                margin-bottom: 5px;
             }
 
             .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
@@ -665,7 +670,7 @@
 
         .contenido-popup-nuevo-2017 .centrar-estructura .logogndplus {
             WIDTH: 100%;
-            position:absolute;
+            position: absolute;
             text-align: left;
         }
 
@@ -689,6 +694,7 @@
         color: #9E9E9E;
         text-decoration: underline;
     }
-        .contenedor_fondo_popup {
-            background: rgba(0, 0, 0, .70) !important;
-        }
+
+.contenedor_fondo_popup {
+    background: rgba(0, 0, 0, .70) !important;
+}
