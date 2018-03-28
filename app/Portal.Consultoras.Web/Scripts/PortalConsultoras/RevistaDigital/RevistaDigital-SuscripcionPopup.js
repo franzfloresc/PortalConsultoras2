@@ -26,7 +26,6 @@
 
         AbrirLoad();
         _setting.NoVolverMostrar = true;
-        tipo = $.trim(tipo);
         var urlAjax = "";
         switch (tipo) {
             case 1:
