@@ -14,7 +14,6 @@ var divAgregado = null;
 
 $(document).ready(function () {
     $('body').on('click', '[data-tono-change]', function (e) {
-        debugger;
         var accion = $(this).attr("data-tono-change");
 
         var hideSelect = $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible");
