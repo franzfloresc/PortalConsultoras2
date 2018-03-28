@@ -1834,26 +1834,26 @@ function CerrarProductoAgregado() {
 
 function ConfirmarEliminarRegaloGenerico(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder)
 {
-    var regalo = GetUpSellingGanado();
+    if (typeof esUpselling !== 'undefined' && esUpselling) {
+        var regalo = GetUpSellingGanado();
+        if (regalo != null) {
+            var popup = $('#divAvisoEliminarRegaloGenerico');
 
-    if (ofertaFinalEstado == 'True' && ofertaFinalAlgoritmo == 'OFR' && regalo) {
-        var popup = $('#divAvisoEliminarRegaloGenerico');
-
-        popup.attr('data-campaniaId', campaniaId);
-        popup.attr('data-pedidoId', pedidoId);
-        popup.attr('data-pedidoDetalleId', pedidoDetalleId);
-        popup.attr('data-tipoOfertaSisId', tipoOfertaSisId);
-        popup.attr('data-cuv', cuv);
-        popup.attr('data-cantidad', cantidad);
-        popup.attr('data-clienteId', clienteId);
-        popup.attr('data-cuvReco', cuvReco);
-        popup.attr('data-esBackOrder', esBackOrder);
-        showDialog("divAvisoEliminarRegaloGenerico");
+            popup.attr('data-campaniaId', campaniaId);
+            popup.attr('data-pedidoId', pedidoId);
+            popup.attr('data-pedidoDetalleId', pedidoDetalleId);
+            popup.attr('data-tipoOfertaSisId', tipoOfertaSisId);
+            popup.attr('data-cuv', cuv);
+            popup.attr('data-cantidad', cantidad);
+            popup.attr('data-clienteId', clienteId);
+            popup.attr('data-cuvReco', cuvReco);
+            popup.attr('data-esBackOrder', esBackOrder);
+            showDialog("divAvisoEliminarRegaloGenerico");
+        }
     } else {
         DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder);
     }
 
-   
 }
 
 function ContinuarEliminacion() {

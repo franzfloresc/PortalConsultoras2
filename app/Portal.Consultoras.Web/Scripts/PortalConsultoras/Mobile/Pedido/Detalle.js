@@ -406,17 +406,18 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
     PedidoUpdate(item);
 }
 function ConfigurarPopUpConfirmacion() {
-    var regalo = GetUpSellingGanado();
 
-    if (ofertaFinalEstado == 'True' && ofertaFinalAlgoritmo == 'OFR' && regalo) {
-        $('#mensaleAvisoRegalo').show();
+    if (typeof esUpselling !== 'undefined' && esUpselling) {
+        var regalo = GetUpSellingGanado();
+        if (regalo != null) {
+            $('#mensaleAvisoRegalo').show();
+        }
     }
     else {
         $('#mensaleAvisoRegalo').hide();
     }
 
     $("#popup-eliminar-item").show();
-
  
 }
 
