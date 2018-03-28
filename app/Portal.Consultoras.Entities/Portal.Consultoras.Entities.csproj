@@ -129,6 +129,9 @@
     <Compile Include="Incentivo\BEIncentivoProgramaNuevasNivel.cs" />
     <Compile Include="Incentivo\BEIncentivoProgramaNuevasPremio.cs" />
     <Compile Include="Mobile\BEApp.cs" />
+    <Compile Include="PagoEnLinea\BEPagoEnLineaFiltro.cs" />
+    <Compile Include="PagoEnLinea\BEPagoEnLineaResultadoLog.cs" />
+    <Compile Include="PagoEnLinea\BEPagoEnLineaResultadoLogReporte.cs" />
     <Compile Include="Pedido\BEMisPedidosCampania.cs" />
     <Compile Include="Pedido\BEMisPedidosFacturados.cs" />
     <Compile Include="Pedido\BEMisPedidosFacturadosDetalle.cs" />

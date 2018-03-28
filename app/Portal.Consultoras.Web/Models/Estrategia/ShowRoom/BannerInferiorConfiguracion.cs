@@ -1,9 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Portal.Consultoras.Web.Models.Estrategia.ShowRoom
 {
+    [Serializable]
     public class BannerInferiorConfiguracion : IBannerInferiorConfiguracion
     {
         public bool Activo { get; set; }

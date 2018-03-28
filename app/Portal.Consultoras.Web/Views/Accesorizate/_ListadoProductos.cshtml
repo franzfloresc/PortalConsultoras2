@@ -206,7 +206,7 @@
                                 var CantidadaValidar = parseInt(Cantidad) - parseInt(CantidadAnterior);
                                 if (parseInt(data.Stock) < parseInt(CantidadaValidar)) {
                                     $(Object).val(CantidadAnterior);
-                                    alert_msg("Lamentablemente, no puede actualizar la cantidad del Producto , ya que sobrepasa el stock actual (" + data.Stock + "), verifique");
+                                    alert_msg("Lamentablemente, no puede actualizar la cantidad del Producto, ya que sobrepasa el stock actual (" + data.Stock + "), verifique");
                                     
                                     closeWaitingDialog();
                                     return false;

@@ -3021,6 +3021,15 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     float: right;
     width: 28.1%;
 }
+.flexiPago_belcorp {
+    display: block;
+    width: 28.1%;
+    height: auto;
+    margin-top: 27px;
+    float: right;
+    position: absolute;
+    right: 0;
+}
 
 .flexiPago_belcorp {
     display: block;
@@ -3158,6 +3167,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     overflow: hidden;
     padding-top: 10px;
     box-sizing: border-box;
+    top: -115px;
 }
 
 .control_carousel_flechaArriba {
@@ -3350,6 +3360,8 @@ a.subir_carousel, a.bajar_carousel {
     font-size: 16px;
     width: 50%;
     padding-left: 5px;
+    position: relative;
+    top: -3.5px;
 }
 
 .boton_elegirTono {
@@ -17892,9 +17904,6 @@ body, html {
     }
 
         #paForm ul li input {
-            /*
-	width: 212px;
-	line-*/
             background: url('../../Images/afiliacion/enterate_mas.png') 0 0 no-repeat;
             border: 0;
             width: 190px;
@@ -19766,14 +19775,23 @@ label.checkpop.c_on {
     width: 100%;
     overflow: hidden;
     color: black;
+    font-size:15px;
 }
 
 .consultora_home {
     margin-bottom: 6px;
     display: block;
     color: black;
+    font-size: 13px !important;
     margin-top: -5px;
     float: left;
+}
+.consultora_home a.txtdorado{
+    display: inline;
+    font-size: 13px !important;
+    color: #d4ae3a !important;
+    margin-right: 5px;
+    text-decoration:underline;
 }
 
 .info_cam_belcorp {
@@ -20018,15 +20036,15 @@ label.checkpop.c_on {
     float: right;
     margin-top: 30px;
     height: 45px;
-    border: 1px solid #613c87;
-    color: #613c87;
+    border: 1px solid black;
+    color: #000;
     text-align: center;
     font-family: 'lato';
     font-size: 13px;
     font-weight: 700;
     padding-top: 13px;
     padding-left: 45px;
-    background: white url('../../../Images/Lbel/tarjeta.png') no-repeat;
+    background: white url('../../../Images/icono-tarjeta.svg') no-repeat;
     background-position: 23px 10px;
 }
 
@@ -20172,6 +20190,11 @@ label.checkpop.c_on {
     margin: auto;
     left: 0;
     right: 0;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
 }
 
     .btn_comparte:hover {
@@ -20202,11 +20225,17 @@ label.checkpop.c_on {
     font-size: 9px;
     letter-spacing: .1px;
     color: #848484;
-    margin-top: 5px;
+    margin-top: -2px;
     margin-left: 10px;
-    float: left;
+    display: inline;
+    top: -2px;
+    position: relative;
 }
-
+    .mis_datos img {
+        margin-left: 5px;
+        position: relative;
+        top: 1px;
+    }
     .mis_datos:hover {
         text-decoration: underline;
     }
@@ -20222,7 +20251,23 @@ label.checkpop.c_on {
 
 .btn_100_paga {
     width: 100%;
-    background-position: 34% 10px;
+    background-position: 27.5% 10px;
+    margin-left: auto;
+    margin-right: auto;
+    float: none;
+    margin-top:27px;
+    padding-top: 12px;
+    padding-left: 20px;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+.btn_100_paga:hover{
+    color:#FFF;
+    background: #000 url('../../../Images/icono-tarjeta-blanco.svg') 27.5% 10px no-repeat;
 }
 
 .btn_100_facturacion {
@@ -21575,7 +21620,6 @@ letter-spacing: 0.3px;
 }
 .revista_content .revista_content2 .revistatxt .contrevista a {
 width: 173px;
-/* height: 30px; */
 padding: 8px;
 margin: auto;
 display: block;
@@ -32540,7 +32584,6 @@ h1#penmostreo .campana {
     max-width: 1024px;
     height: 490px;
     margin: auto, auto;
-    /*background: #000;*/
     padding: 10px 0;
 }
 
@@ -32684,7 +32727,6 @@ h1#penmostreo .campana {
 
 .content_pop_oferta_dia .liquidacion_rango_right_pedido {
     background: transparent !important;
-    /*border: 1px solid #fff;*/
 }
 /*PAYPAL*/
 .monto_texto {
@@ -32798,24 +32840,30 @@ h1#penmostreo .campana {
     margin-top: 0;
 }
 
-
 .btn_compartir_facebook_ficha {
-    width: 45%;
-    float: none;
+    width: 25px;
+    float: left;
+    margin-right: 5px;
+    text-align: center;
     margin-left: 0;
     display: inline-block;
 }
 
+    .btn_compartir_facebook_ficha img {
+        float: left;
+    }
+
 .btn_compartir_facebook_ficha_fix {
-    width: 35%;
+    width: 30%;
     float: left;
-    margin-right: 5px;
+    margin-right: 2%;
     text-align: center;
+    height: 25px;
 }
 
-.btn_compartir_facebook_ficha img {
-    float: left;
-}
+    .btn_compartir_facebook_ficha_fix img {
+        height: 100%;
+    }
 
 .btn_compartir_facebook_ficha_fix_ODD {
     width: 25px;
@@ -33087,6 +33135,7 @@ h1#penmostreo .campana {
     display: inline-block;
     text-align: center;
     width: 100%;
+    padding: 12px 0;
 }
 .texto_compartelo {
     float: left;
@@ -33098,12 +33147,10 @@ h1#penmostreo .campana {
 .texto_compartelo_fix {
     font-family: 'Lato';
     font-size: 12px;
-    /* margin-top: 3px; */
-    width: 60%;
+    width: 62%;
     text-align: right;
     margin-right: 3%;
     height: 42px;
-    padding: 12px 0px;
 }
 .texto_compartelo_fix p {
 display: block;
@@ -33115,13 +33162,6 @@ padding: 10px 0px;
 .texto_compartelo_fix p div{
 display:block;
 height:30px;
-}
-
-.btn_compartir_facebook_ficha {
-    width: 25px;
-    float: left;
-    margin-right: 5px;
-    text-align: center;
 }
 
 .opcion_escala_descuento {
@@ -33192,10 +33232,6 @@ height:30px;
     padding-left: 20px;
     background: url('../../../Images/Esika/arrow_left.png') no-repeat left;
     background-size: 18px 18px;
-}
-
-.btn_compartir_facebook_ficha:nth-child(3) {
-    margin-right: 0;
 }
 
 .notificacion_cantidad {
@@ -34858,11 +34894,12 @@ height:30px;
     float: left;
     margin-left: 38px;
     line-height: 1.17;
+    width: 185px;           
 }
 
 .content_cupon {
     width: 664px;
-    height: 280px;
+    height: 360px;
     position: relative;
     top: 50%;
     margin: 13% auto auto auto;
@@ -34970,7 +35007,7 @@ height:30px;
 .titulo_cupon2 {
     font-family: 'LAto';
     font-size: 20px;
-    font-weight: 900;
+    font-weight: 700;   
     letter-spacing: 1px;
 }
 
@@ -35023,22 +35060,21 @@ height:30px;
 
 .texto_cupon3 {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 5px;
     font-size: 14px;
 }
 
 .info_recuerda_cupon {
     float: left;
     width: 33%;
-    margin-top: 12px;
     font-family: 'Lato';
-    font-size: 12px;
+    font-size: 13px;
     height: 72px;
 }
 
     .info_recuerda_cupon span {
         display: block;
-        margin-top: 5px;
+        margin-top: 14px;
         line-height: 15px;
     }
 
@@ -35049,7 +35085,7 @@ height:30px;
 .info_recuerda_cupon_ganaste {
     display: inline-table;
     float: none;
-    width: 40%;
+    width: 40%;         
 }
 
 .info_recuerda_cupon_line {
@@ -35800,7 +35836,6 @@ height:30px;
 .icono_regalo_sorpresa {
     margin: 0 auto 8px auto;
     width: 80px;
-    /*background: url('https:// image.prntscr.com/image/FsgNYCifSjqEzkw5UjWyBw.png');*/
 }
 
     .icono_regalo_sorpresa img {
@@ -36242,7 +36277,7 @@ height:30px;
 }
 
 .activar_boton_popup_confirma_datos {
-    background: #613c87 !important;
+    background: #c39934 !important;
 }
 
 @-webkit-keyframes flash {

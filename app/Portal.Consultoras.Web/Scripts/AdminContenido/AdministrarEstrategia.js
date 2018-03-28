@@ -4622,10 +4622,10 @@
             var img = document.getElementById($(this).attr('id'));
             var uri = (img.src.substring(img.src.lastIndexOf("/") + 1)).toUpperCase();
             if (img.src === "unknown") {
-                img.src = rutaImagenVacia;
+                img.src = _config.rutaImagenVacia;
             }
             if (uri.indexOf(".") == -1) {
-                img.src = rutaImagenVacia;
+                img.src = _config.rutaImagenVacia;
             }
             var extension = (img.src.substring(img.src.lastIndexOf(".") + 1)).toUpperCase();
             var nombre = img.src.match(/[-_\w]+[.][\w]+$/i)[0];

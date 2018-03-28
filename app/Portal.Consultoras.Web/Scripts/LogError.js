@@ -113,7 +113,7 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
 
 function registrarLogError(objError) {
 
-    if (isPagina("localhost")) {
+    if (isPagina('localhost') || location.host.indexOf('qa.somosbelcorp.com') > 0) {
         console.log(objError);
     }
 

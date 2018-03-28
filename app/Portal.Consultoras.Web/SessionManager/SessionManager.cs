@@ -2,6 +2,7 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
+using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
@@ -172,7 +173,7 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<ConfiguracionPaisModel> ISessionManager.GetConfiguracionesPaisModel()
         {
-            return (List<ConfiguracionPaisModel>)HttpContext.Current.Session[Constantes.ConstSession.ConfiguracionPaises];
+            return (List<ConfiguracionPaisModel>)HttpContext.Current.Session[Constantes.ConstSession.ConfiguracionPaises] ?? new List<ConfiguracionPaisModel>();
         }
 
         void ISessionManager.SetOfertaFinalModel(OfertaFinalModel ofertaFinalModel)
@@ -182,7 +183,8 @@ namespace Portal.Consultoras.Web.SessionManager
 
         OfertaFinalModel ISessionManager.GetOfertaFinalModel()
         {
-            return (OfertaFinalModel)HttpContext.Current.Session[Constantes.ConstSession.OfertaFinal];
+            return (OfertaFinalModel)HttpContext.Current.Session[Constantes.ConstSession.OfertaFinal] ??
+                   new OfertaFinalModel();
         }
 
         void ISessionManager.SetEventoFestivoDataModel(EventoFestivoDataModel eventoFestivoDataModel)
@@ -192,7 +194,7 @@ namespace Portal.Consultoras.Web.SessionManager
 
         EventoFestivoDataModel ISessionManager.GetEventoFestivoDataModel()
         {
-            return (EventoFestivoDataModel)HttpContext.Current.Session[Constantes.ConstSession.EventoFestivo];
+            return (EventoFestivoDataModel)HttpContext.Current.Session[Constantes.ConstSession.EventoFestivo] ?? new EventoFestivoDataModel();
         }
 
         void ISessionManager.SetTieneLan(bool tieneLan)
@@ -255,6 +257,26 @@ namespace Portal.Consultoras.Web.SessionManager
             return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneRdr] ?? false);
         }
 
+        public void SetTieneHv(bool tieneHv)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.TieneHv] = tieneHv;
+        }
+
+        public bool GetTieneHv()
+        {
+            return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneHv] ?? false);
+        }
+
+        public void SetTieneHvX1(bool tieneHv)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.TieneHvX1] = tieneHv;
+        }
+
+        public bool GetTieneHvX1()
+        {
+            return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneHvX1] ?? false);
+        }
+
         void ISessionManager.SetUserData(UsuarioModel usuario)
         {
             HttpContext.Current.Session["UserData"] = usuario;
@@ -312,7 +334,7 @@ namespace Portal.Consultoras.Web.SessionManager
 
         MenuContenedorModel ISessionManager.GetMenuContenedorActivo()
         {
-            return (MenuContenedorModel)(HttpContext.Current.Session[Constantes.ConstSession.MenuContenedorActivo]);
+            return (MenuContenedorModel)(HttpContext.Current.Session[Constantes.ConstSession.MenuContenedorActivo]) ?? new MenuContenedorModel();
         }
 
         void ISessionManager.SetMenuContenedor(List<ConfiguracionPaisModel> menuContenedor)
@@ -322,7 +344,7 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<ConfiguracionPaisModel> ISessionManager.GetMenuContenedor()
         {
-            return (List<ConfiguracionPaisModel>)(HttpContext.Current.Session[Constantes.ConstSession.MenuContenedor]);
+            return (List<ConfiguracionPaisModel>)(HttpContext.Current.Session[Constantes.ConstSession.MenuContenedor]) ?? new List<ConfiguracionPaisModel>();
         }
 
         void ISessionManager.SetSeccionesContenedor(int campaniaId, List<BEConfiguracionOfertasHome> seccionesContenedor)
@@ -355,6 +377,16 @@ namespace Portal.Consultoras.Web.SessionManager
         DateTime ISessionManager.GetStartSession()
         {
             return (DateTime)HttpContext.Current.Session["StartSession"];
+        }
+        
+        void ISessionManager.SetDatosPagoVisa(PagoEnLineaModel model)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.DatosPagoVisa] = model;
+        }
+
+        PagoEnLineaModel ISessionManager.GetDatosPagoVisa()
+        {
+            return (PagoEnLineaModel)HttpContext.Current.Session[Constantes.ConstSession.DatosPagoVisa];
         }
     }
 }

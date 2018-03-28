@@ -1,8 +1,8 @@
 ﻿using Portal.Consultoras.Common;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Runtime.Serialization;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Portal.Consultoras.Entities
 {
@@ -267,10 +267,13 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("EsSubCampania")]
         public int EsSubCampania { get; set; }
-        
+
         [DataMember]
         [Column("Niveles")]
         public string Niveles { get; set; }
+
+        [DataMember]
+        public int FlagRevista { get; set; }
 
         public BEEstrategia()
         { }
@@ -564,6 +567,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "Niveles") && row["Niveles"] != DBNull.Value)
                 Niveles = row["Niveles"].ToString();
+            
+            if (DataRecord.HasColumn(row, "FlagRevista"))
+                FlagRevista = Convert.ToInt32(row["FlagRevista"]);
 
             EstrategiaDetalle = new BEEstrategiaDetalle(row);
             TipoEstrategia = new BETipoEstrategia(row);

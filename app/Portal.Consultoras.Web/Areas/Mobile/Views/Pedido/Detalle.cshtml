@@ -1,6 +1,7 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
 @using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.SessionManager
 
 @model PedidoDetalleMobileModel
 @{
@@ -79,6 +80,10 @@
             }
         }
 
+        <div id="divCondicionesCupon" style="display: none; color: #9b9b9b; margin-bottom: 35px;">
+            <div style="text-align:center; font-size: 11px;">*No incluye herramientas de venta</div>
+            <div class="clearfix"></div>    
+        </div>
 
     </div>
 </div>
@@ -120,7 +125,7 @@
     </div>
 </div>
 
-<div class="contenedor_fondo_popup" id="divOfertaFinal" style="display: none;" data-popup-main="" data-popup-function-hide="PopupOfertaFinalCerrar"></div>
+<div class="contenedor_fondo_popup agregarScrollVertical" id="divOfertaFinal" style="display: none;" data-popup-main="" data-popup-function-hide="PopupOfertaFinalCerrar"></div>
 <div class="PopMobile1" id="contenedor_popup_ofertaFinalVerDetalle" style="display: none;"></div>
 
 <div id="divConfirmEliminarTotal" class="MensajeAlertaMobile" style="display:none;">
@@ -370,11 +375,13 @@
                     </div>
                 </div>
                 {{else}}
+                
                 <div class="icono_eliminar_item_pedido">
                     <a href="javascript:;" title="Eliminar" onclick="EliminarPedidoEvento(event)" data-pedidodetalleid="{{detalle.PedidoDetalleID}}">
                         <img src="@Url.Content("~/Content/Images/Esika/tacho-copy.png")" alt="Eliminar" />
                     </a>
                 </div>
+                
                 {{/if}}
             </div>
             <div style="display: none;">
@@ -530,12 +537,14 @@
             Al validar tu pedido, el sistema elegirá la mejor combinación de precios posibles para ti.
         </span>
     </div>
+    
     <div class="mensaje_eliminarPedido">
         <span>
             Para eliminar el pedido completo
             <a href="javascript:;" title="Haz click aquí" onclick="PedidoDetalleEliminarTodoConfirmar()">haz click aquí</a>
         </span>
     </div>
+    
 </script>
 
 <script id="ofertaFinal-template" type="text/x-handlebars-template">
