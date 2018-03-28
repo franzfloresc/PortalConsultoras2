@@ -4291,7 +4291,7 @@ namespace Portal.Consultoras.Web.Controllers
                         ListaCuvsTemporal.OrderByDescending(x => x).Distinct().Each(x =>
                         {
 
-                            strCuvs = string.Format("{0}:{1}", x, ListaCuvsTemporal.Count(a => a == x));
+                            strCuvs = strCuvs + string.Format("{0}:{1},", x, ListaCuvsTemporal.Count(a => a == x));
 
                         });
                     }

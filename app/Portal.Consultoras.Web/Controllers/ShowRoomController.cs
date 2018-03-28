@@ -1659,7 +1659,7 @@ namespace Portal.Consultoras.Web.Controllers
                 InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
 
 
-                if (tipo == 1)
+                if (tipo == 1 )
                 {
 
 
