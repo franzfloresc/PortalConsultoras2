@@ -414,36 +414,38 @@ margin:auto;
 }
 </style>
 
-<div class="revista_ficha" style='background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/5343216/ilf4s4o6bKMIp0t/banner%20de%20lanzamiento%20%231%20en%20desktop.jpg); background-color: #24303c !important;'
+<div class="revista_ficha" style='background: url(@Model.TipoEstrategiaDetalle.ImgFichaFondoMobile); background-color: #24303c !important;'
      data-estadoregistro="@ViewBag.EstadoSuscripcion">
     <div class="wrapper_resumen_mobile">
         <div class="detalle-prod">
             <div class="detalle-img">
-                <div class="img-portada" style="background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/5343216/biR3uHXLVdTEhBF/lanzamiento%20%231%20en%20mobile.png);"></div>
-                
+                <div class="img-portada" style="background:url(@Model.FotoProductoSmall);"></div>
+
             </div>
             <div class="detalle-info">
                 <div class="label-nuevo">
-                    <img src="~/Content/Images/RevistaDigital/nuevo.png" />
+                    <img src="@Model.TipoEstrategiaDetalle.ImgFichaDesktop" />
                 </div>
                 <div class="detalle-bloque-uno">
                     <div class="bloque1">
-                        <p>ÉSIKA</p>
-                        <h1>VIBRANZA</h1>
+                        <p>@Model.DescripcionMarca</p>
+                        <h1>@Model.DescripcionResumen</h1>
                         <span>4g/.</span>
                     </div>
                     <div class="bloque2">
-                        <span class="precio-tachado">S/.200</span>
-                        <span class="precio-para-ti">precio para tí<b>S/.110</b></span>
-                        <span class="gana-rojo">GANA S/.90</span>
+                        <span class="precio-tachado">@Model.Simbolo @Model.PrecioTachado</span>
+                        <span class="precio-para-ti">precio para tí<b>@Model.Simbolo @Model.PrecioVenta</b></span>
+                        <span class="gana-rojo">@Model.Simbolo @Model.Ganancia</span>
                     </div>
                     <div style="clear:both;"></div>
                 </div>
                 <div class="detalle-bloque-dos">
-                    <p>REALZA TU SENSUALIDAD</p>
+                    <p>@Model.TipoEstrategiaDetalle.Slogan</p>
                     <ul>
-                        <li>Hidrata tus labios con una textura velvet de larga duración.</li>
-                        <li>Hidrata tus labios con una textura velvet de larga duración.</li>
+                        @foreach (var DescDetalle in Model.ListaDescripcionDetalle)
+                        {
+                            <li>@DescDetalle.Trim()</li>
+                        }
                     </ul>
                 </div>
                 <div class="detalle-bloque-tres">

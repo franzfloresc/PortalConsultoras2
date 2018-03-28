@@ -31,6 +31,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
+
                 return DetalleModel(cuv, campaniaId);
             }
             catch (Exception ex)
