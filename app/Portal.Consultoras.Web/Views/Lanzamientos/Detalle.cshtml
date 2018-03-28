@@ -94,11 +94,20 @@
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
 
 @section scripts{
-    <script type="text/javascript">
-            var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage';
-            var tipoOrigenEstrategia = 172;
-            var videoId = '@Model.TipoEstrategiaDetalle.UrlVideoDesktop';
-            var descripcionResumen = "@Model.DescripcionResumen"
-    </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/Lanzamientos-Detalle")
+    <script type="text/javascript">
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage';
+        var tipoOrigenEstrategia = 172;
+        var videoId = "@Model.TipoEstrategiaDetalle.UrlVideoDesktop";
+        var descripcionResumen = "@Model.DescripcionResumen"
+        $(document).ready(function () {
+            detalleLanzamiento.init({
+                videoId: videoId,
+                descripcionResumen: descripcionResumen
+            });
+        });
+        function onYouTubeIframeAPIReady() {
+            detalleLanzamiento.onYouTubeIframeAPIReady();
+        }
+    </script>
 }

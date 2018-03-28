@@ -50,17 +50,6 @@ var detalleLanzamiento = (function () {
     }
 }());
 
-$(document).ready(function () {
-    detalleLanzamiento.init({
-        videoId: videoId,
-        descripcionResumen: descripcionResumen
-    });
-    
-});
-
-function onYouTubeIframeAPIReady() {
-    detalleLanzamiento.onYouTubeIframeAPIReady();
-}
 
 
 
