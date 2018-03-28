@@ -2,6 +2,7 @@
 
 namespace Portal.Consultoras.Web.Models
 {
+    [Serializable]
     public class TablaLogicaDatosModel
     {
         public Int16 TablaLogicaDatosID { get; set; }
