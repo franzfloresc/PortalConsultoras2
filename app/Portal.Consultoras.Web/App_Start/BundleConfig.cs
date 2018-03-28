@@ -449,14 +449,15 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/ProductoListado/Landing.css"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/RevistaDigital-Detalle").Include(
+            bundles.Add(new ScriptBundle("~/bundles/Lanzamientos-Detalle").Include(
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
-                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
+                "~/Scripts/PortalConsultoras/Lanzamientos/Detalle.js"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/Lanzamientos-Detalle").Include(
