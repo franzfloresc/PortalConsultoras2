@@ -499,12 +499,12 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "FotoPerfil"))
                 FotoPerfil = Convert.ToString(row["FotoPerfil"]);
-                
+
             if (DataRecord.HasColumn(row, "ConsecutivoNueva") && row["ConsecutivoNueva"] != DBNull.Value)
                 ConsecutivoNueva = Convert.ToInt32(row["ConsecutivoNueva"]);
 
             if (DataRecord.HasColumn(row, "CodigoPrograma") && row["CodigoPrograma"] != DBNull.Value)
-                CodigoPrograma = Convert.ToString(row["CodigoPrograma"]);            
+                CodigoPrograma = Convert.ToString(row["CodigoPrograma"]);
         }
 
         [Column("ConsultoraAsociadoID")]
@@ -725,7 +725,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Sobrenombre
         {
-            get {
+            get
+            {
                 if (string.IsNullOrEmpty(msSobrenombre)) msSobrenombre = msPrimerNombre;
                 return msSobrenombre;
             }
@@ -1386,7 +1387,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int DiasCierre { get; set; }
         [DataMember]
-        public bool EsAniversario{ get; set; }
+        public bool EsAniversario { get; set; }
         [DataMember]
         public int AniosPermanencia { get; set; }
         [DataMember]
@@ -1412,5 +1413,17 @@ namespace Portal.Consultoras.Entities
         public decimal CuponMontoMaxDscto { get; set; }
         [DataMember]
         public short CuponTipoCondicion { get; set; }
+        [DataMember]
+        public BERevistaDigital RevistaDigital { get; set; }
+        [DataMember]
+        public string CodigosRevistaImpresa { get; set; }
+        [DataMember]
+        public bool OptBloqueoProductoDigital { get; set; }
+        [DataMember]
+        public BEOfertaDelDia OfertaDelDiaModel { get; set; }
+        [DataMember]
+        public BEGuiaNegocio GuiaNegocio { get; set; }
+        [DataMember]
+        public bool TieneValidacionMontoMaximo { get; set; }
     }
 }

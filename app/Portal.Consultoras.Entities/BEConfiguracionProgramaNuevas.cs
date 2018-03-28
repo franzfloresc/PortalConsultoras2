@@ -1,9 +1,9 @@
-﻿
-using OpenSource.Library.DataAccess;
+﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
 using System;
 using System.Data;
 using System.Runtime.Serialization;
+
 namespace Portal.Consultoras.Entities
 {
     [DataContract]

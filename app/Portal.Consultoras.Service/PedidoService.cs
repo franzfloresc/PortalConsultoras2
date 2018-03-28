@@ -5,16 +5,21 @@ using Portal.Consultoras.Entities.CargaMasiva;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.Entities.Pedido.App;
 using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.ServiceContracts;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
+using Portal.Consultoras.BizLogic.Pedido;
+using Portal.Consultoras.Entities.PagoEnLinea;
+using Portal.Consultoras.BizLogic.PagoEnlinea;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
-using Estrategia = Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.Service
 {
@@ -44,12 +49,16 @@ namespace Portal.Consultoras.Service
         private readonly BLRevistaDigitalSuscripcion BLRevistaDigitalSuscripcion;
         private readonly BLCuponConsultora BLCuponConsultora;
         private readonly BLFichaProducto blFichaProducto;
+        private BLPagoEnLinea BLPagoEnLinea;
+
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
         private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
         private readonly IConfiguracionProgramaNuevasBusinessLogic _configuracionProgramaNuevasBusinessLogic;
         private readonly ITrackingBusinessLogic _trackingBusinessLogic;
+        private readonly IPedidoAppBusinessLogic _pedidoAppBusinessLogic;
 
-        public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb(), new BLConfiguracionProgramaNuevas(), new BLTracking())
+        public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb(), new BLConfiguracionProgramaNuevas(), new BLTracking(),
+            new BLPedidoApp())
         {
             BLPedidoWebDetalle = new BLPedidoWebDetalle();
             BLPedidoWeb = new BLPedidoWeb();
@@ -75,15 +84,18 @@ namespace Portal.Consultoras.Service
             BLRevistaDigitalSuscripcion = new BLRevistaDigitalSuscripcion();
             BLCuponConsultora = new BLCuponConsultora();
             blFichaProducto = new BLFichaProducto();
+            BLPagoEnLinea = new BLPagoEnLinea();
         }
 
         public PedidoService(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic, IPedidoWebBusinessLogic pedidoWebBusinessLogic,
-            IConfiguracionProgramaNuevasBusinessLogic configuracionProgramaNuevasBusinessLogic, ITrackingBusinessLogic trackingBusinessLogic)
+            IConfiguracionProgramaNuevasBusinessLogic configuracionProgramaNuevasBusinessLogic, ITrackingBusinessLogic trackingBusinessLogic,
+            IPedidoAppBusinessLogic pedidoAppBusinessLogic)
         {
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
             _configuracionProgramaNuevasBusinessLogic = configuracionProgramaNuevasBusinessLogic;
             _trackingBusinessLogic = trackingBusinessLogic;
+            _pedidoAppBusinessLogic = pedidoAppBusinessLogic;
         }
 
         #region Reporte Lider
@@ -1613,9 +1625,9 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.EliminarOfertaShowRoomDetalleAll(paisID, campaniaID, cuv);
         }
 
-        public int EliminarEstrategiaProductoAll(int paisID, int estrategiaID)
+        public int EliminarEstrategiaProductoAll(int paisID, int estrategiaID, string usuario)
         {
-            return BLShowRoomEvento.EliminarEstrategiaProductoAll(paisID, estrategiaID);
+            return BLShowRoomEvento.EliminarEstrategiaProductoAll(paisID, estrategiaID, usuario);
         }
 
         public IList<BEShowRoomPerfil> GetShowRoomPerfiles(int paisId, int eventoId)
@@ -2269,6 +2281,40 @@ namespace Portal.Consultoras.Service
         }
         #endregion
 
+        #region Pago en Linea
+
+        public int InsertPagoEnLineaResultadoLog(int paisId, BEPagoEnLineaResultadoLog entidad)
+        {
+            return BLPagoEnLinea.InsertPagoEnLineaResultadoLog(paisId, entidad);
+        }
+
+        public string ObtenerTokenTarjetaGuardadaByConsultora(int paisId, string codigoConsultora)
+        {
+            return BLPagoEnLinea.ObtenerTokenTarjetaGuardadaByConsultora(paisId, codigoConsultora);
+        }
+
+        public void UpdateMontoDeudaConsultora(int paisId, string codigoConsultora, decimal montoDeuda)
+        {
+            BLPagoEnLinea.UpdateMontoDeudaConsultora(paisId, codigoConsultora, montoDeuda);
+        }
+
+        public BEPagoEnLineaResultadoLog ObtenerPagoEnLineaById(int paisId, int pagoEnLineaResultadoLogId)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaById(paisId, pagoEnLineaResultadoLogId);
+        }
+
+        public BEPagoEnLineaResultadoLog ObtenerUltimoPagoEnLineaByConsultoraId(int paisId, long consultoraId)
+        {
+            return BLPagoEnLinea.ObtenerUltimoPagoEnLineaByConsultoraId(paisId, consultoraId);
+        }
+
+        public List<BEPagoEnLineaResultadoLogReporte> ObtenerPagoEnLineaByFiltro(int paisId, BEPagoEnLineaFiltro filtro)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaByFiltro(paisId, filtro);
+        }
+
+        #endregion
+
 
         public List<int> InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
         {
@@ -2279,5 +2325,22 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().InsertarProductoShowroomMasiva(entidad);
         }
+
+        #region PedidoApp
+        public BEProductoApp GetCUVApp(BEProductoAppBuscar productoBuscar)
+        {
+            return _pedidoAppBusinessLogic.GetCUV(productoBuscar);
+        }
+
+        public BEPedidoDetalleAppResult InsertPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
+        {
+            return _pedidoAppBusinessLogic.Insert(pedidoDetalle);
+        }
+
+        public void UpdateProlApp(BEPedidoDetalleApp pedidoDetalle)
+        {
+            _pedidoAppBusinessLogic.UpdateProl(pedidoDetalle);
+        }
+        #endregion
     }
 }

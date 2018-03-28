@@ -21,14 +21,14 @@ namespace Portal.Consultoras.BizLogic
 
         private IList<BEMenuApp> ContruirMenus(IList<BEMenuApp> listaMenusApp)
         {
-            List<BEMenuApp> menus = listaMenusApp.Where(m => m.CodigoMenuPadre.Trim().Equals(string.Empty)).OrderBy(m => m.Orden).ToList();
-            List<BEMenuApp> subMenus = listaMenusApp.Where(m => !m.CodigoMenuPadre.Trim().Equals(string.Empty)).ToList();
 
-            foreach (var menu in menus)
+            foreach (var menu in listaMenusApp)
             {
-                menu.SubMenus = subMenus.Where(sm => sm.CodigoMenuPadre.Equals(menu.Codigo)).OrderBy(sm => sm.Orden).ToList();
+                menu.SubMenus = listaMenusApp.Where(sm => sm.CodigoMenuPadre.Equals(menu.Codigo)).ToList();
             }
 
+            List<BEMenuApp> menus = listaMenusApp.Where(m => m.CodigoMenuPadre.Trim().Equals(string.Empty))
+                                                        .OrderBy(m => m.Orden).ToList();
             return menus;
         }
     }

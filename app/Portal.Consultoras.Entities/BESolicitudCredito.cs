@@ -113,7 +113,7 @@
 
         [DataMember]
         public string TipoNacionalidad { get; set; }
-        
+
         [DataMember]
         public string NumeroRFC { get; set; }
 
@@ -152,7 +152,7 @@
 
         [DataMember]
         public string CodigoPostal { get; set; }
-        
+
         [DataMember]
         public string Colonia { get; set; }
 
@@ -267,7 +267,7 @@
         public string DescripcionMeta { get; set; }
 
         #endregion
-        
+
         #region  Propiedades: Retorno generacion codigo
 
         [DataMember]
