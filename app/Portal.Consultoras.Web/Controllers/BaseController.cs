@@ -4103,6 +4103,15 @@ namespace Portal.Consultoras.Web.Controllers
                 model.MensajeTitulo = Util.Trim(dato.Valor1);
                 return model;
             }
+            else
+            {
+                model.MensajeIconoSuperior = false;
+                model.BtnInscribirse = !revistaDigital.EsSuscrita;
+
+                codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaNoSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaNoSuscrita;
+                dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+                model.MensajeTitulo = Util.Trim(dato.Valor1);
+            }
 
             if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
             {
