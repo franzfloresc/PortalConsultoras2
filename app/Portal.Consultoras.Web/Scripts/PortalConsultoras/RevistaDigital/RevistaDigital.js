@@ -22,9 +22,6 @@ var windw = this;
 
 $(document).ready(function () {
     "use strict";
-
-    isDetalle = (window.location.pathname.toLowerCase() + "/").indexOf(sProps.UrlRevistaDigitalDetalle) >= 0;
-
     if (revistaDigital) {
         if (!revistaDigital.EsActiva) {
             if (tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 27) {
@@ -75,23 +72,12 @@ $(document).ready(function () {
         })
         .mouseout(function () { $("#barCursor").css("opacity", "0"); });
 
-    if (isDetalle) {
-        RDDetalleObtener();
+    if ((window.location.pathname.toLowerCase() + "/").indexOf("/detalle/") >= 0) {
         $("footer").hide();
         var h = $("#idMensajeBloqueado").innerHeight();
         if (h != undefined) {
             h = h > 0 ? h : $("#idMensajeBloqueado > div").innerHeight();
             $("#divDetalleContenido").css("padding-bottom", h + "px");
-        }
-    }
-    else {
-        if ((window.location.pathname.toLowerCase() + "/").indexOf("/detalle/") >= 0) {
-            $("footer").hide();
-            var h = $("#idMensajeBloqueado").innerHeight();
-            if (h != undefined) {
-                h = h > 0 ? h : $("#idMensajeBloqueado > div").innerHeight();
-                $("#divDetalleContenido").css("padding-bottom", h + "px");
-            }
         }
     }
 

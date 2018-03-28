@@ -124,72 +124,9 @@
                 videoId: videoId,
                 descripcionResumen: descripcionResumen
             });
-            RDDetalleObtener();
         });
         function onYouTubeIframeAPIReady() {
             detalleLanzamiento.onYouTubeIframeAPIReady();
-        }
-        function RDDetalleObtener() {
-
-            var param = location.href.toLowerCase().split('?');
-            var cuv = "", campania = "";
-            if (param.length > 1) {
-                param = param[1].split('&');
-                $.each(param, function (ind, pa) {
-                    var paramD = pa.split('=');
-                    if (paramD[0] == "cuv") {
-                        cuv = $.trim(paramD[1]);
-                    }
-                    else if ($.trim(paramD[0]) == "campaniaid") {
-                        campania = $.trim(paramD[1]);
-                    }
-                });
-            }
-
-            if (cuv == "" || campania == "") {
-                RDDetalleVolver(campaniaCodigo);
-                return false;
-            }
-
-            var prod = GetProductoStorage(cuv, campania);
-            if (prod == null || prod == undefined) {
-                RDDetalleVolver(campania || campaniaCodigo);
-                return false;
-            }
-            if (prod.CUV2 == undefined) {
-                RDDetalleVolver(campania || campaniaCodigo);
-                return false;
-            }
-
-            var obj = new Object();
-            obj.CampaniaID = prod.CampaniaID;
-            obj.lista = new Array();
-            obj.lista.push(prod);
-
-            $.each(obj.lista, function (ind, tem) {
-                tem.ClaseBloqueada = $.trim(tem.ClaseBloqueada);
-                tem.Posicion = ind + 1;
-                //tem.TipoAccionAgregar = 2; Comentado por KC. para activar la experiencia de tonos en el detalle
-            });
-
-            SetHandlebars("#producto-landing-template", obj, "#divOfertaProductos");
-            EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
-
-            $("#divOfertaProductos").find('[data-item-accion="verdetalle"]').removeAttr("onclick");
-            $("#divOfertaProductos").find('[data-item-accion="verdetalle"]').removeAttr("data-item-accion");
-
-            $(".ver_detalle_carrusel").parent().parent().attr("onclick", "");
-            $(".ver_detalle_carrusel").remove();
-        }
-        function RDDetalleVolver(campaniaId) {
-            var urlVolver = (isMobile() ? "/Mobile/" : "");
-            if (campaniaCodigo == campaniaId) {
-                urlVolver = urlVolver + sProps.UrlContenedorComprar;
-            }
-            else {
-                urlVolver = urlVolver + sProps.UrlContenedorRevisar;
-            }
-            window.location = urlVolver + "#LAN";
         }
     </script>
 }
