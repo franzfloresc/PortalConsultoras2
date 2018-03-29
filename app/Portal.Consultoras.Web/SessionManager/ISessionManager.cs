@@ -134,5 +134,13 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetStartSession(DateTime StartSession);
 
         DateTime GetStartSession();
+
+        void SetOfertasDelDia(OfertaDelDiaModel ofertasDelDia);
+
+        OfertaDelDiaModel GetOfertasDelDia();
+
+        void SetFlagOfertaDelDia(int ofertasDelDia);
+
+        bool GetFlagOfertaDelDia();
     }
 }

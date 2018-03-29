@@ -33,6 +33,14 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        public static string PaisesMicroservicioPersonalizacion
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["PaisesMicroservicioPersonalizacion"] ?? string.Empty;
+            }
+        }
+
         #endregion
     }
 }

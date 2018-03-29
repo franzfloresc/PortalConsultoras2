@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
-
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.MagickNet;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
@@ -8,6 +7,7 @@ using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
@@ -19,7 +19,6 @@ using Portal.Consultoras.Web.ServiceSeguridad;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.SessionManager;
-
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -30,11 +29,12 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -49,6 +49,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected GuiaNegocioModel guiaNegocio;
         protected ISessionManager sessionManager;
         protected ILogManager logManager;
+        protected readonly OfertaDelDiaProvider ofertaPersonalizadaProvider;
 
         #endregion
 
@@ -59,6 +60,7 @@ namespace Portal.Consultoras.Web.Controllers
             userData = new UsuarioModel();
             logManager = LogManager.LogManager.Instance;
             sessionManager = SessionManager.SessionManager.Instance;
+            ofertaPersonalizadaProvider = new OfertaDelDiaProvider();
         }
 
         public BaseController(ISessionManager sessionManager)
@@ -1042,9 +1044,11 @@ namespace Portal.Consultoras.Web.Controllers
             var result = false;
             if (!NoMostrarBannerODD())
             {
-                result = (!userData.TieneOfertaDelDia ||
+                var tieneOfertaDelDia = sessionManager.GetFlagOfertaDelDia();
+
+                result = (!tieneOfertaDelDia ||
                           (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2 || userData.IndicadorGPRSB == 0)
-                          && !userData.CloseOfertaDelDia) && userData.TieneOfertaDelDia;
+                          && !userData.CloseOfertaDelDia) && tieneOfertaDelDia;
             }
 
             return result;
@@ -1997,67 +2001,27 @@ namespace Portal.Consultoras.Web.Controllers
             return sFecha;
         }
 
-        public TimeSpan CountdownODD(UsuarioModel model)
-        {
-            DateTime hoy;
-
-            using (var svc = new SACServiceClient())
-            {
-                hoy = svc.GetFechaHoraPais(model.PaisID);
-            }
-
-            var d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
-            DateTime d2;
-
-            if (model.EsDiasFacturacion)
-            {
-                var t1 = model.HoraCierreZonaNormal;
-                d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
-            }
-            else
-            {
-                d2 = d1.AddDays(1);
-            }
-
-            var t2 = (d2 - hoy);
-            return t2;
-        }
-
         #endregion
 
         protected OfertaDelDiaModel GetOfertaDelDiaModel()
         {
-            if (userData.OfertasDelDia == null)
+            var ofertaDelDia = ofertaPersonalizadaProvider.ObtenerOfertas();
+
+            if (ofertaDelDia == null)
                 return null;
 
-            if (!userData.OfertasDelDia.Any())
-                return null;
+            var detallePedido = ObtenerPedidoWebDetalle();
 
-            var model = userData.OfertasDelDia.First().Clone();
-            model.ListaOfertas = userData.OfertasDelDia;
-            short posicion = 1;
-            var tiposEstrategia = sessionManager.GetTiposEstrategia();
-            if (tiposEstrategia == null)
+            foreach (var oferta in ofertaDelDia.ListaOfertas)
             {
-                tiposEstrategia = GetTipoEstrategias();
-                sessionManager.SetTiposEstrategia(tiposEstrategia);
-            }
-            foreach (var oferta in model.ListaOfertas)
-            {
-                oferta.Position = posicion++;
-                oferta.DescripcionMarca = GetDescripcionMarca(oferta.MarcaID);
-                oferta.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == oferta.CUV2 && (d.TipoEstrategiaID == oferta.TipoEstrategiaID || d.TipoEstrategiaID == 0)) ? "block" : "none";
-
-                if (tiposEstrategia != null && tiposEstrategia.Any(x => x.TipoEstrategiaID == oferta.TipoEstrategiaID))
-                    oferta.TipoEstrategiaDescripcion = tiposEstrategia.First(x => x.TipoEstrategiaID == oferta.TipoEstrategiaID).DescripcionEstrategia ?? string.Empty;
+                oferta.Agregado = detallePedido.Any(d => d.CUV == oferta.CUV2 && (d.TipoEstrategiaID == oferta.TipoEstrategiaID || d.TipoEstrategiaID == 0)) ? "block" : "none";
             }
 
-            model.TeQuedan = CountdownODD(userData);
-            model.FBRuta = GetUrlCompartirFB();
+            ofertaDelDia.FBRuta = GetUrlCompartirFB();
 
-            var configOdd = GetConfiguracionEstrategia(Constantes.ConfiguracionPais.OfertaDelDia);
-            model.ConfiguracionContenedor = configOdd;
-            return model;
+            ofertaDelDia.ConfiguracionContenedor = GetConfiguracionEstrategia(Constantes.ConfiguracionPais.OfertaDelDia);
+
+            return ofertaDelDia;
         }
 
         public ConfiguracionSeccionHomeModel GetConfiguracionEstrategia(string codigoEstrategia)
@@ -2149,13 +2113,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected string GetRevistaCodigoIssuu(string campania)
         {
-            string codigo                       = null;
-            string requestUrl                   = null;
-            bool esRevistaPiloto                = false;
-            var Grupos                          = GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Grupos + userData.CodigoISO + campania);
-            string codeGrupo                    = null;
-            string nroCampania                  = string.Empty;
-            string anioCampania                 = string.Empty;
+            string codigo = null;
+            string requestUrl = null;
+            bool esRevistaPiloto = false;
+            var Grupos = GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Grupos + userData.CodigoISO + campania);
+            string codeGrupo = null;
+            string nroCampania = string.Empty;
+            string anioCampania = string.Empty;
 
             if (!string.IsNullOrEmpty(Grupos))
             {
@@ -2173,18 +2137,18 @@ namespace Portal.Consultoras.Web.Controllers
             else
                 esRevistaPiloto = false;
 
-            codigo                              = GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoRevistaIssuu);
+            codigo = GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoRevistaIssuu);
             if (campania.Length >= 6)
-                nroCampania                     = campania.Substring(4, 2);
+                nroCampania = campania.Substring(4, 2);
             if (campania.Length >= 6)
-                anioCampania                    = campania.Substring(0, 4);
+                anioCampania = campania.Substring(0, 4);
 
             if (esRevistaPiloto)
-                requestUrl                      = string.Format(codigo, userData.CodigoISO.ToLower(), nroCampania, anioCampania, codeGrupo.Replace(Constantes.ConfiguracionManager.RevistaPiloto_Escenario, ""));
+                requestUrl = string.Format(codigo, userData.CodigoISO.ToLower(), nroCampania, anioCampania, codeGrupo.Replace(Constantes.ConfiguracionManager.RevistaPiloto_Escenario, ""));
             else
             {
-                requestUrl                      = string.Format(codigo, userData.CodigoISO.ToLower(), nroCampania, anioCampania, "");
-                requestUrl                      = Util.Trim(requestUrl.Substring(requestUrl.Length - 1)) == "." ? requestUrl.Substring(0, requestUrl.Length - 1) : requestUrl;
+                requestUrl = string.Format(codigo, userData.CodigoISO.ToLower(), nroCampania, anioCampania, "");
+                requestUrl = Util.Trim(requestUrl.Substring(requestUrl.Length - 1)) == "." ? requestUrl.Substring(0, requestUrl.Length - 1) : requestUrl;
             }
             return requestUrl;
         }
@@ -2345,7 +2309,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
             }
         }
-        protected void RegistrarLogGestionSacUnete(string solicitudId, string pantalla,string accion)
+        protected void RegistrarLogGestionSacUnete(string solicitudId, string pantalla, string accion)
         {
             var dataString = string.Empty;
             try
@@ -2356,8 +2320,8 @@ namespace Portal.Consultoras.Web.Controllers
                     Pais = userData.CodigoISO,
                     Rol = userData.RolDescripcion,
                     Usuario = userData.CodigoUsuario,
-                    Pantalla  = pantalla,
-                    Accion =  accion,
+                    Pantalla = pantalla,
+                    Accion = accion,
                     SolicitudId = solicitudId
                 };
 
@@ -3193,8 +3157,6 @@ namespace Portal.Consultoras.Web.Controllers
                             seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.DesktopShowRoomContenedor : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedor;
                             break;
                         case Constantes.ConfiguracionPais.OfertaDelDia:
-                            if (!userData.TieneOfertaDelDia)
-                                continue;
                             break;
                         case Constantes.ConfiguracionPais.HerramientasVenta:
                             seccion.UrlObtenerProductos = "HerramientasVenta/HVObtenerProductos";
@@ -3264,7 +3226,7 @@ namespace Portal.Consultoras.Web.Controllers
             var configuracionesPais = sessionManager.GetConfiguracionesPaisModel();
             if (configuracionesPais != null)
             {
-                var cp = configuracionesPais.FirstOrDefault(x=> x.Codigo == configuracionPais.Codigo);
+                var cp = configuracionesPais.FirstOrDefault(x => x.Codigo == configuracionPais.Codigo);
                 result = cp != null && cp.ConfiguracionPaisID >= 0 && !string.IsNullOrWhiteSpace(cp.Codigo);
 
             }
@@ -3708,9 +3670,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                         break;
                     case Constantes.ConfiguracionPais.OfertaDelDia:
-                        if (!userData.TieneOfertaDelDia)
-                            continue;
-
                         confiModel.UrlMenu = "#";
                         break;
                     case Constantes.ConfiguracionPais.Lanzamiento:
@@ -4403,7 +4362,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.GPRBannerUrl = userData.GPRBannerUrl;
 
                 ViewBag.TieneOfertaDelDia = CumpleOfertaDelDia();
-                ViewBag.MostrarOfertaDelDiaContenedor = userData.TieneOfertaDelDia;
+                ViewBag.MostrarOfertaDelDiaContenedor = sessionManager.GetFlagOfertaDelDia();
 
                 var configuracionPaisOdd = GetConfiguracionesPaisModel().FirstOrDefault(p => p.Codigo == Constantes.ConfiguracionPais.OfertaDelDia);
                 configuracionPaisOdd = configuracionPaisOdd ?? new ConfiguracionPaisModel();
@@ -4701,7 +4660,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return lstComunicados.ToList();
             }
         }
-        
+
         protected MensajeProductoBloqueadoModel HVMensajeProductoBloqueado()
         {
             var model = new MensajeProductoBloqueadoModel();

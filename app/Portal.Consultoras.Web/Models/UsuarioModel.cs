@@ -332,11 +332,8 @@ namespace Portal.Consultoras.Web.Models
 
         public List<PermisoModel> Menu { get; internal set; }
         public List<ServicioCampaniaModel> MenuService { get; internal set; }
-
-        public int EsOfertaDelDia { get; set; }
-        public bool TieneOfertaDelDia { get; set; }
+        
         public OfertaDelDiaModel OfertaDelDia { get; set; }
-        public List<OfertaDelDiaModel> OfertasDelDia { get; set; }
         public bool CloseOfertaDelDia { get; set; }
         public bool CloseBannerPL20 { get; set; }
         public bool EsDiasFacturacion { get; set; }

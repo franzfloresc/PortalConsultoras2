@@ -344,5 +344,26 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (DateTime)HttpContext.Current.Session["StartSession"];
         }
+
+        void ISessionManager.SetOfertasDelDia(OfertaDelDiaModel ofertasDelDia)
+        {
+            HttpContext.Current.Session["ListaOfertasDelDia"] = ofertasDelDia;
+        }
+
+        OfertaDelDiaModel ISessionManager.GetOfertasDelDia()
+        {
+            return (OfertaDelDiaModel)HttpContext.Current.Session["ListaOfertasDelDia"];
+        }
+
+        void ISessionManager.SetFlagOfertaDelDia(int ofertasDelDia)
+        {
+            HttpContext.Current.Session["FlagOfertaDelDia"] = ofertasDelDia;
+        }
+
+        bool ISessionManager.GetFlagOfertaDelDia()
+        {
+            var value = HttpContext.Current.Session["FlagOfertaDelDia"];
+            return value == null ? true : Convert.ToBoolean(value);
+        }
     }
 }
