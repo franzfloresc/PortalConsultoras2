@@ -371,5 +371,8 @@ namespace Portal.Consultoras.Web.Models
         public string FotoPerfil { get; set; }
 
         public string CodigoUsuarioHost { get; set; }
+        
+        public bool TienePagoEnLinea { get; set; }
+        public string DocumentoIdentidad { get; set; }
     }
 }

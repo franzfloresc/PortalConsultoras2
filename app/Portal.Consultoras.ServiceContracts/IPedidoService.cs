@@ -12,6 +12,7 @@ using System.Data;
 using System.ServiceModel;
 using System.Threading.Tasks;
 using Estrategia = Portal.Consultoras.Entities.Estrategia;
+using Portal.Consultoras.Entities.PagoEnLinea;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -863,7 +864,7 @@ namespace Portal.Consultoras.ServiceContracts
         int EliminarOfertaShowRoomDetalleAll(int paisID, int campaniaID, string cuv);
 
         [OperationContract]
-        int EliminarEstrategiaProductoAll(int paisID, int estrategiaID);
+        int EliminarEstrategiaProductoAll(int paisID, int estrategiaID, string usuario);
 
         [OperationContract]
         IList<BEShowRoomPerfil> GetShowRoomPerfiles(int paisId, int eventoId);
@@ -1243,5 +1244,26 @@ namespace Portal.Consultoras.ServiceContracts
         #endregion
 
 
+        #region Pago en Linea
+
+        [OperationContract]
+        int InsertPagoEnLineaResultadoLog(int paisId, BEPagoEnLineaResultadoLog entidad);
+
+        [OperationContract]
+        string ObtenerTokenTarjetaGuardadaByConsultora(int paisId, string codigoConsultora);
+
+        [OperationContract]
+        void UpdateMontoDeudaConsultora(int paisId, string codigoConsultora, decimal montoDeuda);
+
+        [OperationContract]
+        BEPagoEnLineaResultadoLog ObtenerPagoEnLineaById(int paisId, int pagoEnLineaResultadoLogId);
+
+        [OperationContract]
+        BEPagoEnLineaResultadoLog ObtenerUltimoPagoEnLineaByConsultoraId(int paisId, long consultoraId);
+
+        [OperationContract]
+        List<BEPagoEnLineaResultadoLogReporte> ObtenerPagoEnLineaByFiltro(int paisId, BEPagoEnLineaFiltro filtro);
+
+        #endregion
     }
 }

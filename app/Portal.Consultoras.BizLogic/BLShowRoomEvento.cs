@@ -300,10 +300,10 @@ namespace Portal.Consultoras.BizLogic
             return dataAccess.EliminarOfertaShowRoomDetalleAll(campaniaID, cuv);
         }
 
-        public int EliminarEstrategiaProductoAll(int paisID, int estrategiaID)
+        public int EliminarEstrategiaProductoAll(int paisID, int estrategiaID, string usuario)
         {
             var dataAccess = new DAShowRoomEvento(paisID);
-            return dataAccess.EliminarEstrategiaProductoAll(estrategiaID);
+            return dataAccess.EliminarEstrategiaProductoAll(estrategiaID,  usuario);
         }
 
         public IList<BEShowRoomPerfil> GetShowRoomPerfiles(int paisId, int eventoId)

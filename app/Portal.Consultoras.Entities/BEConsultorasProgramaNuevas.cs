@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(datarec, "CodigoConsultora") && datarec["CodigoConsultora"] != DBNull.Value)
                 CodigoConsultora = DbConvert.ToString(datarec["CodigoConsultora"]);
             if (DataRecord.HasColumn(datarec, "CodigoPrograma") && datarec["CodigoPrograma"] != DBNull.Value)
-                CodigoPrograma = DbConvert.ToString(datarec["CodigoPrograma"]);            
+                CodigoPrograma = DbConvert.ToString(datarec["CodigoPrograma"]);
             if (DataRecord.HasColumn(datarec, "Participa") && datarec["Participa"] != DBNull.Value)
                 Participa = DbConvert.ToString(datarec["Participa"]);
             if (DataRecord.HasColumn(datarec, "Motivo") && datarec["Motivo"] != DBNull.Value)

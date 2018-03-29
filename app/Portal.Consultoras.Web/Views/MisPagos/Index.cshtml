@@ -74,7 +74,12 @@
                     <div class="titulo_detalle_pago_img"></div>
                     <div>MI ESTADO<b> DE CUENTA</b></div>
                 </div>
-                <div class="info_detalle_pago">Mis últimos movimientos de estado de cuenta</div>
+                
+                <div>
+                    <div class="" id="divUltimoMovimiento" style="font-weight: bold; padding-top:23px; font-size: 11pt;">Último pago recibido: <span id="spnUltimoPagoRecibido"></span></div>
+                    <div class="info_detalle_pago" style="margin-top: 2px;">Mis últimos movimientos de estado de cuenta</div>
+                </div>
+                
                 <a href="javascript:void(0);" onclick="return validarExportar();" class="acciones_pagos"><img src="@Url.Content("~/Content/Images/Esika/excel.png")" /></a>
                 <a href="#" class="acciones_pagos"><img src="@Url.Content("~/Content/Images/Esika/imprimir.png")" id="lblCorreoEnviar" /></a>
                 <hr class="clear" />

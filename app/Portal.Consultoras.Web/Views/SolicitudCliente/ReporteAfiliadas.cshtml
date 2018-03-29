@@ -143,7 +143,6 @@
             multiselect: false,
             height: 'auto',
             width: 930,
-            //width: 1150,
             autowidth: true,
             shrinkToFit: false,  
             forceFit: true,
@@ -152,9 +151,6 @@
             altclass: 'jQGridAltRowClass',
             loadComplete: function () { },
             gridComplete: function () { }
-            //gridComplete: function () {
-            //    $("#pager").hide();
-            //}
         });
         jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
         jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');

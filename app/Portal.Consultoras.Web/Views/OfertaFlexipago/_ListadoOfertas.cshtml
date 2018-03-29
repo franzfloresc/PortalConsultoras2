@@ -25,8 +25,6 @@
         }
     }
 
-    ///////////////////////////
-
     function ReservadoOEnHorarioRestringido(mostrarAlerta) {
 
         mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
@@ -53,7 +51,6 @@
                         }
                         else if (mostrarAlerta == true)
                             alert_msg(data.message);
-                            //setTimeout(function () { location.href = '@Url.Action("Index", "Bienvenida")'; }, 2500);
                     }
                 }
             },
@@ -63,9 +60,6 @@
         });
         return restringido;
     }
-
-
-    //////////////////////////
 
     function AgregarOfertaProducto(Object) {
 
