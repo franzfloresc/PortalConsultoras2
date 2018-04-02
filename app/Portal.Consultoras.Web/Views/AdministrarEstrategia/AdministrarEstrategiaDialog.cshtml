@@ -188,8 +188,7 @@
                         </div>
                         <div class="inforRdText">929 x 552 pixeles</div>
                     </div>
-                    <br /><br />
-                    <div style="display: inline-block; width: 100%;">
+                    @*<div style="display: inline-block; width: 100%; display: none;">
                         <input type="hidden" id="nombre-img-prev-desktop" />
                         <label style="width: 130px; display: inline-block;">Imagen Previsual: </label>
                         <div id="img-prev-desktop" style="display: inline-block;vertical-align: middle;"></div>
@@ -197,18 +196,17 @@
                             <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-prev-desktop" class="img-matriz-preview2" data-id="">
                         </div>
                         <div class="inforRdText">130 x 130 pixeles</div>
-                    </div>
+                    </div>*@
                 </div>
                 <div class="fontColorAdm" style="display: inline-block; width: 47%; text-align: left; padding: 8px; margin-right: -3px; vert-align: top; position: absolute">
-                    <h4 style="display: none">Carrusel Mobile</h4>
-                    <div style="display: none; width: 100%">
+                    <h4>Carrusel Mobile</h4>
+                    <div style="width: 100%">
                         <input type="hidden" id="nombre-img-fondo-mobile" />
                         <label style="width: 130px; display: inline-block;">Imagen de Fondo: </label>
                         <div id="img-fondo-mobile" style="display: inline-block; vertical-align: middle;"></div>
                         <div class="pdr_modal2 borde_redondeado alignrigth">
                             <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-fondo-mobile" class="img-matriz-preview2" data-id="">
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -249,7 +247,7 @@
                         <label style="width: 130px; display: inline-block;">Imagen de Fondo: </label>
                         <div id="img-ficha-fondo-mobile" style="display: inline-block; vertical-align: middle;"></div>
                         <div class="pdr_modal2 borde_redondeado alignrigth">
-                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-ficha-fondo-mobile" class="img-matriz-preview2" data-id="">
+                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-ficha-fondo-mobile" class="img-matriz-preview2" data-id="" />
                         </div>
                         <div class="inforRdText">1024 x 280 pixeles</div>
                     </div>

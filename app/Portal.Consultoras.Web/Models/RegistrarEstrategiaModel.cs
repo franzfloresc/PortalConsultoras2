@@ -30,18 +30,24 @@
         public string FlagEstrella { get; set; }
         public string CodigoTipoEstrategia { get; set; }
 
-        // Atributos usados solo para la estrategia de lanzamiento.
-        public string ImgFondoDesktop { get; set; }
-        public string ImgPrevDesktop { get; set; }
-        public string ImgFichaDesktop { get; set; }
-        public string UrlVideoDesktop { get; set; }
-        public string ImgFondoMobile { get; set; }
-        public string ImgFichaMobile { get; set; }
-        public string UrlVideoMobile { get; set; }
-        public string ImgFichaFondoDesktop { get; set; }
-        public string ImgFichaFondoMobile { get; set; }
+        #region Lan
         public string ImgHomeDesktop { get; set; }
         public string ImgHomeMobile { get; set; }
+
+        public string ImgFondoDesktop { get; set; }
+        public string ImgFondoMobile { get; set; }
+
+        public string ImgFichaDesktop { get; set; }
+        public string ImgFichaFondoDesktop { get; set; }
+        public string ImgFichaMobile { get; set; }
+        public string ImgFichaFondoMobile { get; set; }
+
+        public string UrlVideoDesktop { get; set; }
+        public string UrlVideoMobile { get; set; }
+
+        //public string ImgPrevDesktop { get; set; }
+        #endregion
+
         public string PrecioAnt { get; set; }
         public string Ganancia { get; set; }
         public bool EsOfertaIndependiente { get; set; }

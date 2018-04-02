@@ -451,6 +451,7 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/Lanzamientos-Detalle").Include(
+                "~/Scripts/jquery.flexslider.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
