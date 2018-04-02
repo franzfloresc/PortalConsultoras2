@@ -1303,6 +1303,7 @@ namespace Portal.Consultoras.Common
                 public const int ShowRoom = 5;
                 public const int OfertaDelDia = 6;
                 public const int DescagablesNavidenos = 7;
+                public const int CarruselIndividuales = 8;
             }
         }
 
