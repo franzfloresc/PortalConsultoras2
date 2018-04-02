@@ -13,7 +13,16 @@ var origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
 var divAgregado = null;
 
 $(document).ready(function () {
-    $('body').on('touchstart click', '[data-tono-change]', function (e) {
+    console.log('entra');
+    if (isMobile()) {
+        $('[data-tono-change]').click(mostrarListaTonos);
+        console.log('mobile');
+    } else {
+        $('body').on('click', '[data-tono-change]', mostrarListaTonos);
+        console.log('desktop');
+    }    
+
+    function mostrarListaTonos() {
         var accion = $(this).attr("data-tono-change");
 
         var hideSelect = $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible");
@@ -67,7 +76,7 @@ $(document).ready(function () {
         if (btnActivar) {
             prod.parents("[data-item]").find("#tbnAgregarProducto").removeClass("btn_desactivado_general");
         }
-    });
+    }
 
     var so = $.trim(tipoOrigenEstrategia)[0];
     if (so == 1) {
