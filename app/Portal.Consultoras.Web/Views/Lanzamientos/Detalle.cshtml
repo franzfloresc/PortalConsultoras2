@@ -77,15 +77,12 @@
         </div>
     </div>
 </div>
-<div class="set_encuentras_producto">
+<div class="set_encuentras_producto" id="set_relacionados">
     <div class="content_belcorp">
         <p class="titulo_set">
             SET DONDE ENCUENTRAS EL PRODUCTO
         </p>
-        <div class="set_encuentras_producto_carrusel">
-            <!-- aqui carrusel de productos -->
-        </div>
-        <div class="lanzamiento-view-detalle" style="margin-left: -4%;"
+        <div class="set_encuentras_producto_carrusel" style="margin-left: -4%;"
              data-item-cuv="@Model.CUV2"
              data-estrategia="@Json.Encode(Model)">
             <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage"></div>
@@ -110,7 +107,6 @@
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
-@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/Lanzamientos-Detalle")
