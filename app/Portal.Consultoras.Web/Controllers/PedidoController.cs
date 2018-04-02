@@ -920,7 +920,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var listaPedidoWebDetalle = sessionManager.GetDetallesPedido() ?? new List<BEPedidoWebDetalle>();
+                var listaPedidoWebDetalle = ObtenerPedidoWebDetalle(false);
+
                 var pedidoEliminado = listaPedidoWebDetalle.FirstOrDefault(x => x.CUV == CUV);
                 if (pedidoEliminado == null)
                     return new Tuple<bool, JsonResult>(false, ErrorJson(Constantes.MensajesError.DeletePedido_CuvNoExiste));
