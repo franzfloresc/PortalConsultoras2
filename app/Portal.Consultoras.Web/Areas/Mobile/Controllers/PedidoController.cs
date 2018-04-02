@@ -27,6 +27,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             sessionManager.SetObservacionesProl(null);
             sessionManager.SetPedidoWeb(null);
             sessionManager.SetDetallesPedido(null);
+            sessionManager.SetDetallesPedidoSetAgrupado(null);
 
             var configuracionCampania = GetConfiguracionCampania(userData);
             if (configuracionCampania == null)
@@ -174,6 +175,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             sessionManager.SetObservacionesProl(null);
             sessionManager.SetDetallesPedido(null);
+            sessionManager.SetDetallesPedidoSetAgrupado(null);
 
             BEConfiguracionCampania beConfiguracionCampania;
             using (var sv = new PedidoServiceClient())

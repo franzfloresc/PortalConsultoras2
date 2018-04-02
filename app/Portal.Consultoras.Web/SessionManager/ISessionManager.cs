@@ -136,5 +136,9 @@ namespace Portal.Consultoras.Web.SessionManager
         DateTime GetStartSession();
 
         IShowRoom ShowRoom { get; }
+
+        List<BEPedidoWebDetalle> GetDetallesPedidoSetAgrupado();
+
+        void SetDetallesPedidoSetAgrupado(List<BEPedidoWebDetalle> detallesPedidoWeb);
     }
 }

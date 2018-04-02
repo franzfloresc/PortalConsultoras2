@@ -1641,6 +1641,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 sessionManager.SetPedidoWeb(null);
                 sessionManager.SetDetallesPedido(null);
+                sessionManager.SetDetallesPedidoSetAgrupado(null);
 
                 UpdPedidoWebMontosPROL();
 
