@@ -10,8 +10,8 @@ insert into TablaLogica
 GO
 insert into TablaLogicaDatos --where TablaLogicaID = 133
 	values (13701, 137, 'Activo','1'),
-		   (13702, 137, 'IdEstadoActividad','1'),
-		   (13703, 137, 'IdEstadoActividad','7')
+		   (13702, 137, 'IdEstadoActividad','1',''),
+		   (13703, 137, 'IdEstadoActividad','7','')
 GO
 
 -- NUEVA COLUMNA TieneAutenticacion

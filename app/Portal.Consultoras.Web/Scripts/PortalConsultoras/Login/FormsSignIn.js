@@ -20,6 +20,8 @@ var tipoOpcion = 0;
 // origen 2 = Pin de Autenticidad
 var origen = 0;
 var indicadorPin = 0;
+var procesoSms = false;
+var procesoEmail = false;
 
 $(document).ready(function () {
     $(window).resize(function () {
@@ -943,13 +945,15 @@ function ProcesaEnvioEmail() {
         async: true,
         success: function (response) {
             if (response.success) {
+                procesoEmail = true;
+                procesoSms = false;
 
-                if (origen == 2) {/*Opcion 5 se activa el ingreso de Codigo pin*/
+                if (origen == 2) {/*Origen 2 Pin de autenticacion*/
                     clearTimeout(t);
                     $(".pMenCorreoEnviado_RC").hide()
                     $(".MenCorreoEnviado_Pin").show();
-                    $("#spnMin").html("03");
-                    $("#spnSeg").html("00");
+                    $(".spnMin").html("03");
+                    $(".spnSeg").html("00");
                 } else {
                     $(".MenCorreoEnviado_Pin").hide()
                     $(".pMenCorreoEnviado_RC").show();
@@ -975,7 +979,7 @@ function ProcesaEnvioEmail() {
                     $("#men3Intento").show();
                     $("#divVolverInicio").show();
                 }
-
+                
                 if (origen == 2)
                     setTimeout(function () { TiempoSMS(59); }, 1000);
 
@@ -1017,8 +1021,11 @@ function ProcesaEnvioSMS() {
         async: true,
         success: function (response) {
             if (response.success) {
-                $("#spnMin").html("03");
-                $("#spnSeg").html("00");
+                procesoEmail = false;
+                procesoSms = true;
+
+                $(".spnMin").html("03");
+                $(".spnSeg").html("00");
 
                 $(".codigoInvalido").hide();
                 $("#popupRestaurarClave").hide();
@@ -1444,13 +1451,13 @@ function TiempoSMS(tempo) {
         if (tempo == -1){
             tempo = 59;
             cantMinutos--;
-            $("#spnMin").html("0" + cantMinutos);
+            $(".spnMin").html("0" + cantMinutos);
         }        
         
         if (tempo != -1 && cantMinutos != -1) {
             segundos = tempo < 10 ? "0" + tempo : tempo;
-            $("#spnMin").html("0" + cantMinutos);
-            $("#spnSeg").html(segundos);
+            $(".spnMin").html("0" + cantMinutos);
+            $(".spnSeg").html(segundos);
             tempo--;
         }
         else {
@@ -1458,11 +1465,11 @@ function TiempoSMS(tempo) {
             if (nroIntentosSms >= 2 || nroIntentosCo >= 2) {
                 $(".aVolverInicio").trigger("click");                  
             } else {
-                if (origen == 1) {
+                if (procesoSms) {
                     nroIntentosSms = nroIntentosSms + 1
                     ProcesaEnvioSMS();
                 }                    
-                else {
+                else if (procesoEmail) {
                     nroIntentosCo = nroIntentosCo + 1
                     ProcesaEnvioEmail();
                 }                    
