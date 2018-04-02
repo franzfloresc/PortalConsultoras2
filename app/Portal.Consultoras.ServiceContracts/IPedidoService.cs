@@ -1247,7 +1247,7 @@ namespace Portal.Consultoras.ServiceContracts
 
 
         [OperationContract]
-        bool UpdCantidadPedidoWebSet(int paisID, int SetId, int Cantidad);
+        bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad);
 
         [OperationContract]
         IList<BEPedidoWebDetalle> GetPedidoWebSetProducto(int paisID, int Campania, long ConsultoraId, int Cantidad);

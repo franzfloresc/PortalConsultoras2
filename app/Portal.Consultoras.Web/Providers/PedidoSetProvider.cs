@@ -27,7 +27,25 @@ namespace Portal.Consultoras.Web.Providers
                 }
             }
         }
+        public ResultModel<bool> ActualizarCantidadSet(int paisId, int setId, int cantidad)
+        {
+            using (var client = new PedidoServiceClient())
+            {
+                try
+                {
+                    var result = client.UpdCantidadPedidoWebSet(paisId, setId, cantidad);
+                    if (!result)
+                        return ResultModel<bool>.BuildBad("Sucedio un error", false);
 
+                    return ResultModel<bool>.BuildOk(true);
+                }
+                catch (FaultException e)
+                {
+                    LogManager.LogManager.LogErrorWebServicesPortal(e, "", Util.GetPaisISO(paisId));
+                    return ResultModel<bool>.BuildBad(e.Message, false);
+                }
+            }
+        }
         public PedidoWebSetModel ObtenerPorId(int paisId, int setId)
         {
             using (var client = new PedidoServiceClient())

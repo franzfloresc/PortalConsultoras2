@@ -805,6 +805,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPedidoWebDetalle> listaPedidoWebDetalle = new List<BEPedidoWebDetalle>();
             if (model.SetId > 0)
             {
+
+                var set = _pedidoSetProvider.ObtenerPorId(userData.PaisID, model.SetId);
+
                 using (var sv = new PedidoServiceClient())
                 {
                     BEPedidoWebDetalle[] pedidoWebSetProducto = sv.GetPedidoWebSetProducto(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, int.Parse(model.Cantidad));
@@ -848,12 +851,11 @@ namespace Portal.Consultoras.Web.Controllers
                    : "Hubo un problema al intentar actualizar el registro. Por favor inténtelo nuevamente.";
             }
 
-            if (!errorServer)
+            if (!errorServer && model.SetId > 0)
             {
-                using (var sv = new PedidoServiceClient())
-                {
-                    sv.UpdCantidadPedidoWebSet(userData.PaisID, model.SetId, int.Parse(model.Cantidad));
-                }
+                var setDeleted = _pedidoSetProvider.ActualizarCantidadSet(userData.PaisID, model.SetId, int.Parse(model.Cantidad));
+                if (!setDeleted.Success)
+                    message = setDeleted.Message;
             }
 
             return Json(new

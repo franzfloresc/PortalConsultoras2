@@ -598,10 +598,10 @@ namespace Portal.Consultoras.BizLogic
             return result;
         }
 
-        public bool UpdCantidadPedidoWebSet(int paisID, int SetId, int Cantidad)
+        public bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad)
         {
-            DAPedidoWebDetalle daPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
-            return daPedidoWebDetalle.UpdCantidadPedidoWebSet(SetId, Cantidad);
+            DAPedidoWebDetalle daPedidoWebDetalle = new DAPedidoWebDetalle(paisId);
+            return daPedidoWebDetalle.UpdCantidadPedidoWebSet(setId, cantidad);
         }
 
         public IList<BEPedidoWebDetalle> GetPedidoWebSetProducto(int paisID, int Campania, long ConsultoraId, int Cantidad)
