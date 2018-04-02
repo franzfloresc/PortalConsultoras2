@@ -806,7 +806,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (model.SetID > 0)
             {
 
-                var set = _pedidoSetProvider.ObtenerPorId(userData.PaisID, model.SetId);
+                var set = _pedidoSetProvider.ObtenerPorId(userData.PaisID, model.SetID);
 
                 using (var sv = new PedidoServiceClient())
                 {
