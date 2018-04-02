@@ -167,7 +167,7 @@ namespace Portal.Consultoras.Web.Controllers
             var detallesPedidoWeb = (List<BEPedidoWebDetalle>)null;
             try
             {
-                detallesPedidoWeb =  sessionManager.GetDetallesPedido();
+               // detallesPedidoWeb =  sessionManager.GetDetallesPedido();
 
                 if (detallesPedidoWeb == null)
                 {
