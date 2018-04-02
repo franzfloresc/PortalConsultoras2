@@ -14,6 +14,60 @@ var detalleLanzamiento = (function () {
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     };
 
+    var _getParamValueFromQueryString = function (queryStringName) {
+        queryStringName = queryStringName || '';
+        queryStringName = queryStringName.toLowerCase();
+        var queryStringValue = '';
+        var stringUrlParameters = location.href.toLowerCase().split('?');
+        if (stringUrlParameters.length > 1 && queryStringName != '') {
+            var arrParameterString = stringUrlParameters[1].split('&');
+            $.each(arrParameterString, function (index, stringParameter) {
+                var items = stringParameter.split('=');
+                var parameterName = $.trim(items[0]);
+                var parameterValue = $.trim(items[1]);
+                if (parameterName == queryStringName) {
+                    queryStringValue = parameterValue;
+                    return false;
+                }
+            });
+        }
+        return queryStringValue;
+    };
+
+    var _mostrarSetRelacionados = function () {
+        var cuv = _getParamValueFromQueryString("cuv");
+        var campania = _getParamValueFromQueryString("campaniaid");
+        
+
+        if (cuv == "" || campania == "" || campania == "0") {
+            return false;
+        }
+
+        var prod = GetProductoStorage(cuv, campania);
+        if (prod == null || prod == undefined || prod.CUV2 == undefined) {
+            return false;
+        }
+
+        var obj = new Object();
+        obj.CampaniaID = prod.CampaniaID;
+        obj.lista = new Array();
+        obj.lista.push(prod);
+
+        $.each(obj.lista, function (index, item) {
+            item.ClaseBloqueada = $.trim(item.ClaseBloqueada);
+            item.Posicion = index + 1;
+        });
+
+        SetHandlebars("#producto-landing-template", obj, "#divOfertaProductos");
+        EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
+
+        $("#divOfertaProductos").find('[data-item-accion="verdetalle"]').removeAttr("onclick");
+        $("#divOfertaProductos").find('[data-item-accion="verdetalle"]').removeAttr("data-item-accion");
+
+        $(".ver_detalle_carrusel").parent().parent().attr("onclick", "");
+        $(".ver_detalle_carrusel").remove();
+    }
+
     var _bindEvents = function () {
 
     }
@@ -21,6 +75,7 @@ var detalleLanzamiento = (function () {
     var _init = function (params) {
         var _params = $.extend(_params, params);
         _configScriptTag();
+        _mostrarSetRelacionados();
         _bindEvents();
     };
 
