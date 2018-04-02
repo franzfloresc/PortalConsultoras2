@@ -237,10 +237,8 @@ namespace Portal.Consultoras.BizLogic
             {
                 fechaHoraPais = DateTime.Now;
             }
-
-            bool isFox;
+            
             string codigoPais = null;
-
             try
             {
                 codigoPais = new BLZonificacion().SelectPais(paisID).CodigoISO;
@@ -288,30 +286,10 @@ namespace Portal.Consultoras.BizLogic
 
                 DataSet dsPedidosWeb;
                 DataTable dtPedidosWeb;
-                isFox = ConfigurationManager.AppSettings["IsFOX"].Contains(codigoPais);
 
                 try
                 {
-
                     daPedidoWeb.InsPedidoDescarga(fechaFacturacion, 1, tipoCronograma, marcarPedido, usuario, out nroLote);
-                    if (isFox)
-                    {
-                        if (ConfigurationManager.AppSettings["OrderDownloadIncludeDD"] == "1")
-                        {
-                            try
-                            {
-                                daPedidoDd = new DAPedidoDD(paisID);
-
-                                daPedidoDd.GetPedidoDDByFechaFacturacionFox(codigoPais, tipoCronograma, fechaFacturacion, nroLote, new string[] { element.DDName, element.DbName });
-                            }
-                            catch (SqlException ex)
-                            {
-                                LogManager.SaveLog(ex, usuario, codigoPais);
-                                throw new BizLogicException("No se pudo acceder al origen de datos de pedidos DD.", ex);
-                            }
-                        }
-                    }
-
                     dsPedidosWeb = daPedidoWeb.GetPedidoWebByFechaFacturacion(fechaFacturacion, tmpCronograma, nroLote);
                     dtPedidosWeb = dsPedidosWeb.Tables[0]; // Obtiene cabecera
                 }
@@ -323,7 +301,7 @@ namespace Portal.Consultoras.BizLogic
                         throw new BizLogicException("No se pudo acceder al origen de datos de pedidos Web.", ex);
                 }
 
-                if (ConfigurationManager.AppSettings["OrderDownloadIncludeDD"] == "1" && !isFox)
+                if (ConfigurationManager.AppSettings["OrderDownloadIncludeDD"] == "1")
                 {
                     try
                     {
@@ -513,56 +491,39 @@ namespace Portal.Consultoras.BizLogic
                         BLFileManager.CompressFile(headerFile, zipHeaderFile, ftpElement.Header);
                         BLFileManager.CompressFile(detailFile, zipDetailFile, ftpElement.Detail);
                     }
+                                        
+                    if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
+                    {
+                        try
+                        {
+                            BLFileManager.FtpUploadFile(ftpElement.Address + ftpElement.Header, headerFile, ftpElement.UserName, ftpElement.Password);
+                            BLFileManager.FtpUploadFile(ftpElement.Address + ftpElement.Detail, detailFile, ftpElement.UserName, ftpElement.Password);
+                        }
+                        catch (Exception ex)
+                        {
+                            LogManager.SaveLog(ex, usuario, codigoPais);
+                            throw new BizLogicException("No se pudo subir los archivos de pedidos al destino FTP.", ex);
+                        }
 
-                    if (isFox)
-                    {
-                        string srvName = ConfigurationManager.AppSettings["GetServerName"];
-                        headerFile = srvName + Path.GetFileName(headerFile);
-                        detailFile = srvName + Path.GetFileName(detailFile);
-                        detailFileAct = srvName + Path.GetFileName(detailFileAct);
-                        if (incluirConsultora) dataConFile = srvName + Path.GetFileName(dataConFile);
-                    }
-                    else
-                    {
-                        if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
+                        if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && tipoCronograma == 1 && string.IsNullOrEmpty(errorCoDat))
                         {
                             try
                             {
-                                BLFileManager.FtpUploadFile(ftpElement.Address + ftpElement.Header,
-                                    headerFile, ftpElement.UserName, ftpElement.Password);
-
-                                BLFileManager.FtpUploadFile(ftpElement.Address + ftpElement.Detail,
-                                    detailFile, ftpElement.UserName, ftpElement.Password);
+                                BLFileManager.FtpUploadFile(ftpElementCoDat.Address + ftpElementCoDat.Header,
+                                    dataConFile, ftpElementCoDat.UserName, ftpElementCoDat.Password);
                             }
                             catch (Exception ex)
                             {
                                 LogManager.SaveLog(ex, usuario, codigoPais);
-                                throw new BizLogicException("No se pudo subir los archivos de pedidos al destino FTP.", ex);
-                            }
-
-                            if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && !isFox && tipoCronograma == 1)
-                            {
-                                if (string.IsNullOrEmpty(errorCoDat))
-                                {
-                                    try
-                                    {
-                                        BLFileManager.FtpUploadFile(ftpElementCoDat.Address + ftpElementCoDat.Header,
-                                            dataConFile, ftpElementCoDat.UserName, ftpElementCoDat.Password);
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        LogManager.SaveLog(ex, usuario, codigoPais);
-                                        exceptionCoDat = ex;
-                                        errorCoDat = "No se pudo subir los archivos de datos de consultora al destino FTP.";
-                                    }
-                                }
+                                exceptionCoDat = ex;
+                                errorCoDat = "No se pudo subir los archivos de datos de consultora al destino FTP.";
                             }
                         }
-                        detailFile = headerFile = dataConFile = null;
-                        detailFileAct = null;
                     }
+                    detailFile = headerFile = dataConFile = null;
+                    detailFileAct = null;
 
-                    if (isFox || (dtPedidosDd != null && dtPedidosDd.Rows.Count > 0))
+                    if (dtPedidosDd != null && dtPedidosDd.Rows.Count > 0)
                     {
                         try
                         {
@@ -658,7 +619,7 @@ namespace Portal.Consultoras.BizLogic
                     MailUtilities.EnviarMailProcesoDescargaExcepcion("Descarga de pedidos", codigoPais, fechaHoraPais, descripcionProceso, error, errorExcepcion);
                 }
 
-                if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && !isFox && tipoCronograma == 1 &&
+                if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && tipoCronograma == 1 &&
                     string.IsNullOrEmpty(errorCoDat) && !string.IsNullOrEmpty(dataConFileS3))
                 {
                     try
