@@ -603,6 +603,7 @@ if (Model.Hermanos != null && Model.Hermanos.Any())
         </p>
         <div class="set_encuentras_producto_carrusel">
             <!-- aqui carrusel de productos -->
+            <div id="divOfertaProductos"></div>
         </div>
     </div>
 </div>
@@ -641,7 +642,6 @@ if (Model.Hermanos != null && Model.Hermanos.Any())
                 videoId: videoId,
                 descripcionResumen: descripcionResumen
             });
-            RDDetalleObtener();
         });
         function onYouTubeIframeAPIReady() {
             detalleLanzamiento.onYouTubeIframeAPIReady();

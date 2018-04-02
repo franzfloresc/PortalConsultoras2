@@ -1801,6 +1801,11 @@ namespace Portal.Consultoras.Web.Controllers
                  estrategia.ImgFondoDesktop != estrategiaDetalle.ImgFondoDesktop))
                 estrategia.ImgFondoDesktop = SaveFileS3(estrategia.ImgFondoDesktop);
             
+            if (!string.IsNullOrEmpty(estrategia.ImgFondoMobile) &&
+                (string.IsNullOrEmpty(estrategiaDetalle.ImgFondoMobile) ||
+                 estrategia.ImgFondoMobile != estrategiaDetalle.ImgFondoMobile))
+                estrategia.ImgFondoMobile = SaveFileS3(estrategia.ImgFondoMobile);
+
             if (!string.IsNullOrEmpty(estrategia.ImgFichaDesktop) &&
                 (string.IsNullOrEmpty(estrategiaDetalle.ImgFichaDesktop) ||
                  estrategia.ImgFichaDesktop != estrategiaDetalle.ImgFichaDesktop))

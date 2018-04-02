@@ -2,6 +2,12 @@
 
 var detalleLanzamiento = (function () {
     var _player;
+    var _elements = {
+        idPlantillaProductoLanding: "#producto-landing-template",
+        idDivSetsProductosRelacionados: "#divOfertaProductos",
+        verDetalleButtons: "[data-item-tag='verdetalle']",
+        eligeTuOpcionButtons: "[data-item-tag='eligetuopcion']"
+    };
     var _params = {
         videoId: "",
         descripcionResumen: ""
@@ -36,40 +42,58 @@ var detalleLanzamiento = (function () {
 
     var _mostrarSetRelacionados = function () {
         var cuv = _getParamValueFromQueryString("cuv");
-        var campania = _getParamValueFromQueryString("campaniaid");
+        var campaniaId = _getParamValueFromQueryString("campaniaid");
         
 
-        if (cuv == "" || campania == "" || campania == "0") {
+        if (cuv == "" || campaniaId == "" || campaniaId == "0") {
             return false;
         }
 
-        var prod = GetProductoStorage(cuv, campania);
+        var prod = GetProductoStorage(cuv, campaniaId);
         if (prod == null || prod == undefined || prod.CUV2 == undefined) {
             return false;
         }
 
-        var obj = new Object();
-        obj.CampaniaID = prod.CampaniaID;
-        obj.lista = new Array();
-        obj.lista.push(prod);
+        var data = new Object();
+        data.CampaniaID = prod.CampaniaID;
+        data.lista = new Array();
+        data.lista.push(prod);
 
-        $.each(obj.lista, function (index, item) {
+        $.each(data.lista, function (index, item) {
             item.ClaseBloqueada = $.trim(item.ClaseBloqueada);
             item.Posicion = index + 1;
         });
 
-        SetHandlebars("#producto-landing-template", obj, "#divOfertaProductos");
-        EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
-
-        $("#divOfertaProductos").find('[data-item-accion="verdetalle"]').removeAttr("onclick");
-        $("#divOfertaProductos").find('[data-item-accion="verdetalle"]').removeAttr("data-item-accion");
-
-        $(".ver_detalle_carrusel").parent().parent().attr("onclick", "");
-        $(".ver_detalle_carrusel").remove();
+        SetHandlebars(_elements.idPlantillaProductoLanding, data, _elements.idDivSetsProductosRelacionados);
     }
 
-    var _bindEvents = function () {
+    var _redigirAVerDetallaLanzamiento = function (event) {
+        event.stopPropagation();
+        
+        var cadenaEstrategia = $(event.target).parents("[data-item]").find("[data-estrategia]").attr("data-estrategia");
+        var estrategia = (cadenaEstrategia != "") ? JSON.parse(cadenaEstrategia) : {};
 
+        var url = "/";
+        if (isMobile()) {
+            url += "mobile/";
+        }
+        url += "Lanzamientos/Detalle?";
+        url += "cuv=" + estrategia.CUV2;
+        url += "&campaniaId=" + estrategia.CampaniaID;
+
+        location.href = url;
+    };
+
+    var _bindEvents = function () {
+        $(_elements.verDetalleButtons)
+            .removeAttr("onclick")
+            .off("click")
+            .on("click", _redigirAVerDetallaLanzamiento);
+        $(_elements.eligeTuOpcionButtons)
+            .removeAttr("onclick")
+            .off("click")
+            .on("click", _redigirAVerDetallaLanzamiento);
+        
     }
 
     var _init = function (params) {
