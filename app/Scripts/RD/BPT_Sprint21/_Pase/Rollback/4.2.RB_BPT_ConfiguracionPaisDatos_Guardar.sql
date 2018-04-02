@@ -1,7 +1,9 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
-CREATE PROCEDURE dbo.ConfiguracionPaisDatos_Guardar
+GO
+
+ALTER PROCEDURE dbo.ConfiguracionPaisDatos_Guardar
 	@ConfiguracionPaisID int
 	,@CampaniaID int
 	,@Componente varchar(100)
@@ -60,7 +62,9 @@ GO
 USE BelcorpMexico
 GO
 
-CREATE PROCEDURE dbo.ConfiguracionPaisDatos_Guardar
+GO
+
+ALTER PROCEDURE dbo.ConfiguracionPaisDatos_Guardar
 	@ConfiguracionPaisID int
 	,@CampaniaID int
 	,@Componente varchar(100)
@@ -119,7 +123,9 @@ GO
 USE BelcorpColombia
 GO
 
-CREATE PROCEDURE dbo.ConfiguracionPaisDatos_Guardar
+GO
+
+ALTER PROCEDURE dbo.ConfiguracionPaisDatos_Guardar
 	@ConfiguracionPaisID int
 	,@CampaniaID int
 	,@Componente varchar(100)
@@ -178,7 +184,9 @@ GO
 USE BelcorpSalvador
 GO
 
-CREATE PROCEDURE dbo.ConfiguracionPaisDatos_Guardar
+GO
+
+ALTER PROCEDURE dbo.ConfiguracionPaisDatos_Guardar
 	@ConfiguracionPaisID int
 	,@CampaniaID int
 	,@Componente varchar(100)
@@ -237,7 +245,9 @@ GO
 USE BelcorpPuertoRico
 GO
 
-CREATE PROCEDURE dbo.ConfiguracionPaisDatos_Guardar
+GO
+
+ALTER PROCEDURE dbo.ConfiguracionPaisDatos_Guardar
 	@ConfiguracionPaisID int
 	,@CampaniaID int
 	,@Componente varchar(100)
@@ -296,7 +306,9 @@ GO
 USE BelcorpPanama
 GO
 
-CREATE PROCEDURE dbo.ConfiguracionPaisDatos_Guardar
+GO
+
+ALTER PROCEDURE dbo.ConfiguracionPaisDatos_Guardar
 	@ConfiguracionPaisID int
 	,@CampaniaID int
 	,@Componente varchar(100)
@@ -355,7 +367,9 @@ GO
 USE BelcorpGuatemala
 GO
 
-CREATE PROCEDURE dbo.ConfiguracionPaisDatos_Guardar
+GO
+
+ALTER PROCEDURE dbo.ConfiguracionPaisDatos_Guardar
 	@ConfiguracionPaisID int
 	,@CampaniaID int
 	,@Componente varchar(100)
@@ -414,7 +428,9 @@ GO
 USE BelcorpEcuador
 GO
 
-CREATE PROCEDURE dbo.ConfiguracionPaisDatos_Guardar
+GO
+
+ALTER PROCEDURE dbo.ConfiguracionPaisDatos_Guardar
 	@ConfiguracionPaisID int
 	,@CampaniaID int
 	,@Componente varchar(100)
@@ -473,7 +489,9 @@ GO
 USE BelcorpDominicana
 GO
 
-CREATE PROCEDURE dbo.ConfiguracionPaisDatos_Guardar
+GO
+
+ALTER PROCEDURE dbo.ConfiguracionPaisDatos_Guardar
 	@ConfiguracionPaisID int
 	,@CampaniaID int
 	,@Componente varchar(100)
@@ -532,7 +550,9 @@ GO
 USE BelcorpCostaRica
 GO
 
-CREATE PROCEDURE dbo.ConfiguracionPaisDatos_Guardar
+GO
+
+ALTER PROCEDURE dbo.ConfiguracionPaisDatos_Guardar
 	@ConfiguracionPaisID int
 	,@CampaniaID int
 	,@Componente varchar(100)
@@ -591,7 +611,9 @@ GO
 USE BelcorpChile
 GO
 
-CREATE PROCEDURE dbo.ConfiguracionPaisDatos_Guardar
+GO
+
+ALTER PROCEDURE dbo.ConfiguracionPaisDatos_Guardar
 	@ConfiguracionPaisID int
 	,@CampaniaID int
 	,@Componente varchar(100)
@@ -650,7 +672,9 @@ GO
 USE BelcorpBolivia
 GO
 
-CREATE PROCEDURE dbo.ConfiguracionPaisDatos_Guardar
+GO
+
+ALTER PROCEDURE dbo.ConfiguracionPaisDatos_Guardar
 	@ConfiguracionPaisID int
 	,@CampaniaID int
 	,@Componente varchar(100)

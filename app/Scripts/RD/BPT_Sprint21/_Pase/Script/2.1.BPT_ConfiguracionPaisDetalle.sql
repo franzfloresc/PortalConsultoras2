@@ -1,4 +1,4 @@
-Use BelcorpPeru
+﻿Use BelcorpPeru
 
 go
 declare @ConfPaisId int = 0
@@ -95,7 +95,7 @@ begin
 	update ConfiguracionPais
 	set Estado = 1
 	, Excluyente = 0
-	, DesdeCampana = 201807
+	, DesdeCampania = 201807
 	where ConfiguracionPaisID = @ConfPaisId 
 
 end
