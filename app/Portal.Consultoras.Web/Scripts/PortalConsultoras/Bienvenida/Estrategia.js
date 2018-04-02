@@ -13,7 +13,8 @@ var origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
 var divAgregado = null;
 
 $(document).ready(function () {
-    $('[data-tono-change]').click(function (e) {
+    $('body').on('touchstart click', '[data-tono-change]', function (e) {
+        e.preventDefault();
         var accion = $(this).attr("data-tono-change");
 
         var hideSelect = $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible");
