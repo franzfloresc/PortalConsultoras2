@@ -31,13 +31,13 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CargaMasiva" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd12" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd13" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
@@ -84,6 +84,18 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetPedidoWebSetProducto_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPedidoWebSetProductoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPedidoWebSet_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPedidoWebSet" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPedidoWebSet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPedidoWebSetResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_EliminarPedidoWebSet_InputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarPedidoWebSet" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_EliminarPedidoWebSet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarPedidoWebSetResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_InsertEstrategiaOfertaParaTi_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertEstrategiaOfertaParaTi" />
@@ -2418,6 +2430,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidoWebSetProducto" message="tns:IPedidoService_GetPedidoWebSetProducto_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidoWebSetProductoResponse" message="tns:IPedidoService_GetPedidoWebSetProducto_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerPedidoWebSet">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPedidoWebSet" message="tns:IPedidoService_ObtenerPedidoWebSet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPedidoWebSetResponse" message="tns:IPedidoService_ObtenerPedidoWebSet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminarPedidoWebSet">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/EliminarPedidoWebSet" message="tns:IPedidoService_EliminarPedidoWebSet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/EliminarPedidoWebSetResponse" message="tns:IPedidoService_EliminarPedidoWebSet_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsertEstrategiaOfertaParaTi">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertEstrategiaOfertaParaTi" message="tns:IPedidoService_InsertEstrategiaOfertaParaTi_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertEstrategiaOfertaParaTiResponse" message="tns:IPedidoService_InsertEstrategiaOfertaParaTi_OutputMessage" />
@@ -4013,6 +4033,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetPedidoWebSetProducto">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidoWebSetProducto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPedidoWebSet">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPedidoWebSet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarPedidoWebSet">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/EliminarPedidoWebSet" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7536,6 +7574,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetPedidoWebSetProducto">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidoWebSetProducto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPedidoWebSet">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPedidoWebSet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarPedidoWebSet">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/EliminarPedidoWebSet" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

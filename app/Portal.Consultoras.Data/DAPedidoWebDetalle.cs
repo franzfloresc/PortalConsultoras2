@@ -382,7 +382,7 @@ namespace Portal.Consultoras.Data
             return Convert.ToInt32(Context.ExecuteScalar(command)) > 0;
         }
 
-        public IDataReader GetPedidoWebSetProducto(int Campania, int ConsultoraId, int Cantidad)
+        public IDataReader GetPedidoWebSetProducto(int Campania, long ConsultoraId, int Cantidad)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebSetProducto");
             Context.Database.AddInParameter(command, "@Campania", DbType.Int32, Campania);

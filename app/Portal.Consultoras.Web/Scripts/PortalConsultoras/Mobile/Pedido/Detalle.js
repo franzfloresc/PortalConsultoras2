@@ -262,7 +262,7 @@ function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetall
     
     if (CliDes.length == 0)
         CliID = 0;
-
+    
     $.getJSON(urls.urlValidarUnidadesPermitidas, { CUV: CUV, Cantidad: StockNuevo, PrecioUnidad: PrecioUnidad }, function (data) {
         if (data.message.length > 0) {
             CloseLoading();

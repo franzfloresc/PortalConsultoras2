@@ -1812,6 +1812,7 @@ function CerrarProductoAgregado() {
 }
 
 function ConfirmarEliminarRegaloGenerico(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId) {
+    setId = setId || 5; //todo: agregar a la llamada
     var regalo = GetUpSellingGanado();
 
     if (ofertaFinalEstado == 'True' && ofertaFinalAlgoritmo == 'OFR' && regalo) {
@@ -1846,6 +1847,7 @@ function CerrarAvisoEliminarRegalo() {
 
 
 function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId) {
+    setId = setId || 5; //todo: agregar a la llamada
     var param = {
         CampaniaID: campaniaId,
         PedidoID: pedidoId,
@@ -2690,7 +2692,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
         Nombre: CliDes,
         DescripcionProd: DesProd,
         ClienteID_: ClienteID_,
-        SetId:19
+        SetId: 19
     };
 
     AbrirSplash();
@@ -2775,6 +2777,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
 }
 
 function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi) {
+    
     AbrirSplash();
     if (HorarioRestringido()) {
         var CantidadAnti = $('#txtLPTempCant' + PedidoDetalleID).val();
