@@ -235,7 +235,9 @@ namespace Portal.Consultoras.BizLogic.Reserva
             if (detalle.Observaciones != Constantes.ProlSiccObs.Promocion && detalle.PrecioUnitario == 0) return null;
 
             List<string> listCuvOrigen = null;
-            bool esExplotado = detalle.UnidadesDemandadas == 0;
+            bool esHijo = detalle.UnidadesDemandadas == 0;
+
+            bool esExplotado = esHijo;
             if (esExplotado)
             {
                 listCuvOrigen = listDetalle.Where(d => d.IdOferta == detalle.IdOferta && d.UnidadesDemandadas > 0).Select(d => d.CUV).ToList();
@@ -262,10 +264,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             }
             else if (detalle.Observaciones == Constantes.ProlSiccObs.Promocion)
             {
-                //VALCODEORIG
-                //VALCODEORIG
-                //VALCODEORIG
-                if (esExplotado) return null;
+                if (esHijo) return null;
                 
                 descKey = detalle.IdEstrategia == 2003 ? Constantes.ProlObsCod.Promocion2003 : Constantes.ProlObsCod.Promocion;
                 caso = detalle.IdEstrategia == 2003 ? 1 : 7;
@@ -298,6 +297,19 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
             if (esExplotado) return CreateListPedidoObservacionExplotado(pedidoObservacion, listCuvOrigen);
             return CreateListPedidoObservacionOrigen(pedidoObservacion, detalle);
+        }
+
+        private bool EsExplotadoInvalido(List<Func<bool>> listFnEsExp, List<Func<bool>> listFnEsInv, out bool esExplotado)
+        {
+            esExplotado = false;
+            foreach (var fnEsExp in listFnEsExp)
+            {
+                if(esExplotado) break;
+
+                esExplotado = fnEsExp();
+                if (esExplotado && listFnEsInv[0]()) return true;
+            }
+            return false;
         }
 
         private List<BEPedidoObservacion> CreateListPedidoObservacionExplotado(BEPedidoObservacion pedidoObservacion, List<string> listCuvOrigen)
