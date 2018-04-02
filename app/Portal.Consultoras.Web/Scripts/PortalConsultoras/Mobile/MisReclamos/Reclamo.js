@@ -575,7 +575,7 @@ $(document).ready(function () {
 
                         data.detalle = data.detalle || new Array();
                         if (data.detalle.length <= 0) {
-                            messageInfoError("Producto no disponible para atención por este medio, comunícate con el <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
+                            messageInfoError("Producto no disponible para atención por este medio, comunícate con el <span>Chat en Línea</span>.");
 
                         } else {
                             if (data.detalle.length > 1) {
@@ -597,7 +597,7 @@ $(document).ready(function () {
                 pedido = pedido || new Object();
 
                 if (pedido.CDRWebID > 0 && pedido.CDRWebEstado != 1 && pedido.CDRWebEstado != 4) {
-                    messageInfoError("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
+                    messageInfoError("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro <span>Chat en Línea</span>.");
                     return false;
 
                 } else {
