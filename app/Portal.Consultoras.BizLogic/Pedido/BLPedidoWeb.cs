@@ -441,8 +441,7 @@ namespace Portal.Consultoras.BizLogic
                         {
                             try
                             {
-                                BLFileManager.FtpUploadFile(ftpElementCoDat.Address + ftpElementCoDat.Header,
-                                    dataConFile, ftpElementCoDat.UserName, ftpElementCoDat.Password);
+                                BLFileManager.FtpUploadFile(ftpElementCoDat.Address + ftpElementCoDat.Header, dataConFile, ftpElementCoDat.UserName, ftpElementCoDat.Password);
                             }
                             catch (Exception ex)
                             {
@@ -994,6 +993,7 @@ namespace Portal.Consultoras.BizLogic
                     case "IPUSUARIO": item = (DataRecord.HasColumn(row, "IPUsuario") ? row["IPUsuario"].ToString() : string.Empty); break;
                     case "TIPOCUPON": item = (DataRecord.HasColumn(row, "TipoCupon") ? row["TipoCupon"].ToString() : string.Empty); break;
                     case "VALORCUPON": item = (DataRecord.HasColumn(row, "ValorCupon") ? row["ValorCupon"].ToString() : string.Empty); break;
+                    case "PEDIDOSAPID": item = (DataRecord.HasColumn(row, "PedidoSapId") ? row["PedidoSapId"].ToString() : string.Empty); break;
                     default: item = string.Empty; break;
                 }
                 line += item.PadRight(field.Size);
