@@ -57,7 +57,7 @@ namespace Portal.Consultoras.Web.Controllers
                 sessionManager.SetObservacionesProl(null);
                 sessionManager.SetPedidoWeb(null);
                 sessionManager.SetDetallesPedido(null);
-
+                sessionManager.SetDetallesPedidoSetAgrupado(null);
                 AgregarKitNuevas();
 
                 #region Flexipago
@@ -803,7 +803,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(objvalida);
             }
             List<BEPedidoWebDetalle> listaPedidoWebDetalle = new List<BEPedidoWebDetalle>();
-            if (model.SetId > 0)
+            if (model.SetID > 0)
             {
 
                 var set = _pedidoSetProvider.ObtenerPorId(userData.PaisID, model.SetId);
@@ -851,9 +851,9 @@ namespace Portal.Consultoras.Web.Controllers
                    : "Hubo un problema al intentar actualizar el registro. Por favor inténtelo nuevamente.";
             }
 
-            if (!errorServer && model.SetId > 0)
+            if (!errorServer && model.SetID > 0)
             {
-                var setDeleted = _pedidoSetProvider.ActualizarCantidadSet(userData.PaisID, model.SetId, int.Parse(model.Cantidad));
+                var setDeleted = _pedidoSetProvider.ActualizarCantidadSet(userData.PaisID, model.SetID, int.Parse(model.Cantidad));
                 if (!setDeleted.Success)
                     message = setDeleted.Message;
             }
@@ -922,7 +922,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var listaPedidoWebDetalle = sessionManager.GetDetallesPedido() ?? new List<BEPedidoWebDetalle>();
+                var listaPedidoWebDetalle = ObtenerPedidoWebDetalle();
+
                 var pedidoEliminado = listaPedidoWebDetalle.FirstOrDefault(x => x.CUV == CUV);
                 if (pedidoEliminado == null)
                     return new Tuple<bool, JsonResult>(false, ErrorJson(Constantes.MensajesError.DeletePedido_CuvNoExiste));
@@ -1064,6 +1065,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     sessionManager.SetPedidoWeb(null);
                     sessionManager.SetDetallesPedido(null);
+                    sessionManager.SetDetallesPedidoSetAgrupado(null);
                     Session[Constantes.ConstSession.ListaEstrategia] = null;
 
                     UpdPedidoWebMontosPROL();
@@ -1119,6 +1121,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 sessionManager.SetDetallesPedido(null);
+                sessionManager.SetDetallesPedidoSetAgrupado(null);
+
                 var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
                 var total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
                 var formatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
@@ -1443,6 +1447,7 @@ namespace Portal.Consultoras.Web.Controllers
                     DeletePedido(item);
                 }
                 sessionManager.SetDetallesPedido(null);
+                sessionManager.SetDetallesPedidoSetAgrupado(null);
             }
         }
 
@@ -2123,6 +2128,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 sessionManager.SetObservacionesProl(null);
                 sessionManager.SetDetallesPedido(null);
+                sessionManager.SetDetallesPedidoSetAgrupado(null);
                 if (resultado.RefreshMontosProl)
                 {
                     sessionManager.SetMontosProl(
@@ -3102,6 +3108,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 sessionManager.SetDetallesPedido(null);
+                sessionManager.SetDetallesPedidoSetAgrupado(null);
                 olstTempListado = ObtenerPedidoWebDetalle();
                 UpdPedidoWebMontosPROL();
             }
@@ -3521,7 +3528,7 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoIso = userData.CodigoISO,
                     EstadoSimplificacionCuv = userData.EstadoSimplificacionCUV
                 };
-                var listaDetalle = ObtenerPedidoWebDetalle() ?? new List<BEPedidoWebDetalle>();
+                var listaDetalle = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
 
                 if (mobil)
                 {
@@ -3544,6 +3551,7 @@ namespace Portal.Consultoras.Web.Controllers
                         if (isInsert > 0)
                         {
                             sessionManager.SetDetallesPedido(null);
+                            sessionManager.SetDetallesPedidoSetAgrupado(null);
                             listaDetalle = ObtenerPedidoWebDetalle();
 
                             UpdPedidoWebMontosPROL();
@@ -4354,17 +4362,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (respuesta.Data.ToString().Contains("success = True"))
                 {
-
-
                     string strCuvs = string.Empty;
                     if (ListaCuvsTemporal.Any())
                     {
-
                         ListaCuvsTemporal.OrderByDescending(x => x).Distinct().Each(x =>
                         {
-
                             strCuvs = strCuvs + string.Format("{0}:{1},", x, ListaCuvsTemporal.Count(a => a == x));
-
                         });
                     }
 

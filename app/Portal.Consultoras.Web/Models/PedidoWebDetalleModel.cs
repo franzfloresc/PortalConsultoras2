@@ -146,6 +146,6 @@ namespace Portal.Consultoras.Web.Models
         public int CodigoCatalago { get; set; }
 
         public bool FlagNueva { get; set; }
-        public int SetId { get; set; }
+        public int SetID { get; set; }
     }
 }

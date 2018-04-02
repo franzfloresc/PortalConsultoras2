@@ -156,6 +156,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool ProgramaNuevoActivado { get; set; }
 
+        [DataMember]
+        public int SetID { get; set; }
+
         public BEPedidoWebDetalle()
         { }
 
@@ -252,7 +255,10 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "FlagNueva"))
                 FlagNueva = Convert.ToBoolean(row["FlagNueva"]);
             if (DataRecord.HasColumn(row, "ProgramaNuevoActivado"))
-                ProgramaNuevoActivado = Convert.ToBoolean(row["ProgramaNuevoActivado"]);               
+                ProgramaNuevoActivado = Convert.ToBoolean(row["ProgramaNuevoActivado"]);
+
+            if (DataRecord.HasColumn(row, "SetID"))
+                SetID = Convert.ToInt32(row["SetID"]);
         }
 
         public BEPedidoWebDetalle(IDataRecord row, string Consultora)
@@ -363,6 +369,9 @@ namespace Portal.Consultoras.Entities
                 FlagNueva = Convert.ToBoolean(row["FlagNueva"]);
             if (DataRecord.HasColumn(row, "ProgramaNuevoActivado"))
                 ProgramaNuevoActivado = Convert.ToBoolean(row["ProgramaNuevoActivado"]);
+
+            if (DataRecord.HasColumn(row, "SetID"))
+                SetID = Convert.ToInt32(row["SetID"]);
         }
     }
 

@@ -47,7 +47,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     return new BEPedidoWeb();
                 }
 
-                public override List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
+                public override List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle(bool AgruparSet = false)
                 {
                     return new List<BEPedidoWebDetalle>();
                 }
@@ -76,7 +76,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     return new BEPedidoWeb();
                 }
 
-                public override List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
+                public override List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle(bool AgruparSet = false)
                 {
                     return new List<BEPedidoWebDetalle>(){
                         new BEPedidoWebDetalle(){ Cantidad = 1},

@@ -167,12 +167,13 @@ namespace Portal.Consultoras.Web.Controllers
             var detallesPedidoWeb = (List<BEPedidoWebDetalle>)null;
             try
             {
-                detallesPedidoWeb = sessionManager.GetDetallesPedido();
+                detallesPedidoWeb =  sessionManager.GetDetallesPedido();
 
                 if (detallesPedidoWeb == null)
                 {
                     using (var pedidoServiceClient = new PedidoServiceClient())
                     {
+
                         var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
                         {
                             PaisId = userData.PaisID,
@@ -204,6 +205,63 @@ namespace Portal.Consultoras.Web.Controllers
                 SetUserData(userData);
 
                 sessionManager.SetDetallesPedido(detallesPedidoWeb);
+            }
+            catch (Exception ex)
+            {
+                detallesPedidoWeb = detallesPedidoWeb ?? new List<BEPedidoWebDetalle>();
+                sessionManager.SetDetallesPedido(detallesPedidoWeb);
+
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return detallesPedidoWeb;
+        }
+
+        public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado()
+        {
+            var detallesPedidoWeb = (List<BEPedidoWebDetalle>)null;
+            try
+            {
+               
+                    detallesPedidoWeb = sessionManager.GetDetallesPedidoSetAgrupado();
+
+                if (detallesPedidoWeb == null)
+                {
+                    using (var pedidoServiceClient = new PedidoServiceClient())
+                    {
+                         
+                        var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+                        {
+                            PaisId = userData.PaisID,
+                            CampaniaId = userData.CampaniaID,
+                            ConsultoraId = userData.ConsultoraID,
+                            Consultora = userData.NombreConsultora,
+                            EsBpt = EsOpt() == 1,
+                            CodigoPrograma = userData.CodigoPrograma,
+                            NumeroPedido = userData.ConsecutivoNueva,
+                            AgruparSet= true
+                        };
+
+                        detallesPedidoWeb = pedidoServiceClient.SelectByCampania(bePedidoWebDetalleParametros).ToList();
+                    }
+                }
+
+                foreach (var item in detallesPedidoWeb)
+                {
+                    item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
+                    item.Nombre = string.IsNullOrEmpty(item.Nombre) ? userData.NombreConsultora : item.Nombre;
+                }
+                var observacionesProl = sessionManager.GetObservacionesProl();
+                if (detallesPedidoWeb.Count > 0 && observacionesProl != null)
+                {
+                    detallesPedidoWeb = PedidoConObservaciones(detallesPedidoWeb, observacionesProl);
+                }
+
+                userData.PedidoID = detallesPedidoWeb.Count > 0 ? detallesPedidoWeb[0].PedidoID : 0;
+
+                SetUserData(userData);
+
+                sessionManager.SetDetallesPedidoSetAgrupado(detallesPedidoWeb);
             }
             catch (Exception ex)
             {

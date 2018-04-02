@@ -754,6 +754,7 @@
       <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
       <xs:element minOccurs="0" name="PrecioUnidad" type="xs:decimal" />
       <xs:element minOccurs="0" name="ProgramaNuevoActivado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="SetID" type="xs:int" />
       <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Stock" type="xs:int" />
       <xs:element minOccurs="0" name="SubTipoOfertaSisID" type="xs:int" />
@@ -2200,6 +2201,7 @@
   <xs:element name="BEPedidoWebResult" nillable="true" type="tns:BEPedidoWebResult" />
   <xs:complexType name="BEPedidoWebDetalleParametros">
     <xs:sequence>
+      <xs:element minOccurs="0" name="AgruparSet" type="xs:boolean" />
       <xs:element minOccurs="0" name="CampaniaId" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Consultora" nillable="true" type="xs:string" />

@@ -351,6 +351,7 @@ function messageInfoError(message, titulo, fnAceptar) {
 
 
 function CargarResumenCampaniaHeader(showPopup) {
+    
     showPopup = showPopup || false;
 
     var soloCantidad = true;
@@ -363,7 +364,7 @@ function CargarResumenCampaniaHeader(showPopup) {
 
     $.ajax({
         type: 'POST',
-        url: baseUrl + 'GestionContenido/GetResumenCampania',
+        url: baseUrl + 'GestionContenido/GetResumenCampaniaAgrupado',
         data: JSON.stringify({ soloCantidad: soloCantidad }),
         cache: false,
         dataType: 'json',
