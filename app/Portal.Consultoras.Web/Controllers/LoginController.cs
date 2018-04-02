@@ -3007,6 +3007,10 @@ namespace Portal.Consultoras.Web.Controllers
                 oUsuCorreo.PrimerNombre = Convert.ToString(TempData["PrimerNombre"]);
                 oUsuCorreo.NombreCompleto = Convert.ToString(TempData["NombreCompleto"]);
                 oUsuCorreo.Correo = Convert.ToString(TempData["Email"]);
+                oUsuCorreo.Celular = Convert.ToString(TempData["Celular"]);
+                oUsuCorreo.tipoEnvio = Convert.ToInt32(TempData["TipoEnvio"]);
+                oUsuCorreo.CodigoISO = Util.GetPaisISO(PaisID);
+                oUsuCorreo.IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
 
                 if (oUsuCorreo.Correo != "")
                 {
@@ -3051,11 +3055,15 @@ namespace Portal.Consultoras.Web.Controllers
                 int PaisID = Convert.ToInt32(TempData["PaisID"]);
                 bool EsMobile = EsDispositivoMovil();
 
-                if (Convert.ToString(TempData["Celular"]) != "")
+                if (PaisID != 0 && Convert.ToString(TempData["Celular"]) != "")
                 {
+
                     oUsuCorreo.CodigoUsuario = Convert.ToString(TempData["CodigoUsuario"]);
                     oUsuCorreo.PrimerNombre = Convert.ToString(TempData["PrimerNombre"]);
+                    oUsuCorreo.NombreCompleto = Convert.ToString(TempData["NombreCompleto"]);
+                    oUsuCorreo.Correo = Convert.ToString(TempData["Email"]);
                     oUsuCorreo.Celular = Convert.ToString(TempData["Celular"]);
+                    oUsuCorreo.tipoEnvio = Convert.ToInt32(TempData["TipoEnvio"]);
                     oUsuCorreo.CodigoISO = Util.GetPaisISO(PaisID);
                     oUsuCorreo.IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
 
@@ -3117,14 +3125,18 @@ namespace Portal.Consultoras.Web.Controllers
                 string iguales = "";
                 string newUri = "";
                 bool igual = false;
-
-                //oUsuCorreo = ((BEUsuarioCorreo)Session["UsuarioCorreo"]);
-
-                paisID = Convert.ToInt32(TempData["PaisID"]);
-                oUsuCorreo.CodigoUsuario = Convert.ToString(TempData["CodigoUsuario"]);
-
+                
                 oUsuCorreo.OrigenID = OrigenID;
+                paisID = Convert.ToInt32(TempData["PaisID"]);
+
+                oUsuCorreo.CodigoUsuario = Convert.ToString(TempData["CodigoUsuario"]);
+                oUsuCorreo.PrimerNombre = Convert.ToString(TempData["PrimerNombre"]);
+                oUsuCorreo.NombreCompleto = Convert.ToString(TempData["NombreCompleto"]);
+                oUsuCorreo.Correo = Convert.ToString(TempData["Email"]);
+                oUsuCorreo.Celular = Convert.ToString(TempData["Celular"]);
                 oUsuCorreo.tipoEnvio = Convert.ToInt32(TempData["TipoEnvio"]);
+                oUsuCorreo.CodigoISO = Util.GetPaisISO(paisID);
+                oUsuCorreo.IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
@@ -3156,6 +3168,8 @@ namespace Portal.Consultoras.Web.Controllers
                             };
                     }
                 }
+
+                SetTemData(oUsuCorreo, paisID);
 
                 return Json(new
                 {

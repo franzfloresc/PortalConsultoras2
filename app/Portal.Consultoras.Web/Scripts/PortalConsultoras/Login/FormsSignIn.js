@@ -918,9 +918,8 @@ function Enmascarar_Numero(pNumCelular){
 }
 
 function ProcesaEnvioEmail() {
-    if (nroIntentosCo > 2) {        
+    if (nroIntentosCo > 2)      
         return false;
-    }
     
     var paisId = 0;
 
@@ -960,6 +959,8 @@ function ProcesaEnvioEmail() {
                 $("#popup2").show();  
                 $("#divPopupIntentosCorreo").show();
                 $(".correoDestino").html("<b>" + correoRecuperar + "</b>");
+                $(".codigoSms").val("");
+                $(".codigoInvalido").hide();
                 $("#1aDigito").focus();
                 
                 if (nroIntentosCo === 1) {
@@ -996,11 +997,10 @@ function ProcesaEnvioEmail() {
 function ProcesaEnvioSMS() {
     clearTimeout(t);
 
-    if (nroIntentosSms > 2) {
+    if (nroIntentosSms > 2)
         return false;
-    }
 
-    //var paisId = $("#cboPaisCambioClave").val(); 
+    $(".codigoSms").val("");
 
     var parametros = {
         NroIntetos: nroIntentosSms,
@@ -1455,14 +1455,17 @@ function TiempoSMS(tempo) {
         }
         else {
             clearTimeout(t);            
-            if (nroIntentosSms >= 2) {
-                $("#popup2").hide();
-                RecuperarContrasenia();  
+            if (nroIntentosSms >= 2 || nroIntentosCo >= 2) {
+                $(".aVolverInicio").trigger("click");                  
             } else {
-                if (origen == 1)
-                ProcesaEnvioSMS();
-                else
+                if (origen == 1) {
+                    nroIntentosSms = nroIntentosSms + 1
+                    ProcesaEnvioSMS();
+                }                    
+                else {
+                    nroIntentosCo = nroIntentosCo + 1
                     ProcesaEnvioEmail();
+                }                    
             }    
         }
     }, 1000, "JavaScript");
