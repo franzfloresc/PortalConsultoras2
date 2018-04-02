@@ -12,6 +12,7 @@ using Portal.Consultoras.Web.ServicePROLConsultas;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -788,54 +789,72 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Update(PedidoWebDetalleModel model)
         {
+            bool errorServer = false;
+            string tipo = string.Empty;
+            bool modificoBackOrder = false;
+            string message = string.Empty;
+            decimal total = 0;
+            string totalFormato = string.Empty;
+            string totalCliente = string.Empty;
+
             var objvalida = InsertarMensajeValidarDatos(model.ClienteID.ToString());
             if (objvalida != null)
             {
                 return Json(objvalida);
             }
+            List<BEPedidoWebDetalle> listaPedidoWebDetalle = new List<BEPedidoWebDetalle>();
             if (model.SetId > 0)
             {
-                //Traer data de "dbo.PedidoWebSetDetalle"
-                //generar objeto de siempre
-                //Aumentar cantidad asignado
+                using (var sv = new PedidoServiceClient())
+                {
+                    BEPedidoWebDetalle[] pedidoWebSetProducto = sv.GetPedidoWebSetProducto(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, int.Parse(model.Cantidad));
+                    listaPedidoWebDetalle.AddRange(pedidoWebSetProducto);
+                    listaPedidoWebDetalle.ForEach(x => x.PaisID = userData.PaisID);
+                }
+            }
+            else
+            {
+                var obePedidoWebDetalle = new BEPedidoWebDetalle
+                {
+                    PaisID = userData.PaisID,
+                    CampaniaID = model.CampaniaID,
+                    PedidoID = model.PedidoID,
+                    PedidoDetalleID = Convert.ToInt16(model.PedidoDetalleID),
+                    Cantidad = Convert.ToInt32(model.Cantidad),
+                    PrecioUnidad = model.PrecioUnidad,
+                    ClienteID = string.IsNullOrEmpty(model.Nombre) ? (short)0 : Convert.ToInt16(model.ClienteID),
+                    CUV = model.CUV,
+                    TipoOfertaSisID = model.TipoOfertaSisID,
+                    Stock = model.Stock,
+                    Flag = model.Flag,
+                    DescripcionProd = model.DescripcionProd
+                };
 
+                obePedidoWebDetalle.ImporteTotal = obePedidoWebDetalle.Cantidad * obePedidoWebDetalle.PrecioUnidad;
+                obePedidoWebDetalle.Nombre = obePedidoWebDetalle.ClienteID == 0 ? userData.NombreConsultora : model.Nombre;
+
+                listaPedidoWebDetalle.Add(obePedidoWebDetalle);
+            }
+            foreach (BEPedidoWebDetalle obePedidoWebDetalle in listaPedidoWebDetalle)
+            {
+                var olstPedidoWebDetalle = AdministradorPedido(obePedidoWebDetalle, "U", out errorServer, out tipo, out modificoBackOrder);
+                total += olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
+                totalFormato = Util.DecimalToStringFormat(total, userData.CodigoISO);
+
+                totalCliente += PedidoWebTotalClienteFormato(model.ClienteID_, olstPedidoWebDetalle);
+
+                message = !errorServer ? "El registro ha sido actualizado de manera exitosa."
+                   : tipo.Length > 1 ? tipo
+                   : "Hubo un problema al intentar actualizar el registro. Por favor inténtelo nuevamente.";
             }
 
-
-
-            var obePedidoWebDetalle = new BEPedidoWebDetalle
+            if (!errorServer)
             {
-                PaisID = userData.PaisID,
-                CampaniaID = model.CampaniaID,
-                PedidoID = model.PedidoID,
-                PedidoDetalleID = Convert.ToInt16(model.PedidoDetalleID),
-                Cantidad = Convert.ToInt32(model.Cantidad),
-                PrecioUnidad = model.PrecioUnidad,
-                ClienteID = string.IsNullOrEmpty(model.Nombre) ? (short)0 : Convert.ToInt16(model.ClienteID),
-                CUV = model.CUV,
-                TipoOfertaSisID = model.TipoOfertaSisID,
-                Stock = model.Stock,
-                Flag = model.Flag,
-                DescripcionProd = model.DescripcionProd
-            };
-
-            obePedidoWebDetalle.ImporteTotal = obePedidoWebDetalle.Cantidad * obePedidoWebDetalle.PrecioUnidad;
-            obePedidoWebDetalle.Nombre = obePedidoWebDetalle.ClienteID == 0 ? userData.NombreConsultora : model.Nombre;
-
-            bool errorServer;
-            string tipo;
-            bool modificoBackOrder;
-
-            var olstPedidoWebDetalle = AdministradorPedido(obePedidoWebDetalle, "U", out errorServer, out tipo, out modificoBackOrder);
-
-            var total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
-            var totalFormato = Util.DecimalToStringFormat(total, userData.CodigoISO);
-
-            var totalCliente = PedidoWebTotalClienteFormato(model.ClienteID_, olstPedidoWebDetalle);
-
-            var message = !errorServer ? "El registro ha sido actualizado de manera exitosa."
-                : tipo.Length > 1 ? tipo
-                : "Hubo un problema al intentar actualizar el registro. Por favor inténtelo nuevamente.";
+                using (var sv = new PedidoServiceClient())
+                {
+                    sv.UpdCantidadPedidoWebSet(userData.PaisID, model.SetId, int.Parse(model.Cantidad));
+                }
+            }
 
             return Json(new
             {

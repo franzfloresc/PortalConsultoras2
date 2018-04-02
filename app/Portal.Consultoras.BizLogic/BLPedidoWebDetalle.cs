@@ -604,7 +604,7 @@ namespace Portal.Consultoras.BizLogic
             return daPedidoWebDetalle.UpdCantidadPedidoWebSet(SetId, Cantidad);
         }
 
-        public IList<BEPedidoWebDetalle> GetPedidoWebSetProducto(int paisID, int Campania, int ConsultoraId, int Cantidad)
+        public IList<BEPedidoWebDetalle> GetPedidoWebSetProducto(int paisID, int Campania, long ConsultoraId, int Cantidad)
         {
             DAPedidoWebDetalle daPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
             List<BEPedidoWebDetalle> listaPedidoWebDetalle = new List<BEPedidoWebDetalle>();

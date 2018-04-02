@@ -2291,7 +2291,7 @@ namespace Portal.Consultoras.Service
             return BLPedidoWebDetalle.UpdCantidadPedidoWebSet(paisID, SetId, Cantidad);
         }
 
-        public IList<BEPedidoWebDetalle> GetPedidoWebSetProducto(int paisID, int Campania, int ConsultoraId, int Cantidad)
+        public IList<BEPedidoWebDetalle> GetPedidoWebSetProducto(int paisID, int Campania, long ConsultoraId, int Cantidad)
         {
             return BLPedidoWebDetalle.GetPedidoWebSetProducto(paisID, Campania, ConsultoraId, Cantidad);
         }

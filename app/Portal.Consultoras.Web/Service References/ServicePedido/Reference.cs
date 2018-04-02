@@ -33732,10 +33732,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<bool> UpdCantidadPedidoWebSetAsync(int paisID, int SetId, int Cantidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidoWebSetProducto", ReplyAction="http://tempuri.org/IPedidoService/GetPedidoWebSetProductoResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] GetPedidoWebSetProducto(int paisID, int Campania, int ConsultoraId, int Cantidad);
+        Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] GetPedidoWebSetProducto(int paisID, int Campania, long ConsultoraId, int Cantidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidoWebSetProducto", ReplyAction="http://tempuri.org/IPedidoService/GetPedidoWebSetProductoResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[]> GetPedidoWebSetProductoAsync(int paisID, int Campania, int ConsultoraId, int Cantidad);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[]> GetPedidoWebSetProductoAsync(int paisID, int Campania, long ConsultoraId, int Cantidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdOfertaShowRoom", ReplyAction="http://tempuri.org/IPedidoService/UpdOfertaShowRoomResponse")]
         int UpdOfertaShowRoom(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta entity);
@@ -36239,11 +36239,11 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.UpdCantidadPedidoWebSetAsync(paisID, SetId, Cantidad);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] GetPedidoWebSetProducto(int paisID, int Campania, int ConsultoraId, int Cantidad) {
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] GetPedidoWebSetProducto(int paisID, int Campania, long ConsultoraId, int Cantidad) {
             return base.Channel.GetPedidoWebSetProducto(paisID, Campania, ConsultoraId, Cantidad);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[]> GetPedidoWebSetProductoAsync(int paisID, int Campania, int ConsultoraId, int Cantidad) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[]> GetPedidoWebSetProductoAsync(int paisID, int Campania, long ConsultoraId, int Cantidad) {
             return base.Channel.GetPedidoWebSetProductoAsync(paisID, Campania, ConsultoraId, Cantidad);
         }
         

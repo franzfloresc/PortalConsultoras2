@@ -907,6 +907,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
 }
 
 function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi) {
+    debugger;//cangahuala_marquez
     AbrirSplash();
     if (HorarioRestringido()) {
         CerrarSplash();
