@@ -793,7 +793,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return Json(objvalida);
             }
-            if (model.SetId > 0)
+            if (model.SetID > 0)
             {
                 //Traer data de "dbo.PedidoWebSetDetalle"
                 //generar objeto de siempre
@@ -3496,7 +3496,7 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoIso = userData.CodigoISO,
                     EstadoSimplificacionCuv = userData.EstadoSimplificacionCUV
                 };
-                var listaDetalle = ObtenerPedidoWebDetalle() ?? new List<BEPedidoWebDetalle>();
+                var listaDetalle = ObtenerPedidoWebDetalle(true) ?? new List<BEPedidoWebDetalle>();
 
                 if (mobil)
                 {

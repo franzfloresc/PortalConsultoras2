@@ -162,17 +162,20 @@ namespace Portal.Consultoras.Web.Controllers
             return esOpt;
         }
 
-        public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
+        public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle(bool AgruparSet=false)
         {
             var detallesPedidoWeb = (List<BEPedidoWebDetalle>)null;
             try
             {
-                detallesPedidoWeb = sessionManager.GetDetallesPedido();
+                detallesPedidoWeb =  sessionManager.GetDetallesPedido();
 
                 if (detallesPedidoWeb == null)
                 {
                     using (var pedidoServiceClient = new PedidoServiceClient())
                     {
+                         
+
+
                         var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
                         {
                             PaisId = userData.PaisID,
@@ -181,7 +184,8 @@ namespace Portal.Consultoras.Web.Controllers
                             Consultora = userData.NombreConsultora,
                             EsBpt = EsOpt() == 1,
                             CodigoPrograma = userData.CodigoPrograma,
-                            NumeroPedido = userData.ConsecutivoNueva
+                            NumeroPedido = userData.ConsecutivoNueva,
+                            AgruparSet= AgruparSet
                         };
 
                         detallesPedidoWeb = pedidoServiceClient.SelectByCampania(bePedidoWebDetalleParametros).ToList();
