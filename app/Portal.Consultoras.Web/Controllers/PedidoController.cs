@@ -920,7 +920,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var listaPedidoWebDetalle = ObtenerPedidoWebDetalle(false);
+                var listaPedidoWebDetalle = ObtenerPedidoWebDetalle();
 
                 var pedidoEliminado = listaPedidoWebDetalle.FirstOrDefault(x => x.CUV == CUV);
                 if (pedidoEliminado == null)
