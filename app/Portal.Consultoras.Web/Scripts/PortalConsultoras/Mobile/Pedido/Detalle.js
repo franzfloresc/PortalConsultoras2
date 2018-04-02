@@ -109,7 +109,6 @@ function GetProductoEntidad(id) {
 }
 
 function UpdateLiquidacionEvento(evento) {
-    debugger;//cangahuala_marquez
     var obj = $(evento.currentTarget);
     var id = $.trim(obj.attr("data-pedidodetalleid")) || "0";
     if (isNaN(id) || parseInt(id, 10) <= 0) {
@@ -263,7 +262,7 @@ function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetall
     
     if (CliDes.length == 0)
         CliID = 0;
-    debugger;//cangahuala_marquez
+    
     $.getJSON(urls.urlValidarUnidadesPermitidas, { CUV: CUV, Cantidad: StockNuevo, PrecioUnidad: PrecioUnidad }, function (data) {
         if (data.message.length > 0) {
             CloseLoading();

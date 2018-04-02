@@ -1251,5 +1251,11 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BEPedidoWebDetalle> GetPedidoWebSetProducto(int paisID, int Campania, long ConsultoraId, int Cantidad);
+
+        [OperationContract]
+        BEPedidoWebSet ObtenerPedidoWebSet(int paisId, int setId);
+
+        [OperationContract]
+        bool EliminarPedidoWebSet(int paisId, int setId);
     }
 }
