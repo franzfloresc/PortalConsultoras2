@@ -15,32 +15,30 @@ namespace Portal.Consultoras.Web.Controllers
             if (revistaDigital.TieneRDI)
                 return View("template-informativa-rdi");
 
-            if (revistaDigital.TieneRDR)
-                return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
-
             if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDS)
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
 
             int limiteMinimoTelef, limiteMaximoTelef;
             GetLimitNumberPhone(out limiteMinimoTelef, out limiteMaximoTelef);
-
-            var modelo = new RevistaDigitalInformativoModel
-            {
-                EsSuscrita = revistaDigital.EsSuscrita,
-                EstadoSuscripcion = revistaDigital.EstadoSuscripcion,
-                Video = GetVideoInformativo(),
-                UrlTerminosCondiciones = GetValorDato(Constantes.ConfiguracionManager.RDUrlTerminosCondiciones),
-                UrlPreguntasFrecuentes = GetValorDato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes),
-                Origen = revistaDigital.SuscripcionModel.Origen,
-                NombreConsultora = userData.Sobrenombre.ToUpper(),
-                Email = userData.EMail,
-                Celular = userData.Celular,
-                LimiteMax = limiteMaximoTelef,
-                LimiteMin = limiteMinimoTelef,
-                UrlTerminosCondicionesDatosUsuario = GetUrlTerminosCondicionesDatosUsuario(),
-                CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString().Substring(4),
-                CancelarSuscripcion = CancelarSuscripcion(revistaDigital.SuscripcionModel.Origen, userData.CodigoISO)
-            };
+            var modelo = new RevistaDigitalInformativoModel();
+            modelo.EsSuscrita = revistaDigital.EsSuscrita;
+            modelo.EstadoSuscripcion = revistaDigital.EstadoSuscripcion;
+            modelo.Video = GetVideoInformativo();
+            modelo.UrlTerminosCondiciones = GetValorDato(Constantes.ConfiguracionManager.RDUrlTerminosCondiciones);
+            modelo.UrlPreguntasFrecuentes = GetValorDato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes);
+            modelo.Origen = revistaDigital.SuscripcionEfectiva.Origen;
+            modelo.NombreConsultora = userData.Sobrenombre.ToUpper();
+            modelo.Email = userData.EMail;
+            modelo.Celular = userData.Celular;
+            modelo.LimiteMax = limiteMaximoTelef;
+            modelo.LimiteMin = limiteMinimoTelef;
+            modelo.UrlTerminosCondicionesDatosUsuario = GetUrlTerminosCondicionesDatosUsuario();
+            modelo.CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString().Substring(4);
+            modelo.MostrarCancelarSuscripcion = !(userData.esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas &&
+                ((!revistaDigital.EsSuscrita && (!revistaDigital.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion || !revistaDigital.SociaEmpresariaSuscritaActivaCancelarSuscripcion)) ||
+                (revistaDigital.EsSuscrita && !revistaDigital.EsActiva && !revistaDigital.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion) ||
+                (revistaDigital.EsSuscrita && revistaDigital.EsActiva && !revistaDigital.SociaEmpresariaSuscritaActivaCancelarSuscripcion)));
+            modelo.CancelarSuscripcion = CancelarSuscripcion(revistaDigital.SuscripcionModel.Origen, userData.CodigoISO);
 
             return View("template-informativa", modelo);
         }
@@ -90,6 +88,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.MensajeProductoBloqueado = MensajeProductoBloqueado();
             model.CantidadFilas = 10;
+
+            model.MostrarFiltros = !model.ProductosPerdio && !(revistaDigital.TieneRDC && !revistaDigital.EsActiva);
 
             return PartialView("template-landing", model);
         }
@@ -149,13 +149,40 @@ namespace Portal.Consultoras.Web.Controllers
             var dato = new ConfiguracionPaisDatosModel();
             if (TieneProductosPerdio(campaniaId))
             {
-                dato = revistaDigital.ConfiguracionPaisDatos
-                    .FirstOrDefault(d => d.Codigo == (IsMobile() ? Constantes.ConfiguracionPaisDatos.RD.MPerdiste : Constantes.ConfiguracionPaisDatos.RD.DPerdiste));
-                dato = dato ?? new ConfiguracionPaisDatosModel();
+                var codigo = "";
+                bool upper = false;
+                if (!revistaDigital.EsSuscrita)
+                {
+                    codigo = Constantes.ConfiguracionPaisDatos.RD.NSPerdiste;
+                    upper = true;
+                }
+                else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+                {
+                    codigo = Constantes.ConfiguracionPaisDatos.RD.SNAPerdiste;
+                    upper = true;
+                }
+                else
+                {
+                    codigo = IsMobile() ? Constantes.ConfiguracionPaisDatos.RD.MPerdiste : Constantes.ConfiguracionPaisDatos.RD.DPerdiste;
+                }
+
+                dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+
+                dato.Valor1 = RemplazaTag(dato.Valor1, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
+                dato.Valor2 = RemplazaTag(dato.Valor2, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
+
+                if (upper)
+                {
+                    dato.Valor1 = dato.Valor1.ToUpper();
+                    dato.Valor2 = dato.Valor2.ToUpper();
+                }
+                
                 dato.Estado = true;
             }
+
             dato.Valor1 = Util.Trim(dato.Valor1);
             dato.Valor2 = Util.Trim(dato.Valor2);
+
             return dato;
         }
 
@@ -171,6 +198,7 @@ namespace Portal.Consultoras.Web.Controllers
             var valorDato = "";
             switch (valor)
             {
+                case 0: valorDato = IsMobile() ? dato.Valor1 : dato.Valor2; break;
                 case 1: valorDato = dato.Valor1; break;
                 case 2: valorDato = dato.Valor2; break;
                 case 3: valorDato = dato.Valor3; break;

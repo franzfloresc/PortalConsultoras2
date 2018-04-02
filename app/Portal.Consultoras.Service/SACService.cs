@@ -1356,11 +1356,21 @@ namespace Portal.Consultoras.Service
             var bl = new BLConfiguracionPais();
             return bl.Get(paisId, configuracionPaisId);
         }
-
+        public BEConfiguracionPais GetConfiguracionPaisByCode(int paisId, string codigo)
+        {
+            var bl = new BLConfiguracionPais();
+            return bl.Get(paisId, codigo);
+        }
         public void UpdateConfiguracionPais(BEConfiguracionPais configuracionPais)
         {
             var bl = new BLConfiguracionPais();
             bl.Update(configuracionPais);
+        }
+
+        public BEConfiguracionPaisDatos GetConfiguracionPaisDatos(BEConfiguracionPaisDatos configuracionPaisDatos)
+        {
+            var bl = new BLConfiguracionPaisDatos();
+            return bl.Get(configuracionPaisDatos);
         }
         #endregion
 

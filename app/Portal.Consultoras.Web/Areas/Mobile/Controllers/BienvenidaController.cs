@@ -20,7 +20,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 if (userData.RolID != Constantes.Rol.Consultora)
-                    return RedirectToAction("Index", "Bienvenida", new { area = "" });
+                    if (userData.RolID == 0)
+                        return RedirectToAction("LogOut", "Login");
+                    else
+                        return RedirectToAction("Index", "Bienvenida", new { area = "" });
 
                 model.RevistaDigital = revistaDigital;
                 model.RevistaDigitalPopUpMostrar = revistaDigital.NoVolverMostrar;
@@ -435,10 +438,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 else if (revistaDigital.TieneRDI)
                 {
                     partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.MBienvenidaIntriga) ?? new ConfiguracionPaisDatosModel();
-                }
-                else if (revistaDigital.TieneRDR)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.MBienvenidaRdr) ?? new ConfiguracionPaisDatosModel();
                 }
             }
             catch (Exception ex)

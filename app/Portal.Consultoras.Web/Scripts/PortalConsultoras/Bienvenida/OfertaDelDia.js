@@ -882,6 +882,13 @@ $(document).ready(function () {
     }
 
     $(elements.ContenedorInternoSliderOfertaDelDiaMobileHome).click(function () {
+        try {
+            if (typeof rdAnalyticsModule !== "undefined") {
+                rdAnalyticsModule.ContendorSection("Solo por Hoy");
+            }
+        } catch (e) {
+            console.error(e);
+        } 
         document.location.href = urlOfertaDelDiaMobile;
     });
 

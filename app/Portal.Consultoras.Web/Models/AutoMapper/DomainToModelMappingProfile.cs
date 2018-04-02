@@ -204,7 +204,13 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Componente));
 
             Mapper.CreateMap<BEConfiguracionOfertasHome, AdministrarOfertasHomeModel>();
-            Mapper.CreateMap<BETablaLogicaDatos, TablaLogicaDatosModel>();
+            Mapper.CreateMap<BETablaLogicaDatos, TablaLogicaDatosModel>()
+                .ForMember(t => t.TablaLogicaDatosID, f => f.MapFrom(c => c.TablaLogicaDatosID))
+                .ForMember(t => t.TablaLogicaID, f => f.MapFrom(c => c.TablaLogicaID))
+                .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
+                .ForMember(t => t.Valor, f => f.MapFrom(c => c.Valor))
+                .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
+
             Mapper.CreateMap<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>();
 
             Mapper.CreateMap<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>()
@@ -551,7 +557,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<UpSellingDetalle, UpSellingRegaloModel>()
                 .ForMember(t => t.UpSellingRegaloId, f => f.MapFrom(c => c.UpSellingDetalleId));
 
-             
+
             Mapper.CreateMap<OfertaFinalMontoMeta, OfertaFinalMontoMetaModel>();
 
 

@@ -315,8 +315,6 @@
       <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodPais" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion1" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Descripcion2" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Descripcion3" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FlagImagenCargada" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
     </xs:sequence>

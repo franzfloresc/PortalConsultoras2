@@ -1,16 +1,16 @@
 ﻿var rdPopup = (function () {
-    "use strict"
+    "use strict";
 
-    var _constants = {
-        PopupSuscripcion: 'PopRDSuscripcion',
-        PopupSuscripcionId: '#PopRDSuscripcion',
+    var _elements = {
+        PopupSuscripcion: "PopRDSuscripcion",
+        PopupSuscripcionId: "#PopRDSuscripcion",
         PopupSuscripcionTemplate: "#RDPopup-template"
     }
 
     var _url = {
-        urlPopupDatos: baseUrl + 'RevistaDigital/PopupDatos',
-        urlPopupCerrar: baseUrl + 'RevistaDigital/PopupCerrar',
-        urlPopupNoMostrar: baseUrl + 'RevistaDigital/PopupNoVolverMostrar',
+        urlPopupDatos: baseUrl + "RevistaDigital/PopupDatos",
+        urlPopupCerrar: baseUrl + "RevistaDigital/PopupCerrar",
+        urlPopupNoMostrar: baseUrl + "RevistaDigital/PopupNoVolverMostrar",
         urlInformacion: "/RevistaDigital/Informacion"
     };
 
@@ -19,36 +19,40 @@
     };
 
     var _popupCrear = function (modelo) {
-        SetHandlebars(_constants.PopupSuscripcionTemplate, modelo, _constants.PopupSuscripcionId);
+        SetHandlebars(_elements.PopupSuscripcionTemplate, modelo, _elements.PopupSuscripcionId);
     };
 
     var _PopupCerrar = function (tipo) {
 
         AbrirLoad();
         _setting.NoVolverMostrar = true;
-        tipo = $.trim(tipo);
         var urlAjax = "";
-        if (tipo == 1) {
-            rdAnalyticsModule.CerrarPopUp("Enterate");
-            urlAjax = _url.urlPopupCerrar;
+        switch (tipo) {
+            case 1:
+                rdAnalyticsModule.CerrarPopUp("Enterate");
+                urlAjax = _url.urlPopupCerrar;
+                break;
+            case 2:
+                urlAjax = _url.urlPopupNoMostrar;
+                break;
+            case 3:
+                urlAjax = _url.urlPopupCerrar;
+                break;
         }
-        else if (tipo == 2) {
-            urlAjax = _url.urlPopupNoMostrar;
-        }
-        
-        if (urlAjax == "") {
+
+        if (urlAjax === "") {
             CerrarLoad();
             return false;
         }
 
         $.ajax({
-            type: 'POST',
+            type: "POST",
             url: urlAjax,
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
             success: function (data) {
                 CerrarLoad();
-                CerrarPopup(_constants.PopupSuscripcionId);
+                CerrarPopup(_elements.PopupSuscripcionId);
             },
             error: function (data, error) {
                 CerrarLoad();
@@ -64,10 +68,10 @@
 
         AbrirLoad();
         $.ajax({
-            type: 'POST',
+            type: "POST",
             url: _url.urlPopupDatos,
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
             success: function (data) {
                 CerrarLoad();
                 if (data.success === false || data.modelo === undefined) {
@@ -76,10 +80,10 @@
                 _setting.NoVolverMostrar = true;
                 _popupCrear(data.modelo);
                 if (isMobile()) {
-                    AbrirPopupFade(_constants.PopupSuscripcionId);
+                    AbrirPopupFade(_elements.PopupSuscripcionId);
                 }
                 else {
-                    PopupMostrar(_constants.PopupSuscripcion);
+                    PopupMostrar(_elements.PopupSuscripcion);
                 }
                 if (rdAnalyticsModule) {
                     rdAnalyticsModule.MostrarPopup();
@@ -92,12 +96,12 @@
     };
     
     var RedireccionarInformacion = function (tipo) {
-        _PopupCerrar(1);
+        _PopupCerrar(3);
         tipo = tipo || 0;
         rdAnalyticsModule.IrEnterate();
 
         var url = (isMobile() ? "/Mobile" : "") + _url.urlInformacion;
-        if (tipo == 2) url += "?tipo=" + tipo;
+        if (tipo === 2) url += "?tipo=" + tipo;
         var urlLocal = $.trim(window.location).toLowerCase() + "/";
         window.location = url;
         if (urlLocal.indexOf(_url.urlInformacion.toLowerCase() + "/") >= 0) {

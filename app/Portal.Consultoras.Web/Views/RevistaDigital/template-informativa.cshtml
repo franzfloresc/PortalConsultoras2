@@ -120,7 +120,7 @@ else
                     En la siguiente campaña, ¡podrás disfrutar de ser parte del Club GANA+!
                 </span>
                 <div class="clear"></div>
-                @if (!Model.EsSuscrita)
+                @if (!Model.EsSuscrita && Model.MostrarCancelarSuscripcion)
                 {
                     <span class="txt recuerda-txt">
                         RECUERDA QUE PUEDES CANCELAR TU SUSCRIPCIÓN CUANDO QUIERAS.
@@ -137,10 +137,10 @@ else
 
 @if(Model.Origen == null || Model.Origen == Constantes.RevistaDigitalOrigen.RD)
 {
-<div class="suscribete" data-estadoregistro="@Model.EstadoSuscripcion">
-    <div class="contenedor-suscripcion">
-        @if (Model.EsSuscrita)
-        {
+    <div class="suscribete" data-estadoregistro="@Model.EstadoSuscripcion">
+        <div class="contenedor-suscripcion">
+            @if (Model.EsSuscrita && Model.MostrarCancelarSuscripcion)
+            {
             <p class="txt-deseas-cancelar">
                 ¿DESEAS CANCELAR TU SUSCRIPCIÓN?
             </p>
@@ -148,34 +148,34 @@ else
                 Solo haz clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda Club GANA+
             </span>
             <a href="javascript: RDDesuscripcion();" class="suscribete-btn">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
-        }
-        else
-        {
+            }
+            @if (!Model.EsSuscrita)
+            {
             <a href="javascript: RDSuscripcion();" class="suscribete-btn">SUSCRÍBETE GRATIS AQUÍ</a>
-        }
-        <a href="javascript: MostrarTerminos();" class="ver-terminos" style="text-decoration:underline;">
-            VER TÉRMINOS Y CONDICIONES
-        </a>
+            }
+            <a href="javascript: MostrarTerminos();" class="ver-terminos" style="text-decoration:underline;">
+                VER TÉRMINOS Y CONDICIONES
+            </a>
+        </div>
     </div>
-</div>
 }
 else if(Model.CancelarSuscripcion)
 {
     <div class="suscribete" data-estadoregistro="@Model.EstadoSuscripcion">
         <div class="contenedor-suscripcion">
-            @if (Model.EsSuscrita)
+            @if (Model.EsSuscrita && Model.MostrarCancelarSuscripcion)
             {
-                <p class="txt-deseas-cancelar">
-                    ¿NO TE GUSTÓ EL CLUB?
-                </p>
-                <span class="deseas-cancelar">
-                    Cancela tu suscripción haciendo clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda Club GANA+
-                </span>
-                <a href="javascript: RDDesuscripcion();" class="suscribete-btn">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
+            <p class="txt-deseas-cancelar">
+                ¿NO TE GUSTÓ EL CLUB?
+            </p>
+            <span class="deseas-cancelar">
+                Cancela tu suscripción haciendo clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda Club GANA+
+            </span>
+            <a href="javascript: RDDesuscripcion();" class="suscribete-btn">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
             }
-            else
+            @if (!Model.EsSuscrita)
             {
-                <a href="javascript: RDSuscripcion();" class="suscribete-btn">SUSCRÍBETE GRATIS AQUÍ</a>
+            <a href="javascript: RDSuscripcion();" class="suscribete-btn">SUSCRÍBETE GRATIS AQUÍ</a>
             }
             <a href="javascript: MostrarTerminos();" class="ver-terminos" style="text-decoration:underline;">
                 VER TÉRMINOS Y CONDICIONES
@@ -200,6 +200,8 @@ else if(Model.CancelarSuscripcion)
                     
                 </ul>
             </li>
+            @*@if (Model.EsSuscrita && Model.MostrarCancelarSuscripcion)
+            {*@
             <li>
                 <a class="abrir-preg-frecuente"><p>¿Cómo cancelo mi suscripción? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
                 <ul>
@@ -213,6 +215,7 @@ else if(Model.CancelarSuscripcion)
                 </ul>
             </li>
             <div style="clear:both;"></div>
+            @*}*@
             <li>
                 <a class="abrir-preg-frecuente"><p>¿Por qué ya no recibo la guía de negocio impresa? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
                 <ul>

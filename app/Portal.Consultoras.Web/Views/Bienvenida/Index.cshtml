@@ -126,7 +126,6 @@
                 }
                 </div>
             }
-
             <hr class="clear" />
             <div class="info_cam_belcorp">
                 EST&Aacute;S EN
@@ -1320,12 +1319,6 @@
     </div>
 </div>
 
-
-@if (revistaDigital.TieneRDR || (revistaDigital.TieneRDC && revistaDigital.EsActiva))
-{
-    @Html.Partial("~/Views/Bienvenida/template-seccion-bpt.cshtml", new ViewDataDictionary { { "NombreConsultora", Model.SobreNombre } })
-}
-
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")
@@ -2232,7 +2225,7 @@
         asesoraOnlineObj.asignarEventos(paisISO, viewBagCodigoConsultora);
         var verSeccion = '@ViewBag.VerSeccion' || '';
         var OrigenDesktopODD = 1;
-        var nombreAlias = '@Util.SubStr(Model.NombreConsultora, 0)';
+        var nombreAlias = '@Util.SubStr(Model.NombreConsultora, 0)';    
         var viewBagTieneHV = '@((ViewBag.TieneHV ??  false).ToString().ToLower())' == 'true';
 </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")

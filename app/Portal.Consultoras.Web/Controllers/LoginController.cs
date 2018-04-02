@@ -29,6 +29,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using BEConfiguracionPaisDatos = Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -810,105 +811,105 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (oRestaurarClave != null && oRestaurarClave.Cantidad != 0)
                 {
-                        oRestaurarClave.ContextoBase = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
-                        Session["RestaurarClave"] = oRestaurarClave;
+                    oRestaurarClave.ContextoBase = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
+                    Session["RestaurarClave"] = oRestaurarClave;
 
-                        if (nroOpcion == "1")
+                    if (nroOpcion == "1")
+                    {
+                        if (oRestaurarClave.Correo != "" && oRestaurarClave.Celular != "")
+                            resul = "prioridad1";
+                        else if (oRestaurarClave.Correo != "" && oRestaurarClave.Celular == "")
+                            resul = "prioridad1_correo";
+                        else if (oRestaurarClave.Correo == "" && oRestaurarClave.Celular != "")
+                            resul = "prioridad1_sms";
+
+                        if (resul == "")
+                            nroOpcion = "2";
+                    }
+
+                    if (nroOpcion == "2")
+                    {
+                        BEHorario horarioChat;
+                        using (SACServiceClient sv = new SACServiceClient())
                         {
-                            if (oRestaurarClave.Correo != "" && oRestaurarClave.Celular != "")
-                                resul = "prioridad1";
-                            else if (oRestaurarClave.Correo != "" && oRestaurarClave.Celular == "")
-                                resul = "prioridad1_correo";
-                            else if (oRestaurarClave.Correo == "" && oRestaurarClave.Celular != "")
-                                resul = "prioridad1_sms";
-
-                            if (resul == "")
-                                nroOpcion = "2";
+                            horarioChat = sv.GetHorarioByCodigo(paisId, Constantes.CodigoHorario.ChatEmtelco, true);
                         }
 
-                        if (nroOpcion == "2")
+                        bool mostrarChat = false;
+                        bool habilitarChat = false;
+
+                        if (horarioChat != null)
                         {
-                            BEHorario horarioChat;
-                            using (SACServiceClient sv = new SACServiceClient())
-                            {
-                                horarioChat = sv.GetHorarioByCodigo(paisId, Constantes.CodigoHorario.ChatEmtelco, true);
-                            }
-
-                            bool mostrarChat = false;
-                            bool habilitarChat = false;
-
-                            if (horarioChat != null)
-                            {
-                                string paisISO = Util.GetPaisISO(paisId);
-                                mostrarChat = (ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"] ?? "").Contains(paisISO);
-                                oRestaurarClave.descripcionHorario = horarioChat.Resumen;
-                                habilitarChat = horarioChat.EstaDisponible;
-                            }
-
-                            if (mostrarChat && habilitarChat)
-                                resul = "prioridad2_chat";
-
-                            if (resul == "")
-                                nroOpcion = "3";
+                            string paisISO = Util.GetPaisISO(paisId);
+                            mostrarChat = (ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"] ?? "").Contains(paisISO);
+                            oRestaurarClave.descripcionHorario = horarioChat.Resumen;
+                            habilitarChat = horarioChat.EstaDisponible;
                         }
 
-                        if (nroOpcion == "3")
+                        if (mostrarChat && habilitarChat)
+                            resul = "prioridad2_chat";
+
+                        if (resul == "")
+                            nroOpcion = "3";
+                    }
+
+                    if (nroOpcion == "3")
+                    {
+                        BEHorario horarioBResponde;
+                        bool habilitarBResponde = false;
+
+                        using (SACServiceClient sv = new SACServiceClient())
                         {
-                            BEHorario horarioBResponde;
-                            bool habilitarBResponde = false;
-
-                            using (SACServiceClient sv = new SACServiceClient())
-                            {
-                                horarioBResponde = sv.GetHorarioByCodigo(paisId, Constantes.CodigoHorario.BelcorpResponde, true);
-                            }
-
-                            oRestaurarClave.descripcionHorario = horarioBResponde.Resumen;
-                            habilitarBResponde = horarioBResponde.EstaDisponible;
-
-                            if (habilitarBResponde)
-                            {
-                                switch (paisId)
-                                {
-                                    case Constantes.PaisID.Bolivia:
-                                        oRestaurarClave.TelefonoCentral = "901-105678"; break;
-                                    case Constantes.PaisID.Chile:
-                                        oRestaurarClave.TelefonoCentral = "02-28762100"; break;
-                                    case Constantes.PaisID.Colombia:
-                                        oRestaurarClave.TelefonoCentral = "01-8000-9-37452,5948060"; break;
-                                    case Constantes.PaisID.CostaRica:
-                                        oRestaurarClave.TelefonoCentral = "800-000-5235,22019601,22019602"; break;
-                                    case Constantes.PaisID.Ecuador:
-                                        oRestaurarClave.TelefonoCentral = "1800-76667"; break;
-                                    case Constantes.PaisID.ElSalvador:
-                                        oRestaurarClave.TelefonoCentral = "800-37452-000,25101198,25101199"; break;
-                                    case Constantes.PaisID.Guatemala:
-                                        oRestaurarClave.TelefonoCentral = "1-801-81-37452,22856185,23843795"; break;
-                                    case Constantes.PaisID.Mexico:
-                                        oRestaurarClave.TelefonoCentral = "01-800-2352677"; break;
-                                    case Constantes.PaisID.Panama:
-                                        oRestaurarClave.TelefonoCentral = "800-5235,377-9399"; break;
-                                    case Constantes.PaisID.Peru:
-                                        oRestaurarClave.TelefonoCentral = "01-2113614,080-11-3030"; break;
-                                    case Constantes.PaisID.PuertoRico:
-                                        oRestaurarClave.TelefonoCentral = "1-866-366-3235,787-622-3235"; break;
-                                    case Constantes.PaisID.RepublicaDominicana:
-                                        oRestaurarClave.TelefonoCentral = "1-809-200-5235,809-620-5235"; break;
-                                    case Constantes.PaisID.Venezuela:
-                                        oRestaurarClave.TelefonoCentral = "0501-2352677"; break;
-                                }
-
-                                if (oRestaurarClave.TelefonoCentral.Length > 0)
-                                    resul = "prioridad2_llamada";
-                            }
-
-                            if (resul == "")
-                                nroOpcion = "4";
+                            horarioBResponde = sv.GetHorarioByCodigo(paisId, Constantes.CodigoHorario.BelcorpResponde, true);
                         }
 
-                        if (nroOpcion == "4")
+                        oRestaurarClave.descripcionHorario = horarioBResponde.Resumen;
+                        habilitarBResponde = horarioBResponde.EstaDisponible;
+
+                        if (habilitarBResponde)
                         {
-                            resul = "prioridad3";
+                            switch (paisId)
+                            {
+                                case Constantes.PaisID.Bolivia:
+                                    oRestaurarClave.TelefonoCentral = "901-105678"; break;
+                                case Constantes.PaisID.Chile:
+                                    oRestaurarClave.TelefonoCentral = "02-28762100"; break;
+                                case Constantes.PaisID.Colombia:
+                                    oRestaurarClave.TelefonoCentral = "01-8000-9-37452,5948060"; break;
+                                case Constantes.PaisID.CostaRica:
+                                    oRestaurarClave.TelefonoCentral = "800-000-5235,22019601,22019602"; break;
+                                case Constantes.PaisID.Ecuador:
+                                    oRestaurarClave.TelefonoCentral = "1800-76667"; break;
+                                case Constantes.PaisID.ElSalvador:
+                                    oRestaurarClave.TelefonoCentral = "800-37452-000,25101198,25101199"; break;
+                                case Constantes.PaisID.Guatemala:
+                                    oRestaurarClave.TelefonoCentral = "1-801-81-37452,22856185,23843795"; break;
+                                case Constantes.PaisID.Mexico:
+                                    oRestaurarClave.TelefonoCentral = "01-800-2352677"; break;
+                                case Constantes.PaisID.Panama:
+                                    oRestaurarClave.TelefonoCentral = "800-5235,377-9399"; break;
+                                case Constantes.PaisID.Peru:
+                                    oRestaurarClave.TelefonoCentral = "01-2113614,080-11-3030"; break;
+                                case Constantes.PaisID.PuertoRico:
+                                    oRestaurarClave.TelefonoCentral = "1-866-366-3235,787-622-3235"; break;
+                                case Constantes.PaisID.RepublicaDominicana:
+                                    oRestaurarClave.TelefonoCentral = "1-809-200-5235,809-620-5235"; break;
+                                case Constantes.PaisID.Venezuela:
+                                    oRestaurarClave.TelefonoCentral = "0501-2352677"; break;
+                            }
+
+                            if (oRestaurarClave.TelefonoCentral.Length > 0)
+                                resul = "prioridad2_llamada";
                         }
+
+                        if (resul == "")
+                            nroOpcion = "4";
+                    }
+
+                    if (nroOpcion == "4")
+                    {
+                        resul = "prioridad3";
+                    }
                 }
 
                 return Json(new
@@ -1125,7 +1126,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.CodigoZona = usuario.CodigoZona;
                     usuarioModel.ConsultoraID = usuario.ConsultoraID;
                     usuarioModel.CodigoUsuario = usuario.CodigoUsuario;
-                    usuarioModel.CodigoUsuarioHost = string.Format("{0}({1})", usuario.CodigoUsuario, ((System.Web.HttpRequestWrapper)Request).LogonUserIdentity.Name);
+                    usuarioModel.CodigoUsuarioHost = string.Format("{0}({1})", usuario.CodigoUsuario, GetLogonUserIdentityName());
                     usuarioModel.CodigoConsultora = usuario.CodigoConsultora;
                     usuarioModel.NombreConsultora = usuario.Nombre;
                     usuarioModel.RolID = usuario.RolID;
@@ -1466,7 +1467,6 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneOpt(true);
                     sessionManager.SetTieneOpm(true);
                     sessionManager.SetTieneOpmX1(true);
-                    sessionManager.SetTieneRdr(true);
                     sessionManager.SetTieneHv(true);
                     sessionManager.SetTieneHvX1(true);
 
@@ -1670,7 +1670,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var ofertasDelDia = await ObtenerOfertasDelDia(model);
-                //
+
                 if (!ofertasDelDia.Any())
                     return ofertasDelDiaModel;
 
@@ -2046,38 +2046,25 @@ namespace Portal.Consultoras.Web.Controllers
                 var herramientasVentaModel = new HerramientasVentaModel();
 
                 var configuracionesPaisModels = await GetConfiguracionPais(usuarioModel);
+                var listaConfiPaisModel = new List<ConfiguracionPaisModel>();
                 if (configuracionesPaisModels.Any())
                 {
-                    var listaPaisDatos = await GetConfiguracionPaisDatos(usuarioModel);
-
+                    var configuracionPaisDatosAll = await GetConfiguracionPaisDatos(usuarioModel);
                     foreach (var c in configuracionesPaisModels)
                     {
+                        var configuracionPaisDatos = configuracionPaisDatosAll.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList();
                         switch (c.Codigo)
                         {
                             case Constantes.ConfiguracionPais.RevistaDigital:
-                                revistaDigitalModel = ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel,
-                                    listaPaisDatos
-                                        .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
-                                        .ToList(), usuarioModel.CodigoISO);
-
+                                revistaDigitalModel = ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel, configuracionPaisDatos, usuarioModel.CodigoISO);
                                 revistaDigitalModel = ConfiguracionPaisRevistaDigital(revistaDigitalModel, usuarioModel);
                                 revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel, usuarioModel.Sobrenombre);
-                                revistaDigitalModel.BloqueoRevistaImpresa = c.BloqueoRevistaImpresa;
+                                revistaDigitalModel.BloqueoRevistaImpresa = revistaDigitalModel.BloqueoRevistaImpresa || c.BloqueoRevistaImpresa;
                                 break;
-
                             case Constantes.ConfiguracionPais.RevistaDigitalReducida:
-                                if (revistaDigitalModel.TieneRDC)
-                                    break;
-
-                                revistaDigitalModel = ConfiguracionPaisDatosRevistaDigitalReducida(revistaDigitalModel,
-                                    listaPaisDatos
-                                        .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
-                                        .ToList(), usuarioModel.CodigoISO);
-
-                                revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel, usuarioModel.Sobrenombre);
-                                revistaDigitalModel.TieneRDR = true;
-                                break;
-
+                                revistaDigitalModel.TieneRDCR = true;
+                                revistaDigitalModel.BloqueoRevistaImpresa = revistaDigitalModel.BloqueoRevistaImpresa || c.BloqueoRevistaImpresa;
+                                continue;
                             case Constantes.ConfiguracionPais.RevistaDigitalIntriga:
                                 if (revistaDigitalModel.TieneRDC)
                                 {
@@ -2088,18 +2075,13 @@ namespace Portal.Consultoras.Web.Controllers
                                         "LoginController.ConfiguracionPaisUsuario");
                                     break;
                                 }
-
-                                revistaDigitalModel = ConfiguracionPaisDatosRevistaDigitalIntriga(revistaDigitalModel,
-                                    listaPaisDatos
-                                        .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
-                                        .ToList(), usuarioModel.CodigoISO);
+                                revistaDigitalModel = ConfiguracionPaisDatosRevistaDigitalIntriga(revistaDigitalModel, configuracionPaisDatos, usuarioModel.CodigoISO);
                                 revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel, usuarioModel.Sobrenombre);
                                 revistaDigitalModel.TieneRDI = true;
                                 break;
                             case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
                                 usuarioModel.TieneValidacionMontoMaximo = c.Estado;
                                 break;
-
                             case Constantes.ConfiguracionPais.OfertaFinalTradicional:
                             case Constantes.ConfiguracionPais.OfertaFinalCrossSelling:
                             case Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa:
@@ -2112,25 +2094,16 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
 
                                 break;
-
                             case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
-                                guiaNegocio = ConfiguracionPaisDatosGuiaNegocio(listaPaisDatos
-                                        .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
-                                        .ToList());
+                                guiaNegocio = ConfiguracionPaisDatosGuiaNegocio(configuracionPaisDatos);
                                 guiaNegocio.TieneGND = true;
                                 usuarioModel.TieneGND = true;
                                 break;
-
                             case Constantes.ConfiguracionPais.OfertaDelDia:
-                                usuarioModel.OfertaDelDia = ConfiguracionPaisDatosOfertaDelDia(usuarioModel.OfertaDelDia, listaPaisDatos
-                                    .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
-                                    .ToList());
+                                usuarioModel.OfertaDelDia = ConfiguracionPaisDatosOfertaDelDia(usuarioModel.OfertaDelDia, configuracionPaisDatos);
                                 break;
-
                             case Constantes.ConfiguracionPais.OfertasParaTi:
-                                usuarioModel = ConfiguracionPaisDatosUsuario(usuarioModel, listaPaisDatos
-                                    .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
-                                    .ToList());
+                                usuarioModel = ConfiguracionPaisDatosUsuario(usuarioModel, configuracionPaisDatos);
                                 break;
                             case Constantes.ConfiguracionPais.OfertaFinalCrossSellingGanaMas:
                                 if (c.Estado)
@@ -2142,21 +2115,22 @@ namespace Portal.Consultoras.Web.Controllers
                                 break;
                             case Constantes.ConfiguracionPais.HerramientasVenta:
                                 herramientasVentaModel.TieneHV = true;
-
-                                herramientasVentaModel = ConfiguracionPaisHerramientasVenta(herramientasVentaModel,
-                                        listaPaisDatos.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList());
+                                herramientasVentaModel = ConfiguracionPaisHerramientasVenta(herramientasVentaModel, configuracionPaisDatos);
                                 break;
                         }
+
+                        listaConfiPaisModel.Add(c);
                     }
 
-                    revistaDigitalModel.TieneRDR = !revistaDigitalModel.TieneRDC && revistaDigitalModel.TieneRDR;
                     revistaDigitalModel.Campania = usuarioModel.CampaniaID % 100;
-                    revistaDigitalModel.CampaniaMasUno =
-                        Util.AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1, usuarioModel.NroCampanias) % 100;
+                    revistaDigitalModel.CampaniaMasUno = Util.AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1, usuarioModel.NroCampanias) % 100;
                     revistaDigitalModel.NombreConsultora = usuarioModel.Sobrenombre;
+
+                    guiaNegocio.BloqueoProductoDigital = guiaNegocio.BloqueoProductoDigital || (revistaDigitalModel.EsSuscritaActiva() && revistaDigitalModel.SociaEmpresariaExperienciaGanaMas);
+
                     sessionManager.SetGuiaNegocio(guiaNegocio);
                     sessionManager.SetRevistaDigital(revistaDigitalModel);
-                    sessionManager.SetConfiguracionesPaisModel(configuracionesPaisModels);
+                    sessionManager.SetConfiguracionesPaisModel(listaConfiPaisModel);
                     sessionManager.SetOfertaFinalModel(ofertaFinalModel);
                     sessionManager.SetHerramientasVenta(herramientasVentaModel);
                 }
@@ -2210,144 +2184,59 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region ConfiguracioRevistaDigital
 
-        public virtual RevistaDigitalModel ConfiguracionPaisDatosRevistaDigital(RevistaDigitalModel revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
+        public virtual RevistaDigitalModel ConfiguracionPaisDatosRevistaDigital(RevistaDigitalModel revistaDigitalModel,
+            List<BEConfiguracionPaisDatos> configuracionesPaisDatos,
+            string codigoIso)
         {
             try
             {
                 if (revistaDigitalModel == null)
                     throw new ArgumentNullException("revistaDigitalModel", "no puede ser nulo");
 
-                paisIso = Util.Trim(paisIso);
-                if (listaDatos == null || !listaDatos.Any() || paisIso == "")
+                if (configuracionesPaisDatos == null || !configuracionesPaisDatos.Any() || string.IsNullOrEmpty(codigoIso))
                     return revistaDigitalModel;
 
-                var value1 = listaDatos.FirstOrDefault(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearDiasAntesFacturar);
-                if (value1 != null) revistaDigitalModel.BloquearDiasAntesFacturar = Convert.ToInt32(value1.Valor1);
+                revistaDigitalModel.BloquearDiasAntesFacturar = GetValor1ToIntAndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.BloquearDiasAntesFacturar);
+                revistaDigitalModel.CantidadCampaniaEfectiva = GetValor1ToIntAndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.CantidadCampaniaEfectiva);
+                revistaDigitalModel.NombreComercialActiva = GetValor1AndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.NombreComercialActiva);
+                revistaDigitalModel.NombreComercialNoActiva = GetValor1AndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.NombreComercialNoActiva);
 
-                value1 = listaDatos.FirstOrDefault(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.CantidadCampaniaEfectiva);
-                if (value1 != null) revistaDigitalModel.CantidadCampaniaEfectiva = Convert.ToInt32(value1.Valor1);
+                revistaDigitalModel.DLogoComercialActiva = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoComercialActiva, codigoIso);
+                revistaDigitalModel.MLogoComercialActiva = GetValor2WithS3AndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoComercialActiva, codigoIso);
 
-                value1 = listaDatos.FirstOrDefault(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.NombreComercialActiva);
-                if (value1 != null) revistaDigitalModel.NombreComercialActiva = value1.Valor1;
+                revistaDigitalModel.DLogoComercialNoActiva = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoComercialNoActiva, codigoIso);
+                revistaDigitalModel.MLogoComercialNoActiva = GetValor2WithS3AndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoComercialNoActiva, codigoIso);
 
-                value1 = listaDatos.FirstOrDefault(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.NombreComercialNoActiva);
-                if (value1 != null) revistaDigitalModel.NombreComercialNoActiva = value1.Valor1;
+                revistaDigitalModel.DLogoMenuInicioActiva = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioActiva, codigoIso);
+                revistaDigitalModel.MLogoMenuInicioActiva = GetValor2WithS3AndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioActiva, codigoIso);
 
-                value1 = listaDatos.FirstOrDefault(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialActiva);
-                if (value1 != null)
-                {
-                    revistaDigitalModel.DLogoComercialActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
-                    revistaDigitalModel.MLogoComercialActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
-                }
+                revistaDigitalModel.DLogoMenuInicioNoActiva = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioNoActiva, codigoIso);
+                revistaDigitalModel.MLogoMenuInicioNoActiva = GetValor2WithS3AndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioNoActiva, codigoIso);
 
-                value1 = listaDatos.FirstOrDefault(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialNoActiva);
-                if (value1 != null)
-                {
-                    revistaDigitalModel.DLogoComercialNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
-                    revistaDigitalModel.MLogoComercialNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
-                }
+                revistaDigitalModel.DLogoComercialFondoActiva = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoActiva, codigoIso);
+                revistaDigitalModel.MLogoComercialFondoActiva = GetValor2WithS3AndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoActiva, codigoIso);
 
-                value1 = listaDatos.FirstOrDefault(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioActiva);
-                if (value1 != null)
-                {
-                    revistaDigitalModel.DLogoMenuInicioActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
-                    revistaDigitalModel.MLogoMenuInicioActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
-                }
+                revistaDigitalModel.DLogoComercialFondoNoActiva = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoNoActiva, codigoIso);
+                revistaDigitalModel.MLogoComercialFondoNoActiva = GetValor2WithS3AndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoNoActiva, codigoIso);
 
-                value1 = listaDatos.FirstOrDefault(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioNoActiva);
-                if (value1 != null)
-                {
-                    revistaDigitalModel.DLogoMenuInicioNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
-                    revistaDigitalModel.MLogoMenuInicioNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
-                }
+                revistaDigitalModel.LogoMenuOfertasActiva = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasActiva, codigoIso);
+                revistaDigitalModel.LogoMenuOfertasNoActiva = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva, codigoIso);
+                revistaDigitalModel.BloquearRevistaImpresaGeneral = GetValor1ToIntAndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.BloquearPedidoRevistaImp);
+                revistaDigitalModel.BloquearProductosSugeridos = GetValor1ToInt(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.BloquearSugerenciaProducto);
+                revistaDigitalModel.SubscripcionAutomaticaAVirtualCoach = GetValor1ToBoolAndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.SubscripcionAutomaticaAVirtualCoach);
+                revistaDigitalModel.BloqueoProductoDigital = GetValor1ToBoolAndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+                revistaDigitalModel.ActivoMdo = GetValor1ToBoolAndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.ActivoMdo);
+                revistaDigitalModel.BannerOfertasNoActivaNoSuscrita = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.BannerOfertasNoActivaNoSuscrita, codigoIso);
+                revistaDigitalModel.BannerOfertasNoActivaSuscrita = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.BannerOfertasNoActivaSuscrita, codigoIso);
+                revistaDigitalModel.BannerOfertasActivaNoSuscrita = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.BannerOfertasActivaNoSuscrita, codigoIso);
+                revistaDigitalModel.BannerOfertasActivaSuscrita = GetValor1WithS3(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.BannerOfertasActivaSuscrita, codigoIso);
 
-                value1 = listaDatos.FirstOrDefault(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoActiva);
-                if (value1 != null)
-                {
-                    revistaDigitalModel.DLogoComercialFondoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
-                    revistaDigitalModel.MLogoComercialFondoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
-                }
-
-                value1 = listaDatos.FirstOrDefault(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoNoActiva);
-                if (value1 != null)
-                {
-                    revistaDigitalModel.DLogoComercialFondoNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
-                    revistaDigitalModel.MLogoComercialFondoNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
-                }
-
-                value1 = listaDatos.FirstOrDefault(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasActiva);
-                if (value1 != null)
-                    revistaDigitalModel.LogoMenuOfertasActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
-
-                value1 = listaDatos.FirstOrDefault(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva);
-                if (value1 != null)
-                    revistaDigitalModel.LogoMenuOfertasNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
-
-                value1 = listaDatos.FirstOrDefault(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearPedidoRevistaImp);
-                if (value1 != null) revistaDigitalModel.BloquearRevistaImpresaGeneral = Convert.ToInt32(value1.Valor1);
-
-                value1 = listaDatos.FirstOrDefault(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearSugerenciaProducto);
-                if (value1 != null) revistaDigitalModel.BloquearProductosSugeridos = Convert.ToInt32(value1.Valor1);
-
-                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.SubscripcionAutomaticaAVirtualCoach);
-                if (value1 != null) revistaDigitalModel.SubscripcionAutomaticaAVirtualCoach = value1.Valor1 == "1";
-
-                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
-                if (value1 != null) revistaDigitalModel.BloqueoProductoDigital = value1.Valor1 == "1";
-
-                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.ActivoMdo);
-                if (value1 != null) revistaDigitalModel.ActivoMdo = value1.Valor1 == "1";
-                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BannerOfertasNoActivaNoSuscrita);
-                if (value1 != null) revistaDigitalModel.BannerOfertasNoActivaNoSuscrita = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
-
-                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BannerOfertasNoActivaSuscrita);
-                if (value1 != null) revistaDigitalModel.BannerOfertasNoActivaSuscrita = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
-
-                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BannerOfertasActivaNoSuscrita);
-                if (value1 != null) revistaDigitalModel.BannerOfertasActivaNoSuscrita = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
-
-                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BannerOfertasActivaSuscrita);
-                if (value1 != null) revistaDigitalModel.BannerOfertasActivaSuscrita = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
-
-                listaDatos.RemoveAll(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearDiasAntesFacturar
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.CantidadCampaniaEfectiva
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.NombreComercialActiva
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.NombreComercialNoActiva
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialActiva
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialNoActiva
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioActiva
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioNoActiva
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasActiva
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearPedidoRevistaImp
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearSugerenciaProducto
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.SubscripcionAutomaticaAVirtualCoach
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.ActivoMdo
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BannerOfertasNoActivaNoSuscrita
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BannerOfertasNoActivaSuscrita
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BannerOfertasActivaNoSuscrita
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BannerOfertasActivaSuscrita
-                );
-
-                revistaDigitalModel.ConfiguracionPaisDatos =
-                    Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ??
-                    new List<ConfiguracionPaisDatosModel>();
+                #region SociaEmpresaria
+                revistaDigitalModel.SociaEmpresariaExperienciaGanaMas = GetValor1ToBoolAndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.SociaEEmpresariaExperienciaClub);
+                revistaDigitalModel.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion = GetValor1ToBoolAndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion);
+                revistaDigitalModel.SociaEmpresariaSuscritaActivaCancelarSuscripcion = GetValor1ToBoolAndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.SociaEmpresariaSuscritaActivaCancelarSuscripcion);
+                #endregion
+                revistaDigitalModel.ConfiguracionPaisDatos = Mapper.Map<List<ConfiguracionPaisDatosModel>>(configuracionesPaisDatos) ?? new List<ConfiguracionPaisDatosModel>();
             }
             catch (Exception ex)
             {
@@ -2365,59 +2254,6 @@ namespace Portal.Consultoras.Web.Controllers
                     new List<ConfiguracionPaisDatosModel>();
 
             return herramientasVentaModel;
-        }
-
-        public virtual RevistaDigitalModel ConfiguracionPaisDatosRevistaDigitalReducida(RevistaDigitalModel revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
-        {
-            try
-            {
-                revistaDigitalModel.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
-
-                if (listaDatos == null || !listaDatos.Any())
-                    return revistaDigitalModel;
-
-                var value1 =
-                    listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercial);
-                if (value1 != null)
-                {
-                    revistaDigitalModel.DLogoComercialNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
-                    revistaDigitalModel.MLogoComercialNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
-                }
-
-                value1 = listaDatos.FirstOrDefault(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercialFondo);
-                if (value1 != null)
-                {
-                    revistaDigitalModel.DLogoComercialFondoNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
-                    revistaDigitalModel.MLogoComercialFondoNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
-                }
-
-                value1 = listaDatos.FirstOrDefault(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoMenuOfertas);
-                if (value1 != null)
-                    revistaDigitalModel.LogoMenuOfertasNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
-
-                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
-                if (value1 != null) revistaDigitalModel.BloqueoProductoDigital = value1.Valor1 == "1";
-
-                listaDatos.RemoveAll(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercial
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercialFondo
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoMenuOfertas
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital
-                );
-
-                revistaDigitalModel.ConfiguracionPaisDatos =
-                    Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ??
-                    new List<ConfiguracionPaisDatosModel>();
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty,
-                    "LoginController.ConfiguracionPaisDatosRevistaDigitalReducida");
-            }
-
-            return revistaDigitalModel;
         }
 
         public virtual RevistaDigitalModel ConfiguracionPaisDatosRevistaDigitalIntriga(RevistaDigitalModel revistaDigital, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
@@ -2495,7 +2331,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             revistaDigitalModel.TieneRDC = true;
             revistaDigitalModel.TieneRDS = true;
-            revistaDigitalModel.TieneRDR = false;
             ActualizarSubscripciones(revistaDigitalModel, usuarioModel);
 
             #region Campanias y Estados Es Activas - Es Suscrita
@@ -2618,7 +2453,103 @@ namespace Portal.Consultoras.Web.Controllers
             return revistaDigital.EsActiva ? "No Inscrita Activa" : "No Inscrita No Activa";
         }
 
-        #endregion        
+        #region
+        private bool GetValor1ToBoolAndDelete(List<BEConfiguracionPaisDatos> configuracionesPaisDatos, string codigo)
+        {
+            var result = false;
+
+            var dato = configuracionesPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
+            if (dato != null)
+            {
+                result = dato.Valor1 == "1";
+                configuracionesPaisDatos.RemoveAll(d => d.Codigo == codigo);
+            }
+
+            return result;
+        }
+
+        private int GetValor1ToInt(List<BEConfiguracionPaisDatos> configuracionesPaisDatos, string codigo)
+        {
+            var result = 0;
+
+            var dato = configuracionesPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
+            if (dato != null)
+            {
+                result = Convert.ToInt32(dato.Valor1);
+            }
+
+            return result;
+        }
+        private int GetValor1ToIntAndDelete(List<BEConfiguracionPaisDatos> configuracionesPaisDatos, string codigo)
+        {
+            var result = 0;
+
+            var dato = configuracionesPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
+            if (dato != null)
+            {
+                result = Convert.ToInt32(dato.Valor1);
+                configuracionesPaisDatos.RemoveAll(d => d.Codigo == codigo);
+            }
+
+            return result;
+        }
+
+        private string GetValor1AndDelete(List<BEConfiguracionPaisDatos> configuracionesPaisDatos, string codigo)
+        {
+            var result = (string)null;
+
+            var dato = configuracionesPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
+            if (dato != null)
+            {
+                result = dato.Valor1;
+                configuracionesPaisDatos.RemoveAll(d => d.Codigo == codigo);
+            }
+
+            return result;
+        }
+
+        private string GetValor1WithS3(List<BEConfiguracionPaisDatos> configuracionesPaisDatos, string codigo, string codigoIso)
+        {
+            var result = (string)null;
+
+            var dato = configuracionesPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
+            if (dato != null)
+            {
+                result = ConfigS3.GetUrlFileRDS3(codigoIso, dato.Valor1);
+            }
+
+            return result;
+        }
+        private string GetValor2WithS3AndDelete(List<BEConfiguracionPaisDatos> configuracionesPaisDatos, string codigo, string codigoIso)
+        {
+            var result = (string)null;
+
+            var dato = configuracionesPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
+            if (dato != null)
+            {
+                result = ConfigS3.GetUrlFileRDS3(codigoIso, dato.Valor2);
+                configuracionesPaisDatos.RemoveAll(d => d.Codigo == codigo);
+            }
+
+            return result;
+        }
+
+        private string GetValor1WithS3AndDelete(List<BEConfiguracionPaisDatos> configuracionesPaisDatos, string codigo, string codigoIso)
+        {
+            var result = (string)null;
+
+            var dato = configuracionesPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
+            if (dato != null)
+            {
+                result = ConfigS3.GetUrlFileRDS3(codigoIso, dato.Valor1);
+                configuracionesPaisDatos.RemoveAll(d => d.Codigo == codigo);
+            }
+
+            return result;
+        }
+        #endregion
+
+        #endregion
 
         protected virtual bool EsUsuarioAutenticado()
         {
@@ -3014,15 +2945,26 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool HabilitarLogCargaOfertas(int paisId)
         {
-            BETablaLogicaDatos[] listDatos;
-            using (var svc = new SACServiceClient())
+            var result = false;
+            try
             {
-                listDatos = svc.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.Palanca);
+                BETablaLogicaDatos[] listDatos;
+                using (var svc = new SACServiceClient())
+                {
+                    listDatos = svc.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.Palanca);
 
+                }
+                if (!listDatos.Any()) return false;
+                var first = listDatos.FirstOrDefault();
+                result = first != null && first.Codigo.Equals("1");
             }
-            if (!listDatos.Any()) return false;
-            var first = listDatos.FirstOrDefault();
-            return first != null && first.Codigo.Equals("1");
+            catch (Exception ex)
+            {
+
+                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty,
+                   "LoginController.HabilitarLogCargaOfertas");
+            }
+            return result;
         }
 
         private bool EsAndroid()
@@ -3030,6 +2972,19 @@ namespace Portal.Consultoras.Web.Controllers
             string uAg = Request.ServerVariables["HTTP_USER_AGENT"];
             var regEx = new Regex(@"android", RegexOptions.IgnoreCase);
             return regEx.IsMatch(uAg);
+        }
+
+        public virtual string GetLogonUserIdentityName()
+        {
+            var name = string.Empty;
+            try
+            {
+                name = ((System.Web.HttpRequestWrapper)Request).LogonUserIdentity.Name;
+            }
+            catch
+            {
+            }
+            return name;
         }
 
         #endregion
