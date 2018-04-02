@@ -20,7 +20,7 @@
 .lonuevo_carrusel .lonuevo_carrusel_portada {
     height: 395px;
     float: left;
-    width: 350px; /*453px*/
+    width: 50%; /*453px*/
     display: table;
 }
 
@@ -50,7 +50,7 @@
 .lonuevo_carrusel .lonuevo_carrusel_info {
     height: 395px;
     float: left;
-    width: 341px;
+    width: 50%;
     display: table;
 }
 
@@ -87,6 +87,7 @@
     display: block;
     width: 100%;
     margin-bottom: 20px;
+    word-wrap:break-word;
 }
 
 .lonuevo_carrusel .lonuevo_carrusel_info .cont a {
