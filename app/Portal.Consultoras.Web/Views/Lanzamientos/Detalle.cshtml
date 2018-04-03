@@ -4,12 +4,32 @@
 @model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaProductoModel
 
 @{
-    Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
+                /**/
+
+                Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
 }
 
 @{
-    var btnDesabled = 1;
+    var btnDesabled = 0;
     var btnDesabledClass = "";
+
+    if (Model.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
+    {
+        if ((Model.Hermanos.Any()))
+        {
+            btnDesabled = 1;
+        }
+    }
+    else if (Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija || Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
+    {
+        if (Model.Hermanos != null && Model.Hermanos.Any())
+        {
+            if (Model.Hermanos[0].Digitable == 1 && Model.Hermanos[0].Hermanos.Any())
+            {
+                btnDesabled = 1;
+            }
+        }
+    }
 }
 
 @section styles{
@@ -132,15 +152,15 @@
             <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll"></a>
         </div>
 
-    <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
-</div>
+        <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
+    </div>
 
 
-@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+    @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 
-@section scripts{
-    @System.Web.Optimization.Scripts.Render("~/bundles/Lanzamientos-Detalle")
-    <script type="text/javascript">
+    @section scripts{
+        @System.Web.Optimization.Scripts.Render("~/bundles/Lanzamientos-Detalle")
+        <script type="text/javascript">
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage';
         var tipoOrigenEstrategia = 172;
         var videoId = "@Model.TipoEstrategiaDetalle.UrlVideoDesktop";
@@ -154,5 +174,5 @@
         function onYouTubeIframeAPIReady() {
             detalleLanzamiento.onYouTubeIframeAPIReady();
         }
-    </script>
-}
+        </script>
+    }

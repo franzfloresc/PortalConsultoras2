@@ -646,15 +646,14 @@ function EstrategiaValidarBloqueada(objInput, estrategia) {
 function EstrategiaValidarSeleccionTono(objInput) {
     var attrClass = $.trim($(objInput).attr("class"));
     if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
-        //if (origenPedidoWebEstrategia == 2731) {
-        //    var newPosition = $("#ContenedorDeTonos").offset();
-        //    window.scrollTo(newPosition.left, newPosition.top);
-        //}
+        if (isMobile()) {
+            if (origenPedidoWebEstrategia == 2731) {
+                window.scrollTo(0, 540);
+            }
+        }
 
         $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']").parent().addClass("tono_no_seleccionado");
         setTimeout(
-
-
            function () {
             $(objInput).parents("[data-item]").find("[data-tono-change='1']").parent().removeClass("tono_no_seleccionado");
         }, 500);

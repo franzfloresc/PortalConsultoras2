@@ -508,7 +508,7 @@
                         <div class="bloque1">
                             <p>@Model.DescripcionMarca</p>
                             <h1>@Model.DescripcionResumen</h1>
-                            <span>4g/.</span>
+                            @*<span>4g/.</span>*@
                         </div>
                         <div class="bloque2">
                             <span class="precio-tachado">@Model.Simbolo @Model.PrecioTachado</span>
@@ -527,7 +527,6 @@
                         </ul>
                     </div>
                     <div id="ContenedorDeTonos" class="detalle-bloque-tres">
-                        lista tonos aqui
                         @Html.Partial("~/Views/Lanzamientos/Template_LanzamientosTonos.cshtml", Model)
                     </div>
                 </div>
@@ -538,7 +537,7 @@
     <div class="set_encuentras_producto" id="set_relacionados">
         <div class="wrapper_resumen_mobile">
             <p class="titulo_set">
-                PACKS CON VIBRANZA
+                PACKS CON @Model.DescripcionResumen
             </p>
             <div class="set_encuentras_producto_carrusel">
                 <!-- aqui carrusel de productos -->
@@ -574,7 +573,7 @@
                 <div class="content_320">
                     @if (btnDesabled == 1)
                     {
-                        btnDesabledClass = Model.ClaseBloqueada;
+                        btnDesabledClass = "btn_desactivado_general";
                     }
                     <div class="content_cantidad_ficha_producto">
                         <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
