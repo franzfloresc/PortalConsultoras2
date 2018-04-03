@@ -805,15 +805,34 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPedidoWebDetalle> listaPedidoWebDetalle = new List<BEPedidoWebDetalle>();
             if (model.SetID > 0)
             {
-
-                var set = _pedidoSetProvider.ObtenerPorId(userData.PaisID, model.SetID);
-
                 using (var sv = new PedidoServiceClient())
                 {
                     BEPedidoWebDetalle[] pedidoWebSetProducto = sv.GetPedidoWebSetProducto(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, int.Parse(model.Cantidad));
                     listaPedidoWebDetalle.AddRange(pedidoWebSetProducto);
                     listaPedidoWebDetalle.ForEach(x => x.PaisID = userData.PaisID);
                 }
+
+                /*var set = _pedidoSetProvider.ObtenerPorId(userData.PaisID, model.SetID);
+                foreach (var item in set.Detalles)
+                {
+                    BEPedidoWebDetalle obePedidoWebDetalle = new BEPedidoWebDetalle
+                    {
+                        PaisID = userData.PaisID,
+                        CampaniaID = model.CampaniaID,
+                        PedidoID = model.PedidoID,
+                        PedidoDetalleID = Convert.ToInt16(item.PedidoDetalleId),
+                        Cantidad = Convert.ToInt32(model.Cantidad) * item.FactorRepeticion,
+                        PrecioUnidad = item.PrecioUnidad,
+                        ClienteID = string.IsNullOrEmpty(model.Nombre) ? (short)0 : Convert.ToInt16(model.ClienteID),
+                        CUV = item.CUV,
+                        TipoOfertaSisID = item.TipoOfertaSisId,
+                        Stock = model.Stock,
+                        Flag = model.Flag,
+                        DescripcionProd = model.DescripcionProd,
+                        ImporteTotal = Convert.ToInt32(model.Cantidad) * item.FactorRepeticion * item.PrecioUnidad
+                    };
+                    listaPedidoWebDetalle.Add(obePedidoWebDetalle);
+                }*/
             }
             else
             {
@@ -853,9 +872,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (!errorServer && model.SetID > 0)
             {
-                var setDeleted = _pedidoSetProvider.ActualizarCantidadSet(userData.PaisID, model.SetID, int.Parse(model.Cantidad));
-                if (!setDeleted.Success)
-                    message = setDeleted.Message;
+                var setUpdate = _pedidoSetProvider.ActualizarCantidadSet(userData.PaisID, model.SetID, int.Parse(model.Cantidad));
+                if (!setUpdate.Success)
+                    message = setUpdate.Message;
             }
 
             return Json(new

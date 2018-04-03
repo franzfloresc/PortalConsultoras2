@@ -2691,8 +2691,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
         PrecioUnidad: PrecioUnidad,
         Nombre: CliDes,
         DescripcionProd: DesProd,
-        ClienteID_: ClienteID_,
-        SetId: 19
+        ClienteID_: ClienteID_
     };
 
     AbrirSplash();
@@ -3052,6 +3051,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                             var Total = parseFloat(Cantidad * Unidad).toFixed(2);
                             $('#lblLPImpTotal' + PedidoDetalleID).html(Total);
                             var ClienteID_ = $('#ddlClientes').val();
+                            var _SetID = $('#txtLPCant' + PedidoDetalleID).attr('data-setid');
                             var item = {
                                 CampaniaID: CampaniaID,
                                 PedidoID: PedidoID,
@@ -3065,7 +3065,8 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                 Flag: Flag,
                                 TipoOfertaSisID: TipoOfertaSisID,
                                 CUV: CUV,
-                                ClienteID_: ClienteID_
+                                ClienteID_: ClienteID_,
+                                SetID: _SetID
                             };
 
                             AbrirSplash();

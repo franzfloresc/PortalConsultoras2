@@ -379,7 +379,7 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdCantidadPedidoWebSet");
             Context.Database.AddInParameter(command, "@SetId", DbType.Int32, SetId);
             Context.Database.AddInParameter(command, "@Cantidad", DbType.Int32, Cantidad);
-            return Convert.ToInt32(Context.ExecuteScalar(command)) > 0;
+            return Convert.ToInt32(Context.ExecuteNonQuery(command))>0;
         }
 
         public IDataReader GetPedidoWebSetProducto(int Campania, long ConsultoraId, int Cantidad)
