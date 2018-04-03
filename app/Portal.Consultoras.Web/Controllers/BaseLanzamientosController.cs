@@ -16,10 +16,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return RedirectToAction("Index", "Bienvenida", new { area = IsMobile() ? "Mobile" : "" });
             }
-            if (string.IsNullOrWhiteSpace(cuv) || campaniaId <= 0)
-            {
-                return RedirectToAction("Index", "Bienvenida", new { area = IsMobile() ? "Mobile" : "" });
-            }
 
             var modelo = (EstrategiaPersonalizadaProductoModel)Session[Constantes.ConstSession.ProductoTemporal];
             if (modelo == null || modelo.EstrategiaID == 0 || modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
@@ -42,6 +38,24 @@ namespace Portal.Consultoras.Web.Controllers
             if (EstrategiaDetalle.Hermanos != null)
             {
                 modelo.Hermanos = EstrategiaDetalle.Hermanos;
+            }
+
+            if (modelo.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
+            {
+                if ((modelo.Hermanos.Any()))
+                {
+                    modelo.ClaseBloqueada = "btn_desactivado_general";
+                }
+            }
+            else if (modelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija || modelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
+            {
+                if (modelo.Hermanos != null && modelo.Hermanos.Any())
+                {
+                    if (modelo.Hermanos[0].Digitable == 1 && modelo.Hermanos[0].Hermanos.Any())
+                    {
+                        modelo.ClaseBloqueada = "btn_desactivado_general";
+                    }
+                }
             }
 
             ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
