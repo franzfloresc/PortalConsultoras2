@@ -10,7 +10,8 @@
     }
 }
 
-<div class="bc_slider previsualizales-ofertas parche_presentacion_contenedor" data-plantilla="carrusel-previsuales">
+<div class="bc_slider previsualizales-ofertas parche_presentacion_contenedor" data-plantilla="carrusel-previsuales" style="    position: relative;
+    left: 4%;">
     <div class="bloque-titulo">
         <div class="@seccionTituloClass">
             <span>@Model.Titulo</span>
@@ -18,7 +19,7 @@
         <div class="parche_clear"></div>
     </div>
     <div class="content_slider_ept" data-seccion-productos=""
-         style="max-width: 794px !important; position: relative; top: -50px;">
+         style="max-width: 794px !important; position: relative; top: -50px; left: 2%;">
     </div>
 </div>
 
@@ -54,7 +55,11 @@
                     }
                     else
                     {
-                        <a href="">¿LO QUIERES?</a>
+                        <a href="javascript:;" class="btn_elige_tono js-no-popup" data-bloqueada="{{ClaseBloqueada}}"
+                                onclick="javascript:VerPopupExpGanaMas(); ">
+                                ¿LO QUIERES?
+                         </a>
+                        @*<a href="">¿LO QUIERES?</a>*@
                     }
                 }
 
