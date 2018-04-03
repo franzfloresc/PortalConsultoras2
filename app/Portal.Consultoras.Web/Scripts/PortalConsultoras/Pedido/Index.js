@@ -1847,7 +1847,6 @@ function CerrarAvisoEliminarRegalo() {
 
 
 function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId) {
-    setId = setId || 5; //todo: agregar a la llamada
     var param = {
         CampaniaID: campaniaId,
         PedidoID: pedidoId,
