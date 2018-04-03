@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Data.Rest
 
         public static async Task<Pedido> EjecutarCuadreOfertas(Pedido inputPedido)
         {
-            return await restClient.PostAsync<Pedido>(HttpClient, "/Service.svc/EjecutarCuadreOfertas", inputPedido);
+            return await RestClient.PostAsync<Pedido>(HttpClient, "/Service.svc/EjecutarCuadreOfertas", inputPedido);
         }
     }
 }
