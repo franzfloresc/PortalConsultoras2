@@ -3567,6 +3567,7 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.UrlMenuContenedor.SwIntriga:
                 case Constantes.UrlMenuContenedor.SwDetalle:
                 case Constantes.UrlMenuContenedor.SwInicioIndex:
+                case Constantes.UrlMenuContenedor.SwPersonalizado:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
                     menuActivo.OrigenPantalla = IsMobile()
                         ? Constantes.OrigenPantallaWeb.MShowRoom
