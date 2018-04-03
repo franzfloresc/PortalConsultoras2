@@ -382,12 +382,11 @@ namespace Portal.Consultoras.Data
             return Convert.ToInt32(Context.ExecuteNonQuery(command))>0;
         }
 
-        public IDataReader GetPedidoWebSetProducto(int Campania, long ConsultoraId, int Cantidad)
+        public IDataReader GetPedidoWebSetDetalle(int campania, long consultoraId)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebSetProducto");
-            Context.Database.AddInParameter(command, "@Campania", DbType.Int32, Campania);
-            Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int32, ConsultoraId);
-            Context.Database.AddInParameter(command, "@Cantidad", DbType.Int32, Cantidad);
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebSetDetalle");
+            Context.Database.AddInParameter(command, "@Campania", DbType.Int32, campania);
+            Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int32, consultoraId);
             return Context.ExecuteReader(command);
         }
     }

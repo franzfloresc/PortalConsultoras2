@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.PublicService.Cryptography;
 using System;
 using System.Collections.Generic;
@@ -604,18 +605,11 @@ namespace Portal.Consultoras.BizLogic
             return daPedidoWebDetalle.UpdCantidadPedidoWebSet(setId, cantidad);
         }
 
-        public IList<BEPedidoWebDetalle> GetPedidoWebSetProducto(int paisID, int Campania, long ConsultoraId, int Cantidad)
+        public List<BEPedidoWebSetDetalle> GetPedidoWebSetDetalle(int paisID, int campania, long consultoraId)
         {
             DAPedidoWebDetalle daPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
-            List<BEPedidoWebDetalle> listaPedidoWebDetalle = new List<BEPedidoWebDetalle>();
-
-            using (IDataReader reader = daPedidoWebDetalle.GetPedidoWebSetProducto(Campania, ConsultoraId, Cantidad))
-                while (reader.Read())
-                {
-                    BEPedidoWebDetalle entidad = new BEPedidoWebDetalle(reader);
-                    listaPedidoWebDetalle.Add(entidad);
-                }
-            return listaPedidoWebDetalle;
+            using (IDataReader reader = daPedidoWebDetalle.GetPedidoWebSetDetalle(campania, consultoraId))
+                return reader.MapToCollection<BEPedidoWebSetDetalle>(closeReaderFinishing: true);
         }
     }
 }

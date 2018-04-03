@@ -3,6 +3,8 @@ using System.ServiceModel;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models.Pedido;
 using Portal.Consultoras.Web.ServicePedido;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -55,6 +57,17 @@ namespace Portal.Consultoras.Web.Providers
                     return AutoMapper.Mapper.Map<BEPedidoWebSet, PedidoWebSetModel>(result);
             }
 
+            return null;
+        }
+
+        public List<PedidoWebSetDetalleModel> ObtenerDetalle(int paisID, int campania, long consultoraId)
+        {
+            using (var client = new PedidoServiceClient())
+            {
+                var result = client.GetPedidoWebSetDetalle(paisID, campania, consultoraId).ToList<BEPedidoWebSetDetalle>();
+                if (result != null)
+                    return AutoMapper.Mapper.Map<List<BEPedidoWebSetDetalle>, List<PedidoWebSetDetalleModel>>(result);
+            }
             return null;
         }
     }

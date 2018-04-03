@@ -343,11 +343,11 @@
   <wsdl:message name="IPedidoService_UpdCantidadPedidoWebSet_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdCantidadPedidoWebSetResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetPedidoWebSetProducto_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetPedidoWebSetProducto" />
+  <wsdl:message name="IPedidoService_GetPedidoWebSetDetalle_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidoWebSetDetalle" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetPedidoWebSetProducto_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetPedidoWebSetProductoResponse" />
+  <wsdl:message name="IPedidoService_GetPedidoWebSetDetalle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidoWebSetDetalleResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_ObtenerPedidoWebSet_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerPedidoWebSet" />
@@ -2602,9 +2602,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdCantidadPedidoWebSet" message="tns:IPedidoService_UpdCantidadPedidoWebSet_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdCantidadPedidoWebSetResponse" message="tns:IPedidoService_UpdCantidadPedidoWebSet_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetPedidoWebSetProducto">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidoWebSetProducto" message="tns:IPedidoService_GetPedidoWebSetProducto_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidoWebSetProductoResponse" message="tns:IPedidoService_GetPedidoWebSetProducto_OutputMessage" />
+    <wsdl:operation name="GetPedidoWebSetDetalle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidoWebSetDetalle" message="tns:IPedidoService_GetPedidoWebSetDetalle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidoWebSetDetalleResponse" message="tns:IPedidoService_GetPedidoWebSetDetalle_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerPedidoWebSet">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPedidoWebSet" message="tns:IPedidoService_ObtenerPedidoWebSet_InputMessage" />
@@ -4427,8 +4427,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetPedidoWebSetProducto">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidoWebSetProducto" style="document" />
+    <wsdl:operation name="GetPedidoWebSetDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidoWebSetDetalle" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7968,8 +7968,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetPedidoWebSetProducto">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidoWebSetProducto" style="document" />
+    <wsdl:operation name="GetPedidoWebSetDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidoWebSetDetalle" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

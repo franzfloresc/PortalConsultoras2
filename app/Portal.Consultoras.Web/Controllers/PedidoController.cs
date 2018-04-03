@@ -805,14 +805,10 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPedidoWebDetalle> listaPedidoWebDetalle = new List<BEPedidoWebDetalle>();
             if (model.SetID > 0)
             {
-                using (var sv = new PedidoServiceClient())
-                {
-                    BEPedidoWebDetalle[] pedidoWebSetProducto = sv.GetPedidoWebSetProducto(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, int.Parse(model.Cantidad));
-                    listaPedidoWebDetalle.AddRange(pedidoWebSetProducto);
-                    listaPedidoWebDetalle.ForEach(x => x.PaisID = userData.PaisID);
-                }
+                var detallePedido = _pedidoSetProvider.ObtenerDetalle(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
+                detallePedido.Where(p => p.SetId == model.SetID).ToList().ForEach(p => p.Cantidad = int.Parse(model.Cantidad) * p.FactorRepeticion);
 
-                /*var set = _pedidoSetProvider.ObtenerPorId(userData.PaisID, model.SetID);
+                var set = _pedidoSetProvider.ObtenerPorId(userData.PaisID, model.SetID);
                 foreach (var item in set.Detalles)
                 {
                     BEPedidoWebDetalle obePedidoWebDetalle = new BEPedidoWebDetalle
@@ -821,7 +817,7 @@ namespace Portal.Consultoras.Web.Controllers
                         CampaniaID = model.CampaniaID,
                         PedidoID = model.PedidoID,
                         PedidoDetalleID = Convert.ToInt16(item.PedidoDetalleId),
-                        Cantidad = Convert.ToInt32(model.Cantidad) * item.FactorRepeticion,
+                        Cantidad = detallePedido.Where(p => p.PedidoDetalleId == item.PedidoDetalleId).Sum(p => p.Cantidad * p.FactorRepeticion),
                         PrecioUnidad = item.PrecioUnidad,
                         ClienteID = string.IsNullOrEmpty(model.Nombre) ? (short)0 : Convert.ToInt16(model.ClienteID),
                         CUV = item.CUV,
@@ -829,10 +825,10 @@ namespace Portal.Consultoras.Web.Controllers
                         Stock = model.Stock,
                         Flag = model.Flag,
                         DescripcionProd = model.DescripcionProd,
-                        ImporteTotal = Convert.ToInt32(model.Cantidad) * item.FactorRepeticion * item.PrecioUnidad
+                        ImporteTotal = detallePedido.Where(p => p.PedidoDetalleId == item.PedidoDetalleId).Sum(p => p.Cantidad * p.FactorRepeticion) * item.FactorRepeticion * item.PrecioUnidad
                     };
                     listaPedidoWebDetalle.Add(obePedidoWebDetalle);
-                }*/
+                }
             }
             else
             {
