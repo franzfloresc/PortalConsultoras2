@@ -1243,6 +1243,7 @@
     <Content Include="Content\Css\Button\style.css" />
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
     <Content Include="Content\Css\Mobile\Contenedor\Index.css" />
+    <Content Include="Content\Css\Mobile\Lanzamientos\Detalle.css" />
     <Content Include="Content\Css\Mobile\Lanzamientos\Lan_Contenedor.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\ConfirmarDatos.css" />

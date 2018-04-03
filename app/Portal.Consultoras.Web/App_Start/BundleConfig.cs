@@ -466,6 +466,10 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Lanzamientos/Detalle.css"
             ));
 
+            bundles.Add(new StyleBundle("~/bundles/css/Mobile/Lanzamientos-Detalle").Include(
+                "~/Content/Css/Mobile/Lanzamientos/Detalle.css"
+            ));
+
             bundles.Add(new ScriptBundle("~/bundles/Mobile/RevistaDigital-Info").Include(
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
