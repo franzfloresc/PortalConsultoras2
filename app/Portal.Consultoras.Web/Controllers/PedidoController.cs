@@ -4289,7 +4289,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string mensaje = "", urlRedireccionar = "";
+                string mensaje = "", urlRedireccionar = "", CuvSet=string.Empty;
 
                 #region SesiónExpirada
                 if (userData == null)
@@ -4324,6 +4324,7 @@ namespace Portal.Consultoras.Web.Controllers
                 int indFlagNueva;
                 Int32.TryParse(model.FlagNueva == "" ? "0" : model.FlagNueva, out indFlagNueva);
                 var estrategia = FiltrarEstrategiaPedido(model.EstrategiaID.ToString(), indFlagNueva);
+                CuvSet = estrategia.CUV2;
                 #endregion
 
                 #region VirtualCoach 
@@ -4394,7 +4395,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     using (var pedidoServiceClient = new PedidoServiceClient())
                     {
-                        pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), estrategia.CUV2
+                        pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), CuvSet
                             , userData.ConsultoraID, "", strCuvs, estrategia.EstrategiaID);
                     }
                 }
