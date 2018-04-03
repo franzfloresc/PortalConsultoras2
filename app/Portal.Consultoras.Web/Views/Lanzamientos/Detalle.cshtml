@@ -27,7 +27,8 @@
          data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage">
         <div style="display:none;"><div data-estrategia="@Json.Encode(Model)"></div></div>
         <div class="content_belcorp">
-            <div class="detalle-prod" data-item="">
+            <div class="detalle-prod" data-item="" style="position: relative;
+    left: 7%;">
                 <div data-compartir-campos="" style="display:none;">
                     <input type="hidden" class="CUV" value="@Model.CUV2" />
                     <input type="hidden" class="rsFBMensaje" value="" />
@@ -107,13 +108,15 @@
         </div>
         <div class="set_encuentras_producto" id="set_relacionados">
             <div class="content_belcorp">
-                <p class="titulo_set">
+                <p class="titulo_set" style="    position: relative;
+    left: 7%;">
                     SET DONDE ENCUENTRAS EL PRODUCTO
                 </p>
                 <div class="set_encuentras_producto_carrusel" style="margin-left: -4%;"
                      data-item-cuv="@Model.CUV2"
                      data-estrategia="@Json.Encode(Model)">
-                    <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage"></div>
+                    <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage" style="margin-left:0 !important; position: relative;
+    left: 9%;"></div>
                 </div>
             </div>
         </div>
@@ -121,7 +124,8 @@
         {
             <div class="set_encuentras_producto_video" id="video_lanzamiento">
                 <div class="content_belcorp">
-                    <div class="revista_producto_video" style="width: 100%">
+                    <div class="revista_producto_video" style="width: 100%; position: relative;
+    left: 7%;">
                         <div id="player"></div>
                     </div>
                 </div>
