@@ -18,6 +18,10 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
+using Portal.Consultoras.Web.ServiceODS;
+using Portal.Consultoras.Web.SessionManager;
+using Portal.Consultoras.Web.Models.Common;
+
 namespace Portal.Consultoras.Web.Controllers
 {
     public class ShowRoomController : BaseShowRoomController
@@ -26,6 +30,12 @@ namespace Portal.Consultoras.Web.Controllers
         private static readonly string CodigoProceso = ConfigurationManager.AppSettings["EmailCodigoProceso"];
         private int _ofertaId;
         private bool _blnRecibido;
+        private readonly ISessionManager _sessionManager;
+
+        public ShowRoomController()
+        {
+            _sessionManager = SessionManager.SessionManager.Instance;
+        }
 
         public ActionResult Intriga()
         {
@@ -3556,6 +3566,14 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
             return listaShowRoomOferta;
+        }
+
+        [HttpGet]
+        public JsonResult DesactivarBannerInferior()
+        {
+            _sessionManager.ShowRoom.BannerInferiorConfiguracion.Activo = false;
+
+            return Json(ResultModel<bool>.BuildOk(true), JsonRequestBehavior.AllowGet);
         }
     }
 }

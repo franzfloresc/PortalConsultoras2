@@ -426,6 +426,7 @@ namespace Portal.Consultoras.Common
             public const string SubGuion = "_";
             
             public const string EnabledRemoveCache = "EnabledRemoveCache";
+            public const string UrlServiceSicc = "UrlServiceSicc";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
@@ -1893,11 +1894,12 @@ namespace Portal.Consultoras.Common
         public class ProlSiccObs
         {
             public const string Promocion = "PROMOCION NO CUMPLE";
+            public const string Reemplazo = "Reemp. ";
         }
         public class ProlObsToken
         {
             public const string Simbolo = "{simb}";
-            public const string DeudaMonto = "{dueMon}";
+            public const string DeudaMonto = "{deuMon}";
             public const string MaximoMonto = "{maxMon}";
             public const string MinimoMonto = "{minMon}";
             public const string DetalleCuv = "{detCuv}";

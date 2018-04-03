@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Portal.Consultoras.Data.ServiceSicc {
+namespace Portal.Consultoras.Data.Rest.ServiceSicc {
     using System.Runtime.Serialization;
     using System;
     
@@ -98,7 +98,7 @@ namespace Portal.Consultoras.Data.ServiceSicc {
         private string porcDescVariAlcaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Portal.Consultoras.Data.ServiceSicc.Detalle[] posicionesField;
+        private Portal.Consultoras.Data.Rest.ServiceSicc.Detalle[] posicionesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string precioGanadorField;
@@ -445,7 +445,7 @@ namespace Portal.Consultoras.Data.ServiceSicc {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Portal.Consultoras.Data.ServiceSicc.Detalle[] posiciones {
+        public Portal.Consultoras.Data.Rest.ServiceSicc.Detalle[] posiciones {
             get {
                 return this.posicionesField;
             }
@@ -1196,19 +1196,19 @@ namespace Portal.Consultoras.Data.ServiceSicc {
     public interface IService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/EjecutarCuadreOfertas", ReplyAction="http://tempuri.org/IService/EjecutarCuadreOfertasResponse")]
-        Portal.Consultoras.Data.ServiceSicc.Pedido EjecutarCuadreOfertas(Portal.Consultoras.Data.ServiceSicc.Pedido input);
+        Portal.Consultoras.Data.Rest.ServiceSicc.Pedido EjecutarCuadreOfertas(Portal.Consultoras.Data.Rest.ServiceSicc.Pedido input);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/EjecutarCuadreOfertas", ReplyAction="http://tempuri.org/IService/EjecutarCuadreOfertasResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Data.ServiceSicc.Pedido> EjecutarCuadreOfertasAsync(Portal.Consultoras.Data.ServiceSicc.Pedido input);
+        System.Threading.Tasks.Task<Portal.Consultoras.Data.Rest.ServiceSicc.Pedido> EjecutarCuadreOfertasAsync(Portal.Consultoras.Data.Rest.ServiceSicc.Pedido input);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IServiceChannel : Portal.Consultoras.Data.ServiceSicc.IService, System.ServiceModel.IClientChannel {
+    public interface IServiceChannel : Portal.Consultoras.Data.Rest.ServiceSicc.IService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ServiceClient : System.ServiceModel.ClientBase<Portal.Consultoras.Data.ServiceSicc.IService>, Portal.Consultoras.Data.ServiceSicc.IService {
+    public partial class ServiceClient : System.ServiceModel.ClientBase<Portal.Consultoras.Data.Rest.ServiceSicc.IService>, Portal.Consultoras.Data.Rest.ServiceSicc.IService {
         
         public ServiceClient() {
         }
@@ -1229,11 +1229,11 @@ namespace Portal.Consultoras.Data.ServiceSicc {
                 base(binding, remoteAddress) {
         }
         
-        public Portal.Consultoras.Data.ServiceSicc.Pedido EjecutarCuadreOfertas(Portal.Consultoras.Data.ServiceSicc.Pedido input) {
+        public Portal.Consultoras.Data.Rest.ServiceSicc.Pedido EjecutarCuadreOfertas(Portal.Consultoras.Data.Rest.ServiceSicc.Pedido input) {
             return base.Channel.EjecutarCuadreOfertas(input);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Data.ServiceSicc.Pedido> EjecutarCuadreOfertasAsync(Portal.Consultoras.Data.ServiceSicc.Pedido input) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Data.Rest.ServiceSicc.Pedido> EjecutarCuadreOfertasAsync(Portal.Consultoras.Data.Rest.ServiceSicc.Pedido input) {
             return base.Channel.EjecutarCuadreOfertasAsync(input);
         }
     }

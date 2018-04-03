@@ -297,6 +297,8 @@
     <Compile Include="Controllers\CatalogosBelcorpController.cs" />
     <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
+    <Compile Include="Models\Estrategia\ShowRoom\BannerInferiorConfiguracion.cs" />
+    <Compile Include="Models\Estrategia\ShowRoom\IBannerInferiorConfiguracion.cs" />
     <Compile Include="Models\Estrategia\UpSellingFullModel.cs" />
     <Compile Include="Controllers\MisCertificadosController.cs" />
     <Compile Include="Controllers\OfertasController.cs" />
@@ -691,6 +693,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Providers\ShowRoomProvider.cs" />
+    <Compile Include="Providers\TablaLogicaProvider.cs" />
     <Compile Include="Providers\UpSellingProvider.cs" />
     <Compile Include="Providers\ZonificacionProvider.cs" />
     <Compile Include="Service References\HojaInscripcionBelcorpPais\Reference.cs">
@@ -799,7 +803,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="SessionManager\ISessionManager.cs" />
+    <Compile Include="SessionManager\IShowRoom.cs" />
     <Compile Include="SessionManager\SessionManager.cs" />
+    <Compile Include="SessionManager\ShowRoom.cs" />
     <Compile Include="Set.aspx.cs">
       <DependentUpon>Set.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1260,6 +1266,7 @@
     <Content Include="Content\Css\Site\RevistaDigital\PaginaInformativa.css" />
     <Content Include="Content\Css\Site\RevistaDigital\PopupSuscripcion.css" />
     <Content Include="Content\Css\Site\RevistaDigital\index.css" />
+    <Content Include="Content\Css\Site\ShowRoom.css" />
     <Content Include="Content\Images\carrusel_n_blanco.png" />
     <Content Include="Content\Images\carrusel_p_blanco.png" />
     <Content Include="Content\Images\colorpicker\blank.gif" />
@@ -3673,6 +3680,7 @@
     <Content Include="Scripts\PortalConsultoras\Shared\LoginLayout.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\MenuContenedor.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\TrackingJetlore.js" />
+    <Content Include="Scripts\PortalConsultoras\ShowRoom\BannerInferior.js" />
     <Content Include="Scripts\PortalConsultoras\ShowRoom\Intriga.js" />
     <Content Include="Scripts\PortalConsultoras\ShowRoom\Index.js" />
     <Content Include="Scripts\PortalConsultoras\ShowRoom\ShowRoom.js" />
@@ -4910,6 +4918,7 @@
     <Content Include="Views\RevistaDigital\template-popup-suscripcion.cshtml" />
     <Content Include="Views\Cache\Index.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_GoogleOptimize.cshtml" />
+    <Content Include="Views\ShowRoom\_BannerInferior.cshtml" />
     <Content Include="Views\ShowRoom\Personalizado.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
