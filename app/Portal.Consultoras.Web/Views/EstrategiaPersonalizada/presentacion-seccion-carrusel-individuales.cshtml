@@ -25,10 +25,12 @@
 <script id="lanzamiento-carrusel-individual-template" type="text/x-handlebars-template">
     {{#each this.listaLan as |lan|}}
     {{#if lan.TipoEstrategiaDetalle.FlagIndividual}}
-    <div class="lonuevo_carrusel" style="background: url({{lan.TipoEstrategiaDetalle.ImgFondoDesktop}}); background-color: #24303c !important;"
-    	data-item="{{lan.EstrategiaID}}"
-         data-item-cuv="{{CUV2}}">
-        <div style="display:none;"><div data-estrategia="{{JSON2string lan}}"></div></div>
+    <div class="lonuevo_carrusel" 
+        style="background: url({{lan.TipoEstrategiaDetalle.ImgFondoDesktop}}); background-color: #24303c !important;"
+        data-item="{{lan.EstrategiaID}}"
+        data-item-cuv="{{CUV2}}"
+        data-estrategia="{{JSON2string lan}}">
+
         <img class="logo-club" src="/Content/Images/RevistaDigital/etiqueta-club-ganamas-dorado-independiente.svg" />
         <div class="lonuevo_carrusel_portada">
             <div class="cont">
@@ -48,7 +50,7 @@
                 {
                     if (revistaDigital.EsSuscrita)
                     {
-                        <span class="noti">Podrás comprar este y <b>NUEVOS PRODUCTOS ¡DESDE LA C03!</b></span>
+                        <span class="noti">Podrás comprar este y <b>NUEVOS PRODUCTOS ¡DESDE LA C @revistaDigital.CampaniaActiva!</b></span>
                     }
                     else
                     {
