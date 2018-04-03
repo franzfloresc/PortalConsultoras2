@@ -23,7 +23,11 @@
 
 <script id="lanzamiento-carrusel-individual-template" type="text/x-handlebars-template">
     {{#each this.listaLan as |lan|}}
-    <div class="lonuevo_carrusel" style="background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/5343216/ilf4s4o6bKMIp0t/banner%20de%20lanzamiento%20%231%20en%20desktop.jpg); background-color: #24303c !important;">
+    <div class="lonuevo_carrusel"
+         style="background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/5343216/ilf4s4o6bKMIp0t/banner%20de%20lanzamiento%20%231%20en%20desktop.jpg); background-color: #24303c !important;"
+         data-item="{{lan.EstrategiaID}}"
+         data-item-cuv="{{CUV2}}">
+        <div style="display:none;"><div data-estrategia="{{JSON2string lan}}"></div></div>
         <img class="logo-club" src="~/Content/Images/RevistaDigital/etiqueta-club-ganamas-dorado-independiente.svg" />
         <div class="lonuevo_carrusel_portada">
             <div class="cont">
@@ -37,7 +41,7 @@
                 <span>{{lan.DescripcionResumen}}</span>
                 @if (revistaDigital.EsActiva)
                 {
-                    <a href="" class="negro">VER PRODUCTO</a>
+                    <a href="javascript:void(0)" class="negro" data-item-accion='verdetalle'>VER PRODUCTO</a>
                 }
                 else
                 {
