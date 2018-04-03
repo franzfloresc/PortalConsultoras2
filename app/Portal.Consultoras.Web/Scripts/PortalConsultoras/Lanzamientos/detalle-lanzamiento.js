@@ -1,7 +1,7 @@
-﻿"use strict";
-
-var detalleLanzamiento = (function () {
+﻿var detalleLanzamiento = (function () {
+    "use strict";
     var _player;
+
     var _elements = {
         idPlantillaProductoLanding: "#producto-landing-template",
         divCarruselSetsProductosRelacionados: "#divOfertaProductos",
@@ -9,12 +9,13 @@ var detalleLanzamiento = (function () {
         eligeTuOpcionButtons: "[data-item-tag='eligetuopcion']",
         divSetsProductosRelacionados: "#set_relacionados",
     };
+    
     var _params = {
         videoId: "",
         descripcionResumen: ""
     };
 
-    var _configScriptTag = function () {
+    var _configYouTubeScriptTag = function () {
         var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -44,6 +45,7 @@ var detalleLanzamiento = (function () {
     var _mostrarSetRelacionados = function () {
         $(_elements.divSetsProductosRelacionados).fadeOut();
 
+        var platform = !isMobile() ? 'desktop':'mobile';
         var cuv = _getParamValueFromQueryString("cuv");
         var campaniaId = _getParamValueFromQueryString("campaniaid");
         
@@ -68,19 +70,14 @@ var detalleLanzamiento = (function () {
         SetHandlebars(_elements.idPlantillaProductoLanding, data, _elements.divCarruselSetsProductosRelacionados);
         EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
 
-        var platform = 'desktop';
-        if (isMobile()) {
-            platform = 'mobile';
-        }
-
         var slickArrows = {
             'mobile': {
-                prev: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-left:-12%; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>'
-                , next: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-right:-12%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>'
+                prev: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-left:-12%; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
+                next: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-right:-12%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>'
             },
             'desktop': {
-                prev: '<a class="previous_ofertas" style="left:-5%; text-align:left;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>'
-                , next: '<a class="previous_ofertas" style="display: block; right:-5%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
+                prev: '<a class="previous_ofertas" style="left:-5%; text-align:left;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>', 
+                next: '<a class="previous_ofertas" style="display: block; right:-5%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
             }
         };
 
@@ -114,7 +111,7 @@ var detalleLanzamiento = (function () {
         });
 
         $(_elements.divSetsProductosRelacionados).fadeIn();
-    }
+    };
 
     var _redigirAVerDetallaLanzamiento = function (event) {
         event.stopPropagation();
@@ -143,23 +140,23 @@ var detalleLanzamiento = (function () {
             .off("click")
             .on("click", _redigirAVerDetallaLanzamiento);
         
-    }
+    };
 
     var _init = function (params) {
         var _params = $.extend(_params, params);
-        _configScriptTag();
+        _configYouTubeScriptTag();
         _mostrarSetRelacionados();
         _bindEvents();
     };
 
-    var _onPlayerStateChange = function (event) {
+    var _onYouTubePlayerStateChange = function (event) {
         if (event.data == YT.PlayerState.PLAYING) {
             rdAnalyticsModule.CompartirProducto("YTI", _player.getVideoUrl(), _params.descripcionResumen);
         }
         if (event.data == YT.PlayerState.ENDED) {
             rdAnalyticsModule.CompartirProducto("YTF", _player.getVideoUrl(), _params.descripcionResumen);
         }
-    }
+    };
 
     var _onYouTubeIframeAPIReady = function () {
         _player = new YT.Player('player', {
@@ -167,15 +164,15 @@ var detalleLanzamiento = (function () {
             width: '100%',
             videoId: videoId,
             events: {
-                'onStateChange': _onPlayerStateChange
+                'onStateChange': _onYouTubePlayerStateChange
             }
         });
-    }
+    };
 
     return {    
         init: _init,
         onYouTubeIframeAPIReady: _onYouTubeIframeAPIReady
-    }
+    };
 }());
 
 
