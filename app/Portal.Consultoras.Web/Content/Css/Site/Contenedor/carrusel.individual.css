@@ -126,3 +126,21 @@
 .lonuevo_carrusel .lonuevo_carrusel_info .cont span.noti b {
     font-weight: 900;
 }
+
+.arrow-prev {
+    display: block;
+    left: 0;
+    margin-left: -65px;
+    top: 40%;
+    height: auto;
+    width: 25px;
+}
+
+.arrow-next {
+    display: block;
+    right: 0;
+    margin-right: -65px;
+    top: 40%;
+    height: auto;
+    width: 25px;
+}
