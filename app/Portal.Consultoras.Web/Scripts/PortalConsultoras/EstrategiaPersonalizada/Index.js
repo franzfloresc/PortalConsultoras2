@@ -203,7 +203,13 @@ function SeccionMostrarProductos(data) {
     }
 
     if (data.Seccion.Codigo === CONS_CODIGO_SECCION.LAN) {
-        if (data.listaLan !== undefined && data.listaLan.length > 0) {
+        var tieneIndividual = false;
+        $.each(data.listaLan, function (key, value) {
+            if (value.TipoEstrategiaDetalle.FlagIndividual) {
+                tieneIndividual = true;
+            }
+        });
+        if (data.listaLan !== undefined && data.listaLan.length > 0 && tieneIndividual) {
             RDLocalStorageListado(lsListaRD + data.campaniaId, data, CONS_CODIGO_SECCION.LAN);
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
         } else {
@@ -319,8 +325,8 @@ function RenderCarruselIndividuales(divProd) {
         slidesToScroll: 1,
         autoplay: false,
         speed: 260,
-        prevArrow: '<a class="" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
-        nextArrow: '<a class="" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
+        prevArrow: '<a class="arrow-prev"><img src="' + baseUrl + 'Content/Images/sliders/previous_ofertas.svg")" alt="" /></a>',
+        nextArrow: '<a class="arrow-next"><img src="' + baseUrl + 'Content/Images/sliders/next_ofertas.svg")" alt="" /></a>'
     });
 }
 

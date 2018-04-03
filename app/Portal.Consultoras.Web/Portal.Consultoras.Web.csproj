@@ -3403,6 +3403,8 @@
     <Content Include="Content\Images\sliders\img_01.jpg" />
     <Content Include="Content\Images\sliders\img_02.jpg" />
     <Content Include="Content\Images\sliders\img_03.jpg" />
+    <Content Include="Content\Images\sliders\next_ofertas.svg" />
+    <Content Include="Content\Images\sliders\previous_ofertas.svg" />
     <Content Include="Content\Images\social_icon_facebook.png" />
     <Content Include="Content\Images\socias_empresarias_2014.png" />
     <Content Include="Content\Images\sombra_banner_login.png" />
