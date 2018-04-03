@@ -6,6 +6,12 @@
 @{
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
 }
+
+@{
+    var btnDesabled = 1;
+    var btnDesabledClass = "";
+}
+
 @section styles{
     @System.Web.Optimization.Styles.Render("~/bundles/css/Site/Lanzamientos-Detalle")
     <style>
@@ -15,109 +21,128 @@
     </style>
 }
 
-    <div data-item="" data-tag-html="@ViewBag.Campania">
-        <div class="revista_ficha" style='background: url(@Model.TipoEstrategiaDetalle.ImgFichaFondoDesktop); background-color: #24303c !important;'
-             data-estadoregistro="@ViewBag.EstadoSuscripcion"
-             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage">
-            <div style="display:none;"><div data-estrategia="@Json.Encode(Model)"></div></div>
-            <div class="content_belcorp">
-                <div class="detalle-prod" data-item="">
-                    <div data-compartir-campos="" style="display:none;">
-                        <input type="hidden" class="CUV" value="@Model.CUV2" />
-                        <input type="hidden" class="rsFBMensaje" value="" />
-                        <input type="hidden" class="rsFBRuta" value="@Model.UrlCompartir" />
-                        <input type="hidden" class="rsWAMensaje" value="" />
-                        <input type="hidden" class="rsWARuta" value="@Model.UrlCompartir" />
-                        <input type="hidden" class="rsFBRutaImagen" value="@Model.FotoProducto01" />
-                        <input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
-                        <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
-                        <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
-                        <input type="hidden" class="Nombre" value="@Model.DescripcionResumen" />
-                        <input type="hidden" class="ProductoDescripcion" value="@Model.DescripcionDetalle" />
-                        <input type="hidden" class="Volumen" value="" />
-                        <input type="hidden" class="Palanca" value="LAN" />
+<div data-item="" data-tag-html="@ViewBag.Campania">
+    <div class="revista_ficha" style='background: url(@Model.TipoEstrategiaDetalle.ImgFichaFondoDesktop); background-color: #24303c !important;'
+         data-estadoregistro="@ViewBag.EstadoSuscripcion"
+         data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage">
+        <div style="display:none;"><div data-estrategia="@Json.Encode(Model)"></div></div>
+        <div class="content_belcorp">
+            <div class="detalle-prod" data-item="">
+                <div data-compartir-campos="" style="display:none;">
+                    <input type="hidden" class="CUV" value="@Model.CUV2" />
+                    <input type="hidden" class="rsFBMensaje" value="" />
+                    <input type="hidden" class="rsFBRuta" value="@Model.UrlCompartir" />
+                    <input type="hidden" class="rsWAMensaje" value="" />
+                    <input type="hidden" class="rsWARuta" value="@Model.UrlCompartir" />
+                    <input type="hidden" class="rsFBRutaImagen" value="@Model.FotoProducto01" />
+                    <input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
+                    <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
+                    <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
+                    <input type="hidden" class="Nombre" value="@Model.DescripcionResumen" />
+                    <input type="hidden" class="ProductoDescripcion" value="@Model.DescripcionDetalle" />
+                    <input type="hidden" class="Volumen" value="" />
+                    <input type="hidden" class="Palanca" value="LAN" />
+                </div>
+                <div class="detalle-img">
+                    <div class="img-portada" style="background:url(@Model.FotoProducto01);"></div>
+                    <div class="detalle-compartir">
+                        Comparte este producto con tus clientes
+                        <img src="~/Content/Images/Esika/facebook.png" class="fb" href="javascript:;" data-compartir="FB" />
                     </div>
-                    <div class="detalle-img">
-                        <div class="img-portada" style="background:url(@Model.FotoProducto01);"></div>
-                        <div class="detalle-compartir">
-                            Comparte este producto con tus clientes
-                            <img src="~/Content/Images/Esika/facebook.png" class="fb" href="javascript:;" data-compartir="FB" />
-                        </div>
+                </div>
+                <div class="detalle-info">
+                    <div class="label-nuevo">
+                        <img src="@Model.TipoEstrategiaDetalle.ImgFichaDesktop" />
                     </div>
-                    <div class="detalle-info">
-                        <div class="label-nuevo">
-                            <img src="@Model.TipoEstrategiaDetalle.ImgFichaDesktop" />
+                    <div class="detalle-bloque-uno">
+                        <div class="bloque1">
+                            <p>@Model.DescripcionMarca</p>
+                            <h1>@Model.DescripcionResumen</h1>
+                            @*<span>4g/.</span>*@
                         </div>
-                        <div class="detalle-bloque-uno">
-                            <div class="bloque1">
-                                <p>@Model.DescripcionMarca</p>
-                                <h1>@Model.DescripcionResumen</h1>
-                                @*<span>4g/.</span>*@
-                            </div>
-                            <div class="bloque2">
-                                <span class="precio-tachado">@Model.Simbolo @Model.PrecioTachado</span>
-                                <span class="precio-para-ti">precio para tí<b>@Model.Simbolo @Model.PrecioVenta</b></span>
-                                <span class="gana-rojo">GANA @Model.Simbolo @Model.GananciaString</span>
-                            </div>
-                            <div style="clear:both;"></div>
+                        <div class="bloque2">
+                            <span class="precio-tachado">@Model.Simbolo @Model.PrecioTachado</span>
+                            <span class="precio-para-ti">precio para tí<b>@Model.Simbolo @Model.PrecioVenta</b></span>
+                            <span class="gana-rojo">GANA @Model.Simbolo @Model.GananciaString</span>
                         </div>
-                        <div class="detalle-bloque-dos">
-                            <p>@Model.TipoEstrategiaDetalle.Slogan</p>
-                            <ul>
-                                @foreach (var DescDetalle in Model.ListaDescripcionDetalle)
+                        <div style="clear:both;"></div>
+                    </div>
+                    <div class="detalle-bloque-dos">
+                        <p>@Model.TipoEstrategiaDetalle.Slogan</p>
+                        <ul>
+                            @foreach (var DescDetalle in Model.ListaDescripcionDetalle)
+            {
+                <li>@DescDetalle.Trim()</li>
+}
+                        </ul>
+                    </div>
+                    <div class="detalle-bloque-tres">
+                        lista tonos aqui
+                        @Html.Partial("~/Views/Lanzamientos/Template_LanzamientosTonos.cshtml", Model)
+                    </div>
+                    @if (Model.PuedeAgregarProducto)
+                    {
+                        if (btnDesabled == 1)
                         {
-                            <li>@DescDetalle.Trim()</li>
-                }
-                            </ul>
+                            btnDesabledClass = "btn_desactivado_general";
+                        }
+                        <div>
+                            <div class="texto_elige_tono"></div>
+                            <div class="clear"></div>
+                            <div class="liquidacion_rango_home js-no-popup">
+                                <input value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup " data-input="cantidad" tabindex="0" type="text">
+                                <div class="liquidacion_rango_right_pedido js-no-popup">
+                                    <a href="javascript:;" class="mas js-no-popup" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                                    <a href="javascript:;" class="menos js-no-popup" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                                </div>
+                            </div>
+                            <a href="javascript:;" class="@btnDesabledClass boton_Agregalo_home js-no-popup " data-bloqueada="" onclick="javascript:EstrategiaAgregar(event, true); " tabindex="0">
+                                AGRÉGALO
+                            </a>
                         </div>
-                        <div class="detalle-bloque-tres">
-                            lista tonos aqui
-                            @Html.Partial("~/Views/Lanzamientos/Template_LanzamientosTonos.cshtml", Model)
-                        </div>
-                        <div class="detalle-bloque-cuatro">
-                            btn comprar aqui
-                        </div>
-                    </div>
-                    <div style="clear:both;"></div>
+                    }
+
                 </div>
+                <div style="clear:both;"></div>
             </div>
         </div>
-        <div class="set_encuentras_producto" id="set_relacionados">
-            <div class="content_belcorp">
-                <p class="titulo_set">
-                    SET DONDE ENCUENTRAS EL PRODUCTO
-                </p>
-                <div class="set_encuentras_producto_carrusel" style="margin-left: -4%;"
-                     data-item-cuv="@Model.CUV2"
-                     data-estrategia="@Json.Encode(Model)">
-                    <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage"></div>
-                </div>
+    </div>
+    <div class="set_encuentras_producto" id="set_relacionados">
+        <div class="content_belcorp">
+            <p class="titulo_set">
+                SET DONDE ENCUENTRAS EL PRODUCTO
+            </p>
+            <div class="set_encuentras_producto_carrusel" style="margin-left: -4%;"
+                 data-item-cuv="@Model.CUV2"
+                 data-estrategia="@Json.Encode(Model)">
+                <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage"></div>
             </div>
         </div>
-        <div class="set_encuentras_producto_video">
-            <div class="content_belcorp">
-                @if ((Model.TipoEstrategiaDetalle.UrlVideoDesktop ?? "") != "")
+    </div>
+    <div class="set_encuentras_producto_video">
+        <div class="content_belcorp">
+            @if ((Model.TipoEstrategiaDetalle.UrlVideoDesktop ?? "") != "")
             {
                 <div class="revista_producto_video" style="width: 100%">
                     <div id="player"></div>
                 </div>
-        }
-            </div>
+            }
         </div>
-        @Html.Action("MensajeBloqueado", "RevistaDigital")
-        <div class="flecha_scroll">
-            <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll"></a>
-        </div>
-
-        <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
+    </div>
+    @Html.Action("MensajeBloqueado", "RevistaDigital")
+    <div class="flecha_scroll">
+        <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll"></a>
     </div>
 
+    <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
+</div>
 
-        @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 
-        @section scripts{
-            @System.Web.Optimization.Scripts.Render("~/bundles/Lanzamientos-Detalle")
-            <script type="text/javascript">
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+
+@section scripts{
+    @System.Web.Optimization.Scripts.Render("~/bundles/Lanzamientos-Detalle")
+    <script type="text/javascript">
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage';
         var tipoOrigenEstrategia = 172;
         var videoId = "@Model.TipoEstrategiaDetalle.UrlVideoDesktop";
@@ -131,5 +156,5 @@
         function onYouTubeIframeAPIReady() {
             detalleLanzamiento.onYouTubeIframeAPIReady();
         }
-            </script>
-        }
+    </script>
+}
