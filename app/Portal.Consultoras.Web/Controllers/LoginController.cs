@@ -3193,6 +3193,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             TempData["PaisID"] = PaisID;
 
+            TempData["CodigoISO"] = oUsuCorreo.CodigoISO;
             TempData["CodigoUsuario"] = oUsuCorreo.CodigoUsuario;
             TempData["PrimerNombre"] = oUsuCorreo.PrimerNombre;
             TempData["NombreCompleto"] = oUsuCorreo.NombreCompleto;
@@ -3210,6 +3211,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var oUsuCorreo = new BEUsuarioCorreo();
             oUsuCorreo.CodigoUsuario = Convert.ToString(TempData["CodigoUsuario"]);
+            oUsuCorreo.CodigoISO = Convert.ToString(TempData["CodigoISO"]);
             oUsuCorreo.PrimerNombre = Convert.ToString(TempData["PrimerNombre"]);
             oUsuCorreo.NombreCompleto = Convert.ToString(TempData["NombreCompleto"]);
             oUsuCorreo.IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
