@@ -176,15 +176,15 @@
 
 .detalle-prod .detalle-img {
 float: left;
-width: 330px;
+width: 35%;
 height: auto;
 margin-bottom: 46px;
-margin-right: 44px;
+margin-right: 5%;
 }
 .detalle-prod .detalle-img .img-portada {
 background-size: contain !important;
 background-repeat: no-repeat !important;
-background-position: center center !important;
+background-position: center bottom !important;
 width: 100%;
 height: 330px;
 }
@@ -198,7 +198,7 @@ letter-spacing: normal;
 text-align: left;
 color: #000000;
 display: block;
-margin-top: 40px;
+margin-top: 20px;
 }
 .detalle-prod .detalle-img .detalle-compartir img{
 position: relative;
@@ -216,7 +216,7 @@ top: 5.39px;
 .detalle-prod .detalle-info {
 float: left;
 background: white;
-width: 551px;
+width: 60%;
 padding: 36px;
 /*box-shadow: 0px 1px 15px -2px #00000057;*/
 }
@@ -258,6 +258,7 @@ letter-spacing: 0.9px;
 text-align: left;
 color: #000000;
 margin-bottom: 0px !important;
+font-family: 'Lato' !important;
 }
 .detalle-prod .detalle-info .detalle-bloque-uno .bloque1 span {
 display: block;

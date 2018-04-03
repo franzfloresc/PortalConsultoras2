@@ -12,130 +12,131 @@
     @*@System.Web.Optimization.Styles.Render("~/bundles/css/Mobile/Site/RevistaDigital-Detalle")*@
 }
 @*<div class="content_detalle_set_bpt_general" id="divDetalleContenido" data-item=""
-     data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage"
-     data-estadoregistro="@ViewBag.EstadoSuscripcion" data-tag-html="@ViewBag.Campania" style="display:none;">
+         data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage"
+         data-estadoregistro="@ViewBag.EstadoSuscripcion" data-tag-html="@ViewBag.Campania" style="display:none;">
 
-    <div data-compartir-campos="" style="display:none;">
-        <input type="hidden" class="CUV" value="@Model.CUV2" />
-        <input type="hidden" class="rsFBMensaje" value="" />
-        <input type="hidden" class="rsFBRuta" value="@Model.UrlCompartir" />
-        <input type="hidden" class="rsWAMensaje" value="" />
-        <input type="hidden" class="rsWARuta" value="@Model.UrlCompartir" />
-        <input type="hidden" class="rsFBRutaImagen" value="@Model.FotoProducto01" />
-        <input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
-        <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
-        <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
-        <input type="hidden" class="Nombre" value="@Model.DescripcionResumen" />
-        <input type="hidden" class="ProductoDescripcion" value="@Model.DescripcionDetalle" />
-        <input type="hidden" class="Volumen" value="" />
-        <input type="hidden" class="Palanca" value="LAN" />
-    </div>
-    <div class="content_detalle_set_bpt">
-        @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
-            if (mobileConfiguracion.MostrarBotonAtras)
-            {
-                <a class="regresar_landing" href="javascript: RDDetalleVolver(@Model.CampaniaID);">VOLVER</a>
-            }
-        }
-
-        @if (Model.TipoEstrategiaDetalle.ImgFichaFondoMobile != "")
-        {
-            <img src="@Model.TipoEstrategiaDetalle.ImgFichaFondoMobile" alt="" style="height: 280px;" />
-        }
-    </div>
-
-    <div class="wrapper_resumen_mobile">
-        @if (Model.TipoEstrategiaDetalle.ImgFichaMobile != "")
-        {
-            <div class="etiqueta_nuevo_bpt">
-                <img src="@Model.TipoEstrategiaDetalle.ImgFichaMobile" alt="" style="max-height:50px;" />
-            </div>
-        }
-
-        <div class="nombre_producto_bpt">@Model.DescripcionResumen</div>
-        @if (Model.DescripcionDetalle != "")
-        {
-            <div class="info-set_bpt">CONOCE POR QUÉ @Model.DescripcionResumen SERÁ GANADORA</div>
-            <div class="content_descripcion_bpt">
-                <ol class="ol_detalle">
-                    @foreach (var DescDetalle in Model.ListaDescripcionDetalle)
-                    {
-                        <li>@DescDetalle.Trim()</li>
-                    }
-                </ol>
-            </div>
-        }
-    </div>
-    @if (mobileConfiguracion.MostrarHipervinculo)
-    {
-        <div class="share_social_nertwoks" data-posicion="0" data-item="165">
-            <div class="title-compartir">Comparte este producto con tus clientes:</div>
-            <div class="content_redes_ficha">
-                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA">
-                    <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
-                </a>
-                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB">
-                    <img src="/Content/Images/Mobile/Esika/facebook.png">
-                </a>
-            </div>
+        <div data-compartir-campos="" style="display:none;">
+            <input type="hidden" class="CUV" value="@Model.CUV2" />
+            <input type="hidden" class="rsFBMensaje" value="" />
+            <input type="hidden" class="rsFBRuta" value="@Model.UrlCompartir" />
+            <input type="hidden" class="rsWAMensaje" value="" />
+            <input type="hidden" class="rsWARuta" value="@Model.UrlCompartir" />
+            <input type="hidden" class="rsFBRutaImagen" value="@Model.FotoProducto01" />
+            <input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
+            <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
+            <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
+            <input type="hidden" class="Nombre" value="@Model.DescripcionResumen" />
+            <input type="hidden" class="ProductoDescripcion" value="@Model.DescripcionDetalle" />
+            <input type="hidden" class="Volumen" value="" />
+            <input type="hidden" class="Palanca" value="LAN" />
         </div>
-    }
+        <div class="content_detalle_set_bpt">
+            @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
+                if (mobileConfiguracion.MostrarBotonAtras)
+                {
+                    <a class="regresar_landing" href="javascript: RDDetalleVolver(@Model.CampaniaID);">VOLVER</a>
+                }
+            }
 
-    @if (Model.TipoEstrategiaDetalle.UrlVideoMobile != "")
-    {
-        <a class="btn_ver_video_bpt" href="#divDiveo">VER VIDEO CON TIPS</a>
-    }
+            @if (Model.TipoEstrategiaDetalle.ImgFichaFondoMobile != "")
+            {
+                <img src="@Model.TipoEstrategiaDetalle.ImgFichaFondoMobile" alt="" style="height: 280px;" />
+            }
+        </div>
 
-    <div class="">PACKS CON VIBRANZA</div>
+        <div class="wrapper_resumen_mobile">
+            @if (Model.TipoEstrategiaDetalle.ImgFichaMobile != "")
+            {
+                <div class="etiqueta_nuevo_bpt">
+                    <img src="@Model.TipoEstrategiaDetalle.ImgFichaMobile" alt="" style="max-height:50px;" />
+                </div>
+            }
 
-    <div style="background:#F6F6F6; padding:30px;">
-        <div id="divOfertaProductos"></div>
-        @if (Model.TipoEstrategiaDetalle.UrlVideoMobile != "")
+            <div class="nombre_producto_bpt">@Model.DescripcionResumen</div>
+            @if (Model.DescripcionDetalle != "")
+            {
+                <div class="info-set_bpt">CONOCE POR QUÉ @Model.DescripcionResumen SERÁ GANADORA</div>
+                <div class="content_descripcion_bpt">
+                    <ol class="ol_detalle">
+                        @foreach (var DescDetalle in Model.ListaDescripcionDetalle)
+                        {
+                            <li>@DescDetalle.Trim()</li>
+                        }
+                    </ol>
+                </div>
+            }
+        </div>
+        @if (mobileConfiguracion.MostrarHipervinculo)
         {
-            <div class="" style="padding-top:30px;" id="divDiveo">
-                <div class="video-responsive-bpt">
-                    <div id="player"></div>
-
-                    <script>
-                        var tag = document.createElement('script');
-
-                        tag.src = "https://www.youtube.com/iframe_api";
-                        var firstScriptTag = document.getElementsByTagName('script')[0];
-                        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-                        var player;
-                        function onYouTubeIframeAPIReady() {
-                            player = new YT.Player('player', {
-                                height: '415',
-                                width: '100%',
-                                videoId: '@Model.TipoEstrategiaDetalle.UrlVideoMobile',
-                                events: {
-                                    'onStateChange': onPlayerStateChange
-                                }
-                            });
-                        }
-
-                        function onPlayerStateChange(event) {
-                            if (event.data == YT.PlayerState.PLAYING) {
-                                rdAnalyticsModule.CompartirProducto("YTI", player.getVideoUrl(), "@Model.DescripcionResumen");
-                            }
-                            if (event.data == YT.PlayerState.ENDED) {
-                                rdAnalyticsModule.CompartirProducto("YTF", player.getVideoUrl(), "@Model.DescripcionResumen");
-                            }
-                        }
-
-                    </script>
+            <div class="share_social_nertwoks" data-posicion="0" data-item="165">
+                <div class="title-compartir">Comparte este producto con tus clientes:</div>
+                <div class="content_redes_ficha">
+                    <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA">
+                        <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
+                    </a>
+                    <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB">
+                        <img src="/Content/Images/Mobile/Esika/facebook.png">
+                    </a>
                 </div>
             </div>
         }
-    </div>
-</div>*@
+
+        @if (Model.TipoEstrategiaDetalle.UrlVideoMobile != "")
+        {
+            <a class="btn_ver_video_bpt" href="#divDiveo">VER VIDEO CON TIPS</a>
+        }
+
+        <div class="">PACKS CON VIBRANZA</div>
+
+        <div style="background:#F6F6F6; padding:30px;">
+            <div id="divOfertaProductos"></div>
+            @if (Model.TipoEstrategiaDetalle.UrlVideoMobile != "")
+            {
+                <div class="" style="padding-top:30px;" id="divDiveo">
+                    <div class="video-responsive-bpt">
+                        <div id="player"></div>
+
+                        <script>
+                            var tag = document.createElement('script');
+
+                            tag.src = "https://www.youtube.com/iframe_api";
+                            var firstScriptTag = document.getElementsByTagName('script')[0];
+                            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+                            var player;
+                            function onYouTubeIframeAPIReady() {
+                                player = new YT.Player('player', {
+                                    height: '415',
+                                    width: '100%',
+                                    videoId: '@Model.TipoEstrategiaDetalle.UrlVideoMobile',
+                                    events: {
+                                        'onStateChange': onPlayerStateChange
+                                    }
+                                });
+                            }
+
+                            function onPlayerStateChange(event) {
+                                if (event.data == YT.PlayerState.PLAYING) {
+                                    rdAnalyticsModule.CompartirProducto("YTI", player.getVideoUrl(), "@Model.DescripcionResumen");
+                                }
+                                if (event.data == YT.PlayerState.ENDED) {
+                                    rdAnalyticsModule.CompartirProducto("YTF", player.getVideoUrl(), "@Model.DescripcionResumen");
+                                }
+                            }
+
+                        </script>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>*@
 
 <style>
     .revista_ficha {
         height: 176px !important;
         background-size: cover !important;
         background-repeat: no-repeat !important;
+        background-position: center center !important;
     }
 
     .detalle-prod .detalle-img {
@@ -151,7 +152,7 @@
         .detalle-prod .detalle-img .img-portada {
             background-size: contain !important;
             background-repeat: no-repeat !important;
-            background-position: center center !important;
+            background-position: center bottom !important;
             width: 100%;
             height: 330px;
             width: 221px;
@@ -233,6 +234,7 @@
                     color: #000000;
                     margin-bottom: 0px !important;
                     margin-top: 0;
+                    font-family:'Lato' !important;
                 }
 
                 .detalle-prod .detalle-info .detalle-bloque-uno .bloque1 span {
@@ -448,153 +450,179 @@
                     }
 </style>
 
-<div class="revista_ficha" style='background: url(@Model.TipoEstrategiaDetalle.ImgFichaFondoMobile); background-color: #24303c !important;'
-     data-estadoregistro="@ViewBag.EstadoSuscripcion">
-    <div class="wrapper_resumen_mobile">
-        <div class="detalle-prod">
-            <div class="detalle-img">
-                <div class="img-portada" style="background:url(@Model.FotoProductoSmall);"></div>
 
-            </div>
-            <div class="detalle-info">
-                <div class="label-nuevo">
-                    <img src="@Model.TipoEstrategiaDetalle.ImgFichaDesktop" />
+@{
+    var btnDesabled = 0;
+    var btnDesabledClass = "";
+}
+
+<div data-item="" data-tag-html="@ViewBag.Campania">
+    <div class="revista_ficha" style='background: url(@Model.TipoEstrategiaDetalle.ImgFichaFondoMobile); background-color: #24303c !important;'
+         data-estadoregistro="@ViewBag.EstadoSuscripcion" data-item=""
+         data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage">
+        <div style="display:none;"><div data-estrategia="@Json.Encode(Model)"></div></div>
+        <div class="wrapper_resumen_mobile">
+            <div class="detalle-prod" data-item="">
+                <div data-compartir-campos="" style="display:none;">
+                    <input type="hidden" class="CUV" value="@Model.CUV2" />
+                    <input type="hidden" class="rsFBMensaje" value="" />
+                    <input type="hidden" class="rsFBRuta" value="@Model.UrlCompartir" />
+                    <input type="hidden" class="rsWAMensaje" value="" />
+                    <input type="hidden" class="rsWARuta" value="@Model.UrlCompartir" />
+                    <input type="hidden" class="rsFBRutaImagen" value="@Model.FotoProducto01" />
+                    <input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
+                    <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
+                    <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
+                    <input type="hidden" class="Nombre" value="@Model.DescripcionResumen" />
+                    <input type="hidden" class="ProductoDescripcion" value="@Model.DescripcionDetalle" />
+                    <input type="hidden" class="Volumen" value="" />
+                    <input type="hidden" class="Palanca" value="LAN" />
                 </div>
-                <div class="detalle-bloque-uno">
-                    <div class="bloque1">
-                        <p>@Model.DescripcionMarca</p>
-                        <h1>@Model.DescripcionResumen</h1>
-                        <span>4g/.</span>
-                    </div>
-                    <div class="bloque2">
-                        <span class="precio-tachado">@Model.Simbolo @Model.PrecioTachado</span>
-                        <span class="precio-para-ti">precio para tí<b>@Model.Simbolo @Model.PrecioVenta</b></span>
-                        <span class="gana-rojo">@Model.Simbolo @Model.Ganancia</span>
-                    </div>
-                    <div style="clear:both;"></div>
+                <div class="detalle-img">
+                    <div class="img-portada" style="background:url(@Model.FotoProductoSmall);"></div>
+
                 </div>
-                <div class="detalle-bloque-dos">
-                    <p>@Model.TipoEstrategiaDetalle.Slogan</p>
-                    <ul>
-                        @foreach (var DescDetalle in Model.ListaDescripcionDetalle)
+                <div class="detalle-info">
+                    <div class="label-nuevo">
+                        <img src="@Model.TipoEstrategiaDetalle.ImgFichaDesktop" />
+                    </div>
+                    <div class="detalle-bloque-uno">
+                        <div class="bloque1">
+                            <p>@Model.DescripcionMarca</p>
+                            <h1>@Model.DescripcionResumen</h1>
+                            <span>4g/.</span>
+                        </div>
+                        <div class="bloque2">
+                            <span class="precio-tachado">@Model.Simbolo @Model.PrecioTachado</span>
+                            <span class="precio-para-ti">precio para tí<b>@Model.Simbolo @Model.PrecioVenta</b></span>
+                            <span class="gana-rojo">@Model.Simbolo @Model.Ganancia</span>
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
+                    <div class="detalle-bloque-dos">
+                        <p>@Model.TipoEstrategiaDetalle.Slogan</p>
+                        <ul>
+                            @foreach (var DescDetalle in Model.ListaDescripcionDetalle)
+                            {
+                                <li>@DescDetalle.Trim()</li>
+                            }
+                        </ul>
+                    </div>
+                    <div id="ContenedorDeTonos" class="detalle-bloque-tres">
+                        lista tonos aqui
+
+                        @if (Model.CodigoEstrategia != "")
                         {
-                            <li>@DescDetalle.Trim()</li>
+                            <div data-estrategia="@Model.CodigoVariante">
+
+                                @if (Model.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
+                                {
+                                    if ((Model.Hermanos.Any()))
+                                    {
+                                        btnDesabled = 1;
+                                        <div class="content_tonos_producto" data-tono="" data-tono-select="" data-tono-digitable="1">
+                                            <div class="tono_select_opt">
+                                                <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                                                    <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" /></div>
+                                                    <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
+                                                    <hr class="clear" />
+                                                </div>
+                                                <div class="content_tonos_select" style="display:none;">
+                                                    @foreach (var Hermano in Model.Hermanos)
+                                                    {
+                                                        <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@Hermano.CUV" data-tono-nombre="@Hermano.NombreBulk" data-tono-descripcion="@Hermano.NombreComercial">
+                                                            <div class="tono_seleccionado"><img src="@Hermano.ImagenBulk" alt=""></div>
+                                                            <div class="texto_tono_seleccionado">@Hermano.NombreBulk</div>
+                                                            <hr class="clear" />
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <hr class="clear">
+                                            <div data-tono-div="">
+                                                @foreach (var Hermano in Model.Hermanos)
+                                                {
+                                                    <div style="display: none;">
+                                                        <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.MarcaID" />
+                                                        <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
+                                                    </div>
+                                                    <div class="content_tono_detalle" data-tono-cuv="@Hermano.CUV" data-tono-change="2" data-tono-nombre="@Hermano.NombreBulk">
+                                                        <img src="@Hermano.ImagenBulk" alt="">
+                                                    </div>
+                                                }
+                                            </div>
+                                            <hr class="clear">
+                                        </div>
+                                    }
+                                }
+                                else if (Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija || Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
+                                {
+                                    var claseItem = Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija ? "content_producto_individual" : "";
+                                    var claseItem3 = Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable ? "content_producto_compuesto" : "";
+                                    if (Model.Hermanos != null && Model.Hermanos.Any())
+                                    {
+                                        <div class="titulo_contenido">CONTENIDO</div>
+                                        <div class="@claseItem">
+                                            @foreach (var Hermano in Model.Hermanos)
+                                            {
+                                                if ((Hermano.NombreComercial ?? "") == "" && Hermano.Digitable != 1)
+                                                {
+                                                    continue;
+                                                }
+                                                <div>
+                                                    <div class="@claseItem3" data-tono="" data-tono-select="" data-tono-digitable="@Hermano.Digitable">
+                                                        <div style="display: none;">
+                                                            <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.MarcaID" />
+                                                            <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
+                                                        </div>
+                                                        <div class="nombre_producto_opt" data-tono-select-nombrecomercial="">
+                                                            @if (@Hermano.Cantidad > 0)
+                                                            {
+                                                                <span class="cantidad_producto_opt">x @Hermano.Cantidad </span>
+                                                            }
+                                                            <span data-tono-select-nombrecomercial="">@Hermano.NombreComercial</span>
+                                                        </div>
+                                                        @if (Hermano.Digitable == 1)
+                                                        {
+                                                            <div class="content_tonos_producto">
+                                                                <div class="tono_select_opt">
+                                                                    <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                                                                        <div class="tono_seleccionado" style="display: none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
+                                                                        <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
+                                                                        <hr class="clear" />
+                                                                    </div>
+                                                                    <div class="content_tonos_select" style="display:none;">
+                                                                        @foreach (var Tono in Hermano.Hermanos)
+                                                                        {
+                                                                            btnDesabled = 1;
+                                                                            <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@Tono.CUV" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
+                                                                                <div class="tono_seleccionado"><img src="@Tono.ImagenBulk" alt=""></div>
+                                                                                <div class="texto_tono_seleccionado">@Tono.NombreBulk</div>
+                                                                                <hr class="clear" />
+                                                                            </div>
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                                <hr class="clear">
+                                                            </div>
+                                                        }
+                                                        <hr class="clear" />
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+
+                                }
+                            </div>
                         }
-                    </ul>
-                </div>
-                <div class="detalle-bloque-tres">
-                    lista tonos aqui
-
-                    @if (Model.CodigoEstrategia != "")
-    {
-                <div data-estrategia="@Model.CodigoVariante">
-
-                    @if (Model.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
-    {
-        if ((Model.Hermanos.Any()))
-        {
-                <div class="content_tonos_producto" data-tono="" data-tono-select="" data-tono-digitable="1">
-                    <div class="tono_select_opt">
-                        <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
-                            <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" /></div>
-                            <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
-                            <hr class="clear" />
-                        </div>
-                        <div class="content_tonos_select" style="display:none;">
-                            @foreach (var Hermano in Model.Hermanos)
-            {
-                <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@Hermano.CUV" data-tono-nombre="@Hermano.NombreBulk" data-tono-descripcion="@Hermano.NombreComercial">
-                    <div class="tono_seleccionado"><img src="@Hermano.ImagenBulk" alt=""></div>
-                    <div class="texto_tono_seleccionado">@Hermano.NombreBulk</div>
-                    <hr class="clear" />
-                </div>
-}
-                        </div>
-                    </div>
-                    <hr class="clear">
-                    <div data-tono-div="">
-                        @foreach (var Hermano in Model.Hermanos)
-        {
-                <div style="display: none;">
-                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.MarcaID" />
-                    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
-                </div>
-                <div class="content_tono_detalle" data-tono-cuv="@Hermano.CUV" data-tono-change="2" data-tono-nombre="@Hermano.NombreBulk">
-                    <img src="@Hermano.ImagenBulk" alt="">
-                </div>
-}
-                    </div>
-                    <hr class="clear">
-                </div>
-}
-}
-else if (Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija || Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
-{
-var claseItem = Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija ? "content_producto_individual" : "";
-var claseItem3 = Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable ? "content_producto_compuesto" : "";
-if (Model.Hermanos != null && Model.Hermanos.Any())
-{
-                <div class="titulo_contenido">CONTENIDO</div>
-                <div class="@claseItem">
-                    @foreach (var Hermano in Model.Hermanos)
-    {
-        if ((Hermano.NombreComercial ?? "") == "" && Hermano.Digitable != 1)
-        {
-            continue;
-        }
-                <div>
-                    <div class="@claseItem3" data-tono="" data-tono-select="" data-tono-digitable="@Hermano.Digitable">
-                        <div style="display: none;">
-                            <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.MarcaID" />
-                            <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
-                        </div>
-                        <div class="nombre_producto_opt" data-tono-select-nombrecomercial="">
-                            @if (@Hermano.Cantidad > 0)
-            {
-                <span class="cantidad_producto_opt">x @Hermano.Cantidad </span>
-}
-                            <span data-tono-select-nombrecomercial="">@Hermano.NombreComercial</span>
-                        </div>
-                        @if (Hermano.Digitable == 1)
-        {
-                <div class="content_tonos_producto">
-                    <div class="tono_select_opt">
-                        <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
-                            <div class="tono_seleccionado" style="display: none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
-                            <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
-                            <hr class="clear" />
-                        </div>
-                        <div class="content_tonos_select" style="display:none;">
-                            @foreach (var Tono in Hermano.Hermanos)
-            {
-                <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@Tono.CUV" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
-                    <div class="tono_seleccionado"><img src="@Tono.ImagenBulk" alt=""></div>
-                    <div class="texto_tono_seleccionado">@Tono.NombreBulk</div>
-                    <hr class="clear" />
-                </div>
-}
-                        </div>
-                    </div>
-                    <hr class="clear">
-                </div>
-}
-                        <hr class="clear" />
                     </div>
                 </div>
-}
-                </div>
-}
-
-}
-                </div>
-}
-                </div>
+                <div style="clear:both;"></div>
             </div>
-            <div style="clear:both;"></div>
         </div>
     </div>
-</div>
-<div class="set_encuentras_producto">
+<div class="set_encuentras_producto" id="set_relacionados">
     <div class="wrapper_resumen_mobile">
         <p class="titulo_set">
             PACKS CON VIBRANZA
@@ -602,26 +630,51 @@ if (Model.Hermanos != null && Model.Hermanos.Any())
         <div class="set_encuentras_producto_carrusel">
             <!-- aqui carrusel de productos -->
             <div id="divOfertaProductos"></div>
+            </div>
         </div>
     </div>
-</div>
-<div class="set_encuentras_producto_video">
-    <div class="wrapper_resumen_mobile">
-        <div class="revista_producto_video" style="width: 100%">
-            <div id="player"></div>
+    <div class="set_encuentras_producto_video">
+        <div class="wrapper_resumen_mobile">
+            <div class="revista_producto_video" style="width: 100%">
+                <div id="player"></div>
+            </div>
         </div>
     </div>
-</div>
-<div class="comparte_set_encuentras_producto_video">
-    <div class="wrapper_resumen_mobile">
-        <hr />
-        <p>Comparte el producto con tus clientes:</p>
-        <ul>
-            <li><a href=""><img src="~/Content/Images/mobile/img-icon/whatsapp-50x50.png" alt=""></a></li>
-            <li><a href=""><img src="~/Content/Images/mobile/Esika/facebook.png" alt=""></a></li>
-        </ul>
+    <div class="comparte_set_encuentras_producto_video" data-posicion="0" data-item="165">
+        <div class="wrapper_resumen_mobile">
+            <hr />
+            <p>Comparte el producto con tus clientes:</p>
+            <ul>
+                <li><a href="javascript: void(0);" data-compartir="WA"><img src="~/Content/Images/mobile/img-icon/whatsapp-50x50.png" alt=""></a></li>
+                <li><a href="javascript: void(0);" data-compartir="FB"><img src="~/Content/Images/mobile/Esika/facebook.png" alt=""></a></li>
+            </ul>
+        </div>
     </div>
+
+    @if (Model.PuedeAgregarProducto)
+    {
+    <div class="row">
+        <div class="content_btn_agregar">
+            <div class="content_320">
+                @if (btnDesabled == 1)
+                {
+                    btnDesabledClass = Model.ClaseBloqueada;
+                }
+                <div class="content_cantidad_ficha_producto">
+                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                </div>
+                <a class="@btnDesabledClass btn_agregar_ficha_producto" id="tbnAgregarProducto"
+                   onclick="javascript:EstrategiaAgregar(event, true); ">AGRÉGALO</a>
+                <hr class="clear">
+            </div>
+        </div>
+    </div>
+    }
+
 </div>
+
 
 @if (Model.ClaseBloqueada != "")
 {
@@ -640,6 +693,7 @@ if (Model.Hermanos != null && Model.Hermanos.Any())
                 videoId: videoId,
                 descripcionResumen: descripcionResumen
             });
+            RDDetalleObtener();
         });
         function onYouTubeIframeAPIReady() {
             detalleLanzamiento.onYouTubeIframeAPIReady();

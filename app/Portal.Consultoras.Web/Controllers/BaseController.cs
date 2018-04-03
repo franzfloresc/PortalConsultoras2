@@ -3198,7 +3198,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaEntidad = sessionManager.GetSeccionesContenedor(menuActivo.CampaniaId);
                 if (listaEntidad == null)
                 {
-                    listaEntidad = GetConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaId);
+                    listaEntidad = GetConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaId); // secciones de base de datos 
                     sessionManager.SetSeccionesContenedor(menuActivo.CampaniaId, listaEntidad);
                 }
 
@@ -3352,13 +3352,17 @@ namespace Portal.Consultoras.Web.Controllers
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.ShowRoom:
                             seccion.TemplatePresentacion = "seccion-showroom";
                             seccion.TemplateProducto = "#template-showroom";
-                            break;
+                            break;  
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.OfertaDelDia:
                             seccion.TemplatePresentacion = "seccion-oferta-del-dia";
                             break;
 
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.DescagablesNavidenos:
                             seccion.TemplatePresentacion = "seccion-descargables-navidenos";
+                            break;
+                        case Constantes.ConfiguracionSeccion.TipoPresentacion.CarruselIndividuales:
+                            seccion.TemplatePresentacion = "seccion-carrusel-individuales";
+                            seccion.TemplateProducto = "#lanzamiento-carrusel-individual-template";
                             break;
                     }
 

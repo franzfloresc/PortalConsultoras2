@@ -12,6 +12,7 @@ var CONS_TIPO_PRESENTACION = {
     Banners: 4,
     ShowRoom: 5,
     OfertaDelDia: 6,
+    CarruselIndividuales: 8
 };
 
 var CONS_CODIGO_SECCION = {
@@ -299,6 +300,28 @@ function SeccionMostrarProductos(data) {
     else if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselSimple) {
         RenderCarruselSimple(htmlSeccion);
     }
+    else if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselIndividuales) {
+        RenderCarruselIndividuales(htmlSeccion);
+    }
+}
+
+function RenderCarruselIndividuales(divProd) {
+    if (typeof divProd == "undefined")
+        return false;
+    EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
+
+    divProd.find(sElementos.listadoProductos + '.slick-initialized').slick('unslick');
+    divProd.find(sElementos.listadoProductos).not('.slick-initialized').slick({
+        lazyLoad: 'ondemand',
+        infinite: true,
+        vertical: false,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: false,
+        speed: 260,
+        prevArrow: '<a class="" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
+        nextArrow: '<a class="" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
+    });
 }
 
 function RenderCarruselPrevisuales(divProd) {

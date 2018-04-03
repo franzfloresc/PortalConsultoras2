@@ -1,13 +1,15 @@
-﻿"use strict";
-
-var detalleLanzamiento = (function () {
+﻿var detalleLanzamiento = (function () {
+    "use strict";
     var _player;
+
     var _elements = {
         idPlantillaProductoLanding: "#producto-landing-template",
-        idDivSetsProductosRelacionados: "#divOfertaProductos",
+        divCarruselSetsProductosRelacionados: "#divOfertaProductos",
         verDetalleButtons: "[data-item-tag='verdetalle']",
-        eligeTuOpcionButtons: "[data-item-tag='eligetuopcion']"
+        eligeTuOpcionButtons: "[data-item-tag='eligetuopcion']",
+        divSetsProductosRelacionados: "#set_relacionados",
     };
+    
     var _params = {
         videoId: "",
         descripcionResumen: ""
@@ -41,31 +43,75 @@ var detalleLanzamiento = (function () {
     };
 
     var _mostrarSetRelacionados = function () {
+        $(_elements.divSetsProductosRelacionados).fadeOut();
+
+        var platform = !isMobile() ? 'desktop':'mobile';
         var cuv = _getParamValueFromQueryString("cuv");
         var campaniaId = _getParamValueFromQueryString("campaniaid");
         
-
         if (cuv == "" || campaniaId == "" || campaniaId == "0") {
             return false;
         }
 
-        var prod = GetProductoStorage(cuv, campaniaId);
-        if (prod == null || prod == undefined || prod.CUV2 == undefined) {
+        var str = LocalStorageListado(lsListaRD + campaniaId, '', 1) ||'';
+
+        if (str === '') {
             return false;
         }
 
-        var data = new Object();
-        data.CampaniaID = prod.CampaniaID;
-        data.lista = new Array();
-        data.lista.push(prod);
-
+        var data = {
+            lista: JSON.parse(str).response.listaLan
+        };
         $.each(data.lista, function (index, item) {
             item.ClaseBloqueada = $.trim(item.ClaseBloqueada);
             item.Posicion = index + 1;
         });
 
-        SetHandlebars(_elements.idPlantillaProductoLanding, data, _elements.idDivSetsProductosRelacionados);
-    }
+        SetHandlebars(_elements.idPlantillaProductoLanding, data, _elements.divCarruselSetsProductosRelacionados);
+        EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
+
+        var slickArrows = {
+            'mobile': {
+                prev: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-left:-12%; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
+                next: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-right:-12%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>'
+            },
+            'desktop': {
+                prev: '<a class="previous_ofertas" style="left:-5%; text-align:left;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>', 
+                next: '<a class="previous_ofertas" style="display: block; right:-5%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
+            }
+        };
+
+        $(_elements.divCarruselSetsProductosRelacionados + '.slick-initialized').slick('unslick');
+        $(_elements.divCarruselSetsProductosRelacionados).not('.slick-initialized').slick({
+            infinite: true,
+            vertical: false,
+            centerMode: false,
+            centerPadding: '0px',
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            autoplay: false,
+            speed: 270,
+            pantallaPedido: false,
+            prevArrow: slickArrows[platform].prev,
+            nextArrow: slickArrows[platform].next,
+            responsive: [
+                {
+                    breakpoint: 1200,
+                    settings: { slidesToShow: 3, slidesToScroll: 1 }
+                },
+                {
+                    breakpoint: 900,
+                    settings: { slidesToShow: 2, slidesToScroll: 1 }
+                },
+                {
+                    breakpoint: 600,
+                    settings: { slidesToShow: 1, slidesToScroll: 1 }
+                }
+            ]
+        });
+
+        $(_elements.divSetsProductosRelacionados).fadeIn();
+    };
 
     var _redigirAVerDetallaLanzamiento = function (event) {
         event.stopPropagation();
@@ -94,7 +140,7 @@ var detalleLanzamiento = (function () {
             .off("click")
             .on("click", _redigirAVerDetallaLanzamiento);
         
-    }
+    };
 
     var _init = function (params) {
         var _params = $.extend(_params, params);
@@ -110,7 +156,7 @@ var detalleLanzamiento = (function () {
         if (event.data == YT.PlayerState.ENDED) {
             rdAnalyticsModule.CompartirProducto("YTF", _player.getVideoUrl(), _params.descripcionResumen);
         }
-    }
+    };
 
     var _onYouTubeIframeAPIReady = function () {
         _player = new YT.Player('player', {
@@ -121,12 +167,12 @@ var detalleLanzamiento = (function () {
                 'onStateChange': _onPlayerStateChange
             }
         });
-    }
+    };
 
     return {    
         init: _init,
         onYouTubeIframeAPIReady: _onYouTubeIframeAPIReady
-    }
+    };
 }());
 
 

@@ -1,10 +1,10 @@
-﻿
-@model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaModel
-@using Portal.Consultoras.Web.Models
+﻿@using Portal.Consultoras.Web.Models
+@model EstrategiaPersonalizadaModel
+
 @{
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
 
-    var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalModel();
+    var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
 }
 @section styles{
     @System.Web.Optimization.Styles.Render("~/bundles/css/Site/ccsOfertas")
@@ -35,7 +35,7 @@
                 <br />
                 Cargando @seccion.Titulo
                 <br />
-                <img src="@Url.Content("~/Content/Images/Loading.gif")" />
+                <img src="@Url.Content("~/Content/Images/Loading.gif")" alt="....."/>
                 <br />
                 <br />
                 <br />
@@ -63,67 +63,7 @@
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")
 
-<!-- nuevo carrusel -->
-    <!-- No Suscrita - No activa -->
-	<div class="lonuevo_carrusel" style="background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/5343216/ilf4s4o6bKMIp0t/banner%20de%20lanzamiento%20%231%20en%20desktop.jpg); background-color: #24303c !important;">
-		<img class="logo-club" src="~/Content/Images/RevistaDigital/etiqueta-club-ganamas-dorado-independiente.svg" />
-        <div class="lonuevo_carrusel_portada">
-			<div class="cont">
-                <div class="foto_prod" style="background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/5343216/0MpYozOzq338MEB/producto-350px.png);
-                    ">
-                </div>
-            </div>
-		</div>
-		<div class="lonuevo_carrusel_info">
-			<div class="cont">
-			<p>PERFUME VIBRANZA </p>
-			<span>Realza tu sensualidad</span>
-			<a href="">¿LO QUIERES?</a>
-			</div>
-		</div>
-		<div style="clear:both;"></div>
-    </div>
 
-<!-- Suscrita - No activa -->
-<div class="lonuevo_carrusel" style="background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/5343216/ilf4s4o6bKMIp0t/banner%20de%20lanzamiento%20%231%20en%20desktop.jpg); background-color: #24303c !important;">
-    <img class="logo-club" src="~/Content/Images/RevistaDigital/etiqueta-club-ganamas-dorado-independiente.svg" />
-    <div class="lonuevo_carrusel_portada">
-        <div class="cont">
-            <div class="foto_prod" style="background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/5343216/0MpYozOzq338MEB/producto-350px.png);
-                    ">
-            </div>
-        </div>
-    </div>
-    <div class="lonuevo_carrusel_info">
-        <div class="cont">
-            <p>PERFUME VIBRANZA </p>
-            <span>Realza tu sensualidad</span>
-            <span class="noti">Podrás comprar este y <b>NUEVOS PRODUCTOS ¡DESDE LA C03!</b></span>
-        </div>
-    </div>
-    <div style="clear:both;"></div>
-</div>
-
-<!-- Suscrita - activa / no Suscrita - activa -->
-<div class="lonuevo_carrusel" style="background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/5343216/ilf4s4o6bKMIp0t/banner%20de%20lanzamiento%20%231%20en%20desktop.jpg); background-color: #24303c !important;">
-    <img class="logo-club logo-club-negro" src="~/Content/Images/RevistaDigital/nuevo.png" />
-    <div class="lonuevo_carrusel_portada">
-        <div class="cont">
-            <div class="foto_prod" style="background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/5343216/0MpYozOzq338MEB/producto-350px.png);
-                    ">
-            </div>
-        </div>
-    </div>
-    <div class="lonuevo_carrusel_info">
-        <div class="cont">
-            <p>PERFUME VIBRANZA </p>
-            <span>Realza tu sensualidad</span>
-            <a href="" class="negro">VER PRODUCTO</a>
-        </div>
-    </div>
-    <div style="clear:both;"></div>
-</div>
-<!-- fin nuevo carrusel -->
 
 @Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 @if (Model.MensajeProductoBloqueado2 != null)
@@ -137,8 +77,8 @@
 
 @section scripts{
 <script type="text/javascript">
-    var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital", new { area = ""})';
-    var urlCargarProductosHv = '@Url.Action("HVObtenerProductos", "HerramientasVenta", new { area = ""})';
+    var urlOfertaCargarProductos = "@Url.Action("RDObtenerProductos", "RevistaDigital")";
+    var urlCargarProductosHv = '@Url.Action("HVObtenerProductos", "HerramientasVenta")';
     var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
     var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital")';
     var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
