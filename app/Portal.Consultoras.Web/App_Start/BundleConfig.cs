@@ -459,7 +459,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
-                "~/Scripts/PortalConsultoras/Lanzamientos/Detalle.js"
+                "~/Scripts/PortalConsultoras/Lanzamientos/detalle-lanzamiento.js"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/Lanzamientos-Detalle").Include(
