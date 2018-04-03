@@ -5,9 +5,10 @@
     var _elements = {
         idPlantillaProductoLanding: "#producto-landing-template",
         divCarruselSetsProductosRelacionados: "#divOfertaProductos",
+        divContenidoProductoDesktop: "[data-item-tag='contenido']",
         verDetalleButtons: "[data-item-tag='verdetalle']",
         eligeTuOpcionButtons: "[data-item-tag='eligetuopcion']",
-        divSetsProductosRelacionados: "#set_relacionados",
+        divSetsProductosRelacionados: "#set_relacionados"
     };
     
     var _params = {
@@ -116,21 +117,27 @@
     var _redigirAVerDetallaLanzamiento = function (event) {
         event.stopPropagation();
         
-        var cadenaEstrategia = $(event.target).parents("[data-item]").find("[data-estrategia]").attr("data-estrategia");
+        var cadenaEstrategia = $(event.target).closest("[data-item]").find("[data-estrategia]").attr("data-estrategia");
         var estrategia = (cadenaEstrategia != "") ? JSON.parse(cadenaEstrategia) : {};
+        if (EstrategiaGuardarTemporal(estrategia)) {
+            var url = "/";
+            if (isMobile()) {
+                url += "mobile/";
+            }
+            url += "Lanzamientos/Detalle?";
+            url += "cuv=" + estrategia.CUV2;
+            url += "&campaniaId=" + estrategia.CampaniaID;
 
-        var url = "/";
-        if (isMobile()) {
-            url += "mobile/";
+            location.href = url;
         }
-        url += "Lanzamientos/Detalle?";
-        url += "cuv=" + estrategia.CUV2;
-        url += "&campaniaId=" + estrategia.CampaniaID;
-
-        location.href = url;
     };
 
     var _bindEvents = function () {
+        if(!isMobile()){
+            $(_elements.divContenidoProductoDesktop)
+            .removeAttr("onclick")
+            .off("click");
+        }
         $(_elements.verDetalleButtons)
             .removeAttr("onclick")
             .off("click")

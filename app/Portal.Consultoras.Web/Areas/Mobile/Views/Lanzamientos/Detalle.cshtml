@@ -535,24 +535,27 @@
             </div>
         </div>
     </div>
-<div class="set_encuentras_producto" id="set_relacionados">
-    <div class="wrapper_resumen_mobile">
-        <p class="titulo_set">
-            PACKS CON VIBRANZA
-        </p>
-        <div class="set_encuentras_producto_carrusel">
-            <!-- aqui carrusel de productos -->
-            <div id="divOfertaProductos"></div>
-            </div>
-        </div>
-    </div>
-    <div class="set_encuentras_producto_video">
+    <div class="set_encuentras_producto" id="set_relacionados">
         <div class="wrapper_resumen_mobile">
-            <div class="revista_producto_video" style="width: 100%">
-                <div id="player"></div>
+            <p class="titulo_set">
+                PACKS CON VIBRANZA
+            </p>
+            <div class="set_encuentras_producto_carrusel">
+                <!-- aqui carrusel de productos -->
+                <div id="divOfertaProductos"></div>
             </div>
         </div>
     </div>
+    @if ((Model.TipoEstrategiaDetalle.UrlVideoDesktop ?? "") != "")
+    {
+        <div class="set_encuentras_producto_video" id="video_lanzamiento">
+            <div class="wrapper_resumen_mobile">
+                <div class="revista_producto_video" style="width: 100%">
+                    <div id="player"></div>
+                </div>
+            </div>
+        </div>
+    }
     <div class="comparte_set_encuentras_producto_video" data-posicion="0" data-item="165">
         <div class="wrapper_resumen_mobile">
             <hr />
@@ -566,24 +569,24 @@
 
     @if (Model.PuedeAgregarProducto)
     {
-    <div class="row">
-        <div class="content_btn_agregar">
-            <div class="content_320">
-                @if (btnDesabled == 1)
-                {
-                    btnDesabledClass = "btn_desactivado_general";
-                }
-                <div class="content_cantidad_ficha_producto">
-                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+        <div class="row">
+            <div class="content_btn_agregar">
+                <div class="content_320">
+                    @if (btnDesabled == 1)
+                    {
+                        btnDesabledClass = Model.ClaseBloqueada;
+                    }
+                    <div class="content_cantidad_ficha_producto">
+                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                        <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                    </div>
+                    <a class="@btnDesabledClass btn_agregar_ficha_producto" id="tbnAgregarProducto"
+                       onclick="javascript:EstrategiaAgregar(event, true); ">AGRÉGALO</a>
+                    <hr class="clear">
                 </div>
-                <a class="@btnDesabledClass btn_agregar_ficha_producto" id="tbnAgregarProducto"
-                   onclick="javascript:EstrategiaAgregar(event, true); ">AGRÉGALO</a>
-                <hr class="clear">
             </div>
         </div>
-    </div>
     }
 
 </div>

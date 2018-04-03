@@ -100,39 +100,37 @@
                                 AGRÉGALO
                             </a>
                         </div>
-                    }
-
+                    </div>
+                    <div style="clear:both;"></div>
                 </div>
-                <div style="clear:both;"></div>
             </div>
         </div>
-    </div>
-    <div class="set_encuentras_producto" id="set_relacionados">
-        <div class="content_belcorp">
-            <p class="titulo_set">
-                SET DONDE ENCUENTRAS EL PRODUCTO
-            </p>
-            <div class="set_encuentras_producto_carrusel" style="margin-left: -4%;"
-                 data-item-cuv="@Model.CUV2"
-                 data-estrategia="@Json.Encode(Model)">
-                <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage"></div>
+        <div class="set_encuentras_producto" id="set_relacionados">
+            <div class="content_belcorp">
+                <p class="titulo_set">
+                    SET DONDE ENCUENTRAS EL PRODUCTO
+                </p>
+                <div class="set_encuentras_producto_carrusel" style="margin-left: -4%;"
+                     data-item-cuv="@Model.CUV2"
+                     data-estrategia="@Json.Encode(Model)">
+                    <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage"></div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="set_encuentras_producto_video">
-        <div class="content_belcorp">
-            @if ((Model.TipoEstrategiaDetalle.UrlVideoDesktop ?? "") != "")
-            {
-                <div class="revista_producto_video" style="width: 100%">
-                    <div id="player"></div>
+        @if ((Model.TipoEstrategiaDetalle.UrlVideoDesktop ?? "") != "")
+        {
+            <div class="set_encuentras_producto_video" id="video_lanzamiento">
+                <div class="content_belcorp">
+                    <div class="revista_producto_video" style="width: 100%">
+                        <div id="player"></div>
+                    </div>
                 </div>
-            }
+            </div>
+        }
+        @Html.Action("MensajeBloqueado", "RevistaDigital")
+        <div class="flecha_scroll">
+            <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll"></a>
         </div>
-    </div>
-    @Html.Action("MensajeBloqueado", "RevistaDigital")
-    <div class="flecha_scroll">
-        <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll"></a>
-    </div>
 
     <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
 </div>
