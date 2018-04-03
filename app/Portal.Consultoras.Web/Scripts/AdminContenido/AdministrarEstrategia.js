@@ -46,7 +46,8 @@
         urlUploadFileStrategyShowroom: config.urlUploadFileStrategyShowroom,
         urlUploadFileProductStrategyShowroom: config.urlUploadFileProductStrategyShowroom,
         urlCargarArbolRegionesZonas: config.urlCargarArbolRegionesZonas,
-        rutastylejstree: config.rutastylejstree
+        rutastylejstree: config.rutastylejstree,
+        urlUploadBloqueoCuv: config.urlUploadBloqueoCuv
     };
 
     var _variables = {
