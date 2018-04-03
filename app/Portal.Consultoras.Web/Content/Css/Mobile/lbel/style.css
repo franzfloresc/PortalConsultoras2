@@ -13746,11 +13746,13 @@ span.icon-advertencia {
 .ContentSorpresaMobile {
     background-color: #613c87;
     background-repeat: no-repeat;
+    background-size: auto 100%;
     background-position: center top;
     left: 0;
     margin: 4% auto 5% auto;
     max-width: 400px;
-    min-height: 815px;
+    min-height: 826px;
+    height: auto;
     right: 0;
     position: absolute;
     top: 0;
@@ -14070,7 +14072,7 @@ span.icon-advertencia {
     line-height: 1.31;
 }
 
-.span_nota_premio {
+.txt_nota_premio b {
     font-weight: 900;
 }
 
