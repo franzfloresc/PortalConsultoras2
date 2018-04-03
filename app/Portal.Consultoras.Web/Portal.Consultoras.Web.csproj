@@ -4930,6 +4930,7 @@
     <Content Include="Views\Lanzamientos\Detalle.cshtml" />
     <Content Include="Views\RevistaDigital\Detalle.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales.cshtml" />
+    <Content Include="Views\Lanzamientos\Template_LanzamientosTonos.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
