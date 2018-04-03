@@ -31,6 +31,7 @@
         public int IdPosicion { get; set; }
         public int IdProducto { get; set; }
         public int IdSubTipoPosicion { get; set; }
+        public string DescripcionSap { get; set; }
         public int IdTipoPosicion { get; set; }
         public int Pagina { get; set; }
         public decimal PorcentajeDescuento { get; set; }
