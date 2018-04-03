@@ -15,7 +15,7 @@
         descripcionResumen: ""
     };
 
-    var _configScriptTag = function () {
+    var _configYouTubeScriptTag = function () {
         var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -144,12 +144,12 @@
 
     var _init = function (params) {
         var _params = $.extend(_params, params);
-        _configScriptTag();
+        _configYouTubeScriptTag();
         _mostrarSetRelacionados();
         _bindEvents();
     };
 
-    var _onPlayerStateChange = function (event) {
+    var _onYouTubePlayerStateChange = function (event) {
         if (event.data == YT.PlayerState.PLAYING) {
             rdAnalyticsModule.CompartirProducto("YTI", _player.getVideoUrl(), _params.descripcionResumen);
         }
@@ -164,7 +164,7 @@
             width: '100%',
             videoId: videoId,
             events: {
-                'onStateChange': _onPlayerStateChange
+                'onStateChange': _onYouTubePlayerStateChange
             }
         });
     };
