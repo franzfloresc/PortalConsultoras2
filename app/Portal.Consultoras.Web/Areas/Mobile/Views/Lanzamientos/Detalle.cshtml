@@ -454,6 +454,24 @@
 @{
     var btnDesabled = 0;
     var btnDesabledClass = "";
+
+    if (Model.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
+    {
+        if ((Model.Hermanos.Any()))
+        {
+            btnDesabled = 1;
+        }
+    }
+    else if (Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija || Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
+    {
+        if (Model.Hermanos != null && Model.Hermanos.Any())
+        {
+            if (Model.Hermanos[0].Digitable == 1 && Model.Hermanos[0].Hermanos.Any())
+            {
+                btnDesabled = 1;
+            }
+        }
+    }
 }
 
 <div data-item="" data-tag-html="@ViewBag.Campania">
@@ -553,7 +571,7 @@
             <div class="content_320">
                 @if (btnDesabled == 1)
                 {
-                    btnDesabledClass = Model.ClaseBloqueada;
+                    btnDesabledClass = "btn_desactivado_general";
                 }
                 <div class="content_cantidad_ficha_producto">
                     <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
