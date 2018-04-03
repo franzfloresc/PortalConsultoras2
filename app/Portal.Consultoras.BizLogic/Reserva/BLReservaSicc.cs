@@ -1,19 +1,19 @@
 ﻿using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
+using Portal.Consultoras.Data.Rest;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.ReservaProl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ServSicc = Portal.Consultoras.Data.ServiceSicc;
+using ServSicc = Portal.Consultoras.Data.Rest.ServiceSicc;
 
 namespace Portal.Consultoras.BizLogic.Reserva
 {
     public class BLReservaSicc : IReservaExternaBL
     {
-        private readonly RestClient restClient;
         private readonly ITablaLogicaDatosBusinessLogic blTablaLogicaDatos;
         private readonly BLPedidoWeb blPedidoWeb;
 
@@ -22,7 +22,6 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
         public BLReservaSicc()
         {
-            restClient = new RestClient();
             blTablaLogicaDatos = new BLTablaLogicaDatos();
             blPedidoWeb = new BLPedidoWeb();
 
@@ -93,7 +92,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
         private async Task<ServSicc.Pedido> ConsumirServicioSicc(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             var pedidoSapId = blPedidoWeb.GetPedidoSapId(input.PaisID, input.CampaniaID, input.PedidoID);
-            var inputPedido = new Data.ServiceSicc.Pedido
+            var inputPedido = new ServSicc.Pedido
             {
                 codigoPais = Util.GetPaisIsoSicc(input.PaisID),
                 codigoPeriodo = input.CampaniaID.ToString(),
@@ -101,7 +100,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 indValiProl = input.FechaHoraReserva ? "1" : "0",
                 oidPedidoSap = pedidoSapId.ToString(),
                 //FALTA CODIGO CONCURSOS
-                posiciones = listPedidoWebDetalle.Select(d => new Data.ServiceSicc.Detalle
+                posiciones = listPedidoWebDetalle.Select(d => new ServSicc.Detalle
                 {
                     CUV = d.CUV,
                     unidadesDemandadas = d.Cantidad.ToString()
@@ -114,8 +113,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
             //    var cuponNueva = listCuponNueva.FirstOrDefault(c => c.CodigoCupon == detalle.cuv);
             //    if (cuponNueva != null) detalle.cuv = cuponNueva.CUV;
             //}
-
-            var respuestaSicc = await restClient.PostAsync<Data.ServiceSicc.Pedido>("/Service.svc/EjecutarCuadreOfertas", inputPedido);
+            
+            var respuestaSicc = await DARSicc.EjecutarCuadreOfertas(inputPedido);
 
             //if(respuestaSicc != null && respuestaSicc.posiciones != null)
             //{
@@ -174,7 +173,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 UnidadesPorAtender = d.unidadesPorAtender.ToInt32Secure(),
                 ValCodiOrig = d.valCodiOrig,
                 OportunidadAhorro = d.oportunidadAhorro.ToDecimalSecure(),
-                UnidadesReservadasSap = d.unidadesReservadasSap.ToInt32Secure()
+                UnidadesReservadasSap = Convert.ToInt32(d.unidadesReservadasSap.ToDecimalSecure())
             }).ToList();
         }
 
