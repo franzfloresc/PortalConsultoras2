@@ -4979,10 +4979,6 @@ table > thead > tr > th {
     position: relative;
 }
 
-.CMXD-btn-help {
-    display: none;
-}
-
 @media only screen and (max-width:330px) {
 
     .draw_arrow_left {
