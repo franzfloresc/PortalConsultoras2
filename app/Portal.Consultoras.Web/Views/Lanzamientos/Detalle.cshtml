@@ -1,15 +1,9 @@
 ﻿
 @using Portal.Consultoras.Common
-
 @model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaProductoModel
 
 @{
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
-}
-
-@{
-    var btnDesabled = 1;
-    var btnDesabledClass = "";
 }
 
 @section styles{
@@ -82,10 +76,6 @@
                     </div>
                     @if (Model.PuedeAgregarProducto)
                     {
-                        if (btnDesabled == 1)
-                        {
-                            btnDesabledClass = "btn_desactivado_general";
-                        }
                         <div>
                             <div class="texto_elige_tono"></div>
                             <div class="clear"></div>
@@ -96,7 +86,7 @@
                                     <a href="javascript:;" class="menos js-no-popup" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
                                 </div>
                             </div>
-                            <a href="javascript:;" class="@btnDesabledClass boton_Agregalo_home js-no-popup " id="tbnAgregarProducto" data-bloqueada="" onclick="javascript:EstrategiaAgregar(event, true); " tabindex="0">
+                            <a href="javascript:;" class="@Model.ClaseBloqueada boton_Agregalo_home js-no-popup " id="tbnAgregarProducto" data-bloqueada="" onclick="javascript:EstrategiaAgregar(event, true); " tabindex="0">
                                 AGRÉGALO
                             </a>
                         </div>
@@ -132,15 +122,15 @@
             <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll"></a>
         </div>
 
-    <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
-</div>
+        <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
+    </div>
 
 
-@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+    @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 
-@section scripts{
-    @System.Web.Optimization.Scripts.Render("~/bundles/Lanzamientos-Detalle")
-    <script type="text/javascript">
+    @section scripts{
+        @System.Web.Optimization.Scripts.Render("~/bundles/Lanzamientos-Detalle")
+        <script type="text/javascript">
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage';
         var tipoOrigenEstrategia = 172;
         var videoId = "@Model.TipoEstrategiaDetalle.UrlVideoDesktop";
@@ -154,5 +144,5 @@
         function onYouTubeIframeAPIReady() {
             detalleLanzamiento.onYouTubeIframeAPIReady();
         }
-    </script>
-}
+        </script>
+    }
