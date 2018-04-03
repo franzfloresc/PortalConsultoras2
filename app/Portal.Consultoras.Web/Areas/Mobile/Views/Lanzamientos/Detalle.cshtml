@@ -546,7 +546,7 @@
             </div>
         </div>
     </div>
-    @if ((Model.TipoEstrategiaDetalle.UrlVideoDesktop ?? "") != "")
+    @if ((Model.TipoEstrategiaDetalle.UrlVideoMobile ?? "") != "")
     {
         <div class="set_encuentras_producto_video" id="video_lanzamiento">
             <div class="wrapper_resumen_mobile">
@@ -609,7 +609,6 @@
                 videoId: videoId,
                 descripcionResumen: descripcionResumen
             });
-            RDDetalleObtener();
         });
         function onYouTubeIframeAPIReady() {
             detalleLanzamiento.onYouTubeIframeAPIReady();

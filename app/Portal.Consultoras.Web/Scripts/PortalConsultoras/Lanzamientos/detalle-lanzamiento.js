@@ -54,7 +54,7 @@
             return false;
         }
 
-        var str = LocalStorageListado(lsListaRD + campaniaId, '', 1) ||'';
+        var str = LocalStorageListado(lsListaRD + campaniaId, '', 1) || '';
 
         if (str === '') {
             return false;
@@ -63,10 +63,6 @@
         var data = {
             lista: JSON.parse(str).response.listaLan
         };
-        $.each(data.lista, function (index, item) {
-            item.ClaseBloqueada = $.trim(item.ClaseBloqueada);
-            item.Posicion = index + 1;
-        });
 
         SetHandlebars(_elements.idPlantillaProductoLanding, data, _elements.divCarruselSetsProductosRelacionados);
         EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
