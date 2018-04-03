@@ -1834,7 +1834,7 @@ function CerrarProductoAgregado() {
 
 function ConfirmarEliminarRegaloGenerico(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder)
 {
-    if (typeof esUpselling !== 'undefined' && esUpselling) {
+     if (typeof esUpselling !== 'undefined' && esUpselling) {
         var regalo = GetUpSellingGanado();
         if (regalo != null) {
             var popup = $('#divAvisoEliminarRegaloGenerico');
@@ -1849,6 +1849,9 @@ function ConfirmarEliminarRegaloGenerico(campaniaId, pedidoId, pedidoDetalleId, 
             popup.attr('data-cuvReco', cuvReco);
             popup.attr('data-esBackOrder', esBackOrder);
             showDialog("divAvisoEliminarRegaloGenerico");
+        }
+        else {
+            DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder);
         }
     } else {
         DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder);
