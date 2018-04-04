@@ -461,24 +461,7 @@ function BuscarByCUV(cuv) {
 function ObservacionesProducto(item) {
     
     $("#hdfValorFlagNueva").val(item.FlagNueva);
-    if (item.FlagNueva == 1) {
-        $("#txtCantidad").attr("disabled", "disabled");
-    }
-
-    if (item.TipoOfertaSisID == "1707") {
-        if (sesionEsShowRoom) {
-            MostrarMensaje("mensajeCUVShowRoom", "Producto disponible sólo desde la sección de Pre-venta Digital.");
-        } else {
-            MostrarMensaje("mensajeCUVShowRoom", "Esta promoción no se encuentra disponible.");
-        }
-
-        $("#divProductoInformacion").hide();
-        return false;
-    }
-    if (item.TieneSugerido != 0) {
-        ObtenerProductosSugeridos(item.CUV);
-        return false;
-    }
+   
     if (item.TieneStock === true) {
         if (item.EsExpoOferta == true) MostrarMensaje("mensajeEsExpoOferta");
         if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
