@@ -128,39 +128,7 @@
         $(_elements.divSetsProductosRelacionados).fadeIn();
     };
 
-    var _redigirAVerDetallaLanzamiento = function (event) {
-        event.stopPropagation();
-        
-        var cadenaEstrategia = $(event.target).closest("[data-item]").find("[data-estrategia]").attr("data-estrategia");
-        var estrategia = (cadenaEstrategia != "") ? JSON.parse(cadenaEstrategia) : {};
-        if (EstrategiaGuardarTemporal(estrategia)) {
-            var url = "/";
-            if (isMobile()) {
-                url += "mobile/";
-            }
-            url += "Lanzamientos/Detalle?";
-            url += "cuv=" + estrategia.CUV2;
-            url += "&campaniaId=" + estrategia.CampaniaID;
-
-            location.href = url;
-        }
-    };
-
     var _bindEvents = function () {
-        if(!isMobile()){
-            $(_elements.divContenidoProductoDesktop)
-            .removeAttr("onclick")
-            .off("click");
-        }
-        $(_elements.verDetalleButtons)
-            .removeAttr("onclick")
-            .off("click")
-            .on("click", _redigirAVerDetallaLanzamiento);
-        $(_elements.eligeTuOpcionButtons)
-            .removeAttr("onclick")
-            .off("click")
-            .on("click", _redigirAVerDetallaLanzamiento);
-        
     };
 
     var _init = function (params) {
