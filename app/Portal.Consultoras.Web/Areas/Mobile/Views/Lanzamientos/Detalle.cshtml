@@ -19,21 +19,7 @@
         <div style="display:none;"><div data-estrategia="@Json.Encode(Model)"></div></div>
         <div class="wrapper_resumen_mobile">
             <div class="detalle-prod">
-                <div data-compartir-campos="" style="display:none;">
-                    <input type="hidden" class="CUV" value="@Model.CUV2" />
-                    <input type="hidden" class="rsFBMensaje" value="" />
-                    <input type="hidden" class="rsFBRuta" value="@Model.UrlCompartir" />
-                    <input type="hidden" class="rsWAMensaje" value="" />
-                    <input type="hidden" class="rsWARuta" value="@Model.UrlCompartir" />
-                    <input type="hidden" class="rsFBRutaImagen" value="@Model.FotoProducto01" />
-                    <input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
-                    <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
-                    <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
-                    <input type="hidden" class="Nombre" value="@Model.DescripcionResumen" />
-                    <input type="hidden" class="ProductoDescripcion" value="@Model.DescripcionDetalle" />
-                    <input type="hidden" class="Volumen" value="" />
-                    <input type="hidden" class="Palanca" value="LAN" />
-                </div>
+                
                 <div class="detalle-img">
                     <div class="img-portada" style="background:url(@Model.FotoProductoSmall);"></div>
                 </div>
@@ -113,16 +99,31 @@
             </div>
         </div>
     }
-    <div class="comparte_set_encuentras_producto_video" data-posicion="0" data-item="165">
-        <div class="wrapper_resumen_mobile">
-            <hr />
-            <p>Comparte el producto con tus clientes:</p>
-            <ul>
-                <li><a href="javascript: void(0);" data-compartir="WA"><img src="~/Content/Images/mobile/img-icon/whatsapp-50x50.png" alt=""></a></li>
-                <li><a href="javascript: void(0);" data-compartir="FB"><img src="~/Content/Images/mobile/Esika/facebook.png" alt=""></a></li>
-            </ul>
+        <div class="comparte_set_encuentras_producto_video" data-posicion="0" data-item="165">
+            <div data-compartir-campos="" style="display:none;">
+                <input type="hidden" class="CUV" value="@Model.CUV2" />
+                <input type="hidden" class="rsFBMensaje" value="" />
+                <input type="hidden" class="rsFBRuta" value="@Model.UrlCompartir" />
+                <input type="hidden" class="rsWAMensaje" value="" />
+                <input type="hidden" class="rsWARuta" value="@Model.UrlCompartir" />
+                <input type="hidden" class="rsFBRutaImagen" value="@Model.FotoProducto01" />
+                <input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
+                <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
+                <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
+                <input type="hidden" class="Nombre" value="@Model.DescripcionResumen" />
+                <input type="hidden" class="ProductoDescripcion" value="@Model.DescripcionDetalle" />
+                <input type="hidden" class="Volumen" value="" />
+                <input type="hidden" class="Palanca" value="LAN" />
+            </div>
+            <div class="wrapper_resumen_mobile">
+                <hr />
+                <p>Comparte el producto con tus clientes:</p>
+                <ul>
+                    <li><a href="javascript: void(0);" data-compartir="WA"><img src="~/Content/Images/mobile/img-icon/whatsapp-50x50.png" alt=""></a></li>
+                    <li><a href="javascript: void(0);" data-compartir="FB"><img src="~/Content/Images/mobile/Esika/facebook.png" alt=""></a></li>
+                </ul>
+            </div>
         </div>
-    </div>
 </div>
 
 
