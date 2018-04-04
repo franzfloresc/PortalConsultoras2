@@ -1,9 +1,9 @@
 ﻿.mobile_lanzamientos_contenedor {
     width: 100%;
     height: 150px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
 }
 
 .mobile_lanzamientos_contenedor .mobile_label_lanzamientos_contenedor { position: absolute; }
@@ -89,4 +89,9 @@
     top: 40%;
     height: auto;
     width: 25px;
+}
+
+.arrow-prev img, .arrow-next img {
+    width: 18px;
+    height: 36px;
 }
