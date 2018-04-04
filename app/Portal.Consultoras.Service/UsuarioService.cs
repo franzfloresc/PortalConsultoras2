@@ -819,10 +819,10 @@ namespace Portal.Consultoras.Service
         #endregion
 
         #region Pin Autenticacion
-        public BEPinAutenticacion GetPinAutenticidad(int paisID, int TablaLogicaID, string CodigoUsuario)
+        public BEPinAutenticacion GetPinAutenticidad(int paisID, string CodigoUsuario)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.GetPinAutenticidad(paisID, TablaLogicaID, CodigoUsuario);
+            return BLUsuario.GetPinAutenticidad(paisID, CodigoUsuario);
         }
 
         public string GetCodigoGenerado(int PaisID, BEUsuarioCorreo oUsuCorreo, string CodGenerado)

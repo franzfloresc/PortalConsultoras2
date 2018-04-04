@@ -2,16 +2,16 @@ USE BelcorpDominicana
 GO
 
 --ACTIVA PIN
-delete from TablaLogicaDatos where TablaLogicaID = 137
-delete from TablaLogica where TablaLogicaID = 137
+delete from TablaLogicaDatos where TablaLogicaID = 139
+delete from TablaLogica where TablaLogicaID = 139
 GO
 insert into TablaLogica 
-	values (137, 'PIN de autenticidad')
+	values (139, 'PIN de autenticidad')
 GO
-insert into TablaLogicaDatos --where TablaLogicaID = 133
-	values (13701, 137, 'Activo','1',''),
-		   (13702, 137, 'IdEstadoActividad','1',''),
-		   (13703, 137, 'IdEstadoActividad','7','')
+insert into TablaLogicaDatos
+	values (13901, 139, 'Activo','1',''),
+		   (13902, 139, 'IdEstadoActividad','1',''),
+		   (13903, 139, 'IdEstadoActividad','7','')
 GO
 
 -- NUEVA COLUMNA TieneAutenticacion
@@ -107,11 +107,11 @@ END
 GO
 CREATE PROC GetPinAutenticacion
 (
-@TablaLogicaID INT,
 @CodgioUsuario VARCHAR(20)
 )
 AS
 BEGIN
+	DECLARE @TablaLogicaID INT = 139
 	DECLARE @TEMP_LOGICADATOS table
 	(
 		Codigo varchar(20),

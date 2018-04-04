@@ -40,20 +40,6 @@ BEGIN
 END
 GO
 
-USE BelcorpVenezuela
-GO
-
-IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='dbo' and table_name='Usuario' and column_name='FechaBloqueoCorreo')
-BEGIN
-	ALTER TABLE Usuario DROP COLUMN FechaBloqueoCorreo
-END
-
-IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='dbo' and table_name='Usuario' and column_name='FechaBloqueoCelular')
-BEGIN
-	ALTER TABLE Usuario DROP COLUMN FechaBloqueoCelular
-END
-GO
-
 USE BelcorpSalvador
 GO
 

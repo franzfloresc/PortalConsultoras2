@@ -70,30 +70,6 @@ BEGIN
 END
 GO
 
-USE BelcorpVenezuela
-GO
-
-IF EXISTS(select 1 from sys.objects where type = 'P' and name = 'GetCodigoSMS')
-BEGIN
-	DROP PROC GetCodigoSMS
-END
-go
-IF EXISTS(select 1 from sys.objects where type = 'P' and name = 'UpdFechaBloqueoRestaurarClave')
-BEGIN
-	DROP PROC UpdFechaBloqueoRestaurarClave
-END
-go
-IF EXISTS(select 1 from sys.objects where type = 'P' and name = 'InsCodigoSMS')
-BEGIN
-	DROP PROC InsCodigoSMS
-END
-go
-IF EXISTS (SELECT 1 FROM sys.objects WHERE TYPE = 'U' AND name = 'CodigoSMS')
-BEGIN
-	DROP TABLE [dbo].[CodigoSMS]
-END
-GO
-
 USE BelcorpSalvador
 GO
 

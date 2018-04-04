@@ -2170,12 +2170,12 @@ namespace Portal.Consultoras.BizLogic
         #endregion
 
         #region Pin Autenticacion
-        public BEPinAutenticacion GetPinAutenticidad(int paisID, int TablaLogicaID, string CodigoUsuario)
+        public BEPinAutenticacion GetPinAutenticidad(int paisID, string CodigoUsuario)
         {
             BEPinAutenticacion oPin = null;
 
             var DAUsuario = new DAUsuario(paisID);
-            using (IDataReader reader = DAUsuario.GetPinAutenticidad(TablaLogicaID, CodigoUsuario))
+            using (IDataReader reader = DAUsuario.GetPinAutenticidad(CodigoUsuario))
                 if (reader.Read())
                 {
                     oPin = new BEPinAutenticacion(reader);

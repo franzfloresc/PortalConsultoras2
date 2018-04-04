@@ -3251,7 +3251,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (var sv = new UsuarioServiceClient())
                     {
-                        oPin = sv.GetPinAutenticidad(PaisID, Constantes.EnviarCorreoYSms.CodigoTablaLogica, CodigoUsuario);
+                        oPin = sv.GetPinAutenticidad(PaisID, CodigoUsuario);
                     }
 
                     TempData["PaisID"] = PaisID;

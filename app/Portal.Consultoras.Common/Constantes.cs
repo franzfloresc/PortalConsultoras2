@@ -1870,7 +1870,6 @@ namespace Portal.Consultoras.Common
         #region Pin Autenticidad
         public class EnviarCorreoYSms
         {
-            public const int CodigoTablaLogica = 137;
             public const string Activo = "Activo";
             public const string IdEstadoActividad = "IdEstadoActividad";
 

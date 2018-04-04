@@ -361,7 +361,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region Pin Autenticidad
         [OperationContract]
-        BEPinAutenticacion GetPinAutenticidad(int paisID, int TablaLogicaID, string CodigoUsuario);
+        BEPinAutenticacion GetPinAutenticidad(int paisID, string CodigoUsuario);
 
         [OperationContract]
         string GetCodigoGenerado(int PaisID, BEUsuarioCorreo oUsuCorreo, string CodGenerado);

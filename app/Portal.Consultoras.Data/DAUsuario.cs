@@ -788,10 +788,9 @@ namespace Portal.Consultoras.Data
         #endregion
 
         #region Pin Autenticidad
-        public IDataReader GetPinAutenticidad(int TablaLogicaID, string CodigoUsuario)
+        public IDataReader GetPinAutenticidad(string CodigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPinAutenticacion");
-            Context.Database.AddInParameter(command, "@TablaLogicaID", DbType.Int32, TablaLogicaID);
             Context.Database.AddInParameter(command, "@CodgioUsuario", DbType.AnsiString, CodigoUsuario);
 
             return Context.ExecuteReader(command);
