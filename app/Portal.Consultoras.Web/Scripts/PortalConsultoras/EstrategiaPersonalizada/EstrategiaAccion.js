@@ -388,6 +388,7 @@ function EstrategiaAgregar(event, popup, limite) {
     var cantidad = (limite > 0) ? limite
         : (
             $(".btn_agregar_ficha_producto ").parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val()
+            || $(objInput).parents("[data-item]").find("input.rango-cantidad-lanzamiento").val()
             || $(objInput).parents("[data-item]").find("input.rango_cantidad_pedido").val()
             || $(objInput).parents("[data-item]").find("[data-input='cantidad']").val()
         );
