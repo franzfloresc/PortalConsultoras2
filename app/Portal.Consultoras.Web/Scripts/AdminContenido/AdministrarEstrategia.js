@@ -53,7 +53,9 @@
         cantidadPrecargar2: 0,
         imagen: "",
         isVistaPreviaOpened: false,
-        paisNombre: ""
+        paisNombre: "",
+        cantGuardadaTemporal: 0,
+        NroLote: 0
     }
 
     var _codigoEstrategia = {
@@ -1698,21 +1700,23 @@
         if ($("#ddlTipoEstrategia").val() === "") {
             _toastHelper.error("Debe seleccionar un tipo de estrategia, verifique.");
             return false;
-        } else {
-            var estrategiaId = $("#ddlTipoEstrategia option:selected").data("id");
-            if (!estrategiaId.in(_idEstrategia.OfertaParaTi,
-                _idEstrategia.GuiaDeNegocio,
-                _idEstrategia.LosMasVendidos,
-                _idEstrategia.Lanzamiento,
-                _idEstrategia.OfertasParaMi,
-                _idEstrategia.PackAltoDesembolso,
-                _idEstrategia.OfertaDelDia,
-                _idEstrategia.ShowRoom,
-                _idEstrategia.HerramientaVenta)) {
-                _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
-                return false;
-            }
         }
+
+        var estrategiaId = $("#ddlTipoEstrategia option:selected").data("id") || "";
+        if (!estrategiaId.in(_idEstrategia.OfertaParaTi,
+            _idEstrategia.GuiaDeNegocio,
+            _idEstrategia.LosMasVendidos,
+            _idEstrategia.Lanzamiento,
+            _idEstrategia.OfertasParaMi,
+            _idEstrategia.PackAltoDesembolso,
+            _idEstrategia.OfertaDelDia,
+            _idEstrategia.ShowRoom,
+            _idEstrategia.HerramientaVenta)) {
+
+            _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
+            return false;
+        }
+
         return true;
     }
     var _cerrarTallaColor = function () {
@@ -3534,6 +3538,8 @@
             }
         },
         clickNuevoMasivo: function () {
+            _variables.NroLote = 0;
+            _variables.cantGuardadaTemporal = 0;
             if (_validarMasivo()) {
                 $("#divMasivoPaso1").show();
                 $("#divMasivoPaso2").hide();
@@ -3606,10 +3612,13 @@
                 campaniaId: parseInt($("#ddlCampania").val()),
                 tipoConfigurado: 2,
                 estrategiaCodigo: $("#ddlTipoEstrategia").find(":selected").data("codigo"),
-                habilitarNemotecnico: _config.habilitarNemotecnico
+                habilitarNemotecnico: _config.habilitarNemotecnico,
+                cantGuardadaTemporal: _variables.cantGuardadaTemporal,
+                cantTotal: _variables.cantidadPrecargar,
+                nroLote: _variables.NroLote
             };
 
-            waitingDialog({});
+            waitingDialog();
 
             jQuery.ajax({
                 type: "POST",
@@ -3619,14 +3628,28 @@
                 data: JSON.stringify(params),
                 async: true,
                 success: function (data) {
+                    console.log(data);
                     if (data.success) {
                         closeWaitingDialog();
-                        _fnGrillaEstrategias2();
+                        if (data.cantGuardadaTemporal != undefined) {
+                            _variables.NroLote = data.NroLote;
+                            _variables.cantGuardadaTemporal += parseInt(data.cantGuardadaTemporal, 10)
+                            if (_variables.cantGuardadaTemporal >= _variables.cantidadPrecargar) {
+                                _fnGrillaEstrategias2();
+                            }
+                            else {
+                                _eventos.clickAceptarMasivo1();
+                            }
+                        }
+                        else if (_variables.cantGuardadaTemporal > 0) {
+                            _fnGrillaEstrategias2();
+                        }
                     } else {
                         _toastHelper.error(data.message);
                     }
                 },
                 error: function (data, error) {
+                    console.log(data);
                     _toastHelper.error(data.message);
                 }
             });
@@ -3980,7 +4003,7 @@
         },
 
         changeTipoEstrategia: function () {
-            var aux2 = $("#ddlTipoEstrategia").find(":selected").data("codigo");
+            var aux2 = $("#ddlTipoEstrategia").find(":selected").data("codigo") || "";
             $("#btnActivarDesactivar").hide();
             $("#btnNuevoMasivo").hide();
             $("#btnDescripcionMasivo").hide();

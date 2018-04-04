@@ -27,28 +27,38 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index(int TipoVistaEstrategia = 0)
         {
-            if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarEstrategia/Index"))
-                return RedirectToAction("Index", "Bienvenida");
-
-            var paisIso = Util.GetPaisISO(userData.PaisID);
-            var carpetaPais = Globals.UrlMatriz + "/" + paisIso;
-            var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
-
-            var habilitarNemotecnico = ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.Plan20,
-                Constantes.TablaLogicaDato.BusquedaNemotecnicoZonaEstrategia);
-
-            var estrategiaModel = new EstrategiaModel()
+            EstrategiaModel estrategiaModel;
+            try
             {
-                listaCampania = new List<CampaniaModel>(),
-                listaPaises = DropDowListPaises(),
-                ListaTipoEstrategia = DropDowListTipoEstrategia(TipoVistaEstrategia),
-                ListaEtiquetas = DropDowListEtiqueta(),
-                UrlS3 = urlS3,
-                habilitarNemotecnico = habilitarNemotecnico == "1",
-                ExpValidacionNemotecnico =
-                    GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico),
-                TipoVistaEstrategia = TipoVistaEstrategia
-            };
+
+                if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarEstrategia/Index"))
+                    return RedirectToAction("Index", "Bienvenida");
+
+                var paisIso = Util.GetPaisISO(userData.PaisID);
+                var carpetaPais = Globals.UrlMatriz + "/" + paisIso;
+                var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
+
+                var habilitarNemotecnico = ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.Plan20,
+                    Constantes.TablaLogicaDato.BusquedaNemotecnicoZonaEstrategia);
+
+                estrategiaModel = new EstrategiaModel()
+                {
+                    listaCampania = new List<CampaniaModel>(),
+                    listaPaises = DropDowListPaises(),
+                    ListaTipoEstrategia = DropDowListTipoEstrategia(TipoVistaEstrategia),
+                    ListaEtiquetas = DropDowListEtiqueta(),
+                    UrlS3 = urlS3,
+                    habilitarNemotecnico = habilitarNemotecnico == "1",
+                    ExpValidacionNemotecnico = GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico),
+                    TipoVistaEstrategia = TipoVistaEstrategia
+                };
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                estrategiaModel = new EstrategiaModel();
+            }
             return View(estrategiaModel);
         }
 
@@ -1226,7 +1236,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var lst = new List<ComunModel>();
                 int cantidadEstrategiasConfiguradas;
                 int cantidadEstrategiasSinConfigurar;
 
@@ -1236,6 +1245,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         cantidadEstrategiasConfiguradas = ps.GetCantidadOfertasParaTi(userData.PaisID,
                             int.Parse(CampaniaID), 1, CodigoEstrategia);
+
                         cantidadEstrategiasSinConfigurar =
                             ps.GetCantidadOfertasParaTi(userData.PaisID, int.Parse(CampaniaID), 2, CodigoEstrategia);
                     }
@@ -1247,10 +1257,11 @@ namespace Portal.Consultoras.Web.Controllers
                     cantidadEstrategiasSinConfigurar = 0;
                 }
 
+                var lst = new List<ComunModel>();
                 lst.Add(new ComunModel
                 {
                     Id = 1,
-                    Descripcion = CodigoEstrategia == "011" ? "CUVS encontrados en Producto Comercial" : "CUVS encontrados en ofertas personalizadas.",
+                    Descripcion = CodigoEstrategia == Constantes.TipoEstrategiaCodigo.HerramientasVenta ? "CUVS encontrados en Producto Comercial" : "CUVS encontrados en ofertas personalizadas.",
                     Valor = (cantidadEstrategiasConfiguradas + cantidadEstrategiasSinConfigurar).ToString(),
                     ValorOpcional = "0"
                 });
@@ -1293,10 +1304,10 @@ namespace Portal.Consultoras.Web.Controllers
                                id = a.Id,
                                cell = new string[]
                                {
-                            a.Id.ToString(),
-                            a.Descripcion,
-                            a.Valor,
-                            a.ValorOpcional
+                                    a.Id.ToString(),
+                                    a.Descripcion,
+                                    a.Valor,
+                                    a.ValorOpcional
                                }
                            }
                 };
@@ -1317,7 +1328,7 @@ namespace Portal.Consultoras.Web.Controllers
                     using (var ps = new PedidoServiceClient())
                     {
                         lst = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado,
-                            estrategiaCodigo).ToList();
+                            estrategiaCodigo, 1, 1000000).ToList();
                     }
                 }
                 catch (Exception ex)
@@ -1361,25 +1372,32 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public JsonResult InsertEstrategiaTemporal(int campaniaId, int tipoConfigurado, string estrategiaCodigo,
-            bool habilitarNemotecnico)
+            bool habilitarNemotecnico, int cantGuardadaTemporal, int cantTotal, int nroLote)
         {
             try
             {
                 List<BEEstrategia> listBeEstrategias;
+
+                #region PedidoService - GetOfertasParaTiByTipoConfigurado
                 try
                 {
+                    int cantidadCuv;
+                    var cantidadCuvStr = ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.CantidadCuvMasivo, Constantes.TablaLogicaDato.CantidadCuvMasivo_NuevoMasivo, true);
+                    Int32.TryParse(cantidadCuvStr, out cantidadCuv);
+                    int pagina = (cantGuardadaTemporal / cantidadCuv) + 1;
+
                     using (var ps = new PedidoServiceClient())
                     {
                         listBeEstrategias = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId,
-                            tipoConfigurado, estrategiaCodigo).ToList();
+                            tipoConfigurado, estrategiaCodigo, pagina, cantidadCuv).ToList();
                     }
 
                     if (!listBeEstrategias.Any())
                     {
                         return Json(new
                         {
-                            success = false,
-                            message = "No existen Estrategias para Insertar"
+                            success = cantGuardadaTemporal > 0,
+                            message = cantGuardadaTemporal > 0 ? "" : "No existen Estrategias para Insertar"
                         }, JsonRequestBehavior.AllowGet);
                     }
 
@@ -1393,6 +1411,7 @@ namespace Portal.Consultoras.Web.Controllers
                         estrategiaCodigo == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada ||
                         estrategiaCodigo == Constantes.TipoEstrategiaCodigo.ShowRoom;
 
+                    #region foreach listBeEstrategias
                     foreach (var opt in listBeEstrategias)
                     {
                         #region precioOferta
@@ -1403,8 +1422,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             using (var svs = new WsGestionWeb())
                             {
-                                var preciosEstrategia = svs.ObtenerPrecioEstrategia(opt.CUV2, userData.CodigoISO,
-                                    campaniaId.ToString());
+                                var preciosEstrategia = svs.ObtenerPrecioEstrategia(opt.CUV2, userData.CodigoISO, campaniaId.ToString());
                                 precioOferta = preciosEstrategia.montotal;
                                 ganancia = preciosEstrategia.montoganacia;
                                 niveles = preciosEstrategia.listaniveles.Length > 1 ? ObtenerTextoNiveles(preciosEstrategia.listaniveles) : "";
@@ -1412,8 +1430,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         catch (Exception ex)
                         {
-                            LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora,
-                                userData.CodigoISO);
+                            LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                             precioOferta = 0;
                         }
 
@@ -1428,6 +1445,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         try
                         {
+                            #region Estrategia Producto
                             var productoEstrategias = new List<RptProductoEstrategia>();
                             if (tono)
                             {
@@ -1442,6 +1460,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
 
                             EstrategiaProductoInsertar(productoEstrategias, opt);
+                            #endregion
 
                             #region habilitarNemotecnico
 
@@ -1453,15 +1472,13 @@ namespace Portal.Consultoras.Web.Controllers
                                 {
                                     #region habilitarNemotecnico
 
-                                    tono = productoEstrategia.codigo_estrategia ==
-                                           Constantes.TipoEstrategiaSet.IndividualConTonos ||
-                                           productoEstrategia.codigo_estrategia ==
-                                           Constantes.TipoEstrategiaSet.CompuestaFija ||
-                                           productoEstrategia.codigo_estrategia ==
-                                           Constantes.TipoEstrategiaSet.CompuestaVariable &&
-                                           grupoPrevio != productoEstrategia.grupo;
+                                    var tonoCodEst = productoEstrategia.codigo_estrategia == Constantes.TipoEstrategiaSet.IndividualConTonos
+                                        || productoEstrategia.codigo_estrategia == Constantes.TipoEstrategiaSet.CompuestaFija
+                                        || productoEstrategia.codigo_estrategia == Constantes.TipoEstrategiaSet.CompuestaVariable
+                                            && grupoPrevio != productoEstrategia.grupo;
 
-                                    if (!tono) continue;
+                                    if (!tonoCodEst) continue;
+
                                     grupoPrevio = productoEstrategia.grupo;
                                     var cantidad = productoEstrategia.cantidad.ToString().Length < 2
                                         ? "0" + productoEstrategia.cantidad
@@ -1492,6 +1509,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 userData.CodigoISO);
                         }
                     }
+                    #endregion
                 }
                 catch (TimeoutException ex)
                 {
@@ -1512,12 +1530,15 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
 
+                #endregion
+
+                #region PedidoService - InsertEstrategiaTemporal
                 try
                 {
                     using (var ps = new PedidoServiceClient())
                     {
-                        ps.InsertEstrategiaTemporal(userData.PaisID, listBeEstrategias.ToArray(), campaniaId,
-                            userData.CodigoUsuario);
+                        nroLote = ps.InsertEstrategiaTemporal(userData.PaisID, listBeEstrategias.ToArray(), campaniaId,
+                            userData.CodigoUsuario, nroLote);
                     }
                 }
                 catch (Exception ex)
@@ -1529,12 +1550,15 @@ namespace Portal.Consultoras.Web.Controllers
                         message = "Error al insertar las estrategias"
                     }, JsonRequestBehavior.AllowGet);
                 }
+                #endregion
 
                 return Json(new
                 {
                     success = true,
                     message = "Se insertaron en la tabla temporal de Estrategia.",
-                    extra = ""
+                    extra = "",
+                    cantGuardadaTemporal = listBeEstrategias.Count,
+                    NroLote = nroLote
                 }, JsonRequestBehavior.AllowGet);
 
             }
