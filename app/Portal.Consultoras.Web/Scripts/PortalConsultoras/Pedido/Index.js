@@ -1740,14 +1740,15 @@ function CargarAutocomplete() {
             if (ui.item.ClienteID != 0) {
                 $(this).val(ui.item.Nombre);
 
-                var hdf = this.id.replace('txtLPCli', 'hdfLPCli');
-                var hdfDes = this.id.replace('txtLPCli', 'hdfLPCliDes');
-
-                $('#' + hdf).val(ui.item.ClienteID);
-                $('#' + hdfDes).val(ui.item.Nombre);
-
-                currentInputClienteID = $('#' + hdf);
-                currentInputClienteNombre = $('#' + hdfDes);
+                //var hdf = this.id.replace('txtLPCli', 'hdfLPCli');
+                //var hdfDes = this.id.replace('txtLPCli', 'hdfLPCliDes');
+                var rowElement = $(this).closest(".contenido_ingresoPedido");
+                currentInputClienteID = $(rowElement).find(".hdfLPCli"); //$('#' + hdf);
+                currentInputClienteNombre = $(rowElement).find(".hdfLPCliDes"); //$('#' + hdfDes);
+                
+                $(currentInputClienteID).val(ui.item.ClienteID); //$('#' + hdf).val(ui.item.ClienteID);
+                $(currentInputClienteNombre).val(ui.item.Nombre); //$('#' + hdfDes).val(ui.item.Nombre);
+                
                 currentInputEdit = $(this);
 
                 currentClienteEdit = null;
@@ -1756,11 +1757,11 @@ function CargarAutocomplete() {
                     currentClienteEdit = ui.item;
 
                     showClienteDetalle(ui.item, function (cliente) {
-                        currentInputClienteID.val(cliente.ClienteID);
-                        currentInputClienteNombre.val(cliente.Nombre);
-                        currentInputEdit.val(cliente.Nombre);
+                        $(currentInputClienteID).val(cliente.ClienteID);
+                        $(currentInputClienteNombre).val(cliente.Nombre);
+                        $(currentInputEdit).val(cliente.Nombre);
 
-                        currentInputEdit.blur();
+                        $(currentInputEdit).blur();
 
                     }, function () {
                         CargarDetallePedido();
@@ -2785,7 +2786,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, rowE
     });
 }
 
-function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, setId) {
+function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi) {
     var rowElement = $(event.target).closest(".contenido_ingresoPedido");
     var txtLPCant = $(rowElement).find(".txtLPCant");
     var txtLPTempCant = $(rowElement).find(".txtLPTempCant");
@@ -2808,7 +2809,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
 
     if (cant == "" || cant == "0") {
         AbrirMensaje("Ingrese una cantidad mayor que cero.");
-        $(txtLPCant); //$('#txtLPCant' + PedidoDetalleID).val(cantAnti);
+        $(txtLPCant).val(cantAnti); //$('#txtLPCant' + PedidoDetalleID).val(cantAnti);
         CerrarSplash();
         return false;
     }

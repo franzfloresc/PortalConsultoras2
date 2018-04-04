@@ -10,11 +10,19 @@ using System.Data;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class PedidoFICController : BaseController
     {
+        private readonly PedidoSetProvider _pedidoSetProvider;
+
+        public PedidoFICController()
+        {
+            _pedidoSetProvider = new PedidoSetProvider();
+        }
+
         public ActionResult Index()
         {
             try
@@ -313,6 +321,13 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     errorServer = true;
                     message = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
+                }
+
+                var pedidoWebDetalle = ObtenerPedidoWebDetalle();
+                var setIds = pedidoWebDetalle.Select(d => d.SetID);
+                foreach (var setId in setIds)
+                {
+                    _pedidoSetProvider.EliminarSet(userData.PaisID, setId);
                 }
 
             }

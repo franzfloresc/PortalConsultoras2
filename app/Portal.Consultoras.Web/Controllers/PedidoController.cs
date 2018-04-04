@@ -1099,6 +1099,13 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 if (eliminacionMasiva)
                 {
+                    var pedidoWebDetalle = ObtenerPedidoWebDetalle() ?? new List<BEPedidoWebDetalle>();
+                    var setIds = pedidoWebDetalle.Select(d => d.SetID);
+                    foreach (var setId in setIds)
+                    {
+                        _pedidoSetProvider.EliminarSet(userData.PaisID, setId);
+                    }
+
                     sessionManager.SetPedidoWeb(null);
                     sessionManager.SetDetallesPedido(null);
                     sessionManager.SetDetallesPedidoSetAgrupado(null);
