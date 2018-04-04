@@ -47,7 +47,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.NombreConsultora = userData.NombreConsultora;
             ViewBag.PedidoFIC = "C" + AddCampaniaAndNumero(userData.CampaniaID, 1);
             ViewBag.MensajeFIC = "antes del " + userData.FechaFinFIC.Day + " de " + NombreMes(userData.FechaFinFIC.Month);
-        
+            ViewBag.FinFIc = userData.FechaFinFIC.ToString("dd/MM");
+            
+
             var olstPedidoFicDetalle = ObtenerPedidoFICDetalle();   //   PPC
             PedidoFICDetalleMobileModel modelo = new PedidoFICDetalleMobileModel
             {

@@ -683,6 +683,9 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("OfertaLiquidacion", "Index", null);
                     case Constantes.IngresoExternoPagina.CambiosDevoluciones:
                         return RedirectToUniqueRoute("MisReclamos", "Index", null);
+                    case Constantes.IngresoExternoPagina.PedidosFIC:
+                        return RedirectToUniqueRoute("PedidoFIC", "Index", null);
+                        
                 }
             }
             catch (Exception ex)
