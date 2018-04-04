@@ -67,14 +67,14 @@
         var setRelacionados = [];
         var codigoProducto = '';
         $.each(data.lista, function (index, lanzamiento) {
-            if (value === lanzamiento.CUV2) {
+            if (cuv === lanzamiento.CUV2) {
                 codigoProducto = lanzamiento.CodigoProducto;
                 return false;
             }
         });
 
         $.each(data.lista, function (index, lanzamiento) {
-            if (lanzamiento.CUV2 !== cuv && lanzamiento.CodigoProducto === codigoProducto) {
+            if (cuv != lanzamiento.CUV2 && lanzamiento.CodigoProducto === codigoProducto) {
                 setRelacionados.push(lanzamiento);
             }
         });
