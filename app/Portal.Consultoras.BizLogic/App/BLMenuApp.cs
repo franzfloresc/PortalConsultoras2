@@ -24,7 +24,7 @@ namespace Portal.Consultoras.BizLogic
 
             foreach (var menu in listaMenusApp)
             {
-                menu.SubMenus = listaMenusApp.Where(sm => sm.CodigoMenuPadre.Equals(menu.Codigo)).ToList();
+                menu.SubMenus = listaMenusApp.Where(sm => sm.CodigoMenuPadre.Equals(menu.Codigo)).OrderBy(sm => sm.Orden).ToList();
             }
 
             List<BEMenuApp> menus = listaMenusApp.Where(m => m.CodigoMenuPadre.Trim().Equals(string.Empty))
