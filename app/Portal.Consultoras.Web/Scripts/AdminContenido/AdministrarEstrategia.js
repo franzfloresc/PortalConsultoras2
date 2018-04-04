@@ -51,6 +51,7 @@
         isNuevo: false,
         cantidadPrecargar: 0,
         cantidadPrecargar2: 0,
+        cantidadOp: 0,
         imagen: "",
         isVistaPreviaOpened: false,
         paisNombre: "",
@@ -783,6 +784,9 @@
 
         if (tipo == "2")
             _variables.cantidadPrecargar = parseInt(cantidad);
+        
+        if (tipo == "1")
+            _variables.cantidadOp = parseInt(cantidad);
 
         if (cantidad != "0")
             text = rowObject[2] +
@@ -3543,6 +3547,7 @@
             _variables.NroLote = 0;
             _variables.cantGuardadaTemporal = 0;
             _variables.Pagina = 0;
+            _variables.cantidadOp = 0;
             if (_validarMasivo()) {
                 $("#divMasivoPaso1").show();
                 $("#divMasivoPaso2").hide();
@@ -3619,7 +3624,8 @@
                 cantGuardadaTemporal: _variables.cantGuardadaTemporal,
                 cantTotal: _variables.cantidadPrecargar,
                 nroLote: _variables.NroLote,
-                pagina: _variables.Pagina
+                pagina: _variables.Pagina,
+                cantidadOp: _variables.cantidadOp
             };
 
             waitingDialog();
