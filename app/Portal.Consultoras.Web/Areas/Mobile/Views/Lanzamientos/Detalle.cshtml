@@ -36,7 +36,6 @@
                 </div>
                 <div class="detalle-img">
                     <div class="img-portada" style="background:url(@Model.FotoProductoSmall);"></div>
-
                 </div>
                 <div class="detalle-info">
                     <div class="label-nuevo">
@@ -72,6 +71,27 @@
             </div>
         </div>
     </div>
+
+    @if (Model.PuedeAgregarProducto)
+    {
+        <div class="row">
+            <div class="content_btn_agregar">
+                <div class="content_320">
+                    <div class="content_cantidad_ficha_producto">
+                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango-cantidad-lanzamiento rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                        <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                    </div>
+                    <a class="@Model.ClaseBloqueada btn_agregar_ficha_producto" id="tbnAgregarProducto"
+                       onclick="javascript:EstrategiaAgregar(event, true); ">AGRÉGALO</a>
+                    <hr class="clear">
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+<div>
     <div class="set_encuentras_producto" id="set_relacionados">
         <div class="wrapper_resumen_mobile">
             <p class="titulo_set">
@@ -85,6 +105,7 @@
     @if ((Model.TipoEstrategiaDetalle.UrlVideoMobile ?? "") != "")
     {
         <div class="set_encuentras_producto_video" id="video_lanzamiento">
+            <span>VIDEO</span>
             <div class="wrapper_resumen_mobile">
                 <div class="revista_producto_video" style="width: 100%">
                     <div id="player"></div>
@@ -102,48 +123,6 @@
             </ul>
         </div>
     </div>
-
-    @if (Model.PuedeAgregarProducto)
-    {
-            <div data-item="" data-tag-html="@ViewBag.Campania">
-        <div data-estadoregistro="@ViewBag.EstadoSuscripcion"
-             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage">
-            <div style="display:none;"><div data-estrategia="@Json.Encode(Model)"></div></div>
-            <div>
-                <div data-compartir-campos="" style="display:none;">
-                    <input type="hidden" class="CUV" value="@Model.CUV2" />
-                    <input type="hidden" class="rsFBMensaje" value="" />
-                    <input type="hidden" class="rsFBRuta" value="@Model.UrlCompartir" />
-                    <input type="hidden" class="rsWAMensaje" value="" />
-                    <input type="hidden" class="rsWARuta" value="@Model.UrlCompartir" />
-                    <input type="hidden" class="rsFBRutaImagen" value="@Model.FotoProducto01" />
-                    <input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
-                    <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
-                    <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
-                    <input type="hidden" class="Nombre" value="@Model.DescripcionResumen" />
-                    <input type="hidden" class="ProductoDescripcion" value="@Model.DescripcionDetalle" />
-                    <input type="hidden" class="Volumen" value="" />
-                    <input type="hidden" class="Palanca" value="LAN" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="content_btn_agregar">
-                    <div class="content_320">
-                        <div class="content_cantidad_ficha_producto">
-                            <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango-cantidad-lanzamiento rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                            <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                        </div>
-                        <a class="@Model.ClaseBloqueada btn_agregar_ficha_producto" id="tbnAgregarProducto"
-                           onclick="javascript:EstrategiaAgregar(event, true); ">AGRÉGALO</a>
-                        <hr class="clear">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    }
-
 </div>
 
 
