@@ -396,3 +396,10 @@ width: 100%;
 height:455px;
 margin:auto;
 }
+@media (max-width:599px)
+{
+    .set_encuentras_producto .set_encuentras_producto_carrusel{
+        width:85%;
+        margin:auto;
+    }
+}

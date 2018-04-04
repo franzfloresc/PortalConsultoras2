@@ -10,8 +10,9 @@
     }
 }
 
-<div class="bc_slider previsualizales-ofertas parche_presentacion_contenedor" data-plantilla="carrusel-previsuales" style="    position: relative;
-    left: 4%;">
+<div class="bc_slider previsualizales-ofertas parche_presentacion_contenedor" 
+     data-plantilla="carrusel-previsuales" 
+     style="position: relative;left: 2.5%;">
     <div class="bloque-titulo">
         <div class="@seccionTituloClass">
             <span>@Model.Titulo</span>
@@ -19,16 +20,16 @@
         <div class="parche_clear"></div>
     </div>
     <div class="content_slider_ept" data-seccion-productos=""
-         style="max-width: 794px !important; position: relative; top: -50px; left: 2%;">
+         style="max-width: 794px !important; position: relative; top: -56px;">
     </div>
 </div>
 
 <script id="lanzamiento-carrusel-individual-template" type="text/x-handlebars-template">
     {{#each this.listaLan as |lan|}}
     {{#if lan.TipoEstrategiaDetalle.FlagIndividual}}
-    <div class="lonuevo_carrusel" 
-        style="background: url({{lan.TipoEstrategiaDetalle.ImgFondoDesktop}}); background-color: #24303c !important;"
-        data-item="{{lan.EstrategiaID}}"
+    <div class="lonuevo_carrusel"
+         style="background: url({{lan.TipoEstrategiaDetalle.ImgFondoDesktop}}); background-color: #24303c !important;"
+         data-item="{{lan.EstrategiaID}}"
          data-item-cuv="{{CUV2}}">
         <div style="display:none;" data-estrategia="{{JSON2string lan}}"></div>
 
@@ -56,10 +57,10 @@
                     else
                     {
                         <a href="javascript:;" class="btn_elige_tono js-no-popup" data-bloqueada="{{ClaseBloqueada}}"
-                                onclick="javascript:VerPopupExpGanaMas(); ">
-                                ¿LO QUIERES?
-                         </a>
-                        @*<a href="">¿LO QUIERES?</a>*@
+                           onclick="javascript:VerPopupExpGanaMas(); ">
+                            ¿LO QUIERES?
+                        </a>
+                            @*<a href="">¿LO QUIERES?</a>*@
                     }
                 }
 
