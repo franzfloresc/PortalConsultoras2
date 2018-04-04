@@ -19,7 +19,9 @@
     <div class="revista_ficha" style='background: url(@Model.TipoEstrategiaDetalle.ImgFichaFondoDesktop); background-color: #24303c !important;'
          data-estadoregistro="@ViewBag.EstadoSuscripcion"
          data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage">
-        <div style="display:none;"><div data-estrategia="@Json.Encode(Model)"></div></div>
+        <div style="display:none;">
+            <div data-estrategia="@Json.Encode(Model)"></div>
+        </div>
         <div class="content_belcorp">
             <div class="detalle-prod" data-item="" style="position: relative;
     left: 7%;">
@@ -125,9 +127,8 @@
         <div class="flecha_scroll">
             <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll"></a>
         </div>
-
-        <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
     </div>
+</div>
 
 
     @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
