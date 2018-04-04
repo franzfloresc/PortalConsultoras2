@@ -1243,7 +1243,7 @@
     <Content Include="Content\Css\Button\style.css" />
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
     <Content Include="Content\Css\Mobile\Contenedor\Index.css" />
-    <Content Include="Content\Css\Mobile\Lanzamientos\Lan_Contenedor.css" />
+    <Content Include="Content\Css\Mobile\Contenedor\carrusel.individual.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\ConfirmarDatos.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Gnd-Flotante.css" />
@@ -4036,6 +4036,7 @@
     <Content Include="Areas\Mobile\Views\ShowRoom\Personalizado.cshtml" />
     <Content Include="Areas\Mobile\Views\ShowRoom\DetalleOfertaPersonalizado.cshtml" />
     <Content Include="Areas\Mobile\Views\Lanzamientos\Detalle.cshtml" />
+    <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -5251,6 +5252,7 @@
     <Folder Include="Annotations\App_Data\" />
     <Folder Include="Areas\Mobile\Views\EstrategiaProductoComentario\" />
     <Folder Include="Content\ArchivoNivelGeografico\" />
+    <Folder Include="Content\Css\Mobile\Lanzamientos\" />
     <Folder Include="GestionPasos\Asignaciones\" />
     <Folder Include="Views\App\" />
     <Folder Include="Views\BaseHerramientasVenta\" />

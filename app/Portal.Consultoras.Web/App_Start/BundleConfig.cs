@@ -400,7 +400,8 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/ccsOfertasMobile").Include(
                 "~/Content/Css/Site/slick.css",
-                "~/Content/Css/Site/jquery.rateyo.css"
+                "~/Content/Css/Site/jquery.rateyo.css",
+                "~/Content/Css/Mobile/Contenedor/carrusel.individual.css"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/Css/Mobile/Site/CssPedido").Include(
