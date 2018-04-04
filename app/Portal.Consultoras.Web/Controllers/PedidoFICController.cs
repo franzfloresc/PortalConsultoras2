@@ -213,6 +213,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Update(PedidoFICDetalleModel model)
         {
+            //todo: update SetId
             BEPedidoFICDetalle obePedidoFicDetalle = new BEPedidoFICDetalle
             {
                 PaisID = userData.PaisID,
