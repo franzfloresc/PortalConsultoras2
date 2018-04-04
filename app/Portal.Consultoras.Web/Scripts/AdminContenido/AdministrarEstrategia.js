@@ -3661,6 +3661,7 @@
                 },
                 error: function (data, error) {
                     console.log(data);
+                    closeWaitingDialog();
                     _toastHelper.error(data.message);
                 }
             });
