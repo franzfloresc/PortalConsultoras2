@@ -842,7 +842,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<BEEstrategia> lst;
                 var entidad = new BEEstrategia
                 {
                     PaisID = userData.PaisID,
@@ -851,15 +850,13 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
                     CUV2 = cuv2
                 };
+
+                List<BEEstrategia> lst;
                 using (var sv = new PedidoServiceClient())
                 {
                     lst = sv.FiltrarEstrategia(entidad).ToList();
                 }
-                if (lst.Count > 0)
-                {
-                    string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    lst.Update(x => x.ImagenMiniaturaURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenMiniaturaURL, carpetapais));
-                }
+
                 if (lst.Count <= 0)
                     return Json(new
                     {
@@ -868,7 +865,11 @@ namespace Portal.Consultoras.Web.Controllers
                         extra = ""
                     }, JsonRequestBehavior.AllowGet);
 
-                return Json(lst[0], JsonRequestBehavior.AllowGet);
+                entidad = lst[0];
+                string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                entidad.ImagenMiniaturaURL = ConfigS3.GetUrlFileS3(carpetapais, entidad.ImagenMiniaturaURL, carpetapais);
+                
+                return Json(entidad, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {

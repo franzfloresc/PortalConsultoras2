@@ -469,6 +469,15 @@
             $("#txtCantidad").val(data.Cantidad);
             $("#hdZonas").val(data.Zona);
             $("#hdNiveles").val(data.Niveles);
+
+            if (data.FlagIndividual == 1) {
+                $("#chkFlagIndividual").attr("checked", true);
+            } else {
+                $("#chkFlagIndividual").removeAttr("checked");
+            }
+
+            $("#txtSlogan").val(data.Slogan);
+
             //var strZonas = $("#hdZonas").val();
             //if (strZonas != "") {
             //    $.jstree._reference($("#arbolRegionZona")).uncheck_all();
@@ -540,7 +549,6 @@
 
             _agregarCamposLanzamiento("img-fondo-desktop", data.ImgFondoDesktop);
             _agregarCamposLanzamiento("img-fondo-mobile", data.ImgFondoMobile);
-            //_agregarCamposLanzamiento("img-prev-desktop", data.ImgPrevDesktop);
             _agregarCamposLanzamiento("img-ficha-desktop", data.ImgFichaDesktop);
             _agregarCamposLanzamiento("img-ficha-mobile", data.ImgFichaMobile);
             _agregarCamposLanzamiento("img-ficha-fondo-desktop", data.ImgFichaFondoDesktop);
@@ -1016,6 +1024,9 @@
         $("#txtGanancia").val("");
         if ($("#hdEstrategiaCodigo").val() === "005") $("#div-revista-digital").show();
         else $("#div-revista-digital").hide();
+        
+        $("#chkFlagIndividual").removeAttr("checked");
+        $("#txtSlogan").click();
 
     };
     var _fnGrillaEstrategias1 = function() {
@@ -4318,8 +4329,17 @@
             $("#imgSeleccionada").attr("src", _config.rutaImagenVacia);
             $("#imgSeleccionada").attr("data-id", "0");
             _mostrarInformacionCuv(cuvIngresado);
-        }
-
+        },
+        
+        clickCheckFlagIndividual: function () {
+            if ($(this).attr("checked")) {
+                $("#seccionSlogan").show();
+            }
+            else {
+                $("#seccionSlogan").hide();
+                $("#txtSlogan").val("");
+            }
+        },
     }
      
     var _bindingEvents = function(){
@@ -4365,6 +4385,9 @@
         $("body").on("keyup", "#txtCUV", _eventos.keyUpCuv);
         $("body").on("keyup", "#txtCUVTC", _eventos.keyUpCuvTc);
         $("body").on("keyup", "#txtCUV2", _eventos.keyUpCuv2);
+
+
+        $("body").on("click", "#chkFlagIndividual", _eventos.clickCheckFlagIndividual);
 
         var idPais = $("#ddlPais").val();
         if (idPais > 0) {
