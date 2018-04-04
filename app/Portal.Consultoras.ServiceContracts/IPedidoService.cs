@@ -1011,7 +1011,7 @@ namespace Portal.Consultoras.ServiceContracts
         int GetCantidadOfertasParaTiTemporal(int paisId, int campaniaId, int tipoConfigurado);
 
         [OperationContract]
-        List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado);
+        List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado, int nroLote);
 
         [OperationContract]
         int DeleteEstrategiaTemporal(int paisId, int campaniaId);

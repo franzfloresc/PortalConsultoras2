@@ -418,12 +418,12 @@ namespace Portal.Consultoras.BizLogic
             return result;
         }
 
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado)
+        public List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado, int nroLote)
         {
             List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
 
             var daEstrategia = new DAEstrategia(paisId);
-            using (IDataReader reader = daEstrategia.GetOfertasParaTiByTipoConfiguradoTemporal(campaniaId, tipoConfigurado))
+            using (IDataReader reader = daEstrategia.GetOfertasParaTiByTipoConfiguradoTemporal(campaniaId, tipoConfigurado, nroLote))
             {
                 while (reader.Read())
                 {
