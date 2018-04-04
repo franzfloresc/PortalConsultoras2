@@ -442,12 +442,13 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        public IDataReader GetOfertasParaTiByTipoConfiguradoTemporal(int campaniaId, int tipoConfigurado)
+        public IDataReader GetOfertasParaTiByTipoConfiguradoTemporal(int campaniaId, int tipoConfigurado, int nroLote)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetOfertasParaTiByTipoConfiguradoTemporal"))
             {
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
                 Context.Database.AddInParameter(command, "@TipoConfigurado", DbType.Int32, tipoConfigurado);
+                Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
                 return Context.ExecuteReader(command);
             }
         }

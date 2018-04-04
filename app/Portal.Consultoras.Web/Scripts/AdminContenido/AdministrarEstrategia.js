@@ -55,7 +55,8 @@
         isVistaPreviaOpened: false,
         paisNombre: "",
         cantGuardadaTemporal: 0,
-        NroLote: 0
+        NroLote: 0,
+        Pagina: 0
     }
 
     var _codigoEstrategia = {
@@ -1224,7 +1225,8 @@
 
         var parametros = {
             campaniaId: parseInt($("#ddlCampania").val()),
-            tipoConfigurado: parseInt(tipo)
+            tipoConfigurado: parseInt(tipo),
+            nroLote: _variables.NroLote
         };
 
         $("#listGrillaCuv2").setGridParam({ postData: parametros });
@@ -3540,6 +3542,7 @@
         clickNuevoMasivo: function () {
             _variables.NroLote = 0;
             _variables.cantGuardadaTemporal = 0;
+            _variables.Pagina = 0;
             if (_validarMasivo()) {
                 $("#divMasivoPaso1").show();
                 $("#divMasivoPaso2").hide();
@@ -3615,7 +3618,8 @@
                 habilitarNemotecnico: _config.habilitarNemotecnico,
                 cantGuardadaTemporal: _variables.cantGuardadaTemporal,
                 cantTotal: _variables.cantidadPrecargar,
-                nroLote: _variables.NroLote
+                nroLote: _variables.NroLote,
+                pagina: _variables.Pagina
             };
 
             waitingDialog();
@@ -3632,6 +3636,7 @@
                     if (data.success) {
                         closeWaitingDialog();
                         if (data.cantGuardadaTemporal != undefined) {
+                            _variables.Pagina = (data.pagina || 0) + 1;
                             _variables.NroLote = data.NroLote;
                             _variables.cantGuardadaTemporal += parseInt(data.cantGuardadaTemporal, 10)
                             if (_variables.cantGuardadaTemporal >= _variables.cantidadPrecargar) {
@@ -3658,10 +3663,11 @@
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
                 tipoConfigurado: 1,
-                estrategiaId: $("#ddlTipoEstrategia").find(":selected").data("id")
+                estrategiaId: $("#ddlTipoEstrategia").find(":selected").data("id"),
+                nroLote: _variables.NroLote
             };
 
-            waitingDialog({});
+            waitingDialog();
 
             jQuery.ajax({
                 type: "POST",

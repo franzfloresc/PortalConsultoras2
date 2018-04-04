@@ -1372,7 +1372,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public JsonResult InsertEstrategiaTemporal(int campaniaId, int tipoConfigurado, string estrategiaCodigo,
-            bool habilitarNemotecnico, int cantGuardadaTemporal, int cantTotal, int nroLote)
+            bool habilitarNemotecnico, int cantGuardadaTemporal, int cantTotal, int nroLote, int pagina)
         {
             try
             {
@@ -1384,8 +1384,17 @@ namespace Portal.Consultoras.Web.Controllers
                     int cantidadCuv;
                     var cantidadCuvStr = ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.CantidadCuvMasivo, Constantes.TablaLogicaDato.CantidadCuvMasivo_NuevoMasivo, true);
                     Int32.TryParse(cantidadCuvStr, out cantidadCuv);
-                    int pagina = (cantGuardadaTemporal / cantidadCuv) + 1;
+                    if (cantidadCuv <= 0)
+                    {
+                        return Json(new
+                        {
+                            success = false,
+                            message = "No existen Estrategias para Insertar"
+                        }, JsonRequestBehavior.AllowGet);
+                    }
 
+                    pagina = Math.Max(pagina, 1);
+                    
                     using (var ps = new PedidoServiceClient())
                     {
                         listBeEstrategias = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId,
@@ -1557,6 +1566,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = true,
                     message = "Se insertaron en la tabla temporal de Estrategia.",
                     extra = "",
+                    pagina,
                     cantGuardadaTemporal = listBeEstrategias.Count,
                     NroLote = nroLote
                 }, JsonRequestBehavior.AllowGet);
@@ -1651,7 +1661,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public ActionResult ConsultarCuvTipoConfiguradoTemporal(string sidx, string sord, int page, int rows,
-            int campaniaId, int tipoConfigurado)
+            int campaniaId, int tipoConfigurado, int nroLote)
         {
             if (ModelState.IsValid)
             {
@@ -1661,7 +1671,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (var ps = new PedidoServiceClient())
                     {
-                        lst = ps.GetOfertasParaTiByTipoConfiguradoTemporal(userData.PaisID, campaniaId, tipoConfigurado)
+                        lst = ps.GetOfertasParaTiByTipoConfiguradoTemporal(userData.PaisID, campaniaId, tipoConfigurado, nroLote)
                             .ToList();
                     }
                 }
@@ -1734,7 +1744,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult InsertEstrategiaOfertaParaTi(int campaniaId, int tipoConfigurado, int estrategiaId)
+        public JsonResult InsertEstrategiaOfertaParaTi(int campaniaId, int tipoConfigurado, int estrategiaId, int nroLore)
         {
             try
             {
@@ -1744,7 +1754,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (var ps = new PedidoServiceClient())
                     {
-                        lst = ps.GetOfertasParaTiByTipoConfiguradoTemporal(userData.PaisID, campaniaId, tipoConfigurado)
+                        lst = ps.GetOfertasParaTiByTipoConfiguradoTemporal(userData.PaisID, campaniaId, tipoConfigurado, nroLore)
                             .ToList();
                     }
                 }
