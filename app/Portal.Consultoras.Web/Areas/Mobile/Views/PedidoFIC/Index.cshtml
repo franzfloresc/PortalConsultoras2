@@ -5,239 +5,237 @@
 
 @model PedidoMobileModel
 @{
-    var layout = ViewContext.MobilePedidoLayout();
-    ViewBag.SourcePage = 2;
-    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
-    var mobileConfiguracion = Html.MobileAppConfiguracion();
+	var layout = ViewContext.MobilePedidoLayout();
+	ViewBag.SourcePage = 2;
+	Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+	var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 <div class="wrapper_resumen_mobile sin_padding">
-    @if (!mobileConfiguracion.EsAppMobile)
-    {
-        <div class="titulo_mobile agregarSombraInferior">
-            <a href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
-            <div class="titulo_vista text-uppercase">
-                Ingresar Pedido Fic C@(Model.CampaniaNro)
-                <div class="text-lowercase">
-                    <span>
-                        hasta el <span>26/02</span>
-                    </span>
-                </div>
-            </div>
-        </div>
-    }
+	@if (!mobileConfiguracion.EsAppMobile)
+	{
+		<div class="titulo_mobile agregarSombraInferior">
+			<a href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
+			<div class="titulo_vista text-uppercase">
+				Ingresar Pedido Fic C@(Model.CampaniaNro)
+				<div class="text-lowercase">
+					<span>
+						hasta el <span>@ViewBag.FinFIC</span>
+					</span>
+				</div>
+			</div>
+		</div>
+	}
 
-    <!-- BANNERS INGRESO DE PEDIDO -->
-    <div class="banner_ingresoPedido nuevaAlturaBanner" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center center;">
-        <div class="content_320 ingresoPedido">
-            <form>
-                @Html.Hidden("txtClienteId", Model.ClienteId)
-                @if (ViewBag.MobileApp && Model.ClienteId > 0)
-                {
-                    <input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" disabled value="@Model.Nombre" />
-                }
-                else
-                {
-                    <input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" />
-                }
+	<!-- BANNERS INGRESO DE PEDIDO -->
+	<div class="banner_ingresoPedido nuevaAlturaBanner" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center center;">
+		<div class="content_320 ingresoPedido">
+			@if (mobileConfiguracion.EsAppMobile)
+			{
+			<p class="label-white-small">Ingresar Pedido Fic C@(Model.CampaniaNro) hasta el  @ViewBag.FinFIC </p>
+			}
+			<form>
+				@Html.Hidden("txtClienteId", Model.ClienteId)
+				@if (ViewBag.MobileApp && Model.ClienteId > 0)
+				{
+					<input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" disabled value="@Model.Nombre" />
+				}
+				else
+				{
+					<input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" />
+				}
+				<input type="tel" name="codigoProducto" value="" placeholder="Código" id="txtCodigoProducto" oninput="FuncionesGenerales.MaxLengthCheck(this, 5)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+			</form>
+		</div>
+	</div>
+	<!-- FIN BANNERS INGRESO DE PEDIDO -->
 
-                <input type="tel" name="codigoProducto" value="" placeholder="Código" id="txtCodigoProducto" oninput="FuncionesGenerales.MaxLengthCheck(this, 5)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
-            </form>
-        </div>
-    </div>
-    <!-- FIN BANNERS INGRESO DE PEDIDO -->
+	<div class="franja_inferior_banner_pedido"></div>
 
-    <div class="franja_inferior_banner_pedido"></div>
+	<!-- MENSAJES CUV -->
+	<div style="display:none;" class="mensaje_ingreso_cuvs" id="divMensajeCUV">
+		<span id="divIcono" class="icono_aprobacion"></span>
+		<span id="divMensaje" class="mensaje_productoCUV">
+		</span>
+	</div>
+	<!-- FIN MENSAJES CUV -->
 
-    <!-- MENSAJES CUV -->
-    <div style="display:none;" class="mensaje_ingreso_cuvs" id="divMensajeCUV">
-        <span id="divIcono" class="icono_aprobacion"></span>
-        <span id="divMensaje" class="mensaje_productoCUV">
-        </span>
-    </div>
-    <!-- FIN MENSAJES CUV -->
+	<div class="contenedor_producto">
+		<div class="content_320 ingresoPedidom">
+			<!-- SECCIÓN CONTENIDO INGRESO DE PEDIDO -->
+			<div id="divProductoMantenedor" style="display: none;">
+				<div style="display: none;">
+					<input type="hidden" id="hdfCUV" />
+					<input type="hidden" id="hdTipoOfertaSisID" />
+					<input type="hidden" id="hdConfiguracionOfertaID" />
+					<input type="hidden" id="hdfDescripcionCategoria" />
+					<input type="hidden" id="hdfDescripcionEstrategia" />
+					<input type="hidden" id="hdfDescripcionMarca" />
+					<input type="hidden" id="hdfIndicadorMontoMinimo" />
+					<input type="hidden" id="hdfMarcaID" />
+					<input type="hidden" id="hdfPrecioUnidad" />
+					<input type="hidden" id="hdfDescripcionProd" />
+					<input type="hidden" id="hdCuvRecomendado" />
+					<input type="hidden" id="hdTipoEstrategiaID" />
+					<input type="hidden" id="hdCuvEnSession" value="@Session["CUVProductoDesctacado"]" />
+					<input type="hidden" id="hdfValorFlagNueva" />
+					<input type="hidden" id="hdLimiteVenta" />
+				</div>
+				<div id="divProductoObservaciones"></div>
+				<div id="divProductoInformacion">
+					<div class="nombreProducto" id="divNombreProducto"></div>
+					<div class="precioProducto">
+						<span id="spnTextoPrecio"></span>
+						<span class="precioOferta" id="spnPrecio"></span>
+					</div>
+					<div class="contenedor_cantidadProductos">
+						<span class="textoCantidad">CANTIDAD:</span>
+						<div>
+							<span class="signo_menos" id="resta">
+								<img src="/Content/Images/Mobile/Esika/menos.png">
+							</span>
+							<div class="campo_cantidadProductos">
+								<input type="tel" name="cantidad" value="1" id="txtCantidad" min="1" max="99" maxlength="2" oninput="FuncionesGenerales.MaxLengthCheck(this,2);" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+							</div>
+							<span class="signo_mas" id="suma">
+								<img src="/Content/Images/Mobile/Esika/mas.png">
+							</span>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- FIN CONTENIDO INGRESO DE PEDIDO -->
+			<!-- INFO SOBRE PEDIDO FIC -->
+			<div class="bloque_info_pedido_fic">
+				<p class="info_pedido_fic">
+					<strong>Recuerda :</strong> este pedido <span class="text-uppercase">No</span> te será facturado. Sólo nos estás ayudando a conocer tus preferencias y la de tus clientes.
+				</p>
+			</div>
+			<!-- FIN - INFO SOBRE PEDIDO FIC -->
+			<!-- SECCIÓN CONTENIDO RESUMEN DE PEDIDO -->
+			<div id="divResumenPedido">
+				<div class="contenedor_resumenPedido montosIngresoPedido">
+					<div class="textos_resumen mb-0">
+						<span id="lblProductosResumen" style="margin-left: 30px;">HE AGREGADO :</span>
+						<span id="lblTotalResumen" style="margin-left: 30px;">
+							MONTO TOTAL :
+						</span>
+					</div>
+					<div class="montos_resumen">
+						<span><b data-cantidadproducto="">@Model.CantidadProductos</b>&nbsp;&nbsp;UNIDADES</span>
+						<span><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-pedidocondescuento="">@Model.DescripcionTotal</b></span>
+					</div>
+				</div>
+				<button type="button" class="btn_verMiPedido">
+					VER MI PEDIDO
+				</button>
+			</div>
+			<!-- FIN CONTENIDO RESUMEN DE PEDIDO -->
 
-    <div class="contenedor_producto">
-        <div class="content_320 ingresoPedidom">
-            <!-- SECCIÓN CONTENIDO INGRESO DE PEDIDO -->
-            <div id="divProductoMantenedor" style="display: none;">
-                <div style="display: none;">
-                    <input type="hidden" id="hdfCUV" />
-                    <input type="hidden" id="hdTipoOfertaSisID" />
-                    <input type="hidden" id="hdConfiguracionOfertaID" />
-                    <input type="hidden" id="hdfDescripcionCategoria" />
-                    <input type="hidden" id="hdfDescripcionEstrategia" />
-                    <input type="hidden" id="hdfDescripcionMarca" />
-                    <input type="hidden" id="hdfIndicadorMontoMinimo" />
-                    <input type="hidden" id="hdfMarcaID" />
-                    <input type="hidden" id="hdfPrecioUnidad" />
-                    <input type="hidden" id="hdfDescripcionProd" />
-                    <input type="hidden" id="hdCuvRecomendado" />
-                    <input type="hidden" id="hdTipoEstrategiaID" />
-                    <input type="hidden" id="hdCuvEnSession" value="@Session["CUVProductoDesctacado"]" />
-                    <input type="hidden" id="hdfValorFlagNueva" />
-                    <input type="hidden" id="hdLimiteVenta" />
-                </div>
-                <div id="divProductoObservaciones"></div>
-                <div id="divProductoInformacion">
-                    <div class="nombreProducto" id="divNombreProducto"></div>
-                    <div class="precioProducto">
-                        <span id="spnTextoPrecio"></span>
-                        <span class="precioOferta" id="spnPrecio"></span>
-                    </div>
-                    <div class="contenedor_cantidadProductos">
-                        <span class="textoCantidad">CANTIDAD:</span>
-                        <div>
-                            <span class="signo_menos" id="resta">
-                                <img src="/Content/Images/Mobile/Esika/menos.png">
-                            </span>
-                            <div class="campo_cantidadProductos">
-                                <input type="tel" name="cantidad" value="1" id="txtCantidad" min="1" max="99" maxlength="2" oninput="FuncionesGenerales.MaxLengthCheck(this,2);" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
-                            </div>
-                            <span class="signo_mas" id="suma">
-                                <img src="/Content/Images/Mobile/Esika/mas.png">
-                            </span>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- FIN CONTENIDO INGRESO DE PEDIDO -->
+		</div>
+	</div>
 
-            <!-- INFO SOBRE PEDIDO FIC -->
-            <div class="bloque_info_pedido_fic">
-                <p class="info_pedido_fic">
-                    <strong>Recuerda :</strong> este pedido <span class="text-uppercase">No</span> te será facturado. Sólo nos estás ayudando a conocer tus preferencias y la de tus clientes.
-                </p>
-            </div>
-            <!-- FIN - INFO SOBRE PEDIDO FIC -->
+	<!--CONSULTORA ONLINE-->
+	@if (ViewBag.CantPedidosPendientes > 0)
+	{
+		<div class="content_320" style="padding-top:0">
+			<div style="float:left; max-width:185px;">
+				<div class="titulo_tooltip_p">Tienes @ViewBag.CantPedidosPendientes pedido(s) pendiente(s) del <span>App de Catálogos</span></div>
+				<div class="hora_tooltip_p">Te quedan <b>@ViewBag.TeQuedanConsultoraOnline</b> horas</div>
+			</div>
+			<div style="float:right;">
+				<a class="btn_revisalo_pendiente" href="@Url.Action("Pendientes", "ConsultoraOnline")">REVÍSALO</a>
+			</div>
+			<hr class="clear">
+		</div>
+	}
+	<!--FIN-->
 
-            <!-- SECCIÓN CONTENIDO RESUMEN DE PEDIDO -->
-            <div id="divResumenPedido">
-                <div class="contenedor_resumenPedido montosIngresoPedido">
-                    <div class="textos_resumen mb-0">
-                        <span id="lblProductosResumen" style="margin-left: 30px;">HE AGREGADO :</span>
-                        <span id="lblTotalResumen" style="margin-left: 30px;">
-                            MONTO TOTAL :
-                        </span>
-                    </div>
-                    <div class="montos_resumen">
-                        <span><b data-cantidadproducto="">@Model.CantidadProductos</b>&nbsp;&nbsp;UNIDADES</span>
-                        <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-pedidocondescuento="">@Model.DescripcionTotal</b></span>
-                    </div>
-                </div>
-                <button type="button" class="btn_verMiPedido">
-                    VER MI PEDIDO
-                </button>
-            </div>
-            <!-- FIN CONTENIDO RESUMEN DE PEDIDO -->
+	<div class="btn_agregarPedido">
+		<input type="submit" value="AGRÉGALO A TU PEDIDO" id="btnAgregarProducto" name="btnAgregarProducto" style="display:none;" />
+	</div>
 
-        </div>
-    </div>
-
-    <!--CONSULTORA ONLINE-->
-    @if (ViewBag.CantPedidosPendientes > 0)
-    {
-        <div class="content_320" style="padding-top:0">
-            <div style="float:left; max-width:185px;">
-                <div class="titulo_tooltip_p">Tienes @ViewBag.CantPedidosPendientes pedido(s) pendiente(s) del <span>App de Catálogos</span></div>
-                <div class="hora_tooltip_p">Te quedan <b>@ViewBag.TeQuedanConsultoraOnline</b> horas</div>
-            </div>
-            <div style="float:right;">
-                <a class="btn_revisalo_pendiente" href="@Url.Action("Pendientes", "ConsultoraOnline")">REVÍSALO</a>
-            </div>
-            <hr class="clear">
-        </div>
-    }
-    <!--FIN-->
-
-    <div class="btn_agregarPedido">
-        <input type="submit" value="AGRÉGALO A TU PEDIDO" id="btnAgregarProducto" name="btnAgregarProducto" style="display:none;" />
-    </div>
-
-    <div class="alert alert-success alert-full" style="display: none;" id="divMensajeProductoAgregado">
-        <img src="@Url.Content("~/Content/Images/mobile/img-icon/alert-success.png")" alt="Alert" class="img-responsive" />
-        <p>Producto <br /> Agregado</p>
-    </div>
+	<div class="alert alert-success alert-full" style="display: none;" id="divMensajeProductoAgregado">
+		<img src="@Url.Content("~/Content/Images/mobile/img-icon/alert-success.png")" alt="Alert" class="img-responsive" />
+		<p>Producto <br /> Agregado</p>
+	</div>
 </div>
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
 
 <!--POP UP PRODUCTO SUGERIDO-->
 <div class="MensajeAlertaMobile" id="PopSugerido" style="display:none;">
-    <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="CancelarProductosSugeridos();">
-            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-        </a>
-        <hr class="clear" />
-        <div class="icono_alerta exclamacion_icono_mobile iphone_1"></div>
-        <div class="mensaje_alerta iphone_2">
-            Se agotó este producto. Prueba <b>reemplazarlo</b>  con:
-        </div>
-        <hr class="clear" />
-        <div class="contenedor_carrusel_home" id="divCarruselSugerido">
-        </div>
-    </div>
+	<div class="content_mensajeAlerta">
+		<a class="cerrar_popMobile" href="javascript:;" onclick="CancelarProductosSugeridos();">
+			<img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+		</a>
+		<hr class="clear" />
+		<div class="icono_alerta exclamacion_icono_mobile iphone_1"></div>
+		<div class="mensaje_alerta iphone_2">
+			Se agotó este producto. Prueba <b>reemplazarlo</b>  con:
+		</div>
+		<hr class="clear" />
+		<div class="contenedor_carrusel_home" id="divCarruselSugerido">
+		</div>
+	</div>
 
 
 </div>
 <!--FIN-->
-
 <!-- POPUP MIS GANANCIAS -->
 <div class="contenedor_fondo_popup_ganancia" id="popupGanancias" style="display:none;">
-    <div class="popup_mis_ganancias">
-        <div class="btn_cerrar_actualizarMisDatos">
-            <a href="javascript:;" title="Cerrar" class="cerrar_tutorial" onclick="return $('#popupGanancias').fadeOut(200);">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                <span class="texto_btn_cerrar">CERRAR</span>
-            </a>
-        </div>
-        <div class="contenido_misGanancias" id="detalleGanancia">
-            <h6>GANANCIA ESTIMADA TOTAL</h6>
-            <div class="mis_descuentos">
-                <span class="mis_descuentos_texto">Mis descuentos</span>
-                <span class="mis_descuentos_monto">@Model.Simbolo @Model.FormatoMontoAhorroCatalogo</span>
-            </div>
-            <div class="mis_descuentos">
-                <span class="mis_descuentos_texto">Oportunidad de ahorro (Revista y otros)</span>
-                <span class="mis_descuentos_monto">@Model.Simbolo @Model.FormatoMontoAhorroRevista</span>
-            </div>
-            <div class="separador_montos_misGanancias"></div>
-            <div class="mis_descuentos">
-                <span class="monto_total_misGanancias">@Model.Simbolo @Model.GananciaFormat</span>
-            </div>
-            <div class="nota_popup_misGanancias">
-                <span>*Oportunidad de ahorro= ahorro estimado proveniente de la resta de los precios en catálogo de los productos menos el monto a pagar de los mismos.</span>
-            </div>
-        </div>
-    </div>
+	<div class="popup_mis_ganancias">
+		<div class="btn_cerrar_actualizarMisDatos">
+			<a href="javascript:;" title="Cerrar" class="cerrar_tutorial" onclick="return $('#popupGanancias').fadeOut(200);">
+				<img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+				<span class="texto_btn_cerrar">CERRAR</span>
+			</a>
+		</div>
+		<div class="contenido_misGanancias" id="detalleGanancia">
+			<h6>GANANCIA ESTIMADA TOTAL</h6>
+			<div class="mis_descuentos">
+				<span class="mis_descuentos_texto">Mis descuentos</span>
+				<span class="mis_descuentos_monto">@Model.Simbolo @Model.FormatoMontoAhorroCatalogo</span>
+			</div>
+			<div class="mis_descuentos">
+				<span class="mis_descuentos_texto">Oportunidad de ahorro (Revista y otros)</span>
+				<span class="mis_descuentos_monto">@Model.Simbolo @Model.FormatoMontoAhorroRevista</span>
+			</div>
+			<div class="separador_montos_misGanancias"></div>
+			<div class="mis_descuentos">
+				<span class="monto_total_misGanancias">@Model.Simbolo @Model.GananciaFormat</span>
+			</div>
+			<div class="nota_popup_misGanancias">
+				<span>*Oportunidad de ahorro= ahorro estimado proveniente de la resta de los precios en catálogo de los productos menos el monto a pagar de los mismos.</span>
+			</div>
+		</div>
+	</div>
 </div>
 <!-- FIN POPUP MIS GANANCIAS -->
-
 <!-- POPUP AGREGAR CLIENTE -->
 <div class="contenedor_popup_clientes modal" id="divAgregarCliente" style="display: none;">
-    <div class="popup_agregarCliente">
-        <div id="divDetalleCliente"></div>
-    </div>
+	<div class="popup_agregarCliente">
+		<div id="divDetalleCliente"></div>
+	</div>
 </div>
 <!-- FIN POPUP AGREGAR CLIENTE -->
-
 <!-- POPUP CLIENTE AGREGADO -->
 <div id="popupClienteIngresado" class="MensajeAlertaMobile" style="display:none;">
-    <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupClienteIngresado').hide();">
-            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-        </a>
-        <hr class="clear">
-        <div class="icono_alerta exclamacion_icono_mobile"></div>
-        <div class="titulo_compartir">¡BIEN <b>HECHO!</b></div>
-        <div class="mensaje_alerta">Tu cliente fue guardado con éxito.</div>
-        <a href="javascript:;" onclick="$('#popupClienteIngresado').hide();" class="btn_ok_mobile"><b>OK</b></a>
-    </div>
+	<div class="content_mensajeAlerta">
+		<a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupClienteIngresado').hide();">
+			<img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+		</a>
+		<hr class="clear">
+		<div class="icono_alerta exclamacion_icono_mobile"></div>
+		<div class="titulo_compartir">¡BIEN <b>HECHO!</b></div>
+		<div class="mensaje_alerta">Tu cliente fue guardado con éxito.</div>
+		<a href="javascript:;" onclick="$('#popupClienteIngresado').hide();" class="btn_ok_mobile"><b>OK</b></a>
+	</div>
 </div>
 <!-- FIN POPUP CLIENTE AGREGADO -->
 
 @section scripts
 {
-    <script type="text/javascript">
+	<script type="text/javascript">
 
         var mensajeCUVNoExiste = "Lo sentimos, el producto solicitado no existe.";
         var mensajeCUVAgotado = "Lo sentimos, este producto está agotado.";
@@ -314,26 +312,27 @@
         var VirtualCoachCampana = '@ViewBag.VirtualCoachCampana' || 0;
         var dataBarra = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.DataBarra))');
         var listaMensajeMeta = dataBarra == null ? null :dataBarra.ListaMensajeMeta;
-    </script>
+	</script>
 
-    @if (mobileConfiguracion.EsAppMobile)
-    {
-        <script>
-            $(document).ready(function() {
-                belcorp.estrategia.initialize();
-                belcorp.pedido.initialize();
-                belcorp.pedido.subscribe("onProductoAgregado", MostrarBarra);
-                belcorp.estrategia.subscribe("onProductoAgregado", MostrarBarra);
-            });
-        </script>
-    }
+	@if (mobileConfiguracion.EsAppMobile)
+	{
+		<script>
+			$(document).ready(function () {
+				belcorp.estrategia.initialize();
+				belcorp.pedido.initialize();
+				belcorp.pedido.subscribe("onProductoAgregado", MostrarBarra);
+				belcorp.estrategia.subscribe("onProductoAgregado", MostrarBarra);
+			});
+		</script>
+	}
 
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/PedidoFIC/Index.js")"></script>
+	@*<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/PedidoFIC/Index.js")"></script>*@
+	@Scripts.Render("~/bundles/JsMobile/PedidoFIC")
 
-    @if (Model.MostrarPopupPrecargados)
-    {
-        <script>
+	@if (Model.MostrarPopupPrecargados)
+	{
+		<script>
             $(document).ready(function () { messageInfoValidado('@Html.Raw(Constantes.RecuperacionPedido.Mensaje)'); });
-        </script>
-    }
+		</script>
+	}
 }
