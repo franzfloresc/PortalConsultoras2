@@ -19,7 +19,7 @@
 				Ingresar Pedido Fic C@(Model.CampaniaNro)
 				<div class="text-lowercase">
 					<span>
-						hasta el <span>26/02</span>
+						hasta el <span>@ViewBag.FinFIC</span>
 					</span>
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 		<div class="content_320 ingresoPedido">
 			@if (mobileConfiguracion.EsAppMobile)
 			{
-				<p class="label-white-small">Ingresar Pedido Fic C@(Model.CampaniaNro) hasta el 26/02 </p>
+			<p class="label-white-small">Ingresar Pedido Fic C@(Model.CampaniaNro) hasta el  @ViewBag.FinFIC </p>
 			}
 			<form>
 				@Html.Hidden("txtClienteId", Model.ClienteId)
