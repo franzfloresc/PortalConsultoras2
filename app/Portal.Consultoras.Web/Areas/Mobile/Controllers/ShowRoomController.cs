@@ -82,15 +82,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
             bool mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
 
-            if (userData.CodigoISO == "PE")
-            {
-                bool esShowRoomFlag = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
-                if (esShowRoomFlag)
-                {
-                    return RedirectToAction("Personalizado", "ShowRoom", new { area = "Mobile" });
-                }
-            }
-
             if (mostrarPopupIntriga)
             {
                 return RedirectToAction("Intriga", "ShowRoom", new { area = "Mobile" });
