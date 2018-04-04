@@ -74,7 +74,7 @@
         });
 
         $.each(data.lista, function (index, lanzamiento) {
-            if (cuv != lanzamiento.CUV2 && lanzamiento.CodigoProducto === codigoProducto) {
+            if (/*uv != lanzamiento.CUV2 &&*/ lanzamiento.CodigoProducto === codigoProducto) {
                 setRelacionados.push(lanzamiento);
             }
         });

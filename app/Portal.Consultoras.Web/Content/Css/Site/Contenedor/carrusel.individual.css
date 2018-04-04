@@ -31,14 +31,15 @@
 }
 
 .lonuevo_carrusel .lonuevo_carrusel_portada .cont .foto_prod {
-    width: 350px;
-    height: 350px;
+        width: 300px;
+    height: 300px;
     background-repeat: no-repeat !important;
     background-position: center center !important;
     float: right;
-    left: 90px;
-    top: 49px;
+    left: 43px;
+    top: 30px;
     position: relative;
+    background-size: cover !important;
 }
 
 .lonuevo_carrusel .lonuevo_carrusel_portada img {
@@ -62,30 +63,33 @@
 }
 
 .lonuevo_carrusel .lonuevo_carrusel_info .cont p {
-    font-size: 15px;
-    font-weight: 500;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: normal;
-    letter-spacing: 1.2px;
-    text-align: left;
-    color: #ffffff;
-    margin-bottom: 10px;
+    width: 284px;
+  font-family: Lato;
+  font-size: 15px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 1px;
+  text-align: left;
+  color: #ffffff;
+    margin-bottom: 0px;
     display: block;
-    width: 100%;
+    word-break:break-word;
 }
 
 .lonuevo_carrusel .lonuevo_carrusel_info .cont span {
-    font-size: 40px;
-    font-weight: bold;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 1.15;
-    letter-spacing: normal;
-    text-align: left;
-    color: #ffffff;
+    width: 284px;
+  font-family: Lato;
+  font-size: 40px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 1.5px;
+  text-align: left;
+  color: #ffffff;
     display: block;
-    width: 100%;
     margin-bottom: 20px;
     word-wrap:break-word;
 }
@@ -104,6 +108,7 @@
     letter-spacing: 1px;
     text-align: center;
     color: #ffffff;
+    width:200px;
 }
 
 .lonuevo_carrusel .lonuevo_carrusel_info .cont a.negro {

@@ -1243,7 +1243,6 @@
     <Content Include="Content\Css\Button\style.css" />
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
     <Content Include="Content\Css\Mobile\Contenedor\Index.css" />
-    <Content Include="Content\Css\Mobile\Lanzamientos\Detalle.css" />
     <Content Include="Content\Css\Mobile\Lanzamientos\Lan_Contenedor.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\ConfirmarDatos.css" />
@@ -3404,8 +3403,6 @@
     <Content Include="Content\Images\sliders\img_01.jpg" />
     <Content Include="Content\Images\sliders\img_02.jpg" />
     <Content Include="Content\Images\sliders\img_03.jpg" />
-    <Content Include="Content\Images\sliders\next_ofertas.svg" />
-    <Content Include="Content\Images\sliders\previous_ofertas.svg" />
     <Content Include="Content\Images\social_icon_facebook.png" />
     <Content Include="Content\Images\socias_empresarias_2014.png" />
     <Content Include="Content\Images\sombra_banner_login.png" />
@@ -3627,7 +3624,7 @@
     <Content Include="Scripts\PortalConsultoras\Estrategia\UpSelling\Index.js" />
     <Content Include="Scripts\knockout.extensions.js" />
     <Content Include="Scripts\PortalConsultoras\GuiaNegocio\GuiaNegocio-Landing.js" />
-    <Content Include="Scripts\PortalConsultoras\Lanzamientos\detalle-lanzamiento.js" />
+    <Content Include="Scripts\PortalConsultoras\Lanzamientos\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\Login\Analytics.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\Descargables.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Banner.js" />
