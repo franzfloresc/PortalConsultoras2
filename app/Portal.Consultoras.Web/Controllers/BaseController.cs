@@ -55,6 +55,8 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly TablaLogicaProvider _tablaLogicaProvider;
         protected readonly OfertaDelDiaProvider ofertaPersonalizadaProvider;
         private readonly ShowRoomProvider _showRoomProvider;
+        protected string estrategiaWebApiDisponibilidadTipo;
+        protected string paisesMicroservicioPersonalizacion;
 
         #endregion
 
@@ -68,6 +70,13 @@ namespace Portal.Consultoras.Web.Controllers
             _tablaLogicaProvider = new TablaLogicaProvider();
             ofertaPersonalizadaProvider = new OfertaDelDiaProvider();
             _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
+        }
+
+        public bool usarMsPer(string TipoEstrategiaCodigo)
+        {
+            bool paisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion.Contains(userData.CodigoISO);
+            bool tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(TipoEstrategiaCodigo);
+            return paisHabilitado && tipoEstrategiaHabilitado;
         }
 
         public BaseController(ISessionManager sessionManager)

@@ -424,6 +424,8 @@ namespace Portal.Consultoras.Common
             public const string Catalogo_Piloto_Grupos = "Catalogo_Piloto_Grupos_";
             public const string Catalogo_Marca_Piloto = "Catalogo_Marca_Piloto_";
             public const string SubGuion = "_";
+            public const string estrategiaWebApiDisponibilidadTipo = "EstrategiaDisponibleMicroservicioPersonalizacion";
+            public const string paisesMicroservicioPersonalizacion = "PaisesMicroservicioPersonalizacion";
 
         }
 

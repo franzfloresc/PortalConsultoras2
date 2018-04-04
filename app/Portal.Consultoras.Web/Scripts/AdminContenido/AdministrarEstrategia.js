@@ -328,7 +328,9 @@
             imagen: _obtenerImagenGrilla(id),
             descripcionOriginal: jQuery("#list").jqGrid("getCell", _idImagen, "DescripcionCUV2"),
             ValidarImagen: data.ValidarImagen,
-            PesoMaximo: data.PesoMaximo
+            PesoMaximo: data.PesoMaximo,
+            mongoIdVal: data.mongoIdP,
+            tipoEstrategiaCodigo: data.tipoEstrategiaCodigo
         };
 
         _obtenerFiltrarEstrategia(_editData, id).done(function(data) {
@@ -366,7 +368,9 @@
             EstrategiaID: data.EstrategiaID,
             cuv2: data.CUV2,
             CampaniaID: data.CampaniaID,
-            TipoEstrategiaID: data.TipoEstrategiaID
+            TipoEstrategiaID: data.TipoEstrategiaID,
+            mongoIdVal: data.mongoIdVal,
+            tipoEstrategiaCodigo: data.tipoEstrategiaCodigo
         };
         return $.post(_config.getFiltrarEstrategiaAction, params).done(_obtenerFiltrarEstrategiaSuccess(data, id));
     };
@@ -747,10 +751,12 @@
     var _showActions = function(cellvalue, options, rowObject) {
 
         var id = rowObject[0];
-        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + id + "',event);\" >" + "<img src='" + _config.rutaImagenEdit + "' alt='Editar Estrategia' title='Editar Estrategia' border='0' /></a>";
+        var mongoId = rowObject[14];
+        var tipoEstrategiaCodigo = rowObject[15];
+        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + id + "','" + mongoId + "','" + tipoEstrategiaCodigo + "',event);\" >" + "<img src='" + _config.rutaImagenEdit + "' alt='Editar Estrategia' title='Editar Estrategia' border='0' /></a>";
         var disable = "";
         if (rowObject[10] == "1") {
-            disable += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + id + "',event);\" >" + "<img src='" + _config.rutaImagenDisable + "' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
+            disable += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + id + "','" + mongoId + "','" + tipoEstrategiaCodigo  +"',event);\" >" + "<img src='" + _config.rutaImagenDisable + "' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
         }
         var remove = "";
         if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ShowRoom) {
@@ -1455,7 +1461,8 @@
                 CUV: $("#CUV").val(),
                 Consulta: $("#hdTipoConsulta").val(),
                 Imagen: $("#ddlTieneImagen").val(),
-                Activo: $("#ddlOfertaActiva").val()
+                Activo: $("#ddlOfertaActiva").val(),
+                TipoEstrategiaCodigo: codigo
             }),
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
@@ -1471,7 +1478,7 @@
             multiselectWidth: 35,
             colNames: [
                 "EstrategiaID", "Orden", "#", "Pedido Asociado", "Precio", "CUV2", "Descripción", "Limite Venta", "Código SAP", "ImagenURL",
-                "Foto", colNameActions, "Productos", "EsOfertaIndependiente"
+                "Foto", colNameActions, "Productos", "EsOfertaIndependiente", "_id","CodigoTipoEstrategia"
             ],
             colModel: [
                 {
@@ -1582,6 +1589,20 @@
                     index: "EsOfertaIndependiente",
                     width: 0,
                     editable: true,
+                    hidden: true
+                },
+                {
+                    name: "_id",
+                    index: "_id",
+                    width: 0,
+                    editable: false,
+                    hidden: true
+                },
+                {
+                    name: "CodigoTipoEstrategia",
+                    index: "CodigoTipoEstrategia",
+                    width: 0,
+                    editable: false,
                     hidden: true
                 }
             ],
@@ -3635,7 +3656,8 @@
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
                 tipoConfigurado: 1,
-                estrategiaId: $("#ddlTipoEstrategia").find(":selected").data("id")
+                estrategiaId: $("#ddlTipoEstrategia").find(":selected").data("id"),
+                estrategiaCodigo: $("#ddlTipoEstrategia").find(":selected").data("codigo"),
             };
 
             waitingDialog({});
@@ -4251,7 +4273,7 @@
     function VerCuvsTipo2(tipo) {
         _fnGrillaCuv2(tipo);
     }
-    function Editar(id, event) {
+    function Editar(id,mongoId,tipoEstrategiaCodigo, event) {
         event.preventDefault();
         event.stopPropagation();
 
@@ -4272,7 +4294,9 @@
                 TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
                 CampaniaID: $("#ddlCampania").val(),
                 ValidarImagen: $("#ddlTipoEstrategia option:selected").attr("data-FValidarImagen"),
-                PesoMaximo: $("#ddlTipoEstrategia option:selected").attr("data-PesoMaximo")
+                PesoMaximo: $("#ddlTipoEstrategia option:selected").attr("data-PesoMaximo"),
+                mongoIdP: mongoId,
+                tipoEstrategiaCodigo: tipoEstrategiaCodigo
             };
 
             _idImagen = id;
@@ -4281,7 +4305,7 @@
 
         return false;
     }
-    function Deshabilitar(id, event) {
+    function Deshabilitar(id, mongoId, tipoEstrategiaCodigo, event) {
         event.preventDefault();
         event.stopPropagation();
 
@@ -4295,7 +4319,9 @@
             $("#hdEstrategiaID").val(id);
 
             var params = {
-                EstrategiaID: $("#hdEstrategiaID").val()
+                EstrategiaID: $("#hdEstrategiaID").val(),
+                idMongoVal: mongoId,
+                tipoEstrategiaCodigo: tipoEstrategiaCodigo
             };
 
             jQuery.ajax({

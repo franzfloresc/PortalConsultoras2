@@ -3,6 +3,7 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.MagickNet;
 using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
@@ -184,13 +185,13 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public ActionResult Consultar(string sidx, string sord, int page, int rows, string CampaniaID,
-            string TipoEstrategiaID, string CUV, string Consulta, int Imagen, int Activo)
+            string TipoEstrategiaID, string CUV, string Consulta, int Imagen, int Activo, string TipoEstrategiaCodigo)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    List<BEEstrategia> lst;
+                    List<EstrategiaMDbAdapterModel> lst = new List<EstrategiaMDbAdapterModel>();
                     if (Consulta == "1")
                     {
                         var entidad = new BEEstrategia
@@ -203,20 +204,33 @@ namespace Portal.Consultoras.Web.Controllers
                             Imagen = Imagen
                         };
 
-                        using (var sv = new PedidoServiceClient())
+                        if (usarMsPer(TipoEstrategiaCodigo))
                         {
-                            lst = sv.GetEstrategias(entidad).ToList();
+                            entidad.CodigoTipoEstrategia = TipoEstrategiaCodigo;
+                            lst.AddRange(ofertaPersonalizadaProvider.GetEstrategiasWebApi(entidad).ToList());
+                        }
+                        else
+                        {
+                            using (var sv = new PedidoServiceClient())
+                            {
+                                var tmpEstrategiaList = sv.GetEstrategias(entidad).ToList();
+                                foreach (var itemEstrategia in tmpEstrategiaList)
+                                {
+                                    lst.Add(new EstrategiaMDbAdapterModel { BEEstrategia = itemEstrategia });
+                                }
+                                //lst.AddRange(sv.GetEstrategias(entidad).ToList());
+                            }
                         }
                     }
                     else
                     {
-                        lst = new List<BEEstrategia>();
+                        lst = new List<EstrategiaMDbAdapterModel>();
                     }
 
                     var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
                     if (lst.Count > 0)
-                        lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
+                        lst.Update(x => x.BEEstrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.BEEstrategia.ImagenURL, carpetapais));
 
                     var grid = new BEGrid
                     {
@@ -225,7 +239,7 @@ namespace Portal.Consultoras.Web.Controllers
                         SortColumn = sidx,
                         SortOrder = sord
                     };
-                    IEnumerable<BEEstrategia> items = lst;
+                    IEnumerable<EstrategiaMDbAdapterModel> items = lst;
                     if (lst.Any())
                     {
                         if (sord == "asc")
@@ -233,10 +247,10 @@ namespace Portal.Consultoras.Web.Controllers
                             switch (sidx)
                             {
                                 case "CUV2":
-                                    items = lst.OrderBy(x => x.CUV2);
+                                    items = lst.OrderBy(x => x.BEEstrategia.CUV2);
                                     break;
                                 case "CodigoProducto":
-                                    items = lst.OrderBy(x => x.CodigoProducto);
+                                    items = lst.OrderBy(x => x.BEEstrategia.CodigoProducto);
                                     break;
                             }
                         }
@@ -245,10 +259,10 @@ namespace Portal.Consultoras.Web.Controllers
                             switch (sidx)
                             {
                                 case "CUV2":
-                                    items = lst.OrderByDescending(x => x.CUV2);
+                                    items = lst.OrderByDescending(x => x.BEEstrategia.CUV2);
                                     break;
                                 case "CodigoProducto":
-                                    items = lst.OrderByDescending(x => x.CodigoProducto);
+                                    items = lst.OrderByDescending(x => x.BEEstrategia.CodigoProducto);
                                     break;
                             }
                         }
@@ -264,23 +278,25 @@ namespace Portal.Consultoras.Web.Controllers
                         rows = from a in items
                                select new
                                {
-                                   id = a.EstrategiaID,
+                                   id = a.BEEstrategia.EstrategiaID,
                                    cell = new string[]
                                    {
-                                a.EstrategiaID.ToString(),
-                                a.Orden.ToString(),
-                                a.ID.ToString(),
-                                a.NumeroPedido.ToString(),
-                                a.Precio2.ToString(),
-                                a.CUV2,
-                                a.DescripcionCUV2,
-                                a.LimiteVenta.ToString(),
-                                a.CodigoProducto,
-                                a.ImagenURL,
-                                a.Activo.ToString(),
-                                a.EsOfertaIndependiente.ToString(),
-                                a.FlagValidarImagen.ToString(),
-                                a.PesoMaximoImagen.ToString()
+                                a.BEEstrategia.EstrategiaID.ToString(),
+                                a.BEEstrategia.Orden.ToString(),
+                                a.BEEstrategia.ID.ToString(),
+                                a.BEEstrategia.NumeroPedido.ToString(),
+                                a.BEEstrategia.Precio2.ToString(),
+                                a.BEEstrategia.CUV2,
+                                a.BEEstrategia.DescripcionCUV2,
+                                a.BEEstrategia.LimiteVenta.ToString(),
+                                a.BEEstrategia.CodigoProducto,
+                                a.BEEstrategia.ImagenURL,
+                                a.BEEstrategia.Activo.ToString(),
+                                a.BEEstrategia.EsOfertaIndependiente.ToString(),
+                                a.BEEstrategia.FlagValidarImagen.ToString(),
+                                a.BEEstrategia.PesoMaximoImagen.ToString(),
+                                a._id,
+                                a.BEEstrategia.CodigoTipoEstrategia
                                    }
                                }
                     };
@@ -753,8 +769,14 @@ namespace Portal.Consultoras.Web.Controllers
                             entidad.ImagenMiniaturaURL = GuardarImagenMiniAmazon(model.ImagenMiniaturaURL, model.ImagenMiniaturaURLAnterior, userData.PaisID);
                         }
 
-
-                        entidad.EstrategiaID = sv.InsertarEstrategia(entidad);
+                        if (usarMsPer(entidad.CodigoTipoEstrategia))
+                        {
+                            ofertaPersonalizadaProvider.InsertarEstrategiWebApi(entidad);
+                        }
+                        else
+                        {
+                            entidad.EstrategiaID = sv.InsertarEstrategia(entidad);
+                        }
                     }
                 }
 
@@ -833,11 +855,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         [HttpPost]
         public JsonResult FiltrarEstrategia(string EstrategiaID, string cuv2, string CampaniaID,
-            string TipoEstrategiaID)
+            string TipoEstrategiaID,string _id, string mongoIdVal, string tipoEstrategiaCodigo)
         {
             try
             {
-                List<BEEstrategia> lst;
+                List<EstrategiaMDbAdapterModel> lst = new List<EstrategiaMDbAdapterModel>();
                 var entidad = new BEEstrategia
                 {
                     PaisID = userData.PaisID,
@@ -846,14 +868,28 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
                     CUV2 = cuv2
                 };
-                using (var sv = new PedidoServiceClient())
+
+                if (usarMsPer(tipoEstrategiaCodigo))
                 {
-                    lst = sv.FiltrarEstrategia(entidad).ToList();
+                    lst.AddRange(ofertaPersonalizadaProvider.FiltrarEstrategia(mongoIdVal).ToList());
                 }
+                else
+                {
+                    using (var sv = new PedidoServiceClient())
+                    {
+                        var tmpList = sv.FiltrarEstrategia(entidad).ToList();
+                        foreach (var itemEstrategia in tmpList)
+                        {
+                            lst.Add(new EstrategiaMDbAdapterModel { BEEstrategia = itemEstrategia });
+                        }
+                        
+                    }
+                }
+                
                 if (lst.Count > 0)
                 {
                     string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    lst.Update(x => x.ImagenMiniaturaURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenMiniaturaURL, carpetapais));
+                    lst.Update(x => x.BEEstrategia.ImagenMiniaturaURL = ConfigS3.GetUrlFileS3(carpetapais, x.BEEstrategia.ImagenMiniaturaURL, carpetapais));
                 }
                 if (lst.Count <= 0)
                     return Json(new
@@ -863,7 +899,7 @@ namespace Portal.Consultoras.Web.Controllers
                         extra = ""
                     }, JsonRequestBehavior.AllowGet);
 
-                return Json(lst[0], JsonRequestBehavior.AllowGet);
+                return Json(lst[0].BEEstrategia, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {
@@ -973,7 +1009,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult DeshabilitarEstrategia(string EstrategiaID)
+        public JsonResult DeshabilitarEstrategia(string EstrategiaID,string idMongoVal,string tipoEstrategiaCodigo)
         {
             try
             {
@@ -984,9 +1020,17 @@ namespace Portal.Consultoras.Web.Controllers
                     UsuarioModificacion = userData.CodigoUsuario
                 };
 
-                using (var sv = new PedidoServiceClient())
+                if (usarMsPer(tipoEstrategiaCodigo))
                 {
-                    sv.DeshabilitarEstrategia(entidad);
+                    ofertaPersonalizadaProvider.deshabilitarEstrategia(idMongoVal, userData.UsuarioNombre);
+                }
+                else
+                {
+                    using (var sv = new PedidoServiceClient())
+                    {
+                        sv.DeshabilitarEstrategia(entidad);
+                    }
+
                 }
 
                 return Json(new
@@ -1068,13 +1112,26 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                int resultado;
+                int resultado = 0;
 
-                using (var sv = new PedidoServiceClient())
+                if (usarMsPer(tipoEstrategiaCod))
                 {
-                    resultado = sv.ActivarDesactivarEstrategias(userData.PaisID, userData.CodigoUsuario,
-                        EstrategiasActivas, EstrategiasDesactivas);
+                    List<string> estrategiasList = new List<string>();
+                    estrategiasList.AddRange(EstrategiasActivas.Split(','));
+                    estrategiasList.AddRange(EstrategiasDesactivas.Split(','));
+                    bool bResultado = ofertaPersonalizadaProvider.ActivarDesactivarEstrategias(estrategiasList, userData.UsuarioNombre);
+                    resultado = bResultado ? 1 : 0;
                 }
+                else
+                {
+                    using (var sv = new PedidoServiceClient())
+                    {
+                        resultado = sv.ActivarDesactivarEstrategias(userData.PaisID, userData.CodigoUsuario,
+                            EstrategiasActivas, EstrategiasDesactivas);
+                    }
+                }
+
+                
 
                 if (tipoEstrategiaCod == Constantes.TipoEstrategiaCodigo.OfertaParaTi &&
                     !string.IsNullOrEmpty(EstrategiasDesactivas))
@@ -1232,12 +1289,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                 try
                 {
-                    using (var ps = new PedidoServiceClient())
+                    if (usarMsPer(CodigoEstrategia))
                     {
-                        cantidadEstrategiasConfiguradas = ps.GetCantidadOfertasParaTi(userData.PaisID,
-                            int.Parse(CampaniaID), 1, CodigoEstrategia);
-                        cantidadEstrategiasSinConfigurar =
-                            ps.GetCantidadOfertasParaTi(userData.PaisID, int.Parse(CampaniaID), 2, CodigoEstrategia);
+                        Dictionary<string, int> cantidades = ofertaPersonalizadaProvider.GetCantidadOfertasParaTiWebApi(CodigoEstrategia, int.Parse(CampaniaID));
+                        cantidadEstrategiasConfiguradas = cantidades["EC"];
+                        cantidadEstrategiasSinConfigurar = cantidades["EF"];
+                    }
+                    else
+                    {
+                        using (var ps = new PedidoServiceClient())
+                        {
+                            cantidadEstrategiasConfiguradas = ps.GetCantidadOfertasParaTi(userData.PaisID,
+                                int.Parse(CampaniaID), 1, CodigoEstrategia);
+                            cantidadEstrategiasSinConfigurar =
+                                ps.GetCantidadOfertasParaTi(userData.PaisID, int.Parse(CampaniaID), 2, CodigoEstrategia);
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -1710,44 +1776,57 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult InsertEstrategiaOfertaParaTi(int campaniaId, int tipoConfigurado, int estrategiaId)
+        public JsonResult InsertEstrategiaOfertaParaTi(int campaniaId, int tipoConfigurado, int estrategiaId, string estrategiaCodigo)
         {
             try
             {
-                List<BEEstrategia> lst;
-
+                List<BEEstrategia> lst = new List<BEEstrategia>();
+                int registrosObtenidos = 0;
                 try
                 {
-                    using (var ps = new PedidoServiceClient())
-                    {
-                        lst = ps.GetOfertasParaTiByTipoConfiguradoTemporal(userData.PaisID, campaniaId, tipoConfigurado)
-                            .ToList();
-                    }
+                    
+                        if (usarMsPer(estrategiaCodigo))
+                        {
+                            registrosObtenidos = ofertaPersonalizadaProvider.ActualizarEstrategiaOfertaParaTi(estrategiaCodigo, campaniaId, userData.UsuarioNombre);
+                        }
+                        else
+                        {
+                            using (var ps = new PedidoServiceClient())
+                            {
+                                lst.AddRange(ps.GetOfertasParaTiByTipoConfiguradoTemporal(userData.PaisID, campaniaId, tipoConfigurado)
+                                .ToList());
+                                registrosObtenidos = lst.Count();
+                            }
+                        }
+                    
                 }
                 catch (Exception ex)
                 {
                     LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                    lst = new List<BEEstrategia>();
+                    //lst = new List<BEEstrategia>();
                 }
 
-                if (lst.Count > 0)
+                if (registrosObtenidos > 0)
                 {
-                    try
+                    if (!usarMsPer(estrategiaCodigo))
                     {
-                        using (var ps = new PedidoServiceClient())
+                        try
                         {
-                            ps.InsertEstrategiaOfertaParaTi(userData.PaisID, lst.ToArray(), campaniaId,
-                                userData.CodigoUsuario, estrategiaId);
+                            using (var ps = new PedidoServiceClient())
+                            {
+                                ps.InsertEstrategiaOfertaParaTi(userData.PaisID, lst.ToArray(), campaniaId,
+                                    userData.CodigoUsuario, estrategiaId);
+                            }
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                        return Json(new
+                        catch (Exception ex)
                         {
-                            success = false,
-                            message = "Error al insertar las estrategias"
-                        }, JsonRequestBehavior.AllowGet);
+                            LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                            return Json(new
+                            {
+                                success = false,
+                                message = "Error al insertar las estrategias"
+                            }, JsonRequestBehavior.AllowGet);
+                        }
                     }
 
                     return Json(new

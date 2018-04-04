@@ -41,6 +41,14 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        public static string EstrategiaDisponibleMicroservicioPersonalizacion
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["EstrategiaDisponibleMicroservicioPersonalizacion"] ?? string.Empty;
+            }
+        }
+
         #endregion
     }
 }

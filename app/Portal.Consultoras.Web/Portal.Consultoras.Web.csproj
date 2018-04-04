@@ -296,8 +296,10 @@
     <Compile Include="Controllers\CatalogosBelcorpController.cs" />
     <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
+    <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\BannerInferiorConfiguracion.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\IBannerInferiorConfiguracion.cs" />
+    <Compile Include="Models\Estrategia\WaEstrategiaModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingFullModel.cs" />
     <Compile Include="Controllers\MisCertificadosController.cs" />
     <Compile Include="Controllers\OfertasController.cs" />
@@ -5258,6 +5260,10 @@
     <ProjectReference Include="..\Portal.Consultoras.Common\Portal.Consultoras.Common.csproj">
       <Project>{136fa1d7-ab98-4ffa-8c03-c011d34d8d27}</Project>
       <Name>Portal.Consultoras.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Portal.Consultoras.Entities\Portal.Consultoras.Entities.csproj">
+      <Project>{2A3B50DF-C243-4D7D-B8C0-E4E6C9C6C8D9}</Project>
+      <Name>Portal.Consultoras.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
