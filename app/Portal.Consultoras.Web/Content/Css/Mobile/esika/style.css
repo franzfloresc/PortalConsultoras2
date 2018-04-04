@@ -14781,4 +14781,10 @@ a {
     line-height:20px;
 }
 
+.label-white-small {
+	color: #ffffff;
+	font-weight: normal;
+	font-size: 14px;
+}
+
 /* HD-912 - FIN - PEDIDO FIC MOBILE */

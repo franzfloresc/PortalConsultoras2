@@ -362,6 +362,9 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"
             ));
+            bundles.Add(new ScriptBundle("~/bundles/JsMobile/PedidoFIC").Include(
+                 "~/Scripts/PortalConsultoras/Mobile/PedidoFIC/Index.js"
+             ));
 
             bundles.Add(new ScriptBundle("~/bundles/ActualizarMatrizCampaniaModuleMin").Include(
                 "~/Scripts/fileuploader.js",
@@ -539,6 +542,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
             ));
+
+           
 
             #region GuiaNegocio
 
