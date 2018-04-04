@@ -1877,9 +1877,9 @@ namespace Portal.Consultoras.Service
             return new BLEstrategia().GetCantidadOfertasParaTiTemporal(paisId, campaniaId, tipoConfigurado);
         }
 
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado)
+        public List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado, int nroLote)
         {
-            return new BLEstrategia().GetOfertasParaTiByTipoConfiguradoTemporal(paisId, campaniaId, tipoConfigurado);
+            return new BLEstrategia().GetOfertasParaTiByTipoConfiguradoTemporal(paisId, campaniaId, tipoConfigurado, nroLote);
         }
 
         public int DeleteEstrategiaTemporal(int paisId, int campaniaId)
