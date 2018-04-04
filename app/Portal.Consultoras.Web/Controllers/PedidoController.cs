@@ -894,29 +894,50 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult Delete(int CampaniaID, int PedidoID, short PedidoDetalleID, int TipoOfertaSisID, string CUV, int Cantidad, string ClienteID, string CUVReco, bool EsBackOrder, int setId)
         {
             var lastResult = new Tuple<bool, JsonResult>(false, Json(new { }));
-
             if (setId > 0)
             {
-                //todo: buscar el set y sus productos
-                //eliminar el set completo y sus registros en la tabla set
                 var set = _pedidoSetProvider.ObtenerPorId(userData.PaisID, setId);
-
+                List<BEPedidoWebDetalle> listaPedidoWebDetalle = ObtenerPedidoWebDetalle();
+                listaPedidoWebDetalle.ToList().ForEach(p => p.Cantidad = p.Cantidad - Cantidad);
                 foreach (var detalle in set.Detalles)
                 {
-                    lastResult = DeletePedidoWeb(CampaniaID, PedidoID,
-                        (short)detalle.PedidoDetalleId,
-                        detalle.TipoOfertaSisId,
-                        detalle.CUV,
-                        set.Cantidad * detalle.FactorRepeticion,
-                        ClienteID,
-                        CUVReco,
-                        EsBackOrder);
+                    BEPedidoWebDetalle pedidoWebDetalle = listaPedidoWebDetalle.Where(p => p.CUV == detalle.CUV).FirstOrDefault();
+                    if (pedidoWebDetalle.Cantidad > 0)
+                    {
+                        var obePedidoWebDetalle = new BEPedidoWebDetalle
+                        {
+                            PaisID = userData.PaisID,
+                            CampaniaID = userData.CampaniaID,
+                            Nombre = pedidoWebDetalle.ClienteID == 0 ? userData.NombreConsultora : pedidoWebDetalle.Nombre,
+                            TipoOfertaSisID = pedidoWebDetalle.TipoOfertaSisID,
+                            DescripcionProd = pedidoWebDetalle.DescripcionProd,
+                            Stock = pedidoWebDetalle.Stock,
+                            Flag = pedidoWebDetalle.Flag,
+                            ClienteID = string.IsNullOrEmpty(pedidoWebDetalle.Nombre) ? (short)0 : Convert.ToInt16(pedidoWebDetalle.ClienteID),
+                            PedidoDetalleID = pedidoWebDetalle.PedidoDetalleID,
+                            PrecioUnidad = pedidoWebDetalle.PrecioUnidad,
+                            PedidoID = PedidoID,
+                            Cantidad = pedidoWebDetalle.Cantidad,
+                            CUV = detalle.CUV,
+                            ImporteTotal = pedidoWebDetalle.Cantidad * pedidoWebDetalle.PrecioUnidad,
+                        };
+                        var olstPedidoWebDetalle = AdministradorPedido(obePedidoWebDetalle, "U", out bool errorServer, out string tipo, out EsBackOrder);
+                    }
+                    else
+                    {
+                        lastResult = DeletePedidoWeb(CampaniaID, PedidoID,
+                       (short)detalle.PedidoDetalleId,
+                       detalle.TipoOfertaSisId,
+                       detalle.CUV,
+                       set.Cantidad * detalle.FactorRepeticion,
+                       ClienteID,
+                       CUVReco,
+                       EsBackOrder);
 
-                    if (!lastResult.Item1)
-                        break;
+                        if (!lastResult.Item1)
+                            break;
+                    }
                 }
-
-                //eliminar de la tabla set si todo fue ok
                 if (lastResult.Item1)
                 {
                     var setDeleted = _pedidoSetProvider.EliminarSet(userData.PaisID, setId);
