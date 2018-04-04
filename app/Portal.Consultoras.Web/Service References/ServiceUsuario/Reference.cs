@@ -9384,10 +9384,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<bool> EnviarEmailAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo objEmail);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetPinAutenticidad", ReplyAction="http://tempuri.org/IUsuarioService/GetPinAutenticidadResponse")]
-        Portal.Consultoras.Web.ServiceUsuario.BEPinAutenticacion GetPinAutenticidad(int paisID, int TablaLogicaID, string CodigoUsuario);
+        Portal.Consultoras.Web.ServiceUsuario.BEPinAutenticacion GetPinAutenticidad(int paisID, string CodigoUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetPinAutenticidad", ReplyAction="http://tempuri.org/IUsuarioService/GetPinAutenticidadResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEPinAutenticacion> GetPinAutenticidadAsync(int paisID, int TablaLogicaID, string CodigoUsuario);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEPinAutenticacion> GetPinAutenticidadAsync(int paisID, string CodigoUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetCodigoGenerado", ReplyAction="http://tempuri.org/IUsuarioService/GetCodigoGeneradoResponse")]
         string GetCodigoGenerado(int PaisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo oUsuCorreo, string CodGenerado);
@@ -10221,12 +10221,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.EnviarEmailAsync(paisID, objEmail);
         }
         
-        public Portal.Consultoras.Web.ServiceUsuario.BEPinAutenticacion GetPinAutenticidad(int paisID, int TablaLogicaID, string CodigoUsuario) {
-            return base.Channel.GetPinAutenticidad(paisID, TablaLogicaID, CodigoUsuario);
+        public Portal.Consultoras.Web.ServiceUsuario.BEPinAutenticacion GetPinAutenticidad(int paisID, string CodigoUsuario) {
+            return base.Channel.GetPinAutenticidad(paisID, CodigoUsuario);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEPinAutenticacion> GetPinAutenticidadAsync(int paisID, int TablaLogicaID, string CodigoUsuario) {
-            return base.Channel.GetPinAutenticidadAsync(paisID, TablaLogicaID, CodigoUsuario);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEPinAutenticacion> GetPinAutenticidadAsync(int paisID, string CodigoUsuario) {
+            return base.Channel.GetPinAutenticidadAsync(paisID, CodigoUsuario);
         }
         
         public string GetCodigoGenerado(int PaisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo oUsuCorreo, string CodGenerado) {

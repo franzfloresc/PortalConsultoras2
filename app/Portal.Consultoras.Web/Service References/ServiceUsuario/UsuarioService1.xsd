@@ -495,7 +495,6 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element minOccurs="0" name="TablaLogicaID" type="xs:int" />
         <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
