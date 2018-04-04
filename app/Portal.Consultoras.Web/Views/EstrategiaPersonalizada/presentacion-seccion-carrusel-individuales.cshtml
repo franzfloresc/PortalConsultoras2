@@ -3,7 +3,7 @@
     var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
 
     var seccionTituloClass = "seccion-titulo";
-
+    var camapaniaEfectiva = "C" + revistaDigital.CampaniaActiva;
     if (ViewBag.EsSuscrita)
     {
         seccionTituloClass += " seccion-titulo-dorado";
@@ -32,8 +32,11 @@
          data-item="{{lan.EstrategiaID}}"
          data-item-cuv="{{CUV2}}">
         <div style="display:none;" data-estrategia="{{JSON2string lan}}"></div>
-
-        <img class="logo-club" src="/Content/Images/RevistaDigital/etiqueta-club-ganamas-dorado-independiente.svg" />
+        @if (revistaDigital.EsActiva)
+        {<img class="logo-club logo-club-negro" src="/Content/Images/RevistaDigital/nuevo.png" /> }
+        else
+        {<img class="logo-club" src="/Content/Images/RevistaDigital/etiqueta-club-ganamas-dorado-independiente.svg" />}
+        
         <div class="lonuevo_carrusel_portada">
             <div class="cont">
                 <div class="foto_prod" style="background: url({{lan.FotoProductoMedium}});">
@@ -52,7 +55,7 @@
                 {
                     if (revistaDigital.EsSuscrita)
                     {
-                        <span class="noti">Podrás comprar este y <b>NUEVOS PRODUCTOS ¡DESDE LA C @revistaDigital.CampaniaActiva!</b></span>
+                        <span class="noti">Podrás comprar este y <br /><b>NUEVOS PRODUCTOS <br />¡DESDE LA @camapaniaEfectiva!</b></span>
                     }
                     else
                     {
