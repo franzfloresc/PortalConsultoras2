@@ -104,21 +104,24 @@
     </div>
     @if ((Model.TipoEstrategiaDetalle.UrlVideoMobile ?? "") != "")
     {
-        <div class="set_encuentras_producto_video" id="video_lanzamiento">
-            <span>VIDEO</span>
+        <div class="set_encuentras_producto_video" id="video_lanzamiento" style="padding-bottom: 0;">
             <div class="wrapper_resumen_mobile">
+                <p class="titulo_set">
+                    VIDEO
+                </p>
                 <div class="revista_producto_video" style="width: 100%">
                     <div id="player"></div>
                 </div>
             </div>
         </div>
     }
-    <div class="comparte_set_encuentras_producto_video" data-posicion="0" data-item="165">
-        <div class="wrapper_resumen_mobile">
+    <div class="comparte_set_encuentras_producto_video" data-posicion="0" data-item="165" style="padding-top: 0;">
+        <div class="wrapper_resumen_mobile" style="height: 150px;">
             <hr />
             <p>Comparte el producto con tus clientes:</p>
             <ul>
-                <li><a href="javascript: void(0);" data-compartir="WA"><img src="~/Content/Images/mobile/img-icon/whatsapp-50x50.png" alt=""></a></li>
+                <li><a href="javascript: void(0);" data-compartir="WA" style="background: #119e06;
+    padding: 5px;"><img src="~/Content/Images/mobile/img-icon/whatsapp-50x50.png" alt=""></a></li>
                 <li><a href="javascript: void(0);" data-compartir="FB"><img src="~/Content/Images/mobile/Esika/facebook.png" alt=""></a></li>
             </ul>
         </div>

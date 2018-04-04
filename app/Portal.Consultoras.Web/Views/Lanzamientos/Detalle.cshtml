@@ -79,20 +79,64 @@
                     </div>
                     @if (Model.PuedeAgregarProducto)
                     {
-                        <div>
-                            <div class="texto_elige_tono"></div>
-                            <div class="clear"></div>
-                            <div class="liquidacion_rango_home js-no-popup">
+                        <style>
+                            .input_agregar_cantidad {
+                                float: left;
+                                width:30%;
+                            }
+                                .input_agregar_cantidad input {
+                                    width: 50%;
+                                    float: left;
+                                    text-align: center;
+                                    height: 45px;
+                                    border-right: 1px solid #cccccc !important;
+                                }
+                                .input_agregar_cantidad a.menos {
+                                    width: 25%;
+                                    /* float: left; */
+                                    /* width: 60%; */
+                                    float: left;
+                                    text-align: center;
+                                    height: 45px;
+                                    padding-top: 0;
+                                    /* border-right: 1px solid #cccccc; */
+                                    border-top: 1px solid #cccccc;
+                                    border-bottom: 1px solid #cccccc;
+                                    padding-top: 12px;
+                                    border-left: 1px solid #cccccc;
+                                }
+                                .input_agregar_cantidad a.mas {
+                                    width: 25%;
+                                    /* float: left; */
+                                    /* width: 60%; */
+                                    float: left;
+                                    text-align: center;
+                                    height: 45px;
+                                    margin-top: 0;
+                                    /* border-left: 1px solid #cccccc; */
+                                    border-top: 1px solid #cccccc;
+                                    border-bottom: 1px solid #cccccc;
+                                    padding-top: 15px;
+                                    border-right: 1px solid #cccccc;
+                                }
+
+                            .boton_agregar_cantidad {
+                                float: left;
+                                width:70%;
+                            }
+                        </style>
+                            <div class="texto_elige_tono" style="    margin-bottom: 20px;"></div>
+                            <div class="input_agregar_cantidad">
+                                <a href="javascript:;" class="menos js-no-popup" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
                                 <input value="1" size="2" maxlength="2" id="txtCantidad" class="rango-cantidad-lanzamiento liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup " data-input="cantidad" tabindex="0" type="text">
-                                <div class="liquidacion_rango_right_pedido js-no-popup">
-                                    <a href="javascript:;" class="mas js-no-popup" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
-                                    <a href="javascript:;" class="menos js-no-popup" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
-                                </div>
+                                <a href="javascript:;" class="mas js-no-popup" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
                             </div>
-                            <a href="javascript:;" class="@Model.ClaseBloqueada boton_Agregalo_home js-no-popup " id="tbnAgregarProducto" data-bloqueada="" onclick="javascript:EstrategiaAgregar(event, true); " tabindex="0">
-                                AGRÉGALO
-                            </a>
-                        </div>
+                            <div class="boton_agregar_cantidad">
+                                <a href="javascript:;" style="width: 95% !important; margin-top: 0px; margin-left: 5%;" class="@Model.ClaseBloqueada boton_Agregalo_home js-no-popup " id="tbnAgregarProducto" data-bloqueada="" onclick="javascript:EstrategiaAgregar(event, true); " tabindex="0">
+                                    AGRÉGALO
+                                </a>
+                            </div>
+                            <div style="clear:both;"></div>
                     }
                     <div style="clear:both;"></div>
                 </div>
