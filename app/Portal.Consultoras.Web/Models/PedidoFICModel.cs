@@ -68,7 +68,6 @@ namespace Portal.Consultoras.Web.Models
         public string TotalCliente { get; set; }
 
         public string ClienteID_ { get; set; }
-        public int SetId { get; set; }
 
         public List<BEPedidoFICDetalle> ListaDetalle { get; set; }
         public List<ServiceSAC.BEProductoFaltante> ListaProductoFaltante { get; set; }

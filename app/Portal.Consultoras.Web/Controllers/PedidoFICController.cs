@@ -10,19 +10,11 @@ using System.Data;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class PedidoFICController : BaseController
     {
-        private readonly PedidoSetProvider _pedidoSetProvider;
-
-        public PedidoFICController()
-        {
-            _pedidoSetProvider = new PedidoSetProvider();
-        }
-
         public ActionResult Index()
         {
             try
@@ -213,7 +205,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Update(PedidoFICDetalleModel model)
         {
-            //todo: update SetId
             BEPedidoFICDetalle obePedidoFicDetalle = new BEPedidoFICDetalle
             {
                 PaisID = userData.PaisID,
@@ -324,12 +315,6 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
                 }
 
-                var pedidoWebDetalle = ObtenerPedidoWebSetDetalleAgrupado();
-                var setIds = pedidoWebDetalle.Select(d => d.SetID);
-                foreach (var setId in setIds)
-                {
-                    _pedidoSetProvider.EliminarSet(userData.PaisID, setId);
-                }
             }
             catch
             {

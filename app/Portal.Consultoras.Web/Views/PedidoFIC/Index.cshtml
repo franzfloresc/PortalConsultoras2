@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Pedido FIC";
 }
-@section styles{   
+@section styles{
     <link href="@Url.Content("~/Content/Css/Site/style-pedido.css")" rel="stylesheet" />
 
     <style>
@@ -17,18 +17,18 @@
         .no_mostrar {
             display: none;
         }
-        .texto_pedidos{
-            font-size:14px;
-            font-weight:400;
-        }
 
+        .texto_pedidos {
+            font-size: 14px;
+            font-weight: 400;
+        }
     </style>
 }
 
 <div class="franja_negra" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
 
 <h1 class="titulo_principal_interiores pedido_left" style="margin-top:0px">INGRESA <strong>TU PEDIDO</strong></h1>
-<div class="wrapper_general2">   
+<div class="wrapper_general2">
 
     <input id="hdSimbolo" type="hidden" value="@Model.Simbolo" />
 
@@ -58,7 +58,7 @@
             <input type="hidden" id="hdfDescripcionProd" value="@Model.DescripcionProd" name="DescripcionProd" />
             <input type="hidden" id="hdfMarcaID" value="@Model.MarcaID" name="MarcaID" />
             <input type="hidden" id="hdfPrecioUnidad" value="@Model.PrecioUnidad" name="PrecioUnidad" />
-            <input type="hidden" id="hdfClienteID" value="@Model.ClienteID" name="ClienteID" />            
+            <input type="hidden" id="hdfClienteID" value="@Model.ClienteID" name="ClienteID" />
 
             <div id="divObservaciones" class="pedidos_no_existe" style="position:relative;"></div>
 
@@ -103,7 +103,7 @@
             <input id="btnAgregar" type="submit" value="AGREGAR" disabled="disabled" onkeydown="Tabular()" class="pedido_agregado" />
         </form>
     </div>
-    <div class="clear"></div> 
+    <div class="clear"></div>
     <div class="PedidoFic">
         <div class="mensaje_fic"><b>Recuerda:</b> este pedido NO te será facturado. Solo nos estas ayudando a conocer tus preferencias y las de tus clientes</div>
         <div class="paginador_pedidos mostrarPaginadorPedidos">
@@ -135,7 +135,7 @@
         </div>
         <!--PAGINADOR INFERIOR-->
         <div class="paginador_pedidos mostrarPaginadorPedidos inferior">
-            <div id="paginadorPie">                
+            <div id="paginadorPie">
             </div>
         </div>
         <!--FIN-->
@@ -230,7 +230,7 @@
         @if (ViewBag.IndicadorOfertaFIC == 1)
         {
             <div>
-                <img src="@Url.Content(ViewBag.ImagenUrlOfertaFIC)"/>
+                <img src="@Url.Content(ViewBag.ImagenUrlOfertaFIC)" />
             </div>
             <div>
                 <br />
@@ -309,20 +309,20 @@
         <div class="texto_pedidos codigo_fic">{{CUV}}</div>
         <div class="texto_pedidos producto_fic">
             <span style="position:relative">
-                <label for="{{DescripcionProd}}" class="lblLPDesProd">{{Split DescripcionProd '|' 0}}</label>
+                <label for="{{DescripcionProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionProd '|' 0}}</label>
             </span>
 
-            <input type="hidden" name="hdfCampaniaID{{PedidoID}}" value="{{CampaniaID}}" id="hdfCampaniaID{{PedidoID}}" class="hdfCampaniaID"/>
-            <input type="hidden" name="hdfPedidoId{{PedidoID}}" value="{{PedidoID}}" id="hdfPedidoId{{PedidoID}}" class="hdfPedidoId" />
-            <input type="hidden" name="hdfPedidoDetalleID{{PedidoID}}" value="{{PedidoDetalleID}}" id="hdfPedidoDetalleID{{PedidoID}}" class="hdfPedidoDetalleID" />
-            <input type="hidden" name="hdfCUV{{PedidoID}}" value="{{CUV}}" id="hdfCUV{{PedidoID}}" class="hdfCUV"/>
+            <input type="hidden" name="hdfCampaniaID{{PedidoID}}" value="{{CampaniaID}}" id="hdfCampaniaID{{PedidoID}}" />
+            <input type="hidden" name="hdfPedidoId{{PedidoID}}" value="{{PedidoID}}" id="hdfPedidoId{{PedidoID}}" />
+            <input type="hidden" name="hdfPedidoDetalleID{{PedidoID}}" value="{{PedidoDetalleID}}" id="hdfPedidoDetalleID{{PedidoID}}" />
+            <input type="hidden" name="hdfCUV{{PedidoID}}" value="{{CUV}}" id="hdfCUV{{PedidoID}}" />
         </div>
         <div class="celda_cantidad_pedidos unidades_fic">
             <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus">
-                <input type="hidden" name="txtLPTempCant{{PedidoDetalleID}}" class="txtLPTempCant" value="{{Cantidad}}" />
-                <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral txtLPCant"
+                <input type="hidden" name="txtLPTempCant{{PedidoDetalleID}}" id="txtLPTempCant{{PedidoDetalleID}}" value="{{Cantidad}}" />
+                <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" id="txtLPCant{{PedidoDetalleID}}"
                        data-pedido="{{PedidoDetalleID}}" onkeypress="PreValidarCUV(event);" onfocus="SeleccionarContenido(this)"
-                       onblur="UpdateLiquidacion(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}', '{{SetID}}')" />
+                       onblur="UpdateLiquidacion('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}')" />
                 <div class="liquidacion_rango_right_pedido">
                     <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
                     <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
@@ -330,7 +330,7 @@
             </div>
         </div>
         <div class="texto_pedidos precioUnitario_fic oculto_1092">
-            <input type="hidden" name="hdfLPPrecioU{{PedidoDetalleID}}" value="{{PrecioUnidad}}" class="classPrecioUnidad hdfLPPrecioU" />
+            <input type="hidden" name="hdfLPPrecioU{{PedidoDetalleID}}" id="hdfLPPrecioU{{PedidoDetalleID}}" value="{{PrecioUnidad}}" class="classPrecioUnidad" />
             {{Simbolo}} {{FormatoPrecioUnidad}}
         </div>
         <div class="texto_pedidos subtotal_fic">
@@ -339,21 +339,21 @@
             </span>
             <span>
                 {{Simbolo}}
-                <label for="item_ImporteTotal" class="classImporteTotal lblLPImpTotal">{{FormatoImporteTotal}}</label>
+                <label for="item_ImporteTotal" id="lblLPImpTotal{{PedidoDetalleID}}" class="classImporteTotal">{{FormatoImporteTotal}}</label>
             </span>
         </div>
         <div class="texto_pedidos clienteFic">
-            <input type="hidden" name="hdfLPCliIni{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID hdfLPCliIni" />
-            <input type="hidden" name="hdfLPCli{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID hdfLPCli" />
-            <input type="hidden" name="hdfLPCliDes{{PedidoDetalleID}}" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
+            <input type="hidden" name="hdfLPCliIni{{PedidoDetalleID}}" id="hdfLPCliIni{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID" />
+            <input type="hidden" name="hdfLPCli{{PedidoDetalleID}}" id="hdfLPCli{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID" />
+            <input type="hidden" name="hdfLPCliDes{{PedidoDetalleID}}" id="hdfLPCliDes{{PedidoDetalleID}}" value="{{Nombre}}" class="classClienteID" />
 
-            <input type="text" name="{{Nombre}}" value="{{Nombre}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico txtLPCli"
-                   onblur="BlurF(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '2', '{{CUV}}', {{SetID}})" style="width: 90%; padding: 4px;"
+            <input type="text" name="{{Nombre}}" value="{{Nombre}}" id="txtLPCli{{PedidoDetalleID}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico"
+                   onblur="BlurF('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '2', '{{CUV}}')" style="width: 90%; padding: 4px;"
                    datapedido="{{PedidoDetalleID}}" />
         </div>
         <div class="texto_pedidos celda_iconos_acciones">
-            <a onclick="DeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', '{{SetID}}');"
-               style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
+            <a onclick="DeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}');"
+               id="btnLPDelete{{PedidoDetalleID}}" style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
         </div>
     </div>
     {{/each}}
