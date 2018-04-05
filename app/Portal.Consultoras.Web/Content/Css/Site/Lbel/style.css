@@ -3351,6 +3351,8 @@ a.subir_carousel, a.bajar_carousel {
     font-size: 13px;
     width: 50%;
     padding-right: 5px;
+    position: relative;
+    top: -4px;
 }
 
 .producto_precio_oferta {

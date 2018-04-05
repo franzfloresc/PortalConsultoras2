@@ -71,12 +71,16 @@
     <div class="wrapper_resumen_mobile" id="divDetalleContenido" style="padding-bottom:74px;">
         <div style="display:none;"><div data-estrategia="@Json.Encode(Model)"></div></div>
         <div class="content_oferta_guia_negocio">
-            <div class="btn-volver-fix-detalle">
-                @if (mobileConfiguracion.MostrarBotonAtras)
-                {
-                    <span><img src="/Content/Images/mobile/flecha-volver-detalle.svg" alt="Volver"> VOLVER</span>
-                }
-            </div>
+            @if (ViewBag.origenPedidoWebEstrategia != Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage)
+            {
+                <div class="btn-volver-fix-detalle">
+                    @if (mobileConfiguracion.MostrarBotonAtras)
+                    {
+                        <span><img src="/Content/Images/mobile/flecha-volver-detalle.svg" alt="Volver"> VOLVER</span>
+                    }
+                </div>
+            }
+            
             <div class="content_imagen_ficha">
                 <img id="fav_imagen_prod" src="@Model.FotoProductoMedium" alt="PRODUCTO" class="imagen_producto">
             </div>

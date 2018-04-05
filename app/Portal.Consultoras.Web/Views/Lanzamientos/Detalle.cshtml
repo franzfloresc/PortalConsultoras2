@@ -16,15 +16,15 @@
 }
 
 <div data-item="" data-tag-html="@ViewBag.Campania">
-    <div class="revista_ficha" style='background: url(@Model.TipoEstrategiaDetalle.ImgFichaFondoDesktop); background-color: #24303c !important;'
+    <div class="revista_ficha"
+         style='background: url(@Model.TipoEstrategiaDetalle.ImgFichaFondoDesktop); background-color: #24303c !important;'
          data-estadoregistro="@ViewBag.EstadoSuscripcion"
          data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage">
         <div style="display:none;">
             <div data-estrategia="@Json.Encode(Model)"></div>
         </div>
         <div class="content_belcorp">
-            <div class="detalle-prod" data-item="" style="position: relative;
-    left: 7%;">
+            <div class="detalle-prod" data-item="" style="position: relative;left: 7%;">
                 <div data-compartir-campos="" style="display:none;">
                     <input type="hidden" class="CUV" value="@Model.CUV2" />
                     <input type="hidden" class="rsFBMensaje" value="" />
@@ -79,63 +79,60 @@
                     </div>
                     @if (Model.PuedeAgregarProducto)
                     {
-                        <div>
-                            <div class="texto_elige_tono"></div>
-                            <div class="clear"></div>
-                            <div class="liquidacion_rango_home js-no-popup">
-                                <input value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup " data-input="cantidad" tabindex="0" type="text">
-                                <div class="liquidacion_rango_right_pedido js-no-popup">
-                                    <a href="javascript:;" class="mas js-no-popup" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
-                                    <a href="javascript:;" class="menos js-no-popup" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
-                                </div>
+                            <div class="texto_elige_tono" style="    margin-bottom: 20px;"></div>
+                            <div class="input_agregar_cantidad">
+                                <a href="javascript:;" class="menos js-no-popup" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                                <input value="1" size="2" maxlength="2" id="txtCantidad" class="rango-cantidad-lanzamiento liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup " data-input="cantidad" tabindex="0" type="text">
+                                <a href="javascript:;" class="mas js-no-popup" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
                             </div>
-                            <a href="javascript:;" class="@Model.ClaseBloqueada boton_Agregalo_home js-no-popup " id="tbnAgregarProducto" data-bloqueada="" onclick="javascript:EstrategiaAgregar(event, true); " tabindex="0">
-                                AGRÉGALO
-                            </a>
-                        </div>
+                            <div class="boton_agregar_cantidad">
+                                <a href="javascript:;" style="width: 95% !important; margin-top: 0px; margin-left: 5%;" class="@Model.ClaseBloqueada boton_Agregalo_home js-no-popup " id="tbnAgregarProducto" data-bloqueada="" onclick="javascript:EstrategiaAgregar(event, true); " tabindex="0">
+                                    AGRÉGALO
+                                </a>
+                            </div>
+                            <div style="clear:both;"></div>
                     }
                     <div style="clear:both;"></div>
                 </div>
             </div>
         </div>
-        <div class="set_encuentras_producto" id="set_relacionados">
-            <div class="content_belcorp">
-                <p class="titulo_set" style="    position: relative;
-    left: 7%;">
-                    SET DONDE ENCUENTRAS EL PRODUCTO
-                </p>
-                <div class="set_encuentras_producto_carrusel" style="margin-left: -4%;"
-                     data-item-cuv="@Model.CUV2"
-                     data-estrategia="@Json.Encode(Model)">
-                    <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage" style="margin-left:0 !important; position: relative;
-    left: 9%;"></div>
-                </div>
-            </div>
-        </div>
-        @if ((Model.TipoEstrategiaDetalle.UrlVideoDesktop ?? "") != "")
-        {
-            <div class="set_encuentras_producto_video" id="video_lanzamiento">
-                <div class="content_belcorp">
-                    <div class="revista_producto_video" style="width: 100%; position: relative;
-    left: 7%;">
-                        <div id="player"></div>
-                    </div>
-                </div>
-            </div>
-        }
-        @Html.Action("MensajeBloqueado", "RevistaDigital")
-        <div class="flecha_scroll">
-            <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll"></a>
-        </div>
     </div>
 </div>
+<div>
+    <div class="set_encuentras_producto" id="set_relacionados">
+        <div class="content_belcorp">
+            <p class="titulo_set" style="position: relative;left: 7%;">
+                SET DONDE ENCUENTRAS EL PRODUCTO
+            </p>
+            <div class="set_encuentras_producto_carrusel"
+                 style="margin-left: -4%;"
+                 data-item-cuv="@Model.CUV2"
+                 data-estrategia="@Json.Encode(Model)">
+                <div id="divOfertaProductos"
+                     data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage"
+                     style="margin-left:0 !important; position: relative;left: 9%;">
+                </div>
+            </div>
+        </div>
+    </div>
+    @if ((Model.TipoEstrategiaDetalle.UrlVideoDesktop ?? "") != "")
+    {
+        <div class="set_encuentras_producto_video" id="video_lanzamiento">
+            <div class="content_belcorp">
+                <div class="revista_producto_video" style="width: 100%; position: relative;left: 7%;">
+                    <div id="player"></div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
 
-
-    @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
-
-    @section scripts{
-        @System.Web.Optimization.Scripts.Render("~/bundles/Lanzamientos-Detalle")
-        <script type="text/javascript">
+@section scripts{
+    @System.Web.Optimization.Scripts.Render("~/bundles/Lanzamientos-Detalle")
+    <script type="text/javascript">
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage';
         var tipoOrigenEstrategia = 172;
         var videoId = "@Model.TipoEstrategiaDetalle.UrlVideoDesktop";
@@ -149,5 +146,5 @@
         function onYouTubeIframeAPIReady() {
             detalleLanzamiento.onYouTubeIframeAPIReady();
         }
-        </script>
-    }
+    </script>
+}

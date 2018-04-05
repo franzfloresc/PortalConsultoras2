@@ -2,7 +2,7 @@
     max-width: 794px;
     margin: auto;
     display: block;
-    height: 395px;
+    height: 355px !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     margin-top: 50px;
@@ -18,9 +18,9 @@
 }
 
 .lonuevo_carrusel .lonuevo_carrusel_portada {
-    height: 395px;
+    height: 355px;
     float: left;
-    width: 50%; /*453px*/
+    width: 60%; /*453px*/
     display: table;
 }
 
@@ -36,7 +36,7 @@
     background-repeat: no-repeat !important;
     background-position: center center !important;
     float: right;
-    left: 43px;
+    left: 55px;
     top: 30px;
     position: relative;
     background-size: cover !important;
@@ -49,9 +49,9 @@
 }
 
 .lonuevo_carrusel .lonuevo_carrusel_info {
-    height: 395px;
+    height: 355px;
     float: left;
-    width: 50%;
+    width: 40%;
     display: table;
 }
 
@@ -63,7 +63,7 @@
 }
 
 .lonuevo_carrusel .lonuevo_carrusel_info .cont p {
-    width: 284px;
+    width: 100%;
   font-family: Lato;
   font-size: 15px;
   font-weight: bold;
@@ -79,7 +79,7 @@
 }
 
 .lonuevo_carrusel .lonuevo_carrusel_info .cont span {
-    width: 284px;
+    width:100%;
   font-family: Lato;
   font-size: 40px;
   font-weight: bold;
