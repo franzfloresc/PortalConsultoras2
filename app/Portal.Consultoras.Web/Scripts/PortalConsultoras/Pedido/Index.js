@@ -245,11 +245,9 @@ $(document).ready(function () {
     });
 
     $("body").on("mouseleave", ".cantidad_detalle_focus", function () {
-        //var idPed = $(this).find("input.liquidacion_rango_cantidad_pedido").attr('data-pedido');
-        //_idPed = idPed;
         var rowElement = $(this).closest(".contenido_ingresoPedido");
-        var cant = $(rowElement).find(".txtLPCant").val(); // $('#txtLPCant' + idPed).val();
-        var cantAnti = $(rowElement).find(".txtLPTempCant").val(); //$('#txtLPTempCant' + idPed).val();
+        var cant = $(rowElement).find(".txtLPCant").val();
+        var cantAnti = $(rowElement).find(".txtLPTempCant").val();
         if (cant == cantAnti) {
             return false;
         }
@@ -1728,7 +1726,6 @@ function CargarAutocomplete() {
     var array = $(".classClienteNombre");
     if (array.length === 0)
         return false;
-    //for (var i = 0; i < array.length; i++) {
     $(array).focus(function () {
         if (HorarioRestringido())
             this.blur();
@@ -1740,17 +1737,14 @@ function CargarAutocomplete() {
             if (ui.item.ClienteID != 0) {
                 $(this).val(ui.item.Nombre);
 
-                //var hdf = this.id.replace('txtLPCli', 'hdfLPCli');
-                //var hdfDes = this.id.replace('txtLPCli', 'hdfLPCliDes');
                 var rowElement = $(this).closest(".contenido_ingresoPedido");
-                currentInputClienteID = $(rowElement).find(".hdfLPCli"); //$('#' + hdf);
-                currentInputClienteNombre = $(rowElement).find(".hdfLPCliDes"); //$('#' + hdfDes);
-                
-                $(currentInputClienteID).val(ui.item.ClienteID); //$('#' + hdf).val(ui.item.ClienteID);
-                $(currentInputClienteNombre).val(ui.item.Nombre); //$('#' + hdfDes).val(ui.item.Nombre);
-                
-                currentInputEdit = $(this);
+                currentInputClienteID = $(rowElement).find(".hdfLPCli");
+                currentInputClienteNombre = $(rowElement).find(".hdfLPCliDes");
 
+                $(currentInputClienteID).val(ui.item.ClienteID);
+                $(currentInputClienteNombre).val(ui.item.Nombre);
+
+                currentInputEdit = $(this);
                 currentClienteEdit = null;
 
                 if (ui.item.TieneTelefono == 0) {
@@ -1784,7 +1778,6 @@ function CargarAutocomplete() {
             .append("<a>" + item.Nombre + "</a>")
             .appendTo(ul);
     };
-    //}
 }
 
 function CalcularTotal() {
@@ -1816,7 +1809,6 @@ function CerrarProductoAgregado() {
 }
 
 function ConfirmarEliminarRegaloGenerico(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId) {
-    setId = setId || 5; //todo: agregar a la llamada
     var regalo = GetUpSellingGanado();
 
     if (ofertaFinalEstado == 'True' && ofertaFinalAlgoritmo == 'OFR' && regalo) {
@@ -2552,11 +2544,11 @@ function CalcularTotalPedido(Total, Total_Minimo) {
 function ValidarUpdate(PedidoDetalleID, FlagValidacion, rowElement) {
     var txtLPCant = $(rowElement).find(".txtLPCant");
     var txtLPTempCant = $(rowElement).find(".txtLPTempCant");
-    var CliDes = $(rowElement).find(".txtLPCli").val(); // $('#txtLPCli' + PedidoDetalleID).val();
-    var CliDesVal = $(rowElement).find(".hdfLPCliDes").val(); // $('#hdfLPCliDes' + PedidoDetalleID).val();
+    var CliDes = $(rowElement).find(".txtLPCli").val();
+    var CliDesVal = $(rowElement).find(".hdfLPCliDes").val();
     var Cantidad = $(txtLPCant).val();
     var CantidadAnti = $(txtLPTempCant).val();
-    var ClienteAnti = $(rowElement).find(".hdfLPTempCliDes").val(); //$('#hdfLPTempCliDes' + PedidoDetalleID).val();
+    var ClienteAnti = $(rowElement).find(".hdfLPTempCliDes").val();
 
     if (FlagValidacion == "1") {
         if (CantidadAnti == Cantidad)
@@ -2584,7 +2576,7 @@ function ValidarUpdate(PedidoDetalleID, FlagValidacion, rowElement) {
     return true;
 }
 
-function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, rowElement) {
+function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, setId, rowElement) {
     var txtLPCant = $(rowElement).find(".txtLPCant");
     var txtLPTempCant = $(rowElement).find(".txtLPTempCant");
 
@@ -2593,9 +2585,9 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
         return false;
     }
 
-    var CliID = $(rowElement).find(".hdfLPCli").val(); //$('#hdfLPCli' + PedidoDetalleID).val();
-    var CliDes = $(rowElement).find(".txtLPCli").val(); //$('#txtLPCli' + PedidoDetalleID).val();
-    var DesProd = $(rowElement).find(".lblLPDesProd").html(); //$('#lblLPDesProd' + PedidoDetalleID).html();
+    var CliID = $(rowElement).find(".hdfLPCli").val();
+    var CliDes = $(rowElement).find(".txtLPCli").val();
+    var DesProd = $(rowElement).find(".lblLPDesProd").html();
 
     var PrecioUnidad = $(rowElement).find(".hdfLPPrecioU").val();
     if (CliDes.length == 0) {
@@ -2606,8 +2598,8 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
     var Unidad = $(rowElement).find(".hdfLPPrecioU").val();
     var Total = DecimalToStringFormat(parseFloat(Cantidad * Unidad));
     var ClienteID_ = $('#ddlClientes').val();
-    $(rowElement).find(".lblLPImpTotal").html(Total); //$('#lblLPImpTotal' + PedidoDetalleID).html(Total);
-    $(rowElement).find(".lblLPImpTotalMinimo").html(Total); //$('#lblLPImpTotalMinimo' + PedidoDetalleID).html(Total);
+    $(rowElement).find(".lblLPImpTotal").html(Total);
+    $(rowElement).find(".lblLPImpTotalMinimo").html(Total);
     var item = {
         CampaniaID: CampaniaID,
         PedidoID: PedidoID,
@@ -2617,7 +2609,8 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
         PrecioUnidad: PrecioUnidad,
         ClienteDescripcion: CliDes,
         DescripcionProd: DesProd,
-        ClienteID_: ClienteID_
+        ClienteID_: ClienteID_,
+        SetId: setId
     };
 
     AbrirSplash();
@@ -2638,9 +2631,9 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
                 return false;
             }
 
-            if ($(rowElement).find(".txtLPCli").val().length == 0) { //if ($('#txtLPCli' + PedidoDetalleID).val().length == 0) {
-                $(rowElement).find(".hdfLPCliDes").val($('#hdfNomConsultora').val()); //'#hdfLPCliDes' + PedidoDetalleID
-                $(rowElement).find(".txtLPCli").val($('#hdfNomConsultora').val()); //$('#txtLPCli' + PedidoDetalleID).val($('#hdfNomConsultora').val());
+            if ($(rowElement).find(".txtLPCli").val().length == 0) {
+                $(rowElement).find(".hdfLPCliDes").val($('#hdfNomConsultora').val());
+                $(rowElement).find(".txtLPCli").val($('#hdfNomConsultora').val());
             }
             $(txtLPTempCant).val($(txtLPCant).val());
 
@@ -2670,18 +2663,18 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
     });
 }
 
-function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, rowElement) {
+function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, setId, rowElement) {
     var txtLPCant = $(rowElement).find(".txtLPCant");
     var txtLPTempCant = $(rowElement).find(".txtLPTempCant");
 
     var val = ValidarUpdate(PedidoDetalleID, FlagValidacion, rowElement);
     if (!val) return false;
 
-    var CliID = $(rowElement).find(".hdfLPCli").val(); //$('#hdfLPCli' + PedidoDetalleID).val();
-    var CliDes = $(rowElement).find(".txtLPCli").val(); //$('#txtLPCli' + PedidoDetalleID).val();
+    var CliID = $(rowElement).find(".hdfLPCli").val();
+    var CliDes = $(rowElement).find(".txtLPCli").val();
     var Cantidad = $(txtLPCant).val();
     var CantidadAnti = $(txtLPTempCant).val();
-    var DesProd = $(rowElement).find(".lblLPDesProd").html(); //$('#lblLPDesProd' + PedidoDetalleID).html();
+    var DesProd = $(rowElement).find(".lblLPDesProd").html();
     var ClienteID_ = $('#ddlClientes').val();
 
     var PrecioUnidad = $(rowElement).find(".hdfLPPrecioU").val();
@@ -2691,8 +2684,8 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, rowE
 
     var Unidad = $(rowElement).find(".hdfLPPrecioU").val();
     var Total = DecimalToStringFormat(parseFloat(Cantidad * Unidad));
-    $(rowElement).find(".lblLPImpTotal").html(Total); //$('#lblLPImpTotal' + PedidoDetalleID).html(Total);
-    $(rowElement).find(".lblLPImpTotalMinimo").html(Total); //$('#lblLPImpTotalMinimo' + PedidoDetalleID).html(Total);
+    $(rowElement).find(".lblLPImpTotal").html(Total);
+    $(rowElement).find(".lblLPImpTotalMinimo").html(Total);
     var item = {
         CampaniaID: CampaniaID,
         PedidoID: PedidoID,
@@ -2702,7 +2695,8 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, rowE
         PrecioUnidad: PrecioUnidad,
         Nombre: CliDes,
         DescripcionProd: DesProd,
-        ClienteID_: ClienteID_
+        ClienteID_: ClienteID_,
+        SetId: setId
     };
 
     AbrirSplash();
@@ -2740,13 +2734,13 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, rowE
                 return false;
             }
 
-            if ($(rowElement).find(".txtLPCli").val().length == 0) { //if ($('#txtLPCli' + PedidoDetalleID).val().length == 0) {
-                $(rowElement).find(".hdfLPCliDes").val($('#hdfNomConsultora').val()); //$('#hdfLPCliDes' + PedidoDetalleID).val($('#hdfNomConsultora').val());
-                $(rowElement).find(".txtLPCli").val($('#hdfNomConsultora').val()); //$('#txtLPCli' + PedidoDetalleID).val($('#hdfNomConsultora').val());
+            if ($(rowElement).find(".txtLPCli").val().length == 0) {
+                $(rowElement).find(".hdfLPCliDes").val($('#hdfNomConsultora').val());
+                $(rowElement).find(".txtLPCli").val($('#hdfNomConsultora').val());
             }
-            $(txtLPTempCant).val($(txtLPCant).val());
 
-            $(rowElement).find(".hdfLPCliIni").val($(rowElement).find(".hdfLPCli").val()); //$("#hdfLPCliIni" + PedidoDetalleID).val($('#hdfLPCli' + PedidoDetalleID).val());
+            $(txtLPTempCant).val($(txtLPCant).val());
+            $(rowElement).find(".hdfLPCliIni").val($(rowElement).find(".hdfLPCli").val());
 
             var nomCli = $("#ddlClientes option:selected").text();
             var simbolo = data.Simbolo;
@@ -2786,21 +2780,21 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, rowE
     });
 }
 
-function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi) {
+function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, setId) {
     var rowElement = $(event.target).closest(".contenido_ingresoPedido");
     var txtLPCant = $(rowElement).find(".txtLPCant");
     var txtLPTempCant = $(rowElement).find(".txtLPTempCant");
 
     AbrirSplash();
     if (HorarioRestringido()) {
-        var CantidadAnti = $(txtLPTempCant).val(); //$('#txtLPTempCant' + PedidoDetalleID).val();
-        $(txtLPCant).val(CantidadAnti);//$('#txtLPCant' + PedidoDetalleID).val(CantidadAnti);
+        var CantidadAnti = $(txtLPTempCant).val();
+        $(txtLPCant).val(CantidadAnti);
         CerrarSplash();
         return false;
     }
 
-    var cant = $(txtLPCant).val(); //$('#txtLPCant' + PedidoDetalleID).val();
-    var cantAnti = $(txtLPTempCant).val();  //$('#txtLPTempCant' + PedidoDetalleID).val();
+    var cant = $(txtLPCant).val();
+    var cantAnti = $(txtLPTempCant).val();
 
     if (cant == cantAnti) {
         CerrarSplash();
@@ -2809,7 +2803,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
 
     if (cant == "" || cant == "0") {
         AbrirMensaje("Ingrese una cantidad mayor que cero.");
-        $(txtLPCant).val(cantAnti); //$('#txtLPCant' + PedidoDetalleID).val(cantAnti);
+        $(txtLPCant).val(cantAnti);
         CerrarSplash();
         return false;
     }
@@ -2819,7 +2813,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
         return false;
     }
 
-    var PrecioUnidad = $(rowElement).find(".hdfLPPrecioU").val(); //$('#hdfLPPrecioU' + PedidoDetalleID).val();
+    var PrecioUnidad = $(rowElement).find(".hdfLPPrecioU").val();
     if (TipoOfertaSisID == constConfiguracionOfertaLiquidacion) {
         var PROL = $("#hdValidarPROL").val();
 
@@ -2833,11 +2827,11 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
             return false;
         }
 
-        var CliID = $(rowElement).find(".hdfLPCli").val(); //$('#hdfLPCli' + PedidoDetalleID).val();
-        var CliDes = $(rowElement).find(".txtLPCli").val(); //$('#txtLPCli' + PedidoDetalleID).val();
-        var Cantidad = $(txtLPCant); //$('#txtLPCant' + PedidoDetalleID).val();
-        var CantidadAnti = $(txtLPTempCant).val(); //$('#txtLPTempCant' + PedidoDetalleID).val();
-        var DesProd = $(rowElement).find(".lblLPDesProd").html();  //$('#lblLPDesProd' + PedidoDetalleID).html();
+        var CliID = $(rowElement).find(".hdfLPCli").val();
+        var CliDes = $(rowElement).find(".txtLPCli").val();
+        var Cantidad = $(txtLPCant);
+        var CantidadAnti = $(txtLPTempCant).val();
+        var DesProd = $(rowElement).find(".lblLPDesProd").html();
 
         var Flag = 2;
         var StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
@@ -2860,10 +2854,10 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
 
             if (parseInt(data.UnidadesPermitidas) < parseInt(Cantidad)) {
                 if (PROL == "1") {
-                    UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi);
-                    $(txtLPCantCantidadModi); //$('#txtLPCant' + PedidoDetalleID).val(CantidadModi);
+                    UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, setId, rowElement);
+                    $(txtLPCant).val(CantidadModi);
                 } else
-                    $(txtLPCant$(txtLPTempCant).val());  //$('#txtLPCant' + PedidoDetalleID).val($('#txtLPTempCant' + PedidoDetalleID).val());
+                    $(txtLPCant).val($(txtLPTempCant).val());
 
                 if (Saldo == UnidadesPermitidas)
                     AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
@@ -2881,7 +2875,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
                     var CantidadaValidar = parseInt(CantidadActual) - parseInt(CantidadAnti);
                     if (parseInt(data.Stock) < parseInt(CantidadaValidar)) {
                         if (PROL == "1") {
-                            UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi);
+                            UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, setId, rowElement);
                             $(txtLPCant).val(CantidadModi);
                         } else
                             $(txtLPCant).val($(txtLPTempCant).val());
@@ -2893,7 +2887,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
                         var Cantidad = $(txtLPCant).val();
                         var Unidad = $(rowElement).find(".hdfLPPrecioU").val();
                         var Total = DecimalToStringFormat(parseFloat(Cantidad * Unidad));
-                        $(rowElement).find(".lblLPImpTotal").html(Total); //$('#lblLPImpTotal' + PedidoDetalleID).html(Total);
+                        $(rowElement).find(".lblLPImpTotal").html(Total);
                         var ClienteID_ = $('#ddlClientes').val();
                         var item = {
                             CampaniaID: CampaniaID,
@@ -2908,7 +2902,8 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
                             Flag: Flag,
                             TipoOfertaSisID: TipoOfertaSisID,
                             CUV: CUV,
-                            ClienteID_: ClienteID_
+                            ClienteID_: ClienteID_,
+                            SetId: setId
                         };
 
                         AbrirSplash();
@@ -2928,9 +2923,9 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
                                 }
 
                                 CerrarSplash();
-                                if ($(rowElement).find(".txtLPCli").val().length == 0) { //$('#txtLPCli' + PedidoDetalleID).val().length == 0) {
-                                    $(rowElement).find(".hdfLPCliDes").val($(rowElement).find(".hdfNomConsultora").val()); // $('#hdfLPCliDes' + PedidoDetalleID).val($('#hdfNomConsultora').val()); //todo:
-                                    $(rowElement).find(".txtLPCli").val($(rowElement).find(".hdfNomConsultora").val()); // $('#txtLPCli' + PedidoDetalleID).val($('#hdfNomConsultora').val());
+                                if ($(rowElement).find(".txtLPCli").val().length == 0) {
+                                    $(rowElement).find(".hdfLPCliDes").val($(rowElement).find(".hdfNomConsultora").val());
+                                    $(rowElement).find(".txtLPCli").val($(rowElement).find(".hdfNomConsultora").val());
                                 }
                                 if (PROL == "0") $(txtLPTempCant).val($(txtLPCant).val());
 
@@ -2978,13 +2973,13 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
             $.ajaxSetup({
                 cache: false
             });
-            var CliID = $(rowElement).find(".hdfLPCli").val(); //$('#hdfLPCli' + PedidoDetalleID).val();
-            var CliDes = $(rowElement).find(".txtLPCli").val(); //$('#txtLPCli' + PedidoDetalleID).val();
-            var CliDesVal = $(rowElement).find(".hdfLPCliDes").val(); //$('#hdfLPCliDes' + PedidoDetalleID).val();
+            var CliID = $(rowElement).find(".hdfLPCli").val();
+            var CliDes = $(rowElement).find(".txtLPCli").val();
+            var CliDesVal = $(rowElement).find(".hdfLPCliDes").val();
             var Cantidad = $(txtLPCant).val();
             var CantidadAnti = $(txtLPTempCant).val();
-            var ClienteAnti = $(rowElement).find(".hdfLPTempCliDes").val(); //$('#hdfLPTempCliDes' + PedidoDetalleID).val();
-            var DesProd = $(rowElement).find(".lblLPDesProd").val(); //$('#lblLPDesProd' + PedidoDetalleID).html();
+            var ClienteAnti = $(rowElement).find(".hdfLPTempCliDes").val();
+            var DesProd = $(rowElement).find(".lblLPDesProd").val();
             var Flag = 2;
             var StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
 
@@ -3011,7 +3006,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
                 return;
             }
 
-            var PrecioUnidad = $(rowElement).find(".hdfLPPrecioU").val(); //$('#hdfLPPrecioU' + PedidoDetalleID).val();
+            var PrecioUnidad = $(rowElement).find(".hdfLPPrecioU").val();
             if (CliDes.length == 0) {
                 CliID = 0;
             }
@@ -3027,7 +3022,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
                 Cantidad = parseInt(Cantidad) + parseInt(CantidadPedida);
                 if (parseInt(data.UnidadesPermitidas) < parseInt(Cantidad)) {
                     if (PROL == "1") {
-                        UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi);
+                        UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, setId, rowElement);
                         $(txtLPCant).val(CantidadModi);
                     }
                     else
@@ -3048,7 +3043,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
                         var CantidadaValidar = parseInt(CantidadActual) - parseInt(CantidadAnti);
                         if (parseInt(data.Stock) < parseInt(CantidadaValidar)) {
                             if (PROL == "1") {
-                                UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi);
+                                UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, setId, rowElement);
                                 $(txtLPCant).val(CantidadModi);
                             }
                             else
@@ -3061,11 +3056,10 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
                         } else {
 
                             var Cantidad = $(txtLPCant).val();
-                            var Unidad = $(rowElement).find(".hdfLPPrecioU").val(); //$('#hdfLPPrecioU' + PedidoDetalleID).val();
+                            var Unidad = $(rowElement).find(".hdfLPPrecioU").val();
                             var Total = parseFloat(Cantidad * Unidad).toFixed(2);
-                            $(rowElement).find(".lblLPImpTotal").val(Total);  //$('#lblLPImpTotal' + PedidoDetalleID).html(Total);
+                            $(rowElement).find(".lblLPImpTotal").html(Total);
                             var ClienteID_ = $('#ddlClientes').val();
-                            var _SetID = $(txtLPCant).attr('data-setid');
                             var item = {
                                 CampaniaID: CampaniaID,
                                 PedidoID: PedidoID,
@@ -3080,7 +3074,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
                                 TipoOfertaSisID: TipoOfertaSisID,
                                 CUV: CUV,
                                 ClienteID_: ClienteID_,
-                                SetID: _SetID
+                                SetId: setId
                             };
 
                             AbrirSplash();
@@ -3100,12 +3094,9 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
                                     }
 
                                     CerrarSplash();
-                                    if ($(rowElement).find(".txtLPCli").val().length == 0) { //$('#txtLPCli' + PedidoDetalleID).val().length == 0) {
-                                        $(rowElement).find(".hdfLPCliDes")
-                                            .val($(rowElement).find(".hdfNomConsultora").val()); //$('#hdfLPCliDes' + PedidoDetalleID).val($('#hdfNomConsultora').val());
-                                        $(rowElement).find(".txtLPCli")
-                                            .val($(rowElement).find(".hdfNomConsultora")
-                                                .val()); //$('#txtLPCli' + PedidoDetalleID).val($('#hdfNomConsultora').val());
+                                    if ($(rowElement).find(".txtLPCli").val().length == 0) {
+                                        $(rowElement).find(".hdfLPCliDes").val($(rowElement).find(".hdfNomConsultora").val());
+                                        $(rowElement).find(".txtLPCli").val($(rowElement).find(".hdfNomConsultora").val());
                                     }
                                     if (PROL == "0") $(txtLPTempCant).val($(txtLPCant).val());
 
@@ -3186,7 +3177,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
                             if (datos.message.length > 3)
                                 AbrirMensajeEstrategia(datos.message);
 
-                            Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, rowElement);
+                            Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, setId, rowElement);
                         }
                     }
                 },
@@ -3201,24 +3192,24 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
     }
 }
 
-function BlurF(event, CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
+function BlurF(event, CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, setId) {
     var rowElement = $(event.target).closest(".contenido_ingresoPedido");
 
     if (flagClienteDetalle) return true;
     if (isShown)
         return true;
 
-    var cliAnt = $(rowElement).find(".hdfLPCliIni").val(); //$("#hdfLPCliIni" + PedidoDetalleID).val();
-    var cliNue = $(rowElement).find(".hdfLPCli").val(); //$("#hdfLPCli" + PedidoDetalleID).val();
+    var cliAnt = $(rowElement).find(".hdfLPCliIni").val();
+    var cliNue = $(rowElement).find(".hdfLPCli").val();
 
-    if ($(rowElement).find(".txtLPCli").val() == "" && cliAnt > 0) cliNue = 0; //; $("#txtLPCli" + PedidoDetalleID).val() == "" && cliAnt > 0) cliNue = 0;
+    if ($(rowElement).find(".txtLPCli").val() == "" && cliAnt > 0) cliNue = 0;
 
     if (cliAnt == cliNue) {
-        $(rowElement).find(".txtLPCli").val($(rowElement).find(".hdfLPCliDes").val()); //$("#txtLPCli" + PedidoDetalleID).val($("#hdfLPCliDes" + PedidoDetalleID).val());
+        $(rowElement).find(".txtLPCli").val($(rowElement).find(".hdfLPCliDes").val());
         return true;
     }
 
-    Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, rowElement);
+    Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, setId, rowElement);
 }
 function InfoCommerceGoogleProductoRecomendados() {
     var cantidadProductosRecomendado = $("#hdCantItemRecomendado").val();
