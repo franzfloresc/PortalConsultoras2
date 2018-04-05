@@ -14644,8 +14644,9 @@ span.icon-advertencia {
 
 .label-white-small {
 	color: #ffffff;
-	font-weight: normal;
+	font-weight: bold;
 	font-size: 14px;
+	text-align: center;
 }
 
 
