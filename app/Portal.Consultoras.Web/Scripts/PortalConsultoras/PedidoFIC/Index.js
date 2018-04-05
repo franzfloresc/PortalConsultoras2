@@ -111,8 +111,6 @@
     });
     $("body").on("mouseleave", ".cantidad_detalle_focus", function () {
         var idPed = $(this).find("input.liquidacion_rango_cantidad_pedido").attr('data-pedido');
-        //var element = $(this).closest
-
         var cant = $('#txtLPCant' + idPed).val();
         var cantAnti = $('#txtLPTempCant' + idPed).val();
         if (cant == cantAnti) {
@@ -909,7 +907,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
 }
 
 function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi) {
-    
+
     AbrirSplash();
     if (HorarioRestringido()) {
         CerrarSplash();
