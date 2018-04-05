@@ -86,7 +86,7 @@ def notifyBuild(String buildStatus = 'STARTED') {
         color: color,
         message: details,
         notify: true,
-        room: 'Lideres SB2',
+        room: 'Jenkins-Consultoras',
         credentialId: 'belcorp_hipchat_credentials')
     
     // send email in case of failure

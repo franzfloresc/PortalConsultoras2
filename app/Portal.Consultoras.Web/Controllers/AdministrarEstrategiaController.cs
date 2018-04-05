@@ -1396,7 +1396,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     pagina = Math.Max(pagina, 1);
-                    
+
                     using (var ps = new PedidoServiceClient())
                     {
                         listBeEstrategias = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId,
@@ -1431,22 +1431,27 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         #region precioOferta
 
-                        decimal precioOferta, ganancia = 0;
+                        decimal precioOferta = 0, ganancia = 0;
                         var niveles = "";
                         try
                         {
                             using (var svs = new WsGestionWeb())
                             {
                                 var preciosEstrategia = svs.ObtenerPrecioEstrategia(opt.CUV2, userData.CodigoISO, campaniaId.ToString());
-                                precioOferta = preciosEstrategia.montotal;
-                                ganancia = preciosEstrategia.montoganacia;
-                                niveles = preciosEstrategia.listaniveles.Length > 1 ? ObtenerTextoNiveles(preciosEstrategia.listaniveles) : "";
+                                if (preciosEstrategia != null)
+                                {
+                                    precioOferta = preciosEstrategia.montotal;
+                                    ganancia = preciosEstrategia.montoganacia;
+                                    if (preciosEstrategia.listaniveles != null)
+                                    {
+                                        niveles = preciosEstrategia.listaniveles.Length > 1 ? ObtenerTextoNiveles(preciosEstrategia.listaniveles) : "";
+                                    }
+                                }
                             }
                         }
                         catch (Exception ex)
                         {
                             LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                            precioOferta = 0;
                         }
 
                         if (precioOferta > 0) opt.Precio2 = precioOferta;
@@ -2293,19 +2298,24 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!model.Documento.FileName.EndsWith(".csv"))
                     throw new ArgumentException("El archivo no tiene la extensión correcta.");
 
-                var fileContent = new List<BEDescripcionEstrategia>();
                 var sd = new StreamReader(model.Documento.InputStream, Encoding.Default);
 
                 var readLine = sd.ReadLine();
                 if (readLine != null)
                 {
                     var arraySplitHeader = readLine.Split(',');
-                    if (!arraySplitHeader[0].ToLower().Equals("cuv") ||
-                    !arraySplitHeader[1].ToLower().Equals("descripcion"))
+
+                    if (arraySplitHeader.Length < 2)
+                        throw new ArgumentException("Verificar los títulos de las columnas del archivo, deben ser 'cuv, descripcion'.");
+
+                    if (!arraySplitHeader[0].Trim().ToLower().Equals("cuv") ||
+                    !arraySplitHeader[1].Trim().ToLower().Equals("descripcion"))
                     {
-                        throw new ArgumentException("Verificar los títulos de las columnas del archivo.");
+                        throw new ArgumentException("Verificar los títulos de las columnas del archivo, deben ser 'cuv, descripcion'.");
                     }
                 }
+
+                var fileContent = new List<BEDescripcionEstrategia>();
 
                 do
                 {
@@ -2313,29 +2323,35 @@ namespace Portal.Consultoras.Web.Controllers
                     if (readLine == null) continue;
 
                     var arraySplit = readLine.Split(',');
-                    if (arraySplit[0] != "")
+
+                    if (arraySplit.Length < 2) continue;
+                    if (arraySplit[0].Trim() == "" || arraySplit[1].Trim() == "")
+                        continue;
+
+                    fileContent.Add(new BEDescripcionEstrategia
                     {
-                        fileContent.Add(new BEDescripcionEstrategia
-                        {
-                            Cuv = arraySplit[0],
-                            Descripcion = arraySplit[1]
-                        });
-                    }
+                        Cuv = arraySplit[0].Trim(),
+                        Descripcion = arraySplit[1].Trim()
+                    });
+
                 } while (readLine != null);
+
                 List<BEDescripcionEstrategia> beDescripcionEstrategias;
                 using (var svc = new SACServiceClient())
                 {
                     beDescripcionEstrategias = svc.ActualizarDescripcionEstrategia(model.Pais.ToInt(),
                         model.CampaniaId.ToInt(), model.TipoEstrategia.ToInt(), fileContent.ToArray()).ToList();
                 }
+
                 var descripcionEstrategiaModels =
-                    Mapper.Map<List<BEDescripcionEstrategia>, List<DescripcionEstrategiaModel>>(
-                        beDescripcionEstrategias);
+                    Mapper.Map<List<BEDescripcionEstrategia>, List<DescripcionEstrategiaModel>>(beDescripcionEstrategias);
+
                 return Json(new
                 {
                     listActualizado = descripcionEstrategiaModels.Where(x => x.Estado == 1),
                     listNoActualizado = descripcionEstrategiaModels.Where(x => x.Estado != 1)
                 });
+
             }
             catch (Exception ex)
             {
@@ -2796,7 +2812,7 @@ namespace Portal.Consultoras.Web.Controllers
                         throw new ArgumentException("Verificar los títulos de las columnas del archivo.");
                     }
                 }
-                
+
                 var valor1 = new StringBuilder();
                 var count = 0;
                 do
@@ -2805,7 +2821,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (readLine == null) continue;
                     var arraySplit = readLine.Split(',');
                     if (arraySplit[0] == "") continue;
-                    
+
                     if (count > 0) valor1.Append(",");
                     valor1.Append(arraySplit[0]);
                     count++;
@@ -2813,12 +2829,12 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                 ServiceSAC.BEConfiguracionPais configuracionPais;
-                
+
                 using (var sac = new SACServiceClient())
                 {
                     configuracionPais = sac.GetConfiguracionPaisByCode(userData.PaisID, Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada);
                 }
-                
+
                 var configuracionPaisDatos = new BEConfiguracionPaisDatos
                 {
                     ConfiguracionPaisID = configuracionPais.ConfiguracionPaisID,
@@ -2831,9 +2847,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var svc = new UsuarioServiceClient())
                 {
-                   svc.ConfiguracionPaisDatosGuardar(userData.PaisID, new[] { configuracionPaisDatos });
+                    svc.ConfiguracionPaisDatosGuardar(userData.PaisID, new[] { configuracionPaisDatos });
                 }
-               
+
                 return Json(new
                 {
                     listActualizado = count,
@@ -2857,7 +2873,7 @@ namespace Portal.Consultoras.Web.Controllers
                     CampaniaID = campaniaId,
                     ConfiguracionPais = new ServiceSAC.BEConfiguracionPais()
                     {
-                       Codigo = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada
+                        Codigo = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada
                     }
                 };
                 using (var sac = new SACServiceClient())
@@ -2882,7 +2898,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
 
-            
+
         }
     }
 }
