@@ -436,10 +436,10 @@ $(document).ready(function () {
     });
 
     CrearDialogs();
+    MostrarBarra();
     CargarDetallePedido();
     CargarCarouselEstrategias("");
-    CargarAutocomplete();
-    MostrarBarra();
+    CargarAutocomplete();  
     CargarDialogMesajePostulantePedido();
     EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-pedido]");
 });

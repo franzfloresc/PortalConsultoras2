@@ -1793,7 +1793,7 @@ namespace Portal.Consultoras.Web.Controllers
             return displayTiempo;
         }
 
-        public BarraConsultoraModel GetDataBarra(bool inEscala = true, bool inMensaje = false)
+        public BarraConsultoraModel GetDataBarra(bool inEscala = true, bool inMensaje = false,bool Agrupado=false)
         {
             var objR = new BarraConsultoraModel
             {
@@ -1859,7 +1859,15 @@ namespace Portal.Consultoras.Web.Controllers
                 objR.MontoGanancia = objR.MontoAhorroCatalogo + objR.MontoAhorroRevista;
                 objR.MontoGananciaStr = Util.DecimalToStringFormat(objR.MontoGanancia, userData.CodigoISO);
 
-                var listProducto = ObtenerPedidoWebDetalle();
+                var listProducto = new List<BEPedidoWebDetalle>();
+                if (Agrupado)
+                {
+                     listProducto = ObtenerPedidoWebSetDetalleAgrupado(); ObtenerPedidoWebDetalle();                   
+                }
+                else {
+                     listProducto = ObtenerPedidoWebDetalle();
+                }
+
                 objR.TotalPedido = listProducto.Sum(d => d.ImporteTotal);
                 objR.TotalPedidoStr = Util.DecimalToStringFormat(objR.TotalPedido, userData.CodigoISO);
 
