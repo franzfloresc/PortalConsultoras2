@@ -10481,12 +10481,19 @@ a {
 }
 
 .content_tono_detalle {
-    width: 39px;
-    height: 39px;
-    padding: 0px;
-    /* margin-right: 1%; */
-    display: inline-block;
+    position: relative;
+    width: 18%;
+    height: 54px;
+    margin-right: 2.5%;
+    float: left;
+    overflow: hidden;
+    margin-top: 5px;
 }
+
+    .content_tono_detalle:nth-child(5n) {
+        margin-right: 0;
+    }
+
 .content_tono_detalle_activo {
     border: 1px solid black;
 }
