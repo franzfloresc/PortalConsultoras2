@@ -21,6 +21,8 @@
     var nombreConsultoraSin = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "");
     var nroCampania = Util.SubStr(Model.CampaniaActual.ToString(), 4, 2);
     var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
+    var culture = System.Globalization.CultureInfo.GetCultureInfo("es-PE");
+    var fechaCierre = ViewBag.FechaInicioCampania.ToString("dd MMM", culture).ToUpper() + " - 11pm";
 }
 
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
@@ -132,14 +134,11 @@
                 <span> @(nroCampania == "" ? "-" : ("C" + nroCampania))</span>
             </div>
             <div class="info_cam_belcorp2">
-                EL CIERRE ES @(ViewBag.Dias == 0 ? "" : "EN")
-                <span>@(ViewBag.Dias == 0 ? "Hoy" : (ViewBag.Dias + "días"))</span>
+                EL CIERRE ES
+                <span>@fechaCierre</span>
             </div>
         </div>
         <div class="pedido_resumen_home">
-            <div class="mensaje_cierre_fechapromesa">
-                @(Html.Raw(ViewBag.MensajeCierreCampania))
-            </div>
             <a role="link" region="Cuerpo" parent="Ingresa tu Pedido" title="Ingresa tu Pedido" class="boton_home_guardar" href="@Url.Action("Index", "Pedido")">INGRESA TU PEDIDO</a>
         </div>
         <div class="socia_negocio_home">

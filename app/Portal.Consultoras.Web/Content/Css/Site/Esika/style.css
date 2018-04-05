@@ -19653,7 +19653,7 @@ label.checkpop.c_on {
     padding-left: 23px;
     max-width: 1070px;
     margin: 0 auto;
-    height: 130px;
+    height: 120px;
     -webkit-box-shadow: 0 15px 21px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0 15px 21px -8px rgba(204,200,204,1);
     box-shadow: 0 15px 21px -8px rgba(204,200,204,1);
@@ -19686,8 +19686,8 @@ label.checkpop.c_on {
     color: black;
     float: left;
     margin-left: 3%;
-    margin-right: 9%;
-    width: 19.5%;
+    margin-right: 3%;
+    width: 22.5%;
 }
 
 .nombre_consultora {
@@ -19716,7 +19716,7 @@ label.checkpop.c_on {
 .info_cam_belcorp {
     float: left;
     height: 41px;
-    padding-right: 22px;
+    padding-right: 6px;
     font-family: 'lato';
     font-size: 10.4px;
     font-weight: 700;
@@ -19729,9 +19729,9 @@ label.checkpop.c_on {
 
     .info_cam_belcorp span {
         color: #a18328;
-        font-size: 26px;
+        font-size: 21px;
         font-family: 'lato';
-        margin-top: -6px;
+        margin-top: -3px;
         display: block;
         font-weight: 400;
     }
@@ -19739,7 +19739,7 @@ label.checkpop.c_on {
 .info_cam_belcorp2 {
     float: left;
     height: 41px;
-    padding-left: 23px;
+    padding-left: 8px;
     font-family: 'lato';
     font-size: 10.4px;
     font-weight: 700;
@@ -19750,9 +19750,9 @@ label.checkpop.c_on {
 
     .info_cam_belcorp2 span {
         color: #a18328;
-        font-size: 26px;
+        font-size: 21px;
         font-family: 'lato';
-        margin-top: -6px;
+        margin-top: -3px;
         display: block;
         font-weight: 400;
     }
@@ -19781,7 +19781,7 @@ label.checkpop.c_on {
     border: 2px solid #e81c36;
     text-align: center;
     color: white;
-    margin-top: 4px;
+    margin-top: 25px;
     font-family: 'lato';
     font-size: 15px;
     font-weight: 600;
@@ -20129,7 +20129,6 @@ label.checkpop.c_on {
     font-size: 11px;
     color: black;
     padding-left: 4%;
-    margin-top: 12px;
     font-weight: 700;
 }
 
