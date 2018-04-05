@@ -9,15 +9,19 @@ using Portal.Consultoras.Web.ServicesCalculosPROL;
 using System;
 using System.Collections.Generic;
 using System.Web;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
     public class SessionManager : ISessionManager
     {
         private static ISessionManager _instance;
+        private static IShowRoom _showRoom;
 
         public SessionManager()
         {
+            if (_showRoom == null)
+                _showRoom = new ShowRoom();
         }
 
         public static ISessionManager Instance
@@ -28,6 +32,14 @@ namespace Portal.Consultoras.Web.SessionManager
                     _instance = new SessionManager();
 
                 return _instance;
+            }
+        }
+
+        public IShowRoom ShowRoom
+        {
+            get
+            {
+                return _showRoom;
             }
         }
 

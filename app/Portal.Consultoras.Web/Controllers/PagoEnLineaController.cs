@@ -137,7 +137,7 @@ namespace Portal.Consultoras.Web.Controllers
                 filtro.CodigoConsultora = CodigoConsultora;
                 filtro.Estado = Estado;
 
-                List<BEPagoEnLineaResultadoLogReporte> lst = new List<BEPagoEnLineaResultadoLogReporte>();
+                List<BEPagoEnLineaResultadoLogReporte> lst;
 
                 using (PedidoServiceClient ps = new PedidoServiceClient())
                 {

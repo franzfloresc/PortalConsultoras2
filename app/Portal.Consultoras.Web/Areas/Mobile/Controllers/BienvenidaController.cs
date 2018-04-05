@@ -20,7 +20,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 if (userData.RolID != Constantes.Rol.Consultora)
-                    return RedirectToAction("Index", "Bienvenida", new { area = "" });
+                    if (userData.RolID == 0)
+                        return RedirectToAction("LogOut", "Login");
+                    else
+                        return RedirectToAction("Index", "Bienvenida", new { area = "" });
 
                 model.RevistaDigital = revistaDigital;
                 model.RevistaDigitalPopUpMostrar = revistaDigital.NoVolverMostrar;

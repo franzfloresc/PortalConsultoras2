@@ -59,23 +59,23 @@
                 <div class="producto_nombre_descripcion_bpt">
                     <div {{#iff TieneVerDetalle }} style="cursor:pointer;" {{/iff}}>
                         {{#IsNullOrEmpty DescripcionMarca '!='}}
-                            <h6>{{DescripcionMarca}}</h6>
+                            <h6 {{#if this.ExperienciaGanaMas includeZero=true}}{{#unless TieneVerDetalle }} style="color:gray;" {{/unless}}{{/if}}>{{DescripcionMarca}}</h6>
                         {{else}}
                             <h6>&ensp;&nbsp;</h6>
                         {{/IsNullOrEmpty}}
 
                         {{#iff DescripcionResumen '!=' ''}}
                         <p class="nombre_producto_bpt" style="cursor:pointer;">
-                            <b class="text_descrition_prd_bpt">{{DescripcionResumen}}</b>
+                            <b class="text_descrition_prd_bpt" {{#if this.ExperienciaGanaMas includeZero=true}}{{#unless TieneVerDetalle }} style="color:gray;" {{/unless}}{{/if}}>{{DescripcionResumen}}</b>
                         </p>
                         {{/iff}}
                         {{#iff DescripcionCortada '!=' ''}}
                         <p class="nombre_producto_bpt" style="cursor:pointer;">
-                            <b class="text_descrition_prd_bpt">{{DescripcionCortada}}</b>
+                            <b class="text_descrition_prd_bpt" {{#if this.ExperienciaGanaMas includeZero=true}}{{#unless TieneVerDetalle }} style="color:gray;" {{/unless}}{{/if}} >{{DescripcionCortada}}</b>
                         </p>
                         {{/iff}}
 
-                        <div class="producto_precio_bpt">
+                        <div class="producto_precio_bpt" {{#if this.ExperienciaGanaMas includeZero=true}}{{#unless TieneVerDetalle }} style="color:gray;" {{/unless}}{{/if}}>
                             {{#iff Precio '>' 0}}
                             <span class="producto_precio_normal_bpt" style="text-decoration: line-through; font-size: 12px;">{{Simbolo}} {{PrecioTachado}}</span>
                             {{/iff}}
@@ -86,9 +86,6 @@
             </div>
 
             {{#if this.ExperienciaGanaMas includeZero=true}}
-            {{#if this.ExperienciaGanaMas.MostrarLoQuieres}}
-            
-            {{/if}}
             {{else}}
             <div class="producto_nombre_descripcion">
                 {{#iff TipoAccionAgregar '==' '1'}}

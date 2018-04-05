@@ -6,7 +6,9 @@ var indCampania = indCampania || 0;
 var isDetalle = false;
 var esPrimeraCarga = true;
 var cantTotalMostrar = 0;
+var clickedSlider = 0;
 var revistaDigital = revistaDigital || null;
+var sliderWay = 0;
 
 var sProps = {
     UrlRevistaDigitalInformacion: baseUrl + 'revistadigital/Informacion',
@@ -101,7 +103,7 @@ $(document).ready(function () {
 
     });
 
-    $(".flecha_scroll_mob").on('click', function (e) {
+    $('.flecha_scroll_mob').on('click', function (e) {
 
         e.preventDefault();
         if ($('#divTopFiltros').length > 0) {
@@ -184,6 +186,10 @@ $(document).ready(function () {
         window.location = urlRetorno;
     });
     
+    $("body").on("click", ".div-carousel-rd-prev, .div-carousel-rd-next", function () {
+        clickedSlider = 1;
+        CallAnalitycsClickArrow();
+    });
 });
 
 function FlechaScrollDown(idCamapania) {
@@ -200,7 +206,7 @@ function FlechaScrollDown(idCamapania) {
 function RDMostrarPosicion() {
     if ($('[data-tag-html]').length == 1) {
         $('[data-tag-html]').show();
-        campaniaId = $('[data-tag-html]').attr("data-tag-html") || 0;
+        campaniaId = $('[data-tag-html]').attr('data-tag-html') || 0;
         campaniaId = parseInt(campaniaId);
     }
     else {
@@ -285,7 +291,7 @@ function OfertaArmarEstrategias(response, busquedaModel) {
         filtroCampania[lsListaRD + indCampania].response.Completo = 1;
     }
     else {
-        console.log('filtroCampania' + indCampania + " - " + response.CampaniaID);
+        console.log('filtroCampania' + indCampania + ' - ' + response.CampaniaID);
     }
     // Listado de producto
     var modeloTemp = Clone(response);
@@ -361,10 +367,12 @@ function OfertaArmarEstrategias(response, busquedaModel) {
                     }
                 }
             }
-            
+
 
             var htmlDivPerdio = SetHandlebars("#producto-landing-template", modeloTemp);
             divPredio.append(htmlDivPerdio);
+        } else {
+            $("#block_inscribete").hide();
         }
     }
 
@@ -404,10 +412,10 @@ function OfertaArmarEstrategiasContenedor(responseData, busquedaModel) {
 
     var response = Clone(responseData);
 
-    var listaSeccionesRD = ["HV"]
+    var listaSeccionesRD = ["HV"];
 
     if (busquedaModel.VarListaStorage === "ListaRD") {
-        listaSeccionesRD = ["RD", "RDR"]
+        listaSeccionesRD = ["RD", "RDR"];
     }
 
     $.each(listaSeccionesRD, function (ind, tipo) {
@@ -672,6 +680,29 @@ function RDDetalleVolver(campaniaId) {
     window.location = urlVolver + "#LAN";
 }
 
+function CheckClickCarrousel(action, source) {
+    if (action === "next") {
+        sliderWay = 1;
+    } else if (action === "prev") {
+        sliderWay = 2;
+    }
+
+    if (source === "normal") {
+        clickedSlider = 1;
+    } 
+    CallAnalitycsClickArrow();
+}
+
+function CallAnalitycsClickArrow() {
+    if (sliderWay !== 0 && clickedSlider !== 0) {
+        if (typeof rdAnalyticsModule !== "undefined") {
+            console.log("values of direction : " + sliderWay);
+            rdAnalyticsModule.ClickArrowLan(sliderWay);
+        }
+        sliderWay = 0;
+        clickedSlider = 0;
+    }
+}
 //Prueba Subida
 $.fn.fixedTo = function (elem) {
     var $this = this,
@@ -691,6 +722,7 @@ $.fn.fixedTo = function (elem) {
                     $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').addClass('scroll_posicionar_fix-zona-dorada');
                     $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').css('display', 'none');
                     $('#seccion-fixed-menu').css('top', '29px');
+                    $('#divOfertaProductosPerdio').css('padding-top', '170px');
                 } else {
                     topAltura = alturaH + 'px';
                     $('.zona_dorada_contenedor_desktop').css('position', 'fixed');
@@ -701,8 +733,6 @@ $.fn.fixedTo = function (elem) {
                     $('.contenido_zona_dorada_contenedor_desktop').css('width', '100%');
                     $('.contenido_zona_dorada_contenedor_desktop').css('z-index', '99');
                     $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('margin', 'auto');
-                    //$('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('width', '1050px');
-                    //$('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').css('margin-left', '195px');
                 }
             } else {
                 if (isMobile()) {
@@ -710,6 +740,7 @@ $.fn.fixedTo = function (elem) {
                     $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').removeClass('scroll_posicionar_fix-zona-dorada');
                     $('.contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop').css('display', 'block');
                     $('#seccion-fixed-menu').css('top', '29px');
+                    $('#divOfertaProductosPerdio').css('padding-top', '');
                     if ($window.scrollTop() <= 29) {
                         $('#seccion-fixed-menu').css('top', '');
                     }
@@ -723,6 +754,8 @@ $.fn.fixedTo = function (elem) {
                     $('.zona_dorada_contenedor_desktop').css('position', 'initial');
                     $('#divOfertaProductosPerdio').css('top', '25px');
                     $('#divOfertaProductosPerdio').css('z-index', 'initial');
+                    $('footer').css('z-index', '100');
+                    $('footer').css('position', 'absolute');
                 }
             }
         };
@@ -734,3 +767,4 @@ $.fn.fixedTo = function (elem) {
     $window.scroll(setPosition);
     setPosition();
 };
+

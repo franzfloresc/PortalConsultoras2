@@ -38,8 +38,10 @@
                     </div><div class="club_btn">
                         <div class="centrar_vertical club_btn_dorado">
                             <div class="centrar_cont_club club_btn_dorado">
-                                <div class="activar_boton_blanco_no_animado">
-                                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion,'@Constantes.ConfiguracionPais.RevistaDigital')">VER MÁS OFERTAS</a>
+                                <div class="activar_boton_blanco_no_animado" 
+                                     style="cursor: pointer;"
+                                     onclick="RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion,'@Constantes.ConfiguracionPais.RevistaDigital')">
+                                    <a href="javascript:;">VER MÁS OFERTAS</a>
                                 </div>
 
                             </div>
@@ -96,8 +98,10 @@
                     </div><div class="club_btn">
                         <div class="centrar_vertical">
                             <div class="centrar_cont_club">
-                                <div class="activar_boton_esika_no_animado bg_activar_boton_no_animado">
-                                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">VER MÁS OFERTAS</a>
+                                <div class="activar_boton_esika_no_animado bg_activar_boton_no_animado"
+                                     style="cursor: pointer;"
+                                     onclick="RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')" >
+                                    <a href="javascript:;">VER MÁS OFERTAS</a>
                                 </div>
                             </div>
                         </div>
@@ -146,7 +150,7 @@ else if (revistaDigital.TieneRDI)
                 <div>@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
             </div>
             <div class="btn_diagonal">
-                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome, '@Constantes.ConfiguracionPais.RevistaDigitalIntriga')">
+                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome, '@Constantes.ConfiguracionPais.OfertasParaTi')">
                     VER TODAS MIS OFERTAS
                     <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" alt="">
                     <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")" alt="">

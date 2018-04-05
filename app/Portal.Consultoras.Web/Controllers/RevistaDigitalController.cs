@@ -142,8 +142,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var palanca = "";
 
-                revistaDigital.ActivoMdo = false;
-
                 if (revistaDigital.ActivoMdo)
                 {
                     palanca = Constantes.TipoEstrategiaCodigo.RevistaDigital;
@@ -184,6 +182,7 @@ namespace Portal.Consultoras.Web.Controllers
                             || e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso)
                             && e.FlagRevista == Constantes.FlagRevista.Valor2
                             ).ToList();
+
                         listPerdio.ForEach(e =>
                         {
                             e.ClaseBloqueada = "btn_desactivado_general";

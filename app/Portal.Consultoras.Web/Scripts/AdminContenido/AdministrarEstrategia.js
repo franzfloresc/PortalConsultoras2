@@ -1372,12 +1372,23 @@
             _toastHelper.error("Seleccione al menos un archivo.");
             return false;
         }
-
+        var file = document.getElementById("fileBloqueoCuv").files[0];
+        var filename = file.name;
+        if ((file.size / 1024 / 1024) > 4) {
+            _toastHelper.error("El archivo es demasiado extenso para ser procesado.");
+            return false;
+        }
+        
+        if (filename.substring(filename.lastIndexOf(".") + 1) !== "csv") {
+            _toastHelper.error("El archivo no tiene la extensión correcta.");
+            return false;
+        }
+        
         formData.append("Documento", document.getElementById("fileBloqueoCuv").files[0]);
         formData.append("Pais", $("#ddlPais").val());
         formData.append("CampaniaId", $("#ddlCampania").val());
         formData.append("TipoEstrategia", $("#ddlTipoEstrategia").val());
-
+        
         $.ajax({
             url: _config.urlUploadBloqueoCuv,
             type: "POST",
@@ -1386,6 +1397,7 @@
             contentType: false,
             processData: false,
             success: function (data) {
+                
                 $("#listCargaBloqueoCuv").jqGrid("GridUnload");
                 var gridJson = {
                     page: 1,
@@ -1422,9 +1434,12 @@
                     hoverrows: false,
                     caption: ""
                 });
-
+                $("#titleCuvBloqueado").fadeOut();
+                $("#listCuvsBloqueados").fadeOut();
                 $("#divBloqueoCuvPaso1").fadeOut(function () {
                     $("#divBloqueoCuvPaso2").fadeIn();
+                    $("#titleCuvBloqueado").html("Nuevas Cuvs cargados:").fadeIn();
+                    $("#listCuvsBloqueados").html(data.valor).fadeIn();
                 });
             },
             error: function (data) {
@@ -4069,42 +4084,45 @@
             showDialog("DialogDescMasivo");
         },
         clickBloqueoCuv: function () {
-           
-            $("#divCuvsBloqueados").hide();
-            $("#divCuvsBloqueados").show();
-            $("#listCuvsBloqueados").html("");
-            var params = {
-                campaniaId: parseInt($("#ddlCampania").val())
-            };
+            if (_basicFieldsValidation()) {
+                document.getElementById("fileBloqueoCuv").value = "";
+                $("#divCuvsBloqueados").hide();
+                $("#divCuvsBloqueados").show();
+                $("#titleCuvBloqueado").html("Cuvs cargados:");
+                $("#listCuvsBloqueados").html("");
+                var params = {
+                    campaniaId: parseInt($("#ddlCampania").val())
+                };
 
-            jQuery.ajax({
-                type: "POST",
-                url: baseUrl + "AdministrarEstrategia/GetCuvsBloqueados",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(params),
-                async: true,
-                success: function (data) {
-                    if (data.success && data.valor != null && data.valor !== "") {
-                        $("#divCuvsBloqueados").show();
-                        $("#listCuvsBloqueados").html(data.valor);
-                    } else {
-                        $("#divCuvsBloqueados").hide();
+                jQuery.ajax({
+                    type: "POST",
+                    url: baseUrl + "AdministrarEstrategia/GetCuvsBloqueados",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(params),
+                    async: true,
+                    success: function(data) {
+                        if (data.success && data.valor != null && data.valor !== "") {
+                            $("#divCuvsBloqueados").show();
+                            $("#listCuvsBloqueados").html(data.valor);
+                        } else {
+                            $("#divCuvsBloqueados").hide();
+                        }
+                    },
+                    error: function(data, error) {
+                        _toastHelper.error(data.message);
                     }
-                },
-                error: function (data, error) {
-                    _toastHelper.error(data.message);
-                }
-            });
-            
-            $("#divBloqueoCuvPaso1").show();
-            $("#divBloqueoCuvPaso2").hide();
-            if ($("#ddlTipoEstrategia").find(":selected").data("codigo") !== _codigoEstrategia.GuiaDeNegocio) {
-                _toastHelper.error("Seleccionar Tipo de Estrategia Guia de Negocio.");
-            } else {
+                });
+
+                $("#divBloqueoCuvPaso1").show();
                 $("#divBloqueoCuvPaso2").hide();
-                showDialog("DialogBloqueoCuv");
-            }
+                if ($("#ddlTipoEstrategia").find(":selected").data("codigo") !== _codigoEstrategia.GuiaDeNegocio) {
+                    _toastHelper.error("Seleccionar Tipo de Estrategia Guia de Negocio.");
+                } else {
+                    $("#divBloqueoCuvPaso2").hide();
+                    showDialog("DialogBloqueoCuv");
+                }
+            } 
         },
         clickAceptarBloqueoCuv1: function () {
             _uploadFileBloqueoCuv();
@@ -4207,7 +4225,6 @@
                 });
 
         },
-
         keyUpCuv: function() {
             if ($(this).val().length == 5) {
 
