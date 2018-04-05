@@ -417,7 +417,7 @@
 
         .contenido_zona_dorada_contenedor_desktop .fix-zona-dorada p {
             font-size: 13px;
-            font-weight: normal;
+            font-weight: 300;
             font-style: normal;
             font-stretch: normal;
             line-height: normal;
@@ -428,6 +428,10 @@
             width: 200px;
             margin: auto;
             padding: 0px 0px 5px 0px;
+        }
+
+        .contenido_zona_dorada_contenedor_desktop .fix-zona-dorada p b{
+            font-weight: 900;
         }
 
         .contenido_zona_dorada_contenedor_desktop .fix-zona-dorada a {

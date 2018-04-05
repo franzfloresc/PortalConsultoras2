@@ -76,7 +76,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 if (upsellings.Any())
                 {
-                    var upselling = upsellings.Where(x => x.Activo).FirstOrDefault();
+                    var upselling = upsellings.FirstOrDefault(x => x.Activo);
                     var available = 0;
 
                     foreach (var item in upselling.Regalos)
@@ -280,7 +280,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     var upLoaded = ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, regalo.Imagen), carpetaPais, regalo.Imagen, true, true, true);
                     if (!upLoaded)
                         return false;
-                };
+                }
 
             }
             catch (Exception ex)

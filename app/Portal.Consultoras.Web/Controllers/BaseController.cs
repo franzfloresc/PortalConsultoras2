@@ -36,6 +36,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -50,7 +51,8 @@ namespace Portal.Consultoras.Web.Controllers
         protected GuiaNegocioModel guiaNegocio;
         protected ISessionManager sessionManager;
         protected ILogManager logManager;
-
+        private readonly TablaLogicaProvider _tablaLogicaProvider;
+        private readonly ShowRoomProvider _showRoomProvider;
         #endregion
 
         #region Constructor
@@ -60,6 +62,8 @@ namespace Portal.Consultoras.Web.Controllers
             userData = new UsuarioModel();
             logManager = LogManager.LogManager.Instance;
             sessionManager = SessionManager.SessionManager.Instance;
+            _tablaLogicaProvider = new TablaLogicaProvider();
+            _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
         }
 
         public BaseController(ISessionManager sessionManager)
@@ -1986,12 +1990,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         public EstadoCuentaModel ObtenerUltimoMovimientoEstadoCuenta()
         {
-            var ultimoMovimiento = new EstadoCuentaModel();
-            ultimoMovimiento.Glosa = "";
+            var ultimoMovimiento = new EstadoCuentaModel
+            {
+                Glosa = ""
+            };
 
             if (userData.TienePagoEnLinea)
             {
-                var ultimoPagoEnLinea = new BEPagoEnLineaResultadoLog();
+                BEPagoEnLineaResultadoLog ultimoPagoEnLinea;
                 using (PedidoServiceClient ps = new PedidoServiceClient())
                 {
                     ultimoPagoEnLinea = ps.ObtenerUltimoPagoEnLineaByConsultoraId(userData.PaisID, userData.ConsultoraID);
@@ -2734,15 +2740,12 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        public List<BETablaLogicaDatos> ObtenerParametrosTablaLogica(int paisId, short tablaLogicaId, bool sesion = false)
+        public List<TablaLogicaDatosModel> ObtenerParametrosTablaLogica(int paisId, short tablaLogicaId, bool sesion = false)
         {
-            var datos = sesion ? (List<BETablaLogicaDatos>)Session[Constantes.ConstSession.TablaLogicaDatos + tablaLogicaId.ToString()] : null;
+            var datos = sesion ? (List<TablaLogicaDatosModel>)Session[Constantes.ConstSession.TablaLogicaDatos + tablaLogicaId.ToString()] : null;
             if (datos == null)
             {
-                using (var sv = new SACServiceClient())
-                {
-                    datos = sv.GetTablaLogicaDatos(paisId, tablaLogicaId).ToList();
-                }
+                datos = _tablaLogicaProvider.ObtenerConfiguracion(paisId, tablaLogicaId);
 
                 if (sesion)
                     Session[Constantes.ConstSession.TablaLogicaDatos + tablaLogicaId.ToString()] = datos;
@@ -2756,12 +2759,12 @@ namespace Portal.Consultoras.Web.Controllers
             return ObtenerValorTablaLogica(ObtenerParametrosTablaLogica(paisId, tablaLogicaId, sesion), idTablaLogicaDatos);
         }
 
-        public string ObtenerValorTablaLogica(List<BETablaLogicaDatos> datos, short idTablaLogicaDatos)
+        public string ObtenerValorTablaLogica(List<TablaLogicaDatosModel> datos, short idTablaLogicaDatos)
         {
             var valor = "";
             if (datos.Any())
             {
-                var par = datos.FirstOrDefault(d => d.TablaLogicaDatosID == idTablaLogicaDatos) ?? new BETablaLogicaDatos();
+                var par = datos.FirstOrDefault(d => d.TablaLogicaDatosID == idTablaLogicaDatos) ?? new TablaLogicaDatosModel();
                 valor = Util.Trim(par.Codigo);
             }
             return valor;
@@ -4096,34 +4099,47 @@ namespace Portal.Consultoras.Web.Controllers
             model.IsMobile = IsMobile();
 
             string codigo = String.Empty;
+            ConfiguracionPaisDatosModel dato;
             if (revistaDigital.EsActiva)
             {
                 model.MensajeIconoSuperior = true;
-                codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaSuscrita;
                 model.BtnInscribirse = false;
-                var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
-                model.MensajeTitulo = dato == null ? "" : Util.Trim(dato.Valor1);
+
+                codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaSuscrita;
+                dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+                model.MensajeTitulo = Util.Trim(dato.Valor1);
+                return model;
             }
-            else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+            else
             {
-                codigo = Constantes.ConfiguracionPaisDatos.RD.PopupBloqueadoSNA;
-                var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
-                model.MensajePopupPrimero = dato == null ? "" : Util.Trim(dato.Valor1.Replace("#campania", string.Concat("C", revistaDigital.CampaniaActiva)));
-                model.MensajePopupSegundo = dato == null ? "" : Util.Trim(dato.Valor2);
+                model.MensajeIconoSuperior = false;
+                model.BtnInscribirse = !revistaDigital.EsSuscrita;
+
+                codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaNoSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaNoSuscrita;
+                dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+                model.MensajeTitulo = Util.Trim(dato.Valor1);
+            }
+
+            if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+            {
                 model.MensajeBtnPopup = "DE ACUERDO";
-                model.IdPopup = !IsMobile() ? "divSNAPopupBloqueadoDesk" : "divSNAPopupBloqueadoMob";
+                model.IdPopup = !model.IsMobile ? "divSNAPopupBloqueadoDesk" : "divSNAPopupBloqueadoMob";
                 model.UrlBtnPopup = "javascript: void(0)";
+
+                codigo = Constantes.ConfiguracionPaisDatos.RD.PopupBloqueadoSNA;
             }
             else if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
             {
+                model.MensajeBtnPopup = "SUSCRIBETE GRATIS";
+                model.IdPopup = !model.IsMobile ? "divNSPopupBloqueadoDesk" : "divNSPopupBloqueadoMob";
+                model.UrlBtnPopup = (model.IsMobile ? "/Mobile" : "") + "/RevistaDigital/Informacion/";
+
                 codigo = Constantes.ConfiguracionPaisDatos.RD.PopupBloqueadoNS;
-                var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
-                model.MensajePopupPrimero = dato == null ? "" : Util.Trim(dato.Valor1);
-                model.MensajePopupSegundo = dato == null ? "" : Util.Trim(dato.Valor2);
-                model.MensajeBtnPopup = "ENTÉRATE CÓMO";
-                model.IdPopup = !IsMobile() ? "divNSPopupBloqueadoDesk" : "divNSPopupBloqueadoMob";
-                model.UrlBtnPopup = "/RevistaDigital/Informacion/";
             }
+
+            dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+            model.MensajePopupPrimero = RemplazaTag(dato.Valor1, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
+            model.MensajePopupSegundo = RemplazaTag(dato.Valor2, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
 
             return model;
         }
@@ -4180,7 +4196,7 @@ namespace Portal.Consultoras.Web.Controllers
             return config;
         }
 
-        private string RemplazaTag(string cadena, string tag, string valor)
+        public string RemplazaTag(string cadena, string tag, string valor)
         {
             cadena = cadena ?? "";
             tag = tag ?? "";
@@ -4313,7 +4329,7 @@ namespace Portal.Consultoras.Web.Controllers
             return listaImagenesResize;
         }
 
-        public int ObtenerTablaLogicaDimensionImagen(List<BETablaLogicaDatos> lista, short tablaLogicaDatosId)
+        public int ObtenerTablaLogicaDimensionImagen(List<TablaLogicaDatosModel> lista, short tablaLogicaDatosId)
         {
             int resultado = 0;
             var resultadoString = ObtenerValorTablaLogica(lista, tablaLogicaDatosId);
@@ -4532,6 +4548,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var configuracionPaisOdd = sessionManager.GetConfiguracionesPaisModel().FirstOrDefault(p => p.Codigo == Constantes.ConfiguracionPais.OfertaDelDia);
                 configuracionPaisOdd = configuracionPaisOdd ?? new ConfiguracionPaisModel();
                 ViewBag.CodigoAnclaOdd = configuracionPaisOdd.Codigo;
+
             }
             catch (Exception ex)
             {
@@ -4616,6 +4633,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.TokenPedidoAutenticoOk = (Session["TokenPedidoAutentico"] != null) ? 1 : 0;
             ViewBag.CodigoEstrategia = GetCodigoEstrategia();
+            ViewBag.BannerInferior = _showRoomProvider.EvaluarBannerConfiguracion(userData.PaisID, sessionManager);
             ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
             int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
             if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();

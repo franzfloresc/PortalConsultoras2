@@ -80,7 +80,7 @@
     </script>
     <style id="styleRelojOdd"></style>
     @RenderSection("styles", required: false)
-    
+
     @if (TempData.ContainsKey("PixelCodigoIso"))
     {
         <noscript id="noscript-pixel-image"></noscript>
@@ -196,6 +196,11 @@
                 <div class="footerTerminos">
                     <a id="linkTerminosCondicionesShowRoom" onclick="SetMarcaGoogleAnalyticsTermino();" target="_blank">T&eacute;rminos y condiciones</a>
                 </div>
+            }
+
+            @if (ViewBag.BannerInferior != null)
+            {
+                @Html.Partial("~/Views/ShowRoom/_BannerInferior.cshtml", (Portal.Consultoras.Web.Models.Estrategia.ShowRoom.BannerInferiorConfiguracion)ViewBag.BannerInferior)
             }
             <!-- footer -->
             <hr class="clear" />

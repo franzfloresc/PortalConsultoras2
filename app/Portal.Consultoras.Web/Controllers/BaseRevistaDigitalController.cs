@@ -1,8 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceUsuario;
-using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -91,7 +89,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.MensajeProductoBloqueado = MensajeProductoBloqueado();
             model.CantidadFilas = 10;
 
-            model.MostrarFiltros = !model.ProductosPerdio ? (revistaDigital.TieneRDC && !revistaDigital.EsActiva) ? false : true : false;
+            model.MostrarFiltros = !model.ProductosPerdio && !(revistaDigital.TieneRDC && !revistaDigital.EsActiva);
 
             return PartialView("template-landing", model);
         }
@@ -146,32 +144,40 @@ namespace Portal.Consultoras.Web.Controllers
             var dato = new ConfiguracionPaisDatosModel();
             if (TieneProductosPerdio(campaniaId))
             {
+                var codigo = "";
+                bool upper = false;
                 if (!revistaDigital.EsSuscrita)
                 {
-                    dato = revistaDigital.ConfiguracionPaisDatos
-                   .FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.NSPerdiste);
-                    dato.Valor1 = dato.Valor1.ToUpper();
-                    dato.Valor2 = dato.Valor2.ToUpper();
+                    codigo = Constantes.ConfiguracionPaisDatos.RD.NSPerdiste;
+                    upper = true;
                 }
                 else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
                 {
-                    dato = revistaDigital.ConfiguracionPaisDatos
-                   .FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.SNAPerdiste);
-                    dato.Valor2 = dato.Valor2.Replace("#campania", string.Concat("C", revistaDigital.CampaniaActiva));
-                    dato.Valor1 = dato.Valor1.ToUpper();
-                    dato.Valor2 = dato.Valor2.ToUpper();
+                    codigo = Constantes.ConfiguracionPaisDatos.RD.SNAPerdiste;
+                    upper = true;
                 }
                 else
                 {
-                    dato = revistaDigital.ConfiguracionPaisDatos
-                    .FirstOrDefault(d => d.Codigo == (IsMobile() ? Constantes.ConfiguracionPaisDatos.RD.MPerdiste : Constantes.ConfiguracionPaisDatos.RD.DPerdiste));
+                    codigo = IsMobile() ? Constantes.ConfiguracionPaisDatos.RD.MPerdiste : Constantes.ConfiguracionPaisDatos.RD.DPerdiste;
                 }
 
-                dato = dato ?? new ConfiguracionPaisDatosModel();
+                dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+
+                dato.Valor1 = RemplazaTag(dato.Valor1, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
+                dato.Valor2 = RemplazaTag(dato.Valor2, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
+
+                if (upper)
+                {
+                    dato.Valor1 = dato.Valor1.ToUpper();
+                    dato.Valor2 = dato.Valor2.ToUpper();
+                }
+                
                 dato.Estado = true;
             }
+
             dato.Valor1 = Util.Trim(dato.Valor1);
             dato.Valor2 = Util.Trim(dato.Valor2);
+
             return dato;
         }
 

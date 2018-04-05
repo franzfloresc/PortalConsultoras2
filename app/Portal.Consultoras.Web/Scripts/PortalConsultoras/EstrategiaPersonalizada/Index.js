@@ -1,7 +1,7 @@
 ﻿
 var sElementos = {
-    seccion: '[data-seccion]',
-    load: '[data-seccion-load]',
+    seccion: "[data-seccion]",
+    load: "[data-seccion-load]",
     listadoProductos: "[data-seccion-productos]"
 };
 
@@ -140,10 +140,10 @@ function SeccionCargarProductos(objConsulta) {
     });
 
     $.ajax({
-        type: 'POST',
+        type: "POST",
         url: baseUrl + objConsulta.UrlObtenerProductos,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
         data: JSON.stringify(param),
         async: true,
         success: function (data) {
@@ -336,19 +336,19 @@ function RenderCarruselPrevisuales(divProd) {
 
     EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
 
-    divProd.find(sElementos.listadoProductos + '.slick-initialized').slick('unslick');
-    divProd.find(sElementos.listadoProductos).not('.slick-initialized').slick({
-        lazyLoad: 'ondemand',
+    divProd.find(sElementos.listadoProductos + ".slick-initialized").slick("unslick");
+    divProd.find(sElementos.listadoProductos).not(".slick-initialized").slick({
+        lazyLoad: "ondemand",
         vertical: false,
         dots: false,
         infinite: true,
-        speed: 300,
+        speed: 500,
         slidesToShow: 1,
         autoplay: true,
         autoplaySpeed: 5000,
-        prevArrow: '<div class="btn-set-previous div-carousel-rd-prev-fix-carousel div-carousel-rd-prev"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-prev"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNamePrev() + '" alt="" /></a></div>',
-        nextArrow: '<div class="btn-set-previous div-carousel-rd-next-fix-carousel div-carousel-rd-next"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-next"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNameNext() + '" alt="" /></a></div>'
-    }).on('afterChange', function (event, slick, currentSlide) {
+        prevArrow: '<div class="btn-set-previous div-carousel-rd-prev-fix-carousel div-carousel-rd-prev"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-prev"><img src="' + baseUrl + "Content/Images/RevistaDigital/" + GetArrowNamePrev() + '" alt="" /></a></div>',
+        nextArrow: '<div class="btn-set-previous div-carousel-rd-next-fix-carousel div-carousel-rd-next"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-next"><img src="' + baseUrl + "Content/Images/RevistaDigital/" + GetArrowNameNext() + '" alt="" /></a></div>'
+    }).on("afterChange", function (event, slick, currentSlide) {
 
         var slides = (slick || new Object()).$slides || new Array();
         if (slides.length == 0) {
@@ -383,6 +383,8 @@ function RenderCarruselPrevisuales(divProd) {
         else {
             slick.$nextArrow.find("img[data-prev]").show();
         }
+    }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
+        VerificarClick(slick, currentSlide, nextSlide, "previsuales");
     });
 }
 
@@ -392,9 +394,9 @@ function RenderCarruselSimple(divProd) {
 
     EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
 
-    divProd.find(sElementos.listadoProductos + '.slick-initialized').slick('unslick');
-    divProd.find(sElementos.listadoProductos).not('.slick-initialized').slick({
-        lazyLoad: 'ondemand',
+    divProd.find(sElementos.listadoProductos + ".slick-initialized").slick("unslick");
+    divProd.find(sElementos.listadoProductos).not(".slick-initialized").slick({
+        lazyLoad: "ondemand",
         infinite: true,
         vertical: false,
         slidesToShow: isMobile() ? 1 : 3,
@@ -403,6 +405,8 @@ function RenderCarruselSimple(divProd) {
         speed: 260,
         prevArrow: '<a class="" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
         nextArrow: '<a class="" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
+    }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
+        VerificarClick(slick, currentSlide, nextSlide, "normal");
     });
 
     divProd.find(sElementos.listadoProductos).css("overflow-y", "visible");
@@ -425,10 +429,10 @@ function UpdateSessionState(codigo, campaniaId) {
     }
 
     $.ajax({
-        type: 'POST',
+        type: "POST",
         url: baseUrl + "Ofertas/ActualizarSession",
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
         data: JSON.stringify(param),
         success: function (data) { },
         error: function (error, x) { }
@@ -441,3 +445,14 @@ function VerificarSecciones() {
         $("#no-productos").fadeIn();
     }
 }
+function VerificarClick(slick, currentSlide, nextSlide, source) {
+    if (typeof CheckClickCarrousel !== "undefined" && typeof CheckClickCarrousel === "function") {
+        if ((currentSlide > nextSlide && (nextSlide !== 0 || currentSlide === 1)) || (currentSlide === 0 && nextSlide === slick.slideCount - 1)) {
+            CheckClickCarrousel("prev", source);
+        }
+        else {
+            CheckClickCarrousel("next", source);
+        }
+    }
+}
+

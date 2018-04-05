@@ -366,8 +366,8 @@
             </div>
             <div class="div-3">
                 <div class="input_horizontal" style="text-align: center;">
-                    <input type="button" name="btnAceptarMasivo1" id="btnAceptarDescMasivo1" value="Continuar" style="float: none;" />
-                    <input type="button" name="btnCancelarMasivo1" id="btnCancelarDescMasivo1" value="Cancelar" style="float: none;" />
+                    <input type="button" name="btnAceptarDescMasivo1" id="btnAceptarDescMasivo1" value="Continuar" style="float: none;" />
+                    <input type="button" name="btnCancelarDescMasivo1" id="btnCancelarDescMasivo1" value="Cancelar" style="float: none;" />
                 </div>
             </div>
         </div>
@@ -422,11 +422,11 @@
 </div>
 
 <div id="DialogBloqueoCuv" style="display: none;">
-    <div class="Content_modal" id="divCuvsBloqueados" style="max-height: 160px">
-        <p style="margin-bottom: .5em;"> Cuvs cargados:</p>
+    <div class="Content_modal" id="divCuvsBloqueados" style="max-height: 160px; margin-bottom: 14px">
+        <p id="titleCuvBloqueado" style="margin-bottom: .5em;"> Cuvs cargados:</p>
         <p id="listCuvsBloqueados" style="word-break: break-all; padding: 0 22px 0 0;"></p>
     </div>
-    <br/>
+
     <div class="Content_modal">
         <div id="divBloqueoCuvPaso1">
             <div class="div-3" style="text-align: center;">
@@ -818,6 +818,5 @@
             e.preventDefault();
         }
     });
-
-
+    
 </script>

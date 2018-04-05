@@ -8,6 +8,7 @@
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
     var idBorrar = "borrar" + Model.CampaniaID;
     var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
+    var ClassMargenDorado = (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva) ? "divOfertaProductosfix" : "divOfertaProductosfixNoDorado";
 }
 
 @section styles{
@@ -68,7 +69,7 @@
          data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding"
          data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingPopUp">
 
-        <div id="divOfertaProductos" style="text-align: center;"></div>
+        <div id="divOfertaProductos" class="@ClassMargenDorado" style="text-align: center;"></div>
         <hr class="clear" />
         @if (Model.ProductosPerdio)
         {
@@ -145,7 +146,7 @@
             }
 
         
-            <div id="divOfertaProductosPerdio" data-content-perdido="@Model.CampaniaID" style="position: relative; top: -230px;"></div>
+            <div id="divOfertaProductosPerdio" class="divOfertaProductosPerdiofix" data-content-perdido="@Model.CampaniaID" style="position: relative; top: -230px;"></div>
 
 
         }

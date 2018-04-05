@@ -1468,7 +1468,7 @@ namespace Portal.Consultoras.Web.Controllers
                 foreach (var item in resultado)
                 {
                     if (!string.IsNullOrEmpty(item.DiasEnEspera))
-                        listaRequest.Add(new ResumenDiasEsperaBE() { SolicitudPostulanteId = item.SolicitudPostulanteID, DiasEspera= Convert.ToInt32(item.DiasEnEspera)});
+                        listaRequest.Add(new ResumenDiasEsperaBE() { SolicitudPostulanteId = item.SolicitudPostulanteID, DiasEspera = Convert.ToInt32(item.DiasEnEspera) });
                 }
                 //Se separó para no saturar el servicio ObtenerReporteGestionPostulante
                 ResumenDiasEsperaCollection reporteDiasEspera;
@@ -1478,7 +1478,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (!string.IsNullOrEmpty(item.DiasEnEspera))
                     {
-                        var data = reporteDiasEspera.ToList().Where(x => x.SolicitudPostulanteId == item.SolicitudPostulanteID).FirstOrDefault().ResumenDiasEspera.Split('|');
+                        var data = reporteDiasEspera.ToList().FirstOrDefault(x => x.SolicitudPostulanteId == item.SolicitudPostulanteID).ResumenDiasEspera.Split('|');
                         item.DetalleDiasEsperaGSAC = data[0];
                         item.DetalleDiasEsperaAFFVV = data[1];
                         item.DetalleDiasEsperaASAC = data[2];
@@ -1665,7 +1665,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (ViewBag.HTMLSACUnete == "{\"success\":true}")
             {
-                RegistrarLogGestionSacUnete(model.SolicitudPostulanteID.ToString(),"EDITAR POSTULANTE","EDITAR");
+                RegistrarLogGestionSacUnete(model.SolicitudPostulanteID.ToString(), "EDITAR POSTULANTE", "EDITAR");
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
             else
@@ -1740,7 +1740,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var urlWsgeo = GetConfiguracionManager(Constantes.ConfiguracionManager.WSGEO_Url);
             var bytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(data));
-                
+
             var url = string.Format("{0}/{1}", urlWsgeo, metodo);
             var request = WebRequest.Create(url) as HttpWebRequest;
             request.Method = "POST";
@@ -1844,7 +1844,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-        
+
         [HttpPost]
         public JsonResult GetReporteRolSearch(string pais, string rol, string usuario, string solicitud, string fechaInicio, string fechaFin, string lastKeyUsuario, string lastKeyFecha, int registrosPagina)
         {
@@ -1857,10 +1857,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ErrorUtilities.AddLog(ex);
             }
-            return Json(result, JsonRequestBehavior.AllowGet); ;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        public ReporteRol GetReporteRol(string pais, string rol, string usuario, string solicitud, string fechaInicio, string fechaFin, string lastKeyUsuario, string lastKeyFecha, int registrosPagina) {
+        public ReporteRol GetReporteRol(string pais, string rol, string usuario, string solicitud, string fechaInicio, string fechaFin, string lastKeyUsuario, string lastKeyFecha, int registrosPagina)
+        {
 
             ReporteRol reporte = new ReporteRol();
 
@@ -1876,7 +1877,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 ErrorUtilities.AddLog(ex);
-            }           
+            }
 
             return reporte;
         }
@@ -1884,9 +1885,12 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ExportarExcelRol(string pais, string rol, string usuario, string solicitud, string fechaInicio, string fechaFin, string lastKeyUsuario, string lastKeyFecha, int registrosPagina, string ReporteNombre)
         {
             ReporteRol result = new ReporteRol();
-            try {
+            try
+            {
                 result = GetReporteRol(pais, rol, usuario, solicitud, fechaInicio, fechaFin, lastKeyUsuario, lastKeyFecha, registrosPagina);
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 ErrorUtilities.AddLog(ex);
             }
 
@@ -1901,14 +1905,16 @@ namespace Portal.Consultoras.Web.Controllers
             dic.Add("Acción", "Accion");
             dic.Add("Fecha de Expiración", "FechaExpiracion");
 
-            if (result.data.Count > 0) {
+            if (result.data.Count > 0)
+            {
                 Util.ExportToExcel(ReporteNombre, result.data, dic);
             }
 
             return View();
         }
 
-        public JsonResult GetRoles() {
+        public JsonResult GetRoles()
+        {
             var result = new List<RolLog>();
             try
             {
