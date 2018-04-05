@@ -3590,15 +3590,19 @@ namespace Portal.Consultoras.Web.Controllers
                         : Constantes.OrigenPantallaWeb.DGuiaNegocio;
                     break;
                 case Constantes.UrlMenuContenedor.HerramientasVentaIndex:
+                case Constantes.UrlMenuContenedor.HerramientasVentaComprar:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVenta;
+                    menuActivo.OrigenPantalla = IsMobile()
+                        ? Constantes.OrigenPantallaWeb.MHerramientaVenta
+                        : Constantes.OrigenPantallaWeb.DHerramientaVenta;
                     break;
                 case Constantes.UrlMenuContenedor.HerramientasVentaRevisar:
                     menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                     menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVenta;
-                    break;
-                case Constantes.UrlMenuContenedor.HerramientasVentaComprar:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVenta;
-                    break;
+                    menuActivo.OrigenPantalla = IsMobile()
+                        ? Constantes.OrigenPantallaWeb.MHerramientaVenta
+                        : Constantes.OrigenPantallaWeb.DHerramientaVenta;
+                    break;                
             }
 
             return menuActivo;

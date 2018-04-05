@@ -288,13 +288,13 @@ var rdAnalyticsModule = (function () {
         try {
             switch (codigo.toString()) {
                 case _tabCode.comprar:
-                    _virtualEventPush(_text.contenedor + "-" + pantalla, _action.clickTab, _text.comprarCampania + campaniaId);
+                    _virtualEventPush(_text.contenedor + " - " + pantalla, _action.clickTab, _text.comprarCampania + campaniaId);
                     break;
                 case _tabCode.ver:
-                    _virtualEventPush(_text.contenedor + "-" + pantalla, _action.clickTab, _text.verCampania + campaniaId);
+                    _virtualEventPush(_text.contenedor + " - " + pantalla, _action.clickTab, _text.verCampania + campaniaId);
                     break;
                 case _tabCode.saberMas:
-                    _virtualEventPush(_text.contenedor + "-" + pantalla, _action.clickTab, _text.saberMas);
+                    _virtualEventPush(_text.contenedor + " - " + pantalla, _action.clickTab, _text.saberMas);
                     break;
             }
         } catch (e) {
@@ -506,7 +506,7 @@ var rdAnalyticsModule = (function () {
     }
 
     function ContendorSection(titulo) {
-        _virtualEventPush(_text.contenedor + " - Home", _capitalizeFirstLetter(titulo.toLowerCase()) + " - Click Botón", _text.notAvailable);
+        _virtualEventPush(_text.contenedor + " - Home", _capitalizeFirstLetter(titulo.toLowerCase()) + " - Click Botón", _action.verMas);
     }
     
     function IrEnterate() {
