@@ -11,7 +11,10 @@ GO
 insert into TablaLogicaDatos
 	values (13901, 139, 'Activo','1',''),
 		   (13902, 139, 'IdEstadoActividad','1',''),
-		   (13903, 139, 'IdEstadoActividad','7','')
+		   (13903, 139, 'IdEstadoActividad','2',''),
+		   (13904, 139, 'IdEstadoActividad','6',''),
+		   (13905, 139, 'IdEstadoActividad','7',''),
+		   (13906, 139, 'IdEstadoActividad','8','')
 GO
 
 -- NUEVA COLUMNA TieneAutenticacion
