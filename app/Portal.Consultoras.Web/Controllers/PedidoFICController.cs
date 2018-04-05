@@ -323,13 +323,12 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
                 }
 
-                var pedidoWebDetalle = ObtenerPedidoWebDetalle();
+                var pedidoWebDetalle = ObtenerPedidoWebSetDetalleAgrupado();
                 var setIds = pedidoWebDetalle.Select(d => d.SetID);
                 foreach (var setId in setIds)
                 {
                     _pedidoSetProvider.EliminarSet(userData.PaisID, setId);
                 }
-
             }
             catch
             {

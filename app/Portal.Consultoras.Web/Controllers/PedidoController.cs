@@ -1099,7 +1099,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 if (eliminacionMasiva)
                 {
-                    var pedidoWebDetalle = ObtenerPedidoWebDetalle() ?? new List<BEPedidoWebDetalle>();
+                    var pedidoWebDetalle = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
                     var setIds = pedidoWebDetalle.Select(d => d.SetID);
                     foreach (var setId in setIds)
                     {
