@@ -26,6 +26,9 @@ belcorp.mobile.pedido.initialize = function () {
 
     self.getDetalleById = function (detalleId) {
         detalleId = Number(detalleId);
+        if (detalleId === 0)
+            return false;
+
         var result = detalles.filter(function (item, index) {
             return item.PedidoDetalleID === detalleId;
         });
@@ -763,6 +766,7 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
     var cantidadElement = $(elementRow).find(".Cantidad");
     var Cantidad = $(cantidadElement).val();
     var CantidadAnti = detalleObj.CantidadTemporal;
+    item.SetID = detalleObj.SetID;
 
     ShowLoading();
     PROL = PROL || "0";
