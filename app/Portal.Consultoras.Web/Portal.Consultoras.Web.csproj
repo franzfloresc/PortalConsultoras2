@@ -1244,6 +1244,7 @@
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
     <Content Include="Content\Css\Mobile\Contenedor\Index.css" />
     <Content Include="Content\Css\Mobile\Contenedor\carrusel.individual.css" />
+    <Content Include="Content\Css\Mobile\Lanzamientos\Detalle.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\ConfirmarDatos.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Gnd-Flotante.css" />
@@ -3624,6 +3625,7 @@
     <Content Include="Scripts\PortalConsultoras\Estrategia\UpSelling\Index.js" />
     <Content Include="Scripts\knockout.extensions.js" />
     <Content Include="Scripts\PortalConsultoras\GuiaNegocio\GuiaNegocio-Landing.js" />
+    <Content Include="Scripts\PortalConsultoras\Lanzamientos\detalle-lanzamiento.js" />
     <Content Include="Scripts\PortalConsultoras\Lanzamientos\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\Login\Analytics.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\Descargables.js" />
@@ -5250,7 +5252,6 @@
     <Folder Include="Annotations\App_Data\" />
     <Folder Include="Areas\Mobile\Views\EstrategiaProductoComentario\" />
     <Folder Include="Content\ArchivoNivelGeografico\" />
-    <Folder Include="Content\Css\Mobile\Lanzamientos\" />
     <Folder Include="GestionPasos\Asignaciones\" />
     <Folder Include="Views\App\" />
     <Folder Include="Views\BaseHerramientasVenta\" />
