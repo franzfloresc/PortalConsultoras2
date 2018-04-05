@@ -404,3 +404,47 @@ margin:auto;
         margin:auto;
     }
 }
+.input_agregar_cantidad {
+    float: left;
+    width:30%;
+}
+.input_agregar_cantidad input {
+    width: 50%;
+    float: left;
+    text-align: center;
+    height: 45px;
+    border-right: 1px solid #cccccc !important;
+}
+.input_agregar_cantidad a.menos {
+    width: 25%;
+    /* float: left; */
+    /* width: 60%; */
+    float: left;
+    text-align: center;
+    height: 45px;
+    padding-top: 0;
+    /* border-right: 1px solid #cccccc; */
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+    padding-top: 12px;
+    border-left: 1px solid #cccccc;
+}
+.input_agregar_cantidad a.mas {
+    width: 25%;
+    /* float: left; */
+    /* width: 60%; */
+    float: left;
+    text-align: center;
+    height: 45px;
+    margin-top: 0;
+    /* border-left: 1px solid #cccccc; */
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+    padding-top: 15px;
+    border-right: 1px solid #cccccc;
+}
+
+.boton_agregar_cantidad {
+    float: left;
+    width:70%;
+}
