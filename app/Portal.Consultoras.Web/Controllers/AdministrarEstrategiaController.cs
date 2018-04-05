@@ -868,7 +868,7 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad = lst[0];
                 string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                 entidad.ImagenMiniaturaURL = ConfigS3.GetUrlFileS3(carpetapais, entidad.ImagenMiniaturaURL, carpetapais);
-                
+
                 return Json(entidad, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
@@ -1801,7 +1801,7 @@ namespace Portal.Consultoras.Web.Controllers
                 (string.IsNullOrEmpty(estrategiaDetalle.ImgFondoDesktop) ||
                  estrategia.ImgFondoDesktop != estrategiaDetalle.ImgFondoDesktop))
                 estrategia.ImgFondoDesktop = SaveFileS3(estrategia.ImgFondoDesktop);
-            
+
             if (!string.IsNullOrEmpty(estrategia.ImgFondoMobile) &&
                 (string.IsNullOrEmpty(estrategiaDetalle.ImgFondoMobile) ||
                  estrategia.ImgFondoMobile != estrategiaDetalle.ImgFondoMobile))
