@@ -35573,16 +35573,16 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<int> GetCantidadOfertasParaTiAsync(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetOfertasParaTiByTipoConfigurado", ReplyAction="http://tempuri.org/IPedidoService/GetOfertasParaTiByTipoConfiguradoResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo);
+        Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetOfertasParaTiByTipoConfigurado", ReplyAction="http://tempuri.org/IPedidoService/GetOfertasParaTiByTipoConfiguradoResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetOfertasParaTiByTipoConfiguradoAsync(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetOfertasParaTiByTipoConfiguradoAsync(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertEstrategiaTemporal", ReplyAction="http://tempuri.org/IPedidoService/InsertEstrategiaTemporalResponse")]
-        int InsertEstrategiaTemporal(int paisId, Portal.Consultoras.Web.ServicePedido.BEEstrategia[] lista, int campaniaId, string codigoUsuario);
+        int InsertEstrategiaTemporal(int paisId, Portal.Consultoras.Web.ServicePedido.BEEstrategia[] lista, int campaniaId, string codigoUsuario, int nroLote);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertEstrategiaTemporal", ReplyAction="http://tempuri.org/IPedidoService/InsertEstrategiaTemporalResponse")]
-        System.Threading.Tasks.Task<int> InsertEstrategiaTemporalAsync(int paisId, Portal.Consultoras.Web.ServicePedido.BEEstrategia[] lista, int campaniaId, string codigoUsuario);
+        System.Threading.Tasks.Task<int> InsertEstrategiaTemporalAsync(int paisId, Portal.Consultoras.Web.ServicePedido.BEEstrategia[] lista, int campaniaId, string codigoUsuario, int nroLote);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetCantidadOfertasParaTiTemporal", ReplyAction="http://tempuri.org/IPedidoService/GetCantidadOfertasParaTiTemporalResponse")]
         int GetCantidadOfertasParaTiTemporal(int paisId, int campaniaId, int tipoConfigurado);
@@ -35592,11 +35592,11 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetOfertasParaTiByTipoConfiguradoTemporal", ReplyAction="http://tempuri.org/IPedidoService/GetOfertasParaTiByTipoConfiguradoTemporalRespon" +
             "se")]
-        Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado);
+        Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado, int nroLote);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetOfertasParaTiByTipoConfiguradoTemporal", ReplyAction="http://tempuri.org/IPedidoService/GetOfertasParaTiByTipoConfiguradoTemporalRespon" +
             "se")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetOfertasParaTiByTipoConfiguradoTemporalAsync(int paisId, int campaniaId, int tipoConfigurado);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetOfertasParaTiByTipoConfiguradoTemporalAsync(int paisId, int campaniaId, int tipoConfigurado, int nroLote);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DeleteEstrategiaTemporal", ReplyAction="http://tempuri.org/IPedidoService/DeleteEstrategiaTemporalResponse")]
         int DeleteEstrategiaTemporal(int paisId, int campaniaId);
@@ -38218,20 +38218,20 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetCantidadOfertasParaTiAsync(paisId, campaniaId, tipoConfigurado, codigoEstrategia);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo) {
-            return base.Channel.GetOfertasParaTiByTipoConfigurado(paisId, campaniaId, tipoConfigurado, estrategiaCodigo);
+        public Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv) {
+            return base.Channel.GetOfertasParaTiByTipoConfigurado(paisId, campaniaId, tipoConfigurado, estrategiaCodigo, pagina, cantidadCuv);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetOfertasParaTiByTipoConfiguradoAsync(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo) {
-            return base.Channel.GetOfertasParaTiByTipoConfiguradoAsync(paisId, campaniaId, tipoConfigurado, estrategiaCodigo);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetOfertasParaTiByTipoConfiguradoAsync(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv) {
+            return base.Channel.GetOfertasParaTiByTipoConfiguradoAsync(paisId, campaniaId, tipoConfigurado, estrategiaCodigo, pagina, cantidadCuv);
         }
         
-        public int InsertEstrategiaTemporal(int paisId, Portal.Consultoras.Web.ServicePedido.BEEstrategia[] lista, int campaniaId, string codigoUsuario) {
-            return base.Channel.InsertEstrategiaTemporal(paisId, lista, campaniaId, codigoUsuario);
+        public int InsertEstrategiaTemporal(int paisId, Portal.Consultoras.Web.ServicePedido.BEEstrategia[] lista, int campaniaId, string codigoUsuario, int nroLote) {
+            return base.Channel.InsertEstrategiaTemporal(paisId, lista, campaniaId, codigoUsuario, nroLote);
         }
         
-        public System.Threading.Tasks.Task<int> InsertEstrategiaTemporalAsync(int paisId, Portal.Consultoras.Web.ServicePedido.BEEstrategia[] lista, int campaniaId, string codigoUsuario) {
-            return base.Channel.InsertEstrategiaTemporalAsync(paisId, lista, campaniaId, codigoUsuario);
+        public System.Threading.Tasks.Task<int> InsertEstrategiaTemporalAsync(int paisId, Portal.Consultoras.Web.ServicePedido.BEEstrategia[] lista, int campaniaId, string codigoUsuario, int nroLote) {
+            return base.Channel.InsertEstrategiaTemporalAsync(paisId, lista, campaniaId, codigoUsuario, nroLote);
         }
         
         public int GetCantidadOfertasParaTiTemporal(int paisId, int campaniaId, int tipoConfigurado) {
@@ -38242,12 +38242,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetCantidadOfertasParaTiTemporalAsync(paisId, campaniaId, tipoConfigurado);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado) {
-            return base.Channel.GetOfertasParaTiByTipoConfiguradoTemporal(paisId, campaniaId, tipoConfigurado);
+        public Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado, int nroLote) {
+            return base.Channel.GetOfertasParaTiByTipoConfiguradoTemporal(paisId, campaniaId, tipoConfigurado, nroLote);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetOfertasParaTiByTipoConfiguradoTemporalAsync(int paisId, int campaniaId, int tipoConfigurado) {
-            return base.Channel.GetOfertasParaTiByTipoConfiguradoTemporalAsync(paisId, campaniaId, tipoConfigurado);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetOfertasParaTiByTipoConfiguradoTemporalAsync(int paisId, int campaniaId, int tipoConfigurado, int nroLote) {
+            return base.Channel.GetOfertasParaTiByTipoConfiguradoTemporalAsync(paisId, campaniaId, tipoConfigurado, nroLote);
         }
         
         public int DeleteEstrategiaTemporal(int paisId, int campaniaId) {
