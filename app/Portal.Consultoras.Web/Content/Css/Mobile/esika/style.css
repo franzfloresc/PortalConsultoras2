@@ -10481,18 +10481,16 @@ a {
 }
 
 .content_tono_detalle {
-    position: relative;
-    width: 18%;
-    height: 54px;
-    margin-right: 2.5%;
-    float: left;
-    overflow: hidden;
-    margin-top: 5px;
+    width: 39px;
+    height: 39px;
+    padding: 0px;
+    /* margin-right: 1%; */
+    display: inline-block;
+}
+.content_tono_detalle_activo {
+    border: 1px solid black;
 }
 
-    .content_tono_detalle:nth-child(5n) {
-        margin-right: 0;
-    }
 
 .content_mascara_maquillaje {
     position: absolute;
@@ -12407,7 +12405,7 @@ a {
     color: black;
     margin-top: 5px;
     background: url('../../../Images/mobile/Esika/menu_mobile.png') no-repeat;
-    background-position: 95% 19px;
+    background-position: 99% 19px;
     position: relative;
     margin-bottom: 5px;
 }

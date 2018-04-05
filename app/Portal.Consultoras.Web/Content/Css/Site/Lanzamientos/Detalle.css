@@ -357,6 +357,13 @@ margin-right: 5px;
 .detalle-prod .detalle-info .detalle-bloque-tres{
 margin-bottom:20px;
 }
+.detalle-prod .detalle-info .detalle-bloque-tres .nombre_producto_opt{
+    display: block;
+    word-wrap: break-word;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 .detalle-prod .detalle-info .detalle-bloque-cuatro{
 
 }
