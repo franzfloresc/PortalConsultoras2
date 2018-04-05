@@ -58,18 +58,18 @@
                             <option value="">-- Seleccionar --</option>
                             for (int i = 0; i < Model.ListaTipoEstrategia.Count(); i++)
                             {
-                            <option flag-nueva="@Model.ListaTipoEstrategia.ToList()[i].FlagNueva"
-                                    flag-recoproduct="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoProduc"
-                                    flag-recoperfil="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoPerfil"
-                                    codigo-programa="@Model.ListaTipoEstrategia.ToList()[i].CodigoPrograma"
-                                    imagen-tipo="@Model.ListaTipoEstrategia.ToList()[i].Imagen"
-                                    value="@Model.ListaTipoEstrategia.ToList()[i].TipoEstrategiaID"
-                                    data-id="@Model.ListaTipoEstrategia.ToList()[i].CodigoGeneral"
-                                    data-codigo="@Model.ListaTipoEstrategia.ToList()[i].Codigo"
-									data-FValidarImagen = "@Model.ListaTipoEstrategia.ToList()[i].FlagValidarImagen"
-									data-PesoMaximo = "@Model.ListaTipoEstrategia.ToList()[i].PesoMaximoImagen" >
-                                @Model.ListaTipoEstrategia.ToList()[i].Descripcion
-                            </option>
+                                <option flag-nueva="@Model.ListaTipoEstrategia.ToList()[i].FlagNueva"
+                                        flag-recoproduct="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoProduc"
+                                        flag-recoperfil="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoPerfil"
+                                        codigo-programa="@Model.ListaTipoEstrategia.ToList()[i].CodigoPrograma"
+                                        imagen-tipo="@Model.ListaTipoEstrategia.ToList()[i].Imagen"
+                                        value="@Model.ListaTipoEstrategia.ToList()[i].TipoEstrategiaID"
+                                        data-id="@Model.ListaTipoEstrategia.ToList()[i].CodigoGeneral"
+                                        data-codigo="@Model.ListaTipoEstrategia.ToList()[i].Codigo"
+                                        data-FValidarImagen="@Model.ListaTipoEstrategia.ToList()[i].FlagValidarImagen"
+                                        data-PesoMaximo="@Model.ListaTipoEstrategia.ToList()[i].PesoMaximoImagen">
+                                    @Model.ListaTipoEstrategia.ToList()[i].Descripcion
+                                </option>
                             }
                         }
                     </select>
@@ -138,7 +138,7 @@
 
                 <div class="input_horizontal">
                     <input type="button" value="Buscar Personalización" id="btnBuscarPersonalizacionNivel" name="">
-                           <!--style="border-radius: 10px; background: #00A2E8; color: white; -webkit-appearance: none; border: 0; height: 38px;"-->
+                    <!--style="border-radius: 10px; background: #00A2E8; color: white; -webkit-appearance: none; border: 0; height: 38px;"-->
                 </div>
             </div>
         </div>
@@ -338,13 +338,13 @@
             </div>
             <div class="container" style="width: 70%;">
                 <div class="border-wrapper">
-                    <input type="file" id="fileDescMasivo" name="fileDescMasivo"/>
+                    <input type="file" id="fileDescMasivo" name="fileDescMasivo" />
                 </div>
             </div>
             <div class="div-3" style="margin: 15px auto; width: 200px;">
-                Formato de archivo (*.csv):<br/>
-                    - CUV<br />
-                <span id="seccionFormatoArchivoGeneral">                    
+                Formato de archivo (*.csv):<br />
+                - CUV<br />
+                <span id="seccionFormatoArchivoGeneral">
                     - Descripción<br />
                 </span>
                 <span id="seccionFormatoArchivoSetShowroon">
@@ -373,9 +373,9 @@
         </div>
         <div id="divDescMasivoPaso2" style="display: none;">
             <div class="div-3" style="text-align: center;">
-                Resultado de la actualización: 
+                Resultado de la actualización:
             </div>
-            <div class="container" style="margin: 15px auto; width: auto;">                
+            <div class="container" style="margin: 15px auto; width: auto;">
                 <div class="border-wrapper">
                     <label id="estadoCargaMasiva"></label>
                     <table id="listCargaDescMasiva"></table>
@@ -632,15 +632,15 @@
             </div>
         </div>
         @*<div class="div-3">
-            <div class="titG">Descripcion 2:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtDescripcion2Detalle" />
-            </div>
-            <div class="titG">Descripcion 3:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtDescripcion3Detalle" />
-            </div>
-        </div>*@
+                <div class="titG">Descripcion 2:</div>
+                <div class="selectP2 borde_redondeado">
+                    <input type="text" id="txtDescripcion2Detalle" />
+                </div>
+                <div class="titG">Descripcion 3:</div>
+                <div class="selectP2 borde_redondeado">
+                    <input type="text" id="txtDescripcion3Detalle" />
+                </div>
+            </div>*@
         <div class="div-3">
             <div class="titG">Precio Oferta:</div>
             <div class="selectP2 borde_redondeado">
@@ -652,12 +652,12 @@
             </div>
         </div>
         @*<div class="div-3">
-            <div class="titG">Marca Producto:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtMarcaProductoDetalle" />
-            </div>
-            
-        </div>*@
+                <div class="titG">Marca Producto:</div>
+                <div class="selectP2 borde_redondeado">
+                    <input type="text" id="txtMarcaProductoDetalle" />
+                </div>
+
+            </div>*@
         <div class="div-3">
             <div class="titG">Imagen:</div>
             <div class="pdr_modal borde_redondeado aligncenter" style="width: 168px; height: 200px;">
