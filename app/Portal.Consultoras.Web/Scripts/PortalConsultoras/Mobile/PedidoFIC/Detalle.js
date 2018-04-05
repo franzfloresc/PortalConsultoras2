@@ -30,7 +30,7 @@ $(document).ready(function () {
 });
 
 function MensajeGuardar() {
-    AbrirMensaje("Su pedido ha sido guardado correctamente.");
+    AbrirMensaje("Su pedido ha sido guardado correctamente.","¡LO LOGRASTE!",'',2);
 }
 
 function ValidarKitNuevas() {
