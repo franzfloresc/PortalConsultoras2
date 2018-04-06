@@ -228,7 +228,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var temp = observaciones.Where(o => o.CUV == item.CUV).ToList();
                 if (temp.Count != 0)
                 {                        
-                    if (temp[0].Caso == 0) item.TipoObservacion = 0;
+                    if (temp.Any(o => o.Caso == 0)) item.TipoObservacion = 0;
                     else item.TipoObservacion = temp[0].Tipo;
                         
                     foreach (var ob in temp)

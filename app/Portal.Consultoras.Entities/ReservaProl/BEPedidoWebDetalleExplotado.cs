@@ -1,4 +1,7 @@
-﻿namespace Portal.Consultoras.Entities.ReservaProl
+﻿using OpenSource.Library.DataAccess;
+using System.Collections.Generic;
+
+namespace Portal.Consultoras.Entities.ReservaProl
 {
     public class BEPedidoWebDetalleExplotado
     {
@@ -45,5 +48,36 @@
         public string ValCodiOrig { get; set; }
         public decimal OportunidadAhorro { get; set; }
         public int UnidadesReservadasSap { get; set; }
+        public int OrigenPedidoWeb { get; set; }
+
+        [ViewProperty]
+        public List<string> ListCuvOrigen { get; set; }
+    }
+
+    public class Nodo<T>
+    {
+        public Nodo(T actual)
+        {
+            Padres = new List<Nodo<T>>();
+            Hijos = new List<Nodo<T>>();
+            Actual = actual;
+        }
+
+        public List<Nodo<T>> Padres { get; set; }
+        public List<Nodo<T>> Hijos { get; set; }
+        public T Actual { get; set; }
+        public bool Generado { get; set; }
+
+        public void AddHijo(Nodo<T> hijo)
+        {
+            Hijos.Add(hijo);
+            hijo.Padres.Add(this);
+        }
+
+        public void AddPadre(Nodo<T> padre)
+        {
+            Padres.Add(padre);
+            padre.Hijos.Add(this);
+        }
     }
 }
