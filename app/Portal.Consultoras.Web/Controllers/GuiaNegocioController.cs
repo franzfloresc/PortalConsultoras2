@@ -11,7 +11,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (GNDValidarAcceso())
+                if (GNDValidarAcceso(revistaDigital))
                 {
                     return ViewLanding();
                 }
@@ -23,13 +23,13 @@ namespace Portal.Consultoras.Web.Controllers
 
             return RedirectToAction("Index", "Bienvenida");
         }
-        
+
         [HttpPost]
         public JsonResult GNDObtenerProductos(BusquedaProductoModel model)
         {
             try
             {
-                if (!GNDValidarAcceso())
+                if (!GNDValidarAcceso(revistaDigital))
                 {
                     return Json(new
                     {
@@ -43,7 +43,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
 
                 int cantidadTotal = listModel.Count;
-                
+
                 return Json(new
                 {
                     success = true,
@@ -64,6 +64,6 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
     }
 }

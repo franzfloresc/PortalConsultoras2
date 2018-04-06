@@ -65,7 +65,7 @@ namespace Portal.Consultoras.Web.Controllers
                     string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, correoNuevo, "UrlReturn,cupon" };
                     string paramQuerystring = Util.Encrypt(string.Join(";", parametros));
 
-                    bool tipopais = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika).Contains(userData.CodigoISO);
+                    bool tipopais = GetPaisesEsikaFromConfig().Contains(userData.CodigoISO);
 
                     var cadena = MailUtilities.CuerpoMensajePersonalizado(Util.GetUrlHost(this.HttpContext.Request).ToString(), userData.Sobrenombre, paramQuerystring, tipopais);
 
@@ -103,7 +103,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string url = Util.GetUrlHost(this.HttpContext.Request).ToString();
                 string montoLimite = ObtenerMontoLimiteDelCupon();
                 CuponConsultoraModel cuponModel = ObtenerDatosCupon();
-                bool tipopais = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika).Contains(userData.CodigoISO);
+                bool tipopais = GetPaisesEsikaFromConfig().Contains(userData.CodigoISO);
                 string mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon, url, montoLimite, tipopais);
                 string correo = userData.EMail;
                 Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correo, "Activación de Cupón", mailBody, true, userData.NombreConsultora);
@@ -118,13 +118,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                bool tieneOfertasPlan20 = false;
-                if (userData.CodigoISO == "PE")
-                    tieneOfertasPlan20 = true;
-                else
-                    tieneOfertasPlan20 = TieneOfertasPlan20();
-                
-                return Json(new { success = true, tieneOfertasPlan20 = tieneOfertasPlan20, message = "" }, JsonRequestBehavior.AllowGet);
+                bool tieneOfertasPlan20 = true;
+                //tieneOfertasPlan20 = TieneOfertasPlan20();
+
+                return Json(new { success = true, tieneOfertasPlan20 = tieneOfertasPlan20, message = "" }, JsonRequestBehavior.AllowGet);   
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
         }
@@ -216,6 +213,8 @@ namespace Portal.Consultoras.Web.Controllers
         private bool TieneOfertasPlan20()
         {
             var flag = false;
+            var flagValidacionCodigoCatalogo = false;   
+            var flagValidacionAppCatalogo = false;  
             List<BEPedidoWebDetalle> listaPedidoWebDetalle;
 
             if (sessionManager.GetDetallesPedido() == null)
@@ -241,19 +240,46 @@ namespace Portal.Consultoras.Web.Controllers
                 listaPedidoWebDetalle = sessionManager.GetDetallesPedido();
             }
 
-            List<BETablaLogicaDatos> lstCodigosOfertas;
+            #region Logica validacion por Codigo de Catalogo    
+
+            List<BETablaLogicaDatos> lstCodigosOfertas; 
             using (SACServiceClient svc = new SACServiceClient())
             {
                 lstCodigosOfertas = svc.GetTablaLogicaDatos(userData.PaisID, Constantes.TipoOfertasPlan20.TablaLogicaId).ToList();
             }
 
-            if (listaPedidoWebDetalle.Any()  && lstCodigosOfertas.Any())
+
+            var listaCodigoTipoOferta = new List<string>(); 
+            listaCodigoTipoOferta.Add("126");   
+
+            if (listaPedidoWebDetalle.Any() && lstCodigosOfertas.Any()) 
             {
-                var lstTmp = listaPedidoWebDetalle.Where(x => lstCodigosOfertas.Any(y => x.CodigoCatalago == int.Parse(y.Codigo)));
-                flag = lstTmp.Any();
+                var producto = listaPedidoWebDetalle.FirstOrDefault(x => lstCodigosOfertas.Any(y => x.CodigoCatalago == int.Parse(y.Codigo))    
+                                                        && listaCodigoTipoOferta.Any(y => x.CodigoTipoOferta.Trim() != y)   
+                                                        && x.TipoEstrategiaCodigo.Trim() != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);     
+
+                if (producto != null)   
+                    flagValidacionCodigoCatalogo = true;
             }
 
-            return flag;
+            #endregion
+
+            #region Logica validacion por App Catalogo y OrigenPedidoWeb    
+
+            if (listaPedidoWebDetalle.Any())    
+            {
+                var producto = listaPedidoWebDetalle.FirstOrDefault(p => p.OrigenPedidoWeb.ToString().StartsWith("4")   
+                                                                    && listaCodigoTipoOferta.Any(y => p.CodigoTipoOferta.Trim() != y)   
+                                                                    && p.TipoEstrategiaCodigo.Trim() != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);     
+                if (producto != null)   
+                    flagValidacionAppCatalogo = true;
+            }
+
+            #endregion
+
+            flag = flagValidacionCodigoCatalogo && flagValidacionAppCatalogo;   
+
+            return flag;    
         }
 
         private void ValidarPopupDelGestorPopups()
@@ -289,7 +315,7 @@ namespace Portal.Consultoras.Web.Controllers
                 TipoCupon = cuponBe.TipoCupon
             };
         }
-        
+
         private void ActualizarCelularUsuario(CuponUsuarioModel model)
         {
             var celularActual = userData.Celular;

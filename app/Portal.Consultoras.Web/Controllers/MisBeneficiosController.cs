@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 IList<BEServicioCampania> lstTemp2 = lstTemp1.Where(p => p.ConfiguracionZona == string.Empty || p.ConfiguracionZona.Contains(userData.ZonaID.ToString())).ToList();
                 IList<BEServicioCampania> lst = lstTemp2.Where(p => p.Segmento == "-1" || p.Segmento == segmentoServicio.ToString()).ToList();
-                
+
                 return Json(new
                 {
                     lista = Mapper.Map<IList<BEServicioCampania>, List<ServicioCampaniaModel>>(lst),

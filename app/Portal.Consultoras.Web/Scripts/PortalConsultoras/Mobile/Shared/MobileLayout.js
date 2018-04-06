@@ -361,7 +361,7 @@ function loadBannerLP20() {
             animation: "fade",
             pauseOnAction: false,
             animationSpeed: 1600
-        });
+        });                
     }
 }
 

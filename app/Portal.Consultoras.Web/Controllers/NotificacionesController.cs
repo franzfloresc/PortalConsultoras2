@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.ServiceCDR;
+using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServicePedidoRechazado;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
@@ -24,7 +26,7 @@ namespace Portal.Consultoras.Web.Controllers
             NotificacionesModel model = new NotificacionesModel();
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
-                olstNotificaciones = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR).ToList();
+                olstNotificaciones = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR, userData.TienePagoEnLinea).ToList();
             }
             model.ListaNotificaciones = olstNotificaciones;
             return View(model);
@@ -50,7 +52,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                 }
 
-                olstNotificaciones = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR).ToList();
+                olstNotificaciones = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR, userData.TienePagoEnLinea).ToList();
             }
 
             model.ListaNotificaciones = olstNotificaciones;
@@ -81,6 +83,9 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                         case 8:
                             sv.UpdNotificacionCdrCulminadoVisualizacion(paisId, ProcesoId);
+                            break;
+                        case 9:
+                            sv.UpdNotificacionPagoEnLineaVisualizacion(paisId, Convert.ToInt32(ProcesoId));
                             break;
                         default:
                             sv.UpdNotificacionesConsultoraVisualizacion(paisId, ProcesoId, TipoOrigen);
@@ -144,7 +149,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return PartialView("ListadoDetalleSolicitud", model);
         }
-        
+
         public ActionResult ListarDetalleSolicitudClienteCatalogo(long SolicitudId)
         {
             NotificacionesModel model = new NotificacionesModel();
@@ -165,13 +170,13 @@ namespace Portal.Consultoras.Web.Controllers
                 using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
                 {
                     var beSolicitudCliente = new ServiceSAC.BESolicitudCliente
-                        {
-                            SolicitudClienteID = SolicitudId,
-                            CodigoConsultora = ConsultoraID.ToString(),
-                            MensajeaCliente = MensajeaCliente,
-                            UsuarioModificacion = userData.CodigoUsuario,
-                            Estado = "A"
-                        };
+                    {
+                        SolicitudClienteID = SolicitudId,
+                        CodigoConsultora = ConsultoraID.ToString(),
+                        MensajeaCliente = MensajeaCliente,
+                        UsuarioModificacion = userData.CodigoUsuario,
+                        Estado = "A"
+                    };
                     sc.UpdSolicitudCliente(paisId, beSolicitudCliente);
                 }
 
@@ -330,13 +335,13 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var model = new NotificacionesModel
-                {
-                    ListaNotificacionesDetalle = new List<BENotificacionesDetalle>(),
-                    ListaNotificacionesDetallePedido =
+            {
+                ListaNotificacionesDetalle = new List<BENotificacionesDetalle>(),
+                ListaNotificacionesDetallePedido =
                         Mapper.Map<List<NotificacionesModelDetallePedido>>(olstObservacionesPedido),
-                    NombreConsultora = userData.NombreConsultora,
-                    Origen = 3
-                };
+                NombreConsultora = userData.NombreConsultora,
+                Origen = 3
+            };
 
             return PartialView("ListadoObservaciones", model);
         }
@@ -403,6 +408,38 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("ListaDetalleCdrCulminado", model);
         }
 
+        public ActionResult DetallePagoEnLinea(int solicitudId)
+        {
+            var pagoEnLinea = new BEPagoEnLineaResultadoLog();
+
+            using (PedidoServiceClient ps = new PedidoServiceClient())
+            {
+                pagoEnLinea = ps.ObtenerPagoEnLineaById(userData.PaisID, solicitudId);
+            }
+
+            if (!pagoEnLinea.Visualizado)
+            {
+                using (UsuarioServiceClient us = new UsuarioServiceClient())
+                {
+                    us.UpdNotificacionPagoEnLineaVisualizacion(userData.PaisID, solicitudId);
+                }
+            }
+
+            var pagoEnLineaModel = new PagoEnLineaModel();
+            pagoEnLineaModel.CodigoIso = userData.CodigoISO;
+            pagoEnLineaModel.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
+            pagoEnLineaModel.NumeroOperacion = pagoEnLinea.NumeroOrdenTienda;
+            pagoEnLineaModel.Simbolo = userData.Simbolo;
+            pagoEnLineaModel.MontoDeuda = pagoEnLinea.MontoPago;
+            pagoEnLineaModel.MontoGastosAdministrativosNot = pagoEnLinea.MontoGastosAdministrativos;
+            pagoEnLineaModel.MontoDeudaConGastosNot = pagoEnLinea.ImporteAutorizado;
+
+            pagoEnLineaModel.FechaCreacion = pagoEnLinea.FechaCreacion;
+            pagoEnLineaModel.FechaVencimiento = pagoEnLinea.FechaVencimiento;
+
+            return PartialView("DetallePagoEnLinea", pagoEnLineaModel);
+        }
+
         [HttpPost]
         public JsonResult GetNotificacionesSinLeer()
         {
@@ -418,7 +455,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (UsuarioServiceClient sv = new UsuarioServiceClient())
                     {
-                        cantidadNotificaciones = sv.GetNotificacionesSinLeer(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR);
+                        cantidadNotificaciones = sv.GetNotificacionesSinLeer(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR, userData.TienePagoEnLinea);
                     }
 
                     Session["fechaGetNotificacionesSinLeer"] = DateTime.Now.Ticks;
@@ -432,12 +469,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Json(new { mensaje, cantidadNotificaciones }, JsonRequestBehavior.AllowGet);
         }
-        
+
         public bool CheckDataSessionCantidadNotificaciones()
         {
             if (Session["fechaGetNotificacionesSinLeer"] != null &&
                 Session["cantidadGetNotificacionesSinLeer"] != null)
-            {                
+            {
                 var ticks = Convert.ToInt64(Session["fechaGetNotificacionesSinLeer"]);
                 var fecha = new DateTime(ticks);
                 var diferencia = DateTime.Now - fecha;

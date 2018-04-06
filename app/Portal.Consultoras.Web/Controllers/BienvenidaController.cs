@@ -38,14 +38,9 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 model.PartialSectionBpt = GetPartialSectionBptModel(revistaDigital);
-
                 ViewBag.UrlImgMiAcademia = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImgMiAcademia) + "/" + userData.CodigoISO + "/academia.png";
                 ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
-
-                var nombreCarpetaTc = GetConfiguracionManager(Constantes.ConfiguracionManager.NombreCarpetaTC);
-                var nombreArchivoTc = GetConfiguracionManager(Constantes.ConfiguracionManager.NombreArchivoTC) + ".pdf";
-                ViewBag.UrlPdfTerminosyCondiciones = ConfigS3.GetUrlFileS3(nombreCarpetaTc, userData.CodigoISO + "/" + nombreArchivoTc, String.Empty);
-
+                ViewBag.UrlPdfTerminosyCondiciones = GetUrlTerminosCondicionesDatosUsuario();
                 ViewBag.UrlImagenFAVHome = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVHome), userData.CodigoISO);
 
                 #region Montos
@@ -178,36 +173,10 @@ namespace Portal.Consultoras.Web.Controllers
                 model.VioTutorialDesktop = userData.VioTutorialDesktop;
 
                 #region limite Min - Max Telef
-                switch (userData.PaisID)
-                {
-                    case 9:
-                        model.limiteMinimoTelef = 5;
-                        model.limiteMaximoTelef = 15;
-                        break;
-                    case 11:
-                        model.limiteMinimoTelef = 7;
-                        model.limiteMaximoTelef = 9;
-                        break;
-                    case 4:
-                        model.limiteMinimoTelef = 10;
-                        model.limiteMaximoTelef = 10;
-                        break;
-                    case 8:
-                    case 7:
-                    case 10:
-                    case 5:
-                        model.limiteMinimoTelef = 8;
-                        model.limiteMaximoTelef = 8;
-                        break;
-                    case 6:
-                        model.limiteMinimoTelef = 9;
-                        model.limiteMaximoTelef = 10;
-                        break;
-                    default:
-                        model.limiteMinimoTelef = 0;
-                        model.limiteMaximoTelef = 15;
-                        break;
-                }
+                int limiteMinimoTelef, limiteMaximoTelef;
+                GetLimitNumberPhone(out limiteMinimoTelef, out limiteMaximoTelef);
+                model.limiteMinimoTelef = limiteMinimoTelef;
+                model.limiteMaximoTelef = limiteMaximoTelef;
                 #endregion
 
                 #region Lógica de Popups
@@ -233,6 +202,8 @@ namespace Portal.Consultoras.Web.Controllers
                 TempData.Keep("MostrarPopupCuponGanaste");
 
                 ViewBag.VerSeccion = verSeccion;
+
+                model.TienePagoEnLinea = userData.TienePagoEnLinea;
             }
             catch (FaultException ex)
             {
@@ -515,26 +486,20 @@ namespace Portal.Consultoras.Web.Controllers
         private List<BEComunicado> ValidarComunicadoPopup()
         {
             var tempComunicados = new List<BEComunicado>();
+
             try
             {
-
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                 {
-                    using (var sac = new SACServiceClient())
+                    var comunicados = ObtenerComunicadoPorConsultora();
+
+                    if (comunicados != null && comunicados.Count > 0)
                     {
-                        var comunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora,
-                            Constantes.ComunicadoTipoDispositivo.Desktop);
-
-                        if (comunicados != null && comunicados.Length > 0)
-                        {
-                            tempComunicados = comunicados.Where(c =>
-                                string.IsNullOrEmpty(c.CodigoCampania) ||
-                                Convert.ToInt32(c.CodigoCampania) == userData.CampaniaID).ToList();
-
-                        }
+                        tempComunicados = comunicados.Where(c =>
+                            string.IsNullOrEmpty(c.CodigoCampania) ||
+                            Convert.ToInt32(c.CodigoCampania) == userData.CampaniaID).ToList();
                     }
                 }
-
             }
             catch (Exception ex)
             {
@@ -1980,17 +1945,15 @@ namespace Portal.Consultoras.Web.Controllers
             var comunicadoVisualizado = 0;
             var comunicado = new BEComunicado();
 
-            using (var sac = new SACServiceClient())
-            {
-                var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Desktop);
+            var tempComunicados = ObtenerComunicadoPorConsultora();
 
-                if (tempComunicados != null && tempComunicados.Length > 0)
+            if (tempComunicados != null && tempComunicados.Count > 0)
+            {
+                comunicado = tempComunicados.FirstOrDefault(c => String.IsNullOrEmpty(c.CodigoCampania) || Convert.ToInt32(c.CodigoCampania) == userData.CampaniaID);
+
+                if (comunicado != null)
                 {
-                    comunicado = tempComunicados.FirstOrDefault(c => String.IsNullOrEmpty(c.CodigoCampania) || Convert.ToInt32(c.CodigoCampania) == userData.CampaniaID);
-                    if (comunicado != null)
-                    {
-                        comunicadoVisualizado = 1;
-                    }
+                    comunicadoVisualizado = 1;
                 }
             }
 
@@ -2005,6 +1968,43 @@ namespace Portal.Consultoras.Web.Controllers
                 ipUsuario = userData.IPUsuario
             },
             JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ActualizarVisualizoComunicado(int ComunicadoId)
+        {
+            try
+            {
+                using (var sac = new SACServiceClient())
+                {
+                    sac.ActualizarVisualizoComunicado(userData.PaisID, userData.CodigoConsultora, ComunicadoId);
+                }
+                return Json(new
+                {
+                    success = true,
+                    message = "",
+                    extra = ""
+                });
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema al actualizar que se visualizó el popup, intente nuevamente",
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                });
+            }
         }
 
         public JsonResult AceptarComunicadoVisualizacion(int ComunicadoID)
@@ -2134,47 +2134,17 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ChatBelcorp()
         {
             var url = "";
-            var fechaInicioChat = GetConfiguracionManager(Constantes.ConfiguracionManager.FechaChat + userData.CodigoISO);
+            if (GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesBelcorpChatEMTELCO).Contains(userData.CodigoISO))
+            {
+                url = String.Format(
+                    GetConfiguracionManager(Constantes.ConfiguracionManager.UrlBelcorpChat),
+                    userData.SegmentoAbreviatura.Trim(),
+                    userData.CodigoUsuario.Trim(),
+                    userData.PrimerNombre.Split(' ').First().Trim(),
+                    userData.EMail.Trim(), userData.CodigoISO.Trim()
+                );
+            }
 
-            if (GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesBelcorpChatEMTELCO).Contains(userData.CodigoISO) &&
-                fechaInicioChat != "")
-            {
-                var fechaInicioChatPais = DateTime.ParseExact(fechaInicioChat,
-                    "dd/MM/yyyy",
-                    CultureInfo.InvariantCulture);
-                if (DateTime.Now >= fechaInicioChatPais)
-                {
-                    url = String.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlBelcorpChat),
-                        userData.SegmentoAbreviatura.Trim(),
-                        userData.CodigoUsuario.Trim(),
-                        userData.PrimerNombre.Split(' ').First().Trim(),
-                        userData.EMail.Trim(), userData.CodigoISO.Trim());
-                }
-            }
-            else
-            {
-                if (userData.CodigoISO.Equals("PA"))
-                {
-                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatPA);
-                }
-                else if (userData.CodigoISO.Equals("QR"))
-                {
-                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatQR);
-                }
-                else if (userData.CodigoISO.Equals("SV"))
-                {
-                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatSV);
-                }
-                else if (userData.CodigoISO.Equals("GT"))
-                {
-                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatGT);
-                }
-                else
-                {
-                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatDefault) +
-                        GetConfiguracionManager(Constantes.ConfiguracionManager.TokenAtento + userData.CodigoISO);
-                }
-            }
             ViewBag.UrlBelcorpChatPais = url;
             return View();
         }
@@ -2214,7 +2184,7 @@ namespace Portal.Consultoras.Web.Controllers
             var url = Util.GetUrlHost(this.HttpContext.Request).ToString();
             var montoLimite = ObtenerMontoLimiteDelCupon();
             var cuponModel = ObtenerDatosCupon();
-            var tipopais = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika).Contains(userData.CodigoISO);
+            var tipopais = GetPaisesEsikaFromConfig().Contains(userData.CodigoISO);
             var mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon, url, montoLimite, tipopais);
             var correo = userData.EMail;
             Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correo, "Activación de Cupón", mailBody, true, userData.NombreConsultora);
@@ -2320,9 +2290,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                if(revistaDigital == null)
+                if (revistaDigital == null)
                     return partial;
-                
+
                 partial.RevistaDigital = revistaDigital;
 
                 if (revistaDigital.TieneRDC && revistaDigital.EsActiva && revistaDigital.EsSuscrita)

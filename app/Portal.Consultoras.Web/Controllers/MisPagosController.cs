@@ -46,7 +46,8 @@ namespace Portal.Consultoras.Web.Controllers
                 CorreoConsultora = userData.EMail,
                 FechaVencimiento = fechaVencimiento,
                 MontoPagar = montoPagar,
-                PestanhaInicial = pestanhaInicial ?? ""
+                PestanhaInicial = pestanhaInicial ?? "",
+                TienePagoEnLinea = userData.TienePagoEnLinea
             };
 
             List<string> pestanhaMisPagosAll = new List<string> {
@@ -92,6 +93,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             });
 
+            var ultimoMovimiento = ObtenerUltimoMovimientoEstadoCuenta();
+
             items = items.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
             BEPager pag = Util.PaginadorGenerico(grid, lst);
@@ -103,7 +106,7 @@ namespace Portal.Consultoras.Web.Controllers
                 total = pag.PageCount,
                 page = pag.CurrentPage,
                 records = pag.RecordCount,
-
+                UltimoMovimiento = ultimoMovimiento,
                 Rows = items.Select(a => new
                 {
                     Fecha = a.Fecha.ToString("dd/MM/yyyy"),
@@ -229,7 +232,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string fechaVencimiento;
                 string montoPagar;
                 ObtenerFechaVencimientoMontoPagar(out fechaVencimiento, out montoPagar, out montoPagarDec);
-                
+
                 dicCabeceras.Add(new KeyValuePair<int, string>(lst.Count, userData.NombreConsultora));
                 lst.Add(new EstadoCuentaModel()
                 {
@@ -690,8 +693,8 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             EstadoCuentaModel source = sourceDetails[i];
 
-                            var arr = column.Contains("#") 
-                                ? column.Split('#') 
+                            var arr = column.Contains("#")
+                                ? column.Split('#')
                                 : new string[] { "", column };
 
                             if (arr[1] == "Fecha")
@@ -710,8 +713,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                             else if (arr[1] == "Cargo")
                             {
-                                string cargo = userData.PaisID == 4 
-                                    ? source.Cargo.ToString("#,##0").Replace(',', '.') 
+                                string cargo = userData.PaisID == 4
+                                    ? source.Cargo.ToString("#,##0").Replace(',', '.')
                                     : source.Cargo.ToString("0.00");
 
                                 ws.Cell(row, col).Value = arr[0] + cargo;
@@ -721,7 +724,7 @@ namespace Portal.Consultoras.Web.Controllers
                             else if (arr[1] == "Abono")
                             {
                                 string abono = userData.PaisID == 4
-                                    ? source.Abono.ToString("#,##0").Replace(',', '.') 
+                                    ? source.Abono.ToString("#,##0").Replace(',', '.')
                                     : source.Abono.ToString("0.00");
                                 ws.Cell(row, col).Value = arr[0] + abono;
                                 ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#F0F6F8");

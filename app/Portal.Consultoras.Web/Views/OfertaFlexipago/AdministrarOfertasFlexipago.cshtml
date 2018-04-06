@@ -91,7 +91,6 @@
                 return false;
             }
         });
-        //JCT(CGI) 2371 Inicio
         $('#txtPrecioNormalModal').keypress(function (evt) {
             var theEvent = evt || window.event;
             var key = theEvent.keyCode || theEvent.which;
@@ -250,7 +249,6 @@
             if ($("#chkImagenProducto01").attr('checked')) {
                 $("#ImagenProducto").val($("#preview1").attr('src').replace(/^.*[\\\/]/, ''));
 
-                // 1664
                 var img01 = $('#ImagenProducto').val();
                 if (img01.lastIndexOf("?") >= 0) {
                     img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -365,11 +363,10 @@
             CUV: jQuery('#txtCUVModal').val(),
             Descripcion: $("#txtDescripcionModal").val(),
             PrecioOferta: $("#txtPrecioOfertaModal").val(),
-            PrecioNormal: $("#txtPrecioNormalModal ").val(), //2371
+            PrecioNormal: $("#txtPrecioNormalModal ").val(),
             ImagenProducto: $("#ImagenProducto").val(),
             ImagenProductoAnterior: $('#ImagenProductoAnterior').val(),
             Orden: $("#txtOrdenModal").val(),
-            //UnidadesPermitidas: $("#txtUnidadesPermitidasModal").val(),
             UnidadesPermitidas: 0,
             CodigoCampania: $("#txtCampaniaModal").val(),
             FlagHabilitarProducto: $("#chkHabilitarOferta").attr('checked') ? 1 : 0,
@@ -436,14 +433,8 @@
                     if (jQuery.trim($('#txtOrdenModal').val()) == "" || jQuery.trim($('#txtOrdenModal').val()) == "0")
                         vMessage += "- Debe ingresar un Orden de Priorización válido.\n";
                     if (jQuery.trim($('#txtPrecioNormalModal').val()) == "" || jQuery.trim($('#txtPrecioNormalModal').val()) == "." 
-                        || jQuery.trim($('#txtPrecioNormalModal').val()) <= 0) //JCT(CGI) 2371 Inicio
-                        vMessage += "- Debe ingresar un Precio Normal válido.\n"; //JCT(CGI) 2371 Fin
-                    //if (jQuery.trim($('#txtUnidadesPermitidasModal').val()) == "" || jQuery.trim($('#txtOrdenModal').val()) == "0")
-                    //    vMessage += "- Debe ingresar las unidades permitidas válido.\n";
-                    //if (jQuery.trim($('#hdStockProducto').val()) == "0" && $("#chkHabilitarOferta").attr('checked')) {
-                    //    vMessage += "- La Oferta no se podrá habilitar hasta que el stock sea mayor que 0.\n";
-                    //    $("#chkHabilitarOferta").removeAttr('checked');
-                    //}
+                        || jQuery.trim($('#txtPrecioNormalModal').val()) <= 0)
+                        vMessage += "- Debe ingresar un Precio Normal válido.\n";
                     if (vMessage != "") {
                         alert(vMessage);
                         return false;
@@ -552,8 +543,6 @@
                     var vMessage = "";
                     if (jQuery.trim($('#ddlPaisLinks').val()) == "")
                         vMessage += "- Debe seleccionar un país.\n";
-                    //if (jQuery.trim($('#txtUrlFlexipago').val()) == "")
-                    //    vMessage += "- Debe ingresar un link para la opción Flexipago.\n";
                     if (!IsValidURL($('#txtUrlFlexipago')))
                         vMessage += "- Debe ingresar una dirección web correcta.\n";
                     if (vMessage != "") {
@@ -668,7 +657,6 @@
                         alert(data.message);
                         HideDialog("DialogAdministrarCantidad");
                         LimpiarDatosMaximoItems();
-                        //jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
                     }
                     else {
                         alert(data.message);
@@ -738,8 +726,6 @@
         $("#FlagTransaccion").val("0");
         $("#hdCodigoOferta").val("");
         $("#hdFlagImagen").val("0");
-        //$("#hdStockProducto").val("0");
-        //$('#txtUnidadesPermitidasModal').val("");
     }
 
     function fnGrilla() {
@@ -818,7 +804,6 @@
             var image = "";
             var filename = rowObject[10].replace(/^.*[\\\/]/, '')
             if (rowObject[10] != "") {
-                // 1664
                 image = '<img src="' + rowObject[10] + '" alt="" width="70px" height="60px" title="" border="0" />';
             } else {
                 image = '<img src="@Url.Content("~/Content/Images/prod_grilla_vacio.png")" alt="" width="60px" height="60px" title="" border="0" />';
@@ -835,11 +820,9 @@
                 $.getJSON(baseUrl + 'OfertaFlexipago/ObtenerImagenesByCodigoSAP', { paisID: paisID, codigoSAP: CodigoSAP }, function (data) {
                     if (data.lista.length > 0) {
                         if (data.lista[0].FotoProducto01 != "") {
-                            // 1664
                             $('#preview1').attr('src',  data.lista[0].FotoProducto01);
                             $("#chkImagenProducto01").val($('#preview1').attr('src').replace(/^.*[\\\/]/, ''));
 
-                            // 1664
                             var img01 = $('#chkImagenProducto01').val();
                             if (img01.lastIndexOf("?") >= 0) {
                                 img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -850,11 +833,9 @@
                         } else
                             $("#chkImagenProducto01").attr('disabled', true);
                         if (data.lista[0].FotoProducto02 != "") {
-                            // 1664
                             $('#preview2').attr('src', data.lista[0].FotoProducto02);
                             $("#chkImagenProducto02").val($('#preview2').attr('src').replace(/^.*[\\\/]/, ''));
 
-                            // 1664
                             var img01 = $('#chkImagenProducto02').val();
                             if (img01.lastIndexOf("?") >= 0) {
                                 img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -865,11 +846,9 @@
                         } else
                             $("#chkImagenProducto02").attr('disabled', true);
                         if (data.lista[0].FotoProducto03 != "") {
-                            // 1664
                             $('#preview3').attr('src', data.lista[0].FotoProducto03);
                             $("#chkImagenProducto03").val($('#preview3').attr('src').replace(/^.*[\\\/]/, ''));
 
-                            // 1664
                             var img01 = $('#chkImagenProducto03').val();
                             if (img01.lastIndexOf("?") >= 0) {
                                 img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -900,7 +879,6 @@
                     }
 
                     $('#hdCampaniaID').val(CampaniaID);
-                    //$('#hdStockProducto').val(Stock);
                     $("#txtPaisModal").val(paisNombre);
                     $('#txtCampaniaModal').val(jQuery("#list").jqGrid('getCell', ID, 'CodigoCampania'));
 
@@ -909,17 +887,12 @@
                     $('#txtDescripcionModal').val(jQuery("#list").jqGrid('getCell', ID, 'Descripcion'));
                     $('#txtPrecioOfertaModal').val(jQuery("#list").jqGrid('getCell', ID, 'PrecioOferta'));
                     $('#txtPrecioNormalModal').val(PrecioNormal);
-                    //if (jQuery("#list").jqGrid('getCell', ID, 'UnidadesPermitidas') == "0")
-                    //    $("#txtUnidadesPermitidasModal").val("1");
-                    //else
-                    //    $("#txtUnidadesPermitidasModal").val(jQuery("#list").jqGrid('getCell', ID, 'UnidadesPermitidas'));
 
                     var imagen = $($("#list").jqGrid('getCell', ID, 'Imagen')).attr('src').replace(/^.*[\\\/]/, '');
 
                     if (imagen != "prod_grilla_vacio.png") {
                         $('#ImagenProductoAnterior').val(imagen);
 
-                        // 1664
                         var img01 = $('#ImagenProductoAnterior').val();
                         if (img01.lastIndexOf("?") >= 0) {
                             img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -928,7 +901,6 @@
 
                         $('#ImagenProducto').val(imagen);
 
-                        // 1664
                         img01 = $('#ImagenProducto').val();
                         if (img01.lastIndexOf("?") >= 0) {
                             img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -941,7 +913,6 @@
                         $('#ImagenProducto').val("");
                     }
 
-                    // 1664
                     var img01 = $($("#list").jqGrid('getCell', ID, 'Imagen')).attr('src').replace(/^.*[\\\/]/, '');
                     if (img01.lastIndexOf("?") >= 0) {
                         img01 = img01.substring(0, img01.lastIndexOf("?"));

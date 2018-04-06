@@ -54,7 +54,7 @@ namespace Portal.Consultoras.BizLogic
         {
             var daConsultora = new DAConsultora(paisID);
             return daConsultora.GetSaldoActualConsultora(Codigo);
-        }
+        }        
 
         public IList<BEConsultoraCodigo> SelectConsultoraCodigo(int paisID, int regionID, int zonaID, string codigo, int rowCount)
         {
@@ -298,7 +298,6 @@ namespace Portal.Consultoras.BizLogic
             return beConsultoraCvu;
         }
 
-
         public List<BEConsultora> GetConsultorasPorUbigeo(int paisId, string codigoUbigeo, string campania, int marcaId, int tipoFiltroUbigeo)
         {
             var vListaConsultora = new List<BEConsultora>();
@@ -317,7 +316,6 @@ namespace Portal.Consultoras.BizLogic
             }
             return vListaConsultora;
         }
-                
 
     }
 }

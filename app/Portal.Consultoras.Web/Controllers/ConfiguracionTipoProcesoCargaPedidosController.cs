@@ -44,7 +44,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 BEConfiguracionPortal configuracionPortal;
-                BEConfiguracionPortal configuracionPortalParametro = new BEConfiguracionPortal {PaisID = PaisID};
+                BEConfiguracionPortal configuracionPortalParametro = new BEConfiguracionPortal { PaisID = PaisID };
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {
@@ -91,8 +91,8 @@ namespace Portal.Consultoras.Web.Controllers
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
                 lst = UserData().RolID == 2
-                    ? sv.SelectPaises().ToList() 
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -116,7 +116,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetConfiguracionTipoProcesoCargaPedidos(paisId, 2);
             }
-            
+
             return Mapper.Map<IList<BEConfiguracionTipoProcesoCargaPedidos>, IEnumerable<ZonaModel>>(lst);
         }
 

@@ -13,7 +13,7 @@ namespace Portal.Consultoras.BizLogic
     public class BLPedidoRechazado : IPedidoRechazadoBusinessLogic
     {
         public int InsertarPedidoRechazadoXML(string paisISO, List<BEPedidoRechazadoSicc> listBEPedidoRechazado)
-        {           
+        {
 
             DAPedidoRechazado dAPedidoRechazado = null;
             try
@@ -21,9 +21,9 @@ namespace Portal.Consultoras.BizLogic
                 int paisId = Util.GetPaisID(paisISO);
                 if (paisId > 0) dAPedidoRechazado = new DAPedidoRechazado(paisId);
             }
-            catch(Exception ex) { LogManager.SaveLog(ex, "", paisISO); }
+            catch (Exception ex) { LogManager.SaveLog(ex, "", paisISO); }
             if (dAPedidoRechazado == null) return 0;
-            
+
             try
             {
                 string xml = CrearClienteXML(listBEPedidoRechazado);
@@ -36,13 +36,14 @@ namespace Portal.Consultoras.BizLogic
                 }
                 return 1;
             }
-            catch (Exception ex) {
-                try { dAPedidoRechazado.InsertarPedidoRechazadoXML("Error",  ex.Message + "(" + ex.StackTrace + ")", ""); }
+            catch (Exception ex)
+            {
+                try { dAPedidoRechazado.InsertarPedidoRechazadoXML("Error", ex.Message + "(" + ex.StackTrace + ")", ""); }
                 catch (Exception ex2)
                 {
                     LogManager.SaveLog(ex, "", paisISO);
                     LogManager.SaveLog(ex2, "", paisISO);
-                }                
+                }
             }
             return 0;
         }

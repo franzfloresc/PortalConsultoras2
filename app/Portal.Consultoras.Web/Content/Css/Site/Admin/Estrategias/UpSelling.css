@@ -1,0 +1,88 @@
+﻿.qq-upload-button {
+    background: #652b82;
+    color: #fff;
+    border: 0;
+    width: auto !important;
+    height: auto !important;
+    font-size: 13px;
+    margin-right: 10px;
+    font-weight: bold;
+    white-space: normal;
+    float: left;
+}
+
+.img-preview {
+    cursor: pointer;
+    width: 100%;
+    height: initial !important;
+}
+
+.div-3 .titCD {
+    width: 170px !important;
+}
+
+.error {
+    border: 1px solid #f09da7 !important;
+}
+
+/*pop up config, preview*/
+.no-close {
+    pointer-events: none;
+}
+
+    .no-close .ui-dialog-titlebar-close {
+        display: none;
+    }
+
+#previewThumbnail {
+    background-image: url('/Content/Images/upselling/upselling_sprite.png');
+    background-repeat: no-repeat;
+}
+
+.TextoMetaPrincipal {
+    width: 223px;
+    height: 120px;
+    background-position: -1px -38px;
+}
+
+.TextoInferior {
+    width: 223px;
+    height: 134px;
+    background-position: -1px -364px;
+}
+
+.TextoGanastePrincipal {
+    width: 223px;
+    height: 120px;
+    background-position: -233px -45px;
+}
+
+.TextoGanastePremio {
+    width: 223px;
+    height: 175px;
+    background-position: -463px -97px;
+}
+
+.TextoGanasteBoton {
+    width: 223px;
+    height: 170px;
+    background-position: -229px -305px;
+}
+
+.ImagenFondoPrincipalDesktop {
+    width: 223px;
+    height: 150px;
+    background-position: -460px -353px;
+}
+
+.ImagenFondoPrincipalMobile {
+    width: 223px;
+    height: 128px;
+    background-position: -461px -369px;
+}
+
+.ImagenFondoGanasteMobile {
+    width: 223px;
+    height: 129px;
+    background-position: -689px -59px;
+}

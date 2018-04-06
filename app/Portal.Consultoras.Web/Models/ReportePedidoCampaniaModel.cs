@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -15,7 +12,6 @@ namespace Portal.Consultoras.Web.Models
         public IEnumerable<RegionModel> listaRegiones { set; get; }
         public IEnumerable<ZonaModel> listaZonas { set; get; }
         public IEnumerable<PaisModel> listaPaises { set; get; }
-
 
         public string CodigoConsultora { get; set; }
         public string Territorio { get; set; }

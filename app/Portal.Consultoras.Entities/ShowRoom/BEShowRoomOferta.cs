@@ -1,6 +1,7 @@
 ﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -11,28 +12,35 @@ namespace Portal.Consultoras.Entities.ShowRoom
     {
         [DataMember]
         [ViewProperty]
+        [Column("EstrategiaID")]
         public int OfertaShowRoomID { get; set; }
 
         [DataMember]
         public int TipoOfertaSisID { get; set; }
 
         [DataMember]
+        [Column("CampaniaID")]
         public int CampaniaID { get; set; }
 
         [DataMember]
+        [Column("CUV")]
         public string CUV { get; set; }
 
         [DataMember]
+        [Column("Stock")]
         public int Stock { get; set; }
 
         [DataMember]
-        [ViewProperty]
+        //[ViewProperty]
+        [Column("ConfiguracionOfertaID")]
         public int ConfiguracionOfertaID { get; set; }
 
         [DataMember]
+        [Column("PrecioValorizado")]
         public decimal PrecioValorizado { get; set; }
 
         [DataMember]
+        [Column("PrecioOferta")]
         public decimal PrecioOferta { get; set; }
 
         [DataMember]
@@ -41,20 +49,25 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         [DataMember]
         [ViewProperty]
+        [Column("ImagenProducto")]
         public string ImagenProducto { get; set; }
 
         [DataMember]
         [ViewProperty]
+        [Column("Orden")]
         public int Orden { get; set; }
 
         [DataMember]
+        [Column("UnidadesPermitidas")]
         public int UnidadesPermitidas { get; set; }
 
         [DataMember]
+        [Column("Descripcion")]
         public string Descripcion { get; set; }
 
         [DataMember]
         [ViewProperty]
+        [Column("FlagHabilitarProducto")]
         public bool FlagHabilitarProducto { get; set; }
 
         [DataMember]
@@ -67,22 +80,27 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         [DataMember]
         [ViewProperty]
+        [Column("UsuarioRegistro")]
         public string UsuarioRegistro { get; set; }
 
         [DataMember]
         [ViewProperty]
+        [Column("FechaRegistro")]
         public DateTime FechaRegistro { get; set; }
 
         [DataMember]
         [ViewProperty]
+        [Column("UsuarioModificacion")]
         public string UsuarioModificacion { get; set; }
 
         [DataMember]
         [ViewProperty]
+        [Column("FechaModificacion")]
         public DateTime FechaModificacion { get; set; }
 
         [DataMember]
         [ViewProperty]
+        [Column("ImagenMini")]
         public string ImagenMini { get; set; }
 
         [DataMember]
@@ -103,6 +121,7 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         [DataMember]
         [ViewProperty]
+        [Column("CodigoProducto")]
         public string CodigoProducto { get; set; }
 
         [DataMember]
@@ -111,6 +130,7 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         [DataMember]
         [ViewProperty]
+        [Column("MarcaID")]
         public int MarcaID { get; set; }
 
         [DataMember]
@@ -133,6 +153,7 @@ namespace Portal.Consultoras.Entities.ShowRoom
         public string CodigoCategoria { get; set; }
 
         [DataMember]
+        [Column("TipNegocio")]
         public string TipNegocio { get; set; }
 
         [DataMember]
@@ -140,7 +161,21 @@ namespace Portal.Consultoras.Entities.ShowRoom
         public string DescripcionCategoria { get; set; }
 
         [DataMember]
+        [Column("EsSubCampania")]
         public bool EsSubCampania { get; set; }
+
+        [DataMember]
+        [ViewProperty]
+        [Column("CodigoEstrategia")]
+        public string CodigoEstrategia { get; set; }
+
+        [DataMember]
+        [ViewProperty]
+        [Column("TieneVariedad")]
+        public int TieneVariedad { get; set; }
+
+        public BEShowRoomOferta()
+        { }
 
         public BEShowRoomOferta(IDataRecord row)
         {
@@ -207,6 +242,10 @@ namespace Portal.Consultoras.Entities.ShowRoom
                 DescripcionCategoria = Convert.ToString(row["DescripcionCategoria"]);
             if (DataRecord.HasColumn(row, "EsSubCampania") && row["EsSubCampania"] != DBNull.Value)
                 EsSubCampania = Convert.ToBoolean(row["EsSubCampania"]);
+            if (DataRecord.HasColumn(row, "CodigoEstrategia") && row["CodigoEstrategia"] != DBNull.Value)
+                CodigoEstrategia = Convert.ToString(row["CodigoEstrategia"]);
+            if (DataRecord.HasColumn(row, "TieneVariedad") && row["TieneVariedad"] != DBNull.Value)
+                TieneVariedad = Convert.ToInt32(row["TieneVariedad"]);
 
         }
     }

@@ -21,15 +21,15 @@ namespace Portal.Consultoras.Web.Models
             }
             set
             {
-                    if (value == 4)
-                    {
-                        TextoSobrenombre = "Nombre: ";
-                        TextoCorreoElectronico = "Correo Electrónico:";
-                        TextoTelefono = "Teléfono:";
-                        TextoCelular = "Celular:";
-                        TextoBoton = "Aceptar";
-                    }
-                    _paisID = value;
+                if (value == 4)
+                {
+                    TextoSobrenombre = "Nombre: ";
+                    TextoCorreoElectronico = "Correo Electrónico:";
+                    TextoTelefono = "Teléfono:";
+                    TextoCelular = "Celular:";
+                    TextoBoton = "Aceptar";
+                }
+                _paisID = value;
             }
         }
 
@@ -96,14 +96,14 @@ namespace Portal.Consultoras.Web.Models
         public string ImagenUsuario { get; set; }
 
         public bool EsCatalogoPersonalizadoZonaValida { get; set; }
-        
+
         public BarraConsultoraModel DataBarra { get; set; }
 
         public int VioTutorialSalvavidas { get; set; }
 
-        public int limiteMaximoTelef{ get; set; }
+        public int limiteMaximoTelef { get; set; }
 
-        public int limiteMinimoTelef { get; set; }        
+        public int limiteMinimoTelef { get; set; }
         #region Propiedades para POPUps
         public int TipoPopUpMostrar { get; set; }
         public string MensajeFechaDA { get; set; }
@@ -127,6 +127,7 @@ namespace Portal.Consultoras.Web.Models
         public bool ShowPopupMisDatos { get; set; }
         public RevistaDigitalModel RevistaDigital { get; set; }
         public PartialSectionBpt PartialSectionBpt { get; set; }
+        public bool TienePagoEnLinea { get; set; }
 
         public BienvenidaHomeModel()
         {

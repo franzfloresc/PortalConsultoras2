@@ -4,14 +4,13 @@
 @model MisCatalogosRevistasModel
 @section styles{
 
-    <link href="@Url.Content("~/Content/Css/Mobile/jquery.tag-editor.css")" rel="stylesheet" />
-
     <style type="text/css">
         body {
             overflow-x: hidden;
         }
     </style>
 
+    @Styles.Render("~/bundles/Css/Mobile/Site/MisCatalogoRevista")
 }
 
 @{
@@ -23,7 +22,8 @@
     var textApp = userAgent.Contains("iphone;") ? "Gratis en App Store" : "Gratis en Play Store";
     var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
 
-    var titulo = "MIS CATÁLOGOS Y REVISTAS";
+    var titulo = Model.Titulo;
+
 }
 
 <style type="text/css">
@@ -68,27 +68,30 @@
     &nbsp;&nbsp;&nbsp;&nbsp;@titulo
 </div>
 
-<div class="fondo_f2f2f2">
-    <div class="pestana_esika"></div>
-    <div class="pestana_lbel"></div>
+@if (Model.MostrarTab)
+{
+    <div class="fondo_f2f2f2">
+        <div class="pestana_esika"></div>
+        <div class="pestana_lbel"></div>
 
-    <ul class="tabs_pagos" data-tab="tab" style="margin-bottom:0">
-        <li class="one">
-            <a href="javascript:;" data-tag="Catalogos">
-                CATÁLOGOS
-                <div class="marcador_tab"></div>
-            </a>
-        </li>
-        <li class="two">
-            <a href="javascript:;" data-tag="Revistas" onclick="TagManagerPaginasVirtuales()">
-                REVISTAS
-                <div class="marcador_tab oculto"></div>
-            </a>
-        </li>
-    </ul>
-    
-    <hr class="clear" />
-</div>
+        <ul class="tabs_pagos" data-tab="tab" style="margin-bottom:0">
+            <li class="one">
+                <a href="javascript:;" data-tag="Catalogos">
+                    CATÁLOGOS
+                    <div class="marcador_tab"></div>
+                </a>
+            </li>
+            <li class="two">
+                <a href="javascript:;" data-tag="Revistas" onclick="TagManagerPaginasVirtuales()">
+                    REVISTAS
+                    <div class="marcador_tab oculto"></div>
+                </a>
+            </li>
+        </ul>
+
+        <hr class="clear" />
+    </div>
+}
 
 
 <div class="wrapper_resumen_mobile">
@@ -108,12 +111,12 @@
         @if (Model.TieneSeccionRevista)
         {
             @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml",
-                new ViewDataDictionary {
-                { "TieneGnd", Model.TieneGND },
-                { "CampaniaNro", @Util.SubStr(Model.CampaniaActual, 4, 2) }
-            })
+                          new ViewDataDictionary {
+        { "TieneGnd", Model.TieneGND },
+        { "CampaniaNro", @Util.SubStr(Model.CampaniaActual, 4, 2) }
+                      })
         }
-        
+
         @if (Model.TieneSeccionRD)
         {
             @Html.Partial("~/Areas/Mobile/Views/Catalogo/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
@@ -251,7 +254,6 @@
         };
         var urlBuscadorIssu = '@Constantes.CatalogoUrlIssu.Buscador';
         var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistas", new { area = "" })';
-        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital", new { area = "Mobile" })';
         var mensajeSinConexionIssu = '@Html.Raw(Constantes.MensajesError.SinConexion_CatalogoRevistaIssu)';
     </script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>

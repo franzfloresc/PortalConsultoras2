@@ -441,6 +441,9 @@ $(document).ready(function () {
     MostrarBarra();
     CargarDialogMesajePostulantePedido();
     EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-pedido]");
+
+    LayoutMenu();
+
 });
 
 function CargarDetallePedido(page, rows) {
@@ -971,7 +974,24 @@ function ArmarDetallePedidoPaginador(data) {
 }
 
 function ArmarDetallePedido(array) {
+    registerEsShowRoomPais();
+
     return SetHandlebars("#producto-template", array);
+}
+
+function registerEsShowRoomPais() {
+
+    if (Handlebars.helpers.isShowRoomPais) {
+        return;
+    }
+
+    Handlebars.registerHelper('isShowRoomPais', function (pais, sisId, opts) {
+        var productShowRoom = sisId == "1707";
+
+        return productShowRoom && sesionEsShowRoom && pais === paisISO
+            ? opts.inverse(this)
+            : opts.fn(this);
+    });
 }
 
 function AgregarProductoListado() {
@@ -1312,6 +1332,7 @@ function BuscarByCUV(CUV) {
                 $("#hdTipoEstrategiaID").val(data[0].TipoEstrategiaID);
                 ObservacionesProducto(data[0]);
                 $('#hdMetodoBusqueda').val('Por código');
+                $('#hdfCUV').val('');
                 if (data[0].ObservacionCUV != null && data[0].ObservacionCUV != "") {
                     $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + data[0].ObservacionCUV + "</div></div>");
                 }
@@ -1869,6 +1890,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
 
             ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
             ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
+            ActualizarLocalStorageAgregado("hv", data.data.CUV, false);
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -2389,6 +2411,7 @@ function EliminarPedido() {
 
             ActualizarLocalStorageAgregado("rd", "todo", false);
             ActualizarLocalStorageAgregado("gn", "todo", false);
+            ActualizarLocalStorageAgregado("hv", "todo", false);
             location.href = baseUrl + 'Pedido/Index';
         },
         error: function (data, error) {

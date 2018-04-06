@@ -18,37 +18,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.DatosIniciales = new BienvenidaHomeModel();
 
             var model = new MisDatosModel();
-
-            if (userData.PaisID == 9)
-            {
-                ViewBag.limiteMinimoTelef = 5;
-                ViewBag.limiteMaximoTelef = 15;
-            }
-            else if (userData.PaisID == 11)
-            {
-                ViewBag.limiteMinimoTelef = 7;
-                ViewBag.limiteMaximoTelef = 9;
-            }
-            else if (userData.PaisID == 4)
-            {
-                ViewBag.limiteMinimoTelef = 10;
-                ViewBag.limiteMaximoTelef = 10;
-            }
-            else if (userData.PaisID == 8 || userData.PaisID == 7 || userData.PaisID == 10 || userData.PaisID == 5)
-            {
-                ViewBag.limiteMinimoTelef = 8;
-                ViewBag.limiteMaximoTelef = 8;
-            }
-            else if (userData.PaisID == 6)
-            {
-                ViewBag.limiteMinimoTelef = 9;
-                ViewBag.limiteMaximoTelef = 10;
-            }
-            else
-            {
-                ViewBag.limiteMinimoTelef = 0;
-                ViewBag.limiteMaximoTelef = 15;
-            }
+            
+            int limiteMinimoTelef, limiteMaximoTelef;
+            GetLimitNumberPhone(out limiteMinimoTelef, out limiteMaximoTelef);
+            ViewBag.limiteMinimoTelef = limiteMinimoTelef;
+            ViewBag.limiteMaximoTelef = limiteMaximoTelef;
 
             BEUsuario beusuario;
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
@@ -71,6 +45,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.CompartirDatos = beusuario.CompartirDatos;
                 model.AceptoContrato = beusuario.AceptoContrato;
                 model.UsuarioPrueba = userData.UsuarioPrueba;
+                model.CodigoUsuarioReal = userData.CodigoUsuario;
                 model.NombreArchivoContrato = GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
 
                 BEZona[] bezona;
@@ -278,6 +253,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 });
             }
         }
+
         public JsonResult ValidadTelefonoConsultora(string Telefono)
         {
             try
@@ -314,7 +290,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
 
     }
 }

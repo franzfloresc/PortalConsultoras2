@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Runtime.Serialization;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.Cupon
 {
@@ -54,6 +54,10 @@ namespace Portal.Consultoras.Entities.Cupon
         [DataMember]
         [Column("TipoCupon")]
         public string TipoCupon { get; set; }
+
+        [DataMember]
+        [Column("TipoCondicion")]
+        public short TipoCondicion { get; set; }
 
         [DataMember]
         public decimal MontoMaximoDescuento { get; set; }

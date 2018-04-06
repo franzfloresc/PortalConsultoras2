@@ -13,54 +13,28 @@
     {
         urlLogo = revistaDigital.MLogoComercialFondoNoActiva;
     }
-
-    var urlArrowRight = "~/Content/Images/RevistaDigital/";
-    urlArrowRight += ViewBag.EsPaisEsika == true ? "rd_arrowright_red.png" : "rd_arrowright.png";
-
+    
 }
 <div class="content_revistas_mob" style="margin: 15px 0;">
     @if (revistaDigital.TieneRDC)
     {
-        if (revistaDigital.EsActiva)
+        if (!revistaDigital.EsSuscrita)
         {
             <div class="wrapper_resumen_mobile">
                 <div class="banner_pedido_rd">
                     <div class="cabecera_pedido_rd">
-                        <div class="rd_logo">
-                            <img src="@urlLogo" alt="" class="small">
+                        <div class="rd_logo rd_logo_dorado">
+                            <img src="@revistaDigital.MLogoComercialActiva" alt="" class="small" style="position: relative;top: 5px;">
                         </div>
                         <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
                     </div>
                     <div class="banner_pedido_masofertas">
-                        <div class="banner_pedido_text">
+                        <div class="banner_pedido_text banner_pedido_text_dorado">
                             @Html.Raw(configuracionPaisDatosModel.Valor2)
                         </div>
-                        <div class="btn_red">
-                            <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalReducida')">
-                                VER TODAS MIS OFERTAS
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-        else
-        {
-            <div class="wrapper_resumen_mobile">
-                <div class="banner_pedido_rd">
-                    <div class="cabecera_pedido_rd">
-                        <div class="rd_logo">
-                            <img src="@urlLogo" alt="" class="small">
-                        </div>
-                        <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
-                    </div>
-                    <div class="banner_pedido_masofertas">
-                        <div class="banner_pedido_text">
-                            @Html.Raw(configuracionPaisDatosModel.Valor2)
-                        </div>
-                        <div class="btn_red">
-                            <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                                VER TODAS MIS OFERTAS
+                        <div class="btn_red btn_dorado"  onclick="RedireccionarContenedorInformativa(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion)">
+                            <a class="rd_arrowright" href="#">
+                                SUSCRÍBETE GRATIS
                             </a>
                         </div>
                     </div>
@@ -74,7 +48,7 @@
             <div class="banner_pedido_rd">
                 <div class="cabecera_pedido_rd">
                     <div class="rd_logo">
-                        <img src="@urlLogo" alt="" class="small">
+                        <img src="@urlLogo" alt="" class="small" style="padding-top: 30px;">
                     </div>
                     <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
                 </div>
@@ -97,7 +71,7 @@
         <div id="tab_revistasdigital_mobile">
             <div class="contenedor_seccionRevistaDigital">
                 <div class="seccionRevistaDigital_logo_marca">
-                    <img src="@urlLogo" alt="Club Gana+" class="small" />
+                    <img src="@urlLogo" alt="Club Gana+" class="small" style="padding-top: 30px;" />
                 </div>
                 <div class="clear"></div>
                 <div class="contenido_seccionRevistaDigital">
@@ -107,7 +81,7 @@
                 <div class="clear"></div>
                 <div class="revistadigital contenedor_botonVerMasOfertas">
                     <div class="boxoffer" style="cursor: pointer; position: relative !important;"
-                         onclick="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital');">
+                         onclick="RedireccionarContenedorInformativa(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion);">
                         <div class="fondo_boton"></div>
                         <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
                     </div>

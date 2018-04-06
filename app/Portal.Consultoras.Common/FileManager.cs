@@ -172,7 +172,7 @@ namespace Portal.Consultoras.Common
                 log.WriteLine(string.Format("filePath ==> {0}", filePath));
                 log.WriteLine(string.Format("Globals.RutaImagenesTemp ==> {0}", Globals.RutaImagenesTemp));
                 log.WriteLine(string.Format("TempPath ==> {0}", TempPath));
-                
+
                 File.Copy(FileName, (Globals.RutaImagenesTemp + TempPath + System.IO.Path.GetFileName(FileName)), true);
                 log.Flush();
                 log.Close();

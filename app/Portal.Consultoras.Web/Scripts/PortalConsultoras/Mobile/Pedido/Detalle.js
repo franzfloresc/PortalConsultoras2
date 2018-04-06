@@ -66,7 +66,7 @@ function CargarPedido(firstLoad) {
             if (!checkTimeout(data)) {
                 return false;
             }
-
+            registerEsShowRoomPais();
             SetHandlebars("#template-Detalle", data.data, '#divProductosDetalle');
 
             if ($('#divContenidoDetalle').find(".icono_advertencia_notificacion").length > 0) {
@@ -88,6 +88,22 @@ function CargarPedido(firstLoad) {
         }
     }).always(function () {
         CloseLoading();
+    });
+}
+
+function registerEsShowRoomPais() {
+
+    if (Handlebars.helpers.isShowRoomPais) {
+        return;
+    }
+
+    Handlebars.registerHelper('isShowRoomPais', function (pais, sisId, opts) {
+
+        var productShowRoom = sisId == "1707";
+
+        return productShowRoom && sesionEsShowRoom == '1' && pais === IsoPais
+            ? opts.inverse(this)
+            : opts.fn(this);
     });
 }
 
@@ -218,7 +234,7 @@ function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetall
     var valCant = $.trim($('#Cantidad_' + PedidoDetalleID).val());
     var valTemp = $.trim($('#CantidadTemporal_' + PedidoDetalleID).val());
 
-    if (valCant === "" || valTemp === "" || isNaN(cantVal) || isNaN(valTemp)) 
+    if (valCant === "" || valTemp === "" || isNaN(valCant) || isNaN(valTemp)) 
         return false;
 
     var cantidadActual = parseInt(valCant);
@@ -466,6 +482,7 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
 
                 ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
                 ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
+                ActualizarLocalStorageAgregado("hv", data.data.CUV, false);
             },
             error: function (data, error) {
                 CloseLoading();
@@ -603,6 +620,7 @@ function PedidoDetalleEliminarTodo() {
 
             ActualizarLocalStorageAgregado("rd", "todo", false);
             ActualizarLocalStorageAgregado("gn", "todo", false);
+            ActualizarLocalStorageAgregado("hv", "todo", false);
 
             location.reload();
 
@@ -1234,7 +1252,7 @@ function MostrarDetalleGanancia() {
 }
 
 function InsertarProducto(model, asyncX) {
-    alert("seguimiento Alan, copiar el caso para hacer seguimiento de donde se llama a este metodo");
+    //alert("seguimiento Alan, copiar el caso para hacer seguimiento de donde se llama a este metodo");
     var retorno = new Object();
 
     jQuery.ajax({

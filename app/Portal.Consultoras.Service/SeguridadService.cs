@@ -1,5 +1,4 @@
 ﻿using Portal.Consultoras.BizLogic;
-using Portal.Consultoras.BizLogic.Mobile;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.ServiceContracts;
 using Portal.Consultoras.BizLogic.Mobile;

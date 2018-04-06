@@ -12,20 +12,22 @@ namespace Portal.Consultoras.Data
 
         }
 
-        public IDataReader GetNotificacionesConsultora(long ConsultoraId, int indicadorBloqueoCDR)
+        public IDataReader GetNotificacionesConsultora(long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetNotificacionesConsultora");
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, ConsultoraId);
             Context.Database.AddInParameter(command, "@ShowCDR", DbType.Boolean, indicadorBloqueoCDR == 0);
+            Context.Database.AddInParameter(command, "@ShowPayOnline", DbType.Boolean, tienePagoEnLinea);
 
             return Context.ExecuteReader(command);
         }
-        
-        public int GetNotificacionesSinLeer(long ConsultoraId, int indicadorBloqueoCDR)
+
+        public int GetNotificacionesSinLeer(long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetNotificacionesSinLeer");
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, ConsultoraId);
             Context.Database.AddInParameter(command, "@ShowCDR", DbType.Boolean, indicadorBloqueoCDR == 0);
+            Context.Database.AddInParameter(command, "@ShowPayOnline", DbType.Boolean, tienePagoEnLinea);
             object obj = Context.ExecuteScalar(command);
             int cantidad = Convert.ToInt32(obj);
             return cantidad;
@@ -55,14 +57,14 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@TipoOrigen", DbType.Int32, TipoOrigen);
             Context.ExecuteNonQuery(command);
         }
-        
+
         public void UpdNotificacionSolicitudClienteVisualizacion(long SolicitudClienteId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdNotificacionSolicitudClienteVisualizacion");
             Context.Database.AddInParameter(command, "@SolicitudClienteId", DbType.Int64, SolicitudClienteId);
             Context.ExecuteNonQuery(command);
         }
-        
+
         public IDataReader GetValidacionStockProductos(long ConsultoraId, long ValAutomaticaPROLLogId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("GetValidacionStockProductos");

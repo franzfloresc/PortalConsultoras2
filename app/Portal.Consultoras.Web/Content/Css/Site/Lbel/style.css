@@ -452,6 +452,10 @@ header {
         color: black;
     }
 
+        .sub_footer a:hover {
+            text-decoration: underline;
+        }
+
 .footer_responde {
     width: 24%;
     font-family: 'lato';
@@ -547,19 +551,19 @@ header {
     position: relative;
     display: block;
     overflow: hidden;
-    border: 1px solid black;
+    border: 1px solid #000;
     border-right: 0;
     width: 58px;
     display: inline-block;
     vertical-align: baseline;
     text-align: center;
     letter-spacing: -1px;
-    color: black;
+    color: #000;
     font-family: 'lato';
     font-weight: 300;
     font-size: 10pt;
     line-height: 11.2pt;
-    color: black;
+    color: #000;
     background: #FFF url('../../../Images/Esika/ayuda.png') no-repeat;
     background-position: 18px 4px;
 }
@@ -619,6 +623,10 @@ header {
     visibility: hidden;
     width: 0;
     height: 0;
+}
+
+.clear {
+    clear: both;
 }
 /*homr*/
 * {
@@ -793,21 +801,6 @@ header {
     width: 75px;
     float: right;
     text-align: right;
-}
-
-.clear {
-    background: none;
-    border: 0;
-    clear: both;
-    display: block;
-    float: none;
-    font-size: 0;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    visibility: hidden;
-    width: 0;
-    height: 0;
 }
 
 .wrapper_home_content {
@@ -1905,9 +1898,9 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     float: left;
     width: 20px;
     height: 20px;
-    top: 1px;
+    top: -1px;
     margin-right: 7px;
-    background: url('../../../Images/Lbel/icono_advertencia_notificacion.png') no-repeat center center;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat center center;
 }
 
 .caja_guardar_pedido {
@@ -3028,6 +3021,15 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     float: right;
     width: 28.1%;
 }
+.flexiPago_belcorp {
+    display: block;
+    width: 28.1%;
+    height: auto;
+    margin-top: 27px;
+    float: right;
+    position: absolute;
+    right: 0;
+}
 
 .flexiPago_belcorp {
     display: block;
@@ -3165,6 +3167,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     overflow: hidden;
     padding-top: 10px;
     box-sizing: border-box;
+    top: -115px;
 }
 
 .control_carousel_flechaArriba {
@@ -3332,8 +3335,8 @@ a.subir_carousel, a.bajar_carousel {
 
 .producto_precio {
     width: 100%;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 10px;
+    padding-right: 10px;
     font-family: 'Lato';
     letter-spacing: .2px;
     color: #000;
@@ -3348,7 +3351,6 @@ a.subir_carousel, a.bajar_carousel {
     font-size: 13px;
     width: 50%;
     padding-right: 5px;
-    font-weight: 300;
 }
 
 .producto_precio_oferta {
@@ -3358,6 +3360,8 @@ a.subir_carousel, a.bajar_carousel {
     font-size: 16px;
     width: 50%;
     padding-left: 5px;
+    position: relative;
+    top: -3.5px;
 }
 
 .boton_elegirTono {
@@ -4497,7 +4501,7 @@ a.subir_carousel, a.bajar_carousel {
     width: 20px;
     height: 20px;
     margin-right: 5px;
-    background: url('../../../Images/Lbel/icono_advertencia_notificacion.svg') no-repeat center center;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat center center;
 }
 
 .texto_notaDemanda {
@@ -17900,9 +17904,6 @@ body, html {
     }
 
         #paForm ul li input {
-            /*
-	width: 212px;
-	line-*/
             background: url('../../Images/afiliacion/enterate_mas.png') 0 0 no-repeat;
             border: 0;
             width: 190px;
@@ -19774,14 +19775,23 @@ label.checkpop.c_on {
     width: 100%;
     overflow: hidden;
     color: black;
+    font-size:15px;
 }
 
 .consultora_home {
     margin-bottom: 6px;
     display: block;
     color: black;
+    font-size: 13px !important;
     margin-top: -5px;
     float: left;
+}
+.consultora_home a.txtdorado{
+    display: inline;
+    font-size: 13px !important;
+    color: #d4ae3a !important;
+    margin-right: 5px;
+    text-decoration:underline;
 }
 
 .info_cam_belcorp {
@@ -20026,15 +20036,15 @@ label.checkpop.c_on {
     float: right;
     margin-top: 30px;
     height: 45px;
-    border: 1px solid #613c87;
-    color: #613c87;
+    border: 1px solid black;
+    color: #000;
     text-align: center;
     font-family: 'lato';
     font-size: 13px;
     font-weight: 700;
     padding-top: 13px;
     padding-left: 45px;
-    background: white url('../../../Images/Lbel/tarjeta.png') no-repeat;
+    background: white url('../../../Images/icono-tarjeta.svg') no-repeat;
     background-position: 23px 10px;
 }
 
@@ -20180,6 +20190,11 @@ label.checkpop.c_on {
     margin: auto;
     left: 0;
     right: 0;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
 }
 
     .btn_comparte:hover {
@@ -20210,11 +20225,17 @@ label.checkpop.c_on {
     font-size: 9px;
     letter-spacing: .1px;
     color: #848484;
-    margin-top: 5px;
+    margin-top: -2px;
     margin-left: 10px;
-    float: left;
+    display: inline;
+    top: -2px;
+    position: relative;
 }
-
+    .mis_datos img {
+        margin-left: 5px;
+        position: relative;
+        top: 1px;
+    }
     .mis_datos:hover {
         text-decoration: underline;
     }
@@ -20230,7 +20251,23 @@ label.checkpop.c_on {
 
 .btn_100_paga {
     width: 100%;
-    background-position: 34% 10px;
+    background-position: 27.5% 10px;
+    margin-left: auto;
+    margin-right: auto;
+    float: none;
+    margin-top:27px;
+    padding-top: 12px;
+    padding-left: 20px;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+.btn_100_paga:hover{
+    color:#FFF;
+    background: #000 url('../../../Images/icono-tarjeta-blanco.svg') 27.5% 10px no-repeat;
 }
 
 .btn_100_facturacion {
@@ -20306,6 +20343,67 @@ label.checkpop.c_on {
     font-weight: 600;
 }
 
+.draw_arrow_left {
+    left: 0;
+    margin-left: -8%;
+}
+
+.draw_arrow_right {
+    right: 0;
+    margin-right: -8%;
+}
+
+.draw_line {
+    margin-left: 0;
+    width: 40px;
+    border: 0;
+    border-top: 2px solid #000;
+    height: auto;
+    background: initial;
+    transition: all;
+    text-align: initial;
+}
+
+.color_white {
+    border-top: 2px solid #fff;
+}
+
+.line_1_right {
+    -webkit-transform: rotate(235deg);
+    -moz-transform: rotate(235deg);
+    -ms-transform: rotate(235deg);
+    -o-transform: rotate(235deg);
+    transform: rotate(235deg);
+    margin-top: 16px;
+}
+
+.line_2_right {
+    -webkit-transform: rotate(305deg);
+    -moz-transform: rotate(305deg);
+    -ms-transform: rotate(305deg);
+    -o-transform: rotate(305deg);
+    transform: rotate(305deg);
+    margin-top: 30px;
+}
+
+.line_1_left {
+    -webkit-transform: rotate(125deg);
+    -moz-transform: rotate(125deg);
+    -ms-transform: rotate(125deg);
+    -o-transform: rotate(125deg);
+    transform: rotate(125deg);
+    margin-top: 16px;
+}
+
+.line_2_left {
+    -webkit-transform: rotate(235deg);
+    -moz-transform: rotate(235deg);
+    -ms-transform: rotate(235deg);
+    -o-transform: rotate(235deg);
+    transform: rotate(235deg);
+    margin-top: 30px;
+}
+
 .previous_ofertas {
     height: 329px;
     top: 0;
@@ -20353,6 +20451,7 @@ label.checkpop.c_on {
     margin: 0 auto;
     height: 335px;
     border: 1px solid #e7e1e1;
+    padding: 15px 0 15px 0;
     -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
@@ -21521,7 +21620,6 @@ letter-spacing: 0.3px;
 }
 .revista_content .revista_content2 .revistatxt .contrevista a {
 width: 173px;
-/* height: 30px; */
 padding: 8px;
 margin: auto;
 display: block;
@@ -27153,15 +27251,17 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .content-favclientes .contiene-productos {
     background-color: white;
-    margin-right: 2%;
-    float: left;
-    position: relative;
-    width: 248px;
-    margin-bottom: 15px;
-    margin-top: 15px;
-    padding-bottom: 12px;
-    box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     border: 1px solid #e7e1e1;
+    -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    display: inline-block;
+    height: 338px;
+    margin: 15px 40px 15px 0;
+    padding-bottom: 12px;
+    position: relative;
+    vertical-align: top;
+    width: 248px;
 }
 
     .content-favclientes .contiene-productos:nth-child(3n) {
@@ -27225,13 +27325,12 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 .content_carrusel_agregado .agregado {
-    height: 12px;
+    color: #a18328;
     font-family: Lato;
     font-size: 10px;
     font-weight: bold;
     letter-spacing: .5px;
     text-align: center;
-    color: #a18328;
 }
 
     .content_carrusel_agregado .agregado .icono {
@@ -29626,6 +29725,11 @@ h1#penmostreo .campana {
 /* ACTUALIZAR CONTRASEÑA */
 .titulo_interiores.tituloCambioContrasenia {
     width: 100%;
+    font-weight:200;
+}
+
+.titulo_interiores.tituloCambioContrasenia span{
+    font-weight:700;
 }
 
 .contenedor_actualizarContraseniaForm {
@@ -29642,6 +29746,13 @@ h1#penmostreo .campana {
     width: 100%;
     max-width: 365px;
     padding: 0 18px 0 20px;
+}
+.campos_actualizacionContrasenia{
+    display:block;
+}
+
+.contenedor_vista_felicidades{
+    display:block;
 }
 
 .imagen_consultora {
@@ -29697,6 +29808,16 @@ h1#penmostreo .campana {
     font-weight: normal;
     padding: 0 20px;
 }
+    .campoContrasenia.borde_inferior_campo{
+        border-bottom: 1px solid #959595;
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+        padding-left:0;
+        height: 36px;
+        line-height: 36px;
+        margin-bottom:30px;
+    }
 
     .campoContrasenia::-webkit-input-placeholder {
         color: #000;
@@ -29729,6 +29850,46 @@ h1#penmostreo .campana {
 
     .btnCambiarContrasenia:hover {
         opacity: .8;
+    }
+    .btnCambiarContrasenia.mt-34{
+        margin-top:34px;
+    }
+
+.icono_check_felicitaciones, .mensaje_felicitaciones, .mensaje_felicitaciones span, .mensaje_felicitaciones a {
+    display: block;
+    font-size: 14px;
+}
+
+.icono_check_felicitaciones {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 22px auto;
+    background: url(../../../Images/Lbel/icono_check_lbel.png) no-repeat center;
+}
+
+.mensaje_felicitaciones span:first-child {
+    font-size: 24px;
+}
+
+.mensaje_felicitaciones a {
+    width: 328px;
+    height: 45px;
+    background: #642f80;
+    color: #FFF;
+    text-align: center;
+    line-height: 45px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin:43px auto;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+    .mensaje_felicitaciones a:hover {
+        opacity: 0.8;
     }
 
 @media screen and (max-width:1288px) {
@@ -30275,7 +30436,7 @@ h1#penmostreo .campana {
     width: 7%;
     height: 20px;
     background-size: cover;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat center center;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat center center;
     display: inline-block;
     vertical-align: middle;
 }
@@ -31267,7 +31428,7 @@ h1#penmostreo .campana {
 }
 
 .icono_resumen_resolucion {
-    background: url('../../../Images/Lbel/icono_advertencia_notificacion.png') no-repeat top left;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat top left;
     background-position: 0 33px;
 }
 
@@ -31686,7 +31847,7 @@ h1#penmostreo .campana {
     margin-top: 23px;
     width: 360px;
     padding-left: 25px;
-    background: url('../../../Images/Lbel/icono_advertencia_notificacion.png') no-repeat top left;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat top left;
 }
 
 .btn_eliminar_observado {
@@ -31714,7 +31875,7 @@ h1#penmostreo .campana {
     padding-left: 25px;
     margin-top: 25px;
     margin-bottom: 40px;
-    background: url('../../../Images/Lbel/icono_advertencia_notificacion.png') no-repeat top left;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat top left;
     font-family: 'Lato';
     font-size: 11px;
     color: #9b9b9b;
@@ -32295,11 +32456,10 @@ h1#penmostreo .campana {
 }
 
 .producto_set {
-    width: 130px;
+    width: 90px;
     height: auto;
     float: left;
-    margin-left: 12px;
-    margin-top: 12px;
+    margin: 12px 0 0 25px;
     text-align: center;
 }
 
@@ -32424,7 +32584,6 @@ h1#penmostreo .campana {
     max-width: 1024px;
     height: 490px;
     margin: auto, auto;
-    /*background: #000;*/
     padding: 10px 0;
 }
 
@@ -32470,11 +32629,11 @@ h1#penmostreo .campana {
 }
 
 .imagen_set_Oferta_pop {
-    width: 46%;
+    width: 34%;
     height: auto;
     float: left;
     text-align: center;
-    margin-top: 25px;
+    margin: 25px 65px 0 0;
 }
 
     .imagen_set_Oferta_pop img {
@@ -32568,7 +32727,6 @@ h1#penmostreo .campana {
 
 .content_pop_oferta_dia .liquidacion_rango_right_pedido {
     background: transparent !important;
-    /*border: 1px solid #fff;*/
 }
 /*PAYPAL*/
 .monto_texto {
@@ -32611,7 +32769,7 @@ h1#penmostreo .campana {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, .85);
-    z-index: 1000;
+    z-index: 10000;
     overflow: auto;
     display: none;
 }
@@ -32640,9 +32798,88 @@ h1#penmostreo .campana {
     .content_ficha_producto img {
         width: 100%;
     }
+.etiqueta_producto_fix {
+    display: table;
+    width: 100%;
+    height: 286px;
+}
+
+.content_ficha_producto_fix {
+    display: table;
+    width: 100%;
+    height: 286px;
+}
+
+.etiqueta_producto_fix .cont_etiqueta_producto {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+    .etiqueta_producto_fix .cont_etiqueta_producto img {
+        margin: auto;
+        display: block;
+    }
+
+.content_ficha_producto_fix .cont_etiqueta_producto {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+    .content_ficha_producto_fix .cont_etiqueta_producto img {
+        margin: auto;
+        display: block;
+    }
+
+.etiqueta_descripcion_fix {
+    display: table;
+    width: 100%;
+    height: 286px;
+}
+
+.liquidacion_rango_home_fix, .boton_Agregalo_home_fix {
+    margin-top: 0;
+}
+
+.btn_compartir_facebook_ficha {
+    width: 25px;
+    float: left;
+    margin-right: 5px;
+    text-align: center;
+    margin-left: 0;
+    display: inline-block;
+}
+
+    .btn_compartir_facebook_ficha img {
+        float: left;
+    }
+
+.btn_compartir_facebook_ficha_fix {
+    width: 30%;
+    float: left;
+    margin-right: 2%;
+    text-align: center;
+    height: 25px;
+}
+
+    .btn_compartir_facebook_ficha_fix img {
+        height: 100%;
+    }
+
+.btn_compartir_facebook_ficha_fix_ODD {
+    width: 25px;
+    float: left;
+    margin-right: 5px;
+    text-align: center;
+    margin-left: initial;
+    display: initial;
+}
+
+    .btn_compartir_facebook_ficha_fix_ODD img {
+        float: initial;
+    }
 
 .content_right_ficha {
-    float: RIGHT;
+    float: right;
     width: 55%;
     position: relative;
 }
@@ -32753,7 +32990,10 @@ h1#penmostreo .campana {
     margin-top: 5px;
     display: block;
 }
-
+.btn_desactivado_general{
+    background:#d6d6d6 !important;
+    border: none;
+}
 .ficha_btn_agregar {
     width: 358px;
     background: black;
@@ -32810,12 +33050,12 @@ h1#penmostreo .campana {
     line-height: 12px;
 }
 
-    .etiqueta_guia_negocio span {
-        display: block;
-        font-size: 13.9px;
-        font-weight: 700;
-        height: 14px;
-    }
+.etiqueta_guia_negocio span {
+    display: block;
+    font-size: 13.9px;
+    font-weight: 700;
+    height: 14px;
+}
 
 /*POP UP PRODUCTO FALTANTE*/
 .producto_faltante {
@@ -32887,9 +33127,16 @@ h1#penmostreo .campana {
 
 .compartir_redes_ficha {
     margin-top: 30px;
-    padding-left: 64px;
+    padding-left: 25px;
 }
-
+.compartir_redes_ficha_fix {
+    margin-top: 0;
+    padding: 0;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    padding: 12px 0;
+}
 .texto_compartelo {
     float: left;
     margin-right: 15px;
@@ -32897,12 +33144,24 @@ h1#penmostreo .campana {
     font-size: 12px;
     margin-top: 3px;
 }
-
-.btn_compartir_facebook_ficha {
-    width: 25px;
-    float: left;
-    margin-right: 5px;
-    text-align: center;
+.texto_compartelo_fix {
+    font-family: 'Lato';
+    font-size: 12px;
+    width: 62%;
+    text-align: right;
+    margin-right: 3%;
+    height: 42px;
+}
+.texto_compartelo_fix p {
+display: block;
+height: 39px;
+margin: 0;
+padding: 0;
+padding: 10px 0px;
+}
+.texto_compartelo_fix p div{
+display:block;
+height:30px;
 }
 
 .opcion_escala_descuento {
@@ -32975,15 +33234,11 @@ h1#penmostreo .campana {
     background-size: 18px 18px;
 }
 
-.btn_compartir_facebook_ficha:nth-child(3) {
-    margin-right: 0;
-}
-
 .notificacion_cantidad {
     font-family: 'Lato';
     font-size: 12.5px;
     padding-left: 25px;
-    background: url('../../../Images/Lbel/icono_advertencia_notificacion.png') no-repeat left;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat left;
     padding-top: 3px;
     margin-top: 30px;
 }
@@ -33291,21 +33546,26 @@ h1#penmostreo .campana {
     color: #a18328;
 }
 /*SHOWROOM*/
+
+.contenedor_productos_showroom {
+    display: block;
+    position: relative;
+    text-align: left;
+}
+
 .set-productos-showroom {
     background-color: white;
-    margin-right: 2.6%;
-    float: left;
-    position: relative;
-    width: 23%;
-    margin-bottom: 15px;
-    margin-top: 15px;
-    padding-bottom: 12px;
+    border: 1px solid #e6e3e3;
     -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
-    margin-bottom: 15px;
-    margin-top: 15px;
-    border: 1px solid #e6e3e3;
+    display: inline-block;
+    height: 338px;
+    margin: 15px 25.516px 15px 0;
+    padding-bottom: 12px;
+    position: relative;
+    vertical-align: top;
+    width: 240.66px;
 }
 
     .set-productos-showroom:nth-child(4n) {
@@ -33415,7 +33675,7 @@ h1#penmostreo .campana {
 }
 
 .nombre_marca_set {
-    margin-top: 21px;
+    margin: 21px 0 0 2.5%;
     font-size: 11px;
     text-transform: uppercase;
     color: black;
@@ -33426,7 +33686,6 @@ h1#penmostreo .campana {
 .content_detalle_showroom {
     width: 100%;
     margin-top: 5px;
-    overflow: hidden;
 }
 
 .cantidad_set_individual {
@@ -33436,9 +33695,14 @@ h1#penmostreo .campana {
 }
 
 .nombre_set_individual {
-    width: 60%;
+    width: 50%;
     float: left;
     font-size: 13px;
+}
+
+.tonos_set_individual {
+    float: right;
+    width: 36%;
 }
 
 .detalle_set_showroom {
@@ -33562,7 +33826,7 @@ h1#penmostreo .campana {
 
 .notificacion_compra {
     margin-left: 29%;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat;
     background-size: 16px 16px;
     font-family: 'Lato';
     font-size: 11px;
@@ -33712,7 +33976,7 @@ h1#penmostreo .campana {
 
 .content_imagen_individual {
     width: 9%;
-    margin-right: 2%;
+    margin-right: 1%;
     float: left;
 }
 
@@ -33801,7 +34065,17 @@ h1#penmostreo .campana {
     font-size: 13px;
     font-weight: 400;
     margin-right: 10px;
+    width: 90px;
 }
+.precios_para_ti {
+    margin-top: -3px;
+    display: inline-table;
+}
+
+    .precios_para_ti p {
+        display: block;
+        margin-bottom: 0px;
+    }
 
 .ganancia_ficha {
     color: #613c87;
@@ -34374,12 +34648,10 @@ h1#penmostreo .campana {
 }
 
 .content_imagen_promocion {
-    height: auto;
-    width: 85px;
     text-align: center;
-    margin-top: -12px;
-    float: left;
-    margin-right: 14px;
+    margin: 2.5px 0 0 -85px;
+    position: absolute;
+    width: 72px;
 }
 
     .content_imagen_promocion img {
@@ -34394,7 +34666,7 @@ h1#penmostreo .campana {
     float: left;
     width: 215px;
     margin-right: 20px;
-    margin-top: 17px;
+    margin-top: 2px;
     line-height: 21px;
     text-transform: uppercase;
 }
@@ -34617,16 +34889,17 @@ h1#penmostreo .campana {
 
 .texto_cupon_monto {
     text-align: left;
-    font-size: 12px;
+    font-size: 11px;
     font-family: 'LAto';
     float: left;
-    margin-left: 38px;
-    line-height: 1.17;
+    margin-left: 30px;
+    line-height: 1.47;
+    width: 222px;           
 }
 
 .content_cupon {
     width: 664px;
-    height: 280px;
+    height: 360px;
     position: relative;
     top: 50%;
     margin: 13% auto auto auto;
@@ -34734,7 +35007,7 @@ h1#penmostreo .campana {
 .titulo_cupon2 {
     font-family: 'LAto';
     font-size: 20px;
-    font-weight: 900;
+    font-weight: 700;   
     letter-spacing: 1px;
 }
 
@@ -34787,22 +35060,21 @@ h1#penmostreo .campana {
 
 .texto_cupon3 {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 5px;
     font-size: 14px;
 }
 
 .info_recuerda_cupon {
     float: left;
     width: 33%;
-    margin-top: 12px;
     font-family: 'Lato';
-    font-size: 12px;
+    font-size: 13px;
     height: 72px;
 }
 
     .info_recuerda_cupon span {
         display: block;
-        margin-top: 5px;
+        margin-top: 14px;
         line-height: 15px;
     }
 
@@ -34814,6 +35086,8 @@ h1#penmostreo .campana {
     display: inline-table;
     float: none;
     width: 40%;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .info_recuerda_cupon_line {
@@ -35012,7 +35286,7 @@ h1#penmostreo .campana {
 .icono_alerta_cupon {
     width: 17px;
     height: 17px;
-    background: url('../../../Images/Lbel/icono_advertencia_notificacion.svg') no-repeat;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat;
     background-size: contain;
     position: absolute;
     right: 0;
@@ -35461,18 +35735,17 @@ h1#penmostreo .campana {
 }
 /*SPRINT 18*/
 .content_regalo_sorpresa {
-    display: inline-block;
-    width: 310px;
-    min-height: 608px;
-    margin-top: 35px;
+    background-repeat: no-repeat;
     background-size: 100% 100%;
-    vertical-align: top;
-    margin-right: -25px;
-    z-index: 21;
+    background-position: center center;
+    display: inline-block;
+    margin: 35px -13px 0 0;
+    min-height: 608px;
+    padding: 25px 25px 0 25px;
     position: relative;
-    padding-top: 25px;
-    padding-left: 32px;
-    padding-right: 25px;
+    vertical-align: top;
+    width: 308px;
+    z-index: 21;
 }
 
 .fondo_blanco_regalo {
@@ -35500,44 +35773,29 @@ h1#penmostreo .campana {
 
 .titulo_regalo_producto {
     font-family: 'Lato';
-    font-size: 13px;
     font-weight: 700;
     color: black;
-    margin-bottom: 15px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 21px;
-    line-height: 16px;
+    font-size: 13px;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 .content_imagen_sorpresa {
-    height: 178px;
-    width: 180px;
+    width: 163px;
     margin: 0 auto;
-    margin-bottom: 12px;
+    text-align: center;
 }
+
+    .content_imagen_sorpresa img {
+        width: 100%;
+    }
 
 .descripcion_regalo {
     font-family: 'Lato';
     font-size: 10px;
-    color: black;
-    line-height: 12px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 18px;
+    margin-top: 16px;
+    text-align: center;
 }
-
-    .descripcion_regalo .oferta_final_descripcion {
-        display: block;
-        margin-bottom: 7px;
-        overflow-wrap: break-word;
-    }
-
-    .descripcion_regalo a {
-        display: block;
-        text-decoration: underline;
-        margin-top: 7px;
-    }
 
 .content_detalle_monto {
     font-family: 'Lato';
@@ -35578,16 +35836,200 @@ h1#penmostreo .campana {
 }
 
 .icono_regalo_sorpresa {
-    width: 85px;
-    height: 55px;
-    background: url('https://image.prntscr.com/image/FsgNYCifSjqEzkw5UjWyBw.png');
-    margin: 0 auto;
-    margin-top: 13px;
+    margin: 0 auto 8px auto;
+    width: 80px;
 }
 
-    .icono_regalo_sorpresa.mt-11 {
-        margin-top: 11px;
+    .icono_regalo_sorpresa img {
+        width: 100%;
     }
+
+.txt_regalo_sorpresa_popup {
+    font-family: 'Lato';
+    text-align: center;
+    color: #ffffff;
+}
+
+.box_regalo_sorpresa_popup {
+    margin-bottom: 15px;
+}
+
+.span_1_regalo_sorpresa_popup {
+    font-size: 13px;
+    letter-spacing: 1.1px;
+}
+
+.span_2_regalo_sorpresa_popup {
+    font-size: 16px;
+    font-weight: 900;
+    line-height: normal;
+    letter-spacing: 1.1px;
+}
+
+.arrow_box {
+    position: relative;
+    background: #000000;
+    width: 207px;
+    margin: 0 auto 0px auto;
+    padding: 5px 0 5px 0;
+    z-index: 1;
+}
+
+    .arrow_box:after {
+        top: 100%;
+        left: 50%;
+        content: " ";
+        border: solid transparent;
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-color: rgba(0, 0, 0, 0);
+        border-top-color: #000000;
+        border-width: 10px;
+        margin-left: -10px;
+    }
+
+.arrow_box_2 {
+    padding: 11px 0 11px 0;
+}
+
+.span_1_regalo_sorpresa_producto {
+    font-size: 10.5px;
+}
+
+.span_1_regalo_sorpresa_producto_2 {
+    font-size: 10.4px;
+    line-height: 1.24;
+    letter-spacing: .2px;
+}
+
+.span_2_regalo_sorpresa_producto {
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: .9px;
+}
+
+.content_info_regalo {
+    position: relative;
+    padding: 22px 10px 22px 10px;
+    background: #FFF;
+    width: 207px;
+    display: block;
+    margin: 0 auto 15px auto;
+    min-height: 293px;
+    border: 1px solid #e7e1e1;
+    box-shadow: 0 15px 18px -7px rgba(0,0,0,1);
+    -moz-box-shadow: 0 15px 18px -7px rgba(0,0,0,1);
+    -o-box-shadow: 0 15px 18px -7px rgba(0,0,0,1);
+    -ms-box-shadow: 0 15px 18px -7px rgba(0,0,0,1);
+    -webkit-box-shadow: 0 15px 18px -7px rgba(0,0,0,1);
+}
+
+.boton_quiero_este_premio {
+    display: block;
+    height: 38px;
+    line-height: 37px;
+    background: black;
+    color: white;
+    text-align: center;
+    border: 1px solid #000;
+    font-size: 13px;
+    cursor: pointer;
+    margin: 17px auto 0 auto;
+    width: 95%;
+    vertical-align: top;
+    letter-spacing: .5px;
+}
+
+.content_regalo_sinstock {
+    background-color: #ffffffb3;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.txt_agotado {
+    font-family: Lato;
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: 1.3px;
+    color: #d0021b;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.txt_paginacion_premio {
+    color: #fff;
+    font-family: Lato;
+    font-size: 11.7px;
+    letter-spacing: .7px;
+    text-align: center;
+    width: 100%;
+}
+
+.span_paginacion_premio_1 {
+    font-weight: bold;
+}
+
+.txt_nota_premio {
+    margin-top: 16px;
+    font-family: 'Lato';
+    font-size: 12px;
+    display: block;
+    color: white;
+    text-align: center;
+    line-height: 1.25;
+}
+
+.btn_legal_RS {
+    font-family: 'Lato';
+    font-size: 12px;
+    display: block;
+    color: white;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.btn_regresa_OF {
+    cursor: pointer;
+    left: 15px;
+    position: absolute;
+    top: 15px;
+}
+
+.img_regresa_OF {
+    margin-top: 3.2px;
+    position: absolute;
+    width: 8px;
+}
+
+.span_regresa_OF {
+    color: white;
+    font-family: 'Lato';
+    font-size: 11px;
+    letter-spacing: .5px;
+    position: relative;
+    padding-left: 15px;
+    text-transform: uppercase;
+}
+
+#divGanoRegalo .btn_legal_RS {
+    margin-top: 30px;
+}
+
+#divCarruselRegalo .content_item_carrusel_ofertaFinal {
+    height: auto;
+}
 
 .contenedor_boton_reservarPedido {
     display: block;
@@ -35804,34 +36246,12 @@ h1#penmostreo .campana {
     font-size: 17px;
 }
 
-.contenido-popup-nuevo-2017 {
-    display: table-cell;
-    vertical-align: middle;
-    color: white;
-    text-transform: uppercase;
-    text-align: center;
-}
-
-    .contenido-popup-nuevo-2017 .centrar-estructura {
-        box-shadow: inset 0 0 0 5px #613c87;
-        padding: 20px;
-        margin: 5% auto auto auto;
-        width: 432px;
-        height: 432px;
-        display: table;
-    }
-
-        .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto span.flashit {
-            color: white;
-            /* flash linear 1s infinite;
-*/
-        }
 .desactivar_boton_popup_confirma_datos {
     background: #e0e0e0;
 }
 
 .activar_boton_popup_confirma_datos {
-    background: #613c87 !important;
+    background: #c39934 !important;
 }
 
 @-webkit-keyframes flash {
@@ -35862,62 +36282,6 @@ h1#penmostreo .campana {
     }
 }
 
-.contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido {
-    display: table-cell;
-    vertical-align: middle;
-}
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-        font-size: 28px;
-        letter-spacing: 1px;
-        text-align: center;
-        color: white;
-        font-weight: 300;
-        margin-bottom: 0;
-        display: block;
-        width: 280px;
-        margin: auto;
-        line-height: 30px;
-        margin-bottom: 15px;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-        font-size: 30px;
-        letter-spacing: 1px;
-        line-height: 35px;
-        text-align: center;
-        color: white;
-        font-weight: 700;
-        margin-top: 10px;
-        letter-spacing: 1px;
-        margin-bottom: 36px;
-        display: block;
-        width: 280px;
-        margin: auto;
-        margin-bottom: 35px;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
-        background: #613c87;
-        color: white;
-        text-align: center;
-        max-width: 240px;
-        display: block;
-        font-size: 13px;
-        text-decoration: none;
-        padding: 17px 0;
-        letter-spacing: 1px;
-        margin: auto;
-        border: none;
-        box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .3);
-    }
-
-.contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
-    position: absolute;
-    margin-top: -20px;
-    margin-left: 30px;
-}
-
 .contenedor_fondo_popup {
     position: fixed;
     top: 0;
@@ -35945,4 +36309,11 @@ h1#penmostreo .campana {
 
 .contenido .centrar-estructura {
     height: 80%;
+}
+
+
+.btn_desactivado_general {
+    background: #e5e5e5;
+    border: 1px solid #d2d2d2;
+    color: #b9b9b9;
 }

@@ -1,8 +1,7 @@
-﻿using System.Runtime.Serialization;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Portal.Consultoras.Entities.Comunicado;
 using System.Collections.Generic;
-
-using Portal.Consultoras.Entities.Comunicado;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
@@ -36,6 +35,18 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("Descripcion")]
         public string Descripcion { get; set; }
+        [DataMember]
+        [Column("SegmentacionID")]
+        public int? SegmentacionID { get; set; }
+        [DataMember]
+        [Column("SegmentacionConsultora")]
+        public bool SegmentacionConsultora { get; set; }
+        [DataMember]
+        [Column("SegmentacionRegionZona")]
+        public bool SegmentacionRegionZona { get; set; }
+        [DataMember]
+        [Column("SegmentacionEstadoActividad")]
+        public bool SegmentacionEstadoActividad { get; set; }
         [DataMember]
         public List<BEComunicadoVista> Vistas { get; set; }
     }

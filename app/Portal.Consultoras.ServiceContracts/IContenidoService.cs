@@ -24,9 +24,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int SaveBanner(BEBanner banner);
-		[OperationContract]
+        [OperationContract]
         List<int> SaveListBanner(List<BEBanner> listBanner);
-		[OperationContract]
+        [OperationContract]
         int GetPaisBannerMarquesina(string CampaniaID, int IdBanner);
 
         [OperationContract]
@@ -208,11 +208,11 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void DeleteCacheBanner(int CampaniaID);
 
-		[OperationContract]
-        int ActualizarEstadoPaqueteDocumentario(int paisID,string codigo, int campania);
+        [OperationContract]
+        int ActualizarEstadoPaqueteDocumentario(int paisID, string codigo, int campania);
 
         [OperationContract]
-        bool ValidarInvitacionPaqueteDocumentario(int paisID,string codigo);
+        bool ValidarInvitacionPaqueteDocumentario(int paisID, string codigo);
 
         [OperationContract]
         string[] GetPaqueteDocumentario(int paisID);
@@ -257,7 +257,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         bool AgregarPaisPlantillaEmailingSE(int PaisID, int PlantillaID, string CodigoUsuario);
-        
+
         [OperationContract]
         bool QuitarPaisPlantillaEmailingSE(int PaisID, int PlantillaID);
 
@@ -279,6 +279,5 @@ namespace Portal.Consultoras.ServiceContracts
         string ObtenerCorreoEmisor(int PaisID);
 
         #endregion
-
     }
 }

@@ -1,5 +1,4 @@
-﻿using Portal.Consultoras.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
@@ -14,8 +13,9 @@ namespace Portal.Consultoras.Web.Models
             ListaTabs = new List<ComunModel>();
             ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
             EstadoRdcAnalytics = "(not available)";
-            
+
             BloquearRevistaImpresaGeneral = null;
+            NoVolverMostrar = true;
         }
 
         public int ConfiguracionPaisID { get; set; }
@@ -24,6 +24,11 @@ namespace Portal.Consultoras.Web.Models
         public int CantidadCampaniaEfectiva { get; set; }
         public string NombreComercialActiva { get; set; }
         public string NombreComercialNoActiva { get; set; }
+
+        public string DLogoMenuInicioActiva { get; set; }
+        public string DLogoMenuInicioNoActiva { get; set; }
+        public string MLogoMenuInicioActiva { get; set; }
+        public string MLogoMenuInicioNoActiva { get; set; }
 
         public string DLogoComercialActiva { get; set; }
         public string DLogoComercialNoActiva { get; set; }
@@ -46,6 +51,8 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneRDS { get; set; }
         public bool EsActiva { get; set; }
         public bool EsSuscrita { get; set; }
+
+        public bool ActivoMdo { get; set; }
 
         public string NombreConsultora { get; set; }
         public string CampaniaActual { get; set; }
@@ -85,6 +92,10 @@ namespace Portal.Consultoras.Web.Models
         public bool SubscripcionAutomaticaAVirtualCoach { get; set; }
 
         public bool BloqueoProductoDigital { get; set; }
+        public string BannerOfertasNoActivaNoSuscrita { get; set; }
+        public string BannerOfertasNoActivaSuscrita { get; set; }
+        public string BannerOfertasActivaNoSuscrita { get; set; }
+        public string BannerOfertasActivaSuscrita { get; set; }
 
         public bool EsSuscritaInactiva()
         {
@@ -100,7 +111,7 @@ namespace Portal.Consultoras.Web.Models
         {
             return TieneRDC && !EsSuscrita && !EsActiva;
         }
-        
+
         public bool EsNoSuscritaActiva()
         {
             return TieneRDC && !EsSuscrita && EsActiva;
@@ -122,6 +133,11 @@ namespace Portal.Consultoras.Web.Models
                 return EsActiva ? MLogoComercialFondoActiva : EsSuscrita ? MLogoComercialFondoActiva : MLogoComercialFondoNoActiva;
             }
             return EsActiva ? DLogoComercialFondoActiva : EsSuscrita ? DLogoComercialFondoActiva : DLogoComercialFondoNoActiva;
+        }
+
+        public bool TieneRevistaDigital()
+        {
+            return TieneRDC || TieneRDR;
         }
     }
 }

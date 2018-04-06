@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (CDRServiceClient cdr = new CDRServiceClient())
                 {
-                    var beCdrWeb = new BECDRWeb {ConsultoraID = userData.ConsultoraID};
+                    var beCdrWeb = new BECDRWeb { ConsultoraID = userData.ConsultoraID };
 
                     var listaReclamo = cdr.GetCDRWeb(userData.PaisID, beCdrWeb).ToList();
 
@@ -97,36 +97,10 @@ namespace Portal.Consultoras.Web.Controllers
                 ExpressFlete = SetMensajeFleteExpress(model.FleteDespacho)
             };
 
-            if (userData.PaisID == 9)
-            {
-                model.limiteMinimoTelef = 5;
-                model.limiteMaximoTelef = 15;
-            }
-            else if (userData.PaisID == 11)
-            {
-                model.limiteMinimoTelef = 7;
-                model.limiteMaximoTelef = 9;
-            }
-            else if (userData.PaisID == 4)
-            {
-                model.limiteMinimoTelef = 10;
-                model.limiteMaximoTelef = 10;
-            }
-            else if (userData.PaisID == 8 || userData.PaisID == 7 || userData.PaisID == 10 || userData.PaisID == 5)
-            {
-                model.limiteMinimoTelef = 8;
-                model.limiteMaximoTelef = 8;
-            }
-            else if (userData.PaisID == 6)
-            {
-                model.limiteMinimoTelef = 9;
-                model.limiteMaximoTelef = 10;
-            }
-            else
-            {
-                model.limiteMinimoTelef = 0;
-                model.limiteMaximoTelef = 15;
-            }
+            int limiteMinimoTelef, limiteMaximoTelef;
+            GetLimitNumberPhone(out limiteMinimoTelef, out limiteMaximoTelef);
+            model.limiteMinimoTelef = limiteMinimoTelef;
+            model.limiteMaximoTelef = limiteMaximoTelef;
 
             return View(model);
         }
@@ -588,7 +562,7 @@ namespace Portal.Consultoras.Web.Controllers
                         PedidoNumero = model.NumeroPedido,
                         ConsultoraID = Int32.Parse(userData.ConsultoraID.ToString()),
                         EsMovilOrigen = Convert.ToBoolean(model.EsMovilOrigen),
-                        CDRWebDetalle = new BECDRWebDetalle[] {entidadDetalle},
+                        CDRWebDetalle = new BECDRWebDetalle[] { entidadDetalle },
                         TipoDespacho = model.TipoDespacho,
                         FleteDespacho = userData.EsConsecutivoNueva ? 0 : model.FleteDespacho,
                         MensajeDespacho = model.MensajeDespacho
@@ -663,7 +637,7 @@ namespace Portal.Consultoras.Web.Controllers
                 detalle = lista,
                 cantobservado = lista.Count(x => x.Estado == Constantes.EstadoCDRWeb.Observado),
                 cantaprobado = lista.Count(x => x.Estado == Constantes.EstadoCDRWeb.Aceptado),
-                esCDRExpress = TieneDetalleCDRExpress(lista), 
+                esCDRExpress = TieneDetalleCDRExpress(lista),
                 Simbolo = userData.Simbolo
             }, JsonRequestBehavior.AllowGet);
         }
@@ -672,7 +646,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var entidadDetalle = new BECDRWebDetalle {CDRWebDetalleID = model.CDRWebDetalleID};
+                var entidadDetalle = new BECDRWebDetalle { CDRWebDetalleID = model.CDRWebDetalleID };
 
                 using (CDRServiceClient sv = new CDRServiceClient())
                 {
@@ -1168,11 +1142,11 @@ namespace Portal.Consultoras.Web.Controllers
                     page = pag.CurrentPage,
                     records = pag.RecordCount,
                     rows = from a in items
-                    select new
-                    {
-                        id = a.NroCDR,
-                        cell = new string[]
-                        {
+                           select new
+                           {
+                               id = a.NroCDR,
+                               cell = new string[]
+                               {
                             a.NroCDR ?? string.Empty,
                             a.ConsultoraCodigo ?? string.Empty,
                             a.RegionCodigo ?? string.Empty,
@@ -1198,8 +1172,8 @@ namespace Portal.Consultoras.Web.Controllers
                             a.TipoDespacho ?? string.Empty,
                             a.FleteDespacho.ToString(),
                             a.OrigenCDRWeb ?? string.Empty
-                        }
-                    }
+                               }
+                           }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -1291,7 +1265,7 @@ namespace Portal.Consultoras.Web.Controllers
             string templateDetalleOperacionFaltantePath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_detalle_codigo_operacion_faltante.html";
             string templateDetalleOperacionFaltanteAbonoPath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_detalle_codigo_operacion_faltanteAbono.html";
             string templateUrlDetalleOperacionTruequePath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_detalle_codigo_operacion_trueque.html";
-            
+
             var txtBuil = new StringBuilder();
             foreach (var cdrWebDetalle in cdrWeb.CDRWebDetalle)
             {
@@ -1338,7 +1312,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectCampanias(paisId);
             }
-            
+
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
 
@@ -1372,14 +1346,14 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2 
-                    ? sv.SelectPaises().ToList() 
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
-        
+
         private List<BETablaLogicaDatos> GetListMensajeCDRExpress()
         {
             if (Session[Constantes.ConstSession.CDRExpressMensajes] != null)

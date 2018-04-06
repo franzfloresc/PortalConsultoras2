@@ -1,7 +1,10 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceUsuario;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -11,62 +14,35 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult IndexModel()
         {
-            if(revistaDigital.TieneRDI)
+            if (revistaDigital.TieneRDI)
                 return View("template-informativa-rdi");
 
             if (revistaDigital.TieneRDR)
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
-            
+
             if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDS)
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
 
-            ViewBag.NombreConsultora = userData.NombreConsultora.ToUpper();
-            ViewBag.EMail = userData.EMail;
-            ViewBag.Celular = userData.Celular;
-
-            #region limite Min - Max Telef
-            switch (userData.PaisID)
-            {
-                case Constantes.PaisID.Mexico:
-                    ViewBag.limiteMinimoTelef = 5;
-                    ViewBag.limiteMaximoTelef = 15;
-                    break;
-                case Constantes.PaisID.Peru:
-                    ViewBag.limiteMinimoTelef = 7;
-                    ViewBag.limiteMaximoTelef = 9;
-                    break;
-                case Constantes.PaisID.Colombia:
-                    ViewBag.limiteMinimoTelef = 10;
-                    ViewBag.limiteMaximoTelef = 10;
-                    break;
-                case Constantes.PaisID.Guatemala:
-                case Constantes.PaisID.ElSalvador:
-                case Constantes.PaisID.Panama:
-                case Constantes.PaisID.CostaRica:
-                    ViewBag.limiteMinimoTelef = 8;
-                    ViewBag.limiteMaximoTelef = 8;
-                    break;
-                case Constantes.PaisID.Ecuador:
-                    ViewBag.limiteMinimoTelef = 9;
-                    ViewBag.limiteMaximoTelef = 10;
-                    break;
-                default:
-                    ViewBag.limiteMinimoTelef = 0;
-                    ViewBag.limiteMaximoTelef = 15;
-                    break;
-            }
-            #endregion
-
+            int limiteMinimoTelef, limiteMaximoTelef;
+            GetLimitNumberPhone(out limiteMinimoTelef, out limiteMaximoTelef);
             var modelo = new RevistaDigitalInformativoModel
             {
                 EsSuscrita = revistaDigital.EsSuscrita,
                 EstadoSuscripcion = revistaDigital.EstadoSuscripcion,
                 Video = GetVideoInformativo(),
-                UrlTerminosCondiciones = Getvalor1Dato(Constantes.ConfiguracionManager.RDUrlTerminosCondiciones),
-                UrlPreguntasFrecuentes = Getvalor1Dato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes),
-                Origen = revistaDigital.SuscripcionEfectiva.Origen
+                UrlTerminosCondiciones = GetValorDato(Constantes.ConfiguracionManager.RDUrlTerminosCondiciones),
+                UrlPreguntasFrecuentes = GetValorDato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes),
+                Origen = revistaDigital.SuscripcionModel.Origen,
+                NombreConsultora = userData.Sobrenombre.ToUpper(),
+                Email = userData.EMail,
+                Celular = userData.Celular,
+                LimiteMax = limiteMaximoTelef,
+                LimiteMin = limiteMinimoTelef,
+                UrlTerminosCondicionesDatosUsuario = GetUrlTerminosCondicionesDatosUsuario(),
+                CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString().Substring(4),
+                CancelarSuscripcion = CancelarSuscripcion(revistaDigital.SuscripcionModel.Origen, userData.CodigoISO)
             };
-                        
+
             return View("template-informativa", modelo);
         }
 
@@ -112,9 +88,10 @@ namespace Portal.Consultoras.Web.Controllers
             model.ProductosPerdio = dato.Estado;
             model.PerdioTitulo = dato.Valor1;
             model.PerdioSubTitulo = dato.Valor2;
-            
+
             model.MensajeProductoBloqueado = MensajeProductoBloqueado();
             model.CantidadFilas = 10;
+
             return PartialView("template-landing", model);
         }
 
@@ -126,7 +103,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
             }
 
-            if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR)
+            if (!revistaDigital.TieneRevistaDigital())
             {
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
             }
@@ -148,7 +125,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TieneProductosPerdio = dato.Estado;
             ViewBag.PerdioTitulo = dato.Valor1;
             ViewBag.PerdioSubTitulo = dato.Valor2;
-            
+
             ViewBag.Campania = campaniaId;
             return View(modelo);
 
@@ -186,24 +163,38 @@ namespace Portal.Consultoras.Web.Controllers
         private string GetVideoInformativo()
         {
             var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.InformativoVideo) ?? new ConfiguracionPaisDatosModel();
-            string video;
-            if (IsMobile())
-            {
-                video = Util.Trim(dato.Valor2);
-            }
-            else
-            {
-                video = Util.Trim(dato.Valor1);
-            }
-
-            return video;
+            return Util.Trim(IsMobile() ? dato.Valor2 : dato.Valor1);
         }
 
-        private string Getvalor1Dato(string codigo)
+        public string GetValorDato(string codigo, int valor = 1)
         {
             var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
-            return Util.Trim(dato.Valor1);
+            var valorDato = "";
+            switch (valor)
+            {
+                case 1: valorDato = dato.Valor1; break;
+                case 2: valorDato = dato.Valor2; break;
+                case 3: valorDato = dato.Valor3; break;
+                default: valorDato = dato.Valor1; break;
+            }
+            return Util.Trim(valorDato);
         }
-        
+
+        private bool CancelarSuscripcion(string origen, string pais)
+        {
+            if (origen.IsNullOrEmptyTrim()) return false;
+            string paises;
+            if (origen.Equals(Constantes.RevistaDigitalOrigen.Unete))
+            {
+                paises = ConfigurationManager.AppSettings.Get(Constantes.ConfiguracionManager.PaisesCancelarSuscripcionRDUnete) ?? string.Empty;
+                if (paises.Contains(pais)) return true;
+            }
+            else if (origen.Equals(Constantes.RevistaDigitalOrigen.Nueva))
+            {
+                paises = ConfigurationManager.AppSettings.Get(Constantes.ConfiguracionManager.PaisesCancelarSuscripcionRDNuevas) ?? string.Empty;
+                if (paises.Contains(pais)) return true;
+            }
+            return false;
+        }
     }
 }

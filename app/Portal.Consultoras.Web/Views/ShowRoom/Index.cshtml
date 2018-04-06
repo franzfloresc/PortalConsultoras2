@@ -74,7 +74,7 @@
             </div>
 
             <hr class="clear" />
-            <div id="divProductosShowRoom"></div>
+            <div class="contenedor_productos_showroom" id="divProductosShowRoom"></div>
         </div>
 
     </div>
@@ -352,6 +352,7 @@
                 <span class="precio-oferta-normal">{{Simbolo}} {{FormatoPrecioValorizado}}</span>
                 <span class="precio-oferta-venta"><b>{{Simbolo}} {{FormatoPrecioOferta}}</b></span>
             </div>
+            {{#iff TipoAccionAgregar '==' '0'}}
             <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                 <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
                        class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
@@ -365,6 +366,13 @@
             <a class="boton_Agregalo_home" data-btn-agregar-sr="">
                 AGRÉGALO
             </a>
+            {{/iff}}
+            {{#iff TipoAccionAgregar '==' '1'}}
+            <a class="btn_elige_tono" href="{{UrlDetalle}}">
+                <b style="color:#000000">ELIGE TU OPCIÓN</b>
+            </a>
+            {{/iff}}
+
             <div class="clear"></div>
             <div style="padding-top: 9px;margin-bottom:6px; height: 15px;">
                 <div class="agregado product-add" style="text-align: right; display: {{Agregado}};">
@@ -398,6 +406,9 @@
         var itemsCompraXCompra = '@Model.ListaShowRoomCompraPorCompra.Count';
         var tieneSubCampania = '@Model.TieneSubCampania';
         var itemsSubCampania = @Model.ListaShowRoomOferta.Where(p => p.EsSubCampania).OrderBy(p => p.Orden).ToList().Count;
+        var vfallSpeed = 4;
+        var vnumObjects = 8;
+        var esShowRoom = true;
 
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")"></script>

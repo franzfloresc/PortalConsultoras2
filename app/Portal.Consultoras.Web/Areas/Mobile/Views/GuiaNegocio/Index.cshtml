@@ -9,7 +9,7 @@
 }
 
 @section styles{
-    @System.Web.Optimization.Styles.Render("~/bundles/css/Mobile/Site/RevistaDigital-Landing")
+    @System.Web.Optimization.Styles.Render("~/bundles/css/Mobile/Site/GuiaNegocio-Landing")
     <style>
         .slct-box-filtro-mobile {
             height: 40px;
@@ -17,7 +17,6 @@
             font-family: 'Lato';
             padding-left: 7px;
             font-size: 12px;
-            /* margin-right: 10px; */
             border: 1px solid rgba(0, 0, 0, .21);
             float: left;
             margin-left: 1%;
@@ -93,9 +92,8 @@
 @Html.Partial("~/Areas/Mobile/Views/GuiaNegocio/_GuiaNegocioFlotante.cshtml")
 
 @section scripts{
-<script type="text/javascript">
+    <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
-        /*var tipoOrigenPantalla = 1;*/
         var urlOfertaCargarProductos = '@Url.Action("GNDObtenerProductos", "GuiaNegocio", new { area = ""})';
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.GNDMobileLanding';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital", new { area = "" })';
@@ -106,7 +104,6 @@
         var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
         var lsListaRD = "GNDLista";
         var campaniaId = @Model.CampaniaID;
-        //
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
         var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
         var RevistaCodigoIssuu = {
@@ -115,8 +112,6 @@
             '@ViewBag.CampaniaSiguiente': '@ViewBag.CodigoRevistaSiguiente'
         };
 
-        /*var alturaimgnd = $(".revistagnd .contrevistagnd .imgrevista img").height();
-        $(".revistagnd .contrevistagnd .inforevista").css("height", alturaimgnd);*/
-</script>
+    </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/GuiaNegocio-Landing")
 }

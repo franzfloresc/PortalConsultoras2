@@ -156,7 +156,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ConsultarValidacionTelefonica(int id)
         {
-            var model = new ConsultarValidacionTelefonicaModel {SolicitudPostulanteId = id};
+            var model = new ConsultarValidacionTelefonicaModel { SolicitudPostulanteId = id };
 
             using (var portalSv = new PortalServiceClient())
             {
@@ -413,7 +413,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else
                         {
-                            sheets.Add((string) schemas.Rows[0]["TABLE_NAME"]);
+                            sheets.Add((string)schemas.Rows[0]["TABLE_NAME"]);
                         }
                     }
 
@@ -512,7 +512,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else
                         {
-                            sheets.Add((string) schemas.Rows[0]["TABLE_NAME"]);
+                            sheets.Add((string)schemas.Rows[0]["TABLE_NAME"]);
                         }
                     }
 
@@ -916,7 +916,7 @@ namespace Portal.Consultoras.Web.Controllers
                     codigoPostal = item.Descripcion;
                 }
 
-                var data = new {CodigoPostal = codigoPostal};
+                var data = new { CodigoPostal = codigoPostal };
 
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -929,7 +929,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var lugaresNivel = sv.ObtenerParametrosUnete(codigoIso, nivel, id);
 
                 var data = lugaresNivel.Select(l =>
-                    new {Value = l.IdParametroUnete, Text = l.Nombre, CodigoPostalDO = l.Descripcion}).ToList();
+                    new { Value = l.IdParametroUnete, Text = l.Nombre, CodigoPostalDO = l.Descripcion }).ToList();
 
 
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -1285,7 +1285,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             Dictionary<string, string> dic =
-                new Dictionary<string, string> {{"ZonaSeccion", "ZonaSeccion"}, {"NivelRiesgo", "NivelRiesgo"}};
+                new Dictionary<string, string> { { "ZonaSeccion", "ZonaSeccion" }, { "NivelRiesgo", "NivelRiesgo" } };
 
             Util.ExportToExcel("ReporteNivelesRiesgo", items, dic);
             return View();
@@ -1315,7 +1315,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 foreach (var item in lstSelect)
                 {
-                    var crItem = (UbigeoCR) item;
+                    var crItem = (UbigeoCR)item;
 
                     objNivel = new NivelesGeograficosModel
                     {
@@ -1338,7 +1338,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 foreach (var item in lstSelect)
                 {
-                    var crItem = (UbigeoPA) item;
+                    var crItem = (UbigeoPA)item;
 
                     objNivel = new NivelesGeograficosModel
                     {
@@ -1360,7 +1360,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 foreach (var item in lstSelect)
                 {
-                    var crItem = (UbigeoGT) item;
+                    var crItem = (UbigeoGT)item;
 
                     objNivel = new NivelesGeograficosModel
                     {
@@ -1383,7 +1383,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 foreach (var item in lstSelect)
                 {
-                    var crItem = (UbigeoSV) item;
+                    var crItem = (UbigeoSV)item;
 
                     objNivel = new NivelesGeograficosModel
                     {
@@ -1470,6 +1470,27 @@ namespace Portal.Consultoras.Web.Controllers
                         MostrarPaso1y2SE)
                     .ToList();
 
+                List<ResumenDiasEsperaBE> listaRequest = new List<ResumenDiasEsperaBE>();
+                foreach (var item in resultado)
+                {
+                    if (!string.IsNullOrEmpty(item.DiasEnEspera))
+                        listaRequest.Add(new ResumenDiasEsperaBE() { SolicitudPostulanteId = item.SolicitudPostulanteID, DiasEspera= Convert.ToInt32(item.DiasEnEspera)});
+                }
+                //Se separó para no saturar el servicio ObtenerReporteGestionPostulante
+                ResumenDiasEsperaCollection reporteDiasEspera;
+                reporteDiasEspera = sv.ObtenerReporteDiasEspera(CodigoISO, listaRequest.ToArray());
+
+                foreach (var item in resultado)
+                {
+                    if (!string.IsNullOrEmpty(item.DiasEnEspera))
+                    {
+                        var data = reporteDiasEspera.ToList().Where(x => x.SolicitudPostulanteId == item.SolicitudPostulanteID).FirstOrDefault().ResumenDiasEspera.Split('|');
+                        item.DetalleDiasEsperaGSAC = data[0];
+                        item.DetalleDiasEsperaAFFVV = data[1];
+                        item.DetalleDiasEsperaASAC = data[2];
+                    }
+                }
+
                 Dictionary<string, string> dic = sv.GetDictionaryReporteGestionPostulantes(CodigoISO, Estado);
                 Util.ExportToExcel("ReportePostulantes", resultado, dic);
                 return null;
@@ -1550,6 +1571,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             ViewBag.HTMLSACUnete = getHTMLSACUnete("RechazarPostulante", "&id=" + id + "&nombre=" + nombre);
             return PartialView("_RechazarPostulante");
+        }
+
+        public ActionResult ResumenDiasEspera(int id, string diasEsperaTotal)
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ResumenDiasEspera", "&id=" + id + "&diasEsperaTotal=" + diasEsperaTotal);
+            return PartialView("_ResumenDiasEspera");
         }
 
         [HttpPost]
@@ -1645,7 +1672,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (ViewBag.HTMLSACUnete == "{\"success\":true}")
             {
                 RegistrarLogGestionSacUnete(model.SolicitudPostulanteID.ToString(),"EDITAR POSTULANTE","EDITAR");
-                return Json(new {success = true}, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -1719,7 +1746,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var urlWsgeo = GetConfiguracionManager(Constantes.ConfiguracionManager.WSGEO_Url);
             var bytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(data));
-
+                
             var url = string.Format("{0}/{1}", urlWsgeo, metodo);
             var request = WebRequest.Create(url) as HttpWebRequest;
             request.Method = "POST";
@@ -1732,7 +1759,7 @@ namespace Portal.Consultoras.Web.Controllers
                 stream.Write(bytes, 0, bytes.Length);
             }
 
-            using (var response = (HttpWebResponse) request.GetResponse())
+            using (var response = (HttpWebResponse)request.GetResponse())
             {
                 var result = new StreamReader(response.GetResponseStream()).ReadToEnd();
                 return JsonConvert.DeserializeObject(result) as JObject;
@@ -1823,6 +1850,111 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
+        
+        [HttpPost]
+        public JsonResult GetReporteRolSearch(string pais, string rol, string usuario, string solicitud, string fechaInicio, string fechaFin, string lastKeyUsuario, string lastKeyFecha, int registrosPagina)
+        {
+            ReporteRol result = new ReporteRol();
+            try
+            {
+                result = GetReporteRol(pais, rol, usuario, solicitud, fechaInicio, fechaFin, lastKeyUsuario, lastKeyFecha, registrosPagina);
+            }
+            catch (Exception ex)
+            {
+                ErrorUtilities.AddLog(ex);
+            }
+            return Json(result, JsonRequestBehavior.AllowGet); ;
+        }
+
+        public ReporteRol GetReporteRol(string pais, string rol, string usuario, string solicitud, string fechaInicio, string fechaFin, string lastKeyUsuario, string lastKeyFecha, int registrosPagina) {
+
+            ReporteRol reporte = new ReporteRol();
+
+            try
+            {
+                var result = getHTMLSACUnete("GetJsonReporteRol", String.Format("&pais={0}&rol={1}&usuario={2}&solicitud={3}&fechaInicio={4}&fechaFin={5}&lastKeyUsuario={6}&lastKeyFecha={7}&registrosPagina={8}",
+                                                                                 pais, rol, usuario, solicitud, fechaInicio, fechaFin, lastKeyUsuario, lastKeyFecha, registrosPagina));
+                if (result.Length > 0)
+                {
+                    reporte = JsonConvert.DeserializeObject<ReporteRol>(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorUtilities.AddLog(ex);
+            }           
+
+            return reporte;
+        }
+
+        public ActionResult ExportarExcelRol(string pais, string rol, string usuario, string solicitud, string fechaInicio, string fechaFin, string lastKeyUsuario, string lastKeyFecha, int registrosPagina, string ReporteNombre)
+        {
+            ReporteRol result = new ReporteRol();
+            try {
+                result = GetReporteRol(pais, rol, usuario, solicitud, fechaInicio, fechaFin, lastKeyUsuario, lastKeyFecha, registrosPagina);
+            } catch (Exception ex) {
+                ErrorUtilities.AddLog(ex);
+            }
+
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+
+            dic.Add("Fecha de Registro", "FechaRegistro");
+            dic.Add("Usuario", "Usuario");
+            dic.Add("Pais", "Pais");
+            dic.Add("Rol", "Rol");
+            dic.Add("Solicitud Id", "SolicitudId");
+            dic.Add("Pantalla", "Pantalla");
+            dic.Add("Acción", "Accion");
+            dic.Add("Fecha de Expiración", "FechaExpiracion");
+
+            if (result.data.Count > 0) {
+                Util.ExportToExcel(ReporteNombre, result.data, dic);
+            }
+
+            return View();
+        }
+
+        public JsonResult GetRoles() {
+            var result = new List<RolLog>();
+            try
+            {
+                using (var sv = new PortalServiceClient())
+                {
+                    result = sv.GetRoles(CodigoISO).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorUtilities.AddLog(ex);
+
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetUsuariosPorRol(int RolId)
+        {
+            var result = new List<UsuarioRolLog>();
+            try
+            {
+                using (var sv = new PortalServiceClient())
+                {
+                    result = sv.GetUsuariosPorRol(CodigoISO, RolId).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorUtilities.AddLog(ex);
+
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ReporteRol()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ReporteRol", null);
+            return View();
+        }
+
         public ActionResult ExportarExcelReporteConsolidado(string PrefijoISOPais, string FechaDesde, string FechaHasta,
             string Region, string Zona, string Seccion, string NombreReporte)
         {
@@ -1853,7 +1985,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             pag.RecordCount = recordCount;
 
-            int pageCount = (int) (((float) recordCount / (float) item.PageSize) + 1);
+            int pageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
             pag.PageCount = pageCount;
 
             int currentPage = item.CurrentPage;
@@ -1887,7 +2019,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ReporteConsolidado()
         {
             ViewBag.HTMLSACUnete = getHTMLSACUnete("ReporteConsolidado", null);
-            return View(new ReporteConsolidadoModelSAC {CodigoIso = CodigoISO});
+            return View(new ReporteConsolidadoModelSAC { CodigoIso = CodigoISO });
         }
 
         [HttpPost]

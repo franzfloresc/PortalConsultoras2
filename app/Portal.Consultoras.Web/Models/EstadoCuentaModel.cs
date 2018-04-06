@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.ComponentModel;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -23,6 +17,7 @@ namespace Portal.Consultoras.Web.Models
         public decimal Cargo { get; set; }
         public decimal Abono { get; set; }
         public int TipoMovimiento { get; set; }
+        public string FechaVencimientoFormatDiaMes { get; set; }
 
         public EstadoCuentaModel()
         {

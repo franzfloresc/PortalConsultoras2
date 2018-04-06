@@ -1,0 +1,46 @@
+<svg width="18" height="18" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>calendar-2</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-559 -67)">
+<g id="calendar-2">
+<g id="Group">
+<g id="Vector">
+<use xlink:href="#path0_fill" transform="translate(559 67)" fill="#616161"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path1_fill" transform="translate(568.981 76.4288)" fill="#616161"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path2_fill" transform="translate(572.41 76.4288)" fill="#616161"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path3_fill" transform="translate(565.552 78.5712)" fill="#616161"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path3_fill" transform="translate(568.981 78.5712)" fill="#616161"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path4_fill" transform="translate(572.41 78.5712)" fill="#616161"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path5_fill" transform="translate(565.552 80.7144)" fill="#616161"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path5_fill" transform="translate(568.981 80.7144)" fill="#616161"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path6_fill" transform="translate(572.41 80.7144)" fill="#616161"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 16.7137 2.1424L 15.4281 2.1424L 15.4281 0.856798C 15.4281 0.384554 15.0436 1.87973e-08 14.5714 1.87973e-08L 12.857 1.87973e-08C 12.3848 1.87973e-08 12.0003 0.384554 12.0003 0.856798L 12.0003 2.1424L 5.99973 2.1424L 5.99973 0.856798C 5.99973 0.384554 5.6152 1.87973e-08 5.14297 1.87973e-08L 3.42784 1.87973e-08C 2.95562 1.87973e-08 2.57108 0.384554 2.57108 0.856798L 2.57108 2.1424L 1.28554 2.1424C 0.576804 2.1424 1.87964e-08 2.71923 1.87964e-08 3.428L 1.87964e-08 16.7144C 1.87964e-08 17.4232 0.576804 18 1.28554 18L 16.7145 18C 17.4232 18 18 17.4232 18 16.7144L 18 3.428C 18 2.71923 17.4232 2.1424 16.7137 2.1424ZM 12.857 0.856798L 14.5714 0.856798L 14.5714 3.428L 12.857 3.428L 12.857 0.856798ZM 3.42784 0.856798L 5.14217 0.856798L 5.14217 3.428L 3.42784 3.428L 3.42784 0.856798ZM 17.1424 16.7144C 17.1424 16.9509 16.9502 17.1432 16.7137 17.1432L 1.28554 17.1432C 1.04903 17.1432 0.85676 16.9509 0.85676 16.7144L 0.85676 7.2856L 17.1424 7.2856L 17.1424 16.7144ZM 17.1424 6.4288L 0.85676 6.4288L 0.85676 3.428C 0.85676 3.19147 1.04903 2.9992 1.28554 2.9992L 2.57108 2.9992L 2.57108 4.2856L 5.99973 4.2856L 5.99973 3L 11.9995 3L 11.9995 4.2856L 15.4281 4.2856L 15.4281 3L 16.7137 3C 16.9502 3 17.1424 3.19228 17.1424 3.4288L 17.1424 6.4288Z"/>
+<path id="path1_fill" d="M 1.71432 0L 0 0L 0 0.856798L 1.71432 0.856798L 1.71432 0Z"/>
+<path id="path2_fill" d="M 1.71432 0L 0 0L 0 0.856798L 1.71432 0.856798L 1.71432 0Z"/>
+<path id="path3_fill" d="M 1.71432 0L 0 0L 0 0.856798L 1.71432 0.856798L 1.71432 0Z"/>
+<path id="path4_fill" d="M 1.71432 0L 0 0L 0 0.856798L 1.71432 0.856798L 1.71432 0Z"/>
+<path id="path5_fill" d="M 1.71432 0L 0 0L 0 0.856797L 1.71432 0.856797L 1.71432 0Z"/>
+<path id="path6_fill" d="M 1.71432 0L 0 0L 0 0.856797L 1.71432 0.856797L 1.71432 0Z"/>
+</defs>
+</svg>

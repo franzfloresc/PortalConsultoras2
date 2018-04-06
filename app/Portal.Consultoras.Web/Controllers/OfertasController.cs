@@ -16,15 +16,15 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var modelo = new EstrategiaPersonalizadaModel
                 {
-                    ListaSeccion = ObtenerConfiguracionSeccion(),
+                    ListaSeccion = ObtenerConfiguracionSeccion(revistaDigital),
                     MensajeProductoBloqueado = MensajeProductoBloqueado()
                 };
-                
+
                 ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
                 var listaShowRoom = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<BEShowRoomOferta>();
                 ViewBag.xlistaProductoSR = listaShowRoom.Count(x => !x.EsSubCampania);
-                
+
                 return View(modelo);
             }
             catch (Exception ex)
@@ -41,8 +41,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var modelo = new EstrategiaPersonalizadaModel
                 {
-                    ListaSeccion = ObtenerConfiguracionSeccion(),
-                    MensajeProductoBloqueado = MensajeProductoBloqueado()
+                    ListaSeccion = ObtenerConfiguracionSeccion(revistaDigital),
+                    MensajeProductoBloqueado = MensajeProductoBloqueado(),
+                    MensajeProductoBloqueado2 = HVMensajeProductoBloqueado()
+
                 };
 
                 return View("Index", modelo);
@@ -54,7 +56,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return RedirectToAction("Index", "Bienvenida");
         }
-        
+
         [HttpPost]
         public JsonResult ActualizarSession(string codigo, int campaniaId)
         {
@@ -72,6 +74,10 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneOpmX1(false);
                 else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigitalReducida))
                     sessionManager.SetTieneRdr(false);
+                else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.HerramientasVenta))
+                    sessionManager.SetTieneHv(false);
+                else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.HerramientasVenta))
+                    sessionManager.SetTieneHvX1(false);
                 return Json(new
                 {
                     estado = "Ok"

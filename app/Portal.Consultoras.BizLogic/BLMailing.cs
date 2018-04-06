@@ -13,6 +13,7 @@ namespace Portal.Consultoras.BizLogic
         {
 
         }
+
         public List<BEPlantillasMailing> ObtenerPlantillasEmailingSE()
         {
             List<BEPlantillasMailing> listaPlantillas = new List<BEPlantillasMailing>();
@@ -56,7 +57,7 @@ namespace Portal.Consultoras.BizLogic
         public bool AgregarPaisPlantillaEmailingSE(int PaisID, int PlantillaID, string CodigoUsuario)
         {
             var daMailing = new DAMailing();
-            return daMailing.AgregarPaisPlantillaEmailingSE(PaisID,PlantillaID,CodigoUsuario)>0;
+            return daMailing.AgregarPaisPlantillaEmailingSE(PaisID, PlantillaID, CodigoUsuario) > 0;
         }
 
         public bool QuitarPaisPlantillaEmailingSE(int PaisID, int PlantillaID)
@@ -65,23 +66,23 @@ namespace Portal.Consultoras.BizLogic
             return daMailing.QuitarPaisPlantillaEmailingSE(PaisID, PlantillaID) > 0;
         }
 
-        public bool CopiarPaisPlantillaEmailingSE(int PaisID, int PlantillaID, int PaisDestinoID,string CodigoUsuario)
+        public bool CopiarPaisPlantillaEmailingSE(int PaisID, int PlantillaID, int PaisDestinoID, string CodigoUsuario)
         {
             var daMailing = new DAMailing();
             return daMailing.CopiarPaisPlantillaEmailingSE(PaisID, PlantillaID, PaisDestinoID, CodigoUsuario) > 0;
         }
 
-        public List<BEConsultoraMailing> CondicionesConsultoraSE( int PaisID)
+        public List<BEConsultoraMailing> CondicionesConsultoraSE(int PaisID)
         {
             int paisPeru = 11;//Peru por configuracion de LogEmail   
             var daMailingLista = new DAMailing(paisPeru);
             DataTable dtLogEmailingAutomaticoSe = new DataTable();
- 
+
             using (IDataReader readerLogEmail = daMailingLista.ListaLogEmailingAutomaticoSE(PaisID))
             {
                 dtLogEmailingAutomaticoSe.Load(readerLogEmail);
             }
- 
+
 
             List<BEConsultoraMailing> listaConsultoras = new List<BEConsultoraMailing>();
             var daMailing = new DAMailing(PaisID);
@@ -97,7 +98,7 @@ namespace Portal.Consultoras.BizLogic
             return listaConsultoras;
         }
 
-        public void RegistrarLogEnvioAutomatico(int PaisID,BEConsultoraMailing BEConsultora)
+        public void RegistrarLogEnvioAutomatico(int PaisID, BEConsultoraMailing BEConsultora)
         {
             var daMailing = new DAMailing();
             daMailing.RegistrarLogEnvioAutomatico(BEConsultora.CodigoConsultora,
@@ -117,19 +118,19 @@ namespace Portal.Consultoras.BizLogic
         {
 
             List<BEPlantillasMailing> listaConsultoras = new List<BEPlantillasMailing>();
-             var daMailing = new DAMailing();
-             using (IDataReader reader =   daMailing.GetPlantillasPais(PaisID))
-             {
-                 while (reader.Read())
-                 {
-                     listaConsultoras.Add(new BEPlantillasMailing(reader));
-                 }
-             }
+            var daMailing = new DAMailing();
+            using (IDataReader reader = daMailing.GetPlantillasPais(PaisID))
+            {
+                while (reader.Read())
+                {
+                    listaConsultoras.Add(new BEPlantillasMailing(reader));
+                }
+            }
 
-             return listaConsultoras;
+            return listaConsultoras;
 
         }
-        
+
         public string ObtenerCorreoEmisor(int PaisID)
         {
             var daMailing = new DAMailing();

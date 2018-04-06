@@ -2,6 +2,7 @@
 
 var AutocompleteLastLI = null;
 var AutocompleteClick = false;
+var existeCUV = false;
 
 var belcorp = belcorp || {};
 belcorp.pedido = belcorp.pedido || {};
@@ -394,7 +395,7 @@ function BuscarByCUV(cuv) {
             if (productoAgotado) MostrarMensaje("mensajeCUVAgotado");
             else $('#PopSugerido').show();
         }
-        else {
+        else if (existeCUV) {
             $("#divProductoMantenedor").show();
             $("#btnAgregarProducto").show();
         }
@@ -424,6 +425,7 @@ function BuscarByCUV(cuv) {
 
             if (item.MarcaID == 0) {
                 MostrarMensaje("mensajeCUVNoExiste");
+                existeCUV = false;
                 $("#divProductoInformacion").hide();
                 $('#hdfCUV').val(cuv);
                 $("#divProductoMantenedor").show();
@@ -432,6 +434,7 @@ function BuscarByCUV(cuv) {
                 return false;
             }
 
+            existeCUV = true;
             $("#hdTipoOfertaSisID").val(item.TipoOfertaSisID);
             $("#hdConfiguracionOfertaID").val(item.ConfiguracionOfertaID);
             $("#hdTipoEstrategiaID").val(item.TipoEstrategiaID);

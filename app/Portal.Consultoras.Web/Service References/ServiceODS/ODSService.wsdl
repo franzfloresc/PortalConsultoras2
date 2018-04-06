@@ -122,6 +122,12 @@
   <wsdl:message name="IODSService_GetSaldoActualConsultora_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetSaldoActualConsultoraResponse" />
   </wsdl:message>
+  <wsdl:message name="IODSService_GetPagoEnLineaInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPagoEnLineaInfo" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_GetPagoEnLineaInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPagoEnLineaInfoResponse" />
+  </wsdl:message>
   <wsdl:message name="IODSService_GetMensajesCUVsByPaisAndCampania_InputMessage">
     <wsdl:part name="parameters" element="tns:GetMensajesCUVsByPaisAndCampania" />
   </wsdl:message>
@@ -320,6 +326,10 @@
     <wsdl:operation name="GetSaldoActualConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetSaldoActualConsultora" message="tns:IODSService_GetSaldoActualConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetSaldoActualConsultoraResponse" message="tns:IODSService_GetSaldoActualConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPagoEnLineaInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetPagoEnLineaInfo" message="tns:IODSService_GetPagoEnLineaInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetPagoEnLineaInfoResponse" message="tns:IODSService_GetPagoEnLineaInfo_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetMensajesCUVsByPaisAndCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetMensajesCUVsByPaisAndCampania" message="tns:IODSService_GetMensajesCUVsByPaisAndCampania_InputMessage" />
@@ -544,6 +554,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetSaldoActualConsultora">
       <soap:operation soapAction="http://tempuri.org/IODSService/GetSaldoActualConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPagoEnLineaInfo">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetPagoEnLineaInfo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -890,6 +909,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetSaldoActualConsultora">
       <soap:operation soapAction="http://tempuri.org/IODSService/GetSaldoActualConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPagoEnLineaInfo">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetPagoEnLineaInfo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

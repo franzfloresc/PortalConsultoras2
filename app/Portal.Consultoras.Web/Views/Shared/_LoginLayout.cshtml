@@ -1,4 +1,5 @@
 ﻿@using Portal.Consultoras.Common;
+@using System.Web.Optimization;
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -8,23 +9,54 @@
     <meta http-equiv="pragma" content="no-cache" />
     <meta http-equiv="cache-control" content="no-cache" />
     <meta name="expires" content="0" />
-    <title data-id="titulo" id="tituloPagina">@ViewBag.TituloPagina</title>
     <meta name="description" content="Pasa tu pedido e informate de lo último de las marcas de Belcorp." />
     <meta name="author" content="Belcorp" />
     <meta property="og:title" content="Somos Belcorp| Cree en ti" />
     <meta property="og:description" content="Pasa tu pedido e informate de lo último de las marcas de Belcorp." />
     <meta property="og:image" content="~/Content/Images/Login2/logo_intro.png" />
     <meta property="og:site_name" content="Somos Belcorp" />
+
+    <title data-id="titulo" id="tituloPagina">@ViewBag.TituloPagina</title>
+
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
+
     <link rel="shortcut icon" type="image/x-icon" id="iconoPagina" data-id="iconPagina" href="@ViewBag.IconoPagina" />
 
-    <link href="~/Content/Css/Site/Login2/style_esika.min.css" rel="stylesheet" data-id="cssStyle" id="cssStyle" @(ViewBag.EsPaisEsika == false ? "disabled='disabled'" : "") />
-    <link href="~/Content/Css/Site/Login2/style_lbel.min.css" rel="stylesheet" data-id="cssStyleLbel" id="cssStyleLbel" @(ViewBag.EsPaisLbel == false ? "disabled='disabled'" : "") />
-     
-    @System.Web.Optimization.Styles.Render("~/Content/Css/Login")
+    <div data-id="cssStyle" id="cssStyle" @(ViewBag.EsPaisEsika == false ? "disabled='disabled'" : "")>
+        @Styles.Render("~/Content/Css/Site/Login2/Esika")
+    </div>
+    <div data-id="cssStyleLbel" id="cssStyleLbel" @(ViewBag.EsPaisLbel == false ? "disabled='disabled'" : "")>
+        @Styles.Render("~/Content/Css/Site/Login2/Lbel")
+    </div>
+
+    @Styles.Render("~/Content/Css/Login")
 
     <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css' />
 
     <script type="text/javascript">
+
+        //Variables nuevo chat
+        var emt_client_type = '';
+        var emt_country = '';
+        var emt_email_address = '';
+        var emt_first_name = '';
+        var emt_id = '';
+        var emt_type = '';
+        //Fin Variables nuevo chat
+
+        // varaibles log de error
+        var userData = {
+            'aplicacion': '',
+            'rol': '',
+            'campana': '',
+            'region': '',
+            'zona': '',
+            'seccion': '',
+            'pais': '',
+            'codigoConsultora': ''
+        };
+        //Fin variables log Error
+
         if (typeof InstallTrigger !== 'undefined') {
             if (document.getElementById("cssStyle").getAttribute("disabled") == "disabled")
                 document.getElementById("cssStyle").disabled = true;
@@ -47,7 +79,6 @@
             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
-
     </script>
 
     <script type="text/javascript">
@@ -65,20 +96,27 @@
 
     @RenderSection("headerScripts", required: false)
 </head>
-<body class="body_login @Model.NombreClase" onload="noback();" onpageshow="if(event.persisted) noback();" onunload="" >
+<body class="body_login @Model.NombreClase" onload="noback();" onpageshow="if(event.persisted) noback();" onunload="">
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <!-- Google Tag Manager -->
-    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8" height="0" width="0" style="display:none;visibility:hidden;"></iframe>
+    </noscript>
     <script>
         (function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l !== 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-M8QMC8');
     </script>
     <!-- End Google Tag Manager -->
@@ -98,73 +136,96 @@
             <div style="height: 275px; padding-right: 15%; padding-left: 15%; margin-top: 55px;">
 
                 <div style="color: #222;" id="pop-up-body" class="default-skin">
-                    Belcorp México, S.A. de C.V., con domicilio en Prolongación Paseo de la Reforma
-                    No. 1015, Torre B, Piso 7, Col. Desarrollo Santa Fe C.P.01376 México, D.F., México
-                    (en adelante “Belcorp”) pone a su disposición el presente Aviso de Privacidad, a
-                    fin de dar cumplimiento a la Ley Federal de Protección de Datos Personales en Posesión
-                    de los Particulares (en adelante la “Ley”).
+                    Transbel, S.A. de C.V., con domicilio en Rancho San Javier, Carretera México Querétaro Km. 41.5, Nave 6,
+                    Lotes 2 y 3, Col. Ex hacienda San Miguel, Cuautitlán Izcalli  Mex. C.P. 54715.,
+                    México (en adelante “Belcorp”) pone a su disposición el presente Aviso de Privacidad,
+                    a fin de dar cumplimiento a la Ley Federal de Protección de Datos Personales en
+                    Posesión de los Particulares (en adelante la “Ley”)
 
                     <br />
                     <br />
-                    Datos Personales que se recaban.- Nombre, fecha de nacimiento, documento de identidad,
-                    domicilio, dirección de correo electrónico, número de teléfono fijo y celular.
+                    Datos Personales que se recaban.- Nombre, fecha de nacimiento, Registro Federal de Contribuyentes,
+                    domicilio fiscal; domicilio particular, dirección de correo electrónico; número de teléfono fijo y celular;
+                    número de credencial para votar (IFE); número de Registro Federal de Contribuyentes (RFC);
+                    número de Clave única de Registro de Población (CURP); escolaridad; firma autógrafa;
+                    referencias familiares, lo cual incluye: nombre, teléfono. Asimismo, con los datos personales proporcionados,
+                    Belcorp podrá obtener indirectamente datos personales de índole financiera adicionales de usted como
+                    pueden ser su reporte de historial crediticio en cualquiera de las Sociedades de información Crediticia
+                    existentes en el territorio de los Estados Unidos Mexicanos u otros antecedentes o registros financieros.
 
                     <br />
-                    Finalidades y/o Usos de los datos personales.- Los datos personales que recaba Belcorp
-                    son utilizados para tramitar su solicitud de inscripción como consultora de Belcorp.
+                    <br />
+
+                    Finalidades y/o Usos de los datos personales.- Los datos personales que recaba Belcorp son utilizados
+                    para cumplir con las obligaciones derivadas de la relación que con usted se cree, así como para llevar
+                    a cabo la cobranza y procesamiento de pagos; reingresos a venta directa; formar una base de datos de
+                    personas dedicadas a la venta directa; análisis de mercado; realizar llamadas para fines publicitarios
+                    y mercadotécnicos, envío de publicidad y promociones sobre Los Productos o servicios de Belcorp;
+                    análisis a fin de determinar la eficacia de nuestra publicidad y promociones; y para mapearla y
+                    contactarla con posibles compradoras mediante el uso de una aplicación de software a ser instalada
+                    en dispositivos móviles y tabletas electrónicas con dicho fin (la “App”). Los datos de familiares
+                    serán utilizados únicamente para contactarlos e intentar localizar a la consultora.
 
                     <br />
-                    Transferencias de datos personales.- Belcorp no cederá o transferirá sus datos personales
-                    a terceros ajenos a Belcorp sin su conocimiento previo. Sin embargo, Belcorp podrá
+                    <br />
+                    Transferencias de datos personales.- Belcorp podrá transferir sus datos personales a cualquier
+                    Sociedad de Información Crediticia para efectos de reporte por falta de pago oportuno y a
+                    través de la App a posibles compradoras a efecto de que ellas puedan contactarla a usted y
+                    usted pueda realizar alguna venta. Asimismo, en caso de que Belcorp decida vender su cartera
+                    de clientes, sus datos personales serán transferidos al tercero adquirente y dicha transferencia
+                    la será notificada a través de una modificación al presente Aviso de Privacidad de conformidad
+                    con los términos aquí establecidos. Excepto por lo anterior, Belcorp no cederá o transferirá sus
+                    datos personales a terceros ajenos a Belcorp sin su conocimiento previo. Sin embargo, Belcorp podrá
                     transferir sus datos personales cuando dicha transferencia esté prevista en la Ley.
 
                     <br />
-                    Derechos que le corresponden respecto a sus datos personales.- Usted podrá ejercitar
-                    ante la Persona responsable de Datos Personales de Belcorp los derechos de acceso,
-                    rectificación cancelación y oposición (derechos ARCO), establecidos en la Ley. Asimismo,
-                    podrá revocar, en todo momento, el consentimiento que haya otorgado y que fuese
-                    necesario para el tratamiento de sus datos personales, así como solicitar que se
-                    limite el uso o divulgación de sus datos personales. Lo anterior, enviando su petición
-                    al correo electrónico: privacidadbelcorpmx@belcorp.biz o a Prolongación Paseo de
-                    la Reforma No. 1015, Torre B, Piso 7, Col. Desarrollo Santa Fe C.P. 01376 México,
-                    D.F., México.
+                    <br />
+                    Derechos que le corresponden  respecto a sus datos personales.- Usted podrá ejercitar ante la Persona
+                    responsable de Datos Personales de Belcorp los derechos de acceso, rectificación cancelación y
+                    oposición (derechos ARCO), establecidos en la Ley. Asimismo, podrá revocar, en todo momento,
+                    el consentimiento que haya otorgado y que fuese  necesario para el tratamiento de sus datos personales,
+                    así como solicitar que se limite el uso o divulgación de sus datos personales. Lo anterior, enviando su
+                    petición al correo electrónico: privacidadbelcorpmx@belcorp.biz o a Rancho San Javier, Carretera México
+                    Querétaro Km. 41.5, Nave 6, Lotes 2 y 3, Col. Ex hacienda San Miguel, Cuautitlán Izcalli  Mex. C.P. 54715.
+                    Belcorp pondrá a su disposición a partir de enero de 2012 los Formatos Sugeridos para llevar a cabo el
+                    ejercicio de derechos ARCO a través de su sitio web: www.somosbelcorp.com - www.uneteabelcorp.com
+                    o en el domicilio antes mencionado.
 
                     <br />
                     <br />
-                    Cambios al Aviso de Privacidad.- En caso de existir cambios en el presente se pondrá
-                    a su disposición la versión actualizada del mismo a través de la página web www.somosbelcorp.com
-                    - www.uneteabelcorp.com o se le enviará la versión actualizada al domicilio que
-                    nos proporcionó.
+                    Cambios al Aviso de Privacidad.- En caso de existir cambios en el presente se pondrá a su disposición la
+                    versión actualizada del mismo a través de la página web www.somosbelcorp.com - www.uneteabelcorp.com
+                    o se le enviará la versión actualizada al domicilio que nos proporcionó.
 
                     <br />
                     <br />
-                    En caso de no estar de acuerdo con los términos del presente, le pedimos que lo
-                    informe a la Persona responsable de Datos Personales de Belcorp dentro de los 5
-                    días hábiles siguientes a haber recibido este Aviso de Privacidad, de lo contario,
-                    se entenderá que está de acuerdo en que sus datos personales sean tratados de conformidad
-                    con el presente.
+                    En caso de no estar de acuerdo con los términos del presente, le pedimos que lo informe a la Persona responsable
+                    de Datos Personales de Belcorp dentro de los 5 días hábiles siguientes a haber recibido este Aviso de Privacidad,
+                    de lo contario, se entenderá que está de acuerdo en que sus datos personales sean tratados de conformidad con el presente.
 
                     <br />
                     <br />
                     De haber proporcionado datos de terceros, usted garantiza que ha obtenido las autorizaciones
-                    necesarias para tal efecto y que les ha informado del tratamiento que se les dará
-                    a sus datos personales en los términos de este aviso de Privacidad. En término de
-                    la Ley y su Reglamento, le informamos que, ante la negativa de respuesta a la solicitudes
-                    de derechos ARCO o inconformidad con la misma, usted puede presentar ante el Instituto
-                    Federal de Acceso a la información y Protección de Datos, la correspondiente Solicitud
+                    necesarias para tal efecto y que les ha informado del tratamiento que se les dará a sus datos
+                    personales en los términos de este aviso de Privacidad.
+
+                    <br />
+                    <br />
+                    En término de la Ley y su Reglamento, le informamos que, ante la negativa de respuesta a las
+                    solicitudes de derechos ARCO o inconformidad con la misma, usted puede presentar ante el
+                    Instituto Federal de Acceso a la información y Protección de Datos, la correspondiente Solicitud
                     de Protección de Derechos en los plazos y términos fijados por la Ley y su Reglamento.
 
                     <br />
                     <br />
-                    HAGO CONSTAR BAJO PROTESTA DE DECIR VERDAD QUE TODOS LOS DATOS REGISTRADOS EN ESTA
-                    SOLICITUD Y CONTRATO SON VERDADEROS; POR LO QUE ASUMO MI RESPONSABLIDAD CON TODAS
-                    LAS CONSECUENCIAS JURIDICAS EN LA PARTE CIVIL, PENAL Y COMERCIAL SOBRE DATOS INCLUIDOS
-                    EN ESTE DOCUMENTO.
+                    HAGO CONSTAR BAJO PROTESTA DE DECIR VERDAD QUE TODOS LOS DATOS REGISTRADOS EN ESTA SOLICITUD Y
+                    CONTRATO SON VERDADEROS; POR LO QUE ASUMO MI RESPONSABLIDAD CON TODAS LAS CONSECUENCIAS JURIDICAS
+                    EN LA PARTE CIVIL, PENAL Y COMERCIAL SOBRE DATOS INCLUIDOS EN ESTE DOCUMENTO.
 
                     <br />
                     <br />
-                    AL PULSAR EN EL BOTÓN “ENVIAR EL FORMULARIO” USTED ACEPTA EL TRATAMIENTO DE SUS
-                    DATOS PERSONALES DE CONFORMIDAD CON LOS TÉRMINOS DEL PRESENTE AVISO DE PRIVACIDAD.
+                    AL PULSAR EN EL BOTÓN “INGRESA A TU CUENTA” USTED ACEPTA EL TRATAMIENTO DE SUS DATOS PERSONALES DE
+                    CONFORMIDAD CON LOS TÉRMINOS DEL PRESENTE AVISO DE PRIVACIDAD
                 </div>
             </div>
             <div style="height: 50px;">
@@ -181,8 +242,13 @@
     <div id="bg_1" style="display: none;">
         <div class="content_bg_1">
             <a href="javascript:closeit()" class="cerrar"></a>
-            <div id="header">CREA TU CORREO</div>
-            <div class="indicador_lbel"></div>
+            <div id="header">
+                <div class="fondo_sesgado"></div>
+                <span>
+                    CREA <strong>TU CORREO</strong>
+                </span>
+                <div class="indicador_lbel"></div>
+            </div>
             <div class="mensaje_pop_up">
                 Necesitas tener un correo electrónico para utilizar nuestra plataforma.
                 <br />
@@ -291,7 +357,7 @@
                 <img src="~/Content/Images/Login2/logo_lbel2.png" alt="http://www.lbel.com/pe/" />
             </a>
             <a class="logos_footer" href="http://www.cyzone.com/">
-                <img src="~/Content/Images/Login2/logo_cyzone.png" alt="" />
+                <img src="~/Content/Images/Login2/logo_cyzone.png"  alt="" style="width: 52px; height: 16px; top: 1.5px; position:relative;"/>
             </a>
             <a class="" href="https://es-la.facebook.com/SomosBelcorpOficial" target="_blank">
                 <img src="~/Content/Images/Login2/separador.png" style="height: 20px; width: 1px; margin-top: 13px;" />
@@ -299,16 +365,33 @@
             </a>
         </div>
         <input id="hddFondoFestivoEsika" type="hidden" value="@Model.RutaEventoEsika" />
-        <input id="hddFondoFestivoLebel" type="hidden" value="@Model.RutaEventoLBel" /> 
+        <input id="hddFondoFestivoLebel" type="hidden" value="@Model.RutaEventoLBel" />
     </div>
 
     <!--[if lt IE 11>
         <script src="http://github.com/aFarkas/html5shiv/blob/master/dist/html5shiv.js"></script>
      <![endif]-->
 
-    @System.Web.Optimization.Scripts.Render("~/bundles/JsLogin2")
+    @Scripts.Render("~/bundles/JsLogin2")
 
     @RenderSection("scripts", required: false)
+
+    @{
+        if (Request.Browser.IsMobileDevice)
+        {
+            <link href="@Url.Content("~/emt_chat/css/style-client.css")" rel="stylesheet">
+            <link rel="stylesheet" href="@Url.Content("~/emt_chat/css/font-awesome.min.css")">
+            <div class="CMXD-containment-wrapper"></div><div id="marca"> <div class="CMXD-btn-help"> <div id="btn_init" class="CMXD-help_rc" style="display:none;"></div><div id="btn_open" class="CMXD-open" style="display: none"></div></div><div class="container-movil"></div><div id="CMXD-container-chat" class="CMXD-container-chat" style="display: none"> <div class="CMXD-header-chat"> <i class="fa fa-comments-o" aria-hidden="true"></i> CHAT EN LÍNEA <div class="CMXD-icons"> <a class="display-a" id="btn_minimize" href=""> <i class="fa fa-minus" aria-hidden="true"></i> </a> <a class="display-a" id="btn_wClose" href="" style="display: none"> <i class="fa fa-times" aria-hidden="true"></i> </a> </div><hr class="CMXD-line"> </div><div id="chat"> <div id="interaction" class="CMXD-container-welcome" style="display: none"> <div class='chat-wrapper'> <div id="transcript" class='chat-message padding container-chat'></div></div><div id="slideDownTranscript" class="message-end CMXD-animate2"> <span class="fa fa-angle-double-down"></span> </div><div class="container-txt"> <textarea class="txtarea" rows="2" id="Entry" placeholder="Escribe un Mensaje..."></textarea> <a class="" href=""> <div class="send send2" id="btn_Send"> <i class="fa fa-paper-plane-o" aria-hidden="true"></i><br>Enviar </div></a> </div></div><div id="loading" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="loading_image" src="" alt=""> </div><div id="loading_title" class="CMXD-welcome"> Bienvenida a nuestro <br>chat en línea </div><div id="loading_description" class="CMXD-description"> En un momento uno de nuestros asesores estará contigo </div></div></div><div id="schedule" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="schedule_image" src="" alt="Imagen fuera de horario"> </div><div id="schedule_title" class="CMXD-welcome"> </div><div id="schedule_description" class="CMXD-description"> </div></div></div><div id="Error" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="Error_image" src="" alt=""> </div><div class="CMXD-welcome"> Error de conexión </div><div class="CMXD-description"> En estos momentos no es posible establecer conexión. Por favor intenta más tarde. <br /><br /> <a href="" class="btn-no display-a" id="btn_mclose"> OK</a> </div></div></div><div id="alert" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="alert_image" src="" alt=""> </div><div class="CMXD-welcome"> ¿Desea cerrar la sesión de chat? </div><div class="CMXD-description"> <a href="" class="btn-yes display-a" id="btn_close"> Si</a> <a href="" class="btn-no display-a" id="btn_nwClose"> No</a> </div></div></div></div><div id="poll" class="pop-up"> <div class="CMXD-container-welcome"> <div id="poll_title" class="CMXD-welcome"> <br />Encuesta de Satisfacción </div><div id="poll_description" class="CMXD-description"> </div></div></div></div></div>
+            <script type="text/javascript" src="@Url.Content("~/emt_chat/js/gen.js")"></script>
+        }
+        else
+        {
+            <link href="@Url.Content("~/emt_chat/css/style-client.css")" rel="stylesheet">
+            <link rel="stylesheet" href="@Url.Content("~/emt_chat/css/font-awesome.min.css")">
+            <div class="CMXD-containment-wrapper"></div><div id="marca"> <div class="CMXD-btn-help"> <div id="btn_init" class="CMXD-help_rc" style="display:none;"></div><div id="btn_open" class="CMXD-open" style="display: none"></div></div><div class="container-movil"></div><div id="CMXD-container-chat" class="CMXD-container-chat" style="display: none"> <div class="CMXD-header-chat"> <i class="fa fa-comments-o" aria-hidden="true"></i> CHAT EN LÍNEA <div class="CMXD-icons"> <a class="display-a" id="btn_minimize" href=""> <i class="fa fa-minus" aria-hidden="true"></i> </a> <a class="display-a" id="btn_wClose" href="" style="display: none"> <i class="fa fa-times" aria-hidden="true"></i> </a> </div><hr class="CMXD-line"> </div><div id="chat"> <div id="interaction" class="CMXD-container-welcome" style="display: none"> <div class='chat-wrapper'> <div id="transcript" class='chat-message padding container-chat'></div></div><div class="container-txt"> <textarea class="txtarea" rows="2" id="Entry" placeholder="Escribe un Mensaje..."></textarea> <a class="" href=""> <div class="send send2" id="btn_Send"> <i class="fa fa-paper-plane-o" aria-hidden="true"></i><br>Enviar </div></a> </div></div><div id="loading" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="loading_image" src="" alt=""> </div><div id="loading_title" class="CMXD-welcome"> Bienvenida a nuestro <br>chat en línea </div><div id="loading_description" class="CMXD-description"> En un momento uno de nuestros asesores estará contigo </div></div></div><div id="schedule" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="schedule_image" src="" alt="Imagen fuera de horario"> </div><div id="schedule_title" class="CMXD-welcome"> </div><div id="schedule_description" class="CMXD-description"> </div></div></div><div id="Error" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="Error_image" src="" alt=""> </div><div class="CMXD-welcome"> Error de conexión </div><div class="CMXD-description"> En estos momentos no es posible establecer conexión. Por favor intenta más tarde. <br /><br /> <a href="" class="btn-no display-a" id="btn_mclose"> OK</a> </div></div></div><div id="alert" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="alert_image" src="" alt=""> </div><div class="CMXD-welcome"> ¿Desea cerrar la sesión de chat? </div><div class="CMXD-description"> <a href="" class="btn-yes display-a" id="btn_close"> Si</a> <a href="" class="btn-no display-a" id="btn_nwClose"> No</a> </div></div></div></div><div id="poll" class="pop-up"> <div class="CMXD-container-welcome"> <div id="poll_title" class="CMXD-welcome"> <br />Encuesta de Satisfacción </div><div id="poll_description" class="CMXD-description"> </div></div></div></div></div>
+            <script type="text/javascript" src="@Url.Content("~/emt_chat/js/gen.js")"></script>
+        }
+    }
 
 </body>
 </html>

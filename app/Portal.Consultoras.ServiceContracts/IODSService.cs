@@ -30,7 +30,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BEProducto> SelectProductoByListaCuvSearchRegionZona(int paisID, int campaniaID,
         string codigoDescripcion, int regionID, int zonaID, string codigoRegion, string codigoZona, bool validarOpt);
-        
+
         [OperationContract]
         IList<BEProducto> GetProductoComercialByListaCuv(int paisID, int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv);
 
@@ -56,7 +56,7 @@ namespace Portal.Consultoras.ServiceContracts
         void LoadConsultoraCodigo(int paisID);
 
         [OperationContract]
-        decimal GetSaldoActualConsultora(int paisID, string Codigo);
+        decimal GetSaldoActualConsultora(int paisID, string Codigo);        
 
         [OperationContract]
         IList<BEMensajeCUV> GetMensajesCUVsByPaisAndCampania(int CampaniaID, int paisID);
@@ -139,7 +139,7 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEProducto> SelectProductoToKitInicio(int paisID, int campaniaID, string cuv);
 
         [OperationContract]
-        string GetNombreProducto048ByCuv(int paisID, int campaniaId, string cuv);        
+        string GetNombreProducto048ByCuv(int paisID, int campaniaId, string cuv);
 
         [OperationContract]
         IList<BEProductoAppCatalogo> GetNombreProducto048ByListaCUV(int paisID, int campaniaId, string listaCUV);

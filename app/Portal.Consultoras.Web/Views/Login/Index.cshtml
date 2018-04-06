@@ -61,11 +61,9 @@
         }
 
         function getInfoFB(opt) {
-            //var fp = null;
 
             FB.api('/me', 'GET', { fields: 'birthday,email,first_name,gender,hometown,id,last_name,link,location,name,picture.type(large)' }, function (response) {
-                
-                //if (response.id !== null && response.id !== "") {
+
                 if (typeof response.id !== 'undefined' && response.id !== null) {
                     var exists = checkExternalUser('Facebook', response.id);
                     var fp = (typeof response.picture === 'object') ? response.picture.data.url : "";
@@ -84,11 +82,11 @@
                             }
 
                             $('#hdeNameUserExt').val(fname);
-                            
+
                             $('#btnLoginFB2').removeClass('center_facebook');
                             $('#btnLoginFB2').text('Continuar como ' + fname);
                             $('#imgFotoPerfil2').attr('src', fp);
-                            
+
                             $('#_nomusufb').html('¿No eres ' + response.name + '? ');
                             $('#_nomusufb').append('<a class="_ccfb" onclick="mostrarLoginAnterior()">Cambiar de cuenta</a>');
 
@@ -97,10 +95,10 @@
                             $('#_olgn').hide();
                             $('#loginanterior').hide();
 
-                            $('#btnfblogin').show();                           
+                            $('#btnfblogin').show();
                         }
                     }
-                    else {                        
+                    else {
                         if (opt == 2) {
                             $('#hdeProveedor').val('Facebook');
                             $('#hdeIdApp').val(response.id);
@@ -180,7 +178,7 @@
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 success: function (response) {
-                    
+
                     if (response.success) {
                         if (response.redirectTo !== "") {
                             analytics.invocarEventoPixel("FacebookLoginValidExternalUser");
@@ -236,297 +234,931 @@
     </script>
 </body>
 
-    <input type="hidden" id="PaginaLogin" />
+<input type="hidden" id="PaginaLogin" />
 
-    <div id="FormsSignInContentPopup">
-        <!-- OLVIDASTE TU CONTRASEÑA -->
-        <div id="popup1" style="display: none;">
-            <div id="popup_olvidasteContrasenia">
-                <div class="content_bg_olvidasteContrasenia">
-                    <a id="btnCerrarContraseniaPopup" href="#" class="cerrar" onclick="$('#popup1').hide();"></a>
-
-                    <div id="header">¿OLVIDASTE TU CONTRASEÑA?</div>
+<div id="FormsSignInContentPopup">
+    <!-- OLVIDASTE TU CONTRASEÑA -->
+    <div id="popup1" style="display:none;">
+        <div id="popup_olvidasteContrasenia">
+            <div class="content_bg_olvidasteContrasenia">
+                <a id="btnCerrarContraseniaPopup" href="#" class="cerrar" onclick="$('#popup1').hide();"></a>
+                <div id="header">
+                    <div class="fondo_sesgado"></div>
+                    <span>
+                        ¿OLVIDASTE TU <b>CONTRASEÑA?</b>
+                    </span>
                     <div class="indicador_lbel"></div>
-                    <div class="mensaje_pop_up2">
-                        Te enviaremos un correo con las instrucciones.
-                        <br />
-                    </div>
-                    <div class="formCont popupOlvideContrasenia">
-                        <div class="boxform">
-                            <div class="formcontrol pais" id="cargarBandera2" style="margin-bottom: 35px;">
-                                <select id="cboPaisCambioClave" class="cboPaisCambioClave" tabindex="1" style="color: black !important">
-                                    <option value="0">Elige tu País</option>
-                                    @if (Model.ListaPaises != null)
-                                    {
-                                        foreach (var item in Model.ListaPaises)
-                                        {
-                                            <option value="@item.PaisID">@item.Nombre</option>
-                                        }
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                        <div class="boxform">
-                            <div class="formcontrol email" style="margin-bottom: 45px; color: black;">
-                                <input type="text" class="inputForm" value="" id="txtCorreoElectronico" placeholder="Correo Electrónico" style="color: black;" />
-                            </div>
-                        </div>
-
-                        <div id="mensajesOC" style="text-align: left; color: #CF2D3A;"></div>
-
-                        <div class="boxform">
-                            <div class="formbtn">
-                                <input type="button" id="btnRecuperarClave" class="btnCrear" value="ENVIAR" onclick="" />
-                            </div>
-                        </div>
-                    </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- CONTRASEÑA ENVIADA -->
-        <div id="popup2" style="display: none;">
-            <div id="popup_contraseniaEnviada">
-                <div class="content_bg_contraseniaEnviada">
-                    <a id="btnCerrarContraseniaEnviadaPopup" href="#" class="cerrar" onclick="$('#popup2').hide();"></a>
-                    <div class="mensaje_pop_up_contraseniaEnviada">
-                        <h1>Por favor, revisa tu correo</h1>
-                        <br />
-                        <br />
-                        <div class="icono_correo">
-                            <img src="~/Content/Images/Login2/Icons/icono_nuevo_correo.png" alt="Alternate Text" />
-                        </div>
-                        <br />
-                        <br />
-                        <p>
-                            Te hemos enviado las instrucciones a :
-                            <br />
-                        <p id="correoDestino"><strong></strong></p>
-
-                        </p>
-                    </div>
+                <div class="mensaje_pop_up2">
+                    Completa tus datos para buscar tu cuenta.
+                    <br />
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- webForm -->
-        
-    <div class="webForm">
-
-        <div class="logo-esika">
-        </div>
-        <div class="text_bienvenida_esika">
-            ¡Bienvenida a la Compañía de Belleza con la que puedes <span> ganar más! </span>
-
-            @if (Model.ListPaisAnalytics != null && Model.ListPaisAnalytics.Count > 0)
-            {
-                <div id="div-analytics-image" style="display:inline;"></div>
-            }
-        </div>
-        <div class="title">
-            <img src="~/Content/Images/Login2/logo_welcome.png" alt="" />
-        </div>
-
-        <!--LOGIN EXTERNO -->
-        <div class="formbtn" style="float: none;">
-            
-            <div id="cambcuentaboton" >
-
-                <div class="content_btn_face">
-                    <button id="btnLoginFB" class="loginBtn loginBtn--facebook" onclick="loginFB()" style="width: 100%; height: 48px;display: block;">
-                         Ingresa con Facebook
-                    </button>
-                </div>
-
-            </div>
-            
-            <div id="_olgn" class="div-o-login">
-                <div class="linea_o"></div>
-                <div class="o_login">ó</div>
-                <div class="linea_o"></div>
-            </div>
-            <hr class="clear" />
-
-            <!--
-            <div class="text_bienvenida_esika" id="divAsociarLoginExterno" style="display: none; margin-bottom: 5px;">
-                <div style="font-size: 14px;">Hola, <span id="spnLoginFB"></span></div>
-                <br />
-                <div style="font-size: 11px;">
-                    Estas correctamente autenticado con <span style="font-size: 16px;">Facebook</span>. Por favor ingresa tu usuario y contraseña de SomosBelcorp, por única vez, para asociarlo.
-                </div>
-                <br />
-            </div>
-                -->
-        </div>
-
-        <!--LOGIN EXTERNO -->
-        <div id="btnfblogin" style="display:none;">
-
-            <div class="content_sesion_facebook">
-                <img id="imgFotoPerfil2" src="" alt=""/>
-            </div>
-
-            <div class="content_btn_face">
-                <button id="btnLoginFB2" class="loginBtn loginBtn--facebook" onclick="loginFB()" style="width: 100%; height: 48px; display:block;">
-                    Ingresa con Facebook
-                </button>
-            </div>
-
-            <div id="cambcuentatext" class="text_bienvenida_esika">
-                <span id="_nomusufb" style="display: inline; font-size:14px;"></span>
-            </div>
-
-            <hr class="clear" />
-        </div>
-
-        @using (@Html.BeginForm("Login", "Login", FormMethod.Post, new { id = "frmLogin" }))
-        {
-            <div id="loginanterior" class="formCont">
-                <input type="hidden" id="hdfContrasenia" />
-                <input type="hidden" id="returnUrl" name="returnUrl" value="@ViewBag.ReturnURL" />
-
-                <div class="info-userext">
-                    <input type="hidden" id="hdeProveedor" name="UsuarioExterno.Proveedor" />
-                    <input type="hidden" id="hdeIdApp" name="UsuarioExterno.IdAplicacion" />
-                    <input type="hidden" id="hdeLogin" name="UsuarioExterno.Login" />
-                    <input type="hidden" id="hdeNombres" name="UsuarioExterno.Nombres" />
-                    <input type="hidden" id="hdeApellidos" name="UsuarioExterno.Apellidos" />
-                    <input type="hidden" id="hdeFechaNacimiento" name="UsuarioExterno.FechaNacimiento" />
-                    <input type="hidden" id="hdeCorreo" name="UsuarioExterno.Correo" />
-                    <input type="hidden" id="hdeGenero" name="UsuarioExterno.Genero" />
-                    <input type="hidden" id="hdeUbicacion" name="UsuarioExterno.Ubicacion" />
-                    <input type="hidden" id="hdeLinkPerfil" name="UsuarioExterno.LinkPerfil" />
-                    <input type="hidden" id="hdeFotoPerfil" name="UsuarioExterno.FotoPerfil" />
-                    <input type="hidden" name="UsuarioExterno.Redireccionar" value="true" />
-                </div>
-
-                <!--- FORM CONTROL PAIS --->
-                <div class="boxform">
-                    <div class="flecha_select">
-                        <div class="formcontrol pais" id="cargarBandera">
-
-                            <input type="hidden" id="hdfPaisSelect" value="00" />
-                            <input type="hidden" id="hdfPaises" value="PE;BO;CL;SV;CR;PA;GT;EC;AR;MX;DO;PR;VE;CO" />
-                            <input type="hidden" id="hdfURL" value="https://www2.somosbelcorp.com" />
-                            <input type="hidden" id="hdf_BO" value="LoginLoveBomb.jpg" />
-                            <input type="hidden" id="hdf_CL" value="LoginLoveBomb.jpg" />
-                            <input type="hidden" id="hdf_CO" value="LoginLoveBomb.jpg" />
-                            <input type="hidden" id="hdf_CR" value="fondo_default.jpg" />
-                            <input type="hidden" id="hdf_EC" value="LoginLoveBomb.jpg" />
-                            <input type="hidden" id="hdf_SV" value="LoginLoveBomb.jpg" />
-                            <input type="hidden" id="hdf_GT" value="LoginLoveBomb.jpg" />
-                            <input type="hidden" id="hdf_MX" value="LoginLoveBomb.jpg" />
-                            <input type="hidden" id="hdf_PA" value="fondo_default.jpg" />
-                            <input type="hidden" id="hdf_PE" value="LoginLoveBomb.jpg" />
-                            <input type="hidden" id="hdf_PR" value="LoginLoveBomb.jpg" />
-                            <input type="hidden" id="hdf_DO" value="fondo_default.jpg" />
-                            <input type="hidden" id="hdf_VE" value="fondo_default.jpg" />
-                            <input type="hidden" id="hdeCodigoISO" name="hdeCodigoISO" />
-
-                            <input type="hidden" id="HdePaisID" name="PaisID" />
-
-
-                            <select id="ddlPais" name="CodigoISO" class="DropDown" tabindex="1">
-                                <option value="00" data-id="99">Elige tu País</option>
+                <div class="formCont popupOlvideContrasenia">
+                    <div class="boxform deshabilitar_opcion_correo">
+                        <div class="formcontrol pais" id="cargarBandera2" style="margin-bottom: 35px;">
+                            <select id="cboPaisCambioClave" class="cboPaisCambioClave campoPais" tabindex="1" style="color: black !important" disabled="disabled">
+                                <option value="0">Elige tu País</option>
                                 @if (Model.ListaPaises != null)
                                 {
                                     foreach (var item in Model.ListaPaises)
                                     {
-                                        if (item.PaisID > 0)
+                                        item.NombreCambioClave = "Correo electrónico";
+                                        item.Telefonos = "";
+
+                                        switch (item.PaisID)
                                         {
-                                            <option value="@item.CodigoISO" data-id="@item.PaisID">@item.Nombre</option>
+                                            case 2:
+                                                {
+                                                    //BOLIVIA
+                                                    item.NombreCambioClave = "Código de Consultora o CI";
+                                                    item.Telefonos = "901-105678"; break;
+                                                };
+                                            case 3:
+                                                {
+                                                    //CHILE
+                                                    item.NombreCambioClave = "Número de RUT (sin puntos ni guión)";
+                                                    item.Telefonos = "02-28762100"; break;
+                                                };
+                                            case 4:
+                                                {
+                                                    //COLOMBIA
+                                                    item.NombreCambioClave = "Número de cédula (CC)";
+                                                    item.Telefonos = "01-8000-9-37452,5948060"; break;
+                                                };
+                                            case 5:
+                                                {
+                                                    //COSTA RICA
+                                                    item.NombreCambioClave = "Código de Consultora o DUI";
+                                                    item.Telefonos = "800-000-5235,22019601,22019602"; break;
+                                                };
+                                            case 6:
+                                                {
+                                                    //ECUADOR
+                                                    item.NombreCambioClave = "Número de cédula (CC)";
+                                                    item.Telefonos = "1800-76667"; break;
+                                                };
+                                            case 7:
+                                                {
+                                                    //EL SALVADOR
+                                                    item.NombreCambioClave = "Código de Consultora o DUI";
+                                                    item.Telefonos = "800-37452-000,25101198,25101199"; break;
+                                                };
+                                            case 8:
+                                                {
+                                                    //GUATEMALA
+                                                    item.NombreCambioClave = "Código de Consultora o CUI";
+                                                    item.Telefonos = "1-801-81-37452,22856185,23843795"; break;
+                                                };
+                                            case 9:
+                                                {
+                                                    //MEXICO
+                                                    item.NombreCambioClave = "Código de Consultora o INE";
+                                                    item.Telefonos = "01-800-2352677"; break;
+                                                };
+                                            case 10:
+                                                {
+                                                    //PANAMA
+                                                    item.NombreCambioClave = "Código de Consultora o CPI";
+                                                    item.Telefonos = "800-5235,377-9399"; break;
+                                                };
+                                            case 11:
+                                                {
+                                                    //PERU
+                                                    item.NombreCambioClave = "Código de Consultora o DNI";
+                                                    item.Telefonos = "01-2113614,080-11-3030"; break;
+                                                };
+                                            case 12:
+                                                {
+                                                    //PUERTO RICO
+                                                    item.NombreCambioClave = "Código de Consultora o Tarjeta Electoral";
+                                                    item.Telefonos = "1-866-366-3235,787-622-3235"; break;
+                                                };
+                                            case 13:
+                                                {
+                                                    //REPUBLICA DOMINICANA
+                                                    item.NombreCambioClave = "Código de Consultora o CIE";
+                                                    item.Telefonos = "1-809-200-5235,809-620-5235"; break;
+                                                };
+                                            case 14:
+                                                {
+                                                    //VENEZUELA
+                                                    item.NombreCambioClave = "Código de Consultora o CI";
+                                                    item.Telefonos = "0501-2352677"; break;
+                                                };
                                         }
-                                        else
-                                        {
-                                            mensajeError = item.Nombre;
-                                        }
+                                        <option value="@item.PaisID" data-campoclave="@item.NombreCambioClave" data-telefonos="@item.Telefonos" class="NombreCambioClave">@item.Nombre</option>
                                     }
                                 }
                             </select>
                         </div>
                     </div>
-                </div>
-
-                <!--- FORM CONTROL USUARIO --->
-                <div class="boxform" data-error="@mensajeError">
-                    <div class="formcontrol user">
-                        <input id="txtUsuario" name="CodigoUsuario" type="text" class="inputForm" value="" onfocus="" onblur="" placeholder="Usuario o Correo Electrónico" />
-                    </div>
-                    <div id="Div3" class="btn">
-                        <a href="javascript:void(0);" id="abrirMSJ01" onclick="AbrirMensajeLogin(1)" class="helper huno"></a>
-                    </div>
-                </div>
-
-                <!--- FORM CONTROL PASSWORD -->
-                <div class="boxform">
-                    <div class="formcontrol pass">
-                        <input type="password" name="ClaveSecreta" id="txtContrasenia" class="inputForm" placeholder="Contraseña" value="" />
-                    </div>
-                    <div id="Div5" class="btn">
-                        <a href="javascript:void(0);" id="abrirMSJ02" onclick="AbrirMensajeLogin(2)" class="helper hdos"></a>
-                    </div>
-                </div>
-
-                <div class="boxform">
-                    <div class="formbtn">
-                        <div style="color: #ABEAE3; text-align: left; padding-left: 4px; margin-bottom: 5px; font-family: 'lato'; font-size: 12px; font-weight: bold;">
-                            <label id="ErrorTextLabel" class="img_error_login"></label>
+                    <div class="boxform">
+                        <div class="formcontrol codigoConsultora_dni user" style="margin-bottom: 33px; color: black;">
+                            <input type="hidden" id="hdfCorreoElectronico" />
+                            <input type="text" class="inputForm" value="" id="txtCorreoElectronico" placeholder="Código de consultora o DNI" style="color: black;" />
                         </div>
                     </div>
-                </div>
 
-                <div class="boxform float_r">
-                    <div class="formbtn">
-                        <div style="padding-left: 4px;">
-                            <a id="AvisoASP" class="aviso_privacidad" href="javascript:void(0)" style="display: none;">Aviso de Privacidad</a>
+                    <div id="mensajesOC" style="text-align: left; color: #CF2D3A;"></div>
+
+                    <div class="boxform">
+                        <div class="formbtn">
+                            <input type="button" id="btnRecuperarClave" class="btnCrear" value="ENVIAR" onclick="" />
                         </div>
-                    </div>
-                </div>
-
-                <!-- FORM OLVIDASTE TU CONTRASEÑA -->
-                <div class="boxform float_r">
-                    <div class="formbtn">
-                        <label for="">
-                            <a href="javascript:void(0);" onclick="olvidasteContrasenia();" rel="formulario-login" title="Recupérala aquí" role="menu" region="Lateral" parent="Recupérala aquí">¿Olvidaste tu contraseña?</a>
-                        </label>
-                        <br />
-                    </div>
-                </div>
-
-                <div class="clear"></div>
-                
-                <!-- INGRESA A TU CUENTA -->
-                <div class="boxform">
-                    <div class="formbtn">
-                        <input type="submit" id="btnLogin" class="btnCrear" value="INGRESA A TU CUENTA" />
-                    </div>
-                    <div style="display: none;">
-                        <input type="submit" id="SubmitButton" />
-                    </div>
-                </div>
-
-                <!-- ADMINISTRADOR FORMULARIO -->
-                <div class="boxform">
-                    <div class="admin">
-                        <a href="@Url.Action("Admin", "Login")" onclick="return RedirectAdministrador();" rel="menu-superior" title="Administrador">INGRESA COMO <strong>ADMINISTRADOR</strong></a>
-                    </div>
-                </div>
-
-                <!-- RETIRO FONDOS TARJETA HELM -->
-                <div class="boxform" id="VinculoTarjetaHelm">
-                    <div class="admin" style="margin-top:14px !important">
-                        <label for="">
-                            <a href="@System.Configuration.ConfigurationManager.AppSettings["UrlRetiroFondosTarjetaHelm"]" download target="_blank" title="" style="text-decoration:underline">RETIRO TARJETA PAY CARD CON SALDO</a>
-                        </label>
                     </div>
                 </div>
             </div>
-        }
-
+        </div>
     </div>
 
-    <!-- webForm -->
+    <!-- OPCIONES DE RECUPERACIÓN DE CONTRASEÑA -->
+    <input type="hidden" id="hdcorreo" />
+    <input type="hidden" id="hdclave" />
+    <input type="hidden" id="hdCodigoConsultora" />
+    <input type="hidden" id="hd_CONTEXTO_BASE" />
+
+    <div id="popup3" style="display:none;">
+        <div id="popup_cambioContrasenia">
+            <div class="content_bg_cambioContrasenia">
+                <a id="btnCerrarContraseniaPopup" href="#" class="cerrar" onclick="$('#popup3').hide();"></a>
+                <div class="contenedor_cabecera_popup">
+                    <div id="header_cambioContrasenia">
+                        <div class="fondo_sesgado"></div>
+                        <span>
+                            CAMBIO DE <strong>CONTRASEÑA</strong>
+                        </span>
+                        <div class="indicador_lbel"></div>
+                    </div>
+                </div>
+                <div class="mensaje_pop_up2 mensaje_popup_cambioContrasenia">
+                    <span class="contenido_mensaje"><span id="spnombre">Sofía,</span> no te preocupes.</span>
+                    <span class="contenido_mensaje texto_bold">Elige cómo prefieres cambiar tu contraseña</span>
+                </div>
+                <div class="contenedor_opciones">
+                    <div class="opciones_recuperacionContrasenia opcion_correoElectronico" id="divRecup_porcorreo2">
+                        <!-- CUANDO ESTA OPCIÓN NO TENGA CORREO REGISTRADO AGREGAR esta clase css en el atributo class: deshabilitar_opcion_correo -->
+                        <div class="icono_mail"></div>
+                        <div class="bloque_texto_opcionRecuperacionContrasenia">
+                            <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc">Por correo electrónico</span>
+                            <!-- CUANDO EXISTE CORREO -->
+                            <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente correo_electronico_consult" style="display: block;" id="spcorreo"></span>
+                            <!-- CUANDO NO EXISTE CORREO -->
+                            <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente correo_electronico_consult" style="display: none;" id="spsincorreo">No existe correo registrado</span>
+                        </div>
+                    </div>
+
+                    @*<div class="opciones_recuperacionContrasenia opcion_chateaConNosotros" id="divChatearConNosotros" onclick="javascript:Construir_EnlacexDispositivo(2);">*@
+                    @*<div class="opciones_recuperacionContrasenia opcion_chateaConNosotros" id="divChatearConNosotros">
+                            <div class="icono_chateaConNosotros"></div>
+                            <div class="bloque_texto_opcionRecuperacionContrasenia">
+                                <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc">Chatea con nosotros</span>
+                                <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente horarios_atencion_chat">
+                                    @{
+                                        if (HttpContext.Current.Request.Browser.IsMobileDevice)
+                                        {
+                                            <a href="#" class="lk_chat" ismovildevice="1" target="_blank">L-V: 08:00 a 20:00 y S: 08:00 a 18:00</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="#" class="lk_chat" ismovildevice="0">L-V: 08:00 a 20:00 y S: 08:00 a 18:00</a>
+                                        }
+                                    }
+                                </span>
+                            </div>
+                        </div>*@
+
+                    @*@{
+                            if (HttpContext.Current.Request.Browser.IsMobileDevice)
+                            {
+                                <a href="#" class="lk_chat" ismovildevice="1" target="_blank">
+                                    <div class="opciones_recuperacionContrasenia opcion_chateaConNosotros" id="divChatearConNosotros2">
+                                        <div class="icono_chateaConNosotros"></div>
+                                        <div class="bloque_texto_opcionRecuperacionContrasenia">
+                                            <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc">Chatea con nosotros</span>
+                                            <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente horarios_atencion_chat" id="sp_chat">
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="#" class="lk_chat" ismovildevice="0">
+                                    <div class="opciones_recuperacionContrasenia opcion_chateaConNosotros" id="divChatearConNosotros2">
+                                        <div class="icono_chateaConNosotros"></div>
+                                        <div class="bloque_texto_opcionRecuperacionContrasenia">
+                                            <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc">Chatea con nosotros</span>
+                                            <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente horarios_atencion_chat" id="sp_chat">
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </a>
+                            }
+                        }
+
+                        @if (!HttpContext.Current.Request.Browser.IsMobileDevice)
+                        {
+                            <a id="lk_telefono" href="http://www.belcorpresponde.com/" target="_blank">
+                                <!-- TELÉFONOS CENTRALES PARA VERSIÓN DESKTOP -->
+                                <div class="opciones_recuperacionContrasenia contenedor_telefonos_desktop">
+                                    <div class="icono_llamanos"></div>
+                                    <div class="bloque_texto_opcionRecuperacionContrasenia">
+                                        <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc texto_llamanos_mayusc">Llámanos</span>
+                                        <div id="divTelefonosDesktop" style="padding-left:6px; padding-right:6px;font-size:11px;letter-spacing:0.5px;font-family:lato;font-weight: 300;"></div>
+                                    </div>
+                                </div>
+                                <!-- FIN TELÉFONOS CENTRALES PARA VERSIÓN DESKTOP -->
+                            </a>
+                        }*@
+
+                    @if (ViewBag.PaisID == 11)
+                    {
+                        <a id="lk_telefono">
+                            <!-- TELÉFONOS CENTRALES PARA VERSIÓN MOBILE -->
+                            <div class="contenedor_telefonos contenedor_telefonos_mobile" id="divTelefonos">
+                                <div class="titulo_llamanos">LLÁMANOS</div>
+                            </div>
+                            <!-- FIN TELÉFONOS CENTRALES PARA VERSIÓN MOBILE -->
+                        </a>
+                    }
+                    else if (ViewBag.PaisID != 11)
+                    {
+                        <a id="lk_telefono">
+                            <div class="titulo_llamanos">LLÁMANOS</div>
+                            <!-- CASO 1 : 2 TELÉFONOS CENTRALES -->
+                            <div class="contenedor_telefonos contenedor_telefonos_mobile" id="divTelefonos">
+                                <div class="telefonos_centrales" style="display: block;">
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script id="correo-template" type="text/x-handlebars-template">
+    </script>
+
+    <script id="telefonoprimero-template" type="text/x-handlebars-template">
+        <a href="tel:{{telefono}}" onclick="return (navigator.userAgent.match(/Android|iPhone|iPad|iPod|Mobile/i))!=null;">
+            <div class="telefono_central">
+                <span class="icono_tel"></span>
+                <span class="num_central prim_num_central">
+                    {{{mensaje}}}
+                </span>
+            </div>
+        </a>
+    </script>
+
+    <script id="telefonootros-template" type="text/x-handlebars-template">
+        <a href="tel:{{telefono}}" onclick="return (navigator.userAgent.match(/Android|iPhone|iPad|iPod|Mobile/i))!=null;">
+            <div class="telefono_central">
+                <span class="icono_tel"></span>
+                <span class="num_central prim_num_central">
+                    {{{mensaje}}}
+                </span>
+            </div>
+        </a>
+    </script>
+
+    <script id="telefonodesktop-template" type="text/x-handlebars-template">
+        <span>{{mensaje}}{{telefono}}</span>
+        <div></div>
+    </script>
+
+
+    @*Nueva Version olvide contraseña HD-1254*@
+    @{
+        if (HttpContext.Current.Request.Browser.IsMobileDevice)
+        {
+            <a href="#" class="lk_chat" ismovildevice="1" target="_blank"></a>
+        }
+        else
+        {
+            <a href="#" class="lk_chat" ismovildevice="0"></a>
+        }
+    }
+    <!-- OPCIONES CORREO Y SMS -->
+    <div id="popupRestaurarClave" style="display:none;">
+        <div id="popup_opciones_recuperacion_contrasenia">
+            <div class="content_bg_opciones_recuperacion_contrasenia">
+                <a id="btnCerrarContraseniaPopup" href="#" class="cerrar" onclick="CerrarPopup2();"></a>
+                <div id="header">
+                    <div class="fondo_sesgado"></div>
+                    <span>
+                        CAMBIO DE <b>CONTRASEÑA</b>
+                    </span>
+                    <div class="indicador_lbel"></div>
+                </div>
+                <div class="mensaje_pop_up2">
+                    <span id="spnNombreConsultora">Cosultora, no te preocupes.</span>
+                    <!-- INICIO - MENSAJE CUANDO LA CONSULTORA TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CORREO Y SMS) -->
+                    <b id="menPrioridad1" style="display:none;">Elige cómo prefieres cambiar tu contraseña.</b>
+                    <!-- FIN - MENSAJE CUANDO LA CONSULTORA TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CORREO Y SMS) -->
+                    <!-- INICIO - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CORREO REGISTRADO (OPCIÓN CORREO) -->
+                    <b id="menPrioridad1_correo" style="display:none;">Te enviaremos un e-mail al siguiente correo: </b>
+                    <!-- FIN - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CORREO REGISTRADO (OPCIÓN CORREO) -->
+                    <!-- INICIO - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CELULAR REGISTRADO (OPCIÓN SMS) -->
+                    <b id="menPrioridad1_sms" style="display:none;">Te enviaremos un mensaje de texto al siguiente número:</b>
+                    <!-- FIN - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CELULAR REGISTRADO (OPCIÓN SMS) -->
+                    <!-- INICIO - MENSAJE CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CHATEA CON NOSOTROS) -->
+                    <b id="menPrioridad2_chat" style="display:none;">Puedes comunicarte con nosotros por este medio:</b>
+                    <!-- FIN - MENSAJE CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CHATEA CON NOSOTROS) -->
+                    <!-- INICIO - MENSAJE CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN LLAMADA) -->
+                    <b id="menPrioridad2_llamada" style="display:none;">Puedes comunicarte con nosotros llamando a nuestra central telefónica:</b>
+                    <!-- FIN - MENSAJE CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN LLAMADA) -->
+                    <!-- INICIO - MENSAJE SI NO HAY CORREO, SMS, CHAT NI LLAMADAS -->
+                    <span id="menPrioridad3" class="texto_disculpa" style="display:none;">Sofía, discúlpanos, en estos momentos no podemos atenderte.</span>
+                    <b style="display:none;">Puedes comunicarte con nosotros llamando a nuestra central telefónica en el siguiente horario:</b>
+                    <!-- FIN - MENSAJE SI NO HAY CORREO, SMS, CHAT NI LLAMADAS -->
+                </div>
+
+                <div class="opciones_recuperacion_contrasenia">
+                    <div id="prioridad1" style="display:none;">
+                        <!-- INICIO - CUANDO LA CONSULTORA TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CORREO Y SMS) -->
+                        <a id="divRecup_porcorreo" class="opcion_recuperacion_contrasenia opcionCorreo RecuperarPorCorreo">
+                            <!-- CUANDO SE HAYA USADO YA LA OPCIÓN YA SEA DE CORREO O DE SMS SE LE AGREGA LA CLASE opcion_desactivada -->
+                            <div class="icono_correo_electronico"></div>
+                            <div class="contenedor_info_datos">
+                                <div class="titulo_opcion_correo">Correo electrónico</div>
+                                <div class="correo_electronico EmailEmascarado"></div>
+                            </div>
+                            <div class="mensajeDeBloqueoCorreo" style="display:none;font-size: 10px;padding-top:15px">Esta opción está bloqueada temporalmente.</div>
+                        </a>
+                        <a id="divRecup_porsms" class="opcion_recuperacion_contrasenia opcionSms" pointer-events="none">
+                            <div class="icono_sms"></div>
+                            <div class="contenedor_info_datos">
+                                <div class="titulo_opcion_sms">Mensaje de texto (sms)</div>
+                                <div class="numero_celular NumCelularDestino"></div>
+                            </div>
+                            <div class="mensajeDeBloqueoSMS" style="display:none;font-size: 10px;padding-top:15px">Esta opción está bloqueada temporalmente.</div>
+                        </a>
+                    </div>
+                    <!-- FIN - CUANDO LA CONSULTORA TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CORREO Y SMS) -->
+                    <!-- INICIO - CUANDO LA CONSULTORA TIENE SÓLO CORREO REGISTRADO (OPCIÓN CORREO) -->
+                    <div id="prioridad1_correo" class="opcion_recuperacion_contrasenia" style="display:none;">
+                        <div class="contenedor_solo_una_opcion">
+                            <div class="icono_correo_electronico mb-15"></div>
+                            <div class="contenedor_info_datos">
+                                <div class="titulo_opcion_correo">Correo electrónico</div>
+                                <div class="correo_electronico EmailEmascarado">a********zo@gmail.com</div>
+                            </div>
+                        </div>
+                        <button class="btn_enviar_email RecuperarPorCorreo">Enviar e-mail</button>
+                        <div class="mensajeDeBloqueoCorreo" style="display:none;font-size: 10px; padding-top:5px;">Esta opción está bloqueada temporalmente.</div>
+                    </div>
+                    <!-- FIN - CUANDO LA CONSULTORA TIENE SÓLO CORREO REGISTRADO (OPCIÓN CORREO) -->
+                    <!-- INICIO - CUANDO LA CONSULTORA TIENE SÓLO CELULAR REGISTRADO (OPCIÓN SMS) -->
+                    <div id="prioridad1_sms" class="opcion_recuperacion_contrasenia" style="display:none;">
+                        <div class="contenedor_solo_una_opcion">
+                            <div class="icono_sms mb-15"></div>
+                            <div class="contenedor_info_datos">
+                                <div class="titulo_opcion_sms">Número de celular</div>
+                                <div class="numero_celular NumCelularDestino">9** *** *61</div>
+                            </div>
+                        </div>
+                        <button class="btn_enviar_sms opcionSms">Enviar mensaje</button>
+                        <div class="mensajeDeBloqueoSMS" style="display:none;font-size: 10px; padding-top:5px;">Esta opción está bloqueada temporalmente.</div>
+                    </div>
+                    <!-- FIN - CUANDO LA CONSULTORA TIENE SÓLO CELULAR REGISTRADO (OPCIÓN SMS) -->
+                    <!-- INICIO - CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CHATEA CON NOSOTROS) -->
+                    <div id="prioridad2_chat" class="opcion_recuperacion_contrasenia" style="display:none;">
+                        <div class="contenedor_solo_una_opcion">
+                            <div class="icono_chatea_con_nosotros"></div>
+                            <div class="contenedor_info_datos">
+                                <div class="titulo_opcion_chatea_con_nosotros">Chatea con nosotros</div>
+                                <div id="divHoraiosAtencion" class="horarios_atencion">L-V: 8:00 a 20:00 y S: 08:00 a 18:00</div>
+                            </div>
+                        </div>
+                        <button class="btn_ingresar_chat" id="divChatearConNosotros">Ingresar al chat</button>
+                    </div>
+                    <!-- FIN - CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CHATEA CON NOSOTROS) -->
+                    <!-- INICIO - CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN LLAMADA) -->
+                    <div id="Opcionesllamada" class="opcion_recuperacion_contrasenia sinMargenesMobile" style="display:none;">
+                        <!-- INICIO - OPCIÓN LLAMADA DESKTOP -->
+                        <div id="prioridad2_llamada" class="contenedor_solo_una_opcion opcionLlamada_desktop" style="display:none;">
+                            <div class="icono_llamada"></div>
+                            <div class="contenedor_info_datos">
+                                <div class="titulo_opcion_llamada nametitlepais">Central Telefónica del Perú</div>
+                                <div id="contenidotelefono" class="telefonos_central">
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- FIN - OPCIÓN LLAMADA DESKTOP -->
+                        <!-- INICIO - OPCIÓN LLAMADA MOBILE -->
+                        <div class="contenedor_solo_una_opcion opcionLlamada_mobile">
+                            <!-- INICIO - CENTRALES TELEFÓNICAS PERÚ -->
+                            <div id="divllamadasMobile" class="grupo_centrales_telefonicas_disponibles" style="display:none;">
+
+                            </div>
+                        </div>
+                        <!-- FIN - OPCIÓN LLAMADA MOBILE -->
+                    </div>
+                    <!-- FIN - CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN LLAMADA) -->
+                    <!-- INICIO - SI NO HAY CORREO, SMS, CHAT NI LLAMADAS -->
+                    <div id="prioridad3" style="display:none;">
+                        <div class="contenedor_solo_una_opcion">
+                            <div class="icono_reloj mb-15"></div>
+                            <div class="contenedor_info_datos">
+                                <div class="titulo_opcion_horarios_atencion">
+                                    Horario de atención central telefónica
+                                </div>
+                                <div class="horarios_atencion">
+                                    <div class="mb-3">
+                                        <span class="divHorario">Lunes a Viernes: 08:00 a 20:00</span>
+                                    </div>
+                                    @*<div>
+                                            <span class="divHs">Sábados: 08:00 a 18:00</span>
+                                        </div>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FIN - SI NO HAY CORREO, SMS, CHAT NI LLAMADAS -->
+                </div>
+                <div class="info_mas_opciones">
+                    <!-- INICIO - MENSAJE CUANDO LA CONSULTORA TIENE CORREO Y CELULAR REGISTRADOS -->
+                    <span style="display:none;">Mis datos no son correctos.</span>
+                    <!-- FIN - MENSAJE CUANDO LA CONSULTORA TIENE CORREO Y CELULAR REGISTRADOS -->
+                    <!-- INICIO - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CORREO REGISTRADO -->
+                    <span style="display:none;">Este no es mi correo.</span>
+                    <!-- FIN - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CORREO REGISTRADO -->
+                    <!-- INICIO - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CELULAR REGISTRADO -->
+                    <span style="display:none;">Este no es mi número.</span>
+                    <!-- FIN - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CELULAR REGISTRADO -->
+
+                    <a id="vermasopciones1" title="Ver más opciones" data-recuperar="2" style="cursor:pointer;">
+                        Ver más opciones
+                    </a>
+
+                    <a id="linkvolverInicio" class="accion_alternativa_posterior_envio_password aVolverInicio" title="Reenviar mensaje a mi correo" style="cursor:pointer;display:none;">Volver al inicio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTRASEÑA ENVIADA -->
+    <div id="popup2" style="display:none;">
+        <div id="popup_contraseniaEnviada">
+            <div class="content_bg_contraseniaEnviada">
+                <a id="btnRegresar" class="btn_regresar_ver_otras_opciones" href="#" title="Regresar">
+                    <span class="icono_regresar_ver_otras_opciones"><img src="~/Content/Images/Login2/Icons/flecha-regresar.svg" alt="Alternate Text" /></span>
+                    <span>Regresar</span>
+                </a>
+                <a id="btnCerrarContraseniaEnviadaPopup" href="#" class="cerrar" onclick="CerrarPopup2()" title="Cerrar"></a>
+                <!-- INICIO - INFORMACIÓN CONTRASEÑA ENVIADA A CORREO DE CONSULTORA -->
+                <div id="divPopupIntentosCorreo" class="mensaje_pop_up_contraseniaEnviada" style="display:none;">
+                    <!-- INICIO - ESTE TITULO SE MUESTRA PARA 1ER INTENTO Y 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
+                    <h1 id="men1y2Intento">Por favor, revisa tu correo</h1>
+                    <!-- FIN - ESTE TITULO SE MUESTRA PARA 1ER INTENTO Y 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
+                    <!-- INICIO - ESTE TITULO SE MUESTRA PARA 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
+                    <h1 id="men3Intento" style="display:none;">Por favor, espera un momento, el mensaje está en camino</h1>
+                    <!-- FIN - ESTE TITULO SE MUESTRA PARA 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
+                    <br />
+                    <br />
+                    <div class="icono_correo">
+                        @if (ViewBag.PaisID == 2 || ViewBag.PaisID == 3 || ViewBag.PaisID == 4 || ViewBag.PaisID == 6 || ViewBag.PaisID == 7 || ViewBag.PaisID == 8 || ViewBag.PaisID == 11 || ViewBag.PaisID == 13 || ViewBag.PaisID == 14)
+                        {
+                            <img src="~/Content/Images/Login2/Icons/icono-envelope-esika.png" alt="Nuevo Correo" />
+                        }
+                        else if (ViewBag.PaisID == 5 || ViewBag.PaisID == 9 || ViewBag.PaisID == 10 || ViewBag.PaisID == 12)
+                        {
+                            <img src="~/Content/Images/Login2/Icons/icono-envelope-lbel.png" alt="Nuevo Correo" />
+                        }
+                    </div>
+                    <br />
+                    <br />
+                    <p>
+                        Te hemos enviado las instrucciones a :
+                        <br />
+                    <p id="correoDestino" style="font: bold;"><strong></strong></p>
+                    </p>
+                    <!-- INICIO - 1ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
+                    <a id="divPrimerInteto" class="accion_alternativa_posterior_envio_password RecuperarPorCorreo" title="Reenviar mensaje a mi correo" style="cursor:pointer;">Reenviar mensaje a mi correo</a>
+                    <!-- FIN - 1ER INTENTO -->
+                    <!-- INICIO - 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
+                    <a class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo" style="display:none;">Intentar nuevamente</a>
+                    <!-- FIN - 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
+                    <!-- INICIO - 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
+                    @*<div style="display:none;">
+                            <span class="txto_no_llego_mensaje">No me llego el correo.</span>
+                            <a href="" class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo">
+                                <span>Ver más opciones</span>
+                                <span class="flecha_ver_mas_opciones"></span>
+                            </a>
+                        </div>*@
+
+                    <div id="divVolverInicio" style="display:none;">
+                        <span class="texto_no_llego_mensaje">No me llegó el mensaje.</span>
+                        <a class="accion_alternativa_posterior_envio_password aVolverInicio" title="Reenviar mensaje a mi correo" style="cursor:pointer;">Volver al inicio</a>
+                    </div>
+                    <!-- FIN - 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
+                </div>
+                <!-- FIN - INFORMACIÓN CONTRASEÑA ENVIADA A CORREO DE CONSULTORA -->
+                <!-- INICIO - INGRESO CÓDIGO ENVIADO MEDIANTE MENSAJE SMS A CELULAR DE CONSULTORA REGISTRADO -->
+                <div id="divPopupIntentosSMS" class="mensaje_pop_up_contraseniaEnviada" style="display:none;">
+                    <h1 id="MenPrimerIntentoSms" style="display:none;">Por favor, revisa tu celular</h1>
+                    <h1 id="MenSegundoIntentoSms" style="display:none;font-size:16px;">Por favor, espera un momento, te hemos enviado un nuevo código</h1>
+                    <br />
+                    <div class="icono_mensaje_sms">
+                        @*<img src="~/Content/Images/Login2/Icons/icono_nuevo_correo.png" alt="Alternate Text" />*@
+                    </div>
+                    <br />
+                    <p>
+                        Te hemos enviado un código al: <strong class="NumCelularDestino">9** *** *61</strong>
+                    </p>
+                    <p class="texto_informativo_ingreso_codigo">
+                        Una vez recibido, ingrésalo aquí
+                    </p>
+                    <div class="ingreso_codigo">
+                        <input type="text" maxlength="1" id="1Digito" name="primerDigito" class="codigoSms" value="">
+                        <input type="text" maxlength="1" id="2Digito" name="segundoDigito" class="codigoSms" value="">
+                        <input type="text" maxlength="1" id="3Digito" name="tercerDigito" class="codigoSms" value="">
+                        <input type="text" maxlength="1" id="4Digito" name="cuartoDigito" class="codigoSms" value="">
+                        <input type="text" maxlength="1" id="5Digito" name="quintoDigito" class="codigoSms" value="">
+                        <input type="text" maxlength="1" id="6Digito" name="sextoDigito" class="codigoSms" value="">
+                        <div class="tiempo_validez_codigoSms">
+                            <span id="spnMin">03</span>:<span id="spnSeg">00</span>
+                        </div>
+                        <div class="mensaje_error_codigo codigoInvalido" style="display:none;">
+                            <span class="icono_alerta_error"></span>
+                            <span>Código inválido</span>
+                        </div>
+                    </div>
+                    <!-- INICIO - 1ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
+                    <a id="aSeguntoIntentoSms" class="accion_alternativa_posterior_envio_password opcionSms" title="Reenviar mensaje a mi correo" style="display:none; cursor:pointer;">Reenviar mensaje de texto</a>
+                    <!-- FIN - 1ER INTENTO -->
+                    <!-- INICIO - 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
+                    <a id="aTercerIntentoSms" class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo" style="display:none; cursor:pointer;">Intentar nuevamente</a>
+                    <!-- FIN - 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
+                    <!-- INICIO - 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
+                    <div id="divVolverInicioSms" style="display:none;">
+                        <span class="texto_no_llego_mensaje">No me llego el código.</span>
+                        <a class="accion_alternativa_posterior_envio_password aVolverInicio" title="Reenviar mensaje a mi correo" style="cursor:pointer;">Volver al inicio</a>
+                    </div>
+                    <!-- FIN - 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
+                    <!-- Contiene el link -->
+                    <div>
+                        <a id="aEnlaceCambiarContraseña" href="" target="_blank"></a>
+                    </div>
+                    <!-- Fin donde contiene el link -->
+                </div>
+                <!-- FIN - INGRESO CÓDIGO ENVIADO MEDIANTE MENSAJE SMS A CELULAR DE CONSULTORA REGISTRADO -->
+                <!-- INICIO - MÁS OPCIONES -->
+                <div class="mensaje_pop_up_contraseniaEnviada" style="display:none;">
+                    <!-- INICIO - MÁS OPCIONES - CHATEA CON NOSOTROS -->
+                    <h1 class="mb-34">
+                        Sofía, puedes comunicarte con nosotros por este medio
+                    </h1>
+                    <!-- FIN - MÁS OPCIONES - CHATEA CON NOSOTROS -->
+                    <!-- INICIO - MÁS OPCIONES - LLÁMANOS -->
+                    <h1 class="mb-34" style="display:none;">
+                        Sofía, puedes comunicarte con nosotros llamando a nuestra central telefónica
+                    </h1>
+                    <!-- FIN - MÁS OPCIONES - LLÁMANOS -->
+                    <!-- INICIO - MÁS OPCIONES - CHATEA CON NOSOTROS -->
+                    <div class="opcion_recuperacion_contrasenia">
+                        <div class="contenedor_solo_una_opcion">
+                            <div class="icono_chatea_con_nosotros"></div>
+                            <div class="contenedor_info_datos">
+                                <div class="titulo_opcion_chatea_con_nosotros">Chatea con nosotros</div>
+                                <div class="horarios_atencion">L-V: 8:00 a 20:00 y S: 08:00 a 18:00</div>
+                            </div>
+                        </div>
+                        <button class="btn_ingresar_chat">Ingresar al chat</button>
+                    </div>
+                    <!-- FIN - MÁS OPCIONES - CHATEA CON NOSOTROS -->
+                    <!-- INICIO - MÁS OPCIONES - LLÁMANOS -->
+                    <div class="opcion_recuperacion_contrasenia" style="display:none;">
+                        <!-- INICIO - MÁS OPCIONES - LLÁMANOS DESKTOP -->
+                        <div class="opcionLlamada_desktop">
+                            <div class="icono_llamada"></div>
+                            <div class="titulo_opcion_llamada">Central Telefónica del Perú</div>
+                            <div class="telefonos_central">
+                                <span>
+                                    Lima: <span>01-2113614</span>
+                                </span>
+                                <span>
+                                    Provincia: <span>080-11-3030</span>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- FIN - MÁS OPCIONES - LLÁMANOS DESKTOP -->
+                        <!-- INICIO - MÁS OPCIONES - LLÁMANOS MOBILE -->
+                        <div class="opcionLlamada_mobile">
+                            <!-- INICIO - CENTRALES TELEFÓNICAS PERÚ -->
+                            <div class="grupo_centrales_telefonicas_disponibles" style="display:none;">
+                                <a href="" class="central_telefonica">
+                                    <div class="icono_llamada"></div>
+                                    <div class="texto_opcion_llamada">
+                                        Llamar de Lima
+                                    </div>
+                                </a>
+                                <a href="" class="central_telefonica">
+                                    <div class="icono_llamada"></div>
+                                    <div class="texto_opcion_llamada">
+                                        Llamar de provincia
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- FIN - CENTRALES TELEFÓNICAS PERÚ -->
+                            <!-- INICIO - CENTRALES TELEFÓNICAS OTROS PAÍSES -->
+                            <div class="grupo_centrales_telefonicas_disponibles" style="display:none;">
+                                <a href="" class="central_telefonica">
+                                    <div class="icono_llamada"></div>
+                                    <div class="texto_opcion_llamada">
+                                        Llamar a central 1
+                                    </div>
+                                </a>
+                                <a href="" class="central_telefonica">
+                                    <div class="icono_llamada"></div>
+                                    <div class="texto_opcion_llamada">
+                                        Llamar a central 2
+                                    </div>
+                                </a>
+                                <a href="" class="central_telefonica">
+                                    <div class="icono_llamada"></div>
+                                    <div class="texto_opcion_llamada">
+                                        Llamar a central 3
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- FIN  - CENTRALES TELEFÓNICAS OTROS PAÍSES -->
+                        </div>
+                        <!-- FIN - MÁS OPCIONES - LLÁMANOS MOBILE -->
+                    </div>
+                    <!-- FIN - MÁS OPCIONES - LLÁMANOS -->
+                </div>
+                <!-- FIN - MÁS OPCIONES -->
+                <!-- INICIO - AL HACER CLICK EN MÁS OPCIONES Y NO HAY CHAT NI LLAMADAS -->
+                <div class="mensaje_pop_up_contraseniaEnviada" style="display:none;">
+                    <h1 class="texto_disculpa_2">Sofía, puedes comunicarte con nosotros llamando a nuestra central telefónica en el siguiente horario:</h1>
+                    <br />
+                    <br />
+                    <div class="icono_reloj_2 mb-15"></div>
+                    <div class="titulo_opcion_horarios_atencion">
+                        Horario de atención central telefónica
+                    </div>
+                    <div class="horarios_atencion_2">
+                        <div class="mb-3">
+                            <span>Lunes a Viernes: </span>
+                            <span>08:00</span> a <span>20:00</span>
+                        </div>
+                        <div>
+                            <span>Sábados: </span>
+                            <span>08:00</span> a <span>18:00</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN - AL HACER CLICK EN MÁS OPCIONES Y NO HAY CHAT NI LLAMADAS -->
+            </div>
+        </div>
+    </div>
+
+    <div id="popup3" style="display: none;">
+        <div id="popup_cambioContrasenia">
+            <div class="content_bg_cambioContrasenia">
+                <a id="btnCerrarCambioContraseniaPopup" href="#" class="cerrar" onclick="$('#popup3').hide();"></a>
+
+                <div id="headerCambioContrasenia">CAMBIO DE CONTRASEÑA</div>
+                <div class="mensaje_pop_up2">
+                    <p>{{UsuarioName}}, no te preocupes.</p>
+                </div>
+                <div class="formCont popupCambioContrasenia">
+                    <div class="boxform">
+                        <div class="formcontrol PorCorreo" id="PorCorreo" style="margin-bottom: 35px;">
+                        </div>
+                    </div>
+                    <div class="boxform">
+                        <div class="formcontrol PorChat" id="PorChat" style="margin-bottom: 45px; color: black;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- webForm -->
+
+<div class="webForm">
+
+    <div class="logo-esika">
+    </div>
+    <div class="text_bienvenida_esika">
+        ¡Bienvenida a la Compañía de Belleza con la que puedes <span> ganar más! </span>
+
+        @if (Model.ListPaisAnalytics != null && Model.ListPaisAnalytics.Count > 0)
+        {
+            <div id="div-analytics-image" style="display:inline;"></div>
+        }
+    </div>
+    <div class="title">
+        <img src="~/Content/Images/Login2/logo_welcome.png" alt="" />
+    </div>
+
+    <!--LOGIN EXTERNO -->
+    <div class="formbtn" style="float: none;">
+
+        <div id="cambcuentaboton">
+
+            <div class="content_btn_face">
+                <button id="btnLoginFB" class="loginBtn loginBtn--facebook" onclick="loginFB()" style="width: 100%; height: 48px;display: block;">
+                    Ingresa con Facebook
+                </button>
+            </div>
+
+        </div>
+
+        <div id="_olgn" class="div-o-login">
+            <div class="linea_o"></div>
+            <div class="o_login">ó</div>
+            <div class="linea_o"></div>
+        </div>
+        <hr class="clear" />
+
+        <!--
+        <div class="text_bienvenida_esika" id="divAsociarLoginExterno" style="display: none; margin-bottom: 5px;">
+            <div style="font-size: 14px;">Hola, <span id="spnLoginFB"></span></div>
+            <br />
+            <div style="font-size: 11px;">
+                Estas correctamente autenticado con <span style="font-size: 16px;">Facebook</span>. Por favor ingresa tu usuario y contraseña de SomosBelcorp, por única vez, para asociarlo.
+            </div>
+            <br />
+        </div>
+            -->
+    </div>
+
+    <!--LOGIN EXTERNO -->
+    <div id="btnfblogin" style="display:none;">
+
+        <div class="content_sesion_facebook">
+            <img id="imgFotoPerfil2" src="" alt="" />
+        </div>
+
+        <div class="content_btn_face">
+            <button id="btnLoginFB2" class="loginBtn loginBtn--facebook" onclick="loginFB()" style="width: 100%; height: 48px; display:block;">
+                Ingresa con Facebook
+            </button>
+        </div>
+
+        <div id="cambcuentatext" class="text_bienvenida_esika">
+            <span id="_nomusufb" style="display: inline; font-size:14px;"></span>
+        </div>
+
+        <hr class="clear" />
+    </div>
+
+    @using (@Html.BeginForm("Login", "Login", FormMethod.Post, new { id = "frmLogin" }))
+    {
+        <div id="loginanterior" class="formCont">
+            <input type="hidden" id="hdfContrasenia" />
+            <input type="hidden" id="returnUrl" name="returnUrl" value="@ViewBag.ReturnURL" />
+
+            <div class="info-userext">
+                <input type="hidden" id="hdeProveedor" name="UsuarioExterno.Proveedor" />
+                <input type="hidden" id="hdeIdApp" name="UsuarioExterno.IdAplicacion" />
+                <input type="hidden" id="hdeLogin" name="UsuarioExterno.Login" />
+                <input type="hidden" id="hdeNombres" name="UsuarioExterno.Nombres" />
+                <input type="hidden" id="hdeApellidos" name="UsuarioExterno.Apellidos" />
+                <input type="hidden" id="hdeFechaNacimiento" name="UsuarioExterno.FechaNacimiento" />
+                <input type="hidden" id="hdeCorreo" name="UsuarioExterno.Correo" />
+                <input type="hidden" id="hdeGenero" name="UsuarioExterno.Genero" />
+                <input type="hidden" id="hdeUbicacion" name="UsuarioExterno.Ubicacion" />
+                <input type="hidden" id="hdeLinkPerfil" name="UsuarioExterno.LinkPerfil" />
+                <input type="hidden" id="hdeFotoPerfil" name="UsuarioExterno.FotoPerfil" />
+                <input type="hidden" name="UsuarioExterno.Redireccionar" value="true" />
+            </div>
+
+            <!--- FORM CONTROL PAIS --->
+            <div class="boxform">
+                <div class="flecha_select">
+                    <div class="formcontrol pais" id="cargarBandera">
+
+                        <input type="hidden" id="hdfPaisSelect" value="00" />
+                        <input type="hidden" id="hdfPaises" value="PE;BO;CL;SV;CR;PA;GT;EC;AR;MX;DO;PR;VE;CO" />
+                        <input type="hidden" id="hdfURL" value="https://www2.somosbelcorp.com" />
+                        <input type="hidden" id="hdf_BO" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_CL" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_CO" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_CR" value="fondo_default.jpg" />
+                        <input type="hidden" id="hdf_EC" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_SV" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_GT" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_MX" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_PA" value="fondo_default.jpg" />
+                        <input type="hidden" id="hdf_PE" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_PR" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_DO" value="fondo_default.jpg" />
+                        <input type="hidden" id="hdf_VE" value="fondo_default.jpg" />
+                        <input type="hidden" id="hdeCodigoISO" name="hdeCodigoISO" />
+
+                        <input type="hidden" id="HdePaisID" name="PaisID" />
+
+
+                        <select id="ddlPais" name="CodigoISO" class="DropDown" tabindex="1">
+                            <option value="00" data-id="99">Elige tu País</option>
+                            @if (Model.ListaPaises != null)
+                            {
+                                foreach (var item in Model.ListaPaises)
+                                {
+                                    if (item.PaisID > 0)
+                                    {
+                                        <option value="@item.CodigoISO" data-id="@item.PaisID">@item.Nombre</option>
+                                    }
+                                    else
+                                    {
+                                        mensajeError = item.Nombre;
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!--- FORM CONTROL USUARIO --->
+            <div class="boxform" data-error="@mensajeError">
+                <div class="formcontrol user">
+                    <input id="txtUsuario" name="CodigoUsuario" type="text" class="inputForm" value="" onfocus="" onblur="" placeholder="Usuario o Correo Electrónico" />
+                </div>
+                <div id="Div3" class="btn">
+                    <a href="javascript:void(0);" id="abrirMSJ01" onclick="AbrirMensajeLogin(1)" class="helper huno"></a>
+                </div>
+            </div>
+
+            <!--- FORM CONTROL PASSWORD -->
+            <div class="boxform">
+                <div class="formcontrol pass">
+                    <input type="password" name="ClaveSecreta" id="txtContrasenia" class="inputForm" placeholder="Contraseña" value="" />
+                </div>
+                <div id="Div5" class="btn">
+                    <a href="javascript:void(0);" id="abrirMSJ02" onclick="AbrirMensajeLogin(2)" class="helper hdos"></a>
+                </div>
+            </div>
+
+            <div class="boxform">
+                <div class="formbtn">
+                    <div style="color: #ABEAE3; text-align: left; padding-left: 4px; margin-bottom: 5px; font-family: 'lato'; font-size: 12px; font-weight: bold;">
+                        <label id="ErrorTextLabel" class="img_error_login"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="boxform float_r">
+                <div class="formbtn">
+                    <div style="padding-left: 4px;">
+                        <a id="AvisoASP" class="aviso_privacidad" href="javascript:void(0)" style="display: none;">Aviso de Privacidad</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FORM OLVIDASTE TU CONTRASEÑA -->
+            <div class="boxform float_r">
+                <div class="formbtn">
+                    <label for="">
+                        <a href="javascript:void(0);" onclick="olvidasteContrasenia();" rel="formulario-login" title="Recupérala aquí" role="menu" region="Lateral" parent="Recupérala aquí">¿Olvidaste tu contraseña?</a>
+                    </label>
+                    <br />
+                </div>
+            </div>
+
+            <div class="clear"></div>
+
+            <!-- INGRESA A TU CUENTA -->
+            <div class="boxform">
+                <div class="formbtn">
+                    <input type="submit" id="btnLogin" class="btnCrear" value="INGRESA A TU CUENTA" />
+                </div>
+                <div style="display: none;">
+                    <input type="submit" id="SubmitButton" />
+                </div>
+            </div>
+
+            <!-- ADMINISTRADOR FORMULARIO -->
+            <div class="boxform">
+                <div class="admin">
+                    <a href="@Url.Action("Admin", "Login")" onclick="return RedirectAdministrador();" rel="menu-superior" title="Administrador">INGRESA COMO <strong>ADMINISTRADOR</strong></a>
+                </div>
+            </div>
+
+            <!-- RETIRO FONDOS TARJETA HELM -->
+            <div class="boxform" id="VinculoTarjetaHelm">
+                <div class="admin" style="margin-top:14px !important">
+                    <label for="">
+                        <a href="@System.Configuration.ConfigurationManager.AppSettings["UrlRetiroFondosTarjetaHelm"]" download target="_blank" title="" style="text-decoration:underline">RETIRO TARJETA PAY CARD CON SALDO</a>
+                    </label>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+<!-- webForm -->
 <div id="popupAsociarUsuarioExt" class="content_pop_login" style="display: none;">
     <input type="hidden" id="hdeNameUserExt" />
     <div class="content_facebook_sb">
@@ -536,11 +1168,11 @@
         </div>
         <div class="body_facebook">
             <div class="texto_login">
-                <b class="solo_texto_paso">Solo un paso más... </b> Por favor ingresa tu usuario y contraseña de <b style="font-size:16px;">SomosBelcorp</b> por única vez para asociarlo.
+                <b class="solo_texto_paso">Solo un paso más... </b>Por favor ingresa tu usuario y contraseña de <b style="font-size: 16px;">SomosBelcorp</b> por única vez para asociarlo.
             </div>
 
             <div class="content_foto_face_pop">
-                <div class="foto_pop_face"> <img src=""/></div>
+                <div class="foto_pop_face"> <img src="" /></div>
                 <div class="nombre_usuario_facebook">Valeria</div>
             </div>
 
@@ -557,23 +1189,23 @@
                 </select>
             </div>
             <hr class="clear" />
-            
+
             <div class="campo_input icono_usuario">
                 <input type="text" value="" class="usuario_facebook" id="txtUsuario2" placeholder="Usuario o Correo Electrónico" />
                 <div class="ayuda_usuario_facebook">
                     <a href="#" class="helper_facebook"></a>
                     <div class="mensaje_ayuda_usuario" id="ayuda-msg-user">
-                         Tu código de consultora,
-                                DNI o correo electronico.
+                        Tu código de consultora,
+                        DNI o correo electronico.
                     </div>
-                </div>               
+                </div>
             </div>
             <hr class="clear" />
-            
+
             <div class="campo_input icono_pass">
                 <input type="password" value="" class="usuario_facebook" id="txtContrasenia2" placeholder="Contraseña" />
                 <div class="ayuda_usuario_facebook">
-                    <a href="#"  class="helper_facebook"></a>
+                    <a href="#" class="helper_facebook"></a>
                     <div class="mensaje_ayuda_usuario" id="ayuda-msg-clave">
                         Si es la primera vez que
                         ingresas, es tu número
@@ -599,7 +1231,7 @@
             </div>
             <hr class="clear" />
 
-            <a class="btn_validar_usuario" id="btnLogin2" onclick="login2()" style="cursor:pointer;">INGRESA A TU CUENTA</a>
+            <a class="btn_validar_usuario" id="btnLogin2" onclick="login2()" style="cursor: pointer;">INGRESA A TU CUENTA</a>
         </div>
     </div>
 </div>
@@ -613,6 +1245,11 @@
     var banderaOk = '@ViewBag.BanderaOk';
     var avisoASP = '@ViewBag.AvisoASP';
     var urlRecuperarContrasenia = '@Url.Action("RecuperarContrasenia", "Login")';
+    var urlEnviaClaveAEmail = '@Url.Action("EnviaClaveAEmail", "Login")';
+    var urlEnviaCodigoSMS = '@Url.Action("EnviaCodigoSMS", "Login")';
+    var urlLoginAcceder = '@Url.Action("Login", "Login")';
+    var urlChatBelCorp = '@Url.Action("ChatBelcorp", "Login")';
+    var urlObtenerCodigoSms = '@Url.Action("ObtenerCodigoSms", "Login")';
 </script>
 
 @if (TempData["errorLogin"] != null)
@@ -625,7 +1262,7 @@
     </script>
 }
 
-@if(TempData["usuarioValidado"] != null)
+@if (TempData["usuarioValidado"] != null)
 {
     <script>
         var usuarioValidado = '@TempData["usuarioValidado"]';
@@ -636,13 +1273,13 @@
     @if (Model.ListPaisAnalytics != null && Model.ListPaisAnalytics.Count > 0)
     {
         <script type="text/javascript">
-        /* <![CDATA[ */
+            /* <![CDATA[ */
             var google_conversion_id = 0;
             var google_custom_params = window.google_tag_params;
             var google_remarketing_only = true;
-        /* ]]> */
+            /* ]]> */
         </script>
-        
+
         <noscript id="noscript-pixel-image"></noscript>
     }
 
@@ -654,20 +1291,21 @@
             foreach (var paisAnalytics in Model.ListPaisAnalytics)
             {
                 <text>
-                    configAnalytics.listPaisAnalytics.push({
-                        CodigoISO: '@paisAnalytics.CodigoISO',
-                        GndId: @(paisAnalytics.GndId),
-                        PixelId: '@paisAnalytics.PixelId',
-                        SearchId: @(paisAnalytics.SearchId),
-                        YoutubeId: @(paisAnalytics.YoutubeId)
-                    })
-                </text>
+        configAnalytics.listPaisAnalytics.push({
+            CodigoISO: '@paisAnalytics.CodigoISO',
+            GndId: @(paisAnalytics.GndId),
+            PixelId: '@paisAnalytics.PixelId',
+            SearchId: @(paisAnalytics.SearchId),
+            YoutubeId: @(paisAnalytics.YoutubeId)
+            })
+        </text>
             }
         }
     </script>
 }
 
 @section scripts {
+    <script src="~/Scripts/handlebars.js"></script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login")
 }
 
