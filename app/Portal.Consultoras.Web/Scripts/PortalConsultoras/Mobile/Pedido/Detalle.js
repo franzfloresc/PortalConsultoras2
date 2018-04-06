@@ -170,12 +170,26 @@ function UpdateLiquidacionEvento(evento) {
         return false;
     }
 
-    if (ReservadoOEnHorarioRestringido()) {
-        obj.Cantidad = obj.CantidadTemporal;
-        belcorp.mobile.pedido.setDetalleById(obj);
+    var cantidadElement = $(targetRow).find(".Cantidad");
+    var cantidad = $(cantidadElement).val() || "";
+    var cantidadAnterior = obj.CantidadTemporal;
+
+    if (cantidad.length == 0 || isNaN(cantidad)) {
+        messageInfoMalo('Por favor ingrese una cantidad válida.');
+        $(cantidadElement).val(cantidadAnterior);
         return false;
     }
 
+    if (parseInt(cantidad) <= 0) {
+        messageInfoMalo('Por favor ingrese una cantidad mayor a cero.');
+        $(cantidadElement).val(cantidadAnterior);
+        return false;
+    }
+
+    if (cantidad == cantidadAnterior) {
+        return false;
+    }
+    
     UpdateLiquidacionSegunTipoOfertaSis(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.TipoOfertaSisID, obj.CUV, obj.FlagValidacion, obj.CantidadTemporal, obj.EsBackOrder, obj.PrecioUnidad, obj, targetRow);
 }
 
@@ -207,20 +221,20 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
         UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, EsBackOrder, PrecioUnidad, detalleObj, elementRow);
     }
     else {
+        ShowLoading();
+        if (ReservadoOEnHorarioRestringido()) {
+            detalleObj.Cantidad = detalleObj.CantidadTemporal;
+            belcorp.mobile.pedido.setDetalleById(detalleObj);
+            CloseLoading();
+            return false;
+        }
 
         var cantidadElement = $(elementRow).find(".Cantidad");
         var Cantidad = $(cantidadElement).val() || "";
         var cantidadAnterior = detalleObj.CantidadTemporal;
-
-        if (Cantidad.length == 0 || isNaN(Cantidad)) {
-            messageInfoMalo('Por favor ingrese una cantidad válida.');
-            $(cantidadElement).val(cantidadAnterior);
-            return false;
-        }
-
-        if (parseInt(Cantidad) <= 0) {
-            messageInfoMalo('Por favor ingrese una cantidad mayor a cero.');
-            $(cantidadElement).val(cantidadAnterior);
+        
+        if (Cantidad == cantidadAnterior) {
+            CloseLoading();
             return false;
         }
 
