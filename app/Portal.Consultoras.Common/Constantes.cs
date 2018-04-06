@@ -1108,6 +1108,8 @@ namespace Portal.Consultoras.Common
             public const string LimiteDescargaSobrepasado = "El archivo no se puede descargar debido a que se sobrepaso el máximo de items ({0}).";
             public const string PaqueteDocumentario_ConsumirServicio = "Ocurrió un error al intentar obtener la información. Por favor, vuelva a intentar dentro de unos minutos.";
             public const string Cache_Eliminar = "Ocurrió un error al eliminar la caché. Inténtelo más tarde";
+            public const string Reserva_Error = "Hubo un error al tratar de realizar la validación del pedido, por favor vuelva a intentarlo.";
+            public const string Reserva_SinDetalle = "No tiene productos que reservar esta campaña.";
         }
 
         public static class ConfiguracionPais
