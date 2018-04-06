@@ -561,6 +561,8 @@ namespace Portal.Consultoras.Web.Controllers
                     niveles = preciosEstrategia.listaniveles.Length > 1 ? ObtenerTextoNiveles(preciosEstrategia.listaniveles) : "";
                 }
 
+                var beEstrategia = lst[0];
+
                 descripcion = lst[0].DescripcionCUV2;
                 precio = (wspreciopack + ganancia).ToString("F2");
                 var codigoSap = lst[0].CodigoSAP;
@@ -580,7 +582,8 @@ namespace Portal.Consultoras.Web.Controllers
                     idMatrizComercial,
                     ganancia = ganancia.ToString("F2"),
                     extra = "",
-                    niveles
+                    niveles,
+                    beEstrategia
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
