@@ -166,6 +166,9 @@ namespace Portal.Consultoras.Common
             public const int UrlLogoPasarelaPago = 12209;
             public const int ColorBotonPagarPasarelaPago = 12210;
             public const int MensajeInformacionPagoExitoso = 12211;
+
+            public const int CantidadCuvMasivo_NuevoMasivo = 13701;
+
         }
 
         public static class ParametrosNames
@@ -1108,6 +1111,8 @@ namespace Portal.Consultoras.Common
             public const string LimiteDescargaSobrepasado = "El archivo no se puede descargar debido a que se sobrepaso el máximo de items ({0}).";
             public const string PaqueteDocumentario_ConsumirServicio = "Ocurrió un error al intentar obtener la información. Por favor, vuelva a intentar dentro de unos minutos.";
             public const string Cache_Eliminar = "Ocurrió un error al eliminar la caché. Inténtelo más tarde";
+            public const string Reserva_Error = "Hubo un error al tratar de realizar la validación del pedido, por favor vuelva a intentarlo.";
+            public const string Reserva_SinDetalle = "No tiene productos que reservar esta campaña.";
         }
 
         public static class ConfiguracionPais
@@ -1417,6 +1422,7 @@ namespace Portal.Consultoras.Common
             public const short ExtensionBannerGanaMasApp = 136;
             public const short MontoLimiteCupon = 103;
             public const int ValoresPagoEnLinea = 122;
+            public const int CantidadCuvMasivo = 137;
             public const short ProlObsCod = 5;
         }
 

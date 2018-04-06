@@ -297,16 +297,19 @@ namespace Portal.Consultoras.BizLogic.Reserva
                     NumeroPedido = input.ConsecutivoNueva
                 };
                 var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
-                if (listPedidoWebDetalle.Count > 0) input.PedidoID = listPedidoWebDetalle[0].PedidoID;
-                listPedidoWebDetalle = listPedidoWebDetalle.Where(d => !d.AceptoBackOrder).ToList();
-
-                BECUVAutomatico producto = new BECUVAutomatico { CampaniaID = input.CampaniaID };
+                var producto = new BECUVAutomatico { CampaniaID = input.CampaniaID };
                 var lst = new BLCuv().GetProductoCuvAutomatico(input.PaisID, producto, "CUV", "asc", 1, 1, 100).ToList();
-                if (lst.Count > 0) listPedidoWebDetalle = listPedidoWebDetalle.Where(x => !lst.Select(y => y.CUV).Contains(x.CUV)).ToList();
 
+                listPedidoWebDetalle = listPedidoWebDetalle.Where(d => !d.AceptoBackOrder).ToList();
+                if (lst.Count > 0) listPedidoWebDetalle = listPedidoWebDetalle.Where(x => !lst.Select(y => y.CUV).Contains(x.CUV)).ToList();
+                if(!listPedidoWebDetalle.Any()) return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_SinDetalle);
+
+                input.PedidoID = listPedidoWebDetalle[0].PedidoID;
                 input.VersionProl = (byte)(new BLConfiguracionValidacion().EstaActivoProl3(input.PaisID) ? 3 : 2);
                 var reservaExternaBL = input.VersionProl == 3 ? new BLReservaSicc() as IReservaExternaBL : new BLReservaProl2() as IReservaExternaBL;
                 BEResultadoReservaProl resultado = await reservaExternaBL.ReservarPedido(input, listPedidoWebDetalle);
+                if (resultado.Error) return resultado;
+
                 resultado.MontoGanancia = resultado.MontoAhorroCatalogo + resultado.MontoAhorroRevista;
                 resultado.MontoTotal = listPedidoWebDetalle.Sum(pd => pd.ImporteTotal) - resultado.MontoDescuento;
                 resultado.UnidadesAgregadas = listPedidoWebDetalle.Sum(pd => pd.Cantidad);
@@ -322,17 +325,11 @@ namespace Portal.Consultoras.BizLogic.Reserva
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, input.CodigoConsultora, input.PaisISO);
-                return new BEResultadoReservaProl
-                {
-                    Error = true,
-                    ListPedidoObservacion = new List<BEPedidoObservacion> {
-                        new BEPedidoObservacion() { Descripcion = "Hubo un error al tratar de realizar la validación del pedido, por favor vuelva a intentarlo." }
-                    }
-                };
+                return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_Error);
             }
         }
 
-        public void UpdatePedidoWebReservado(BEInputReservaProl input, BEResultadoReservaProl resultado, List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        private void UpdatePedidoWebReservado(BEInputReservaProl input, BEResultadoReservaProl resultado, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             var pedidoWeb = CreatePedidoWeb(resultado, input);
             decimal gananciaEstimada = 0;

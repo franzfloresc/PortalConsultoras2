@@ -741,7 +741,7 @@ function AsignarPosicionAListaOfertas(listaOfertas) {
     $.each(listaOfertas, function (index, value) {
         posicion++;
         value.Posicion = posicion;
-        value.Contenido = ConstruirDescripcionOferta(value.ListaDetalleOfertaShowRoom);
+        value.Contenido = ConstruirDescripcionOferta(value.ProductoTonos);
         nuevaListaOfertas.push(value);
     });
 
@@ -750,7 +750,7 @@ function AsignarPosicionAListaOfertas(listaOfertas) {
 function ConstruirDescripcionOferta(arrDescripcion) {
     var descripcion = "";
     $.each(arrDescripcion, function (index, value) {
-        descripcion += value.NombreProducto + "<br />";
+        descripcion += value.NombreComercial + "<br />";
     });
     return descripcion;
 }
