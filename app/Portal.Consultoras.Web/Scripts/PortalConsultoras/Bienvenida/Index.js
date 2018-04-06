@@ -2757,7 +2757,7 @@ function AgregarTagManagerShowRoomPopupClick(tipo) {
     dataLayer.push({
         'event': 'promotionClick',
         'ecommerce': {
-            'promoView': {
+            'promoClick': {
                 'promotions': [
                     {
                         'id': id,
