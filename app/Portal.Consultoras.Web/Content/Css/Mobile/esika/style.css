@@ -13838,11 +13838,13 @@ a {
 .ContentSorpresaMobile {
     background-color: #B72C3B;
     background-repeat: no-repeat;
+    background-size: auto 100%;
     background-position: center top;
     left: 0;
     margin: 4% auto 5% auto;
     max-width: 400px;
-    min-height: 815px;
+    min-height: 826px;
+    height: auto;
     right: 0;
     position: absolute;
     top: 0;
@@ -14162,7 +14164,7 @@ a {
     line-height: 1.31;
 }
 
-.span_nota_premio {
+.txt_nota_premio b {
     font-weight: 900;
 }
 
@@ -14787,6 +14789,59 @@ a {
     }
 /* FIN: VISTA ACTUALIZAR CONTRASEÑA */
 
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+/* HD-912 - PEDIDO FIC MOBILE */
+
+.mb-0{
+    margin-bottom:0!important;
+}
+
+.pt-22{
+    padding-top:22px;
+}
+
+.enlace_ingresa_tu_pedido_fic{
+    display: block;
+    width: 189px;
+    font-size: 14px;
+    line-height:21.5px;
+    text-align: center;
+    font-weight: bold;
+    margin: 14px auto 10px;
+    padding-left: 12px;
+    background-image: url(../../../Images/mobile/Esika/indicador_pedido.png);
+    background-repeat: no-repeat;
+    background-position: 0 center;
+}
+
+.titulo_vista {
+    display: inline-block;
+    line-height: 20px;
+    padding: 15px 0 13px 0;
+    text-align: center;
+}
+
+.bloque_info_pedido_fic {
+    display: block;
+    margin-bottom: 32px;
+}
+
+.enlace_ingresa_tu_pedido_fic,
+.info_pedido_fic
+{
+    color:#e81c36;
+}
+
+.info_pedido_fic{
+    margin:0;
+    padding:0;
+    line-height:20px;
+}
+
+/* HD-912 - FIN - PEDIDO FIC MOBILE */
 .btn_desactivado_general {
     background: #e5e5e5;
     border: 1px solid #d2d2d2;

@@ -166,6 +166,9 @@ namespace Portal.Consultoras.Common
             public const int UrlLogoPasarelaPago = 12209;
             public const int ColorBotonPagarPasarelaPago = 12210;
             public const int MensajeInformacionPagoExitoso = 12211;
+
+            public const int CantidadCuvMasivo_NuevoMasivo = 13701;
+
         }
 
         public static class ParametrosNames
@@ -443,7 +446,7 @@ namespace Portal.Consultoras.Common
             // C: Landing EPM               D: Landing EPM Revisar
             // E: Landing ShowRoom          F: Landing ShowRoom Intriga
             // G: Revista Digital Info      H: Revista Digital Detalle
-            // I: Guia de Negocio
+            // I: Guia de Negocio           J: Herramiento de venta
 
             // Tercer Dígito -- Sección dentro de la Pantalla
             // 0: Principal                 1: OPT
@@ -466,6 +469,8 @@ namespace Portal.Consultoras.Common
             public const string MRevistaDigitalDetalle = "2H0";
             public const string DGuiaNegocio = "1I0";
             public const string MGuiaNegocio = "2I0";
+            public const string DHerramientaVenta = "1J0";
+            public const string MHerramientaVenta = "2J0";
         }
 
         public static class OrigenPedidoWeb
@@ -1414,6 +1419,7 @@ namespace Portal.Consultoras.Common
             public const short ExtensionBannerGanaMasApp = 136;
             public const short MontoLimiteCupon = 103;
             public const int ValoresPagoEnLinea = 122;
+            public const int CantidadCuvMasivo = 137;
         }
 
         public struct MensajesCDRExpress
@@ -1710,6 +1716,7 @@ namespace Portal.Consultoras.Common
             public const string SwInicioIndex = "/showroom/index";
             public const string SwIntriga = "/showroom/intriga";
             public const string SwDetalle = "/showroom/detalleoferta";
+            public const string SwPersonalizado = "/showroom/personalizado";
             public const string OptDetalle = "/ofertasparati/detalle";
             public const string OfertaDelDia = "/ofertadeldia";
             public const string OfertaDelDiaIndex = "/ofertadeldia/index";

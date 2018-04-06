@@ -9,6 +9,7 @@ using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
@@ -36,8 +37,6 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-using Portal.Consultoras.Web.Providers;
-using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -3567,6 +3566,7 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.UrlMenuContenedor.SwIntriga:
                 case Constantes.UrlMenuContenedor.SwDetalle:
                 case Constantes.UrlMenuContenedor.SwInicioIndex:
+                case Constantes.UrlMenuContenedor.SwPersonalizado:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
                     menuActivo.OrigenPantalla = IsMobile()
                         ? Constantes.OrigenPantallaWeb.MShowRoom
@@ -3589,14 +3589,18 @@ namespace Portal.Consultoras.Web.Controllers
                         : Constantes.OrigenPantallaWeb.DGuiaNegocio;
                     break;
                 case Constantes.UrlMenuContenedor.HerramientasVentaIndex:
+                case Constantes.UrlMenuContenedor.HerramientasVentaComprar:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVenta;
+                    menuActivo.OrigenPantalla = IsMobile()
+                        ? Constantes.OrigenPantallaWeb.MHerramientaVenta
+                        : Constantes.OrigenPantallaWeb.DHerramientaVenta;
                     break;
                 case Constantes.UrlMenuContenedor.HerramientasVentaRevisar:
                     menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                     menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVenta;
-                    break;
-                case Constantes.UrlMenuContenedor.HerramientasVentaComprar:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVenta;
+                    menuActivo.OrigenPantalla = IsMobile()
+                        ? Constantes.OrigenPantallaWeb.MHerramientaVenta
+                        : Constantes.OrigenPantallaWeb.DHerramientaVenta;
                     break;
             }
 
@@ -3929,7 +3933,11 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.SetMenuContenedor(menuContenedor);
             return menuContenedor;
         }
-
+        public OfertaFinalModel GetOfertaFinal()
+        {
+            return sessionManager.GetOfertaFinalModel() ??
+                   new OfertaFinalModel();
+        }
         private ConfiguracionPaisModel ActualizarTituloYSubtituloBanner(ConfiguracionPaisModel cp, RevistaDigitalModel revistaDigital)
         {
             var codigo = string.Empty;
