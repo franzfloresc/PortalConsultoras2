@@ -13,13 +13,10 @@ var origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
 var divAgregado = null;
 
 $(document).ready(function () {
-    console.log('entra');
     if (isMobile()) {
         $('[data-tono-change]').click(mostrarListaTonos);
-        console.log('mobile');
     } else {
         $('body').on('click', '[data-tono-change]', mostrarListaTonos);
-        console.log('desktop');
     }    
 
     function mostrarListaTonos() {
