@@ -382,6 +382,8 @@ namespace Portal.Consultoras.Common
             public const string PaisesShowRoom = "PaisesShowRoom";
             public const string RevistaPiloto_Zonas = "RevistaPiloto_Zonas_";
             public const string RevistaPiloto_Codigo = "RevistaPiloto_Codigo";
+            public const string RevistaPiloto_Zonas_RDR_1 = "RevistaPiloto_Zonas_RDR_Acelerada";
+            public const string RevistaPiloto_Zonas_RDR_2 = "RevistaPiloto_Zonas_RDR_Paulatina";
             public const string CodigoRevistaIssuu = "CodigoRevistaIssuu";
             public const string CodigoCatalogoIssuu = "CodigoCatalogoIssuu";
             public const string URL_SUPERATE_NUEVO = "URL_SUPERATE_NUEVO";
@@ -1868,6 +1870,7 @@ namespace Portal.Consultoras.Common
             public const int Valor0 = 0;
             public const int Valor1 = 1;
             public const int Valor2 = 2;
+            public const int Valor3 = 3;
         }
     }
 }

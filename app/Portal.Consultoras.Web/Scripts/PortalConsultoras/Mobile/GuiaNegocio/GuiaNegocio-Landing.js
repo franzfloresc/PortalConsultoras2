@@ -24,7 +24,6 @@ function mostrarImagenPortadaRevista(codigoCampania) {
 }
 
 function GNDMostrarIssu() {
-    var imggndnueva = $("#imgPortadaRevista").attr("src");
     var imgfake = "revista_no_disponible";
 
     var alturaimggnd = $('.desplegablegnd .gndcontenido .contenedorgnd .portadagnd img').height();

@@ -2232,7 +2232,28 @@ namespace Portal.Consultoras.Web.Controllers
                 requestUrl = string.Format(codigo, userData.CodigoISO.ToLower(), nroCampania, anioCampania, "");
                 requestUrl = Util.Trim(requestUrl.Substring(requestUrl.Length - 1)) == "." ? requestUrl.Substring(0, requestUrl.Length - 1) : requestUrl;
             }
+            requestUrl = GetRevistaCodigoIssuuRDR(requestUrl);
             return requestUrl;
+        }
+
+        public string GetRevistaCodigoIssuuRDR(string codigoRevista)
+        {
+            if (revistaDigital.TieneRDCR)
+            {
+                string tipo = "";
+                if (GetConfiguracionManagerContains(Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_1, userData.CodigoZona))
+                {
+                    tipo = "1";
+                }
+                else if (GetConfiguracionManagerContains(Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_2, userData.CodigoZona))
+                {
+                    tipo = "2";
+                }
+
+                codigoRevista += tipo == "" ? "" : (Constantes.CatalogoUrlIssu.RDR + tipo);
+
+            }
+            return codigoRevista;
         }
 
         protected string GetRevistaCodigoIssuu_Backup(string campania)
@@ -4280,6 +4301,12 @@ namespace Portal.Consultoras.Web.Controllers
             var keyvalor = ConfigurationManager.AppSettings.Get(key);
 
             return Util.Trim(keyvalor);
+        }
+
+        public bool GetConfiguracionManagerContains(string key, string compara)
+        {
+            var keyCongi = GetConfiguracionManager(key);
+            return keyCongi.Contains(compara);
         }
 
         #endregion

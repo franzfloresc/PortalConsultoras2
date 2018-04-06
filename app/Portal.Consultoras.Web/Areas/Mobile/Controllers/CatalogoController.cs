@@ -90,8 +90,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
-                if (revistaDigital.TieneRDCR)
-                    codigoRevista += Constantes.CatalogoUrlIssu.RDR;
+                codigoRevista = GetRevistaCodigoIssuuRDR(codigoRevista);
 
                 string stringIssuuRevista = GetStringIssuRevista(codigoRevista);
                 dynamic item = new JavaScriptSerializer().Deserialize<object>(stringIssuuRevista);
@@ -122,7 +121,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return stringIssuuRevista;
         }
-
+        
         public ActionResult MiRevista(string campaniaRevista)
         {
             ViewBag.Campania = campaniaRevista;
