@@ -66,5 +66,7 @@ namespace Portal.Consultoras.Web.Models
 
         public int FlagRevista { get; set; }
         public bool PuedeAgregarProducto { get; set; }
+
+        public string CodigoProducto { get; set; }
     }
 }

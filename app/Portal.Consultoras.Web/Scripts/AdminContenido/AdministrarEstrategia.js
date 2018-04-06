@@ -469,6 +469,15 @@
             $("#txtCantidad").val(data.Cantidad);
             $("#hdZonas").val(data.Zona);
             $("#hdNiveles").val(data.Niveles);
+
+            if (data.FlagIndividual == 1) {
+                $("#chkFlagIndividual").attr("checked", true);
+            } else {
+                $("#chkFlagIndividual").removeAttr("checked");
+            }
+
+            $("#txtSlogan").val(data.Slogan);
+
             //var strZonas = $("#hdZonas").val();
             //if (strZonas != "") {
             //    $.jstree._reference($("#arbolRegionZona")).uncheck_all();
@@ -539,7 +548,7 @@
                     '" readonly /></div>');
 
             _agregarCamposLanzamiento("img-fondo-desktop", data.ImgFondoDesktop);
-            _agregarCamposLanzamiento("img-prev-desktop", data.ImgPrevDesktop);
+            _agregarCamposLanzamiento("img-fondo-mobile", data.ImgFondoMobile);
             _agregarCamposLanzamiento("img-ficha-desktop", data.ImgFichaDesktop);
             _agregarCamposLanzamiento("img-ficha-mobile", data.ImgFichaMobile);
             _agregarCamposLanzamiento("img-ficha-fondo-desktop", data.ImgFichaFondoDesktop);
@@ -837,7 +846,7 @@
         $("#hdnCodigoSAP").val("");
         $("#hdnEnMatrizComercial").val("");
         if (cuvIngresado.length == 5) {
-            waitingDialog({});
+            waitingDialog();
             $.ajaxSetup({ cache: false });
 
             var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
@@ -962,7 +971,7 @@
     };
     var _limpiarBusquedaNemotecnico = function() {
         _limpiarFiltrosNemotecnico();
-        waitingDialog({});
+        waitingDialog();
         _obtenerImagenesByCodigoSAP(_editData, 1, true);
     }
     var _clearFields = function() {
@@ -1001,7 +1010,8 @@
         $("#divInformacionAdicionalEstrategia").css("background", "#D0D0D0");
         $("#txtTextoLibre").val("");
         _limpiarCamposLanzamiento("img-fondo-desktop");
-        _limpiarCamposLanzamiento("img-prev-desktop");
+        _limpiarCamposLanzamiento("img-fondo-mobile");
+        //_limpiarCamposLanzamiento("img-prev-desktop");
         _limpiarCamposLanzamiento("img-ficha-desktop");
         _limpiarCamposLanzamiento("img-ficha-mobile");
         _limpiarCamposLanzamiento("img-ficha-fondo-desktop");
@@ -1014,6 +1024,9 @@
         $("#txtGanancia").val("");
         if ($("#hdEstrategiaCodigo").val() === "005") $("#div-revista-digital").show();
         else $("#div-revista-digital").hide();
+        
+        $("#chkFlagIndividual").removeAttr("checked");
+        $("#txtSlogan").click();
 
     };
     var _fnGrillaEstrategias1 = function() {
@@ -1435,7 +1448,7 @@
         });
     }
     var _actualizarTonos = function() {
-        waitingDialog({});
+        waitingDialog();
         var params = {
             CampaniaID: $("#ddlCampania").val(),
             TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
@@ -1722,12 +1735,12 @@
             _toastHelper.error(validacionMsj);
             return false;
         }
-        waitingDialog({});
+        waitingDialog();
         _obtenerImagenesByNemotecnico(_editData, 1, true);
         return true;
     }
     var _pedidoAsociadoChecks = function() {
-        waitingDialog({});
+        waitingDialog();
         $.ajaxSetup({ cache: false });
         var codigoPrograma = $("#ddlTipoEstrategia option:selected").attr("Codigo-Programa");
 
@@ -2608,7 +2621,7 @@
     }
 
     var _uploadFileSetStrategyShowroom = function() {
-        waitingDialog({});
+        waitingDialog();
         var formData = new FormData();
         var totalFiles = document.getElementById("fileDescMasivo").files.length;
         if (totalFiles <= 0) {
@@ -2862,7 +2875,7 @@
                     }
                     //valores para el carrusel de la estrategia de lanzamiento
                     var imgFondoDesktop = $("#nombre-img-fondo-desktop").val();
-                    var imgPrevDesktop = $("#nombre-img-prev-desktop").val();
+                    //var imgPrevDesktop = $("#nombre-img-prev-desktop").val();
                     var imgFichaDesktop = $("#nombre-img-ficha-desktop").val();
                     var urlVideoDesktop = $("#url-video-desktop").val();
                     var imgFondoMobile = $("#nombre-img-fondo-mobile").val();
@@ -2907,7 +2920,7 @@
                         FlagEstrella: flagEstrella,
                         CodigoTipoEstrategia: aux3,
                         ImgFondoDesktop: imgFondoDesktop,
-                        ImgPrevDesktop: imgPrevDesktop,
+                        //ImgPrevDesktop: imgPrevDesktop,
                         ImgFichaDesktop: imgFichaDesktop,
                         UrlVideoDesktop: urlVideoDesktop,
                         ImgFondoMobile: imgFondoMobile,
@@ -3486,7 +3499,8 @@
             else $("#div-revista-digital").hide();
 
             _limpiarCamposLanzamiento("img-fondo-desktop");
-            _limpiarCamposLanzamiento("img-prev-desktop");
+            _limpiarCamposLanzamiento("img-fondo-mobile");
+            //_limpiarCamposLanzamiento("img-prev-desktop");
             _limpiarCamposLanzamiento("img-ficha-desktop");
             _limpiarCamposLanzamiento("img-ficha-mobile");
             _limpiarCamposLanzamiento("img-ficha-fondo-desktop");
@@ -3516,7 +3530,7 @@
             if (!proceder)
                 return false;
 
-            waitingDialog({});
+            waitingDialog();
 
             var estrategias = jQuery("#list").jqGrid("getDataIDs", "EstrategiaID");
             var estrategiasSeleccionadas = jQuery("#list").jqGrid("getGridParam", "selarrrow");
@@ -3700,7 +3714,7 @@
                 habilitarNemotecnico: _config.habilitarNemotecnico
             };
 
-            waitingDialog({});
+            waitingDialog();
 
             jQuery.ajax({
                 type: "POST",
@@ -3729,7 +3743,7 @@
                 estrategiaId: $("#ddlTipoEstrategia").find(":selected").data("id")
             };
 
-            waitingDialog({});
+            waitingDialog();
 
             jQuery.ajax({
                 type: "POST",
@@ -3806,7 +3820,7 @@
                 campaniaID: campaniaId
             };
 
-            waitingDialog({});
+            waitingDialog();
             jQuery.ajax({
                 type: "POST",
                 url: baseUrl + "AdministrarEstrategia/CargaMasivaImagenes",
@@ -4153,7 +4167,7 @@
             $("#hdTipoConsulta").attr("value", "0");
             $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
             var Id = $(this).val();
-            waitingDialog({});
+            waitingDialog();
             $.ajaxSetup({ cache: false });
             $.ajax({
                 type: "GET",
@@ -4219,7 +4233,7 @@
                     return false;
                 }
 
-                waitingDialog({});
+                waitingDialog();
                 $.ajaxSetup({ cache: false });
 
                 var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
@@ -4282,7 +4296,7 @@
                     return false;
                 }
 
-                waitingDialog({});
+                waitingDialog();
                 $.ajaxSetup({ cache: false });
 
                 var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
@@ -4332,8 +4346,17 @@
             $("#imgSeleccionada").attr("src", _config.rutaImagenVacia);
             $("#imgSeleccionada").attr("data-id", "0");
             _mostrarInformacionCuv(cuvIngresado);
-        }
-
+        },
+        
+        clickCheckFlagIndividual: function () {
+            if ($(this).attr("checked")) {
+                $("#seccionSlogan").show();
+            }
+            else {
+                $("#seccionSlogan").hide();
+                $("#txtSlogan").val("");
+            }
+        },
     }
      
     var _bindingEvents = function(){
@@ -4379,6 +4402,14 @@
         $("body").on("keyup", "#txtCUV", _eventos.keyUpCuv);
         $("body").on("keyup", "#txtCUVTC", _eventos.keyUpCuvTc);
         $("body").on("keyup", "#txtCUV2", _eventos.keyUpCuv2);
+
+
+        $("body").on("click", "#chkFlagIndividual", _eventos.clickCheckFlagIndividual);
+
+        var idPais = $("#ddlPais").val();
+        if (idPais > 0) {
+            $("#ddlPais").change();
+        }
     }
 
     
@@ -4399,7 +4430,7 @@
         if (id) {
             _limpiarFiltrosNemotecnico();
 
-            waitingDialog({});
+            waitingDialog();
 
             $("#hdEstrategiaID").val(id);
 
@@ -4428,7 +4459,7 @@
             return false;
 
         if (id) {
-            waitingDialog({});
+            waitingDialog();
 
             $("#hdEstrategiaID").val(id);
 
@@ -4465,7 +4496,7 @@
             return false;
         }
         if (id) {
-            waitingDialog({});
+            waitingDialog();
             $("#hdEstrategiaID").val(id);
             var params = { EstrategiaID: $("#hdEstrategiaID").val() };
             jQuery.ajax({
@@ -4527,7 +4558,7 @@
             eventoID: ID
         };
 
-        waitingDialog({});
+        waitingDialog();
         jQuery.ajax({
             type: "POST",
             url: urlDeshabilitarShowRoomEvento,
@@ -4568,7 +4599,7 @@
             eventoID: ID
         };
 
-        waitingDialog({});
+        waitingDialog();
         jQuery.ajax({
             type: "POST",
             url: _config.urlEliminarShowRoomEvento,
@@ -4643,7 +4674,7 @@
 
         console.log(item);
 
-        waitingDialog({});
+        waitingDialog();
         jQuery.ajax({
             type: "POST",
             url: _config.urlEliminarOfertaShowRoomDetalleAll,
@@ -4727,7 +4758,7 @@
 
         console.log(item);
 
-        waitingDialog({});
+        waitingDialog();
         jQuery.ajax({
             type: "POST",
             url: _config.urlEliminarOfertaShowRoomDetalle,
@@ -4785,7 +4816,8 @@
         _paletaColores();
 
         _uploadFileLanzamineto("img-fondo-desktop");
-        _uploadFileLanzamineto("img-prev-desktop");
+        _uploadFileLanzamineto("img-fondo-mobile");
+        //_uploadFileLanzamineto("img-prev-desktop");
         _uploadFileLanzamineto("img-ficha-desktop");
         _uploadFileLanzamineto("img-ficha-fondo-desktop");
         _uploadFileLanzamineto("img-ficha-mobile");

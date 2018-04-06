@@ -3351,6 +3351,8 @@ a.subir_carousel, a.bajar_carousel {
     font-size: 13px;
     width: 50%;
     padding-right: 5px;
+    position: relative;
+    top: -4px;
 }
 
 .producto_precio_oferta {
@@ -32603,7 +32605,7 @@ h1#penmostreo .campana {
 }
 
 .contenido {
-    width: 88%;
+    width: 834px;
     margin: 0 auto;
 }
 
@@ -32944,23 +32946,20 @@ h1#penmostreo .campana {
 }
 
 .content_tono_detalle {
-    position: relative;
-    width: 10%;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     margin-right: 1.25%;
-    float: left;
+    display: inline-block;
     margin-bottom: 3px;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     padding: 0;
     border: 1px solid white;
 }
 
-    .content_tono_detalle:nth-child(9n) {
-        margin-right: 0;
-    }
 
     .content_tono_detalle img {
         width: 100%;
+        height: auto !important;
     }
 
 .content_mascara_maquillaje {
@@ -34295,7 +34294,7 @@ height:30px;
     font-size: 13px;
     color: black;
     background: url('../../../Images/mobile/Esika/menu_mobile.png') no-repeat;
-    background-position: 97% 19px;
+    background-position: 98% 19px;
     position: relative;
     margin-bottom: 5px;
 }

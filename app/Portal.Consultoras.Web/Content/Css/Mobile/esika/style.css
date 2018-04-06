@@ -10494,6 +10494,11 @@ a {
         margin-right: 0;
     }
 
+.content_tono_detalle_activo {
+    border: 1px solid black;
+}
+
+
 .content_mascara_maquillaje {
     position: absolute;
     width: 100%;
@@ -12407,7 +12412,7 @@ a {
     color: black;
     margin-top: 5px;
     background: url('../../../Images/mobile/Esika/menu_mobile.png') no-repeat;
-    background-position: 95% 19px;
+    background-position: 99% 19px;
     position: relative;
     margin-bottom: 5px;
 }

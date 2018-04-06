@@ -8,6 +8,7 @@ using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,6 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using System.Xml.Linq;
-using Portal.Consultoras.Web.ServiceUsuario;
 using BEConfiguracionPaisDatos = Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -49,7 +49,8 @@ namespace Portal.Consultoras.Web.Controllers
                 habilitarNemotecnico = habilitarNemotecnico == "1",
                 ExpValidacionNemotecnico =
                     GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico),
-                TipoVistaEstrategia = TipoVistaEstrategia
+                TipoVistaEstrategia = TipoVistaEstrategia,
+                PaisID = userData.PaisID
             };
             return View(estrategiaModel);
         }
@@ -705,8 +706,8 @@ namespace Portal.Consultoras.Web.Controllers
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi ||
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaDelDia ||
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.LosMasVendidos ||
-                    model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada ||
-                    model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom))
+                     model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada ||
+                     model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom))
                 {
                     respuestaServiceCdr = EstrategiaProductoObtenerServicio(entidad);
 
@@ -732,6 +733,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             if (entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
                             {
+                                estrategiaDetalle = new BEEstrategiaDetalle();
                                 if (entidad.EstrategiaID != 0)
                                     estrategiaDetalle = sv.GetEstrategiaDetalle(entidad.PaisID, entidad.EstrategiaID);
 
@@ -746,6 +748,7 @@ namespace Portal.Consultoras.Web.Controllers
                             mensajeErrorImagenResize = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
 
                         #endregion
+
                         if (entidad.ImagenMiniaturaURL == string.Empty || entidad.ImagenMiniaturaURL == "prod_grilla_vacio.png")
                         {
                             entidad.ImagenMiniaturaURL = entidad.ImagenURL;
@@ -839,7 +842,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<BEEstrategia> lst;
                 var entidad = new BEEstrategia
                 {
                     PaisID = userData.PaisID,
@@ -848,15 +850,13 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
                     CUV2 = cuv2
                 };
+
+                List<BEEstrategia> lst;
                 using (var sv = new PedidoServiceClient())
                 {
                     lst = sv.FiltrarEstrategia(entidad).ToList();
                 }
-                if (lst.Count > 0)
-                {
-                    string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    lst.Update(x => x.ImagenMiniaturaURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenMiniaturaURL, carpetapais));
-                }
+
                 if (lst.Count <= 0)
                     return Json(new
                     {
@@ -865,7 +865,11 @@ namespace Portal.Consultoras.Web.Controllers
                         extra = ""
                     }, JsonRequestBehavior.AllowGet);
 
-                return Json(lst[0], JsonRequestBehavior.AllowGet);
+                entidad = lst[0];
+                string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                entidad.ImagenMiniaturaURL = ConfigS3.GetUrlFileS3(carpetapais, entidad.ImagenMiniaturaURL, carpetapais);
+
+                return Json(entidad, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {
@@ -1385,7 +1389,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }, JsonRequestBehavior.AllowGet);
                     }
 
-                    var tono = 
+                    var tono =
                         estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi ||
                         estrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento ||
                         estrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ||
@@ -1798,10 +1802,10 @@ namespace Portal.Consultoras.Web.Controllers
                  estrategia.ImgFondoDesktop != estrategiaDetalle.ImgFondoDesktop))
                 estrategia.ImgFondoDesktop = SaveFileS3(estrategia.ImgFondoDesktop);
 
-            if (!string.IsNullOrEmpty(estrategia.ImgPrevDesktop) &&
-                (string.IsNullOrEmpty(estrategiaDetalle.ImgPrevDesktop) ||
-                 estrategia.ImgPrevDesktop != estrategiaDetalle.ImgPrevDesktop))
-                estrategia.ImgPrevDesktop = SaveFileS3(estrategia.ImgPrevDesktop);
+            if (!string.IsNullOrEmpty(estrategia.ImgFondoMobile) &&
+                (string.IsNullOrEmpty(estrategiaDetalle.ImgFondoMobile) ||
+                 estrategia.ImgFondoMobile != estrategiaDetalle.ImgFondoMobile))
+                estrategia.ImgFondoMobile = SaveFileS3(estrategia.ImgFondoMobile);
 
             if (!string.IsNullOrEmpty(estrategia.ImgFichaDesktop) &&
                 (string.IsNullOrEmpty(estrategiaDetalle.ImgFichaDesktop) ||
@@ -2470,7 +2474,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 DescripcionCUV2 = arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.NameSet].ToString().TrimEnd(),
                                 TextoLibre = arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.BusinessTip].ToString().TrimEnd(),
                                 EsSubCampania = int.Parse(arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.IsSubcampaign]),
-                                Activo= int.Parse(arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.OfferStatus])
+                                Activo = int.Parse(arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.OfferStatus])
                             });
                         }
                     }
@@ -2607,11 +2611,11 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 throw new ArgumentException(string.Format("Verificar la información del archivo (datos incompletos). <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
                             }
-                            if (arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.ProductName].ToString().TrimEnd().Length ==0)
+                            if (arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.ProductName].ToString().TrimEnd().Length == 0)
                             {
                                 throw new ArgumentException(string.Format("El valor del campo 'Nombre de Producto' es obligatorio. <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
                             }
-                            if(!int.TryParse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Order], out evalResult))
+                            if (!int.TryParse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Order], out evalResult))
                             {
                                 throw new ArgumentException(string.Format("El valor del campo 'posición' no es númerico. <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
                             }
@@ -2626,7 +2630,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 NombreProducto = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.ProductName].ToString().TrimEnd(),
                                 Descripcion1 = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Description].ToString().TrimEnd(),
                                 Orden = int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Order]),
-                                IdMarca= int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.BrandProduct])
+                                IdMarca = int.Parse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.BrandProduct])
                             });
                         }
                     }
@@ -2725,10 +2729,10 @@ namespace Portal.Consultoras.Web.Controllers
         private string ObtenerTextoNiveles(NivelEstrategia[] listaNivelEstrategias)
         {
             var stringNiveles = "";
-           
+
             stringNiveles = listaNivelEstrategias.Where(nivelEstrategia => nivelEstrategia.nivel != 1)
                 .Aggregate(stringNiveles, (current, nivelEstrategia) => current + (nivelEstrategia.nivel + "X" + "-" + (nivelEstrategia.precio * nivelEstrategia.nivel) + "|"));
-            
+
             return stringNiveles != "" ? stringNiveles.Remove(stringNiveles.Length - 1) : "";
         }
 
@@ -2755,7 +2759,7 @@ namespace Portal.Consultoras.Web.Controllers
                         throw new ArgumentException("Verificar los títulos de las columnas del archivo.");
                     }
                 }
-                
+
                 var valor1 = new StringBuilder();
                 var count = 0;
                 do
@@ -2764,7 +2768,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (readLine == null) continue;
                     var arraySplit = readLine.Split(',');
                     if (arraySplit[0] == "") continue;
-                    
+
                     if (count > 0) valor1.Append(",");
                     valor1.Append(arraySplit[0]);
                     count++;
@@ -2772,12 +2776,12 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                 ServiceSAC.BEConfiguracionPais configuracionPais;
-                
+
                 using (var sac = new SACServiceClient())
                 {
                     configuracionPais = sac.GetConfiguracionPaisByCode(userData.PaisID, Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada);
                 }
-                
+
                 var configuracionPaisDatos = new BEConfiguracionPaisDatos
                 {
                     ConfiguracionPaisID = configuracionPais.ConfiguracionPaisID,
@@ -2790,9 +2794,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var svc = new UsuarioServiceClient())
                 {
-                   svc.ConfiguracionPaisDatosGuardar(userData.PaisID, new[] { configuracionPaisDatos });
+                    svc.ConfiguracionPaisDatosGuardar(userData.PaisID, new[] { configuracionPaisDatos });
                 }
-               
+
                 return Json(new
                 {
                     listActualizado = count,
@@ -2816,7 +2820,7 @@ namespace Portal.Consultoras.Web.Controllers
                     CampaniaID = campaniaId,
                     ConfiguracionPais = new ServiceSAC.BEConfiguracionPais()
                     {
-                       Codigo = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada
+                        Codigo = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada
                     }
                 };
                 using (var sac = new SACServiceClient())
@@ -2841,7 +2845,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
 
-            
+
         }
     }
 }

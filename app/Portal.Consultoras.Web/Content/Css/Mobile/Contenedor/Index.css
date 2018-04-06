@@ -130,6 +130,12 @@
             top: 7px;
         }
 
+        @media (max-width:359px){
+            .bc_para_ti-menu-opciones ul li a{
+                top:0;
+            }
+        }
+
             .bc_para_ti-menu-opciones ul li a p {
                 display: inline;
                 position: relative;

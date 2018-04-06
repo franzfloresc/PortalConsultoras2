@@ -619,6 +619,7 @@
   <xs:complexType name="BEEstrategiaDetalle">
     <xs:sequence>
       <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagIndividual" type="xs:boolean" />
       <xs:element minOccurs="0" name="ImgFichaDesktop" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFichaFondoDesktop" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFichaFondoMobile" nillable="true" type="xs:string" />
@@ -627,7 +628,7 @@
       <xs:element minOccurs="0" name="ImgFondoMobile" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgHomeDesktop" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgHomeMobile" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ImgPrevDesktop" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Slogan" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UrlVideoDesktop" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UrlVideoMobile" nillable="true" type="xs:string" />
     </xs:sequence>
@@ -1054,6 +1055,7 @@
           <xs:element minOccurs="0" name="FlagCantidad" type="xs:int" />
           <xs:element minOccurs="0" name="FlagDescripcion" type="xs:int" />
           <xs:element minOccurs="0" name="FlagEstrella" type="xs:int" />
+          <xs:element minOccurs="0" name="FlagIndividual" type="xs:boolean" />
           <xs:element minOccurs="0" name="FlagMostrarImg" type="xs:int" />
           <xs:element minOccurs="0" name="FlagNueva" type="xs:int" />
           <xs:element minOccurs="0" name="FlagRevista" type="xs:int" />
@@ -1078,7 +1080,6 @@
           <xs:element minOccurs="0" name="ImgFondoMobile" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ImgHomeDesktop" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ImgHomeMobile" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="ImgPrevDesktop" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="IndicadorMontoMinimo" type="xs:int" />
           <xs:element minOccurs="0" name="LimiteVenta" type="xs:int" />
           <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
@@ -1098,6 +1099,7 @@
           <xs:element minOccurs="0" name="ProdComentarioId" type="xs:int" />
           <xs:element minOccurs="0" name="PromValorizado" type="xs:int" />
           <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Slogan" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="TallaColor" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="TextoLibre" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="TieneStockProl" type="xs:boolean" />

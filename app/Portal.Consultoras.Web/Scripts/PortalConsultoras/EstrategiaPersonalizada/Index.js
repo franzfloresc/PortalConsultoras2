@@ -12,6 +12,7 @@ var CONS_TIPO_PRESENTACION = {
     Banners: 4,
     ShowRoom: 5,
     OfertaDelDia: 6,
+    CarruselIndividuales: 8
 };
 
 var CONS_CODIGO_SECCION = {
@@ -202,7 +203,13 @@ function SeccionMostrarProductos(data) {
     }
 
     if (data.Seccion.Codigo === CONS_CODIGO_SECCION.LAN) {
-        if (data.listaLan !== undefined && data.listaLan.length > 0) {
+        var tieneIndividual = false;
+        $.each(data.listaLan, function (key, value) {
+            if (value.TipoEstrategiaDetalle.FlagIndividual) {
+                tieneIndividual = true;
+            }
+        });
+        if (data.listaLan !== undefined && data.listaLan.length > 0 && tieneIndividual) {
             RDLocalStorageListado(lsListaRD + data.campaniaId, data, CONS_CODIGO_SECCION.LAN);
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
         } else {
@@ -299,6 +306,28 @@ function SeccionMostrarProductos(data) {
     else if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselSimple) {
         RenderCarruselSimple(htmlSeccion);
     }
+    else if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselIndividuales) {
+        RenderCarruselIndividuales(htmlSeccion);
+    }
+}
+
+function RenderCarruselIndividuales(divProd) {
+    if (typeof divProd == "undefined")
+        return false;
+    EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
+
+    divProd.find(sElementos.listadoProductos + '.slick-initialized').slick('unslick');
+    divProd.find(sElementos.listadoProductos).not('.slick-initialized').slick({
+        lazyLoad: 'ondemand',
+        infinite: true,
+        vertical: false,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: false,
+        speed: 260,
+        prevArrow: '<a class="arrow-prev"><img src="' + baseUrl + 'Content/Images/sliders/previous_ofertas.svg")" alt="" /></a>',
+        nextArrow: '<a class="arrow-next"><img src="' + baseUrl + 'Content/Images/sliders/next_ofertas.svg")" alt="" /></a>'
+    });
 }
 
 function RenderCarruselPrevisuales(divProd) {

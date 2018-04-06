@@ -130,11 +130,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        public bool EsCampaniaFalsa(int campaniaId)
-        {
-            return (campaniaId < userData.CampaniaID || campaniaId > AddCampaniaAndNumero(userData.CampaniaID, 1));
-        }
-
         public bool TieneProductosPerdio(int campaniaId)
         {
             if (revistaDigital.TieneRDC && !revistaDigital.EsActiva &&

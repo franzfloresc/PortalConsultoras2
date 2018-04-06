@@ -46,24 +46,24 @@ namespace Portal.Consultoras.BizLogic
             {
                 while (reader.Read())
                 {
-
                     listaEstrategias.Add(new BEEstrategia(reader));
                 }
             }
             foreach (var estrategia in listaEstrategias)
             {
                 var estrategiaDetalle = GetEstrategiaDetalle(entidad.PaisID, estrategia.EstrategiaID);
+                estrategia.FlagIndividual = estrategiaDetalle.FlagIndividual;
+                estrategia.Slogan = estrategiaDetalle.Slogan;
+                estrategia.ImgHomeDesktop = estrategiaDetalle.ImgHomeDesktop;
                 estrategia.ImgFondoDesktop = estrategiaDetalle.ImgFondoDesktop;
-                estrategia.ImgPrevDesktop = estrategiaDetalle.ImgPrevDesktop;
                 estrategia.ImgFichaDesktop = estrategiaDetalle.ImgFichaDesktop;
+                estrategia.ImgFichaFondoDesktop = estrategiaDetalle.ImgFichaFondoDesktop;
                 estrategia.UrlVideoDesktop = estrategiaDetalle.UrlVideoDesktop;
+                estrategia.ImgHomeMobile = estrategiaDetalle.ImgHomeMobile;
                 estrategia.ImgFondoMobile = estrategiaDetalle.ImgFondoMobile;
                 estrategia.ImgFichaMobile = estrategiaDetalle.ImgFichaMobile;
-                estrategia.UrlVideoMobile = estrategiaDetalle.UrlVideoMobile;
-                estrategia.ImgFichaFondoDesktop = estrategiaDetalle.ImgFichaFondoDesktop;
                 estrategia.ImgFichaFondoMobile = estrategiaDetalle.ImgFichaFondoMobile;
-                estrategia.ImgHomeDesktop = estrategiaDetalle.ImgHomeDesktop;
-                estrategia.ImgHomeMobile = estrategiaDetalle.ImgHomeMobile;
+                estrategia.UrlVideoMobile = estrategiaDetalle.UrlVideoMobile;
             }
             return listaEstrategias;
         }

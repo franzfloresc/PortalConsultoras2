@@ -371,6 +371,9 @@ namespace Portal.Consultoras.Web.Controllers
             revistaDigital.NoVolverMostrar = true;
             revistaDigital.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
             revistaDigital.EsSuscrita = revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
+            var campaniaEfectiva = userData.CampaniaID + revistaDigital.CantidadCampaniaEfectiva;
+            revistaDigital.CampaniaActiva =
+                campaniaEfectiva.ToString().Substring(campaniaEfectiva.ToString().Length - 2);
             sessionManager.SetRevistaDigital(revistaDigital);
             userData.MenuMobile = null;
             userData.Menu = null;

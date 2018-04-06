@@ -1303,6 +1303,7 @@ namespace Portal.Consultoras.Common
                 public const int ShowRoom = 5;
                 public const int OfertaDelDia = 6;
                 public const int DescagablesNavidenos = 7;
+                public const int CarruselIndividuales = 8;
             }
         }
 
@@ -1705,7 +1706,7 @@ namespace Portal.Consultoras.Common
             public const string RdComprar = "/revistadigital/comprar";
             public const string RdRevisar = "/revistadigital/revisar";
             public const string RdInformacion = "/revistadigital/informacion";
-            public const string RdDetalle = "/revistadigital/detalle";
+            public const string LanDetalle = "/lanzamientos/detalle";
             public const string SwInicio = "/showroom";
             public const string SwInicioIndex = "/showroom/index";
             public const string SwIntriga = "/showroom/intriga";
