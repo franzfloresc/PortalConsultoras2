@@ -3071,7 +3071,7 @@ namespace Portal.Consultoras.Web.Controllers
                     string requestUrl = "Api/EnviarSMS";
 
                     oUsuCorreo.opcionHabilitar = true;
-                    if (NroIntetos > 2)
+                    if (NroIntetos >= 2)
                         oUsuCorreo.opcionHabilitar = false;
 
                     var data = new
