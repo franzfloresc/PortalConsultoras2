@@ -185,6 +185,33 @@ else
 }
 
 <!--FIN-->
+<div class="fondo_faf5e6">
+    @if (ViewBag.CantPedidosPendientes <= 0)
+    {
+        <div class="pestana_lbel"></div>
+        <div class="triangulo_home"></div>
+    }
+
+    @if (ViewBag.CantPedidosPendientes > 0)
+    {
+        <br />
+    }
+    @(Html.Raw(ViewBag.MensajeCierreCampania))
+    <br />
+    <a role="link" region="Central" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido"
+       class="btn_seguirp_mobile seguimientoPedido" href="@Url.Action("Index", "SeguimientoPedido", new { area = "Mobile" })">SEGUIMIENTO A TU PEDIDO</a>
+
+    <a role="link" region="Central" parent="Mira el Video de Bienvenida" title="Mira el Video de Bienvenida" class="btn_seguirp_mobile ver_video_introductorio" href="javascript:;">MIRA EL VIDEO DE BIENVENIDA</a>
+    <!-- ENLACE PARA INGRESO DE PEDIDO FIC -->
+      @if (ViewBag.IndicadorPermisoFIC == 1)
+      {
+        <a href="@Url.Action("Index", "PedidoFIC", new { area = "Mobile" })" role="menu" region="Medio" parent="Ingreso Pedido Fic" id="lnk-ingresa-pedido-fic" class="enlace_ingresa_tu_pedido_fic text-uppercase" title="Ingresa tu pedido FIC">
+            <span class="icono_flecha_ir_ingreso_pedido_fic"></span>
+            Ingresa tu pedido Fic
+        </a>
+      }
+    <!-- FIN - ENLACE PARA INGRESO DE PEDIDO FIC -->
+</div>
 <div class="wrapper_resumen_mobile">
     <div class="content_320">
         <!--ITEM 1-->
@@ -671,7 +698,28 @@ else
 <!--POP UP REVISTA DIGITAL-->
 @if (Model.RevistaDigital.TieneRDS == true)
 {
-    @Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-popup-suscripcion.cshtml")
+    <div class="Content_general_pop_up CompartirCorreoPop contenedor_fondo_popup" id="PopRDSuscripcion" data-popup-main=""
+         style="display:none; font-family: 'Lato' !important;"
+         data-popup-function-hide="RDPopupCerrar()">
+        <div class="content_pop_up_intriga" data-popup-body="">
+            <div class="contenido-popup-nuevo-2017">
+                <div class="centrar-estructura">
+                    <div class="centrar-vertical-contenido">
+                        <p class="primer-texto">
+                            DILE ADIÓS A
+                            LOS CÓDIGOS…
+                        </p>
+                        <p class="segundo-texto">
+                            ¡DILE SÍ A
+                            OFERTAS <span class="flashit">GANA +</span> !
+                        </p>
+                        <a href="javascript: RDRedireccionarInformacion(0);" class="btn-popup">ENTÉRATE AQUÍ</a>
+                    </div>
+                    <a class="cerrar-popup" data-popup-close=""><img src="@Url.Content("~/Content/Images/close-icon.svg")" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
 
@@ -741,7 +789,7 @@ else
 <div class="PopMobile1" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
 
 <!--POP UP CUPONES-->
-@{ 
+@{
     if (!Model.ConsultoraNuevaBannerAppMostrar)
     {
         @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")
