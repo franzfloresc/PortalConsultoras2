@@ -2448,7 +2448,7 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new PedidoDetalleModel
             {
                 Simbolo = userData.Simbolo,
-                ListaDetalle = PedidoJerarquico(lstPedidoWebDetalle),
+                ListaDetalle = lstPedidoWebDetalle,
                 eMail = userData.EMail
             };
 
@@ -2653,7 +2653,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var pedidoModelo = new PedidoDetalleModel
                 {
                     eMail = userData.EMail,
-                    ListaDetalle = PedidoJerarquico(lstPedidoWebDetalle),
+                    ListaDetalle = lstPedidoWebDetalle,// PedidoJerarquico(lstPedidoWebDetalle),
                     Simbolo = userData.Simbolo,
                     Total = Util.DecimalToStringFormat(totalPedido, userData.CodigoISO),
                     Total_Minimo = Util.DecimalToStringFormat(totalMinimoPedido, userData.CodigoISO)
