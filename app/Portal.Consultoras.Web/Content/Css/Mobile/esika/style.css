@@ -5002,7 +5002,6 @@ table > thead > tr > th {
     position: relative;
 }
 
-
 @media only screen and (max-width:330px) {
 
     .draw_arrow_left {
