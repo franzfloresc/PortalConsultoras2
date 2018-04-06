@@ -31,6 +31,9 @@
         public string CodigoTipoEstrategia { get; set; }
 
         #region Lan
+        public string FlagIndividual { get; set; }
+        public string Slogan { get; set; }
+
         public string ImgHomeDesktop { get; set; }
         public string ImgHomeMobile { get; set; }
 
