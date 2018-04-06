@@ -499,14 +499,16 @@
 
         $(elements.ContenedorTituloGanaste).empty();
                             
-        $(elements.ContenedorTituloGanaste).append(nombreAlias.toUpperCase() + " ¡PUEDES GANAR UN CUPÓN DE " + valor + simbolo + " DE DSCTO!");             
+        $(elements.ContenedorTituloGanaste).append(nombreAlias.toUpperCase() + " ¡TIENES UN CUPÓN DE " + valor + simbolo + " DE DSCTO!");             
         //$(elements.ContenedorTituloGanaste).append("¡ACTIVASTE TU CUPÓN DE " + valor + simbolo + " DE DSCTO!");              
 
         $(elements.ContenedorTexto02Ganaste).empty();
         $(elements.ContenedorTextoDetalleCuponCampania).empty();    
-        $(elements.ContenedorTextoDetalleCuponCampania).append("Válido sólo en C" + campania + " (Dscto. máximo " + setting.SimboloMoneda + " " + setting.Cupon.MontoLimiteFormateado + "). El Dscto. se reflejará en tu facturación");     
+        //$(elements.ContenedorTextoDetalleCuponCampania).append("Válido sólo en C" + campania + " (Dscto. máximo " + setting.SimboloMoneda + " " + setting.Cupon.MontoLimiteFormateado + "). El Dscto. se reflejará en tu facturación");     
+        $(elements.ContenedorTextoDetalleCuponCampania).append("Tu descuento lo verás reflejado en tu facturación (dscto. hasta " + setting.SimboloMoneda + " " + setting.Cupon.MontoLimiteFormateado + ")");
         $(elements.ContenedorMontoLimitePopupGanaste).empty();  
-        $(elements.ContenedorMontoLimitePopupGanaste).append("Agrega mínimo 1 oferta Gana+ pasando pedido por el App " + (isEsika ? "Ésika" : "L'bel") + " Conmigo *"); 
+        //$(elements.ContenedorMontoLimitePopupGanaste).append("Agrega mínimo 1 oferta Gana+ pasando pedido por el App " + (isEsika ? "Ésika" : "L'bel") + " Conmigo *"); 
+        $(elements.ContenedorMontoLimitePopupGanaste).append("Solo válido en la campaña C" + campania + " y pasando pedido por la web o app");
 
         $(elements.PopupGanaste).show();
         $(elements.PopupCuponGana).hide();
@@ -549,9 +551,9 @@
                 setting.TieneOfertasPlan20 = response.tieneOfertasPlan20;
                 if (response.tieneOfertasPlan20) {      
                     if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {       
-                        mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + simbolo + " " + valor + " ES VÁLIDO!</b><br>Lo verás reflejado en tu facturación";      
+                        mensaje = "<b style='font-weight: 900'>¡TIENES UN CUPÓN DE DSCTO DE " + simbolo + " " + valor + "!</b><br>MONTO MÁXIMO DE DSCTO DE " + setting.SimboloMoneda + " " + setting.Cupon.MontoLimiteFormateado +" <br>Lo verás reflejado en tu facturación";      
                     } else {
-                        mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + valor + simbolo + " ES VÁLIDO!</b><br>Lo verás reflejado en tu facturación";                            
+                        mensaje = "<b style='font-weight: 900'>¡TIENES UN CUPÓN DE DSCTO DE " + valor + simbolo + "!</b><br>MONTO MÁXIMO DE DSCTO DE " + setting.SimboloMoneda + " " + setting.Cupon.MontoLimiteFormateado + "<br>Lo verás reflejado en tu facturación";
                     }
 
                     $("#divCondicionesCupon").hide();       

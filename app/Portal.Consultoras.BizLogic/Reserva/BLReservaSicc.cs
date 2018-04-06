@@ -31,21 +31,21 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
         public async Task<BEResultadoReservaProl> ReservarPedido(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
-            var resultado = new BEResultadoReservaProl();
-            if (listPedidoWebDetalle.Count == 0) return resultado;
-
             ServSicc.Pedido respuestaSicc = await ConsumirServicioSicc(input, listPedidoWebDetalle);
-            if (respuestaSicc == null) return resultado;
+            if (respuestaSicc == null) return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_Error);
 
             var listDetExp = NewListPedidoWebDetalleExplotado(input, respuestaSicc.posiciones);
             var listDetExpDescarga = GetExplotadoSinKitNueva(listDetExp, listPedidoWebDetalle).Where(d => d.UnidadesReservadasSap > 0).ToList();
             GuardarExplotado(input, listDetExpDescarga);
 
-            resultado.MontoTotalProl = respuestaSicc.montoPedidoMontoMaximo.ToDecimalSecure(); //montoPedidoMontoMinimo devuelve lo mismo.
-            resultado.MontoDescuento = respuestaSicc.montoTotalDcto.ToDecimalSecure();
-            resultado.MontoAhorroCatalogo = respuestaSicc.montoTotalOporAhorro.ToDecimalSecure();
-            resultado.MontoAhorroRevista = 0;
-            resultado.MontoEscala = respuestaSicc.montoBaseDcto.ToDecimalSecure();
+            var resultado = new BEResultadoReservaProl
+            {
+                MontoTotalProl = respuestaSicc.montoPedidoMontoMaximo.ToDecimalSecure(), //montoPedidoMontoMinimo devuelve lo mismo.
+                MontoDescuento = respuestaSicc.montoTotalDcto.ToDecimalSecure(),
+                MontoAhorroCatalogo = respuestaSicc.montoTotalOporAhorro.ToDecimalSecure(),
+                MontoAhorroRevista = 0,
+                MontoEscala = respuestaSicc.montoBaseDcto.ToDecimalSecure()
+            };
 
             //if (respuestaProl.ListaConcursoIncentivos != null)
             //{

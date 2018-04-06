@@ -15,18 +15,18 @@ namespace Portal.Consultoras.BizLogic.Reserva
     {
         public async Task<BEResultadoReservaProl> ReservarPedido(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
-            var resultado = new BEResultadoReservaProl();
-            if (listPedidoWebDetalle.Count == 0) return resultado;
-
             RespuestaProl respuestaProl = await ConsumirServicioProl(input, listPedidoWebDetalle);
-            if (respuestaProl == null) return resultado;
+            if (respuestaProl == null) return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_Error);
 
-            resultado.MontoAhorroCatalogo = respuestaProl.montoAhorroCatalogo.ToDecimalSecure();
-            resultado.MontoAhorroRevista = respuestaProl.montoAhorroRevista.ToDecimalSecure();
-            resultado.MontoDescuento = respuestaProl.montoDescuento.ToDecimalSecure();
-            resultado.MontoEscala = respuestaProl.montoEscala.ToDecimalSecure();
-            resultado.MontoTotalProl = respuestaProl.montototal.ToDecimalSecure();
-            resultado.CodigoMensaje = respuestaProl.codigoMensaje;
+            var resultado = new BEResultadoReservaProl
+            {
+                MontoAhorroCatalogo = respuestaProl.montoAhorroCatalogo.ToDecimalSecure(),
+                MontoAhorroRevista = respuestaProl.montoAhorroRevista.ToDecimalSecure(),
+                MontoDescuento = respuestaProl.montoDescuento.ToDecimalSecure(),
+                MontoEscala = respuestaProl.montoEscala.ToDecimalSecure(),
+                MontoTotalProl = respuestaProl.montototal.ToDecimalSecure(),
+                CodigoMensaje = respuestaProl.codigoMensaje
+            };
 
             if (respuestaProl.ListaConcursoIncentivos != null)
             {
