@@ -898,11 +898,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var set = _pedidoSetProvider.ObtenerPorId(userData.PaisID, setId);
                 List<BEPedidoWebDetalle> listaPedidoWebDetalle = ObtenerPedidoWebDetalle();
-                listaPedidoWebDetalle.ToList().ForEach(p => p.Cantidad = p.Cantidad - Cantidad);
+                var detallePedido = _pedidoSetProvider.ObtenerDetalle(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
                 foreach (var detalle in set.Detalles)
                 {
                     BEPedidoWebDetalle pedidoWebDetalle = listaPedidoWebDetalle.Where(p => p.CUV == detalle.CUV).FirstOrDefault();
-                    if (pedidoWebDetalle.Cantidad > 0)
+                    int cantidad = pedidoWebDetalle.Cantidad -  detallePedido.Where(p => p.CUV == detalle.CUV).Sum(p => set.Cantidad * p.FactorRepeticion);
+                    if (cantidad > 0)
                     {
                         var obePedidoWebDetalle = new BEPedidoWebDetalle
                         {
@@ -917,9 +918,9 @@ namespace Portal.Consultoras.Web.Controllers
                             PedidoDetalleID = pedidoWebDetalle.PedidoDetalleID,
                             PrecioUnidad = pedidoWebDetalle.PrecioUnidad,
                             PedidoID = PedidoID,
-                            Cantidad = pedidoWebDetalle.Cantidad,
+                            Cantidad = cantidad,
                             CUV = detalle.CUV,
-                            ImporteTotal = pedidoWebDetalle.Cantidad * pedidoWebDetalle.PrecioUnidad,
+                            ImporteTotal = cantidad * pedidoWebDetalle.PrecioUnidad,
                         };
                         var olstPedidoWebDetalle = AdministradorPedido(obePedidoWebDetalle, "U", out bool errorServer, out string tipo, out EsBackOrder);
                     }
