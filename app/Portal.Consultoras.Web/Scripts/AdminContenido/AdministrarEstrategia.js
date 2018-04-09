@@ -785,7 +785,7 @@
         if (tipo == "2")
             _variables.cantidadPrecargar = parseInt(cantidad);
         
-        if (tipo == "1")
+        if (tipo == "0")
             _variables.cantidadOp = parseInt(cantidad);
 
         if (cantidad != "0")
