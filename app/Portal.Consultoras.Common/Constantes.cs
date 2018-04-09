@@ -149,10 +149,10 @@ namespace Portal.Consultoras.Common
             public const int BusquedaNemotecnicoProductoSugerido = 9853;
             public const int BusquedaNemotecnicoZonaEstrategia = 9854;
             public const int Tonos = 9802;
-
-            public const int ValoresImagenesResizeWitdhSmall = 12101;
+            
+            public const int ValoresImagenesResizeWitdhMaxSmall = 12101;
             public const int ValoresImagenesResizeHeightSmall = 12102;
-            public const int ValoresImagenesResizeWitdhMedium = 12103;
+            public const int ValoresImagenesResizeWitdhMaxMedium = 12103;
             public const int ValoresImagenesResizeHeightMedium = 12104;
 
             public const int MerchantId = 12201;

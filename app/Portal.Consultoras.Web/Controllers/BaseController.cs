@@ -37,6 +37,7 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
 using Portal.Consultoras.Web.Providers;
+using System.Drawing;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -2783,6 +2784,7 @@ namespace Portal.Consultoras.Web.Controllers
         public string ObtenerValorTablaLogica(List<TablaLogicaDatosModel> datos, short idTablaLogicaDatos)
         {
             var valor = "";
+            datos = datos ?? new List<TablaLogicaDatosModel>();
             if (datos.Any())
             {
                 var par = datos.FirstOrDefault(d => d.TablaLogicaDatosID == idTablaLogicaDatos) ?? new TablaLogicaDatosModel();
@@ -4313,57 +4315,139 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Resize Imagen Default       
 
-        public List<EntidadMagickResize> ObtenerListaImagenesResize(string rutaImagen)
+        public List<EntidadMagickResize> ObtenerListaImagenesResize(string rutaImagen, bool esAppCalatogo = false)
         {
             var listaImagenesResize = new List<EntidadMagickResize>();
 
             if (Util.ExisteUrlRemota(rutaImagen))
             {
-                var extensionNombreImagenSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall;
-                var rutaImagenSmall = Util.GenerarRutaImagenResize(rutaImagen, extensionNombreImagenSmall);
+                var rutaImagenSmall = "";
+                var rutaImagenMedium = "";
 
-                var extensionNombreImagenMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium;
-                var rutaImagenMedium = Util.GenerarRutaImagenResize(rutaImagen, extensionNombreImagenMedium);
+                if (esAppCalatogo)
+                {
+                    string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
+                    string soloExtension = Path.GetExtension(rutaImagen);
+
+                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+
+                    var extensionNombreImagenSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall;
+                    var extensionNombreImagenMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium;
+
+                    rutaImagenSmall = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + extensionNombreImagenSmall + soloExtension);
+                    rutaImagenMedium = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + extensionNombreImagenMedium + soloExtension);
+                }
+                else
+                {
+                    rutaImagenSmall = Util.GenerarRutaImagenResize(rutaImagen, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
+                    rutaImagenMedium = Util.GenerarRutaImagenResize(rutaImagen, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium);
+                }
 
                 var listaValoresImagenesResize = ObtenerParametrosTablaLogica(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, true);
+
+                int ancho = 0;
+                int alto = 0;
 
                 EntidadMagickResize entidadResize;
                 if (!Util.ExisteUrlRemota(rutaImagenSmall))
                 {
-                    entidadResize = new EntidadMagickResize();
-                    entidadResize.RutaImagenOriginal = rutaImagen;
-                    entidadResize.RutaImagenResize = rutaImagenSmall;
-                    entidadResize.Width = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhSmall);
-                    entidadResize.Height = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightSmall);
-                    entidadResize.TipoImagen = Constantes.ConfiguracionImagenResize.TipoImagenSmall;
-                    entidadResize.CodigoIso = userData.CodigoISO;
-                    listaImagenesResize.Add(entidadResize);
+                    GetDimensionesImagen(rutaImagen, listaValoresImagenesResize, Constantes.ConfiguracionImagenResize.TipoImagenSmall, out alto, out ancho);
+
+                    if (ancho > 0 && alto > 0)
+                    {
+                        entidadResize = new EntidadMagickResize
+                        {
+                            RutaImagenOriginal = rutaImagen,
+                            RutaImagenResize = rutaImagenSmall,
+                            Width = ancho,
+                            Height = alto,
+                            TipoImagen = Constantes.ConfiguracionImagenResize.TipoImagenSmall,
+                            CodigoIso = userData.CodigoISO
+                        };
+                        listaImagenesResize.Add(entidadResize);
+                    }
                 }
 
                 if (!Util.ExisteUrlRemota(rutaImagenMedium))
                 {
-                    entidadResize = new EntidadMagickResize();
-                    entidadResize.RutaImagenOriginal = rutaImagen;
-                    entidadResize.RutaImagenResize = rutaImagenMedium;
-                    entidadResize.Width = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMedium);
-                    entidadResize.Height = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightMedium);
-                    entidadResize.TipoImagen = Constantes.ConfiguracionImagenResize.TipoImagenMedium;
-                    entidadResize.CodigoIso = userData.CodigoISO;
-                    listaImagenesResize.Add(entidadResize);
+                    GetDimensionesImagen(rutaImagen, listaValoresImagenesResize, Constantes.ConfiguracionImagenResize.TipoImagenMedium, out alto, out ancho);
+
+                    if (ancho > 0 && alto > 0)
+                    {
+                        entidadResize = new EntidadMagickResize
+                        {
+                            RutaImagenOriginal = rutaImagen,
+                            RutaImagenResize = rutaImagenMedium,
+                            Width = ancho,
+                            Height = alto,
+                            TipoImagen = Constantes.ConfiguracionImagenResize.TipoImagenMedium,
+                            CodigoIso = userData.CodigoISO
+                        };
+                        listaImagenesResize.Add(entidadResize);
+                    }
                 }
             }
 
             return listaImagenesResize;
         }
 
-        public int ObtenerTablaLogicaDimensionImagen(List<TablaLogicaDatosModel> lista, short tablaLogicaDatosId)
+        private void GetDimensionesImagen(string urlImagen, List<BETablaLogicaDatos> datosImg, string tipoImg, out int alto, out int ancho)
         {
-            int resultado = 0;
+            ancho = 0;
+            alto = 0;
+
+            if (!datosImg.Any())
+                return;
+            
+            // valores estandar de base de datos
+            var hBase = 0;
+            var wMax = 0;
+            if (tipoImg == Constantes.ConfiguracionImagenResize.TipoImagenSmall)
+            {
+                hBase = ObtenerTablaLogicaDimensionImagen(datosImg, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightSmall);
+                wMax = ObtenerTablaLogicaDimensionImagen(datosImg, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMaxSmall);
+            }
+            else if (tipoImg == Constantes.ConfiguracionImagenResize.TipoImagenMedium)
+            {
+                hBase = ObtenerTablaLogicaDimensionImagen(datosImg, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightMedium);
+                wMax = ObtenerTablaLogicaDimensionImagen(datosImg, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMaxMedium);
+            }
+
+            if (hBase == 0 && wMax == 0)
+                return;
+
+            // Obtener las dimensiones
+            byte[] imageData = new WebClient().DownloadData(urlImagen);
+            MemoryStream imgStream = new MemoryStream(imageData);
+            Image img = Image.FromStream(imgStream);
+
+            imgStream.Close();
+
+            ancho = img.Width;
+            alto = img.Height;
+
+            img.Dispose();
+
+            // calculo matematico para escalar
+            if (alto > hBase && hBase > 0)
+            {
+                ancho = Convert.ToInt32(ancho * (Convert.ToDecimal(hBase) / Convert.ToDecimal(alto)));
+                alto = hBase;
+            }
+            if (ancho > wMax && wMax > 0)
+            {
+                alto = Convert.ToInt32(alto * (Convert.ToDecimal(wMax) / Convert.ToDecimal(ancho)));
+                ancho = wMax;
+            }
+        }
+
+        public int ObtenerTablaLogicaDimensionImagen(List<BETablaLogicaDatos> lista, short tablaLogicaDatosId)
+        {
             var resultadoString = ObtenerValorTablaLogica(lista, tablaLogicaDatosId);
 
-            var esInt = int.TryParse(resultadoString, out resultado);
-
-            return esInt ? resultado : 0;
+            int resultado;
+            int.TryParse(resultadoString, out resultado);
+            return resultado;
         }
 
         #endregion
