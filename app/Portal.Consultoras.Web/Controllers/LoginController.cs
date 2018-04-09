@@ -1248,8 +1248,6 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.FechaFinFIC = usuario.FechaFinFIC;
                     usuarioModel.MenuNotificaciones = 1;
 
-                    usuarioModel.NuevoPROL = usuario.NuevoPROL;
-                    usuarioModel.ZonaNuevoPROL = usuario.ZonaNuevoPROL;
 
                     usuarioModel.SegmentoConstancia = usuario.SegmentoConstancia ?? "";
                     usuarioModel.SeccionAnalytics = usuario.SeccionAnalytics;

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using Estrategia = Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.PagoEnLinea;
 
@@ -1072,10 +1073,10 @@ namespace Portal.Consultoras.ServiceContracts
         BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona);
 
         [OperationContract]
-        BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
+        Task<BEResultadoReservaProl> CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
 
         [OperationContract]
-        BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input);
+        Task<BEResultadoReservaProl> EjecutarReservaProl(BEInputReservaProl input);
 
         [OperationContract]
         bool EnviarCorreoReservaProl(BEInputReservaProl input);

@@ -18079,7 +18079,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string DireccionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private byte EstadoPedidoField;
+        private short EstadoPedidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string EstadoPedidoDescField;
@@ -18146,6 +18146,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal SaldoDeudaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private byte VersionProlField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] olstBEPedidoWebDetalleField;
@@ -18369,7 +18372,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public byte EstadoPedido {
+        public short EstadoPedido {
             get {
                 return this.EstadoPedidoField;
             }
@@ -18663,6 +18666,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.SaldoDeudaField.Equals(value) != true)) {
                     this.SaldoDeudaField = value;
                     this.RaisePropertyChanged("SaldoDeuda");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public byte VersionProl {
+            get {
+                return this.VersionProlField;
+            }
+            set {
+                if ((this.VersionProlField.Equals(value) != true)) {
+                    this.VersionProlField = value;
+                    this.RaisePropertyChanged("VersionProl");
                 }
             }
         }

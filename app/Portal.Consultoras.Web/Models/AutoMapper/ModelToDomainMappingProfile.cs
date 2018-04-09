@@ -76,7 +76,6 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<UsuarioModel, BEInputReservaProl>()
                 .ForMember(t => t.PaisISO, f => f.MapFrom(c => c.CodigoISO))
                 .ForMember(t => t.FechaHoraReserva, f => f.MapFrom(c => c.DiaPROL && c.MostrarBotonValidar))
-                .ForMember(t => t.ProlV2, f => f.MapFrom(c => c.NuevoPROL && c.ZonaNuevoPROL))
                 .ForMember(t => t.SegmentoInternoID, f => f.MapFrom(c => c.SegmentoInternoID == null ? 0 : Convert.ToInt32(c.SegmentoInternoID)));
 
             Mapper.CreateMap<UsuarioModel, ServicePedido.BEUsuario>()

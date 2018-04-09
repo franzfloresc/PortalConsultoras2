@@ -91,6 +91,7 @@
     <Compile Include="DABotmakerApiLog.cs" />
     <Compile Include="DAConcurso.cs" />
     <Compile Include="DAConfiguracionPaisDatos.cs" />
+    <Compile Include="DAPedidoWebDetalleExplotado.cs" />
     <Compile Include="DAFichaProducto.cs" />
     <Compile Include="DAConfiguracionOfertasHome.cs" />
     <Compile Include="DAPalabraInvalida.cs" />
@@ -286,6 +287,7 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -363,10 +365,6 @@
       <DependentUpon>Reference.map</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
