@@ -902,7 +902,8 @@ namespace Portal.Consultoras.Web.Controllers
                 foreach (var detalle in set.Detalles)
                 {
                     BEPedidoWebDetalle pedidoWebDetalle = listaPedidoWebDetalle.Where(p => p.CUV == detalle.CUV).FirstOrDefault();
-                    int cantidad = pedidoWebDetalle.Cantidad -  detallePedido.Where(p => p.CUV == detalle.CUV).Sum(p => set.Cantidad * p.FactorRepeticion);
+                    if (pedidoWebDetalle is null) continue;
+                    int cantidad = pedidoWebDetalle.Cantidad - detallePedido.Where(p => p.CUV == detalle.CUV).Sum(p => set.Cantidad * p.FactorRepeticion);
                     if (cantidad > 0)
                     {
                         var obePedidoWebDetalle = new BEPedidoWebDetalle
