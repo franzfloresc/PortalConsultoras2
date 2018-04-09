@@ -233,15 +233,24 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
                 {
-                    listaHermanos.ForEach(h =>
+                    if (listaHermanos.Count == 1)
                     {
-                        h.CUV = Util.Trim(h.CUV);
-                        h.FactorCuadre = 1;
-                    });
-                    listaHermanos = listaHermanos.OrderBy(h => h.Orden).ToList();
+                        listaHermanos = new List<ProductoModel>();
+                        estrategiaModelo.CodigoVariante = "";
+                    }
+                    else
+                    {
+                        listaHermanos.ForEach(h =>
+                        {
+                            h.CUV = Util.Trim(h.CUV);
+                            h.FactorCuadre = 1;
+                        });
+                        listaHermanos = listaHermanos.OrderBy(h => h.Orden).ToList();
+                    }
                 }
                 if (estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija || estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
                 {
+                    #region 2002 - 2003
                     var listaHermanosX = new List<ProductoModel>();
                     listaProducto = listaProducto.OrderBy(p => p.Grupo).ToList();
                     listaHermanos = listaHermanos.OrderBy(p => p.CodigoProducto).ToList();
@@ -307,28 +316,10 @@ namespace Portal.Consultoras.Web.Controllers
                         listaHermanos = listaHermanosR.OrderBy(p => p.Orden).ToList();
                     }
 
+                    #endregion
                 }
 
-                #region Factor Cuadre
-
-                var listaHermanosCuadre = new List<ProductoModel>();
-
-                foreach (var hermano in listaHermanos)
-                {
-                    listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
-
-                    if (hermano.FactorCuadre > 1)
-                    {
-                        for (int i = 0; i < hermano.FactorCuadre - 1; i++)
-                        {
-                            listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
-                        }
-                    }
-                }
-
-                #endregion
-
-                estrategiaModelo.Hermanos = listaHermanosCuadre;
+                estrategiaModelo.Hermanos = GetEstrategiaDetalleFactorCuadre(listaHermanos);
             }
             catch (Exception ex)
             {
@@ -339,6 +330,26 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return estrategiaModelo;
+        }
+
+        private List<ProductoModel> GetEstrategiaDetalleFactorCuadre(List<ProductoModel> listaHermanos)
+        {
+            var listaHermanosCuadre = new List<ProductoModel>();
+
+            listaHermanos = listaHermanos ?? new List<ProductoModel>();
+            foreach (var hermano in listaHermanos)
+            {
+                listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
+
+                if (hermano.FactorCuadre > 1)
+                {
+                    for (int i = 0; i < hermano.FactorCuadre - 1; i++)
+                    {
+                        listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
+                    }
+                }
+            }
+            return listaHermanosCuadre;
         }
 
         public EstrategiaPersonalizadaProductoModel EstrategiaGetDetalleCuv(string cuv)
