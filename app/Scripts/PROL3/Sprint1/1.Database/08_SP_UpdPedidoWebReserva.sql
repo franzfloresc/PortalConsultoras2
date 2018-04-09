@@ -40,7 +40,7 @@ begin
 		EstadoPedido = @EstadoPedido,
 		ValidacionAbierta = 0,
 		ModificaPedidoReservado = 0,
-		@PedidoSapId = @PedidoSapId,
+		PedidoSapId = iif(@PedidoSapId = 0, PedidoSapId, @PedidoSapId),
 		VersionProl = @VersionProl
 	where CampaniaID = @CampaniaID AND PedidoID = @PedidoID;
 end

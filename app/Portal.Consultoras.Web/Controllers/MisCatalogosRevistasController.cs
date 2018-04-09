@@ -545,10 +545,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string codigo = GetRevistaCodigoIssuu(campania);
                 if (string.IsNullOrEmpty(codigo)) return Json(new { success = false }, JsonRequestBehavior.AllowGet);
-
-                if (revistaDigital.TieneRDCR)
-                    codigo += Constantes.CatalogoUrlIssu.RDR;
-
+                
                 string url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlIssuu);
                 url = string.Format(url, codigo);
                 return Json(new { success = true, urlRevista = url }, JsonRequestBehavior.AllowGet);
