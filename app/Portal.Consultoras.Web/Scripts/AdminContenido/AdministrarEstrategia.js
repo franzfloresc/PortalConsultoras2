@@ -807,6 +807,7 @@
         if (tipo == "1") {
             _variables.cantidadPrecargar2 = parseInt(cantidad);
             $("#spnCantidadConfigurar3").html(parseInt(cantidad));
+            $("#precargadosdiv").html(rowObject[4]);
         }
         if (tipo == "2")
             $("#spnCantidadNoConfigurar3").html(parseInt(cantidad));
@@ -1033,7 +1034,7 @@
             }),
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
-            colNames: ["Id", "Descripción", "Cantidad"],
+            colNames: ["Id", "Descripción", "Cantidad","ValorOpcional"],
             colModel: [
                 { name: "Id", index: "Id", width: 100, editable: true, resizable: false, hidden: true },
                 { name: "Descripcion", index: "Descripcion", width: 100, editable: true, resizable: false },
@@ -1045,7 +1046,8 @@
                     editable: true,
                     resizable: false,
                     formatter: _showActionsVer1
-                }
+                },
+                { name: "ValorOpcional", index: "ValorOpcional", width: 10, editable: false, resizable: false, hidden: true }
             ],
             jsonReader:
             {
@@ -1095,7 +1097,8 @@
             hidegrid: false,
             datatype: "json",
             postData: ({
-                CampaniaID: $("#ddlCampania").val()
+                CampaniaID: $("#ddlCampania").val(),
+                tipoEstrategiaCodigo: $("#ddlTipoEstrategia").find(":selected").data("codigo")
             }),
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
@@ -1228,7 +1231,8 @@
 
         var parametros = {
             campaniaId: parseInt($("#ddlCampania").val()),
-            tipoConfigurado: parseInt(tipo)
+            tipoConfigurado: parseInt(tipo),
+            tipoEstrategiaCodigo: $("#ddlTipoEstrategia").find(":selected").data("codigo")
         };
 
         $("#listGrillaCuv2").setGridParam({ postData: parametros });
@@ -3453,6 +3457,7 @@
                 return estrategiasSeleccionadas.indexOf(obj) == -1;
             });
 
+
             var params = {
                 EstrategiasActivas: estrategiasSeleccionadas.join(","),
                 EstrategiasDesactivas: estrategiasNoSeleccionadas.join(","),
@@ -3658,6 +3663,7 @@
                 tipoConfigurado: 1,
                 estrategiaId: $("#ddlTipoEstrategia").find(":selected").data("id"),
                 estrategiaCodigo: $("#ddlTipoEstrategia").find(":selected").data("codigo"),
+                EstrategiaMIds: $('#precargadosdiv').text()
             };
 
             waitingDialog({});

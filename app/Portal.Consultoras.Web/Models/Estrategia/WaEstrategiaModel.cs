@@ -17,6 +17,7 @@ namespace Portal.Consultoras.Web.Models.Estrategia
         public float Precio { get; set; }
         public float Precio2 { get; set; }
         public string ImagenURL { get; set; }
+        public bool FlagImagenURL { get; set; }
         public int LimiteVenta { get; set; }
         public string TextoLibre { get; set; }
         public bool FlagNueva { get; set; }

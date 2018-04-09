@@ -315,7 +315,10 @@ namespace Portal.Consultoras.Web.Providers
                 string url =WebConfig.UrlMicroservicioPersonalizacionSearch;
                 client.BaseAddress = new Uri(url);
                 string jsonString = jsonParametros;
-                var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+                string contentType = "application/json";
+                
+                var httpContent = new StringContent(jsonString, Encoding.UTF8, contentType);
                 string requestUrl = requestUrlParam;
                 HttpResponseMessage response = null;
                 if (responseType.Equals("get"))
@@ -353,11 +356,11 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public int ActualizarEstrategiaOfertaParaTi(string tipoCodigo, int campania, string usuario)
+        public int CargarWebApi(List<string> EstrtegiasIds)
         {
             int iCantidadActualizada = 0;
-            string jsonParameters = "{\"tipo\":" + tipoCodigo + ",\"campania\":" + campania.ToString() + ",\"usuario\":" + usuario + "}";
-            string requestUrl = "estrategia/actualizarestrategiaofertaparati/";
+            string jsonParameters = JsonConvert.SerializeObject(EstrtegiasIds);
+            string requestUrl = "estrategia/cargar/";
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "put"));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -365,7 +368,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 return 0;
             }
-            iCantidadActualizada = int.Parse(content);
+            iCantidadActualizada = content.Equals("true")?1:0;
             return iCantidadActualizada;
         }
 
@@ -393,8 +396,10 @@ namespace Portal.Consultoras.Web.Providers
                 new EstrategiaMDbAdapterModel
                 {
                     _id = d._id,
+                    FlagConfig = d.FlagConfig,
                     BEEstrategia = new BEEstrategia
                     {
+                        EstrategiaID = d.EstrategiaId,
                         CampaniaID = int.Parse(d.CodigoCampania),
                         Activo = d.Activo ? 1 : 0,
                         ImagenURL = d.ImagenURL,
@@ -413,7 +418,8 @@ namespace Portal.Consultoras.Web.Providers
                         UsuarioCreacion = d.UsuarioCreacion,
                         UsuarioModificacion = d.UsuarioModificacion,
                         ImagenMiniaturaURL = "",
-                        TipoEstrategiaID = d.TipoEstrategiaId
+                        TipoEstrategiaID = d.TipoEstrategiaId,
+                        Imagen = d.FlagImagenURL ? 1:0,
                     }
 
                 }).ToList();
@@ -421,11 +427,27 @@ namespace Portal.Consultoras.Web.Providers
         }
 
 
-        public List<EstrategiaMDbAdapterModel> GetEstrategiasWebApi(BEEstrategia entidad)
+        public List<EstrategiaMDbAdapterModel> ListarWebApi(string CampaniaID,string tipoEstrategiaCodigo,int Activo = -1, string CUV2="",int Imagen=-1)
         {
             List<EstrategiaMDbAdapterModel> listaEstrategias = new List<EstrategiaMDbAdapterModel>();
-            string jsonParameters = "?tipo=" + entidad.CodigoTipoEstrategia + "&campania=" + entidad.CampaniaID + "&status=" + (entidad.Activo == -1 ? "" : entidad.Activo == 1 ? "true" : "false");
-            string requestUrl = "estrategia/listar";
+            string jsonParameters = "?";
+            if (Activo != -1)
+            {
+                jsonParameters += "status=" + (Activo == -1 ? "" : Activo == 1 ? "true" : "false");
+            }
+            if (!string.IsNullOrEmpty(CUV2.Trim()) && !CUV2.Equals("0"))
+            {
+                jsonParameters += jsonParameters.Length > 1 ? "&": "";
+                jsonParameters += "cuv=" + CUV2;
+            }
+            if (Imagen != -1)
+            {
+                jsonParameters += jsonParameters.Length > 1 ? "&" : "";
+                jsonParameters += "tieneImagen=" + (Imagen == -1 ? "" : Imagen == 1 ? "true" : "false");
+            }
+            
+            //entidad.Imagen
+            string requestUrl = "estrategia/listar/"+CampaniaID+"/"+ tipoEstrategiaCodigo;
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "get"));
             Task.WhenAll(taskApi);
             string content = taskApi.Result ;
@@ -433,7 +455,26 @@ namespace Portal.Consultoras.Web.Providers
             if (WaModelList.Count() > 0)
             {
                 List<EstrategiaMDbAdapterModel> mapList = this.setEstrategiaList(WaModelList);
-                mapList.Select(d => { d.BEEstrategia.TipoEstrategiaID = entidad.TipoEstrategiaID; return d; }).ToList();
+                mapList.Select((x, d) => x.BEEstrategia.ID = d + 1).ToList();
+                listaEstrategias.AddRange(mapList);
+            }
+            return listaEstrategias;
+        }
+
+        public List<EstrategiaMDbAdapterModel> preCargarWebApi(string campaniaId, string tipoEstrategiaCodigo)
+        {
+            List<EstrategiaMDbAdapterModel> listaEstrategias = new List<EstrategiaMDbAdapterModel>();
+            string jsonParameters = "";
+            
+            //entidad.Imagen
+            string requestUrl = "estrategia/precargar/" + campaniaId + "/" + tipoEstrategiaCodigo;
+            var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "get"));
+            Task.WhenAll(taskApi);
+            string content = taskApi.Result;
+            var WaModelList = JsonConvert.DeserializeObject<List<WaEstrategiaModel>>(content);
+            if (WaModelList.Count() > 0)
+            {
+                List<EstrategiaMDbAdapterModel> mapList = this.setEstrategiaList(WaModelList);
                 mapList.Select((x, d) => x.BEEstrategia.ID = d + 1).ToList();
                 listaEstrategias.AddRange(mapList);
             }
