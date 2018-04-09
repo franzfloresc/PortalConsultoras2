@@ -761,5 +761,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         bool UpsellingMarcaCategoriaFlagsEditar(int paisId, int upSellingId, bool CategoriaApoyada, bool CategoriaMonto);
         #endregion
+
+        [OperationContract]
+        string RemoveDataCache(int paisID, string cacheItemString, string customKey);
     }
 }

@@ -1,0 +1,7 @@
+GO
+ALTER TABLE dbo.TablaLogicaDatos
+ALTER COLUMN Codigo VARCHAR(150) NOT NULL;
+GO
+ALTER TABLE dbo.TablaLogicaDatos
+ALTER COLUMN Descripcion VARCHAR(180) NOT NULL;
+GO

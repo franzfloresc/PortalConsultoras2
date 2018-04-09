@@ -320,7 +320,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return Json(new
                         {
                             success = false,
-                            message = "No está permitido el reclamo de Packs y Sets por este medio. Por favor, contáctate con nuestro <span>Chat en Línea</span>.",
+                            message = "No está permitido el reclamo de Packs y Sets por este medio. " + Constantes.CdrWebMensajes.ContactateChatEnLinea,
                         }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -355,7 +355,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return Json(new
                         {
                             success = false,
-                            message = "No está permitido el cambio de Packs y Sets por este medio. Por favor, contáctate con nuestro <span>Chat en Línea</span>.",
+                            message = "No está permitido el cambio de Packs y Sets por este medio. " + Constantes.CdrWebMensajes.ContactateChatEnLinea,
                         }, JsonRequestBehavior.AllowGet);
                 }
             }
