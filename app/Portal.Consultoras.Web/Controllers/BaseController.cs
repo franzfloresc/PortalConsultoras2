@@ -4391,7 +4391,7 @@ namespace Portal.Consultoras.Web.Controllers
             return listaImagenesResize;
         }
 
-        private void GetDimensionesImagen(string urlImagen, List<BETablaLogicaDatos> datosImg, string tipoImg, out int alto, out int ancho)
+        private void GetDimensionesImagen(string urlImagen, List<TablaLogicaDatosModel> datosImg, string tipoImg, out int alto, out int ancho)
         {
             ancho = 0;
             alto = 0;
@@ -4441,7 +4441,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public int ObtenerTablaLogicaDimensionImagen(List<BETablaLogicaDatos> lista, short tablaLogicaDatosId)
+        public int ObtenerTablaLogicaDimensionImagen(List<TablaLogicaDatosModel> lista, short tablaLogicaDatosId)
         {
             var resultadoString = ObtenerValorTablaLogica(lista, tablaLogicaDatosId);
 
