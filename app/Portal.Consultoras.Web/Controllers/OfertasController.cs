@@ -72,10 +72,11 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneOpm(false);
                 else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigital))
                     sessionManager.SetTieneOpmX1(false);
-                else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigitalReducida))
-                    sessionManager.SetTieneRdr(false);
                 else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.HerramientasVenta))
-                    sessionManager.SetTieneRdr(false);
+                    sessionManager.SetTieneHv(false);
+                else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.HerramientasVenta))
+                    sessionManager.SetTieneHvX1(false);
+
                 return Json(new
                 {
                     estado = "Ok"

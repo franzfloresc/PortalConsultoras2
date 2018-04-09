@@ -350,7 +350,11 @@
                 </div>
                 {{/if}}
                 <div class="producto_nombre_descripcion">
-                    <h6>{{DescripcionMarca}}</h6>
+                    {{#IsNullOrEmpty DescripcionMarca '!='}}
+                        <h6>{{DescripcionMarca}}</h6>
+                    {{else}}
+                        <h6>&ensp;&nbsp;</h6>
+                    {{/IsNullOrEmpty}}
 
                     <p class="nombre_producto" onclick="mostrarFichaProductoFAV('{{CUV}}');" style=" cursor pointer;">
                         <b>{{Descripcion}}</b>

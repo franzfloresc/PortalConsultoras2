@@ -12,6 +12,7 @@ namespace Portal.Consultoras.Web.Models
             ArrayContenidoSet = new List<string>();
             ListaDescripcionDetalle = new List<string>();
             Hermanos = new List<ProductoModel>();
+            PuedeAgregarProducto = true;
         }
 
         public int CampaniaID { get; set; }
@@ -62,5 +63,8 @@ namespace Portal.Consultoras.Web.Models
         public string ImagenOfertaIndependiente { get; set; }
         public bool MostrarImgOfertaIndependiente { get; set; }
         public string PrecioNiveles { get; set; }
+
+        public int FlagRevista { get; set; }
+        public bool PuedeAgregarProducto { get; set; }
     }
 }

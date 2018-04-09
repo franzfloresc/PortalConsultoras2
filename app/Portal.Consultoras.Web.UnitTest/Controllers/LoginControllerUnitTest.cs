@@ -18,28 +18,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
     {
 
         [TestClass]
-        public class Base
-        {
-            public Mock<ILogManager> logManager;
-            public Mock<ISessionManager> sessionManager;
-
-            [TestInitialize]
-            public void Test_Initialize()
-            {
-                logManager = new Mock<ILogManager>();
-                sessionManager = new Mock<ISessionManager>();
-            }
-
-            [TestCleanup]
-            public void Test_Cleanup()
-            {
-                logManager = null;
-                sessionManager = null;
-            }
-        }
-
-
-        [TestClass]
         public class Index
         {
             //class LoginController_GetClientIpReturnsMultipleIps : LoginController
@@ -127,7 +105,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var controller = new LoginController(logManager.Object,sessionManager.Object);
 
                 // Act
-                var result = controller.GetUserData(0, string.Empty, 0);
+                var result = controller.GetUserData(0, string.Empty, 0).Result;
 
                 // Assert
             }
@@ -140,7 +118,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var controller = new LoginController(logManager.Object, sessionManager.Object);
 
                 // Act
-                var result = controller.GetUserData(1, string.Empty, 0);
+                var result = controller.GetUserData(1, string.Empty, 0).Result;
 
                 // Assert
             }
@@ -183,9 +161,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var controller = new LoginControllerStub(logManager.Object, sessionManager.Object);
 
                 // Act
-                var getUserDataTask = Task.Run(() => controller.GetUserData(1, "041395737", 0));
-                Task.WaitAll(getUserDataTask);
-                var result = getUserDataTask.Result;
+       
+                var result = controller.GetUserData(1, "041395737", 0).Result;
                 
                 // Assert
                 Assert.IsNotNull(result);
@@ -202,7 +179,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var controller = new LoginController(logManager.Object, sessionManager.Object);
                 UsuarioModel usuario = null;
 
-                var result = controller.ConfiguracionPaisUsuario(usuario);
+                var result = controller.ConfiguracionPaisUsuario(usuario).Result;
 
                 logManager.Verify(x => x.LogErrorWebServicesBusWrap(
                     It.Is<Exception>(e => e.Message.Contains("No puede ser nulo")),
@@ -279,7 +256,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     Sobrenombre= "UnSobreNombre"
                 };
 
-                var result = controller.ConfiguracionPaisUsuario(usuario);
+                var result = controller.ConfiguracionPaisUsuario(usuario).Result;
 
                 logManager.Verify(x => x.LogErrorWebServicesBusWrap(
                     It.Is<Exception>(e => e.Message.Contains("No puede estar activo configuracion pais RD y RDI a la vez.")),
@@ -334,7 +311,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     Sobrenombre = "UnSobreNombre"
                 };
 
-                var result = controller.ConfiguracionPaisUsuario(usuario);
+                var result = controller.ConfiguracionPaisUsuario(usuario).Result;
 
                 Assert.IsNotNull(result);
                 sessionManager.Verify(x => x.SetRevistaDigital(It.Is<RevistaDigitalModel>(rd => rd.TieneRDI == true && rd.TieneRDC == false)));
@@ -360,22 +337,19 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             }
 
             [TestMethod]
-            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosEsNulo_EscribeEnLog()
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosEsNulo_RetornaRevistaDigital()
             {
                 var controller = new LoginController(logManager.Object, sessionManager.Object);
+                RevistaDigitalModel revistaDigitalModel = new RevistaDigitalModel();
 
-                var result = controller.ConfiguracionPaisDatosRevistaDigital(new RevistaDigitalModel(), null, null);
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel, null, null);
 
-                logManager.Verify(x => x.LogErrorWebServicesBusWrap(
-                    It.Is<Exception>(e => e.Message.Contains("no puede ser nulo")),
-                    It.IsAny<string>(),
-                    It.IsAny<string>(),
-                    It.Is<string>(s => s.Contains("LoginController.ConfiguracionPaisDatosRevistaDigital"))),
-                    Times.AtLeastOnce);
+                Assert.IsNotNull(result);
+                Assert.AreSame(revistaDigitalModel, result);
             }
 
             [TestMethod]
-            public void ConfiguracionPaisDatosRevistaDigital_PaisIsoEsNulo_EscribeEnLog()
+            public void ConfiguracionPaisDatosRevistaDigital_PaisIsoEsNulo_RetornaRevistaDigital()
             {
                 var controller = new LoginController(logManager.Object, sessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
@@ -383,12 +357,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
                 var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, null);
 
-                logManager.Verify(x => x.LogErrorWebServicesBusWrap(
-                    It.Is<Exception>(e => e.Message.Contains("no puede ser nulo")),
-                    It.IsAny<string>(),
-                    It.IsAny<string>(),
-                    It.Is<string>(s => s.Contains("LoginController.ConfiguracionPaisDatosRevistaDigital"))),
-                    Times.AtLeastOnce);
+                Assert.IsNotNull(result);
+                Assert.AreSame(rdModel, result);
             }
 
             [TestMethod]
@@ -412,6 +382,278 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             }
 
             [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneCantidadCampaniaEfectiva_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.CantidadCampaniaEfectiva,
+                        Valor1 = "10"
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual(10, result.CantidadCampaniaEfectiva);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneNombreComercialActiva_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.NombreComercialActiva,
+                        Valor1 = "NombreComercialActiva"
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual("NombreComercialActiva", result.NombreComercialActiva);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneNombreComercialNoActiva_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.NombreComercialNoActiva,
+                        Valor1 = "NombreComercialNoActiva"
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual("NombreComercialNoActiva", result.NombreComercialNoActiva);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneLogoComercialActiva_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.LogoComercialActiva,
+                        Valor1 = "DLogoComercialActiva",
+                        Valor2 = "MLogoComercialActiva"
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual("DLogoComercialActiva", result.DLogoComercialActiva);
+                Assert.AreEqual("MLogoComercialActiva", result.MLogoComercialActiva);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneLogoComercialNoActiva_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.LogoComercialNoActiva,
+                        Valor1 = "DLogoComercialNoActiva",
+                        Valor2 = "MLogoComercialNoActiva"
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual("DLogoComercialNoActiva", result.DLogoComercialNoActiva);
+                Assert.AreEqual("MLogoComercialNoActiva", result.MLogoComercialNoActiva);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneLogoMenuInicioActiva_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioActiva,
+                        Valor1 = "DLogoMenuInicioActiva",
+                        Valor2 = "MLogoMenuInicioActiva"
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual("DLogoMenuInicioActiva", result.DLogoMenuInicioActiva);
+                Assert.AreEqual("MLogoMenuInicioActiva", result.MLogoMenuInicioActiva);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneLogoMenuInicioNoActiva_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioNoActiva,
+                        Valor1 = "DLogoMenuInicioNoActiva",
+                        Valor2 = "MLogoMenuInicioNoActiva"
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual("DLogoMenuInicioNoActiva", result.DLogoMenuInicioNoActiva);
+                Assert.AreEqual("MLogoMenuInicioNoActiva", result.MLogoMenuInicioNoActiva);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneLogoComercialFondoActiva_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoActiva,
+                        Valor1 = "DLogoComercialFondoActiva",
+                        Valor2 = "MLogoComercialFondoActiva"
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual("DLogoComercialFondoActiva", result.DLogoComercialFondoActiva);
+                Assert.AreEqual("MLogoComercialFondoActiva", result.MLogoComercialFondoActiva);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneLogoComercialFondoNoActiva_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoNoActiva,
+                        Valor1 = "DLogoComercialFondoNoActiva",
+                        Valor2 = "MLogoComercialFondoNoActiva"
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual("DLogoComercialFondoNoActiva", result.DLogoComercialFondoNoActiva);
+                Assert.AreEqual("MLogoComercialFondoNoActiva", result.MLogoComercialFondoNoActiva);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneLogoMenuOfertasActiva_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasActiva,
+                        Valor1 = "LogoMenuOfertasActiva"
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual("LogoMenuOfertasActiva", result.LogoMenuOfertasActiva);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneLogoMenuOfertasNoActiva_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva,
+                        Valor1 = "LogoMenuOfertasNoActiva"
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual("LogoMenuOfertasNoActiva", result.LogoMenuOfertasNoActiva);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneBloquearPedidoRevistaImp_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.BloquearPedidoRevistaImp,
+                        Valor1 = "1"
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual(1, result.BloquearRevistaImpresaGeneral);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneBloquearSugerenciaProducto_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.BloquearSugerenciaProducto,
+                        Valor1 = "1"
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual(1, result.BloquearProductosSugeridos);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneSubscripcionAutomaticaAVirtualCoach_SeActualizaRevistaDigitalModel()
             {
                 var controller = new LoginController(logManager.Object, sessionManager.Object);
@@ -428,6 +670,173 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
 
                 Assert.AreEqual(true, result.SubscripcionAutomaticaAVirtualCoach);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneBloqueoProductoDigital_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital,
+                        Valor1 = "1"
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual(true, result.BloqueoProductoDigital);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneBannerOfertasNoActivaNoSuscrita_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.BannerOfertasNoActivaNoSuscrita,
+                        Valor1 = "banner-ganamas.jpg",
+                        Valor2 = null
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual("banner-ganamas.jpg", result.BannerOfertasNoActivaNoSuscrita);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneBannerOfertasNoActivaSuscrita_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.BannerOfertasNoActivaSuscrita,
+                        Valor1 = "banner-ganamas.jpg",
+                        Valor2 = null
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual("banner-ganamas.jpg", result.BannerOfertasNoActivaSuscrita);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneBannerOfertasActivaNoSuscrita_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.BannerOfertasActivaNoSuscrita,
+                        Valor1 = "banner-ganamas.jpg",
+                        Valor2 = null
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual("banner-ganamas.jpg", result.BannerOfertasActivaNoSuscrita);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneBannerOfertasActivaSuscrita_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.BannerOfertasActivaSuscrita,
+                        Valor1 = "banner-ganamas.jpg",
+                        Valor2 = null
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual("banner-ganamas.jpg", result.BannerOfertasActivaSuscrita);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneSEExperienciaClub_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.SociaEEmpresariaExperienciaClub,
+                        Valor1 = "1",
+                        Valor2 = null
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual(true, result.SociaEmpresariaExperienciaGanaMas);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneSESuscritaNoActivaCancelarSuscripcion_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion,
+                        Valor1 = "1",
+                        Valor2 = null
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual(true, result.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneSESuscritaActivaCancelarSuscripcion_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.SociaEmpresariaSuscritaActivaCancelarSuscripcion,
+                        Valor1 = "1",
+                        Valor2 = null
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual(true, result.SociaEmpresariaSuscritaActivaCancelarSuscripcion);
                 Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
             }
         }

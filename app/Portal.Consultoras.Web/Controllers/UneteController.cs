@@ -1019,12 +1019,6 @@ namespace Portal.Consultoras.Web.Controllers
                 solicitudPostulante = sv.ObtenerSolicitudPostulante(user.CodigoISO, id);
             }
 
-            //var belcorpResponde = new BelcorpRespondeBE();
-            //using (var osv = new BelcorpPaisServiceClient())
-            //{
-            //    belcorpResponde = osv.ObtenerTelefonosDeBelcorpResponde(user.CodigoISO);
-            //}
-
             solicitudPostulante.NumeroDocumento = AplicarFormatoNumeroDocumentoPorPais(user.CodigoISO,
                 solicitudPostulante.NumeroDocumento);
 
@@ -1470,6 +1464,27 @@ namespace Portal.Consultoras.Web.Controllers
                         MostrarPaso1y2SE)
                     .ToList();
 
+                List<ResumenDiasEsperaBE> listaRequest = new List<ResumenDiasEsperaBE>();
+                foreach (var item in resultado)
+                {
+                    if (!string.IsNullOrEmpty(item.DiasEnEspera))
+                        listaRequest.Add(new ResumenDiasEsperaBE() { SolicitudPostulanteId = item.SolicitudPostulanteID, DiasEspera = Convert.ToInt32(item.DiasEnEspera) });
+                }
+                //Se separó para no saturar el servicio ObtenerReporteGestionPostulante
+                ResumenDiasEsperaCollection reporteDiasEspera;
+                reporteDiasEspera = sv.ObtenerReporteDiasEspera(CodigoISO, listaRequest.ToArray());
+
+                foreach (var item in resultado)
+                {
+                    if (!string.IsNullOrEmpty(item.DiasEnEspera))
+                    {
+                        var data = reporteDiasEspera.ToList().FirstOrDefault(x => x.SolicitudPostulanteId == item.SolicitudPostulanteID).ResumenDiasEspera.Split('|');
+                        item.DetalleDiasEsperaGSAC = data[0];
+                        item.DetalleDiasEsperaAFFVV = data[1];
+                        item.DetalleDiasEsperaASAC = data[2];
+                    }
+                }
+
                 Dictionary<string, string> dic = sv.GetDictionaryReporteGestionPostulantes(CodigoISO, Estado);
                 Util.ExportToExcel("ReportePostulantes", resultado, dic);
                 return null;
@@ -1650,7 +1665,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (ViewBag.HTMLSACUnete == "{\"success\":true}")
             {
-                RegistrarLogGestionSacUnete(model.SolicitudPostulanteID.ToString(),"EDITAR POSTULANTE","EDITAR");
+                RegistrarLogGestionSacUnete(model.SolicitudPostulanteID.ToString(), "EDITAR POSTULANTE", "EDITAR");
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
             else
@@ -1826,6 +1841,117 @@ namespace Portal.Consultoras.Web.Controllers
         {
             ViewBag.ipRequest = Request.UserHostAddress;
             ViewBag.HTMLSACUnete = getHTMLSACUnete("ReporteFunnel", null);
+            return View();
+        }
+
+
+        [HttpPost]
+        public JsonResult GetReporteRolSearch(string pais, string rol, string usuario, string solicitud, string fechaInicio, string fechaFin, string lastKeyUsuario, string lastKeyFecha, int registrosPagina)
+        {
+            ReporteRol result = new ReporteRol();
+            try
+            {
+                result = GetReporteRol(pais, rol, usuario, solicitud, fechaInicio, fechaFin, lastKeyUsuario, lastKeyFecha, registrosPagina);
+            }
+            catch (Exception ex)
+            {
+                ErrorUtilities.AddLog(ex);
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ReporteRol GetReporteRol(string pais, string rol, string usuario, string solicitud, string fechaInicio, string fechaFin, string lastKeyUsuario, string lastKeyFecha, int registrosPagina)
+        {
+
+            ReporteRol reporte = new ReporteRol();
+
+            try
+            {
+                var result = getHTMLSACUnete("GetJsonReporteRol", String.Format("&pais={0}&rol={1}&usuario={2}&solicitud={3}&fechaInicio={4}&fechaFin={5}&lastKeyUsuario={6}&lastKeyFecha={7}&registrosPagina={8}",
+                                                                                 pais, rol, usuario, solicitud, fechaInicio, fechaFin, lastKeyUsuario, lastKeyFecha, registrosPagina));
+                if (result.Length > 0)
+                {
+                    reporte = JsonConvert.DeserializeObject<ReporteRol>(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorUtilities.AddLog(ex);
+            }
+
+            return reporte;
+        }
+
+        public ActionResult ExportarExcelRol(string pais, string rol, string usuario, string solicitud, string fechaInicio, string fechaFin, string lastKeyUsuario, string lastKeyFecha, int registrosPagina, string ReporteNombre)
+        {
+            ReporteRol result = new ReporteRol();
+            try
+            {
+                result = GetReporteRol(pais, rol, usuario, solicitud, fechaInicio, fechaFin, lastKeyUsuario, lastKeyFecha, registrosPagina);
+            }
+            catch (Exception ex)
+            {
+                ErrorUtilities.AddLog(ex);
+            }
+
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+
+            dic.Add("Fecha de Registro", "FechaRegistro");
+            dic.Add("Usuario", "Usuario");
+            dic.Add("Pais", "Pais");
+            dic.Add("Rol", "Rol");
+            dic.Add("Solicitud Id", "SolicitudId");
+            dic.Add("Pantalla", "Pantalla");
+            dic.Add("Acción", "Accion");
+            dic.Add("Fecha de Expiración", "FechaExpiracion");
+
+            if (result.data.Count > 0)
+            {
+                Util.ExportToExcel(ReporteNombre, result.data, dic);
+            }
+
+            return View();
+        }
+
+        public JsonResult GetRoles()
+        {
+            var result = new List<RolLog>();
+            try
+            {
+                using (var sv = new PortalServiceClient())
+                {
+                    result = sv.GetRoles(CodigoISO).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorUtilities.AddLog(ex);
+
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetUsuariosPorRol(int RolId)
+        {
+            var result = new List<UsuarioRolLog>();
+            try
+            {
+                using (var sv = new PortalServiceClient())
+                {
+                    result = sv.GetUsuariosPorRol(CodigoISO, RolId).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorUtilities.AddLog(ex);
+
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ReporteRol()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ReporteRol", null);
             return View();
         }
 

@@ -109,7 +109,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return RedirectToAction("Index", "Ofertas");
         }
-        
+
         public ActionResult MensajeBloqueado()
         {
             try
@@ -140,30 +140,63 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                ViewBag.EsMobile = model.IsMobile ? 2 : 1;
+                var palanca = "";
 
-                var palanca = model.CampaniaID != userData.CampaniaID || revistaDigital.TieneRDR
-                    ? Constantes.TipoEstrategiaCodigo.RevistaDigital
-                    : revistaDigital.TieneRDC && revistaDigital.EsActiva
+                if (revistaDigital.ActivoMdo)
+                {
+                    palanca = Constantes.TipoEstrategiaCodigo.RevistaDigital;
+                }
+                else
+                {
+                    palanca = model.CampaniaID != userData.CampaniaID
+                        || (revistaDigital.TieneRDC && revistaDigital.EsActiva)
                         ? Constantes.TipoEstrategiaCodigo.RevistaDigital
                         : "";
+                }
 
                 var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
-                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
+                var listModelCompleta = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
 
-                listModel = listModel.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                listModelCompleta = listModelCompleta.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+
+                var listModel = listModelCompleta;
+
+                var mdo0 = revistaDigital.ActivoMdo && !revistaDigital.EsActiva;
+
+                if (mdo0 && model.CampaniaID == userData.CampaniaID)
+                {
+                    var listaRd = listModelCompleta.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi || e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso).ToList();
+                    listModel = listModelCompleta.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.OfertasParaMi && e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.PackAltoDesembolso).ToList();
+                    listModel.AddRange(listaRd.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor0));
+                }
 
                 var cantidadTotal = listModel.Count;
 
                 var listPerdio = new List<EstrategiaPersonalizadaProductoModel>();
                 if (TieneProductosPerdio(model.CampaniaID))
                 {
-                    var listPerdio1 = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
-                    listPerdio1 = listPerdio1.Where(p => p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas).ToList();
-                    listPerdio = ConsultarEstrategiasFormatearModelo(listPerdio1, 1);
+                    if (mdo0)
+                    {
+                        listPerdio = listModelCompleta.Where(e =>
+                            (e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+                            || e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso)
+                            && e.FlagRevista == Constantes.FlagRevista.Valor2
+                            ).ToList();
 
-                    listPerdio = listPerdio.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                        listPerdio.ForEach(e =>
+                        {
+                            e.ClaseBloqueada = "btn_desactivado_general";
+                            e.IsAgregado = false;
+                        });
+                    }
+                    else
+                    {
+                        var listPerdio1 = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
+                        listPerdio1 = listPerdio1.Where(p => p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas && p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                        listPerdio = ConsultarEstrategiasFormatearModelo(listPerdio1, 1);
+                    }
                 }
+                
 
                 return Json(new
                 {
@@ -206,7 +239,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.Lanzamiento);
 
-                var perdio = revistaDigital.TieneRDR ? 0 : TieneProductosPerdio(model.CampaniaID) ? 1 : 0;
+                var perdio = TieneProductosPerdio(model.CampaniaID) ? 1 : 0;
 
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, perdio);
 
@@ -460,7 +493,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var setSession = false;
 
                 var listaDatosPopup = revistaDigital.ConfiguracionPaisDatos.Where(d => d.Componente == Constantes.ConfiguracionPaisComponente.RD.PopupClubGanaMas);
-                
+
                 var campaniaPopup = (listaDatosPopup.FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).CampaniaID;
                 if (listaDatosPopup.Any(d => d.CampaniaID != campaniaPopup))
                 {
@@ -542,7 +575,7 @@ namespace Portal.Consultoras.Web.Controllers
                         Codigo = Constantes.ConfiguracionPais.RevistaDigital
                     }
                 };
-                
+
                 using (var sv = new UsuarioServiceClient())
                 {
                     var beEntidades = sv.GetConfiguracionPaisComponenteDatos(beEntidad).ToList();

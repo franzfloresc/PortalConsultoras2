@@ -954,7 +954,7 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         private string CodigoISOField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int ConsultoraIdField;
+        private long ConsultoraIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CuvField;
@@ -1023,7 +1023,7 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int ConsultoraId {
+        public long ConsultoraId {
             get {
                 return this.ConsultoraIdField;
             }
@@ -1229,6 +1229,12 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductoService/ObtenerRegaloOfertaFinal", ReplyAction="http://tempuri.org/IProductoService/ObtenerRegaloOfertaFinalResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.RegaloOfertaFinal> ObtenerRegaloOfertaFinalAsync(string codigoIso, int campaniaId, long consultoraId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductoService/ObtenerRegaloMontoMeta", ReplyAction="http://tempuri.org/IProductoService/ObtenerRegaloMontoMetaResponse")]
+        Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.RegaloOfertaFinal ObtenerRegaloMontoMeta(string codigoIso, int campaniaId, long consultoraId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductoService/ObtenerRegaloMontoMeta", ReplyAction="http://tempuri.org/IProductoService/ObtenerRegaloMontoMetaResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.RegaloOfertaFinal> ObtenerRegaloMontoMetaAsync(string codigoIso, int campaniaId, long consultoraId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductoService/InsertarRegaloOfertaFinal", ReplyAction="http://tempuri.org/IProductoService/InsertarRegaloOfertaFinalResponse")]
         void InsertarRegaloOfertaFinal(string codigoIso, int campaniaId, long consultoraId, double montoTotal, string algoritmo);
         
@@ -1325,6 +1331,14 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.RegaloOfertaFinal> ObtenerRegaloOfertaFinalAsync(string codigoIso, int campaniaId, long consultoraId) {
             return base.Channel.ObtenerRegaloOfertaFinalAsync(codigoIso, campaniaId, consultoraId);
+        }
+        
+        public Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.RegaloOfertaFinal ObtenerRegaloMontoMeta(string codigoIso, int campaniaId, long consultoraId) {
+            return base.Channel.ObtenerRegaloMontoMeta(codigoIso, campaniaId, consultoraId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.RegaloOfertaFinal> ObtenerRegaloMontoMetaAsync(string codigoIso, int campaniaId, long consultoraId) {
+            return base.Channel.ObtenerRegaloMontoMetaAsync(codigoIso, campaniaId, consultoraId);
         }
         
         public void InsertarRegaloOfertaFinal(string codigoIso, int campaniaId, long consultoraId, double montoTotal, string algoritmo) {

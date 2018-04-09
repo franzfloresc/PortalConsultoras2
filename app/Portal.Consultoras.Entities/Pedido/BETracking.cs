@@ -1,11 +1,10 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities.Pedido;
-
 using System;
-using System.Data;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {

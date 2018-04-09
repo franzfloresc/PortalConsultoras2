@@ -1356,11 +1356,21 @@ namespace Portal.Consultoras.Service
             var bl = new BLConfiguracionPais();
             return bl.Get(paisId, configuracionPaisId);
         }
-
+        public BEConfiguracionPais GetConfiguracionPaisByCode(int paisId, string codigo)
+        {
+            var bl = new BLConfiguracionPais();
+            return bl.Get(paisId, codigo);
+        }
         public void UpdateConfiguracionPais(BEConfiguracionPais configuracionPais)
         {
             var bl = new BLConfiguracionPais();
             bl.Update(configuracionPais);
+        }
+
+        public BEConfiguracionPaisDatos GetConfiguracionPaisDatos(BEConfiguracionPaisDatos configuracionPaisDatos)
+        {
+            var bl = new BLConfiguracionPaisDatos();
+            return bl.Get(configuracionPaisDatos);
         }
         #endregion
 
@@ -1441,16 +1451,50 @@ namespace Portal.Consultoras.Service
             return new UpSellingBusinessLogic(paisId).ObtenerDetalles(upSellingId);
         }
 
-
         public IEnumerable<OfertaFinalMontoMeta> ObtenerOfertaFinalMontoMeta(int paisId, int upSellingId)
         {
             return new UpSellingBusinessLogic(paisId).ObtenerOfertaFinalMontoMeta( upSellingId);
         }
+        
+        public int InsertUpSellingRegalo(int paisId, UpSellingRegalo entidad)
+        {
+            var upSellingBusinessLogic = new UpSellingBusinessLogic(paisId);
+
+            return upSellingBusinessLogic.InsertarRegalo(entidad);
+        }
+        
         #endregion
 
         public BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible)
         {
             return new BLHorario().GetHorarioByCodigo(paisID, codigo, loadEstaDisponible);
         }
+
+        #region MarcaCategoria Apoyadas
+
+        public IEnumerable<UpsellingMarcaCategoria> UpsellingMarcaCategoriaObtener(int paisId,int upSellingId, string MarcaID, string CategoriaID)
+        {
+            return new UpsellingMarcaCategoriaBusinessLogic(paisId).UpsellingMarcaCategoriaObtener(upSellingId, MarcaID, CategoriaID);
+        }
+
+        public UpsellingMarcaCategoria UpsellingMarcaCategoriaInsertar(int paisId, int upSellingId, string MarcaID, string CategoriaID)
+        {
+            return new UpsellingMarcaCategoriaBusinessLogic(paisId).UpsellingMarcaCategoriaInsertar(upSellingId, MarcaID, CategoriaID);
+        }
+
+
+        public bool UpsellingMarcaCategoriaEliminar(int paisId, int upSellingId, string MarcaID, string CategoriaID)
+        {
+            return new UpsellingMarcaCategoriaBusinessLogic(paisId).UpsellingMarcaCategoriaEliminar(upSellingId, MarcaID, CategoriaID);
+        }
+
+
+        public bool UpsellingMarcaCategoriaFlagsEditar(int paisId, int upSellingId, bool CategoriaApoyada, bool CategoriaMonto)
+        {
+            return new UpsellingMarcaCategoriaBusinessLogic(paisId).UpsellingMarcaCategoriaFlagsEditar(upSellingId, CategoriaApoyada, CategoriaMonto);
+        }
+     
+
+        #endregion
     }
 }

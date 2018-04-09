@@ -12,7 +12,6 @@
     @System.Web.Optimization.Styles.Render("~/bundles/css/Site/GuiaNegocio-Landing")
 }
 
-
 <div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID">
     <div class="content_belcorp" data-listado-content="" style="margin: 0 80px 0 180px;">
 
@@ -102,31 +101,12 @@
     var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
     var lsListaRD = "GNDLista";
     var campaniaId = @Model.CampaniaID;
-    //
     var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
     var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
     var RevistaCodigoIssuu = {
-        '@ViewBag.CampaniaAnterior': '@ViewBag.CodigoRevistaAnterior',
-        '@ViewBag.CampaniaActual': '@ViewBag.CodigoRevistaActual',
-        '@ViewBag.CampaniaSiguiente': '@ViewBag.CodigoRevistaSiguiente'
+        '@Model.CampaniaID': '@ViewBag.CodigoRevistaActual'
     };
     var contadorgnddesktop = 1;
-    $('.desplegablegnd .gndcontenido .gnd span.gndcerrar').click(function () {
-        if (contadorgnddesktop == 1) {
-            $('.desplegablegnd').animate({
-                right: '-120'
-            });
-            $('.desplegablegnd .gndcontenido .gnd .gndcerrar img.flechitagnd').css('transform', 'rotate(270deg)');
-            contadorgnddesktop = 0;
-        } else {
-            contadorgnddesktop = 1;
-            $('.desplegablegnd').animate({
-                right: '0px'
-            });
-            $('.desplegablegnd .gndcontenido .gnd .gndcerrar img.flechitagnd').css('transform', 'rotate(90deg)');
-        }
-    });
-
 
 </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/GuiaNegocio-Landing")

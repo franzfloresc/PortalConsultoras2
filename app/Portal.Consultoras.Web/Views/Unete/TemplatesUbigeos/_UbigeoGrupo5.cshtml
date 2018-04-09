@@ -75,12 +75,12 @@
     var ReferenciaAnt = '';
 
     $(document).ready(function () {
-        $("#LugarNivel1").prepend("<option value=''>--Seleccione--</option>");//.val('');
+        $("#LugarNivel1").prepend("<option value=''>--Seleccione--</option>");
         @if (string.IsNullOrEmpty(Model.LugarNivel1))
         {
             <text>$("#LugarNivel1").val('');</text>
         }
-        $("#LugarNivel2").prepend("<option value=''>--Seleccione--</option>");//.val('');
+        $("#LugarNivel2").prepend("<option value=''>--Seleccione--</option>");
         @if (string.IsNullOrEmpty(Model.LugarNivel2))
         {
             <text>$("#LugarNivel2").val('');</text>
@@ -148,7 +148,6 @@
             $('#btnEditarPosicion').attr('disabled', false);
             $('#btnGuardarPosicion').attr('disabled', false);
             $('#btnActualizarSeccion').attr('disabled', false);
-            //HabilitarDatosDireccion(0);
         }
     });
 
@@ -194,5 +193,4 @@
 
         });
     });
-    //# sourceURL===_Ubigeogrupo3.cshtml
 </script>

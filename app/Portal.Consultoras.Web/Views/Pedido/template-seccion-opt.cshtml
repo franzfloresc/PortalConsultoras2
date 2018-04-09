@@ -1,46 +1,51 @@
-﻿<div class="fondo_gris">
+﻿@{
+    var topProd = ViewBag.Source == 2 ? "Top: 0;" : "";
+}
+
+<div>
     <div class="contenedorCupon">
-        <div class="contenedorCuponConocelo content_cupon_pedido" style="display: none;">
-            Tienes un dscto exclusivo para ti,
-            <a id="linkConocerDescuento" class="link_cupon_home"> conócelo aquí</a>
+            <div class="contenedorCuponConocelo content_cupon_pedido" style="display: none;">
+                Tienes un dscto exclusivo para ti,
+                <a id="linkConocerDescuento" class="link_cupon_home"> conócelo aquí</a>
+            </div>
+            <div class="contenedorCuponInfo content_cupon_pedido" style="display: none;" data-cupon-info-opt="">
+                Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
+            </div>
         </div>
-        <div class="contenedorCuponInfo content_cupon_pedido" style="display: none;" data-cupon-info-opt="">
-            Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
-        </div>
-    </div>
-    <hr class="clear"/>
+
     <div id="divContenedorListaEstrategia">
-        <div class="contenedor_carousel">
+        <div class="contenedor_carousel @ViewBag.Margenvertical">
             @if (ViewBag.Source == 1)
-            {
-                <div class="text-uppercase">
-                    <h1>
-                        OFERTAS <b>PARA TI @ViewBag.NombreConsultora</b>
-                    </h1>
-                    <div class="texto_exclusivo_web">
-                        EXCLUSIVAS SÓLO POR WEB
+                {
+                    <div class="text-uppercase">
+                        <h1>
+                            OFERTAS <b>PARA TI @ViewBag.NombreConsultora</b>
+                        </h1>
+                        <div class="texto_exclusivo_web">
+                            EXCLUSIVAS SÓLO POR WEB
+                        </div>
                     </div>
-                </div>
-            }
-            else
-            {
-                <div class="text-uppercase">
-                    <h1>
-                        OFERTAS <b class="color_marca">@ViewBag.NombrePalanca</b>
-                    </h1>
-                    <div class="texto_exclusivo_pedido_bpt">
-                        @ViewBag.NombreConsultora, PRUEBA LAS VENTAJAS DE COMPRAR OFERTAS PERSONALIZADAS
+                }
+                else if(ViewBag.Source == 2)
+                {
+                    <div class="text-uppercase">
+                        <h1>
+                            OFERTAS <b class="color_marca">@ViewBag.NombrePalanca</b>
+                        </h1>
+                        <div class="texto_exclusivo_pedido_bpt">
+                            @ViewBag.NombreConsultora, PRUEBA LAS VENTAJAS DE COMPRAR OFERTAS PERSONALIZADAS
+                        </div>
                     </div>
-                </div>
-            }
-        
-            <hr class="clear"/>
-            <div class="contenedor_productos">
+
+                }
+
+            <hr class="clear" />
+            <div class="contenedor_productos" style="@topProd">
                 <div id="cierreCarousel" class="background_carousel" style="display: none;"></div>
                 <div class="contenedor_carousel_productos content_carrusel_agregado slider center" id="divListadoEstrategia">
                 </div>
             </div>
-            <hr class="clear"/>
+            <hr class="clear" />
         </div>
     </div>
 </div>

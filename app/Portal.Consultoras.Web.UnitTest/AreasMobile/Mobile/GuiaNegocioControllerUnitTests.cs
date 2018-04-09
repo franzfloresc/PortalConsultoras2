@@ -5,34 +5,13 @@ using System.Web.Mvc;
 using Moq;
 using Portal.Consultoras.Web.SessionManager;
 using Portal.Consultoras.Web.LogManager;
+using Portal.Consultoras.Web.Models;
 
 namespace Portal.Consultoras.Web.UnitTest.AreasMobile.Mobile
 {
     [TestClass]
     public class GuiaNegocioControllerUnitTests
     {
-        [TestClass]
-        public class Base
-        {
-            public Mock<ISessionManager> sessionManager;
-            public Mock<ILogManager> logManager;
-
-            [TestInitialize]
-            public void Test_Initialize()
-            {
-                sessionManager = new Mock<ISessionManager>();
-                logManager = new Mock<ILogManager>();
-
-            }
-
-            [TestCleanup]
-            public void Test_Cleanup()
-            {
-                sessionManager = null;
-                logManager = null;
-            }
-        }
-
         [TestClass]
         public class Index : Base
         {
@@ -48,7 +27,7 @@ namespace Portal.Consultoras.Web.UnitTest.AreasMobile.Mobile
                     this.logManager = logManager;
                 }
 
-                public override bool GNDValidarAcceso()
+                public override bool GNDValidarAcceso(bool esConsultoraLider, GuiaNegocioModel guiaNegocio, RevistaDigitalModel revistaDigital)
                 {
                     return true;
                 }

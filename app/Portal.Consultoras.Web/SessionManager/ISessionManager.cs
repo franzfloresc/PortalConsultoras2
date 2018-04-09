@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
+using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
@@ -90,10 +91,14 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetTieneOpmX1(bool tieneOpmX1);
 
         bool GetTieneOpmX1();
+        
+        void SetTieneHv(bool tieneHv);
 
-        void SetTieneRdr(bool tieneRdr);
+        bool GetTieneHv();
 
-        bool GetTieneRdr();
+        void SetTieneHvX1(bool tieneHv);
+
+        bool GetTieneHvX1();
 
         void SetUserData(UsuarioModel usuario);
 
@@ -134,5 +139,11 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetStartSession(DateTime StartSession);
 
         DateTime GetStartSession();
+        
+        void SetDatosPagoVisa(PagoEnLineaModel model);
+
+        IShowRoom ShowRoom { get; }
+
+        PagoEnLineaModel GetDatosPagoVisa();
     }
 }

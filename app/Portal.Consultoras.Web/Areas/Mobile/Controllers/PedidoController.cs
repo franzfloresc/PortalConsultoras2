@@ -335,7 +335,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.NombreConsultora = userData.Sobrenombre;
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 model.Prol = "GUARDA TU PEDIDO";
-            var ofertaFinalModel = GetOfertaFinal();
+            var ofertaFinalModel = sessionManager.GetOfertaFinalModel();
             ViewBag.OfertaFinalEstado = ofertaFinalModel.Estado;
             ViewBag.OfertaFinalAlgoritmo = ofertaFinalModel.Algoritmo;
             ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.oferta_final_regalo_url_s3), userData.CodigoISO);
@@ -667,7 +667,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    listaParametriaOfertaFinal = sv.GetParametriaOfertaFinal(userData.PaisID, GetOfertaFinal().Algoritmo).ToList();
+                    listaParametriaOfertaFinal = sv.GetParametriaOfertaFinal(userData.PaisID, sessionManager.GetOfertaFinalModel().Algoritmo).ToList();
                 }
             }
             catch (Exception ex)
@@ -732,10 +732,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 else if (revistaDigital.TieneRDI)
                 {
                     partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.MPedidoIntriga) ?? new ConfiguracionPaisDatosModel();
-                }
-                else if (revistaDigital.TieneRDR)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.MPedidoRdr) ?? new ConfiguracionPaisDatosModel();
                 }
             }
             catch (Exception ex)

@@ -2,6 +2,22 @@
 
 $(document).ready(function () {
     $('#tituloGuiaNegocioFloteante').html('REVISTA C-' + campaniaId.toString().substring(4,6));
+    
+    $('.desplegablegnd .gndcontenido .gnd span.gndcerrar').click(function () {
+        if (contadorgnddesktop == 1) {
+            $('.desplegablegnd').animate({
+                right: '-120'
+            });
+            $('.desplegablegnd .gndcontenido .gnd .gndcerrar img.flechitagnd').css('transform', 'rotate(270deg)');
+            contadorgnddesktop = 0;
+        } else {
+            contadorgnddesktop = 1;
+            $('.desplegablegnd').animate({
+                right: '0px'
+            });
+            $('.desplegablegnd .gndcontenido .gnd .gndcerrar img.flechitagnd').css('transform', 'rotate(90deg)');
+        }
+    });
 
     $('.cerrar-vineta .sbcont span').click(function () {
         if (contador == 1) {
