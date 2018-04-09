@@ -44,7 +44,16 @@ namespace Portal.Consultoras.Web.Controllers
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
 
                 if (revistaDigital.TieneRDCR)
-                    listModel = listModel.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor1).ToList();
+                {
+                    if (GetConfiguracionManagerContains(Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_1, userData.CodigoZona))
+                    {
+                        listModel = listModel.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor1).ToList();
+                    }
+                    else if (GetConfiguracionManagerContains(Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_2, userData.CodigoZona))
+                    {
+                        listModel = listModel.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor1 || e.FlagRevista == Constantes.FlagRevista.Valor3).ToList();
+                    }
+                }
 
                 int cantidadTotal = listModel.Count;
 
