@@ -166,6 +166,9 @@ namespace Portal.Consultoras.Common
             public const int UrlLogoPasarelaPago = 12209;
             public const int ColorBotonPagarPasarelaPago = 12210;
             public const int MensajeInformacionPagoExitoso = 12211;
+
+            public const int CantidadCuvMasivo_NuevoMasivo = 13701;
+
         }
 
         public static class ParametrosNames
@@ -1417,6 +1420,7 @@ namespace Portal.Consultoras.Common
             public const short ExtensionBannerGanaMasApp = 136;
             public const short MontoLimiteCupon = 103;
             public const int ValoresPagoEnLinea = 122;
+            public const int CantidadCuvMasivo = 137;
         }
 
         public struct MensajesCDRExpress

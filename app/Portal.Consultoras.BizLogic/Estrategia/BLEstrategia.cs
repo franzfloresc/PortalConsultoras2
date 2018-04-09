@@ -1,4 +1,4 @@
-﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.ServicePROLConsultas;
 using Portal.Consultoras.Entities;
@@ -381,25 +381,35 @@ namespace Portal.Consultoras.BizLogic
             return result;
         }
 
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo)
+        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv)
         {
-            List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
-
-            var daEstrategia = new DAEstrategia(paisId);
-            using (IDataReader reader = daEstrategia.GetOfertasParaTiByTipoConfigurado(campaniaId, tipoConfigurado, estrategiaCodigo))
+            var listaEstrategias = new List<BEEstrategia>();
+            try
             {
-                while (reader.Read())
+
+
+                var daEstrategia = new DAEstrategia(paisId);
+                using (IDataReader reader = daEstrategia.GetOfertasParaTiByTipoConfigurado(campaniaId, tipoConfigurado, estrategiaCodigo, pagina, cantidadCuv))
                 {
-                    listaEstrategias.Add(new BEEstrategia(reader, true));
+                    while (reader.Read())
+                    {
+                        listaEstrategias.Add(new BEEstrategia(reader, true));
+                    }
                 }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", paisId);
+                listaEstrategias = new List<BEEstrategia>();
             }
             return listaEstrategias;
         }
 
-        public int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario)
+        public int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int nroLore)
         {
             var daEstrategia = new DAEstrategia(paisId);
-            return daEstrategia.InsertEstrategiaTemporal(lista, campaniaId, codigoUsuario);
+            return daEstrategia.InsertEstrategiaTemporal(lista, campaniaId, codigoUsuario, nroLore);
         }
 
         public int GetCantidadOfertasParaTiTemporal(int paisId, int campaniaId, int tipoConfigurado)
@@ -409,12 +419,12 @@ namespace Portal.Consultoras.BizLogic
             return result;
         }
 
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado)
+        public List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado, int nroLote)
         {
             List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
 
             var daEstrategia = new DAEstrategia(paisId);
-            using (IDataReader reader = daEstrategia.GetOfertasParaTiByTipoConfiguradoTemporal(campaniaId, tipoConfigurado))
+            using (IDataReader reader = daEstrategia.GetOfertasParaTiByTipoConfiguradoTemporal(campaniaId, tipoConfigurado, nroLote))
             {
                 while (reader.Read())
                 {
