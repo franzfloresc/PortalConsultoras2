@@ -344,6 +344,7 @@
                 $("#divPrecioValorizado").html("Precio Valorizado");
 
             showDialog("DialogAdministracionEstrategia");
+            _ActualizarFlagIndividual(data);
             _editData.IdMatrizComercial = data.IdMatrizComercial;
             _editData.CUV2 = data.CUV2;
 
@@ -911,8 +912,6 @@
                         $("#hdnCodigoSAP").val(data.codigoSAP);
                         $("#hdnEnMatrizComercial").val(data.enMatrizComercial);
 
-                        _ActualizarFlagIndividual(data.beEstrategia);
-
                         _editData.CUV2 = $("#txtCUV2").val();
                         _editData.CodigoSAP = data.codigoSAP;
                         _editData.IdMatrizComercial = data.idMatrizComercial;
@@ -932,6 +931,7 @@
                         $("#divInformacionAdicionalEstrategiaContenido").hide();
 
                         $("#mensajeErrorCUV2").val("");
+
                     } else {
                         $("#mensajeErrorCUV2").val(data.message);
                         _toastHelper.error($("#mensajeErrorCUV2").val());
@@ -1965,7 +1965,7 @@
             $("#chkFlagIndividual").removeAttr("checked");
         }
 
-        $("#chkFlagIndividual").click();
+        _eventos.clickCheckFlagIndividual();
 
         data.Slogan = data.Slogan || "";
         $("#txtSlogan").val(data.Slogan);
