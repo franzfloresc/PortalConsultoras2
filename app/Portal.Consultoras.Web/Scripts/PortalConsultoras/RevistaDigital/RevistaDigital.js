@@ -1,6 +1,6 @@
 ﻿
 var campaniaId = campaniaId || 0;
-var CantidadFilas = CantidadFilas || 10;
+var CantidadFilas = CantidadFilas || 15;
 var lsListaRD = lsListaRD || "ListaRD";
 var indCampania = indCampania || 0;
 var isDetalle = false;
