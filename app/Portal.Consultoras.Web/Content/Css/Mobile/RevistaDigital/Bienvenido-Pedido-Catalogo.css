@@ -13,8 +13,7 @@
     -ms-transition: all .3s ease;
     -webkit-transition: all .3s ease;
 }
-
-    .revistadigital .boxoffer:hover, .contenedor_botonVerMasOfertas .boxoffer:hover {
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas_off a.portada .revistadigital .boxoffer:hover, .contenedor_botonVerMasOfertas .boxoffer:hover {
         opacity: .95;
     }
 
@@ -126,19 +125,24 @@
     }
 
     .contenedor_carrusel_home .content_item_carrusel_clubganamas a {
-        font-size: 13px;
+        border: 1px solid black !important;
+        color: black !important;
+        font-size: 12px;
         font-weight: bold;
         font-style: normal;
         font-stretch: normal;
-        line-height: 1.31;
+        /* line-height: 1.31; */
         letter-spacing: 1px;
         text-align: center;
         color: #ffffff;
         width: 100%;
         border: 1px solid white;
-        height: 46px;
-        padding: 13px 0px;
+        padding: 13px 5px;
+        margin-top: 5px;
+        /* height: 45px !important; */
+        width: 100%;
         display: block;
+        word-wrap: break-word;
     }
 
     .contenedor_carrusel_home .content_item_carrusel_clubganamas p.primero {
@@ -205,19 +209,22 @@
     .contenedor_carrusel_home .content_item_carrusel_clubganamas_off a.portada {
         border: 1px solid black !important;
         color: black !important;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: bold;
         font-style: normal;
         font-stretch: normal;
-        line-height: 1.31;
+        /* line-height: 1.31; */
         letter-spacing: 1px;
         text-align: center;
         color: #ffffff;
         width: 100%;
         border: 1px solid white;
-        padding: 14px 0px;
+        padding: 13px 5px;
         margin-top: 5px;
-        height:45px !important;
+        /* height: 45px !important; */
+        width: 100%;
+        display: block;
+        word-wrap: break-word;
     }
 
     .contenedor_carrusel_home .content_item_carrusel_clubganamas_off .centrar-tercero {

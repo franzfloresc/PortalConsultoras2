@@ -2231,6 +2231,7 @@ namespace Portal.Consultoras.Web.Controllers
             else
             {
                 requestUrl = string.Format(codigo, userData.CodigoISO.ToLower(), nroCampania, anioCampania, "");
+                if(requestUrl.Length>0)
                 requestUrl = Util.Trim(requestUrl.Substring(requestUrl.Length - 1)) == "." ? requestUrl.Substring(0, requestUrl.Length - 1) : requestUrl;
             }
             requestUrl = GetRevistaCodigoIssuuRDR(requestUrl);
