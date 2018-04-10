@@ -1,9 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -48,6 +45,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return RedirectToAction("Index", "Ofertas");
         }
-        
+
     }
 }
