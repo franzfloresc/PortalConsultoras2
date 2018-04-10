@@ -627,7 +627,8 @@ namespace Portal.Consultoras.Web.Controllers
                     ClienteID = model.ClienteID,
                     MostrarHipervinculo = !model.EsAppMobile,
                     EsAppMobile = model.EsAppMobile,
-                    TimeOutSession = (int)FormsAuthentication.Timeout.TotalMinutes
+                    TimeOutSession = (int)FormsAuthentication.Timeout.TotalMinutes,
+                    Campania = Convert.ToInt32(model.Campania)
                 });
 
                 this.SetUniqueSession("IngresoExterno", model.Version ?? "");
@@ -668,11 +669,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 url = model.UrlCatalogo
                             });
                     case Constantes.IngresoExternoPagina.MisPedidos:
-                        return RedirectToUniqueRoute("MisPedidos", "Index", 
-                            new
-                            {
-                                campania = model.Campania
-                            });
+                        return RedirectToUniqueRoute("MisPedidos", "Index",null);
                     case Constantes.IngresoExternoPagina.ShowRoom:
                         return RedirectToUniqueRoute("ShowRoom", "Procesar", null);
                     case Constantes.IngresoExternoPagina.ProductosAgotados:
