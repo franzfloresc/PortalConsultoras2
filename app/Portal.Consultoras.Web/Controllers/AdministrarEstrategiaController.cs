@@ -1406,7 +1406,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!listBeEstrategias.Any())
                     {
                         var cantTotalPagina = cantidadOp / cantidadCuv + (cantidadOp % cantidadCuv == 0 ? 0 : 1);
-                        if (cantTotalPagina == pagina)
+                        if (cantTotalPagina <= pagina)
                         {
                             return Json(new
                             {
