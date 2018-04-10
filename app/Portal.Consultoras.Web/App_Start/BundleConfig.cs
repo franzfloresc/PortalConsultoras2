@@ -84,7 +84,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/LogError.js",
                 "~/Scripts/menu.js",
                 "~/Scripts/General.js",
-                "~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js"
+                "~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js",
+                "~/Scripts/PortalConsultoras/Shared/MenuContenedor.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Scripts/MobileLayoutContenedor").Include(
