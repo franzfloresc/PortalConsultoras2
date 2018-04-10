@@ -1,5 +1,5 @@
 Nuevo
 
-<add key="RevistaPiloto_Zonas_RDR_1_CO" value="101,102,103,104,108,123,125" />
+<add key="RevistaPiloto_Zonas_RDR_1_CO" value="0101,0102,0103,0104,0108,0123,0125" />
 <add key="RevistaPiloto_Zonas_RDR_2_CO" value="2604,2606,2610,2625,2612,2613,2614,2623" />
 
