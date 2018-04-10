@@ -473,9 +473,7 @@
             $("#txtCantidad").val(data.Cantidad);
             $("#hdZonas").val(data.Zona);
             $("#hdNiveles").val(data.Niveles);
-
-            _ActualizarFlagIndividual(data);
-
+            
             //var strZonas = $("#hdZonas").val();
             //if (strZonas != "") {
             //    $.jstree._reference($("#arbolRegionZona")).uncheck_all();
@@ -563,6 +561,9 @@
             } else {
                 _vistaNuevoProductoGeneral();
             }
+
+            _ActualizarFlagIndividual(data);
+
             return data;
         };
     };
@@ -1958,12 +1959,13 @@
 
     var _ActualizarFlagIndividual = function (data) {
         data = data || {};
-        if (data.FlagIndividual == 1) {
+        if (data.FlagIndividual == 1 || data.FlagIndividual === true) {
             $("#chkFlagIndividual").attr("checked", true);
         } else {
             $("#chkFlagIndividual").removeAttr("checked");
         }
-        $("#txtSlogan").click();
+
+        $("#chkFlagIndividual").click();
 
         data.Slogan = data.Slogan || "";
         $("#txtSlogan").val(data.Slogan);
@@ -2913,7 +2915,7 @@
                     var ImagenMiniaturaURL = $("#imgMiniSeleccionada").attr("src").substr($("#imgMiniSeleccionada").attr("src").lastIndexOf("/") + 1);
                     var EsSubCampania = ($("#chkEsSubCampania").attr("checked")) ? true : false;
                     var niveles = $("#hdNiveles").val() || "";
-                    var flagIndividual = $("#chkFlagIndividual").attr("checked") ? true : false;
+                    var flagIndividual = $("#chkFlagIndividual").is(":checked");
                     var slogan = $("#txtSlogan").val() || "";
 
                     var params = {
@@ -3464,9 +3466,7 @@
             $("#imgMiniSeleccionada").attr("src", _config.rutaImagenVacia);
             $("#hdImagenMiniaturaURLAnterior").val("");
             $("#chkEsSubCampania").removeAttr("checked");
-
-            _ActualizarFlagIndividual();
-
+            
             var aux1 = $("#ddlTipoEstrategia").find(":selected").data("id");
             var aux2 = $("#ddlTipoEstrategia").find(":selected").data("codigo");
 
@@ -3552,6 +3552,8 @@
 
             HideDialog("DialogZona");
             showDialog("DialogAdministracionEstrategia");
+
+            _ActualizarFlagIndividual();
             return true;
         },
         clickActivarDesactivar: function () {
@@ -4373,7 +4375,7 @@
         },
 
         clickCheckFlagIndividual: function () {
-            if ($(this).attr("checked")) {
+            if ($("#chkFlagIndividual").is(":checked")) {
                 $("#seccionSlogan").show();
             }
             else {
