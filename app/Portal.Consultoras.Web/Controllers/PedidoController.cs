@@ -4372,16 +4372,37 @@ namespace Portal.Consultoras.Web.Controllers
 
                 estrategia.Cantidad = Convert.ToInt32(model.Cantidad);
 
-                if (estrategia.Cantidad > estrategia.LimiteVenta)
+                var PedidosAgregados = ObtenerPedidoWebSetDetalleAgrupado();
+             
+                if (PedidosAgregados.Any(x => x.CUV == estrategia.CUV2 && x.SetID != 0))
                 {
-                    mensaje = "La cantidad no debe ser mayor que la cantidad limite ( " + estrategia.LimiteVenta + " ).";
-                    return Json(new
+                    int CantidadActual = PedidosAgregados.Where(x => x.CUV == estrategia.CUV2 && x.SetID != 0).Sum(x => x.Cantidad);
+
+                    if (CantidadActual+ model.Cantidad.ToInt()> estrategia.LimiteVenta)
                     {
-                        success = false,
-                        message = mensaje
-                    }, JsonRequestBehavior.AllowGet);
+                        mensaje = "La cantidad no debe ser mayor que la cantidad limite ( " + estrategia.LimiteVenta + " ).";
+                        return Json(new
+                        {
+                            success = false,
+                            message = mensaje
+                        }, JsonRequestBehavior.AllowGet);
+
+                    }
+                }
+                else
+                {
+                    if (estrategia.Cantidad > estrategia.LimiteVenta)
+                    {
+                        mensaje = "La cantidad no debe ser mayor que la cantidad limite ( " + estrategia.LimiteVenta + " ).";
+                        return Json(new
+                        {
+                            success = false,
+                            message = mensaje
+                        }, JsonRequestBehavior.AllowGet);
+                    }
 
                 }
+  
 
                 var listCuvTonos = Util.Trim(model.CuvTonos);
                 if (listCuvTonos == "")
@@ -4399,8 +4420,9 @@ namespace Portal.Consultoras.Web.Controllers
                     estrategia.MarcaID = listSp.Length > 1 ? Convert.ToInt32(listSp[1]) : estrategia.MarcaID;
                     estrategia.Precio2 = listSp.Length > 2 ? Convert.ToDecimal(listSp[2]) : estrategia.Precio2;
 
-                    respuesta = EstrategiaAgregarProducto(ref mensaje, estrategia, model);
 
+
+                    respuesta = EstrategiaAgregarProducto(ref mensaje, estrategia, model,false);
                     ListaCuvsTemporal.Add(listSp.Length > 0 ? listSp[0] : estrategia.CUV2);
                 }
 
@@ -4441,7 +4463,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private JsonResult EstrategiaAgregarProducto(ref string mensaje, BEEstrategia estrategia, PedidoCrudModel model)
+        private JsonResult EstrategiaAgregarProducto(ref string mensaje, BEEstrategia estrategia, PedidoCrudModel model, bool revisionIndividualStock =true)
         {
             #region Validar Stock Estrategia
             var ofertas = estrategia.DescripcionCUV2.Split('|');
@@ -4466,15 +4488,18 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
 
-            mensaje = ValidarStockEstrategiaMensaje(estrategia.CUV2, estrategia.Cantidad, estrategia.TipoEstrategiaID);
-
-            if (mensaje != "")
+            if (revisionIndividualStock)
             {
-                return Json(new
+                mensaje = ValidarStockEstrategiaMensaje(estrategia.CUV2, estrategia.Cantidad, estrategia.TipoEstrategiaID);
+
+                if (mensaje != "")
                 {
-                    success = false,
-                    message = mensaje
-                });
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje
+                    });
+                }
             }
             #endregion
 
