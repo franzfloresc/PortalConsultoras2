@@ -34887,12 +34887,12 @@ height:30px;
 
 .texto_cupon_monto {
     text-align: left;
-    font-size: 12px;
+    font-size: 11px;
     font-family: 'LAto';
     float: left;
-    margin-left: 38px;
-    line-height: 1.17;
-    width: 185px;           
+    margin-left: 30px;
+    line-height: 1.47;
+    width: 222px;           
 }
 
 .content_cupon {
@@ -35083,7 +35083,9 @@ height:30px;
 .info_recuerda_cupon_ganaste {
     display: inline-table;
     float: none;
-    width: 40%;         
+    width: 40%;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .info_recuerda_cupon_line {

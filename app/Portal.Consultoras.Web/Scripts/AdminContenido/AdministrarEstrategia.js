@@ -52,9 +52,13 @@
         isNuevo: false,
         cantidadPrecargar: 0,
         cantidadPrecargar2: 0,
+        cantidadOp: 0,
         imagen: "",
         isVistaPreviaOpened: false,
-        paisNombre: ""
+        paisNombre: "",
+        cantGuardadaTemporal: 0,
+        NroLote: 0,
+        Pagina: 0
     }
 
     var _codigoEstrategia = {
@@ -784,6 +788,9 @@
 
         if (tipo == "2")
             _variables.cantidadPrecargar = parseInt(cantidad);
+        
+        if (tipo == "0")
+            _variables.cantidadOp = parseInt(cantidad);
 
         if (cantidad != "0")
             text = rowObject[2] +
@@ -1236,7 +1243,8 @@
 
         var parametros = {
             campaniaId: parseInt($("#ddlCampania").val()),
-            tipoConfigurado: parseInt(tipo)
+            tipoConfigurado: parseInt(tipo),
+            nroLote: _variables.NroLote
         };
 
         $("#listGrillaCuv2").setGridParam({ postData: parametros });
@@ -1793,21 +1801,23 @@
         if ($("#ddlTipoEstrategia").val() === "") {
             _toastHelper.error("Debe seleccionar un tipo de estrategia, verifique.");
             return false;
-        } else {
-            var estrategiaId = $("#ddlTipoEstrategia option:selected").data("id");
-            if (!estrategiaId.in(_idEstrategia.OfertaParaTi,
-                _idEstrategia.GuiaDeNegocio,
-                _idEstrategia.LosMasVendidos,
-                _idEstrategia.Lanzamiento,
-                _idEstrategia.OfertasParaMi,
-                _idEstrategia.PackAltoDesembolso,
-                _idEstrategia.OfertaDelDia,
-                _idEstrategia.ShowRoom,
-                _idEstrategia.HerramientaVenta)) {
-                _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
-                return false;
-            }
         }
+
+        var estrategiaId = $("#ddlTipoEstrategia option:selected").data("id") || "";
+        if (!estrategiaId.in(_idEstrategia.OfertaParaTi,
+            _idEstrategia.GuiaDeNegocio,
+            _idEstrategia.LosMasVendidos,
+            _idEstrategia.Lanzamiento,
+            _idEstrategia.OfertasParaMi,
+            _idEstrategia.PackAltoDesembolso,
+            _idEstrategia.OfertaDelDia,
+            _idEstrategia.ShowRoom,
+            _idEstrategia.HerramientaVenta)) {
+
+            _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
+            return false;
+        }
+
         return true;
     }
     var _cerrarTallaColor = function () {
@@ -3659,6 +3669,10 @@
             }
         },
         clickNuevoMasivo: function () {
+            _variables.NroLote = 0;
+            _variables.cantGuardadaTemporal = 0;
+            _variables.Pagina = 0;
+            _variables.cantidadOp = 0;
             if (_validarMasivo()) {
                 $("#divMasivoPaso1").show();
                 $("#divMasivoPaso2").hide();
@@ -3721,6 +3735,7 @@
             } else {
                 _uploadFileCvs();
             }
+
         },
         clickActualizarTonos: function () {
             if (_validarMasivo()) _actualizarTonos();
@@ -3730,7 +3745,12 @@
                 campaniaId: parseInt($("#ddlCampania").val()),
                 tipoConfigurado: 2,
                 estrategiaCodigo: $("#ddlTipoEstrategia").find(":selected").data("codigo"),
-                habilitarNemotecnico: _config.habilitarNemotecnico
+                habilitarNemotecnico: _config.habilitarNemotecnico,
+                cantGuardadaTemporal: _variables.cantGuardadaTemporal,
+                cantTotal: _variables.cantidadPrecargar,
+                nroLote: _variables.NroLote,
+                pagina: _variables.Pagina,
+                cantidadOp: _variables.cantidadOp
             };
 
             waitingDialog();
@@ -3743,14 +3763,30 @@
                 data: JSON.stringify(params),
                 async: true,
                 success: function (data) {
+                    console.log(data);
                     if (data.success) {
                         closeWaitingDialog();
-                        _fnGrillaEstrategias2();
+                        if (data.cantGuardadaTemporal != undefined) {
+                            _variables.Pagina = (data.pagina || 0) + 1;
+                            _variables.NroLote = data.NroLote;
+                            _variables.cantGuardadaTemporal += parseInt(data.cantGuardadaTemporal, 10)
+                            if (_variables.cantGuardadaTemporal >= _variables.cantidadPrecargar) {
+                                _fnGrillaEstrategias2();
+                            }
+                            else {
+                                _eventos.clickAceptarMasivo1();
+                            }
+                        }
+                        else if (_variables.cantGuardadaTemporal > 0) {
+                            _fnGrillaEstrategias2();
+                        }
                     } else {
                         _toastHelper.error(data.message);
                     }
                 },
                 error: function (data, error) {
+                    console.log(data);
+                    closeWaitingDialog();
                     _toastHelper.error(data.message);
                 }
             });
@@ -3759,7 +3795,8 @@
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
                 tipoConfigurado: 1,
-                estrategiaId: $("#ddlTipoEstrategia").find(":selected").data("id")
+                estrategiaId: $("#ddlTipoEstrategia").find(":selected").data("id"),
+                nroLote: _variables.NroLote
             };
 
             waitingDialog();
@@ -4115,7 +4152,7 @@
         },
 
         changeTipoEstrategia: function () {
-            var aux2 = $("#ddlTipoEstrategia").find(":selected").data("codigo");
+            var aux2 = $("#ddlTipoEstrategia").find(":selected").data("codigo") || "";
             $("#btnActivarDesactivar").hide();
             $("#btnNuevoMasivo").hide();
             $("#btnDescripcionMasivo").hide();
@@ -4131,6 +4168,7 @@
                 _codigoEstrategia.GuiaDeNegocio,
                 _codigoEstrategia.ShowRoom,
                 _codigoEstrategia.HerramientaVenta)) {
+
                 $("#btnActivarDesactivar").show();
                 $("#btnNuevoMasivo").show();
                 $("#btnDescripcionMasivo").show();
