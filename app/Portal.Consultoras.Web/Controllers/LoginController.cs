@@ -668,7 +668,11 @@ namespace Portal.Consultoras.Web.Controllers
                                 url = model.UrlCatalogo
                             });
                     case Constantes.IngresoExternoPagina.MisPedidos:
-                        return RedirectToUniqueRoute("MisPedidos", "Index", null);
+                        return RedirectToUniqueRoute("MisPedidos", "Index", 
+                            new
+                            {
+                                campania = model.Campania
+                            });
                     case Constantes.IngresoExternoPagina.ShowRoom:
                         return RedirectToUniqueRoute("ShowRoom", "Procesar", null);
                     case Constantes.IngresoExternoPagina.ProductosAgotados:

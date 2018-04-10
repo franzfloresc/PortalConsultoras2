@@ -112,6 +112,7 @@
         float: left;
     }
 
+
         .bc_para_ti-menu-opciones ul li a {
             padding: 5px;
             display: block;
@@ -130,11 +131,20 @@
             top: 7px;
         }
 
+		.bc_para_ti-menu-opciones ul li.active {
+			border-bottom: 4px solid #e81c36;
+		}
+
+		.bc_para_ti-menu-opciones ul li:hover {
+			border-bottom: 4px solid #e81c36;
+		}
+
             .bc_para_ti-menu-opciones ul li a p {
                 display: inline;
                 position: relative;
                 top: 6px;
             }
+
 
             .bc_para_ti-menu-opciones ul li a.activo p::after {
                 content: '';

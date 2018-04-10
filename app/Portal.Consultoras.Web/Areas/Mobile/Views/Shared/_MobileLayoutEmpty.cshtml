@@ -4,40 +4,42 @@
 <!DOCTYPE html>
 <html lang="es-PE">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="SomosBelcorp Web Mobile" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="description" content="SomosBelcorp Web Mobile" />
 
-    <title>Somos Belcorp</title>
+	<title>Somos Belcorp</title>
 
-    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
+	@Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
 
-    <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
 
-    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
-    {
-        <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
-        @Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
-    }
-    else
-    {
-        <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
-        @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
-    }
-    <link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
+	@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+	{
+		<link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
+		@Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
+		@Styles.Render("~/Content/Css/Mobile/Esika/Contenedor")
+	}
+	else
+	{
+		<link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
+		@Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
+		@Styles.Render("~/Content/Css/Mobile/Esika/Contenedor")
+	}
+	<link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
 
-    <script type="text/javascript">
+	<script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
-    </script>
+	</script>
 
-    @RenderSection("styles", required: false)
+	@RenderSection("styles", required: false)
 
-    @if (TempData.ContainsKey("PixelCodigoIso"))
-    {
-        <noscript id="noscript-pixel-image"></noscript>
-    }
+	@if (TempData.ContainsKey("PixelCodigoIso"))
+	{
+		<noscript id="noscript-pixel-image"></noscript>
+	}
 </head>
 <body>
 	<!-- Google Tag Manager -->
