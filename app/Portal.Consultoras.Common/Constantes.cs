@@ -382,8 +382,8 @@ namespace Portal.Consultoras.Common
             public const string PaisesShowRoom = "PaisesShowRoom";
             public const string RevistaPiloto_Zonas = "RevistaPiloto_Zonas_";
             public const string RevistaPiloto_Codigo = "RevistaPiloto_Codigo";
-            public const string RevistaPiloto_Zonas_RDR_1 = "RevistaPiloto_Zonas_RDR_Acelerada";
-            public const string RevistaPiloto_Zonas_RDR_2 = "RevistaPiloto_Zonas_RDR_Paulatina";
+            public const string RevistaPiloto_Zonas_RDR_1 = "RevistaPiloto_Zonas_RDR_1_";
+            public const string RevistaPiloto_Zonas_RDR_2 = "RevistaPiloto_Zonas_RDR_2_";
             public const string CodigoRevistaIssuu = "CodigoRevistaIssuu";
             public const string CodigoCatalogoIssuu = "CodigoCatalogoIssuu";
             public const string URL_SUPERATE_NUEVO = "URL_SUPERATE_NUEVO";
