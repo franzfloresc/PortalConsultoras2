@@ -1346,7 +1346,7 @@ namespace Portal.Consultoras.Common
             public const string CO = "El número de tu<br/>cédula de identidad.";
             public const string DO = "Los 4 últimos dígitos de<br/>tu Cédula de Identidad<br/>(sin guiones).";
             public const string EC = "El número de tu<br/>cédula de identidad.";
-            public const string MX = "Los 4 últimos dígitos de<br/>tu código de consultora.";
+            public const string MX = "Los 4 últimos dígitos de<br/>tu código de consultora.<br/><b>Recuerda cambiar tu<br/>clave por seguridad.</b>";
             public const string PE = "Si es la primera vez que<br/>ingresas, es tu número<br/>de DNI.";
             public const string PR = "Los 4 últimos dígitos de<br/>tu Seguro Social(sin guiones).";
             public const string VE = "Los 4 últimos dígitos de<br/>tu Cédula de Identidad.";
