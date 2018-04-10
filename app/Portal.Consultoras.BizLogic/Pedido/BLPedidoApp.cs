@@ -195,6 +195,23 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
         }
 
+        public List<BEPedidoWebDetalle> GetDetalle(BEPedidoDetalleApp pedidoDetalle)
+        {
+            var pedidos = new List<BEPedidoWebDetalle>();
+
+            try
+            {
+                pedidos = ObtenerPedidoWebDetalle(pedidoDetalle);
+                pedidos.Where(x => x.ClienteID == 0).Update(x => x.NombreCliente = pedidoDetalle.NombreConsultora);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, pedidoDetalle.ConsultoraID, pedidoDetalle.PaisID);
+            }
+
+            return pedidos;
+        }
+
         #region GetCUV
         private bool BloqueoProductosCatalogo(BEProducto producto, BEProductoAppBuscar productoBuscar)
         {

@@ -2346,6 +2346,11 @@ namespace Portal.Consultoras.Service
         {
             _pedidoAppBusinessLogic.UpdateProl(pedidoDetalle);
         }
+
+        public List<BEPedidoWebDetalle> GetPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
+        {
+            return _pedidoAppBusinessLogic.GetDetalle(pedidoDetalle);
+        }
         #endregion
     }
 }

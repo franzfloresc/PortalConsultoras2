@@ -14,7 +14,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     public class MisPedidosController : BaseMobileController
     {
         [HttpGet]
-        public async Task<ViewResult> Index(int campania = 0)
+        public async Task<ViewResult> Index()
         {
             var listaPedidos = new List<MisPedidosCampaniaModel>();
             var top = 6;
@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     foreach (var item in result)
                     {
-                        if (mobileConfiguracion.EsAppMobile) campaniaMarcada = (item.CampaniaID == campania);
+                        if (mobileConfiguracion.EsAppMobile && mobileConfiguracion.Campania > 0) campaniaMarcada = (item.CampaniaID == mobileConfiguracion.Campania);
 
                         listaPedidos.Add(new MisPedidosCampaniaModel()
                         {
