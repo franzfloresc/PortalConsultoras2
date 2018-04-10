@@ -45,13 +45,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (revistaDigital.TieneRDCR)
                 {
-                    if (GetConfiguracionManagerContains(Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_1 + userData.CodigoISO, userData.CodigoZona))
-                    {
-                        listModel = listModel.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor1).ToList();
-                    }
-                    else if (GetConfiguracionManagerContains(Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_2 + userData.CodigoISO, userData.CodigoZona))
+                    if (GetConfiguracionManagerContains(Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_2 + userData.CodigoISO, userData.CodigoZona))
                     {
                         listModel = listModel.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor1 || e.FlagRevista == Constantes.FlagRevista.Valor3).ToList();
+                    }
+                    else
+                    {
+                        listModel = listModel.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor1).ToList();
                     }
                 }
 
