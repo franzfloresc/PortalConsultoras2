@@ -87,7 +87,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.PerdioSubTitulo = dato.Valor2;
 
             model.MensajeProductoBloqueado = MensajeProductoBloqueado();
-            model.CantidadFilas = 10;
+            model.CantidadFilas = 15;
 
             model.MostrarFiltros = !model.ProductosPerdio && !(revistaDigital.TieneRDC && !revistaDigital.EsActiva);
 
