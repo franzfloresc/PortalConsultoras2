@@ -562,7 +562,7 @@ namespace Portal.Consultoras.Web.Providers
             return content;
         }
 
-        public bool deshabilitarEstrategia(string _id,string usuario)
+        public bool desactivarWebApi(string _id,string usuario)
         {
             bool bDeshabilitado = true;
             string jsonParameters = "{\"usuario\":" + usuario + "}";
@@ -578,19 +578,33 @@ namespace Portal.Consultoras.Web.Providers
             return bDeshabilitado;
         }
 
-        public bool ActivarDesactivarEstrategias(List<string>estrategias, string usuario)
+        public bool ActivarDesactivarEstrategias(List<string>estrategiasActivas, List<string>estrategiasInactivas, string usuario)
         {
-            
-            string jsonParameters = "{\"estrategias\":" + estrategias + ",\"usuario\":" + usuario + "}";
-            string requestUrl = "estrategia/activardesactivar/";
-            var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "put"));
+            bool activarResponse = true;bool inactivarResponse = true;
+            string jsonParametersActivas = JsonConvert.SerializeObject(estrategiasActivas);
+            string requestUrl = "estrategia/activar?usuario="+ usuario;
+            var taskApi = Task.Run(() => respSBMicroservicios(jsonParametersActivas, requestUrl, "put"));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
             if (string.IsNullOrEmpty(content))
             {
-                return false;
+                activarResponse = false;
             }
-            return content.Equals("true");
+            activarResponse = content.Equals("true");
+            content = "";
+            //
+            string jsonParametersInactivas = JsonConvert.SerializeObject(estrategiasInactivas);
+            string requestUrlInactivar = "estrategia/desactivar?usuario="+ usuario;
+            taskApi = Task.Run(() => respSBMicroservicios(jsonParametersInactivas, requestUrlInactivar, "put"));
+            Task.WhenAll(taskApi);
+            content = taskApi.Result;
+            if (string.IsNullOrEmpty(content))
+            {
+                inactivarResponse = false;
+            }
+            inactivarResponse = content.Equals("true");
+
+            return activarResponse || activarResponse;
         }
     }
 }

@@ -1482,7 +1482,8 @@
             multiselectWidth: 35,
             colNames: [
                 "EstrategiaID", "Orden", "#", "Pedido Asociado", "Precio", "CUV2", "Descripción", "Limite Venta", "Código SAP", "ImagenURL",
-                "Foto", colNameActions, "Productos", "EsOfertaIndependiente", "_id","CodigoTipoEstrategia"
+                "Activo", "EsOfertaIndependiente", "FlagValidarImagen", "PesoMaximoImagen", "_id"
+                , "CodigoTipoEstrategia", "Foto", colNameActions, "Productos"
             ],
             colModel: [
                 {
@@ -1558,6 +1559,52 @@
                 },
                 { name: "ImagenURL", index: "ImagenURL", hidden: true },
                 {
+                    name: "Activo",
+                    index: "Activo",
+                    width: 0,
+                    editable: false,
+                    hidden: true,
+                    sortable: false
+                },
+                {
+                    name: "EsOfertaIndependiente",
+                    index: "EsOfertaIndependiente",
+                    width: 0,
+                    editable: false,
+                    hidden: true
+                },
+                {
+                    name: "FlagValidarImagen",
+                    index: "FlagValidarImagen",
+                    width: 0,
+                    editable: false,
+                    hidden: true
+                },
+                {
+                    name: "PesoMaximoImagen",
+                    index: "PesoMaximoImagen",
+                    width: 0,
+                    editable: false,
+                    hidden: true,
+                    sortable: false
+                },
+                {
+                    name: "_id",
+                    index: "_id",
+                    width: 0,
+                    editable: false,
+                    hidden: true,
+                    sortable: false
+                },
+                {
+                    name: "CodigoTipoEstrategia",
+                    index: "CodigoTipoEstrategia",
+                    width: 0,
+                    editable: false,
+                    hidden: true,
+                    sortable: false
+                },
+                {
                     name: "ImagenProducto",
                     index: "ImagenProducto",
                     width: 70,
@@ -1568,8 +1615,8 @@
                     formatter: _showImage
                 },
                 {
-                    name: "Activo",
-                    index: "Activo",
+                    name: "Accion_1",
+                    index: "Accion_1",
                     width: 60,
                     align: "center",
                     editable: true,
@@ -1578,8 +1625,8 @@
                     formatter: _showActions
                 },
                 {
-                    name: "Activo",
-                    index: "Activo",
+                    name: "Productos",
+                    index: "Productos",
                     width: 60,
                     align: "center",
                     editable: true,
@@ -1587,27 +1634,6 @@
                     sortable: false,
                     hidden: hideColProducts,
                     formatter: _showActionsProductos
-                },
-                {
-                    name: "EsOfertaIndependiente",
-                    index: "EsOfertaIndependiente",
-                    width: 0,
-                    editable: true,
-                    hidden: true
-                },
-                {
-                    name: "_id",
-                    index: "_id",
-                    width: 0,
-                    editable: false,
-                    hidden: true
-                },
-                {
-                    name: "CodigoTipoEstrategia",
-                    index: "CodigoTipoEstrategia",
-                    width: 0,
-                    editable: false,
-                    hidden: true
                 }
             ],
             jsonReader:
@@ -3451,11 +3477,41 @@
 
             waitingDialog({});
 
-            var estrategias = jQuery("#list").jqGrid("getDataIDs", "EstrategiaID");
-            var estrategiasSeleccionadas = jQuery("#list").jqGrid("getGridParam", "selarrrow");
-            var estrategiasNoSeleccionadas = estrategias.filter(function(obj) {
-                return estrategiasSeleccionadas.indexOf(obj) == -1;
-            });
+            //var estrategias = jQuery("#list").jqGrid("getDataIDs", "EstrategiaID");
+            //var estrategiasSeleccionadas = jQuery("#list").jqGrid("getGridParam", "selarrrow");
+            //var estrategiasNoSeleccionadas = estrategias.filter(function(obj) {
+            //    return estrategiasSeleccionadas.indexOf(obj) == -1;
+            //});
+            var estrategiasSeleccionadas = new Array();
+            var estrategiasNoSeleccionadas = new Array();
+
+            var estrategiasSeleccionadasIds = jQuery("#list").jqGrid("getGridParam", "selarrrow");
+            var rows = jQuery("#list").jqGrid('getRowData');
+            for (i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                if (row.CodigoTipoEstrategia === "009")
+                {
+                    if (!estrategiasSeleccionadasIds.includes(row.EstrategiaID)) {
+                        estrategiasNoSeleccionadas.push(row._id);
+                    }
+                    else
+                    {
+                        estrategiasSeleccionadas.push(row._id);
+                    }
+                }
+                else
+                {
+                    if (!estrategiasSeleccionadasIds.includes(row.EstrategiaID))
+                    {
+                        estrategiasNoSeleccionadas.push(row.EstrategiaID);
+                    }
+                    else
+                    {
+                        estrategiasSeleccionadas.push(row.EstrategiaID);
+                    }
+                }
+            }
+
 
 
             var params = {

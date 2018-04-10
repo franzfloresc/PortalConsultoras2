@@ -1023,7 +1023,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (usarMsPer(tipoEstrategiaCodigo))
                 {
-                    ofertaPersonalizadaProvider.deshabilitarEstrategia(idMongoVal, userData.UsuarioNombre);
+                    ofertaPersonalizadaProvider.desactivarWebApi(idMongoVal, userData.UsuarioNombre);
                 }
                 else
                 {
@@ -1114,13 +1114,23 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 int resultado = 0;
-
+                EstrategiasActivas = EstrategiasActivas ?? "";
+                EstrategiasDesactivas = EstrategiasDesactivas ?? "";
                 if (usarMsPer(tipoEstrategiaCod))
                 {
-                    List<string> estrategiasList = new List<string>();
-                    estrategiasList.AddRange(EstrategiasActivas.Split(','));
-                    estrategiasList.AddRange(EstrategiasDesactivas.Split(','));
-                    bool bResultado = ofertaPersonalizadaProvider.ActivarDesactivarEstrategias(estrategiasList, userData.UsuarioNombre);
+                    List<string> estrategiasActivasList = new List<string>();
+                    List<string> estrategiasInactivasList = new List<string>();
+                    if (!string.IsNullOrEmpty(EstrategiasActivas))
+                    {
+                        estrategiasActivasList.AddRange(EstrategiasActivas.Split(',').ToList());
+                    }
+                    if (!string.IsNullOrEmpty(EstrategiasDesactivas))
+                    {
+                        estrategiasInactivasList.AddRange(EstrategiasDesactivas.Split(',').ToList());
+                    }
+                    
+                        
+                    bool bResultado = ofertaPersonalizadaProvider.ActivarDesactivarEstrategias(estrategiasActivasList, estrategiasInactivasList, userData.UsuarioNombre);
                     resultado = bResultado ? 1 : 0;
                 }
                 else
@@ -1380,14 +1390,30 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<BEEstrategia> lst;
+                List<BEEstrategia> lst = new List<BEEstrategia>();
 
                 try
                 {
-                    using (var ps = new PedidoServiceClient())
+                    if (usarMsPer(estrategiaCodigo))
                     {
-                        lst = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado,
-                            estrategiaCodigo).ToList();
+                        List<EstrategiaMDbAdapterModel> webApiList = new List<EstrategiaMDbAdapterModel>();
+                        if (tipoConfigurado == 0 || tipoConfigurado == 1)
+                        {
+                            webApiList.AddRange(ofertaPersonalizadaProvider.ListarWebApi(campaniaId.ToString(),estrategiaCodigo));
+                        }
+                        if (tipoConfigurado == 0 || tipoConfigurado == 2)
+                        {
+                            webApiList.AddRange(ofertaPersonalizadaProvider.preCargarWebApi(campaniaId.ToString(), estrategiaCodigo));
+                        }
+                        lst.AddRange(webApiList.Select(d => d.BEEstrategia).ToList());
+                    }
+                    else
+                    {
+                        using (var ps = new PedidoServiceClient())
+                        {
+                            lst = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado,
+                                estrategiaCodigo).ToList();
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -1728,14 +1754,25 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid && !usarMsPer(tipoEstrategiaCodigo))
             {
-                List<BEEstrategia> lst;
+                List<BEEstrategia> lst = new List<BEEstrategia>();
 
                 try
                 {
-                    using (var ps = new PedidoServiceClient())
+                    if (usarMsPer(tipoEstrategiaCodigo))
                     {
-                        lst = ps.GetOfertasParaTiByTipoConfiguradoTemporal(userData.PaisID, campaniaId, tipoConfigurado)
-                            .ToList();
+                        if (tipoConfigurado == 1)
+                        {
+                            List<EstrategiaMDbAdapterModel> webApiList = new List<EstrategiaMDbAdapterModel>();
+                            webApiList.AddRange(ofertaPersonalizadaProvider.preCargarWebApi(campaniaId.ToString(), tipoEstrategiaCodigo));
+                        }
+                    }
+                    else
+                    {
+                        using (var ps = new PedidoServiceClient())
+                        {
+                            lst.AddRange(ps.GetOfertasParaTiByTipoConfiguradoTemporal(userData.PaisID, campaniaId, tipoConfigurado)
+                                .ToList());
+                        }
                     }
                 }
                 catch (Exception ex)
