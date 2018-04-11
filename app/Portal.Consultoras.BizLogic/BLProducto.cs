@@ -351,5 +351,21 @@ namespace Portal.Consultoras.BizLogic
 
             return productos;
         }
+
+        //public IList<BEProducto> GetProductoExclusivoProgramaNuevas(int paisID, string codigoPrograma, int campianiaID)
+        //{
+        //    IList<BEProducto> productos = new List<BEProducto>();
+        //    var daProducto = new DAProducto(paisID);
+
+        //    using (IDataReader reader = daProducto.GetListBrothersByCUV(codCampania, cuv))
+        //    {
+        //        while (reader.Read())
+        //        {
+        //            productos.Add(new BEProducto(reader));
+        //        }
+        //    }
+
+        //    return productos;
+        //}
     }
 }

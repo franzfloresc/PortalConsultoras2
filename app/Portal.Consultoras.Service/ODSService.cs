@@ -256,5 +256,10 @@ namespace Portal.Consultoras.Service
         {
             return BLProducto.GetListBrothersByCUV(paisID, codCampania, cuv);
         }
+
+        public IList<BEProducto> GetProductoExclusivo(int paisID, int codCampania, string cuv, string codigoConsultora)
+        {
+            return null;//BLProducto.GetProductoExclusivo(paisID, codCampania, cuv, codigoConsultora);
+        }
     }
 }

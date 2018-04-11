@@ -152,5 +152,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BEProducto> GetListBrothersByCUV(int paisID, int codCampania, string cuv);
+
+        [OperationContract]
+        IList<BEProducto> GetProductoExclusivo(int paisID, int codCampania, string cuv, string codigoConsultora);
     }
 }

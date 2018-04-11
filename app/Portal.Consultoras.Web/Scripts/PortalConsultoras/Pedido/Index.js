@@ -1303,7 +1303,7 @@ function BuscarByCUV(CUV) {
     if (CUV === $('#hdfCUV').val()) {
         return false;
     }
-    
+    debugger
     var item = {
         CUV: CUV
     };
@@ -1565,7 +1565,7 @@ function CambiarCliente(elem) {
 }
 
 function ObservacionesProducto(item) {
-
+    debugger
     if (item.TipoOfertaSisID == "1707") {
 
         $("#divObservaciones").html("");

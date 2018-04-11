@@ -332,7 +332,7 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         BEUsuarioChatEmtelco GetUsuarioChatEmtelco(int paisID, string codigoUsuario);
-
+        
         #region TerminosCondiciones
         [OperationContract]
         bool InsertTerminosCondiciones(BETerminosCondiciones terminos);
@@ -364,5 +364,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         string GetCodigoSMS(int paisID, string CodigoConsultora, string Origen);
         #endregion
+
+        [OperationContract]
+        bool GetConsultoraParticipaEnPrograma(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID);
     }
 }

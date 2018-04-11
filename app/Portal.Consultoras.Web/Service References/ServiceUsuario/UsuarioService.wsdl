@@ -208,6 +208,12 @@
   <wsdl:message name="IUsuarioService_UpdUsuarioFotoPerfil_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdUsuarioFotoPerfilResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_RecuperarContrasenia_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarContrasenia" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_RecuperarContrasenia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarContraseniaResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_GetRestaurarClaveByCodUsuario_InputMessage">
     <wsdl:part name="parameters" element="tns:GetRestaurarClaveByCodUsuario" />
   </wsdl:message>
@@ -231,6 +237,12 @@
   </wsdl:message>
   <wsdl:message name="IUsuarioService_GetCodigoSMS_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCodigoSMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetConsultoraParticipaEnPrograma_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConsultoraParticipaEnPrograma" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetConsultoraParticipaEnPrograma_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConsultoraParticipaEnProgramaResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_Select_InputMessage">
     <wsdl:part name="parameters" element="tns:Select" />
@@ -859,6 +871,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdUsuarioFotoPerfil" message="tns:IUsuarioService_UpdUsuarioFotoPerfil_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdUsuarioFotoPerfilResponse" message="tns:IUsuarioService_UpdUsuarioFotoPerfil_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="RecuperarContrasenia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/RecuperarContrasenia" message="tns:IUsuarioService_RecuperarContrasenia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/RecuperarContraseniaResponse" message="tns:IUsuarioService_RecuperarContrasenia_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetRestaurarClaveByCodUsuario">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetRestaurarClaveByCodUsuario" message="tns:IUsuarioService_GetRestaurarClaveByCodUsuario_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetRestaurarClaveByCodUsuarioResponse" message="tns:IUsuarioService_GetRestaurarClaveByCodUsuario_OutputMessage" />
@@ -874,6 +890,10 @@
     <wsdl:operation name="GetCodigoSMS">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetCodigoSMS" message="tns:IUsuarioService_GetCodigoSMS_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetCodigoSMSResponse" message="tns:IUsuarioService_GetCodigoSMS_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultoraParticipaEnPrograma">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnPrograma" message="tns:IUsuarioService_GetConsultoraParticipaEnPrograma_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnProgramaResponse" message="tns:IUsuarioService_GetConsultoraParticipaEnPrograma_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Select">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/Select" message="tns:IUsuarioService_Select_InputMessage" />
@@ -1479,6 +1499,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="RecuperarContrasenia">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/RecuperarContrasenia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetRestaurarClaveByCodUsuario">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetRestaurarClaveByCodUsuario" style="document" />
       <wsdl:input>
@@ -1508,6 +1537,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCodigoSMS">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetCodigoSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultoraParticipaEnPrograma">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnPrograma" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2545,6 +2583,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="RecuperarContrasenia">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/RecuperarContrasenia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetRestaurarClaveByCodUsuario">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetRestaurarClaveByCodUsuario" style="document" />
       <wsdl:input>
@@ -2574,6 +2621,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCodigoSMS">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetCodigoSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultoraParticipaEnPrograma">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnPrograma" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
