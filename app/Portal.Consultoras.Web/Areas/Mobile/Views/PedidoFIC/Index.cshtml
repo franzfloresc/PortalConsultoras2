@@ -16,7 +16,7 @@
 		<div class="titulo_mobile agregarSombraInferior">
 			<a href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
 			<div class="titulo_vista text-uppercase">
-				Ingresar Pedido Fic C@(Model.CampaniaNro)
+				Ingresar Pedido Fic @ViewBag.PedidoFIC
 				<div class="text-lowercase">
 					<span>
 						hasta el <span>@ViewBag.FinFIC</span>
@@ -31,7 +31,7 @@
 		<div class="content_320 ingresoPedido">
 			@if (mobileConfiguracion.EsAppMobile)
 			{
-			<p class="label-white-small">INGRESAR PEDIDO FIC C@(Model.CampaniaNro) HASTA EL @ViewBag.FinFIC </p>
+			<p class="label-white-small">INGRESAR PEDIDO FIC @ViewBag.PedidoFIC HASTA EL @ViewBag.FinFIC </p>
 			}
 			<form>
 				@Html.Hidden("txtClienteId", Model.ClienteId)

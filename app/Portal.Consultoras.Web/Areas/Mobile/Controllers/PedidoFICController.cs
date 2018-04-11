@@ -45,7 +45,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.PROLDes = "Guarda los productos que haz ingresado";
             ViewBag.ModPedido = "display:none;";
             ViewBag.NombreConsultora = userData.NombreConsultora;
-            ViewBag.PedidoFIC = "C" + AddCampaniaAndNumero(userData.CampaniaID, 1);
+            ViewBag.PedidoFIC = "C" + AddCampaniaAndNumero(userData.CampaniaID, 1).Substring (4,2);
             ViewBag.MensajeFIC = "antes del " + userData.FechaFinFIC.Day + " de " + NombreMes(userData.FechaFinFIC.Month);
             ViewBag.FinFIc = userData.FechaFinFIC.ToString("dd/MM");
             
