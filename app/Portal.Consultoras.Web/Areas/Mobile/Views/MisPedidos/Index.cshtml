@@ -10,7 +10,6 @@
 	Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 	MobileAppConfiguracionModel mobileConfiguracion = Html.MobileAppConfiguracion();
 }
-
 <style>
 	body {
 		background: #f8f8f8;
@@ -19,7 +18,6 @@
 </style>
 
 @{
-	//bool firstCampania = true;
 	if (!mobileConfiguracion.EsAppMobile)
 	{
 		<div class="titulo_mobile">
@@ -38,43 +36,32 @@
 	}
 	else
 	{
-		@*<div class="app-tabs">
-				@{
-					foreach (var pedidoCampania in Model)
-					{
-						<a href="javascript:;" class="@(firstCampania ? "active" : string.Empty)" data-campania="@pedidoCampania.CampaniaID">
-							@pedidoCampania.NumeroCampania @pedidoCampania.DescripcionEstadoPedido
-						</a>
-						firstCampania = false;
-					}
-				}
-			</div>*@
 		<div data-layout-menu2="" class="slick-slider-fixed-mobile">
 			<div class="bc_para_ti-menu-opciones">
 				<ul class="subnavegador" style="width: 100%; height: 45px; background: #fff;">
 					@{
 						foreach (var pedidoCampania in Model)
 						{
-							<li class="@(pedidoCampania.EsCampaniaMarcarda ? "active" : string.Empty)">
-								<a href="javascript:;"   data-campania="@pedidoCampania.CampaniaID">
-									@pedidoCampania.NumeroCampania   @pedidoCampania.DescripcionEstadoPedido 
-								</a>
+							var clase = pedidoCampania.EsCampaniaMarcarda ? "slick - slide slick - current slick - active" : "slick-slide";
+							<li data-activo="1" class="@clase">
+								<div class="contenedorMenu @(pedidoCampania.EsCampaniaMarcarda ? "active": string.Empty )" data-campania="@pedidoCampania.CampaniaID">
+									@pedidoCampania.NumeroCampania   @pedidoCampania.DescripcionEstadoPedido
+								</div>
 							</li>
-							//firstCampania = false;
 						}
 					}
 				</ul>
 			</div>
 		</div>
+
+
 		<div class="app-tabs-detail">
 			@{
-				//firstCampania = true;
 				foreach (var pedidoCampania in Model)
 				{
 					<div id="ContenedorPedido_@pedidoCampania.CampaniaID" style="@(pedidoCampania.EsCampaniaMarcarda ? string.Empty : "display:none")">
 						@(pedidoCampania.EsCampaniaActual ? Html.Action("IngresadoDetalle") : Html.Action("FacturadoDetalle", new { campaniaID = pedidoCampania.CampaniaID }))
 					</div>
-					//firstCampania = false;
 				}
 			}
 		</div>
@@ -84,15 +71,16 @@
 @section scripts{
 	<script type="text/javascript">
 		$(document).ready(function () {
-			var CampaniaCarga = $('.bc_para_ti-menu-opciones ul li.active a').attr("data-campania");
+
+			var CampaniaCarga = $('.contenedorMenu.active').attr("data-campania");
 			$(".app-tabs-detail").children().css("display", "none");
 			$("#ContenedorPedido_" + CampaniaCarga).css("display", "");
 
 			$(".bc_para_ti-menu-opciones ul li").click(function () {
-				$('.bc_para_ti-menu-opciones ul li').removeClass("active");
-				$(this).addClass("active");
+				$('.contenedorMenu').removeClass("active");
+				$(".contenedorMenu", this).addClass("active");
 
-				var campaniaSeleccionada = $('a',this).attr("data-campania");
+				var campaniaSeleccionada = $('.contenedorMenu',this).attr("data-campania");
 				$(".app-tabs-detail").children().css("display", "none");
 				$("#ContenedorPedido_" + campaniaSeleccionada).css("display", "");
 			});
