@@ -18,5 +18,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("Descripcion")]
         public string Descripcion { get; set; }
+
+        [DataMember]
+        [Column("Valor")]
+        public string Valor { get; set; }
     }
 }

@@ -97,15 +97,15 @@ else
                     </div>
                 </div>
                 <div class="div-3">
-                    <div class="titC titCD" data-bind="css: { error: ImagenFondoPrincipalDesktop.hasError }, preview : 'ImagenFondoPrincipalDesktop'">Imagen Fondo Principal Desktop(308x608): </div>
-                    <div class="selectA">
+                    <div class="titC titCD" data-bind="preview : 'ImagenFondoPrincipalDesktop'">Imagen Fondo Principal Desktop(308x608): </div>
+                    <div class="selectA" data-bind="css: { error: ImagenFondoPrincipalDesktop.hasError }">
                         <div data-bind="upLoader: { valueAccessor: ImagenFondoPrincipalDesktop, url: $root.settings().urlFileUpload }, imageSize: { show:true, attr:'alt'}"></div>
                         <div>
                             <img data-bind="attr: {src: ImagenFondoPrincipalDesktopUrl() }, imageSize: { show:true, attr:'title'}" class="img-preview">
                         </div>
                     </div>
-                    <div class="titC titCD" data-bind="css: { error: ImagenFondoPrincipalMobile.hasError }, preview : 'ImagenFondoPrincipalMobile'">Imagen Fondo Principal Mobile(400x815):</div>
-                    <div class="selectA">
+                    <div class="titC titCD" data-bind="preview : 'ImagenFondoPrincipalMobile'">Imagen Fondo Principal Mobile(400x815):</div>
+                    <div class="selectA" data-bind="css: { error: ImagenFondoPrincipalMobile.hasError }">
                         <div data-bind="upLoader: { valueAccessor: ImagenFondoPrincipalMobile, url: $root.settings().urlFileUpload } "></div>
                         <div>
                             <img data-bind="attr: {src: ImagenFondoPrincipalMobileUrl() }, imageSize: { show:true, attr:'title'}" class="img-preview">
@@ -113,10 +113,10 @@ else
                     </div>
                 </div>
                 <div class="div-3">
-                    <div class="titC titCD" data-bind="css: { error: ImagenFondoGanasteMobile.hasError }
-                                                       , preview : 'ImagenFondoGanasteMobile'">Imagen Fondo Mobile Pequeña(374x92):
+                    <div class="titC titCD" data-bind="preview : 'ImagenFondoGanasteMobile'">
+                        Imagen Fondo Mobile Pequeña(374x92):
                     </div>
-                    <div class="selectA">
+                    <div class="selectA" data-bind="css: { error: ImagenFondoGanasteMobile.hasError }">
                         <div data-bind="upLoader: { valueAccessor: ImagenFondoGanasteMobile, url: $root.settings().urlFileUpload } "></div>
                         <div>
                             <img data-bind="attr: {src: ImagenFondoGanasteMobileUrl() }, imageSize: { show:true, attr:'title'}" class="img-preview">
@@ -166,7 +166,7 @@ else
                     <div class="titA"></div>
                     <input type="button" value="Guardar" data-bind="click:$root.save,
                                                                 value: $root.upSellingSeleccionadoIsDirty() ? '*Guardar': 'Guardar',
-                                            style: { background: $root.upSellingSeleccionadoIsDirty()? '#5bc0de':'#652b82' }" />
+                                            style: { background: $root.upSellingSeleccionadoIsDirty()? '#5bc0de':'' }" />
                     <input type="button" value="Cancelar" data-bind="click:$root.cancel" />
                 </div>
             </div>
@@ -219,7 +219,6 @@ else
                 idFormReporteListaGanadoras: 'reporteListaGanadorasForm',
                 urlListaGanadorasObtener: '@Url.Action("ObtenerOfertaFinalMontoMeta", "UpSelling")' ,
                 paisNombre: '@Model.PaisNombre',
-                idDivPopUpRegalo: 'editRegaloPopUp',
                 urlFileUpload : '@Url.Action("ImageLanzamientoUpload", "FileUpload")',
                 urlTemporal: '@Url.Content("~/Content/Temporales")/',
                 divPreviewPopUp: $('#previewPopUp'),

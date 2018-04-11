@@ -2589,11 +2589,11 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     font-family: 'Lato';
 }
 
-.titulo_mis_pedidos {
+.titulo_mis_pedidos, .titulo_pedidos_fic {
     float: left;
 }
 
-    .titulo_mis_pedidos h1 {
+    .titulo_mis_pedidos h1, .titulo_pedidos_fic h1 {
         text-align: center;
         font-weight: 300 !important;
         font-size: 17px;
@@ -3167,7 +3167,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     overflow: hidden;
     padding-top: 10px;
     box-sizing: border-box;
-    top: -115px;
+    /*top: -115px;*/
 }
 
 .control_carousel_flechaArriba {
@@ -3361,7 +3361,6 @@ a.subir_carousel, a.bajar_carousel {
     width: 50%;
     padding-left: 5px;
     position: relative;
-    top: -3.5px;
 }
 
 .boton_elegirTono {
@@ -27639,14 +27638,14 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         font-size: 14.5px;
     }
 
-.titulo_pedidos_fic {
+/*.titulo_pedidos_fic {
     float: left;
     text-align: left;
     font-size: 22px;
     letter-spacing: 3px;
     color: #000;
     font-family: 'Lato';
-}
+}*/
 
 .content_paginador {
     float: right;
@@ -32769,7 +32768,7 @@ h1#penmostreo .campana {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, .85);
-    z-index: 1000;
+    z-index: 10000;
     overflow: auto;
     display: none;
 }
@@ -34889,12 +34888,12 @@ height:30px;
 
 .texto_cupon_monto {
     text-align: left;
-    font-size: 12px;
+    font-size: 11px;
     font-family: 'LAto';
     float: left;
-    margin-left: 38px;
-    line-height: 1.17;
-    width: 185px;           
+    margin-left: 30px;
+    line-height: 1.47;
+    width: 222px;           
 }
 
 .content_cupon {
@@ -35085,7 +35084,9 @@ height:30px;
 .info_recuerda_cupon_ganaste {
     display: inline-table;
     float: none;
-    width: 40%;         
+    width: 40%;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .info_recuerda_cupon_line {
@@ -35738,8 +35739,8 @@ height:30px;
     background-position: center center;
     display: inline-block;
     margin: 35px -13px 0 0;
-    min-height: 608px;
-    padding: 25px 25px 0 25px;
+    height: 608px;
+    padding: 15px 25px 15px 25px;
     position: relative;
     vertical-align: top;
     width: 308px;
@@ -35771,7 +35772,7 @@ height:30px;
 
 .titulo_regalo_producto {
     font-family: 'Lato';
-    font-weight: 700;
+    font-weight: 900;
     color: black;
     font-size: 13px;
     text-align: center;
@@ -35864,6 +35865,17 @@ height:30px;
     letter-spacing: 1.1px;
 }
 
+.span_1_regalo_ganaste_popup {
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+}
+
+.span_2_regalo_ganaste_popup {
+    font-size: 10.5px;
+    letter-spacing: .5px;
+}
+
 .arrow_box {
     position: relative;
     background: #000000;
@@ -35894,18 +35906,31 @@ height:30px;
 
 .span_1_regalo_sorpresa_producto {
     font-size: 10.5px;
-}
-
-.span_1_regalo_sorpresa_producto_2 {
-    font-size: 10.4px;
-    line-height: 1.24;
-    letter-spacing: .2px;
+    letter-spacing: .5px;
 }
 
 .span_2_regalo_sorpresa_producto {
     font-size: 14px;
     font-weight: 900;
     letter-spacing: .9px;
+}
+
+.span_1_regalo_ganaste_producto {
+    font-size: 12px;
+    line-height: 1.17;
+    letter-spacing: .4px;
+}
+
+.bold_1_regalo_ganaste_producto {
+    letter-spacing: .5px;
+    font-weight: 700;
+}
+
+.span_2_regalo_ganaste_producto {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.38;
+    letter-spacing: .5px;
 }
 
 .content_info_regalo {
@@ -35989,6 +36014,10 @@ height:30px;
     line-height: 1.25;
 }
 
+.txt_nota_premio b {
+    font-weight: 900;
+}
+
 .btn_legal_RS {
     font-family: 'Lato';
     font-size: 12px;
@@ -36000,7 +36029,7 @@ height:30px;
 
 .btn_regresa_OF {
     cursor: pointer;
-    left: 15px;
+    left: 25px;
     position: absolute;
     top: 15px;
 }
@@ -36314,4 +36343,17 @@ height:30px;
     background: #e5e5e5;
     border: 1px solid #d2d2d2;
     color: #b9b9b9;
+}
+
+/* metodo para centrar todos los contenedores con productos en el landing RevistaDigital */
+
+.divOfertaProductosfix, .divOfertaProductosPerdiofix {
+    text-align: center;
+    max-width: 1100px;
+    margin: auto;
+    margin-left: 15%;
+}
+.divOfertaProductosfixNoDorado {
+    max-width: 1189px;
+    margin: 0 80px 0 180px;
 }

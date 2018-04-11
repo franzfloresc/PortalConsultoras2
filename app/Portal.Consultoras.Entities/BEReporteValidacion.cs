@@ -609,8 +609,6 @@ namespace Portal.Consultoras.Entities
         private string _CUV;
         private string _Nombre;
         private string _Descripcion1;
-        private string _Descripcion2;
-        private string _Descripcion3;
         private string _FlagImagenCargada;
         #endregion
 
@@ -631,12 +629,6 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "Descripcion1") && row["Descripcion1"] != DBNull.Value)
                 _Descripcion1 = Convert.ToString(row["Descripcion1"]);
-
-            if (DataRecord.HasColumn(row, "Descripcion2") && row["Descripcion2"] != DBNull.Value)
-                _Descripcion2 = Convert.ToString(row["Descripcion2"]);
-
-            if (DataRecord.HasColumn(row, "Descripcion3") && row["Descripcion3"] != DBNull.Value)
-                _Descripcion3 = Convert.ToString(row["Descripcion3"]);
 
             if (DataRecord.HasColumn(row, "FlagImagenCargada") && row["FlagImagenCargada"] != DBNull.Value)
                 _FlagImagenCargada = Convert.ToString(row["FlagImagenCargada"]);
@@ -676,20 +668,6 @@ namespace Portal.Consultoras.Entities
         {
             get { return _Descripcion1; }
             set { _Descripcion1 = value; }
-        }
-
-        [DataMember]
-        public string Descripcion2
-        {
-            get { return _Descripcion2; }
-            set { _Descripcion2 = value; }
-        }
-
-        [DataMember]
-        public string Descripcion3
-        {
-            get { return _Descripcion3; }
-            set { _Descripcion3 = value; }
         }
 
         [DataMember]
