@@ -31,12 +31,11 @@
                         <div class="bloque1">
                             <p>@Model.DescripcionMarca</p>
                             <h1>@Model.DescripcionResumen</h1>
-                            @*<span>4g/.</span>*@
                         </div>
                         <div class="bloque2">
                             <span class="precio-tachado">@Model.Simbolo @Model.PrecioTachado</span>
                             <span class="precio-para-ti">precio para tí<b>@Model.Simbolo @Model.PrecioVenta</b></span>
-                            <span class="gana-rojo">@Model.Simbolo @Model.Ganancia</span>
+                            <span class="gana-rojo">GANA @Model.Simbolo @Model.Ganancia</span>
                         </div>
                         <div style="clear:both;"></div>
                     </div>
@@ -122,9 +121,11 @@
                 <hr />
                 <p>Comparte el producto con tus clientes:</p>
                 <ul>
-                    <li><a href="javascript: void(0);" data-compartir="WA" style="display: block;
+                    <li>
+                        <a href="javascript: void(0);" data-compartir="WA" style="display: block;
     background: #119e06;
-    padding: 5px;"><img src="~/Content/Images/mobile/img-icon/whatsapp-50x50.png" alt=""></a></li>
+    padding: 5px;"><img src="~/Content/Images/mobile/img-icon/whatsapp-50x50.png" alt=""></a>
+                    </li>
                     <li><a href="javascript: void(0);" data-compartir="FB"><img src="~/Content/Images/mobile/Esika/facebook.png" alt=""></a></li>
                 </ul>
             </div>
