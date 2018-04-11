@@ -2763,6 +2763,8 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
+        #region TablaLogica
+
         public List<TablaLogicaDatosModel> ObtenerParametrosTablaLogica(int paisId, short tablaLogicaId, bool sesion = false)
         {
             var datos = sesion ? (List<TablaLogicaDatosModel>)Session[Constantes.ConstSession.TablaLogicaDatos + tablaLogicaId.ToString()] : null;
@@ -2793,6 +2795,25 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return valor;
         }
+        
+        public int ObtenerValorTablaLogicaInt(int paisId, short tablaLogicaId, short idTablaLogicaDatos, bool sesion = false)
+        {
+            var resultadoString = ObtenerValorTablaLogica(paisId, tablaLogicaId, idTablaLogicaDatos, sesion);
+            int resultado;
+            int.TryParse(resultadoString, out resultado);
+            return resultado;
+        }
+
+        public int ObtenerValorTablaLogicaInt(List<TablaLogicaDatosModel> lista, short tablaLogicaDatosId)
+        {
+            var resultadoString = ObtenerValorTablaLogica(lista, tablaLogicaDatosId);
+
+            int resultado;
+            int.TryParse(resultadoString, out resultado);
+            return resultado;
+        }
+        
+        #endregion
 
         public MobileAppConfiguracionModel MobileAppConfiguracion
         {
@@ -4405,13 +4426,13 @@ namespace Portal.Consultoras.Web.Controllers
             var wMax = 0;
             if (tipoImg == Constantes.ConfiguracionImagenResize.TipoImagenSmall)
             {
-                hBase = ObtenerTablaLogicaDimensionImagen(datosImg, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightSmall);
-                wMax = ObtenerTablaLogicaDimensionImagen(datosImg, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMaxSmall);
+                hBase = ObtenerValorTablaLogicaInt(datosImg, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightSmall);
+                wMax = ObtenerValorTablaLogicaInt(datosImg, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMaxSmall);
             }
             else if (tipoImg == Constantes.ConfiguracionImagenResize.TipoImagenMedium)
             {
-                hBase = ObtenerTablaLogicaDimensionImagen(datosImg, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightMedium);
-                wMax = ObtenerTablaLogicaDimensionImagen(datosImg, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMaxMedium);
+                hBase = ObtenerValorTablaLogicaInt(datosImg, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightMedium);
+                wMax = ObtenerValorTablaLogicaInt(datosImg, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMaxMedium);
             }
 
             if (hBase == 0 && wMax == 0)
@@ -4441,16 +4462,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ancho = wMax;
             }
         }
-
-        public int ObtenerTablaLogicaDimensionImagen(List<TablaLogicaDatosModel> lista, short tablaLogicaDatosId)
-        {
-            var resultadoString = ObtenerValorTablaLogica(lista, tablaLogicaDatosId);
-
-            int resultado;
-            int.TryParse(resultadoString, out resultado);
-            return resultado;
-        }
-
+        
         #endregion
 
         #region Obtener URL Cerrar Sesión
