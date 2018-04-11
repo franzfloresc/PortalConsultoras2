@@ -21,17 +21,17 @@
 }
 
 .contenedorMenu {
-	height: 38px;
+	height: 45px;
 	width: 138px;
+	padding-top: 13px;
 	position: relative;
 	text-align: center;
-	padding-top: 15px;
 }
 
 	.contenedorMenu.active {
-		height: 38px;
-		width: 138px;
+		border-bottom: 4px solid #6c398a;
+		height: 45px;
 		position: relative;
 		text-align: center;
-		border-bottom: 4px solid #6c398a;
+		width: 138px;
 	}
