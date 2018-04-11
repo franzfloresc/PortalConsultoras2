@@ -74,5 +74,11 @@ namespace Portal.Consultoras.Entities.ReservaProl
             ListPedidoObservacion = new List<BEPedidoObservacion>();
             ListDetalleBackOrder = new List<BEPedidoWebDetalle>();
         }
+
+        public BEResultadoReservaProl(string mensajeError)
+        {
+            Error = true;
+            ListPedidoObservacion = new List<BEPedidoObservacion> { new BEPedidoObservacion { Descripcion = mensajeError } };
+        }
     }
 }

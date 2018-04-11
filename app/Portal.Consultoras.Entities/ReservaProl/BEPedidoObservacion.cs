@@ -20,7 +20,8 @@ namespace Portal.Consultoras.Entities.ReservaProl
             Caso = caso;
             Descripcion = descripcion;
         }
-        public BEPedidoObservacion(int caso, string cuv, string descripcion) {
+        public BEPedidoObservacion(int tipo, int caso, string cuv, string descripcion) {
+            Tipo = tipo;
             Caso = caso;
             CUV = cuv;
             Descripcion = descripcion;
