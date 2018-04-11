@@ -85,7 +85,7 @@
 .lonuevo_carrusel .lonuevo_carrusel_info .cont span {
     width:100%;
     font-family: Lato;
-    font-size: 40px;
+    font-size: 30px;
     font-weight: bold;
     font-style: normal;
     font-stretch: normal;
@@ -97,6 +97,10 @@
     margin-bottom: 20px;
     word-wrap:break-word;
     text-transform: lowercase;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 
 .lonuevo_carrusel .lonuevo_carrusel_info .cont span::first-letter {
