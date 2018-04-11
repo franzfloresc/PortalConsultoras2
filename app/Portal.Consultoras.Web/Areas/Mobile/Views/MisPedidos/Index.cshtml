@@ -71,10 +71,13 @@
 @section scripts{
 	<script type="text/javascript">
 		$(document).ready(function () {
-		
-			var posicionMenu = $(".contenedorMenu.active").parent("li").attr("data-slick-index");
-			$("[data-layout-menu2] ul").slick("slickGoTo", parseInt(posicionMenu));
 
+			setTimeout(function() {
+				var posicionMenu = $(".contenedorMenu.active").parent("li").attr("data-slick-index");
+				$("[data-layout-menu2] ul").slick("slickGoTo", parseInt(posicionMenu));
+			}
+			, 1000);
+			
 			var CampaniaCarga = $('.contenedorMenu.active').attr("data-campania");
 			$(".app-tabs-detail").children().css("display", "none");
 			$("#ContenedorPedido_" + CampaniaCarga).css("display", "");
