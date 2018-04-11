@@ -71,10 +71,15 @@
 @section scripts{
 	<script type="text/javascript">
 		$(document).ready(function () {
+		
+			var posicionMenu = $(".contenedorMenu.active").parent("li").attr("data-slick-index");
+			$("[data-layout-menu2] ul").slick("slickGoTo", parseInt(posicionMenu));
 
 			var CampaniaCarga = $('.contenedorMenu.active').attr("data-campania");
 			$(".app-tabs-detail").children().css("display", "none");
 			$("#ContenedorPedido_" + CampaniaCarga).css("display", "");
+
+			
 
 			$(".bc_para_ti-menu-opciones ul li").click(function () {
 				$('.contenedorMenu').removeClass("active");
@@ -96,3 +101,4 @@
 		});
 	</script>
 }
+	 

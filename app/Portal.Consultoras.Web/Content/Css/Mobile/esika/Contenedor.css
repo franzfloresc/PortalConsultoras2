@@ -21,7 +21,7 @@
 }
 
 .contenedorMenu {
-	height: 46px;
+	height: 38px;
 	position: relative;
 	padding-top: 10px;
 	text-align: center;
@@ -29,7 +29,7 @@
 }
 	.contenedorMenu.active {
 		border-bottom: 4px solid #e81c36;
-		height: 46px;
+		height: 38px;
 		position: relative;
 		text-align: center;
 		width: 138px;
