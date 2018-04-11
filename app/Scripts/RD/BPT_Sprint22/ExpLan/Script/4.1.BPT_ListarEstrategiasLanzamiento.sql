@@ -199,10 +199,11 @@ SET NOCOUNT ON;
 		, ImgHomeMobile varchar(1000)
 	)
 
+	-- select * from TablaLogicaDatos where TablaLogicaId = 102
 	insert into @temp 
 	SELECT EstrategiaID
-		,(select top 1 valor from EstrategiaDetalle with(nolock) where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10212) as FlagIndividual
-		,(select top 1 case when valor = '1' then 1 else 0 end from EstrategiaDetalle with(nolock) where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10213) as Slogan
+		,(select top 1 case when valor = '1' then 1 else 0 end from EstrategiaDetalle with(nolock) where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10212) as FlagIndividual
+		,(select top 1 valor from EstrategiaDetalle with(nolock) where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10213) as Slogan
 		,(select top 1 valor from EstrategiaDetalle with(nolock) where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10201) as ImgFondoDesktop
 		,(select top 1 valor from EstrategiaDetalle with(nolock) where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10203) as ImgSelloProductoDesktop
 		,(select top 1 valor from EstrategiaDetalle with(nolock) where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10204) as UrlVideoDesktop
