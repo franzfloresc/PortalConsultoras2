@@ -41,7 +41,7 @@ begin
 	)
 
 	update ConfiguracionPais
-	set Estado = 1
+	set Estado = 0
 	, Excluyente = 0
 	, DesdeCampania = 201807
 	where ConfiguracionPaisID = @ConfPaisId 
@@ -66,34 +66,248 @@ begin
 	delete from ConfiguracionPaisDetalle 
 	where ConfiguracionPaisID = @ConfPaisId
 
+	-- Region 01
 	insert into ConfiguracionPaisDetalle(
 	  ConfiguracionPaisID
 	, CodigoRegion
+	, CodigoZona
 	, Estado
 	, BloqueoRevistaImpresa
 	)
 	values(
 		@ConfPaisId
 		, '01'
+		, '0101'
 		, 1
 		, 1
 	)
 
+	
 	insert into ConfiguracionPaisDetalle(
 	  ConfiguracionPaisID
 	, CodigoRegion
+	, CodigoZona
+	, Estado
+	, BloqueoRevistaImpresa
+	)
+	values(
+		@ConfPaisId
+		, '01'
+		, '0102'
+		, 1
+		, 1
+	)
+	
+	
+	insert into ConfiguracionPaisDetalle(
+	  ConfiguracionPaisID
+	, CodigoRegion
+	, CodigoZona
+	, Estado
+	, BloqueoRevistaImpresa
+	)
+	values(
+		@ConfPaisId
+		, '01'
+		, '0103'
+		, 1
+		, 1
+	)
+	
+	
+	insert into ConfiguracionPaisDetalle(
+	  ConfiguracionPaisID
+	, CodigoRegion
+	, CodigoZona
+	, Estado
+	, BloqueoRevistaImpresa
+	)
+	values(
+		@ConfPaisId
+		, '01'
+		, '0104'
+		, 1
+		, 1
+	)
+
+	
+	insert into ConfiguracionPaisDetalle(
+	  ConfiguracionPaisID
+	, CodigoRegion
+	, CodigoZona
+	, Estado
+	, BloqueoRevistaImpresa
+	)
+	values(
+		@ConfPaisId
+		, '01'
+		, '0108'
+		, 1
+		, 1
+	)
+
+	
+	insert into ConfiguracionPaisDetalle(
+	  ConfiguracionPaisID
+	, CodigoRegion
+	, CodigoZona
+	, Estado
+	, BloqueoRevistaImpresa
+	)
+	values(
+		@ConfPaisId
+		, '01'
+		, '0123'
+		, 1
+		, 1
+	)
+	
+	insert into ConfiguracionPaisDetalle(
+	  ConfiguracionPaisID
+	, CodigoRegion
+	, CodigoZona
+	, Estado
+	, BloqueoRevistaImpresa
+	)
+	values(
+		@ConfPaisId
+		, '01'
+		, '0125'
+		, 1
+		, 1
+	)
+
+	-- Region 26
+
+	insert into ConfiguracionPaisDetalle(
+	  ConfiguracionPaisID
+	, CodigoRegion
+	, CodigoZona
 	, Estado
 	, BloqueoRevistaImpresa
 	)
 	values(
 		@ConfPaisId
 		, '26'
+		, '2604'
+		, 1
+		, 1
+	)
+
+	
+	insert into ConfiguracionPaisDetalle(
+	  ConfiguracionPaisID
+	, CodigoRegion
+	, CodigoZona
+	, Estado
+	, BloqueoRevistaImpresa
+	)
+	values(
+		@ConfPaisId
+		, '26'
+		, '2606'
+		, 1
+		, 1
+	)
+	
+	
+	insert into ConfiguracionPaisDetalle(
+	  ConfiguracionPaisID
+	, CodigoRegion
+	, CodigoZona
+	, Estado
+	, BloqueoRevistaImpresa
+	)
+	values(
+		@ConfPaisId
+		, '26'
+		, '2610'
+		, 1
+		, 1
+	)
+
+	
+	insert into ConfiguracionPaisDetalle(
+	  ConfiguracionPaisID
+	, CodigoRegion
+	, CodigoZona
+	, Estado
+	, BloqueoRevistaImpresa
+	)
+	values(
+		@ConfPaisId
+		, '26'
+		, '2612'
+		, 1
+		, 1
+	)
+	
+	
+	insert into ConfiguracionPaisDetalle(
+	  ConfiguracionPaisID
+	, CodigoRegion
+	, CodigoZona
+	, Estado
+	, BloqueoRevistaImpresa
+	)
+	values(
+		@ConfPaisId
+		, '26'
+		, '2613'
+		, 1
+		, 1
+	)
+
+	
+	insert into ConfiguracionPaisDetalle(
+	  ConfiguracionPaisID
+	, CodigoRegion
+	, CodigoZona
+	, Estado
+	, BloqueoRevistaImpresa
+	)
+	values(
+		@ConfPaisId
+		, '26'
+		, '2614'
+		, 1
+		, 1
+	)
+
+	
+	insert into ConfiguracionPaisDetalle(
+	  ConfiguracionPaisID
+	, CodigoRegion
+	, CodigoZona
+	, Estado
+	, BloqueoRevistaImpresa
+	)
+	values(
+		@ConfPaisId
+		, '26'
+		, '2623'
+		, 1
+		, 1
+	)
+	
+	
+	insert into ConfiguracionPaisDetalle(
+	  ConfiguracionPaisID
+	, CodigoRegion
+	, CodigoZona
+	, Estado
+	, BloqueoRevistaImpresa
+	)
+	values(
+		@ConfPaisId
+		, '26'
+		, '2625'
 		, 1
 		, 1
 	)
 
 	update ConfiguracionPais
-	set Estado = 1
+	set Estado = 0
 	, Excluyente = 0
 	, DesdeCampania = 201807
 	where ConfiguracionPaisID = @ConfPaisId 
