@@ -35,7 +35,7 @@
         </div>
         <div class="mobile_producto_lanzamientos_contenedor">
             <div class="mobile_producto_lanzamientos_sbcont">
-                <img class="imgportada" src="{{lan.FotoProductoMedium}}" />
+                <img href="javascript:;" onclick="javascript:VerPopupExpGanaMas(); " class="imgportada" src="{{lan.FotoProductoMedium}}" />
                 <p class="titulo">{{lan.DescripcionResumen}}</p>
                  @if (revistaDigital.EsActiva)
                  {
@@ -46,7 +46,7 @@
                  {
                      if (revistaDigital.EsSuscrita)
                      {
-                         <span class="slogan-uno">Podrás comprar este y NUEVOS PRODUCTOS</span>
+                         <span class="slogan-uno">Podrás comprar este <br />y NUEVOS PRODUCTOS</span>
                          <span class="slogan-dos">¡DESDE LA @camapaniaEfectiva!</span>
                      }
                      else

@@ -27,18 +27,19 @@
     max-width: 145px;
 }
 
-    .mobile_producto_lanzamientos_contenedor .mobile_producto_lanzamientos_sbcont p.titulo {
-        display: block;
-        margin: auto;
-        text-align: center;
-        font-weight: 500;
-        font-size:13px;
-        color: black;
-        letter-spacing: 1px;
-        margin-top: 10px;
-        margin-bottom: 5px;
-        padding: 0 20px;
-    }
+.mobile_producto_lanzamientos_contenedor .mobile_producto_lanzamientos_sbcont p.titulo {
+    display: block;
+    margin: auto;
+    text-align: center;
+    font-weight: 500;
+    font-size:13px;
+    color: black;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding: 0 20px;
+    text-transform: uppercase;
+}
 
 .mobile_producto_lanzamientos_contenedor .mobile_producto_lanzamientos_sbcont span.slogan-uno {
     display: block;
@@ -50,7 +51,10 @@
     margin-bottom: 10px;
 }
 
-.mobile_producto_lanzamientos_contenedor .mobile_producto_lanzamientos_sbcont span.slogan-uno-fix { padding: 0px 48px; }
+.mobile_producto_lanzamientos_contenedor .mobile_producto_lanzamientos_sbcont span.slogan-uno-fix {
+    padding: 0 48px;
+    text-transform: uppercase;
+}
 
 .mobile_producto_lanzamientos_contenedor .mobile_producto_lanzamientos_sbcont span.slogan-dos {
     display: block;
