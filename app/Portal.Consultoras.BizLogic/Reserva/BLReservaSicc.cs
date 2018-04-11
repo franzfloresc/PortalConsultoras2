@@ -77,7 +77,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             bool reservo = !resultado.ListDetalleBackOrder.Any() && resultado.ListPedidoObservacion.All(o => o.Caso == 0);
             resultado.Restrictivas = resultado.ListDetalleBackOrder.Any() || resultado.ListPedidoObservacion.Any();
             resultado.Reserva = input.FechaHoraReserva && reservo;
-            resultado.ResultadoReservaEnum = respuestaSicc.indDeuda == "1" ? Enumeradores.ResultadoReserva.NoReservadoDeuda :
+            resultado.ResultadoReservaEnum = respuestaSicc.indDeuda == "2" ? Enumeradores.ResultadoReserva.NoReservadoDeuda :
                 respuestaSicc.estadoPedidoMontoMinimo == "1" ? Enumeradores.ResultadoReserva.NoReservadoMontoMinimo :
                 respuestaSicc.estadoPedidoMontoMaximo == "1" ? Enumeradores.ResultadoReserva.NoReservadoMontoMaximo :
                 !resultado.Restrictivas ? Enumeradores.ResultadoReserva.Reservado :
@@ -101,33 +101,15 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 codigoPeriodo = input.CampaniaID.ToString(),
                 codigoCliente = input.CodigoConsultora,
                 indValiProl = input.FechaHoraReserva ? "1" : "0",
-                oidPedidoSap = pedidoSapId.ToString(),
+                oidPedidoSap = pedidoSapId == 0 ? "" : pedidoSapId.ToString(),
                 //FALTA CODIGO CONCURSOS
                 posiciones = listPedidoWebDetalle.GroupBy(d => d.CUV).Select(g => new ServSicc.Detalle
                 {
                     CUV = g.Key,
                     unidadesDemandadas = g.Sum(d => d.Cantidad).ToString()
                 }).ToArray()
-            };
-
-            //var listCuponNueva = new List<BECuponNueva>();
-            //foreach (var detalle in inputPedido.posiciones)
-            //{
-            //    var cuponNueva = listCuponNueva.FirstOrDefault(c => c.CodigoCupon == detalle.cuv);
-            //    if (cuponNueva != null) detalle.cuv = cuponNueva.CUV;
-            //}
-            
-            var respuestaSicc = await DARSicc.EjecutarCuadreOfertas(inputPedido);
-
-            //if(respuestaSicc != null && respuestaSicc.posiciones != null)
-            //{
-            //    foreach (var detalle in respuestaSicc.posiciones)
-            //    {
-            //        var cuponNueva = listCuponNueva.FirstOrDefault(c => c.CUV == detalle.cuv);
-            //        if (cuponNueva != null) detalle.cuv = cuponNueva.CodigoCupon;
-            //    }
-            //}
-            return respuestaSicc;
+            };            
+            return await DARSicc.EjecutarCuadreOfertas(inputPedido);
         }
 
         private List<BEPedidoWebDetalleExplotado> NewListPedidoWebDetalleExplotado(BEInputReservaProl input, ServSicc.Detalle[] arrayDetalle, List<BEPedidoWebDetalle> listDetalle)
@@ -176,8 +158,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 UnidadesPorAtender = d.unidadesPorAtender.ToInt32Secure(),
                 ValCodiOrig = d.valCodiOrig,
                 OportunidadAhorro = d.oportunidadAhorro.ToDecimalSecure(),
-                UnidadesReservadasSap = Convert.ToInt32(d.unidadesReservadasSap.ToDecimalSecure()),
-                ListCuvOrigen = new List<string>()
+                UnidadesReservadasSap = Convert.ToInt32(d.unidadesReservadasSap.ToDecimalSecure())
             }).ToList();
         }
 
@@ -206,6 +187,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
         private Nodo<BEPedidoWebDetalleExplotado> GetRaizArbolExp(List<BEPedidoWebDetalleExplotado> listDetalleExp, List<BEPedidoWebDetalle> listDetalle)
         {
             var arbolExp = listDetalleExp.Select(dx => new Nodo<BEPedidoWebDetalleExplotado>(dx)).ToList();
+            var listNodoOfertaNivel = new List<Nodo<BEPedidoWebDetalleExplotado>>();
             var raiz = new Nodo<BEPedidoWebDetalleExplotado>(null);
             List<Nodo<BEPedidoWebDetalleExplotado>> listNodo;
             Nodo<BEPedidoWebDetalleExplotado> nodo;
@@ -218,14 +200,15 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 nodo = arbolExp.FirstOrDefault(nx => nx.Actual.CUV == nodExp.Actual.ValCodiOrig);
                 if (nodo == null)
                 {
-                    detExp = new BEPedidoWebDetalleExplotado { CUV = nodExp.Actual.ValCodiOrig };
-                    nodo = new Nodo<BEPedidoWebDetalleExplotado>(detExp) { Generado = true };
-                    arbolExp.Add(nodo);
+                    detExp = new BEPedidoWebDetalleExplotado { CUV = nodExp.Actual.ValCodiOrig, UnidadesDemandadas = nodExp.Actual.UnidadesDemandadas };
+                    nodo = new Nodo<BEPedidoWebDetalleExplotado>(detExp);
+                    listNodoOfertaNivel.Add(nodo);
                 }
                 nodExp.AddPadre(nodo);
             });
+            arbolExp.AddRange(listNodoOfertaNivel);
 
-            arbolExp.Where(nodExp => !string.IsNullOrEmpty(nodExp.Actual.ValCodiOrig)).ForEach(nodExp => {
+            arbolExp.Where(nodExp => string.IsNullOrEmpty(nodExp.Actual.ValCodiOrig)).ForEach(nodExp => {
                 if (nodExp.Actual.UnidadesDemandadas == 0)
                 {
                     listNodo = arbolExp.Where(d => d.Actual.IdOferta == nodExp.Actual.IdOferta && d.Actual.UnidadesDemandadas > 0).ToList();
@@ -272,7 +255,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
         {
             var daPedidoWebDetalleExplotado = new DAPedidoWebDetalleExplotado(input.PaisID);
             daPedidoWebDetalleExplotado.DeleteByPedidoID(input.CampaniaID, input.PedidoID);
-            daPedidoWebDetalleExplotado.InsertList(listDetalleExp.Where(d => d.UnidadesReservadasSap > 0).ToList());
+            daPedidoWebDetalleExplotado.InsertList(listDetalleExp);
         }
 
         private BEPedidoObservacion CreateCabPedidoObs(BEInputReservaProl input, ServSicc.Pedido respuestaSicc, List<BETablaLogicaDatos> listMensajeObs)
@@ -280,7 +263,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             var dictToken = new Dictionary<string, string>();
             string descKey, cuv;
 
-            if (respuestaSicc.indDeuda == "1")
+            if (respuestaSicc.indDeuda == "2")
             {
                 cuv = Constantes.ProlCodigoRechazo.Deuda;
                 descKey = Constantes.ProlObsCod.Deuda;

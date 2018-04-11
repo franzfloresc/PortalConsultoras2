@@ -332,6 +332,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
         private void UpdatePedidoWebReservado(BEInputReservaProl input, BEResultadoReservaProl resultado, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             var pedidoWeb = CreatePedidoWeb(resultado, input);
+            if (input.FechaHoraReserva) pedidoWeb.VersionProl = input.VersionProl;
             decimal gananciaEstimada = 0;
             List<BEPedidoWebDetalle> listDetalleObservacion = null;
 

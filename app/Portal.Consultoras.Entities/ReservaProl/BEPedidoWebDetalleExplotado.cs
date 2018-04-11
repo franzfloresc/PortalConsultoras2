@@ -52,32 +52,10 @@ namespace Portal.Consultoras.Entities.ReservaProl
 
         [ViewProperty]
         public List<string> ListCuvOrigen { get; set; }
-    }
 
-    public class Nodo<T>
-    {
-        public Nodo(T actual)
+        public BEPedidoWebDetalleExplotado()
         {
-            Padres = new List<Nodo<T>>();
-            Hijos = new List<Nodo<T>>();
-            Actual = actual;
-        }
-
-        public List<Nodo<T>> Padres { get; set; }
-        public List<Nodo<T>> Hijos { get; set; }
-        public T Actual { get; set; }
-        public bool Generado { get; set; }
-
-        public void AddHijo(Nodo<T> hijo)
-        {
-            Hijos.Add(hijo);
-            hijo.Padres.Add(this);
-        }
-
-        public void AddPadre(Nodo<T> padre)
-        {
-            Padres.Add(padre);
-            padre.Hijos.Add(this);
+            ListCuvOrigen = new List<string>();
         }
     }
 }
