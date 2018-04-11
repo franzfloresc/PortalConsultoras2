@@ -38,6 +38,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
 
             /////////////////////////////////////////
+            var campaniaActual =  Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).ToString();
             Session[Constantes.ConstSession.PedidoFIC] = null;
             ViewBag.ClaseTabla = "tabla2";
             ViewBag.Pais_ISO = userData.CodigoISO;
@@ -45,7 +46,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.PROLDes = "Guarda los productos que haz ingresado";
             ViewBag.ModPedido = "display:none;";
             ViewBag.NombreConsultora = userData.NombreConsultora;
-            ViewBag.PedidoFIC = "C" + AddCampaniaAndNumero(userData.CampaniaID, 1);
+            ViewBag.PedidoFIC = "C" + (campaniaActual.Length == 6 ? campaniaActual.Substring (4,2) : campaniaActual);
             ViewBag.MensajeFIC = "antes del " + userData.FechaFinFIC.Day + " de " + NombreMes(userData.FechaFinFIC.Month);
             ViewBag.FinFIc = userData.FechaFinFIC.ToString("dd/MM");
             
