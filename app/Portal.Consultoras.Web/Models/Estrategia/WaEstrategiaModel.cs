@@ -16,6 +16,7 @@ namespace Portal.Consultoras.Web.Models.Estrategia
         public string DescripcionCUV2 { get; set; }
         public float Precio { get; set; }
         public float Precio2 { get; set; }
+        public float Ganancia { get; set; }
         public string ImagenURL { get; set; }
         public bool FlagImagenURL { get; set; }
         public int LimiteVenta { get; set; }
@@ -39,6 +40,7 @@ namespace Portal.Consultoras.Web.Models.Estrategia
         public string MarcaDescripcion { get; set; }
         public string CodigoProducto { get; set; }
         public bool IndicadorMontoMinimo { get; set; }
+        public string CodigoSap { get; set; }
 
         //Audit
         public string UsuarioCreacion { get; set; }

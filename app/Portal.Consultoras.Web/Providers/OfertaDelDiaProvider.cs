@@ -32,12 +32,12 @@ namespace Portal.Consultoras.Web.Providers
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        
+
 
         public OfertaDelDiaModel ObtenerOfertas()
         {
             OfertaDelDiaModel model = null;
-            
+
             var userData = sessionManager.GetUserData();
 
             try
@@ -312,12 +312,12 @@ namespace Portal.Consultoras.Web.Providers
         {
             using (var client = new HttpClient())
             {
-                string url =WebConfig.UrlMicroservicioPersonalizacionSearch;
+                string url = WebConfig.UrlMicroservicioPersonalizacionSearch;
                 client.BaseAddress = new Uri(url);
                 string jsonString = jsonParametros;
 
                 string contentType = "application/json";
-                
+
                 var httpContent = new StringContent(jsonString, Encoding.UTF8, contentType);
                 string requestUrl = requestUrlParam;
                 HttpResponseMessage response = null;
@@ -332,12 +332,7 @@ namespace Portal.Consultoras.Web.Providers
                 }
                 else if (responseType.Equals("post"))
                 {
-                    Dictionary<string, string> jsonValue = new Dictionary<string, string>
-                    {
-                        {"jsonValue",jsonString }
-                    };
-                    var encodedContent = new FormUrlEncodedContent(jsonValue);
-                    response = await client.PostAsync(requestUrl, encodedContent);
+                    response = await client.PostAsync(requestUrl, httpContent);
                 }
 
                 if (!response.IsSuccessStatusCode)
@@ -368,13 +363,13 @@ namespace Portal.Consultoras.Web.Providers
             {
                 return 0;
             }
-            iCantidadActualizada = content.Equals("true")?1:0;
+            iCantidadActualizada = content.Equals("true") ? 1 : 0;
             return iCantidadActualizada;
         }
 
-        public Dictionary<string,int> GetCantidadOfertasParaTiWebApi(string tipoCodigo, int campania)
+        public Dictionary<string, int> GetCantidadOfertasParaTiWebApi(string tipoCodigo, int campania)
         {
-            Dictionary<string,int> iCantidadOfertas = new Dictionary<string,int>();
+            Dictionary<string, int> iCantidadOfertas = new Dictionary<string, int>();
             iCantidadOfertas.Add("EC", -1);
             iCantidadOfertas.Add("EF", -1);
             string requestUrl = "estrategia/contar";
@@ -419,7 +414,7 @@ namespace Portal.Consultoras.Web.Providers
                         UsuarioModificacion = d.UsuarioModificacion,
                         ImagenMiniaturaURL = "",
                         TipoEstrategiaID = d.TipoEstrategiaId,
-                        Imagen = d.FlagImagenURL ? 1:0,
+                        Imagen = d.FlagImagenURL ? 1 : 0,
                     }
 
                 }).ToList();
@@ -427,17 +422,18 @@ namespace Portal.Consultoras.Web.Providers
         }
 
 
-        public List<EstrategiaMDbAdapterModel> ListarWebApi(string CampaniaID,string tipoEstrategiaCodigo,int Activo = -1, string CUV2="",int Imagen=-1)
+        public List<EstrategiaMDbAdapterModel> ListarWebApi(string CampaniaID, string tipoEstrategiaCodigo, string Pais, int Activo = -1, string CUV2 = "", int Imagen = -1)
         {
             List<EstrategiaMDbAdapterModel> listaEstrategias = new List<EstrategiaMDbAdapterModel>();
-            string jsonParameters = "?";
+            string jsonParameters = "?pais=" + Pais;
             if (Activo != -1)
             {
+                jsonParameters += jsonParameters.Length > 1 ? "&" : "";
                 jsonParameters += "status=" + (Activo == -1 ? "" : Activo == 1 ? "true" : "false");
             }
             if (!string.IsNullOrEmpty(CUV2.Trim()) && !CUV2.Equals("0"))
             {
-                jsonParameters += jsonParameters.Length > 1 ? "&": "";
+                jsonParameters += jsonParameters.Length > 1 ? "&" : "";
                 jsonParameters += "cuv=" + CUV2;
             }
             if (Imagen != -1)
@@ -445,13 +441,13 @@ namespace Portal.Consultoras.Web.Providers
                 jsonParameters += jsonParameters.Length > 1 ? "&" : "";
                 jsonParameters += "tieneImagen=" + (Imagen == -1 ? "" : Imagen == 1 ? "true" : "false");
             }
-            
+
             //entidad.Imagen
-            string requestUrl = "estrategia/listar/"+CampaniaID+"/"+ tipoEstrategiaCodigo;
+            string requestUrl = "estrategia/listar/" + CampaniaID + "/" + tipoEstrategiaCodigo;
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "get"));
             Task.WhenAll(taskApi);
-            string content = taskApi.Result ;
-            var WaModelList = JsonConvert.DeserializeObject <List<WaEstrategiaModel>> (content);
+            string content = taskApi.Result;
+            var WaModelList = JsonConvert.DeserializeObject<List<WaEstrategiaModel>>(content);
             if (WaModelList.Count() > 0)
             {
                 List<EstrategiaMDbAdapterModel> mapList = this.setEstrategiaList(WaModelList);
@@ -461,11 +457,11 @@ namespace Portal.Consultoras.Web.Providers
             return listaEstrategias;
         }
 
-        public List<EstrategiaMDbAdapterModel> preCargarWebApi(string campaniaId, string tipoEstrategiaCodigo)
+        public List<EstrategiaMDbAdapterModel> preCargarWebApi(string campaniaId, string tipoEstrategiaCodigo, string Pais)
         {
             List<EstrategiaMDbAdapterModel> listaEstrategias = new List<EstrategiaMDbAdapterModel>();
-            string jsonParameters = "";
-            
+            string jsonParameters = "?pais=" + Pais;
+
             //entidad.Imagen
             string requestUrl = "estrategia/precargar/" + campaniaId + "/" + tipoEstrategiaCodigo;
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "get"));
@@ -481,10 +477,10 @@ namespace Portal.Consultoras.Web.Providers
             return listaEstrategias;
         }
 
-        public List<EstrategiaMDbAdapterModel>FiltrarEstrategia(string _id)
+        public List<EstrategiaMDbAdapterModel> FiltrarEstrategia(string _id, string Pais)
         {
             List<EstrategiaMDbAdapterModel> listaEstrategias = new List<EstrategiaMDbAdapterModel>();
-            string jsonParameters = _id;
+            string jsonParameters = _id + "?pais=" + Pais;
             string requestUrl = "estrategia/";
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "get"));
             Task.WhenAll(taskApi);
@@ -503,58 +499,10 @@ namespace Portal.Consultoras.Web.Providers
 
 
 
-        public string InsertarEstrategiWebApi(BEEstrategia entidad)
+        public string RegistrarWebApi(BEEstrategia entidad, string Pais)
         {
-            string requestUrl = "";
-            var waModel = new 
-            {
-                CodigoCampania = entidad.CampaniaID.ToString(),
-                CodigoCampaniaFin = entidad.CampaniaIDFin.ToString(),
-                entidad.NumeroPedido,
-                Activo = entidad.Activo == 1 ? true : false,
-                entidad.ImagenURL,
-                entidad.LimiteVenta,
-                entidad.DescripcionCUV2,
-                FlagDescripcion = entidad.FlagDescripcion == 1 ? true : false,
-                CUV = entidad.CUV1,
-                EtiquetaId = entidad.EtiquetaID,
-                Precio = (float)entidad.Precio,
-                FlagCep = entidad.FlagCEP == 1 ? true : false,
-                entidad.CUV2,
-                EtiquetaId2 = entidad.EtiquetaID2,
-                entidad.Precio2,
-                FlagCep2 = entidad.FlagCEP2 == 1 ? true : false,
-                entidad.TextoLibre,
-                FlagTextoLibre = entidad.FlagTextoLibre == 1 ? true : false,
-                entidad.Cantidad,
-                FlagCantidad = entidad.FlagCantidad == 1 ? true : false,
-                entidad.Zona,
-                entidad.Orden,
-                FlagNueva = entidad.FlagNueva == 1 ? true : false,
-                entidad.ColorFondo,
-                FlagEstrella = entidad.FlagEstrella == 1 ? true : false,
-                entidad.CodigoEstrategia,
-                TieneVariedad = entidad.TieneVariedad == 1 ? true : false,
-                entidad.EsOfertaIndependiente,
-                entidad.PrecioPublico,
-                entidad.Ganancia,
-                entidad.CodigoPrograma,
-                FlagImagenUrl = entidad.Imagen == 1 ? true : false,
-                entidad.CodigoConcurso,
-                ImagenMiniaturaUrl = entidad.ImagenMiniaturaURL,
-                EsSubCampania = entidad.EsSubCampania == 1 ? true : false,
-                FlagActivo = entidad.Activo == 1 ? true:false,
-                FlagMostrarImg = entidad.FlagMostrarImg == 1 ? true : false,
-                entidad.CodigoTipoEstrategia,
-                entidad.CodigoProducto,
-                IndicadorMontoMinimo = entidad.IndicadorMontoMinimo == 1 ? true : false,
-                MarcaId = entidad.MarcaID,
-                MarcaDescripcion = entidad.DescripcionMarca,
-                MatrizComercialId = entidad.IdMatrizComercial,
-                CodigoSap = entidad.CodigoSAP,
-                entidad.UsuarioCreacion,
-                entidad.UsuarioModificacion
-            };
+            string requestUrl = "estrategia/registrar?pais=" + Pais;
+            WaEstrategiaModel waModel = getEstrategiaWa(entidad, "");
             string jsonParameters = JsonConvert.SerializeObject(waModel);
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "post"));
             Task.WhenAll(taskApi);
@@ -562,10 +510,56 @@ namespace Portal.Consultoras.Web.Providers
             return content;
         }
 
-        public bool desactivarWebApi(string _id,string usuario)
+        public string EditarWebApi(BEEstrategia entidad, string _mongoId, string Pais)
+        {
+            string requestUrl = "estrategia/editar?pais=" + Pais;
+            WaEstrategiaModel waModel = getEstrategiaWa(entidad, _mongoId);
+            string jsonParameters = JsonConvert.SerializeObject(waModel);
+            var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "post"));
+            Task.WhenAll(taskApi);
+            string content = taskApi.Result;
+            return content;
+        }
+
+        private WaEstrategiaModel getEstrategiaWa(BEEstrategia entidad, string _id)
+        {
+            WaEstrategiaModel waModel = new WaEstrategiaModel
+            {
+                _id = _id,
+                EstrategiaId = entidad.EstrategiaID,
+                CodigoCampania = entidad.CampaniaID.ToString(),
+                Activo = entidad.Activo == 1 ? true : false,
+                ImagenURL = entidad.ImagenURL,
+                LimiteVenta = entidad.LimiteVenta,
+                DescripcionCUV2 = entidad.DescripcionCUV2,
+                Precio = (float)entidad.Precio,
+                CUV2 = entidad.CUV2,
+                Precio2 = (float)entidad.Precio2,
+                TextoLibre = entidad.TextoLibre,
+                Orden = entidad.Orden,
+                FlagNueva = entidad.FlagNueva == 1 ? true : false,
+                CodigoEstrategia = entidad.CodigoEstrategia,
+                Ganancia = (float)entidad.Ganancia,
+                FlagImagenURL = entidad.Imagen == 1 ? true : false,
+                FlagActivo = entidad.Activo == 1 ? true : false,
+                CodigoTipoEstrategia = entidad.CodigoTipoEstrategia,
+                CodigoProducto = entidad.CodigoProducto,
+                IndicadorMontoMinimo = entidad.IndicadorMontoMinimo == 1 ? true : false,
+                MarcaId = entidad.MarcaID,
+                MarcaDescripcion = entidad.DescripcionMarca,
+                CodigoSap = entidad.CodigoSAP,
+                UsuarioCreacion = entidad.UsuarioCreacion,
+                UsuarioModificacion = entidad.UsuarioModificacion,
+                TipoEstrategiaId = entidad.TipoEstrategiaID,
+                TipoEstrategia = entidad.CodigoTipoEstrategia.Equals("009") ? "ODD" : ""
+            };
+            return waModel;
+        }
+
+        public bool desactivarWebApi(string _id, string usuario, string Pais)
         {
             bool bDeshabilitado = true;
-            string jsonParameters = "{\"usuario\":" + usuario + "}";
+            string jsonParameters = "{\"usuario\":" + usuario + "\"pais\":" + Pais + "}";
             string requestUrl = "estrategia/desactivar/" + _id;
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "put"));
             Task.WhenAll(taskApi);
@@ -578,11 +572,11 @@ namespace Portal.Consultoras.Web.Providers
             return bDeshabilitado;
         }
 
-        public bool ActivarDesactivarEstrategias(List<string>estrategiasActivas, List<string>estrategiasInactivas, string usuario)
+        public bool ActivarDesactivarEstrategias(List<string> estrategiasActivas, List<string> estrategiasInactivas, string usuario, string Pais)
         {
-            bool activarResponse = true;bool inactivarResponse = true;
+            bool activarResponse = true; bool inactivarResponse = true;
             string jsonParametersActivas = JsonConvert.SerializeObject(estrategiasActivas);
-            string requestUrl = "estrategia/activar?usuario="+ usuario;
+            string requestUrl = "estrategia/activar?usuario=" + usuario + "&pais=" + Pais;
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParametersActivas, requestUrl, "put"));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -594,7 +588,7 @@ namespace Portal.Consultoras.Web.Providers
             content = "";
             //
             string jsonParametersInactivas = JsonConvert.SerializeObject(estrategiasInactivas);
-            string requestUrlInactivar = "estrategia/desactivar?usuario="+ usuario;
+            string requestUrlInactivar = "estrategia/desactivar?usuario=" + usuario + "&pais=" + Pais;
             taskApi = Task.Run(() => respSBMicroservicios(jsonParametersInactivas, requestUrlInactivar, "put"));
             Task.WhenAll(taskApi);
             content = taskApi.Result;
@@ -605,6 +599,34 @@ namespace Portal.Consultoras.Web.Providers
             inactivarResponse = content.Equals("true");
 
             return activarResponse || activarResponse;
+        }
+
+        public Dictionary<string, object> getEstrategiaCuv(string cuv, string campania, string tipoEstrategia, string pais, string prod, string perfil)
+        {
+            List<EstrategiaMDbAdapterModel> listaEstrategias = new List<EstrategiaMDbAdapterModel>();
+            string jsonParameters = "?pais=" + pais + "&prod=" + prod + "&perfil=" + perfil;
+            string requestUrl = "estrategia/cuv/"+campania+"/"+tipoEstrategia+"/"+cuv;
+            var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "get"));
+            Task.WhenAll(taskApi);
+            string content = taskApi.Result;
+            Dictionary<string, object> resultDictionary = new Dictionary<string, object>();
+            resultDictionary.Add("result", null);
+            resultDictionary.Add("mensaje", "No se pudo obtener datos");
+            resultDictionary.Add("success", false);
+            
+            if (!string.IsNullOrEmpty(content))
+            {
+                resultDictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(content);
+                if (!string.IsNullOrEmpty((string)resultDictionary["result"]))
+                {
+                    WaEstrategiaModel waModel = JsonConvert.DeserializeObject<WaEstrategiaModel>((string)resultDictionary["result"]);
+                    List<WaEstrategiaModel> waModelList = new List<WaEstrategiaModel>();
+                    waModelList.Add(waModel);
+                    List<EstrategiaMDbAdapterModel> estrategiaAdapterList = setEstrategiaList(waModelList);
+                    resultDictionary["result"] = estrategiaAdapterList[0].BEEstrategia;
+                }
+            }
+            return resultDictionary;
         }
     }
 }

@@ -208,7 +208,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             entidad.CodigoTipoEstrategia = TipoEstrategiaCodigo;
                             lst.AddRange(ofertaPersonalizadaProvider.ListarWebApi(entidad.CampaniaID.ToString(),
-                                entidad.CodigoTipoEstrategia,entidad.Activo,entidad.CUV2,entidad.Imagen).ToList());
+                                entidad.CodigoTipoEstrategia, userData.CodigoISO, entidad.Activo,entidad.CUV2,entidad.Imagen).ToList());
                         }
                         else
                         {
@@ -517,74 +517,103 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult GetOfertaByCUV(string CampaniaID, string CUV2,
             string TipoEstrategiaID, string CUV1, string flag,
-            string FlagNueva, string FlagRecoProduc, string FlagRecoPerfil)
+            string FlagNueva, string FlagRecoProduc, string FlagRecoPerfil,
+            string tipoEstrategiaCodigo)
         {
             try
             {
-                int resultado = -1, tipo = -1;
-                if (FlagRecoProduc == "1") tipo = 0;
-                if (FlagRecoPerfil == "1") tipo = 1;
+                bool success = false;
+                string mensaje = "", descripcion = "", precio = "";
+                decimal wspreciopack, ganancia=0;
+                string niveles="";
+                string codigoSap = "";
+                int enMatrizComercial = 0;
+                int idMatrizComercial = 0;
+                string wsprecio = "";
 
-                List<BEEstrategia> lst;
-                var entidad = new BEEstrategia
+                if (usarMsPer(tipoEstrategiaCodigo))
                 {
-                    PaisID = userData.PaisID,
-                    CampaniaID = Convert.ToInt32(CampaniaID),
-                    CUV2 = CUV2,
-                    TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
-                    CUV1 = CUV1,
-                    Activo = Convert.ToInt32(flag),
-                    Cantidad = tipo
-                };
-
-                using (var sv = new PedidoServiceClient())
-                {
-                    lst = sv.GetOfertaByCUV(entidad).ToList();
-                    if (tipo > -1)
+                    Dictionary<string, object> resultByCuv = ofertaPersonalizadaProvider.getEstrategiaCuv(CUV2, CampaniaID, tipoEstrategiaCodigo, 
+                        userData.CodigoISO, FlagRecoProduc, FlagRecoPerfil);
+                    success = resultByCuv["success"].ToString().Equals("true");
+                    mensaje = resultByCuv["mensaje"].ToString();
+                    if (mensaje.Equals("OK"))
                     {
-                        resultado = sv.ValidarCUVsRecomendados(entidad);
+                        BEEstrategia estrategiaModel = (BEEstrategia)resultByCuv["result"];
+                        descripcion = estrategiaModel.DescripcionCUV2;
+                        precio = estrategiaModel.Precio.ToString();
+                        ganancia = estrategiaModel.Ganancia;
+                        codigoSap = estrategiaModel.CodigoSAP;
                     }
                 }
-
-                string mensaje = "", descripcion = "", precio = "";
-
-                if (lst.Count <= 0) throw new ArgumentException("No se econtro el CUV ingresado.");
-
-                if (tipo != 1 && resultado == 0)
+                else
                 {
-                    if (FlagRecoProduc == "1") mensaje = "El CUV2 no está asociado a ningún otro.";
-                    return Json(new
+                    int resultado = -1, tipo = -1;
+                    if (FlagRecoProduc == "1") tipo = 0;
+                    if (FlagRecoPerfil == "1") tipo = 1;
+
+                    List<BEEstrategia> lst = new List<BEEstrategia>();
+                    var entidad = new BEEstrategia
                     {
-                        success = false,
-                        message = mensaje,
-                        descripcion,
-                        precio,
-                        extra = ""
-                    }, JsonRequestBehavior.AllowGet);
+                        PaisID = userData.PaisID,
+                        CampaniaID = Convert.ToInt32(CampaniaID),
+                        CUV2 = CUV2,
+                        TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
+                        CUV1 = CUV1,
+                        Activo = Convert.ToInt32(flag),
+                        Cantidad = tipo
+                    };
+
+                    using (var sv = new PedidoServiceClient())
+                    {
+                        lst.AddRange(sv.GetOfertaByCUV(entidad).ToList());
+                        if (tipo > -1)
+                        {
+                            resultado = sv.ValidarCUVsRecomendados(entidad);
+                        }
+                    }
+
+                
+
+                    if (lst.Count <= 0) throw new ArgumentException("No se econtro el CUV ingresado.");
+
+                    if (tipo != 1 && resultado == 0)
+                    {
+                        if (FlagRecoProduc == "1") mensaje = "El CUV2 no está asociado a ningún otro.";
+                        return Json(new
+                        {
+                            success = false,
+                            message = mensaje,
+                            descripcion,
+                            precio,
+                            extra = ""
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                    mensaje = "OK";
+
+                
+
+                    using (var svs = new WsGestionWeb())
+                    {
+                        var preciosEstrategia = svs.ObtenerPrecioEstrategia(CUV2, userData.CodigoISO, CampaniaID);
+                        wspreciopack = preciosEstrategia.montotal;
+                        ganancia = preciosEstrategia.montoganacia;
+                        niveles = preciosEstrategia.listaniveles.Length > 1 ? ObtenerTextoNiveles(preciosEstrategia.listaniveles) : "";
+                    }
+
+                    descripcion = lst[0].DescripcionCUV2;
+                    precio = (wspreciopack + ganancia).ToString("F2");
+                    codigoSap = lst[0].CodigoSAP;
+                    enMatrizComercial = lst[0].EnMatrizComercial.ToInt();
+                    idMatrizComercial = lst[0].IdMatrizComercial.ToInt();
+                    wsprecio = wspreciopack.ToString("F2");
+                    success = true;
                 }
-                mensaje = "OK";
 
-                decimal wspreciopack, ganancia;
-                string niveles;
-
-                using (var svs = new WsGestionWeb())
-                {
-                    var preciosEstrategia = svs.ObtenerPrecioEstrategia(CUV2, userData.CodigoISO, CampaniaID);
-                    wspreciopack = preciosEstrategia.montotal;
-                    ganancia = preciosEstrategia.montoganacia;
-                    niveles = preciosEstrategia.listaniveles.Length > 1 ? ObtenerTextoNiveles(preciosEstrategia.listaniveles) : "";
-                }
-
-                descripcion = lst[0].DescripcionCUV2;
-                precio = (wspreciopack + ganancia).ToString("F2");
-                var codigoSap = lst[0].CodigoSAP;
-                var enMatrizComercial = lst[0].EnMatrizComercial.ToInt();
-                var idMatrizComercial = lst[0].IdMatrizComercial.ToInt();
-                var wsprecio = wspreciopack.ToString("F2");
-
+                
                 return Json(new
                 {
-                    success = true,
+                    success = success,
                     message = mensaje,
                     descripcion,
                     precio,
@@ -690,7 +719,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult RegistrarEstrategia(RegistrarEstrategiaModel model)
+        public JsonResult RegistrarEstrategia(RegistrarEstrategiaModel model, string _id)
         {
             try
             {
@@ -772,7 +801,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                         if (usarMsPer(entidad.CodigoTipoEstrategia))
                         {
-                            ofertaPersonalizadaProvider.InsertarEstrategiWebApi(entidad);
+                            if (entidad.EstrategiaID != 0)
+                            {
+                                ofertaPersonalizadaProvider.EditarWebApi(entidad, _id, userData.CodigoISO);
+                            }
+                            else
+                            {
+                                ofertaPersonalizadaProvider.RegistrarWebApi(entidad, userData.CodigoISO);
+                            }
+                                
                         }
                         else
                         {
@@ -872,7 +909,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (usarMsPer(tipoEstrategiaCodigo))
                 {
-                    lst.AddRange(ofertaPersonalizadaProvider.FiltrarEstrategia(mongoIdVal).ToList());
+                    lst.AddRange(ofertaPersonalizadaProvider.FiltrarEstrategia(mongoIdVal, userData.CodigoISO).ToList());
                 }
                 else
                 {
@@ -1023,7 +1060,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (usarMsPer(tipoEstrategiaCodigo))
                 {
-                    ofertaPersonalizadaProvider.desactivarWebApi(idMongoVal, userData.UsuarioNombre);
+                    ofertaPersonalizadaProvider.desactivarWebApi(idMongoVal, userData.UsuarioNombre, userData.CodigoISO);
                 }
                 else
                 {
@@ -1130,7 +1167,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     
                         
-                    bool bResultado = ofertaPersonalizadaProvider.ActivarDesactivarEstrategias(estrategiasActivasList, estrategiasInactivasList, userData.UsuarioNombre);
+                    bool bResultado = ofertaPersonalizadaProvider.ActivarDesactivarEstrategias(estrategiasActivasList, estrategiasInactivasList, userData.UsuarioNombre, userData.CodigoISO);
                     resultado = bResultado ? 1 : 0;
                 }
                 else
@@ -1399,11 +1436,11 @@ namespace Portal.Consultoras.Web.Controllers
                         List<EstrategiaMDbAdapterModel> webApiList = new List<EstrategiaMDbAdapterModel>();
                         if (tipoConfigurado == 0 || tipoConfigurado == 1)
                         {
-                            webApiList.AddRange(ofertaPersonalizadaProvider.ListarWebApi(campaniaId.ToString(),estrategiaCodigo));
+                            webApiList.AddRange(ofertaPersonalizadaProvider.ListarWebApi(campaniaId.ToString(),estrategiaCodigo, userData.CodigoISO));
                         }
                         if (tipoConfigurado == 0 || tipoConfigurado == 2)
                         {
-                            webApiList.AddRange(ofertaPersonalizadaProvider.preCargarWebApi(campaniaId.ToString(), estrategiaCodigo));
+                            webApiList.AddRange(ofertaPersonalizadaProvider.preCargarWebApi(campaniaId.ToString(), estrategiaCodigo, userData.CodigoISO));
                         }
                         lst.AddRange(webApiList.Select(d => d.BEEstrategia).ToList());
                     }
@@ -1666,7 +1703,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (usarMsPer(tipoEstrategiaCodigo))
                     {
                         Dictionary<string, int> cantidades = ofertaPersonalizadaProvider.GetCantidadOfertasParaTiWebApi(tipoEstrategiaCodigo, int.Parse(CampaniaID));
-                        var estrategiasWA = ofertaPersonalizadaProvider.preCargarWebApi(CampaniaID, tipoEstrategiaCodigo);
+                        var estrategiasWA = ofertaPersonalizadaProvider.preCargarWebApi(CampaniaID, tipoEstrategiaCodigo, userData.CodigoISO);
 
                         cantidadEstrategiasConfiguradas = cantidades["EF"];
                         cantidadEstrategiasSinConfigurar = 0;
@@ -1763,7 +1800,7 @@ namespace Portal.Consultoras.Web.Controllers
                         if (tipoConfigurado == 1)
                         {
                             List<EstrategiaMDbAdapterModel> webApiList = new List<EstrategiaMDbAdapterModel>();
-                            webApiList.AddRange(ofertaPersonalizadaProvider.preCargarWebApi(campaniaId.ToString(), tipoEstrategiaCodigo));
+                            webApiList.AddRange(ofertaPersonalizadaProvider.preCargarWebApi(campaniaId.ToString(), tipoEstrategiaCodigo, userData.CodigoISO));
                         }
                     }
                     else

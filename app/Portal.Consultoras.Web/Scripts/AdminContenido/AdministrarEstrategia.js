@@ -340,6 +340,7 @@
             else
                 $("#divPrecioValorizado").html("Precio Valorizado");
 
+            $("#_id").val(_editData.mongoIdVal);
             showDialog("DialogAdministracionEstrategia");
             _editData.IdMatrizComercial = data.IdMatrizComercial;
             _editData.CUV2 = data.CUV2;
@@ -870,7 +871,8 @@
                 flag: flagOD,
                 FlagNueva: flagNueva,
                 FlagRecoProduc: flagRecoProduc,
-                FlagRecoPerfil: flagRecoPerfil
+                FlagRecoPerfil: flagRecoPerfil,
+                tipoEstrategiaCodigo: $("#ddlTipoEstrategia").find(":selected").data("codigo")
             };
 
             jQuery.ajax({
@@ -1775,7 +1777,8 @@
             flag: "3",
             FlagNueva: "0",
             FlagRecoProduc: "0",
-            FlagRecoPerfil: "0"
+            FlagRecoPerfil: "0",
+            tipoEstrategiaCodigo: $("#ddlTipoEstrategia").find(":selected").data("codigo")
         };
 
         jQuery.ajax({
@@ -2846,7 +2849,8 @@
                     var ImagenMiniaturaURL = $("#imgMiniSeleccionada").attr("src").substr($("#imgMiniSeleccionada").attr("src").lastIndexOf("/") + 1);
                     var EsSubCampania = ($("#chkEsSubCampania").attr("checked")) ? true : false;
                     var niveles = $("#hdNiveles").val() || "";
-                    
+                    var _idVal = $("#_id").val();
+
                     var params = {
                         EstrategiaID: EstrategiaID,
                         TipoEstrategiaID: TipoEstrategiaID,
@@ -2893,7 +2897,8 @@
                         ImagenMiniaturaURL: ImagenMiniaturaURL,
                         ImagenMiniaturaURLAnterior: $("#hdImagenMiniaturaURLAnterior").val(),
                         EsSubCampania: EsSubCampania,
-                        Niveles: niveles
+                        Niveles: niveles,
+                        _id: _idVal
                     };
                     jQuery.ajax({
                         type: "POST",
@@ -4192,7 +4197,8 @@
                     flag: flagOD,
                     FlagNueva: flagNueva,
                     FlagRecoProduc: flagRecoProduc,
-                    FlagRecoPerfil: flagRecoPerfil
+                    FlagRecoPerfil: flagRecoPerfil,
+                    tipoEstrategiaCodigo: $("#ddlTipoEstrategia").find(":selected").data("codigo")
                 };
 
                 jQuery.ajax({
@@ -4245,8 +4251,8 @@
                     flag: "2",
                     FlagNueva: flagNueva,
                     FlagRecoProduc: flagRecoProduc,
-                    FlagRecoPerfil: flagRecoPerfil
-
+                    FlagRecoPerfil: flagRecoPerfil,
+                    tipoEstrategiaCodigo: $("#ddlTipoEstrategia").find(":selected").data("codigo")
                 };
 
                 jQuery.ajax({
