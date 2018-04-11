@@ -2201,12 +2201,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (revistaDigital.TieneRDCR)
             {
-                string tipo = "";
-                if (GetConfiguracionManagerContains(Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_1 + userData.CodigoISO, userData.CodigoZona))
-                {
-                    tipo = "1";
-                }
-                else if (GetConfiguracionManagerContains(Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_2 + userData.CodigoISO, userData.CodigoZona))
+                string tipo = "1";
+                if (GetConfiguracionManagerContains(Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_2 + userData.CodigoISO, userData.CodigoZona))
                 {
                     tipo = "2";
                 }
