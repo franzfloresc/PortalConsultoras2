@@ -20,8 +20,9 @@
 .lonuevo_carrusel .lonuevo_carrusel_portada {
     height: 355px;
     float: left;
-    width: 60%; /*453px*/
+    width: 60%;
     display: table;
+    z-index: 1;
 }
 
 .lonuevo_carrusel .lonuevo_carrusel_portada .cont {
@@ -49,10 +50,12 @@
 }
 
 .lonuevo_carrusel .lonuevo_carrusel_info {
+    z-index: 2;
     height: 355px;
     float: left;
     width: 40%;
     display: table;
+    position: relative;
 }
 
 .lonuevo_carrusel .lonuevo_carrusel_info .cont {
@@ -64,34 +67,44 @@
 
 .lonuevo_carrusel .lonuevo_carrusel_info .cont p {
     width: 100%;
-  font-family: Lato;
-  font-size: 15px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: 1px;
-  text-align: left;
-  color: #ffffff;
+    font-family: Lato;
+    font-size: 15px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 1px;
+    text-align: left;
+    color: #ffffff;
     margin-bottom: 0px;
     display: block;
+    text-transform: uppercase;
     word-break:break-word;
 }
 
 .lonuevo_carrusel .lonuevo_carrusel_info .cont span {
     width:100%;
-  font-family: Lato;
-  font-size: 40px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: 1.5px;
-  text-align: left;
-  color: #ffffff;
+    font-family: Lato;
+    font-size: 30px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 1.5px;
+    text-align: left;
+    color: #ffffff;
     display: block;
     margin-bottom: 20px;
     word-wrap:break-word;
+    text-transform: lowercase;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.lonuevo_carrusel .lonuevo_carrusel_info .cont span::first-letter {
+    text-transform: uppercase;
 }
 
 .lonuevo_carrusel .lonuevo_carrusel_info .cont a {

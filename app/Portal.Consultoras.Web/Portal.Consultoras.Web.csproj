@@ -3011,6 +3011,7 @@
     <Content Include="Content\Images\mobile\img-icon\icon-nuevo-cliente-green.png" />
     <Content Include="Content\Images\mobile\img-icon\icon-nuevo-cliente-white.png" />
     <Content Include="Content\Images\mobile\img-icon\icon-tarjeta.png" />
+    <Content Include="Content\Images\mobile\img-icon\icono-app.jpg" />
     <Content Include="Content\Images\mobile\img-icon\img-next.png" />
     <Content Include="Content\Images\mobile\img-icon\img-prev.png" />
     <Content Include="Content\Images\mobile\img-icon\img-producto-agregado.png" />
@@ -3040,6 +3041,7 @@
     <Content Include="Content\Images\mobile\img-icon\mobile_icon_zona_liquidacion.png" />
     <Content Include="Content\Images\mobile\img-icon\m_ic_cerrar.png" />
     <Content Include="Content\Images\mobile\img-icon\m_ic_ingresa_pedido.png" />
+    <Content Include="Content\Images\mobile\img-icon\whatsapp-50x50.png" />
     <Content Include="Content\Images\mobile\img-showroom\banner_intriga_new_header.png" />
     <Content Include="Content\Images\mobile\img-showroom\banner_intriga_new_showroom.png" />
     <Content Include="Content\Images\mobile\img-showroom\BARRA_SUPERIOR_TEXTOJUNTO_CATEGORIA.png" />
@@ -3411,6 +3413,8 @@
     <Content Include="Content\Images\sliders\img_01.jpg" />
     <Content Include="Content\Images\sliders\img_02.jpg" />
     <Content Include="Content\Images\sliders\img_03.jpg" />
+    <Content Include="Content\Images\sliders\next_ofertas.svg" />
+    <Content Include="Content\Images\sliders\previous_ofertas.svg" />
     <Content Include="Content\Images\social_icon_facebook.png" />
     <Content Include="Content\Images\socias_empresarias_2014.png" />
     <Content Include="Content\Images\sombra_banner_login.png" />
