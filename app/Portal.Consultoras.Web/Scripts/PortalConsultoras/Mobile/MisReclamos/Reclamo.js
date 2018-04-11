@@ -575,7 +575,7 @@ $(document).ready(function () {
 
                         data.detalle = data.detalle || new Array();
                         if (data.detalle.length <= 0) {
-                            messageInfoError("Producto no disponible para atención por este medio, comunícate con el <span>Chat en Línea</span>.");
+                            messageInfoError("Producto no disponible para atención por este medio, comunícate con el <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
 
                         } else {
                             if (data.detalle.length > 1) {
