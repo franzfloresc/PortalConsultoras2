@@ -14783,25 +14783,18 @@ a {
     -webkit-transition:all 0.3s ease;
 }
 
-<<<<<<< HEAD
+.btn_desactivado_general {
+    background: #e5e5e5;
+    border: 1px solid #d2d2d2;
+    color: #b9b9b9;
+}
 .mensaje_felicitaciones a:hover {
     opacity: 0.8;
 }
 /* FIN: VISTA ACTUALIZAR CONTRASEÑA */
 
-.btn_desactivado_general {
-    background: #e5e5e5;
-    border: 1px solid #d2d2d2;
-    color: #b9b9b9;
-=======
-    .mensaje_felicitaciones a:hover {
-        opacity: 0.8;
-    }
-/* FIN: VISTA ACTUALIZAR CONTRASEÑA */
-
 .text-uppercase {
     text-transform: uppercase;
->>>>>>> master
 }
 
 /* HD-912 - PEDIDO FIC MOBILE */
