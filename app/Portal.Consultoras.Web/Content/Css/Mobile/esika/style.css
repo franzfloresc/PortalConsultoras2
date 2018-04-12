@@ -14852,7 +14852,6 @@ a {
     line-height:20px;
 }
 
-<<<<<<< HEAD
 .label-white-small {
 	color: #ffffff;
 	font-weight: bold;
@@ -14861,11 +14860,8 @@ a {
 }
 
 /* HD-912 - FIN - PEDIDO FIC MOBILE */
-=======
-/* HD-912 - FIN - PEDIDO FIC MOBILE */
 .btn_desactivado_general {
     background: #e5e5e5;
     border: 1px solid #d2d2d2;
     color: #b9b9b9;
 }
->>>>>>> master
