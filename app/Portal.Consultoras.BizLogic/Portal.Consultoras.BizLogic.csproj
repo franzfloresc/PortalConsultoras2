@@ -78,6 +78,8 @@
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Services" />
@@ -93,12 +95,14 @@
     <Compile Include="BLConfiguracionOfertasHome.cs" />
     <Compile Include="BLAsesoraOnline.cs" />
     <Compile Include="BLCupon.cs" />
+    <Compile Include="Cache\BLCache.cs" />
     <Compile Include="Cliente\BLClienteDB.cs" />
     <Compile Include="Comunicado\IComunicadoBusinessLogic.cs" />
     <Compile Include="Configuracion\BLConfiguracionPaisDatos.cs" />
     <Compile Include="Configuracion\IConfiguracionPaisBusinessLogic.cs" />
     <Compile Include="Configuracion\IConfiguracionPaisDatosBusinessLogic.cs" />
     <Compile Include="Cupon\ICuponConsultoraBusinessLogic.cs" />
+    <Compile Include="Estrategia\EstrategiaBusinessLogic.cs" />
     <Compile Include="Estrategia\IConfiguracionProgramaNuevasBusinessLogic.cs" />
     <Compile Include="Estrategia\IEstrategiaBusinessLogic.cs" />
     <Compile Include="Estrategia\IUpSellingBusinessLogic.cs" />
@@ -115,7 +119,8 @@
     <Compile Include="Configuracion\BLConfiguracionPais.cs" />
     <Compile Include="BLConfiguracionPaisDetalle.cs" />
     <Compile Include="BLReporteValidacion.cs" />
-    <Compile Include="BLReservaProl.cs" />
+    <Compile Include="Pedido\IPedidoWebDetalleBusinessLogic.cs" />
+    <Compile Include="Reserva\BLReserva.cs" />
     <Compile Include="BLEstrategiaProducto.cs" />
     <Compile Include="BizLogicException.cs" />
     <Compile Include="BLAfiliaClienteConsultora.cs" />
@@ -192,9 +197,11 @@
     <Compile Include="Pedido\BLTracking.cs" />
     <Compile Include="Pedido\IPedidoAppBusinessLogic.cs" />
     <Compile Include="Pedido\IPedidoWebBusinessLogic.cs" />
-    <Compile Include="Pedido\IPedidoWebDetalleBusinessLogic.cs" />
     <Compile Include="Pedido\ITrackingBusinessLogic.cs" />
     <Compile Include="Producto\IProductoBusinessLogic.cs" />
+    <Compile Include="Reserva\BLReservaSicc.cs" />
+    <Compile Include="Reserva\IReservaExternaBL.cs" />
+    <Compile Include="Reserva\BLReservaProl2.cs" />
     <Compile Include="Resources\IncentivoMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -239,7 +246,7 @@
     <Compile Include="BLUbigeo.cs" />
     <Compile Include="BLValidacionAutomatica.cs" />
     <Compile Include="BLZonificacion.cs" />
-    <Compile Include="CacheManager.cs" />
+    <Compile Include="Cache\CacheManager.cs" />
     <Compile Include="BLLugarPago.cs" />
     <Compile Include="BLIncentivo.cs" />
     <Compile Include="CDR\BLCDRParametria.cs" />
@@ -284,6 +291,10 @@
     <ProjectReference Include="..\Portal.Consultoras.Data.Hana\Portal.Consultoras.Data.Hana.csproj">
       <Project>{6A7ABF96-986A-4A90-9022-4E2A43F0B25D}</Project>
       <Name>Portal.Consultoras.Data.Hana</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Portal.Consultoras.Data.Service\Portal.Consultoras.Data.Rest.csproj">
+      <Project>{5156c092-f202-405e-bcb1-69c659b9af8d}</Project>
+      <Name>Portal.Consultoras.Data.Rest</Name>
     </ProjectReference>
     <ProjectReference Include="..\Portal.Consultoras.Data\Portal.Consultoras.Data.csproj">
       <Project>{022e2be6-d149-4cd7-8af4-b1df2ace8888}</Project>

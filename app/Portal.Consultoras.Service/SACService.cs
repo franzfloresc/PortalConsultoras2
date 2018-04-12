@@ -236,7 +236,7 @@ namespace Portal.Consultoras.Service
 
         public IList<BEConfiguracionValidacion> GetConfiguracionValidacion(int paisID, int campaniaID)
         {
-            return BLConfiguracionValidacion.GetConfiguracionValidacion(paisID, campaniaID);
+            return BLConfiguracionValidacion.GetListConfiguracionValidacion(paisID);
         }
 
         public BEConfiguracionValidacionZona GetConfiguracionValidacionZona(int paisID, int campaniaID, int zonaID)
@@ -1356,11 +1356,21 @@ namespace Portal.Consultoras.Service
             var bl = new BLConfiguracionPais();
             return bl.Get(paisId, configuracionPaisId);
         }
-
+        public BEConfiguracionPais GetConfiguracionPaisByCode(int paisId, string codigo)
+        {
+            var bl = new BLConfiguracionPais();
+            return bl.Get(paisId, codigo);
+        }
         public void UpdateConfiguracionPais(BEConfiguracionPais configuracionPais)
         {
             var bl = new BLConfiguracionPais();
             bl.Update(configuracionPais);
+        }
+
+        public BEConfiguracionPaisDatos GetConfiguracionPaisDatos(BEConfiguracionPaisDatos configuracionPaisDatos)
+        {
+            var bl = new BLConfiguracionPaisDatos();
+            return bl.Get(configuracionPaisDatos);
         }
         #endregion
 
@@ -1458,6 +1468,11 @@ namespace Portal.Consultoras.Service
         public BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible)
         {
             return new BLHorario().GetHorarioByCodigo(paisID, codigo, loadEstaDisponible);
+        }
+
+        public string RemoveDataCache(int paisID, string cacheItemString, string customKey)
+        {
+            return new BLCache().RemoveData(paisID, cacheItemString, customKey);
         }
 
         #region MarcaCategoria Apoyadas

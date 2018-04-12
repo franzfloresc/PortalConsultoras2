@@ -107,9 +107,7 @@
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
         var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
         var RevistaCodigoIssuu = {
-            '@ViewBag.CampaniaAnterior': '@ViewBag.CodigoRevistaAnterior',
-            '@ViewBag.CampaniaActual': '@ViewBag.CodigoRevistaActual',
-            '@ViewBag.CampaniaSiguiente': '@ViewBag.CodigoRevistaSiguiente'
+            '@Model.CampaniaID': '@ViewBag.CodigoRevistaActual'
         };
 
     </script>
