@@ -200,6 +200,7 @@ color: #000000;
 display: block;
 margin-top: 20px;
 text-align:center;
+cursor:pointer;
 }
 .detalle-prod .detalle-img .detalle-compartir img{
 position: relative;
