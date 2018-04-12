@@ -88,24 +88,15 @@ namespace Portal.Consultoras.Common
             public const string Chile = "CL";
             public const string Ecuador = "EC";
             public const string CostaRica = "CR";
-
-            /// <summary>
-            /// El Salvador
-            /// </summary>
             public const string Salvador = "SV";
             public const string Guatemala = "GT";
             public const string Panama = "PA";
             public const string Venezuela = "VE";
             public const string Colombia = "CO";
-
             public const string Argentina = "AR";
             public const string Bolivia = "BO";
             public const string Mexico = "MX";
             public const string PuertoRico = "PR";
-
-            /// <summary>
-            /// Republica Dominicana
-            /// </summary>
             public const string Dominicana = "DO";
         }
 

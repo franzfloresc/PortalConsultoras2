@@ -459,6 +459,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                revistaDigital.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.Where(d => d.Componente != Constantes.ConfiguracionPaisComponente.RD.PopupClubGanaMas).ToList();
                 revistaDigital.NoVolverMostrar = true;
                 revistaDigital.EstadoSuscripcion = Constantes.EstadoRDSuscripcion.NoPopUp;
                 revistaDigital.SuscripcionModel.EstadoRegistro = Constantes.EstadoRDSuscripcion.NoPopUp;
@@ -517,6 +518,14 @@ namespace Portal.Consultoras.Web.Controllers
                     listaDatos.AddRange(listaDatosPopup);
                     revistaDigital.ConfiguracionPaisDatos = listaDatos;
                     sessionManager.SetRevistaDigital(revistaDigital);
+                }
+
+                if (!listaDatosPopup.Any())
+                {
+                    return Json(new
+                    {
+                        success = false
+                    }, JsonRequestBehavior.AllowGet);
                 }
 
                 var modelo = new RevistaDigitalPopupModel

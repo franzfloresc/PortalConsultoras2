@@ -450,7 +450,7 @@ namespace Portal.Consultoras.Web.Controllers
                             var cupon = ObtenerCuponDesdeServicio();
                             if (cupon != null)
                             {
-                                if (userData.CodigoISO == "PE")
+                                if (userData.CodigoISO == Constantes.CodigosISOPais.Peru)
                                 {
                                     tipoPopUpMostrar = Constantes.TipoPopUp.CuponForzado;
                                 }

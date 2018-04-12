@@ -1666,7 +1666,7 @@ namespace Portal.Consultoras.BizLogic
                                 if (consultoraEmail != null)
                                 {
                                     var asuntoEmail = consultoraEmail.EsPostulante ? "Creacion de cuenta de Somos Belcorp" : "Mensaje de bienvenida";
-                                    string[] paisesLbel = { "MX", "CR", "PA", "PR" };
+                                    string[] paisesLbel = { Constantes.CodigosISOPais.Mexico, Constantes.CodigosISOPais.CostaRica, Constantes.CodigosISOPais.Panama, Constantes.CodigosISOPais.PuertoRico };
 
                                     var eslbel = paisesLbel.Contains(paisISO);
 
@@ -1692,7 +1692,7 @@ namespace Portal.Consultoras.BizLogic
 
                                         if (eslbel)
                                         {
-                                            if (paisISO == "MX" || paisISO == "CR")
+                                            if (paisISO == Constantes.CodigosISOPais.Mexico || paisISO == Constantes.CodigosISOPais.CostaRica)
                                             {
                                                 htmlTemplate.Replace("#DISPLAY1#", "");
                                             }

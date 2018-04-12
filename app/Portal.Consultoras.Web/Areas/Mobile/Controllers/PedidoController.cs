@@ -218,7 +218,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.ProlTooltip = "Es importante que guardes tu pedido";
                 model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
 
-                if (userData.CodigoISO == "BO")
+                if (userData.CodigoISO == Constantes.CodigosISOPais.Bolivia)
                 {
                     model.ProlTooltip = "Es importante que guardes tu pedido";
                     model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", fechaFacturacionFormat);
@@ -238,7 +238,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                     else
                     {
-                        if (userData.CodigoISO == "BO")
+                        if (userData.CodigoISO == Constantes.CodigosISOPais.Bolivia)
                         {
                             model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
                         }
@@ -269,7 +269,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         }
                         else
                         {
-                            if (userData.CodigoISO == "BO")
+                            if (userData.CodigoISO == Constantes.CodigosISOPais.Bolivia)
                             {
                                 model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
                             }
@@ -440,7 +440,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.ProlTooltip = "Es importante que guardes tu pedido";
                 model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
 
-                if (userData.CodigoISO == "BO")
+                if (userData.CodigoISO == Constantes.CodigosISOPais.Bolivia)
                 {
                     model.ProlTooltip = "Es importante que guardes tu pedido";
                     model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", fechaFacturacionFormat);
@@ -481,7 +481,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         }
                         else
                         {
-                            if (userData.CodigoISO == "BO")
+                            if (userData.CodigoISO == Constantes.CodigosISOPais.Bolivia)
                             {
                                 model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
                             }
@@ -683,7 +683,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             int segmentoId;
 
-            if (userData.CodigoISO == "VE")
+            if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
             {
                 segmentoId = userData.SegmentoID;
             }

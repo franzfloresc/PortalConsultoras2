@@ -20,19 +20,19 @@ namespace Portal.Consultoras.Web.Controllers
 
             string url = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_DUPLACYZONE) + texto;
 
-            if (UserData().CodigoISO == "PE"
-                || UserData().CodigoISO == "BO"
-                || UserData().CodigoISO == "CO"
-                || UserData().CodigoISO == "MX"
-                || UserData().CodigoISO == "VE"
-                || UserData().CodigoISO == "AR"
-                || UserData().CodigoISO == "CL"
-                || UserData().CodigoISO == "CR"
-                || UserData().CodigoISO == "DO"
-                || UserData().CodigoISO == "EC"
-                || UserData().CodigoISO == "GT"
-                || UserData().CodigoISO == "PR"
-                || UserData().CodigoISO == "SV")
+            if (UserData().CodigoISO == Constantes.CodigosISOPais.Peru
+                || UserData().CodigoISO == Constantes.CodigosISOPais.Bolivia
+                || UserData().CodigoISO == Constantes.CodigosISOPais.Colombia
+                || UserData().CodigoISO == Constantes.CodigosISOPais.Mexico
+                || UserData().CodigoISO == Constantes.CodigosISOPais.Venezuela
+                || UserData().CodigoISO == Constantes.CodigosISOPais.Argentina
+                || UserData().CodigoISO == Constantes.CodigosISOPais.Chile
+                || UserData().CodigoISO == Constantes.CodigosISOPais.CostaRica
+                || UserData().CodigoISO == Constantes.CodigosISOPais.Dominicana
+                || UserData().CodigoISO == Constantes.CodigosISOPais.Ecuador
+                || UserData().CodigoISO == Constantes.CodigosISOPais.Guatemala
+                || UserData().CodigoISO == Constantes.CodigosISOPais.PuertoRico
+                || UserData().CodigoISO == Constantes.CodigosISOPais.Salvador)
                 url = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_DUPLACYZONE + UserData().CodigoISO);
 
             return Redirect(url);
