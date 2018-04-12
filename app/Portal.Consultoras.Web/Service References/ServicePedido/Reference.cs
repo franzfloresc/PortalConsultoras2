@@ -34920,6 +34920,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DeshacerPedidoValidado", ReplyAction="http://tempuri.org/IPedidoService/DeshacerPedidoValidadoResponse")]
         System.Threading.Tasks.Task<string> DeshacerPedidoValidadoAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, string tipo);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DeshacerReservaPedido", ReplyAction="http://tempuri.org/IPedidoService/DeshacerReservaPedidoResponse")]
+        bool DeshacerReservaPedido(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, int pedidoId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DeshacerReservaPedido", ReplyAction="http://tempuri.org/IPedidoService/DeshacerReservaPedidoResponse")]
+        System.Threading.Tasks.Task<bool> DeshacerReservaPedidoAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, int pedidoId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerResumen", ReplyAction="http://tempuri.org/IPedidoService/ObtenerResumenResponse")]
         Portal.Consultoras.Web.ServicePedido.BEConsultoraResumen ObtenerResumen(int paisId, int codigoCampania, long consultoraId);
         
@@ -36255,10 +36261,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<int> InsOfertaShowRoomAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta entity);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DelPedidoWebDetalleMasivo", ReplyAction="http://tempuri.org/IPedidoService/DelPedidoWebDetalleMasivoResponse")]
-        bool DelPedidoWebDetalleMasivo(int PaisID, int CampaniaID, int PedidoID, string CodigoUsuario);
+        bool DelPedidoWebDetalleMasivo(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, int pedidoId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DelPedidoWebDetalleMasivo", ReplyAction="http://tempuri.org/IPedidoService/DelPedidoWebDetalleMasivoResponse")]
-        System.Threading.Tasks.Task<bool> DelPedidoWebDetalleMasivoAsync(int PaisID, int CampaniaID, int PedidoID, string CodigoUsuario);
+        System.Threading.Tasks.Task<bool> DelPedidoWebDetalleMasivoAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, int pedidoId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DelPedidoWebDetallePackNueva", ReplyAction="http://tempuri.org/IPedidoService/DelPedidoWebDetallePackNuevaResponse")]
         bool DelPedidoWebDetallePackNueva(int PaisID, long ConsultoraID, int PedidoID);
@@ -37368,6 +37374,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<string> DeshacerPedidoValidadoAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, string tipo) {
             return base.Channel.DeshacerPedidoValidadoAsync(usuario, tipo);
+        }
+        
+        public bool DeshacerReservaPedido(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, int pedidoId) {
+            return base.Channel.DeshacerReservaPedido(usuario, pedidoId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> DeshacerReservaPedidoAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, int pedidoId) {
+            return base.Channel.DeshacerReservaPedidoAsync(usuario, pedidoId);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEConsultoraResumen ObtenerResumen(int paisId, int codigoCampania, long consultoraId) {
@@ -39114,12 +39128,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.InsOfertaShowRoomAsync(paisID, entity);
         }
         
-        public bool DelPedidoWebDetalleMasivo(int PaisID, int CampaniaID, int PedidoID, string CodigoUsuario) {
-            return base.Channel.DelPedidoWebDetalleMasivo(PaisID, CampaniaID, PedidoID, CodigoUsuario);
+        public bool DelPedidoWebDetalleMasivo(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, int pedidoId) {
+            return base.Channel.DelPedidoWebDetalleMasivo(usuario, pedidoId);
         }
         
-        public System.Threading.Tasks.Task<bool> DelPedidoWebDetalleMasivoAsync(int PaisID, int CampaniaID, int PedidoID, string CodigoUsuario) {
-            return base.Channel.DelPedidoWebDetalleMasivoAsync(PaisID, CampaniaID, PedidoID, CodigoUsuario);
+        public System.Threading.Tasks.Task<bool> DelPedidoWebDetalleMasivoAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, int pedidoId) {
+            return base.Channel.DelPedidoWebDetalleMasivoAsync(usuario, pedidoId);
         }
         
         public bool DelPedidoWebDetallePackNueva(int PaisID, long ConsultoraID, int PedidoID) {

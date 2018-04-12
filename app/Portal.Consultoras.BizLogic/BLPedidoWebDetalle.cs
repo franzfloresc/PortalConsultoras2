@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.BizLogic.Reserva;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.PublicService.Cryptography;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
@@ -498,31 +500,37 @@ namespace Portal.Consultoras.BizLogic
             return pedidoWebDetalle;
         }
 
-        public bool DelPedidoWebDetalleMasivo(int PaisID, int CampaniaID, int PedidoID, string CodigoUsuario)
+        public async Task<bool> DelPedidoWebDetalleMasivo(BEUsuario usuario, int pedidoId)
         {
-            var daPedidoWeb = new DAPedidoWeb(PaisID);
-            var daPedidoWebDetalle = new DAPedidoWebDetalle(PaisID);
-            bool success = true;
-            TransactionOptions oTransactionOptions =
-                new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
+            var daPedidoWeb = new DAPedidoWeb(usuario.PaisID);
+            var daPedidoWebDetalle = new DAPedidoWebDetalle(usuario.PaisID);
+            var blReservaSicc = new BLReservaSicc();
 
+            TransactionOptions oTransactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
             try
             {
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
-                    daPedidoWebDetalle.DelPedidoWebDetalleMasivo(CampaniaID, PedidoID);
-                    daPedidoWeb.UpdPedidoWebByEstadoConTotalesMasivo(CampaniaID, PedidoID, 201, false, 0, 0, CodigoUsuario);
-                    daPedidoWeb.DelIndicadorPedidoAutenticoCompleto(new BEIndicadorPedidoAutentico { PedidoID = PedidoID, CampaniaID = CampaniaID });
+                    daPedidoWebDetalle.DelPedidoWebDetalleMasivo(usuario.CampaniaID, pedidoId);
+                    daPedidoWeb.UpdPedidoWebByEstadoConTotalesMasivo(usuario.CampaniaID, pedidoId, 201, false, 0, 0, usuario.CodigoUsuario);
+                    daPedidoWeb.DelIndicadorPedidoAutenticoCompleto(new BEIndicadorPedidoAutentico { PedidoID = pedidoId, CampaniaID = usuario.CampaniaID });
+
+                    if (usuario.ZonaValida)
+                    {
+                        var success =await blReservaSicc.DeshacerReservaPedido(usuario, pedidoId);
+                        if (!success) return false;
+                    }
 
                     oTransactionScope.Complete();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                success = false;
+                LogManager.SaveLog(ex, usuario.CodigoUsuario, usuario.PaisID);
+                return false;
             }
 
-            return success;
+            return true;
         }
 
         public bool DelPedidoWebDetallePackNueva(int PaisID, long ConsultoraID, int PedidoID)

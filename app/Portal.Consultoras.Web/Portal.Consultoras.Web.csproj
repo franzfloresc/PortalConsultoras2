@@ -853,11 +853,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
-    <Compile Include="Web References\ServicePROL\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
     <Compile Include="Web References\ServicesCalculosPROL\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -5220,14 +5215,6 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\ServicePROLConsultas\wsConsulta.wsdl" />
-    <None Include="Web References\ServicePROL\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\ServicePROL\ServiceStockSsic.wsdl" />
-    <Content Include="Web References\ServicePROL\TransferirDatos.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </Content>
     <Content Include="WebPages\MasterComunidad.Master" />
     <None Include="Web References\ServicesCalculosPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -5308,17 +5295,6 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Portal_Consultoras_Web_ServicePROLConsultas_wsConsulta</CachedSettingsPropName>
-    </WebReferenceUrl>
-    <WebReferenceUrl Include="http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/wsPROLSicc/ServiceStockSsic.asmx%3fwsdl">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\ServicePROL\</RelPath>
-      <UpdateFromURL>http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/wsPROLSicc/ServiceStockSsic.asmx%3fwsdl</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>Portal_Consultoras_Web_ServicePROL_ServiceStockSsic</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="http://pelnx12.galileo.ebel:7777/ssiccpeesprd/services/ProcesoMAEPortalConsultoraWebService%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>

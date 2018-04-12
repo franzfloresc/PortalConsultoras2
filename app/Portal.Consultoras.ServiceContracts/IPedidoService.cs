@@ -291,10 +291,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BECrossSellingAsociacion> GetCUVAsociadoByFilter(int PaisID, int CampaniaID, string CUV, string CodigoSegmento);
-
-
+        
         [OperationContract]
-        bool DelPedidoWebDetalleMasivo(int PaisID, int CampaniaID, int PedidoID, string CodigoUsuario);
+        Task<bool> DelPedidoWebDetalleMasivo(BEUsuario usuario, int pedidoId);
 
         [OperationContract]
         bool DelPedidoWebDetallePackNueva(int PaisID, long ConsultoraID, int PedidoID);
@@ -1094,6 +1093,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         string DeshacerPedidoValidado(BEUsuario usuario, string tipo);
+
+        [OperationContract]
+        Task<bool> DeshacerReservaPedido(BEUsuario usuario, int pedidoId);
 
         [OperationContract]
         BEConsultoraResumen ObtenerResumen(int paisId, int codigoCampania, long consultoraId);

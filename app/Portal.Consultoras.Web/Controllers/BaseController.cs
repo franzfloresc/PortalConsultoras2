@@ -1626,14 +1626,6 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        protected string ConfigurarUrlServiceProl()
-        {
-            var ambiente = GetConfiguracionManager(Constantes.ConfiguracionManager.Ambiente);
-            var pais = UserData().CodigoISO;
-            var key = ambiente.Trim().ToUpper() + "_Prol_" + pais.Trim().ToUpper();
-            return ConfigurationManager.AppSettings[key];
-        }
-
         protected BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(string constSession)
         {
             constSession = constSession ?? "";

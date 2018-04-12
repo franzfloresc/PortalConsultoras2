@@ -92,6 +92,21 @@ namespace Portal.Consultoras.BizLogic.Reserva
             return resultado;
         }
 
+        public async Task<bool> DeshacerReservaPedido(BEUsuario usuario, int pedidoId)
+        {
+            var input = new BEInputReservaProl
+            {
+                PaisID = usuario.PaisID,
+                CampaniaID = usuario.CampaniaID,
+                PedidoID = pedidoId,
+                CodigoConsultora = usuario.CodigoConsultora,
+                FechaHoraReserva = true
+            };
+            var output = await ConsumirServicioSicc(input, new List<BEPedidoWebDetalle>());
+
+            return output.exitCode == 0;
+        }
+
         private async Task<ServSicc.Pedido> ConsumirServicioSicc(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             var pedidoSapId = blPedidoWeb.GetPedidoSapId(input.PaisID, input.CampaniaID, input.PedidoID);

@@ -840,20 +840,14 @@ namespace Portal.Consultoras.Web.Controllers
                 var formatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
                 var formatoTotalCliente = "";
 
-                if (!olstPedidoWebDetalle.Any())
+                if (olstPedidoWebDetalle.Any()) formatoTotalCliente = PedidoWebTotalClienteFormato(ClienteID, olstPedidoWebDetalle);
+                else if (userData.ZonaValida)
                 {
-                    if (userData.ZonaValida)
+                    var usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
+                    using (var sv = new PedidoServiceClient())
                     {
-                        using (var sv = new ServicePROL.ServiceStockSsic())
-                        {
-                            sv.Url = ConfigurarUrlServiceProl();
-                            sv.wsDesReservarPedido(userData.CodigoConsultora, userData.CodigoISO);
-                        }
+                        sv.DeshacerReservaPedido(usuario, PedidoID);
                     }
-                }
-                else
-                {
-                    formatoTotalCliente = PedidoWebTotalClienteFormato(ClienteID, olstPedidoWebDetalle);
                 }
 
                 var listaCliente = ListarClienteSegunPedido("", olstPedidoWebDetalle);
@@ -861,8 +855,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Session[Constantes.ConstSession.ListaEstrategia] = null;
 
                 var message = !errorServer ? "OK"
-                            : tipo.Length > 1 ? tipo
-                            : "Ocurrió un error al ejecutar la operación.";
+                            : tipo.Length > 1 ? tipo : "Ocurrió un error al ejecutar la operación.";
 
                 return Json(new
                 {
@@ -925,66 +918,29 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult DeleteAll()
         {
-            var errorServer = false;
             string message;
-
             try
             {
-                var noPasa = ReservadoEnHorarioRestringido(out message);
-                if (noPasa)
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = message,
-                        extra = ""
-                    }, JsonRequestBehavior.AllowGet);
-                }
+                if(ReservadoEnHorarioRestringido(out message)) return ErrorJson(message, true);
 
-                bool eliminacionMasiva;
+                var usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
                 using (var sv = new PedidoServiceClient())
                 {
-                    eliminacionMasiva = sv.DelPedidoWebDetalleMasivo(userData.PaisID, userData.CampaniaID, userData.PedidoID, userData.CodigoUsuario);
-                }
-                if (eliminacionMasiva)
-                {
-                    sessionManager.SetPedidoWeb(null);
-                    sessionManager.SetDetallesPedido(null);
-                    Session[Constantes.ConstSession.ListaEstrategia] = null;
-
-                    UpdPedidoWebMontosPROL();
-
-                    if (userData.ZonaValida)
-                    {
-                        using (var sv = new ServicePROL.ServiceStockSsic())
-                        {
-                            sv.Url = ConfigurarUrlServiceProl();
-                            sv.wsDesReservarPedido(userData.CodigoConsultora, userData.CodigoISO);
-                        }
-                    }
-                }
-                else
-                {
-                    errorServer = true;
-                    message = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
+                    if (!sv.DelPedidoWebDetalleMasivo(usuario, userData.PedidoID)) return ErrorJson(Constantes.MensajesError.DeleteAllPedido_Error, true);
                 }
 
+                sessionManager.SetPedidoWeb(null);
+                sessionManager.SetDetallesPedido(null);
+                Session[Constantes.ConstSession.ListaEstrategia] = null;
+                UpdPedidoWebMontosPROL();
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                errorServer = true;
-                message = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
+                return ErrorJson(Constantes.MensajesError.DeleteAllPedido_Error, true);
             }
 
-            return Json(new
-            {
-                success = !errorServer,
-                message = message,
-                extra = "",
-                DataBarra = GetDataBarra()
-            }, JsonRequestBehavior.AllowGet);
-
+            return Json(new { success = true, DataBarra = GetDataBarra() }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
