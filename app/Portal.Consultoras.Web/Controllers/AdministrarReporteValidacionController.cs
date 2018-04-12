@@ -144,25 +144,24 @@ namespace Portal.Consultoras.Web.Controllers
             return null;
         }
 
-        [Obsolete("Migrado PL50-50")]
         private ActionResult ExportarExcelShowRoom(string CampaniaID)
         {
-            List<List<ReporteValidacionSRModel>> lst = new List<List<ReporteValidacionSRModel>>();
+            List<BEReporteValidacionSRPersonalizacion> lstSrPersonalizacion= new List<BEReporteValidacionSRPersonalizacion>();
+            List<BEReporteValidacionSRComponentes> lstSrComponente = new List<BEReporteValidacionSRComponentes>();
+            List<BEReporteValidacionSRCampania> lstSrCampania = new List<BEReporteValidacionSRCampania>();
             List<Dictionary<string, string>> lstConfiguration = new List<Dictionary<string, string>>();
-            List<string> nombresHojas = new List<string>();
+            List<BEReporteValidacionSROferta> lstSrOferta = new List<BEReporteValidacionSROferta>();
+            List<List<ReporteValidacionSRModel>> lst = new List<List<ReporteValidacionSRModel>>();
 
-            List<BEReporteValidacionSRCampania> lstSrCampania;
-            List<BEReporteValidacionSRPersonalizacion> lstSrPersonalizacion;
-            List<BEReporteValidacionSROferta> lstSrOferta;
-            List<BEReporteValidacionSRComponentes> lstSrComponente;
+            List<string> nombresHojas = new List<string>();
             string nombreReporte = NombreReporteValidacionSR;
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 lstSrCampania = sv.GetReporteShowRoomCampania(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
                 lstSrPersonalizacion = sv.GetReporteShowRoomPersonalizacion(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
-                lstSrOferta = sv.GetReporteShowRoomOferta(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList(); //migrado
-                lstSrComponente = sv.GetReporteShowRoomComponentes(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList(); //migrado
+                lstSrOferta = sv.GetReporteShowRoomOferta(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
+                lstSrComponente = sv.GetReporteShowRoomComponentes(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
             }
 
             if (lstSrCampania.Count == 0 && lstSrPersonalizacion.Count == 0 && lstSrOferta.Count == 0 && lstSrComponente.Count == 0)
@@ -231,8 +230,6 @@ namespace Portal.Consultoras.Web.Controllers
                 CUV = x.CUV,
                 Nombre = x.Nombre,
                 Descripcion1 = x.Descripcion1,
-                Descripcion2 = x.Descripcion2,
-                Descripcion3 = x.Descripcion3,
                 FlagImagenCargada = Convert.ToInt32(x.FlagImagenCargada)
             }));
 

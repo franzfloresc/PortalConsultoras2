@@ -12,10 +12,11 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLTracking : ITrackingBusinessLogic
     {
-        public List<BETracking> GetPedidosByConsultora(int paisID, string codigoConsultora, int top)
+        public List<BETracking> GetPedidosByConsultora(int paisID, string codigoConsultora, int top, int tipoDoc = 0)
         {
-            var pedidos = new List<BETracking>();
-            var daTracking = new DATracking(paisID);
+            var pedidos             = new List<BETracking>();
+            var daTracking          = new DATracking(paisID);
+            codigoConsultora        = GetConsultoraByDocumento(paisID, codigoConsultora, tipoDoc);
 
             using (IDataReader reader = daTracking.GetPedidosByConsultora(codigoConsultora, top))
             {
@@ -60,10 +61,11 @@ namespace Portal.Consultoras.BizLogic
             return pedido;
         }
 
-        public List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, string nropedido)
+        public List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, string nropedido, int tipoDoc = 0)
         {
-            var pedidos = new List<BETracking>();
-            var daTracking = new DATracking(paisID);
+            var pedidos                 = new List<BETracking>();
+            var daTracking              = new DATracking(paisID);
+            codigo                      = GetConsultoraByDocumento(paisID, codigo, tipoDoc);
 
             using (IDataReader reader = daTracking.GetTrackingByPedido(codigo, campana, nropedido))
             {
@@ -330,5 +332,28 @@ namespace Portal.Consultoras.BizLogic
 
             return pedidos;
         }
+
+        private string GetConsultoraByDocumento(int paisID, string codigoConsultora, int tipoDoc)
+        {
+            var datConsultora = new DAConsultora(paisID);
+            string codigo = "";
+            try
+            {
+                if (tipoDoc > 0)
+                {
+                    codigo = datConsultora.GetConsultoraByDocumento(codigoConsultora, tipoDoc);
+                    if (string.IsNullOrEmpty(codigo))
+                        codigo = codigoConsultora;
+                }
+                else
+                    codigo = codigoConsultora;
+            }
+            catch 
+            {
+                codigo = codigoConsultora;
+            }
+            return codigo;
+        }
+
     }
 }

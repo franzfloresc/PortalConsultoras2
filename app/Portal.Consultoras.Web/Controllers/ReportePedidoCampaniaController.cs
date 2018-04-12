@@ -31,7 +31,6 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
             await Task.Run(() => LoadConsultorasCache(11));
-            //var listaCampanias = DropDowListCampanias(11);
             var reportePedidoCampaniaModel = new ReportePedidoCampaniaModel()
             {
                 listaCampanias = new List<CampaniaModel>(),
@@ -187,20 +186,6 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEPedidoFacturado> lista = new List<BEPedidoFacturado>();
                 try
                 {
-                    try
-                    {
-                        //BEPais bepais;
-                        //using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                        //{
-                        //    bepais = sv.SelectPais(Convert.ToInt32(vPaisID));
-                        //}
-                    }
-                    catch (FaultException ex)
-                    {
-                        LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                    }
-
-
                     if (vRegion == "" || vRegion == "-- Todas --") vRegion = "0";
                     if (vZona == "" || vZona == "-- Todas --") vZona = "0";
                     if (vConsultora == "") vConsultora = "0";
@@ -349,12 +334,6 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ExportarExcel(string vPaisID, string vCampania, string vRegion, string vZona, string vConsultora)
         {
             List<ReportePedidoCampaniaModel> lst = new List<ReportePedidoCampaniaModel>();
-
-            //BEPais bepais;
-            //using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            //{
-            //    bepais = sv.SelectPais(Convert.ToInt32(vPaisID));
-            //}
 
             if (vRegion == "" || vRegion == "-- Todas --") vRegion = "0";
             if (vZona == "" || vZona == "-- Todas --") vZona = "0";
