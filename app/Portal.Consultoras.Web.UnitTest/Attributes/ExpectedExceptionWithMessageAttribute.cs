@@ -27,25 +27,30 @@ namespace Portal.Consultoras.Web.UnitTest.Attributes
 
         protected override void Verify(Exception e)
         {
-            if (e.GetType() != this.ExceptionType)
+            var exception = e;
+            if(e.GetType() == typeof(AggregateException))
+            {
+                exception = e.InnerException;
+            }
+            if (exception.GetType() != this.ExceptionType)
             {
                 Assert.Fail(String.Format(
                                 "ExpectedExceptionWithMessageAttribute failed. Expected exception type: {0}. Actual exception type: {1}. Exception message: {2}",
                                 this.ExceptionType.FullName,
-                                e.GetType().FullName,
-                                e.Message
+                                exception.GetType().FullName,
+                                exception.Message
                                 )
                             );
             }
 
-            var actualMessage = e.Message.Trim();
+            var actualMessage = exception.Message.Trim();
 
             if (this.ExpectedMessage != null)
             {
                 Assert.AreEqual(this.ExpectedMessage, actualMessage);
             }
 
-            Console.Write("ExpectedExceptionWithMessageAttribute:" + e.Message);
+            Console.Write("ExpectedExceptionWithMessageAttribute:" + exception.Message);
         }
     }
 }

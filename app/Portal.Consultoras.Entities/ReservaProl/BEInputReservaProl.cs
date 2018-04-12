@@ -50,6 +50,7 @@ namespace Portal.Consultoras.Entities.ReservaProl
         public bool FechaHoraReserva { get; set; }
         [DataMember]
         public bool ProlV2 { get; set; }
+        public byte VersionProl { get; set; }
         [DataMember]
         public bool ZonaValida { get; set; }
         [DataMember]

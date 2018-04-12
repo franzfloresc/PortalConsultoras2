@@ -1,7 +1,8 @@
-﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.PublicService.Cryptography;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -217,11 +218,8 @@ namespace Portal.Consultoras.BizLogic
 
             using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
             {
-                dAPedidoWebDetalle.ClearBackOrderPedidoWebDetalle(campaniaID, pedidoID);
-                foreach (var pedidoWebDetalle in listPedidoWebDetalle)
-                {
-                    dAPedidoWebDetalle.UpdBackOrderPedidoWebDetalle(pedidoWebDetalle);
-                }
+                dAPedidoWebDetalle.UpdListBackOrderPedidoWebDetalle(campaniaID, pedidoID, listPedidoWebDetalle);
+
                 oTransactionScope.Complete();
             }
         }
@@ -450,7 +448,7 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        public void InsPedidoWebDetallePROLv2(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProl, decimal DescuentoProl)
+        public void InsPedidoWebDetallePROLv2(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, string CodigoUsuario, decimal MontoTotalProl, decimal DescuentoProl)
         {
             var daPedidoWeb = new DAPedidoWeb(PaisID);
             var daPedidoWebDetalle = new DAPedidoWebDetalle(PaisID);
@@ -459,17 +457,8 @@ namespace Portal.Consultoras.BizLogic
 
             using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
             {
-                if (olstPedidoWebDetalle != null)
-                {
-                    foreach (var item in olstPedidoWebDetalle)
-                    {
-                        daPedidoWebDetalle.UpdPedidoWebDetalleObsPROL(item, false);
-                    }
-                    foreach (var item in olstPedidoWebDetalle)
-                    {
-                        daPedidoWebDetalle.UpdPedidoWebDetalleObsPROL(item, true);
-                    }
-                }
+                if (olstPedidoWebDetalle != null) daPedidoWebDetalle.UpdListPedidoWebDetalleObsPROL(olstPedidoWebDetalle);
+
                 daPedidoWeb.UpdPedidoWebByEstado(CampaniaID, PedidoID, EstadoPedido, false, CodigoUsuario, MontoTotalProl, DescuentoProl);
                 oTransactionScope.Complete();
             }

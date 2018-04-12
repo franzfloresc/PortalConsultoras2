@@ -1,9 +1,8 @@
 ﻿<div class="desplegablegnd">
     <div class="gndcontenido">
         <div class="nrognd">
-            <span class="numeritognd">
-                REVISTA C-17
-            </span><span class="flechitagnd">
+            <span class="numeritognd" id="tituloGuiaNegocioFloteante"></span>
+            <span class="flechitagnd">
                 <img src="~/Content/Images/expand-button.png" alt="">
             </span>
         </div>
@@ -15,7 +14,7 @@
                 <div class="continfognd">
                     <div class="sbcontgnd">
                         <p>Encuentra aquí las ofertas de la guía de negocio impresa</p>
-                        <a href="#" id="btnVerGuiaNegocio">VER GUÍA</a>
+                        <a href="javascript:;" id="btnVerGuiaNegocio">VER GUÍA</a>
                         @using (Html.BeginForm("MiRevista", "Catalogo", new { area = "Mobile" }, FormMethod.Post, new { id = "frmGuiaNegocio", target = "_blank" }))
                         {
                             <input type="hidden" name="campaniaRevista" id="campaniaRevista" value="">

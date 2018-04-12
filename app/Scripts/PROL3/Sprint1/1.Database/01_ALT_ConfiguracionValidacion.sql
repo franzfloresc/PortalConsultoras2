@@ -1,0 +1,7 @@
+GO
+IF (NOT EXISTS(SELECT 1	FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'ConfiguracionValidacion' AND COLUMN_NAME = 'TieneProl3'))
+BEGIN
+    ALTER TABLE dbo.ConfiguracionValidacion
+	ADD TieneProl3 BIT CONSTRAINT DF_ConfiguracionValidacion_TieneProl3 DEFAULT(0) NOT NULL;
+END
+GO

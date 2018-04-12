@@ -136,27 +136,11 @@
     $("body").on('click', '.belcorpChat, .indicador_ayuda', function (e) {
         e.preventDefault();
 
-        var URL = location.protocol + "//" + location.host + "/Mobile/Bienvenida/ChatBelcorp";
-        var PopUpChatOpened = localStorage.getItem('PopUpChatOpened');
-
-        if (typeof PopUpChatOpened == 'undefined' ||
-            PopUpChatOpened == null ||
-            PopUpChatOpened == 'false') {
-            localStorage.setItem('PopUpChatOpened', 'true');
-            ventanaChat = open(URL, 'ventanaChat');
-            ventanaChat.focus();
-        } else {
-
-            ventanaChat = open('', 'ventanaChat');
-
-            if (ventanaChat.location == "about:blank") {
-                URL = location.protocol + "//" + location.host + "/Mobile/Bienvenida/ChatBelcorp";
-                ventanaChat = open(URL, 'ventanaChat');
-            }
-            ventanaChat.focus();
-        }
+        var connected = localStorage.getItem('connected');
+        var idBtn = connected ? '#btn_open' : '#btn_init';
+        $(idBtn).trigger("click");
+        
         return false;
-
     });
 
     $("#btn_cerrar_oferta_mobile").click(function () {
@@ -361,7 +345,7 @@ function loadBannerLP20() {
             animation: "fade",
             pauseOnAction: false,
             animationSpeed: 1600
-        });
+        });                
     }
 }
 

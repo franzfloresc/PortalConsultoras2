@@ -14,28 +14,6 @@ namespace Portal.Consultoras.Web.UnitTest.AreasMobile.Mobile
     public class BaseGuiaNegocioControllerUnitTests
     {
         [TestClass]
-        public class Base
-        {
-            //public Mock<ISessionManager> sessionManager;
-            //public Mock<ILogManager> logManager;
-
-            [TestInitialize]
-            public void Test_Initialize()
-            {
-                //sessionManager = new Mock<ISessionManager>();
-                //logManager = new Mock<ILogManager>();
-
-            }
-
-            [TestCleanup]
-            public void Test_Cleanup()
-            {
-                //sessionManager = null;
-                //logManager = null;
-            }
-        }
-
-        [TestClass]
         public class ViewLanding : Base
         {
             public class BaseGuiaNegocioControllerStub01 : BaseGuiaNegocioController
