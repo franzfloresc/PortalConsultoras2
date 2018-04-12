@@ -1,4 +1,7 @@
-﻿namespace Portal.Consultoras.Web.Models
+﻿using System.Linq;
+using Portal.Consultoras.Common;
+
+namespace Portal.Consultoras.Web.Models
 {
     public class RegistrarEstrategiaModel
     {
@@ -36,10 +39,8 @@
 
         public string ImgHomeDesktop { get; set; }
         public string ImgHomeMobile { get; set; }
-
         public string ImgFondoDesktop { get; set; }
         public string ImgFondoMobile { get; set; }
-
         public string ImgFichaDesktop { get; set; }
         public string ImgFichaFondoDesktop { get; set; }
         public string ImgFichaMobile { get; set; }
@@ -48,7 +49,6 @@
         public string UrlVideoDesktop { get; set; }
         public string UrlVideoMobile { get; set; }
 
-        //public string ImgPrevDesktop { get; set; }
         #endregion
 
         public string PrecioAnt { get; set; }
