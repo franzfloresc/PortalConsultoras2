@@ -415,6 +415,8 @@ namespace Portal.Consultoras.Web.Providers
                         ImagenMiniaturaURL = "",
                         TipoEstrategiaID = d.TipoEstrategiaId,
                         Imagen = d.FlagImagenURL ? 1 : 0,
+                        DescripcionEstrategia = d.DescripcionTipoEstrategia,
+                        CodigoSAP = d.CodigoSap
                     }
 
                 }).ToList();
@@ -496,9 +498,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             return listaEstrategias;
         }
-
-
-
+        
         public string RegistrarWebApi(BEEstrategia entidad, string Pais)
         {
             string requestUrl = "estrategia/registrar?pais=" + Pais;
@@ -515,7 +515,7 @@ namespace Portal.Consultoras.Web.Providers
             string requestUrl = "estrategia/editar?pais=" + Pais;
             WaEstrategiaModel waModel = getEstrategiaWa(entidad, _mongoId);
             string jsonParameters = JsonConvert.SerializeObject(waModel);
-            var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "post"));
+            var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "put"));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
             return content;
@@ -551,7 +551,8 @@ namespace Portal.Consultoras.Web.Providers
                 UsuarioCreacion = entidad.UsuarioCreacion,
                 UsuarioModificacion = entidad.UsuarioModificacion,
                 TipoEstrategiaId = entidad.TipoEstrategiaID,
-                TipoEstrategia = entidad.CodigoTipoEstrategia.Equals("009") ? "ODD" : ""
+                TipoEstrategia = entidad.CodigoTipoEstrategia.Equals("009") ? "ODD" : "",
+                DescripcionTipoEstrategia = entidad.DescripcionEstrategia,
             };
             return waModel;
         }
@@ -603,7 +604,6 @@ namespace Portal.Consultoras.Web.Providers
 
         public Dictionary<string, object> getEstrategiaCuv(string cuv, string campania, string tipoEstrategia, string pais, string prod, string perfil)
         {
-            List<EstrategiaMDbAdapterModel> listaEstrategias = new List<EstrategiaMDbAdapterModel>();
             string jsonParameters = "?pais=" + pais + "&prod=" + prod + "&perfil=" + perfil;
             string requestUrl = "estrategia/cuv/"+campania+"/"+tipoEstrategia+"/"+cuv;
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "get"));
@@ -617,9 +617,9 @@ namespace Portal.Consultoras.Web.Providers
             if (!string.IsNullOrEmpty(content))
             {
                 resultDictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(content);
-                if (!string.IsNullOrEmpty((string)resultDictionary["result"]))
+                if (resultDictionary["result"]!=null)
                 {
-                    WaEstrategiaModel waModel = JsonConvert.DeserializeObject<WaEstrategiaModel>((string)resultDictionary["result"]);
+                    WaEstrategiaModel waModel = JsonConvert.DeserializeObject<WaEstrategiaModel>(resultDictionary["result"].ToString());
                     List<WaEstrategiaModel> waModelList = new List<WaEstrategiaModel>();
                     waModelList.Add(waModel);
                     List<EstrategiaMDbAdapterModel> estrategiaAdapterList = setEstrategiaList(waModelList);
@@ -628,5 +628,46 @@ namespace Portal.Consultoras.Web.Providers
             }
             return resultDictionary;
         }
+
+        public List<DescripcionEstrategiaModel> uploadCsv(List<BEDescripcionEstrategia> descripcionEstrategiaLista, string Pais)
+        {
+            var descripcionEstrategiaListaWA = descripcionEstrategiaLista.Select(d => new
+            {
+                d.Cuv,
+                d.Descripcion,
+                d.Estado
+            }).ToList();
+
+            string jsonParameters = JsonConvert.SerializeObject(descripcionEstrategiaListaWA);
+            string requestUrl = "estrategia/actualizar?pais=" + Pais;
+            var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "put"));
+            Task.WhenAll(taskApi);
+            string content = taskApi.Result;
+            Dictionary<string, object> resultDictionary = new Dictionary<string, object>();
+            resultDictionary.Add("result", null);
+            resultDictionary.Add("mensaje", "No se pudo obtener datos");
+            resultDictionary.Add("success", false);
+            List<DescripcionEstrategiaModel> descripcionList = new List<DescripcionEstrategiaModel>();
+            if (!string.IsNullOrEmpty(content))
+            {
+                resultDictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(content);
+                if (resultDictionary["result"] != null)
+                {
+                    var descripcionEstrategiaList = JsonConvert.DeserializeObject<List<dynamic>>(resultDictionary["result"].ToString());
+
+                    List<DescripcionEstrategiaModel> estrategiaDescripcionList = descripcionEstrategiaList.Select(d =>
+                        new DescripcionEstrategiaModel
+                        {
+                            Cuv = d.Cuv,
+                            Descripcion = d.Descripcion,
+                            Estado = d.Estado
+                        }
+                    ).ToList();
+                    descripcionList.AddRange(estrategiaDescripcionList);
+                }
+            }
+            return descripcionList;
+        }
+
     }
 }

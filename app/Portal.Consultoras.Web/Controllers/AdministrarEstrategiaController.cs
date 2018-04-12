@@ -809,7 +809,6 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 ofertaPersonalizadaProvider.RegistrarWebApi(entidad, userData.CodigoISO);
                             }
-                                
                         }
                         else
                         {
@@ -817,8 +816,8 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                 }
-
-                EstrategiaProductoInsertar(respuestaServiceCdr, entidad);
+                if (!usarMsPer(entidad.CodigoTipoEstrategia))
+                    EstrategiaProductoInsertar(respuestaServiceCdr, entidad);
 
                 if (model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi &&
                     !string.IsNullOrEmpty(model.PrecioAnt) &&
@@ -2428,7 +2427,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         [HttpPost]
-        public ActionResult UploadCvs(DescripcionMasivoModel model)
+        public ActionResult UploadCvs(DescripcionMasivoModel model,string tipoEstrategiaCodigo)
         {
             try
             {
@@ -2471,14 +2470,24 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 } while (readLine != null);
                 List<BEDescripcionEstrategia> beDescripcionEstrategias;
-                using (var svc = new SACServiceClient())
+                List<DescripcionEstrategiaModel> descripcionEstrategiaModels;
+
+                if(usarMsPer(tipoEstrategiaCodigo))
                 {
-                    beDescripcionEstrategias = svc.ActualizarDescripcionEstrategia(model.Pais.ToInt(),
-                        model.CampaniaId.ToInt(), model.TipoEstrategia.ToInt(), fileContent.ToArray()).ToList();
+                    descripcionEstrategiaModels = ofertaPersonalizadaProvider.uploadCsv(fileContent, userData.CodigoISO);
                 }
-                var descripcionEstrategiaModels =
-                    Mapper.Map<List<BEDescripcionEstrategia>, List<DescripcionEstrategiaModel>>(
-                        beDescripcionEstrategias);
+                else
+                {
+                    using (var svc = new SACServiceClient())
+                    {
+                        beDescripcionEstrategias = svc.ActualizarDescripcionEstrategia(model.Pais.ToInt(),
+                            model.CampaniaId.ToInt(), model.TipoEstrategia.ToInt(), fileContent.ToArray()).ToList();
+                    }
+                    descripcionEstrategiaModels =
+                        Mapper.Map<List<BEDescripcionEstrategia>, List<DescripcionEstrategiaModel>>(
+                            beDescripcionEstrategias);
+                }
+                
                 return Json(new
                 {
                     listActualizado = descripcionEstrategiaModels.Where(x => x.Estado == 1),

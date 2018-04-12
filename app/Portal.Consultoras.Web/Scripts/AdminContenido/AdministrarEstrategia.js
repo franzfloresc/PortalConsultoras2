@@ -385,6 +385,14 @@
                 return false;
             }
 
+            $('#CodigoEstrategia').val(data.CodigoEstrategia);
+            $('#flagImagenUrl').val(data.Imagen);
+            $('#DescripcionEstrategia').val(data.DescripcionEstrategia);
+            $('#MarcaID').val(data.MarcaID);
+            $('#MarcaDescripcion').val(data.DescripcionMarca);
+            $('#CodigoProducto').val(data.CodigoProducto);
+            $('#CodigoSAP').val(data.CodigoSAP);
+
             $("#hdSimbolo").val(data.Simbolo);
 
             if (data.Activo == "1") $("#chkHabilitarOferta").attr("checked", true);
@@ -1302,11 +1310,13 @@
         formData.append("CampaniaId", $("#ddlCampania").val());
         formData.append("TipoEstrategia", $("#ddlTipoEstrategia").val());
 
+        var tipoEstrategiaCodigoVal = $("#ddlTipoEstrategia").find(":selected").data("codigo");
+
         $.ajax({
             url: _config.urlUploadCvs,
             type: "POST",
             dataType: "JSON",
-            data: formData,
+            data: { model: formData, tipoEstrategiaCodigo: tipoEstrategiaCodigoVal },
             contentType: false,
             processData: false,
             success: function(data) {
@@ -2851,6 +2861,14 @@
                     var niveles = $("#hdNiveles").val() || "";
                     var _idVal = $("#_id").val();
 
+                    var CodigoEstrategiaVal = $('#CodigoEstrategia').val();
+                    var ImagenVal = $('#flagImagenUrl').val();
+                    var DescripcionEstrategiaVal = $('#DescripcionEstrategia').val();
+                    var MarcaIDVal = $('#MarcaID').val();
+                    var DescripcionMarcaVal = $('#MarcaDescripcion').val();
+                    var CodigoProductoVal = $('#CodigoProducto').val();
+                    var CodigoSAPVal = $('#CodigoSAP').val();
+
                     var params = {
                         EstrategiaID: EstrategiaID,
                         TipoEstrategiaID: TipoEstrategiaID,
@@ -2898,6 +2916,13 @@
                         ImagenMiniaturaURLAnterior: $("#hdImagenMiniaturaURLAnterior").val(),
                         EsSubCampania: EsSubCampania,
                         Niveles: niveles,
+                        CodigoEstrategia: CodigoEstrategiaVal,
+                        Imagen: ImagenVal,
+                        DescripcionEstrategia: DescripcionEstrategiaVal,
+                        MarcaID: MarcaIDVal,
+                        DescripcionMarca: DescripcionMarcaVal,
+                        CodigoProducto: CodigoProductoVal,
+                        CodigoSAP: CodigoSAPVal
                         _id: _idVal
                     };
                     jQuery.ajax({
