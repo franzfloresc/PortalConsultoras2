@@ -13,14 +13,14 @@ begin
 		,Cantidad INT
 		,PrecioUnidad MONEY
 		,ImporteTotal MONEY
-		,           TipoEstrategiaId INT
-		,           Campania INT
-		,           ConsultoraID BIGINT
-		,           OrdenPedido INT
-		,           CodigoUsuarioCreacion VARCHAR(25)
-		,           CodigoUsuarioModificacion VARCHAR(25)
-		,           FechaCreacion DATETIME
-		,           FechaModificacion DATETIME
+		,TipoEstrategiaId INT
+		,Campania INT
+		, ConsultoraID BIGINT
+		,OrdenPedido INT
+		,CodigoUsuarioCreacion VARCHAR(25)
+		,CodigoUsuarioModificacion VARCHAR(25)
+		,FechaCreacion DATETIME
+		,FechaModificacion DATETIME
 		)
 end
 
@@ -30,7 +30,7 @@ GO
 IF OBJECT_ID (N'PedidoWebSetDetalle', N'U') IS  NULL 
 begin
 	CREATE TABLE PedidoWebSetDetalle (
-		SetDetalleID INT IDENTITY(1, 1)   primary KEY
+		SetDetalleID INT IDENTITY(1, 1) primary KEY
 		,[SetID] INT FOREIGN KEY (SetID) REFERENCES PedidoWebSet(SetID) ON DELETE CASCADE
 		,[CuvProducto] NVARCHAR(20)
 		,NombreProducto NVARCHAR(800)
@@ -43,6 +43,7 @@ begin
 		)
 end
 go
+
 
 use belcorpChile
 go
@@ -58,14 +59,14 @@ begin
 		,Cantidad INT
 		,PrecioUnidad MONEY
 		,ImporteTotal MONEY
-		,           TipoEstrategiaId INT
-		,           Campania INT
-		,           ConsultoraID BIGINT
-		,           OrdenPedido INT
-		,           CodigoUsuarioCreacion VARCHAR(25)
-		,           CodigoUsuarioModificacion VARCHAR(25)
-		,           FechaCreacion DATETIME
-		,           FechaModificacion DATETIME
+		,TipoEstrategiaId INT
+		,Campania INT
+		, ConsultoraID BIGINT
+		,OrdenPedido INT
+		,CodigoUsuarioCreacion VARCHAR(25)
+		,CodigoUsuarioModificacion VARCHAR(25)
+		,FechaCreacion DATETIME
+		,FechaModificacion DATETIME
 		)
 end
 
@@ -75,7 +76,7 @@ GO
 IF OBJECT_ID (N'PedidoWebSetDetalle', N'U') IS  NULL 
 begin
 	CREATE TABLE PedidoWebSetDetalle (
-		SetDetalleID INT IDENTITY(1, 1)   primary KEY
+		SetDetalleID INT IDENTITY(1, 1) primary KEY
 		,[SetID] INT FOREIGN KEY (SetID) REFERENCES PedidoWebSet(SetID) ON DELETE CASCADE
 		,[CuvProducto] NVARCHAR(20)
 		,NombreProducto NVARCHAR(800)
@@ -103,14 +104,14 @@ begin
 		,Cantidad INT
 		,PrecioUnidad MONEY
 		,ImporteTotal MONEY
-		,           TipoEstrategiaId INT
-		,           Campania INT
-		,           ConsultoraID BIGINT
-		,           OrdenPedido INT
-		,           CodigoUsuarioCreacion VARCHAR(25)
-		,           CodigoUsuarioModificacion VARCHAR(25)
-		,           FechaCreacion DATETIME
-		,           FechaModificacion DATETIME
+		,TipoEstrategiaId INT
+		,Campania INT
+		, ConsultoraID BIGINT
+		,OrdenPedido INT
+		,CodigoUsuarioCreacion VARCHAR(25)
+		,CodigoUsuarioModificacion VARCHAR(25)
+		,FechaCreacion DATETIME
+		,FechaModificacion DATETIME
 		)
 end
 
@@ -120,7 +121,7 @@ GO
 IF OBJECT_ID (N'PedidoWebSetDetalle', N'U') IS  NULL 
 begin
 	CREATE TABLE PedidoWebSetDetalle (
-		SetDetalleID INT IDENTITY(1, 1)   primary KEY
+		SetDetalleID INT IDENTITY(1, 1) primary KEY
 		,[SetID] INT FOREIGN KEY (SetID) REFERENCES PedidoWebSet(SetID) ON DELETE CASCADE
 		,[CuvProducto] NVARCHAR(20)
 		,NombreProducto NVARCHAR(800)
@@ -148,14 +149,14 @@ begin
 		,Cantidad INT
 		,PrecioUnidad MONEY
 		,ImporteTotal MONEY
-		,           TipoEstrategiaId INT
-		,           Campania INT
-		,           ConsultoraID BIGINT
-		,           OrdenPedido INT
-		,           CodigoUsuarioCreacion VARCHAR(25)
-		,           CodigoUsuarioModificacion VARCHAR(25)
-		,           FechaCreacion DATETIME
-		,           FechaModificacion DATETIME
+		,TipoEstrategiaId INT
+		,Campania INT
+		, ConsultoraID BIGINT
+		,OrdenPedido INT
+		,CodigoUsuarioCreacion VARCHAR(25)
+		,CodigoUsuarioModificacion VARCHAR(25)
+		,FechaCreacion DATETIME
+		,FechaModificacion DATETIME
 		)
 end
 
@@ -165,7 +166,7 @@ GO
 IF OBJECT_ID (N'PedidoWebSetDetalle', N'U') IS  NULL 
 begin
 	CREATE TABLE PedidoWebSetDetalle (
-		SetDetalleID INT IDENTITY(1, 1)   primary KEY
+		SetDetalleID INT IDENTITY(1, 1) primary KEY
 		,[SetID] INT FOREIGN KEY (SetID) REFERENCES PedidoWebSet(SetID) ON DELETE CASCADE
 		,[CuvProducto] NVARCHAR(20)
 		,NombreProducto NVARCHAR(800)
@@ -193,14 +194,14 @@ begin
 		,Cantidad INT
 		,PrecioUnidad MONEY
 		,ImporteTotal MONEY
-		,           TipoEstrategiaId INT
-		,           Campania INT
-		,           ConsultoraID BIGINT
-		,           OrdenPedido INT
-		,           CodigoUsuarioCreacion VARCHAR(25)
-		,           CodigoUsuarioModificacion VARCHAR(25)
-		,           FechaCreacion DATETIME
-		,           FechaModificacion DATETIME
+		,TipoEstrategiaId INT
+		,Campania INT
+		, ConsultoraID BIGINT
+		,OrdenPedido INT
+		,CodigoUsuarioCreacion VARCHAR(25)
+		,CodigoUsuarioModificacion VARCHAR(25)
+		,FechaCreacion DATETIME
+		,FechaModificacion DATETIME
 		)
 end
 
@@ -210,7 +211,7 @@ GO
 IF OBJECT_ID (N'PedidoWebSetDetalle', N'U') IS  NULL 
 begin
 	CREATE TABLE PedidoWebSetDetalle (
-		SetDetalleID INT IDENTITY(1, 1)   primary KEY
+		SetDetalleID INT IDENTITY(1, 1) primary KEY
 		,[SetID] INT FOREIGN KEY (SetID) REFERENCES PedidoWebSet(SetID) ON DELETE CASCADE
 		,[CuvProducto] NVARCHAR(20)
 		,NombreProducto NVARCHAR(800)
@@ -238,14 +239,14 @@ begin
 		,Cantidad INT
 		,PrecioUnidad MONEY
 		,ImporteTotal MONEY
-		,           TipoEstrategiaId INT
-		,           Campania INT
-		,           ConsultoraID BIGINT
-		,           OrdenPedido INT
-		,           CodigoUsuarioCreacion VARCHAR(25)
-		,           CodigoUsuarioModificacion VARCHAR(25)
-		,           FechaCreacion DATETIME
-		,           FechaModificacion DATETIME
+		,TipoEstrategiaId INT
+		,Campania INT
+		, ConsultoraID BIGINT
+		,OrdenPedido INT
+		,CodigoUsuarioCreacion VARCHAR(25)
+		,CodigoUsuarioModificacion VARCHAR(25)
+		,FechaCreacion DATETIME
+		,FechaModificacion DATETIME
 		)
 end
 
@@ -255,7 +256,7 @@ GO
 IF OBJECT_ID (N'PedidoWebSetDetalle', N'U') IS  NULL 
 begin
 	CREATE TABLE PedidoWebSetDetalle (
-		SetDetalleID INT IDENTITY(1, 1)   primary KEY
+		SetDetalleID INT IDENTITY(1, 1) primary KEY
 		,[SetID] INT FOREIGN KEY (SetID) REFERENCES PedidoWebSet(SetID) ON DELETE CASCADE
 		,[CuvProducto] NVARCHAR(20)
 		,NombreProducto NVARCHAR(800)
@@ -283,14 +284,14 @@ begin
 		,Cantidad INT
 		,PrecioUnidad MONEY
 		,ImporteTotal MONEY
-		,           TipoEstrategiaId INT
-		,           Campania INT
-		,           ConsultoraID BIGINT
-		,           OrdenPedido INT
-		,           CodigoUsuarioCreacion VARCHAR(25)
-		,           CodigoUsuarioModificacion VARCHAR(25)
-		,           FechaCreacion DATETIME
-		,           FechaModificacion DATETIME
+		,TipoEstrategiaId INT
+		,Campania INT
+		, ConsultoraID BIGINT
+		,OrdenPedido INT
+		,CodigoUsuarioCreacion VARCHAR(25)
+		,CodigoUsuarioModificacion VARCHAR(25)
+		,FechaCreacion DATETIME
+		,FechaModificacion DATETIME
 		)
 end
 
@@ -300,7 +301,7 @@ GO
 IF OBJECT_ID (N'PedidoWebSetDetalle', N'U') IS  NULL 
 begin
 	CREATE TABLE PedidoWebSetDetalle (
-		SetDetalleID INT IDENTITY(1, 1)   primary KEY
+		SetDetalleID INT IDENTITY(1, 1) primary KEY
 		,[SetID] INT FOREIGN KEY (SetID) REFERENCES PedidoWebSet(SetID) ON DELETE CASCADE
 		,[CuvProducto] NVARCHAR(20)
 		,NombreProducto NVARCHAR(800)
@@ -328,14 +329,14 @@ begin
 		,Cantidad INT
 		,PrecioUnidad MONEY
 		,ImporteTotal MONEY
-		,           TipoEstrategiaId INT
-		,           Campania INT
-		,           ConsultoraID BIGINT
-		,           OrdenPedido INT
-		,           CodigoUsuarioCreacion VARCHAR(25)
-		,           CodigoUsuarioModificacion VARCHAR(25)
-		,           FechaCreacion DATETIME
-		,           FechaModificacion DATETIME
+		,TipoEstrategiaId INT
+		,Campania INT
+		, ConsultoraID BIGINT
+		,OrdenPedido INT
+		,CodigoUsuarioCreacion VARCHAR(25)
+		,CodigoUsuarioModificacion VARCHAR(25)
+		,FechaCreacion DATETIME
+		,FechaModificacion DATETIME
 		)
 end
 
@@ -345,7 +346,7 @@ GO
 IF OBJECT_ID (N'PedidoWebSetDetalle', N'U') IS  NULL 
 begin
 	CREATE TABLE PedidoWebSetDetalle (
-		SetDetalleID INT IDENTITY(1, 1)   primary KEY
+		SetDetalleID INT IDENTITY(1, 1) primary KEY
 		,[SetID] INT FOREIGN KEY (SetID) REFERENCES PedidoWebSet(SetID) ON DELETE CASCADE
 		,[CuvProducto] NVARCHAR(20)
 		,NombreProducto NVARCHAR(800)
@@ -373,14 +374,14 @@ begin
 		,Cantidad INT
 		,PrecioUnidad MONEY
 		,ImporteTotal MONEY
-		,           TipoEstrategiaId INT
-		,           Campania INT
-		,           ConsultoraID BIGINT
-		,           OrdenPedido INT
-		,           CodigoUsuarioCreacion VARCHAR(25)
-		,           CodigoUsuarioModificacion VARCHAR(25)
-		,           FechaCreacion DATETIME
-		,           FechaModificacion DATETIME
+		,TipoEstrategiaId INT
+		,Campania INT
+		, ConsultoraID BIGINT
+		,OrdenPedido INT
+		,CodigoUsuarioCreacion VARCHAR(25)
+		,CodigoUsuarioModificacion VARCHAR(25)
+		,FechaCreacion DATETIME
+		,FechaModificacion DATETIME
 		)
 end
 
@@ -390,7 +391,7 @@ GO
 IF OBJECT_ID (N'PedidoWebSetDetalle', N'U') IS  NULL 
 begin
 	CREATE TABLE PedidoWebSetDetalle (
-		SetDetalleID INT IDENTITY(1, 1)   primary KEY
+		SetDetalleID INT IDENTITY(1, 1) primary KEY
 		,[SetID] INT FOREIGN KEY (SetID) REFERENCES PedidoWebSet(SetID) ON DELETE CASCADE
 		,[CuvProducto] NVARCHAR(20)
 		,NombreProducto NVARCHAR(800)
@@ -418,14 +419,14 @@ begin
 		,Cantidad INT
 		,PrecioUnidad MONEY
 		,ImporteTotal MONEY
-		,           TipoEstrategiaId INT
-		,           Campania INT
-		,           ConsultoraID BIGINT
-		,           OrdenPedido INT
-		,           CodigoUsuarioCreacion VARCHAR(25)
-		,           CodigoUsuarioModificacion VARCHAR(25)
-		,           FechaCreacion DATETIME
-		,           FechaModificacion DATETIME
+		,TipoEstrategiaId INT
+		,Campania INT
+		, ConsultoraID BIGINT
+		,OrdenPedido INT
+		,CodigoUsuarioCreacion VARCHAR(25)
+		,CodigoUsuarioModificacion VARCHAR(25)
+		,FechaCreacion DATETIME
+		,FechaModificacion DATETIME
 		)
 end
 
@@ -435,7 +436,7 @@ GO
 IF OBJECT_ID (N'PedidoWebSetDetalle', N'U') IS  NULL 
 begin
 	CREATE TABLE PedidoWebSetDetalle (
-		SetDetalleID INT IDENTITY(1, 1)   primary KEY
+		SetDetalleID INT IDENTITY(1, 1) primary KEY
 		,[SetID] INT FOREIGN KEY (SetID) REFERENCES PedidoWebSet(SetID) ON DELETE CASCADE
 		,[CuvProducto] NVARCHAR(20)
 		,NombreProducto NVARCHAR(800)
@@ -463,14 +464,14 @@ begin
 		,Cantidad INT
 		,PrecioUnidad MONEY
 		,ImporteTotal MONEY
-		,           TipoEstrategiaId INT
-		,           Campania INT
-		,           ConsultoraID BIGINT
-		,           OrdenPedido INT
-		,           CodigoUsuarioCreacion VARCHAR(25)
-		,           CodigoUsuarioModificacion VARCHAR(25)
-		,           FechaCreacion DATETIME
-		,           FechaModificacion DATETIME
+		,TipoEstrategiaId INT
+		,Campania INT
+		, ConsultoraID BIGINT
+		,OrdenPedido INT
+		,CodigoUsuarioCreacion VARCHAR(25)
+		,CodigoUsuarioModificacion VARCHAR(25)
+		,FechaCreacion DATETIME
+		,FechaModificacion DATETIME
 		)
 end
 
@@ -480,7 +481,7 @@ GO
 IF OBJECT_ID (N'PedidoWebSetDetalle', N'U') IS  NULL 
 begin
 	CREATE TABLE PedidoWebSetDetalle (
-		SetDetalleID INT IDENTITY(1, 1)   primary KEY
+		SetDetalleID INT IDENTITY(1, 1) primary KEY
 		,[SetID] INT FOREIGN KEY (SetID) REFERENCES PedidoWebSet(SetID) ON DELETE CASCADE
 		,[CuvProducto] NVARCHAR(20)
 		,NombreProducto NVARCHAR(800)
@@ -508,14 +509,14 @@ begin
 		,Cantidad INT
 		,PrecioUnidad MONEY
 		,ImporteTotal MONEY
-		,           TipoEstrategiaId INT
-		,           Campania INT
-		,           ConsultoraID BIGINT
-		,           OrdenPedido INT
-		,           CodigoUsuarioCreacion VARCHAR(25)
-		,           CodigoUsuarioModificacion VARCHAR(25)
-		,           FechaCreacion DATETIME
-		,           FechaModificacion DATETIME
+		,TipoEstrategiaId INT
+		,Campania INT
+		, ConsultoraID BIGINT
+		,OrdenPedido INT
+		,CodigoUsuarioCreacion VARCHAR(25)
+		,CodigoUsuarioModificacion VARCHAR(25)
+		,FechaCreacion DATETIME
+		,FechaModificacion DATETIME
 		)
 end
 
@@ -525,7 +526,7 @@ GO
 IF OBJECT_ID (N'PedidoWebSetDetalle', N'U') IS  NULL 
 begin
 	CREATE TABLE PedidoWebSetDetalle (
-		SetDetalleID INT IDENTITY(1, 1)   primary KEY
+		SetDetalleID INT IDENTITY(1, 1) primary KEY
 		,[SetID] INT FOREIGN KEY (SetID) REFERENCES PedidoWebSet(SetID) ON DELETE CASCADE
 		,[CuvProducto] NVARCHAR(20)
 		,NombreProducto NVARCHAR(800)

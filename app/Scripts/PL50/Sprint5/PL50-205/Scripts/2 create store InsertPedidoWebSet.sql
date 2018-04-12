@@ -1,11 +1,8 @@
-USE belcorpBolivia
+﻿USE belcorpBolivia
 GO
-
-
 IF (OBJECT_ID('dbo.InsertPedidoWebSet', 'P') IS NULL)
 	EXEC ('CREATE PROCEDURE dbo.InsertPedidoWebSet AS SET NOCOUNT ON;')
 GO
-
 ALTER PROCEDURE InsertPedidoWebSet (
 	@Campaniaid INT
 	,@PedidoID INT
@@ -18,7 +15,8 @@ ALTER PROCEDURE InsertPedidoWebSet (
 	)
 AS
 BEGIN
- 
+
+	-------
 	DECLARE @NuevoSetID INT
 	DECLARE @ActualSetID INT
 	DECLARE @NombreSet NVARCHAR(800)
@@ -32,7 +30,8 @@ BEGIN
 		,Cantidad INT
 		)
 	DECLARE @OrdenSet INT
- 
+	------------------------------------------
+
 	if(@EstrategiaID=0)
 	begin
 		select @EstrategiaID = EstrategiaID from estrategia where campaniaid= @Campaniaid and  cuv2 =@CuvSet
@@ -51,6 +50,8 @@ BEGIN
 		set @CuvsStringList = substring(@CuvsStringList,0,len(@CuvsStringList))
 	end
 
+	
+
 	INSERT INTO @CuvsAgregar (
 		Cuv
 		,Cantidad
@@ -66,11 +67,11 @@ BEGIN
 			EXISTS (
 				SELECT setid
 				FROM PedidoWebSet
-				WHERE cuvset = @CuvSet
+				WHERE cuvset = @CuvSet  and consultoraid= @ConsultoraId and Campania= @campaniaid
 				)
 			)
 	BEGIN
-		INSERT INTO @SetParecidosIdList (SetId) (SELECT setid FROM PedidoWebSet WHERE cuvset = @CuvSet)
+		INSERT INTO @SetParecidosIdList (SetId) (SELECT setid FROM PedidoWebSet WHERE cuvset = @CuvSet  and consultoraid= @ConsultoraId and Campania= @campaniaid)
 	END
 
 	WHILE EXISTS (
@@ -119,6 +120,8 @@ BEGIN
 
 	if(exists(select tipoestrategiaid from tipoestrategia where codigo in ('001','030','008','007','005','010') and tipoestrategiaid =@TipoEstrategiaID ))
 	begin
+
+
 				IF (@SetExiste = '0')
 				BEGIN
 					INSERT INTO [dbo].[PedidoWebSet] (
@@ -215,12 +218,9 @@ END
 GO
 USE belcorpChile
 GO
-
-
 IF (OBJECT_ID('dbo.InsertPedidoWebSet', 'P') IS NULL)
 	EXEC ('CREATE PROCEDURE dbo.InsertPedidoWebSet AS SET NOCOUNT ON;')
 GO
-
 ALTER PROCEDURE InsertPedidoWebSet (
 	@Campaniaid INT
 	,@PedidoID INT
@@ -233,7 +233,8 @@ ALTER PROCEDURE InsertPedidoWebSet (
 	)
 AS
 BEGIN
- 
+
+	-------
 	DECLARE @NuevoSetID INT
 	DECLARE @ActualSetID INT
 	DECLARE @NombreSet NVARCHAR(800)
@@ -247,7 +248,8 @@ BEGIN
 		,Cantidad INT
 		)
 	DECLARE @OrdenSet INT
- 
+	------------------------------------------
+
 	if(@EstrategiaID=0)
 	begin
 		select @EstrategiaID = EstrategiaID from estrategia where campaniaid= @Campaniaid and  cuv2 =@CuvSet
@@ -266,6 +268,8 @@ BEGIN
 		set @CuvsStringList = substring(@CuvsStringList,0,len(@CuvsStringList))
 	end
 
+	
+
 	INSERT INTO @CuvsAgregar (
 		Cuv
 		,Cantidad
@@ -281,11 +285,11 @@ BEGIN
 			EXISTS (
 				SELECT setid
 				FROM PedidoWebSet
-				WHERE cuvset = @CuvSet
+				WHERE cuvset = @CuvSet  and consultoraid= @ConsultoraId and Campania= @campaniaid
 				)
 			)
 	BEGIN
-		INSERT INTO @SetParecidosIdList (SetId) (SELECT setid FROM PedidoWebSet WHERE cuvset = @CuvSet)
+		INSERT INTO @SetParecidosIdList (SetId) (SELECT setid FROM PedidoWebSet WHERE cuvset = @CuvSet  and consultoraid= @ConsultoraId and Campania= @campaniaid)
 	END
 
 	WHILE EXISTS (
@@ -334,6 +338,8 @@ BEGIN
 
 	if(exists(select tipoestrategiaid from tipoestrategia where codigo in ('001','030','008','007','005','010') and tipoestrategiaid =@TipoEstrategiaID ))
 	begin
+
+
 				IF (@SetExiste = '0')
 				BEGIN
 					INSERT INTO [dbo].[PedidoWebSet] (
@@ -430,12 +436,9 @@ END
 GO
 USE belcorpColombia
 GO
-
-
 IF (OBJECT_ID('dbo.InsertPedidoWebSet', 'P') IS NULL)
 	EXEC ('CREATE PROCEDURE dbo.InsertPedidoWebSet AS SET NOCOUNT ON;')
 GO
-
 ALTER PROCEDURE InsertPedidoWebSet (
 	@Campaniaid INT
 	,@PedidoID INT
@@ -448,7 +451,8 @@ ALTER PROCEDURE InsertPedidoWebSet (
 	)
 AS
 BEGIN
- 
+
+	-------
 	DECLARE @NuevoSetID INT
 	DECLARE @ActualSetID INT
 	DECLARE @NombreSet NVARCHAR(800)
@@ -462,7 +466,8 @@ BEGIN
 		,Cantidad INT
 		)
 	DECLARE @OrdenSet INT
- 
+	------------------------------------------
+
 	if(@EstrategiaID=0)
 	begin
 		select @EstrategiaID = EstrategiaID from estrategia where campaniaid= @Campaniaid and  cuv2 =@CuvSet
@@ -481,6 +486,8 @@ BEGIN
 		set @CuvsStringList = substring(@CuvsStringList,0,len(@CuvsStringList))
 	end
 
+	
+
 	INSERT INTO @CuvsAgregar (
 		Cuv
 		,Cantidad
@@ -496,11 +503,11 @@ BEGIN
 			EXISTS (
 				SELECT setid
 				FROM PedidoWebSet
-				WHERE cuvset = @CuvSet
+				WHERE cuvset = @CuvSet  and consultoraid= @ConsultoraId and Campania= @campaniaid
 				)
 			)
 	BEGIN
-		INSERT INTO @SetParecidosIdList (SetId) (SELECT setid FROM PedidoWebSet WHERE cuvset = @CuvSet)
+		INSERT INTO @SetParecidosIdList (SetId) (SELECT setid FROM PedidoWebSet WHERE cuvset = @CuvSet  and consultoraid= @ConsultoraId and Campania= @campaniaid)
 	END
 
 	WHILE EXISTS (
@@ -549,6 +556,8 @@ BEGIN
 
 	if(exists(select tipoestrategiaid from tipoestrategia where codigo in ('001','030','008','007','005','010') and tipoestrategiaid =@TipoEstrategiaID ))
 	begin
+
+
 				IF (@SetExiste = '0')
 				BEGIN
 					INSERT INTO [dbo].[PedidoWebSet] (
@@ -645,12 +654,9 @@ END
 GO
 USE belcorpCostaRica
 GO
-
-
 IF (OBJECT_ID('dbo.InsertPedidoWebSet', 'P') IS NULL)
 	EXEC ('CREATE PROCEDURE dbo.InsertPedidoWebSet AS SET NOCOUNT ON;')
 GO
-
 ALTER PROCEDURE InsertPedidoWebSet (
 	@Campaniaid INT
 	,@PedidoID INT
@@ -663,7 +669,8 @@ ALTER PROCEDURE InsertPedidoWebSet (
 	)
 AS
 BEGIN
- 
+
+	-------
 	DECLARE @NuevoSetID INT
 	DECLARE @ActualSetID INT
 	DECLARE @NombreSet NVARCHAR(800)
@@ -677,7 +684,8 @@ BEGIN
 		,Cantidad INT
 		)
 	DECLARE @OrdenSet INT
- 
+	------------------------------------------
+
 	if(@EstrategiaID=0)
 	begin
 		select @EstrategiaID = EstrategiaID from estrategia where campaniaid= @Campaniaid and  cuv2 =@CuvSet
@@ -696,6 +704,8 @@ BEGIN
 		set @CuvsStringList = substring(@CuvsStringList,0,len(@CuvsStringList))
 	end
 
+	
+
 	INSERT INTO @CuvsAgregar (
 		Cuv
 		,Cantidad
@@ -711,11 +721,11 @@ BEGIN
 			EXISTS (
 				SELECT setid
 				FROM PedidoWebSet
-				WHERE cuvset = @CuvSet
+				WHERE cuvset = @CuvSet  and consultoraid= @ConsultoraId and Campania= @campaniaid
 				)
 			)
 	BEGIN
-		INSERT INTO @SetParecidosIdList (SetId) (SELECT setid FROM PedidoWebSet WHERE cuvset = @CuvSet)
+		INSERT INTO @SetParecidosIdList (SetId) (SELECT setid FROM PedidoWebSet WHERE cuvset = @CuvSet  and consultoraid= @ConsultoraId and Campania= @campaniaid)
 	END
 
 	WHILE EXISTS (
@@ -764,6 +774,8 @@ BEGIN
 
 	if(exists(select tipoestrategiaid from tipoestrategia where codigo in ('001','030','008','007','005','010') and tipoestrategiaid =@TipoEstrategiaID ))
 	begin
+
+
 				IF (@SetExiste = '0')
 				BEGIN
 					INSERT INTO [dbo].[PedidoWebSet] (
@@ -860,12 +872,9 @@ END
 GO
 USE belcorpDominicana
 GO
-
-
 IF (OBJECT_ID('dbo.InsertPedidoWebSet', 'P') IS NULL)
 	EXEC ('CREATE PROCEDURE dbo.InsertPedidoWebSet AS SET NOCOUNT ON;')
 GO
-
 ALTER PROCEDURE InsertPedidoWebSet (
 	@Campaniaid INT
 	,@PedidoID INT
@@ -878,7 +887,8 @@ ALTER PROCEDURE InsertPedidoWebSet (
 	)
 AS
 BEGIN
- 
+
+	-------
 	DECLARE @NuevoSetID INT
 	DECLARE @ActualSetID INT
 	DECLARE @NombreSet NVARCHAR(800)
@@ -892,7 +902,8 @@ BEGIN
 		,Cantidad INT
 		)
 	DECLARE @OrdenSet INT
- 
+	------------------------------------------
+
 	if(@EstrategiaID=0)
 	begin
 		select @EstrategiaID = EstrategiaID from estrategia where campaniaid= @Campaniaid and  cuv2 =@CuvSet
@@ -911,6 +922,8 @@ BEGIN
 		set @CuvsStringList = substring(@CuvsStringList,0,len(@CuvsStringList))
 	end
 
+	
+
 	INSERT INTO @CuvsAgregar (
 		Cuv
 		,Cantidad
@@ -926,11 +939,11 @@ BEGIN
 			EXISTS (
 				SELECT setid
 				FROM PedidoWebSet
-				WHERE cuvset = @CuvSet
+				WHERE cuvset = @CuvSet  and consultoraid= @ConsultoraId and Campania= @campaniaid
 				)
 			)
 	BEGIN
-		INSERT INTO @SetParecidosIdList (SetId) (SELECT setid FROM PedidoWebSet WHERE cuvset = @CuvSet)
+		INSERT INTO @SetParecidosIdList (SetId) (SELECT setid FROM PedidoWebSet WHERE cuvset = @CuvSet  and consultoraid= @ConsultoraId and Campania= @campaniaid)
 	END
 
 	WHILE EXISTS (
@@ -979,6 +992,8 @@ BEGIN
 
 	if(exists(select tipoestrategiaid from tipoestrategia where codigo in ('001','030','008','007','005','010') and tipoestrategiaid =@TipoEstrategiaID ))
 	begin
+
+
 				IF (@SetExiste = '0')
 				BEGIN
 					INSERT INTO [dbo].[PedidoWebSet] (
@@ -1075,12 +1090,9 @@ END
 GO
 USE belcorpEcuador
 GO
-
-
 IF (OBJECT_ID('dbo.InsertPedidoWebSet', 'P') IS NULL)
 	EXEC ('CREATE PROCEDURE dbo.InsertPedidoWebSet AS SET NOCOUNT ON;')
 GO
-
 ALTER PROCEDURE InsertPedidoWebSet (
 	@Campaniaid INT
 	,@PedidoID INT
@@ -1093,7 +1105,8 @@ ALTER PROCEDURE InsertPedidoWebSet (
 	)
 AS
 BEGIN
- 
+
+	-------
 	DECLARE @NuevoSetID INT
 	DECLARE @ActualSetID INT
 	DECLARE @NombreSet NVARCHAR(800)
@@ -1107,7 +1120,8 @@ BEGIN
 		,Cantidad INT
 		)
 	DECLARE @OrdenSet INT
- 
+	------------------------------------------
+
 	if(@EstrategiaID=0)
 	begin
 		select @EstrategiaID = EstrategiaID from estrategia where campaniaid= @Campaniaid and  cuv2 =@CuvSet
@@ -1126,6 +1140,8 @@ BEGIN
 		set @CuvsStringList = substring(@CuvsStringList,0,len(@CuvsStringList))
 	end
 
+	
+
 	INSERT INTO @CuvsAgregar (
 		Cuv
 		,Cantidad
@@ -1141,11 +1157,11 @@ BEGIN
 			EXISTS (
 				SELECT setid
 				FROM PedidoWebSet
-				WHERE cuvset = @CuvSet
+				WHERE cuvset = @CuvSet  and consultoraid= @ConsultoraId and Campania= @campaniaid
 				)
 			)
 	BEGIN
-		INSERT INTO @SetParecidosIdList (SetId) (SELECT setid FROM PedidoWebSet WHERE cuvset = @CuvSet)
+		INSERT INTO @SetParecidosIdList (SetId) (SELECT setid FROM PedidoWebSet WHERE cuvset = @CuvSet  and consultoraid= @ConsultoraId and Campania= @campaniaid)
 	END
 
 	WHILE EXISTS (
@@ -1194,6 +1210,8 @@ BEGIN
 
 	if(exists(select tipoestrategiaid from tipoestrategia where codigo in ('001','030','008','007','005','010') and tipoestrategiaid =@TipoEstrategiaID ))
 	begin
+
+
 				IF (@SetExiste = '0')
 				BEGIN
 					INSERT INTO [dbo].[PedidoWebSet] (
@@ -1290,12 +1308,9 @@ END
 GO
 USE belcorpGuatemala
 GO
-
-
 IF (OBJECT_ID('dbo.InsertPedidoWebSet', 'P') IS NULL)
 	EXEC ('CREATE PROCEDURE dbo.InsertPedidoWebSet AS SET NOCOUNT ON;')
 GO
-
 ALTER PROCEDURE InsertPedidoWebSet (
 	@Campaniaid INT
 	,@PedidoID INT
@@ -1308,7 +1323,8 @@ ALTER PROCEDURE InsertPedidoWebSet (
 	)
 AS
 BEGIN
- 
+
+	-------
 	DECLARE @NuevoSetID INT
 	DECLARE @ActualSetID INT
 	DECLARE @NombreSet NVARCHAR(800)
@@ -1322,7 +1338,8 @@ BEGIN
 		,Cantidad INT
 		)
 	DECLARE @OrdenSet INT
- 
+	------------------------------------------
+
 	if(@EstrategiaID=0)
 	begin
 		select @EstrategiaID = EstrategiaID from estrategia where campaniaid= @Campaniaid and  cuv2 =@CuvSet
@@ -1341,6 +1358,8 @@ BEGIN
 		set @CuvsStringList = substring(@CuvsStringList,0,len(@CuvsStringList))
 	end
 
+	
+
 	INSERT INTO @CuvsAgregar (
 		Cuv
 		,Cantidad
@@ -1356,11 +1375,11 @@ BEGIN
 			EXISTS (
 				SELECT setid
 				FROM PedidoWebSet
-				WHERE cuvset = @CuvSet
+				WHERE cuvset = @CuvSet  and consultoraid= @ConsultoraId and Campania= @campaniaid
 				)
 			)
 	BEGIN
-		INSERT INTO @SetParecidosIdList (SetId) (SELECT setid FROM PedidoWebSet WHERE cuvset = @CuvSet)
+		INSERT INTO @SetParecidosIdList (SetId) (SELECT setid FROM PedidoWebSet WHERE cuvset = @CuvSet  and consultoraid= @ConsultoraId and Campania= @campaniaid)
 	END
 
 	WHILE EXISTS (
@@ -1409,6 +1428,8 @@ BEGIN
 
 	if(exists(select tipoestrategiaid from tipoestrategia where codigo in ('001','030','008','007','005','010') and tipoestrategiaid =@TipoEstrategiaID ))
 	begin
+
+
 				IF (@SetExiste = '0')
 				BEGIN
 					INSERT INTO [dbo].[PedidoWebSet] (
@@ -1505,12 +1526,9 @@ END
 GO
 USE belcorpMexico
 GO
-
-
 IF (OBJECT_ID('dbo.InsertPedidoWebSet', 'P') IS NULL)
 	EXEC ('CREATE PROCEDURE dbo.InsertPedidoWebSet AS SET NOCOUNT ON;')
 GO
-
 ALTER PROCEDURE InsertPedidoWebSet (
 	@Campaniaid INT
 	,@PedidoID INT
@@ -1523,7 +1541,8 @@ ALTER PROCEDURE InsertPedidoWebSet (
 	)
 AS
 BEGIN
- 
+
+	-------
 	DECLARE @NuevoSetID INT
 	DECLARE @ActualSetID INT
 	DECLARE @NombreSet NVARCHAR(800)
@@ -1537,7 +1556,8 @@ BEGIN
 		,Cantidad INT
 		)
 	DECLARE @OrdenSet INT
- 
+	------------------------------------------
+
 	if(@EstrategiaID=0)
 	begin
 		select @EstrategiaID = EstrategiaID from estrategia where campaniaid= @Campaniaid and  cuv2 =@CuvSet
@@ -1556,6 +1576,8 @@ BEGIN
 		set @CuvsStringList = substring(@CuvsStringList,0,len(@CuvsStringList))
 	end
 
+	
+
 	INSERT INTO @CuvsAgregar (
 		Cuv
 		,Cantidad
@@ -1571,11 +1593,11 @@ BEGIN
 			EXISTS (
 				SELECT setid
 				FROM PedidoWebSet
-				WHERE cuvset = @CuvSet
+				WHERE cuvset = @CuvSet  and consultoraid= @ConsultoraId and Campania= @campaniaid
 				)
 			)
 	BEGIN
-		INSERT INTO @SetParecidosIdList (SetId) (SELECT setid FROM PedidoWebSet WHERE cuvset = @CuvSet)
+		INSERT INTO @SetParecidosIdList (SetId) (SELECT setid FROM PedidoWebSet WHERE cuvset = @CuvSet  and consultoraid= @ConsultoraId and Campania= @campaniaid)
 	END
 
 	WHILE EXISTS (
@@ -1624,6 +1646,8 @@ BEGIN
 
 	if(exists(select tipoestrategiaid from tipoestrategia where codigo in ('001','030','008','007','005','010') and tipoestrategiaid =@TipoEstrategiaID ))
 	begin
+
+
 				IF (@SetExiste = '0')
 				BEGIN
 					INSERT INTO [dbo].[PedidoWebSet] (
@@ -1720,12 +1744,9 @@ END
 GO
 USE belcorpPanama
 GO
-
-
 IF (OBJECT_ID('dbo.InsertPedidoWebSet', 'P') IS NULL)
 	EXEC ('CREATE PROCEDURE dbo.InsertPedidoWebSet AS SET NOCOUNT ON;')
 GO
-
 ALTER PROCEDURE InsertPedidoWebSet (
 	@Campaniaid INT
 	,@PedidoID INT
@@ -1738,7 +1759,8 @@ ALTER PROCEDURE InsertPedidoWebSet (
 	)
 AS
 BEGIN
- 
+
+	-------
 	DECLARE @NuevoSetID INT
 	DECLARE @ActualSetID INT
 	DECLARE @NombreSet NVARCHAR(800)
@@ -1752,7 +1774,8 @@ BEGIN
 		,Cantidad INT
 		)
 	DECLARE @OrdenSet INT
- 
+	------------------------------------------
+
 	if(@EstrategiaID=0)
 	begin
 		select @EstrategiaID = EstrategiaID from estrategia where campaniaid= @Campaniaid and  cuv2 =@CuvSet
@@ -1771,6 +1794,8 @@ BEGIN
 		set @CuvsStringList = substring(@CuvsStringList,0,len(@CuvsStringList))
 	end
 
+	
+
 	INSERT INTO @CuvsAgregar (
 		Cuv
 		,Cantidad
@@ -1786,11 +1811,11 @@ BEGIN
 			EXISTS (
 				SELECT setid
 				FROM PedidoWebSet
-				WHERE cuvset = @CuvSet
+				WHERE cuvset = @CuvSet  and consultoraid= @ConsultoraId and Campania= @campaniaid
 				)
 			)
 	BEGIN
-		INSERT INTO @SetParecidosIdList (SetId) (SELECT setid FROM PedidoWebSet WHERE cuvset = @CuvSet)
+		INSERT INTO @SetParecidosIdList (SetId) (SELECT setid FROM PedidoWebSet WHERE cuvset = @CuvSet  and consultoraid= @ConsultoraId and Campania= @campaniaid)
 	END
 
 	WHILE EXISTS (
@@ -1839,6 +1864,8 @@ BEGIN
 
 	if(exists(select tipoestrategiaid from tipoestrategia where codigo in ('001','030','008','007','005','010') and tipoestrategiaid =@TipoEstrategiaID ))
 	begin
+
+
 				IF (@SetExiste = '0')
 				BEGIN
 					INSERT INTO [dbo].[PedidoWebSet] (
@@ -1935,12 +1962,9 @@ END
 GO
 USE belcorpPeru
 GO
-
-
 IF (OBJECT_ID('dbo.InsertPedidoWebSet', 'P') IS NULL)
 	EXEC ('CREATE PROCEDURE dbo.InsertPedidoWebSet AS SET NOCOUNT ON;')
 GO
-
 ALTER PROCEDURE InsertPedidoWebSet (
 	@Campaniaid INT
 	,@PedidoID INT
@@ -1953,7 +1977,8 @@ ALTER PROCEDURE InsertPedidoWebSet (
 	)
 AS
 BEGIN
- 
+
+	-------
 	DECLARE @NuevoSetID INT
 	DECLARE @ActualSetID INT
 	DECLARE @NombreSet NVARCHAR(800)
@@ -1967,7 +1992,8 @@ BEGIN
 		,Cantidad INT
 		)
 	DECLARE @OrdenSet INT
- 
+	------------------------------------------
+
 	if(@EstrategiaID=0)
 	begin
 		select @EstrategiaID = EstrategiaID from estrategia where campaniaid= @Campaniaid and  cuv2 =@CuvSet
@@ -1986,6 +2012,8 @@ BEGIN
 		set @CuvsStringList = substring(@CuvsStringList,0,len(@CuvsStringList))
 	end
 
+	
+
 	INSERT INTO @CuvsAgregar (
 		Cuv
 		,Cantidad
@@ -2001,11 +2029,11 @@ BEGIN
 			EXISTS (
 				SELECT setid
 				FROM PedidoWebSet
-				WHERE cuvset = @CuvSet
+				WHERE cuvset = @CuvSet  and consultoraid= @ConsultoraId and Campania= @campaniaid
 				)
 			)
 	BEGIN
-		INSERT INTO @SetParecidosIdList (SetId) (SELECT setid FROM PedidoWebSet WHERE cuvset = @CuvSet)
+		INSERT INTO @SetParecidosIdList (SetId) (SELECT setid FROM PedidoWebSet WHERE cuvset = @CuvSet  and consultoraid= @ConsultoraId and Campania= @campaniaid)
 	END
 
 	WHILE EXISTS (
@@ -2054,6 +2082,8 @@ BEGIN
 
 	if(exists(select tipoestrategiaid from tipoestrategia where codigo in ('001','030','008','007','005','010') and tipoestrategiaid =@TipoEstrategiaID ))
 	begin
+
+
 				IF (@SetExiste = '0')
 				BEGIN
 					INSERT INTO [dbo].[PedidoWebSet] (
@@ -2150,12 +2180,9 @@ END
 GO
 USE belcorpPuertoRico
 GO
-
-
 IF (OBJECT_ID('dbo.InsertPedidoWebSet', 'P') IS NULL)
 	EXEC ('CREATE PROCEDURE dbo.InsertPedidoWebSet AS SET NOCOUNT ON;')
 GO
-
 ALTER PROCEDURE InsertPedidoWebSet (
 	@Campaniaid INT
 	,@PedidoID INT
@@ -2168,7 +2195,8 @@ ALTER PROCEDURE InsertPedidoWebSet (
 	)
 AS
 BEGIN
- 
+
+	-------
 	DECLARE @NuevoSetID INT
 	DECLARE @ActualSetID INT
 	DECLARE @NombreSet NVARCHAR(800)
@@ -2182,7 +2210,8 @@ BEGIN
 		,Cantidad INT
 		)
 	DECLARE @OrdenSet INT
- 
+	------------------------------------------
+
 	if(@EstrategiaID=0)
 	begin
 		select @EstrategiaID = EstrategiaID from estrategia where campaniaid= @Campaniaid and  cuv2 =@CuvSet
@@ -2201,6 +2230,8 @@ BEGIN
 		set @CuvsStringList = substring(@CuvsStringList,0,len(@CuvsStringList))
 	end
 
+	
+
 	INSERT INTO @CuvsAgregar (
 		Cuv
 		,Cantidad
@@ -2216,11 +2247,11 @@ BEGIN
 			EXISTS (
 				SELECT setid
 				FROM PedidoWebSet
-				WHERE cuvset = @CuvSet
+				WHERE cuvset = @CuvSet  and consultoraid= @ConsultoraId and Campania= @campaniaid
 				)
 			)
 	BEGIN
-		INSERT INTO @SetParecidosIdList (SetId) (SELECT setid FROM PedidoWebSet WHERE cuvset = @CuvSet)
+		INSERT INTO @SetParecidosIdList (SetId) (SELECT setid FROM PedidoWebSet WHERE cuvset = @CuvSet  and consultoraid= @ConsultoraId and Campania= @campaniaid)
 	END
 
 	WHILE EXISTS (
@@ -2269,6 +2300,8 @@ BEGIN
 
 	if(exists(select tipoestrategiaid from tipoestrategia where codigo in ('001','030','008','007','005','010') and tipoestrategiaid =@TipoEstrategiaID ))
 	begin
+
+
 				IF (@SetExiste = '0')
 				BEGIN
 					INSERT INTO [dbo].[PedidoWebSet] (
@@ -2365,12 +2398,9 @@ END
 GO
 USE belcorpSalvador
 GO
-
-
 IF (OBJECT_ID('dbo.InsertPedidoWebSet', 'P') IS NULL)
 	EXEC ('CREATE PROCEDURE dbo.InsertPedidoWebSet AS SET NOCOUNT ON;')
 GO
-
 ALTER PROCEDURE InsertPedidoWebSet (
 	@Campaniaid INT
 	,@PedidoID INT
@@ -2383,7 +2413,8 @@ ALTER PROCEDURE InsertPedidoWebSet (
 	)
 AS
 BEGIN
- 
+
+	-------
 	DECLARE @NuevoSetID INT
 	DECLARE @ActualSetID INT
 	DECLARE @NombreSet NVARCHAR(800)
@@ -2397,7 +2428,8 @@ BEGIN
 		,Cantidad INT
 		)
 	DECLARE @OrdenSet INT
- 
+	------------------------------------------
+
 	if(@EstrategiaID=0)
 	begin
 		select @EstrategiaID = EstrategiaID from estrategia where campaniaid= @Campaniaid and  cuv2 =@CuvSet
@@ -2416,6 +2448,8 @@ BEGIN
 		set @CuvsStringList = substring(@CuvsStringList,0,len(@CuvsStringList))
 	end
 
+	
+
 	INSERT INTO @CuvsAgregar (
 		Cuv
 		,Cantidad
@@ -2431,11 +2465,11 @@ BEGIN
 			EXISTS (
 				SELECT setid
 				FROM PedidoWebSet
-				WHERE cuvset = @CuvSet
+				WHERE cuvset = @CuvSet  and consultoraid= @ConsultoraId and Campania= @campaniaid
 				)
 			)
 	BEGIN
-		INSERT INTO @SetParecidosIdList (SetId) (SELECT setid FROM PedidoWebSet WHERE cuvset = @CuvSet)
+		INSERT INTO @SetParecidosIdList (SetId) (SELECT setid FROM PedidoWebSet WHERE cuvset = @CuvSet  and consultoraid= @ConsultoraId and Campania= @campaniaid)
 	END
 
 	WHILE EXISTS (
@@ -2484,6 +2518,8 @@ BEGIN
 
 	if(exists(select tipoestrategiaid from tipoestrategia where codigo in ('001','030','008','007','005','010') and tipoestrategiaid =@TipoEstrategiaID ))
 	begin
+
+
 				IF (@SetExiste = '0')
 				BEGIN
 					INSERT INTO [dbo].[PedidoWebSet] (
