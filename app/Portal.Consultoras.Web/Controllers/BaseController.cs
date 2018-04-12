@@ -4937,7 +4937,7 @@ namespace Portal.Consultoras.Web.Controllers
                 _RevistaDigitalShortModel.TieneRDS = revistaDigital.TieneRDS;
                 _RevistaDigitalShortModel.EsSuscrita = revistaDigital.EsSuscrita;
                 _RevistaDigitalShortModel.EsActiva = revistaDigital.EsActiva;
-                _RevistaDigitalShortModel.CampaniaActiva = revistaDigital.CampaniaActiva;
+                _RevistaDigitalShortModel.CampaniaActiva = revistaDigital.CampaniaFuturoActiva;
             }
 
             return _RevistaDigitalShortModel;
