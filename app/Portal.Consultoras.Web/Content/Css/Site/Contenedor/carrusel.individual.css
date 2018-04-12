@@ -97,16 +97,14 @@
     display: block;
     margin-bottom: 20px;
     word-wrap:break-word;
-    text-transform: initial;
     overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+    max-height: 108px;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    -webkit-box-orient: vertical !important;
 }
 
-.lonuevo_carrusel .lonuevo_carrusel_info .cont span::first-letter {
-    text-transform: uppercase;
-}
+
 
 .lonuevo_carrusel .lonuevo_carrusel_info .cont a {
     background-color: #be9947;
