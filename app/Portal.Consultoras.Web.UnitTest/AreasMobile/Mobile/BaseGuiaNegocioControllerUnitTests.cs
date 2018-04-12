@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.SessionManager;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
 
 namespace Portal.Consultoras.Web.UnitTest.AreasMobile.Mobile
 {
@@ -18,6 +19,10 @@ namespace Portal.Consultoras.Web.UnitTest.AreasMobile.Mobile
         {
             public class BaseGuiaNegocioControllerStub01 : BaseGuiaNegocioController
             {
+                public BaseGuiaNegocioControllerStub01()
+                {
+                    revistaDigital = new RevistaDigitalModel();
+                }
                 public override bool IsMobile()
                 {
                     return true;
