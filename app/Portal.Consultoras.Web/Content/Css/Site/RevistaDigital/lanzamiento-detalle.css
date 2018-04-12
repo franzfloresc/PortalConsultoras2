@@ -199,6 +199,7 @@ text-align: left;
 color: #000000;
 display: block;
 margin-top: 40px;
+cursor:pointer;
 }
 .detalle-prod .detalle-img .detalle-compartir img{
 position: relative;
@@ -347,6 +348,7 @@ line-height: 1.33;
 letter-spacing: normal;
 text-align: left;
 color: #000000;
+margin-bottom:5px;
 }
 .detalle-prod .detalle-info .detalle-bloque-dos ul li::before {
 content: '-';

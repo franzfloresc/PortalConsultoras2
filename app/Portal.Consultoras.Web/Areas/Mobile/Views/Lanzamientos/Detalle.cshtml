@@ -13,7 +13,7 @@
 }
 
 <div data-item="" data-tag-html="@ViewBag.Campania">
-    <div class="revista_ficha" style='background: url(@Model.TipoEstrategiaDetalle.ImgFichaFondoMobile); background-color: #24303c !important;'
+    <div class="revista_ficha" style='background: url(@Model.TipoEstrategiaDetalle.ImgFichaFondoMobile); background-color: #efefef !important;'
          data-estadoregistro="@ViewBag.EstadoSuscripcion"
          data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage">
         <div style="display:none;"><div data-estrategia="@Json.Encode(Model)"></div></div>
@@ -34,7 +34,7 @@
                         </div>
                         <div class="bloque2">
                             <span class="precio-tachado">@Model.Simbolo @Model.PrecioTachado</span>
-                            <span class="precio-para-ti">precio para tí<b>@Model.Simbolo @Model.PrecioVenta</b></span>
+                            <span class="precio-para-ti">Precio para tí<b>@Model.Simbolo @Model.PrecioVenta</b></span>
                             <span class="gana-rojo">GANA @Model.Simbolo @Model.Ganancia</span>
                         </div>
                         <div style="clear:both;"></div>
