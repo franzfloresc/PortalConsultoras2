@@ -196,7 +196,7 @@ namespace Portal.Consultoras.Web.Controllers
                         listPerdio = ConsultarEstrategiasFormatearModelo(listPerdio1, 1);
                     }
                 }
-                
+
 
                 return Json(new
                 {

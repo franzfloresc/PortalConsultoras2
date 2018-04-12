@@ -1,3 +1,3 @@
-# Portal Consultoras 2.22
+# Portal Consultoras 2.22.
 
-Rama BPT Sprint 22 Mejoras de todo el sprint
+Nivelacion Sprint 22

@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public decimal ImporteCredito { get; set; }
         [DataMember]
-        public byte EstadoPedido { get; set; }
+        public Int16 EstadoPedido { get; set; }
         [DataMember]
         public Int16 MotivoCreditoID { get; set; }
         [DataMember]
@@ -100,6 +100,11 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public int NumeroPedido { get; set; }
+        
+        [DataMember]
+        public byte VersionProl { get; set; }
+
+        public long PedidoSapId { get; set; }
 
         public BEPedidoWeb()
         { }
@@ -112,7 +117,7 @@ namespace Portal.Consultoras.Entities
             if (row.HasColumn("Clientes")) Clientes = Convert.ToInt16(row["Clientes"]);
             if (row.HasColumn("ImporteTotal")) ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
             if (row.HasColumn("ImporteCredito")) ImporteCredito = Convert.ToDecimal(row["ImporteCredito"]);
-            if (row.HasColumn("EstadoPedido")) EstadoPedido = Convert.ToByte(row["EstadoPedido"]);
+            if (row.HasColumn("EstadoPedido")) EstadoPedido = Convert.ToInt16(row["EstadoPedido"]);
             if (row.HasColumn("EstadoPedidoDesc")) EstadoPedidoDesc = Convert.ToString(row["EstadoPedidoDesc"]);
             if (row.HasColumn("MotivoCreditoID")) MotivoCreditoID = Convert.ToInt16(row["MotivoCreditoID"]);
             if (row.HasColumn("PaisID")) PaisID = Convert.ToInt32(row["PaisID"]);
@@ -160,6 +165,7 @@ namespace Portal.Consultoras.Entities
                 CDRWebEstado = Convert.ToInt32(row["CDRWebEstado"]);
             if (row.HasColumn("NumeroPedido") && row["NumeroPedido"] != DBNull.Value)
                 NumeroPedido = Convert.ToInt32(row["NumeroPedido"]);
+            if (row.HasColumn("VersionProl")) VersionProl = Convert.ToByte(row["VersionProl"]);
         }
     }
 }

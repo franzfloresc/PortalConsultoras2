@@ -2353,19 +2353,24 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!model.Documento.FileName.EndsWith(".csv"))
                     throw new ArgumentException("El archivo no tiene la extensión correcta.");
 
-                var fileContent = new List<BEDescripcionEstrategia>();
                 var sd = new StreamReader(model.Documento.InputStream, Encoding.Default);
 
                 var readLine = sd.ReadLine();
                 if (readLine != null)
                 {
                     var arraySplitHeader = readLine.Split(',');
-                    if (!arraySplitHeader[0].ToLower().Equals("cuv") ||
-                    !arraySplitHeader[1].ToLower().Equals("descripcion"))
+
+                    if (arraySplitHeader.Length < 2)
+                        throw new ArgumentException("Verificar los títulos de las columnas del archivo, deben ser 'cuv, descripcion'.");
+
+                    if (!arraySplitHeader[0].Trim().ToLower().Equals("cuv") ||
+                    !arraySplitHeader[1].Trim().ToLower().Equals("descripcion"))
                     {
-                        throw new ArgumentException("Verificar los títulos de las columnas del archivo.");
+                        throw new ArgumentException("Verificar los títulos de las columnas del archivo, deben ser 'cuv, descripcion'.");
                     }
                 }
+
+                var fileContent = new List<BEDescripcionEstrategia>();
 
                 do
                 {
@@ -2373,29 +2378,35 @@ namespace Portal.Consultoras.Web.Controllers
                     if (readLine == null) continue;
 
                     var arraySplit = readLine.Split(',');
-                    if (arraySplit[0] != "")
+
+                    if (arraySplit.Length < 2) continue;
+                    if (arraySplit[0].Trim() == "" || arraySplit[1].Trim() == "")
+                        continue;
+
+                    fileContent.Add(new BEDescripcionEstrategia
                     {
-                        fileContent.Add(new BEDescripcionEstrategia
-                        {
-                            Cuv = arraySplit[0],
-                            Descripcion = arraySplit[1]
-                        });
-                    }
+                        Cuv = arraySplit[0].Trim(),
+                        Descripcion = arraySplit[1].Trim()
+                    });
+
                 } while (readLine != null);
+
                 List<BEDescripcionEstrategia> beDescripcionEstrategias;
                 using (var svc = new SACServiceClient())
                 {
                     beDescripcionEstrategias = svc.ActualizarDescripcionEstrategia(model.Pais.ToInt(),
                         model.CampaniaId.ToInt(), model.TipoEstrategia.ToInt(), fileContent.ToArray()).ToList();
                 }
+
                 var descripcionEstrategiaModels =
-                    Mapper.Map<List<BEDescripcionEstrategia>, List<DescripcionEstrategiaModel>>(
-                        beDescripcionEstrategias);
+                    Mapper.Map<List<BEDescripcionEstrategia>, List<DescripcionEstrategiaModel>>(beDescripcionEstrategias);
+
                 return Json(new
                 {
                     listActualizado = descripcionEstrategiaModels.Where(x => x.Estado == 1),
                     listNoActualizado = descripcionEstrategiaModels.Where(x => x.Estado != 1)
                 });
+
             }
             catch (Exception ex)
             {

@@ -323,8 +323,9 @@ function RenderCarruselIndividuales(divProd) {
         vertical: false,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: false,
-        speed: 260,
+        speed: 500,
+        autoplay: true,
+        autoplaySpeed: 6000,
         prevArrow: '<a class="arrow-prev"><img src="' + baseUrl + 'Content/Images/sliders/previous_ofertas.svg")" alt="" /></a>',
         nextArrow: '<a class="arrow-next"><img src="' + baseUrl + 'Content/Images/sliders/next_ofertas.svg")" alt="" /></a>'
     });

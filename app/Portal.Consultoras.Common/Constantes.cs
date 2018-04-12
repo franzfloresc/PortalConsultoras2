@@ -376,7 +376,6 @@ namespace Portal.Consultoras.Common
             public const string PaisesShowRoom = "PaisesShowRoom";
             public const string RevistaPiloto_Zonas = "RevistaPiloto_Zonas_";
             public const string RevistaPiloto_Codigo = "RevistaPiloto_Codigo";
-            public const string RevistaPiloto_Zonas_RDR_1 = "RevistaPiloto_Zonas_RDR_1_";
             public const string RevistaPiloto_Zonas_RDR_2 = "RevistaPiloto_Zonas_RDR_2_";
             public const string CodigoRevistaIssuu = "CodigoRevistaIssuu";
             public const string CodigoCatalogoIssuu = "CodigoCatalogoIssuu";
@@ -419,7 +418,9 @@ namespace Portal.Consultoras.Common
             public const string Catalogo_Piloto_Grupos = "Catalogo_Piloto_Grupos_";
             public const string Catalogo_Marca_Piloto = "Catalogo_Marca_Piloto_";
             public const string SubGuion = "_";
-
+            
+            public const string EnabledRemoveCache = "EnabledRemoveCache";
+            public const string UrlServiceSicc = "UrlServiceSicc";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
@@ -439,7 +440,7 @@ namespace Portal.Consultoras.Common
             // C: Landing EPM               D: Landing EPM Revisar
             // E: Landing ShowRoom          F: Landing ShowRoom Intriga
             // G: Revista Digital Info      H: Revista Digital Detalle
-            // I: Guia de Negocio
+            // I: Guia de Negocio           J: Herramiento de venta
 
             // Tercer Dígito -- Sección dentro de la Pantalla
             // 0: Principal                 1: OPT
@@ -462,6 +463,8 @@ namespace Portal.Consultoras.Common
             public const string MRevistaDigitalDetalle = "2H0";
             public const string DGuiaNegocio = "1I0";
             public const string MGuiaNegocio = "2I0";
+            public const string DHerramientaVenta = "1J0";
+            public const string MHerramientaVenta = "2J0";
         }
 
         public static class OrigenPedidoWeb
@@ -793,7 +796,7 @@ namespace Portal.Consultoras.Common
             public const string ConsultoraBloqueada = "Lo sentimos, por el momento te encuentras bloqueada para realizar esta operación.";
             public const string SinPedidosDisponibles = "Lo sentimos, en estos momentos no cuentas con pedidos disponibles para reclamar.";
             public const string FueraDeFecha = "Tu solicitud se encuentra fuera de fecha para poder ser atendida.";
-            public const string ContactateChatEnLinea = "Por favor, contáctate con nuestro <span>Chat en Línea</span>.";
+            public const string ContactateChatEnLinea = "Por favor, contáctate con nuestro <span class=\"enlace_chat belcorpChat\"><a>Chat en Línea</a></span>.";
         }
 
         public static class CodigoOperacionCDR
@@ -1101,6 +1104,9 @@ namespace Portal.Consultoras.Common
             public const string ReportePedidoDDWeb_DescargaDetalle = "Ocurrió un error al intentar descargar los detalles de sus pedidos. Inténtelo más tarde.";
             public const string LimiteDescargaSobrepasado = "El archivo no se puede descargar debido a que se sobrepaso el máximo de items ({0}).";
             public const string PaqueteDocumentario_ConsumirServicio = "Ocurrió un error al intentar obtener la información. Por favor, vuelva a intentar dentro de unos minutos.";
+            public const string Cache_Eliminar = "Ocurrió un error al eliminar la caché. Inténtelo más tarde";
+            public const string Reserva_Error = "Hubo un error al tratar de realizar la validación del pedido, por favor vuelva a intentarlo.";
+            public const string Reserva_SinDetalle = "No tiene productos que reservar esta campaña.";
         }
 
         public static class ConfiguracionPais
@@ -1412,6 +1418,7 @@ namespace Portal.Consultoras.Common
             public const short MontoLimiteCupon = 103;
             public const int ValoresPagoEnLinea = 122;
             public const int CantidadCuvMasivo = 137;
+            public const short ProlObsCod = 5;
         }
 
         public struct MensajesCDRExpress
@@ -1708,6 +1715,7 @@ namespace Portal.Consultoras.Common
             public const string SwInicioIndex = "/showroom/index";
             public const string SwIntriga = "/showroom/intriga";
             public const string SwDetalle = "/showroom/detalleoferta";
+            public const string SwPersonalizado = "/showroom/personalizado";
             public const string OptDetalle = "/ofertasparati/detalle";
             public const string OfertaDelDia = "/ofertadeldia";
             public const string OfertaDelDiaIndex = "/ofertadeldia/index";
@@ -1866,6 +1874,44 @@ namespace Portal.Consultoras.Common
             public const int Valor1 = 1;
             public const int Valor2 = 2;
             public const int Valor3 = 3;
+        }
+        
+        public class ProlCodigoRechazo
+        {
+            public const string MontoMinimo = "XXXXX";
+            public const string MontoMaximo = "YYYYY";
+            public const string Deuda = "ZZZZZ";
+        }
+        public class ProlObsCod
+        {
+            public const string Deuda = "Deuda";
+            public const string MontoMinimoVenta = "MontoMinimoVenta";
+            public const string MontoMinimoFact = "MontoMinimoFact";
+            public const string MontoMaximo  = "MontoMaximo";
+            public const string LimiteVenta0 = "LimiteVenta0";
+            public const string LimiteVenta = "LimiteVenta";
+            public const string Promocion2003 = "Promocion2003";
+            public const string Promocion = "Promocion";
+            public const string Reemplazo = "Reemplazo";
+            public const string SinStock0 = "SinStock0";
+            public const string SinStock = "SinStock";
+        }
+        public class ProlSiccObs
+        {
+            public const string Promocion = "PROMOCION NO CUMPLE";
+            public const string Reemplazo = "Reemp. ";
+        }
+        public class ProlObsToken
+        {
+            public const string Simbolo = "{simb}";
+            public const string DeudaMonto = "{deuMon}";
+            public const string MaximoMonto = "{maxMon}";
+            public const string MinimoMonto = "{minMon}";
+            public const string DetalleCuv = "{detCuv}";
+            public const string LimiteVenta = "{limVen}";
+            public const string ReemplazoCuv = "{remCuv}";
+            public const string ReemplazoDesc = "{remDes}";
+            public const string Stock = "{stock}";
         }
     }
 }

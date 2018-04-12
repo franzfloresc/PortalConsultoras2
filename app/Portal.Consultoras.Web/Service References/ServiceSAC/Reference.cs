@@ -7079,6 +7079,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private short ProcesoRegularField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneProl3Field;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -7254,6 +7257,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.ProcesoRegularField.Equals(value) != true)) {
                     this.ProcesoRegularField = value;
                     this.RaisePropertyChanged("ProcesoRegular");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneProl3 {
+            get {
+                return this.TieneProl3Field;
+            }
+            set {
+                if ((this.TieneProl3Field.Equals(value) != true)) {
+                    this.TieneProl3Field = value;
+                    this.RaisePropertyChanged("TieneProl3");
                 }
             }
         }
@@ -13231,6 +13247,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpsellingMarcaCategoriaFlagsEditar", ReplyAction="http://tempuri.org/ISACService/UpsellingMarcaCategoriaFlagsEditarResponse")]
         System.Threading.Tasks.Task<bool> UpsellingMarcaCategoriaFlagsEditarAsync(int paisId, int upSellingId, bool CategoriaApoyada, bool CategoriaMonto);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/RemoveDataCache", ReplyAction="http://tempuri.org/ISACService/RemoveDataCacheResponse")]
+        string RemoveDataCache(int paisID, string cacheItemString, string customKey);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/RemoveDataCache", ReplyAction="http://tempuri.org/ISACService/RemoveDataCacheResponse")]
+        System.Threading.Tasks.Task<string> RemoveDataCacheAsync(int paisID, string cacheItemString, string customKey);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia", ReplyAction="http://tempuri.org/ISACService/UpdateBelcorpNoticiaResponse")]
         void UpdateBelcorpNoticia(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad);
         
@@ -14583,6 +14605,14 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public System.Threading.Tasks.Task<bool> UpsellingMarcaCategoriaFlagsEditarAsync(int paisId, int upSellingId, bool CategoriaApoyada, bool CategoriaMonto) {
             return base.Channel.UpsellingMarcaCategoriaFlagsEditarAsync(paisId, upSellingId, CategoriaApoyada, CategoriaMonto);
+        }
+        
+        public string RemoveDataCache(int paisID, string cacheItemString, string customKey) {
+            return base.Channel.RemoveDataCache(paisID, cacheItemString, customKey);
+        }
+        
+        public System.Threading.Tasks.Task<string> RemoveDataCacheAsync(int paisID, string cacheItemString, string customKey) {
+            return base.Channel.RemoveDataCacheAsync(paisID, cacheItemString, customKey);
         }
         
         public void UpdateBelcorpNoticia(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad) {
