@@ -667,7 +667,13 @@ namespace Portal.Consultoras.ServiceContracts
         BEConfiguracionPais GetConfiguracionPais(int paisId, int configuracionPaisId);
 
         [OperationContract]
+        BEConfiguracionPais GetConfiguracionPaisByCode(int paisId, string codigo);
+
+        [OperationContract]
         void UpdateConfiguracionPais(BEConfiguracionPais configuracionPais);
+
+        [OperationContract]
+        BEConfiguracionPaisDatos GetConfiguracionPaisDatos(BEConfiguracionPaisDatos configuracionPaisDatos);
         #endregion
 
         #region Horario
@@ -755,5 +761,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         bool UpsellingMarcaCategoriaFlagsEditar(int paisId, int upSellingId, bool CategoriaApoyada, bool CategoriaMonto);
         #endregion
+
+        [OperationContract]
+        string RemoveDataCache(int paisID, string cacheItemString, string customKey);
     }
 }

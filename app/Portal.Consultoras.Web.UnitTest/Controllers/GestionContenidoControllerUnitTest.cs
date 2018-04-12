@@ -14,25 +14,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
     public class GestionContenidoControllerUnitTest
     {
         [TestClass]
-        public class Base
-        {
-            public Mock<ISessionManager> sessionManager;
-
-            [TestInitialize]
-            public void Test_Initialize()
-            {
-                sessionManager = new Mock<ISessionManager>();
-
-            }
-
-            [TestCleanup]
-            public void Test_Cleanup()
-            {
-                sessionManager = null;
-            }
-        }
-
-        [TestClass]
         public class GetResumenCampania
         {
             public class GestionContenidoController_WhenSoloCantidadIsTrue : GestionContenidoController

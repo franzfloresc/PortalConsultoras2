@@ -69,7 +69,13 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
         [DataMember]
         public string FechaCreacionFormat { get; set; }
         [DataMember]
-        public string FechaCreacionHoraFormat { get; set; }        
+        public string FechaCreacionHoraFormat { get; set; }
+        [DataMember]
+        public DateTime FechaTransaccion { get; set; }
+        [DataMember]
+        public string FechaTransaccionFormat { get; set; }
+        [DataMember]
+        public string FechaTransaccionHoraFormat { get; set; }
 
         public BEPagoEnLineaResultadoLogReporte(IDataRecord datarec)
         {
@@ -147,6 +153,9 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
 
             if (DataRecord.HasColumn(datarec, "MensajeError") && datarec["MensajeError"] != DBNull.Value)
                 MensajeError = DbConvert.ToString(datarec["MensajeError"]);
+
+            if (DataRecord.HasColumn(datarec, "FechaTransaccion") && datarec["FechaTransaccion"] != DBNull.Value)
+                FechaTransaccion = DbConvert.ToDateTime(datarec["FechaTransaccion"]);
         }
     }
 }
