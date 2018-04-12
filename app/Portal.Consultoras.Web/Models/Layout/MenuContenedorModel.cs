@@ -57,6 +57,9 @@ namespace Portal.Consultoras.Web.Models.Layout
                     case Constantes.OrigenPantallaWeb.DGuiaNegocio:
                     case Constantes.OrigenPantallaWeb.MGuiaNegocio:
                         return "Guia de Negocio";
+                    case Constantes.OrigenPantallaWeb.DHerramientaVenta:
+                    case Constantes.OrigenPantallaWeb.MHerramientaVenta:
+                        return "Herramientas de Venta";
                     default: return "";
                 }
             }

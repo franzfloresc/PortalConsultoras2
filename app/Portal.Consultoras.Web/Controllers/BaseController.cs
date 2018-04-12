@@ -9,6 +9,7 @@ using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
@@ -36,7 +37,6 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-using Portal.Consultoras.Web.Providers;
 using System.Drawing;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -223,62 +223,23 @@ namespace Portal.Consultoras.Web.Controllers
             var pedObs = pedido;
             var txtBuil = new StringBuilder();
 
-            if (userData.NuevoPROL && userData.ZonaNuevoPROL)
+            foreach (var item in pedObs)
             {
-                foreach (var item in pedObs)
+                item.Mensaje = string.Empty;
+                var temp = observaciones.Where(o => o.CUV == item.CUV).ToList();
+                if (temp.Count != 0)
                 {
-                    item.Mensaje = string.Empty;
-                    var temp = observaciones.Where(o => o.CUV == item.CUV).ToList();
-                    if (temp.Count != 0)
-                    {
-                        if (temp[0].Caso == 0)
-                        {
-                            item.ClaseFila = string.Empty;
-                            item.TipoObservacion = 0;
-                        }
-                        else
-                        {
-                            item.ClaseFila = temp[0].Tipo == 1 ? "f1" : "f2";
-                            item.TipoObservacion = temp[0].Tipo;
-                        }
+                    if (temp[0].Caso == 0) item.TipoObservacion = 0;
+                    else item.TipoObservacion = temp[0].Tipo;
 
-                        foreach (var ob in temp)
-                        {
-                            txtBuil.Append(ob.Descripcion + "<br/>");
-                        }
-                        item.Mensaje = txtBuil.ToString();
-                        txtBuil.Clear();
-                    }
-                    else
+                    foreach (var ob in temp)
                     {
-                        item.ClaseFila = string.Empty;
-                        item.TipoObservacion = 0;
+                        txtBuil.Append(ob.Descripcion + "<br/>");
                     }
+                    item.Mensaje = txtBuil.ToString();
+                    txtBuil.Clear();
                 }
-            }
-            else
-            {
-                foreach (var item in pedObs)
-                {
-                    item.Mensaje = string.Empty;
-                    var temp = observaciones.Where(o => o.CUV == item.CUV).ToList();
-                    if (temp.Count != 0)
-                    {
-                        item.ClaseFila = temp[0].Tipo == 1 ? "f1" : "f2";
-                        item.TipoObservacion = temp[0].Tipo;
-                        foreach (var ob in temp)
-                        {
-                            txtBuil.Append(ob.Descripcion + "<br/>");
-                        }
-                        item.Mensaje = txtBuil.ToString();
-                        txtBuil.Clear();
-                    }
-                    else
-                    {
-                        item.ClaseFila = string.Empty;
-                        item.TipoObservacion = 0;
-                    }
-                }
+                else item.TipoObservacion = 0;
             }
             return pedObs.OrderByDescending(p => p.TipoObservacion).ToList();
         }
@@ -3611,6 +3572,7 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.UrlMenuContenedor.SwIntriga:
                 case Constantes.UrlMenuContenedor.SwDetalle:
                 case Constantes.UrlMenuContenedor.SwInicioIndex:
+                case Constantes.UrlMenuContenedor.SwPersonalizado:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
                     menuActivo.OrigenPantalla = IsMobile()
                         ? Constantes.OrigenPantallaWeb.MShowRoom
@@ -3633,14 +3595,18 @@ namespace Portal.Consultoras.Web.Controllers
                         : Constantes.OrigenPantallaWeb.DGuiaNegocio;
                     break;
                 case Constantes.UrlMenuContenedor.HerramientasVentaIndex:
+                case Constantes.UrlMenuContenedor.HerramientasVentaComprar:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVenta;
+                    menuActivo.OrigenPantalla = IsMobile()
+                        ? Constantes.OrigenPantallaWeb.MHerramientaVenta
+                        : Constantes.OrigenPantallaWeb.DHerramientaVenta;
                     break;
                 case Constantes.UrlMenuContenedor.HerramientasVentaRevisar:
                     menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                     menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVenta;
-                    break;
-                case Constantes.UrlMenuContenedor.HerramientasVentaComprar:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVenta;
+                    menuActivo.OrigenPantalla = IsMobile()
+                        ? Constantes.OrigenPantallaWeb.MHerramientaVenta
+                        : Constantes.OrigenPantallaWeb.DHerramientaVenta;
                     break;
             }
 
@@ -3973,7 +3939,11 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.SetMenuContenedor(menuContenedor);
             return menuContenedor;
         }
-
+        public OfertaFinalModel GetOfertaFinal()
+        {
+            return sessionManager.GetOfertaFinalModel() ??
+                   new OfertaFinalModel();
+        }
         private ConfiguracionPaisModel ActualizarTituloYSubtituloBanner(ConfiguracionPaisModel cp, RevistaDigitalModel revistaDigital)
         {
             var codigo = string.Empty;
@@ -4547,56 +4517,37 @@ namespace Portal.Consultoras.Web.Controllers
             var TextoPromesa = ".";
             var TextoNuevoPROL = "";
 
-            if (userData.ZonaValida)
+            if (!userData.ZonaValida) ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
+            else if (!userData.DiaPROL)
             {
-                if (!userData.DiaPROL)
+                ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
+                if (!("BO CL VE").Contains(userData.CodigoISO)) TextoNuevoPROL = " Revisa tus notificaciones o correo y verifica que tu pedido esté completo.";
+
+                if (IsMobile())
                 {
-                    if (userData.NuevoPROL && userData.ZonaNuevoPROL)
-                    {
-                        ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
-                        if (!("BO CL VE").Contains(userData.CodigoISO))
-                            TextoNuevoPROL = " Revisa tus notificaciones o correo y verifica que tu pedido esté completo.";
-                    }
-                    else
-                    {
-                        if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
-                        {
-                            ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
-                        }
-                        else
-                        {
-                            ViewBag.MensajeCierreCampania = "El <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> desde las <b>" + FormatearHora(userData.HoraFacturacion) + "</b> hasta las <b>" + FormatearHora(HoraCierrePortal) + "</b> podrás validar los productos que te llegarán en el pedido";
-                        }
-                    }
+                    DateTime time = DateTime.Today.Add(HoraCierrePortal);
+                    string hrCierrePortal = time.ToString("hh:mm tt").Replace(". ", "").ToUpper();
+                    ViewBag.MensajeFechaPromesa = " CIERRA EL " + userData.FechaInicioCampania.Day + " " + NombreMes(userData.FechaInicioCampania.Month).ToUpper() + " - " + hrCierrePortal.Replace(".", "");
+                }
+            }
+            else
+            {
+                if (userData.DiasCampania != 0 && FechaHoraActual < userData.FechaInicioCampania)
+                {
+                    ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
                 }
                 else
                 {
-                    if (userData.DiasCampania != 0 && FechaHoraActual < userData.FechaInicioCampania)
-                    {
-                        ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
-                    }
-                    else
-                    {
-                        if (userData.NuevoPROL && userData.ZonaNuevoPROL)
-                        {
-                            ViewBag.MensajeCierreCampania = "Pasa o modifica tu pedido hasta el día de <b>hoy a las " + FormatearHora(HoraCierrePortal) + "</b>";
-                        }
-                        else
-                        {
-                            if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
-                            {
-                                ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
-                            }
-                            else
-                            {
-                                ViewBag.MensajeCierreCampania = "Recuerda que tienes hasta las <b>" + FormatearHora(HoraCierrePortal) + "</b> para validar lo que vas a recibir en el pedido";
-                                TextoPromesaEspecial = true;
-                            }
-                        }
-                    }
+                    ViewBag.MensajeCierreCampania = "Pasa o modifica tu pedido hasta el día de <b>hoy a las " + FormatearHora(HoraCierrePortal) + "</b>";
+                }
+
+                if (IsMobile())
+                {
+                    DateTime time = DateTime.Today.Add(HoraCierrePortal);
+                    string hrCierrePortal = time.ToString("hh:mm tt").Replace(". ", "").ToUpper();
+                    ViewBag.MensajeFechaPromesa = " CIERRA HOY - " + hrCierrePortal.Replace(".", "");
                 }
             }
-            else ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
 
             if (userData.TipoCasoPromesa != "0")
             {
@@ -4678,7 +4629,7 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion Banner
 
             ViewBag.Efecto_TutorialSalvavidas = ConfigurationManager.AppSettings.Get("Efecto_TutorialSalvavidas") ?? "1";
-            ViewBag.ModificarPedidoProl = userData.NuevoPROL && userData.ZonaNuevoPROL ? 0 : 1;
+            ViewBag.ModificarPedidoProl = 0;
             ViewBag.TipoUsuario = userData.TipoUsuario;
             ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
             ViewBag.MensajePedidoMobile = userData.MensajePedidoMobile;

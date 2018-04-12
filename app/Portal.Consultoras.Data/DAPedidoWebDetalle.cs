@@ -1,7 +1,11 @@
-﻿using Portal.Consultoras.Entities;
+﻿using OpenSource.Library.DataAccess;
+using Portal.Consultoras.Entities;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Data.SqlClient;
+using System.Linq;
 
 namespace Portal.Consultoras.Data
 {
@@ -202,30 +206,25 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
+        public int UpdListBackOrderPedidoWebDetalle(int campaniaID, int pedidoID, List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdListBackOrderPedidoWebDetalle");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoID);
+
+            var parListPedidoWebDetalleObs = new SqlParameter("@ListPedidoDetalleID", SqlDbType.Structured);
+            parListPedidoWebDetalleObs.TypeName = "dbo.IdSmallintType";
+            parListPedidoWebDetalleObs.Value = new GenericDataReader<DENativeId<short>>(
+                listPedidoWebDetalle.Select(detalle => new DENativeId<short> { Id = detalle.PedidoDetalleID }).ToList()
+            );
+            command.Parameters.Add(parListPedidoWebDetalleObs);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
         public int AceptarBackOrderPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.AceptarBackOrderPedidoWebDetalle");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, pedidowebdetalle.CampaniaID);
-            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidowebdetalle.PedidoID);
-            Context.Database.AddInParameter(command, "@PedidoDetalleID", DbType.Int16, pedidowebdetalle.PedidoDetalleID);
-            int result = Context.ExecuteNonQuery(command);
-
-            return result;
-        }
-
-        public int ClearBackOrderPedidoWebDetalle(int campaniaID, int pedidoID)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ClearBackOrderPedidoWebDetalle");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
-            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoID);
-            int result = Context.ExecuteNonQuery(command);
-
-            return result;
-        }
-
-        public int UpdBackOrderPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdBackOrderPedidoWebDetalle");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, pedidowebdetalle.CampaniaID);
             Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidowebdetalle.PedidoID);
             Context.Database.AddInParameter(command, "@PedidoDetalleID", DbType.Int16, pedidowebdetalle.PedidoDetalleID);
@@ -310,14 +309,22 @@ namespace Portal.Consultoras.Data
             return string.Empty;
         }
 
-        public void UpdPedidoWebDetalleObsPROL(BEPedidoWebDetalle oBEPedidoWebDetalle, bool Tipo)
+        public void UpdListPedidoWebDetalleObsPROL(List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdPedidoWebDetalleObsPROL");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, oBEPedidoWebDetalle.CampaniaID);
-            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, oBEPedidoWebDetalle.PedidoID);
-            Context.Database.AddInParameter(command, "@PedidoDetalleID", DbType.Int16, oBEPedidoWebDetalle.PedidoDetalleID);
-            Context.Database.AddInParameter(command, "@ObservacionPROL", DbType.AnsiString, oBEPedidoWebDetalle.ObservacionPROL);
-            Context.Database.AddInParameter(command, "@Tipo", DbType.Boolean, Tipo);
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdListPedidoWebDetalleObsPROL");
+
+            var parListPedidoWebDetalleObs = new SqlParameter("@PedidoWebDetalleObs", SqlDbType.Structured);
+            parListPedidoWebDetalleObs.TypeName = "dbo.PedidoWebDetalleObsType";
+            parListPedidoWebDetalleObs.Value = new GenericDataReader<DEPedidoWebDetalleObs>(
+                listPedidoWebDetalle.Select(detalle => new DEPedidoWebDetalleObs
+                {
+                    CampaniaID = detalle.CampaniaID,
+                    PedidoID = detalle.PedidoID,
+                    PedidoDetalleID = detalle.PedidoDetalleID,
+                    ObservacionPROL = detalle.ObservacionPROL
+                }
+            ).ToList());
+            command.Parameters.Add(parListPedidoWebDetalleObs);
 
             Context.ExecuteNonQuery(command);
         }

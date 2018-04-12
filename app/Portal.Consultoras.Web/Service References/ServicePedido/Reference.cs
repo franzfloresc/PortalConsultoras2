@@ -13723,6 +13723,18 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string EstadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaPagoDesdeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaPagoHastaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaProcesoDesdeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaProcesoHastaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int RegionIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -13773,6 +13785,58 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.EstadoField, value) != true)) {
                     this.EstadoField = value;
                     this.RaisePropertyChanged("Estado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaPagoDesde {
+            get {
+                return this.FechaPagoDesdeField;
+            }
+            set {
+                if ((this.FechaPagoDesdeField.Equals(value) != true)) {
+                    this.FechaPagoDesdeField = value;
+                    this.RaisePropertyChanged("FechaPagoDesde");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaPagoHasta {
+            get {
+                return this.FechaPagoHastaField;
+            }
+            set {
+                if ((this.FechaPagoHastaField.Equals(value) != true)) {
+                    this.FechaPagoHastaField = value;
+                    this.RaisePropertyChanged("FechaPagoHasta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaProcesoDesde {
+            get {
+                return this.FechaProcesoDesdeField;
+            }
+            set {
+                if ((this.FechaProcesoDesdeField.Equals(value) != true)) {
+                    this.FechaProcesoDesdeField = value;
+                    this.RaisePropertyChanged("FechaProcesoDesde");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaProcesoHasta {
+            get {
+                return this.FechaProcesoHastaField;
+            }
+            set {
+                if ((this.FechaProcesoHastaField.Equals(value) != true)) {
+                    this.FechaProcesoHastaField = value;
+                    this.RaisePropertyChanged("FechaProcesoHasta");
                 }
             }
         }
@@ -13851,6 +13915,15 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FechaCreacionHoraFormatField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaTransaccionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FechaTransaccionFormatField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FechaTransaccionHoraFormatField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal IVAField;
@@ -14042,6 +14115,45 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.FechaCreacionHoraFormatField, value) != true)) {
                     this.FechaCreacionHoraFormatField = value;
                     this.RaisePropertyChanged("FechaCreacionHoraFormat");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaTransaccion {
+            get {
+                return this.FechaTransaccionField;
+            }
+            set {
+                if ((this.FechaTransaccionField.Equals(value) != true)) {
+                    this.FechaTransaccionField = value;
+                    this.RaisePropertyChanged("FechaTransaccion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FechaTransaccionFormat {
+            get {
+                return this.FechaTransaccionFormatField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FechaTransaccionFormatField, value) != true)) {
+                    this.FechaTransaccionFormatField = value;
+                    this.RaisePropertyChanged("FechaTransaccionFormat");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FechaTransaccionHoraFormat {
+            get {
+                return this.FechaTransaccionHoraFormatField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FechaTransaccionHoraFormatField, value) != true)) {
+                    this.FechaTransaccionHoraFormatField = value;
+                    this.RaisePropertyChanged("FechaTransaccionHoraFormat");
                 }
             }
         }
@@ -17999,7 +18111,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string DireccionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private byte EstadoPedidoField;
+        private short EstadoPedidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string EstadoPedidoDescField;
@@ -18066,6 +18178,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal SaldoDeudaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private byte VersionProlField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] olstBEPedidoWebDetalleField;
@@ -18289,7 +18404,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public byte EstadoPedido {
+        public short EstadoPedido {
             get {
                 return this.EstadoPedidoField;
             }
@@ -18583,6 +18698,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.SaldoDeudaField.Equals(value) != true)) {
                     this.SaldoDeudaField = value;
                     this.RaisePropertyChanged("SaldoDeuda");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public byte VersionProl {
+            get {
+                return this.VersionProlField;
+            }
+            set {
+                if ((this.VersionProlField.Equals(value) != true)) {
+                    this.VersionProlField = value;
+                    this.RaisePropertyChanged("VersionProl");
                 }
             }
         }

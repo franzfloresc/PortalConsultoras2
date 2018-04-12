@@ -159,7 +159,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Contenedor/Index.css",
                 "~/Content/Css/Site/Esika/Contenedor.css"
             ));
-            
+
             bundles.Add(new StyleBundle("~/Content/Css/Mobile/Esika/Contenedor").Include(
                 "~/Content/Css/Mobile/Contenedor/Index.css",
                 "~/Content/Css/Mobile/Esika/Contenedor.css"
@@ -349,6 +349,14 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"
             ));
 
+            bundles.Add(new ScriptBundle("~/bundles/JsMobile/PedidoFICDetalle").Include(
+                "~/Scripts/PortalConsultoras/Mobile/PedidoFIC/Detalle.js",
+                "~/Scripts/PortalConsultoras/Pedido/ofertaFinal.js",
+                "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
+                "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"
+            ));
+
             bundles.Add(new StyleBundle("~/Content/Css/Site/Login2/Esika").Include(
                "~/Content/Css/Site/Login2/style_esika.css"
             ));
@@ -412,7 +420,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/jquery.tag-editor.css",
                 "~/Content/Css/Mobile/RevistaDigital/Bienvenido-Pedido-Catalogo.css"
             ));
-            
+
             bundles.Add(new StyleBundle("~/bundles/Css/Mobile/Site/OfertaParaTi-Detalle").Include(
                 "~/Content/Css/Mobile/RevistaDigital/OfertaParaTi-Detalle.css"
             ));
@@ -556,7 +564,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/ProductoListado/Landing.css",
                 "~/Content/Css/Site/RevistaDigital/Gnd-Flotante.css"
             ));
-            
+
             bundles.Add(new StyleBundle("~/bundles/css/Mobile/Site/GuiaNegocio-Landing").Include(
                 "~/Content/Css/Mobile/RevistaDigital/Gnd-Flotante.css"
             ));

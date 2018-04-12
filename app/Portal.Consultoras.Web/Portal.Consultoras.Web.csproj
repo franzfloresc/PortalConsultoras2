@@ -220,6 +220,7 @@
     <Compile Include="Areas\Mobile\Controllers\OfertasParaTiController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PaypalController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PedidoClienteController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\PedidoFICController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PedidosFacturadosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ProductosAgotadosController.cs" />
@@ -252,6 +253,7 @@
     <Compile Include="Areas\Mobile\Models\OfertaProductoPrincipalMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\PaypalMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\PedidoDetalleMobileDetalleModel.cs" />
+    <Compile Include="Areas\Mobile\Models\PedidoFICDetalleMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\PedidoDetalleMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\PedidoValidacionPROLMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\PedidoMobileModel.cs" />
@@ -294,6 +296,7 @@
     <Compile Include="Controllers\BaseShowRoomController.cs" />
     <Compile Include="Controllers\CampaniaController.cs" />
     <Compile Include="Controllers\DescargablesController.cs" />
+    <Compile Include="Controllers\CacheController.cs" />
     <Compile Include="Controllers\EstrategiaProductoComentarioController.cs" />
     <Compile Include="Controllers\CatalogosBelcorpController.cs" />
     <Compile Include="Controllers\HerramientasVentaController.cs" />
@@ -1274,6 +1277,7 @@
     <Content Include="Content\Css\Site\RevistaDigital\PopupSuscripcion.css" />
     <Content Include="Content\Css\Site\RevistaDigital\index.css" />
     <Content Include="Content\Css\Site\ShowRoom.css" />
+    <Content Include="Content\Css\Site\ShowRoom.css" />
     <Content Include="Content\Images\carrusel_n_blanco.png" />
     <Content Include="Content\Images\carrusel_p_blanco.png" />
     <Content Include="Content\Images\colorpicker\blank.gif" />
@@ -1394,6 +1398,14 @@
     <Content Include="Content\Css\Toast\jquery.toast.min.css" />
     <Content Include="Content\Css\Site\calc.css" />
     <Content Include="Content\Css\Site\fonts\icomoon\iconos-cambio-pass.svg" />
+    <Content Include="Content\Images\dateTimePicker\cal.gif" />
+    <Content Include="Content\Images\dateTimePicker\cal_close.gif" />
+    <Content Include="Content\Images\dateTimePicker\cal_fastforward.gif" />
+    <Content Include="Content\Images\dateTimePicker\cal_fastreverse.gif" />
+    <Content Include="Content\Images\dateTimePicker\cal_forward.gif" />
+    <Content Include="Content\Images\dateTimePicker\cal_minus.gif" />
+    <Content Include="Content\Images\dateTimePicker\cal_plus.gif" />
+    <Content Include="Content\Images\dateTimePicker\cal_reverse.gif" />
     <Content Include="Content\Images\flecha-campo-select.svg" />
     <Content Include="Content\Images\icono-calendario.svg" />
     <Content Include="Content\Images\Lbel\icono_check_lbel.png" />
@@ -3646,9 +3658,12 @@
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\FichaProducto\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\GuiaNegocio\GuiaNegocio-Landing.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\PedidoFIC\Detalle.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\PedidoFIC\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\SeguimientoPedido\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\MisReclamos\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\MisReclamos\Reclamo.js" />
+    <Content Include="Scripts\DatetimePicker\datetimepicker_css.js" />
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\Index.js" />
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\PagoVisa.js" />
     <Content Include="Scripts\PortalConsultoras\ProductoComentario\ProductoComentarioAdmModule.js" />
@@ -4043,6 +4058,8 @@
     <Content Include="emt_chat\scss\_screen-reader.scss" />
     <Content Include="emt_chat\scss\_stacked.scss" />
     <Content Include="emt_chat\scss\_variables.scss" />
+    <Content Include="Areas\Mobile\Views\PedidoFIC\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\PedidoFIC\Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\HerramientasVenta\template-mensaje-bloqueado.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-mensaje-bloqueado-Lan-Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\ShowRoom\Personalizado.cshtml" />
@@ -4941,7 +4958,9 @@
     <Content Include="Views\UpSelling\_Detalle.cshtml" />
     <Content Include="Views\UpSelling\_DetalleEdit.cshtml" />
     <Content Include="Views\RevistaDigital\template-popup-suscripcion.cshtml" />
+    <Content Include="Views\Cache\Index.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_GoogleOptimize.cshtml" />
+    <Content Include="Views\ShowRoom\_BannerInferior.cshtml" />
     <Content Include="Views\ShowRoom\_BannerInferior.cshtml" />
     <Content Include="Views\ShowRoom\Personalizado.cshtml" />
     <Content Include="Views\Lanzamientos\Detalle.cshtml" />
@@ -5267,6 +5286,7 @@
     <Folder Include="Areas\Mobile\Views\EstrategiaProductoComentario\" />
     <Folder Include="Content\ArchivoNivelGeografico\" />
     <Folder Include="GestionPasos\Asignaciones\" />
+    <Folder Include="Scripts\NewFolder1\" />
     <Folder Include="Views\App\" />
     <Folder Include="Views\BaseHerramientasVenta\" />
     <Folder Include="Views\BaseLanzamientos\" />

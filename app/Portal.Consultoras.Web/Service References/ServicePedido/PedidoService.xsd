@@ -315,8 +315,6 @@
       <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodPais" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion1" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Descripcion2" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Descripcion3" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FlagImagenCargada" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
     </xs:sequence>
@@ -810,7 +808,7 @@
       <xs:element minOccurs="0" name="DescripcionBloqueo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescuentoProl" type="xs:decimal" />
       <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="EstadoPedido" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="EstadoPedido" type="xs:short" />
       <xs:element minOccurs="0" name="EstadoPedidoDesc" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaProceso" type="xs:dateTime" />
@@ -833,6 +831,7 @@
       <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
       <xs:element minOccurs="0" name="RutaPaqueteDocumentario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SaldoDeuda" type="xs:decimal" />
+      <xs:element minOccurs="0" name="VersionProl" type="xs:unsignedByte" />
       <xs:element minOccurs="0" name="olstBEPedidoWebDetalle" nillable="true" type="tns:ArrayOfBEPedidoWebDetalle" />
     </xs:sequence>
   </xs:complexType>
