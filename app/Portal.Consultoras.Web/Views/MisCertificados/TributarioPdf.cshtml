@@ -1,0 +1,113 @@
+﻿
+@model Portal.Consultoras.Web.Models.MisCertificados.MiCertificadoModel
+
+<div style="display:block; width:510px; float:left;">
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">@Model.Ciudad,</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;"><b>Señor(a): @Model.NombreCompleto.Trim()</b></span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;"><b>C.C</b></span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">Referencia: Información de compras – año @Model.Anio:</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">De la manera m&aacute;s atenta y para efectos de facilitar su conciliaci&oacute;n de informaci&oacute;n comercial por el año @Model.Anio, a continuaci&oacute;n le informamos el valor de las compras realizadas por usted a nuestra compa&ntilde;&iacute;a durante dicho per&iacute;odo:</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: center; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <table cellspacing="0" style="margin: auto; font-family: Arial;">
+        <tbody>
+            <tr>
+                <td style="border-top: 1px solid; border-left: 1px solid; text-align: center; padding: 10px;">Detalle</td>
+                <td style="border-top: 1px solid; border-left: 1px solid; text-align: center; padding: 10px;">Compras <br /> (Netas)</td>
+                <td style="border-top: 1px solid; border-left: 1px solid; border-right: 1px solid; text-align: center; padding: 10px;">IVA <br /> (Neto)</td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid; border-left: 1px solid; text-align: center; padding: 10px;">Compras venta directa</td>
+                <td style="border-top: 1px solid; border-left: 1px solid; text-align: right; padding: 10px;">@Model.Moneda @Model.CompraVDirecta</td>
+                <td style="border-top: 1px solid; border-left: 1px solid; border-right: 1px solid; text-align: center; padding: 10px;">@Model.Moneda @Model.IVACompraVDirecta</td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid; border-left: 1px solid; text-align: center; padding: 10px;">Compras Retail</td>
+                <td style="border-top: 1px solid; border-left: 1px solid; text-align: right; padding: 10px;">@Model.Moneda @Model.Retail</td>
+                <td style="border-top: 1px solid; border-left: 1px solid; border-right: 1px solid; text-align: right; padding: 10px">@Model.Moneda @Model.IVARetail</td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid; border-left: 1px solid; border-bottom: 1px solid; text-align: center; padding: 10px;">TOTAL COMPRAS @Model.Anio</td>
+                <td style="border-top: 1px solid; border-left: 1px solid; border-bottom: 1px solid; text-align: right; padding: 10px;">@Model.Moneda @Model.TotalCompra</td>
+                <td style="text-align: right; padding: 10px; border: 1px solid;">@Model.Moneda @Model.IvaTotal</td>
+            </tr>
+        </tbody>
+    </table>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">Les recordamos que esta comunicaci&oacute;n tiene s&oacute;lo fines informativos, no tiene ninguna validez jur&iacute;dica, ni es un documento soporte v&aacute;lido ante la DIAN. Los &uacute;nicos documentos que soportan tus costos y deducciones son las facturas de venta.</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">Recuerda que si tus compras fueron superiores a @Model.Moneda 83.308.000, deber&aacute;s presentar declaraci&oacute;n de renta.</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">Cordialmente:</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <strong><span style="font-family: Arial;">&nbsp;</span></strong>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <strong><span style="font-family: Arial;">&nbsp;</span></strong>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <strong><span style="font-family: Arial;">&nbsp;</span></strong>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <img src="@Model.UrlFirma" alt="" width="266" height="64" />
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 14pt;">
+        <strong><span style="font-family: Arial;">@Model.RazonSocial</span></strong>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 14pt;">
+        <strong><span style="font-family: Arial;">@Model.Cargo.Trim()</span></strong>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 10pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+</div>
+<div style="display:block; float:right; width:145px; height:204px; margin-top:20px;">
+    <img style="display:block; width:145px; height:204px;" src="http://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/EC/marcadeagua-belcorp.png" alt="" />
+</div>

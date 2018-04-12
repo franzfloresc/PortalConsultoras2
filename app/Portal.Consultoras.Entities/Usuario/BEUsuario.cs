@@ -505,6 +505,24 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "CodigoPrograma") && row["CodigoPrograma"] != DBNull.Value)
                 CodigoPrograma = Convert.ToString(row["CodigoPrograma"]);
+
+            if (DataRecord.HasColumn(row, "CompraVDirecta") && row["CompraVDirecta"] != DBNull.Value)
+                CompraVDirecta = Convert.ToDouble(row["CompraVDirecta"]);
+
+            if (DataRecord.HasColumn(row, "IVACompraVDirecta") && row["IVACompraVDirecta"] != DBNull.Value)
+                IVACompraVDirecta = Convert.ToDouble(row["IVACompraVDirecta"]);
+
+            if (DataRecord.HasColumn(row, "Retail") && row["Retail"] != DBNull.Value)
+                Retail = Convert.ToDouble(row["Retail"]);
+
+            if (DataRecord.HasColumn(row, "IVARetail") && row["IVARetail"] != DBNull.Value)
+                IVARetail = Convert.ToDouble(row["IVARetail"]);
+
+            if (DataRecord.HasColumn(row, "TotalCompra") && row["TotalCompra"] != DBNull.Value)
+                TotalCompra = Convert.ToDouble(row["TotalCompra"]);
+
+            if (DataRecord.HasColumn(row, "IvaTotal") && row["IvaTotal"] != DBNull.Value)
+                IvaTotal = Convert.ToDouble(row["IvaTotal"]);
         }
 
         [Column("ConsultoraAsociadoID")]
@@ -1181,6 +1199,24 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public string CodigoPrograma { get; set; }
+
+        [DataMember]
+        public double CompraVDirecta { get; set; }
+
+        [DataMember]
+        public double IVACompraVDirecta { get; set; }
+
+        [DataMember]
+        public double Retail { get; set; }
+
+        [DataMember]
+        public double IVARetail { get; set; }
+
+        [DataMember]
+        public double TotalCompra { get; set; }
+
+        [DataMember]
+        public double IvaTotal { get; set; }
 
         public BEUsuario(IDataRecord row, string Lider)
         {

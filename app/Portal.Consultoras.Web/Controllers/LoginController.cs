@@ -1114,6 +1114,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     #region
                     usuarioModel = new UsuarioModel();
+                    usuarioModel.CompraVDirectaCer = usuario.CompraVDirecta;
+                    usuarioModel.IVACompraVDirectaCer = usuario.IVACompraVDirecta;
+                    usuarioModel.RetailCer = usuario.Retail;
+                    usuarioModel.IVARetailCer = usuario.IVARetail;
+                    usuarioModel.TotalCompraCer = usuario.TotalCompra;
+                    usuarioModel.IvaTotalCer = usuario.IvaTotal;
                     usuarioModel.EstadoPedido = usuario.EstadoPedido;
                     usuarioModel.NombrePais = usuario.NombrePais;
                     usuarioModel.PaisID = usuario.PaisID;
