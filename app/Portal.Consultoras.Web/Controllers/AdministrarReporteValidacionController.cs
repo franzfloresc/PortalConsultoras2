@@ -308,19 +308,19 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 {"Detalle Personalización", "Personalizacion"},
                 {"Medio", "Medio"},
-                {"Bolivia", "BO"},
-                {"Chile", "CL"},
-                {"Colombia", "CO"},
-                {"Costa Rica", "CR"},
-                {"Dominicana", "DO"},
-                {"Ecuador", "EC"},
-                {"Guatemala", "GT"},
-                {"México", "MX"},
-                {"Panamá", "PA"},
-                {"Perú", "PE"},
-                {"Puerto Rico", "PR"},
-                {"Salvador", "SV"},
-                {"Venezuela", "VE"}
+                {"Bolivia", Constantes.CodigosISOPais.Bolivia},
+                {"Chile", Constantes.CodigosISOPais.Chile},
+                {"Colombia", Constantes.CodigosISOPais.Colombia},
+                {"Costa Rica", Constantes.CodigosISOPais.CostaRica},
+                {"Dominicana", Constantes.CodigosISOPais.Dominicana},
+                {"Ecuador", Constantes.CodigosISOPais.Ecuador},
+                {"Guatemala", Constantes.CodigosISOPais.Guatemala},
+                {"México", Constantes.CodigosISOPais.Mexico},
+                {"Panamá", Constantes.CodigosISOPais.Panama},
+                {"Perú", Constantes.CodigosISOPais.Peru},
+                {"Puerto Rico", Constantes.CodigosISOPais.PuertoRico},
+                {"Salvador", Constantes.CodigosISOPais.Salvador},
+                {"Venezuela", Constantes.CodigosISOPais.Venezuela}
             };
             return dic;
         }

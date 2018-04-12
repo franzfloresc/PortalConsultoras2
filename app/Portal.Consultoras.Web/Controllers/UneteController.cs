@@ -889,7 +889,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (var sv = new BelcorpPaisServiceClient())
             {
-                if (codigoISO == "CO")
+                if (codigoISO == Constantes.CodigosISOPais.Colombia)
                 {
                     codigo = codigo.PadLeft(10, '0');
                     consultora = sv.ObtenerConsultoraPorDocumento(codigoISO, codigo);

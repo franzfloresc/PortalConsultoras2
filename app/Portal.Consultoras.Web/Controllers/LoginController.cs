@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private string pasoLog;
         private readonly string IP_DEFECTO = "190.187.154.154";
-        private readonly string ISO_DEFECTO = "PE";
+        private readonly string ISO_DEFECTO = Constantes.CodigosISOPais.Peru;
         private readonly int USUARIO_VALIDO = 3;
 
         protected ISessionManager sessionManager = SessionManager.SessionManager.Instance;
@@ -2635,7 +2635,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.IconoPagina = "/Content/Images/Lbel/favicon.ico";
                 ViewBag.EsPaisEsika = false;
                 ViewBag.EsPaisLbel = true;
-                if (iso == "MX") ViewBag.AvisoASP = 2;
+                if (iso == Constantes.CodigosISOPais.Mexico) ViewBag.AvisoASP = 2;
             }
             else
             {
@@ -2696,7 +2696,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 new LoginAnalyticsModel
                 {
-                    CodigoISO = "CL",
+                    CodigoISO = Constantes.CodigosISOPais.Chile,
                     GndId = 958175395,
                     PixelId = "702802606578920",
                     SearchId = 989089161,
@@ -2704,7 +2704,7 @@ namespace Portal.Consultoras.Web.Controllers
                 },
                 new LoginAnalyticsModel
                 {
-                    CodigoISO = "CO",
+                    CodigoISO = Constantes.CodigosISOPais.Colombia,
                     GndId = 971131996,
                     PixelId = "145027672730911",
                     SearchId = 995835500,
@@ -2712,7 +2712,7 @@ namespace Portal.Consultoras.Web.Controllers
                 },
                 new LoginAnalyticsModel
                 {
-                    CodigoISO = "PE",
+                    CodigoISO = Constantes.CodigosISOPais.Peru,
                     GndId = 956111599,
                     PixelId = "1004828506227914",
                     SearchId = 986595497,

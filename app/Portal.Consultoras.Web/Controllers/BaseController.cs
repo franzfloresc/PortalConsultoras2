@@ -2231,8 +2231,8 @@ namespace Portal.Consultoras.Web.Controllers
             else
             {
                 requestUrl = string.Format(codigo, userData.CodigoISO.ToLower(), nroCampania, anioCampania, "");
-                if(requestUrl.Length>0)
-                requestUrl = Util.Trim(requestUrl.Substring(requestUrl.Length - 1)) == "." ? requestUrl.Substring(0, requestUrl.Length - 1) : requestUrl;
+                if (requestUrl.Length > 0)
+                    requestUrl = Util.Trim(requestUrl.Substring(requestUrl.Length - 1)) == "." ? requestUrl.Substring(0, requestUrl.Length - 1) : requestUrl;
             }
             requestUrl = GetRevistaCodigoIssuuRDR(requestUrl);
             return requestUrl;
@@ -2385,20 +2385,20 @@ namespace Portal.Consultoras.Web.Controllers
         {
             switch (paisISO)
             {
-                case "AR": return "argentina";
-                case "BO": return "bolivia";
-                case "CL": return "chile";
-                case "CO": return "colombia";
-                case "CR": return "costarica";
-                case "DO": return "republicadominicana";
-                case "EC": return "ecuador";
-                case "GT": return "guatemala";
-                case "MX": return "mexico";
-                case "PA": return "panama";
-                case "PE": return "peru";
-                case "PR": return "puertorico";
-                case "SV": return "elsalvador";
-                case "VE": return "venezuela";
+                case Constantes.CodigosISOPais.Argentina: return "argentina";
+                case Constantes.CodigosISOPais.Bolivia: return "bolivia";
+                case Constantes.CodigosISOPais.Chile: return "chile";
+                case Constantes.CodigosISOPais.Colombia: return "colombia";
+                case Constantes.CodigosISOPais.CostaRica: return "costarica";
+                case Constantes.CodigosISOPais.Dominicana: return "republicadominicana";
+                case Constantes.CodigosISOPais.Ecuador: return "ecuador";
+                case Constantes.CodigosISOPais.Guatemala: return "guatemala";
+                case Constantes.CodigosISOPais.Mexico: return "mexico";
+                case Constantes.CodigosISOPais.Panama: return "panama";
+                case Constantes.CodigosISOPais.Peru: return "peru";
+                case Constantes.CodigosISOPais.PuertoRico: return "puertorico";
+                case Constantes.CodigosISOPais.Salvador: return "elsalvador";
+                case Constantes.CodigosISOPais.Venezuela: return "venezuela";
                 default: return "sinpais";
             }
         }
@@ -2795,7 +2795,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return valor;
         }
-        
+
         public int ObtenerValorTablaLogicaInt(int paisId, short tablaLogicaId, short idTablaLogicaDatos, bool sesion = false)
         {
             var resultadoString = ObtenerValorTablaLogica(paisId, tablaLogicaId, idTablaLogicaDatos, sesion);
@@ -2812,7 +2812,7 @@ namespace Portal.Consultoras.Web.Controllers
             int.TryParse(resultadoString, out resultado);
             return resultado;
         }
-        
+
         #endregion
 
         public MobileAppConfiguracionModel MobileAppConfiguracion
@@ -3400,7 +3400,7 @@ namespace Portal.Consultoras.Web.Controllers
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.ShowRoom:
                             seccion.TemplatePresentacion = "seccion-showroom";
                             seccion.TemplateProducto = "#template-showroom";
-                            break;  
+                            break;
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.OfertaDelDia:
                             seccion.TemplatePresentacion = "seccion-oferta-del-dia";
                             break;
@@ -4420,7 +4420,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (!datosImg.Any())
                 return;
-            
+
             // valores estandar de base de datos
             var hBase = 0;
             var wMax = 0;
@@ -4462,7 +4462,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ancho = wMax;
             }
         }
-        
+
         #endregion
 
         #region Obtener URL Cerrar Sesión
@@ -4563,7 +4563,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        if (userData.CodigoISO == "VE")
+                        if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
                         {
                             ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
                         }
@@ -4587,7 +4587,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else
                         {
-                            if (userData.CodigoISO == "VE")
+                            if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
                             {
                                 ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
                             }
@@ -4786,7 +4786,7 @@ namespace Portal.Consultoras.Web.Controllers
             var flag = 1;
             try
             {
-                if (userData.CodigoISO == "BO" && userData.CampaniaID == 201717)
+                if (userData.CodigoISO == Constantes.CodigosISOPais.Bolivia && userData.CampaniaID == 201717)
                 {
                     using (var sv = new PedidoServiceClient())
                     {
