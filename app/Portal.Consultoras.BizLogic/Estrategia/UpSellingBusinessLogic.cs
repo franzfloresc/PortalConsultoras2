@@ -43,6 +43,11 @@ namespace Portal.Consultoras.BizLogic.Estrategia
         /// <returns></returns>
         public UpSelling Actualizar(UpSelling upSelling, bool soloCabecera)
         {
+            if (string.IsNullOrEmpty(upSelling.UsuarioModificacion))
+                throw new ArgumentNullException("UsuarioModificacion");
+
+            upSelling.FechaModificacion = upSelling.FechaModificacion ?? DateTime.Now;
+
             using (var transaction = new TransactionScope())
             {
                 var upSellingOriginal = _upSellingDataAccess.Obtener(upSelling.UpSellingId);

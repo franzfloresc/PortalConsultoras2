@@ -72,39 +72,33 @@ namespace Portal.Consultoras.BizLogic
             return reporteValidaciones;
         }
 
-        [Obsolete("Migrado PL50-50")]
         public IList<BEReporteValidacionSROferta> GetReporteShowRoomOferta(int paisID, int campaniaID)
         {
-            var reporteValidaciones = new List<BEReporteValidacionSROferta>();
-            var daReporteValidacion = new DAReporteValidacion(paisID);
-
+            List<BEReporteValidacionSROferta> reporteValidaciones = new List<BEReporteValidacionSROferta>();
+            DAReporteValidacion daReporteValidacion = new DAReporteValidacion(paisID);
             using (IDataReader reader = daReporteValidacion.GetReporteValidacionSROferta(campaniaID))
             {
                 while (reader.Read())
                 {
-                    var reporteValidacion = new BEReporteValidacionSROferta(reader);
+                    BEReporteValidacionSROferta reporteValidacion = new BEReporteValidacionSROferta(reader);
                     reporteValidaciones.Add(reporteValidacion);
                 }
             }
-
             return reporteValidaciones;
         }
 
-        [Obsolete("Migrado PL50-50")]
         public IList<BEReporteValidacionSRComponentes> GetReporteShowRoomComponentes(int paisID, int campaniaID)
         {
-            var reporteValidaciones = new List<BEReporteValidacionSRComponentes>();
-            var daReporteValidacion = new DAReporteValidacion(paisID);
-
+            List<BEReporteValidacionSRComponentes> reporteValidaciones = new List<BEReporteValidacionSRComponentes>();
+            DAReporteValidacion daReporteValidacion = new DAReporteValidacion(paisID);
             using (IDataReader reader = daReporteValidacion.GetReporteValidacionSRComponentes(campaniaID))
             {
                 while (reader.Read())
                 {
-                    var reporteValidacion = new BEReporteValidacionSRComponentes(reader);
+                    BEReporteValidacionSRComponentes reporteValidacion = new BEReporteValidacionSRComponentes(reader);
                     reporteValidaciones.Add(reporteValidacion);
                 }
             }
-
             return reporteValidaciones;
         }
     }

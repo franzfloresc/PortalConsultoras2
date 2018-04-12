@@ -45,6 +45,8 @@
         imagenProductoVacio: config.imagenProductoVacio,
         urlUploadFileStrategyShowroom: config.urlUploadFileStrategyShowroom,
         urlUploadFileProductStrategyShowroom: config.urlUploadFileProductStrategyShowroom,
+        urlCargarArbolRegionesZonas: config.urlCargarArbolRegionesZonas,
+        rutastylejstree: config.rutastylejstree,
         urlUploadBloqueoCuv: config.urlUploadBloqueoCuv
     };
 
@@ -474,7 +476,7 @@
             $("#txtCantidad").val(data.Cantidad);
             $("#hdZonas").val(data.Zona);
             $("#hdNiveles").val(data.Niveles);
-            
+
             //var strZonas = $("#hdZonas").val();
             //if (strZonas != "") {
             //    $.jstree._reference($("#arbolRegionZona")).uncheck_all();
@@ -2719,7 +2721,7 @@
             processData: false,
             success: function (data) {
                 $("#listCargaDescMasiva").jqGrid("GridUnload");
-                var mensaje = "";
+                var mensaje = '';
                 if (data.listActualizado == 0) {
                     mensaje = 'No se realizó ninguna actualización (Verificar que los CUVs existan en la tabla "ods.EstrategiaProducto").';
                 }
@@ -2727,16 +2729,16 @@
                     mensaje = "El procedimiento culmino con éxito, se actualizaron " + data.listActualizado + " producto(s)";
                 }
                 closeWaitingDialog();
-                $("#estadoCargaMasiva").css("color", "black");
-                $("#estadoCargaMasiva").html(mensaje);
+                $("#estadoCargaMasiva").css('color', 'black');
+                $('#estadoCargaMasiva').html(mensaje);
                 $("#divDescMasivoPaso1").fadeOut(function () {
                     $("#divDescMasivoPaso2").fadeIn();
                 });
 
             },
             error: function (data) {
-                $("#estadoCargaMasiva").css("color", "red");
-                $("#estadoCargaMasiva").html(data.statusText);
+                $("#estadoCargaMasiva").css('color', 'red');
+                $('#estadoCargaMasiva').html(data.statusText);
                 $("#divDescMasivoPaso1").fadeOut(function () {
                     $("#divDescMasivoPaso2").fadeIn();
                 });
@@ -3028,7 +3030,7 @@
                         return false;
                     }
                     $("#hdZonas").val(zonas);
-                    _toastHelper.error("Se agregaron las zonas seleccionadas.");
+                    _toastHelper.success("Se agregaron las zonas seleccionadas.");
                     $(this).dialog("close");
                 },
                 "Salir": function () {
@@ -3466,7 +3468,7 @@
             $("#imgMiniSeleccionada").attr("src", _config.rutaImagenVacia);
             $("#hdImagenMiniaturaURLAnterior").val("");
             $("#chkEsSubCampania").removeAttr("checked");
-            
+
             var aux1 = $("#ddlTipoEstrategia").find(":selected").data("id");
             var aux2 = $("#ddlTipoEstrategia").find(":selected").data("codigo");
 
@@ -3552,7 +3554,7 @@
 
             HideDialog("DialogZona");
             showDialog("DialogAdministracionEstrategia");
-
+            $("#linkAlcance").click();
             _ActualizarFlagIndividual();
             return true;
         },
@@ -3737,7 +3739,6 @@
             } else {
                 _uploadFileCvs();
             }
-
         },
         clickActualizarTonos: function () {
             if (_validarMasivo()) _actualizarTonos();
@@ -4233,7 +4234,7 @@
                                 }
                             }
                         }
-                        //cargarArbol();
+                        cargarArbol();
                         closeWaitingDialog();
                     }
                 },
@@ -4373,7 +4374,40 @@
             $("#imgSeleccionada").attr("data-id", "0");
             _mostrarInformacionCuv(cuvIngresado);
         },
-
+        clickAlcance: function () {
+            var strZonas = $("#hdZonas").val();
+            if (strZonas != "") {
+                $.jstree._reference($("#arbolRegionZona")).uncheck_all();
+                var strZonasArreglo = strZonas.split(",");
+                for (i = 0; i < strZonasArreglo.length; i++) {
+                    $("#arbolRegionZona").jstree("check_node", "#" + strZonasArreglo[i], true);
+                }
+                $("#chkSeleccionar").attr("checked", true);
+                $.jstree._reference($("#arbolRegionZona")).get_unchecked(null, true).each(function () {
+                    if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
+                        return true;
+                    }
+                    $("#chkSeleccionar").attr("checked", false);
+                });
+            } else {
+                $.jstree._reference($("#arbolRegionZona")).check_all();
+                var zonas = "";
+                $.jstree._reference($("#arbolRegionZona")).get_checked(null, true).each(function () {
+                    if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
+                        return true;
+                    }
+                    zonas += this.id + ",";
+                });
+                if (zonas != "") {
+                    zonas = zonas.substring(0, zonas.length - 1);
+                }
+                $("#hdZonas").val(zonas);
+                $("#chkSeleccionar").attr("checked", true);
+            }
+            $('#arbolRegionZona').jstree('close_all');
+            showDialog("DialogZona");
+            return false;
+        },
         clickCheckFlagIndividual: function () {
             if ($("#chkFlagIndividual").is(":checked")) {
                 $("#seccionSlogan").show();
@@ -4411,6 +4445,7 @@
         $("body").on("click", "#btnDescripcionMasivoProd", _eventos.clickDescripcionMasivoProd);
         $("body").on("click", "#btnCargaBloqueoCuv", _eventos.clickBloqueoCuv);
         $("body").on("click", "#btnAceptarBloqueoCuv1", _eventos.clickAceptarBloqueoCuv1);
+        $("body").on("click", "#linkAlcance", _eventos.clickAlcance);
 
         $("#matriz-comercial-header").on("click", "#matriz-busqueda-nemotecnico #btnBuscarNemotecnico", _eventos.clickBuscarNemotencnico);
         $("#matriz-comercial-header").on("click", "#matriz-busqueda-nemotecnico #btnLimpiarBusquedaNemotecnico", _eventos.clickLimipiarNemotecnico);
@@ -4437,7 +4472,31 @@
         }
     }
 
-
+    function cargarArbol() {
+        $("#arbolRegionZona").jstree({
+            json_data: {
+                ajax: {
+                    url: _config.urlCargarArbolRegionesZonas,
+                    data: function (n) {
+                        return { pais: $("#ddlPais").val(), region: 0, zona: 0 };
+                    },
+                    type: "GET",
+                    error: function (XMLHttpRequest, textStatus, errorThrown) { },
+                    success: function (data, textStatus, jqXHR) { },
+                    complete: function () {
+                        $("#arbolRegionZona").jstree("set_theme", "apple", _config.rutastylejstree);
+                        closeWaitingDialog();
+                    }
+                }
+            },
+            "themes": {
+                "theme": "apple",
+                "dots": true,
+                "icons": false
+            },
+            plugins: ["themes", "json_data", "ui", "checkbox"]
+        });
+    }
     // Public functions 
     function VerCuvsTipo(tipo) {
         _fnGrillaCuv1(tipo);

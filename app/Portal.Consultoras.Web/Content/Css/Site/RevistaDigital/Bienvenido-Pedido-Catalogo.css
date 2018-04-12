@@ -1125,3 +1125,7 @@ margin-left: 5px;
     .club_gana_mas_pedido_activo p.primer-texto, .club_gana_mas_pedido_activo p.segundo-texto {
         color: black;
     }
+
+.revistaDigitalCompleta .contenedor_productos {
+    top: -115px;
+}

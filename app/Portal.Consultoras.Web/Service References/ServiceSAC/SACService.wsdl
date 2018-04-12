@@ -266,6 +266,12 @@
   <wsdl:message name="ISACService_UpsellingMarcaCategoriaFlagsEditar_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpsellingMarcaCategoriaFlagsEditarResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_RemoveDataCache_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveDataCache" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_RemoveDataCache_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveDataCacheResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_UpdateBelcorpNoticia_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateBelcorpNoticia" />
   </wsdl:message>
@@ -1439,6 +1445,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpsellingMarcaCategoriaFlagsEditar" message="tns:ISACService_UpsellingMarcaCategoriaFlagsEditar_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpsellingMarcaCategoriaFlagsEditarResponse" message="tns:ISACService_UpsellingMarcaCategoriaFlagsEditar_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="RemoveDataCache">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/RemoveDataCache" message="tns:ISACService_RemoveDataCache_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/RemoveDataCacheResponse" message="tns:ISACService_RemoveDataCache_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UpdateBelcorpNoticia">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia" message="tns:ISACService_UpdateBelcorpNoticia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticiaResponse" message="tns:ISACService_UpdateBelcorpNoticia_OutputMessage" />
@@ -2457,6 +2467,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpsellingMarcaCategoriaFlagsEditar">
       <soap:operation soapAction="http://tempuri.org/ISACService/UpsellingMarcaCategoriaFlagsEditar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveDataCache">
+      <soap:operation soapAction="http://tempuri.org/ISACService/RemoveDataCache" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4333,6 +4352,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpsellingMarcaCategoriaFlagsEditar">
       <soap:operation soapAction="http://tempuri.org/ISACService/UpsellingMarcaCategoriaFlagsEditar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveDataCache">
+      <soap:operation soapAction="http://tempuri.org/ISACService/RemoveDataCache" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "Administrador Cache";
+}
+
+<div class="wrap_cab">
+    <div class="filtros">
+        <div class="elements">
+            <div class="div-2">
+                <h1>Administrador Caché</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="border-wrapper_reg">
+            @*<div class="div-3">
+                <div class="titF">País :</div>
+                <div class="selectP2 borde_redondeado">
+                    <input type="text" id="txtPais" disabled="disabled" />
+                </div>
+            </div>*@
+            <div class="div-3">
+                <div class="titJ">PaisID:</div>
+                <div class="borde_redondeado">
+                    <input type="text" id="txtPaisId" value="@ViewBag.PaisID">
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titJ">Cache Item:</div>
+                <div class="borde_redondeado">
+                    <input type="text" id="txtCacheItem">
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titJ">Custom Key:</div>
+                <div class="borde_redondeado">
+                    <input type="text" id="txtCustomKey">
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titF"></div>
+                <div class="input_add_alert_left">
+                    <input type="button" name="" id="btnEliminar" value="Eliminar" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="loadingScreen"></div>
+@section Scripts
+{
+    <script type="text/javascript">
+        function Eliminar() {
+            var waiting = {
+                message: 'Espere unos minutos, por favor...',
+                title: 'Eliminando Caché'
+            };
+            waitingDialog(waiting);
+
+            var params = {
+                paisID: $('#txtPaisId').val(),
+                cacheItemString: $('#txtCacheItem').val(),
+                customKey: $('#txtCustomKey').val(),
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: window.baseUrl + 'Cache/Eliminar',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(params),
+                async: true,
+                cache: false,
+                success: function (data) {
+                    if (!checkTimeout(data)) return;
+
+                    closeWaitingDialog();
+                    alert(data.message);
+                },
+                error: function (data, error) {
+                    if (!checkTimeout(data)) return;
+
+                    closeWaitingDialog();
+                    alert("Se perdió la comunicación. Por favor refrescar la página.");
+                }
+            });
+        }
+
+        $(function () {
+            $('#btnEliminar').on('click', Eliminar);
+        });
+    </script>
+}
