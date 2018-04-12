@@ -2,6 +2,7 @@
 using Portal.Consultoras.Common.Settings;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
@@ -96,7 +98,7 @@ namespace Portal.Consultoras.BizLogic
                     SetCatalogoRevistaMostrar(catalogoRevista, catalogoConfiguraciones);
                     SetCatalogoRevistaCodigoIssuu(codigoZona, catalogoRevista);
                     if (catalogoRevista.MarcaID == 0)
-                        Task.WaitAll(SetCatalogoRevistaFieldsInOembedIssuu(catalogoRevista));
+                        SetCatalogoRevistaFieldsInOembedIssuu(catalogoRevista);
                 }
 
                 SetCatalogoRevistaFieldsInSearchIssuu(listCatalogoRevista.Where(cr => cr.MarcaID != 0).ToList(), tamanioImagenIssu);
@@ -109,7 +111,7 @@ namespace Portal.Consultoras.BizLogic
             return listCatalogoRevista;
         }
 
-        public async Task<List<BECatalogoRevista>> GetCatalogoRevista(string paisISO, string codigoZona, IEnumerable<int> campanias)
+        public List<BECatalogoRevista> GetCatalogoRevista(string paisISO, string codigoZona, IEnumerable<int> campanias)
         {
             var catalogoRevistas = new List<BECatalogoRevista>();
 
@@ -123,7 +125,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     SetCatalogoRevistaMostrar(catalogoRevista, catalogoConfiguraciones);
                     SetCatalogoRevistaCodigoIssuu(codigoZona, catalogoRevista);
-                    await SetCatalogoRevistaFieldsInOembedIssuu(catalogoRevista);
+                    SetCatalogoRevistaFieldsInOembedIssuu(catalogoRevista);
                     AjusteRevistaTituloDescripcion(catalogoRevista);
                 }
             }
@@ -384,7 +386,7 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        private async Task SetCatalogoRevistaFieldsInOembedIssuu(BECatalogoRevista catalogoRevista)
+        private void SetCatalogoRevistaFieldsInOembedIssuu(BECatalogoRevista catalogoRevista)
         {
             if (string.IsNullOrEmpty(catalogoRevista.CodigoIssuu))
             {
@@ -396,7 +398,7 @@ namespace Portal.Consultoras.BizLogic
 
             try
             {
-                var reponse = await ObtenerObjetoIssueAsync(url);
+                var reponse = ObtenerObjetoIssueAsync(url, catalogoRevista.PaisISO);
                 if (!reponse.Item1)
                     return;
 
@@ -425,26 +427,42 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        private async Task<Tuple<bool, dynamic>> ObtenerObjetoIssueAsync(string url)
+        private Tuple<bool, dynamic> ObtenerObjetoIssueAsync(string url, string codigoIso)
         {
-            using (var client = new HttpClient())
+            try
             {
-                var response = await client.GetAsync(url);
-                if (!response.IsSuccessStatusCode)
+                using (var client = new HttpClient())
                 {
-                    LogManager.SaveLog(null, "", "Error " + response.StatusCode);
-                    return new Tuple<bool, dynamic>(false, null);
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    //client.Timeout.Add(new TimeSpan(0, 0, 20));
+
+                    var response = client.GetAsync(url).GetAwaiter().GetResult();
+                    response.EnsureSuccessStatusCode();
+
+                    //if (!response.IsSuccessStatusCode)
+                    //{
+                    //    LogManager.SaveLog(null, "", "Error " + response.StatusCode);
+                    //    return new Tuple<bool, dynamic>(false, null);
+                    //}
+
+                    var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+
+                    //if (string.IsNullOrEmpty(content))
+                    //{
+                    //    LogManager.SaveLog(null, "", "Null content " + response.StatusCode);
+                    //    return new Tuple<bool, dynamic>(false, null);
+                    //}
+
+                    if(string.IsNullOrEmpty(content)) return new Tuple<bool, dynamic>(false, null);
+
+                    return new Tuple<bool, dynamic>(true, Newtonsoft.Json.Linq.JObject.Parse(content));
                 }
-
-                var content = await response.Content.ReadAsStringAsync();
-
-                if (string.IsNullOrEmpty(content))
-                {
-                    LogManager.SaveLog(null, "", "Null content " + response.StatusCode);
-                    return new Tuple<bool, dynamic>(false, null);
-                }
-
-                return new Tuple<bool, dynamic>(true, Newtonsoft.Json.Linq.JObject.Parse(content));
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, url, codigoIso);
+                return new Tuple<bool, dynamic>(false, null);
             }
         }
 
