@@ -3760,7 +3760,7 @@ namespace Portal.Consultoras.Web.Controllers
                 TipoProductoMostrar = tipoProductoMostrar,
                 Algoritmo = ofertaFinal.Algoritmo,
                 Estado = ofertaFinal.Estado,
-                TieneMDO = revistaDigital.ActivoMdo
+                //TieneMDO = revistaDigital.ActivoMdo   --sin pruebas
             };
 
             List<Producto> lista;
