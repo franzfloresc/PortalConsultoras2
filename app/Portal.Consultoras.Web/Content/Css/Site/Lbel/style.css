@@ -19769,7 +19769,7 @@ label.checkpop.c_on {
     color: black;
     margin-left: 3%;
     margin-right: 3%;
-    width: 22.5%;
+    width: 24.8%;
     padding-top:9px;
 }
 
@@ -19799,7 +19799,7 @@ label.checkpop.c_on {
 .info_cam_belcorp {
     float: left;
     height: 41px;
-    padding-right: 6px;
+    padding-right: 10px;
     font-family: 'lato';
     font-size: 10.4px;
     font-weight: 700;
@@ -19822,7 +19822,7 @@ label.checkpop.c_on {
 .info_cam_belcorp2 {
     float: left;
     height: 41px;
-    padding-left: 8px;
+    padding-left: 10px;
     font-family: 'lato';
     font-size: 10.4px;
     font-weight: 700;
@@ -19846,7 +19846,7 @@ label.checkpop.c_on {
     font-size: 11px;
     font-family: 'lato';
     color: black;
-    width: 34.9%;
+    width: 33%;
     padding-top:9px;
 }
 
