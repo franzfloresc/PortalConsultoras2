@@ -42,7 +42,8 @@ BEGIN
 			('AutoPromocion', 'Se eliminó el producto {detCuv} - por no cumplir la condición que aparece en el catálogo.'),
 			('AutoReemplazo', 'El producto {detCuv} está agotado - se reemplazó por el producto {remCuv} - {remDes} que es igual o similar.'),			
 			('AutoSinStock0', 'Se eliminó el producto {detCuv} - por estar agotado.'),
-			('AutoSinStock', 'Se eliminó porque solo contamos con {stock} unidades del producto {detCuv}.')	
+			('AutoSinStock', 'Se eliminó porque solo contamos con {stock} unidades del producto {detCuv}.')	,
+			('AutoBackOrder', 'Se recuperará la siguiente campaña.')	
 		) Obs1(Codigo,Descripcion)
 	)Obs2;
 END

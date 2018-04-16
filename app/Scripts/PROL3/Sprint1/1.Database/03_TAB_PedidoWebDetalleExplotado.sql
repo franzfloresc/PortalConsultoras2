@@ -35,6 +35,7 @@ create table dbo.PedidoWebDetalleExplotado(
 	IdPosicion int not null,
 	IdProducto int not null,
 	IdSubTipoPosicion int not null,
+	DescripcionSap varchar(500) not null,
 	IdTipoPosicion int not null,
 	Pagina int not null,
 	PorcentajeDescuento decimal(12,2) not null,
@@ -47,7 +48,8 @@ create table dbo.PedidoWebDetalleExplotado(
 	UnidadesPorAtender int not null,
 	ValCodiOrig varchar(6) not null,
 	OportunidadAhorro decimal(12,2) not null,
-	UnidadesReservadasSap int not null
+	UnidadesReservadasSap int not null,
+	OrigenPedidoWeb int not null
 )
 
 create nonclustered index IX_PedidoWebDetalleExplotado_CampaniaID_PedidoID on dbo.PedidoWebDetalleExplotado(CampaniaID, PedidoID)

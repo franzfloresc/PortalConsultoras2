@@ -37,6 +37,7 @@ create type dbo.PedidoWebDetalleExplotadoType as table(
 	IdPosicion int not null,
 	IdProducto int not null,
 	IdSubTipoPosicion int not null,
+	DescripcionSap varchar(500) not null,
 	IdTipoPosicion int not null,
 	Pagina int not null,
 	PorcentajeDescuento decimal(12,2) not null,
@@ -49,7 +50,8 @@ create type dbo.PedidoWebDetalleExplotadoType as table(
 	UnidadesPorAtender int not null,
 	ValCodiOrig varchar(6) not null,
 	OportunidadAhorro decimal(12,2) not null,
-	UnidadesReservadasSap int not null
+	UnidadesReservadasSap int not null,
+	OrigenPedidoWeb int not null
 );
 GO
 create proc dbo.InsertListPedidoWebDetalleExplotado
@@ -86,6 +88,7 @@ begin
 		IdPosicion,
 		IdProducto,
 		IdSubTipoPosicion,
+		DescripcionSap,
 		IdTipoPosicion,
 		Pagina,
 		PorcentajeDescuento,
@@ -98,7 +101,8 @@ begin
 		UnidadesPorAtender,
 		ValCodiOrig,
 		OportunidadAhorro,
-		UnidadesReservadasSap
+		UnidadesReservadasSap,
+		OrigenPedidoWeb
 	)
 	select
 		CampaniaID,
@@ -130,6 +134,7 @@ begin
 		IdPosicion,
 		IdProducto,
 		IdSubTipoPosicion,
+		DescripcionSap,
 		IdTipoPosicion,
 		Pagina,
 		PorcentajeDescuento,
@@ -142,7 +147,8 @@ begin
 		UnidadesPorAtender,
 		ValCodiOrig,
 		OportunidadAhorro,
-		UnidadesReservadasSap
+		UnidadesReservadasSap,
+		OrigenPedidoWeb
 	from @ListPedidoWebDetalleExplotado;
 end
 GO

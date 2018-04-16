@@ -159,24 +159,9 @@ else
 
             <hr class="clear" />
             <div class="info_cam_mobile">
-                ESTÁS EN
-                <span>C@(Model.NumeroCampania)</span>
+                <span><b>C@(Model.NumeroCampania) @(ViewBag.MensajeFechaPromesa)</b></span>
             </div>
-            <div class="borde_gris"></div>
-            @if (ViewBag.Dias == 0)
-            {
-                <div class="info_cam_mobile">
-                    EL CIERRE ES
-                    <span>Hoy</span>
-                </div>
-            }
-            else
-            {
-                <div class="info_cam_mobile">
-                    EL CIERRE ES EN
-                    <span>@(Model.DiasParaCierre) días</span>
-                </div>
-            }
+            <a role="link" region="Central" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="btn_seguirp_mobile seguimientoPedido2" href="/Mobile/SeguimientoPedido">SIGUE TU PEDIDO</a>
         </div>
         <hr class="clear" />
         <!--FIN RESUMEN-->
@@ -217,6 +202,15 @@ else
        class="btn_seguirp_mobile seguimientoPedido" href="@Url.Action("Index", "SeguimientoPedido", new { area = "Mobile" })">SEGUIMIENTO A TU PEDIDO</a>
 
     <a role="link" region="Central" parent="Mira el Video de Bienvenida" title="Mira el Video de Bienvenida" class="btn_seguirp_mobile ver_video_introductorio" href="javascript:;">MIRA EL VIDEO DE BIENVENIDA</a>
+    <!-- ENLACE PARA INGRESO DE PEDIDO FIC -->
+      @if (ViewBag.IndicadorPermisoFIC == 1)
+      {
+        <a href="@Url.Action("Index", "PedidoFIC", new { area = "Mobile" })" role="menu" region="Medio" parent="Ingreso Pedido Fic" id="lnk-ingresa-pedido-fic" class="enlace_ingresa_tu_pedido_fic text-uppercase" title="Ingresa tu pedido FIC">
+            <span class="icono_flecha_ir_ingreso_pedido_fic"></span>
+            Ingresa tu pedido Fic
+        </a>
+      }
+    <!-- FIN - ENLACE PARA INGRESO DE PEDIDO FIC -->
 </div>
 <div class="wrapper_resumen_mobile">
     <div class="content_320">
@@ -708,7 +702,6 @@ else
 }
 <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
 
-@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-bpt-seccion.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 
 <!--SHOWROOM: modal popup -->
@@ -775,7 +768,7 @@ else
 <div class="PopMobile1" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
 
 <!--POP UP CUPONES-->
-@{ 
+@{
     if (!Model.ConsultoraNuevaBannerAppMostrar)
     {
         @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")

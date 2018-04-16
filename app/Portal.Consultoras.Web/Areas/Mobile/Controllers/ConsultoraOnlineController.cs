@@ -475,8 +475,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     sc.CancelarSolicitudCliente(userData.PaisID, SolicitudId, OpcionCancelado, RazonMotivoCancelado);
 
-                    //var beSolicitudCliente = sc.GetSolicitudCliente(userData.PaisID, SolicitudId);
-
                     var refresh = new List<BEMisPedidos>();
                     foreach (var item in consultoraOnlineMisPedidos.ListaPedidos)
                     {

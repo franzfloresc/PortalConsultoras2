@@ -1540,7 +1540,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (!beProductos.Any()) return;
 
-            if (!(revistaDigital.TieneRDC || revistaDigital.TieneRDR)) return;
+            if (!revistaDigital.TieneRDC) return;
 
             if (!revistaDigital.EsActiva) return;
 
@@ -1601,6 +1601,17 @@ namespace Portal.Consultoras.Web.Controllers
                     .ToList();
             }
 
+            if (revistaDigital.TieneRDCR)
+            {
+                var dato = guiaNegocio.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.BloquearProductoGnd) ?? new ConfiguracionPaisDatosModel();
+                dato.Valor1 = Util.Trim(dato.Valor1);
+                if (dato.Estado && dato.Valor1 != "")
+                {
+                    beProductos = beProductos
+                        .Where(prod => !dato.Valor1.Contains(prod.CUV))
+                        .ToList();
+                }
+            }
         }
 
         private ProductoModel GetProductoNoExiste()
@@ -3748,7 +3759,8 @@ namespace Portal.Consultoras.Web.Controllers
                 TipoOfertaFinal = tipoOfertaFinal,
                 TipoProductoMostrar = tipoProductoMostrar,
                 Algoritmo = ofertaFinal.Algoritmo,
-                Estado = ofertaFinal.Estado
+                Estado = ofertaFinal.Estado,
+                //TieneMDO = revistaDigital.ActivoMdo   --sin pruebas
             };
 
             List<Producto> lista;
@@ -4470,10 +4482,6 @@ namespace Portal.Consultoras.Web.Controllers
                 else if (revistaDigital.TieneRDI)
                 {
                     partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.DPedidoIntriga) ?? new ConfiguracionPaisDatosModel();
-                }
-                else if (revistaDigital.TieneRDR)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DPedidoRdr) ?? new ConfiguracionPaisDatosModel();
                 }
             }
             catch (Exception ex)

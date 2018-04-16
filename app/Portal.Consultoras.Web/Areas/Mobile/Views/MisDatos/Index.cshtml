@@ -390,7 +390,7 @@
 
 function ValidarTelefono(celular) {
     var resultado = false;
-	ShowLoading();;
+	ShowLoading();
     var item = {
         Telefono: celular
     };
@@ -439,7 +439,7 @@ $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
             var newPassword01 = $("#txtNuevaContrasenia01").val();
             var newPassword02 = $("#txtNuevaContrasenia02").val();
             var vMessage = "";
-            ShowLoading();;
+            ShowLoading();
             if (oldPassword == "")
                 vMessage += "- Debe ingresar la Contraseña Anterior.\n";
 
@@ -467,7 +467,7 @@ $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
                     NewPassword: newPassword01
                 };
 
-                ShowLoading();;
+                ShowLoading();
                 jQuery.ajax({
                     type: 'POST',
                     url: '@Url.Action("CambiarContrasenia", "MisDatos", new { area = "Mobile" })',
