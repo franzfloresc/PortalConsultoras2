@@ -37,11 +37,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEUsuario entidad = Mapper.Map<ConsultoraFicticiaModel, BEUsuario>(model);
 
-                //using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                //{
-                //    BEPais bepais = sv.SelectPais(Convert.ToInt32(entidad.PaisID));
-                //}
-
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
                     var resultPortal = sv.ValidarUsuarioPrueba(entidad.CodigoConsultora, entidad.PaisID);
@@ -91,11 +86,6 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 BEUsuario entidad = Mapper.Map<ConsultoraFicticiaModel, BEUsuario>(model);
-
-                //using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                //{
-                //    BEPais bepais = sv.SelectPais(Convert.ToInt32(entidad.PaisID));
-                //}
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
@@ -152,11 +142,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     result = sv.InsConsultoraFicticia(entidad);
                 }
-
-                //using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                //{
-                //    BEPais bepais = sv.SelectPais(Convert.ToInt32(entidad.PaisID));
-                //}
 
                 if (result == 3)
                 {

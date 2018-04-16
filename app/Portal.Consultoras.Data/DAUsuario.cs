@@ -797,7 +797,7 @@ namespace Portal.Consultoras.Data
 
         public string GetCodigoSMS(string CodigoConsultora, string Origen)
         {
-            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.GetCodigoSMS"); ;
+            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.GetCodigoSMS");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
             Context.Database.AddInParameter(command, "@Origen", DbType.AnsiString, Origen);
 

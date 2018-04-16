@@ -182,5 +182,14 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
+
+        public string GetConsultoraByDocumento(string Codigo,int TipoDoc)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("lideres.GetTipoDocumentoConsultora");
+            Context.Database.AddInParameter(command, "@Documento", DbType.String, Codigo);
+            Context.Database.AddInParameter(command, "@TipoDocumento", DbType.Int32, TipoDoc);
+            return Convert.ToString(Context.ExecuteScalar(command));
+        }
+
     }
 }

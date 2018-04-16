@@ -241,8 +241,8 @@ namespace Portal.Consultoras.BizLogic
                         usuario.IndicadorOfertaFIC = configuracion.IndicadorOfertaFIC;
                         usuario.ImagenURLOfertaFIC = configuracion.ImagenURLOfertaFIC;
                         usuario.PROLSinStock = configuracion.PROLSinStock;
-                        usuario.NuevoPROL = configuracion.NuevoPROL;
-                        usuario.ZonaNuevoPROL = configuracion.ZonaNuevoPROL;
+                        usuario.NuevoPROL = true;
+                        usuario.ZonaNuevoPROL = true;
                         usuario.EstadoSimplificacionCUV = configuracion.EstadoSimplificacionCUV;
                         usuario.EsquemaDAConsultora = configuracion.EsquemaDAConsultora;
                         usuario.HoraCierreZonaDemAntiCierre = configuracion.HoraCierreZonaDemAntiCierre;
@@ -303,8 +303,8 @@ namespace Portal.Consultoras.BizLogic
                             usuario.NroCampanias = configuracion.NroCampanias;
                             usuario.FechaFinFIC = configuracion.FechaFinFIC;
                             usuario.PROLSinStock = configuracion.PROLSinStock;
-                            usuario.NuevoPROL = configuracion.NuevoPROL;
-                            usuario.ZonaNuevoPROL = configuracion.ZonaNuevoPROL;
+                            usuario.NuevoPROL = true;
+                            usuario.ZonaNuevoPROL = true;
                             usuario.EstadoSimplificacionCUV = configuracion.EstadoSimplificacionCUV;
                             usuario.EsquemaDAConsultora = configuracion.EsquemaDAConsultora;
                             usuario.HoraCierreZonaDemAntiCierre = configuracion.HoraCierreZonaDemAntiCierre;
@@ -379,8 +379,8 @@ namespace Portal.Consultoras.BizLogic
                 usuario.FechaFinFacturacion = configuracionConsultora.FechaFinFacturacion;
                 usuario.CampaniaDescripcion = configuracionConsultora.CampaniaDescripcion;
                 usuario.ZonaValida = configuracionConsultora.ZonaValida;
-                usuario.NuevoPROL = configuracionConsultora.NuevoPROL;
-                usuario.ZonaNuevoPROL = configuracionConsultora.ZonaNuevoPROL;
+                usuario.NuevoPROL = true;
+                usuario.ZonaNuevoPROL = true;
                 usuario.IndicadorGPRSB = configuracionConsultora.IndicadorGPRSB;
                 usuario.ValidacionAbierta = configuracionConsultora.ValidacionAbierta;
                 usuario.EstadoPedido = configuracionConsultora.EstadoPedido;
@@ -415,8 +415,8 @@ namespace Portal.Consultoras.BizLogic
                         usuario.FechaFinFacturacion = configuracion.FechaFinFacturacion;
                         usuario.CampaniaDescripcion = configuracion.CampaniaDescripcion;
                         usuario.ZonaValida = configuracion.ZonaValida;
-                        usuario.NuevoPROL = configuracion.NuevoPROL;
-                        usuario.ZonaNuevoPROL = configuracion.ZonaNuevoPROL;
+                        usuario.NuevoPROL = true;
+                        usuario.ZonaNuevoPROL = true;
                         usuario.IndicadorGPRSB = configuracion.IndicadorGPRSB;
                         usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
                         usuario.EstadoPedido = configuracion.EstadoPedido;
@@ -1789,8 +1789,7 @@ namespace Portal.Consultoras.BizLogic
 
             using (IDataReader reader = daUsuario.GetUsuarioExternoByCodigoUsuario(codigoUsuario))
             {
-                if (reader.Read())
-                    entidad = new BEUsuarioExterno(reader);
+                if (reader.Read()) entidad = new BEUsuarioExterno(reader);
             }
 
             return entidad;
@@ -1880,8 +1879,8 @@ namespace Portal.Consultoras.BizLogic
                 EstadoSimplificacionCUV = usuario.EstadoSimplificacionCUV,
                 ZonaHoraria = usuario.ZonaHoraria,
                 PROLSinStock = usuario.PROLSinStock,
-                NuevoPROL = usuario.NuevoPROL,
-                ZonaNuevoPROL = usuario.ZonaNuevoPROL,
+                NuevoPROL = true,
+                ZonaNuevoPROL = true,
                 ZonaValida = usuario.ZonaValida,
                 DiasAntes = usuario.DiasAntes,
                 HoraInicio = usuario.HoraInicio,
@@ -2016,17 +2015,20 @@ namespace Portal.Consultoras.BizLogic
             string v_correo = string.Empty;
             string v_codigousuario = string.Empty;
             string v_nombre = string.Empty;
-            string v_clave = string.Empty;
+            string v_clave = string.Empty;
+
             List<BEUsuarioCorreo> lst = null;
 
             try
             {
                 urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
                 lst = new List<BEUsuarioCorreo>();
-                lst = SelectByValorRestauracion(textoRecuperacion, paisId).ToList();
+                lst = SelectByValorRestauracion(textoRecuperacion, paisId).ToList();
+
                 v_codigousuario = lst[0].CodigoUsuario;
                 v_nombre = lst[0].NombreCompleto.Trim().Split(' ').First();
-                v_clave = lst[0].Clave;
+                v_clave = lst[0].Clave;
+
                 if (lst[0].Cantidad == 0 && lst[0].Correo.Trim().Length == 0)
                 {
                     resultado = "0" + "|" + "2";
@@ -2043,16 +2045,19 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return resultado;
-        }
+        }
+
         public List<BEUsuarioCorreo> SelectByValorRestauracion(string ValorRestauracion, int paisID)
         {
             List<BEUsuarioCorreo> UsuarioCorreo = new List<BEUsuarioCorreo>();
-            var DAUsuario = new DAUsuario(paisID);
+            var DAUsuario = new DAUsuario(paisID);
+
             using (IDataReader reader = DAUsuario.GetRestaurarClaveUsuario(ValorRestauracion, paisID))
                 while (reader.Read())
                 {
                     UsuarioCorreo.Add(new BEUsuarioCorreo(reader));
-                }
+                }
+
             return UsuarioCorreo;
         }
 
