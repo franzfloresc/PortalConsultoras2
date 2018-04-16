@@ -267,7 +267,8 @@
             NoReservadoObservaciones = 3,
             NoReservadoMontoMinimo = 4,
             NoReservadoMontoMaximo = 5,
-            ReservaNoDisponible = 6
+            ReservaNoDisponible = 6,
+            NoReservadoDeuda = 7
         }
 
         public enum TipoProductoComentario
@@ -298,6 +299,5 @@
             HerramientasVentaComprar = 10,
             HerramientasVentaRevisar = 11
         }
-
     }
 }

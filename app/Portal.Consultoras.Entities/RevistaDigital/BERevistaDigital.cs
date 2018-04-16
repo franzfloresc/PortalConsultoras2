@@ -128,5 +128,7 @@ namespace Portal.Consultoras.Entities
         {
             return TieneRDC || TieneRDR;
         }
+
+        public bool TieneRDCR { get; set; }
     }
 }

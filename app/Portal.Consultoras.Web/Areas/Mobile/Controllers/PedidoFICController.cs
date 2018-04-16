@@ -38,6 +38,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
 
             /////////////////////////////////////////
+            var campaniaActual =  Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).ToString();
             Session[Constantes.ConstSession.PedidoFIC] = null;
             ViewBag.ClaseTabla = "tabla2";
             ViewBag.Pais_ISO = userData.CodigoISO;
@@ -45,11 +46,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.PROLDes = "Guarda los productos que haz ingresado";
             ViewBag.ModPedido = "display:none;";
             ViewBag.NombreConsultora = userData.NombreConsultora;
-            ViewBag.PedidoFIC = "C" + AddCampaniaAndNumero(userData.CampaniaID, 1);
+            ViewBag.PedidoFIC = "C" + (campaniaActual.Length == 6 ? campaniaActual.Substring (4,2) : campaniaActual);
             ViewBag.MensajeFIC = "antes del " + userData.FechaFinFIC.Day + " de " + NombreMes(userData.FechaFinFIC.Month);
             ViewBag.FinFIc = userData.FechaFinFIC.ToString("dd/MM");
-            
-
+            ViewBag.FechaFinFIC = userData.FechaFinFIC.ToString("dd'/'MM");
+            ViewBag.Campania = AddCampaniaAndNumero(userData.CampaniaID, 1).Substring(4,2);
             var olstPedidoFicDetalle = ObtenerPedidoFICDetalle();   //   PPC
             PedidoFICDetalleMobileModel modelo = new PedidoFICDetalleMobileModel
             {
@@ -99,7 +100,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.EMail = userData.EMail;
             model.Celular = userData.Celular;
             model.TieneMasVendidos = userData.TieneMasVendidos;
-            model.PartialSectionBpt = GetPartialSectionBptModel();
+            //model.PartialSectionBpt = GetPartialSectionBptModel();
             var isMobileApp = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion", false) != null;
             var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
             model.ClienteId = mobileConfiguracion.ClienteID;
@@ -526,49 +527,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             else // Periodo de facturacion
             {
-                if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
-                {
-                    model.Prol = "MODIFICA TU PEDIDO";
-                    model.ProlTooltip = "Modifica tu pedido sin perder lo que ya reservaste.";
+                model.Prol = "MODIFICA TU PEDIDO";
+                model.ProlTooltip = "Modifica tu pedido sin perder lo que ya reservaste.";
 
-                    if (diaActual <= userData.FechaInicioCampania)
-                    {
-                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
-                    }
-                    else
-                    {
-                        model.ProlTooltip += string.Format("|Hazlo antes de las {0} para facturarlo.", diaActual.ToString("hh:mm tt"));
-                    }
+                if (diaActual <= userData.FechaInicioCampania)
+                {
+                    model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
                 }
-                else // PROL 1
+                else
                 {
-                    if (userData.PROLSinStock)
-                    {
-                        model.Prol = "GUARDA TU PEDIDO";
-                        model.ProlTooltip = "Es importante que guardes tu pedido";
-                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
-                    }
-                    else
-                    {
-                        model.Prol = "VALIDA TU PEDIDO";
-                        model.ProlTooltip = "Haz click aquí para validar tu pedido";
-
-                        if (diaActual <= userData.FechaInicioCampania)
-                        {
-                            model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
-                        }
-                        else
-                        {
-                            if (userData.CodigoISO == "BO")
-                            {
-                                model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
-                            }
-                            else
-                            {
-                                model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
-                            }
-                        }
-                    }
+                    model.ProlTooltip += string.Format("|Hazlo antes de las {0} para facturarlo.", diaActual.ToString("hh:mm tt"));
                 }
             }
 
@@ -617,7 +585,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             int horaCierre = userData.EsZonaDemAnti;
             TimeSpan sp = horaCierre == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
             model.HoraCierre = FormatearHora(sp);
-            model.ModificacionPedidoProl = userData.NuevoPROL && userData.ZonaNuevoPROL ? 0 : 1;
+            model.ModificacionPedidoProl = 0;
 
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 model.Prol = "GUARDA TU PEDIDO";
@@ -1266,53 +1234,5 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return resultado;
         }
 
-        private PartialSectionBpt GetPartialSectionBptModel()
-        {
-            var partial = new PartialSectionBpt();
-            try
-            {
-                partial.RevistaDigital = revistaDigital;
-
-                if (revistaDigital.TieneRDC)
-                {
-                    if (revistaDigital.EsActiva)
-                    {
-                        if (revistaDigital.EsSuscrita)
-                        {
-                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MPedidoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
-                        }
-                        else
-                        {
-                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MPedidoNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
-                        }
-                    }
-                    else
-                    {
-                        if (revistaDigital.EsSuscrita)
-                        {
-                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MPedidoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
-                        }
-                        else
-                        {
-                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MPedidoNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
-                        }
-                    }
-                }
-                else if (revistaDigital.TieneRDI)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.MPedidoIntriga) ?? new ConfiguracionPaisDatosModel();
-                }
-                else if (revistaDigital.TieneRDR)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.MPedidoRdr) ?? new ConfiguracionPaisDatosModel();
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-            }
-
-            return partial;
-        }
     }
 }

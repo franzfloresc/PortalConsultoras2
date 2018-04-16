@@ -78,7 +78,7 @@ var menuModule = (function () {
         alturaE = alturaH + _getHeight(elementos.bcMenuEstrategia);
 
         var esSuscrita = $(elementos.subnavegadorUl).data("es-suscrita");
-        var esActiva = $(elementos.subnavegadorUl).data("es-activa");
+        //var esActiva = $(elementos.subnavegadorUl).data("es-activa");
         if (esSuscrita) {
             elementos.claseActivo = "activo-dorado";
         }

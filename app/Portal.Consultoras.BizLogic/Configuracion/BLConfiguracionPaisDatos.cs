@@ -11,14 +11,32 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLConfiguracionPaisDatos : IConfiguracionPaisDatosBusinessLogic
     {
-        public List<BEConfiguracionPaisDatos> GetList(BEConfiguracionPaisDatos entidad)
+        public BEConfiguracionPaisDatos Get(BEConfiguracionPaisDatos entidad)
         {
-            var lista = new List<BEConfiguracionPaisDatos>();
-
+            BEConfiguracionPaisDatos configuracionPaisDatos;
             try
             {
                 var da = new DAConfiguracionPaisDatos(entidad.PaisID);
-                using (IDataReader reader = da.GetList(entidad))
+                using (var reader = da.Get(entidad))
+                {
+                    configuracionPaisDatos = reader.MapToObject<BEConfiguracionPaisDatos>();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", entidad.PaisID.ToString());
+                configuracionPaisDatos = new BEConfiguracionPaisDatos();
+            }
+            return configuracionPaisDatos;
+        }
+        
+        public List<BEConfiguracionPaisDatos> GetList(BEConfiguracionPaisDatos entidad)
+        {
+            List<BEConfiguracionPaisDatos> lista;
+            try
+            {
+                var da = new DAConfiguracionPaisDatos(entidad.PaisID);
+                using (var reader = da.GetList(entidad))
                 {
                     lista = reader.MapToCollection<BEConfiguracionPaisDatos>(true);
                 }
@@ -33,12 +51,12 @@ namespace Portal.Consultoras.BizLogic
 
         public List<BEConfiguracionPaisDatos> GetListComponente(BEConfiguracionPaisDatos entidad)
         {
-            var lista = new List<BEConfiguracionPaisDatos>();
+            List<BEConfiguracionPaisDatos> lista;
 
             try
             {
                 var da = new DAConfiguracionPaisDatos(entidad.PaisID);
-                using (IDataReader reader = da.GetListComponente(entidad))
+                using (var reader = da.GetListComponente(entidad))
                 {
                     lista = reader.MapToCollection<BEConfiguracionPaisDatos>(true);
                 }
@@ -53,12 +71,12 @@ namespace Portal.Consultoras.BizLogic
 
         public List<BEConfiguracionPaisDatos> GetListComponenteDatos(BEConfiguracionPaisDatos entidad)
         {
-            var lista = new List<BEConfiguracionPaisDatos>();
+            List<BEConfiguracionPaisDatos> lista;
 
             try
             {
                 var da = new DAConfiguracionPaisDatos(entidad.PaisID);
-                using (IDataReader reader = da.GetListComponenteDatos(entidad))
+                using (var reader = da.GetListComponenteDatos(entidad))
                 {
                     lista = reader.MapToCollection<BEConfiguracionPaisDatos>(true);
                 }
@@ -76,9 +94,9 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 var da = new DAConfiguracionPaisDatos(paisId);
-                TransactionOptions oTransactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
+                var oTransactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
 
-                using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
+                using (var oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
                     foreach (var paisDato in listaEntidad)
                     {
@@ -112,5 +130,7 @@ namespace Portal.Consultoras.BizLogic
             }
             return true;
         }
+        
+        
     }
 }

@@ -727,6 +727,9 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         private decimal MontoTotalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneMDOField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TipoOfertaFinalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -884,6 +887,19 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
                 if ((this.MontoTotalField.Equals(value) != true)) {
                     this.MontoTotalField = value;
                     this.RaisePropertyChanged("MontoTotal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneMDO {
+            get {
+                return this.TieneMDOField;
+            }
+            set {
+                if ((this.TieneMDOField.Equals(value) != true)) {
+                    this.TieneMDOField = value;
+                    this.RaisePropertyChanged("TieneMDO");
                 }
             }
         }

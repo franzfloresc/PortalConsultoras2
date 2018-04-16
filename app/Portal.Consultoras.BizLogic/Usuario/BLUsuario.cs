@@ -258,8 +258,8 @@ namespace Portal.Consultoras.BizLogic
                         usuario.IndicadorOfertaFIC = configuracion.IndicadorOfertaFIC;
                         usuario.ImagenURLOfertaFIC = configuracion.ImagenURLOfertaFIC;
                         usuario.PROLSinStock = configuracion.PROLSinStock;
-                        usuario.NuevoPROL = configuracion.NuevoPROL;
-                        usuario.ZonaNuevoPROL = configuracion.ZonaNuevoPROL;
+                        usuario.NuevoPROL = true;
+                        usuario.ZonaNuevoPROL = true;
                         usuario.EstadoSimplificacionCUV = configuracion.EstadoSimplificacionCUV;
                         usuario.EsquemaDAConsultora = configuracion.EsquemaDAConsultora;
                         usuario.HoraCierreZonaDemAntiCierre = configuracion.HoraCierreZonaDemAntiCierre;
@@ -320,8 +320,8 @@ namespace Portal.Consultoras.BizLogic
                             usuario.NroCampanias = configuracion.NroCampanias;
                             usuario.FechaFinFIC = configuracion.FechaFinFIC;
                             usuario.PROLSinStock = configuracion.PROLSinStock;
-                            usuario.NuevoPROL = configuracion.NuevoPROL;
-                            usuario.ZonaNuevoPROL = configuracion.ZonaNuevoPROL;
+                            usuario.NuevoPROL = true;
+                            usuario.ZonaNuevoPROL = true;
                             usuario.EstadoSimplificacionCUV = configuracion.EstadoSimplificacionCUV;
                             usuario.EsquemaDAConsultora = configuracion.EsquemaDAConsultora;
                             usuario.HoraCierreZonaDemAntiCierre = configuracion.HoraCierreZonaDemAntiCierre;
@@ -398,8 +398,8 @@ namespace Portal.Consultoras.BizLogic
                 usuario.FechaFinFacturacion = configuracionConsultora.FechaFinFacturacion;
                 usuario.CampaniaDescripcion = configuracionConsultora.CampaniaDescripcion;
                 usuario.ZonaValida = configuracionConsultora.ZonaValida;
-                usuario.NuevoPROL = configuracionConsultora.NuevoPROL;
-                usuario.ZonaNuevoPROL = configuracionConsultora.ZonaNuevoPROL;
+                usuario.NuevoPROL = true;
+                usuario.ZonaNuevoPROL = true;
                 usuario.IndicadorGPRSB = configuracionConsultora.IndicadorGPRSB;
                 usuario.ValidacionAbierta = configuracionConsultora.ValidacionAbierta;
                 usuario.EstadoPedido = configuracionConsultora.EstadoPedido;
@@ -434,8 +434,8 @@ namespace Portal.Consultoras.BizLogic
                         usuario.FechaFinFacturacion = configuracion.FechaFinFacturacion;
                         usuario.CampaniaDescripcion = configuracion.CampaniaDescripcion;
                         usuario.ZonaValida = configuracion.ZonaValida;
-                        usuario.NuevoPROL = configuracion.NuevoPROL;
-                        usuario.ZonaNuevoPROL = configuracion.ZonaNuevoPROL;
+                        usuario.NuevoPROL = true;
+                        usuario.ZonaNuevoPROL = true;
                         usuario.IndicadorGPRSB = configuracion.IndicadorGPRSB;
                         usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
                         usuario.EstadoPedido = configuracion.EstadoPedido;
@@ -1866,8 +1866,7 @@ namespace Portal.Consultoras.BizLogic
 
             using (IDataReader reader = daUsuario.GetUsuarioExternoByCodigoUsuario(codigoUsuario))
             {
-                if (reader.Read())
-                    entidad = new BEUsuarioExterno(reader);
+                if (reader.Read()) entidad = new BEUsuarioExterno(reader);
             }
 
             return entidad;
@@ -1957,8 +1956,8 @@ namespace Portal.Consultoras.BizLogic
                 EstadoSimplificacionCUV = usuario.EstadoSimplificacionCUV,
                 ZonaHoraria = usuario.ZonaHoraria,
                 PROLSinStock = usuario.PROLSinStock,
-                NuevoPROL = usuario.NuevoPROL,
-                ZonaNuevoPROL = usuario.ZonaNuevoPROL,
+                NuevoPROL = true,
+                ZonaNuevoPROL = true,
                 ZonaValida = usuario.ZonaValida,
                 DiasAntes = usuario.DiasAntes,
                 HoraInicio = usuario.HoraInicio,
@@ -2101,17 +2100,20 @@ namespace Portal.Consultoras.BizLogic
             string v_correo = string.Empty;
             string v_codigousuario = string.Empty;
             string v_nombre = string.Empty;
-            string v_clave = string.Empty;
+            string v_clave = string.Empty;
+
             List<BEUsuarioCorreo> lst = null;
 
             try
             {
                 urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
                 lst = new List<BEUsuarioCorreo>();
-                lst = SelectByValorRestauracion(textoRecuperacion, paisId).ToList();
+                lst = SelectByValorRestauracion(textoRecuperacion, paisId).ToList();
+
                 v_codigousuario = lst[0].CodigoUsuario;
                 v_nombre = lst[0].NombreCompleto.Trim().Split(' ').First();
-                v_clave = lst[0].Clave;
+                v_clave = lst[0].Clave;
+
                 if (lst[0].Cantidad == 0 && lst[0].Correo.Trim().Length == 0)
                 {
                     resultado = "0" + "|" + "2";
@@ -2128,16 +2130,19 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return resultado;
-        }
+        }
+
         public List<BEUsuarioCorreo> SelectByValorRestauracion(string ValorRestauracion, int paisID)
         {
             List<BEUsuarioCorreo> UsuarioCorreo = new List<BEUsuarioCorreo>();
-            var DAUsuario = new DAUsuario(paisID);
+            var DAUsuario = new DAUsuario(paisID);
+
             using (IDataReader reader = DAUsuario.GetRestaurarClaveUsuario(ValorRestauracion, paisID))
                 while (reader.Read())
                 {
                     UsuarioCorreo.Add(new BEUsuarioCorreo(reader));
-                }
+                }
+
             return UsuarioCorreo;
         }
 
@@ -2252,17 +2257,9 @@ namespace Portal.Consultoras.BizLogic
                                 revistaDigitalModel.BloqueoRevistaImpresa = c.BloqueoRevistaImpresa;
                                 break;
                             case Constantes.ConfiguracionPais.RevistaDigitalReducida:
-                                if (revistaDigitalModel.TieneRDC)
-                                    break;
-
-                                revistaDigitalModel = ConfiguracionPaisDatosRevistaDigitalReducida(revistaDigitalModel,
-                                    listaPaisDatos
-                                        .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
-                                        .ToList(), usuarioModel.CodigoISO);
-
-                                revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel, usuarioModel.Sobrenombre);
-                                revistaDigitalModel.TieneRDR = true;
-                                break;
+                                revistaDigitalModel.TieneRDCR = true;
+                                revistaDigitalModel.BloqueoRevistaImpresa = revistaDigitalModel.BloqueoRevistaImpresa || c.BloqueoRevistaImpresa;
+                                continue;
                             case Constantes.ConfiguracionPais.RevistaDigitalIntriga:
                                 if (revistaDigitalModel.TieneRDC) break;
 
@@ -2621,53 +2618,6 @@ namespace Portal.Consultoras.BizLogic
             return cadena.Replace(Constantes.TagCadenaRd.Nombre, nombre)
                 .Replace(Constantes.TagCadenaRd.Nombre1, nombre)
                 .Replace(Constantes.TagCadenaRd.Nombre2, nombre);
-        }
-
-        private BERevistaDigital ConfiguracionPaisDatosRevistaDigitalReducida(BERevistaDigital revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
-        {
-            try
-            {
-                revistaDigitalModel.ConfiguracionPaisDatos = new List<BEConfiguracionPaisDatos>();
-
-                if (listaDatos == null || !listaDatos.Any())
-                    return revistaDigitalModel;
-
-                var value1 =
-                    listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercial);
-                if (value1 != null)
-                {
-                    revistaDigitalModel.DLogoComercialNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
-                    revistaDigitalModel.MLogoComercialNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
-                }
-
-                value1 = listaDatos.FirstOrDefault(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercialFondo);
-                if (value1 != null)
-                {
-                    revistaDigitalModel.DLogoComercialFondoNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
-                    revistaDigitalModel.MLogoComercialFondoNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
-                }
-
-                value1 = listaDatos.FirstOrDefault(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoMenuOfertas);
-                if (value1 != null)
-                    revistaDigitalModel.LogoMenuOfertasNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
-
-                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
-                if (value1 != null) revistaDigitalModel.BloqueoProductoDigital = value1.Valor1 == "1";
-
-                listaDatos.RemoveAll(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercial
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercialFondo
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoMenuOfertas
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital
-                );
-
-                revistaDigitalModel.ConfiguracionPaisDatos = listaDatos ?? new List<BEConfiguracionPaisDatos>();
-            }
-            catch { }
-
-            return revistaDigitalModel;
         }
 
         private BERevistaDigital ConfiguracionPaisDatosRevistaDigitalIntriga(BERevistaDigital revistaDigital, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)

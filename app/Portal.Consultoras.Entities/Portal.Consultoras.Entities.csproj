@@ -75,8 +75,11 @@
     <Compile Include="Cliente\BEMovimientoDetalle.cs" />
     <Compile Include="Comunicado\BEComunicadoSegmentacion.cs" />
     <Compile Include="Comunicado\BEComunicadoVista.cs" />
+    <Compile Include="DENativeType.cs" />
+    <Compile Include="ReservaProl\BEPedidoWebDetalleExplotado.cs" />
     <Compile Include="Estrategia\BEConfiguracionProgramaNuevasApp.cs" />
     <Compile Include="Estrategia\BEEstrategiaMasiva.cs" />
+    <Compile Include="Estrategia\EstrategiaProductoSet.cs" />
     <Compile Include="Estrategia\OfertaFinalMontoMeta.cs" />
     <Compile Include="Estrategia\UpSelling.cs" />
     <Compile Include="Estrategia\UpSellingDetalle.cs" />
@@ -145,6 +148,7 @@
     <Compile Include="Pedido\DEWrapperPDF.cs" />
     <Compile Include="Pedido\App\BEProductoApp.cs" />
     <Compile Include="Pedido\App\BEProductoAppBuscar.cs" />
+    <Compile Include="ReservaProl\BECuponNueva.cs" />
     <Compile Include="ReservaProl\BEPedidoObservacion.cs" />
     <Compile Include="ReservaProl\BEInputReservaProl.cs" />
     <Compile Include="BEPedidoWebDetalleInvariant.cs" />
@@ -262,6 +266,7 @@
     <Compile Include="BEProcesoPedidoRechazado.cs" />
     <Compile Include="BEProductoCompartido.cs" />
     <Compile Include="BEProductoSugerido.cs" />
+    <Compile Include="DEPedidoWebDetalleObs.cs" />
     <Compile Include="RevistaDigital\BERevistaDigitalSuscripcion.cs" />
     <Compile Include="Cupon\BECuponConsultora.cs" />
     <Compile Include="ShowRoom\BEShowRoomCategoria.cs" />

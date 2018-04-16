@@ -127,7 +127,7 @@ namespace Portal.Consultoras.Common
                 var urlRequest = string.Empty;
                 var browserRequest = string.Empty;
 
-                if (HttpContext.Current != null)
+                if (HttpContext.Current != null && HttpContext.Current.Request != null)
                 {
                     if (HttpContext.Current.Request != null)
                     {

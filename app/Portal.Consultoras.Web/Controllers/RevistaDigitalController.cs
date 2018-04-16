@@ -148,7 +148,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    palanca = model.CampaniaID != userData.CampaniaID || revistaDigital.TieneRDR
+                    palanca = model.CampaniaID != userData.CampaniaID
                         || (revistaDigital.TieneRDC && revistaDigital.EsActiva)
                         ? Constantes.TipoEstrategiaCodigo.RevistaDigital
                         : "";
@@ -182,6 +182,7 @@ namespace Portal.Consultoras.Web.Controllers
                             || e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso)
                             && e.FlagRevista == Constantes.FlagRevista.Valor2
                             ).ToList();
+
                         listPerdio.ForEach(e =>
                         {
                             e.ClaseBloqueada = "btn_desactivado_general";
@@ -195,6 +196,7 @@ namespace Portal.Consultoras.Web.Controllers
                         listPerdio = ConsultarEstrategiasFormatearModelo(listPerdio1, 1);
                     }
                 }
+                
 
                 return Json(new
                 {
@@ -237,7 +239,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.Lanzamiento);
 
-                var perdio = revistaDigital.TieneRDR ? 0 : TieneProductosPerdio(model.CampaniaID) ? 1 : 0;
+                var perdio = TieneProductosPerdio(model.CampaniaID) ? 1 : 0;
 
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, perdio);
 
