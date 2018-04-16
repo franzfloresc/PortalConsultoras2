@@ -98,7 +98,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@MontoTotalProl", DbType.Decimal, pedidoWeb.MontoTotalProl);
             Context.Database.AddInParameter(command, "@EstimadoGanancia", DbType.Decimal, gananciaEstimada);
             Context.Database.AddInParameter(command, "@EstadoPedido", DbType.Int16, pedidoWeb.EstadoPedido);
-            Context.Database.AddInParameter(command, "@PedidoSapId", DbType.Int64, pedidoWeb.PedidoSapId);
 
             return Context.ExecuteNonQuery(command);
         }
@@ -647,7 +646,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@MontoAhorroRevista", DbType.Decimal, bePedidoWeb.MontoAhorroRevista);
             Context.Database.AddInParameter(command, "@MontoDescuento", DbType.Decimal, bePedidoWeb.DescuentoProl);
             Context.Database.AddInParameter(command, "@MontoEscala", DbType.Decimal, bePedidoWeb.MontoEscala);
-            Context.Database.AddInParameter(command, "@VersionProl", DbType.Decimal, bePedidoWeb.VersionProl);
+            Context.Database.AddInParameter(command, "@VersionProl", DbType.Byte, bePedidoWeb.VersionProl);
+            Context.Database.AddInParameter(command, "@PedidoSapId", DbType.Int64, bePedidoWeb.PedidoSapId);
 
             Context.ExecuteNonQuery(command);
         }
