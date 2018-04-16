@@ -22,11 +22,11 @@
     <MetadataSource Address="http://localhost:36239/ProductoService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ProductoService4.xsd" MetadataType="Schema" ID="61a309f2-254a-4f05-a600-02674ab349c6" SourceId="1" SourceUrl="http://localhost:36239/ProductoService.svc?xsd=xsd2" />
-    <MetadataFile FileName="ProductoService2.wsdl" MetadataType="Wsdl" ID="8c6a3a51-1330-4b97-b583-137da6d4bf5b" SourceId="1" SourceUrl="http://localhost:36239/ProductoService.svc?wsdl" />
-    <MetadataFile FileName="ProductoService5.xsd" MetadataType="Schema" ID="dcfa78ab-49b5-4564-8590-e80dbcef78f2" SourceId="1" SourceUrl="http://localhost:36239/ProductoService.svc?xsd=xsd0" />
-    <MetadataFile FileName="ProductoService2.disco" MetadataType="Disco" ID="fe05af34-6509-4f0b-b522-9e678a9f4e55" SourceId="1" SourceUrl="http://localhost:36239/ProductoService.svc?disco" />
-    <MetadataFile FileName="ProductoService6.xsd" MetadataType="Schema" ID="06d027a8-eaa0-4934-802b-316060863d42" SourceId="1" SourceUrl="http://localhost:36239/ProductoService.svc?xsd=xsd1" />
+    <MetadataFile FileName="ProductoService4.xsd" MetadataType="Schema" ID="f6b7813a-9595-4398-ae52-e473f91ef476" SourceId="1" SourceUrl="http://localhost:36239/ProductoService.svc?xsd=xsd2" />
+    <MetadataFile FileName="ProductoService2.wsdl" MetadataType="Wsdl" ID="62afbc7b-9e99-4362-98ec-d0f211dfd0fb" SourceId="1" SourceUrl="http://localhost:36239/ProductoService.svc?wsdl" />
+    <MetadataFile FileName="ProductoService5.xsd" MetadataType="Schema" ID="cd2bf40c-9755-426f-868c-d4aea666d9df" SourceId="1" SourceUrl="http://localhost:36239/ProductoService.svc?xsd=xsd0" />
+    <MetadataFile FileName="ProductoService3.disco" MetadataType="Disco" ID="387aa942-2217-476b-b192-f517db9955b6" SourceId="1" SourceUrl="http://localhost:36239/ProductoService.svc?disco" />
+    <MetadataFile FileName="ProductoService6.xsd" MetadataType="Schema" ID="e4acf35f-2bbb-4a09-bf52-4ee2466759a9" SourceId="1" SourceUrl="http://localhost:36239/ProductoService.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

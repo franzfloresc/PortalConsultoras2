@@ -33,7 +33,10 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new BienvenidaHomeModel { ShowPopupMisDatos = showPopupMisDatos };
 
             if (userData.RolID != Constantes.Rol.Consultora)
-                return View("IndexSAC", model);
+                if (userData.RolID == 0)
+                    return RedirectToAction("LogOut", "Login");
+                else
+                    return View("IndexSAC", model);
 
             try
             {
@@ -2314,10 +2317,6 @@ namespace Portal.Consultoras.Web.Controllers
                 else if (revistaDigital.TieneRDI)
                 {
                     partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.DBienvenidaIntriga);
-                }
-                else if (revistaDigital.TieneRDR)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DBienvenidaRdr);
                 }
 
             }

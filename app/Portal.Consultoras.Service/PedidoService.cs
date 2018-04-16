@@ -817,7 +817,7 @@ namespace Portal.Consultoras.Service
 
         public List<BETracking> GetPedidosByConsultora(int paisID, string codigoConsultora, int top)
         {
-            return BLTracking.GetPedidosByConsultora(paisID, codigoConsultora, top);
+            return BLTracking.GetPedidosByConsultora(paisID, codigoConsultora, top, 0);
         }
 
         public BETracking GetPedidoByConsultoraAndCampania(int paisID, string codigoConsultora, int campania)
@@ -832,13 +832,24 @@ namespace Portal.Consultoras.Service
 
         public List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, string nropedido)
         {
-            return BLTracking.GetTrackingByPedido(paisID, codigo, campana, nropedido);
+            return BLTracking.GetTrackingByPedido(paisID, codigo, campana, nropedido, 0);
         }
 
         public List<BETracking> GetTrackingPedidoByConsultora(int paisID, string codigoConsultora, int top)
         {
             return _trackingBusinessLogic.GetTrackingPedidoByConsultora(paisID, codigoConsultora, top);
         }
+
+        public List<BETracking> GetPedidosByConsultoraDocumento(int paisID, string codigoConsultora, int top, int tipoDoc = 0)
+        {
+            return BLTracking.GetPedidosByConsultora(paisID, codigoConsultora, top, tipoDoc);
+        }
+
+        public List<BETracking> GetTrackingByPedidoConsultoraDocumento(int paisID, string codigo, string campana, string nropedido, int tipoDoc = 0)
+        {
+            return BLTracking.GetTrackingByPedido(paisID, codigo, campana, nropedido, tipoDoc);
+        }
+        
         #endregion
 
         #region CUV_Automatico

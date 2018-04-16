@@ -6,11 +6,11 @@ END
 GO
 create proc dbo.GetPedidoSapId
 	@CampaniaID int,
-	@ConsultoraID bigint
+	@PedidoID int
 as
 begin
 	SELECT PedidoSapId
 	FROM PedidoWeb (nolock)
-	WHERE CampaniaID = @CampaniaID AND ConsultoraID = @ConsultoraID;
+	WHERE CampaniaID = @CampaniaID AND PedidoID = @PedidoID;
 end
 GO

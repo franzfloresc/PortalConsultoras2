@@ -18,6 +18,7 @@ namespace Portal.Consultoras.Web.Models
         public int LimiteMin { get; set; }
         public string UrlTerminosCondicionesDatosUsuario { get; set; }
         public string CampaniaX1 { get; set; }
+        public bool MostrarCancelarSuscripcion { get; set; }
         public bool CancelarSuscripcion { get; set; }
     }
 }

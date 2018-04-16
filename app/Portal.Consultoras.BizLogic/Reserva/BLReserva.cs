@@ -386,10 +386,14 @@ namespace Portal.Consultoras.BizLogic.Reserva
         private void UpdatePedidoWebReservado(BEInputReservaProl input, BEResultadoReservaProl resultado, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             var pedidoWeb = CreatePedidoWeb(resultado, input);
-            if (input.FechaHoraReserva) pedidoWeb.VersionProl = input.VersionProl;
             decimal gananciaEstimada = 0;
             List<BEPedidoWebDetalle> listDetalleObservacion = null;
 
+            if (input.FechaHoraReserva)
+            {
+                pedidoWeb.VersionProl = input.VersionProl;
+                pedidoWeb.PedidoSapId = resultado.PedidoSapId;
+            }
             if (resultado.Reserva)
             {
                 pedidoWeb.CodigoUsuarioModificacion = input.CodigoUsuario;
@@ -440,8 +444,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 MontoAhorroCatalogo = resultado.MontoAhorroCatalogo,
                 MontoAhorroRevista = resultado.MontoAhorroRevista,
                 DescuentoProl = resultado.MontoDescuento,
-                MontoEscala = resultado.MontoEscala,
-                PedidoSapId = resultado.PedidoSapId
+                MontoEscala = resultado.MontoEscala
             };
         }
 

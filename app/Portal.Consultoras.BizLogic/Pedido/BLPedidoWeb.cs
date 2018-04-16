@@ -27,6 +27,10 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEPedidoWeb> GetPedidosWebByConsultora(int paisID, long consultoraID)
         {
             var pedidoWeb = new List<BEPedidoWeb>();
+
+            try
+            {
+
             var DAPedidoWeb = new DAPedidoWeb(paisID);
 
             using (IDataReader reader = DAPedidoWeb.GetPedidosWebByConsultora(consultoraID))
@@ -38,6 +42,14 @@ namespace Portal.Consultoras.BizLogic
                     };
                     pedidoWeb.Add(entidad);
                 }
+
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, consultoraID, paisID);
+                pedidoWeb = new List<BEPedidoWeb>();
+            }
 
             return pedidoWeb;
         }
@@ -1000,6 +1012,7 @@ namespace Portal.Consultoras.BizLogic
             }
             return line;
         }
+
         private string DetailLine(TemplateField[] template, DataRow row, string codigoPais, string lote)
         {
             string line = string.Empty;
@@ -2019,6 +2032,9 @@ namespace Portal.Consultoras.BizLogic
 
         public BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR = true, bool validarReservado = true, bool validarHorario = true, bool validarFacturado = true)
         {
+            try
+            {
+
             BEUsuario usuario = null;
             using (IDataReader reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
             {
@@ -2074,6 +2090,14 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
             return new BEValidacionModificacionPedido { MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Ninguno };
+
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, consultoraID, paisID);
+                throw new BizLogicException("Error en BLPedidoWeb.ValidacionModificarPedido", ex);
+            }
         }
 
         private string ValidarHorarioRestringido(BEUsuario usuario, int campania)
