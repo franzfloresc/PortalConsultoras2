@@ -129,16 +129,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View(modelo);
 
         }
-
-        public bool TieneProductosPerdio(int campaniaId)
-        {
-            if (revistaDigital.TieneRDC && !revistaDigital.EsActiva &&
-                campaniaId == userData.CampaniaID)
-                return true;
-
-            return false;
-        }
-
+        
         private ConfiguracionPaisDatosModel ObtenerPerdio(int campaniaId)
         {
             var dato = new ConfiguracionPaisDatosModel();

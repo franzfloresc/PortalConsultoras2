@@ -762,5 +762,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return (campaniaId < userData.CampaniaID || campaniaId > AddCampaniaAndNumero(userData.CampaniaID, 1));
         }
+        
+        public bool TieneProductosPerdio(int campaniaId)
+        {
+            if (revistaDigital.TieneRDC && !revistaDigital.EsActiva &&
+                campaniaId == userData.CampaniaID)
+                return true;
+
+            return false;
+        }
     }
 }
