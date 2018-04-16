@@ -177,7 +177,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                estrategiaModelo = (EstrategiaPersonalizadaProductoModel)Session[Constantes.ConstSession.ProductoTemporal];
+                estrategiaModelo = sessionManager.ProductoTemporal;
                 if (estrategiaModelo == null || estrategiaModelo.EstrategiaID <= 0)
                     return estrategiaModelo;
 

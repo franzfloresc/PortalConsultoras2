@@ -88,7 +88,7 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.UrlCompartir = Util.Trim(modelo.UrlCompartir);
             }
 
-            Session[Constantes.ConstSession.ProductoTemporal] = modelo;
+            sessionManager.ProductoTemporal = modelo;
 
             return Json(new
             {

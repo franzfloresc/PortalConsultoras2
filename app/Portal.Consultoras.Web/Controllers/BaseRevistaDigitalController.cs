@@ -96,7 +96,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult DetalleModel(string cuv, int campaniaId)
         {
-            var modelo = (EstrategiaPersonalizadaProductoModel)Session[Constantes.ConstSession.ProductoTemporal];
+            var modelo = sessionManager.ProductoTemporal;
             if (modelo == null || modelo.EstrategiaID == 0 || modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
             {
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
