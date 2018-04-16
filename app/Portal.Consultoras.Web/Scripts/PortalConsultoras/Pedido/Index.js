@@ -136,7 +136,7 @@ $(document).ready(function () {
             if (ui.item.CUV == "0") {
                 return false;
             }
-
+            
             $('#txtDescripcionProd')[0].item = ui.item;
             $("#txtDescripcionProd").val(ui.item.Descripcion);
             $("#hdTipoOfertaSisID").val(ui.item.TipoOfertaSisID);
@@ -1314,7 +1314,7 @@ function BuscarByCUV(CUV) {
     if (CUV === $('#hdfCUV').val()) {
         return false;
     }
-    debugger
+
     var item = {
         CUV: CUV
     };
@@ -1576,7 +1576,7 @@ function CambiarCliente(elem) {
 }
 
 function ObservacionesProducto(item) {
-    debugger
+    
     if (item.TipoOfertaSisID == "1707") {
 
         $("#divObservaciones").html("");

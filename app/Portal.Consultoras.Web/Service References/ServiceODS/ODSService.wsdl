@@ -122,12 +122,6 @@
   <wsdl:message name="IODSService_GetSaldoActualConsultora_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetSaldoActualConsultoraResponse" />
   </wsdl:message>
-  <wsdl:message name="IODSService_GetPagoEnLineaInfo_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetPagoEnLineaInfo" />
-  </wsdl:message>
-  <wsdl:message name="IODSService_GetPagoEnLineaInfo_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetPagoEnLineaInfoResponse" />
-  </wsdl:message>
   <wsdl:message name="IODSService_GetMensajesCUVsByPaisAndCampania_InputMessage">
     <wsdl:part name="parameters" element="tns:GetMensajesCUVsByPaisAndCampania" />
   </wsdl:message>
@@ -266,6 +260,12 @@
   <wsdl:message name="IODSService_GetListBrothersByCUV_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetListBrothersByCUVResponse" />
   </wsdl:message>
+  <wsdl:message name="IODSService_GetProductosProgramaNuevas_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductosProgramaNuevas" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_GetProductosProgramaNuevas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductosProgramaNuevasResponse" />
+  </wsdl:message>
   <wsdl:portType name="IODSService">
     <wsdl:operation name="GetProductoComercialByPaisAndCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetProductoComercialByPaisAndCampania" message="tns:IODSService_GetProductoComercialByPaisAndCampania_InputMessage" />
@@ -326,10 +326,6 @@
     <wsdl:operation name="GetSaldoActualConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetSaldoActualConsultora" message="tns:IODSService_GetSaldoActualConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetSaldoActualConsultoraResponse" message="tns:IODSService_GetSaldoActualConsultora_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetPagoEnLineaInfo">
-      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetPagoEnLineaInfo" message="tns:IODSService_GetPagoEnLineaInfo_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetPagoEnLineaInfoResponse" message="tns:IODSService_GetPagoEnLineaInfo_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetMensajesCUVsByPaisAndCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetMensajesCUVsByPaisAndCampania" message="tns:IODSService_GetMensajesCUVsByPaisAndCampania_InputMessage" />
@@ -422,6 +418,10 @@
     <wsdl:operation name="GetListBrothersByCUV">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetListBrothersByCUV" message="tns:IODSService_GetListBrothersByCUV_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetListBrothersByCUVResponse" message="tns:IODSService_GetListBrothersByCUV_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductosProgramaNuevas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetProductosProgramaNuevas" message="tns:IODSService_GetProductosProgramaNuevas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetProductosProgramaNuevasResponse" message="tns:IODSService_GetProductosProgramaNuevas_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IODSService" type="tns:IODSService">
@@ -554,15 +554,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetSaldoActualConsultora">
       <soap:operation soapAction="http://tempuri.org/IODSService/GetSaldoActualConsultora" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPagoEnLineaInfo">
-      <soap:operation soapAction="http://tempuri.org/IODSService/GetPagoEnLineaInfo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -770,6 +761,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetListBrothersByCUV">
       <soap:operation soapAction="http://tempuri.org/IODSService/GetListBrothersByCUV" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductosProgramaNuevas">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetProductosProgramaNuevas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -916,15 +916,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetPagoEnLineaInfo">
-      <soap:operation soapAction="http://tempuri.org/IODSService/GetPagoEnLineaInfo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetMensajesCUVsByPaisAndCampania">
       <soap:operation soapAction="http://tempuri.org/IODSService/GetMensajesCUVsByPaisAndCampania" style="document" />
       <wsdl:input>
@@ -1125,6 +1116,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetListBrothersByCUV">
       <soap:operation soapAction="http://tempuri.org/IODSService/GetListBrothersByCUV" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductosProgramaNuevas">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetProductosProgramaNuevas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

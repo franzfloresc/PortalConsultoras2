@@ -3009,9 +3009,8 @@ namespace Portal.Consultoras.Web.Controllers
         private bool GetConsultoraParticipaPrograma(UsuarioModel model)
         {
             bool participa = false;
-            string consecutivoNueva = "0,1,2,3,4,5,6";
 
-            if (consecutivoNueva.Contains(Convert.ToString(model.ConsecutivoNueva)))
+            if (model.ConsecutivoNueva < 6)
             {
                 using (var svc = new UsuarioServiceClient())
                 {

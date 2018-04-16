@@ -1441,6 +1441,32 @@ namespace Portal.Consultoras.Web.Controllers
             var productosModel = new List<ProductoModel>();
             try
             {
+                IList<BEProductoProgramaNuevas> lstProductos = (IList<BEProductoProgramaNuevas>)Session["lstProductosNuevas"] ?? new List<BEProductoProgramaNuevas>();
+                if (lstProductos == null || lstProductos.Count == 0)
+                {
+                    lstProductos = GetProductoProgramaNuevas(model.CUV);
+                    Session["lstProductosNuevas"] = lstProductos;
+                }
+
+                bool existeCuv = lstProductos.Any(x => x.CodigoCupon == model.CUV);
+                bool CuvxPrograma = lstProductos.Any(x => x.CodigoCupon == model.CUV && x.CodigoPrograma == userData.CodigoPrograma);
+
+                if (userData.ConsecutivoNueva > 5 && existeCuv)
+                {
+                    productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacion.Mensaje1));
+                    return Json(productosModel, JsonRequestBehavior.AllowGet);
+                }
+                else if (userData.ConsecutivoNueva < 6 && !userData.ParticipaEnProgramaNueva && existeCuv)
+                {
+                    productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacion.Mensaje2));
+                    return Json(productosModel, JsonRequestBehavior.AllowGet);
+                }
+                else if (userData.ParticipaEnProgramaNueva && existeCuv && !CuvxPrograma)
+                {
+                    productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacion.Mensaje3));
+                    return Json(productosModel, JsonRequestBehavior.AllowGet);
+                }
+
                 var userModel = userData;
                 var productos = SelectProductoByCodigoDescripcionSearchRegionZona(model.CUV, userModel, 1, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
 
@@ -1511,7 +1537,26 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return Json(productosModel, JsonRequestBehavior.AllowGet);
+        }
 
+        private IList<BEProductoProgramaNuevas> GetProductoProgramaNuevas(string cuv)
+        {
+            IList<BEProductoProgramaNuevas> lstProducto = null;
+
+            try
+            {
+                using (var svc = new ODSServiceClient())
+                {
+                    lstProducto = svc.GetProductosProgramaNuevas(userData.PaisID, userData.CampaniaID, cuv);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                lstProducto = null;
+            }
+
+            return lstProducto;
         }
 
         private List<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(string codigoDescripcion, UsuarioModel userModel, int cantidadFilas, int criterioBusqueda)
@@ -1627,6 +1672,16 @@ namespace Portal.Consultoras.Web.Controllers
         private ProductoModel GetProductoCuvRegular(BECUVCredito cuvCredito)
         {
             return new ProductoModel() { MarcaID = 0, CUV = "Código incorrecto, Para solicitar el set: ingresa el código " + cuvCredito.CuvRegular, TieneSugerido = 0 };
+        }
+
+        private ProductoModel GetValidacionProgramaNuevas(string mensaje)
+        {
+            return new ProductoModel()
+            {                
+                MarcaID = 0,
+                CUV = mensaje,
+                TieneSugerido = 0
+            };
         }
 
         private BEMensajeCUV GetMensajeByCUV(UsuarioModel userModel, string cuv)

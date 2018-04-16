@@ -236,10 +236,9 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        public IDataReader GetProductoExclusivoProgramaNuevas(string codigoPrograma, int campianiaID)
+        public IDataReader GetProductosProgramaNuevas(int campianiaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoExclusivosProgramaNuevas");
-            Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, codigoPrograma);
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campianiaID);
 
             return Context.ExecuteReader(command);

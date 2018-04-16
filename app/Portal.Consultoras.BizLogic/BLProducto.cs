@@ -352,20 +352,31 @@ namespace Portal.Consultoras.BizLogic
             return productos;
         }
 
-        //public IList<BEProducto> GetProductoExclusivoProgramaNuevas(int paisID, string codigoPrograma, int campianiaID)
-        //{
-        //    IList<BEProducto> productos = new List<BEProducto>();
-        //    var daProducto = new DAProducto(paisID);
+        public IList<BEProductoProgramaNuevas> GetProductosProgramaNuevas(int paisID, int campianiaID, string cuv)
+        {
+            var blTablaLogicaDatos = new BLTablaLogicaDatos();
+            var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.TablaLogica.RangoCuvNuevas);
 
-        //    using (IDataReader reader = daProducto.GetListBrothersByCUV(codCampania, cuv))
-        //    {
-        //        while (reader.Read())
-        //        {
-        //            productos.Add(new BEProducto(reader));
-        //        }
-        //    }
+            IList<BEProductoProgramaNuevas> productos = new List<BEProductoProgramaNuevas>();
 
-        //    return productos;
-        //}
+            if (lstTabla != null)
+            {
+                int _cuv = Convert.ToInt32(cuv);
+                if (_cuv >= Convert.ToInt32(lstTabla[0].Descripcion) && _cuv <= Convert.ToInt32(lstTabla[1].Descripcion))
+                {                    
+                    var daProducto = new DAProducto(paisID);
+
+                    using (IDataReader reader = daProducto.GetProductosProgramaNuevas(campianiaID))
+                    {
+                        while (reader.Read())
+                        {
+                            productos.Add(new BEProductoProgramaNuevas(reader));
+                        }
+                    }
+                }
+            }
+
+            return productos;
+        }
     }
 }

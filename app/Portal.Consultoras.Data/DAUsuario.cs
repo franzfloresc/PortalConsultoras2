@@ -807,7 +807,7 @@ namespace Portal.Consultoras.Data
 
         public bool GetConsultoraParticipaEnPrograma(string codigoPrograma, string codigoConsultora, int campaniaID)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraParticipaEnPrograma");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetParticipacionProgramaNuevas");
             Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, codigoPrograma);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
