@@ -2427,7 +2427,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         [HttpPost]
-        public ActionResult UploadCvs(DescripcionMasivoModel model,string tipoEstrategiaCodigo)
+        public ActionResult UploadCvs(DescripcionMasivoModel model)
         {
             try
             {
@@ -2472,7 +2472,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEDescripcionEstrategia> beDescripcionEstrategias;
                 List<DescripcionEstrategiaModel> descripcionEstrategiaModels;
 
-                if(usarMsPer(tipoEstrategiaCodigo))
+                if(usarMsPer(model.TipoEstrategiaCodigo))
                 {
                     descripcionEstrategiaModels = ofertaPersonalizadaProvider.uploadCsv(fileContent, userData.CodigoISO);
                 }

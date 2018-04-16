@@ -658,9 +658,9 @@ namespace Portal.Consultoras.Web.Providers
                     List<DescripcionEstrategiaModel> estrategiaDescripcionList = descripcionEstrategiaList.Select(d =>
                         new DescripcionEstrategiaModel
                         {
-                            Cuv = d.Cuv,
-                            Descripcion = d.Descripcion,
-                            Estado = d.Estado
+                            Cuv = d.cuv,
+                            Descripcion = d.descripcion,
+                            Estado = (bool)d.estado ? 1:0 
                         }
                     ).ToList();
                     descripcionList.AddRange(estrategiaDescripcionList);

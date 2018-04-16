@@ -1309,14 +1309,13 @@
         formData.append("Pais", $("#ddlPais").val());
         formData.append("CampaniaId", $("#ddlCampania").val());
         formData.append("TipoEstrategia", $("#ddlTipoEstrategia").val());
-
-        var tipoEstrategiaCodigoVal = $("#ddlTipoEstrategia").find(":selected").data("codigo");
-
+        formData.append("TipoEstrategiaCodigo", $("#ddlTipoEstrategia").find(":selected").data("codigo"));
+        
         $.ajax({
             url: _config.urlUploadCvs,
             type: "POST",
             dataType: "JSON",
-            data: { model: formData, tipoEstrategiaCodigo: tipoEstrategiaCodigoVal },
+            data: formData,
             contentType: false,
             processData: false,
             success: function(data) {
@@ -2922,7 +2921,7 @@
                         MarcaID: MarcaIDVal,
                         DescripcionMarca: DescripcionMarcaVal,
                         CodigoProducto: CodigoProductoVal,
-                        CodigoSAP: CodigoSAPVal
+                        CodigoSAP: CodigoSAPVal,
                         _id: _idVal
                     };
                     jQuery.ajax({

@@ -8,5 +8,6 @@ namespace Portal.Consultoras.Web.Models
         public string CampaniaId { get; set; }
         public string TipoEstrategia { get; set; }
         public HttpPostedFileBase Documento { get; set; }
+        public string TipoEstrategiaCodigo { get; set; }
     }
 }
