@@ -357,7 +357,7 @@ namespace Portal.Consultoras.BizLogic
             var blTablaLogicaDatos = new BLTablaLogicaDatos();
             var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.TablaLogica.RangoCuvNuevas);
 
-            IList<BEProductoProgramaNuevas> productos = new List<BEProductoProgramaNuevas>();
+            IList<BEProductoProgramaNuevas> productos = null;
 
             if (lstTabla != null)
             {
@@ -365,6 +365,7 @@ namespace Portal.Consultoras.BizLogic
                 if (_cuv >= Convert.ToInt32(lstTabla[0].Descripcion) && _cuv <= Convert.ToInt32(lstTabla[1].Descripcion))
                 {                    
                     var daProducto = new DAProducto(paisID);
+                    productos = new List<BEProductoProgramaNuevas>();
 
                     using (IDataReader reader = daProducto.GetProductosProgramaNuevas(campianiaID))
                     {

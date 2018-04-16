@@ -143,8 +143,12 @@ $(document).ready(function () {
             $("#hdConfiguracionOfertaID").val(ui.item.ConfiguracionOfertaID);
             $("#hdfIndicadorMontoMinimo").val(ui.item.IndicadorMontoMinimo);
             $("#hdTipoEstrategiaID").val(ui.item.TipoEstrategiaID);
-            ObservacionesProducto(ui.item);
+            //ObservacionesProducto(ui.item);
             $('#hdMetodoBusqueda').val('Por descripción');
+
+            if (ui.item.CUV.length === 5) {
+                BuscarByCUV(ui.item.CUV);
+            }
 
             event.preventDefault();
         }
@@ -1100,7 +1104,7 @@ function ValidarDescripcion() {
         if ($("#txtDescripcionProd").val() != $("#hdfDescripcionProd").val()) {
             $("#divMensaje").text("Ud. debe seleccionar un producto válido.");
             $("#btnAgregar").attr("disabled", "disabled");
-        }
+        } 
     } else {
         $("#txtCantidad").val("");
         $("#hdfCUV").val("");

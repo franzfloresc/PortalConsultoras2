@@ -1802,11 +1802,16 @@ namespace Portal.Consultoras.Common
                 public const short BannerPremio = 2;
             }
 
-            public class MensajeValidacion
+            public class MensajeValidacionBusqueda
             {
                 public const string Mensaje1 = "El código solicitado es exclusivo del Programa de Nuevas.";
                 public const string Mensaje2 = "El código solicitado es exclusivo del Programa de Nuevas. Usted ha dejado de participar en el programa.";
                 public const string Mensaje3 = "El codigo ingresado es incorrecto. Revise el folleto del Programa de Nuevas y solicite el que le corresponde.";
+            }
+
+            public class MensajeValidacionAgregar
+            {
+                public const string Mensaje1 = "Las unidades ingresadas exceden el máximo permitido (#n#) en esta campaña";
             }
         }
 

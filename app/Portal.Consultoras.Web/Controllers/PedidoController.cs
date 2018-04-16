@@ -1283,7 +1283,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (mensaje == "" || resul)
                 {
-                    mensaje = ValidarStockEstrategiaMensaje(entidad.CUV2, entidad.Cantidad, entidad.FlagCantidad);
+                    mensaje = ValidarCantidadMaximaNuevas(CUV, Convert.ToInt32(Cantidad));
+
+                    if (mensaje == "")
+                        mensaje = ValidarStockEstrategiaMensaje(entidad.CUV2, entidad.Cantidad, entidad.FlagCantidad);
                 }
             }
             catch (FaultException ex)
@@ -1301,6 +1304,32 @@ namespace Portal.Consultoras.Web.Controllers
                 message = mensaje
             }, JsonRequestBehavior.AllowGet);
 
+        }
+
+        private string ValidarCantidadMaximaNuevas(string cuv, int cantidad)
+        {         
+            try
+            {
+                IList<BEProductoProgramaNuevas> lstProductosNuevas = (IList<BEProductoProgramaNuevas>)Session["lstProductosNuevas"];
+                string mensaje = string.Empty;
+
+                if (lstProductosNuevas == null || lstProductosNuevas.Count == 0 || !userData.ParticipaEnProgramaNueva)
+                    return "";
+
+                var cantidadCuv = (from g in lstProductosNuevas
+                                   where g.CodigoPrograma == userData.CodigoPrograma && g.CodigoCupon == cuv
+                                   select g.UnidadesMaximas).FirstOrDefault();
+
+                if (cantidad > Convert.ToInt32(cantidadCuv))
+                    mensaje = Constantes.ProgramaNuevas.MensajeValidacionAgregar.Mensaje1.Replace("#n#", cantidadCuv.ToString());
+
+                return mensaje;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+                return "";
+            }
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
@@ -1441,11 +1470,17 @@ namespace Portal.Consultoras.Web.Controllers
             var productosModel = new List<ProductoModel>();
             try
             {
-                IList<BEProductoProgramaNuevas> lstProductos = (IList<BEProductoProgramaNuevas>)Session["lstProductosNuevas"] ?? new List<BEProductoProgramaNuevas>();
+                IList<BEProductoProgramaNuevas> lstProductos = (IList<BEProductoProgramaNuevas>)Session["lstProductosNuevas"];
                 if (lstProductos == null || lstProductos.Count == 0)
                 {
                     lstProductos = GetProductoProgramaNuevas(model.CUV);
                     Session["lstProductosNuevas"] = lstProductos;
+                }
+
+                if (lstProductos == null)
+                {
+                    productosModel.Add(GetProductoNoExiste());
+                    return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
 
                 bool existeCuv = lstProductos.Any(x => x.CodigoCupon == model.CUV);
@@ -1453,17 +1488,17 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (userData.ConsecutivoNueva > 5 && existeCuv)
                 {
-                    productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacion.Mensaje1));
+                    productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacionBusqueda.Mensaje1));
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
                 else if (userData.ConsecutivoNueva < 6 && !userData.ParticipaEnProgramaNueva && existeCuv)
                 {
-                    productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacion.Mensaje2));
+                    productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacionBusqueda.Mensaje2));
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
                 else if (userData.ParticipaEnProgramaNueva && existeCuv && !CuvxPrograma)
                 {
-                    productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacion.Mensaje3));
+                    productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacionBusqueda.Mensaje3));
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
 
