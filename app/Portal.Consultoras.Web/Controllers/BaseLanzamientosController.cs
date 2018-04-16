@@ -56,15 +56,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var modelo = sessionManager.ProductoTemporal;
-                if (modelo == null || modelo.EstrategiaID == 0 || modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
-                {
-                    return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
-                }
-                if (EsCampaniaFalsa(modelo.CampaniaID))
-                {
-                    return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
-                }
-                if (modelo.EstrategiaID <= 0)
+                if (modelo == null || modelo.EstrategiaID == 0 || EsCampaniaFalsa(modelo.CampaniaID) ||
+                    modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
                 {
                     return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
                 }

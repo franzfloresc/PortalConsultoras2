@@ -85,6 +85,96 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 Assert.AreEqual("Bienvenida", result.RouteValues["controller"]);
                 Assert.AreEqual("Index", result.RouteValues["action"]);
             }
+
+            [TestMethod]
+            public void Detalle_ConsultoraTieneRevistaDigitalYEsActivaYProductoTemporalEsNulo_DebeRedireccionarAOfertas()
+            {
+                sessionManager.Setup(x => x.ProductoTemporal).Returns((EstrategiaPersonalizadaProductoModel)null);
+                controller.RevistaDigital = new RevistaDigitalModel
+                {
+                    TieneRDC = true,
+                    EsActiva = true
+                };
+
+                var result = controller.Detalle(string.Empty, 0) as RedirectToRouteResult;
+
+                Assert.AreEqual("Ofertas", result.RouteValues["controller"]);
+                Assert.AreEqual("Index", result.RouteValues["action"]);
+            }
+
+            [TestMethod]
+            public void Detalle_ConsultoraTieneRevistaDigitalYEsActivaProductoTemporalIdEsCero_DebeRedireccionarAOfertas()
+            {
+                sessionManager
+                    .Setup(x => x.ProductoTemporal)
+                    .Returns(new EstrategiaPersonalizadaProductoModel { });
+                controller.RevistaDigital = new RevistaDigitalModel
+                {
+                    TieneRDC = true,
+                    EsActiva = true
+                };
+
+                var result = controller.Detalle(string.Empty, 0) as RedirectToRouteResult;
+
+                Assert.AreEqual("Ofertas", result.RouteValues["controller"]);
+                Assert.AreEqual("Index", result.RouteValues["action"]);
+            }
+
+            [DataTestMethod]
+            [DataRow(-1, DisplayName = "Menor a campania de usuario")]
+            [DataRow(3, DisplayName = "Mayor a campania de usuario")]
+            public void Detalle_ConsultoraTieneRevistaDigitalYEsActivaProductoTemporalTieneCampaniaInvalida_DebeRedireccionarAOfertas(int campaniaId)
+            {
+                sessionManager
+                    .Setup(x => x.ProductoTemporal)
+                    .Returns(new EstrategiaPersonalizadaProductoModel { EstrategiaID = 1, CampaniaID = campaniaId });
+                controller.RevistaDigital = new RevistaDigitalModel
+                {
+                    TieneRDC = true,
+                    EsActiva = true
+                };
+
+                var result = controller.Detalle(string.Empty, 0) as RedirectToRouteResult;
+
+                Assert.AreEqual("Ofertas", result.RouteValues["controller"]);
+                Assert.AreEqual("Index", result.RouteValues["action"]);
+            }
+
+            [TestMethod]
+            public void Detalle_ConsultoraTieneRevistaDigitalYEsActivaCuvDelUrlNoCoincideConProductoTemporal_DebeRedireccionarAOfertas()
+            {
+                sessionManager
+                    .Setup(x => x.ProductoTemporal)
+                    .Returns(new EstrategiaPersonalizadaProductoModel { EstrategiaID = 1,CUV2 = "99988" });
+                controller.RevistaDigital = new RevistaDigitalModel
+                {
+                    TieneRDC = true,
+                    EsActiva = true
+                };
+
+                var result = controller.Detalle(string.Empty, 0) as RedirectToRouteResult;
+
+                Assert.AreEqual("Ofertas", result.RouteValues["controller"]);
+                Assert.AreEqual("Index", result.RouteValues["action"]);
+            }
+
+            [TestMethod]
+            public void Detalle_ConsultoraTieneRevistaDigitalYEsActivaCampaniaIdDelUrlNoCoincideConProductoTemporal_DebeRedireccionarAOfertas()
+            {
+                sessionManager
+                    .Setup(x => x.ProductoTemporal)
+                    .Returns(new EstrategiaPersonalizadaProductoModel { EstrategiaID = 1, CUV2 = "99988", CampaniaID = 0 });
+                controller.RevistaDigital = new RevistaDigitalModel
+                {
+                    TieneRDC = true,
+                    EsActiva = true
+                };
+
+                var result = controller.Detalle("99988", 1) as RedirectToRouteResult;
+
+                Assert.AreEqual("Ofertas", result.RouteValues["controller"]);
+                Assert.AreEqual("Index", result.RouteValues["action"]);
+            }
         }
     }
 }
