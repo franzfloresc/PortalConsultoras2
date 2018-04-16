@@ -1,0 +1,18 @@
+<svg width="62" height="62" viewBox="0 0 62 62" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>Page 1</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-499 -642)">
+<g id="Page 1">
+<g id="Stroke 1">
+<use xlink:href="#path0_stroke" transform="translate(500 643)" fill="#DF3D3D"/>
+</g>
+<g id="Stroke 3">
+<use xlink:href="#path1_stroke" transform="translate(518 664)" fill="#DF3D3D"/>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_stroke" d="M 30 -1C 12.8787 -1 -1 12.8787 -1 30L 1 30C 1 13.9833 13.9833 1 30 1L 30 -1ZM -1 30C -1 47.1203 12.8787 61 30 61L 30 59C 13.9833 59 1 46.0157 1 30L -1 30ZM 30 61C 47.1203 61 61 47.1203 61 30L 59 30C 59 46.0157 46.0157 59 30 59L 30 61ZM 61 30C 61 12.8787 47.1203 -1 30 -1L 30 1C 46.0157 1 59 13.9833 59 30L 61 30Z"/>
+<path id="path1_stroke" d="M 7.819 18.797L 7.11198 19.5042L 7.81907 20.2111L 8.52609 19.5041L 7.819 18.797ZM -0.707016 11.6872L 7.11198 19.5042L 8.52602 18.0898L 0.707016 10.2728L -0.707016 11.6872ZM 8.52609 19.5041L 27.3241 0.707126L 25.9099 -0.707126L 7.11191 18.0899L 8.52609 19.5041Z"/>
+</defs>
+</svg>
