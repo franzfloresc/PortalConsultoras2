@@ -1,0 +1,45 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cancelar Suscripción</title>
+    <script src="~/Scripts/PortalConsultoras/AsesoraOnline/CancelarSuscripcionJS.js?v=2"></script>
+</head>
+<body>
+    <input id="hdfRaiz" type="hidden" value="@Url.Content("~")" />
+    <input type="hidden" id="Pais" value="@ViewBag.Pais" />
+    <input type="hidden" id="CodConsultora" value="@ViewBag.CodConsultora" />
+    <input type="hidden" id="Resultado" value="@ViewBag.Resultado" />
+
+    <div id="divContent" style="display:none">
+        <header>
+            <div class="container">
+                <h1>
+                    <a class="logo" href="https://www.somosbelcorp.com/"></a>
+                </h1>
+            </div>
+        </header>
+        <div class="main">
+            <strong>TE EXTRAÑAREMOS @ViewBag.Resultado</strong>
+            <p>A partir de ahora ya no recibirás correos e información nuestra.</p>
+            <p>Si no estabas segura puedes <a href="#" id="linkRegresarAqui">regresar aquí</a> y estaremos felices de seguir a tu lado.</p>
+            <div class="options">
+                <div>
+                    <a href="https://www.somosbelcorp.com/" class="btn_send">IR A SOMOSBELCORP</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+

@@ -36,5 +36,15 @@ namespace Portal.Consultoras.Service
         {
             new BLAsesoraOnline().EnviarMailBienvenidaAsesoraOnline(emailFrom, emailTo, titulo, displayname, nombreConsultora);
         }
+
+        public string CancelarSuscripcion(string paisISO, string codigoConsultora)
+        {
+            return new BLAsesoraOnline().CancelarSuscripcion(paisISO, codigoConsultora);
+        }
+
+        public int VuelveASuscripcion(string paisISO, string codigoConsultora)
+        {
+            return new BLAsesoraOnline().VuelveASuscripcion(paisISO, codigoConsultora);
+        }
     }
 }
