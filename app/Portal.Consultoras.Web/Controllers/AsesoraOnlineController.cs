@@ -113,5 +113,67 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult CancelarSuscripcion(string pais = "", string codconsultora = "")
+        {
+            ViewBag.Pais = pais;
+            ViewBag.CodConsultora = codconsultora;
+            ViewBag.Resultado = CancelaSuscripcion(pais, codconsultora);
+            return View();
+        }
+
+        public string CancelaSuscripcion(string pais = "", string codconsultora = "")
+        {
+            var resul = "";
+            try
+            {
+                using (AsesoraOnlineServiceClient sv = new AsesoraOnlineServiceClient())
+                {
+                    resul = sv.CancelarSuscripcion(pais, codconsultora);
+                }
+
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, codconsultora, pais);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, codconsultora, pais);
+            }
+            return resul;
+        }
+
+        public ActionResult VolverSuscripcion(string pais = "", string codconsultora = "")
+        {
+            ViewBag.Pais = pais;
+            ViewBag.CodConsultora = codconsultora;
+            ViewBag.Resultado = VuelveASuscripcion(pais, codconsultora);
+            return View();
+        }
+
+
+        public int VuelveASuscripcion(string pais = "", string codconsultora = "")
+        {
+            var resul = 0;
+            try
+            {
+                using (AsesoraOnlineServiceClient sv = new AsesoraOnlineServiceClient())
+                {
+                    resul = sv.VuelveASuscripcion(pais, codconsultora);
+                    //pruebas2334
+                }
+
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, codconsultora, pais);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, codconsultora, pais);
+            }
+            return resul;
+        }
     }
 }

@@ -1259,8 +1259,10 @@
     <Content Include="Content\Css\Site\Admin\Estrategias\UpSelling.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\index.css" />
     <Content Include="Content\Css\Site\Contenedor\Index.css" />
+    <Content Include="Content\Css\Site\Esika\unsubscribe.css" />
     <Content Include="Content\Css\Site\Images\carrusel_next_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
+    <Content Include="Content\Css\Site\Lbel\unsubscribe.css" />
     <Content Include="Content\Css\Site\ProductoListado\Landing.css" />
     <Content Include="Content\Css\Site\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Site\RevistaDigital\ConfirmarDatos.css" />
@@ -3623,6 +3625,7 @@
     <Content Include="Scripts\MultiSelect\js\ui.multiselect.js" />
     <Content Include="Scripts\nieve.js" />
     <Content Include="Scripts\PortalConsultoras\AsesoraOnline\AsesoraOnline.js" />
+    <Content Include="Scripts\PortalConsultoras\AsesoraOnline\CancelarSuscripcionJS.js" />
     <Content Include="Scripts\PortalConsultoras\AsesoraOnline\Index.js" />
     <Content Include="Scripts\PortalConsultoras\BestSeller\BestSellerCommentModule.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\AsesoraOnline.js" />
@@ -4946,6 +4949,8 @@
     <Content Include="Views\ShowRoom\_BannerInferior.cshtml" />
     <Content Include="Views\ShowRoom\_BannerInferior.cshtml" />
     <Content Include="Views\ShowRoom\Personalizado.cshtml" />
+    <Content Include="Views\AsesoraOnline\VolverSuscripcion.cshtml" />
+    <Content Include="Views\AsesoraOnline\CancelarSuscripcion.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
