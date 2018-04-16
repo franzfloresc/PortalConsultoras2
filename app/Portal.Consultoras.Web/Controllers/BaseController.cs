@@ -2777,11 +2777,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region CDR
-        protected string MensajeGestionCdrInhabilitadaYChatEnLinea()
+        protected string MensajeGestionCdrInhabilitadaYChatEnLinea(bool EsAppMobile = false)
         {
             var mensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitada();
             if (string.IsNullOrEmpty(mensajeGestionCdrInhabilitada)) return mensajeGestionCdrInhabilitada;
-            return mensajeGestionCdrInhabilitada + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea;
+            if  (!EsAppMobile ) mensajeGestionCdrInhabilitada = String.Format("{0} {1}", mensajeGestionCdrInhabilitada , Constantes.CdrWebMensajes.ContactateChatEnLinea);
+            return mensajeGestionCdrInhabilitada;
         }
 
         protected string MensajeGestionCdrInhabilitada()
@@ -3911,11 +3912,6 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.SetMenuContenedor(menuContenedor);
             return menuContenedor;
         }
-        public OfertaFinalModel GetOfertaFinal()
-        {
-            return sessionManager.GetOfertaFinalModel() ??
-                   new OfertaFinalModel();
-        }
         private ConfiguracionPaisModel ActualizarTituloYSubtituloBanner(ConfiguracionPaisModel cp, RevistaDigitalModel revistaDigital)
         {
             var codigo = string.Empty;
@@ -4251,6 +4247,47 @@ namespace Portal.Consultoras.Web.Controllers
             return userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada ||
                    userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada;
         }
+        #endregion
+
+        #region Sesiones 
+        public object GetSession(string nameSession)
+        {
+            return System.Web.HttpContext.Current.Session[nameSession] ?? new object();
+        }
+
+        public List<ConfiguracionPaisModel> ListConfiguracionPais()
+        {
+            return sessionManager.GetConfiguracionesPaisModel() ??
+                   new List<ConfiguracionPaisModel>();
+        }
+
+        public ConfiguracionPaisModel ConfiguracionPaisObtener(string codigo)
+        {
+            codigo = Util.Trim(codigo).ToUpper();
+            var listado = ListConfiguracionPais();
+            var entidad = listado.FirstOrDefault(c => c.Codigo == codigo) ?? new ConfiguracionPaisModel();
+
+            return entidad;
+        }
+        public EventoFestivoDataModel GetEventoFestivoData()
+        {
+            return sessionManager.GetEventoFestivoDataModel() ??
+                   new EventoFestivoDataModel();
+        }
+
+
+        public OfertaFinalModel GetOfertaFinal()
+        {
+            return sessionManager.GetOfertaFinalModel() ??
+                   new OfertaFinalModel();
+        }
+
+        public MenuContenedorModel GetSessionMenuActivo()
+        {
+            return GetSession(Constantes.ConstSession.MenuContenedorActivo) as MenuContenedorModel ??
+                   new MenuContenedorModel();
+        }
+
         #endregion
 
         #region ConfigurationManager
