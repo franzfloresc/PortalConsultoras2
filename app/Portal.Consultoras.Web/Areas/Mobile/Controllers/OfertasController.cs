@@ -32,7 +32,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 var modelo = new EstrategiaPersonalizadaModel
                 {
-                    ListaSeccion = ObtenerConfiguracionSeccion(revistaDigital)
+                    ListaSeccion = ObtenerConfiguracionSeccion(revistaDigital),
+                    MensajeProductoBloqueado = MensajeProductoBloqueado()
                 };
 
                 return View("Index", modelo);
