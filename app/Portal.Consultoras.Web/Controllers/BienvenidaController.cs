@@ -204,6 +204,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.Ambiente = GetBucketNameFromConfig();
                 TempData.Keep("MostrarPopupCuponGanaste");
 
+                ViewBag.FechaInicioCampania = userData.FechaInicioCampania;
                 ViewBag.VerSeccion = verSeccion;
 
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;

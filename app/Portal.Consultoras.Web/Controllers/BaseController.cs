@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -4459,11 +4460,17 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
                 if (!("BO CL VE").Contains(userData.CodigoISO)) TextoNuevoPROL = " Revisa tus notificaciones o correo y verifica que tu pedido esté completo.";
 
+                DateTime time = DateTime.Today.Add(HoraCierrePortal);
+
                 if (IsMobile())
                 {
-                    DateTime time = DateTime.Today.Add(HoraCierrePortal);
                     string hrCierrePortal = time.ToString("hh:mm tt").Replace(". ", "").ToUpper();
                     ViewBag.MensajeFechaPromesa = " CIERRA EL " + userData.FechaInicioCampania.Day + " " + NombreMes(userData.FechaInicioCampania.Month).ToUpper() + " - " + hrCierrePortal.Replace(".", "");
+                }
+                else
+                {
+                    var culture = CultureInfo.GetCultureInfo("es-PE");
+                    ViewBag.MensajeFechaPromesa = userData.FechaInicioCampania.ToString("dd MMM", culture).ToUpper() + " - " + time.ToString("hhtt", CultureInfo.InvariantCulture).ToLower();
                 }
             }
             else
@@ -4477,11 +4484,15 @@ namespace Portal.Consultoras.Web.Controllers
                     ViewBag.MensajeCierreCampania = "Pasa o modifica tu pedido hasta el día de <b>hoy a las " + FormatearHora(HoraCierrePortal) + "</b>";
                 }
 
+                DateTime time = DateTime.Today.Add(HoraCierrePortal);
                 if (IsMobile())
                 {
-                    DateTime time = DateTime.Today.Add(HoraCierrePortal);
                     string hrCierrePortal = time.ToString("hh:mm tt").Replace(". ", "").ToUpper();
                     ViewBag.MensajeFechaPromesa = " CIERRA HOY - " + hrCierrePortal.Replace(".", "");
+                }
+                else
+                {
+                    ViewBag.MensajeFechaPromesa = "HOY - " + time.ToString("hhtt", CultureInfo.InvariantCulture).ToLower();
                 }
             }
 
