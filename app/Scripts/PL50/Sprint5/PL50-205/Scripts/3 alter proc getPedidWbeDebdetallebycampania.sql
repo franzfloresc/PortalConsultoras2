@@ -14,12 +14,12 @@ BEGIN
 
 declare @FechaRegistroPedido date
 declare @FechaInicioSetAgrupado date
-set @FechaInicioSetAgrupado ='2017-04-16'
+set @FechaInicioSetAgrupado ='2018-04-16'
 
 select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
 
-if((@AgruparSet=1)and(@FechaRegistroPedido>@FechaInicioSetAgrupado))
+if((@AgruparSet=1)and(cast(@FechaRegistroPedido as date)>cast(@FechaInicioSetAgrupado as date)))
 begin
 
 					SET NOCOUNT ON
@@ -621,12 +621,12 @@ BEGIN
 
 declare @FechaRegistroPedido date
 declare @FechaInicioSetAgrupado date
-set @FechaInicioSetAgrupado ='2017-04-16'
+set @FechaInicioSetAgrupado ='2018-04-16'
 
 select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
 
-if((@AgruparSet=1)and(@FechaRegistroPedido>@FechaInicioSetAgrupado))
+if((@AgruparSet=1)and(cast(@FechaRegistroPedido as date)>cast(@FechaInicioSetAgrupado as date)))
 begin
 
 					SET NOCOUNT ON
@@ -1228,12 +1228,12 @@ BEGIN
 
 declare @FechaRegistroPedido date
 declare @FechaInicioSetAgrupado date
-set @FechaInicioSetAgrupado ='2017-04-16'
+set @FechaInicioSetAgrupado ='2018-04-16'
 
 select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
 
-if((@AgruparSet=1)and(@FechaRegistroPedido>@FechaInicioSetAgrupado))
+if((@AgruparSet=1)and(cast(@FechaRegistroPedido as date)>cast(@FechaInicioSetAgrupado as date)))
 begin
 
 					SET NOCOUNT ON
@@ -1835,12 +1835,12 @@ BEGIN
 
 declare @FechaRegistroPedido date
 declare @FechaInicioSetAgrupado date
-set @FechaInicioSetAgrupado ='2017-04-16'
+set @FechaInicioSetAgrupado ='2018-04-16'
 
 select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
 
-if((@AgruparSet=1)and(@FechaRegistroPedido>@FechaInicioSetAgrupado))
+if((@AgruparSet=1)and(cast(@FechaRegistroPedido as date)>cast(@FechaInicioSetAgrupado as date)))
 begin
 
 					SET NOCOUNT ON
@@ -2442,12 +2442,12 @@ BEGIN
 
 declare @FechaRegistroPedido date
 declare @FechaInicioSetAgrupado date
-set @FechaInicioSetAgrupado ='2017-04-16'
+set @FechaInicioSetAgrupado ='2018-04-16'
 
 select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
 
-if((@AgruparSet=1)and(@FechaRegistroPedido>@FechaInicioSetAgrupado))
+if((@AgruparSet=1)and(cast(@FechaRegistroPedido as date)>cast(@FechaInicioSetAgrupado as date)))
 begin
 
 					SET NOCOUNT ON
@@ -3049,12 +3049,12 @@ BEGIN
 
 declare @FechaRegistroPedido date
 declare @FechaInicioSetAgrupado date
-set @FechaInicioSetAgrupado ='2017-04-16'
+set @FechaInicioSetAgrupado ='2018-04-16'
 
 select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
 
-if((@AgruparSet=1)and(@FechaRegistroPedido>@FechaInicioSetAgrupado))
+if((@AgruparSet=1)and(cast(@FechaRegistroPedido as date)>cast(@FechaInicioSetAgrupado as date)))
 begin
 
 					SET NOCOUNT ON
@@ -3656,12 +3656,12 @@ BEGIN
 
 declare @FechaRegistroPedido date
 declare @FechaInicioSetAgrupado date
-set @FechaInicioSetAgrupado ='2017-04-16'
+set @FechaInicioSetAgrupado ='2018-04-16'
 
 select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
 
-if((@AgruparSet=1)and(@FechaRegistroPedido>@FechaInicioSetAgrupado))
+if((@AgruparSet=1)and(cast(@FechaRegistroPedido as date)>cast(@FechaInicioSetAgrupado as date)))
 begin
 
 					SET NOCOUNT ON
@@ -4263,12 +4263,12 @@ BEGIN
 
 declare @FechaRegistroPedido date
 declare @FechaInicioSetAgrupado date
-set @FechaInicioSetAgrupado ='2017-04-16'
+set @FechaInicioSetAgrupado ='2018-04-16'
 
 select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
 
-if((@AgruparSet=1)and(@FechaRegistroPedido>@FechaInicioSetAgrupado))
+if((@AgruparSet=1)and(cast(@FechaRegistroPedido as date)>cast(@FechaInicioSetAgrupado as date)))
 begin
 
 					SET NOCOUNT ON
@@ -4870,12 +4870,12 @@ BEGIN
 
 declare @FechaRegistroPedido date
 declare @FechaInicioSetAgrupado date
-set @FechaInicioSetAgrupado ='2017-04-16'
+set @FechaInicioSetAgrupado ='2018-04-16'
 
 select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
 
-if((@AgruparSet=1)and(@FechaRegistroPedido>@FechaInicioSetAgrupado))
+if((@AgruparSet=1)and(cast(@FechaRegistroPedido as date)>cast(@FechaInicioSetAgrupado as date)))
 begin
 
 					SET NOCOUNT ON
@@ -5477,12 +5477,12 @@ BEGIN
 
 declare @FechaRegistroPedido date
 declare @FechaInicioSetAgrupado date
-set @FechaInicioSetAgrupado ='2017-04-16'
+set @FechaInicioSetAgrupado ='2018-04-16'
 
 select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
 
-if((@AgruparSet=1)and(@FechaRegistroPedido>@FechaInicioSetAgrupado))
+if((@AgruparSet=1)and(cast(@FechaRegistroPedido as date)>cast(@FechaInicioSetAgrupado as date)))
 begin
 
 					SET NOCOUNT ON
@@ -6084,12 +6084,12 @@ BEGIN
 
 declare @FechaRegistroPedido date
 declare @FechaInicioSetAgrupado date
-set @FechaInicioSetAgrupado ='2017-04-16'
+set @FechaInicioSetAgrupado ='2018-04-16'
 
 select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
 
-if((@AgruparSet=1)and(@FechaRegistroPedido>@FechaInicioSetAgrupado))
+if((@AgruparSet=1)and(cast(@FechaRegistroPedido as date)>cast(@FechaInicioSetAgrupado as date)))
 begin
 
 					SET NOCOUNT ON
@@ -6691,12 +6691,12 @@ BEGIN
 
 declare @FechaRegistroPedido date
 declare @FechaInicioSetAgrupado date
-set @FechaInicioSetAgrupado ='2017-04-16'
+set @FechaInicioSetAgrupado ='2018-04-16'
 
 select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
 
-if((@AgruparSet=1)and(@FechaRegistroPedido>@FechaInicioSetAgrupado))
+if((@AgruparSet=1)and(cast(@FechaRegistroPedido as date)>cast(@FechaInicioSetAgrupado as date)))
 begin
 
 					SET NOCOUNT ON
