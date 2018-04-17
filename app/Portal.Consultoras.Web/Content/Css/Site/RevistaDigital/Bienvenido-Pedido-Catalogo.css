@@ -1067,7 +1067,7 @@ margin-left: 5px;
         color: #ffffff;
         margin-bottom: 0;
         display: block;
-        padding: 0 35px;
+        padding: 0;
         display: block;
         word-wrap: break-word;
         text-transform: uppercase;
@@ -1122,6 +1122,7 @@ margin-left: 5px;
         border: none;
     }
 
-    .club_gana_mas_pedido_activo p.primer-texto, .club_gana_mas_pedido_activo p.segundo-texto {
+    .club_gana_mas_pedido_activo p.primer-texto,
+    .club_gana_mas_pedido_activo p.segundo-texto {
         color: black;
     }
