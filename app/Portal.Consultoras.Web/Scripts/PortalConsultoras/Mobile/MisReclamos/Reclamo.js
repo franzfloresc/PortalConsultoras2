@@ -362,7 +362,7 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.btnSiguiente4).click(function () {
-
+				 
                     if (mensajeGestionCdrInhabilitada != '') {
                         messageInfoValidado(mensajeGestionCdrInhabilitada);
                         return false;
@@ -1357,7 +1357,7 @@ $(document).ready(function () {
                 return resultado;
             },
 
-            SolicitudEnviar: function (validarCorreoVacio, validarCelularVacio) {
+			SolicitudEnviar: function (validarCorreoVacio, validarCelularVacio) {
                 var ok = true;
                 var correo = $.trim($(me.Variables.txtEmail).val());
                 var celular = $.trim($(me.Variables.txtTelefono).val());
@@ -1419,12 +1419,17 @@ $(document).ready(function () {
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(item),
                     cache: false,
-                    success: function (data) {
+					success: function (data) {
                         CloseLoading();
                         if (!checkTimeout(data)) return false;
 
-                        if (data.success != true) {
-                            messageInfo(data.message);
+						if (data.success != true) {
+							var mensajeInfo = "";
+							if (data.message.indexOf(mensajeChatEnLinea) > -1) {
+								mensajeInfo = data.message.replace(mensajeChatEnLinea, "").trim();
+							}  
+							messageInfo(mensajeInfo);
+							 
                             return false;
                         }
 
