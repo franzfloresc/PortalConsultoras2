@@ -3299,7 +3299,7 @@ namespace Portal.Consultoras.Web.Controllers
                             seccion.VerMas = false;
                             break;
                         case Constantes.ConfiguracionPais.Lanzamiento:
-                            seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosLan";
+                            seccion.UrlObtenerProductos = "Lanzamientos/RDObtenerProductosLan";
                             seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.LanzamientoMobileContenedor : Constantes.OrigenPedidoWeb.LanzamientoDesktopContenedor;
                             seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.LanzamientoMobileContenedorPopup : Constantes.OrigenPedidoWeb.LanzamientoDesktopContenedorPopup;
                             seccion.VerMas = false;
@@ -5007,7 +5007,7 @@ namespace Portal.Consultoras.Web.Controllers
                 _RevistaDigitalShortModel.TieneRDS = revistaDigital.TieneRDS;
                 _RevistaDigitalShortModel.EsSuscrita = revistaDigital.EsSuscrita;
                 _RevistaDigitalShortModel.EsActiva = revistaDigital.EsActiva;
-                _RevistaDigitalShortModel.CampaniaActiva = revistaDigital.CampaniaActiva;
+                _RevistaDigitalShortModel.CampaniaActiva = revistaDigital.CampaniaFuturoActiva;
             }
 
             return _RevistaDigitalShortModel;

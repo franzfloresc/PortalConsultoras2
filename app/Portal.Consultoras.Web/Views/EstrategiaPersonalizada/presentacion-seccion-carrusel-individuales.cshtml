@@ -33,13 +33,13 @@
          data-item-cuv="{{CUV2}}">
         <div style="display:none;" data-estrategia="{{JSON2string lan}}"></div>
         @if (revistaDigital.EsActiva)
-        {<img class="logo-club logo-club-negro" src="/Content/Images/RevistaDigital/nuevo.png" /> }
+        {<img class="logo-club logo-club-negro" src="{{lan.TipoEstrategiaDetalle.ImgFichaDesktop}}" /> }
         else
         {<img class="logo-club" src="/Content/Images/RevistaDigital/etiqueta-club-ganamas-dorado-independiente.svg" />}
         
         <div class="lonuevo_carrusel_portada">
             <div class="cont"  onclick="javascript:VerPopupExpGanaMas();">
-                <div class="foto_prod" style="background: url({{lan.FotoProductoMedium}});">
+                <div class="foto_prod" style="background: url({{lan.FotoProducto01}});">
                 </div>
             </div>
         </div>

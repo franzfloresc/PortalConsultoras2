@@ -22,11 +22,11 @@
     <MetadataSource Address="http://internal-qaielbserviciosconsultoras-253844361.us-east-1.elb.amazonaws.com/CatalogoWCF/ProductoService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ProductoService2.wsdl" MetadataType="Wsdl" ID="fa72a9dc-e3ab-442f-bcbe-a7e6d9813ca4" SourceId="1" SourceUrl="http://internal-qaielbserviciosconsultoras-253844361.us-east-1.elb.amazonaws.com/CatalogoWCF/ProductoService.svc?wsdl" />
-    <MetadataFile FileName="ProductoService3.disco" MetadataType="Disco" ID="ec2a4c22-c001-49c4-ace5-420a6f2f9dee" SourceId="1" SourceUrl="http://internal-qaielbserviciosconsultoras-253844361.us-east-1.elb.amazonaws.com/CatalogoWCF/ProductoService.svc?disco" />
-    <MetadataFile FileName="ProductoService4.xsd" MetadataType="Schema" ID="68efd087-5808-4f77-aee3-429acb2e4456" SourceId="1" SourceUrl="http://internal-qaielbserviciosconsultoras-253844361.us-east-1.elb.amazonaws.com/CatalogoWCF/ProductoService.svc?xsd=xsd1" />
-    <MetadataFile FileName="ProductoService5.xsd" MetadataType="Schema" ID="c9b61667-e133-41d5-b7ec-41b028539c3a" SourceId="1" SourceUrl="http://internal-qaielbserviciosconsultoras-253844361.us-east-1.elb.amazonaws.com/CatalogoWCF/ProductoService.svc?xsd=xsd2" />
-    <MetadataFile FileName="ProductoService6.xsd" MetadataType="Schema" ID="5706cc03-cb61-49f6-acab-c4c2b58fb42a" SourceId="1" SourceUrl="http://internal-qaielbserviciosconsultoras-253844361.us-east-1.elb.amazonaws.com/CatalogoWCF/ProductoService.svc?xsd=xsd0" />
+    <MetadataFile FileName="ProductoService2.wsdl" MetadataType="Wsdl" ID="018e9246-10a0-4888-b6c8-2970eb95a651" SourceId="1" SourceUrl="http://internal-qaielbserviciosconsultoras-253844361.us-east-1.elb.amazonaws.com/CatalogoWCF/ProductoService.svc?wsdl" />
+    <MetadataFile FileName="ProductoService3.disco" MetadataType="Disco" ID="48d59131-8206-482a-b23c-6f56eb201d09" SourceId="1" SourceUrl="http://internal-qaielbserviciosconsultoras-253844361.us-east-1.elb.amazonaws.com/CatalogoWCF/ProductoService.svc?disco" />
+    <MetadataFile FileName="ProductoService4.xsd" MetadataType="Schema" ID="afc18d09-66f4-4dd5-a559-dc4fcb51293a" SourceId="1" SourceUrl="http://internal-qaielbserviciosconsultoras-253844361.us-east-1.elb.amazonaws.com/CatalogoWCF/ProductoService.svc?xsd=xsd1" />
+    <MetadataFile FileName="ProductoService5.xsd" MetadataType="Schema" ID="0fc4e845-5a57-48b8-b40e-7cf61bfe5afd" SourceId="1" SourceUrl="http://internal-qaielbserviciosconsultoras-253844361.us-east-1.elb.amazonaws.com/CatalogoWCF/ProductoService.svc?xsd=xsd2" />
+    <MetadataFile FileName="ProductoService6.xsd" MetadataType="Schema" ID="d802c1c6-4b46-4f75-92aa-589b5d1a279c" SourceId="1" SourceUrl="http://internal-qaielbserviciosconsultoras-253844361.us-east-1.elb.amazonaws.com/CatalogoWCF/ProductoService.svc?xsd=xsd0" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

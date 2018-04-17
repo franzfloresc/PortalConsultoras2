@@ -28,14 +28,14 @@
              style="background: url({{lan.TipoEstrategiaDetalle.ImgFondoMobile}});">
             <div class="mobile_label_lanzamientos_contenedor">
                 @if (revistaDigital.EsActiva)
-                {<img class="logo-club logo-club-negro" src="/Content/Images/RevistaDigital/nuevo.png" /> }
+                {<img class="logo-club logo-club-negro" src="{{lan.TipoEstrategiaDetalle.ImgFichaMobile}}" /> }
                 else
                 {<img class="logo-club" src="/Content/Images/RevistaDigital/etiqueta-club-ganamas-dorado-independiente.svg" />}
             </div>
         </div>
         <div class="mobile_producto_lanzamientos_contenedor">
             <div class="mobile_producto_lanzamientos_sbcont">
-                <img href="javascript:;" onclick="javascript:VerPopupExpGanaMas(); " class="imgportada" src="{{lan.FotoProductoMedium}}" />
+                <img href="javascript:;" onclick="javascript:VerPopupExpGanaMas(); " class="imgportada" src="{{lan.FotoProductoSmall}}" />
                 <p class="titulo">{{lan.DescripcionResumen}}</p>
                  @if (revistaDigital.EsActiva)
                  {
