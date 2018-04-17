@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Data.Hana
             try
             {
                 string rutaServiceHana = ConfigurationManager.AppSettings.Get("RutaServiceHana");
-                var codigoIsoHana = Util.GetCodigoIsoHana(paisId);
+                var codigoIsoHana = Common.Util.GetPaisIsoSicc(paisId);
 
                 string urlConParametros = rutaServiceHana + "ObtenerPedidoConsultora/" + codigoIsoHana + "/" +
                                           codigoConsultora;

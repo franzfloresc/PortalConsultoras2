@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
-using System.Globalization;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -21,7 +20,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 if (userData.RolID != Constantes.Rol.Consultora)
-                    return RedirectToAction("Index", "Bienvenida", new { area = "" });
+                    if (userData.RolID == 0)
+                        return RedirectToAction("LogOut", "Login");
+                    else
+                        return RedirectToAction("Index", "Bienvenida", new { area = "" });
 
                 model.RevistaDigital = revistaDigital;
                 model.RevistaDigitalPopUpMostrar = revistaDigital.NoVolverMostrar;
@@ -62,7 +64,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.CatalogoPersonalizadoMobile = userData.CatalogoPersonalizado;
                 model.RutaChile = ObtenerRutaChile();
                 model.UrlChileEncriptada = ObtenerUrlChileEncriptada();
-                model.PROL1 = (ObtenerConfiguracionCampania().ZonaValida && !userData.PROLSinStock && !(userData.NuevoPROL && userData.ZonaNuevoPROL));
                 model.FechaVencimiento = ObtenerFechaVencimiento();
 
                 model.MontoDeuda = userData.MontoDeuda;
@@ -108,7 +109,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.VerSeccion = verSeccion;
 
                 model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar();
-
+                model.TienePagoEnLinea = userData.TienePagoEnLinea;
                 model.ConsultoraNuevaBannerAppMostrar = (bool)(Session[Constantes.ConstSession.ConsultoraNuevaBannerAppMostrar] ?? false);
             }
             catch (FaultException ex)
@@ -226,18 +227,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return tipoPopUpMostrar;
             }
 
-            if (userData.TieneCupon == 1)
+            if (userData.TieneCupon == 1 && userData.CodigoISO == "PE")
             {
-                if (userData.CodigoISO == "PE")
+                var cupon = ObtenerCuponDesdeServicio();
+                if (cupon != null)
                 {
-                    var cupon = ObtenerCuponDesdeServicio();
-                    if (cupon != null)
-                    {
-                        tipoPopUpMostrar = Constantes.TipoPopUp.CuponForzado;
-                        Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
+                    tipoPopUpMostrar = Constantes.TipoPopUp.CuponForzado;
+                    Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
 
-                        return tipoPopUpMostrar;
-                    }
+                    return tipoPopUpMostrar;
                 }
             }
 
@@ -439,10 +437,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 else if (revistaDigital.TieneRDI)
                 {
                     partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.MBienvenidaIntriga) ?? new ConfiguracionPaisDatosModel();
-                }
-                else if (revistaDigital.TieneRDR)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.MBienvenidaRdr) ?? new ConfiguracionPaisDatosModel();
                 }
             }
             catch (Exception ex)

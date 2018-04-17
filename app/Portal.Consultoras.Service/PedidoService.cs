@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.BizLogic.Reserva;
 using Portal.Consultoras.BizLogic.RevistaDigital;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.CargaMasiva;
@@ -14,8 +15,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using Portal.Consultoras.BizLogic.Pedido;
 using Estrategia = Portal.Consultoras.Entities.Estrategia;
+using Portal.Consultoras.Entities.PagoEnLinea;
+using Portal.Consultoras.BizLogic.PagoEnlinea;
 
 namespace Portal.Consultoras.Service
 {
@@ -45,6 +49,7 @@ namespace Portal.Consultoras.Service
         private readonly BLRevistaDigitalSuscripcion BLRevistaDigitalSuscripcion;
         private readonly BLCuponConsultora BLCuponConsultora;
         private readonly BLFichaProducto blFichaProducto;
+        private BLPagoEnLinea BLPagoEnLinea;
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
         private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
         private readonly IConfiguracionProgramaNuevasBusinessLogic _configuracionProgramaNuevasBusinessLogic;
@@ -77,6 +82,7 @@ namespace Portal.Consultoras.Service
             BLRevistaDigitalSuscripcion = new BLRevistaDigitalSuscripcion();
             BLCuponConsultora = new BLCuponConsultora();
             blFichaProducto = new BLFichaProducto();
+            BLPagoEnLinea = new BLPagoEnLinea();
         }
 
         public PedidoService(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic,
@@ -817,7 +823,7 @@ namespace Portal.Consultoras.Service
 
         public List<BETracking> GetPedidosByConsultora(int paisID, string codigoConsultora, int top)
         {
-            return BLTracking.GetPedidosByConsultora(paisID, codigoConsultora, top);
+            return BLTracking.GetPedidosByConsultora(paisID, codigoConsultora, top, 0);
         }
 
         public BETracking GetPedidoByConsultoraAndCampania(int paisID, string codigoConsultora, int campania)
@@ -832,13 +838,24 @@ namespace Portal.Consultoras.Service
 
         public List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, string nropedido)
         {
-            return BLTracking.GetTrackingByPedido(paisID, codigo, campana, nropedido);
+            return BLTracking.GetTrackingByPedido(paisID, codigo, campana, nropedido, 0);
         }
 
         public List<BETracking> GetTrackingPedidoByConsultora(int paisID, string codigoConsultora, int top)
         {
             return _trackingBusinessLogic.GetTrackingPedidoByConsultora(paisID, codigoConsultora, top);
         }
+
+        public List<BETracking> GetPedidosByConsultoraDocumento(int paisID, string codigoConsultora, int top, int tipoDoc = 0)
+        {
+            return BLTracking.GetPedidosByConsultora(paisID, codigoConsultora, top, tipoDoc);
+        }
+
+        public List<BETracking> GetTrackingByPedidoConsultoraDocumento(int paisID, string codigo, string campana, string nropedido, int tipoDoc = 0)
+        {
+            return BLTracking.GetTrackingByPedido(paisID, codigo, campana, nropedido, tipoDoc);
+        }
+        
         #endregion
 
         #region CUV_Automatico
@@ -1170,7 +1187,7 @@ namespace Portal.Consultoras.Service
 
         public void InsPedidoWebDetallePROLv2(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProl, decimal DescuentoProl)
         {
-            BLPedidoWebDetalle.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, ValidacionAbierta, CodigoUsuario, MontoTotalProl, DescuentoProl);
+            BLPedidoWebDetalle.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, CodigoUsuario, MontoTotalProl, DescuentoProl);
         }
 
         public BENovedadFacturacion GetPedidoRechazadoByConsultora(int PaisID, string CampaniaId, string CodigoConsultora, DateTime Fecha)
@@ -1864,14 +1881,14 @@ namespace Portal.Consultoras.Service
             return new BLEstrategia().GetCantidadOfertasParaTi(paisId, campaniaId, tipoConfigurado, codigoEstrategia);
         }
 
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo)
+        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv)
         {
-            return new BLEstrategia().GetOfertasParaTiByTipoConfigurado(paisId, campaniaId, tipoConfigurado, estrategiaCodigo);
+            return new BLEstrategia().GetOfertasParaTiByTipoConfigurado(paisId, campaniaId, tipoConfigurado, estrategiaCodigo, pagina, cantidadCuv);
         }
 
-        public int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario)
+        public int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int nroLore)
         {
-            return new BLEstrategia().InsertEstrategiaTemporal(paisId, lista, campaniaId, codigoUsuario);
+            return new BLEstrategia().InsertEstrategiaTemporal(paisId, lista, campaniaId, codigoUsuario, nroLore);
         }
 
         public int GetCantidadOfertasParaTiTemporal(int paisId, int campaniaId, int tipoConfigurado)
@@ -1879,9 +1896,9 @@ namespace Portal.Consultoras.Service
             return new BLEstrategia().GetCantidadOfertasParaTiTemporal(paisId, campaniaId, tipoConfigurado);
         }
 
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado)
+        public List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado, int nroLote)
         {
-            return new BLEstrategia().GetOfertasParaTiByTipoConfiguradoTemporal(paisId, campaniaId, tipoConfigurado);
+            return new BLEstrategia().GetOfertasParaTiByTipoConfiguradoTemporal(paisId, campaniaId, tipoConfigurado, nroLote);
         }
 
         public int DeleteEstrategiaTemporal(int paisId, int campaniaId)
@@ -1954,14 +1971,14 @@ namespace Portal.Consultoras.Service
             return new BLShowRoomEvento().GetEventoConsultoraRecibido(paisID, CodigoConsultora, CampaniaID);
         }
 
-        public BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo)
+        public async Task<BEResultadoReservaProl> CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo)
         {
-            return new BLReservaProl().CargarSesionAndEjecutarReservaProl(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil, enviarCorreo);
+            return await new BLReserva().CargarSesionAndEjecutarReservaProl(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil, enviarCorreo);
         }
 
-        public BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input)
+        public async Task<BEResultadoReservaProl> EjecutarReservaProl(BEInputReservaProl input)
         {
-            return new BLReservaProl().EjecutarReservaProl(input);
+            return await new BLReserva().EjecutarReservaProl(input);
         }
 
         public int InsMatrizComercialImagen(BEMatrizComercialImagen entity)
@@ -1976,22 +1993,22 @@ namespace Portal.Consultoras.Service
 
         public bool EnviarCorreoReservaProl(BEInputReservaProl input)
         {
-            return new BLReservaProl().EnviarCorreoReservaProl(input);
+            return new BLReserva().EnviarCorreoReservaProl(input);
         }
 
         public int InsertarDesglose(BEInputReservaProl input)
         {
-            return new BLReservaProl().InsertarDesglose(input);
+            return new BLReserva().InsertarDesglose(input);
         }
 
         public string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo)
         {
-            return new BLReservaProl().CargarSesionAndDeshacerPedidoValidado(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, tipo);
+            return new BLReserva().CargarSesionAndDeshacerPedidoValidado(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, tipo);
         }
 
         public string DeshacerPedidoValidado(BEUsuario usuario, string tipo)
         {
-            return new BLReservaProl().DeshacerPedidoValidado(usuario, tipo);
+            return new BLReserva().DeshacerPedidoValidado(usuario, tipo);
         }
 
         public string GetTokenIndicadorPedidoAutentico(int paisID, string paisISO, string codigoRegion, string codigoZona)
@@ -2273,6 +2290,40 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoWeb.ObtenerCertificadoDigital(paisId, campaniaId, consultoraId, tipoCert);
         }
+        #endregion
+
+        #region Pago en Linea
+
+        public int InsertPagoEnLineaResultadoLog(int paisId, BEPagoEnLineaResultadoLog entidad)
+        {
+            return BLPagoEnLinea.InsertPagoEnLineaResultadoLog(paisId, entidad);
+        }
+
+        public string ObtenerTokenTarjetaGuardadaByConsultora(int paisId, string codigoConsultora)
+        {
+            return BLPagoEnLinea.ObtenerTokenTarjetaGuardadaByConsultora(paisId, codigoConsultora);
+        }
+
+        public void UpdateMontoDeudaConsultora(int paisId, string codigoConsultora, decimal montoDeuda)
+        {
+            BLPagoEnLinea.UpdateMontoDeudaConsultora(paisId, codigoConsultora, montoDeuda);
+        }
+
+        public BEPagoEnLineaResultadoLog ObtenerPagoEnLineaById(int paisId, int pagoEnLineaResultadoLogId)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaById(paisId, pagoEnLineaResultadoLogId);
+        }
+
+        public BEPagoEnLineaResultadoLog ObtenerUltimoPagoEnLineaByConsultoraId(int paisId, long consultoraId)
+        {
+            return BLPagoEnLinea.ObtenerUltimoPagoEnLineaByConsultoraId(paisId, consultoraId);
+        }
+
+        public List<BEPagoEnLineaResultadoLogReporte> ObtenerPagoEnLineaByFiltro(int paisId, BEPagoEnLineaFiltro filtro)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaByFiltro(paisId, filtro);
+        }
+
         #endregion
 
 

@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Infraestructure;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Common;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Providers;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.ServiceModel;
-using Portal.Consultoras.Web.Models;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers.Estrategias
 {
@@ -74,35 +74,28 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             {
                 var upsellings = await GetUpSellingsService(userData.CampaniaID.ToString(), true);
 
-                if (upsellings.Any())
-                {
-                    var upselling = upsellings.Where(x => x.Activo).FirstOrDefault();
-                    var available = 0;
+                if (upsellings == null || !upsellings.Any())
+                    return Json(ResultModel<string>.BuildBad("no hay upsellings", string.Empty), JsonRequestBehavior.AllowGet);
 
-                    foreach (var item in upselling.Regalos)
-                    {
-                        if (item.Stock > 0 && item.Activo)
-                            available++;
-                    }
 
-                    if (available > 0)
-                    {
-                        upselling.Meta = await _upSellingProvider.ObtenerMontoMeta(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
+                var upsellingActivo = upsellings.FirstOrDefault(x => x.Activo);
 
-                        return Json(new
-                        {
-                            success = true,
-                            data = upselling
-                        }, JsonRequestBehavior.AllowGet);
-                    }
-                }
+                if (upsellingActivo == null)
+                    return Json(ResultModel<string>.BuildBad("no hay upselling activo", string.Empty), JsonRequestBehavior.AllowGet);
 
-                return Json(new { success = false, message = string.Empty }, JsonRequestBehavior.AllowGet);
+                var gifs = upsellingActivo.Regalos.Any(r => r.Activo);
+
+                if (!gifs)
+                    return Json(ResultModel<string>.BuildBad("no hay regalos o no estan activos", string.Empty), JsonRequestBehavior.AllowGet);
+
+                upsellingActivo.Meta = await _upSellingProvider.ObtenerMontoMeta(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
+
+                return Json(ResultModel<UpSellingModel>.BuildOk(upsellingActivo), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -193,7 +186,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
         public async Task<ActionResult> ExportarExcel(int upSellingIdListaGanadoras, string campaniaListaGanadoras)
         {
-            var upSelling = await _upSellingProvider.ObtenerOfertaFinalMontoMeta(userData.PaisID, upSellingIdListaGanadoras);   
+            var upSelling = await _upSellingProvider.ObtenerOfertaFinalMontoMeta(userData.PaisID, upSellingIdListaGanadoras);
 
 
             Dictionary<string, string> dic =
@@ -203,12 +196,12 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                             { "Nombre de Consultora","Nombre" },
                             {  "CUV Regalo","CuvRegalo" },
                             { "Nombre Regalo", "NombreRegalo" },
-                            { "Monto Pedido","MontoInicial" }, 
+                            { "Monto Pedido","MontoInicial" },
                             { "Rango Inicial", "RangoInicial" },
                              { "Rango Final", "RangoFinal" },
                             { "Monto a Agregar" ,"MontoAgregar"},
                             { "Monto Meta","MontoMeta" },
-                             { "Monto Ganador", "MontoGanador" },  
+                             { "Monto Ganador", "MontoGanador" },
                             { "Fecha Registro" ,"FechaRegistro" },
                 };
 
@@ -280,7 +273,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     var upLoaded = ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, regalo.Imagen), carpetaPais, regalo.Imagen, true, true, true);
                     if (!upLoaded)
                         return false;
-                };
+                }
 
             }
             catch (Exception ex)

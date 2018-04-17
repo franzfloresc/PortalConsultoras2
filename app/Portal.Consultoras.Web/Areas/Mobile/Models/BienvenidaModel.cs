@@ -23,7 +23,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public bool PortalLideres { get; set; }
         public int Lider { get; set; }
         public bool DiaPROL { get; set; }
-        public bool PROL1 { get; set; }
         public decimal MontoAhorroCatalogo { get; set; }
         public decimal MontoAhorroRevista { get; set; }
         public decimal MontoPedido { get; set; }
@@ -54,5 +53,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public PartialSectionBpt PartialSectionBpt { get; set; }
         public int TipoPopUpMostrar { get; set; }
         public bool ConsultoraNuevaBannerAppMostrar { get; set; }
+        public bool TienePagoEnLinea { get; set; }
     }
 }

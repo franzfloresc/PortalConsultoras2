@@ -52,8 +52,6 @@ namespace Portal.Consultoras.Web.Models
             this.ValidacionAbierta = false;
             this.MenuNotificaciones = 0;
             this.TieneNotificaciones = 0;
-            this.NuevoPROL = false;
-            this.ZonaNuevoPROL = false;
             this.EsUsuarioComunidad = false;
             this.SegmentoConstancia = string.Empty;
             this.SeccionAnalytics = string.Empty;
@@ -246,33 +244,19 @@ namespace Portal.Consultoras.Web.Models
         {
             foreach (var permiso in lista)
             {
-                if (permiso.UrlItem.ToLower().Equals(Action.ToLower()))
-                {
-                    return true;
-                }
-
-                if (HasAccessRecursive(permiso.SubMenus, Action))
-                {
-                    return true;
-                }
+                if (permiso.UrlItem.ToLower().Equals(Action.ToLower())) return true;
+                if (HasAccessRecursive(permiso.SubMenus, Action)) return true;
             }
-
             return false;
         }
         public bool PROLSinStock { get; set; }
-        public bool NuevoPROL { get; set; }
-        public bool ZonaNuevoPROL { get; set; }
         public DateTime FechaPromesaEntrega { get; set; }
         public bool EsUsuarioComunidad { get; set; }
         public string SegmentoConstancia { get; set; }
         public string SeccionAnalytics { get; set; }
         public string DescripcionNivel { get; set; }
         public bool esConsultoraLider { get; set; }
-        public int? SegmentoInternoID
-        {
-            get;
-            set;
-        }
+        public int? SegmentoInternoID { get; set; }
 
         public bool ValidacionInteractiva { get; set; }
         public string MensajeValidacionInteractiva { get; set; }
@@ -374,5 +358,8 @@ namespace Portal.Consultoras.Web.Models
         public string FotoPerfil { get; set; }
 
         public string CodigoUsuarioHost { get; set; }
+        
+        public bool TienePagoEnLinea { get; set; }
+        public string DocumentoIdentidad { get; set; }
     }
 }

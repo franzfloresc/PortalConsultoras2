@@ -33,19 +33,17 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new BienvenidaHomeModel { ShowPopupMisDatos = showPopupMisDatos };
 
             if (userData.RolID != Constantes.Rol.Consultora)
-                return View("IndexSAC", model);
+                if (userData.RolID == 0)
+                    return RedirectToAction("LogOut", "Login");
+                else
+                    return View("IndexSAC", model);
 
             try
             {
                 model.PartialSectionBpt = GetPartialSectionBptModel(revistaDigital);
-
                 ViewBag.UrlImgMiAcademia = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImgMiAcademia) + "/" + userData.CodigoISO + "/academia.png";
                 ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
-
-                var nombreCarpetaTc = GetConfiguracionManager(Constantes.ConfiguracionManager.NombreCarpetaTC);
-                var nombreArchivoTc = GetConfiguracionManager(Constantes.ConfiguracionManager.NombreArchivoTC) + ".pdf";
-                ViewBag.UrlPdfTerminosyCondiciones = ConfigS3.GetUrlFileS3(nombreCarpetaTc, userData.CodigoISO + "/" + nombreArchivoTc, String.Empty);
-
+                ViewBag.UrlPdfTerminosyCondiciones = GetUrlTerminosCondicionesDatosUsuario();
                 ViewBag.UrlImagenFAVHome = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVHome), userData.CodigoISO);
 
                 #region Montos
@@ -178,36 +176,10 @@ namespace Portal.Consultoras.Web.Controllers
                 model.VioTutorialDesktop = userData.VioTutorialDesktop;
 
                 #region limite Min - Max Telef
-                switch (userData.PaisID)
-                {
-                    case 9:
-                        model.limiteMinimoTelef = 5;
-                        model.limiteMaximoTelef = 15;
-                        break;
-                    case 11:
-                        model.limiteMinimoTelef = 7;
-                        model.limiteMaximoTelef = 9;
-                        break;
-                    case 4:
-                        model.limiteMinimoTelef = 10;
-                        model.limiteMaximoTelef = 10;
-                        break;
-                    case 8:
-                    case 7:
-                    case 10:
-                    case 5:
-                        model.limiteMinimoTelef = 8;
-                        model.limiteMaximoTelef = 8;
-                        break;
-                    case 6:
-                        model.limiteMinimoTelef = 9;
-                        model.limiteMaximoTelef = 10;
-                        break;
-                    default:
-                        model.limiteMinimoTelef = 0;
-                        model.limiteMaximoTelef = 15;
-                        break;
-                }
+                int limiteMinimoTelef, limiteMaximoTelef;
+                GetLimitNumberPhone(out limiteMinimoTelef, out limiteMaximoTelef);
+                model.limiteMinimoTelef = limiteMinimoTelef;
+                model.limiteMaximoTelef = limiteMaximoTelef;
                 #endregion
 
                 #region Lógica de Popups
@@ -233,6 +205,8 @@ namespace Portal.Consultoras.Web.Controllers
                 TempData.Keep("MostrarPopupCuponGanaste");
 
                 ViewBag.VerSeccion = verSeccion;
+
+                model.TienePagoEnLinea = userData.TienePagoEnLinea;
             }
             catch (FaultException ex)
             {
@@ -2343,10 +2317,6 @@ namespace Portal.Consultoras.Web.Controllers
                 else if (revistaDigital.TieneRDI)
                 {
                     partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.DBienvenidaIntriga);
-                }
-                else if (revistaDigital.TieneRDR)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DBienvenidaRdr);
                 }
 
             }

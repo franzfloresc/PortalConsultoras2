@@ -71,7 +71,6 @@
                     <span>
                         @if (item.IndicadorMontoMinimo == 1)
                         {
-                            //@Html.Hidden("lblLPImpTotalMinimo" + item.ImporteTotal, item.ImporteTotal, new { @class = "classImporteTotal_minimo" })
                             @Html.LabelFor(modelItem => item.ImporteTotal, string.Format("{0:N2}", item.ImporteTotal), new { id = "lblLPImpTotalMinimo" + item.PedidoDetalleID, @class = "classImporteTotal_minimo", style = "display: none;" })
                         }
                         @Html.LabelFor(modelItem => item.ImporteTotal, string.Format("{0:N2}", item.ImporteTotal), new { id = "lblLPImpTotal" + item.PedidoDetalleID, @class = "classImporteTotal" })

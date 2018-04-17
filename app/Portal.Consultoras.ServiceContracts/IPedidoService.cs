@@ -10,7 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using Estrategia = Portal.Consultoras.Entities.Estrategia;
+using Portal.Consultoras.Entities.PagoEnLinea;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -463,6 +465,13 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BETracking> GetTrackingPedidoByConsultora(int paisID, string codigoConsultora, int top);
+
+        [OperationContract]
+        List<BETracking> GetPedidosByConsultoraDocumento(int paisID, string codigoConsultora, int top, int tipoDoc = 0);
+
+        [OperationContract]
+        List<BETracking> GetTrackingByPedidoConsultoraDocumento(int paisID, string codigo, string campana, string nropedido, int tipoDoc = 0);
+
         #endregion
 
         #region "CUV Automatico"
@@ -1001,16 +1010,16 @@ namespace Portal.Consultoras.ServiceContracts
         int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia);
 
         [OperationContract]
-        List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo);
+        List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv);
 
         [OperationContract]
-        int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario);
+        int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int nroLote);
 
         [OperationContract]
         int GetCantidadOfertasParaTiTemporal(int paisId, int campaniaId, int tipoConfigurado);
 
         [OperationContract]
-        List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado);
+        List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado, int nroLote);
 
         [OperationContract]
         int DeleteEstrategiaTemporal(int paisId, int campaniaId);
@@ -1064,10 +1073,10 @@ namespace Portal.Consultoras.ServiceContracts
         BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona);
 
         [OperationContract]
-        BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
+        Task<BEResultadoReservaProl> CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
 
         [OperationContract]
-        BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input);
+        Task<BEResultadoReservaProl> EjecutarReservaProl(BEInputReservaProl input);
 
         [OperationContract]
         bool EnviarCorreoReservaProl(BEInputReservaProl input);
@@ -1242,6 +1251,28 @@ namespace Portal.Consultoras.ServiceContracts
         #endregion
 
 
+        #region Pago en Linea
+
+        [OperationContract]
+        int InsertPagoEnLineaResultadoLog(int paisId, BEPagoEnLineaResultadoLog entidad);
+
+        [OperationContract]
+        string ObtenerTokenTarjetaGuardadaByConsultora(int paisId, string codigoConsultora);
+
+        [OperationContract]
+        void UpdateMontoDeudaConsultora(int paisId, string codigoConsultora, decimal montoDeuda);
+
+        [OperationContract]
+        BEPagoEnLineaResultadoLog ObtenerPagoEnLineaById(int paisId, int pagoEnLineaResultadoLogId);
+
+        [OperationContract]
+        BEPagoEnLineaResultadoLog ObtenerUltimoPagoEnLineaByConsultoraId(int paisId, long consultoraId);
+
+        [OperationContract]
+        List<BEPagoEnLineaResultadoLogReporte> ObtenerPagoEnLineaByFiltro(int paisId, BEPagoEnLineaFiltro filtro);
+
+        #endregion
+        
         [OperationContract]
         bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId);
 

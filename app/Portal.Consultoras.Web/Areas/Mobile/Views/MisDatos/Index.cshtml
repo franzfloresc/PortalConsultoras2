@@ -9,6 +9,7 @@
     <h1 class="titulo_actualizarMisDatos titulo_misDatos">MIS&nbsp;<b>DATOS</b></h1>
     <input type="hidden" id="hdn_CorreoMD" value="@Model.EMail" />
     <input type="hidden" id="hdn_CodigoUsuarioMD" value="@Model.CodigoUsuario" />
+    <input type="hidden" id="hdn_CodigoUsuarioReal" value="@Model.CodigoUsuarioReal" />
     <input type="hidden" id="hdn_NombreCompletoMD" value="@Model.NombreCompleto" />
     <input type="hidden" id="hdn_CaracterMinimo" value="@ViewBag.limiteMinimoTelef" />
 
@@ -261,7 +262,7 @@
             }
 
             var item = {
-                CodigoUsuario: jQuery('#hdn_CodigoUsuarioMD').val(),
+                CodigoUsuario: jQuery('#hdn_CodigoUsuarioReal').val(),
                 EMail: $.trim(jQuery('#txtEMailMD').val()),
                 Telefono: jQuery('#txtTelefonoMD').val(),
                 TelefonoTrabajo: jQuery('#txtTelefonoTrabajoMD').val(),
@@ -389,7 +390,7 @@
 
 function ValidarTelefono(celular) {
     var resultado = false;
-	ShowLoading();;
+	ShowLoading();
     var item = {
         Telefono: celular
     };
@@ -438,7 +439,7 @@ $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
             var newPassword01 = $("#txtNuevaContrasenia01").val();
             var newPassword02 = $("#txtNuevaContrasenia02").val();
             var vMessage = "";
-            ShowLoading();;
+            ShowLoading();
             if (oldPassword == "")
                 vMessage += "- Debe ingresar la Contraseña Anterior.\n";
 
@@ -466,7 +467,7 @@ $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
                     NewPassword: newPassword01
                 };
 
-                ShowLoading();;
+                ShowLoading();
                 jQuery.ajax({
                     type: 'POST',
                     url: '@Url.Action("CambiarContrasenia", "MisDatos", new { area = "Mobile" })',

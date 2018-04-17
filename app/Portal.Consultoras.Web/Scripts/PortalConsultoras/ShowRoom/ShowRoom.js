@@ -282,7 +282,13 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $('body').on('click', '[data-tono-showroom-change]', function (e) {
+    if (isMobile()) {
+        $('[data-tono-showroom-change]').click(mostrarListaTonos);
+    } else {
+        $('body').on('click', '[data-tono-showroom-change]', mostrarListaTonos);
+    }  
+
+    function mostrarListaTonos() {
         var accion = $(this).attr("data-tono-showroom-change");
 
         var hideSelect = $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible");
@@ -336,9 +342,7 @@ $(document).ready(function () {
         if (btnActivar) {
             $('#btnAgregalo').removeClass('btn_desactivado_general');
         }
-
-    });
-
+    }
 });
 
 
@@ -743,7 +747,7 @@ function AsignarPosicionAListaOfertas(listaOfertas) {
     $.each(listaOfertas, function (index, value) {
         posicion++;
         value.Posicion = posicion;
-        value.Contenido = ConstruirDescripcionOferta(value.ListaDetalleOfertaShowRoom);
+        value.Contenido = ConstruirDescripcionOferta(value.ProductoTonos);
         nuevaListaOfertas.push(value);
     });
 
@@ -752,7 +756,7 @@ function AsignarPosicionAListaOfertas(listaOfertas) {
 function ConstruirDescripcionOferta(arrDescripcion) {
     var descripcion = "";
     $.each(arrDescripcion, function (index, value) {
-        descripcion += value.NombreProducto + "<br />";
+        descripcion += value.NombreComercial + "<br />";
     });
     return descripcion;
 }

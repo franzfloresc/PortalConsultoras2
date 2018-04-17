@@ -2,8 +2,10 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServiceCliente;
+using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServicePedidoRechazado;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
@@ -152,10 +154,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var userData = UserData();
             using (var service = new SACServiceClient())
             {
-                //var beSolicitudCliente = service.GetSolicitudCliente(userData.PaisID, SolicitudId);
-                //var tablalogicaDatosMail = service.GetTablaLogicaDatos(userData.PaisID, 57);
-                //var emailOculto = tablalogicaDatosMail.First(x => x.TablaLogicaDatosID == 5701).Descripcion;
-
                 var tablalogicaDatos = service.GetTablaLogicaDatos(userData.PaisID, 56);
 
                 var numIteracionMaximo = Convert.ToInt32(tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5601).Codigo);
@@ -379,6 +377,39 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
         }
 
+        public ActionResult DetallePagoEnLinea(int solicitudId)
+        {
+            BEPagoEnLineaResultadoLog pagoEnLinea;
+
+            using (PedidoServiceClient ps = new PedidoServiceClient())
+            {
+                pagoEnLinea = ps.ObtenerPagoEnLineaById(userData.PaisID, solicitudId);
+            }
+
+            if (!pagoEnLinea.Visualizado)
+            {
+                using (UsuarioServiceClient us = new UsuarioServiceClient())
+                {
+                    us.UpdNotificacionPagoEnLineaVisualizacion(userData.PaisID, solicitudId);
+                }
+            }
+
+            var pagoEnLineaModel = new PagoEnLineaModel
+            {
+                CodigoIso = userData.CodigoISO,
+                NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre),
+                NumeroOperacion = pagoEnLinea.NumeroOrdenTienda,
+                Simbolo = userData.Simbolo,
+                MontoDeuda = pagoEnLinea.MontoPago,
+                MontoGastosAdministrativosNot = pagoEnLinea.MontoGastosAdministrativos,
+                MontoDeudaConGastosNot = pagoEnLinea.ImporteAutorizado,
+                FechaCreacion = pagoEnLinea.FechaCreacion,
+                FechaVencimiento = pagoEnLinea.FechaVencimiento
+            };
+
+            return View("DetallePagoEnLinea", pagoEnLineaModel);
+        }
+
         #endregion
 
         #region Metodos
@@ -389,7 +420,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             List<BENotificaciones> list;
             using (var sv = new UsuarioServiceClient())
             {
-                list = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR).ToList();
+                list = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR, userData.TienePagoEnLinea).ToList();
             }
             return list;
         }

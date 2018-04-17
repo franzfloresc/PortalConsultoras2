@@ -1,4 +1,4 @@
-﻿
+﻿@model Portal.Consultoras.Web.Models.RevistaDigitalInformativoModel
 <div class="Content_general_pop_up CompartirCorreoPop contenedor_fondo_popup" id="PopRDSuscripcion" data-popup-main=""
      style="display:none; font-family: 'Lato' !important;"
      data-popup-function-hide="RDPopupMobileCerrar()">
@@ -7,29 +7,41 @@
             <div class="centrar-estructura estructura_confirmar_datos">
                 <div class="centrar-vertical-contenido">
                     <div class="form_datos">
-                        <p class="felicidades">FELICIDADES @ViewBag.NombreConsultora</p>
-                        <p class="estasganando">¡YA ESTÁS SUSCRITA!</p>
+                        <p class="felicidades">¡FELICIDADES @Model.NombreConsultora!</p>
+                        <p class="estasganando">DISFRUTA LOS BENEFICIOS DESDE LA CAMPAÑA @Model.CampaniaX1</p>
                         <span class="confirmanos">
-                            Confírmanos tus datos <b>y además de los beneficios del Club</b>, podrás recibir los mejores tips para ganar.
+                            Ya estás suscrita al Club. <br />
+                            Por favor, confirmanos tus datos.
                         </span>
                         <div class="form-datos">
                             <div class="input">
+                                <p id="errorCampos" class="txtvalidar" style="display: none">Debe ingresar al menos un campo.</p>
+                            </div>
+                            <div class="input">
                                 <img src="~/Content/Images/mailIcon.png" alt="" class="envelope" />
-                                <input id="CorreoAnterior" type="hidden" value="@ViewBag.EMail" />
-                                <input id="Email" type="text" value="@ViewBag.EMail" placeholder="Tu correo electrónico" class="txtformvalidar" />
+                                <input id="CorreoAnterior" type="hidden" value="@Model.Email" />
+                                <input id="Email" type="text" value="@Model.Email" placeholder="Tu correo electrónico" class="txtformvalidar" />
+                                <p id="errorEmail" class="txtvalidar" style="display: none">Debe ingresar un email válido</p>
                             </div>
                             <div class="input">
                                 <img src="~/Content/Images/phoneIcon.png" alt="" class="phone" />
-                                <input type="hidden" id="hdn_CaracterMinimo" value="@ViewBag.limiteMinimoTelef" />
-                                <input id="Celular" type="text" value="@ViewBag.Celular" placeholder="Tu teléfono" class="txtformvalidar" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'Celular')" />
+                                <input type="hidden" id="hdn_CaracterMinimo" value="@Model.LimiteMin" />
+                                <input type="hidden" id="hdn_CaracterMaximo" value="@Model.LimiteMax" />
+                                <input id="Celular" type="text" value="@Model.Celular" placeholder="Tu teléfono" class="txtformvalidar" />
+                                <p id="errorPhone" class="txtvalidar" style="display: none">Debe ingresar un número válido</p>
                             </div>
-                            <button onclick="javascript:return RDConfirmarDatos();">CONFIRMAR DATOS</button>
-                            <div class="input">
-                                <img src="~/Content/Images/alertIcon.png" alt="" class="info">
-                                <span>
-                                    No olvides buscar nuestro mail en tus correos no deseados y/o promociones y agregarlo como remitente seguro.
-                                </span>
+
+                            <div class="validar_chk">
+                                <div class="inputchk">
+                                    <input type="checkbox" name="chkinput" id="chkinput" />
+                                    <label for="chkinput"></label>
+                                </div>
+                                <div class="txtchk">
+                                    Declaro que he leído los <a href="@Model.UrlTerminosCondicionesDatosUsuario" target="_blank" style="text-decoration:underline;">términos y condiciones</a> sobre Protección de Datos Personales y que me encuentro de acuerdo con los mismos.<span class="obligatorio">(Obligatorio)</span>
+                                </div>
+                                <div style="clear:both;"></div>
                             </div>
+                            <button>CONFIRMAR DATOS</button>
                         </div>
                     </div>
                 </div>

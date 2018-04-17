@@ -32,6 +32,15 @@ namespace Portal.Consultoras.Data
             return Convert.ToDecimal(Context.ExecuteScalar(command));
         }
 
+        public IDataReader GetPagoEnlineaInfo(string Codigo, int CampaniaId, int ZonaId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetInformacionPagoConsultora");
+            Context.Database.AddInParameter(command, "@Codigo", DbType.String, Codigo);
+            Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int64, CampaniaId);
+            Context.Database.AddInParameter(command, "@ZonaId", DbType.Int64, ZonaId);
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetConsultoraByCodigo(string codigo, string codigoZona, string numeroDocumento)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraByCodigo");
@@ -173,5 +182,14 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
+
+        public string GetConsultoraByDocumento(string Codigo,int TipoDoc)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("lideres.GetTipoDocumentoConsultora");
+            Context.Database.AddInParameter(command, "@Documento", DbType.String, Codigo);
+            Context.Database.AddInParameter(command, "@TipoDocumento", DbType.Int32, TipoDoc);
+            return Convert.ToString(Context.ExecuteScalar(command));
+        }
+
     }
 }

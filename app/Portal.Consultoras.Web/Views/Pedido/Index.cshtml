@@ -1,9 +1,12 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Models
+@using Portal.Consultoras.Web.SessionManager
 @model PedidoSb2Model
 
 @{
     ViewBag.Title = "Ingresa tu Pedido";
+
+    var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
 }
 
 @section styles{
@@ -235,7 +238,7 @@
                                         <div class="texto_cupon_monto">Agrega alguna oferta exclusiva web para hacer válido tu cupón de descuento de 00 % || S/. 00.00</div>
                                     </div>
                                 </div>
-                                
+
                                 <hr class="clear" />
                                 <hr class="separador_montos" />
                                 <div class="caja_montos_textos">
@@ -352,7 +355,7 @@
                             string[] tooltips = (Model.ProlTooltip ?? "").Split('|');
                             string tooltip1 = "";
                             string tooltip2 = "";
-                            
+
                             if (ViewBag.TipoUsuario == 2)
                             {
                                 tooltip1 = "TE ENCUENTRAS UNA SESIÓN DE PRUEBA";
@@ -366,13 +369,14 @@
                         }
                         @{
                             if (ViewBag.TipoUsuario == 2)
-                            { 
+                            {
                                 <div class="tooltip_importanteGuardarPedido" style="width:370px;">
                                     <text>@tooltip1</text>
                                     <span>@tooltip2</span>
                                 </div>
                             }
-                            else { 
+                            else
+                            {
                                 <div class="tooltip_importanteGuardarPedido">
                                     <text>@tooltip1</text>
                                     <span>@tooltip2</span>
@@ -383,6 +387,11 @@
                             <input type="button" id="btnValidarPROL" value="@Model.Prol" style="text-transform: uppercase;" class="info_copy" />
                         </div>
                     </div>
+
+                    <div id="divCondicionesCupon" style="display: none; color: #9b9b9b">    
+                        <div style="margin-top: 19px;width: 42%;float:right;text-align:center;">*No incluye herramientas de venta</div> 
+                        <div class="clearfix"></div>    
+                    </div>  
 
                     <div class="clear"></div>
 
@@ -404,11 +413,14 @@
                     </p>
                 </div>
 
+                
                 <p class="texto_eliminar_pedido">
                     <span class="texto_pedido_completo">
                         Para eliminar el pedido completo <a href="javascript:;" class="link_eliminar_pedido" title="Haz click aquí" onclick="MostrarEliminarPedidoTotal();">haz click aquí</a>
                     </span>
                 </p>
+                
+                
                 <div class="clear"></div>
             </div>
             <div class="clear"></div>
@@ -423,7 +435,7 @@
                     <li data-id="1" data-name="Productos Descontinuados" data-position="pedido-inferior-1">
                         <a onclick="AnalyticsBannersInferiores({ id: '1', name: 'Productos Descontinuados', position: 'pedido-inferior-1' })" href="@Model.accionBanner_01" title="Productos Descontinuados" target="_blank">
                             <div class="imagen_banner_inferior">
-                                <img data-src="@Model.UrlBanner01" alt="Descúbrelos aquí" data-lazy-seccion-banner-pedido=""/>
+                                <img data-src="@Model.UrlBanner01" alt="Descúbrelos aquí" data-lazy-seccion-banner-pedido="" />
                             </div>
                             <div class="nombre_banner_inferior">DESCÚBRELOS AQUÍ</div>
                         </a>
@@ -434,7 +446,7 @@
                         <li data-id="2" data-name="Monto Mínimo" data-position="pedido-inferior-2">
                             <a onclick="AnalyticsBannersInferiores({ id: '2', name: 'Monto Mínimo', position: 'pedido-inferior-2' })" href="javascript:;" title="Monto Mínimo">
                                 <div class="imagen_banner_inferior">
-                                    <img data-src="@Model.UrlBanner02" alt="Monto Mínimo" data-lazy-seccion-banner-pedido=""/>
+                                    <img data-src="@Model.UrlBanner02" alt="Monto Mínimo" data-lazy-seccion-banner-pedido="" />
                                 </div>
                                 <div class="nombre_banner_inferior">MONTO MÍNIMO</div>
                             </a>
@@ -445,7 +457,7 @@
                         <li data-id="3" data-name="Liquidaciones Web" data-position="pedido-inferior-3">
                             <a onclick="AnalyticsBannersInferiores({ id: '3', name: 'Liquidaciones Web', position: 'pedido-inferior-3' })" href="@Url.Action("OfertasLiquidacion", "OfertaLiquidacion")" title="Liquidaciones Web">
                                 <div class="imagen_banner_inferior">
-                                    <img data-src="@Model.UrlBanner02" alt="Entérate aquí" data-lazy-seccion-banner-pedido=""/>
+                                    <img data-src="@Model.UrlBanner02" alt="Entérate aquí" data-lazy-seccion-banner-pedido="" />
                                 </div>
                                 <div class="nombre_banner_inferior">ENTÉRATE AQUÍ</div>
                             </a>
@@ -455,7 +467,7 @@
                     <li data-id="4" data-name="Productos Agotados" data-position="pedido-inferior-4">
                         <a onclick="AnalyticsBannersInferiores({ id: '4', name: 'Productos Agotados', position: 'pedido-inferior-4' }); CargarProductoAgotados();" href="javascript:;" title="Productos Agotados">
                             <div class="imagen_banner_inferior">
-                                <img data-src="@Model.UrlBanner03" alt="Infórmate aquí" data-lazy-seccion-banner-pedido=""/>
+                                <img data-src="@Model.UrlBanner03" alt="Infórmate aquí" data-lazy-seccion-banner-pedido="" />
                             </div>
                             <div class="nombre_banner_inferior">INFÓRMATE AQUÍ</div>
                         </a>
@@ -486,7 +498,7 @@
                     <div class="revision_pedidosAceptados">
                         <span class="texto_revisaPedidos">Revisa tus pedidos aceptados en:</span>
                         <span class="icono_consultoraOnline"></span>
-                    <span class="texto_misPedidosClientesOnline" style="cursor: pointer;" onclick="MostrarMisPedidosConsultoraOnline();">MIS PEDIDOS DEL <b>APP DE CATÁLOGOS</b></span>
+                        <span class="texto_misPedidosClientesOnline" style="cursor: pointer;" onclick="MostrarMisPedidosConsultoraOnline();">MIS PEDIDOS DEL <b>APP DE CATÁLOGOS</b></span>
                     </div>
 
                     <div style="display: none;">
@@ -534,7 +546,7 @@
         }
         @Html.Partial("~/Views/Pedido/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
     </div>
-        
+
     <div class="clear"></div>
     <hr class="clear" />
 </div>
@@ -846,7 +858,7 @@
     </div>
 </div>
 
- <div class="contenedor_popup_agregarUnidades contenedor_popup_error" id="dialog_divReservaSatisfactoria" style="display: none;">
+<div class="contenedor_popup_agregarUnidades contenedor_popup_error" id="dialog_divReservaSatisfactoria" style="display: none;">
     <div class="popup_agregarUnidades">
         <div class="btn_cerrar_agregarUnidades">
             <a href="javascript:;" onclick="return $('#dialog_divReservaSatisfactoria').hide();">
@@ -868,13 +880,12 @@
                 }
             </div>
             <button type="button" name="btn_ok" class="btn_ok" onclick="return $('#dialog_divReservaSatisfactoria').hide();">
-               OK
+                OK
             </button>
         </div>
-   </div>
+    </div>
 </div>
 <!-- FIN POPUP CONFIRMACION DE PEDIDO RESEERVADO -->
-
 <!-- POPUP PRODUCTOS AGOTADOS -->
 <div class="contenedor_popup_productosAgotados" id="divProductoAgotado" style="display: none;">
     <div class="popup_productosAgotados">
@@ -890,11 +901,11 @@
                 CUV:
                 <input id="producto-faltante-busqueda-cuv" type="text" class="producto_faltante ValidaNumeralPedido" maxlength="5">
                 Producto:
-                <input id="producto-faltante-busqueda-descripcion" type="text"  class="producto_faltante">
+                <input id="producto-faltante-busqueda-descripcion" type="text" class="producto_faltante">
                 <input type="button" onclick="CargarProductoAgotados();" class="buscar_icono">
             </div>
             <div class="tabla_productos_agotados" id="tblProductosFaltantes" style="overflow-y:hidden;">
-        </div>
+            </div>
         </div>
         <div class="clear"></div>
     </div>
@@ -986,8 +997,8 @@
                 AGRÉGALO
             </a>
         </div>
-        <hr class="clear" /> 
-        </div>
+        <hr class="clear" />
+    </div>
 </div>
 <!--FIN-->
 <!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
@@ -1027,595 +1038,595 @@
 }
 <!--FIN POPUP PRODUCTOS PRECARGADOS - HD1399 -->
 
-        @if (ViewBag.MostrarPedidosPendientes == "1")
-        {
+@if (ViewBag.MostrarPedidosPendientes == "1")
+{
     <!--PENDIENTES APP CATALOGO-->
-            <div id="popup_pendientes" class="contenedor_popup_percepciones" style="display: none;">
-                <div class="popup_Pendientes">
-                    <div class="cubre"></div>
+    <div id="popup_pendientes" class="contenedor_popup_percepciones" style="display: none;">
+        <div class="popup_Pendientes">
+            <div class="cubre"></div>
 
-                    <input type="hidden" id="hdIdComprobantePercepcion">
+            <input type="hidden" id="hdIdComprobantePercepcion">
 
-                    <div class="btn_cerrar_popupPercepcion">
-                        <a class="regresaPendientes" title="Regresar" style="text-align: right;">
-                            <div class="icono_regresar"><img src="/Content/Images/btn_regresar.svg" alt="Regresar"></div>
-                            <div class="texto_btn_regresar">REGRESAR</div>
-                        </a>
-                    </div>
-
-                    <div id="divPopupPedidoPend"></div>
-
-                </div>
+            <div class="btn_cerrar_popupPercepcion">
+                <a class="regresaPendientes" title="Regresar" style="text-align: right;">
+                    <div class="icono_regresar"><img src="/Content/Images/btn_regresar.svg" alt="Regresar"></div>
+                    <div class="texto_btn_regresar">REGRESAR</div>
+                </a>
             </div>
+
+            <div id="divPopupPedidoPend"></div>
+
+        </div>
+    </div>
     <!--FIN PENDIENTES APP CATALOGO-->
 
 
     <!--Popup mensaje como lo atenderas -->
 
-            <div class="contenedor_popup_agregarUnidades" id="dialog_mensajeComoAtender" style="display: none;">
-                <div class="popup_agregarUnidades">
+    <div class="contenedor_popup_agregarUnidades" id="dialog_mensajeComoAtender" style="display: none;">
+        <div class="popup_agregarUnidades">
 
-                    <div class="btn_cerrar_agregarUnidades">
-                        <a id="aceptandoPendientes_1" onclick="$('#dialog_mensajeComoAtender').hide()">
-                            <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
-                        </a>
-                    </div>
-                    <div class="contenido_popUp aceptaPedido">
-                        <div class="icono_exclamacion" id="apro_o_excla_1"></div>
-                        <h1 class="titulo_agregarUnidades"><b>IMPORTANTE</b></h1>
-                        <span class="mensaje_agregarUnidades">Por favor elige cómo atenderás todos los productos del pedido.</span>
-                        <button type="button" class="btn_ok ok_aceptaPedido" onclick="$('#dialog_mensajeComoAtender').hide()">
-                            OK
-                        </button>
-                    </div>
-                </div>
+            <div class="btn_cerrar_agregarUnidades">
+                <a id="aceptandoPendientes_1" onclick="$('#dialog_mensajeComoAtender').hide()">
+                    <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
+                </a>
             </div>
+            <div class="contenido_popUp aceptaPedido">
+                <div class="icono_exclamacion" id="apro_o_excla_1"></div>
+                <h1 class="titulo_agregarUnidades"><b>IMPORTANTE</b></h1>
+                <span class="mensaje_agregarUnidades">Por favor elige cómo atenderás todos los productos del pedido.</span>
+                <button type="button" class="btn_ok ok_aceptaPedido" onclick="$('#dialog_mensajeComoAtender').hide()">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
     <!--Popup mensaje como lo atenderas -->
 
     <!--PENDIENTES PORTAL-->
-            <div id="popup2_pendientes" class="contenedor_popup_percepciones popupPendientesPORTAL" style="display: none;">
-                <div class="popup_Pendientes">
-                    <div class="cubre cubre2"></div>
+    <div id="popup2_pendientes" class="contenedor_popup_percepciones popupPendientesPORTAL" style="display: none;">
+        <div class="popup_Pendientes">
+            <div class="cubre cubre2"></div>
 
-                    <input type="hidden" id="hdIdComprobantePercepcion">
+            <input type="hidden" id="hdIdComprobantePercepcion">
 
-                    <div class="btn_cerrar_popupPercepcion cerrarPendientesPORTAL">
-                        <a class="regresaPendientes" title="Regresar" style="text-align: right;">
-                            <div class="icono_regresar"><img src="/Content/Images/btn_regresar.svg" alt="Regresar"></div>
-                            <div class="texto_btn_regresar">REGRESAR</div>
-                        </a>
-                    </div>
-
-                    <div id="divPopup2PedidoPend"></div>
-                </div>
+            <div class="btn_cerrar_popupPercepcion cerrarPendientesPORTAL">
+                <a class="regresaPendientes" title="Regresar" style="text-align: right;">
+                    <div class="icono_regresar"><img src="/Content/Images/btn_regresar.svg" alt="Regresar"></div>
+                    <div class="texto_btn_regresar">REGRESAR</div>
+                </a>
             </div>
+
+            <div id="divPopup2PedidoPend"></div>
+        </div>
+    </div>
     <!--FIN OPCION PENDIENTES DE PEDIDO-->
 
     <!--TRUCOS DE BLOQUEO-->
-            <div class="truco_bloqueo sim1"></div>
-            <div class="truco_bloqueo sim3"></div>
-            <div class="truco_bloqueo sim4"></div>
+    <div class="truco_bloqueo sim1"></div>
+    <div class="truco_bloqueo sim3"></div>
+    <div class="truco_bloqueo sim4"></div>
     <!--TRUCOS DE BLOQUEO-->
 
     <!--INICIO MODAL DE CONFIRMACIÓN DE RECHAZO EN PENDIENTES-->
-            <div class="contenedor_popup_agregarUnidades" id="dialog_confirmacionRechazo" style="display: none;">
-                <div class="popup_rechazarPendientes">
-                    <input type="hidden" id="hdePedidoIdRechazo" />
-                    <div class="btn_cerrar_agregarUnidades">
-                        <a id="cierreRechazoPendientes" onclick="$('#dialog_confirmacionRechazo').hide()">
-                            <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
-                        </a>
-                    </div>
-                    <div class="contenido_popUp confirmacionRechazo">
-                        <div class="icono_exclamacion" id="apro_o_excla"></div>
-                        <h1 class="titulo_confirma"><b>¿VAS A RECHAZAR EL PEDIDO?</b></h1>
-                        <span class="mensaje_agregarUnidades">Si rechazas el pedido vas a perderlo</span>
-                        <button type="button" class="btn_eliminarCliente venizquierda sedetiene" onclick="$('#dialog_confirmacionRechazo').hide()">
-                            NO, DÉJAME VERLO
-                        </button>
-                        <button type="button" class="btn_eliminarCliente venderecha prosigue" onclick="ShowPopupMotivoRechazo()">
-                            SÍ, RECHAZO EL PEDIDO
-                        </button>
-                    </div>
-                </div>
+    <div class="contenedor_popup_agregarUnidades" id="dialog_confirmacionRechazo" style="display: none;">
+        <div class="popup_rechazarPendientes">
+            <input type="hidden" id="hdePedidoIdRechazo" />
+            <div class="btn_cerrar_agregarUnidades">
+                <a id="cierreRechazoPendientes" onclick="$('#dialog_confirmacionRechazo').hide()">
+                    <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
+                </a>
             </div>
-
-            <div class="contenedor_popup_agregarUnidades" id="dialog_mensajeRechazado" style="display: none;">
-                <div class="popup_rechazarPendientes">
-
-                    <div class="btn_cerrar_agregarUnidades">
-                        <a id="cierreRechazoPendientes" onclick="$('#dialog_mensajeRechazado').hide()">
-                            <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
-                        </a>
-                    </div>
-                    <div class="contenido_popUp confirmacionRechazo">
-                        <div class="icono_exclamacion" id="apro_o_excla"></div>
-                        <h1 class="titulo_confirma"><b>RECHAZASTE</b> EL PEDIDO</h1>
-                        <span class="mensaje_agregarUnidades">Ya esta eliminado de tu lista de pendientes.</span>
-                        <button type="button" class="btn_ok ok_aceptaPedido" onclick="CerrarMensajeRechazado()">
-                            OK
-                        </button>
-                    </div>
-                </div>
+            <div class="contenido_popUp confirmacionRechazo">
+                <div class="icono_exclamacion" id="apro_o_excla"></div>
+                <h1 class="titulo_confirma"><b>¿VAS A RECHAZAR EL PEDIDO?</b></h1>
+                <span class="mensaje_agregarUnidades">Si rechazas el pedido vas a perderlo</span>
+                <button type="button" class="btn_eliminarCliente venizquierda sedetiene" onclick="$('#dialog_confirmacionRechazo').hide()">
+                    NO, DÉJAME VERLO
+                </button>
+                <button type="button" class="btn_eliminarCliente venderecha prosigue" onclick="ShowPopupMotivoRechazo()">
+                    SÍ, RECHAZO EL PEDIDO
+                </button>
             </div>
+        </div>
+    </div>
+
+    <div class="contenedor_popup_agregarUnidades" id="dialog_mensajeRechazado" style="display: none;">
+        <div class="popup_rechazarPendientes">
+
+            <div class="btn_cerrar_agregarUnidades">
+                <a id="cierreRechazoPendientes" onclick="$('#dialog_mensajeRechazado').hide()">
+                    <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
+                </a>
+            </div>
+            <div class="contenido_popUp confirmacionRechazo">
+                <div class="icono_exclamacion" id="apro_o_excla"></div>
+                <h1 class="titulo_confirma"><b>RECHAZASTE</b> EL PEDIDO</h1>
+                <span class="mensaje_agregarUnidades">Ya esta eliminado de tu lista de pendientes.</span>
+                <button type="button" class="btn_ok ok_aceptaPedido" onclick="CerrarMensajeRechazado()">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
     <!--FINAL MODAL DE CONFIRMACIÓN DE RECHAZO EN PENDIENTES-->
 
     <!--INICIO MODAL DE CONFIRMACIÓN DE RECHAZO EN PENDIENTES-->
-            <div class="contenedor_popup_agregarUnidades" id="dialog_motivoRechazo" style="display: none;">
-                <div class="popup_agregarUnidades mrechaza">
-                    <div class="btn_cerrar_agregarUnidades">
-                        <a id="cierreMotivoRechazo" onclick="RechazarPedido();">
-                            <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
-                        </a>
-                    </div>
-                    <div class="contenido_popUp motivoRechazo">
-
-                        <input type="hidden" name="SolicitudId" id="SolicitudId" />
-                        <input type="hidden" name="NumIteracion" id="NumIteracion" />
-                        <input type="hidden" name="CodigoUbigeo" id="CodigoUbigeo" />
-                        <input type="hidden" name="Campania" id="Campania" />
-                        <input type="hidden" name="MarcaID" id="MarcaID" />
-                        <h1 class="titulo_mensajeMotivoRechazo"><b>¡CUÉNTANOS PORQUÉ LO RECHAZASTE!</b></h1>
-
-                        @foreach (var motivoRechazo in ViewBag.MotivosRechazo)
-                        {
-                            <div class="optionsRechazo" data-id="@motivoRechazo.MotivoSolicitudID">@motivoRechazo.Motivo</div>
-                        }
-
-                        <textarea id="txtOtrosRechazo" placeholder="" readonly="readonly" maxlength="300"></textarea>
-                    </div>
-                    <button type="button" class="btn_eliminarCliente btn-negro" id="btnRechazarPedido" onclick="RechazarPedido()">
-                        ENVIAR
-                    </button>
-                </div>
+    <div class="contenedor_popup_agregarUnidades" id="dialog_motivoRechazo" style="display: none;">
+        <div class="popup_agregarUnidades mrechaza">
+            <div class="btn_cerrar_agregarUnidades">
+                <a id="cierreMotivoRechazo" onclick="RechazarPedido();">
+                    <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
+                </a>
             </div>
+            <div class="contenido_popUp motivoRechazo">
+
+                <input type="hidden" name="SolicitudId" id="SolicitudId" />
+                <input type="hidden" name="NumIteracion" id="NumIteracion" />
+                <input type="hidden" name="CodigoUbigeo" id="CodigoUbigeo" />
+                <input type="hidden" name="Campania" id="Campania" />
+                <input type="hidden" name="MarcaID" id="MarcaID" />
+                <h1 class="titulo_mensajeMotivoRechazo"><b>¡CUÉNTANOS PORQUÉ LO RECHAZASTE!</b></h1>
+
+                @foreach (var motivoRechazo in ViewBag.MotivosRechazo)
+                {
+                    <div class="optionsRechazo" data-id="@motivoRechazo.MotivoSolicitudID">@motivoRechazo.Motivo</div>
+                }
+
+                <textarea id="txtOtrosRechazo" placeholder="" readonly="readonly" maxlength="300"></textarea>
+            </div>
+            <button type="button" class="btn_eliminarCliente btn-negro" id="btnRechazarPedido" onclick="RechazarPedido()">
+                ENVIAR
+            </button>
+        </div>
+    </div>
     <!--FINAL MODAL DE CONFIRMACIÓN DE RECHAZO EN PENDIENTES-->
 
     <!--INICIO MODAL ACEPTAR PEDIDOS PENDIENTES-->
-            <div class="contenedor_popup_agregarUnidades" id="dialog_aceptasPendientes" style="display: none;">
-                <div class="popup_agregarUnidades">
-                    <input type="hidden" id="hdePedidoIdAcepto" />
-                    <div class="btn_cerrar_agregarUnidades">
-                        <a id="aceptandoPendientes" onclick="$('#dialog_aceptasPendientes').hide()">
-                            <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
-                        </a>
-                    </div>
-                    <div class="contenido_popUp aceptaPedido">
-                        <div class="icono_aprobacion" id="apro_o_excla"></div>
-                        <h1 class="titulo_agregarUnidades">PEDIDO <b>ACEPTADO</b></h1>
-                        <span class="mensaje_agregarUnidades" id="msgPedidoAceptado1">No te olvides de coordinar la entrega de los productos.</span>
-                        <button type="button" class="btn_ok ok_aceptaPedido" onclick="CerrarMensajeAceptado(1);">
-                            OK
-                        </button>
-                    </div>
-                </div>
+    <div class="contenedor_popup_agregarUnidades" id="dialog_aceptasPendientes" style="display: none;">
+        <div class="popup_agregarUnidades">
+            <input type="hidden" id="hdePedidoIdAcepto" />
+            <div class="btn_cerrar_agregarUnidades">
+                <a id="aceptandoPendientes" onclick="$('#dialog_aceptasPendientes').hide()">
+                    <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
+                </a>
             </div>
+            <div class="contenido_popUp aceptaPedido">
+                <div class="icono_aprobacion" id="apro_o_excla"></div>
+                <h1 class="titulo_agregarUnidades">PEDIDO <b>ACEPTADO</b></h1>
+                <span class="mensaje_agregarUnidades" id="msgPedidoAceptado1">No te olvides de coordinar la entrega de los productos.</span>
+                <button type="button" class="btn_ok ok_aceptaPedido" onclick="CerrarMensajeAceptado(1);">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
 
-            <div class="contenedor_popup_agregarUnidades" id="dialog2_aceptasPendientes" style="display: none;">
-                <div class="popup_agregarUnidades">
-                    <input type="hidden" id="hdePedidoIdAcepto" />
-                    <div class="btn_cerrar_agregarUnidades">
-                        <a id="aceptandoPendientes" onclick="$('#dialog2_aceptasPendientes').hide()">
-                            <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
-                        </a>
-                    </div>
-                    <div class="contenido_popUp aceptaPedido">
-                        <div class="icono_aprobacion" id="apro_o_excla"></div>
-                        <h1 class="titulo_agregarUnidades">PEDIDO <b>ACEPTADO</b></h1>
-                        <span class="mensaje_agregarUnidades">No te olvides de ingresar en tu pedido los productos de este cliente.</span>
-                        <button type="button" class="btn_ok ok_aceptaPedido" onclick="CerrarMensajeAceptado(2);">
-                            OK
-                        </button>
-                    </div>
-                </div>
+    <div class="contenedor_popup_agregarUnidades" id="dialog2_aceptasPendientes" style="display: none;">
+        <div class="popup_agregarUnidades">
+            <input type="hidden" id="hdePedidoIdAcepto" />
+            <div class="btn_cerrar_agregarUnidades">
+                <a id="aceptandoPendientes" onclick="$('#dialog2_aceptasPendientes').hide()">
+                    <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
+                </a>
             </div>
+            <div class="contenido_popUp aceptaPedido">
+                <div class="icono_aprobacion" id="apro_o_excla"></div>
+                <h1 class="titulo_agregarUnidades">PEDIDO <b>ACEPTADO</b></h1>
+                <span class="mensaje_agregarUnidades">No te olvides de ingresar en tu pedido los productos de este cliente.</span>
+                <button type="button" class="btn_ok ok_aceptaPedido" onclick="CerrarMensajeAceptado(2);">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
     <!--FIN MODAL ACEPTAR PEDIDOS PENDIENTES-->
 
-            
+
 
     <!--TAPS-->
-            <div class="tapsPedidos"></div>
+    <div class="tapsPedidos"></div>
 
-            <script id="pedidopend-template" type="text/x-handlebars-template">
-                {{#each this}}
+    <script id="pedidopend-template" type="text/x-handlebars-template">
+        {{#each this}}
 
-                <div class="content_datos_percepciones mouse-encima-padding">
-                    <div class="padding_tabla_percepcion dinamicostablegrande izq grillaPendientes">
-                        <span class="texto_pedidos_pendientes">
-                            {{#if FlagConsultora}}
-                            <label> CLIENTE EXISTENTE </label>
-                            {{else}}
-                            <label> NUEVO CLIENTE </label>
-                            {{/if}}
-                        </span>
-                        {{Cliente}}
-                    </div>
-                    <div class="padding_tabla_percepcion dinamicostablegrande grillaPendientes">
-                        {{#if_eq MarcaID '0'}}
-                        {{MedioContacto}}
-                        {{else}}
-                        Portal {{Marca}}
-                        {{/if_eq}}
-                    </div>
-
-                    <div class="padding_tabla_percepcion dinamicostable grillaPendientes">{{FormartoFechaSolicitud}}</div>
-                    <div class="padding_tabla_percepcion dinamicostablemedio grillaPendientes">@Model.Simbolo {{FormatoPrecioTotal}}</div>
-                    <div class="padding_tabla_percepcion dinamicostablegrande grillaPendientes">
-
-                        <input type="hidden" id="pedidopend_{{PedidoId}}" value="{{PedidoId}}|{{MarcaID}}|{{Campania}}|{{Cliente}}|{{Telefono}}|{{Direccion}}|{{Email}}|{{Mensaje}}|{{Leido}}|{{NumIteracion}}|{{CodigoUbigeo}}|{{FechaSolicitud}}|{{MedioContacto}}|{{FormatoPrecioTotal}}|{{SaldoHoras}}|{{FlagConsultora}}" />
-                        <button type="button" class="btn_revisalo_pendientes1" onclick="CargarPopupPedidoPend('{{PedidoId}}');">
-                            REVÍSALO
-
-                            <div class="info_tiempo_oportunidad">
-                                <span class="texto_pedidos_pendientes tips">
-                                    <label>¡No pierdas esta oportunidad!</label>
-                                </span>
-                                {{#if FlagConsultora}}
-                                <h6 class="tiempos_P">Te quedan <span><b>24:00:00</b></span> horas</h6>
-                                {{else}}
-                                <h6 class="tiempos_P">Te quedan <span><b>{{SaldoHoras}}</b></span> horas</h6>
-                                {{/if}}
-                                <h4 class="linkea_Pendientes tooltipPendientes">►REVÍSALO</h4>
-                            </div>
-                        </button>
-
-                    </div>
-                </div>
-
-                {{/each}}
-            </script>
-
-            <script id="popup-pedidopend-template" type="text/x-handlebars-template">
-                <div class="content_popUp_Pendientes">
-                    <div class="mensajes_deAtencion">
-                        <span>¡No te pierdas esta oportunidad!</span>
-                        {{#if FlagConsultora}}
-                        <span>Te quedan <br>24:00:00</span>
-                        {{else}}
-                        <span>Te quedan <br>{{SaldoHoras}}</span>
-                        {{/if}}
-                        <div class="clear"></div>
-                    </div>
-
-                    <div class="percepcion_campania libero">
-                        <h1><b>PRIMERO, CONTÁCTATE CON {{Contacto}} ...</b></h1>
-                        <h5>Tu cliente esta esperando que la contactes. Confirma los productos, precios y forma de entrega.<br>Luego elige como entregarás cada producto para que puedas aceptar todo el pedido.</h5>
-                    </div>
-
-                    <div class="contenedor_bloque_datos">
-                        <div class="datos_cliente_pendientes">
-
-                            <div class="bloque_datos izq">
-                                <div class="nombre_cliente">
-                                    <span class="AtribCliente">Nombre:</span>
-                                    <span class="datoPedidoCliente" id="sc-d1-nombre">{{Nombre}}</span>
-                                </div>
-
-                                <div class="telefono_cliente">
-                                    <span class="AtribCliente">Teléfono:</span>
-                                    <span class="datoPedidoCliente" id="sc-d1-telefono">{{Telefono}}</span>
-                                </div>
-                            </div>
-                            <div class="bloque_datos der">
-                                <div class="correo_cliente">
-                                    <span class="AtribCliente">Correo:</span>
-                                    <span class="datoPedidoCliente" id="sc-d1-correo">{{Email}}</span>
-                                </div>
-
-                                <div class="direccion_cliente">
-                                    <span class="AtribCliente">Dirección:</span>
-                                    <span class="datoPedidoCliente">{{Direccion}}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="content_datos_pendientes">
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemini">Código</div>
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Producto</div>
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Unidades</div>
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Precio Unitario</div>
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Subtotal</div>
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">¿Cómo lo Atenderás?</div>
-                    </div>
-                    <div class="linea_separadora" style="margin-top:-1px"></div>
-                    <!--CONTENIDO DE TABLAS PERCEPCIÓN-->
-
-                    <div style="max-height: 226px; overflow-y:auto;">
-
-                        <div id="divDetPedidoPend"> </div>
-
-                    </div>
-
-                    <div class="linea_separadora" style="height:2px;"></div>
-
-                    <div class="calculo_PendientesTotal">
-
-                        <h4 class="txtderecha">TOTAL PEDIDO: <span>@Model.Simbolo {{PrecioTotal}}</span></h4>
-
-                    </div>
-
-                    <div class="linea_separadora_roja" style="height: 2px;"></div>
-
-                    <div class="btn_grupo_accionesPedido accionesPendientes">
-                        <button id="rechazarPendientes" type="button" class="btn_eliminarCliente venizquierda" onclick="ShowPopupRechazoPedido('{{PedidoId}}','1')">
-                            RECHAZO EL PEDIDO
-                        </button>
-                        <button id="aceptarPendientes" type="button" class="btn_noEliminarCliente venderecha" onclick="AceptarPedido('{{PedidoId}}', '1')">
-                            ACEPTO TODO EL PEDIDO
-                        </button>
-                    </div>
-                </div>
-            </script>
-
-            <script id="popup2-pedidopend-template" type="text/x-handlebars-template">
-                <div class="content_popUp_Pendientes">
-                    <div class="mensajes_deAtencion">
-
-                        <span>¡No te pierdas esta oportunidad!</span>
-                        {{#if FlagConsultora}}
-                        <span>Te quedan<br>00:00:00</span>
-                        {{else}}
-                        <span>Te quedan<br>{{SaldoHoras}}</span>
-                        {{/if}}
-
-                    </div>
-
-                    <div class="percepcion_campania libero">
-                        <h1><b>PRIMERO, CONTÁCTATE CON {{Contacto}}...</b></h1>
-                        <h5>Tu cliente esta esperando que la contactes. Confirma los productos, precios y forma de entrega.<br>Luego elige como entregarás cada producto para que puedas aceptar todo el pedido.</h5>
-                    </div>
-
-                    <div class="contenedor_bloque_datos">
-                        <div class="datos_cliente_pendientes">
-
-                            <div class="bloque_datos izq">
-                                <div class="nombre_cliente">
-                                    <span class="AtribCliente">Nombre:</span>
-                                    <span class="datoPedidoCliente" id="sc-d2-nombre">{{Nombre}}</span>
-                                </div>
-
-                                <div class="telefono_cliente">
-                                    <span class="AtribCliente">Teléfono:</span>
-                                    <span class="datoPedidoCliente" id="sc-d2-telefono">{{Telefono}}</span>
-                                </div>
-                            </div>
-                            <div class="bloque_datos der">
-                                <div class="correo_cliente">
-                                    <span class="AtribCliente">Correo:</span>
-                                    <span class="datoPedidoCliente" id="sc-d2-correo">{{Email}}</span>
-                                </div>
-
-                                <div class="direccion_cliente">
-                                    <span class="AtribCliente">Dirección:</span>
-                                    <span class="datoPedidoCliente">{{Direccion}}</span>
-                                </div>
-                            </div>
-                            <div class="bloque_datos izq">
-                                <div class="nombre_cliente">
-                                    <span class="AtribCliente">Comentario:</span>
-                                    <span class="datoPedidoCliente">{{Comentario}}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="content_datos_pendientes">
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande izq">Producto</div>
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Unidades</div>
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Precio Unitario</div>
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Subtotal</div>
-                    </div>
-                    <div class="linea_separadora" style="margin-top:-1px"></div>
-                    <!--CONTENIDO DE TABLAS PERCEPCIÓN-->
-                    <div style="max-height:419px; overflow:auto;">
-
-                        <div id="divDet2PedidoPend"> </div>
-
-                    </div>
-
-                    <div class="linea_separadora" style="height:2px;"></div>
-
-                    <div class="calculo_PendientesTotal">
-
-                        <h4 class="txtderecha">TOTAL PEDIDO: <span>@Model.Simbolo {{PrecioTotal}}</span></h4>
-
-                    </div>
-
-                    <div class="linea_separadora_roja" style="height: 2px;"></div>
-
-                    <div class="btn_grupo_accionesPedido accionesPendientes">
-                        <button id="rechazarPendientesPORTAL" type="button" class="btn_eliminarCliente venizquierda" onclick="ShowPopupRechazoPedido('{{PedidoId}}', '2')">
-                            RECHAZO EL PEDIDO
-                        </button>
-                        <button id="aceptarPendientesPORTAL" type="button" class="btn_noEliminarCliente venderecha" onclick="AceptarPedido('{{PedidoId}}', '2')">
-                            ACEPTO TODO EL PEDIDO
-                        </button>
-                    </div>
-                </div>
-            </script>
-
-            <script id="detalle-pedidopend-template" type="text/x-handlebars-template">
-                {{#each this}}
-
-                <div class="content_datos_percepciones">
-                    <input type="hidden" value="{{PedidoDetalleId}}" />
-                    <div class="padding_tabla_percepcion dinamicostablemini">{{CUV}}</div>
-                    <div class="padding_tabla_percepcion dinamicostablemedio">{{Producto}}</div>
-                    <div class="padding_tabla_percepcion dinamicostable" id="pedpend-deta2-cantidad">{{Cantidad}}</div>
-                    <div class="padding_tabla_percepcion dinamicostable">@Model.Simbolo {{PrecioUnitario}}</div>
-                    <div class="padding_tabla_percepcion dinamicostable">@Model.Simbolo {{PrecioTotal}}</div>
-                    <div class="padding_tabla_percepcion dinamicostablegrande">
-                        {{#if_eq TieneStock '1'}}
-                        <select class="oscurece" id="ddlAtender_{{@@index}}">
-                            <option value="" selected>¿CÓMO LO ATENDERAS?</option>
-                            <option value="ingrped">INGRESAR A MI PEDIDO</option>
-                            <option value="ingrten">YA LO TENGO</option>
-                        </select>
-                        {{else}}
-                        <span>AGOTADO</span>
-                        {{/if_eq}}
-                    </div>
-
-                    {{#if_eq TieneStock '0'}}
-                    <div class="notiPendientes"><div class="mensajePendientes"><span class="icono_advertencia_notificacion"></span>{{MensajeValidacion}}</div></div>
-                    {{else if_eq EstaEnRevista '1'}}
-                    <div class="notiPendientes"><div class="mensajePendientes"><span class="icono_advertencia_notificacion"></span>{{MensajeValidacion}}</div></div>
-                    {{/if_eq}}
-                </div>
-
-                {{/each}}
-            </script>
-
-            <script id="detalle2-pedidopend-template" type="text/x-handlebars-template">
-                {{#each this}}
-
-                <div class="content_datos_percepciones">
-                    <input type="hidden" value="{{PedidoDetalleId}}" />
-                    <div class="padding_tabla_percepcion dinamicostableextragrande izq">{{Producto}}</div>
-                    <div class="padding_tabla_percepcion dinamicostableextragrande">{{Cantidad}}</div>
-                    <div class="padding_tabla_percepcion dinamicostableextragrande">@Model.Simbolo {{PrecioUnitario}}</div>
-                    <div class="padding_tabla_percepcion dinamicostableextragrande">@Model.Simbolo {{PrecioTotal}}</div>
-                </div>
-
-                {{/each}}
-            </script>
-        }
-        
-        <script id="js-CarruselSugerido" type="text/x-handlebars-template">
-            {{#each this}}
-            <div class="sugerido" data-item="producto">
-                <div class="producto_carousel">
-                    <div style="display: none;">
-                        <input type="hidden" class="hdSugeridoCuv" value="{{CUV}}" />
-                        <input type="hidden" class="hdSugeridoTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
-                        <input type="hidden" class="hdSugeridoConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
-                        <input type="hidden" class="hdSugeridoIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
-                        <input type="hidden" class="hdSugeridoTipo" value="1" />
-                        <input type="hidden" class="hdSugeridoMarcaID" value="{{MarcaID}}" />
-                        <input type="hidden" class="hdSugeridoPrecioUnidad" value="{{PrecioCatalogo}}" />
-                        <input type="hidden" class="hdSugeridoDescripcionProd" value="{{Descripcion}}" />
-                        <input type="hidden" class="hdSugeridoPagina" value="0" />
-                        <input type="hidden" class="hdSugeridoDescripcionCategoria" value="{{DescripcionCategoria}}" />
-                        <input type="hidden" class="hdSugeridoDescripcionMarca" value="{{DescripcionMarca}}" />
-                        <input type="hidden" class="hdSugeridoDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
-                        <input type="hidden" class="hdPosicionSugerido" value="{{posicion}}" />
-                        <input type="hidden" class="hdTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
-                    </div>
-                    <div>
-                        <div class="producto_imagen">
-                            <img src="{{ImagenProductoSugerido}}" alt="" />
-                        </div>
-                        <div class="producto_nombre_descripcion">
-                            <h6>{{DescripcionMarca}}</h6>
-                            <p class="nombre_producto" style="display: inline-table;">
-                                <b>{{Descripcion}}</b>
-                            </p>
-                            <div class="producto_precio">
-                                <span class="producto_precio_oferta"><b>@Model.Simbolo {{PrecioCatalogoString}}</b></span>
-                            </div>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="clear"></div>
-                    <div class="contenedor_cantidad_producto">
-                        <div class="liquidacion_rango_wrapper_pedido">
-                            <input type="text" id="txtCantidad" maxlength="2" value="1" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad">
-                            <div class="liquidacion_rango_right_pedido">
-                                <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                                <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                            </div>
-                        </div>
-                        <a href="#" title="Agregar" class="boton_elegirAgregar agregarSugerido">AGREGAR</a>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="clear"></div>
-                </div>
+        <div class="content_datos_percepciones mouse-encima-padding">
+            <div class="padding_tabla_percepcion dinamicostablegrande izq grillaPendientes">
+                <span class="texto_pedidos_pendientes">
+                    {{#if FlagConsultora}}
+                    <label> CLIENTE EXISTENTE </label>
+                    {{else}}
+                    <label> NUEVO CLIENTE </label>
+                    {{/if}}
+                </span>
+                {{Cliente}}
             </div>
-            {{/each}}
-        </script>
+            <div class="padding_tabla_percepcion dinamicostablegrande grillaPendientes">
+                {{#if_eq MarcaID '0'}}
+                {{MedioContacto}}
+                {{else}}
+                Portal {{Marca}}
+                {{/if_eq}}
+            </div>
 
-        <script id="paginador-template" type="text/x-handlebars-template">
-            <ul class="paginador_notificaciones" data-paginacion="block">
+            <div class="padding_tabla_percepcion dinamicostable grillaPendientes">{{FormartoFechaSolicitud}}</div>
+            <div class="padding_tabla_percepcion dinamicostablemedio grillaPendientes">@Model.Simbolo {{FormatoPrecioTotal}}</div>
+            <div class="padding_tabla_percepcion dinamicostablegrande grillaPendientes">
 
-                <li class="productos_agregados_usuario">
-                    He agregado
-                    <span class="cantidad_productos_agregados"><b id="bPedidoPaginarRegistrosTotal" data-paginacion='recordCount'>{{RegistrosTotal}}</b></span>
-                    &nbsp;productos
-                </li>
-                <li class="seleccion_pagina">
-                    <select data-paginacion="rows" style="height: 24px;" data-val="{{PageSize}}">
-                        <option value="10">ver 10 filas</option>
-                        <option value="20">ver 20 filas</option>
-                        <option value="30">ver 30 filas</option>
-                        <option value="40">ver 40 filas</option>
-                        <option value="50">ver 50 filas</option>
-                    </select>
-                </li>
-                <li class="texto_pagina">Página</li>
-                <li class="flecha_paginador_atras" data-paginacion="back"></li>
-                <li style="margin-right: 6px;">
-                    <span class="paginas_pedidos">
-                        <span class="pagina_actual">
-                            <input type="text" name="paginaactual" data-paginacion="page" value="{{Pagina}}" class="ValidaNumeral ValidaPasteNumeral" id="paginaactual" data-val="{{Pagina}}" />
-                        </span> de
-                        <span class="paginas_totales" id="spnPedidoPaginarPaginaDe" data-paginacion='pageCount'>{{PaginaDe}}</span>
-                    </span>
-                </li>
-                <li class="flecha_paginador_adelante" data-paginacion="next"></li>
-            </ul>
-            <div class="clear"></div>
-        </script>
+                <input type="hidden" id="pedidopend_{{PedidoId}}" value="{{PedidoId}}|{{MarcaID}}|{{Campania}}|{{Cliente}}|{{Telefono}}|{{Direccion}}|{{Email}}|{{Mensaje}}|{{Leido}}|{{NumIteracion}}|{{CodigoUbigeo}}|{{FechaSolicitud}}|{{MedioContacto}}|{{FormatoPrecioTotal}}|{{SaldoHoras}}|{{FlagConsultora}}" />
+                <button type="button" class="btn_revisalo_pendientes1" onclick="CargarPopupPedidoPend('{{PedidoId}}');">
+                    REVÍSALO
 
-        <script id="producto-template" type="text/x-handlebars-template">
-            {{#each this}}
-            {{#if EliminadoTemporal}}
-            {{else}}
-            <div class="contenido_ingresoPedido mouse_encima" data-cuv="{{CUV}}">
-                <div class="texto_pedidos celda_codigo">{{CUV}}</div>
-        <div class="texto_pedidos celda_producto pedidoPadreToolTip" style="position:relative">
-                    {{#if_eq FlagConsultoraOnline '1'}}
-                    <span class="texto_pedidos_ofertas">
-                        <label>CLIENTE ONLINE</label>
-                    </span>
-                    {{else}}
-                        {{#if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal'}}
-                        {{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal'}}
-                        {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
-                        <span class="texto_pedidos_ofertas">
-                            <label>OFERTA LIQUIDACIÓN</label>
+                    <div class="info_tiempo_oportunidad">
+                        <span class="texto_pedidos_pendientes tips">
+                            <label>¡No pierdas esta oportunidad!</label>
                         </span>
-                        {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Flexipago'}}
-                        <span class="texto_pedidos_ofertas">
-                            <label>OFERTA FLEXIPLAGO</label>
-                        </span>
-                        {{else if_eq TipoOfertaSisID '@Constantes.ConfiguracionOferta.ShowRoom'}}
-                        <span class="texto_pedidos_ofertas">
-                            <label>OFERTAS ESPECIALES GANA+</label>
-                        </span>
+                        {{#if FlagConsultora}}
+                        <h6 class="tiempos_P">Te quedan <span><b>24:00:00</b></span> horas</h6>
                         {{else}}
-                            {{#IsNullOrEmpty DescripcionOferta '!='}}
-                            <span class="texto_pedidos_ofertas">
-                                <label for="{{DescripcionOferta}}">{{DescripcionOferta}}</label>
-                            </span>
-                            {{/IsNullOrEmpty}}
-                        {{/if_eq}}
-                    {{/if_eq}}
+                        <h6 class="tiempos_P">Te quedan <span><b>{{SaldoHoras}}</b></span> horas</h6>
+                        {{/if}}
+                        <h4 class="linkea_Pendientes tooltipPendientes">►REVÍSALO</h4>
+                    </div>
+                </button>
 
-                    {{#if_eq TipoPedido 'M'}}
-                    <span style="position:relative">
-                        <p class="productos_ingresados_movil">
-                            <span class="icon-mobile"><img src="@Url.Content("~/Content/Images/mobile-pedido.png")" alt="Alternate Text" /></span>
-                        </p>
+            </div>
+        </div>
+
+        {{/each}}
+    </script>
+
+    <script id="popup-pedidopend-template" type="text/x-handlebars-template">
+        <div class="content_popUp_Pendientes">
+            <div class="mensajes_deAtencion">
+                <span>¡No te pierdas esta oportunidad!</span>
+                {{#if FlagConsultora}}
+                <span>Te quedan <br>24:00:00</span>
+                {{else}}
+                <span>Te quedan <br>{{SaldoHoras}}</span>
+                {{/if}}
+                <div class="clear"></div>
+            </div>
+
+            <div class="percepcion_campania libero">
+                <h1><b>PRIMERO, CONTÁCTATE CON {{Contacto}} ...</b></h1>
+                <h5>Tu cliente esta esperando que la contactes. Confirma los productos, precios y forma de entrega.<br>Luego elige como entregarás cada producto para que puedas aceptar todo el pedido.</h5>
+            </div>
+
+            <div class="contenedor_bloque_datos">
+                <div class="datos_cliente_pendientes">
+
+                    <div class="bloque_datos izq">
+                        <div class="nombre_cliente">
+                            <span class="AtribCliente">Nombre:</span>
+                            <span class="datoPedidoCliente" id="sc-d1-nombre">{{Nombre}}</span>
+                        </div>
+
+                        <div class="telefono_cliente">
+                            <span class="AtribCliente">Teléfono:</span>
+                            <span class="datoPedidoCliente" id="sc-d1-telefono">{{Telefono}}</span>
+                        </div>
+                    </div>
+                    <div class="bloque_datos der">
+                        <div class="correo_cliente">
+                            <span class="AtribCliente">Correo:</span>
+                            <span class="datoPedidoCliente" id="sc-d1-correo">{{Email}}</span>
+                        </div>
+
+                        <div class="direccion_cliente">
+                            <span class="AtribCliente">Dirección:</span>
+                            <span class="datoPedidoCliente">{{Direccion}}</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="content_datos_pendientes">
+                <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemini">Código</div>
+                <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Producto</div>
+                <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Unidades</div>
+                <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Precio Unitario</div>
+                <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Subtotal</div>
+                <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">¿Cómo lo Atenderás?</div>
+            </div>
+            <div class="linea_separadora" style="margin-top:-1px"></div>
+            <!--CONTENIDO DE TABLAS PERCEPCIÓN-->
+
+            <div style="max-height: 226px; overflow-y:auto;">
+
+                <div id="divDetPedidoPend"> </div>
+
+            </div>
+
+            <div class="linea_separadora" style="height:2px;"></div>
+
+            <div class="calculo_PendientesTotal">
+
+                <h4 class="txtderecha">TOTAL PEDIDO: <span>@Model.Simbolo {{PrecioTotal}}</span></h4>
+
+            </div>
+
+            <div class="linea_separadora_roja" style="height: 2px;"></div>
+
+            <div class="btn_grupo_accionesPedido accionesPendientes">
+                <button id="rechazarPendientes" type="button" class="btn_eliminarCliente venizquierda" onclick="ShowPopupRechazoPedido('{{PedidoId}}','1')">
+                    RECHAZO EL PEDIDO
+                </button>
+                <button id="aceptarPendientes" type="button" class="btn_noEliminarCliente venderecha" onclick="AceptarPedido('{{PedidoId}}', '1')">
+                    ACEPTO TODO EL PEDIDO
+                </button>
+            </div>
+        </div>
+    </script>
+
+    <script id="popup2-pedidopend-template" type="text/x-handlebars-template">
+        <div class="content_popUp_Pendientes">
+            <div class="mensajes_deAtencion">
+
+                <span>¡No te pierdas esta oportunidad!</span>
+                {{#if FlagConsultora}}
+                <span>Te quedan<br>00:00:00</span>
+                {{else}}
+                <span>Te quedan<br>{{SaldoHoras}}</span>
+                {{/if}}
+
+            </div>
+
+            <div class="percepcion_campania libero">
+                <h1><b>PRIMERO, CONTÁCTATE CON {{Contacto}}...</b></h1>
+                <h5>Tu cliente esta esperando que la contactes. Confirma los productos, precios y forma de entrega.<br>Luego elige como entregarás cada producto para que puedas aceptar todo el pedido.</h5>
+            </div>
+
+            <div class="contenedor_bloque_datos">
+                <div class="datos_cliente_pendientes">
+
+                    <div class="bloque_datos izq">
+                        <div class="nombre_cliente">
+                            <span class="AtribCliente">Nombre:</span>
+                            <span class="datoPedidoCliente" id="sc-d2-nombre">{{Nombre}}</span>
+                        </div>
+
+                        <div class="telefono_cliente">
+                            <span class="AtribCliente">Teléfono:</span>
+                            <span class="datoPedidoCliente" id="sc-d2-telefono">{{Telefono}}</span>
+                        </div>
+                    </div>
+                    <div class="bloque_datos der">
+                        <div class="correo_cliente">
+                            <span class="AtribCliente">Correo:</span>
+                            <span class="datoPedidoCliente" id="sc-d2-correo">{{Email}}</span>
+                        </div>
+
+                        <div class="direccion_cliente">
+                            <span class="AtribCliente">Dirección:</span>
+                            <span class="datoPedidoCliente">{{Direccion}}</span>
+                        </div>
+                    </div>
+                    <div class="bloque_datos izq">
+                        <div class="nombre_cliente">
+                            <span class="AtribCliente">Comentario:</span>
+                            <span class="datoPedidoCliente">{{Comentario}}</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="content_datos_pendientes">
+                <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande izq">Producto</div>
+                <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Unidades</div>
+                <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Precio Unitario</div>
+                <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Subtotal</div>
+            </div>
+            <div class="linea_separadora" style="margin-top:-1px"></div>
+            <!--CONTENIDO DE TABLAS PERCEPCIÓN-->
+            <div style="max-height:419px; overflow:auto;">
+
+                <div id="divDet2PedidoPend"> </div>
+
+            </div>
+
+            <div class="linea_separadora" style="height:2px;"></div>
+
+            <div class="calculo_PendientesTotal">
+
+                <h4 class="txtderecha">TOTAL PEDIDO: <span>@Model.Simbolo {{PrecioTotal}}</span></h4>
+
+            </div>
+
+            <div class="linea_separadora_roja" style="height: 2px;"></div>
+
+            <div class="btn_grupo_accionesPedido accionesPendientes">
+                <button id="rechazarPendientesPORTAL" type="button" class="btn_eliminarCliente venizquierda" onclick="ShowPopupRechazoPedido('{{PedidoId}}', '2')">
+                    RECHAZO EL PEDIDO
+                </button>
+                <button id="aceptarPendientesPORTAL" type="button" class="btn_noEliminarCliente venderecha" onclick="AceptarPedido('{{PedidoId}}', '2')">
+                    ACEPTO TODO EL PEDIDO
+                </button>
+            </div>
+        </div>
+    </script>
+
+    <script id="detalle-pedidopend-template" type="text/x-handlebars-template">
+        {{#each this}}
+
+        <div class="content_datos_percepciones">
+            <input type="hidden" value="{{PedidoDetalleId}}" />
+            <div class="padding_tabla_percepcion dinamicostablemini">{{CUV}}</div>
+            <div class="padding_tabla_percepcion dinamicostablemedio">{{Producto}}</div>
+            <div class="padding_tabla_percepcion dinamicostable" id="pedpend-deta2-cantidad">{{Cantidad}}</div>
+            <div class="padding_tabla_percepcion dinamicostable">@Model.Simbolo {{PrecioUnitario}}</div>
+            <div class="padding_tabla_percepcion dinamicostable">@Model.Simbolo {{PrecioTotal}}</div>
+            <div class="padding_tabla_percepcion dinamicostablegrande">
+                {{#if_eq TieneStock '1'}}
+                <select class="oscurece" id="ddlAtender_{{@@index}}">
+                    <option value="" selected>¿CÓMO LO ATENDERAS?</option>
+                    <option value="ingrped">INGRESAR A MI PEDIDO</option>
+                    <option value="ingrten">YA LO TENGO</option>
+                </select>
+                {{else}}
+                <span>AGOTADO</span>
+                {{/if_eq}}
+            </div>
+
+            {{#if_eq TieneStock '0'}}
+            <div class="notiPendientes"><div class="mensajePendientes"><span class="icono_advertencia_notificacion"></span>{{MensajeValidacion}}</div></div>
+            {{else if_eq EstaEnRevista '1'}}
+            <div class="notiPendientes"><div class="mensajePendientes"><span class="icono_advertencia_notificacion"></span>{{MensajeValidacion}}</div></div>
+            {{/if_eq}}
+        </div>
+
+        {{/each}}
+    </script>
+
+    <script id="detalle2-pedidopend-template" type="text/x-handlebars-template">
+        {{#each this}}
+
+        <div class="content_datos_percepciones">
+            <input type="hidden" value="{{PedidoDetalleId}}" />
+            <div class="padding_tabla_percepcion dinamicostableextragrande izq">{{Producto}}</div>
+            <div class="padding_tabla_percepcion dinamicostableextragrande">{{Cantidad}}</div>
+            <div class="padding_tabla_percepcion dinamicostableextragrande">@Model.Simbolo {{PrecioUnitario}}</div>
+            <div class="padding_tabla_percepcion dinamicostableextragrande">@Model.Simbolo {{PrecioTotal}}</div>
+        </div>
+
+        {{/each}}
+    </script>
+}
+
+<script id="js-CarruselSugerido" type="text/x-handlebars-template">
+    {{#each this}}
+    <div class="sugerido" data-item="producto">
+        <div class="producto_carousel">
+            <div style="display: none;">
+                <input type="hidden" class="hdSugeridoCuv" value="{{CUV}}" />
+                <input type="hidden" class="hdSugeridoTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+                <input type="hidden" class="hdSugeridoConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+                <input type="hidden" class="hdSugeridoIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
+                <input type="hidden" class="hdSugeridoTipo" value="1" />
+                <input type="hidden" class="hdSugeridoMarcaID" value="{{MarcaID}}" />
+                <input type="hidden" class="hdSugeridoPrecioUnidad" value="{{PrecioCatalogo}}" />
+                <input type="hidden" class="hdSugeridoDescripcionProd" value="{{Descripcion}}" />
+                <input type="hidden" class="hdSugeridoPagina" value="0" />
+                <input type="hidden" class="hdSugeridoDescripcionCategoria" value="{{DescripcionCategoria}}" />
+                <input type="hidden" class="hdSugeridoDescripcionMarca" value="{{DescripcionMarca}}" />
+                <input type="hidden" class="hdSugeridoDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+                <input type="hidden" class="hdPosicionSugerido" value="{{posicion}}" />
+                <input type="hidden" class="hdTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
+            </div>
+            <div>
+                <div class="producto_imagen">
+                    <img src="{{ImagenProductoSugerido}}" alt="" />
+                </div>
+                <div class="producto_nombre_descripcion">
+                    <h6>{{DescripcionMarca}}</h6>
+                    <p class="nombre_producto" style="display: inline-table;">
+                        <b>{{Descripcion}}</b>
+                    </p>
+                    <div class="producto_precio">
+                        <span class="producto_precio_oferta"><b>@Model.Simbolo {{PrecioCatalogoString}}</b></span>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+            <div class="contenedor_cantidad_producto">
+                <div class="liquidacion_rango_wrapper_pedido">
+                    <input type="text" id="txtCantidad" maxlength="2" value="1" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a href="#" title="Agregar" class="boton_elegirAgregar agregarSugerido">AGREGAR</a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+
+<script id="paginador-template" type="text/x-handlebars-template">
+    <ul class="paginador_notificaciones" data-paginacion="block">
+
+        <li class="productos_agregados_usuario">
+            He agregado
+            <span class="cantidad_productos_agregados"><b id="bPedidoPaginarRegistrosTotal" data-paginacion='recordCount'>{{RegistrosTotal}}</b></span>
+            &nbsp;productos
+        </li>
+        <li class="seleccion_pagina">
+            <select data-paginacion="rows" style="height: 24px;" data-val="{{PageSize}}">
+                <option value="10">ver 10 filas</option>
+                <option value="20">ver 20 filas</option>
+                <option value="30">ver 30 filas</option>
+                <option value="40">ver 40 filas</option>
+                <option value="50">ver 50 filas</option>
+            </select>
+        </li>
+        <li class="texto_pagina">Página</li>
+        <li class="flecha_paginador_atras" data-paginacion="back"></li>
+        <li style="margin-right: 6px;">
+            <span class="paginas_pedidos">
+                <span class="pagina_actual">
+                    <input type="text" name="paginaactual" data-paginacion="page" value="{{Pagina}}" class="ValidaNumeral ValidaPasteNumeral" id="paginaactual" data-val="{{Pagina}}" />
+                </span> de
+                <span class="paginas_totales" id="spnPedidoPaginarPaginaDe" data-paginacion='pageCount'>{{PaginaDe}}</span>
+            </span>
+        </li>
+        <li class="flecha_paginador_adelante" data-paginacion="next"></li>
+    </ul>
+    <div class="clear"></div>
+</script>
+
+<script id="producto-template" type="text/x-handlebars-template">
+    {{#each this}}
+    {{#if EliminadoTemporal}}
+    {{else}}
+    <div class="contenido_ingresoPedido mouse_encima" data-cuv="{{CUV}}">
+        <div class="texto_pedidos celda_codigo">{{CUV}}</div>
+        <div class="texto_pedidos celda_producto pedidoPadreToolTip" style="position:relative">
+            {{#if_eq FlagConsultoraOnline '1'}}
+            <span class="texto_pedidos_ofertas">
+                <label>CLIENTE ONLINE</label>
+            </span>
+            {{else}}
+            {{#if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal'}}
+            {{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal'}}
+            {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
+            <span class="texto_pedidos_ofertas">
+                <label>OFERTA LIQUIDACIÓN</label>
+            </span>
+            {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Flexipago'}}
+            <span class="texto_pedidos_ofertas">
+                <label>OFERTA FLEXIPLAGO</label>
+            </span>
+            {{else if_eq TipoOfertaSisID '@Constantes.ConfiguracionOferta.ShowRoom'}}
+            <span class="texto_pedidos_ofertas">
+                <label>OFERTAS ESPECIALES GANA+</label>
+            </span>
+            {{else}}
+            {{#IsNullOrEmpty DescripcionOferta '!='}}
+            <span class="texto_pedidos_ofertas">
+                <label for="{{DescripcionOferta}}">{{DescripcionOferta}}</label>
+            </span>
+            {{/IsNullOrEmpty}}
+            {{/if_eq}}
+            {{/if_eq}}
+
+            {{#if_eq TipoPedido 'M'}}
+            <span style="position:relative">
+                <p class="productos_ingresados_movil">
+                    <span class="icon-mobile"><img src="@Url.Content("~/Content/Images/mobile-pedido.png")" alt="Alternate Text" /></span>
+                </p>
                 <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{Split DescripcionCortadaProd '|' 0}}</label>
-                    </span>
-                    {{else}}
-                    <span style="position:relative">
+            </span>
+            {{else}}
+            <span style="position:relative">
                 <label for="{{DescripcionCortadaProd}}" class="lblLPDesProd">{{Split DescripcionCortadaProd '|' 0}}</label>
-                    </span>
-                    {{/if_eq}}
+            </span>
+            {{/if_eq}}
 
 
             <div id="tooltipDescPro" class="tooltipPedido">
@@ -1629,123 +1640,124 @@
                     <input type="hidden" name="hdfTipoOfertaSisID{{PedidoID}}" value="{{TipoOfertaSisID}}" id="hdfTipoOfertaSisID{{PedidoID}}" class="hdfTipoOfertaSisID"/>
                     <input type="hidden" name="hdfCUV{{PedidoID}}" value="{{CUV}}" id="hdfCUV{{PedidoID}}" class="hdfCUV"/>
                     <input type="hidden" name="txtLPTempCant{{PedidoDetalleID}}" value="{{Cantidad}}" class="txtLPTempCant"/>
-                </div>
-                <div class="celda_cantidad_pedidos">
+        </div>
+        <div class="celda_cantidad_pedidos">
                     <div  data-SetID="{{SetID}}"></div>
-                    {{#if EsKitNueva}}
-                    <div class="texto_pedidos" style="text-align:center; margin: 0;padding:0;">{{Cantidad}}</div>
-                    {{else if FlagNueva}}
-                    <div class="texto_pedidos" style="text-align:center; margin: 0;padding:0;">{{Cantidad}}</div>
-                    {{else}}
-                    <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus">
+            {{#if EsKitNueva}}
+            <div class="texto_pedidos" style="text-align:center; margin: 0;padding:0;">{{Cantidad}}</div>
+            {{else if FlagNueva}}
+            <div class="texto_pedidos" style="text-align:center; margin: 0;padding:0;">{{Cantidad}}</div>
+            {{else}}
+            <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus">
                         <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral txtLPCant"
                                data-pedido="{{PedidoDetalleID}}" data-SetID="{{SetID}}" onkeypress="PreValidarCUV(event);" onfocus="SeleccionarContenido(this)"
                                onblur="UpdateLiquidacion(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}', '{{SetID}}')" />
-                        <div class="liquidacion_rango_right_pedido">
-                            <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
-                            <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
-                        </div>
-                    </div>
-                    {{/if}}
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                    <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
                 </div>
-                <div class="texto_pedidos precioUnitario">
+            </div>
+            {{/if}}
+        </div>
+        <div class="texto_pedidos precioUnitario">
                     <input type="hidden" name="hdfLPPrecioU{{PedidoDetalleID}}" value="{{PrecioUnidad}}" class="classPrecioUnidad hdfLPPrecioU" />
-                    {{Simbolo}} {{FormatoPrecioUnidad}}
-                </div>
-                <div class="texto_pedidos subtotal">
-                    <span class="precio">
-                        {{Simbolo}} {{FormatoPrecioUnidad}}
-                    </span>
-                    <span>
-                        {{Simbolo}}
+            {{Simbolo}} {{FormatoPrecioUnidad}}
+        </div>
+        <div class="texto_pedidos subtotal">
+            <span class="precio">
+                {{Simbolo}} {{FormatoPrecioUnidad}}
+            </span>
+            <span>
+                {{Simbolo}}
                         <label for="item_ImporteTotal" class="classImporteTotal lblLPImpTotal">{{FormatoImporteTotal}}</label>
-                        {{#if EstadoSimplificacionCuv}}
-                        {{#if IndicadorOfertaCUV}}
-                        <input type="hidden" name="ExisteIndicadorOfertaCUV" class="ExisteIndicadorOfertaCUV" value="true" />
-                        <span class="icon-advertencia"></span>
-                        {{/if}}
-                        {{/if}}
-                    </span>
-                </div>
-                <div class="texto_pedidos clientePedido">
-                    {{#if EsKitNueva}}
-                    {{else}}
+                {{#if EstadoSimplificacionCuv}}
+                {{#if IndicadorOfertaCUV}}
+                <input type="hidden" name="ExisteIndicadorOfertaCUV" class="ExisteIndicadorOfertaCUV" value="true" />
+                <span class="icon-advertencia"></span>
+                {{/if}}
+                {{/if}}
+            </span>
+        </div>
+        <div class="texto_pedidos clientePedido">
+            {{#if EsKitNueva}}
+            {{else}}
                     <input type="hidden" name="hdfLPCliIni{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID hdfLPCliIni" />
                     <input type="hidden" name="hdfLPCli{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID hdfLPCli" />
                     <input type="hidden" name="hdfLPCliDes{{PedidoDetalleID}}" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
                     <input type="hidden" name="hdfTest" value="{{Nombre}}" class="classClienteID hdfLPCliDes" />
 
-                    {{#if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Nueva'}}
+            {{#if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Nueva'}}
                     <input type="text" name="{{Nombre}}" value="{{Nombre}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico txtLPCli"
-                           readonly="readOnly" onkeydown="return false;" style="width:90%; padding:4px;" />
-                    {{else}}
+                   readonly="readOnly" onkeydown="return false;" style="width:90%; padding:4px;" />
+            {{else}}
                     <input type="text" name="{{Nombre}}" value="{{Nombre}}" maxlength="50" class="classClienteNombre ValidaAlfanumerico txtLPCli"
                            onblur="BlurF(event, '{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '2', '{{CUV}}', '{{EsBackOrder}}', '{{SetID}}')" style="width: 90%; padding: 4px;"
-                           datapedido="{{PedidoDetalleID}}" />
-                    {{/if_eq}}
-                    {{/if}}
+                   datapedido="{{PedidoDetalleID}}" />
+            {{/if_eq}}
+            {{/if}}
+        </div>
+        <div class="texto_pedidos celda_iconos_acciones">
+            {{#if EsKitNueva}}
+            <div class="info_copy">
+                <input type="hidden" data-kit="true" />
+                <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Alternate Text" class="info_copy" style="width: 19px; margin:0;" />
+                <div class="tooltips tooltip_infoCopy_grid">
+                    <div class="tooltip_flecha_grid"></div>
+                    <h6>Kit de Inicio</h6>
+                    <p>Gana desde el comienzo con las mejores herramientas para tu negocio: productos ganadores, demostradores, fichas de los TOP de @(Model.EsPais) y más.</p>
+                    <p>*Este Kit se agrega automáticamente solo en tu primer pedido.</p>
                 </div>
-                <div class="texto_pedidos celda_iconos_acciones">
-                    {{#if EsKitNueva}}
-                    <div class="info_copy">
-                        <input type="hidden" data-kit="true" />
-                        <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Alternate Text" class="info_copy" style="width: 19px; margin:0;" />
-                        <div class="tooltips tooltip_infoCopy_grid">
-                            <div class="tooltip_flecha_grid"></div>
-                            <h6>Kit de Inicio</h6>
-                            <p>Gana desde el comienzo con las mejores herramientas para tu negocio: productos ganadores, demostradores, fichas de los TOP de @(Model.EsPais) y más.</p>
-                            <p>*Este Kit se agrega automáticamente solo en tu primer pedido.</p>
-                        </div>
-                    </div>
-                    {{else}}
-                    {{#iff DescripcionLarga 'Contains' '\''}}
-                    {{Replace DescripcionLarga '\'' ''}}
-                    {{/iff}}
+            </div>
+            {{else}}
+            {{#iff DescripcionLarga 'Contains' '\''}}
+            {{Replace DescripcionLarga '\'' ''}}
+            {{/iff}}
                     <a onclick="ConfirmarEliminarRegaloGenerico('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', null, '{{SetID}}');"
                        style="background-image: url('@Url.Content("~/Content/Images/Esika/tacho-copy.png")'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
-                    {{/if}}
-                </div>
-                {{#if EsBackOrder}}
-                {{#if AceptoBackOrder}}
-                <div class="stock_content_aceptado">
-                    <div class="texto_stock" style="color:black;"><b>Te entregaremos el producto en la siguiente campaña.</b></div>
-                </div>
-                {{else}}
+            
+            {{/if}}
+        </div>
+        {{#if EsBackOrder}}
+        {{#if AceptoBackOrder}}
+        <div class="stock_content_aceptado">
+            <div class="texto_stock" style="color:black;"><b>Te entregaremos el producto en la siguiente campaña.</b></div>
+        </div>
+        {{else}}
 
-                <div class="stock_content">
-                    <div class="texto_stock" style="margin-top: 10PX;width:60%">No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña?</div>
-                    <div class="text_stock" style="margin-top:10px;float:left;width:35%;margin-left:35px;">
+        <div class="stock_content">
+            <div class="texto_stock" style="margin-top: 10PX;width:60%">No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña?</div>
+            <div class="text_stock" style="margin-top:10px;float:left;width:35%;margin-left:35px;">
 
                         <a class="btn_no_stock" style="font-size:9px;float:left;margin-left:9px;" onclick="ConfirmarEliminarRegaloGenerico('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', '{{EsBackOrder}}', '{{SetID}}');">NO, GRACIAS</a>
 
-                        <a class="btn_si_stock" style="float:right;height:35px;line-height:39px;" onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" href="javascript:;">¡SI, POR FAVOR!</a>
+                <a class="btn_si_stock" style="float:right;height:35px;line-height:39px;" onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" href="javascript:;">¡SI, POR FAVOR!</a>
 
 
-                    </div>
-                    <hr class="clear" />
-                </div>
-
-                {{/if}}
-                {{/if}}
             </div>
+            <hr class="clear" />
+        </div>
 
-            {{/if}}
+        {{/if}}
+        {{/if}}
+    </div>
 
-            {{#IsNullOrEmpty Mensaje '!='}}
-            <div class="fila_mensajeProductoAgotado">
-                <div style="width:100%;">
-                    <div class="mensaje_productoAgotado">
-                        {{#iff TipoObservacion '!=' 0}}
-                        <p>{{{Replace Mensaje '¿Deseas aceptar el reemplazo?' ''}}}</p>
-                        {{else}}
-                        <p>{{{Mensaje}}}</p>
-                        {{/iff}}
-                    </div>
-                </div>
+    {{/if}}
+
+    {{#IsNullOrEmpty Mensaje '!='}}
+    <div class="fila_mensajeProductoAgotado">
+        <div style="width:100%;">
+            <div class="mensaje_productoAgotado">
+                {{#iff TipoObservacion '!=' 0}}
+                <p>{{{Replace Mensaje '¿Deseas aceptar el reemplazo?' ''}}}</p>
+                {{else}}
+                <p>{{{Mensaje}}}</p>
+                {{/iff}}
             </div>
-            {{/IsNullOrEmpty}}
-            {{/each}}
-        </script>
+        </div>
+    </div>
+    {{/IsNullOrEmpty}}
+    {{/each}}
+</script>
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
@@ -1783,13 +1795,8 @@
 </script>
 
 <script id="ofertaFinal-template" type="text/x-handlebars-template">
-    
-    @{
-        //var imagenFondoOFRegalo = (ViewBag.ImagenFondoOFRegalo != null) ? ViewBag.ImagenFondoOFRegalo : "";
-        //var titulo1OFRegalo = (ViewBag.Titulo1OFRegalo != null) ? ViewBag.Titulo1OFRegalo : "";
-    }
 
-    <div class="content_regalo_sorpresa" id="container-of-regalo" style="display: none; background-image: url('/Content/Images/PL20/Banner_desktop.png');" data-popup-body="">
+    <div class="content_regalo_sorpresa" id="container-of-regalo" data-popup-body="" style="display: none; background-image: url('/Content/Images/PL20/Banner_desktop.png');">
         <div class="icono_regalo_sorpresa">
             <img src="/Content/Images/gif-regalo-gano.gif" alt="">
         </div>
@@ -1800,8 +1807,8 @@
         </div>
         <div class="arrow_box" id="content-regalo-agrega" style="display:none;">
             <div class="txt_regalo_sorpresa_popup">
-                <div class="span_2_regalo_sorpresa_producto"><b>AGREGA <span id="of-regalo-agrega">$119.00</span></b><br></div>
-                <div class="span_1_regalo_sorpresa_producto">TU META ES <span id="of-regalo-montometa">$300.00</span></div>
+                <div class="span_2_regalo_sorpresa_producto"><b>TE FALTA <span data-regalo-agrega="">$119.00</span></b><br></div>
+                <div class="span_1_regalo_sorpresa_producto">PARA TU META DE <span id="of-regalo-montometa">$300.00</span></div>
             </div>
         </div>
         <div class="slider center" id="divCarruselRegalo" style="width: 100%; margin: 0 auto 0 auto;">
@@ -1834,43 +1841,26 @@
             <span class="span_paginacion_premio_1" id="of-regalo-actual">1</span>
             <span> / </span><span id="of-regalo-total">3</span>
         </div>
-        <div class="txt_nota_premio">Recuerda pasar pedido en la siguiente <br />para recibir tu premio</div>
+        <div class="txt_nota_premio" data-regalo-recuerda="">Recuerda <b>pasar pedido en la siguiente<br />campaña</b> para recibir tu premio</div>
         <a class="btn_legal_RS" target="_blank" href="@ViewBag.UrlTerminosOfertaFinalRegalo" id="of-regalo-terminos">*Descargar términos y condiciones</a>
-        @*<div class="icono_regalo_sorpresa mt-11"></div>
-        <div class="titulo_regalo_sorpresa" id="of-regalo-msg1" style="display: none;"><b>¡GANA ESTE PREMIO*</b><br/>@titulo1OFRegalo</div>
-        <div class="titulo_regalo_2" id="of-regalo-msg2" style="display: none;">FELICIDADES @ViewBag.NombreConsultora <br /><span class="font_32">¡GANASTE!</span></div>
-        <div class="titulo_regalo_2" id="of-regalo-msg3" style="display: none;">¡FELICIDADES @ViewBag.NombreConsultora <span class="bold_900">ESTE PREMIO YA ES TUYO!</span></div>
-        
-        <div class="fondo_blanco_regalo">
-            <div class="content_detalle_monto" id="of-regalo-montos" style="display: none;">
-                TU META ES <span id="of-regalo-montometa">$200.000</span><br />
-                <b>¡AGREGA <span id="of-regalo-montosaldo">$23.999</span> Y LISTO!</b>
-            </div>
-            <div class="titulo_regalo_producto" id="of-regalo-descripcion">Bicicleta Rockrider 340 Azul</div>
-            <div class="content_imagen_sorpresa"><img id="of-regalo-imagen" src="" alt="" /></div>
-            <div class="descripcion_regalo">
-                <span id="of-regalo-descripcion-larga" class="oferta_final_descripcion">Pedalier de acero con triple plato, con protección de plástico de color azul. Tamaño 80cm x 120cm.</span>
-                <a target="_blank" href="@ViewBag.UrlTerminosOfertaFinalRegalo" id="of-regalo-terminos">*Leer términos y condiciones</a>
-            </div>
-        </div>
-        *@
     </div>
-    <div id="divGanoRegalo" class="content_regalo_sorpresa" style="display: none; background-image: url('/Content/Images/PL20/Banner_desktop.png');">
+
+    <div id="divGanoRegalo" class="content_regalo_sorpresa" data-popup-body="" style="display: none; background-image: url('/Content/Images/PL20/Banner_desktop.png');">
         <div class="btn_regresa_OF" id="btnCambiarRegalo1">
             <img class="img_regresa_OF" img="" src="/Content/Images/Esika/regresar.png" alt="">
             <span class="span_regresa_OF">CAMBIAR REGALO</span>
         </div>
-        <div class="icono_regalo_sorpresa" style="margin-top: 18px;">
+        <div class="icono_regalo_sorpresa" style="margin-top: 22px;">
             <img src="/Content/Images/gif-regalo-gano.gif" alt="">
         </div>
         <div class="txt_regalo_sorpresa_popup box_regalo_sorpresa_popup">
-            <span class="span_1_regalo_sorpresa_popup" id="of-regalo-msg1">FELICIDADES @ViewBag.NombreConsultora<br></span>
-            <span class="span_2_regalo_sorpresa_popup" id="of-regalo-msg3"><b>¡GANASTE!</b><br></span>
+            <span class="span_1_regalo_ganaste_popup" id="of-gano-msg1">¡GANASTE @ViewBag.NombreConsultora!<br></span>
+            <span class="span_2_regalo_ganaste_popup" id="of-gano-msg3">SUPERASTE TU META DE <span id="of-regalo-montometa-msg3">$300.00</span><br></span>
         </div>
         <div class="arrow_box arrow_box_2">
             <div class="txt_regalo_sorpresa_popup">
-                <div class="span_2_regalo_sorpresa_producto" id="of-regalo-estuyo"><b>¡EL PREMIO ES TUYO!</b><br></div>
-                <div class="span_1_regalo_sorpresa_producto_2" id="of-regalo-recuerda">Recuerda pasar pedido en la siguiente<br>campaña para recibir tu premio</div>
+                <div class="span_2_regalo_ganaste_producto" id="of-regalo-estuyo"><b>SOLO RECUERDA</b><br></div>
+                <div class="span_1_regalo_ganaste_producto" data-regalo-recuerda="">Pasar pedido en la siguiente<br>campaña para recibir tu premio*</div>
             </div>
         </div>
         <div class="content_info_regalo">
@@ -1949,7 +1939,7 @@
                 </div>
                 <div style="margin: 0 auto; width:90%;" class="bloque_carousel">
                     <div style="margin-left: 27px; margin-right: 27px; position: relative;">
-                        <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%">
+                        <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%;">
 
                             {{#each this.Detalle}}
                             <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinal" data-id="{{ID}}">
@@ -2029,7 +2019,8 @@
                 </div>
                 <div style="display: block; position: relative;">
                     <div class="contenedor_boton_reservarPedido">
-                        <a id="id_btn_noGracias_agregarProductos" name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal icono_terminar_pedido" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}" onclick="of_google_analytics_cerrar_popup()">
+                        <a id="btnNoGraciasOfertaFinal" name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal icono_terminar_pedido" 
+                           style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}" onclick="of_google_analytics_cerrar_popup()">
                             RESERVA TU PEDIDO
                         </a>
                     </div>
@@ -2046,7 +2037,7 @@
 </script>
 
 <script id="ofertaFinalVerDetalle-template" type="text/x-handlebars-template">
-    <div class="popup_ofertaFinal" style="padding:35px; display:block;"  data-item="{{ID}}">
+    <div class="popup_ofertaFinal" style="padding:35px; display:block;" data-item="{{ID}}">
         <div data-compartir-campos="" style="display:none;">
             <input type="hidden" class="CUV" value="{{CUV}}" />
             <input type="hidden" class="rsFBMensaje" value="" />
@@ -2077,7 +2068,7 @@
             </div>
             <div class="compartir_redes_ficha">
                 <div class="texto_compartelo">Compártelo con tus clientes</div>
-                <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB" >
+                <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB">
                     <img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" width="19" height="18" />
                 </a>
                 <hr class="clear" />
@@ -2116,18 +2107,18 @@
                     <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                 </div>
             </div>
-            <a class="boton_Agregalo_home ficha_btn_agregar agregarOfertaFinalVerDetalle" data-popup-verdetalle="{{id}}" style="width:238px;" 
+            <a class="boton_Agregalo_home ficha_btn_agregar agregarOfertaFinalVerDetalle" data-popup-verdetalle="{{id}}" style="width:238px;"
                onclick="of_google_analytics_addtocar('desktop','detail',{{ID}},'{{TipoMeta}}')">
                 AGRÉGALO
             </a>
         </div>
         <hr class="clear" />
     </div>
-   
+
 </script>
 
 @section scripts{
-    <script type="text/javascript">
+<script type="text/javascript">
         var arregloProductos;
         var cantProductosLoad = '@Model.ListaEstrategias.Count';
         var constConfiguracionOfertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
@@ -2186,10 +2177,11 @@
         var ofertaFinalAlgoritmo = '@ViewBag.OfertaFinalAlgoritmo';
         var VirtualCoachCuv = '@ViewBag.VirtualCoachCuv';
         var VirtualCoachCampana = '@ViewBag.VirtualCoachCampana' || 0;
+        var revistaDigital= @Html.Raw(Json.Encode(revistaDigital));
 
         var seccionMisOfertas = '@Constantes.SeccionBienvenida.MisOfertas';
         var OrigenDesktopODD = 2;
-    </script>
+</script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
     @if (HttpContext.Current.Request.Browser.IsMobileDevice)
     {
@@ -2202,5 +2194,5 @@
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ConsultoraOnline.js")"></script>
     }
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/FichaProducto/Index.js")"></script>
-            
+
 } 

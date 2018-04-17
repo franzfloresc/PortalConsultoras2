@@ -1,8 +1,17 @@
-﻿
-@model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
+﻿@model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
 
+@{ 
+    var seccionTituloClass = "seccion-titulo";
+    var vermasClass = "";
+
+    if (ViewBag.EsSuscrita)
+    {
+        seccionTituloClass += " seccion-titulo-dorado";
+        vermasClass += " dorado";
+    }
+}
 <div class="parche_presentacion_contenedor" 
-     onclick="javascript: menuModule.sectionClick('@Model.UrlLandig', '@Model.TituloBtnAnalytics')" 
+     onclick="javascript: menuModule.sectionClick('@Model.UrlLandig', '@Model.TituloBtnAnalytics');" 
      style="background: url(@Model.ImagenFondo);
             height: 500px;
             background-position: center;
@@ -11,7 +20,7 @@
      data-plantilla="Banner">
 
     <div class="bloque-titulo">
-        <div class="seccion-titulo">
+        <div class="@seccionTituloClass">
             <span>@Model.Titulo</span>
         </div>
         <div class="cantidad">
@@ -21,7 +30,7 @@
         @if (Model.VerMas)
         {
             <div class="ir">
-                <a href="javascript:void(0);">VER MÁS OFERTAS</a>
+                <a class="@vermasClass" href="javascript:void(0);">VER MÁS OFERTAS</a>
             </div>
         }
         <div class="parche_clear"></div>

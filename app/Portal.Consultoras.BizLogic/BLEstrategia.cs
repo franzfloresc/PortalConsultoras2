@@ -163,80 +163,88 @@ namespace Portal.Consultoras.BizLogic
 
         public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad)
         {
-            var estrategias = new List<BEEstrategia>();
 
-            var daEstrategia = new DAEstrategia(entidad.PaisID);
-            switch (entidad.CodigoTipoEstrategia)
+            try
             {
-                case Constantes.TipoEstrategiaCodigo.OfertaWeb:
-                    using (var reader = daEstrategia.GetEstrategiaOfertaWeb(entidad))
-                    {
-                        while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
-                    }
-                    break;
-                case Constantes.TipoEstrategiaCodigo.PackNuevas:
-                    using (var reader = daEstrategia.GetEstrategiaPackNuevas(entidad))
-                    {
-                        while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
-                    }
-                    break;
-                case Constantes.TipoEstrategiaCodigo.Lanzamiento:
-                    using (var reader = daEstrategia.GetEstrategiaLanzamiento(entidad))
-                    {
-                        while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
-                    }
-                    break;
-                case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
-                    using (var reader = daEstrategia.GetEstrategiaOfertaParaTi(entidad))
-                    {
-                        while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
-                    }
-                    break;
-                case Constantes.TipoEstrategiaCodigo.RevistaDigital:
-                    using (var reader = daEstrategia.GetEstrategiaRevistaDigital(entidad))
-                    {
-                        while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
-                    }
-                    break;
-                case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
-
-                    estrategias = (List<BEEstrategia>)CacheManager<BEEstrategia>.GetData(entidad.PaisID, ECacheItem.GNDEstrategia, entidad.CampaniaID.ToString());
-                    if (estrategias == null || !estrategias.Any())
-                    {
-                        estrategias = new List<BEEstrategia>();
-                        using (var reader = daEstrategia.GetEstrategiaGuiaDeNegocioDigitalizada(entidad))
+                var estrategias = new List<BEEstrategia>();
+                var daEstrategia = new DAEstrategia(entidad.PaisID);
+                switch (entidad.CodigoTipoEstrategia)
+                {
+                    case Constantes.TipoEstrategiaCodigo.OfertaWeb:
+                        using (var reader = daEstrategia.GetEstrategiaOfertaWeb(entidad))
                         {
                             while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
                         }
-
-                        CacheManager<BEEstrategia>.AddData(entidad.PaisID, ECacheItem.GNDEstrategia, entidad.CampaniaID.ToString(), estrategias);
-                    }
-
-                    break;
-                case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
-
-                    estrategias = (List<BEEstrategia>)CacheManager<BEEstrategia>.GetData(entidad.PaisID, ECacheItem.HVEstrategia, entidad.CampaniaID.ToString());
-                    if (estrategias == null || !estrategias.Any())
-                    {
-                        estrategias = new List<BEEstrategia>();
-                        using (var reader = daEstrategia.GetEstrategiaHerramientasVenta(entidad))
+                        break;
+                    case Constantes.TipoEstrategiaCodigo.PackNuevas:
+                        using (var reader = daEstrategia.GetEstrategiaPackNuevas(entidad))
                         {
                             while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
                         }
+                        break;
+                    case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+                        using (var reader = daEstrategia.GetEstrategiaLanzamiento(entidad))
+                        {
+                            while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                        }
+                        break;
+                    case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
+                        using (var reader = daEstrategia.GetEstrategiaOfertaParaTi(entidad))
+                        {
+                            while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                        }
+                        break;
+                    case Constantes.TipoEstrategiaCodigo.RevistaDigital:
+                        using (var reader = daEstrategia.GetEstrategiaRevistaDigital(entidad))
+                        {
+                            while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                        }
+                        break;
+                    case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
 
-                        CacheManager<BEEstrategia>.AddData(entidad.PaisID, ECacheItem.HVEstrategia, entidad.CampaniaID.ToString(), estrategias);
-                    }
-                    break;
-                default:
-                    using (var reader = daEstrategia.GetEstrategiaPedido(entidad))
-                    {
-                        while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
-                    }
-                    break;
+                        estrategias = (List<BEEstrategia>)CacheManager<BEEstrategia>.GetData(entidad.PaisID, ECacheItem.GNDEstrategia, entidad.CampaniaID.ToString());
+                        if (estrategias == null || !estrategias.Any())
+                        {
+                            estrategias = new List<BEEstrategia>();
+                            using (var reader = daEstrategia.GetEstrategiaGuiaDeNegocioDigitalizada(entidad))
+                            {
+                                while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                            }
+
+                            CacheManager<BEEstrategia>.AddData(entidad.PaisID, ECacheItem.GNDEstrategia, entidad.CampaniaID.ToString(), estrategias);
+                        }
+
+                        break;
+                    case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
+
+                        estrategias = (List<BEEstrategia>)CacheManager<BEEstrategia>.GetData(entidad.PaisID, ECacheItem.HVEstrategia, entidad.CampaniaID.ToString());
+                        if (estrategias == null || !estrategias.Any())
+                        {
+                            estrategias = new List<BEEstrategia>();
+                            using (var reader = daEstrategia.GetEstrategiaHerramientasVenta(entidad))
+                            {
+                                while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                            }
+
+                            CacheManager<BEEstrategia>.AddData(entidad.PaisID, ECacheItem.HVEstrategia, entidad.CampaniaID.ToString(), estrategias);
+                        }
+                        break;
+                    default:
+                        using (var reader = daEstrategia.GetEstrategiaPedido(entidad))
+                        {
+                            while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                        }
+                        break;
+                }
+
+                var estrategiasResult = EstrategiasPedidoLimpiar(estrategias, entidad);
+                return estrategiasResult;
             }
-
-            var estrategiasResult = EstrategiasPedidoLimpiar(estrategias, entidad);
-            return estrategiasResult;
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, entidad.ConsultoraID, entidad.PaisID.ToString());
+                return new List<BEEstrategia>();
+            }
         }
 
         public List<BEEstrategia> GetMasVendidos(BEEstrategia entidad)
@@ -373,25 +381,34 @@ namespace Portal.Consultoras.BizLogic
             return result;
         }
 
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo)
+        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv)
         {
-            List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
-
-            var daEstrategia = new DAEstrategia(paisId);
-            using (IDataReader reader = daEstrategia.GetOfertasParaTiByTipoConfigurado(campaniaId, tipoConfigurado, estrategiaCodigo))
+            var listaEstrategias = new List<BEEstrategia>();
+            try
             {
-                while (reader.Read())
+
+                var daEstrategia = new DAEstrategia(paisId);
+                using (IDataReader reader = daEstrategia.GetOfertasParaTiByTipoConfigurado(campaniaId, tipoConfigurado, estrategiaCodigo, pagina, cantidadCuv))
                 {
-                    listaEstrategias.Add(new BEEstrategia(reader, true));
+                    while (reader.Read())
+                    {
+                        listaEstrategias.Add(new BEEstrategia(reader, true));
+                    }
                 }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", paisId);
+                listaEstrategias = new List<BEEstrategia>();
             }
             return listaEstrategias;
         }
 
-        public int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario)
+        public int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int nroLore)
         {
             var daEstrategia = new DAEstrategia(paisId);
-            return daEstrategia.InsertEstrategiaTemporal(lista, campaniaId, codigoUsuario);
+            return daEstrategia.InsertEstrategiaTemporal(lista, campaniaId, codigoUsuario, nroLore);
         }
 
         public int GetCantidadOfertasParaTiTemporal(int paisId, int campaniaId, int tipoConfigurado)
@@ -401,12 +418,12 @@ namespace Portal.Consultoras.BizLogic
             return result;
         }
 
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado)
+        public List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado, int nroLote)
         {
             List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
 
             var daEstrategia = new DAEstrategia(paisId);
-            using (IDataReader reader = daEstrategia.GetOfertasParaTiByTipoConfiguradoTemporal(campaniaId, tipoConfigurado))
+            using (IDataReader reader = daEstrategia.GetOfertasParaTiByTipoConfiguradoTemporal(campaniaId, tipoConfigurado, nroLote))
             {
                 while (reader.Read())
                 {

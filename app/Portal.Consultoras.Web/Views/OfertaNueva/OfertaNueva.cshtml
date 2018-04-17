@@ -70,13 +70,9 @@
                     else {
                         if (isNaN(jQuery.trim($("#txtPrecioNormal").val())) || isNaN(jQuery.trim($("#txtPrecioParaTi").val())))
                             vMessage += "- Debe ingresar valores correctos en Precio Normal y/o Precio Para Ti.\n";
-                        //1731
-                        //else if (parseFloat(jQuery.trim($("#txtPrecioParaTi").val())) > parseFloat(jQuery.trim($("#txtPrecioNormal").val())))
-                        //  vMessage += "- El Precio Para Ti debe ser menor al Precio Normal.\n";
-                        //1731
                     }
                     if (jQuery.trim($('#txtGanaHasta').val()) == "")
-                        vMessage += "- Debe ingresar el Monto de Gana Hasta.\n";//1731
+                        vMessage += "- Debe ingresar el Monto de Gana Hasta.\n";
 
                     if (jQuery.trim($("#txtUnidadesPermitidas").val()) == "")
                         vMessage += "- Debe ingresar una Unidad Permitida.\n";
@@ -194,7 +190,6 @@
         $('#txtCampaniaInicio').keyup(function (evt) {
             var theEvent = evt || window.event;
             var keycode = theEvent.keyCode || theEvent.which;
-            //key = String.fromCharCode(key);
             
             key = $.trim(this.value);
             var regex = /[0-9]/;
@@ -212,11 +207,6 @@
                     BuscarByCUVCampaniaID(cuv, key);
             }
         });
-        //$('#txtCampania').keypress(function (e) {
-        //    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-        //        return false;
-        //    }
-        //});
         $('#txtCampaniaInicio').blur(function (e) {
             var val = this.value.replace(/[^0-9]/mg, "");
             if (val.length === 2) {
@@ -232,8 +222,6 @@
         });
         $('#txtCampaniaFin').keyup(function (evt) {
             var theEvent = evt || window.event;
-            //var key = theEvent.keyCode || theEvent.which;
-            //key = String.fromCharCode(key);
             key = $.trim(this.value);
             var regex = /[0-9]/;
             if (!regex.test(key)) {
@@ -241,11 +229,6 @@
                 if (theEvent.preventDefault) theEvent.preventDefault();
             }
         });
-        //$('#txtCampaniaFin').keypress(function (e) {
-        //    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-        //        return false;
-        //    }
-        //});
         $('#txtCampaniaFin').blur(function (e) {
             var val = this.value.replace(/[^0-9]/mg, "");
             if (val.length === 2) {
@@ -259,8 +242,6 @@
 
         $('#txtCUV').keyup(function (evt) {
             var theEvent = evt || window.event;
-            //var key = theEvent.keyCode || theEvent.which;
-            //key = String.fromCharCode(key);
             key = $.trim(this.value);
             var regex = /[0-9]/;
             if (!regex.test(key)) {
@@ -274,11 +255,6 @@
             }
         });
 
-        //$('#txtCUV').keypress(function (e) {
-        //    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-        //        return false;
-        //    }
-        //});
         $('#txtCUV').blur(function (e) {
             var val = this.value.replace(/[^0-9]/mg, "");
             if (val.length !== 5) {
@@ -308,20 +284,6 @@
             return $(this).val(this.value.replace(/[^0-9]/mg, ""));
         });
 
-        //$('#txtPrecioNormal').keypress(function (evt) {
-        //    var theEvent = evt || window.event;
-        //    var key = theEvent.keyCode || theEvent.which;
-        //    key = String.fromCharCode(key);
-        //    var regex = /[0-9]|\./;
-        //    if (!regex.test(key)) {
-        //        theEvent.returnValue = false;
-        //        if (theEvent.preventDefault) theEvent.preventDefault();
-        //    }
-        //});
-        //$('#txtPrecioNormal').blur(function (e) {
-        //    return $(this).val(this.value.replace(/[^0-9.]/mg, ""));
-        //});
-
         $('#txtPrecioParaTi').keypress(function (evt) {
             var theEvent = evt || window.event;
             var key = theEvent.keyCode || theEvent.which;
@@ -336,7 +298,6 @@
             return $(this).val(this.value.replace(/[^0-9.]/mg, ""));
         });
 
-        //1731
         $('#txtGanaHasta').keypress(function (evt) {
             var theEvent = evt || window.event;
             var key = theEvent.keyCode || theEvent.which;
@@ -350,7 +311,6 @@
         $('#txtGanaHasta').blur(function (e) {
             return $(this).val(this.value.replace(/[^0-9.]/mg, ""));
         });
-        //1731
         $('#txtNumeroPedido').keypress(function (evt) {
             var theEvent = evt || window.event;
             var key = theEvent.keyCode || theEvent.which;
@@ -364,20 +324,7 @@
         $('#txtNumeroPedido').blur(function (e) {
             return $(this).val(this.value.replace(/[^a-zA-Z0-9ñÑáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙ _+;:¡¿?$·#!&ºª\{\}\[\]*")(.,\/-]/mg, ""));
         });
-
-        //$('#txtDescripcion').keypress(function (evt) {
-        //    var theEvent = evt || window.event;
-        //    var key = theEvent.keyCode || theEvent.which;
-        //    key = String.fromCharCode(key);
-        //    var regex = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙ _+;:¡¿?$·#!&ºª\{\}\[\]*")(.,\/-]/;
-        //    if (!regex.test(key)) {
-        //        theEvent.returnValue = false;
-        //        if (theEvent.preventDefault) theEvent.preventDefault();
-        //    }
-        //});
-        //$('#txtDescripcion').blur(function (e) {
-        //    return $(this).val(this.value.replace(/[^a-zA-Z0-9ñÑáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙ _+;:¡¿?$·#!&ºª\{\}\[\]*")(.,\/-]/mg, ""));
-        //});
+        
     });
 
     function BuscarByCUVCampaniaID(CUV, CampaniaID) {
@@ -404,7 +351,6 @@
                             $("#txtDescripcion").val(data.descripcion);
                             $("#hdCUVTemp").val(CUV);
                             $("#hdCampaniaTemp").val(CampaniaID);
-                            //$('#hdCampaniaID').val(data.campaniaid);
                             $('#hdCampaniaID').val(CampaniaID);
                         }
                         else {
@@ -476,7 +422,7 @@
             ImagenProductoAnterior02: $.trim($("#imagenProductoAnterior02").val()),
             ImagenProductoAnterior03: $.trim($('#imagenProductoAnterior03').val()),
             OfertaNuevaId: $("#hdAccion").val(),
-            ganahasta: $.trim($("#txtGanaHasta").val())//1731
+            ganahasta: $.trim($("#txtGanaHasta").val())
         };
         jQuery.ajax({
             type: 'POST',
@@ -530,7 +476,7 @@
         $('#txtPrecioNormal').val("");
         $('#txtPrecioParaTi').val("");
         $('#txtUnidadesPermitidas').val("");
-        $('#txtGanaHasta').val("");//1731
+        $('#txtGanaHasta').val("");
         $('#chkHabilitarOferta').removeAttr('checked');
         $('#txtCampaniaInicio').removeAttr('readonly');
         $('#txtCampaniaFin').removeAttr('readonly');
@@ -563,7 +509,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['OfertaNuevaId', 'Campaña ID', 'UnidadesPermitidas', 'FlagImagenActiva', 'Habilitar Oferta', 'RutaImagen1', 'RutaImagen2', 'RutaImagen3', 'Nº Pedido', 'Código SAP', 'Campaña', 'CUV', 'Descripción', 'Precio Normal', 'Precio Para Ti','Gana Hasta', 'Foto', 'Detalle'],//1731
+            colNames: ['OfertaNuevaId', 'Campaña ID', 'UnidadesPermitidas', 'FlagImagenActiva', 'Habilitar Oferta', 'RutaImagen1', 'RutaImagen2', 'RutaImagen3', 'Nº Pedido', 'Código SAP', 'Campaña', 'CUV', 'Descripción', 'Precio Normal', 'Precio Para Ti', 'Gana Hasta', 'Foto', 'Detalle'],
             colModel: [
                 {
                     name: 'OfertaNuevaId', index: 'OfertaNuevaId', width: 0, editable: false, align: 'center',
@@ -607,7 +553,7 @@
                 {
                     name: 'ganahasta', index: 'ganahasta', width: 0, editable: false, align: 'center',
                     hidden: true
-                },//1731
+                },
                 { name: 'Imagen', index: 'Imagen', width: 15, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowImage },
                 { name: 'vDetalle', index: 'vDetalle', width: 5, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions }
             ],
@@ -657,16 +603,10 @@
         function ShowImage(cellvalue, options, rowObject) {
             var image = "";
             if (rowObject[3] === "1" && rowObject[5] !== "") {
-                // image = '<img src="' + '@Url.Content("~/Content/OfertasNuevas/")' + isoPAIS + "/" + rowObject[5] + '" alt="" width="70px" height="60px" title="" border="0" />';
-                // 1664
                 image = '<img src="' + rowObject[5] + '" alt="" width="70px" height="60px" title="" border="0" />';
             } else if (rowObject[3] === "2" && rowObject[6] !== "") {
-                // image = '<img src="' + '@Url.Content("~/Content/OfertasNuevas/")' + isoPAIS + "/" + rowObject[6] + '" alt="" width="70px" height="60px" title="" border="0" />';
-                // 1664
                 image = '<img src="' + rowObject[6] + '" alt="" width="70px" height="60px" title="" border="0" />';
             } else if (rowObject[3] === "3" && rowObject[7] !== "") {
-                // image = '<img src="' + '@Url.Content("~/Content/OfertasNuevas/")' + isoPAIS + "/" + rowObject[7] + '" alt="" width="70px" height="60px" title="" border="0" />';
-                // 1664
                 image = '<img src="' + rowObject[7] + '" alt="" width="70px" height="60px" title="" border="0" />';
             } else {
                 image = '<img src="@Url.Content("~/Content/Images/prod_grilla_vacio.png")" alt="" width="60px" height="60px" title="" border="0" />';
@@ -691,7 +631,7 @@ $.jgrid.extend({
             $('#txtDescripcion').val(jQuery("#list").jqGrid('getCell', ID, 'Descripcion'));
             $('#txtPrecioNormal').val(jQuery("#list").jqGrid('getCell', ID, 'PrecioNormal'));
             $('#txtPrecioParaTi').val(jQuery("#list").jqGrid('getCell', ID, 'PrecioParaTi'));
-            $('#txtGanaHasta').val(jQuery("#list").jqGrid('getCell', ID, 'ganahasta'));//1731
+            $('#txtGanaHasta').val(jQuery("#list").jqGrid('getCell', ID, 'ganahasta'));
             $('#txtUnidadesPermitidas').val(jQuery("#list").jqGrid('getCell', ID, 'UnidadesPermitidas'));
             if (jQuery("#list").jqGrid('getCell', ID, 'FlagHabilitarOferta') == "1")
                 $('#chkHabilitarOferta').attr('checked', true);
@@ -716,31 +656,23 @@ $.jgrid.extend({
             $('#imagenProductoAnterior03').val($("#list").jqGrid('getCell', ID, 'ImagenProducto03'));
 
             if ($.trim($("#imagenProducto01").val()) != "") {
-                // $('#imgpreview01').attr('src', '@Url.Content("~/Content/OfertasNuevas/")' + isoPAIS + "/" + $("#imagenProducto01").val());
-                // 1664
                 $('#imgpreview01').attr('src', $("#imagenProducto01").val());
             } else
                 $('#imgpreview01').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
 
             if ($.trim($("#imagenProducto02").val()) != "") {
-                // $('#imgpreview02').attr('src', '@Url.Content("~/Content/OfertasNuevas/")' + isoPAIS + "/" + $("#imagenProducto02").val());
-                // 1664
                 $('#imgpreview02').attr('src', $("#imagenProducto02").val());
             } else
                 $('#imgpreview02').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
 
             if ($.trim($("#imagenProducto03").val()) != "") {
-                // $('#imgpreview03').attr('src', '@Url.Content("~/Content/OfertasNuevas/")' + isoPAIS + "/" + $("#imagenProducto03").val());
-                // 1664
                 $('#imgpreview03').attr('src', $("#imagenProducto03").val());
             } else
                 $('#imgpreview03').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
             
-            // 1664
             FormatearImagenes('#imagenProducto01');
             FormatearImagenes('#imagenProducto02');
             FormatearImagenes('#imagenProducto03');
-            // 1664
             FormatearImagenes('#imagenProductoAnterior01');
             FormatearImagenes('#imagenProductoAnterior02');
             FormatearImagenes('#imagenProductoAnterior03');
@@ -796,9 +728,7 @@ $.jgrid.extend({
 
 });
 
-    // 1664
     function FormatearImagenes(id) {
-        // 1664
         var img01 = $(id).val().replace(/^.*[\\\/]/, '');
         if (img01.lastIndexOf("?") >= 0) {
             img01 = img01.substring(0, img01.lastIndexOf("?"));            

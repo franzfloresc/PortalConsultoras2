@@ -1,0 +1,356 @@
+﻿@model Portal.Consultoras.Web.Models.PagoEnLinea.PagoEnLineaReporteModel
+@{
+    ViewBag.Title = "Reporte Pago en Línea";
+}
+<script src="@Url.Content("~/Scripts/DatetimePicker/datetimepicker_css.js")"></script>
+
+<div class="wrap_cab">
+    <div class="filtros2">
+        <div class="elements">
+            <div class="div-2">
+                <h1><span>Reporte Pago en Línea</span></h1>
+            </div>
+            <div class="div-3">
+                <div class="titG">País:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.PaisId, new SelectList(Model.listaPaises, "PaisID", "Nombre", Model.PaisId), "-- Seleccionar --", new { id = "ddlPais" })
+                </div>
+                <div class="titB">Campaña:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.CampaniaId, new SelectList(Model.lista, "CampaniaID", "NombreCorto", Model.CampaniaId), "-- Seleccionar --", new { id = "ddlCampania" })
+                </div>
+            </div>
+
+            <div class="div-3">
+                <div class="titG">Región:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.RegionId, new SelectList(Model.listaRegiones, "RegionID", "Codigo"), "-- Seleccionar --", new { id = "ddlRegion" })
+                </div>
+
+                <div class="titB">Zona:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.ZonaId, new SelectList(Model.listaZonas, "ZonaID", "Nombre"), "-- Seleccionar --", new { id = "ddlZona" })
+                </div>
+
+                <input type="hidden" id="hdNombreAnt" />
+            </div>
+
+            <div class="div-3">
+                <div class="titG">Codigo Consultora:</div>
+                <div class="selectA borde_redondeado">
+                    <input type="text" id="CodigoConsultora" name="CodigoConsultora" maxlength="20">
+                </div>
+
+                <div class="titB">Estado:</div>
+                <div class="selectA borde_redondeado">
+
+                    <select name="ddlEstado" id="ddlEstado">
+                        <option value="" selected>-- Seleccionar --</option>
+                        <option value="0">OK</option>
+                        <option value="-1">Error</option>
+                    </select>
+                </div>
+            </div>
+            <hr />
+            <h6>Fecha de Pago</h6>
+            <!-- FECHA PAGO-->
+            <div class="div-3">
+                <div class="titG">Inicio: </div>
+                <div class="calendar borde_redondeado">
+                    <input type="text" id="FechaPagoDesde" name="FechaPagoDesde" />
+                    <img src="@Url.Content("~/Content/Images/dateTimePicker/cal.gif")"
+                         onclick="javascript:NewCssCal('FechaPagoDesde','ddMMyyyy')" style="cursor:pointer" />
+                </div>
+                <!------>
+                <div class="titJ" style="width: 145px;">Fin: </div>
+                <div class="calendar borde_redondeado">
+                    <input type="text" id="FechaPagoHasta" name="FechaPagoHasta" />
+                    <img src="@Url.Content("~/Content/Images/dateTimePicker/cal.gif")"
+                         onclick="javascript:NewCssCal('FechaPagoHasta','ddMMyyyy')" style="cursor:pointer" />
+                </div>
+            </div>
+            <!-- FIN FECHA PAGO-->
+            <!-- FECHA PROCESO-->
+            <hr />
+            <h6>Fecha de Proceso</h6>
+            <div class="div-3">
+                <div class="titG">Inicio: </div>
+                <div class="calendar borde_redondeado">
+                    <input type="text" id="FechaProcesoDesde" name="FechaProcesoDesde" />
+                    <img src="@Url.Content("~/Content/Images/dateTimePicker/cal.gif")" 
+                         onclick="javascript:NewCssCal('FechaProcesoDesde','ddMMyyyy','arrow',true,'24','true')" style="cursor:pointer" />
+                </div>
+                <!------>
+                <div class="titJ" style="width: 145px;">Fin: </div>
+                <div class="calendar borde_redondeado">
+                    <input type="text" id="FechaProcesoHasta" name="FechaProcesoHasta" />
+                    <img src="@Url.Content("~/Content/Images/dateTimePicker/cal.gif")"
+                         onclick="javascript:NewCssCal('FechaProcesoHasta','ddMMyyyy','arrow',true,'24','true')" style="cursor:pointer" />
+                </div>
+            </div>
+            <!-- FIN FECHA PROCESO-->
+
+            <div class="div-3">
+                <div class="titG">&nbsp;</div>
+                <div class="input_horizontal">
+                    <div class="input_search">
+                        <input type="submit" name="" id="btnBuscar" value="Buscar" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="border-wrapper" style="overflow-x:scroll;">
+
+            <table id="list"></table>
+            <div id="pager"></div>
+
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="container clearfix" style="text-align: center">
+        <div class="input_global">
+            <input type="button" value="Exportar Excel" id="btnExportarExcel" name="btnExportarExcel" onclick="ExportarExcel();">
+        </div>
+    </div>
+</div>
+<div id="loadingScreen"></div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        $("#btnBuscar").click(function () {
+            if (jQuery.trim($("#ddlPais").val()) == "") {
+                alert("Debe seleccionar un País, verifique");
+                return false;
+            }
+            //if (jQuery.trim($("#ddlCampania").val()) == "") {
+            //    alert("Debe seleccionar una campaña, verifique");
+            //    return false;
+            //}
+
+            fnGrilla();
+        });
+
+        $('#ddlCampania').click(function () {
+            var n = 10;
+            var val = this.selectedIndex;
+            if ((this.selectedIndex < ($(this).find('option').length - n)) && (this.selectedIndex > n)) {
+                this.selectedIndex += n;
+                this.selectedIndex -= (2 * n);
+                this.selectedIndex += n;
+            }
+            else {
+                this.selectedIndex = ((this.selectedIndex < n) ? 0 : $(this).find('option').length - 1);
+                this.selectedIndex = val;
+            }
+        });
+
+        $('#ddlRegion').change(function () {
+            LimpiarCombo($('#ddlZona'));
+
+            var regionId = $('#ddlRegion').val();
+            var paisId = $('#ddlPais').val();
+            if (regionId == "") return false;
+
+            waitingDialog({});
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'PagoEnLinea/ObtenerZonasByRegion',
+                dataType: 'json',
+                data: { PaisId: paisId, RegionId: regionId },
+                async: true,
+                success: function (data) {
+                    if (!checkTimeout(data)) return false;
+
+                    closeWaitingDialog();
+                    if (data.success == true) {
+                        var ddlZona = $('#ddlZona');
+                        $.each(data.listaZonas, function (ind, item) {
+                            ddlZona.append($('<option/>', { value: item.ZonaID, text: item.Nombre }));
+                        });
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        alert("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
+                    }
+                }
+            });
+        });
+    });
+
+    function fnGrilla() {
+
+        if ($("#FechaPagoDesde").val() == "") {
+            alert("Debe seleccionar la fecha de pago de Inicio");
+            return false;
+        }
+
+        if ($("#FechaPagoHasta").val() == "") {
+            alert("Debe seleccionar la fecha de pago de Fin");
+            return false;
+        }
+
+        if ($("#FechaProcesoDesde").val() == "") {
+            alert("Debe seleccionar la fecha de Proceso de Inicio");
+            return false;
+        }
+
+        if ($("#FechaProcesoHasta").val() == "") {
+            alert("Debe seleccionar la fecha de Proceso de Fin");
+            return false;
+        }
+
+        jQuery("#list").jqGrid({
+            url: baseUrl + "PagoEnLinea/ConsultaReporte",
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                CampaniaID: function () { return jQuery.trim($("#ddlCampania").val()); },
+                RegionID: function () { return jQuery.trim($("#ddlRegion").val()); },
+                ZonaID: function () { return jQuery.trim($("#ddlZona").val()); },
+                PaisID: function () { return jQuery.trim($("#ddlPais").val()); },
+                CodigoConsultora: function () { return jQuery.trim($("#CodigoConsultora").val()); },
+                Estado: function () { return jQuery.trim($("#ddlEstado").val()); },
+                FechaPagoDesde: function () { return jQuery.trim($('#FechaPagoDesde').val()); }, // add
+                FechaPagoHasta: function () { return jQuery.trim($('#FechaPagoHasta').val()); }, // add
+                FechaProcesoDesde: function () { return jQuery.trim($('#FechaProcesoDesde').val()); }, // add
+                FechaProcesoHasta: function () { return jQuery.trim($('#FechaProcesoHasta').val()); } // add
+            }),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['Campaña', 'Nombre de Comercio', 'Id de Pago', 'Nro. de Pago', 'Consultora', 'Fecha de Pago', 'Hora de Pago', 'Codigo de Cliente',
+                'Identificación de Cliente', 'Canal', 'Ciclo', 'Total Pagado', 'Comisión', 'IVA',
+                'Total a Consignar', 'Ticket ID', 'Region', 'Zona', 'Origen Tarjeta',
+                'Número de Tarjeta', 'Número de Operación', 'Descripcion de Transacción', 'Estado Transacción', 'Fecha de Proceso', 'Hora de Proceso'],
+            colModel: [
+                { name: 'CampaniaId', index: 'CampaniaId', width: 10, editable: true, resizable: false },
+                { name: 'NombreComercio', index: 'NombreComercio', width: 15, editable: true, resizable: false },
+                { name: 'IdUnicoTransaccion', index: 'IdUnicoTransaccion', width: 25, editable: true, resizable: false, align: 'center' },
+                { name: 'PagoEnLineaResultadoLogId', index: 'PagoEnLineaResultadoLogId', width: 15, editable: true, resizable: false, align: 'center' },
+                { name: 'NombreCompleto', index: 'NombreCompleto', width: 30, editable: true, resizable: false, align: 'center' },
+                { name: 'FechaTransaccionFormat', index: 'FechaTransaccionFormat', width: 15, editable: true, resizable: false, align: 'center' },
+                { name: 'FechaTransaccionHoraFormat', index: 'FechaTransaccionHoraFormat', width: 15, editable: true, resizable: false, align: 'center' },
+                { name: 'CodigoConsultora', index: 'CodigoConsultora', width: 25, editable: true, resizable: false, align: 'center' },
+                { name: 'NumeroDocumento', index: 'NumeroDocumento', width: 25, editable: true, resizable: false, align: 'center' },
+                { name: 'Canal', index: 'Canal', width: 10, editable: true, resizable: false, align: 'center' },
+                { name: 'Ciclo', index: 'Ciclo', width: 10, editable: true, resizable: false, align: 'center' },
+                { name: 'ImporteAutorizado', index: 'ImporteAutorizado', width: 20, editable: true, resizable: false, align: 'center' },
+                { name: 'MontoGastosAdministrativos', index: 'MontoGastosAdministrativos', width: 15, editable: true, resizable: false, align: 'right' },
+                { name: 'IVA', index: 'IVA', width: 10, editable: true, resizable: false, align: 'center' },
+                { name: 'MontoPago', index: 'MontoPago', width: 20, editable: true, resizable: false, align: 'right' },
+                { name: 'TicketId', index: 'TicketId', width: 10, editable: true, resizable: false, align: 'center' },
+                { name: 'CodigoRegion', index: 'CodigoRegion', width: 10, editable: true, resizable: false, align: 'center' },
+                { name: 'CodigoZona', index: 'CodigoZona', width: 15, editable: true, resizable: false, align: 'center' },
+                { name: 'OrigenTarjeta', index: 'OrigenTarjeta', width: 10, editable: true, resizable: false },
+                { name: 'NumeroTarjeta', index: 'NumeroTarjeta', width: 30, editable: true, resizable: false },
+                { name: 'NumeroOrdenTienda', index: 'NumeroOrdenTienda', width: 20, editable: true, resizable: false, align: 'center' },
+                { name: 'MensajeError', index: 'MensajeError', width: 50, editable: true, resizable: false },
+                { name: 'CodigoError', index: 'CodigoError', width: 15, editable: true, resizable: false, align: 'center' },
+                { name: 'FechaCreacionFormat', index: 'FechaCreacionFormat', width: 15, editable: true, resizable: false, align: 'center' },
+                { name: 'FechaCreacionHoraFormat', index: 'FechaCreacionHoraFormat', width: 15, editable: true, resizable: false, align: 'center' }
+            ],
+            jsonReader:
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: true,
+                    cell: "cell",
+                    id: "id"
+                },
+            pager: jQuery('#pager'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Nombre',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 2000,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () { },
+            gridComplete: function () { }
+        });
+        jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+
+    function ExportarExcel() {
+        if (jQuery.trim($("#ddlPais").val()) == "") {
+            alert("Debe seleccionar un País, verifique");
+            return false;
+        }
+
+        var PaisID = jQuery.trim($("#ddlPais").val());
+        var CodigoCampania = jQuery.trim($("#ddlCampania").val());
+        var RegionID = jQuery.trim($("#ddlRegion").val());
+        var ZonaID = jQuery.trim($("#ddlZona").val());
+        var codigoConsultora = jQuery.trim($('#CodigoConsultora').val());
+        var Estado = jQuery.trim($("#ddlEstado").val());
+        var FechaPagoDesde = jQuery.trim($('#FechaPagoDesde').val());
+        var FechaPagoHasta = jQuery.trim($('#FechaPagoHasta').val());
+        var FechaProcesoDesde = jQuery.trim($('#FechaProcesoDesde').val());
+        var FechaProcesoHasta = jQuery.trim($('#FechaProcesoHasta').val());
+        waitingDialog({});
+
+        setTimeout(function () {
+            DownloadAttachExcel(CodigoCampania, RegionID, ZonaID, PaisID, codigoConsultora, Estado, FechaPagoDesde, FechaPagoHasta, FechaProcesoDesde, FechaProcesoHasta)
+        }, 0);
+    }
+
+    function DownloadAttachExcel(CodigoCampania, RegionID, ZonaID, PaisID, CodigoConsultora, Estado, FechaPagoDesde, FechaPagoHasta, FechaProcesoDesde, FechaProcesoHasta) {
+        if (checkTimeout()) {
+            var content = baseUrl + "PagoEnLinea/ExportarExcel?CampaniaID=" + CodigoCampania + "&RegionID=" + RegionID + "&ZonaID="
+                + ZonaID + "&PaisID=" + PaisID + "&CodigoConsultora=" + CodigoConsultora + "&Estado=" + Estado + "&FechaPagoDesde="
+                + FechaPagoDesde + "&FechaPagoHasta=" + FechaPagoHasta + "&FechaProcesoDesde=" + FechaProcesoDesde + "&FechaProcesoHasta=" + FechaProcesoHasta;
+            var iframe_ = document.createElement("iframe");
+            iframe_.style.display = "none";
+            iframe_.setAttribute("src", content);
+
+            if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
+                iframe_.onreadystatechange = function () {
+                    switch (this.readyState) {
+                        case "loading":
+                            waitingDialog({});
+                            break;
+                        case "complete":
+                        case "interactive":
+                        case "uninitialized":
+                            closeWaitingDialog();
+                            break;
+                        default:
+                            closeWaitingDialog();
+                            break;
+                    }
+                };
+            }
+            else {
+                // Si es Firefox o Chrome
+                $(iframe_).ready(function () {
+                    closeWaitingDialog();
+                });
+            }
+            document.body.appendChild(iframe_);
+        }
+    }
+
+    function LimpiarCombo($combo) {
+        $combo.empty();
+        $combo.append($('<option/>', { value: "", text: "-- Seleccionar --" }));
+    }
+
+</script>

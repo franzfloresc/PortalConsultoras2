@@ -14,14 +14,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                if (GNDValidarAcceso())
+                if (GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
                 {
                     return ViewLanding();
                 }
             }
             catch (Exception ex)
             {
-                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, string.Empty);
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "GuiaNegocioController.Index");
             }
 
             return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });

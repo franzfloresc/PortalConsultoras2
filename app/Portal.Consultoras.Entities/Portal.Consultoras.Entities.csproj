@@ -75,8 +75,11 @@
     <Compile Include="Cliente\BEMovimientoDetalle.cs" />
     <Compile Include="Comunicado\BEComunicadoSegmentacion.cs" />
     <Compile Include="Comunicado\BEComunicadoVista.cs" />
+    <Compile Include="DENativeType.cs" />
+    <Compile Include="ReservaProl\BEPedidoWebDetalleExplotado.cs" />
     <Compile Include="Estrategia\BEConfiguracionProgramaNuevasApp.cs" />
     <Compile Include="Estrategia\BEEstrategiaMasiva.cs" />
+    <Compile Include="Estrategia\EstrategiaProductoSet.cs" />
     <Compile Include="Estrategia\OfertaFinalMontoMeta.cs" />
     <Compile Include="Estrategia\UpSelling.cs" />
     <Compile Include="Estrategia\UpSellingDetalle.cs" />
@@ -128,6 +131,9 @@
     <Compile Include="Incentivo\BEIncentivoProgramaNuevasNivel.cs" />
     <Compile Include="Incentivo\BEIncentivoProgramaNuevasPremio.cs" />
     <Compile Include="Mobile\BEApp.cs" />
+    <Compile Include="PagoEnLinea\BEPagoEnLineaFiltro.cs" />
+    <Compile Include="PagoEnLinea\BEPagoEnLineaResultadoLog.cs" />
+    <Compile Include="PagoEnLinea\BEPagoEnLineaResultadoLogReporte.cs" />
     <Compile Include="Pedido\BEMisPedidosCampania.cs" />
     <Compile Include="Pedido\BEMisPedidosFacturados.cs" />
     <Compile Include="Pedido\BEMisPedidosFacturadosDetalle.cs" />
@@ -137,6 +143,7 @@
     <Compile Include="Pedido\BEPedidoWebSetDetalle.cs" />
     <Compile Include="Pedido\BETrackinDetalle.cs" />
     <Compile Include="Pedido\BETracking.cs" />
+    <Compile Include="ReservaProl\BECuponNueva.cs" />
     <Compile Include="ReservaProl\BEPedidoObservacion.cs" />
     <Compile Include="ReservaProl\BEInputReservaProl.cs" />
     <Compile Include="BEPedidoWebDetalleInvariant.cs" />
@@ -254,6 +261,7 @@
     <Compile Include="BEProcesoPedidoRechazado.cs" />
     <Compile Include="BEProductoCompartido.cs" />
     <Compile Include="BEProductoSugerido.cs" />
+    <Compile Include="DEPedidoWebDetalleObs.cs" />
     <Compile Include="RevistaDigital\BERevistaDigitalSuscripcion.cs" />
     <Compile Include="Cupon\BECuponConsultora.cs" />
     <Compile Include="ShowRoom\BEShowRoomCategoria.cs" />

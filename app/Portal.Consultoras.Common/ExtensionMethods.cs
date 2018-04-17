@@ -61,6 +61,18 @@ namespace Portal.Consultoras.Common
             decimal.TryParse(obj, out temp);
             return temp;
         }
+        public static int ToInt32Secure(this string obj)
+        {
+            int temp = 0;
+            int.TryParse(obj, out temp);
+            return temp;
+        }
+        public static long ToInt64Secure(this string obj)
+        {
+            long temp = 0;
+            long.TryParse(obj, out temp);
+            return temp;
+        }
 
         public static decimal ToDecimalZeros(this decimal obj, int numberOfDecimals)
         {

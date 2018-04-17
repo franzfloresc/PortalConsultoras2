@@ -1,0 +1,12 @@
+<svg width="15" height="12" viewBox="0 0 15 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>Path 249</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-248 -180)">
+<g id="Path 249">
+<use xlink:href="#path0_stroke" transform="translate(249 181)" fill="#FFFFFF"/>
+</g>
+</g>
+<defs>
+<path id="path0_stroke" d="M 3.73415 9.02308L 3.23235 9.52234L 3.73415 10.0267L 4.23595 9.52234L 3.73415 9.02308ZM -0.5018 5.76925L 3.23235 9.52234L 4.23595 8.52381L 0.5018 4.77071L -0.5018 5.76925ZM 4.23595 9.52234L 13.2135 0.499267L 12.2099 -0.499267L 3.23235 8.52381L 4.23595 9.52234Z"/>
+</defs>
+</svg>

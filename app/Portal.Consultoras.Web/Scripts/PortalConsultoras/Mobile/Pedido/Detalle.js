@@ -122,7 +122,7 @@ function CargarPedido(firstLoad) {
             if (!checkTimeout(data)) {
                 return false;
             }
-
+            registerEsShowRoomPais();
             SetHandlebars("#template-Detalle", data.data, '#divProductosDetalle');
             belcorp.mobile.pedido.setDetalles(data.data.ListaDetalleModel);
 
@@ -158,6 +158,23 @@ function GetProductoEntidad(detalleId, setId) {
 
         return false;
     }
+}
+
+function registerEsShowRoomPais() {
+
+    if (Handlebars.helpers.isShowRoomPais) {
+        return;
+    }
+
+    Handlebars.registerHelper('isShowRoomPais', function (pais, sisId, opts) {
+
+        var productShowRoom = sisId == "1707";
+
+        return productShowRoom && sesionEsShowRoom == '1' && pais === IsoPais
+            ? opts.inverse(this)
+            : opts.fn(this);
+    });
+
 }
 
 function UpdateLiquidacionEvento(evento) {
@@ -457,17 +474,19 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
     PedidoUpdate(item);
 }
 function ConfigurarPopUpConfirmacion() {
-    var regalo = GetUpSellingGanado();
 
-    if (ofertaFinalEstado == 'True' && ofertaFinalAlgoritmo == 'OFR' && regalo) {
-        $('#mensaleAvisoRegalo').show();
+    if (typeof esUpselling !== 'undefined' && esUpselling) {
+        var regalo = GetUpSellingGanado();
+        if (regalo != null) {
+            $('#mensaleAvisoRegalo').show();
+        }
     }
     else {
         $('#mensaleAvisoRegalo').hide();
     }
 
     $("#popup-eliminar-item").show();
-
+ 
 
 }
 
@@ -1043,7 +1062,8 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
 
             if (cumpleOferta.resultado) {
                 esPedidoValidado = response.data.ProlSinStock != true;
-            } else {
+            }
+            else {
                 if (response.data.ProlSinStock == true) {
                     messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
                     AnalyticsGuardarValidar(response);
@@ -1062,7 +1082,6 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
                     ShowLoading();
                     document.location = urlPedidoValidado;
                 }, 2000);
-
             }
             return true;
         }

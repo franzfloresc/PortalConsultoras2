@@ -2436,6 +2436,41 @@ namespace Portal.Consultoras.Common
             return listaPaises[paisID];
         }
 
+        public static string GetPaisIsoSicc(int paisId)
+        {
+            switch (paisId)
+            {
+                case 2: //Bolivia
+                    return "BOL";
+                case 3: //Chile
+                    return "CHL";
+                case 4: //Colombia
+                    return "COL";
+                case 5: //Costa Rica
+                    return "CRI";
+                case 6: //Ecuador
+                    return "ECU";
+                case 7: //El Salvador
+                    return "SLV";
+                case 8: //Guatemala
+                    return "GTM";
+                case 9: //México
+                    return "MEX";
+                case 10: //Panamá
+                    return "PAN";
+                case 11: //Perú
+                    return "PER";
+                case 12: //Puerto Rico
+                    return "PRI";
+                case 13: //República Dominicana
+                    return "DOM";
+                case 14: //Venezuela
+                    return "VEN";
+                default:
+                    return "";
+            }
+        }
+
         public static string GetPaisNombre(int paisID)
         {
             List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
@@ -2790,6 +2825,7 @@ namespace Portal.Consultoras.Common
 
         public static string SubStrCortarNombre(string cadena, int cant, string strFin = "")
         {
+            cadena = Trim(cadena);
             var str = SubStr(cadena, 0, cant);
             str = str == cadena && cadena != "" ? str + strFin : (str + "...");
             str = str == "..." ? "" : str;
