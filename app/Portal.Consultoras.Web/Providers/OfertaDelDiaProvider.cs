@@ -560,8 +560,8 @@ namespace Portal.Consultoras.Web.Providers
         public bool desactivarWebApi(string _id, string usuario, string Pais)
         {
             bool bDeshabilitado = true;
-            string jsonParameters = "{\"usuario\":" + usuario + "\"pais\":" + Pais + "}";
-            string requestUrl = "estrategia/desactivar/" + _id;
+            string jsonParameters = "";
+            string requestUrl = "estrategia/desactivar/" + _id + "?usuario=" + usuario +"&pais=" + Pais;
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "put"));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;

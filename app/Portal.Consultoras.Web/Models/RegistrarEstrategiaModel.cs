@@ -53,5 +53,12 @@
         public string ImagenMiniaturaURLAnterior { get; set; }
         public int EsSubCampania { get; set; }
         public string Niveles { get; set; }
+        public string CodigoEstrategia { get; set; }
+        public int Imagen { get; set; }
+        public string DescripcionEstrategia { get; set; }
+        public int MarcaID { get; set; }
+        public string DescripcionMarca { get; set; }
+        public string CodigoProducto { get; set; }
+        public string CodigoSAP { get; set; }
     }
 }
