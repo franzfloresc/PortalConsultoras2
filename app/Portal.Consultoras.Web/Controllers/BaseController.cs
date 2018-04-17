@@ -2718,6 +2718,8 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
+        #region TablaLogica
+
         public List<TablaLogicaDatosModel> ObtenerParametrosTablaLogica(int paisId, short tablaLogicaId, bool sesion = false)
         {
             var datos = sesion ? (List<TablaLogicaDatosModel>)Session[Constantes.ConstSession.TablaLogicaDatos + tablaLogicaId.ToString()] : null;
@@ -2747,6 +2749,25 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return valor;
         }
+        
+        public int ObtenerValorTablaLogicaInt(int paisId, short tablaLogicaId, short idTablaLogicaDatos, bool sesion = false)
+        {
+            var resultadoString = ObtenerValorTablaLogica(paisId, tablaLogicaId, idTablaLogicaDatos, sesion);
+            int resultado;
+            int.TryParse(resultadoString, out resultado);
+            return resultado;
+        }
+
+        public int ObtenerValorTablaLogicaInt(List<TablaLogicaDatosModel> lista, short tablaLogicaDatosId)
+        {
+            var resultadoString = ObtenerValorTablaLogica(lista, tablaLogicaDatosId);
+
+            int resultado;
+            int.TryParse(resultadoString, out resultado);
+            return resultado;
+        }
+
+        #endregion
 
         public MobileAppConfiguracionModel MobileAppConfiguracion
         {
