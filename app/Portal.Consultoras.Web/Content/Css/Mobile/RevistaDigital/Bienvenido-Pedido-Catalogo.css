@@ -126,9 +126,7 @@
     }
 
     .contenedor_carrusel_home .content_item_carrusel_clubganamas a {
-        border: 1px solid black !important;
-        color: black !important;
-        font-size: 12px;
+        font-size: 13px;
         font-weight: bold;
         font-style: normal;
         font-stretch: normal;

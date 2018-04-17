@@ -199,8 +199,8 @@
 }
 
 .box_producto_mobile_fix {
-    margin-left: 12%;
-    margin-right: 12%;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 .producto_img_mobile_bpt {
@@ -374,15 +374,6 @@
     letter-spacing: 2px;
     display: block;
 }
-
-/* NUEVO LANDING SUSCRIPCION MOBILE */
-
-/* FIN NUEVO LANDING SUSCRIPCION MOBILE */
-
-
-/* POP UP ACTUALIZA DATOS*/
-
-/* FIN POP UP ACTUALIZA DATOS */
 
 /*BOTON ESIKA NO ANIMADO: ROJO*/
 .activar_boton_esika_no_animado {
