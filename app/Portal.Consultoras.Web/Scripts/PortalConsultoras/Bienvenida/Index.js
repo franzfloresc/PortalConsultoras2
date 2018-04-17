@@ -1660,7 +1660,7 @@ function ActualizarMD() {
 
         if (jQuery.trim($('#txtCelularMD').val()) != "") {
             if (!ValidarTelefono($("#txtCelularMD").val())) {
-                alert('El formato del celular no es correcto.');
+                alert('El celular que está ingresando ya se encuenta registrado.');
                 return false;
             }
         }

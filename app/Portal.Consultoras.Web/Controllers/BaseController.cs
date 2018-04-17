@@ -4711,24 +4711,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected string ActualizarMisDatos(ServiceUsuario.BEUsuario usuario, string correoAnterior)
         {
-            if (string.IsNullOrWhiteSpace(usuario.CodigoUsuario))
-                usuario.CodigoUsuario = UserData().CodigoUsuario;
-
-            if (string.IsNullOrWhiteSpace(usuario.EMail))
-                usuario.EMail = UserData().EMail;
-
-            if (string.IsNullOrWhiteSpace(usuario.Celular))
-                usuario.Celular = UserData().Celular;
-
-            if (string.IsNullOrWhiteSpace(usuario.Telefono))
-                usuario.Telefono = UserData().Telefono;
-
-            if (string.IsNullOrWhiteSpace(usuario.TelefonoTrabajo))
-                usuario.TelefonoTrabajo = UserData().TelefonoTrabajo;
-
-            if (string.IsNullOrWhiteSpace(usuario.Sobrenombre))
-                usuario.Sobrenombre = UserData().Sobrenombre;
-
             usuario.ZonaID = UserData().ZonaID;
             usuario.RegionID = UserData().RegionID;
             usuario.ConsultoraID = UserData().ConsultoraID;
@@ -4740,17 +4722,6 @@ namespace Portal.Consultoras.Web.Controllers
             using (UsuarioServiceClient svr = new UsuarioServiceClient())
             {
                 resultado = svr.ActualizarMisDatos(usuario, correoAnterior);
-            }
-
-            if (resultado.Split('|')[0] != "0")
-            {
-                var userDataX = UserData();
-                if (usuario.EMail != correoAnterior)
-                {
-                    userDataX.EMail = usuario.EMail;
-                }
-                userDataX.Celular = usuario.Celular;
-                sessionManager.SetUserData(userDataX);
             }
 
             return resultado;
