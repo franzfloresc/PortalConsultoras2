@@ -113,6 +113,7 @@
       <xs:element minOccurs="0" name="FechaNacimiento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaNacimientoAval" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaRechazo" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FlagConsultoraDigital" type="xs:boolean" />
       <xs:element minOccurs="0" name="FuenteIngreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenCDD" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenConstanciaLaboralAval" nillable="true" type="xs:string" />
@@ -320,4 +321,17 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Cell" nillable="true" type="tns:Cell" />
+  <xs:complexType name="CodigoVerificacionSolicitudPostulanteBE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoVerificacionId" type="xs:int" />
+      <xs:element minOccurs="0" name="CorreoElectronico" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroCelular" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RespuestaEnvio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoEnvio" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CodigoVerificacionSolicitudPostulanteBE" nillable="true" type="tns:CodigoVerificacionSolicitudPostulanteBE" />
 </xs:schema>
