@@ -1,174 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:36239/ProductoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" />
-  <xs:element name="ObtenerProductos">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="tipoOfertaFinal" type="xs:int" />
-        <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
-        <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="zonaId" type="xs:int" />
-        <xs:element minOccurs="0" name="codigoRegion" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="codigoZona" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="tipoProductoMostrar" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ObtenerProductosResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="ObtenerProductosResult" nillable="true" type="q1:ArrayOfProducto" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ObtenerProductosOfertaFinal">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="lstParametroOfertaFinal" nillable="true" type="q2:ListaParametroOfertaFinal" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ObtenerProductosOfertaFinalResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="ObtenerProductosOfertaFinalResult" nillable="true" type="q3:ArrayOfProducto" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ObtenerTodosProductos">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="lugar" type="xs:int" />
-        <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
-        <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="zonaId" type="xs:int" />
-        <xs:element minOccurs="0" name="codigoRegion" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="codigoZona" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="tipoProductoMostrar" type="xs:int" />
-        <xs:element minOccurs="0" name="limimte" type="xs:int" />
-        <xs:element minOccurs="0" name="esFacturacion" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ObtenerTodosProductosResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="ObtenerTodosProductosResult" nillable="true" type="q4:ArrayOfProducto" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ObtenerProductosByCodigoSap">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
-        <xs:element minOccurs="0" name="codigoSap" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ObtenerProductosByCodigoSapResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="ObtenerProductosByCodigoSapResult" nillable="true" type="q5:ArrayOfProducto" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ObtenerProductosPorCampaniasBySap">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
-        <xs:element minOccurs="0" name="codigoSap" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="NroCampania" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ObtenerProductosPorCampaniasBySapResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="ObtenerProductosPorCampaniasBySapResult" nillable="true" type="q6:ArrayOfProducto" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ObtenerProductosAppCatalogoByListaCUV">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
-        <xs:element minOccurs="0" name="listaCuv" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ObtenerProductosAppCatalogoByListaCUVResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="ObtenerProductosAppCatalogoByListaCUVResult" nillable="true" type="q7:ArrayOfProducto" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="UpdateCacheListaOfertaFinal">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="UpdateCacheListaOfertaFinalResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="UpdateCacheListaOfertaFinalResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ObtenerRegaloOfertaFinal">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
-        <xs:element minOccurs="0" name="consultoraId" type="xs:long" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ObtenerRegaloOfertaFinalResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="ObtenerRegaloOfertaFinalResult" nillable="true" type="q8:RegaloOfertaFinal" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ObtenerRegaloMontoMeta">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
-        <xs:element minOccurs="0" name="consultoraId" type="xs:long" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ObtenerRegaloMontoMetaResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" minOccurs="0" name="ObtenerRegaloMontoMetaResult" nillable="true" type="q9:RegaloOfertaFinal" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="InsertarRegaloOfertaFinal">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
-        <xs:element minOccurs="0" name="consultoraId" type="xs:long" />
-        <xs:element minOccurs="0" name="montoTotal" type="xs:double" />
-        <xs:element minOccurs="0" name="algoritmo" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="InsertarRegaloOfertaFinalResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.ServiceCatalogoPersonalizado.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfProducto">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Producto" nillable="true" type="tns:Producto" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProducto" nillable="true" type="tns:ArrayOfProducto" />
+  <xs:complexType name="Producto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CUV2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CUVComplemento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CUVPedido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CUVRevista" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CampaniaId" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoCategoria" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoIso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoMarca" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoSap" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />
+      <xs:element minOccurs="0" name="Cuv" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionCategoria" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionComercial" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionEstrategia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EsCross" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsExpoOferta" type="xs:int" />
+      <xs:element minOccurs="0" name="EsMaquillaje" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EstaEnRevista" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagNueva" type="xs:int" />
+      <xs:element minOccurs="0" name="IdMarca" type="xs:int" />
+      <xs:element minOccurs="0" name="Imagen" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenBulk" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenCUVPedido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IndicadorMontoMinimo" type="xs:int" />
+      <xs:element minOccurs="0" name="MontoMeta" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NombreBulk" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreCUVPedido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreComercial" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreMarca" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Orden" type="xs:int" />
+      <xs:element minOccurs="0" name="PrecioCatalogo" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PrecioValorizado" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Relevancia" type="xs:int" />
+      <xs:element minOccurs="0" name="Sello" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoCross" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TipoEstrategiaID" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoMeta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
+      <xs:element minOccurs="0" name="Volumen" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Producto" nillable="true" type="tns:Producto" />
+  <xs:complexType name="ListaParametroOfertaFinal">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Algoritmo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoRegion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Limite" type="xs:int" />
+      <xs:element minOccurs="0" name="MontoEscala" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoMinimo" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoTotal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TipoOfertaFinal" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoProductoMostrar" type="xs:int" />
+      <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ListaParametroOfertaFinal" nillable="true" type="tns:ListaParametroOfertaFinal" />
+  <xs:complexType name="RegaloOfertaFinal">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CampaniaId" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
+      <xs:element minOccurs="0" name="Cuv" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GapAgregar" type="xs:double" />
+      <xs:element minOccurs="0" name="GapMaximo" type="xs:double" />
+      <xs:element minOccurs="0" name="GapMinimo" type="xs:double" />
+      <xs:element minOccurs="0" name="MontoMeta" type="xs:double" />
+      <xs:element minOccurs="0" name="MontoPedido" type="xs:double" />
+      <xs:element minOccurs="0" name="RegaloDescripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegaloImagenUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoRango" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RegaloOfertaFinal" nillable="true" type="tns:RegaloOfertaFinal" />
 </xs:schema>
