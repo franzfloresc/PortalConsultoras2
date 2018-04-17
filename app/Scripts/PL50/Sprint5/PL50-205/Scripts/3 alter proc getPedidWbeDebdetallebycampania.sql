@@ -14,7 +14,7 @@ BEGIN
 
 declare @FechaRegistroPedido date
 declare @FechaInicioSetAgrupado date
-set @FechaInicioSetAgrupado ='2018-04-16'
+set @FechaInicioSetAgrupado ='2018-04-17'
 
 select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
@@ -621,7 +621,7 @@ BEGIN
 
 declare @FechaRegistroPedido date
 declare @FechaInicioSetAgrupado date
-set @FechaInicioSetAgrupado ='2018-04-16'
+set @FechaInicioSetAgrupado ='2018-04-17'
 
 select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
@@ -1228,7 +1228,7 @@ BEGIN
 
 declare @FechaRegistroPedido date
 declare @FechaInicioSetAgrupado date
-set @FechaInicioSetAgrupado ='2018-04-16'
+set @FechaInicioSetAgrupado ='2018-04-17'
 
 select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
@@ -1835,7 +1835,7 @@ BEGIN
 
 declare @FechaRegistroPedido date
 declare @FechaInicioSetAgrupado date
-set @FechaInicioSetAgrupado ='2018-04-16'
+set @FechaInicioSetAgrupado ='2018-04-17'
 
 select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
@@ -2442,7 +2442,7 @@ BEGIN
 
 declare @FechaRegistroPedido date
 declare @FechaInicioSetAgrupado date
-set @FechaInicioSetAgrupado ='2018-04-16'
+set @FechaInicioSetAgrupado ='2018-04-17'
 
 select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
@@ -3049,7 +3049,7 @@ BEGIN
 
 declare @FechaRegistroPedido date
 declare @FechaInicioSetAgrupado date
-set @FechaInicioSetAgrupado ='2018-04-16'
+set @FechaInicioSetAgrupado ='2018-04-17'
 
 select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
@@ -3656,7 +3656,7 @@ BEGIN
 
 declare @FechaRegistroPedido date
 declare @FechaInicioSetAgrupado date
-set @FechaInicioSetAgrupado ='2018-04-16'
+set @FechaInicioSetAgrupado ='2018-04-17'
 
 select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
@@ -4263,7 +4263,7 @@ BEGIN
 
 declare @FechaRegistroPedido date
 declare @FechaInicioSetAgrupado date
-set @FechaInicioSetAgrupado ='2018-04-16'
+set @FechaInicioSetAgrupado ='2018-04-17'
 
 select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
@@ -4870,7 +4870,7 @@ BEGIN
 
 declare @FechaRegistroPedido date
 declare @FechaInicioSetAgrupado date
-set @FechaInicioSetAgrupado ='2018-04-16'
+set @FechaInicioSetAgrupado ='2018-04-17'
 
 select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
@@ -5477,7 +5477,7 @@ BEGIN
 
 declare @FechaRegistroPedido date
 declare @FechaInicioSetAgrupado date
-set @FechaInicioSetAgrupado ='2018-04-16'
+set @FechaInicioSetAgrupado ='2018-04-17'
 
 select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
@@ -6084,7 +6084,7 @@ BEGIN
 
 declare @FechaRegistroPedido date
 declare @FechaInicioSetAgrupado date
-set @FechaInicioSetAgrupado ='2018-04-16'
+set @FechaInicioSetAgrupado ='2018-04-17'
 
 select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
@@ -6691,7 +6691,7 @@ BEGIN
 
 declare @FechaRegistroPedido date
 declare @FechaInicioSetAgrupado date
-set @FechaInicioSetAgrupado ='2018-04-16'
+set @FechaInicioSetAgrupado ='2018-04-17'
 
 select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
 
