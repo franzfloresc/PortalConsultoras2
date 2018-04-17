@@ -1,0 +1,317 @@
+/* -------------------------------------------------- */
+/*	fuentes
+/* -------------------------------------------------- */
+@font-face {
+  font-family: 'lato';
+  src: url("../../../fonts/lato/lato-bold.eot");
+  src: url("../../../fonts/lato/lato-regular.eot?#iefix") format("embedded-opentype"), url("../../../fonts/lato/lato-regular.woff") format("woff"), url("../../../fonts/lato/lato-regular.ttf") format("truetype"), url("../../../fonts/lato/lato-regular.svg#lato_regular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+@font-face {
+  font-family: 'lato-bold';
+  src: url("../../../fonts/lato/lato-bold.eot");
+  src: url("../../../fonts/lato/lato-bold.eot?#iefix") format("embedded-opentype"), url("../../../fonts/lato/lato-bold.woff") format("woff"), url("../../../fonts/lato/lato-bold.ttf") format("truetype"), url("../../../fonts/lato/lato-bold.svg#lato_bold") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+/* ---------------------------------------------------------------------- */
+/*	Reset
+/* ---------------------------------------------------------------------- */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  background: transparent; }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+nav ul, nav ol {
+  list-style: none;
+  list-style-image: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+a {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  outline: none;
+  text-decoration: none;
+  background: transparent;
+  vertical-align: baseline;
+  text-decoration: none; }
+  a > * {
+    text-decoration: none; }
+
+ul {
+  margin: 0px;
+  padding: 0px;
+  list-style: none; }
+
+img {
+  border: 0;
+  max-width: 100%;
+  -ms-interpolation-mode: bicubic; }
+
+hr {
+  clear: both;
+  margin: 5px 0 5px 0;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-bottom: 1px solid #d0d0d0; }
+
+q:before, q:after {
+  content: none; }
+
+blockquote {
+  position: relative;
+  margin-bottom: 1.5em;
+  padding: 18px 45px 20px 50px;
+  background-color: #f2f2f2;
+  font: italic 15px/1.6 'Ubuntu', sans-serif;
+  color: #a1a1a1; }
+  blockquote:after {
+    position: absolute;
+    width: 20px;
+    height: 16px;
+    background-image: url("../../../Images/quote.png");
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    content: ''; }
+  blockquote:before {
+    position: absolute;
+    width: 20px;
+    height: 16px;
+    background-image: url("../../../Images/quote.png");
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    content: '';
+    left: 20px;
+    top: 20px; }
+  blockquote:after {
+    margin: 5px 0 0 20px;
+    background-position: right top; }
+
+.quoteright {
+  float: right;
+  margin: 0 0 25px 30px;
+  width: 35%; }
+
+.quoteleft {
+  float: left;
+  margin: 0 30px 25px 0;
+  width: 35%; }
+
+address {
+  float: right !important;
+  margin: 0 0 25px 0 !important;
+  padding: 20px;
+  font-style: normal;
+  background-color: #ffd000;
+  background-repeat: repeat;
+  color: #fff; }
+
+.borde_redondeado {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -khtml-border-radius: 10px;
+  border-radius: 10px;
+  behavior: url("../../../../../../Content/Css/Pie/PIE.htc");
+  position: relative; }
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+/* ---------------------------------------------------------------------- */
+/*	Basic
+/* ---------------------------------------------------------------------- */
+body {
+  color: #000000;
+  font-size: 16px;
+  /* font-family:  'lato', Arial, sans-serif; */
+  font-family: 'lato';
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%; }
+
+p {
+  margin: 0 0 1.1em 0;
+  padding: 0;
+  line-height: 1.2em;
+  font-size: 16px; }
+
+.container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  position: relative; }
+
+@media (min-width: 1290px) {
+  .container {
+    width: 1230px;
+    max-width: 100%; } }
+@media (max-width: 1160px) {
+  .container {
+    width: 100%;
+    max-width: 100%; } }
+header {
+  margin: 17px 0; }
+
+.logo {
+  width: 80px;
+  height: 34px;
+  display: block;
+  background: url("../../../../Content/Images/unsubscribe/lbel-logo.svg") no-repeat 0 0;
+  background-size: 80px; }
+
+.main {
+  display: block;
+  width: 600px;
+  margin: 38px auto; }
+  .main strong {
+    font-size: 20px;
+    line-height: 1.1em;
+    margin: 0px 0px 15px 0px;
+    display: inline-block;
+    width: 100%; }
+  .main .paragraph {
+    text-align: center; }
+  .main a {
+    color: #000000;
+    text-decoration: underline; }
+  .main .text-center {
+    text-align: center;
+    display: inline-block;
+    width: 100%; }
+  .main b {
+    margin: 14px 0px 12px 0;
+    display: inline-block;
+    width: 100%; }
+  .main ul li {
+    line-height: 25px;
+    display: block;
+    margin-bottom: 10px; }
+  .main .other {
+    width: 235px;
+    height: 35px;
+    margin: 0 0 0 15px;
+    padding: 5px 15px; }
+  .main .btn_send {
+    background: #642F80;
+    color: #fff;
+    width: 328px;
+    height: 45px;
+    text-align: center;
+    display: inline-block;
+    margin: 24px 0px;
+    border: none;
+    font-family: "lato-bold";
+    font-size: 1rem;
+    letter-spacing: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.5s;
+    text-decoration: none; }
+    .main .btn_send:hover {
+      background: #531972; }
+  .main .options {
+    display: inline-block;
+    margin: 5px 0 0 0px;
+    text-align: center;
+    width: 100%; }
+    .main .options .btn {
+      display: flex;
+      justify-content: center; }
+  .main p span {
+    display: inline-block;
+    width: 100%;
+    margin: 0 0 0px 0;
+    font-size: 13px;
+    color: #595959; }
+  .main .ico-check {
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    margin: 0 0 25px 0; }
+    .main .ico-check span {
+      background: url("../../../../Content/Images/unsubscribe/ico-check-esika.svg") no-repeat 0 0;
+      width: 62px;
+      height: 62px;
+      display: block;
+      margin: 0 auto; }
+  .main .dnone {
+    display: none; }
+
+.mg-0 {
+  margin: 0px; }
+
+.text-center {
+  text-align: center;
+  display: inline-block;
+  width: 100%; }
+  .text-center .btn_send {
+    margin: 24px auto; }
+
+@media (max-width: 600px) {
+  .main {
+    width: 90%;
+    display: block; }
+    .main .btn_send {
+      width: 95%; } }
+@media (max-width: 420px) {
+  .main {
+    margin: 25px auto; }
+    .main .other {
+      width: 100%;
+      height: 35px;
+      margin: 0 0 0 15px;
+      padding: 5px 15px;
+      flex: 1 1; }
+    .main .btn_send {
+      width: 100%; } }
+.radio {
+  margin: 15px 0;
+  display: flex;
+  align-items: center; }
+  .radio input[type="radio"] {
+    position: absolute;
+    opacity: 0; }
+    .radio input[type="radio"] + .radio-label:before {
+      content: '';
+      background: #f4f4f4;
+      border-radius: 100%;
+      border: 1px solid #b4b4b4;
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      position: relative;
+      top: 2px;
+      margin-right: 1em;
+      vertical-align: top;
+      cursor: pointer;
+      text-align: center;
+      transition: all 250ms ease; }
+    .radio input[type="radio"]:checked + .radio-label:before {
+      background-color: #642F80;
+      box-shadow: inset 0 0 0 4px #f4f4f4; }
+    .radio input[type="radio"]:focus + .radio-label:before {
+      outline: none;
+      border-color: #642F80; }
+    .radio input[type="radio"]:disabled + .radio-label:before {
+      box-shadow: inset 0 0 0 4px #f4f4f4;
+      border-color: #b4b4b4;
+      background: #b4b4b4; }
+    .radio input[type="radio"] + .radio-label:empty:before {
+      margin-right: 0; }
+
+/*# sourceMappingURL=unsubscribe.css.map */
