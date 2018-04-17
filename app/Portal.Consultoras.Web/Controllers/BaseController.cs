@@ -2203,13 +2203,16 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (revistaDigital.TieneRDCR)
             {
+                if (codigoRevista.EndsWith(Constantes.CatalogoUrlIssu.RDR + "1") || codigoRevista.EndsWith(Constantes.CatalogoUrlIssu.RDR + "2"))
+                    return codigoRevista;
+
                 string tipo = "1";
                 if (GetConfiguracionManagerContains(Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_2 + userData.CodigoISO, userData.CodigoZona))
                 {
                     tipo = "2";
                 }
 
-                codigoRevista += tipo == "" ? "" : (Constantes.CatalogoUrlIssu.RDR + tipo);
+                codigoRevista += Constantes.CatalogoUrlIssu.RDR + tipo;
 
             }
             return codigoRevista;
