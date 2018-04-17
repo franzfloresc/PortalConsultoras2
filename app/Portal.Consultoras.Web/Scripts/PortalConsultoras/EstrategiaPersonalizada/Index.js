@@ -328,6 +328,8 @@ function RenderCarruselIndividuales(divProd) {
         autoplaySpeed: 6000,
         prevArrow: '<a class="arrow-prev"><img src="' + baseUrl + 'Content/Images/sliders/previous_ofertas.svg")" alt="" /></a>',
         nextArrow: '<a class="arrow-next"><img src="' + baseUrl + 'Content/Images/sliders/next_ofertas.svg")" alt="" /></a>'
+    }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
+        VerificarClick(slick, currentSlide, nextSlide, "previsuales");
     });
 }
 
