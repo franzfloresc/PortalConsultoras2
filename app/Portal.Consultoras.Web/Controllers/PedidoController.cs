@@ -2573,11 +2573,26 @@ namespace Portal.Consultoras.Web.Controllers
                 var pedidoModelo = new PedidoDetalleModel
                 {
                     eMail = userData.EMail,
-                    ListaDetalle = lstPedidoWebDetalle,// PedidoJerarquico(lstPedidoWebDetalle),
                     Simbolo = userData.Simbolo,
                     Total = Util.DecimalToStringFormat(totalPedido, userData.CodigoISO),
                     Total_Minimo = Util.DecimalToStringFormat(totalMinimoPedido, userData.CodigoISO)
                 };
+
+
+                var pedidoWeb = ObtenerPedidoWeb();
+
+                int result = DateTime.Compare(new DateTime(2018, 4, 17, 0, 0, 0, 0, DateTimeKind.Local), pedidoWeb.FechaRegistro);
+
+
+                if (result > 0)
+                {
+                    pedidoModelo.ListaDetalle = PedidoJerarquico(lstPedidoWebDetalle);
+                }
+                else
+                {
+                    pedidoModelo.ListaDetalle = lstPedidoWebDetalle;
+                }
+
 
                 var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoWebDetalle>, List<PedidoWebDetalleModel>>(pedidoModelo.ListaDetalle);
                 pedidoWebDetalleModel.ForEach(p => p.CodigoIso = userData.CodigoISO);

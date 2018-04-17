@@ -358,7 +358,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 CodigoISO = userData.CodigoISO,
                 Simbolo = userData.Simbolo
             };
-            model.SetDetalleMobileFromDetalleWeb(PedidoJerarquico(lstPedidoWebDetalle));
+
+
+            var pedidoWeb = ObtenerPedidoWeb();
+
+            int result = DateTime.Compare(new DateTime(2018, 4, 17, 0, 0, 0, 0, DateTimeKind.Local), pedidoWeb.FechaRegistro);
+
+
+            if (result > 0)
+            {
+                model.SetDetalleMobileFromDetalleWeb(PedidoJerarquico(lstPedidoWebDetalle));
+            }
+            else
+            {
+                model.SetDetalleMobileFromDetalleWeb(lstPedidoWebDetalle);
+            }
             model.Detalle.Update(detalle => { if (string.IsNullOrEmpty(detalle.Nombre)) detalle.Nombre = userData.NombreConsultora; });
             model.Detalle.Update(item => item.DescripcionPrecioUnidad = Util.DecimalToStringFormat(item.PrecioUnidad, model.CodigoISO));
             model.Detalle.Update(item => item.DescripcionImporteTotal = Util.DecimalToStringFormat(item.ImporteTotal, model.CodigoISO));
