@@ -1,4 +1,7 @@
-# Portal Consultoras 2.22.8
+# Portal Consultoras 2.23
 
-Nivelacion Mejoras
+HU EPM 846 - 847
 
+Redimensionar caja de productos (SR y ODD)
+
+Ancho dinamico
