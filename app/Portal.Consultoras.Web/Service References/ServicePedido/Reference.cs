@@ -29656,10 +29656,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CUVField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CategoriaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaModificacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaRegistroField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MarcaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string PAISField;
@@ -29719,6 +29728,32 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Categoria {
+            get {
+                return this.CategoriaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CategoriaField, value) != true)) {
+                    this.CategoriaField = value;
+                    this.RaisePropertyChanged("Categoria");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Descripcion {
+            get {
+                return this.DescripcionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
+                    this.DescripcionField = value;
+                    this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public System.DateTime FechaModificacion {
             get {
                 return this.FechaModificacionField;
@@ -29740,6 +29775,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.FechaRegistroField.Equals(value) != true)) {
                     this.FechaRegistroField = value;
                     this.RaisePropertyChanged("FechaRegistro");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Marca {
+            get {
+                return this.MarcaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MarcaField, value) != true)) {
+                    this.MarcaField = value;
+                    this.RaisePropertyChanged("Marca");
                 }
             }
         }
