@@ -80,6 +80,12 @@
   <wsdl:message name="IPedidoService_DeshacerPedidoValidado_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeshacerPedidoValidadoResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_DeshacerReservaPedido_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeshacerReservaPedido" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_DeshacerReservaPedido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeshacerReservaPedidoResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_ObtenerResumen_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerResumen" />
   </wsdl:message>
@@ -2433,6 +2439,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DeshacerPedidoValidado" message="tns:IPedidoService_DeshacerPedidoValidado_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DeshacerPedidoValidadoResponse" message="tns:IPedidoService_DeshacerPedidoValidado_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="DeshacerReservaPedido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DeshacerReservaPedido" message="tns:IPedidoService_DeshacerReservaPedido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DeshacerReservaPedidoResponse" message="tns:IPedidoService_DeshacerReservaPedido_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerResumen">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerResumen" message="tns:IPedidoService_ObtenerResumen_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerResumenResponse" message="tns:IPedidoService_ObtenerResumen_OutputMessage" />
@@ -4035,6 +4045,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeshacerPedidoValidado">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/DeshacerPedidoValidado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeshacerReservaPedido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/DeshacerReservaPedido" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7585,6 +7604,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeshacerPedidoValidado">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/DeshacerPedidoValidado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeshacerReservaPedido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/DeshacerReservaPedido" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

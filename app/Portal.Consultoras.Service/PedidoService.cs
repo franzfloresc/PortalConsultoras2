@@ -588,9 +588,9 @@ namespace Portal.Consultoras.Service
 
         #endregion
 
-        public bool DelPedidoWebDetalleMasivo(int PaisID, int CampaniaID, int PedidoID, string CodigoUsuario)
+        public async Task<bool> DelPedidoWebDetalleMasivo(BEUsuario usuario, int pedidoId)
         {
-            return BLPedidoWebDetalle.DelPedidoWebDetalleMasivo(PaisID, CampaniaID, PedidoID, CodigoUsuario);
+            return await BLPedidoWebDetalle.DelPedidoWebDetalleMasivo(usuario, pedidoId);
         }
 
         public bool DelPedidoWebDetallePackNueva(int PaisID, long ConsultoraID, int PedidoID)
@@ -817,7 +817,7 @@ namespace Portal.Consultoras.Service
 
         public List<BETracking> GetPedidosByConsultora(int paisID, string codigoConsultora, int top)
         {
-            return BLTracking.GetPedidosByConsultora(paisID, codigoConsultora, top);
+            return BLTracking.GetPedidosByConsultora(paisID, codigoConsultora, top, 0);
         }
 
         public BETracking GetPedidoByConsultoraAndCampania(int paisID, string codigoConsultora, int campania)
@@ -832,13 +832,24 @@ namespace Portal.Consultoras.Service
 
         public List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, string nropedido)
         {
-            return BLTracking.GetTrackingByPedido(paisID, codigo, campana, nropedido);
+            return BLTracking.GetTrackingByPedido(paisID, codigo, campana, nropedido, 0);
         }
 
         public List<BETracking> GetTrackingPedidoByConsultora(int paisID, string codigoConsultora, int top)
         {
             return _trackingBusinessLogic.GetTrackingPedidoByConsultora(paisID, codigoConsultora, top);
         }
+
+        public List<BETracking> GetPedidosByConsultoraDocumento(int paisID, string codigoConsultora, int top, int tipoDoc = 0)
+        {
+            return BLTracking.GetPedidosByConsultora(paisID, codigoConsultora, top, tipoDoc);
+        }
+
+        public List<BETracking> GetTrackingByPedidoConsultoraDocumento(int paisID, string codigo, string campana, string nropedido, int tipoDoc = 0)
+        {
+            return BLTracking.GetTrackingByPedido(paisID, codigo, campana, nropedido, tipoDoc);
+        }
+        
         #endregion
 
         #region CUV_Automatico
@@ -1956,12 +1967,12 @@ namespace Portal.Consultoras.Service
 
         public async Task<BEResultadoReservaProl> CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo)
         {
-            return await new BLReserva().CargarSesionAndEjecutarReservaProl(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil, enviarCorreo);
+            return await new BLReserva().CargarSesionAndEjecutarReserva(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil, enviarCorreo);
         }
 
         public async Task<BEResultadoReservaProl> EjecutarReservaProl(BEInputReservaProl input)
         {
-            return await new BLReserva().EjecutarReservaProl(input);
+            return await new BLReserva().EjecutarReserva(input);
         }
 
         public int InsMatrizComercialImagen(BEMatrizComercialImagen entity)
@@ -1992,6 +2003,11 @@ namespace Portal.Consultoras.Service
         public string DeshacerPedidoValidado(BEUsuario usuario, string tipo)
         {
             return new BLReserva().DeshacerPedidoValidado(usuario, tipo);
+        }
+
+        public async Task<bool> DeshacerReservaPedido(BEUsuario usuario, int pedidoId)
+        {
+            return await new BLReserva().DeshacerReservaPedido(usuario, pedidoId);
         }
 
         public string GetTokenIndicadorPedidoAutentico(int paisID, string paisISO, string codigoRegion, string codigoZona)

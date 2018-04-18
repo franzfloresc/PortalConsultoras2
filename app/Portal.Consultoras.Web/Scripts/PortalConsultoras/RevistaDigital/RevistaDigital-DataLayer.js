@@ -66,7 +66,7 @@ var rdAnalyticsModule = (function () {
         noDisponible: "NO DISPONIBLE",
         estandar: "Estándar",
         epm: "Ésika para mí",
-        exception: "Exception on analytics RD ",
+        exception: "Exception on analytics RD",
         comprarCampania: "Comprar campaña ",
         verCampania: "Ver campaña ",
         saberMas: "Conoce todo sobre Club Gana+",
@@ -88,11 +88,13 @@ var rdAnalyticsModule = (function () {
         banner: "Banner",
         popup: "Home pop-up - 1",
         notAvailable: "(not available)",
-        contenedor: "Contendor",
+        contenedor: "Contenedor",
         enterate: "Click en botón - Entérate aquí",
         cerrarPopup: "Cerrar popup",
         suscribete: "Suscríbete gratis aquí",
-        guardarDatos: "Click en botón - Guardar datos"
+        guardarDatos: "Click en botón - Guardar datos",
+        siguiente: "Ver siguiente",
+        anterior: "Ver anterior"
     },
     _action = {
         clickBanner: "Click banner Ver todas mis ofertas",
@@ -112,7 +114,8 @@ var rdAnalyticsModule = (function () {
         filtrar: "Filtrar por marca",
         borrar: "Borrar Filtros",
         popupEnterate: "Popup Entérate aquí",
-        popupSuscripcion: "Popup Suscripción"
+        popupSuscripcion: "Popup Suscripción",
+        clickFlechas: "Lo nuevo - Click Flechas"
     },
     _tabCode = {
         comprar: "1",
@@ -133,7 +136,14 @@ var rdAnalyticsModule = (function () {
         ganaMas: "Gana Más"
     }
 
-
+    var _getDirection = function (direction) {
+        switch (direction) {
+        case 1:
+            return _text.siguiente;
+        case 2:
+            return _text.anterior;
+        }
+    }
     var _virtualEventPush = function(category, action, label) {
         dataLayer.push({
             "event": _event.virtual,
@@ -229,6 +239,10 @@ var rdAnalyticsModule = (function () {
             'socialUrl': socialUrl
         });
     }
+    
+    var _capitalizeFirstLetter = function(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 
     function Access(origenWeb) {
         try {
@@ -274,13 +288,13 @@ var rdAnalyticsModule = (function () {
         try {
             switch (codigo.toString()) {
                 case _tabCode.comprar:
-                    _virtualEventPush(_text.contenedor + "-" + pantalla, _action.clickTab, _text.comprarCampania + campaniaId);
+                    _virtualEventPush(_text.contenedor + " - " + pantalla, _action.clickTab, _text.comprarCampania + campaniaId);
                     break;
                 case _tabCode.ver:
-                    _virtualEventPush(_text.contenedor + "-" + pantalla, _action.clickTab, _text.verCampania + campaniaId);
+                    _virtualEventPush(_text.contenedor + " - " + pantalla, _action.clickTab, _text.verCampania + campaniaId);
                     break;
                 case _tabCode.saberMas:
-                    _virtualEventPush(_text.contenedor + "-" + pantalla, _action.clickTab, _text.saberMas);
+                    _virtualEventPush(_text.contenedor + " - " + pantalla, _action.clickTab, _text.saberMas);
                     break;
             }
         } catch (e) {
@@ -492,11 +506,14 @@ var rdAnalyticsModule = (function () {
     }
 
     function ContendorSection(titulo) {
-        _virtualEventPush(_text.contenedor + " - Home", titulo.toLowerCase() + " - Ver Todo", _text.notAvailable);
+        _virtualEventPush(_text.contenedor + " - Home", _capitalizeFirstLetter(titulo.toLowerCase()) + " - Click Botón", _action.verMas);
     }
     
     function IrEnterate() {
         _virtualEventPush(_category.ganaMas, _action.popupEnterate, _text.enterate);
+    }
+    function ClickArrowLan(direction) {
+        _virtualEventPush(_text.contenedor + " - Home", _action.clickFlechas, _getDirection(direction));
     }
     
     return { //rdAnalyticsModule
@@ -517,6 +534,8 @@ var rdAnalyticsModule = (function () {
         Access: Access,
         ContendorSection: ContendorSection,
         IrEnterate: IrEnterate,
-        GuardarDatos: GuardarDatos
+        GuardarDatos: GuardarDatos,
+        ClickArrowLan: ClickArrowLan
+        
     };
 })();

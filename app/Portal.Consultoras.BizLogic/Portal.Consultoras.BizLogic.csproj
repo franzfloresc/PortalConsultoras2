@@ -101,6 +101,7 @@
     <Compile Include="Comunicado\IComunicadoBusinessLogic.cs" />
     <Compile Include="Configuracion\IConfiguracionPaisBusinessLogic.cs" />
     <Compile Include="Cupon\ICuponConsultoraBusinessLogic.cs" />
+    <Compile Include="Estrategia\EstrategiaBusinessLogic.cs" />
     <Compile Include="Estrategia\IConfiguracionProgramaNuevasBusinessLogic.cs" />
     <Compile Include="Estrategia\IUpSellingBusinessLogic.cs" />
     <Compile Include="Estrategia\IUpSellingMarcaCategoriaBusinessLogic.cs" />

@@ -102,7 +102,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     UsuarioModel usuarioModel = sessionManager.GetUserData();
 
-                    //BEConfiguracionValidacion configuracionValidacion = sv.GetConfiguracionValidacion(UserData().PaisID, Convert.ToInt32("201301"))[0];
                     DateTime fechaFinFacturacion = Convert.ToDateTime(FechaFacturacion).AddDays(usuarioModel.DiasDuracionCronograma - 1);
 
                     lst = sv.UpdLogActualizacionFacturacion(UserData().PaisID, CampaniaCodigo, codigos, Convert.ToInt32(Tipo), Convert.ToDateTime(FechaFacturacion), Convert.ToDateTime(FechaReFacturacion), UserData().CodigoUsuario).ToList();

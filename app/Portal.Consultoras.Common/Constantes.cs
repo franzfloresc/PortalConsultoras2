@@ -296,7 +296,6 @@ namespace Portal.Consultoras.Common
             public const string TieneOpt = "TieneOpt";
             public const string TieneOpm = "TieneOpm";
             public const string TieneOpmX1 = "TieneOpmX1";
-            public const string TieneRdr = "TieneRdr";
             public const string TieneHv = "TieneHv";
             public const string TieneHvX1 = "TieneHvX1";
 
@@ -386,6 +385,7 @@ namespace Portal.Consultoras.Common
             public const string PaisesShowRoom = "PaisesShowRoom";
             public const string RevistaPiloto_Zonas = "RevistaPiloto_Zonas_";
             public const string RevistaPiloto_Codigo = "RevistaPiloto_Codigo";
+            public const string RevistaPiloto_Zonas_RDR_2 = "RevistaPiloto_Zonas_RDR_2_";
             public const string CodigoRevistaIssuu = "CodigoRevistaIssuu";
             public const string CodigoCatalogoIssuu = "CodigoCatalogoIssuu";
             public const string URL_SUPERATE_NUEVO = "URL_SUPERATE_NUEVO";
@@ -449,7 +449,7 @@ namespace Portal.Consultoras.Common
             // C: Landing EPM               D: Landing EPM Revisar
             // E: Landing ShowRoom          F: Landing ShowRoom Intriga
             // G: Revista Digital Info      H: Revista Digital Detalle
-            // I: Guia de Negocio
+            // I: Guia de Negocio           J: Herramiento de venta
 
             // Tercer Dígito -- Sección dentro de la Pantalla
             // 0: Principal                 1: OPT
@@ -472,6 +472,8 @@ namespace Portal.Consultoras.Common
             public const string MRevistaDigitalDetalle = "2H0";
             public const string DGuiaNegocio = "1I0";
             public const string MGuiaNegocio = "2I0";
+            public const string DHerramientaVenta = "1J0";
+            public const string MHerramientaVenta = "2J0";
         }
 
         public static class OrigenPedidoWeb
@@ -803,7 +805,7 @@ namespace Portal.Consultoras.Common
             public const string ConsultoraBloqueada = "Lo sentimos, por el momento te encuentras bloqueada para realizar esta operación.";
             public const string SinPedidosDisponibles = "Lo sentimos, en estos momentos no cuentas con pedidos disponibles para reclamar.";
             public const string FueraDeFecha = "Tu solicitud se encuentra fuera de fecha para poder ser atendida.";
-            public const string ContactateChatEnLinea = "Por favor, contáctate con nuestro <span>Chat en Línea</span>.";
+            public const string ContactateChatEnLinea = "Por favor, contáctate con nuestro <span class=\"enlace_chat belcorpChat\"><a>Chat en Línea</a></span>.";
         }
 
         public static class CodigoOperacionCDR
@@ -1064,6 +1066,7 @@ namespace Portal.Consultoras.Common
         public class CatalogoUrlIssu
         {
             public const string Buscador = "//search.issuu.com/api/2_0/document?username=somosbelcorp&q=";
+            public const string RDR = "rdr";
         }
 
         public static class RevistaNombre
@@ -1113,6 +1116,7 @@ namespace Portal.Consultoras.Common
             public const string Cache_Eliminar = "Ocurrió un error al eliminar la caché. Inténtelo más tarde";
             public const string Reserva_Error = "Hubo un error al tratar de realizar la validación del pedido, por favor vuelva a intentarlo.";
             public const string Reserva_SinDetalle = "No tiene productos que reservar esta campaña.";
+            public const string DeleteAllPedido_Error = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
         }
 
         public static class ConfiguracionPais
@@ -1214,11 +1218,15 @@ namespace Portal.Consultoras.Common
                 public const string DPopupBloqueadoNoActivaSuscrita = "DPopupBloqueadoNoActivaSuscrita";
                 public const string MPopupBloqueadoNoActivaNoSuscrita = "MPopupBloqueadoNoActivaNoSuscrita";
                 public const string MPopupBloqueadoNoActivaSuscrita = "MPopupBloqueadoNoActivaSuscrita";
+                public const string PopupBloqueadoNS = "PopupBloqueadoNS";
+                public const string PopupBloqueadoSNA = "PopupBloqueadoSNA";
                 #endregion
 
                 #region Revista Digital Lo que te perdiste
                 public const string DPerdiste = "DPerdiste";
                 public const string MPerdiste = "MPerdiste";
+                public const string NSPerdiste = "NSPerdiste";
+                public const string SNAPerdiste = "SNAPerdiste";
                 #endregion
 
                 #region Inicio Revista Digital - Banner
@@ -1257,21 +1265,17 @@ namespace Portal.Consultoras.Common
                 public const string PopupFondoColorMarco = "PopupFondoColorMarco";
                 #endregion
 
+                #region SociaEmpresaria
+                public static readonly string SociaEEmpresariaExperienciaClub = "SEExperienciaClub";
+                public static readonly string SociaEmpresariaSuscritaNoActivaCancelarSuscripcion = "SESuscritaNoActivaCancelarSuscripcion";
+                public static readonly string SociaEmpresariaSuscritaActivaCancelarSuscripcion = "SESuscritaActivaCancelarSuscripcion";
+                #endregion
+
             }
 
             public static class RDR
             {
-                public const string LogoComercial = "LogoComercial";
-                public const string LogoComercialFondo = "LogoComercialFondo";
-                public const string DBienvenidaRdr = "DBienvenidaRdr";
-                public const string DPedidoRdr = "DPedidoRdr";
-                public const string DCatalogoRdr = "DCatalogoRdr";
-                public const string MBienvenidaRdr = "MBienvenidaRdr";
-                public const string MPedidoRdr = "MPedidoRdr";
-                public const string MCatalogoRdr = "MCatalogoRdr";
-                public const string DRDRLandingBanner = "DRDRLandingBanner";
-                public const string MRDRLandingBanner = "MRDRLandingBanner";
-                public const string LogoMenuOfertas = "LogoMenuOfertas";
+                public const string BloquearProductoGnd = "BloquearProductoGnd";
             }
 
             public static class RDI
@@ -1720,6 +1724,7 @@ namespace Portal.Consultoras.Common
             public const string SwInicioIndex = "/showroom/index";
             public const string SwIntriga = "/showroom/intriga";
             public const string SwDetalle = "/showroom/detalleoferta";
+            public const string SwPersonalizado = "/showroom/personalizado";
             public const string OptDetalle = "/ofertasparati/detalle";
             public const string OfertaDelDia = "/ofertadeldia";
             public const string OfertaDelDiaIndex = "/ofertadeldia/index";
@@ -1754,6 +1759,8 @@ namespace Portal.Consultoras.Common
             public const string Nombre = "#NOMBRE";
             public const string Nombre1 = "#Nombre";
             public const string Nombre2 = "#nombre";
+            public const string Campania = "#Campania";
+
             public const string CampaniaActual = "#CX";
             public const string CampaniaVer = "#CX1";
             public const string CampaniaSuscripcion = "#CS";
@@ -1875,6 +1882,7 @@ namespace Portal.Consultoras.Common
             public const int Valor0 = 0;
             public const int Valor1 = 1;
             public const int Valor2 = 2;
+            public const int Valor3 = 3;
         }
         
         public class ProlCodigoRechazo

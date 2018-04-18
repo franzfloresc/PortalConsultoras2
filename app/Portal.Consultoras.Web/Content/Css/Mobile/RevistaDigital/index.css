@@ -274,11 +274,13 @@
     letter-spacing: .2px;
     color: #000;
 }
-.producto_precio_bpt .producto_precio_oferta_bpt b{
-    position: relative;
-    top: 0px;
-    margin-left: 5px;
+.producto_precio_bpt > span{
+    display:block;
 }
+    .producto_precio_bpt .producto_precio_oferta_bpt b {
+        display: block;
+        width: 100%;
+    }
 /* FIN Producto */
 
 .rd_producto_bloqueado {
@@ -386,3 +388,291 @@
     color: white !important;
     padding: 15px 0px;
 }
+
+.contenido_zona_dorada_contenedor_desktop {
+    width: 100%;
+    height: 157px;
+    display: table;
+    background-image: linear-gradient(to left, #d9b43c, #cdaa37);
+    position: relative;
+    padding: 60px 0px 25px 0px;
+}
+
+    .contenido_zona_dorada_contenedor_desktop .logo-dorado-desktop {
+        background: url('/Content/Images/RevistaDigital/etiqueta-club-ganamas-blanco-independiente.svg');
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 97px;
+        height: 45px;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    .contenido_zona_dorada_contenedor_desktop .fix-zona-dorada {
+        height: auto;
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+        .contenido_zona_dorada_contenedor_desktop .fix-zona-dorada p {
+            font-size: 13px;
+            font-weight: 300;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: 0.5px;
+            text-align: center;
+            color: #ffffff;
+            display: block;
+            width: 200px;
+            margin: auto;
+            padding: 0px 0px 5px 0px;
+        }
+
+        .contenido_zona_dorada_contenedor_desktop .fix-zona-dorada p b{
+            font-weight: 900;
+        }
+
+        .contenido_zona_dorada_contenedor_desktop .fix-zona-dorada a {
+            font-size: 13px;
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: 0.5px;
+            text-align: center;
+            color: #c39934;
+            display: block;
+            width: 200px;
+            margin: auto;
+            background: white;
+            padding: 9.5px 10px;
+        }
+
+.fix_zona_dorada_mobile {
+    background-image: linear-gradient(to left, #d9b43c, #cdaa37);
+    margin-top: -1px;
+    padding: 0px 15px 17px 15px;
+}
+
+    .fix_zona_dorada_mobile .content_item_home_bpt {
+        -webkit-box-shadow: 0 15px 13px -8px rgba(0, 0, 0, 0.15) !important;
+        -moz-box-shadow: 0 15px 13px -8px rgba(0, 0, 0, 0.15) !important;
+        box-shadow: 0 15px 13px -8px rgba(0, 0, 0, 0.15) !important;
+    }
+
+.scroll_posicionar_zona_dorada_cabecera {
+    position: fixed;
+    top: 105px;
+    z-index: 2;
+    height: auto !important;
+    padding: 25px 0px 25px 0px !important;
+}
+
+.scroll_posicionar_zona_dorada_cabecera_fix {
+    top: 135px !important;
+}
+
+.scroll_posicionar_zona_dorada_cabecera_fix2 {
+    top: 135px !important;
+}
+
+.scroll_posicionar_fix-zona-dorada {
+    /*height: 102px !important;*/
+}
+
+.scroll_posicionar_zona_dorada_items {
+    margin-top: 70px;
+    position: relative;
+    z-index: 1;
+}
+
+/**/
+
+.mobile_contenido-popup-nuevo-2017 {
+    display: table-cell;
+    vertical-align: middle;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    margin: auto;
+}
+
+    .mobile_contenido-popup-nuevo-2017 .mobile_centrar-estructura {
+        padding: 20px;
+        height: 85%;
+        margin-top: 1.4% !important;
+        width: 390px;
+        margin: auto;
+        display: table;
+        background-color: rgba(0, 0, 0, 0.85) !important;
+    }
+
+
+        .mobile_contenido-popup-nuevo-2017 .mobile_centrar-estructura .mobile_centrar-vertical-contenido {
+            display: table-cell;
+            vertical-align: middle;
+            padding: 10px;
+        }
+
+            .mobile_contenido-popup-nuevo-2017 .mobile_centrar-estructura .mobile_centrar-vertical-contenido p.mobile_primer-texto {
+                font-size: 17px;
+                letter-spacing: 1px;
+                text-align: center;
+                color: white;
+                font-weight: 300;
+                margin-bottom: 0;
+                display: block;
+                width: 250px;
+                margin: auto;
+                margin-bottom: 5px;
+            }
+
+            .mobile_contenido-popup-nuevo-2017 .mobile_centrar-estructura .mobile_centrar-vertical-contenido p.mobile_segundo-texto {
+                font-size: 24px;
+                letter-spacing: 1px;
+                text-align: center;
+                color: white;
+                font-weight: 700;
+                margin-top: 10px;
+                letter-spacing: 1px;
+                display: block;
+                width: 250px;
+                margin: auto;
+                margin-bottom: 20px;
+            }
+
+                .mobile_contenido-popup-nuevo-2017 .mobile_centrar-estructura .mobile_centrar-vertical-contenido p.mobile_segundo-texto span.flashit {
+                    color: white;
+                }
+
+            .mobile_contenido-popup-nuevo-2017 .mobile_centrar-estructura .mobile_centrar-vertical-contenido .mobile_logogndplus {
+                float: left;
+                top: 0;
+                WIDTH: 100%;
+                LEFT: 0;
+                text-align: left;
+                margin: -9.5% 5% 0% -14.5px;
+            }
+
+
+
+            .mobile_contenido-popup-nuevo-2017 .mobile_centrar-estructura .mobile_centrar-vertical-contenido img {
+                display: block;
+                margin: auto;
+                text-align: center;
+                height: 160px;
+                margin-bottom: 15px;
+            }
+
+            .mobile_contenido-popup-nuevo-2017 .mobile_centrar-estructura .mobile_centrar-vertical-contenido a.mobile_btn-popup {
+                color: white;
+                text-align: center;
+                max-width: 240px;
+                display: block;
+                font-size: 17px;
+                text-decoration: none;
+                padding: 17px 0;
+                letter-spacing: 1px;
+                margin: auto;
+                background-color: #c39934;
+                box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+            }
+
+
+
+        .mobile_contenido-popup-nuevo-2017 .mobile_centrar-estructura .mobile_logogndplus {
+            position: absolute;
+            margin-top: -20px;
+            margin-left: -20px;
+            width: 64px;
+        }
+
+            .mobile_contenido-popup-nuevo-2017 .mobile_centrar-estructura .mobile_logogndplus img {
+                width: 100%;
+            }
+
+        .mobile_contenido-popup-nuevo-2017 .mobile_centrar-estructura a.mobile_cerrar-popup {
+            position: absolute;
+            margin-left: 29px;
+            margin-top: -20px;
+            position: absolute;
+            margin-left: 344px !important;
+            margin-left: 346px !important;
+            margin-top: -50px !important;
+        }
+
+    .mobile_contenido-popup-nuevo-2017 .mobile_cerrargndtxt {
+        margin-top: 20px;
+        font-size: 11px;
+        letter-spacing: .5px;
+        color: #9E9E9E;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+@media (max-width:400px) {
+    .mobile_contenido-popup-nuevo-2017 .mobile_centrar-estructura .mobile_logogndplus {
+        position: absolute;
+        margin-top: 0;
+        margin-left: 0;
+        width: 64px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .mobile_contenido-popup-nuevo-2017 .mobile_centrar-estructura .mobile_centrar-vertical-contenido p.mobile_primer-texto {
+        font-size: 17px;
+        margin-bottom: 5px;
+    }
+
+    .mobile_contenido-popup-nuevo-2017 .mobile_centrar-estructura .mobile_centrar-vertical-contenido p.mobile_segundo-texto {
+        font-size: 24px;
+    }
+
+    .mobile_contenido-popup-nuevo-2017 .mobile_centrar-estructura .mobile_centrar-vertical-contenido a.mobile_btn-popup {
+        font-size: 13px;
+        padding: 13.5px 0;
+    }
+
+    .mobile_contenido-popup-nuevo-2017 .mobile_centrar-estructura a.mobile_cerrar-popup {
+        position: absolute;
+        margin-left: 0;
+        margin-top: -49px;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .mobile_contenido-popup-nuevo-2017 .mobile_centrar-estructura {
+        width: 92%;
+        margin-top: 4.9% !important;
+    }
+        .mobile_contenido-popup-nuevo-2017 .mobile_centrar-estructura a.mobile_cerrar-popup {
+            width: 100%;
+            margin: auto;
+            margin-left: 0 !important;
+            left: 0;
+            text-align: right;
+            padding: 0 20px;
+        }
+}
+
+@media (max-width: 400px) {
+
+
+    .mobile_contenido-popup-nuevo-2017 .mobile_centrar-estructura {
+        padding: 0;
+    }
+
+        .mobile_contenido-popup-nuevo-2017 .mobile_centrar-estructura .mobile_centrar-vertical-contenido p.mobile_primer-texto, mobile_contenido-popup-nuevo-2017 .mobile_centrar-estructura .mobile_centrar-vertical-contenido p.mobile_segundo-texto {
+            width: 100%;
+        }
+
+        .mobile_contenido-popup-nuevo-2017 .mobile_centrar-estructura a.mobile_cerrar-popup {
+            margin-top: -30px !important;
+            padding: 0 16px !important;
+        }
+}
+
