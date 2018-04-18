@@ -676,3 +676,9 @@
         }
 }
 
+.Acortar2Renglones3puntos {
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+}
