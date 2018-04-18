@@ -78,6 +78,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (pagoOk)
                 {
+                    var menu = userData.Menu.FirstOrDefault(item => item.Descripcion.ToUpper() == "CONDICIONES DE USO WEB");
+                    ViewBag.MenuTerminos = menu;
+
                     return View("PagoExitoso", model);
                 }
                 else

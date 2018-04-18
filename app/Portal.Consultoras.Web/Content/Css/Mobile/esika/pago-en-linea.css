@@ -71,6 +71,7 @@
 .titulo_resumen_pago_exitoso,
 .resumen_pago,
 .monto_pagado,
+.num_tarjeta,
 .monto_gastos_administrativos,
 .total_monto_pagado,
 .monto_saldo_pendiente,
@@ -106,6 +107,7 @@
 .descripcion_opcion_activacion,
 .imagen_felicitacion,
 .monto_pagado span,
+.num_tarjeta span,
 .monto_gastos_administrativos span,
 .total_monto_pagado span,
 .monto_saldo_pendiente div,
@@ -866,6 +868,16 @@
 {
     width:32.5%;
     text-align:right;
+}
+
+.num_tarjeta span:first-child {
+    width: 60%;
+    text-align: left;
+}
+
+.monto_pagado span:last-child {
+    width: 40%;
+    text-align: right;
 }
 
 .total_monto_pagado{

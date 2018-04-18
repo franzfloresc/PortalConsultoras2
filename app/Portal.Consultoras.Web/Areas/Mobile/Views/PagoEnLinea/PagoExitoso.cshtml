@@ -42,11 +42,11 @@
                 ¡Pago <strong>exitoso</strong>!
             </h3>
             <p class="mensaje_felicitacion_por_pago_exitoso">
-                Muy bien @Model.NombreConsultora <span class="imagen_felicitacion"><img src="@Url.Content("~/Content/Images/celebracion-img.png")" alt="Felicitaciones" /></span>
+                ¡Muy bien @Model.NombreConsultora @Model.PrimerApellido! <span class="imagen_felicitacion"><img src="@Url.Content("~/Content/Images/celebracion-img.png")" alt="Felicitaciones" /></span>
             </p>
             <p class="info_constancia_pago_exitoso">
-                Te enviamos una constancia de pago a tu correo o puedes revisarla <a href='@Url.Action("DetallePagoEnLinea", "Notificaciones", new { area = "Mobile" })?solicitudId=@Model.PagoEnLineaResultadoLogId' class="enlace_ir_a_notificaciones" title="Ir A Notificaciones">aquí</a>
-            </p>            
+                Te enviamos una constancia de pago a tu correo o puedes imprimirla <a href='@Url.Action("DetallePagoEnLinea", "Notificaciones", new { area = "Mobile" })?solicitudId=@Model.PagoEnLineaResultadoLogId' class="enlace_ir_a_notificaciones" title="Ir A Notificaciones">aquí</a>
+            </p>
             <div class="resumen_pago_exitoso">
                 <h3 class="titulo_resumen_pago_exitoso">
                     Resumen del pago
@@ -55,6 +55,14 @@
                     <p class="info_num_operacion_pago">
                         Número de operación: <span class="num_operacion_pago">@Model.NumeroOperacion</span>
                     </p>
+                    <div class="num_tarjeta">
+                        <span>Nro. Tarjeta:</span>
+                        <span>@Model.TarjetaEnmascarada</span>
+                    </div>
+                    <div class="num_tarjeta">
+                        <span>Fecha de Pago:</span>
+                        <span>@Model.FechaCreacionString</span>
+                    </div>
                     <div class="monto_pagado">
                         <span>Monto:</span>
                         <span>@Model.Simbolo @Model.MontoDeudaString</span>
@@ -82,6 +90,9 @@
             </div>
             <p class="info_horarios_efectivos_pagos">
                 @Model.MensajeInformacionPagoExitoso
+            </p>
+            <p class="info_horarios_efectivos_pagos">
+                Revisar Términos y Condiciones de Uso Web <a href="@(ViewBag.MenuTerminos != null ? ViewBag.MenuTerminos.UrlItem: "")" class="enlace_ir_a_notificaciones" target="_blank">Aquí</a>
             </p>
             <a href="@Url.Action("Index","EstadoCuenta")" class="enlace_ver_estado_de_cuenta" title="Ver estado de cuenta">
                 <span class="icono_enlace_enviar_estado_cuenta">

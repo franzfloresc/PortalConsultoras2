@@ -22,6 +22,8 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
 
         public int PagoEnLineaResultadoLogId { get; set; }
         public string NombreConsultora { get; set; }
+        public string PrimerApellido { get; set; }
+        public string TarjetaEnmascarada { get; set; }
         public string NumeroOperacion { get; set; }
         public decimal SaldoPendiente { get; set; }
         public string MensajeInformacionPagoExitoso { get; set; }
@@ -51,7 +53,7 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         {
             get
             {
-                return FechaCreacion.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : FechaCreacion.ToString("dd/MM/yyyy");
+                return FechaCreacion.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : FechaCreacion.ToString("dd/MM/yyyy HH:mm");
             }
         }
 

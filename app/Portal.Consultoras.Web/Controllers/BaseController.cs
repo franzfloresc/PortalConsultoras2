@@ -5070,6 +5070,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     model.PagoEnLineaResultadoLogId = pagoEnLineaResultadoLogId;
                     model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
+                    model.PrimerApellido = userData.PrimerApellido;
+                    model.TarjetaEnmascarada = bePagoEnLinea.NumeroTarjeta;
                     model.NumeroOperacion = bePagoEnLinea.NumeroOrdenTienda;
                     model.FechaVencimiento = userData.FechaLimPago;
                     model.FechaCreacion = bePagoEnLinea.FechaTransaccion;
