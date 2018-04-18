@@ -10,32 +10,43 @@ using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Common
 {
-    public class RestClient
+    public static class RestClient
     {
         private const string _mediaType = "application/json";
-        private readonly string _serviceUrl = ConfigurationManager.AppSettings["UrlServiceSicc"];
+        private static readonly Dictionary<Enumeradores.RestService, HttpClient> _dictClient;
 
-        public async Task<IEnumerable<T>> GetAsync<T>(string path) where T : class, new()
+        static RestClient()
+        {
+            _dictClient = new Dictionary<Enumeradores.RestService, HttpClient>();
+            HttpClient httpClient;
+            string configKey;
+            
+            foreach (Enumeradores.RestService restServiceEnum in Enum.GetValues(typeof(Enumeradores.RestService)))
+            {
+                switch (restServiceEnum)
+                {
+                    case Enumeradores.RestService.ReservaSicc: configKey = Constantes.ConfiguracionManager.UrlServiceSicc; break;
+                    default: configKey = ""; break;
+                }
+
+                httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_mediaType));
+                httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings[configKey]);
+
+                _dictClient.Add(restServiceEnum, httpClient);
+            }
+        }
+
+        public static async Task<IEnumerable<T>> GetAsync<T>(Enumeradores.RestService restServiceEnum, string path) where T : class, new()
         {
             try
             {
-                var responseBody = string.Empty;
+                var _client = _dictClient[restServiceEnum];
+                var response = await _client.GetAsync(path);
+                response.EnsureSuccessStatusCode();
 
-                using (var client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri(_serviceUrl);
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_mediaType));
-
-                    var response = await client.GetAsync(path);
-
-                    response.EnsureSuccessStatusCode();
-
-                    responseBody = await response.Content.ReadAsStringAsync();
-                }
-
-                var list = JsonConvert.DeserializeObject<IEnumerable<T>>(responseBody);
-
-                return list;
+                var responseBody = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<IEnumerable<T>>(responseBody);
             }
             catch (WebException ex)
             {
@@ -47,44 +58,28 @@ namespace Portal.Consultoras.Common
             }
         }
 
-        public async Task<T> PostAsync<T>(string path, object obj)
+        public static async Task<T> PostAsync<T>(Enumeradores.RestService restServiceEnum, string path, object obj)
         {
-            var responseBody = await PostAsync(path, obj);
-
-            var item = JsonConvert.DeserializeObject<T>(responseBody);
-
-            return item;
+            var responseBody = await PostAsync(restServiceEnum, path, obj);
+            return JsonConvert.DeserializeObject<T>(responseBody);
         }
 
-        public async Task<IEnumerable<T>> PostListAsync<T>(string path, object obj) where T : class, new()
+        public static async Task<IEnumerable<T>> PostListAsync<T>(Enumeradores.RestService restServiceEnum, string path, object obj) where T : class, new()
         {
-            var responseBody = await PostAsync(path, obj);
-
-            var list = JsonConvert.DeserializeObject<IEnumerable<T>>(responseBody);
-
-            return list;
+            var responseBody = await PostAsync(restServiceEnum, path, obj);
+            return JsonConvert.DeserializeObject<IEnumerable<T>>(responseBody);
         }
 
-        private async Task<string> PostAsync(string path, object obj)
+        private static async Task<string> PostAsync(Enumeradores.RestService restServiceEnum, string path, object obj)
         {
-            var responseBody = string.Empty;
-
             try
             {
-                using (var client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri(_serviceUrl);
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_mediaType));
+                var _client = _dictClient[restServiceEnum];
+                var postBody = new StringContent(JsonConvert.SerializeObject(obj).ToString(), Encoding.UTF8, _mediaType);
+                var response = await _client.PostAsync(path, postBody);
+                response.EnsureSuccessStatusCode();
 
-                    var postBody = new StringContent(JsonConvert.SerializeObject(obj).ToString(),
-                        Encoding.UTF8, "application/json");
-
-                    var response = await client.PostAsync(path, postBody);
-
-                    response.EnsureSuccessStatusCode();
-
-                    responseBody = await response.Content.ReadAsStringAsync();
-                }
+                return await response.Content.ReadAsStringAsync();
             }
             catch (WebException ex)
             {
@@ -94,8 +89,6 @@ namespace Portal.Consultoras.Common
             {
                 throw new InvalidOperationException("RestClient.PostListAsync error " + ex.Message);
             }
-
-            return responseBody;
         }
     }
 }

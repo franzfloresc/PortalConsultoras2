@@ -299,5 +299,10 @@
             HerramientasVentaComprar = 10,
             HerramientasVentaRevisar = 11
         }
+
+        public enum RestService
+        {
+            ReservaSicc
+        }
     }
 }

@@ -14,17 +14,23 @@ namespace Portal.Consultoras.Entities.ReservaProl
         [DataMember]
         public int Caso { get; set; }
 
+        public string CuvObs { get; set; }
+
         public BEPedidoObservacion() { }
-        public BEPedidoObservacion(int caso, string descripcion)
-        {
-            Caso = caso;
-            Descripcion = descripcion;
-        }
-        public BEPedidoObservacion(int tipo, int caso, string cuv, string descripcion) {
+        public BEPedidoObservacion(int tipo, int caso, string cuv, string descripcion, string cuvObs) {
             Tipo = tipo;
             Caso = caso;
             CUV = cuv;
             Descripcion = descripcion;
+            CuvObs = cuvObs;
+        }
+        public BEPedidoObservacion(BEPedidoObservacion pedidoObs)
+        {
+            Tipo = pedidoObs.Tipo;
+            Caso = pedidoObs.Caso;
+            CUV = pedidoObs.CUV;
+            Descripcion = pedidoObs.Descripcion;
+            CuvObs = pedidoObs.CuvObs;
         }
     }
 }

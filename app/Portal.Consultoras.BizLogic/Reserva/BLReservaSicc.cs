@@ -1,11 +1,11 @@
 ﻿using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
-using Portal.Consultoras.Data.Rest;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.ReservaProl;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using ServSicc = Portal.Consultoras.Data.Rest.ServiceSicc;
@@ -33,12 +33,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
         {
             ServSicc.Pedido respuestaSicc = await ConsumirServicioSicc(input, listPedidoWebDetalle);
             if (respuestaSicc == null || respuestaSicc.exitCode == 1) return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_Error);
-
-            var listDetExp = NewListPedidoWebDetalleExplotado(input, respuestaSicc.posiciones, listPedidoWebDetalle);
-            SetOrigPedWebAndListCuvOrigen(listDetExp, listPedidoWebDetalle);
-            var listDetExpDescarga = GetExplotadoSinKitNueva(listDetExp, listPedidoWebDetalle).Where(d => d.UnidadesReservadasSap > 0).ToList();
-            GuardarExplotado(input, listDetExpDescarga);
-
+                        
             var resultado = new BEResultadoReservaProl
             {
                 MontoTotalProl = respuestaSicc.montoPedidoMontoMaximo.ToDecimalSecure(), //montoPedidoMontoMinimo devuelve lo mismo.
@@ -58,21 +53,19 @@ namespace Portal.Consultoras.BizLogic.Reserva
             var listMensajeObs = blTablaLogicaDatos.GetTablaLogicaDatosCache(input.PaisID, Constantes.TablaLogica.ProlObsCod);
             var pedidoObservacion = CreateCabPedidoObs(input, respuestaSicc, listMensajeObs);
             if (pedidoObservacion != null) resultado.ListPedidoObservacion.Add(pedidoObservacion);
-
-            //ELIMINAR REPETIDOS
-            //ELIMINAR REPETIDOS
-            //ELIMINAR REPETIDOS
-            //listDetExp.GroupBy(d => d.CUV).ForEach(g => g.First().).Select(g => g.First().)
-            listDetExp = listDetExp.OrderByDescending(detExp => detExp.UnidadesDemandadas).ToList(); //Primero agregarán las observaciones de los padres.
+            
+            var listDetExp = NewListPedidoWebDetalleExplotado(input, respuestaSicc.posiciones, listPedidoWebDetalle);
+            SetOrigPedWebAndListCuvOrigen(listDetExp, listPedidoWebDetalle);
             foreach (var detExp in listDetExp)
             {
                 if (detExp.IndRecuperacion) resultado.ListDetalleBackOrder.AddRange(listPedidoWebDetalle.Where(d => d.CUV == detExp.CUV));
                 else
                 {
-                    var listpedidoObservacion = CreateDetListPedidoObs(detExp, listDetExp, listMensajeObs);
+                    var listpedidoObservacion = CreateDetListPedidoObs(detExp, listDetExp, listMensajeObs, input.FechaHoraReserva);
                     if (listpedidoObservacion != null) resultado.ListPedidoObservacion.AddRange(listpedidoObservacion);
                 }
             }
+            resultado.ListPedidoObservacion = resultado.ListPedidoObservacion.GroupBy(d => new { d.CUV, d.CuvObs }).Select(g => g.First()).ToList();
 
             bool reservo = !resultado.ListDetalleBackOrder.Any() && resultado.ListPedidoObservacion.All(o => o.Caso == 0);
             resultado.Restrictivas = resultado.ListDetalleBackOrder.Any() || resultado.ListPedidoObservacion.Any();
@@ -83,11 +76,14 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 !resultado.Restrictivas ? Enumeradores.ResultadoReserva.Reservado :
                 reservo ? Enumeradores.ResultadoReserva.ReservadoObservaciones :
                 Enumeradores.ResultadoReserva.NoReservadoObservaciones;
-
-            //Eliminar observaciones sin padre
-            //resultado.ListPedidoObservacion = resultado.ListPedidoObservacion.Where(o => !string.IsNullOrEmpty(o.CUV)).ToList();
             resultado.CodigoMensaje = resultado.ResultadoReservaEnum == Enumeradores.ResultadoReserva.Reservado ? "00" : "01";
             resultado.PedidoSapId = respuestaSicc.oidPedidoSap.ToInt64Secure();
+
+            if (resultado.Reserva)
+            {
+                var listDetExpDescarga = GetExplotadoSinKitNueva(listDetExp, listPedidoWebDetalle).Where(d => d.UnidadesReservadasSap > 0).ToList();
+                GuardarExplotado(input, listDetExpDescarga);
+            }
 
             return resultado;
         }
@@ -123,8 +119,11 @@ namespace Portal.Consultoras.BizLogic.Reserva
                     CUV = g.Key,
                     unidadesDemandadas = g.Sum(d => d.Cantidad).ToString()
                 }).ToArray()
-            };            
-            return await DARSicc.EjecutarCuadreOfertas(inputPedido);
+            };
+            
+            var path = "/Service.svc/EjecutarCuadreOfertas";
+            return await RestClient.PostAsync<ServSicc.Pedido>(Enumeradores.RestService.ReservaSicc, path, inputPedido);
+            //return await DARSicc.EjecutarCuadreOfertas(inputPedido);
         }
 
         private List<BEPedidoWebDetalleExplotado> NewListPedidoWebDetalleExplotado(BEInputReservaProl input, ServSicc.Detalle[] arrayDetalle, List<BEPedidoWebDetalle> listDetalle)
@@ -299,10 +298,10 @@ namespace Portal.Consultoras.BizLogic.Reserva
             else return null;
 
             dictToken.Add(Constantes.ProlObsToken.Simbolo, input.Simbolo);
-            return new BEPedidoObservacion(2, 95, cuv, ReplaceTokens(listMensajeObs, descKey, dictToken));
+            return new BEPedidoObservacion(2, 95, cuv, ReplaceTokens(listMensajeObs, descKey, dictToken), "");
         }
 
-        private List<BEPedidoObservacion> CreateDetListPedidoObs(BEPedidoWebDetalleExplotado detExp, List<BEPedidoWebDetalleExplotado> listDetExp, List<BETablaLogicaDatos> listMensajeObs)
+        private List<BEPedidoObservacion> CreateDetListPedidoObs(BEPedidoWebDetalleExplotado detExp, List<BEPedidoWebDetalleExplotado> listDetExp, List<BETablaLogicaDatos> listMensajeObs, bool enFacturacion)
         {
             if (detExp.Observaciones != Constantes.ProlSiccObs.Promocion && detExp.PrecioUnitario == 0) return null;
             
@@ -335,7 +334,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 dictToken.Add(Constantes.ProlObsToken.ReemplazoCuv, reemplazo.CUV);
                 dictToken.Add(Constantes.ProlObsToken.ReemplazoDesc, reemplazo.DescripcionSap);
             }
-            else if (detExp.UnidadesReservadasSap < detExp.UnidadesPorAtender)
+            else if (enFacturacion && detExp.UnidadesReservadasSap < detExp.UnidadesPorAtender)
             {
                 descKey = detExp.UnidadesReservadasSap == 0 ? Constantes.ProlObsCod.SinStock0 : Constantes.ProlObsCod.SinStock;
                 caso = detExp.UnidadesReservadasSap == 0 ? 5 : 6;
@@ -345,15 +344,10 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
             dictToken.Add(Constantes.ProlObsToken.DetalleCuv, detExp.CUV);
             if (detExp.UnidadesPorAtender == 0 && detExp.IdEstrategia == 2002) caso = 0;
-            var pedidoObs = new BEPedidoObservacion(caso, ReplaceTokens(listMensajeObs, descKey, dictToken));
+            var pedidoObs = new BEPedidoObservacion(2, caso, "", ReplaceTokens(listMensajeObs, descKey, dictToken), detExp.CUV);
 
-            if (!detExp.ListCuvOrigen.Any())
-            {
-                pedidoObs.Tipo = 2;
-                pedidoObs.CUV = "";
-                return new List<BEPedidoObservacion> { pedidoObs };
-            }
-            return detExp.ListCuvOrigen.Select(cuv => new BEPedidoObservacion(2, pedidoObs.Caso, cuv, pedidoObs.Descripcion)).ToList();
+            if (!detExp.ListCuvOrigen.Any()) return new List<BEPedidoObservacion> { pedidoObs };
+            return detExp.ListCuvOrigen.Select(cuv => new BEPedidoObservacion(pedidoObs) { CUV = cuv }).ToList();
         }
         
         private string ReplaceTokens(List<BETablaLogicaDatos> listMensajeObs, string mensajeObsCod, Dictionary<string, string> dictToken)
