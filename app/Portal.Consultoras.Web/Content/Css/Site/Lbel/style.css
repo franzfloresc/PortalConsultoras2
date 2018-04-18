@@ -27346,6 +27346,9 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     height: 11px;
     display: inline-block;
     background: url('../../../Images/group.svg') center center no-repeat;
+    background-size: contain;
+    position: relative;
+    top: 1px;
 }
 
 .pestana_lbel.new {
@@ -33542,6 +33545,7 @@ height:30px;
     letter-spacing: .5px;
     text-align: center;
     color: #a18328;
+    padding-right: 5px;
 }
 /*SHOWROOM*/
 

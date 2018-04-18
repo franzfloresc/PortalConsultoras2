@@ -17,8 +17,14 @@
 <input type="hidden" id="hdListaProductosEnShowRoom" value="@JsonConvert.SerializeObject(Model.ListaShowRoomOferta)" />
 <input type="hidden" id="hdTotalProductos" value="@Model.ListaShowRoomOferta.Count" />
 <!--MAQUETADO NUEVO-->
+<style>
+    .content_belcorp_1200{
+        max-width:1200px;
+        margin:auto;
+    }
+</style>
 <div class="catalogoPersonalizadoBloque">
-    <div class="content_belcorp">
+    <div class="content_belcorp content_belcorp_1200">
         <div class="content-left-item content_new_showroom">
             <div style="float:left;">
                 <div id="divCantProductos" class="cantidad_productos_resultado">
@@ -74,7 +80,7 @@
             </div>
 
             <hr class="clear" />
-            <div class="contenedor_productos_showroom" id="divProductosShowRoom"></div>
+            <div class="contenedor_productos_showroom holi" id="divProductosShowRoom"></div>
         </div>
 
     </div>

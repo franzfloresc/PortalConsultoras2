@@ -499,7 +499,6 @@
             letter-spacing: 1px;
             font-family: 'Lato';
             text-transform: uppercase;
-            border: 1px solid transparent;
             padding-left: 60px;
         }
 
@@ -632,7 +631,7 @@
                 margin: auto;
             }
             .bc_plantilla_estrategia_personalizada{
-                padding-left: 5%;
+                padding-left: 138px;
             }
             /*@media (max-width:1350px){
                 .contenido_zona_dorada_contenedor_desktop .fix-zona-dorada {
