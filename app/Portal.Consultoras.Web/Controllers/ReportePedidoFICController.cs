@@ -179,6 +179,9 @@ namespace Portal.Consultoras.Web.Controllers
                 {"Cuenta", "CUENTA"},
                 {"CUV", "CUV"},
                 {"Producto", "PRODUCTO"},
+                {"Descripción", "Descripcion"},
+                {"Marca", "Marca"},
+                {"Categoría", "Categoria"},
                 {"Tipo de Oferta", "TIPO_OFETA"},
                 {"Unidades", "UNIDADES"},
                 {"Venta Neta", "VENTA_NETA"}

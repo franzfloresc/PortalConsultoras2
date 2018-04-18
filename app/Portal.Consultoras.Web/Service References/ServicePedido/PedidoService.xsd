@@ -1899,8 +1899,11 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="CUENTA" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Categoria" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Marca" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PAIS" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PERIODO" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PRODUCTO" nillable="true" type="xs:string" />
