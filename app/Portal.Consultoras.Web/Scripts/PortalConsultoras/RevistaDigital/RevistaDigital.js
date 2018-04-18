@@ -764,7 +764,7 @@ $.fn.fixedTo = function (elem) {
             }
         };
     $window.resize(function () {
-        bumperPos = pos.offset().top;
+        // fix solution Uncaught ReferenceError: pos is not defined :bumperPos = pos.offset().top;
         thisHeight = $this.outerHeight();
         setPosition();
     });
