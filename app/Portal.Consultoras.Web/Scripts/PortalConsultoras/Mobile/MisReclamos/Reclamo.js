@@ -1425,9 +1425,10 @@ $(document).ready(function () {
 
 						if (data.success != true) {
 							var mensajeInfo = "";
-							if (data.message.indexOf(mensajeChatEnLinea) > -1) {
+							if ((data.message.indexOf(mensajeChatEnLinea) > -1) && (flagAppMobile == 1)) {
 								mensajeInfo = data.message.replace(mensajeChatEnLinea, "").trim();
-							}  
+							} else mensajeInfo = data.message;
+							  
 							messageInfo(mensajeInfo);
 							 
                             return false;
