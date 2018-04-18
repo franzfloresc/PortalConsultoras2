@@ -2581,10 +2581,16 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var pedidoWeb = ObtenerPedidoWeb();
 
-                int result = DateTime.Compare(new DateTime(2018, 4, 17, 0, 0, 0, 0, DateTimeKind.Local), pedidoWeb.FechaRegistro);
+                int result = 0;
 
+                using (var sv = new PedidoServiceClient())
+                {
+                    DateTime? fechaInicioSetAgrupado = sv.ObtenerFechaInicioSets(userData.PaisID);
+                    if (fechaInicioSetAgrupado.HasValue)
+                        result = DateTime.Compare(fechaInicioSetAgrupado.Value.Date, pedidoWeb.FechaRegistro.Date);
+                }
 
-                if (result > 0)
+                if (result >= 0)
                 {
                     pedidoModelo.ListaDetalle = PedidoJerarquico(lstPedidoWebDetalle);
                 }

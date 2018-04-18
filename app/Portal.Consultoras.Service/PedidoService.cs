@@ -2362,5 +2362,10 @@ namespace Portal.Consultoras.Service
         {
             return _pedidoWebSetBusinessLogic.Eliminar(paisId, setId);
         }
+
+        public DateTime? ObtenerFechaInicioSets(int paisId)
+        {
+            return _pedidoWebSetBusinessLogic.ObtenerFechaInicioSets(paisId);
+        }
     }
 }

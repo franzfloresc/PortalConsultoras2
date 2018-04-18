@@ -1288,5 +1288,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         bool EliminarPedidoWebSet(int paisId, int setId);
+
+        [OperationContract]
+        DateTime? ObtenerFechaInicioSets(int paisId);
     }
 }

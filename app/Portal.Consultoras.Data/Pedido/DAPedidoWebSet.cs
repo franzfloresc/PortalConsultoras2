@@ -59,5 +59,30 @@ namespace Portal.Consultoras.Data.Pedido
                 return data;
             }
         }
+
+        public DateTime? ObtenerFechaInicioSets()
+        {
+            DateTime? response = null;
+
+            using (var command = Context.Database.GetStoredProcCommand("dbo.ObtenerFechaInicioSets"))
+            {
+                var reader = Context.ExecuteReader(command);
+
+                while (reader.Read())
+                {
+                    var resultReader = reader[0].ToString();
+                    if (!resultReader.IsNullOrEmptyTrim())
+                    {
+                        var array = resultReader.Split('-');
+                        if (array.Length > 0)
+                        {
+                            response = new DateTime(array[0].ToInt(), array[1].ToInt(), array[2].ToInt(), 0, 0, 0);
+                        }
+                    }
+                }
+
+                return response;
+            }
+        }
     }
 }

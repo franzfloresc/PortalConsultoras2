@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Data.Pedido;
 using Portal.Consultoras.Entities.Pedido;
+using System;
 
 namespace Portal.Consultoras.BizLogic.Pedido
 {
@@ -22,6 +23,15 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var result = da.Eliminar(id);
 
             return result > 0;
+        }
+
+        public DateTime? ObtenerFechaInicioSets(int paisId)
+        {
+            DateTime? response = null;
+            var da = new DAPedidoWebSet(paisId);
+            response = da.ObtenerFechaInicioSets();
+
+            return response;
         }
     }
 }

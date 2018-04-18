@@ -24,5 +24,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         /// <param name="id">Set Id</param>
         /// <returns>True si elimino, false caso contrario</returns>
         bool Eliminar(int paisId, int id);
+
+        DateTime? ObtenerFechaInicioSets(int paisId);
     }
 }
