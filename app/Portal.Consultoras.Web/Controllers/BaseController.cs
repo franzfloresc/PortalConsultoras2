@@ -193,6 +193,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
                     item.Nombre = string.IsNullOrEmpty(item.Nombre) ? userData.NombreConsultora : item.Nombre;
+                    item.DescripcionOferta = ObtenerDescripcionOferta(item);
                 }
                 var observacionesProl = sessionManager.GetObservacionesProl();
                 if (detallesPedidoWeb.Count > 0 && observacionesProl != null)
@@ -791,14 +792,14 @@ namespace Portal.Consultoras.Web.Controllers
                 menu.Descripcion = Util.Trim(menu.Descripcion);
                 menu.MenuPadreDescripcion = Util.Trim(menu.MenuPadreDescripcion);
                 menu.Posicion = Util.Trim(menu.Posicion);
-                
+
                 if (menu.MenuMobileID == Constantes.MenuMobileId.NecesitasAyuda)
                 {
                     menu.EstiloMenu = "background: url(" + menu.UrlImagen.Replace("~", "") + ") no-repeat; background-position: 7px 16px; background-size: 12px 12px;";
                 }
                 else if (menu.MenuMobileID == 1002)
                 {
-                    menu.Descripcion = ViewBag.TituloCatalogo ? menu.Descripcion  : "Catálogos";
+                    menu.Descripcion = ViewBag.TituloCatalogo ? menu.Descripcion : "Catálogos";
                 }
 
                 if (menu.Posicion.ToLower() != "menu")
@@ -4704,7 +4705,7 @@ namespace Portal.Consultoras.Web.Controllers
                 resultado = svr.ActualizarMisDatos(usuario, correoAnterior);
             }
 
-            if(resultado.Split('|')[0] != "0")
+            if (resultado.Split('|')[0] != "0")
             {
                 var userDataX = UserData();
                 if (usuario.EMail != correoAnterior)
@@ -5254,6 +5255,72 @@ namespace Portal.Consultoras.Web.Controllers
             resultado = fecha.Day + " " + nombreMes;
 
             return resultado;
+        }
+
+        private string ObtenerDescripcionOferta(BEPedidoWebDetalle item)
+        {
+            var descripcion = "";
+            var pedidoValidado = sessionManager.GetPedidoValidado();
+
+            if (pedidoValidado)
+            {
+                if (!string.IsNullOrWhiteSpace(item.DescripcionOferta))
+                {
+                    descripcion = (item.DescripcionOferta.Replace("[", "")).Replace("]", "");
+                }
+                else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Liquidacion)
+                {
+                    descripcion = "OFERTA LIQUIDACIÓN";
+                }
+                else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Flexipago)
+                {
+                    descripcion = "OFERTA FLEXIPAGO";
+                }
+                else
+                {
+                    descripcion = "";
+                }
+            }
+            else
+            {
+                if (item.FlagConsultoraOnline)
+                {
+                    descripcion = "CLIENTE ONLINE";
+                }
+                else
+                {
+                    if (item.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal)
+                    {
+                        descripcion = "";
+                    }
+                    else if (item.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal)
+                    {
+                        descripcion = "";
+                    }
+                    else if (!string.IsNullOrWhiteSpace(item.DescripcionOferta))
+                    {
+                        descripcion = item.DescripcionOferta;
+                    }
+                    else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Liquidacion)
+                    {
+                        descripcion = "OFERTA LIQUIDACIÓN";
+                    }
+                    else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Flexipago)
+                    {
+                        descripcion = "OFERTA FLEXIPAGO";
+                    }
+                    else if (item.TipoOfertaSisID == Constantes.ConfiguracionOferta.ShowRoom)
+                    {
+                        descripcion = "OFERTAS ESPECIALES GANA+";
+                    }
+                    else
+                    {
+                        descripcion = "";
+                    }
+                }
+            }
+
+            return descripcion;
         }
 
     }

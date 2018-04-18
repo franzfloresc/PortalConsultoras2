@@ -313,23 +313,6 @@
                         <span>App móvil</span>
                         {{/iff}}
 
-                        {{#if_eq FlagConsultoraOnline '1'}}
-                        <br />
-                        <span>CLIENTE ONLINE</span>
-                        {{else}}
-
-                        {{#iff OrigenPedidoWeb '==' '@Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal'}}
-                        {{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal'}}
-                        {{else iff detalle.ConfiguracionOfertaID '==' @Constantes.TipoOferta.Liquidacion}}
-                        <br />
-                        <span>Oferta Liquidación</span>
-                        {{else iff detalle.ConfiguracionOfertaID '==' @Constantes.TipoOferta.Flexipago}}
-                        <br />
-                        <span>Oferta Flexipago</span>
-                        {{else iff detalle.TipoOfertaSisID '==' @Constantes.ConfiguracionOferta.ShowRoom}}
-                        <br />
-                        <span>OFERTAS ESPECIALES GANA+</span>
-                        {{else}}
                         {{#IsNullOrEmpty detalle.DescripcionOferta '!='}}
                         <br />
                         {{#iff (UpperCase DescripcionOferta) 'Contains' 'OFERTA PARA TI'}}
@@ -337,9 +320,7 @@
                         <label for="{{detalle.DescripcionOferta}}">{{Replace (Replace detalle.DescripcionOferta '[' '') ']' ''}}</label>
                         {{/iff}}
                         {{/IsNullOrEmpty}}
-                        {{/iff}}
 
-                        {{/if_eq}}
                     </span>
                     <span class="cod_prod">
                         {{#if detalle.EstadoSimplificacionCuv}}

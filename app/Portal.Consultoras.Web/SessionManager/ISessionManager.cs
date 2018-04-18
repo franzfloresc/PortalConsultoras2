@@ -149,5 +149,9 @@ namespace Portal.Consultoras.Web.SessionManager
         IShowRoom ShowRoom { get; }
 
         PagoEnLineaModel GetDatosPagoVisa();
+
+        void SetPedidoValidado(bool validado);
+
+        bool GetPedidoValidado();
     }
 }

@@ -388,5 +388,15 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (PagoEnLineaModel)HttpContext.Current.Session[Constantes.ConstSession.DatosPagoVisa];
         }
+
+        public void SetPedidoValidado(bool validado)
+        {
+            HttpContext.Current.Session["PedidoValidado"] = validado;
+        }
+
+        public bool GetPedidoValidado()
+        {
+            return Convert.ToBoolean(HttpContext.Current.Session["PedidoValidado"]);
+        }
     }
 }

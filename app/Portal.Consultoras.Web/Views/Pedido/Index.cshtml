@@ -1569,33 +1569,10 @@
     <div class="contenido_ingresoPedido mouse_encima" data-cuv="{{CUV}}">
         <div class="texto_pedidos celda_codigo">{{CUV}}</div>
         <div class="texto_pedidos celda_producto pedidoPadreToolTip" style="position:relative">
-            {{#if_eq FlagConsultoraOnline '1'}}
-            <span class="texto_pedidos_ofertas">
-                <label>CLIENTE ONLINE</label>
-            </span>
-            {{else}}
-            {{#if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal'}}
-            {{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal'}}
-            {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
-            <span class="texto_pedidos_ofertas">
-                <label>OFERTA LIQUIDACIÓN</label>
-            </span>
-            {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Flexipago'}}
-            <span class="texto_pedidos_ofertas">
-                <label>OFERTA FLEXIPLAGO</label>
-            </span>
-            {{else if_eq TipoOfertaSisID '@Constantes.ConfiguracionOferta.ShowRoom'}}
-            <span class="texto_pedidos_ofertas">
-                <label>OFERTAS ESPECIALES GANA+</label>
-            </span>
-            {{else}}
-            {{#IsNullOrEmpty DescripcionOferta '!='}}
+
             <span class="texto_pedidos_ofertas">
                 <label for="{{DescripcionOferta}}">{{DescripcionOferta}}</label>
             </span>
-            {{/IsNullOrEmpty}}
-            {{/if_eq}}
-            {{/if_eq}}
 
             {{#if_eq TipoPedido 'M'}}
             <span style="position:relative">

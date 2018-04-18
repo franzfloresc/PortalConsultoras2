@@ -76,10 +76,13 @@ namespace Portal.Consultoras.Web.Controllers
                 if (configuracionCampania.CampaniaID == 0)
                     return RedirectToAction("CampaniaZonaNoConfigurada");
 
+                sessionManager.SetPedidoValidado(false);
+
                 if (configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado &&
                     !configuracionCampania.ModificaPedidoReservado &&
                     !configuracionCampania.ValidacionAbierta)
                 {
+                    sessionManager.SetPedidoValidado(true);
                     return RedirectToAction("PedidoValidado");
                 }
 
