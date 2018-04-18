@@ -19729,11 +19729,12 @@ label.checkpop.c_on {
 }
 
 .content_datos {
-    padding-top: 13px;
+    padding-top: 11px;
+    padding-bottom:12px;
     padding-left: 23px;
     max-width: 1070px;
     margin: 0 auto;
-    height: 130px;
+    min-height: 120px;
     -webkit-box-shadow: 0 15px 21px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0 15px 21px -8px rgba(204,200,204,1);
     box-shadow: 0 15px 21px -8px rgba(204,200,204,1);
@@ -19760,14 +19761,16 @@ label.checkpop.c_on {
     }
 
 .resumen_belcorp_cam {
+    display:inline-block;
+    vertical-align:middle;
     font-family: 'lato';
     font-size: 18px;
     letter-spacing: .3px;
     color: black;
-    float: left;
     margin-left: 3%;
-    margin-right: 9%;
-    width: 19.5%;
+    margin-right: 3%;
+    width: 24.8%;
+    padding-top:9px;
 }
 
 .nombre_consultora {
@@ -19796,7 +19799,7 @@ label.checkpop.c_on {
 .info_cam_belcorp {
     float: left;
     height: 41px;
-    padding-right: 22px;
+    padding-right: 10px;
     font-family: 'lato';
     font-size: 10.4px;
     font-weight: 700;
@@ -19809,9 +19812,9 @@ label.checkpop.c_on {
 
     .info_cam_belcorp span {
         color: #b75d9f;
-        font-size: 26px;
+        font-size: 21px;
         font-family: 'lato';
-        margin-top: -6px;
+        margin-top: -3px;
         display: block;
         font-weight: 400;
     }
@@ -19819,7 +19822,7 @@ label.checkpop.c_on {
 .info_cam_belcorp2 {
     float: left;
     height: 41px;
-    padding-left: 23px;
+    padding-left: 10px;
     font-family: 'lato';
     font-size: 10.4px;
     font-weight: 700;
@@ -19830,19 +19833,21 @@ label.checkpop.c_on {
 
     .info_cam_belcorp2 span {
         color: #b75d9f;
-        font-size: 26px;
+        font-size: 21px;
         font-family: 'lato';
-        margin-top: -6px;
+        margin-top: -3px;
         display: block;
         font-weight: 400;
     }
 
 .pedido_resumen_home {
+    display:inline-block;
+    vertical-align:middle;
     font-size: 11px;
     font-family: 'lato';
     color: black;
-    width: 34.9%;
-    float: left;
+    width: 33%;
+    padding-top:9px;
 }
 
     .pedido_resumen_home span {
@@ -19861,7 +19866,6 @@ label.checkpop.c_on {
     border: 2px solid #613c87;
     text-align: center;
     color: white;
-    margin-top: 4px;
     font-family: 'lato';
     font-size: 15px;
     font-weight: 600;
@@ -19909,13 +19913,15 @@ label.checkpop.c_on {
     }
 
 .socia_negocio_home {
+    display:inline-block;
+    vertical-align:middle;
     font-family: 'Lato';
     font-weight: 700;
-    float: left;
     font-size: 11px;
     color: black;
     margin-left: 5%;
     width: 27%;
+    padding-top:12px;
 }
 
     .socia_negocio_home span {
@@ -20211,12 +20217,22 @@ label.checkpop.c_on {
     font-size: 11px;
     color: black;
     padding-left: 4%;
-    margin-top: 12px;
     font-weight: 700;
 }
 
     .seguir_pedido:hover {
         text-decoration: underline;
+    }
+
+    .enlace_pedido_fic{
+        width: 100%;
+        margin-top: 9px;
+        position: relative;
+        top: -2px;
+        font-size: 14px;
+        color: #642f80;
+        font-weight: 700;
+        background-position: 0 7px;
     }
 
 .mis_datos {
@@ -27654,7 +27670,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .mensaje_fic {
     font-family: 'Lato';
-    font-size: 16px;
+    font-size: 22px;
     color: #613c87;
     letter-spacing: .3px;
 }

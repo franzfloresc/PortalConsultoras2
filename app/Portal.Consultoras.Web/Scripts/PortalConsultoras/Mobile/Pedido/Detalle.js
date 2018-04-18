@@ -412,6 +412,10 @@ function ConfigurarPopUpConfirmacion() {
         if (regalo != null) {
             $('#mensaleAvisoRegalo').show();
         }
+        else {
+            $('#mensaleAvisoRegalo').hide();
+        }
+
     }
     else {
         $('#mensaleAvisoRegalo').hide();

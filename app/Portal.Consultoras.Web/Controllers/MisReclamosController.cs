@@ -249,7 +249,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult BuscarCuvCambiar(MisReclamosModel model)
         {
-            List<BEProducto> olstProducto;
+            List<ServiceODS.BEProducto> olstProducto;
             List<ProductoModel> olstProductoModel = new List<ProductoModel>();
 
             using (ODSServiceClient sv = new ODSServiceClient())

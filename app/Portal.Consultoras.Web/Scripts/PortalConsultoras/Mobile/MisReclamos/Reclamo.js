@@ -574,9 +574,12 @@ $(document).ready(function () {
                         }
 
                         data.detalle = data.detalle || new Array();
-                        if (data.detalle.length <= 0) {
-                            messageInfoError("Producto no disponible para atención por este medio, comunícate con el <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
-
+						if (data.detalle.length <= 0) {
+							if (flagAppMobile == 0) {
+								messageInfoError("Producto no disponible para atención por este medio, comunícate con el <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
+							} else {
+								messageInfoError("Producto no disponible para atención por este medio.");
+							}
                         } else {
                             if (data.detalle.length > 1) {
                                 me.Funciones.PopupPedido(data.detalle);
@@ -596,8 +599,12 @@ $(document).ready(function () {
             AsignarCUV: function (pedido) {
                 pedido = pedido || new Object();
 
-                if (pedido.CDRWebID > 0 && pedido.CDRWebEstado != 1 && pedido.CDRWebEstado != 4) {
-                    messageInfoError("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro <span>Chat en Línea</span>.");
+				if (pedido.CDRWebID > 0 && pedido.CDRWebEstado != 1 && pedido.CDRWebEstado != 4) {
+					if (flagAppMobile == 0) {
+						messageInfoError("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
+					} else {
+						messageInfoError("Lo sentimos, ya cuentas con una solicitud web para este pedido.");
+					}
                     return false;
 
                 } else {
