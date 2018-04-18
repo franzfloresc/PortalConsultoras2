@@ -219,7 +219,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             var revistaDigital = productoBuscar.RevistaDigital ?? new BERevistaDigital();
 
-            if (!(revistaDigital.TieneRDC || revistaDigital.TieneRDR)) return true;
+            if (!revistaDigital.TieneRDC) return true;
 
             if (!revistaDigital.EsActiva) return true;
 
@@ -244,6 +244,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private bool BloqueoProductosDigitales(BEProducto producto, BEProductoAppBuscar productoBuscar)
         {
             var result = true;
+
             if (producto == null) return true;
 
             if (productoBuscar.RevistaDigital != null && productoBuscar.RevistaDigital.BloqueoProductoDigital)
@@ -257,7 +258,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             if (result && productoBuscar.OfertaDelDiaModel != null && productoBuscar.OfertaDelDiaModel.BloqueoProductoDigital)
             {
-                result =(producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaDelDia);
+                result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaDelDia);
             }
 
             if (result && productoBuscar.GuiaNegocio != null && productoBuscar.GuiaNegocio.BloqueoProductoDigital)
@@ -268,6 +269,16 @@ namespace Portal.Consultoras.BizLogic.Pedido
             if (result && productoBuscar.OptBloqueoProductoDigital)
             {
                 result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaParaTi);
+            }
+
+            if (result && productoBuscar.RevistaDigital.TieneRDCR)
+            {
+                var dato = productoBuscar.GuiaNegocio.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.BloquearProductoGnd) ?? new BEConfiguracionPaisDatos();
+                dato.Valor1 = Util.Trim(dato.Valor1);
+                if (dato.Estado && dato.Valor1 != string.Empty)
+                {
+                    result = (!dato.Valor1.Contains(producto.CUV));
+                }
             }
 
             return result;
@@ -350,7 +361,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 CampaniaId = pedidoDetalle.CampaniaID,
                 ConsultoraId = pedidoDetalle.ConsultoraID,
                 Consultora = pedidoDetalle.NombreConsultora,
-                EsBpt = EsOpt(pedidoDetalle.RevistaDigital) == 1,
                 CodigoPrograma = pedidoDetalle.CodigoPrograma,
                 NumeroPedido = pedidoDetalle.ConsecutivoNueva
             };
@@ -360,13 +370,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
             pedidoDetalle.PedidoID = detallesPedidoWeb.Any() ? detallesPedidoWeb.First().PedidoID : 0;
 
             return detallesPedidoWeb;
-        }
-
-        private int EsOpt(BERevistaDigital revistaDigital)
-        {
-            var esOpt = revistaDigital.TieneRevistaDigital() && revistaDigital.EsActiva
-                    ? 1 : 2;
-            return esOpt;
         }
 
         private string ValidarStockEstrategiaMensaje(BEPedidoDetalleApp pedidoDetalle)

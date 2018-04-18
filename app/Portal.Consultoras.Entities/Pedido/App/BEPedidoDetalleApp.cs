@@ -8,7 +8,6 @@ namespace Portal.Consultoras.Entities.Pedido.App
     {
         public BEPedidoDetalleApp()
         {
-            RevistaDigital = new BERevistaDigital();
             Producto = new BEProducto();
         }
 
@@ -40,8 +39,6 @@ namespace Portal.Consultoras.Entities.Pedido.App
         public string Simbolo { get; set; }
         [DataMember]
         public string NombreConsultora { get; set; }
-        [DataMember]
-        public BERevistaDigital RevistaDigital { get; set; }
         [DataMember]
         public string CodigoPrograma { get; set; }
         [DataMember]
