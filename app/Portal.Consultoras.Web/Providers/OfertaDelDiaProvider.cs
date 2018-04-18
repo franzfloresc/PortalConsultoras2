@@ -351,11 +351,11 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public int CargarWebApi(List<string> EstrtegiasIds)
+        public int CargarWebApi(List<string> EstrtegiasIds, string pais)
         {
             int iCantidadActualizada = 0;
             string jsonParameters = JsonConvert.SerializeObject(EstrtegiasIds);
-            string requestUrl = "estrategia/cargar/";
+            string requestUrl = "estrategia/cargar?pais=" + pais;
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "put"));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -367,13 +367,13 @@ namespace Portal.Consultoras.Web.Providers
             return iCantidadActualizada;
         }
 
-        public Dictionary<string, int> GetCantidadOfertasParaTiWebApi(string tipoCodigo, int campania)
+        public Dictionary<string, int> GetCantidadOfertasParaTiWebApi(string tipoCodigo, int campania, string pais)
         {
             Dictionary<string, int> iCantidadOfertas = new Dictionary<string, int>();
             iCantidadOfertas.Add("EC", -1);
             iCantidadOfertas.Add("EF", -1);
             string requestUrl = "estrategia/contar";
-            string jsonParameters = "?tipo=" + tipoCodigo + "&campania=" + campania.ToString();
+            string jsonParameters = "?tipo=" + tipoCodigo + "&campania=" + campania.ToString() + "&pais=" + pais;
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "get"));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;

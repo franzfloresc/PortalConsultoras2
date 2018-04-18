@@ -1338,7 +1338,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (usarMsPer(CodigoEstrategia))
                     {
-                        Dictionary<string, int> cantidades = ofertaPersonalizadaProvider.GetCantidadOfertasParaTiWebApi(CodigoEstrategia, int.Parse(CampaniaID));
+                        Dictionary<string, int> cantidades = ofertaPersonalizadaProvider.GetCantidadOfertasParaTiWebApi(CodigoEstrategia, int.Parse(CampaniaID),userData.CodigoISO);
                         cantidadEstrategiasConfiguradas = cantidades["EC"];
                         cantidadEstrategiasSinConfigurar = cantidades["EF"];
                     }
@@ -1701,7 +1701,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (usarMsPer(tipoEstrategiaCodigo))
                     {
-                        Dictionary<string, int> cantidades = ofertaPersonalizadaProvider.GetCantidadOfertasParaTiWebApi(tipoEstrategiaCodigo, int.Parse(CampaniaID));
+                        Dictionary<string, int> cantidades = ofertaPersonalizadaProvider.GetCantidadOfertasParaTiWebApi(tipoEstrategiaCodigo, int.Parse(CampaniaID),userData.CodigoISO);
                         var estrategiasWA = ofertaPersonalizadaProvider.preCargarWebApi(CampaniaID, tipoEstrategiaCodigo, userData.CodigoISO);
 
                         cantidadEstrategiasConfiguradas = cantidades["EF"];
@@ -1788,7 +1788,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ConsultarCuvTipoConfiguradoTemporal(string sidx, string sord, int page, int rows,
             int campaniaId, int tipoConfigurado, string tipoEstrategiaCodigo)
         {
-            if (ModelState.IsValid && !usarMsPer(tipoEstrategiaCodigo))
+            if (ModelState.IsValid )
             {
                 List<BEEstrategia> lst = new List<BEEstrategia>();
 
@@ -1800,6 +1800,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             List<EstrategiaMDbAdapterModel> webApiList = new List<EstrategiaMDbAdapterModel>();
                             webApiList.AddRange(ofertaPersonalizadaProvider.preCargarWebApi(campaniaId.ToString(), tipoEstrategiaCodigo, userData.CodigoISO));
+                            lst.AddRange(webApiList.Select(d => d.BEEstrategia).ToList());
                         }
                     }
                     else
@@ -1936,7 +1937,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        ofertaPersonalizadaProvider.CargarWebApi(estrategiaMidsList);
+                        ofertaPersonalizadaProvider.CargarWebApi(estrategiaMidsList,userData.CodigoISO);
                     }
 
                     return Json(new
