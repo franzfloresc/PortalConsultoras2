@@ -386,16 +386,17 @@ namespace Portal.Consultoras.BizLogic
 
         private async Task SetCatalogoRevistaFieldsInOembedIssuu(BECatalogoRevista catalogoRevista)
         {
-            if (string.IsNullOrEmpty(catalogoRevista.CodigoIssuu))
-            {
-                LogManager.SaveLog(null, "", "Codigo issuu null o vacio");
-                return;
-            }
-
-            var url = string.Format("{0}{1}", _urlISSUUSearch, catalogoRevista.CodigoIssuu);
 
             try
             {
+                if (string.IsNullOrEmpty(catalogoRevista.CodigoIssuu))
+                {
+                    LogManager.SaveLog(null, "", catalogoRevista.PaisISO, "Codigo issuu null o vacio");
+                    return;
+                }
+
+                var url = string.Format("{0}{1}", _urlISSUUSearch, catalogoRevista.CodigoIssuu);
+
                 var reponse = await ObtenerObjetoIssueAsync(url);
                 if (!reponse.Item1)
                     return;
@@ -432,7 +433,7 @@ namespace Portal.Consultoras.BizLogic
                 var response = await client.GetAsync(url);
                 if (!response.IsSuccessStatusCode)
                 {
-                    LogManager.SaveLog(null, "", "Error " + response.StatusCode);
+                    LogManager.SaveLog(null, "", "", "Error " + response.StatusCode);
                     return new Tuple<bool, dynamic>(false, null);
                 }
 
@@ -440,7 +441,7 @@ namespace Portal.Consultoras.BizLogic
 
                 if (string.IsNullOrEmpty(content))
                 {
-                    LogManager.SaveLog(null, "", "Null content " + response.StatusCode);
+                    LogManager.SaveLog(null, "", "", "Null content " + response.StatusCode);
                     return new Tuple<bool, dynamic>(false, null);
                 }
 
