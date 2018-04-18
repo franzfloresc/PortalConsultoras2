@@ -254,13 +254,13 @@ namespace Portal.Consultoras.Web.Controllers
                         model.Moneda = userData.Simbolo;
 
                         model.Anio = (dt.Year - 1).ToString();
-                        
-                        model.CompraVDirecta = Util.DecimalToStringFormat(userData.CompraVDirectaCer.ToDecimal(), userData.CodigoISO);
-                        model.IVACompraVDirecta = Util.DecimalToStringFormat(userData.IVACompraVDirectaCer.ToDecimal(), userData.CodigoISO);
-                        model.Retail = Util.DecimalToStringFormat(userData.RetailCer.ToDecimal(), userData.CodigoISO);
-                        model.IVARetail = Util.DecimalToStringFormat(userData.IVARetailCer.ToDecimal(), userData.CodigoISO);
-                        model.TotalCompra = Util.DecimalToStringFormat(userData.TotalCompraCer.ToDecimal(), userData.CodigoISO);
-                        model.IvaTotal = Util.DecimalToStringFormat(userData.IvaTotalCer.ToDecimal(), userData.CodigoISO);
+
+                        model.CompraVDirecta = Math.Round(userData.CompraVDirectaCer, 2).ToString();
+                        model.IVACompraVDirecta = Math.Round(userData.IVACompraVDirectaCer, 2).ToString();
+                        model.Retail = Math.Round(userData.RetailCer, 2).ToString();
+                        model.IVARetail = Math.Round(userData.IVARetailCer, 2).ToString();
+                        model.TotalCompra = Math.Round(userData.TotalCompraCer, 2).ToString();
+                        model.IvaTotal = Math.Round(userData.IvaTotalCer, 2).ToString();
 
                         model.CodigoIso = userData.CodigoISO;
                         model.CantidadConsecutivaNueva = ConfigurationManager.AppSettings["cantCampaniaConsecutivaCertComercial"] ?? "5";
