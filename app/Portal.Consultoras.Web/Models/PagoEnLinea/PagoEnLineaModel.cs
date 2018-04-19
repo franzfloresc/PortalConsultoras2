@@ -27,6 +27,7 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         public string NumeroOperacion { get; set; }
         public decimal SaldoPendiente { get; set; }
         public string MensajeInformacionPagoExitoso { get; set; }
+        public string DescripcionCodigoAccion { get; set; }
 
         #endregion
 

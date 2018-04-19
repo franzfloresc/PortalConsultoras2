@@ -5072,15 +5072,18 @@ namespace Portal.Consultoras.Web.Controllers
                     pagoEnLineaResultadoLogId = ps.InsertPagoEnLineaResultadoLog(userData.PaisID, bePagoEnLinea);
                 }
 
+                // Requerido en pago rechazado.
+                model.NumeroOperacion = bePagoEnLinea.NumeroOrdenTienda;
+                model.FechaCreacion = bePagoEnLinea.FechaTransaccion;
+                model.DescripcionCodigoAccion = bePagoEnLinea.DescripcionCodigoAccion;
+
                 if (bePagoEnLinea.CodigoError == "0" && bePagoEnLinea.CodigoAccion == "000")
                 {
                     model.PagoEnLineaResultadoLogId = pagoEnLineaResultadoLogId;
                     model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
                     model.PrimerApellido = userData.PrimerApellido;
                     model.TarjetaEnmascarada = bePagoEnLinea.NumeroTarjeta;
-                    model.NumeroOperacion = bePagoEnLinea.NumeroOrdenTienda;
                     model.FechaVencimiento = userData.FechaLimPago;
-                    model.FechaCreacion = bePagoEnLinea.FechaTransaccion;
                     model.SaldoPendiente = decimal.Round(userData.MontoDeuda - model.MontoDeuda, 2);
 
                     using (PedidoServiceClient ps = new PedidoServiceClient())
