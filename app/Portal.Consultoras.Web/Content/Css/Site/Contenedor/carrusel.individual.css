@@ -81,9 +81,7 @@
                 text-transform: uppercase;
                 word-break: break-word;
                 overflow: hidden;
-                display: -webkit-box;
-                -webkit-line-clamp: 2;
-                -webkit-box-orient: vertical;
+                display: block;
             }
 
             .lonuevo_carrusel .lonuevo_carrusel_info .cont span {
@@ -102,9 +100,7 @@
                 word-wrap: break-word;
                 overflow: hidden;
                 max-height: 108px;
-                display: -webkit-box !important;
-                -webkit-line-clamp: 3 !important;
-                -webkit-box-orient: vertical !important;
+                display: block;
             }
 
 

@@ -10,8 +10,8 @@
     }
 }
 
-<div class="bc_slider previsualizales-ofertas parche_presentacion_contenedor" 
-     data-plantilla="carrusel-previsuales" 
+<div class="bc_slider previsualizales-ofertas parche_presentacion_contenedor"
+     data-plantilla="carrusel-previsuales"
      style="position: relative;left: 2.5%;">
     <div class="bloque-titulo">
         <div class="@seccionTituloClass">
@@ -33,18 +33,22 @@
          data-item-cuv="{{CUV2}}">
         <div style="display:none;" data-estrategia="{{JSON2string lan}}"></div>
         @if (revistaDigital.EsActiva)
-        {<img class="logo-club logo-club-negro" src="{{lan.TipoEstrategiaDetalle.ImgFichaDesktop}}" /> }
+        {
+            <img class="logo-club logo-club-negro" src="{{lan.TipoEstrategiaDetalle.ImgFichaDesktop}}" />
+        }
         else
-        {<img class="logo-club" src="/Content/Images/RevistaDigital/etiqueta-club-ganamas-dorado-independiente.svg" />}
-        
+        {
+            <img class="logo-club" src="/Content/Images/RevistaDigital/etiqueta-club-ganamas-dorado-independiente.svg" />
+        }
+
         <div class="lonuevo_carrusel_portada">
-            <div class="cont"  onclick="javascript:VerPopupExpGanaMas();">
+            <div class="cont" onclick="javascript:VerPopupExpGanaMas();">
                 <div class="foto_prod" style="background: url({{lan.FotoProducto01}});">
                 </div>
             </div>
         </div>
         <div class="lonuevo_carrusel_info">
-            <div class="cont">
+            <div class="cont" data-acortartxt="">
                 <p>{{lan.DescripcionResumen}}</p>
                 <span>{{lan.TipoEstrategiaDetalle.Slogan}}</span>
                 @if (revistaDigital.EsActiva)
@@ -63,7 +67,6 @@
                            onclick="javascript:VerPopupExpGanaMas(); ">
                             ¿LO QUIERES?
                         </a>
-                            @*<a href="">¿LO QUIERES?</a>*@
                     }
                 }
 

@@ -199,8 +199,8 @@
 }
 
 .box_producto_mobile_fix {
-    margin-left: 12%;
-    margin-right: 12%;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 .producto_img_mobile_bpt {
@@ -676,3 +676,9 @@
         }
 }
 
+.Acortar2Renglones3puntos {
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+}
