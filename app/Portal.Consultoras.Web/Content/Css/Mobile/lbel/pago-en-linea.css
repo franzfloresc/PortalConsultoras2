@@ -875,16 +875,14 @@
     font-weight:900;
 }
 
-.num_tarjeta span:first-child
-{
-    width:60%;
-    text-align:left;
+.num_tarjeta span:first-child {
+    width: 41.5%;
+    text-align: left;
 }
 
-.monto_pagado span:last-child
-{
-    width:40%;
-    text-align:right;
+.num_tarjeta span:last-child {
+    width: 57%;
+    text-align: right;
 }
 
 .monto_saldo_pendiente div:first-child,
