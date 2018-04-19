@@ -1804,14 +1804,19 @@ namespace Portal.Consultoras.Common
 
             public class MensajeValidacionBusqueda
             {
-                public const string Mensaje1 = "El código solicitado es exclusivo del Programa de Nuevas.";
-                public const string Mensaje2 = "El código solicitado es exclusivo del Programa de Nuevas. Usted ha dejado de participar en el programa.";
-                public const string Mensaje3 = "El codigo ingresado es incorrecto. Revise el folleto del Programa de Nuevas y solicite el que le corresponde.";
+                public const string ConsultoraNoNueva = "El código solicitado es exclusivo del Programa de Nuevas.";
+                public const string NoParticipaProgramaNuevas = "El código solicitado es exclusivo del Programa de Nuevas. Usted ha dejado de participar en el programa.";
+                public const string CuvNoPerteneceASuPrograma = "El codigo ingresado es incorrecto. Revise el folleto del Programa de Nuevas y solicite el que le corresponde.";
             }
 
-            public class MensajeValidacionAgregar
+            public class MensajeValidacionCantidadMaxima
             {
-                public const string Mensaje1 = "Las unidades ingresadas exceden el máximo permitido (#n#) en esta campaña";
+                public const string ExcedeCantidad = "Las unidades ingresadas exceden el máximo permitido (#n#) en esta campaña";
+            }
+
+            public class MensajeValidacionElectividadProductos
+            {
+                public const string ExisteElectivoEnSuPedido = "El código ingresado no puede ser agregado al pedido. El pedido contiene un pack del Programa de Nuevas.";
             }
         }
 

@@ -3289,211 +3289,6 @@ namespace Portal.Consultoras.Web.ServiceODS {
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEProductoProgramaNuevas", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BEProductoProgramaNuevas : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int CampanaIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoCuponField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoNivelField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoProgramaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoVentaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DescripcionProductoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool IndicadorCuponIndependienteField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool IndicadorKitField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int NumeroCampanasVigentesField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private decimal PrecioUnitarioField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int UnidadesMaximasField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int CampanaID {
-            get {
-                return this.CampanaIDField;
-            }
-            set {
-                if ((this.CampanaIDField.Equals(value) != true)) {
-                    this.CampanaIDField = value;
-                    this.RaisePropertyChanged("CampanaID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoCupon {
-            get {
-                return this.CodigoCuponField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoCuponField, value) != true)) {
-                    this.CodigoCuponField = value;
-                    this.RaisePropertyChanged("CodigoCupon");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoNivel {
-            get {
-                return this.CodigoNivelField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoNivelField, value) != true)) {
-                    this.CodigoNivelField = value;
-                    this.RaisePropertyChanged("CodigoNivel");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoPrograma {
-            get {
-                return this.CodigoProgramaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoProgramaField, value) != true)) {
-                    this.CodigoProgramaField = value;
-                    this.RaisePropertyChanged("CodigoPrograma");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoVenta {
-            get {
-                return this.CodigoVentaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoVentaField, value) != true)) {
-                    this.CodigoVentaField = value;
-                    this.RaisePropertyChanged("CodigoVenta");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DescripcionProducto {
-            get {
-                return this.DescripcionProductoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DescripcionProductoField, value) != true)) {
-                    this.DescripcionProductoField = value;
-                    this.RaisePropertyChanged("DescripcionProducto");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IndicadorCuponIndependiente {
-            get {
-                return this.IndicadorCuponIndependienteField;
-            }
-            set {
-                if ((this.IndicadorCuponIndependienteField.Equals(value) != true)) {
-                    this.IndicadorCuponIndependienteField = value;
-                    this.RaisePropertyChanged("IndicadorCuponIndependiente");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IndicadorKit {
-            get {
-                return this.IndicadorKitField;
-            }
-            set {
-                if ((this.IndicadorKitField.Equals(value) != true)) {
-                    this.IndicadorKitField = value;
-                    this.RaisePropertyChanged("IndicadorKit");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int NumeroCampanasVigentes {
-            get {
-                return this.NumeroCampanasVigentesField;
-            }
-            set {
-                if ((this.NumeroCampanasVigentesField.Equals(value) != true)) {
-                    this.NumeroCampanasVigentesField = value;
-                    this.RaisePropertyChanged("NumeroCampanasVigentes");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal PrecioUnitario {
-            get {
-                return this.PrecioUnitarioField;
-            }
-            set {
-                if ((this.PrecioUnitarioField.Equals(value) != true)) {
-                    this.PrecioUnitarioField = value;
-                    this.RaisePropertyChanged("PrecioUnitario");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int UnidadesMaximas {
-            get {
-                return this.UnidadesMaximasField;
-            }
-            set {
-                if ((this.UnidadesMaximasField.Equals(value) != true)) {
-                    this.UnidadesMaximasField = value;
-                    this.RaisePropertyChanged("UnidadesMaximas");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceODS.IODSService")]
     public interface IODSService {
@@ -3734,11 +3529,17 @@ namespace Portal.Consultoras.Web.ServiceODS {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetListBrothersByCUV", ReplyAction="http://tempuri.org/IODSService/GetListBrothersByCUVResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProducto[]> GetListBrothersByCUVAsync(int paisID, int codCampania, string cuv);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetProductosProgramaNuevas", ReplyAction="http://tempuri.org/IODSService/GetProductosProgramaNuevasResponse")]
-        Portal.Consultoras.Web.ServiceODS.BEProductoProgramaNuevas[] GetProductosProgramaNuevas(int paisID, int campianiaID, string cuv);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevas", ReplyAction="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasResponse")]
+        Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetProductosProgramaNuevas", ReplyAction="http://tempuri.org/IODSService/GetProductosProgramaNuevasResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProductoProgramaNuevas[]> GetProductosProgramaNuevasAsync(int paisID, int campianiaID, string cuv);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevas", ReplyAction="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasAsync(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarAgregarProductosProgramaNuevas", ReplyAction="http://tempuri.org/IODSService/ValidarAgregarProductosProgramaNuevasResponse")]
+        string ValidarAgregarProductosProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas, int cantidadIngresada);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarAgregarProductosProgramaNuevas", ReplyAction="http://tempuri.org/IODSService/ValidarAgregarProductosProgramaNuevasResponse")]
+        System.Threading.Tasks.Task<string> ValidarAgregarProductosProgramaNuevasAsync(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas, int cantidadIngresada);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -4072,12 +3873,20 @@ namespace Portal.Consultoras.Web.ServiceODS {
             return base.Channel.GetListBrothersByCUVAsync(paisID, codCampania, cuv);
         }
         
-        public Portal.Consultoras.Web.ServiceODS.BEProductoProgramaNuevas[] GetProductosProgramaNuevas(int paisID, int campianiaID, string cuv) {
-            return base.Channel.GetProductosProgramaNuevas(paisID, campianiaID, cuv);
+        public Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas) {
+            return base.Channel.ValidarBusquedaProgramaNuevas(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv, participaProgramaNuevas);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProductoProgramaNuevas[]> GetProductosProgramaNuevasAsync(int paisID, int campianiaID, string cuv) {
-            return base.Channel.GetProductosProgramaNuevasAsync(paisID, campianiaID, cuv);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasAsync(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas) {
+            return base.Channel.ValidarBusquedaProgramaNuevasAsync(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv, participaProgramaNuevas);
+        }
+        
+        public string ValidarAgregarProductosProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas, int cantidadIngresada) {
+            return base.Channel.ValidarAgregarProductosProgramaNuevas(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv, participaProgramaNuevas, cantidadIngresada);
+        }
+        
+        public System.Threading.Tasks.Task<string> ValidarAgregarProductosProgramaNuevasAsync(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas, int cantidadIngresada) {
+            return base.Channel.ValidarAgregarProductosProgramaNuevasAsync(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv, participaProgramaNuevas, cantidadIngresada);
         }
     }
 }

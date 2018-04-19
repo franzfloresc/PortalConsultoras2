@@ -352,32 +352,95 @@ namespace Portal.Consultoras.BizLogic
             return productos;
         }
 
-        public IList<BEProductoProgramaNuevas> GetProductosProgramaNuevas(int paisID, int campianiaID, string cuv)
+        #region Programa de Nuevas
+
+        public List<BEProductoProgramaNuevas> GetProductosProgramaNuevasByCampania(int paisID, int campaniaID)
         {
-            var blTablaLogicaDatos = new BLTablaLogicaDatos();
-            var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.TablaLogica.RangoCuvNuevas);
+            var daProducto = new DAProducto(paisID);
+            var productos = new List<BEProductoProgramaNuevas>();
 
-            IList<BEProductoProgramaNuevas> productos = null;
-
-            if (lstTabla != null)
+            using (IDataReader reader = daProducto.GetProductosProgramaNuevas(campaniaID))
             {
-                int _cuv = Convert.ToInt32(cuv);
-                if (_cuv >= Convert.ToInt32(lstTabla[0].Descripcion) && _cuv <= Convert.ToInt32(lstTabla[1].Descripcion))
-                {                    
-                    var daProducto = new DAProducto(paisID);
-                    productos = new List<BEProductoProgramaNuevas>();
-
-                    using (IDataReader reader = daProducto.GetProductosProgramaNuevas(campianiaID))
-                    {
-                        while (reader.Read())
-                        {
-                            productos.Add(new BEProductoProgramaNuevas(reader));
-                        }
-                    }
+                while (reader.Read())
+                {
+                    productos.Add(new BEProductoProgramaNuevas(reader));
                 }
             }
 
             return productos;
         }
+
+        public List<BEProductoProgramaNuevas> GetProductosProgramaNuevasByCampaniaCache(int paisID, int campaniaID, string cuv)
+        {
+            var blTablaLogicaDatos = new BLTablaLogicaDatos();
+            List<BEProductoProgramaNuevas> lstProdcutos = null;
+
+            var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.TablaLogica.RangoCuvNuevas);            
+
+            if (lstTabla.Count == 0)
+                return lstProdcutos;
+
+            int _cuv = Convert.ToInt32(cuv);
+
+            if (_cuv >= Convert.ToInt32(lstTabla[0].Descripcion) && _cuv <= Convert.ToInt32(lstTabla[1].Descripcion))
+            {
+                lstProdcutos = new List<BEProductoProgramaNuevas>();
+                lstProdcutos = CacheManager<List<BEProductoProgramaNuevas>>.ValidateDataElement(paisID, ECacheItem.ProductoProgramaNuevas, campaniaID.ToString(), () => GetProductosProgramaNuevasByCampania(paisID, campaniaID));
+            }
+
+            return lstProdcutos;
+        }
+
+        public List<CuvPedidoWebDetalle> GetCuvPedidoWebDetalle(int paisID, int CampaniaID, int ConsultoraID)
+        {
+            var daProducto = new DAProducto(paisID);
+            return daProducto.GetCuvPedidoWebDetalle(ConsultoraID, CampaniaID);
+        }
+
+        public Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas)
+        {
+            List<BEProductoProgramaNuevas> lstProdcutos = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID, cuv);
+
+            if (lstProdcutos == null) return Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
+            if (lstProdcutos.Count == 0) return Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste;            
+            if (!lstProdcutos.Any(x => x.CodigoCupon == cuv)) return Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste;
+            if (consecutivoNueva > 5) return Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva;
+            if (!participaProgramaNuevas) return Enumeradores.ValidacionProgramaNuevas.NoParticipaEnProgramaNuevas;
+
+            lstProdcutos = lstProdcutos.Where(a => Convert.ToInt32(a.CodigoNivel) >= consecutivoNueva && consecutivoNueva >= (Convert.ToInt32(a.CodigoNivel) + a.NumeroCampanasVigentes - 1))
+                .Where(a => a.CodigoPrograma == codigoPrograma).ToList();
+
+            var oCuv = lstProdcutos.Where(a => a.CodigoCupon == cuv).FirstOrDefault();
+            if (oCuv == null) return Enumeradores.ValidacionProgramaNuevas.CuvNoPerteneceASuPrograma;
+            if (oCuv.IndicadorCuponIndependiente) return Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
+
+            List<BEProductoProgramaNuevas> lstElectivas = lstProdcutos.Where(a => !a.IndicadorCuponIndependiente && a.CodigoCupon != cuv).ToList();
+            if (lstElectivas.Count == 0) return Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
+
+            List<CuvPedidoWebDetalle> lstCuvPedido = GetCuvPedidoWebDetalle(paisID, campaniaID, ConsultoraID);
+            var existe = (from a in lstElectivas join b in lstCuvPedido on a.CodigoCupon equals b.cuv select a.CodigoCupon).ToList();
+            if (existe.Count > 0) return Enumeradores.ValidacionProgramaNuevas.ExisteUnElectivoEnPedido;
+            return Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
+        }
+
+        public string ValidarAgregarProductosProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas, int cantidadIngresada)
+        {
+            List<BEProductoProgramaNuevas> lstProdcutos = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID, cuv);
+
+            lstProdcutos = lstProdcutos.Where(a => Convert.ToInt32(a.CodigoNivel) >= consecutivoNueva && (Convert.ToInt32(a.CodigoNivel) + a.NumeroCampanasVigentes - 1) <= consecutivoNueva)
+                .Where(a => a.CodigoPrograma == codigoPrograma && a.CodigoCupon == cuv).ToList();
+
+            if (lstProdcutos == null || lstProdcutos.Count == 0) return "";
+
+            List<CuvPedidoWebDetalle> lstCuv = GetCuvPedidoWebDetalle(paisID, campaniaID, ConsultoraID);
+            int CantidadEnPedido = lstCuv.Where(a => a.cuv == cuv).Sum(a => a.cantidad);
+            int CantidadMaxima = lstProdcutos[0].UnidadesMaximas;
+            if (cantidadIngresada + CantidadEnPedido > CantidadMaxima) return Constantes.ProgramaNuevas.MensajeValidacionCantidadMaxima.ExcedeCantidad.Replace("#n#", CantidadMaxima.ToString());
+
+            return "";
+        }
+
+        #endregion
+
     }
 }

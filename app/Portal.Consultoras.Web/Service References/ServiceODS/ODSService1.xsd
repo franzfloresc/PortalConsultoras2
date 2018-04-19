@@ -303,26 +303,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEProductoCompartido" nillable="true" type="tns:BEProductoCompartido" />
-  <xs:complexType name="ArrayOfBEProductoProgramaNuevas">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEProductoProgramaNuevas" nillable="true" type="tns:BEProductoProgramaNuevas" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEProductoProgramaNuevas" nillable="true" type="tns:ArrayOfBEProductoProgramaNuevas" />
-  <xs:complexType name="BEProductoProgramaNuevas">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CampanaID" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoCupon" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoNivel" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoVenta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionProducto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="IndicadorCuponIndependiente" type="xs:boolean" />
-      <xs:element minOccurs="0" name="IndicadorKit" type="xs:boolean" />
-      <xs:element minOccurs="0" name="NumeroCampanasVigentes" type="xs:int" />
-      <xs:element minOccurs="0" name="PrecioUnitario" type="xs:decimal" />
-      <xs:element minOccurs="0" name="UnidadesMaximas" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEProductoProgramaNuevas" nillable="true" type="tns:BEProductoProgramaNuevas" />
 </xs:schema>

@@ -299,5 +299,15 @@
             HerramientasVentaComprar = 10,
             HerramientasVentaRevisar = 11
         }
+
+        public enum ValidacionProgramaNuevas
+        {
+            ContinuaFlujo = 0,
+            ProductoNoExiste = 1,
+            ConsultoraNoNueva = 2,
+            NoParticipaEnProgramaNuevas = 3,
+            CuvNoPerteneceASuPrograma = 4,
+            ExisteUnElectivoEnPedido = 5,
+        }
     }
 }

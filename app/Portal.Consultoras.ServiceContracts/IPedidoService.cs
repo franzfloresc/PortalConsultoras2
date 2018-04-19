@@ -1250,7 +1250,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         #endregion
 
-
         #region Pago en Linea
 
         [OperationContract]

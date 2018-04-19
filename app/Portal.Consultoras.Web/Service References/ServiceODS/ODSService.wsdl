@@ -30,6 +30,7 @@
       <xsd:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
+      <xsd:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IODSService_GetProductoComercialByPaisAndCampania_InputMessage">
@@ -260,11 +261,17 @@
   <wsdl:message name="IODSService_GetListBrothersByCUV_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetListBrothersByCUVResponse" />
   </wsdl:message>
-  <wsdl:message name="IODSService_GetProductosProgramaNuevas_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetProductosProgramaNuevas" />
+  <wsdl:message name="IODSService_ValidarBusquedaProgramaNuevas_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarBusquedaProgramaNuevas" />
   </wsdl:message>
-  <wsdl:message name="IODSService_GetProductosProgramaNuevas_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetProductosProgramaNuevasResponse" />
+  <wsdl:message name="IODSService_ValidarBusquedaProgramaNuevas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarBusquedaProgramaNuevasResponse" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_ValidarAgregarProductosProgramaNuevas_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarAgregarProductosProgramaNuevas" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_ValidarAgregarProductosProgramaNuevas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarAgregarProductosProgramaNuevasResponse" />
   </wsdl:message>
   <wsdl:portType name="IODSService">
     <wsdl:operation name="GetProductoComercialByPaisAndCampania">
@@ -419,9 +426,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetListBrothersByCUV" message="tns:IODSService_GetListBrothersByCUV_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetListBrothersByCUVResponse" message="tns:IODSService_GetListBrothersByCUV_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetProductosProgramaNuevas">
-      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetProductosProgramaNuevas" message="tns:IODSService_GetProductosProgramaNuevas_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetProductosProgramaNuevasResponse" message="tns:IODSService_GetProductosProgramaNuevas_OutputMessage" />
+    <wsdl:operation name="ValidarBusquedaProgramaNuevas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevas" message="tns:IODSService_ValidarBusquedaProgramaNuevas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasResponse" message="tns:IODSService_ValidarBusquedaProgramaNuevas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarAgregarProductosProgramaNuevas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ValidarAgregarProductosProgramaNuevas" message="tns:IODSService_ValidarAgregarProductosProgramaNuevas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/ValidarAgregarProductosProgramaNuevasResponse" message="tns:IODSService_ValidarAgregarProductosProgramaNuevas_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IODSService" type="tns:IODSService">
@@ -768,8 +779,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetProductosProgramaNuevas">
-      <soap:operation soapAction="http://tempuri.org/IODSService/GetProductosProgramaNuevas" style="document" />
+    <wsdl:operation name="ValidarBusquedaProgramaNuevas">
+      <soap:operation soapAction="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarAgregarProductosProgramaNuevas">
+      <soap:operation soapAction="http://tempuri.org/IODSService/ValidarAgregarProductosProgramaNuevas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1123,8 +1143,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetProductosProgramaNuevas">
-      <soap:operation soapAction="http://tempuri.org/IODSService/GetProductosProgramaNuevas" style="document" />
+    <wsdl:operation name="ValidarBusquedaProgramaNuevas">
+      <soap:operation soapAction="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarAgregarProductosProgramaNuevas">
+      <soap:operation soapAction="http://tempuri.org/IODSService/ValidarAgregarProductosProgramaNuevas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

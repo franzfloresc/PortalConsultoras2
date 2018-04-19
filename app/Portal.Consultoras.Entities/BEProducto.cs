@@ -342,6 +342,23 @@ namespace Portal.Consultoras.Entities
         }
     }
 
+    [DataContract]
+    public class CuvPedidoWebDetalle
+    {
+        [DataMember]
+        public string cuv { get; set; }
+        [DataMember]
+        public int cantidad { get; set; }
+
+        public CuvPedidoWebDetalle(IDataReader datarec)
+        {
+            if (datarec["cuv"] != DBNull.Value)
+                cuv = DbConvert.ToString(datarec["cuv"]);
+            if (datarec["cantidad"] != DBNull.Value)
+                cantidad = DbConvert.ToInt32(datarec["cantidad"]);
+        }
+    }
+
     public enum ProductoOrigenEnum
     {
         Catalogo,
