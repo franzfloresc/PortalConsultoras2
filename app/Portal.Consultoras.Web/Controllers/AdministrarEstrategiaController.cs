@@ -1709,6 +1709,10 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     #endregion
                 }
+                else
+                {
+                    listBeEstrategias.Add(new BEEstrategia());
+                }
 
                 return Json(new
                 {
