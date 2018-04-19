@@ -68,7 +68,7 @@
                 FlagPedidos: $("#chkMarcarPedidos").is("checked")
             };
 
-            if (jQuery.trim($("#cboTipoCronograma").val()) != "4" && jQuery.trim($("#cboTipoCronograma").val()) != "5" && jQuery.trim($("#cboTipoCronograma").val()) != "6") {
+            if ($.inArray($("#cboTipoCronograma").val(), ['4', '5', '6']) === -1) {
                 $.ajax({
                     type: 'POST',
                     url: baseUrl + 'DescargaPedidos/RealizarDescarga',
@@ -108,8 +108,7 @@
                     }
                 });
             }
-            else {
-                if (jQuery.trim($("#cboTipoCronograma").val()) == "5") {
+            else if (jQuery.trim($("#cboTipoCronograma").val()) == "5") {
                     $.ajax({
                         type: 'POST',
                         url: baseUrl + 'DescargaPedidos/RealizarDescarga',
@@ -146,91 +145,81 @@
                         }
                     });
                 }
-                else {
-                    if (jQuery.trim($("#cboTipoCronograma").val()) == "6") {
-
-                        $.ajax({
-                            type: 'POST',
-                            url: baseUrl + 'DescargaPedidos/RealizarDescargaDDParcial',
-                            dataType: 'json',
-                            contentType: 'application/json; charset=utf-8',
-                            data: JSON.stringify(JsonData),
-                            async: true,
-                            success: function (data) {
-                                if (checkTimeout(data)) {
-                                    closeWaitingDialog();
-                                    if (data.success == true) {
-                                        alert(data.mensaje);
-                                        if (data.cabecera) {
-                                            if (data.IsFox) {
-                                                $("#Aheader").text("OCWPEDCA.TXT");
-                                                $("#Ddetail").text("OCWPEDDE.TXT");                                            
-                                                $("#hdnfileHeader").val(data.rutac);
-                                                $("#hdnfileDetail").val(data.rutad);
-                                                $("#DivDescargas").show();
-                                            }
-                                        }
+            else if (jQuery.trim($("#cboTipoCronograma").val()) == "6") {
+                $.ajax({
+                    type: 'POST',
+                    url: baseUrl + 'DescargaPedidos/RealizarDescargaDDParcial',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(JsonData),
+                    async: true,
+                    success: function (data) {
+                        if (checkTimeout(data)) {
+                            closeWaitingDialog();
+                            if (data.success == true) {
+                                alert(data.mensaje);
+                                if (data.cabecera) {
+                                    if (data.IsFox) {
+                                        $("#Aheader").text("OCWPEDCA.TXT");
+                                        $("#Ddetail").text("OCWPEDDE.TXT");                                            
+                                        $("#hdnfileHeader").val(data.rutac);
+                                        $("#hdnfileDetail").val(data.rutad);
+                                        $("#DivDescargas").show();
                                     }
-                                    else {
-                                        alert(data.mensaje);
-                                    }
-                                }
-                            },
-                            error: function (data, error) {
-                                if (checkTimeout(data)) {
-                                    closeWaitingDialog();
-                                    alert("Error del Sistema.");
                                 }
                             }
-                        });
-
-
-                    } else { 
-
-                        $.ajax({
-                            type: 'POST',
-                            url: baseUrl + 'DescargaPedidos/RealizarDescargaFIC',
-                            dataType: 'json',
-                            contentType: 'application/json; charset=utf-8',
-                            data: JSON.stringify(JsonData),
-                            async: true,
-                            success: function (data) {
-                                if (checkTimeout(data)) {
-                                    closeWaitingDialog();
-                                    if (data.success == true) {
-                                        alert(data.mensaje);
-
-                                        if (data.cabecera) {
-                                            if (data.IsFox) {
-                                                if ($("#ddlPais").val() == 9) {
-                                                    $("#Aheader").text("OCWPEDFICCA.TXT");
-                                                    $("#Ddetail").text("OCWPEDFICDE.TXT");
-
-                                                } else {
-                                                    $("#Aheader").text("OCWPEDCA.TXT");
-                                                    $("#Ddetail").text("OCWPEDDE.TXT");
-                                                }
-                                                $("#hdnfileHeader").val(data.rutac);
-                                                $("#hdnfileDetail").val(data.rutad);
-
-                                                $("#DivDescargas").show();
-                                            }
-                                        }
-                                    }
-                                    else {
-                                        alert(data.mensaje);
-                                    }
-                                }
-                            },
-                            error: function (data, error) {
-                                if (checkTimeout(data)) {
-                                    closeWaitingDialog();
-                                    alert("Error del Sistema.");
-                                }
-                            }
-                        });
+                            else alert(data.mensaje);
+                        }
+                    },
+                    error: function (data, error) {
+                        if (checkTimeout(data)) {
+                            closeWaitingDialog();
+                            alert("Error del Sistema.");
+                        }
                     }
-                }
+                });
+            }
+            else {
+                $.ajax({
+                    type: 'POST',
+                    url: baseUrl + 'DescargaPedidos/RealizarDescargaFIC',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(JsonData),
+                    async: true,
+                    success: function (data) {
+                        if (checkTimeout(data)) {
+                            closeWaitingDialog();
+                            if (data.success == true) {
+                                alert(data.mensaje);
+
+                                if (data.cabecera) {
+                                    if (data.IsFox) {
+                                        if ($("#ddlPais").val() == 9) {
+                                            $("#Aheader").text("OCWPEDFICCA.TXT");
+                                            $("#Ddetail").text("OCWPEDFICDE.TXT");
+
+                                        } else {
+                                            $("#Aheader").text("OCWPEDCA.TXT");
+                                            $("#Ddetail").text("OCWPEDDE.TXT");
+                                        }
+                                        $("#hdnfileHeader").val(data.rutac);
+                                        $("#hdnfileDetail").val(data.rutad);
+
+                                        $("#DivDescargas").show();
+                                    }
+                                }
+                            }
+                            else alert(data.mensaje);
+                        }
+                    },
+                    error: function (data, error) {
+                        if (checkTimeout(data)) {
+                            closeWaitingDialog();
+                            alert("Error del Sistema.");
+                        }
+                    }
+                });
             }
         }
     }
