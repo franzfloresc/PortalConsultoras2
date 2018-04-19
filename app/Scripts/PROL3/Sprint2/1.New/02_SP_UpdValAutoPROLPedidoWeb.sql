@@ -15,7 +15,7 @@ ALTER PROCEDURE dbo.UpdValAutoPROLPedidoWeb
 	@MontoAhorroRevista money,
 	@MontoAhorroCatalogo money,
 	@PedidoSapId bigint,
-	@VersionProl smallint
+	@VersionProl tinyint
 AS
 BEGIN
     declare @ImporteTotal decimal = 0;

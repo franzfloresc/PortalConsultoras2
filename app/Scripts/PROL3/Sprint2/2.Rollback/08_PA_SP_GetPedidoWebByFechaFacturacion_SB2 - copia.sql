@@ -81,7 +81,7 @@ BEGIN
 			--and PedidoID = p.PedidoID and Cantidad > 0 and PedidoDetalleIDPadre is null)
 
 			and (@Tipo = 0 OR @Tipo = IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,202,201));
-
+			
        --**********************************Cupon***********************************
 	   declare @tiene_cupon_pais bit 
 	   set @tiene_cupon_pais = (select tieneCupon From Pais With (nolock) Where EstadoActivo = 1)
@@ -91,30 +91,11 @@ BEGIN
           
         if @tiene_cupon_pais = 1 
         begin  
-			 declare @CampaniaID int = 0
-			 select top 1 @CampaniaID = CampaniaID from TempPedidoWebID where NroLote = @NroLote
-
-			 declare @tablaEstrategiaTemp table (EstrategiaID int, TipoEstrategiaID int, CUV2 varchar(20))
-			 insert into @tablaEstrategiaTemp
-			 select e.EstrategiaID, e.TipoEstrategiaID, CUV2
-			 from Estrategia e with(nolock)
-			 inner join TipoEstrategia te on
-				e.TipoEstrategiaID = te.TipoEstrategiaID
-			 where e.CampaniaID = @CampaniaID and te.Codigo = '010'
-				and e.Activo = 1
-
-			 declare @tablaPedidoDetalleTemporal table 
-			 (PedidoID int, CampaniaID int, CodigoConsultora varchar(25), CUV varchar(20), OrigenPedidoWeb int, 
-				CodigoCatalago char(6), Cantidad int)
-			 insert into @tablaPedidoDetalleTemporal
 			 select 
                     p.PedidoID,
                     p.CampaniaID,
-                    c.Codigo as CodigoConsultora,
-					pd.CUV,
-					pd.OrigenPedidoWeb,
-					pr.CodigoCatalago,
-					pd.Cantidad
+                    c.Codigo as CodigoConsultora
+             into #temp
 			 from dbo.PedidoWeb p with(nolock)
 			 inner join dbo.TempPedidoWebID  pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
              inner join dbo.PedidoWebDetalle pd with(nolock) on p.CampaniaID = pd.CampaniaID and p.PedidoID = pd.PedidoID and isnull(pd.EsKitNueva, '0') != 1
@@ -122,42 +103,8 @@ BEGIN
              inner join ods.Campania ca with(nolock) on pd.CampaniaID = ca.Codigo
 			 inner join ods.ProductoComercial pr with(nolock) on ca.CampaniaID = pr.CampaniaID and pd.CUV = pr.CUV
              where pk.NroLote = @NroLote
-				and pr.CodigoTipoOferta != '126'
-				--and pr.CUV not in (select CUV2 from @tablaEstrategiaTemp)
-				and not exists (select 1 from @tablaEstrategiaTemp where CUV2 = pr.CUV and TipoEstrategiaID = pd.TipoEstrategiaID)
-
-             declare @tablaCodigoCatalogoTemporal table (PedidoID int, CampaniaID int, CodigoConsultora varchar(25))
-			 declare @tablaAppCatalogoTemporal table (PedidoID int, CampaniaID int, CodigoConsultora varchar(25))
-
-			 insert into @tablaCodigoCatalogoTemporal
-			 select
-				p.PedidoID,
-                p.CampaniaID,
-                p.CodigoConsultora
-			 from @tablaPedidoDetalleTemporal p
-			 where exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 130 and Codigo = p.CodigoCatalago)
-			 group by p.CampaniaID, p.PedidoID, p.CodigoConsultora
-             having sum(p.Cantidad) > 0
-
-			 insert into @tablaAppCatalogoTemporal
-			 select
-				p.PedidoID,
-                p.CampaniaID,
-                p.CodigoConsultora
-			 from @tablaPedidoDetalleTemporal p			 
-			 where p.OrigenPedidoWeb like '4%'
-			 group by p.CampaniaID, p.PedidoID, p.CodigoConsultora
-             having sum(p.Cantidad) > 0
-
-			 select t1.PedidoID,
-                    t1.CampaniaID,
-                    t1.CodigoConsultora 
-			 into #temp
-			 from @tablaCodigoCatalogoTemporal t1 
-			 inner join @tablaAppCatalogoTemporal t2 on
-				t1.PedidoID = t2.PedidoID
-				and t1.CampaniaID = t2.CampaniaID
-				and t1.CodigoConsultora = t2.CodigoConsultora
+             group by p.CampaniaID, p.PedidoID, c.Codigo
+             having sum(pd.Cantidad) > 0;
  
           insert into #pedido_cupon(CampaniaID,pedidoId,CuponID,CodigoConsultora,TipoCupon,ValorCupon)   
           select Distinct   

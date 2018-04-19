@@ -54,86 +54,40 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (model.FechaFacturacion.ToShortDateString() == "01/01/0001")
                     mensaje += "La Fecha de Inicio de Facturación no tiene el formato correcto, verifique dd/MM/yyyy. \n";
-
                 if ((DateTime)SqlDateTime.MinValue > model.FechaFacturacion)
                     mensaje += "La Fecha de Facturación Miníma aceptada es " + SqlDateTime.MinValue + ". \n";
-
-                if (mensaje != string.Empty)
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        mensaje = mensaje
-                    });
-                }
+                if (mensaje != string.Empty) return ErrorJson(mensaje);
 
                 if (model.TipoCronogramaID == 5)
                 {
-                    var anio = model.FechaFacturacion.Year.ToString();
-                    var mes = model.FechaFacturacion.Month.ToString();
-                    if (mes.Length == 1)
-                    {
-                        mes = "0" + mes;
-                    }
-                    var dia = model.FechaFacturacion.Day.ToString();
-                    if (dia.Length == 1)
-                    {
-                        dia = "0" + dia;
-                    }
-
-                    var fechaproceso = anio + mes + dia;
-
+                    var fechaproceso = model.FechaFacturacion.Year.ToString("yyyyMMdd");
                     using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
                     {
                         sv.GetInformacionCursoLiderDescarga(UserData().PaisID, UserData().CodigoISO, fechaproceso, UserData().CodigoUsuario);
                     }
-
-                    return Json(new
-                    {
-                        success = true,
-                        mensaje = "El proceso de generación de lideres ha finalizado satisfactoriamente."
-                    });
-
+                    return SuccessJson("El proceso de generación de lideres ha finalizado satisfactoriamente.");
                 }
+
+                int tipoCronogramaId = model.TipoCronogramaID == 3 ? 2 : model.TipoCronogramaID;
+                int marcarPedido = model.TipoCronogramaID == 2 ? 0 : 1;
+                string descProceso = ((Enumeradores.TipoDescargaPedidos)model.TipoCronogramaID).ToString();
 
                 string[] file;
-
                 using (var pedidoService = new PedidoServiceClient())
                 {
-                    int contadorCarga = pedidoService.ValidarCargadePedidos(model.PaisID, model.TipoCronogramaID == 3 ? 2 : model.TipoCronogramaID, model.TipoCronogramaID == 1 ? 1 : (model.TipoCronogramaID == 3 ? 1 : 0), model.FechaFacturacion);
-
-                    if (contadorCarga == 0)
-                    {
-                        string usuario = UserData().NombreConsultora;
-                        file = pedidoService.DescargaPedidosWeb(model.PaisID, model.FechaFacturacion, model.TipoCronogramaID == 3 ? 2 : model.TipoCronogramaID, model.TipoCronogramaID == 1 || (model.TipoCronogramaID == 3), usuario, ((Enumeradores.TipoDescargaPedidos)model.TipoCronogramaID).ToString());
-                    }
-                    else
-                    {
-                        return Json(new
-                        {
-                            success = false,
-                            mensaje = "Existe una carga de pedidos en proceso para la fecha y tipo de cronograma seleccionado."
-                        });
-                    }
+                    int contadorCarga = pedidoService.ValidarCargadePedidos(model.PaisID, tipoCronogramaId, marcarPedido, model.FechaFacturacion);
+                    if(contadorCarga != 0) return ErrorJson("Existe una carga de pedidos en proceso para la fecha y tipo de cronograma seleccionado.");
+                    
+                    file = pedidoService.DescargaPedidosWeb(model.PaisID, model.FechaFacturacion, tipoCronogramaId, marcarPedido == 1, userData.NombreConsultora, descProceso);
                 }
+                if (file.Length != 3) return SuccessJson("El proceso de carga de pedidos ha finalizado satisfactoriamente.");
 
-                if (file.Length != 3)
-                {
-                    return Json(new
-                    {
-                        success = true,
-                        mensaje = "El proceso de carga de pedidos ha finalizado satisfactoriamente."
-                    });
-                }
-
-                return Json(new
-                {
+                return Json(new {
                     success = true,
                     mensaje = "El proceso de carga de pedidos ha finalizado satisfactoriamente.",
                     cabecera = System.IO.Path.GetFileName(file[0]),
                     detalle = System.IO.Path.GetFileName(file[1]),
                     detalleAct = System.IO.Path.GetFileName(file[2]),
-
                     rutac = file[0],
                     rutad = file[1],
                     rutae = file[2],
@@ -143,11 +97,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    mensaje = ex.Message,
-                }, JsonRequestBehavior.AllowGet);
+                return ErrorJson(ex.Message);
             }
         }
 
