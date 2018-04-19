@@ -1254,7 +1254,6 @@
     <Content Include="Content\Css\Mobile\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\ConfirmarDatos.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Gnd-Flotante.css" />
-    <Content Include="Content\Css\Mobile\RevistaDigital\Lanzamiento-Detalle.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\OfertaParaTi-Detalle.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\PaginaInformativa.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\PopupSuscripcion.css" />
@@ -1269,7 +1268,6 @@
     <Content Include="Content\Css\Site\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Site\RevistaDigital\ConfirmarDatos.css" />
     <Content Include="Content\Css\Site\RevistaDigital\Gnd-Flotante.css" />
-    <Content Include="Content\Css\Site\RevistaDigital\Lanzamiento-Detalle.css" />
     <Content Include="Content\Css\Site\RevistaDigital\PaginaInformativa.css" />
     <Content Include="Content\Css\Site\RevistaDigital\PopupSuscripcion.css" />
     <Content Include="Content\Css\Site\RevistaDigital\index.css" />
@@ -3950,7 +3948,6 @@
     <Content Include="Areas\Mobile\Views\CatalogoRevista\MiRevista2.cshtml" />
     <Content Include="Areas\Mobile\Views\MisPedidos\IngresadoDetalle.cshtml" />
     <Content Include="Areas\Mobile\Views\MisPedidos\FacturadoDetalle.cshtml" />
-    <Content Include="Areas\Mobile\Views\RevistaDigital\Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\Bienvenida\MasVendidos.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-landing.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-informativa.cshtml" />
@@ -4945,7 +4942,6 @@
     <Content Include="Views\ShowRoom\_BannerInferior.cshtml" />
     <Content Include="Views\ShowRoom\Personalizado.cshtml" />
     <Content Include="Views\Lanzamientos\Detalle.cshtml" />
-    <Content Include="Views\RevistaDigital\Detalle.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales.cshtml" />
     <Content Include="Views\Lanzamientos\Template_LanzamientosTonos.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
