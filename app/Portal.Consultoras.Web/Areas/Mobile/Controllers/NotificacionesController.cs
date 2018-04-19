@@ -404,7 +404,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 MontoGastosAdministrativosNot = pagoEnLinea.MontoGastosAdministrativos,
                 MontoDeudaConGastosNot = pagoEnLinea.ImporteAutorizado,
                 FechaCreacion = pagoEnLinea.FechaCreacion,
-                FechaVencimiento = pagoEnLinea.FechaVencimiento
+                FechaVencimiento = pagoEnLinea.FechaVencimiento,
+                TarjetaEnmascarada = pagoEnLinea.NumeroTarjeta
             };
 
             return View("DetallePagoEnLinea", pagoEnLineaModel);
