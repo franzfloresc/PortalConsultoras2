@@ -3,13 +3,13 @@
 namespace Portal.Consultoras.Entities.Pedido.App
 {
     [DataContract]
-    public class BEPedidoDetalleAppResult
+    public class BEPedidoDetalleAppInsertarResult
     {
         [DataMember]
         public string CodigoRespuesta { get; set; }
         [DataMember]
         public string MensajeRespuesta { get; set; }
         [DataMember]
-        public BEPedidoDetalleApp PedidoDetalle { get; set; }
+        public BEPedidoDetalleAppInsertar PedidoDetalle { get; set; }
     }
 }
