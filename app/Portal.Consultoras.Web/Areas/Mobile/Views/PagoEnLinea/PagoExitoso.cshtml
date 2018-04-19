@@ -92,7 +92,7 @@
                 @Model.MensajeInformacionPagoExitoso
             </p>
             <p class="info_horarios_efectivos_pagos">
-                Revisar Términos y Condiciones de Uso Web <a href="@(ViewBag.MenuTerminos != null ? ViewBag.MenuTerminos.UrlItem: "")" class="enlace_ir_a_notificaciones" target="_blank">Aquí</a>
+                Revisar Términos y Condiciones de Uso Web <a href="@ViewBag.UrlCondiciones" class="enlace_ir_a_notificaciones" target="_blank">Aquí</a>
             </p>
             <a href="@Url.Action("Index","EstadoCuenta")" class="enlace_ver_estado_de_cuenta" title="Ver estado de cuenta">
                 <span class="icono_enlace_enviar_estado_cuenta">

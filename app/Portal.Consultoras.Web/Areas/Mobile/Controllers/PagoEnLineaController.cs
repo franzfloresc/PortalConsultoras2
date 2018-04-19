@@ -57,8 +57,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 if (pagoOk)
                 {
-                    var menu = userData.Menu.FirstOrDefault(item => item.Descripcion.ToUpper() == "CONDICIONES DE USO WEB");
-                    ViewBag.MenuTerminos = menu;
+                    ViewBag.UrlCondiciones = GetMenuLinkByDescription(Constantes.ConfiguracionManager.MenuCondicionesDescripcion);
 
                     return View("PagoExitoso", model);
                 }

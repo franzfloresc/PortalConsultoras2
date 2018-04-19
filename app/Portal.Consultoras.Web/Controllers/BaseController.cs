@@ -944,6 +944,12 @@ namespace Portal.Consultoras.Web.Controllers
             return userData.MenuService;
         }
 
+        protected string GetMenuLinkByDescription(string description)
+        {
+            var menuItem = userData.Menu.FirstOrDefault(item => item.Descripcion == description);
+
+            return menuItem == null ? string.Empty : menuItem.UrlItem;
+        }
         #endregion
 
         #region eventoFestivo        
