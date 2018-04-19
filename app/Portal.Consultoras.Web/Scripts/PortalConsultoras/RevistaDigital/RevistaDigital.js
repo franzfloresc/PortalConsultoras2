@@ -760,7 +760,6 @@ $.fn.fixedTo = function (elem) {
             }
         };
     $window.resize(function () {
-        bumperPos = pos.offset().top;
         thisHeight = $this.outerHeight();
         setPosition();
     });

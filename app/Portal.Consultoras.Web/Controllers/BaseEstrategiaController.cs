@@ -569,6 +569,7 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.CodigoVariante = estrategia.CodigoEstrategia;
                 prodModel.ClaseEstrategia =
                     (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
+                    || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
                     || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi)
                     || (
                         (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
