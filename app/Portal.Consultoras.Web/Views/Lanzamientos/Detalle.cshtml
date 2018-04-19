@@ -55,7 +55,6 @@
                         <div class="bloque1">
                             <p>@Model.DescripcionMarca</p>
                             <h1>@Model.DescripcionResumen</h1>
-                            @*<span>4g/.</span>*@
                         </div>
                         <div class="bloque2">
                             <span class="precio-tachado">@Model.Simbolo @Model.PrecioTachado</span>
@@ -68,30 +67,29 @@
                         <p>@Model.TipoEstrategiaDetalle.Slogan</p>
                         <ul>
                             @foreach (var DescDetalle in Model.ListaDescripcionDetalle)
-            {
-                <li>@DescDetalle.Trim()</li>
-}
+                            {
+                                <li>@DescDetalle.Trim()</li>
+                            }
                         </ul>
                     </div>
                     <div class="detalle-bloque-tres">
                         @Html.Partial("~/Views/Lanzamientos/Template_LanzamientosTonos.cshtml", Model)
                     </div>
                     @if (Model.PuedeAgregarProducto)
-    {
-                
-                <div class="input_agregar_cantidad">
-                    <a href="javascript:;" class="menos cantidad_menos_home js-no-popup" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
-                    <input value="1" size="2" maxlength="2" id="txtCantidad" class="rango-cantidad-lanzamiento liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup " data-input="cantidad" tabindex="0" type="text">
-                    <a href="javascript:;" class="mas cantidad_mas_home js-no-popup" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
-                </div>
-                <div class="boton_agregar_cantidad">
-                    <a href="javascript:;" style="width: 95% !important; margin-top: 0px; margin-left: 5%;" class="@Model.ClaseBloqueada boton_Agregalo_home js-no-popup " id="tbnAgregarProducto" data-bloqueada="" onclick="javascript:EstrategiaAgregar(event, true); " tabindex="0">
-                        AGRÉGALO
-                    </a>
-                </div>
-                <div style="clear:both;"></div>
+                    {
 
-}
+                        <div class="input_agregar_cantidad">
+                            <a href="javascript:;" class="menos cantidad_menos_home js-no-popup" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                            <input value="1" size="2" maxlength="2" id="txtCantidad" class="rango-cantidad-lanzamiento liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup " data-input="cantidad" tabindex="0" type="text">
+                            <a href="javascript:;" class="mas cantidad_mas_home js-no-popup" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                        </div>
+                        <div class="boton_agregar_cantidad">
+                            <a href="javascript:;" style="width: 95% !important; margin-top: 0px; margin-left: 5%;" class="@Model.ClaseBloqueada boton_Agregalo_home js-no-popup " id="tbnAgregarProducto" data-bloqueada="" onclick="javascript:EstrategiaAgregar(event, true); " tabindex="0">
+                                AGRÉGALO
+                            </a>
+                        </div>
+                        <div style="clear:both;"></div>
+                    }
                     <div style="clear:both;"></div>
                 </div>
             </div>
