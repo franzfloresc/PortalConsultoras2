@@ -377,19 +377,21 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        public IDataReader GetOfertasParaTiByTipoConfigurado(int campaniaId, int tipoConfigurado, string estrategiaCodigo)
+        public IDataReader GetOfertasParaTiByTipoConfigurado(int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetOfertasParaTiByTipoConfigurado"))
             {
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
                 Context.Database.AddInParameter(command, "@TipoConfigurado", DbType.Int32, tipoConfigurado);
                 Context.Database.AddInParameter(command, "@EstrategiaCodigo", DbType.String, estrategiaCodigo);
+                Context.Database.AddInParameter(command, "@Pagina", DbType.Int32, pagina);
+                Context.Database.AddInParameter(command, "@CantCuv", DbType.Int32, cantidadCuv);
                 command.CommandTimeout = 0;
                 return Context.ExecuteReader(command);
             }
         }
 
-        public int InsertEstrategiaTemporal(List<BEEstrategia> lista, int campaniaId, string codigoUsuario)
+        public int InsertEstrategiaTemporal(List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int nroLore)
         {
             var listaTypes = lista.Select(item => new BEEstrategiaType
             {
@@ -412,13 +414,19 @@ namespace Portal.Consultoras.Data
 
             var command = new SqlCommand("dbo.InsertEstrategiaTemporal");
             command.CommandType = CommandType.StoredProcedure;
+            
+            command.Parameters.Add(new SqlParameter("@EstrategiaTemporal", SqlDbType.Structured)
+            {
+                TypeName = "dbo.EstrategiaTemporalType",
+                Value = new GenericDataReader<BEEstrategiaType>(listaTypes)
+            });
+            
+            command.Parameters.Add(new SqlParameter("@NumeroLoteAnt", SqlDbType.Int) { Value = nroLore });
+            command.Parameters.Add(new SqlParameter("@NroLote", SqlDbType.Int) { Direction = ParameterDirection.Output, Value = 0 });
 
-            var parameter = new SqlParameter("@EstrategiaTemporal", SqlDbType.Structured);
-            parameter.TypeName = "dbo.EstrategiaTemporalType";
-            parameter.Value = new GenericDataReader<BEEstrategiaType>(listaTypes);
-            command.Parameters.Add(parameter);
+            Context.ExecuteNonQuery(command);
 
-            return Context.ExecuteNonQuery(command);
+            return Convert.ToInt32(command.Parameters["@NroLote"].Value);
         }
 
         public int GetCantidadOfertasParaTiTemporal(int campaniaId, int tipoConfigurado)
@@ -434,12 +442,13 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        public IDataReader GetOfertasParaTiByTipoConfiguradoTemporal(int campaniaId, int tipoConfigurado)
+        public IDataReader GetOfertasParaTiByTipoConfiguradoTemporal(int campaniaId, int tipoConfigurado, int nroLote)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetOfertasParaTiByTipoConfiguradoTemporal"))
             {
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
                 Context.Database.AddInParameter(command, "@TipoConfigurado", DbType.Int32, tipoConfigurado);
+                Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
                 return Context.ExecuteReader(command);
             }
         }

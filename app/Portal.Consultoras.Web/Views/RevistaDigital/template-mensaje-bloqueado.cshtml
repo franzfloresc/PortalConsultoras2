@@ -1,9 +1,35 @@
 ﻿
 @model Portal.Consultoras.Web.Models.MensajeProductoBloqueadoModel
-@{ 
+@using Portal.Consultoras.Web.Models
+@{
+
     var divid = @Model.divId ?? "divMensajeBloqueada";
+    var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
 }
-<div class="Content_general_pop_up" id="@divid" style="display: none;" data-popup-main="">
+
+<div class="Content_general_pop_up contenedor_fondo_popup contenido-popup-nuevo-2017 popup-prod-bloqueado" id="@Model.IdPopup"
+     data-popup-main="" data-popup-function-hide="" style="display:none;">
+    <div class="centrar-estructura" data-popup-body="" style="border: 5px solid #C39934; background:transparent;">
+        <a class="cerrar-popup" data-popup-close=""><img src="@Url.Content("~/Content/Images/close-icon.svg")" alt=""></a>
+
+
+        <div class="centrar-vertical-contenido">
+            <div class="clear"></div>
+            <p class="primer-texto" style="">
+                @Model.MensajePopupPrimero
+            </p>
+            <p class="segundo-texto" style="">
+                @Model.MensajePopupSegundo
+            </p>
+
+            <a href="@Model.UrlBtnPopup" class="btn-popup" data-popup-close="" style="">
+                <span>@Model.MensajeBtnPopup</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="Content_general_pop_up popup-prod-bloqueado" id="@divid" style="display: none;" data-popup-main="">
     <div class="popup_rd_bloqueado" data-popup-body="">
         <a class="cerrar_fichaProducto" style="position: absolute; top:0px; right: -35px;" href="javascript:;" data-popup-close="divMensajeBloqueada">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate="" text="">

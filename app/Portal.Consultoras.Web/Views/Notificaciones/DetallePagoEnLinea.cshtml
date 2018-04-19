@@ -23,8 +23,8 @@
                 <span>Constancia de Pago</span>
             </h3>
             <div class="col_izq">
-                <p class="mensaje_felicitacion_por_pago_exitoso">
-                    Muy bien @Model.NombreConsultora <span class="imagen_felicitacion"><img src="@Url.Content("~/Content/Images/celebracion-img.png")" alt="Felicitaciones" /></span>
+                <p class="mensaje_felicitacion_por_pago_exitoso" style="margin-right: 150px;">
+                    ¡Muy bien @Model.NombreConsultora! <span class="imagen_felicitacion"><img src="@Url.Content("~/Content/Images/celebracion-img.png")" alt="Felicitaciones" /></span>
                 </p>
                 @*<p class="info_constancia_pago_exitoso">
                     Te enviamos una constancia de pago a tu correo o puedes revisarla <a href='@Url.Action("DetallePagoEnLinea", "Notificaciones")?solicitudId=@Model.PagoEnLineaResultadoLogId' class="enlace_ir_a_notificaciones" title="Ir A Notificaciones">aquí</a>.
@@ -52,7 +52,7 @@
                             <span>@Model.Simbolo @Model.MontoDeudaString</span>
                         </div>
                         <div class="monto_gastos_administrativos">
-                            <span>Gastos administrativos:</span>
+                            <span>Cargo plataforma online:</span>
                             <span>@Model.Simbolo @Model.MontoGastosAdministrativosNotString</span>
                         </div>
                         <div class="total_monto_pagado">

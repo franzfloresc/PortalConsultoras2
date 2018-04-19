@@ -91,11 +91,7 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetTieneOpmX1(bool tieneOpmX1);
 
         bool GetTieneOpmX1();
-
-        void SetTieneRdr(bool tieneRdr);
-
-        bool GetTieneRdr();
-
+        
         void SetTieneHv(bool tieneHv);
 
         bool GetTieneHv();

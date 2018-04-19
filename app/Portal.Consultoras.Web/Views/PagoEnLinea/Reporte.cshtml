@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Reporte Pago en Línea";
 }
+<script src="@Url.Content("~/Scripts/DatetimePicker/datetimepicker_css.js")"></script>
 
 <div class="wrap_cab">
     <div class="filtros2">
@@ -50,6 +51,44 @@
                     </select>
                 </div>
             </div>
+            <hr />
+            <h6>Fecha de Pago</h6>
+            <!-- FECHA PAGO-->
+            <div class="div-3">
+                <div class="titG">Inicio: </div>
+                <div class="calendar borde_redondeado">
+                    <input type="text" id="FechaPagoDesde" name="FechaPagoDesde" />
+                    <img src="@Url.Content("~/Content/Images/dateTimePicker/cal.gif")"
+                         onclick="javascript:NewCssCal('FechaPagoDesde','ddMMyyyy')" style="cursor:pointer" />
+                </div>
+                <!------>
+                <div class="titJ" style="width: 145px;">Fin: </div>
+                <div class="calendar borde_redondeado">
+                    <input type="text" id="FechaPagoHasta" name="FechaPagoHasta" />
+                    <img src="@Url.Content("~/Content/Images/dateTimePicker/cal.gif")"
+                         onclick="javascript:NewCssCal('FechaPagoHasta','ddMMyyyy')" style="cursor:pointer" />
+                </div>
+            </div>
+            <!-- FIN FECHA PAGO-->
+            <!-- FECHA PROCESO-->
+            <hr />
+            <h6>Fecha de Proceso</h6>
+            <div class="div-3">
+                <div class="titG">Inicio: </div>
+                <div class="calendar borde_redondeado">
+                    <input type="text" id="FechaProcesoDesde" name="FechaProcesoDesde" />
+                    <img src="@Url.Content("~/Content/Images/dateTimePicker/cal.gif")" 
+                         onclick="javascript:NewCssCal('FechaProcesoDesde','ddMMyyyy','arrow',true,'24','true')" style="cursor:pointer" />
+                </div>
+                <!------>
+                <div class="titJ" style="width: 145px;">Fin: </div>
+                <div class="calendar borde_redondeado">
+                    <input type="text" id="FechaProcesoHasta" name="FechaProcesoHasta" />
+                    <img src="@Url.Content("~/Content/Images/dateTimePicker/cal.gif")"
+                         onclick="javascript:NewCssCal('FechaProcesoHasta','ddMMyyyy','arrow',true,'24','true')" style="cursor:pointer" />
+                </div>
+            </div>
+            <!-- FIN FECHA PROCESO-->
 
             <div class="div-3">
                 <div class="titG">&nbsp;</div>
@@ -147,6 +186,27 @@
     });
 
     function fnGrilla() {
+
+        if ($("#FechaPagoDesde").val() == "") {
+            alert("Debe seleccionar la fecha de pago de Inicio");
+            return false;
+        }
+
+        if ($("#FechaPagoHasta").val() == "") {
+            alert("Debe seleccionar la fecha de pago de Fin");
+            return false;
+        }
+
+        if ($("#FechaProcesoDesde").val() == "") {
+            alert("Debe seleccionar la fecha de Proceso de Inicio");
+            return false;
+        }
+
+        if ($("#FechaProcesoHasta").val() == "") {
+            alert("Debe seleccionar la fecha de Proceso de Fin");
+            return false;
+        }
+
         jQuery("#list").jqGrid({
             url: baseUrl + "PagoEnLinea/ConsultaReporte",
             hidegrid: false,
@@ -158,21 +218,25 @@
                 PaisID: function () { return jQuery.trim($("#ddlPais").val()); },
                 CodigoConsultora: function () { return jQuery.trim($("#CodigoConsultora").val()); },
                 Estado: function () { return jQuery.trim($("#ddlEstado").val()); },
+                FechaPagoDesde: function () { return jQuery.trim($('#FechaPagoDesde').val()); }, // add
+                FechaPagoHasta: function () { return jQuery.trim($('#FechaPagoHasta').val()); }, // add
+                FechaProcesoDesde: function () { return jQuery.trim($('#FechaProcesoDesde').val()); }, // add
+                FechaProcesoHasta: function () { return jQuery.trim($('#FechaProcesoHasta').val()); } // add
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['Campania ID','Nombre de Comercio', 'Id de Pago', 'Nro. de Pago', 'Consultora', 'Fecha de Pago', 'Hora de Pago', 'Codigo de Cliente',
-                'Identificación de Cliente', 'Canal', 'Ciclo', 'Total Pagado', 'Comisión','IVA',
+            colNames: ['Campaña', 'Nombre de Comercio', 'Id de Pago', 'Nro. de Pago', 'Consultora', 'Fecha de Pago', 'Hora de Pago', 'Codigo de Cliente',
+                'Identificación de Cliente', 'Canal', 'Ciclo', 'Total Pagado', 'Comisión', 'IVA',
                 'Total a Consignar', 'Ticket ID', 'Region', 'Zona', 'Origen Tarjeta',
-                'Número de Tarjeta', 'Número de Operación', 'Descripcion de Transacción', 'Estado Transacción'],
+                'Número de Tarjeta', 'Número de Operación', 'Descripcion de Transacción', 'Estado Transacción', 'Fecha de Proceso', 'Hora de Proceso'],
             colModel: [
-                { name: 'CampaniaId', index: 'CampaniaId', width: 10, editable: true, resizable: false, hidden: true },
+                { name: 'CampaniaId', index: 'CampaniaId', width: 10, editable: true, resizable: false },
                 { name: 'NombreComercio', index: 'NombreComercio', width: 15, editable: true, resizable: false },
                 { name: 'IdUnicoTransaccion', index: 'IdUnicoTransaccion', width: 25, editable: true, resizable: false, align: 'center' },
                 { name: 'PagoEnLineaResultadoLogId', index: 'PagoEnLineaResultadoLogId', width: 15, editable: true, resizable: false, align: 'center' },
                 { name: 'NombreCompleto', index: 'NombreCompleto', width: 30, editable: true, resizable: false, align: 'center' },
-                { name: 'FechaCreacionFormat', index: 'FechaCreacionFormat', width: 15, editable: true, resizable: false, align: 'center' },
-                { name: 'FechaCreacionHoraFormat', index: 'FechaCreacionHoraFormat', width: 15, editable: true, resizable: false, align: 'center' },
+                { name: 'FechaTransaccionFormat', index: 'FechaTransaccionFormat', width: 15, editable: true, resizable: false, align: 'center' },
+                { name: 'FechaTransaccionHoraFormat', index: 'FechaTransaccionHoraFormat', width: 15, editable: true, resizable: false, align: 'center' },
                 { name: 'CodigoConsultora', index: 'CodigoConsultora', width: 25, editable: true, resizable: false, align: 'center' },
                 { name: 'NumeroDocumento', index: 'NumeroDocumento', width: 25, editable: true, resizable: false, align: 'center' },
                 { name: 'Canal', index: 'Canal', width: 10, editable: true, resizable: false, align: 'center' },
@@ -188,18 +252,20 @@
                 { name: 'NumeroTarjeta', index: 'NumeroTarjeta', width: 30, editable: true, resizable: false },
                 { name: 'NumeroOrdenTienda', index: 'NumeroOrdenTienda', width: 20, editable: true, resizable: false, align: 'center' },
                 { name: 'MensajeError', index: 'MensajeError', width: 50, editable: true, resizable: false },
-                { name: 'CodigoError', index: 'CodigoError', width: 15, editable: true, resizable: false, align: 'center' }
+                { name: 'CodigoError', index: 'CodigoError', width: 15, editable: true, resizable: false, align: 'center' },
+                { name: 'FechaCreacionFormat', index: 'FechaCreacionFormat', width: 15, editable: true, resizable: false, align: 'center' },
+                { name: 'FechaCreacionHoraFormat', index: 'FechaCreacionHoraFormat', width: 15, editable: true, resizable: false, align: 'center' }
             ],
             jsonReader:
-            {
-                root: "rows",
-                page: "page",
-                total: "total",
-                records: "records",
-                repeatitems: true,
-                cell: "cell",
-                id: "id"
-            },
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: true,
+                    cell: "cell",
+                    id: "id"
+                },
             pager: jQuery('#pager'),
             loadtext: 'Cargando datos...',
             recordtext: "{0} - {1} de {2} Registros",
@@ -235,17 +301,22 @@
         var ZonaID = jQuery.trim($("#ddlZona").val());
         var codigoConsultora = jQuery.trim($('#CodigoConsultora').val());
         var Estado = jQuery.trim($("#ddlEstado").val());
+        var FechaPagoDesde = jQuery.trim($('#FechaPagoDesde').val());
+        var FechaPagoHasta = jQuery.trim($('#FechaPagoHasta').val());
+        var FechaProcesoDesde = jQuery.trim($('#FechaProcesoDesde').val());
+        var FechaProcesoHasta = jQuery.trim($('#FechaProcesoHasta').val());
         waitingDialog({});
 
         setTimeout(function () {
-            DownloadAttachExcel(CodigoCampania, RegionID, ZonaID, PaisID, codigoConsultora, Estado)
+            DownloadAttachExcel(CodigoCampania, RegionID, ZonaID, PaisID, codigoConsultora, Estado, FechaPagoDesde, FechaPagoHasta, FechaProcesoDesde, FechaProcesoHasta)
         }, 0);
     }
 
-    function DownloadAttachExcel(CodigoCampania, RegionID, ZonaID, PaisID, CodigoConsultora, Estado) {
+    function DownloadAttachExcel(CodigoCampania, RegionID, ZonaID, PaisID, CodigoConsultora, Estado, FechaPagoDesde, FechaPagoHasta, FechaProcesoDesde, FechaProcesoHasta) {
         if (checkTimeout()) {
             var content = baseUrl + "PagoEnLinea/ExportarExcel?CampaniaID=" + CodigoCampania + "&RegionID=" + RegionID + "&ZonaID="
-                                  + ZonaID + "&PaisID=" + PaisID + "&CodigoConsultora=" + CodigoConsultora + "&Estado=" + Estado;
+                + ZonaID + "&PaisID=" + PaisID + "&CodigoConsultora=" + CodigoConsultora + "&Estado=" + Estado + "&FechaPagoDesde="
+                + FechaPagoDesde + "&FechaPagoHasta=" + FechaPagoHasta + "&FechaProcesoDesde=" + FechaProcesoDesde + "&FechaProcesoHasta=" + FechaProcesoHasta;
             var iframe_ = document.createElement("iframe");
             iframe_.style.display = "none";
             iframe_.setAttribute("src", content);
@@ -281,4 +352,5 @@
         $combo.empty();
         $combo.append($('<option/>', { value: "", text: "-- Seleccionar --" }));
     }
+
 </script>

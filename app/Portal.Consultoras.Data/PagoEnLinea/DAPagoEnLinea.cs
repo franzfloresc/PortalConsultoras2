@@ -118,6 +118,10 @@ namespace Portal.Consultoras.Data.PagoEnLinea
             Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, filtro.ZonaId);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, filtro.CodigoConsultora);
             Context.Database.AddInParameter(command, "@Estado", DbType.String, filtro.Estado);
+            Context.Database.AddInParameter(command, "@PagoDesde", DbType.Date, filtro.FechaPagoDesde);
+            Context.Database.AddInParameter(command, "@PagoHasta", DbType.Date, filtro.FechaPagoHasta);
+            Context.Database.AddInParameter(command, "@ProcesoDesde", DbType.DateTime, filtro.FechaProcesoDesde);
+            Context.Database.AddInParameter(command, "@ProcesoHasta", DbType.DateTime, filtro.FechaProcesoHasta);
 
             return Context.ExecuteReader(command);
         }

@@ -1,6 +1,7 @@
 ﻿@using Portal.Consultoras.Common
 <script id="producto-landing-template" type="text/x-handlebars-template">
 
+
     {{#each this.lista as |item|}}
 
     {{#if EsBanner}}
@@ -33,7 +34,7 @@
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
         <div data-item-tag="body" class="content_item_carrusel" {{#iff TieneVerDetalle }} style="cursor:pointer;" {{/iff}}>
             <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
-            <div data-item-tag="contenido" {{#iff TieneVerDetalle }} onclick="javascript: VerDetalleEstrategia(event);" {{/iff}}>
+            <div data-item-tag="contenido" {{#iff TieneVerDetalle }} onclick="javascript:VerDetalleEstrategia(event);" {{/iff}} {{#if this.ExperienciaGanaMas includeZero=true}} {{#iff ExperienciaGanaMas.MostrarLoQuieres '==' false }} onclick="javascript:VerPopupExpGanaMas();" {{/iff}}{{/if}}>
                 <div class="producto_img_home" data-item-tag="foto">
                     <img class="imagen_producto" style="max-width: 100% !important;" data-src="{{FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
                     {{#iff TieneVerDetalle}}
@@ -81,7 +82,30 @@
                 </div>
             </div>
             <div class="clear"></div>
+
+            {{#if this.ExperienciaGanaMas includeZero=true}}
+            {{#if this.ExperienciaGanaMas.MostrarLoQuieres}}
             <div class="producto_nombre_descripcion" data-item-tag="agregar">
+                <div>
+                    <div class="texto_elige_tono"></div>
+                    <div class="clear"></div>
+                    <a href="javascript:;" class="btn_elige_tono js-no-popup" data-bloqueada="{{ClaseBloqueada}}"
+                       onclick="javascript:VerPopupExpGanaMas(); ">
+                        ¿LO QUIERES?
+                    </a>
+                </div>
+                <div class="clear"></div>
+                <div style="margin: 9px 0;height: 15px;">
+                    <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                        AGREGADO
+                        <div class="icono"></div>
+                    </div>
+                </div>
+            </div>
+            {{/if}}
+            {{else}}
+            <div class="producto_nombre_descripcion" data-item-tag="agregar">
+                {{#iff PuedeAgregarProducto '==' true}}
                 <div>
                     {{#iff TipoAccionAgregar '==' '1'}}
                     <div class="texto_elige_tono"></div>
@@ -120,6 +144,7 @@
                     {{/iff}}
                 </div>
                 <div class="clear"></div>
+                {{/iff}}
                 <div style="margin: 9px 0;height: 15px;">
                     <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
                         AGREGADO
@@ -127,8 +152,10 @@
                     </div>
                 </div>
             </div>
+            {{/if}}
+
         </div>
-    </div>
+        </div>
     {{/if}}
 
     {{/if}}

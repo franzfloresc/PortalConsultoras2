@@ -18,28 +18,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
     {
 
         [TestClass]
-        public class Base
-        {
-            public Mock<ILogManager> logManager;
-            public Mock<ISessionManager> sessionManager;
-
-            [TestInitialize]
-            public void Test_Initialize()
-            {
-                logManager = new Mock<ILogManager>();
-                sessionManager = new Mock<ISessionManager>();
-            }
-
-            [TestCleanup]
-            public void Test_Cleanup()
-            {
-                logManager = null;
-                sessionManager = null;
-            }
-        }
-
-
-        [TestClass]
         public class Index
         {
             //class LoginController_GetClientIpReturnsMultipleIps : LoginController
@@ -127,7 +105,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var controller = new LoginController(logManager.Object,sessionManager.Object);
 
                 // Act
-                var result = controller.GetUserData(0, string.Empty, 0);
+                var result = controller.GetUserData(0, string.Empty, 0).Result;
 
                 // Assert
             }
@@ -140,7 +118,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var controller = new LoginController(logManager.Object, sessionManager.Object);
 
                 // Act
-                var result = controller.GetUserData(1, string.Empty, 0);
+                var result = controller.GetUserData(1, string.Empty, 0).Result;
 
                 // Assert
             }
@@ -183,9 +161,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var controller = new LoginControllerStub(logManager.Object, sessionManager.Object);
 
                 // Act
-                var getUserDataTask = Task.Run(() => controller.GetUserData(1, "041395737", 0));
-                Task.WaitAll(getUserDataTask);
-                var result = getUserDataTask.Result;
+       
+                var result = controller.GetUserData(1, "041395737", 0).Result;
                 
                 // Assert
                 Assert.IsNotNull(result);
@@ -202,7 +179,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var controller = new LoginController(logManager.Object, sessionManager.Object);
                 UsuarioModel usuario = null;
 
-                var result = controller.ConfiguracionPaisUsuario(usuario);
+                var result = controller.ConfiguracionPaisUsuario(usuario).Result;
 
                 logManager.Verify(x => x.LogErrorWebServicesBusWrap(
                     It.Is<Exception>(e => e.Message.Contains("No puede ser nulo")),
@@ -279,7 +256,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     Sobrenombre= "UnSobreNombre"
                 };
 
-                var result = controller.ConfiguracionPaisUsuario(usuario);
+                var result = controller.ConfiguracionPaisUsuario(usuario).Result;
 
                 logManager.Verify(x => x.LogErrorWebServicesBusWrap(
                     It.Is<Exception>(e => e.Message.Contains("No puede estar activo configuracion pais RD y RDI a la vez.")),
@@ -334,7 +311,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     Sobrenombre = "UnSobreNombre"
                 };
 
-                var result = controller.ConfiguracionPaisUsuario(usuario);
+                var result = controller.ConfiguracionPaisUsuario(usuario).Result;
 
                 Assert.IsNotNull(result);
                 sessionManager.Verify(x => x.SetRevistaDigital(It.Is<RevistaDigitalModel>(rd => rd.TieneRDI == true && rd.TieneRDC == false)));
@@ -797,6 +774,69 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
 
                 Assert.AreEqual("banner-ganamas.jpg", result.BannerOfertasActivaSuscrita);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneSEExperienciaClub_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.SociaEEmpresariaExperienciaClub,
+                        Valor1 = "1",
+                        Valor2 = null
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual(true, result.SociaEmpresariaExperienciaGanaMas);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneSESuscritaNoActivaCancelarSuscripcion_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion,
+                        Valor1 = "1",
+                        Valor2 = null
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual(true, result.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneSESuscritaActivaCancelarSuscripcion_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.SociaEmpresariaSuscritaActivaCancelarSuscripcion,
+                        Valor1 = "1",
+                        Valor2 = null
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual(true, result.SociaEmpresariaSuscritaActivaCancelarSuscripcion);
                 Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
             }
         }

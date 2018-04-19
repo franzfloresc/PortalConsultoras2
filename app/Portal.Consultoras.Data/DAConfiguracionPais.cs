@@ -39,6 +39,13 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader Get(string codigo)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionPais_GetByCode");
+            Context.Database.AddInParameter(command, "Codigo", DbType.String, codigo);
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader Update(BEConfiguracionPais entity)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionPaisUpdate");

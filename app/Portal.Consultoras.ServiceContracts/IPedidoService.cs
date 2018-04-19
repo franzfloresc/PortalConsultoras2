@@ -465,6 +465,13 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BETracking> GetTrackingPedidoByConsultora(int paisID, string codigoConsultora, int top);
+
+        [OperationContract]
+        List<BETracking> GetPedidosByConsultoraDocumento(int paisID, string codigoConsultora, int top, int tipoDoc = 0);
+
+        [OperationContract]
+        List<BETracking> GetTrackingByPedidoConsultoraDocumento(int paisID, string codigo, string campana, string nropedido, int tipoDoc = 0);
+
         #endregion
 
         #region "CUV Automatico"
@@ -1003,16 +1010,16 @@ namespace Portal.Consultoras.ServiceContracts
         int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia);
 
         [OperationContract]
-        List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo);
+        List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv);
 
         [OperationContract]
-        int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario);
+        int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int nroLote);
 
         [OperationContract]
         int GetCantidadOfertasParaTiTemporal(int paisId, int campaniaId, int tipoConfigurado);
 
         [OperationContract]
-        List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado);
+        List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado, int nroLote);
 
         [OperationContract]
         int DeleteEstrategiaTemporal(int paisId, int campaniaId);
@@ -1066,10 +1073,10 @@ namespace Portal.Consultoras.ServiceContracts
         BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona);
 
         [OperationContract]
-        BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
+        Task<BEResultadoReservaProl> CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
 
         [OperationContract]
-        BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input);
+        Task<BEResultadoReservaProl> EjecutarReservaProl(BEInputReservaProl input);
 
         [OperationContract]
         bool EnviarCorreoReservaProl(BEInputReservaProl input);
