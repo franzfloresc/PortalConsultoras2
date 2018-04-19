@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
+using Portal.Consultoras.Web.Areas.Mobile.Models;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -377,6 +378,15 @@ namespace Portal.Consultoras.Web.SessionManager
         PagoEnLineaModel ISessionManager.GetDatosPagoVisa()
         {
             return (PagoEnLineaModel)HttpContext.Current.Session[Constantes.ConstSession.DatosPagoVisa];
+        }
+        void ISessionManager.SetPedidosFacturados(PedidoWebClientePrincipalMobilModel model)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.PedidosFacturados] = model;
+        }
+
+        PedidoWebClientePrincipalMobilModel ISessionManager.GetPedidosFacturados()
+        {
+            return (PedidoWebClientePrincipalMobilModel)HttpContext.Current.Session[Constantes.ConstSession.PedidosFacturados];
         }
     }
 }
