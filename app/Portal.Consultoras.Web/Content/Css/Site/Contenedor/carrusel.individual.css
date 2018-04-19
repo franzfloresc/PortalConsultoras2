@@ -37,11 +37,10 @@
                 background-repeat: no-repeat !important;
                 background-position: center center !important;
                 float: right;
-                /* left: 55px; */
                 top: 30px;
                 position: relative;
                 background-size: contain !important;
-                margin-right: 10%;
+                margin-right: 5px;
             }
 
         .lonuevo_carrusel .lonuevo_carrusel_portada img {
@@ -63,7 +62,7 @@
             display: table-cell;
             height: 374px;
             vertical-align: middle;
-            padding: 0 10%;
+            padding: 0 30px 0 10px;
         }
 
             .lonuevo_carrusel .lonuevo_carrusel_info .cont p {
@@ -141,6 +140,7 @@
 
                 .lonuevo_carrusel .lonuevo_carrusel_info .cont span.noti b {
                     font-weight: 900;
+                    text-transform: uppercase;
                 }
 
 .arrow-prev {

@@ -106,6 +106,7 @@
             slidesToScroll: 1,
             autoplay: false,
             speed: 270,
+            variableWidth: true,
             pantallaPedido: false,
             prevArrow: slickArrows[platform].prev,
             nextArrow: slickArrows[platform].next,
