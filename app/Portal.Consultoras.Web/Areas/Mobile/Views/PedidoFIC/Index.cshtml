@@ -29,6 +29,10 @@
     <!-- BANNERS INGRESO DE PEDIDO -->
     <div class="banner_ingresoPedido nuevaAlturaBanner" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center center;">
         <div class="content_320 ingresoPedido">
+			@if (mobileConfiguracion.EsAppMobile)
+			{
+				<p class="label-white-small">INGRESAR PEDIDO FIC @ViewBag.PedidoFIC HASTA EL @ViewBag.FinFIC </p>
+			}
             <form>
                 @Html.Hidden("txtClienteId", Model.ClienteId)
                 @if (ViewBag.MobileApp && Model.ClienteId > 0)
