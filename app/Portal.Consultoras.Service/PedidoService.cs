@@ -2355,10 +2355,10 @@ namespace Portal.Consultoras.Service
             return _pedidoAppBusinessLogic.Insert(pedidoDetalle);
         }
 
-        //public List<BEPedidoWebDetalle> GetPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
-        //{
-        //    return _pedidoAppBusinessLogic.GetDetalle(pedidoDetalle);
-        //}
+        public List<BEPedidoWebDetalle> GetPedidoDetalleApp(BEPedidoDetalleAppBuscar pedidoDetalle)
+        {
+            return _pedidoAppBusinessLogic.GetDetalle(pedidoDetalle);
+        }
         #endregion
     }
 }

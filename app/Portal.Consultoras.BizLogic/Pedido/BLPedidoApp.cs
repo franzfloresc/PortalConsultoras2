@@ -202,22 +202,23 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 _consultoraConcursoBusinessLogic.ActualizarInsertarPuntosConcurso(pedidoDetalle.PaisID, usuario.CodigoConsultora, usuario.CampaniaID.ToString(), pedidoDetalle.CodigosConcursos, puntajes, puntajesExigidos);
         }
 
-        //public List<BEPedidoWebDetalle> GetDetalle(BEPedidoDetalleApp pedidoDetalle)
-        //{
-        //    var pedidos = new List<BEPedidoWebDetalle>();
+        public List<BEPedidoWebDetalle> GetDetalle(BEPedidoDetalleAppBuscar pedidoDetalle)
+        {
+            var pedidos = new List<BEPedidoWebDetalle>();
 
-        //    try
-        //    {
-        //        pedidos = ObtenerPedidoWebDetalle(pedidoDetalle);
-        //        pedidos.Where(x => x.ClienteID == 0).Update(x => x.NombreCliente = pedidoDetalle.NombreConsultora);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.SaveLog(ex, pedidoDetalle.ConsultoraID, pedidoDetalle.PaisID);
-        //    }
+            try
+            {
+                var pedidoID = 0;
+                pedidos = ObtenerPedidoWebDetalle(pedidoDetalle, out pedidoID);
+                pedidos.Where(x => x.ClienteID == 0).Update(x => x.NombreCliente = pedidoDetalle.NombreConsultora);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, pedidoDetalle.ConsultoraID, pedidoDetalle.PaisID);
+            }
 
-        //    return pedidos;
-        //}
+            return pedidos;
+        }
 
         #region GetCUV
         private bool BloqueoProductosCatalogo(BERevistaDigital revistaDigital, string codigosRevistaImpresa, BEProducto producto, BEProductoAppBuscar productoBuscar)

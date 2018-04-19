@@ -9,6 +9,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
     {
         BEProductoApp GetCUV(BEProductoAppBuscar productoBuscar);
         BEPedidoDetalleAppInsertarResult Insert(BEPedidoDetalleAppInsertar pedidoDetalle);
-        //List<BEPedidoWebDetalle> GetDetalle(BEPedidoDetalleApp pedidoDetalle);
+        List<BEPedidoWebDetalle> GetDetalle(BEPedidoDetalleAppBuscar pedidoDetalle);
     }
 }

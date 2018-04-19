@@ -458,6 +458,7 @@ namespace Portal.Consultoras.BizLogic
             var incentivosConcursosTask = Task.Run(() => GetIncentivosConcursos(usuario));
             var revistaDigitalSuscripcionTask = Task.Run(() => GetRevistaDigitalSuscripcion(usuario));
             var cuponTask = Task.Run(() => GetCupon(usuario));
+            var programaNuevasTask = Task.Run(() => GetProgramaNuevas(usuario));
 
             Task.WaitAll(
                             terminosCondicionesTask,
@@ -469,7 +470,8 @@ namespace Portal.Consultoras.BizLogic
                             consultoraCumpleanioTask,
                             incentivosConcursosTask,
                             revistaDigitalSuscripcionTask,
-                            cuponTask);
+                            cuponTask,
+                            programaNuevasTask);
 
             if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                 usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
@@ -502,6 +504,13 @@ namespace Portal.Consultoras.BizLogic
             usuario.CuponPctDescuento = cuponTask.Result.ValorAsociado;
             usuario.CuponMontoMaxDscto = cuponTask.Result.MontoMaximoDescuento;
             usuario.CuponTipoCondicion = cuponTask.Result.TipoCondicion;
+
+            var programaNuevas = programaNuevasTask.Result;
+            if (programaNuevas != null)
+            {
+                usuario.ConsecutivoNueva = programaNuevas.ConsecutivoNueva;
+                usuario.CodigoPrograma = programaNuevas.CodigoPrograma ?? string.Empty;
+            }
 
             return usuario;
         }
@@ -917,6 +926,25 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return oResponse ?? new BECuponConsultora();
+        }
+
+        public BEConsultorasProgramaNuevas GetProgramaNuevas(BEUsuario usuario)
+        {
+            BEConsultorasProgramaNuevas beConsultoraProgramaNuevas = null;
+
+            try
+            {
+                using (IDataReader reader = new DAConsultorasProgramaNuevas(usuario.PaisID).GetConsultorasProgramaNuevasByConsultoraId(usuario.ConsultoraID))
+                {
+                    beConsultoraProgramaNuevas = reader.MapToObject<BEConsultorasProgramaNuevas>(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, CodigoUsuarioLog, PaisIDLog);
+            }
+
+            return beConsultoraProgramaNuevas;
         }
 
         public string GetUsuarioAsociado(int paisID, string codigoConsultora)
