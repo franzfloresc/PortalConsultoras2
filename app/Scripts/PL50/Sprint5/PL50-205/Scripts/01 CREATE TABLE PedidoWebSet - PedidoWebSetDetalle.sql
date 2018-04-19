@@ -1,5 +1,4 @@
-﻿
-use belcorpBolivia
+﻿use belcorpBolivia
 go
 
 IF OBJECT_ID (N'PedidoWebSet', N'U') IS NULL 
