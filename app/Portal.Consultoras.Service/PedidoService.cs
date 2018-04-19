@@ -2350,20 +2350,20 @@ namespace Portal.Consultoras.Service
             return _pedidoAppBusinessLogic.GetCUV(productoBuscar);
         }
 
-        public BEPedidoDetalleAppResult InsertPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
-        {
-            return _pedidoAppBusinessLogic.Insert(pedidoDetalle);
-        }
+        //public BEPedidoDetalleAppResult InsertPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
+        //{
+        //    return _pedidoAppBusinessLogic.Insert(pedidoDetalle);
+        //}
 
-        public void UpdateProlApp(BEPedidoDetalleApp pedidoDetalle)
-        {
-            _pedidoAppBusinessLogic.UpdateProl(pedidoDetalle);
-        }
+        //public void UpdateProlApp(BEPedidoDetalleApp pedidoDetalle)
+        //{
+        //    _pedidoAppBusinessLogic.UpdateProl(pedidoDetalle);
+        //}
 
-        public List<BEPedidoWebDetalle> GetPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
-        {
-            return _pedidoAppBusinessLogic.GetDetalle(pedidoDetalle);
-        }
+        //public List<BEPedidoWebDetalle> GetPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
+        //{
+        //    return _pedidoAppBusinessLogic.GetDetalle(pedidoDetalle);
+        //}
         #endregion
     }
 }
