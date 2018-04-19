@@ -398,6 +398,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 CodigoIso = userData.CodigoISO,
                 NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre),
+                PrimerApellido = userData.PrimerApellido,
                 NumeroOperacion = pagoEnLinea.NumeroOrdenTienda,
                 Simbolo = userData.Simbolo,
                 MontoDeuda = pagoEnLinea.MontoPago,
