@@ -702,7 +702,7 @@ function CallAnalitycsClickArrow() {
         clickedSlider = 0;
     }
 }
-//Prueba Subida
+
 $.fn.fixedTo = function (elem) {
     var $this = this,
         $window = $(windw),
