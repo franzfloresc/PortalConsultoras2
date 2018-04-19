@@ -815,9 +815,11 @@ function messageInfoError(message, fnAceptar) {
     $('#popupInformacionSB2Error .btn_ok_mobile').on('click', function () {
         $('#popupInformacionSB2Error').hide();
     });
-    if (titulo != "")
-        $(".titulo_compartir").html("<b>" + titulo + "</b>");
-
+    if ((typeof titulo != "undefined") && (titulo != "") && (titulo != null))
+    {
+        $(".titulo_compartir").html("<b>" + titulo + "</b>")
+    }
+ 
 }
 
 function messageInfoValidado(message, fnAceptar) {

@@ -680,7 +680,7 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
     }
     else {
         messageInfoError(response.message);
-        if (busquedaModel.hidden == true) $("#divProductosShowRoom").hide();
+        if (busquedaModel && busquedaModel.hidden) { $("#divProductosShowRoom").hide();
     }
 }
 
@@ -692,7 +692,7 @@ function CargarShowroomMobile(busquedaModel) {
             ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel);
         })
         .fail(function (response) {
-            if (busquedaModel.hidden) {
+            if (busquedaModel && busquedaModel.hidden) {
                 $("#divProductosShowRoom").hide();
             }
             if (checkTimeout(response)) {
@@ -719,7 +719,7 @@ function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
     }
     else {
         messageInfoError(response.message);
-        if (busquedaModel.hidden == true) $("#divProductosShowRoom").hide();
+        if (busquedaModel && busquedaModel.hidden) { $("#divProductosShowRoom").hide();
     }
 }
 function ConfigurarSlick() {
