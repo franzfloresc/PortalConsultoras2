@@ -78,7 +78,7 @@ namespace Portal.Consultoras.Web.Controllers
                     int contadorCarga = pedidoService.ValidarCargadePedidos(model.PaisID, tipoCronogramaId, marcarPedido, model.FechaFacturacion);
                     if(contadorCarga != 0) return ErrorJson("Existe una carga de pedidos en proceso para la fecha y tipo de cronograma seleccionado.");
                     
-                    file = pedidoService.DescargaPedidosWeb(model.PaisID, model.FechaFacturacion, tipoCronogramaId, marcarPedido == 1, userData.NombreConsultora, );
+                    file = pedidoService.DescargaPedidosWeb(model.PaisID, model.FechaFacturacion, tipoCronogramaId, marcarPedido == 1, userData.NombreConsultora, descProceso);
                 }
                 if (file.Length != 3) return SuccessJson("El proceso de carga de pedidos ha finalizado satisfactoriamente.");
 
