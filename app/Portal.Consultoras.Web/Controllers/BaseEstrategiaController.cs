@@ -487,7 +487,7 @@ namespace Portal.Consultoras.Web.Controllers
                     estrategia.EstrategiaDetalle.ImgHomeMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgHomeMobile);
 
                     var listadescr = estrategia.DescripcionCUV2.Split('|');
-                    estrategia.DescripcionResumen = listadescr.Length > 0 ? listadescr[0] : "";
+                    //estrategia.DescripcionResumen = listadescr.Length > 0 ? listadescr[0] : "";
                     estrategia.DescripcionCortada = listadescr.Length > 1 ? listadescr[1] : "";
                     if (listadescr.Length > 2)
                     {
@@ -503,7 +503,6 @@ namespace Portal.Consultoras.Web.Controllers
                     estrategia.Precio = 0;
                     estrategia.DescripcionCortada = estrategia.DescripcionCUV2.Split('|')[0];
                     estrategia.DescripcionDetalle = estrategia.DescripcionCUV2.Contains("|") ? estrategia.DescripcionCUV2.Split('|')[1] : string.Empty;
-                    estrategia.DescripcionResumen = "";
                 }
                 else
                 {
