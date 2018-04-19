@@ -35,7 +35,7 @@ $(document).ready(function () {
             }
         }
     }
-    
+
 
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
         $("#barCursor").css("opacity", "0");
@@ -173,7 +173,7 @@ $(document).ready(function () {
                     url = urlOfertaDetalleProductoLan;
                 }
 
-                url = url + 
+                url = url +
                     "?cuv=" + obj.CUV2 +
                     "&campaniaId=" + obj.CampaniaID;
 
@@ -185,7 +185,7 @@ $(document).ready(function () {
     $("body").on("click", ".btn-volver-fix-detalle span", function (e) {
         window.location = urlRetorno;
     });
-    
+
     $("body").on("click", ".div-carousel-rd-prev, .div-carousel-rd-next", function () {
         clickedSlider = 1;
         CallAnalitycsClickArrow();
@@ -404,7 +404,6 @@ function RDLocalStorageListado(key, valor, codigo) {
 
     LocalStorageListado(key, valLocalStorage);
 }
-
 
 function OfertaArmarEstrategiasContenedor(responseData, busquedaModel) {
 
@@ -689,7 +688,7 @@ function CheckClickCarrousel(action, source) {
 
     if (source === "normal") {
         clickedSlider = 1;
-    } 
+    }
     CallAnalitycsClickArrow();
 }
 
