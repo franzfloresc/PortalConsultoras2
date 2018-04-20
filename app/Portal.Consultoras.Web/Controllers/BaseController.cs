@@ -2339,8 +2339,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return requestUrl;
         }
-
-
+        
         protected string GetPaisNombreByISO(string paisISO)
         {
             switch (paisISO)
@@ -5346,6 +5345,13 @@ namespace Portal.Consultoras.Web.Controllers
             resultado = fecha.Day + " " + nombreMes;
 
             return resultado;
+        }
+
+        protected bool EsFacturacion()
+        {
+            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+            bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+            return esFacturacion;
         }
 
     }

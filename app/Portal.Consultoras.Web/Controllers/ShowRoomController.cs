@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Common;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
+using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -17,10 +19,6 @@ using System.ServiceModel;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-
-using Portal.Consultoras.Web.ServiceODS;
-using Portal.Consultoras.Web.SessionManager;
-using Portal.Consultoras.Web.Models.Common;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -2878,9 +2876,8 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.EstrategiaId = id;
             var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
             modelo.ListaOfertaShowRoom = xList;
-
-            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-            bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+            
+            bool esFacturacion = EsFacturacion();
 
             var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, userData.BeShowRoom.EventoID,
                         userData.BeShowRoom.CampaniaID);
@@ -2900,14 +2897,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!ValidarIngresoShowRoom(esIntriga: false))
+                if (!ValidarIngresoShowRoom(false))
                     return ErrorJson(string.Empty);
-
-                var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-                bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
-                var urlCompartir = GetUrlCompartirFB();
-
+                
+                bool esFacturacion = EsFacturacion();
                 var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
+
+                var urlCompartir = GetUrlCompartirFB();
                 productosShowRoom.ForEach(p => p.UrlCompartir = urlCompartir);
 
                 var listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
@@ -2950,11 +2946,14 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                 }
-                if (model.Limite > 0) listaNoSubCampania = listaNoSubCampania.Take(model.Limite).ToList();
+
+                if (model.Limite > 0)
+                    listaNoSubCampania = listaNoSubCampania.Take(model.Limite).ToList();
 
                 var listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania).ToList();
                 listaSubCampania.ForEach(p => p.ProductoTonos = GetOfertaConDetalle(p.OfertaShowRoomID).ProductoTonos);
                 listaSubCampania = ValidarUnidadesPermitidas(listaSubCampania);
+
                 return Json(new
                 {
                     success = true,
@@ -2978,12 +2977,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!ValidarIngresoShowRoom(esIntriga: false))
                     return ErrorJson(string.Empty);
-
-                var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-                var esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
-                var urlCompartir = GetUrlCompartirFB();
-
+                
+                var esFacturacion = EsFacturacion();
                 var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
+
+                var urlCompartir = GetUrlCompartirFB();
                 productosShowRoom.ForEach(p => p.UrlCompartir = urlCompartir);
 
                 if (model.Limite > 0 && productosShowRoom.Count > 0)
