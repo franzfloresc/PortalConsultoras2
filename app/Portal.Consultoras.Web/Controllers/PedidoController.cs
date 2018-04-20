@@ -2882,6 +2882,8 @@ namespace Portal.Consultoras.Web.Controllers
                             oBePedidoWebDetalleTemp = sv.Insert(obePedidoWebDetalle);
                         }
 
+                        // si sv.Insert falla o retorna null
+                        if (obePedidoWebDetalle == null) break;
                         oBePedidoWebDetalleTemp.ImporteTotal = obePedidoWebDetalle.ImporteTotal;
                         oBePedidoWebDetalleTemp.DescripcionProd = obePedidoWebDetalle.DescripcionProd;
                         oBePedidoWebDetalleTemp.Nombre = obePedidoWebDetalle.Nombre;
