@@ -6,19 +6,22 @@ using Portal.Consultoras.Entities.CargaMasiva;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.Entities.Pedido.App;
 using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.ServiceContracts;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
+using Portal.Consultoras.BizLogic.Pedido;
+using Portal.Consultoras.Entities.PagoEnLinea;
+using Portal.Consultoras.BizLogic.PagoEnlinea;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
 using System.Threading.Tasks;
-using Estrategia = Portal.Consultoras.Entities.Estrategia;
-using Portal.Consultoras.Entities.PagoEnLinea;
-using Portal.Consultoras.BizLogic.PagoEnlinea;
 
 namespace Portal.Consultoras.Service
 {
@@ -49,12 +52,15 @@ namespace Portal.Consultoras.Service
         private readonly BLCuponConsultora BLCuponConsultora;
         private readonly BLFichaProducto blFichaProducto;
         private BLPagoEnLinea BLPagoEnLinea;
+
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
         private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
         private readonly IConfiguracionProgramaNuevasBusinessLogic _configuracionProgramaNuevasBusinessLogic;
         private readonly ITrackingBusinessLogic _trackingBusinessLogic;
+        private readonly IPedidoAppBusinessLogic _pedidoAppBusinessLogic;
 
-        public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb(), new BLConfiguracionProgramaNuevas(), new BLTracking())
+        public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb(), new BLConfiguracionProgramaNuevas(), new BLTracking(),
+            new BLPedidoApp())
         {
             BLPedidoWebDetalle = new BLPedidoWebDetalle();
             BLPedidoWeb = new BLPedidoWeb();
@@ -84,12 +90,14 @@ namespace Portal.Consultoras.Service
         }
 
         public PedidoService(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic, IPedidoWebBusinessLogic pedidoWebBusinessLogic,
-            IConfiguracionProgramaNuevasBusinessLogic configuracionProgramaNuevasBusinessLogic, ITrackingBusinessLogic trackingBusinessLogic)
+            IConfiguracionProgramaNuevasBusinessLogic configuracionProgramaNuevasBusinessLogic, ITrackingBusinessLogic trackingBusinessLogic,
+            IPedidoAppBusinessLogic pedidoAppBusinessLogic)
         {
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
             _configuracionProgramaNuevasBusinessLogic = configuracionProgramaNuevasBusinessLogic;
             _trackingBusinessLogic = trackingBusinessLogic;
+            _pedidoAppBusinessLogic = pedidoAppBusinessLogic;
         }
 
         #region Reporte Lider
@@ -1806,6 +1814,11 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.GetPedidosIngresadoFacturadoWebMobile(paisID, consultoraID, campaniaID, clienteID, top, codigoConsultora);
         }
 
+        public List<BEPedidoWeb> GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora,  int usuarioPrueba, string consultoraAsociada, int top )
+        {
+            return BLPedidoWeb.GetPedidosIngresadoFacturadoApp(paisID, consultoraID, campaniaID, codigoConsultora, usuarioPrueba, consultoraAsociada, top);
+        }
+
         public void InsertarLogPedidoWeb(int PaisID, int CampaniaID, string CodigoConsultora, int PedidoId, string Accion, string CodigoUsuario)
         {
             BLPedidoWeb.InsertarLogPedidoWeb(PaisID, CampaniaID, CodigoConsultora, PedidoId, Accion, CodigoUsuario);
@@ -2335,5 +2348,27 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().InsertarProductoShowroomMasiva(entidad);
         }
+
+        #region PedidoApp
+        public BEProductoApp GetCUVApp(BEProductoAppBuscar productoBuscar)
+        {
+            return _pedidoAppBusinessLogic.GetCUV(productoBuscar);
+        }
+
+        public BEPedidoDetalleAppResult InsertPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
+        {
+            return _pedidoAppBusinessLogic.Insert(pedidoDetalle);
+        }
+
+        public void UpdateProlApp(BEPedidoDetalleApp pedidoDetalle)
+        {
+            _pedidoAppBusinessLogic.UpdateProl(pedidoDetalle);
+        }
+
+        public List<BEPedidoWebDetalle> GetPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
+        {
+            return _pedidoAppBusinessLogic.GetDetalle(pedidoDetalle);
+        }
+        #endregion
     }
 }

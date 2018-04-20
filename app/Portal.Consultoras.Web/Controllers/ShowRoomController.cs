@@ -2164,7 +2164,7 @@ namespace Portal.Consultoras.Web.Controllers
             switch (codigo)
             {
                 case Constantes.TipoEstrategiaSet.IndividualConTonos:
-                    List<BEProducto> listaHermanosE;
+                    List<ServiceODS.BEProducto> listaHermanosE;
                     using (var svc = new ODSServiceClient())
                     {
                         listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, cuv).ToList();
