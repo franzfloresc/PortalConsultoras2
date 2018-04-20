@@ -389,11 +389,6 @@ namespace Portal.Consultoras.BizLogic.Reserva
             decimal gananciaEstimada = 0;
             List<BEPedidoWebDetalle> listDetalleObservacion = null;
 
-            if (input.FechaHoraReserva)
-            {
-                pedidoWeb.VersionProl = input.VersionProl;
-                pedidoWeb.PedidoSapId = resultado.PedidoSapId;
-            }
             if (resultado.Reserva)
             {
                 pedidoWeb.CodigoUsuarioModificacion = input.CodigoUsuario;
@@ -444,7 +439,9 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 MontoAhorroCatalogo = resultado.MontoAhorroCatalogo,
                 MontoAhorroRevista = resultado.MontoAhorroRevista,
                 DescuentoProl = resultado.MontoDescuento,
-                MontoEscala = resultado.MontoEscala
+                MontoEscala = resultado.MontoEscala,
+                VersionProl = input.VersionProl,
+                PedidoSapId = resultado.PedidoSapId
             };
         }
 
