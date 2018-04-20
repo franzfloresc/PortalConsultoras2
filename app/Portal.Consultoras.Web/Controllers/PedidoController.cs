@@ -3521,13 +3521,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                RegaloOfertaFinalModel model = null;
+                OfertaFinalRegaloModel model = null;
                 using (var svc = new ProductoServiceClient())
                 {
                     var entidad = svc.ObtenerRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
                     if (entidad != null)
                     {
-                        model = Mapper.Map<RegaloOfertaFinal, RegaloOfertaFinalModel>(entidad);
+                        model = Mapper.Map<RegaloOfertaFinal, OfertaFinalRegaloModel>(entidad);
                         model.CodigoISO = userData.CodigoISO;
                         var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                         model.RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais, entidad.RegaloImagenUrl, carpetaPais);
@@ -3557,13 +3557,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                RegaloOfertaFinalModel model = null;
+                OfertaFinalRegaloModel model = null;
                 using (var svc = new ProductoServiceClient())
                 {
                     var entidad = svc.ObtenerRegaloMontoMeta(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
                     if (entidad != null)
                     {
-                        model = Mapper.Map<RegaloOfertaFinal, RegaloOfertaFinalModel>(entidad);
+                        model = Mapper.Map<RegaloOfertaFinal, OfertaFinalRegaloModel>(entidad);
                         model.FormatoMontoMeta = Util.DecimalToStringFormat(model.MontoMeta, userData.CodigoISO);
                     }
                 }
