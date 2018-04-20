@@ -67,7 +67,9 @@
                         <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
                         <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
-                    <a class="@Model.ClaseBloqueada btn_agregar_ficha_producto" id="tbnAgregarProducto"
+                    <a class="@Model.ClaseBloqueada btn_agregar_ficha_producto" 
+                       id="tbnAgregarProducto"
+                       data-bloqueada="@Model.ClaseBloqueada"
                        onclick="javascript:EstrategiaAgregar(event, true); ">AGRÉGALO</a>
                     <hr class="clear">
                 </div>
