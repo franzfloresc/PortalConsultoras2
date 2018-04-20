@@ -151,7 +151,7 @@ namespace Portal.Consultoras.Web.Controllers
                         lista = lista.Take(limiteJetlore).ToList();
 
                         string codigosCuv = string.Join(",", lista.Select(p => p.Cuv));
-                        List<BEProducto> lstProducto;
+                        List<ServiceODS.BEProducto> lstProducto;
 
                         using (ODSServiceClient sv = new ODSServiceClient())
                         {
@@ -160,7 +160,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         foreach (var producto in lista)
                         {
-                            BEProducto beProducto = lstProducto.FirstOrDefault(p => p.CUV == producto.Cuv);
+                            ServiceODS.BEProducto beProducto = lstProducto.FirstOrDefault(p => p.CUV == producto.Cuv);
 
                             if (beProducto == null) continue;
 
@@ -537,11 +537,11 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 #endregion
-                BEProducto producto;
+                ServiceODS.BEProducto producto;
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
                     producto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, dataProl.cuv_revista,
-                        userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, false).FirstOrDefault() ?? new BEProducto();
+                        userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, false).FirstOrDefault() ?? new ServiceODS.BEProducto();
                 }
 
                 var txtGanancia = userData.CodigoISO == Constantes.CodigosISOPais.Peru ? "Gana" :
@@ -634,7 +634,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 productoModel.UrlCompartirFB = GetUrlCompartirFB();
 
-                List<BEProducto> listaHermanos;
+                List<ServiceODS.BEProducto> listaHermanos;
                 using (ODSServiceClient svc = new ODSServiceClient())
                 {
                     listaHermanos = svc.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, cuv).ToList();

@@ -53,7 +53,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
             var listMensajeObs = blTablaLogicaDatos.GetTablaLogicaDatosCache(input.PaisID, Constantes.TablaLogica.ProlObsCod);
             var pedidoObservacion = CreateCabPedidoObs(input, respuestaSicc, listMensajeObs);
             if (pedidoObservacion != null) resultado.ListPedidoObservacion.Add(pedidoObservacion);
-            
+
+            bool validarSap = input.FechaHoraReserva && respuestaSicc.indDeuda != "2";
             var listDetExp = NewListPedidoWebDetalleExplotado(input, respuestaSicc.posiciones, listPedidoWebDetalle);
             SetOrigPedWebAndListCuvOrigen(listDetExp, listPedidoWebDetalle);
             foreach (var detExp in listDetExp)
@@ -61,7 +62,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 if (detExp.IndRecuperacion) resultado.ListDetalleBackOrder.AddRange(listPedidoWebDetalle.Where(d => d.CUV == detExp.CUV));
                 else
                 {
-                    var listpedidoObservacion = CreateDetListPedidoObs(detExp, listDetExp, listMensajeObs, input.FechaHoraReserva);
+                    var listpedidoObservacion = CreateDetListPedidoObs(detExp, listDetExp, listMensajeObs, validarSap);
                     if (listpedidoObservacion != null) resultado.ListPedidoObservacion.AddRange(listpedidoObservacion);
                 }
             }
@@ -292,8 +293,15 @@ namespace Portal.Consultoras.BizLogic.Reserva
             else if (respuestaSicc.estadoPedidoMontoMinimo == "1")
             {
                 cuv = Constantes.ProlCodigoRechazo.MontoMinimo;
-                descKey = input.FechaHoraReserva ? Constantes.ProlObsCod.MontoMinimoFact : Constantes.ProlObsCod.MontoMinimoVenta;
+
+                var desc = respuestaSicc.montoTotalDcto.ToDecimalSecure();
+                descKey =
+                    input.FechaHoraReserva ?
+                    (desc > 0 ? Constantes.ProlObsCod.MontoMinFactDesc : Constantes.ProlObsCod.MontoMinFact) :
+                    (desc > 0 ? Constantes.ProlObsCod.MontoMinVentaDesc : Constantes.ProlObsCod.MontoMinVenta);
+
                 dictToken.Add(Constantes.ProlObsToken.MinimoMonto, Util.DecimalToStringFormat(input.MontoMinimo, input.PaisISO));
+                if (desc > 0) dictToken.Add(Constantes.ProlObsToken.DescuentoMonto, Util.DecimalToStringFormat(desc, input.PaisISO));
             }
             else return null;
 
@@ -301,7 +309,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             return new BEPedidoObservacion(2, 95, cuv, ReplaceTokens(listMensajeObs, descKey, dictToken), "");
         }
 
-        private List<BEPedidoObservacion> CreateDetListPedidoObs(BEPedidoWebDetalleExplotado detExp, List<BEPedidoWebDetalleExplotado> listDetExp, List<BETablaLogicaDatos> listMensajeObs, bool enFacturacion)
+        private List<BEPedidoObservacion> CreateDetListPedidoObs(BEPedidoWebDetalleExplotado detExp, List<BEPedidoWebDetalleExplotado> listDetExp, List<BETablaLogicaDatos> listMensajeObs, bool validarSap)
         {
             if (detExp.Observaciones != Constantes.ProlSiccObs.Promocion && detExp.PrecioUnitario == 0) return null;
             
@@ -334,7 +342,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 dictToken.Add(Constantes.ProlObsToken.ReemplazoCuv, reemplazo.CUV);
                 dictToken.Add(Constantes.ProlObsToken.ReemplazoDesc, reemplazo.DescripcionSap);
             }
-            else if (enFacturacion && detExp.UnidadesReservadasSap < detExp.UnidadesPorAtender)
+            else if (validarSap && detExp.UnidadesReservadasSap < detExp.UnidadesPorAtender)
             {
                 descKey = detExp.UnidadesReservadasSap == 0 ? Constantes.ProlObsCod.SinStock0 : Constantes.ProlObsCod.SinStock;
                 caso = detExp.UnidadesReservadasSap == 0 ? 5 : 6;

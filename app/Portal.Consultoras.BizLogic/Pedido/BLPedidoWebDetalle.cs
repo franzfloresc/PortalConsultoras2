@@ -1,8 +1,9 @@
-﻿using Portal.Consultoras.BizLogic.Reserva;
+using Portal.Consultoras.BizLogic.Reserva;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.PublicService.Cryptography;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,7 +13,7 @@ using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public partial class BLPedidoWebDetalle
+    public partial class BLPedidoWebDetalle : IPedidoWebDetalleBusinessLogic
     {
         public IList<BEPedidoWebDetalle> GetClientesByCampania(int paisID, int campaniaID, long consultoraID)
         {
@@ -220,6 +221,7 @@ namespace Portal.Consultoras.BizLogic
             using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
             {
                 dAPedidoWebDetalle.UpdListBackOrderPedidoWebDetalle(campaniaID, pedidoID, listPedidoWebDetalle);
+
                 oTransactionScope.Complete();
             }
         }
@@ -458,9 +460,11 @@ namespace Portal.Consultoras.BizLogic
             using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
             {
                 if (olstPedidoWebDetalle != null) daPedidoWebDetalle.UpdListPedidoWebDetalleObsPROL(olstPedidoWebDetalle);
+
                 daPedidoWeb.UpdPedidoWebByEstado(CampaniaID, PedidoID, EstadoPedido, false, CodigoUsuario, MontoTotalProl, DescuentoProl);
                 oTransactionScope.Complete();
             }
+
         }
 
         public void UpdPedidoWebByEstado(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, bool ModificaPedidoReservado, bool Eliminar, string CodigoUsuario, bool ValidacionAbierta)
