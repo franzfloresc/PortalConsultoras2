@@ -638,7 +638,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Session.Add("TokenPedidoAutentico", AESAlgorithm.Encrypt(model.Identifier));
 
                 sessionManager.SetStartSession(DateTime.Now);
-
+                model.Pagina = model.Pagina ?? "";
                 switch (model.Pagina.ToUpper())
                 {
                     case Constantes.IngresoExternoPagina.EstadoCuenta:
@@ -687,7 +687,9 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("MisReclamos", "Index", null);
                     case Constantes.IngresoExternoPagina.PedidosFIC:
                         return RedirectToUniqueRoute("PedidoFIC", "Index", null);
-                        
+                    //default:
+                    //    return RedirectToAction("UserUnknown", "Login", new { area = "" });
+
                 }
             }
             catch (Exception ex)
