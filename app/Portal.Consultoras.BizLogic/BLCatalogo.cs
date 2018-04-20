@@ -118,7 +118,8 @@ namespace Portal.Consultoras.BizLogic
 
                 foreach (var catalogoRevista in catalogoRevistas)
                 {
-                    lstTask.Add(Task.Run(() => GetCatalogoRevista(catalogoRevista, catalogoConfiguraciones, codigoZona)));
+                    SetCatalogoRevistaMostrar(catalogoRevista, catalogoConfiguraciones);
+                    if(catalogoRevista.Mostrar) lstTask.Add(Task.Run(() => GetCatalogoRevista(catalogoRevista, catalogoConfiguraciones, codigoZona)));
                 }
 
                 var arrTask = lstTask.ToArray();
@@ -139,7 +140,6 @@ namespace Portal.Consultoras.BizLogic
         {
             try
             {
-                SetCatalogoRevistaMostrar(catalogoRevista, catalogoConfiguraciones);
                 SetCatalogoRevistaCodigoIssuu(codigoZona, catalogoRevista);
                 SetCatalogoRevistaFieldsInOembedIssuu(catalogoRevista);
                 AjusteRevistaTituloDescripcion(catalogoRevista);
