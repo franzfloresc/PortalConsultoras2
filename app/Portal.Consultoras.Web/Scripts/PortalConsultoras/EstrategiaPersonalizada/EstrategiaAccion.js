@@ -494,6 +494,7 @@ function EstrategiaAgregar(event, popup, limite) {
                 setTimeout(function () {
                     $(".contenedor_circulos").fadeOut();
                 }, 2700);
+                $(objInput).parents("[data-item]").find("[data-input='cantidad']").val("1");
             }
             else {
                 $(".btn_agregar_ficha_producto ").parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val("1");
@@ -645,8 +646,15 @@ function EstrategiaValidarBloqueada(objInput, estrategia) {
 function EstrategiaValidarSeleccionTono(objInput) {
     var attrClass = $.trim($(objInput).attr("class"));
     if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
+        if (isMobile()) {
+            if (origenPedidoWebEstrategia == 2731) {
+                window.scrollTo(0, 540);
+            }
+        }
+
         $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']").parent().addClass("tono_no_seleccionado");
-        setTimeout(function () {
+        setTimeout(
+           function () {
             $(objInput).parents("[data-item]").find("[data-tono-change='1']").parent().removeClass("tono_no_seleccionado");
         }, 500);
         return true;

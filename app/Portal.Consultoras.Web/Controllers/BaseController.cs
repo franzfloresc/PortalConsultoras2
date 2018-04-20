@@ -38,6 +38,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+using System.Drawing;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -2198,7 +2199,8 @@ namespace Portal.Consultoras.Web.Controllers
             else
             {
                 requestUrl = string.Format(codigo, userData.CodigoISO.ToLower(), nroCampania, anioCampania, "");
-                requestUrl = Util.Trim(requestUrl.Substring(requestUrl.Length - 1)) == "." ? requestUrl.Substring(0, requestUrl.Length - 1) : requestUrl;
+                if (requestUrl.Length > 0)
+                    requestUrl = Util.Trim(requestUrl.Substring(requestUrl.Length - 1)) == "." ? requestUrl.Substring(0, requestUrl.Length - 1) : requestUrl;
             }
             requestUrl = GetRevistaCodigoIssuuRDR(requestUrl);
             return requestUrl;
@@ -2208,13 +2210,16 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (revistaDigital.TieneRDCR)
             {
+                if (codigoRevista.EndsWith(Constantes.CatalogoUrlIssu.RDR + "1") || codigoRevista.EndsWith(Constantes.CatalogoUrlIssu.RDR + "2"))
+                    return codigoRevista;
+
                 string tipo = "1";
                 if (GetConfiguracionManagerContains(Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_2 + userData.CodigoISO, userData.CodigoZona))
                 {
                     tipo = "2";
                 }
 
-                codigoRevista += tipo == "" ? "" : (Constantes.CatalogoUrlIssu.RDR + tipo);
+                codigoRevista += Constantes.CatalogoUrlIssu.RDR + tipo;
 
             }
             return codigoRevista;
@@ -2347,20 +2352,20 @@ namespace Portal.Consultoras.Web.Controllers
         {
             switch (paisISO)
             {
-                case "AR": return "argentina";
-                case "BO": return "bolivia";
-                case "CL": return "chile";
-                case "CO": return "colombia";
-                case "CR": return "costarica";
-                case "DO": return "republicadominicana";
-                case "EC": return "ecuador";
-                case "GT": return "guatemala";
-                case "MX": return "mexico";
-                case "PA": return "panama";
-                case "PE": return "peru";
-                case "PR": return "puertorico";
-                case "SV": return "elsalvador";
-                case "VE": return "venezuela";
+                case Constantes.CodigosISOPais.Argentina: return "argentina";
+                case Constantes.CodigosISOPais.Bolivia: return "bolivia";
+                case Constantes.CodigosISOPais.Chile: return "chile";
+                case Constantes.CodigosISOPais.Colombia: return "colombia";
+                case Constantes.CodigosISOPais.CostaRica: return "costarica";
+                case Constantes.CodigosISOPais.Dominicana: return "republicadominicana";
+                case Constantes.CodigosISOPais.Ecuador: return "ecuador";
+                case Constantes.CodigosISOPais.Guatemala: return "guatemala";
+                case Constantes.CodigosISOPais.Mexico: return "mexico";
+                case Constantes.CodigosISOPais.Panama: return "panama";
+                case Constantes.CodigosISOPais.Peru: return "peru";
+                case Constantes.CodigosISOPais.PuertoRico: return "puertorico";
+                case Constantes.CodigosISOPais.Salvador: return "elsalvador";
+                case Constantes.CodigosISOPais.Venezuela: return "venezuela";
                 default: return "sinpais";
             }
         }
@@ -2725,6 +2730,8 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
+        #region TablaLogica
+
         public List<TablaLogicaDatosModel> ObtenerParametrosTablaLogica(int paisId, short tablaLogicaId, bool sesion = false)
         {
             var datos = sesion ? (List<TablaLogicaDatosModel>)Session[Constantes.ConstSession.TablaLogicaDatos + tablaLogicaId.ToString()] : null;
@@ -2747,6 +2754,7 @@ namespace Portal.Consultoras.Web.Controllers
         public string ObtenerValorTablaLogica(List<TablaLogicaDatosModel> datos, short idTablaLogicaDatos)
         {
             var valor = "";
+            datos = datos ?? new List<TablaLogicaDatosModel>();
             if (datos.Any())
             {
                 var par = datos.FirstOrDefault(d => d.TablaLogicaDatosID == idTablaLogicaDatos) ?? new TablaLogicaDatosModel();
@@ -2754,6 +2762,25 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return valor;
         }
+
+        public int ObtenerValorTablaLogicaInt(int paisId, short tablaLogicaId, short idTablaLogicaDatos, bool sesion = false)
+        {
+            var resultadoString = ObtenerValorTablaLogica(paisId, tablaLogicaId, idTablaLogicaDatos, sesion);
+            int resultado;
+            int.TryParse(resultadoString, out resultado);
+            return resultado;
+        }
+
+        public int ObtenerValorTablaLogicaInt(List<TablaLogicaDatosModel> lista, short tablaLogicaDatosId)
+        {
+            var resultadoString = ObtenerValorTablaLogica(lista, tablaLogicaDatosId);
+
+            int resultado;
+            int.TryParse(resultadoString, out resultado);
+            return resultado;
+        }
+
+        #endregion
 
         public MobileAppConfiguracionModel MobileAppConfiguracion
         {
@@ -3187,7 +3214,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaEntidad = sessionManager.GetSeccionesContenedor(menuActivo.CampaniaId);
                 if (listaEntidad == null)
                 {
-                    listaEntidad = GetConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaId);
+                    listaEntidad = GetConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaId); // secciones de base de datos 
                     sessionManager.SetSeccionesContenedor(menuActivo.CampaniaId, listaEntidad);
                 }
 
@@ -3283,7 +3310,7 @@ namespace Portal.Consultoras.Web.Controllers
                             seccion.VerMas = false;
                             break;
                         case Constantes.ConfiguracionPais.Lanzamiento:
-                            seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosLan";
+                            seccion.UrlObtenerProductos = "Lanzamientos/RDObtenerProductosLan";
                             seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.LanzamientoMobileContenedor : Constantes.OrigenPedidoWeb.LanzamientoDesktopContenedor;
                             seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.LanzamientoMobileContenedorPopup : Constantes.OrigenPedidoWeb.LanzamientoDesktopContenedorPopup;
                             seccion.VerMas = false;
@@ -3348,6 +3375,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.DescagablesNavidenos:
                             seccion.TemplatePresentacion = "seccion-descargables-navidenos";
+                            break;
+                        case Constantes.ConfiguracionSeccion.TipoPresentacion.CarruselIndividuales:
+                            seccion.TemplatePresentacion = "seccion-carrusel-individuales";
+                            seccion.TemplateProducto = "#lanzamiento-carrusel-individual-template";
                             break;
                     }
 
@@ -3542,7 +3573,7 @@ namespace Portal.Consultoras.Web.Controllers
                         ? Constantes.OrigenPantallaWeb.MRevistaDigitalInfo
                         : Constantes.OrigenPantallaWeb.DRevistaDigitalInfo;
                     break;
-                case Constantes.UrlMenuContenedor.RdDetalle:
+                case Constantes.UrlMenuContenedor.LanDetalle:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Lanzamiento;
                     menuActivo.OrigenPantalla = IsMobile()
                         ? Constantes.OrigenPantallaWeb.MRevistaDigitalDetalle
@@ -4319,57 +4350,130 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Resize Imagen Default       
 
-        public List<EntidadMagickResize> ObtenerListaImagenesResize(string rutaImagen)
+        public List<EntidadMagickResize> ObtenerListaImagenesResize(string rutaImagen, bool esAppCalatogo = false)
         {
             var listaImagenesResize = new List<EntidadMagickResize>();
 
             if (Util.ExisteUrlRemota(rutaImagen))
             {
-                var extensionNombreImagenSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall;
-                var rutaImagenSmall = Util.GenerarRutaImagenResize(rutaImagen, extensionNombreImagenSmall);
+                var rutaImagenSmall = "";
+                var rutaImagenMedium = "";
 
-                var extensionNombreImagenMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium;
-                var rutaImagenMedium = Util.GenerarRutaImagenResize(rutaImagen, extensionNombreImagenMedium);
+                if (esAppCalatogo)
+                {
+                    string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
+                    string soloExtension = Path.GetExtension(rutaImagen);
+
+                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+
+                    var extensionNombreImagenSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall;
+                    var extensionNombreImagenMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium;
+
+                    rutaImagenSmall = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + extensionNombreImagenSmall + soloExtension);
+                    rutaImagenMedium = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + extensionNombreImagenMedium + soloExtension);
+                }
+                else
+                {
+                    rutaImagenSmall = Util.GenerarRutaImagenResize(rutaImagen, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
+                    rutaImagenMedium = Util.GenerarRutaImagenResize(rutaImagen, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium);
+                }
 
                 var listaValoresImagenesResize = ObtenerParametrosTablaLogica(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, true);
+
+                int ancho = 0;
+                int alto = 0;
 
                 EntidadMagickResize entidadResize;
                 if (!Util.ExisteUrlRemota(rutaImagenSmall))
                 {
-                    entidadResize = new EntidadMagickResize();
-                    entidadResize.RutaImagenOriginal = rutaImagen;
-                    entidadResize.RutaImagenResize = rutaImagenSmall;
-                    entidadResize.Width = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhSmall);
-                    entidadResize.Height = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightSmall);
-                    entidadResize.TipoImagen = Constantes.ConfiguracionImagenResize.TipoImagenSmall;
-                    entidadResize.CodigoIso = userData.CodigoISO;
-                    listaImagenesResize.Add(entidadResize);
+                    GetDimensionesImagen(rutaImagen, listaValoresImagenesResize, Constantes.ConfiguracionImagenResize.TipoImagenSmall, out alto, out ancho);
+
+                    if (ancho > 0 && alto > 0)
+                    {
+                        entidadResize = new EntidadMagickResize
+                        {
+                            RutaImagenOriginal = rutaImagen,
+                            RutaImagenResize = rutaImagenSmall,
+                            Width = ancho,
+                            Height = alto,
+                            TipoImagen = Constantes.ConfiguracionImagenResize.TipoImagenSmall,
+                            CodigoIso = userData.CodigoISO
+                        };
+                        listaImagenesResize.Add(entidadResize);
+                    }
                 }
 
                 if (!Util.ExisteUrlRemota(rutaImagenMedium))
                 {
-                    entidadResize = new EntidadMagickResize();
-                    entidadResize.RutaImagenOriginal = rutaImagen;
-                    entidadResize.RutaImagenResize = rutaImagenMedium;
-                    entidadResize.Width = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMedium);
-                    entidadResize.Height = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightMedium);
-                    entidadResize.TipoImagen = Constantes.ConfiguracionImagenResize.TipoImagenMedium;
-                    entidadResize.CodigoIso = userData.CodigoISO;
-                    listaImagenesResize.Add(entidadResize);
+                    GetDimensionesImagen(rutaImagen, listaValoresImagenesResize, Constantes.ConfiguracionImagenResize.TipoImagenMedium, out alto, out ancho);
+
+                    if (ancho > 0 && alto > 0)
+                    {
+                        entidadResize = new EntidadMagickResize
+                        {
+                            RutaImagenOriginal = rutaImagen,
+                            RutaImagenResize = rutaImagenMedium,
+                            Width = ancho,
+                            Height = alto,
+                            TipoImagen = Constantes.ConfiguracionImagenResize.TipoImagenMedium,
+                            CodigoIso = userData.CodigoISO
+                        };
+                        listaImagenesResize.Add(entidadResize);
+                    }
                 }
             }
 
             return listaImagenesResize;
         }
 
-        public int ObtenerTablaLogicaDimensionImagen(List<TablaLogicaDatosModel> lista, short tablaLogicaDatosId)
+        private void GetDimensionesImagen(string urlImagen, List<TablaLogicaDatosModel> datosImg, string tipoImg, out int alto, out int ancho)
         {
-            int resultado = 0;
-            var resultadoString = ObtenerValorTablaLogica(lista, tablaLogicaDatosId);
+            ancho = 0;
+            alto = 0;
 
-            var esInt = int.TryParse(resultadoString, out resultado);
+            if (!datosImg.Any())
+                return;
 
-            return esInt ? resultado : 0;
+            // valores estandar de base de datos
+            var hBase = 0;
+            var wMax = 0;
+            if (tipoImg == Constantes.ConfiguracionImagenResize.TipoImagenSmall)
+            {
+                hBase = ObtenerValorTablaLogicaInt(datosImg, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightSmall);
+                wMax = ObtenerValorTablaLogicaInt(datosImg, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMaxSmall);
+            }
+            else if (tipoImg == Constantes.ConfiguracionImagenResize.TipoImagenMedium)
+            {
+                hBase = ObtenerValorTablaLogicaInt(datosImg, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightMedium);
+                wMax = ObtenerValorTablaLogicaInt(datosImg, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMaxMedium);
+            }
+
+            if (hBase == 0 && wMax == 0)
+                return;
+
+            // Obtener las dimensiones
+            byte[] imageData = new WebClient().DownloadData(urlImagen);
+            MemoryStream imgStream = new MemoryStream(imageData);
+            Image img = Image.FromStream(imgStream);
+
+            imgStream.Close();
+
+            ancho = img.Width;
+            alto = img.Height;
+
+            img.Dispose();
+
+            // calculo matematico para escalar
+            if (alto > hBase && hBase > 0)
+            {
+                ancho = Convert.ToInt32(ancho * (Convert.ToDecimal(hBase) / Convert.ToDecimal(alto)));
+                alto = hBase;
+            }
+            if (ancho > wMax && wMax > 0)
+            {
+                alto = Convert.ToInt32(alto * (Convert.ToDecimal(wMax) / Convert.ToDecimal(ancho)));
+                ancho = wMax;
+            }
         }
 
         #endregion
@@ -4686,7 +4790,7 @@ namespace Portal.Consultoras.Web.Controllers
             var flag = 1;
             try
             {
-                if (userData.CodigoISO == "BO" && userData.CampaniaID == 201717)
+                if (userData.CodigoISO == Constantes.CodigosISOPais.Bolivia && userData.CampaniaID == 201717)
                 {
                     using (var sv = new PedidoServiceClient())
                     {
@@ -4931,6 +5035,7 @@ namespace Portal.Consultoras.Web.Controllers
                 _RevistaDigitalShortModel.TieneRDS = revistaDigital.TieneRDS;
                 _RevistaDigitalShortModel.EsSuscrita = revistaDigital.EsSuscrita;
                 _RevistaDigitalShortModel.EsActiva = revistaDigital.EsActiva;
+                _RevistaDigitalShortModel.CampaniaActiva = revistaDigital.CampaniaFuturoActiva;
             }
 
             return _RevistaDigitalShortModel;
