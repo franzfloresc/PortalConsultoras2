@@ -69,7 +69,7 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BECatalogoRevista> GetListCatalogoRevistaPublicadoWithTitulo(string paisISO, string codigoZona, int campania);
 
         [OperationContract]
-        IList<BECatalogoRevista> GetCatalogoRevista(string paisISO, string codigoZona, string campanias);
+        IList<BECatalogoRevista> GetCatalogoRevista(string paisISO, string codigoZona, List<int> campanias);
 
         [OperationContract]
         IList<BEPedidoWeb> GetPedidosWebAnterioresByConsultora(int paisID, long consultoraID);

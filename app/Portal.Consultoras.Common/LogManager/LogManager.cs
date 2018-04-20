@@ -129,8 +129,11 @@ namespace Portal.Consultoras.Common
 
                 if (HttpContext.Current != null && HttpContext.Current.Request != null)
                 {
-                    urlRequest = HttpContext.Current.Request.Url.ToString();
-                    browserRequest = HttpContext.Current.Request.UserAgent;
+                    if (HttpContext.Current.Request != null)
+                    {
+                        urlRequest = HttpContext.Current.Request.Url.ToString();
+                        browserRequest = HttpContext.Current.Request.UserAgent;
+                    }
                 }
 
                 var exceptionMessage = string.Empty;

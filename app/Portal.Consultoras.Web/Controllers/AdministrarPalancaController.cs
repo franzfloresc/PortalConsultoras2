@@ -48,7 +48,7 @@ namespace Portal.Consultoras.Web.Controllers
             using (var sv = new SACServiceClient())
             {
                 var beConfiguracionPais = sv.GetConfiguracionPais(userData.PaisID, idConfiguracionPais);
-                model = Mapper.Map<BEConfiguracionPais, AdministrarPalancaModel>(beConfiguracionPais);
+                model = Mapper.Map<ServiceSAC.BEConfiguracionPais, AdministrarPalancaModel>(beConfiguracionPais);
             }
             model.ListaCampanias = ListCampanias(userData.PaisID);
             model.ListaTipoPresentacion = ListTipoPresentacion();
@@ -178,7 +178,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var sv = new SACServiceClient())
                 {
-                    var entidad = Mapper.Map<AdministrarPalancaModel, BEConfiguracionPais>(model);
+                    var entidad = Mapper.Map<AdministrarPalancaModel, ServiceSAC.BEConfiguracionPais>(model);
                     sv.UpdateConfiguracionPais(entidad);
                 }
                 return Json(new
@@ -229,12 +229,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         private IEnumerable<ConfiguracionPaisModel> ListarConfiguracionPais()
         {
-            List<BEConfiguracionPais> lst;
+            List<ServiceSAC.BEConfiguracionPais> lst;
             using (var sv = new SACServiceClient())
             {
                 lst = sv.ListConfiguracionPais(userData.PaisID, true).ToList();
             }
-            return Mapper.Map<IList<BEConfiguracionPais>, IEnumerable<ConfiguracionPaisModel>>(lst);
+            return Mapper.Map<IList<ServiceSAC.BEConfiguracionPais>, IEnumerable<ConfiguracionPaisModel>>(lst);
         }
 
         private IEnumerable<AdministrarOfertasHomeModel> ListarConfiguracionOfertasHome(int campaniaId = 0)
@@ -296,7 +296,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (model.ConfiguracionPaisID != 0)
             {
-                BEConfiguracionPais entidad;
+                ServiceSAC.BEConfiguracionPais entidad;
                 using (var sv = new SACServiceClient())
                 {
                     entidad = sv.GetConfiguracionPais(userData.PaisID, model.ConfiguracionPaisID);
