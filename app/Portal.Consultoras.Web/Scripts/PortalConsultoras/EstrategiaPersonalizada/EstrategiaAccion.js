@@ -351,7 +351,10 @@ function VerPopupExpGanaMas() {
         }
     }
 
-    divMensaje.show();
+    if (divMensaje != "") {
+        divMensaje.show();
+    }
+
 }
 
 function EstrategiaAgregar(event, popup, limite) {
