@@ -1894,8 +1894,10 @@ namespace Portal.Consultoras.Common
         public class ProlObsCod
         {
             public const string Deuda = "Deuda";
-            public const string MontoMinimoVenta = "MontoMinimoVenta";
-            public const string MontoMinimoFact = "MontoMinimoFact";
+            public const string MontoMinVenta = "MontoMinVenta";
+            public const string MontoMinFact = "MontoMinFact";
+            public const string MontoMinVentaDesc = "MontoMinVentaDesc";
+            public const string MontoMinFactDesc = "MontoMinFactDesc";
             public const string MontoMaximo  = "MontoMaximo";
             public const string LimiteVenta0 = "LimiteVenta0";
             public const string LimiteVenta = "LimiteVenta";
@@ -1916,6 +1918,7 @@ namespace Portal.Consultoras.Common
             public const string DeudaMonto = "{deuMon}";
             public const string MaximoMonto = "{maxMon}";
             public const string MinimoMonto = "{minMon}";
+            public const string DescuentoMonto = "{descMon}";
             public const string DetalleCuv = "{detCuv}";
             public const string LimiteVenta = "{limVen}";
             public const string ReemplazoCuv = "{remCuv}";
