@@ -208,6 +208,7 @@
       <DependentUpon>IncentivoMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="RevistaDigital\IRevistaDigitalSuscripcionBusinessLogic.cs" />
+    <Compile Include="ShowRoom\IShowRoomEventoBusinessLogic.cs" />
     <Compile Include="TablaLogicaDatos\ITablaLogicaDatosBusinessLogic.cs" />
     <Compile Include="Resources\MotivoRechazoMessages.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -235,7 +236,7 @@
     <Compile Include="BLRolPermiso.cs" />
     <Compile Include="BLSegmentoPlaneamiento.cs" />
     <Compile Include="BLServicio.cs" />
-    <Compile Include="BLShowRoomEvento.cs" />
+    <Compile Include="ShowRoom\BLShowRoomEvento.cs" />
     <Compile Include="BLSolicitudCliente.cs" />
     <Compile Include="BLSolicitudClienteCatalogo.cs" />
     <Compile Include="BLSolicitudCredito.cs" />

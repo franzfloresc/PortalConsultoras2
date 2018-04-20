@@ -3,20 +3,19 @@
 namespace Portal.Consultoras.Entities.Pedido.App
 {
     [DataContract]
-    public class BEProductoAppBuscar
+    public class BEPedidoDetalleAppBuscar
     {
         [DataMember]
         public int PaisID { get; set; }
         [DataMember]
-        public string CodigoDescripcion { get; set; }
+        public int CampaniaID { get; set; }
         [DataMember]
-        public int Criterio { get; set; }
+        public long ConsultoraID { get; set; }
         [DataMember]
-        public int RowCount { get; set; }
+        public string NombreConsultora { get; set; }
         [DataMember]
-        public bool ValidarOpt { get; set; }
-
+        public string CodigoPrograma { get; set; }
         [DataMember]
-        public string CodigoUsuario { get; set; }
+        public int ConsecutivoNueva { get; set; }
     }
 }
