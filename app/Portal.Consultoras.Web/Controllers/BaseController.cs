@@ -945,6 +945,12 @@ namespace Portal.Consultoras.Web.Controllers
             return userData.MenuService;
         }
 
+        protected string GetMenuLinkByDescription(string description)
+        {
+            var menuItem = userData.Menu.FirstOrDefault(item => item.Descripcion == description);
+
+            return menuItem == null ? string.Empty : menuItem.UrlItem;
+        }
         #endregion
 
         #region eventoFestivo        
@@ -5085,13 +5091,18 @@ namespace Portal.Consultoras.Web.Controllers
                     pagoEnLineaResultadoLogId = ps.InsertPagoEnLineaResultadoLog(userData.PaisID, bePagoEnLinea);
                 }
 
+                // Requerido en pago rechazado.
+                model.NumeroOperacion = bePagoEnLinea.NumeroOrdenTienda;
+                model.FechaCreacion = bePagoEnLinea.FechaTransaccion;
+                model.DescripcionCodigoAccion = bePagoEnLinea.DescripcionCodigoAccion;
+
                 if (bePagoEnLinea.CodigoError == "0" && bePagoEnLinea.CodigoAccion == "000")
                 {
                     model.PagoEnLineaResultadoLogId = pagoEnLineaResultadoLogId;
                     model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
-                    model.NumeroOperacion = bePagoEnLinea.NumeroOrdenTienda;
+                    model.PrimerApellido = userData.PrimerApellido;
+                    model.TarjetaEnmascarada = bePagoEnLinea.NumeroTarjeta;
                     model.FechaVencimiento = userData.FechaLimPago;
-                    model.FechaCreacion = bePagoEnLinea.FechaTransaccion;
                     model.SaldoPendiente = decimal.Round(userData.MontoDeuda - model.MontoDeuda, 2);
 
                     using (PedidoServiceClient ps = new PedidoServiceClient())
@@ -5235,7 +5246,7 @@ namespace Portal.Consultoras.Web.Controllers
             string templatePath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_pago_en_linea.html";
             string htmlTemplate = FileManager.GetContenido(templatePath);
 
-            htmlTemplate = htmlTemplate.Replace("#FORMATO_NOMBRECOMPLETO#", model.NombreConsultora);
+            htmlTemplate = htmlTemplate.Replace("#FORMATO_NOMBRECOMPLETO#", model.NombreConsultora + " " + model.PrimerApellido);
             htmlTemplate = htmlTemplate.Replace("#FORMATO_NUMEROOPERACION#", model.NumeroOperacion);
             htmlTemplate = htmlTemplate.Replace("#FORMATO_FECHAPAGO#", model.FechaCreacionString);
             htmlTemplate = htmlTemplate.Replace("#FORMATO_MONTODEUDA#", model.MontoDeudaString);
@@ -5245,6 +5256,7 @@ namespace Portal.Consultoras.Web.Controllers
             htmlTemplate = htmlTemplate.Replace("#FORMATO_SALDOPENDIENTE#", model.SaldoPendienteString);
             htmlTemplate = htmlTemplate.Replace("#FORMATO_FECHAVENCIMIENTO#", model.FechaVencimientoString);
             htmlTemplate = htmlTemplate.Replace("#FORMATO_MENSAJEINFORMACION#", model.MensajeInformacionPagoExitoso);
+            htmlTemplate = htmlTemplate.Replace("#FORMATO_NUMTARJETA#", model.TarjetaEnmascarada);
 
             return htmlTemplate;
         }
