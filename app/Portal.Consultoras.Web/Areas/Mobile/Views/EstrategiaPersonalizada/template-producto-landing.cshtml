@@ -63,12 +63,6 @@
                         {{else}}
                             <h6>&ensp;&nbsp;</h6>
                         {{/IsNullOrEmpty}}
-
-                        {{#iff DescripcionResumen '!=' ''}}
-                        <p class="nombre_producto_bpt" style="cursor:pointer;">
-                            <b class="text_descrition_prd_bpt" {{#if this.ExperienciaGanaMas includeZero=true}}{{#unless TieneVerDetalle }} style="color:gray;" {{/unless}}{{/if}}>{{DescripcionResumen}}</b>
-                        </p>
-                        {{/iff}}
                         {{#iff DescripcionCortada '!=' ''}}
                         <p class="nombre_producto_bpt" style="cursor:pointer;">
                             <b class="text_descrition_prd_bpt" {{#if this.ExperienciaGanaMas includeZero=true}}{{#unless TieneVerDetalle }} style="color:gray;" {{/unless}}{{/if}} >{{DescripcionCortada}}</b>
