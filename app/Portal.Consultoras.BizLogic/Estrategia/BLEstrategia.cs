@@ -1,4 +1,4 @@
-﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.ServicePROLConsultas;
 using Portal.Consultoras.Entities;
@@ -14,7 +14,7 @@ using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLEstrategia
+    public class BLEstrategia : IEstrategiaBusinessLogic
     {
         public List<BEEstrategia> GetEstrategias(BEEstrategia entidad)
         {
@@ -387,6 +387,7 @@ namespace Portal.Consultoras.BizLogic
             var listaEstrategias = new List<BEEstrategia>();
             try
             {
+
 
                 var daEstrategia = new DAEstrategia(paisId);
                 using (IDataReader reader = daEstrategia.GetOfertasParaTiByTipoConfigurado(campaniaId, tipoConfigurado, estrategiaCodigo, pagina, cantidadCuv))
