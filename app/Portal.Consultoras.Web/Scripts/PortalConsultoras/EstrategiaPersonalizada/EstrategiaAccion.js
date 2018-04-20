@@ -620,7 +620,11 @@ function EstrategiaValidarBloqueada(objInput, estrategia) {
             var itemClone = EstrategiaObtenerObjHtmlLanding(objInput);
             if (itemClone.length > 0) {
                 var dataItemHtml = divMensaje.find("[data-item-html]");
-                dataItemHtml.html(itemClone.html());
+
+                if (estrategia.CodigoEstrategia != '005') {
+                    dataItemHtml.html(itemClone.html());
+                }
+                
                 dataItemHtml.find('[data-item-tag="body"]').removeAttr("data-estrategia");
                 dataItemHtml.find('[data-item-tag="body"]').css("min-height", "auto");
                 dataItemHtml.find('[data-item-tag="body"]').css("float", "none");
