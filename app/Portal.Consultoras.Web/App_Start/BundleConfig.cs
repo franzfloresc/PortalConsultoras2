@@ -210,7 +210,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/lbel/icomon.css",
                "~/Content/Css/Mobile/lbel/menu.css",
                "~/Content/Css/Mobile/lbel/style.css",
-               "~/Content/Css/Site/Lbel/style.css",
+               "~/Content/Css/Site/Lbel/styleDefault.css",
                "~/Content/Css/Mobile/lbel/theme.css",
                "~/Content/Css/Mobile/flexslider.css",
                "~/Content/Css/Mobile/flipclock.css",
