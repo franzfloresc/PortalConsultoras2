@@ -98,5 +98,20 @@ namespace Portal.Consultoras.BizLogic
 
             return 0;
         }
+
+        public string CancelarSuscripcion(string paisISO, string codigoConsultora)
+        {
+            int paisId = GetPaisID(paisISO);
+            var objDASuscripcionConsultora = new DAAsesoraOnline(paisId);
+            return objDASuscripcionConsultora.CancelarSuscripcion(codigoConsultora);
+        }
+
+        public int VuelveASuscripcion(string paisISO, string codigoConsultora)
+        {
+            int paisId = GetPaisID(paisISO);
+            var objDASuscripcionConsultora = new DAAsesoraOnline(paisId);
+            return objDASuscripcionConsultora.VuelveASuscripcion(codigoConsultora);
+        }
+
     }
 }

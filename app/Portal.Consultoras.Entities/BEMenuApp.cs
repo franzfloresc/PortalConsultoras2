@@ -37,5 +37,11 @@ namespace Portal.Consultoras.Entities
         public bool Visible { get; set; }
         [DataMember]
         public short VersionMenu { get; set; }
+        [DataMember]
+        public string CodigoConsultora { get; set; }
+        [DataMember]
+        public int ZonaID { get; set; }
+        [DataMember]
+        public int CampaniaID { get; set; }
     }
 }

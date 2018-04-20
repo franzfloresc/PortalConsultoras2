@@ -7,7 +7,7 @@ using Portal.Consultoras.Entities.Framework;
 using Portal.Consultoras.ServiceContracts;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+//using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Service
 {
@@ -127,27 +127,34 @@ namespace Portal.Consultoras.Service
 
         public IList<BECatalogoRevista> GetListCatalogoRevistaPublicadoWithTitulo(string paisISO, string codigoZona, int campania)
         {
-            var revistasTask = _catalogoBusinessLogic.GetCatalogoRevista(paisISO, codigoZona, new[] { campania });
-            Task.WaitAll(revistasTask);
+            //var revistasTask = _catalogoBusinessLogic.GetCatalogoRevista(paisISO, codigoZona, new[] { campania });
+            //Task.WaitAll(revistasTask);
 
-            return revistasTask.Result;
+            //return revistasTask.Result;
+
+            var lstCampanias = new List<int>();
+            lstCampanias.Add(campania);
+
+            return _catalogoBusinessLogic.GetCatalogoRevista(paisISO, codigoZona, lstCampanias);
         }
 
-        public IList<BECatalogoRevista> GetCatalogoRevista(string paisISO, string codigoZona, string campanias)
+        public IList<BECatalogoRevista> GetCatalogoRevista(string paisISO, string codigoZona, List<int> campanias)
         {
-            var campanasInt = new List<int>();
+            //var campanasInt = new List<int>();
 
-            foreach (var campania in campanias.Split('|'))
-            {
-                int i;
-                if (int.TryParse(campania, out i))
-                    campanasInt.Add(i);
-            }
+            //foreach (var campania in campanias.Split('|'))
+            //{
+            //    int i;
+            //    if (int.TryParse(campania, out i))
+            //        campanasInt.Add(i);
+            //}
 
-            var revistasTask = _catalogoBusinessLogic.GetCatalogoRevista(paisISO, codigoZona, campanasInt);
-            Task.WaitAll(revistasTask);
+            //var revistasTask = _catalogoBusinessLogic.GetCatalogoRevista(paisISO, codigoZona, campanasInt);
+            //Task.WaitAll(revistasTask);
 
-            return revistasTask.Result;
+            //return revistasTask.Result;
+
+            return _catalogoBusinessLogic.GetCatalogoRevista(paisISO, codigoZona, campanias);
         }
 
         public IList<BEPedidoWeb> GetPedidosWebAnterioresByConsultora(int paisID, long consultoraID)

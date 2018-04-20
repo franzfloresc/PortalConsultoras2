@@ -204,7 +204,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             bool response = false;
 
-            List<BEProducto> olstProducto;
+            List<ServiceODS.BEProducto> olstProducto;
 
             using (ODSServiceClient sv = new ODSServiceClient())
             {

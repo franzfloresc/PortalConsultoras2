@@ -84,7 +84,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/LogError.js",
                 "~/Scripts/menu.js",
                 "~/Scripts/General.js",
-                "~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js"
+                "~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js",
+                "~/Scripts/PortalConsultoras/Shared/MenuContenedor.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Scripts/MobileLayoutContenedor").Include(
@@ -353,6 +354,13 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"
             ));
 
+            bundles.Add(new StyleBundle("~/Content/Css/Site/Login2/Esika").Include(
+               "~/Content/Css/Site/Login2/style_esika.css"
+            ));
+            bundles.Add(new StyleBundle("~/Content/Css/Site/Login2/Lbel").Include(
+               "~/Content/Css/Site/Login2/style_lbel.css"
+            ));
+
             bundles.Add(new ScriptBundle("~/bundles/JsMobile/PedidoFICDetalle").Include(
                 "~/Scripts/PortalConsultoras/Mobile/PedidoFIC/Detalle.js",
                 "~/Scripts/PortalConsultoras/Pedido/ofertaFinal.js",
@@ -360,13 +368,18 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"
             ));
-
-            bundles.Add(new StyleBundle("~/Content/Css/Site/Login2/Esika").Include(
-               "~/Content/Css/Site/Login2/style_esika.css"
-            ));
-            bundles.Add(new StyleBundle("~/Content/Css/Site/Login2/Lbel").Include(
-               "~/Content/Css/Site/Login2/style_lbel.css"
-            ));
+            bundles.Add(new ScriptBundle("~/bundles/JsMobile/PedidoFIC").Include(
+                "~/Scripts/PortalConsultoras/Mobile/PedidoFIC/Index.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js",
+                "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
+                "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
+                "~/Scripts/PortalConsultoras/Pedido/barra.js"
+             ));
 
             bundles.Add(new ScriptBundle("~/bundles/ActualizarMatrizCampaniaModuleMin").Include(
                 "~/Scripts/fileuploader.js",
@@ -538,6 +551,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
             ));
+
+           
 
             #region GuiaNegocio
 

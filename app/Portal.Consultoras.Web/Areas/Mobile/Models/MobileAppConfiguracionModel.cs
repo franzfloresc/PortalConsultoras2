@@ -20,5 +20,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
             MostrarBotonAtras = true;
             MostrarHipervinculo = true;
         }
+        public int Campania { get; set; }
     }
 }

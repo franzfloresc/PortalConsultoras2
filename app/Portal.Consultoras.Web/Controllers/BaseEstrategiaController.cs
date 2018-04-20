@@ -247,7 +247,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
             {
-                List<BEProducto> listaHermanosE;
+                List<ServiceODS.BEProducto> listaHermanosE;
                 using (ODSServiceClient svc = new ODSServiceClient())
                 {
                     listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, estrategiaModelo.CampaniaID, estrategiaModelo.CUV2).ToList();
