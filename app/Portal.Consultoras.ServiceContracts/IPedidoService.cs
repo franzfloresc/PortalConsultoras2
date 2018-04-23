@@ -1259,11 +1259,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEProductoApp GetCUVApp(BEProductoAppBuscar productoBuscar);
         [OperationContract]
-        BEPedidoDetalleAppResult InsertPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
+        BEPedidoDetalleAppInsertarResult InsertPedidoDetalleApp(BEPedidoDetalleAppInsertar pedidoDetalle);
         [OperationContract]
-        void UpdateProlApp(BEPedidoDetalleApp pedidoDetalle);
-        [OperationContract]
-        List<BEPedidoWebDetalle> GetPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
+        List<BEPedidoWebDetalle> GetPedidoDetalleApp(BEPedidoDetalleAppBuscar pedidoDetalle);
         #endregion
 
         #region Pago en Linea

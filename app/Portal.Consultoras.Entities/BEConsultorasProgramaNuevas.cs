@@ -1,8 +1,10 @@
 ﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
+
 using System;
 using System.Data;
 using System.Runtime.Serialization;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Portal.Consultoras.Entities
 {
@@ -14,6 +16,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CodigoConsultora { get; set; }
         [DataMember]
+        [Column("CodigoPrograma")]
         public string CodigoPrograma { get; set; }
         [DataMember]
         public string Participa { get; set; }
@@ -23,8 +26,10 @@ namespace Portal.Consultoras.Entities
         public decimal MontoVentaExigido { get; set; }
 
         [DataMember]
+        [Column("ConsecutivoNueva")]
         public int ConsecutivoNueva { get; set; }
 
+        [Obsolete("Use MapUtil.MapToCollection")]
         public BEConsultorasProgramaNuevas(IDataRecord datarec)
         {
             if (DataRecord.HasColumn(datarec, "Campania") && datarec["Campania"] != DBNull.Value)
@@ -41,6 +46,11 @@ namespace Portal.Consultoras.Entities
                 MontoVentaExigido = DbConvert.ToDecimal(datarec["MontoVentaExigido"]);
             if (DataRecord.HasColumn(datarec, "ConsecutivoNueva") && datarec["ConsecutivoNueva"] != DBNull.Value)
                 ConsecutivoNueva = DbConvert.ToInt32(datarec["ConsecutivoNueva"]);
+        }
+
+        public BEConsultorasProgramaNuevas()
+        {
+
         }
     }
 }

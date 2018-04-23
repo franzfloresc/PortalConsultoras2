@@ -76,6 +76,7 @@
     <Compile Include="Comunicado\BEComunicadoSegmentacion.cs" />
     <Compile Include="Comunicado\BEComunicadoVista.cs" />
     <Compile Include="DENativeType.cs" />
+    <Compile Include="Pedido\App\BEPedidoDetalleAppBuscar.cs" />
     <Compile Include="ReservaProl\BEPedidoWebDetalleExplotado.cs" />
     <Compile Include="Estrategia\BEConfiguracionProgramaNuevasApp.cs" />
     <Compile Include="Estrategia\BEEstrategiaMasiva.cs" />
@@ -133,8 +134,8 @@
     <Compile Include="Mobile\BEApp.cs" />
     <Compile Include="Oferta\BEGuiaNegocio.cs" />
     <Compile Include="Oferta\BEOfertaDelDia.cs" />
-    <Compile Include="Pedido\App\BEPedidoDetalleApp.cs" />
-    <Compile Include="Pedido\App\BEPedidoDetalleAppResult.cs" />
+    <Compile Include="Pedido\App\BEPedidoDetalleAppInsertar.cs" />
+    <Compile Include="Pedido\App\BEPedidoDetalleAppInsertarResult.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaFiltro.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaResultadoLog.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaResultadoLogReporte.cs" />

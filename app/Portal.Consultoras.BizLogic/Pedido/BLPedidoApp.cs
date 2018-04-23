@@ -18,6 +18,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private readonly IEstrategiaBusinessLogic _estrategiaBusinessLogic;
         private readonly IConfiguracionProgramaNuevasBusinessLogic _configuracionProgramaNuevasBusinessLogic;
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
+        private readonly IUsuarioBusinessLogic _usuarioBusinessLogic;
 
         private List<ObjMontosProl> montosProl = new List<ObjMontosProl> { new ObjMontosProl() };
 
@@ -26,7 +27,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     new BLPedidoWebDetalle(),
                                     new BLEstrategia(),
                                     new BLConfiguracionProgramaNuevas(),
-                                    new BLConsultoraConcurso())
+                                    new BLConsultoraConcurso(),
+                                    new BLUsuario())
         { }
 
         public BLPedidoApp(IProductoBusinessLogic productoBusinessLogic, 
@@ -34,7 +36,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             IPedidoWebDetalleBusinessLogic pedidoWebDetalleBusinessLogic,
                             IEstrategiaBusinessLogic estrategiaBusinessLogic,
                             IConfiguracionProgramaNuevasBusinessLogic configuracionProgramaNuevasBusinessLogic,
-                            IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic)
+                            IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic,
+                            IUsuarioBusinessLogic usuarioBusinessLogic)
         {
             _productoBusinessLogic = productoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
@@ -42,31 +45,36 @@ namespace Portal.Consultoras.BizLogic.Pedido
             _estrategiaBusinessLogic = estrategiaBusinessLogic;
             _configuracionProgramaNuevasBusinessLogic = configuracionProgramaNuevasBusinessLogic;
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
+            _usuarioBusinessLogic = usuarioBusinessLogic;
         }
 
         public BEProductoApp GetCUV(BEProductoAppBuscar productoBuscar)
         {
             try
             {
+                //Informacion de usuario y palancas
+                var usuario = _usuarioBusinessLogic.GetSesionUsuarioPedidoApp(productoBuscar.PaisID, productoBuscar.CodigoUsuario);
+
                 //Validación producto no existe
                 var producto = _productoBusinessLogic.SelectProductoByCodigoDescripcionSearchRegionZona(
                                     productoBuscar.PaisID,
-                                    productoBuscar.CampaniaID,
+                                    usuario.CampaniaID,
                                     productoBuscar.CodigoDescripcion,
-                                    productoBuscar.RegionID,
-                                    productoBuscar.ZonaID,
-                                    productoBuscar.CodigoRegion,
-                                    productoBuscar.CodigoZona,
+                                    usuario.RegionID,
+                                    usuario.ZonaID,
+                                    usuario.CodigorRegion,
+                                    usuario.CodigoZona,
                                     productoBuscar.Criterio,
                                     productoBuscar.RowCount,
                                     productoBuscar.ValidarOpt).FirstOrDefault();
                 if (producto == null) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.ProductoBuscar.Code.ERROR_PRODUCTO_NOEXISTE);
 
-                var bloqueoProductoCatalogo = BloqueoProductosCatalogo(producto, productoBuscar);
+                //Validación producto en catalogos
+                var bloqueoProductoCatalogo = BloqueoProductosCatalogo(usuario.RevistaDigital, usuario.CodigosRevistaImpresa, producto, productoBuscar);
                 if (!bloqueoProductoCatalogo) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.ProductoBuscar.Code.ERROR_PRODUCTO_NOEXISTE);
 
                 //Validación Gana +
-                var bloqueoProductoDigitales = BloqueoProductosDigitales(producto, productoBuscar);
+                var bloqueoProductoDigitales = BloqueoProductosDigitales(usuario, producto, productoBuscar);
                 if (!bloqueoProductoDigitales) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.ProductoBuscar.Code.ERROR_PRODUCTO_NOEXISTE);
 
                 //Validación producto agotado
@@ -78,18 +86,17 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 //Validación producto showroom
                 if (producto.TipoOfertaSisID == Constantes.ConfiguracionOferta.ShowRoom)
                 {
-                    if (productoBuscar.EsShowRoom) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.ProductoBuscar.Code.ERROR_PRODUCTO_SHOWROOM, null, producto);
+                    if (usuario.EsShowRoom) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.ProductoBuscar.Code.ERROR_PRODUCTO_SHOWROOM, null, producto);
                     else return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.ProductoBuscar.Code.ERROR_PRODUCTO_SHOWROOM_NODISPONIBLE, null, producto);
                 }
 
                 //Información de producto con oferta en revista
-                if (productoBuscar.RevistaDigital != null)
+                if (usuario.RevistaDigital != null)
                 {
-                    var desactivaRevistaGana = _pedidoWebBusinessLogic.ValidarDesactivaRevistaGana(
-                                                    productoBuscar.PaisID,
-                                                    productoBuscar.CampaniaID,
-                                                    productoBuscar.CodigoZona);
-                    var tieneRDC = productoBuscar.RevistaDigital.TieneRDC && productoBuscar.RevistaDigital.EsActiva;
+                    var desactivaRevistaGana = _pedidoWebBusinessLogic.ValidarDesactivaRevistaGana(productoBuscar.PaisID,
+                                                    usuario.CampaniaID,
+                                                    usuario.CodigoZona);
+                    var tieneRDC = usuario.RevistaDigital.TieneRDC && usuario.RevistaDigital.EsActiva;
                     if (!producto.EsExpoOferta && producto.CUVRevista.Length != 0 && desactivaRevistaGana == 0 && !tieneRDC)
                     {
                         if (WebConfig.PaisesEsika.Contains(Util.GetPaisISO(productoBuscar.PaisID))) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.ProductoBuscar.Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, null, producto);
@@ -101,27 +108,32 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog(ex, productoBuscar.ConsultoraID, productoBuscar.PaisID);
+                LogManager.SaveLog(ex, productoBuscar.CodigoUsuario, productoBuscar.PaisID);
                 return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.ProductoBuscar.Code.ERROR_INTERNO, ex.Message);
             }
         }
 
-        public BEPedidoDetalleAppResult Insert(BEPedidoDetalleApp pedidoDetalle)
+        public BEPedidoDetalleAppInsertarResult Insert(BEPedidoDetalleAppInsertar pedidoDetalle)
         {
             var mensaje = string.Empty;
 
             try
             {
+                //Informacion de usuario y palancas
+                var usuario = _usuarioBusinessLogic.GetSesionUsuarioPedidoApp(pedidoDetalle.PaisID, pedidoDetalle.CodigoUsuario);
+
+                //Validacion reserve u horario restringido
                 var validacionHorario = _pedidoWebBusinessLogic.ValidacionModificarPedido(pedidoDetalle.PaisID,
-                                                                    pedidoDetalle.ConsultoraID,
-                                                                    pedidoDetalle.CampaniaID,
-                                                                    pedidoDetalle.UsuarioPrueba,
-                                                                    pedidoDetalle.AceptacionConsultoraDA);
+                                                                    usuario.ConsultoraID,
+                                                                    usuario.CampaniaID,
+                                                                    usuario.UsuarioPrueba == 1,
+                                                                    usuario.AceptacionConsultoraDA);
 
                 if (validacionHorario.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno)
                     return PedidoInsertarRespuesta(Constantes.PedidoAppValidacion.PedidoInsertar.Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, validacionHorario.Mensaje);
 
-                var result = ValidarStockEstrategia(pedidoDetalle, out mensaje);
+                //Validar stock
+                var result = ValidarStockEstrategia(usuario, pedidoDetalle, out mensaje);
                 if (!result) return PedidoInsertarRespuesta(Constantes.PedidoAppValidacion.PedidoInsertar.Code.ERROR_STOCK_ESTRATEGIA, mensaje);
 
                 if (pedidoDetalle.Producto.TipoOfertaSisID == 0)
@@ -132,76 +144,72 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
 
                 var esOfertaNueva = (pedidoDetalle.Producto.FlagNueva == "1");
-                if (esOfertaNueva) AgregarProductoZE(pedidoDetalle);
+                if (esOfertaNueva) AgregarProductoZE(usuario, pedidoDetalle);
 
-                var codeResult = PedidoInsertar(pedidoDetalle);
+                var codeResult = PedidoInsertar(usuario, pedidoDetalle);
                 if (codeResult != Constantes.PedidoAppValidacion.PedidoInsertar.Code.SUCCESS) return PedidoInsertarRespuesta(codeResult);
+
+                UpdateProl(usuario, pedidoDetalle);
 
                 return PedidoInsertarRespuesta(Constantes.PedidoAppValidacion.PedidoInsertar.Code.SUCCESS, null, pedidoDetalle);
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog(ex, pedidoDetalle.ConsultoraID, pedidoDetalle.PaisID);
+                LogManager.SaveLog(ex, pedidoDetalle.CodigoUsuario, pedidoDetalle.PaisID);
                 return PedidoInsertarRespuesta(Constantes.PedidoAppValidacion.PedidoInsertar.Code.ERROR_INTERNO, ex.Message);
             }
         }
 
-        public void UpdateProl(BEPedidoDetalleApp pedidoDetalle)
+        private void UpdateProl(BEUsuario usuario, BEPedidoDetalleAppInsertar pedidoDetalle)
         {
             decimal montoAhorroCatalogo = 0, montoAhorroRevista = 0, montoDescuento = 0, montoEscala = 0;
             var puntajes = string.Empty;
             var puntajesExigidos = string.Empty;
 
-            try
+            var lista = ServicioProl_CalculoMontosProl(usuario, pedidoDetalle);
+
+            if (lista.Any())
             {
-                var lista = ServicioProl_CalculoMontosProl(pedidoDetalle);
+                var oRespuestaProl = lista[0];
 
-                if (lista.Any())
+                decimal.TryParse(oRespuestaProl.AhorroCatalogo, out montoAhorroCatalogo);
+                decimal.TryParse(oRespuestaProl.AhorroRevista, out montoAhorroRevista);
+                decimal.TryParse(oRespuestaProl.MontoTotalDescuento, out montoDescuento);
+                decimal.TryParse(oRespuestaProl.MontoEscala, out montoEscala);
+
+                if (oRespuestaProl.ListaConcursoIncentivos != null)
                 {
-                    var oRespuestaProl = lista[0];
-
-                    decimal.TryParse(oRespuestaProl.AhorroCatalogo, out montoAhorroCatalogo);
-                    decimal.TryParse(oRespuestaProl.AhorroRevista, out montoAhorroRevista);
-                    decimal.TryParse(oRespuestaProl.MontoTotalDescuento, out montoDescuento);
-                    decimal.TryParse(oRespuestaProl.MontoEscala, out montoEscala);
-
-                    if (oRespuestaProl.ListaConcursoIncentivos != null)
-                    {
-                        puntajes = string.Join("|", oRespuestaProl.ListaConcursoIncentivos.Select(c => c.puntajeconcurso.Split('|')[0]).ToArray());
-                        puntajesExigidos = string.Join("|", oRespuestaProl.ListaConcursoIncentivos.Select(c => (c.puntajeconcurso.IndexOf('|') > -1 ? c.puntajeconcurso.Split('|')[1] : "0")).ToArray());
-                    }
+                    puntajes = string.Join("|", oRespuestaProl.ListaConcursoIncentivos.Select(c => c.puntajeconcurso.Split('|')[0]).ToArray());
+                    puntajesExigidos = string.Join("|", oRespuestaProl.ListaConcursoIncentivos.Select(c => (c.puntajeconcurso.IndexOf('|') > -1 ? c.puntajeconcurso.Split('|')[1] : "0")).ToArray());
                 }
-
-                var bePedidoWeb = new BEPedidoWeb
-                {
-                    PaisID = pedidoDetalle.PaisID,
-                    CampaniaID = pedidoDetalle.CampaniaID,
-                    ConsultoraID = pedidoDetalle.ConsultoraID,
-                    CodigoConsultora = pedidoDetalle.CodigoConsultora,
-                    MontoAhorroCatalogo = montoAhorroCatalogo,
-                    MontoAhorroRevista = montoAhorroRevista,
-                    DescuentoProl = montoDescuento,
-                    MontoEscala = montoEscala
-                };
-
-                _pedidoWebBusinessLogic.UpdateMontosPedidoWeb(bePedidoWeb);
-
-                if (!string.IsNullOrEmpty(pedidoDetalle.CodigosConcursos))
-                    _consultoraConcursoBusinessLogic.ActualizarInsertarPuntosConcurso(pedidoDetalle.PaisID, pedidoDetalle.CodigoConsultora, pedidoDetalle.CampaniaID.ToString(), pedidoDetalle.CodigosConcursos, puntajes, puntajesExigidos);
             }
-            catch (Exception ex)
+
+            var bePedidoWeb = new BEPedidoWeb
             {
-                LogManager.SaveLog(ex, pedidoDetalle.ConsultoraID, pedidoDetalle.PaisID);
-            }
+                PaisID = pedidoDetalle.PaisID,
+                CampaniaID = usuario.CampaniaID,
+                ConsultoraID = usuario.ConsultoraID,
+                CodigoConsultora = usuario.CodigoConsultora,
+                MontoAhorroCatalogo = montoAhorroCatalogo,
+                MontoAhorroRevista = montoAhorroRevista,
+                DescuentoProl = montoDescuento,
+                MontoEscala = montoEscala
+            };
+
+            _pedidoWebBusinessLogic.UpdateMontosPedidoWeb(bePedidoWeb);
+
+            if (!string.IsNullOrEmpty(pedidoDetalle.CodigosConcursos))
+                _consultoraConcursoBusinessLogic.ActualizarInsertarPuntosConcurso(pedidoDetalle.PaisID, usuario.CodigoConsultora, usuario.CampaniaID.ToString(), pedidoDetalle.CodigosConcursos, puntajes, puntajesExigidos);
         }
 
-        public List<BEPedidoWebDetalle> GetDetalle(BEPedidoDetalleApp pedidoDetalle)
+        public List<BEPedidoWebDetalle> GetDetalle(BEPedidoDetalleAppBuscar pedidoDetalle)
         {
             var pedidos = new List<BEPedidoWebDetalle>();
 
             try
             {
-                pedidos = ObtenerPedidoWebDetalle(pedidoDetalle);
+                var pedidoID = 0;
+                pedidos = ObtenerPedidoWebDetalle(pedidoDetalle, out pedidoID);
                 pedidos.Where(x => x.ClienteID == 0).Update(x => x.NombreCliente = pedidoDetalle.NombreConsultora);
             }
             catch (Exception ex)
@@ -213,40 +221,35 @@ namespace Portal.Consultoras.BizLogic.Pedido
         }
 
         #region GetCUV
-        private bool BloqueoProductosCatalogo(BEProducto producto, BEProductoAppBuscar productoBuscar)
+        private bool BloqueoProductosCatalogo(BERevistaDigital revistaDigital, string codigosRevistaImpresa, BEProducto producto, BEProductoAppBuscar productoBuscar)
         {
             if (producto == null) return true;
 
-            var revistaDigital = productoBuscar.RevistaDigital ?? new BERevistaDigital();
+            revistaDigital = revistaDigital ?? new BERevistaDigital();
 
-            if (!(revistaDigital.TieneRDC || revistaDigital.TieneRDR)) return true;
+            if (!revistaDigital.TieneRDC) return true;
 
             if (!revistaDigital.EsActiva) return true;
 
             if (revistaDigital.BloquearRevistaImpresaGeneral != null)
             {
-                if (revistaDigital.BloquearRevistaImpresaGeneral == 1)
-                {
-                    return !productoBuscar.CodigosRevistaImpresa.Contains(producto.CodigoCatalogo.ToString());
-                }
+                if (revistaDigital.BloquearRevistaImpresaGeneral == 1) return !codigosRevistaImpresa.Contains(producto.CodigoCatalogo.ToString());
             }
             else
             {
-                if (revistaDigital.BloqueoRevistaImpresa)
-                {
-                    return !productoBuscar.CodigosRevistaImpresa.Contains(producto.CodigoCatalogo.ToString());
-                }
+                if (revistaDigital.BloqueoRevistaImpresa) return !codigosRevistaImpresa.Contains(producto.CodigoCatalogo.ToString());
             }
 
             return true;
         }
 
-        private bool BloqueoProductosDigitales(BEProducto producto, BEProductoAppBuscar productoBuscar)
+        private bool BloqueoProductosDigitales(BEUsuario usuario, BEProducto producto, BEProductoAppBuscar productoBuscar)
         {
             var result = true;
+
             if (producto == null) return true;
 
-            if (productoBuscar.RevistaDigital != null && productoBuscar.RevistaDigital.BloqueoProductoDigital)
+            if (usuario.RevistaDigital != null && usuario.RevistaDigital.BloqueoProductoDigital)
             {
                 result = !(
                             producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
@@ -255,19 +258,29 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         );
             }
 
-            if (result && productoBuscar.OfertaDelDiaModel != null && productoBuscar.OfertaDelDiaModel.BloqueoProductoDigital)
+            if (result && usuario.OfertaDelDiaModel != null && usuario.OfertaDelDiaModel.BloqueoProductoDigital)
             {
-                result =(producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaDelDia);
+                result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaDelDia);
             }
 
-            if (result && productoBuscar.GuiaNegocio != null && productoBuscar.GuiaNegocio.BloqueoProductoDigital)
+            if (result && usuario.GuiaNegocio != null && usuario.GuiaNegocio.BloqueoProductoDigital)
             {
                 result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
             }
 
-            if (result && productoBuscar.OptBloqueoProductoDigital)
+            if (result && usuario.OptBloqueoProductoDigital)
             {
                 result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaParaTi);
+            }
+
+            if (result && usuario.RevistaDigital.TieneRDCR)
+            {
+                var dato = usuario.GuiaNegocio.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.BloquearProductoGnd) ?? new BEConfiguracionPaisDatos();
+                dato.Valor1 = Util.Trim(dato.Valor1);
+                if (dato.Estado && dato.Valor1 != string.Empty)
+                {
+                    result = (!dato.Valor1.Contains(producto.CUV));
+                }
             }
 
             return result;
@@ -285,9 +298,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
         #endregion
 
         #region Insert
-        private BEPedidoDetalleAppResult PedidoInsertarRespuesta(string codigoRespuesta, string mensajeRespuesta = null, BEPedidoDetalleApp pedidoDetalle = null)
+        private BEPedidoDetalleAppInsertarResult PedidoInsertarRespuesta(string codigoRespuesta, string mensajeRespuesta = null, BEPedidoDetalleAppInsertar pedidoDetalle = null)
         {
-            return new BEPedidoDetalleAppResult()
+            return new BEPedidoDetalleAppInsertarResult()
             {
                 CodigoRespuesta = codigoRespuesta,
                 MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoAppValidacion.PedidoInsertar.Message[codigoRespuesta] : mensajeRespuesta,
@@ -295,81 +308,63 @@ namespace Portal.Consultoras.BizLogic.Pedido
             };
         }
 
-        private bool ValidarStockEstrategia(BEPedidoDetalleApp pedidoDetalle, out string mensaje)
+        private bool ValidarStockEstrategia(BEUsuario usuario, BEPedidoDetalleAppInsertar pedidoDetalle, out string mensaje)
         {
             var resultado = false;
             mensaje = string.Empty;
 
-            mensaje = ValidarMontoMaximo(pedidoDetalle, out resultado);
+            mensaje = ValidarMontoMaximo(usuario, pedidoDetalle, out resultado);
 
             if (mensaje == string.Empty || resultado)
-                mensaje = ValidarStockEstrategiaMensaje(pedidoDetalle);
+                mensaje = ValidarStockEstrategiaMensaje(usuario, pedidoDetalle);
 
             return mensaje == string.Empty || resultado;
         }
 
-        private string ValidarMontoMaximo(BEPedidoDetalleApp pedidoDetalle, out bool resul)
+        private string ValidarMontoMaximo(BEUsuario usuario, BEPedidoDetalleAppInsertar pedidoDetalle, out bool resul)
         {
             var mensaje = string.Empty;
             resul = false;
 
-            if (!pedidoDetalle.TieneValidacionMontoMaximo)
+            if (!usuario.TieneValidacionMontoMaximo)
                 return mensaje;
 
-            if (pedidoDetalle.MontoMaximoPedido == Convert.ToDecimal(9999999999.00))
+            if (usuario.MontoMaximoPedido == Convert.ToDecimal(9999999999.00))
                 return mensaje;
 
-            var listaProducto = ObtenerPedidoWebDetalle(pedidoDetalle);
+            var pedidoDetalleBuscar = new BEPedidoDetalleAppBuscar()
+            {
+                PaisID = usuario.PaisID,
+                CampaniaID = usuario.CampaniaID,
+                ConsultoraID = usuario.ConsultoraID,
+                NombreConsultora = usuario.Nombre,
+                CodigoPrograma = usuario.CodigoPrograma,
+                ConsecutivoNueva = usuario.ConsecutivoNueva
+            };
+            var pedidoID = 0;
+            var listaProducto = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
+            pedidoDetalle.PedidoID = pedidoID;
 
             var totalPedido = listaProducto.Sum(p => p.ImporteTotal);
             var descuentoProl = listaProducto.Any() ? listaProducto[0].DescuentoProl : 0;
 
-            if (totalPedido > pedidoDetalle.MontoMaximoPedido && pedidoDetalle.Cantidad < 0)
+            if (totalPedido > usuario.MontoMaximoPedido && pedidoDetalle.Cantidad < 0)
                 resul = true;
 
             var montoActual = (pedidoDetalle.Producto.PrecioCatalogo * pedidoDetalle.Cantidad) + (totalPedido - descuentoProl);
-            if (montoActual > pedidoDetalle.MontoMaximoPedido)
+            if (montoActual > usuario.MontoMaximoPedido)
             {
-                var FechaHoy = DateTime.Now.AddHours(pedidoDetalle.ZonaHoraria).Date;
-                var EsDiasFacturacion = FechaHoy >= pedidoDetalle.FechaInicioFacturacion.Date && FechaHoy <= pedidoDetalle.FechaFinFacturacion.Date;
+                var FechaHoy = DateTime.Now.AddHours(usuario.ZonaHoraria).Date;
+                var EsDiasFacturacion = FechaHoy >= usuario.FechaInicioFacturacion.Date && FechaHoy <= usuario.FechaFinFacturacion.Date;
 
                 var strmen = (EsDiasFacturacion ? "VALIDADO" : "GUARDADO");
-                mensaje = string.Format("Haz superado el límite de tu línea de crédito de {0}{1}. Por favor modifica tu pedido para que sea {2} con éxito.", pedidoDetalle.Simbolo, pedidoDetalle.MontoMaximoPedido, strmen);
+                mensaje = string.Format("Haz superado el límite de tu línea de crédito de {0}{1}. Por favor modifica tu pedido para que sea {2} con éxito.", usuario.Simbolo, usuario.MontoMaximoPedido, strmen);
             }
 
             return mensaje;
         }
 
-        private List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle(BEPedidoDetalleApp pedidoDetalle)
-        {
-            var detallesPedidoWeb = new List<BEPedidoWebDetalle>();
-
-            var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
-            {
-                PaisId = pedidoDetalle.PaisID,
-                CampaniaId = pedidoDetalle.CampaniaID,
-                ConsultoraId = pedidoDetalle.ConsultoraID,
-                Consultora = pedidoDetalle.NombreConsultora,
-                EsBpt = EsOpt(pedidoDetalle.RevistaDigital) == 1,
-                CodigoPrograma = pedidoDetalle.CodigoPrograma,
-                NumeroPedido = pedidoDetalle.ConsecutivoNueva
-            };
-
-            detallesPedidoWeb = _pedidoWebDetalleBusinessLogic.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
-
-            pedidoDetalle.PedidoID = detallesPedidoWeb.Any() ? detallesPedidoWeb.First().PedidoID : 0;
-
-            return detallesPedidoWeb;
-        }
-
-        private int EsOpt(BERevistaDigital revistaDigital)
-        {
-            var esOpt = revistaDigital.TieneRevistaDigital() && revistaDigital.EsActiva
-                    ? 1 : 2;
-            return esOpt;
-        }
-
-        private string ValidarStockEstrategiaMensaje(BEPedidoDetalleApp pedidoDetalle)
+        private string ValidarStockEstrategiaMensaje(BEUsuario usuario, BEPedidoDetalleAppInsertar pedidoDetalle)
         {
             var mensaje = string.Empty;
 
@@ -381,8 +376,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 PaisID = pedidoDetalle.PaisID,
                 Cantidad = pedidoDetalle.Cantidad,
                 CUV2 = pedidoDetalle.Producto.CUV,
-                CampaniaID = pedidoDetalle.CampaniaID,
-                ConsultoraID = pedidoDetalle.ConsultoraID.ToString(),
+                CampaniaID = usuario.CampaniaID,
+                ConsultoraID = usuario.ConsultoraID.ToString(),
                 FlagCantidad = tipoEstrategiaID
             };
 
@@ -393,9 +388,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return mensaje == "OK" ? string.Empty : mensaje;
         }
 
-        private string PedidoInsertar(BEPedidoDetalleApp pedidoDetalle)
+        private string PedidoInsertar(BEUsuario usuario, BEPedidoDetalleAppInsertar pedidoDetalle)
         {
-            var result = InsertarValidarKitInicio(pedidoDetalle);
+            var result = InsertarValidarKitInicio(usuario, pedidoDetalle);
             if (!result) return Constantes.PedidoAppValidacion.PedidoInsertar.Code.ERROR_KIT_INICIO;
 
             var tipoEstrategiaID = 0;
@@ -405,8 +400,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 PaisID = pedidoDetalle.PaisID,
                 IPUsuario = pedidoDetalle.IPUsuario,
-                CampaniaID = pedidoDetalle.CampaniaID,
-                ConsultoraID = pedidoDetalle.ConsultoraID,
+                CampaniaID = usuario.CampaniaID,
+                ConsultoraID = usuario.ConsultoraID,
                 PedidoID = pedidoDetalle.PedidoID,
                 SubTipoOfertaSisID = 0,
                 TipoOfertaSisID = pedidoDetalle.Producto.TipoOfertaSisID,
@@ -424,27 +419,38 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 MarcaID = Convert.ToByte(pedidoDetalle.Producto.MarcaID),
                 DescripcionProd = pedidoDetalle.Producto.Descripcion,
                 ImporteTotal = pedidoDetalle.Cantidad * pedidoDetalle.Producto.PrecioCatalogo,
-                Nombre = pedidoDetalle.ClienteID == 0 ? pedidoDetalle.NombreConsultora : pedidoDetalle.ClienteDescripcion
+                Nombre = pedidoDetalle.ClienteID == 0 ? usuario.Nombre : pedidoDetalle.ClienteDescripcion
             };
 
-            result = AdministradorPedido(pedidoDetalle, obePedidoWebDetalle, Constantes.PedidoAccion.INSERT);
+            result = AdministradorPedido(usuario, pedidoDetalle, obePedidoWebDetalle, Constantes.PedidoAccion.INSERT);
             if (!result) return Constantes.PedidoAppValidacion.PedidoInsertar.Code.ERROR_GRABAR;
 
             return Constantes.PedidoAppValidacion.PedidoInsertar.Code.SUCCESS;
         }
 
-        private bool InsertarValidarKitInicio(BEPedidoDetalleApp pedidoDetalle)
+        private bool InsertarValidarKitInicio(BEUsuario usuario,BEPedidoDetalleAppInsertar pedidoDetalle)
         {
             var resultado = true;
 
-            if (pedidoDetalle.EsConsultoraNueva)
+            if (usuario.EsConsultoraNueva)
             {
-                var olstPedidoWebDetalle = ObtenerPedidoWebDetalle(pedidoDetalle);
+                var pedidoDetalleBuscar = new BEPedidoDetalleAppBuscar()
+                {
+                    PaisID = usuario.PaisID,
+                    CampaniaID = usuario.CampaniaID,
+                    ConsultoraID = usuario.ConsultoraID,
+                    NombreConsultora = usuario.Nombre,
+                    CodigoPrograma = usuario.CodigoPrograma,
+                    ConsecutivoNueva = usuario.ConsecutivoNueva
+                };
+                var pedidoID = 0;
+                var olstPedidoWebDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
+                pedidoDetalle.PedidoID = pedidoID;
                 var detCuv = olstPedidoWebDetalle.FirstOrDefault(d => d.CUV == pedidoDetalle.Producto.CUV) ?? new BEPedidoWebDetalle();
                 detCuv.CUV = Util.Trim(detCuv.CUV);
                 if (detCuv.CUV != string.Empty)
                 {
-                    var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas(pedidoDetalle);
+                    var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas(usuario);
                     if (obeConfiguracionProgramaNuevas.IndProgObli == "1" && obeConfiguracionProgramaNuevas.CUVKit == detCuv.CUV)
                         resultado = false;
                 }
@@ -453,41 +459,53 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return resultado;
         }
 
-        private BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(BEPedidoDetalleApp pedidoDetalle)
+        private BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(BEUsuario usuario)
         {
             var configuracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
 
             var obeConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas()
             {
-                CampaniaInicio = pedidoDetalle.CampaniaID.ToString(),
-                CodigoRegion = pedidoDetalle.CodigoRegion,
-                CodigoZona = pedidoDetalle.CodigoZona
+                CampaniaInicio = usuario.CampaniaID.ToString(),
+                CodigoRegion = usuario.CodigorRegion,
+                CodigoZona = usuario.CodigoZona
             };
 
-            if (pedidoDetalle.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva ||
-                    pedidoDetalle.ConsultoraNueva == Constantes.EstadoActividadConsultora.Reactivada ||
-                    pedidoDetalle.ConsecutivoNueva == Constantes.ConsecutivoNuevaConsultora.Consecutivo3)
+            if (usuario.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva ||
+                    usuario.ConsultoraNueva == Constantes.EstadoActividadConsultora.Reactivada ||
+                    usuario.ConsecutivoNueva == Constantes.ConsecutivoNuevaConsultora.Consecutivo3)
             {
                 var PaisesFraccionKit = WebConfig.PaisesFraccionKitNuevas;
-                if (PaisesFraccionKit.Contains(pedidoDetalle.CodigoISO))
+                if (PaisesFraccionKit.Contains(usuario.CodigoISO))
                 {
-                    obeConfiguracionProgramaNuevas.CodigoNivel = pedidoDetalle.ConsecutivoNueva == 1 ? "02" : pedidoDetalle.ConsecutivoNueva == 2 ? "03" : string.Empty;
-                    obeConfiguracionProgramaNuevas = _configuracionProgramaNuevasBusinessLogic.GetConfiguracionProgramaDespuesPrimerPedido(pedidoDetalle.PaisID, obeConfiguracionProgramaNuevas);
+                    obeConfiguracionProgramaNuevas.CodigoNivel = usuario.ConsecutivoNueva == 1 ? "02" : usuario.ConsecutivoNueva == 2 ? "03" : string.Empty;
+                    obeConfiguracionProgramaNuevas = _configuracionProgramaNuevasBusinessLogic.GetConfiguracionProgramaDespuesPrimerPedido(usuario.PaisID, obeConfiguracionProgramaNuevas);
                 }
             }
             else
             {
-                obeConfiguracionProgramaNuevas = _configuracionProgramaNuevasBusinessLogic.GetConfiguracionProgramaNuevas(pedidoDetalle.PaisID, obeConfiguracionProgramaNuevas);
+                obeConfiguracionProgramaNuevas = _configuracionProgramaNuevasBusinessLogic.GetConfiguracionProgramaNuevas(usuario.PaisID, obeConfiguracionProgramaNuevas);
             }
 
             return configuracionProgramaNuevas;
         }
 
-        private bool AdministradorPedido(BEPedidoDetalleApp pedidoDetalle, BEPedidoWebDetalle obePedidoWebDetalle, string tipoAdm)
+        private bool AdministradorPedido(BEUsuario usuario, BEPedidoDetalleAppInsertar pedidoDetalle, BEPedidoWebDetalle obePedidoWebDetalle, 
+            string tipoAdm)
         {
             var resultado = true;
 
-            var olstTempListado = ObtenerPedidoWebDetalle(pedidoDetalle);
+            var pedidoDetalleBuscar = new BEPedidoDetalleAppBuscar()
+            {
+                PaisID = usuario.PaisID,
+                CampaniaID = usuario.CampaniaID,
+                ConsultoraID = usuario.ConsultoraID,
+                NombreConsultora = usuario.Nombre,
+                CodigoPrograma = usuario.CodigoPrograma,
+                ConsecutivoNueva = usuario.ConsecutivoNueva
+            };
+            var pedidoID = 0;
+            var olstTempListado = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
+            pedidoDetalle.PedidoID = pedidoID;
 
             if (obePedidoWebDetalle.PedidoDetalleID == 0)
             {
@@ -597,40 +615,60 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return temp.Sum(p => p.ImporteTotal) + (adm == "U" ? itemPedido.ImporteTotal : 0);
         }
 
-        private void AgregarProductoZE(BEPedidoDetalleApp pedidoDetalle)
+        private void AgregarProductoZE(BEUsuario usuario, BEPedidoDetalleAppInsertar pedidoDetalle)
         {
-            pedidoDetalle.OrigenPedidoWeb = pedidoDetalle.OrigenPedidoWeb < 0 ? 0 : pedidoDetalle.OrigenPedidoWeb;
+            //pedidoDetalle.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.AppPedido;
             var tipoEstrategiaID = 0;
             int.TryParse(pedidoDetalle.Producto.TipoEstrategiaID, out tipoEstrategiaID);
             pedidoDetalle.Producto.TipoOfertaSisID = pedidoDetalle.Producto.TipoOfertaSisID > 0 ? pedidoDetalle.Producto.TipoOfertaSisID : tipoEstrategiaID;
             pedidoDetalle.Producto.ConfiguracionOfertaID = pedidoDetalle.Producto.ConfiguracionOfertaID > 0 ? pedidoDetalle.Producto.ConfiguracionOfertaID : pedidoDetalle.Producto.TipoOfertaSisID;
 
-            EliminarDetallePackNueva(pedidoDetalle);
+            EliminarDetallePackNueva(usuario, pedidoDetalle);
         }
 
-        private void EliminarDetallePackNueva(BEPedidoDetalleApp pedidoDetalle)
+        private void EliminarDetallePackNueva(BEUsuario usuario, BEPedidoDetalleAppInsertar pedidoDetalle)
         {
-            var lstPedidoWebDetalle = ObtenerPedidoWebDetalle(pedidoDetalle);
+            var pedidoDetalleBuscar = new BEPedidoDetalleAppBuscar()
+            {
+                PaisID = usuario.PaisID,
+                CampaniaID = usuario.CampaniaID,
+                ConsultoraID = usuario.ConsultoraID,
+                NombreConsultora = usuario.Nombre,
+                CodigoPrograma = usuario.CodigoPrograma,
+                ConsecutivoNueva = usuario.ConsecutivoNueva
+            };
+            var pedidoID = 0;
+            var lstPedidoWebDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
+            pedidoDetalle.PedidoID = pedidoID;
             var packNuevas = lstPedidoWebDetalle.Where(x => x.FlagNueva && !x.EsOfertaIndependiente);
 
             foreach (var item in packNuevas)
             {
-                DeletePedido(pedidoDetalle, item);
+                DeletePedido(usuario, pedidoDetalle, item);
             }
         }
 
-        private void DeletePedido(BEPedidoDetalleApp pedidoDetalle, BEPedidoWebDetalle obe)
+        private void DeletePedido(BEUsuario usuario, BEPedidoDetalleAppInsertar pedidoDetalle, BEPedidoWebDetalle obe)
         {
-            AdministradorPedido(pedidoDetalle, obe, Constantes.PedidoAccion.DELETE);
+            AdministradorPedido(usuario, pedidoDetalle, obe, Constantes.PedidoAccion.DELETE);
         }
-        #endregion
 
-        #region UpdatePROL
-        private List<ObjMontosProl> ServicioProl_CalculoMontosProl(BEPedidoDetalleApp pedidoDetalle)
+        private List<ObjMontosProl> ServicioProl_CalculoMontosProl(BEUsuario usuario, BEPedidoDetalleAppInsertar pedidoDetalle)
         {
             montosProl = new List<ObjMontosProl> { new ObjMontosProl() };
 
-            var detallesPedidoWeb = ObtenerPedidoWebDetalle(pedidoDetalle);
+            var pedidoDetalleBuscar = new BEPedidoDetalleAppBuscar()
+            {
+                PaisID = usuario.PaisID,
+                CampaniaID = usuario.CampaniaID,
+                ConsultoraID = usuario.ConsultoraID,
+                NombreConsultora = usuario.Nombre,
+                CodigoPrograma = usuario.CodigoPrograma,
+                ConsecutivoNueva = usuario.ConsecutivoNueva
+            };
+            var pedidoID = 0;
+            var detallesPedidoWeb = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
+            pedidoDetalle.PedidoID = pedidoID;
 
             if (detallesPedidoWeb.Any())
             {
@@ -640,7 +678,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 using (var sv = new ServicesCalculoPrecioNiveles())
                 {
                     sv.Url = WebConfig.Ambiente.ToUpper() == "QA" ? WebConfig.QA_Prol_ServicesCalculos : WebConfig.PR_Prol_ServicesCalculos;
-                    montosProl = sv.CalculoMontosProlxIncentivos(pedidoDetalle.CodigoISO, pedidoDetalle.CampaniaID.ToString(), pedidoDetalle.CodigoConsultora, pedidoDetalle.CodigoZona, cuvs, cantidades, pedidoDetalle.CodigosConcursos).ToList();
+                    montosProl = sv.CalculoMontosProlxIncentivos(usuario.CodigoISO, usuario.CampaniaID.ToString(), usuario.CodigoConsultora, usuario.CodigoZona, cuvs, cantidades, pedidoDetalle.CodigosConcursos).ToList();
                     montosProl = montosProl ?? new List<ObjMontosProl>();
                 }
             }
@@ -648,5 +686,28 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return montosProl;
         }
         #endregion  
+
+        #region GetDetalle
+        private List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle(BEPedidoDetalleAppBuscar pedidoDetalle, out int pedidoID)
+        {
+            var detallesPedidoWeb = new List<BEPedidoWebDetalle>();
+
+            var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+            {
+                PaisId = pedidoDetalle.PaisID,
+                CampaniaId = pedidoDetalle.CampaniaID,
+                ConsultoraId = pedidoDetalle.ConsultoraID,
+                Consultora = pedidoDetalle.NombreConsultora,
+                CodigoPrograma = pedidoDetalle.CodigoPrograma,
+                NumeroPedido = pedidoDetalle.ConsecutivoNueva
+            };
+
+            detallesPedidoWeb = _pedidoWebDetalleBusinessLogic.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
+
+            pedidoID = detallesPedidoWeb.Any() ? detallesPedidoWeb.First().PedidoID : 0;
+
+            return detallesPedidoWeb;
+        }
+        #endregion
     }
 }
