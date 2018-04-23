@@ -9,7 +9,7 @@ namespace Portal.Consultoras.Service
 {
     public class ODSService : IODSService
     {
-        private readonly BLProducto BLProducto;
+        private readonly IProductoBusinessLogic BLProducto;
         private readonly BLMensajeCUV BLMensajeCUV;
         private readonly BLConsultora BLConsultora;
         private readonly BLTipoMeta BLTipoMeta;

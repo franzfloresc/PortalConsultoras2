@@ -1047,7 +1047,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<BEProducto> olstProducto;
+                List<ServiceODS.BEProducto> olstProducto;
                 using (var sv = new ODSServiceClient())
                 {
                     olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, CUV, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, false).ToList();
@@ -1530,7 +1530,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
 
-                var producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new BEProducto();
+                var producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new ServiceODS.BEProducto();
 
                 var estrategias = (List<BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia] ?? new List<BEEstrategia>();
                 var estrategia = estrategias.FirstOrDefault(p => p.CUV2 == producto.CUV) ?? new BEEstrategia();
@@ -1638,9 +1638,9 @@ namespace Portal.Consultoras.Web.Controllers
             return lstExclusivas;
         }
 
-        private List<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(string codigoDescripcion, UsuarioModel userModel, int cantidadFilas, int criterioBusqueda)
+        private List<ServiceODS.BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(string codigoDescripcion, UsuarioModel userModel, int cantidadFilas, int criterioBusqueda)
         {
-            List<BEProducto> productos;
+            List<ServiceODS.BEProducto> productos;
 
             using (var odsServiceClient = new ODSServiceClient())
             {
@@ -1660,7 +1660,7 @@ namespace Portal.Consultoras.Web.Controllers
             return productos;
         }
 
-        private void BloqueoProductosCatalogo(ref List<BEProducto> beProductos)
+        private void BloqueoProductosCatalogo(ref List<ServiceODS.BEProducto> beProductos)
         {
             if (!beProductos.Any()) return;
 
@@ -1686,7 +1686,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private void BloqueoProductosDigitales(ref List<BEProducto> beProductos)
+        private void BloqueoProductosDigitales(ref List<ServiceODS.BEProducto> beProductos)
         {
             if (beProductos == null) return;
             if (!beProductos.Any()) return;
@@ -1811,7 +1811,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                List<BEProducto> listaProduto;
+                List<ServiceODS.BEProducto> listaProduto;
                 using (var sv = new ODSServiceClient())
                 {
                     listaProduto = sv.GetProductoSugeridoByCUV(userData.PaisID, userData.CampaniaID, Convert.ToInt32(userData.ConsultoraID), CUV, userData.RegionID,
@@ -3452,7 +3452,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (det.PedidoDetalleID > 0) return;
 
-                List<BEProducto> olstProducto;
+                List<ServiceODS.BEProducto> olstProducto;
                 using (var svOds = new ODSServiceClient())
                 {
                     olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, obeConfiguracionProgramaNuevas.CUVKit).ToList();

@@ -19,3 +19,19 @@
 .activo .opcion_home_vistaOfertas::after {
     border: 1px solid #67388c;
 }
+
+.contenedorMenu {
+	height: 45px;
+	width: 138px;
+	padding-top: 13px;
+	position: relative;
+	text-align: center;
+}
+
+	.contenedorMenu.active {
+		border-bottom: 4px solid #6c398a;
+		height: 45px;
+		position: relative;
+		text-align: center;
+		width: 138px;
+	}

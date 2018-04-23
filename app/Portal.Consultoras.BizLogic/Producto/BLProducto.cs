@@ -2,6 +2,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -9,7 +10,7 @@ using System.Linq;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLProducto
+    public class BLProducto : IProductoBusinessLogic
     {
         public List<BEProductoDescripcion> GetProductoDescripcionByCUVandCampania(int paisID, int campaniaID, string CUV)
         {
@@ -451,7 +452,7 @@ namespace Portal.Consultoras.BizLogic
         #endregion
 
         #region Venta exclusiva
-        public List<string> GetProductosExclusivos(int paisID, int campaniaID)
+        private List<string> GetProductosExclusivos(int paisID, int campaniaID)
         {
             List<string> lstProductos = new List<string>();
             var daProducto = new DAProducto(paisID);

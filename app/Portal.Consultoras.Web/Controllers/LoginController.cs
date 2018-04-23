@@ -628,7 +628,8 @@ namespace Portal.Consultoras.Web.Controllers
                     ClienteID = model.ClienteID,
                     MostrarHipervinculo = !model.EsAppMobile,
                     EsAppMobile = model.EsAppMobile,
-                    TimeOutSession = (int)FormsAuthentication.Timeout.TotalMinutes
+                    TimeOutSession = (int)FormsAuthentication.Timeout.TotalMinutes,
+                    Campania = Convert.ToInt32(model.Campania)
                 });
 
                 this.SetUniqueSession("IngresoExterno", model.Version ?? "");
@@ -669,7 +670,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 url = model.UrlCatalogo
                             });
                     case Constantes.IngresoExternoPagina.MisPedidos:
-                        return RedirectToUniqueRoute("MisPedidos", "Index", null);
+                        return RedirectToUniqueRoute("MisPedidos", "Index",null);
                     case Constantes.IngresoExternoPagina.ShowRoom:
                         return RedirectToUniqueRoute("ShowRoom", "Procesar", null);
                     case Constantes.IngresoExternoPagina.ProductosAgotados:
@@ -682,6 +683,11 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("RevistaDigital", "Informacion", null);
                     case Constantes.IngresoExternoPagina.LiquidacionWeb:
                         return RedirectToUniqueRoute("OfertaLiquidacion", "Index", null);
+                    case Constantes.IngresoExternoPagina.CambiosDevoluciones:
+                        return RedirectToUniqueRoute("MisReclamos", "Index", null);
+                    case Constantes.IngresoExternoPagina.PedidosFIC:
+                        return RedirectToUniqueRoute("PedidoFIC", "Index", null);
+                        
                 }
             }
             catch (Exception ex)
