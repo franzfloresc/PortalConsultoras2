@@ -3,7 +3,7 @@ GO
 
 IF EXISTS(SELECT * FROM sys.SYSOBJECTS A INNER JOIN SYS.SCHEMAS B ON A.uid =B.schema_id 
     WHERE A.NAME='CertificadoTributarioDetalle' AND B.name='DBO')
- DROP PROCEDURE CertificadoTributarioDetalle 
+ DROP TABLE CertificadoTributarioDetalle 
 GO
 
 CREATE TABLE CertificadoTributarioDetalle
