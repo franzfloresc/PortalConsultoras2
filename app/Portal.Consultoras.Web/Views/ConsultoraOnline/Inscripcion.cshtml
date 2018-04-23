@@ -4,57 +4,8 @@
     ViewBag.Title = "Inscripcion";
 }
 
-<script src="~/Scripts/jquery-1.11.2.min.js"></script>
-<script src="~/Scripts/PortalConsultoras/Shared/MainLayout.js"></script>
 
-@{
-    if (!string.IsNullOrEmpty(ViewBag.EmailConsultoraTomado))
-    { 
-        <script>
-            $(document).ready(function () {
-                alert_msg('@ViewBag.EmailConsultoraTomado');
-            });
-        </script>
-    }
-}
 
-<script>
-    $(document).ready(function () {
-        $('#DialogMensajes').dialog({
-            autoOpen: false,
-            resizable: false,
-            modal: true,
-            closeOnEscape: true,
-            width: 400,
-            draggable: true,
-            title: ":: Mensaje ::",
-            buttons:
-            {
-                "Aceptar": function () {
-                    $(this).dialog('close');
-                }
-            }
-        });
-    });
-
-    function AceptarAfiliacion() {
-        var remember = document.getElementById('termcond');
-
-        if (remember.checked) {          
-            document.getElementById("frmAfiliacion").submit();
-            return false;
-        } else {
-            alert_msg("Debe aceptar los términos y condiciones antes de inscribirte");
-            return false;
-        }
-    }
-            
-    function alert_msg(message) {
-        $('#DialogMensajes .message_text').html(message);
-        $('#DialogMensajes').dialog('open');
-    }
-
-</script>
 
 @using (Html.BeginForm("Inscripcion", "ConsultoraOnline", FormMethod.Post, new { id = "frmAfiliacion" }))
 {
@@ -68,7 +19,7 @@
             <div class="field100_co margin_bottom_35">
                 <div class="field25_co text_align_right margin_right_10">Nombre completo*</div>
                 <div class="field70">
-                    @Html.TextBoxFor(model => model.NombreCompleto, new { id = "txtNombreCompleto", @readonly = "readonly"})
+                    @Html.TextBoxFor(model => model.NombreCompleto, new { id = "txtNombreCompleto", @readonly = "readonly" })
                 </div>
             </div>
 
@@ -82,14 +33,14 @@
             <div class="field100_co margin_bottom_35">
                 <div class="field25_co text_align_right margin_right_10">Teléfono fijo</div>
                 <div class="field70">
-                    @Html.TextBoxFor(model => model.Telefono, new { id = "txtTelefono", maxlength = "15", Class = "requerido", onKeyPress = "return soloNumeros(event)" })
-                   <span class="text_validacion_2">@Html.ValidationMessageFor(model => model.Telefono)</span>
+                    @Html.TextBoxFor(model => model.Telefono, new { id = "txtTelefono", maxlength = "15", Class = "requerido", onKeyPress = "return FuncionesGenerales.ValidarSoloNumeros(event);" })
+                    <span class="text_validacion_2">@Html.ValidationMessageFor(model => model.Telefono)</span>
                 </div>
             </div>
             <div class="field100_co margin_bottom_10">
                 <div class="field25_co text_align_right margin_right_10">Celular*</div>
                 <div class="field70">
-                    @Html.TextBoxFor(model => model.Celular, new { id = "txtCelular", maxlength = "15", Class = "requerido", onKeyPress = "return soloNumeros(event)" })
+                    @Html.TextBoxFor(model => model.Celular, new { id = "txtCelular", maxlength = "15", Class = "requerido", onKeyPress = "return FuncionesGenerales.ValidarSoloNumeros(event);" })
                     <span class="text_validacion_2">@Html.ValidationMessageFor(model => model.Celular)</span>
                 </div>
             </div>
@@ -98,35 +49,80 @@
 
             <div class="field100_co font_size_12 margin_top_34">
                 <input type="checkbox" id="termcond">
-                Deseo que clientes me encuentren en las páginas web de las 
+                Deseo que clientes me encuentren en las páginas web de las
                 marcas, futuros aplicativos y acepto los <span class="text_color_morado"><a href="@ViewBag.PDFLink" target="_blank">términos y condiciones.</a></span>
             </div>
             <div class="field100_co text_align_center margin_top_34">
                 <button class="boton_morado" type="button" id="inscribeme" onclick="javascript: AceptarAfiliacion();">INSCRIBIRME</button>
             </div>
-            
+
         </div>
     </div>
     @Html.Hidden("hdn_Email", (string)Model.Email)
     @Html.Hidden("hdn_NombreCompleto", (string)Model.NombreCompleto)
     @Html.HiddenFor(model => model.EsPrimeraVez, new { id = "hdn_EsPrimeraVez" })
 }
-<script>
-    $(document).ready(function () {
-        $("#footer").css("position", "fixed");
-    });
-</script>
 
 
 <div id="DialogMensajes" style="display: none;">
     <div class="Content_modal">
         <div class="message_text">
-            
+
             function validarEmail(email) {
 
-                var emailReg = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
-                return emailReg.test(email);
+            var emailReg = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
+            return emailReg.test(email);
             }
         </div>
     </div>
 </div>
+
+@section scripts{
+    <script type="text/javascript">
+
+
+        var EmailConsultoraTomado = '@string.IsNullOrEmpty(ViewBag.EmailConsultoraTomado)';
+        $(document).ready(function () {
+
+            $('#DialogMensajes').dialog({
+                autoOpen: false,
+                resizable: false,
+                modal: true,
+                closeOnEscape: true,
+                width: 400,
+                draggable: true,
+                title: ":: Mensaje ::",
+                buttons:
+                {
+                    "Aceptar": function () {
+                        $(this).dialog('close');
+                    }
+                }
+            });
+            if (EmailConsultoraTomado !=="True") alert_msg('@ViewBag.EmailConsultoraTomado');
+            $("#footer").css("position", "fixed");
+
+           
+        });
+
+
+ 
+
+        function AceptarAfiliacion() {
+            var remember = document.getElementById('termcond');
+
+            if (remember.checked) {
+                document.getElementById("frmAfiliacion").submit();
+                return false;
+            } else {
+                alert_msg("Debe aceptar los términos y condiciones antes de inscribirte");
+                return false;
+            }
+        }
+
+        function alert_msg(message) {
+            $('#DialogMensajes .message_text').html(message);
+            $('#DialogMensajes').dialog('open');
+        }
+    </script>
+}
