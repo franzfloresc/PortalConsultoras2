@@ -53,7 +53,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             try
             {
                 //Informacion de usuario y palancas
-                var usuario = _usuarioBusinessLogic.GetSesionUsuarioPedidoApp(productoBuscar.PaisID, productoBuscar.CodigoUsuario);
+                var usuario = productoBuscar.Usuario;
+                usuario = _usuarioBusinessLogic.GetSesionUsuarioPedidoApp(usuario);
 
                 //Validación producto no existe
                 var producto = _productoBusinessLogic.SelectProductoByCodigoDescripcionSearchRegionZona(
@@ -108,7 +109,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog(ex, productoBuscar.CodigoUsuario, productoBuscar.PaisID);
+                LogManager.SaveLog(ex, productoBuscar.Usuario.CodigoUsuario, productoBuscar.PaisID);
                 return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.ProductoBuscar.Code.ERROR_INTERNO, ex.Message);
             }
         }
@@ -120,7 +121,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             try
             {
                 //Informacion de usuario y palancas
-                var usuario = _usuarioBusinessLogic.GetSesionUsuarioPedidoApp(pedidoDetalle.PaisID, pedidoDetalle.CodigoUsuario);
+                var usuario = _usuarioBusinessLogic.GetSesionUsuarioPedidoApp(pedidoDetalle.Usuario);
 
                 //Validacion reserva u horario restringido
                 var validacionHorario = _pedidoWebBusinessLogic.ValidacionModificarPedido(pedidoDetalle.PaisID,
@@ -178,14 +179,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return pedidos;
         }
 
-        public bool InsertKitInicio(int paisID, string codigoUsuario)
+        public bool InsertKitInicio(BEUsuario usuario)
         {
             var flagkit = false;
 
             try
             {
                 //Informacion de usuario y palancas
-                var usuario = _usuarioBusinessLogic.GetSesionUsuarioPedidoApp(paisID, codigoUsuario);
+                usuario = _usuarioBusinessLogic.GetSesionUsuarioPedidoApp(usuario);
 
                 if (!usuario.EsConsultoraNueva)
                 {
@@ -230,8 +231,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                     var detalle = new BEPedidoDetalleAppInsertar()
                     {
-                        PaisID = paisID,
-                        CodigoUsuario = codigoUsuario,
+                        PaisID = usuario.PaisID,
+                        CodigoUsuario = usuario.CodigoUsuario,
                         Cantidad = 1,
                         Producto = new BEProducto()
                         {
@@ -254,7 +255,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog(ex, codigoUsuario, paisID);
+                LogManager.SaveLog(ex, usuario.CodigoUsuario, usuario.PaisID);
             }
 
             return false;

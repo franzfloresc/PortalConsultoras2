@@ -2360,9 +2360,9 @@ namespace Portal.Consultoras.Service
             return _pedidoAppBusinessLogic.GetDetalle(pedidoDetalle);
         }
 
-        public bool InsertKitInicio(int paisID, string codigoUsuario)
+        public bool InsertKitInicio(BEUsuario usuario)
         {
-            return _pedidoAppBusinessLogic.InsertKitInicio(paisID, codigoUsuario);
+            return _pedidoAppBusinessLogic.InsertKitInicio(usuario);
         }
         #endregion
     }

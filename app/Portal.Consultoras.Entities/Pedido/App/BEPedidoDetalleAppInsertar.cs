@@ -33,5 +33,7 @@ namespace Portal.Consultoras.Entities.Pedido.App
         public string CodigosConcursos { get; set; }
         [DataMember]
         public bool EsKitNueva { get; set; }
+        [DataMember]
+        public BEUsuario Usuario { get; set; }
     }
 }

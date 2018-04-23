@@ -17,6 +17,6 @@ namespace Portal.Consultoras.Entities.Pedido.App
         public bool ValidarOpt { get; set; }
 
         [DataMember]
-        public string CodigoUsuario { get; set; }
+        public BEUsuario Usuario { get; set; }
     }
 }

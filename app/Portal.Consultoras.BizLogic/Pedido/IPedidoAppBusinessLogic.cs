@@ -10,6 +10,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         BEProductoApp GetCUV(BEProductoAppBuscar productoBuscar);
         BEPedidoDetalleAppInsertarResult Insert(BEPedidoDetalleAppInsertar pedidoDetalle);
         List<BEPedidoWebDetalle> GetDetalle(BEPedidoDetalleAppBuscar pedidoDetalle);
-        bool InsertKitInicio(int paisID, string codigoUsuario);
+        bool InsertKitInicio(BEUsuario usuario);
     }
 }

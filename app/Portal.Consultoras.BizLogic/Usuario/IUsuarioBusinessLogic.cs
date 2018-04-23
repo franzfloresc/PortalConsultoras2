@@ -89,6 +89,6 @@ namespace Portal.Consultoras.BizLogic
         int ValidarUsuarioPrueba(string CodigoUsuario, int paisID);
         BEUsuarioChatEmtelco GetUsuarioChatEmtelco(int paisID, string codigoUsuario);
         int UpdUsuarioFotoPerfil(int paisID, string codigoUsuario, string fileName);
-        BEUsuario GetSesionUsuarioPedidoApp(int paisID, string codigoUsuario);
+        BEUsuario GetSesionUsuarioPedidoApp(BEUsuario usuario);
     }
 }

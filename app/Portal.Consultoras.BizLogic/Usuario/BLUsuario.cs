@@ -515,80 +515,12 @@ namespace Portal.Consultoras.BizLogic
             return usuario;
         }
 
-        public BEUsuario GetSesionUsuarioPedidoApp(int paisID, string codigoUsuario)
+        public BEUsuario GetSesionUsuarioPedidoApp(BEUsuario usuario)
         {
-            var usuario = new BEUsuario();
-
             try
             {
-                CodigoUsuarioLog = codigoUsuario;
-                PaisIDLog = paisID;
-
-                usuario = GetUsuario(paisID, codigoUsuario);
-                if (usuario == null) return null;
-
-                var configuracionConsultora = this.GetConfiguracionCampania(usuario, Constantes.TipoUsuario.Consultora);
-                if (configuracionConsultora != null)
-                {
-                    usuario.CampaniaID = configuracionConsultora.CampaniaID;
-                    usuario.ZonaHoraria = configuracionConsultora.ZonaHoraria;
-                    usuario.FechaInicioFacturacion = configuracionConsultora.FechaInicioFacturacion;
-                    usuario.AceptacionConsultoraDA = configuracionConsultora.AceptacionConsultoraDA;
-                    usuario.HoraFin = configuracionConsultora.HoraFin;
-                    usuario.EsZonaDemAnti = configuracionConsultora.EsZonaDemAnti;
-                    usuario.HoraCierreZonaNormal = configuracionConsultora.HoraCierreZonaNormal;
-                    usuario.HoraCierreZonaDemAnti = configuracionConsultora.HoraCierreZonaDemAnti;
-                    usuario.DiasAntes = configuracionConsultora.DiasAntes;
-                    usuario.HoraInicio = configuracionConsultora.HoraInicio;
-                    usuario.HoraInicioNoFacturable = configuracionConsultora.HoraInicioNoFacturable;
-                    usuario.FechaFinFacturacion = configuracionConsultora.FechaFinFacturacion;
-                    usuario.CampaniaDescripcion = configuracionConsultora.CampaniaDescripcion;
-                    usuario.ZonaValida = configuracionConsultora.ZonaValida;
-                    usuario.NuevoPROL = true;
-                    usuario.ZonaNuevoPROL = true;
-                    usuario.IndicadorGPRSB = configuracionConsultora.IndicadorGPRSB;
-                    usuario.ValidacionAbierta = configuracionConsultora.ValidacionAbierta;
-                    usuario.EstadoPedido = configuracionConsultora.EstadoPedido;
-                    usuario.FechaActualPais = configuracionConsultora.FechaActualPais;
-                }
-
-                if (usuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
-                {
-                    var postulante = GetUsuarioPostulante(paisID, codigoUsuario);
-
-                    if (postulante != null)
-                    {
-                        usuario.ZonaID = postulante.ZonaID;
-                        usuario.RegionID = postulante.RegionID;
-                        usuario.ConsultoraID = postulante.ConsultoraID;
-
-                        var configuracion = this.GetConfiguracionCampania(usuario, Constantes.TipoUsuario.Postulante);
-
-                        if (configuracion != null)
-                        {
-                            usuario.CampaniaID = configuracion.CampaniaID;
-                            usuario.ZonaHoraria = configuracion.ZonaHoraria;
-                            usuario.FechaInicioFacturacion = configuracion.FechaInicioFacturacion;
-                            usuario.AceptacionConsultoraDA = configuracion.AceptacionConsultoraDA;
-                            usuario.HoraFin = configuracion.HoraFin;
-                            usuario.EsZonaDemAnti = configuracion.EsZonaDemAnti;
-                            usuario.HoraCierreZonaNormal = configuracion.HoraCierreZonaNormal;
-                            usuario.HoraCierreZonaDemAnti = configuracion.HoraCierreZonaDemAnti;
-                            usuario.DiasAntes = configuracion.DiasAntes;
-                            usuario.HoraInicio = configuracion.HoraInicio;
-                            usuario.HoraInicioNoFacturable = configuracion.HoraInicioNoFacturable;
-                            usuario.FechaFinFacturacion = configuracion.FechaFinFacturacion;
-                            usuario.CampaniaDescripcion = configuracion.CampaniaDescripcion;
-                            usuario.ZonaValida = configuracion.ZonaValida;
-                            usuario.NuevoPROL = true;
-                            usuario.ZonaNuevoPROL = true;
-                            usuario.IndicadorGPRSB = configuracion.IndicadorGPRSB;
-                            usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
-                            usuario.EstadoPedido = configuracion.EstadoPedido;
-                            usuario.FechaActualPais = configuracion.FechaActualPais;
-                        }
-                    }
-                }
+                CodigoUsuarioLog = usuario.CodigoUsuario;
+                PaisIDLog = usuario.PaisID;
 
                 var configuracionPaisTask = Task.Run(() => ConfiguracionPaisUsuario(usuario));
                 var codigosRevistasTask = Task.Run(() => ObtenerCodigoRevistaFisica(usuario.PaisID));
