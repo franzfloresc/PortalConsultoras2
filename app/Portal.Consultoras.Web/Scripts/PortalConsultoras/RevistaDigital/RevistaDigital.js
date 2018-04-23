@@ -7,7 +7,7 @@ var isDetalle = false;
 var esPrimeraCarga = true;
 var cantTotalMostrar = 0;
 var clickedSlider = 0;
-var revistaDigital = revistaDigital || null;
+var revistaDigital = revistaDigital || {};
 var sliderWay = 0;
 
 var sProps = {

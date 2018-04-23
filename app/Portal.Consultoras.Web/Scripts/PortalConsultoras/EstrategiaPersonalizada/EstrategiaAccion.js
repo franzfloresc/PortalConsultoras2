@@ -13,7 +13,7 @@ var origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
 var divAgregado = null;
 var _campania = "";
 var TieneHV = TieneHV || false;
-var revistaDigital = revistaDigital || null;
+var revistaDigital = revistaDigital || {};
 
 var belcorp = belcorp || {};
 belcorp.estrategia = belcorp.estrategia || new Object();
