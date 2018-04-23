@@ -294,15 +294,18 @@ function ArmarCarouselEstrategias(data) {
         $('#divListaEstrategias').show();
         $('#divContenedorListaEstrategia').hide();
         $('.contenido_gana_mas').hide();
-        if (revistaDigital.TieneRDC) {
-            if (isMobile()) {
-                $(".wrapper_resumen_mobile_clubganamas .zonadecolor, .wrapper_resumen_mobile_clubganamas").css({ "height": "200px" });
-            } else {
-                $(".contenedor_ganamas").css({ "height": "100px" });
-                $(".sb_contenedor_ganamas_bg").css({ "height": "100px" });
-                $(".contenedor_ganamas .sb_contenedor_ganamas").css({ "top": "-100px" });
+        if (revistaDigital) {
+            if (revistaDigital.TieneRDC) {
+                if (isMobile()) {
+                    $(".wrapper_resumen_mobile_clubganamas .zonadecolor, .wrapper_resumen_mobile_clubganamas").css({ "height": "200px" });
+                } else {
+                    $(".contenedor_ganamas").css({ "height": "100px" });
+                    $(".sb_contenedor_ganamas_bg").css({ "height": "100px" });
+                    $(".contenedor_ganamas .sb_contenedor_ganamas").css({ "top": "-100px" });
+                }
             }
         }
+        
         return false;
     }
 
@@ -438,12 +441,15 @@ function ArmarCarouselEstrategias(data) {
 
         var claseFlechaDoradaNext = "";
         var claseFlechaDoradaPrev = "";
-        if (revistaDigital.TieneRDC) {
-            if (revistaDigital.EsSuscrita) {
-                claseFlechaDoradaNext = "next-flecha-dorada";
-                claseFlechaDoradaPrev = "prev-flecha-dorada";
+
+        if (revistaDigital) {
+            if (revistaDigital.TieneRDC) {
+                if (revistaDigital.EsSuscrita) {
+                    claseFlechaDoradaNext = "next-flecha-dorada";
+                    claseFlechaDoradaPrev = "prev-flecha-dorada";
+                }
             }
-        }
+        }        
 
         $('#divListadoEstrategia').not('.slick-initialized').slick({
             lazyLoad: 'ondemand',
