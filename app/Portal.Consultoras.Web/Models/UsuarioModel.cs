@@ -319,8 +319,6 @@ namespace Portal.Consultoras.Web.Models
 
         public int EsOfertaDelDia { get; set; }
         public bool TieneOfertaDelDia { get; set; }
-        public OfertaDelDiaModel OfertaDelDia { get; set; }
-        public List<OfertaDelDiaModel> OfertasDelDia { get; set; }
         public bool CloseOfertaDelDia { get; set; }
         public bool CloseBannerPL20 { get; set; }
         public bool EsDiasFacturacion { get; set; }

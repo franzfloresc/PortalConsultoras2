@@ -53,6 +53,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected ILogManager logManager;
         private readonly TablaLogicaProvider _tablaLogicaProvider;
         private readonly ShowRoomProvider _showRoomProvider;
+        protected Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel estrategiaODD;
         #endregion
 
         #region Constructor
@@ -64,6 +65,7 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager = SessionManager.SessionManager.Instance;
             _tablaLogicaProvider = new TablaLogicaProvider();
             _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
+            estrategiaODD = new Models.Estrategia.OfertaDelDia.DataModel();
         }
 
         public BaseController(ISessionManager sessionManager)
@@ -100,7 +102,7 @@ namespace Portal.Consultoras.Web.Controllers
                 revistaDigital = sessionManager.GetRevistaDigital();
                 herramientasVenta = sessionManager.GetHerramientasVenta();
                 guiaNegocio = sessionManager.GetGuiaNegocio();
-
+                estrategiaODD = sessionManager.GetEstrategiaODD();
                 if (Request.IsAjaxRequest())
                 {
                     base.OnActionExecuting(filterContext);
@@ -2034,14 +2036,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected OfertaDelDiaModel GetOfertaDelDiaModel()
         {
-            if (userData.OfertasDelDia == null)
+            if (estrategiaODD.ListaDeOferta == null)
                 return null;
 
-            if (!userData.OfertasDelDia.Any())
+            if (!estrategiaODD.ListaDeOferta.Any())
                 return null;
 
-            var model = userData.OfertasDelDia.First().Clone();
-            model.ListaOfertas = userData.OfertasDelDia;
+            var model = estrategiaODD.ListaDeOferta.First().Clone();
+            model.ListaOfertas = estrategiaODD.ListaDeOferta;
             short posicion = 1;
             var tiposEstrategia = sessionManager.GetTiposEstrategia();
             if (tiposEstrategia == null)

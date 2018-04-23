@@ -145,5 +145,8 @@ namespace Portal.Consultoras.Web.SessionManager
         IShowRoom ShowRoom { get; }
 
         PagoEnLineaModel GetDatosPagoVisa();
+
+        void SetEstrategiaODD(Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel data);
+        Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel GetEstrategiaODD();
     }
 }

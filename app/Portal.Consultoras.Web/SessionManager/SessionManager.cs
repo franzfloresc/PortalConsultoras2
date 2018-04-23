@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
+using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -377,6 +378,16 @@ namespace Portal.Consultoras.Web.SessionManager
         PagoEnLineaModel ISessionManager.GetDatosPagoVisa()
         {
             return (PagoEnLineaModel)HttpContext.Current.Session[Constantes.ConstSession.DatosPagoVisa];
+        }
+
+        public void SetEstrategiaODD(DataModel data)
+        {
+            HttpContext.Current.Session["EstrategiaODD"] = data;
+        }
+
+        public DataModel GetEstrategiaODD()
+        {
+            return (DataModel)HttpContext.Current.Session["EstrategiaODD"];
         }
     }
 }

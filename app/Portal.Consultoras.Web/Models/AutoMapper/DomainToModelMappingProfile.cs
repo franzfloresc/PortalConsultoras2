@@ -546,7 +546,6 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.MensajePedidoMobile, f => f.MapFrom(c => c.TipoUsuario == Constantes.TipoUsuario.Postulante ? c.MensajePedidoMobile : 0))
                 .ForMember(t => t.MontoMinimo, f => f.MapFrom(c => c.MontoMinimoPedido))
                 .ForMember(t => t.MontoMaximo, f => f.MapFrom(c => c.MontoMaximoPedido))
-                .ForMember(t => t.OfertaDelDia, f => f.MapFrom(c => new OfertaDelDiaModel()))
                 .ForMember(t => t.ListaLoginExterno, f => f.MapFrom(c => new List<UsuarioExternoModel>()))
                 .ForMember(t => t.CodigosConcursos, f => f.MapFrom(c => string.Empty))
                 .ForMember(t => t.CodigosProgramaNuevas, f => f.MapFrom(c => string.Empty));
