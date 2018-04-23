@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using Portal.Consultoras.Common;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -7,7 +8,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult Index()
         {
             var userData = UserData();
-            if (userData.CodigoISO == "VE")
+            if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
                 return RedirectToAction("Index", "Bienvenida");
 
             ViewBag.Simbolo = userData.Simbolo;
