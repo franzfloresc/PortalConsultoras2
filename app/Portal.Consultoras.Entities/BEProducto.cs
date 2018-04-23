@@ -343,14 +343,14 @@ namespace Portal.Consultoras.Entities
     }
 
     [DataContract]
-    public class CuvPedidoWebDetalle
+    public class BECuvCantidad
     {
         [DataMember]
         public string cuv { get; set; }
         [DataMember]
         public int cantidad { get; set; }
 
-        public CuvPedidoWebDetalle(IDataReader datarec)
+        public BECuvCantidad(IDataReader datarec)
         {
             if (datarec["cuv"] != DBNull.Value)
                 cuv = DbConvert.ToString(datarec["cuv"]);

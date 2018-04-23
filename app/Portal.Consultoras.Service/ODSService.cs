@@ -257,7 +257,7 @@ namespace Portal.Consultoras.Service
         {
             return BLProducto.GetListBrothersByCUV(paisID, codCampania, cuv);
         }
-
+        #region MyRegion
         public Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas)
         {
             return BLProducto.ValidarBusquedaProgramaNuevas(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv, participaProgramaNuevas);
@@ -267,5 +267,18 @@ namespace Portal.Consultoras.Service
         {
             return BLProducto.ValidarAgregarProductosProgramaNuevas(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv, participaProgramaNuevas, cantidadIngresada);
         }
+        #endregion
+
+        #region VentaExclusiva
+        public bool EsProductoExclusivo(int paisID, int campaniaID, string cuv)
+        {
+            return BLProducto.EsProductoExclusivo(paisID, campaniaID, cuv);
+        }
+
+        public IList<string> GetConsultoraProductoExclusivo(int paisID, int campaniaID, string codigoConsultora)
+        {
+            return BLProducto.GetConsultoraProductoExclusivo(paisID, campaniaID, codigoConsultora);
+        }
+        #endregion
     }
 }

@@ -1432,6 +1432,7 @@ namespace Portal.Consultoras.Common
             public const int CantidadCuvMasivo = 137;
             public const short ProlObsCod = 5;
             public const short RangoCuvNuevas = 6;
+            public const short EncenderProgramaNuevas = 7;
         }
 
         public struct MensajesCDRExpress
@@ -1818,6 +1819,11 @@ namespace Portal.Consultoras.Common
             {
                 public const string ExisteElectivoEnSuPedido = "El código ingresado no puede ser agregado al pedido. El pedido contiene un pack del Programa de Nuevas.";
             }
+        }
+
+        public class VentaExclusiva
+        {
+            public const string CuvNoEsVentaExclusiva = "El código solicitado pertenece a la Venta Exclusiva. Usted no cumple las condiciones para solicitarlo.";
         }
 
         public class Comunicado

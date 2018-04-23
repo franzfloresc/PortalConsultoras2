@@ -3540,6 +3540,18 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarAgregarProductosProgramaNuevas", ReplyAction="http://tempuri.org/IODSService/ValidarAgregarProductosProgramaNuevasResponse")]
         System.Threading.Tasks.Task<string> ValidarAgregarProductosProgramaNuevasAsync(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas, int cantidadIngresada);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/EsProductoExclusivo", ReplyAction="http://tempuri.org/IODSService/EsProductoExclusivoResponse")]
+        bool EsProductoExclusivo(int paisID, int campaniaID, string cuv);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/EsProductoExclusivo", ReplyAction="http://tempuri.org/IODSService/EsProductoExclusivoResponse")]
+        System.Threading.Tasks.Task<bool> EsProductoExclusivoAsync(int paisID, int campaniaID, string cuv);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetConsultoraProductoExclusivo", ReplyAction="http://tempuri.org/IODSService/GetConsultoraProductoExclusivoResponse")]
+        string[] GetConsultoraProductoExclusivo(int paisID, int campaniaID, string codigoConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetConsultoraProductoExclusivo", ReplyAction="http://tempuri.org/IODSService/GetConsultoraProductoExclusivoResponse")]
+        System.Threading.Tasks.Task<string[]> GetConsultoraProductoExclusivoAsync(int paisID, int campaniaID, string codigoConsultora);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -3887,6 +3899,22 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         public System.Threading.Tasks.Task<string> ValidarAgregarProductosProgramaNuevasAsync(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas, int cantidadIngresada) {
             return base.Channel.ValidarAgregarProductosProgramaNuevasAsync(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv, participaProgramaNuevas, cantidadIngresada);
+        }
+        
+        public bool EsProductoExclusivo(int paisID, int campaniaID, string cuv) {
+            return base.Channel.EsProductoExclusivo(paisID, campaniaID, cuv);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EsProductoExclusivoAsync(int paisID, int campaniaID, string cuv) {
+            return base.Channel.EsProductoExclusivoAsync(paisID, campaniaID, cuv);
+        }
+        
+        public string[] GetConsultoraProductoExclusivo(int paisID, int campaniaID, string codigoConsultora) {
+            return base.Channel.GetConsultoraProductoExclusivo(paisID, campaniaID, codigoConsultora);
+        }
+        
+        public System.Threading.Tasks.Task<string[]> GetConsultoraProductoExclusivoAsync(int paisID, int campaniaID, string codigoConsultora) {
+            return base.Channel.GetConsultoraProductoExclusivoAsync(paisID, campaniaID, codigoConsultora);
         }
     }
 }

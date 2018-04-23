@@ -1467,7 +1467,6 @@ namespace Portal.Consultoras.Web.Controllers
                 #region ValidarProgramaNuevas
 
                 Enumeradores.ValidacionProgramaNuevas num = ValidarProgramaNuevas(model.CUV);
-
                 switch (num)
                 {
                     case Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste:
@@ -1501,6 +1500,14 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                 }
 
+                #endregion
+                #region Validar Venta exclusiva
+                Enumeradores.ValidacionVentaExclusiva nume = ValidarVentaExclusiva(model.CUV);
+                if (nume == Enumeradores.ValidacionVentaExclusiva.ConsultoraNoVentaExclusiva || nume == Enumeradores.ValidacionVentaExclusiva.CuvNoPerteneceVentaExclusiva)
+                {
+                    productosModel.Add(GetValidacionProgramaNuevas(Constantes.VentaExclusiva.CuvNoEsVentaExclusiva));
+                    return Json(productosModel, JsonRequestBehavior.AllowGet);
+                }
                 #endregion
 
                 var userModel = userData;
@@ -1578,7 +1585,6 @@ namespace Portal.Consultoras.Web.Controllers
         private Enumeradores.ValidacionProgramaNuevas ValidarProgramaNuevas(string cuv)
         {
             Enumeradores.ValidacionProgramaNuevas numero;
-
             try
             {
                 using (var svc = new ODSServiceClient())
@@ -1591,8 +1597,45 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 numero = Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
             }
-
             return numero;
+        }
+
+        private Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(string cuv)
+        {
+            try
+            {                
+                bool EsCuvExclusivo = false;
+                using (var svc = new ODSServiceClient())
+                {
+                    EsCuvExclusivo = svc.EsProductoExclusivo(userData.PaisID, userData.CampaniaID, cuv);
+                }
+
+                if (!EsCuvExclusivo) return Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo;
+                var lstExclusivas = ObtenerProductosVentaExclusivaByConsultora(cuv);
+                if (lstExclusivas.Count == 0) return Enumeradores.ValidacionVentaExclusiva.ConsultoraNoVentaExclusiva;
+                if (!lstExclusivas.Any(a => a.Any(b => lstExclusivas.Contains(cuv)))) return Enumeradores.ValidacionVentaExclusiva.CuvNoPerteneceVentaExclusiva;                
+                return Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo;
+            }
+        }
+
+        private List<string> ObtenerProductosVentaExclusivaByConsultora(string cuv)
+        {
+            List<string> lstExclusivas = (List<string>)Session["ListaVentaExclusiva"] ?? new List<string>();
+            if (lstExclusivas.Count == 0)
+            {
+                using (var svc = new ODSServiceClient())
+                {
+                    lstExclusivas = svc.GetConsultoraProductoExclusivo(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora).ToList();
+                }
+                if (lstExclusivas.Count == 0) return lstExclusivas;
+                Session["ListaVentaExclusiva"] = lstExclusivas;                
+            }
+            return lstExclusivas;
         }
 
         private List<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(string codigoDescripcion, UsuarioModel userModel, int cantidadFilas, int criterioBusqueda)

@@ -31,6 +31,7 @@
       <xsd:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
       <xsd:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+      <xsd:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IODSService_GetProductoComercialByPaisAndCampania_InputMessage">
@@ -273,6 +274,18 @@
   <wsdl:message name="IODSService_ValidarAgregarProductosProgramaNuevas_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidarAgregarProductosProgramaNuevasResponse" />
   </wsdl:message>
+  <wsdl:message name="IODSService_EsProductoExclusivo_InputMessage">
+    <wsdl:part name="parameters" element="tns:EsProductoExclusivo" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_EsProductoExclusivo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EsProductoExclusivoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_GetConsultoraProductoExclusivo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConsultoraProductoExclusivo" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_GetConsultoraProductoExclusivo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConsultoraProductoExclusivoResponse" />
+  </wsdl:message>
   <wsdl:portType name="IODSService">
     <wsdl:operation name="GetProductoComercialByPaisAndCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetProductoComercialByPaisAndCampania" message="tns:IODSService_GetProductoComercialByPaisAndCampania_InputMessage" />
@@ -433,6 +446,14 @@
     <wsdl:operation name="ValidarAgregarProductosProgramaNuevas">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ValidarAgregarProductosProgramaNuevas" message="tns:IODSService_ValidarAgregarProductosProgramaNuevas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/ValidarAgregarProductosProgramaNuevasResponse" message="tns:IODSService_ValidarAgregarProductosProgramaNuevas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EsProductoExclusivo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/EsProductoExclusivo" message="tns:IODSService_EsProductoExclusivo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/EsProductoExclusivoResponse" message="tns:IODSService_EsProductoExclusivo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultoraProductoExclusivo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetConsultoraProductoExclusivo" message="tns:IODSService_GetConsultoraProductoExclusivo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetConsultoraProductoExclusivoResponse" message="tns:IODSService_GetConsultoraProductoExclusivo_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IODSService" type="tns:IODSService">
@@ -797,6 +818,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="EsProductoExclusivo">
+      <soap:operation soapAction="http://tempuri.org/IODSService/EsProductoExclusivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultoraProductoExclusivo">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetConsultoraProductoExclusivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="BasicHttpsBinding_IODSService" type="tns:IODSService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IODSService_policy" />
@@ -1154,6 +1193,24 @@
     </wsdl:operation>
     <wsdl:operation name="ValidarAgregarProductosProgramaNuevas">
       <soap:operation soapAction="http://tempuri.org/IODSService/ValidarAgregarProductosProgramaNuevas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EsProductoExclusivo">
+      <soap:operation soapAction="http://tempuri.org/IODSService/EsProductoExclusivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultoraProductoExclusivo">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetConsultoraProductoExclusivo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

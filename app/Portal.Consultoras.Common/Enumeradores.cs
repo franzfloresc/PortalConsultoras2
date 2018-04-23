@@ -309,5 +309,12 @@
             CuvNoPerteneceASuPrograma = 4,
             ExisteUnElectivoEnPedido = 5,
         }
+
+        public enum ValidacionVentaExclusiva
+        {
+            ContinuaFlujo = 0,
+            ConsultoraNoVentaExclusiva = 2,
+            CuvNoPerteneceVentaExclusiva = 3
+        }
     }
 }
