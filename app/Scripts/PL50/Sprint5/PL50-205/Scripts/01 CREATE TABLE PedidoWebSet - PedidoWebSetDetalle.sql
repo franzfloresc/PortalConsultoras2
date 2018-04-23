@@ -1,8 +1,8 @@
-﻿use belcorpBolivia
-go
+﻿USE BelcorpBolivia
+GO
 
 IF OBJECT_ID (N'PedidoWebSet', N'U') IS NULL 
-begin
+BEGIN
 	CREATE TABLE PedidoWebSet (
 		SetID INT IDENTITY(1, 1) primary KEY
 		,PedidoID INT
@@ -21,13 +21,11 @@ begin
 		,FechaCreacion DATETIME
 		,FechaModificacion DATETIME
 		)
-end
-
+END
 GO
 
-
 IF OBJECT_ID (N'PedidoWebSetDetalle', N'U') IS  NULL 
-begin
+BEGIN
 	CREATE TABLE PedidoWebSetDetalle (
 		SetDetalleID INT IDENTITY(1, 1) primary KEY
 		,[SetID] INT FOREIGN KEY (SetID) REFERENCES PedidoWebSet(SetID) ON DELETE CASCADE
@@ -40,15 +38,14 @@ begin
 		,PrecioUnidad  money  null
 		,TipoOfertaSisID  int null
 		)
-end
-go
+END
+GO
 
-
-use belcorpChile
-go
+USE BelcorpChile
+GO
 
 IF OBJECT_ID (N'PedidoWebSet', N'U') IS NULL 
-begin
+BEGIN
 	CREATE TABLE PedidoWebSet (
 		SetID INT IDENTITY(1, 1) primary KEY
 		,PedidoID INT
@@ -67,13 +64,11 @@ begin
 		,FechaCreacion DATETIME
 		,FechaModificacion DATETIME
 		)
-end
-
+END
 GO
 
-
 IF OBJECT_ID (N'PedidoWebSetDetalle', N'U') IS  NULL 
-begin
+BEGIN
 	CREATE TABLE PedidoWebSetDetalle (
 		SetDetalleID INT IDENTITY(1, 1) primary KEY
 		,[SetID] INT FOREIGN KEY (SetID) REFERENCES PedidoWebSet(SetID) ON DELETE CASCADE
@@ -86,14 +81,14 @@ begin
 		,PrecioUnidad  money  null
 		,TipoOfertaSisID  int null
 		)
-end
-go
+END
+GO
 
-use belcorpColombia
-go
+USE BelcorpColombia
+GO
 
 IF OBJECT_ID (N'PedidoWebSet', N'U') IS NULL 
-begin
+BEGIN
 	CREATE TABLE PedidoWebSet (
 		SetID INT IDENTITY(1, 1) primary KEY
 		,PedidoID INT
@@ -112,13 +107,11 @@ begin
 		,FechaCreacion DATETIME
 		,FechaModificacion DATETIME
 		)
-end
-
+END
 GO
 
-
 IF OBJECT_ID (N'PedidoWebSetDetalle', N'U') IS  NULL 
-begin
+BEGIN
 	CREATE TABLE PedidoWebSetDetalle (
 		SetDetalleID INT IDENTITY(1, 1) primary KEY
 		,[SetID] INT FOREIGN KEY (SetID) REFERENCES PedidoWebSet(SetID) ON DELETE CASCADE
@@ -131,14 +124,14 @@ begin
 		,PrecioUnidad  money  null
 		,TipoOfertaSisID  int null
 		)
-end
-go
+END
+GO
 
-use belcorpCostaRica
-go
+USE BelcorpCostaRica
+GO
 
 IF OBJECT_ID (N'PedidoWebSet', N'U') IS NULL 
-begin
+BEGIN
 	CREATE TABLE PedidoWebSet (
 		SetID INT IDENTITY(1, 1) primary KEY
 		,PedidoID INT
@@ -157,13 +150,11 @@ begin
 		,FechaCreacion DATETIME
 		,FechaModificacion DATETIME
 		)
-end
-
+END
 GO
 
-
 IF OBJECT_ID (N'PedidoWebSetDetalle', N'U') IS  NULL 
-begin
+BEGIN
 	CREATE TABLE PedidoWebSetDetalle (
 		SetDetalleID INT IDENTITY(1, 1) primary KEY
 		,[SetID] INT FOREIGN KEY (SetID) REFERENCES PedidoWebSet(SetID) ON DELETE CASCADE
@@ -176,14 +167,14 @@ begin
 		,PrecioUnidad  money  null
 		,TipoOfertaSisID  int null
 		)
-end
-go
+END
+GO
 
-use belcorpDominicana
-go
+USE BelcorpDominicana
+GO
 
 IF OBJECT_ID (N'PedidoWebSet', N'U') IS NULL 
-begin
+BEGIN
 	CREATE TABLE PedidoWebSet (
 		SetID INT IDENTITY(1, 1) primary KEY
 		,PedidoID INT
@@ -202,13 +193,11 @@ begin
 		,FechaCreacion DATETIME
 		,FechaModificacion DATETIME
 		)
-end
-
+END
 GO
 
-
 IF OBJECT_ID (N'PedidoWebSetDetalle', N'U') IS  NULL 
-begin
+BEGIN
 	CREATE TABLE PedidoWebSetDetalle (
 		SetDetalleID INT IDENTITY(1, 1) primary KEY
 		,[SetID] INT FOREIGN KEY (SetID) REFERENCES PedidoWebSet(SetID) ON DELETE CASCADE
@@ -221,14 +210,15 @@ begin
 		,PrecioUnidad  money  null
 		,TipoOfertaSisID  int null
 		)
-end
-go
+END
+GO
 
-use belcorpEcuador
-go
+
+USE BelcorpEcuador
+GO
 
 IF OBJECT_ID (N'PedidoWebSet', N'U') IS NULL 
-begin
+BEGIN
 	CREATE TABLE PedidoWebSet (
 		SetID INT IDENTITY(1, 1) primary KEY
 		,PedidoID INT
@@ -247,13 +237,11 @@ begin
 		,FechaCreacion DATETIME
 		,FechaModificacion DATETIME
 		)
-end
-
+END
 GO
 
-
 IF OBJECT_ID (N'PedidoWebSetDetalle', N'U') IS  NULL 
-begin
+BEGIN
 	CREATE TABLE PedidoWebSetDetalle (
 		SetDetalleID INT IDENTITY(1, 1) primary KEY
 		,[SetID] INT FOREIGN KEY (SetID) REFERENCES PedidoWebSet(SetID) ON DELETE CASCADE
@@ -266,14 +254,14 @@ begin
 		,PrecioUnidad  money  null
 		,TipoOfertaSisID  int null
 		)
-end
-go
+END
+GO
 
-use belcorpGuatemala
-go
+USE BelcorpGuatemala
+GO
 
 IF OBJECT_ID (N'PedidoWebSet', N'U') IS NULL 
-begin
+BEGIN
 	CREATE TABLE PedidoWebSet (
 		SetID INT IDENTITY(1, 1) primary KEY
 		,PedidoID INT
@@ -292,13 +280,11 @@ begin
 		,FechaCreacion DATETIME
 		,FechaModificacion DATETIME
 		)
-end
-
+END
 GO
 
-
 IF OBJECT_ID (N'PedidoWebSetDetalle', N'U') IS  NULL 
-begin
+BEGIN
 	CREATE TABLE PedidoWebSetDetalle (
 		SetDetalleID INT IDENTITY(1, 1) primary KEY
 		,[SetID] INT FOREIGN KEY (SetID) REFERENCES PedidoWebSet(SetID) ON DELETE CASCADE
@@ -311,14 +297,14 @@ begin
 		,PrecioUnidad  money  null
 		,TipoOfertaSisID  int null
 		)
-end
-go
+END
+GO
 
-use belcorpMexico
-go
+USE BelcorpMexico
+GO
 
 IF OBJECT_ID (N'PedidoWebSet', N'U') IS NULL 
-begin
+BEGIN
 	CREATE TABLE PedidoWebSet (
 		SetID INT IDENTITY(1, 1) primary KEY
 		,PedidoID INT
@@ -337,13 +323,11 @@ begin
 		,FechaCreacion DATETIME
 		,FechaModificacion DATETIME
 		)
-end
-
+END
 GO
 
-
 IF OBJECT_ID (N'PedidoWebSetDetalle', N'U') IS  NULL 
-begin
+BEGIN
 	CREATE TABLE PedidoWebSetDetalle (
 		SetDetalleID INT IDENTITY(1, 1) primary KEY
 		,[SetID] INT FOREIGN KEY (SetID) REFERENCES PedidoWebSet(SetID) ON DELETE CASCADE
@@ -356,14 +340,14 @@ begin
 		,PrecioUnidad  money  null
 		,TipoOfertaSisID  int null
 		)
-end
-go
+END
+GO
 
-use belcorpPanama
-go
+USE BelcorpPanama
+GO
 
 IF OBJECT_ID (N'PedidoWebSet', N'U') IS NULL 
-begin
+BEGIN
 	CREATE TABLE PedidoWebSet (
 		SetID INT IDENTITY(1, 1) primary KEY
 		,PedidoID INT
@@ -382,13 +366,11 @@ begin
 		,FechaCreacion DATETIME
 		,FechaModificacion DATETIME
 		)
-end
-
+END
 GO
 
-
 IF OBJECT_ID (N'PedidoWebSetDetalle', N'U') IS  NULL 
-begin
+BEGIN
 	CREATE TABLE PedidoWebSetDetalle (
 		SetDetalleID INT IDENTITY(1, 1) primary KEY
 		,[SetID] INT FOREIGN KEY (SetID) REFERENCES PedidoWebSet(SetID) ON DELETE CASCADE
@@ -401,14 +383,14 @@ begin
 		,PrecioUnidad  money  null
 		,TipoOfertaSisID  int null
 		)
-end
-go
+END
+GO
 
-use belcorpPeru
-go
+USE BelcorpPeru
+GO
 
 IF OBJECT_ID (N'PedidoWebSet', N'U') IS NULL 
-begin
+BEGIN
 	CREATE TABLE PedidoWebSet (
 		SetID INT IDENTITY(1, 1) primary KEY
 		,PedidoID INT
@@ -427,13 +409,11 @@ begin
 		,FechaCreacion DATETIME
 		,FechaModificacion DATETIME
 		)
-end
-
+END
 GO
 
-
 IF OBJECT_ID (N'PedidoWebSetDetalle', N'U') IS  NULL 
-begin
+BEGIN
 	CREATE TABLE PedidoWebSetDetalle (
 		SetDetalleID INT IDENTITY(1, 1) primary KEY
 		,[SetID] INT FOREIGN KEY (SetID) REFERENCES PedidoWebSet(SetID) ON DELETE CASCADE
@@ -446,14 +426,14 @@ begin
 		,PrecioUnidad  money  null
 		,TipoOfertaSisID  int null
 		)
-end
-go
+END
+GO
 
-use belcorpPuertoRico
-go
+USE BelcorpPuertoRico
+GO
 
 IF OBJECT_ID (N'PedidoWebSet', N'U') IS NULL 
-begin
+BEGIN
 	CREATE TABLE PedidoWebSet (
 		SetID INT IDENTITY(1, 1) primary KEY
 		,PedidoID INT
@@ -472,13 +452,11 @@ begin
 		,FechaCreacion DATETIME
 		,FechaModificacion DATETIME
 		)
-end
-
+END
 GO
 
-
 IF OBJECT_ID (N'PedidoWebSetDetalle', N'U') IS  NULL 
-begin
+BEGIN
 	CREATE TABLE PedidoWebSetDetalle (
 		SetDetalleID INT IDENTITY(1, 1) primary KEY
 		,[SetID] INT FOREIGN KEY (SetID) REFERENCES PedidoWebSet(SetID) ON DELETE CASCADE
@@ -491,14 +469,14 @@ begin
 		,PrecioUnidad  money  null
 		,TipoOfertaSisID  int null
 		)
-end
-go
+END
+GO
 
-use belcorpSalvador
-go
+USE BelcorpSalvador
+GO
 
 IF OBJECT_ID (N'PedidoWebSet', N'U') IS NULL 
-begin
+BEGIN
 	CREATE TABLE PedidoWebSet (
 		SetID INT IDENTITY(1, 1) primary KEY
 		,PedidoID INT
@@ -517,13 +495,11 @@ begin
 		,FechaCreacion DATETIME
 		,FechaModificacion DATETIME
 		)
-end
-
+END
 GO
 
-
 IF OBJECT_ID (N'PedidoWebSetDetalle', N'U') IS  NULL 
-begin
+BEGIN
 	CREATE TABLE PedidoWebSetDetalle (
 		SetDetalleID INT IDENTITY(1, 1) primary KEY
 		,[SetID] INT FOREIGN KEY (SetID) REFERENCES PedidoWebSet(SetID) ON DELETE CASCADE
@@ -536,5 +512,6 @@ begin
 		,PrecioUnidad  money  null
 		,TipoOfertaSisID  int null
 		)
-end
-go
+END
+GO
+

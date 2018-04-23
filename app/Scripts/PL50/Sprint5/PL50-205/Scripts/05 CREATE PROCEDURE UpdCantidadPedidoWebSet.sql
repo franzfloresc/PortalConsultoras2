@@ -238,23 +238,5 @@ AS
   WHERE SetId = @SetId  
 GO
 
-USE BelcorpVenezuela
-GO
-IF OBJECT_ID('dbo.UpdCantidadPedidoWebSet', 'P') IS NOT NULL
-	DROP PROC dbo.UpdCantidadPedidoWebSet
-	GO
-CREATE PROCEDURE dbo.UpdCantidadPedidoWebSet  
-                @SetId int,  
-                @Cantidad int  
-AS  
---Cabecera
- UPDATE dbo.PedidoWebSet
- SET Cantidad = @Cantidad
-      , ImporteTotal = (@Cantidad * PrecioUnidad)
- WHERE SetId = @SetId  
- --Detalle
-  UPDATE dbo.PedidoWebSetDetalle  
-  SET Cantidad = @Cantidad * FactorRepeticion  
-  WHERE SetId = @SetId  
-GO
+
 

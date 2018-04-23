@@ -49,33 +49,6 @@ BEGIN
 END
 GO
 
-IF OBJECT_ID('dbo.PedidoWebSet_Eliminar', 'P') IS NOT NULL
-	DROP PROC dbo.PedidoWebSet_Eliminar
-GO
-CREATE PROCEDURE PedidoWebSet_Eliminar @SetId INT
-AS
-BEGIN
-	BEGIN TRAN
-
-	BEGIN TRY
-		DELETE
-		FROM PedidoWebSetDetalle
-		WHERE SetId = @SetId
-
-		DELETE
-		FROM PedidoWebSet
-		WHERE SetId = @setID
-
-		COMMIT
-	END TRY
-
-	BEGIN CATCH
-		ROLLBACK
-	END CATCH
-END
-
-GO
-
 USE BelcorpMexico
 GO
 
@@ -125,33 +98,6 @@ BEGIN
 	FROM PedidoWebSetDetalle
 	WHERE SetId = @SetId
 END
-GO
-
-IF OBJECT_ID('dbo.PedidoWebSet_Eliminar', 'P') IS NOT NULL
-	DROP PROC dbo.PedidoWebSet_Eliminar
-GO
-CREATE PROCEDURE PedidoWebSet_Eliminar @SetId INT
-AS
-BEGIN
-	BEGIN TRAN
-
-	BEGIN TRY
-		DELETE
-		FROM PedidoWebSetDetalle
-		WHERE SetId = @SetId
-
-		DELETE
-		FROM PedidoWebSet
-		WHERE SetId = @setID
-
-		COMMIT
-	END TRY
-
-	BEGIN CATCH
-		ROLLBACK
-	END CATCH
-END
-
 GO
 
 USE BelcorpColombia
@@ -205,33 +151,6 @@ BEGIN
 END
 GO
 
-IF OBJECT_ID('dbo.PedidoWebSet_Eliminar', 'P') IS NOT NULL
-	DROP PROC dbo.PedidoWebSet_Eliminar
-GO
-CREATE PROCEDURE PedidoWebSet_Eliminar @SetId INT
-AS
-BEGIN
-	BEGIN TRAN
-
-	BEGIN TRY
-		DELETE
-		FROM PedidoWebSetDetalle
-		WHERE SetId = @SetId
-
-		DELETE
-		FROM PedidoWebSet
-		WHERE SetId = @setID
-
-		COMMIT
-	END TRY
-
-	BEGIN CATCH
-		ROLLBACK
-	END CATCH
-END
-
-GO
-
 USE BelcorpSalvador
 GO
 
@@ -281,33 +200,6 @@ BEGIN
 	FROM PedidoWebSetDetalle
 	WHERE SetId = @SetId
 END
-GO
-
-IF OBJECT_ID('dbo.PedidoWebSet_Eliminar', 'P') IS NOT NULL
-	DROP PROC dbo.PedidoWebSet_Eliminar
-GO
-CREATE PROCEDURE PedidoWebSet_Eliminar @SetId INT
-AS
-BEGIN
-	BEGIN TRAN
-
-	BEGIN TRY
-		DELETE
-		FROM PedidoWebSetDetalle
-		WHERE SetId = @SetId
-
-		DELETE
-		FROM PedidoWebSet
-		WHERE SetId = @setID
-
-		COMMIT
-	END TRY
-
-	BEGIN CATCH
-		ROLLBACK
-	END CATCH
-END
-
 GO
 
 USE BelcorpPuertoRico
@@ -361,33 +253,6 @@ BEGIN
 END
 GO
 
-IF OBJECT_ID('dbo.PedidoWebSet_Eliminar', 'P') IS NOT NULL
-	DROP PROC dbo.PedidoWebSet_Eliminar
-GO
-CREATE PROCEDURE PedidoWebSet_Eliminar @SetId INT
-AS
-BEGIN
-	BEGIN TRAN
-
-	BEGIN TRY
-		DELETE
-		FROM PedidoWebSetDetalle
-		WHERE SetId = @SetId
-
-		DELETE
-		FROM PedidoWebSet
-		WHERE SetId = @setID
-
-		COMMIT
-	END TRY
-
-	BEGIN CATCH
-		ROLLBACK
-	END CATCH
-END
-
-GO
-
 USE BelcorpPanama
 GO
 
@@ -437,33 +302,6 @@ BEGIN
 	FROM PedidoWebSetDetalle
 	WHERE SetId = @SetId
 END
-GO
-
-IF OBJECT_ID('dbo.PedidoWebSet_Eliminar', 'P') IS NOT NULL
-	DROP PROC dbo.PedidoWebSet_Eliminar
-GO
-CREATE PROCEDURE PedidoWebSet_Eliminar @SetId INT
-AS
-BEGIN
-	BEGIN TRAN
-
-	BEGIN TRY
-		DELETE
-		FROM PedidoWebSetDetalle
-		WHERE SetId = @SetId
-
-		DELETE
-		FROM PedidoWebSet
-		WHERE SetId = @setID
-
-		COMMIT
-	END TRY
-
-	BEGIN CATCH
-		ROLLBACK
-	END CATCH
-END
-
 GO
 
 USE BelcorpGuatemala
@@ -517,33 +355,6 @@ BEGIN
 END
 GO
 
-IF OBJECT_ID('dbo.PedidoWebSet_Eliminar', 'P') IS NOT NULL
-	DROP PROC dbo.PedidoWebSet_Eliminar
-GO
-CREATE PROCEDURE PedidoWebSet_Eliminar @SetId INT
-AS
-BEGIN
-	BEGIN TRAN
-
-	BEGIN TRY
-		DELETE
-		FROM PedidoWebSetDetalle
-		WHERE SetId = @SetId
-
-		DELETE
-		FROM PedidoWebSet
-		WHERE SetId = @setID
-
-		COMMIT
-	END TRY
-
-	BEGIN CATCH
-		ROLLBACK
-	END CATCH
-END
-
-GO
-
 USE BelcorpEcuador
 GO
 
@@ -593,33 +404,6 @@ BEGIN
 	FROM PedidoWebSetDetalle
 	WHERE SetId = @SetId
 END
-GO
-
-IF OBJECT_ID('dbo.PedidoWebSet_Eliminar', 'P') IS NOT NULL
-	DROP PROC dbo.PedidoWebSet_Eliminar
-GO
-CREATE PROCEDURE PedidoWebSet_Eliminar @SetId INT
-AS
-BEGIN
-	BEGIN TRAN
-
-	BEGIN TRY
-		DELETE
-		FROM PedidoWebSetDetalle
-		WHERE SetId = @SetId
-
-		DELETE
-		FROM PedidoWebSet
-		WHERE SetId = @setID
-
-		COMMIT
-	END TRY
-
-	BEGIN CATCH
-		ROLLBACK
-	END CATCH
-END
-
 GO
 
 USE BelcorpDominicana
@@ -673,33 +457,6 @@ BEGIN
 END
 GO
 
-IF OBJECT_ID('dbo.PedidoWebSet_Eliminar', 'P') IS NOT NULL
-	DROP PROC dbo.PedidoWebSet_Eliminar
-GO
-CREATE PROCEDURE PedidoWebSet_Eliminar @SetId INT
-AS
-BEGIN
-	BEGIN TRAN
-
-	BEGIN TRY
-		DELETE
-		FROM PedidoWebSetDetalle
-		WHERE SetId = @SetId
-
-		DELETE
-		FROM PedidoWebSet
-		WHERE SetId = @setID
-
-		COMMIT
-	END TRY
-
-	BEGIN CATCH
-		ROLLBACK
-	END CATCH
-END
-
-GO
-
 USE BelcorpCostaRica
 GO
 
@@ -749,33 +506,6 @@ BEGIN
 	FROM PedidoWebSetDetalle
 	WHERE SetId = @SetId
 END
-GO
-
-IF OBJECT_ID('dbo.PedidoWebSet_Eliminar', 'P') IS NOT NULL
-	DROP PROC dbo.PedidoWebSet_Eliminar
-GO
-CREATE PROCEDURE PedidoWebSet_Eliminar @SetId INT
-AS
-BEGIN
-	BEGIN TRAN
-
-	BEGIN TRY
-		DELETE
-		FROM PedidoWebSetDetalle
-		WHERE SetId = @SetId
-
-		DELETE
-		FROM PedidoWebSet
-		WHERE SetId = @setID
-
-		COMMIT
-	END TRY
-
-	BEGIN CATCH
-		ROLLBACK
-	END CATCH
-END
-
 GO
 
 USE BelcorpChile
@@ -829,33 +559,6 @@ BEGIN
 END
 GO
 
-IF OBJECT_ID('dbo.PedidoWebSet_Eliminar', 'P') IS NOT NULL
-	DROP PROC dbo.PedidoWebSet_Eliminar
-GO
-CREATE PROCEDURE PedidoWebSet_Eliminar @SetId INT
-AS
-BEGIN
-	BEGIN TRAN
-
-	BEGIN TRY
-		DELETE
-		FROM PedidoWebSetDetalle
-		WHERE SetId = @SetId
-
-		DELETE
-		FROM PedidoWebSet
-		WHERE SetId = @setID
-
-		COMMIT
-	END TRY
-
-	BEGIN CATCH
-		ROLLBACK
-	END CATCH
-END
-
-GO
-
 USE BelcorpBolivia
 GO
 
@@ -907,30 +610,4 @@ BEGIN
 END
 GO
 
-IF OBJECT_ID('dbo.PedidoWebSet_Eliminar', 'P') IS NOT NULL
-	DROP PROC dbo.PedidoWebSet_Eliminar
-GO
-CREATE PROCEDURE PedidoWebSet_Eliminar @SetId INT
-AS
-BEGIN
-	BEGIN TRAN
-
-	BEGIN TRY
-		DELETE
-		FROM PedidoWebSetDetalle
-		WHERE SetId = @SetId
-
-		DELETE
-		FROM PedidoWebSet
-		WHERE SetId = @setID
-
-		COMMIT
-	END TRY
-
-	BEGIN CATCH
-		ROLLBACK
-	END CATCH
-END
-
-GO
 

@@ -262,25 +262,4 @@ WHERE pset.Campania = @Campania
 AND pset.ConsultoraID = @ConsultoraId
 GO
 
-USE BelcorpVenezuela
-GO
-IF OBJECT_ID('dbo.GetPedidoWebSetDetalle', 'P') IS NOT NULL
-	DROP PROC dbo.GetPedidoWebSetDetalle
-GO
-CREATE PROCEDURE dbo.GetPedidoWebSetDetalle
-                @Campania AS int,  
-                @ConsultoraId AS bigint  
-AS  
-  SELECT
-   dset.SetId,
-  dset.CuvProducto,
-  dset.PedidoDetalleID,
-  dset.Cantidad,
-  dset.FactorRepeticion
-FROM dbo.PedidoWebSet pset
-INNER JOIN dbo.PedidoWebSetDetalle dset
-  ON pset.SetId = dset.SetId
-WHERE pset.Campania = @Campania
-AND pset.ConsultoraID = @ConsultoraId
-GO
 

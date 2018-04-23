@@ -134,7 +134,7 @@ begin
 					WHERE pwd.CampaniaID = @CampaniaID
 						AND pwd.ConsultoraID = @ConsultoraID
 						AND pwd.CUVPadre IS NULL
-						and PWD.TipoEstrategiaID not in (select tipoestrategiaid from tipoestrategia where codigo in ('001','030','008','007','005','010'))
+						AND PWD.TipoEstrategiaID NOT IN (SELECT tipoestrategiaid FROM tipoestrategia WHERE codigo IN ('001','030','008','007','005','010','002','011')))
 
 					DECLARE @Estrategia2 AS TABLE (
 						EstrategiaID INT
