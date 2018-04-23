@@ -1380,6 +1380,8 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "AdministrarEstrategia");
         }
 
+        #region Nuevo Masivo
+
         public JsonResult InsertEstrategiaTemporal(int campaniaId, int tipoConfigurado, string estrategiaCodigo,
             bool habilitarNemotecnico, int cantGuardadaTemporal, int cantTotal, int nroLote, int pagina, int cantidadOp)
         {
@@ -1481,15 +1483,15 @@ namespace Portal.Consultoras.Web.Controllers
             if (listBeEstrategias == null || !listBeEstrategias.Any())
                 return listaBeEstrategias;
 
-                    var tono =
-                        estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi ||
-                        estrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento ||
-                        estrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ||
-                        estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi ||
-                        estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaDelDia ||
-                        estrategiaCodigo == Constantes.TipoEstrategiaCodigo.LosMasVendidos ||
-                        estrategiaCodigo == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada ||
-                        estrategiaCodigo == Constantes.TipoEstrategiaCodigo.ShowRoom;
+            var tono =
+                estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi ||
+                estrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento ||
+                estrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ||
+                estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi ||
+                estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaDelDia ||
+                estrategiaCodigo == Constantes.TipoEstrategiaCodigo.LosMasVendidos ||
+                estrategiaCodigo == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada ||
+                estrategiaCodigo == Constantes.TipoEstrategiaCodigo.ShowRoom;
 
             foreach (var optEstra in listBeEstrategias)
             {
@@ -1523,7 +1525,7 @@ namespace Portal.Consultoras.Web.Controllers
                     listaBeEstrategias.Add(opt);
                 }
                 catch (Exception ex)
-                    {
+                {
                     LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 }
             }
@@ -1536,121 +1538,187 @@ namespace Portal.Consultoras.Web.Controllers
             decimal precioOferta = 0;
             decimal ganancia = 0;
             string niveles = "";
-                        try
-                        {
-                            using (var svs = new WsGestionWeb())
-                            {
+            try
+            {
+                using (var svs = new WsGestionWeb())
+                {
                     var preciosEstrategia = svs.ObtenerPrecioEstrategia(estra.CUV2, userData.CodigoISO, estra.CampaniaID.ToString());
-                                if (preciosEstrategia != null)
-                                {
-                                    precioOferta = preciosEstrategia.montotal;
-                                    ganancia = preciosEstrategia.montoganacia;
+                    if (preciosEstrategia != null)
+                    {
+                        precioOferta = preciosEstrategia.montotal;
+                        ganancia = preciosEstrategia.montoganacia;
                         niveles = ObtenerTextoNiveles(preciosEstrategia.listaniveles);
-                                }
+                    }
 
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 precioOferta = 0;
                 ganancia = 0;
-                        }
+            }
 
             if (precioOferta > 0) estra.Precio2 = precioOferta;
-                        if (ganancia > 0)
-                        {
+            if (ganancia > 0)
+            {
                 estra.Precio = precioOferta + ganancia;
                 estra.Ganancia = ganancia;
             }
             estra.Niveles = niveles;
 
             return estra;
-                        }
+        }
 
         private BEEstrategia InsertEstrategiaTemporalTono(List<RptProductoEstrategia> productoEstrategias, BEEstrategia estra)
         {
-                        try
-                        {
+            try
+            {
                 if (productoEstrategias.Any())
-                            {
+                {
                     estra.CodigoEstrategia = productoEstrategias[0].codigo_estrategia;
                     estra.TieneVariedad = TieneVariedad(estra.CodigoEstrategia, estra.CUV2);
                     EstrategiaProductoInsertar(productoEstrategias, estra);
                 }
             }
             catch (Exception ex)
-                                {
+            {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                                }
+            }
             return estra;
-                            }
-
+        }
+        
         private BEEstrategia InsertEstrategiaTemporalNemotecnico(List<RptProductoEstrategia> productoEstrategias, BEEstrategia estra)
         {
             try
             {
 
-                                var nemotecnicosLista = new List<string>();
-                                var grupoPrevio = string.Empty;
-                                foreach (var productoEstrategia in productoEstrategias)
-                                {
-                                    var tonoCodEst = productoEstrategia.codigo_estrategia == Constantes.TipoEstrategiaSet.IndividualConTonos
-                                        || productoEstrategia.codigo_estrategia == Constantes.TipoEstrategiaSet.CompuestaFija
-                                        || productoEstrategia.codigo_estrategia == Constantes.TipoEstrategiaSet.CompuestaVariable
-                                            && grupoPrevio != productoEstrategia.grupo;
+                var nemotecnicosLista = new List<string>();
+                var grupoPrevio = string.Empty;
+                foreach (var productoEstrategia in productoEstrategias)
+                {
+                    var tonoCodEst = productoEstrategia.codigo_estrategia == Constantes.TipoEstrategiaSet.IndividualConTonos
+                        || productoEstrategia.codigo_estrategia == Constantes.TipoEstrategiaSet.CompuestaFija
+                        || productoEstrategia.codigo_estrategia == Constantes.TipoEstrategiaSet.CompuestaVariable
+                            && grupoPrevio != productoEstrategia.grupo;
 
-                                    if (!tonoCodEst) continue;
+                    if (!tonoCodEst) continue;
 
-                                    grupoPrevio = productoEstrategia.grupo;
-                                    var cantidad = productoEstrategia.cantidad.ToString().Length < 2
-                                        ? "0" + productoEstrategia.cantidad
-                                        : productoEstrategia.cantidad.ToString();
-                                    nemotecnicosLista.Add(string.Format("{0}#{1}", productoEstrategia.codigo_sap,
-                                        cantidad));
+                    grupoPrevio = productoEstrategia.grupo;
+                    var cantidad = productoEstrategia.cantidad.ToString().Length < 2
+                        ? "0" + productoEstrategia.cantidad
+                        : productoEstrategia.cantidad.ToString();
+                    nemotecnicosLista.Add(string.Format("{0}#{1}", productoEstrategia.codigo_sap,
+                        cantidad));
 
-                                }
-
-                                var nemoTecnicoBusqueda = nemotecnicosLista.Aggregate(string.Empty,
-                                    (current, nemoTecnico) =>
-                                        current + (current == string.Empty ? nemoTecnico : "&" + nemoTecnico));
-
-                                using (var ps = new PedidoServiceClient())
-                                {
-                                    var lstImagenes = ps.GetImagenByNemotecnico(userData.PaisID, 0, null, null, 0, 0, 0,
-                                        nemoTecnicoBusqueda, Constantes.TipoBusqueda.Exacta, 1, 1).ToList();
-                    estra.FotoProducto01 = lstImagenes.Any() ? lstImagenes[0].Foto : string.Empty;
-                                }
-                            }
-                        catch (Exception ex)
-                        {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 }
+
+                var nemoTecnicoBusqueda = nemotecnicosLista.Aggregate(string.Empty,
+                    (current, nemoTecnico) =>
+                        current + (current == string.Empty ? nemoTecnico : "&" + nemoTecnico));
+
+                using (var ps = new PedidoServiceClient())
+                {
+                    var lstImagenes = ps.GetImagenByNemotecnico(userData.PaisID, 0, null, null, 0, 0, 0,
+                        nemoTecnicoBusqueda, Constantes.TipoBusqueda.Exacta, 1, 1).ToList();
+                    estra.FotoProducto01 = lstImagenes.Any() ? lstImagenes[0].Foto : string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
 
             return estra;
-                }
+        }
 
         private int InsertEstrategiaTemporalService(List<BEEstrategia> listaBeEstrategias, int campaniaId, int nroLote)
         {
-                try
-                {
+            try
+            {
                 if (listaBeEstrategias.Any())
+                {
+                    using (var ps = new PedidoServiceClient())
                     {
-                        using (var ps = new PedidoServiceClient())
-                        {
                         nroLote = ps.InsertEstrategiaTemporal(userData.PaisID, listaBeEstrategias.ToArray(), campaniaId,
                                 userData.CodigoUsuario, nroLote);
-                        }
                     }
+                }
                 return nroLote;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return 0;
+            }
+        }
+        
+        public JsonResult InsertEstrategiaOfertaParaTi(int campaniaId, int tipoConfigurado, int estrategiaId, int nroLote)
+        {
+            try
+            {
+                List<BEEstrategia> lst;
+
+                try
+                {
+                    using (var ps = new PedidoServiceClient())
+                    {
+                        lst = ps.GetOfertasParaTiByTipoConfiguradoTemporal(userData.PaisID, campaniaId, tipoConfigurado, nroLote)
+                            .ToList();
+                    }
                 }
                 catch (Exception ex)
                 {
                     LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return 0;
-            }
+                    lst = new List<BEEstrategia>();
                 }
 
+                if (lst.Count > 0)
+                {
+                    try
+                    {
+                        using (var ps = new PedidoServiceClient())
+                        {
+                            ps.InsertEstrategiaOfertaParaTi(userData.PaisID, lst.ToArray(), campaniaId,
+                                userData.CodigoUsuario, estrategiaId);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                        return Json(new
+                        {
+                            success = false,
+                            message = "Error al insertar las estrategias"
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Se insertaron las Estrategias.",
+                        extra = ""
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
+                return Json(new
+                {
+                    success = false,
+                    message = "No existen Estrategias para Insertar"
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        #endregion
 
         public ActionResult ConsultarOfertasParaTiTemporal(string sidx, string sord, int page, int rows,
             string CampaniaID)
@@ -1813,70 +1881,6 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult InsertEstrategiaOfertaParaTi(int campaniaId, int tipoConfigurado, int estrategiaId, int nroLote)
-        {
-            try
-            {
-                List<BEEstrategia> lst;
-
-                try
-                {
-                    using (var ps = new PedidoServiceClient())
-                    {
-                        lst = ps.GetOfertasParaTiByTipoConfiguradoTemporal(userData.PaisID, campaniaId, tipoConfigurado, nroLote)
-                            .ToList();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                    lst = new List<BEEstrategia>();
-                }
-
-                if (lst.Count > 0)
-                {
-                    try
-                    {
-                        using (var ps = new PedidoServiceClient())
-                        {
-                            ps.InsertEstrategiaOfertaParaTi(userData.PaisID, lst.ToArray(), campaniaId,
-                                userData.CodigoUsuario, estrategiaId);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                        return Json(new
-                        {
-                            success = false,
-                            message = "Error al insertar las estrategias"
-                        }, JsonRequestBehavior.AllowGet);
-                    }
-
-                    return Json(new
-                    {
-                        success = true,
-                        message = "Se insertaron las Estrategias.",
-                        extra = ""
-                    }, JsonRequestBehavior.AllowGet);
-                }
-
-                return Json(new
-                {
-                    success = false,
-                    message = "No existen Estrategias para Insertar"
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
 
         public static byte[] ReadFully(Stream input)
         {
