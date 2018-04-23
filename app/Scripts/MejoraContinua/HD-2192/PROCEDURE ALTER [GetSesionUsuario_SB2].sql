@@ -1,7 +1,12 @@
 USE BelcorpColombia
 GO
 
-alter PROCEDURE dbo.GetSesionUsuario_SB2
+IF EXISTS(SELECT * FROM sys.SYSOBJECTS A INNER JOIN SYS.SCHEMAS B ON A.uid =B.schema_id 
+    WHERE A.NAME='GetSesionUsuario_SB2' AND B.name='dbo')
+ DROP PROCEDURE GetSesionUsuario_SB2 
+GO
+
+CREATE PROCEDURE GetSesionUsuario_SB2
 	@CodigoUsuario varchar(25)
 AS
 BEGIN
