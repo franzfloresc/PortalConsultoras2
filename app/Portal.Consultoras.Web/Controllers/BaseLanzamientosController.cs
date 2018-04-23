@@ -89,6 +89,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
+                modelo.MensajeProductoBloqueado = MensajeProductoBloqueado();
+
                 ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
                 ViewBag.Campania = campaniaId;
 
