@@ -2985,7 +2985,9 @@ namespace Portal.Consultoras.Web.Controllers
             var name = string.Empty;
             try
             {
-                name = ((System.Web.HttpRequestWrapper)Request).LogonUserIdentity.Name;
+                var logonUserIdentity = ((System.Web.HttpRequestWrapper) Request).LogonUserIdentity;
+                if (logonUserIdentity != null)
+                    name = logonUserIdentity.Name;
             }
             catch
             {
