@@ -122,7 +122,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 //Informacion de usuario y palancas
                 var usuario = _usuarioBusinessLogic.GetSesionUsuarioPedidoApp(pedidoDetalle.PaisID, pedidoDetalle.CodigoUsuario);
 
-                //Validacion reserve u horario restringido
+                //Validacion reserva u horario restringido
                 var validacionHorario = _pedidoWebBusinessLogic.ValidacionModificarPedido(pedidoDetalle.PaisID,
                                                                     usuario.ConsultoraID,
                                                                     usuario.CampaniaID,
@@ -195,7 +195,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         usuario.ConsecutivoNueva == Constantes.ConsecutivoNuevaConsultora.Consecutivo3)
                     {
                         var PaisesFraccionKit = WebConfig.PaisesFraccionKitNuevas;
-
                         if (!PaisesFraccionKit.Contains(usuario.CodigoISO)) return false;
                         flagkit = true;
                     }
@@ -226,6 +225,29 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var producto = olstProducto.FirstOrDefault();
                 if (producto != null)
                 {
+                    var tipoEstrategiaID = 0;
+                    int.TryParse(producto.TipoEstrategiaID, out tipoEstrategiaID);
+
+                    var detalle = new BEPedidoDetalleAppInsertar()
+                    {
+                        PaisID = paisID,
+                        CodigoUsuario = codigoUsuario,
+                        Cantidad = 1,
+                        Producto = new BEProducto()
+                        {
+                            CUV = obeConfiguracionProgramaNuevas.CUVKit,
+                            PrecioCatalogo = producto.PrecioCatalogo,
+                            TipoEstrategiaID = tipoEstrategiaID.ToString(),
+                            TipoOfertaSisID = 0,
+                            ConfiguracionOfertaID = 0,
+                            IndicadorMontoMinimo = producto.IndicadorMontoMinimo,
+                            MarcaID = producto.MarcaID,
+                        },
+                        EsKitNueva = true
+                    };
+
+                    var result = PedidoInsertar(usuario, detalle);
+                    if (result != Constantes.PedidoAppValidacion.PedidoInsertar.Code.SUCCESS) return false;
 
                     return true;
                 }
@@ -433,7 +455,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 OfertaWeb = false,
                 IndicadorMontoMinimo = pedidoDetalle.Producto.IndicadorMontoMinimo,
                 EsSugerido = false,
-                EsKitNueva = false,
+                EsKitNueva = pedidoDetalle.EsKitNueva,
                 MarcaID = Convert.ToByte(pedidoDetalle.Producto.MarcaID),
                 DescripcionProd = pedidoDetalle.Producto.Descripcion,
                 ImporteTotal = pedidoDetalle.Cantidad * pedidoDetalle.Producto.PrecioCatalogo,
@@ -479,8 +501,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         private BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(BEUsuario usuario)
         {
-            var configuracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
-
             var obeConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas()
             {
                 CampaniaInicio = usuario.CampaniaID.ToString(),
@@ -504,7 +524,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 obeConfiguracionProgramaNuevas = _configuracionProgramaNuevasBusinessLogic.GetConfiguracionProgramaNuevas(usuario.PaisID, obeConfiguracionProgramaNuevas);
             }
 
-            return configuracionProgramaNuevas;
+            return obeConfiguracionProgramaNuevas;
         }
 
         private bool AdministradorPedido(BEUsuario usuario, BEPedidoDetalleAppInsertar pedidoDetalle, BEPedidoWebDetalle obePedidoWebDetalle, 

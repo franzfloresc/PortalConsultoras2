@@ -602,6 +602,7 @@ namespace Portal.Consultoras.BizLogic
                 usuario = configuracionPaisTask.Result;
                 usuario.CodigosRevistaImpresa = codigosRevistasTask.Result;
                 usuario.EsShowRoom = showRoomTask.Result;
+                usuario.EsConsultoraNueva = EsConsultoraNueva(usuario);
             }
             catch (Exception ex)
             {

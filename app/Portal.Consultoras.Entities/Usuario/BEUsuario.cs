@@ -605,6 +605,7 @@ namespace Portal.Consultoras.Entities
         public string MensajeValidacionInteractiva { get; set; }
 
         [DataMember]
+        [Column("ConsultoraNueva")]
         public int ConsultoraNueva
         {
             get { return mConsultoraNueva; }
