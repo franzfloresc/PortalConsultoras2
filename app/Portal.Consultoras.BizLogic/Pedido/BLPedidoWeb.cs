@@ -599,6 +599,16 @@ namespace Portal.Consultoras.BizLogic
                         throw new BizLogicException("No se pudo marcar los pedidos Web como enviados.", ex);
                     }
 
+                    try
+                    {
+                        daPedidoWeb.UpdCuponPedidoWebEnviado(nroLote, marcarPedido);
+                    }
+                    catch (Exception ex)
+                    {
+                        LogManager.SaveLog(ex, usuario, codigoPais);
+                        throw new BizLogicException("No se pudo marcar los cupones de los pedidos web.", ex);
+                    }
+
                     if (incluirConsultora && string.IsNullOrEmpty(errorCoDat))
                     {
                         try
