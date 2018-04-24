@@ -273,6 +273,7 @@
     <Compile Include="Controllers\AdministrarConfiguracionPortalController.cs" />
     <Compile Include="Controllers\AdministrarCuponController.cs" />
     <Compile Include="Controllers\AdministrarEstrategiaController.cs" />
+    <Compile Include="Controllers\AdministrarEstrategiaMasivo.cs" />
     <Compile Include="Controllers\AdministrarGuiaNegocioDigitalizadaController.cs" />
     <Compile Include="Controllers\AdministrarPalancaController.cs" />
     <Compile Include="Controllers\AdministrarEtiquetasController.cs" />

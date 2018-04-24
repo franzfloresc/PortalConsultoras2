@@ -13253,6 +13253,18 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/RemoveDataCache", ReplyAction="http://tempuri.org/ISACService/RemoveDataCacheResponse")]
         System.Threading.Tasks.Task<string> RemoveDataCacheAsync(int paisID, string cacheItemString, string customKey);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarPrecioNivel", ReplyAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarPrecioNivelResponse")]
+        bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int campaniaId, string estrategiaCodigo, string joinCuv);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarPrecioNivel", ReplyAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarPrecioNivelResponse")]
+        System.Threading.Tasks.Task<bool> EstrategiaTemporalActualizarPrecioNivelAsync(int paisId, int campaniaId, string estrategiaCodigo, string joinCuv);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalle", ReplyAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalleResponse")]
+        bool EstrategiaTemporalActualizarSetDetalle(int paisID, int campaniaId, string estrategiaCodigo, string joinCuv);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalle", ReplyAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalleResponse")]
+        System.Threading.Tasks.Task<bool> EstrategiaTemporalActualizarSetDetalleAsync(int paisID, int campaniaId, string estrategiaCodigo, string joinCuv);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia", ReplyAction="http://tempuri.org/ISACService/UpdateBelcorpNoticiaResponse")]
         void UpdateBelcorpNoticia(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad);
         
@@ -14613,6 +14625,22 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public System.Threading.Tasks.Task<string> RemoveDataCacheAsync(int paisID, string cacheItemString, string customKey) {
             return base.Channel.RemoveDataCacheAsync(paisID, cacheItemString, customKey);
+        }
+        
+        public bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int campaniaId, string estrategiaCodigo, string joinCuv) {
+            return base.Channel.EstrategiaTemporalActualizarPrecioNivel(paisId, campaniaId, estrategiaCodigo, joinCuv);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EstrategiaTemporalActualizarPrecioNivelAsync(int paisId, int campaniaId, string estrategiaCodigo, string joinCuv) {
+            return base.Channel.EstrategiaTemporalActualizarPrecioNivelAsync(paisId, campaniaId, estrategiaCodigo, joinCuv);
+        }
+        
+        public bool EstrategiaTemporalActualizarSetDetalle(int paisID, int campaniaId, string estrategiaCodigo, string joinCuv) {
+            return base.Channel.EstrategiaTemporalActualizarSetDetalle(paisID, campaniaId, estrategiaCodigo, joinCuv);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EstrategiaTemporalActualizarSetDetalleAsync(int paisID, int campaniaId, string estrategiaCodigo, string joinCuv) {
+            return base.Channel.EstrategiaTemporalActualizarSetDetalleAsync(paisID, campaniaId, estrategiaCodigo, joinCuv);
         }
         
         public void UpdateBelcorpNoticia(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad) {

@@ -1,5 +1,7 @@
-﻿using Portal.Consultoras.Data;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.BizLogic
@@ -25,5 +27,35 @@ namespace Portal.Consultoras.BizLogic
             var daEstrategia = new DAEstrategia(paisId);
             return daEstrategia.ActualizarTonoEstrategia(estrategiaId, codigoEstrategia, tieneVariedad);
         }
+
+        #region Nuevo Masivo
+        public bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int campaniaId, string estrategiaCodigo, string joinCuv)
+        {
+            try
+            {
+                var daEstrategia = new DAEstrategia(paisId);
+                return daEstrategia.EstrategiaTemporalActualizarPrecioNivel(campaniaId, estrategiaCodigo, joinCuv);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", paisId);
+                return false;
+            }
+        }
+
+        public bool EstrategiaTemporalActualizarSetDetalle(int paisId, int campaniaId, string estrategiaCodigo, string joinCuv)
+        {
+            try
+            {
+                var daEstrategia = new DAEstrategia(paisId);
+                return daEstrategia.EstrategiaTemporalActualizarSetDetalle(campaniaId, estrategiaCodigo, joinCuv);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", paisId);
+                return false;
+            }
+        }
+        #endregion
     }
 }

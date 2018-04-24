@@ -414,13 +414,13 @@ namespace Portal.Consultoras.Data
 
             var command = new SqlCommand("dbo.InsertEstrategiaTemporal");
             command.CommandType = CommandType.StoredProcedure;
-            
+
             command.Parameters.Add(new SqlParameter("@EstrategiaTemporal", SqlDbType.Structured)
             {
                 TypeName = "dbo.EstrategiaTemporalType",
                 Value = new GenericDataReader<BEEstrategiaType>(listaTypes)
             });
-            
+
             command.Parameters.Add(new SqlParameter("@NumeroLoteAnt", SqlDbType.Int) { Value = nroLore });
             command.Parameters.Add(new SqlParameter("@NroLote", SqlDbType.Int) { Direction = ParameterDirection.Output, Value = 0 });
 
@@ -717,5 +717,30 @@ namespace Portal.Consultoras.Data
             }
         }
 
+        #region Nuevo Masivo
+        public bool EstrategiaTemporalActualizarPrecioNivel(int campaniaId, string estrategiaCodigo, string joinCuv)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalActualizarPrecioNivel"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+                Context.Database.AddInParameter(command, "@EstrategiaCodigo", DbType.String, estrategiaCodigo);
+                Context.Database.AddInParameter(command, "@JoinCuv", DbType.String, joinCuv);
+                Context.ExecuteReader(command);
+                return true;
+            }
+        }
+
+        public bool EstrategiaTemporalActualizarSetDetalle(int campaniaId, string estrategiaCodigo, string joinCuv)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalActualizarSetDetalle"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+                Context.Database.AddInParameter(command, "@EstrategiaCodigo", DbType.String, estrategiaCodigo);
+                Context.Database.AddInParameter(command, "@JoinCuv", DbType.String, joinCuv);
+                Context.ExecuteReader(command);
+                return true;
+            }
+        }
+        #endregion
     }
 }

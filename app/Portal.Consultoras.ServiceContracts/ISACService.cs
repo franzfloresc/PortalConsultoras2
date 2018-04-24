@@ -764,5 +764,13 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         string RemoveDataCache(int paisID, string cacheItemString, string customKey);
+
+        #region Nuevo Masivo
+        [OperationContract]
+        bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int campaniaId, string estrategiaCodigo, string joinCuv);
+
+        [OperationContract]
+        bool EstrategiaTemporalActualizarSetDetalle(int paisID, int campaniaId, string estrategiaCodigo, string joinCuv);
+        #endregion
     }
 }

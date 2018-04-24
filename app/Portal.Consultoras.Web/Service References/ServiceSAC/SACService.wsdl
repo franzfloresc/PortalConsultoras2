@@ -272,6 +272,18 @@
   <wsdl:message name="ISACService_RemoveDataCache_OutputMessage">
     <wsdl:part name="parameters" element="tns:RemoveDataCacheResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_EstrategiaTemporalActualizarPrecioNivel_InputMessage">
+    <wsdl:part name="parameters" element="tns:EstrategiaTemporalActualizarPrecioNivel" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_EstrategiaTemporalActualizarPrecioNivel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EstrategiaTemporalActualizarPrecioNivelResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_EstrategiaTemporalActualizarSetDetalle_InputMessage">
+    <wsdl:part name="parameters" element="tns:EstrategiaTemporalActualizarSetDetalle" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_EstrategiaTemporalActualizarSetDetalle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EstrategiaTemporalActualizarSetDetalleResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_UpdateBelcorpNoticia_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateBelcorpNoticia" />
   </wsdl:message>
@@ -1449,6 +1461,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/RemoveDataCache" message="tns:ISACService_RemoveDataCache_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/RemoveDataCacheResponse" message="tns:ISACService_RemoveDataCache_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="EstrategiaTemporalActualizarPrecioNivel">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarPrecioNivel" message="tns:ISACService_EstrategiaTemporalActualizarPrecioNivel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarPrecioNivelResponse" message="tns:ISACService_EstrategiaTemporalActualizarPrecioNivel_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EstrategiaTemporalActualizarSetDetalle">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalle" message="tns:ISACService_EstrategiaTemporalActualizarSetDetalle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalleResponse" message="tns:ISACService_EstrategiaTemporalActualizarSetDetalle_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UpdateBelcorpNoticia">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia" message="tns:ISACService_UpdateBelcorpNoticia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticiaResponse" message="tns:ISACService_UpdateBelcorpNoticia_OutputMessage" />
@@ -2476,6 +2496,24 @@
     </wsdl:operation>
     <wsdl:operation name="RemoveDataCache">
       <soap:operation soapAction="http://tempuri.org/ISACService/RemoveDataCache" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EstrategiaTemporalActualizarPrecioNivel">
+      <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarPrecioNivel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EstrategiaTemporalActualizarSetDetalle">
+      <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalle" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4361,6 +4399,24 @@
     </wsdl:operation>
     <wsdl:operation name="RemoveDataCache">
       <soap:operation soapAction="http://tempuri.org/ISACService/RemoveDataCache" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EstrategiaTemporalActualizarPrecioNivel">
+      <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarPrecioNivel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EstrategiaTemporalActualizarSetDetalle">
+      <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalle" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
