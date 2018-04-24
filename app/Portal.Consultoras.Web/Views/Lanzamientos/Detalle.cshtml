@@ -68,7 +68,8 @@
                         <ul>
                             @foreach (var DescDetalle in Model.ListaDescripcionDetalle)
                             {
-                                <li>@DescDetalle.Trim()</li>
+                                <li><span class="vineta">-</span><span class="txt-des">@DescDetalle.Trim()</span></li>
+                                <div style="clear:both;"></div>
                             }
                         </ul>
                     </div>
