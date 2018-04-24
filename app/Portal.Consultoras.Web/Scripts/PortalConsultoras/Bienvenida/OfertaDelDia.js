@@ -324,9 +324,9 @@ $(document).ready(function () {
             var witem = ((wc) / cantidadProductos);
             var witemc = $($('#divOddCarrusel [data-item]>div').get(0)).innerWidth();
             witemc = (witem - witemc) / 2;
-            $('#divOddCarrusel [data-item]').css("width", witem + "px");
-            $('#divOddCarrusel [data-item]>div').css("margin-left", witemc + "px");
-            $('#divOddCarrusel [data-item]>div').css("margin-right", witemc + "px");
+            //$('#divOddCarrusel [data-item]').css("width", witem + "px");
+            //$('#divOddCarrusel [data-item]>div').css("margin-left", witemc + "px");
+            //$('#divOddCarrusel [data-item]>div').css("margin-right", witemc + "px");
         }
 
         if (cantidadProductos > 3) {

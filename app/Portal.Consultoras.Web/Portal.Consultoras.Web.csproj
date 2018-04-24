@@ -4069,6 +4069,7 @@
     <Content Include="Areas\Mobile\Views\ShowRoom\DetalleOfertaPersonalizado.cshtml" />
     <Content Include="Areas\Mobile\Views\Lanzamientos\Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales.cshtml" />
+    <Content Include="Content\Css\Site\Contenedor\producto.simple.css" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
