@@ -235,6 +235,48 @@ namespace Portal.Consultoras.Data
                 return Context.ExecuteReader(dbCommand);
             }
         }
+        #region Programa Nuevas
+        public IDataReader GetProductosProgramaNuevas(int campianiaID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductosProgramaNuevas");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campianiaID);
 
+            return Context.ExecuteReader(command);
+        }
+
+        public List<BECuvCantidad> GetCuvPedidoWebDetalle(int ConsultoraID, int CampaniaID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCuvPedidoWebDetalle");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Decimal, CampaniaID);
+
+            var lstProducto = new List<BECuvCantidad>();
+            using (IDataReader reader = Context.ExecuteReader(command))
+            {
+                while (reader.Read())
+                {
+                    lstProducto.Add(new BECuvCantidad(reader));
+                }
+            }
+            return lstProducto;
+        }
+        #endregion
+
+        public IDataReader GetProductosExclusivos(int campaniaID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoExclusivos");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetConsultoraProductoExclusivo(int campaniaID, string codigoConsultora)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraProductoExclusivo");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+
+            return Context.ExecuteReader(command);
+        }
     }
 }

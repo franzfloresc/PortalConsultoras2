@@ -739,6 +739,10 @@ namespace Portal.Consultoras.Common
             public const int HVMobileLanding = 2011;
             public const int HVMobileLandingPopup = 2011;
             #endregion
+
+            #region Programa de Nuevas
+            public const string Mensaje1 = "El código solicitado es exclusivo del Programa de Nuevas.";
+            #endregion  
         }
 
         public static class TipoTutorial
@@ -1431,6 +1435,8 @@ namespace Portal.Consultoras.Common
             public const int ValoresPagoEnLinea = 122;
             public const int CantidadCuvMasivo = 137;
             public const short ProlObsCod = 5;
+            public const short RangoCuvNuevas = 6;
+            public const short EncenderProgramaNuevas = 7;
         }
 
         public struct MensajesCDRExpress
@@ -1800,6 +1806,28 @@ namespace Portal.Consultoras.Common
                 public const short BannerCupon = 1;
                 public const short BannerPremio = 2;
             }
+
+            public class MensajeValidacionBusqueda
+            {
+                public const string ConsultoraNoNueva = "El código solicitado es exclusivo del Programa de Nuevas.";
+                public const string NoParticipaProgramaNuevas = "El código solicitado es exclusivo del Programa de Nuevas. Usted ha dejado de participar en el programa.";
+                public const string CuvNoPerteneceASuPrograma = "El codigo ingresado es incorrecto. Revise el folleto del Programa de Nuevas y solicite el que le corresponde.";
+            }
+
+            public class MensajeValidacionCantidadMaxima
+            {
+                public const string ExcedeCantidad = "Las unidades ingresadas exceden el máximo permitido (#n#) en esta campaña";
+            }
+
+            public class MensajeValidacionElectividadProductos
+            {
+                public const string ExisteElectivoEnSuPedido = "El código ingresado no puede ser agregado al pedido. El pedido contiene un pack del Programa de Nuevas.";
+            }
+        }
+
+        public class VentaExclusiva
+        {
+            public const string CuvNoEsVentaExclusiva = "El código solicitado pertenece a la Venta Exclusiva. Usted no cumple las condiciones para solicitarlo.";
         }
 
         public class Comunicado

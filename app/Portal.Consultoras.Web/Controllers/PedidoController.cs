@@ -1239,7 +1239,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (mensaje == "" || resul)
                 {
-                    mensaje = ValidarStockEstrategiaMensaje(entidad.CUV2, entidad.Cantidad, entidad.FlagCantidad);
+                    mensaje = ValidarCantidadMaximaProgramaNuevas(CUV, Convert.ToInt32(Cantidad));
+
+                    if (mensaje == "")
+                        mensaje = ValidarStockEstrategiaMensaje(entidad.CUV2, entidad.Cantidad, entidad.FlagCantidad);
                 }
             }
             catch (FaultException ex)
@@ -1256,7 +1259,27 @@ namespace Portal.Consultoras.Web.Controllers
                 result = mensaje == "" || resul,
                 message = mensaje
             }, JsonRequestBehavior.AllowGet);
+        }
 
+        private string ValidarCantidadMaximaProgramaNuevas(string cuv, int cantidadIngresada)
+        {
+            try
+            {
+                string mensaje = string.Empty;
+
+                using (var svc = new ODSServiceClient())
+                {
+                    mensaje = svc.ValidarAgregarProductosProgramaNuevas(userData.PaisID, userData.CampaniaID, Convert.ToInt32(userData.ConsultoraID), userData.CodigoPrograma,
+                                                                           userData.ConsecutivoNueva, cuv, userData.ParticipaEnProgramaNueva, cantidadIngresada);
+                }
+
+                return mensaje;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+                return "";
+            }
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
@@ -1397,6 +1420,52 @@ namespace Portal.Consultoras.Web.Controllers
             var productosModel = new List<ProductoModel>();
             try
             {
+                #region ValidarProgramaNuevas
+
+                Enumeradores.ValidacionProgramaNuevas num = ValidarProgramaNuevas(model.CUV);
+                switch (num)
+                {
+                    case Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste:
+                        {
+                            productosModel.Add(GetProductoNoExiste());
+                            return Json(productosModel, JsonRequestBehavior.AllowGet);
+                        }
+
+                    case Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva:
+                        {
+                            productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacionBusqueda.ConsultoraNoNueva));
+                            return Json(productosModel, JsonRequestBehavior.AllowGet);
+                        }
+
+                    case Enumeradores.ValidacionProgramaNuevas.NoParticipaEnProgramaNuevas:
+                        {
+                            productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacionBusqueda.NoParticipaProgramaNuevas));
+                            return Json(productosModel, JsonRequestBehavior.AllowGet);
+                        }
+
+                    case Enumeradores.ValidacionProgramaNuevas.CuvNoPerteneceASuPrograma:
+                        {
+                            productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacionBusqueda.CuvNoPerteneceASuPrograma));
+                            return Json(productosModel, JsonRequestBehavior.AllowGet);
+                        }
+
+                    case Enumeradores.ValidacionProgramaNuevas.ExisteUnElectivoEnPedido:
+                        {
+                            productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacionElectividadProductos.ExisteElectivoEnSuPedido));
+                            return Json(productosModel, JsonRequestBehavior.AllowGet);
+                        }
+                }
+
+                #endregion
+                #region Validar Venta exclusiva
+                Enumeradores.ValidacionVentaExclusiva nume = ValidarVentaExclusiva(model.CUV);
+                if (nume == Enumeradores.ValidacionVentaExclusiva.ConsultoraNoVentaExclusiva || nume == Enumeradores.ValidacionVentaExclusiva.CuvNoPerteneceVentaExclusiva)
+                {
+                    productosModel.Add(GetValidacionProgramaNuevas(Constantes.VentaExclusiva.CuvNoEsVentaExclusiva));
+                    return Json(productosModel, JsonRequestBehavior.AllowGet);
+                }
+                #endregion
+
                 var userModel = userData;
                 var productos = SelectProductoByCodigoDescripcionSearchRegionZona(model.CUV, userModel, 1, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
 
@@ -1467,7 +1536,62 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return Json(productosModel, JsonRequestBehavior.AllowGet);
+        }
 
+        private Enumeradores.ValidacionProgramaNuevas ValidarProgramaNuevas(string cuv)
+        {
+            Enumeradores.ValidacionProgramaNuevas numero;
+            try
+            {
+                using (var svc = new ODSServiceClient())
+                {
+                    numero = svc.ValidarBusquedaProgramaNuevas(userData.PaisID, userData.CampaniaID, Convert.ToInt32(userData.ConsultoraID), userData.CodigoPrograma, userData.ConsecutivoNueva, cuv, userData.ParticipaEnProgramaNueva);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                numero = Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
+            }
+            return numero;
+        }
+
+        private Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(string cuv)
+        {
+            try
+            {                
+                bool EsCuvExclusivo = false;
+                using (var svc = new ODSServiceClient())
+                {
+                    EsCuvExclusivo = svc.EsProductoExclusivo(userData.PaisID, userData.CampaniaID, cuv);
+                }
+
+                if (!EsCuvExclusivo) return Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo;
+                var lstExclusivas = ObtenerProductosVentaExclusivaByConsultora(cuv);
+                if (lstExclusivas.Count == 0) return Enumeradores.ValidacionVentaExclusiva.ConsultoraNoVentaExclusiva;
+                if (!lstExclusivas.Any(a => a.Any(b => lstExclusivas.Contains(cuv)))) return Enumeradores.ValidacionVentaExclusiva.CuvNoPerteneceVentaExclusiva;                
+                return Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo;
+            }
+        }
+
+        private List<string> ObtenerProductosVentaExclusivaByConsultora(string cuv)
+        {
+            List<string> lstExclusivas = (List<string>)Session["ListaVentaExclusiva"] ?? new List<string>();
+            if (lstExclusivas.Count == 0)
+            {
+                using (var svc = new ODSServiceClient())
+                {
+                    lstExclusivas = svc.GetConsultoraProductoExclusivo(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora).ToList();
+                }
+                if (lstExclusivas.Count == 0) return lstExclusivas;
+                Session["ListaVentaExclusiva"] = lstExclusivas;                
+            }
+            return lstExclusivas;
         }
 
         private List<ServiceODS.BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(string codigoDescripcion, UsuarioModel userModel, int cantidadFilas, int criterioBusqueda)
@@ -1583,6 +1707,16 @@ namespace Portal.Consultoras.Web.Controllers
         private ProductoModel GetProductoCuvRegular(BECUVCredito cuvCredito)
         {
             return new ProductoModel() { MarcaID = 0, CUV = "Código incorrecto, Para solicitar el set: ingresa el código " + cuvCredito.CuvRegular, TieneSugerido = 0 };
+        }
+
+        private ProductoModel GetValidacionProgramaNuevas(string mensaje)
+        {
+            return new ProductoModel()
+            {                
+                MarcaID = 0,
+                CUV = mensaje,
+                TieneSugerido = 0
+            };
         }
 
         private BEMensajeCUV GetMensajeByCUV(UsuarioModel userModel, string cuv)

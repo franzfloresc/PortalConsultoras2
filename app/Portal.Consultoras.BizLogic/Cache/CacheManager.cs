@@ -39,7 +39,9 @@ namespace Portal.Consultoras.BizLogic
         GNDEstrategia,
         HVEstrategia,
         ConfiguracionValidacion,
-        TablaLogicaDatos
+        TablaLogicaDatos,
+        ProductoProgramaNuevas,
+        ProductosExclusivos
     }
 
     internal class CacheManager<T>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -24,5 +25,10 @@ namespace Portal.Consultoras.BizLogic
         IList<BEProducto> SelectProductoByListaCuvSearchRegionZona(int paisID, int campaniaID, string listaCuv, int regionID, int zonaID, string codigoRegion, string codigoZona, bool validarOpt);
         IList<BEProducto> SelectProductoToKitInicio(int paisID, int campaniaID, string cuv);
         int UpdProductoDescripcion(BEProductoDescripcion producto, string codigoUsuario);
+        Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas);
+        string ValidarAgregarProductosProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas, int cantidadIngresada);
+        List<string> GetProductosExclusivosCache(int paisID, int campaniaID, string cuv);
+        bool EsProductoExclusivo(int paisID, int campaniaID, string cuv);
+        List<string> GetConsultoraProductoExclusivo(int paisID, int campaniaID, string codigoConsultora);
     }
 }

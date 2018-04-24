@@ -30,6 +30,8 @@
       <xsd:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
+      <xsd:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+      <xsd:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IODSService_GetProductoComercialByPaisAndCampania_InputMessage">
@@ -121,12 +123,6 @@
   </wsdl:message>
   <wsdl:message name="IODSService_GetSaldoActualConsultora_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetSaldoActualConsultoraResponse" />
-  </wsdl:message>
-  <wsdl:message name="IODSService_GetPagoEnLineaInfo_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetPagoEnLineaInfo" />
-  </wsdl:message>
-  <wsdl:message name="IODSService_GetPagoEnLineaInfo_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetPagoEnLineaInfoResponse" />
   </wsdl:message>
   <wsdl:message name="IODSService_GetMensajesCUVsByPaisAndCampania_InputMessage">
     <wsdl:part name="parameters" element="tns:GetMensajesCUVsByPaisAndCampania" />
@@ -266,6 +262,30 @@
   <wsdl:message name="IODSService_GetListBrothersByCUV_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetListBrothersByCUVResponse" />
   </wsdl:message>
+  <wsdl:message name="IODSService_ValidarBusquedaProgramaNuevas_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarBusquedaProgramaNuevas" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_ValidarBusquedaProgramaNuevas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarBusquedaProgramaNuevasResponse" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_ValidarAgregarProductosProgramaNuevas_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarAgregarProductosProgramaNuevas" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_ValidarAgregarProductosProgramaNuevas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarAgregarProductosProgramaNuevasResponse" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_EsProductoExclusivo_InputMessage">
+    <wsdl:part name="parameters" element="tns:EsProductoExclusivo" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_EsProductoExclusivo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EsProductoExclusivoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_GetConsultoraProductoExclusivo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConsultoraProductoExclusivo" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_GetConsultoraProductoExclusivo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConsultoraProductoExclusivoResponse" />
+  </wsdl:message>
   <wsdl:portType name="IODSService">
     <wsdl:operation name="GetProductoComercialByPaisAndCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetProductoComercialByPaisAndCampania" message="tns:IODSService_GetProductoComercialByPaisAndCampania_InputMessage" />
@@ -326,10 +346,6 @@
     <wsdl:operation name="GetSaldoActualConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetSaldoActualConsultora" message="tns:IODSService_GetSaldoActualConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetSaldoActualConsultoraResponse" message="tns:IODSService_GetSaldoActualConsultora_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetPagoEnLineaInfo">
-      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetPagoEnLineaInfo" message="tns:IODSService_GetPagoEnLineaInfo_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetPagoEnLineaInfoResponse" message="tns:IODSService_GetPagoEnLineaInfo_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetMensajesCUVsByPaisAndCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetMensajesCUVsByPaisAndCampania" message="tns:IODSService_GetMensajesCUVsByPaisAndCampania_InputMessage" />
@@ -422,6 +438,22 @@
     <wsdl:operation name="GetListBrothersByCUV">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetListBrothersByCUV" message="tns:IODSService_GetListBrothersByCUV_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetListBrothersByCUVResponse" message="tns:IODSService_GetListBrothersByCUV_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarBusquedaProgramaNuevas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevas" message="tns:IODSService_ValidarBusquedaProgramaNuevas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasResponse" message="tns:IODSService_ValidarBusquedaProgramaNuevas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarAgregarProductosProgramaNuevas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ValidarAgregarProductosProgramaNuevas" message="tns:IODSService_ValidarAgregarProductosProgramaNuevas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/ValidarAgregarProductosProgramaNuevasResponse" message="tns:IODSService_ValidarAgregarProductosProgramaNuevas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EsProductoExclusivo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/EsProductoExclusivo" message="tns:IODSService_EsProductoExclusivo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/EsProductoExclusivoResponse" message="tns:IODSService_EsProductoExclusivo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultoraProductoExclusivo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetConsultoraProductoExclusivo" message="tns:IODSService_GetConsultoraProductoExclusivo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetConsultoraProductoExclusivoResponse" message="tns:IODSService_GetConsultoraProductoExclusivo_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IODSService" type="tns:IODSService">
@@ -554,15 +586,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetSaldoActualConsultora">
       <soap:operation soapAction="http://tempuri.org/IODSService/GetSaldoActualConsultora" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPagoEnLineaInfo">
-      <soap:operation soapAction="http://tempuri.org/IODSService/GetPagoEnLineaInfo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -770,6 +793,42 @@
     </wsdl:operation>
     <wsdl:operation name="GetListBrothersByCUV">
       <soap:operation soapAction="http://tempuri.org/IODSService/GetListBrothersByCUV" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarBusquedaProgramaNuevas">
+      <soap:operation soapAction="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarAgregarProductosProgramaNuevas">
+      <soap:operation soapAction="http://tempuri.org/IODSService/ValidarAgregarProductosProgramaNuevas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EsProductoExclusivo">
+      <soap:operation soapAction="http://tempuri.org/IODSService/EsProductoExclusivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultoraProductoExclusivo">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetConsultoraProductoExclusivo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -916,15 +975,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetPagoEnLineaInfo">
-      <soap:operation soapAction="http://tempuri.org/IODSService/GetPagoEnLineaInfo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetMensajesCUVsByPaisAndCampania">
       <soap:operation soapAction="http://tempuri.org/IODSService/GetMensajesCUVsByPaisAndCampania" style="document" />
       <wsdl:input>
@@ -1125,6 +1175,42 @@
     </wsdl:operation>
     <wsdl:operation name="GetListBrothersByCUV">
       <soap:operation soapAction="http://tempuri.org/IODSService/GetListBrothersByCUV" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarBusquedaProgramaNuevas">
+      <soap:operation soapAction="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarAgregarProductosProgramaNuevas">
+      <soap:operation soapAction="http://tempuri.org/IODSService/ValidarAgregarProductosProgramaNuevas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EsProductoExclusivo">
+      <soap:operation soapAction="http://tempuri.org/IODSService/EsProductoExclusivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultoraProductoExclusivo">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetConsultoraProductoExclusivo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

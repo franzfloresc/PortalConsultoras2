@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.ServiceContracts;
 using System;
@@ -8,7 +9,7 @@ namespace Portal.Consultoras.Service
 {
     public class ODSService : IODSService
     {
-        private readonly BLProducto BLProducto;
+        private readonly IProductoBusinessLogic BLProducto;
         private readonly BLMensajeCUV BLMensajeCUV;
         private readonly BLConsultora BLConsultora;
         private readonly BLTipoMeta BLTipoMeta;
@@ -256,5 +257,28 @@ namespace Portal.Consultoras.Service
         {
             return BLProducto.GetListBrothersByCUV(paisID, codCampania, cuv);
         }
+        #region MyRegion
+        public Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas)
+        {
+            return BLProducto.ValidarBusquedaProgramaNuevas(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv, participaProgramaNuevas);
+        }
+
+        public string ValidarAgregarProductosProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas, int cantidadIngresada)
+        {
+            return BLProducto.ValidarAgregarProductosProgramaNuevas(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv, participaProgramaNuevas, cantidadIngresada);
+        }
+        #endregion
+
+        #region VentaExclusiva
+        public bool EsProductoExclusivo(int paisID, int campaniaID, string cuv)
+        {
+            return BLProducto.EsProductoExclusivo(paisID, campaniaID, cuv);
+        }
+
+        public IList<string> GetConsultoraProductoExclusivo(int paisID, int campaniaID, string codigoConsultora)
+        {
+            return BLProducto.GetConsultoraProductoExclusivo(paisID, campaniaID, codigoConsultora);
+        }
+        #endregion
     }
 }

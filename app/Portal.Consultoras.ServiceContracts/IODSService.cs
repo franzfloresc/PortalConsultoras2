@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Entities;
+using Portal.Consultoras.Common;
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
@@ -152,5 +153,21 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BEProducto> GetListBrothersByCUV(int paisID, int codCampania, string cuv);
+
+        #region ProgramaNuevas
+        [OperationContract]
+        Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas);
+
+        [OperationContract]
+        string ValidarAgregarProductosProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas, int cantidadIngresada);
+        #endregion
+
+        #region ValidarVentaExclusiva
+        [OperationContract]
+        bool EsProductoExclusivo(int paisID, int campaniaID, string cuv);
+
+        [OperationContract]
+        IList<string> GetConsultoraProductoExclusivo(int paisID, int campaniaID, string codigoConsultora);
+        #endregion
     }
 }

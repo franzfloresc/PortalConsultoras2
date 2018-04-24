@@ -4147,6 +4147,39 @@
     </None>
     <None Include="Service References\ServiceODS\configuration91.svcinfo" />
     <None Include="Service References\ServiceODS\configuration.svcinfo" />
+    <None Include="Service References\ServiceODS\ODSService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService31.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService310.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService32.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService33.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService34.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService35.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService36.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService37.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService38.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService39.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceODS\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

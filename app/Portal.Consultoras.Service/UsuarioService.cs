@@ -829,5 +829,11 @@ namespace Portal.Consultoras.Service
             return (BLUsuario.GetCodigoSMS(paisID, CodigoConsultora, Origen));
         }
         #endregion
+
+        public bool GetConsultoraParticipaEnPrograma(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetConsultoraParticipaEnPrograma(paisID, codigoPrograma, codigoConsultora, campaniaID);
+        }
     }
 }
