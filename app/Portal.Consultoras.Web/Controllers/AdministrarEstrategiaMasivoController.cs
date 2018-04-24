@@ -1,40 +1,24 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Common.MagickNet;
-using Portal.Consultoras.Web.CustomHelpers;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceGestionWebPROL;
-using Portal.Consultoras.Web.ServiceODS;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models.AdministrarEstrategia;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.ServiceModel;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
-using System.Xml.Linq;
-using Portal.Consultoras.Web.ServiceUsuario;
-using BEConfiguracionPaisDatos = Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarEstrategiaMasivoController : BaseController
     {
-        public JsonResult InsertEstrategiaTemporal(int campaniaId, int tipoConfigurado, string estrategiaCodigo,
-           bool habilitarNemotecnico, int cantGuardadaTemporal, int cantTotal, int nroLote, int pagina, int cantidadOp)
+        public JsonResult InsertEstrategiaTemporal(AdministrarEstrategiaMasivoModel entidadMasivo)
         {
-
             try
             {
-                int cantidadCuv = ObtenerValorTablaLogicaInt(userData.PaisID, Constantes.TablaLogica.CantidadCuvMasivo, Constantes.TablaLogicaDato.CantidadCuvMasivo_NuevoMasivo, true);
-                if (cantidadCuv <= 0)
+                entidadMasivo.CantidadCuv = TablaLogicaObtenerCantidadCuvPagina(entidadMasivo);
+                if (entidadMasivo.CantidadCuv <= 0)
                 {
                     return Json(new
                     {
@@ -43,47 +27,46 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
 
-                pagina = Math.Max(pagina, 1);
-                bool rpta;
-                List<BEEstrategia> listBeEstrategias = InsertEstrategiaTemporalGetOfertas(campaniaId, tipoConfigurado, estrategiaCodigo, pagina, cantidadCuv, out rpta);
+                entidadMasivo.Pagina = Math.Max(entidadMasivo.Pagina, 1);
+                var cantTotalPagina = (entidadMasivo.CantTotal / entidadMasivo.CantidadCuv) + (entidadMasivo.CantTotal % entidadMasivo.CantidadCuv == 0 ? 0 : 1);
+                if (cantTotalPagina < entidadMasivo.Pagina)
+                {
+                    if (cantTotalPagina > 0)
+                    {
+                        MasivoEstrategiaTemporalExecComplemento(entidadMasivo);
+                    }
 
-                if (!rpta)
+                    return Json(new
+                    {
+                        success = cantTotalPagina > 0,
+                        message = cantTotalPagina > 0 ? "" : "No existen Estrategias para Insertar",
+                        continuaPaso = true
+                    }, JsonRequestBehavior.AllowGet);
+                }
+                
+                var nroLoteAux = MasivoEstrategiaTemporalInsertar(entidadMasivo);
+
+                if (nroLoteAux <= 0)
                 {
                     return Json(new
                     {
                         success = false,
-                        message = "No se encontraron productos en ods.productocomercial."
+                        message = "No existen Estrategias para Insertar"
                     }, JsonRequestBehavior.AllowGet);
                 }
-
-                if (!listBeEstrategias.Any())
+                else
                 {
-                    var cantTotalPagina = (cantidadOp / cantidadCuv) + (cantidadOp % cantidadCuv == 0 ? 0 : 1);
-                    if (cantTotalPagina <= pagina)
-                    {
-                        return Json(new
-                        {
-                            success = cantGuardadaTemporal > 0,
-                            message = cantGuardadaTemporal > 0 ? "" : "No existen Estrategias para Insertar"
-                        }, JsonRequestBehavior.AllowGet);
-                    }
+                    entidadMasivo.NroLote = nroLoteAux;
                 }
 
-                string joinCuv = InsertEstrategiaTemporalJoinCuv(listBeEstrategias);
-
-                MasivoEstrategiaTemporalPrecio(campaniaId, estrategiaCodigo, joinCuv);
-                MasivoEstrategiaTemporalSetDetalle(campaniaId, estrategiaCodigo, joinCuv);
-                
-                nroLote = InsertEstrategiaTemporalService(listBeEstrategias, campaniaId, nroLote);
 
                 return Json(new
                 {
-                    success = nroLote > 0,
-                    message = nroLote > 0 ? "Se insertaron en la tabla temporal de Estrategia." : "Error al insertar las estrategias",
-                    extra = "",
-                    pagina,
-                    cantGuardadaTemporal = listBeEstrategias.Count,
-                    NroLote = nroLote
+                    success = entidadMasivo.NroLote > 0,
+                    message = entidadMasivo.NroLote > 0 ? "Se insertaron en la tabla temporal de Estrategia." : "Error al insertar las estrategias",
+                    entidadMasivo.Pagina,
+                    entidadMasivo.NroLote,
+                    entidadMasivo.CantidadCuv
                 }, JsonRequestBehavior.AllowGet);
 
             }
@@ -106,6 +89,51 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
 
+        }
+
+        private int TablaLogicaObtenerCantidadCuvPagina(AdministrarEstrategiaMasivoModel entidadMasivo)
+        {
+            if (entidadMasivo.CantidadCuv <= 0)
+            {
+                entidadMasivo.CantidadCuv = ObtenerValorTablaLogicaInt(userData.PaisID, Constantes.TablaLogica.CantidadCuvMasivo, Constantes.TablaLogicaDato.CantidadCuvMasivo_NuevoMasivo, true);
+            }
+            return entidadMasivo.CantidadCuv;
+        }
+
+        private int MasivoEstrategiaTemporalInsertar(AdministrarEstrategiaMasivoModel entidadMasivo)
+        {
+            int lote = 0;
+            try
+            {
+                using (var svc = new SACServiceClient())
+                {
+                    //lote = svc.EstrategiaTemporalInsertarMasivo(userData.PaisID, entidadMasivo.CampaniaId, entidadMasivo.EstrategiaCodigo, entidadMasivo.Pagina, entidadMasivo.CantidadCuv, entidadMasivo.NroLote).ToList();
+                }
+            }
+            catch (TimeoutException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return lote;
+        }
+
+        private bool MasivoEstrategiaTemporalExecComplemento(AdministrarEstrategiaMasivoModel entidadMasivo)
+        {
+            bool rpta = true;
+            try
+            {
+                MasivoEstrategiaTemporalPrecio(entidadMasivo);
+                MasivoEstrategiaTemporalSetDetalle(entidadMasivo);
+            }
+            catch (Exception)
+            {
+                rpta = false;
+            }
+            return rpta;
         }
 
         private List<BEEstrategia> InsertEstrategiaTemporalGetOfertas(int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv, out bool rpta)
@@ -161,14 +189,14 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private bool MasivoEstrategiaTemporalPrecio(int campaniaId, string estrategiaCodigo, string joinCuv)
+        private bool MasivoEstrategiaTemporalPrecio(AdministrarEstrategiaMasivoModel entidadMasivo)
         {
             bool rpta;
             try
             {
                 using (var svc = new SACServiceClient())
                 {
-                    rpta = svc.EstrategiaTemporalActualizarPrecioNivel(userData.PaisID, campaniaId, estrategiaCodigo, joinCuv);
+                    rpta = svc.EstrategiaTemporalActualizarPrecioNivel(userData.PaisID, entidadMasivo.NroLote);
                 }
                 rpta = true;
             }
@@ -181,18 +209,18 @@ namespace Portal.Consultoras.Web.Controllers
             return rpta;
         }
 
-        private bool MasivoEstrategiaTemporalSetDetalle(int campaniaId, string estrategiaCodigo, string joinCuv)
+        private bool MasivoEstrategiaTemporalSetDetalle(AdministrarEstrategiaMasivoModel entidadMasivo)
         {
             bool rpta = false;
             try
             {
                 var codigo = ObtenerValorTablaLogicaInt(userData.PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.Tonos, true);
-                if (codigo > campaniaId)
+                if (codigo > entidadMasivo.CampaniaId)
                     return rpta;
 
                 using (var svc = new SACServiceClient())
                 {
-                    rpta = svc.EstrategiaTemporalActualizarSetDetalle(userData.PaisID, campaniaId, estrategiaCodigo, joinCuv);
+                    rpta = svc.EstrategiaTemporalActualizarSetDetalle(userData.PaisID, entidadMasivo.NroLote);
                 }
                 rpta = true;
             }

@@ -718,25 +718,36 @@ namespace Portal.Consultoras.Data
         }
 
         #region Nuevo Masivo
-        public bool EstrategiaTemporalActualizarPrecioNivel(int campaniaId, string estrategiaCodigo, string joinCuv)
+
+        public bool EstrategiaTemporalInsertarMasivo(int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote)
         {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalActualizarPrecioNivel"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalInsertarMasivo"))
             {
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
                 Context.Database.AddInParameter(command, "@EstrategiaCodigo", DbType.String, estrategiaCodigo);
-                Context.Database.AddInParameter(command, "@JoinCuv", DbType.String, joinCuv);
+                Context.Database.AddInParameter(command, "@Pagina", DbType.Int32, pagina);
+                Context.Database.AddInParameter(command, "@CantidadCuv", DbType.Int32, cantidadCuv);
+                Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+                Context.ExecuteReader(command);
+                return true;
+            }
+        }
+        
+        public bool EstrategiaTemporalActualizarPrecioNivel(int nroLote)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalActualizarPrecioNivel"))
+            {
+                Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
                 Context.ExecuteReader(command);
                 return true;
             }
         }
 
-        public bool EstrategiaTemporalActualizarSetDetalle(int campaniaId, string estrategiaCodigo, string joinCuv)
+        public bool EstrategiaTemporalActualizarSetDetalle(int nroLote)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalActualizarSetDetalle"))
             {
-                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
-                Context.Database.AddInParameter(command, "@EstrategiaCodigo", DbType.String, estrategiaCodigo);
-                Context.Database.AddInParameter(command, "@JoinCuv", DbType.String, joinCuv);
+                Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
                 Context.ExecuteReader(command);
                 return true;
             }

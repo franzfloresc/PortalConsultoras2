@@ -54,13 +54,13 @@
         isNuevo: false,
         cantidadPrecargar: 0,
         cantidadPrecargar2: 0,
-        cantidadOp: 0,
+        cantidadTotal: 0,
         imagen: "",
         isVistaPreviaOpened: false,
         paisNombre: "",
-        cantGuardadaTemporal: 0,
         NroLote: 0,
-        Pagina: 0
+        Pagina: 0,
+        CantidadCuv: 0
     }
 
     var _codigoEstrategia = {
@@ -789,7 +789,7 @@
             _variables.cantidadPrecargar = parseInt(cantidad);
         
         if (tipo == "0")
-            _variables.cantidadOp = parseInt(cantidad);
+            _variables.cantidadTotal = parseInt(cantidad);
 
         if (cantidad != "0")
             text = rowObject[2] +
@@ -3640,9 +3640,9 @@
         },
         clickNuevoMasivo: function () {
             _variables.NroLote = 0;
-            _variables.cantGuardadaTemporal = 0;
             _variables.Pagina = 0;
-            _variables.cantidadOp = 0;
+            _variables.cantidadTotal = 0;
+            _variables.CantidadCuv = 0;
             if (_validarMasivo()) {
                 $("#divMasivoPaso1").show();
                 $("#divMasivoPaso2").hide();
@@ -3711,22 +3711,21 @@
         },
         clickAceptarMasivo1: function () {
             var params = {
-                campaniaId: parseInt($("#ddlCampania").val()),
-                tipoConfigurado: 2,
-                estrategiaCodigo: $("#ddlTipoEstrategia").find(":selected").data("codigo"),
-                habilitarNemotecnico: _config.habilitarNemotecnico,
-                cantGuardadaTemporal: _variables.cantGuardadaTemporal,
-                cantTotal: _variables.cantidadPrecargar,
-                nroLote: _variables.NroLote,
-                pagina: _variables.Pagina,
-                cantidadOp: _variables.cantidadOp
+                CampaniaId: parseInt($("#ddlCampania").val()),
+                TipoConfigurado: 2,
+                EstrategiaCodigo: $("#ddlTipoEstrategia").find(":selected").data("codigo"),
+                HabilitarNemotecnico: _config.habilitarNemotecnico,
+                CantTotal: _variables.cantidadTotal,
+                NroLote: _variables.NroLote,
+                Pagina: _variables.Pagina,
+                CantidadCuv: _variables.CantidadCuv
             };
 
             waitingDialog();
 
             jQuery.ajax({
                 type: "POST",
-                url: baseUrl + "AdministrarEstrategia/InsertEstrategiaTemporal",
+                url: baseUrl + "AdministrarEstrategiaMasivo/InsertEstrategiaTemporal",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(params),
@@ -3735,18 +3734,13 @@
                     console.log(data);
                     if (data.success) {
                         closeWaitingDialog();
-                        if (data.cantGuardadaTemporal != undefined) {
-                            _variables.Pagina = (data.pagina || 0) + 1;
+                        if (data.continuaPaso == undefined) {
+                            _variables.Pagina = (data.Pagina || 0) + 1;
                             _variables.NroLote = data.NroLote;
-                            _variables.cantGuardadaTemporal += parseInt(data.cantGuardadaTemporal, 10)
-                            if (_variables.cantGuardadaTemporal >= _variables.cantidadPrecargar) {
-                                _fnGrillaEstrategias2();
-                            }
-                            else {
-                                _eventos.clickAceptarMasivo1();
-                            }
+                            _variables.CantidadCuv = _variables.CantidadCuv || data.CantidadCuv;
+                            _eventos.clickAceptarMasivo1();
                         }
-                        else if (_variables.cantGuardadaTemporal > 0) {
+                        else if (_variables.continuaPaso === true) {
                             _fnGrillaEstrategias2();
                         }
                     } else {
@@ -4192,13 +4186,15 @@
         changePais: function () {
             $("#hdTipoConsulta").attr("value", "0");
             $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
-            var Id = $(this).val();
+            var Id = $(this).val() || "";
+            Id = Id == "" ? 0 : Id;
             waitingDialog({});
             $.ajaxSetup({ cache: false });
+
             $.ajax({
                 type: "GET",
                 url: baseUrl + "AdministrarEstrategia/ObtenterCampanias",
-                data: "PaisID=" + (Id == "" ? 0 : Id),
+                data: "PaisID=" + Id,
                 cache: false,
                 dataType: "Json",
                 success: function (data) {
@@ -4244,11 +4240,13 @@
                 }
             });
 
-            $.getJSON(baseUrl + "MatrizComercial/ObtenerISOPais",
-                { paisID: Id },
-                function (data) {
-                    closeWaitingDialog();
-                });
+            if (Id > 0) {
+                $.getJSON(baseUrl + "MatrizComercial/ObtenerISOPais",
+                    { paisID: Id },
+                    function (data) {
+                        closeWaitingDialog();
+                    });
+            }
 
         },
         keyUpCuv: function() {

@@ -272,6 +272,12 @@
   <wsdl:message name="ISACService_RemoveDataCache_OutputMessage">
     <wsdl:part name="parameters" element="tns:RemoveDataCacheResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_EstrategiaTemporalInsertarMasivo_InputMessage">
+    <wsdl:part name="parameters" element="tns:EstrategiaTemporalInsertarMasivo" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_EstrategiaTemporalInsertarMasivo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EstrategiaTemporalInsertarMasivoResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_EstrategiaTemporalActualizarPrecioNivel_InputMessage">
     <wsdl:part name="parameters" element="tns:EstrategiaTemporalActualizarPrecioNivel" />
   </wsdl:message>
@@ -1461,6 +1467,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/RemoveDataCache" message="tns:ISACService_RemoveDataCache_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/RemoveDataCacheResponse" message="tns:ISACService_RemoveDataCache_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="EstrategiaTemporalInsertarMasivo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalInsertarMasivo" message="tns:ISACService_EstrategiaTemporalInsertarMasivo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalInsertarMasivoResponse" message="tns:ISACService_EstrategiaTemporalInsertarMasivo_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="EstrategiaTemporalActualizarPrecioNivel">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarPrecioNivel" message="tns:ISACService_EstrategiaTemporalActualizarPrecioNivel_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarPrecioNivelResponse" message="tns:ISACService_EstrategiaTemporalActualizarPrecioNivel_OutputMessage" />
@@ -2496,6 +2506,15 @@
     </wsdl:operation>
     <wsdl:operation name="RemoveDataCache">
       <soap:operation soapAction="http://tempuri.org/ISACService/RemoveDataCache" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EstrategiaTemporalInsertarMasivo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalInsertarMasivo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4399,6 +4418,15 @@
     </wsdl:operation>
     <wsdl:operation name="RemoveDataCache">
       <soap:operation soapAction="http://tempuri.org/ISACService/RemoveDataCache" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EstrategiaTemporalInsertarMasivo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalInsertarMasivo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

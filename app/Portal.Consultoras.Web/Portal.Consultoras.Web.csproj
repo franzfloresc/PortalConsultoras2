@@ -273,7 +273,7 @@
     <Compile Include="Controllers\AdministrarConfiguracionPortalController.cs" />
     <Compile Include="Controllers\AdministrarCuponController.cs" />
     <Compile Include="Controllers\AdministrarEstrategiaController.cs" />
-    <Compile Include="Controllers\AdministrarEstrategiaMasivo.cs" />
+    <Compile Include="Controllers\AdministrarEstrategiaMasivoController.cs" />
     <Compile Include="Controllers\AdministrarGuiaNegocioDigitalizadaController.cs" />
     <Compile Include="Controllers\AdministrarPalancaController.cs" />
     <Compile Include="Controllers\AdministrarEtiquetasController.cs" />
@@ -300,6 +300,7 @@
     <Compile Include="Controllers\CatalogosBelcorpController.cs" />
     <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
+    <Compile Include="Models\AdministrarEstrategia\AdministrarEstrategiaMasivoModel.cs" />
     <Compile Include="Models\Estrategia\OfertaDelDia\DataModel.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\BannerInferiorConfiguracion.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\IBannerInferiorConfiguracion.cs" />

@@ -29,12 +29,27 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #region Nuevo Masivo
-        public bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int campaniaId, string estrategiaCodigo, string joinCuv)
+
+        public bool EstrategiaTemporalInsertarMasivo(int paisId, int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote)
         {
             try
             {
                 var daEstrategia = new DAEstrategia(paisId);
-                return daEstrategia.EstrategiaTemporalActualizarPrecioNivel(campaniaId, estrategiaCodigo, joinCuv);
+                return daEstrategia.EstrategiaTemporalInsertarMasivo(campaniaId, estrategiaCodigo, pagina, cantidadCuv, nroLote);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", paisId);
+                return false;
+            }
+        }
+        
+        public bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int nroLote)
+        {
+            try
+            {
+                var daEstrategia = new DAEstrategia(paisId);
+                return daEstrategia.EstrategiaTemporalActualizarPrecioNivel(nroLote);
             }
             catch (Exception ex)
             {
@@ -43,12 +58,12 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        public bool EstrategiaTemporalActualizarSetDetalle(int paisId, int campaniaId, string estrategiaCodigo, string joinCuv)
+        public bool EstrategiaTemporalActualizarSetDetalle(int paisId, int nroLote)
         {
             try
             {
                 var daEstrategia = new DAEstrategia(paisId);
-                return daEstrategia.EstrategiaTemporalActualizarSetDetalle(campaniaId, estrategiaCodigo, joinCuv);
+                return daEstrategia.EstrategiaTemporalActualizarSetDetalle(nroLote);
             }
             catch (Exception ex)
             {
