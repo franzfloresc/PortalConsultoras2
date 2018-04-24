@@ -330,3 +330,16 @@
                     width: 100%;
                 }
 
+
+
+.set_encuentras_producto .slick-slide {
+    padding: 0 .7% !important;
+}
+
+.producto_img_mobile_bpt img {
+    padding: 0 10% !important;
+}
+
+.text_descrition_prd_bpt {
+    padding: 0 10% !important;
+}

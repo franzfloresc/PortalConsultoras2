@@ -81,7 +81,7 @@
         if (setRelacionados.length == 0) {
             return false;
         }
-        //data.lista = setRelacionados;
+        data.lista = setRelacionados;
         SetHandlebars(_elements.idPlantillaProductoLanding, data, _elements.divCarruselSetsProductosRelacionados);
         EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
 
