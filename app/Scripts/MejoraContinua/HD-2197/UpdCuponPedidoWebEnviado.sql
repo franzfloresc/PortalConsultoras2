@@ -1,7 +1,9 @@
-GO
+﻿GO
 USE BelcorpPeru
 GO
-DROP PROCEDURE IF EXISTS dbo.UpdCuponPedidoWebEnviado;
+IF EXISTS(SELECT * FROM sys.SYSOBJECTS A INNER JOIN SYS.SCHEMAS B ON A.uid =B.schema_id
+    WHERE A.NAME='UpdCuponPedidoWebEnviado' AND B.name='dbo')
+ DROP PROCEDURE dbo.UpdCuponPedidoWebEnviado
 GO
 
 CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
@@ -9,6 +11,7 @@ CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
     @FirmarPedido bit
 AS
 BEGIN
+  SET NOCOUNT ON;
   IF @FirmarPedido = 1
 	BEGIN
     declare @tiene_cupon_pais bit
@@ -45,13 +48,14 @@ BEGIN
         producto.CodigoCatalago in (35,44,45,46)  --Los valores relaciones son: 35 (Oferta Final), 44 (Showroom), 45 (Ofertas Para Ti) y 46 (Oferta Del Día)
     END
   END
-
 END
 
 GO
 USE BelcorpMexico
 GO
-DROP PROCEDURE IF EXISTS dbo.UpdCuponPedidoWebEnviado;
+IF EXISTS(SELECT * FROM sys.SYSOBJECTS A INNER JOIN SYS.SCHEMAS B ON A.uid =B.schema_id
+    WHERE A.NAME='UpdCuponPedidoWebEnviado' AND B.name='dbo')
+ DROP PROCEDURE dbo.UpdCuponPedidoWebEnviado
 GO
 
 CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
@@ -59,6 +63,7 @@ CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
     @FirmarPedido bit
 AS
 BEGIN
+  SET NOCOUNT ON;
   IF @FirmarPedido = 1
 	BEGIN
     declare @tiene_cupon_pais bit
@@ -95,13 +100,14 @@ BEGIN
         producto.CodigoCatalago in (35,44,45,46)  --Los valores relaciones son: 35 (Oferta Final), 44 (Showroom), 45 (Ofertas Para Ti) y 46 (Oferta Del Día)
     END
   END
-
 END
 
 GO
 USE BelcorpColombia
 GO
-DROP PROCEDURE IF EXISTS dbo.UpdCuponPedidoWebEnviado;
+IF EXISTS(SELECT * FROM sys.SYSOBJECTS A INNER JOIN SYS.SCHEMAS B ON A.uid =B.schema_id
+    WHERE A.NAME='UpdCuponPedidoWebEnviado' AND B.name='dbo')
+ DROP PROCEDURE dbo.UpdCuponPedidoWebEnviado
 GO
 
 CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
@@ -109,6 +115,7 @@ CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
     @FirmarPedido bit
 AS
 BEGIN
+  SET NOCOUNT ON;
   IF @FirmarPedido = 1
 	BEGIN
     declare @tiene_cupon_pais bit
@@ -145,13 +152,14 @@ BEGIN
         producto.CodigoCatalago in (35,44,45,46)  --Los valores relaciones son: 35 (Oferta Final), 44 (Showroom), 45 (Ofertas Para Ti) y 46 (Oferta Del Día)
     END
   END
-
 END
 
 GO
 USE BelcorpVenezuela
 GO
-DROP PROCEDURE IF EXISTS dbo.UpdCuponPedidoWebEnviado;
+IF EXISTS(SELECT * FROM sys.SYSOBJECTS A INNER JOIN SYS.SCHEMAS B ON A.uid =B.schema_id
+    WHERE A.NAME='UpdCuponPedidoWebEnviado' AND B.name='dbo')
+ DROP PROCEDURE dbo.UpdCuponPedidoWebEnviado
 GO
 
 CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
@@ -159,6 +167,7 @@ CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
     @FirmarPedido bit
 AS
 BEGIN
+  SET NOCOUNT ON;
   IF @FirmarPedido = 1
 	BEGIN
     declare @tiene_cupon_pais bit
@@ -195,13 +204,14 @@ BEGIN
         producto.CodigoCatalago in (35,44,45,46)  --Los valores relaciones son: 35 (Oferta Final), 44 (Showroom), 45 (Ofertas Para Ti) y 46 (Oferta Del Día)
     END
   END
-
 END
 
 GO
 USE BelcorpSalvador
 GO
-DROP PROCEDURE IF EXISTS dbo.UpdCuponPedidoWebEnviado;
+IF EXISTS(SELECT * FROM sys.SYSOBJECTS A INNER JOIN SYS.SCHEMAS B ON A.uid =B.schema_id
+    WHERE A.NAME='UpdCuponPedidoWebEnviado' AND B.name='dbo')
+ DROP PROCEDURE dbo.UpdCuponPedidoWebEnviado
 GO
 
 CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
@@ -209,6 +219,7 @@ CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
     @FirmarPedido bit
 AS
 BEGIN
+  SET NOCOUNT ON;
   IF @FirmarPedido = 1
 	BEGIN
     declare @tiene_cupon_pais bit
@@ -245,13 +256,14 @@ BEGIN
         producto.CodigoCatalago in (35,44,45,46)  --Los valores relaciones son: 35 (Oferta Final), 44 (Showroom), 45 (Ofertas Para Ti) y 46 (Oferta Del Día)
     END
   END
-
 END
 
 GO
 USE BelcorpPuertoRico
 GO
-DROP PROCEDURE IF EXISTS dbo.UpdCuponPedidoWebEnviado;
+IF EXISTS(SELECT * FROM sys.SYSOBJECTS A INNER JOIN SYS.SCHEMAS B ON A.uid =B.schema_id
+    WHERE A.NAME='UpdCuponPedidoWebEnviado' AND B.name='dbo')
+ DROP PROCEDURE dbo.UpdCuponPedidoWebEnviado
 GO
 
 CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
@@ -259,6 +271,7 @@ CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
     @FirmarPedido bit
 AS
 BEGIN
+  SET NOCOUNT ON;
   IF @FirmarPedido = 1
 	BEGIN
     declare @tiene_cupon_pais bit
@@ -295,13 +308,14 @@ BEGIN
         producto.CodigoCatalago in (35,44,45,46)  --Los valores relaciones son: 35 (Oferta Final), 44 (Showroom), 45 (Ofertas Para Ti) y 46 (Oferta Del Día)
     END
   END
-
 END
 
 GO
 USE BelcorpPanama
 GO
-DROP PROCEDURE IF EXISTS dbo.UpdCuponPedidoWebEnviado;
+IF EXISTS(SELECT * FROM sys.SYSOBJECTS A INNER JOIN SYS.SCHEMAS B ON A.uid =B.schema_id
+    WHERE A.NAME='UpdCuponPedidoWebEnviado' AND B.name='dbo')
+ DROP PROCEDURE dbo.UpdCuponPedidoWebEnviado
 GO
 
 CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
@@ -309,6 +323,7 @@ CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
     @FirmarPedido bit
 AS
 BEGIN
+  SET NOCOUNT ON;
   IF @FirmarPedido = 1
 	BEGIN
     declare @tiene_cupon_pais bit
@@ -345,13 +360,14 @@ BEGIN
         producto.CodigoCatalago in (35,44,45,46)  --Los valores relaciones son: 35 (Oferta Final), 44 (Showroom), 45 (Ofertas Para Ti) y 46 (Oferta Del Día)
     END
   END
-
 END
 
 GO
 USE BelcorpGuatemala
 GO
-DROP PROCEDURE IF EXISTS dbo.UpdCuponPedidoWebEnviado;
+IF EXISTS(SELECT * FROM sys.SYSOBJECTS A INNER JOIN SYS.SCHEMAS B ON A.uid =B.schema_id
+    WHERE A.NAME='UpdCuponPedidoWebEnviado' AND B.name='dbo')
+ DROP PROCEDURE dbo.UpdCuponPedidoWebEnviado
 GO
 
 CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
@@ -359,6 +375,7 @@ CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
     @FirmarPedido bit
 AS
 BEGIN
+  SET NOCOUNT ON;
   IF @FirmarPedido = 1
 	BEGIN
     declare @tiene_cupon_pais bit
@@ -395,13 +412,14 @@ BEGIN
         producto.CodigoCatalago in (35,44,45,46)  --Los valores relaciones son: 35 (Oferta Final), 44 (Showroom), 45 (Ofertas Para Ti) y 46 (Oferta Del Día)
     END
   END
-
 END
 
 GO
 USE BelcorpEcuador
 GO
-DROP PROCEDURE IF EXISTS dbo.UpdCuponPedidoWebEnviado;
+IF EXISTS(SELECT * FROM sys.SYSOBJECTS A INNER JOIN SYS.SCHEMAS B ON A.uid =B.schema_id
+    WHERE A.NAME='UpdCuponPedidoWebEnviado' AND B.name='dbo')
+ DROP PROCEDURE dbo.UpdCuponPedidoWebEnviado
 GO
 
 CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
@@ -409,6 +427,7 @@ CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
     @FirmarPedido bit
 AS
 BEGIN
+  SET NOCOUNT ON;
   IF @FirmarPedido = 1
 	BEGIN
     declare @tiene_cupon_pais bit
@@ -445,13 +464,14 @@ BEGIN
         producto.CodigoCatalago in (35,44,45,46)  --Los valores relaciones son: 35 (Oferta Final), 44 (Showroom), 45 (Ofertas Para Ti) y 46 (Oferta Del Día)
     END
   END
-
 END
 
 GO
 USE BelcorpDominicana
 GO
-DROP PROCEDURE IF EXISTS dbo.UpdCuponPedidoWebEnviado;
+IF EXISTS(SELECT * FROM sys.SYSOBJECTS A INNER JOIN SYS.SCHEMAS B ON A.uid =B.schema_id
+    WHERE A.NAME='UpdCuponPedidoWebEnviado' AND B.name='dbo')
+ DROP PROCEDURE dbo.UpdCuponPedidoWebEnviado
 GO
 
 CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
@@ -459,6 +479,7 @@ CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
     @FirmarPedido bit
 AS
 BEGIN
+  SET NOCOUNT ON;
   IF @FirmarPedido = 1
 	BEGIN
     declare @tiene_cupon_pais bit
@@ -495,13 +516,14 @@ BEGIN
         producto.CodigoCatalago in (35,44,45,46)  --Los valores relaciones son: 35 (Oferta Final), 44 (Showroom), 45 (Ofertas Para Ti) y 46 (Oferta Del Día)
     END
   END
-
 END
 
 GO
 USE BelcorpCostaRica
 GO
-DROP PROCEDURE IF EXISTS dbo.UpdCuponPedidoWebEnviado;
+IF EXISTS(SELECT * FROM sys.SYSOBJECTS A INNER JOIN SYS.SCHEMAS B ON A.uid =B.schema_id
+    WHERE A.NAME='UpdCuponPedidoWebEnviado' AND B.name='dbo')
+ DROP PROCEDURE dbo.UpdCuponPedidoWebEnviado
 GO
 
 CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
@@ -509,6 +531,7 @@ CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
     @FirmarPedido bit
 AS
 BEGIN
+  SET NOCOUNT ON;
   IF @FirmarPedido = 1
 	BEGIN
     declare @tiene_cupon_pais bit
@@ -545,13 +568,14 @@ BEGIN
         producto.CodigoCatalago in (35,44,45,46)  --Los valores relaciones son: 35 (Oferta Final), 44 (Showroom), 45 (Ofertas Para Ti) y 46 (Oferta Del Día)
     END
   END
-
 END
 
 GO
 USE BelcorpChile
 GO
-DROP PROCEDURE IF EXISTS dbo.UpdCuponPedidoWebEnviado;
+IF EXISTS(SELECT * FROM sys.SYSOBJECTS A INNER JOIN SYS.SCHEMAS B ON A.uid =B.schema_id
+    WHERE A.NAME='UpdCuponPedidoWebEnviado' AND B.name='dbo')
+ DROP PROCEDURE dbo.UpdCuponPedidoWebEnviado
 GO
 
 CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
@@ -559,6 +583,7 @@ CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
     @FirmarPedido bit
 AS
 BEGIN
+  SET NOCOUNT ON;
   IF @FirmarPedido = 1
 	BEGIN
     declare @tiene_cupon_pais bit
@@ -595,13 +620,14 @@ BEGIN
         producto.CodigoCatalago in (35,44,45,46)  --Los valores relaciones son: 35 (Oferta Final), 44 (Showroom), 45 (Ofertas Para Ti) y 46 (Oferta Del Día)
     END
   END
-
 END
 
 GO
 USE BelcorpBolivia
 GO
-DROP PROCEDURE IF EXISTS dbo.UpdCuponPedidoWebEnviado;
+IF EXISTS(SELECT * FROM sys.SYSOBJECTS A INNER JOIN SYS.SCHEMAS B ON A.uid =B.schema_id
+    WHERE A.NAME='UpdCuponPedidoWebEnviado' AND B.name='dbo')
+ DROP PROCEDURE dbo.UpdCuponPedidoWebEnviado
 GO
 
 CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
@@ -609,6 +635,7 @@ CREATE PROCEDURE dbo.UpdCuponPedidoWebEnviado
     @FirmarPedido bit
 AS
 BEGIN
+  SET NOCOUNT ON;
   IF @FirmarPedido = 1
 	BEGIN
     declare @tiene_cupon_pais bit
@@ -645,7 +672,6 @@ BEGIN
         producto.CodigoCatalago in (35,44,45,46)  --Los valores relaciones son: 35 (Oferta Final), 44 (Showroom), 45 (Ofertas Para Ti) y 46 (Oferta Del Día)
     END
   END
-
 END
 
 GO
