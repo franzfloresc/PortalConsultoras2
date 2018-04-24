@@ -1262,6 +1262,8 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoDetalleAppInsertarResult InsertPedidoDetalleApp(BEPedidoDetalleAppInsertar pedidoDetalle);
         [OperationContract]
         List<BEPedidoWebDetalle> GetPedidoDetalleApp(BEPedidoDetalleAppBuscar pedidoDetalle);
+        [OperationContract]
+        bool InsertKitInicio(BEUsuario usuario);
         #endregion
 
         #region Pago en Linea
