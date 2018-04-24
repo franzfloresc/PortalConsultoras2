@@ -130,6 +130,13 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View(model);
         }
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("Login/Login/{param?}")]
+        public ActionResult Login(string param)
+        {
+            return RedirectToAction("Index", "Login");
+        }
 
         [AllowAnonymous]
         [HttpPost]
