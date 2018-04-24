@@ -36162,9 +36162,11 @@ height:30px;
 /*SPRINT 19*/
 .content_new_showroom {
 	width: 100%;
-	padding-left: 10%;
-	padding-right: 2%;
-	padding-top: 57px;
+	/*padding-left: 10%;*/
+	/*padding-right: 2%;*/
+	padding-top: 35px;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 .content_filtro_categoria {
