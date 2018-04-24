@@ -9,7 +9,7 @@ namespace Portal.Consultoras.Entities.Pedido.App
         public string CodigoRespuesta { get; set; }
         [DataMember]
         public string MensajeRespuesta { get; set; }
-        [DataMember]
-        public BEPedidoDetalleAppInsertar PedidoDetalle { get; set; }
+        //[DataMember]
+        //public BEPedidoDetalleAppInsertar PedidoDetalle { get; set; }
     }
 }
