@@ -199,7 +199,8 @@
 }
 
 .box_producto_mobile_fix {
-    margin: 0 2%;
+    margin-left: 2%;
+    margin-right: 2%;
 }
 
 .producto_img_mobile_bpt {
