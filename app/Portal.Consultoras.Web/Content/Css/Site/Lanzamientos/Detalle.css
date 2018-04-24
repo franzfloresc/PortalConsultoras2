@@ -10,7 +10,7 @@
 
     .revista_ficha .revista_ficha .rd_volver {
         font-size: 13px;
-        letter-spacing: .5px;
+        .detalle-prod .detalle-info .detalle-bloque-dos ul letter-spacing: .5px;
         position: absolute;
         top: -20px;
         transition: all .2s ease-in-out;
@@ -372,9 +372,15 @@
                 margin-bottom: 5px;
             }
 
-                .detalle-prod .detalle-info .detalle-bloque-dos ul li::before {
-                    content: '-';
-                    margin-right: 5px;
+                .detalle-prod .detalle-info .detalle-bloque-dos ul li span.vineta {
+                    float: left;
+                    width: 1%;
+                }
+                .detalle-prod .detalle-info .detalle-bloque-dos ul li span.txt-des {
+                    float: left;
+                    width: 99%;
+                    padding-left: 5px;
+                    margin-bottom: 7px;
                 }
 
     .detalle-prod .detalle-info .detalle-bloque-tres {
