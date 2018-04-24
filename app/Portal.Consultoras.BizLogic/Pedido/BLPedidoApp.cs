@@ -152,11 +152,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 UpdateProl(usuario, pedidoDetalle);
 
-                return PedidoInsertarRespuesta(Constantes.PedidoAppValidacion.PedidoInsertar.Code.SUCCESS, null, pedidoDetalle);
+                return PedidoInsertarRespuesta(Constantes.PedidoAppValidacion.PedidoInsertar.Code.SUCCESS);
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog(ex, pedidoDetalle.CodigoUsuario, pedidoDetalle.PaisID);
+                LogManager.SaveLog(ex, pedidoDetalle.Usuario.CodigoUsuario, pedidoDetalle.PaisID);
                 return PedidoInsertarRespuesta(Constantes.PedidoAppValidacion.PedidoInsertar.Code.ERROR_INTERNO, ex.Message);
             }
         }
@@ -232,7 +232,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var detalle = new BEPedidoDetalleAppInsertar()
                     {
                         PaisID = usuario.PaisID,
-                        CodigoUsuario = usuario.CodigoUsuario,
                         Cantidad = 1,
                         Producto = new BEProducto()
                         {
@@ -243,6 +242,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             ConfiguracionOfertaID = 0,
                             IndicadorMontoMinimo = producto.IndicadorMontoMinimo,
                             MarcaID = producto.MarcaID,
+                        },
+                        Usuario = new BEUsuario()
+                        {
+                            CodigoUsuario = usuario.CodigoUsuario,
                         },
                         EsKitNueva = true
                     };
@@ -339,13 +342,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
         #endregion
 
         #region Insert
-        private BEPedidoDetalleAppInsertarResult PedidoInsertarRespuesta(string codigoRespuesta, string mensajeRespuesta = null, BEPedidoDetalleAppInsertar pedidoDetalle = null)
+        private BEPedidoDetalleAppInsertarResult PedidoInsertarRespuesta(string codigoRespuesta, string mensajeRespuesta = null)
         {
             return new BEPedidoDetalleAppInsertarResult()
             {
                 CodigoRespuesta = codigoRespuesta,
-                MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoAppValidacion.PedidoInsertar.Message[codigoRespuesta] : mensajeRespuesta,
-                PedidoDetalle = pedidoDetalle
+                MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoAppValidacion.PedidoInsertar.Message[codigoRespuesta] : mensajeRespuesta
             };
         }
 
@@ -579,8 +581,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             obePedidoWebDetalle.ImporteTotalPedido = totalImporte;
             obePedidoWebDetalle.Clientes = totalClientes;
 
-            obePedidoWebDetalle.CodigoUsuarioCreacion = pedidoDetalle.CodigoUsuario;
-            obePedidoWebDetalle.CodigoUsuarioModificacion = pedidoDetalle.CodigoUsuario;
+            obePedidoWebDetalle.CodigoUsuarioCreacion = pedidoDetalle.Usuario.CodigoUsuario;
+            obePedidoWebDetalle.CodigoUsuarioModificacion = pedidoDetalle.Usuario.CodigoUsuario;
 
             var quitoCantBackOrder = false;
             if (tipoAdm == Constantes.PedidoAccion.UPDATE && obePedidoWebDetalle.PedidoDetalleID != 0)

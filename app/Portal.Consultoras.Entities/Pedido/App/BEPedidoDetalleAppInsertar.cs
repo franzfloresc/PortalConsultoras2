@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.Pedido.App
 {
@@ -9,12 +8,11 @@ namespace Portal.Consultoras.Entities.Pedido.App
         public BEPedidoDetalleAppInsertar()
         {
             Producto = new BEProducto();
+            Usuario = new BEUsuario();
         }
 
         [DataMember]
         public int PaisID { get; set; }
-        [DataMember]
-        public string CodigoUsuario { get; set; }
         [DataMember]
         public int Cantidad { get; set; }
         [DataMember]
@@ -33,6 +31,7 @@ namespace Portal.Consultoras.Entities.Pedido.App
         public string CodigosConcursos { get; set; }
         [DataMember]
         public bool EsKitNueva { get; set; }
+
         [DataMember]
         public BEUsuario Usuario { get; set; }
     }
