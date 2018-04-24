@@ -1047,7 +1047,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<BEProducto> olstProducto;
+                List<ServiceODS.BEProducto> olstProducto;
                 using (var sv = new ODSServiceClient())
                 {
                     olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, CUV, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, false).ToList();
@@ -1461,7 +1461,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
 
-                var producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new BEProducto();
+                var producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new ServiceODS.BEProducto();
 
                 var estrategias = (List<BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia] ?? new List<BEEstrategia>();
                 var estrategia = estrategias.FirstOrDefault(p => p.CUV2 == producto.CUV) ?? new BEEstrategia();
@@ -1514,9 +1514,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        private List<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(string codigoDescripcion, UsuarioModel userModel, int cantidadFilas, int criterioBusqueda)
+        private List<ServiceODS.BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(string codigoDescripcion, UsuarioModel userModel, int cantidadFilas, int criterioBusqueda)
         {
-            List<BEProducto> productos;
+            List<ServiceODS.BEProducto> productos;
 
             using (var odsServiceClient = new ODSServiceClient())
             {
@@ -1536,7 +1536,7 @@ namespace Portal.Consultoras.Web.Controllers
             return productos;
         }
 
-        private void BloqueoProductosCatalogo(ref List<BEProducto> beProductos)
+        private void BloqueoProductosCatalogo(ref List<ServiceODS.BEProducto> beProductos)
         {
             if (!beProductos.Any()) return;
 
@@ -1549,7 +1549,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (revistaDigital.BloquearRevistaImpresaGeneral == 1)
                 {
                     beProductos = beProductos
-                        .Where(x => !userData.CodigosRevistaImpresa.Contains(x.CodigoCatalogo.ToString())).ToList();
+                        .Where(x => userData.CodigosRevistaImpresa != null && !userData.CodigosRevistaImpresa.Contains(x.CodigoCatalogo.ToString())).ToList();
                 }
             }
             else
@@ -1562,7 +1562,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private void BloqueoProductosDigitales(ref List<BEProducto> beProductos)
+        private void BloqueoProductosDigitales(ref List<ServiceODS.BEProducto> beProductos)
         {
             if (beProductos == null) return;
             if (!beProductos.Any()) return;
@@ -1677,7 +1677,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                List<BEProducto> listaProduto;
+                List<ServiceODS.BEProducto> listaProduto;
                 using (var sv = new ODSServiceClient())
                 {
                     listaProduto = sv.GetProductoSugeridoByCUV(userData.PaisID, userData.CampaniaID, Convert.ToInt32(userData.ConsultoraID), CUV, userData.RegionID,
@@ -2883,7 +2883,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
 
                         // si sv.Insert falla o retorna null
-                        if (obePedidoWebDetalle == null) break;
+                        if (oBePedidoWebDetalleTemp == null) break;
                         oBePedidoWebDetalleTemp.ImporteTotal = obePedidoWebDetalle.ImporteTotal;
                         oBePedidoWebDetalleTemp.DescripcionProd = obePedidoWebDetalle.DescripcionProd;
                         oBePedidoWebDetalleTemp.Nombre = obePedidoWebDetalle.Nombre;
@@ -3283,9 +3283,9 @@ namespace Portal.Consultoras.Web.Controllers
                         userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Reactivada ||
                         userData.ConsecutivoNueva == Constantes.ConsecutivoNuevaConsultora.Consecutivo3)
                     {
-                        var PaisesFraccionKit = WebConfigurationManager.AppSettings["PaisesFraccionKitNuevas"];
+                        var  PaisesFraccionKit = WebConfigurationManager.AppSettings["PaisesFraccionKitNuevas"];
 
-                        if (!PaisesFraccionKit.Contains(userData.CodigoISO))
+                        if (PaisesFraccionKit != null && userData.CodigoISO != null && !PaisesFraccionKit.Contains(userData.CodigoISO))
                         {
                             Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
                             return;
@@ -3320,7 +3320,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (det.PedidoDetalleID > 0) return;
 
-                List<BEProducto> olstProducto;
+                List<ServiceODS.BEProducto> olstProducto;
                 using (var svOds = new ODSServiceClient())
                 {
                     olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, obeConfiguracionProgramaNuevas.CUVKit).ToList();
@@ -3732,7 +3732,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var paisesConPcm = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesConPcm);
 
-            var tipoProductoMostrar = paisesConPcm.Contains(userData.CodigoISO) ? 2 : 1;
+            var tipoProductoMostrar = userData.CodigoISO != null && paisesConPcm.Contains(userData.CodigoISO) ? 2 : 1;
 
             var limiteJetlore = int.Parse(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreOfertaFinal));
 
@@ -4298,7 +4298,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                if (userData != null)
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 mensaje = "Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.";
             }
 
@@ -4372,11 +4373,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string mensaje = "";
 
-                var ficha = (FichaProductoDetalleModel)Session[Constantes.SessionNames.FichaProductoTemporal];
+                FichaProductoDetalleModel ficha = Session[Constantes.SessionNames.FichaProductoTemporal] as FichaProductoDetalleModel;
 
                 var numero = Convert.ToInt32(Cantidad);
 
-                if (numero > ficha.LimiteVenta)
+                if (ficha != null && numero > ficha.LimiteVenta)
                 {
                     mensaje = "La cantidad no debe ser mayor que la cantidad limite ( " + ficha.LimiteVenta + " ).";
                     return Json(new
@@ -4393,7 +4394,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 listaCuvTonos = Util.Trim(listaCuvTonos);
-                if (listaCuvTonos == "")
+                if (string.IsNullOrEmpty(listaCuvTonos))
                 {
                     listaCuvTonos = ficha.CUV2;
                 }

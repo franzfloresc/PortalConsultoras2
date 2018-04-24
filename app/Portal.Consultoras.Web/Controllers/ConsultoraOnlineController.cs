@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             this.registrosPagina = 5;
 
-            if (GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
+            if (userData.CodigoISO != null && GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
             {
                 isEsika = true;
             }
@@ -908,7 +908,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         string inputCuv = txtBuil.ToString();
                         inputCuv = inputCuv.Substring(0, inputCuv.Length - 1);
-                        List<BEProducto> olstMisProductos;
+                        List<ServiceODS.BEProducto> olstMisProductos;
 
                         using (ODSServiceClient svc = new ODSServiceClient())
                         {
@@ -1173,7 +1173,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (tipo == 1) // solo para App Catalogos
                 {
-                    List<BEProducto> olstMisProductos = (List<BEProducto>)Session["objMisPedidosDetalleVal"];
+                    List<ServiceODS.BEProducto> olstMisProductos = (List<ServiceODS.BEProducto>)Session["objMisPedidosDetalleVal"];
 
 
                     foreach (var item in pedido.ListaDetalleModel)
@@ -1185,7 +1185,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             if (pedidoDetalle != null)
                             {
-                                BEProducto productoVal =
+                                ServiceODS.BEProducto productoVal =
                                     olstMisProductos.FirstOrDefault(x => x.CUV == pedidoDetalle.CUV);
 
                                 if (productoVal != null)

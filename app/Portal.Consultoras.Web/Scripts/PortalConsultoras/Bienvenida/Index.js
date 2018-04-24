@@ -32,10 +32,16 @@ $(document).ready(function () {
 
     if (vbFotoPerfil != null && vbFotoPerfil != "") {
         $('div.content_datos').css('max-width', '100%');
-        $('div.resumen_belcorp_cam').css('margin-left', '3%');
+        $('div.resumen_belcorp_cam').css('margin-left', '1.5%');
         $('div.resumen_belcorp_cam').css('margin-right', '0%');
-        $('div.socia_negocio_home').css('margin-left', '4%');
+        $('div.socia_negocio_home').css('margin-left', '4.8%');
         $('div.contenedor_img_perfil').show();
+    } else {
+        $('div.resumen_belcorp_cam').css('margin-left', '2%');
+        $('div.resumen_belcorp_cam').css('margin-right', '3%');
+        $('div.resumen_belcorp_cam').css('width', '27.65%');
+        $('div.pedido_resumen_home').css('width', '30.4%');
+        $('div.fecha_cierre_campania').css('width', '214px');
     }
 
     $(".termino_condiciones_intriga").click(function () {
@@ -888,29 +894,31 @@ function ArmarCarouselLiquidaciones(data) {
             var recomendado = arrayLiquidaciones[posicionEstrategia] || {};
             var arrayEstrategia = new Array();
 
-            var impresionRecomendado = {
-                'name': recomendado.DescripcionCompleta,
-                'id': recomendado.CUV,
-                'price': recomendado.PrecioOferta.toString(),
-                'brand': recomendado.DescripcionMarca,
-                'category': 'NO DISPONIBLE',
-                'variant': recomendado.DescripcionEstrategia,
-                'list': 'Liquidación Web - Home',
-                'position': recomendado.Posicion
-            };
-            arrayEstrategia.push(impresionRecomendado);
-            dataLayer.push({
-                'event': 'productImpression',
-                'ecommerce': {
-                    'impressions': arrayEstrategia
-                }
-            });
-            dataLayer.push({
-                'event': 'virtualEvent',
-                'category': 'Home',
-                'action': 'Liquidacion Web',
-                'label': 'Ver anterior'
-            });
+            if (recomendado.PrecioOferta != null || recomendado.PrecioOferta != undefined) {
+                var impresionRecomendado = {
+                    'name': recomendado.DescripcionCompleta,
+                    'id': recomendado.CUV,
+                    'price': recomendado.PrecioOferta.toString(),
+                    'brand': recomendado.DescripcionMarca,
+                    'category': 'NO DISPONIBLE',
+                    'variant': recomendado.DescripcionEstrategia,
+                    'list': 'Liquidación Web - Home',
+                    'position': recomendado.Posicion
+                };
+                arrayEstrategia.push(impresionRecomendado);
+                dataLayer.push({
+                    'event': 'productImpression',
+                    'ecommerce': {
+                        'impressions': arrayEstrategia
+                    }
+                });
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Home',
+                    'action': 'Liquidacion Web',
+                    'label': 'Ver anterior'
+                });
+            }            
 
         } else if (accion == 'next') {
             if (Number(indexActive) + 1 == Number(itemsLength) - 1) {
@@ -926,31 +934,33 @@ function ArmarCarouselLiquidaciones(data) {
                 var recomendado = arrayLiquidaciones[posicionEstrategia] || {};
                 var arrayEstrategia = new Array();
 
-                var impresionRecomendado = {
-                    'name': recomendado.DescripcionCompleta,
-                    'id': recomendado.CUV,
-                    'price': recomendado.PrecioOferta.toString(),
-                    'brand': recomendado.DescripcionMarca,
-                    'category': 'NO DISPONIBLE',
-                    'variant': recomendado.DescripcionEstrategia,
-                    'list': 'Liquidación Web - Home',
-                    'position': recomendado.Posicion
-                };
+                if (recomendado.PrecioOferta != null || recomendado.PrecioOferta != undefined) {
+                    var impresionRecomendado = {
+                        'name': recomendado.DescripcionCompleta,
+                        'id': recomendado.CUV,
+                        'price': recomendado.PrecioOferta.toString(),
+                        'brand': recomendado.DescripcionMarca,
+                        'category': 'NO DISPONIBLE',
+                        'variant': recomendado.DescripcionEstrategia,
+                        'list': 'Liquidación Web - Home',
+                        'position': recomendado.Posicion
+                    };
 
-                arrayEstrategia.push(impresionRecomendado);
+                    arrayEstrategia.push(impresionRecomendado);
 
-                dataLayer.push({
-                    'event': 'productImpression',
-                    'ecommerce': {
-                        'impressions': arrayEstrategia
-                    }
-                });
-                dataLayer.push({
-                    'event': 'virtualEvent',
-                    'category': 'Home',
-                    'action': 'Liquidacion Web',
-                    'label': 'Ver siguiente'
-                });
+                    dataLayer.push({
+                        'event': 'productImpression',
+                        'ecommerce': {
+                            'impressions': arrayEstrategia
+                        }
+                    });
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Home',
+                        'action': 'Liquidacion Web',
+                        'label': 'Ver siguiente'
+                    });
+                }                
             } else {
                 dataLayer.push({
                     'event': 'virtualEvent',
@@ -1653,7 +1663,7 @@ function ActualizarMD() {
 
         if (jQuery.trim($('#txtCelularMD').val()) != "") {
             if (!ValidarTelefono($("#txtCelularMD").val())) {
-                alert('El formato del celular no es correcto.');
+                alert('El celular que está ingresando ya se encuenta registrado.');
                 return false;
             }
         }

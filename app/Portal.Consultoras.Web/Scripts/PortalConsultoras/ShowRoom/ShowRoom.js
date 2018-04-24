@@ -664,7 +664,7 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
             SetHandlebars("#template-showroom-subcampania", response.listaSubCampania, "#contenedor-showroom-subcampanias");
 
             EstablecerLazyCarrusel($('#contenedor-showroom-subcampanias'));
-            
+
         }
 
         $.each(response.listaNoSubCampania, function (index, value) {
@@ -673,14 +673,14 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
             value.UrlDetalle = urlDetalleShowRoom + '/' + value.OfertaShowRoomID;
         });
 
-       
+
         SetHandlebars("#template-showroom", response.listaNoSubCampania, '#divProductosShowRoom');
         $("#spnCantidadFiltro").html(response.listaNoSubCampania.length);
         $("#spnCantidadTotal").html(response.totalNoSubCampania);
     }
     else {
         messageInfoError(response.message);
-        if (busquedaModel && busquedaModel.hidden) { $("#divProductosShowRoom").hide();
+        if (busquedaModel && busquedaModel.hidden) { $("#divProductosShowRoom").hide(); }
     }
 }
 
@@ -719,7 +719,7 @@ function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
     }
     else {
         messageInfoError(response.message);
-        if (busquedaModel && busquedaModel.hidden) { $("#divProductosShowRoom").hide();
+        if (busquedaModel && busquedaModel.hidden) { $("#divProductosShowRoom").hide(); }
     }
 }
 function ConfigurarSlick() {

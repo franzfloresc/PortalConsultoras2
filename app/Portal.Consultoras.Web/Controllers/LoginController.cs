@@ -628,7 +628,8 @@ namespace Portal.Consultoras.Web.Controllers
                     ClienteID = model.ClienteID,
                     MostrarHipervinculo = !model.EsAppMobile,
                     EsAppMobile = model.EsAppMobile,
-                    TimeOutSession = (int)FormsAuthentication.Timeout.TotalMinutes
+                    TimeOutSession = (int)FormsAuthentication.Timeout.TotalMinutes,
+                    Campania = Convert.ToInt32(model.Campania)
                 });
 
                 this.SetUniqueSession("IngresoExterno", model.Version ?? "");
@@ -637,7 +638,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Session.Add("TokenPedidoAutentico", AESAlgorithm.Encrypt(model.Identifier));
 
                 sessionManager.SetStartSession(DateTime.Now);
-
+                model.Pagina = model.Pagina ?? "";
                 switch (model.Pagina.ToUpper())
                 {
                     case Constantes.IngresoExternoPagina.EstadoCuenta:
@@ -669,7 +670,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 url = model.UrlCatalogo
                             });
                     case Constantes.IngresoExternoPagina.MisPedidos:
-                        return RedirectToUniqueRoute("MisPedidos", "Index", null);
+                        return RedirectToUniqueRoute("MisPedidos", "Index",null);
                     case Constantes.IngresoExternoPagina.ShowRoom:
                         return RedirectToUniqueRoute("ShowRoom", "Procesar", null);
                     case Constantes.IngresoExternoPagina.ProductosAgotados:
@@ -682,6 +683,13 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("RevistaDigital", "Informacion", null);
                     case Constantes.IngresoExternoPagina.LiquidacionWeb:
                         return RedirectToUniqueRoute("OfertaLiquidacion", "Index", null);
+                    case Constantes.IngresoExternoPagina.CambiosDevoluciones:
+                        return RedirectToUniqueRoute("MisReclamos", "Index", null);
+                    case Constantes.IngresoExternoPagina.PedidosFIC:
+                        return RedirectToUniqueRoute("PedidoFIC", "Index", null);
+                    //default:
+                    //    return RedirectToAction("UserUnknown", "Login", new { area = "" });
+
                 }
             }
             catch (Exception ex)
@@ -2977,7 +2985,9 @@ namespace Portal.Consultoras.Web.Controllers
             var name = string.Empty;
             try
             {
-                name = ((System.Web.HttpRequestWrapper)Request).LogonUserIdentity.Name;
+                var logonUserIdentity = ((System.Web.HttpRequestWrapper) Request).LogonUserIdentity;
+                if (logonUserIdentity != null)
+                    name = logonUserIdentity.Name;
             }
             catch
             {

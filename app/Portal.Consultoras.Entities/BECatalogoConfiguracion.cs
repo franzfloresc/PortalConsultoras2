@@ -1,7 +1,5 @@
-﻿using Portal.Consultoras.Common;
-using System;
-using System.Data;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Portal.Consultoras.Entities
 {
@@ -9,32 +7,22 @@ namespace Portal.Consultoras.Entities
     public class BECatalogoConfiguracion
     {
         [DataMember]
+        [Column("CatalogoID")]
         public int CatalogoID { get; set; }
         [DataMember]
+        [Column("MarcaID")]
         public int MarcaID { get; set; }
         [DataMember]
+        [Column("Descripcion")]
         public string Descripcion { get; set; }
         [DataMember]
+        [Column("Estado")]
         public int Estado { get; set; }
         [DataMember]
+        [Column("CampaniaInicio")]
         public int CampaniaInicio { get; set; }
         [DataMember]
+        [Column("CampaniaFin")]
         public int CampaniaFin { get; set; }
-
-        public BECatalogoConfiguracion(IDataRecord row)
-        {
-            if (DataRecord.HasColumn(row, "CatalogoID"))
-                CatalogoID = Convert.ToInt32(row["CatalogoID"]);
-            if (DataRecord.HasColumn(row, "MarcaID"))
-                MarcaID = Convert.ToInt16(row["MarcaID"]);
-            if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "Estado"))
-                Estado = Convert.ToInt16(row["Estado"]);
-            if (DataRecord.HasColumn(row, "CampaniaInicio"))
-                CampaniaInicio = Convert.ToInt32(row["CampaniaInicio"]);
-            if (DataRecord.HasColumn(row, "CampaniaFin"))
-                CampaniaFin = Convert.ToInt32(row["CampaniaFin"]);
-        }
     }
 }
