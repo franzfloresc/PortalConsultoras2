@@ -243,10 +243,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             IndicadorMontoMinimo = producto.IndicadorMontoMinimo,
                             MarcaID = producto.MarcaID,
                         },
-                        Usuario = new BEUsuario()
-                        {
-                            CodigoUsuario = usuario.CodigoUsuario,
-                        },
+                        Usuario = usuario,
                         EsKitNueva = true
                     };
 
