@@ -605,6 +605,10 @@ function EstrategiaValidarBloqueada(objInput, estrategia) {
         return false;
     }
 
+    if (estrategia.CampaniaID == campaniaCodigo) {
+        return false;
+    }
+
     if (isMobile()) {
         EstrategiaVerDetalleMobile(estrategia);
         return true;

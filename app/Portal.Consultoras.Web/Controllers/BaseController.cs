@@ -4569,14 +4569,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
                 if (!("BO CL VE").Contains(userData.CodigoISO)) TextoNuevoPROL = " Revisa tus notificaciones o correo y verifica que tu pedido esté completo.";
-
-                DateTime time = DateTime.Today.Add(HoraCierrePortal);
-
-                if (IsMobile())
-                {
-                    string hrCierrePortal = time.ToString("hh:mm tt").Replace(". ", "").ToUpper();
-                    ViewBag.MensajeFechaPromesa = " CIERRA EL " + userData.FechaInicioCampania.Day + " " + NombreMes(userData.FechaInicioCampania.Month).ToUpper() + " - " + hrCierrePortal.Replace(".", "");
-                }
             }
             else
             {
@@ -4587,13 +4579,6 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     ViewBag.MensajeCierreCampania = "Pasa o modifica tu pedido hasta el día de <b>hoy a las " + FormatearHora(HoraCierrePortal) + "</b>";
-                }
-
-                DateTime time = DateTime.Today.Add(HoraCierrePortal);
-                if (IsMobile())
-                {
-                    string hrCierrePortal = time.ToString("hh:mm tt").Replace(". ", "").ToUpper();
-                    ViewBag.MensajeFechaPromesa = " CIERRA HOY - " + hrCierrePortal.Replace(".", "");
                 }
             }
 
@@ -4616,11 +4601,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             ViewBag.MensajeCierreCampania = ViewBag.MensajeCierreCampania + TextoPromesa + TextoNuevoPROL;
+            ViewBag.MensajeFechaPromesa = GetFechaPromesa(HoraCierrePortal, ViewBag.Dias);
 
-            if (!IsMobile())
-            {
-                ViewBag.MensajeFechaPromesa = GetFechaPromesa(HoraCierrePortal, ViewBag.Dias);
-            }
             #endregion
 
             ViewBag.FechaFacturacionPedido = userData.FechaFacturacion.Day + " de " + NombreMes(userData.FechaFacturacion.Month);
@@ -4778,19 +4760,29 @@ namespace Portal.Consultoras.Web.Controllers
         private string GetFechaPromesa(TimeSpan horaCierre, int diasFaltantes)
         {
             var time = DateTime.Today.Add(horaCierre);
-            var culture = CultureInfo.GetCultureInfo("es-PE");
+            string fecha = null;
 
-            string fecha = string.Empty;
-            if (diasFaltantes > 0)
+            if (IsMobile())
             {
-                fecha = userData.FechaInicioCampania.ToString("dd MMM", culture).ToUpper();
+                string hrCierrePortal = time.ToString("hh:mm tt").Replace(". ", "").ToUpper();
+
+                fecha = diasFaltantes > 0
+                    ? " CIERRA EL " + userData.FechaInicioCampania.Day + " " + NombreMes(userData.FechaInicioCampania.Month).ToUpper()
+                    : " CIERRA HOY";
+
+
+                return fecha + " - " + hrCierrePortal.Replace(".", "");
             }
             else
             {
-                fecha = "HOY";
+                var culture = CultureInfo.GetCultureInfo("es-PE");
+                fecha = diasFaltantes > 0 
+                    ? userData.FechaInicioCampania.ToString("dd MMM", culture).ToUpper()
+                    : "HOY";
+
+                return fecha + " - " + time.ToString("hhtt", CultureInfo.InvariantCulture).ToLower();
             }
-            
-            return fecha + " - " + time.ToString("hhtt", CultureInfo.InvariantCulture).ToLower();
+
         }
 
         protected string GetBucketNameFromConfig()
