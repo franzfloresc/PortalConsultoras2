@@ -4577,11 +4577,6 @@ namespace Portal.Consultoras.Web.Controllers
                     string hrCierrePortal = time.ToString("hh:mm tt").Replace(". ", "").ToUpper();
                     ViewBag.MensajeFechaPromesa = " CIERRA EL " + userData.FechaInicioCampania.Day + " " + NombreMes(userData.FechaInicioCampania.Month).ToUpper() + " - " + hrCierrePortal.Replace(".", "");
                 }
-                else
-                {
-                    var culture = CultureInfo.GetCultureInfo("es-PE");
-                    ViewBag.MensajeFechaPromesa = userData.FechaInicioCampania.ToString("dd MMM", culture).ToUpper() + " - " + time.ToString("hhtt", CultureInfo.InvariantCulture).ToLower();
-                }
             }
             else
             {
@@ -4599,10 +4594,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     string hrCierrePortal = time.ToString("hh:mm tt").Replace(". ", "").ToUpper();
                     ViewBag.MensajeFechaPromesa = " CIERRA HOY - " + hrCierrePortal.Replace(".", "");
-                }
-                else
-                {
-                    ViewBag.MensajeFechaPromesa = "HOY - " + time.ToString("hhtt", CultureInfo.InvariantCulture).ToLower();
                 }
             }
 
@@ -4626,6 +4617,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.MensajeCierreCampania = ViewBag.MensajeCierreCampania + TextoPromesa + TextoNuevoPROL;
 
+            if (!IsMobile())
+            {
+                ViewBag.MensajeFechaPromesa = GetFechaPromesa(HoraCierrePortal, ViewBag.Dias);
+            }
             #endregion
 
             ViewBag.FechaFacturacionPedido = userData.FechaFacturacion.Day + " de " + NombreMes(userData.FechaFacturacion.Month);
@@ -4778,6 +4773,24 @@ namespace Portal.Consultoras.Web.Controllers
                 urlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
 
             return urlFranjaNegra;
+        }
+
+        private string GetFechaPromesa(TimeSpan horaCierre, int diasFaltantes)
+        {
+            var time = DateTime.Today.Add(horaCierre);
+            var culture = CultureInfo.GetCultureInfo("es-PE");
+
+            string fecha = string.Empty;
+            if (diasFaltantes > 0)
+            {
+                fecha = userData.FechaInicioCampania.ToString("dd MMM", culture).ToUpper();
+            }
+            else
+            {
+                fecha = "HOY";
+            }
+            
+            return fecha + " - " + time.ToString("hhtt", CultureInfo.InvariantCulture).ToLower();
         }
 
         protected string GetBucketNameFromConfig()
