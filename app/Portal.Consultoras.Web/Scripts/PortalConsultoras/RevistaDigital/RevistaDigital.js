@@ -7,7 +7,7 @@ var isDetalle = false;
 var esPrimeraCarga = true;
 var cantTotalMostrar = 0;
 var clickedSlider = 0;
-var revistaDigital = revistaDigital || null;
+var revistaDigital = revistaDigital || {};
 var sliderWay = 0;
 
 var sProps = {
@@ -342,35 +342,37 @@ function OfertaArmarEstrategias(response, busquedaModel) {
 
     if (response.listaPerdio != undefined) {
         var divPredio = $("#divOfertaProductosPerdio");
-        if (response.listaPerdio.length > 0 && divPredio.children('div').length < response.listaPerdio.length) {
-            modeloTemp.lista = response.listaPerdio;
+        if (response.listaPerdio.length > 0) {
+            if (divPredio.children('div').length < response.listaPerdio.length) {
+                modeloTemp.lista = response.listaPerdio;
 
-            $.each(modeloTemp.lista, function (ind, tem) {
-                tem.EsBanner = false;
-                tem.EsLanzamiento = false;
-            });
+                $.each(modeloTemp.lista, function (ind, tem) {
+                    tem.EsBanner = false;
+                    tem.EsLanzamiento = false;
+                });
 
-            if (revistaDigital) {
-                if (revistaDigital.TieneRDC) {
-                    if (!revistaDigital.EsActiva) {
-                        var ExperienciaGanaMas = new Object();
-                        ExperienciaGanaMas.OcultarAgregar = true;
-                        ExperienciaGanaMas.OcultarVerDetalle = true;
-                        ExperienciaGanaMas.MostrarLoQuieres = !revistaDigital.EsSuscrita && !revistaDigital.EsActiva ? true : false;
+                if (revistaDigital) {
+                    if (revistaDigital.TieneRDC) {
+                        if (!revistaDigital.EsActiva) {
+                            var ExperienciaGanaMas = new Object();
+                            ExperienciaGanaMas.OcultarAgregar = true;
+                            ExperienciaGanaMas.OcultarVerDetalle = true;
+                            ExperienciaGanaMas.MostrarLoQuieres = !revistaDigital.EsSuscrita && !revistaDigital.EsActiva ? true : false;
 
-                        $.each(modeloTemp.lista, function (ind, tem) {
-                            if (tem.ClaseBloqueada != '') {
-                                tem.ExperienciaGanaMas = ExperienciaGanaMas;
-                                tem.TieneVerDetalle = !ExperienciaGanaMas.OcultarVerDetalle;
-                            }
-                        });
+                            $.each(modeloTemp.lista, function (ind, tem) {
+                                if (tem.ClaseBloqueada != '') {
+                                    tem.ExperienciaGanaMas = ExperienciaGanaMas;
+                                    tem.TieneVerDetalle = !ExperienciaGanaMas.OcultarVerDetalle;
+                                }
+                            });
+                        }
                     }
                 }
+
+
+                var htmlDivPerdio = SetHandlebars("#producto-landing-template", modeloTemp);
+                divPredio.append(htmlDivPerdio);
             }
-
-
-            var htmlDivPerdio = SetHandlebars("#producto-landing-template", modeloTemp);
-            divPredio.append(htmlDivPerdio);
         } else {
             $("#block_inscribete").hide();
         }

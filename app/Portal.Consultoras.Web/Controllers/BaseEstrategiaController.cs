@@ -247,7 +247,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
             {
-                List<BEProducto> listaHermanosE;
+                List<ServiceODS.BEProducto> listaHermanosE;
                 using (ODSServiceClient svc = new ODSServiceClient())
                 {
                     listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, estrategiaModelo.CampaniaID, estrategiaModelo.CUV2).ToList();
@@ -524,7 +524,7 @@ namespace Portal.Consultoras.Web.Controllers
                     estrategia.EstrategiaDetalle.ImgHomeMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgHomeMobile);
 
                     var listadescr = estrategia.DescripcionCUV2.Split('|');
-                    //estrategia.DescripcionResumen = listadescr.Length > 0 ? listadescr[0] : "";
+                    estrategia.DescripcionResumen = listadescr.Length > 0 ? listadescr[0] : "";
                     estrategia.DescripcionCortada = listadescr.Length > 1 ? listadescr[1] : "";
                     if (listadescr.Length > 2)
                     {

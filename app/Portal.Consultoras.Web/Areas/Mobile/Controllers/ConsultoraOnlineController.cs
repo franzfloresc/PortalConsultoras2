@@ -997,7 +997,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         var inputCuv = txtBuil.ToString();
                         inputCuv = inputCuv.Substring(0, inputCuv.Length - 1);
 
-                        List<BEProducto> olstMisProductos;
+                        List<ServiceODS.BEProducto> olstMisProductos;
 
                         using (ODSServiceClient svc = new ODSServiceClient())
                         {

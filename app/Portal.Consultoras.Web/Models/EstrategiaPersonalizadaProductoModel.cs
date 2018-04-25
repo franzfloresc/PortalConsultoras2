@@ -68,5 +68,6 @@ namespace Portal.Consultoras.Web.Models
         public bool PuedeAgregarProducto { get; set; }
 
         public string CodigoProducto { get; set; }
+        public MensajeProductoBloqueadoModel MensajeProductoBloqueado { get; set; }
     }
 }

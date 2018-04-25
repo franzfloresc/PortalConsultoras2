@@ -3,7 +3,6 @@
 @model EstrategiaPersonalizadaModel
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
-    var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
 }
 @section styles{
 
@@ -52,7 +51,6 @@
         var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital", new { area = "Mobile" })';
         var urlOfertaDetalleProductoLan = '@Url.Action("Detalle", "Lanzamientos", new { area = "Mobile" })';
         var OrigenDesktopODD = 0;
-        var revistaDigital = @Html.Raw(Json.Encode(revistaDigital));
     </script>
 @System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/JsSB2-Ofertas")
 }

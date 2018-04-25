@@ -3,8 +3,6 @@
 
 @{
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
-
-    var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
 }
 @section styles{
     @System.Web.Optimization.Styles.Render("~/bundles/css/Site/ccsOfertas")
@@ -89,7 +87,6 @@
     var TipoOrigenPantallaODD = 111;
     var tipoOrigenEstrategia = 107;
     var OrigenDesktopODD = 3;
-    var revistaDigital= @Html.Raw(Json.Encode(revistaDigital));
 </script>
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Ofertas")

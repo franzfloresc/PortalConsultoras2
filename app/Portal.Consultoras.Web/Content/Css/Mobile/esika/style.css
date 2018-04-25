@@ -10501,11 +10501,6 @@ a {
         margin-right: 0;
     }
 
-.content_tono_detalle_activo {
-    border: 1px solid black;
-}
-
-
 .content_mascara_maquillaje {
     position: absolute;
     width: 100%;
@@ -14788,9 +14783,14 @@ a {
     -webkit-transition:all 0.3s ease;
 }
 
-    .mensaje_felicitaciones a:hover {
-        opacity: 0.8;
-    }
+.btn_desactivado_general {
+    background: #e5e5e5;
+    border: 1px solid #d2d2d2;
+    color: #b9b9b9;
+}
+.mensaje_felicitaciones a:hover {
+    opacity: 0.8;
+}
 /* FIN: VISTA ACTUALIZAR CONTRASEÑA */
 
 .text-uppercase {
@@ -14843,6 +14843,13 @@ a {
     margin:0;
     padding:0;
     line-height:20px;
+}
+
+.label-white-small {
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 14px;
+	text-align:center;
 }
 
 /* HD-912 - FIN - PEDIDO FIC MOBILE */

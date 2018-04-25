@@ -26,7 +26,12 @@ namespace Portal.Consultoras.Entities
         public string VENTA_NETA { get; set; }
         [DataMember]
         public string PRODUCTO { get; set; }
-
+        [DataMember]
+        public string Descripcion { get; set; }
+        [DataMember]
+        public string Marca { get; set; }
+        [DataMember]
+        public string Categoria { get; set; }
         [DataMember]
         public DateTime FechaRegistro { get; set; }
 
@@ -60,6 +65,10 @@ namespace Portal.Consultoras.Entities
                 FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
             if (DataRecord.HasColumn(row, "FechaModificacion"))
                 FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
+
+            Descripcion = DataRecord.GetColumn<string>(row, "Descripcion");
+            Marca = DataRecord.GetColumn<string>(row, "Marca");
+            Categoria = DataRecord.GetColumn<string>(row, "Categoria");
         }
     }
 }

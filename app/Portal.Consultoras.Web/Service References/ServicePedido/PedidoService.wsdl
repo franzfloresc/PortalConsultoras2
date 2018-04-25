@@ -30,20 +30,27 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CargaMasiva" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.PagoEnLinea" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd12" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd13" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd14" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido.App" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd12" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.PagoEnLinea" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd13" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd14" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd15" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IPedidoService_EjecutarReservaProl_InputMessage">
+    <wsdl:part name="parameters" element="tns:EjecutarReservaProl" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_EjecutarReservaProl_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EjecutarReservaProlResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_EnviarCorreoReservaProl_InputMessage">
     <wsdl:part name="parameters" element="tns:EnviarCorreoReservaProl" />
   </wsdl:message>
@@ -343,6 +350,30 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_ObtenerCertificadoDigital_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerCertificadoDigitalResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetCUVApp_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCUVApp" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetCUVApp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCUVAppResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsertPedidoDetalleApp_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertPedidoDetalleApp" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsertPedidoDetalleApp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertPedidoDetalleAppResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_UpdateProlApp_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateProlApp" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_UpdateProlApp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateProlAppResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetPedidoDetalleApp_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidoDetalleApp" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetPedidoDetalleApp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidoDetalleAppResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_InsertPagoEnLineaResultadoLog_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertPagoEnLineaResultadoLog" />
@@ -686,6 +717,12 @@
   <wsdl:message name="IPedidoService_GetPedidosIngresadoFacturadoWebMobile_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPedidosIngresadoFacturadoWebMobileResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GetPedidosIngresadoFacturadoApp_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidosIngresadoFacturadoApp" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetPedidosIngresadoFacturadoApp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidosIngresadoFacturadoAppResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_GetConsultorasProgramaNuevas_InputMessage">
     <wsdl:part name="parameters" element="tns:GetConsultorasProgramaNuevas" />
   </wsdl:message>
@@ -883,12 +920,6 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_CargarSesionAndEjecutarReservaProl_OutputMessage">
     <wsdl:part name="parameters" element="tns:CargarSesionAndEjecutarReservaProlResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_EjecutarReservaProl_InputMessage">
-    <wsdl:part name="parameters" element="tns:EjecutarReservaProl" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_EjecutarReservaProl_OutputMessage">
-    <wsdl:part name="parameters" element="tns:EjecutarReservaProlResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_HabilitaPedidoMultipleInformacionConsultoras_InputMessage">
     <wsdl:part name="parameters" element="tns:HabilitaPedidoMultipleInformacionConsultoras" />
@@ -2421,6 +2452,10 @@
     <wsdl:part name="parameters" element="tns:GetCUVAsociadoByFilterResponse" />
   </wsdl:message>
   <wsdl:portType name="IPedidoService">
+    <wsdl:operation name="EjecutarReservaProl">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/EjecutarReservaProl" message="tns:IPedidoService_EjecutarReservaProl_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/EjecutarReservaProlResponse" message="tns:IPedidoService_EjecutarReservaProl_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="EnviarCorreoReservaProl">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/EnviarCorreoReservaProl" message="tns:IPedidoService_EnviarCorreoReservaProl_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/EnviarCorreoReservaProlResponse" message="tns:IPedidoService_EnviarCorreoReservaProl_OutputMessage" />
@@ -2620,6 +2655,22 @@
     <wsdl:operation name="ObtenerCertificadoDigital">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerCertificadoDigital" message="tns:IPedidoService_ObtenerCertificadoDigital_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerCertificadoDigitalResponse" message="tns:IPedidoService_ObtenerCertificadoDigital_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCUVApp">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetCUVApp" message="tns:IPedidoService_GetCUVApp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetCUVAppResponse" message="tns:IPedidoService_GetCUVApp_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertPedidoDetalleApp">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertPedidoDetalleApp" message="tns:IPedidoService_InsertPedidoDetalleApp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertPedidoDetalleAppResponse" message="tns:IPedidoService_InsertPedidoDetalleApp_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProlApp">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdateProlApp" message="tns:IPedidoService_UpdateProlApp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdateProlAppResponse" message="tns:IPedidoService_UpdateProlApp_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidoDetalleApp">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidoDetalleApp" message="tns:IPedidoService_GetPedidoDetalleApp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidoDetalleAppResponse" message="tns:IPedidoService_GetPedidoDetalleApp_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="InsertPagoEnLineaResultadoLog">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLog" message="tns:IPedidoService_InsertPagoEnLineaResultadoLog_InputMessage" />
@@ -2849,6 +2900,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoWebMobile" message="tns:IPedidoService_GetPedidosIngresadoFacturadoWebMobile_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoWebMobileResponse" message="tns:IPedidoService_GetPedidosIngresadoFacturadoWebMobile_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetPedidosIngresadoFacturadoApp">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoApp" message="tns:IPedidoService_GetPedidosIngresadoFacturadoApp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoAppResponse" message="tns:IPedidoService_GetPedidosIngresadoFacturadoApp_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetConsultorasProgramaNuevas">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevas" message="tns:IPedidoService_GetConsultorasProgramaNuevas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevasResponse" message="tns:IPedidoService_GetConsultorasProgramaNuevas_OutputMessage" />
@@ -2980,10 +3035,6 @@
     <wsdl:operation name="CargarSesionAndEjecutarReservaProl">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/CargarSesionAndEjecutarReservaProl" message="tns:IPedidoService_CargarSesionAndEjecutarReservaProl_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/CargarSesionAndEjecutarReservaProlResponse" message="tns:IPedidoService_CargarSesionAndEjecutarReservaProl_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="EjecutarReservaProl">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/EjecutarReservaProl" message="tns:IPedidoService_EjecutarReservaProl_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/EjecutarReservaProlResponse" message="tns:IPedidoService_EjecutarReservaProl_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="HabilitaPedidoMultipleInformacionConsultoras">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/HabilitaPedidoMultipleInformacionConsultoras" message="tns:IPedidoService_HabilitaPedidoMultipleInformacionConsultoras_InputMessage" />
@@ -4008,6 +4059,15 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPedidoService" type="tns:IPedidoService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="EjecutarReservaProl">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/EjecutarReservaProl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="EnviarCorreoReservaProl">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/EnviarCorreoReservaProl" style="document" />
       <wsdl:input>
@@ -4451,6 +4511,42 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerCertificadoDigital">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerCertificadoDigital" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCUVApp">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCUVApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertPedidoDetalleApp">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPedidoDetalleApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProlApp">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateProlApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidoDetalleApp">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidoDetalleApp" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4971,6 +5067,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetPedidosIngresadoFacturadoApp">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetConsultorasProgramaNuevas">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevas" style="document" />
       <wsdl:input>
@@ -5261,15 +5366,6 @@
     </wsdl:operation>
     <wsdl:operation name="CargarSesionAndEjecutarReservaProl">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/CargarSesionAndEjecutarReservaProl" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EjecutarReservaProl">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/EjecutarReservaProl" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7576,6 +7672,15 @@
   <wsdl:binding name="BasicHttpsBinding_IPedidoService" type="tns:IPedidoService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IPedidoService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="EjecutarReservaProl">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/EjecutarReservaProl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="EnviarCorreoReservaProl">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/EnviarCorreoReservaProl" style="document" />
       <wsdl:input>
@@ -8019,6 +8124,42 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerCertificadoDigital">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerCertificadoDigital" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCUVApp">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCUVApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertPedidoDetalleApp">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPedidoDetalleApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProlApp">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateProlApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidoDetalleApp">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidoDetalleApp" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8539,6 +8680,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetPedidosIngresadoFacturadoApp">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetConsultorasProgramaNuevas">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevas" style="document" />
       <wsdl:input>
@@ -8829,15 +8979,6 @@
     </wsdl:operation>
     <wsdl:operation name="CargarSesionAndEjecutarReservaProl">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/CargarSesionAndEjecutarReservaProl" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EjecutarReservaProl">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/EjecutarReservaProl" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
