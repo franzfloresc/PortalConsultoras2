@@ -120,8 +120,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             try
             {
-                //Informacion de usuario y palancas
-                var usuario = _usuarioBusinessLogic.GetSesionUsuarioPedidoApp(pedidoDetalle.Usuario);
+                //Informacion de usuario
+                var usuario = pedidoDetalle.Usuario;
+                usuario.EsConsultoraNueva = _usuarioBusinessLogic.EsConsultoraNueva(usuario);
 
                 //Validacion reserva u horario restringido
                 var validacionHorario = _pedidoWebBusinessLogic.ValidacionModificarPedido(pedidoDetalle.PaisID,
@@ -185,8 +186,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             try
             {
-                //Informacion de usuario y palancas
-                usuario = _usuarioBusinessLogic.GetSesionUsuarioPedidoApp(usuario);
+                //Informacion de usuario
+                usuario.EsConsultoraNueva = _usuarioBusinessLogic.EsConsultoraNueva(usuario);
 
                 if (!usuario.EsConsultoraNueva)
                 {
