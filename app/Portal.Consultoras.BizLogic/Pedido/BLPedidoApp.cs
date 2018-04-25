@@ -19,6 +19,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private readonly IConfiguracionProgramaNuevasBusinessLogic _configuracionProgramaNuevasBusinessLogic;
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
         private readonly IUsuarioBusinessLogic _usuarioBusinessLogic;
+        private readonly IClienteBusinessLogic _clienteBusinessLogic;
 
         private List<ObjMontosProl> montosProl = new List<ObjMontosProl> { new ObjMontosProl() };
 
@@ -28,7 +29,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     new BLEstrategia(),
                                     new BLConfiguracionProgramaNuevas(),
                                     new BLConsultoraConcurso(),
-                                    new BLUsuario())
+                                    new BLUsuario(),
+                                    new BLCliente())
         { }
 
         public BLPedidoApp(IProductoBusinessLogic productoBusinessLogic, 
@@ -37,7 +39,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             IEstrategiaBusinessLogic estrategiaBusinessLogic,
                             IConfiguracionProgramaNuevasBusinessLogic configuracionProgramaNuevasBusinessLogic,
                             IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic,
-                            IUsuarioBusinessLogic usuarioBusinessLogic)
+                            IUsuarioBusinessLogic usuarioBusinessLogic,
+                            IClienteBusinessLogic clienteBusinessLogic )
         {
             _productoBusinessLogic = productoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
@@ -260,6 +263,51 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
 
             return false;
+        }
+
+        public object Update(BEPedidoDetalleAppInsertar pedidoDetalle)
+        {
+            var mensaje = string.Empty;
+            try
+            {
+                //Informacion de usuario y palancas
+                var usuario = _usuarioBusinessLogic.GetSesionUsuarioPedidoApp(pedidoDetalle.Usuario);
+
+                //Validacion reserve u horario restringido
+                var validacionHorario = _pedidoWebBusinessLogic.ValidacionModificarPedido(pedidoDetalle.PaisID,
+                                                                                          usuario.ConsultoraID,
+                                                                                          usuario.CampaniaID,
+                                                                                          usuario.UsuarioPrueba == 1,
+                                                                                          usuario.AceptacionConsultoraDA);
+
+                if (validacionHorario.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno)
+                    return PedidoInsertarRespuesta(Constantes.PedidoAppValidacion.PedidoInsertar.Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, validacionHorario.Mensaje);
+
+                //Validar stock
+                var result = ValidarStockEstrategia(usuario, pedidoDetalle, out mensaje);
+                if (!result) return PedidoInsertarRespuesta(Constantes.PedidoAppValidacion.PedidoInsertar.Code.ERROR_STOCK_ESTRATEGIA, mensaje);
+
+                //validar datos cliente
+                var validacionDatos = InsertarMensajeValidarDatos(pedidoDetalle.ClienteID.ToString(), pedidoDetalle.PaisID, usuario.ConsultoraID,out mensaje);
+                if (!validacionDatos) return PedidoInsertarRespuesta(Constantes.PedidoAppValidacion.PedidoInsertar.Code.ERROR_VALIDA_DATOS, mensaje);
+
+                //accion actualizar
+                var accionActualizar = PedidoActualizar(usuario, pedidoDetalle);
+                if (accionActualizar != Constantes.PedidoAppValidacion.PedidoInsertar.Code.SUCCESS) return PedidoInsertarRespuesta(accionActualizar);
+
+                //actualiza PROL
+                UpdateProl(usuario, pedidoDetalle);
+
+                return PedidoInsertarRespuesta(Constantes.PedidoAppValidacion.PedidoInsertar.Code.SUCCESS);
+
+            }
+            catch (Exception ex)
+            {
+
+                LogManager.SaveLog(ex, pedidoDetalle.Usuario.CodigoUsuario, pedidoDetalle.PaisID);
+                return PedidoInsertarRespuesta(Constantes.PedidoAppValidacion.PedidoInsertar.Code.ERROR_INTERNO, ex.Message);
+            }
+            
         }
 
         #region GetCUV
@@ -817,5 +865,56 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return result;
         }
         #endregion
+
+        #region Update
+        private string PedidoActualizar(BEUsuario usuario, BEPedidoDetalleAppInsertar pedidoDetalle) {
+
+            var obePedidoWebDetalle = new BEPedidoWebDetalle
+            {
+                PaisID = pedidoDetalle.PaisID,
+                CampaniaID = usuario.CampaniaID,
+                PedidoID = pedidoDetalle.PedidoID,
+                PedidoDetalleID = Convert.ToInt16(pedidoDetalle.PedidoDetalleID),
+                Cantidad = Convert.ToInt32(pedidoDetalle.Cantidad),
+                PrecioUnidad = pedidoDetalle.Producto.PrecioCatalogo,
+                ClienteID = pedidoDetalle.ClienteID,
+                CUV = pedidoDetalle.Producto.CUV,
+                TipoOfertaSisID = pedidoDetalle.Producto.TipoOfertaSisID,
+                //Stock = model.Stock,
+                //Flag = model.Flag,
+                DescripcionProd = pedidoDetalle.Producto.Descripcion,
+                ImporteTotal = pedidoDetalle.Cantidad * pedidoDetalle.Producto.PrecioCatalogo,
+                Nombre = pedidoDetalle.ClienteID == 0 ? usuario.Nombre : pedidoDetalle.ClienteDescripcion
+            };
+
+            var result = AdministradorPedido(usuario, pedidoDetalle, obePedidoWebDetalle, Constantes.PedidoAccion.UPDATE);
+            if (!result) return Constantes.PedidoAppValidacion.PedidoInsertar.Code.ERROR_ACTUALIZAR;
+
+            return Constantes.PedidoAppValidacion.PedidoInsertar.Code.SUCCESS;
+        }
+
+        private bool InsertarMensajeValidarDatos(string clienteIdStr, int paisID, long consultoraID, out string mensaje)
+        {
+            var result = true;
+            mensaje = string.Empty;
+            if (string.IsNullOrEmpty(clienteIdStr))
+                return mensaje == string.Empty || result;
+
+            var clienteId = Convert.ToInt32(clienteIdStr);
+
+            if (clienteId > 0)
+            {
+                var cliente = _clienteBusinessLogic.SelectByConsultoraByCodigo(paisID, consultoraID, clienteId, 0);
+                if (cliente.TieneTelefono == 0){
+                    result = false;
+                    mensaje = "Debe actualizar los datos del cliente.";
+                } 
+            }
+
+            return mensaje == string.Empty || result; ;
+        }
+
+        #endregion
+
     }
 }
