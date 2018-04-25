@@ -36355,9 +36355,8 @@ height:30px;
 
 .divOfertaProductosfix, .divOfertaProductosPerdiofix {
 	text-align: center;
-	max-width: 1100px;
+	max-width: 1000px;
 	margin: auto;
-	margin-left: 15%;
 }
 .divOfertaProductosfixNoDorado {
 	max-width: 1189px;
