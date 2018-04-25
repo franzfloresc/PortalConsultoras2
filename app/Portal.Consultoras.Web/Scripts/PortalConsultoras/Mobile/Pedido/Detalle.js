@@ -745,7 +745,7 @@ function PedidoUpdate(item, PROL) {
             if (!checkTimeout(data))
                 return false;
 
-            if (data.success != true) {
+            if (data.success != true)  
                 messageInfoError(data.message);
                 return false;
             }

@@ -419,6 +419,9 @@ namespace Portal.Consultoras.BizLogic
                     usuario.ZonaID = postulante.ZonaID;
                     usuario.RegionID = postulante.RegionID;
                     usuario.ConsultoraID = postulante.ConsultoraID;
+                    usuario.Seccion = postulante.Seccion;
+                    usuario.CodigorRegion = postulante.Region;
+                    usuario.CodigoZona = postulante.CodigoZona;
 
                     var configuracion = this.GetConfiguracionCampania(usuario, Constantes.TipoUsuario.Postulante);
 

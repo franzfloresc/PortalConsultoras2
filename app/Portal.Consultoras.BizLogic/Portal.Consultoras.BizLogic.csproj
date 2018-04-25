@@ -97,6 +97,7 @@
     <Compile Include="BLCupon.cs" />
     <Compile Include="Cache\BLCache.cs" />
     <Compile Include="Cliente\BLClienteDB.cs" />
+    <Compile Include="Cliente\IClienteBusinessLogic.cs" />
     <Compile Include="Comunicado\IComunicadoBusinessLogic.cs" />
     <Compile Include="Configuracion\BLConfiguracionPaisDatos.cs" />
     <Compile Include="Configuracion\IConfiguracionPaisBusinessLogic.cs" />

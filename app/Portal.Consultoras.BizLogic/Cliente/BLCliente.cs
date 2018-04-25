@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLCliente
+    public class BLCliente : IClienteBusinessLogic
     {
         private readonly INotasBusinessLogic _notasBusinessLogic;
         private readonly IMovimientoBusinessLogic _movimientoBusinessLogic;

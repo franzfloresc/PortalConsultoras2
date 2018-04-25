@@ -34,5 +34,7 @@ namespace Portal.Consultoras.Entities.Pedido.App
 
         [DataMember]
         public BEUsuario Usuario { get; set; }
+        [DataMember]
+        public int PedidoDetalleID { get; set; }
     }
 }
