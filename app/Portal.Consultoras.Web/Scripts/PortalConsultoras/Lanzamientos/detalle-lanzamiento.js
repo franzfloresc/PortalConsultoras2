@@ -103,7 +103,7 @@
             dots: false,
             infinite: true,
             speed: 260,
-            slidesToShow: 4,
+            slidesToShow: 2,
             slidesToScroll: 1,
             variableWidth: widthDimamico,
             infinite: true,
