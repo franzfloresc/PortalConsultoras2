@@ -2355,9 +2355,9 @@ namespace Portal.Consultoras.Service
             return _pedidoAppBusinessLogic.Insert(pedidoDetalle);
         }
 
-        public List<BEPedidoWebDetalle> GetPedidoDetalleApp(BEPedidoDetalleAppBuscar pedidoDetalle)
+        public BEPedidoWeb GetPedidoApp(BEUsuario usuario)
         {
-            return _pedidoAppBusinessLogic.GetDetalle(pedidoDetalle);
+            return _pedidoAppBusinessLogic.Get(usuario);
         }
 
         public bool InsertKitInicio(BEUsuario usuario)
