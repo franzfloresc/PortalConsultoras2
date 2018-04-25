@@ -1,572 +1,461 @@
- use belcorpperu_pl50
- go
-
+ 
+ USE BelcorpColombia_PL50
+ GO
 
 --VERSION NUEVA PAUL CAMBIO DE ORDEN EN JOIN
-
-
-
-
-
-
-
-
-
 
 IF (OBJECT_ID('dbo.GetPedidoWebDetalleByPedidoValidado', 'P') IS NULL)
 	EXEC ('CREATE PROCEDURE dbo.GetPedidoWebDetalleByPedidoValidado AS SET NOCOUNT ON;')
 GO
-ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByPedidoValidado] @CampaniaID INT
 
-	,@ConsultoraID BIGINT
+ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByPedidoValidado] @CampaniaID int
+
+, @ConsultoraID bigint
 
 AS
 
 BEGIN
 
--- GetPedidoWebDetalleByPedidoValidado 201806,49630628
+  -- GetPedidoWebDetalleByPedidoValidado 201806,49630628
 
-	/*Para Nuevas obtener el numero de pedido de la consultora.*/
+  /*Para Nuevas obtener el numero de pedido de la consultora.*/
 
-	DECLARE @NumeroPedido INT
+  DECLARE @NumeroPedido int
 
 
+  SELECT
+    @NumeroPedido = consecutivonueva + 1
 
-	SELECT @NumeroPedido = consecutivonueva + 1
+  FROM ods.Consultora WITH (NOLOCK)
 
-	FROM ods.Consultora WITH (NOLOCK)
+  WHERE ConsultoraID = @ConsultoraID
 
-	WHERE ConsultoraID = @ConsultoraID
 
 
+  /*Revisar si la consultora pertenece al programa Nuevas.*/
 
-	/*Revisar si la consultora pertenece al programa Nuevas.*/
+  DECLARE @ProgramaNuevoActivado int
 
-	DECLARE @ProgramaNuevoActivado INT
+  DECLARE @CodigoPrograma varchar(3)
 
-	DECLARE @CodigoPrograma VARCHAR(3)
 
+  SELECT
+    @ProgramaNuevoActivado = COUNT(C.ConsultoraID),
+    @CodigoPrograma = CP.CodigoPrograma
 
+  FROM ods.Consultora C WITH (NOLOCK)
 
-	SELECT @ProgramaNuevoActivado = COUNT(C.ConsultoraID)
+  INNER JOIN ods.ConsultorasProgramaNuevas CP WITH (NOLOCK)
+    ON C.Codigo = CP.CodigoConsultora
 
-		,@CodigoPrograma = CP.CodigoPrograma
+  WHERE C.ConsultoraID = @ConsultoraID
 
-	FROM ods.Consultora C WITH (NOLOCK)
+  AND CP.Participa = 1
 
-	INNER JOIN ods.ConsultorasProgramaNuevas CP WITH (NOLOCK) ON C.Codigo = CP.CodigoConsultora
+  GROUP BY C.ConsultoraID,
+           CP.CodigoPrograma
 
-	WHERE C.ConsultoraID = @ConsultoraID
 
-		AND CP.Participa = 1
+  IF (@ProgramaNuevoActivado IS NULL)
 
-	GROUP BY C.ConsultoraID
+    SET @ProgramaNuevoActivado = 0
 
-		,CP.CodigoPrograma
 
+  DECLARE @FechaRegistroPedido date
 
+  DECLARE @FechaInicioSetAgrupado date
 
-	IF (@ProgramaNuevoActivado IS NULL)
+  SET @FechaInicioSetAgrupado = (SELECT
+    datefromparts(valor1, valor2, valor3)
+  FROM configuracionpaisdatos
+  WHERE Codigo = 'InicioFechaSetAGrupados')
 
-		SET @ProgramaNuevoActivado = 0
 
+  SELECT
+    @FechaRegistroPedido = FechaRegistro
+  FROM PedidoWeb WITH (NOLOCK)
+  WHERE CampaniaID = @CampaniaID
+  AND ConsultoraID = @ConsultoraID
 
 
+  IF ((CAST(@FechaRegistroPedido AS date) > CAST(@FechaInicioSetAgrupado AS date)))
 
+  BEGIN
 
+    SELECT
+      *
+    FROM (SELECT
+      pwd.CampaniaID,
+      pwd.PedidoID,
+      pwd.PedidoDetalleID,
+      ISNULL(pwd.MarcaID, 0) MarcaID,
+      pwd.ConsultoraID,
+      pwd.ClienteID,
+      pwd.Cantidad,
+      pwd.PrecioUnidad,
+      pwd.ImporteTotal,
+      pwd.CUV,
+      COALESCE(EST.DescripcionCUV2, OP.Descripcion, OG.Descripcion, MC.Descripcion, pd.Descripcion, pc.Descripcion) AS DescripcionProd,
+      c.Nombre,
+      pwd.OfertaWeb,
+      pwd.CUVPadre,
+      pwd.PedidoDetalleIDPadre,
+      ISNULL(pwd.ConfiguracionOfertaID, 0) ConfiguracionOfertaID,
+      ISNULL(pwd.TipoOfertaSisID, 0) TipoOfertaSisID,
+      CASE
 
+        WHEN pwd.ModificaPedidoReservadoMovil = 0 THEN 'PV'
 
+        ELSE 'PNV'
 
+      END AS TipoPedido,
+      pwd.ObservacionPROL,
+      pc.IndicadorOferta AS IndicadorOfertaCUV
 
-declare @FechaRegistroPedido date
+      --,PW.PedidoID
 
-declare @FechaInicioSetAgrupado date
+      ,
+      PW.MontoTotalProl,
+      PW.DescuentoProl,
+      ISNULL(pwd.EsBackOrder, 0) AS EsBackOrder,
+      ISNULL(pwd.AceptoBackOrder, 0) AS AceptoBackOrder
 
-set @FechaInicioSetAgrupado =(select datefromparts(valor1, valor2, valor3) from configuracionpaisdatos where Codigo='InicioFechaSetAGrupados')
+    FROM dbo.PedidoWebDetalle pwd WITH (NOLOCK)
 
+    LEFT JOIN dbo.Cliente c
+      ON pwd.ClienteID = c.ClienteID
 
+      AND pwd.ConsultoraID = c.ConsultoraID
 
-select @FechaRegistroPedido=FechaRegistro from pedidoweb where CampaniaID=@CampaniaID and ConsultoraID=@ConsultoraID
+    INNER JOIN ods.ProductoComercial pc WITH (NOLOCK)
+      ON pwd.CampaniaID = pc.AnoCampania
 
+      AND pwd.CUV = pc.CUV
 
+    LEFT JOIN dbo.ProductoDescripcion pd
+      ON pwd.CampaniaID = pd.CampaniaID
 
+      AND pwd.CUV = pd.CUV
 
+    LEFT HASH JOIN OfertaProducto OP
+      ON OP.CampaniaID = PC.CampaniaID
 
-if((cast(@FechaRegistroPedido as date)>cast(@FechaInicioSetAgrupado as date)))
+      AND OP.CUV = PC.CUV
 
-begin
+    LEFT JOIN OfertaNueva OG
+      ON OG.CampaniaID = PC.AnoCampania
 
+      AND OG.CUV = PC.CUV
 
+    LEFT JOIN MatrizComercial MC
+      ON PC.CodigoProducto = MC.CodigoSAP
 
-					select * from (
+    LEFT JOIN dbo.PedidoWeb PW WITH (NOLOCK)
+      ON PWD.CampaniaID = PW.CampaniaID
 
-				SELECT pwd.CampaniaID
+      AND PWD.PedidoID = PW.PedidoID
 
-					,pwd.PedidoID
+    LEFT JOIN Estrategia EST WITH (NOLOCK)
+      ON PWD.CampaniaID BETWEEN EST.CampaniaID
 
-					,pwd.PedidoDetalleID
+      AND CASE
 
-					,ISNULL(pwd.MarcaID, 0) MarcaID
+        WHEN EST.CampaniaIDFin = 0 THEN EST.CampaniaID
 
-					,pwd.ConsultoraID
+        ELSE EST.CampaniaIDFin
 
-					,pwd.ClienteID
+      END
 
-					,pwd.Cantidad
+      AND EST.CUV2 = PWD.CUV
 
-					,pwd.PrecioUnidad
+      AND EST.Activo = 1
 
-					,pwd.ImporteTotal
+      AND EST.Numeropedido = (
 
-					,pwd.CUV
+      CASE
 
-					,COALESCE(EST.DescripcionCUV2, OP.Descripcion, OG.Descripcion, MC.Descripcion, pd.Descripcion, pc.Descripcion) AS DescripcionProd
+        WHEN @ProgramaNuevoActivado = 0 THEN 0
 
-					,c.Nombre
+        ELSE @NumeroPedido
 
-					,pwd.OfertaWeb
+      END
 
-					,pwd.CUVPadre
+      )
 
-					,pwd.PedidoDetalleIDPadre
+      AND (
 
-					,ISNULL(pwd.ConfiguracionOfertaID, 0) ConfiguracionOfertaID
+      EST.TipoEstrategiaID = pwd.TipoEstrategiaID
 
-					,ISNULL(pwd.TipoOfertaSisID, 0) TipoOfertaSisID
+      OR ISNULL(pwd.TipoEstrategiaID, 0) = 0
 
-					,CASE 
+      )
 
-						WHEN pwd.ModificaPedidoReservadoMovil = 0
+    LEFT JOIN TipoEstrategia TE WITH (NOLOCK)
+      ON TE.TipoEstrategiaID = EST.TipoEstrategiaID
 
-							THEN 'PV'
+      AND (
 
-						ELSE 'PNV'
+      TE.CodigoPrograma = @CodigoPrograma
 
-						END AS TipoPedido
+      OR TE.CodigoPrograma IS NULL
 
-					,pwd.ObservacionPROL
+      OR TE.CodigoPrograma = ''
 
-					,pc.IndicadorOferta AS IndicadorOfertaCUV
+      )
 
-					--,PW.PedidoID
+    WHERE pwd.CampaniaID = @CampaniaID
 
-					,PW.MontoTotalProl
+    AND pwd.ConsultoraID = @ConsultoraID
 
-					,PW.DescuentoProl
+    AND pwd.TipoEstrategiaID NOT IN (SELECT
+      tipoestrategiaid
+    FROM tipoestrategia
+    WHERE codigo IN ('001', '030', '008', '007', '005', '010', '002', '011'))
 
-					,ISNULL(pwd.EsBackOrder, 0) AS EsBackOrder
+    UNION
 
-					,ISNULL(pwd.AceptoBackOrder, 0) AS AceptoBackOrder
+    SELECT
+      PWS.Campania,
+      PWS.PedidoID,
+      0 AS PedidoDetalleID,
+      0 AS MarcaID,
+      PWS.ConsultoraId,
+      NULL AS ClienteID,
+      PWS.Cantidad,
+      PWS.PrecioUnidad,
+      PWs.ImporteTotal,
+      PWS.CuvSet AS CUV,
+      PWS.NombreSet AS DescripcionProd,
+      NULL AS Nombre,
+      PWD.OfertaWeb,
+      PWS.CuvSet AS CUVPadre,
+      NULL AS PedidoDetalleIDPadre,
+      ISNULL(PWD.ConfiguracionOfertaID, 0) ConfiguracionOfertaID,
+      ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID,
+      CASE
 
-				FROM dbo.PedidoWebDetalle pwd
+        WHEN PWD.ModificaPedidoReservadoMovil = 0 THEN 'PV'
 
-				LEFT JOIN dbo.Cliente c ON pwd.ClienteID = c.ClienteID
+        ELSE 'PNV'
 
-					AND pwd.ConsultoraID = c.ConsultoraID
+      END AS TipoPedido,
+      PWD.ObservacionPROL,
+      PC.IndicadorOferta AS IndicadorOfertaCUV
 
-				INNER JOIN ods.ProductoComercial pc ON pwd.CampaniaID = pc.AnoCampania
+      --,PW.PedidoID
 
-					AND pwd.CUV = pc.CUV
+      ,
+      PW.MontoTotalProl,
+      PW.DescuentoProl,
+      ISNULL(PWD.EsBackOrder, 0) AS EsBackOrder,
+      ISNULL(PWD.AceptoBackOrder, 0) AS AceptoBackOrder
 
-				LEFT JOIN dbo.ProductoDescripcion pd ON pwd.CampaniaID = pd.CampaniaID
+    FROM PedidoWebSet PWS
 
-					AND pwd.CUV = pd.CUV
+    INNER JOIN PedidoWeb PW WITH (NOLOCK)
+      ON pw.CampaniaId = pws.Campania
+      AND PWS.PedidoID = PW.PedidoID
 
-				LEFT HASH JOIN OfertaProducto OP ON OP.CampaniaID = PC.CampaniaID
+    INNER JOIN PedidoWebSetDetalle PWSD
+      ON PWSD.SetID = PWS.SetID
+    INNER JOIN PedidoWebDetalle PWD WITH (NOLOCK)
+      ON pw.CampaniaId = pwd.CampaniaId
+      AND PWD.PedidoID = PW.PedidoID
+      --PWD.PedidoID = PW.PedidoID 
+      AND PWSD.CuvProducto = PWD.CUV
 
-					AND OP.CUV = PC.CUV
 
-				LEFT JOIN OfertaNueva OG ON OG.CampaniaID = PC.AnoCampania
+    INNER JOIN ods.ProductoComercial PC WITH (NOLOCK)
+      ON PWD.CampaniaID = PC.AnoCampania
 
-					AND OG.CUV = PC.CUV
+      AND PWD.CUV = PC.CUV
 
-				LEFT JOIN MatrizComercial MC ON PC.CodigoProducto = MC.CodigoSAP
+    INNER JOIN Estrategia EST WITH (NOLOCK)
+      ON PWS.EstrategiaID = EST.EstrategiaID
 
-				LEFT JOIN dbo.PedidoWeb PW ON PWD.CampaniaID = PW.CampaniaID
+    INNER JOIN TipoEstrategia TE WITH (NOLOCK)
+      ON TE.TipoEstrategiaID = EST.TipoEstrategiaID
 
-					AND PWD.PedidoID = PW.PedidoID
+    LEFT JOIN TipoEstrategia TEP WITH (NOLOCK)
+      ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
 
-				LEFT JOIN Estrategia EST WITH (NOLOCK) ON PWD.CampaniaID BETWEEN EST.CampaniaID
+    WHERE PWS.Campania = @CampaniaID
 
-						AND CASE 
+    AND PWS.ConsultoraID = @ConsultoraID
 
-								WHEN EST.CampaniaIDFin = 0
+    GROUP BY PWS.Campania,
+             PWS.PedidoID,
+             PWS.ConsultoraId,
+             ClienteID,
+             PWS.Cantidad,
+             PWS.PrecioUnidad,
+             PWs.ImporteTotal,
+             PWD.OfertaWeb,
+             PC.IndicadorMontoMinimo,
+             PWS.CuvSet,
+             PWS.NombreSet,
+             PWD.ConfiguracionOfertaID,
+             PWD.TipoOfertaSisID,
+             PWD.TipoPedido,
+             PC.IndicadorOferta,
+             PW.DescuentoProl,
+             PW.MontoEscala,
+             PW.MontoAhorroCatalogo,
+             PW.MontoAhorroRevista,
+             PWD.OrigenPedidoWeb,
+             PWD.EsBackOrder,
+             PWD.AceptoBackOrder,
+             PC.CodigoCatalago,
+             TEP.FlagNueva,
+             TE.FlagNueva,
+             TEP.Codigo,
+             TE.Codigo,
+             EST.EsOfertaIndependiente,
+             EST.EstrategiaID,
+             EST.TipoEstrategiaID,
+             EST.Numeropedido,
+             PWD.ModificaPedidoReservadoMovil,
+             PWD.ObservacionPROL,
 
-									THEN EST.CampaniaID
+             PC.IndicadorOferta,
+             PW.PedidoID,
+             PW.MontoTotalProl) Agrupado
 
-								ELSE EST.CampaniaIDFin
 
-								END
+    ORDER BY Agrupado.PedidoID
 
-					AND EST.CUV2 = PWD.CUV
 
-					AND EST.Activo = 1
+  END
 
-					AND EST.Numeropedido = (
+  ELSE
 
-						CASE 
+  BEGIN
 
-							WHEN @ProgramaNuevoActivado = 0
+    SELECT
+      pwd.CampaniaID,
+      pwd.PedidoID,
+      pwd.PedidoDetalleID,
+      ISNULL(pwd.MarcaID, 0) MarcaID,
+      pwd.ConsultoraID,
+      pwd.ClienteID,
+      pwd.Cantidad,
+      pwd.PrecioUnidad,
+      pwd.ImporteTotal,
+      pwd.CUV,
+      COALESCE(EST.DescripcionCUV2, OP.Descripcion, OG.Descripcion, MC.Descripcion, pd.Descripcion, pc.Descripcion) AS DescripcionProd,
+      c.Nombre,
+      pwd.OfertaWeb,
+      pwd.CUVPadre,
+      pwd.PedidoDetalleIDPadre,
+      ISNULL(pwd.ConfiguracionOfertaID, 0) ConfiguracionOfertaID,
+      ISNULL(pwd.TipoOfertaSisID, 0) TipoOfertaSisID,
+      CASE
 
-								THEN 0
+        WHEN pwd.ModificaPedidoReservadoMovil = 0 THEN 'PV'
 
-							ELSE @NumeroPedido
+        ELSE 'PNV'
 
-							END
+      END AS TipoPedido,
+      pwd.ObservacionPROL,
+      pc.IndicadorOferta AS IndicadorOfertaCUV,
+      PW.PedidoID,
+      PW.MontoTotalProl,
+      PW.DescuentoProl,
+      ISNULL(pwd.EsBackOrder, 0) AS EsBackOrder,
+      ISNULL(pwd.AceptoBackOrder, 0) AS AceptoBackOrder
 
-						)
+    FROM dbo.PedidoWebDetalle pwd WITH (NOLOCK)
 
-					AND (
+    LEFT JOIN dbo.Cliente c
+      ON pwd.ClienteID = c.ClienteID
 
-						EST.TipoEstrategiaID = pwd.TipoEstrategiaID
+      AND pwd.ConsultoraID = c.ConsultoraID
 
-						OR ISNULL(pwd.TipoEstrategiaID, 0) = 0
+    INNER JOIN ods.ProductoComercial pc WITH (NOLOCK)
+      ON pwd.CampaniaID = pc.AnoCampania
 
-						)
+      AND pwd.CUV = pc.CUV
 
-				LEFT JOIN TipoEstrategia TE WITH (NOLOCK) ON TE.TipoEstrategiaID = EST.TipoEstrategiaID
+    LEFT JOIN dbo.ProductoDescripcion pd
+      ON pwd.CampaniaID = pd.CampaniaID
 
-					AND (
+      AND pwd.CUV = pd.CUV
 
-						TE.CodigoPrograma = @CodigoPrograma
+    LEFT HASH JOIN OfertaProducto OP
+      ON OP.CampaniaID = PC.CampaniaID
 
-						OR TE.CodigoPrograma IS NULL
+      AND OP.CUV = PC.CUV
 
-						OR TE.CodigoPrograma = ''
+    LEFT JOIN OfertaNueva OG
+      ON OG.CampaniaID = PC.AnoCampania
 
-						)
+      AND OG.CUV = PC.CUV
 
-				WHERE pwd.CampaniaID = @CampaniaID
+    LEFT JOIN MatrizComercial MC
+      ON PC.CodigoProducto = MC.CodigoSAP
 
-					AND pwd.ConsultoraID = @ConsultoraID
+    LEFT JOIN dbo.PedidoWeb PW WITH (NOLOCK)
+      ON PWD.CampaniaID = PW.CampaniaID
 
-						and pwd.TipoEstrategiaID not in (select tipoestrategiaid from tipoestrategia where codigo in ('001','030','008','007','005','010'))
+      AND PWD.PedidoID = PW.PedidoID
 
-					union
+    LEFT JOIN Estrategia EST WITH (NOLOCK)
+      ON PWD.CampaniaID BETWEEN EST.CampaniaID
 
+      AND CASE
 
+        WHEN EST.CampaniaIDFin = 0 THEN EST.CampaniaID
 
-		 
+        ELSE EST.CampaniaIDFin
 
-	
+      END
 
-		 				SELECT  PWS.Campania
+      AND EST.CUV2 = PWD.CUV
 
-								,PWS.PedidoID
+      AND EST.Activo = 1
 
-								,0 as PedidoDetalleID
+      AND EST.Numeropedido = (
 
-								,0 AS MarcaID
+      CASE
 
-								,PWS.ConsultoraId
+        WHEN @ProgramaNuevoActivado = 0 THEN 0
 
-								,NULL AS ClienteID
+        ELSE @NumeroPedido
 
-								,PWS.Cantidad
+      END
 
-								,PWS.PrecioUnidad
+      )
 
-								,PWs.ImporteTotal
+      AND (
 
-								,PWS.CuvSet AS CUV
+      EST.TipoEstrategiaID = pwd.TipoEstrategiaID
 
-								,PWS.NombreSet AS DescripcionProd
+      OR ISNULL(pwd.TipoEstrategiaID, 0) = 0
 
-								,NULL AS Nombre
+      )
 
-								,PWD.OfertaWeb
+    LEFT JOIN TipoEstrategia TE WITH (NOLOCK)
+      ON TE.TipoEstrategiaID = EST.TipoEstrategiaID
 
-								,PWS.CuvSet AS CUVPadre
+      AND (
 
-								,null as PedidoDetalleIDPadre
+      TE.CodigoPrograma = @CodigoPrograma
 
-								,ISNULL(PWD.ConfiguracionOfertaID, 0) ConfiguracionOfertaID
+      OR TE.CodigoPrograma IS NULL
 
-								,ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID
+      OR TE.CodigoPrograma = ''
 
-								,CASE 
+      )
 
-						WHEN PWD.ModificaPedidoReservadoMovil = 0
+    WHERE pwd.CampaniaID = @CampaniaID
 
-							THEN 'PV'
+    AND pwd.ConsultoraID = @ConsultoraID
 
-						ELSE 'PNV'
+    ORDER BY pwd.PedidoDetalleID
 
-						END AS TipoPedido
+    , ISNULL(pwd.PedidoDetalleIDPadre, 1) DESC;
 
-						,PWD.ObservacionPROL
-
-					,PC.IndicadorOferta AS IndicadorOfertaCUV
-
-					--,PW.PedidoID
-
-					,PW.MontoTotalProl
-
-					,PW.DescuentoProl
-
-					,ISNULL(PWD.EsBackOrder, 0) AS EsBackOrder
-
-					,ISNULL(PWD.AceptoBackOrder, 0) AS AceptoBackOrder
-
-								 FROM pedidowebset PWS
-
-							INNER JOIN PedidoWeb PW ON  pw.CampaniaId = pws.Campania and PWS.PedidoID = PW.PedidoID
-
-							inner join PedidoWebSetDetalle PWSD on PWSD.SetID=PWS.SetID
-							INNER JOIN PedidoWebDetalle PWD ON pw.CampaniaId = pwd.CampaniaId and PWD.PedidoID = PW.PedidoID
-							--PWD.PedidoID = PW.PedidoID 
-							and PWSD.CuvProducto =PWD.CUV
-
-						
-							INNER JOIN ods.ProductoComercial PC WITH (NOLOCK) ON PWD.CampaniaID = PC.AnoCampania
-
-								AND PWD.CUV = PC.CUV				
-
-							INNER JOIN Estrategia EST ON PWS.EstrategiaID = EST.EstrategiaID
-
-							INNER JOIN TipoEstrategia TE WITH (NOLOCK) ON TE.TipoEstrategiaID = EST.TipoEstrategiaID
-
-							LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
-
-								WHERE PWS.Campania = @CampaniaID
-
-									AND PWS.ConsultoraID = @ConsultoraID
-
-									group by PWS.Campania
-
-						,PWS.PedidoID
-
-						,PWS.ConsultoraId
-
-						,ClienteID
-
-						,PWS.Cantidad
-
-						,PWS.PrecioUnidad
-
-						,PWs.ImporteTotal
-
-						,PWD.OfertaWeb
-
-						,PC.IndicadorMontoMinimo					
-
-						,PWS.CuvSet
-
-						,PWS.NombreSet
-
-						,PWD.ConfiguracionOfertaID
-
-						,PWD.TipoOfertaSisID
-
-						, PWD.TipoPedido 
-
-						,PC.IndicadorOferta
-
-											,PW.DescuentoProl
-
-								,PW.MontoEscala
-
-								,PW.MontoAhorroCatalogo
-
-								,PW.MontoAhorroRevista
-
-								,PWD.OrigenPedidoWeb
-
-													, PWD.EsBackOrder 
-
-								,PWD.AceptoBackOrder 
-
-								,PC.CodigoCatalago
-
-								 ,TEP.FlagNueva, TE.FlagNueva
-
-								 ,TEP.Codigo, TE.Codigo
-
-								,EST.EsOfertaIndependiente
-
-								,EST.EstrategiaID
-
-								,EST.TipoEstrategiaID
-
-								,EST.Numeropedido
-
-								,PWD.ModificaPedidoReservadoMovil,PWD.ObservacionPROL,
-
-								PC.IndicadorOferta 		,PW.PedidoID,PW.MontoTotalProl
-
-	 
-
-
-
-				 )Agrupado
-
-
-
-				ORDER BY Agrupado.PedidoID
-
-
-
-end
-
-else
-
-begin
-
-
-
-
-
-					SELECT pwd.CampaniaID
-
-						,pwd.PedidoID
-
-						,pwd.PedidoDetalleID
-
-						,ISNULL(pwd.MarcaID, 0) MarcaID
-
-						,pwd.ConsultoraID
-
-						,pwd.ClienteID
-
-						,pwd.Cantidad
-
-						,pwd.PrecioUnidad
-
-						,pwd.ImporteTotal
-
-						,pwd.CUV
-
-						,COALESCE(EST.DescripcionCUV2, OP.Descripcion, OG.Descripcion, MC.Descripcion, pd.Descripcion, pc.Descripcion) AS DescripcionProd
-
-						,c.Nombre
-
-						,pwd.OfertaWeb
-
-						,pwd.CUVPadre
-
-						,pwd.PedidoDetalleIDPadre
-
-						,ISNULL(pwd.ConfiguracionOfertaID, 0) ConfiguracionOfertaID
-
-						,ISNULL(pwd.TipoOfertaSisID, 0) TipoOfertaSisID
-
-						,CASE 
-
-							WHEN pwd.ModificaPedidoReservadoMovil = 0
-
-								THEN 'PV'
-
-							ELSE 'PNV'
-
-							END AS TipoPedido
-
-						,pwd.ObservacionPROL
-
-						,pc.IndicadorOferta AS IndicadorOfertaCUV
-
-						,PW.PedidoID
-
-						,PW.MontoTotalProl
-
-						,PW.DescuentoProl
-
-						,ISNULL(pwd.EsBackOrder, 0) AS EsBackOrder
-
-						,ISNULL(pwd.AceptoBackOrder, 0) AS AceptoBackOrder
-
-					FROM dbo.PedidoWebDetalle pwd
-
-					LEFT JOIN dbo.Cliente c ON pwd.ClienteID = c.ClienteID
-
-						AND pwd.ConsultoraID = c.ConsultoraID
-
-					INNER JOIN ods.ProductoComercial pc ON pwd.CampaniaID = pc.AnoCampania
-
-						AND pwd.CUV = pc.CUV
-
-					LEFT JOIN dbo.ProductoDescripcion pd ON pwd.CampaniaID = pd.CampaniaID
-
-						AND pwd.CUV = pd.CUV
-
-					LEFT HASH JOIN OfertaProducto OP ON OP.CampaniaID = PC.CampaniaID
-
-						AND OP.CUV = PC.CUV
-
-					LEFT JOIN OfertaNueva OG ON OG.CampaniaID = PC.AnoCampania
-
-						AND OG.CUV = PC.CUV
-
-					LEFT JOIN MatrizComercial MC ON PC.CodigoProducto = MC.CodigoSAP
-
-					LEFT JOIN dbo.PedidoWeb PW ON PWD.CampaniaID = PW.CampaniaID
-
-						AND PWD.PedidoID = PW.PedidoID
-
-					LEFT JOIN Estrategia EST WITH (NOLOCK) ON PWD.CampaniaID BETWEEN EST.CampaniaID
-
-							AND CASE 
-
-									WHEN EST.CampaniaIDFin = 0
-
-										THEN EST.CampaniaID
-
-									ELSE EST.CampaniaIDFin
-
-									END
-
-						AND EST.CUV2 = PWD.CUV
-
-						AND EST.Activo = 1
-
-						AND EST.Numeropedido = (
-
-							CASE 
-
-								WHEN @ProgramaNuevoActivado = 0
-
-									THEN 0
-
-								ELSE @NumeroPedido
-
-								END
-
-							)
-
-						AND (
-
-							EST.TipoEstrategiaID = pwd.TipoEstrategiaID
-
-							OR ISNULL(pwd.TipoEstrategiaID, 0) = 0
-
-							)
-
-					LEFT JOIN TipoEstrategia TE WITH (NOLOCK) ON TE.TipoEstrategiaID = EST.TipoEstrategiaID
-
-						AND (
-
-							TE.CodigoPrograma = @CodigoPrograma
-
-							OR TE.CodigoPrograma IS NULL
-
-							OR TE.CodigoPrograma = ''
-
-							)
-
-					WHERE pwd.CampaniaID = @CampaniaID
-
-						AND pwd.ConsultoraID = @ConsultoraID
-
-					ORDER BY pwd.PedidoDetalleID
-
-						,ISNULL(pwd.PedidoDetalleIDPadre, 1) DESC;
-
-end
-
+  END
 
 
 END
-
-
-
-
-
