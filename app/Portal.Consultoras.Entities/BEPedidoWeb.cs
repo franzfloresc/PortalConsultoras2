@@ -1,4 +1,6 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities.Pedido;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -105,6 +107,9 @@ namespace Portal.Consultoras.Entities
         public byte VersionProl { get; set; }
 
         public long PedidoSapId { get; set; }
+
+        [DataMember]
+        public BEPedidoBarra Barra { get; set; }
 
         public BEPedidoWeb()
         { }
