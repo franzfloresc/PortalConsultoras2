@@ -18,6 +18,7 @@ $(document).ready(function () {
             vertical: false,
             infinite: true,
             speed: 300,
+            useCSS: true,
             centerPadding: '0px',
             centerMode: true,
             slidesToScroll: 1,

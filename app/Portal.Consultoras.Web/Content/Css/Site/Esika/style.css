@@ -32534,13 +32534,14 @@ h1#penmostreo .campana {
 }
 
 .content_estrategia_carrusel {
-	margin: 0 auto;
-	left: 0;
-	right: 0;
-	position: relative;
-	margin-top: 0;
-	max-width: 1024px;
-	height: 400px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    position: relative;
+    margin-top: 0;
+    max-width: 1024px;
+    height: 400px !important;
+    overflow: hidden;
 }
 
 .contenido {
@@ -33758,7 +33759,7 @@ height:30px;
 .contenedor_productos_showroom {
 	display: block;
 	position: relative;
-	text-align: left;
+	text-align: center;
 }
 
 .set-productos-showroom {
