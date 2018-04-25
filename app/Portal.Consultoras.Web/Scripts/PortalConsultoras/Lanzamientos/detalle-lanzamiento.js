@@ -106,7 +106,6 @@
             slidesToShow: 2,
             slidesToScroll: 1,
             variableWidth: widthDimamico,
-            infinite: true,
             prevArrow: slickArrows[platform].prev,
             nextArrow: slickArrows[platform].next
         });
