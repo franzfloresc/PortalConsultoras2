@@ -344,7 +344,9 @@ $(document).ready(function () {
         }
     });
     $("#txtTelefono, #txtTelefonoMD").keypress(function (evt) {
-        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        //var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        var charCode = (evt.which) ? evt.which : (window.event ? window.event.keyCode : null);
+        if (!charCode) return false;
         if (charCode <= 13) {
             return false;
         }
