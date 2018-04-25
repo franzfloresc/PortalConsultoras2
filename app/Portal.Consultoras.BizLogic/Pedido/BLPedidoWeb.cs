@@ -591,22 +591,22 @@ namespace Portal.Consultoras.BizLogic
 
                     try
                     {
-                        daPedidoWeb.UpdPedidoWebIndicadorEnviado(nroLote, marcarPedido, 2, null, null, nombreCabecera, nombreDetalle, System.Environment.MachineName);
-                    }
-                    catch (Exception ex)
-                    {
-                        LogManager.SaveLog(ex, usuario, codigoPais);
-                        throw new BizLogicException("No se pudo marcar los pedidos Web como enviados.", ex);
-                    }
-
-                    try
-                    {
                         daPedidoWeb.UpdCuponPedidoWebEnviado(nroLote, marcarPedido);
                     }
                     catch (Exception ex)
                     {
                         LogManager.SaveLog(ex, usuario, codigoPais);
                         throw new BizLogicException("No se pudo marcar los cupones de los pedidos web.", ex);
+                    }
+
+                    try
+                    {
+                        daPedidoWeb.UpdPedidoWebIndicadorEnviado(nroLote, marcarPedido, 2, null, null, nombreCabecera, nombreDetalle, System.Environment.MachineName);
+                    }
+                    catch (Exception ex)
+                    {
+                        LogManager.SaveLog(ex, usuario, codigoPais);
+                        throw new BizLogicException("No se pudo marcar los pedidos Web como enviados.", ex);
                     }
 
                     if (incluirConsultora && string.IsNullOrEmpty(errorCoDat))
