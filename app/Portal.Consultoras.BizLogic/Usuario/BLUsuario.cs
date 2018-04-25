@@ -369,7 +369,7 @@ namespace Portal.Consultoras.BizLogic
             return usuario;
         }
 
-        protected bool EsConsultoraNueva(BEUsuario usuario)
+        public bool EsConsultoraNueva(BEUsuario usuario)
         {
             var listEstadosValidos = new List<int> { Constantes.EstadoActividadConsultora.Registrada, Constantes.EstadoActividadConsultora.Retirada };
             if (!(listEstadosValidos.Contains(usuario.ConsultoraNueva))) return false;
@@ -533,8 +533,7 @@ namespace Portal.Consultoras.BizLogic
 
                 usuario = configuracionPaisTask.Result;
                 usuario.CodigosRevistaImpresa = codigosRevistasTask.Result;
-                usuario.EsShowRoom = showRoomTask.Result;
-                usuario.EsConsultoraNueva = EsConsultoraNueva(usuario);
+                usuario.EsShowRoom = showRoomTask.Result;                
             }
             catch (Exception ex)
             {
