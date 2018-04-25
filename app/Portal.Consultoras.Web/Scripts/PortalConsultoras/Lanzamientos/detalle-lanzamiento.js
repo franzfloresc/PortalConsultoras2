@@ -96,6 +96,8 @@
             }
         };
 
+        var widthDimamico = !isMobile();
+
         $(_elements.divCarruselSetsProductosRelacionados + '.slick-initialized').slick('unslick');
         $(_elements.divCarruselSetsProductosRelacionados).not('.slick-initialized').slick({
             dots: false,
@@ -103,6 +105,7 @@
             speed: 260,
             slidesToShow: 4,
             slidesToScroll: 1,
+            variableWidth: widthDimamico,
             prevArrow: slickArrows[platform].prev,
             nextArrow: slickArrows[platform].next,
             responsive: [
