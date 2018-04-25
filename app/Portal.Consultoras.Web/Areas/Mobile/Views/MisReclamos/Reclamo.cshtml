@@ -627,10 +627,14 @@
         var UrlDetalleEliminar = '@Url.Action("DetalleEliminar", "MisReclamos", new { area = "" })';
 
         var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
-		var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha)';
+    var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha)';
+
+
+     
+        mensajeCdrFueraDeFechaCompleto = mensajeCdrFueraDeFechaCompleto  + " " + '@Constantes.CdrWebMensajes.ContactateChatEnLinea)';
 
 		var flagAppMobile = @(!mobileConfiguracion.EsAppMobile ? 0 : 1);
-		if (flagAppMobile == 0) mensajeCdrFueraDeFechaCompleto = String.Format("{0} {1}",  mensajeCdrFueraDeFechaCompleto , Constantes.CdrWebMensajes.ContactateChatEnLinea);
+    if (flagAppMobile === 0) mensajeCdrFueraDeFechaCompleto = mensajeCdrFueraDeFechaCompleto;
 
         var OrigenCDR = true;
 </script>
