@@ -617,7 +617,8 @@ function GanoOfertaFinalRegalo(totalPedido) {
     var container = (tipoOrigen == '1') ? $('#container-of-regalo') : $('#ContentSorpresaMobile');
     if (container.length > 0) {
         validarGanoRegalo(totalPedido);
-        if (tipoOrigen == '1') {
+        var showDivGano = $('#divGanoRegalo').is(':visible');
+        if (tipoOrigen == '1' && !showDivGano) {
             (container).show();
         }
     }
