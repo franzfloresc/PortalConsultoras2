@@ -247,7 +247,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
             {
-                List<BEProducto> listaHermanosE;
+                List<ServiceODS.BEProducto> listaHermanosE;
                 using (ODSServiceClient svc = new ODSServiceClient())
                 {
                     listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, estrategiaModelo.CampaniaID, estrategiaModelo.CUV2).ToList();
@@ -540,7 +540,6 @@ namespace Portal.Consultoras.Web.Controllers
                     estrategia.Precio = 0;
                     estrategia.DescripcionCortada = estrategia.DescripcionCUV2.Split('|')[0];
                     estrategia.DescripcionDetalle = estrategia.DescripcionCUV2.Contains("|") ? estrategia.DescripcionCUV2.Split('|')[1] : string.Empty;
-                    estrategia.DescripcionResumen = "";
                 }
                 else
                 {
@@ -606,6 +605,7 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.CodigoVariante = estrategia.CodigoEstrategia;
                 prodModel.ClaseEstrategia =
                     (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
+                    || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
                     || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi)
                     || (
                         (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
@@ -781,7 +781,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return (campaniaId < userData.CampaniaID || campaniaId > AddCampaniaAndNumero(userData.CampaniaID, 1));
         }
-        
+
         public bool TieneProductosPerdio(int campaniaId)
         {
             if (revistaDigital.TieneRDC && !revistaDigital.EsActiva &&

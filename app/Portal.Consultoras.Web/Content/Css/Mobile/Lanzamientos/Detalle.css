@@ -1,4 +1,5 @@
-﻿.revista_ficha {
+﻿
+.revista_ficha {
     height: 185px !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
@@ -37,7 +38,7 @@
         color: #000000;
         display: block;
         margin-top: 40px;
-        cursor:pointer;
+        cursor: pointer;
     }
 
         .detalle-prod .detalle-img .detalle-compartir img {
@@ -204,22 +205,28 @@
                 margin-bottom: 5px;
             }
 
-                .detalle-prod .detalle-info .detalle-bloque-dos ul li::before {
-                    content: '-';
-                    margin-right: 5px;
+                .detalle-prod .detalle-info .detalle-bloque-dos ul li span.vineta {
+                    float: left;
+                    width: 1%;
+                }
+
+                .detalle-prod .detalle-info .detalle-bloque-dos ul li span.txt-des {
+                    float: left;
+                    width: 99%;
+                    padding-left: 5px;
+                    margin-bottom: 7px;
                 }
 
     .detalle-prod .detalle-info .detalle-bloque-tres {
-        
     }
 
-    .detalle-prod .detalle-info .detalle-bloque-tres .nombre_producto_opt{
-    display: block;
-    word-wrap: break-word;
-    width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
+        .detalle-prod .detalle-info .detalle-bloque-tres .nombre_producto_opt {
+            display: block;
+            word-wrap: break-word;
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
 
     .detalle-prod .detalle-info .detalle-bloque-cuatro {
     }
@@ -323,3 +330,16 @@
                     width: 100%;
                 }
 
+
+
+.set_encuentras_producto .slick-slide {
+    padding: 0 2% !important;
+}
+
+.producto_img_mobile_bpt img {
+    padding: 0 10% !important;
+}
+
+.text_descrition_prd_bpt {
+    padding: 0 10% !important;
+}

@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.ModPedido = "display:none;";
                 ViewBag.NombreConsultora = userData.NombreConsultora;
                 ViewBag.PedidoFIC = "C" + AddCampaniaAndNumero(userData.CampaniaID, 1);
-                ViewBag.MensajeFIC = "antes del " + userData.FechaFinFIC.Day + " de " + NombreMes(userData.FechaFinFIC.Month);
+                ViewBag.MensajeFIC = "hasta el " + userData.FechaFinFIC.Day + " de " + NombreMes(userData.FechaFinFIC.Month);
 
                 var olstPedidoFicDetalle = ObtenerPedidoFICDetalle();
 
@@ -391,7 +391,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<ProductoModel> olstProductoModel = new List<ProductoModel>();
             try
             {
-                List<BEProducto> olstProducto;
+                List<ServiceODS.BEProducto> olstProducto;
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
                     olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), term, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 5, true).ToList();
@@ -435,7 +435,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<ProductoModel> olstProductoModel = new List<ProductoModel>();
             try
             {
-                List<BEProducto> olstProducto;
+                List<ServiceODS.BEProducto> olstProducto;
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
                     olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), model.CUV, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, true).ToList();
@@ -480,7 +480,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<ProductoModel> olstProductoModel = new List<ProductoModel>();
             try
             {
-                List<BEProducto> olstProducto;
+                List<ServiceODS.BEProducto> olstProducto;
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
                     olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), term, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 2, 5, true).ToList();

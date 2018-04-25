@@ -3413,9 +3413,9 @@ table > thead > tr > th {
 @font-face {
     font-family: 'museo_sans_500regular';
     src: url('../../fonts/museo/museosans_500-webfont.eot');
-    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../../fonts/museo/museosans_500-webfont.woff') format('woff'),
-        url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'),
+    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('../../fonts/museo/museosans_500-webfont.woff') format('woff'), 
+        url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'), 
         url('../../fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
@@ -3729,8 +3729,8 @@ table > thead > tr > th {
 @font-face {
     font-family: 'ArialMT';
     src: url('../../fonts/arialMT/arialmt.eot');
-    src: url('../../fonts/arialMT/arialmt.eot?#iefix') format('embedded-opentype'),
-        url('../../fonts/arialMT/arialmt.ttf') format('truetype'),
+    src: url('../../fonts/arialMT/arialmt.eot?#iefix') format('embedded-opentype'), 
+        url('../../fonts/arialMT/arialmt.ttf') format('truetype'), 
         url('../../fonts/arialMT/arialmt.svg#arialmt') format('svg');
     font-weight: normal;
     font-style: normal;
@@ -3739,8 +3739,8 @@ table > thead > tr > th {
 @font-face {
     font-family: 'ArialBoldMT';
     src: url('../../fonts/arialboldMT/arialboldMT.eot');
-    src: url('../../fonts/arialboldMT/arialboldMT.eot?#iefix') format('embedded-opentype'),
-        url('../../fonts/arialboldMT/arialboldMT.ttf') format('truetype'),
+    src: url('../../fonts/arialboldMT/arialboldMT.eot?#iefix') format('embedded-opentype'), 
+        url('../../fonts/arialboldMT/arialboldMT.ttf') format('truetype'), 
         url('../../fonts/arialboldMT/arialboldMT.svg#arialboldMT') format('svg');
     font-weight: normal;
     font-style: normal;
@@ -4519,6 +4519,7 @@ table > thead > tr > th {
     margin-top: 66px;
     position: relative;
 }
+
 .wrapper_resumen_mobile {
     width: 100%;
     padding-left: 14px;
@@ -4563,6 +4564,7 @@ table > thead > tr > th {
             top: -1px;
             margin-left: 5px;
         }
+
 .content_320 {
     width: 292px;
     height: auto;
@@ -4615,11 +4617,13 @@ table > thead > tr > th {
     font-family: 'Lato';
     vertical-align: middle;
 }
-.content_resumen_dato_mobile a.txtdorado{
-    color: #a18328;
-    text-decoration: underline;
-    margin-right: 5px;
-}
+
+    .content_resumen_dato_mobile a.txtdorado {
+        color: #a18328;
+        text-decoration: underline;
+        margin-right: 5px;
+    }
+
 .saludo_mobile {
     width: 24%;
     font-size: 17px;
@@ -4811,16 +4815,16 @@ table > thead > tr > th {
     display: block;
     width: 100%;
     height: 45px;
-    margin-top:22px;
+    margin-top: 22px;
     padding: 5.5px 0;
     border: 1px solid black;
     color: black;
     font-family: 'Lato';
     font-size: 13px;
-    font-weight:bold;
+    font-weight: bold;
     background: url("../../../Images/mobile/Esika/tarjeta.png") no-repeat;
-    background-position:28% 10px;
-    padding-left:10%;
+    background-position: 28% 10px;
+    padding-left: 10%;
 }
 
     .btn_paga_online_mobile:hover {
@@ -4829,65 +4833,63 @@ table > thead > tr > th {
 
 .texto_btn_pago_en_linea,
 .logo_visa,
-.logo_mastercard
-{
-    display:inline-block;
-    vertical-align:middle;
-    height:auto;
+.logo_mastercard {
+    display: inline-block;
+    vertical-align: middle;
+    height: auto;
 }
 
 .texto_btn_pago_en_linea,
-.logo_visa{
-    margin-left:12px;
+.logo_visa {
+    margin-left: 12px;
 }
 
-.texto_btn_pago_en_linea{
-    text-align:left;
+.texto_btn_pago_en_linea {
+    text-align: left;
 }
 
-.texto_btn_pago_en_linea span{
-    display:block;
-    line-height:16px;
+    .texto_btn_pago_en_linea span {
+        display: block;
+        line-height: 16px;
+    }
+
+        .texto_btn_pago_en_linea span:first-child {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .texto_btn_pago_en_linea span:last-child {
+            font-size: 11px;
+            font-weight: normal;
+        }
+
+.logo_visa {
+    width: 35px;
 }
 
-.texto_btn_pago_en_linea span:first-child{
-    font-size:13px;
-    font-weight:bold;
+.logo_mastercard {
+    width: 34px;
 }
 
-.texto_btn_pago_en_linea span:last-child{
-    font-size:11px;
-    font-weight:normal;
+    .logo_visa img,
+    .logo_mastercard img {
+        width: 100%;
+        height: auto;
+    }
+
+.info_lugares_de_pago {
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    color: #8a8a8a;
+    margin-top: 18px;
+    margin-bottom: -9px;
 }
 
-.logo_visa{
-    width:35px;
-}
-
-.logo_mastercard{
-    width:34px;
-}
-
-.logo_visa img,
-.logo_mastercard img
-{
-    width:100%;
-    height:auto;
-}
-
-.info_lugares_de_pago{
-    font-size:12px;
-    letter-spacing:0.3px;
-    color:#8a8a8a;
-    margin-top:18px;
-    margin-bottom:-9px;
-}
-
-.info_lugares_de_pago a,
-.info_lugares_de_pago a:hover{
-    text-decoration:underline;
-    color:#8a8a8a;
-}
+    .info_lugares_de_pago a,
+    .info_lugares_de_pago a:hover {
+        text-decoration: underline;
+        color: #8a8a8a;
+    }
 
 * {
     -webkit-box-sizing: border-box;
@@ -6566,35 +6568,39 @@ body {
     margin-top: 30px;
     margin-bottom: 30px;
 }
+
 .contrevista p {
-font-size: 13px;
-font-weight: normal;
-font-style: normal;
-font-stretch: normal;
-line-height: normal;
-letter-spacing: 0.3px;
-display: block;
-text-align: center;
-width: 200px;
-margin: auto;
-margin-top: -30px;
-margin-bottom: 15px;
+    font-size: 13px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 0.3px;
+    display: block;
+    text-align: center;
+    width: 200px;
+    margin: auto;
+    margin-top: -30px;
+    margin-bottom: 15px;
 }
+
 .contrevista a {
-width: 200px;
-padding: 8px;
-margin: auto;
-display: block;
-border: solid 1px #000000;
-transition: .3s;
-margin-bottom: 30px;
-text-align: center;
-transition: .3s;
+    width: 200px;
+    padding: 8px;
+    margin: auto;
+    display: block;
+    border: solid 1px #000000;
+    transition: .3s;
+    margin-bottom: 30px;
+    text-align: center;
+    transition: .3s;
 }
-.contrevista a:hover{
-background:black;
-color:white;
-}
+
+    .contrevista a:hover {
+        background: black;
+        color: white;
+    }
+
 .Label_compartir {
     font-family: 'Lato';
     font-size: 15px;
@@ -6759,10 +6765,10 @@ input[type='checkbox']:checked + span:after {
         transform: rotate(-45deg);
     }
 
-    .draw_close_white::before,
-    .draw_close_white::after {
-        background-color: #fff;
-    }
+.draw_close_white::before,
+.draw_close_white::after {
+    background-color: #fff;
+}
 
 /*MENSAJES DE ALERTA CATÁLOGOS*/
 .MensajeAlertaMobile {
@@ -9541,8 +9547,8 @@ span.icon-advertencia {
 
 /* POPUP OFERTA FINAL */
 
-.contenedor_fondo_popup.agregarScrollVertical{
-    overflow:auto;
+.contenedor_fondo_popup.agregarScrollVertical {
+    overflow: auto;
 }
 
 .popup_ofertaFinal {
@@ -10876,12 +10882,14 @@ span.icon-advertencia {
     font-family: 'Lato';
     position: relative;
 }
-.content_oferta_guia_negocio::after{
-    content:"";
-    display:block;
-    width:100%;
-    height:30px;
-}
+
+    .content_oferta_guia_negocio::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 30px;
+    }
+
 .etiqueta_guia_negocio {
     background: black;
     width: 70px;
@@ -10945,6 +10953,7 @@ span.icon-advertencia {
     color: black;
     font-size: 13px;
 }
+
 .precio_para_ti_048_izquierdo {
     display: inline-block;
     width: 90px;
@@ -10957,9 +10966,10 @@ span.icon-advertencia {
 .precio_para_ti_portantos {
     margin-left: 90px;
 }
-    .precio_para_ti_048 b {
-        font-size: 16px;
-    }
+
+.precio_para_ti_048 b {
+    font-size: 16px;
+}
 
 .gana_048 {
     font-size: 13px;
@@ -12778,7 +12788,7 @@ span.icon-advertencia {
 
 @media (max-width: 374px) {
     .texto_cupon_monto {
-        font-size: 10px !important;         
+        font-size: 10px !important;
     }
 }
 
@@ -12812,7 +12822,7 @@ span.icon-advertencia {
 .icono_cupon_monto {
     display: block !important;
     float: left;
-    width: 70px;        
+    width: 70px;
     height: 51px;
     font-family: 'LAto';
     font-size: 12px;
@@ -12820,7 +12830,7 @@ span.icon-advertencia {
     position: relative;
     text-align: right;
     padding-right: 13px;
-    padding-top: 10px;      
+    padding-top: 10px;
 }
 
     .icono_cupon_monto img {
@@ -12845,9 +12855,9 @@ span.icon-advertencia {
     font-size: 11px;
     font-family: 'LAto';
     float: left;
-    margin-left: 35px;      
+    margin-left: 35px;
     line-height: 1.47;
-    width: 65%;         
+    width: 65%;
 }
 
 .link_cupon_home {
@@ -13009,8 +13019,8 @@ span.icon-advertencia {
 
 .titulo_cupon2 {
     font-family: 'LAto';
-    font-size: 15px;    
-    font-weight: 700;   
+    font-size: 15px;
+    font-weight: 700;
     letter-spacing: 1px;
     margin-top: 7px;
 }
@@ -13057,9 +13067,9 @@ span.icon-advertencia {
 .info_recuerda_cupon {
     float: left;
     width: 100%;
-    margin-top: 12px;       
+    margin-top: 12px;
     font-family: 'Lato';
-    font-size: 11px;        
+    font-size: 11px;
 }
 
     .info_recuerda_cupon div {
@@ -13238,8 +13248,8 @@ span.icon-advertencia {
 .texto_recuerda_cupon {
     font-family: 'LAto';
     font-size: 14px;
-    margin-top: 80px;   
-    text-align: center; 
+    margin-top: 80px;
+    text-align: center;
 }
 
 .info_recuerda_cupon_icono {
@@ -14071,9 +14081,9 @@ span.icon-advertencia {
     line-height: 1.31;
 }
 
-.txt_nota_premio b {
-    font-weight: 900;
-}
+    .txt_nota_premio b {
+        font-weight: 900;
+    }
 
 .btn_legal_RS {
     font-family: 'Lato';
@@ -14467,16 +14477,16 @@ span.icon-advertencia {
 .contenido_cambio_contrasenia,
 .contenido_mensaje_consultora,
 .formulario_cambio_contrasenia,
-.formulario_cambio_contrasenia input{
+.formulario_cambio_contrasenia input {
     display: block;
     font-family: 'Lato';
 }
 
-.contenedor_vista_cambio_contrasenia{
-    margin-top:12px;
+.contenedor_vista_cambio_contrasenia {
+    margin-top: 12px;
 }
 
-.contenedor_cabecera_contrasenia{
+.contenedor_cabecera_contrasenia {
     display: block;
     overflow: hidden;
     height: 67px;
@@ -14501,47 +14511,45 @@ span.icon-advertencia {
     z-index: 10;
 }
 
-@media screen and (min-width:406px) and (max-width:767px){
+@media screen and (min-width:406px) and (max-width:767px) {
 
-    .franja_negra_fondo_mobile{
+    .franja_negra_fondo_mobile {
         left: 28%;
     }
-
 }
 
-@media screen and (min-width:360px) and (max-width:405px){
+@media screen and (min-width:360px) and (max-width:405px) {
 
-    .franja_negra_fondo_mobile{
+    .franja_negra_fondo_mobile {
         left: 14%;
     }
-
 }
 
 .cambio_contrasenia_titulo {
     margin: 0 auto;
-    width:100%;
-    max-width:300px;
+    width: 100%;
+    max-width: 300px;
     padding-top: 0;
     padding-bottom: 0;
-    padding-left:10px;
+    padding-left: 10px;
     font-size: 13px;
     color: #000;
     text-transform: uppercase;
     line-height: 47px;
     font-weight: 300;
-    letter-spacing:0.9px;
+    letter-spacing: 0.9px;
 }
 
-.cambio_contrasenia_titulo span {
-    font-weight: 900;
+    .cambio_contrasenia_titulo span {
+        font-weight: 900;
+    }
+
+.contenedor_vista_actualizando_contrasenia {
+    display: block;
 }
 
-.contenedor_vista_actualizando_contrasenia{
-    display:block;
-}
-
-.contenedor_vista_felicitaciones_consultora{
-    display:block;
+.contenedor_vista_felicitaciones_consultora {
+    display: block;
 }
 
 .contenido_mensaje_consultora {
@@ -14551,63 +14559,63 @@ span.icon-advertencia {
     margin: 0 auto 25px auto;
 }
 
-.contenido_mensaje_consultora, .formulario_cambio_contrasenia{
-    padding:0 8px;
+.contenido_mensaje_consultora, .formulario_cambio_contrasenia {
+    padding: 0 8px;
 }
 
-.contenido_mensaje_consultora div:first-child{
-    font-size:18px;
-    margin-bottom:3px;
-}
+    .contenido_mensaje_consultora div:first-child {
+        font-size: 18px;
+        margin-bottom: 3px;
+    }
 
-.contenido_mensaje_consultora div:last-child{
-    font-size:16px;
-}
+    .contenido_mensaje_consultora div:last-child {
+        font-size: 16px;
+    }
 
-.formulario_cambio_contrasenia input[type="password"] {
-    width: 100%;
-    margin:0 auto;
-    max-width: 279px;
-    margin-bottom: 30px;
-    color: #000;
-    border-bottom: solid 1px #959595;
-    padding: 6px 0;
-    font-size:14px;
-    letter-spacing:0.2px;
-}
+    .formulario_cambio_contrasenia input[type="password"] {
+        width: 100%;
+        margin: 0 auto;
+        max-width: 279px;
+        margin-bottom: 30px;
+        color: #000;
+        border-bottom: solid 1px #959595;
+        padding: 6px 0;
+        font-size: 14px;
+        letter-spacing: 0.2px;
+    }
 
-.formulario_cambio_contrasenia input[type="submit"] {
-    width: 100%;
-    max-width: 279px;
-    margin: 52px auto;
-    height: 45px;
-    text-transform: uppercase;
-    font-size: 14px;
-    color: #FFF;
-    font-weight: 700;
-    background: #642f80;
-}
+    .formulario_cambio_contrasenia input[type="submit"] {
+        width: 100%;
+        max-width: 279px;
+        margin: 52px auto;
+        height: 45px;
+        text-transform: uppercase;
+        font-size: 14px;
+        color: #FFF;
+        font-weight: 700;
+        background: #642f80;
+    }
 
-.formulario_cambio_contrasenia input[type="password"]::-webkit-input-placeholder{
-    color:#000;
-}
+    .formulario_cambio_contrasenia input[type="password"]::-webkit-input-placeholder {
+        color: #000;
+    }
 
-.formulario_cambio_contrasenia input[type="password"]::-moz-placeholder{
-    color:#000;
-}
+    .formulario_cambio_contrasenia input[type="password"]::-moz-placeholder {
+        color: #000;
+    }
 
-.formulario_cambio_contrasenia input[type="password"]:-moz-placeholder{
-    color:#000;
-}
+    .formulario_cambio_contrasenia input[type="password"]:-moz-placeholder {
+        color: #000;
+    }
 
-.formulario_cambio_contrasenia input[type="password"]:-ms-input-placeholder{
-    color:#000;
-}
+    .formulario_cambio_contrasenia input[type="password"]:-ms-input-placeholder {
+        color: #000;
+    }
 
 .icono_check_felicitaciones, .mensaje_felicitaciones, .mensaje_felicitaciones span, .mensaje_felicitaciones a {
     display: block;
     font-size: 14px;
-    text-align:center;
+    text-align: center;
 }
 
 .icono_check_felicitaciones {
@@ -14622,7 +14630,7 @@ span.icon-advertencia {
 }
 
 .mensaje_felicitaciones a {
-    width:100%;
+    width: 100%;
     max-width: 279px;
     height: 45px;
     background: #642f80;
@@ -14631,12 +14639,12 @@ span.icon-advertencia {
     line-height: 45px;
     font-weight: 700;
     letter-spacing: 1px;
-    margin:43px auto;
-    transition:all 0.3s ease;
-    -moz-transition:all 0.3s ease;
-    -o-transition:all 0.3s ease;
-    -ms-transition:all 0.3s ease;
-    -webkit-transition:all 0.3s ease;
+    margin: 43px auto;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
 }
 
     .mensaje_felicitaciones a:hover {

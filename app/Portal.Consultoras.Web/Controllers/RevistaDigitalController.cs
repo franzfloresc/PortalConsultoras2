@@ -530,12 +530,12 @@ namespace Portal.Consultoras.Web.Controllers
             List<ConfiguracionPaisDatosModel> listaEntidad;
             try
             {
-                var beEntidad = new BEConfiguracionPaisDatos
+                var beEntidad = new ServiceUsuario.BEConfiguracionPaisDatos
                 {
                     PaisID = userData.PaisID,
                     CampaniaID = campaniaid,
                     Componente = componente,
-                    ConfiguracionPais = new BEConfiguracionPais
+                    ConfiguracionPais = new ServiceUsuario.BEConfiguracionPais
                     {
                         Codigo = Constantes.ConfiguracionPais.RevistaDigital
                     }
@@ -545,7 +545,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var beEntidades = sv.GetConfiguracionPaisComponenteDatos(beEntidad).ToList();
 
-                    listaEntidad = Mapper.Map<IList<BEConfiguracionPaisDatos>, List<ConfiguracionPaisDatosModel>>(beEntidades);
+                    listaEntidad = Mapper.Map<IList<ServiceUsuario.BEConfiguracionPaisDatos>, List<ConfiguracionPaisDatosModel>>(beEntidades);
                 }
             }
             catch (Exception ex)

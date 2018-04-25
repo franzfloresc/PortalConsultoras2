@@ -18,46 +18,50 @@
 <script id="lanzamiento-carrusel-individual-template" type="text/x-handlebars-template">
     {{#each this.listaLan as |lan|}}
     {{#if lan.TipoEstrategiaDetalle.FlagIndividual}}
-    <div class="lonuevo_carrusel" 
-        data-item="{{lan.EstrategiaID}}"
-        data-item-cuv="{{CUV2}}">
-        <div style="display:none;" 
+    <div class="lonuevo_carrusel"
+         data-item="{{lan.EstrategiaID}}"
+         data-item-cuv="{{CUV2}}">
+        <div style="display:none;"
              data-estrategia="{{JSON2string lan}}">
         </div>
         <div class="mobile_lanzamientos_contenedor"
              style="background: url({{lan.TipoEstrategiaDetalle.ImgFondoMobile}});">
             <div class="mobile_label_lanzamientos_contenedor">
                 @if (revistaDigital.EsActiva)
-                {<img class="logo-club logo-club-negro" src="{{lan.TipoEstrategiaDetalle.ImgFichaMobile}}" /> }
+                {
+                    <img class="logo-club logo-club-negro" src="{{lan.TipoEstrategiaDetalle.ImgFichaMobile}}" />
+                }
                 else
-                {<img class="logo-club" src="/Content/Images/RevistaDigital/etiqueta-club-ganamas-dorado-independiente.svg" />}
+                {
+                    <img class="logo-club" src="/Content/Images/RevistaDigital/etiqueta-club-ganamas-dorado-independiente.svg" />
+                }
             </div>
         </div>
         <div class="mobile_producto_lanzamientos_contenedor">
-            <div class="mobile_producto_lanzamientos_sbcont">
+            <div class="mobile_producto_lanzamientos_sbcont" data-acortartxt="">
                 <img href="javascript:;" onclick="javascript:VerPopupExpGanaMas(); " class="imgportada" src="{{lan.FotoProductoSmall}}" />
                 <p class="titulo">{{lan.DescripcionResumen}}</p>
-                 @if (revistaDigital.EsActiva)
-                 {
+                @if (revistaDigital.EsActiva)
+                {
                     <span class="slogan-uno slogan-uno-fix">{{lan.TipoEstrategiaDetalle.Slogan}}</span>
-                     <a href="javascript:void(0)" data-item-accion='verdetalle'>VER PRODUCTO</a>
-                 }
-                 else
-                 {
-                     if (revistaDigital.EsSuscrita)
-                     {
-                         <span class="slogan-uno">Podrás comprar este <br />y NUEVOS PRODUCTOS</span>
-                         <span class="slogan-dos">¡DESDE LA @camapaniaEfectiva!</span>
-                     }
-                     else
-                     {
+                    <a href="javascript:void(0)" data-item-accion='verdetalle'>VER PRODUCTO</a>
+                }
+                else
+                {
+                    if (revistaDigital.EsSuscrita)
+                    {
+                        <span class="slogan-uno">Podrás comprar este <br />y NUEVOS PRODUCTOS</span>
+                        <span class="slogan-dos">Encuéntralo en @camapaniaEfectiva</span>
+                    }
+                    else
+                    {
                         <span class="slogan-uno slogan-uno-fix">{{lan.TipoEstrategiaDetalle.Slogan}}</span>
-                         <a href="javascript:;" class="dorado" data-bloqueada="{{ClaseBloqueada}}"
-                                onclick="javascript:VerPopupExpGanaMas(); ">
-                                ¿LO QUIERES?
-                         </a>
-                     }
-                 }
+                        <a href="javascript:;" class="dorado" data-bloqueada="{{ClaseBloqueada}}"
+                           onclick="javascript:VerPopupExpGanaMas(); ">
+                            ¿LO QUIERES?
+                        </a>
+                    }
+                }
             </div>
         </div>
     </div>
