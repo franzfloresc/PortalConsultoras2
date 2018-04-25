@@ -107,7 +107,17 @@
             slidesToScroll: 1,
             variableWidth: widthDimamico,
             prevArrow: slickArrows[platform].prev,
-            nextArrow: slickArrows[platform].next
+            nextArrow: slickArrows[platform].next,
+            responsive: [
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        infinite: true
+                    }
+                }
+            ]
         });
 
         $(_elements.divSetsProductosRelacionados).fadeIn();
