@@ -1,10 +1,20 @@
-USE ODS_PE_BPT
+USE BelcorpPeru_BPT
+GO
+
+--USE BelcorpPeru
+--GO
+
+PRINT DB_NAME()
 GO
 
 IF EXISTS (	SELECT 1 
 			FROM sys.objects 
 			WHERE object_id = OBJECT_ID(N'[dbo].[CargarOfertasPersonalizadasCUV]') AND type in (N'P', N'PC')) 
+	PRINT 'ELIMINANDO PROCEDURE  [dbo].CargarOfertasPersonalizadasCUV'
 	DROP PROCEDURE [dbo].CargarOfertasPersonalizadasCUV
+GO
+
+PRINT 'CREANDO PROCEDURE  [dbo].CargarOfertasPersonalizadasCUV'
 GO
 
 CREATE PROCEDURE CargarOfertasPersonalizadasCUV
@@ -46,3 +56,5 @@ BEGIN
 	,OP.TipoPersonalizacion
 	,OP.CUV				
 END
+GO
+
