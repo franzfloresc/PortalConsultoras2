@@ -354,20 +354,20 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (item[0].ServicioId == Convert.ToInt32(ServicioId))
                     {
-                        item[0].AR = (ISOPais == "AR" ? Estado : item[0].AR);
-                        item[0].BO = (ISOPais == "BO" ? Estado : item[0].BO);
-                        item[0].CL = (ISOPais == "CL" ? Estado : item[0].CL);
-                        item[0].CO = (ISOPais == "CO" ? Estado : item[0].CO);
-                        item[0].CR = (ISOPais == "CR" ? Estado : item[0].CR);
-                        item[0].DO = (ISOPais == "DO" ? Estado : item[0].DO);
-                        item[0].EC = (ISOPais == "EC" ? Estado : item[0].EC);
-                        item[0].GT = (ISOPais == "GT" ? Estado : item[0].GT);
-                        item[0].MX = (ISOPais == "MX" ? Estado : item[0].MX);
-                        item[0].PA = (ISOPais == "PA" ? Estado : item[0].PA);
-                        item[0].PE = (ISOPais == "PE" ? Estado : item[0].PE);
-                        item[0].PR = (ISOPais == "PR" ? Estado : item[0].PR);
-                        item[0].SV = (ISOPais == "SV" ? Estado : item[0].SV);
-                        item[0].VE = (ISOPais == "VE" ? Estado : item[0].VE);
+                        item[0].AR = (ISOPais == Constantes.CodigosISOPais.Argentina ? Estado : item[0].AR);
+                        item[0].BO = (ISOPais == Constantes.CodigosISOPais.Bolivia ? Estado : item[0].BO);
+                        item[0].CL = (ISOPais == Constantes.CodigosISOPais.Chile ? Estado : item[0].CL);
+                        item[0].CO = (ISOPais == Constantes.CodigosISOPais.Colombia ? Estado : item[0].CO);
+                        item[0].CR = (ISOPais == Constantes.CodigosISOPais.CostaRica ? Estado : item[0].CR);
+                        item[0].DO = (ISOPais == Constantes.CodigosISOPais.Dominicana ? Estado : item[0].DO);
+                        item[0].EC = (ISOPais == Constantes.CodigosISOPais.Ecuador ? Estado : item[0].EC);
+                        item[0].GT = (ISOPais == Constantes.CodigosISOPais.Guatemala ? Estado : item[0].GT);
+                        item[0].MX = (ISOPais == Constantes.CodigosISOPais.Mexico ? Estado : item[0].MX);
+                        item[0].PA = (ISOPais == Constantes.CodigosISOPais.Panama ? Estado : item[0].PA);
+                        item[0].PE = (ISOPais == Constantes.CodigosISOPais.Peru ? Estado : item[0].PE);
+                        item[0].PR = (ISOPais == Constantes.CodigosISOPais.PuertoRico ? Estado : item[0].PR);
+                        item[0].SV = (ISOPais == Constantes.CodigosISOPais.Salvador ? Estado : item[0].SV);
+                        item[0].VE = (ISOPais == Constantes.CodigosISOPais.Venezuela ? Estado : item[0].VE);
                     }
                 }
 
@@ -478,74 +478,74 @@ namespace Portal.Consultoras.Web.Controllers
                                 {
                                     #region Establece Estados
                                     if (list[0].AR == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "AR");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Argentina);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "AR");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Argentina);
 
                                     if (list[0].BO == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "BO");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Bolivia);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "BO");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Bolivia);
 
                                     if (list[0].CL == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "CL");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Chile);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "CL");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Chile);
 
                                     if (list[0].CO == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "CO");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Colombia);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "CO");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Colombia);
 
                                     if (list[0].CR == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "CR");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.CostaRica);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "CR");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.CostaRica);
 
                                     if (list[0].DO == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "DO");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Dominicana);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "DO");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Dominicana);
 
                                     if (list[0].EC == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "EC");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Ecuador);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "EC");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Ecuador);
 
                                     if (list[0].GT == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "GT");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Guatemala);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "GT");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Guatemala);
 
                                     if (list[0].MX == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "MX");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Mexico);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "MX");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Mexico);
 
                                     if (list[0].PA == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "PA");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Panama);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "PA");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Panama);
 
                                     if (list[0].PE == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "PE");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Peru);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "PE");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Peru);
 
                                     if (list[0].PR == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "PR");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.PuertoRico);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "PR");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.PuertoRico);
 
                                     if (list[0].SV == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "SV");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Salvador);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "SV");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Salvador);
 
                                     if (list[0].VE == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "VE");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Venezuela);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "VE");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Venezuela);
                                     #endregion
                                 }
                             }
@@ -560,74 +560,74 @@ namespace Portal.Consultoras.Web.Controllers
                                 {
                                     #region Establece Estados
                                     if (list[0].AR == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "AR");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Argentina);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "AR");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Argentina);
 
                                     if (list[0].BO == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "BO");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Bolivia);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "BO");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Bolivia);
 
                                     if (list[0].CL == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "CL");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Chile);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "CL");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Chile);
 
                                     if (list[0].CO == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "CO");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Colombia);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "CO");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Colombia);
 
                                     if (list[0].CR == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "CR");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.CostaRica);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "CR");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.CostaRica);
 
                                     if (list[0].DO == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "DO");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Dominicana);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "DO");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Dominicana);
 
                                     if (list[0].EC == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "EC");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Ecuador);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "EC");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Ecuador);
 
                                     if (list[0].GT == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "GT");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Guatemala);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "GT");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Guatemala);
 
                                     if (list[0].MX == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "MX");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Mexico);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "MX");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Mexico);
 
                                     if (list[0].PA == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "PA");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Panama);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "PA");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Panama);
 
                                     if (list[0].PE == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "PE");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Peru);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "PE");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Peru);
 
                                     if (list[0].PR == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "PR");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.PuertoRico);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "PR");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.PuertoRico);
 
                                     if (list[0].SV == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "SV");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Salvador);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "SV");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Salvador);
 
                                     if (list[0].VE == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "VE");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Venezuela);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "VE");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Venezuela);
                                     #endregion
                                 }
                             }
@@ -924,7 +924,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     switch (sidx)
                     {
-                        case "AR":
+                        case Constantes.CodigosISOPais.Argentina:
                             items = lst.OrderBy(x => x.AR);
                             break;
                     }
@@ -933,7 +933,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     switch (sidx)
                     {
-                        case "AR":
+                        case Constantes.CodigosISOPais.Argentina:
                             items = lst.OrderByDescending(x => x.AR);
                             break;
                     }
@@ -1058,7 +1058,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     switch (sidx)
                     {
-                        case "AR":
+                        case Constantes.CodigosISOPais.Argentina:
                             items = lst.OrderBy(x => x.AR);
                             break;
                     }
@@ -1067,7 +1067,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     switch (sidx)
                     {
-                        case "AR":
+                        case Constantes.CodigosISOPais.Argentina:
                             items = lst.OrderByDescending(x => x.AR);
                             break;
                     }

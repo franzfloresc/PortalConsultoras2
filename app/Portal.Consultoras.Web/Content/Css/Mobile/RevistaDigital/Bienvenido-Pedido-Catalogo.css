@@ -14,7 +14,7 @@
     -webkit-transition: all .3s ease;
 }
 
-    .revistadigital .boxoffer:hover, .contenedor_botonVerMasOfertas .boxoffer:hover {
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas_off a.portada .revistadigital .boxoffer:hover, .contenedor_botonVerMasOfertas .boxoffer:hover {
         opacity: .95;
     }
 
@@ -130,15 +130,16 @@
         font-weight: bold;
         font-style: normal;
         font-stretch: normal;
-        line-height: 1.31;
         letter-spacing: 1px;
         text-align: center;
         color: #ffffff;
         width: 100%;
         border: 1px solid white;
-        height: 46px;
-        padding: 13px 0px;
+        padding: 13px 5px;
+        margin-top: 5px;
+        width: 100%;
         display: block;
+        word-wrap: break-word;
     }
 
     .contenedor_carrusel_home .content_item_carrusel_clubganamas p.primero {
@@ -205,26 +206,28 @@
     .contenedor_carrusel_home .content_item_carrusel_clubganamas_off a.portada {
         border: 1px solid black !important;
         color: black !important;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: bold;
         font-style: normal;
         font-stretch: normal;
-        line-height: 1.31;
         letter-spacing: 1px;
         text-align: center;
         color: #ffffff;
         width: 100%;
         border: 1px solid white;
-        padding: 14px 0px;
+        padding: 13px 5px;
         margin-top: 5px;
-        height:45px !important;
+        width: 100%;
+        display: block;
+        word-wrap: break-word;
     }
 
     .contenedor_carrusel_home .content_item_carrusel_clubganamas_off .centrar-tercero {
         display: table;
         height: 93px;
-        width:100%;
+        width: 100%;
     }
+
     .contenedor_carrusel_home .content_item_carrusel_clubganamas_off .centrar-tercero-centro {
         display: table-cell;
         vertical-align: middle;
@@ -426,6 +429,7 @@ div#tab_revistasdigital_mobile {
         .wrapper_resumen_mobile_clubganamas .zonadecolor span.margin_top {
             padding-top: 50px !important;
         }
+
         .wrapper_resumen_mobile_clubganamas .zonadecolor span p.primero {
             display: block;
             font-weight: normal !important;
@@ -473,44 +477,46 @@ div#tab_revistasdigital_mobile {
     text-transform: uppercase;
 }
 
-.banner_pedido_text_dorado{
-    padding:0 10px;
+.banner_pedido_text_dorado {
+    padding: 0 10px;
 }
 
 .btn_red, .btn_black_solid, .btn_white_stroke {
     margin: 20px 0;
 }
+
 .btn_dorado a {
     background: #c39934 !important;
     border: none;
     color: white;
 }
-    .btn_red a {
-        text-decoration: none;
-        padding: 15px;
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: .5px;
-        font-family: 'Lato';
-        display: block;
-        width: 100%;
-        word-wrap: break-word;
-    }
 
-    .btn_black_solid a, .btn_white_stroke a {
-        background-color: black;
-        color: white;
-        text-decoration: none;
-        padding: 15px 25px;
-        border: 1px solid black;
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: .5px;
-    }
+.btn_red a {
+    text-decoration: none;
+    padding: 15px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    font-family: 'Lato';
+    display: block;
+    width: 100%;
+    word-wrap: break-word;
+}
 
-    .btn_white_stroke a {
-        border-color: white;
-    }
+.btn_black_solid a, .btn_white_stroke a {
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    padding: 15px 25px;
+    border: 1px solid black;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.btn_white_stroke a {
+    border-color: white;
+}
 
 .mob_home_bpt {
     font-family: 'Lato';
