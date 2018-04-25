@@ -1,8 +1,6 @@
 ﻿
-using System;
-using System.Data;
 using System.Runtime.Serialization;
-using Portal.Consultoras.Common;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Portal.Consultoras.Entities.Estrategia
 {
@@ -10,67 +8,59 @@ namespace Portal.Consultoras.Entities.Estrategia
     public class UpSellingRegalo
     {
         [DataMember]
+        [Column("CampaniaId")]
         public int CampaniaId { get; set; }
 
         [DataMember]
+        [Column("ConsultoraId")]
         public int ConsultoraId { get; set; }
 
         [DataMember]
+        [Column("MontoPedido")]
         public decimal MontoPedido { get; set; }
 
         [DataMember]
+        [Column("GapMinimo")]
         public decimal GapMinimo { get; set; }
 
         [DataMember]
+        [Column("GapMaximo")]
         public decimal GapMaximo { get; set; }
 
         [DataMember]
+        [Column("GapAgregar")]
         public decimal GapAgregar { get; set; }
 
         [DataMember]
+        [Column("MontoMeta")]
         public decimal MontoMeta { get; set; }
 
         [DataMember]
+        [Column("CUV")]
         public string CUV { get; set; }
 
         [DataMember]
+        [Column("TipoRango")]
         public string TipoRango { get; set; }
 
         [DataMember]
+        [Column("MontoPedidoFinal")]
         public decimal MontoPedidoFinal { get; set; }
 
         [DataMember]
+        [Column("UpSellingDetalleId")]
         public int UpSellingDetalleId { get; set; }
 
-        public UpSellingRegalo(IDataRecord datarec)
-        {
-            if (DataRecord.HasColumn(datarec, "CampaniaId"))
-                CampaniaId = Convert.ToInt32(datarec["CampaniaId"]);
+        [DataMember]
+        [Column("Descripcion")]
+        public string Descripcion { get; set; }
 
-            if (DataRecord.HasColumn(datarec, "ConsultoraId"))
-                ConsultoraId = Convert.ToInt32(datarec["ConsultoraId"]);
+        [DataMember]
+        [Column("RegaloDescripcion")]
+        public string RegaloDescripcion { get; set; }
 
-            if (DataRecord.HasColumn(datarec, "MontoPedido"))
-                MontoPedido = Convert.ToDecimal(datarec["MontoPedido"]);
-
-            if (DataRecord.HasColumn(datarec, "GapMinimo"))
-                GapMinimo = Convert.ToDecimal(datarec["GapMinimo"]);
-
-            if (DataRecord.HasColumn(datarec, "GapMaximo"))
-                GapMaximo = Convert.ToDecimal(datarec["GapMaximo"]);
-
-            if (DataRecord.HasColumn(datarec, "GapAgregar"))
-                GapAgregar = Convert.ToDecimal(datarec["GapAgregar"]);
-
-            if (DataRecord.HasColumn(datarec, "MontoMeta"))
-                MontoMeta = Convert.ToDecimal(datarec["MontoMeta"]);
-
-            if (DataRecord.HasColumn(datarec, "CUV"))
-                CUV = Convert.ToString(datarec["CUV"]);
-
-            if (DataRecord.HasColumn(datarec, "TipoRango"))
-                TipoRango = Convert.ToString(datarec["TipoRango"]);
-
-        }
+        [DataMember]
+        [Column("RegaloImagenUrl")]
+        public string RegaloImagenUrl { get; set; }
     }
 }

@@ -14,5 +14,6 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneRDS { get; set; }
         public bool EsActiva { get; set; }
         public bool EsSuscrita { get; set; }
+        public string CampaniaActiva { get; set; }
     }
 }

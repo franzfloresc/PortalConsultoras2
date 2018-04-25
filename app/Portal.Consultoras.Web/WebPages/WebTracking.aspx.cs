@@ -281,7 +281,7 @@ namespace Portal.Consultoras.Web.WebPages
                 int mostrarAyuda = Convert.ToInt32(ViewState["MOSTRARAYUDA"]);
 
                 CargarPedidos(paisId, codigoConsultora);
-                if (paisIso == "CO")
+                if (paisIso == Constantes.CodigosISOPais.Colombia)
                 {
                     lnkPoliticasVenta.Visible = true;
                     pPostVenta.Visible = true;
@@ -692,7 +692,7 @@ namespace Portal.Consultoras.Web.WebPages
         {
             string paisIso = Convert.ToString(ViewState["PAISISO"]);
 
-            if (paisIso == "CO" && e.Row.RowType == DataControlRowType.DataRow)
+            if (paisIso == Constantes.CodigosISOPais.Colombia && e.Row.RowType == DataControlRowType.DataRow)
             {
                 ImageButton botonFoto = (ImageButton)e.Row.FindControl("btnFoto");
                 botonFoto.Visible = true;
@@ -826,7 +826,7 @@ namespace Portal.Consultoras.Web.WebPages
         {
             string paisIso = Convert.ToString(ViewState["PAISISO"]);
 
-            if (paisIso == "CO" && e.Row.RowType == DataControlRowType.DataRow)
+            if (paisIso == Constantes.CodigosISOPais.Colombia && e.Row.RowType == DataControlRowType.DataRow)
             {
                 ImageButton botonFoto = (ImageButton)e.Row.FindControl("btnFoto");
                 botonFoto.Visible = true;

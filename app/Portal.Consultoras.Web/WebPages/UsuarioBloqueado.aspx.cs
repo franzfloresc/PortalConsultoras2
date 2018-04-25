@@ -8,7 +8,7 @@ namespace Portal.Consultoras.Web.WebPages
         protected void Page_Load(object sender, EventArgs e)
         {
             string iso = Request.QueryString["P"];
-            if (iso == "CO")
+            if (iso == Constantes.CodigosISOPais.Colombia)
                 DivMensajeCO.Visible = true;
             else
                 DivMensajeGenerico.Visible = true;           
