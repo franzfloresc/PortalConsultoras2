@@ -59,5 +59,4 @@ app/Portal.Consultoras.Web/obj
 /app/Portal.Consultoras.Web/node_modules
 
 .sonarqube/
-
-*.local
+app/.axoCover

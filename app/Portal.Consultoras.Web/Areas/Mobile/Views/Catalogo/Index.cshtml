@@ -20,7 +20,6 @@
     var urlApp = userAgent.Contains("iphone;") ? "https://itunes.apple.com/pe/app/catalogos-esika-lbel-cyzone/id1052948837?mt=8"
                                                                                      : "https://play.google.com/store/apps/details?id=belcorp.modobeta.catalogov2&hl=es_419";
     var textApp = userAgent.Contains("iphone;") ? "Gratis en App Store" : "Gratis en Play Store";
-    var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
 
     var titulo = Model.Titulo;
 
@@ -113,10 +112,10 @@
         @if (Model.TieneSeccionRevista)
         {
             @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml",
-                          new ViewDataDictionary {
-        { "TieneGnd", Model.TieneGND },
-        { "CampaniaNro", @Util.SubStr(Model.CampaniaActual, 4, 2) }
-                      })
+                    new ViewDataDictionary {
+                        { "TieneGnd", Model.TieneGND },
+                        { "CampaniaNro", @Util.SubStr(Model.CampaniaActual, 4, 2) }
+                    })
         }
 
         @if (Model.TieneSeccionRD)

@@ -35,8 +35,24 @@
                 Tu pago no se pudo realizar.
             </p>
         </div>
-
-        <!-- FIN - VISTA PAGO EXITOSO -->
+        @if (!string.IsNullOrEmpty(Model.DescripcionCodigoAccion))
+    {
+        <div class="resumen_pago">
+            <div class="num_operacion">
+                <span>N° de operación:</span>
+                <span>@Model.NumeroOperacion</span>
+            </div>
+            <div class="monto_pagado">
+                <span>Fecha de Operación:</span>
+                <span>@Model.FechaCreacionString</span>
+            </div>
+            <div class="monto_pagado">
+                <span>Motivo de Denegación:</span>
+                <span>@Model.DescripcionCodigoAccion</span>
+            </div>
+        </div>
+    }
+        <!-- FIN - VISTA PAGO RECHAZADO -->
 
     </div>
 
