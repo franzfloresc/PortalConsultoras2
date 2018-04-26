@@ -868,6 +868,11 @@
     font-size:14px;
 }
 
+.pago_exitoso .terminos_web {
+    text-align: right;
+    margin-top: 20px;
+}
+
 .titulo_resumen_pago_exitoso,
 .total_monto_pagado
 {
