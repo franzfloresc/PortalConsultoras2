@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:simpleType name="Enumeradores.ValidacionProgramaNuevas">
     <xs:restriction base="xs:string">
       <xs:enumeration value="ContinuaFlujo" />
@@ -11,4 +12,18 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Enumeradores.ValidacionProgramaNuevas" nillable="true" type="tns:Enumeradores.ValidacionProgramaNuevas" />
+  <xs:simpleType name="Enumeradores.ValidacionVentaExclusiva">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ContinuaFlujo" />
+      <xs:enumeration value="ConsultoraNoVentaExclusiva" />
+      <xs:enumeration value="CuvNoLePerteneceAConsultora">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Enumeradores.ValidacionVentaExclusiva" nillable="true" type="tns:Enumeradores.ValidacionVentaExclusiva" />
 </xs:schema>

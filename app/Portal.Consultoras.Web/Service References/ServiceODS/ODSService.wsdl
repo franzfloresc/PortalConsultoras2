@@ -268,23 +268,23 @@
   <wsdl:message name="IODSService_ValidarBusquedaProgramaNuevas_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidarBusquedaProgramaNuevasResponse" />
   </wsdl:message>
-  <wsdl:message name="IODSService_ValidarAgregarProductosProgramaNuevas_InputMessage">
-    <wsdl:part name="parameters" element="tns:ValidarAgregarProductosProgramaNuevas" />
+  <wsdl:message name="IODSService_ValidarCantidadMaximaProgramaNuevas_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarCantidadMaximaProgramaNuevas" />
   </wsdl:message>
-  <wsdl:message name="IODSService_ValidarAgregarProductosProgramaNuevas_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ValidarAgregarProductosProgramaNuevasResponse" />
+  <wsdl:message name="IODSService_ValidarCantidadMaximaProgramaNuevas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarCantidadMaximaProgramaNuevasResponse" />
   </wsdl:message>
-  <wsdl:message name="IODSService_EsProductoExclusivo_InputMessage">
-    <wsdl:part name="parameters" element="tns:EsProductoExclusivo" />
+  <wsdl:message name="IODSService_ValidaCuvElectivo_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidaCuvElectivo" />
   </wsdl:message>
-  <wsdl:message name="IODSService_EsProductoExclusivo_OutputMessage">
-    <wsdl:part name="parameters" element="tns:EsProductoExclusivoResponse" />
+  <wsdl:message name="IODSService_ValidaCuvElectivo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidaCuvElectivoResponse" />
   </wsdl:message>
-  <wsdl:message name="IODSService_GetConsultoraProductoExclusivo_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetConsultoraProductoExclusivo" />
+  <wsdl:message name="IODSService_ValidarVentaExclusiva_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarVentaExclusiva" />
   </wsdl:message>
-  <wsdl:message name="IODSService_GetConsultoraProductoExclusivo_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetConsultoraProductoExclusivoResponse" />
+  <wsdl:message name="IODSService_ValidarVentaExclusiva_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarVentaExclusivaResponse" />
   </wsdl:message>
   <wsdl:portType name="IODSService">
     <wsdl:operation name="GetProductoComercialByPaisAndCampania">
@@ -443,17 +443,17 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevas" message="tns:IODSService_ValidarBusquedaProgramaNuevas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasResponse" message="tns:IODSService_ValidarBusquedaProgramaNuevas_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ValidarAgregarProductosProgramaNuevas">
-      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ValidarAgregarProductosProgramaNuevas" message="tns:IODSService_ValidarAgregarProductosProgramaNuevas_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/ValidarAgregarProductosProgramaNuevasResponse" message="tns:IODSService_ValidarAgregarProductosProgramaNuevas_OutputMessage" />
+    <wsdl:operation name="ValidarCantidadMaximaProgramaNuevas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ValidarCantidadMaximaProgramaNuevas" message="tns:IODSService_ValidarCantidadMaximaProgramaNuevas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/ValidarCantidadMaximaProgramaNuevasResponse" message="tns:IODSService_ValidarCantidadMaximaProgramaNuevas_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="EsProductoExclusivo">
-      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/EsProductoExclusivo" message="tns:IODSService_EsProductoExclusivo_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/EsProductoExclusivoResponse" message="tns:IODSService_EsProductoExclusivo_OutputMessage" />
+    <wsdl:operation name="ValidaCuvElectivo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ValidaCuvElectivo" message="tns:IODSService_ValidaCuvElectivo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/ValidaCuvElectivoResponse" message="tns:IODSService_ValidaCuvElectivo_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetConsultoraProductoExclusivo">
-      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetConsultoraProductoExclusivo" message="tns:IODSService_GetConsultoraProductoExclusivo_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetConsultoraProductoExclusivoResponse" message="tns:IODSService_GetConsultoraProductoExclusivo_OutputMessage" />
+    <wsdl:operation name="ValidarVentaExclusiva">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ValidarVentaExclusiva" message="tns:IODSService_ValidarVentaExclusiva_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/ValidarVentaExclusivaResponse" message="tns:IODSService_ValidarVentaExclusiva_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IODSService" type="tns:IODSService">
@@ -809,8 +809,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ValidarAgregarProductosProgramaNuevas">
-      <soap:operation soapAction="http://tempuri.org/IODSService/ValidarAgregarProductosProgramaNuevas" style="document" />
+    <wsdl:operation name="ValidarCantidadMaximaProgramaNuevas">
+      <soap:operation soapAction="http://tempuri.org/IODSService/ValidarCantidadMaximaProgramaNuevas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -818,8 +818,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="EsProductoExclusivo">
-      <soap:operation soapAction="http://tempuri.org/IODSService/EsProductoExclusivo" style="document" />
+    <wsdl:operation name="ValidaCuvElectivo">
+      <soap:operation soapAction="http://tempuri.org/IODSService/ValidaCuvElectivo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -827,8 +827,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetConsultoraProductoExclusivo">
-      <soap:operation soapAction="http://tempuri.org/IODSService/GetConsultoraProductoExclusivo" style="document" />
+    <wsdl:operation name="ValidarVentaExclusiva">
+      <soap:operation soapAction="http://tempuri.org/IODSService/ValidarVentaExclusiva" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1191,8 +1191,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ValidarAgregarProductosProgramaNuevas">
-      <soap:operation soapAction="http://tempuri.org/IODSService/ValidarAgregarProductosProgramaNuevas" style="document" />
+    <wsdl:operation name="ValidarCantidadMaximaProgramaNuevas">
+      <soap:operation soapAction="http://tempuri.org/IODSService/ValidarCantidadMaximaProgramaNuevas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1200,8 +1200,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="EsProductoExclusivo">
-      <soap:operation soapAction="http://tempuri.org/IODSService/EsProductoExclusivo" style="document" />
+    <wsdl:operation name="ValidaCuvElectivo">
+      <soap:operation soapAction="http://tempuri.org/IODSService/ValidaCuvElectivo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1209,8 +1209,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetConsultoraProductoExclusivo">
-      <soap:operation soapAction="http://tempuri.org/IODSService/GetConsultoraProductoExclusivo" style="document" />
+    <wsdl:operation name="ValidarVentaExclusiva">
+      <soap:operation soapAction="http://tempuri.org/IODSService/ValidarVentaExclusiva" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

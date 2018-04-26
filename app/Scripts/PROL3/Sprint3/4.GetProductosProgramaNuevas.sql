@@ -1,6 +1,5 @@
 USE BelcorpPeru
 GO
-
 IF EXISTS(select 1 from sys.objects where type = 'P' and name = 'GetProductosProgramaNuevas')
 BEGIN
 	DROP PROC GetProductosProgramaNuevas 
@@ -15,8 +14,8 @@ BEGIN
 	SELECT 
 		CodigoPrograma,
 		Campana,
-		CodigoNivel,
-		CodigoCupon,
+		isnull(CodigoNivel,'') as CodigoNivel,
+		isnull(CodigoCupon,'') as CodigoCupon,
 		isnull(CodigoVenta,'') as CodigoVenta,
 		isnull(DescripcionProducto,'') as DescripcionProducto,
 		isnull(UnidadesMaximas,0) as UnidadesMaximas,
@@ -25,7 +24,9 @@ BEGIN
 		isnull(PrecioUnitario,0) as PrecioUnitario,
 		isnull(NumeroCampanasVigentes,0) as NumeroCampanasVigentes
 	FROM ods.CuponesProgramaNuevas With(nolock)
-	Where Campana = cast(@CampaniaID as varchar(6))
+	Where isnull(Campana,'') != ''
+	and isnull(CodigoPrograma,'') != ''
+	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
 
@@ -46,8 +47,8 @@ BEGIN
 	SELECT 
 		CodigoPrograma,
 		Campana,
-		CodigoNivel,
-		CodigoCupon,
+		isnull(CodigoNivel,'') as CodigoNivel,
+		isnull(CodigoCupon,'') as CodigoCupon,
 		isnull(CodigoVenta,'') as CodigoVenta,
 		isnull(DescripcionProducto,'') as DescripcionProducto,
 		isnull(UnidadesMaximas,0) as UnidadesMaximas,
@@ -56,7 +57,9 @@ BEGIN
 		isnull(PrecioUnitario,0) as PrecioUnitario,
 		isnull(NumeroCampanasVigentes,0) as NumeroCampanasVigentes
 	FROM ods.CuponesProgramaNuevas With(nolock)
-	Where Campana = cast(@CampaniaID as varchar(6))
+	Where isnull(Campana,'') != ''
+	and isnull(CodigoPrograma,'') != ''
+	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
 
@@ -77,8 +80,8 @@ BEGIN
 	SELECT 
 		CodigoPrograma,
 		Campana,
-		CodigoNivel,
-		CodigoCupon,
+		isnull(CodigoNivel,'') as CodigoNivel,
+		isnull(CodigoCupon,'') as CodigoCupon,
 		isnull(CodigoVenta,'') as CodigoVenta,
 		isnull(DescripcionProducto,'') as DescripcionProducto,
 		isnull(UnidadesMaximas,0) as UnidadesMaximas,
@@ -87,7 +90,9 @@ BEGIN
 		isnull(PrecioUnitario,0) as PrecioUnitario,
 		isnull(NumeroCampanasVigentes,0) as NumeroCampanasVigentes
 	FROM ods.CuponesProgramaNuevas With(nolock)
-	Where Campana = cast(@CampaniaID as varchar(6))
+	Where isnull(Campana,'') != ''
+	and isnull(CodigoPrograma,'') != ''
+	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
 
@@ -108,8 +113,8 @@ BEGIN
 	SELECT 
 		CodigoPrograma,
 		Campana,
-		CodigoNivel,
-		CodigoCupon,
+		isnull(CodigoNivel,'') as CodigoNivel,
+		isnull(CodigoCupon,'') as CodigoCupon,
 		isnull(CodigoVenta,'') as CodigoVenta,
 		isnull(DescripcionProducto,'') as DescripcionProducto,
 		isnull(UnidadesMaximas,0) as UnidadesMaximas,
@@ -118,7 +123,9 @@ BEGIN
 		isnull(PrecioUnitario,0) as PrecioUnitario,
 		isnull(NumeroCampanasVigentes,0) as NumeroCampanasVigentes
 	FROM ods.CuponesProgramaNuevas With(nolock)
-	Where Campana = cast(@CampaniaID as varchar(6))
+	Where isnull(Campana,'') != ''
+	and isnull(CodigoPrograma,'') != ''
+	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
 
@@ -139,8 +146,8 @@ BEGIN
 	SELECT 
 		CodigoPrograma,
 		Campana,
-		CodigoNivel,
-		CodigoCupon,
+		isnull(CodigoNivel,'') as CodigoNivel,
+		isnull(CodigoCupon,'') as CodigoCupon,
 		isnull(CodigoVenta,'') as CodigoVenta,
 		isnull(DescripcionProducto,'') as DescripcionProducto,
 		isnull(UnidadesMaximas,0) as UnidadesMaximas,
@@ -149,7 +156,9 @@ BEGIN
 		isnull(PrecioUnitario,0) as PrecioUnitario,
 		isnull(NumeroCampanasVigentes,0) as NumeroCampanasVigentes
 	FROM ods.CuponesProgramaNuevas With(nolock)
-	Where Campana = cast(@CampaniaID as varchar(6))
+	Where isnull(Campana,'') != ''
+	and isnull(CodigoPrograma,'') != ''
+	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
 
@@ -170,8 +179,8 @@ BEGIN
 	SELECT 
 		CodigoPrograma,
 		Campana,
-		CodigoNivel,
-		CodigoCupon,
+		isnull(CodigoNivel,'') as CodigoNivel,
+		isnull(CodigoCupon,'') as CodigoCupon,
 		isnull(CodigoVenta,'') as CodigoVenta,
 		isnull(DescripcionProducto,'') as DescripcionProducto,
 		isnull(UnidadesMaximas,0) as UnidadesMaximas,
@@ -180,7 +189,9 @@ BEGIN
 		isnull(PrecioUnitario,0) as PrecioUnitario,
 		isnull(NumeroCampanasVigentes,0) as NumeroCampanasVigentes
 	FROM ods.CuponesProgramaNuevas With(nolock)
-	Where Campana = cast(@CampaniaID as varchar(6))
+	Where isnull(Campana,'') != ''
+	and isnull(CodigoPrograma,'') != ''
+	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
 
@@ -201,8 +212,8 @@ BEGIN
 	SELECT 
 		CodigoPrograma,
 		Campana,
-		CodigoNivel,
-		CodigoCupon,
+		isnull(CodigoNivel,'') as CodigoNivel,
+		isnull(CodigoCupon,'') as CodigoCupon,
 		isnull(CodigoVenta,'') as CodigoVenta,
 		isnull(DescripcionProducto,'') as DescripcionProducto,
 		isnull(UnidadesMaximas,0) as UnidadesMaximas,
@@ -211,7 +222,9 @@ BEGIN
 		isnull(PrecioUnitario,0) as PrecioUnitario,
 		isnull(NumeroCampanasVigentes,0) as NumeroCampanasVigentes
 	FROM ods.CuponesProgramaNuevas With(nolock)
-	Where Campana = cast(@CampaniaID as varchar(6))
+	Where isnull(Campana,'') != ''
+	and isnull(CodigoPrograma,'') != ''
+	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
 
@@ -232,8 +245,8 @@ BEGIN
 	SELECT 
 		CodigoPrograma,
 		Campana,
-		CodigoNivel,
-		CodigoCupon,
+		isnull(CodigoNivel,'') as CodigoNivel,
+		isnull(CodigoCupon,'') as CodigoCupon,
 		isnull(CodigoVenta,'') as CodigoVenta,
 		isnull(DescripcionProducto,'') as DescripcionProducto,
 		isnull(UnidadesMaximas,0) as UnidadesMaximas,
@@ -242,7 +255,9 @@ BEGIN
 		isnull(PrecioUnitario,0) as PrecioUnitario,
 		isnull(NumeroCampanasVigentes,0) as NumeroCampanasVigentes
 	FROM ods.CuponesProgramaNuevas With(nolock)
-	Where Campana = cast(@CampaniaID as varchar(6))
+	Where isnull(Campana,'') != ''
+	and isnull(CodigoPrograma,'') != ''
+	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
 
@@ -263,8 +278,8 @@ BEGIN
 	SELECT 
 		CodigoPrograma,
 		Campana,
-		CodigoNivel,
-		CodigoCupon,
+		isnull(CodigoNivel,'') as CodigoNivel,
+		isnull(CodigoCupon,'') as CodigoCupon,
 		isnull(CodigoVenta,'') as CodigoVenta,
 		isnull(DescripcionProducto,'') as DescripcionProducto,
 		isnull(UnidadesMaximas,0) as UnidadesMaximas,
@@ -273,7 +288,9 @@ BEGIN
 		isnull(PrecioUnitario,0) as PrecioUnitario,
 		isnull(NumeroCampanasVigentes,0) as NumeroCampanasVigentes
 	FROM ods.CuponesProgramaNuevas With(nolock)
-	Where Campana = cast(@CampaniaID as varchar(6))
+	Where isnull(Campana,'') != ''
+	and isnull(CodigoPrograma,'') != ''
+	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
 
@@ -294,8 +311,8 @@ BEGIN
 	SELECT 
 		CodigoPrograma,
 		Campana,
-		CodigoNivel,
-		CodigoCupon,
+		isnull(CodigoNivel,'') as CodigoNivel,
+		isnull(CodigoCupon,'') as CodigoCupon,
 		isnull(CodigoVenta,'') as CodigoVenta,
 		isnull(DescripcionProducto,'') as DescripcionProducto,
 		isnull(UnidadesMaximas,0) as UnidadesMaximas,
@@ -304,7 +321,9 @@ BEGIN
 		isnull(PrecioUnitario,0) as PrecioUnitario,
 		isnull(NumeroCampanasVigentes,0) as NumeroCampanasVigentes
 	FROM ods.CuponesProgramaNuevas With(nolock)
-	Where Campana = cast(@CampaniaID as varchar(6))
+	Where isnull(Campana,'') != ''
+	and isnull(CodigoPrograma,'') != ''
+	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
 
@@ -325,8 +344,8 @@ BEGIN
 	SELECT 
 		CodigoPrograma,
 		Campana,
-		CodigoNivel,
-		CodigoCupon,
+		isnull(CodigoNivel,'') as CodigoNivel,
+		isnull(CodigoCupon,'') as CodigoCupon,
 		isnull(CodigoVenta,'') as CodigoVenta,
 		isnull(DescripcionProducto,'') as DescripcionProducto,
 		isnull(UnidadesMaximas,0) as UnidadesMaximas,
@@ -335,7 +354,9 @@ BEGIN
 		isnull(PrecioUnitario,0) as PrecioUnitario,
 		isnull(NumeroCampanasVigentes,0) as NumeroCampanasVigentes
 	FROM ods.CuponesProgramaNuevas With(nolock)
-	Where Campana = cast(@CampaniaID as varchar(6))
+	Where isnull(Campana,'') != ''
+	and isnull(CodigoPrograma,'') != ''
+	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
 
@@ -356,8 +377,8 @@ BEGIN
 	SELECT 
 		CodigoPrograma,
 		Campana,
-		CodigoNivel,
-		CodigoCupon,
+		isnull(CodigoNivel,'') as CodigoNivel,
+		isnull(CodigoCupon,'') as CodigoCupon,
 		isnull(CodigoVenta,'') as CodigoVenta,
 		isnull(DescripcionProducto,'') as DescripcionProducto,
 		isnull(UnidadesMaximas,0) as UnidadesMaximas,
@@ -366,7 +387,9 @@ BEGIN
 		isnull(PrecioUnitario,0) as PrecioUnitario,
 		isnull(NumeroCampanasVigentes,0) as NumeroCampanasVigentes
 	FROM ods.CuponesProgramaNuevas With(nolock)
-	Where Campana = cast(@CampaniaID as varchar(6))
+	Where isnull(Campana,'') != ''
+	and isnull(CodigoPrograma,'') != ''
+	and Campana = cast(@CampaniaID as varchar(6))
 END
 GO
 

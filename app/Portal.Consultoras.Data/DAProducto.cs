@@ -243,25 +243,9 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-
-        public List<BECuvCantidad> GetCuvPedidoWebDetalle(int ConsultoraID, int CampaniaID)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCuvPedidoWebDetalle");
-            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Decimal, CampaniaID);
-
-            var lstProducto = new List<BECuvCantidad>();
-            using (IDataReader reader = Context.ExecuteReader(command))
-            {
-                while (reader.Read())
-                {
-                    lstProducto.Add(new BECuvCantidad(reader));
-                }
-            }
-            return lstProducto;
-        }
         #endregion
 
+        #region Venta Exclusiva
         public IDataReader GetProductosExclusivos(int campaniaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoExclusivos");
@@ -278,5 +262,6 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
+        #endregion
     }
 }

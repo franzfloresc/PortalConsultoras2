@@ -653,56 +653,59 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="ValidarAgregarProductosProgramaNuevas">
+  <xs:element name="ValidarCantidadMaximaProgramaNuevas">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
         <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
-        <xs:element minOccurs="0" name="ConsultoraID" type="xs:int" />
-        <xs:element minOccurs="0" name="codigoPrograma" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="consecutivoNueva" type="xs:int" />
-        <xs:element minOccurs="0" name="cuv" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="participaProgramaNuevas" type="xs:boolean" />
+        <xs:element minOccurs="0" name="codigoPrograma" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cantidadEnPedido" type="xs:int" />
+        <xs:element minOccurs="0" name="cuvIngresado" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="cantidadIngresada" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="ValidarAgregarProductosProgramaNuevasResponse">
+  <xs:element name="ValidarCantidadMaximaProgramaNuevasResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="ValidarAgregarProductosProgramaNuevasResult" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ValidarCantidadMaximaProgramaNuevasResult" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="EsProductoExclusivo">
+  <xs:element name="ValidaCuvElectivo">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
         <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
-        <xs:element minOccurs="0" name="cuv" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cuvIngresado" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="consecutivoNueva" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoPrograma" nillable="true" type="xs:string" />
+        <xs:element xmlns:q34="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="lstCuvPedido" nillable="true" type="q34:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="EsProductoExclusivoResponse">
+  <xs:element name="ValidaCuvElectivoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="EsProductoExclusivoResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="ValidaCuvElectivoResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetConsultoraProductoExclusivo">
+  <xs:element name="ValidarVentaExclusiva">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
         <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
         <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cuv" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetConsultoraProductoExclusivoResponse">
+  <xs:element name="ValidarVentaExclusivaResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q34="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetConsultoraProductoExclusivoResult" nillable="true" type="q34:ArrayOfstring" />
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="ValidarVentaExclusivaResult" type="q35:Enumeradores.ValidacionVentaExclusiva" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
