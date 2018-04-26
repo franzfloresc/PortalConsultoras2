@@ -946,6 +946,12 @@ namespace Portal.Consultoras.Web.Controllers
             return userData.MenuService;
         }
 
+        protected string GetMenuLinkByDescription(string description)
+        {
+            var menuItem = userData.Menu.FirstOrDefault(item => item.Descripcion == description);
+
+            return menuItem == null ? string.Empty : menuItem.UrlItem;
+        }
         #endregion
 
         #region eventoFestivo        
@@ -4563,19 +4569,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
                 if (!("BO CL VE").Contains(userData.CodigoISO)) TextoNuevoPROL = " Revisa tus notificaciones o correo y verifica que tu pedido esté completo.";
-
-                DateTime time = DateTime.Today.Add(HoraCierrePortal);
-
-                if (IsMobile())
-                {
-                    string hrCierrePortal = time.ToString("hh:mm tt").Replace(". ", "").ToUpper();
-                    ViewBag.MensajeFechaPromesa = " CIERRA EL " + userData.FechaInicioCampania.Day + " " + NombreMes(userData.FechaInicioCampania.Month).ToUpper() + " - " + hrCierrePortal.Replace(".", "");
-                }
-                else
-                {
-                    var culture = CultureInfo.GetCultureInfo("es-PE");
-                    ViewBag.MensajeFechaPromesa = userData.FechaInicioCampania.ToString("dd MMM", culture).ToUpper() + " - " + time.ToString("hhtt", CultureInfo.InvariantCulture).ToLower();
-                }
             }
             else
             {
@@ -4586,17 +4579,6 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     ViewBag.MensajeCierreCampania = "Pasa o modifica tu pedido hasta el día de <b>hoy a las " + FormatearHora(HoraCierrePortal) + "</b>";
-                }
-
-                DateTime time = DateTime.Today.Add(HoraCierrePortal);
-                if (IsMobile())
-                {
-                    string hrCierrePortal = time.ToString("hh:mm tt").Replace(". ", "").ToUpper();
-                    ViewBag.MensajeFechaPromesa = " CIERRA HOY - " + hrCierrePortal.Replace(".", "");
-                }
-                else
-                {
-                    ViewBag.MensajeFechaPromesa = "HOY - " + time.ToString("hhtt", CultureInfo.InvariantCulture).ToLower();
                 }
             }
 
@@ -4619,6 +4601,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             ViewBag.MensajeCierreCampania = ViewBag.MensajeCierreCampania + TextoPromesa + TextoNuevoPROL;
+            ViewBag.MensajeFechaPromesa = GetFechaPromesa(HoraCierrePortal, ViewBag.Dias);
 
             #endregion
 
@@ -4772,6 +4755,34 @@ namespace Portal.Consultoras.Web.Controllers
                 urlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
 
             return urlFranjaNegra;
+        }
+
+        private string GetFechaPromesa(TimeSpan horaCierre, int diasFaltantes)
+        {
+            var time = DateTime.Today.Add(horaCierre);
+            string fecha = null;
+
+            if (IsMobile())
+            {
+                string hrCierrePortal = time.ToString("hh:mm tt").Replace(". ", "").ToUpper();
+
+                fecha = diasFaltantes > 0
+                    ? " CIERRA EL " + userData.FechaInicioCampania.Day + " " + NombreMes(userData.FechaInicioCampania.Month).ToUpper()
+                    : " CIERRA HOY";
+
+
+                return fecha + " - " + hrCierrePortal.Replace(".", "");
+            }
+            else
+            {
+                var culture = CultureInfo.GetCultureInfo("es-PE");
+                fecha = diasFaltantes > 0 
+                    ? userData.FechaInicioCampania.ToString("dd MMM", culture).ToUpper()
+                    : "HOY";
+
+                return fecha + " - " + time.ToString("hhtt", CultureInfo.InvariantCulture).ToLower();
+            }
+
         }
 
         protected string GetBucketNameFromConfig()
@@ -5190,13 +5201,18 @@ namespace Portal.Consultoras.Web.Controllers
                     pagoEnLineaResultadoLogId = ps.InsertPagoEnLineaResultadoLog(userData.PaisID, bePagoEnLinea);
                 }
 
+                // Requerido en pago rechazado.
+                model.NumeroOperacion = bePagoEnLinea.NumeroOrdenTienda;
+                model.FechaCreacion = bePagoEnLinea.FechaTransaccion;
+                model.DescripcionCodigoAccion = bePagoEnLinea.DescripcionCodigoAccion;
+
                 if (bePagoEnLinea.CodigoError == "0" && bePagoEnLinea.CodigoAccion == "000")
                 {
                     model.PagoEnLineaResultadoLogId = pagoEnLineaResultadoLogId;
                     model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
-                    model.NumeroOperacion = bePagoEnLinea.NumeroOrdenTienda;
+                    model.PrimerApellido = userData.PrimerApellido;
+                    model.TarjetaEnmascarada = bePagoEnLinea.NumeroTarjeta;
                     model.FechaVencimiento = userData.FechaLimPago;
-                    model.FechaCreacion = bePagoEnLinea.FechaTransaccion;
                     model.SaldoPendiente = decimal.Round(userData.MontoDeuda - model.MontoDeuda, 2);
 
                     using (PedidoServiceClient ps = new PedidoServiceClient())
@@ -5340,7 +5356,7 @@ namespace Portal.Consultoras.Web.Controllers
             string templatePath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_pago_en_linea.html";
             string htmlTemplate = FileManager.GetContenido(templatePath);
 
-            htmlTemplate = htmlTemplate.Replace("#FORMATO_NOMBRECOMPLETO#", model.NombreConsultora);
+            htmlTemplate = htmlTemplate.Replace("#FORMATO_NOMBRECOMPLETO#", model.NombreConsultora + " " + model.PrimerApellido);
             htmlTemplate = htmlTemplate.Replace("#FORMATO_NUMEROOPERACION#", model.NumeroOperacion);
             htmlTemplate = htmlTemplate.Replace("#FORMATO_FECHAPAGO#", model.FechaCreacionString);
             htmlTemplate = htmlTemplate.Replace("#FORMATO_MONTODEUDA#", model.MontoDeudaString);
@@ -5350,6 +5366,7 @@ namespace Portal.Consultoras.Web.Controllers
             htmlTemplate = htmlTemplate.Replace("#FORMATO_SALDOPENDIENTE#", model.SaldoPendienteString);
             htmlTemplate = htmlTemplate.Replace("#FORMATO_FECHAVENCIMIENTO#", model.FechaVencimientoString);
             htmlTemplate = htmlTemplate.Replace("#FORMATO_MENSAJEINFORMACION#", model.MensajeInformacionPagoExitoso);
+            htmlTemplate = htmlTemplate.Replace("#FORMATO_NUMTARJETA#", model.TarjetaEnmascarada);
 
             return htmlTemplate;
         }
