@@ -1,10 +1,8 @@
-﻿
-@model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaModel
-@using Portal.Consultoras.Web.Models
+﻿@using Portal.Consultoras.Web.Models
+@model EstrategiaPersonalizadaModel
+
 @{
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
-
-    var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalModel();
 }
 @section styles{
     @System.Web.Optimization.Styles.Render("~/bundles/css/Site/ccsOfertas")
@@ -35,7 +33,7 @@
                 <br />
                 Cargando @seccion.Titulo
                 <br />
-                <img src="@Url.Content("~/Content/Images/Loading.gif")" />
+                <img src="@Url.Content("~/Content/Images/Loading.gif")" alt="....."/>
                 <br />
                 <br />
                 <br />
@@ -55,11 +53,15 @@
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-carrusel-previsuales-producto.cshtml")
 
+
+
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
 
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")
+
+
 
 @Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 @if (Model.MensajeProductoBloqueado2 != null)
@@ -73,17 +75,18 @@
 
 @section scripts{
 <script type="text/javascript">
-    var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital", new { area = ""})';
-    var urlCargarProductosHv = '@Url.Action("HVObtenerProductos", "HerramientasVenta", new { area = ""})';
+    var urlOfertaCargarProductos = "@Url.Action("RDObtenerProductos", "RevistaDigital")";
+    var urlCargarProductosHv = '@Url.Action("HVObtenerProductos", "HerramientasVenta")';
     var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
     var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital")';
     var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
+    var urlOfertaDetalleProductoLan = '@Url.Action("Detalle", "Lanzamientos")';
+    var urlOfertaDetalleProductoLanTem = '@Url.Action("GuardarProductoTemporal", "Lanzamientos")';
     var isScroll = false;
     var tipoOrigenPantalla = 1;
     var TipoOrigenPantallaODD = 111;
     var tipoOrigenEstrategia = 107;
     var OrigenDesktopODD = 3;
-    var revistaDigital= @Html.Raw(Json.Encode(revistaDigital));
 </script>
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Ofertas")

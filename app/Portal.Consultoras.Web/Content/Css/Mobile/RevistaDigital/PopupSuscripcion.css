@@ -161,7 +161,8 @@
         padding: 0;
     }
 
-        .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto, .contenido .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
+        .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto,
+        .contenido .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
             width: 100%;
         }
 

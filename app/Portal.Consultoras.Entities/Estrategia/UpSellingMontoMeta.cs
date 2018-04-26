@@ -1,10 +1,10 @@
-﻿using System; 
-using System.ComponentModel.DataAnnotations.Schema; 
-using System.Runtime.Serialization; 
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.Estrategia
 {
-    public class OfertaFinalMontoMeta
+    public class UpSellingMontoMeta
     {
         [DataMember]
         [Column("Campania")]
@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Entities.Estrategia
 
         [DataMember]
         [Column("MontoAgregar")]
-        public decimal MontoAgregar { get; set; }    
+        public decimal MontoAgregar { get; set; }
 
         [DataMember]
         [Column("MontoMeta")]
@@ -53,6 +53,5 @@ namespace Portal.Consultoras.Entities.Estrategia
         [DataMember]
         [Column("FechaRegistro")]
         public DateTime? FechaRegistro { get; set; }
-
     }
 }

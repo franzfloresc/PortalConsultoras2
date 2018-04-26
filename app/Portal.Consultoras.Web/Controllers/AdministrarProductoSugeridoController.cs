@@ -209,14 +209,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string rutaImagen = entidad.ImagenProducto.Clone().ToString();
                 var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
-                if (rutaImagen.ToLower().Contains(valorAppCatalogo))
-                {
-                    listaImagenesResize = ObtenerListaImagenesResizeAppCatalogo(entidad.ImagenProducto);
-                }
-                else
-                {
-                    listaImagenesResize = ObtenerListaImagenesResize(entidad.ImagenProducto);
-                }
+                listaImagenesResize = ObtenerListaImagenesResize(entidad.ImagenProducto, rutaImagen.ToLower().Contains(valorAppCatalogo));
 
                 if (listaImagenesResize != null && listaImagenesResize.Count > 0)
                     MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
@@ -259,67 +252,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
-        #region Imagenes Resize App Catalogo
-
-        public List<EntidadMagickResize> ObtenerListaImagenesResizeAppCatalogo(string rutaImagen)
-        {
-            var listaImagenesResize = new List<EntidadMagickResize>();
-
-            if (Util.ExisteUrlRemota(rutaImagen))
-            {
-                string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
-                string soloExtension = Path.GetExtension(rutaImagen);
-
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
-                var extensionNombreImagenSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall;
-                var rutaImagenSmall = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + extensionNombreImagenSmall + soloExtension);
-
-                var extensionNombreImagenMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium;
-                var rutaImagenMedium = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + extensionNombreImagenMedium + soloExtension);
-
-                var listaValoresImagenesResize = ObtenerParametrosTablaLogica(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, true);
-
-                EntidadMagickResize entidadResize;
-                if (!Util.ExisteUrlRemota(rutaImagenSmall))
-                {
-                    entidadResize = new EntidadMagickResize
-                    {
-                        RutaImagenOriginal = rutaImagen,
-                        RutaImagenResize = rutaImagenSmall,
-                        Width = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize,
-                            Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhSmall),
-                        Height = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize,
-                            Constantes.TablaLogicaDato.ValoresImagenesResizeHeightSmall),
-                        TipoImagen = Constantes.ConfiguracionImagenResize.TipoImagenSmall,
-                        CodigoIso = userData.CodigoISO
-                    };
-                    listaImagenesResize.Add(entidadResize);
-                }
-
-                if (!Util.ExisteUrlRemota(rutaImagenMedium))
-                {
-                    entidadResize = new EntidadMagickResize
-                    {
-                        RutaImagenOriginal = rutaImagen,
-                        RutaImagenResize = rutaImagenMedium,
-                        Width = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize,
-                            Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMedium),
-                        Height = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize,
-                            Constantes.TablaLogicaDato.ValoresImagenesResizeHeightMedium),
-                        TipoImagen = Constantes.ConfiguracionImagenResize.TipoImagenMedium,
-                        CodigoIso = userData.CodigoISO
-                    };
-                    listaImagenesResize.Add(entidadResize);
-                }
-            }
-
-            return listaImagenesResize;
-        }
-
-        #endregion
-
+        
         [HttpPost]
         public JsonResult Deshabilitar(AdministrarProductoSugeridoModel model)
         {
@@ -396,80 +329,6 @@ namespace Portal.Consultoras.Web.Controllers
             if (arrayProducto == null || arrayProducto.Length == 0) return null;
             return arrayProducto[0].Imagen;
         }
-
-        #region CargaMasivaImagenes
-
-        public JsonResult CargaMasivaImagenes(int campaniaId)
-        {
-            try
-            {
-                List<BECargaMasivaImagenes> lista;
-
-                using (PedidoServiceClient ps = new PedidoServiceClient())
-                {
-                    lista = ps.GetListaImagenesProductoSugeridoByCampania(userData.PaisID, campaniaId).ToList();
-                }
-
-                var txtBuilNoGenerados = new StringBuilder();
-                var txtBuilNoExistentes = new StringBuilder();
-
-                foreach (var item in lista)
-                {
-                    var mensajeError = "";
-
-                    List<EntidadMagickResize> listaImagenesResize;
-
-                    string rutaImagen = item.RutaImagen.Clone().ToString();
-                    var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
-                    if (rutaImagen.ToLower().Contains(valorAppCatalogo))
-                    {
-                        listaImagenesResize = ObtenerListaImagenesResizeAppCatalogo(item.RutaImagen);
-                    }
-                    else
-                    {
-                        listaImagenesResize = ObtenerListaImagenesResize(item.RutaImagen);
-                    }
-
-                    if (listaImagenesResize != null && listaImagenesResize.Count > 0)
-                        mensajeError = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
-                    else
-                        txtBuilNoExistentes.Append(item.Cuv + ",");
-
-                    if (mensajeError != "")
-                        txtBuilNoGenerados.Append(item.Cuv + ",");
-                }
-
-                var mensaje = "Se generaron las imagenes SMALL y MEDIUM de todas las imagenes.";
-                var cuvNoGenerados = txtBuilNoGenerados.ToString();
-                if (cuvNoGenerados != "")
-                {
-                    mensaje += " Excepto los siguientes Cuvs: " + cuvNoGenerados;
-                }
-                var cuvNoExistentes = txtBuilNoExistentes.ToString();
-                if (cuvNoExistentes != "")
-                {
-                    mensaje += " Excepto los siguientes Cuvs (imagen orignal no encontrada o ya existen): " + cuvNoExistentes;
-                }
-
-                return Json(new
-                {
-                    success = true,
-                    message = mensaje,
-                    extra = ""
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        #endregion
+        
     }
 }

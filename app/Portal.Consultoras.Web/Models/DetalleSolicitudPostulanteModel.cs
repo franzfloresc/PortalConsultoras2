@@ -202,19 +202,19 @@ namespace Portal.Consultoras.Web.Models
         /// </summary>
         public static Dictionary<string, string> DocumentoIdentidad = new Dictionary<string, string>
         {
-            { "BO", CC },
-            { "CL", RUT },
-            { "CO", CC },
-            { "CR", "" },
-            { "DO", "" },
-            { "EC", "" },
-            { "GT", "" },
-            { "MX", "" },
-            { "PA", "" },
-            { "PE", DNI },
-            { "PR", "" },
-            { "SV", "" },
-            { "VE", "" },
+            { Constantes.CodigosISOPais.Bolivia, CC },
+            { Constantes.CodigosISOPais.Chile, RUT },
+            { Constantes.CodigosISOPais.Colombia, CC },
+            { Constantes.CodigosISOPais.CostaRica, "" },
+            { Constantes.CodigosISOPais.Dominicana, "" },
+            { Constantes.CodigosISOPais.Ecuador, "" },
+            { Constantes.CodigosISOPais.Guatemala, "" },
+            { Constantes.CodigosISOPais.Mexico, "" },
+            { Constantes.CodigosISOPais.Panama, "" },
+            { Constantes.CodigosISOPais.Peru, DNI },
+            { Constantes.CodigosISOPais.PuertoRico, "" },
+            { Constantes.CodigosISOPais.Salvador, "" },
+            { Constantes.CodigosISOPais.Venezuela, "" },
         };
     }
 

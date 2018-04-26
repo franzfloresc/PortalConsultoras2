@@ -172,15 +172,15 @@ namespace Portal.Consultoras.Data.Estrategia
             }
         }
 
-        public IEnumerable<OfertaFinalMontoMeta> ObtenerOfertaFinalMontoMeta(int upSellingId)
+        public UpSellingRegalo ObtenerMontoMeta(int campaniaId, long consultoraId)
         {
-            using (var command = Context.Database.GetStoredProcCommand("dbo.OfertaFinalMontoMeta_Select"))
+            using (var command = Context.Database.GetStoredProcCommand("dbo.GetOfertaFinalRegaloMontoMeta"))
             {
-                Context.Database.AddInParameter(command, "@UpSellingId", DbType.Int32, upSellingId);
-                var reader = Context.ExecuteReader(command);
+                Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, campaniaId);
+                Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int32, consultoraId);
 
-                var data = reader.MapToCollection<OfertaFinalMontoMeta>(closeReaderFinishing: true);
-                return data;
+                var reader = Context.ExecuteReader(command);
+                return reader.MapToObject<UpSellingRegalo>(closeReaderFinishing: true);
             }
         }
 
@@ -201,6 +201,30 @@ namespace Portal.Consultoras.Data.Estrategia
                 Context.Database.AddInParameter(command, "@UpSellingDetalleId", DbType.Int32, entidad.UpSellingDetalleId);
 
                 return Convert.ToInt32(Context.ExecuteScalar(command));
+            }
+        }
+
+        public UpSellingRegalo ObtenerRegaloGanado(int campaniaid, long consultoraId)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.GetObtenerOfertaFinalRegaloSorpresa"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, campaniaid);
+                Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int32, consultoraId);
+
+                var reader = Context.ExecuteReader(command);
+                return reader.MapToObject<UpSellingRegalo>(closeReaderFinishing: true);
+            }
+        }
+
+        public IEnumerable<UpSellingMontoMeta> ListarReporteMontoMeta(int upSellingId)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.OfertaFinalMontoMeta_Select"))
+            {
+                Context.Database.AddInParameter(command, "@UpSellingId", DbType.Int32, upSellingId);
+                var reader = Context.ExecuteReader(command);
+
+                var lista = reader.MapToCollection<UpSellingMontoMeta>(closeReaderFinishing: true);
+                return lista;
             }
         }
     }
