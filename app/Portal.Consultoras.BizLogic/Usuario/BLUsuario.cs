@@ -378,140 +378,153 @@ namespace Portal.Consultoras.BizLogic
 
         public BEUsuario GetSesionUsuarioWS(int paisID, string codigoUsuario)
         {
-            CodigoUsuarioLog = codigoUsuario;
-            PaisIDLog = paisID;
+            BEUsuario usuario = null;
 
-            var usuario = GetUsuario(paisID, codigoUsuario);
-            if (usuario == null) return null;
-
-            var configuracionConsultora = this.GetConfiguracionCampania(usuario, Constantes.TipoUsuario.Consultora);
-            if (configuracionConsultora != null)
+            try
             {
-                usuario.CampaniaID = configuracionConsultora.CampaniaID;
-                usuario.ZonaHoraria = configuracionConsultora.ZonaHoraria;
-                usuario.FechaInicioFacturacion = configuracionConsultora.FechaInicioFacturacion;
-                usuario.AceptacionConsultoraDA = configuracionConsultora.AceptacionConsultoraDA;
-                usuario.HoraFin = configuracionConsultora.HoraFin;
-                usuario.EsZonaDemAnti = configuracionConsultora.EsZonaDemAnti;
-                usuario.HoraCierreZonaNormal = configuracionConsultora.HoraCierreZonaNormal;
-                usuario.HoraCierreZonaDemAnti = configuracionConsultora.HoraCierreZonaDemAnti;
-                usuario.DiasAntes = configuracionConsultora.DiasAntes;
-                usuario.HoraInicio = configuracionConsultora.HoraInicio;
-                usuario.HoraInicioNoFacturable = configuracionConsultora.HoraInicioNoFacturable;
-                usuario.FechaFinFacturacion = configuracionConsultora.FechaFinFacturacion;
-                usuario.CampaniaDescripcion = configuracionConsultora.CampaniaDescripcion;
-                usuario.ZonaValida = configuracionConsultora.ZonaValida;
-                usuario.NuevoPROL = true;
-                usuario.ZonaNuevoPROL = true;
-                usuario.IndicadorGPRSB = configuracionConsultora.IndicadorGPRSB;
-                usuario.ValidacionAbierta = configuracionConsultora.ValidacionAbierta;
-                usuario.EstadoPedido = configuracionConsultora.EstadoPedido;
-                usuario.FechaActualPais = configuracionConsultora.FechaActualPais;
-            }
+                codigoUsuario = GetUsuarioRealPostulante(paisID, codigoUsuario);
 
-            if (usuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
-            {
-                var postulante = GetUsuarioPostulante(paisID, codigoUsuario);
+                CodigoUsuarioLog = codigoUsuario;
+                PaisIDLog = paisID;
 
-                if (postulante != null)
+                usuario = GetUsuario(paisID, codigoUsuario);
+                if (usuario == null) return null;
+
+                var configuracionConsultora = this.GetConfiguracionCampania(usuario, Constantes.TipoUsuario.Consultora);
+                if (configuracionConsultora != null)
                 {
-                    usuario.ZonaID = postulante.ZonaID;
-                    usuario.RegionID = postulante.RegionID;
-                    usuario.ConsultoraID = postulante.ConsultoraID;
-                    usuario.Seccion = postulante.Seccion;
-                    usuario.CodigorRegion = postulante.Region;
-                    usuario.CodigoZona = postulante.CodigoZona;
+                    usuario.CampaniaID = configuracionConsultora.CampaniaID;
+                    usuario.ZonaHoraria = configuracionConsultora.ZonaHoraria;
+                    usuario.FechaInicioFacturacion = configuracionConsultora.FechaInicioFacturacion;
+                    usuario.AceptacionConsultoraDA = configuracionConsultora.AceptacionConsultoraDA;
+                    usuario.HoraFin = configuracionConsultora.HoraFin;
+                    usuario.EsZonaDemAnti = configuracionConsultora.EsZonaDemAnti;
+                    usuario.HoraCierreZonaNormal = configuracionConsultora.HoraCierreZonaNormal;
+                    usuario.HoraCierreZonaDemAnti = configuracionConsultora.HoraCierreZonaDemAnti;
+                    usuario.DiasAntes = configuracionConsultora.DiasAntes;
+                    usuario.HoraInicio = configuracionConsultora.HoraInicio;
+                    usuario.HoraInicioNoFacturable = configuracionConsultora.HoraInicioNoFacturable;
+                    usuario.FechaFinFacturacion = configuracionConsultora.FechaFinFacturacion;
+                    usuario.CampaniaDescripcion = configuracionConsultora.CampaniaDescripcion;
+                    usuario.ZonaValida = configuracionConsultora.ZonaValida;
+                    usuario.NuevoPROL = true;
+                    usuario.ZonaNuevoPROL = true;
+                    usuario.IndicadorGPRSB = configuracionConsultora.IndicadorGPRSB;
+                    usuario.ValidacionAbierta = configuracionConsultora.ValidacionAbierta;
+                    usuario.EstadoPedido = configuracionConsultora.EstadoPedido;
+                    usuario.FechaActualPais = configuracionConsultora.FechaActualPais;
+                }
 
-                    var configuracion = this.GetConfiguracionCampania(usuario, Constantes.TipoUsuario.Postulante);
+                if (usuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                {
+                    var postulante = GetUsuarioPostulante(paisID, codigoUsuario);
 
-                    if (configuracion != null)
+                    if (postulante != null)
                     {
-                        usuario.CampaniaID = configuracion.CampaniaID;
-                        usuario.ZonaHoraria = configuracion.ZonaHoraria;
-                        usuario.FechaInicioFacturacion = configuracion.FechaInicioFacturacion;
-                        usuario.AceptacionConsultoraDA = configuracion.AceptacionConsultoraDA;
-                        usuario.HoraFin = configuracion.HoraFin;
-                        usuario.EsZonaDemAnti = configuracion.EsZonaDemAnti;
-                        usuario.HoraCierreZonaNormal = configuracion.HoraCierreZonaNormal;
-                        usuario.HoraCierreZonaDemAnti = configuracion.HoraCierreZonaDemAnti;
-                        usuario.DiasAntes = configuracion.DiasAntes;
-                        usuario.HoraInicio = configuracion.HoraInicio;
-                        usuario.HoraInicioNoFacturable = configuracion.HoraInicioNoFacturable;
-                        usuario.FechaFinFacturacion = configuracion.FechaFinFacturacion;
-                        usuario.CampaniaDescripcion = configuracion.CampaniaDescripcion;
-                        usuario.ZonaValida = configuracion.ZonaValida;
-                        usuario.NuevoPROL = true;
-                        usuario.ZonaNuevoPROL = true;
-                        usuario.IndicadorGPRSB = configuracion.IndicadorGPRSB;
-                        usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
-                        usuario.EstadoPedido = configuracion.EstadoPedido;
-                        usuario.FechaActualPais = configuracion.FechaActualPais;
+                        usuario.ZonaID = postulante.ZonaID;
+                        usuario.RegionID = postulante.RegionID;
+                        usuario.ConsultoraID = postulante.ConsultoraID;
+                        usuario.Seccion = postulante.Seccion;
+                        usuario.CodigorRegion = postulante.Region;
+                        usuario.CodigoZona = postulante.CodigoZona;
+
+                        var configuracion = this.GetConfiguracionCampania(usuario, Constantes.TipoUsuario.Postulante);
+
+                        if (configuracion != null)
+                        {
+                            usuario.CampaniaID = configuracion.CampaniaID;
+                            usuario.ZonaHoraria = configuracion.ZonaHoraria;
+                            usuario.FechaInicioFacturacion = configuracion.FechaInicioFacturacion;
+                            usuario.AceptacionConsultoraDA = configuracion.AceptacionConsultoraDA;
+                            usuario.HoraFin = configuracion.HoraFin;
+                            usuario.EsZonaDemAnti = configuracion.EsZonaDemAnti;
+                            usuario.HoraCierreZonaNormal = configuracion.HoraCierreZonaNormal;
+                            usuario.HoraCierreZonaDemAnti = configuracion.HoraCierreZonaDemAnti;
+                            usuario.DiasAntes = configuracion.DiasAntes;
+                            usuario.HoraInicio = configuracion.HoraInicio;
+                            usuario.HoraInicioNoFacturable = configuracion.HoraInicioNoFacturable;
+                            usuario.FechaFinFacturacion = configuracion.FechaFinFacturacion;
+                            usuario.CampaniaDescripcion = configuracion.CampaniaDescripcion;
+                            usuario.ZonaValida = configuracion.ZonaValida;
+                            usuario.NuevoPROL = true;
+                            usuario.ZonaNuevoPROL = true;
+                            usuario.IndicadorGPRSB = configuracion.IndicadorGPRSB;
+                            usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
+                            usuario.EstadoPedido = configuracion.EstadoPedido;
+                            usuario.FechaActualPais = configuracion.FechaActualPais;
+                        }
                     }
                 }
+
+                var terminosCondicionesTask = Task.Run(() => GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppTerminosCondiciones));
+                var politicaPrivacidadTask = Task.Run(() => GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppPoliticaPrivacidad));
+                var destinatariosFeedBack = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.CorreoFeedbackAppConsultora));
+                var gprBannerTask = Task.Run(() => GetGPRBanner(usuario));
+                var usuarioConsultoraTask = Task.Run(() => GetUsuarioConsultora(usuario));
+                var consultoraAniversarioTask = Task.Run(() => GetConsultoraAniversario(usuario));
+                var consultoraCumpleanioTask = Task.Run(() => GetConsultoraCumpleanio(usuario));
+                var incentivosConcursosTask = Task.Run(() => GetIncentivosConcursos(usuario));
+                var revistaDigitalSuscripcionTask = Task.Run(() => GetRevistaDigitalSuscripcion(usuario));
+                var cuponTask = Task.Run(() => GetCupon(usuario));
+                var programaNuevasTask = Task.Run(() => GetProgramaNuevas(usuario));
+
+                Task.WaitAll(
+                                terminosCondicionesTask,
+                                politicaPrivacidadTask,
+                                destinatariosFeedBack,
+                                gprBannerTask,
+                                usuarioConsultoraTask,
+                                consultoraAniversarioTask,
+                                consultoraCumpleanioTask,
+                                incentivosConcursosTask,
+                                revistaDigitalSuscripcionTask,
+                                cuponTask,
+                                programaNuevasTask);
+
+                if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
+                    usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
+
+                usuario.AceptaTerminosCondiciones = (terminosCondicionesTask.Result != null && terminosCondicionesTask.Result.Aceptado);
+                usuario.AceptaPoliticaPrivacidad = (politicaPrivacidadTask.Result != null && politicaPrivacidadTask.Result.Aceptado);
+                usuario.DestinatariosFeedback = string.Join(";", destinatariosFeedBack.Result.Select(x => x.Descripcion));
+
+                usuario.GPRMostrarBannerRechazo = gprBannerTask.Result.MostrarBannerRechazo;
+                usuario.GPRBannerTitulo = gprBannerTask.Result.BannerTitulo;
+                usuario.GPRBannerMensaje = gprBannerTask.Result.BannerMensaje;
+                usuario.GPRBannerUrl = gprBannerTask.Result.BannerUrl;
+                usuario.GPRTextovinculo = (gprBannerTask.Result.BannerUrl == Enumeradores.RechazoBannerUrl.ModificaPedido ? gprBannerTask.Result.Textovinculo : string.Empty);
+
+                usuario.DiasCierre = usuarioConsultoraTask.Result.DiasCierre;
+                usuario.FechaVencimiento = usuarioConsultoraTask.Result.FechaVencimiento;
+
+                usuario.EsAniversario = consultoraAniversarioTask.Result.Count == 2 ? (bool)consultoraAniversarioTask.Result[0] : false;
+                usuario.EsCumpleanio = consultoraCumpleanioTask.Result;
+                usuario.AniosPermanencia = consultoraAniversarioTask.Result.Count == 2 ? (int)consultoraAniversarioTask.Result[1] : 0;
+
+                usuario.CodigosConcursos = incentivosConcursosTask.Result.Count == 2 ? incentivosConcursosTask.Result[0] : string.Empty;
+                usuario.CodigosProgramaNuevas = incentivosConcursosTask.Result.Count == 2 ? incentivosConcursosTask.Result[1] : string.Empty;
+
+                usuario.RevistaDigitalSuscripcion = revistaDigitalSuscripcionTask.Result.Count == 3 ? (short)revistaDigitalSuscripcionTask.Result[0] : Constantes.GanaMas.PaisSinRD;
+                usuario.UrlBannerGanaMas = revistaDigitalSuscripcionTask.Result.Count == 3 ? (string)revistaDigitalSuscripcionTask.Result[1] : string.Empty;
+                usuario.TieneGND = revistaDigitalSuscripcionTask.Result.Count == 3 ? (bool)revistaDigitalSuscripcionTask.Result[2] : false;
+
+                usuario.CuponEstado = cuponTask.Result.EstadoCupon;
+                usuario.CuponPctDescuento = cuponTask.Result.ValorAsociado;
+                usuario.CuponMontoMaxDscto = cuponTask.Result.MontoMaximoDescuento;
+                usuario.CuponTipoCondicion = cuponTask.Result.TipoCondicion;
+
+                var programaNuevas = programaNuevasTask.Result;
+                if (programaNuevas != null)
+                {
+                    usuario.ConsecutivoNueva = programaNuevas.ConsecutivoNueva;
+                    usuario.CodigoPrograma = programaNuevas.CodigoPrograma ?? string.Empty;
+                }
+
+                return usuario;
             }
-
-            var terminosCondicionesTask = Task.Run(() => GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppTerminosCondiciones));
-            var politicaPrivacidadTask = Task.Run(() => GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppPoliticaPrivacidad));
-            var destinatariosFeedBack = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.CorreoFeedbackAppConsultora));
-            var gprBannerTask = Task.Run(() => GetGPRBanner(usuario));
-            var usuarioConsultoraTask = Task.Run(() => GetUsuarioConsultora(usuario));
-            var consultoraAniversarioTask = Task.Run(() => GetConsultoraAniversario(usuario));
-            var consultoraCumpleanioTask = Task.Run(() => GetConsultoraCumpleanio(usuario));
-            var incentivosConcursosTask = Task.Run(() => GetIncentivosConcursos(usuario));
-            var revistaDigitalSuscripcionTask = Task.Run(() => GetRevistaDigitalSuscripcion(usuario));
-            var cuponTask = Task.Run(() => GetCupon(usuario));
-            var programaNuevasTask = Task.Run(() => GetProgramaNuevas(usuario));
-
-            Task.WaitAll(
-                            terminosCondicionesTask,
-                            politicaPrivacidadTask,
-                            destinatariosFeedBack,
-                            gprBannerTask,
-                            usuarioConsultoraTask,
-                            consultoraAniversarioTask,
-                            consultoraCumpleanioTask,
-                            incentivosConcursosTask,
-                            revistaDigitalSuscripcionTask,
-                            cuponTask,
-                            programaNuevasTask);
-
-            if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
-                usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
-
-            usuario.AceptaTerminosCondiciones = (terminosCondicionesTask.Result != null && terminosCondicionesTask.Result.Aceptado);
-            usuario.AceptaPoliticaPrivacidad = (politicaPrivacidadTask.Result != null && politicaPrivacidadTask.Result.Aceptado);
-            usuario.DestinatariosFeedback = string.Join(";", destinatariosFeedBack.Result.Select(x => x.Descripcion));
-
-            usuario.GPRMostrarBannerRechazo = gprBannerTask.Result.MostrarBannerRechazo;
-            usuario.GPRBannerTitulo = gprBannerTask.Result.BannerTitulo;
-            usuario.GPRBannerMensaje = gprBannerTask.Result.BannerMensaje;
-            usuario.GPRBannerUrl = gprBannerTask.Result.BannerUrl;
-            usuario.GPRTextovinculo = (gprBannerTask.Result.BannerUrl == Enumeradores.RechazoBannerUrl.ModificaPedido ? gprBannerTask.Result.Textovinculo : string.Empty);
-
-            usuario.DiasCierre = usuarioConsultoraTask.Result.DiasCierre;
-            usuario.FechaVencimiento = usuarioConsultoraTask.Result.FechaVencimiento;
-
-            usuario.EsAniversario = consultoraAniversarioTask.Result.Count == 2 ? (bool)consultoraAniversarioTask.Result[0] : false;
-            usuario.EsCumpleanio = consultoraCumpleanioTask.Result;
-            usuario.AniosPermanencia = consultoraAniversarioTask.Result.Count == 2 ? (int)consultoraAniversarioTask.Result[1] : 0;
-
-            usuario.CodigosConcursos = incentivosConcursosTask.Result.Count == 2 ? incentivosConcursosTask.Result[0] : string.Empty;
-            usuario.CodigosProgramaNuevas = incentivosConcursosTask.Result.Count == 2 ? incentivosConcursosTask.Result[1] : string.Empty;
-
-            usuario.RevistaDigitalSuscripcion = revistaDigitalSuscripcionTask.Result.Count == 3 ? (short)revistaDigitalSuscripcionTask.Result[0] : Constantes.GanaMas.PaisSinRD;
-            usuario.UrlBannerGanaMas = revistaDigitalSuscripcionTask.Result.Count == 3 ? (string)revistaDigitalSuscripcionTask.Result[1] : string.Empty;
-            usuario.TieneGND = revistaDigitalSuscripcionTask.Result.Count == 3 ? (bool)revistaDigitalSuscripcionTask.Result[2] : false;
-
-            usuario.CuponEstado = cuponTask.Result.EstadoCupon;
-            usuario.CuponPctDescuento = cuponTask.Result.ValorAsociado;
-            usuario.CuponMontoMaxDscto = cuponTask.Result.MontoMaximoDescuento;
-            usuario.CuponTipoCondicion = cuponTask.Result.TipoCondicion;
-
-            var programaNuevas = programaNuevasTask.Result;
-            if (programaNuevas != null)
+            catch (Exception ex)
             {
-                usuario.ConsecutivoNueva = programaNuevas.ConsecutivoNueva;
-                usuario.CodigoPrograma = programaNuevas.CodigoPrograma ?? string.Empty;
+                LogManager.SaveLog(ex, codigoUsuario, paisID);
             }
 
             return usuario;
@@ -624,11 +637,9 @@ namespace Portal.Consultoras.BizLogic
 
         private BEUsuario GetUsuario(int paisID, string codigoUsuario)
         {
-            var daUsuario = new DAUsuario(paisID);
-
-            using (IDataReader reader = daUsuario.GetSesionUsuario(codigoUsuario))
+            using (var reader = new DAUsuario(paisID).GetSesionUsuario(codigoUsuario))
             {
-                return reader.MapToObject<BEUsuario>();
+                return reader.MapToObject<BEUsuario>(true);
             }
         }
 
@@ -2605,5 +2616,20 @@ namespace Portal.Consultoras.BizLogic
             return tieneShowRoom;
         }
         #endregion
+
+        private string GetUsuarioRealPostulante(int paisID, string codigoUsuario)
+        {
+            try
+            {
+                codigoUsuario = new DAUsuario(paisID).GetUsuarioRealPostulante(codigoUsuario);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, codigoUsuario, paisID);
+            }
+
+            return codigoUsuario;
+        }
+
     }
 }
