@@ -383,7 +383,6 @@ namespace Portal.Consultoras.BizLogic
 
             var usuario = GetUsuario(paisID, codigoUsuario);
             if (usuario == null) return null;
-            if (usuario.ConsultoraID == 0) return null;
 
             var configuracionConsultora = this.GetConfiguracionCampania(usuario, Constantes.TipoUsuario.Consultora);
             if (configuracionConsultora != null)
