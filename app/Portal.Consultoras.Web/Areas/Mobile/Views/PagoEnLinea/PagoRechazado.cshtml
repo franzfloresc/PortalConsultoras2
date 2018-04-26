@@ -44,7 +44,23 @@
             </p>
 
         </div>
-
+        @if (!string.IsNullOrEmpty(Model.DescripcionCodigoAccion))
+        {
+            <br />
+            <div class="resumen_pago">
+                <p class="info_num_operacion_pago">
+                    Número de operación: <span class="num_operacion_pago">@Model.NumeroOperacion</span>
+                </p>
+                <div class="num_tarjeta">
+                    <span>Fecha de Operación:</span>
+                    <span>@Model.FechaCreacionString</span>
+                </div>
+                <div class="num_tarjeta">
+                    <span>Motivo de Denegación:</span>
+                    <span>@Model.DescripcionCodigoAccion</span>
+                </div>
+            </div>
+        }
         <!-- FIN - VISTA PAGO RECHAZADO -->
 
     </div>

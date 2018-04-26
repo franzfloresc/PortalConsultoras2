@@ -343,7 +343,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult VerificarZonaPreferencial(string codigoPais, string latitud, string longitud)
         {
-            if (codigoPais != "CO")
+            if (codigoPais != Constantes.CodigosISOPais.Colombia)
                 return Json(new { EsZonaPreferencial = false });
 
             if (Session["ResultadoZona"] != null)

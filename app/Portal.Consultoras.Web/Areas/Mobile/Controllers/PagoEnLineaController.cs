@@ -57,6 +57,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 if (pagoOk)
                 {
+                    ViewBag.UrlCondiciones = GetMenuLinkByDescription(Constantes.ConfiguracionManager.MenuCondicionesDescripcion);
+
                     return View("PagoExitoso", model);
                 }
                 else

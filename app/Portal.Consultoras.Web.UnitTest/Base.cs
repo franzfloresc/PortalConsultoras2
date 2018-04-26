@@ -12,14 +12,14 @@ namespace Portal.Consultoras.Web.UnitTest
         protected Mock<ILogManager> logManager;
 
         [TestInitialize]
-        public void Test_Initialize()
+        public virtual void Test_Initialize()
         {
             sessionManager = new Mock<ISessionManager>();
             logManager = new Mock<ILogManager>();
         }
 
         [TestCleanup]
-        public void Test_Cleanup()
+        public virtual void Test_Cleanup()
         {
             sessionManager = null;
             logManager = null;

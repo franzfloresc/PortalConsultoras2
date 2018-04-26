@@ -261,8 +261,8 @@ namespace Portal.Consultoras.BizLogic
 
                 string postfixHeaderTemplate =
                     (ConfigurationManager.AppSettings["HasDiffCA-PRD"].Contains(codigoPais) && tmpCronograma != 1) ? "PRD" :
-                    (codigoPais == "CO" && tmpCronograma == 2) ? "DA" : "";
-                string postfixDetailTemplate = (codigoPais == "CO" && tmpCronograma == 2) ? "DA" : "";
+                    (codigoPais == Constantes.CodigosISOPais.Colombia && tmpCronograma == 2) ? "DA" : "";
+                string postfixDetailTemplate = (codigoPais == Constantes.CodigosISOPais.Colombia && tmpCronograma == 2) ? "DA" : "";
 
                 var headerTemplate = ParseTemplate(ConfigurationManager.AppSettings[element.OrderHeaderTemplate + postfixHeaderTemplate]);
                 var detailTemplate = ParseTemplate(ConfigurationManager.AppSettings[element.OrderDetailTemplate + postfixDetailTemplate]);

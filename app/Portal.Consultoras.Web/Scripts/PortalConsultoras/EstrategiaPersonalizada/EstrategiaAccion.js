@@ -13,7 +13,7 @@ var origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
 var divAgregado = null;
 var _campania = "";
 var TieneHV = TieneHV || false;
-var revistaDigital = revistaDigital || null;
+var revistaDigital = revistaDigital || {};
 
 var belcorp = belcorp || {};
 belcorp.estrategia = belcorp.estrategia || new Object();
@@ -351,7 +351,10 @@ function VerPopupExpGanaMas() {
         }
     }
 
-    divMensaje.show();
+    if (divMensaje != "") {
+        divMensaje.show();
+    }
+
 }
 
 function EstrategiaAgregar(event, popup, limite) {
@@ -487,13 +490,14 @@ function EstrategiaAgregar(event, popup, limite) {
                 $(divAgregado).show();
             }
             if (isMobile()) {
-                
+
                 ActualizarGanancia(data.DataBarra);
-                
+
                 $(".contenedor_circulos").fadeIn();
                 setTimeout(function () {
                     $(".contenedor_circulos").fadeOut();
                 }, 2700);
+                $(objInput).parents("[data-item]").find("[data-input='cantidad']").val("1");
             }
             else {
                 $(".btn_agregar_ficha_producto ").parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val("1");
@@ -504,7 +508,7 @@ function EstrategiaAgregar(event, popup, limite) {
             }
 
             var cuv = estrategia.CUV2;
-            
+
 
             if (tipoOrigenEstrategia == 1) {
                 if (typeof MostrarBarra != "undefined")
@@ -548,7 +552,7 @@ function EstrategiaAgregar(event, popup, limite) {
                             window.location = origenRetorno;
 
                         }, 3700);
-                        
+
                     }
                 }
                 else if (tipoOrigenEstrategia != 272) {
@@ -601,6 +605,10 @@ function EstrategiaValidarBloqueada(objInput, estrategia) {
         return false;
     }
 
+    if (estrategia.CampaniaID == campaniaCodigo) {
+        return false;
+    }
+
     if (isMobile()) {
         EstrategiaVerDetalleMobile(estrategia);
         return true;
@@ -612,30 +620,32 @@ function EstrategiaValidarBloqueada(objInput, estrategia) {
         divMensaje = $("#divHVMensajeBloqueada");
         divMensaje.find('.cerrar_fichaProducto').attr('data-popup-close', 'divHVMensajeBloqueada');
     }
-    
-    
 
     if (divMensaje.length > 0) {
-            var itemClone = EstrategiaObtenerObjHtmlLanding(objInput);
-            if (itemClone.length > 0) {
-                var dataItemHtml = divMensaje.find("[data-item-html]");
-                dataItemHtml.html(itemClone.html());
-                dataItemHtml.find('[data-item-tag="body"]').removeAttr("data-estrategia");
-                dataItemHtml.find('[data-item-tag="body"]').css("min-height", "auto");
-                dataItemHtml.find('[data-item-tag="body"]').css("float", "none");
-                dataItemHtml.find('[data-item-tag="body"]').css("margin", "0 auto");
-                dataItemHtml.find('[data-item-tag="body"]').css("background-color", "#fff");
-                dataItemHtml.find('[data-item-tag="body"]').attr("class", "");
-                dataItemHtml.find('[data-item-tag="agregar"]').remove();
-                dataItemHtml.find('[data-item-tag="fotofondo"]').remove();
-                dataItemHtml.find('[data-item-tag="verdetalle"]').remove();
-                dataItemHtml.find('[data-item-accion="verdetalle"]').remove();
-                dataItemHtml.find('[data-item-tag="contenido"]').removeAttr("onclick");
-                dataItemHtml.find('[data-item-tag="contenido"]').css("position", "initial");
-                dataItemHtml.find('[data-item-tag="contenido"]').attr("class", "");
-            
+        var itemClone = EstrategiaObtenerObjHtmlLanding(objInput);
+        if (itemClone.length > 0) {
+            var dataItemHtml = divMensaje.find("[data-item-html]");
+
+                if (estrategia.CodigoEstrategia != '005') {
+                    dataItemHtml.html(itemClone.html());
+                }
+                
+            dataItemHtml.find('[data-item-tag="body"]').removeAttr("data-estrategia");
+            dataItemHtml.find('[data-item-tag="body"]').css("min-height", "auto");
+            dataItemHtml.find('[data-item-tag="body"]').css("float", "none");
+            dataItemHtml.find('[data-item-tag="body"]').css("margin", "0 auto");
+            dataItemHtml.find('[data-item-tag="body"]').css("background-color", "#fff");
+            dataItemHtml.find('[data-item-tag="body"]').attr("class", "");
+            dataItemHtml.find('[data-item-tag="agregar"]').remove();
+            dataItemHtml.find('[data-item-tag="fotofondo"]').remove();
+            dataItemHtml.find('[data-item-tag="verdetalle"]').remove();
+            dataItemHtml.find('[data-item-accion="verdetalle"]').remove();
+            dataItemHtml.find('[data-item-tag="contenido"]').removeAttr("onclick");
+            dataItemHtml.find('[data-item-tag="contenido"]').css("position", "initial");
+            dataItemHtml.find('[data-item-tag="contenido"]').attr("class", "");
+
         }
-        
+
         $(".contenedor_popup_detalleCarousel").hide();
         divMensaje.show();
     }
@@ -645,10 +655,17 @@ function EstrategiaValidarBloqueada(objInput, estrategia) {
 function EstrategiaValidarSeleccionTono(objInput) {
     var attrClass = $.trim($(objInput).attr("class"));
     if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
+        if (isMobile()) {
+            if (origenPedidoWebEstrategia == 2731) {
+                window.scrollTo(0, 540);
+            }
+        }
+
         $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']").parent().addClass("tono_no_seleccionado");
-        setTimeout(function () {
-            $(objInput).parents("[data-item]").find("[data-tono-change='1']").parent().removeClass("tono_no_seleccionado");
-        }, 500);
+        setTimeout(
+            function () {
+                $(objInput).parents("[data-item]").find("[data-tono-change='1']").parent().removeClass("tono_no_seleccionado");
+            }, 500);
         return true;
     }
     return false;

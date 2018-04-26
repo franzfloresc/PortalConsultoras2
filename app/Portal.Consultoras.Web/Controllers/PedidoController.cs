@@ -108,7 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ProlTooltip = "Es importante que guardes tu pedido";
                     model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
 
-                    if (userData.CodigoISO == "BO")
+                    if (userData.CodigoISO == Constantes.CodigosISOPais.Bolivia)
                     {
                         model.ProlTooltip = "Es importante que guardes tu pedido";
                         model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", fechaFacturacionFormat);
@@ -127,7 +127,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        if (userData.CodigoISO == "BO")
+                        if (userData.CodigoISO == Constantes.CodigosISOPais.Bolivia)
                         {
                             model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
                         }
@@ -2128,7 +2128,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (resultado.RefreshPedido) sessionManager.SetPedidoWeb(null);
                 }
                 SetUserData(userData);
-                
+
                 var listPedidoWebDetalle = ObtenerPedidoWebDetalle();
                 var model = new PedidoSb2Model
                 {
@@ -2214,7 +2214,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 model.Prol = "GUARDA TU PEDIDO";
                 model.ProlTooltip = "Es importante que guardes tu pedido";
-                if (userData.CodigoISO == "BO") model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", fechaFacturacionFormat);
+                if (userData.CodigoISO == Constantes.CodigosISOPais.Bolivia) model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", fechaFacturacionFormat);
                 else model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
             }
             else
@@ -2222,7 +2222,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Prol = "RESERVA TU PEDIDO";
                 model.ProlTooltip = "Haz click aqui para reservar tu pedido";
                 if (diaActual <= userData.FechaInicioCampania) model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
-                else if (userData.CodigoISO == "BO") model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
+                else if (userData.CodigoISO == Constantes.CodigosISOPais.Bolivia) model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
                 else model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
             }
         }
@@ -2467,7 +2467,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
                 ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
 
-                if (userData.CodigoISO == "BO")
+                if (userData.CodigoISO == Constantes.CodigosISOPais.Bolivia)
                 {
                     ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
                     ViewBag.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", fechaFacturacionFormat);
@@ -3611,13 +3611,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                RegaloOfertaFinalModel model = null;
+                OfertaFinalRegaloModel model = null;
                 using (var svc = new ProductoServiceClient())
                 {
                     var entidad = svc.ObtenerRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
                     if (entidad != null)
                     {
-                        model = Mapper.Map<RegaloOfertaFinal, RegaloOfertaFinalModel>(entidad);
+                        model = Mapper.Map<RegaloOfertaFinal, OfertaFinalRegaloModel>(entidad);
                         model.CodigoISO = userData.CodigoISO;
                         var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                         model.RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais, entidad.RegaloImagenUrl, carpetaPais);
@@ -3647,13 +3647,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                RegaloOfertaFinalModel model = null;
+                OfertaFinalRegaloModel model = null;
                 using (var svc = new ProductoServiceClient())
                 {
                     var entidad = svc.ObtenerRegaloMontoMeta(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
                     if (entidad != null)
                     {
-                        model = Mapper.Map<RegaloOfertaFinal, RegaloOfertaFinalModel>(entidad);
+                        model = Mapper.Map<RegaloOfertaFinal, OfertaFinalRegaloModel>(entidad);
                         model.FormatoMontoMeta = Util.DecimalToStringFormat(model.MontoMeta, userData.CodigoISO);
                     }
                 }
@@ -3706,7 +3706,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             int segmentoId;
 
-            if (userData.CodigoISO == "VE")
+            if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
             {
                 segmentoId = userData.SegmentoID;
             }

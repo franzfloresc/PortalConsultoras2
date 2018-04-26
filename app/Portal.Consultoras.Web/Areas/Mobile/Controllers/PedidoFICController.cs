@@ -308,6 +308,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
 
+            var splited = model.DescripcionCampaniaActual.Split('-');
+            var campania = Convert.ToInt32(splited[1]) + 1;
+            ViewBag.DescripcionCampaniaActual = splited[0] + "-0" + campania;
+
             return View(model);
         }
 
