@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return (campaniaId < userData.CampaniaID || campaniaId > AddCampaniaAndNumero(userData.CampaniaID, 1));
         }
-        
+
         public List<BETablaLogicaDatos> GetFiltersBySorting()
         {
             var filtersBySorting = new List<BETablaLogicaDatos>

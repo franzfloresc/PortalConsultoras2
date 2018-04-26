@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 int segmentoId;
-                if (userData.CodigoISO == "VE")
+                if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
                 {
                     segmentoId = userData.SegmentoID;
                 }
