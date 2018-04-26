@@ -843,11 +843,15 @@ namespace Portal.Consultoras.Web.Controllers
                 if (olstPedidoWebDetalle.Any()) formatoTotalCliente = PedidoWebTotalClienteFormato(ClienteID, olstPedidoWebDetalle);
                 else if (userData.ZonaValida)
                 {
-                    var usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
-                    using (var sv = new PedidoServiceClient())
+                    try
                     {
-                        sv.DeshacerReservaPedido(usuario, PedidoID);
+                        var usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
+                        using (var sv = new PedidoServiceClient())
+                        {
+                            sv.DeshacerReservaPedido(usuario, PedidoID);
+                        }
                     }
+                    catch (Exception ex) { LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO); }
                 }
 
                 var listaCliente = ListarClienteSegunPedido("", olstPedidoWebDetalle);
