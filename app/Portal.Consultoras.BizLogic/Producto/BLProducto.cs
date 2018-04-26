@@ -2,7 +2,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-
+using Portal.Consultoras.Entities.ProgramaNuevas;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -352,23 +352,72 @@ namespace Portal.Consultoras.BizLogic
 
             return productos;
         }
-
         #region Programa de Nuevas
-        public bool ProgramaNuevasActivo(int paisID)
+        public bool GetFlagProgramaNuevas(int paisID)
         {
             var blTablaLogicaDatos = new BLTablaLogicaDatos();
-            var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.TablaLogica.EncenderProgramaNuevas);
-
-            if (lstTabla == null || lstTabla.Count == 0) return false;
-            if (lstTabla[0].Descripcion == "1") return true;
+            var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.ProgramaNuevas.EncenderValidacion.TablaLogicaID);
+            if (lstTabla.Count == 0) return false;
+            if(lstTabla.Where(a => a.Codigo == Constantes.ProgramaNuevas.EncenderValidacion.Activo).Select(b => b.Descripcion).FirstOrDefault() == "1") return true;
             return false;
         }
 
-        public List<BEProductoProgramaNuevas> GetProductosProgramaNuevasByCampania(int paisID, int campaniaID)
+        public Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas)
+        {
+            if (!GetFlagProgramaNuevas(paisID)) return Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
+            if (!GetRagoCuvProgramaNuevas(paisID, Convert.ToInt32(cuv))) return Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
+            List<BEProductoProgramaNuevas> lstProdcutos = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID);
+            if (lstProdcutos == null || lstProdcutos.Count == 0) return Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste;
+            if (!lstProdcutos.Any(x => x.CodigoCupon == cuv)) return Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste;
+            if (consecutivoNueva > 5) return Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva;
+            if (!participaProgramaNuevas) return Enumeradores.ValidacionProgramaNuevas.NoParticipaEnProgramaNuevas;
+            lstProdcutos = FiltrarProductosNuevasByNivelyCodigoPrograma(lstProdcutos, consecutivoNueva, codigoPrograma);
+            if (!lstProdcutos.Any(a => a.CodigoCupon == cuv)) return Enumeradores.ValidacionProgramaNuevas.CuvNoPerteneceASuPrograma;
+            return Enumeradores.ValidacionProgramaNuevas.CuvPerteneceProgramaNuevas;
+        }
+
+        public int ValidarCantidadMaximaProgramaNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada)
+        {            
+            List <BEProductoProgramaNuevas> lstProdcutos = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID);
+            if (lstProdcutos.Count == 0) return 0;
+            lstProdcutos = FiltrarProductosNuevasByNivelyCodigoPrograma(lstProdcutos, consecutivoNueva, codigoPrograma);
+            if (lstProdcutos.Count == 0) return 0;
+            var CantidadMaxima = lstProdcutos.Where(a => a.CodigoCupon == cuvIngresado).Select(b => b.UnidadesMaximas).FirstOrDefault();
+            if (cantidadIngresada + cantidadEnPedido > CantidadMaxima) return CantidadMaxima;
+            return 0;
+        }
+        
+        public bool ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, List<string> lstCuvPedido)
+        {            
+            List <BEProductoProgramaNuevas> lstProdcutos = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID);
+            if (lstProdcutos == null || lstProdcutos.Count == 0) return false;
+            lstProdcutos = FiltrarProductosNuevasByNivelyCodigoPrograma(lstProdcutos, consecutivoNueva, codigoPrograma);
+            if (lstProdcutos.Count == 0) return false;
+            var oCuv = lstProdcutos.Where(a => a.CodigoCupon == cuvIngresado).FirstOrDefault();
+            if (oCuv.IndicadorCuponIndependiente) return false;
+            List<BEProductoProgramaNuevas> lstElectivas = lstProdcutos.Where(a => !a.IndicadorCuponIndependiente && a.CodigoCupon != cuvIngresado).ToList();
+            if (lstElectivas.Count == 0) return false;
+            var existe = (from a in lstElectivas where lstCuvPedido.Contains(a.CodigoCupon) select a.CodigoCupon).ToList();
+            if (existe.Count > 0) return true;
+            return false;
+        }
+
+        #region Metodos de Programa Nuevas
+        private bool GetRagoCuvProgramaNuevas(int paisID, int cuv)
+        {
+            var blTablaLogicaDatos = new BLTablaLogicaDatos();
+            var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.ProgramaNuevas.Rango.TablaLogicaID);
+            if (lstTabla.Count == 0) return false;
+            int cuvIni = Convert.ToInt32(lstTabla.Where(a => a.Codigo == Constantes.ProgramaNuevas.Rango.cuvInicio).Select(b => b.Descripcion).FirstOrDefault());
+            int cuvFin = Convert.ToInt32(lstTabla.Where(a => a.Codigo == Constantes.ProgramaNuevas.Rango.cuvFinal).Select(b => b.Descripcion).FirstOrDefault());
+            if ((cuv >= cuvIni && cuv <= cuvFin)) return true;
+            return false;
+        }
+
+        private List<BEProductoProgramaNuevas> GetProductosProgramaNuevasByCampania(int paisID, int campaniaID)
         {
             var daProducto = new DAProducto(paisID);
             var productos = new List<BEProductoProgramaNuevas>();
-
             using (IDataReader reader = daProducto.GetProductosProgramaNuevas(campaniaID))
             {
                 while (reader.Read())
@@ -379,84 +428,60 @@ namespace Portal.Consultoras.BizLogic
             return productos;
         }
 
-        public List<BEProductoProgramaNuevas> GetProductosProgramaNuevasByCampaniaCache(int paisID, int campaniaID, string cuv)
+        private List<BEProductoProgramaNuevas> GetProductosProgramaNuevasByCampaniaCache(int paisID, int campaniaID)
         {
-            var blTablaLogicaDatos = new BLTablaLogicaDatos();
-            List<BEProductoProgramaNuevas> lstProdcutos = null;
-            if (!ProgramaNuevasActivo(paisID)) return lstProdcutos;
-
-            var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.TablaLogica.RangoCuvNuevas);            
-
-            if (lstTabla.Count == 0)
-                return lstProdcutos;
-
-            int _cuv = Convert.ToInt32(cuv);
-
-            if (_cuv >= Convert.ToInt32(lstTabla[0].Descripcion) && _cuv <= Convert.ToInt32(lstTabla[1].Descripcion))
-            {
-                lstProdcutos = new List<BEProductoProgramaNuevas>();
-                lstProdcutos = CacheManager<List<BEProductoProgramaNuevas>>.ValidateDataElement(paisID, ECacheItem.ProductoProgramaNuevas, campaniaID.ToString(), () => GetProductosProgramaNuevasByCampania(paisID, campaniaID));
-            }
-            return lstProdcutos;
+            return CacheManager<List<BEProductoProgramaNuevas>>.ValidateDataElement(paisID, ECacheItem.ProductoProgramaNuevas, campaniaID.ToString(), () => GetProductosProgramaNuevasByCampania(paisID, campaniaID));
         }
 
-        public List<BECuvCantidad> GetCuvPedidoWebDetalle(int paisID, int CampaniaID, int ConsultoraID)
+        private List<BEProductoProgramaNuevas> FiltrarProductosNuevasByNivelyCodigoPrograma(List<BEProductoProgramaNuevas> lstProdcutos, int consecutivoNueva, string codigoPrograma)
         {
-            var daProducto = new DAProducto(paisID);
-            return daProducto.GetCuvPedidoWebDetalle(ConsultoraID, CampaniaID);
-        }
-
-        public Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas)
-        {            
-            List<BEProductoProgramaNuevas> lstProdcutos = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID, cuv);
-
-            if (lstProdcutos == null) return Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
-            if (lstProdcutos.Count == 0) return Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste;            
-            if (!lstProdcutos.Any(x => x.CodigoCupon == cuv)) return Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste;
-            if (consecutivoNueva > 5) return Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva;
-            if (!participaProgramaNuevas) return Enumeradores.ValidacionProgramaNuevas.NoParticipaEnProgramaNuevas;
-
-            lstProdcutos = lstProdcutos.Where(a => Convert.ToInt32(a.CodigoNivel) >= consecutivoNueva && consecutivoNueva >= (Convert.ToInt32(a.CodigoNivel) + a.NumeroCampanasVigentes - 1))
+            return lstProdcutos.Where(a => Convert.ToInt32(a.CodigoNivel) >= consecutivoNueva && consecutivoNueva >= (Convert.ToInt32(a.CodigoNivel) + a.NumeroCampanasVigentes - 1))
                 .Where(a => a.CodigoPrograma == codigoPrograma).ToList();
-
-            var oCuv = lstProdcutos.Where(a => a.CodigoCupon == cuv).FirstOrDefault();
-            if (oCuv == null) return Enumeradores.ValidacionProgramaNuevas.CuvNoPerteneceASuPrograma;
-            if (oCuv.IndicadorCuponIndependiente) return Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
-
-            List<BEProductoProgramaNuevas> lstElectivas = lstProdcutos.Where(a => !a.IndicadorCuponIndependiente && a.CodigoCupon != cuv).ToList();
-            if (lstElectivas.Count == 0) return Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
-
-            List<BECuvCantidad> lstCuvPedido = GetCuvPedidoWebDetalle(paisID, campaniaID, ConsultoraID);
-            var existe = (from a in lstElectivas join b in lstCuvPedido on a.CodigoCupon equals b.cuv select a.CodigoCupon).ToList();
-            if (existe.Count > 0) return Enumeradores.ValidacionProgramaNuevas.ExisteUnElectivoEnPedido;
-            return Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
         }
-
-        public string ValidarAgregarProductosProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas, int cantidadIngresada)
-        {
-            List<BEProductoProgramaNuevas> lstProdcutos = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID, cuv);
-
-            lstProdcutos = lstProdcutos.Where(a => Convert.ToInt32(a.CodigoNivel) >= consecutivoNueva && (Convert.ToInt32(a.CodigoNivel) + a.NumeroCampanasVigentes - 1) <= consecutivoNueva)
-                .Where(a => a.CodigoPrograma == codigoPrograma && a.CodigoCupon == cuv).ToList();
-
-            if (lstProdcutos == null || lstProdcutos.Count == 0) return "";
-
-            List<BECuvCantidad> lstCuv = GetCuvPedidoWebDetalle(paisID, campaniaID, ConsultoraID);
-            int CantidadEnPedido = lstCuv.Where(a => a.cuv == cuv).Sum(a => a.cantidad);
-            int CantidadMaxima = lstProdcutos[0].UnidadesMaximas;
-            if (cantidadIngresada + CantidadEnPedido > CantidadMaxima) return Constantes.ProgramaNuevas.MensajeValidacionCantidadMaxima.ExcedeCantidad.Replace("#n#", CantidadMaxima.ToString());
-
-            return "";
-        }
-
+        #endregion
         #endregion
 
         #region Venta exclusiva
-        private List<string> GetProductosExclusivos(int paisID, int campaniaID)
+        public Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(int paisID, int campaniaID, string codigoConsultora, string cuv)
         {
-            List<string> lstProductos = new List<string>();
+            if (!GetFlagProgramaNuevas(paisID)) return Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo;
+            if (!EsProductoExclusivo(paisID, campaniaID, cuv)) return Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo;
+            return GetConsultoraEnVentaExclusiva(paisID, campaniaID, codigoConsultora, cuv);
+        }
+        #region Metodos Venta Exclusiva
+        private Enumeradores.ValidacionVentaExclusiva GetConsultoraEnVentaExclusiva(int paisID, int campaniaID, string codigoConsultora, string cuv)
+        {
             var daProducto = new DAProducto(paisID);
+            List<string> EsVentaExclusiva = new List<string>();
+            using (IDataReader reader = daProducto.GetConsultoraProductoExclusivo(campaniaID, codigoConsultora))
+            {
+                while (reader.Read())
+                {
+                    EsVentaExclusiva.Add(reader.GetString(0));
+                }
+            }
+            if (EsVentaExclusiva.Count == 0) return Enumeradores.ValidacionVentaExclusiva.ConsultoraNoVentaExclusiva;
+            if (!EsVentaExclusiva.Any(a => a.Any(b => EsVentaExclusiva.Contains(cuv)))) return Enumeradores.ValidacionVentaExclusiva.CuvNoLePerteneceAConsultora;
+            return Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo;
+        }
 
+        private bool EsProductoExclusivo(int paisID, int campaniaID, string cuv)
+        {
+            var lstProductos = GetProductosExclusivosCache(paisID, campaniaID, cuv);
+            if (lstProductos == null) return false;
+            if (lstProductos.Any(a => a.Any(b => lstProductos.Contains(cuv)))) return true;
+            return false;
+        }
+
+        private List<string> GetProductosExclusivosCache(int paisID, int campaniaID, string cuv)
+        {
+            return CacheManager<List<string>>.ValidateDataElement(paisID, ECacheItem.ProductosExclusivos, campaniaID.ToString(), () => GetProductosExclusivos(paisID, campaniaID));
+        }
+
+        private List<string> GetProductosExclusivos(int paisID, int campaniaID)
+        {            
+            var daProducto = new DAProducto(paisID);
+            List<string> lstProductos = new List<string>();
             using (IDataReader reader = daProducto.GetProductosExclusivos(campaniaID))
             {
                 while (reader.Read())
@@ -466,36 +491,7 @@ namespace Portal.Consultoras.BizLogic
             }
             return lstProductos;
         }
-
-        public List<string> GetProductosExclusivosCache(int paisID, int campaniaID, string cuv)
-        {
-            return CacheManager<List<string>>.ValidateDataElement(paisID, ECacheItem.ProductosExclusivos, campaniaID.ToString(), () => GetProductosExclusivos(paisID, campaniaID));
-        }
-
-        public bool EsProductoExclusivo(int paisID, int campaniaID, string cuv)
-        {
-            var lstProductos = GetProductosExclusivosCache(paisID, campaniaID, cuv);
-
-            if (lstProductos.Any(a => a.Any(b => lstProductos.Contains(cuv))))
-                return true;
-
-            return false;
-        }
-
-        public List<string> GetConsultoraProductoExclusivo(int paisID, int campaniaID, string codigoConsultora)
-        {            
-            var daProducto = new DAProducto(paisID);
-            var lstExclusivas = new List<string>();
-
-            using (IDataReader reader = daProducto.GetConsultoraProductoExclusivo(campaniaID, codigoConsultora))
-            {
-                while (reader.Read())
-                {
-                    lstExclusivas.Add(reader.GetString(0));
-                }
-            }
-            return lstExclusivas;
-        }
+        #endregion
         #endregion
 
     }

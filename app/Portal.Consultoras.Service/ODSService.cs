@@ -4,6 +4,7 @@ using Portal.Consultoras.Entities;
 using Portal.Consultoras.ServiceContracts;
 using System;
 using System.Collections.Generic;
+using Portal.Consultoras.Entities.ProgramaNuevas;
 
 namespace Portal.Consultoras.Service
 {
@@ -257,27 +258,27 @@ namespace Portal.Consultoras.Service
         {
             return BLProducto.GetListBrothersByCUV(paisID, codCampania, cuv);
         }
-        #region MyRegion
+        #region Programa Nuevas Activo
         public Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas)
         {
             return BLProducto.ValidarBusquedaProgramaNuevas(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv, participaProgramaNuevas);
         }
 
-        public string ValidarAgregarProductosProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas, int cantidadIngresada)
+        public int ValidarCantidadMaximaProgramaNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada)
         {
-            return BLProducto.ValidarAgregarProductosProgramaNuevas(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv, participaProgramaNuevas, cantidadIngresada);
+            return BLProducto.ValidarCantidadMaximaProgramaNuevas(paisID, campaniaID, consecutivoNueva, codigoPrograma, cantidadEnPedido, cuvIngresado, cantidadIngresada);
+        }
+
+        public bool ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, List<string> lstCuvPedido)
+        {
+            return BLProducto.ValidaCuvElectivo(paisID, campaniaID, cuvIngresado, consecutivoNueva, codigoPrograma, lstCuvPedido);
         }
         #endregion
 
         #region VentaExclusiva
-        public bool EsProductoExclusivo(int paisID, int campaniaID, string cuv)
+        public Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(int paisID, int campaniaID, string codigoConsultora, string cuv)
         {
-            return BLProducto.EsProductoExclusivo(paisID, campaniaID, cuv);
-        }
-
-        public IList<string> GetConsultoraProductoExclusivo(int paisID, int campaniaID, string codigoConsultora)
-        {
-            return BLProducto.GetConsultoraProductoExclusivo(paisID, campaniaID, codigoConsultora);
+            return BLProducto.ValidarVentaExclusiva(paisID, campaniaID, codigoConsultora, cuv);
         }
         #endregion
     }

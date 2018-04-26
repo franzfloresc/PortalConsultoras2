@@ -1428,8 +1428,6 @@ namespace Portal.Consultoras.Common
             public const int ValoresPagoEnLinea = 122;
             public const int CantidadCuvMasivo = 137;
             public const short ProlObsCod = 5;
-            public const short RangoCuvNuevas = 6;
-            public const short EncenderProgramaNuevas = 7;
         }
 
         public struct MensajesCDRExpress
@@ -1798,6 +1796,19 @@ namespace Portal.Consultoras.Common
             {
                 public const short BannerCupon = 1;
                 public const short BannerPremio = 2;
+            }
+
+            public class EncenderValidacion
+            {
+                public const short TablaLogicaID = 7;
+                public const string Activo = "Activo"; 
+            }
+
+            public class Rango
+            {
+                public const short TablaLogicaID = 6;
+                public const string cuvInicio = "cuvInicio";
+                public const string cuvFinal = "cuvFinal";
             }
 
             public class MensajeValidacionBusqueda

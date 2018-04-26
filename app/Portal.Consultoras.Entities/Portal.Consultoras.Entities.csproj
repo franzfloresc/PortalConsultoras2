@@ -76,6 +76,7 @@
     <Compile Include="Comunicado\BEComunicadoSegmentacion.cs" />
     <Compile Include="Comunicado\BEComunicadoVista.cs" />
     <Compile Include="DENativeType.cs" />
+    <Compile Include="ProgramaNuevas\BEProductoProgramaNuevas.cs" />
     <Compile Include="ReservaProl\BEPedidoWebDetalleExplotado.cs" />
     <Compile Include="Estrategia\BEConfiguracionProgramaNuevasApp.cs" />
     <Compile Include="Estrategia\BEEstrategiaMasiva.cs" />

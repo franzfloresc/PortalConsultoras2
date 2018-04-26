@@ -3,6 +3,7 @@ using Portal.Consultoras.Common;
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
+using Portal.Consultoras.Entities.ProgramaNuevas;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -159,15 +160,15 @@ namespace Portal.Consultoras.ServiceContracts
         Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas);
 
         [OperationContract]
-        string ValidarAgregarProductosProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool participaProgramaNuevas, int cantidadIngresada);
+        int ValidarCantidadMaximaProgramaNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada);
+
+        [OperationContract]
+        bool ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, List<string> lstCuvPedido);
         #endregion
 
         #region ValidarVentaExclusiva
         [OperationContract]
-        bool EsProductoExclusivo(int paisID, int campaniaID, string cuv);
-
-        [OperationContract]
-        IList<string> GetConsultoraProductoExclusivo(int paisID, int campaniaID, string codigoConsultora);
+        Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(int paisID, int campaniaID, string codigoConsultora, string cuv);
         #endregion
     }
 }

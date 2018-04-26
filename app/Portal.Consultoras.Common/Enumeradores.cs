@@ -313,13 +313,14 @@
             NoParticipaEnProgramaNuevas = 3,
             CuvNoPerteneceASuPrograma = 4,
             ExisteUnElectivoEnPedido = 5,
+            CuvPerteneceProgramaNuevas = 6
         }
 
         public enum ValidacionVentaExclusiva
         {
             ContinuaFlujo = 0,
-            ConsultoraNoVentaExclusiva = 2,
-            CuvNoPerteneceVentaExclusiva = 3
+            ConsultoraNoVentaExclusiva = 1,
+            CuvNoLePerteneceAConsultora = 3
         }
     }
 }
