@@ -8,6 +8,7 @@ using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,6 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using System.Xml.Linq;
-using Portal.Consultoras.Web.ServiceUsuario;
 using BEConfiguracionPaisDatos = Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -639,7 +639,7 @@ namespace Portal.Consultoras.Web.Controllers
             switch (codigo)
             {
                 case Constantes.TipoEstrategiaSet.IndividualConTonos:
-                    List<BEProducto> listaHermanosE;
+                    List<ServiceODS.BEProducto> listaHermanosE;
                     using (var svc = new ODSServiceClient())
                     {
                         listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, cuv).ToList();
@@ -719,8 +719,8 @@ namespace Portal.Consultoras.Web.Controllers
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi ||
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaDelDia ||
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.LosMasVendidos ||
-                    model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada ||
-                    model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom))
+                     model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada ||
+                     model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom))
                 {
                     respuestaServiceCdr = EstrategiaProductoObtenerServicio(entidad);
 
@@ -1587,7 +1587,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return estra;
         }
-        
+
         private BEEstrategia InsertEstrategiaTemporalNemotecnico(List<RptProductoEstrategia> productoEstrategias, BEEstrategia estra)
         {
             try
@@ -1628,7 +1628,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-
             return estra;
         }
 
@@ -1903,10 +1902,10 @@ namespace Portal.Consultoras.Web.Controllers
                  estrategia.ImgFondoDesktop != estrategiaDetalle.ImgFondoDesktop))
                 estrategia.ImgFondoDesktop = SaveFileS3(estrategia.ImgFondoDesktop);
 
-            if (!string.IsNullOrEmpty(estrategia.ImgPrevDesktop) &&
-                (string.IsNullOrEmpty(estrategiaDetalle.ImgPrevDesktop) ||
-                 estrategia.ImgPrevDesktop != estrategiaDetalle.ImgPrevDesktop))
-                estrategia.ImgPrevDesktop = SaveFileS3(estrategia.ImgPrevDesktop);
+            if (!string.IsNullOrEmpty(estrategia.ImgFondoMobile) &&
+                (string.IsNullOrEmpty(estrategiaDetalle.ImgFondoMobile) ||
+                 estrategia.ImgFondoMobile != estrategiaDetalle.ImgFondoMobile))
+                estrategia.ImgFondoMobile = SaveFileS3(estrategia.ImgFondoMobile);
 
             if (!string.IsNullOrEmpty(estrategia.ImgFichaDesktop) &&
                 (string.IsNullOrEmpty(estrategiaDetalle.ImgFichaDesktop) ||
@@ -2418,69 +2417,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        #region CargaMasivaImagenes
-
-        public JsonResult CargaMasivaImagenes(int campaniaId)
-        {
-            try
-            {
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                List<BECargaMasivaImagenes> listaEstrategias;
-
-                using (var ps = new PedidoServiceClient())
-                {
-                    listaEstrategias = ps.GetListaImagenesEstrategiasByCampania(userData.PaisID, campaniaId).ToList();
-                }
-
-                var cuvNoGenerados = "";
-                var cuvNoExistentes = "";
-
-                foreach (var estrategia in listaEstrategias)
-                {
-                    var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.RutaImagen);
-                    var mensajeError = "";
-                    var listaImagenesResize = ObtenerListaImagenesResize(rutaImagenCompleta);
-                    if (listaImagenesResize != null && listaImagenesResize.Count > 0)
-                        mensajeError = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
-                    else
-                        cuvNoExistentes += estrategia.Cuv + ",";
-
-                    if (mensajeError != "")
-                    {
-                        cuvNoGenerados += estrategia.Cuv + ",";
-                    }
-                }
-
-                var mensaje = "Se generaron las imagenes SMALL y MEDIUM de todas las imagenes.";
-                if (cuvNoGenerados != "")
-                {
-                    mensaje += " Excepto los siguientes Cuvs: " + cuvNoGenerados;
-                }
-                if (cuvNoExistentes != "")
-                {
-                    mensaje += " Excepto los siguientes Cuvs (imagen orignal no encontrada o ya existen): " +
-                               cuvNoExistentes;
-                }
-
-                return Json(new
-                {
-                    success = true,
-                    message = mensaje,
-                    extra = ""
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
         public string GuardarImagenMiniAmazon(string nombreImagen, string nombreImagenAnterior, int paisId, bool keepFile = false)
         {
             string nombreImagenFinal;
@@ -2503,7 +2439,6 @@ namespace Portal.Consultoras.Web.Controllers
             else nombreImagenFinal = nombreImagen;
             return nombreImagenFinal;
         }
-        #endregion
 
         [HttpPost]
         public ActionResult UploadFileSetStrategyShowroom(DescripcionMasivoModel model)
@@ -2846,7 +2781,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 stringNiveles = listaNivelEstrategias
                     .Where(nivelEstrategia => nivelEstrategia.nivel != 1)
-                .Aggregate(stringNiveles, (current, nivelEstrategia) => current + (nivelEstrategia.nivel + "X" + "-" + (nivelEstrategia.precio * nivelEstrategia.nivel) + "|"));
+                    .Aggregate(stringNiveles, (current, nivelEstrategia) => current + (nivelEstrategia.nivel + "X" + "-" + (nivelEstrategia.precio * nivelEstrategia.nivel) + "|"));
 
                 stringNiveles = stringNiveles != "" ? stringNiveles.Remove(stringNiveles.Length - 1) : "";
             }

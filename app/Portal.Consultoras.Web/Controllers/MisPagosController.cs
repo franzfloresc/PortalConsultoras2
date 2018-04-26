@@ -34,10 +34,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 CodigoISO = userData.CodigoISO,
                 UrlChileEncriptada = Util.EncriptarQueryString(parametroAEncriptar),
-                RutaChile = userData.CodigoISO == "CL"
+                RutaChile = userData.CodigoISO == Constantes.CodigosISOPais.Chile
                     ? GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile)
                     : string.Empty,
-                MostrarFE = userData.CodigoISO == "EC" || userData.CodigoISO == "PE" ? " " : "display: none;",
+                MostrarFE = userData.CodigoISO == Constantes.CodigosISOPais.Ecuador || userData.CodigoISO == Constantes.CodigosISOPais.Peru ? " " : "display: none;",
                 Simbolo = string.Format("{0} ", userData.Simbolo),
                 TieneFlexipago = userData.IndicadorFlexiPago,
                 MontoMinimoFlexipago = userData.MontoMinimoFlexipago,
