@@ -13,6 +13,10 @@ namespace Portal.Consultoras.BizLogic.Estrategia
         UpSelling Actualizar(UpSelling upSelling, bool soloCabecera);
         UpSelling Insertar(UpSelling upSelling);
         int Eliminar(int upSellingId);
-        IEnumerable<OfertaFinalMontoMeta> ObtenerOfertaFinalMontoMeta(int upSellingId);
+
+        UpSellingRegalo ObtenerMontoMeta(int campaniaId, long consultoraId);
+        int InsertarRegalo(UpSellingRegalo entidad);
+        UpSellingRegalo ObtenerRegaloGanado(int campaniaId, long consultoraId);
+        IEnumerable<UpSellingMontoMeta> ListarReporteMontoMeta(int upSellingId);
     }
 }

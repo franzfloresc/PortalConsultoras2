@@ -632,7 +632,7 @@
     <Compile Include="Models\ProductoFaltanteModel.cs" />
     <Compile Include="Models\ProveedorDespachoCobranzaModel.cs" />
     <Compile Include="Models\RechazoModel.cs" />
-    <Compile Include="Models\RegaloOfertaFinalModel.cs" />
+    <Compile Include="Models\OfertaFinalRegaloModel.cs" />
     <Compile Include="Models\RegionModel.cs" />
     <Compile Include="Models\RegistrarEstrategiaModel.cs" />
     <Compile Include="Models\ReporteConsolidadoModel.cs" />
@@ -4213,6 +4213,9 @@
     <None Include="Service References\ServicePedido\PedidoService115.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServicePedido\PedidoService116.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServicePedido\PedidoService12.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -4968,6 +4971,7 @@
     <Content Include="Views\ShowRoom\_BannerInferior.cshtml" />
     <Content Include="Views\ShowRoom\_BannerInferior.cshtml" />
     <Content Include="Views\ShowRoom\Personalizado.cshtml" />
+    <Content Include="Views\MisCertificados\TributarioPdf.cshtml" />
     <Content Include="Views\AsesoraOnline\VolverSuscripcion.cshtml" />
     <Content Include="Views\AsesoraOnline\CancelarSuscripcion.cshtml" />
     <Content Include="Views\Lanzamientos\Detalle.cshtml" />
