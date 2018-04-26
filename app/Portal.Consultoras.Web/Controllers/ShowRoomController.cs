@@ -185,7 +185,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                if (!(sessionManager.GetEsShowRoom() && userData.CodigoISO == "PE"))
+                if (!(sessionManager.GetEsShowRoom() && userData.CodigoISO == Constantes.CodigosISOPais.Peru))
                 {
                     return RedirectToAction("Index");
                 }

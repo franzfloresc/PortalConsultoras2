@@ -147,7 +147,10 @@ namespace Portal.Consultoras.Web.SessionManager
 
         PagoEnLineaModel GetDatosPagoVisa();
 
+        EstrategiaPersonalizadaProductoModel ProductoTemporal { get; set; }
+        
         void SetPedidosFacturados(PedidoWebClientePrincipalMobilModel model);
+        
         PedidoWebClientePrincipalMobilModel GetPedidosFacturados();
     }
 }

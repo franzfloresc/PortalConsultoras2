@@ -185,28 +185,35 @@ namespace Portal.Consultoras.Entities
         public string FotoProductoSmall { get; set; }
         [DataMember]
         public string FotoProductoMedium { get; set; }
+
+        #region EstrategiaDetalle
+        [DataMember]
+        public bool FlagIndividual { get; set; }
+        [DataMember]
+        public string Slogan { get; set; }
+        [DataMember]
+        public string ImgHomeDesktop { get; set; }
         [DataMember]
         public string ImgFondoDesktop { get; set; }
         [DataMember]
-        public string ImgPrevDesktop { get; set; }
-        [DataMember]
         public string ImgFichaDesktop { get; set; }
         [DataMember]
+        public string ImgFichaFondoDesktop { get; set; }
+        [DataMember]
         public string UrlVideoDesktop { get; set; }
+        [DataMember]
+        public string ImgHomeMobile { get; set; }
         [DataMember]
         public string ImgFondoMobile { get; set; }
         [DataMember]
         public string ImgFichaMobile { get; set; }
         [DataMember]
-        public string UrlVideoMobile { get; set; }
-        [DataMember]
-        public string ImgFichaFondoDesktop { get; set; }
-        [DataMember]
         public string ImgFichaFondoMobile { get; set; }
         [DataMember]
-        public string ImgHomeDesktop { get; set; }
-        [DataMember]
-        public string ImgHomeMobile { get; set; }
+        public string UrlVideoMobile { get; set; }
+
+        #endregion
+
         [DataMember]
         public string CodigoGenerico { get; set; }
 

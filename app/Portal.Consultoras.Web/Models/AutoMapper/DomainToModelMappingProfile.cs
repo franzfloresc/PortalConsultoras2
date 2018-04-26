@@ -250,7 +250,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto))
                 .ForMember(t => t.CodigoISO, f => f.MapFrom(c => c.CodigoISO));
 
-            Mapper.CreateMap<RegaloOfertaFinal, RegaloOfertaFinalModel>();
+            Mapper.CreateMap<RegaloOfertaFinal, OfertaFinalRegaloModel>();
 
             Mapper.CreateMap<ServiceODS.BEProductoDescripcion, GestionFaltantesModel>();
 
@@ -558,7 +558,9 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.UpSellingRegaloId, f => f.MapFrom(c => c.UpSellingDetalleId));
 
 
-            Mapper.CreateMap<OfertaFinalMontoMeta, OfertaFinalMontoMetaModel>();
+            Mapper.CreateMap<UpSellingRegalo, OfertaFinalRegaloModel>();
+
+            Mapper.CreateMap<UpSellingMontoMeta, OfertaFinalMontoMetaModel>();
 
 
         }

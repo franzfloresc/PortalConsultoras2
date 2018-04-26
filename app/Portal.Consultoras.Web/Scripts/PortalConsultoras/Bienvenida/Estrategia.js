@@ -12,7 +12,7 @@ var origenRetorno = $.trim(origenRetorno);
 var origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
 var divAgregado = null;
 
-var revistaDigital = revistaDigital || null;
+var revistaDigital = revistaDigital || {};
 
 $(document).ready(function () {
     if (isMobile()) {

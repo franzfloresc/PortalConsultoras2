@@ -127,11 +127,6 @@ namespace Portal.Consultoras.Service
 
         public IList<BECatalogoRevista> GetListCatalogoRevistaPublicadoWithTitulo(string paisISO, string codigoZona, int campania)
         {
-            //var revistasTask = _catalogoBusinessLogic.GetCatalogoRevista(paisISO, codigoZona, new[] { campania });
-            //Task.WaitAll(revistasTask);
-
-            //return revistasTask.Result;
-
             var lstCampanias = new List<int>();
             lstCampanias.Add(campania);
 
@@ -140,20 +135,6 @@ namespace Portal.Consultoras.Service
 
         public IList<BECatalogoRevista> GetCatalogoRevista(string paisISO, string codigoZona, List<int> campanias)
         {
-            //var campanasInt = new List<int>();
-
-            //foreach (var campania in campanias.Split('|'))
-            //{
-            //    int i;
-            //    if (int.TryParse(campania, out i))
-            //        campanasInt.Add(i);
-            //}
-
-            //var revistasTask = _catalogoBusinessLogic.GetCatalogoRevista(paisISO, codigoZona, campanasInt);
-            //Task.WaitAll(revistasTask);
-
-            //return revistasTask.Result;
-
             return _catalogoBusinessLogic.GetCatalogoRevista(paisISO, codigoZona, campanias);
         }
 
