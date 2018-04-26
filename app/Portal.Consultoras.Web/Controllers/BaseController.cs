@@ -2764,25 +2764,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return valor;
         }
-        
-        public int ObtenerValorTablaLogicaInt(int paisId, short tablaLogicaId, short idTablaLogicaDatos, bool sesion = false)
-        {
-            var resultadoString = ObtenerValorTablaLogica(paisId, tablaLogicaId, idTablaLogicaDatos, sesion);
-            int resultado;
-            int.TryParse(resultadoString, out resultado);
-            return resultado;
-        }
-
-        public int ObtenerValorTablaLogicaInt(List<TablaLogicaDatosModel> lista, short tablaLogicaDatosId)
-        {
-            var resultadoString = ObtenerValorTablaLogica(lista, tablaLogicaDatosId);
-
-            int resultado;
-            int.TryParse(resultadoString, out resultado);
-            return resultado;
-        }
-
-        #endregion
 
         public int ObtenerValorTablaLogicaInt(int paisId, short tablaLogicaId, short idTablaLogicaDatos, bool sesion = false)
         {
@@ -2836,7 +2817,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var mensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitada();
             if (string.IsNullOrEmpty(mensajeGestionCdrInhabilitada)) return mensajeGestionCdrInhabilitada;
-            if  (!EsAppMobile ) mensajeGestionCdrInhabilitada = String.Format("{0} {1}", mensajeGestionCdrInhabilitada , Constantes.CdrWebMensajes.ContactateChatEnLinea);
+            if (!EsAppMobile) mensajeGestionCdrInhabilitada = String.Format("{0} {1}", mensajeGestionCdrInhabilitada, Constantes.CdrWebMensajes.ContactateChatEnLinea);
             return mensajeGestionCdrInhabilitada;
         }
 
@@ -4797,7 +4778,7 @@ namespace Portal.Consultoras.Web.Controllers
             else
             {
                 var culture = CultureInfo.GetCultureInfo("es-PE");
-                fecha = diasFaltantes > 0 
+                fecha = diasFaltantes > 0
                     ? userData.FechaInicioCampania.ToString("dd MMM", culture).ToUpper()
                     : "HOY";
 

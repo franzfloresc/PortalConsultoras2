@@ -1370,8 +1370,8 @@ namespace Portal.Consultoras.Web.Controllers
                                id = a.CUV2,
                                cell = new string[]
                                {
-                            a.CUV2,
-                            a.DescripcionCUV2
+                                    a.CUV2,
+                                    a.DescripcionCUV2
                                }
                            }
                 };
@@ -1651,7 +1651,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return 0;
             }
         }
-        
+
         public JsonResult InsertEstrategiaOfertaParaTi(int campaniaId, int tipoConfigurado, int estrategiaId, int nroLote)
         {
             try
