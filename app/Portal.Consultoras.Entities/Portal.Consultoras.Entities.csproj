@@ -76,6 +76,7 @@
     <Compile Include="Comunicado\BEComunicadoSegmentacion.cs" />
     <Compile Include="Comunicado\BEComunicadoVista.cs" />
     <Compile Include="DENativeType.cs" />
+    <Compile Include="Pedido\BEConfiguracionPedido.cs" />
     <Compile Include="Pedido\BEPedidoBarra.cs" />
     <Compile Include="Pedido\App\BEPedidoAppBuscar.cs" />
     <Compile Include="Pedido\App\BEPedidoDetalleAppActualizar.cs" />

@@ -1,5 +1,4 @@
 ﻿using Portal.Consultoras.Common;
-using Portal.Consultoras.Entities.Pedido;
 
 using System;
 using System.Collections.Generic;

@@ -1264,6 +1264,8 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoWeb GetPedidoApp(BEUsuario usuario);
         [OperationContract]
         bool InsertKitInicio(BEUsuario usuario);
+        [OperationContract]
+        BEConfiguracionPedido GetConfiguracionPedidoApp(int paisID, string codigoUsuario);
         #endregion
 
         #region Pago en Linea
