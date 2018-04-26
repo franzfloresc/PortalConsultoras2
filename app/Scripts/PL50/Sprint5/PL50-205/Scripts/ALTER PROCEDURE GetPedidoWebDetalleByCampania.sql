@@ -1,10 +1,13 @@
 
- USE BelcorpColombia_PL50
+ USE BelcorpPeru_PL50
  GO
+
+ --exec GetPedidoWebDetalleByCampania 201807,1,'',0,1
 
 IF (OBJECT_ID('dbo.GetPedidoWebDetalleByCampania', 'P') IS NULL)
 	EXEC ('CREATE PROCEDURE dbo.GetPedidoWebDetalleByCampania AS SET NOCOUNT ON;')
 GO
+
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania] @CampaniaID int
 , @ConsultoraID bigint
@@ -82,6 +85,7 @@ BEGIN
       TipoEstrategiaCodigo varchar(100),
       EsOfertaIndependiente bit,
       CodigoTipoOferta char(6),
+      CodigoTipoEstrategia char(3)
       PRIMARY KEY (
       CampaniaID, PedidoID, PedidoDetalleID
       )
@@ -125,7 +129,8 @@ BEGIN
         PC.CodigoCatalago,
         '' AS TipoEstrategiaCodigo,
         0 AS EsOfertaIndependiente,
-        PC.CodigoTipoOferta
+        PC.CodigoTipoOferta,
+        TE.Codigo
       FROM dbo.PedidoWebDetalle PWD WITH (NOLOCK)
       INNER JOIN dbo.PedidoWeb PW WITH (NOLOCK)
         ON PW.CampaniaID = PWD.CampaniaID
@@ -147,13 +152,15 @@ BEGIN
         ON PC.CodigoProducto = MC.CodigoSAP
       LEFT JOIN dbo.Marca M WITH (NOLOCK)
         ON PWD.MarcaId = M.MarcaId
+      LEFT JOIN TipoEstrategia TE
+        ON PWD.TipoEstrategiaID = TE.TipoEstrategiaID
       WHERE pwd.CampaniaID = @CampaniaID
       AND pwd.ConsultoraID = @ConsultoraID
       AND pwd.CUVPadre IS NULL
-      AND PWD.TipoEstrategiaID NOT IN (SELECT
-        tipoestrategiaid
-      FROM tipoestrategia
-      WHERE codigo IN ('001', '030', '008', '007', '005', '010', '002', '011'))
+    --AND PWD.TipoEstrategiaID NOT IN (SELECT
+    --  tipoestrategiaid
+    --FROM tipoestrategia
+    --WHERE codigo IN ('001', '030', '008', '007', '005', '010', '002', '011'))
 
     DECLARE @Estrategia2 AS TABLE (
       EstrategiaID int,
@@ -198,6 +205,7 @@ BEGIN
         END
         AND E.CUV2 = PWD.CUV
         AND E.Activo = 1
+        AND PWD.CodigoTipoEstrategia NOT IN ('001', '030', '008', '007', '005', '010', '002', '011')
       LEFT JOIN TipoEstrategia TEP WITH (NOLOCK)
         ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
       WHERE TE.FlagActivo = 1
@@ -227,6 +235,7 @@ BEGIN
         ON PWD.CampaniaID = EP.Campania
         AND EP.CUV = PWD.CUV
         AND EP.CUV2 != PWD.CUV
+        AND PWD.CodigoTipoEstrategia NOT IN ('001', '030', '008', '007', '005', '010', '002', '011')
       LEFT JOIN TipoEstrategia TEP WITH (NOLOCK)
         ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID
       WHERE TE.FlagActivo = 1
@@ -288,10 +297,12 @@ BEGIN
     LEFT JOIN @Estrategia2 EST
       ON EST.CUV2 = PWD.CUV
       AND PWD.TipoEstrategiaID = EST.TipoEstrategiaID
+    WHERE PWD.CodigoTipoEstrategia NOT IN ('001', '030', '008', '007', '005', '010', '002', '011')
     --ORDER BY PWD.OrdenPedidoWD DESC
     --	,PWD.PedidoDetalleID DESC
 
     UNION
+
     SELECT
       PWS.Campania,
       PWS.PedidoID,
@@ -308,7 +319,8 @@ BEGIN
       PWS.NombreSet AS DescripcionProd,
       NULL AS Nombre,
       PWD.OfertaWeb,
-      PC.IndicadorMontoMinimo,
+      --PC.IndicadorMontoMinimo,
+      PWD.IndicadorMontoMinimo,
       ISNULL(PWD.ConfiguracionOfertaID, 0) ConfiguracionOfertaID,
       ISNULL(PWD.TipoOfertaSisID, 0) TipoOfertaSisID
       --,M.Descripcion AS MarcaDescripcion
@@ -316,16 +328,22 @@ BEGIN
       ISNULL(PWD.TipoPedido, 'W') TipoPedido,
       NULL AS MarcaDescripcion,
       'NO DISPONIBLE' AS Categoria,
-      PC.IndicadorOferta AS IndicadorOfertaCUV,
+      --PC.IndicadorOferta AS IndicadorOfertaCUV,
+      PWD.IndicadorOfertaCUV,
       0 AS FlagConsultoraOnline,
-      PW.DescuentoProl,
-      PW.MontoEscala,
-      PW.MontoAhorroCatalogo,
-      PW.MontoAhorroRevista,
+      --PW.DescuentoProl,
+      --PW.MontoEscala,
+      --PW.MontoAhorroCatalogo,
+      --PW.MontoAhorroRevista,
+      PWD.DescuentoProl,
+      PWD.MontoEscala,
+      PWD.MontoAhorroCatalogo,
+      PWD.MontoAhorroRevista,
       PWD.OrigenPedidoWeb,
       ISNULL(PWD.EsBackOrder, 0) AS EsBackOrder,
       ISNULL(PWD.AceptoBackOrder, 0) AS AceptoBackOrder,
-      PC.CodigoCatalago,
+      --PC.CodigoCatalago,
+      PWD.CodigoCatalago,
       '' AS DescripcionOferta,
       '' AS DescripcionEstrategia,
       CASE
@@ -341,25 +359,28 @@ BEGIN
       PWS.SetID
     FROM PedidoWebSet PWS
 
-    INNER JOIN PedidoWeb PW WITH (NOLOCK)
-      ON PW.CampaniaId = PWS.Campania
-      AND PWS.PedidoID = PW.PedidoID --PWS.PedidoID = PW.PedidoID
+    --INNER JOIN PedidoWeb PW WITH (NOLOCK)
+    --  ON PW.CampaniaId = PWS.Campania
+    --  AND PWS.PedidoID = PW.PedidoID --PWS.PedidoID = PW.PedidoID
     INNER JOIN PedidoWebSetDetalle PWSD
       ON PWSD.SetID = PWS.SetID
-    INNER JOIN PedidoWebDetalle PWD WITH (NOLOCK)
-      ON PW.CampaniaId = PWD.CampaniaId
-      AND PWD.PedidoID = PW.PedidoID
+    --INNER JOIN PedidoWebDetalle PWD WITH (NOLOCK)
+    --  ON PW.CampaniaId = PWD.CampaniaId
+    --  AND PWD.PedidoID = PW.PedidoID
+    --  AND PWSD.CuvProducto = PWD.CUV --PWD.PedidoID = PW.PedidoID and PWSD.CuvProducto =PWD.CUV
+    INNER JOIN @PedidoDetalle2 PWD
+      ON PWS.Campania = PWD.CampaniaId
+      AND PWS.PedidoID = PWD.PedidoID
       AND PWSD.CuvProducto = PWD.CUV --PWD.PedidoID = PW.PedidoID and PWSD.CuvProducto =PWD.CUV
-
 
     --INNER JOIN PedidoWeb PW ON  PWS.PedidoID = PW.PedidoID
     --inner join PedidoWebSetDetalle PWSD on PWSD.SetID=PWS.SetID
     --INNER JOIN PedidoWebDetalle PWD ON PWD.PedidoID = PW.PedidoID and PWSD.CuvProducto =PWD.CUV
 
 
-    INNER JOIN ods.ProductoComercial PC WITH (NOLOCK)
-      ON PWD.CampaniaID = PC.AnoCampania
-      AND PWD.CUV = PC.CUV
+    --INNER JOIN ods.ProductoComercial PC WITH (NOLOCK)
+    --  ON PWD.CampaniaID = PC.AnoCampania
+    --  AND PWD.CUV = PC.CUV
     INNER JOIN Estrategia EST WITH (NOLOCK)
       ON PWS.EstrategiaID = EST.EstrategiaID
     INNER JOIN TipoEstrategia TE WITH (NOLOCK)
@@ -377,21 +398,28 @@ BEGIN
              PWS.PrecioUnidad,
              PWs.ImporteTotal,
              PWD.OfertaWeb,
-             PC.IndicadorMontoMinimo,
+             --PC.IndicadorMontoMinimo,
+             PWD.IndicadorMontoMinimo,
              PWS.CuvSet,
              PWS.NombreSet,
              PWD.ConfiguracionOfertaID,
              PWD.TipoOfertaSisID,
              PWD.TipoPedido,
-             PC.IndicadorOferta,
-             PW.DescuentoProl,
-             PW.MontoEscala,
-             PW.MontoAhorroCatalogo,
-             PW.MontoAhorroRevista,
+             --PC.IndicadorOferta,
+             PWD.IndicadorOfertaCUV,
+             --PW.DescuentoProl,
+             --PW.MontoEscala,
+             --PW.MontoAhorroCatalogo,
+             --PW.MontoAhorroRevista,
+             PWD.DescuentoProl,
+             PWD.MontoEscala,
+             PWD.MontoAhorroCatalogo,
+             PWD.MontoAhorroRevista,
              PWD.OrigenPedidoWeb,
              PWD.EsBackOrder,
              PWD.AceptoBackOrder,
-             PC.CodigoCatalago,
+             --PC.CodigoCatalago,
+             PWD.CodigoCatalago,
              TEP.FlagNueva,
              TE.FlagNueva,
              TEP.Codigo,
