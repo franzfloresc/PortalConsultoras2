@@ -44,6 +44,7 @@
 
     <script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
+        var revistaDigital = @Html.Raw(Json.Encode(ViewBag.revistaDigital));
     </script>
 
     @RenderSection("styles", required: false)
