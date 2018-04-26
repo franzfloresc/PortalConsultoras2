@@ -478,6 +478,7 @@
 .parche_presentacion_contenedor {
     max-width: 980px;
     margin: auto;
+
 }
 
     .parche_presentacion_contenedor .bloque-titulo {
@@ -630,7 +631,9 @@
                 margin-left: 15% !important;
                 margin: auto;
             }
-
+            .bc_plantilla_estrategia_personalizada{
+                padding-left: 5%;
+            }
             /*@media (max-width:1350px){
                 .contenido_zona_dorada_contenedor_desktop .fix-zona-dorada {
                     padding: 0 6% !important;

@@ -151,7 +151,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string urlCurso = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlCursoMiAcademia);
                 string isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
                 int max = 4;
-                if (ViewBag.CodigoISODL == "VE") max = 3;
+                if (ViewBag.CodigoISODL == Constantes.CodigosISOPais.Venezuela) max = 3;
                 urlMc = String.Format(urlMc, isoUsuario);
 
                 using (WebClient client = new WebClient())

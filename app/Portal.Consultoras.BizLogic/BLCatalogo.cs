@@ -2,7 +2,6 @@
 using Portal.Consultoras.Common.Settings;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -444,7 +443,7 @@ namespace Portal.Consultoras.BizLogic
 
                     var content = response.Content.ReadAsStringAsync().Result;
 
-                    if(string.IsNullOrEmpty(content)) return new Tuple<bool, dynamic>(false, null);
+                    if (string.IsNullOrEmpty(content)) return new Tuple<bool, dynamic>(false, null);
 
                     return new Tuple<bool, dynamic>(true, Newtonsoft.Json.Linq.JObject.Parse(content));
                 }
@@ -460,20 +459,20 @@ namespace Portal.Consultoras.BizLogic
         {
             switch (paisISO)
             {
-                case "AR": return "argentina";
-                case "BO": return "bolivia";
-                case "CL": return "chile";
-                case "CO": return "colombia";
-                case "CR": return "costarica";
-                case "DO": return "republicadominicana";
-                case "EC": return "ecuador";
-                case "GT": return "guatemala";
-                case "MX": return "mexico";
-                case "PA": return "panama";
-                case "PE": return "peru";
-                case "PR": return "puertorico";
-                case "SV": return "elsalvador";
-                case "VE": return "venezuela";
+                case Constantes.CodigosISOPais.Argentina: return "argentina";
+                case Constantes.CodigosISOPais.Bolivia: return "bolivia";
+                case Constantes.CodigosISOPais.Chile: return "chile";
+                case Constantes.CodigosISOPais.Colombia: return "colombia";
+                case Constantes.CodigosISOPais.CostaRica: return "costarica";
+                case Constantes.CodigosISOPais.Dominicana: return "republicadominicana";
+                case Constantes.CodigosISOPais.Ecuador: return "ecuador";
+                case Constantes.CodigosISOPais.Guatemala: return "guatemala";
+                case Constantes.CodigosISOPais.Mexico: return "mexico";
+                case Constantes.CodigosISOPais.Panama: return "panama";
+                case Constantes.CodigosISOPais.Peru: return "peru";
+                case Constantes.CodigosISOPais.PuertoRico: return "puertorico";
+                case Constantes.CodigosISOPais.Salvador: return "elsalvador";
+                case Constantes.CodigosISOPais.Venezuela: return "venezuela";
                 default: return "sinpais";
             }
         }

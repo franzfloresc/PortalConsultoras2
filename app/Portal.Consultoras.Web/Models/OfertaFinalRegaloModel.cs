@@ -3,7 +3,7 @@ using System;
 
 namespace Portal.Consultoras.Web.Models
 {
-    public class RegaloOfertaFinalModel
+    public class OfertaFinalRegaloModel
     {
         public string CodigoISO { get; set; }
 
