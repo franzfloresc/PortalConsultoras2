@@ -416,7 +416,8 @@ namespace Portal.Consultoras.Web.Providers
                         TipoEstrategiaID = d.TipoEstrategiaId,
                         Imagen = d.FlagImagenURL ? 1 : 0,
                         DescripcionEstrategia = d.DescripcionTipoEstrategia,
-                        CodigoSAP = d.CodigoSap
+                        CodigoSAP = d.CodigoSap,
+                        Zona = d.Zona
                     }
 
                 }).ToList();
@@ -553,6 +554,7 @@ namespace Portal.Consultoras.Web.Providers
                 TipoEstrategiaId = entidad.TipoEstrategiaID,
                 TipoEstrategia = entidad.CodigoTipoEstrategia.Equals("009") ? "ODD" : "",
                 DescripcionTipoEstrategia = entidad.DescripcionEstrategia,
+                Zona = entidad.Zona
             };
             return waModel;
         }
