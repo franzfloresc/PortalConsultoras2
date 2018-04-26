@@ -502,6 +502,20 @@ function CreateLoading() {
     $("#loadingScreen").parent().find(".ui-dialog-titlebar").hide();
 }
 
+
+function printElement(selector) {
+    var element = document.querySelector(selector);
+    if (!element) {
+        return;
+    }
+    var printContents = element.innerHTML;
+    var originalContents = document.body.innerHTML;
+
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+}
+
 function waitingDialog(waiting) {
     try {
         if (!$("#loadingScreen")) {

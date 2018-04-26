@@ -227,7 +227,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return tipoPopUpMostrar;
             }
 
-            if (userData.TieneCupon == 1 && userData.CodigoISO == "PE")
+            if (userData.TieneCupon == 1 && userData.CodigoISO == Constantes.CodigosISOPais.Peru)
             {
                 var cupon = ObtenerCuponDesdeServicio();
                 if (cupon != null)

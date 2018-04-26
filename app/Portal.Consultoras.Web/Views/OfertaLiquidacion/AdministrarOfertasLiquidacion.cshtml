@@ -342,45 +342,7 @@
         });
 
         $(".qq-upload-list").css("display", "none");
-
-        $("#btnCargaMasivaImagenes").click(function(){
-            var msjex = "";
-            if ($("#ddlPais").val() == "")
-                msjex += " - Debe seleccionar un País .\n";
-            if ($("#ddlCampania").val() == "")
-                msjex += " - Debe seleccionar un Campania .\n";
-
-            if (msjex == "") {
-                paisNombre = $("#ddlPais option:selected").text();
-                paisID = $("#ddlPais").val();  
-                
-                var campaniaId = $("#ddlCampania").val();
-                var params = {
-                    campaniaID: campaniaId
-                };
-
-                waitingDialog({});
-                jQuery.ajax({
-                    type: 'POST',
-                    url: baseUrl + 'OfertaLiquidacion/CargaMasivaImagenes',
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(params),
-                    async: true,
-                    success: function (data) {
-                        closeWaitingDialog();
-                        alert(data.message);                    
-                    },
-                    error: function (data, error) {
-                        alert(data.message);
-                    }
-                });
-            }
-            else {
-                alert(msjex);
-                return false;
-            }
-        });
+        
     });
 
     function formatUrl(url) {
@@ -1320,7 +1282,6 @@
                 </div>
                 <div class="input_search">
                     <input type="button" value="Buscar" id="btnBuscar" name="">
-                    <input type="button" name="btnCargaMasivaImagenes" id="btnCargaMasivaImagenes" value="Cargar Imagenes" style="display: none;"/>
                 </div>
             </div>
         </div>

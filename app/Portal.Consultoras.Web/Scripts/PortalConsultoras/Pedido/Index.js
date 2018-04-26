@@ -985,24 +985,8 @@ function ArmarDetallePedidoPaginador(data) {
 }
 
 function ArmarDetallePedido(array) {
-    registerEsShowRoomPais();
 
     return SetHandlebars("#producto-template", array);
-}
-
-function registerEsShowRoomPais() {
-
-    if (Handlebars.helpers.isShowRoomPais) {
-        return;
-    }
-
-    Handlebars.registerHelper('isShowRoomPais', function (pais, sisId, opts) {
-        var productShowRoom = sisId == "1707";
-
-        return productShowRoom && sesionEsShowRoom && pais === paisISO
-            ? opts.inverse(this)
-            : opts.fn(this);
-    });
 }
 
 function AgregarProductoListado() {
@@ -1940,6 +1924,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
             ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
             ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
             ActualizarLocalStorageAgregado("hv", data.data.CUV, false);
+            CerrarAvisoEliminarRegalo();
         },
         error: function (data, error) {
             if (checkTimeout(data)) {

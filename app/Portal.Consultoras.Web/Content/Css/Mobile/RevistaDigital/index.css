@@ -199,8 +199,8 @@
 }
 
 .box_producto_mobile_fix {
-    margin-left: 4%;
-    margin-right: 4%;
+    margin-left: 2%;
+    margin-right: 2%;
 }
 
 .producto_img_mobile_bpt {
@@ -274,9 +274,11 @@
     letter-spacing: .2px;
     color: #000;
 }
-.producto_precio_bpt > span{
-    display:block;
-}
+
+    .producto_precio_bpt > span {
+        display: block;
+    }
+
     .producto_precio_bpt .producto_precio_oferta_bpt b {
         display: block;
         width: 100%;
@@ -373,15 +375,6 @@
     display: block;
 }
 
-/* NUEVO LANDING SUSCRIPCION MOBILE */
-
-/* FIN NUEVO LANDING SUSCRIPCION MOBILE */
-
-
-/* POP UP ACTUALIZA DATOS*/
-
-/* FIN POP UP ACTUALIZA DATOS */
-
 /*BOTON ESIKA NO ANIMADO: ROJO*/
 .activar_boton_esika_no_animado {
     background-color: #e81c36 !important;
@@ -430,9 +423,9 @@
             padding: 0px 0px 5px 0px;
         }
 
-        .contenido_zona_dorada_contenedor_desktop .fix-zona-dorada p b{
-            font-weight: 900;
-        }
+            .contenido_zona_dorada_contenedor_desktop .fix-zona-dorada p b {
+                font-weight: 900;
+            }
 
         .contenido_zona_dorada_contenedor_desktop .fix-zona-dorada a {
             font-size: 13px;
@@ -649,6 +642,7 @@
         width: 92%;
         margin-top: 4.9% !important;
     }
+
         .mobile_contenido-popup-nuevo-2017 .mobile_centrar-estructura a.mobile_cerrar-popup {
             width: 100%;
             margin: auto;
@@ -676,3 +670,9 @@
         }
 }
 
+.Acortar2Renglones3puntos {
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+}

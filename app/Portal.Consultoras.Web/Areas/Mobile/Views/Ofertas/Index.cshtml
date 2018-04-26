@@ -1,8 +1,6 @@
-﻿@using System.Configuration
-@using Portal.Consultoras.Common
-@using Portal.Consultoras.Web.Helpers
+﻿@using Portal.Consultoras.Web.Models
 
-@model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaModel
+@model EstrategiaPersonalizadaModel
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
 }
@@ -43,14 +41,16 @@
 
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-carrusel-previsuales-producto.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 
 @section scripts{
     <script type="text/javascript">
-    var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
-    var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital", new { area = ""})';
-    var urlCargarProductosHv = '@Url.Action("HVObtenerProductos", "HerramientasVenta", new { area = ""})';
-    var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital", new { area = "Mobile" })';
-    var OrigenDesktopODD = 0;
+        var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
+        var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital", new { area = ""})';
+        var urlCargarProductosHv = '@Url.Action("HVObtenerProductos", "HerramientasVenta", new { area = ""})';
+        var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital", new { area = "Mobile" })';
+        var urlOfertaDetalleProductoLan = '@Url.Action("Detalle", "Lanzamientos", new { area = "Mobile" })';
+        var OrigenDesktopODD = 0;
     </script>
 @System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/JsSB2-Ofertas")
 }
