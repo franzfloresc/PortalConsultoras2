@@ -4353,18 +4353,17 @@ namespace Portal.Consultoras.Web.Controllers
                 var rutaImagenSmall = "";
                 var rutaImagenMedium = "";
 
+                string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
+                string soloExtension = Path.GetExtension(rutaImagen);
+                    
+                var imagenSmall = soloImagen + Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall + soloExtension;
+                var imagenMedium = soloImagen + Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium + soloExtension;
+
+                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                 if (esAppCalatogo)
                 {
-                    string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
-                    string soloExtension = Path.GetExtension(rutaImagen);
-
-                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
-                    var extensionNombreImagenSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall;
-                    var extensionNombreImagenMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium;
-
-                    rutaImagenSmall = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + extensionNombreImagenSmall + soloExtension);
-                    rutaImagenMedium = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + extensionNombreImagenMedium + soloExtension);
+                    rutaImagenSmall = ConfigS3.GetUrlFileS3(carpetaPais, imagenSmall);
+                    rutaImagenMedium = ConfigS3.GetUrlFileS3(carpetaPais, imagenMedium);
                 }
                 else
                 {
@@ -4378,8 +4377,11 @@ namespace Portal.Consultoras.Web.Controllers
                 int alto = 0;
 
                 EntidadMagickResize entidadResize;
-                if (!Util.ExisteUrlRemota(rutaImagenSmall))
+                if (Util.ExisteUrlRemota(rutaImagenSmall))
                 {
+                    ConfigS3.DeleteFileS3(carpetaPais, imagenSmall);
+                }
+
                     GetDimensionesImagen(rutaImagen, listaValoresImagenesResize, Constantes.ConfiguracionImagenResize.TipoImagenSmall, out alto, out ancho);
 
                     if (ancho > 0 && alto > 0)
@@ -4395,10 +4397,12 @@ namespace Portal.Consultoras.Web.Controllers
                         };
                         listaImagenesResize.Add(entidadResize);
                     }
+
+                if (Util.ExisteUrlRemota(rutaImagenMedium))
+                {
+                    ConfigS3.DeleteFileS3(carpetaPais, imagenMedium);
                 }
 
-                if (!Util.ExisteUrlRemota(rutaImagenMedium))
-                {
                     GetDimensionesImagen(rutaImagen, listaValoresImagenesResize, Constantes.ConfiguracionImagenResize.TipoImagenMedium, out alto, out ancho);
 
                     if (ancho > 0 && alto > 0)
@@ -4414,7 +4418,6 @@ namespace Portal.Consultoras.Web.Controllers
                         };
                         listaImagenesResize.Add(entidadResize);
                     }
-                }
             }
 
             return listaImagenesResize;
