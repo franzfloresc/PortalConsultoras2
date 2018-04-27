@@ -1,7 +1,6 @@
 ﻿using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.Pedido.App;
-
-using System.Collections.Generic;
 
 namespace Portal.Consultoras.BizLogic.Pedido
 {
@@ -11,5 +10,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         BEPedidoDetalleAppInsertarResult Insert(BEPedidoDetalleAppInsertar pedidoDetalle);
         BEPedidoWeb Get(BEUsuario usuario);
         bool InsertKitInicio(BEUsuario usuario);
+        BEConfiguracionPedido GetConfiguracion(int paisID, string codigoUsuario);
     }
 }

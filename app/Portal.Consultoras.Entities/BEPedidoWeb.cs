@@ -1,5 +1,4 @@
 ﻿using Portal.Consultoras.Common;
-using Portal.Consultoras.Entities.Pedido;
 
 using System;
 using System.Collections.Generic;
@@ -109,7 +108,10 @@ namespace Portal.Consultoras.Entities
         public long PedidoSapId { get; set; }
 
         [DataMember]
-        public BEPedidoBarra Barra { get; set; }
+        public int CantidadCuv { get; set; }
+
+        [DataMember]
+        public decimal TippingPoint { get; set; }
 
         public BEPedidoWeb()
         { }

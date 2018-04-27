@@ -62,8 +62,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
             _consultorasProgramaNuevasBusinessLogic = consultorasProgramaNuevasBusinessLogic;
             _escalaDescuentoBusinessLogic = escalaDescuentoBusinessLogic;
             _mensajeMetaConsultoraBusinessLogic = mensajeMetaConsultoraBusinessLogic;
+            _clienteBusinessLogic = clienteBusinessLogic;
         }
 
+        #region Publicos
         public BEProductoApp GetCUV(BEProductoAppBuscar productoBuscar)
         {
             try
@@ -200,7 +202,20 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 pedidos.Where(x => x.ClienteID == 0).Update(x => x.NombreCliente = usuario.Nombre);
                 pedido.olstBEPedidoWebDetalle = pedidos;
 
-                pedido.Barra = GetDataBarra(usuario, pedidos);
+                pedido.CantidadProductos = pedidos.Sum(p => p.Cantidad);
+                pedido.CantidadCuv = pedidos.Count;
+
+                pedido.TippingPoint = 0;
+                if (usuario.MontoMaximoPedido > 0)
+                {
+                    var tp = GetConfiguracionProgramaNuevas(usuario);
+
+                    if (tp.IndExigVent == "1")
+                    {
+                        var obeConsultorasProgramaNuevas = GetConsultorasProgramaNuevas(usuario, tp.CodigoPrograma);
+                        if (obeConsultorasProgramaNuevas != null) pedido.TippingPoint = obeConsultorasProgramaNuevas.MontoVentaExigido;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -336,6 +351,23 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
             
         }
+
+        public BEConfiguracionPedido GetConfiguracion(int paisID, string codigoUsuario)
+        {
+            var config = new BEConfiguracionPedido();
+
+            try
+            {
+                config.Barra = GetDataBarra(paisID, codigoUsuario);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, codigoUsuario, paisID);
+            }
+
+            return config;
+        }
+        #endregion
 
         #region GetCUV
         private bool BloqueoProductosCatalogo(BERevistaDigital revistaDigital, string codigosRevistaImpresa, BEProducto producto, BEProductoAppBuscar productoBuscar)
@@ -865,36 +897,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return detallesPedidoWeb;
         }
 
-        private BEPedidoBarra GetDataBarra(BEUsuario usuario, List<BEPedidoWebDetalle> detalle)
-        {
-            var objR = new BEPedidoBarra
-            {
-                ListaEscalaDescuento = new List<BEEscalaDescuento>(),
-                ListaMensajeMeta = new List<BEMensajeMetaConsultora>()
-            };
-
-            objR.TippingPoint = 0;
-            if (usuario.MontoMaximoPedido > 0)
-            {
-                var tp = GetConfiguracionProgramaNuevas(usuario);
-
-                if (tp.IndExigVent == "1")
-                {
-                    var obeConsultorasProgramaNuevas = GetConsultorasProgramaNuevas(usuario, tp.CodigoPrograma);
-                    if (obeConsultorasProgramaNuevas != null) objR.TippingPoint = obeConsultorasProgramaNuevas.MontoVentaExigido;
-                }
-            }
-
-            objR.CantidadProductos = detalle.Sum(p => p.Cantidad);
-            objR.CantidadCuv = detalle.Count;
-
-            objR.ListaEscalaDescuento = _escalaDescuentoBusinessLogic.GetEscalaDescuento(usuario.PaisID) ?? new List<BEEscalaDescuento>();
-            var entity = new BEMensajeMetaConsultora() { TipoMensaje = string.Empty };
-            objR.ListaMensajeMeta = _mensajeMetaConsultoraBusinessLogic.GetMensajeMetaConsultora(usuario.PaisID, entity) ?? new List<BEMensajeMetaConsultora>();
-
-            return objR;
-        }
-
         private BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(BEUsuario usuario, string codigoPrograma)
         {
             var obeConsultorasProgramaNuevas = new BEConsultorasProgramaNuevas
@@ -985,5 +987,21 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         #endregion
 
+        #region Configuracion
+        private BEPedidoBarra GetDataBarra(int paisID, string codigoUsuario)
+        {
+            var objR = new BEPedidoBarra
+            {
+                ListaEscalaDescuento = new List<BEEscalaDescuento>(),
+                ListaMensajeMeta = new List<BEMensajeMetaConsultora>()
+            };
+
+            objR.ListaEscalaDescuento = _escalaDescuentoBusinessLogic.GetEscalaDescuento(paisID) ?? new List<BEEscalaDescuento>();
+            var entity = new BEMensajeMetaConsultora() { TipoMensaje = string.Empty };
+            objR.ListaMensajeMeta = _mensajeMetaConsultoraBusinessLogic.GetMensajeMetaConsultora(paisID, entity) ?? new List<BEMensajeMetaConsultora>();
+
+            return objR;
+        }
+        #endregion
     }
 }
