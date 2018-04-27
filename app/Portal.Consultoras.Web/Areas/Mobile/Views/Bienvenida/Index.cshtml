@@ -76,8 +76,8 @@
     </div>
 </div>
 
-<div class="wrapper_resumen_mobile sombra_wrapper">
-    <div class="content_320" style="text-align:center;">
+<div class="wrapper_resumen_mobile">
+    <div class="content_320" style="text-align:center; padding-bottom: 7px;">
         <!--QUITAR CENTER CUANDO HAY FOTO-->
         <div class="content_foto">
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
@@ -185,7 +185,7 @@
 }
 
 <!--FIN-->
-<div class="fondo_faf5e6">
+<div class="fondo_faf5e6" style="display: none">
     @if (ViewBag.CantPedidosPendientes <= 0)
     {
         <div class="pestana_lbel"></div>
