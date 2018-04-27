@@ -388,8 +388,8 @@
                 <div class="saludo_mas_productos" data-odd-texto="cliente" style="display:none;">{{UsuarioNombre}}, APROVECHA ESTAS OFERTAS ¡SOLO HOY!</div>
                     <div id="divOddCarrusel" class="contenido contenido_834">
                         {{#each this.ListaOfertas  as |detalle|}}
-                            <div data-item="" data-item-position="{{detalle.ID}}" class="revistadigital-landing">
-                                <div class="content_item_carrusel">
+                            <div data-item="" data-item-position="{{detalle.ID}}" class="revistadigital-landing" style="min-width: auto;">
+                                <div class="content_item_carrusel" >
                                     <div style="display:none;" data-item-campos="">
                                         <input type="hidden" class="tipoestrategia-id-odd" value="{{detalle.TipoEstrategiaID}}" />
                                         <input type="hidden" class="estrategia-id-odd" value="{{detalle.EstrategiaID}}" />
