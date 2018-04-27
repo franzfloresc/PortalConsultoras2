@@ -1264,6 +1264,8 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEPedidoWebDetalle> GetPedidoDetalleApp(BEPedidoDetalleAppBuscar pedidoDetalle);
         [OperationContract]
         bool InsertKitInicio(BEUsuario usuario);
+        [OperationContract]
+        BEPedidoDetalleAppInsertarResult UpdatePedidoDetalleApp(BEPedidoDetalleAppInsertar pedidoDetalle);
         #endregion
 
         #region Pago en Linea

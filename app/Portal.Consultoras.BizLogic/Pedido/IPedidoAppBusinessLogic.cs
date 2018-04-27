@@ -11,5 +11,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         BEPedidoDetalleAppInsertarResult Insert(BEPedidoDetalleAppInsertar pedidoDetalle);
         List<BEPedidoWebDetalle> GetDetalle(BEPedidoDetalleAppBuscar pedidoDetalle);
         bool InsertKitInicio(BEUsuario usuario);
+        BEPedidoDetalleAppInsertarResult Update(BEPedidoDetalleAppInsertar pedidoDetalle);
     }
 }

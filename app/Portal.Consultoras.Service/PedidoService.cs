@@ -2364,6 +2364,11 @@ namespace Portal.Consultoras.Service
         {
             return _pedidoAppBusinessLogic.InsertKitInicio(usuario);
         }
+
+        public BEPedidoDetalleAppInsertarResult UpdatePedidoDetalleApp(BEPedidoDetalleAppInsertar pedidoDetalle)
+        {
+            return _pedidoAppBusinessLogic.Update(pedidoDetalle);
+        }
         #endregion
     }
 }
