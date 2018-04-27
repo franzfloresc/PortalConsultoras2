@@ -77,27 +77,22 @@
                     data: JSON.stringify(JsonData),
                     async: true,
                     success: function (data) {
-                        if (checkTimeout(data)) {
-                            closeWaitingDialog();
-                            if (data.success == true) {
-                                $("#list").GridUnload();
-                                fnGrilla(); 
-                                alert(data.mensaje);
-                                if (data.cabecera) {
-                                    if (data.IsFox) {
-                                        $("#Aheader").text("OCWPEDCA.TXT");
-                                        $("#Ddetail").text("OCWPEDDE.TXT");
-                                        $("#Ddetail1").text("ACTDATOS.TXT");
-                                        $("#hdnfileHeader").val(data.rutac);
-                                        $("#hdnfileDetail").val(data.rutad);
-                                        $("#hdnfileDetailAct").val(data.rutae);
-                                        $("#DivDescargas").show();
-                                    }
-                                }
-                            }
-                            else {
-                                alert(data.mensaje);
-                            }
+                        if (!checkTimeout(data)) return;
+
+                        closeWaitingDialog();
+                        alert(data.message);
+                        if (!data.success) return;
+
+                        $("#list").GridUnload();
+                        fnGrilla();
+                        if (data.cabecera && data.IsFox) {
+                            $("#Aheader").text("OCWPEDCA.TXT");
+                            $("#Ddetail").text("OCWPEDDE.TXT");
+                            $("#Ddetail1").text("ACTDATOS.TXT");
+                            $("#hdnfileHeader").val(data.rutac);
+                            $("#hdnfileDetail").val(data.rutad);
+                            $("#hdnfileDetailAct").val(data.rutae);
+                            $("#DivDescargas").show();
                         }
                     },
                     error: function (data, error) {
@@ -109,42 +104,37 @@
                 });
             }
             else if (jQuery.trim($("#cboTipoCronograma").val()) == "5") {
-                    $.ajax({
-                        type: 'POST',
-                        url: baseUrl + 'DescargaPedidos/RealizarDescarga',
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        data: JSON.stringify(JsonData),
-                        async: true,
-                        success: function (data) {
-                            if (checkTimeout(data)) {
-                                closeWaitingDialog();
-                                if (data.success == true) {
-                                    alert(data.mensaje);
+                $.ajax({
+                    type: 'POST',
+                    url: baseUrl + 'DescargaPedidos/RealizarDescarga',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(JsonData),
+                    async: true,
+                    success: function (data) {
+                        if (!checkTimeout(data)) return;
 
-                                    if (data.cabecera) {
+                        closeWaitingDialog();
+                        alert(data.message);
+                        if (!data.success) return;
 
-                                        if (data.IsFox && data.cantidad > 0) {
-                                            $("#spCantidad").html(data.cantidad);
-                                            $("#liderHeader").html(data.nombre);
-                                            $("#hdnfileHeader").val(data.rutac);
-                                            $("#DivMensajeLideres").show();
-                                        }
-                                    }
-                                }
-                                else {
-                                    alert(data.mensaje);
-                                }
-                            }
-                        },
-                        error: function (data, error) {
-                            if (checkTimeout(data)) {
-                                closeWaitingDialog();
-                                alert("Error del sistema. Por favor, volver a ejecutar el proceso de generación de líderes.");
-                            }
+                        $("#list").GridUnload();
+                        fnGrilla();                        
+                        if (data.cabecera && data.IsFox && data.cantidad > 0) {
+                            $("#spCantidad").html(data.cantidad);
+                            $("#liderHeader").html(data.nombre);
+                            $("#hdnfileHeader").val(data.rutac);
+                            $("#DivMensajeLideres").show();
                         }
-                    });
-                }
+                    },
+                    error: function (data, error) {
+                        if (checkTimeout(data)) {
+                            closeWaitingDialog();
+                            alert("Error del sistema. Por favor, volver a ejecutar el proceso de generación de líderes.");
+                        }
+                    }
+                });
+            }
             else if (jQuery.trim($("#cboTipoCronograma").val()) == "6") {
                 $.ajax({
                     type: 'POST',

@@ -5,7 +5,6 @@ using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.ReservaProl;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using ServSicc = Portal.Consultoras.Data.Rest.ServiceSicc;
@@ -31,7 +30,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
         public async Task<BEResultadoReservaProl> ReservarPedido(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
-            ServSicc.Pedido respuestaSicc = await ConsumirServicioSicc(input, listPedidoWebDetalle);
+            ServSicc.Pedido respuestaSicc = await ConsumirServExtReservar(input, listPedidoWebDetalle);
             if (respuestaSicc == null || respuestaSicc.exitCode == 1) return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_Error);
                         
             var resultado = new BEResultadoReservaProl
@@ -96,15 +95,13 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 PaisID = usuario.PaisID,
                 CampaniaID = usuario.CampaniaID,
                 PedidoID = pedidoId,
-                CodigoConsultora = usuario.CodigoConsultora,
-                FechaHoraReserva = true
             };
-            var output = await ConsumirServicioSicc(input, new List<BEPedidoWebDetalle>());
+            var output = await ConsumirDeExtCancelarReserva(input);
 
-            return output.exitCode == 0;
+            return output == "0";
         }
 
-        private async Task<ServSicc.Pedido> ConsumirServicioSicc(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        private async Task<ServSicc.Pedido> ConsumirServExtReservar(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             var pedidoSapId = blPedidoWeb.GetPedidoSapId(input.PaisID, input.CampaniaID, input.PedidoID);
             var inputPedido = new ServSicc.Pedido
@@ -125,6 +122,16 @@ namespace Portal.Consultoras.BizLogic.Reserva
             var path = "/Service.svc/EjecutarCuadreOfertas";
             return await RestClient.PostAsync<ServSicc.Pedido>(Enumeradores.RestService.ReservaSicc, path, inputPedido);
             //return await DARSicc.EjecutarCuadreOfertas(inputPedido);
+        }
+
+        private async Task<string> ConsumirDeExtCancelarReserva(BEInputReservaProl input)
+        {
+            var pedidoSapId = blPedidoWeb.GetPedidoSapId(input.PaisID, input.CampaniaID, input.PedidoID);
+            if (pedidoSapId == 0) return "0";
+
+            var codigoPais = Util.GetPaisIsoSicc(input.PaisID);
+            var path = string.Format("/Service.svc/CancelarReserva/{0}/{1}", codigoPais, pedidoSapId);
+            return await RestClient.PutAsync<string>(Enumeradores.RestService.ReservaSicc, path, "");
         }
 
         private List<BEPedidoWebDetalleExplotado> NewListPedidoWebDetalleExplotado(BEInputReservaProl input, ServSicc.Detalle[] arrayDetalle, List<BEPedidoWebDetalle> listDetalle)

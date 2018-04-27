@@ -508,7 +508,7 @@ namespace Portal.Consultoras.BizLogic
         {
             var daPedidoWeb = new DAPedidoWeb(usuario.PaisID);
             var daPedidoWebDetalle = new DAPedidoWebDetalle(usuario.PaisID);
-            var blReservaSicc = new BLReservaSicc();
+            var blReserva= new BLReserva();
 
             TransactionOptions oTransactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
             try
@@ -518,13 +518,7 @@ namespace Portal.Consultoras.BizLogic
                     daPedidoWebDetalle.DelPedidoWebDetalleMasivo(usuario.CampaniaID, pedidoId);
                     daPedidoWeb.UpdPedidoWebByEstadoConTotalesMasivo(usuario.CampaniaID, pedidoId, 201, false, 0, 0, usuario.CodigoUsuario);
                     daPedidoWeb.DelIndicadorPedidoAutenticoCompleto(new BEIndicadorPedidoAutentico { PedidoID = pedidoId, CampaniaID = usuario.CampaniaID });
-
-                    if (usuario.ZonaValida)
-                    {
-                        var success =await blReservaSicc.DeshacerReservaPedido(usuario, pedidoId);
-                        if (!success) return false;
-                    }
-
+                    
                     oTransactionScope.Complete();
                 }
             }
@@ -533,6 +527,9 @@ namespace Portal.Consultoras.BizLogic
                 LogManager.SaveLog(ex, usuario.CodigoUsuario, usuario.PaisID);
                 return false;
             }
+
+            try { if (usuario.ZonaValida) await blReserva.DeshacerReservaPedido(usuario, pedidoId); }
+            catch (Exception ex) { LogManager.SaveLog(ex, usuario.CodigoUsuario, usuario.PaisID); }
 
             return true;
         }

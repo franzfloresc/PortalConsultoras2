@@ -84,7 +84,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return Json(new {
                     success = true,
-                    mensaje = "El proceso de carga de pedidos ha finalizado satisfactoriamente.",
+                    message = "El proceso de carga de pedidos ha finalizado satisfactoriamente.",
                     cabecera = System.IO.Path.GetFileName(file[0]),
                     detalle = System.IO.Path.GetFileName(file[1]),
                     detalleAct = System.IO.Path.GetFileName(file[2]),

@@ -272,6 +272,9 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
         public async Task<bool> DeshacerReservaPedido(BEUsuario usuario, int pedidoId)
         {
+            UpdateDiaPROL(usuario);
+            if (!usuario.DiaPROL) return true;
+
             var reservaExternaBL = NewReservaExternaBL(GetVersionProl(usuario.PaisID));
             return await reservaExternaBL.DeshacerReservaPedido(usuario, pedidoId);
         }
@@ -348,12 +351,23 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
         #region Private Functions
 
+        private void UpdateDiaPROL(BEUsuario usuario)
+        {
+            DateTime fechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
+            usuario.DiaPROL = EsDiaProl(usuario, fechaHoraActual);
+        }
+
         private void UpdateDiaPROLAndEsHoraReserva(BEUsuario usuario)
         {
             DateTime fechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
-            usuario.DiaPROL = usuario.FechaInicioFacturacion.AddDays(-usuario.DiasAntes) < fechaHoraActual
-                && fechaHoraActual < usuario.FechaFinFacturacion.AddDays(1);
+            usuario.DiaPROL = EsDiaProl(usuario, fechaHoraActual);
             usuario.EsHoraReserva = EsHoraReserva(usuario, fechaHoraActual);
+        }
+
+        private bool EsDiaProl(BEUsuario usuario, DateTime fechaHoraActual)
+        {
+            return usuario.FechaInicioFacturacion.AddDays(-usuario.DiasAntes) < fechaHoraActual
+                && fechaHoraActual < usuario.FechaFinFacturacion.AddDays(1);
         }
 
         private bool EsHoraReserva(BEUsuario usuario, DateTime fechaHoraActual)
@@ -389,6 +403,11 @@ namespace Portal.Consultoras.BizLogic.Reserva
             decimal gananciaEstimada = 0;
             List<BEPedidoWebDetalle> listDetalleObservacion = null;
 
+            if (input.FechaHoraReserva)
+            {
+                pedidoWeb.VersionProl = input.VersionProl;
+                pedidoWeb.PedidoSapId = resultado.PedidoSapId;
+            }
             if (resultado.Reserva)
             {
                 pedidoWeb.CodigoUsuarioModificacion = input.CodigoUsuario;
@@ -439,9 +458,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 MontoAhorroCatalogo = resultado.MontoAhorroCatalogo,
                 MontoAhorroRevista = resultado.MontoAhorroRevista,
                 DescuentoProl = resultado.MontoDescuento,
-                MontoEscala = resultado.MontoEscala,
-                VersionProl = input.VersionProl,
-                PedidoSapId = resultado.PedidoSapId
+                MontoEscala = resultado.MontoEscala
             };
         }
 
