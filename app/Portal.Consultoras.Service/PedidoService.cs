@@ -2364,6 +2364,11 @@ namespace Portal.Consultoras.Service
         {
             return _pedidoAppBusinessLogic.InsertKitInicio(usuario);
         }
+
+        public BEConfiguracionPedido GetConfiguracionPedidoApp(int paisID, string codigoUsuario)
+        {
+            return _pedidoAppBusinessLogic.GetConfiguracion(paisID, codigoUsuario);
+        }
         #endregion
     }
 }
