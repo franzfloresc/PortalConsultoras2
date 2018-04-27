@@ -14747,3 +14747,13 @@ span.icon-advertencia {
         display: block;
     }
 }
+
+.producto_nombre_descripcion .nombre_producto,
+.producto_nombre_descripcion {
+    max-width: 90% !important;
+    margin: auto !important;
+    display: block !important;
+}
+.producto_img_mobile_bpt img{
+    padding:10px !important;
+}
