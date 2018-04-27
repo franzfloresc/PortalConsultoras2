@@ -73,6 +73,7 @@ $(document).ready(function () {
     CargarTodosCorreo();
     
 
+
     //soluciona error en producción : Uncaught ReferenceError: CatalogoMostrar is not defined
     $("#divCatalogo a > img").click(function (e) {
        

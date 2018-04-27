@@ -63,6 +63,10 @@ namespace Portal.Consultoras.Web
                 Response.Redirect(string.Format("{0}/", Request.Path));
         }
 
+        private void Application_MapRequestHandler(object sender, EventArgs e)
+        {
+            var request = Request.RequestContext.HttpContext;
+        }
         protected void Application_Error(object sender, EventArgs e)
         {
             var exception = Server.GetLastError();
