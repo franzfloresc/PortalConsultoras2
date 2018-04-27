@@ -60,33 +60,33 @@ namespace Portal.Consultoras.Web.WebPages
             if (codConsultoratxtId == "") codConsultoratxtId = "0";
             string isows = string.Empty;
 
-            if (bepais.CodigoISO.Equals("PE"))
+            if (bepais.CodigoISO.Equals(Constantes.CodigosISOPais.Peru))
                 isows = "PE";
-            else if (bepais.CodigoISO.Equals("CL"))
+            else if (bepais.CodigoISO.Equals(Constantes.CodigosISOPais.Chile))
                 isows = "CLE";
-            else if (bepais.CodigoISO.Equals("EC"))
+            else if (bepais.CodigoISO.Equals(Constantes.CodigosISOPais.Ecuador))
                 isows = "ECL";
-            else if (bepais.CodigoISO.Equals("BO"))
+            else if (bepais.CodigoISO.Equals(Constantes.CodigosISOPais.Bolivia))
                 isows = "BO";
-            else if (bepais.CodigoISO.Equals("MX"))
+            else if (bepais.CodigoISO.Equals(Constantes.CodigosISOPais.Mexico))
                 isows = "MXL";
-            else if (bepais.CodigoISO.Equals("AR"))
+            else if (bepais.CodigoISO.Equals(Constantes.CodigosISOPais.Argentina))
                 isows = "AR";
-            else if (bepais.CodigoISO.Equals("CR"))
+            else if (bepais.CodigoISO.Equals(Constantes.CodigosISOPais.CostaRica))
                 isows = "CRL";
-            else if (bepais.CodigoISO.Equals("SV"))
+            else if (bepais.CodigoISO.Equals(Constantes.CodigosISOPais.Salvador))
                 isows = "SVE";
-            else if (bepais.CodigoISO.Equals("PA"))
+            else if (bepais.CodigoISO.Equals(Constantes.CodigosISOPais.Panama))
                 isows = "PAL";
-            else if (bepais.CodigoISO.Equals("GT"))
+            else if (bepais.CodigoISO.Equals(Constantes.CodigosISOPais.Guatemala))
                 isows = "GTE";
-            else if (bepais.CodigoISO.Equals("PR"))
+            else if (bepais.CodigoISO.Equals(Constantes.CodigosISOPais.PuertoRico))
                 isows = "PRL";
-            else if (bepais.CodigoISO.Equals("DO"))
+            else if (bepais.CodigoISO.Equals(Constantes.CodigosISOPais.Dominicana))
                 isows = "DOL";
-            else if (bepais.CodigoISO.Equals("VE"))
+            else if (bepais.CodigoISO.Equals(Constantes.CodigosISOPais.Venezuela))
                 isows = "VEL";
-            else if (bepais.CodigoISO.Equals("CO"))
+            else if (bepais.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia))
                 isows = "COE";
 
             try

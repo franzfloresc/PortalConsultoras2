@@ -53,6 +53,12 @@ namespace Portal.Consultoras.Web.Controllers
             var certificadoComercial = ObtenerCertificadoComercial();
             listaCertificados.Add(certificadoComercial);
 
+            var certificadoTributario = ObtenerCertificadoTributario();
+            if (certificadoTributario != null)
+            {
+                listaCertificados.Add(certificadoTributario);
+            }
+
             return listaCertificados;
         }
 
@@ -152,6 +158,33 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
+        #region Certificado Tributario
+        private MiCertificadoModel ObtenerCertificadoTributario()
+        {
+            var certificado = new MiCertificadoModel();
+
+            switch (userData.PaisID)
+            {
+                case Constantes.PaisID.Colombia:
+                    certificado.Nombre = "Certificados Tributarios";
+
+                    if (userData.TotalCompraCer == 0)
+                    {
+                        certificado.MensajeError = "No tienes venta registrada con nosotros en el año gravable anterior, no es posible expedir un certificado tributario.";
+                        break;
+                    }
+
+                    certificado.CertificadoId = 3;
+                    certificado.NombreVista = "~/Views/MisCertificados/TributarioPdf.cshtml";
+                    break;
+                default:
+                    certificado = null;
+                    break;
+            }
+            return certificado;
+        }
+        #endregion
+
         [ValidateInput(false)]
         public FileResult Export(int id)
         {
@@ -219,6 +252,15 @@ namespace Portal.Consultoras.Web.Controllers
                         model.FechaCreacionTexto = ff2;
                         model.FechaIngresoConsultora = ff3;
                         model.Moneda = userData.Simbolo;
+
+                        model.Anio = (dt.Year - 1).ToString();
+
+                        model.CompraVDirecta = Math.Round(userData.CompraVDirectaCer, 2).ToString();
+                        model.IVACompraVDirecta = Math.Round(userData.IVACompraVDirectaCer, 2).ToString();
+                        model.Retail = Math.Round(userData.RetailCer, 2).ToString();
+                        model.IVARetail = Math.Round(userData.IVARetailCer, 2).ToString();
+                        model.TotalCompra = Math.Round(userData.TotalCompraCer, 2).ToString();
+                        model.IvaTotal = Math.Round(userData.IvaTotalCer, 2).ToString();
 
                         model.CodigoIso = userData.CodigoISO;
                         model.CantidadConsecutivaNueva = ConfigurationManager.AppSettings["cantCampaniaConsecutivaCertComercial"] ?? "5";

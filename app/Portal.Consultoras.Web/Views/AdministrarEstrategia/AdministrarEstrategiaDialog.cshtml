@@ -100,6 +100,20 @@
                 <input type="checkbox" class="check" id="chkEsOfertaIndependiente" style="margin-top: 2px;  margin-left: 15px;" />
             </div>
         </div>
+        <div class="div-3" id="divSeccionIndividual">
+            <div id="seccionFlagIndividual">
+                <div class="titG">Producto Individual:</div>
+                <div class="titG" style="width: auto;">
+                    <input type="checkbox" class="check" id="chkFlagIndividual" style="margin-top: -5px;" />
+                </div>
+            </div>
+            <div id="seccionSlogan">
+                <div class="titG" style="width: auto;margin-left:20px;">Slogan:</div>
+                <div class="titG" style="width: auto;">
+                    <input type="text" id="txtSlogan" style="width: 480px;" />
+                </div>
+            </div>
+        </div>
         <div class="div-3">
             <div class="titG">
                 <span>Imagen Seleccionada:</span>
@@ -195,10 +209,9 @@
                         <div class="pdr_modal2 borde_redondeado alignrigth">
                             <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-fondo-desktop" class="img-matriz-preview2" data-id="">
                         </div>
-                        <div class="inforRdText">929 x 552 pixeles</div>
+                        <div class="inforRdText">794 x 395 pixeles</div>
                     </div>
-                    <br /><br />
-                    <div style="display: inline-block; width: 100%;">
+                    @*<div style="display: inline-block; width: 100%; display: none;">
                         <input type="hidden" id="nombre-img-prev-desktop" />
                         <label style="width: 130px; display: inline-block;">Imagen Previsual: </label>
                         <div id="img-prev-desktop" style="display: inline-block;vertical-align: middle;"></div>
@@ -206,18 +219,18 @@
                             <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-prev-desktop" class="img-matriz-preview2" data-id="">
                         </div>
                         <div class="inforRdText">130 x 130 pixeles</div>
-                    </div>
+                    </div>*@
                 </div>
                 <div class="fontColorAdm" style="display: inline-block; width: 47%; text-align: left; padding: 8px; margin-right: -3px; vert-align: top; position: absolute">
-                    <h4 style="display: none">Carrusel Mobile</h4>
-                    <div style="display: none; width: 100%">
+                    <h4>Carrusel Mobile</h4>
+                    <div style="width: 100%">
                         <input type="hidden" id="nombre-img-fondo-mobile" />
                         <label style="width: 130px; display: inline-block;">Imagen de Fondo: </label>
                         <div id="img-fondo-mobile" style="display: inline-block; vertical-align: middle;"></div>
                         <div class="pdr_modal2 borde_redondeado alignrigth">
                             <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-fondo-mobile" class="img-matriz-preview2" data-id="">
                         </div>
-
+                        <div class="inforRdText">1024 x 155 pixeles</div>
                     </div>
                 </div>
             </div>
@@ -232,7 +245,7 @@
                         <div class="pdr_modal2 borde_redondeado alignrigth">
                             <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-ficha-fondo-desktop" class="img-matriz-preview2" data-id="">
                         </div>
-                        <div class="inforRdText">1920 x 370 pixeles</div>
+                        <div class="inforRdText">1280 x 322 pixeles</div>
                     </div>
                     <br /><br />
                     <div style="display: inline-block; width: 100%;">
@@ -244,7 +257,6 @@
                         </div>
                         <div class="inforRdText">121 x 32 pixeles</div>
                     </div>
-
                     <br /><br />
                     <div style="display: inline-block; width: 100%;">
                         <label style="width: 245px;display: inline-block;">Key Video: <span style="font-size: 11px"> https://www.youtube.com/watch?v=</span></label>
@@ -258,9 +270,9 @@
                         <label style="width: 130px; display: inline-block;">Imagen de Fondo: </label>
                         <div id="img-ficha-fondo-mobile" style="display: inline-block; vertical-align: middle;"></div>
                         <div class="pdr_modal2 borde_redondeado alignrigth">
-                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-ficha-fondo-mobile" class="img-matriz-preview2" data-id="">
+                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-ficha-fondo-mobile" class="img-matriz-preview2" data-id="" />
                         </div>
-                        <div class="inforRdText">1024 x 280 pixeles</div>
+                        <div class="inforRdText">1024 x 176 pixeles</div>
                     </div>
                     <br /><br />
                     <div style="display: inline-block; width: 100%">

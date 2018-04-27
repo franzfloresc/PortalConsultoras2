@@ -14,9 +14,9 @@ namespace Portal.Consultoras.BizLogic
     {
         public List<BETracking> GetPedidosByConsultora(int paisID, string codigoConsultora, int top, int tipoDoc = 0)
         {
-            var pedidos             = new List<BETracking>();
-            var daTracking          = new DATracking(paisID);
-            codigoConsultora        = GetConsultoraByDocumento(paisID, codigoConsultora, tipoDoc);
+            var pedidos = new List<BETracking>();
+            var daTracking = new DATracking(paisID);
+            codigoConsultora = GetConsultoraByDocumento(paisID, codigoConsultora, tipoDoc);
 
             using (IDataReader reader = daTracking.GetPedidosByConsultora(codigoConsultora, top))
             {
@@ -63,9 +63,9 @@ namespace Portal.Consultoras.BizLogic
 
         public List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, string nropedido, int tipoDoc = 0)
         {
-            var pedidos                 = new List<BETracking>();
-            var daTracking              = new DATracking(paisID);
-            codigo                      = GetConsultoraByDocumento(paisID, codigo, tipoDoc);
+            var pedidos = new List<BETracking>();
+            var daTracking = new DATracking(paisID);
+            codigo = GetConsultoraByDocumento(paisID, codigo, tipoDoc);
 
             using (IDataReader reader = daTracking.GetTrackingByPedido(codigo, campana, nropedido))
             {
@@ -98,11 +98,11 @@ namespace Portal.Consultoras.BizLogic
 
         public int InsConfirmacionEntrega(int paisID, BEConfirmacionEntrega oBEConfirmacionEntrega)
         {
-            var daTracking = new DATracking(paisID);
 
             int result = 0;
             try
             {
+                var daTracking = new DATracking(paisID);
                 result = daTracking.InsConfirmacionEntrega(oBEConfirmacionEntrega);
 
                 if (ConfigurationManager.AppSettings["PaisLogConfirmacionEntrega"].Contains(oBEConfirmacionEntrega.PaisISO) &&
@@ -133,7 +133,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog(ex, "ConfirmacionEntrega", oBEConfirmacionEntrega.PaisISO);
+                LogManager.SaveLog(ex, oBEConfirmacionEntrega.CodigoConsultora, oBEConfirmacionEntrega.PaisISO, "ConfirmacionEntrega");
             }
 
             return result;
@@ -141,11 +141,11 @@ namespace Portal.Consultoras.BizLogic
 
         public int UpdConfirmacionEntrega(int paisID, BEConfirmacionEntrega oBEConfirmacionEntrega)
         {
-            var daTracking = new DATracking(paisID);
 
             int result = 0;
             try
             {
+                var daTracking = new DATracking(paisID);
                 result = daTracking.UpdConfirmacionEntrega(oBEConfirmacionEntrega);
 
                 if (ConfigurationManager.AppSettings["PaisLogConfirmacionEntrega"].Contains(oBEConfirmacionEntrega.PaisISO) &&
@@ -167,7 +167,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog(ex, "ConfirmacionEntrega", oBEConfirmacionEntrega.PaisISO);
+                LogManager.SaveLog(ex, "", oBEConfirmacionEntrega.PaisISO, "ConfirmacionEntrega");
             }
 
             return result;
@@ -348,7 +348,7 @@ namespace Portal.Consultoras.BizLogic
                 else
                     codigo = codigoConsultora;
             }
-            catch 
+            catch
             {
                 codigo = codigoConsultora;
             }

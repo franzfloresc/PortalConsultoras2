@@ -349,6 +349,7 @@
 
             $("#_id").val(_editData.mongoIdVal);
             showDialog("DialogAdministracionEstrategia");
+            _ActualizarFlagIndividual(data);
             _editData.IdMatrizComercial = data.IdMatrizComercial;
             _editData.CUV2 = data.CUV2;
 
@@ -488,6 +489,7 @@
             $("#txtCantidad").val(data.Cantidad);
             $("#hdZonas").val(data.Zona);
             $("#hdNiveles").val(data.Niveles);
+
             //var strZonas = $("#hdZonas").val();
             //if (strZonas != "") {
             //    $.jstree._reference($("#arbolRegionZona")).uncheck_all();
@@ -558,7 +560,7 @@
                 '" readonly /></div>');
 
             _agregarCamposLanzamiento("img-fondo-desktop", data.ImgFondoDesktop);
-            _agregarCamposLanzamiento("img-prev-desktop", data.ImgPrevDesktop);
+            _agregarCamposLanzamiento("img-fondo-mobile", data.ImgFondoMobile);
             _agregarCamposLanzamiento("img-ficha-desktop", data.ImgFichaDesktop);
             _agregarCamposLanzamiento("img-ficha-mobile", data.ImgFichaMobile);
             _agregarCamposLanzamiento("img-ficha-fondo-desktop", data.ImgFichaFondoDesktop);
@@ -575,6 +577,9 @@
             } else {
                 _vistaNuevoProductoGeneral();
             }
+
+            _ActualizarFlagIndividual(data);
+
             return data;
         };
     };
@@ -802,7 +807,7 @@
 
         if (tipo == "2")
             _variables.cantidadPrecargar = parseInt(cantidad);
-        
+
         if (tipo == "0")
             _variables.cantidadOp = parseInt(cantidad);
 
@@ -862,7 +867,7 @@
         $("#hdnCodigoSAP").val("");
         $("#hdnEnMatrizComercial").val("");
         if (cuvIngresado.length == 5) {
-            waitingDialog({});
+            waitingDialog();
             $.ajaxSetup({ cache: false });
 
             var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
@@ -945,6 +950,7 @@
                         $("#divInformacionAdicionalEstrategiaContenido").hide();
 
                         $("#mensajeErrorCUV2").val("");
+
                     } else {
                         $("#mensajeErrorCUV2").val(data.message);
                         _toastHelper.error($("#mensajeErrorCUV2").val());
@@ -988,7 +994,7 @@
     };
     var _limpiarBusquedaNemotecnico = function () {
         _limpiarFiltrosNemotecnico();
-        waitingDialog({});
+        waitingDialog();
         _obtenerImagenesByCodigoSAP(_editData, 1, true);
     }
     var _clearFields = function () {
@@ -1027,7 +1033,8 @@
         $("#divInformacionAdicionalEstrategia").css("background", "#D0D0D0");
         $("#txtTextoLibre").val("");
         _limpiarCamposLanzamiento("img-fondo-desktop");
-        _limpiarCamposLanzamiento("img-prev-desktop");
+        _limpiarCamposLanzamiento("img-fondo-mobile");
+        //_limpiarCamposLanzamiento("img-prev-desktop");
         _limpiarCamposLanzamiento("img-ficha-desktop");
         _limpiarCamposLanzamiento("img-ficha-mobile");
         _limpiarCamposLanzamiento("img-ficha-fondo-desktop");
@@ -1038,8 +1045,15 @@
         $("#url-video-mobile").val("");
         $("#txtPrecioPublico").val("");
         $("#txtGanancia").val("");
-        if ($("#hdEstrategiaCodigo").val() === "005") $("#div-revista-digital").show();
-        else $("#div-revista-digital").hide();
+        if ($("#hdEstrategiaCodigo").val() === _codigoEstrategia.Lanzamiento) {
+            $("#div-revista-digital").show();
+            $("#divSeccionIndividual").show();
+        }
+        else {
+            $("#div-revista-digital").hide();
+            $("#divSeccionIndividual").hide();
+        }
+        _ActualizarFlagIndividual();
 
     };
     var _fnGrillaEstrategias1 = function () {
@@ -1396,17 +1410,17 @@
             _toastHelper.error("El archivo es demasiado extenso para ser procesado.");
             return false;
         }
-        
+
         if (filename.substring(filename.lastIndexOf(".") + 1) !== "csv") {
             _toastHelper.error("El archivo no tiene la extensión correcta.");
             return false;
         }
-        
+
         formData.append("Documento", document.getElementById("fileBloqueoCuv").files[0]);
         formData.append("Pais", $("#ddlPais").val());
         formData.append("CampaniaId", $("#ddlCampania").val());
         formData.append("TipoEstrategia", $("#ddlTipoEstrategia").val());
-        
+
         $.ajax({
             url: _config.urlUploadBloqueoCuv,
             type: "POST",
@@ -1415,7 +1429,7 @@
             contentType: false,
             processData: false,
             success: function (data) {
-                
+
                 $("#listCargaBloqueoCuv").jqGrid("GridUnload");
                 var gridJson = {
                     page: 1,
@@ -1424,7 +1438,7 @@
                     rows: [
                         {
                             Descripcion: "CUVs Cargados",
-                            Cantidad: data.listActualizado 
+                            Cantidad: data.listActualizado
                         }
                     ]
                 };
@@ -1465,8 +1479,8 @@
             }
         });
     }
-    var _actualizarTonos = function() {
-        waitingDialog({});
+    var _actualizarTonos = function () {
+        waitingDialog();
         var params = {
             CampaniaID: $("#ddlCampania").val(),
             TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
@@ -1794,12 +1808,12 @@
             _toastHelper.error(validacionMsj);
             return false;
         }
-        waitingDialog({});
+        waitingDialog();
         _obtenerImagenesByNemotecnico(_editData, 1, true);
         return true;
     }
     var _pedidoAsociadoChecks = function () {
-        waitingDialog({});
+        waitingDialog();
         $.ajaxSetup({ cache: false });
         var codigoPrograma = $("#ddlTipoEstrategia option:selected").attr("Codigo-Programa");
 
@@ -2006,6 +2020,20 @@
             "#pagerTC",
             { edit: false, add: false, refresh: false, del: false, search: false });
         jQuery("#listTC").setGridParam({ datatype: "json", page: 1 }).trigger("reloadGrid");
+    }
+
+    var _ActualizarFlagIndividual = function (data) {
+        data = data || {};
+        if (data.FlagIndividual == 1 || data.FlagIndividual === true) {
+            $("#chkFlagIndividual").attr("checked", true);
+        } else {
+            $("#chkFlagIndividual").removeAttr("checked");
+        }
+
+        _eventos.clickCheckFlagIndividual();
+
+        data.Slogan = data.Slogan || "";
+        $("#txtSlogan").val(data.Slogan);
     }
 
     // SHOWROOM-INICIO
@@ -2683,7 +2711,7 @@
     }
 
     var _uploadFileSetStrategyShowroom = function () {
-        waitingDialog({});
+        waitingDialog();
         var formData = new FormData();
         var totalFiles = document.getElementById("fileDescMasivo").files.length;
         if (totalFiles <= 0) {
@@ -2759,9 +2787,9 @@
                 var mensaje = '';
                 if (data.listActualizado == 0) {
                     mensaje = 'No se realizó ninguna actualización (Verificar que los CUVs existan en la tabla "ods.EstrategiaProducto").';
-                    }
-                    else {
-                    mensaje = "El procedimiento culmino con éxito, se actualizaron "+ data.listActualizado +" producto(s)";
+                }
+                else {
+                    mensaje = "El procedimiento culmino con éxito, se actualizaron " + data.listActualizado + " producto(s)";
                 }
                 closeWaitingDialog();
                 $("#estadoCargaMasiva").css('color', 'black');
@@ -2937,7 +2965,7 @@
                     }
                     //valores para el carrusel de la estrategia de lanzamiento
                     var imgFondoDesktop = $("#nombre-img-fondo-desktop").val();
-                    var imgPrevDesktop = $("#nombre-img-prev-desktop").val();
+                    //var imgPrevDesktop = $("#nombre-img-prev-desktop").val();
                     var imgFichaDesktop = $("#nombre-img-ficha-desktop").val();
                     var urlVideoDesktop = $("#url-video-desktop").val();
                     var imgFondoMobile = $("#nombre-img-fondo-mobile").val();
@@ -2961,6 +2989,9 @@
                     var DescripcionMarcaVal = $('#MarcaDescripcion').val();
                     var CodigoProductoVal = $('#CodigoProducto').val();
                     var CodigoSAPVal = $('#CodigoSAP').val();
+                    //TODO Validar yrdsf
+                    var flagIndividual = $("#chkFlagIndividual").is(":checked");
+                    var slogan = $("#txtSlogan").val() || "";
 
                     var params = {
                         EstrategiaID: EstrategiaID,
@@ -2991,7 +3022,7 @@
                         FlagEstrella: flagEstrella,
                         CodigoTipoEstrategia: aux3,
                         ImgFondoDesktop: imgFondoDesktop,
-                        ImgPrevDesktop: imgPrevDesktop,
+                        //ImgPrevDesktop: imgPrevDesktop,
                         ImgFichaDesktop: imgFichaDesktop,
                         UrlVideoDesktop: urlVideoDesktop,
                         ImgFondoMobile: imgFondoMobile,
@@ -3016,7 +3047,10 @@
                         DescripcionMarca: DescripcionMarcaVal,
                         CodigoProducto: CodigoProductoVal,
                         CodigoSAP: CodigoSAPVal,
-                        _id: _idVal
+                        _id: _idVal,
+                        //TODO validar yrdsf
+                        FlagIndividual: flagIndividual,
+                        Slogan: slogan
                     };
                     jQuery.ajax({
                         type: "POST",
@@ -3313,7 +3347,7 @@
             draggable: false,
             title: "Lista de CUVs actualizados."
         });
-        
+
         $("#DialogBloqueoCuv").dialog({
             autoOpen: false,
             resizable: false,
@@ -3323,7 +3357,7 @@
             draggable: false,
             title: "Carga CUVs Bloqueados"
         });
-        
+
         // SHOWROOM-INICIO
         $("#DialogDatosShowRoom").dialog({
             autoOpen: false,
@@ -3578,7 +3612,8 @@
             else $("#div-revista-digital").hide();
 
             _limpiarCamposLanzamiento("img-fondo-desktop");
-            _limpiarCamposLanzamiento("img-prev-desktop");
+            _limpiarCamposLanzamiento("img-fondo-mobile");
+            //_limpiarCamposLanzamiento("img-prev-desktop");
             _limpiarCamposLanzamiento("img-ficha-desktop");
             _limpiarCamposLanzamiento("img-ficha-mobile");
             _limpiarCamposLanzamiento("img-ficha-fondo-desktop");
@@ -3602,6 +3637,7 @@
             HideDialog("DialogZona");
             showDialog("DialogAdministracionEstrategia");
             $("#linkAlcance").click();
+            _ActualizarFlagIndividual();
             return true;
         },
         clickActivarDesactivar: function () {
@@ -3609,7 +3645,7 @@
             if (!proceder)
                 return false;
 
-            waitingDialog({});
+            waitingDialog();
 
             //var estrategias = jQuery("#list").jqGrid("getDataIDs", "EstrategiaID");
             //var estrategiasSeleccionadas = jQuery("#list").jqGrid("getGridParam", "selarrrow");
@@ -3943,39 +3979,6 @@
         clickAceptarMasivo3: function () {
             HideDialog("DialogNuevoMasivo");
         },
-        clickCargaMasivaImagenes: function () {
-            if ($("#ddlPais").val() == "") {
-                _toastHelper.error("Debe seleccionar el País, verifique.");
-                return false;
-            }
-            if ($("#ddlCampania").val() == "") {
-                _toastHelper.error("Debe seleccionar la Campaña, verifique.");
-                return false;
-            }
-
-            var campaniaId = $("#ddlCampania").val();
-            var params = {
-                campaniaID: campaniaId
-            };
-
-            waitingDialog({});
-            jQuery.ajax({
-                type: "POST",
-                url: baseUrl + "AdministrarEstrategia/CargaMasivaImagenes",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(params),
-                async: true,
-                success: function (data) {
-                    //if(data.success)
-                    closeWaitingDialog();
-                    _toastHelper.success(data.message);
-                },
-                error: function (data, error) {
-                    _toastHelper.error(data.message);
-                }
-            });
-        },
         clickImagenEstrategia: function () {
             $(this).css("color", "white");
             $(this).css("background", "#00A2E8");
@@ -4239,7 +4242,7 @@
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(params),
                     async: true,
-                    success: function(data) {
+                    success: function (data) {
                         if (data.success && data.valor != null && data.valor !== "") {
                             $("#divCuvsBloqueados").show();
                             $("#listCuvsBloqueados").html(data.valor);
@@ -4247,7 +4250,7 @@
                             $("#divCuvsBloqueados").hide();
                         }
                     },
-                    error: function(data, error) {
+                    error: function (data, error) {
                         _toastHelper.error(data.message);
                     }
                 });
@@ -4260,14 +4263,14 @@
                     $("#divBloqueoCuvPaso2").hide();
                     showDialog("DialogBloqueoCuv");
                 }
-            } 
+            }
         },
         clickAceptarBloqueoCuv1: function () {
             _uploadFileBloqueoCuv();
         },
-        
-        changeTipoEstrategia: function() {
-            var aux2 = $("#ddlTipoEstrategia").find(":selected").data("codigo");
+
+        changeTipoEstrategia: function () {
+            var aux2 = $("#ddlTipoEstrategia").find(":selected").data("codigo") || "";
             $("#btnActivarDesactivar").hide();
             $("#btnNuevoMasivo").hide();
             $("#btnDescripcionMasivo").hide();
@@ -4306,7 +4309,7 @@
             $("#hdTipoConsulta").attr("value", "0");
             $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
             var Id = $(this).val();
-            waitingDialog({});
+            waitingDialog();
             $.ajaxSetup({ cache: false });
             $.ajax({
                 type: "GET",
@@ -4364,7 +4367,7 @@
                 });
 
         },
-        keyUpCuv: function() {
+        keyUpCuv: function () {
             if ($(this).val().length == 5) {
 
                 if ($("#txtCUV2").val() == "") {
@@ -4372,7 +4375,7 @@
                     return false;
                 }
 
-                waitingDialog({});
+                waitingDialog();
                 $.ajaxSetup({ cache: false });
 
                 var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
@@ -4436,7 +4439,7 @@
                     return false;
                 }
 
-                waitingDialog({});
+                waitingDialog();
                 $.ajaxSetup({ cache: false });
 
                 var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
@@ -4520,10 +4523,19 @@
             $('#arbolRegionZona').jstree('close_all');
             showDialog("DialogZona");
             return false;
-        }
+        },
+        clickCheckFlagIndividual: function () {
+            if ($("#chkFlagIndividual").is(":checked")) {
+                $("#seccionSlogan").show();
+            }
+            else {
+                $("#seccionSlogan").hide();
+                $("#txtSlogan").val("");
+            }
+        },
     }
-     
-    var _bindingEvents = function(){
+
+    var _bindingEvents = function () {
         $("body").on("click", "#btnNuevo", _eventos.clickNuevo);
         $("body").on("click", "#btnBuscar", _eventos.clickBuscar);
         $("body").on("click", "#btnActivarDesactivar", _eventos.clickActivarDesactivar);
@@ -4539,7 +4551,6 @@
         $("body").on("click", "#btnCancelarMasivo1", _eventos.clickCancelarMasivo1);
         $("body").on("click", "#btnCancelarMasivo2", _eventos.clickCancelarMasivo2);
         $("body").on("click", "#btnAceptarMasivo3", _eventos.clickAceptarMasivo3);
-        $("body").on("click", "#btnCargaMasivaImagenes", _eventos.clickCargaMasivaImagenes);
         $("body").on("click", "#divImagenEstrategia", _eventos.clickImagenEstrategia);
         $("body").on("click", "#divInformacionAdicionalEstrategia", _eventos.clickInformacionAdicionalEstrategia);
         $("body").on("click", "#linkTallaColor", _eventos.clickLinkTallaColor);
@@ -4567,6 +4578,14 @@
         $("body").on("keyup", "#txtCUV", _eventos.keyUpCuv);
         $("body").on("keyup", "#txtCUVTC", _eventos.keyUpCuvTc);
         $("body").on("keyup", "#txtCUV2", _eventos.keyUpCuv2);
+
+
+        $("body").on("click", "#chkFlagIndividual", _eventos.clickCheckFlagIndividual);
+
+        var idPais = $("#ddlPais").val();
+        if (idPais > 0) {
+            $("#ddlPais").change();
+        }
     }
 
     function cargarArbol() {
@@ -4611,7 +4630,7 @@
         if (id) {
             _limpiarFiltrosNemotecnico();
 
-            waitingDialog({});
+            waitingDialog();
 
             $("#hdEstrategiaID").val(id);
 
@@ -4642,7 +4661,7 @@
             return false;
 
         if (id) {
-            waitingDialog({});
+            waitingDialog();
 
             $("#hdEstrategiaID").val(id);
 
@@ -4677,11 +4696,11 @@
         event.preventDefault();
         event.stopPropagation();
         var elimina = confirm("¿Está seguro que desea eliminar el set seleccionado?");
-        if (!elimina){
+        if (!elimina) {
             return false;
         }
         if (id) {
-            waitingDialog({});
+            waitingDialog();
             $("#hdEstrategiaID").val(id);
             var params = { EstrategiaID: $("#hdEstrategiaID").val() };
             jQuery.ajax({
@@ -4743,7 +4762,7 @@
             eventoID: ID
         };
 
-        waitingDialog({});
+        waitingDialog();
         jQuery.ajax({
             type: "POST",
             url: urlDeshabilitarShowRoomEvento,
@@ -4784,7 +4803,7 @@
             eventoID: ID
         };
 
-        waitingDialog({});
+        waitingDialog();
         jQuery.ajax({
             type: "POST",
             url: _config.urlEliminarShowRoomEvento,
@@ -4859,7 +4878,7 @@
 
         console.log(item);
 
-        waitingDialog({});
+        waitingDialog();
         jQuery.ajax({
             type: "POST",
             url: _config.urlEliminarOfertaShowRoomDetalleAll,
@@ -4943,7 +4962,7 @@
 
         console.log(item);
 
-        waitingDialog({});
+        waitingDialog();
         jQuery.ajax({
             type: "POST",
             url: _config.urlEliminarOfertaShowRoomDetalle,
@@ -4992,7 +5011,7 @@
             }
         });
     }
-    
+
     function Inicializar() {
         _iniDialog();
         _bindingEvents();
@@ -5001,7 +5020,8 @@
         _paletaColores();
 
         _uploadFileLanzamineto("img-fondo-desktop");
-        _uploadFileLanzamineto("img-prev-desktop");
+        _uploadFileLanzamineto("img-fondo-mobile");
+        //_uploadFileLanzamineto("img-prev-desktop");
         _uploadFileLanzamineto("img-ficha-desktop");
         _uploadFileLanzamineto("img-ficha-fondo-desktop");
         _uploadFileLanzamineto("img-ficha-mobile");
