@@ -698,10 +698,8 @@ namespace Portal.Consultoras.Web.Controllers
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                     var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, entidad.ImagenProducto);
 
-                    var listaImagenesResize = ObtenerListaImagenesResize(rutaImagenCompleta);
-                    if (listaImagenesResize != null && listaImagenesResize.Count > 0)
-                        mensajeErrorImagenResize = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
-
+                    mensajeErrorImagenResize = ImagenesResizeProceso(rutaImagenCompleta);
+                    
                     #endregion                    
 
                     sv.InsOfertaProducto(entidad);
@@ -755,9 +753,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                     var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, entidad.ImagenProducto);
 
-                    var listaImagenesResize = ObtenerListaImagenesResize(rutaImagenCompleta);
-                    if (listaImagenesResize != null && listaImagenesResize.Count > 0)
-                        mensajeErrorImagenResize = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
+                    mensajeErrorImagenResize = ImagenesResizeProceso(rutaImagenCompleta);
 
                     #endregion                    
 
