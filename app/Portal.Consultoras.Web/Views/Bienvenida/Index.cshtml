@@ -2210,7 +2210,6 @@
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
         var showPopupMisDatos = '@(Model.ShowPopupMisDatos ? 1 : 0)';
         var popupInicialCerrado = '@(Model.PopupInicialCerrado ? 1 : 0)';
-        var revistaDigital= @Html.Raw(Json.Encode(revistaDigital));
 
         var asesoraOnlineObj = AsesoraOnline({
             asesoraOnlineUrl: '@Url.Action("Index", "AsesoraOnline")',

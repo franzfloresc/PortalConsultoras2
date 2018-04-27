@@ -135,7 +135,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult Personalizado(string query)
         {
 
-            if (!(sessionManager.GetEsShowRoom() && userData.CodigoISO == "PE"))
+            if (!(sessionManager.GetEsShowRoom() && userData.CodigoISO == Constantes.CodigosISOPais.Peru))
             {
                 return RedirectToAction("Index");
             }

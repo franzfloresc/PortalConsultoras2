@@ -1,7 +1,6 @@
 ﻿using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.Pedido.App;
-
-using System.Collections.Generic;
 
 namespace Portal.Consultoras.BizLogic.Pedido
 {
@@ -9,8 +8,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
     {
         BEProductoApp GetCUV(BEProductoAppBuscar productoBuscar);
         BEPedidoDetalleAppInsertarResult Insert(BEPedidoDetalleAppInsertar pedidoDetalle);
-        List<BEPedidoWebDetalle> GetDetalle(BEPedidoDetalleAppBuscar pedidoDetalle);
+        BEPedidoWeb Get(BEUsuario usuario);
         bool InsertKitInicio(BEUsuario usuario);
         BEPedidoDetalleAppInsertarResult Update(BEPedidoDetalleAppInsertar pedidoDetalle);
+        BEConfiguracionPedido GetConfiguracion(int paisID, string codigoUsuario);
     }
 }

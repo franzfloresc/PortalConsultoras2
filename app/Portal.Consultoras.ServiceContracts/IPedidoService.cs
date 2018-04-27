@@ -1261,11 +1261,13 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEPedidoDetalleAppInsertarResult InsertPedidoDetalleApp(BEPedidoDetalleAppInsertar pedidoDetalle);
         [OperationContract]
-        List<BEPedidoWebDetalle> GetPedidoDetalleApp(BEPedidoDetalleAppBuscar pedidoDetalle);
+        BEPedidoWeb GetPedidoApp(BEUsuario usuario);
         [OperationContract]
         bool InsertKitInicio(BEUsuario usuario);
         [OperationContract]
         BEPedidoDetalleAppInsertarResult UpdatePedidoDetalleApp(BEPedidoDetalleAppInsertar pedidoDetalle);
+        [OperationContract]
+        BEConfiguracionPedido GetConfiguracionPedidoApp(int paisID, string codigoUsuario);
         #endregion
 
         #region Pago en Linea

@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.Pedido.App;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
@@ -19,7 +20,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private readonly IConfiguracionProgramaNuevasBusinessLogic _configuracionProgramaNuevasBusinessLogic;
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
         private readonly IUsuarioBusinessLogic _usuarioBusinessLogic;
-        
+        private readonly IConsultorasProgramaNuevasBusinessLogic _consultorasProgramaNuevasBusinessLogic;
+        private readonly IEscalaDescuentoBusinessLogic _escalaDescuentoBusinessLogic;
+        private readonly IMensajeMetaConsultoraBusinessLogic _mensajeMetaConsultoraBusinessLogic;
 
         private List<ObjMontosProl> montosProl = new List<ObjMontosProl> { new ObjMontosProl() };
 
@@ -29,7 +32,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     new BLEstrategia(),
                                     new BLConfiguracionProgramaNuevas(),
                                     new BLConsultoraConcurso(),
-                                    new BLUsuario())
+                                    new BLUsuario(),
+                                    new BLConsultorasProgramaNuevas(),
+                                    new BLEscalaDescuento(),
+                                    new BLMensajeMetaConsultora())
         { }
 
         public BLPedidoApp(IProductoBusinessLogic productoBusinessLogic, 
@@ -38,7 +44,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             IEstrategiaBusinessLogic estrategiaBusinessLogic,
                             IConfiguracionProgramaNuevasBusinessLogic configuracionProgramaNuevasBusinessLogic,
                             IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic,
-                            IUsuarioBusinessLogic usuarioBusinessLogic )
+                            IUsuarioBusinessLogic usuarioBusinessLogic,
+                            IConsultorasProgramaNuevasBusinessLogic consultorasProgramaNuevasBusinessLogic,
+                            IEscalaDescuentoBusinessLogic escalaDescuentoBusinessLogic,
+                            IMensajeMetaConsultoraBusinessLogic mensajeMetaConsultoraBusinessLogic)
         {
             _productoBusinessLogic = productoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
@@ -47,9 +56,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
             _configuracionProgramaNuevasBusinessLogic = configuracionProgramaNuevasBusinessLogic;
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
             _usuarioBusinessLogic = usuarioBusinessLogic;
-
+            _consultorasProgramaNuevasBusinessLogic = consultorasProgramaNuevasBusinessLogic;
+            _escalaDescuentoBusinessLogic = escalaDescuentoBusinessLogic;
+            _mensajeMetaConsultoraBusinessLogic = mensajeMetaConsultoraBusinessLogic;
         }
 
+        #region Publicos
         public BEProductoApp GetCUV(BEProductoAppBuscar productoBuscar)
         {
             try
@@ -122,8 +134,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             try
             {
-                //Informacion de usuario y palancas
-                var usuario = _usuarioBusinessLogic.GetSesionUsuarioPedidoApp(pedidoDetalle.Usuario);
+                //Informacion de usuario
+                var usuario = pedidoDetalle.Usuario;
+                usuario.EsConsultoraNueva = _usuarioBusinessLogic.EsConsultoraNueva(usuario);
 
                 //Validacion reserva u horario restringido
                 var validacionHorario = _pedidoWebBusinessLogic.ValidacionModificarPedido(pedidoDetalle.PaisID,
@@ -163,22 +176,49 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
         }
 
-        public List<BEPedidoWebDetalle> GetDetalle(BEPedidoDetalleAppBuscar pedidoDetalle)
+        public BEPedidoWeb Get(BEUsuario usuario)
         {
-            var pedidos = new List<BEPedidoWebDetalle>();
+            var pedido = new BEPedidoWeb();
 
             try
             {
+                pedido = _pedidoWebBusinessLogic.GetPedidoWebByCampaniaConsultora(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
+
                 var pedidoID = 0;
-                pedidos = ObtenerPedidoWebDetalle(pedidoDetalle, out pedidoID);
-                pedidos.Where(x => x.ClienteID == 0).Update(x => x.NombreCliente = pedidoDetalle.NombreConsultora);
+                var pedidoBuscar = new BEPedidoAppBuscar()
+                {
+                    PaisID = usuario.PaisID,
+                    CampaniaID = usuario.CampaniaID,
+                    ConsultoraID = usuario.ConsultoraID,
+                    NombreConsultora = usuario.Nombre,
+                    CodigoPrograma = usuario.CodigoPrograma,
+                    ConsecutivoNueva = usuario.ConsecutivoNueva
+                };
+                var pedidos = ObtenerPedidoWebDetalle(pedidoBuscar, out pedidoID);
+                pedidos.Where(x => x.ClienteID == 0).Update(x => x.NombreCliente = usuario.Nombre);
+                pedido.olstBEPedidoWebDetalle = pedidos;
+
+                pedido.CantidadProductos = pedidos.Sum(p => p.Cantidad);
+                pedido.CantidadCuv = pedidos.Count;
+
+                pedido.TippingPoint = 0;
+                if (usuario.MontoMaximoPedido > 0)
+                {
+                    var tp = GetConfiguracionProgramaNuevas(usuario);
+
+                    if (tp.IndExigVent == "1")
+                    {
+                        var obeConsultorasProgramaNuevas = GetConsultorasProgramaNuevas(usuario, tp.CodigoPrograma);
+                        if (obeConsultorasProgramaNuevas != null) pedido.TippingPoint = obeConsultorasProgramaNuevas.MontoVentaExigido;
+                    }
+                }
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog(ex, pedidoDetalle.ConsultoraID, pedidoDetalle.PaisID);
+                LogManager.SaveLog(ex, usuario.ConsultoraID, usuario.PaisID);
             }
 
-            return pedidos;
+            return pedido;
         }
 
         public bool InsertKitInicio(BEUsuario usuario)
@@ -187,8 +227,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             try
             {
-                //Informacion de usuario y palancas
-                usuario = _usuarioBusinessLogic.GetSesionUsuarioPedidoApp(usuario);
+                //Informacion de usuario
+                usuario.EsConsultoraNueva = _usuarioBusinessLogic.EsConsultoraNueva(usuario);
 
                 if (!usuario.EsConsultoraNueva)
                 {
@@ -210,7 +250,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (obeConfiguracionProgramaNuevas == null) return false;
                 if (!flagkit && obeConfiguracionProgramaNuevas.IndProgObli != "1") return false;
 
-                var bePedidoWebDetalleParametros = new BEPedidoDetalleAppBuscar
+                var bePedidoWebDetalleParametros = new BEPedidoAppBuscar
                 {
                     PaisID = usuario.PaisID,
                     CampaniaID = usuario.CampaniaID,
@@ -304,6 +344,23 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
             
         }
+
+        public BEConfiguracionPedido GetConfiguracion(int paisID, string codigoUsuario)
+        {
+            var config = new BEConfiguracionPedido();
+
+            try
+            {
+                config.Barra = GetDataBarra(paisID, codigoUsuario);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, codigoUsuario, paisID);
+            }
+
+            return config;
+        }
+        #endregion
 
         #region GetCUV
         private bool BloqueoProductosCatalogo(BERevistaDigital revistaDigital, string codigosRevistaImpresa, BEProducto producto, BEProductoAppBuscar productoBuscar)
@@ -416,7 +473,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             if (usuario.MontoMaximoPedido == Convert.ToDecimal(9999999999.00))
                 return mensaje;
 
-            var pedidoDetalleBuscar = new BEPedidoDetalleAppBuscar()
+            var pedidoDetalleBuscar = new BEPedidoAppBuscar()
             {
                 PaisID = usuario.PaisID,
                 CampaniaID = usuario.CampaniaID,
@@ -518,7 +575,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             if (usuario.EsConsultoraNueva)
             {
-                var pedidoDetalleBuscar = new BEPedidoDetalleAppBuscar()
+                var pedidoDetalleBuscar = new BEPedidoAppBuscar()
                 {
                     PaisID = usuario.PaisID,
                     CampaniaID = usuario.CampaniaID,
@@ -576,7 +633,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             var resultado = true;
 
-            var pedidoDetalleBuscar = new BEPedidoDetalleAppBuscar()
+            var pedidoDetalleBuscar = new BEPedidoAppBuscar()
             {
                 PaisID = usuario.PaisID,
                 CampaniaID = usuario.CampaniaID,
@@ -710,7 +767,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         private void EliminarDetallePackNueva(BEUsuario usuario, BEPedidoDetalleAppInsertar pedidoDetalle)
         {
-            var pedidoDetalleBuscar = new BEPedidoDetalleAppBuscar()
+            var pedidoDetalleBuscar = new BEPedidoAppBuscar()
             {
                 PaisID = usuario.PaisID,
                 CampaniaID = usuario.CampaniaID,
@@ -739,7 +796,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             montosProl = new List<ObjMontosProl> { new ObjMontosProl() };
 
-            var pedidoDetalleBuscar = new BEPedidoDetalleAppBuscar()
+            var pedidoDetalleBuscar = new BEPedidoAppBuscar()
             {
                 PaisID = usuario.PaisID,
                 CampaniaID = usuario.CampaniaID,
@@ -811,8 +868,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
         }
         #endregion  
 
-        #region GetDetalle
-        private List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle(BEPedidoDetalleAppBuscar pedidoDetalle, out int pedidoID)
+        #region Get
+        private List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle(BEPedidoAppBuscar pedidoDetalle, out int pedidoID)
         {
             var detallesPedidoWeb = new List<BEPedidoWebDetalle>();
 
@@ -831,6 +888,18 @@ namespace Portal.Consultoras.BizLogic.Pedido
             pedidoID = detallesPedidoWeb.Any() ? detallesPedidoWeb.First().PedidoID : 0;
 
             return detallesPedidoWeb;
+        }
+
+        private BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(BEUsuario usuario, string codigoPrograma)
+        {
+            var obeConsultorasProgramaNuevas = new BEConsultorasProgramaNuevas
+            {
+                CodigoConsultora = usuario.CodigoConsultora,
+                Campania = usuario.CampaniaID.ToString(),
+                CodigoPrograma = codigoPrograma
+            };
+
+            return _consultorasProgramaNuevasBusinessLogic.GetConsultorasProgramaNuevas(usuario.PaisID, obeConsultorasProgramaNuevas);
         }
         #endregion
 
@@ -892,5 +961,21 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         #endregion
 
+        #region Configuracion
+        private BEPedidoBarra GetDataBarra(int paisID, string codigoUsuario)
+        {
+            var objR = new BEPedidoBarra
+            {
+                ListaEscalaDescuento = new List<BEEscalaDescuento>(),
+                ListaMensajeMeta = new List<BEMensajeMetaConsultora>()
+            };
+
+            objR.ListaEscalaDescuento = _escalaDescuentoBusinessLogic.GetEscalaDescuento(paisID) ?? new List<BEEscalaDescuento>();
+            var entity = new BEMensajeMetaConsultora() { TipoMensaje = string.Empty };
+            objR.ListaMensajeMeta = _mensajeMetaConsultoraBusinessLogic.GetMensajeMetaConsultora(paisID, entity) ?? new List<BEMensajeMetaConsultora>();
+
+            return objR;
+        }
+        #endregion
     }
 }

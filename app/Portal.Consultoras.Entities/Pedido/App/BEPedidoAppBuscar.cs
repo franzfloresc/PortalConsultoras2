@@ -3,7 +3,7 @@
 namespace Portal.Consultoras.Entities.Pedido.App
 {
     [DataContract]
-    public class BEPedidoDetalleAppBuscar
+    public class BEPedidoAppBuscar
     {
         [DataMember]
         public int PaisID { get; set; }
@@ -17,5 +17,8 @@ namespace Portal.Consultoras.Entities.Pedido.App
         public string CodigoPrograma { get; set; }
         [DataMember]
         public int ConsecutivoNueva { get; set; }
+
+        [DataMember]
+        public BEUsuario usuario { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using System.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLMensajeMetaConsultora
+    public class BLMensajeMetaConsultora : IMensajeMetaConsultoraBusinessLogic
     {
         public List<BEMensajeMetaConsultora> GetMensajeMetaConsultora(int paisID, BEMensajeMetaConsultora entidad)
         {
