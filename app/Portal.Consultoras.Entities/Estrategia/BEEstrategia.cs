@@ -282,6 +282,15 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int FlagRevista { get; set; }
 
+        [DataMember]
+        [NotMapped]
+        public bool AgregarEnMatriz { get; set; }
+
+        [DataMember]
+        [NotMapped]
+        public string UsuarioRegistro { get; set; }
+ 
+
         public BEEstrategia()
         { }
 
