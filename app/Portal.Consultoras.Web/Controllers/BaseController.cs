@@ -2815,7 +2815,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var mensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitada();
             if (string.IsNullOrEmpty(mensajeGestionCdrInhabilitada)) return mensajeGestionCdrInhabilitada;
-            if  (!EsAppMobile ) mensajeGestionCdrInhabilitada = String.Format("{0} {1}", mensajeGestionCdrInhabilitada , Constantes.CdrWebMensajes.ContactateChatEnLinea);
+            if (!EsAppMobile) mensajeGestionCdrInhabilitada = String.Format("{0} {1}", mensajeGestionCdrInhabilitada, Constantes.CdrWebMensajes.ContactateChatEnLinea);
             return mensajeGestionCdrInhabilitada;
         }
 
@@ -4350,7 +4350,17 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Resize Imagen Default       
 
-        public List<EntidadMagickResize> ObtenerListaImagenesResize(string rutaImagen, bool esAppCalatogo = false)
+        public string ImagenesResizeProceso(string urlImagen, bool esAppCalatogo = false)
+        {
+            string mensajeErrorImagenResize = "";
+            bool actualizar = true;
+            var listaImagenesResize = ObtenerListaImagenesResize(urlImagen, esAppCalatogo, actualizar);
+            if (listaImagenesResize != null && listaImagenesResize.Count > 0)
+                mensajeErrorImagenResize = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize, actualizar);
+            return mensajeErrorImagenResize;
+        }
+
+        public List<EntidadMagickResize> ObtenerListaImagenesResize(string rutaImagen, bool esAppCalatogo = false, bool actualizar = false)
         {
             var listaImagenesResize = new List<EntidadMagickResize>();
 
@@ -4384,7 +4394,7 @@ namespace Portal.Consultoras.Web.Controllers
                 int alto = 0;
 
                 EntidadMagickResize entidadResize;
-                if (!Util.ExisteUrlRemota(rutaImagenSmall))
+                if (!Util.ExisteUrlRemota(rutaImagenSmall) || actualizar)
                 {
                     GetDimensionesImagen(rutaImagen, listaValoresImagenesResize, Constantes.ConfiguracionImagenResize.TipoImagenSmall, out alto, out ancho);
 
@@ -4403,7 +4413,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                if (!Util.ExisteUrlRemota(rutaImagenMedium))
+                if (!Util.ExisteUrlRemota(rutaImagenMedium) || actualizar)
                 {
                     GetDimensionesImagen(rutaImagen, listaValoresImagenesResize, Constantes.ConfiguracionImagenResize.TipoImagenMedium, out alto, out ancho);
 
