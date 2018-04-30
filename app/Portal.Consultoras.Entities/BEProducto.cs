@@ -286,23 +286,6 @@ namespace Portal.Consultoras.Entities
         }
     }
 
-    [DataContract]
-    public class BECuvCantidad
-    {
-        [DataMember]
-        public string cuv { get; set; }
-        [DataMember]
-        public int cantidad { get; set; }
-
-        public BECuvCantidad(IDataReader datarec)
-        {
-            if (datarec["cuv"] != DBNull.Value)
-                cuv = DbConvert.ToString(datarec["cuv"]);
-            if (datarec["cantidad"] != DBNull.Value)
-                cantidad = DbConvert.ToInt32(datarec["cantidad"]);
-        }
-    }
-
     public enum ProductoOrigenEnum
     {
         Catalogo,
