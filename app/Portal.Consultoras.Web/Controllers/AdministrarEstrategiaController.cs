@@ -756,9 +756,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         #region Imagen Resize  
 
-                        var listaImagenesResize = ObtenerListaImagenesResize(model.RutaImagenCompleta);
-                        if (listaImagenesResize != null && listaImagenesResize.Count > 0)
-                            mensajeErrorImagenResize = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
+                        mensajeErrorImagenResize = ImagenesResizeProceso(model.RutaImagenCompleta);
 
                         #endregion
 

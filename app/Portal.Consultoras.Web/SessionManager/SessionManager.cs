@@ -246,7 +246,7 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneOpmX1] ?? false);
         }
-        
+
         public void SetTieneHv(bool tieneHv)
         {
             HttpContext.Current.Session[Constantes.ConstSession.TieneHv] = tieneHv;
@@ -368,7 +368,7 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (DateTime)HttpContext.Current.Session["StartSession"];
         }
-        
+
         void ISessionManager.SetDatosPagoVisa(PagoEnLineaModel model)
         {
             HttpContext.Current.Session[Constantes.ConstSession.DatosPagoVisa] = model;
@@ -379,17 +379,26 @@ namespace Portal.Consultoras.Web.SessionManager
             return (PagoEnLineaModel)HttpContext.Current.Session[Constantes.ConstSession.DatosPagoVisa];
         }
 
-        EstrategiaPersonalizadaProductoModel ISessionManager.ProductoTemporal
+        void ISessionManager.SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
         {
-            get
-            {
-                return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
-            }
-
-            set
-            {
-                HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = value;
-            }
+            HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = modelo;
         }
+
+        EstrategiaPersonalizadaProductoModel ISessionManager.GetProductoTemporal()
+        {
+            return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
+        }
+
+        //EstrategiaPersonalizadaProductoModel ISessionManager.ProductoTemporal
+        //{
+        //    get
+        //    {
+        //        return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
+        //    }
+        //    set
+        //    {
+        //        HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = value;
+        //    }
+        //}
     }
 }
