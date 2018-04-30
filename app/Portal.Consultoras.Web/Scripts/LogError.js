@@ -121,6 +121,12 @@ function registrarLogError(objError) {
 
     var urlLogError = urlLogDynamo + "Api/LogError";
 
+    // Ctrl, Action, Url actual
+    var controllerName = window.controllerName
+        , actionName = window.actionName
+        , currentUrl = window.location.href
+    ;
+
     var extra = [
         { 'key': 'Origen', 'value': objError.Origen },
         { 'key': 'Url', 'value': objError.Url },
@@ -134,6 +140,11 @@ function registrarLogError(objError) {
         'Usuario': userData.codigoConsultora,
         'Mensaje': objError.Mensaje,
         'StackTrace': objError.StackTrace,
+
+        'CurrentUrl': currentUrl,
+        'ControllerName': controllerName,
+        'ActionName': actionName,
+
         'Extra': extra
     };
 

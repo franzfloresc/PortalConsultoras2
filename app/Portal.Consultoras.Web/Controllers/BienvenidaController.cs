@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
 
-                //int zero = 0, num = 5; num = num / zero;
+                int zero = 0, num = 5; num = num / zero;
 
                 model.PartialSectionBpt = GetPartialSectionBptModel(revistaDigital);
                 ViewBag.UrlImgMiAcademia = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImgMiAcademia) + "/" + userData.CodigoISO + "/academia.png";
