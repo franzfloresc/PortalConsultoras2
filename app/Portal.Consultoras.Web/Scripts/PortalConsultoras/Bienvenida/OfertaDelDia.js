@@ -58,7 +58,7 @@ $(document).ready(function () {
 
         if (props.TipoOrigenPantallaODD == CONS_TIPO_ORIGEN.MOBILE_HOME) {
             self.CargarODDMobile();
-            odd_mobile_google_analytics_promotion_impresion();
+            odd_mobile_home_google_analytics_promotion_impresion();
         }
 
         if (props.TipoOrigenPantallaODD == CONS_TIPO_ORIGEN.ESCRITORIO_HOME) {
@@ -398,7 +398,7 @@ $(document).ready(function () {
         }
     }
 
-    function odd_mobile_google_analytics_promotion_impresion() {
+    function odd_mobile_home_google_analytics_promotion_impresion() {
         if ($('#banner-odd-mobile').length > 0) {
             var id = $('#banner-odd-mobile').find("#estrategia-id-odd").val();
             var name = "Oferta del día - " + $('#banner-odd-mobile').find("#nombre-odd").val();
@@ -571,7 +571,6 @@ $(document).ready(function () {
         }
 
         var tipoEstrategiaID = itemCampos.find('.tipoestrategia-id-odd').val();
-        var estrategiaID = itemCampos.find('.estrategia-id-odd').val();
         var marcaID = itemCampos.find('.marca-id-odd').val();
         var cuv2 = itemCampos.find('.cuv2-odd').val();
         var precio = itemCampos.find('.precio-odd').val();

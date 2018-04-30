@@ -1556,7 +1556,7 @@ function TagManagerCarruselSugeridosInicio(data) {
 
 function CambiarCliente(elem) {
     var rows = $($('[data-paginacion="rows"]')[0]).val() || 10;
-    CargarDetallePedido(1, rows, elem.value);
+    CargarDetallePedido(1, rows);
 }
 
 function ObservacionesProducto(item) {
@@ -3383,7 +3383,7 @@ function AgregarProducto(url, model, divDialog, cerrarSplash, asyncX) {
         },
         error: function (data, error) {
             tieneMicroefecto = false;
-            AjaxError(data, error);
+            AjaxError(data);
             return false;
         }
     });
@@ -3420,7 +3420,7 @@ function CargarProductoAgotados() {
             }
             else alert(response.data);
         },
-        error: function (data, error) { AjaxError(data, error); }
+        error: function (data, error) { AjaxError(data); }
     });
 }
 
