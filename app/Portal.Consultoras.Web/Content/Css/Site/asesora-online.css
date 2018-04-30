@@ -1972,3 +1972,19 @@
         width:50%;
     }
 }
+
+.content_item_home_palanca {
+    margin-bottom: 30px;
+}
+
+.box_producto_mobile_fix {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.content_item_home_palanca {
+    min-width: 22%;
+    width: auto !important;
+    margin: 3% 1.5%;
+}
+

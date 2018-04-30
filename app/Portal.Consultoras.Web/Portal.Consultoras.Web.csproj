@@ -1260,6 +1260,7 @@
     <Content Include="Content\Css\Mobile\RevistaDigital\OfertaParaTi-Detalle.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\PaginaInformativa.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\PopupSuscripcion.css" />
+    <Content Include="Content\Css\Mobile\RevistaDigital\RedimensionLandingRD.css" />
     <Content Include="Content\Css\Site\Admin\Estrategias\UpSelling.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\index.css" />
     <Content Include="Content\Css\Site\Contenedor\Index.css" />
@@ -1267,6 +1268,7 @@
     <Content Include="Content\Css\Site\Esika\unsubscribe.css" />
     <Content Include="Content\Css\Site\Images\carrusel_next_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
+    <Content Include="Content\Css\Site\Landing\producto.landing.css" />
     <Content Include="Content\Css\Site\Lbel\unsubscribe.css" />
     <Content Include="Content\Css\Site\Lanzamientos\Detalle.css" />
     <Content Include="Content\Css\Site\Contenedor\carrusel.individual.css" />
@@ -4068,6 +4070,7 @@
     <Content Include="Areas\Mobile\Views\ShowRoom\DetalleOfertaPersonalizado.cshtml" />
     <Content Include="Areas\Mobile\Views\Lanzamientos\Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales.cshtml" />
+    <Content Include="Content\Css\Site\Contenedor\producto.simple.css" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>

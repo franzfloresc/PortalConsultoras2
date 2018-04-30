@@ -319,17 +319,17 @@ $(document).ready(function () {
             $(contenedorOfertas + ' [data-odd-tipoventana="carrusel"]').show();
         }
 
-        if (cantidadProductos <= 3) {
-            var wc = $('#divOddCarrusel').width();
-            var witem = ((wc) / cantidadProductos);
-            var witemc = $($('#divOddCarrusel [data-item]>div').get(0)).innerWidth();
-            witemc = (witem - witemc) / 2;
-            $('#divOddCarrusel [data-item]').css("width", witem + "px");
-            $('#divOddCarrusel [data-item]>div').css("margin-left", witemc + "px");
-            $('#divOddCarrusel [data-item]>div').css("margin-right", witemc + "px");
-        }
+        //if (cantidadProductos <= 3) {
+        //    var wc = $('#divOddCarrusel').width();
+        //    var witem = ((wc) / cantidadProductos);
+        //    var witemc = $($('#divOddCarrusel [data-item]>div').get(0)).innerWidth();
+           // witemc = (witem - witemc) / 2;
+            //$('#divOddCarrusel [data-item]').css("width", witem + "px");
+            //$('#divOddCarrusel [data-item]>div').css("margin-left", witemc + "px");
+            //$('#divOddCarrusel [data-item]>div').css("margin-right", witemc + "px");
+        //}
 
-        if (cantidadProductos > 3) {
+        if (cantidadProductos > 2) {
             EstablecerLazyCarrusel($('#divOddCarrusel'));
 
             $('#divOddCarrusel.slick-initialized').slick('unslick');
@@ -339,6 +339,7 @@ $(document).ready(function () {
                 vertical: false,
                 slidesToShow: 3,
                 slidesToScroll: 1,
+                variableWidth: true, 
                 autoplay: false,
                 speed: 260,
                 prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',

@@ -9,21 +9,21 @@
         seccionTituloClass += " seccion-titulo-dorado";
     }
 }
-
-<div class="bc_slider previsualizales-ofertas parche_presentacion_contenedor"
-     data-plantilla="carrusel-previsuales"
-     style="position: relative;left: 2.5%;">
-    <div class="bloque-titulo">
-        <div class="@seccionTituloClass">
-            <span>@Model.Titulo</span>
+<div class="bc_plantilla_estrategia_personalizada">
+    <div class="bc_slider parche_presentacion_contenedor parche_presentacion_contenedor_834"
+         data-plantilla="carrusel-previsuales"
+         style="position: relative;">
+        <div class="bloque-titulo">
+            <div class="@seccionTituloClass">
+                <span>@Model.Titulo</span>
+            </div>
+            <div class="parche_clear"></div>
         </div>
-        <div class="parche_clear"></div>
-    </div>
-    <div class="content_slider_ept" data-seccion-productos=""
-         style="max-width: 794px !important; position: relative; top: -56px;">
+        <div class="content_slider_ept" data-seccion-productos=""
+             style="max-width: 814px !important; position: relative; top: -56px;">
+        </div>
     </div>
 </div>
-
 <script id="lanzamiento-carrusel-individual-template" type="text/x-handlebars-template">
     {{#each this.listaLan as |lan|}}
     {{#if lan.TipoEstrategiaDetalle.FlagIndividual}}

@@ -410,7 +410,8 @@ namespace Portal.Consultoras.Web
             bundles.Add(new StyleBundle("~/bundles/css/Site/ccsOfertas").Include(
                 "~/Content/Css/Site/slick-pedido.css",
                 "~/Content/Css/Site/flexslider.css",
-                "~/Content/Css/Site/Contenedor/carrusel.individual.css"
+                "~/Content/Css/Site/Contenedor/carrusel.individual.css",
+                "~/Content/Css/Site/Contenedor/producto.simple.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsMobile/JsSB2-Ofertas").Include(
@@ -473,7 +474,8 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/RevistaDigital-Landing").Include(
-                "~/Content/Css/Site/ProductoListado/Landing.css"
+                "~/Content/Css/Site/ProductoListado/Landing.css",
+                "~/Content/Css/Site/Landing/producto.landing.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/Lanzamientos-Detalle").Include(
@@ -533,7 +535,8 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/bundles/css/Mobile/Site/RevistaDigital-Landing").Include(
                 "~/Content/Css/Site/slick-pedido.css",
-                "~/Content/Css/Site/flexslider.css"
+                "~/Content/Css/Site/flexslider.css",
+                "~/Content/Css/Mobile/RevistaDigital/RedimensionLandingRD.css"
             ));
             
             bundles.Add(new ScriptBundle("~/bundles/JsMobile/CDRWeb").Include(
@@ -568,7 +571,8 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/GuiaNegocio-Landing").Include(
                 "~/Content/Css/Site/ProductoListado/Landing.css",
-                "~/Content/Css/Site/RevistaDigital/Gnd-Flotante.css"
+                "~/Content/Css/Site/RevistaDigital/Gnd-Flotante.css",
+                "~/Content/Css/Site/Landing/producto.landing.css"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/css/Mobile/Site/GuiaNegocio-Landing").Include(
@@ -590,7 +594,8 @@ namespace Portal.Consultoras.Web
 
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/HerramientasVenta-Landing").Include(
-                "~/Content/Css/Site/ProductoListado/Landing.css"
+                "~/Content/Css/Site/ProductoListado/Landing.css",
+                "~/Content/Css/Site/Landing/producto.landing.css"
             ));
 
             #endregion
