@@ -19734,6 +19734,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool FlagHabilitarProductoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FlagRevistaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ISOPaisField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -20033,6 +20036,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.FlagHabilitarProductoField.Equals(value) != true)) {
                     this.FlagHabilitarProductoField = value;
                     this.RaisePropertyChanged("FlagHabilitarProducto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FlagRevista {
+            get {
+                return this.FlagRevistaField;
+            }
+            set {
+                if ((this.FlagRevistaField.Equals(value) != true)) {
+                    this.FlagRevistaField = value;
+                    this.RaisePropertyChanged("FlagRevista");
                 }
             }
         }

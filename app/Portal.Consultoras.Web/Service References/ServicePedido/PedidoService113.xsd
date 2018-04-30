@@ -20,6 +20,7 @@
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FlagAgotado" type="xs:int" />
       <xs:element minOccurs="0" name="FlagHabilitarProducto" type="xs:boolean" />
+      <xs:element minOccurs="0" name="FlagRevista" type="xs:int" />
       <xs:element minOccurs="0" name="ISOPais" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenMini" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenProducto" nillable="true" type="xs:string" />
