@@ -107,7 +107,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var svc = new SACServiceClient())
                 {
-                    //lote = svc.EstrategiaTemporalInsertarMasivo(userData.PaisID, entidadMasivo.CampaniaId, entidadMasivo.EstrategiaCodigo, entidadMasivo.Pagina, entidadMasivo.CantidadCuv, entidadMasivo.NroLote).ToList();
+                    lote = svc.EstrategiaTemporalInsertarMasivo(userData.PaisID, entidadMasivo.CampaniaId, entidadMasivo.EstrategiaCodigo, entidadMasivo.Pagina, entidadMasivo.CantidadCuv, entidadMasivo.NroLote);
                 }
             }
             catch (TimeoutException ex)
@@ -251,5 +251,34 @@ namespace Portal.Consultoras.Web.Controllers
                 return 0;
             }
         }
+        
+        public JsonResult InsertEstrategiaOfertaParaTi(int campaniaId, int nroLote)
+        {
+            try
+            {
+                int lote = 0;
+
+                using (var svc = new SACServiceClient())
+                {
+                    lote = svc.EstrategiaTemporalInsertarEstrategiaMasivo(userData.PaisID, nroLote);
+                }
+
+                return Json(new
+                {
+                    success = lote > 0,
+                    message = lote > 0 ? "Se insertaron las Estrategias." : "Error al insertar las estrategias."
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
     }
 }

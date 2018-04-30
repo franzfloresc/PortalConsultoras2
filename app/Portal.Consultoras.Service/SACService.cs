@@ -1521,7 +1521,7 @@ namespace Portal.Consultoras.Service
         #endregion
 
         #region Nuevo Masivo
-        public bool EstrategiaTemporalInsertarMasivo(int paisId, int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote)
+        public int EstrategiaTemporalInsertarMasivo(int paisId, int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote)
         {
             return _blAdministrarEstrategia.EstrategiaTemporalInsertarMasivo(paisId, campaniaId, estrategiaCodigo, pagina, cantidadCuv, nroLote);
         }
@@ -1534,6 +1534,11 @@ namespace Portal.Consultoras.Service
         public bool EstrategiaTemporalActualizarSetDetalle(int paisId, int nroLote)
         {
             return _blAdministrarEstrategia.EstrategiaTemporalActualizarSetDetalle(paisId, nroLote);
+        }
+
+        public int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote)
+        {
+            return _blAdministrarEstrategia.EstrategiaTemporalInsertarEstrategiaMasivo(paisId, nroLote);
         }
         #endregion
 

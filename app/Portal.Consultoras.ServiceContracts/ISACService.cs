@@ -772,13 +772,17 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region Nuevo Masivo
         [OperationContract]
-        bool EstrategiaTemporalInsertarMasivo(int paisId, int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote);
+        int EstrategiaTemporalInsertarMasivo(int paisId, int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote);
 
         [OperationContract]
         bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int nroLote);
 
         [OperationContract]
         bool EstrategiaTemporalActualizarSetDetalle(int paisID, int nroLote);
+        
+        [OperationContract]
+        int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote);
+        
         #endregion
     }
 }

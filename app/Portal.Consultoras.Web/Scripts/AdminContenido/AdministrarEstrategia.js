@@ -3800,7 +3800,7 @@
 
             jQuery.ajax({
                 type: "POST",
-                url: baseUrl + "AdministrarEstrategia/InsertEstrategiaOfertaParaTi",
+                url: baseUrl + "AdministrarEstrategiaMasivo/InsertEstrategiaOfertaParaTi",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(params),

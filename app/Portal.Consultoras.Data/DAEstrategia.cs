@@ -722,7 +722,7 @@ namespace Portal.Consultoras.Data
 
         #region Nuevo Masivo
 
-        public bool EstrategiaTemporalInsertarMasivo(int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote)
+        public int EstrategiaTemporalInsertarMasivo(int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalInsertarMasivo"))
             {
@@ -731,11 +731,12 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@Pagina", DbType.Int32, pagina);
                 Context.Database.AddInParameter(command, "@CantidadCuv", DbType.Int32, cantidadCuv);
                 Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+                Context.Database.AddOutParameter(command, "@NroLoteFinal", DbType.Int32, 100000);
                 Context.ExecuteReader(command);
-                return true;
+                return Convert.ToInt32(command.Parameters["@NroLoteFinal"].Value);
             }
         }
-        
+
         public bool EstrategiaTemporalActualizarPrecioNivel(int nroLote)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalActualizarPrecioNivel"))
@@ -753,6 +754,17 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
                 Context.ExecuteReader(command);
                 return true;
+            }
+        }
+
+        public int EstrategiaTemporalInsertarEstrategiaMasivo(int nroLote)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalInsertarEstrategiaMasivo"))
+            {
+                Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+                Context.Database.AddOutParameter(command, "@NroLoteFinal", DbType.Int32, 100000);
+                Context.ExecuteReader(command);
+                return Convert.ToInt32(command.Parameters["@NroLoteFinal"].Value);
             }
         }
         #endregion

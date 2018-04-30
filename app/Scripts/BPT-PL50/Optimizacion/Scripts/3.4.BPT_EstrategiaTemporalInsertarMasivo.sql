@@ -9,7 +9,8 @@ CREATE PROCEDURE EstrategiaTemporalInsertarMasivo
 	@EstrategiaCodigo varchar(5) = '',
 	@Pagina int,
 	@CantidadCuv int,
-	@NroLote int
+	@NroLote int = 0,
+	@NroLoteFinal int = 0 out
 )
 AS
 BEGIN
@@ -106,6 +107,19 @@ BEGIN
 		t.CampaniaID = @CampaniaID
 		and e.CUV2 is null
 
+	DECLARE @NumeroLote INT = isnull(@NumeroLoteAnt, 0)
+	
+	if @NroLote <= 0
+	begin
+		SELECT @NroLote = isnull(max(NumeroLote),0) 
+		FROM EstrategiaTemporal
+
+		if	@NroLote < 0
+			set @NroLote = 1
+		else
+			SET @NroLote = @NroLote + 1
+	end
+
 	INSERT INTO EstrategiaTemporal
 	(
 		CampaniaId,
@@ -139,6 +153,7 @@ BEGIN
 		group by CUV2
 	)
 
+	set @NroLoteFinal = @NroLote
 
 END
 GO

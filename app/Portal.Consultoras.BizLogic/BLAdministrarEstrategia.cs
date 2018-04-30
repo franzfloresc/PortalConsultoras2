@@ -30,7 +30,7 @@ namespace Portal.Consultoras.BizLogic
 
         #region Nuevo Masivo
 
-        public bool EstrategiaTemporalInsertarMasivo(int paisId, int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote)
+        public int EstrategiaTemporalInsertarMasivo(int paisId, int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, "", paisId);
-                return false;
+                return 0;
             }
         }
         
@@ -69,6 +69,20 @@ namespace Portal.Consultoras.BizLogic
             {
                 LogManager.SaveLog(ex, "", paisId);
                 return false;
+            }
+        }
+        
+        public int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote)
+        {
+            try
+            {
+                var daEstrategia = new DAEstrategia(paisId);
+                return daEstrategia.EstrategiaTemporalInsertarEstrategiaMasivo(nroLote);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", paisId);
+                return 0;
             }
         }
         #endregion
