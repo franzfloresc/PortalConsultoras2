@@ -138,7 +138,6 @@ $(document).ready(function () {
             }, 500);
         }).slick({
             lazyLoad: 'ondemand',
-            dots: true,
             infinite: false,
             speed: 300,
             slidesToShow: 2,
@@ -853,7 +852,7 @@ function EstrategiaAgregarShowRoom(event, popup) {
         return false;
     }
 
-    if (!ValidacionesPreOperacion(cantidad)) {
+    if (!ValidacionesPreOperacion()) {
         return false;
     }
 
