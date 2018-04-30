@@ -60,10 +60,6 @@
                     {{else}}
                         <h6>&ensp;&nbsp;</h6>
                     {{/IsNullOrEmpty}}
-
-                    {{#iff DescripcionResumen '!=' ''}}
-                    <p class="nombre_producto"><b>{{DescripcionResumen}}</b></p>
-                    {{/iff}}
                     {{#iff DescripcionCortada '!=' ''}}
                     <p class="nombre_producto"><b>{{DescripcionCortada}}</b></p>
                     {{/iff}}
@@ -137,7 +133,7 @@
                     <div onclick="javascript: VerDetalleEstrategia(event);">
                         <div class="texto_elige_tono">¡AHORA ELIGE TU TONO!</div>
                         <div class="clear"></div>
-                        <a href="javascript:;" class="btn_elige_tono js-no-popup">
+                        <a href="javascript:;" class="btn_elige_tono js-no-popup" data-item-tag="eligetuopcion">
                             <div>ELIGE TU OPCIÓN</div>
                         </a>
                     </div>
@@ -157,7 +153,6 @@
         </div>
         </div>
     {{/if}}
-
     {{/if}}
     {{/each}}
 

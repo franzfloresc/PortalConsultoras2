@@ -1,28 +1,27 @@
 ﻿using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.BizLogic.PagoEnlinea;
+using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.BizLogic.Reserva;
 using Portal.Consultoras.BizLogic.RevistaDigital;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.CargaMasiva;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
+using Portal.Consultoras.Entities.PagoEnLinea;
 using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.Pedido.App;
 using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.ServiceContracts;
-using Estrategia = Portal.Consultoras.Entities.Estrategia;
-using Portal.Consultoras.BizLogic.Pedido;
-using Portal.Consultoras.Entities.PagoEnLinea;
-using Portal.Consultoras.BizLogic.PagoEnlinea;
-
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
 using System.Threading.Tasks;
-using Portal.Consultoras.Common;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.Service
 {
@@ -859,7 +858,7 @@ namespace Portal.Consultoras.Service
         {
             return BLTracking.GetTrackingByPedido(paisID, codigo, campana, nropedido, tipoDoc);
         }
-        
+
         #endregion
 
         #region CUV_Automatico
@@ -1354,20 +1353,20 @@ namespace Portal.Consultoras.Service
             {
                 List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
                 {
-                    new KeyValuePair<string, string>("1", "AR"),
-                    new KeyValuePair<string, string>("2", "BO"),
-                    new KeyValuePair<string, string>("3", "CL"),
-                    new KeyValuePair<string, string>("4", "CO"),
-                    new KeyValuePair<string, string>("5", "CR"),
-                    new KeyValuePair<string, string>("6", "EC"),
-                    new KeyValuePair<string, string>("7", "SV"),
-                    new KeyValuePair<string, string>("8", "GT"),
-                    new KeyValuePair<string, string>("9", "MX"),
-                    new KeyValuePair<string, string>("10", "PA"),
-                    new KeyValuePair<string, string>("11", "PE"),
-                    new KeyValuePair<string, string>("12", "PR"),
-                    new KeyValuePair<string, string>("13", "DO"),
-                    new KeyValuePair<string, string>("14", "VE"),
+                    new KeyValuePair<string, string>("1", Constantes.CodigosISOPais.Argentina),
+                    new KeyValuePair<string, string>("2", Constantes.CodigosISOPais.Bolivia),
+                    new KeyValuePair<string, string>("3", Constantes.CodigosISOPais.Chile),
+                    new KeyValuePair<string, string>("4", Constantes.CodigosISOPais.Colombia),
+                    new KeyValuePair<string, string>("5", Constantes.CodigosISOPais.CostaRica),
+                    new KeyValuePair<string, string>("6", Constantes.CodigosISOPais.Ecuador),
+                    new KeyValuePair<string, string>("7", Constantes.CodigosISOPais.Salvador),
+                    new KeyValuePair<string, string>("8", Constantes.CodigosISOPais.Guatemala),
+                    new KeyValuePair<string, string>("9", Constantes.CodigosISOPais.Mexico),
+                    new KeyValuePair<string, string>("10", Constantes.CodigosISOPais.Panama),
+                    new KeyValuePair<string, string>("11", Constantes.CodigosISOPais.Peru),
+                    new KeyValuePair<string, string>("12", Constantes.CodigosISOPais.PuertoRico),
+                    new KeyValuePair<string, string>("13", Constantes.CodigosISOPais.Dominicana),
+                    new KeyValuePair<string, string>("14", Constantes.CodigosISOPais.Venezuela),
                 };
 
                 string paisId = (from c in listaPaises
@@ -1816,7 +1815,7 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.GetPedidosIngresadoFacturadoWebMobile(paisID, consultoraID, campaniaID, clienteID, top, codigoConsultora);
         }
 
-        public List<BEPedidoWeb> GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora,  int usuarioPrueba, string consultoraAsociada, int top )
+        public List<BEPedidoWeb> GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int usuarioPrueba, string consultoraAsociada, int top)
         {
             return BLPedidoWeb.GetPedidosIngresadoFacturadoApp(paisID, consultoraID, campaniaID, codigoConsultora, usuarioPrueba, consultoraAsociada, top);
         }

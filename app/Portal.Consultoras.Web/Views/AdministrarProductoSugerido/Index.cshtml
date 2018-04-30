@@ -69,7 +69,6 @@
                     </div>
                     <div class="input_search titD" style="width: 100px;">
                         <input type="button" value="Nuevo" id="btnNuevo" name="">
-                        <input type="button" value="Cargar Imagenes" id="btnCargaMasivaImagenes" name="" style="display: none;">
                     </div>                    
                 </div>
             </div>          
@@ -294,40 +293,7 @@
         $("#matriz-comercial-lista-imagenes").on("click", ".chkImagenProducto", chkImagenProductoOnClick);
 
         $("#matriz-comercial-lista-imagenes").on("click", ".img-matriz-preview", imagenOnClick);
-       
-        $("#btnCargaMasivaImagenes").click(function(){
-            if ($("#ddlPais").val() == "") {
-                alert("Debe seleccionar el País, verifique.");
-                return false;
-            }
-            if ($("#ddlCampania").val() == "") {
-                alert("Debe seleccionar la Campaña, verifique.");
-                return false;
-            }
 
-            var campaniaId = $("#ddlCampania").val();
-            var params = {
-                campaniaID: campaniaId
-            };
-
-            waitingDialog({});
-            jQuery.ajax({
-                type: 'POST',
-                url: baseUrl + 'AdministrarProductoSugerido/CargaMasivaImagenes',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(params),
-                async: true,
-                success: function (data) {
-                    //if(data.success)
-                    closeWaitingDialog();
-                    alert(data.message);                    
-                },
-                error: function (data, error) {
-                    alert(data.message);
-                }
-            });
-        });
     }
 
     function CargarDialog() {
