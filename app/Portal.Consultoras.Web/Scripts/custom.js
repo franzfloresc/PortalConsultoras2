@@ -18,7 +18,7 @@ jQuery(document).ready(function ($) {
         var $html = $('.panel-entry').animate({ opacity: "0" }, 200);
 
         $('.toggle').click(function (e) {
-            var $target = $(e.target);
+         
             $html.animate({ opacity: "0" }, 0);
             $('.panel').slideToggle('1000', "linear", function () {
                 $html.animate({ opacity: "1" }, 200);

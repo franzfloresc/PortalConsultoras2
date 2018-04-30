@@ -237,7 +237,7 @@
                 }
                 else {
                     $(_elemento.DialogRegistroHtml).empty();
-                    $(_elemento.DialogRegistroHtml).html(result)
+                    $(_elemento.DialogRegistroHtml).html(result);
                     showDialog(_elemento.DialogRegistro);
                     $('body').css({ 'overflow-x': 'hidden' });
                     $('body').css({ 'overflow-y': 'hidden' });
