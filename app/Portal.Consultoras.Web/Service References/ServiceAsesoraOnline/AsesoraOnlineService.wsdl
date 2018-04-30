@@ -70,6 +70,18 @@
   <wsdl:message name="IAsesoraOnlineService_EnviarMailBienvenidaAsesoraOnline_OutputMessage">
     <wsdl:part name="parameters" element="tns:EnviarMailBienvenidaAsesoraOnlineResponse" />
   </wsdl:message>
+  <wsdl:message name="IAsesoraOnlineService_CancelarSuscripcion_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelarSuscripcion" />
+  </wsdl:message>
+  <wsdl:message name="IAsesoraOnlineService_CancelarSuscripcion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelarSuscripcionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAsesoraOnlineService_VuelveASuscripcion_InputMessage">
+    <wsdl:part name="parameters" element="tns:VuelveASuscripcion" />
+  </wsdl:message>
+  <wsdl:message name="IAsesoraOnlineService_VuelveASuscripcion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VuelveASuscripcionResponse" />
+  </wsdl:message>
   <wsdl:portType name="IAsesoraOnlineService">
     <wsdl:operation name="EnviarFormulario">
       <wsdl:input wsaw:Action="http://tempuri.org/IAsesoraOnlineService/EnviarFormulario" message="tns:IAsesoraOnlineService_EnviarFormulario_InputMessage" />
@@ -94,6 +106,14 @@
     <wsdl:operation name="EnviarMailBienvenidaAsesoraOnline">
       <wsdl:input wsaw:Action="http://tempuri.org/IAsesoraOnlineService/EnviarMailBienvenidaAsesoraOnline" message="tns:IAsesoraOnlineService_EnviarMailBienvenidaAsesoraOnline_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAsesoraOnlineService/EnviarMailBienvenidaAsesoraOnlineResponse" message="tns:IAsesoraOnlineService_EnviarMailBienvenidaAsesoraOnline_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelarSuscripcion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAsesoraOnlineService/CancelarSuscripcion" message="tns:IAsesoraOnlineService_CancelarSuscripcion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAsesoraOnlineService/CancelarSuscripcionResponse" message="tns:IAsesoraOnlineService_CancelarSuscripcion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="VuelveASuscripcion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAsesoraOnlineService/VuelveASuscripcion" message="tns:IAsesoraOnlineService_VuelveASuscripcion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAsesoraOnlineService/VuelveASuscripcionResponse" message="tns:IAsesoraOnlineService_VuelveASuscripcion_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IAsesoraOnlineService" type="tns:IAsesoraOnlineService">
@@ -152,6 +172,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CancelarSuscripcion">
+      <soap:operation soapAction="http://tempuri.org/IAsesoraOnlineService/CancelarSuscripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VuelveASuscripcion">
+      <soap:operation soapAction="http://tempuri.org/IAsesoraOnlineService/VuelveASuscripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="BasicHttpsBinding_IAsesoraOnlineService" type="tns:IAsesoraOnlineService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IAsesoraOnlineService_policy" />
@@ -203,6 +241,24 @@
     </wsdl:operation>
     <wsdl:operation name="EnviarMailBienvenidaAsesoraOnline">
       <soap:operation soapAction="http://tempuri.org/IAsesoraOnlineService/EnviarMailBienvenidaAsesoraOnline" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelarSuscripcion">
+      <soap:operation soapAction="http://tempuri.org/IAsesoraOnlineService/CancelarSuscripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VuelveASuscripcion">
+      <soap:operation soapAction="http://tempuri.org/IAsesoraOnlineService/VuelveASuscripcion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

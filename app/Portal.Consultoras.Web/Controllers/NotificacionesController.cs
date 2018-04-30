@@ -307,6 +307,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.CodigoISO),
                 Origen = TipoOrigen
             };
+            ViewBag.PaisIso = userData.CodigoISO;
 
             return PartialView("DetalleNotificacionesPedido", model);
         }
@@ -428,13 +429,15 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 CodigoIso = userData.CodigoISO,
                 NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre),
+                PrimerApellido = userData.PrimerApellido,
                 NumeroOperacion = pagoEnLinea.NumeroOrdenTienda,
                 Simbolo = userData.Simbolo,
                 MontoDeuda = pagoEnLinea.MontoPago,
                 MontoGastosAdministrativosNot = pagoEnLinea.MontoGastosAdministrativos,
                 MontoDeudaConGastosNot = pagoEnLinea.ImporteAutorizado,
                 FechaCreacion = pagoEnLinea.FechaCreacion,
-                FechaVencimiento = pagoEnLinea.FechaVencimiento
+                FechaVencimiento = pagoEnLinea.FechaVencimiento,
+                TarjetaEnmascarada = pagoEnLinea.NumeroTarjeta
             };
 
             return PartialView("DetallePagoEnLinea", pagoEnLineaModel);

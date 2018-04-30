@@ -145,6 +145,8 @@ namespace Portal.Consultoras.Web.SessionManager
         IShowRoom ShowRoom { get; }
 
         PagoEnLineaModel GetDatosPagoVisa();
+
+        EstrategiaPersonalizadaProductoModel ProductoTemporal { get; set; }
         
         List<BEPedidoWebDetalle> GetDetallesPedidoSetAgrupado();
 

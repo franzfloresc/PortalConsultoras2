@@ -387,5 +387,18 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (PagoEnLineaModel)HttpContext.Current.Session[Constantes.ConstSession.DatosPagoVisa];
         }
+
+        EstrategiaPersonalizadaProductoModel ISessionManager.ProductoTemporal
+        {
+            get
+            {
+                return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
+            }
+
+            set
+            {
+                HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = value;
+            }
+        }
     }
 }

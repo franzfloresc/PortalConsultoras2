@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult OfertasLiquidacion()
         {
-            if (userData.CodigoISO == "VE")
+            if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
                 return RedirectToAction("Index", "Bienvenida");
             try
             {
@@ -1296,69 +1296,6 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
-        #region CargaMasivaImagenes
-
-        public JsonResult CargaMasivaImagenes(int campaniaId)
-        {
-            try
-            {
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                List<BECargaMasivaImagenes> lista;
-
-                using (PedidoServiceClient ps = new PedidoServiceClient())
-                {
-                    lista = ps.GetListaImagenesOfertaLiquidacionByCampania(userData.PaisID, campaniaId).ToList();
-                }
-
-                var txtBuilNoGenerados = new StringBuilder();
-                var txtBuilNoExistentes = new StringBuilder();
-
-                foreach (var item in lista)
-                {
-                    var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, item.RutaImagen);
-                    var mensajeError = "";
-                    var listaImagenesResize = ObtenerListaImagenesResize(rutaImagenCompleta);
-                    if (listaImagenesResize != null && listaImagenesResize.Count > 0)
-                        mensajeError = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
-                    else
-                        txtBuilNoExistentes.Append(item.Cuv + ",");
-
-                    if (mensajeError != "")
-                        txtBuilNoGenerados.Append(item.Cuv + ",");
-                }
-
-                var mensaje = "Se generaron las imagenes SMALL y MEDIUM de todas las imagenes.";
-                var cuvNoGenerados = txtBuilNoGenerados.ToString();
-                if (cuvNoGenerados != "")
-                {
-                    mensaje += " Excepto los siguientes Cuvs: " + cuvNoGenerados;
-                }
-                var cuvNoExistentes = txtBuilNoExistentes.ToString();
-                if (cuvNoExistentes != "")
-                {
-                    mensaje += " Excepto los siguientes Cuvs (imagen orignal no encontrada o ya existen): " + cuvNoExistentes;
-                }
-
-                return Json(new
-                {
-                    success = true,
-                    message = mensaje,
-                    extra = ""
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        #endregion
+        
     }
 }

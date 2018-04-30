@@ -204,6 +204,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.Ambiente = GetBucketNameFromConfig();
                 TempData.Keep("MostrarPopupCuponGanaste");
 
+                ViewBag.FechaInicioCampania = userData.FechaInicioCampania;
                 ViewBag.VerSeccion = verSeccion;
 
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
@@ -450,7 +451,7 @@ namespace Portal.Consultoras.Web.Controllers
                             var cupon = ObtenerCuponDesdeServicio();
                             if (cupon != null)
                             {
-                                if (userData.CodigoISO == "PE")
+                                if (userData.CodigoISO == Constantes.CodigosISOPais.Peru)
                                 {
                                     tipoPopUpMostrar = Constantes.TipoPopUp.CuponForzado;
                                 }

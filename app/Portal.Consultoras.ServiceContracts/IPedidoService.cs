@@ -3,16 +3,18 @@ using Portal.Consultoras.Entities.CargaMasiva;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.Entities.Pedido.App;
 using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
+using Portal.Consultoras.Entities.PagoEnLinea;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
 using System.Threading.Tasks;
-using Estrategia = Portal.Consultoras.Entities.Estrategia;
-using Portal.Consultoras.Entities.PagoEnLinea;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -979,6 +981,9 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEPedidoWeb> GetPedidosIngresadoFacturadoWebMobile(int paisID, int consultoraID, int campaniaID, int clienteID, int top, string codigoConsultora);
 
         [OperationContract]
+        List<BEPedidoWeb> GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int usuarioPrueba, string consultoraAsociada, int top );
+
+        [OperationContract]
         BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, BEConsultorasProgramaNuevas entidad);
 
         [OperationContract]
@@ -1250,9 +1255,18 @@ namespace Portal.Consultoras.ServiceContracts
 
         #endregion
 
+        #region PedidoApp
+        [OperationContract]
+        BEProductoApp GetCUVApp(BEProductoAppBuscar productoBuscar);
+        [OperationContract]
+        BEPedidoDetalleAppResult InsertPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
+        [OperationContract]
+        void UpdateProlApp(BEPedidoDetalleApp pedidoDetalle);
+        [OperationContract]
+        List<BEPedidoWebDetalle> GetPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
+        #endregion
 
         #region Pago en Linea
-
         [OperationContract]
         int InsertPagoEnLineaResultadoLog(int paisId, BEPagoEnLineaResultadoLog entidad);
 
@@ -1270,7 +1284,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEPagoEnLineaResultadoLogReporte> ObtenerPagoEnLineaByFiltro(int paisId, BEPagoEnLineaFiltro filtro);
-
         #endregion
         
         [OperationContract]

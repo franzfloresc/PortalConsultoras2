@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
@@ -18,6 +19,7 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLCatalogo : ICatalogoBusinessLogic
     {
+        private readonly int ObjetoIssueTimeOut = 10;
         private readonly string _urlISSUUSearch = "https://issuu.com/oembed?url=https://issuu.com/somosbelcorp/docs/";
 
         private readonly List<BECatalogoRevista> _catalogosRevistas = new List<BECatalogoRevista>
@@ -70,17 +72,10 @@ namespace Portal.Consultoras.BizLogic
 
         public IList<BECatalogoConfiguracion> GetCatalogoConfiguracion(int paisID)
         {
-            var catalogos = new List<BECatalogoConfiguracion>();
-            var daCatalogo = new DACatalogo(paisID);
-
-            using (IDataReader reader = daCatalogo.GetCatalogoConfiguracion())
-                while (reader.Read())
-                {
-                    var catalogo = new BECatalogoConfiguracion(reader);
-                    catalogos.Add(catalogo);
-                }
-
-            return catalogos;
+            using (IDataReader reader = new DACatalogo(paisID).GetCatalogoConfiguracion())
+            {
+                return reader.MapToCollection<BECatalogoConfiguracion>();
+            }
         }
 
         public List<BECatalogoRevista> GetListCatalogoRevistaPublicado(string paisISO, string codigoZona, int campania, Enumeradores.TamanioImagenIssu tamanioImagenIssu)
@@ -96,7 +91,7 @@ namespace Portal.Consultoras.BizLogic
                     SetCatalogoRevistaMostrar(catalogoRevista, catalogoConfiguraciones);
                     SetCatalogoRevistaCodigoIssuu(codigoZona, catalogoRevista);
                     if (catalogoRevista.MarcaID == 0)
-                        Task.WaitAll(SetCatalogoRevistaFieldsInOembedIssuu(catalogoRevista));
+                        SetCatalogoRevistaFieldsInOembedIssuu(catalogoRevista);
                 }
 
                 SetCatalogoRevistaFieldsInSearchIssuu(listCatalogoRevista.Where(cr => cr.MarcaID != 0).ToList(), tamanioImagenIssu);
@@ -109,9 +104,10 @@ namespace Portal.Consultoras.BizLogic
             return listCatalogoRevista;
         }
 
-        public async Task<List<BECatalogoRevista>> GetCatalogoRevista(string paisISO, string codigoZona, IEnumerable<int> campanias)
+        public List<BECatalogoRevista> GetCatalogoRevista(string paisISO, string codigoZona, List<int> campanias)
         {
             var catalogoRevistas = new List<BECatalogoRevista>();
+            var lstTask = new List<Task<BECatalogoRevista>>();
 
             try
             {
@@ -122,19 +118,38 @@ namespace Portal.Consultoras.BizLogic
                 foreach (var catalogoRevista in catalogoRevistas)
                 {
                     SetCatalogoRevistaMostrar(catalogoRevista, catalogoConfiguraciones);
-                    SetCatalogoRevistaCodigoIssuu(codigoZona, catalogoRevista);
-                    await SetCatalogoRevistaFieldsInOembedIssuu(catalogoRevista);
-                    AjusteRevistaTituloDescripcion(catalogoRevista);
+                    if(catalogoRevista.Mostrar) lstTask.Add(Task.Run(() => GetCatalogoRevista(catalogoRevista, catalogoConfiguraciones, codigoZona)));
                 }
+
+                var arrTask = lstTask.ToArray();
+                Task.WaitAll(arrTask);
+                catalogoRevistas = arrTask.Select(x => x.Result).ToList();
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog(ex, "", paisISO);
+                LogManager.SaveLog(ex, string.Empty, paisISO);
             }
 
             return catalogoRevistas;
         }
+
         #region Private Functions
+        private BECatalogoRevista GetCatalogoRevista(BECatalogoRevista catalogoRevista, IList<BECatalogoConfiguracion> catalogoConfiguraciones,
+            string codigoZona)
+        {
+            try
+            {
+                SetCatalogoRevistaCodigoIssuu(codigoZona, catalogoRevista);
+                SetCatalogoRevistaFieldsInOembedIssuu(catalogoRevista);
+                AjusteRevistaTituloDescripcion(catalogoRevista);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, string.Empty, catalogoRevista.PaisISO);
+            }
+
+            return catalogoRevista;
+        }
 
         private List<BECatalogoRevista> GetAllCatalogoRevista(string paisISO, IEnumerable<int> campanias)
         {
@@ -384,38 +399,26 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        private async Task SetCatalogoRevistaFieldsInOembedIssuu(BECatalogoRevista catalogoRevista)
+        private void SetCatalogoRevistaFieldsInOembedIssuu(BECatalogoRevista catalogoRevista)
         {
-            if (string.IsNullOrEmpty(catalogoRevista.CodigoIssuu))
-            {
-                LogManager.SaveLog(null, "", "Codigo issuu null o vacio");
-                return;
-            }
+            if (string.IsNullOrEmpty(catalogoRevista.CodigoIssuu)) return;
 
             var url = string.Format("{0}{1}", _urlISSUUSearch, catalogoRevista.CodigoIssuu);
 
-            try
-            {
-                var reponse = await ObtenerObjetoIssueAsync(url);
-                if (!reponse.Item1)
-                    return;
+            var reponse = ObtenerObjetoIssue(url, catalogoRevista.PaisISO);
+            if (!reponse.Item1) return;
 
-                string urlIssuuVisor = ServiceSettings.Instance.UrlIssuu;
-                catalogoRevista.UrlVisor = string.Format(urlIssuuVisor, catalogoRevista.CodigoIssuu);
-                catalogoRevista.UrlImagen = reponse.Item2.thumbnail_url;
-                catalogoRevista.CatalogoTitulo = reponse.Item2.title;
-                catalogoRevista.CatalogoDescripcion = reponse.Item2.description;
-            }
-            catch (Exception ex)
-            {
-                LogManager.SaveLog(ex, "", catalogoRevista.PaisISO);
-            }
+            var urlIssuuVisor = ServiceSettings.Instance.UrlIssuu;
+            catalogoRevista.UrlVisor = string.Format(urlIssuuVisor, catalogoRevista.CodigoIssuu);
+            catalogoRevista.UrlImagen = reponse.Item2.thumbnail_url;
+            catalogoRevista.CatalogoTitulo = reponse.Item2.title;
+            catalogoRevista.CatalogoDescripcion = reponse.Item2.description;
         }
 
         private void AjusteRevistaTituloDescripcion(BECatalogoRevista catalogoRevista)
         {
             var paisesEsika = ServiceSettings.Instance.PaisesEsika;
-            string paisNombre = Util.GetPaisNombre(Util.GetPaisID(catalogoRevista.PaisISO));
+            var paisNombre = Util.GetPaisNombre(Util.GetPaisID(catalogoRevista.PaisISO));
 
             if (catalogoRevista.MarcaID == 0)
             {
@@ -425,26 +428,30 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        private async Task<Tuple<bool, dynamic>> ObtenerObjetoIssueAsync(string url)
+        private Tuple<bool, dynamic> ObtenerObjetoIssue(string url, string codigoIso)
         {
-            using (var client = new HttpClient())
+            try
             {
-                var response = await client.GetAsync(url);
-                if (!response.IsSuccessStatusCode)
+                using (var client = new HttpClient())
                 {
-                    LogManager.SaveLog(null, "", "Error " + response.StatusCode);
-                    return new Tuple<bool, dynamic>(false, null);
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.Timeout.Add(new TimeSpan(0, 0, ObjetoIssueTimeOut));
+
+                    var response = client.GetAsync(url).Result;
+                    response.EnsureSuccessStatusCode();
+
+                    var content = response.Content.ReadAsStringAsync().Result;
+
+                    if (string.IsNullOrEmpty(content)) return new Tuple<bool, dynamic>(false, null);
+
+                    return new Tuple<bool, dynamic>(true, Newtonsoft.Json.Linq.JObject.Parse(content));
                 }
-
-                var content = await response.Content.ReadAsStringAsync();
-
-                if (string.IsNullOrEmpty(content))
-                {
-                    LogManager.SaveLog(null, "", "Null content " + response.StatusCode);
-                    return new Tuple<bool, dynamic>(false, null);
-                }
-
-                return new Tuple<bool, dynamic>(true, Newtonsoft.Json.Linq.JObject.Parse(content));
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, url, codigoIso);
+                return new Tuple<bool, dynamic>(false, null);
             }
         }
 
@@ -452,20 +459,20 @@ namespace Portal.Consultoras.BizLogic
         {
             switch (paisISO)
             {
-                case "AR": return "argentina";
-                case "BO": return "bolivia";
-                case "CL": return "chile";
-                case "CO": return "colombia";
-                case "CR": return "costarica";
-                case "DO": return "republicadominicana";
-                case "EC": return "ecuador";
-                case "GT": return "guatemala";
-                case "MX": return "mexico";
-                case "PA": return "panama";
-                case "PE": return "peru";
-                case "PR": return "puertorico";
-                case "SV": return "elsalvador";
-                case "VE": return "venezuela";
+                case Constantes.CodigosISOPais.Argentina: return "argentina";
+                case Constantes.CodigosISOPais.Bolivia: return "bolivia";
+                case Constantes.CodigosISOPais.Chile: return "chile";
+                case Constantes.CodigosISOPais.Colombia: return "colombia";
+                case Constantes.CodigosISOPais.CostaRica: return "costarica";
+                case Constantes.CodigosISOPais.Dominicana: return "republicadominicana";
+                case Constantes.CodigosISOPais.Ecuador: return "ecuador";
+                case Constantes.CodigosISOPais.Guatemala: return "guatemala";
+                case Constantes.CodigosISOPais.Mexico: return "mexico";
+                case Constantes.CodigosISOPais.Panama: return "panama";
+                case Constantes.CodigosISOPais.Peru: return "peru";
+                case Constantes.CodigosISOPais.PuertoRico: return "puertorico";
+                case Constantes.CodigosISOPais.Salvador: return "elsalvador";
+                case Constantes.CodigosISOPais.Venezuela: return "venezuela";
                 default: return "sinpais";
             }
         }

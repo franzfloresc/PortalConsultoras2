@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.LogManager
             return logPath + "SB2\\";
         }
 
-        public static void LogErrorWebServicesPortal(FaultException exception, string usuario, string pais)
+        public static void LogErrorWebServicesPortal(FaultException exception, string usuario, string pais, string adicional = "")
         {
             Common.LogManager.SaveLog(new Common.LogError
             {
@@ -36,7 +36,8 @@ namespace Portal.Consultoras.Web.LogManager
                 CodigoUsuario = usuario,
                 IsoPais = pais,
                 Origen = "ServidorWeb",
-                Titulo = "Seguimiento de Errores Servicio Portal"
+                Titulo = "Seguimiento de Errores Servicio Portal",
+                InformacionAdicional = adicional
             }, PathFile());
         }
 

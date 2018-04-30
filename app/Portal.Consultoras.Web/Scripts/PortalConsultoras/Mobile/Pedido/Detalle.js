@@ -122,7 +122,7 @@ function CargarPedido(firstLoad) {
             if (!checkTimeout(data)) {
                 return false;
             }
-            registerEsShowRoomPais();
+
             SetHandlebars("#template-Detalle", data.data, '#divProductosDetalle');
             belcorp.mobile.pedido.setDetalles(data.data.ListaDetalleModel);
 
@@ -160,20 +160,6 @@ function GetProductoEntidad(detalleId, setId) {
     }
 }
 
-function registerEsShowRoomPais() {
-
-    if (Handlebars.helpers.isShowRoomPais) {
-        return;
-    }
-
-    Handlebars.registerHelper('isShowRoomPais', function (pais, sisId, opts) {
-
-        var productShowRoom = sisId == "1707";
-
-        return productShowRoom && sesionEsShowRoom == '1' && pais === IsoPais
-            ? opts.inverse(this)
-            : opts.fn(this);
-    });
 
 }
 
@@ -479,6 +465,9 @@ function ConfigurarPopUpConfirmacion() {
         var regalo = GetUpSellingGanado();
         if (regalo != null) {
             $('#mensaleAvisoRegalo').show();
+        }
+        else {
+            $('#mensaleAvisoRegalo').hide();
         }
     }
     else {

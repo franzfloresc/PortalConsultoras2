@@ -94,15 +94,17 @@
     <Compile Include="BLAdministrarEstrategia.cs" />
     <Compile Include="BLConfiguracionOfertasHome.cs" />
     <Compile Include="BLAsesoraOnline.cs" />
-    <Compile Include="BLConfiguracionPaisDatos.cs" />
     <Compile Include="BLCupon.cs" />
     <Compile Include="Cache\BLCache.cs" />
     <Compile Include="Cliente\BLClienteDB.cs" />
     <Compile Include="Comunicado\IComunicadoBusinessLogic.cs" />
+    <Compile Include="Configuracion\BLConfiguracionPaisDatos.cs" />
     <Compile Include="Configuracion\IConfiguracionPaisBusinessLogic.cs" />
+    <Compile Include="Configuracion\IConfiguracionPaisDatosBusinessLogic.cs" />
     <Compile Include="Cupon\ICuponConsultoraBusinessLogic.cs" />
     <Compile Include="Estrategia\EstrategiaBusinessLogic.cs" />
     <Compile Include="Estrategia\IConfiguracionProgramaNuevasBusinessLogic.cs" />
+    <Compile Include="Estrategia\IEstrategiaBusinessLogic.cs" />
     <Compile Include="Estrategia\IUpSellingBusinessLogic.cs" />
     <Compile Include="Estrategia\IUpSellingMarcaCategoriaBusinessLogic.cs" />
     <Compile Include="Estrategia\UpSellingBusinessLogic.cs" />
@@ -117,6 +119,7 @@
     <Compile Include="Configuracion\BLConfiguracionPais.cs" />
     <Compile Include="BLConfiguracionPaisDetalle.cs" />
     <Compile Include="BLReporteValidacion.cs" />
+    <Compile Include="Pedido\IPedidoWebDetalleBusinessLogic.cs" />
     <Compile Include="Reserva\BLReserva.cs" />
     <Compile Include="BLEstrategiaProducto.cs" />
     <Compile Include="BizLogicException.cs" />
@@ -155,7 +158,7 @@
     <Compile Include="BLDupla.cs" />
     <Compile Include="BLEscalaDescuento.cs" />
     <Compile Include="BLEstadoCuenta.cs" />
-    <Compile Include="BLEstrategia.cs" />
+    <Compile Include="Estrategia\BLEstrategia.cs" />
     <Compile Include="BLEtiqueta.cs" />
     <Compile Include="BLFactorGanancia.cs" />
     <Compile Include="BLFeErratas.cs" />
@@ -189,11 +192,14 @@
     <Compile Include="BLPedidoFacturado.cs" />
     <Compile Include="BLPedidoFICDetalle.cs" />
     <Compile Include="Incentivo\IConsultoraConcursoBusinessLogic.cs" />
+    <Compile Include="Pedido\BLPedidoApp.cs" />
     <Compile Include="PagoEnlinea\BLPagoEnLinea.cs" />
     <Compile Include="Pedido\BLPedidoWebSet.cs" />
     <Compile Include="Pedido\BLTracking.cs" />
+    <Compile Include="Pedido\IPedidoAppBusinessLogic.cs" />
     <Compile Include="Pedido\IPedidoWebBusinessLogic.cs" />
     <Compile Include="Pedido\ITrackingBusinessLogic.cs" />
+    <Compile Include="Producto\IProductoBusinessLogic.cs" />
     <Compile Include="Reserva\BLReservaSicc.cs" />
     <Compile Include="Pedido\IPedidoWebSetBusinessLogic.cs" />
     <Compile Include="Reserva\IReservaExternaBL.cs" />
@@ -210,22 +216,23 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MotivoRechazoMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Usuario\IResumenCampaniaBusinessLogic.cs" />
     <Compile Include="Usuario\IUsuarioBusinessLogic.cs" />
     <Compile Include="Pedido\BLPedidoRechazado.cs" />
     <Compile Include="BLPedidoReporteLider.cs" />
     <Compile Include="Pedido\BLPedidoWeb.cs" />
     <Compile Include="BLPedidoWebAnteriores.cs" />
-    <Compile Include="BLPedidoWebDetalle.cs" />
+    <Compile Include="Pedido\BLPedidoWebDetalle.cs" />
     <Compile Include="BLPedidoWebDetalleManager.cs" />
     <Compile Include="BLPermiso.cs" />
     <Compile Include="BLPopupPais.cs" />
     <Compile Include="BLProcesoPedidoRechazado.cs" />
-    <Compile Include="BLProducto.cs" />
+    <Compile Include="Producto\BLProducto.cs" />
     <Compile Include="BLProductoFaltante.cs" />
     <Compile Include="BLProductoSugerido.cs" />
     <Compile Include="BLProveedorDespachoCobranza.cs" />
     <Compile Include="BLReporteIntegradoWebDD.cs" />
-    <Compile Include="BLResumenCampania.cs" />
+    <Compile Include="Usuario\BLResumenCampania.cs" />
     <Compile Include="BLRol.cs" />
     <Compile Include="BLRolPermiso.cs" />
     <Compile Include="BLSegmentoPlaneamiento.cs" />
