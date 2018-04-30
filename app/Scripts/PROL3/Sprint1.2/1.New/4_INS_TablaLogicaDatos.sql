@@ -26,7 +26,7 @@ BEGIN
 			Descripcion
 		from(values
 			('Deuda', 'Lo sentimos, tienes una deuda de {simb} {deuMon}. Te invitamos a cancelar el saldo pendiente y reservar tu pedido para que sea facturado exitosamente.'),
-			('MontoMax', 'Lo sentimos, has superado el límite de tu línea de crédito de {simb} {maxMon}. Por favor, modifica tu pedido para que sea guardado con éxito.'),
+			('MontoMaximo', 'Lo sentimos, has superado el límite de tu línea de crédito de {simb} {maxMon}. Por favor, modifica tu pedido para que sea guardado con éxito.'),
 			('MontoMinVenta', 'Tu pedido debe cumplir con el Pedido Mínimo de {simb} {minMon}, añade otros productos a tu pedido para completarlo.'),
 			('MontoMinFact', 'Tu pedido debe cumplir con el Pedido Mínimo de {simb} {minMon}, añade otros productos a tu pedido para ser reservado y facturado.'),
 			('MontoMinVentaDesc', 'Tu pedido no cumple con el monto mínimo de {simb} {minMon} ya que se realizó un descuento de {simb} {descMon} para las ofertas con más de un precio que escogiste. Agrega otros productos a tu pedido para completarlo.'),

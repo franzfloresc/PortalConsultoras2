@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Portal.Consultoras.Common;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -8,7 +9,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Portal.Consultoras.Common
+namespace Portal.Consultoras.BizLogic.Reserva
 {
     public static class RestClient
     {

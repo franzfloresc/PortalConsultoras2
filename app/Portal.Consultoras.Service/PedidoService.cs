@@ -22,6 +22,7 @@ using System.Data;
 using System.Linq;
 using System.ServiceModel;
 using System.Threading.Tasks;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Service
 {
@@ -173,8 +174,9 @@ namespace Portal.Consultoras.Service
             {
                 throw new FaultException(ex.Message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.SaveLog(ex, "", "");
                 throw new FaultException("Error desconocido.");
             }
         }

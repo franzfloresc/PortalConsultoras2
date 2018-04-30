@@ -515,6 +515,14 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public void ClearPedidoSapId(int campaniaID, int pedidoID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ClearPedidoWebPedidoSapId");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoID);
+            Context.ExecuteNonQuery(command);
+        }
+
         public DateTime GetFechaHoraPais()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetFechaHoraPais");
