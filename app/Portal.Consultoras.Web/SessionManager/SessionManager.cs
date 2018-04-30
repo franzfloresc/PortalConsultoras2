@@ -380,14 +380,24 @@ namespace Portal.Consultoras.Web.SessionManager
             return (PagoEnLineaModel)HttpContext.Current.Session[Constantes.ConstSession.DatosPagoVisa];
         }
 
-        public void SetEstrategiaODD(DataModel data)
+        public void SetEstrategiaODD(Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel data)
         {
             HttpContext.Current.Session["EstrategiaODD"] = data;
         }
 
-        public DataModel GetEstrategiaODD()
+        public Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel GetEstrategiaODD()
         {
-            return (DataModel)HttpContext.Current.Session["EstrategiaODD"];
+            return (Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel)HttpContext.Current.Session["EstrategiaODD"];
+        }
+
+        public void SetEstrategiaSR(Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel data)
+        {
+            HttpContext.Current.Session["ConfigEstrategiaSR"] = data;
+        }
+
+        public Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel GetEstrategiaSR()
+        {
+            return (Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel)HttpContext.Current.Session["ConfigEstrategiaSR"];
         }
     }
 }
