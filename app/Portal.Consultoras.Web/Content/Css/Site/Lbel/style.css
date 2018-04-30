@@ -20468,10 +20468,14 @@ label.checkpop.c_on {
 	margin-top: 20px;
 }
 
-	.producto_img_home img {
-		width: auto;
-		height: 93.5%;
-	}
+    .producto_img_home img {
+        width: auto;
+        height: 93.5%;
+        padding: 10px !important;
+        width: 100% !important;
+        display: block !important;
+        margin: auto !important;
+    }
 
 .content_carrusel_ofertas .slick-track {
 	height: 400px;
@@ -32634,11 +32638,11 @@ h1#penmostreo .campana {
 }
 
 .imagen_set_Oferta_pop {
-	width: 34%;
-	height: auto;
-	float: left;
-	text-align: center;
-	margin: 25px 65px 0 0;
+    width: 34%;
+    height: auto;
+    float: left;
+    text-align: center;
+    margin: 25px 0px 0 0;
 }
 
 	.imagen_set_Oferta_pop img {
@@ -32714,9 +32718,9 @@ h1#penmostreo .campana {
 }
 
 .right_set_hoy {
-	float: left;
-	width: 49%;
-	margin-right: 5%;
+    float: left;
+    width: 61%;
+    margin-left: 5%;
 }
 
 .precio_valorizado_oferta {

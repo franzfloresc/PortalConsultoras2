@@ -411,7 +411,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/slick-pedido.css",
                 "~/Content/Css/Site/flexslider.css",
                 "~/Content/Css/Site/Contenedor/carrusel.individual.css",
-                "~/Content/Css/Site/Contenedor/producto.simple.css"
+                "~/Content/Css/Site/Contenedor/producto.simple.css",
+                "~/Content/Css/Site/Contenedor/carrusel.individual.ofertas.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsMobile/JsSB2-Ofertas").Include(
@@ -576,7 +577,8 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new StyleBundle("~/bundles/css/Mobile/Site/GuiaNegocio-Landing").Include(
-                "~/Content/Css/Mobile/RevistaDigital/Gnd-Flotante.css"
+                "~/Content/Css/Mobile/RevistaDigital/Gnd-Flotante.css",
+                "~/Content/Css/Mobile/RevistaDigital/RedimensionLandingRD.css"
             ));
 
             #endregion
