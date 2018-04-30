@@ -345,7 +345,7 @@ namespace Portal.Consultoras.BizLogic
                     using (var streamWriter = new StreamWriter(headerFile))
                     {
                         bool vacio = true;
-                        if (dtPedidosWeb.Rows.Count != 0 && dsPedidosWeb.Tables[1].Rows.Count > 0)
+                        if (dtPedidosWeb.Rows.Count > 0 && dsPedidosWeb.Tables[1].Rows.Count > 0)
                         {
                             vacio = false;
                             foreach (DataRow row in dtPedidosWeb.Rows)
@@ -353,7 +353,7 @@ namespace Portal.Consultoras.BizLogic
                                 streamWriter.WriteLine(HeaderLine(headerTemplate, row, codigoPaisProd, fechaProceso, fechaFactura, lote, "W"));
                             }
                         }
-                        if (dtPedidosDd != null)
+                        if (dtPedidosDd != null && dtPedidosDd.Rows.Count > 0)
                         {
                             vacio = false;
                             foreach (DataRow row in dtPedidosDd.Rows)
@@ -371,7 +371,7 @@ namespace Portal.Consultoras.BizLogic
                     using (var streamWriter = new StreamWriter(detailFile))
                     {
                         bool vacio = true;
-                        if (dtPedidosWeb.Rows.Count != 0)
+                        if (dtPedidosWeb.Rows.Count > 0)
                         {
                             vacio = false;
                             foreach (DataRow row in dtPedidosWeb.Rows)
@@ -379,7 +379,7 @@ namespace Portal.Consultoras.BizLogic
                                 streamWriter.WriteLine(DetailLine(detailTemplate, row, codigoPaisProd, lote));
                             }
                         }
-                        if (dtPedidosDd != null)
+                        if (dtPedidosDd != null && dtPedidosDd.Rows.Count > 0)
                         {
                             vacio = false;
                             foreach (DataRow row in dtPedidosDd.Rows)
@@ -1574,6 +1574,12 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
             return 0;
+        }
+
+        public void ClearPedidoSapId(int paisID, int campaniaID, int pedidoID)
+        {
+            var daPedidoWeb = new DAPedidoWeb(paisID);
+            daPedidoWeb.ClearPedidoSapId(campaniaID, pedidoID);
         }
 
         public int GetFechaNoHabilFacturacion(int paisID, string CodigoZona, DateTime Fecha)

@@ -173,8 +173,9 @@ namespace Portal.Consultoras.Service
             {
                 throw new FaultException(ex.Message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.SaveLog(ex, "", "");
                 throw new FaultException("Error desconocido.");
             }
         }
