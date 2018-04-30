@@ -29,7 +29,17 @@
 
     <script type="text/javascript">
         var isEsika = '@ViewContext.EsPaisEsika().ToString().ToLower()';
-        var urlLogDynamo = '@Portal.Consultoras.Web.Infraestructure.Settings.Instance.UrlLogDynamo';
+        window.urlLogDynamo = '@Portal.Consultoras.Web.Infraestructure.Settings.Instance.UrlLogDynamo';
+
+        // Seteando Controlador y Accion
+        @{
+            var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
+            string ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
+            string acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+        }
+        window.controllerName = '@ctrl.ToLower()';
+        window.actionName     = '@acti.ToLower()';
+        console.log("controllerName:" + controllerName + " | actionName:" + actionName);
     </script>
 
     @RenderSection("styles", required: false)

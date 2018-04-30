@@ -20,6 +20,11 @@ var tag = null;
 var firstScriptTag = null;
 var player;
 
+//  ERROR -----------------------------------------
+var q = document.querySelectorAll;
+var body = q("body");
+// ------------------------------------------------
+
 $(document).ready(function () {
     var hdDataBarra = $("#hdDataBarra").val();
     if ($.trim(hdDataBarra) != "") {
