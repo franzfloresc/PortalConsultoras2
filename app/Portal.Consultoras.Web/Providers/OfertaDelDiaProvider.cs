@@ -23,16 +23,12 @@ namespace Portal.Consultoras.Web.Providers
         private readonly ISessionManager sessionManager = SessionManager.SessionManager.Instance;
         private readonly static HttpClient httpClient = new HttpClient();
 
-        public UsuarioModel userData { get; set; }
-
         static OfertaDelDiaProvider()
         {
             httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSearch);
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
-
-
 
         public OfertaDelDiaModel ObtenerOfertas()
         {
@@ -52,7 +48,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (paisHabilitado)
                 {
-                    var taskApi = Task.Run(() => ObtenerOfertasDelDiaDesdeApi(userData.CampaniaID, userData.CodigoConsultora, userData.FechaInicioCampania));
+                    var taskApi = Task.Run(() => ObtenerOfertasDelDiaDesdeApi(userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora, userData.FechaInicioCampania));
 
                     Task.WhenAll(taskApi);
 
@@ -103,13 +99,13 @@ namespace Portal.Consultoras.Web.Providers
             return estrategias.ToList();
         }
 
-        private async Task<List<BEEstrategia>> ObtenerOfertasDelDiaDesdeApi(int campaniaId, string codigoConsultora, DateTime fechaInicioCampania)
+        private async Task<List<BEEstrategia>> ObtenerOfertasDelDiaDesdeApi(string paisIso, int campaniaId, string codigoConsultora, DateTime fechaInicioCampania)
         {
             var estrategias = new List<BEEstrategia>();
 
             var diaInicio = DateTime.Now.Date.Subtract(fechaInicioCampania.Date).Days;
 
-            var path = string.Format("api/Oferta/ODD/{0}/{1}/{2}", campaniaId, codigoConsultora, diaInicio);
+            var path = string.Format("api/Oferta/{0}/ODD/{1}/{2}/{3}", paisIso, campaniaId, codigoConsultora, diaInicio);
 
             var httpResponse = await httpClient.GetAsync(path);
 
@@ -310,6 +306,8 @@ namespace Portal.Consultoras.Web.Providers
 
         private async Task<string> respSBMicroservicios(string jsonParametros, string requestUrlParam, string responseType)
         {
+            var userData = sessionManager.GetUserData();
+
             using (var client = new HttpClient())
             {
                 string url = WebConfig.UrlMicroservicioPersonalizacionSearch;
@@ -498,7 +496,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             return listaEstrategias;
         }
-        
+
         public string RegistrarWebApi(BEEstrategia entidad, string Pais)
         {
             string requestUrl = "estrategia/registrar?pais=" + Pais;
@@ -561,7 +559,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             bool bDeshabilitado = true;
             string jsonParameters = "";
-            string requestUrl = "estrategia/desactivar/" + _id + "?usuario=" + usuario +"&pais=" + Pais;
+            string requestUrl = "estrategia/desactivar/" + _id + "?usuario=" + usuario + "&pais=" + Pais;
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "put"));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -605,7 +603,7 @@ namespace Portal.Consultoras.Web.Providers
         public Dictionary<string, object> getEstrategiaCuv(string cuv, string campania, string tipoEstrategia, string pais, string prod, string perfil)
         {
             string jsonParameters = "?pais=" + pais + "&prod=" + prod + "&perfil=" + perfil;
-            string requestUrl = "estrategia/cuv/"+campania+"/"+tipoEstrategia+"/"+cuv;
+            string requestUrl = "estrategia/cuv/" + campania + "/" + tipoEstrategia + "/" + cuv;
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "get"));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -613,11 +611,11 @@ namespace Portal.Consultoras.Web.Providers
             resultDictionary.Add("result", null);
             resultDictionary.Add("mensaje", "No se pudo obtener datos");
             resultDictionary.Add("success", false);
-            
+
             if (!string.IsNullOrEmpty(content))
             {
                 resultDictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(content);
-                if (resultDictionary["result"]!=null)
+                if (resultDictionary["result"] != null)
                 {
                     WaEstrategiaModel waModel = JsonConvert.DeserializeObject<WaEstrategiaModel>(resultDictionary["result"].ToString());
                     List<WaEstrategiaModel> waModelList = new List<WaEstrategiaModel>();
@@ -660,7 +658,7 @@ namespace Portal.Consultoras.Web.Providers
                         {
                             Cuv = d.cuv,
                             Descripcion = d.descripcion,
-                            Estado = (bool)d.estado ? 1:0 
+                            Estado = (bool)d.estado ? 1 : 0
                         }
                     ).ToList();
                     descripcionList.AddRange(estrategiaDescripcionList);
