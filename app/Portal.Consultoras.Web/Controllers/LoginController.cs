@@ -153,16 +153,14 @@ namespace Portal.Consultoras.Web.Controllers
                     if (model.UsuarioExterno == null)
                         return await Redireccionar(model.PaisID, resultadoInicioSesion.CodigoUsuario, returnUrl);
 
-                    if (resultadoInicioSesion.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                    if (resultadoInicioSesion.TipoUsuario == Constantes.TipoUsuario.Postulante &&
+                        Request.IsAjaxRequest())
                     {
-                        if (Request.IsAjaxRequest())
+                        return Json(new
                         {
-                            return Json(new
-                            {
-                                success = false,
-                                message = "Por ahora no podemos asociar tu cuenta con Facebook."
-                            });
-                        }
+                            success = false,
+                            message = "Por ahora no podemos asociar tu cuenta con Facebook."
+                        });
                     }
 
                     var usuarioExterno = model.UsuarioExterno;
@@ -1346,7 +1344,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                             var ofertaFlexipago = ofertaFlexipagoTask.Result;
 
-                            usuarioModel.MontoMinimoFlexipago = ofertaFlexipago == null ? "0.00" : string.Format("{0:#,##0.00}", ofertaFlexipago.MontoMinimoFlexipago = ofertaFlexipago.MontoMinimoFlexipago < 0 ? 0M : ofertaFlexipago.MontoMinimoFlexipago);
+                            if (ofertaFlexipago == null)
+                                usuarioModel.MontoMinimoFlexipago = "0.00";
+                            else
+                            {
+                                var montoMinimoFlexipago = ofertaFlexipago.MontoMinimoFlexipago < 0 ? 0M : ofertaFlexipago.MontoMinimoFlexipago;
+                                usuarioModel.MontoMinimoFlexipago = string.Format("{0:#,##0.00}", montoMinimoFlexipago);
+                            }                           
                         }
 
                         #endregion
@@ -1940,7 +1944,8 @@ namespace Portal.Consultoras.Web.Controllers
             using (var svc = new SACServiceClient())
             {
                 var lst = await svc.GetTablaLogicaDatosAsync(paisId, Constantes.TablaLogica.CodigoRevistaFisica);
-                tablaLogicaDatos = lst.ToList().FirstOrDefault();
+
+                tablaLogicaDatos = lst.FirstOrDefault();
             }
 
             if (tablaLogicaDatos != null)
@@ -2543,20 +2548,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result;
         }
-
-        private string GetValor1WithS3AndDelete(List<BEConfiguracionPaisDatos> configuracionesPaisDatos, string codigo, string codigoIso)
-        {
-            var result = (string)null;
-
-            var dato = configuracionesPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
-            if (dato != null)
-            {
-                result = ConfigS3.GetUrlFileRDS3(codigoIso, dato.Valor1);
-                configuracionesPaisDatos.RemoveAll(d => d.Codigo == codigo);
-            }
-
-            return result;
-        }
         #endregion
 
         #endregion
@@ -2989,10 +2980,12 @@ namespace Portal.Consultoras.Web.Controllers
             var name = string.Empty;
             try
             {
-                name = ((System.Web.HttpRequestWrapper)Request).LogonUserIdentity.Name;
+                name = ((HttpRequestWrapper)Request).LogonUserIdentity.Name;
             }
-            catch
+            catch (Exception ex)
             {
+                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty,
+                   "LoginController.GetLogonUserIdentityName");
             }
             return name;
         }
