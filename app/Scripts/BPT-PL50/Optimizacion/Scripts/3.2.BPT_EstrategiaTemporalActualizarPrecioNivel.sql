@@ -282,18 +282,18 @@ BEGIN
 
 
 	/**** 4. Actualizando EstrategiaTemporal - Ini ****/
-	--UPDATE T
-	--SET
-	--T.PrecioOferta			= S.PrecioOferta
-	--,T.PrecioTachado		= S.PrecioTachado	
-	--,T.CodigoEstrategia		= S.CodigoEstrategia
-	--,T.TieneVariedad		= S.TieneVariedad	
-	--,T.PrecioPublico		= S.PrecioPublico	
-	--,T.Ganancia				= S.Ganancia
-	--,T.Niveles				= S.Niveles
-	--FROM EstrategiaTemporal T
-	--	join #EstrategiaTemporal S 
-	--		on T.EstrategiaTemporalId = S.EstrategiaTemporalId
+	UPDATE T
+	SET
+	T.PrecioOferta			= S.PrecioOferta
+	,T.PrecioTachado		= S.PrecioTachado	
+	,T.CodigoEstrategia		= S.CodigoEstrategia
+	,T.TieneVariedad		= S.TieneVariedad	
+	,T.PrecioPublico		= S.PrecioPublico	
+	,T.Ganancia				= S.Ganancia
+	,T.Niveles				= S.Niveles
+	FROM EstrategiaTemporal T
+		join #EstrategiaTemporal S 
+			on T.EstrategiaTemporalId = S.EstrategiaTemporalId
 	/**** 4. Actualizando EstrategiaTemporal - Fin ****/
 
 
