@@ -88,24 +88,15 @@ namespace Portal.Consultoras.Common
             public const string Chile = "CL";
             public const string Ecuador = "EC";
             public const string CostaRica = "CR";
-
-            /// <summary>
-            /// El Salvador
-            /// </summary>
             public const string Salvador = "SV";
             public const string Guatemala = "GT";
             public const string Panama = "PA";
             public const string Venezuela = "VE";
             public const string Colombia = "CO";
-
             public const string Argentina = "AR";
             public const string Bolivia = "BO";
             public const string Mexico = "MX";
             public const string PuertoRico = "PR";
-
-            /// <summary>
-            /// Republica Dominicana
-            /// </summary>
             public const string Dominicana = "DO";
         }
 
@@ -149,10 +140,10 @@ namespace Portal.Consultoras.Common
             public const int BusquedaNemotecnicoProductoSugerido = 9853;
             public const int BusquedaNemotecnicoZonaEstrategia = 9854;
             public const int Tonos = 9802;
-
-            public const int ValoresImagenesResizeWitdhSmall = 12101;
+            
+            public const int ValoresImagenesResizeWitdhMaxSmall = 12101;
             public const int ValoresImagenesResizeHeightSmall = 12102;
-            public const int ValoresImagenesResizeWitdhMedium = 12103;
+            public const int ValoresImagenesResizeWitdhMaxMedium = 12103;
             public const int ValoresImagenesResizeHeightMedium = 12104;
 
             public const int MerchantId = 12201;
@@ -432,6 +423,7 @@ namespace Portal.Consultoras.Common
             
             public const string EnabledRemoveCache = "EnabledRemoveCache";
             public const string UrlServiceSicc = "UrlServiceSicc";
+            public const string MenuCondicionesDescripcion = "CONDICIONES DE USO WEB";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
@@ -1319,6 +1311,7 @@ namespace Portal.Consultoras.Common
                 public const int ShowRoom = 5;
                 public const int OfertaDelDia = 6;
                 public const int DescagablesNavidenos = 7;
+                public const int CarruselIndividuales = 8;
             }
         }
 
@@ -1723,7 +1716,7 @@ namespace Portal.Consultoras.Common
             public const string RdComprar = "/revistadigital/comprar";
             public const string RdRevisar = "/revistadigital/revisar";
             public const string RdInformacion = "/revistadigital/informacion";
-            public const string RdDetalle = "/revistadigital/detalle";
+            public const string LanDetalle = "/lanzamientos/detalle";
             public const string SwInicio = "/showroom";
             public const string SwInicioIndex = "/showroom/index";
             public const string SwIntriga = "/showroom/intriga";

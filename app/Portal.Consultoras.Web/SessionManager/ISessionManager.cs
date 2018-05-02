@@ -153,5 +153,7 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetFlagOfertaDelDia(int ofertasDelDia);
 
         bool GetFlagOfertaDelDia();
+        
+        EstrategiaPersonalizadaProductoModel ProductoTemporal { get; set; }
     }
 }

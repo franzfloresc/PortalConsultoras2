@@ -1451,18 +1451,34 @@ namespace Portal.Consultoras.Service
             return new UpSellingBusinessLogic(paisId).ObtenerDetalles(upSellingId);
         }
 
-        public IEnumerable<OfertaFinalMontoMeta> ObtenerOfertaFinalMontoMeta(int paisId, int upSellingId)
+        public UpSellingRegalo UpSellingObtenerMontoMeta(int paisId, int campaniaId, long consultoraId)
         {
-            return new UpSellingBusinessLogic(paisId).ObtenerOfertaFinalMontoMeta( upSellingId);
+            var upSellingBusinessLogic = new UpSellingBusinessLogic(paisId);
+
+            return upSellingBusinessLogic.ObtenerMontoMeta(campaniaId, consultoraId);
         }
-        
-        public int InsertUpSellingRegalo(int paisId, UpSellingRegalo entidad)
+
+        public int UpSellingInsertarRegalo(int paisId, UpSellingRegalo entidad)
         {
             var upSellingBusinessLogic = new UpSellingBusinessLogic(paisId);
 
             return upSellingBusinessLogic.InsertarRegalo(entidad);
         }
-        
+
+        public UpSellingRegalo UpSellingObtenerRegaloGanado(int paisId, int campaniaId, long consultoraId)
+        {
+            var upSellingBusinessLogic = new UpSellingBusinessLogic(paisId);
+
+            return upSellingBusinessLogic.ObtenerRegaloGanado(campaniaId, consultoraId);
+        }
+
+        public IEnumerable<UpSellingMontoMeta> UpSellingReporteMontoMeta(int paisId, int upSellingId)
+        {
+            var upSellingBusinessLogic = new UpSellingBusinessLogic(paisId);
+
+            return upSellingBusinessLogic.ListarReporteMontoMeta(upSellingId);
+        }
+
         #endregion
 
         public BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible)

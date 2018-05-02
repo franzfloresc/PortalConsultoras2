@@ -5,8 +5,6 @@
 
 @{
     ViewBag.Title = "Ingresa tu Pedido";
-
-    var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
 }
 
 @section styles{
@@ -1853,7 +1851,7 @@
         </div>
         <div class="txt_regalo_sorpresa_popup box_regalo_sorpresa_popup">
             <span class="span_1_regalo_ganaste_popup" id="of-gano-msg1">¡GANASTE @ViewBag.NombreConsultora!<br></span>
-            <span class="span_2_regalo_ganaste_popup" id="of-gano-msg3">SUPERASTE TU META DE <span id="of-regalo-montometa-msg3">$300.00</span><br></span>
+            <span class="span_2_regalo_ganaste_popup" id="of-gano-msg3">SUPERASTE TU META, ORDENANDO <span id="of-regalo-montometa-msg3">$300.00</span><br></span>
         </div>
         <div class="arrow_box arrow_box_2">
             <div class="txt_regalo_sorpresa_popup">
@@ -2175,7 +2173,6 @@
         var ofertaFinalAlgoritmo = '@ViewBag.OfertaFinalAlgoritmo';
         var VirtualCoachCuv = '@ViewBag.VirtualCoachCuv';
         var VirtualCoachCampana = '@ViewBag.VirtualCoachCampana' || 0;
-        var revistaDigital= @Html.Raw(Json.Encode(revistaDigital));
 
         var seccionMisOfertas = '@Constantes.SeccionBienvenida.MisOfertas';
         var OrigenDesktopODD = 2;

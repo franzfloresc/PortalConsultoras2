@@ -275,7 +275,7 @@ namespace Portal.Consultoras.BizLogic
                     orderHeaderTemplate = element.OrderHeaderTemplate + "PRD";
                 else
                 {
-                    if (codigoPais == "CO")
+                    if (codigoPais == Constantes.CodigosISOPais.Colombia)
                     {
                         if (tmpCronograma == 2)
                             orderHeaderTemplate = element.OrderHeaderTemplate + "DA";
@@ -288,7 +288,7 @@ namespace Portal.Consultoras.BizLogic
 
                 var headerTemplate = ParseTemplate(ConfigurationManager.AppSettings[orderHeaderTemplate]);
 
-                if (codigoPais == "CO")
+                if (codigoPais == Constantes.CodigosISOPais.Colombia)
                 {
                     if (tmpCronograma == 2)
                         detailTemplate = ParseTemplate(ConfigurationManager.AppSettings[element.OrderDetailTemplate + "DA"]);

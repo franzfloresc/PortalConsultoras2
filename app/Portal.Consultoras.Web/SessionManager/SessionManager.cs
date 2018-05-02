@@ -399,5 +399,18 @@ namespace Portal.Consultoras.Web.SessionManager
             var value = HttpContext.Current.Session["FlagOfertaDelDia"];
             return value == null ? true : Convert.ToBoolean(value);
         }
+
+        EstrategiaPersonalizadaProductoModel ISessionManager.ProductoTemporal
+        {
+            get
+            {
+                return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
+            }
+
+            set
+            {
+                HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = value;
+            }
+        }
     }
 }

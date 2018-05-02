@@ -195,29 +195,28 @@ namespace Portal.Consultoras.BizLogic.Estrategia
             return _upSellingDataAccess.ObtenerDetalles(upSellingId);
         }
 
-        public IEnumerable<OfertaFinalMontoMeta> ObtenerOfertaFinalMontoMeta(int upSellingId)
+        public UpSellingRegalo ObtenerMontoMeta(int campaniaId, long consultoraId)
         {
-            var OfertaFinalList = _upSellingDataAccess.ObtenerOfertaFinalMontoMeta(upSellingId);
-            return OfertaFinalList ?? new List<OfertaFinalMontoMeta>();
+            var entidad = _upSellingDataAccess.ObtenerMontoMeta(campaniaId, consultoraId);
+            return entidad;
         }
 
         public int InsertarRegalo(UpSellingRegalo entidad)
         {
-            using (var transaction = new TransactionScope())
-            {
-                var result = _upSellingDataAccess.InsertarRegalo(entidad);
+            var result = _upSellingDataAccess.InsertarRegalo(entidad);
+            return result;
+        }
 
-                transaction.Complete();
+        public UpSellingRegalo ObtenerRegaloGanado(int campaniaId, long consultoraId)
+        {
+            var entidad = _upSellingDataAccess.ObtenerRegaloGanado(campaniaId, consultoraId);
+            return entidad;
+        }
 
-                //var upsellings = Obtener(entidad.CampaniaId.ToString(), true);
-                //var huboStock = upsellings.Any(x => x.Regalos.Any(r => r.CUV == entidad.CUV && r.Stock >= 0));
-                //if (huboStock)
-                //{
-                //    transaction.Complete();
-                //}
-
-                return result;
-            }
+        public IEnumerable<UpSellingMontoMeta> ListarReporteMontoMeta(int upSellingId)
+        {
+            var lista = _upSellingDataAccess.ListarReporteMontoMeta(upSellingId);
+            return lista;
         }
 
     }

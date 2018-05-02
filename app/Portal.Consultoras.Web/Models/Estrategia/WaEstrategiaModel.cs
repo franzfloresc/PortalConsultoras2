@@ -25,6 +25,7 @@ namespace Portal.Consultoras.Web.Models.Estrategia
         public int DiaInicio { get; set; }
         public int Orden { get; set; }
         public bool FlagConfig { get; set; }
+        public string Zona { get; set; }
 
         //TipoEstrategia
         public int TipoEstrategiaId { get; set; }

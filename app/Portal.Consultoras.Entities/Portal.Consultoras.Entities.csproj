@@ -80,7 +80,7 @@
     <Compile Include="Estrategia\BEConfiguracionProgramaNuevasApp.cs" />
     <Compile Include="Estrategia\BEEstrategiaMasiva.cs" />
     <Compile Include="Estrategia\EstrategiaProductoSet.cs" />
-    <Compile Include="Estrategia\OfertaFinalMontoMeta.cs" />
+    <Compile Include="Estrategia\UpSellingMontoMeta.cs" />
     <Compile Include="Estrategia\UpSelling.cs" />
     <Compile Include="Estrategia\UpSellingDetalle.cs" />
     <Compile Include="Estrategia\UpsellingMarcaCategoria.cs" />

@@ -628,9 +628,10 @@
 
         var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
 		var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha)';
+		var mensajeChatEnLinea = '@Html.Raw(Constantes.CdrWebMensajes.ContactateChatEnLinea)';
 
 		var flagAppMobile = @(!mobileConfiguracion.EsAppMobile ? 0 : 1);
-		if (flagAppMobile == 0) mensajeCdrFueraDeFechaCompleto = String.Format("{0} {1}",  mensajeCdrFueraDeFechaCompleto , Constantes.CdrWebMensajes.ContactateChatEnLinea);
+		if (flagAppMobile == 0) mensajeCdrFueraDeFechaCompleto = String.Format("{0} {1}", mensajeCdrFueraDeFechaCompleto, mensajeChatEnLinea);
 
         var OrigenCDR = true;
 </script>
