@@ -74,8 +74,7 @@ BEGIN
 	)
 	
 	DECLARE @TipoEstrategiaId INT = 0
-	SELECT @TipoEstrategiaId = TipoEstrategiaID 
-	FROM TipoEstrategia WHERE Codigo = @EstrategiaCodigo
+	set @TipoEstrategiaId = dbo.fnGetTipoEstrategiaId(@EstrategiaCodigo)
 
 	INSERT INTO @tablaResultado
 	SELECT
@@ -107,8 +106,6 @@ BEGIN
 		t.CampaniaID = @CampaniaID
 		and e.CUV2 is null
 
-	DECLARE @NumeroLote INT = isnull(@NumeroLoteAnt, 0)
-	
 	if @NroLote <= 0
 	begin
 		SELECT @NroLote = isnull(max(NumeroLote),0) 
@@ -119,6 +116,8 @@ BEGIN
 		else
 			SET @NroLote = @NroLote + 1
 	end
+
+	declare @FechaSistema datetime = dbo.fnObtenerFechaHoraPais()
 
 	INSERT INTO EstrategiaTemporal
 	(
@@ -132,7 +131,8 @@ BEGIN
 		OfertaUltimoMinuto,
 		LimiteVenta,
 		FotoProducto01,
-		PrecioPublico
+		PrecioPublico,
+		FechaCreacion
 	)
 	SELECT
 		@CampaniaID,
@@ -145,7 +145,8 @@ BEGIN
 		OfertaUltimoMinuto,
 		LimiteVenta,
 		ImagenURL,
-		PrecioPublico
+		PrecioPublico,
+		@FechaSistema
 	FROM @tablaResultado 
 	WHERE Id in (
 		SELECT min(id) 

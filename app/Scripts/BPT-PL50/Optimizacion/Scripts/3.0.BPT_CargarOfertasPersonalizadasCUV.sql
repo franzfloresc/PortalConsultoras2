@@ -10,8 +10,10 @@ GO
 IF EXISTS (	SELECT 1 
 			FROM sys.objects 
 			WHERE object_id = OBJECT_ID(N'[dbo].[CargarOfertasPersonalizadasCUV]') AND type in (N'P', N'PC')) 
+BEGIN
 	PRINT 'ELIMINANDO PROCEDURE  [dbo].CargarOfertasPersonalizadasCUV'
 	DROP PROCEDURE [dbo].CargarOfertasPersonalizadasCUV
+END
 GO
 
 PRINT 'CREANDO PROCEDURE  [dbo].CargarOfertasPersonalizadasCUV'

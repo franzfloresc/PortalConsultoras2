@@ -3,6 +3,7 @@ using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -29,6 +30,66 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #region Nuevo Masivo
+        
+        public int GetCantidadOfertasPersonalizadas(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia)
+        {
+            var daEstrategia = new DAEstrategia(paisId);
+            int result = daEstrategia.GetCantidadOfertasPersonalizadas(campaniaId, tipoConfigurado, codigoEstrategia);
+            return result;
+        }
+
+        public List<BEEstrategia> GetOfertasPersonalizadasByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv)
+        {
+            var listaEstrategias = new List<BEEstrategia>();
+            try
+            {
+                var daEstrategia = new DAEstrategia(paisId);
+                using (IDataReader reader = daEstrategia.GetOfertasPersonalizadasByTipoConfigurado(campaniaId, tipoConfigurado, estrategiaCodigo, pagina, cantidadCuv))
+                {
+                    while (reader.Read())
+                    {
+                        listaEstrategias.Add(new BEEstrategia(reader, true));
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", paisId);
+                listaEstrategias = new List<BEEstrategia>();
+            }
+            return listaEstrategias;
+        }
+
+        public int GetCantidadOfertasPersonalizadasTemporal(int paisId, int nroLote, int tipoConfigurado)
+        {
+            var daEstrategia = new DAEstrategia(paisId);
+            int result = daEstrategia.GetCantidadOfertasPersonalizadasTemporal(nroLote, tipoConfigurado);
+            return result;
+        }
+
+        public int EstrategiaTemporalDelete(int paisId, int nroLote)
+        {
+            var daEstrategia = new DAEstrategia(paisId);
+            int result = daEstrategia.EstrategiaTemporalDelete(nroLote);
+            return result;
+        }
+
+
+        public List<BEEstrategia> GetOfertasPersonalizadasByTipoConfiguradoTemporal(int paisId, int tipoConfigurado, int nroLote)
+        {
+            List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
+
+            var daEstrategia = new DAEstrategia(paisId);
+            using (IDataReader reader = daEstrategia.GetOfertasPersonalizadasByTipoConfiguradoTemporal(tipoConfigurado, nroLote))
+            {
+                while (reader.Read())
+                {
+                    listaEstrategias.Add(new BEEstrategia(reader));
+                }
+            }
+            return listaEstrategias;
+        }
 
         public int EstrategiaTemporalInsertarMasivo(int paisId, int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote)
         {

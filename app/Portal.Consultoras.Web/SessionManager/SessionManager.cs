@@ -107,14 +107,14 @@ namespace Portal.Consultoras.Web.SessionManager
             return mostrarShowRoomProductosExpiro != null && mostrarShowRoomProductosExpiro.ToString().Trim() == "1";
         }
 
-        void ISessionManager.SetTiposEstrategia(List<BETipoEstrategia> tiposEstrategia)
+        void ISessionManager.SetTiposEstrategia(List<ServicePedido.BETipoEstrategia> tiposEstrategia)
         {
             HttpContext.Current.Session["ListaTipoEstrategia"] = tiposEstrategia;
         }
 
-        List<BETipoEstrategia> ISessionManager.GetTiposEstrategia()
+        List<ServicePedido.BETipoEstrategia> ISessionManager.GetTiposEstrategia()
         {
-            return (List<BETipoEstrategia>)HttpContext.Current.Session["ListaTipoEstrategia"];
+            return (List<ServicePedido.BETipoEstrategia>)HttpContext.Current.Session["ListaTipoEstrategia"];
         }
 
         void ISessionManager.SetRevistaDigital(RevistaDigitalModel revistaDigital)

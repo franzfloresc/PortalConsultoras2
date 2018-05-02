@@ -1010,25 +1010,10 @@ namespace Portal.Consultoras.ServiceContracts
         void DeshacerUltimaDescargaPedido(int PaisID);
         [OperationContract]
         BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID);
-
-        [OperationContract]
-        int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia);
-
-        [OperationContract]
-        List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv);
-
+        
         [OperationContract]
         int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int nroLote);
-
-        [OperationContract]
-        int GetCantidadOfertasParaTiTemporal(int paisId, int campaniaId, int tipoConfigurado);
-
-        [OperationContract]
-        List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado, int nroLote);
-
-        [OperationContract]
-        int DeleteEstrategiaTemporal(int paisId, int campaniaId);
-
+        
         [OperationContract]
         int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId);
 
@@ -1284,6 +1269,26 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEPagoEnLineaResultadoLogReporte> ObtenerPagoEnLineaByFiltro(int paisId, BEPagoEnLineaFiltro filtro);
+        #endregion
+
+        #region Nuevo Masivo Antiguo
+        // Todos estos metodos se movieron a SACService (Region Nuevo Masivo), eliminar despues del pase
+        
+        [OperationContract]
+        int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia);
+        
+        [OperationContract]
+        List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv);
+
+        [OperationContract]
+        int GetCantidadOfertasParaTiTemporal(int paisId, int campaniaId, int tipoConfigurado);
+
+        [OperationContract]
+        int DeleteEstrategiaTemporal(int paisId, int campaniaId);
+
+        [OperationContract]
+        List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado, int nroLote);
+
         #endregion
     }
 }

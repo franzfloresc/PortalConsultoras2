@@ -1521,6 +1521,32 @@ namespace Portal.Consultoras.Service
         #endregion
 
         #region Nuevo Masivo
+
+        public int GetCantidadOfertasPersonalizadas(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia)
+        {
+            return _blAdministrarEstrategia.GetCantidadOfertasPersonalizadas(paisId, campaniaId, tipoConfigurado, codigoEstrategia);
+        }
+        
+        public List<BEEstrategia> GetOfertasPersonalizadasByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv)
+        {
+            return _blAdministrarEstrategia.GetOfertasPersonalizadasByTipoConfigurado(paisId, campaniaId, tipoConfigurado, estrategiaCodigo, pagina, cantidadCuv);
+        }
+
+        public int GetCantidadOfertasPersonalizadasTemporal(int paisId, int nroLote, int tipoConfigurado)
+        {
+            return _blAdministrarEstrategia.GetCantidadOfertasPersonalizadasTemporal(paisId, nroLote, tipoConfigurado);
+        }
+
+        public int EstrategiaTemporalDelete(int paisId, int nroLote)
+        {
+            return _blAdministrarEstrategia.EstrategiaTemporalDelete(paisId, nroLote);
+        }
+        
+        public List<BEEstrategia> GetOfertasPersonalizadasByTipoConfiguradoTemporal(int paisId, int tipoConfigurado, int nroLote)
+        {
+            return _blAdministrarEstrategia.GetOfertasPersonalizadasByTipoConfiguradoTemporal(paisId, tipoConfigurado, nroLote);
+        }
+
         public int EstrategiaTemporalInsertarMasivo(int paisId, int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote)
         {
             return _blAdministrarEstrategia.EstrategiaTemporalInsertarMasivo(paisId, campaniaId, estrategiaCodigo, pagina, cantidadCuv, nroLote);

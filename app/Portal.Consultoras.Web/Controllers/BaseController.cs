@@ -1449,7 +1449,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var estrategiaX = new EstrategiaPedidoModel() { PaisID = userData.PaisID, EstrategiaID = fichaProductoModelo.EstrategiaID };
                     using (var svc = new PedidoServiceClient())
                     {
-                        listaProducto = svc.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, BEEstrategia>(estrategiaX)).ToList();
+                        listaProducto = svc.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, ServicePedido.BEEstrategia>(estrategiaX)).ToList();
                     }
 
                     foreach (var item in listaProducto)
@@ -4266,10 +4266,10 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        protected List<BETipoEstrategia> GetTipoEstrategias()
+        protected List<ServicePedido.BETipoEstrategia> GetTipoEstrategias()
         {
-            List<BETipoEstrategia> tiposEstrategia;
-            var entidad = new BETipoEstrategia
+            List<ServicePedido.BETipoEstrategia> tiposEstrategia;
+            var entidad = new ServicePedido.BETipoEstrategia
             {
                 PaisID = userData.PaisID,
                 TipoEstrategiaID = 0

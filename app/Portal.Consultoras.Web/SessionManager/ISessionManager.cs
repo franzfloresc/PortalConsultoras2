@@ -36,9 +36,9 @@ namespace Portal.Consultoras.Web.SessionManager
 
         bool GetMostrarShowRoomProductosExpiro();
 
-        void SetTiposEstrategia(List<BETipoEstrategia> tiposEstrategia);
+        void SetTiposEstrategia(List<ServicePedido.BETipoEstrategia> tiposEstrategia);
 
-        List<BETipoEstrategia> GetTiposEstrategia();
+        List<ServicePedido.BETipoEstrategia> GetTiposEstrategia();
 
         void SetRevistaDigital(RevistaDigitalModel revistaDigital);
 

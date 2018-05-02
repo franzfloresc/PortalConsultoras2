@@ -1920,7 +1920,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var sv = new PedidoServiceClient())
                 {
-                    lst = sv.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, BEEstrategia>(estrategiaX)).ToList();
+                    lst = sv.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, ServicePedido.BEEstrategia>(estrategiaX)).ToList();
                 }
 
                 var grid = new BEGrid
@@ -2059,7 +2059,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var sv = new PedidoServiceClient())
                 {
-                    lstProd = sv.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, BEEstrategia>(estrategiaX)).ToList();
+                    lstProd = sv.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, ServicePedido.BEEstrategia>(estrategiaX)).ToList();
                 }
 
                 var existe = false;
@@ -2071,7 +2071,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!existe)
                 {
-                    var entidadx = new BEEstrategia { CampaniaID = entidad.Campania, CUV2 = entidad.CUV2 };
+                    var entidadx = new ServicePedido.BEEstrategia { CampaniaID = entidad.Campania, CUV2 = entidad.CUV2 };
                     var respuestaServiceCdr = EstrategiaProductoObtenerServicio(entidadx);
 
                     if (respuestaServiceCdr.Any())
@@ -2135,7 +2135,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private List<RptProductoEstrategia> EstrategiaProductoObtenerServicio(BEEstrategia entidad)
+        private List<RptProductoEstrategia> EstrategiaProductoObtenerServicio(ServicePedido.BEEstrategia entidad)
         {
             var respuestaServiceCdr = new List<RptProductoEstrategia>();
             try

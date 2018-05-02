@@ -1748,9 +1748,9 @@ namespace Portal.Consultoras.Web.Controllers
             return ofertasDelDiaModel;
         }
 
-        private async Task<List<BEEstrategia>> ObtenerOfertasDelDia(UsuarioModel model)
+        private async Task<List<ServicePedido.BEEstrategia>> ObtenerOfertasDelDia(UsuarioModel model)
         {
-            List<BEEstrategia> ofertasDelDia;
+            List<ServicePedido.BEEstrategia> ofertasDelDia;
 
             using (var svc = new PedidoServiceClient())
             {

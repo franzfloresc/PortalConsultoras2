@@ -284,6 +284,36 @@
   <wsdl:message name="ISACService_RemoveDataCache_OutputMessage">
     <wsdl:part name="parameters" element="tns:RemoveDataCacheResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_GetCantidadOfertasPersonalizadas_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCantidadOfertasPersonalizadas" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetCantidadOfertasPersonalizadas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCantidadOfertasPersonalizadasResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetOfertasPersonalizadasByTipoConfigurado_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOfertasPersonalizadasByTipoConfigurado" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetOfertasPersonalizadasByTipoConfigurado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOfertasPersonalizadasByTipoConfiguradoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetCantidadOfertasPersonalizadasTemporal_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCantidadOfertasPersonalizadasTemporal" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetCantidadOfertasPersonalizadasTemporal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCantidadOfertasPersonalizadasTemporalResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_EstrategiaTemporalDelete_InputMessage">
+    <wsdl:part name="parameters" element="tns:EstrategiaTemporalDelete" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_EstrategiaTemporalDelete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EstrategiaTemporalDeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetOfertasPersonalizadasByTipoConfiguradoTemporal_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOfertasPersonalizadasByTipoConfiguradoTemporal" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetOfertasPersonalizadasByTipoConfiguradoTemporal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOfertasPersonalizadasByTipoConfiguradoTemporalResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_EstrategiaTemporalInsertarMasivo_InputMessage">
     <wsdl:part name="parameters" element="tns:EstrategiaTemporalInsertarMasivo" />
   </wsdl:message>
@@ -1493,6 +1523,26 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/RemoveDataCache" message="tns:ISACService_RemoveDataCache_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/RemoveDataCacheResponse" message="tns:ISACService_RemoveDataCache_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetCantidadOfertasPersonalizadas">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCantidadOfertasPersonalizadas" message="tns:ISACService_GetCantidadOfertasPersonalizadas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetCantidadOfertasPersonalizadasResponse" message="tns:ISACService_GetCantidadOfertasPersonalizadas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOfertasPersonalizadasByTipoConfigurado">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetOfertasPersonalizadasByTipoConfigurado" message="tns:ISACService_GetOfertasPersonalizadasByTipoConfigurado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetOfertasPersonalizadasByTipoConfiguradoResponse" message="tns:ISACService_GetOfertasPersonalizadasByTipoConfigurado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCantidadOfertasPersonalizadasTemporal">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCantidadOfertasPersonalizadasTemporal" message="tns:ISACService_GetCantidadOfertasPersonalizadasTemporal_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetCantidadOfertasPersonalizadasTemporalResponse" message="tns:ISACService_GetCantidadOfertasPersonalizadasTemporal_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EstrategiaTemporalDelete">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalDelete" message="tns:ISACService_EstrategiaTemporalDelete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalDeleteResponse" message="tns:ISACService_EstrategiaTemporalDelete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOfertasPersonalizadasByTipoConfiguradoTemporal">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetOfertasPersonalizadasByTipoConfiguradoTemporal" message="tns:ISACService_GetOfertasPersonalizadasByTipoConfiguradoTemporal_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetOfertasPersonalizadasByTipoConfiguradoTemporalResponse" message="tns:ISACService_GetOfertasPersonalizadasByTipoConfiguradoTemporal_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="EstrategiaTemporalInsertarMasivo">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalInsertarMasivo" message="tns:ISACService_EstrategiaTemporalInsertarMasivo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalInsertarMasivoResponse" message="tns:ISACService_EstrategiaTemporalInsertarMasivo_OutputMessage" />
@@ -2554,6 +2604,51 @@
     </wsdl:operation>
     <wsdl:operation name="RemoveDataCache">
       <soap:operation soapAction="http://tempuri.org/ISACService/RemoveDataCache" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCantidadOfertasPersonalizadas">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetCantidadOfertasPersonalizadas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOfertasPersonalizadasByTipoConfigurado">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetOfertasPersonalizadasByTipoConfigurado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCantidadOfertasPersonalizadasTemporal">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetCantidadOfertasPersonalizadasTemporal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EstrategiaTemporalDelete">
+      <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalDelete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOfertasPersonalizadasByTipoConfiguradoTemporal">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetOfertasPersonalizadasByTipoConfiguradoTemporal" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4493,6 +4588,51 @@
     </wsdl:operation>
     <wsdl:operation name="RemoveDataCache">
       <soap:operation soapAction="http://tempuri.org/ISACService/RemoveDataCache" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCantidadOfertasPersonalizadas">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetCantidadOfertasPersonalizadas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOfertasPersonalizadasByTipoConfigurado">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetOfertasPersonalizadasByTipoConfigurado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCantidadOfertasPersonalizadasTemporal">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetCantidadOfertasPersonalizadasTemporal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EstrategiaTemporalDelete">
+      <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalDelete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOfertasPersonalizadasByTipoConfiguradoTemporal">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetOfertasPersonalizadasByTipoConfiguradoTemporal" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

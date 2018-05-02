@@ -88,7 +88,7 @@ BEGIN
 					--AND PM.CUV = @CUV
 			) p
 			on p.CUV2 = ET.CUV
-			and PMO.CampaniaID = ET.CampaniaId
+			and P.CampaniaID = ET.CampaniaId
 
 	where ET.NumeroLote = @NroLote
 

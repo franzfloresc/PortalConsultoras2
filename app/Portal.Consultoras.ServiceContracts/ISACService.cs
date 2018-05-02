@@ -682,7 +682,7 @@ namespace Portal.Consultoras.ServiceContracts
         BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible);
 
         #endregion
-        
+
         #region ConfiguracionOfertasHome
         [OperationContract]
         List<BEConfiguracionOfertasHome> ListConfiguracionOfertasHome(int paisId, int campaniaId);
@@ -771,6 +771,22 @@ namespace Portal.Consultoras.ServiceContracts
         string RemoveDataCache(int paisID, string cacheItemString, string customKey);
 
         #region Nuevo Masivo
+
+        [OperationContract]
+        int GetCantidadOfertasPersonalizadas(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia);
+
+        [OperationContract]
+        List<BEEstrategia> GetOfertasPersonalizadasByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv);
+
+        [OperationContract]
+        int GetCantidadOfertasPersonalizadasTemporal(int paisId, int nroLote, int tipoConfigurado);
+
+        [OperationContract]
+        int EstrategiaTemporalDelete(int paisId, int nroLote);
+        
+        [OperationContract]
+        List<BEEstrategia> GetOfertasPersonalizadasByTipoConfiguradoTemporal(int paisId, int tipoConfigurado, int nroLote);
+        
         [OperationContract]
         int EstrategiaTemporalInsertarMasivo(int paisId, int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote);
 
@@ -779,10 +795,10 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         bool EstrategiaTemporalActualizarSetDetalle(int paisID, int nroLote);
-        
+
         [OperationContract]
         int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote);
-        
+
         #endregion
     }
 }
