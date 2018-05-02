@@ -302,6 +302,8 @@
     <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
     <Compile Include="Controllers\LanzamientosController.cs" />
+    <Compile Include="Models\Cache\CacheModel.cs" />
+    <Compile Include="Models\Common\ListStringModel.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\BannerInferiorConfiguracion.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\IBannerInferiorConfiguracion.cs" />
     <Compile Include="Models\Estrategia\UpSellingFullModel.cs" />

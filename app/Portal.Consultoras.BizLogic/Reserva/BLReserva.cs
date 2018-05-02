@@ -227,40 +227,31 @@ namespace Portal.Consultoras.BizLogic.Reserva
             if (!input.ValidacionInteractiva) return new BEResultadoReservaProl { ResultadoReservaEnum = Enumeradores.ResultadoReserva.ReservaNoDisponible };
             try
             {
-                var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
-                {
-                    PaisId = input.PaisID,
-                    CampaniaId = input.CampaniaID,
-                    ConsultoraId = input.ConsultoraID,
-                    Consultora = input.NombreConsultora,
-                    EsBpt = input.EsOpt == 1,
-                    CodigoPrograma = input.CodigoPrograma,
-                    NumeroPedido = input.ConsecutivoNueva
-                };
-                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
-                var producto = new BECUVAutomatico { CampaniaID = input.CampaniaID };
-                var lst = new BLCuv().GetProductoCuvAutomatico(input.PaisID, producto, "CUV", "asc", 1, 1, 100).ToList();
+                var listDetalle = GetPedidoWebDetalleReserva(input);
+                var listDetalleSinBackOrder = listDetalle.Where(d => !d.AceptoBackOrder).ToList();
+                if (!listDetalleSinBackOrder.Any()) return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_SinDetalle);
 
-                listPedidoWebDetalle = listPedidoWebDetalle.Where(d => !d.AceptoBackOrder).ToList();
-                if (lst.Count > 0) listPedidoWebDetalle = listPedidoWebDetalle.Where(x => !lst.Select(y => y.CUV).Contains(x.CUV)).ToList();
-                if (!listPedidoWebDetalle.Any()) return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_SinDetalle);
-
-                input.PedidoID = listPedidoWebDetalle[0].PedidoID;
+                input.PedidoID = listDetalle[0].PedidoID;
                 input.VersionProl = GetVersionProl(input.PaisID);
                 var reservaExternaBL = NewReservaExternaBL(input.VersionProl);
-                BEResultadoReservaProl resultado = await reservaExternaBL.ReservarPedido(input, listPedidoWebDetalle);
+                BEResultadoReservaProl resultado = await reservaExternaBL.ReservarPedido(input, listDetalleSinBackOrder);
                 if (resultado.Error) return resultado;
 
                 resultado.MontoGanancia = resultado.MontoAhorroCatalogo + resultado.MontoAhorroRevista;
-                resultado.MontoTotal = listPedidoWebDetalle.Sum(pd => pd.ImporteTotal) - resultado.MontoDescuento;
-                resultado.UnidadesAgregadas = listPedidoWebDetalle.Sum(pd => pd.Cantidad);
+                resultado.MontoTotal = listDetalle.Sum(pd => pd.ImporteTotal) - resultado.MontoDescuento;
+                resultado.UnidadesAgregadas = listDetalle.Sum(pd => pd.Cantidad);
 
-                UpdatePedidoWebReservado(input, resultado, listPedidoWebDetalle);
+                UpdatePedidoWebReservado(input, resultado, listDetalleSinBackOrder);
                 resultado.RefreshPedido = true;
                 resultado.RefreshMontosProl = true;
                 resultado.PedidoID = input.PedidoID;
                 resultado.EnviarCorreo = DebeEnviarCorreoReservaProl(input, resultado);
-                if (input.EnviarCorreo && resultado.EnviarCorreo) EnviarCorreoReservaProl(input, listPedidoWebDetalle);
+
+                if (input.EnviarCorreo && resultado.EnviarCorreo)
+                {
+                    try { EnviarCorreoReservaProl(input, listDetalle); }
+                    catch (Exception ex) { LogManager.SaveLog(ex, input.CodigoUsuario, input.PaisISO); }                    
+                }
                 return resultado;
             }
             catch (Exception ex)
@@ -283,24 +274,10 @@ namespace Portal.Consultoras.BizLogic.Reserva
         {
             try
             {
-                var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
-                {
-                    PaisId = input.PaisID,
-                    CampaniaId = input.CampaniaID,
-                    ConsultoraId = input.ConsultoraID,
-                    Consultora = input.NombreConsultora,
-                    EsBpt = input.EsOpt == 1,
-                    CodigoPrograma = input.CodigoPrograma,
-                    NumeroPedido = input.ConsecutivoNueva
-                };
+                var listPedidoWebDetalle = GetPedidoWebDetalleReserva(input);
+                if (!listPedidoWebDetalle.Any()) return false;
 
-                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
-                if (listPedidoWebDetalle.Count > 0) input.PedidoID = listPedidoWebDetalle[0].PedidoID;
-
-                BECUVAutomatico producto = new BECUVAutomatico { CampaniaID = input.CampaniaID };
-                var lst = new BLCuv().GetProductoCuvAutomatico(input.PaisID, producto, "CUV", "asc", 1, 1, 100).ToList();
-                if (lst.Count > 0) listPedidoWebDetalle = listPedidoWebDetalle.Where(x => !lst.Select(y => y.CUV).Contains(x.CUV)).ToList();
-
+                input.PedidoID = listPedidoWebDetalle[0].PedidoID;
                 EnviarCorreoReservaProl(input, listPedidoWebDetalle);
                 return true;
             }
@@ -385,6 +362,27 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 return (new BLPedidoWeb().GetFechaNoHabilFacturacion(usuario.PaisID, usuario.CodigoZona, DateTime.Today) == 0);
             }
             return true;
+        }
+
+        public List<BEPedidoWebDetalle> GetPedidoWebDetalleReserva(BEInputReservaProl input)
+        {
+            var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+            {
+                PaisId = input.PaisID,
+                CampaniaId = input.CampaniaID,
+                ConsultoraId = input.ConsultoraID,
+                Consultora = input.NombreConsultora,
+                EsBpt = input.EsOpt == 1,
+                CodigoPrograma = input.CodigoPrograma,
+                NumeroPedido = input.ConsecutivoNueva
+            };
+            var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
+
+            var producto = new BECUVAutomatico { CampaniaID = input.CampaniaID };
+            var lst = new BLCuv().GetProductoCuvAutomatico(input.PaisID, producto, "CUV", "asc", 1, 1, 100).ToList();
+            if (lst.Count > 0) listPedidoWebDetalle = listPedidoWebDetalle.Where(x => !lst.Select(y => y.CUV).Contains(x.CUV)).ToList();
+
+            return listPedidoWebDetalle;
         }
 
         private byte GetVersionProl(int paisId)
