@@ -817,7 +817,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 using (var sv = new ServicesCalculoPrecioNiveles())
                 {
                     sv.Url = WebConfig.Ambiente.ToUpper() == "QA" ? WebConfig.QA_Prol_ServicesCalculos : WebConfig.PR_Prol_ServicesCalculos;
-                    montosProl = sv.CalculoMontosProlxIncentivos(usuario.CodigoISO, usuario.CampaniaID.ToString(), usuario.CodigoConsultora, usuario.CodigoZona, cuvs, cantidades, pedidoDetalle.CodigosConcursos).ToList();
+                    montosProl = sv.CalculoMontosProlxIncentivos(usuario.CodigoISO, usuario.CampaniaID.ToString(), usuario.CodigoConsultora, usuario.CodigoZona, cuvs, cantidades, usuario.CodigosConcursos).ToList();
                     montosProl = montosProl ?? new List<ObjMontosProl>();
                 }
             }
@@ -863,8 +863,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             _pedidoWebBusinessLogic.UpdateMontosPedidoWeb(bePedidoWeb);
 
-            if (!string.IsNullOrEmpty(pedidoDetalle.CodigosConcursos))
-                _consultoraConcursoBusinessLogic.ActualizarInsertarPuntosConcurso(pedidoDetalle.PaisID, usuario.CodigoConsultora, usuario.CampaniaID.ToString(), pedidoDetalle.CodigosConcursos, puntajes, puntajesExigidos);
+            if (!string.IsNullOrEmpty(usuario.CodigosConcursos))
+                _consultoraConcursoBusinessLogic.ActualizarInsertarPuntosConcurso(pedidoDetalle.PaisID, usuario.CodigoConsultora, usuario.CampaniaID.ToString(), usuario.CodigosConcursos, puntajes, puntajesExigidos);
         }
         #endregion  
 
