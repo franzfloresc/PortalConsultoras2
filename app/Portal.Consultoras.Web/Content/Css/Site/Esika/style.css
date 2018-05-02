@@ -3357,6 +3357,8 @@ a.subir_carousel, a.bajar_carousel {
 	overflow: hidden;
 }
 
+    
+
 	.producto_nombre_descripcion.pb-16 {
 		padding-bottom: 16px;
 	}
@@ -3405,7 +3407,7 @@ a.subir_carousel, a.bajar_carousel {
 	width: 50%;
 	padding-right: 5px;
 	position: relative;
-	top: -4px;
+	top: -1px;
 }
 
 .producto_precio_oferta {
@@ -20392,9 +20394,9 @@ label.checkpop.c_on {
         width: auto;
         height: 93.5%;
         padding: 10px !important;
-        width: 100% !important;
+        max-width: 100% !important;
         display: block !important;
-        margin: auto;
+        margin: auto !important;
     }
 
 .content_carrusel_ofertas .slick-track {
