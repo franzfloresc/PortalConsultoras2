@@ -1,5 +1,8 @@
-USE BelcorpPeru_BPT
+USE ODS_PE_BPT
 GO
+
+--USE BelcorpPeru_BPT
+--GO
 
 --USE BelcorpPeru
 --GO
@@ -18,7 +21,7 @@ PRINT 'CREANDO PROCEDURE  [dbo].CargarOfertasPersonalizadasCUV'
 GO
 
 CREATE PROCEDURE CargarOfertasPersonalizadasCUV
-	@TipoPersonalizacionAnioCampanaVenta VARCHAR(50)
+	@TipoPersonalizacionAnioCampanaVenta VARCHAR(MAX)
 AS
 BEGIN
 	DECLARE @Filtro TABLE
