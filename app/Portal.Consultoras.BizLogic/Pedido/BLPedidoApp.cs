@@ -23,7 +23,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private readonly IConsultorasProgramaNuevasBusinessLogic _consultorasProgramaNuevasBusinessLogic;
         private readonly IEscalaDescuentoBusinessLogic _escalaDescuentoBusinessLogic;
         private readonly IMensajeMetaConsultoraBusinessLogic _mensajeMetaConsultoraBusinessLogic;
-        private readonly IClienteBusinessLogic _clienteBusinessLogic;
 
         private List<ObjMontosProl> montosProl = new List<ObjMontosProl> { new ObjMontosProl() };
 
@@ -36,8 +35,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     new BLUsuario(),
                                     new BLConsultorasProgramaNuevas(),
                                     new BLEscalaDescuento(),
-                                    new BLMensajeMetaConsultora(),
-                                    new BLCliente())
+                                    new BLMensajeMetaConsultora())
         { }
 
         public BLPedidoApp(IProductoBusinessLogic productoBusinessLogic, 
@@ -49,8 +47,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             IUsuarioBusinessLogic usuarioBusinessLogic,
                             IConsultorasProgramaNuevasBusinessLogic consultorasProgramaNuevasBusinessLogic,
                             IEscalaDescuentoBusinessLogic escalaDescuentoBusinessLogic,
-                            IMensajeMetaConsultoraBusinessLogic mensajeMetaConsultoraBusinessLogic,
-                            IClienteBusinessLogic clienteBusinessLogic)
+                            IMensajeMetaConsultoraBusinessLogic mensajeMetaConsultoraBusinessLogic)
         {
             _productoBusinessLogic = productoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
@@ -62,7 +59,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
             _consultorasProgramaNuevasBusinessLogic = consultorasProgramaNuevasBusinessLogic;
             _escalaDescuentoBusinessLogic = escalaDescuentoBusinessLogic;
             _mensajeMetaConsultoraBusinessLogic = mensajeMetaConsultoraBusinessLogic;
-            _clienteBusinessLogic = clienteBusinessLogic;
         }
 
         #region Publicos
@@ -307,7 +303,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return false;
         }
 
-        public object Update(BEPedidoDetalleAppInsertar pedidoDetalle)
+        public BEPedidoDetalleAppInsertarResult Update(BEPedidoDetalleAppInsertar pedidoDetalle)
         {
             var mensaje = string.Empty;
             try
@@ -329,9 +325,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var result = ValidarStockEstrategia(usuario, pedidoDetalle, out mensaje);
                 if (!result) return PedidoInsertarRespuesta(Constantes.PedidoAppValidacion.PedidoInsertar.Code.ERROR_STOCK_ESTRATEGIA, mensaje);
 
-                //validar datos cliente
-                var validacionDatos = InsertarMensajeValidarDatos(pedidoDetalle.ClienteID.ToString(), pedidoDetalle.PaisID, usuario.ConsultoraID,out mensaje);
-                if (!validacionDatos) return PedidoInsertarRespuesta(Constantes.PedidoAppValidacion.PedidoInsertar.Code.ERROR_VALIDA_DATOS, mensaje);
 
                 //accion actualizar
                 var accionActualizar = PedidoActualizar(usuario, pedidoDetalle);
@@ -824,7 +817,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 using (var sv = new ServicesCalculoPrecioNiveles())
                 {
                     sv.Url = WebConfig.Ambiente.ToUpper() == "QA" ? WebConfig.QA_Prol_ServicesCalculos : WebConfig.PR_Prol_ServicesCalculos;
-                    montosProl = sv.CalculoMontosProlxIncentivos(usuario.CodigoISO, usuario.CampaniaID.ToString(), usuario.CodigoConsultora, usuario.CodigoZona, cuvs, cantidades, pedidoDetalle.CodigosConcursos).ToList();
+                    montosProl = sv.CalculoMontosProlxIncentivos(usuario.CodigoISO, usuario.CampaniaID.ToString(), usuario.CodigoConsultora, usuario.CodigoZona, cuvs, cantidades, usuario.CodigosConcursos).ToList();
                     montosProl = montosProl ?? new List<ObjMontosProl>();
                 }
             }
@@ -870,8 +863,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             _pedidoWebBusinessLogic.UpdateMontosPedidoWeb(bePedidoWeb);
 
-            if (!string.IsNullOrEmpty(pedidoDetalle.CodigosConcursos))
-                _consultoraConcursoBusinessLogic.ActualizarInsertarPuntosConcurso(pedidoDetalle.PaisID, usuario.CodigoConsultora, usuario.CampaniaID.ToString(), pedidoDetalle.CodigosConcursos, puntajes, puntajesExigidos);
+            if (!string.IsNullOrEmpty(usuario.CodigosConcursos))
+                _consultoraConcursoBusinessLogic.ActualizarInsertarPuntosConcurso(pedidoDetalle.PaisID, usuario.CodigoConsultora, usuario.CampaniaID.ToString(), usuario.CodigosConcursos, puntajes, puntajesExigidos);
         }
         #endregion  
 
@@ -944,7 +937,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 PaisID = pedidoDetalle.PaisID,
                 CampaniaID = usuario.CampaniaID,
-                PedidoID = pedidoDetalle.PedidoID,
+                PedidoID = pedidoDetalle.PedidoID, 
                 PedidoDetalleID = Convert.ToInt16(pedidoDetalle.PedidoDetalleID),
                 Cantidad = Convert.ToInt32(pedidoDetalle.Cantidad),
                 PrecioUnidad = pedidoDetalle.Producto.PrecioCatalogo,
@@ -964,26 +957,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return Constantes.PedidoAppValidacion.PedidoInsertar.Code.SUCCESS;
         }
 
-        private bool InsertarMensajeValidarDatos(string clienteIdStr, int paisID, long consultoraID, out string mensaje)
-        {
-            var result = true;
-            mensaje = string.Empty;
-            if (string.IsNullOrEmpty(clienteIdStr))
-                return mensaje == string.Empty || result;
-
-            var clienteId = Convert.ToInt32(clienteIdStr);
-
-            if (clienteId > 0)
-            {
-                var cliente = _clienteBusinessLogic.SelectByConsultoraByCodigo(paisID, consultoraID, clienteId, 0);
-                if (cliente.TieneTelefono == 0){
-                    result = false;
-                    mensaje = "Debe actualizar los datos del cliente.";
-                } 
-            }
-
-            return mensaje == string.Empty || result; ;
-        }
+        
 
         #endregion
 
