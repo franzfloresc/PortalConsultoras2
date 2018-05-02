@@ -1265,6 +1265,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         bool InsertKitInicio(BEUsuario usuario);
         [OperationContract]
+        BEPedidoDetalleAppInsertarResult UpdatePedidoDetalleApp(BEPedidoDetalleAppInsertar pedidoDetalle);
+        [OperationContract]
         BEConfiguracionPedido GetConfiguracionPedidoApp(int paisID, string codigoUsuario);
         #endregion
 
