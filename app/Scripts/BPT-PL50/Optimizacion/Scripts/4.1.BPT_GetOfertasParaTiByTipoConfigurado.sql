@@ -12,25 +12,6 @@ BEGIN
 
 	SET NOCOUNT OFF
 
-	if	@Pagina < 1
-		set @Pagina = 1
-		
-	declare @CuvDesde int = (@Pagina - 1) * @CantCuv + 1
-	declare @CuvHasta int = @Pagina * @CantCuv
-
-	DECLARE @CampaniaIDChar CHAR(6) = convert(char(6), @CampaniaID)
-
-	DECLARE @EstrategiaCodigoOds CHAR(3)
-	SET @EstrategiaCodigoOds = CASE @EstrategiaCodigo 
-		WHEN '001' THEN 'OPT'
-		WHEN '009' THEN 'ODD'
-		WHEN '005' THEN 'LAN'
-		WHEN '007' THEN 'OPM'
-		WHEN '008' THEN 'PAD'
-		WHEN '010' THEN 'GND'
-		WHEN '030' THEN 'SR'
-		ELSE 'OPT'
-	END;
 
 	DECLARE @tablaCuvsOPT TABLE (
 		CampaniaID int, 
@@ -40,6 +21,7 @@ BEGIN
 	)
 
 	IF (@EstrategiaCodigo = '011')
+	begin
 		INSERT INTO @tablaCuvsOPT
 			SELECT @CampaniaID, CUV, 0, 99 
 			FROM ods.ProductoComercial 
@@ -47,8 +29,20 @@ BEGIN
 				AND CodigoTipoOferta = '126'
 				AND FactorRepeticion = 1
 			GROUP BY CUV
+	end
 	ELSE
 	BEGIN
+	begin
+	
+		if	@Pagina < 1
+			set @Pagina = 1
+		
+		declare @CuvDesde int = (@Pagina - 1) * @CantCuv + 1
+		declare @CuvHasta int = @Pagina * @CantCuv
+		DECLARE @CampaniaIDChar CHAR(6) = convert(char(6), @CampaniaID)
+		DECLARE @EstrategiaCodigoOds CHAR(3)
+		set @EstrategiaCodigoOds = dbo.fnGetTipoPersonalizacion(@EstrategiaCodigo)
+
 		INSERT INTO @tablaCuvsOPT
 		select @CampaniaID, m.CUV, m.OfertaUltimoMinuto, m.LimiteVenta
 		from (
@@ -62,6 +56,8 @@ BEGIN
 			AND TipoPersonalizacion = @EstrategiaCodigoOds
 		) m
 		where m.ID between @CuvDesde and @CuvHasta
+
+	end
 	END
 
 	DECLARE @tablaResultado TABLE (
@@ -131,20 +127,20 @@ BEGIN
 			mci.Foto,
 			p.IndicadorPreUni
 		FROM @tablaCuvsOPT t
-		INNER JOIN ods.ProductoComercial p on
-			t.CampaniaID = p.AnoCampania
+		INNER JOIN ods.ProductoComercial p 
+			on t.CampaniaID = p.AnoCampania
 			and t.CUV = p.CUV
-		INNER JOIN Estrategia e on
-			t.CampaniaID = e.CampaniaID
+		INNER JOIN Estrategia e 
+			on t.CampaniaID = e.CampaniaID
 			and t.CUV = e.CUV2 
 			and e.TipoEstrategiaID = @TipoEstrategiaId
-		LEFT JOIN dbo.ProductoDescripcion pd on
-			p.AnoCampania = pd.CampaniaID
+		LEFT JOIN dbo.ProductoDescripcion pd 
+			on p.AnoCampania = pd.CampaniaID
 			and p.CUV = pd.CUV
-		LEFT JOIN MatrizComercial mc on
-			p.CodigoProducto = mc.CodigoSAP
-		LEFT JOIN MatrizComercialImagen mci on 
-			mci.IdMatrizComercial = mc.IdMatrizComercial 
+		LEFT JOIN MatrizComercial mc 
+			on p.CodigoProducto = mc.CodigoSAP
+		LEFT JOIN MatrizComercialImagen mci 
+			on mci.IdMatrizComercial = mc.IdMatrizComercial 
 			and mci.NemoTecnico IS NOT NULL
 		WHERE e.CampaniaID = @CampaniaID
 	END

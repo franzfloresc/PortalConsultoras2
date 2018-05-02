@@ -698,3 +698,17 @@
 .contenedor_fondo_popup {
     background: rgba(0, 0, 0, .70) !important;
 }
+
+.Acortar2Renglones3puntos {
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+}
+
+.Acortar3Renglones3puntos {
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    -webkit-box-orient: vertical !important;
+}

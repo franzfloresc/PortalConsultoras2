@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private string pasoLog;
         private readonly string IP_DEFECTO = "190.187.154.154";
-        private readonly string ISO_DEFECTO = "PE";
+        private readonly string ISO_DEFECTO = Constantes.CodigosISOPais.Peru;
         private readonly int USUARIO_VALIDO = 3;
 
         protected ISessionManager sessionManager = SessionManager.SessionManager.Instance;
@@ -628,7 +628,8 @@ namespace Portal.Consultoras.Web.Controllers
                     ClienteID = model.ClienteID,
                     MostrarHipervinculo = !model.EsAppMobile,
                     EsAppMobile = model.EsAppMobile,
-                    TimeOutSession = (int)FormsAuthentication.Timeout.TotalMinutes
+                    TimeOutSession = (int)FormsAuthentication.Timeout.TotalMinutes,
+                    Campania = Convert.ToInt32(model.Campania)
                 });
 
                 this.SetUniqueSession("IngresoExterno", model.Version ?? "");
@@ -669,7 +670,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 url = model.UrlCatalogo
                             });
                     case Constantes.IngresoExternoPagina.MisPedidos:
-                        return RedirectToUniqueRoute("MisPedidos", "Index", null);
+                        return RedirectToUniqueRoute("MisPedidos", "Index",null);
                     case Constantes.IngresoExternoPagina.ShowRoom:
                         return RedirectToUniqueRoute("ShowRoom", "Procesar", null);
                     case Constantes.IngresoExternoPagina.ProductosAgotados:
@@ -682,6 +683,11 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("RevistaDigital", "Informacion", null);
                     case Constantes.IngresoExternoPagina.LiquidacionWeb:
                         return RedirectToUniqueRoute("OfertaLiquidacion", "Index", null);
+                    case Constantes.IngresoExternoPagina.CambiosDevoluciones:
+                        return RedirectToUniqueRoute("MisReclamos", "Index", null);
+                    case Constantes.IngresoExternoPagina.PedidosFIC:
+                        return RedirectToUniqueRoute("PedidoFIC", "Index", null);
+                        
                 }
             }
             catch (Exception ex)
@@ -1115,6 +1121,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     #region
                     usuarioModel = new UsuarioModel();
+                    usuarioModel.CompraVDirectaCer = usuario.CompraVDirecta;
+                    usuarioModel.IVACompraVDirectaCer = usuario.IVACompraVDirecta;
+                    usuarioModel.RetailCer = usuario.Retail;
+                    usuarioModel.IVARetailCer = usuario.IVARetail;
+                    usuarioModel.TotalCompraCer = usuario.TotalCompra;
+                    usuarioModel.IvaTotalCer = usuario.IvaTotal;
                     usuarioModel.EstadoPedido = usuario.EstadoPedido;
                     usuarioModel.NombrePais = usuario.NombrePais;
                     usuarioModel.PaisID = usuario.PaisID;
@@ -2637,7 +2649,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.IconoPagina = "/Content/Images/Lbel/favicon.ico";
                 ViewBag.EsPaisEsika = false;
                 ViewBag.EsPaisLbel = true;
-                if (iso == "MX") ViewBag.AvisoASP = 2;
+                if (iso == Constantes.CodigosISOPais.Mexico) ViewBag.AvisoASP = 2;
             }
             else
             {
@@ -2698,7 +2710,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 new LoginAnalyticsModel
                 {
-                    CodigoISO = "CL",
+                    CodigoISO = Constantes.CodigosISOPais.Chile,
                     GndId = 958175395,
                     PixelId = "702802606578920",
                     SearchId = 989089161,
@@ -2706,7 +2718,7 @@ namespace Portal.Consultoras.Web.Controllers
                 },
                 new LoginAnalyticsModel
                 {
-                    CodigoISO = "CO",
+                    CodigoISO = Constantes.CodigosISOPais.Colombia,
                     GndId = 971131996,
                     PixelId = "145027672730911",
                     SearchId = 995835500,
@@ -2714,7 +2726,7 @@ namespace Portal.Consultoras.Web.Controllers
                 },
                 new LoginAnalyticsModel
                 {
-                    CodigoISO = "PE",
+                    CodigoISO = Constantes.CodigosISOPais.Peru,
                     GndId = 956111599,
                     PixelId = "1004828506227914",
                     SearchId = 986595497,

@@ -389,5 +389,18 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (DataModel)HttpContext.Current.Session["EstrategiaODD"];
         }
+
+        EstrategiaPersonalizadaProductoModel ISessionManager.ProductoTemporal
+        {
+            get
+            {
+                return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
+            }
+
+            set
+            {
+                HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = value;
+            }
+        }
     }
 }

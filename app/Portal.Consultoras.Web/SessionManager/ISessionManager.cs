@@ -146,6 +146,7 @@ namespace Portal.Consultoras.Web.SessionManager
 
         PagoEnLineaModel GetDatosPagoVisa();
 
+        EstrategiaPersonalizadaProductoModel ProductoTemporal { get; set; }
         void SetEstrategiaODD(Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel data);
         Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel GetEstrategiaODD();
     }

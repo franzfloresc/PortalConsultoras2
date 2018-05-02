@@ -1453,18 +1453,34 @@ namespace Portal.Consultoras.Service
             return new UpSellingBusinessLogic(paisId).ObtenerDetalles(upSellingId);
         }
 
-        public IEnumerable<OfertaFinalMontoMeta> ObtenerOfertaFinalMontoMeta(int paisId, int upSellingId)
+        public UpSellingRegalo UpSellingObtenerMontoMeta(int paisId, int campaniaId, long consultoraId)
         {
-            return new UpSellingBusinessLogic(paisId).ObtenerOfertaFinalMontoMeta( upSellingId);
+            var upSellingBusinessLogic = new UpSellingBusinessLogic(paisId);
+
+            return upSellingBusinessLogic.ObtenerMontoMeta(campaniaId, consultoraId);
         }
-        
-        public int InsertUpSellingRegalo(int paisId, UpSellingRegalo entidad)
+
+        public int UpSellingInsertarRegalo(int paisId, UpSellingRegalo entidad)
         {
             var upSellingBusinessLogic = new UpSellingBusinessLogic(paisId);
 
             return upSellingBusinessLogic.InsertarRegalo(entidad);
         }
-        
+
+        public UpSellingRegalo UpSellingObtenerRegaloGanado(int paisId, int campaniaId, long consultoraId)
+        {
+            var upSellingBusinessLogic = new UpSellingBusinessLogic(paisId);
+
+            return upSellingBusinessLogic.ObtenerRegaloGanado(campaniaId, consultoraId);
+        }
+
+        public IEnumerable<UpSellingMontoMeta> UpSellingReporteMontoMeta(int paisId, int upSellingId)
+        {
+            var upSellingBusinessLogic = new UpSellingBusinessLogic(paisId);
+
+            return upSellingBusinessLogic.ListarReporteMontoMeta(upSellingId);
+        }
+
         #endregion
 
         public BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible)
@@ -1505,14 +1521,24 @@ namespace Portal.Consultoras.Service
         #endregion
 
         #region Nuevo Masivo
-        public bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int campaniaId, string estrategiaCodigo, string joinCuv)
+        public int EstrategiaTemporalInsertarMasivo(int paisId, int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote)
         {
-            return _blAdministrarEstrategia.EstrategiaTemporalActualizarPrecioNivel(paisId, campaniaId, estrategiaCodigo, joinCuv);
+            return _blAdministrarEstrategia.EstrategiaTemporalInsertarMasivo(paisId, campaniaId, estrategiaCodigo, pagina, cantidadCuv, nroLote);
         }
 
-        public bool EstrategiaTemporalActualizarSetDetalle(int paisId, int campaniaId, string estrategiaCodigo, string joinCuv)
+        public bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int nroLote)
         {
-            return _blAdministrarEstrategia.EstrategiaTemporalActualizarSetDetalle(paisId, campaniaId, estrategiaCodigo, joinCuv);
+            return _blAdministrarEstrategia.EstrategiaTemporalActualizarPrecioNivel(paisId, nroLote);
+        }
+
+        public bool EstrategiaTemporalActualizarSetDetalle(int paisId, int nroLote)
+        {
+            return _blAdministrarEstrategia.EstrategiaTemporalActualizarSetDetalle(paisId, nroLote);
+        }
+
+        public int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote)
+        {
+            return _blAdministrarEstrategia.EstrategiaTemporalInsertarEstrategiaMasivo(paisId, nroLote);
         }
         #endregion
 

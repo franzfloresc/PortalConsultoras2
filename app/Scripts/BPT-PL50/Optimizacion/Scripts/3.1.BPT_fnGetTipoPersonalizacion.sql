@@ -1,10 +1,10 @@
 
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'fnGetTipoPersonalizacion') AND type IN ( N'TF', N'FN' ) ) 
-	DROP FUNCTION [dbo].[fnGetTipoPersonalizacion]
+	DROP FUNCTION [fnGetTipoPersonalizacion]
 GO
 
-CREATE FUNCTION [dbo].[fnGetTipoPersonalizacion]
+CREATE FUNCTION [fnGetTipoPersonalizacion]
 (
 	@EstrategiaCodigo varchar(100)
 )
@@ -20,7 +20,7 @@ begin
 		WHEN '008' THEN 'PAD'
 		WHEN '010' THEN 'GND'
 		WHEN '030' THEN 'SR'
-		ELSE 'OPT'
+		ELSE ''
 	END
 	return @TipoPersonalizacion
 end

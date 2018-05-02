@@ -92,7 +92,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 case Constantes.OrigenPedidoWeb.HVMobileLanding:
                     result = Constantes.OrigenPedidoWeb.HVMobileLandingPopup;
                     break;
-
+                case Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage:
+                    result = Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage;
+                    break;
             }
 
             result = result == 0 ? Constantes.OrigenPedidoWeb.OfertasParaTiMobileDetalle : result;
@@ -141,6 +143,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     break;
                 case Constantes.OrigenPedidoWeb.HVMobileLanding:
                     result = Url.Action("Comprar", "HerramientasVenta", new { area = "Mobile" });
+                    break;
+                case Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage:
+                    result = Url.Action("Index", "Ofertas", new { area = "Mobile" });
                     break;
             }
 

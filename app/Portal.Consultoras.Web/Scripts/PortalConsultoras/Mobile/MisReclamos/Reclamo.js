@@ -362,7 +362,7 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.btnSiguiente4).click(function () {
-
+				 
                     if (mensajeGestionCdrInhabilitada != '') {
                         messageInfoValidado(mensajeGestionCdrInhabilitada);
                         return false;
@@ -574,9 +574,12 @@ $(document).ready(function () {
                         }
 
                         data.detalle = data.detalle || new Array();
-                        if (data.detalle.length <= 0) {
-                            messageInfoError("Producto no disponible para atención por este medio, comunícate con el <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
-
+						if (data.detalle.length <= 0) {
+							if (flagAppMobile == 0) {
+								messageInfoError("Producto no disponible para atención por este medio, comunícate con el <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
+							} else {
+								messageInfoError("Producto no disponible para atención por este medio.");
+							}
                         } else {
                             if (data.detalle.length > 1) {
                                 me.Funciones.PopupPedido(data.detalle);
@@ -596,8 +599,12 @@ $(document).ready(function () {
             AsignarCUV: function (pedido) {
                 pedido = pedido || new Object();
 
-                if (pedido.CDRWebID > 0 && pedido.CDRWebEstado != 1 && pedido.CDRWebEstado != 4) {
-                    messageInfoError("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro <span>Chat en Línea</span>.");
+				if (pedido.CDRWebID > 0 && pedido.CDRWebEstado != 1 && pedido.CDRWebEstado != 4) {
+					if (flagAppMobile == 0) {
+						messageInfoError("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
+					} else {
+						messageInfoError("Lo sentimos, ya cuentas con una solicitud web para este pedido.");
+					}
                     return false;
 
                 } else {
@@ -1350,7 +1357,7 @@ $(document).ready(function () {
                 return resultado;
             },
 
-            SolicitudEnviar: function (validarCorreoVacio, validarCelularVacio) {
+			SolicitudEnviar: function (validarCorreoVacio, validarCelularVacio) {
                 var ok = true;
                 var correo = $.trim($(me.Variables.txtEmail).val());
                 var celular = $.trim($(me.Variables.txtTelefono).val());
@@ -1412,12 +1419,18 @@ $(document).ready(function () {
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(item),
                     cache: false,
-                    success: function (data) {
+					success: function (data) {
                         CloseLoading();
                         if (!checkTimeout(data)) return false;
 
-                        if (data.success != true) {
-                            messageInfo(data.message);
+						if (data.success != true) {
+							var mensajeInfo = "";
+							if ((data.message.indexOf(mensajeChatEnLinea) > -1) && (flagAppMobile == 1)) {
+								mensajeInfo = data.message.replace(mensajeChatEnLinea, "").trim();
+							} else mensajeInfo = data.message;
+							  
+							messageInfo(mensajeInfo);
+							 
                             return false;
                         }
 

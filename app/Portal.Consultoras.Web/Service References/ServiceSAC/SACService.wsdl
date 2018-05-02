@@ -230,17 +230,29 @@
   <wsdl:message name="ISACService_UpSellingDetalleObtener_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpSellingDetalleObtenerResponse" />
   </wsdl:message>
-  <wsdl:message name="ISACService_ObtenerOfertaFinalMontoMeta_InputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerOfertaFinalMontoMeta" />
+  <wsdl:message name="ISACService_UpSellingObtenerMontoMeta_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingObtenerMontoMeta" />
   </wsdl:message>
-  <wsdl:message name="ISACService_ObtenerOfertaFinalMontoMeta_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerOfertaFinalMontoMetaResponse" />
+  <wsdl:message name="ISACService_UpSellingObtenerMontoMeta_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingObtenerMontoMetaResponse" />
   </wsdl:message>
-  <wsdl:message name="ISACService_InsertUpSellingRegalo_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsertUpSellingRegalo" />
+  <wsdl:message name="ISACService_UpSellingInsertarRegalo_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingInsertarRegalo" />
   </wsdl:message>
-  <wsdl:message name="ISACService_InsertUpSellingRegalo_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsertUpSellingRegaloResponse" />
+  <wsdl:message name="ISACService_UpSellingInsertarRegalo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingInsertarRegaloResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingObtenerRegaloGanado_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingObtenerRegaloGanado" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingObtenerRegaloGanado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingObtenerRegaloGanadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingReporteMontoMeta_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingReporteMontoMeta" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingReporteMontoMeta_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingReporteMontoMetaResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_UpsellingMarcaCategoriaObtener_InputMessage">
     <wsdl:part name="parameters" element="tns:UpsellingMarcaCategoriaObtener" />
@@ -272,6 +284,12 @@
   <wsdl:message name="ISACService_RemoveDataCache_OutputMessage">
     <wsdl:part name="parameters" element="tns:RemoveDataCacheResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_EstrategiaTemporalInsertarMasivo_InputMessage">
+    <wsdl:part name="parameters" element="tns:EstrategiaTemporalInsertarMasivo" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_EstrategiaTemporalInsertarMasivo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EstrategiaTemporalInsertarMasivoResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_EstrategiaTemporalActualizarPrecioNivel_InputMessage">
     <wsdl:part name="parameters" element="tns:EstrategiaTemporalActualizarPrecioNivel" />
   </wsdl:message>
@@ -283,6 +301,12 @@
   </wsdl:message>
   <wsdl:message name="ISACService_EstrategiaTemporalActualizarSetDetalle_OutputMessage">
     <wsdl:part name="parameters" element="tns:EstrategiaTemporalActualizarSetDetalleResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_EstrategiaTemporalInsertarEstrategiaMasivo_InputMessage">
+    <wsdl:part name="parameters" element="tns:EstrategiaTemporalInsertarEstrategiaMasivo" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_EstrategiaTemporalInsertarEstrategiaMasivo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EstrategiaTemporalInsertarEstrategiaMasivoResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_UpdateBelcorpNoticia_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateBelcorpNoticia" />
@@ -1433,13 +1457,21 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpSellingDetalleObtener" message="tns:ISACService_UpSellingDetalleObtener_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpSellingDetalleObtenerResponse" message="tns:ISACService_UpSellingDetalleObtener_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ObtenerOfertaFinalMontoMeta">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ObtenerOfertaFinalMontoMeta" message="tns:ISACService_ObtenerOfertaFinalMontoMeta_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ObtenerOfertaFinalMontoMetaResponse" message="tns:ISACService_ObtenerOfertaFinalMontoMeta_OutputMessage" />
+    <wsdl:operation name="UpSellingObtenerMontoMeta">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpSellingObtenerMontoMeta" message="tns:ISACService_UpSellingObtenerMontoMeta_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpSellingObtenerMontoMetaResponse" message="tns:ISACService_UpSellingObtenerMontoMeta_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="InsertUpSellingRegalo">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertUpSellingRegalo" message="tns:ISACService_InsertUpSellingRegalo_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertUpSellingRegaloResponse" message="tns:ISACService_InsertUpSellingRegalo_OutputMessage" />
+    <wsdl:operation name="UpSellingInsertarRegalo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpSellingInsertarRegalo" message="tns:ISACService_UpSellingInsertarRegalo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpSellingInsertarRegaloResponse" message="tns:ISACService_UpSellingInsertarRegalo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingObtenerRegaloGanado">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpSellingObtenerRegaloGanado" message="tns:ISACService_UpSellingObtenerRegaloGanado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpSellingObtenerRegaloGanadoResponse" message="tns:ISACService_UpSellingObtenerRegaloGanado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingReporteMontoMeta">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpSellingReporteMontoMeta" message="tns:ISACService_UpSellingReporteMontoMeta_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpSellingReporteMontoMetaResponse" message="tns:ISACService_UpSellingReporteMontoMeta_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="UpsellingMarcaCategoriaObtener">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpsellingMarcaCategoriaObtener" message="tns:ISACService_UpsellingMarcaCategoriaObtener_InputMessage" />
@@ -1461,6 +1493,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/RemoveDataCache" message="tns:ISACService_RemoveDataCache_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/RemoveDataCacheResponse" message="tns:ISACService_RemoveDataCache_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="EstrategiaTemporalInsertarMasivo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalInsertarMasivo" message="tns:ISACService_EstrategiaTemporalInsertarMasivo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalInsertarMasivoResponse" message="tns:ISACService_EstrategiaTemporalInsertarMasivo_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="EstrategiaTemporalActualizarPrecioNivel">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarPrecioNivel" message="tns:ISACService_EstrategiaTemporalActualizarPrecioNivel_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarPrecioNivelResponse" message="tns:ISACService_EstrategiaTemporalActualizarPrecioNivel_OutputMessage" />
@@ -1468,6 +1504,10 @@
     <wsdl:operation name="EstrategiaTemporalActualizarSetDetalle">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalle" message="tns:ISACService_EstrategiaTemporalActualizarSetDetalle_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalleResponse" message="tns:ISACService_EstrategiaTemporalActualizarSetDetalle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EstrategiaTemporalInsertarEstrategiaMasivo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalInsertarEstrategiaMasivo" message="tns:ISACService_EstrategiaTemporalInsertarEstrategiaMasivo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalInsertarEstrategiaMasivoResponse" message="tns:ISACService_EstrategiaTemporalInsertarEstrategiaMasivo_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="UpdateBelcorpNoticia">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia" message="tns:ISACService_UpdateBelcorpNoticia_InputMessage" />
@@ -2440,8 +2480,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerOfertaFinalMontoMeta">
-      <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerOfertaFinalMontoMeta" style="document" />
+    <wsdl:operation name="UpSellingObtenerMontoMeta">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingObtenerMontoMeta" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2449,8 +2489,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="InsertUpSellingRegalo">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsertUpSellingRegalo" style="document" />
+    <wsdl:operation name="UpSellingInsertarRegalo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingInsertarRegalo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingObtenerRegaloGanado">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingObtenerRegaloGanado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingReporteMontoMeta">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingReporteMontoMeta" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2503,6 +2561,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="EstrategiaTemporalInsertarMasivo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalInsertarMasivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="EstrategiaTemporalActualizarPrecioNivel">
       <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarPrecioNivel" style="document" />
       <wsdl:input>
@@ -2514,6 +2581,15 @@
     </wsdl:operation>
     <wsdl:operation name="EstrategiaTemporalActualizarSetDetalle">
       <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EstrategiaTemporalInsertarEstrategiaMasivo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalInsertarEstrategiaMasivo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4343,8 +4419,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ObtenerOfertaFinalMontoMeta">
-      <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerOfertaFinalMontoMeta" style="document" />
+    <wsdl:operation name="UpSellingObtenerMontoMeta">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingObtenerMontoMeta" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4352,8 +4428,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="InsertUpSellingRegalo">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsertUpSellingRegalo" style="document" />
+    <wsdl:operation name="UpSellingInsertarRegalo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingInsertarRegalo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingObtenerRegaloGanado">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingObtenerRegaloGanado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingReporteMontoMeta">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingReporteMontoMeta" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4406,6 +4500,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="EstrategiaTemporalInsertarMasivo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalInsertarMasivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="EstrategiaTemporalActualizarPrecioNivel">
       <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarPrecioNivel" style="document" />
       <wsdl:input>
@@ -4417,6 +4520,15 @@
     </wsdl:operation>
     <wsdl:operation name="EstrategiaTemporalActualizarSetDetalle">
       <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EstrategiaTemporalInsertarEstrategiaMasivo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalInsertarEstrategiaMasivo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
