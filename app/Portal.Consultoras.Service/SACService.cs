@@ -48,6 +48,7 @@ namespace Portal.Consultoras.Service
         private readonly BLParticipantesDemandaAnticipada BLParticipantesDemandaAnticipada;
         private readonly BLPopupPais BLPopupPais;
         private readonly BLApp _blApp;
+        private readonly BLAdministrarEstrategia _blAdministrarEstrategia;
 
         private readonly IComunicadoBusinessLogic _comunicadoBusinessLogic;
 
@@ -86,6 +87,7 @@ namespace Portal.Consultoras.Service
             BLParticipantesDemandaAnticipada = new BLParticipantesDemandaAnticipada();
             BLPopupPais = new BLPopupPais();
             _blApp = new BLApp();
+            _blAdministrarEstrategia = new BLAdministrarEstrategia();
         }
 
         public SACService(IComunicadoBusinessLogic comunicadoBusinessLogic)
@@ -844,7 +846,7 @@ namespace Portal.Consultoras.Service
         }
         #endregion
 
-        #region "Banner en Pase de Pedido"
+        #region Banner en Pase de Pedido
         public IList<BEBannerPedido> SelectBannerPedido(int paisID, int campaniaID)
         {
             try
@@ -1451,18 +1453,34 @@ namespace Portal.Consultoras.Service
             return new UpSellingBusinessLogic(paisId).ObtenerDetalles(upSellingId);
         }
 
-        public IEnumerable<OfertaFinalMontoMeta> ObtenerOfertaFinalMontoMeta(int paisId, int upSellingId)
+        public UpSellingRegalo UpSellingObtenerMontoMeta(int paisId, int campaniaId, long consultoraId)
         {
-            return new UpSellingBusinessLogic(paisId).ObtenerOfertaFinalMontoMeta( upSellingId);
+            var upSellingBusinessLogic = new UpSellingBusinessLogic(paisId);
+
+            return upSellingBusinessLogic.ObtenerMontoMeta(campaniaId, consultoraId);
         }
-        
-        public int InsertUpSellingRegalo(int paisId, UpSellingRegalo entidad)
+
+        public int UpSellingInsertarRegalo(int paisId, UpSellingRegalo entidad)
         {
             var upSellingBusinessLogic = new UpSellingBusinessLogic(paisId);
 
             return upSellingBusinessLogic.InsertarRegalo(entidad);
         }
-        
+
+        public UpSellingRegalo UpSellingObtenerRegaloGanado(int paisId, int campaniaId, long consultoraId)
+        {
+            var upSellingBusinessLogic = new UpSellingBusinessLogic(paisId);
+
+            return upSellingBusinessLogic.ObtenerRegaloGanado(campaniaId, consultoraId);
+        }
+
+        public IEnumerable<UpSellingMontoMeta> UpSellingReporteMontoMeta(int paisId, int upSellingId)
+        {
+            var upSellingBusinessLogic = new UpSellingBusinessLogic(paisId);
+
+            return upSellingBusinessLogic.ListarReporteMontoMeta(upSellingId);
+        }
+
         #endregion
 
         public BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible)
@@ -1498,8 +1516,31 @@ namespace Portal.Consultoras.Service
         {
             return new UpsellingMarcaCategoriaBusinessLogic(paisId).UpsellingMarcaCategoriaFlagsEditar(upSellingId, CategoriaApoyada, CategoriaMonto);
         }
-     
+
 
         #endregion
+
+        #region Nuevo Masivo
+        public int EstrategiaTemporalInsertarMasivo(int paisId, int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote)
+        {
+            return _blAdministrarEstrategia.EstrategiaTemporalInsertarMasivo(paisId, campaniaId, estrategiaCodigo, pagina, cantidadCuv, nroLote);
+        }
+
+        public bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int nroLote)
+        {
+            return _blAdministrarEstrategia.EstrategiaTemporalActualizarPrecioNivel(paisId, nroLote);
+        }
+
+        public bool EstrategiaTemporalActualizarSetDetalle(int paisId, int nroLote)
+        {
+            return _blAdministrarEstrategia.EstrategiaTemporalActualizarSetDetalle(paisId, nroLote);
+        }
+
+        public int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote)
+        {
+            return _blAdministrarEstrategia.EstrategiaTemporalInsertarEstrategiaMasivo(paisId, nroLote);
+        }
+        #endregion
+
     }
 }

@@ -8,5 +8,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string DescripcionEstadoPedido { get; set; }
         public string NumeroCampania { get; set; }
         public bool EsCampaniaActual { get; set; }
+        public bool EsCampaniaMarcarda { get; set; } 
     }
 }

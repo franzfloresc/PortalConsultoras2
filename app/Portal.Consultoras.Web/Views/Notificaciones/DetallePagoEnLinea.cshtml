@@ -22,9 +22,9 @@
                 <span class="icono_pago_exitoso"></span>
                 <span>Constancia de Pago</span>
             </h3>
-            <div class="col_izq">
-                <p class="mensaje_felicitacion_por_pago_exitoso" style="margin-right: 150px;">
-                    ¡Muy bien @Model.NombreConsultora! <span class="imagen_felicitacion"><img src="@Url.Content("~/Content/Images/celebracion-img.png")" alt="Felicitaciones" /></span>
+            <div>
+                <p class="mensaje_felicitacion_por_pago_exitoso">
+                    ¡Muy bien @Model.NombreConsultora @Model.PrimerApellido! <span class="imagen_felicitacion"><img src="@Url.Content("~/Content/Images/celebracion-img.png")" alt="Felicitaciones" /></span>
                 </p>
                 @*<p class="info_constancia_pago_exitoso">
                     Te enviamos una constancia de pago a tu correo o puedes revisarla <a href='@Url.Action("DetallePagoEnLinea", "Notificaciones")?solicitudId=@Model.PagoEnLineaResultadoLogId' class="enlace_ir_a_notificaciones" title="Ir A Notificaciones">aquí</a>.
@@ -43,7 +43,11 @@
                             <span>N° de operación:</span>
                             <span>@Model.NumeroOperacion</span>
                         </div>
-                        <div class="num_operacion">
+                        <div class="monto_pagado">
+                            <span>Nro. Tarjeta:</span>
+                            <span>@Model.TarjetaEnmascarada</span>
+                        </div>
+                        <div class="monto_pagado">
                             <span>Fecha de Pago:</span>
                             <span>@Model.FechaCreacionString</span>
                         </div>
@@ -78,7 +82,11 @@
         <!-- FIN - VISTA PAGO EXITOSO -->
 
     </div>
-
+    <div class="clearfix" style="text-align: center">
+        <div class="input_global">
+            <input type="button" style="float: none" onclick="printElement('.proceso_de_pago_en_linea')" value="Imprimir">
+        </div>
+    </div>
     <!-- FIN - VISTA PROCESO DE PAGO EN LÍNEA -->
 
 </div>

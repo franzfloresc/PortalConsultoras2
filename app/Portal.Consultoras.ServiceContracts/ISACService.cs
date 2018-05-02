@@ -739,12 +739,17 @@ namespace Portal.Consultoras.ServiceContracts
         UpSellingDetalle UpSellingDetalleObtener(int paisId, int upSellingDetalleId);
 
         [OperationContract]
-        IEnumerable<OfertaFinalMontoMeta> ObtenerOfertaFinalMontoMeta(int paisId, int upSellingId);
-        
-        [OperationContract]
-        int InsertUpSellingRegalo(int paisId, UpSellingRegalo entidad);
+        UpSellingRegalo UpSellingObtenerMontoMeta(int paisId, int campaniaId, long consultoraId);
 
-        
+        [OperationContract]
+        int UpSellingInsertarRegalo(int paisId, UpSellingRegalo entidad);
+
+        [OperationContract]
+        UpSellingRegalo UpSellingObtenerRegaloGanado(int paisId, int campaniaId, long consultoraId);
+
+        [OperationContract]
+        IEnumerable<UpSellingMontoMeta> UpSellingReporteMontoMeta(int paisId, int upSellingId);
+
         #endregion
 
         #region MarcaCategoria Apoyadas
@@ -764,5 +769,20 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         string RemoveDataCache(int paisID, string cacheItemString, string customKey);
+
+        #region Nuevo Masivo
+        [OperationContract]
+        int EstrategiaTemporalInsertarMasivo(int paisId, int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote);
+
+        [OperationContract]
+        bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int nroLote);
+
+        [OperationContract]
+        bool EstrategiaTemporalActualizarSetDetalle(int paisID, int nroLote);
+        
+        [OperationContract]
+        int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote);
+        
+        #endregion
     }
 }

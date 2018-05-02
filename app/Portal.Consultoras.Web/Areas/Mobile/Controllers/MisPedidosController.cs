@@ -17,8 +17,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public async Task<ViewResult> Index()
         {
             var listaPedidos = new List<MisPedidosCampaniaModel>();
-            var top = 3;
-
+            var top = 6;
+            var campaniaMarcada = false;
+          
             try
             {
                 var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
@@ -29,16 +30,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     foreach (var item in result)
                     {
+                        if (mobileConfiguracion.EsAppMobile && mobileConfiguracion.Campania > 0) campaniaMarcada = (item.CampaniaID == mobileConfiguracion.Campania);
+
                         listaPedidos.Add(new MisPedidosCampaniaModel()
                         {
                             CampaniaID = item.CampaniaID,
                             CodigoEstadoPedido = item.CodigoEstadoPedido,
                             DescripcionEstadoPedido = item.DescripcionEstadoPedido,
                             NumeroCampania = (item.CampaniaID.ToString().Length == 6 ? string.Format("C{0}", item.CampaniaID.Substring(4, 2)) : string.Empty),
-                            EsCampaniaActual = (item.CampaniaID == userData.CampaniaID)
+                            EsCampaniaActual = (item.CampaniaID == userData.CampaniaID),
+                            EsCampaniaMarcarda = campaniaMarcada
                         });
                     }
                 }
+
+                if (!listaPedidos.Any(p => p.EsCampaniaMarcarda)) listaPedidos[0].EsCampaniaMarcarda =  true;
             }
             catch (FaultException ex)
             {

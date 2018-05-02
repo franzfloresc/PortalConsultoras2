@@ -399,5 +399,18 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel)HttpContext.Current.Session["ConfigEstrategiaSR"];
         }
+
+        EstrategiaPersonalizadaProductoModel ISessionManager.ProductoTemporal
+        {
+            get
+            {
+                return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
+            }
+
+            set
+            {
+                HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = value;
+            }
+        }
     }
 }

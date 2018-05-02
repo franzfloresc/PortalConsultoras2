@@ -34,6 +34,13 @@ namespace Portal.Consultoras.Web.Models.MisCertificados
         public string Responsable { get; set; }
         public string Cargo { get; set; }
         public string CantidadConsecutivaNueva { get; set; }
+        public string Anio { get; set; }
+        public string CompraVDirecta { get; set; }
+        public string IVACompraVDirecta { get; set; }
+        public string Retail { get; set; }
+        public string IVARetail { get; set; }
+        public string TotalCompra { get; set; }
+        public string IvaTotal { get; set; }
 
         public string PromedioVentasFormato
         {

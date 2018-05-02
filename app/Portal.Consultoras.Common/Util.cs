@@ -2336,47 +2336,50 @@ namespace Portal.Consultoras.Common
             string paisNom;
             switch (paisISO)
             {
-                case "AR":
+                case Constantes.CodigosISOPais.Argentina:
                     paisNom = "Argentina";
                     break;
-                case "BO":
+                case Constantes.CodigosISOPais.Bolivia:
                     paisNom = "Bolivia";
                     break;
-                case "CL":
+                case Constantes.CodigosISOPais.Chile:
                     paisNom = "Chile";
                     break;
-                case "CO":
+                case Constantes.CodigosISOPais.Colombia:
                     paisNom = "Colombia";
                     break;
-                case "CR":
+                case Constantes.CodigosISOPais.CostaRica:
                     paisNom = "Costa Rica";
                     break;
-                case "EC":
+                case Constantes.CodigosISOPais.Ecuador:
                     paisNom = "Ecuador";
                     break;
-                case "SV":
+                case Constantes.CodigosISOPais.Salvador:
                     paisNom = "El Salvador";
                     break;
-                case "GT":
+                case Constantes.CodigosISOPais.Guatemala:
                     paisNom = "Guatemala";
                     break;
-                case "MX":
+                case Constantes.CodigosISOPais.Mexico:
                     paisNom = "México";
                     break;
-                case "PA":
+                case Constantes.CodigosISOPais.Panama:
                     paisNom = "Panamá";
                     break;
-                case "PE":
+                case Constantes.CodigosISOPais.Peru:
                     paisNom = "Perú";
                     break;
-                case "PR":
+                case Constantes.CodigosISOPais.PuertoRico:
                     paisNom = "Puerto Rico";
                     break;
-                case "DO":
+                case Constantes.CodigosISOPais.Dominicana:
                     paisNom = "República Dominicana";
                     break;
-                default:
+                case Constantes.CodigosISOPais.Venezuela:
                     paisNom = "Venezuela";
+                    break;
+                default:
+                    paisNom = "";
                     break;
             }
             return paisNom;
@@ -2388,20 +2391,20 @@ namespace Portal.Consultoras.Common
 
             var listaPaises = new Dictionary<string, int>()
             {
-                {"AR", 1},
-                {"BO", 2},
-                {"CL", 3},
-                {"CO", 4},
-                {"CR", 5},
-                {"EC", 6},
-                {"SV", 7},
-                {"GT", 8},
-                {"MX", 9},
-                {"PA", 10},
-                {"PE", 11},
-                {"PR", 12},
-                {"DO", 13},
-                {"VE", 14},
+                {Constantes.CodigosISOPais.Argentina, 1},
+                {Constantes.CodigosISOPais.Bolivia, 2},
+                {Constantes.CodigosISOPais.Chile, 3},
+                {Constantes.CodigosISOPais.Colombia, 4},
+                {Constantes.CodigosISOPais.CostaRica, 5},
+                {Constantes.CodigosISOPais.Ecuador, 6},
+                {Constantes.CodigosISOPais.Salvador, 7},
+                {Constantes.CodigosISOPais.Guatemala, 8},
+                {Constantes.CodigosISOPais.Mexico, 9},
+                {Constantes.CodigosISOPais.Panama, 10},
+                {Constantes.CodigosISOPais.Peru, 11},
+                {Constantes.CodigosISOPais.PuertoRico, 12},
+                {Constantes.CodigosISOPais.Dominicana, 13},
+                {Constantes.CodigosISOPais.Venezuela, 14},
             };
 
             if (!listaPaises.ContainsKey(ISO))
@@ -2414,20 +2417,20 @@ namespace Portal.Consultoras.Common
         {
             var listaPaises = new Dictionary<int, string>()
             {
-                {1, "AR" },
-                {2, "BO"},
-                {3, "CL"},
-                {4, "CO"},
-                {5, "CR"},
-                {6, "EC"},
-                {7, "SV"},
-                {8, "GT"},
-                {9, "MX"},
-                {10, "PA" },
-                {11, "PE"},
-                {12, "PR"},
-                {13, "DO"},
-                {14, "VE"}
+                {1, Constantes.CodigosISOPais.Argentina },
+                {2, Constantes.CodigosISOPais.Bolivia},
+                {3, Constantes.CodigosISOPais.Chile},
+                {4, Constantes.CodigosISOPais.Colombia},
+                {5, Constantes.CodigosISOPais.CostaRica},
+                {6, Constantes.CodigosISOPais.Ecuador},
+                {7, Constantes.CodigosISOPais.Salvador},
+                {8, Constantes.CodigosISOPais.Guatemala},
+                {9, Constantes.CodigosISOPais.Mexico},
+                {10, Constantes.CodigosISOPais.Panama},
+                {11, Constantes.CodigosISOPais.Peru},
+                {12, Constantes.CodigosISOPais.PuertoRico},
+                {13, Constantes.CodigosISOPais.Dominicana},
+                {14, Constantes.CodigosISOPais.Venezuela}
             };
 
             if (!listaPaises.ContainsKey(paisID))

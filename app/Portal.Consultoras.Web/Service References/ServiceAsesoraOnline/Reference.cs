@@ -320,6 +320,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private decimal CuponPctDescuentoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short CuponTipoCondicionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionNivelField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -666,6 +669,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TieneCuponField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneGNDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TieneHanaField;
@@ -1290,6 +1296,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((this.CuponPctDescuentoField.Equals(value) != true)) {
                     this.CuponPctDescuentoField = value;
                     this.RaisePropertyChanged("CuponPctDescuento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short CuponTipoCondicion {
+            get {
+                return this.CuponTipoCondicionField;
+            }
+            set {
+                if ((this.CuponTipoCondicionField.Equals(value) != true)) {
+                    this.CuponTipoCondicionField = value;
+                    this.RaisePropertyChanged("CuponTipoCondicion");
                 }
             }
         }
@@ -2803,6 +2822,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneGND {
+            get {
+                return this.TieneGNDField;
+            }
+            set {
+                if ((this.TieneGNDField.Equals(value) != true)) {
+                    this.TieneGNDField = value;
+                    this.RaisePropertyChanged("TieneGND");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int TieneHana {
             get {
                 return this.TieneHanaField;
@@ -3223,6 +3255,18 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAsesoraOnlineService/EnviarMailBienvenidaAsesoraOnline", ReplyAction="http://tempuri.org/IAsesoraOnlineService/EnviarMailBienvenidaAsesoraOnlineRespons" +
             "e")]
         System.Threading.Tasks.Task EnviarMailBienvenidaAsesoraOnlineAsync(string emailFrom, string emailTo, string titulo, string displayname, string nombreConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAsesoraOnlineService/CancelarSuscripcion", ReplyAction="http://tempuri.org/IAsesoraOnlineService/CancelarSuscripcionResponse")]
+        string CancelarSuscripcion(string paisISO, string codigoConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAsesoraOnlineService/CancelarSuscripcion", ReplyAction="http://tempuri.org/IAsesoraOnlineService/CancelarSuscripcionResponse")]
+        System.Threading.Tasks.Task<string> CancelarSuscripcionAsync(string paisISO, string codigoConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAsesoraOnlineService/VuelveASuscripcion", ReplyAction="http://tempuri.org/IAsesoraOnlineService/VuelveASuscripcionResponse")]
+        int VuelveASuscripcion(string paisISO, string codigoConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAsesoraOnlineService/VuelveASuscripcion", ReplyAction="http://tempuri.org/IAsesoraOnlineService/VuelveASuscripcionResponse")]
+        System.Threading.Tasks.Task<int> VuelveASuscripcionAsync(string paisISO, string codigoConsultora);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -3298,6 +3342,22 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         public System.Threading.Tasks.Task EnviarMailBienvenidaAsesoraOnlineAsync(string emailFrom, string emailTo, string titulo, string displayname, string nombreConsultora) {
             return base.Channel.EnviarMailBienvenidaAsesoraOnlineAsync(emailFrom, emailTo, titulo, displayname, nombreConsultora);
+        }
+        
+        public string CancelarSuscripcion(string paisISO, string codigoConsultora) {
+            return base.Channel.CancelarSuscripcion(paisISO, codigoConsultora);
+        }
+        
+        public System.Threading.Tasks.Task<string> CancelarSuscripcionAsync(string paisISO, string codigoConsultora) {
+            return base.Channel.CancelarSuscripcionAsync(paisISO, codigoConsultora);
+        }
+        
+        public int VuelveASuscripcion(string paisISO, string codigoConsultora) {
+            return base.Channel.VuelveASuscripcion(paisISO, codigoConsultora);
+        }
+        
+        public System.Threading.Tasks.Task<int> VuelveASuscripcionAsync(string paisISO, string codigoConsultora) {
+            return base.Channel.VuelveASuscripcionAsync(paisISO, codigoConsultora);
         }
     }
 }

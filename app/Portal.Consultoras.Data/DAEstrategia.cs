@@ -149,17 +149,18 @@ namespace Portal.Consultoras.Data
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarEstrategiaDetalle"))
             {
                 Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
+                Context.Database.AddInParameter(command, "@FlagIndividual", DbType.Boolean, entidad.FlagIndividual);
+                Context.Database.AddInParameter(command, "@Slogan", DbType.String, entidad.Slogan);
+                Context.Database.AddInParameter(command, "@ImgHomeDesktop", DbType.String, entidad.ImgHomeDesktop);
                 Context.Database.AddInParameter(command, "@ImgFondoDesktop", DbType.String, entidad.ImgFondoDesktop);
-                Context.Database.AddInParameter(command, "@ImgPrevDesktop", DbType.String, entidad.ImgPrevDesktop);
                 Context.Database.AddInParameter(command, "@ImgFichaDesktop", DbType.String, entidad.ImgFichaDesktop);
+                Context.Database.AddInParameter(command, "@ImgFichaFondoDesktop", DbType.String, entidad.ImgFichaFondoDesktop);
                 Context.Database.AddInParameter(command, "@UrlVideoDesktop", DbType.String, entidad.UrlVideoDesktop);
+                Context.Database.AddInParameter(command, "@ImgHomeMobile", DbType.String, entidad.ImgHomeMobile);
                 Context.Database.AddInParameter(command, "@ImgFondoMobile", DbType.String, entidad.ImgFondoMobile);
                 Context.Database.AddInParameter(command, "@ImgFichaMobile", DbType.String, entidad.ImgFichaMobile);
-                Context.Database.AddInParameter(command, "@UrlVideoMobile", DbType.String, entidad.UrlVideoMobile);
-                Context.Database.AddInParameter(command, "@ImgFichaFondoDesktop", DbType.String, entidad.ImgFichaFondoDesktop);
                 Context.Database.AddInParameter(command, "@ImgFichaFondoMobile", DbType.String, entidad.ImgFichaFondoMobile);
-                Context.Database.AddInParameter(command, "@ImgHomeDesktop", DbType.String, entidad.ImgHomeDesktop);
-                Context.Database.AddInParameter(command, "@ImgHomeMobile", DbType.String, entidad.ImgHomeMobile);
+                Context.Database.AddInParameter(command, "@UrlVideoMobile", DbType.String, entidad.UrlVideoMobile);
                 Context.Database.AddOutParameter(command, "@Retorno", DbType.Int32, 0);
                 Context.ExecuteNonQuery(command);
                 result = Convert.ToInt32(command.Parameters["@Retorno"].Value);
@@ -192,6 +193,7 @@ namespace Portal.Consultoras.Data
             }
             return result;
         }
+
         public int EliminarEstrategia(BEEstrategia entidad)
         {
             int result;
@@ -202,6 +204,7 @@ namespace Portal.Consultoras.Data
             }
             return result;
         }
+
         public int EliminarTallaColor(BETallaColor entidad)
         {
             int result;
@@ -414,13 +417,13 @@ namespace Portal.Consultoras.Data
 
             var command = new SqlCommand("dbo.InsertEstrategiaTemporal");
             command.CommandType = CommandType.StoredProcedure;
-            
+
             command.Parameters.Add(new SqlParameter("@EstrategiaTemporal", SqlDbType.Structured)
             {
                 TypeName = "dbo.EstrategiaTemporalType",
                 Value = new GenericDataReader<BEEstrategiaType>(listaTypes)
             });
-            
+
             command.Parameters.Add(new SqlParameter("@NumeroLoteAnt", SqlDbType.Int) { Value = nroLore });
             command.Parameters.Add(new SqlParameter("@NroLote", SqlDbType.Int) { Direction = ParameterDirection.Output, Value = 0 });
 
@@ -717,5 +720,53 @@ namespace Portal.Consultoras.Data
             }
         }
 
+        #region Nuevo Masivo
+
+        public int EstrategiaTemporalInsertarMasivo(int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalInsertarMasivo"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+                Context.Database.AddInParameter(command, "@EstrategiaCodigo", DbType.String, estrategiaCodigo);
+                Context.Database.AddInParameter(command, "@Pagina", DbType.Int32, pagina);
+                Context.Database.AddInParameter(command, "@CantidadCuv", DbType.Int32, cantidadCuv);
+                Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+                Context.Database.AddOutParameter(command, "@NroLoteFinal", DbType.Int32, 100000);
+                Context.ExecuteReader(command);
+                return Convert.ToInt32(command.Parameters["@NroLoteFinal"].Value);
+            }
+        }
+
+        public bool EstrategiaTemporalActualizarPrecioNivel(int nroLote)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalActualizarPrecioNivel"))
+            {
+                Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+                Context.ExecuteReader(command);
+                return true;
+            }
+        }
+
+        public bool EstrategiaTemporalActualizarSetDetalle(int nroLote)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalActualizarSetDetalle"))
+            {
+                Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+                Context.ExecuteReader(command);
+                return true;
+            }
+        }
+
+        public int EstrategiaTemporalInsertarEstrategiaMasivo(int nroLote)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalInsertarEstrategiaMasivo"))
+            {
+                Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+                Context.Database.AddOutParameter(command, "@NroLoteFinal", DbType.Int32, 100000);
+                Context.ExecuteReader(command);
+                return Convert.ToInt32(command.Parameters["@NroLoteFinal"].Value);
+            }
+        }
+        #endregion
     }
 }

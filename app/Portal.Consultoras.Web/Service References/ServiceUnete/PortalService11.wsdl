@@ -109,6 +109,12 @@
   <wsdl:message name="IPortalService_ActualizarSolicitudPostulanteSAC_OutputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarSolicitudPostulanteSACResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarImagenesSolicitudPostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarImagenesSolicitudPostulante" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ActualizarImagenesSolicitudPostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarImagenesSolicitudPostulanteResponse" />
+  </wsdl:message>
   <wsdl:message name="IPortalService_ObtenerSolicitudesPostulante_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerSolicitudesPostulante" />
   </wsdl:message>
@@ -283,6 +289,12 @@
   <wsdl:message name="IPortalService_ObtenerSolicitudPrePostulante_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerSolicitudPrePostulanteResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudPrePostulantePorDocumento_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPrePostulantePorDocumento" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudPrePostulantePorDocumento_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPrePostulantePorDocumentoResponse" />
+  </wsdl:message>
   <wsdl:message name="IPortalService_AgregarSolicitudPrePostulante_InputMessage">
     <wsdl:part name="parameters" element="tns:AgregarSolicitudPrePostulante" />
   </wsdl:message>
@@ -385,6 +397,24 @@
   <wsdl:message name="IPortalService_GetUsuariosPorRol_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetUsuariosPorRolResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_EnviarCodigoVerificacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarCodigoVerificacion" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_EnviarCodigoVerificacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarCodigoVerificacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ValidarCodigoVerificacionSolicitudPostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarCodigoVerificacionSolicitudPostulante" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ValidarCodigoVerificacionSolicitudPostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarCodigoVerificacionSolicitudPostulanteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerListaAutocompletarUbigeo_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerListaAutocompletarUbigeo" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerListaAutocompletarUbigeo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerListaAutocompletarUbigeoResponse" />
+  </wsdl:message>
   <wsdl:portType name="IPortalService">
     <wsdl:operation name="ObtenerParametrosUnete">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerParametrosUnete" message="tns:IPortalService_ObtenerParametrosUnete_InputMessage" />
@@ -449,6 +479,10 @@
     <wsdl:operation name="ActualizarSolicitudPostulanteSAC">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulanteSAC" message="tns:IPortalService_ActualizarSolicitudPostulanteSAC_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarSolicitudPostulanteSACResponse" message="tns:IPortalService_ActualizarSolicitudPostulanteSAC_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarImagenesSolicitudPostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarImagenesSolicitudPostulante" message="tns:IPortalService_ActualizarImagenesSolicitudPostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarImagenesSolicitudPostulanteResponse" message="tns:IPortalService_ActualizarImagenesSolicitudPostulante_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerSolicitudesPostulante">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulante" message="tns:IPortalService_ObtenerSolicitudesPostulante_InputMessage" />
@@ -566,6 +600,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulante" message="tns:IPortalService_ObtenerSolicitudPrePostulante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulanteResponse" message="tns:IPortalService_ObtenerSolicitudPrePostulante_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudPrePostulantePorDocumento">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulantePorDocumento" message="tns:IPortalService_ObtenerSolicitudPrePostulantePorDocumento_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulantePorDocumentoResponse" message="tns:IPortalService_ObtenerSolicitudPrePostulantePorDocumento_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="AgregarSolicitudPrePostulante">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/AgregarSolicitudPrePostulante" message="tns:IPortalService_AgregarSolicitudPrePostulante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/AgregarSolicitudPrePostulanteResponse" message="tns:IPortalService_AgregarSolicitudPrePostulante_OutputMessage" />
@@ -633,6 +671,18 @@
     <wsdl:operation name="GetUsuariosPorRol">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetUsuariosPorRol" message="tns:IPortalService_GetUsuariosPorRol_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetUsuariosPorRolResponse" message="tns:IPortalService_GetUsuariosPorRol_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCodigoVerificacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/EnviarCodigoVerificacion" message="tns:IPortalService_EnviarCodigoVerificacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/EnviarCodigoVerificacionResponse" message="tns:IPortalService_EnviarCodigoVerificacion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarCodigoVerificacionSolicitudPostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ValidarCodigoVerificacionSolicitudPostulante" message="tns:IPortalService_ValidarCodigoVerificacionSolicitudPostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ValidarCodigoVerificacionSolicitudPostulanteResponse" message="tns:IPortalService_ValidarCodigoVerificacionSolicitudPostulante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListaAutocompletarUbigeo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerListaAutocompletarUbigeo" message="tns:IPortalService_ObtenerListaAutocompletarUbigeo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerListaAutocompletarUbigeoResponse" message="tns:IPortalService_ObtenerListaAutocompletarUbigeo_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPortalService" type="tns:IPortalService">
@@ -774,6 +824,15 @@
     </wsdl:operation>
     <wsdl:operation name="ActualizarSolicitudPostulanteSAC">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ActualizarSolicitudPostulanteSAC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarImagenesSolicitudPostulante">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ActualizarImagenesSolicitudPostulante" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1042,6 +1101,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudPrePostulantePorDocumento">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulantePorDocumento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="AgregarSolicitudPrePostulante">
       <soap:operation soapAction="http://tempuri.org/IPortalService/AgregarSolicitudPrePostulante" style="document" />
       <wsdl:input>
@@ -1188,6 +1256,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetUsuariosPorRol">
       <soap:operation soapAction="http://tempuri.org/IPortalService/GetUsuariosPorRol" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCodigoVerificacion">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/EnviarCodigoVerificacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarCodigoVerificacionSolicitudPostulante">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ValidarCodigoVerificacionSolicitudPostulante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListaAutocompletarUbigeo">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerListaAutocompletarUbigeo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

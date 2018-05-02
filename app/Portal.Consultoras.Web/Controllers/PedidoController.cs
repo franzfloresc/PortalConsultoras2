@@ -108,7 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ProlTooltip = "Es importante que guardes tu pedido";
                     model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
 
-                    if (userData.CodigoISO == "BO")
+                    if (userData.CodigoISO == Constantes.CodigosISOPais.Bolivia)
                     {
                         model.ProlTooltip = "Es importante que guardes tu pedido";
                         model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", fechaFacturacionFormat);
@@ -127,7 +127,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        if (userData.CodigoISO == "BO")
+                        if (userData.CodigoISO == Constantes.CodigosISOPais.Bolivia)
                         {
                             model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
                         }
@@ -1047,7 +1047,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<BEProducto> olstProducto;
+                List<ServiceODS.BEProducto> olstProducto;
                 using (var sv = new ODSServiceClient())
                 {
                     olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, CUV, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, false).ToList();
@@ -1461,7 +1461,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
 
-                var producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new BEProducto();
+                var producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new ServiceODS.BEProducto();
 
                 var estrategias = (List<BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia] ?? new List<BEEstrategia>();
                 var estrategia = estrategias.FirstOrDefault(p => p.CUV2 == producto.CUV) ?? new BEEstrategia();
@@ -1514,9 +1514,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        private List<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(string codigoDescripcion, UsuarioModel userModel, int cantidadFilas, int criterioBusqueda)
+        private List<ServiceODS.BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(string codigoDescripcion, UsuarioModel userModel, int cantidadFilas, int criterioBusqueda)
         {
-            List<BEProducto> productos;
+            List<ServiceODS.BEProducto> productos;
 
             using (var odsServiceClient = new ODSServiceClient())
             {
@@ -1536,7 +1536,7 @@ namespace Portal.Consultoras.Web.Controllers
             return productos;
         }
 
-        private void BloqueoProductosCatalogo(ref List<BEProducto> beProductos)
+        private void BloqueoProductosCatalogo(ref List<ServiceODS.BEProducto> beProductos)
         {
             if (!beProductos.Any()) return;
 
@@ -1562,7 +1562,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private void BloqueoProductosDigitales(ref List<BEProducto> beProductos)
+        private void BloqueoProductosDigitales(ref List<ServiceODS.BEProducto> beProductos)
         {
             if (beProductos == null) return;
             if (!beProductos.Any()) return;
@@ -1669,7 +1669,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                List<BEProducto> listaProduto;
+                List<ServiceODS.BEProducto> listaProduto;
                 using (var sv = new ODSServiceClient())
                 {
                     listaProduto = sv.GetProductoSugeridoByCUV(userData.PaisID, userData.CampaniaID, Convert.ToInt32(userData.ConsultoraID), CUV, userData.RegionID,
@@ -2030,7 +2030,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (resultado.RefreshPedido) sessionManager.SetPedidoWeb(null);
                 }
                 SetUserData(userData);
-                
+
                 var listPedidoWebDetalle = ObtenerPedidoWebDetalle();
                 var model = new PedidoSb2Model
                 {
@@ -2116,7 +2116,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 model.Prol = "GUARDA TU PEDIDO";
                 model.ProlTooltip = "Es importante que guardes tu pedido";
-                if (userData.CodigoISO == "BO") model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", fechaFacturacionFormat);
+                if (userData.CodigoISO == Constantes.CodigosISOPais.Bolivia) model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", fechaFacturacionFormat);
                 else model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
             }
             else
@@ -2124,7 +2124,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Prol = "RESERVA TU PEDIDO";
                 model.ProlTooltip = "Haz click aqui para reservar tu pedido";
                 if (diaActual <= userData.FechaInicioCampania) model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
-                else if (userData.CodigoISO == "BO") model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
+                else if (userData.CodigoISO == Constantes.CodigosISOPais.Bolivia) model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
                 else model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
             }
         }
@@ -2369,7 +2369,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
                 ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
 
-                if (userData.CodigoISO == "BO")
+                if (userData.CodigoISO == Constantes.CodigosISOPais.Bolivia)
                 {
                     ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
                     ViewBag.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", fechaFacturacionFormat);
@@ -3310,7 +3310,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (det.PedidoDetalleID > 0) return;
 
-                List<BEProducto> olstProducto;
+                List<ServiceODS.BEProducto> olstProducto;
                 using (var svOds = new ODSServiceClient())
                 {
                     olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, obeConfiguracionProgramaNuevas.CUVKit).ToList();
@@ -3513,13 +3513,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                RegaloOfertaFinalModel model = null;
+                OfertaFinalRegaloModel model = null;
                 using (var svc = new ProductoServiceClient())
                 {
                     var entidad = svc.ObtenerRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
                     if (entidad != null)
                     {
-                        model = Mapper.Map<RegaloOfertaFinal, RegaloOfertaFinalModel>(entidad);
+                        model = Mapper.Map<RegaloOfertaFinal, OfertaFinalRegaloModel>(entidad);
                         model.CodigoISO = userData.CodigoISO;
                         var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                         model.RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais, entidad.RegaloImagenUrl, carpetaPais);
@@ -3549,13 +3549,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                RegaloOfertaFinalModel model = null;
+                OfertaFinalRegaloModel model = null;
                 using (var svc = new ProductoServiceClient())
                 {
                     var entidad = svc.ObtenerRegaloMontoMeta(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
                     if (entidad != null)
                     {
-                        model = Mapper.Map<RegaloOfertaFinal, RegaloOfertaFinalModel>(entidad);
+                        model = Mapper.Map<RegaloOfertaFinal, OfertaFinalRegaloModel>(entidad);
                         model.FormatoMontoMeta = Util.DecimalToStringFormat(model.MontoMeta, userData.CodigoISO);
                     }
                 }
@@ -3608,7 +3608,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             int segmentoId;
 
-            if (userData.CodigoISO == "VE")
+            if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
             {
                 segmentoId = userData.SegmentoID;
             }

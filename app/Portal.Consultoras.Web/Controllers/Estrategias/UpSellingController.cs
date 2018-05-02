@@ -68,58 +68,6 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
         [HttpGet]
-        public async Task<JsonResult> ObtenerUpSellingFull()
-        {
-            try
-            {
-                var upsellings = await GetUpSellingsService(userData.CampaniaID.ToString(), true);
-
-                if (upsellings == null || !upsellings.Any())
-                    return Json(ResultModel<string>.BuildBad("no hay upsellings", string.Empty), JsonRequestBehavior.AllowGet);
-
-
-                var upsellingActivo = upsellings.FirstOrDefault(x => x.Activo);
-
-                if (upsellingActivo == null)
-                    return Json(ResultModel<string>.BuildBad("no hay upselling activo", string.Empty), JsonRequestBehavior.AllowGet);
-
-                var gifs = upsellingActivo.Regalos.Any(r => r.Activo);
-
-                if (!gifs)
-                    return Json(ResultModel<string>.BuildBad("no hay regalos o no estan activos", string.Empty), JsonRequestBehavior.AllowGet);
-
-                upsellingActivo.Meta = await _upSellingProvider.ObtenerMontoMeta(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
-
-                return Json(ResultModel<UpSellingModel>.BuildOk(upsellingActivo), JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new { Success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        [HttpGet]
-        public async Task<JsonResult> ObtenerRegaloGanado()
-        {
-            try
-            {
-                var regalo = await _upSellingProvider.ObtenerRegaloGanado(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
-
-                return Json(new
-                {
-                    success = true,
-                    data = regalo
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        [HttpGet]
         public async Task<JsonResult> ObtenerRegalos(int upSellingId)
         {
             var regalos = await _upSellingProvider.ObtenerRegalos(userData.PaisID, upSellingId);
@@ -178,16 +126,15 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
         [HttpGet]
-        public async Task<ActionResult> ObtenerOfertaFinalMontoMeta(int upSellingId)
+        public async Task<ActionResult> ObtenerListadoGanadoras(int upSellingId)
         {
-            var upSelling = await _upSellingProvider.ObtenerOfertaFinalMontoMeta(userData.PaisID, upSellingId);
+            var upSelling = await _upSellingProvider.ListarReporteMontoMeta(userData.PaisID, upSellingId);
             return Json(ResultModel<IEnumerable<OfertaFinalMontoMetaModel>>.BuildOk(upSelling), JsonRequestBehavior.AllowGet);
         }
 
         public async Task<ActionResult> ExportarExcel(int upSellingIdListaGanadoras, string campaniaListaGanadoras)
         {
-            var upSelling = await _upSellingProvider.ObtenerOfertaFinalMontoMeta(userData.PaisID, upSellingIdListaGanadoras);
-
+            var upSellings = await _upSellingProvider.ListarReporteMontoMeta(userData.PaisID, upSellingIdListaGanadoras);
 
             Dictionary<string, string> dic =
                 new Dictionary<string, string> {
@@ -206,7 +153,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 };
 
             var filename = string.Format("{0}_{1}_Upselling", userData.CodigoISO, campaniaListaGanadoras);
-            Util.ExportToExcelFormat(filename, upSelling.ToList(), dic, "dd/MM/yyyy hh:mm:ss AM/PM");
+            Util.ExportToExcelFormat(filename, upSellings.ToList(), dic, "dd/MM/yyyy hh:mm:ss AM/PM");
             return View();
         }
 
@@ -318,8 +265,65 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             return model;
         }
 
+        [HttpGet]
+        public async Task<JsonResult> ObtenerUpSellingFull()
+        {
+            try
+            {
+                var upsellings = await GetUpSellingsService(userData.CampaniaID.ToString(), true);
+
+                if (upsellings == null || !upsellings.Any())
+                    return Json(ResultModel<string>.BuildBad("no hay upsellings", string.Empty), JsonRequestBehavior.AllowGet);
+
+                var upsellingActivo = upsellings.FirstOrDefault(x => x.Activo);
+
+                if (upsellingActivo == null)
+                    return Json(ResultModel<string>.BuildBad("no hay upselling activo", string.Empty), JsonRequestBehavior.AllowGet);
+
+                upsellingActivo.Regalos = upsellingActivo.Regalos.Where(r => r.Activo == true).ToList();
+
+                var regalos = upsellingActivo.Regalos.Any(r => r.Activo);
+
+                if (!regalos)
+                    return Json(ResultModel<string>.BuildBad("no hay regalos o no estan activos", string.Empty), JsonRequestBehavior.AllowGet);
+
+                //var tipoMeta = await _upSellingProvider.ObtenerMontoMeta(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
+                //if (tipoMeta != null)
+                //{
+                //    tipoMeta.FormatoMontoMeta = Util.DecimalToStringFormat(tipoMeta.MontoMeta, userData.CodigoISO);
+                //    upsellingActivo.Meta = tipoMeta;
+                //}
+
+                return Json(ResultModel<UpSellingModel>.BuildOk(upsellingActivo), JsonRequestBehavior.AllowGet);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new { Success = false, message = "No se pudo procesar la operacion" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> ObtenerMontoMeta()
+        {
+            try
+            {
+                var tipoMeta = await _upSellingProvider.ObtenerMontoMeta(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
+                if (tipoMeta != null)
+                {
+                    tipoMeta.FormatoMontoMeta = Util.DecimalToStringFormat(tipoMeta.MontoMeta, userData.CodigoISO);
+                }
+                return Json(new { success = true, data = tipoMeta }, JsonRequestBehavior.AllowGet);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new { success = false, message = "No se pudo procesar la operacion" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         [HttpPost]
-        public async Task<ActionResult> GuardarRegalo(RegaloOfertaFinalModel model)
+        public async Task<ActionResult> GuardarRegalo(OfertaFinalRegaloModel model)
         {
             try
             {
@@ -331,10 +335,31 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 var result = await _upSellingProvider.GuardarRegalo(userData.PaisID, model);
                 return Json(new { success = true, code = result });
             }
-            catch (Exception ex)
+            catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new { success = false, message = ex.Message });
+                return Json(new { success = false, message = "No se pudo procesar la operacion" });
+            }
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> ObtenerRegaloGanado()
+        {
+            try
+            {
+                var model = await _upSellingProvider.ObtenerRegaloGanado(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
+                if (model != null)
+                {
+                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                    model.RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais, model.RegaloImagenUrl, carpetaPais);
+                    model.FormatoMontoMeta = Util.DecimalToStringFormat(model.MontoMeta, userData.CodigoISO);
+                }
+                return Json(new { success = true, data = model }, JsonRequestBehavior.AllowGet);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new { success = false, message = "No se pudo procesar la operacion" }, JsonRequestBehavior.AllowGet);
             }
         }
 

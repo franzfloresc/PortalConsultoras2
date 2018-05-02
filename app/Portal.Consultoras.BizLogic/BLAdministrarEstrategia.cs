@@ -1,5 +1,7 @@
-﻿using Portal.Consultoras.Data;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.BizLogic
@@ -25,5 +27,64 @@ namespace Portal.Consultoras.BizLogic
             var daEstrategia = new DAEstrategia(paisId);
             return daEstrategia.ActualizarTonoEstrategia(estrategiaId, codigoEstrategia, tieneVariedad);
         }
+
+        #region Nuevo Masivo
+
+        public int EstrategiaTemporalInsertarMasivo(int paisId, int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote)
+        {
+            try
+            {
+                var daEstrategia = new DAEstrategia(paisId);
+                return daEstrategia.EstrategiaTemporalInsertarMasivo(campaniaId, estrategiaCodigo, pagina, cantidadCuv, nroLote);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", paisId);
+                return 0;
+            }
+        }
+        
+        public bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int nroLote)
+        {
+            try
+            {
+                var daEstrategia = new DAEstrategia(paisId);
+                return daEstrategia.EstrategiaTemporalActualizarPrecioNivel(nroLote);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", paisId);
+                return false;
+            }
+        }
+
+        public bool EstrategiaTemporalActualizarSetDetalle(int paisId, int nroLote)
+        {
+            try
+            {
+                var daEstrategia = new DAEstrategia(paisId);
+                return daEstrategia.EstrategiaTemporalActualizarSetDetalle(nroLote);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", paisId);
+                return false;
+            }
+        }
+        
+        public int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote)
+        {
+            try
+            {
+                var daEstrategia = new DAEstrategia(paisId);
+                return daEstrategia.EstrategiaTemporalInsertarEstrategiaMasivo(nroLote);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", paisId);
+                return 0;
+            }
+        }
+        #endregion
     }
 }

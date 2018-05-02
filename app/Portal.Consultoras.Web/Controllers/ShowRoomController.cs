@@ -186,7 +186,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                if (!(sessionManager.GetEsShowRoom() && userData.CodigoISO == "PE"))
+                if (!(sessionManager.GetEsShowRoom() && userData.CodigoISO == Constantes.CodigosISOPais.Peru))
                 {
                     return RedirectToAction("Index");
                 }
@@ -2165,7 +2165,7 @@ namespace Portal.Consultoras.Web.Controllers
             switch (codigo)
             {
                 case Constantes.TipoEstrategiaSet.IndividualConTonos:
-                    List<BEProducto> listaHermanosE;
+                    List<ServiceODS.BEProducto> listaHermanosE;
                     using (var svc = new ODSServiceClient())
                     {
                         listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, cuv).ToList();

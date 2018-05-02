@@ -711,7 +711,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
 
         jQuery.ajax({
             type: 'GET',
-            url: baseUrl + 'UpSelling/ObtenerOfertaFinalMontoMeta',
+            url: baseUrl + 'UpSelling/ObtenerListadoGanadoras',
             dataType: 'json',
             data: {
                 upSellingId: upSellingId
@@ -726,10 +726,6 @@ belcorp.estrategias.upselling.initialize = function (config) {
 
 
     }
-
-
-
-
 
     function configureGridListaGanadoras(response) {
 
