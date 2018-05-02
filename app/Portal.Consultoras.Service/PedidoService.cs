@@ -21,7 +21,6 @@ using System.Data;
 using System.Linq;
 using System.ServiceModel;
 using System.Threading.Tasks;
-using Portal.Consultoras.BizLogic.Pedido;
 using Estrategia = Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.Service

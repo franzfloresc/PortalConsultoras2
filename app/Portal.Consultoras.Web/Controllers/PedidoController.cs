@@ -12,7 +12,6 @@ using Portal.Consultoras.Web.ServicePROLConsultas;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -867,7 +866,7 @@ namespace Portal.Consultoras.Web.Controllers
                 foreach (var detalle in set.Detalles)
                 {
                     BEPedidoWebDetalle pedidoWebDetalle = listaPedidoWebDetalle.Where(p => p.CUV == detalle.CUV).FirstOrDefault();
-                    if (pedidoWebDetalle is null) continue;
+                    if (pedidoWebDetalle == null) continue;
                     int cantidad = pedidoWebDetalle.Cantidad - detallePedido.Where(p => p.CUV == detalle.CUV).Sum(p => set.Cantidad * p.FactorRepeticion);
                     if (cantidad > 0)
                     {
@@ -888,7 +887,10 @@ namespace Portal.Consultoras.Web.Controllers
                             CUV = detalle.CUV,
                             ImporteTotal = cantidad * pedidoWebDetalle.PrecioUnidad,
                         };
-                        var olstPedidoWebDetalle = AdministradorPedido(obePedidoWebDetalle, "U", out bool errorServer, out string tipo, out EsBackOrder);
+
+                        bool errorServer;
+                        string tipo;
+                        var olstPedidoWebDetalle = AdministradorPedido(obePedidoWebDetalle, "U", out errorServer, out tipo, out EsBackOrder);
                     }
                     else
                     {

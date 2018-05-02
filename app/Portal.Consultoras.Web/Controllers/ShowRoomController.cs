@@ -18,7 +18,6 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
-using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.SessionManager;
 using Portal.Consultoras.Web.Models.Common;
 
