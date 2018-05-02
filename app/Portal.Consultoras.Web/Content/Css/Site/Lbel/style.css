@@ -3303,14 +3303,6 @@ a.subir_carousel, a.bajar_carousel {
 	overflow: hidden;
 }
 
-    .producto_nombre_descripcion b {
-        overflow: hidden;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        /* display: block; */
-        max-width: 200px;
-    }
 
 	.producto_nombre_descripcion.pb-16 {
 		padding-bottom: 16px;
