@@ -7,14 +7,12 @@ GO
 
 CREATE PROCEDURE EstrategiaTemporalActualizarPrecioNivel
 (
-	@NumeroLote INT = 0
-	,@CodigoTipoEstrategia CHAR(3) = ''
-	
+	@NroLote INT
 )
 AS
 BEGIN
 	/**** 1. Creando Temporales - Ini ****/
-	--DECLARE @NumeroLote INT = 91
+	--DECLARE @NroLote INT = 91
 	DECLARE @CampaniaId INT = 0
 
 	/* #EstrategiaTemporal */
@@ -45,7 +43,7 @@ BEGIN
 	--INTO #EstrategiaTemporal				
 	FROM EstrategiaTemporal ET
 	WHERE 
-	ET.NumeroLote = @NumeroLote
+	ET.NumeroLote = @NroLote
 
 	/* @CampaniaId */
 	SELECT TOP 1 @CampaniaId = CampaniaId

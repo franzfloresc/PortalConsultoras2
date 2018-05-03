@@ -14,13 +14,11 @@ CREATE PROCEDURE [dbo].[GetOfertasPersonalizadasByTipoConfigurado]
 	@CantCuv int = 100
 AS
 BEGIN
-
-	SET NOCOUNT OFF
-
+SET NOCOUNT OFF
 
 	DECLARE @tablaCuvsOPT TABLE (
 		CampaniaID int, 
-		CUV varchar(5), 
+		CUV varchar(10), 
 		OfertaUltimoMinuto int, 
 		LimiteVenta int
 	)
@@ -39,31 +37,45 @@ BEGIN
 	BEGIN
 	begin
 	
-		if	@Pagina < 1
-			set @Pagina = 1
-		
-		if @CantCuv < 1
-			set @CantCuv = 10000
-
-		declare @CuvDesde int = (@Pagina - 1) * @CantCuv + 1
-		declare @CuvHasta int = @Pagina * @CantCuv
-		DECLARE @CampaniaIDChar CHAR(6) = convert(char(6), @CampaniaID)
-		DECLARE @EstrategiaCodigoOds CHAR(3)
+		--DECLARE @CampaniaIDChar CHAR(6) = convert(char(6), @CampaniaID)
+		DECLARE @EstrategiaCodigoOds varchar(10)
 		set @EstrategiaCodigoOds = dbo.fnGetTipoPersonalizacion(@EstrategiaCodigo)
 
-		INSERT INTO @tablaCuvsOPT
-		select @CampaniaID, m.CUV, m.OfertaUltimoMinuto, m.LimiteVenta
-		from (
-			SELECT 
-			 ROW_NUMBER() over(order by  CUV desc) as ID,
-			 CUV, 
-			 ISNULL(FlagUltMinuto, 0) as OfertaUltimoMinuto, 
-			 ISNULL(LimUnidades, 99) as LimiteVenta
+		if @CantCuv < 1
+		BEGIN
+			INSERT INTO @tablaCuvsOPT
+			select @CampaniaID,
+				 CUV, 
+				 ISNULL(FlagUltMinuto, 0) as OfertaUltimoMinuto, 
+				 ISNULL(LimUnidades, 99) as LimiteVenta
 			FROM ods.OfertasPersonalizadasCUV 
-			WHERE AnioCampanaVenta = @CampaniaIDChar
-			AND TipoPersonalizacion = @EstrategiaCodigoOds
-		) m
-		where m.ID between @CuvDesde and @CuvHasta
+			WHERE AnioCampanaVenta = @CampaniaID
+				AND TipoPersonalizacion = @EstrategiaCodigoOds
+			
+		END
+		ELSE
+		BEGIN
+		
+			if	@Pagina < 1
+				set @Pagina = 1
+
+			declare @CuvDesde int = (@Pagina - 1) * @CantCuv + 1
+			declare @CuvHasta int = @Pagina * @CantCuv
+
+			INSERT INTO @tablaCuvsOPT
+			select @CampaniaID, m.CUV, m.OfertaUltimoMinuto, m.LimiteVenta
+			from (
+				SELECT 
+				 ROW_NUMBER() over(order by  CUV desc) as ID,
+				 CUV, 
+				 ISNULL(FlagUltMinuto, 0) as OfertaUltimoMinuto, 
+				 ISNULL(LimUnidades, 99) as LimiteVenta
+				FROM ods.OfertasPersonalizadasCUV 
+				WHERE AnioCampanaVenta = @CampaniaID
+				AND TipoPersonalizacion = @EstrategiaCodigoOds
+			) m
+			where m.ID between @CuvDesde and @CuvHasta
+		END
 
 	end
 	END

@@ -34,10 +34,10 @@
         HerramientaVenta: "011",
         ShowRoom: "030"
     }
-    
+
 
     var _showActionsVer1 = function (cellvalue, options, rowObject) {
-       
+
         var cantidad = rowObject[2];
         var tipo = rowObject[3];
 
@@ -59,8 +59,7 @@
         return text;
     }
     var _showActionsVer2 = function (cellvalue, options, rowObject) {
-        var text;
-
+        
         var cantidad = rowObject[2];
         var tipo = rowObject[3];
 
@@ -71,6 +70,7 @@
         if (tipo == "2")
             $("#spnCantidadNoConfigurar3").html(parseInt(cantidad));
 
+        var text;
         if (cantidad != "0")
             text = rowObject[2] +
                 " <a href='javascript:;' onclick=admNuevoMasivoModulo.VerCuvsTipo2('" +
@@ -156,7 +156,7 @@
             hidegrid: false,
             datatype: "json",
             postData: ({
-                CampaniaID: $("#ddlCampania").val()
+                nroLote: _variables.NroLote
             }),
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
@@ -343,7 +343,16 @@
             { edit: false, add: false, refresh: false, del: false, search: false });
         jQuery("#listGrillaCuv2").setGridParam({ datatype: "json", page: 1 }).trigger("reloadGrid");
     }
-    
+
+    var _variablesInicializar = function () {
+        _variables.cantidadPrecargar = 0;
+        _variables.cantidadPrecargar2 = 0;
+        _variables.cantidadTotal = 0;
+        _variables.NroLote = 0;
+        _variables.Pagina = 0;
+        _variables.CantidadCuv = 0;
+    }
+
     var _validarMasivo = function () {
         if ($("#ddlPais").val() === "") {
             _toastHelper.error("Debe seleccionar el País, verifique.");
@@ -375,7 +384,7 @@
 
         return true;
     }
-    
+
     var _iniDialog = function () {
 
         $("#DialogNuevoMasivo").dialog({
@@ -419,15 +428,12 @@
                 }
             }
         });
-        
+
     }
 
     var _eventos = {
         clickNuevoMasivo: function () {
-            _variables.NroLote = 0;
-            _variables.Pagina = 0;
-            _variables.cantidadTotal = 0;
-            _variables.CantidadCuv = 0;
+            _variablesInicializar();
             if (_validarMasivo()) {
                 $("#divMasivoPaso1").show();
                 $("#divMasivoPaso2").hide();
@@ -460,8 +466,6 @@
 
             waitingDialog();
 
-            console.log("Antes AJAX", new Date())
-
             jQuery.ajax({
                 type: "POST",
                 url: _config.urlEstrategiaTemporalInsert,
@@ -470,7 +474,6 @@
                 data: JSON.stringify(params),
                 async: true,
                 success: function (data) {
-                    console.log("Despues AJAX", new Date())
                     console.log(data);
                     closeWaitingDialog();
                     if (data.success) {
@@ -480,7 +483,7 @@
                             _variables.CantidadCuv = _variables.CantidadCuv || data.CantidadCuv;
                             _eventos.clickAceptarMasivo1();
                         }
-                        else if (_variables.continuaPaso === true) {
+                        else if (data.continuaPaso === true) {
                             _fnGrillaEstrategias2();
                         }
                     } else {
@@ -531,11 +534,12 @@
                     }
                 },
                 error: function (data, error) {
-                    _toastHelper.error(data.message);
+                    _toastHelper.error(_config.MensajeErrorGeneral);
                 }
             });
         },
         clickCancelarMasivo1: function () {
+            _variablesInicializar();
             HideDialog("DialogNuevoMasivo");
         },
         clickCancelarMasivo2: function () {
@@ -552,9 +556,13 @@
                 async: true,
                 success: function (data) {
                     if (data.success) {
+                        _variablesInicializar();
                         HideDialog("DialogNuevoMasivo");
+                        _toastHelper.success(data.message);
                     }
-                    _toastHelper.success(data.message);
+                    else {
+                        _toastHelper.error(data.message);
+                    }
                 },
                 error: function (data, error) {
                     _toastHelper.error(_config.MensajeErrorGeneral);
@@ -562,6 +570,7 @@
             });
         },
         clickAceptarMasivo3: function () {
+            _variablesInicializar();
             HideDialog("DialogNuevoMasivo");
         },
     }
