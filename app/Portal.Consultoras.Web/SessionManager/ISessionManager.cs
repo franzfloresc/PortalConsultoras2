@@ -147,5 +147,9 @@ namespace Portal.Consultoras.Web.SessionManager
         PagoEnLineaModel GetDatosPagoVisa();
 
         EstrategiaPersonalizadaProductoModel ProductoTemporal { get; set; }
+
+        void SetMiAcademia(int id); /* SOPORTEC-266 */
+
+        int GetMiAcademia(); /* SOPORTEC-266 */
     }
 }

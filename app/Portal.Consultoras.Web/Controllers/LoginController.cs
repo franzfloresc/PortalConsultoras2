@@ -36,6 +36,7 @@ namespace Portal.Consultoras.Web.Controllers
     public class LoginController : Controller
     {
         private string pasoLog;
+        private int misCursos = 0;
         private readonly string IP_DEFECTO = "190.187.154.154";
         private readonly string ISO_DEFECTO = Constantes.CodigosISOPais.Peru;
         private readonly int USUARIO_VALIDO = 3;
@@ -68,8 +69,16 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Index(string returnUrl = null)
         {
+            MisCursos();
+
             if (EsUsuarioAutenticado())
             {
+                if (misCursos > 0)
+                {
+                    sessionManager.SetMiAcademia(misCursos);
+                    return RedirectToAction("Index", "MiAcademia");
+                }
+
                 return EsDispositivoMovil()
                     ? RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
                     : RedirectToAction("Index", "Bienvenida");
@@ -129,6 +138,21 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.FBAppId = ConfigurationManager.AppSettings["FB_AppId"];
 
             return View(model);
+        }
+
+        private void MisCursos()
+        {
+            sessionManager.SetMiAcademia(0);
+            var url = (Request.Url.OriginalString).Split('?');
+            if (url.Length > 1)
+            {
+                var MiCurso = url[1].Split('=');
+                if (Util.IsNumeric(MiCurso[1]))
+                {
+                    misCursos = Convert.ToInt32(MiCurso[1]);
+                    sessionManager.SetMiAcademia(misCursos);
+                }
+            }
         }
 
         [AllowAnonymous]
@@ -299,8 +323,22 @@ namespace Portal.Consultoras.Web.Controllers
             bool hizoLoginExterno = false)
         {
             pasoLog = "Login.Redireccionar";
+            misCursos = sessionManager.GetMiAcademia();
+
             var usuario = await GetUserData(paisId, codigoUsuario);
 
+            sessionManager.SetMiAcademia(misCursos); /* SOPORTEC-266 */
+
+            if (misCursos > 0) /* SOPORTEC-266 */
+            {
+                returnUrl = Url.Action("Index", "MiAcademia");
+
+                if (usuario.RolID != Constantes.Rol.Consultora)
+                {
+                    returnUrl = "";
+                }
+            }
+            
             if (usuario == null)
             {
                 if (Request.IsAjaxRequest())
@@ -670,7 +708,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 url = model.UrlCatalogo
                             });
                     case Constantes.IngresoExternoPagina.MisPedidos:
-                        return RedirectToUniqueRoute("MisPedidos", "Index",null);
+                        return RedirectToUniqueRoute("MisPedidos", "Index", null);
                     case Constantes.IngresoExternoPagina.ShowRoom:
                         return RedirectToUniqueRoute("ShowRoom", "Procesar", null);
                     case Constantes.IngresoExternoPagina.ProductosAgotados:
@@ -687,7 +725,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("MisReclamos", "Index", null);
                     case Constantes.IngresoExternoPagina.PedidosFIC:
                         return RedirectToUniqueRoute("PedidoFIC", "Index", null);
-                        
+
                 }
             }
             catch (Exception ex)

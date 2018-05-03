@@ -379,6 +379,16 @@ namespace Portal.Consultoras.Web.SessionManager
             return (PagoEnLineaModel)HttpContext.Current.Session[Constantes.ConstSession.DatosPagoVisa];
         }
 
+        public void SetMiAcademia(int id) /* SOPORTEC-266 */
+        {
+            HttpContext.Current.Session["MiAcademia"] = id;
+        }
+
+        public int GetMiAcademia() /* SOPORTEC-266 */
+        {
+            return (int) HttpContext.Current.Session["MiAcademia"];
+        }
+
         EstrategiaPersonalizadaProductoModel ISessionManager.ProductoTemporal
         {
             get
