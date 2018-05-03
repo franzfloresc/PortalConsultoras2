@@ -60,5 +60,3 @@ app/Portal.Consultoras.Web/obj
 
 .sonarqube/
 app/.axoCover
-/app/Portal.Consultoras.Entities/Usuario
-/app/Portal.Consultoras.Web
