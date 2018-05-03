@@ -702,7 +702,7 @@
 }
 <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
 
-@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml",  new ViewDataDictionary {{ "TieneBotones", true }})
 
 <!--SHOWROOM: modal popup -->
 <div class="modal fade" id="PopShowroom">
