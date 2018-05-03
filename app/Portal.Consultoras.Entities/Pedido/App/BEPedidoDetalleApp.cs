@@ -3,9 +3,9 @@
 namespace Portal.Consultoras.Entities.Pedido.App
 {
     [DataContract]
-    public class BEPedidoDetalleAppInsertar
+    public class BEPedidoDetalleApp
     {
-        public BEPedidoDetalleAppInsertar()
+        public BEPedidoDetalleApp()
         {
             Producto = new BEProducto();
             Usuario = new BEUsuario();
@@ -29,10 +29,11 @@ namespace Portal.Consultoras.Entities.Pedido.App
         public string Identifier { get; set; }
         [DataMember]
         public bool EsKitNueva { get; set; }
-
         [DataMember]
         public BEUsuario Usuario { get; set; }
         [DataMember]
-        public int PedidoDetalleID { get; set; }
+        public short PedidoDetalleID { get; set; }
+        [DataMember]
+        public string ObservacionPROL { get; set; }
     }
 }

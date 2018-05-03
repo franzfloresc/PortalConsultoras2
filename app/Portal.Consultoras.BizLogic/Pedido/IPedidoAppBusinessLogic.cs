@@ -7,10 +7,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
     public interface IPedidoAppBusinessLogic
     {
         BEProductoApp GetCUV(BEProductoAppBuscar productoBuscar);
-        BEPedidoDetalleAppInsertarResult Insert(BEPedidoDetalleAppInsertar pedidoDetalle);
+        BEPedidoDetalleAppResult Insert(BEPedidoDetalleApp pedidoDetalle);
         BEPedidoWeb Get(BEUsuario usuario);
         bool InsertKitInicio(BEUsuario usuario);
-        BEPedidoDetalleAppInsertarResult Update(BEPedidoDetalleAppInsertar pedidoDetalle);
+        BEPedidoDetalleAppResult Update(BEPedidoDetalleApp pedidoDetalle);
         BEConfiguracionPedido GetConfiguracion(int paisID, string codigoUsuario);
+        BEPedidoDetalleAppResult Delete(BEPedidoDetalleApp pedidoDetalle);
     }
 }

@@ -2350,7 +2350,7 @@ namespace Portal.Consultoras.Service
             return _pedidoAppBusinessLogic.GetCUV(productoBuscar);
         }
 
-        public BEPedidoDetalleAppInsertarResult InsertPedidoDetalleApp(BEPedidoDetalleAppInsertar pedidoDetalle)
+        public BEPedidoDetalleAppResult InsertPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
         {
             return _pedidoAppBusinessLogic.Insert(pedidoDetalle);
         }
@@ -2365,7 +2365,7 @@ namespace Portal.Consultoras.Service
             return _pedidoAppBusinessLogic.InsertKitInicio(usuario);
         }
 
-        public BEPedidoDetalleAppInsertarResult UpdatePedidoDetalleApp(BEPedidoDetalleAppInsertar pedidoDetalle)
+        public BEPedidoDetalleAppResult UpdatePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
         {
             return _pedidoAppBusinessLogic.Update(pedidoDetalle);
         }
@@ -2373,6 +2373,11 @@ namespace Portal.Consultoras.Service
         public BEConfiguracionPedido GetConfiguracionPedidoApp(int paisID, string codigoUsuario)
         {
             return _pedidoAppBusinessLogic.GetConfiguracion(paisID, codigoUsuario);
+        }
+
+        public BEPedidoDetalleAppResult DeletePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
+        {
+            return _pedidoAppBusinessLogic.Delete(pedidoDetalle);
         }
         #endregion
     }

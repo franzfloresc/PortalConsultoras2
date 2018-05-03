@@ -1924,6 +1924,8 @@ namespace Portal.Consultoras.Common
                     public const string ERROR_GRABAR = "2104";
                     public const string ERROR_VALIDA_DATOS = "2105";
                     public const string ERROR_ACTUALIZAR = "2106";
+                    public const string ERROR_ELIMINAR = "2107";
+                    public const string ERROR_ELIMINAR_TODO = "2108";
                 }
 
                 public static Dictionary<string, string> Message
@@ -1940,6 +1942,8 @@ namespace Portal.Consultoras.Common
                                 {Code.ERROR_GRABAR, "Ocurrió un error al insertar el pedido."},
                                 {Code.ERROR_VALIDA_DATOS , string.Empty },
                                 {Code.ERROR_ACTUALIZAR,"Ocurrió un error al actualizar el pedido." },
+                                {Code.ERROR_ELIMINAR,"Ocurrió un error al eliminar el detalle de pedido." },
+                                {Code.ERROR_ELIMINAR_TODO,"Ocurrió un error al eliminar el pedido." }
                             });
                     }
                 }
