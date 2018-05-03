@@ -115,7 +115,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (campaniaId == userData.CampaniaID)
                 {
                     if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas
-                        || tipo == Constantes.TipoEstrategiaCodigo.Lanzamiento
                         || tipo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
                         || tipo == Constantes.TipoEstrategiaCodigo.OfertaWeb)
                     {
