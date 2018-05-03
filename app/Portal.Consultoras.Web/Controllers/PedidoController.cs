@@ -1436,7 +1436,6 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                 }
                 #endregion
-
                 #region Venta exclusiva
                 if (!Convert.ToBoolean(Session["CuvEsProgramaNuevas"]))
                 {
