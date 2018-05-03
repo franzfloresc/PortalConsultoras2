@@ -210,7 +210,6 @@
     <Compile Include="DAUsuarioOP.cs" />
     <Compile Include="DAValidacionAutomatica.cs" />
     <Compile Include="DAZonificacion.cs" />
-    <Compile Include="Estrategia\EstrategiaDataAccess.cs" />
     <Compile Include="Estrategia\UpSellingDataAccess.cs" />
     <Compile Include="Estrategia\UpSellingMarcaCategoriaDataAccess.cs" />
     <Compile Include="Mobile\DAApp.cs" />

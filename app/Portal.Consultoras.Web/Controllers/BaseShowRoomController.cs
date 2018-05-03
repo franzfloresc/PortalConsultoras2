@@ -189,7 +189,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool ValidarIngresoShowRoom(bool esIntriga)
         {
-            if (!userData.CargoEntidadesShowRoom)
+            if (!configEstrategiaSR.CargoEntidadesShowRoom)
                 return false;
 
             var resultado = false;
@@ -213,7 +213,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool TienePersonalizacion()
         {
-            var showRoomEvento = userData.BeShowRoom;
+            var showRoomEvento = configEstrategiaSR.BeShowRoom;
             var tienePersonalizacion = showRoomEvento != null && showRoomEvento.TienePersonalizacion;
             return tienePersonalizacion;
         }
@@ -225,7 +225,7 @@ namespace Portal.Consultoras.Web.Controllers
             var tienePersonalizacion = TienePersonalizacion();
 
             var listaDetalle = ObtenerPedidoWebDetalle();
-
+            var xElmer=sessionManager.GetEstrategiaSR().ListaPersonalizacionConsultora;
             if (Session[Constantes.ConstSession.ListaProductoShowRoom] != null)
             {
                 var listadoOfertasTodas = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom];
@@ -690,7 +690,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var showRoomEvento = userData.BeShowRoom;
+                var showRoomEvento = configEstrategiaSR.BeShowRoom;
                 var codigoConsultora = userData.CodigoConsultora;
 
                 showRoomEventoModel = Mapper.Map<BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
