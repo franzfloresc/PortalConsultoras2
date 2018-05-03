@@ -225,7 +225,6 @@ namespace Portal.Consultoras.Web.Controllers
             var tienePersonalizacion = TienePersonalizacion();
 
             var listaDetalle = ObtenerPedidoWebDetalle();
-            var xElmer=sessionManager.GetEstrategiaSR().ListaPersonalizacionConsultora;
             if (Session[Constantes.ConstSession.ListaProductoShowRoom] != null)
             {
                 var listadoOfertasTodas = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom];
