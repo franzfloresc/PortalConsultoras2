@@ -725,7 +725,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             };
             var pedidoID = 0;
             var olstTempListado = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
-            pedidoDetalle.PedidoID = pedidoID;
+            obePedidoWebDetalle.PedidoID = pedidoID;
 
             if (obePedidoWebDetalle.PedidoDetalleID == 0)
             {
