@@ -68,8 +68,8 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager = SessionManager.SessionManager.Instance;
             _tablaLogicaProvider = new TablaLogicaProvider();
             _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
-            estrategiaODD = sessionManager.GetEstrategiaODD() ?? new Models.Estrategia.OfertaDelDia.DataModel();//LoboGriz
-            configEstrategiaSR = sessionManager.GetEstrategiaSR()?? new Models.Estrategia.ShowRoom.ConfigModel();//LoboGriz
+            estrategiaODD = sessionManager.GetEstrategiaODD() ?? new Models.Estrategia.OfertaDelDia.DataModel();
+            configEstrategiaSR = sessionManager.GetEstrategiaSR()?? new Models.Estrategia.ShowRoom.ConfigModel();
            
         }
 
@@ -1119,7 +1119,7 @@ namespace Portal.Consultoras.Web.Controllers
                 configEstrategiaSR.BeShowRoomConsultora = null;
                 configEstrategiaSR.BeShowRoom = null;
 
-                configEstrategiaSR.CargoEntidadesShowRoom = false; //LoboGriz
+                configEstrategiaSR.CargoEntidadesShowRoom = false;
 
                 if (!PaisTieneShowRoom(model.CodigoISO))
                 {
@@ -1215,7 +1215,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             
             SetUserData(model);
-            sessionManager.SetEstrategiaSR(configEstrategiaSR); //LoboGriz
+            sessionManager.SetEstrategiaSR(configEstrategiaSR); 
         }
 
         protected bool PaisTieneShowRoom(string codigoIsoPais)
