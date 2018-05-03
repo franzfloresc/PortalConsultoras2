@@ -411,8 +411,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/slick-pedido.css",
                 "~/Content/Css/Site/flexslider.css",
                 "~/Content/Css/Site/Contenedor/carrusel.individual.css",
-                "~/Content/Css/Site/Contenedor/producto.simple.css",
-                "~/Content/Css/Site/Contenedor/carrusel.individual.ofertas.css"
+                "~/Content/Css/Site/Contenedor/producto.simple.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsMobile/JsSB2-Ofertas").Include(

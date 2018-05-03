@@ -71,7 +71,9 @@
 
                             <div class="producto_precio" {{#if this.ExperienciaGanaMas includeZero=true}}{{#unless TieneVerDetalle }} style="color:gray;" {{/unless}}{{/if}}>
                                 {{#iff Precio '>' 0}}
-                                <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
+                                    <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
+                                {{else}}
+                                    <span class="producto_precio_normal" style="text-decoration: none;">&nbsp;</span>
                                 {{/iff}}
                                 <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioVenta}}</b></span>
                             </div>
