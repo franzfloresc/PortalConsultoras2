@@ -18,7 +18,7 @@ SET NOCOUNT OFF
 
 	DECLARE @tablaCuvsOPT TABLE (
 		CampaniaID int, 
-		CUV varchar(5), 
+		CUV varchar(10), 
 		OfertaUltimoMinuto int, 
 		LimiteVenta int
 	)
@@ -37,8 +37,8 @@ SET NOCOUNT OFF
 	BEGIN
 	begin
 	
-		DECLARE @CampaniaIDChar CHAR(6) = convert(char(6), @CampaniaID)
-		DECLARE @EstrategiaCodigoOds CHAR(3)
+		--DECLARE @CampaniaIDChar CHAR(6) = convert(char(6), @CampaniaID)
+		DECLARE @EstrategiaCodigoOds varchar(10)
 		set @EstrategiaCodigoOds = dbo.fnGetTipoPersonalizacion(@EstrategiaCodigo)
 
 		if @CantCuv < 1
@@ -49,7 +49,7 @@ SET NOCOUNT OFF
 				 ISNULL(FlagUltMinuto, 0) as OfertaUltimoMinuto, 
 				 ISNULL(LimUnidades, 99) as LimiteVenta
 			FROM ods.OfertasPersonalizadasCUV 
-			WHERE AnioCampanaVenta = @CampaniaIDChar
+			WHERE AnioCampanaVenta = @CampaniaID
 				AND TipoPersonalizacion = @EstrategiaCodigoOds
 			
 		END
@@ -71,7 +71,7 @@ SET NOCOUNT OFF
 				 ISNULL(FlagUltMinuto, 0) as OfertaUltimoMinuto, 
 				 ISNULL(LimUnidades, 99) as LimiteVenta
 				FROM ods.OfertasPersonalizadasCUV 
-				WHERE AnioCampanaVenta = @CampaniaIDChar
+				WHERE AnioCampanaVenta = @CampaniaID
 				AND TipoPersonalizacion = @EstrategiaCodigoOds
 			) m
 			where m.ID between @CuvDesde and @CuvHasta

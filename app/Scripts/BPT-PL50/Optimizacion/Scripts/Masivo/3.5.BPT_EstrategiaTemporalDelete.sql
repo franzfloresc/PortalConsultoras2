@@ -13,7 +13,7 @@ as
 begin
 
 	-- eliminar CUV hijos huerfanos
-	delete ep from EstrategiaProductoTemporal
+	delete from EstrategiaProductoTemporal
 	where NumeroLote = @NroLote 
 
 	delete from EstrategiaTemporal

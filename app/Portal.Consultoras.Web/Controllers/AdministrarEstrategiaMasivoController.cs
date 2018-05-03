@@ -152,8 +152,7 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "AdministrarEstrategia");
         }
 
-        public ActionResult ConsultarOfertasParaTiTemporal(string sidx, string sord, int page, int rows,
-            string CampaniaID)
+        public ActionResult ConsultarOfertasParaTiTemporal(string sidx, string sord, int page, int rows, int nroLote)
         {
             if (ModelState.IsValid)
             {
@@ -165,8 +164,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (var ser = new SACServiceClient())
                     {
-                        cantidadEstrategiasConfiguradas = ser.GetCantidadOfertasPersonalizadasTemporal(userData.PaisID, int.Parse(CampaniaID), 1);
-                        cantidadEstrategiasSinConfigurar = ser.GetCantidadOfertasPersonalizadasTemporal(userData.PaisID, int.Parse(CampaniaID), 2);
+                        cantidadEstrategiasConfiguradas = ser.GetCantidadOfertasPersonalizadasTemporal(userData.PaisID, nroLote, 1);
+                        cantidadEstrategiasSinConfigurar = ser.GetCantidadOfertasPersonalizadasTemporal(userData.PaisID, nroLote, 2);
                     }
                 }
                 catch (Exception ex)
