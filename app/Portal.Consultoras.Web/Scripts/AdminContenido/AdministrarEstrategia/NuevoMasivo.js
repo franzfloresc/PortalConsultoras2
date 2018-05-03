@@ -59,8 +59,7 @@
         return text;
     }
     var _showActionsVer2 = function (cellvalue, options, rowObject) {
-        var text;
-
+        
         var cantidad = rowObject[2];
         var tipo = rowObject[3];
 
@@ -71,6 +70,7 @@
         if (tipo == "2")
             $("#spnCantidadNoConfigurar3").html(parseInt(cantidad));
 
+        var text;
         if (cantidad != "0")
             text = rowObject[2] +
                 " <a href='javascript:;' onclick=admNuevoMasivoModulo.VerCuvsTipo2('" +
