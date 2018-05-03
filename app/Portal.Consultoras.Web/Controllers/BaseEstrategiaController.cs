@@ -443,13 +443,13 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     var listaPackNueva = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas).ToList();
+                    
+                    var listaRevista = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi).ToList();
 
                     if (revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
                     {
-                        listModel = listModel.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+                        listaRevista = listaRevista.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
                     }
-
-                    var listaRevista = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi).ToList();
 
                     var cantMax = 8;
                     var cantPack = listaPackNueva.Any() ? 1 : 0;
