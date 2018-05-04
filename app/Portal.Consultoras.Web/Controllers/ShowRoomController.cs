@@ -36,6 +36,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ShowRoomController()
         {
             _sessionManager = SessionManager.SessionManager.Instance;
+            configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
         }
 
         public ActionResult Intriga()
@@ -482,6 +483,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+
                 var listaShowRoomNivel = configEstrategiaSR.ListaNivel ?? new List<BEShowRoomNivel>();
 
                 return Json(new
