@@ -1442,6 +1442,14 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var userModel = userData;
+
+                var puedeIngresarCuvProgramaNuevas = PuedeIngresarCuvProgramaNuevas(model.CUV);
+                if (!puedeIngresarCuvProgramaNuevas)
+                {
+                    productosModel.Add(GetProductoValidoProgramaNuevas());
+                    return Json(productosModel, JsonRequestBehavior.AllowGet);
+                }
+
                 var productos = SelectProductoByCodigoDescripcionSearchRegionZona(model.CUV, userModel, 1, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
 
                 BloqueoProductosCatalogo(ref productos);
@@ -1512,6 +1520,37 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Json(productosModel, JsonRequestBehavior.AllowGet);
 
+        }
+
+        private bool PuedeIngresarCuvProgramaNuevas(string cuv)
+        {
+            var resultado = true;
+            var codigoPrograma = userData.CodigoPrograma;
+            var empiezaCon999 = cuv.StartsWith("999");
+
+            if (string.IsNullOrEmpty(codigoPrograma) && empiezaCon999)
+            {
+                var listaCuvCupon = ObtenerListadoCuvCupon();
+
+                var cuvCupon = listaCuvCupon.FirstOrDefault(p => p == cuv);
+
+                if (cuvCupon != null)
+                    resultado = false;
+            }
+
+            return resultado;
+        }
+
+        private List<string> ObtenerListadoCuvCupon()
+        {
+            var lista = new List<string>();
+
+            using(PedidoServiceClient ps = new PedidoServiceClient())
+            {
+                lista = ps.ObtenerListadoCuvCupon(userData.PaisID, userData.CampaniaID).ToList();
+            }
+
+            return lista;
         }
 
         private List<ServiceODS.BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(string codigoDescripcion, UsuarioModel userModel, int cantidadFilas, int criterioBusqueda)
@@ -1627,6 +1666,16 @@ namespace Portal.Consultoras.Web.Controllers
         private ProductoModel GetProductoCuvRegular(BECUVCredito cuvCredito)
         {
             return new ProductoModel() { MarcaID = 0, CUV = "Código incorrecto, Para solicitar el set: ingresa el código " + cuvCredito.CuvRegular, TieneSugerido = 0 };
+        }
+
+        private ProductoModel GetProductoValidoProgramaNuevas()
+        {
+            return new ProductoModel()
+            {
+                MarcaID = 0,
+                CUV = "El código es válido sólo para el Programa de Nuevas.",
+                TieneSugerido = 0
+            };
         }
 
         private BEMensajeCUV GetMensajeByCUV(UsuarioModel userModel, string cuv)

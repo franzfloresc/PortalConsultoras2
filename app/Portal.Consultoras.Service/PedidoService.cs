@@ -58,6 +58,7 @@ namespace Portal.Consultoras.Service
         private readonly IConfiguracionProgramaNuevasBusinessLogic _configuracionProgramaNuevasBusinessLogic;
         private readonly ITrackingBusinessLogic _trackingBusinessLogic;
         private readonly IPedidoAppBusinessLogic _pedidoAppBusinessLogic;
+        private readonly BLCuponesProgramaNuevas BLCuponesProgramaNuevas;
 
         public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb(), new BLConfiguracionProgramaNuevas(), new BLTracking(),
             new BLPedidoApp())
@@ -87,6 +88,7 @@ namespace Portal.Consultoras.Service
             BLCuponConsultora = new BLCuponConsultora();
             blFichaProducto = new BLFichaProducto();
             BLPagoEnLinea = new BLPagoEnLinea();
+            BLCuponesProgramaNuevas = new BLCuponesProgramaNuevas();
         }
 
         public PedidoService(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic, IPedidoWebBusinessLogic pedidoWebBusinessLogic,
@@ -2343,9 +2345,13 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().InsertarProductoShowroomMasiva(entidad);
         }
+        public List<string> ObtenerListadoCuvCupon(int paisId, int campaniaId)
+        {
+            return BLCuponesProgramaNuevas.ObtenerListadoCuvCupon(paisId, campaniaId);
+        }
 
-        #region PedidoApp
-        public BEProductoApp GetCUVApp(BEProductoAppBuscar productoBuscar)
+    #region PedidoApp
+    public BEProductoApp GetCUVApp(BEProductoAppBuscar productoBuscar)
         {
             return _pedidoAppBusinessLogic.GetCUV(productoBuscar);
         }
