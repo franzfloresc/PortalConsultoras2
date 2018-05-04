@@ -33,17 +33,17 @@ namespace Portal.Consultoras.Entities
 
         public BEEscalaDescuento(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "MontoDesde") && row["MontoDesde"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MontoDesde"))
                 MontoDesde = Convert.ToDecimal(row["MontoDesde"]);
-            if (DataRecord.HasColumn(row, "MontoHasta") && row["MontoHasta"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MontoHasta"))
                 MontoHasta = Convert.ToDecimal(row["MontoHasta"]);
-            if (DataRecord.HasColumn(row, "PorDescuento") && row["PorDescuento"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PorDescuento"))
                 PorDescuento = Convert.ToInt32(row["PorDescuento"]);
-            if (DataRecord.HasColumn(row, "TipoParametriaOfertaFinal") && row["TipoParametriaOfertaFinal"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TipoParametriaOfertaFinal"))
                 TipoParametriaOfertaFinal = Convert.ToString(row["TipoParametriaOfertaFinal"]);
-            if (DataRecord.HasColumn(row, "PrecioMinimo") && row["PrecioMinimo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PrecioMinimo"))
                 PrecioMinimo = Convert.ToDecimal(row["PrecioMinimo"]);
-            if (DataRecord.HasColumn(row, "Algoritmo") && row["Algoritmo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Algoritmo"))
                 Algoritmo = Convert.ToString(row["Algoritmo"]);
         }
     }

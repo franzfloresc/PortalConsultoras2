@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Entities
                 Descripcion = Convert.ToString(row["Descripcion"]);
             if (DataRecord.HasColumn(row, "Activo"))
                 Activo = Convert.ToBoolean(row["Activo"]);
-            if (DataRecord.HasColumn(row, "Sistema") && row["Sistema"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Sistema"))
                 Sistema = Convert.ToInt32(row["Sistema"]);
 
         }

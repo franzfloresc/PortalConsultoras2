@@ -141,29 +141,29 @@ namespace Portal.Consultoras.Entities
                 IndicadorEnviado = Convert.ToInt32(row["IndicadorEnviado"]);
             if (row.HasColumn("FechaRegistro"))
                 FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
-            if (row.HasColumn("FechaModificacion") && row["FechaModificacion"] != DBNull.Value)
+            if (row.HasColumn("FechaModificacion"))
                 FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
-            if (row.HasColumn("FechaProceso") && row["FechaProceso"] != DBNull.Value)
+            if (row.HasColumn("FechaProceso"))
                 FechaProceso = Convert.ToDateTime(row["FechaProceso"]);
-            if (row.HasColumn("MontoTotalProl") && row["MontoTotalProl"] != DBNull.Value)
+            if (row.HasColumn("MontoTotalProl"))
                 MontoTotalProl = Convert.ToDecimal(row["MontoTotalProl"]);
-            if (row.HasColumn("MontoAhorroCatalogo") && row["MontoAhorroCatalogo"] != DBNull.Value)
+            if (row.HasColumn("MontoAhorroCatalogo"))
                 MontoAhorroCatalogo = Convert.ToDecimal(row["MontoAhorroCatalogo"]);
-            if (row.HasColumn("MontoAhorroRevista") && row["MontoAhorroRevista"] != DBNull.Value)
+            if (row.HasColumn("MontoAhorroRevista"))
                 MontoAhorroRevista = Convert.ToDecimal(row["MontoAhorroRevista"]);
-            if (row.HasColumn("DescuentoProl") && row["DescuentoProl"] != DBNull.Value)
+            if (row.HasColumn("DescuentoProl"))
                 DescuentoProl = Convert.ToDecimal(row["DescuentoProl"]);
-            if (row.HasColumn("MontoEscala") && row["MontoEscala"] != DBNull.Value)
+            if (row.HasColumn("MontoEscala"))
                 MontoEscala = Convert.ToDecimal(row["MontoEscala"]);
-            if (row.HasColumn("CanalIngreso") && row["CanalIngreso"] != DBNull.Value)
+            if (row.HasColumn("CanalIngreso"))
                 CanalIngreso = Convert.ToString(row["CanalIngreso"]);
-            if (row.HasColumn("Flete") && row["Flete"] != DBNull.Value)
+            if (row.HasColumn("Flete"))
                 Flete = Convert.ToDecimal(row["Flete"]);
-            if (row.HasColumn("CDRWebID") && row["CDRWebID"] != DBNull.Value)
+            if (row.HasColumn("CDRWebID"))
                 CDRWebID = Convert.ToInt32(row["CDRWebID"]);
-            if (row.HasColumn("CDRWebEstado") && row["CDRWebEstado"] != DBNull.Value)
+            if (row.HasColumn("CDRWebEstado"))
                 CDRWebEstado = Convert.ToInt32(row["CDRWebEstado"]);
-            if (row.HasColumn("NumeroPedido") && row["NumeroPedido"] != DBNull.Value)
+            if (row.HasColumn("NumeroPedido"))
                 NumeroPedido = Convert.ToInt32(row["NumeroPedido"]);
             if (row.HasColumn("VersionProl")) VersionProl = Convert.ToByte(row["VersionProl"]);
         }

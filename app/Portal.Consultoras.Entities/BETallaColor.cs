@@ -40,25 +40,25 @@ namespace Portal.Consultoras.Entities
 
         public BETallaColor(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "ID") && row["ID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ID"))
                 ID = Convert.ToInt32(row["ID"]);
 
-            if (DataRecord.HasColumn(row, "CUV") && row["CUV"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CUV"))
                 CUV = row["CUV"].ToString();
 
-            if (DataRecord.HasColumn(row, "DescripcionCUV") && row["DescripcionCUV"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescripcionCUV"))
                 DescripcionCUV = row["DescripcionCUV"].ToString();
 
-            if (DataRecord.HasColumn(row, "PrecioUnitario") && row["PrecioUnitario"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PrecioUnitario"))
                 PrecioUnitario = Convert.ToDecimal(row["PrecioUnitario"].ToString());
 
-            if (DataRecord.HasColumn(row, "Tipo") && row["Tipo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Tipo"))
                 Tipo = row["Tipo"].ToString();
 
-            if (DataRecord.HasColumn(row, "DescripcionTipo") && row["DescripcionTipo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescripcionTipo"))
                 DescripcionTipo = row["DescripcionTipo"].ToString();
 
-            if (DataRecord.HasColumn(row, "DescripcionTallaColor") && row["DescripcionTallaColor"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescripcionTallaColor"))
                 DescripcionTallaColor = row["DescripcionTallaColor"].ToString();
 
         }
