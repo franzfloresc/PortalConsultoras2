@@ -287,10 +287,9 @@ function ObtenerEstadoCatalogo(campana, defered) {
 function GetCatalogosLinksByCampania(data, campania) {
     waitingDialog();
     $.ajaxSetup({ cache: false });
-    var paisNombre = $("#hdPaisNombre").val();
+    
 
-    var anio = getAnioCampania(campania);
-    var nro = getNumeroCampania(campania);
+    
     var idCat = "#divCatalogo";
 
     for (var i = 0; i < cantCat; i++) {
@@ -312,7 +311,7 @@ function GetCatalogosLinksByCampania(data, campania) {
 
         var elemItem = "[data-cam='" + campania + "'][data-cat='" + tagCat + "']";
         $(idCat).find(elemItem).find("[data-tipo='content']").hide();
-        $(elemItem).attr("data-estado", estado)
+        $(elemItem).attr("data-estado", estado);
         
         var codigoISSUU = '', urlCat;
         $.each(data.listCatalogo, function (key, catalogo) {
@@ -550,8 +549,8 @@ function CatalogoEnviarEmail() {
         clientes.push(objCorreo);
     }
     
-    var campActual = getCodigoCampaniaActual();
-    var campComparte = campaniaEmail;
+    
+    
 
     var mensaje = $("#comentarios").val();
     if (_Flagchklbel == "1") {
