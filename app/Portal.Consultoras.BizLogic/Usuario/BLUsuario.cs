@@ -7,7 +7,6 @@ using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.PublicService.Cryptography;
-
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -126,7 +125,7 @@ namespace Portal.Consultoras.BizLogic
                     usuarioCorreo.Add(new BEUsuarioCorreo(reader));
                 }
             return usuarioCorreo;
-        }       
+        }
 
         public int DelUsuarioRol(int paisID, string codigoUsuario, int RolID)
         {
@@ -380,6 +379,7 @@ namespace Portal.Consultoras.BizLogic
 
             var usuario = GetUsuario(paisID, codigoUsuario);
             if (usuario == null) return null;
+            if (usuario.ConsultoraID == 0) return null;
 
             var configuracionConsultora = this.GetConfiguracionCampania(usuario, Constantes.TipoUsuario.Consultora);
             if (configuracionConsultora != null)
@@ -1607,7 +1607,7 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return resultado;
-        }      
+        }
 
         public string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior)
         {
@@ -1638,7 +1638,7 @@ namespace Portal.Consultoras.BizLogic
 
                             string[] parametros = new string[] { usuario.CodigoUsuario, usuario.PaisID.ToString(), usuario.CodigoISO, usuario.EMail };
                             string paramQuerystring = Common.Util.Encrypt(string.Join(";", parametros));
-                            LogManager.SaveLog(new Exception(), usuario.CodigoUsuario + " | data=" + paramQuerystring, string.Join("|", parametros));
+                            LogManager.SaveLog(new Exception(), usuario.CodigoUsuario, usuario.CodigoISO, " | data=" + paramQuerystring + " | parametros = " + string.Join("|", parametros));
                             bool esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(usuario.CodigoISO);
                             string logo = (esEsika ? "http://www.genesis-peru.com/mailing-belcorp/logo.png" : "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/jG6i4d6VUyIaUwi/logod.png");
                             string fondo = (esEsika ? "e81c36" : "642f80");
@@ -1743,7 +1743,7 @@ namespace Portal.Consultoras.BizLogic
                                 if (consultoraEmail != null)
                                 {
                                     var asuntoEmail = consultoraEmail.EsPostulante ? "Creacion de cuenta de Somos Belcorp" : "Mensaje de bienvenida";
-                                    string[] paisesLbel = { "MX", "CR", "PA", "PR" };
+                                    string[] paisesLbel = { Constantes.CodigosISOPais.Mexico, Constantes.CodigosISOPais.CostaRica, Constantes.CodigosISOPais.Panama, Constantes.CodigosISOPais.PuertoRico };
 
                                     var eslbel = paisesLbel.Contains(paisISO);
 
@@ -1769,7 +1769,7 @@ namespace Portal.Consultoras.BizLogic
 
                                         if (eslbel)
                                         {
-                                            if (paisISO == "MX" || paisISO == "CR")
+                                            if (paisISO == Constantes.CodigosISOPais.Mexico || paisISO == Constantes.CodigosISOPais.CostaRica)
                                             {
                                                 htmlTemplate.Replace("#DISPLAY1#", "");
                                             }
@@ -2057,8 +2057,7 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 string customKey = alcance + "_" + campaniaId;
-                listaEvento = CacheManager<BEEventoFestivo>.GetData(paisId,
-                    ECacheItem.ConfiguracionEventoFestivo, customKey);
+                listaEvento = CacheManager<BEEventoFestivo>.GetData(paisId, ECacheItem.ConfiguracionEventoFestivo, customKey);
                 if (listaEvento == null || listaEvento.Count == 0)
                 {
                     var daUsuario = new DAUsuario(paisId);
@@ -2072,14 +2071,13 @@ namespace Portal.Consultoras.BizLogic
                         }
                     }
 
-                    CacheManager<BEEventoFestivo>.AddData(paisId, ECacheItem.ConfiguracionEventoFestivo, customKey,
-                        listaEvento);
+                    CacheManager<BEEventoFestivo>.AddData(paisId, ECacheItem.ConfiguracionEventoFestivo, customKey, listaEvento);
                 }
 
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog(ex, "alcance = " + alcance, paisId.ToString());
+                LogManager.SaveLog(ex, "", paisId.ToString(), "alcance = " + alcance);
                 listaEvento = new List<BEEventoFestivo>();
             }
 
@@ -2096,23 +2094,15 @@ namespace Portal.Consultoras.BizLogic
         public string RecuperarContrasenia(int paisId, string textoRecuperacion)
         {
             string resultado = string.Empty;
-            string urlportal = string.Empty;
-            string v_correo = string.Empty;
-            string v_codigousuario = string.Empty;
-            string v_nombre = string.Empty;
-            string v_clave = string.Empty;
-
-            List<BEUsuarioCorreo> lst = null;
 
             try
             {
-                urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
-                lst = new List<BEUsuarioCorreo>();
-                lst = SelectByValorRestauracion(textoRecuperacion, paisId).ToList();
+                string urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
+                var lst = SelectByValorRestauracion(textoRecuperacion, paisId).ToList();
 
-                v_codigousuario = lst[0].CodigoUsuario;
-                v_nombre = lst[0].NombreCompleto.Trim().Split(' ').First();
-                v_clave = lst[0].Clave;
+                string v_codigousuario = lst[0].CodigoUsuario;
+                string v_nombre = lst[0].NombreCompleto.Trim().Split(' ').First();
+                string v_clave = lst[0].Clave;
 
                 if (lst[0].Cantidad == 0 && lst[0].Correo.Trim().Length == 0)
                 {
@@ -2126,7 +2116,7 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 resultado = "0" + "|" + "6" + "|" + ex.Message;
-                LogManager.SaveLog(ex, string.Empty, string.Empty);
+                LogManager.SaveLog(ex, string.Empty, paisId);
             }
 
             return resultado;
@@ -2209,7 +2199,7 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 resultado = "0" + "|" + "6" + "|" + ex.Message + "|" + paso;
-                LogManager.SaveLog(ex, string.Empty, string.Empty);
+                LogManager.SaveLog(ex, pRestaurar.CodigoUsuario, paisId);
             }
 
             return resultado;

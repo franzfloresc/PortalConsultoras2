@@ -14,9 +14,9 @@ namespace Portal.Consultoras.Web.Controllers
             string url = string.Empty;
             string nroRuc = null;
 
-            if (UserData().CodigoISO == "EC" || UserData().CodigoISO == "PE")
+            if (UserData().CodigoISO == Constantes.CodigosISOPais.Ecuador || UserData().CodigoISO == Constantes.CodigosISOPais.Peru)
             {
-                if (UserData().CodigoISO == "EC")
+                if (UserData().CodigoISO == Constantes.CodigosISOPais.Ecuador)
                 {
                     using (SACServiceClient svc = new SACServiceClient())
                     {
@@ -30,11 +30,11 @@ namespace Portal.Consultoras.Web.Controllers
                     string nroDocumento;
                     switch (UserData().CodigoISO)
                     {
-                        case "PE":
+                        case Constantes.CodigosISOPais.Peru:
                             nroDocumento = sv.GetNroDocumentoConsultora(UserData().PaisID, UserData().CodigoConsultora);
                             url = NeoGridCipher.CreateProductionURL(nroDocumento);
                             break;
-                        case "EC":
+                        case Constantes.CodigosISOPais.Ecuador:
                             nroDocumento = sv.GetNroDocumentoConsultora(UserData().PaisID, UserData().CodigoConsultora);
                             url = string.Format("IdEmpresa={0}&Identificacion={1}&HoraFecha={2}", nroRuc, nroDocumento, DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"));
                             url = GetConfiguracionManager(Constantes.ConfiguracionManager.FacturaElectronica_EC) + Trancenter.IFacturaEcuador.EncriptTool.Encriptation.EncryptData("TUFIFAQTUAAECDZD", url);

@@ -87,7 +87,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.PerdioSubTitulo = dato.Valor2;
 
             model.MensajeProductoBloqueado = MensajeProductoBloqueado();
-            model.CantidadFilas = 10;
+            model.CantidadFilas = 15;
 
             model.MostrarFiltros = !model.ProductosPerdio && !(revistaDigital.TieneRDC && !revistaDigital.EsActiva);
 
@@ -96,7 +96,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult DetalleModel(string cuv, int campaniaId)
         {
-            var modelo = (EstrategiaPersonalizadaProductoModel)Session[Constantes.ConstSession.ProductoTemporal];
+            var modelo = sessionManager.ProductoTemporal;
             if (modelo == null || modelo.EstrategiaID == 0 || modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
             {
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
@@ -129,21 +129,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View(modelo);
 
         }
-
-        public bool EsCampaniaFalsa(int campaniaId)
-        {
-            return (campaniaId < userData.CampaniaID || campaniaId > AddCampaniaAndNumero(userData.CampaniaID, 1));
-        }
-
-        public bool TieneProductosPerdio(int campaniaId)
-        {
-            if (revistaDigital.TieneRDC && !revistaDigital.EsActiva &&
-                campaniaId == userData.CampaniaID)
-                return true;
-
-            return false;
-        }
-
+        
         private ConfiguracionPaisDatosModel ObtenerPerdio(int campaniaId)
         {
             var dato = new ConfiguracionPaisDatosModel();
