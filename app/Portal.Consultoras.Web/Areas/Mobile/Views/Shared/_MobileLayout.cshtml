@@ -44,9 +44,10 @@
 
 	<link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
 
-	<script type="text/javascript">
+    <script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
-	</script>
+        var revistaDigital = @Html.Raw(Json.Encode(ViewBag.revistaDigital));
+    </script>
 
 	@RenderSection("styles", required: false)
 
