@@ -2640,20 +2640,20 @@ namespace Portal.Consultoras.Web.Controllers
             return res;
         }
 
-        //private string MensajesOlvideContrasena(string tipoMensaje)
-        //{
-        //    tipoMensaje = Util.Trim(tipoMensaje);
-        //    switch (tipoMensaje)
-        //    {
-        //        case "1": return "El Número de Cédula ingresado no existe.";
-        //        case "2": return "No tienes un correo registrado para el envío de tu clave. Por favor comunícate con el Servicio de Atención al Cliente.";
-        //        case "3": return "Correo electrónico no identificado.";
-        //        case "4": return "Te hemos enviado una nueva clave a tu correo.";
-        //        case "5": return "Ocurrió un problema al recuperar tu contraseña.";
-        //        case "6": return "Error al realizar proceso, inténtelo mas tarde.";
-        //        default: return "";
-        //    }
-        //}
+        private string MensajesOlvideContrasena(string tipoMensaje)
+        {
+            tipoMensaje = Util.Trim(tipoMensaje);
+            switch (tipoMensaje)
+            {
+                case "1": return "El Número de Cédula ingresado no existe.";
+                case "2": return "No tienes un correo registrado para el envío de tu clave. Por favor comunícate con el Servicio de Atención al Cliente.";
+                case "3": return "Correo electrónico no identificado.";
+                case "4": return "Te hemos enviado una nueva clave a tu correo.";
+                case "5": return "Ocurrió un problema al recuperar tu contraseña.";
+                case "6": return "Error al realizar proceso, inténtelo mas tarde.";
+                default: return "";
+            }
+        }
 
         public RevistaDigitalModel FormatTextConfiguracionPaisDatosModel(RevistaDigitalModel revistaDigital,
             string nombreConsultora)
@@ -3202,20 +3202,6 @@ namespace Portal.Consultoras.Web.Controllers
             return oUsuCorreo;
         }
 
-        private string MensajesOlvideContrasena(string tipoMensaje)
-        {
-            tipoMensaje = Util.Trim(tipoMensaje);
-            switch (tipoMensaje)
-            {
-                case "1": return "El Número de Cédula ingresado no existe.";
-                case "2": return "No tienes un correo registrado para el envío de tu clave. Por favor comunícate con el Servicio de Atención al Cliente.";
-                case "3": return "Correo electrónico no identificado.";
-                case "4": return "Te hemos enviado una nueva clave a tu correo.";
-                case "5": return "Ocurrió un problema al recuperar tu contraseña.";
-                case "6": return "Error al realizar proceso, inténtelo mas tarde.";
-                default: return "";
-            }
-        }
         #endregion
 
         #region Pin Autenticacion
