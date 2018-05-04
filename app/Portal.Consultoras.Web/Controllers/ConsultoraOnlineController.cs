@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             this.registrosPagina = 5;
 
-            if (GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
+            if (userData.CodigoISO != null && GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
             {
                 isEsika = true;
             }

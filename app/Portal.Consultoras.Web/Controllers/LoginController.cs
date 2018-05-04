@@ -130,6 +130,13 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View(model);
         }
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("Login/Login/{param?}")]
+        public ActionResult Login(string param)
+        {
+            return RedirectToAction("Index", "Login");
+        }
 
         [AllowAnonymous]
         [HttpPost]
@@ -638,7 +645,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Session.Add("TokenPedidoAutentico", AESAlgorithm.Encrypt(model.Identifier));
 
                 sessionManager.SetStartSession(DateTime.Now);
-
+                model.Pagina = model.Pagina ?? "";
                 switch (model.Pagina.ToUpper())
                 {
                     case Constantes.IngresoExternoPagina.EstadoCuenta:
@@ -687,7 +694,9 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("MisReclamos", "Index", null);
                     case Constantes.IngresoExternoPagina.PedidosFIC:
                         return RedirectToUniqueRoute("PedidoFIC", "Index", null);
-                        
+                    //default:
+                    //    return RedirectToAction("UserUnknown", "Login", new { area = "" });
+
                 }
             }
             catch (Exception ex)
@@ -2989,7 +2998,9 @@ namespace Portal.Consultoras.Web.Controllers
             var name = string.Empty;
             try
             {
-                name = ((System.Web.HttpRequestWrapper)Request).LogonUserIdentity.Name;
+                var logonUserIdentity = ((System.Web.HttpRequestWrapper) Request).LogonUserIdentity;
+                if (logonUserIdentity != null)
+                    name = logonUserIdentity.Name;
             }
             catch
             {

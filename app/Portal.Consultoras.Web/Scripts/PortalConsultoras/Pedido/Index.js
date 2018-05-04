@@ -194,7 +194,9 @@ $(document).ready(function () {
         };
 
     $(".ValidaAlfanumerico").keypress(function (evt) {
-        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        var charCode = (evt.which) ? evt.which : (window.event ? window.event.keyCode : null);
+        if (!charCode) return false;
+        //var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
             return true;
         } else {

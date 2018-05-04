@@ -305,6 +305,10 @@ namespace Portal.Consultoras.Common
             public const string DescargaExcelMaxItems = "DescargaExcelMaxItems";
 
             public const string ConsultoraNuevaBannerAppMostrar = "ConsultoraNuevaBannerAppMostrar";
+
+            public const string PedidosFacturados = "PedidosFacturados";
+
+            
         }
 
         public static class ConfiguracionManager

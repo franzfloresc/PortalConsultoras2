@@ -14,7 +14,15 @@
 {
     <div class="video-visual">
         <div class="video-container">
-            <div id="player"></div>
+
+            <!--div id="player"></div-->
+            <!-- , videoId:'@@Model.TipoEstrategiaDetalle.UrlVideoMobile' -->
+            <!--data-extra="{'descripcionResumen':'@@Model.DescripcionResumen'}"-->
+            <div id="ytRevistaDigitalTemplateInformativa"
+                data-youtube="{ height:'415', width:'100%', enablejsapi:1, fs:0, showinfo:0, modestbranding:1, loop:1, playerVars:{autoplay:1,rel:0}}"
+                class="yt-video"
+            ></div>
+
         </div>
     </div>
 }
@@ -254,14 +262,14 @@ else if(Model.CancelarSuscripcion)
         var tipoOrigenPantalla = 1;
         var urlTerminosCondicionesRD = '@Model.UrlTerminosCondiciones';
         var isScroll = false;
-        var videoKey = '@Model.Video';
-        var estaSuscrita = '@Model.EsSuscrita';
-        
+        window.videoKey = '@Model.Video';
+        window.estaSuscrita = '@Model.EsSuscrita';
+        /*
         var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        var player;
+        var player;*/
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Info")
 }

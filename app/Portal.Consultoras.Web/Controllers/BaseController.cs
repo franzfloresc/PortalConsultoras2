@@ -1175,7 +1175,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var personalizacionNivel = personalizacionesNivel.FirstOrDefault(
                             p => p.NivelId == model.ShowRoomNivelId &&
-                                 p.EventoID == model.BeShowRoom.EventoID &&
+                                 p.EventoID == (model.BeShowRoom != null ? model.BeShowRoom.EventoID : 0) &&
                                  p.PersonalizacionId == item.PersonalizacionId);
 
                         if (personalizacionNivel == null)

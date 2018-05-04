@@ -1256,6 +1256,15 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult PopupCerrar()
         {
+            if(userData.BeShowRoomConsultora==null)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "BeShowRoomConsultora es null"
+                });
+            }
+
             userData.BeShowRoomConsultora.MostrarPopup = false;
             userData.BeShowRoomConsultora.MostrarPopupVenta = false;
             return Json(new

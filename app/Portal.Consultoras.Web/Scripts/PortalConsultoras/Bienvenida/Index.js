@@ -18,7 +18,9 @@ var dataBarra = dataBarra || {};
 //youtube
 var tag = null;
 var firstScriptTag = null;
-var player;
+
+// oYTPlayers in scripts/_implements/youtube.js
+var /*player = oYTPlayers['ytBienvenidaIndex'].instance,*/ $divPlayer = $("#ytBienvenidaIndex");
 
 $(document).ready(function () {
     var hdDataBarra = $("#hdDataBarra").val();
@@ -70,17 +72,14 @@ $(document).ready(function () {
     $(".ver_video_introductorio").click(function () {
         $('#fondoComunPopUp').show();
         contadorFondoPopUp++;
-        ConfigurarYoutube();
+        //ConfigurarYoutube();
         $('#videoIntroductorio').fadeIn(function () {
             $("#videoIntroductorio").delay(200);
             $("#videoIntroductorio").fadeIn(function () {
+                var player = oYTPlayers['ytBienvenidaIndex'].instance;
                 playVideo();
 
-                setTimeout(function () {
-                    if (player.playVideo) {
-                        player.playVideo();
-                    }
-                }, 2000);
+                setTimeout(function () { if (player.playVideo) { player.playVideo(); }   }, 2000);
             });
         });
     });
@@ -345,7 +344,9 @@ $(document).ready(function () {
         }
     });
     $("#txtTelefono, #txtTelefonoMD").keypress(function (evt) {
-        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        //var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        var charCode = (evt.which) ? evt.which : (window.event ? window.event.keyCode : null);
+        if (!charCode) return false;
         if (charCode <= 13) {
             return false;
         }
@@ -696,21 +697,21 @@ function ocultarUbicacionTutorial() {
 }
 
 function mostrarVideoIntroductorio() {
+    var oYTPlayer = oYTPlayers['ytBienvenidaIndex'];
+        //, player = oYTPlayers['ytBienvenidaIndex'].instance;
     try {
         if (viewBagVioVideo == "0") {
-            ConfigurarYoutube();
+            //ConfigurarYoutube();
 
             PopupMostrar('videoIntroductorio');
 
-            setTimeout(function () {
-                playVideo();
-            }, 1000);
+            //setTimeout(function () { playVideo(); }, 1000);
 
-            setTimeout(function () {
-                if (player.playVideo) {
-                    player.playVideo();
-                }
-            }, 2000);
+            //setTimeout(function () {
+            oYTPlayer.on('ready', function (player) {
+                if (player.playVideo) { player.playVideo(); }
+            });
+            //}, 4000);
 
             return true;
         }
@@ -895,29 +896,31 @@ function ArmarCarouselLiquidaciones(data) {
             var recomendado = arrayLiquidaciones[posicionEstrategia] || {};
             var arrayEstrategia = new Array();
 
-            var impresionRecomendado = {
-                'name': recomendado.DescripcionCompleta,
-                'id': recomendado.CUV,
-                'price': recomendado.PrecioOferta.toString(),
-                'brand': recomendado.DescripcionMarca,
-                'category': 'NO DISPONIBLE',
-                'variant': recomendado.DescripcionEstrategia,
-                'list': 'Liquidación Web - Home',
-                'position': recomendado.Posicion
-            };
-            arrayEstrategia.push(impresionRecomendado);
-            dataLayer.push({
-                'event': 'productImpression',
-                'ecommerce': {
-                    'impressions': arrayEstrategia
-                }
-            });
-            dataLayer.push({
-                'event': 'virtualEvent',
-                'category': 'Home',
-                'action': 'Liquidacion Web',
-                'label': 'Ver anterior'
-            });
+            if (recomendado.PrecioOferta != null || recomendado.PrecioOferta != undefined) {
+                var impresionRecomendado = {
+                    'name': recomendado.DescripcionCompleta,
+                    'id': recomendado.CUV,
+                    'price': recomendado.PrecioOferta.toString(),
+                    'brand': recomendado.DescripcionMarca,
+                    'category': 'NO DISPONIBLE',
+                    'variant': recomendado.DescripcionEstrategia,
+                    'list': 'Liquidación Web - Home',
+                    'position': recomendado.Posicion
+                };
+                arrayEstrategia.push(impresionRecomendado);
+                dataLayer.push({
+                    'event': 'productImpression',
+                    'ecommerce': {
+                        'impressions': arrayEstrategia
+                    }
+                });
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Home',
+                    'action': 'Liquidacion Web',
+                    'label': 'Ver anterior'
+                });
+            }            
 
         } else if (accion == 'next') {
             if (Number(indexActive) + 1 == Number(itemsLength) - 1) {
@@ -933,31 +936,33 @@ function ArmarCarouselLiquidaciones(data) {
                 var recomendado = arrayLiquidaciones[posicionEstrategia] || {};
                 var arrayEstrategia = new Array();
 
-                var impresionRecomendado = {
-                    'name': recomendado.DescripcionCompleta,
-                    'id': recomendado.CUV,
-                    'price': recomendado.PrecioOferta.toString(),
-                    'brand': recomendado.DescripcionMarca,
-                    'category': 'NO DISPONIBLE',
-                    'variant': recomendado.DescripcionEstrategia,
-                    'list': 'Liquidación Web - Home',
-                    'position': recomendado.Posicion
-                };
+                if (recomendado.PrecioOferta != null || recomendado.PrecioOferta != undefined) {
+                    var impresionRecomendado = {
+                        'name': recomendado.DescripcionCompleta,
+                        'id': recomendado.CUV,
+                        'price': recomendado.PrecioOferta.toString(),
+                        'brand': recomendado.DescripcionMarca,
+                        'category': 'NO DISPONIBLE',
+                        'variant': recomendado.DescripcionEstrategia,
+                        'list': 'Liquidación Web - Home',
+                        'position': recomendado.Posicion
+                    };
 
-                arrayEstrategia.push(impresionRecomendado);
+                    arrayEstrategia.push(impresionRecomendado);
 
-                dataLayer.push({
-                    'event': 'productImpression',
-                    'ecommerce': {
-                        'impressions': arrayEstrategia
-                    }
-                });
-                dataLayer.push({
-                    'event': 'virtualEvent',
-                    'category': 'Home',
-                    'action': 'Liquidacion Web',
-                    'label': 'Ver siguiente'
-                });
+                    dataLayer.push({
+                        'event': 'productImpression',
+                        'ecommerce': {
+                            'impressions': arrayEstrategia
+                        }
+                    });
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Home',
+                        'action': 'Liquidacion Web',
+                        'label': 'Ver siguiente'
+                    });
+                }                
             } else {
                 dataLayer.push({
                     'event': 'virtualEvent',
@@ -2502,27 +2507,32 @@ function EsconderFlechasCarouseLiquidaciones(accion) {
 }
 
 function stopVideo() {
+    var player = oYTPlayers['ytBienvenidaIndex'].instance;
     try {
         if (player) {
-            if (player.stopVideo) {
-                player.stopVideo();
-            }
-            else {
-                var urlVideo = $("#divPlayer").attr("src");
-                $("#divPlayer").attr("src", "");
-                $("#divPlayer").attr("src", urlVideo);
-            }
+
+            //player.on('ready', function () {
+                if (player.stopVideo) {
+                    player.stopVideo();
+                }
+                else {
+                    var urlVideo = $divPlayer.attr("src");
+                    $divPlayer.attr("src", "");
+                    $divPlayer.attr("src", urlVideo);
+                }
+            //});
+
         }
     } catch (e) { }
 };
 function playVideo() {
+    var player = oYTPlayers['ytBienvenidaIndex'].instance;
     try {
         if (player) {
-            if (player.playVideo) {
-                player.playVideo();
-            }
+            //player.on('ready', function () {
+            if (player.playVideo) { player.playVideo(); }
             else {
-                document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                $divPlayer[0].contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
             }
             dataLayer.push({
                 'event': 'virtualEvent',
@@ -2530,6 +2540,7 @@ function playVideo() {
                 'action': 'Video de Bienvenida: Iniciar video',
                 'label': 'SomosBelcorp.com ¡se renueva para ti!'
             });
+            //});
         }
     } catch (e) { }
 };
@@ -3316,7 +3327,7 @@ function dataLayerVC(action, label) {
         'label': label
     });
 }
-
+/*
 function ConfigurarYoutube() {
     if (tag == null) {
         tag = document.createElement("script");
@@ -3325,8 +3336,8 @@ function ConfigurarYoutube() {
         firstScriptTag = document.getElementsByTagName("script")[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     }
-}
-
+}*/
+/*
 function onYouTubeIframeAPIReady(playerId) {
     var videoIdMostrar;
     if (isEsika) {
@@ -3355,5 +3366,5 @@ function onPlayerStateChange(event) {
             'label': 'SomosBelcorp.com ¡se renueva para ti!'
         });
     }
-}
+}*/
 
