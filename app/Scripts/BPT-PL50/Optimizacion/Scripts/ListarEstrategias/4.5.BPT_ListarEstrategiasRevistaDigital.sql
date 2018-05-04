@@ -8,8 +8,10 @@ AS
 BEGIN
 SET NOCOUNT ON;
 	
-	declare @StrCampaniaID CHAR(6) = CONVERT(CHAR(6),@CampaniaID);
-	declare @tablaCuvFaltante table( CUV varchar(6))
+	DECLARE @StrCampaniaID CHAR(6) = CONVERT(CHAR(6),@CampaniaID)
+	DECLARE @tablaCuvFaltante table( CUV varchar(6))
+	DECLARE @EstrategiaCodigo varchar(100) = '007'
+	DECLARE @codConsultoraDefault VARCHAR(9)
 
 	insert into @tablaCuvFaltante(CUV)
 	select CUV from [dbo].[ObtenerCuvFaltante](@CampaniaID,@CodigoConsultora)
@@ -25,7 +27,7 @@ SET NOCOUNT ON;
 
 	INSERT INTO @OfertasPersonalizadas
 	select 
-		isnull(Orden,0),CUV,TipoPersonalizacion,FlagRevista,convert(int,AnioCampanaVenta)
+		isnull(Orden,0) Orden,CUV,TipoPersonalizacion,FlagRevista,convert(int,AnioCampanaVenta) AnioCampanaVenta
 		from ods.OfertasPersonalizadas op with(nolock) where
 	op.CodConsultora = @CodigoConsultora
 	and op.AnioCampanaVenta = @StrCampaniaID
@@ -38,12 +40,16 @@ SET NOCOUNT ON;
 		SELECT @codConsultoraDefault = Codigo FROM TablaLogicaDatos with(nolock) WHERE TablaLogicaDatosID = 10001
 
 		INSERT INTO @OfertasPersonalizadas
-		select isnull(Orden,0),CUV,TipoPersonalizacion,FlagRevista,convert(int,AnioCampanaVenta) from ods.OfertasPersonalizadas op with(nolock) where
+		select isnull(Orden,0) Orden,CUV,TipoPersonalizacion,FlagRevista,convert(int,AnioCampanaVenta) AnioCampanaVenta from ods.OfertasPersonalizadas op with(nolock) where
 		op.CodConsultora = @codConsultoraDefault
 		and op.AnioCampanaVenta = @StrCampaniaID
 		and op.TipoPersonalizacion in ('OPM', 'PAD')
 
 	END
+
+	INSERT INTO @OfertasPersonalizadas(Orden,CUV,TipoPersonalizacion,FlagRevista,AnioCampanaVenta)
+	SELECT Orden,CUV,TipoPersonalizacion,FlagRevista,AnioCampanaVenta 
+	from [dbo].[ListarEstrategiasForzadas](@CampaniaID,@EstrategiaCodigo)
 	
 	SELECT
 		EstrategiaID,
