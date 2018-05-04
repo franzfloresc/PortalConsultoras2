@@ -2465,7 +2465,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         protected void ActualizarDatosLogDynamoDB(MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "", string p_Seccion = "")
-        {                      
+        {
             object data = null;
             string v_campomodificacion = string.Empty;
             string v_valoranterior = string.Empty;
@@ -2499,44 +2499,44 @@ namespace Portal.Consultoras.Web.Controllers
                     if (userData.Sobrenombre.ToString().Trim().ToUpper() != p_modelo.Sobrenombre.ToString().Trim().ToUpper())
                     {
                         v_campomodificacion = "SOBRENOMBRE";
-                        v_valoractual = p_modelo.Sobrenombre.ToString().Trim();                        
+                        v_valoractual = p_modelo.Sobrenombre.ToString().Trim();
                         v_valoranterior = userData.Sobrenombre.ToString().Trim();
                         userData.Sobrenombre = v_valoractual;
-                        EjecutarLogDynamoDB(data, apinombre, v_campomodificacion,v_valoractual,v_valoranterior,p_origen,p_aplicacion,p_Accion,p_CodigoConsultoraBuscado, _seccion);
+                        EjecutarLogDynamoDB(data, apinombre, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
                     }
-                    
+
                     if (userData.EMail.ToString().Trim().ToUpper() != p_modelo.EMail.ToString().Trim().ToUpper())
                     {
                         v_campomodificacion = "EMAIL";
                         v_valoractual = p_modelo.EMail.ToString().Trim();
-                        v_valoranterior = userData.EMail.ToString().Trim();                        
+                        v_valoranterior = userData.EMail.ToString().Trim();
                         userData.EMail = v_valoractual;
                         EjecutarLogDynamoDB(data, apinombre, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
                     }
-                    
+
                     if (userData.Telefono.ToString().Trim().ToUpper() != p_modelo.Telefono.ToString().Trim().ToUpper())
                     {
                         v_campomodificacion = "TELEFONO";
                         v_valoractual = p_modelo.Telefono.ToString().Trim();
-                        v_valoranterior = userData.Telefono.ToString().Trim();                        
+                        v_valoranterior = userData.Telefono.ToString().Trim();
                         userData.Telefono = v_valoractual;
                         EjecutarLogDynamoDB(data, apinombre, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
                     }
-                    
+
                     if (userData.Celular.ToString().Trim().ToUpper() != p_modelo.Celular.ToString().Trim().ToUpper())
                     {
                         v_campomodificacion = "CELULAR";
                         v_valoractual = p_modelo.Celular.ToString().Trim();
-                        v_valoranterior = userData.Celular.ToString().Trim();                        
+                        v_valoranterior = userData.Celular.ToString().Trim();
                         userData.Celular = v_valoractual;
                         EjecutarLogDynamoDB(data, apinombre, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
                     }
-                    
+
                     if (userData.TelefonoTrabajo.ToString().Trim().ToUpper() != p_modelo.TelefonoTrabajo.ToString().Trim().ToUpper())
                     {
                         v_campomodificacion = "TELEFONO TRABAJO";
                         v_valoractual = p_modelo.TelefonoTrabajo.ToString().Trim();
-                        v_valoranterior = userData.TelefonoTrabajo.ToString().Trim();                        
+                        v_valoranterior = userData.TelefonoTrabajo.ToString().Trim();
                         userData.TelefonoTrabajo = v_valoractual;
                         EjecutarLogDynamoDB(data, apinombre, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
                     }
@@ -2546,7 +2546,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else if (p_Accion.Trim().ToUpper() == "CONSULTA")
                 {
                     EjecutarLogDynamoDB(data, apinombre, "", "", "", p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, p_Seccion);
-                }                                
+                }
             }
             catch (Exception ex)
             {
@@ -2566,36 +2566,80 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                data = new
+                var paisesAdmitidos = new List<BETablaLogicaDatos>();
+                short codigoTablaLogica = 138;
+
+                using (var tablaLogica = new SACServiceClient())
                 {
-                    Usuario = userData.CodigoUsuario,
-                    CodigoConsultora = userData.CodigoConsultora,
-                    CampoModificacion = campomodificacion,
-                    ValorActual = valoractual,
-                    ValorAnterior = valoranterior,
-                    Origen = origen,
-                    Aplicacion = aplicacion,
-                    Pais = userData.NombrePais,
-                    Rol = userData.RolDescripcion,
-                    Dispositivo = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB",
-                    Accion = accion,
-                    UsuarioConsultado = codigoconsultorabuscado,
-                    Seccion = seccion
-                };
+                    paisesAdmitidos = tablaLogica.GetTablaLogicaDatos(userData.PaisID, codigoTablaLogica).ToList();
+                }
 
-                urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
-                if (string.IsNullOrEmpty(urlApi)) return;
+                foreach (var item in paisesAdmitidos)
+                {
+                    if (Convert.ToInt32(item.Codigo) == Convert.ToInt32(userData.PaisID))
+                    {
+                        data = new
+                        {
+                            Usuario = userData.CodigoUsuario,
+                            CodigoConsultora = userData.CodigoConsultora,
+                            CampoModificacion = campomodificacion,
+                            ValorActual = valoractual,
+                            ValorAnterior = valoranterior,
+                            Origen = origen,
+                            Aplicacion = aplicacion,
+                            Pais = userData.NombrePais,
+                            Rol = userData.RolDescripcion,
+                            Dispositivo = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB",
+                            Accion = accion,
+                            UsuarioConsultado = codigoconsultorabuscado,
+                            Seccion = seccion
+                        };
+                        urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
+                        if (string.IsNullOrEmpty(urlApi)) return;
 
-                HttpClient httpClient = new HttpClient();
-                httpClient.BaseAddress = new Uri(urlApi);
-                httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                        HttpClient httpClient = new HttpClient();
+                        httpClient.BaseAddress = new Uri(urlApi);
+                        httpClient.DefaultRequestHeaders.Accept.Clear();
+                        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                        dataString = JsonConvert.SerializeObject(data);
+                        HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+                        HttpResponseMessage response = httpClient.PostAsync(requestUrl, contentPost).GetAwaiter().GetResult();
+                        noQuitar = response.IsSuccessStatusCode;
+                        httpClient.Dispose();
+                        break;
+                    }
+                }
 
-                dataString = JsonConvert.SerializeObject(data);
-                HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = httpClient.PostAsync(requestUrl, contentPost).GetAwaiter().GetResult();
-                noQuitar = response.IsSuccessStatusCode;
-                httpClient.Dispose();
+                //data = new
+                //{
+                //    Usuario = userData.CodigoUsuario,
+                //    CodigoConsultora = userData.CodigoConsultora,
+                //    CampoModificacion = campomodificacion,
+                //    ValorActual = valoractual,
+                //    ValorAnterior = valoranterior,
+                //    Origen = origen,
+                //    Aplicacion = aplicacion,
+                //    Pais = userData.NombrePais,
+                //    Rol = userData.RolDescripcion,
+                //    Dispositivo = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB",
+                //    Accion = accion,
+                //    UsuarioConsultado = codigoconsultorabuscado,
+                //    Seccion = seccion
+                //};
+
+                //urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
+                //if (string.IsNullOrEmpty(urlApi)) return;
+
+                //HttpClient httpClient = new HttpClient();
+                //httpClient.BaseAddress = new Uri(urlApi);
+                //httpClient.DefaultRequestHeaders.Accept.Clear();
+                //httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                //dataString = JsonConvert.SerializeObject(data);
+                //HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+                //HttpResponseMessage response = httpClient.PostAsync(requestUrl, contentPost).GetAwaiter().GetResult();
+                //noQuitar = response.IsSuccessStatusCode;
+                //httpClient.Dispose();
             }
             catch (Exception ex)
             {
@@ -2965,7 +3009,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var mensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitada();
             if (string.IsNullOrEmpty(mensajeGestionCdrInhabilitada)) return mensajeGestionCdrInhabilitada;
-            if  (!EsAppMobile ) mensajeGestionCdrInhabilitada = String.Format("{0} {1}", mensajeGestionCdrInhabilitada , Constantes.CdrWebMensajes.ContactateChatEnLinea);
+            if (!EsAppMobile) mensajeGestionCdrInhabilitada = String.Format("{0} {1}", mensajeGestionCdrInhabilitada, Constantes.CdrWebMensajes.ContactateChatEnLinea);
             return mensajeGestionCdrInhabilitada;
         }
 
@@ -4926,7 +4970,7 @@ namespace Portal.Consultoras.Web.Controllers
             else
             {
                 var culture = CultureInfo.GetCultureInfo("es-PE");
-                fecha = diasFaltantes > 0 
+                fecha = diasFaltantes > 0
                     ? userData.FechaInicioCampania.ToString("dd MMM", culture).ToUpper()
                     : "HOY";
 
@@ -5533,6 +5577,46 @@ namespace Portal.Consultoras.Web.Controllers
 
             return resultado;
         }
+        public void registraLogDynamoCDR(MisReclamosModel model)
+        {
+            try
+            {
+                object data = null;
+                var p_origen = "MI NEGOCIO/CAMBIOS Y DEVOLUCIONES";
+                var p_seccion = "Validacion de datos";
+                var apinombre = "Api/LogActualizaciones";
+                var v_campomodificacion = "";
+                var v_valoractual = "";
+                var v_valoranterior = "";
+                var p_aplicacion = Constantes.LogDynamoDB.AplicacionPortalConsultoras;
+                var p_Accion = "Modificacion";
 
+                if (string.IsNullOrEmpty(userData.EMail)) userData.EMail = "";
+                if (string.IsNullOrEmpty(userData.Celular)) userData.Celular = "";
+
+                if (string.IsNullOrEmpty(model.Email)) model.Email = "";
+                if (string.IsNullOrEmpty(model.Telefono)) model.Telefono = "";
+
+                if (userData.EMail.ToString().Trim().ToUpper() != model.Email.ToString().Trim().ToUpper())
+                {
+                    v_campomodificacion = "EMAIL";
+                    v_valoractual = model.Email.ToString().Trim();
+                    v_valoranterior = userData.EMail.ToString().Trim();
+                    EjecutarLogDynamoDB(data, apinombre, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, "", p_seccion);
+                }
+
+                if (userData.Celular.ToString().Trim().ToUpper() != model.Telefono.ToString().Trim().ToUpper())
+                {
+                    v_campomodificacion = "CELULAR";
+                    v_valoractual = model.Telefono.ToString().Trim();
+                    v_valoranterior = userData.Celular.ToString().Trim();
+                    EjecutarLogDynamoDB(data, apinombre, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, "", p_seccion);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+        }
     }
 }
