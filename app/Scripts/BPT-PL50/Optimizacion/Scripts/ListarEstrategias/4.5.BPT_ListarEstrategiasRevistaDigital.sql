@@ -11,7 +11,6 @@ SET NOCOUNT ON;
 	DECLARE @StrCampaniaID CHAR(6) = CONVERT(CHAR(6),@CampaniaID)
 	DECLARE @tablaCuvFaltante table( CUV varchar(6))
 	DECLARE @EstrategiaCodigo varchar(100) = '007'
-	DECLARE @codConsultoraDefault VARCHAR(9)
 
 	insert into @tablaCuvFaltante(CUV)
 	select CUV from [dbo].[ObtenerCuvFaltante](@CampaniaID,@CodigoConsultora)
@@ -35,8 +34,7 @@ SET NOCOUNT ON;
 
 	IF NOT EXISTS (SELECT CUV FROM @OfertasPersonalizadas) 
 	BEGIN
-
-		DECLARE @codConsultoraDefault VARCHAR(9)
+		DECLARE @codConsultoraDefault VARCHAR(9) = ''
 		SELECT @codConsultoraDefault = Codigo FROM TablaLogicaDatos with(nolock) WHERE TablaLogicaDatosID = 10001
 
 		INSERT INTO @OfertasPersonalizadas
@@ -52,23 +50,23 @@ SET NOCOUNT ON;
 	from [dbo].[ListarEstrategiasForzadas](@CampaniaID,@EstrategiaCodigo)
 	
 	SELECT
-		EstrategiaID,
-		CUV2,
-		DescripcionCUV2,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-		e.Precio,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-		Precio2,
-		TextoLibre,
-		FlagEstrella,
-		ColorFondo,
-		e.TipoEstrategiaID,
-		e.ImagenURL FotoProducto01,
-		te.ImagenEstrategia ImagenURL,
-		e.LimiteVenta,    
-		pc.MarcaID,
-		pc.IndicadorMontoMinimo,
-		pc.CodigoProducto,
+		E.EstrategiaID,
+		E.CUV2,
+		E.DescripcionCUV2,
+		dbo.ObtenerDescripcionEtiqueta(E.EtiquetaID) EtiquetaDescripcion,
+		E.Precio,
+		dbo.ObtenerDescripcionEtiqueta(E.EtiquetaID2) EtiquetaDescripcion2,
+		E.Precio2,
+		E.TextoLibre,
+		E.FlagEstrella,
+		E.ColorFondo,
+		E.TipoEstrategiaID,
+		E.ImagenURL FotoProducto01,
+		TE.ImagenEstrategia ImagenURL,
+		E.LimiteVenta,    
+		PC.MarcaID,
+		PC.IndicadorMontoMinimo,
+		PC.CodigoProducto,
 		0 AS FlagNueva,
 		'' as TipoTallaColor,
 		3 as TipoEstrategiaImagenMostrar
@@ -81,20 +79,20 @@ SET NOCOUNT ON;
 		, TE.FlagMostrarImg AS FlagMostrarImg	
 		, E.PrecioPublico
 		, E.Ganancia
-		, op.FlagRevista
-	FROM Estrategia E with(nolock)
+		, OP.FlagRevista
+	FROM dbo.Estrategia E with(nolock)
 		INNER JOIN @OfertasPersonalizadas op ON E.CampaniaID = op.AnioCampanaVenta AND E.CUV2 = op.CUV
 		INNER JOIN ods.ProductoComercial PC with(nolock) ON  PC.CUV = E.CUV2 AND PC.AnoCampania = E.CampaniaID
-		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
+		INNER JOIN dbo.TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 			AND TE.Codigo in ('007', '008')
-		LEFT JOIN Marca M with(nolock) ON M.MarcaId = PC.MarcaId
+		LEFT JOIN dbo.Marca M with(nolock) ON M.MarcaId = PC.MarcaId
 	WHERE
 		E.Activo = 1
 		AND TE.FlagActivo = 1
 		AND TE.flagRecoPerfil = 1
 		AND NOT EXISTS(SELECT CUV FROM @tablaCuvFaltante TF WHERE E.CUV2 = TF.CUV)
 	ORDER BY
-		op.Orden ASC, EstrategiaID ASC
+		OP.Orden ASC, E.EstrategiaID ASC
 
 SET NOCOUNT OFF
 END
