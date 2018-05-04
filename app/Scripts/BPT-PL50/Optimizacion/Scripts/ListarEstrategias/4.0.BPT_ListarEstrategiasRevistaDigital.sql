@@ -78,8 +78,7 @@ SET NOCOUNT ON;
 		, op.FlagRevista
 	FROM Estrategia E with(nolock)
 		INNER JOIN @OfertasPersonalizadas op ON E.CampaniaID = op.AnioCampanaVenta AND E.CUV2 = op.CUV
-		INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
+		INNER JOIN ods.ProductoComercial PC with(nolock) ON  PC.CUV = E.CUV2 AND PC.AnoCampania = E.CampaniaID
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 			AND TE.Codigo in ('007', '008')
 		LEFT JOIN Marca M with(nolock) ON M.MarcaId = PC.MarcaId

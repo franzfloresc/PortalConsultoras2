@@ -18,15 +18,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                int cantidadEstrategiasConfiguradas = 0;
-                int cantidadEstrategiasSinConfigurar = 0;
+                int cantidadEstrategiasConfiguradas;
+                int cantidadEstrategiasSinConfigurar;
 
                 try
                 {
                     using (var svc = new SACServiceClient())
                     {
                         cantidadEstrategiasConfiguradas = svc.GetCantidadOfertasPersonalizadas(userData.PaisID, CampaniaID, 1, CodigoEstrategia);
-
                         cantidadEstrategiasSinConfigurar = svc.GetCantidadOfertasPersonalizadas(userData.PaisID, CampaniaID, 2, CodigoEstrategia);
                     }
                 }
@@ -152,12 +151,10 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "AdministrarEstrategia");
         }
 
-        public ActionResult ConsultarOfertasParaTiTemporal(string sidx, string sord, int page, int rows,
-            string CampaniaID)
+        public ActionResult ConsultarOfertasParaTiTemporal(string sidx, string sord, int page, int rows, int nroLote)
         {
             if (ModelState.IsValid)
             {
-                var lst = new List<ComunModel>();
                 int cantidadEstrategiasConfiguradas;
                 int cantidadEstrategiasSinConfigurar;
 
@@ -165,8 +162,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (var ser = new SACServiceClient())
                     {
-                        cantidadEstrategiasConfiguradas = ser.GetCantidadOfertasPersonalizadasTemporal(userData.PaisID, int.Parse(CampaniaID), 1);
-                        cantidadEstrategiasSinConfigurar = ser.GetCantidadOfertasPersonalizadasTemporal(userData.PaisID, int.Parse(CampaniaID), 2);
+                        cantidadEstrategiasConfiguradas = ser.GetCantidadOfertasPersonalizadasTemporal(userData.PaisID, nroLote, 1);
+                        cantidadEstrategiasSinConfigurar = ser.GetCantidadOfertasPersonalizadasTemporal(userData.PaisID, nroLote, 2);
                     }
                 }
                 catch (Exception ex)
@@ -176,20 +173,23 @@ namespace Portal.Consultoras.Web.Controllers
                     cantidadEstrategiasSinConfigurar = 0;
                 }
 
-                lst.Add(new ComunModel
+                var lst = new List<ComunModel>
                 {
-                    Id = 1,
-                    Descripcion = "CUVS pre cargados correctamente",
-                    Valor = cantidadEstrategiasConfiguradas.ToString(),
-                    ValorOpcional = "1"
-                });
-                lst.Add(new ComunModel
-                {
-                    Id = 2,
-                    Descripcion = "CUVS no pre cargados",
-                    Valor = cantidadEstrategiasSinConfigurar.ToString(),
-                    ValorOpcional = "2"
-                });
+                    new ComunModel
+                    {
+                        Id = 1,
+                        Descripcion = "CUVS pre cargados correctamente",
+                        Valor = cantidadEstrategiasConfiguradas.ToString(),
+                        ValorOpcional = "1"
+                    },
+                    new ComunModel
+                    {
+                        Id = 2,
+                        Descripcion = "CUVS no pre cargados",
+                        Valor = cantidadEstrategiasSinConfigurar.ToString(),
+                        ValorOpcional = "2"
+                    }
+                };
 
                 var grid = new BEGrid
                 {

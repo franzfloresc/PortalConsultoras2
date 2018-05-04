@@ -14,7 +14,7 @@ BEGIN
 	SET NOCOUNT OFF
 	declare @resultado int = 0
 
-	declare @tablaCuvsOPT table (CampaniaID int, CUV varchar(5))
+	declare @tablaCuvsOPT table (CampaniaID int, CUV varchar(100))
 
 	IF (@CodigoEstrategia = '011') -- Herramienta de Venta
 	BEGIN

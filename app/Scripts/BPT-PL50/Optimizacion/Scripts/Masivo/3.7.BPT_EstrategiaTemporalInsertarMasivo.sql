@@ -13,11 +13,12 @@ CREATE PROCEDURE EstrategiaTemporalInsertarMasivo
 	@NroLoteFinal int = 0 out
 )
 AS
+-- EstrategiaTemporalInsertarMasivo 201801, '007', 1, 200
 BEGIN
 	
 	DECLARE @tablaCuvsOPT TABLE (
 		CampaniaID int, 
-		CUV varchar(5), 
+		CUV varchar(10), 
 		OfertaUltimoMinuto int, 
 		LimiteVenta int
 	)
@@ -40,8 +41,8 @@ BEGIN
 		
 		declare @CuvDesde int = (@Pagina - 1) * @CantidadCuv + 1
 		declare @CuvHasta int = @Pagina * @CantidadCuv
-		DECLARE @CampaniaIDChar CHAR(6) = convert(char(6), @CampaniaID)
-		DECLARE @EstrategiaCodigoOds CHAR(3)
+		--DECLARE @CampaniaIDChar CHAR(6) = convert(char(6), @CampaniaID)
+		DECLARE @EstrategiaCodigoOds varchar(10)
 		set @EstrategiaCodigoOds = dbo.fnGetTipoPersonalizacion(@EstrategiaCodigo)
 		
 		if @EstrategiaCodigoOds <> ''
@@ -53,7 +54,7 @@ BEGIN
 				 CUV, ISNULL(FlagUltMinuto, 0) as OfertaUltimoMinuto, 
 				 ISNULL(LimUnidades, 99) as LimiteVenta
 				FROM ods.OfertasPersonalizadasCUV 
-				WHERE AnioCampanaVenta = @CampaniaIDChar
+				WHERE AnioCampanaVenta = @CampaniaID
 				AND TipoPersonalizacion = @EstrategiaCodigoOds
 			) m
 			where m.ID between @CuvDesde and @CuvHasta

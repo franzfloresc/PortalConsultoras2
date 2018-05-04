@@ -28,13 +28,13 @@ AS
 BEGIN
 	DECLARE @Filtro TABLE
 	(
-		TipoPersonalizacion CHAR(3)
-		,AnioCampanaVenta	CHAR(6)
+		TipoPersonalizacion VARCHAR(3)
+		,AnioCampanaVenta	int
 	)
 	INSERT INTO @Filtro
 	SELECT 
-	TipoPersonalizacion = SUBSTRING(item,1,3)
-	,AnioCampanaVenta = SUBSTRING(item,4,6)
+		TipoPersonalizacion = SUBSTRING(item,1,3)
+		,AnioCampanaVenta = CONVERT(int, SUBSTRING(item,4,6))
 	FROM (
 		SELECT item
 		FROM [dbo].[fnSplit](@TipoPersonalizacionAnioCampanaVenta, '-') 
@@ -48,9 +48,9 @@ BEGIN
 
 	INSERT INTO OfertasPersonalizadasCUV
 	SELECT 
-	OP.AnioCampanaVenta	
-	,OP.TipoPersonalizacion
-	,OP.CUV				
+	convert(int, OP.AnioCampanaVenta)
+	,convert(varchar(10), OP.TipoPersonalizacion)
+	,convert(varchar(6), OP.CUV)			
 	,FlagUltMinuto = MAX(OP.FlagUltMinuto)	
 	,LimUnidades = MAX(OP.LimUnidades)	
 	FROM OfertasPersonalizadas OP
