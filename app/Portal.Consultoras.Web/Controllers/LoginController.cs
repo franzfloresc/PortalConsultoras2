@@ -142,7 +142,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void MisCursos()
         {
-            sessionManager.SetMiAcademia(0);
+            TempData["MiAcademia"] = 0;
             var url = (Request.Url.OriginalString).Split('?');
             if (url.Length > 1)
             {
@@ -150,7 +150,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (Util.IsNumeric(MiCurso[1]))
                 {
                     misCursos = Convert.ToInt32(MiCurso[1]);
-                    sessionManager.SetMiAcademia(misCursos);
+                    TempData["MiAcademia"] = misCursos;
                 }
             }
         }
@@ -323,9 +323,10 @@ namespace Portal.Consultoras.Web.Controllers
             bool hizoLoginExterno = false)
         {
             pasoLog = "Login.Redireccionar";
-            misCursos = sessionManager.GetMiAcademia();
 
             var usuario = await GetUserData(paisId, codigoUsuario);
+
+            misCursos = Convert.ToInt32(TempData["MiAcademia"]); /* SOPORTEC-266 */
 
             sessionManager.SetMiAcademia(misCursos); /* SOPORTEC-266 */
 
