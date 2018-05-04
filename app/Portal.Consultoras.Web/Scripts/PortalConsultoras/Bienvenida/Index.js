@@ -474,7 +474,7 @@ function limitarMaximo(e, contenido, caracteres, id) {
         return true;
 
     if (contenido.length >= caracteres) {
-        selectedText = document.getSelection();
+        var selectedText = document.getSelection();
         if (selectedText == contenido) {
             $("#" + id).val("");
             return true;
@@ -862,7 +862,7 @@ function ArmarCarouselLiquidaciones(data) {
             '</div>',
             '</div>'
         ].join("\n");
-    };
+    }
 
     $('#divCarruselLiquidaciones').empty().html(htmlDiv);
 
@@ -882,7 +882,7 @@ function ArmarCarouselLiquidaciones(data) {
         var accion = nextSlide > currentSlide ? 'next' : 'prev';
         var itemsLength = $('#divCarruselLiquidaciones').find('.slick-slide').length;
         var indexActive = $($('#divCarruselLiquidaciones').find('.slick-active')).attr('data-slick-index');
-
+        var posicionEstrategia, recomendado, arrayEstrategia;
         if (accion == 'prev') {
             if (Number(indexActive) - 1 == 0) {
                 $('.js-slick-prev-liq').hide();
@@ -891,11 +891,11 @@ function ArmarCarouselLiquidaciones(data) {
                 $('.js-slick-next-liq').show();
             }
 
-            var posicionEstrategia = $($('#divCarruselLiquidaciones').find(".slick-active")).find('#Posicion').val() - 2;
-            var recomendado = arrayLiquidaciones[posicionEstrategia] || {};
-            var arrayEstrategia = new Array();
+             posicionEstrategia = $($('#divCarruselLiquidaciones').find(".slick-active")).find('#Posicion').val() - 2;
+             recomendado = arrayLiquidaciones[posicionEstrategia] || {};
+             arrayEstrategia = new Array();
 
-            var impresionRecomendado = {
+            arrayEstrategia.push({
                 'name': recomendado.DescripcionCompleta,
                 'id': recomendado.CUV,
                 'price': recomendado.PrecioOferta.toString(),
@@ -904,8 +904,7 @@ function ArmarCarouselLiquidaciones(data) {
                 'variant': recomendado.DescripcionEstrategia,
                 'list': 'Liquidación Web - Home',
                 'position': recomendado.Posicion
-            };
-            arrayEstrategia.push(impresionRecomendado);
+            });
             dataLayer.push({
                 'event': 'productImpression',
                 'ecommerce': {
@@ -927,13 +926,13 @@ function ArmarCarouselLiquidaciones(data) {
                 $('.js-slick-prev-liq').show();
             }
 
-            var posicionEstrategia = $($('#divCarruselLiquidaciones').find(".slick-active")).find('#Posicion').val();
+             posicionEstrategia = $($('#divCarruselLiquidaciones').find(".slick-active")).find('#Posicion').val();
 
             if (posicionEstrategia != arrayLiquidaciones.length) {
-                var recomendado = arrayLiquidaciones[posicionEstrategia] || {};
-                var arrayEstrategia = new Array();
+                 recomendado = arrayLiquidaciones[posicionEstrategia] || {};
+                 arrayEstrategia = new Array();
 
-                var impresionRecomendado = {
+                arrayEstrategia.push({
                     'name': recomendado.DescripcionCompleta,
                     'id': recomendado.CUV,
                     'price': recomendado.PrecioOferta.toString(),
@@ -942,9 +941,7 @@ function ArmarCarouselLiquidaciones(data) {
                     'variant': recomendado.DescripcionEstrategia,
                     'list': 'Liquidación Web - Home',
                     'position': recomendado.Posicion
-                };
-
-                arrayEstrategia.push(impresionRecomendado);
+                });
 
                 dataLayer.push({
                     'event': 'productImpression',
@@ -1480,7 +1477,8 @@ function SetGoogleAnalyticsBannerPrincipal(URL, TrackText, Id, Posicion, Titulo)
     }
     return false;
 };
-function SetGoogleAnalyticsBannerInferiores(URL, TrackText, Tipo, Id, Posicion, Titulo,OpenTab) {
+function SetGoogleAnalyticsBannerInferiores(URL, TrackText, Tipo, Id, Posicion, Titulo, OpenTab) {
+    var id;
     dataLayer.push({
         'event': 'promotionClick',
         'ecommerce': {
@@ -1496,10 +1494,11 @@ function SetGoogleAnalyticsBannerInferiores(URL, TrackText, Tipo, Id, Posicion, 
     });
     if (Tipo == "1") {
         window.location.href = URL;
-        if (!OpenTab) return;
+        if (!OpenTab) return false;
     }
     else
-        var id = URL;
+         id = URL;
+
     if (URL > 0) {
         var url = baseUrl + "MiAcademia/Cursos?idcurso=" + id;
         window.open(url, '_blank');
@@ -2009,9 +2008,7 @@ function CerrarPopupActualizacionDatos() {
         }
     });
 };
-function ValidateOnlyNums(id) {
-    return $("#" + id).val($("#" + id).val().replace(/[^\d]/g, ""));
-};
+
 
 function ActualizarDatosMexico() {
     var Result = false;
@@ -2202,7 +2199,7 @@ function AceptarContrato() {
             }
         }
     });
-};
+}
 function DownloadAttachPDF() {
     var iframe_ = document.createElement("iframe");
     iframe_.style.display = "none";
@@ -2233,7 +2230,7 @@ function DownloadAttachPDF() {
         });
     }
     document.body.appendChild(iframe_);
-};
+}
 
 function MostrarDemandaAnticipada() {
     $.ajax({
@@ -2588,7 +2585,8 @@ function MostrarShowRoom() {
                 if (checkTimeout(response)) {
                     if (response.success) {
                         var showroomConsultora = response.data;
-
+                        var txtSaludoIntriga;
+                        var container;
                         if (!(showroomConsultora.EventoConsultoraID != 0 && showroomConsultora.MostrarPopup)) {
                             return false;
                         }
@@ -2623,9 +2621,9 @@ function MostrarShowRoom() {
                             $("#spnShowRoomEventoDescripcionVenta").val(evento.Tema);
                             AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, evento.Tema, "1");
                             $("#hdEventoIDShowRoomVenta").val(eventoID);
-                            var container = $('#PopShowroomVenta');
+                             container = $('#PopShowroomVenta');
 
-                            var txtSaludoIntriga = '<b>' + response.nombre + '</b>, YA COMENZÓ';
+                             txtSaludoIntriga = '<b>' + response.nombre + '</b>, YA COMENZÓ';
                             $(container).find('.saludo_consultora_showroom').html(txtSaludoIntriga);
                             $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupVenta);
                             $(container).show();
@@ -2639,10 +2637,10 @@ function MostrarShowRoom() {
                             AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, evento.Tema, "2")
                             $('#hdEventoIDShowRoom').val(eventoID);
                             if (parseInt(response.diasFaltan) > 0) {
-                                var container = $('#PopShowroomIntriga');
+                                 container = $('#PopShowroomIntriga');
                                 var txtDiasIntriga = 'FALTAN ' + response.diasFaltan + ' DÍAS';
                                 if (response.diasFaltan == 1) txtDiasIntriga = 'FALTA 1 DÍA';
-                                var txtSaludoIntriga = '<b>' + response.nombre + '</b>, prepárate para';
+                                 txtSaludoIntriga = '<b>' + response.nombre + '</b>, prepárate para';
                                 $(container).find('.saludo_consultora_showroom').html(txtSaludoIntriga);
                                 $(container).find('.dias_intriga_home').text(txtDiasIntriga);
                                 $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupIntriga);
@@ -2743,19 +2741,19 @@ function AgregarTagManagerShowRoomPopup(nombreEvento, esHoy) {
 }
 
 function AgregarTagManagerShowRoomPopupClick(tipo) {
-    var id = "";
-    var name = "";
+  
+    var name = "",nombre="",id="",tema;
 
     if (tipo == 1) {
-        var nombre = $("#spnShowRoomEventoVenta").val();
-        var tema = $("#spnShowRoomEventoDescripcionVenta").val();
+         nombre = $("#spnShowRoomEventoVenta").val();
+         tema = $("#spnShowRoomEventoDescripcionVenta").val();
         name = nombre + ' ' + tema + ' - Compra Ya';
         id = $("#hdEventoIDShowRoomVenta").val();
     }
 
     if (tipo == 2) {
-        var nombre = $("#spnShowRoomEvento").val();
-        var tema = $("#spnShowRoomEventoDescripcion").val();
+         nombre = $("#spnShowRoomEvento").val();
+         tema = $("#spnShowRoomEventoDescripcion").val();
         name = nombre + ' ' + tema + ' - Entérate';
         id = $("#hdEventoIDShowRoom").val();
     }
@@ -2883,15 +2881,15 @@ function ObtenerComunicadosPopup() {
 
 function armarComunicadosPopup(response) {
     viewBagVerComunicado = response.comunicadoVisualizado;
+   
     var item = response.data;
     if (item.CodigoConsultora != null) {
         
-        dialogComunicadoID = item.CodigoConsultora + '_' + item.ComunicadoId;
+        var dialogComunicadoID = item.CodigoConsultora + '_' + item.ComunicadoId;
         var nombreEvento = encodeURI(item.Descripcion);
         
-        if (item.Accion == "CUV") {
-        }
-        else if (item.Accion == "URL") {
+       
+        if (item.Accion == "URL") {
             urlAccion = item.DescripcionAccion;
             if (urlAccion > 0) {
                 urlAccion = baseUrl + "MiAcademia/Cursos/idcurso/" + urlAccion;
@@ -3044,12 +3042,7 @@ function PopupMostrarPrioridad() {
         listaMostrar.push(mostrar);
     }
 
-    $.each(listaMostrar, function (ind, prioridad) {
-        if (prioridad.Codigo == "") {
 
-        }
-
-    });
 
 }
 function PopupMostrar(idPopup) {
