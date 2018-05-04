@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Common
 {
     public static class LogManager
     {
-        public static void SaveLog(Exception exception, string codigoUsuario, string paisISO)
+        public static void SaveLog(Exception exception, string codigoUsuario, string paisISO, string adicional = "")
         {
             SaveLog(new LogError
             {
@@ -21,11 +21,12 @@ namespace Portal.Consultoras.Common
                 CodigoUsuario = codigoUsuario,
                 IsoPais = paisISO,
                 Origen = "Servidor",
-                Titulo = "Seguimiento de Errores Servicio Portal"
+                Titulo = "Seguimiento de Errores Servicio Portal",
+                InformacionAdicional = adicional
             });
         }
 
-        public static void SaveLog(Exception exception, string codigoUsuario, int paisId)
+        public static void SaveLog(Exception exception, string codigoUsuario, int paisId, string adicional = "")
         {
             SaveLog(new LogError
             {
@@ -33,11 +34,12 @@ namespace Portal.Consultoras.Common
                 CodigoUsuario = codigoUsuario,
                 IsoPais = paisId.ToString(),
                 Origen = "Servidor",
-                Titulo = "Seguimiento de Errores Servicio Portal"
+                Titulo = "Seguimiento de Errores Servicio Portal",
+                InformacionAdicional = adicional
             });
         }
 
-        public static void SaveLog(Exception exception, long consultoraId, int paisId)
+        public static void SaveLog(Exception exception, long consultoraId, int paisId, string adicional = "")
         {
             SaveLog(new LogError
             {
@@ -45,11 +47,12 @@ namespace Portal.Consultoras.Common
                 CodigoUsuario = consultoraId.ToString(),
                 IsoPais = paisId.ToString(),
                 Origen = "Servidor",
-                Titulo = "Seguimiento de Errores Servicio Portal"
+                Titulo = "Seguimiento de Errores Servicio Portal",
+                InformacionAdicional = adicional
             });
         }
 
-        public static void SaveLog(Exception exception, long consultoraId, string paisIso)
+        public static void SaveLog(Exception exception, long consultoraId, string paisIso, string adicional = "")
         {
             SaveLog(new LogError
             {
@@ -57,7 +60,8 @@ namespace Portal.Consultoras.Common
                 CodigoUsuario = consultoraId.ToString(),
                 IsoPais = paisIso,
                 Origen = "Servidor",
-                Titulo = "Seguimiento de Errores Servicio Portal"
+                Titulo = "Seguimiento de Errores Servicio Portal",
+                InformacionAdicional = adicional
             });
         }
 
@@ -127,10 +131,13 @@ namespace Portal.Consultoras.Common
                 var urlRequest = string.Empty;
                 var browserRequest = string.Empty;
 
-                if (HttpContext.Current.Request != null)
+                if (HttpContext.Current != null && HttpContext.Current.Request != null)
                 {
-                    urlRequest = HttpContext.Current.Request.Url.ToString();
-                    browserRequest = HttpContext.Current.Request.UserAgent;
+                    if (HttpContext.Current.Request != null)
+                    {
+                        urlRequest = HttpContext.Current.Request.Url.ToString();
+                        browserRequest = HttpContext.Current.Request.UserAgent;
+                    }
                 }
 
                 var exceptionMessage = string.Empty;

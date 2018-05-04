@@ -249,7 +249,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult BuscarCuvCambiar(MisReclamosModel model)
         {
-            List<BEProducto> olstProducto;
+            List<ServiceODS.BEProducto> olstProducto;
             List<ProductoModel> olstProductoModel = new List<ProductoModel>();
 
             using (ODSServiceClient sv = new ODSServiceClient())
@@ -320,7 +320,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return Json(new
                         {
                             success = false,
-                            message = "No está permitido el reclamo de Packs y Sets por este medio. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.",
+                            message = "No está permitido el reclamo de Packs y Sets por este medio. " + Constantes.CdrWebMensajes.ContactateChatEnLinea,
                         }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -355,7 +355,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return Json(new
                         {
                             success = false,
-                            message = "No está permitido el cambio de Packs y Sets por este medio. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.",
+                            message = "No está permitido el cambio de Packs y Sets por este medio. " + Constantes.CdrWebMensajes.ContactateChatEnLinea,
                         }, JsonRequestBehavior.AllowGet);
                 }
             }

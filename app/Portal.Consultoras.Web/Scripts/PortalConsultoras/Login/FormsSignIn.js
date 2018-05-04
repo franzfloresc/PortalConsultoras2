@@ -348,7 +348,10 @@ $(document).ready(function () {
 
     $("#divChatearConNosotros").click(function () {   
         $('#marca').css('display', 'block');
-        $("#btn_init").trigger("click");
+
+        var connected = localStorage.getItem('connected');
+        var idBtn = connected ? '#btn_open' : '#btn_init';
+        $(idBtn).trigger("click");
     });
 
     $("body").keyup(function (evt) {

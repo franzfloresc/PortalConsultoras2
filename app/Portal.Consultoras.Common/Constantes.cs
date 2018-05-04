@@ -88,24 +88,15 @@ namespace Portal.Consultoras.Common
             public const string Chile = "CL";
             public const string Ecuador = "EC";
             public const string CostaRica = "CR";
-
-            /// <summary>
-            /// El Salvador
-            /// </summary>
             public const string Salvador = "SV";
             public const string Guatemala = "GT";
             public const string Panama = "PA";
             public const string Venezuela = "VE";
             public const string Colombia = "CO";
-
             public const string Argentina = "AR";
             public const string Bolivia = "BO";
             public const string Mexico = "MX";
             public const string PuertoRico = "PR";
-
-            /// <summary>
-            /// Republica Dominicana
-            /// </summary>
             public const string Dominicana = "DO";
         }
 
@@ -149,10 +140,10 @@ namespace Portal.Consultoras.Common
             public const int BusquedaNemotecnicoProductoSugerido = 9853;
             public const int BusquedaNemotecnicoZonaEstrategia = 9854;
             public const int Tonos = 9802;
-
-            public const int ValoresImagenesResizeWitdhSmall = 12101;
+            
+            public const int ValoresImagenesResizeWitdhMaxSmall = 12101;
             public const int ValoresImagenesResizeHeightSmall = 12102;
-            public const int ValoresImagenesResizeWitdhMedium = 12103;
+            public const int ValoresImagenesResizeWitdhMaxMedium = 12103;
             public const int ValoresImagenesResizeHeightMedium = 12104;
 
             public const int MerchantId = 12201;
@@ -296,7 +287,6 @@ namespace Portal.Consultoras.Common
             public const string TieneOpt = "TieneOpt";
             public const string TieneOpm = "TieneOpm";
             public const string TieneOpmX1 = "TieneOpmX1";
-            public const string TieneRdr = "TieneRdr";
             public const string TieneHv = "TieneHv";
             public const string TieneHvX1 = "TieneHvX1";
 
@@ -386,6 +376,7 @@ namespace Portal.Consultoras.Common
             public const string PaisesShowRoom = "PaisesShowRoom";
             public const string RevistaPiloto_Zonas = "RevistaPiloto_Zonas_";
             public const string RevistaPiloto_Codigo = "RevistaPiloto_Codigo";
+            public const string RevistaPiloto_Zonas_RDR_2 = "RevistaPiloto_Zonas_RDR_2_";
             public const string CodigoRevistaIssuu = "CodigoRevistaIssuu";
             public const string CodigoCatalogoIssuu = "CodigoCatalogoIssuu";
             public const string URL_SUPERATE_NUEVO = "URL_SUPERATE_NUEVO";
@@ -427,7 +418,10 @@ namespace Portal.Consultoras.Common
             public const string Catalogo_Piloto_Grupos = "Catalogo_Piloto_Grupos_";
             public const string Catalogo_Marca_Piloto = "Catalogo_Marca_Piloto_";
             public const string SubGuion = "_";
-
+            
+            public const string EnabledRemoveCache = "EnabledRemoveCache";
+            public const string UrlServiceSicc = "UrlServiceSicc";
+            public const string MenuCondicionesDescripcion = "CONDICIONES DE USO WEB";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
@@ -447,7 +441,7 @@ namespace Portal.Consultoras.Common
             // C: Landing EPM               D: Landing EPM Revisar
             // E: Landing ShowRoom          F: Landing ShowRoom Intriga
             // G: Revista Digital Info      H: Revista Digital Detalle
-            // I: Guia de Negocio
+            // I: Guia de Negocio           J: Herramiento de venta
 
             // Tercer Dígito -- Sección dentro de la Pantalla
             // 0: Principal                 1: OPT
@@ -470,6 +464,8 @@ namespace Portal.Consultoras.Common
             public const string MRevistaDigitalDetalle = "2H0";
             public const string DGuiaNegocio = "1I0";
             public const string MGuiaNegocio = "2I0";
+            public const string DHerramientaVenta = "1J0";
+            public const string MHerramientaVenta = "2J0";
         }
 
         public static class OrigenPedidoWeb
@@ -516,6 +512,7 @@ namespace Portal.Consultoras.Common
             public const int BannerDesktopHome = 1111;
             public const int DesktopPedido = 12;
             public const int MobilePedido = 22;
+            public const int AppPedido = 42;
 
 
             #region OfertasParaTi
@@ -801,7 +798,7 @@ namespace Portal.Consultoras.Common
             public const string ConsultoraBloqueada = "Lo sentimos, por el momento te encuentras bloqueada para realizar esta operación.";
             public const string SinPedidosDisponibles = "Lo sentimos, en estos momentos no cuentas con pedidos disponibles para reclamar.";
             public const string FueraDeFecha = "Tu solicitud se encuentra fuera de fecha para poder ser atendida.";
-            public const string ContactateChatEnLinea = "Por favor, contáctate con nuestro <span>Chat en Línea</span>.";
+            public const string ContactateChatEnLinea = "Por favor, contáctate con nuestro <span class=\"enlace_chat belcorpChat\"><a>Chat en Línea</a></span>.";
         }
 
         public static class CodigoOperacionCDR
@@ -1031,6 +1028,8 @@ namespace Portal.Consultoras.Common
             public const string GuiaNegocio = "GUIANEGOCIO";
             public const string RevistaDigitalInformacion = "REVISTADIGITALINFORMACION";
             public const string LiquidacionWeb = "LIQUIDACIONWEB";
+            public const string CambiosDevoluciones = "CAMBIODEVOLUCIONES";
+            public const string PedidosFIC = "PEDIDOSFIC";
         }
 
         public static class EstadoCuentaTipoMovimiento
@@ -1062,6 +1061,7 @@ namespace Portal.Consultoras.Common
         public class CatalogoUrlIssu
         {
             public const string Buscador = "//search.issuu.com/api/2_0/document?username=somosbelcorp&q=";
+            public const string RDR = "rdr";
         }
 
         public static class RevistaNombre
@@ -1108,6 +1108,9 @@ namespace Portal.Consultoras.Common
             public const string ReportePedidoDDWeb_DescargaDetalle = "Ocurrió un error al intentar descargar los detalles de sus pedidos. Inténtelo más tarde.";
             public const string LimiteDescargaSobrepasado = "El archivo no se puede descargar debido a que se sobrepaso el máximo de items ({0}).";
             public const string PaqueteDocumentario_ConsumirServicio = "Ocurrió un error al intentar obtener la información. Por favor, vuelva a intentar dentro de unos minutos.";
+            public const string Cache_Eliminar = "Ocurrió un error al eliminar la caché. Inténtelo más tarde";
+            public const string Reserva_Error = "Hubo un error al tratar de realizar la validación del pedido, por favor vuelva a intentarlo.";
+            public const string Reserva_SinDetalle = "No tiene productos que reservar esta campaña.";
         }
 
         public static class ConfiguracionPais
@@ -1209,11 +1212,15 @@ namespace Portal.Consultoras.Common
                 public const string DPopupBloqueadoNoActivaSuscrita = "DPopupBloqueadoNoActivaSuscrita";
                 public const string MPopupBloqueadoNoActivaNoSuscrita = "MPopupBloqueadoNoActivaNoSuscrita";
                 public const string MPopupBloqueadoNoActivaSuscrita = "MPopupBloqueadoNoActivaSuscrita";
+                public const string PopupBloqueadoNS = "PopupBloqueadoNS";
+                public const string PopupBloqueadoSNA = "PopupBloqueadoSNA";
                 #endregion
 
                 #region Revista Digital Lo que te perdiste
                 public const string DPerdiste = "DPerdiste";
                 public const string MPerdiste = "MPerdiste";
+                public const string NSPerdiste = "NSPerdiste";
+                public const string SNAPerdiste = "SNAPerdiste";
                 #endregion
 
                 #region Inicio Revista Digital - Banner
@@ -1252,21 +1259,17 @@ namespace Portal.Consultoras.Common
                 public const string PopupFondoColorMarco = "PopupFondoColorMarco";
                 #endregion
 
+                #region SociaEmpresaria
+                public static readonly string SociaEEmpresariaExperienciaClub = "SEExperienciaClub";
+                public static readonly string SociaEmpresariaSuscritaNoActivaCancelarSuscripcion = "SESuscritaNoActivaCancelarSuscripcion";
+                public static readonly string SociaEmpresariaSuscritaActivaCancelarSuscripcion = "SESuscritaActivaCancelarSuscripcion";
+                #endregion
+
             }
 
             public static class RDR
             {
-                public const string LogoComercial = "LogoComercial";
-                public const string LogoComercialFondo = "LogoComercialFondo";
-                public const string DBienvenidaRdr = "DBienvenidaRdr";
-                public const string DPedidoRdr = "DPedidoRdr";
-                public const string DCatalogoRdr = "DCatalogoRdr";
-                public const string MBienvenidaRdr = "MBienvenidaRdr";
-                public const string MPedidoRdr = "MPedidoRdr";
-                public const string MCatalogoRdr = "MCatalogoRdr";
-                public const string DRDRLandingBanner = "DRDRLandingBanner";
-                public const string MRDRLandingBanner = "MRDRLandingBanner";
-                public const string LogoMenuOfertas = "LogoMenuOfertas";
+                public const string BloquearProductoGnd = "BloquearProductoGnd";
             }
 
             public static class RDI
@@ -1306,6 +1309,7 @@ namespace Portal.Consultoras.Common
                 public const int ShowRoom = 5;
                 public const int OfertaDelDia = 6;
                 public const int DescagablesNavidenos = 7;
+                public const int CarruselIndividuales = 8;
             }
         }
 
@@ -1346,7 +1350,7 @@ namespace Portal.Consultoras.Common
             public const string CO = "El número de tu<br/>cédula de identidad.";
             public const string DO = "Los 4 últimos dígitos de<br/>tu Cédula de Identidad<br/>(sin guiones).";
             public const string EC = "El número de tu<br/>cédula de identidad.";
-            public const string MX = "Los 4 últimos dígitos de<br/>tu código de consultora.";
+            public const string MX = "Los 4 últimos dígitos de<br/>tu código de consultora.<br/><b>Recuerda cambiar tu<br/>clave por seguridad.</b>";
             public const string PE = "Si es la primera vez que<br/>ingresas, es tu número<br/>de DNI.";
             public const string PR = "Los 4 últimos dígitos de<br/>tu Seguro Social(sin guiones).";
             public const string VE = "Los 4 últimos dígitos de<br/>tu Cédula de Identidad.";
@@ -1418,6 +1422,7 @@ namespace Portal.Consultoras.Common
             public const short MontoLimiteCupon = 103;
             public const int ValoresPagoEnLinea = 122;
             public const int CantidadCuvMasivo = 137;
+            public const short ProlObsCod = 5;
         }
 
         public struct MensajesCDRExpress
@@ -1709,11 +1714,12 @@ namespace Portal.Consultoras.Common
             public const string RdComprar = "/revistadigital/comprar";
             public const string RdRevisar = "/revistadigital/revisar";
             public const string RdInformacion = "/revistadigital/informacion";
-            public const string RdDetalle = "/revistadigital/detalle";
+            public const string LanDetalle = "/lanzamientos/detalle";
             public const string SwInicio = "/showroom";
             public const string SwInicioIndex = "/showroom/index";
             public const string SwIntriga = "/showroom/intriga";
             public const string SwDetalle = "/showroom/detalleoferta";
+            public const string SwPersonalizado = "/showroom/personalizado";
             public const string OptDetalle = "/ofertasparati/detalle";
             public const string OfertaDelDia = "/ofertadeldia";
             public const string OfertaDelDiaIndex = "/ofertadeldia/index";
@@ -1748,6 +1754,8 @@ namespace Portal.Consultoras.Common
             public const string Nombre = "#NOMBRE";
             public const string Nombre1 = "#Nombre";
             public const string Nombre2 = "#nombre";
+            public const string Campania = "#Campania";
+
             public const string CampaniaActual = "#CX";
             public const string CampaniaVer = "#CX1";
             public const string CampaniaSuscripcion = "#CS";
@@ -1812,7 +1820,6 @@ namespace Portal.Consultoras.Common
             public const string ProductName = "nombre producto";
             public const string Description = "descripcion";
             public const string BrandProduct = "marca producto";
-
             public enum Position { CUV = 0, Order = 1, ProductName = 2, Description = 3, BrandProduct = 4 };
         }
 
@@ -1864,11 +1871,128 @@ namespace Portal.Consultoras.Common
             public const string Error = "Error";
         }
 
+        public static class PedidoAppValidacion
+        {
+            public static class ProductoBuscar
+            {
+                private static Dictionary<string, string> _Message;
+
+                public static class Code
+                {
+                    public const string SUCCESS = "0000";
+                    public const string ERROR_INTERNO = "9999";
+                    public const string ERROR_PRODUCTO_NOEXISTE = "1101";
+                    public const string ERROR_PRODUCTO_AGOTADO = "1102";
+                    public const string ERROR_PRODUCTO_LIQUIDACION = "1103";
+                    public const string ERROR_PRODUCTO_SHOWROOM = "1104";
+                    public const string ERROR_PRODUCTO_SHOWROOM_NODISPONIBLE = "1105";
+                    public const string ERROR_PRODUCTO_OFERTAREVISTA_ESIKA = "1106";
+                    public const string ERROR_PRODUCTO_OFERTAREVISTA_LBEL = "1107";
+                }
+
+                public static Dictionary<string, string> Message
+                {
+                    get
+                    {
+                        return _Message ?? (_Message = new Dictionary<string, string>
+                    {
+                        {Code.SUCCESS, "OK"},
+                        {Code.ERROR_INTERNO, string.Empty},
+                        {Code.ERROR_PRODUCTO_NOEXISTE, "Este producto no existe."},
+                        {Code.ERROR_PRODUCTO_AGOTADO, "Este producto está agotado."},
+                        {Code.ERROR_PRODUCTO_LIQUIDACION, "Este producto solo está disponible desde la sección de Liquidación Web."},
+                        {Code.ERROR_PRODUCTO_SHOWROOM, "Este producto solo está disponible desde la sección de Venta Digital."},
+                        {Code.ERROR_PRODUCTO_SHOWROOM_NODISPONIBLE, "Esta promoción no se encuentra disponible."},
+                        {Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, "Este producto está de oferta en la Guía de Negocio Ésika."},
+                        {Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, "Este producto está de oferta en Mi Negocio L’Bel."},
+                    });
+                    }
+                }
+            }
+
+            public class PedidoInsertar
+            {
+                private static Dictionary<string, string> _Message;
+
+                public static class Code
+                {
+                    public const string SUCCESS = "0000";
+                    public const string ERROR_INTERNO = "9999";
+                    public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
+                    public const string ERROR_STOCK_ESTRATEGIA = "2102";
+                    public const string ERROR_KIT_INICIO = "2103";
+                    public const string ERROR_GRABAR = "2104";
+                }
+
+                public static Dictionary<string, string> Message
+                {
+                    get
+                    {
+                        return _Message ?? (_Message = new Dictionary<string, string>
+                            {
+                                {Code.SUCCESS, "OK"},
+                                {Code.ERROR_INTERNO, string.Empty},
+                                {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, string.Empty},
+                                {Code.ERROR_STOCK_ESTRATEGIA, string.Empty},
+                                {Code.ERROR_KIT_INICIO, "Ocurrió un error al ejecutar la operación."},
+                                {Code.ERROR_GRABAR, "Ocurrió un error al insertar el pedido."},
+                            });
+                    }
+                }
+            }
+        }
+
+        public static class PedidoAccion
+        {
+            public const string INSERT = "I";
+            public const string UPDATE = "U";
+            public const string DELETE = "D";
+        }
+
         public class FlagRevista
         {
             public const int Valor0 = 0;
             public const int Valor1 = 1;
             public const int Valor2 = 2;
+            public const int Valor3 = 3;
+        }
+        
+        public class ProlCodigoRechazo
+        {
+            public const string MontoMinimo = "XXXXX";
+            public const string MontoMaximo = "YYYYY";
+            public const string Deuda = "ZZZZZ";
+        }
+        public class ProlObsCod
+        {
+            public const string Deuda = "Deuda";
+            public const string MontoMinimoVenta = "MontoMinimoVenta";
+            public const string MontoMinimoFact = "MontoMinimoFact";
+            public const string MontoMaximo  = "MontoMaximo";
+            public const string LimiteVenta0 = "LimiteVenta0";
+            public const string LimiteVenta = "LimiteVenta";
+            public const string Promocion2003 = "Promocion2003";
+            public const string Promocion = "Promocion";
+            public const string Reemplazo = "Reemplazo";
+            public const string SinStock0 = "SinStock0";
+            public const string SinStock = "SinStock";
+        }
+        public class ProlSiccObs
+        {
+            public const string Promocion = "PROMOCION NO CUMPLE";
+            public const string Reemplazo = "Reemp. ";
+        }
+        public class ProlObsToken
+        {
+            public const string Simbolo = "{simb}";
+            public const string DeudaMonto = "{deuMon}";
+            public const string MaximoMonto = "{maxMon}";
+            public const string MinimoMonto = "{minMon}";
+            public const string DetalleCuv = "{detCuv}";
+            public const string LimiteVenta = "{limVen}";
+            public const string ReemplazoCuv = "{remCuv}";
+            public const string ReemplazoDesc = "{remDes}";
+            public const string Stock = "{stock}";
         }
 
         #region Pin Autenticidad

@@ -475,8 +475,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     sc.CancelarSolicitudCliente(userData.PaisID, SolicitudId, OpcionCancelado, RazonMotivoCancelado);
 
-                    //var beSolicitudCliente = sc.GetSolicitudCliente(userData.PaisID, SolicitudId);
-
                     var refresh = new List<BEMisPedidos>();
                     foreach (var item in consultoraOnlineMisPedidos.ListaPedidos)
                     {
@@ -999,7 +997,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         var inputCuv = txtBuil.ToString();
                         inputCuv = inputCuv.Substring(0, inputCuv.Length - 1);
 
-                        List<BEProducto> olstMisProductos;
+                        List<ServiceODS.BEProducto> olstMisProductos;
 
                         using (ODSServiceClient svc = new ODSServiceClient())
                         {

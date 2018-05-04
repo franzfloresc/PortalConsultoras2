@@ -30,16 +30,6 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public async Task<IEnumerable<OfertaFinalMontoMetaModel>> ObtenerOfertaFinalMontoMeta(int paisId,int upSellingId)
-        {
-
-            using (var sv = new SACServiceClient())
-            {
-                var upSellings = await sv.ObtenerOfertaFinalMontoMetaAsync(paisId, upSellingId);
-                return Mapper.Map<IList<OfertaFinalMontoMeta>, IEnumerable<OfertaFinalMontoMetaModel>>(upSellings);
-            }
-        }
-
         public async Task<UpSellingModel> Guardar(int paisId, UpSellingModel model)
         {
             using (var sv = new SACServiceClient())
@@ -70,47 +60,43 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public async Task<RegaloOfertaFinalModel> ObtenerMontoMeta(string codigoISO, int campaniaId, long consultoraId)
-        {
-            using (var sv = new ProductoServiceClient())
-            {
-                var entidad = await sv.ObtenerRegaloMontoMetaAsync(codigoISO, campaniaId, consultoraId);
-                if (entidad != null)
-                {
-                    var model = Mapper.Map<RegaloOfertaFinal, RegaloOfertaFinalModel>(entidad);
-                    model.FormatoMontoMeta = Util.DecimalToStringFormat(model.MontoMeta, codigoISO);
-                    return model;
-                }
-                return null;
-            }
-        }
-
-        public async Task<RegaloOfertaFinalModel> ObtenerRegaloGanado(string codigoISO, int campaniaId, long consultoraId)
-        {
-            using (var sv = new ProductoServiceClient())
-            {
-                var entidad = await sv.ObtenerRegaloOfertaFinalAsync(codigoISO, campaniaId, consultoraId);
-                if (entidad != null)
-                {
-                    var model = Mapper.Map<RegaloOfertaFinal, RegaloOfertaFinalModel>(entidad);
-                    var carpetaPais = Globals.UrlMatriz + "/" + codigoISO;
-                    model.RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais, entidad.RegaloImagenUrl, carpetaPais);
-                    model.FormatoMontoMeta = Util.DecimalToStringFormat(model.MontoMeta, codigoISO);
-
-                    return model;
-                }
-                return null;
-            }
-        }
-
-        public async Task<int> GuardarRegalo(int paisId, RegaloOfertaFinalModel model)
+        public async Task<OfertaFinalRegaloModel> ObtenerMontoMeta(int paisId, int campaniaId, long consultoraId)
         {
             using (var sv = new SACServiceClient())
             {
-                var entidad = Mapper.Map<RegaloOfertaFinalModel, UpSellingRegalo>(model);
-                var result = await sv.InsertUpSellingRegaloAsync(paisId, entidad);
+                var entidad = await sv.UpSellingObtenerMontoMetaAsync(paisId, campaniaId, consultoraId);
+                return Mapper.Map<UpSellingRegalo, OfertaFinalRegaloModel>(entidad);
+            }
+        }
 
-                return result;
+        public async Task<int> GuardarRegalo(int paisId, OfertaFinalRegaloModel modelo)
+        {
+            using (var sv = new SACServiceClient())
+            {
+                var entidad = Mapper.Map<OfertaFinalRegaloModel, UpSellingRegalo>(modelo);
+                return await sv.UpSellingInsertarRegaloAsync(paisId, entidad);
+            }
+        }
+
+        public async Task<OfertaFinalRegaloModel> ObtenerRegaloGanado(int paisId, int campaniaId, long consultoraId)
+        {
+            using (var sv = new SACServiceClient())
+            {
+                var entidad = await sv.UpSellingObtenerRegaloGanadoAsync(paisId, campaniaId, consultoraId);
+                if (entidad != null && entidad.CampaniaId > 0)
+                {
+                    return Mapper.Map<UpSellingRegalo, OfertaFinalRegaloModel>(entidad);
+                }
+                return null;
+            }
+        }
+
+        public async Task<IEnumerable<OfertaFinalMontoMetaModel>> ListarReporteMontoMeta(int paisId, int upSellingId)
+        {
+            using (var sv = new SACServiceClient())
+            {
+                var upSellings = await sv.UpSellingReporteMontoMetaAsync(paisId, upSellingId);
+                return Mapper.Map<IList<UpSellingMontoMeta>, IEnumerable<OfertaFinalMontoMetaModel>>(upSellings);
             }
         }
 

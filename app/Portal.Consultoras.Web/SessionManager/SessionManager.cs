@@ -246,17 +246,7 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneOpmX1] ?? false);
         }
-
-        public void SetTieneRdr(bool tieneRdr)
-        {
-            HttpContext.Current.Session[Constantes.ConstSession.TieneRdr] = tieneRdr;
-        }
-
-        public bool GetTieneRdr()
-        {
-            return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneRdr] ?? false);
-        }
-
+        
         public void SetTieneHv(bool tieneHv)
         {
             HttpContext.Current.Session[Constantes.ConstSession.TieneHv] = tieneHv;
@@ -387,6 +377,19 @@ namespace Portal.Consultoras.Web.SessionManager
         PagoEnLineaModel ISessionManager.GetDatosPagoVisa()
         {
             return (PagoEnLineaModel)HttpContext.Current.Session[Constantes.ConstSession.DatosPagoVisa];
+        }
+
+        EstrategiaPersonalizadaProductoModel ISessionManager.ProductoTemporal
+        {
+            get
+            {
+                return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
+            }
+
+            set
+            {
+                HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = value;
+            }
         }
     }
 }

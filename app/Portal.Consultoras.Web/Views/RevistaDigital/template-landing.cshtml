@@ -1,25 +1,28 @@
 ﻿
 @using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models
 
 @model Portal.Consultoras.Web.Models.RevistaDigitalLandingModel
 @{
     ViewBag.Title = "CLUB GANA+";
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
     var idBorrar = "borrar" + Model.CampaniaID;
+    var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
+    var ClassMargenDorado = (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva) ? "divOfertaProductosfix" : "divOfertaProductosfixNoDorado";
 }
 
 @section styles{
     @System.Web.Optimization.Styles.Render("~/bundles/css/Site/RevistaDigital-Landing")
 }
 
-<div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID"  
+<div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID"
      data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding"
      data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingPopUp">
 
-    <div class="content_belcorp" data-listado-content="" style="margin: 0 80px 0 180px;">
-        
-        @if (!Model.ProductosPerdio)
-        {       
+    <div class="content_belcorp" data-listado-content="" style="margin: 0 80px 0 180px; position: relative; left: 1.5%;">
+
+        @if (Model.MostrarFiltros)
+        {
             <div id="orderby-filter" style="padding: 0px 2%;">
                 <div id="divBusquedaFiltros" class="rd-busqueda-filtros">
                     <div class="rd-seccion2" style="padding: 0px 0%; height:auto;">
@@ -53,34 +56,100 @@
                                     }
                                 </select>
                             }
-
                         </div>
                         <div style="clear:both;"></div>
                     </div>
                 </div>
             </div>
         }
-        <div id="RDListado" data-content-item="@Model.CampaniaID" 
-             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding"
-             data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingPopUp">
 
-            <div id="divOfertaProductos"  style="text-align: center;"></div>
-            <hr class="clear" />
-            @if (Model.ProductosPerdio)
+    </div>
+
+    <div id="RDListado" data-content-item="@Model.CampaniaID"
+         data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding"
+         data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingPopUp">
+
+        <div id="divOfertaProductos" class="@ClassMargenDorado" style="text-align: center;"></div>
+        <hr class="clear" />
+        @if (Model.ProductosPerdio)
+        {
+            if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
             {
+                <!--Bryan NO SUSCRITA Historia 636-->
+                <!-- INICIO ZONA DORADA-->
                 <div id="block_inscribete">
-                    <div class="content_belcorp">
-                        <div class="block_inscribete_predio">
-                            <span class="hblock_title_perdio">@Model.PerdioTitulo</span><br />
-                            <span class="hblock_title_perdio2">@Model.PerdioSubTitulo</span>
+                    <div class="zona_dorada_contenedor_desktop">
+
+                    </div>
+                    <div class="contenido_zona_dorada_contenedor_desktop">
+                        <div class="fix-zona-dorada">
+                            <div class="block-cont cont-uno">
+                                <div class="block-cell">
+                                    <div class="logo-dorado-contenedor"></div>
+                                </div>
+                            </div>
+                            <div class="block-cont cont-dos">
+                                <div class="block-cell">
+                                    <p>@Model.PerdioTitulo <b>@Model.PerdioSubTitulo</b></p>
+                                </div>
+                            </div>
+                            <div class="block-cont cont-tres">
+                                <div class="block-cell">
+                                    <a href="@Url.Action("Informacion", "RevistaDigital")">SUSCRÍBETE GRATIS</a>
+                                </div>
+                            </div>
+                            <div style="clear:both;"></div>
                         </div>
                     </div>
                 </div>
-                <hr class="clear" />
-                <div id="divOfertaProductosPerdio" data-content-perdido="@Model.CampaniaID" style="text-align: center;"></div>
-                <hr class="clear" />
+                <!-- FIN ZONA DORADA-->
+
             }
-        </div>
+            else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+            {
+                <!-- INICIO ZONA DORADA-->
+                <div id="block_inscribete">
+                    <div class="zona_dorada_contenedor_desktop">
+
+                    </div>
+                    <div class="contenido_zona_dorada_contenedor_desktop">
+                        <div class="fix-zona-dorada">
+                            <div class="block-cont cont-uno">
+                                <div class="block-cell">
+                                    <div class="logo-dorado-contenedor"></div>
+                                </div>
+                            </div>
+                            <div class="block-cont cont-dos">
+                                <div class="block-cell">
+                                    <p>@Model.PerdioTitulo <b>@Model.PerdioSubTitulo</b></p>
+                                </div>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN ZONA DORADA-->
+            }
+            else
+            {
+                <div>
+                    <div id="block_inscribete">
+                        <div class="content_belcorp">
+                            <div class="block_inscribete_predio">
+                                <span class="hblock_title_perdio">@Model.PerdioTitulo</span><br />
+                                <span class="hblock_title_perdio2">@Model.PerdioSubTitulo</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+        
+            <div id="divOfertaProductosPerdio" class="divOfertaProductosPerdiofix" data-content-perdido="@Model.CampaniaID" style="position: relative; top: -230px;"></div>
+
+
+        }
     </div>
     <hr class="clear" />
     <div id="divOfertaProductosLoad" style="display: none;">Cargando Productos<br></div>

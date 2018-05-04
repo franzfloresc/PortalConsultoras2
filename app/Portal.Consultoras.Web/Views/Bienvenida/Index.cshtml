@@ -126,21 +126,17 @@
                 }
                 </div>
             }
-
             <hr class="clear" />
             <div class="info_cam_belcorp">
                 EST&Aacute;S EN
                 <span> @(nroCampania == "" ? "-" : ("C" + nroCampania))</span>
             </div>
             <div class="info_cam_belcorp2">
-                EL CIERRE ES @(ViewBag.Dias == 0 ? "" : "EN")
-                <span>@(ViewBag.Dias == 0 ? "Hoy" : (ViewBag.Dias + "días"))</span>
+                EL CIERRE ES
+                <span>@ViewBag.MensajeFechaPromesa</span>
             </div>
         </div>
         <div class="pedido_resumen_home">
-            <div class="mensaje_cierre_fechapromesa">
-                @(Html.Raw(ViewBag.MensajeCierreCampania))
-            </div>
             <a role="link" region="Cuerpo" parent="Ingresa tu Pedido" title="Ingresa tu Pedido" class="boton_home_guardar" href="@Url.Action("Index", "Pedido")">INGRESA TU PEDIDO</a>
         </div>
         <div class="socia_negocio_home">
@@ -159,9 +155,10 @@
 
             @if (ViewBag.IndicadorPermisoFIC == 1)
             {
-                <a class="seguir_pedido" href="@Url.Action("Index", "PedidoFIC")">INGRESA TU PEDIDO FIC</a>
+                <a class="seguir_pedido enlace_pedido_fic" href="@Url.Action("Index", "PedidoFIC")">INGRESA TU PEDIDO FIC</a>
             }
         </div>
+        <div class="clear"></div>
     </div>
     <hr class="clear" />
     <div class="items_belcorp">
@@ -1320,12 +1317,6 @@
     </div>
 </div>
 
-
-@if (revistaDigital.TieneRDR || (revistaDigital.TieneRDC && revistaDigital.EsActiva))
-{
-    @Html.Partial("~/Views/Bienvenida/template-seccion-bpt.cshtml", new ViewDataDictionary { { "NombreConsultora", Model.SobreNombre } })
-}
-
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")
@@ -2219,7 +2210,6 @@
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
         var showPopupMisDatos = '@(Model.ShowPopupMisDatos ? 1 : 0)';
         var popupInicialCerrado = '@(Model.PopupInicialCerrado ? 1 : 0)';
-        var revistaDigital= @Html.Raw(Json.Encode(revistaDigital));
         var popupCambioClave = '@Model.OpcionCambiaClave';
 
         var asesoraOnlineObj = AsesoraOnline({

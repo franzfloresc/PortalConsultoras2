@@ -1,9 +1,9 @@
-
+ï»¿
 // 1: escritorio Home    11 : escritorio Pedido 
 // 2: mobile  Home       21 : mobile pedido
 var tipoOrigenEstrategia = tipoOrigenEstrategia || "";
 
-// Cuarto Dígito
+// Cuarto DÃ­gito
 // 0. Sin popUp         1. Con popUp
 var conPopup = conPopup || "";
 
@@ -12,10 +12,16 @@ var origenRetorno = $.trim(origenRetorno);
 var origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
 var divAgregado = null;
 
-var revistaDigital = revistaDigital || null;
+var revistaDigital = revistaDigital || {};
 
 $(document).ready(function () {
-    $('body').on('click', '[data-tono-change]', function (e) {
+    if (isMobile()) {
+        $('[data-tono-change]').click(mostrarListaTonos);
+    } else {
+        $('body').on('click', '[data-tono-change]', mostrarListaTonos);
+    }    
+
+    function mostrarListaTonos() {
         var accion = $(this).attr("data-tono-change");
 
         var hideSelect = $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible");
@@ -69,8 +75,7 @@ $(document).ready(function () {
         if (btnActivar) {
             prod.parents("[data-item]").find("#tbnAgregarProducto").removeClass("btn_desactivado_general");
         }
-
-    });
+    }
 
     var so = $.trim(tipoOrigenEstrategia)[0];
     if (so == 1) {
@@ -315,22 +320,7 @@ function ArmarCarouselEstrategias(data) {
     arrayOfertasParaTi = data.Lista;
 
     $("#divListaEstrategias").attr("data-OrigenPedidoWeb", data.OrigenPedidoWeb);
-
-    // PARA CASO DE RDR
-    try {
-        SetHandlebars("#estrategia-template2", data, '#divListadoEstrategia2');
-
-        if ($.trim($('#divListadoEstrategia2').html()).length > 0) {
-            $('#divListaEstrategias').show();
-            if ($.trim($('#divListadoEstrategia2 #bc_promo').html()).length === 0) {
-                $('#divListadoEstrategia2 #bc_promo').remove();
-                $('#divListadoEstrategia2 .bc_productos').css("width", "90%");
-                $('#divListadoEstrategia2 .bc_productos').css("float", "none");
-                $('#divListadoEstrategia2 .bc_productos').css("margin", "0 auto");
-            }
-        }
-    } catch (e) { }
-
+    
     if (revistaDigital != null) {
         if (revistaDigital.TieneRDC) {
             
@@ -396,7 +386,7 @@ function ArmarCarouselEstrategias(data) {
     RevisarMostrarContenedorCupon();
 
     if (tipoOrigenEstrategia == 1) {
-        var cantProCarrusel = $("#divListadoEstrategia2").length > 0 ? 3 : 4;
+        var cantProCarrusel = 4;
         var esVariableWidth = true;
 
         $('#divListaEstrategias #divListadoEstrategia [data-item] > div').attr("class", "content_item_carrusel");
@@ -579,7 +569,7 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
             'brand': recomendado.DescripcionMarcaEstrategiaAgregarProducto,
             'category': 'NO DISPONIBLE',
             'variant': recomendado.DescripcionEstrategia,
-            'list': 'Ofertas para ti – ' + origen,
+            'list': 'Ofertas para ti - ' + origen,
             'position': recomendado.Posicion
         };
 
@@ -610,7 +600,7 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
             'brand': recomendado.DescripcionMarca,
             'category': 'NO DISPONIBLE',
             'variant': recomendado.DescripcionEstrategia,
-            'list': 'Ofertas para ti – ' + origen,
+            'list': 'Ofertas para ti - ' + origen,
             'position': recomendado.Posicion
         };
 
@@ -1003,7 +993,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
     }
 
     if (!$.isNumeric(cantidad)) {
-        AbrirMensajeEstrategia("Ingrese un valor numérico.");
+        AbrirMensajeEstrategia("Ingrese un valor numÃ©rico.");
         $('.liquidacion_rango_cantidad_pedido').val(1);
         CerrarLoad();
         return false;
@@ -1015,7 +1005,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
         return false;
     }
     if (parseInt(cantidad) > parseInt(cantidadLimite)) {
-        AbrirMensajeEstrategia("La cantidad no debe ser mayor que la cantidad límite ( " + cantidadLimite + " ).");
+        AbrirMensajeEstrategia("La cantidad no debe ser mayor que la cantidad lÃ­mite ( " + cantidadLimite + " ).");
         CerrarLoad();
         return false;
     }

@@ -144,25 +144,24 @@ namespace Portal.Consultoras.Web.Controllers
             return null;
         }
 
-        [Obsolete("Migrado PL50-50")]
         private ActionResult ExportarExcelShowRoom(string CampaniaID)
         {
-            List<List<ReporteValidacionSRModel>> lst = new List<List<ReporteValidacionSRModel>>();
+            List<BEReporteValidacionSRPersonalizacion> lstSrPersonalizacion= new List<BEReporteValidacionSRPersonalizacion>();
+            List<BEReporteValidacionSRComponentes> lstSrComponente = new List<BEReporteValidacionSRComponentes>();
+            List<BEReporteValidacionSRCampania> lstSrCampania = new List<BEReporteValidacionSRCampania>();
             List<Dictionary<string, string>> lstConfiguration = new List<Dictionary<string, string>>();
-            List<string> nombresHojas = new List<string>();
+            List<BEReporteValidacionSROferta> lstSrOferta = new List<BEReporteValidacionSROferta>();
+            List<List<ReporteValidacionSRModel>> lst = new List<List<ReporteValidacionSRModel>>();
 
-            List<BEReporteValidacionSRCampania> lstSrCampania;
-            List<BEReporteValidacionSRPersonalizacion> lstSrPersonalizacion;
-            List<BEReporteValidacionSROferta> lstSrOferta;
-            List<BEReporteValidacionSRComponentes> lstSrComponente;
+            List<string> nombresHojas = new List<string>();
             string nombreReporte = NombreReporteValidacionSR;
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 lstSrCampania = sv.GetReporteShowRoomCampania(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
                 lstSrPersonalizacion = sv.GetReporteShowRoomPersonalizacion(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
-                lstSrOferta = sv.GetReporteShowRoomOferta(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList(); //migrado
-                lstSrComponente = sv.GetReporteShowRoomComponentes(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList(); //migrado
+                lstSrOferta = sv.GetReporteShowRoomOferta(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
+                lstSrComponente = sv.GetReporteShowRoomComponentes(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
             }
 
             if (lstSrCampania.Count == 0 && lstSrPersonalizacion.Count == 0 && lstSrOferta.Count == 0 && lstSrComponente.Count == 0)
@@ -231,8 +230,6 @@ namespace Portal.Consultoras.Web.Controllers
                 CUV = x.CUV,
                 Nombre = x.Nombre,
                 Descripcion1 = x.Descripcion1,
-                Descripcion2 = x.Descripcion2,
-                Descripcion3 = x.Descripcion3,
                 FlagImagenCargada = Convert.ToInt32(x.FlagImagenCargada)
             }));
 
@@ -308,19 +305,19 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 {"Detalle Personalización", "Personalizacion"},
                 {"Medio", "Medio"},
-                {"Bolivia", "BO"},
-                {"Chile", "CL"},
-                {"Colombia", "CO"},
-                {"Costa Rica", "CR"},
-                {"Dominicana", "DO"},
-                {"Ecuador", "EC"},
-                {"Guatemala", "GT"},
-                {"México", "MX"},
-                {"Panamá", "PA"},
-                {"Perú", "PE"},
-                {"Puerto Rico", "PR"},
-                {"Salvador", "SV"},
-                {"Venezuela", "VE"}
+                {"Bolivia", Constantes.CodigosISOPais.Bolivia},
+                {"Chile", Constantes.CodigosISOPais.Chile},
+                {"Colombia", Constantes.CodigosISOPais.Colombia},
+                {"Costa Rica", Constantes.CodigosISOPais.CostaRica},
+                {"Dominicana", Constantes.CodigosISOPais.Dominicana},
+                {"Ecuador", Constantes.CodigosISOPais.Ecuador},
+                {"Guatemala", Constantes.CodigosISOPais.Guatemala},
+                {"México", Constantes.CodigosISOPais.Mexico},
+                {"Panamá", Constantes.CodigosISOPais.Panama},
+                {"Perú", Constantes.CodigosISOPais.Peru},
+                {"Puerto Rico", Constantes.CodigosISOPais.PuertoRico},
+                {"Salvador", Constantes.CodigosISOPais.Salvador},
+                {"Venezuela", Constantes.CodigosISOPais.Venezuela}
             };
             return dic;
         }

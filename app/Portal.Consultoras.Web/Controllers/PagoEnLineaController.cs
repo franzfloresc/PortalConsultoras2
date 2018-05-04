@@ -78,6 +78,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (pagoOk)
                 {
+                    ViewBag.UrlCondiciones = GetMenuLinkByDescription(Constantes.ConfiguracionManager.MenuCondicionesDescripcion);
+
                     return View("PagoExitoso", model);
                 }
                 else
@@ -126,7 +128,9 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public ActionResult ConsultaReporte(string sidx, string sord, int page, int rows, string CampaniaID, string RegionID,
-                                                         string ZonaID, string PaisID, string CodigoConsultora, string Estado)
+                                                         string ZonaID, string PaisID, string CodigoConsultora, string Estado,
+                                                         string FechaPagoDesde, string FechaPagoHasta, string FechaProcesoDesde,
+                                                         string FechaProcesoHasta)
         {
             if (ModelState.IsValid)
             {
@@ -136,8 +140,12 @@ namespace Portal.Consultoras.Web.Controllers
                 filtro.ZonaId = ZonaID == "" ? 0 : int.Parse(ZonaID);
                 filtro.CodigoConsultora = CodigoConsultora;
                 filtro.Estado = Estado;
+                filtro.FechaPagoDesde = FechaPagoDesde == "" ? default(DateTime) : Convert.ToDateTime(FechaPagoDesde);
+                filtro.FechaPagoHasta = FechaPagoHasta == "" ? default(DateTime) : Convert.ToDateTime(FechaPagoHasta);
+                filtro.FechaProcesoDesde = FechaProcesoDesde == "" ? default(DateTime) : Convert.ToDateTime(FechaProcesoDesde);
+                filtro.FechaProcesoHasta = FechaProcesoHasta == "" ? default(DateTime) : Convert.ToDateTime(FechaProcesoHasta);
 
-                List<BEPagoEnLineaResultadoLogReporte> lst = new List<BEPagoEnLineaResultadoLogReporte>();
+                List<BEPagoEnLineaResultadoLogReporte> lst;
 
                 using (PedidoServiceClient ps = new PedidoServiceClient())
                 {
@@ -145,6 +153,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 lst.Update(p => p.NombreCompleto = (p.PrimerNombre ?? "") + " " + (p.SegundoNombre ?? "") + " " + (p.PrimerApellido ?? "") + " " + (p.SegundoApellido ?? ""));
+
+                lst.Update(p => p.FechaTransaccionFormat = p.FechaTransaccion.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : p.FechaTransaccion.ToString("dd/MM/yyyy"));
+                lst.Update(p => p.FechaTransaccionHoraFormat = p.FechaTransaccion.ToString("dd/MM/yyyy") == "01/01/0001" ? "" : p.FechaTransaccion.ToString("HH:mm"));
+
                 lst.Update(p => p.FechaCreacionFormat = p.FechaCreacion.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : p.FechaCreacion.ToString("dd/MM/yyyy"));
                 lst.Update(p => p.FechaCreacionHoraFormat = p.FechaCreacion.ToString("dd/MM/yyyy") == "01/01/0001" ? "" : p.FechaCreacion.ToString("HH:mm"));
 
@@ -330,8 +342,8 @@ namespace Portal.Consultoras.Web.Controllers
                             a.IdUnicoTransaccion ?? string.Empty,
                             a.PagoEnLineaResultadoLogId.ToString(),
                             a.NombreCompleto ?? string.Empty,
-                            a.FechaCreacionFormat ?? string.Empty,
-                            a.FechaCreacionHoraFormat ?? string.Empty,
+                            a.FechaTransaccionFormat ?? string.Empty,
+                            a.FechaTransaccionHoraFormat ?? string.Empty,
                             a.CodigoConsultora ?? string.Empty,
                             a.NumeroDocumento ?? string.Empty,
                             a.Canal ?? string.Empty,
@@ -347,7 +359,9 @@ namespace Portal.Consultoras.Web.Controllers
                             a.NumeroTarjeta ?? string.Empty,
                             a.NumeroOrdenTienda ?? string.Empty,
                             a.MensajeError ?? string.Empty,
-                            a.CodigoError ?? string.Empty
+                            a.CodigoError ?? string.Empty,
+                            a.FechaCreacionFormat ?? string.Empty,
+                            a.FechaCreacionHoraFormat ?? string.Empty,
                                }
                            }
                 };
@@ -356,7 +370,9 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
-        public ActionResult ExportarExcel(string CampaniaID, string RegionID, string ZonaID, string PaisID, string CodigoConsultora, string Estado)
+        public ActionResult ExportarExcel(string CampaniaID, string RegionID, string ZonaID, string PaisID, string CodigoConsultora, string Estado,
+                                                            string FechaPagoDesde, string FechaPagoHasta, string FechaProcesoDesde,
+                                                            string FechaProcesoHasta)
         {
             BEPagoEnLineaFiltro filtro = new BEPagoEnLineaFiltro();
             filtro.CampaniaId = CampaniaID == "" ? 0 : int.Parse(CampaniaID);
@@ -365,6 +381,11 @@ namespace Portal.Consultoras.Web.Controllers
             filtro.CodigoConsultora = CodigoConsultora;
             filtro.Estado = Estado;
 
+            filtro.FechaPagoDesde = FechaPagoDesde == "" ? default(DateTime) : Convert.ToDateTime(FechaPagoDesde);
+            filtro.FechaPagoHasta = FechaPagoHasta == "" ? default(DateTime) : Convert.ToDateTime(FechaPagoHasta);
+            filtro.FechaProcesoDesde = FechaProcesoDesde == "" ? default(DateTime) : Convert.ToDateTime(FechaProcesoDesde);
+            filtro.FechaProcesoHasta = FechaProcesoHasta == "" ? default(DateTime) : Convert.ToDateTime(FechaProcesoHasta);
+
             IList<BEPagoEnLineaResultadoLogReporte> lst;
             using (PedidoServiceClient ps = new PedidoServiceClient())
             {
@@ -372,18 +393,22 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             lst.Update(p => p.NombreCompleto = (p.PrimerNombre ?? "") + " " + (p.SegundoNombre ?? "") + " " + (p.PrimerApellido ?? "") + " " + (p.SegundoApellido ?? ""));
+
+            lst.Update(p => p.FechaTransaccionFormat = p.FechaTransaccion.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : p.FechaTransaccion.ToString("dd/MM/yyyy"));
+            lst.Update(p => p.FechaTransaccionHoraFormat = p.FechaTransaccion.ToString("dd/MM/yyyy") == "01/01/0001" ? "" : p.FechaTransaccion.ToString("HH:mm"));
+
             lst.Update(p => p.FechaCreacionFormat = p.FechaCreacion.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : p.FechaCreacion.ToString("dd/MM/yyyy"));
             lst.Update(p => p.FechaCreacionHoraFormat = p.FechaCreacion.ToString("dd/MM/yyyy") == "01/01/0001" ? "" : p.FechaCreacion.ToString("HH:mm"));
 
             Dictionary<string, string> dic = new Dictionary<string, string>
             {
-                {"Campania ID", "CampaniaId"},
+                {"Campaña", "CampaniaId"},
                 {"Nombre de Comercio", "NombreComercio"},
                 {"Id de Pago", "IdUnicoTransaccion"},
                 {"Nro. de Pago", "PagoEnLineaResultadoLogId"},
                 {"Consultora", "NombreCompleto"},
-                {"Fecha de Pago", "FechaCreacionFormat"},
-                {"Hora de Pago", "FechaCreacionHoraFormat"},
+                {"Fecha de Pago", "FechaTransaccionFormat"},
+                {"Hora de Pago", "FechaTransaccionHoraFormat"},
                 {"Codigo de Cliente", "CodigoConsultora"},
                 {"Identificación de Cliente", "NumeroDocumento"},
                 {"Canal", "Canal"},
@@ -399,7 +424,9 @@ namespace Portal.Consultoras.Web.Controllers
                 {"Número de Tarjeta", "NumeroTarjeta"},
                 {"Número de Operación", "NumeroOrdenTienda"},
                 {"Descripcion de Transacción", "MensajeError"},
-                {"Estado Transacción", "CodigoError"}
+                {"Estado Transacción", "CodigoError"},
+                {"Fecha de Proceso","FechaCreacionFormat" },
+                {"Hora de Proceso","FechaCreacionHoraFormat" }
             };
 
             Util.ExportToExcel<BEPagoEnLineaResultadoLogReporte>("ReportePagoEnLineaExcel", lst.ToList(), dic);

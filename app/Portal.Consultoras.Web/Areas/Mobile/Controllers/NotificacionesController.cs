@@ -154,10 +154,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var userData = UserData();
             using (var service = new SACServiceClient())
             {
-                //var beSolicitudCliente = service.GetSolicitudCliente(userData.PaisID, SolicitudId);
-                //var tablalogicaDatosMail = service.GetTablaLogicaDatos(userData.PaisID, 57);
-                //var emailOculto = tablalogicaDatosMail.First(x => x.TablaLogicaDatosID == 5701).Descripcion;
-
                 var tablalogicaDatos = service.GetTablaLogicaDatos(userData.PaisID, 56);
 
                 var numIteracionMaximo = Convert.ToInt32(tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5601).Codigo);
@@ -383,7 +379,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult DetallePagoEnLinea(int solicitudId)
         {
-            var pagoEnLinea = new BEPagoEnLineaResultadoLog();
+            BEPagoEnLineaResultadoLog pagoEnLinea;
 
             using (PedidoServiceClient ps = new PedidoServiceClient())
             {
@@ -398,17 +394,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
 
-            var pagoEnLineaModel = new PagoEnLineaModel();
-            pagoEnLineaModel.CodigoIso = userData.CodigoISO;
-            pagoEnLineaModel.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
-            pagoEnLineaModel.NumeroOperacion = pagoEnLinea.NumeroOrdenTienda;
-            pagoEnLineaModel.Simbolo = userData.Simbolo;
-            pagoEnLineaModel.MontoDeuda = pagoEnLinea.MontoPago;
-            pagoEnLineaModel.MontoGastosAdministrativosNot = pagoEnLinea.MontoGastosAdministrativos;
-            pagoEnLineaModel.MontoDeudaConGastosNot = pagoEnLinea.ImporteAutorizado;
-
-            pagoEnLineaModel.FechaCreacion = pagoEnLinea.FechaCreacion;
-            pagoEnLineaModel.FechaVencimiento = pagoEnLinea.FechaVencimiento;
+            var pagoEnLineaModel = new PagoEnLineaModel
+            {
+                CodigoIso = userData.CodigoISO,
+                NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre),
+                PrimerApellido = userData.PrimerApellido,
+                NumeroOperacion = pagoEnLinea.NumeroOrdenTienda,
+                Simbolo = userData.Simbolo,
+                MontoDeuda = pagoEnLinea.MontoPago,
+                MontoGastosAdministrativosNot = pagoEnLinea.MontoGastosAdministrativos,
+                MontoDeudaConGastosNot = pagoEnLinea.ImporteAutorizado,
+                FechaCreacion = pagoEnLinea.FechaCreacion,
+                FechaVencimiento = pagoEnLinea.FechaVencimiento,
+                TarjetaEnmascarada = pagoEnLinea.NumeroTarjeta
+            };
 
             return View("DetallePagoEnLinea", pagoEnLineaModel);
         }

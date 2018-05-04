@@ -1,0 +1,46 @@
+﻿@{
+    Layout = "";
+}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Volver a Suscripción</title>
+    <script src="~/Scripts/PortalConsultoras/AsesoraOnline/CancelarSuscripcionJS.js"></script>
+</head>
+
+<body>
+    <input id="hdfRaiz" type="hidden" value="@Url.Content("~")" />
+    <input type="hidden" id="Pais" value="@ViewBag.Pais" />
+    <input type="hidden" id="CodConsultora" value="@ViewBag.CodConsultora" />
+    <input type="hidden" id="Resultado" value="@ViewBag.Resultado" />
+
+    <div id="divContent" style="display:none">
+        <header>
+            <div class="container">
+                <h1>
+                    <a class="logo" href="https://www.lbel.com/pe/"></a>
+                </h1>
+            </div>
+        </header>
+        <div class="main">
+            <strong class="text-center">¡VOLVISTE!</strong>
+            <p class="text-center">Estamos felices por tenerte de vuelta.</p>
+
+            <input class="dnone" type="text">
+            <div class="text-center">
+                <button class="btn_send" onclick="location.href='https://www.somosbelcorp.com/'">IR A SOMOSBELCORP</button>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+</body>
+
+</html>

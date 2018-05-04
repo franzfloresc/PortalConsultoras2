@@ -108,7 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ProlTooltip = "Es importante que guardes tu pedido";
                     model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
 
-                    if (userData.CodigoISO == "BO")
+                    if (userData.CodigoISO == Constantes.CodigosISOPais.Bolivia)
                     {
                         model.ProlTooltip = "Es importante que guardes tu pedido";
                         model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", fechaFacturacionFormat);
@@ -116,59 +116,24 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else // Periodo de facturacion
                 {
-                    if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
-                    {
-                        model.AccionBoton = "validar";
-                        model.Prol = "RESERVA TU PEDIDO";
-                        model.ProlTooltip = "Haz click aqui para reservar tu pedido";
-                        model.IndicadorGPRSB = configuracionCampania.IndicadorGPRSB;
+                    model.AccionBoton = "validar";
+                    model.Prol = "RESERVA TU PEDIDO";
+                    model.ProlTooltip = "Haz click aqui para reservar tu pedido";
+                    model.IndicadorGPRSB = configuracionCampania.IndicadorGPRSB;
 
-                        if (diaActual <= userData.FechaInicioCampania)
-                        {
-                            model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
-                        }
-                        else
-                        {
-                            if (userData.CodigoISO == "BO")
-                            {
-                                model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
-                            }
-                            else
-                            {
-                                model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
-                            }
-                        }
+                    if (diaActual <= userData.FechaInicioCampania)
+                    {
+                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
                     }
-                    else // PROL 1
+                    else
                     {
-                        if (userData.PROLSinStock)
+                        if (userData.CodigoISO == Constantes.CodigosISOPais.Bolivia)
                         {
-                            model.AccionBoton = "guardar";
-                            model.Prol = "GUARDA TU PEDIDO";
-                            model.ProlTooltip = "Es importante que guardes tu pedido";
-                            model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
+                            model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
                         }
                         else
                         {
-                            model.AccionBoton = "validar";
-                            model.Prol = "VALIDA TU PEDIDO";
-                            model.ProlTooltip = "Haz click aqui para validar tu pedido";
-
-                            if (diaActual <= userData.FechaInicioCampania)
-                            {
-                                model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
-                            }
-                            else
-                            {
-                                if (userData.CodigoISO == "BO")
-                                {
-                                    model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
-                                }
-                                else
-                                {
-                                    model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
-                                }
-                            }
+                            model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
                         }
                     }
                 }
@@ -253,7 +218,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EstadoSimplificacionCuv = userData.EstadoSimplificacionCUV;
                 model.ErrorInsertarProducto = "";
                 model.ListaEstrategias = new List<BEEstrategia>();
-                model.ZonaNuevoProlM = userData.ZonaNuevoPROL;
+                model.ZonaNuevoProlM = true;
                 model.NombreConsultora = userData.NombreConsultora;
                 model.PaisID = userData.PaisID;
                 model.Simbolo = userData.Simbolo;
@@ -1082,7 +1047,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<BEProducto> olstProducto;
+                List<ServiceODS.BEProducto> olstProducto;
                 using (var sv = new ODSServiceClient())
                 {
                     olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, CUV, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, false).ToList();
@@ -1496,7 +1461,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
 
-                var producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new BEProducto();
+                var producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new ServiceODS.BEProducto();
 
                 var estrategias = (List<BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia] ?? new List<BEEstrategia>();
                 var estrategia = estrategias.FirstOrDefault(p => p.CUV2 == producto.CUV) ?? new BEEstrategia();
@@ -1549,9 +1514,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        private List<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(string codigoDescripcion, UsuarioModel userModel, int cantidadFilas, int criterioBusqueda)
+        private List<ServiceODS.BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(string codigoDescripcion, UsuarioModel userModel, int cantidadFilas, int criterioBusqueda)
         {
-            List<BEProducto> productos;
+            List<ServiceODS.BEProducto> productos;
 
             using (var odsServiceClient = new ODSServiceClient())
             {
@@ -1571,11 +1536,11 @@ namespace Portal.Consultoras.Web.Controllers
             return productos;
         }
 
-        private void BloqueoProductosCatalogo(ref List<BEProducto> beProductos)
+        private void BloqueoProductosCatalogo(ref List<ServiceODS.BEProducto> beProductos)
         {
             if (!beProductos.Any()) return;
 
-            if (!(revistaDigital.TieneRDC || revistaDigital.TieneRDR)) return;
+            if (!revistaDigital.TieneRDC) return;
 
             if (!revistaDigital.EsActiva) return;
 
@@ -1597,7 +1562,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private void BloqueoProductosDigitales(ref List<BEProducto> beProductos)
+        private void BloqueoProductosDigitales(ref List<ServiceODS.BEProducto> beProductos)
         {
             if (beProductos == null) return;
             if (!beProductos.Any()) return;
@@ -1636,6 +1601,17 @@ namespace Portal.Consultoras.Web.Controllers
                     .ToList();
             }
 
+            if (revistaDigital.TieneRDCR)
+            {
+                var dato = guiaNegocio.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.BloquearProductoGnd) ?? new ConfiguracionPaisDatosModel();
+                dato.Valor1 = Util.Trim(dato.Valor1);
+                if (dato.Estado && dato.Valor1 != "")
+                {
+                    beProductos = beProductos
+                        .Where(prod => !dato.Valor1.Contains(prod.CUV))
+                        .ToList();
+                }
+            }
         }
 
         private ProductoModel GetProductoNoExiste()
@@ -1701,7 +1677,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                List<BEProducto> listaProduto;
+                List<ServiceODS.BEProducto> listaProduto;
                 using (var sv = new ODSServiceClient())
                 {
                     listaProduto = sv.GetProductoSugeridoByCUV(userData.PaisID, userData.CampaniaID, Convert.ToInt32(userData.ConsultoraID), CUV, userData.RegionID,
@@ -2026,7 +2002,6 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 ActualizarEsDiaPROLyMostrarBotonValidarPedido(userData);
-
                 var input = Mapper.Map<BEInputReservaProl>(userData);
                 input.EnviarCorreo = false;
                 input.CodigosConcursos = userData.CodigosConcursos;
@@ -2036,15 +2011,12 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var sv = new PedidoServiceClient())
                 {
                     resultado = sv.EjecutarReservaProl(input);
-
-                    if (!string.IsNullOrEmpty(resultado.ListaConcursosCodigos))
-                        sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), resultado.ListaConcursosCodigos, resultado.ListaConcursosPuntaje, resultado.ListaConcursosPuntajeExigido);
                 }
                 var listObservacionModel = Mapper.Map<List<ObservacionModel>>(resultado.ListPedidoObservacion.ToList());
 
                 sessionManager.SetObservacionesProl(null);
                 sessionManager.SetDetallesPedido(null);
-                if (resultado.RefreshMontosProl)
+                if (resultado.RefreshPedido)
                 {
                     sessionManager.SetMontosProl(
                         new List<ObjMontosProl>
@@ -2085,7 +2057,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Total = listPedidoWebDetalle.Sum(d => d.ImporteTotal),
                     EsDiaProl = userData.DiaPROL,
                     ProlSinStock = userData.PROLSinStock,
-                    ZonaNuevoProlM = userData.ZonaNuevoPROL,
+                    ZonaNuevoProlM = true,
                     CodigoIso = userData.CodigoISO,
                     CodigoMensajeProl = resultado.CodigoMensaje
                 };
@@ -2107,7 +2079,6 @@ namespace Portal.Consultoras.Web.Controllers
                                     },
                     flagCorreo = resultado.EnviarCorreo ? "1" : ""
                 }, JsonRequestBehavior.AllowGet);
-
             }
             catch (Exception ex)
             {
@@ -2153,45 +2124,23 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 model.Prol = "GUARDA TU PEDIDO";
                 model.ProlTooltip = "Es importante que guardes tu pedido";
-                if (userData.CodigoISO == "BO") model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", fechaFacturacionFormat);
+                if (userData.CodigoISO == Constantes.CodigosISOPais.Bolivia) model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", fechaFacturacionFormat);
                 else model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
             }
-            else if (userData.NuevoPROL && userData.ZonaNuevoPROL)
+            else
             {
                 model.Prol = "RESERVA TU PEDIDO";
                 model.ProlTooltip = "Haz click aqui para reservar tu pedido";
                 if (diaActual <= userData.FechaInicioCampania) model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
-                else if (userData.CodigoISO == "BO") model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
+                else if (userData.CodigoISO == Constantes.CodigosISOPais.Bolivia) model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
                 else model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
             }
-            else if (!reservaProl)
-            {
-                model.Prol = "GUARDA TU PEDIDO";
-                model.ProlTooltip = "Es importante que guardes tu pedido.";
-                if (diaActual <= userData.FechaInicioCampania) model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
-                else if (userData.CodigoISO == "BO") model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
-                else model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
-            }
-            else if (!userData.PROLSinStock)
-            {
-                model.Prol = "VALIDA TU PEDIDO";
-                model.ProlTooltip = "Haz click aqui para validar tu pedido";
-                if (diaActual <= userData.FechaInicioCampania) model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
-                else if (userData.CodigoISO == "BO") model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
-                else model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
-            }
-            else
-            {
-                model.Prol = "GUARDA TU PEDIDO";
-                model.ProlTooltip = "Es importante que guardes tu pedido";
-                model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
-            }
-
         }
 
         private string ObtenerMensajePROLAnalytics(List<ObservacionModel> lista)
         {
             if (lista == null || lista.Count == 0) return "00_Tu pedido se guardó con éxito";
+
             foreach (var item in lista)
             {
                 if (!Regex.IsMatch(Util.SubStr(item.CUV, 0), @"^\d+$")) return item.Caso + "_" + item.Descripcion;
@@ -2410,8 +2359,8 @@ namespace Portal.Consultoras.Web.Controllers
             model.TotalConDsctoFormato = Util.DecimalToStringFormat(totalPedido - bePedidoWebByCampania.DescuentoProl, userData.CodigoISO);
 
             ViewBag.EstadoSimplificacionCUV = userData.EstadoSimplificacionCUV;
-            ViewBag.ZonaNuevoPROL = userData.ZonaNuevoPROL;
-            model.ModificacionPedidoProl = userData.NuevoPROL && userData.ZonaNuevoPROL ? 0 : 1;
+            ViewBag.ZonaNuevoPROL = true;
+            model.ModificacionPedidoProl = 0;
 
             model.PaisID = userData.PaisID;
             var pedidoWeb = ObtenerPedidoWeb();
@@ -2428,7 +2377,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
                 ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
 
-                if (userData.CodigoISO == "BO")
+                if (userData.CodigoISO == Constantes.CodigosISOPais.Bolivia)
                 {
                     ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
                     ViewBag.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", fechaFacturacionFormat);
@@ -2436,46 +2385,15 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else // Periodo de facturacion
             {
-                if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
-                {
-                    ViewBag.ProlTooltip = "Modifica tu pedido sin perder lo que ya reservaste.";
+                ViewBag.ProlTooltip = "Modifica tu pedido sin perder lo que ya reservaste.";
 
-                    if (diaActual <= userData.FechaInicioCampania)
-                    {
-                        ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
-                    }
-                    else
-                    {
-                        ViewBag.ProlTooltip += string.Format("|Hazlo antes de las {0} para facturarlo.", diaActual.ToString("hh:mm tt"));
-                    }
+                if (diaActual <= userData.FechaInicioCampania)
+                {
+                    ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
                 }
-                else // PROL 1
+                else
                 {
-                    if (userData.PROLSinStock)
-                    {
-                        ViewBag.ProlTooltip = "Es importante que guardes tu pedido";
-                        ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
-                    }
-                    else
-                    {
-                        ViewBag.ProlTooltip = "Haz click aquí para validar tu pedido";
-
-                        if (diaActual <= userData.FechaInicioCampania)
-                        {
-                            ViewBag.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
-                        }
-                        else
-                        {
-                            if (userData.CodigoISO == "BO")
-                            {
-                                ViewBag.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
-                            }
-                            else
-                            {
-                                ViewBag.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
-                            }
-                        }
-                    }
+                    ViewBag.ProlTooltip += string.Format("|Hazlo antes de las {0} para facturarlo.", diaActual.ToString("hh:mm tt"));
                 }
             }
 
@@ -3400,7 +3318,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (det.PedidoDetalleID > 0) return;
 
-                List<BEProducto> olstProducto;
+                List<ServiceODS.BEProducto> olstProducto;
                 using (var svOds = new ODSServiceClient())
                 {
                     olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, obeConfiguracionProgramaNuevas.CUVKit).ToList();
@@ -3603,13 +3521,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                RegaloOfertaFinalModel model = null;
+                OfertaFinalRegaloModel model = null;
                 using (var svc = new ProductoServiceClient())
                 {
                     var entidad = svc.ObtenerRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
                     if (entidad != null)
                     {
-                        model = Mapper.Map<RegaloOfertaFinal, RegaloOfertaFinalModel>(entidad);
+                        model = Mapper.Map<RegaloOfertaFinal, OfertaFinalRegaloModel>(entidad);
                         model.CodigoISO = userData.CodigoISO;
                         var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                         model.RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais, entidad.RegaloImagenUrl, carpetaPais);
@@ -3639,13 +3557,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                RegaloOfertaFinalModel model = null;
+                OfertaFinalRegaloModel model = null;
                 using (var svc = new ProductoServiceClient())
                 {
                     var entidad = svc.ObtenerRegaloMontoMeta(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
                     if (entidad != null)
                     {
-                        model = Mapper.Map<RegaloOfertaFinal, RegaloOfertaFinalModel>(entidad);
+                        model = Mapper.Map<RegaloOfertaFinal, OfertaFinalRegaloModel>(entidad);
                         model.FormatoMontoMeta = Util.DecimalToStringFormat(model.MontoMeta, userData.CodigoISO);
                     }
                 }
@@ -3698,7 +3616,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             int segmentoId;
 
-            if (userData.CodigoISO == "VE")
+            if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
             {
                 segmentoId = userData.SegmentoID;
             }
@@ -3841,7 +3759,8 @@ namespace Portal.Consultoras.Web.Controllers
                 TipoOfertaFinal = tipoOfertaFinal,
                 TipoProductoMostrar = tipoProductoMostrar,
                 Algoritmo = ofertaFinal.Algoritmo,
-                Estado = ofertaFinal.Estado
+                Estado = ofertaFinal.Estado,
+                //TieneMDO = revistaDigital.ActivoMdo   --sin pruebas
             };
 
             List<Producto> lista;
@@ -4563,10 +4482,6 @@ namespace Portal.Consultoras.Web.Controllers
                 else if (revistaDigital.TieneRDI)
                 {
                     partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.DPedidoIntriga) ?? new ConfiguracionPaisDatosModel();
-                }
-                else if (revistaDigital.TieneRDR)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DPedidoRdr) ?? new ConfiguracionPaisDatosModel();
                 }
             }
             catch (Exception ex)

@@ -426,7 +426,7 @@ function AsignarCUV(pedido) {
     $("#divMotivo").html("");
 
     if (pedido.CDRWebID > 0 && pedido.CDRWebEstado != 1 && pedido.CDRWebEstado != 4) {
-        alert_msg("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
+        alert_msg("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro <span>Chat en Línea</span>.");
     } else {
         pedido.olstBEPedidoWebDetalle = pedido.olstBEPedidoWebDetalle || new Array();
         var detalle = pedido.olstBEPedidoWebDetalle.Find("CUV", $("#txtCUV").val() || "");

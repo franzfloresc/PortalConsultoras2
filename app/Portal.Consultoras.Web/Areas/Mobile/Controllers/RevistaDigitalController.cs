@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.Models;
 using System;
+using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
 
@@ -31,6 +33,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
+
                 return DetalleModel(cuv, campaniaId);
             }
             catch (Exception ex)
@@ -83,7 +86,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return RedirectToAction("Index", "Bienvenida");
         }
-        
+
         public ActionResult MensajeBloqueado()
         {
             try
@@ -95,6 +98,49 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return PartialView("template-mensaje-bloqueado", new MensajeProductoBloqueadoModel());
+        }
+
+        public ActionResult RDMensajeBloqueadoDetalle()
+        {
+            MensajeProductoBloqueadoModel modelo;
+            try
+            {
+                modelo = RDMensajeProductoBloqueadoLan();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                modelo = new MensajeProductoBloqueadoModel();
+            }
+            return PartialView("template-mensaje-bloqueado-Lan-Detalle", modelo);
+        }
+
+        public virtual MensajeProductoBloqueadoModel RDMensajeProductoBloqueadoLan()
+        {
+            var model = new MensajeProductoBloqueadoModel();
+
+            if (!revistaDigital.TieneRDC) return model;
+
+            model.IsMobile = IsMobile();
+            string codigo;
+
+            if (revistaDigital.EsSuscrita)
+            {
+                model.MensajeIconoSuperior = true;
+                codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaSuscrita;
+                model.BtnInscribirse = false;
+            }
+            else
+            {
+                model.MensajeIconoSuperior = false;
+                codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaNoSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaNoSuscrita;
+                model.BtnInscribirse = true;
+            }
+
+            var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
+            model.MensajeTitulo = dato == null ? "" : Util.Trim(dato.Valor1);
+
+            return model;
         }
 
         [HttpPost]

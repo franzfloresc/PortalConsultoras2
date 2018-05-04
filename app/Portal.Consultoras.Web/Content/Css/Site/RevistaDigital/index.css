@@ -276,6 +276,8 @@
         width: auto;
     }
 
+
+
 /* FIN Diseño de los productos */
 
 /*QUERIES*/
@@ -334,6 +336,7 @@
         transition: all .6s ease-in-out;
         letter-spacing: 1px;
     }
+
 .btn_stroke2:hover::after {
     transform: translateY(40%) translateX(-180px) rotate(-75deg) !important;
 }
@@ -564,4 +567,148 @@
     width: 8px;
     height: 12px;
     margin-left: 5px;
+}
+
+/**/
+
+.popup-prod-bloqueado .centrar-vertical-contenido {
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
+.contenido-popup-nuevo-2017 {
+    display: table-cell;
+    vertical-align: middle;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+    .contenido-popup-nuevo-2017 .centrar-estructura {
+        margin: 5% auto auto auto;
+        width: 432px;
+        height: 432px;
+        display: table;
+    }
+
+
+        .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido {
+            vertical-align: middle;
+            padding: 20px;
+            display: table-cell;
+            height: 422px;
+        }
+
+            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
+                font-size: 24px;
+                font-weight: 300;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: normal;
+                letter-spacing: 1px;
+                text-align: center;
+                color: #ffffff;
+                display: block;
+                margin: auto;
+                width: 280px;
+                margin-bottom: 5px;
+            }
+
+            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
+                font-size: 24px;
+                font-weight: bold;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: normal;
+                letter-spacing: 1px;
+                text-align: center;
+                color: #ffffff;
+                display: block;
+                margin: auto;
+                width: 280px;
+                margin-bottom: 30px;
+            }
+
+                .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto span.flashit {
+                    color: white;
+                }
+
+
+            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido img {
+                display: block;
+                margin: auto;
+                text-align: center;
+                height: 120px;
+                margin-bottom: 15px;
+            }
+
+            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
+                width: 280px;
+                background-color: #c39934;
+                color: white;
+                margin: auto;
+                border: none;
+                box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .3);
+                padding: 16px 0px;
+                font-size: 17px;
+                font-weight: bold;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: normal;
+                letter-spacing: 1px;
+                text-align: center;
+                color: #ffffff;
+            }
+
+            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido .cerrargndtxt {
+                display: block;
+                width: 100%;
+                position: relative;
+                top: 85px;
+                cursor: pointer;
+            }
+
+
+        .contenido-popup-nuevo-2017 .centrar-estructura .logogndplus {
+            WIDTH: 100%;
+            position: absolute;
+            text-align: left;
+        }
+
+            .contenido-popup-nuevo-2017 .centrar-estructura .logogndplus img {
+                display: inline-block;
+                width: auto;
+                height: 40px;
+            }
+
+        .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
+            float: right;
+            margin-top: -5px;
+            margin-left: 441px;
+            position: absolute;
+        }
+
+    .contenido-popup-nuevo-2017 .cerrargndtxt {
+        margin-top: 20px;
+        font-size: 11px;
+        letter-spacing: .5px;
+        color: #9E9E9E;
+        text-decoration: underline;
+    }
+
+.contenedor_fondo_popup {
+    background: rgba(0, 0, 0, .70) !important;
+}
+
+.Acortar2Renglones3puntos {
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+}
+
+.Acortar3Renglones3puntos {
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    -webkit-box-orient: vertical !important;
 }

@@ -88,7 +88,7 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.UrlCompartir = Util.Trim(modelo.UrlCompartir);
             }
 
-            Session[Constantes.ConstSession.ProductoTemporal] = modelo;
+            sessionManager.ProductoTemporal = modelo;
 
             return Json(new
             {
@@ -148,7 +148,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    palanca = model.CampaniaID != userData.CampaniaID || revistaDigital.TieneRDR
+                    palanca = model.CampaniaID != userData.CampaniaID
                         || (revistaDigital.TieneRDC && revistaDigital.EsActiva)
                         ? Constantes.TipoEstrategiaCodigo.RevistaDigital
                         : "";
@@ -182,6 +182,7 @@ namespace Portal.Consultoras.Web.Controllers
                             || e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso)
                             && e.FlagRevista == Constantes.FlagRevista.Valor2
                             ).ToList();
+
                         listPerdio.ForEach(e =>
                         {
                             e.ClaseBloqueada = "btn_desactivado_general";
@@ -196,6 +197,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
+
                 return Json(new
                 {
                     success = true,
@@ -204,53 +206,6 @@ namespace Portal.Consultoras.Web.Controllers
                     cantidadTotal = cantidadTotal,
                     cantidad = cantidadTotal,
                     campaniaId = model.CampaniaID
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "Error al cargar los productos",
-                    data = ""
-                });
-            }
-        }
-
-        [HttpPost]
-        public JsonResult RDObtenerProductosLan(BusquedaProductoModel model)
-        {
-            try
-            {
-                if (!(revistaDigital.TieneRevistaDigital()) || EsCampaniaFalsa(model.CampaniaID))
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "",
-                        lista = new List<ShowRoomOfertaModel>(),
-                        cantidadTotal = 0,
-                        cantidad = 0
-                    });
-                }
-
-                var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.Lanzamiento);
-
-                var perdio = revistaDigital.TieneRDR ? 0 : TieneProductosPerdio(model.CampaniaID) ? 1 : 0;
-
-                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, perdio);
-
-                var cantidadTotal = listModel.Count;
-
-                return Json(new
-                {
-                    success = true,
-                    listaLan = listModel,
-                    cantidadTotal = cantidadTotal,
-                    cantidad = cantidadTotal,
-                    campaniaId = model.CampaniaID,
-                    codigo = Constantes.ConfiguracionPais.Lanzamiento
                 });
             }
             catch (Exception ex)
@@ -369,6 +324,9 @@ namespace Portal.Consultoras.Web.Controllers
             revistaDigital.NoVolverMostrar = true;
             revistaDigital.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
             revistaDigital.EsSuscrita = revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
+            var campaniaEfectiva = userData.CampaniaID + revistaDigital.CantidadCampaniaEfectiva;
+            revistaDigital.CampaniaActiva =
+                campaniaEfectiva.ToString().Substring(campaniaEfectiva.ToString().Length - 2);
             sessionManager.SetRevistaDigital(revistaDigital);
             userData.MenuMobile = null;
             userData.Menu = null;
@@ -454,6 +412,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                revistaDigital.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.Where(d => d.Componente != Constantes.ConfiguracionPaisComponente.RD.PopupClubGanaMas).ToList();
                 revistaDigital.NoVolverMostrar = true;
                 revistaDigital.EstadoSuscripcion = Constantes.EstadoRDSuscripcion.NoPopUp;
                 revistaDigital.SuscripcionModel.EstadoRegistro = Constantes.EstadoRDSuscripcion.NoPopUp;
@@ -514,6 +473,14 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetRevistaDigital(revistaDigital);
                 }
 
+                if (!listaDatosPopup.Any())
+                {
+                    return Json(new
+                    {
+                        success = false
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
                 var modelo = new RevistaDigitalPopupModel
                 {
                     Mensaje1 = GetValorDato(Constantes.ConfiguracionPaisDatos.RD.PopupMensaje1),
@@ -563,12 +530,12 @@ namespace Portal.Consultoras.Web.Controllers
             List<ConfiguracionPaisDatosModel> listaEntidad;
             try
             {
-                var beEntidad = new BEConfiguracionPaisDatos
+                var beEntidad = new ServiceUsuario.BEConfiguracionPaisDatos
                 {
                     PaisID = userData.PaisID,
                     CampaniaID = campaniaid,
                     Componente = componente,
-                    ConfiguracionPais = new BEConfiguracionPais
+                    ConfiguracionPais = new ServiceUsuario.BEConfiguracionPais
                     {
                         Codigo = Constantes.ConfiguracionPais.RevistaDigital
                     }
@@ -578,7 +545,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var beEntidades = sv.GetConfiguracionPaisComponenteDatos(beEntidad).ToList();
 
-                    listaEntidad = Mapper.Map<IList<BEConfiguracionPaisDatos>, List<ConfiguracionPaisDatosModel>>(beEntidades);
+                    listaEntidad = Mapper.Map<IList<ServiceUsuario.BEConfiguracionPaisDatos>, List<ConfiguracionPaisDatosModel>>(beEntidades);
                 }
             }
             catch (Exception ex)

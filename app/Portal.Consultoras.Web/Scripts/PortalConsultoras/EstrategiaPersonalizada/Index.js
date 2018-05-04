@@ -1,7 +1,7 @@
 ﻿
 var sElementos = {
-    seccion: '[data-seccion]',
-    load: '[data-seccion-load]',
+    seccion: "[data-seccion]",
+    load: "[data-seccion-load]",
     listadoProductos: "[data-seccion-productos]"
 };
 
@@ -12,6 +12,7 @@ var CONS_TIPO_PRESENTACION = {
     Banners: 4,
     ShowRoom: 5,
     OfertaDelDia: 6,
+    CarruselIndividuales: 8
 };
 
 var CONS_CODIGO_SECCION = {
@@ -139,10 +140,10 @@ function SeccionCargarProductos(objConsulta) {
     });
 
     $.ajax({
-        type: 'POST',
+        type: "POST",
         url: baseUrl + objConsulta.UrlObtenerProductos,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
         data: JSON.stringify(param),
         async: true,
         success: function (data) {
@@ -180,9 +181,9 @@ function SeccionMostrarProductos(data) {
     var divListadoProductos = htmlSeccion.find(sElementos.listadoProductos);
     if (divListadoProductos.length !== 1) {
         if (data.Seccion !== undefined &&
-            (data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.Banners.toString() ||            
-            data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.ShowRoom.toString() ||
-            data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.OfertaDelDia.toString())) {
+            (data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.Banners.toString() ||
+                data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.ShowRoom.toString() ||
+                data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.OfertaDelDia.toString())) {
             $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
         }
@@ -202,7 +203,13 @@ function SeccionMostrarProductos(data) {
     }
 
     if (data.Seccion.Codigo === CONS_CODIGO_SECCION.LAN) {
-        if (data.listaLan !== undefined && data.listaLan.length > 0) {
+        var tieneIndividual = false;
+        $.each(data.listaLan, function (key, value) {
+            if (value.TipoEstrategiaDetalle.FlagIndividual) {
+                tieneIndividual = true;
+            }
+        });
+        if (data.listaLan !== undefined && data.listaLan.length > 0 && tieneIndividual) {
             RDLocalStorageListado(lsListaRD + data.campaniaId, data, CONS_CODIGO_SECCION.LAN);
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
         } else {
@@ -262,6 +269,26 @@ function SeccionMostrarProductos(data) {
         });
     }
 
+    if (revistaDigital) {
+        if (revistaDigital.TieneRDC) {
+            if (data.Seccion.Codigo === CONS_CODIGO_SECCION.RD) {
+                if (!revistaDigital.EsActiva) {
+                    var ExperienciaGanaMas = new Object();
+                    ExperienciaGanaMas.OcultarAgregar = true;
+                    ExperienciaGanaMas.OcultarVerDetalle = true;
+                    ExperienciaGanaMas.MostrarLoQuieres = !revistaDigital.EsSuscrita && !revistaDigital.EsActiva ? true : false;
+
+                    $.each(data.lista, function (ind, tem) {
+                        if (tem.ClaseBloqueada != '') {
+                            tem.ExperienciaGanaMas = ExperienciaGanaMas;
+                            tem.TieneVerDetalle = !ExperienciaGanaMas.OcultarVerDetalle;
+                        }
+                    });
+                }
+            }
+        }
+    }
+
     SetHandlebars(data.Seccion.TemplateProducto, data, divListadoProductos);
 
     if (data.Seccion.TemplateProducto == "#producto-landing-template") {
@@ -279,6 +306,36 @@ function SeccionMostrarProductos(data) {
     else if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselSimple) {
         RenderCarruselSimple(htmlSeccion);
     }
+    else if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselIndividuales) {
+        RenderCarruselIndividuales(htmlSeccion);
+    }
+}
+
+function RenderCarruselIndividuales(divProd) {
+    if (typeof divProd == "undefined")
+        return false;
+    EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
+
+    divProd.find(sElementos.listadoProductos + '.slick-initialized').slick('unslick');
+    divProd.find(sElementos.listadoProductos).not('.slick-initialized').slick({
+        lazyLoad: 'ondemand',
+        infinite: true,
+        vertical: false,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        speed: 500,
+        autoplay: true,
+        autoplaySpeed: 6000,
+        prevArrow: '<a class="arrow-prev"><img src="' + baseUrl + 'Content/Images/sliders/previous_ofertas.svg")" alt="" /></a>',
+        nextArrow: '<a class="arrow-next"><img src="' + baseUrl + 'Content/Images/sliders/next_ofertas.svg")" alt="" /></a>'
+    }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
+        VerificarClick(slick, currentSlide, nextSlide, "previsuales");
+    }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+        $(sElementos.listadoProductos + " .slick-active [data-acortartxt] p").removeClass("Acortar2Renglones3puntos");
+        $(sElementos.listadoProductos + " .slick-active [data-acortartxt] p").addClass("Acortar2Renglones3puntos");
+        $(sElementos.listadoProductos + " .slick-active [data-acortartxt] span").removeClass("Acortar3Renglones3puntos");
+        $(sElementos.listadoProductos + " .slick-active [data-acortartxt] span").addClass("Acortar3Renglones3puntos");
+    })
 }
 
 function RenderCarruselPrevisuales(divProd) {
@@ -287,19 +344,19 @@ function RenderCarruselPrevisuales(divProd) {
 
     EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
 
-    divProd.find(sElementos.listadoProductos + '.slick-initialized').slick('unslick');
-    divProd.find(sElementos.listadoProductos).not('.slick-initialized').slick({
-        lazyLoad: 'ondemand',
+    divProd.find(sElementos.listadoProductos + ".slick-initialized").slick("unslick");
+    divProd.find(sElementos.listadoProductos).not(".slick-initialized").slick({
+        lazyLoad: "ondemand",
         vertical: false,
         dots: false,
         infinite: true,
-        speed: 300,
+        speed: 500,
         slidesToShow: 1,
         autoplay: true,
         autoplaySpeed: 5000,
-        prevArrow: '<div class="btn-set-previous div-carousel-rd-prev-fix-carousel div-carousel-rd-prev"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-prev"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNamePrev() + '" alt="" /></a></div>',
-        nextArrow: '<div class="btn-set-previous div-carousel-rd-next-fix-carousel div-carousel-rd-next"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-next"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNameNext() + '" alt="" /></a></div>'
-    }).on('afterChange', function (event, slick, currentSlide) {
+        prevArrow: '<div class="btn-set-previous div-carousel-rd-prev-fix-carousel div-carousel-rd-prev"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-prev"><img src="' + baseUrl + "Content/Images/RevistaDigital/" + GetArrowNamePrev() + '" alt="" /></a></div>',
+        nextArrow: '<div class="btn-set-previous div-carousel-rd-next-fix-carousel div-carousel-rd-next"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-next"><img src="' + baseUrl + "Content/Images/RevistaDigital/" + GetArrowNameNext() + '" alt="" /></a></div>'
+    }).on("afterChange", function (event, slick, currentSlide) {
 
         var slides = (slick || new Object()).$slides || new Array();
         if (slides.length == 0) {
@@ -334,6 +391,8 @@ function RenderCarruselPrevisuales(divProd) {
         else {
             slick.$nextArrow.find("img[data-prev]").show();
         }
+    }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
+        VerificarClick(slick, currentSlide, nextSlide, "previsuales");
     });
 }
 
@@ -343,9 +402,9 @@ function RenderCarruselSimple(divProd) {
 
     EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
 
-    divProd.find(sElementos.listadoProductos + '.slick-initialized').slick('unslick');
-    divProd.find(sElementos.listadoProductos).not('.slick-initialized').slick({
-        lazyLoad: 'ondemand',
+    divProd.find(sElementos.listadoProductos + ".slick-initialized").slick("unslick");
+    divProd.find(sElementos.listadoProductos).not(".slick-initialized").slick({
+        lazyLoad: "ondemand",
         infinite: true,
         vertical: false,
         slidesToShow: isMobile() ? 1 : 3,
@@ -354,6 +413,8 @@ function RenderCarruselSimple(divProd) {
         speed: 260,
         prevArrow: '<a class="" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
         nextArrow: '<a class="" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
+    }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
+        VerificarClick(slick, currentSlide, nextSlide, "normal");
     });
 
     divProd.find(sElementos.listadoProductos).css("overflow-y", "visible");
@@ -376,10 +437,10 @@ function UpdateSessionState(codigo, campaniaId) {
     }
 
     $.ajax({
-        type: 'POST',
+        type: "POST",
         url: baseUrl + "Ofertas/ActualizarSession",
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
         data: JSON.stringify(param),
         success: function (data) { },
         error: function (error, x) { }
@@ -392,3 +453,14 @@ function VerificarSecciones() {
         $("#no-productos").fadeIn();
     }
 }
+function VerificarClick(slick, currentSlide, nextSlide, source) {
+    if (typeof CheckClickCarrousel !== "undefined" && typeof CheckClickCarrousel === "function") {
+        if ((currentSlide > nextSlide && (nextSlide !== 0 || currentSlide === 1)) || (currentSlide === 0 && nextSlide === slick.slideCount - 1)) {
+            CheckClickCarrousel("prev", source);
+        }
+        else {
+            CheckClickCarrousel("next", source);
+        }
+    }
+}
+

@@ -33,7 +33,10 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new BienvenidaHomeModel { ShowPopupMisDatos = showPopupMisDatos, OpcionCambiaClave = opcionCambiaClave };
 
             if (userData.RolID != Constantes.Rol.Consultora)
-                return View("IndexSAC", model);
+                if (userData.RolID == 0)
+                    return RedirectToAction("LogOut", "Login");
+                else
+                    return View("IndexSAC", model);
 
             try
             {
@@ -201,6 +204,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.Ambiente = GetBucketNameFromConfig();
                 TempData.Keep("MostrarPopupCuponGanaste");
 
+                ViewBag.FechaInicioCampania = userData.FechaInicioCampania;
                 ViewBag.VerSeccion = verSeccion;
 
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
@@ -447,7 +451,7 @@ namespace Portal.Consultoras.Web.Controllers
                             var cupon = ObtenerCuponDesdeServicio();
                             if (cupon != null)
                             {
-                                if (userData.CodigoISO == "PE")
+                                if (userData.CodigoISO == Constantes.CodigosISOPais.Peru)
                                 {
                                     tipoPopUpMostrar = Constantes.TipoPopUp.CuponForzado;
                                 }
@@ -2314,10 +2318,6 @@ namespace Portal.Consultoras.Web.Controllers
                 else if (revistaDigital.TieneRDI)
                 {
                     partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.DBienvenidaIntriga);
-                }
-                else if (revistaDigital.TieneRDR)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DBienvenidaRdr);
                 }
 
             }

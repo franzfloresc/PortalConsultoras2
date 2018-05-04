@@ -3,15 +3,18 @@ using Portal.Consultoras.Entities.CargaMasiva;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.Entities.Pedido.App;
 using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
+using Portal.Consultoras.Entities.PagoEnLinea;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
-using Estrategia = Portal.Consultoras.Entities.Estrategia;
-using Portal.Consultoras.Entities.PagoEnLinea;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -464,6 +467,13 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BETracking> GetTrackingPedidoByConsultora(int paisID, string codigoConsultora, int top);
+
+        [OperationContract]
+        List<BETracking> GetPedidosByConsultoraDocumento(int paisID, string codigoConsultora, int top, int tipoDoc = 0);
+
+        [OperationContract]
+        List<BETracking> GetTrackingByPedidoConsultoraDocumento(int paisID, string codigo, string campana, string nropedido, int tipoDoc = 0);
+
         #endregion
 
         #region "CUV Automatico"
@@ -971,6 +981,9 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEPedidoWeb> GetPedidosIngresadoFacturadoWebMobile(int paisID, int consultoraID, int campaniaID, int clienteID, int top, string codigoConsultora);
 
         [OperationContract]
+        List<BEPedidoWeb> GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int usuarioPrueba, string consultoraAsociada, int top );
+
+        [OperationContract]
         BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, BEConsultorasProgramaNuevas entidad);
 
         [OperationContract]
@@ -1065,10 +1078,10 @@ namespace Portal.Consultoras.ServiceContracts
         BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona);
 
         [OperationContract]
-        BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
+        Task<BEResultadoReservaProl> CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
 
         [OperationContract]
-        BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input);
+        Task<BEResultadoReservaProl> EjecutarReservaProl(BEInputReservaProl input);
 
         [OperationContract]
         bool EnviarCorreoReservaProl(BEInputReservaProl input);
@@ -1242,9 +1255,18 @@ namespace Portal.Consultoras.ServiceContracts
 
         #endregion
 
+        #region PedidoApp
+        [OperationContract]
+        BEProductoApp GetCUVApp(BEProductoAppBuscar productoBuscar);
+        [OperationContract]
+        BEPedidoDetalleAppResult InsertPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
+        [OperationContract]
+        void UpdateProlApp(BEPedidoDetalleApp pedidoDetalle);
+        [OperationContract]
+        List<BEPedidoWebDetalle> GetPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
+        #endregion
 
         #region Pago en Linea
-
         [OperationContract]
         int InsertPagoEnLineaResultadoLog(int paisId, BEPagoEnLineaResultadoLog entidad);
 
@@ -1262,7 +1284,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEPagoEnLineaResultadoLogReporte> ObtenerPagoEnLineaByFiltro(int paisId, BEPagoEnLineaFiltro filtro);
-
         #endregion
     }
 }

@@ -64,20 +64,20 @@ namespace Portal.Consultoras.BizLogic
         {
             List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
             {
-                new KeyValuePair<string, string>("1", "AR"),
-                new KeyValuePair<string, string>("2", "BO"),
-                new KeyValuePair<string, string>("3", "CL"),
-                new KeyValuePair<string, string>("4", "CO"),
-                new KeyValuePair<string, string>("5", "CR"),
-                new KeyValuePair<string, string>("6", "EC"),
-                new KeyValuePair<string, string>("7", "SV"),
-                new KeyValuePair<string, string>("8", "GT"),
-                new KeyValuePair<string, string>("9", "MX"),
-                new KeyValuePair<string, string>("10", "PA"),
-                new KeyValuePair<string, string>("11", "PE"),
-                new KeyValuePair<string, string>("12", "PR"),
-                new KeyValuePair<string, string>("13", "DO"),
-                new KeyValuePair<string, string>("14", "VE"),
+                new KeyValuePair<string, string>("1", Constantes.CodigosISOPais.Argentina),
+                new KeyValuePair<string, string>("2", Constantes.CodigosISOPais.Bolivia),
+                new KeyValuePair<string, string>("3", Constantes.CodigosISOPais.Chile),
+                new KeyValuePair<string, string>("4", Constantes.CodigosISOPais.Colombia),
+                new KeyValuePair<string, string>("5", Constantes.CodigosISOPais.CostaRica),
+                new KeyValuePair<string, string>("6", Constantes.CodigosISOPais.Ecuador),
+                new KeyValuePair<string, string>("7", Constantes.CodigosISOPais.Salvador),
+                new KeyValuePair<string, string>("8", Constantes.CodigosISOPais.Guatemala),
+                new KeyValuePair<string, string>("9", Constantes.CodigosISOPais.Mexico),
+                new KeyValuePair<string, string>("10", Constantes.CodigosISOPais.Panama),
+                new KeyValuePair<string, string>("11", Constantes.CodigosISOPais.Peru),
+                new KeyValuePair<string, string>("12", Constantes.CodigosISOPais.PuertoRico),
+                new KeyValuePair<string, string>("13", Constantes.CodigosISOPais.Dominicana),
+                new KeyValuePair<string, string>("14", Constantes.CodigosISOPais.Venezuela),
             };
             string paisId;
             try
@@ -98,5 +98,20 @@ namespace Portal.Consultoras.BizLogic
 
             return 0;
         }
+
+        public string CancelarSuscripcion(string paisISO, string codigoConsultora)
+        {
+            int paisId = GetPaisID(paisISO);
+            var objDASuscripcionConsultora = new DAAsesoraOnline(paisId);
+            return objDASuscripcionConsultora.CancelarSuscripcion(codigoConsultora);
+        }
+
+        public int VuelveASuscripcion(string paisISO, string codigoConsultora)
+        {
+            int paisId = GetPaisID(paisISO);
+            var objDASuscripcionConsultora = new DAAsesoraOnline(paisId);
+            return objDASuscripcionConsultora.VuelveASuscripcion(codigoConsultora);
+        }
+
     }
 }

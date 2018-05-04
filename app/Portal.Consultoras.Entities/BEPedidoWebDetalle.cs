@@ -85,7 +85,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int SubTipoOfertaSisID { get; set; }
         [DataMember]
-        private string TipoPedido { get; set; }
+        public string TipoPedido { get; set; }
         [DataMember]
         public string DescripcionOferta { get; set; }
         [DataMember]

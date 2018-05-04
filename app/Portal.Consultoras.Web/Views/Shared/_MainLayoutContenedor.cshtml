@@ -77,6 +77,8 @@
         };
         var usuarioNombre = '@ViewBag.UsuarioNombre';
         var controllerName = '@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower()';
+
+        var revistaDigital = @Html.Raw(Json.Encode(ViewBag.revistaDigital));
     </script>
     <style id="styleRelojOdd"></style>
     @RenderSection("styles", required: false)
@@ -159,7 +161,6 @@
         </div>
         <div class="clear"></div>
     </header>
-
     <div class="fondo_oscuro"></div>
     <!-- end cabecera -->
     <!-- contenedor -->

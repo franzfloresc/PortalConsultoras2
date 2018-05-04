@@ -1022,12 +1022,12 @@ margin-left: 5px;
 }
 
 .prev-flecha-dorada {
-    background: #c39934 url('/Content/Css/Site/Images/carrusel_prev_blanco_dorado.png') no-repeat 12px 3px !important;
+    /*background: #c39934 url('/Content/Css/Site/Images/carrusel_prev_blanco_dorado.png') no-repeat 12px 3px !important;
     border-radius: 25px 25px 0px 0px;
     border-bottom: 1px solid #e7e1e1 !important;
-    background-position-y: 8px !important;
-    top: -37px;
+    background-position-y: 8px !important;*/
     margin-left: -24px !important;
+    top: 6px;
 }
 
 .btn_stroke2 {
@@ -1067,7 +1067,7 @@ margin-left: 5px;
         color: #ffffff;
         margin-bottom: 0;
         display: block;
-        padding: 0 35px;
+        padding: 0;
         display: block;
         word-wrap: break-word;
         text-transform: uppercase;
@@ -1122,6 +1122,11 @@ margin-left: 5px;
         border: none;
     }
 
-    .club_gana_mas_pedido_activo p.primer-texto, .club_gana_mas_pedido_activo p.segundo-texto {
+    .club_gana_mas_pedido_activo p.primer-texto,
+    .club_gana_mas_pedido_activo p.segundo-texto {
         color: black;
     }
+
+.revistaDigitalCompleta .contenedor_productos {
+    top: -115px;
+}

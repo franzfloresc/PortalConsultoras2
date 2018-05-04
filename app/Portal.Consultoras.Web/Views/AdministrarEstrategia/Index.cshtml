@@ -161,7 +161,7 @@
                     <input type="button" name="btnDescripcionMasivo" id="btnDescripcionMasivo" value="Descrip. Masivo" />
                     <input type="button" name="btnDescripcionMasivoProd" id="btnDescripcionMasivoProd" value="Descrip. Masivo Producto" style="display: none;" />
                     <input type="button" name="btnActivarDesactivar" id="btnActivarDesactivar" value="Activar/Desactivar" style="display: none;" />
-                    <input type="button" name="btnCargaMasivaImagenes" id="btnCargaMasivaImagenes" value="Cargar Imagenes" style="display: none;" />
+                    <input type="button" name="btnCargaBloqueoCuv" id="btnCargaBloqueoCuv" value="Cargar Bloqueados" style="display: none;" />
                 </div>
             </div>
 
@@ -365,8 +365,8 @@
             </div>
             <div class="div-3">
                 <div class="input_horizontal" style="text-align: center;">
-                    <input type="button" name="btnAceptarMasivo1" id="btnAceptarDescMasivo1" value="Continuar" style="float: none;" />
-                    <input type="button" name="btnCancelarMasivo1" id="btnCancelarDescMasivo1" value="Cancelar" style="float: none;" />
+                    <input type="button" name="btnAceptarDescMasivo1" id="btnAceptarDescMasivo1" value="Continuar" style="float: none;" />
+                    <input type="button" name="btnCancelarDescMasivo1" id="btnCancelarDescMasivo1" value="Cancelar" style="float: none;" />
                 </div>
             </div>
         </div>
@@ -415,6 +415,53 @@
         <div class="div-3">
             <div class="input_horizontal" style="text-align: center;">
                 <input type="button" name="btnCancelarMasivo2" onclick="HideDialog('DialogDescNoActualizada')" value="Volver" style="float: none;" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DialogBloqueoCuv" style="display: none;">
+    <div class="Content_modal" id="divCuvsBloqueados" style="max-height: 160px; margin-bottom: 14px">
+        <p id="titleCuvBloqueado" style="margin-bottom: .5em;"> Cuvs cargados:</p>
+        <p id="listCuvsBloqueados" style="word-break: break-all; padding: 0 22px 0 0;"></p>
+    </div>
+
+    <div class="Content_modal">
+        <div id="divBloqueoCuvPaso1">
+            <div class="div-3" style="text-align: center;">
+                Seleccione el archivo para la carga de CUVs bloqueados en Revista Digital Reducida:
+            </div>
+            <div class="container" style="width: 70%;">
+                <div class="border-wrapper">
+                    <input type="file" id="fileBloqueoCuv" name="fileBloqueoCuv"/>
+                </div>
+            </div>
+            <div class="div-3" style="margin: 15px auto; width: 200px;">
+                Formato de archivo (*.csv):<br/>
+                - CUV<br/>
+            </div>
+            <div class="div-3">
+                <div class="input_horizontal" style="text-align: center;">
+                    <input type="button" name="btnAceptarBloqueoCuv1" id="btnAceptarBloqueoCuv1" value="Continuar" style="float: none;"/>
+                    <input type="button" name="btnCancelarBloqueoCuv1" id="btnCancelarBloqueoCuv1" value="Cancelar" style="float: none;" onclick="HideDialog('DialogBloqueoCuv')"/>
+                </div>
+            </div>
+        </div>
+        <div id="divBloqueoCuvPaso2" style="display: none;">
+            <div class="div-3" style="text-align: center;">
+                Resultado de la carga de CUVs bloqueados en Revista Digital Reducida:
+            </div>
+            <div class="container" style="margin: 15px auto; width: auto;">
+                <div class="border-wrapper">
+                    <label id="estadoBloqueoCuv"></label>
+                    <table id="listCargaBloqueoCuv"></table>
+                    <div id="pagerCargBloqueoCuv"></div>
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="input_horizontal" style="text-align: center;">
+                    <input type="button" name="btnCancelarMasivo2" onclick="HideDialog('DialogBloqueoCuv')" value="Cerrar" style="float: none;"/>
+                </div>
             </div>
         </div>
     </div>
@@ -723,6 +770,7 @@
             urlUploadCvs: '@Url.Action("UploadCvs", "AdministrarEstrategia")',
             rutaImagenDisable: '@Url.Content("~/Content/Images/NotAllowed.png")',
             urlEliminarEstrategia: baseUrl + 'AdministrarEstrategia/EliminarEstrategia',
+            urlUploadBloqueoCuv: '@Url.Action("UploadBloqueoCuvs","AdministrarEstrategia")',
 
             // SHOWROOM-INICIO
             urlConsultarShowRoom: baseUrl + 'ShowRoom/ConsultarShowRoom',
@@ -744,7 +792,9 @@
             imagenEliminar: '@Url.Content("~/Content/Images/delete.png")',
             imagenProductoVacio: '@Url.Content("~/Content/Images/prod_grilla_vacio.png")',
             urlUploadFileStrategyShowroom: '@Url.Action("UploadFileSetStrategyShowroom", "AdministrarEstrategia")',
-            urlUploadFileProductStrategyShowroom: '@Url.Action("UploadFileProductStrategyShowroom", "AdministrarEstrategia")'
+            urlUploadFileProductStrategyShowroom: '@Url.Action("UploadFileProductStrategyShowroom", "AdministrarEstrategia")',
+            urlCargarArbolRegionesZonas: '@Url.Action("CargarArbolRegionesZonas", "AdministrarEstrategia")',
+            rutastylejstree: '@Url.Content("~/Content/Css/jstree/apple/stylejstree.css")'
             // SHOWROOM-FIN
         });
         adminEstrategiaModule.Inicializar();
@@ -769,6 +819,5 @@
             e.preventDefault();
         }
     });
-
-
+    
 </script>

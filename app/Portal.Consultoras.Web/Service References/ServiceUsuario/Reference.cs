@@ -1383,6 +1383,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int CompraOfertaEspecialField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double CompraVDirectaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ConfirmarClaveField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1563,6 +1566,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int HorasDuracionRestriccionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double IVACompraVDirectaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double IVARetailField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImagenURLOfertaFICField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1594,6 +1603,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string InvitacionRechazadaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double IvaTotalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int LiderField;
@@ -1698,6 +1710,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int RegionIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double RetailField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private short RevistaDigitalSuscripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1780,6 +1795,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private short TipoUsuarioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double TotalCompraField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UrlBannerGanaMasField;
@@ -2269,6 +2287,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.CompraOfertaEspecialField.Equals(value) != true)) {
                     this.CompraOfertaEspecialField = value;
                     this.RaisePropertyChanged("CompraOfertaEspecial");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double CompraVDirecta {
+            get {
+                return this.CompraVDirectaField;
+            }
+            set {
+                if ((this.CompraVDirectaField.Equals(value) != true)) {
+                    this.CompraVDirectaField = value;
+                    this.RaisePropertyChanged("CompraVDirecta");
                 }
             }
         }
@@ -3054,6 +3085,32 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public double IVACompraVDirecta {
+            get {
+                return this.IVACompraVDirectaField;
+            }
+            set {
+                if ((this.IVACompraVDirectaField.Equals(value) != true)) {
+                    this.IVACompraVDirectaField = value;
+                    this.RaisePropertyChanged("IVACompraVDirecta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double IVARetail {
+            get {
+                return this.IVARetailField;
+            }
+            set {
+                if ((this.IVARetailField.Equals(value) != true)) {
+                    this.IVARetailField = value;
+                    this.RaisePropertyChanged("IVARetail");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string ImagenURLOfertaFIC {
             get {
                 return this.ImagenURLOfertaFICField;
@@ -3192,6 +3249,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.InvitacionRechazadaField, value) != true)) {
                     this.InvitacionRechazadaField = value;
                     this.RaisePropertyChanged("InvitacionRechazada");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double IvaTotal {
+            get {
+                return this.IvaTotalField;
+            }
+            set {
+                if ((this.IvaTotalField.Equals(value) != true)) {
+                    this.IvaTotalField = value;
+                    this.RaisePropertyChanged("IvaTotal");
                 }
             }
         }
@@ -3639,6 +3709,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Retail {
+            get {
+                return this.RetailField;
+            }
+            set {
+                if ((this.RetailField.Equals(value) != true)) {
+                    this.RetailField = value;
+                    this.RaisePropertyChanged("Retail");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public short RevistaDigitalSuscripcion {
             get {
                 return this.RevistaDigitalSuscripcionField;
@@ -3998,6 +4081,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.TipoUsuarioField.Equals(value) != true)) {
                     this.TipoUsuarioField = value;
                     this.RaisePropertyChanged("TipoUsuario");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double TotalCompra {
+            get {
+                return this.TotalCompraField;
+            }
+            set {
+                if ((this.TotalCompraField.Equals(value) != true)) {
+                    this.TotalCompraField = value;
+                    this.RaisePropertyChanged("TotalCompra");
                 }
             }
         }
