@@ -2355,14 +2355,29 @@ namespace Portal.Consultoras.Service
             return _pedidoAppBusinessLogic.Insert(pedidoDetalle);
         }
 
-        public void UpdateProlApp(BEPedidoDetalleApp pedidoDetalle)
+        public BEPedidoWeb GetPedidoApp(BEUsuario usuario)
         {
-            _pedidoAppBusinessLogic.UpdateProl(pedidoDetalle);
+            return _pedidoAppBusinessLogic.Get(usuario);
         }
 
-        public List<BEPedidoWebDetalle> GetPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
+        public bool InsertKitInicio(BEUsuario usuario)
         {
-            return _pedidoAppBusinessLogic.GetDetalle(pedidoDetalle);
+            return _pedidoAppBusinessLogic.InsertKitInicio(usuario);
+        }
+
+        public BEPedidoDetalleAppResult UpdatePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
+        {
+            return _pedidoAppBusinessLogic.Update(pedidoDetalle);
+        }
+
+        public BEConfiguracionPedido GetConfiguracionPedidoApp(int paisID, string codigoUsuario)
+        {
+            return _pedidoAppBusinessLogic.GetConfiguracion(paisID, codigoUsuario);
+        }
+
+        public BEPedidoDetalleAppResult DeletePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
+        {
+            return _pedidoAppBusinessLogic.Delete(pedidoDetalle);
         }
         #endregion
     }

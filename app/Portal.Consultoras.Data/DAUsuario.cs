@@ -804,5 +804,12 @@ namespace Portal.Consultoras.Data
             return Convert.ToString(Context.ExecuteScalar(command));
         }
         #endregion
+
+        public string GetUsuarioRealPostulante(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioRealPostulante");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+            return Context.ExecuteScalar(command).ToString();
+        }
     }
 }
