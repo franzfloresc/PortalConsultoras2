@@ -9,7 +9,7 @@ insert into TablaLogica
 	values (139, 'PIN de autenticidad')
 GO
 insert into TablaLogicaDatos
-	values (13901, 139, 'Activo','1',''),
+	values (13901, 139, 'Activo','0',''),
 		   (13902, 139, 'IdEstadoActividad','1',''),
 		   (13903, 139, 'IdEstadoActividad','2',''),
 		   (13904, 139, 'IdEstadoActividad','6',''),
