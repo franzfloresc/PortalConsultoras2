@@ -141,7 +141,7 @@
     @Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
 }
 
-@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", true } })
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/Lanzamientos-Detalle")
     <script type="text/javascript">

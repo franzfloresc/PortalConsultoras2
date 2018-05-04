@@ -304,11 +304,11 @@ function OfertaArmarEstrategias(response, busquedaModel) {
         tem.EsLanzamiento = false;
     });
 
-    if (response.Mobile) {
-        $.each(modeloTemp.lista, function (ind, tem) {
-            tem.TipoAccionAgregar = 0;
-        });
-    }
+    //if (response.Mobile) {
+    //    $.each(modeloTemp.lista, function (ind, tem) {
+    //        tem.TipoAccionAgregar = 0;
+    //    });
+    //}
 
     if (revistaDigital) {
         if (revistaDigital.TieneRDC) {

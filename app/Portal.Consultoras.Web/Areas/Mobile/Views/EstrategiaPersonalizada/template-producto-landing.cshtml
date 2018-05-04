@@ -1,4 +1,5 @@
 ﻿@using Portal.Consultoras.Common
+
 <script id="producto-landing-template" type="text/x-handlebars-template">
     {{#each this.lista as |item|}}
     {{#if EsBanner}}
@@ -71,7 +72,9 @@
 
                             <div class="producto_precio" {{#if this.ExperienciaGanaMas includeZero=true}}{{#unless TieneVerDetalle }} style="color:gray;" {{/unless}}{{/if}}>
                                 {{#iff Precio '>' 0}}
-                                <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
+                                    <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
+                                {{else}}
+                                    <span class="producto_precio_normal" style="text-decoration: none;">&nbsp;</span>
                                 {{/iff}}
                                 <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioVenta}}</b></span>
                             </div>
@@ -80,46 +83,63 @@
                     <div class="clear"></div>
                     {{#if this.ExperienciaGanaMas includeZero=true}}
                     {{else}}
-                        {{#iff TipoAccionAgregar '==' '1'}}
-                        <div class="texto_elige_tono">&nbsp;</div>
-                        <div class="producto_nombre_descripcion">
-                            <div class="liquidacion_rango_home">
-                                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad' class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" disabled="disabled" style="border: 1px solid #b0b0b0;width:100%!important" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
-                            </div>
-                            <div class="clear"></div>
-                            <a class="boton_Agregalo_home {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregar(event); ">
-                                AGR&Eacute;GALO
-                            </a>
-                        </div>
-                        {{/iff}}
-                        {{#iff TipoAccionAgregar '==' '2'}}
-                        <div class="texto_elige_tono">&nbsp;</div>
-                        <div class="producto_nombre_descripcion">
-                            <div class="liquidacion_rango_home">
-                                <a class="cantidad_menos_home" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad' class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral {{ClaseBloqueada}}" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
-                                <a class="cantidad_mas_home" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                            </div>
-                            <div class="clear"></div>
-                            <a class="boton_Agregalo_home {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregar(event); ">
-                                AGR&Eacute;GALO
-                            </a>
-                        </div>
-                        {{/iff}}
-                        {{#iff TipoAccionAgregar '==' '3'}}
-                        <div class="texto_elige_tono">¡AHORA ELIGE TU TONO!</div>
-                        <div class="clear"></div>
-                        <div class="producto_nombre_descripcion">
-                            <a class="btn_elige_tono" data-item-tag="eligetuopcion" onclick="javascript:VerDetalleEstrategia(event);" href="javascript:;">
-                                ELIGE TU OPCIÓN
-                            </a>
-                        </div>
-                        {{else}}
+                        @if (ViewBag.TieneBotones)
+                        {
+                            <div>
+                            {{#iff TipoAccionAgregar '==' '1'}}
                             <div class="texto_elige_tono">&nbsp;</div>
-                        {{/iff}}
-                        {{/if}}
+                            <div class="producto_nombre_descripcion">
+                                <div class="liquidacion_rango_home">
+                                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad' class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" disabled="disabled" style="border: 1px solid #b0b0b0;width:100%!important" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
+                                </div>
+                                <div class="clear"></div>
+                                <a class="boton_Agregalo_home {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregar(event); ">
+                                    AGR&Eacute;GALO
+                                </a>
+                            </div>
+                            {{/iff}}
+                            {{#iff TipoAccionAgregar '==' '2'}}
+                            <div class="texto_elige_tono">&nbsp;</div>
+                            <div class="producto_nombre_descripcion">
+                                <div class="liquidacion_rango_home">
+                                    <a class="cantidad_menos_home" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad' class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral {{ClaseBloqueada}}" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
+                                    <a class="cantidad_mas_home" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                                </div>
+                                <div class="clear"></div>
+                                <a class="boton_Agregalo_home {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregar(event); ">
+                                    AGR&Eacute;GALO
+                                </a>
+                            </div>
+                            {{/iff}}
+                            {{#iff TipoAccionAgregar '==' '3'}}
+                                <div class="texto_elige_tono">&nbsp;</div>
+                                <div class="clear"></div>
+                                <div class="texto_elige_tono" style="height: 55px;padding-top: 16px;">¡AHORA ELIGE TU TONO!</div>
+                                <div class="clear"></div>
+                                <div class="producto_nombre_descripcion">
+                                    <a class="btn_elige_tono" data-item-tag="eligetuopcion" onclick="javascript:VerDetalleEstrategia(event);" href="javascript:;">
+                                        ELIGE TU OPCIÓN
+                                    </a>
+                                </div>
+                            {{else}}
+                            <div class="texto_elige_tono">&nbsp;</div>
+                            {{/iff}}
+                            </div>
+                        }
+                        else
+                        {
+                            <div>
+                                {{#iff TipoAccionAgregar '==' '3'}}
+                                <div class="texto_elige_tono">¡AHORA ELIGE TU TONO!</div>
+                                {{else}}
+                                <div class="texto_elige_tono">&nbsp;</div>
+                                {{/iff}}
+                            </div>
+                        }
+                    {{/if}}
                     </div>
-            
+                
                 @*<div style="display: block; padding: 0px 0px 10px;">
                         <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
                             AGREGADO
