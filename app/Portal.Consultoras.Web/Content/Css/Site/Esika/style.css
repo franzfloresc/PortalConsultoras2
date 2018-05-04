@@ -19650,6 +19650,7 @@ label.checkpop.c_on {
 	height: auto;
 	position: relative;
 	font-family: 'Lato';
+    text-align:center;
 }
 
 .content_datos {
