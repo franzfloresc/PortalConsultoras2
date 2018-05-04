@@ -279,19 +279,15 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         foreach (var item in lista)
                         {
+                            var altoOrOtro  = (item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Alto) ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt() : Enumeradores.TipoNivelesRiesgo.Otro.ToInt();
+                            var medioOrOtro = (item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Medio) ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt() : altoOrOtro;
+                            var bajoOrMedio = (item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Bajo) ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt() : medioOrOtro;
+
                             var parametroTodos = new ParametroUnete
                             {
                                 Nombre = item.ZonaSeccion,
                                 Descripcion = item.NivelRiesgo,
-                                Valor = string.IsNullOrWhiteSpace(item.NivelRiesgo)
-                                    ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt()
-                                    : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Bajo
-                                        ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()
-                                        : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Medio
-                                            ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt()
-                                            : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Alto
-                                                ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt()
-                                                : Enumeradores.TipoNivelesRiesgo.Otro.ToInt(),
+                                Valor = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt() : bajoOrMedio,
                                 FK_IdTipoParametro = EnumsTipoParametro.TipoNivelesRiesgo.ToInt(),
                                 Estado = 1
                             };
@@ -302,20 +298,15 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         foreach (var item in lista)
                         {
+                            var altoOrOtro = (item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Alto.ToInt()) ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt() : Enumeradores.TipoNivelesRiesgo.Otro.ToInt();
+                            var medioOrAlto = (item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Medio.ToInt()) ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt() : altoOrOtro;
+                            var bajoOrMedio = (item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()) ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt() : medioOrAlto;
+
                             var parametroTodos = new ParametroUnete
                             {
                                 Nombre = item.ZonaSeccion,
                                 Descripcion = item.NivelRiesgo,
-
-                                Valor = string.IsNullOrWhiteSpace(item.NivelRiesgo)
-                                    ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt()
-                                    : item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()
-                                        ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()
-                                        : item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Medio.ToInt()
-                                            ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt()
-                                            : item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Alto.ToInt()
-                                                ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt()
-                                                : Enumeradores.TipoNivelesRiesgo.Otro.ToInt(),
+                                Valor = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt() : bajoOrMedio,
                                 FK_IdTipoParametro = EnumsTipoParametro.TipoNivelesRiesgo.ToInt(),
                                 Estado = 1
                             };
@@ -326,6 +317,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         foreach (var item in lista)
                         {
+                            var altoOrOtro = item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Alto ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt() : Enumeradores.TipoNivelesRiesgo.Otro.ToInt();
                             var parametroTodos = new ParametroUnete
                             {
                                 Nombre = item.ZonaSeccion,
@@ -334,9 +326,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()
                                     : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Medio ? Enumeradores
                                             .TipoNivelesRiesgo.Medio.ToInt()
-                                        : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Alto ? Enumeradores
-                                                .TipoNivelesRiesgo.Alto.ToInt()
-                                            : Enumeradores.TipoNivelesRiesgo.Otro.ToInt(),
+                                        : altoOrOtro,
                                 FK_IdTipoParametro = EnumsTipoParametro.TipoNivelesRiesgo.ToInt(),
                                 Estado = 1
                             };
