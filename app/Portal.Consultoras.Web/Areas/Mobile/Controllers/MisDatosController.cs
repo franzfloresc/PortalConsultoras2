@@ -134,40 +134,69 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpPost]
         public JsonResult ActualizarDatos(MisDatosModel model)
         {
+            JsonResult v_retorno = null;
+            BEUsuario entidad = null;
+            string resultado = string.Empty;
+            string[] lst = null;
+            string v_campomodificacion = string.Empty;
+
+            string CorreoAnterior = string.Empty;
+
             try
             {
                 var usuario = Mapper.Map<MisDatosModel, BEUsuario>(model);
 
-                string resultado = ActualizarMisDatos(usuario, model.CorreoAnterior);
-                bool seActualizoMisDatos = resultado.Split('|')[0] != "0";
-                string message = resultado.Split('|')[2];
-                int cantidad = int.Parse(resultado.Split('|')[3]);
+                entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
+                CorreoAnterior = model.CorreoAnterior;
 
-                if (!seActualizoMisDatos)
+                entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : userData.CodigoUsuario;
+                entidad.EMail = (entidad.EMail == null) ? "" : entidad.EMail;
+                entidad.Telefono = (entidad.Telefono == null) ? "" : entidad.Telefono;
+                entidad.TelefonoTrabajo = (entidad.TelefonoTrabajo == null) ? "" : entidad.TelefonoTrabajo;
+                entidad.Celular = (entidad.Celular == null) ? "" : entidad.Celular;
+                entidad.Sobrenombre = (entidad.Sobrenombre == null) ? "" : entidad.Sobrenombre;
+                entidad.ZonaID = userData.ZonaID;
+                entidad.RegionID = userData.RegionID;
+                entidad.ConsultoraID = userData.ConsultoraID;
+                entidad.PaisID = userData.PaisID;
+                entidad.PrimerNombre = userData.PrimerNombre;
+                entidad.CodigoISO = userData.CodigoISO;
+
+                using (UsuarioServiceClient svr = new UsuarioServiceClient())
                 {
-                    return Json(new
+                    resultado = svr.ActualizarMisDatos(entidad, CorreoAnterior);
+
+                    if(model != null) ActualizarDatosLogDynamoDB(model, "MI NEGOCIO|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
+
+                    lst = resultado.Split('|');
+
+                    if (lst[0] == "0")
                     {
-                        success = false,
-                        message,
-                        Cantidad = cantidad,
-                        extra = string.Empty
-                    });
-                }
-                else
-                {
-                    return Json(new
+                        v_retorno = Json(new
+                        {
+                            Cantidad = lst[3],
+                            success = false,
+                            message = lst[2],
+                            extra = ""
+                        });
+                    }
+                    else
                     {
-                        success = true,
-                        message,
-                        Cantidad = 0,
-                        extra = string.Empty
-                    });
+                        v_retorno = Json(new
+                        {
+                            Cantidad = 0,
+                            success = true,
+                            message = lst[2],
+                            extra = ""
+                        });
+                    }
                 }
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return Json(new
+
+                v_retorno = Json(new
                 {
                     Cantidad = 0,
                     success = false,
@@ -178,7 +207,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return Json(new
+
+                v_retorno = Json(new
                 {
                     Cantidad = 0,
                     success = false,
@@ -186,6 +216,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     extra = ""
                 });
             }
+
+            return v_retorno;
         }
 
         [HttpPost]

@@ -3461,6 +3461,12 @@
     <Content Include="Content\Images\turn_left.png" />
     <Content Include="Content\Images\Undo.png" />
     <Content Include="Content\Images\unificado_lb_es.png" />
+    <Content Include="Content\Images\unsubscribe\ico-check-esika.svg" />
+    <Content Include="Content\Images\unsubscribe\ico-check-lebel.svg" />
+    <Content Include="Content\Images\unsubscribe\lbel-logo.svg" />
+    <Content Include="Content\Images\unsubscribe\logoesika.svg" />
+    <Content Include="Content\Images\unsubscribe\logoLBEL.svg" />
+    <Content Include="Content\Images\unsubscribe\logo_esika.svg" />
     <Content Include="Content\Images\update.png" />
     <Content Include="Content\Images\UploadLoading.gif" />
     <Content Include="Content\Images\upselling\upselling_sprite.png" />

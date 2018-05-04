@@ -235,6 +235,7 @@ namespace Portal.Consultoras.Common
             public const string TippingPoint = "TippingPoint";
             public const string TippingPoint_MontoVentaExigido = "TippingPoint_MontoVentaExigido";
             public const string MensajeMetaConsultora = "MensajeMetaConsultora";
+            public const string ActualizarDatosConsultora = "ActualizarDatosConsultora";
 
             // prol
             public const string PROL_CalculoMontosProl = "PROL_CalculoMontosProl";
