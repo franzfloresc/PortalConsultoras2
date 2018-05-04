@@ -126,7 +126,6 @@
     .bc_plantilla-banner img {
         width: 100%;
     }
-
 .bc_plantilla_estrategia_personalizada .titulo {
     display: block;
     padding: 4% 2.5% 2% 2.5%;
@@ -432,7 +431,7 @@
 }
 
 .bc_estrategia_contenido {
-    min-height: 800px;
+    /*max-height: 800px;*/
 }
 
 .seccion-content-contenedor {

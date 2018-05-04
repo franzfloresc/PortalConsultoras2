@@ -6,6 +6,7 @@
  }
  .parche_productos_1000 #orderby-filter{
      padding: 0 11px;
+         margin-bottom: 30px;
  }
  .parche_productos_1000 .revistadigital-landing{
      width: auto;
@@ -59,4 +60,7 @@
     width: 50%;
     padding-left: 5px;
     position: relative;
+}
+.bc_plantilla_estrategia_personalizada .contenido_834 .revistadigital-landing {
+    min-width: 33.33% !important;
 }

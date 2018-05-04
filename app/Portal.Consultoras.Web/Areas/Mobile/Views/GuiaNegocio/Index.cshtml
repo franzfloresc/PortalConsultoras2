@@ -90,7 +90,7 @@
 <!--Fin seccion landing-->
 <hr class="clear" />
 
-@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
 
 @Html.Partial("~/Areas/Mobile/Views/GuiaNegocio/_GuiaNegocioFlotante.cshtml")
 

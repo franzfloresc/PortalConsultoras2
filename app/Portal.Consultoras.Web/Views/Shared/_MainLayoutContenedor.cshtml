@@ -168,6 +168,8 @@
         .data-layaout-body {
             width: initial !important;
         }
+        
+
     </style>
     @{
         string controllerAction = this.ViewContext.RouteData.Values["controller"].ToString() + this.ViewContext.RouteData.Values["action"].ToString();
@@ -265,7 +267,7 @@
                     <input type="hidden" Class="marca-descripcion-odd" value="{{DescripcionMarca}}" />
                     <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
                 </div>
-                <div class="solo_hoy">
+                <div>
                     <div style="height:42px; overflow:hidden;"><img src="{{ImagenSoloHoy}}" id="img-solohoy-odd" alt="" /></div>
                     <div class="clock"></div>
                     <div class="message"></div>
@@ -288,24 +290,27 @@
             </div>
             <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeOfertaDelDia(this);" style="display: none;">x</a>
         </div>
-        <div class="content_pop_oferta_dia {{ClassDimension}}" id="PopOfertaDia">
-            <div class="solo_hoy content_landing_odd" style="width:100%; margin-top:4px;margin-bottom: 12px;">
-                <div class="rd_volver" style="position: absolute; margin-left: 85px;">
+        <div class="{{ClassDimension}}" id="PopOfertaDia">
+            <div class="parche_presentacion_contenedor parche_presentacion_contenedor_834">
+                <div class="rd_volver" style="position: absolute; margin-top: 28px;">
                     <a href="javascript: void(0);" data-odd-accion="regresar" style="display:none;">
                         <img class="previous_volver icono_clase_control_color_dinamico" src="/Content/Images/PL20/ld_arrowright_blanco.png" style="width: 8px">
                         <span class="clase_control_color_dinamico" style="top: -4px; position: absolute;left: 15px; font-weight: bold; font-family: 'Lato'; font-size:15px; color:#fff;">VOLVER</span>
                     </a>
                 </div>
                 <!--SOLO SE MUESTRA CUANDO SE VA AL DETALLE DE UN PRODUCTO-->
-                <div id="imgSoloHoy" style="height:42px; overflow:hidden;float:left;margin-top: 19px; margin-left:70px"><img src="{{ImagenSoloHoy}}" alt="" style="width:74%" /></div>
-                <div class="clock" style="float:right"></div>
+                <div id="imgSoloHoy" style="height:42px; overflow:hidden;float:left;margin-top: 19px; margin-left:-13px; "><img src="{{ImagenSoloHoy}}" alt="" style="width:74%" /></div>
+                <div class="clock" style="float:right;     left: 50px;
+    top: 22px;"></div>
+                <div style="clear:both;"></div>
             </div>
             <hr class="clear" />
             <!--AÑADIR LA CLASE "content_780_ODD" PARA REDIMENSIONAR EL TAMAÑO DEL DISPLAY EN 1 Ó 2-->
             <!--CASO 1 CARRUSEL A 1024-->
-            <div data-odd-tipoventana="detalle" style="display:none;">
+            <div data-odd-tipoventana="detalle" style="display:none; margin-top: 50px">
                 <hr class="clear" />
-                <div class="content_90" style="margin-top: 20px; padding-bottom:25px;">
+                <div class="parche_presentacion_contenedor parche_presentacion_contenedor_834">
+
                     <div id="divOddCarruselDetalle">
                         {{#each this.ListaOfertas  as |detalle|}}
                         <div data-item="" data-item-position="{{detalle.ID}}">
@@ -342,7 +347,7 @@
                                 <input type="hidden" Class="marca-descripcion-odd" value="{{DescripcionMarca}}" />
                                 <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
                             </div>
-                            <div class="content_set_pop_hoy">
+                            <div class="content_set_pop_hoy" style="width:100%;">
                                 <div class="imagen_set_Oferta_pop">
                                     <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1" />
                                     <div class="compartir_redes_ficha" style="margin-top:10px;">
@@ -377,6 +382,7 @@
                                         <a class="btn_pop_agregalo_oferta clase_control_color_dinamico" data-odd-accion="agregar" data-odd-accion-type="detail" data-odd-accion-element="{{detalle.ID}}">AGRÉGALO</a>
                                     </div>
                                 </div>
+                                <div style="clear:both;"></div>
                             </div>
                         </div>
                         {{/each}}
@@ -412,7 +418,7 @@
                                     </div>
                                     <div class="producto_nombre_descripcion" data-item-tag="descripcion">
                                         <h6>&ensp;&nbsp;</h6>
-                                        <p class="nombre-producto"><b>{{detalle.NombreOferta}}</b></p>
+                                        <p class="nombre-producto nombre_producto"><b>{{detalle.NombreOferta}}</b></p>
                                     </div>
                                     <div class="producto_nombre_descripcion" data-item-tag="precio">
                                         <div>

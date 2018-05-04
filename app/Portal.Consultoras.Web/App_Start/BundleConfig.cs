@@ -576,7 +576,8 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new StyleBundle("~/bundles/css/Mobile/Site/GuiaNegocio-Landing").Include(
-                "~/Content/Css/Mobile/RevistaDigital/Gnd-Flotante.css"
+                "~/Content/Css/Mobile/RevistaDigital/Gnd-Flotante.css",
+                "~/Content/Css/Mobile/RevistaDigital/RedimensionLandingRD.css"
             ));
 
             #endregion

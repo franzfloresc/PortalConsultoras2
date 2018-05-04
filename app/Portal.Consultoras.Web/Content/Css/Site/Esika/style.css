@@ -3357,6 +3357,8 @@ a.subir_carousel, a.bajar_carousel {
     overflow: hidden;
 }
 
+    
+
     .producto_nombre_descripcion.pb-16 {
         padding-bottom: 16px;
     }
@@ -3405,7 +3407,7 @@ a.subir_carousel, a.bajar_carousel {
     width: 50%;
     padding-right: 5px;
     position: relative;
-    top: -4px;
+    top: -1px;
 }
 
 .producto_precio_oferta {
@@ -20407,6 +20409,10 @@ label.checkpop.c_on {
     .producto_img_home img {
         width: auto;
         height: 93.5%;
+        padding: 10px !important;
+        max-width: 100% !important;
+        display: block !important;
+        margin: auto !important;
     }
 
 .content_carrusel_ofertas .slick-track {
@@ -32590,7 +32596,7 @@ h1#penmostreo .campana {
     height: auto;
     float: left;
     text-align: center;
-    margin: 25px 65px 0 0;
+    margin: 25px 0 0 0;
 }
 
     .imagen_set_Oferta_pop img {
@@ -32667,8 +32673,8 @@ h1#penmostreo .campana {
 
 .right_set_hoy {
     float: left;
-    width: 49%;
-    margin-right: 5%;
+    width: 61%;
+    margin-left: 5%;
 }
 
 .precio_valorizado_oferta {
