@@ -2007,5 +2007,18 @@ namespace Portal.Consultoras.Common
             public const string ReemplazoDesc = "{remDes}";
             public const string Stock = "{stock}";
         }
+
+        #region Pin Autenticidad
+        public class EnviarCorreoYSms
+        {
+            public const string Activo = "Activo";
+            public const string IdEstadoActividad = "IdEstadoActividad";
+
+            public const int RecuperarClave = 1;
+            public const int Autenticacion = 2;
+            public const int EnviarPorEmail = 1;
+            public const int EnviarPorSms = 2;
+        }
+        #endregion  
     }
 }

@@ -2204,26 +2204,63 @@ namespace Portal.Consultoras.BizLogic
         #region Restaurar Contraseña
         public BEUsuarioCorreo GetRestaurarClaveByCodUsuario(string ValorRestauracion, int paisID)
         {
-            BEUsuarioCorreo UsuarioRestauracion = new BEUsuarioCorreo();
+            BEUsuarioCorreo oRecuperar = null;
 
             var DAUsuario = new DAUsuario(paisID);
             using (IDataReader reader = DAUsuario.GetRestaurarClaveUsuario(ValorRestauracion, paisID))
                 if (reader.Read())
                 {
-                    UsuarioRestauracion = new BEUsuarioCorreo(reader);
+                    oRecuperar = new BEUsuarioCorreo(reader);
                 }
 
-            return UsuarioRestauracion;
+            if (oRecuperar != null)
+            {
+                using (IDataReader rd = DAUsuario.GetOpcionHabilitada(oRecuperar.CodigoUsuario, Constantes.EnviarCorreoYSms.RecuperarClave))
+                    if (rd.Read())
+                    {
+                        oRecuperar.OpcionCorreoActiva = rd.GetString(0);
+                        oRecuperar.OpcionSmsActiva = rd.GetString(1);
+                        oRecuperar.HoraRestanteCorreo = rd.GetInt32(2);
+                        oRecuperar.HoraRestanteSms = rd.GetInt32(3);
+                    }
+            }
+
+            return oRecuperar;
         }
 
-        public string EnviaClaveAEmail(int paisId, string textoRecuperacion, bool EsMobile, int nroVeces, BEUsuarioCorreo pRestaurar)
+        public bool EnviarEmail(int paisId, BEUsuarioCorreo objEmail)
         {
-            var resultado = string.Empty;
-            var paso = "1";
+            bool resul = false;
 
             try
             {
-                if (nroVeces <= 2)
+                switch (objEmail.OrigenID)
+                {
+                    case 1:
+                        resul = EnviaClaveAEmail(paisId, objEmail);
+                        break;
+
+                    case 2:
+                        resul = EnviarPinAEmail(paisId, objEmail);
+                        break;
+                }
+
+                return resul;
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, string.Empty, Common.Util.GetPaisISO(paisId));
+                return false;
+            }
+        }
+
+        public bool EnviaClaveAEmail(int paisId, BEUsuarioCorreo oUsuCorreo)
+        {
+            bool resultado = false;
+
+            try
+            {
+                if (oUsuCorreo.Cantidad < 3)
                 {
                     string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisId);
                     string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
@@ -2231,55 +2268,145 @@ namespace Portal.Consultoras.BizLogic
                     string v_correo = String.Empty;
 
                     //List<BEUsuarioCorreo> lst = SelectByValorRestauracion(textoRecuperacion, paisId).ToList();
-                    v_correo = pRestaurar.Correo; //lst[0].Correo;
+                    v_correo = oUsuCorreo.Correo; //lst[0].Correo;
 
-                    string urlportal = pRestaurar.ContextoBase; //ConfigurationManager.AppSettings["CONTEXTO_BASE"];
+                    string urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
                     DateTime diasolicitud = DateTime.Now; //.AddMinutes(DateTime.Now.Minute + 5);
                     string fechasolicitud = diasolicitud.ToString("d/M/yyyy HH:mm:ss");
                     string paisiso = paisISO;
-                    string codigousuario = pRestaurar.CodigoUsuario;
-                    string nombre = pRestaurar.NombreCompleto.Trim().Split(' ').First();
-                    var newUri = Portal.Consultoras.Common.Util.GetUrlRecuperarContrasenia(urlportal, paisId, textoRecuperacion, paisiso, codigousuario, fechasolicitud, nombre);
+                    string codigousuario = oUsuCorreo.CodigoUsuario;
+                    string nombre = oUsuCorreo.PrimerNombre;
+                    var newUri = Portal.Consultoras.Common.Util.GetUrlRecuperarContrasenia(urlportal, paisId, oUsuCorreo.Correo, paisiso, codigousuario, fechasolicitud, nombre);
 
                     string emailFrom = "no-responder@somosbelcorp.com";
                     string emailTo = v_correo;
-                    string titulo = "(" + pRestaurar.CodigoISO + ") Cambio de contraseña de Somosbelcorp";
+                    string titulo = "(" + paisISO + ") Cambio de contraseña de Somosbelcorp";
                     string logo = (esEsika ? "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_esika.png" : "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_lbel.png");
-                    string nombrecorreo = pRestaurar.NombreCompleto.Trim().Split(' ').First();
+                    string nombrecorreo = oUsuCorreo.NombreCompleto.Trim().Split(' ').First();
                     string fondo = (esEsika ? "e81c36" : "642f80");
                     string displayname = "Somos Belcorp";
 
                     if (emailTo.Trim().Length > 0)
+                    {
                         Portal.Consultoras.Common.MailUtilities.EnviarMailProcesoRecuperaContrasenia(emailFrom, emailTo, titulo, displayname, logo, nombrecorreo, newUri.ToString(), fondo);
+                    }
 
-                    resultado = "1" + "|" + "4" + "|" + v_correo + "|" + nombre;
+                    oUsuCorreo.opcionHabilitar = true;
+                    if (oUsuCorreo.Cantidad >= 2)
+                        oUsuCorreo.opcionHabilitar = false;
+
+                    resultado = true;
                 }
 
-                if (nroVeces >= 2)
-                {
-                    var DAUsuario = new DAUsuario(paisId);
-                    DAUsuario.UpdFechaBloqueoRestaurarClave(pRestaurar.CodigoUsuario, "CORREO");
-                }
+                oUsuCorreo.codigoGenerado = ""; //En recuperar contraseña no hay codigo generado.
+                oUsuCorreo.tipoEnvio = Constantes.EnviarCorreoYSms.EnviarPorEmail;
+
+                var DAUsuario = new DAUsuario(paisId);
+                DAUsuario.InsCodigoGenerado(oUsuCorreo);
             }
             catch (Exception ex)
             {
-                resultado = "0" + "|" + "6" + "|" + ex.Message + "|" + paso;
-                LogManager.SaveLog(ex, pRestaurar.CodigoUsuario, paisId);
+                resultado = false;
+                LogManager.SaveLog(ex, string.Empty, string.Empty);
+            }
+
+            return resultado;
+        }
+        #endregion
+
+        #region Pin Autenticacion
+        public BEPinAutenticacion GetPinAutenticidad(int paisID, string CodigoUsuario)
+        {
+            BEPinAutenticacion oPin = null;
+
+            var DAUsuario = new DAUsuario(paisID);
+            using (IDataReader reader = DAUsuario.GetPinAutenticidad(CodigoUsuario))
+                if (reader.Read())
+                {
+                    oPin = new BEPinAutenticacion(reader);
+                }
+
+            if (oPin != null)
+            {
+                using (IDataReader rd = DAUsuario.GetOpcionHabilitada(CodigoUsuario, Constantes.EnviarCorreoYSms.Autenticacion))
+                    if (rd.Read())
+                    {
+                        oPin.OpcionCorreoActiva = rd.GetString(0);
+                        oPin.OpcionSmsActiva = rd.GetString(1);
+                        oPin.HoraRestanteCorreo = rd.GetInt32(2);
+                        oPin.HoraRestanteSms = rd.GetInt32(3);
+                    }
+            }
+
+            return oPin;
+        }
+
+        public bool EnviarPinAEmail(int paisID, BEUsuarioCorreo objUsuCorreo)
+        {
+            bool resultado = false;
+
+            try
+            {
+                if (objUsuCorreo.Cantidad < 3)
+                {
+                    string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
+                    string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
+                    var esEsika = paisesEsika.Contains(paisISO);
+                    string v_correo = objUsuCorreo.Correo;
+
+                    string emailFrom = "no-responder@somosbelcorp.com";
+                    string emailTo = v_correo;
+                    string titulo = "(" + paisISO + ") PIN de autenticación de Somosbelcorp";
+                    string logo = (esEsika ? "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_esika.png" : "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_lbel.png");
+                    string nombrecorreo = objUsuCorreo.PrimerNombre.Trim();
+                    string fondo = (esEsika ? "e81c36" : "642f80");
+                    string displayname = "Somos Belcorp";
+
+                    objUsuCorreo.codigoGenerado = Common.Util.GenerarCodigoRandom();
+
+                    if (emailTo.Trim().Length > 0)
+                    {
+                        Portal.Consultoras.Common.MailUtilities.EnviarMailPinAutenticacion(emailFrom, emailTo, titulo, displayname, logo, nombrecorreo, objUsuCorreo.codigoGenerado);
+                    }
+
+                    objUsuCorreo.opcionHabilitar = true;
+                    if (objUsuCorreo.Cantidad >= 2)
+                        objUsuCorreo.opcionHabilitar = false;
+
+                    //Registrando PIN
+                    objUsuCorreo.tipoEnvio = Constantes.EnviarCorreoYSms.EnviarPorEmail;
+
+                    var DAUsuario = new DAUsuario(paisID);
+                    DAUsuario.InsCodigoGenerado(objUsuCorreo);
+                }
+
+                resultado = true;
+            }
+            catch (Exception ex)
+            {
+                resultado = false;
+                LogManager.SaveLog(ex, objUsuCorreo.CodigoUsuario, paisID);
             }
 
             return resultado;
         }
 
-        public void UpdFechaBloqueoRestaurarClave(int paisId, string CodigoUsuario)
+        public string GetCodigoGenerado(int PaisID, BEUsuarioCorreo oUsuCorreo, string CodIngresado)
         {
-            var DAUsuario = new DAUsuario(paisId);
-            DAUsuario.UpdFechaBloqueoRestaurarClave(CodigoUsuario, "SMS");
+            var DAUsuario = new DAUsuario(PaisID);
+            return DAUsuario.GetCodigoGenerado(oUsuCorreo, CodIngresado);
         }
 
-        public string GetCodigoSMS(int paisID, string CodigoConsultora, string Origen)
+        public BEUsuarioCorreo GetOpcionHabilitada(int PaisID, BEUsuarioCorreo oUsuCorreo)
+        {
+            var DAUsuario = new DAUsuario(PaisID);
+            return null;// DAUsuario.GetOpcionHabilitada(oUsuCorreo);
+        }
+
+        public void UpdFlagAutenticacion(int paisID, string CodigoUsuario)
         {
             var DAUsuario = new DAUsuario(paisID);
-            return DAUsuario.GetCodigoSMS(CodigoConsultora, Origen);
+            DAUsuario.UpdFlagAutenticacion(CodigoUsuario);
         }
         #endregion
 

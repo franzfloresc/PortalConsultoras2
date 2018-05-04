@@ -1555,6 +1555,8 @@ function CargarMisDatos() {
                 $('#txtTelefonoTrabajoMD').val(temp.TelefonoTrabajo);
                 $('#txtCelularMD').val(temp.Celular);
                 PopupMostrar('popupMisDatos');
+                if (popupCambioClave == "1")
+                    $(".misDatosContraseniaEnlace").trigger("click");
                 closeWaitingDialog();
             }
         },
@@ -3228,7 +3230,7 @@ function click_no_volver_a_ver_este_anuncio_PopShowroomVenta() {
 }
 
 function MostrarPopupInicial() {
-    if (showPopupMisDatos == '1') {
+    if (showPopupMisDatos == '1' || popupCambioClave == "1") {
         CargarMisDatos();
         return;
     }

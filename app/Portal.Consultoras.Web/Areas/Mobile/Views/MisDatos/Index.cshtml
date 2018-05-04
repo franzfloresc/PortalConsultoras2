@@ -187,6 +187,8 @@
     {
     <script type="text/javascript">
         var VC_Datos = '@ViewBag.VC_Datos'
+        var VerCambioClave = '@Model.VerCambiarClave';
+
         $(".misDatosContraseniaEnlace").click(function () {
             if ($(".campos_cambiarContrasenia").is(":visible")) {
                 $(".campos_cambiarContrasenia").fadeOut(200);
@@ -208,6 +210,9 @@
         });
 
         $("#btnActualizarMD").click(ActualizarMD);
+
+        if (VerCambioClave = '1')
+            $(".misDatosContraseniaEnlace").trigger("click");
 
         function ActualizarMD() {
 
