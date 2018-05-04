@@ -1078,7 +1078,7 @@ function RecuperarClave(tipoRecuperar) {
         async: true,
         success: function (response) { 
             if (response.success) {
-                
+                var telefonos;
                 if (response.resul == "") {
                     alert(nombreDato + " Incorrectas.")
                     return false;
@@ -1201,7 +1201,7 @@ function RecuperarClave(tipoRecuperar) {
                                 htmlFono += "<div class='icono_llamada'></div>";
                                 htmlFono += "<div class='texto_opcion_llamada'>#TEXTO#</div></a>";
 
-                                var telefonos = response.data.TelefonoCentral.split(',');
+                                 telefonos = response.data.TelefonoCentral.split(',');
                                 if (paisId == 11) {
 
                                     var Lima = htmlFono.replace("#CELULAR#", telefonos[0]);
@@ -1227,7 +1227,7 @@ function RecuperarClave(tipoRecuperar) {
 
                             } else {
                                 $(".clstelefono").remove();
-                                var telefonos = response.data.TelefonoCentral.split(',');
+                                 telefonos = response.data.TelefonoCentral.split(',');
                                 if (paisId == 11) {
                                     $(".nametitlepais").html("Central Telefónica del Perú");
                                     $("#contenidotelefono").append("<span class='clstelefono'>Lima: " + telefonos[0] + "</span>");
