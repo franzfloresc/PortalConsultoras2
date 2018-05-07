@@ -561,6 +561,9 @@
     margin-right: 89px;*/
     top: -255px;
     margin: auto;
+    max-width: 1000px;
+    padding: 0 8px;
+    position:relative;
 }
 
     .contenido_zona_dorada_contenedor_desktop .block-cont {
@@ -706,3 +709,30 @@
         padding: 11.5px;
         width: 100%;
     }
+.fixed_contenedor_head {
+    position: fixed;
+    top: 62px;
+}
+
+.fixed_head {
+    position: fixed;
+    top: 62px;
+    width: 100%;
+    margin: auto;
+    /* max-width: 100%; */
+    z-index: 9;
+    right: 0;
+    padding-left: 142px;
+    /* margin-left: 139px; */
+    max-width: initial;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.fixed_head_cabecera {
+    width: 978px;
+}
+
+.fixed_productos {
+    top: 28px !important;
+}
