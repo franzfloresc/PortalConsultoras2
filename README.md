@@ -2,5 +2,4 @@
 
 
 Optimizaciones
-- ADM Contenido Nuevo Masivo 
-- Store que obtiene las diferentes estrategias por tipo de personalización
+- LocalStorage revisar la entidad, cargar solo campos necesarios
