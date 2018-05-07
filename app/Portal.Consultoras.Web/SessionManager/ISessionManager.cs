@@ -152,5 +152,9 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetPedidosFacturados(PedidoWebClientePrincipalMobilModel model);
         
         PedidoWebClientePrincipalMobilModel GetPedidosFacturados();
+        
+        List<BEPedidoWebDetalle> GetDetallesPedidoSetAgrupado();
+
+        void SetDetallesPedidoSetAgrupado(List<BEPedidoWebDetalle> detallesPedidoWeb);
     }
 }

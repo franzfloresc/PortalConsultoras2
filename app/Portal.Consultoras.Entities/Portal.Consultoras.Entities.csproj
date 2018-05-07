@@ -148,6 +148,8 @@
     <Compile Include="Pedido\BEMisPedidosFacturadosDetalle.cs" />
     <Compile Include="Pedido\BEMisPedidosIngresados.cs" />
     <Compile Include="Pedido\BEMisPedidosIngresadosDetalle.cs" />
+    <Compile Include="Pedido\BEPedidoWebSet.cs" />
+    <Compile Include="Pedido\BEPedidoWebSetDetalle.cs" />
     <Compile Include="Pedido\BETrackinDetalle.cs" />
     <Compile Include="Pedido\BETracking.cs" />
     <Compile Include="Pedido\DEWrapperPDF.cs" />

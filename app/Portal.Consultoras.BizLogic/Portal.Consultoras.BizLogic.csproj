@@ -199,12 +199,14 @@
     <Compile Include="Incentivo\IConsultoraConcursoBusinessLogic.cs" />
     <Compile Include="Pedido\BLPedidoApp.cs" />
     <Compile Include="PagoEnlinea\BLPagoEnLinea.cs" />
+    <Compile Include="Pedido\BLPedidoWebSet.cs" />
     <Compile Include="Pedido\BLTracking.cs" />
     <Compile Include="Pedido\IPedidoAppBusinessLogic.cs" />
     <Compile Include="Pedido\IPedidoWebBusinessLogic.cs" />
     <Compile Include="Pedido\ITrackingBusinessLogic.cs" />
     <Compile Include="Producto\IProductoBusinessLogic.cs" />
     <Compile Include="Reserva\BLReservaSicc.cs" />
+    <Compile Include="Pedido\IPedidoWebSetBusinessLogic.cs" />
     <Compile Include="Reserva\IReservaExternaBL.cs" />
     <Compile Include="Reserva\BLReservaProl2.cs" />
     <Compile Include="Resources\IncentivoMessages.Designer.cs">

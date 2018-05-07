@@ -483,6 +483,7 @@
     <Compile Include="Models\MensajesCDRExpressModel.cs" />
     <Compile Include="Models\PedidoCrudModel.cs" />
     <Compile Include="Models\PagoEnLineaConfiguracion.cs" />
+    <Compile Include="Models\Pedido\PedidoWebSetDetalleModel.cs" />
     <Compile Include="Models\PagoEnlineaInfoModel.cs" />
     <Compile Include="Models\PagoEnLinea\DataToken.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaModel.cs" />
@@ -630,6 +631,7 @@
     <Compile Include="Models\PosicionBannerPedidoModel.cs" />
     <Compile Include="Models\ProductoCompartidoModel.cs" />
     <Compile Include="Models\ProductoFaltanteModel.cs" />
+    <Compile Include="Models\Pedido\PedidoWebSetModel.cs" />
     <Compile Include="Models\ProveedorDespachoCobranzaModel.cs" />
     <Compile Include="Models\RechazoModel.cs" />
     <Compile Include="Models\OfertaFinalRegaloModel.cs" />
@@ -699,6 +701,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Providers\PedidoSetProvider.cs" />
     <Compile Include="Providers\ShowRoomProvider.cs" />
     <Compile Include="Providers\TablaLogicaProvider.cs" />
     <Compile Include="Providers\UpSellingProvider.cs" />

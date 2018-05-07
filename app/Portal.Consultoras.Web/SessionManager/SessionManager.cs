@@ -64,6 +64,15 @@ namespace Portal.Consultoras.Web.SessionManager
             HttpContext.Current.Session["PedidoWebDetalle"] = detallesPedidoWeb;
         }
 
+        List<BEPedidoWebDetalle> ISessionManager.GetDetallesPedidoSetAgrupado()
+        {
+            return (List<BEPedidoWebDetalle>)HttpContext.Current.Session["PedidoWebSetAgrupado"];
+        }
+
+        void ISessionManager.SetDetallesPedidoSetAgrupado(List<BEPedidoWebDetalle> detallesPedidoWeb)
+        {
+            HttpContext.Current.Session["PedidoWebSetAgrupado"] = detallesPedidoWeb;
+        }
         List<ObservacionModel> ISessionManager.GetObservacionesProl()
         {
             return (List<ObservacionModel>)HttpContext.Current.Session["ObservacionesPROL"];

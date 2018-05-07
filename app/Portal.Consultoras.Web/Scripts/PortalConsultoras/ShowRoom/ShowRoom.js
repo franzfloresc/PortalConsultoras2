@@ -396,6 +396,7 @@ function CargarProductosShowRoom(busquedaModel) {
 }
 
 function AgregarOfertaShowRoom(article, cantidad) {
+    
     var CUV = $(article).find(".valorCuv").val();
     var MarcaID = $(article).find(".claseMarcaID").val();
     var PrecioUnidad = $(article).find(".clasePrecioUnidad").val();
@@ -578,6 +579,7 @@ function AgregarOfertaShowRoomCpc(article, cantidad) {
 }
 
 function AgregarProductoAlCarrito(padre) {
+    
     
     if ($.trim(tipoOrigenPantalla)[0] == '1') {
         var contenedorImagen = $(padre).find("[data-img]");
