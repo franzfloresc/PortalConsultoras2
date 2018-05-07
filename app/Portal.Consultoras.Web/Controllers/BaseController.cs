@@ -4750,7 +4750,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ? userData.FechaInicioCampania.ToString("dd MMM", culture).ToUpper()
                     : "HOY";
 
-                return fecha + " - " + time.ToString("hhtt", CultureInfo.InvariantCulture).ToLower();
+                return fecha + " - " + time.ToString("hh:mm tt", CultureInfo.InvariantCulture).ToLower();
             }
 
         }
