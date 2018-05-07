@@ -245,13 +245,14 @@ jQuery(document).ready(function ($) {
 
         $(window).scroll(function () {
             var pos = $(window).scrollTop();
+           
+            //if (oldiOS || oldAndroid) {
 
-            if (oldiOS || oldAndroid) {
-                $(settings.button).css({
-                    'position': 'absolute',
-                    'top': pos + $(window).height()
-                });
-            }
+            //    //$(settings.button).css({
+            //    //    'position': 'absolute',
+            //    //    'top': pos + $(window).height()
+            //    //});
+            //}
 
             if (pos > extend.min)
                 $(extend.button).fadeIn(extend.fadeIn);

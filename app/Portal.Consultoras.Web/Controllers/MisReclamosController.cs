@@ -718,6 +718,9 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     siNoEmail = us.UpdateUsuarioEmailTelefono(userData.PaisID, userData.ConsultoraID, model.Email, model.Telefono);
                 }
+
+                registraLogDynamoCDR(model);
+
                 userData.EMail = model.Email;
                 userData.Celular = model.Telefono;
                 SetUserData(userData);

@@ -207,7 +207,7 @@
 	<script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
         var urlReservadoEnHorarioRestringuido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
-        var urlGetCantidadProductos = '@Url.Action("GetResumenCampania", "GestionContenido", new { area = "" })';
+        var urlGetCantidadProductos = '@Url.Action("GetResumenCampaniaAgrupado", "GestionContenido", new { area = "" })';
         var urlGetNotificacionesSinLeer = '@Url.Action("GetNotificacionesSinLeer", "Notificaciones", new { area = "" })';
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         var vbSimbolo = '@ViewBag.Simbolo';
@@ -251,7 +251,47 @@
         };
         var OrigenDesktopODD = 0;
 
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++
+         // parametros _MobileLayout 
+        //++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore'; //
+        //var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
+        //var mostrarOfertaDelDia = '@ViewBag.MostrarODD';
+        var vbMmostrarOfertaDelDia = '@ViewBag.MostrarOfertaDelDia';
+
+        var MostrarBannerOtros = '@ViewBag.MostrarBannerOtros';
+
+        var TipoOrigenPantallaODD = 2;
+        // New Chat
+        var emt_client_type = '@ViewBag.TipoUsuario';
+        var emt_country = '@ViewBag.CodigoISODL';
+        var emt_email_address = '@ViewBag.CorreoC';
+        var emt_first_name = '@ViewBag.NombreC';
+        var emt_id = '@ViewBag.CodigoUsuario';
+        var emt_type = '0';
+
+
+        var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl';
+        var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
+
+        var vbFotoPerfil = '@ViewBag.FotoPerfil';
+        if (vbFotoPerfil != null && vbFotoPerfil != "") {
+            $('.foto_menu').show();
+        }
+
+        var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
+        var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
+        var OrigenDesktopODD = 0;
+
+
+
+        var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
         //BANNER APP
+
         var urlOcultarBannerApp = '@Url.Action("OcultarBannerApp", "Bienvenida", new { area = "Mobile" })';
         var actionName = '@ViewContext.RouteData.GetRequiredString("action")';
         var controllerName = '@ViewContext.RouteData.GetRequiredString("controller")';
