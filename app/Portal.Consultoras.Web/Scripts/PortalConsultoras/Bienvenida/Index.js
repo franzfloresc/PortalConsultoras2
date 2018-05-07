@@ -879,6 +879,7 @@ function ArmarCarouselLiquidaciones(data) {
         prevArrow: '<a class="previous_ofertas js-slick-prev-liq"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
         nextArrow: '<a class="previous_ofertas js-slick-next-liq" style="right: 0;display: block;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
     }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+        
         var accion = nextSlide > currentSlide ? 'next' : 'prev';
         var itemsLength = $('#divCarruselLiquidaciones').find('.slick-slide').length;
         var indexActive = $($('#divCarruselLiquidaciones').find('.slick-active')).attr('data-slick-index');
@@ -898,7 +899,7 @@ function ArmarCarouselLiquidaciones(data) {
             arrayEstrategia.push({
                 'name': recomendado.DescripcionCompleta,
                 'id': recomendado.CUV,
-                'price': recomendado.PrecioOferta.toString(),
+                'price': recomendado.PrecioOferta ? recomendado.PrecioOferta.toString() : recomendado.PrecioOferta,
                 'brand': recomendado.DescripcionMarca,
                 'category': 'NO DISPONIBLE',
                 'variant': recomendado.DescripcionEstrategia,
@@ -935,7 +936,7 @@ function ArmarCarouselLiquidaciones(data) {
                 arrayEstrategia.push({
                     'name': recomendado.DescripcionCompleta,
                     'id': recomendado.CUV,
-                    'price': recomendado.PrecioOferta.toString(),
+                    'price': recomendado.PrecioOferta ? recomendado.PrecioOferta.toString() : recomendado.PrecioOferta,
                     'brand': recomendado.DescripcionMarca,
                     'category': 'NO DISPONIBLE',
                     'variant': recomendado.DescripcionEstrategia,
@@ -2572,6 +2573,7 @@ function CrearPopShow() {
     });
 }
 function MostrarShowRoom() {
+    
     if (viewBagRol == 1) {
         if (!sesionEsShowRoom) {
             return;

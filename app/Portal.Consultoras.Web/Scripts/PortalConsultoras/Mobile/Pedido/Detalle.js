@@ -654,6 +654,7 @@ function HorarioRestringido(mostrarAlerta) {
     return horarioRestringido;
 }
 function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBackOrder) {
+    
     var CliID = $('#ClienteID_' + PedidoDetalleID).val();
     var CliDes = $('#ClienteNombre_' + PedidoDetalleID).val();
     var Cantidad = $('#Cantidad_' + PedidoDetalleID).val();
@@ -683,8 +684,8 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBa
     }
 
     var PrecioUnidad = $('#PrecioUnidad_' + PedidoDetalleID).val();
-    var Cantidad0 = $('#Cantidad_' + PedidoDetalleID).val();
-    var Total = DecimalToStringFormat(parseFloat(Cantidad0 * PrecioUnidad));
+    
+    var Total = DecimalToStringFormat(parseFloat(Cantidad * PrecioUnidad));
     $('#ImporteTotal_' + PedidoDetalleID).html(Total);
     $('#ImporteTotalMinimo_' + PedidoDetalleID).html(Total);
 

@@ -1151,11 +1151,10 @@ function filterFAVDesktop() {
     primerScroll = false;
 
     // sorting
-    var fSorting = {
+    filters.push({
         Id: 1,
         Orden: $('#filter-sorting').val()
-    }
-    filters.push(fSorting);
+    });
 
     // category
     var values = "";

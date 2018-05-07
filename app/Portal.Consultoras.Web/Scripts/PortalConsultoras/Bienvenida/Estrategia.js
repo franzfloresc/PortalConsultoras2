@@ -1209,6 +1209,7 @@ function ProcesarActualizacionMostrarContenedorCupon() {
 }
 
 function RevisarMostrarContenedorCupon() {
+   
     if (typeof finishLoadCuponContenedorInfo !== 'undefined' && finishLoadCuponContenedorInfo) {
         if (cuponModule) {
             cuponModule.revisarMostrarContenedorCupon();

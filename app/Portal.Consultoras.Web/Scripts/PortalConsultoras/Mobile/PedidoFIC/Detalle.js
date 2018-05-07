@@ -795,7 +795,7 @@ function TagManagerClickEliminarProducto(descripcionProd, cuv, precioUnidad, des
 }
 
 function SeparadorMiles(pnumero) {
-    debugger;
+   
     var resultado = "";
     var numero = pnumero.replace(/\,/g, '');
     var nuevoNumero = numero.replace(/\./g, '');

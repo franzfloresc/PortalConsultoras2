@@ -293,7 +293,6 @@ function InsertarProducto(form) {
             if (checkTimeout(response)) {
                 if (response.success == true) {
                     $("#hdErrorInsertarProducto").val(response.errorInsertarProducto);
-                    debugger;
                     tieneMicroefecto = true;
                     CargarDetallePedido();
                 } else {
@@ -310,7 +309,6 @@ function InsertarProducto(form) {
 }
 
 function MostrarMicroEfecto() {
-    debugger;
     if (animacion) {
         animacion = false;
         var obj = $("#frmInsertPedido");
