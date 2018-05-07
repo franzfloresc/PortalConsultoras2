@@ -160,9 +160,6 @@ function GetProductoEntidad(detalleId, setId) {
     }
 }
 
-
-}
-
 function UpdateLiquidacionEvento(evento) {
     var target = $(evento.currentTarget);
     var targetRow = $(evento.currentTarget).closest(".contenedor_items_pedido");
