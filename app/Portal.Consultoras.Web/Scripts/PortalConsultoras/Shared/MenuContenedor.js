@@ -327,5 +327,7 @@ $(document).ready(function () {
     $(document).ajaxStop(function () {
         menuModule.checkAnchor();
     });
-   
+    window.onresize = function (event) {
+        menuModule.Resize();
+    };
 });

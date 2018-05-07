@@ -18,11 +18,11 @@ namespace Portal.Consultoras.Entities
 
         public BEMensajeMetaConsultora(IDataRecord datarec)
         {
-            if (DataRecord.HasColumn(datarec, "TipoMensaje") && datarec["TipoMensaje"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "TipoMensaje"))
                 TipoMensaje = DbConvert.ToString(datarec["TipoMensaje"]);
-            if (DataRecord.HasColumn(datarec, "Titulo") && datarec["Titulo"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Titulo"))
                 Titulo = DbConvert.ToString(datarec["Titulo"]);
-            if (DataRecord.HasColumn(datarec, "Mensaje") && datarec["Mensaje"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Mensaje"))
                 Mensaje = DbConvert.ToString(datarec["Mensaje"]);
 
         }

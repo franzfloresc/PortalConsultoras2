@@ -67,52 +67,52 @@ namespace Portal.Consultoras.Entities
         {
             IdPostulante = Convert.ToInt32(row["IdPostulante"]);
 
-            if (DataRecord.HasColumn(row, "CodigoUsuario") && row["CodigoUsuario"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoUsuario"))
                 CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
 
-            if (DataRecord.HasColumn(row, "ConsultoraID") && row["ConsultoraID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ConsultoraID"))
                 ConsultoraID = row["ConsultoraID"] == DBNull.Value ? 0 : Convert.ToInt64(row["ConsultoraID"]);
 
-            if (DataRecord.HasColumn(row, "NumeroDocumento") && row["NumeroDocumento"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NumeroDocumento"))
                 NombreCompleto = Convert.ToString(row["NombreCompleto"]);
 
-            if (DataRecord.HasColumn(row, "NumeroDocumento") && row["NumeroDocumento"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NumeroDocumento"))
                 NumeroDocumento = Convert.ToString(row["NumeroDocumento"]);
 
-            if (DataRecord.HasColumn(row, "Zona") && row["Zona"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Zona"))
                 Zona = Convert.ToString(row["Zona"]);
 
-            if (DataRecord.HasColumn(row, "Seccion") && row["Seccion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Seccion"))
                 Seccion = Convert.ToString(row["Seccion"]);
 
-            if (DataRecord.HasColumn(row, "Correo") && row["Correo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Correo"))
                 Correo = Convert.ToString(row["Correo"]);
 
-            if (DataRecord.HasColumn(row, "EnvioCorreo") && row["EnvioCorreo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "EnvioCorreo"))
                 EnvioCorreo = Convert.ToString(row["EnvioCorreo"]);
 
-            if (DataRecord.HasColumn(row, "UsuarioReal") && row["UsuarioReal"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "UsuarioReal"))
                 UsuarioReal = Convert.ToString(row["UsuarioReal"]);
 
-            if (DataRecord.HasColumn(row, "FechaRegistro") && row["FechaRegistro"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaRegistro"))
                 FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
 
-            if (DataRecord.HasColumn(row, "Estado") && row["Estado"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Estado"))
                 Estado = Convert.ToInt16(row["Estado"]);
 
-            if (DataRecord.HasColumn(row, "ZonaID") && row["ZonaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ZonaID"))
                 ZonaID = Convert.ToInt32(row["ZonaID"]);
 
-            if (DataRecord.HasColumn(row, "RegionID") && row["RegionID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "RegionID"))
                 RegionID = Convert.ToInt32(row["RegionID"]);
 
-            if (DataRecord.HasColumn(row, "CodigoRegion") && row["CodigoRegion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoRegion"))
                 Region = Convert.ToString(row["CodigoRegion"]);
 
-            if (DataRecord.HasColumn(row, "MensajeDesktop") && row["MensajeDesktop"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MensajeDesktop"))
                 MensajeDesktop = Convert.ToInt32(row["MensajeDesktop"]);
 
-            if (DataRecord.HasColumn(row, "MensajeMobile") && row["MensajeMobile"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MensajeMobile"))
                 MensajeMobile = Convert.ToInt32(row["MensajeMobile"]);
 
         }

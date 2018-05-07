@@ -199,7 +199,7 @@ namespace Portal.Consultoras.Entities
                 ModificaPedidoReservado = Convert.ToBoolean(row["ModificaPedidoReservado"]);
             if (DataRecord.HasColumn(row, "Simbolo"))
                 Simbolo = Convert.ToString(row["Simbolo"]);
-            if (DataRecord.HasColumn(row, "ConfiguracionOfertaID") && row["TipoOfertaSisID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ConfiguracionOfertaID"))
                 ConfiguracionOfertaID = Convert.ToInt32(row["ConfiguracionOfertaID"]);
             if (DataRecord.HasColumn(row, "TipoOfertaSisID"))
                 TipoOfertaSisID = Convert.ToInt32(row["TipoOfertaSisID"]);
@@ -306,7 +306,7 @@ namespace Portal.Consultoras.Entities
                 ModificaPedidoReservado = Convert.ToBoolean(row["ModificaPedidoReservado"]);
             if (DataRecord.HasColumn(row, "Simbolo"))
                 Simbolo = Convert.ToString(row["Simbolo"]);
-            if (DataRecord.HasColumn(row, "ConfiguracionOfertaID") && row["TipoOfertaSisID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ConfiguracionOfertaID"))
                 ConfiguracionOfertaID = Convert.ToInt32(row["ConfiguracionOfertaID"]);
             if (DataRecord.HasColumn(row, "TipoOfertaSisID"))
                 TipoOfertaSisID = Convert.ToInt32(row["TipoOfertaSisID"]);
