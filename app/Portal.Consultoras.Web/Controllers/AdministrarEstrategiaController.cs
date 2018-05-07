@@ -1589,6 +1589,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     listBeEstrategias.Add(new BEEstrategia());
+                    nroLote = 1;
                 }
 
                 return Json(new
