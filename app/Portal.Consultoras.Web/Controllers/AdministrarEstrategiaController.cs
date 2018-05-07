@@ -2728,51 +2728,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public ActionResult ActualizarTono(string CampaniaID, string TipoEstrategiaID, string CUV)
-        {
-            try
-            {
-                List<ServicePedido.BEEstrategia> listEstrategia;
-                var entidad = new ServicePedido.BEEstrategia
-                {
-                    PaisID = userData.PaisID,
-                    TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
-                    CUV2 = CUV != "" ? CUV : "0",
-                    CampaniaID = Convert.ToInt32(CampaniaID),
-                    Activo = -1,
-                    Imagen = -1
-                };
-
-                using (var sv = new PedidoServiceClient())
-                {
-                    listEstrategia = sv.GetEstrategias(entidad).ToList();
-                }
-                foreach (var estrategia in listEstrategia)
-                {
-                    var productoEstrategias = EstrategiaProductoObtenerServicio(estrategia);
-
-                    if (!productoEstrategias.Any()) continue;
-
-                    estrategia.CodigoEstrategia = productoEstrategias[0].codigo_estrategia;
-                    estrategia.TieneVariedad = TieneVariedad(estrategia.CodigoEstrategia, estrategia.CUV2);
-                    EstrategiaProductoInsertar(productoEstrategias, estrategia);
-                    using (var sv = new SACServiceClient())
-                    {
-                        sv.ActualizarTonoEstrategia(userData.PaisID, estrategia.EstrategiaID, estrategia.CodigoEstrategia, estrategia.TieneVariedad);
-                    }
-                }
-                return Json(new
-                {
-                    listActualizado = listEstrategia.Where(x => x.TieneVariedad == 1),
-                    message = "CUVS con tonos actualizados satisfactoriamente."
-                });
-            }
-            catch (Exception ex)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
-            }
-        }
-
         private string ObtenerTextoNiveles(NivelEstrategia[] listaNivelEstrategias)
         {
             var stringNiveles = "";

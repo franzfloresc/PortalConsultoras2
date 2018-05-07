@@ -702,8 +702,6 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEDescripcionEstrategia> ActualizarDescripcionEstrategia(int paisId, int campaniaId,
                 int tipoEstrategiaId, List<BEDescripcionEstrategia> listaDescripcionEstrategias);
 
-        [OperationContract]
-        int ActualizarTonoEstrategia(int paisId, int estrategiaId, string codigoEstrategia, int tieneVariedad);
         #endregion
 
         #region UpSelling

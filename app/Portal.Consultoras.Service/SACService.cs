@@ -1407,13 +1407,6 @@ namespace Portal.Consultoras.Service
             var bl = new BLAdministrarEstrategia();
             return bl.ActualizarDescripcionEstrategia(paisId, campaniaId, tipoEstrategiaId, listaDescripcionEstrategias);
         }
-
-        public int ActualizarTonoEstrategia(int paisId, int estrategiaId, string codigoEstrategia, int tieneVariedad)
-        {
-            var bl = new BLAdministrarEstrategia();
-            return bl.ActualizarTonoEstrategia(paisId, estrategiaId, codigoEstrategia, tieneVariedad);
-        }
-
         #endregion
 
         #region UpSelling

@@ -23,12 +23,6 @@ namespace Portal.Consultoras.BizLogic
             return listdDescripcionEstrategias;
         }
 
-        public int ActualizarTonoEstrategia(int paisId, int estrategiaId, string codigoEstrategia, int tieneVariedad)
-        {
-            var daEstrategia = new DAEstrategia(paisId);
-            return daEstrategia.ActualizarTonoEstrategia(estrategiaId, codigoEstrategia, tieneVariedad);
-        }
-
         #region Nuevo Masivo
         
         public int GetCantidadOfertasPersonalizadas(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia)

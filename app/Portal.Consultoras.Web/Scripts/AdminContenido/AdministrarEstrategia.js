@@ -727,34 +727,6 @@
             beforeSelectRow: function (rowid, e) { return false; } //this disables row being highlighted when clicked
         });
     }
-    var _createGridTonoUpdated = function (list) {
-        var gridJson = { page: 1, total: 2, records: 10, rows: list };
-        $("#listTonoActualizada").jqGrid("GridUnload");
-        $("#listTonoActualizada").empty().jqGrid({
-            datatype: "jsonstring",
-            datastr: gridJson,
-            colNames: ["CUV", "Descripción"],
-            colModel: [
-                { name: "CUV2", index: "CUV2", width: 30, sortable: false },
-                { name: "DescripcionCUV2", index: "DescripcionCUV2", sortable: false }
-            ],
-            pager: jQuery("#pagerTonoActualizada"),
-            jsonReader: {
-                repeatitems: false
-            },
-            width: 540,
-            height: "auto",
-            scrollOffset: 20,
-            rowNum: 10,
-            rowList: [10, 15, 20, 25],
-            sortname: "Label",
-            sortorder: "asc",
-            viewrecords: true,
-            hoverrows: false,
-            caption: "",
-            beforeSelectRow: function (rowid, e) { return false; } //this disables row being highlighted when clicked
-        });
-    }
 
     var _showActions = function (cellvalue, options, rowObject) {
 
@@ -1462,75 +1434,7 @@
             }
         });
     }
-    var _actualizarTonos = function () {
-        waitingDialog();
-        var params = {
-            CampaniaID: $("#ddlCampania").val(),
-            TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
-            CUV: $("#CUV").val()
-        };
 
-        jQuery.ajax({
-            type: "POST",
-            url: baseUrl + "AdministrarEstrategia/ActualizarTono",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(params),
-            async: true,
-            success: function (data) {
-                $("#listActualizarTono").jqGrid("GridUnload");
-                var gridJson = {
-                    page: 1,
-                    total: 2,
-                    records: 10,
-                    rows: [
-                        {
-                            Descripcion: "CUVs Actualizados",
-                            Cantidad: data.listActualizado.length +
-                            " <a href='#' onclick=showDialog(\'DialogTonoActualizada\')> Ver </a>"
-                        }
-                    ]
-                };
-
-                $("#listActualizarTono").empty().jqGrid({
-                    datatype: "jsonstring",
-                    datastr: gridJson,
-                    colNames: ["Descripcion", "Cantidad"],
-                    colModel: [
-                        { name: "Descripcion", index: "Descripcion", sortable: false },
-                        {
-                            name: "Cantidad",
-                            index: "Cantidad",
-                            width: 30,
-                            sortable: false
-                        }
-                    ],
-                    pager: false,
-                    jsonReader: {
-                        repeatitems: false
-                    },
-                    width: 540,
-                    height: "auto",
-                    scrollOffset: 20,
-                    rowNum: 10,
-                    rowList: [10, 15, 20, 25],
-                    sortname: "Label",
-                    sortorder: "asc",
-                    viewrecords: true,
-                    hoverrows: false,
-                    caption: ""
-                });
-                _createGridTonoUpdated(data.listActualizado);
-                _toastHelper.success(data.message);
-                closeWaitingDialog();
-                showDialog("DialogActualizarTono");
-            },
-            error: function (data, error) {
-                closeWaitingDialog();
-                _toastHelper.error(data.message);
-            }
-        });
-    }
     var _basicFieldsValidation = function () {
         if ($("#ddlPais").val() === "") {
             _toastHelper.error("Debe seleccionar el País, verifique.");
@@ -3251,26 +3155,6 @@
             title: "Resultado de estrategias no actualizadas"
         });
 
-        $("#DialogActualizarTono").dialog({
-            autoOpen: false,
-            resizable: false,
-            modal: true,
-            closeOnEscape: true,
-            width: 600,
-            draggable: false,
-            title: "Resultado de actualización de tonos."
-        });
-
-        $("#DialogTonoActualizada").dialog({
-            autoOpen: false,
-            resizable: false,
-            modal: true,
-            closeOnEscape: true,
-            width: 600,
-            draggable: false,
-            title: "Lista de CUVs actualizados."
-        });
-
         $("#DialogBloqueoCuv").dialog({
             autoOpen: false,
             resizable: false,
@@ -3745,9 +3629,6 @@
             } else {
                 _uploadFileCvs();
             }
-        },
-        clickActualizarTonos: function () {
-            if (_validarMasivo()) _actualizarTonos();
         },
         // Movido a NuevoMasivo.JS, eliminar despues del pase
         //clickAceptarMasivo1: function () {
@@ -4435,7 +4316,7 @@
         $("body").on("click", "#btnDescripcionMasivo", _eventos.clickDescripcionMasivo);
         $("body").on("click", "#btnCancelarDescMasivo1", _eventos.clickCancelarDescMasivo1);
         $("body").on("click", "#btnAceptarDescMasivo1", _eventos.clickAceptarDescMasivo1);
-        $("body").on("click", "#btnActualizarTonos", _eventos.clickActualizarTonos);
+       
         //$("body").on("click", "#btnNuevoMasivo", _eventos.clickNuevoMasivo);
         //$("body").on("click", "#btnAceptarMasivo1", _eventos.clickAceptarMasivo1);
         //$("body").on("click", "#btnAceptarMasivo2", _eventos.clickAceptarMasivo2);
@@ -4943,5 +4824,6 @@
         EliminarProducto: EliminarProducto,
         EditarProductoDetalle: EditarProductoDetalle,
         EliminarProductoDetalle: EliminarProductoDetalle
+        //variables: _variables
     }
 });
