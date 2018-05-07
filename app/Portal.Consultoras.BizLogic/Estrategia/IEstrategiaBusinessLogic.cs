@@ -41,15 +41,6 @@ namespace Portal.Consultoras.BizLogic
         int InsertTallaColorCUV(BETallaColor entidad);
         int ValidarCUVsRecomendados(BEEstrategia entidad);
         string ValidarStockEstrategia(BEEstrategia entidad);
-
-        #region Nuevo Masivo Antiguo
-        // Todos estos metodos se cambiaron a BLAdministrarEstrategia en la Region Nuevo Masivo, eliminar despues del pase
-
-        int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia);
-        List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv);
-        int GetCantidadOfertasParaTiTemporal(int paisId, int campaniaId, int tipoConfigurado);
-        int DeleteEstrategiaTemporal(int paisId, int campaniaId);
-        List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado, int nroLote);
-        #endregion
+        
     }
 }

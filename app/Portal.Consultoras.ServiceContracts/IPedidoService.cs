@@ -1271,24 +1271,5 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEPagoEnLineaResultadoLogReporte> ObtenerPagoEnLineaByFiltro(int paisId, BEPagoEnLineaFiltro filtro);
         #endregion
 
-        #region Nuevo Masivo Antiguo
-        // Todos estos metodos se movieron a SACService (Region Nuevo Masivo), eliminar despues del pase
-        
-        [OperationContract]
-        int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia);
-        
-        [OperationContract]
-        List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv);
-
-        [OperationContract]
-        int GetCantidadOfertasParaTiTemporal(int paisId, int campaniaId, int tipoConfigurado);
-
-        [OperationContract]
-        int DeleteEstrategiaTemporal(int paisId, int campaniaId);
-
-        [OperationContract]
-        List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado, int nroLote);
-
-        #endregion
     }
 }

@@ -2340,34 +2340,6 @@ namespace Portal.Consultoras.Service
             return _pedidoAppBusinessLogic.GetDetalle(pedidoDetalle);
         }
         #endregion
-
-        #region Nuevo Masivo Antiguo
-        // Todos estos metodos se movieron a SACService (Region Nuevo Masivo), eliminar despues del pase
-
-        public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia)
-        {
-            return new BLEstrategia().GetCantidadOfertasParaTi(paisId, campaniaId, tipoConfigurado, codigoEstrategia);
-        }
-
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv)
-        {
-            return new BLEstrategia().GetOfertasParaTiByTipoConfigurado(paisId, campaniaId, tipoConfigurado, estrategiaCodigo, pagina, cantidadCuv);
-        }
-
-        public int GetCantidadOfertasParaTiTemporal(int paisId, int campaniaId, int tipoConfigurado)
-        {
-            return new BLEstrategia().GetCantidadOfertasParaTiTemporal(paisId, campaniaId, tipoConfigurado);
-        }
-
-        public int DeleteEstrategiaTemporal(int paisId, int campaniaId)
-        {
-            return new BLEstrategia().DeleteEstrategiaTemporal(paisId, campaniaId);
-        }
-
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado, int nroLote)
-        {
-            return new BLEstrategia().GetOfertasParaTiByTipoConfiguradoTemporal(paisId, campaniaId, tipoConfigurado, nroLote);
-        }
-        #endregion
+        
     }
 }

@@ -609,69 +609,6 @@ namespace Portal.Consultoras.BizLogic
                 throw;
             }
         }
-
-        #region Nuevo Masivo Antiguo
-        // Todos estos metodos se cambiaron a BLAdministrarEstrategia en la Region Nuevo Masivo, eliminar despues del pase
         
-        public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia)
-        {
-            var daEstrategia = new DAEstrategia(paisId);
-            int result = daEstrategia.GetCantidadOfertasParaTi(campaniaId, tipoConfigurado, codigoEstrategia);
-            return result;
-        }
-
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv)
-        {
-            var listaEstrategias = new List<BEEstrategia>();
-            try
-            {
-                var daEstrategia = new DAEstrategia(paisId);
-                using (IDataReader reader = daEstrategia.GetOfertasParaTiByTipoConfigurado(campaniaId, tipoConfigurado, estrategiaCodigo, pagina, cantidadCuv))
-                {
-                    while (reader.Read())
-                    {
-                        listaEstrategias.Add(new BEEstrategia(reader, true));
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-                LogManager.SaveLog(ex, "", paisId);
-                listaEstrategias = new List<BEEstrategia>();
-            }
-            return listaEstrategias;
-        }
-        
-        public int GetCantidadOfertasParaTiTemporal(int paisId, int campaniaId, int tipoConfigurado)
-        {
-            var daEstrategia = new DAEstrategia(paisId);
-            int result = daEstrategia.GetCantidadOfertasParaTiTemporal(campaniaId, tipoConfigurado);
-            return result;
-        }
-
-        public int DeleteEstrategiaTemporal(int paisId, int campaniaId)
-        {
-            var daEstrategia = new DAEstrategia(paisId);
-            int result = daEstrategia.DeleteEstrategiaTemporal(campaniaId);
-            return result;
-        }
-
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado, int nroLote)
-        {
-            List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
-
-            var daEstrategia = new DAEstrategia(paisId);
-            using (IDataReader reader = daEstrategia.GetOfertasParaTiByTipoConfiguradoTemporal(campaniaId, tipoConfigurado, nroLote))
-            {
-                while (reader.Read())
-                {
-                    listaEstrategias.Add(new BEEstrategia(reader));
-                }
-            }
-            return listaEstrategias;
-        }
-
-        #endregion
     }
 }
