@@ -1830,10 +1830,12 @@ function ConfirmarEliminarRegaloGenerico(campaniaId, pedidoId, pedidoDetalleId, 
             popup.attr('data-clienteId', clienteId);
             popup.attr('data-cuvReco', cuvReco);
             popup.attr('data-esBackOrder', esBackOrder);
+            popup.attr('data-setId', setId);
             showDialog("divAvisoEliminarRegaloGenerico");
+
         }
         else {
-            DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder);
+            DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId);
         }
     } else {
         DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId);
