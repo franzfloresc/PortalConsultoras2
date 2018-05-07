@@ -113,6 +113,10 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public decimal TippingPoint { get; set; }
 
+        [DataMember]
+        public bool ValidacionAbierta { get; set; }
+
+
         public BEPedidoWeb()
         { }
 
@@ -173,6 +177,10 @@ namespace Portal.Consultoras.Entities
             if (row.HasColumn("NumeroPedido") && row["NumeroPedido"] != DBNull.Value)
                 NumeroPedido = Convert.ToInt32(row["NumeroPedido"]);
             if (row.HasColumn("VersionProl")) VersionProl = Convert.ToByte(row["VersionProl"]);
+            if (row.HasColumn("ModificaPedidoReservado") && row["ModificaPedidoReservado"] != DBNull.Value)
+                ModificaPedidoReservado = Convert.ToBoolean(row["ModificaPedidoReservado"]);
+            if (row.HasColumn("ValidacionAbierta") && row["ValidacionAbierta"] != DBNull.Value)
+                ValidacionAbierta = Convert.ToBoolean(row["ValidacionAbierta"]);
         }
     }
 }
