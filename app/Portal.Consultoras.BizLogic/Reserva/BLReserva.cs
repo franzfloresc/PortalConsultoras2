@@ -3,6 +3,7 @@ using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.ServicePROL;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.ReservaProl;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -15,7 +16,7 @@ using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic.Reserva
 {
-    public class BLReserva
+    public class BLReserva : IReservaBusinessLogic
     {
         public string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo)
         {
