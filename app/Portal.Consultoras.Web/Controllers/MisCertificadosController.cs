@@ -168,7 +168,7 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.PaisID.Colombia:
                     certificado.Nombre = "Certificados Tributarios";
 
-                    if (userData.TotalCompraCer == 0)
+                    if (userData.TotalCompraCer.Equals(0.0))
                     {
                         certificado.MensajeError = "No tienes venta registrada con nosotros en el año gravable anterior, no es posible expedir un certificado tributario.";
                         break;
