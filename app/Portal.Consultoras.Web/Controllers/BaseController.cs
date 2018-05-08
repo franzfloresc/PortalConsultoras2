@@ -2557,9 +2557,11 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (deuda.Any())
             {
-                model.CuerpoDetalles.Add(string.Format("Tener una <b>deuda</b> de {0} {1}", userData.Simbolo, Util.DecimalToStringFormat(deuda.FirstOrDefault().Valor, userData.CodigoISO)));
+                var item = deuda.FirstOrDefault();
+                model.CuerpoDetalles.Add(string.Format("Tener una <b>deuda</b> de {0} {1}", userData.Simbolo, Util.DecimalToStringFormat(item.Valor, userData.CodigoISO)));
                 model.CuerpoMensaje2 = "Te invitamos a <b>cancelar</b> el saldo pendiente y <b>reservar</b> tu pedido el día de hoy para que sea facturado exitosamente.";
                 model.MotivoRechazo = Constantes.GPRMotivoRechazo.ActualizacionDeuda;
+                model.Campania = item.Campania;
             }
         }
 
