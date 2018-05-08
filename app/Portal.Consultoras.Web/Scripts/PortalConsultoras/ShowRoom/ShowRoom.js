@@ -345,7 +345,6 @@ $(document).ready(function () {
     }
 });
 
-
 function CargarProductosShowRoom(busquedaModel) {
     $.ajaxSetup({ cache: false });
 
@@ -636,6 +635,7 @@ function click_producto_showroow(Descripcion, CUV, PrecioOferta, DescripcionMarc
         }
     });
 }
+
 function CargarProductosShowRoomPromise(busquedaModel) {
     var d = $.Deferred();
     var promise = $.ajax({
@@ -652,6 +652,7 @@ function CargarProductosShowRoomPromise(busquedaModel) {
     promise.fail(d.reject);
     return d.promise();
 }
+
 function recortarPalabra(palabra, tamanio) {
     return palabra.length > tamanio ? (palabra.substring(0, tamanio - 3) + '...') : palabra;
 }
@@ -724,6 +725,7 @@ function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
         if (busquedaModel && busquedaModel.hidden) { $("#divProductosShowRoom").hide(); }
     }
 }
+
 function ConfigurarSlick() {
     $('#contenedor-showroom-subcampanias-mobile.slick-initialized').slick('unslick');
     $('#contenedor-showroom-subcampanias-mobile').slick({
@@ -744,6 +746,7 @@ function ConfigurarSlick() {
 function AsignarPosicionAListaOfertas(listaOfertas) {
     var posicion = 0;
     var nuevaListaOfertas = [];
+
     $.each(listaOfertas, function (index, value) {
         posicion++;
         value.Posicion = posicion;
@@ -753,11 +756,14 @@ function AsignarPosicionAListaOfertas(listaOfertas) {
 
     return nuevaListaOfertas;
 }
+
 function ConstruirDescripcionOferta(arrDescripcion) {
     var descripcion = "";
-    $.each(arrDescripcion, function (index, value) {
-        descripcion += value.NombreComercial + "<br />";
-    });
+    if (arrDescripcion != null) {
+        $.each(arrDescripcion, function (index, value) {
+            descripcion += value.NombreComercial + "<br />";
+        });
+    }
     return descripcion;
 }
 
