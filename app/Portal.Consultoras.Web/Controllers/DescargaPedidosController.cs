@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceZonificacion;
+
 using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
@@ -17,33 +19,31 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult DescargarPedidos()
         {
+            var descargarPedidoModel = new DescargarPedidoModel();
+
             try
             {
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "DescargaPedidos/DescargarPedidos"))
                     return RedirectToAction("Index", "Bienvenida");
+
+                descargarPedidoModel.listaPaises = DropDowListPaises();
+                descargarPedidoModel.PedidoFICActivo = UserData().PedidoFICActivo;
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
 
-            var descargarPedidoModel = new DescargarPedidoModel()
-            {
-                listaPaises = DropDowListPaises(),
-                PedidoFICActivo = userData.PedidoFICActivo
-            };
             return View(descargarPedidoModel);
         }
 
         private IEnumerable<PaisModel> DropDowListPaises()
         {
-            IList<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+            using (var sv = new ZonificacionServiceClient())
             {
-                lst = sv.SelectPaises().ToList().FindAll(x => x.PaisID == UserData().PaisID);
+                var lst = sv.SelectPaises();
+                return Mapper.Map<IEnumerable<PaisModel>>(lst.Where(x => x.PaisID == UserData().PaisID));
             }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
         [HttpPost]
