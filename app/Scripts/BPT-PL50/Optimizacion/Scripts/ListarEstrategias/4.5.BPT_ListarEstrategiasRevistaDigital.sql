@@ -1,6 +1,6 @@
-USE [BelcorpPeru_BPT]
+USE [BelcorpPeru_PL50]
 GO
-
+ -- exec ListarEstrategiasRevistaDigital 201807, '000001740'  
 ALTER PROCEDURE [dbo].[ListarEstrategiasRevistaDigital]
 	@CampaniaID INT,
 	@CodigoConsultora VARCHAR(30)
