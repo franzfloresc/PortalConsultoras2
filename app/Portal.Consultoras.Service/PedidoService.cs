@@ -2385,7 +2385,7 @@ namespace Portal.Consultoras.Service
             return _pedidoAppBusinessLogic.Reserva(usuario);
         }
 
-        public BEPedidoDetalleAppResult DeshacerPedidoApp(BEUsuario usuario)
+        public BEPedidoDetalleAppResult DeshacerReservaPedidoApp(BEUsuario usuario)
         {
             return _pedidoAppBusinessLogic.DeshacerPedido(usuario);
         }        
