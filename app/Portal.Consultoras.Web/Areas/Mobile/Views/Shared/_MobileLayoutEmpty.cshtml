@@ -42,6 +42,21 @@
 	}
 </head>
 <body>
+    @if (ViewBag.PaisesConTrackingJetlore == "1")
+    {
+        <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
+
+        <script type="text/javascript">
+            var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
+
+            JL.tracking({
+                cid: trackingJetloreAccessToken,
+                user_id: '@ViewBag.CodigoConsultoraDL',
+                feed_id: 'Belcorp_' + '@ViewBag.CodigoISODL',
+            });
+        </script>
+    }
+
 	<!-- Google Tag Manager -->
 	<script type="text/javascript">
         dataLayer = [{
