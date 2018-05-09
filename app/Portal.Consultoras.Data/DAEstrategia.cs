@@ -314,7 +314,7 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        public IDataReader GetMasVendidos(BEEstrategia entidad)
+        public IDataReader GetEstrategiaMasVendidos(BEEstrategia entidad)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarOfertasMasVendidos"))
             {

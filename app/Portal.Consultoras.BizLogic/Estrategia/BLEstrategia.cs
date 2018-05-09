@@ -230,6 +230,12 @@ namespace Portal.Consultoras.BizLogic
                             CacheManager<BEEstrategia>.AddData(entidad.PaisID, ECacheItem.HVEstrategia, entidad.CampaniaID.ToString(), estrategias);
                         }
                         break;
+                    case Constantes.TipoEstrategiaCodigo.LosMasVendidos:
+                        using (var reader = daEstrategia.GetEstrategiaMasVendidos(entidad))
+                        {
+                            while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                        }
+                        break;
                     default:
                         using (var reader = daEstrategia.GetEstrategiaPedido(entidad))
                         {
@@ -246,20 +252,6 @@ namespace Portal.Consultoras.BizLogic
                 LogManager.SaveLog(ex, entidad.ConsultoraID, entidad.PaisID.ToString());
                 return new List<BEEstrategia>();
             }
-        }
-
-        public List<BEEstrategia> GetMasVendidos(BEEstrategia entidad)
-        {
-            var estrategias = new List<BEEstrategia>();
-
-            var daEstrategia = new DAEstrategia(entidad.PaisID);
-            using (var reader = daEstrategia.GetMasVendidos(entidad))
-            {
-                while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
-            }
-
-            var estrategiasResult = EstrategiasPedidoLimpiar(estrategias, entidad);
-            return estrategiasResult;
         }
 
         private List<BEEstrategia> EstrategiasPedidoLimpiar(List<BEEstrategia> lista, BEEstrategia entidad)
@@ -323,9 +315,9 @@ namespace Portal.Consultoras.BizLogic
                 estrategia.PrecioString = Util.DecimalToStringFormat(estrategia.Precio2, codigoIso);
                 estrategia.PrecioTachado = Util.DecimalToStringFormat(estrategia.Precio, codigoIso);
                 estrategia.GananciaString = Util.DecimalToStringFormat(estrategia.Ganancia, codigoIso);
-                estrategia.FotoProducto01 = string.IsNullOrEmpty(estrategia.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, estrategia.FotoProducto01, carpetaPais);
-                estrategia.FotoProductoSmall = string.IsNullOrEmpty(estrategia.FotoProducto01) ? string.Empty : Util.GenerarRutaImagenResize(estrategia.FotoProducto01, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
-                estrategia.FotoProductoMedium = string.IsNullOrEmpty(estrategia.FotoProducto01) ? string.Empty : Util.GenerarRutaImagenResize(estrategia.FotoProducto01, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium);
+                estrategia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.FotoProducto01, carpetaPais);
+                estrategia.FotoProductoSmall = Util.GenerarRutaImagenResize(estrategia.FotoProducto01, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
+                estrategia.FotoProductoMedium = Util.GenerarRutaImagenResize(estrategia.FotoProducto01, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium);
                 estrategia.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
                 estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
             });
