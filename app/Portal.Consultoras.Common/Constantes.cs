@@ -61,6 +61,8 @@ namespace Portal.Consultoras.Common
 
             public const short Registrado = 1;
             public const short Facturado = 2;
+
+            public const string PedidoValidado = "PV";
         }
 
         public static class PaisID
@@ -1912,6 +1914,9 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_GUARDAR_MONTO_MAX = "2025";
                 public const string ERORR_GUARDAR_NO_DISP = "2026";
                 public const string ERROR_GUARDAR_DEUDA = "2027";
+
+                public const string ERROR_DESHACER_PEDIDO = "2109";
+                public const string ERROR_DESHACER_PEDIDO_ESTADO = "2110";
             }
             public static Dictionary<string, string> Message
             {
@@ -1955,6 +1960,9 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_GUARDAR_MONTO_MAX, "Pedido no guardado, excede monto máximo." },
                         {Code.ERORR_GUARDAR_NO_DISP, "Guardar no disponible." },
                         {Code.ERROR_GUARDAR_DEUDA, "Pedido no guardado, deuda pendiente." },
+
+                        {Code.ERROR_DESHACER_PEDIDO , "Ocurrió un error al deshacer el pedido." },
+                        {Code.ERROR_DESHACER_PEDIDO_ESTADO , "El pedido no se encuentra reservado." }
                     });
                 }
             }
