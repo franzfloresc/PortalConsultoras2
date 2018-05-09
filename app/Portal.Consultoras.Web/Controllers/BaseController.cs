@@ -1313,7 +1313,6 @@ namespace Portal.Consultoras.Web.Controllers
                     TextoLibre = Util.Trim(fichaProducto.TextoLibre),
 
                     MarcaID = fichaProducto.MarcaID,
-                    UrlCompartir = fichaProducto.UrlCompartir,
 
                     TienePaginaProducto = fichaProducto.PuedeVerDetalle,
                     TienePaginaProductoMob = fichaProducto.PuedeVerDetalleMob,
@@ -1418,7 +1417,6 @@ namespace Portal.Consultoras.Web.Controllers
                 fichaProductoModelo.Hermanos = new List<ProductoModel>();
                 fichaProductoModelo.TextoLibre = Util.Trim(fichaProductoModelo.TextoLibre);
                 fichaProductoModelo.CodigoVariante = Util.Trim(fichaProductoModelo.CodigoVariante);
-                fichaProductoModelo.UrlCompartir = GetUrlCompartirFB();
 
                 var listaPedido = ObtenerPedidoWebDetalle();
                 fichaProductoModelo.IsAgregado = listaPedido.Any(p => p.CUV == fichaProductoModelo.CUV2);
@@ -2075,7 +2073,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             model.TeQuedan = CountdownODD(userData);
-            model.FBRuta = GetUrlCompartirFB();
 
             var configOdd = GetConfiguracionEstrategia(Constantes.ConfiguracionPais.OfertaDelDia);
             model.ConfiguracionContenedor = configOdd;
@@ -2577,34 +2574,7 @@ namespace Portal.Consultoras.Web.Controllers
             var fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
             return fechaHoy >= fechaInicioCampania.Date ? 0 : (fechaInicioCampania.Subtract(DateTime.Now.AddHours(zonaHoraria)).Days + 1);
         }
-
-        public string GetUrlCompartirFB()
-        {
-            var urlBaseFb = "";
-            if (System.Web.HttpContext.Current.Request.UserAgent != null)
-            {
-                var request = HttpContext.Request;
-                if (request.Url != null)
-                    urlBaseFb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" +
-                                userData.CodigoISO + "_[valor]";
-            }
-            return urlBaseFb;
-        }
-
-        public string GetUrlCompartirFBSR(int ofertaShowRoomId)
-        {
-            var urlBaseFb = "";
-            if (System.Web.HttpContext.Current.Request.UserAgent != null)
-            {
-                var request = HttpContext.Request;
-                if (request.Url != null)
-                    urlBaseFb = request.Url.Scheme + "://" + request.Url.Authority + "/Set.aspx?id=" +
-                                userData.CodigoISO + "_" + ofertaShowRoomId.ToString() + "_" +
-                                userData.CampaniaID.ToString() + "_F";
-            }
-            return urlBaseFb;
-        }
-
+                
         protected JsonResult ErrorJson(string message, bool allowGet = false)
         {
             return Json(new { success = false, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
@@ -4704,6 +4674,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TieneRDC = revistaDigital.TieneRDC;
             ViewBag.TieneHV = herramientasVenta.TieneHV;
             ViewBag.revistaDigital = getRevistaDigitalShortModel();
+            ViewBag.variableBase = getBaseVariablesPortal();
 
             ViewBag.TituloCatalogo = ((revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI)
                 || (!revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva));
@@ -4749,6 +4720,17 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
             int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
             if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
+        }
+
+        private VariablesGeneralesPortalModel getBaseVariablesPortal()
+        {
+            var baseVariablesGeneral = new VariablesGeneralesPortalModel
+            {
+                UrlCompartir = Util.GetUrlCompartirFB(userData.CodigoISO)
+            };
+
+            return baseVariablesGeneral;
+
         }
 
         #endregion

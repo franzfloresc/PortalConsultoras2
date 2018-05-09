@@ -44,6 +44,7 @@
 
 	<link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
 
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpVariablesGeneralesPortal.cshtml")
 	<script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
         var revistaDigital = @Html.Raw(Json.Encode(ViewBag.revistaDigital));
@@ -274,9 +275,7 @@
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="{{oferta.CUV2}}" />
                 <input type="hidden" class="rsFBMensaje" value="" />
-                <input type="hidden" class="rsFBRuta" value="{{../FBRuta}}" />
                 <input type="hidden" class="rsWAMensaje" value="" />
-                <input type="hidden" class="rsWARuta" value="{{../FBRuta}}" />
                 <input type="hidden" class="rsFBRutaImagen" value="{{oferta.ImagenDisplay}}" />
                 <input type="hidden" class="rsWARutaImagen" value="{{oferta.ImagenDisplay}}" />
                 <input type="hidden" class="MarcaID" value="{{oferta.MarcaID}}" />

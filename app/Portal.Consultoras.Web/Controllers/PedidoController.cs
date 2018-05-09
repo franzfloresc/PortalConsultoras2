@@ -3776,7 +3776,6 @@ namespace Portal.Consultoras.Web.Controllers
                     p.PrecioValorizadoString = Util.DecimalToStringFormat(p.PrecioValorizado, userData.CodigoISO);
                     p.MetaMontoStr = Util.DecimalToStringFormat(p.MontoMeta, userData.CodigoISO);
                     p.Simbolo = userData.Simbolo;
-                    p.UrlCompartirFB = GetUrlCompartirFB();
                     p.NombreComercialCorto = Util.SubStrCortarNombre(p.NombreComercial, 40, "...");
                     var imagenUrl = Util.SubStr(p.Imagen, 0);
 

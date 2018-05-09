@@ -49,7 +49,6 @@ namespace Portal.Consultoras.Web.Models
         public int LimiteVenta { get; set; }
 
         public int MarcaID { get; set; }
-        public string UrlCompartir { get; set; }
 
         public List<ProductoModel> Hermanos { get; set; }
     }

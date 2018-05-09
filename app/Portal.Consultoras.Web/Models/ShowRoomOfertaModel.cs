@@ -99,7 +99,6 @@ namespace Portal.Consultoras.Web.Models
         public string UrlTerminosCondiciones { get; set; }
 
         public bool EsSubCampania { get; set; }
-        public string UrlCompartir { get; set; }
         public int UnidadesPermitidasRestantes { get; set; }
 
         public int Posicion { get; set; }

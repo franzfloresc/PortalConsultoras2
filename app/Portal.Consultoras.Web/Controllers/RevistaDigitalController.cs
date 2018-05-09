@@ -85,7 +85,6 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.PrecioTachado = Util.Trim(modelo.PrecioTachado);
                 modelo.CodigoVariante = Util.Trim(modelo.CodigoVariante);
                 modelo.TextoLibre = Util.Trim(modelo.TextoLibre);
-                modelo.UrlCompartir = Util.Trim(modelo.UrlCompartir);
             }
 
             sessionManager.ProductoTemporal = modelo;

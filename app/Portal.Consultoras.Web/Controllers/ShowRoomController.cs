@@ -2905,10 +2905,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                 bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
-                var urlCompartir = GetUrlCompartirFB();
 
                 var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
-                productosShowRoom.ForEach(p => p.UrlCompartir = urlCompartir);
 
                 var listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
                 var totalNoSubCampania = listaNoSubCampania.Count;
@@ -2979,10 +2977,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                 var esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
-                var urlCompartir = GetUrlCompartirFB();
 
                 var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
-                productosShowRoom.ForEach(p => p.UrlCompartir = urlCompartir);
 
                 if (model.Limite > 0 && productosShowRoom.Count > 0)
                 {

@@ -163,7 +163,6 @@ namespace Portal.Consultoras.Web.Controllers
                 estrategiaModelo.Hermanos = new List<ProductoModel>();
                 estrategiaModelo.TextoLibre = Util.Trim(estrategiaModelo.TextoLibre);
                 estrategiaModelo.CodigoVariante = Util.Trim(estrategiaModelo.CodigoVariante);
-                estrategiaModelo.UrlCompartir = GetUrlCompartirFB();
 
                 var listaPedido = ObtenerPedidoWebDetalle();
                 estrategiaModelo.IsAgregado = listaPedido.Any(p => p.CUV == estrategiaModelo.CUV2);
@@ -616,7 +615,6 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.TextoLibre = Util.Trim(estrategia.TextoLibre);
 
                 prodModel.MarcaID = estrategia.MarcaID;
-                prodModel.UrlCompartir = estrategia.UrlCompartir;
 
                 prodModel.TienePaginaProducto = estrategia.PuedeVerDetalle;
                 prodModel.TienePaginaProductoMob = estrategia.PuedeVerDetalleMob;

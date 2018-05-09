@@ -1175,7 +1175,7 @@ function CompartirRedesSociales(e) {
     if (tipoRedes == "") tipoRedes = $.trim($(obj).attr("data-compartir"));
     if (tipoRedes == "") return false;
 
-    var ruta = $(article).find(".rs" + tipoRedes + "Ruta").val();
+    var ruta = variablesPortal.UrlCompartir;
     if (ruta == "") return false;
 
     var padre = obj.parents("[data-item]");
@@ -1207,7 +1207,6 @@ function CompartirRedesSocialesTexto(texto) {
 
     return "whatsapp://send?text=" + texto;
 }
-
 
 function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre) {
 

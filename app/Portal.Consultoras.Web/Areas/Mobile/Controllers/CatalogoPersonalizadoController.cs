@@ -78,8 +78,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     Session["ProductosCatalogoPersonalizadoFilter"] = listaProductoModel;
                 }
             }
-
-            productoModel.FBRuta = GetUrlCompartirFB();
+            
             ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
             ViewBag.EsLebel = userData.EsLebel;
 

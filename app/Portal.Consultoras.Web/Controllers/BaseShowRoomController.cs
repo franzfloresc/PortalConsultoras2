@@ -320,7 +320,7 @@ namespace Portal.Consultoras.Web.Controllers
                 x.CodigoISO = userData.CodigoISO;
                 x.Simbolo = userData.Simbolo;
                 x.Agregado = (listaDetalle.Find(p => p.CUV == x.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none";
-                x.UrlCompartir = GetUrlCompartirFB();
+
                 string CodigoEstrategia = listaShowRoomOfertaFinal.Where(f => f.CUV == x.CUV).Select(o => o.CodigoEstrategia).FirstOrDefault();
                 if (CodigoEstrategia == "2001" || CodigoEstrategia == "2002")
                 {
@@ -456,8 +456,7 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.ListaOfertaShowRoom = GetOfertaListadoExcepto(id);
             var listaDetalle = ObtenerPedidoWebDetalle();
             modelo.ListaOfertaShowRoom.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
-
-            modelo.FBRuta = GetUrlCompartirFB();
+            
             modelo.FBMensaje = "";
 
             bool esMovil = Request.Browser.IsMobileDevice;

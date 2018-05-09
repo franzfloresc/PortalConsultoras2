@@ -138,6 +138,7 @@ namespace Portal.Consultoras.BizLogic
             int result = daEstrategia.DeshabilitarEstrategia(entidad);
             return result;
         }
+
         public int EliminarEstrategia(BEEstrategia entidad)
         {
             try
@@ -148,6 +149,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception) { throw; }
         }
+
         public int EliminarTallaColor(BETallaColor entidad)
         {
             var daEstrategia = new DAEstrategia(entidad.PaisID);
@@ -318,7 +320,6 @@ namespace Portal.Consultoras.BizLogic
                 estrategia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.FotoProducto01, carpetaPais);
                 estrategia.FotoProductoSmall = Util.GenerarRutaImagenResize(estrategia.FotoProducto01, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
                 estrategia.FotoProductoMedium = Util.GenerarRutaImagenResize(estrategia.FotoProducto01, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium);
-                estrategia.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
                 estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
             });
             return estrategiasResult;
@@ -372,7 +373,7 @@ namespace Portal.Consultoras.BizLogic
             var daEstrategia = new DAEstrategia(paisId);
             return daEstrategia.InsertEstrategiaTemporal(lista, campaniaId, codigoUsuario, nroLore);
         }
-        
+
         public int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId)
         {
             var daEstrategia = new DAEstrategia(paisId);
@@ -398,7 +399,6 @@ namespace Portal.Consultoras.BizLogic
             listaEstrategias.ForEach(item =>
             {
                 item.FotoProducto01 = string.IsNullOrEmpty(item.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, item.FotoProducto01, carpetaPais);
-                item.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
             });
 
             return listaEstrategias;
@@ -573,7 +573,7 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #endregion
-        
+
         public List<int> InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
         {
             try
@@ -601,6 +601,6 @@ namespace Portal.Consultoras.BizLogic
                 throw;
             }
         }
-        
+
     }
 }

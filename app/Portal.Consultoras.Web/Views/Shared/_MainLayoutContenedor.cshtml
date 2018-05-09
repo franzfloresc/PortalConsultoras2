@@ -30,6 +30,7 @@
     }
     <link href="@Url.Content("~/Content/Css/Site/calc.css")" rel="stylesheet" type="text/css" />
 
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpVariablesGeneralesPortal.cshtml")
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))' == "True";
@@ -328,9 +329,7 @@
                             <div data-compartir-campos="" style="display:none;">
                                 <input type="hidden" class="CUV" value="{{detalle.CUV2}}" />
                                 <input type="hidden" class="rsFBMensaje" value="" />
-                                <input type="hidden" class="rsFBRuta" value="{{../FBRuta}}" />
                                 <input type="hidden" class="rsWAMensaje" value="" />
-                                <input type="hidden" class="rsWARuta" value="{{../FBRuta}}" />
                                 <input type="hidden" class="rsFBRutaImagen" value="{{detalle.ImagenDisplay}}" />
                                 <input type="hidden" class="rsWARutaImagen" value="{{detalle.ImagenDisplay}}" />
                                 <input type="hidden" class="MarcaID" value="{{detalle.MarcaID}}" />

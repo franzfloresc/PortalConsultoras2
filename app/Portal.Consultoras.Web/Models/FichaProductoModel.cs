@@ -69,8 +69,7 @@ namespace Portal.Consultoras.Web.Models
         public int PuedeCambiarCantidad { get; set; }
         public int PuedeAgregar { get; set; }
         public int IsMobile { get; set; }
-
-        public string UrlCompartir { get; set; }
+        
         public string CodigoEstrategia { get; set; }
         public List<ProductoModel> Hermanos { get; set; }
         public List<string> ListaDescripcionDetalle { get; set; }

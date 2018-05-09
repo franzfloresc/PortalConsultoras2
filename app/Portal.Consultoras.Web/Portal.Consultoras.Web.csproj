@@ -656,6 +656,7 @@
     <Compile Include="Models\RevistaDigitalPopupModel.cs" />
     <Compile Include="Models\HerramientasVentaModel.cs" />
     <Compile Include="Models\RevistaDigitalModel.cs" />
+    <Compile Include="Models\Core\VariablesGeneralesPortalModel.cs" />
     <Compile Include="Models\RevistaDigitalShortModel.cs" />
     <Compile Include="Models\RevistaDigitalSuscripcionModel.cs" />
     <Compile Include="Models\RolModel.cs" />
@@ -4980,6 +4981,7 @@
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales.cshtml" />
     <Content Include="Views\Lanzamientos\Template_LanzamientosTonos.cshtml" />
     <Content Include="Views\AdministrarEstrategia\_NuevoMasivo.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpVariablesGeneralesPortal.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

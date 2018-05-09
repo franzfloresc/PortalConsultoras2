@@ -83,7 +83,6 @@ namespace Portal.Consultoras.BizLogic
                 ficha.PrecioString = Util.DecimalToStringFormat(ficha.Precio2, codigoIso);
                 ficha.PrecioTachado = Util.DecimalToStringFormat(ficha.Precio, codigoIso);
                 ficha.FotoProducto01 = string.IsNullOrEmpty(ficha.FotoProducto01) ? string.Empty : ficha.FotoProducto01.StartsWith("http") ? ficha.FotoProducto01 : ConfigS3.GetUrlFileS3(carpetaPais, ficha.FotoProducto01, carpetaPais);
-                ficha.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
                 ficha.CodigoEstrategia = Util.Trim(ficha.CodigoEstrategia);
             });
             return fichasProductosResult;
