@@ -201,7 +201,7 @@ var menuModule = (function () {
 
         if (esAncla === "True") {
             _changeLogoMenuDesktopAndMobile();
-            if (currentLocation.indexOf("/ofertasparati") > -1) {
+            if (currentLocation.indexOf("/ofertasparati") > -1 || currentLocation.indexOf("/Lanzamientos/Detalle")) {
                 var indexOf = currentLocation.replace("?", "&").indexOf("&campaniaid=");
                 var controller = "Ofertas#";
                 if (indexOf > 0) {
