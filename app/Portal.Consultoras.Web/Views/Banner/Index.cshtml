@@ -986,7 +986,10 @@
                     if (data.listasegmento.length > 0) {
                         for (var item in data.listasegmento) {
                             if (data.listasegmento.hasOwnProperty(+item)) {
-                                ddlSegmentoBanner.append('<input type="Checkbox" value="' + data.listasegmento[item].BannerSegmentoId + '" />' + data.listasegmento[item].BannerSegmentoDes + '<br>');
+                                //ddlSegmentoBanner.append('<input type="Checkbox" value="' + data.listasegmento[item].BannerSegmentoId + '" />' + data.listasegmento[item].BannerSegmentoDes + '<br>');
+                                //oscar
+                                ddlSegmentoBanner.append('<div style="display:block"><div style="float:left"><input type="Checkbox" value="' + data.listasegmento[item].BannerSegmentoId + '" style="display:inline-block !important; height: 15px !important;" /></div><div style="float:left;">' + data.listasegmento[item].BannerSegmentoDes + '</div> <div style="clear: both"></div></div>');
+
                             }
 
                         }
@@ -1810,7 +1813,8 @@
             resizable: false,
             modal: true,
             closeOnEscape: true,
-            width: 450,
+           // width: 450, oscar
+            width: 810,
             draggable: true,
             title: "Segmento y Zona",
             buttons:
@@ -2208,29 +2212,47 @@
                 <select id="ddlPaisesBanSegZona"></select>
             </div>
         </div>
-        <div class="div-3">
-            <div class="titC">Segmento:</div>
-            <div class="selectA borde_redondeado">
-                <ul id="ddlSegmentoBanner"></ul>&nbsp;
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titC">Jerarquía:</div>
-            <div class="treeview_content borde_redondeado">
-                <div id="arbolRegionZona" class="demo">
+
+        <div>
+            <div style="float:left">
+                <div class="div-3">
+                    <div class="titC">Segmento:</div>
+                    <div class="selectA borde_redondeado">
+                        <ul id="ddlSegmentoBanner"></ul>&nbsp;
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="div-3">
-            <div class="titC"></div>
-            <div class="titH">
-                <label id="lblSeleccionar">
-                    <input type="checkbox" id="chkSeleccionar" />
-                    Seleccionar todo
-                </label>
+
+            <div style="float:left">
+                <div class="div-3">
+                    <div class="titC">Jerarquía:</div>
+                    <div class="treeview_content borde_redondeado">
+                        <div id="arbolRegionZona" class="demo">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="div-3">
+                    <div class="titC"></div>
+
+                    <div class="titH">
+
+                        <div style="float:left">
+                            <label id="lblSeleccionar">
+                                <input type="checkbox" id="chkSeleccionar" />
+                            </label>
+                        </div>
+                        <div style="float:left; margin-top:10px">
+                            Seleccionar todo
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div style="clear: both"></div>
             </div>
         </div>
-    </div>
 </div>
 
 <div id="DialogMensajesBanner">
