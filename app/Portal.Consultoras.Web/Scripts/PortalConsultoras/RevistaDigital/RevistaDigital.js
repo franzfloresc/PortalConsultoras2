@@ -804,12 +804,15 @@ $(window).on("scroll", function () {
             $('.contenido_zona_dorada_contenedor_desktop').addClass('fixed_head');
             $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').addClass('fixed_head_cabecera');
             $('.divOfertaProductosPerdiofix').addClass('fixed_productos');
+            $('footer').css("position", "relative");
+            $('footer').css("z-index", "99");
         }
         else {
             $('.zona_dorada_contenedor_desktop').removeClass('fixed_contenedor_head');
             $('.contenido_zona_dorada_contenedor_desktop').removeClass('fixed_head');
             $('.contenido_zona_dorada_contenedor_desktop .fix-zona-dorada').removeClass('fixed_head_cabecera');
             $('.divOfertaProductosPerdiofix').removeClass('fixed_productos');
+            $('footer').css("position", "initial");
 
         }
     }
