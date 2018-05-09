@@ -4515,7 +4515,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var svc = new ODSServiceClient())
                 {
-                    numero = svc.ValidarBusquedaProgramaNuevas(userData.PaisID, userData.CampaniaID, Convert.ToInt32(userData.ConsultoraID), userData.CodigoPrograma, userData.ConsecutivoNueva, cuv, userData.ParticipaEnProgramaNueva);
+                    numero = svc.ValidarBusquedaProgramaNuevas(userData.PaisID, userData.CampaniaID, Convert.ToInt32(userData.ConsultoraID), userData.CodigoPrograma, userData.ConsecutivoNueva, cuv, userData.EsConsultoraNueva, userData.ParticipaEnProgramaNueva);
                 }
             }
             catch (Exception ex)

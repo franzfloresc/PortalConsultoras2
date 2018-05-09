@@ -642,6 +642,7 @@
         <xs:element minOccurs="0" name="codigoPrograma" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="consecutivoNueva" type="xs:int" />
         <xs:element minOccurs="0" name="cuv" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="consultoraNueva" type="xs:boolean" />
         <xs:element minOccurs="0" name="participaProgramaNuevas" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
