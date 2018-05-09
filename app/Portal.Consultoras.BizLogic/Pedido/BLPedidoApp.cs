@@ -507,84 +507,111 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_INTERNO, ex.Message);
             }
         }
+
+        public BEPedidoDetalleAppResult DeshacerPedido(BEUsuario usuario)
+        {
+            var mensaje = string.Empty;
+            var pedido = new BEPedidoWeb();
+
+            try
+            {
+                //Obtener pedido
+                pedido = _pedidoWebBusinessLogic.GetPedidoWebByCampaniaConsultora(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
+
+                //verificapedidoValidado
+                if (!(pedido.EstadoPedido == Constantes.EstadoPedido.Procesado && !pedido.ModificaPedidoReservado && !pedido.ValidacionAbierta))
+                    return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_DESHACER_PEDIDO_ESTADO);
+
+                //Deshacer Pedido 
+                mensaje = _reservaBusinessLogic.DeshacerPedidoValidado(usuario, Constantes.EstadoPedido.PedidoValidado);
+                if (mensaje != string.Empty) return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_DESHACER_PEDIDO, mensaje);
+
+                return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.SUCCESS);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, usuario.CodigoUsuario, usuario.PaisID);
+                return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_INTERNO, ex.Message);
+            }
+        }
         #endregion
 
         #region GetCUV
         private bool BloqueoProductosCatalogo(BERevistaDigital revistaDigital, string codigosRevistaImpresa, BEProducto producto, BEProductoAppBuscar productoBuscar)
+    {
+        if (producto == null) return true;
+
+        revistaDigital = revistaDigital ?? new BERevistaDigital();
+
+        if (!revistaDigital.TieneRDC) return true;
+
+        if (!revistaDigital.EsActiva) return true;
+
+        if (revistaDigital.BloquearRevistaImpresaGeneral != null)
         {
-            if (producto == null) return true;
-
-            revistaDigital = revistaDigital ?? new BERevistaDigital();
-
-            if (!revistaDigital.TieneRDC) return true;
-
-            if (!revistaDigital.EsActiva) return true;
-
-            if (revistaDigital.BloquearRevistaImpresaGeneral != null)
-            {
-                if (revistaDigital.BloquearRevistaImpresaGeneral == 1) return !codigosRevistaImpresa.Contains(producto.CodigoCatalogo.ToString());
-            }
-            else
-            {
-                if (revistaDigital.BloqueoRevistaImpresa) return !codigosRevistaImpresa.Contains(producto.CodigoCatalogo.ToString());
-            }
-
-            return true;
+            if (revistaDigital.BloquearRevistaImpresaGeneral == 1) return !codigosRevistaImpresa.Contains(producto.CodigoCatalogo.ToString());
+        }
+        else
+        {
+            if (revistaDigital.BloqueoRevistaImpresa) return !codigosRevistaImpresa.Contains(producto.CodigoCatalogo.ToString());
         }
 
-        private bool BloqueoProductosDigitales(BEUsuario usuario, BEProducto producto, BEProductoAppBuscar productoBuscar)
+        return true;
+    }
+
+    private bool BloqueoProductosDigitales(BEUsuario usuario, BEProducto producto, BEProductoAppBuscar productoBuscar)
+    {
+        var result = true;
+
+        if (producto == null) return true;
+
+        if (usuario.RevistaDigital != null && usuario.RevistaDigital.BloqueoProductoDigital)
         {
-            var result = true;
-
-            if (producto == null) return true;
-
-            if (usuario.RevistaDigital != null && usuario.RevistaDigital.BloqueoProductoDigital)
-            {
-                result = !(
-                            producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
-                          || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-                          || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
-                        );
-            }
-
-            if (result && usuario.OfertaDelDiaModel != null && usuario.OfertaDelDiaModel.BloqueoProductoDigital)
-            {
-                result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaDelDia);
-            }
-
-            if (result && usuario.GuiaNegocio != null && usuario.GuiaNegocio.BloqueoProductoDigital)
-            {
-                result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
-            }
-
-            if (result && usuario.OptBloqueoProductoDigital)
-            {
-                result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaParaTi);
-            }
-
-            if (result && usuario.RevistaDigital.TieneRDCR)
-            {
-                var dato = usuario.GuiaNegocio.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.BloquearProductoGnd) ?? new BEConfiguracionPaisDatos();
-                dato.Valor1 = Util.Trim(dato.Valor1);
-                if (dato.Estado && dato.Valor1 != string.Empty)
-                {
-                    result = (!dato.Valor1.Contains(producto.CUV));
-                }
-            }
-
-            return result;
+            result = !(
+                        producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
+                        || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+                        || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
+                    );
         }
 
-        private BEProductoApp ProductoBuscarRespuesta(string codigoRespuesta, string mensajeRespuesta = null, BEProducto producto = null)
+        if (result && usuario.OfertaDelDiaModel != null && usuario.OfertaDelDiaModel.BloqueoProductoDigital)
         {
-            return new BEProductoApp()
-            {
-                CodigoRespuesta = codigoRespuesta,
-                MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoAppValidacion.Message[codigoRespuesta] : mensajeRespuesta,
-                Producto = producto
-            };
+            result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaDelDia);
         }
-        #endregion
+
+        if (result && usuario.GuiaNegocio != null && usuario.GuiaNegocio.BloqueoProductoDigital)
+        {
+            result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
+        }
+
+        if (result && usuario.OptBloqueoProductoDigital)
+        {
+            result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaParaTi);
+        }
+
+        if (result && usuario.RevistaDigital.TieneRDCR)
+        {
+            var dato = usuario.GuiaNegocio.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.BloquearProductoGnd) ?? new BEConfiguracionPaisDatos();
+            dato.Valor1 = Util.Trim(dato.Valor1);
+            if (dato.Estado && dato.Valor1 != string.Empty)
+            {
+                result = (!dato.Valor1.Contains(producto.CUV));
+            }
+        }
+
+        return result;
+    }
+
+    private BEProductoApp ProductoBuscarRespuesta(string codigoRespuesta, string mensajeRespuesta = null, BEProducto producto = null)
+    {
+        return new BEProductoApp()
+        {
+            CodigoRespuesta = codigoRespuesta,
+            MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoAppValidacion.Message[codigoRespuesta] : mensajeRespuesta,
+            Producto = producto
+        };
+    }
+    #endregion
 
         #region Insert
         private BEPedidoDetalleAppResult PedidoDetalleRespuesta(string codigoRespuesta, string mensajeRespuesta = null)
