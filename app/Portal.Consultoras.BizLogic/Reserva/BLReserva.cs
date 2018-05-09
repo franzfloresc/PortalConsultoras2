@@ -302,7 +302,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
                 listPedidoWebDetalle = listPedidoWebDetalle.Where(d => !d.AceptoBackOrder).ToList();
                 if (lst.Count > 0) listPedidoWebDetalle = listPedidoWebDetalle.Where(x => !lst.Select(y => y.CUV).Contains(x.CUV)).ToList();
-                if(!listPedidoWebDetalle.Any()) return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_SinDetalle);
+                if(!listPedidoWebDetalle.Any()) return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_SinDetalle, true);
 
                 input.PedidoID = listPedidoWebDetalle[0].PedidoID;
                 input.VersionProl = (byte)(new BLConfiguracionValidacion().EstaActivoProl3(input.PaisID) ? 3 : 2);
@@ -325,7 +325,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, input.CodigoConsultora, input.PaisISO);
-                return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_Error);
+                return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_Error, false);
             }
         }
 

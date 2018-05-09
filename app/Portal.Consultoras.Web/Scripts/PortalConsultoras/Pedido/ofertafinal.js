@@ -216,10 +216,7 @@ $(document).ready(function () {
         }
     }
 
-    if (cuvOfertaProl != "") {
-        EjecutarPROL(cuvOfertaProl);
-    }
-
+    if (cuvOfertaProl != "") EjecutarPROL(cuvOfertaProl);
 });
 
 function PopupOfertaFinalCerrar() {

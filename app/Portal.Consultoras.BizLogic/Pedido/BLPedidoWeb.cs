@@ -2221,64 +2221,61 @@ namespace Portal.Consultoras.BizLogic
         {
             try
             {
-
-            BEUsuario usuario = null;
-            using (IDataReader reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
-            {
-                if (reader.Read()) usuario = new BEUsuario(reader, true);
-            }
-
-            BEConfiguracionCampania configuracion = null;
-            if (usuario != null)
-            {
-                using (IDataReader reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
+                BEUsuario usuario = null;
+                using (IDataReader reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
                 {
-                    if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
+                    if (reader.Read()) usuario = new BEUsuario(reader, true);
                 }
-            }
 
-            if (configuracion != null)
-            {
-                if (validarGPR && configuracion.IndicadorGPRSB == 1)
+                BEConfiguracionCampania configuracion = null;
+                if (usuario != null)
                 {
-                    return new BEValidacionModificacionPedido
+                    using (IDataReader reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
                     {
-                        MotivoPedidoLock = Enumeradores.MotivoPedidoLock.GPR,
-                        Mensaje = string.Format("En este momento nos encontramos facturando tu pedido de C-{0}, inténtalo más tarde", campania.Substring(4, 2))
-                    };
+                        if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
+                    }
                 }
-                if (validarReservado && configuracion.EstadoPedido == Constantes.EstadoPedido.Procesado && !configuracion.ModificaPedidoReservado && !configuracion.ValidacionAbierta)
-                {
-                    return new BEValidacionModificacionPedido
-                    {
-                        MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Reservado,
-                        Mensaje = "Ya tienes un pedido reservado para esta campaña."
-                    };
-                }
-                if (validarFacturado && configuracion.IndicadorEnviado)
-                {
-                    return new BEValidacionModificacionPedido
-                    {
-                        MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Facturado,
-                        Mensaje = "Estamos facturando tu pedido."
-                    };
-                }
-            }
-            if (validarHorario)
-            {
-                string mensajeHorarioRestringido = this.ValidarHorarioRestringido(usuario, campania);
-                if (!string.IsNullOrEmpty(mensajeHorarioRestringido))
-                {
-                    return new BEValidacionModificacionPedido
-                    {
-                        MotivoPedidoLock = Enumeradores.MotivoPedidoLock.HorarioRestringido,
-                        Mensaje = mensajeHorarioRestringido
-                    };
-                }
-            }
-            return new BEValidacionModificacionPedido { MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Ninguno };
 
-
+                if (configuracion != null)
+                {
+                    if (validarGPR && configuracion.IndicadorGPRSB == 1)
+                    {
+                        return new BEValidacionModificacionPedido
+                        {
+                            MotivoPedidoLock = Enumeradores.MotivoPedidoLock.GPR,
+                            Mensaje = string.Format("En este momento nos encontramos facturando tu pedido de C-{0}, inténtalo más tarde", campania.Substring(4, 2))
+                        };
+                    }
+                    if (validarFacturado && configuracion.IndicadorEnviado)
+                    {
+                        return new BEValidacionModificacionPedido
+                        {
+                            MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Facturado,
+                            Mensaje = "Estamos facturando tu pedido."
+                        };
+                    }
+                    if (validarReservado && configuracion.EstadoPedido == Constantes.EstadoPedido.Procesado && !configuracion.ModificaPedidoReservado && !configuracion.ValidacionAbierta)
+                    {
+                        return new BEValidacionModificacionPedido
+                        {
+                            MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Reservado,
+                            Mensaje = "Ya tienes un pedido reservado para esta campaña."
+                        };
+                    }
+                }
+                if (validarHorario)
+                {
+                    string mensajeHorarioRestringido = this.ValidarHorarioRestringido(usuario, campania);
+                    if (!string.IsNullOrEmpty(mensajeHorarioRestringido))
+                    {
+                        return new BEValidacionModificacionPedido
+                        {
+                            MotivoPedidoLock = Enumeradores.MotivoPedidoLock.HorarioRestringido,
+                            Mensaje = mensajeHorarioRestringido
+                        };
+                    }
+                }
+                return new BEValidacionModificacionPedido { MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Ninguno };
             }
             catch (Exception ex)
             {
