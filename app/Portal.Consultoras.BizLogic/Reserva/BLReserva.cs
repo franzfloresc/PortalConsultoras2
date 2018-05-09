@@ -15,7 +15,7 @@ using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic.Reserva
 {
-    public class BLReserva
+    public class BLReserva : IBLReserva
     {
         public string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo)
         {

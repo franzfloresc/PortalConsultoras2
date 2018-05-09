@@ -2379,6 +2379,12 @@ namespace Portal.Consultoras.Service
         {
             return _pedidoAppBusinessLogic.Delete(pedidoDetalle);
         }
+
+        public BEPedidoDetalleAppResult DeshacerPedidoApp(BEUsuario usuario)
+        {
+            return _pedidoAppBusinessLogic.DeshacerPedido(usuario);
+        }
+
         #endregion
     }
 }
