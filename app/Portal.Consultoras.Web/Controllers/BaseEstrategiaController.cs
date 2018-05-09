@@ -51,7 +51,6 @@ namespace Portal.Consultoras.Web.Controllers
             switch (codAgrupacion)
             {
                 case Constantes.TipoEstrategiaCodigo.RevistaDigital:
-                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.Lanzamiento, campaniaId));
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.RevistaDigital, campaniaId));
                     break;
                 case Constantes.TipoEstrategiaCodigo.Lanzamiento:
@@ -431,9 +430,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (codAgrupacion == Constantes.TipoEstrategiaCodigo.RevistaDigital)
                 {
-                    var estrategiaLanzamiento = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento) ?? new BEEstrategia();
-
-                    listModel = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                    var listModelLan = ConsultarEstrategias(cuv, 0, Constantes.TipoEstrategiaCodigo.Lanzamiento);
+                    var estrategiaLanzamiento = listModelLan.FirstOrDefault() ?? new BEEstrategia();
 
                     if (!listModel.Any() && estrategiaLanzamiento.EstrategiaID <= 0)
                     {
@@ -645,8 +643,6 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.PrecioPublico = estrategia.PrecioPublico;
                 prodModel.Ganancia = estrategia.Ganancia;
                 prodModel.GananciaString = estrategia.GananciaString;
-
-                prodModel.FlagRevista = estrategia.FlagRevista;
 
                 prodModel.TipoAccionAgregar = estrategia.TieneVariedad == 0 ? estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas ? 1 : 2 : 3;
 
