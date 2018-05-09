@@ -1524,9 +1524,9 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_MotivoRechazo");
         }
 
-        public ActionResult ErrorGenerandoCodigo()
+        public ActionResult ErrorGenerandoCodigo(string NumeroDocumento)
         {
-            ViewBag.HTMLSACUnete = getHTMLSACUnete("ErrorGenerandoCodigo", null);
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ErrorGenerandoCodigo", "&numeroDocumento=" + NumeroDocumento);
             return PartialView("_Message");
         }
 
