@@ -560,6 +560,34 @@ namespace Portal.Consultoras.Web.Providers
             return waModel;
         }
 
+        private WaTipoEstrategia getTipoEstrategiaWa(BETipoEstrategia tipoEstrategia)
+        {
+            WaTipoEstrategia tipoEstrategiaWa = new WaTipoEstrategia
+            {
+                TipoEstrategiaId = tipoEstrategia.TipoEstrategiaID,
+                DescripcionTipoEstrategia = tipoEstrategia.DescripcionEstrategia,
+                CodigoTipoEstrategia = tipoEstrategia.Codigo,
+                ImagenEstrategia = tipoEstrategia.ImagenEstrategia,
+                Orden = tipoEstrategia.Orden,
+                FlagActivo = tipoEstrategia.FlagActivo == 1 ? true:false,
+                FlagNueva = tipoEstrategia.FlagNueva == 1 ?  true:false,
+                FlagRecoProduc = tipoEstrategia.FlagRecoProduc == 1 ? true:false,
+                FlagRecoPerfil = tipoEstrategia.FlagRecoPerfil == 1 ? true:false,
+                CodigoPrograma = tipoEstrategia.CodigoPrograma,
+                OfertaId = tipoEstrategia.OfertaID,
+                FlagMostrarImg = tipoEstrategia.FlagMostrarImg == 1 ? true:false,
+                MostrarImgOfertaIndependiente = tipoEstrategia.MostrarImgOfertaIndependiente,
+                ImagenOfertaIndependiente = tipoEstrategia.ImagenOfertaIndependiente,
+                Codigo = tipoEstrategia.Codigo,
+                FlagValidarImagen = tipoEstrategia.FlagValidarImagen == 1 ? true:false,
+                PesoMaximoImagen = tipoEstrategia.PesoMaximoImagen,
+                UsuarioCreacion = tipoEstrategia.UsuarioRegistro,
+                UsuarioModificacion = tipoEstrategia.UsuarioModificacion                
+            };
+            return tipoEstrategiaWa;
+        }
+
+
         public bool desactivarWebApi(string _id, string usuario, string Pais)
         {
             UsuarioModel userData = sessionManager.GetUserData();
@@ -673,6 +701,30 @@ namespace Portal.Consultoras.Web.Providers
                 }
             }
             return descripcionList;
+        }
+
+        public string RegistrarTipoEstrategiaWebApi(BETipoEstrategia entidad, string Pais)
+        {
+            UsuarioModel userData = sessionManager.GetUserData();
+            string requestUrl = "tipo/registrar?pais=" + Pais;
+            WaTipoEstrategia waModel = getTipoEstrategiaWa(entidad);
+            string jsonParameters = JsonConvert.SerializeObject(waModel);
+            var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "post", userData));
+            Task.WhenAll(taskApi);
+            string content = taskApi.Result;
+            return content;
+        }
+
+        public string EditarTipoEstrategiaWebApi(BETipoEstrategia entidad, string Pais)
+        {
+            UsuarioModel userData = sessionManager.GetUserData();
+            string requestUrl = "tipo/editar?pais=" + Pais;
+            WaTipoEstrategia waModel = getTipoEstrategiaWa(entidad);
+            string jsonParameters = JsonConvert.SerializeObject(waModel);
+            var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "put", userData));
+            Task.WhenAll(taskApi);
+            string content = taskApi.Result;
+            return content;
         }
 
     }

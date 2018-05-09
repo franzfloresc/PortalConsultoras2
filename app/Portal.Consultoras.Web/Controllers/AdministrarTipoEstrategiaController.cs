@@ -324,15 +324,21 @@ namespace Portal.Consultoras.Web.Controllers
                     ConfigS3.SetFileS3(path, carpetaPais, newfilename);
                     entidad.ImagenOfertaIndependiente = newfilename;
                 }
+                
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    sv.InsertarTipoEstrategia(entidad);
+                    entidad.TipoEstrategiaID = sv.InsertarTipoEstrategia(entidad);
                 }
 
                 if (TipoEstrategiaID != "0")
                 {
+                    ofertaPersonalizadaProvider.EditarTipoEstrategiaWebApi(entidad,userData.CodigoISO);
                     operacion = "actualizó";
+                }
+                else
+                {
+                    ofertaPersonalizadaProvider.RegistrarTipoEstrategiaWebApi(entidad, userData.CodigoISO);
                 }
 
                 return Json(new
