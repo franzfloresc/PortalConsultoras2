@@ -7,10 +7,6 @@ belcorp.settings.uniquePrefix = "/g/";
 
 jQuery(document).ready(function () {
     CreateLoading();
-    $("body").on("click", "[data-compartir]", function (e) {
-        e.preventDefault();
-        CompartirRedesSociales(e);
-    });
 
     $("header").resize(function () {
         LayoutMenu();
@@ -38,7 +34,6 @@ jQuery(document).ready(function () {
             });
         }
     }
-    
 
 });
 (function ($) {
@@ -1167,147 +1162,6 @@ function MostrarMensajePedidoRechazado() {
     else {
         $("[data-content]").removeClass("oscurecer_animacion");
     }
-}
-
-function CompartirRedesSociales(e) {
-    var obj = $(e.target);
-    var tipoRedes = $.trim($(obj).parents("[data-compartir]").attr("data-compartir"));
-    if (tipoRedes == "") tipoRedes = $.trim($(obj).attr("data-compartir"));
-    if (tipoRedes == "") return false;
-
-    var ruta = variablesPortal.UrlCompartir;
-    if (ruta == "") return false;
-
-    var padre = obj.parents("[data-item]");
-    var article = $(padre).find("[data-compartir-campos]").eq(0);
-    
-    var label = $(article).find(".rs" + tipoRedes + "Mensaje").val();
-    if (label != "") {
-        dataLayer.push({
-            'event': 'virtualEvent',
-            'category': 'Ofertas Showroom',
-            'action': 'Compartir ' + tipoRedes,
-            'label': label,
-            'value': 0
-        });
-    }
-
-    CompartirRedesSocialesInsertar(article, tipoRedes, ruta);
-}
-
-function CompartirRedesSocialesTexto(texto) {
-    texto = texto.ReplaceAll("/", '%2F');
-    texto = texto.ReplaceAll(":", "%3A");
-    texto = texto.ReplaceAll("?", "%3F");
-    texto = texto.ReplaceAll("=", "%3D");
-    texto = texto.ReplaceAll(" ", "%32");
-    texto = texto.ReplaceAll("+", "%43");
-
-    texto = texto.ReplaceAll("&", "y");
-
-    return "whatsapp://send?text=" + texto;
-}
-
-function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre) {
-
-
-    id = $.trim(id);
-    if (id == "0" || id == "") {
-        return false;
-    }
-    ruta = $.trim(ruta);
-    if (ruta == "") {
-        return false;
-    }
-
-    ruta = ruta.replace('[valor]', id);
-
-    nombre = $.trim(nombre);
-
-    try {
-        if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
-            rdAnalyticsModule.CompartirProducto(tipoRedes, ruta, nombre);
-        } else {
-            AnalyticsRedesSociales(tipoRedes, ruta);
-        }
-    } catch (e) { console.log(e) }
-
-    if (tipoRedes == "FB") {
-        var popWwidth = 570;
-        var popHeight = 420;
-        var left = (screen.width / 2) - (popWwidth / 2);
-        var top = (screen.height / 2) - (popHeight / 2);
-        var url = "http://www.facebook.com/sharer/sharer.php?u=" + ruta;
-        window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
-    } else if (tipoRedes == "WA") {
-        if (texto != "")
-            texto = texto + " - ";
-        $("#HiddenRedesSocialesWA").attr("href", 'javascript:window.location=CompartirRedesSocialesTexto("' + texto + ruta + '")');
-        $("#HiddenRedesSocialesWA")[0].click();
-    }
-}
-
-function AnalyticsRedesSociales(tipoRedes, ruta) {
-    if (tipoRedes === "FB") {
-        dataLayer.push({
-            'event': 'socialEvent',
-            'network': 'Facebook',
-            'action': 'Share',
-            'target': ruta
-        });
-    } else if (tipoRedes == "WA") {
-        dataLayer.push({
-            'event': 'socialEvent',
-            'network': 'Whatsapp',
-            'action': 'Compartir',
-            'target': ruta
-        });
-    }
-}
-
-function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
-
-    var _rutaImagen = $.trim($(article).find(".rs" + tipoRedes + "RutaImagen").val());
-    var _mensaje = $.trim($(article).find(".rs" + tipoRedes + "Mensaje").val());
-    var _nombre = $.trim($(article).find(".Nombre").val());
-    var _marcaID = $.trim($(article).find(".MarcaID").val());
-    var _marcaDesc = $.trim($(article).find(".MarcaNombre").val());
-    var _descProd = $.trim($(article).find(".ProductoDescripcion").val());
-    var _vol = $.trim($(article).find(".Volumen").val());
-    var _palanca = $.trim($(article).find(".Palanca").val());
-
-    var pcDetalle = _rutaImagen + "|" + _marcaID + "|" + _marcaDesc + "|" + _nombre;
-    if (_palanca === "FAV") {
-        pcDetalle += "|" + _vol + "|" + _descProd;
-    }
-    try {
-    } catch (e) { console.log(e); }
-
-    var Item = {
-        mCUV: $(article).find(".CUV").val(),
-        mPalanca: _palanca,
-        mDetalle: pcDetalle,
-        mApplicacion: tipoRedes
-    };
-
-
-    jQuery.ajax({
-        type: 'POST',
-        url: "/CatalogoPersonalizado/InsertarProductoCompartido",
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(Item),
-        success: function (response) {
-            if (checkTimeout(response)) {
-                if (response.success) {
-                    CompartirRedesSocialesAbrirVentana(response.data.id, tipoRedes, ruta, _mensaje, _nombre);
-                } else {
-                    AbrirMensaje(response.message);
-                }
-            }
-        },
-        error: function (response, error) { }
-    });
 }
 
 function AbrirPopup(ident) {
