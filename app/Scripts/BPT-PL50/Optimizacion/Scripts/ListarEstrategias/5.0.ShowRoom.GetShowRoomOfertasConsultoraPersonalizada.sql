@@ -35,10 +35,10 @@ INSERT INTO @OfertasPersonalizadas
     TipoPersonalizacion,
     FlagRevista,
     CONVERT(int, AnioCampanaVenta)
-  FROM ods.OfertasPersonalizadas op WITH (NOLOCK)
-  WHERE op.CodConsultora = @CodigoConsultora
-	  AND op.AnioCampanaVenta = @StrCampaniaID
-	  AND op.TipoPersonalizacion = 'SR'
+  FROM ods.OfertasPersonalizadas WITH (NOLOCK)
+  WHERE CodConsultora = @CodigoConsultora
+	  AND AnioCampanaVenta = @StrCampaniaID
+	  AND TipoPersonalizacion = 'SR'
 
 IF NOT EXISTS (SELECT   CUV  FROM @OfertasPersonalizadas)
 BEGIN
@@ -67,7 +67,6 @@ INSERT INTO @OfertasPersonalizadas(Orden, CUV, TipoPersonalizacion, FlagRevista,
 
 SELECT
 	 e.EstrategiaID  
-  ,c.CampaniaID
   ,e.CUV2 AS CUV  
   ,e.DescripcionCUV2 AS Descripcion  
   ,e.Precio AS PrecioValorizado --tachado  
@@ -86,17 +85,16 @@ SELECT
   ,e.TextoLibre AS TipNegocio  
   ,pc.CodigoProducto  
   ,e.EsSubCampania
-  ,ISNULL(e.CodigoEstrategia,0) AS 'CodigoEstrategia'
+  , ISNULL(e.CodigoEstrategia,0) AS 'CodigoEstrategia'
   ,ISNULL(e.TieneVariedad,0) AS 'TieneVariedad'
   ,e.TipoEstrategiaId AS ConfiguracionOfertaID
 FROM dbo.Estrategia E WITH (NOLOCK)
-	 INNER JOIN ods.Campania c ON e.CampaniaID = c.Codigo  
-	  INNER JOIN @OfertasPersonalizadas op    ON E.CampaniaID = op.AnioCampanaVenta    AND E.CUV2 = op.CUV
-	  INNER JOIN ods.ProductoComercial PC WITH (NOLOCK)    ON PC.CUV = E.CUV2    AND PC.AnoCampania = E.CampaniaID
-	  INNER JOIN vwEstrategiaShowRoomEquivalencia ves ON e.TipoEstrategiaId = ves.TipoEstrategiaID  
+	  INNER JOIN @OfertasPersonalizadas op ON E.CampaniaID = op.AnioCampanaVenta AND E.CUV2 = op.CUV
+	  INNER JOIN ods.ProductoComercial PC WITH (NOLOCK) ON PC.CUV = E.CUV2 AND PC.AnoCampania = E.CampaniaID
+	  INNER JOIN dbo.vwEstrategiaShowRoomEquivalencia ves ON e.TipoEstrategiaId = ves.TipoEstrategiaID  
 	  LEFT JOIN dbo.Marca M WITH (NOLOCK)    ON M.MarcaId = PC.MarcaId
   WHERE E.Activo = 1
-	  AND NOT EXISTS (SELECT    CUV  FROM @tablaCuvFaltante TF  WHERE E.CUV2 = TF.CUV)
+	  AND NOT EXISTS (SELECT CUV  FROM @tablaCuvFaltante TF  WHERE E.CUV2 = TF.CUV)
     ORDER BY 
 		op.Orden ASC, EstrategiaID ASC
   SET NOCOUNT OFF
