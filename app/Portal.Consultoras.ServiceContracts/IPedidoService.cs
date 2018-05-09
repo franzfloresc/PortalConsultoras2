@@ -1271,6 +1271,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEPedidoDetalleAppResult DeletePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
         [OperationContract]
+        BEPedidoDetalleAppResult ReservaPedidoDetalleApp(BEUsuario usuario);
+        [OperationContract]
         BEPedidoDetalleAppResult DeshacerPedidoApp(BEUsuario usuario);
         #endregion
 

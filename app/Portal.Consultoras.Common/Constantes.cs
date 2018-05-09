@@ -1875,28 +1875,54 @@ namespace Portal.Consultoras.Common
 
         public static class PedidoAppValidacion
         {
-            public static class ProductoBuscar
+            private static Dictionary<string, string> _Message;
+            public static class Code
             {
-                private static Dictionary<string, string> _Message;
+                public const string SUCCESS = "0000";
+                public const string ERROR_INTERNO = "9999";
+                public const string ERROR_PRODUCTO_NOEXISTE = "1101";
+                public const string ERROR_PRODUCTO_AGOTADO = "1102";
+                public const string ERROR_PRODUCTO_LIQUIDACION = "1103";
+                public const string ERROR_PRODUCTO_SHOWROOM = "1104";
+                public const string ERROR_PRODUCTO_SHOWROOM_NODISPONIBLE = "1105";
+                public const string ERROR_PRODUCTO_OFERTAREVISTA_ESIKA = "1106";
+                public const string ERROR_PRODUCTO_OFERTAREVISTA_LBEL = "1107";
 
-                public static class Code
-                {
-                    public const string SUCCESS = "0000";
-                    public const string ERROR_INTERNO = "9999";
-                    public const string ERROR_PRODUCTO_NOEXISTE = "1101";
-                    public const string ERROR_PRODUCTO_AGOTADO = "1102";
-                    public const string ERROR_PRODUCTO_LIQUIDACION = "1103";
-                    public const string ERROR_PRODUCTO_SHOWROOM = "1104";
-                    public const string ERROR_PRODUCTO_SHOWROOM_NODISPONIBLE = "1105";
-                    public const string ERROR_PRODUCTO_OFERTAREVISTA_ESIKA = "1106";
-                    public const string ERROR_PRODUCTO_OFERTAREVISTA_LBEL = "1107";
-                }
+                public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
+                public const string ERROR_STOCK_ESTRATEGIA = "2102";
+                public const string ERROR_KIT_INICIO = "2103";
+                public const string ERROR_GRABAR = "2104";
+                public const string ERROR_VALIDA_DATOS = "2105";
+                public const string ERROR_ACTUALIZAR = "2106";
+                public const string ERROR_ELIMINAR = "2107";
+                public const string ERROR_ELIMINAR_TODO = "2108";
 
-                public static Dictionary<string, string> Message
+                public const string ERROR_RESERVA_NINGUNO = "2010";
+                public const string SUCCESS_RESERVA = "2011";
+                public const string SUCCESS_RESERVA_OBS = "2012";
+                public const string ERROR_RESERVA_OBS = "2013";
+                public const string ERROR_RESERVA_MONTO_MIN = "2014";
+                public const string ERROR_RESERVA_MONTO_MAX = "2015";
+                public const string ERORR_RESERVA_NO_DISP = "2016";
+                public const string ERROR_RESERVA_DEUDA = "2017";
+
+                public const string ERROR_GUARDAR_NINGUNO = "2020";
+                public const string SUCCESS_GUARDAR = "2021";
+                public const string SUCCESS_GUARDAR_OBS = "2022";
+                public const string ERROR_GUARDAR_OBS = "2023";
+                public const string ERROR_GUARDAR_MONTO_MIN = "2024";
+                public const string ERROR_GUARDAR_MONTO_MAX = "2025";
+                public const string ERORR_GUARDAR_NO_DISP = "2026";
+                public const string ERROR_GUARDAR_DEUDA = "2027";
+
+                public const string ERROR_DESHACER_PEDIDO = "2109";
+                public const string ERROR_DESHACER_PEDIDO_ESTADO = "2110";
+            }
+            public static Dictionary<string, string> Message
+            {
+                get
                 {
-                    get
-                    {
-                        return _Message ?? (_Message = new Dictionary<string, string>
+                    return _Message ?? (_Message = new Dictionary<string, string>
                     {
                         {Code.SUCCESS, "OK"},
                         {Code.ERROR_INTERNO, string.Empty},
@@ -1907,51 +1933,37 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_PRODUCTO_SHOWROOM_NODISPONIBLE, "Esta promoción no se encuentra disponible."},
                         {Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, "Este producto está de oferta en la Guía de Negocio Ésika."},
                         {Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, "Este producto está de oferta en Mi Negocio L’Bel."},
+
+                        {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, string.Empty},
+                        {Code.ERROR_STOCK_ESTRATEGIA, string.Empty},
+                        {Code.ERROR_KIT_INICIO, "Ocurrió un error al ejecutar la operación."},
+                        {Code.ERROR_GRABAR, "Ocurrió un error al insertar el pedido."},
+                        {Code.ERROR_VALIDA_DATOS , string.Empty },
+                        {Code.ERROR_ACTUALIZAR, "Ocurrió un error al actualizar el pedido." },
+                        {Code.ERROR_ELIMINAR, "Ocurrió un error al eliminar el detalle de pedido." },
+                        {Code.ERROR_ELIMINAR_TODO, "Ocurrió un error al eliminar el pedido." },
+
+                        {Code.ERROR_RESERVA_NINGUNO, "El pedido no se reservó." },
+                        {Code.SUCCESS_RESERVA, "Pedido reservado." },
+                        {Code.SUCCESS_RESERVA_OBS, "Pedido reservado, productos con observaciones." },
+                        {Code.ERROR_RESERVA_OBS, "Pedido no reservado, productos con observaciones." },
+                        {Code.ERROR_RESERVA_MONTO_MIN, "Pedido no reservado, no supera monto mínimo." },
+                        {Code.ERROR_RESERVA_MONTO_MAX, "Pedido no reservado, excede monto máximo." },
+                        {Code.ERORR_RESERVA_NO_DISP, "Reserva no disponible." },
+                        {Code.ERROR_RESERVA_DEUDA, "Pedido no reservado, deuda pendiente." },
+
+                        {Code.ERROR_GUARDAR_NINGUNO, "El pedido no se guardó." },
+                        {Code.SUCCESS_GUARDAR, "Pedido guardado." },
+                        {Code.SUCCESS_GUARDAR_OBS, "Pedido guardado, productos con observaciones." },
+                        {Code.ERROR_GUARDAR_OBS, "Pedido no guardado, productos con observaciones." },
+                        {Code.ERROR_GUARDAR_MONTO_MIN, "Pedido no guardado, no supera monto mínimo." },
+                        {Code.ERROR_GUARDAR_MONTO_MAX, "Pedido no guardado, excede monto máximo." },
+                        {Code.ERORR_GUARDAR_NO_DISP, "Guardar no disponible." },
+                        {Code.ERROR_GUARDAR_DEUDA, "Pedido no guardado, deuda pendiente." },
+
+                        {Code.ERROR_DESHACER_PEDIDO , "Ocurrió un error al deshacer el pedido." },
+                        {Code.ERROR_DESHACER_PEDIDO_ESTADO , "El pedido no se encuentra reservado." }
                     });
-                    }
-                }
-            }
-
-            public class PedidoInsertar
-            {
-                private static Dictionary<string, string> _Message;
-
-                public static class Code
-                {
-                    public const string SUCCESS = "0000";
-                    public const string ERROR_INTERNO = "9999";
-                    public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
-                    public const string ERROR_STOCK_ESTRATEGIA = "2102";
-                    public const string ERROR_KIT_INICIO = "2103";
-                    public const string ERROR_GRABAR = "2104";
-                    public const string ERROR_VALIDA_DATOS = "2105";
-                    public const string ERROR_ACTUALIZAR = "2106";
-                    public const string ERROR_ELIMINAR = "2107";
-                    public const string ERROR_ELIMINAR_TODO = "2108";
-                    public const string ERROR_DESHACER_PEDIDO = "2109";
-                    public const string ERROR_DESHACER_PEDIDO_ESTADO = "2110";
-                }
-
-                public static Dictionary<string, string> Message
-                {
-                    get
-                    {
-                        return _Message ?? (_Message = new Dictionary<string, string>
-                            {
-                                {Code.SUCCESS, "OK"},
-                                {Code.ERROR_INTERNO, string.Empty},
-                                {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, string.Empty},
-                                {Code.ERROR_STOCK_ESTRATEGIA, string.Empty},
-                                {Code.ERROR_KIT_INICIO, "Ocurrió un error al ejecutar la operación."},
-                                {Code.ERROR_GRABAR, "Ocurrió un error al insertar el pedido."},
-                                {Code.ERROR_VALIDA_DATOS , string.Empty },
-                                {Code.ERROR_ACTUALIZAR,"Ocurrió un error al actualizar el pedido." },
-                                {Code.ERROR_ELIMINAR,"Ocurrió un error al eliminar el detalle de pedido." },
-                                {Code.ERROR_ELIMINAR_TODO,"Ocurrió un error al eliminar el pedido." },
-                                {Code.ERROR_DESHACER_PEDIDO , "Ocurrió un error al deshacer el pedido." },
-                                {Code.ERROR_DESHACER_PEDIDO_ESTADO , "El pedido no se encuentra reservado." }
-                            });
-                    }
                 }
             }
         }

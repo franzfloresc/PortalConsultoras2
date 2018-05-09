@@ -1119,6 +1119,7 @@ namespace Portal.Consultoras.Entities
         public DateTime? FechaCancelacionSuscripcion { get; set; }
 
         [DataMember]
+        [Column("SegmentoInternoId")]
         public int? SegmentoInternoID
         {
             get;
@@ -1461,5 +1462,7 @@ namespace Portal.Consultoras.Entities
         public bool TieneValidacionMontoMaximo { get; set; }
         [DataMember]
         public bool EsShowRoom { get; set; }
+        [DataMember]
+        public bool MostrarBotonValidar { get; set; }
     }
 }

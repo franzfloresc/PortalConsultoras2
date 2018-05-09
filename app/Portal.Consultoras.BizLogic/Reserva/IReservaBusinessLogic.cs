@@ -1,10 +1,11 @@
 ﻿using System.Threading.Tasks;
+
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.ReservaProl;
 
-namespace Portal.Consultoras.BizLogic
+namespace Portal.Consultoras.BizLogic.Reserva
 {
-    public interface IBLReserva
+    public interface IReservaBusinessLogic
     {
         string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo);
         Task<BEResultadoReservaProl> CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
