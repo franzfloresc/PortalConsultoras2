@@ -201,6 +201,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     sessionManager.SetPedidoWeb(null);
                     sessionManager.SetDetallesPedido(null);
+                    sessionManager.SetDetallesPedidoSetAgrupado(null);
                 }
 
                 UpdPedidoWebMontosPROL();
@@ -218,6 +219,12 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
+
+                using (var pedidoServiceClient = new PedidoServiceClient())
+                {
+                    pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
+                        , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0);
+                }
 
                 return Json(new
                 {
