@@ -21,7 +21,8 @@ BEGIN
 				IF EXISTS (SELECT 1 FROM ods.ConsultorasProgramaNuevas with(nolock)
 								Where Campania = cast(@CampaniaID as varchar(6))
 								and CodigoConsultora = @CodigoConsultora
-								and CodigoPrograma = @CodigoPrograma)
+								and CodigoPrograma = @CodigoPrograma
+								and Participa = 1)
 								BEGIN
 									set @Participa = 1
 								END
@@ -54,7 +55,8 @@ BEGIN
 				IF EXISTS (SELECT 1 FROM ods.ConsultorasProgramaNuevas with(nolock)
 								Where Campania = cast(@CampaniaID as varchar(6))
 								and CodigoConsultora = @CodigoConsultora
-								and CodigoPrograma = @CodigoPrograma)
+								and CodigoPrograma = @CodigoPrograma
+								and Participa = 1)
 								BEGIN
 									set @Participa = 1
 								END
@@ -87,7 +89,8 @@ BEGIN
 				IF EXISTS (SELECT 1 FROM ods.ConsultorasProgramaNuevas with(nolock)
 								Where Campania = cast(@CampaniaID as varchar(6))
 								and CodigoConsultora = @CodigoConsultora
-								and CodigoPrograma = @CodigoPrograma)
+								and CodigoPrograma = @CodigoPrograma
+								and Participa = 1)
 								BEGIN
 									set @Participa = 1
 								END
@@ -120,7 +123,8 @@ BEGIN
 				IF EXISTS (SELECT 1 FROM ods.ConsultorasProgramaNuevas with(nolock)
 								Where Campania = cast(@CampaniaID as varchar(6))
 								and CodigoConsultora = @CodigoConsultora
-								and CodigoPrograma = @CodigoPrograma)
+								and CodigoPrograma = @CodigoPrograma
+								and Participa = 1)
 								BEGIN
 									set @Participa = 1
 								END
@@ -153,7 +157,8 @@ BEGIN
 				IF EXISTS (SELECT 1 FROM ods.ConsultorasProgramaNuevas with(nolock)
 								Where Campania = cast(@CampaniaID as varchar(6))
 								and CodigoConsultora = @CodigoConsultora
-								and CodigoPrograma = @CodigoPrograma)
+								and CodigoPrograma = @CodigoPrograma
+								and Participa = 1)
 								BEGIN
 									set @Participa = 1
 								END
@@ -186,7 +191,8 @@ BEGIN
 				IF EXISTS (SELECT 1 FROM ods.ConsultorasProgramaNuevas with(nolock)
 								Where Campania = cast(@CampaniaID as varchar(6))
 								and CodigoConsultora = @CodigoConsultora
-								and CodigoPrograma = @CodigoPrograma)
+								and CodigoPrograma = @CodigoPrograma
+								and Participa = 1)
 								BEGIN
 									set @Participa = 1
 								END
@@ -219,7 +225,8 @@ BEGIN
 				IF EXISTS (SELECT 1 FROM ods.ConsultorasProgramaNuevas with(nolock)
 								Where Campania = cast(@CampaniaID as varchar(6))
 								and CodigoConsultora = @CodigoConsultora
-								and CodigoPrograma = @CodigoPrograma)
+								and CodigoPrograma = @CodigoPrograma
+								and Participa = 1)
 								BEGIN
 									set @Participa = 1
 								END
@@ -252,7 +259,8 @@ BEGIN
 				IF EXISTS (SELECT 1 FROM ods.ConsultorasProgramaNuevas with(nolock)
 								Where Campania = cast(@CampaniaID as varchar(6))
 								and CodigoConsultora = @CodigoConsultora
-								and CodigoPrograma = @CodigoPrograma)
+								and CodigoPrograma = @CodigoPrograma
+								and Participa = 1)
 								BEGIN
 									set @Participa = 1
 								END
@@ -285,7 +293,8 @@ BEGIN
 				IF EXISTS (SELECT 1 FROM ods.ConsultorasProgramaNuevas with(nolock)
 								Where Campania = cast(@CampaniaID as varchar(6))
 								and CodigoConsultora = @CodigoConsultora
-								and CodigoPrograma = @CodigoPrograma)
+								and CodigoPrograma = @CodigoPrograma
+								and Participa = 1)
 								BEGIN
 									set @Participa = 1
 								END
@@ -318,7 +327,8 @@ BEGIN
 				IF EXISTS (SELECT 1 FROM ods.ConsultorasProgramaNuevas with(nolock)
 								Where Campania = cast(@CampaniaID as varchar(6))
 								and CodigoConsultora = @CodigoConsultora
-								and CodigoPrograma = @CodigoPrograma)
+								and CodigoPrograma = @CodigoPrograma
+								and Participa = 1)
 								BEGIN
 									set @Participa = 1
 								END
@@ -351,7 +361,8 @@ BEGIN
 				IF EXISTS (SELECT 1 FROM ods.ConsultorasProgramaNuevas with(nolock)
 								Where Campania = cast(@CampaniaID as varchar(6))
 								and CodigoConsultora = @CodigoConsultora
-								and CodigoPrograma = @CodigoPrograma)
+								and CodigoPrograma = @CodigoPrograma
+								and Participa = 1)
 								BEGIN
 									set @Participa = 1
 								END
@@ -384,7 +395,8 @@ BEGIN
 				IF EXISTS (SELECT 1 FROM ods.ConsultorasProgramaNuevas with(nolock)
 								Where Campania = cast(@CampaniaID as varchar(6))
 								and CodigoConsultora = @CodigoConsultora
-								and CodigoPrograma = @CodigoPrograma)
+								and CodigoPrograma = @CodigoPrograma
+								and Participa = 1)
 								BEGIN
 									set @Participa = 1
 								END

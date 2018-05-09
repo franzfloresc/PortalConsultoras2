@@ -435,7 +435,7 @@ namespace Portal.Consultoras.BizLogic
 
         private List<BEProductoProgramaNuevas> FiltrarProductosNuevasByNivelyCodigoPrograma(List<BEProductoProgramaNuevas> lstProdcutos, int consecutivoNueva, string codigoPrograma)
         {
-            return lstProdcutos.Where(a => Convert.ToInt32(a.CodigoNivel) >= consecutivoNueva && consecutivoNueva >= (Convert.ToInt32(a.CodigoNivel) + a.NumeroCampanasVigentes - 1))
+            return lstProdcutos.Where(a => Convert.ToInt32(a.CodigoNivel) <= (consecutivoNueva + 1) && (consecutivoNueva + 1) <= (Convert.ToInt32(a.CodigoNivel) + a.NumeroCampanasVigentes - 1))
                 .Where(a => a.CodigoPrograma == codigoPrograma).ToList();
         }
         #endregion

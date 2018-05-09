@@ -3022,7 +3022,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             bool participa = false;
 
-            if (model.ConsecutivoNueva < 6)
+            if (model.EsConsultoraNueva && model.CodigoPrograma != "")
             {
                 using (var svc = new UsuarioServiceClient())
                 {
