@@ -3207,6 +3207,15 @@ namespace Portal.Consultoras.Common
 
             return false;
         }
+        public static bool HasColumn(this DataTable table, string columnName)
+        {
+            if (table == null) return false;
+
+            columnName = (columnName ?? "").Trim();
+            if (columnName == "") return false;
+
+            return table.Columns.Contains(columnName);
+        }
         public static bool HasColumn(this DataRow row, string columnName)
         {
             if (row == null) return false;
