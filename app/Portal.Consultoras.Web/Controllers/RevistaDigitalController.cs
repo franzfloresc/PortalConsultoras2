@@ -172,7 +172,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
-                
+
                 var cantidadTotal = listModel.Count;
 
                 var listPerdio = ListaPerdio(model.CampaniaID, listaFinal1);
