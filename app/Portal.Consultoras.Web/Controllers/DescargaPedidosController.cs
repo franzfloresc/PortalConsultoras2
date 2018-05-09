@@ -12,37 +12,40 @@ using System.Linq;
 using System.ServiceModel;
 using System.Web;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class DescargaPedidosController : BaseController
     {
-        public ActionResult DescargarPedidos()
+        [HttpGet]
+        public async Task<ActionResult> DescargarPedidos()
         {
             var descargarPedidoModel = new DescargarPedidoModel();
+            var usuario = UserData() ?? new UsuarioModel();
 
             try
             {
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "DescargaPedidos/DescargarPedidos"))
                     return RedirectToAction("Index", "Bienvenida");
 
-                descargarPedidoModel.listaPaises = DropDowListPaises();
-                descargarPedidoModel.PedidoFICActivo = UserData().PedidoFICActivo;
+                descargarPedidoModel.listaPaises = await DropDowListPaises(usuario.PaisID);
+                descargarPedidoModel.PedidoFICActivo = usuario.PedidoFICActivo;
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, usuario.CodigoConsultora, usuario.CodigoISO);
             }
 
             return View(descargarPedidoModel);
         }
 
-        private IEnumerable<PaisModel> DropDowListPaises()
+        private async Task<IEnumerable<PaisModel>> DropDowListPaises(int paisID)
         {
             using (var sv = new ZonificacionServiceClient())
             {
-                var lst = sv.SelectPaises();
-                return Mapper.Map<IEnumerable<PaisModel>>(lst.Where(x => x.PaisID == UserData().PaisID));
+                var lst = await sv.SelectPaisesAsync();
+                return Mapper.Map<IEnumerable<PaisModel>>(lst.Where(x => x.PaisID == paisID));
             }
         }
 
@@ -327,43 +330,49 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-        public ActionResult ObtenerUltimaDescargaPedido()
+        [HttpGet]
+        public async Task<JsonResult> ObtenerUltimaDescargaPedido()
         {
-            if (ModelState.IsValid)
+            var usuario = UserData() ?? new UsuarioModel();
+
+            try
             {
-                List<BEPedidoDescarga> lst = new List<BEPedidoDescarga>();
-                BEPedidoDescarga ultimaDescargaPedido;
-                using (PedidoServiceClient srv = new PedidoServiceClient())
+                var lst = new List<BEPedidoDescarga>();
+
+                using (var srv = new PedidoServiceClient())
                 {
-                    ultimaDescargaPedido = srv.ObtenerUltimaDescargaPedido(userData.PaisID);
+                    var ultimaDescargaPedido = await srv.ObtenerUltimaDescargaPedidoAsync(usuario.PaisID);
+                    lst.Add(ultimaDescargaPedido);
                 }
-                lst.Add(ultimaDescargaPedido);
 
                 var data = new
                 {
                     total = 1,
                     page = 1,
-                    records = 3,
-                    rows = from item in lst
-                           select new
-                           {
-                               id = item.NroLote,
-                               cell = new string[]
-                               {
-                                   item.FechaHoraInicio.ToString(),
-                                   item.FechaHoraFin.ToString(),
-                                   item.Estado,
-                                   item.Mensaje,
-                                   string.Format(" Web: {0}<br> DD: {1}", item.NumeroPedidosWeb.ToString(), item.NumeroPedidosDD.ToString()),
-                                   item.TipoProceso,
-                                   item.FechaFacturacion.ToShortDateString(),
-                                   (item.Desmarcado) ?"Pedido Desmarcado": string.Empty
-                               }
-                           }
+                    records = lst.Count,
+                    rows = (from tbl in lst
+                            select new
+                            {
+                                FechaHoraInicio = tbl.FechaHoraInicio.ToString(),
+                                FechaHoraFin = tbl.FechaHoraFin.ToString(),
+                                Estado = tbl.Estado,
+                                Mensaje = tbl.Mensaje,
+                                NumeroPedidos = string.Format(" Web: {0}<br> DD: {1}", tbl.NumeroPedidosWeb, tbl.NumeroPedidosDD),
+                                TipoProceso = tbl.TipoProceso,
+                                FechaFacturacion = tbl.FechaFacturacion.ToShortDateString(),
+                                Desmarcado = (tbl.Desmarcado) ? "Pedido Desmarcado" : string.Empty,
+                                NroLote = tbl.NroLote
+                            })
                 };
+
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
-            return RedirectToAction("Index", "Bienvenida");
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, usuario.CodigoConsultora, usuario.CodigoISO);
+            }
+
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult DeshacerUltimaDescargaPedidos()
