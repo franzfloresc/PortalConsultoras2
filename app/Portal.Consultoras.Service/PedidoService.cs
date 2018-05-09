@@ -1165,11 +1165,6 @@ namespace Portal.Consultoras.Service
             return blEstrategia.GetEstrategiasPedido(entidad);
         }
 
-        public List<BEEstrategia> GetMasVendidos(BEEstrategia entidad)
-        {
-            return blEstrategia.GetMasVendidos(entidad);
-        }
-
         public List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad)
         {
             return new BLEstrategia().FiltrarEstrategiaPedido(entidad);

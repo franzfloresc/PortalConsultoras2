@@ -314,7 +314,7 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        public IDataReader GetMasVendidos(BEEstrategia entidad)
+        public IDataReader GetEstrategiaMasVendidos(BEEstrategia entidad)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarOfertasMasVendidos"))
             {
@@ -365,7 +365,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteScalar(command).ToString();
         }
-        
+
         public int InsertEstrategiaTemporal(List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int nroLore)
         {
             var listaTypes = lista.Select(item => new BEEstrategiaType
@@ -403,7 +403,7 @@ namespace Portal.Consultoras.Data
 
             return Convert.ToInt32(command.Parameters["@NroLote"].Value);
         }
-        
+
         public int InsertEstrategiaOfertaParaTi(List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId)
         {
             var listaTypes = lista.Select(item => new BEEstrategiaType
@@ -641,7 +641,7 @@ namespace Portal.Consultoras.Data
                 return result;
             }
         }
-        
+
         #region Nuevo Masivo
 
         public int GetCantidadOfertasPersonalizadas(int campaniaId, int tipoConfigurado, string codigoEstrategia)
@@ -657,7 +657,7 @@ namespace Portal.Consultoras.Data
             }
             return result;
         }
-        
+
         public IDataReader GetOfertasPersonalizadasByTipoConfigurado(int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetOfertasPersonalizadasByTipoConfigurado"))
@@ -671,7 +671,7 @@ namespace Portal.Consultoras.Data
                 return Context.ExecuteReader(command);
             }
         }
-        
+
         public int GetCantidadOfertasPersonalizadasTemporal(int nroLote, int tipoConfigurado)
         {
             int result;
@@ -684,7 +684,7 @@ namespace Portal.Consultoras.Data
             }
             return result;
         }
-        
+
         public int EstrategiaTemporalDelete(int nroLote)
         {
             int result;
@@ -705,7 +705,7 @@ namespace Portal.Consultoras.Data
                 return Context.ExecuteReader(command);
             }
         }
-        
+
         public int EstrategiaTemporalInsertarMasivo(int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalInsertarMasivo"))

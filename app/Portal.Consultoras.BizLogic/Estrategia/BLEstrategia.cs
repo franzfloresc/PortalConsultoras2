@@ -230,6 +230,12 @@ namespace Portal.Consultoras.BizLogic
                             CacheManager<BEEstrategia>.AddData(entidad.PaisID, ECacheItem.HVEstrategia, entidad.CampaniaID.ToString(), estrategias);
                         }
                         break;
+                    case Constantes.TipoEstrategiaCodigo.LosMasVendidos:
+                        using (var reader = daEstrategia.GetEstrategiaMasVendidos(entidad))
+                        {
+                            while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                        }
+                        break;
                     default:
                         using (var reader = daEstrategia.GetEstrategiaPedido(entidad))
                         {
@@ -246,20 +252,6 @@ namespace Portal.Consultoras.BizLogic
                 LogManager.SaveLog(ex, entidad.ConsultoraID, entidad.PaisID.ToString());
                 return new List<BEEstrategia>();
             }
-        }
-
-        public List<BEEstrategia> GetMasVendidos(BEEstrategia entidad)
-        {
-            var estrategias = new List<BEEstrategia>();
-
-            var daEstrategia = new DAEstrategia(entidad.PaisID);
-            using (var reader = daEstrategia.GetMasVendidos(entidad))
-            {
-                while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
-            }
-
-            var estrategiasResult = EstrategiasPedidoLimpiar(estrategias, entidad);
-            return estrategiasResult;
         }
 
         private List<BEEstrategia> EstrategiasPedidoLimpiar(List<BEEstrategia> lista, BEEstrategia entidad)
