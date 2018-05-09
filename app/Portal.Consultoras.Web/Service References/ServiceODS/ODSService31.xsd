@@ -9,6 +9,7 @@
       <xs:enumeration value="NoParticipaEnProgramaNuevas" />
       <xs:enumeration value="CuvNoPerteneceASuPrograma" />
       <xs:enumeration value="ExisteUnElectivoEnPedido" />
+      <xs:enumeration value="CuvPerteneceProgramaNuevas" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Enumeradores.ValidacionProgramaNuevas" nillable="true" type="tns:Enumeradores.ValidacionProgramaNuevas" />
