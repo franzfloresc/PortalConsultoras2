@@ -1175,12 +1175,13 @@ function CompartirRedesSociales(e) {
     if (tipoRedes == "") tipoRedes = $.trim($(obj).attr("data-compartir"));
     if (tipoRedes == "") return false;
 
+    var ruta = $(article).find(".rs" + tipoRedes + "Ruta").val();
+    if (ruta == "") return false;
+
     var padre = obj.parents("[data-item]");
     var article = $(padre).find("[data-compartir-campos]").eq(0);
-
+    
     var label = $(article).find(".rs" + tipoRedes + "Mensaje").val();
-    var ruta = $(article).find(".rs" + tipoRedes + "Ruta").val();
-
     if (label != "") {
         dataLayer.push({
             'event': 'virtualEvent',
@@ -1190,8 +1191,6 @@ function CompartirRedesSociales(e) {
             'value': 0
         });
     }
-
-    if (ruta == "") return false;
 
     CompartirRedesSocialesInsertar(article, tipoRedes, ruta);
 }
@@ -1211,9 +1210,7 @@ function CompartirRedesSocialesTexto(texto) {
 
 
 function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre) {
-    if (!nombre) {
-        nombre = "";
-    }
+
 
     id = $.trim(id);
     if (id == "0" || id == "") {
@@ -1225,6 +1222,8 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre) 
     }
 
     ruta = ruta.replace('[valor]', id);
+
+    nombre = $.trim(nombre);
 
     try {
         if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {

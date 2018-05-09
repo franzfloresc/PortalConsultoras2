@@ -16,7 +16,10 @@ namespace Portal.Consultoras.Common
 
         public static string GetUrlFileS3(string carpetaPais, string fileName, string carpetaAnterior = "")
         {
-            fileName = fileName ?? "";
+            fileName = (fileName ?? "").Trim();
+            if (fileName == "")
+                return fileName;
+
             if (fileName.StartsWith(URL_S3))
                 return fileName;
 
@@ -27,7 +30,6 @@ namespace Portal.Consultoras.Common
                 return fileName;
 
             carpetaPais = carpetaPais ?? "";
-            if (fileName.Trim() == "") return fileName;
             return URL_S3 + "/" + BUCKET_NAME + "/" + ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName;
         }
 
