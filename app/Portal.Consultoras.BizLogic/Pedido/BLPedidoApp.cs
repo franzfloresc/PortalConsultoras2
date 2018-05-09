@@ -508,7 +508,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
         }
 
-        public BEPedidoDetalleAppResult DeshacerPedido(BEUsuario usuario)
+        public BEPedidoDetalleAppResult DeshacerReservaPedido(BEUsuario usuario)
         {
             var mensaje = string.Empty;
             var pedido = new BEPedidoWeb();
