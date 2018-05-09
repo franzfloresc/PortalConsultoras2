@@ -26,7 +26,7 @@ namespace Portal.Consultoras.BizLogic
         List<BECargaMasivaImagenes> GetListaImagenesProductoSugeridoByCampania(int paisId, int campaniaId);
         List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleAprobar(int paisID, BEProductoComentarioFilter filter);
         List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, BEProductoComentarioFilter filter);
-        List<BEEstrategia> GetMasVendidos(BEEstrategia entidad);
+        
         List<BEEstrategia> GetOfertaByCUV(BEEstrategia entidad);
         BEProductoComentario GetProductoComentarioByCodSap(int paisID, string codigoSap);
         IList<BEConfiguracionValidacionZE> GetRegionZonaZE(int PaisID, int RegionID, int ZonaID);
