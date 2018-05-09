@@ -937,6 +937,31 @@ namespace Portal.Consultoras.BizLogic
             return validaLogin;
         }
 
+        public BEValidaLoginSB2 GetValidarLoginJsonWebToken(int paisID, string documento)
+        {
+            BEValidaLoginSB2 validaLogin = null;
+            string paisIso = string.Empty;
+
+            try
+            {
+                paisIso = Common.Util.GetPaisISO(paisID);
+                paisIso = (!string.IsNullOrEmpty(paisIso)) ? paisIso : paisID.ToString();
+                var daUsuario = new DAUsuario(paisID);
+
+                using (IDataReader reader = daUsuario.GetValidarLoginJsonWebToken(documento))
+                {
+                    if (reader.Read())
+                        validaLogin = new BEValidaLoginSB2(reader);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, documento, paisIso);
+            }
+
+            return validaLogin;
+        }
+
         public BEValidaLoginSB2 GetValidarAutoLogin(int paisID, string codigoUsuario, string proveedor)
         {
             BEValidaLoginSB2 validaLogin = null;
