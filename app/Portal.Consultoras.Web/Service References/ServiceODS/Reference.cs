@@ -3530,10 +3530,10 @@ namespace Portal.Consultoras.Web.ServiceODS {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProducto[]> GetListBrothersByCUVAsync(int paisID, int codCampania, string cuv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevas", ReplyAction="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasResponse")]
-        Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool consultoraNueva, bool participaProgramaNuevas);
+        Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevas", ReplyAction="http://tempuri.org/IODSService/ValidarBusquedaProgramaNuevasResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasAsync(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool consultoraNueva, bool participaProgramaNuevas);
+        System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasAsync(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarCantidadMaximaProgramaNuevas", ReplyAction="http://tempuri.org/IODSService/ValidarCantidadMaximaProgramaNuevasResponse")]
         int ValidarCantidadMaximaProgramaNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada);
@@ -3885,12 +3885,12 @@ namespace Portal.Consultoras.Web.ServiceODS {
             return base.Channel.GetListBrothersByCUVAsync(paisID, codCampania, cuv);
         }
         
-        public Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool consultoraNueva, bool participaProgramaNuevas) {
-            return base.Channel.ValidarBusquedaProgramaNuevas(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv, consultoraNueva, participaProgramaNuevas);
+        public Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv) {
+            return base.Channel.ValidarBusquedaProgramaNuevas(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasAsync(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv, bool consultoraNueva, bool participaProgramaNuevas) {
-            return base.Channel.ValidarBusquedaProgramaNuevasAsync(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv, consultoraNueva, participaProgramaNuevas);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidacionProgramaNuevas> ValidarBusquedaProgramaNuevasAsync(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv) {
+            return base.Channel.ValidarBusquedaProgramaNuevasAsync(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv);
         }
         
         public int ValidarCantidadMaximaProgramaNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada) {
