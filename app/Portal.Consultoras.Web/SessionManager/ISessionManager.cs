@@ -147,5 +147,9 @@ namespace Portal.Consultoras.Web.SessionManager
         PagoEnLineaModel GetDatosPagoVisa();
 
         EstrategiaPersonalizadaProductoModel ProductoTemporal { get; set; }
+
+        void setBEUsuarioModel (List<ServiceUsuario.BEUsuario> model);
+
+        List<ServiceUsuario.BEUsuario> getBEUsuarioModel();
     }
 }

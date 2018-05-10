@@ -379,6 +379,16 @@ namespace Portal.Consultoras.Web.SessionManager
             return (PagoEnLineaModel)HttpContext.Current.Session[Constantes.ConstSession.DatosPagoVisa];
         }
 
+        void ISessionManager.setBEUsuarioModel(List<ServiceUsuario.BEUsuario> model)
+        {
+            HttpContext.Current.Session["BEUsuarioModel"] = model;
+        }
+
+        List<ServiceUsuario.BEUsuario> ISessionManager.getBEUsuarioModel()
+        {
+            return (List<ServiceUsuario.BEUsuario>) HttpContext.Current.Session["BEUsuarioModel"];
+        }
+
         EstrategiaPersonalizadaProductoModel ISessionManager.ProductoTemporal
         {
             get
