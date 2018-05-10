@@ -407,5 +407,37 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             });
         }
+
+        [HttpPost]
+        public async Task<JsonResult> DescargarArchivoCliente(int nroLote)
+        {
+            var usuario = UserData() ?? new UsuarioModel();
+
+            try
+            {
+                using (var srv = new PedidoServiceClient())
+                {
+                    await srv.DescargaPedidosClienteAsync(usuario.PaisID, nroLote, usuario.CodigoUsuario);
+                }
+
+                var data = new
+                {
+                    success = true,
+                    mensaje = "Archivo generado satisfactoriamente"
+                };
+
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, usuario.CodigoConsultora, usuario.CodigoISO);
+
+                return Json(new
+                {
+                    success = false,
+                    mensaje = ex.Message,
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

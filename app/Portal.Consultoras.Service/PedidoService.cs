@@ -2385,5 +2385,17 @@ namespace Portal.Consultoras.Service
             return _pedidoAppBusinessLogic.Reserva(usuario);
         }
         #endregion
+
+        public void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario)
+        {
+            try
+            {
+                _pedidoWebBusinessLogic.DescargaPedidosCliente(paisID, nroLote, codigoUsuario);
+            }
+            catch (Exception ex)
+            {
+                throw new FaultException(ex.Message);
+            }
+        }
     }
 }

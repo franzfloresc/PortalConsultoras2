@@ -920,5 +920,12 @@ namespace Portal.Consultoras.Data
         }
 
         #endregion
+
+        public IDataReader DescargaPedidosCliente(int nroLote)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetLogCargaPedidoCliente");
+            Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+            return Context.ExecuteReader(command);
+        }
     }
 }

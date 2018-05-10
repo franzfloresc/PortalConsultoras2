@@ -468,9 +468,32 @@
     }
 
     function ArchivoClientes(rowId) {
-        alert(rowId)
-        //var rowData = $("#list").jqGrid('getRowData', rowId);
-        //alert(rowData.NroLote)
+        var waiting = {
+            message: 'Espere unos minutos, por favor...',
+            title: 'Ejecutando Proceso'
+        }
+        waitingDialog(waiting);
+
+        $.ajax({
+            type: 'POST',
+            url: baseUrl + 'DescargaPedidos/DescargarArchivoCliente',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: "{nroLote: " + rowId + "}",
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert(data.mensaje);
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert("Error del Sistema.");
+                }
+            }
+        });
     }
 </script>
 

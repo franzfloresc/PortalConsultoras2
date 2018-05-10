@@ -65,5 +65,10 @@ namespace Portal.Consultoras.Common
             }
         }
         #endregion
+
+        public static string GetByTagName(string tagName)
+        {
+            return ConfigurationManager.AppSettings[tagName] ?? string.Empty;
+        }
     }
 }

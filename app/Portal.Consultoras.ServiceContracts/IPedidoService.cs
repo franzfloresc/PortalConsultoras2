@@ -1293,5 +1293,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEPagoEnLineaResultadoLogReporte> ObtenerPagoEnLineaByFiltro(int paisId, BEPagoEnLineaFiltro filtro);
         #endregion
+
+        [OperationContract]
+        void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario);
     }
 }
