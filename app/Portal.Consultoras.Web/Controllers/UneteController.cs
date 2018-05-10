@@ -1530,6 +1530,12 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_Message");
         }
 
+        public ActionResult ErrorLog(string NumeroDocumento)
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ErrorLog", "&numeroDocumento=" + NumeroDocumento);
+            return PartialView("_Message");
+        }
+
         [HttpPost]
         public ActionResult DevolverSolicitud(int id, string observacion)
         {
