@@ -241,6 +241,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 resultado.MontoTotal = listDetalle.Sum(pd => pd.ImporteTotal) - resultado.MontoDescuento;
                 resultado.UnidadesAgregadas = listDetalle.Sum(pd => pd.Cantidad);
 
+                RegistrarObservacionesHuerfanas(input, resultado, listDetalleSinBackOrder);
                 UpdatePedidoWebReservado(input, resultado, listDetalleSinBackOrder);
                 resultado.RefreshPedido = true;
                 resultado.RefreshMontosProl = true;
@@ -393,6 +394,26 @@ namespace Portal.Consultoras.BizLogic.Reserva
         private IReservaExternaBL NewReservaExternaBL(byte versionProl)
         {
             return versionProl == 3 ? new BLReservaSicc() as IReservaExternaBL : new BLReservaProl2() as IReservaExternaBL;
+        }
+
+        private void RegistrarObservacionesHuerfanas(BEInputReservaProl input, BEResultadoReservaProl resultado, List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        {
+            try
+            {
+                if (resultado.ListPedidoObservacion.Count == 0) return;
+
+                var cuvCab = resultado.ResultadoReservaEnum == Enumeradores.ResultadoReserva.NoReservadoDeuda ? Constantes.ProlCodigoRechazo.Deuda :
+                    resultado.ResultadoReservaEnum == Enumeradores.ResultadoReserva.NoReservadoMontoMaximo ? Constantes.ProlCodigoRechazo.MontoMaximo :
+                    resultado.ResultadoReservaEnum == Enumeradores.ResultadoReserva.NoReservadoMontoMinimo ? Constantes.ProlCodigoRechazo.MontoMinimo : null;
+                var listObsHuerfanas = resultado.ListPedidoObservacion.Where(po => !listPedidoWebDetalle.Any(pd => pd.CUV == po.CUV)).ToList();
+                if (cuvCab != null) listObsHuerfanas = listObsHuerfanas.Where(oh => oh.CUV != cuvCab).ToList();
+                if (listObsHuerfanas.Count == 0) return;
+
+                var exMessage = Constantes.MensajesError.Reserva_ObsHuerfanas;
+                var exTrace = string.Join(Environment.NewLine, listObsHuerfanas.Select(oh => oh.Caso + "|" + oh.CUV + "|" + oh.Descripcion).ToArray());
+                LogManager.SaveLog(new CustomTraceException(exMessage, exTrace), input.CodigoConsultora, input.PaisISO);
+            }
+            catch (Exception ex) { LogManager.SaveLog(ex, input.CodigoConsultora, input.PaisISO); }
         }
 
         private void UpdatePedidoWebReservado(BEInputReservaProl input, BEResultadoReservaProl resultado, List<BEPedidoWebDetalle> listPedidoWebDetalle)
