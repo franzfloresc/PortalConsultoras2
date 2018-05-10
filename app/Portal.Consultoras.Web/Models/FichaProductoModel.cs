@@ -82,7 +82,6 @@ namespace Portal.Consultoras.Web.Models
         public bool PuedeVerDetalleMob { get; set; }
         public string ClaseBloqueada { get; set; }
         public string UrlDetalle { get; set; }
-        public bool ProductoPerdio { get; set; }
 
         public TipoEstrategiaModelo TipoEstrategia { get; set; }
 

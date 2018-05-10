@@ -606,7 +606,6 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.PrecioTachado = estrategia.PrecioTachado;
                 prodModel.PrecioVenta = estrategia.PrecioString;
                 prodModel.ClaseBloqueada = tipo == 1 || (estrategia.CampaniaID > 0 && estrategia.CampaniaID != userData.CampaniaID) ? claseBloqueada : "";
-                prodModel.ProductoPerdio = tipo == 1;
                 prodModel.TipoEstrategiaID = estrategia.TipoEstrategiaID;
                 prodModel.FlagNueva = estrategia.FlagNueva;
                 prodModel.IsAgregado = prodModel.ClaseBloqueada != claseBloqueada && listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim());

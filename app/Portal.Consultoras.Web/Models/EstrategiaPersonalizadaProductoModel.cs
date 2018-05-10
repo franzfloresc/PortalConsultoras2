@@ -46,7 +46,6 @@ namespace Portal.Consultoras.Web.Models
         public int TipoAccionAgregar { get; set; } // es para los diferentes botones que sale en la seccion de agrega, elegir tono, ...
 
         public string ClaseBloqueada { get; set; }
-        public bool ProductoPerdio { get; set; }
         public int TipoEstrategiaID { get; set; }
         public int FlagNueva { get; set; }
         public bool IsAgregado { get; set; }

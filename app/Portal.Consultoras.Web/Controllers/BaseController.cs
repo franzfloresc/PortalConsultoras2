@@ -1304,7 +1304,6 @@ namespace Portal.Consultoras.Web.Controllers
                     PrecioTachado = fichaProducto.PrecioTachado,
                     PrecioVenta = fichaProducto.PrecioString,
 
-                    ProductoPerdio = false,
                     TipoEstrategiaID = fichaProducto.TipoEstrategiaID,
                     FlagNueva = fichaProducto.FlagNueva,
                     IsAgregado = listaPedido.Any(p => p.CUV == fichaProducto.CUV2.Trim()),
