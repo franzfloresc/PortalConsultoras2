@@ -69,8 +69,8 @@ namespace Portal.Consultoras.Web.Controllers
             _tablaLogicaProvider = new TablaLogicaProvider();
             _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
             estrategiaODD = sessionManager.GetEstrategiaODD() ?? new Models.Estrategia.OfertaDelDia.DataModel();
-            configEstrategiaSR = sessionManager.GetEstrategiaSR()?? new Models.Estrategia.ShowRoom.ConfigModel();
-           
+            configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
+
         }
 
         public BaseController(ISessionManager sessionManager)
@@ -989,7 +989,7 @@ namespace Portal.Consultoras.Web.Controllers
         public UsuarioModel UserData()
         {
             UsuarioModel model;
-            
+
             try
             {
                 model = sessionManager.GetUserData();
@@ -1005,7 +1005,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             #region Cargar variables
 
-            configEstrategiaSR = sessionManager.GetEstrategiaSR()?? new Models.Estrategia.ShowRoom.ConfigModel(); 
+            configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
 
             if (!configEstrategiaSR.CargoEntidadesShowRoom) CargarEntidadesShowRoom(model);
 
@@ -1213,9 +1213,9 @@ namespace Portal.Consultoras.Web.Controllers
                 Common.LogManager.SaveLog(ex, model.CodigoConsultora, model.CodigoISO);
                 configEstrategiaSR.CargoEntidadesShowRoom = false;
             }
-            
+
             SetUserData(model);
-            sessionManager.SetEstrategiaSR(configEstrategiaSR); 
+            sessionManager.SetEstrategiaSR(configEstrategiaSR);
         }
 
         protected bool PaisTieneShowRoom(string codigoIsoPais)
@@ -1318,13 +1318,27 @@ namespace Portal.Consultoras.Web.Controllers
                     TienePaginaProductoMob = fichaProducto.PuedeVerDetalleMob,
                     TieneVerDetalle = true,
 
-                    TipoAccionAgregar = fichaProducto.TieneVariedad == 0 ? fichaProducto.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas ? 1 : 2 : 3,
+                    TipoAccionAgregar = TipoAccionAgregar(fichaProducto.TieneVariedad, fichaProducto.TipoEstrategia.Codigo),
                     LimiteVenta = fichaProducto.LimiteVenta
                 };
                 listaRetorno.Add(prodModel);
             });
 
             return listaRetorno;
+        }
+
+        public int TipoAccionAgregar(int tieneVariedad, string codigoTipoEstrategia, string codigoTipos = "")
+        {
+            var tipo = tieneVariedad == 0 ? codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackNuevas ? 1 : 2 : 3;
+            if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)
+            {
+                tipo = userData.esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva() ? 0 : tipo;
+            }
+            else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
+            {
+                tipo = codigoTipos == Constantes.TipoEstrategiaSet.IndividualConTonos || codigoTipos == Constantes.TipoEstrategiaSet.CompuestaFija ? 2 : 3;
+            }
+            return tipo;
         }
 
         public List<FichaProductoModel> FichaProductoModelFormato(List<BEFichaProducto> listaProducto)
@@ -2574,7 +2588,7 @@ namespace Portal.Consultoras.Web.Controllers
             var fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
             return fechaHoy >= fechaInicioCampania.Date ? 0 : (fechaInicioCampania.Subtract(DateTime.Now.AddHours(zonaHoraria)).Days + 1);
         }
-                
+
         protected JsonResult ErrorJson(string message, bool allowGet = false)
         {
             return Json(new { success = false, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
@@ -3448,7 +3462,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
 
-                 var listaShowRoom = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<BEShowRoomOferta>();
+                var listaShowRoom = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<BEShowRoomOferta>();
                 seccion.CantidadProductos = listaShowRoom.Count(x => !x.EsSubCampania);
                 seccion.CantidadMostrar = Math.Min(3, seccion.CantidadProductos);
             }

@@ -110,6 +110,11 @@ namespace Portal.Consultoras.Web.Models
 
         public int EstrategiaId { get; set; }
 
+        /// <summary>
+        /// 1: AGRÉGALO - No alterar cantidad, caso pack nuevas
+        /// 2: AGRÉGALO - Si puede alterar cantidad
+        /// 3: ELIGE TU OPCIÓN
+        /// </summary>
         public int TipoAccionAgregar { get; set; }
         
         public int TieneVariedad { get; set; }

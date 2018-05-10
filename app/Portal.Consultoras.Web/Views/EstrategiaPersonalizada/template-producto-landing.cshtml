@@ -93,7 +93,7 @@
             {{/if}}
             {{else}}
             <div class="producto_nombre_descripcion" data-item-tag="agregar">
-                {{#iff PuedeAgregarProducto '==' true}}
+                {{#iff TipoAccionAgregar '>' 0}}
                 <div>
                     {{#iff TipoAccionAgregar '==' '1'}}
                     <div class="texto_elige_tono"></div>

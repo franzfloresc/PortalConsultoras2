@@ -623,7 +623,7 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.Ganancia = estrategia.Ganancia;
                 prodModel.GananciaString = estrategia.GananciaString;
 
-                prodModel.TipoAccionAgregar = estrategia.TieneVariedad == 0 ? estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas ? 1 : 2 : 3;
+                prodModel.TipoAccionAgregar = TipoAccionAgregar(estrategia.TieneVariedad, estrategia.TipoEstrategia.Codigo);
 
                 if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento)
                 {
@@ -684,10 +684,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     prodModel.PrecioNiveles = estrategia.Niveles ?? string.Empty;
                 }
-                if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)
-                {
-                    prodModel.PuedeAgregarProducto = !(userData.esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva());
-                }
+
+
                 listaRetorno.Add(prodModel);
             });
 

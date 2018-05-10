@@ -260,7 +260,7 @@
 
     @if ((Model.ClaseBloqueada ?? "") == "")
     {
-        if (Model.PuedeAgregarProducto)
+        if (Model.TipoAccionAgregar > 0)
         {
         <div class="row">
             <div class="content_btn_agregar">

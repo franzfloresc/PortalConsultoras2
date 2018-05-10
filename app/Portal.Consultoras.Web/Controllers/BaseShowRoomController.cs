@@ -236,14 +236,8 @@ namespace Portal.Consultoras.Web.Controllers
                     x.Simbolo = userData.Simbolo;
                     x.Agregado = (listaDetalle.Find(p => p.CUV == x.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none";
                     string CodigoEstrategia = listadoOfertasTodas.Where(f => f.CUV == x.CUV).Select(o => o.CodigoEstrategia).FirstOrDefault();
-                    if (CodigoEstrategia == "2001" || CodigoEstrategia == "2002")
-                    {
-                        x.TipoAccionAgregar = 0;
-                    }
-                    else
-                    {
-                        x.TipoAccionAgregar = 1;
-                    }
+
+                    x.TipoAccionAgregar = TipoAccionAgregar(0, Constantes.TipoEstrategiaCodigo.ShowRoom, CodigoEstrategia);
 
                 });
                 return listadoOfertasTodasModel;
@@ -322,14 +316,8 @@ namespace Portal.Consultoras.Web.Controllers
                 x.Agregado = (listaDetalle.Find(p => p.CUV == x.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none";
 
                 string CodigoEstrategia = listaShowRoomOfertaFinal.Where(f => f.CUV == x.CUV).Select(o => o.CodigoEstrategia).FirstOrDefault();
-                if (CodigoEstrategia == "2001" || CodigoEstrategia == "2002")
-                {
-                    x.TipoAccionAgregar = 0;
-                }
-                else
-                {
-                    x.TipoAccionAgregar = 1;
-                }
+
+                x.TipoAccionAgregar = TipoAccionAgregar(0, Constantes.TipoEstrategiaCodigo.ShowRoom, CodigoEstrategia);
             });
             return listadoOfertasTodasModel1;
         }

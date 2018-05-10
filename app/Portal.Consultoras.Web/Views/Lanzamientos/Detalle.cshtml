@@ -74,7 +74,7 @@
                     <div class="detalle-bloque-tres">
                         @Html.Partial("~/Views/Lanzamientos/Template_LanzamientosTonos.cshtml", Model)
                     </div>
-                    @if (Model.PuedeAgregarProducto)
+                    @if (Model.TipoAccionAgregar > 0)
                     {
 
                         <div class="input_agregar_cantidad">

@@ -162,7 +162,7 @@
                     </div>
                 </div>
                 <hr class="clear" />
-                {{#iff PuedeAgregarProducto '==' true}}
+                {{#iff TipoAccionAgregar '>' 0}}
                 <div class="liquidacion_rango_home liquidacion_rango_home_fix">
                     <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral {{ClaseBloqueada}}" data-input="cantidad" data-cantidad-input="-" {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
                     <div class="liquidacion_rango_right_pedido">

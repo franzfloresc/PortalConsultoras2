@@ -12,7 +12,6 @@ namespace Portal.Consultoras.Web.Models
             ArrayContenidoSet = new List<string>();
             ListaDescripcionDetalle = new List<string>();
             Hermanos = new List<ProductoModel>();
-            PuedeAgregarProducto = true;
         }
 
         public int CampaniaID { get; set; }
@@ -38,7 +37,14 @@ namespace Portal.Consultoras.Web.Models
         public decimal Precio2 { get; set; }
         public string PrecioTachado { get; set; }
         public string PrecioVenta { get; set; }
+        
+        /// <summary>
+        /// 1: AGRÉGALO - No alterar cantidad, caso pack nuevas
+        /// 2: AGRÉGALO - Si puede alterar cantidad
+        /// 3: ELIGE TU OPCIÓN
+        /// </summary>
         public int TipoAccionAgregar { get; set; } // es para los diferentes botones que sale en la seccion de agrega, elegir tono, ...
+
         public string ClaseBloqueada { get; set; }
         public bool ProductoPerdio { get; set; }
         public int TipoEstrategiaID { get; set; }
@@ -61,8 +67,6 @@ namespace Portal.Consultoras.Web.Models
         public bool EsOfertaIndependiente { get; set; }
         public string PrecioNiveles { get; set; }
         
-        public bool PuedeAgregarProducto { get; set; }
-
         public string CodigoProducto { get; set; }
         public MensajeProductoBloqueadoModel MensajeProductoBloqueado { get; set; }
     }
