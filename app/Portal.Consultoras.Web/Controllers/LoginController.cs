@@ -1308,8 +1308,6 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.ConsecutivoNueva = usuario.ConsecutivoNueva;
 
                     usuarioModel.DocumentoIdentidad = usuario.DocumentoIdentidad;
-                    usuarioModel.ParticipaEnProgramaNueva = GetConsultoraParticipaPrograma(usuarioModel);
-
                     #endregion
 
                     if (usuarioModel.RolID == Constantes.Rol.Consultora)
@@ -3016,21 +3014,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return RedirectToRoute("UniqueRoute", route);
-        }
-
-        private bool GetConsultoraParticipaPrograma(UsuarioModel model)
-        {
-            bool participa = false;
-
-            if (model.EsConsultoraNueva && model.CodigoPrograma != "")
-            {
-                using (var svc = new UsuarioServiceClient())
-                {
-                    participa = svc.GetConsultoraParticipaEnPrograma(model.PaisID, model.CodigoPrograma, model.CodigoConsultora, model.CampaniaID);
-                }
-            }
-
-            return participa;
         }
     }
 }
