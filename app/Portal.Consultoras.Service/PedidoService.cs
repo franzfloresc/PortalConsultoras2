@@ -1878,16 +1878,6 @@ namespace Portal.Consultoras.Service
             BLPedidoWeb.DeshacerUltimaDescargaPedido(PaisID);
         }
 
-        public int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int nroLore)
-        {
-            return new BLEstrategia().InsertEstrategiaTemporal(paisId, lista, campaniaId, codigoUsuario, nroLore);
-        }
-        
-        public int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId)
-        {
-            return new BLEstrategia().InsertEstrategiaOfertaParaTi(paisId, lista, campaniaId, codigoUsuario, estrategiaId);
-        }
-
         public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
             return blEstrategia.GetEstrategiaODD(paisID, codCampania, codConsultora, fechaInicioFact);
@@ -2335,6 +2325,6 @@ namespace Portal.Consultoras.Service
             return _pedidoAppBusinessLogic.GetDetalle(pedidoDetalle);
         }
         #endregion
-        
+
     }
 }
