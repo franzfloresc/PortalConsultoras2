@@ -149,7 +149,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return listEstrategia;
         }
-        
+
         public EstrategiaPersonalizadaProductoModel EstrategiaGetDetalle(int id, string cuv = "")
         {
             EstrategiaPersonalizadaProductoModel estrategiaModelo;
@@ -641,13 +641,15 @@ namespace Portal.Consultoras.Web.Controllers
                     prodModel.TipoEstrategiaDetalle.FlagIndividual = estrategia.EstrategiaDetalle.FlagIndividual;
                     prodModel.CodigoProducto = estrategia.CodigoProducto;
                 }
-                if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas)
+                else if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas)
                 {
                     prodModel.EsOfertaIndependiente = estrategia.EsOfertaIndependiente;
-                    prodModel.ImagenOfertaIndependiente = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenOfertaIndependiente);
-                    prodModel.MostrarImgOfertaIndependiente = estrategia.MostrarImgOfertaIndependiente;
+                    if (estrategia.EsOfertaIndependiente && estrategia.MostrarImgOfertaIndependiente)
+                    {
+                        prodModel.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenOfertaIndependiente);
+                    }
                 }
-                if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.HerramientasVenta)
+                else if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.HerramientasVenta)
                 {
                     prodModel.Precio = 0;
                     prodModel.Ganancia = 0;

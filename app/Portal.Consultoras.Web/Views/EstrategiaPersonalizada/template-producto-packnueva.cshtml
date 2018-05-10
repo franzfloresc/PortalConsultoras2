@@ -11,18 +11,10 @@
             <input type="hidden" class="OrigenPedidoWeb" value="{{OrigenPedidoWeb}}" />
             <div class="bloque_producto_packNuevas">
                 <div class="content_item_carrusel">
-                    {{#iff EsOfertaIndependiente '==' '1'}}
-                        {{#iff MostrarImgOfertaIndependiente '==' '1'}}
-                        <div class="etiqueta_producto" data-item-tag="etiqueta">
-                            <img src="{{ImagenOfertaIndependiente}}" alt="Etiqueta Producto" />
-                        </div>
-                        {{/iff}}
-                    {{else}}
-                        {{#iff ImagenURL '!=' ''}}
-                        <div class="etiqueta_producto" data-item-tag="etiqueta">
-                            <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-                        </div>
-                        {{/iff}}
+                    {{#iff ImagenURL '!=' ''}}
+                    <div class="etiqueta_producto" data-item-tag="etiqueta">
+                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                    </div>
                     {{/iff}}
                     <div class="producto_img_home">
                         <img src="{{FotoProducto01}}">

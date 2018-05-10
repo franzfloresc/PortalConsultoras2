@@ -41,18 +41,10 @@
                     <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
                     {{/iff}}
                 </div>
-                {{#iff EsOfertaIndependiente '==' '1'}}
-                {{#iff MostrarImgOfertaIndependiente '==' '1'}}
-                <div class="etiqueta_producto" data-item-tag="etiqueta">
-                    <img src="{{ImagenOfertaIndependiente}}" alt="Etiqueta Producto" />
-                </div>
-                {{/iff}}
-                {{else}}
                 {{#iff ImagenURL '!=' ''}}
                 <div class="etiqueta_producto" data-item-tag="etiqueta">
                     <img alt="Etiqueta Producto" data-src="{{ImagenURL}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
                 </div>
-                {{/iff}}
                 {{/iff}}
                 <div class="producto_nombre_descripcion" data-item-tag="descripcion">
                     {{#IsNullOrEmpty DescripcionMarca '!='}}
