@@ -590,59 +590,7 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #endregion
-
-        #region CargaMasivaImagenes
-
-        public List<BECargaMasivaImagenes> GetListaImagenesEstrategiasByCampania(int paisId, int campaniaId)
-        {
-            var lista = new List<BECargaMasivaImagenes>();
-            var daEstrategia = new DAEstrategia(paisId);
-
-            using (var reader = daEstrategia.GetListaImagenesEstrategiasByCampania(campaniaId))
-            {
-                while (reader.Read())
-                {
-                    lista.Add(new BECargaMasivaImagenes(reader));
-                }
-            }
-
-            return lista;
-        }
-
-        public List<BECargaMasivaImagenes> GetListaImagenesOfertaLiquidacionByCampania(int paisId, int campaniaId)
-        {
-            var lista = new List<BECargaMasivaImagenes>();
-            var daEstrategia = new DAEstrategia(paisId);
-
-            using (var reader = daEstrategia.GetListaImagenesOfertaLiquidacionByCampania(campaniaId))
-            {
-                while (reader.Read())
-                {
-                    lista.Add(new BECargaMasivaImagenes(reader));
-                }
-            }
-
-            return lista;
-        }
-
-        public List<BECargaMasivaImagenes> GetListaImagenesProductoSugeridoByCampania(int paisId, int campaniaId)
-        {
-            var lista = new List<BECargaMasivaImagenes>();
-            var daEstrategia = new DAEstrategia(paisId);
-
-            using (var reader = daEstrategia.GetListaImagenesProductoSugeridoByCampania(campaniaId))
-            {
-                while (reader.Read())
-                {
-                    lista.Add(new BECargaMasivaImagenes(reader));
-                }
-            }
-
-            return lista;
-        }
-
-        #endregion
-
+        
         public List<int> InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
         {
             try
