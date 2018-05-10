@@ -1420,12 +1420,6 @@ namespace Portal.Consultoras.Web.Controllers
                             return Json(productosModel, JsonRequestBehavior.AllowGet);
                         }
 
-                    case Enumeradores.ValidacionProgramaNuevas.NoParticipaEnProgramaNuevas:
-                        {
-                            productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacionBusqueda.NoParticipaProgramaNuevas));
-                            return Json(productosModel, JsonRequestBehavior.AllowGet);
-                        }
-
                     case Enumeradores.ValidacionProgramaNuevas.CuvNoPerteneceASuPrograma:
                         {
                             productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacionBusqueda.CuvNoPerteneceASuPrograma));

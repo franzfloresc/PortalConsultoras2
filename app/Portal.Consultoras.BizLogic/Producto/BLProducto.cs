@@ -370,7 +370,6 @@ namespace Portal.Consultoras.BizLogic
             if (lstProdcutos == null || lstProdcutos.Count == 0) return Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste;
             if (!lstProdcutos.Any(x => x.CodigoCupon == cuv)) return Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste;
             if (codigoPrograma == "") return Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva;
-            //if (!participaProgramaNuevas) return Enumeradores.ValidacionProgramaNuevas.NoParticipaEnProgramaNuevas;
             lstProdcutos = FiltrarProductosNuevasByNivelyCodigoPrograma(lstProdcutos, consecutivoNueva, codigoPrograma);
             if (!lstProdcutos.Any(a => a.CodigoCupon == cuv)) return Enumeradores.ValidacionProgramaNuevas.CuvNoPerteneceASuPrograma;
             return Enumeradores.ValidacionProgramaNuevas.CuvPerteneceProgramaNuevas;

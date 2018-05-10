@@ -1813,8 +1813,7 @@ namespace Portal.Consultoras.Common
 
             public class MensajeValidacionBusqueda
             {
-                public const string ConsultoraNoNueva = "El código solicitado es exclusivo del Programa de Nuevas.";
-                public const string NoParticipaProgramaNuevas = "El código solicitado es exclusivo del Programa de Nuevas. Usted ha dejado de participar en el programa.";
+                public const string ConsultoraNoNueva = "El código solicitado es exclusivo para quienes participan del Programa de Nuevas.";
                 public const string CuvNoPerteneceASuPrograma = "El codigo ingresado es incorrecto. Revise el folleto del Programa de Nuevas y solicite el que le corresponde.";
             }
 
