@@ -23,6 +23,7 @@ BEGIN
 		Estado = @Estado,
 		FechaHoraValidación = iif(isnull(@EstadoPROL, '') <> '', @fechaHora, null),
 		FechaHoraFin = @fechaHora,
+		Error = @Error,
 		EstadoPROL = @EstadoPROL,
 		Observaciones = @Observaciones,
 		EsMontoMinino = @EsMontoMinimo,
