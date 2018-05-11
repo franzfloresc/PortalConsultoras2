@@ -1,5 +1,4 @@
-﻿
-/*MI REVISTA*/
+﻿/*MI REVISTA*/
 .revistadigital {
     background-position: center top;
     margin-top: 30px;
@@ -178,16 +177,16 @@
     transform: skewX(-14deg);
     position: absolute;
     left: -14px;
-    background: -moz-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
-    background: -webkit-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
-    background: -o-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
-    background: -ms-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
-    background: linear-gradient(to bottom, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
-    box-shadow: 3px 2px 5px rgba(0,0,0,.25);
-    -moz-box-shadow: 3px 2px 5px rgba(0,0,0,.25);
-    -o-box-shadow: 3px 2px 5px rgba(0,0,0,.25);
-    -ms-box-shadow: 3px 2px 5px rgba(0,0,0,.25);
-    -webkit-box-shadow: 3px 2px 5px rgba(0,0,0,.25);
+    background: -moz-linear-gradient(top, rgba(213, 37, 31, 1) 0, rgba(163, 16, 18, 1) 100%);
+    background: -webkit-linear-gradient(top, rgba(213, 37, 31, 1) 0, rgba(163, 16, 18, 1) 100%);
+    background: -o-linear-gradient(top, rgba(213, 37, 31, 1) 0, rgba(163, 16, 18, 1) 100%);
+    background: -ms-linear-gradient(top, rgba(213, 37, 31, 1) 0, rgba(163, 16, 18, 1) 100%);
+    background: linear-gradient(to bottom, rgba(213, 37, 31, 1) 0, rgba(163, 16, 18, 1) 100%);
+    box-shadow: 3px 2px 5px rgba(0, 0, 0, .25);
+    -moz-box-shadow: 3px 2px 5px rgba(0, 0, 0, .25);
+    -o-box-shadow: 3px 2px 5px rgba(0, 0, 0, .25);
+    -ms-box-shadow: 3px 2px 5px rgba(0, 0, 0, .25);
+    -webkit-box-shadow: 3px 2px 5px rgba(0, 0, 0, .25);
 }
 
 .revistadigital .boxoffer .texto_boton {
@@ -321,11 +320,11 @@
     position: absolute;
     width: 139px;
     height: 100%;
-    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -o-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: linear-gradient(to right, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -moz-linear-gradient(left, rgba(177, 19, 19, 1) 0, rgba(197, 31, 28, 1) 15%, rgba(223, 40, 34, 1) 100%);
+    background: -webkit-linear-gradient(left, rgba(177, 19, 19, 1) 0, rgba(197, 31, 28, 1) 15%, rgba(223, 40, 34, 1) 100%);
+    background: -o-linear-gradient(left, rgba(177, 19, 19, 1) 0, rgba(197, 31, 28, 1) 15%, rgba(223, 40, 34, 1) 100%);
+    background: -ms-linear-gradient(left, rgba(177, 19, 19, 1) 0, rgba(197, 31, 28, 1) 15%, rgba(223, 40, 34, 1) 100%);
+    background: linear-gradient(to right, rgba(177, 19, 19, 1) 0, rgba(197, 31, 28, 1) 15%, rgba(223, 40, 34, 1) 100%);
     top: 0;
     left: -23px;
     transform: skewX(-14deg);
@@ -402,6 +401,7 @@
 }
 
 /*BTN STROKE BLACK*/
+
 .btn_stroke {
     background: transparent;
     width: 260px;
@@ -487,6 +487,7 @@
 
 
 /* PASE PEDIDO INSCRITAS C-11 */
+
 .banner_pedido_rd {
     font-family: 'Lato';
     float: right;
@@ -861,15 +862,15 @@
                     margin-bottom: 0;
                 }
 
-.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt .centrar_vertical .centrar_cont_club {
-    display: table-cell;
-    vertical-align: middle;
-    width: 100%;
-}
+                .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt .centrar_vertical .centrar_cont_club {
+                    display: table-cell;
+                    vertical-align: middle;
+                    width: 100%;
+                }
 
-.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt .centrar_vertical .centrar_cont_club p b {
-    font-weight: 900;
-}
+                    .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt .centrar_vertical .centrar_cont_club p b {
+                        font-weight: 900;
+                    }
 
             .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_btn {
                 display: inline-block;
@@ -947,6 +948,7 @@
         }
 
 /*BOTON BLANCO NO ANIMADO - CLUB GANA+*/
+
 .activar_boton_blanco_no_animado {
     background-color: white;
     color: #c39934 !important;
@@ -955,6 +957,7 @@
 }
 
 /*BOTON ESIKA ANIMADO: ROJO A BLANCO*/
+
 .activar_boton_rojo_a_blanco {
     position: relative;
     transition: all .6s ease-in-out;
@@ -981,40 +984,45 @@
 
 
 /*BOTON ESIKA NO ANIMADO: ROJO*/
+
 .activar_boton_esika_no_animado {
     color: white !important;
     padding: 15px 0px;
 }
 
 /*BOTON LBEL NO ANIMADO: ROJO*/
+
 .activar_boton_lbel_no_animado {
     color: white !important;
     padding: 15px 0px;
 }
 
 /*ORDENAR SALUDO DE BIENVENIDA*/
+
 .nombre_consultora_2018 {
-width: 100%;
-word-wrap: break-word;
-font-size: 14px;
-margin-bottom: 10px;
+    width: 100%;
+    word-wrap: break-word;
+    font-size: 14px;
+    margin-bottom: 10px;
+    text-align: left;
 }
 
-.nombre_consultora_2018 a {
-display: inline-block;
-color: #c39934;
-transition: .3s;
-text-decoration: underline;
-}
-.nombre_consultora_2018 a.mis_datos {
-display: inline-block;
-color: #848484;
-transition: .3s;
-text-decoration: none;
-margin-top: 0px;
-top: -1px;
-margin-left: 5px;
-}
+    .nombre_consultora_2018 a {
+        display: inline-block;
+        color: #c39934;
+        transition: .3s;
+        text-decoration: underline;
+    }
+
+        .nombre_consultora_2018 a.mis_datos {
+            display: inline-block;
+            color: #848484;
+            transition: .3s;
+            text-decoration: none;
+            margin-top: 0px;
+            top: -1px;
+            margin-left: 5px;
+        }
 
 
 .next-flecha-dorada {
@@ -1129,4 +1137,8 @@ margin-left: 5px;
 
 .revistaDigitalCompleta .contenedor_productos {
     top: -115px;
+}
+
+.text_left {
+    text-align: left !important;
 }

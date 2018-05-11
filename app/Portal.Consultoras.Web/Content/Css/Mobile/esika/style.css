@@ -4588,6 +4588,7 @@ table > thead > tr > th {
     height: auto;
     font-family: 'Lato';
 }
+
 .nombre_consultora_2018 {
     width: 100%;
     word-wrap: break-word;
@@ -4600,6 +4601,7 @@ table > thead > tr > th {
         transition: .3s;
         text-decoration: underline;
     }
+
         .nombre_consultora_2018 a.mis_datos {
             display: inline-block;
             color: #848484;
@@ -4609,11 +4611,13 @@ table > thead > tr > th {
             top: -1px;
             margin-left: 5px;
         }
+
 .content_resumen_dato_mobile a.txtdorado{
     color: #a18328;
     text-decoration: underline;
     margin-right: 5px;
 }
+
 .saludo_mobile {
     width: 24%;
     font-size: 17px;
@@ -4838,8 +4842,7 @@ table > thead > tr > th {
 
 .texto_btn_pago_en_linea,
 .logo_visa,
-.logo_mastercard
-{
+.logo_mastercard {
     display:inline-block;
     vertical-align:middle;
     height:auto;
@@ -4880,8 +4883,7 @@ table > thead > tr > th {
 }
 
 .logo_visa img,
-.logo_mastercard img
-{
+.logo_mastercard img {
     width:100%;
     height:auto;
 }
@@ -5118,8 +5120,7 @@ table > thead > tr > th {
     font-size: 11px;
     font-weight: 300;
     color: #000;
-    margin-top: 8px;
-    margin-bottom: 2px;
+    margin: 5px;
     text-transform: uppercase;
 }
 
@@ -10923,12 +10924,14 @@ a {
     font-family: 'Lato';
     position: relative;
 }
+
 .content_oferta_guia_negocio::after{
     content:"";
     display:block;
     width:100%;
     height:30px;
 }
+
 .precio_para_ti_048_izquierdo {
     display: inline-block;
     width: 90px;
@@ -10941,6 +10944,7 @@ a {
 .precio_para_ti_portantos {
     margin-left: 90px;
 }
+
 .etiqueta_guia_negocio {
     background: black;
     width: 70px;
@@ -12177,6 +12181,9 @@ a {
     .content_showroom .producto_precio_normal {
         display: block;
     }
+    .producto_precio_oferta {
+        padding-left: 0;
+    }
 }
 
 .precio_tachado_carrusel_set {
@@ -12540,7 +12547,6 @@ a {
 
 .btn_elige_tono {
     display: block;
-    margin-top: 12px;
     width: 100%;
     height: 45px;
     line-height: 44px;
@@ -12559,8 +12565,7 @@ a {
     font-weight: 700;
     color: #e81c36;
     text-align: center;
-    height: 48px;
-    padding: 15px 0;
+    margin-bottom: 5px;
 }
 
 .saludo_paginacion {
@@ -14788,6 +14793,7 @@ a {
     border: 1px solid #d2d2d2;
     color: #b9b9b9;
 }
+
 .mensaje_felicitaciones a:hover {
     opacity: 0.8;
 }
@@ -14834,8 +14840,7 @@ a {
 }
 
 .enlace_ingresa_tu_pedido_fic,
-.info_pedido_fic
-{
+.info_pedido_fic {
     color:#e81c36;
 }
 
@@ -14857,4 +14862,55 @@ a {
     background: #e5e5e5;
     border: 1px solid #d2d2d2;
     color: #b9b9b9;
+}
+
+.producto_precio {
+    margin: 5px 0px;
+}
+
+    .producto_precio b {
+        font-size: 10.5px;
+    }
+
+.producto_precio_normal {
+    font-size: 11.5px;
+    text-decoration: line-through;
+}
+
+.producto_precio_oferta {
+    font-size: 0;
+}
+
+    .producto_precio_oferta b {
+        font-size: 13px;
+        letter-spacing: .5px;
+    }
+
+.producto_nombre_descripcion_bpt .nombre_producto_bpt {
+    padding: 1px 0px 5px 0px !important;
+}
+
+@media screen and (max-width: 486px) and (min-width: 0) {
+
+    .content_showroom .producto_precio_normal {
+        display: block;
+    }
+
+    .producto_precio_oferta, .producto_precio_normal {
+        padding-left: 0;
+        text-align: center;
+        width: 100%;
+        display: block;
+    }
+}
+
+.producto_nombre_descripcion .nombre_producto,
+.producto_nombre_descripcion {
+    max-width: 90% !important;
+    margin: auto !important;
+    display: block !important;
+}
+
+.producto_img_mobile_bpt img {
+    padding: 10px !important;
 }

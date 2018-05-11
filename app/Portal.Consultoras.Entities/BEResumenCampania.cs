@@ -37,12 +37,8 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "Marca"))
                 Marca = Convert.ToString(row["Marca"]);
             if (DataRecord.HasColumn(row, "ImporteTotal"))
-            {
-                if (row["ImporteTotal"] == System.DBNull.Value)
-                    ImporteTotal = 0;
-                else
-                    ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
-            }
+                ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
+            
             if (DataRecord.HasColumn(row, "SaldoPendiente"))
                 SaldoPendiente = Convert.ToDecimal(row["SaldoPendiente"]);
             if (DataRecord.HasColumn(row, "Cantidad"))

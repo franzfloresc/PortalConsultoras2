@@ -117,10 +117,8 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "DescripcionProd"))
                 DescripcionProd = Convert.ToString(row["DescripcionProd"]);
 
-            if (DataRecord.HasColumn(row, "IndicadorPedido") && row["IndicadorPedido"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "IndicadorPedido"))
                 IndicadorPedido = Convert.ToInt32(row["IndicadorPedido"]);
-            else
-                IndicadorPedido = 0;
 
             if (DataRecord.HasColumn(row, "ganahasta"))
                 ganahasta = Convert.ToDecimal(row["ganahasta"]);

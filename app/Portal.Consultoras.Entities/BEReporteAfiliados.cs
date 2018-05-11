@@ -43,25 +43,25 @@ namespace Portal.Consultoras.Entities
         {
             if (DataRecord.HasColumn(row, "CodigoConsultora"))
                 CodigoConsultora = row["CodigoConsultora"].ToString();
-            if (DataRecord.HasColumn(row, "EsAfiliado") && row["EsAfiliado"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "EsAfiliado"))
                 EsAfiliado = Convert.ToBoolean(row["EsAfiliado"]);
-            if (DataRecord.HasColumn(row, "CodigoUbigeo") && row["CodigoUbigeo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoUbigeo"))
                 CodigoUbigeo = row["CodigoUbigeo"].ToString();
-            if (DataRecord.HasColumn(row, "UnidadGeografica1") && row["UnidadGeografica1"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "UnidadGeografica1"))
                 UnidadGeografica1 = Convert.ToString(row["UnidadGeografica1"]);
-            if (DataRecord.HasColumn(row, "UnidadGeografica2") && row["UnidadGeografica2"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "UnidadGeografica2"))
                 UnidadGeografica2 = Convert.ToString(row["UnidadGeografica2"]);
-            if (DataRecord.HasColumn(row, "UnidadGeografica3") && row["UnidadGeografica3"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "UnidadGeografica3"))
                 UnidadGeografica3 = Convert.ToString(row["UnidadGeografica3"]);
-            if (DataRecord.HasColumn(row, "NombreCompleto") && row["NombreCompleto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NombreCompleto"))
                 NombreCompleto = row["NombreCompleto"].ToString();
-            if (DataRecord.HasColumn(row, "Correo") && row["Correo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Correo"))
                 Correo = Convert.ToString(row["Correo"]);
-            if (DataRecord.HasColumn(row, "Edad") && row["Edad"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Edad"))
                 Edad = Convert.ToInt32(row["Edad"]);
-            if (DataRecord.HasColumn(row, "Segmento") && row["Segmento"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Segmento"))
                 Segmento = Convert.ToString(row["Segmento"]);
-            if (DataRecord.HasColumn(row, "AnoCampanaIngreso") && row["AnoCampanaIngreso"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "AnoCampanaIngreso"))
                 AnoCampanaIngreso = row["AnoCampanaIngreso"].ToString();
             if (DataRecord.HasColumn(row, "FechaCreacion"))
                 FechaCreacionString = row["FechaCreacion"].ToString();

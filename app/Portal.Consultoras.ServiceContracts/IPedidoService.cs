@@ -1221,20 +1221,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEMisPedidosFacturados> GetMisPedidosFacturados(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora);
         #endregion
-
-        #region CargaMasivaImagenes
-
-        [OperationContract]
-        List<BECargaMasivaImagenes> GetListaImagenesEstrategiasByCampania(int paisId, int campaniaId);
-
-        [OperationContract]
-        List<BECargaMasivaImagenes> GetListaImagenesOfertaLiquidacionByCampania(int paisId, int campaniaId);
-
-        [OperationContract]
-        List<BECargaMasivaImagenes> GetListaImagenesProductoSugeridoByCampania(int paisId, int campaniaId);
-
-        #endregion
-
+        
         #region ProductosPrecargados
         [OperationContract]
         int GetFlagProductosPrecargados(int paisID, string CodigoConsultora, int CampaniaID);

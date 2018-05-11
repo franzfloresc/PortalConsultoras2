@@ -4519,6 +4519,7 @@ table > thead > tr > th {
     margin-top: 66px;
     position: relative;
 }
+
 .wrapper_resumen_mobile {
     width: 100%;
     padding-left: 14px;
@@ -4563,6 +4564,7 @@ table > thead > tr > th {
             top: -1px;
             margin-left: 5px;
         }
+
 .content_320 {
     width: 292px;
     height: auto;
@@ -4615,11 +4617,13 @@ table > thead > tr > th {
     font-family: 'Lato';
     vertical-align: middle;
 }
+
 .content_resumen_dato_mobile a.txtdorado{
     color: #a18328;
     text-decoration: underline;
     margin-right: 5px;
 }
+
 .saludo_mobile {
     width: 24%;
     font-size: 17px;
@@ -4829,8 +4833,7 @@ table > thead > tr > th {
 
 .texto_btn_pago_en_linea,
 .logo_visa,
-.logo_mastercard
-{
+.logo_mastercard {
     display:inline-block;
     vertical-align:middle;
     height:auto;
@@ -4869,8 +4872,7 @@ table > thead > tr > th {
 }
 
 .logo_visa img,
-.logo_mastercard img
-{
+.logo_mastercard img {
     width:100%;
     height:auto;
 }
@@ -5094,8 +5096,7 @@ table > thead > tr > th {
         font-size: 11px;
         font-weight: 300;
         color: #000;
-        margin-top: 8px;
-        margin-bottom: 2px;
+        margin: 5px;
         text-transform: uppercase;
     }
 
@@ -6566,6 +6567,7 @@ body {
     margin-top: 30px;
     margin-bottom: 30px;
 }
+
 .contrevista p {
 font-size: 13px;
 font-weight: normal;
@@ -6580,6 +6582,7 @@ margin: auto;
 margin-top: -30px;
 margin-bottom: 15px;
 }
+
 .contrevista a {
 width: 200px;
 padding: 8px;
@@ -6591,10 +6594,12 @@ margin-bottom: 30px;
 text-align: center;
 transition: .3s;
 }
+
 .contrevista a:hover{
 background:black;
 color:white;
 }
+
 .Label_compartir {
     font-family: 'Lato';
     font-size: 15px;
@@ -10876,12 +10881,14 @@ span.icon-advertencia {
     font-family: 'Lato';
     position: relative;
 }
+
 .content_oferta_guia_negocio::after{
     content:"";
     display:block;
     width:100%;
     height:30px;
 }
+
 .etiqueta_guia_negocio {
     background: black;
     width: 70px;
@@ -10945,6 +10952,7 @@ span.icon-advertencia {
     color: black;
     font-size: 13px;
 }
+
 .precio_para_ti_048_izquierdo {
     display: inline-block;
     width: 90px;
@@ -10957,6 +10965,7 @@ span.icon-advertencia {
 .precio_para_ti_portantos {
     margin-left: 90px;
 }
+
     .precio_para_ti_048 b {
         font-size: 16px;
     }
@@ -11683,7 +11692,6 @@ span.icon-advertencia {
 
 .btn_elige_tono {
     display: block;
-    margin-top: 12px;
     width: 100%;
     height: 45px;
     line-height: 44px;
@@ -11717,29 +11725,13 @@ span.icon-advertencia {
     -webkit-transition: all .3s ease;
 }
 
-.btn_elige_tono {
-    display: block;
-    margin-top: 12px;
-    width: 100%;
-    height: 45px;
-    line-height: 44px;
-    background: white;
-    color: black;
-    text-align: center;
-    border: 1px solid #000;
-    font-size: 12px;
-    font-weight: 900;
-    cursor: pointer;
-}
-
 .texto_elige_tono {
     font-family: 'Lato';
     font-size: 11px;
     font-weight: 700;
     color: #613c87;
     text-align: center;
-    height: 48px;
-    padding: 15px 0;
+    margin-bottom: 5px;
 }
 
 .check_intriga:before {
@@ -12376,6 +12368,9 @@ span.icon-advertencia {
 
     .content_showroom .producto_precio_normal {
         display: block;
+    }
+    .producto_precio_oferta {
+        padding-left: 0;
     }
 }
 
@@ -14506,7 +14501,6 @@ span.icon-advertencia {
     .franja_negra_fondo_mobile{
         left: 28%;
     }
-
 }
 
 @media screen and (min-width:360px) and (max-width:405px){
@@ -14514,7 +14508,6 @@ span.icon-advertencia {
     .franja_negra_fondo_mobile{
         left: 14%;
     }
-
 }
 
 .cambio_contrasenia_titulo {
@@ -14699,3 +14692,55 @@ span.icon-advertencia {
 }
 
 /* HD-912 - FIN - PEDIDO FIC MOBILE */
+
+.producto_precio {
+    margin: 5px 0px;
+}
+
+    .producto_precio b {
+        font-size: 10.5px;
+    }
+
+.producto_precio_normal {
+    font-size: 11.5px;
+    text-decoration: line-through;
+}
+
+.producto_precio_oferta {
+    padding-left: 0;
+    font-size: 0;
+}
+
+    .producto_precio_oferta b {
+        font-size: 13px;
+        letter-spacing: .5px;
+    }
+
+.producto_nombre_descripcion_bpt .nombre_producto_bpt {
+    padding: 1px 0px 5px 0px !important;
+}
+
+@media screen and (max-width: 486px) and (min-width: 0) {
+
+    .content_showroom .producto_precio_normal {
+        display: block;
+    }
+
+    .producto_precio_oferta, .producto_precio_normal {
+        padding-left: 0;
+        text-align: center;
+        width: 100%;
+        display: block;
+    }
+}
+
+.producto_nombre_descripcion .nombre_producto,
+.producto_nombre_descripcion {
+    max-width: 90% !important;
+    margin: auto !important;
+    display: block !important;
+}
+
+.producto_img_mobile_bpt img {
+    padding: 10px !important;
+}

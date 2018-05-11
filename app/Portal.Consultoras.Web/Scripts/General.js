@@ -7,6 +7,9 @@ belcorp.settings.uniquePrefix = "/g/";
 
 jQuery(document).ready(function () {
     CreateLoading();
+
+    redimensionarMenusTabs();
+
     $("body").on("click", "[data-compartir]", function (e) {
         e.preventDefault();
         CompartirRedesSociales(e);
@@ -469,6 +472,17 @@ jQuery(document).ready(function () {
         return newLista;
     };
 })(jQuery);
+
+function redimensionarMenusTabs() {
+    var total_menu_contenedor = $(".bc_para_ti-menu ul li").size();
+
+    if (total_menu_contenedor > 2) {
+        $('.bc_para_ti-menu ul li').addClass('fix_menu_tabs_mobil_3');
+    }
+    else {
+        $('.bc_para_ti-menu ul li').addClass('fix_menu_tabs_mobil_2');
+    }
+}
 
 function showDialog(dialogId) {
     $("#" + dialogId).dialog("open");
@@ -1176,12 +1190,13 @@ function CompartirRedesSociales(e) {
     if (tipoRedes == "") tipoRedes = $.trim($(obj).attr("data-compartir"));
     if (tipoRedes == "") return false;
 
+    var ruta = $(article).find(".rs" + tipoRedes + "Ruta").val();
+    if (ruta == "") return false;
+
     var padre = obj.parents("[data-item]");
     var article = $(padre).find("[data-compartir-campos]").eq(0);
-
+    
     var label = $(article).find(".rs" + tipoRedes + "Mensaje").val();
-    var ruta = $(article).find(".rs" + tipoRedes + "Ruta").val();
-
     if (label != "") {
         dataLayer.push({
             'event': 'virtualEvent',
@@ -1191,8 +1206,6 @@ function CompartirRedesSociales(e) {
             'value': 0
         });
     }
-
-    if (ruta == "") return false;
 
     CompartirRedesSocialesInsertar(article, tipoRedes, ruta);
 }
@@ -1212,9 +1225,7 @@ function CompartirRedesSocialesTexto(texto) {
 
 
 function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre) {
-    if (!nombre) {
-        nombre = "";
-    }
+
 
     id = $.trim(id);
     if (id == "0" || id == "") {
@@ -1226,6 +1237,8 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre) 
     }
 
     ruta = ruta.replace('[valor]', id);
+
+    nombre = $.trim(nombre);
 
     try {
         if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
