@@ -64,7 +64,7 @@ namespace Portal.Consultoras.Entities
             if (row.HasColumn("Situacion"))
                 Situacion = Convert.ToString(row["Situacion"]);
             if (row.HasColumn("Fecha"))
-                Fecha = row["Fecha"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(row["Fecha"]);
+                Fecha = Convert.ToDateTime(row["Fecha"]);
 
             if (row.HasColumn("ValorTurno"))
                 ValorTurno = Convert.ToString(row["ValorTurno"]);

@@ -291,12 +291,11 @@ namespace Portal.Consultoras.Entities
                 CUV = Convert.ToString(row["CUV"]);
             if (DataRecord.HasColumn(row, "DescripcionProd"))
                 DescripcionProd = Convert.ToString(row["DescripcionProd"]);
-
-            // si HasColumn is true => never row["Nombre"] == DBNull.Value is true
+            
             if (DataRecord.HasColumn(row, "Nombre"))
-                Nombre = row["Nombre"] == DBNull.Value ? Consultora : Convert.ToString(row["Nombre"]);
+                Nombre = Convert.ToString(row["Nombre"]);
             if (DataRecord.HasColumn(row, "Nombre"))
-                NombreCliente = row["Nombre"] == DBNull.Value ? Consultora : Convert.ToString(row["Nombre"]);
+                NombreCliente = Convert.ToString(row["Nombre"]);
 
             if (DataRecord.HasColumn(row, "eMail"))
                 eMail = Convert.ToString(row["eMail"]);
