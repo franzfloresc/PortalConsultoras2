@@ -125,6 +125,7 @@ namespace Portal.Consultoras.Web.Models
         public string NombreGerenteZonal { get; internal set; }
         public bool PopupInicialCerrado { get; set; }
         public bool ShowPopupMisDatos { get; set; }
+        public string OpcionCambiaClave { get; set; }
         public RevistaDigitalModel RevistaDigital { get; set; }
         public PartialSectionBpt PartialSectionBpt { get; set; }
         public bool TienePagoEnLinea { get; set; }

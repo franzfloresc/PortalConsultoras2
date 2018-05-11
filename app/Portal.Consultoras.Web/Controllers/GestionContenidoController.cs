@@ -140,12 +140,52 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        public JsonResult GetResumenCampaniaAgrupado(bool soloCantidad)
+        {
+            try
+            {
+                var pedidoWeb = ObtenerPedidoWeb();
+                var pedidoWebDetalle = ObtenerPedidoWebSetDetalleAgrupado();// ObtenerPedidoWebDetalle();
+                var ultimosTresPedidos = ObtenerUltimosDetallesPedido(soloCantidad, pedidoWebDetalle);
+
+                return Json(new ResumenCampaniaModel
+                {
+                    result = true,
+                    montoWebAcumulado = pedidoWebDetalle.Sum(p => p.ImporteTotal),
+                    cantidadProductos = pedidoWebDetalle.Sum(p => p.Cantidad),
+                    ultimosTresPedidos = ultimosTresPedidos,
+                    Simbolo = userData.Simbolo,
+                    paisID = userData.PaisID,
+                    montoWebConDescuentoStr = Util.DecimalToStringFormat(pedidoWebDetalle.Sum(p => p.ImporteTotal) - pedidoWeb.DescuentoProl, userData.CodigoISO),
+                    DescuentoProlStr = Util.DecimalToStringFormat(pedidoWeb.DescuentoProl, userData.CodigoISO),
+                    DescuentoProl = pedidoWeb.DescuentoProl,
+                }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    result = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    result = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public JsonResult GetResumenCampania(bool soloCantidad)
         {
             try
             {
                 var pedidoWeb = ObtenerPedidoWeb();
-                var pedidoWebDetalle = ObtenerPedidoWebDetalle();
+                var pedidoWebDetalle =  ObtenerPedidoWebDetalle();
                 var ultimosTresPedidos = ObtenerUltimosDetallesPedido(soloCantidad, pedidoWebDetalle);
 
                 return Json(new ResumenCampaniaModel
