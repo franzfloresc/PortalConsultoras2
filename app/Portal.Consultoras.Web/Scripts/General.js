@@ -437,6 +437,8 @@ jQuery(document).ready(function () {
         return pEnteraFinal + pDecimal;
     }
 
+    IsNullOrEmpty = function (texto) { return texto == null || texto === ''; }
+
     $(document).scroll(function () {
         try {
             $(".loadingScreenWindow").css("top", (($(window).height() / 2) + $(document).scrollTop() - $(".loadingScreenWindow").height()) + "px");

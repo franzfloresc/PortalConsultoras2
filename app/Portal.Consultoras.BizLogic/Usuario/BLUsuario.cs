@@ -2771,6 +2771,10 @@ namespace Portal.Consultoras.BizLogic
 
             return codigoUsuario;
         }
-
+        
+        public bool GetConsultoraParticipaEnPrograma(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID)
+        {
+            return new DAUsuario(paisID).GetConsultoraParticipaEnPrograma(codigoPrograma, codigoConsultora, campaniaID);
+        }
     }
 }

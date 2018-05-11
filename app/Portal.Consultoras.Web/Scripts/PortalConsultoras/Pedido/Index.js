@@ -136,15 +136,19 @@ $(document).ready(function () {
             if (ui.item.CUV == "0") {
                 return false;
             }
-
+            
             $('#txtDescripcionProd')[0].item = ui.item;
             $("#txtDescripcionProd").val(ui.item.Descripcion);
             $("#hdTipoOfertaSisID").val(ui.item.TipoOfertaSisID);
             $("#hdConfiguracionOfertaID").val(ui.item.ConfiguracionOfertaID);
             $("#hdfIndicadorMontoMinimo").val(ui.item.IndicadorMontoMinimo);
             $("#hdTipoEstrategiaID").val(ui.item.TipoEstrategiaID);
-            ObservacionesProducto(ui.item);
+            //ObservacionesProducto(ui.item);
             $('#hdMetodoBusqueda').val('Por descripción');
+
+            if (ui.item.CUV.length === 5) {
+                BuscarByCUV(ui.item.CUV);
+            }
 
             event.preventDefault();
         }
@@ -1085,7 +1089,7 @@ function ValidarDescripcion() {
         if ($("#txtDescripcionProd").val() != $("#hdfDescripcionProd").val()) {
             $("#divMensaje").text("Ud. debe seleccionar un producto válido.");
             $("#btnAgregar").attr("disabled", "disabled");
-        }
+        } 
     } else {
         $("#txtCantidad").val("");
         $("#hdfCUV").val("");
@@ -1561,7 +1565,7 @@ function CambiarCliente(elem) {
 }
 
 function ObservacionesProducto(item) {
-
+    
     if (item.TipoOfertaSisID == "1707") {
 
         $("#divObservaciones").html("");

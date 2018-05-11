@@ -302,6 +302,8 @@
     <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
     <Compile Include="Controllers\LanzamientosController.cs" />
+    <Compile Include="Models\Cache\CacheModel.cs" />
+    <Compile Include="Models\Common\ListStringModel.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\BannerInferiorConfiguracion.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\IBannerInferiorConfiguracion.cs" />
     <Compile Include="Models\Estrategia\UpSellingFullModel.cs" />
@@ -858,11 +860,6 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="Web References\ServicePROLConsultas\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
-    <Compile Include="Web References\ServicePROL\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -4174,6 +4171,39 @@
     </None>
     <None Include="Service References\ServiceODS\configuration91.svcinfo" />
     <None Include="Service References\ServiceODS\configuration.svcinfo" />
+    <None Include="Service References\ServiceODS\ODSService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService31.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService310.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService32.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService33.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService34.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService35.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService36.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService37.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService38.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService39.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceODS\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -4454,6 +4484,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUsuario\UsuarioService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService5.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceZonificacion\ZonificacionService.wsdl" />
@@ -5283,14 +5316,6 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\ServicePROLConsultas\wsConsulta.wsdl" />
-    <None Include="Web References\ServicePROL\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\ServicePROL\ServiceStockSsic.wsdl" />
-    <Content Include="Web References\ServicePROL\TransferirDatos.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </Content>
     <Content Include="WebPages\MasterComunidad.Master" />
     <None Include="Web References\ServicesCalculosPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -5372,17 +5397,6 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Portal_Consultoras_Web_ServicePROLConsultas_wsConsulta</CachedSettingsPropName>
-    </WebReferenceUrl>
-    <WebReferenceUrl Include="http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/wsPROLSicc/ServiceStockSsic.asmx%3fwsdl">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\ServicePROL\</RelPath>
-      <UpdateFromURL>http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/wsPROLSicc/ServiceStockSsic.asmx%3fwsdl</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>Portal_Consultoras_Web_ServicePROL_ServiceStockSsic</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="http://pelnx12.galileo.ebel:7777/ssiccpeesprd/services/ProcesoMAEPortalConsultoraWebService%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>

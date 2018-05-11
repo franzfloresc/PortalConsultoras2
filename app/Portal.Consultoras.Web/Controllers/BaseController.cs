@@ -288,7 +288,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var temp = observaciones.Where(o => o.CUV == item.CUV).ToList();
                 if (temp.Count != 0)
                 {
-                    if (temp[0].Caso == 0) item.TipoObservacion = 0;
+                    if (temp.Any(o => o.Caso == 0)) item.TipoObservacion = 0;
                     else item.TipoObservacion = temp[0].Tipo;
 
                     foreach (var ob in temp)
@@ -1690,14 +1690,6 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
             }
             return result;
-        }
-
-        protected string ConfigurarUrlServiceProl()
-        {
-            var ambiente = GetConfiguracionManager(Constantes.ConfiguracionManager.Ambiente);
-            var pais = UserData().CodigoISO;
-            var key = ambiente.Trim().ToUpper() + "_Prol_" + pais.Trim().ToUpper();
-            return ConfigurationManager.AppSettings[key];
         }
 
         protected BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(string constSession)

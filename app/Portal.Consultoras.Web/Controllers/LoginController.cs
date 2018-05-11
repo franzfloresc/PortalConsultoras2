@@ -1081,7 +1081,6 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.ConsecutivoNueva = usuario.ConsecutivoNueva;
 
                     usuarioModel.DocumentoIdentidad = usuario.DocumentoIdentidad;
-
                     #endregion
 
                     if (usuarioModel.RolID == Constantes.Rol.Consultora)
@@ -2210,7 +2209,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected virtual void ActualizarSubscripciones(RevistaDigitalModel revistaDigitalModel, UsuarioModel usuarioModel)
         {
-            var rds = new BERevistaDigitalSuscripcion
+            var rds = new ServicePedido.BERevistaDigitalSuscripcion
             {
                 PaisID = usuarioModel.PaisID,
                 CodigoConsultora = usuarioModel.CodigoConsultora
