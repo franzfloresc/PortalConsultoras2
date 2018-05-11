@@ -16,6 +16,10 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Mensaje { get; set; }
 
+        public BEMensajeMetaConsultora()
+        {
+
+        }
         public BEMensajeMetaConsultora(IDataRecord datarec)
         {
             if (DataRecord.HasColumn(datarec, "TipoMensaje"))

@@ -3353,7 +3353,6 @@ a.subir_carousel, a.bajar_carousel {
     width: 50%;
     padding-right: 5px;
     position: relative;
-    top: -1px;
 }
 
 .producto_precio_oferta {
@@ -19621,7 +19620,7 @@ label.checkpop.c_on {
     text-align: center;
     float: left;
     padding-top: 15px;
-    padding-bottom: 15px;
+    padding-bottom: 14px;
     padding-left: 10px;
     padding-right: 10px;
     background: #613c87;

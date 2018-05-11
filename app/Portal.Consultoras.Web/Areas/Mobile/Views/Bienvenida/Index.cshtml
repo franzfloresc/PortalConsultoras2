@@ -76,8 +76,8 @@
     </div>
 </div>
 
-<div class="wrapper_resumen_mobile sombra_wrapper">
-    <div class="content_320" style="text-align:center;">
+<div class="wrapper_resumen_mobile">
+    <div class="content_320" style="text-align:center; padding-bottom: 7px;">
         <!--QUITAR CENTER CUANDO HAY FOTO-->
         <div class="content_foto">
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
@@ -166,6 +166,7 @@
         <hr class="clear" />
         <!--FIN RESUMEN-->
     </div>
+    <div class="linea_separadora_mobile" style="margin-top: 16px; "></div>
 </div>
 <!--CONSULTORA ONLINE-->
 @if (ViewBag.CantPedidosPendientes > 0)
@@ -185,7 +186,7 @@
 }
 
 <!--FIN-->
-<div class="fondo_faf5e6">
+<div class="fondo_faf5e6" style="display: none">
     @if (ViewBag.CantPedidosPendientes <= 0)
     {
         <div class="pestana_lbel"></div>
@@ -212,6 +213,7 @@
     }
     <!-- FIN - ENLACE PARA INGRESO DE PEDIDO FIC -->
 </div>
+
 <div class="wrapper_resumen_mobile">
     <div class="content_320">
         <!--ITEM 1-->
@@ -690,8 +692,14 @@
 <div id="VideoIntroductorio" class="MensajeAlertaMobile" style="display:none">
     <div class="content_video_introductorio">
         <a class="cerrar_video" href="javascript:;" id="cerrarVideoIntroductorio"><img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Icono Check" /></a>
-        <div id="divPlayer">
-        </div>
+        
+        <!--div id="divPlayer"></div-->
+
+        <div id="ytMobileBienvenidaIndex"
+             data-youtube="{ width:'100%', enablejsapi:1, playerVars:{rel:0} }"
+             class="yt-video"
+        ></div>
+
     </div>
 </div>
 <!-- FIN POPUP VIDEO INTRODUCTORIO -->

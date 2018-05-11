@@ -2,20 +2,20 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('body').css('background', 'url("../../Content/images/comunidad/bg_regis_2.jpg") top center no-repeat #FFF');
-            $(".ValidaAlfanumerico").keypress(function (evt) {
+        $(document).ready(function() {
+            $('body').css('background',
+                'url("../../Content/images/comunidad/bg_regis_2.jpg") top center no-repeat #FFF');
+            $(".ValidaAlfanumerico").keypress(function(evt) {
                 var charCode = (evt.which) ? evt.which : window.event.keyCode;
                 if (charCode <= 13) {
                     return true;
-                }
-                else {
+                } else {
                     var keyChar = String.fromCharCode(charCode);
                     var re = /[a-zA-Z0-9_-]/;
                     return re.test(keyChar);
                 }
             });
-        })
+        });
 
         function ValidarUsuarioIngresado(usuario) {
             $('#ValUsuario').css({ "display": "block" });
@@ -159,7 +159,7 @@
                 </div>
                 <div class="formCont" style="width: 326px;">
                     <div class="formcontrol_B user">
-                        <input id="txtUsuarioActual" runat="server" type="text" class="inputForm_B" value="" readonly="readonly">
+                        <input id="txtUsuarioActual" runat="server" type="text" class="inputForm_B" value="" readonly="readonly"/>
                     </div>
                     <div class="formcontrol_C user">
                         <input id="txtUsuario" type="text" class="inputForm_C ValidaAlfanumerico" maxlength="25" onpaste="return false;" value="Tu nuevo apodo" onfocus="if (this.value == 'Tu nuevo apodo') {this.value = '';$(this).css({ 'color': '#425363' });}" onblur="if (this.value == '') {this.value = 'Tu nuevo apodo';$(this).css({ 'color': '#d8d8d8' });}else{$(this).css({ 'color': '#425363' });if (this.value != 'Tu nuevo apodo') {ValidarUsuarioIngresado(this.value);}}">

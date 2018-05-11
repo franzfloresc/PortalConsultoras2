@@ -1254,6 +1254,15 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult PopupCerrar()
         {
+            if (userData.BeShowRoomConsultora == null)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "BeShowRoomConsultora es null"
+                });
+            }
+
             userData.BeShowRoomConsultora.MostrarPopup = false;
             userData.BeShowRoomConsultora.MostrarPopupVenta = false;
             return Json(new
@@ -1735,6 +1744,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 sessionManager.SetPedidoWeb(null);
                 sessionManager.SetDetallesPedido(null);
+                sessionManager.SetDetallesPedidoSetAgrupado(null);
 
                 UpdPedidoWebMontosPROL();
 
@@ -1751,6 +1761,18 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
+
+
+                if (tipo == 1)
+                {
+
+
+                    using (var pedidoServiceClient = new PedidoServiceClient())
+                    {
+                        pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
+                            , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0);
+                    }
+                }
 
                 return Json(new
                 {
@@ -2876,7 +2898,7 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.EstrategiaId = id;
             var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
             modelo.ListaOfertaShowRoom = xList;
-            
+
             bool esFacturacion = EsFacturacion();
 
             var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, userData.BeShowRoom.EventoID,
@@ -2899,7 +2921,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!ValidarIngresoShowRoom(false))
                     return ErrorJson(string.Empty);
-                
+
                 bool esFacturacion = EsFacturacion();
                 var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
 
@@ -2951,7 +2973,7 @@ namespace Portal.Consultoras.Web.Controllers
                     listaNoSubCampania = listaNoSubCampania.Take(model.Limite).ToList();
 
                 var listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania).ToList();
-                listaSubCampania.ForEach(p => p.ProductoTonos = GetOfertaConDetalle(p.OfertaShowRoomID).ProductoTonos);
+                //listaSubCampania.ForEach(p => p.ProductoTonos = GetOfertaConDetalle(p.OfertaShowRoomID).ProductoTonos);
                 listaSubCampania = ValidarUnidadesPermitidas(listaSubCampania);
 
                 return Json(new
@@ -2977,7 +2999,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!ValidarIngresoShowRoom(esIntriga: false))
                     return ErrorJson(string.Empty);
-                
+
                 var esFacturacion = EsFacturacion();
                 var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
 

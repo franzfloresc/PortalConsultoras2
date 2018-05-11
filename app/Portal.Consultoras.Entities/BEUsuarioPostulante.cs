@@ -58,6 +58,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int MensajeMobile { get; set; }
 
+        [DataMember]
+        public string CodigoZona { get; set; }
+
         public BEUsuarioPostulante()
         {
 
@@ -102,6 +105,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "ZonaID"))
                 ZonaID = Convert.ToInt32(row["ZonaID"]);
+
+            if (DataRecord.HasColumn(row, "CodigoZona"))
+                CodigoZona = Convert.ToString(row["CodigoZona"]);
 
             if (DataRecord.HasColumn(row, "RegionID"))
                 RegionID = Convert.ToInt32(row["RegionID"]);

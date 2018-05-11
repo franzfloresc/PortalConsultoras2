@@ -27,5 +27,6 @@
             get { return @"utm_source=Transactional&utm_medium=email&utm_content=ConfirmarCuenta&utm_campaing=RegistroShowRoomIntriga{{NOMBRE_EVENTO}}"; }
 
         }
+        public string VerCambiarClave { get; set; }
     }
 }

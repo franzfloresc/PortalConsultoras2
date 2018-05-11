@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Common;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -105,6 +106,12 @@ namespace Portal.Consultoras.Entities
         public byte VersionProl { get; set; }
 
         public long PedidoSapId { get; set; }
+
+        [DataMember]
+        public int CantidadCuv { get; set; }
+
+        [DataMember]
+        public decimal TippingPoint { get; set; }
 
         public BEPedidoWeb()
         { }

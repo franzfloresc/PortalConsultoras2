@@ -301,8 +301,8 @@
                 <div class="titulo_set_especial">{{producto.Descripcion}}</div>
                 <div class="descripcion_set_especial">
 
-                    {{#each producto.ListaDetalleOfertaShowRoom as |detalle|}}
-                    {{detalle.NombreProducto}} <br />
+                    {{#each producto.ProductoTonos as |detalle|}}
+                    {{detalle.NombreComercial}} <br />
                     {{/each}}
                 </div>
                 <div class="precio_set_especial_showroom">VALORIZADO EN {{Simbolo}} {{producto.FormatoPrecioValorizado}}</div>

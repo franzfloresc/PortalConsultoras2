@@ -225,7 +225,7 @@ namespace Portal.Consultoras.Web.Controllers
             listaShowRoomOferta = ObtenerListaProductoShowRoomMdo(listaShowRoomOferta);
             return listaShowRoomOferta;
         }
-        
+
         public List<ShowRoomOfertaModel> ObtenerListaProductoShowRoom(int campaniaId, string codigoConsultora, bool esFacturacion = false)
         {
             //var tienePersonalizacion = TienePersonalizacion();
@@ -282,7 +282,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<ShowRoomOfertaModel> ObtenerListaProductoShowRoomFormato(List<BEShowRoomOferta> listaShowRoomOferta, List<BEPedidoWebDetalle> listaPedidoDetalle, bool esFacturacion)
         {
-             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
             if (listaShowRoomOferta.Any())
             {
                 listaShowRoomOferta.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto)
@@ -490,7 +490,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return listaShowRoomCpc;
         }
-        
+
         #endregion
 
         public ShowRoomOfertaModel ViewDetalleOferta(int id)
@@ -807,7 +807,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return showRoomEventoModel;
         }
-        
+
         protected virtual void ActualizarUrlImagenes(List<BEShowRoomOferta> ofertasShowRoom)
         {
             ofertasShowRoom.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto)
