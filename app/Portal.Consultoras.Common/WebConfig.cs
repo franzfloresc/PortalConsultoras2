@@ -56,6 +56,14 @@ namespace Portal.Consultoras.Common
                 return ConfigurationManager.AppSettings["PR_Prol_ServicesCalculos"] ?? string.Empty;
             }
         }
+
+        public static string PaisesShowRoom
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["PaisesShowRoom"] ?? string.Empty;
+            }
+        }
         #endregion
     }
 }

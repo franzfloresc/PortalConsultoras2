@@ -29,16 +29,27 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult DatoConsultora(string paisID, string codigoConsultora, string documento)
         {
+            JsonResult v_retorno = null;
+            ServiceUsuario.UsuarioServiceClient consultora = null;
+            BEConsultoraDatoSAC consultoraDato;
+
             try
-            {
-                UsuarioServiceClient consultora = new UsuarioServiceClient();
-                BEConsultoraDatoSAC consultoraDato = consultora.DatoConsultoraSAC(paisID, codigoConsultora, documento);
-                return Json(consultoraDato, JsonRequestBehavior.AllowGet);
+            {            
+                consultora = new ServiceUsuario.UsuarioServiceClient();
+                consultoraDato = new BEConsultoraDatoSAC();
+
+                consultoraDato = consultora.DatoConsultoraSAC(paisID, codigoConsultora, documento);   
+                if (consultoraDato != null) ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Datos de Consultora");
+
+                //UserData().PaisID = 0;
+                v_retorno = Json(consultoraDato, JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                return Json(null, JsonRequestBehavior.AllowGet);
+                v_retorno = Json(null, JsonRequestBehavior.AllowGet);
             }
+
+            return v_retorno;
         }
 
         #region EstadoConsultora
@@ -48,6 +59,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 UsuarioServiceClient consultora = new UsuarioServiceClient();
                 BEConsultoraEstadoSAC consultoraEstado = consultora.ConsultoraEstadoSAC(paisID, codigoConsultora);
+                ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Estado de Consultora"); //HD-881
                 return Json(consultoraEstado, JsonRequestBehavior.AllowGet);
             }
             catch
@@ -85,6 +97,15 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult EstadoCuenta(string sidx, string sord, int page, int rows, string codigoConsultora)
         {
+            try
+            {
+                ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Estado de Cuenta"); //HD-881
+            }
+            catch (Exception ex)
+            {
+                Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }            
+
             if (ModelState.IsValid)
             {
 
@@ -228,6 +249,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
+            
             return RedirectToAction("Index", "Bienvenida");
         }
 
@@ -235,7 +257,16 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult PedidoFacturado(string sidx, string sord, int page, int rows, string codigoConsultora)
         {
-            if (ModelState.IsValid)
+            try
+            {
+                ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Pedido Facturado"); //HD-881
+            }
+            catch (Exception ex)
+            {
+                Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            if (ModelState.IsValid) //
             {
                 List<ServicePedido.BEPedidoWeb> lst = new List<ServicePedido.BEPedidoWeb>();
                 List<BEPedidoFacturado> lista = new List<BEPedidoFacturado>();
@@ -379,6 +410,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
             }
+
             return RedirectToAction("Index", "Bienvenida");
         }
 
@@ -951,24 +983,47 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult SeguimientoPedido(string codigo)
         {
-            string paisId = userData.PaisID.ToString();
-            string codigoConsultora = codigo;
-            string mostrarAyudaWebTracking = Convert.ToInt32(true).ToString();
-            string paisIso = userData.CodigoISO.Trim();
-            string campanhaId = userData.CampaniaID.ToString();
-            var url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisId, codigoConsultora, mostrarAyudaWebTracking, paisIso, campanhaId);
-            return Json(url, JsonRequestBehavior.AllowGet);
+            string url = "";
+            try
+            {                
+                string paisID = userData.PaisID.ToString();
+                string codigoConsultora = codigo;
+                string mostrarAyudaWebTracking = Convert.ToInt32(true).ToString();
+                string paisISO = userData.CodigoISO.Trim();
+                string campanhaID = userData.CampaniaID.ToString();
+                url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisID, codigoConsultora, mostrarAyudaWebTracking, paisISO, campanhaID);
+                ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Seguimiento Pedido"); //HD-881
+                return Json(url, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json("", JsonRequestBehavior.AllowGet);
+            }           
         }
 
         public ActionResult PaqueteDocumentario(string sidx, string sord, int page, int rows, string campania, string codigo)
         {
-            BEGrid grid = new BEGrid
+            try
             {
-                PageSize = rows,
-                CurrentPage = page,
-                SortColumn = sidx,
-                SortOrder = sord
-            };
+                ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigo, "Paquete Documentario"); //HD-881
+            }
+            catch (Exception ex)
+            {
+                Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            
+
+            BEGrid grid = new BEGrid();
+            grid.PageSize = rows;
+            grid.CurrentPage = page;
+            grid.SortColumn = sidx;
+            grid.SortOrder = sord;
+            //int buscar = int.Parse(txtBuscar);
+            BEPager pag = new BEPager();
+            bool ErrorServicio;
+            string ErrorCode;
+            string ErrorMessage;
             List<RVPRFModel> lst = new List<RVPRFModel>();
             if (!string.IsNullOrEmpty(campania)) lst = GetListPaqueteDocumentario(codigo, campania, "");
             IEnumerable<RVPRFModel> items = lst;
@@ -994,7 +1049,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             #endregion
 
-            BEPager pag = Paginador(grid, campania, lst);
+           // BEPager pag = Paginador(grid, campania, lst);
 
             var data = new
             {
@@ -1013,6 +1068,7 @@ namespace Portal.Consultoras.Web.Controllers
                            }
                        }
             };
+            
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 

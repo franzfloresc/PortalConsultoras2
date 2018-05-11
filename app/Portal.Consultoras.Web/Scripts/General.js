@@ -1130,8 +1130,7 @@ function ResizeMensajeEstadoPedido() {
 function cerrarMensajeEstadoPedido() {
     $.ajax({
         type: 'Post',
-        url: baseUrl + 'Bienvenida/CerrarMensajeEstadoPedido',
-        data: '',
+        url: baseUrl + 'Bienvenida/CerrarMensajeEstadoPedido',        
         cache: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',

@@ -642,6 +642,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<int> InsertarProductoShowroomMasiva(BEEstrategiaMasiva entidad);
+        [OperationContract]
+        List<string> ObtenerListadoCuvCupon(int paisId, int campaniaId);
 
         [OperationContract]
         List<BEEstrategia> FiltrarEstrategia(BEEstrategia entidad);
@@ -1263,9 +1265,15 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEPedidoDetalleAppResult InsertPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
         [OperationContract]
-        void UpdateProlApp(BEPedidoDetalleApp pedidoDetalle);
+        BEPedidoWeb GetPedidoApp(BEUsuario usuario);
         [OperationContract]
-        List<BEPedidoWebDetalle> GetPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
+        bool InsertKitInicio(BEUsuario usuario);
+        [OperationContract]
+        BEPedidoDetalleAppResult UpdatePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
+        [OperationContract]
+        BEConfiguracionPedido GetConfiguracionPedidoApp(int paisID, string codigoUsuario);
+        [OperationContract]
+        BEPedidoDetalleAppResult DeletePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
         #endregion
 
         #region Pago en Linea
@@ -1287,5 +1295,24 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEPagoEnLineaResultadoLogReporte> ObtenerPagoEnLineaByFiltro(int paisId, BEPagoEnLineaFiltro filtro);
         #endregion
+        
+        [OperationContract]
+        bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId);
+
+
+        [OperationContract]
+        bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad);
+
+        [OperationContract]
+        List<BEPedidoWebSetDetalle> GetPedidoWebSetDetalle(int paisID, int campania, long consultoraId);
+
+        [OperationContract]
+        BEPedidoWebSet ObtenerPedidoWebSet(int paisId, int setId);
+
+        [OperationContract]
+        bool EliminarPedidoWebSet(int paisId, int setId);
+
+        [OperationContract]
+        DateTime? ObtenerFechaInicioSets(int paisId);
     }
 }
