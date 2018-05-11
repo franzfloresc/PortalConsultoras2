@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\IMenuAppBusinessLogic.cs" />
+    <Compile Include="BLCuponesProgramaNuevas.cs" />
     <Compile Include="BLHorario.cs" />
     <Compile Include="BLAdministrarEstrategia.cs" />
     <Compile Include="BLConfiguracionOfertasHome.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="BLCupon.cs" />
     <Compile Include="Cache\BLCache.cs" />
     <Compile Include="Cliente\BLClienteDB.cs" />
+    <Compile Include="Cliente\IClienteBusinessLogic.cs" />
     <Compile Include="Comunicado\IComunicadoBusinessLogic.cs" />
     <Compile Include="Configuracion\BLConfiguracionPaisDatos.cs" />
     <Compile Include="Configuracion\IConfiguracionPaisBusinessLogic.cs" />
@@ -118,7 +120,10 @@
     <Compile Include="Configuracion\BLConfiguracionPais.cs" />
     <Compile Include="BLConfiguracionPaisDetalle.cs" />
     <Compile Include="BLReporteValidacion.cs" />
+    <Compile Include="Pedido\IEscalaDescuentoBusinessLogic.cs" />
+    <Compile Include="Pedido\IMensajeMetaConsultoraBusinessLogic.cs" />
     <Compile Include="Pedido\IPedidoWebDetalleBusinessLogic.cs" />
+    <Compile Include="ProgramaNuevas\IConsultorasProgramaNuevasBusinessLogic.cs" />
     <Compile Include="Reserva\BLReserva.cs" />
     <Compile Include="BLEstrategiaProducto.cs" />
     <Compile Include="BizLogicException.cs" />
@@ -144,7 +149,7 @@
     <Compile Include="BLConsultoraCatalogo.cs" />
     <Compile Include="BLConsultoraFicticia.cs" />
     <Compile Include="BLConsultoraLider.cs" />
-    <Compile Include="BLConsultorasProgramaNuevas.cs" />
+    <Compile Include="ProgramaNuevas\BLConsultorasProgramaNuevas.cs" />
     <Compile Include="BLContenidoDato.cs" />
     <Compile Include="BLContenidoRevista.cs" />
     <Compile Include="BLContratoAceptacion.cs" />
@@ -155,7 +160,7 @@
     <Compile Include="BLCuv.cs" />
     <Compile Include="BLDatosBelcorp.cs" />
     <Compile Include="BLDupla.cs" />
-    <Compile Include="BLEscalaDescuento.cs" />
+    <Compile Include="Pedido\BLEscalaDescuento.cs" />
     <Compile Include="BLEstadoCuenta.cs" />
     <Compile Include="Estrategia\BLEstrategia.cs" />
     <Compile Include="BLEtiqueta.cs" />
@@ -170,7 +175,7 @@
     <Compile Include="BLLogPedidoDDInvalido.cs" />
     <Compile Include="BLMailing.cs" />
     <Compile Include="BLMensajeCUV.cs" />
-    <Compile Include="BLMensajeMetaConsultora.cs" />
+    <Compile Include="Pedido\BLMensajeMetaConsultora.cs" />
     <Compile Include="App\BLMenuApp.cs" />
     <Compile Include="BLMenuMobile.cs" />
     <Compile Include="BLMiAcademia.cs" />
@@ -193,12 +198,14 @@
     <Compile Include="Incentivo\IConsultoraConcursoBusinessLogic.cs" />
     <Compile Include="Pedido\BLPedidoApp.cs" />
     <Compile Include="PagoEnlinea\BLPagoEnLinea.cs" />
+    <Compile Include="Pedido\BLPedidoWebSet.cs" />
     <Compile Include="Pedido\BLTracking.cs" />
     <Compile Include="Pedido\IPedidoAppBusinessLogic.cs" />
     <Compile Include="Pedido\IPedidoWebBusinessLogic.cs" />
     <Compile Include="Pedido\ITrackingBusinessLogic.cs" />
     <Compile Include="Producto\IProductoBusinessLogic.cs" />
     <Compile Include="Reserva\BLReservaSicc.cs" />
+    <Compile Include="Pedido\IPedidoWebSetBusinessLogic.cs" />
     <Compile Include="Reserva\IReservaExternaBL.cs" />
     <Compile Include="Reserva\BLReservaProl2.cs" />
     <Compile Include="Resources\IncentivoMessages.Designer.cs">
@@ -207,6 +214,7 @@
       <DependentUpon>IncentivoMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="RevistaDigital\IRevistaDigitalSuscripcionBusinessLogic.cs" />
+    <Compile Include="ShowRoom\IShowRoomEventoBusinessLogic.cs" />
     <Compile Include="TablaLogicaDatos\ITablaLogicaDatosBusinessLogic.cs" />
     <Compile Include="Resources\MotivoRechazoMessages.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -234,7 +242,7 @@
     <Compile Include="BLRolPermiso.cs" />
     <Compile Include="BLSegmentoPlaneamiento.cs" />
     <Compile Include="BLServicio.cs" />
-    <Compile Include="BLShowRoomEvento.cs" />
+    <Compile Include="ShowRoom\BLShowRoomEvento.cs" />
     <Compile Include="BLSolicitudCliente.cs" />
     <Compile Include="BLSolicitudClienteCatalogo.cs" />
     <Compile Include="BLSolicitudCredito.cs" />
@@ -328,6 +336,9 @@
     <Content Include="Templates\mailing_proceso_descarga_excepcion.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Templates\mailing_proceso_Pin_Autenticacion.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Templates\mailing_proceso_recuperar_contrasenia.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -347,6 +358,7 @@
       <LastGenOutput>PedidoInsertMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
