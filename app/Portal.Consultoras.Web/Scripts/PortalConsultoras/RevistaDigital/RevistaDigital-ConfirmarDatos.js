@@ -238,7 +238,7 @@
         $(_elements.btnConfirmarDatos).on("click", function (event) {
             event.stopPropagation();
             _btnConfirmarDatos_onClick();
-            e.preventDefault();
+            event.preventDefault();
         });
         $(_elements.btnCerrarPopupConfirmarDatos).on("click", function () {
             rdAnalyticsModule.CerrarPopUp("ConfirmarDatos");

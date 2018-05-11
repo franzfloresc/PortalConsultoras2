@@ -40,6 +40,7 @@ namespace Portal.Consultoras.BizLogic
         HVEstrategia,
         ConfiguracionValidacion,
         TablaLogicaDatos,
+        CuponesProgramaNuevas,
         ProductoProgramaNuevas,
         ProductosExclusivos
     }

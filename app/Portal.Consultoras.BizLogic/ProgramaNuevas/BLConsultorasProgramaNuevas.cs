@@ -4,7 +4,7 @@ using System.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLConsultorasProgramaNuevas
+    public class BLConsultorasProgramaNuevas : IConsultorasProgramaNuevasBusinessLogic
     {
         public BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, BEConsultorasProgramaNuevas entidad)
         {
