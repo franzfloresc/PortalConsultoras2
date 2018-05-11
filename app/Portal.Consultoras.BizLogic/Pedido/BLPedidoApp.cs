@@ -10,6 +10,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic.Pedido
 {
@@ -363,12 +364,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return config;
         }
 
-        public BEPedidoDetalleAppResult Delete(BEPedidoDetalleApp pedidoDetalle)
+        public async Task<BEPedidoDetalleAppResult> Delete(BEPedidoDetalleApp pedidoDetalle)
         {
             try
             {
                 //Informacion de usuario
                 var usuario = pedidoDetalle.Usuario;
+                usuario.PaisID = pedidoDetalle.PaisID;
 
                 //Validacion reserva u horario restringido
                 var validacionHorario = _pedidoWebBusinessLogic.ValidacionModificarPedido(pedidoDetalle.PaisID,
@@ -383,7 +385,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (pedidoDetalle.Producto == null)
                 {
                     //Eliminar pedido
-                    var result = _pedidoWebDetalleBusinessLogic.DelPedidoWebDetalleMasivo(pedidoDetalle.PaisID, usuario.CampaniaID, pedidoDetalle.PedidoID, usuario.CodigoUsuario);
+                    var result = await _pedidoWebDetalleBusinessLogic.DelPedidoWebDetalleMasivo(usuario, pedidoDetalle.PedidoID);
                     if (!result) return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.PedidoInsertar.Code.ERROR_ELIMINAR_TODO);
                 }
                 else

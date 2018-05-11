@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.Pedido.App;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic.Pedido
 {
@@ -12,6 +13,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         bool InsertKitInicio(BEUsuario usuario);
         BEPedidoDetalleAppResult Update(BEPedidoDetalleApp pedidoDetalle);
         BEConfiguracionPedido GetConfiguracion(int paisID, string codigoUsuario);
-        BEPedidoDetalleAppResult Delete(BEPedidoDetalleApp pedidoDetalle);
+        Task<BEPedidoDetalleAppResult> Delete(BEPedidoDetalleApp pedidoDetalle);
     }
 }

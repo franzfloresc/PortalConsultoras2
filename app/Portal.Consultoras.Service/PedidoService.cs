@@ -2423,9 +2423,9 @@ namespace Portal.Consultoras.Service
             return _pedidoAppBusinessLogic.GetConfiguracion(paisID, codigoUsuario);
         }
 
-        public BEPedidoDetalleAppResult DeletePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
+        public async Task<BEPedidoDetalleAppResult> DeletePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
         {
-            return _pedidoAppBusinessLogic.Delete(pedidoDetalle);
+            return await _pedidoAppBusinessLogic.Delete(pedidoDetalle);
         }
         #endregion
     }

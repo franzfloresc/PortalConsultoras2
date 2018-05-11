@@ -1273,7 +1273,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEConfiguracionPedido GetConfiguracionPedidoApp(int paisID, string codigoUsuario);
         [OperationContract]
-        BEPedidoDetalleAppResult DeletePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
+        Task<BEPedidoDetalleAppResult> DeletePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
         #endregion
 
         #region Pago en Linea

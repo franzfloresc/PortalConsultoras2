@@ -960,7 +960,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var formatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
                 var formatoTotalCliente = "";
 
-                if (olstPedidoWebDetalle.Any()) formatoTotalCliente = PedidoWebTotalClienteFormato(ClienteID, olstPedidoWebDetalle);
+                if (olstPedidoWebDetalle.Any()) formatoTotalCliente = PedidoWebTotalClienteFormato(clienteId, olstPedidoWebDetalle);
                 else if (userData.ZonaValida)
                 {
                     try
@@ -968,7 +968,7 @@ namespace Portal.Consultoras.Web.Controllers
                         var usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
                         using (var sv = new PedidoServiceClient())
                         {
-                            sv.DeshacerReservaPedido(usuario, PedidoID);
+                            sv.DeshacerReservaPedido(usuario, pedidoID);
                         }
                     }
                     catch (Exception ex) { LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO); }
@@ -1053,16 +1053,16 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!sv.DelPedidoWebDetalleMasivo(usuario, userData.PedidoID)) return ErrorJson(Constantes.MensajesError.DeleteAllPedido_Error, true);
                 }
 
-                    var pedidoWebDetalle = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
-                    var setIds = pedidoWebDetalle.Select(d => d.SetID);
-                    foreach (var setId in setIds)
-                    {
-                        _pedidoSetProvider.EliminarSet(userData.PaisID, setId);
-                    }
+                var pedidoWebDetalle = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
+                var setIds = pedidoWebDetalle.Select(d => d.SetID);
+                foreach (var setId in setIds)
+                {
+                    _pedidoSetProvider.EliminarSet(userData.PaisID, setId);
+                }
 
                 sessionManager.SetPedidoWeb(null);
                 sessionManager.SetDetallesPedido(null);
-                    sessionManager.SetDetallesPedidoSetAgrupado(null);
+                sessionManager.SetDetallesPedidoSetAgrupado(null);
                 Session[Constantes.ConstSession.ListaEstrategia] = null;
                 UpdPedidoWebMontosPROL();
             }
