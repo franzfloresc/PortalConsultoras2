@@ -56,7 +56,7 @@
                     <span>
 
                         @Html.Hidden("txtLPTempCant" + item.PedidoDetalleID, item.Cantidad)
-                        @Html.TextBoxFor(modelItem => item.Cantidad, new { id = "txtLPCant" + item.PedidoDetalleID, maxlength = "2", onblur = "UpdateLiquidacion(" + item.CampaniaID + "," + item.PedidoID + "," + item.PedidoDetalleID + "," + item.TipoOfertaSisID + ",'" + item.CUV.ToString() + "','1','" + item.Cantidad + "')", style = "border-style: none; background-color:#F0F6F8; width: 30px;", @class = "ValidaNumeralPedido" })
+                        @Html.TextBoxFor(modelItem => item.Cantidad, new { id = "txtLPCant" + item.PedidoDetalleID, maxlength = "2", onblur = "UpdateLiquidacion(event, " + item.CampaniaID + "," + item.PedidoID + "," + item.PedidoDetalleID + "," + item.TipoOfertaSisID + ",'" + item.CUV.ToString() + "','1','" + item.Cantidad + ",'" + item.SetId+ "')", style = "border-style: none; background-color:#F0F6F8; width: 30px;", @class = "ValidaNumeralPedido" })
                     </span>
                 </td>
                 <td class="center">
