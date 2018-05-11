@@ -403,7 +403,6 @@
                                     <asp:ListItem Value="11" Text="Perú"></asp:ListItem>
                                     <asp:ListItem Value="12" Text="Puerto Rico"></asp:ListItem>
                                     <asp:ListItem Value="13" Text="República Dominicana"></asp:ListItem>
-                                    <asp:ListItem Value="14" Text="Venezuela"></asp:ListItem>
                                 </asp:DropDownList>
                                 <div id="ErrorPais_ingreso" style="font-size: 11px; color: #ed1556; display: none;">Debe seleccionar su país.</div>
                             </div>
@@ -515,7 +514,6 @@
                                     <asp:ListItem Value="11" Text="Perú"></asp:ListItem>
                                     <asp:ListItem Value="12" Text="Puerto Rico"></asp:ListItem>
                                     <asp:ListItem Value="13" Text="República Dominicana"></asp:ListItem>
-                                    <asp:ListItem Value="14" Text="Venezuela"></asp:ListItem>
                                 </asp:DropDownList>
                                 <div id="ErrorPais_registro" style="font-size: 11px; color: #ed1556; display: none;">Debe seleccionar su país.</div>
                             </div>

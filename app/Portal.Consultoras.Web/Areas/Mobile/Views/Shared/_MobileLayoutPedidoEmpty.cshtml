@@ -204,7 +204,7 @@
 	<script type="text/javascript">
     var baseUrl = "@Url.Content("~")";
     var urlReservadoEnHorarioRestringuido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
-    var urlGetCantidadProductos = '@Url.Action("GetResumenCampania", "GestionContenido", new { area = "" })';
+    var urlGetCantidadProductos = '@Url.Action("GetResumenCampaniaAgrupado", "GestionContenido", new { area = "" })';
     var urlGetNotificacionesSinLeer = '@Url.Action("GetNotificacionesSinLeer", "Notificaciones", new { area = "" })';
     var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
     var vbSimbolo = '@ViewBag.Simbolo';
@@ -240,6 +240,12 @@
     var fingerprintOk = '@ViewBag.FingerprintOk';
     var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
 
+
+   /// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // IPN : Resuelve fix : urlPedidoValidado is not defined 
+  /// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
+  //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     var userData = {
         'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
         'rol': '@(Constantes.LogDynamoDB.RolConsultora)',

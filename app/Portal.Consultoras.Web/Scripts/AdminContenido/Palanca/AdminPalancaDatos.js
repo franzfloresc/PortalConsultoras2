@@ -1,5 +1,5 @@
 ﻿var admPalancaDatos = (function () {
-    'use strict'
+    'use strict';
 
     var _elemento = {
         TablaId: '#tblPalanca',

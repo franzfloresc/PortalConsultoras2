@@ -75,9 +75,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             try
             {
-                //Informacion de usuario y palancas
+                LogPerformance(productoBuscar.CodigoDescripcion, "Inicio busqueda producto");
+
+                //Informacion de palancas
                 var usuario = productoBuscar.Usuario;
                 usuario = _usuarioBusinessLogic.GetSesionUsuarioPedidoApp(usuario);
+
+                LogPerformance(productoBuscar.CodigoDescripcion, "Informacion de palancas");
 
                 //Validación producto no existe
                 var producto = _productoBusinessLogic.SelectProductoByCodigoDescripcionSearchRegionZona(
@@ -93,13 +97,19 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     productoBuscar.ValidarOpt).FirstOrDefault();
                 if (producto == null) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
 
+                LogPerformance(productoBuscar.CodigoDescripcion, "Busqueda producto");
+
                 //Validación producto en catalogos
                 var bloqueoProductoCatalogo = BloqueoProductosCatalogo(usuario.RevistaDigital, usuario.CodigosRevistaImpresa, producto, productoBuscar);
                 if (!bloqueoProductoCatalogo) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
 
+                LogPerformance(productoBuscar.CodigoDescripcion, "Bloqueo productos catalogo");
+
                 //Validación Gana +
                 var bloqueoProductoDigitales = BloqueoProductosDigitales(usuario, producto, productoBuscar);
                 if (!bloqueoProductoDigitales) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
+
+                LogPerformance(productoBuscar.CodigoDescripcion, "Bloqueo productos digitales");
 
                 //Validación producto agotado
                 if (!producto.TieneStock) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_AGOTADO, null, producto);
@@ -128,12 +138,29 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     }
                 }
 
+                LogPerformance(productoBuscar.CodigoDescripcion, "Información de producto con oferta en revista");
+
+                LogPerformance(productoBuscar.CodigoDescripcion, "Fin busqueda producto");
+                LogPerformance(productoBuscar.CodigoDescripcion, string.Empty);
+
                 return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.SUCCESS, null, producto);
             }
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, productoBuscar.Usuario.CodigoUsuario, productoBuscar.PaisID);
                 return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_INTERNO, ex.Message);
+            }
+        }
+
+        private void LogPerformance(string cuv, string mensaje)
+        {
+            var pathFile = AppDomain.CurrentDomain.BaseDirectory + "Log\\";
+            if (!System.IO.Directory.Exists(pathFile)) System.IO.Directory.CreateDirectory(pathFile);
+            string path = string.Format("{0}LogPerformance_GetCuv_{1}.portal", pathFile, DateTime.Now.ToString("yyyy-MM-dd"));
+            using (var stream = new System.IO.StreamWriter(path, true))
+            {
+                if(string.IsNullOrEmpty(mensaje)) stream.WriteLine(string.Empty);
+                else stream.WriteLine(string.Format("{0} => {1} => {2}", DateTime.Now, cuv, mensaje));
             }
         }
 

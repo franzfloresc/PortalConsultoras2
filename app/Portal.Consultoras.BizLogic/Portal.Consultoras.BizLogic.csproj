@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\IMenuAppBusinessLogic.cs" />
+    <Compile Include="BLCuponesProgramaNuevas.cs" />
     <Compile Include="BLHorario.cs" />
     <Compile Include="BLAdministrarEstrategia.cs" />
     <Compile Include="BLConfiguracionOfertasHome.cs" />
@@ -198,6 +199,7 @@
     <Compile Include="Incentivo\IConsultoraConcursoBusinessLogic.cs" />
     <Compile Include="Pedido\BLPedidoApp.cs" />
     <Compile Include="PagoEnlinea\BLPagoEnLinea.cs" />
+    <Compile Include="Pedido\BLPedidoWebSet.cs" />
     <Compile Include="Pedido\BLTracking.cs" />
     <Compile Include="Pedido\IPedidoAppBusinessLogic.cs" />
     <Compile Include="Pedido\IPedidoWebBusinessLogic.cs" />
@@ -205,6 +207,7 @@
     <Compile Include="Producto\IProductoBusinessLogic.cs" />
     <Compile Include="Reserva\BLReservaSicc.cs" />
     <Compile Include="Reserva\IReservaBusinessLogic.cs" />
+    <Compile Include="Pedido\IPedidoWebSetBusinessLogic.cs" />
     <Compile Include="Reserva\IReservaExternaBL.cs" />
     <Compile Include="Reserva\BLReservaProl2.cs" />
     <Compile Include="Resources\IncentivoMessages.Designer.cs">
@@ -333,6 +336,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\mailing_proceso_descarga_excepcion.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\mailing_proceso_Pin_Autenticacion.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\mailing_proceso_recuperar_contrasenia.html">
