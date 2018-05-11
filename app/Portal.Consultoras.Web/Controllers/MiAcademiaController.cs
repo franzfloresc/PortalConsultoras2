@@ -69,6 +69,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(urlLms, isoUsuario, token, IdCurso);
 
+                if (IdCurso > 0)
+                {
+                    sessionManager.SetMiAcademia(0);
+                }
+
                 if (HttpContext.Request.UrlReferrer != null)
                     return Redirect(exito ? urlLms : HttpContext.Request.UrlReferrer.AbsoluteUri);
             }
