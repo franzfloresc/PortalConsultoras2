@@ -1187,6 +1187,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         PendienteConfirmarCorreo = 10,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        EnEsperaDeDocumentos = 11,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
@@ -3783,6 +3786,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private System.Nullable<int> TieneExperienciaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoConsultoraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipoContactoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5438,6 +5444,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((this.TieneExperienciaField.Equals(value) != true)) {
                     this.TieneExperienciaField = value;
                     this.RaisePropertyChanged("TieneExperiencia");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoConsultora {
+            get {
+                return this.TipoConsultoraField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoConsultoraField, value) != true)) {
+                    this.TipoConsultoraField = value;
+                    this.RaisePropertyChanged("TipoConsultora");
                 }
             }
         }

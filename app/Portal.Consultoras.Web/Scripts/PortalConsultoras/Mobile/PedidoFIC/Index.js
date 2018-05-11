@@ -646,6 +646,8 @@ function InsertarProductoSugerido(model) {
             $(".footer-page").css({ "margin-bottom": "0px" });
             $('#PopSugerido').hide();
 
+            var cuv = cuv || "" ;
+
             CargarCarouselEstrategias(cuv);
             $("#txtCodigoProducto").val("");
             $("#hdCuvEnSession").val("");
