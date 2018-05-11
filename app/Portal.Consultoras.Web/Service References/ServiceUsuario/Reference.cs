@@ -1864,6 +1864,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool MostrarAyudaWebTrakingField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool MostrarBotonValidarField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NivelField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3669,6 +3672,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.MostrarAyudaWebTrakingField.Equals(value) != true)) {
                     this.MostrarAyudaWebTrakingField = value;
                     this.RaisePropertyChanged("MostrarAyudaWebTraking");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool MostrarBotonValidar {
+            get {
+                return this.MostrarBotonValidarField;
+            }
+            set {
+                if ((this.MostrarBotonValidarField.Equals(value) != true)) {
+                    this.MostrarBotonValidarField = value;
+                    this.RaisePropertyChanged("MostrarBotonValidar");
                 }
             }
         }

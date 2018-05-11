@@ -36,25 +36,25 @@ namespace Portal.Consultoras.Entities
 
         public BESegmentoPlaneamiento(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "NroOrden") && row["NroOrden"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NroOrden"))
                 NroOrden = Convert.ToInt32(row["NroOrden"]);
 
-            if (DataRecord.HasColumn(row, "CodigoSegmento") && row["CodigoSegmento"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoSegmento"))
                 CodigoSegmento = Convert.ToString(row["CodigoSegmento"]);
 
-            if (DataRecord.HasColumn(row, "DescripcionSegmento") && row["DescripcionSegmento"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescripcionSegmento"))
                 DescripcionSegmento = Convert.ToString(row["DescripcionSegmento"]);
 
-            if (DataRecord.HasColumn(row, "CUVAsociado") && row["CUVAsociado"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CUVAsociado"))
                 CUVAsociado = Convert.ToString(row["CUVAsociado"]);
 
-            if (DataRecord.HasColumn(row, "CampaniaID") && row["CampaniaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CampaniaID"))
                 CampaniaID = Convert.ToInt32(row["CampaniaID"]);
 
-            if (DataRecord.HasColumn(row, "CUV") && row["CUV"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CUV"))
                 CUV = Convert.ToString(row["CUV"]);
 
-            if (DataRecord.HasColumn(row, "CrossSellingAsociacionID") && row["CrossSellingAsociacionID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CrossSellingAsociacionID"))
                 CrossSellingAsociacionID = Convert.ToInt32(row["CrossSellingAsociacionID"]);
         }
     }

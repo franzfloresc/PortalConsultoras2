@@ -175,6 +175,7 @@
       <xs:element minOccurs="0" name="TelefonoNoFamiliar" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Territorio" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TieneExperiencia" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoConsultora" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoContacto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoDocumento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoDocumentoAval" nillable="true" type="xs:string" />
@@ -199,6 +200,8 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="ACC" type="xs:int" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MovilGR" type="xs:int" />
+      <xs:element minOccurs="0" name="MovilGZ" type="xs:int" />
       <xs:element minOccurs="0" name="MovilSE" type="xs:int" />
       <xs:element minOccurs="0" name="PortalGZ" type="xs:int" />
       <xs:element minOccurs="0" name="Totales" type="xs:int" />

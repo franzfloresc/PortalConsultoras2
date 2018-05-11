@@ -27,21 +27,21 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         public BEShowRoomPersonalizacion(IDataRecord row)
         {
-            if (row.HasColumn("PersonalizacionId") && row["PersonalizacionId"] != DBNull.Value)
+            if (row.HasColumn("PersonalizacionId"))
                 PersonalizacionId = Convert.ToInt32(row["PersonalizacionId"]);
-            if (row.HasColumn("TipoAplicacion") && row["TipoAplicacion"] != DBNull.Value)
+            if (row.HasColumn("TipoAplicacion"))
                 TipoAplicacion = Convert.ToString(row["TipoAplicacion"]);
-            if (row.HasColumn("Atributo") && row["Atributo"] != DBNull.Value)
+            if (row.HasColumn("Atributo"))
                 Atributo = Convert.ToString(row["Atributo"]);
-            if (row.HasColumn("TextoAyuda") && row["TextoAyuda"] != DBNull.Value)
+            if (row.HasColumn("TextoAyuda"))
                 TextoAyuda = Convert.ToString(row["TextoAyuda"]);
-            if (row.HasColumn("TipoAtributo") && row["TipoAtributo"] != DBNull.Value)
+            if (row.HasColumn("TipoAtributo"))
                 TipoAtributo = Convert.ToString(row["TipoAtributo"]);
-            if (row.HasColumn("TipoPersonalizacion") && row["TipoPersonalizacion"] != DBNull.Value)
+            if (row.HasColumn("TipoPersonalizacion"))
                 TipoPersonalizacion = Convert.ToString(row["TipoPersonalizacion"]);
-            if (row.HasColumn("Orden") && row["Orden"] != DBNull.Value)
+            if (row.HasColumn("Orden"))
                 Orden = Convert.ToInt32(row["Orden"]);
-            if (row.HasColumn("Estado") && row["Estado"] != DBNull.Value)
+            if (row.HasColumn("Estado"))
                 Estado = Convert.ToBoolean(row["Estado"]);
         }
     }

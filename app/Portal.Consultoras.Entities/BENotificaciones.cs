@@ -120,22 +120,22 @@ namespace Portal.Consultoras.Entities
             this.ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
             this.ObservacionPROL = Convert.ToString(row["ObservacionPROL"]);
 
-            if (DataRecord.HasColumn(row, "IndicadorOferta") && row["IndicadorOferta"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "IndicadorOferta"))
                 this.IndicadorOferta = Convert.ToInt16(row["IndicadorOferta"]);
-            if (DataRecord.HasColumn(row, "MontoTotalProl") && row["MontoTotalProl"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MontoTotalProl"))
                 this.MontoTotalProl = Convert.ToDecimal(row["MontoTotalProl"]);
-            if (DataRecord.HasColumn(row, "DescuentoProl") && row["DescuentoProl"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescuentoProl"))
                 this.DescuentoProl = Convert.ToDecimal(row["DescuentoProl"]);
-            if (DataRecord.HasColumn(row, "ImporteTotalPedido") && row["ImporteTotalPedido"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ImporteTotalPedido"))
                 this.ImporteTotalPedido = Convert.ToDecimal(row["ImporteTotalPedido"]);
 
-            if (DataRecord.HasColumn(row, "StockDisponible") && row["StockDisponible"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "StockDisponible"))
                 StockDisponible = Convert.ToInt32(row["StockDisponible"]);
-            if (DataRecord.HasColumn(row, "MontoAhorroCatalogo") && row["MontoAhorroCatalogo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MontoAhorroCatalogo"))
                 MontoAhorroCatalogo = Convert.ToDecimal(row["MontoAhorroCatalogo"]);
-            if (DataRecord.HasColumn(row, "MontoAhorroRevista") && row["MontoAhorroRevista"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MontoAhorroRevista"))
                 MontoAhorroRevista = Convert.ToDecimal(row["MontoAhorroRevista"]);
-            if (DataRecord.HasColumn(row, "NombreCliente") && row["NombreCliente"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NombreCliente"))
                 NombreCliente = Convert.ToString(row["NombreCliente"]);
         }
     }
