@@ -5103,6 +5103,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int ActivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool AgregarEnMatrizField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CUV1Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5391,6 +5394,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string UsuarioModificacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UsuarioRegistroField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ValidarPeriodoFacturacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5408,6 +5414,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ActivoField.Equals(value) != true)) {
                     this.ActivoField = value;
                     this.RaisePropertyChanged("Activo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool AgregarEnMatriz {
+            get {
+                return this.AgregarEnMatrizField;
+            }
+            set {
+                if ((this.AgregarEnMatrizField.Equals(value) != true)) {
+                    this.AgregarEnMatrizField = value;
+                    this.RaisePropertyChanged("AgregarEnMatriz");
                 }
             }
         }
@@ -6656,6 +6675,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.UsuarioModificacionField, value) != true)) {
                     this.UsuarioModificacionField = value;
                     this.RaisePropertyChanged("UsuarioModificacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UsuarioRegistro {
+            get {
+                return this.UsuarioRegistroField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UsuarioRegistroField, value) != true)) {
+                    this.UsuarioRegistroField = value;
+                    this.RaisePropertyChanged("UsuarioRegistro");
                 }
             }
         }
