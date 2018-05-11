@@ -2,13 +2,13 @@
     function validarExiteInformacion()
     {
         if (jQuery.trim($("#txtDCConsultoraID").val()) == "") {
-            
-            fnGrillaPaqueteDocumentario();
-                  alert("Codigo de Consultora invalido, verificar");
+            alert("Codigo de Consultora invalido, verificar");
             $("#divMensaje").html("");
             $("#ddlCampaniaPaquete").val('--Seleccionar--');
         }
-        fnGrillaPaqueteDocumentario();
+        else {
+            fnGrillaPaqueteDocumentario();
+        }
     }
 
     function ControlesPaqueteDocumentario() { 

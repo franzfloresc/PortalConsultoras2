@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Web.Models;
+﻿using Portal.Consultoras.Web.Areas.Mobile.Models;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
@@ -151,5 +152,13 @@ namespace Portal.Consultoras.Web.SessionManager
         EstrategiaPersonalizadaProductoModel GetProductoTemporal();
 
         //EstrategiaPersonalizadaProductoModel ProductoTemporal { get; set; }
+        
+        void SetPedidosFacturados(PedidoWebClientePrincipalMobilModel model);
+        
+        PedidoWebClientePrincipalMobilModel GetPedidosFacturados();
+        
+        List<BEPedidoWebDetalle> GetDetallesPedidoSetAgrupado();
+
+        void SetDetallesPedidoSetAgrupado(List<BEPedidoWebDetalle> detallesPedidoWeb);
     }
 }

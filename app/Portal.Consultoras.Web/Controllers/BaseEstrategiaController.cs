@@ -404,12 +404,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                estrategia = new EstrategiaPersonalizadaProductoModel
-                {
-                    Hermanos = new List<ProductoModel>()
-                };
+                estrategia = new EstrategiaPersonalizadaProductoModel();
+               
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
+
+            if (estrategia == null) estrategia = new EstrategiaPersonalizadaProductoModel();
             return estrategia;
         }
 

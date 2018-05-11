@@ -611,6 +611,7 @@ namespace Portal.Consultoras.Entities
         public string MensajeValidacionInteractiva { get; set; }
 
         [DataMember]
+        [Column("ConsultoraNueva")]
         public int ConsultoraNueva
         {
             get { return mConsultoraNueva; }
@@ -1451,5 +1452,7 @@ namespace Portal.Consultoras.Entities
         public BEGuiaNegocio GuiaNegocio { get; set; }
         [DataMember]
         public bool TieneValidacionMontoMaximo { get; set; }
+        [DataMember]
+        public bool EsShowRoom { get; set; }
     }
 }
