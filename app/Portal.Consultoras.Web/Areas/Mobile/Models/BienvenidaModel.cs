@@ -4,6 +4,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
 {
     public class BienvenidaModel
     {
+        public BienvenidaModel()
+        {
+            RevistaDigital = new RevistaDigitalModel();
+            PartialSectionBpt = new PartialSectionBpt();
+        }
         public string Saludo { get; set; }
         public string NombreConsultora { get; set; }
         public string Simbolo { get; set; }

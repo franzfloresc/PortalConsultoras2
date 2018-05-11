@@ -237,6 +237,7 @@ namespace Portal.Consultoras.Common
             public const string TippingPoint = "TippingPoint";
             public const string TippingPoint_MontoVentaExigido = "TippingPoint_MontoVentaExigido";
             public const string MensajeMetaConsultora = "MensajeMetaConsultora";
+            public const string ActualizarDatosConsultora = "ActualizarDatosConsultora";
 
             // prol
             public const string PROL_CalculoMontosProl = "PROL_CalculoMontosProl";
@@ -307,6 +308,10 @@ namespace Portal.Consultoras.Common
             public const string DescargaExcelMaxItems = "DescargaExcelMaxItems";
 
             public const string ConsultoraNuevaBannerAppMostrar = "ConsultoraNuevaBannerAppMostrar";
+
+            public const string PedidosFacturados = "PedidosFacturados";
+
+            
         }
 
         public static class ConfiguracionManager
@@ -2020,5 +2025,18 @@ namespace Portal.Consultoras.Common
             public const string ReemplazoDesc = "{remDes}";
             public const string Stock = "{stock}";
         }
+
+        #region Pin Autenticidad
+        public class EnviarCorreoYSms
+        {
+            public const string Activo = "Activo";
+            public const string IdEstadoActividad = "IdEstadoActividad";
+
+            public const int RecuperarClave = 1;
+            public const int Autenticacion = 2;
+            public const int EnviarPorEmail = 1;
+            public const int EnviarPorSms = 2;
+        }
+        #endregion  
     }
 }
