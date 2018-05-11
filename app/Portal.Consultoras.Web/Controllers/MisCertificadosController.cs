@@ -85,6 +85,7 @@ namespace Portal.Consultoras.Web.Controllers
                     certificadoId = 1;
                     break;
                 case Constantes.PaisID.Ecuador:
+                case Constantes.PaisID.Peru:
                     nombre = "No Adeudo";
 
                     if (userData.MontoDeuda > 0)
@@ -125,6 +126,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 case Constantes.PaisID.Colombia:
                 case Constantes.PaisID.Ecuador:
+                case Constantes.PaisID.Peru:
                     nombre = "Certificado Comercial";
 
                     bool tieneCampaniaConsecutivas;
@@ -261,6 +263,16 @@ namespace Portal.Consultoras.Web.Controllers
                         model.IVARetail = Math.Round(userData.IVARetailCer, 2).ToString();
                         model.TotalCompra = Math.Round(userData.TotalCompraCer, 2).ToString();
                         model.IvaTotal = Math.Round(userData.IvaTotalCer, 2).ToString();
+
+                        switch (userData.PaisID)
+                        {
+                            case Constantes.PaisID.Peru:
+                                model.TipoDocumento = "documento de identidad";
+                                break;
+                            default:
+                                model.TipoDocumento = "cédula de ciudadanía";
+                                break;
+                        }
 
                         model.CodigoIso = userData.CodigoISO;
                         model.CantidadConsecutivaNueva = ConfigurationManager.AppSettings["cantCampaniaConsecutivaCertComercial"] ?? "5";

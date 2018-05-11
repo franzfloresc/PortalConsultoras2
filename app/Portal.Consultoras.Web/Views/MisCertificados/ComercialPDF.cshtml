@@ -53,7 +53,8 @@
     </p>
     <p style="margin-top:0pt; margin-bottom:10pt; text-align:justify; line-height:115%; font-size:12pt">
         <span style="font-family:Arial">La señora </span><span style="font-family:Arial;">@Model.NombreCompleto.Trim()</span>
-        <span style="font-family:Arial"> identificada con cédula de ciudadanía número </span>
+
+        <span style="font-family:Arial"> identificada con @Model.TipoDocumento número </span>
         <span style="font-family:Arial;">@Model.NumeroDocumento.Trim()</span><span style="font-family:Arial">, es compradora de esta Compañía desde el día </span>
         <span style="font-family:Arial;">@Model.FechaIngresoConsultora</span>
         <span style="font-family:Arial"> y a la fecha cuenta con un promedio de compra de nuestros productos igual a @Model.Moneda </span><span style="font-family:Arial;">@Model.PromedioVentasFormato</span><span style="font-family:Arial">, durante las últimas @Model.CantidadConsecutivaNueva campañas.</span>
