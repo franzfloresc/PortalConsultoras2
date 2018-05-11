@@ -9,8 +9,7 @@ namespace Portal.Consultoras.Entities
             ConfiguracionPaisDatos = new List<BEConfiguracionPaisDatos>();
         }
 
-        public bool TieneGND { get; set; }
         public bool BloqueoProductoDigital { get; set; }
-        public IList<BEConfiguracionPaisDatos> ConfiguracionPaisDatos { get; set; }
+        public List<BEConfiguracionPaisDatos> ConfiguracionPaisDatos { get; set; }
     }
 }

@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             this.registrosPagina = 5;
 
-            if (GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
+            if (userData.CodigoISO != null && GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
             {
                 isEsika = true;
             }
@@ -1256,6 +1256,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 sessionManager.SetDetallesPedido(null);
+                sessionManager.SetDetallesPedidoSetAgrupado(null);
                 string emailDe = GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
 
                 if (pedidoAux.FlagMedio == "01")
@@ -1673,7 +1674,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 sessionManager.SetDetallesPedido(null);
-
+                sessionManager.SetDetallesPedidoSetAgrupado(null);
                 olstTempListado = ObtenerPedidoWebDetalle();
                 errorServer = false;
                 tipo = tipoAdm;

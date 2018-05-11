@@ -28,9 +28,9 @@ namespace Portal.Consultoras.Web.Controllers
             this.logManager = logManager;
         }
 
-        public ActionResult Index(bool showPopupMisDatos = false, string verSeccion = "")
+        public ActionResult Index(bool showPopupMisDatos = false, string verSeccion = "", string opcionCambiaClave = "")
         {
-            var model = new BienvenidaHomeModel { ShowPopupMisDatos = showPopupMisDatos };
+            var model = new BienvenidaHomeModel { ShowPopupMisDatos = showPopupMisDatos, OpcionCambiaClave = opcionCambiaClave };
 
             if (userData.RolID != Constantes.Rol.Consultora)
                 if (userData.RolID == 0)
@@ -189,10 +189,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
-                if (Session[Constantes.ConstSession.IngresoPortalConsultoras] == null)
+                if (Session[Constantes.ConstSession.ActualizarDatosConsultora] == null)
                 {
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
-                    Session[Constantes.ConstSession.IngresoPortalConsultoras] = true;
+                    Session[Constantes.ConstSession.ActualizarDatosConsultora] = true;
                 }
 
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;

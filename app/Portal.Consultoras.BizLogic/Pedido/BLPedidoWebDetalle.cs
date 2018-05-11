@@ -1,6 +1,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.PublicService.Cryptography;
 
 using System;
@@ -574,6 +575,30 @@ namespace Portal.Consultoras.BizLogic
             {
                 daPedidoWebDetalle.InsPedidoWebAccionesPROL(item, Tipo, Accion);
             }
+        }
+
+        public bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId)
+        {
+            var pedidoWebDetalle = new List<BEPedidoWebDetalle>();
+            var daPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
+
+            var result = daPedidoWebDetalle.InsertPedidoWebSet(Campaniaid, PedidoID, CantidadSet, CuvSet, ConsultoraId, CodigoUsuario, CuvsStringList, EstrategiaId);
+
+
+            return result;
+        }
+
+        public bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad)
+        {
+            DAPedidoWebDetalle daPedidoWebDetalle = new DAPedidoWebDetalle(paisId);
+            return daPedidoWebDetalle.UpdCantidadPedidoWebSet(setId, cantidad);
+        }
+
+        public List<BEPedidoWebSetDetalle> GetPedidoWebSetDetalle(int paisID, int campania, long consultoraId)
+        {
+            DAPedidoWebDetalle daPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
+            using (IDataReader reader = daPedidoWebDetalle.GetPedidoWebSetDetalle(campania, consultoraId))
+                return reader.MapToCollection<BEPedidoWebSetDetalle>(closeReaderFinishing: true);
         }
     }
 }

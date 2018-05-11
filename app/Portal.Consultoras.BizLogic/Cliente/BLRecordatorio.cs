@@ -3,6 +3,8 @@ using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Cliente;
 using Portal.Consultoras.Entities.Framework;
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 
@@ -23,16 +25,24 @@ namespace Portal.Consultoras.BizLogic.Cliente
         public List<BEClienteRecordatorio> Listar(int paisId, long consultoraId, short clienteId = 0)
         {
             var recordatorios = new List<BEClienteRecordatorio>();
-            var daCliente = new DACliente(paisId);
 
-            using (IDataReader reader = daCliente.RecordatorioObtener(consultoraId, clienteId))
-                while (reader.Read())
+            try
+            {
+                using (var reader = new DACliente(paisId).RecordatorioObtener(consultoraId, clienteId))
                 {
-                    var recordatorio = new BEClienteRecordatorio(reader);
-                    recordatorios.Add(recordatorio);
+                    while (reader.Read())
+                    {
+                        var recordatorio = new BEClienteRecordatorio(reader);
+                        recordatorios.Add(recordatorio);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, consultoraId, paisId);
+            }
 
-            return recordatorios;
+            return recordatorios ?? new List<BEClienteRecordatorio>();
         }
 
         public ResponseType<bool> Actualizar(int paisId, BEClienteRecordatorio recordatorio)
