@@ -1138,3 +1138,7 @@
 .revistaDigitalCompleta .contenedor_productos {
     top: -115px;
 }
+
+.text_left {
+    text-align: left !important;
+}
