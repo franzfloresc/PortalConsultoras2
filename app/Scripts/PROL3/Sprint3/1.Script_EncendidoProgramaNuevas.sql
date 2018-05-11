@@ -5,7 +5,7 @@ Delete TablaLogicaDatos where TablaLogicaID = 7
 Delete TablaLogica where TablaLogicaID = 7
 GO
 insert into TablaLogica values (7, 'ActivarProgramaNueva')
-insert into TablaLogicaDatos values (701, 7, 'Activo', '1', '')
+insert into TablaLogicaDatos values (701, 7, 'Activo', '0', '')
 GO
 
 USE BelcorpMexico
@@ -15,7 +15,7 @@ Delete TablaLogicaDatos where TablaLogicaID = 7
 Delete TablaLogica where TablaLogicaID = 7
 GO
 insert into TablaLogica values (7, 'ActivarProgramaNueva')
-insert into TablaLogicaDatos values (701, 7, 'Activo', '1', '')
+insert into TablaLogicaDatos values (701, 7, 'Activo', '0', '')
 GO
 
 USE BelcorpColombia
@@ -25,7 +25,7 @@ Delete TablaLogicaDatos where TablaLogicaID = 7
 Delete TablaLogica where TablaLogicaID = 7
 GO
 insert into TablaLogica values (7, 'ActivarProgramaNueva')
-insert into TablaLogicaDatos values (701, 7, 'Activo', '1', '')
+insert into TablaLogicaDatos values (701, 7, 'Activo', '0', '')
 GO
 
 USE BelcorpSalvador
@@ -35,7 +35,7 @@ Delete TablaLogicaDatos where TablaLogicaID = 7
 Delete TablaLogica where TablaLogicaID = 7
 GO
 insert into TablaLogica values (7, 'ActivarProgramaNueva')
-insert into TablaLogicaDatos values (701, 7, 'Activo', '1', '')
+insert into TablaLogicaDatos values (701, 7, 'Activo', '0', '')
 GO
 
 USE BelcorpPuertoRico
@@ -45,7 +45,7 @@ Delete TablaLogicaDatos where TablaLogicaID = 7
 Delete TablaLogica where TablaLogicaID = 7
 GO
 insert into TablaLogica values (7, 'ActivarProgramaNueva')
-insert into TablaLogicaDatos values (701, 7, 'Activo', '1', '')
+insert into TablaLogicaDatos values (701, 7, 'Activo', '0', '')
 GO
 
 USE BelcorpPanama
@@ -55,7 +55,7 @@ Delete TablaLogicaDatos where TablaLogicaID = 7
 Delete TablaLogica where TablaLogicaID = 7
 GO
 insert into TablaLogica values (7, 'ActivarProgramaNueva')
-insert into TablaLogicaDatos values (701, 7, 'Activo', '1', '')
+insert into TablaLogicaDatos values (701, 7, 'Activo', '0', '')
 GO
 
 USE BelcorpGuatemala
@@ -65,7 +65,7 @@ Delete TablaLogicaDatos where TablaLogicaID = 7
 Delete TablaLogica where TablaLogicaID = 7
 GO
 insert into TablaLogica values (7, 'ActivarProgramaNueva')
-insert into TablaLogicaDatos values (701, 7, 'Activo', '1', '')
+insert into TablaLogicaDatos values (701, 7, 'Activo', '0', '')
 GO
 
 USE BelcorpEcuador
@@ -75,7 +75,7 @@ Delete TablaLogicaDatos where TablaLogicaID = 7
 Delete TablaLogica where TablaLogicaID = 7
 GO
 insert into TablaLogica values (7, 'ActivarProgramaNueva')
-insert into TablaLogicaDatos values (701, 7, 'Activo', '1', '')
+insert into TablaLogicaDatos values (701, 7, 'Activo', '0', '')
 GO
 
 USE BelcorpDominicana
@@ -85,7 +85,7 @@ Delete TablaLogicaDatos where TablaLogicaID = 7
 Delete TablaLogica where TablaLogicaID = 7
 GO
 insert into TablaLogica values (7, 'ActivarProgramaNueva')
-insert into TablaLogicaDatos values (701, 7, 'Activo', '1', '')
+insert into TablaLogicaDatos values (701, 7, 'Activo', '0', '')
 GO
 
 USE BelcorpCostaRica
@@ -95,7 +95,7 @@ Delete TablaLogicaDatos where TablaLogicaID = 7
 Delete TablaLogica where TablaLogicaID = 7
 GO
 insert into TablaLogica values (7, 'ActivarProgramaNueva')
-insert into TablaLogicaDatos values (701, 7, 'Activo', '1', '')
+insert into TablaLogicaDatos values (701, 7, 'Activo', '0', '')
 GO
 
 USE BelcorpChile
@@ -105,7 +105,7 @@ Delete TablaLogicaDatos where TablaLogicaID = 7
 Delete TablaLogica where TablaLogicaID = 7
 GO
 insert into TablaLogica values (7, 'ActivarProgramaNueva')
-insert into TablaLogicaDatos values (701, 7, 'Activo', '1', '')
+insert into TablaLogicaDatos values (701, 7, 'Activo', '0', '')
 GO
 
 USE BelcorpBolivia
@@ -115,6 +115,6 @@ Delete TablaLogicaDatos where TablaLogicaID = 7
 Delete TablaLogica where TablaLogicaID = 7
 GO
 insert into TablaLogica values (7, 'ActivarProgramaNueva')
-insert into TablaLogicaDatos values (701, 7, 'Activo', '1', '')
+insert into TablaLogicaDatos values (701, 7, 'Activo', '0', '')
 GO
 
