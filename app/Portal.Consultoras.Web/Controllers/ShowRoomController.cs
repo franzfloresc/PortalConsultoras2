@@ -18,7 +18,6 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
-using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.SessionManager;
 using Portal.Consultoras.Web.Models.Common;
 
@@ -1256,6 +1255,15 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult PopupCerrar()
         {
+            if(userData.BeShowRoomConsultora==null)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "BeShowRoomConsultora es null"
+                });
+            }
+
             userData.BeShowRoomConsultora.MostrarPopup = false;
             userData.BeShowRoomConsultora.MostrarPopupVenta = false;
             return Json(new
@@ -1737,6 +1745,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 sessionManager.SetPedidoWeb(null);
                 sessionManager.SetDetallesPedido(null);
+                sessionManager.SetDetallesPedidoSetAgrupado(null);
 
                 UpdPedidoWebMontosPROL();
 
@@ -1753,6 +1762,18 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
+
+
+                if (tipo == 1 )
+                {
+
+
+                    using (var pedidoServiceClient = new PedidoServiceClient())
+                    {
+                        pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
+                            , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0);
+                    }
+                }
 
                 return Json(new
                 {
@@ -2953,7 +2974,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.Limite > 0) listaNoSubCampania = listaNoSubCampania.Take(model.Limite).ToList();
 
                 var listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania).ToList();
-                listaSubCampania.ForEach(p => p.ProductoTonos = GetOfertaConDetalle(p.OfertaShowRoomID).ProductoTonos);
+                //listaSubCampania.ForEach(p => p.ProductoTonos = GetOfertaConDetalle(p.OfertaShowRoomID).ProductoTonos);
                 listaSubCampania = ValidarUnidadesPermitidas(listaSubCampania);
                 return Json(new
                 {

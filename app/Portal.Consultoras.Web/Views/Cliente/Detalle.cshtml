@@ -79,8 +79,9 @@
     });
 
     $(".input-number").keypress(function (e) {
+       
         $(this).val($(this).val().replace(/[^\d].+/, ""));
-        if ((event.which < 48 || event.which > 57)) event.preventDefault();
+        if ((e.which < 48 || e.which > 57)) e.preventDefault();
     });
 
     $(".input-nombre").keypress(function (evt) {

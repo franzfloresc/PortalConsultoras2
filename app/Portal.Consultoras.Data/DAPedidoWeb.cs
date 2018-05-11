@@ -226,6 +226,21 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
+        /// <summary>
+        /// Marca los cupones de los pedidos web como usuados.
+        /// </summary>
+        /// <param name="NroLote"></param>
+        /// <param name="FirmarPedido"></param>
+        /// <returns></returns>
+        public int UpdCuponPedidoWebEnviado(int NroLote, bool FirmarPedido)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdCuponPedidoWebEnviado");
+            Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, NroLote);
+            Context.Database.AddInParameter(command, "@FirmarPedido", DbType.Boolean, FirmarPedido);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
         public int UpdPedidoDescargaGuardoS3(int nroLote, bool guardoS3, string mensaje, string mensajeExcepcion)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdPedidoDescargaGuardoS3");

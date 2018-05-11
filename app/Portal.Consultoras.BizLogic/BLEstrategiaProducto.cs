@@ -48,5 +48,7 @@ namespace Portal.Consultoras.BizLogic
             var result = DA.DeleteEstrategiaProducto(entidad);
             return result;
         }
+
+
     }
 }
