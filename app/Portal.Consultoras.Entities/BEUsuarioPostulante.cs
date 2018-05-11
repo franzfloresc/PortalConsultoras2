@@ -71,7 +71,7 @@ namespace Portal.Consultoras.Entities
                 CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
 
             if (DataRecord.HasColumn(row, "ConsultoraID"))
-                ConsultoraID = row["ConsultoraID"] == DBNull.Value ? 0 : Convert.ToInt64(row["ConsultoraID"]);
+                ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
 
             if (DataRecord.HasColumn(row, "NumeroDocumento"))
                 NombreCompleto = Convert.ToString(row["NombreCompleto"]);
