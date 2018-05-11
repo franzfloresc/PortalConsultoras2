@@ -36,6 +36,7 @@ namespace Portal.Consultoras.Web.Controllers
     public class LoginController : Controller
     {
         private string pasoLog;
+        private int misCursos = 0;
         private readonly string IP_DEFECTO = "190.187.154.154";
         private readonly string ISO_DEFECTO = Constantes.CodigosISOPais.Peru;
         private readonly int USUARIO_VALIDO = 3;
@@ -68,8 +69,16 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Index(string returnUrl = null)
         {
+            MisCursos();
+
             if (EsUsuarioAutenticado())
             {
+                if (misCursos > 0)
+                {
+                    sessionManager.SetMiAcademia(misCursos);
+                    return RedirectToAction("Index", "MiAcademia");
+                }
+
                 return EsDispositivoMovil()
                     ? RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
                     : RedirectToAction("Index", "Bienvenida");
@@ -138,9 +147,24 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Login");
         }
 
+        private void MisCursos()
+        {
+            TempData["MiAcademia"] = 0;
+            var url = (Request.Url.OriginalString).Split('?');
+            if (url.Length > 1)
+            {
+                var MiCurso = url[1].Split('=');
+                if (Util.IsNumeric(MiCurso[1]))
+                {
+                    misCursos = Convert.ToInt32(MiCurso[1]);
+                    TempData["MiAcademia"] = misCursos;
+                }
+            }
+        }
+
         [AllowAnonymous]
         [HttpPost]
-        public async Task<JsonResult> Login(LoginModel model, string returnUrl = null)
+        public async Task<ActionResult> Login(LoginModel model, string returnUrl = null)
         {
             pasoLog = "Login.POST.Index";
             try
@@ -312,7 +336,7 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Admin", "Login");
         }
 
-        public async Task<JsonResult> Redireccionar(int paisId, string codigoUsuario, string returnUrl = null,
+        public async Task<ActionResult> Redireccionar(int paisId, string codigoUsuario, string returnUrl = null,
             bool hizoLoginExterno = false)
         {
             BEPinAutenticacion oPin = null;
@@ -338,14 +362,35 @@ namespace Portal.Consultoras.Web.Controllers
             pasoLog = "Login.Redireccionar";
             var usuario = await GetUserData(paisId, codigoUsuario);
 
+            misCursos = Convert.ToInt32(TempData["MiAcademia"]);
+            sessionManager.SetMiAcademia(misCursos);
+
+            if (misCursos > 0)
+            {
+                returnUrl = Url.Action("Index", "MiAcademia");
+
+                if (usuario.RolID != Constantes.Rol.Consultora)
+                {
+                    returnUrl = "";
+                }
+            }
+
             if (usuario == null)
             {
-                return Json(new
+                if (Request.IsAjaxRequest())
                 {
-                    success = false,
-                    data = oPin,
-                    redirectTo = "Error al procesar la solicitud"
-                });
+                    return Json(new
+                    {
+                        success = false,
+                        data = oPin,
+                        redirectTo = "Error al procesar la solicitud"
+                    });
+                }
+                else
+                {
+                    var url = GetUrlUsuarioDesconocido();
+                    return Redirect(url);
+                }
             }
 
             pasoLog = "Login.Redireccionar.SetAuthCookie";
@@ -683,7 +728,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 url = model.UrlCatalogo
                             });
                     case Constantes.IngresoExternoPagina.MisPedidos:
-                        return RedirectToUniqueRoute("MisPedidos", "Index",null);
+                        return RedirectToUniqueRoute("MisPedidos", "Index", null);
                     case Constantes.IngresoExternoPagina.ShowRoom:
                         return RedirectToUniqueRoute("ShowRoom", "Procesar", null);
                     case Constantes.IngresoExternoPagina.ProductosAgotados:
@@ -700,9 +745,6 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("MisReclamos", "Index", null);
                     case Constantes.IngresoExternoPagina.PedidosFIC:
                         return RedirectToUniqueRoute("PedidoFIC", "Index", null);
-                    //default:
-                    //    return RedirectToAction("UserUnknown", "Login", new { area = "" });
-
                 }
             }
             catch (Exception ex)
@@ -3091,7 +3133,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<JsonResult> ObtenerCodigoGenerado(int OrigenID, string Codigoingresado)
+        public async Task<ActionResult> ObtenerCodigoGenerado(int OrigenID, string Codigoingresado)
         {
             var oUsuCorreo = new BEUsuarioCorreo();
             int paisID = 0;
