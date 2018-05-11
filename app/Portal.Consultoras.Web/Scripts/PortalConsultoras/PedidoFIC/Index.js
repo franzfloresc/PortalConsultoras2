@@ -518,8 +518,7 @@ function GuardarCliente() {
 
 function PedidoOnSuccess() {
 
-    var ItemCantidad = $("#txtCantidad").val();
-    var ItemPrecio = $("#hdfPrecioUnidad").val();
+
     
     
 
@@ -988,4 +987,4 @@ function GuardarOfertaFICenPedido() {
             }
         }
     });
-};
+}

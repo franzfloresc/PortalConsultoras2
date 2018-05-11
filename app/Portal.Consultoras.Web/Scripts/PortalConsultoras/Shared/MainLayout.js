@@ -251,27 +251,31 @@ $(document).ready(function () {
         }
     });
 
-    $("body").on('paste', ".ValidaPasteNumeral", function (e) {
-        var $input = $(this);
-        var previousVal = $input.val();
-        var pastedValue = e.originalEvent.clipboardData.getData('text/plain').trim();
-        if (isNaN(pastedValue) === false && isInt(Number(pastedValue))) {
-            $input.val(pastedValue);
-            e.preventDefault();
-        } else {
-            $input.val(previousVal);
-            e.preventDefault();
-        };
-    });
+    $("body").on('paste',
+        ".ValidaPasteNumeral",
+        function(e) {
+            var $input = $(this);
+            var previousVal = $input.val();
+            var pastedValue = e.originalEvent.clipboardData.getData('text/plain').trim();
+            if (isNaN(pastedValue) === false && isInt(Number(pastedValue))) {
+                $input.val(pastedValue);
+                e.preventDefault();
+            } else {
+                $input.val(previousVal);
+                e.preventDefault();
+            }
+        });
 
-    $("body").on("click", ".menos", function () {
-        if ($.trim($(this).data("bloqueada")) !== "") return false;
+    $("body").on("click",
+        ".menos",
+        function() {
+            if ($.trim($(this).data("bloqueada")) !== "") return false;
 
-        var cantidad = parseInt($(this).parent().prev().val());
-        cantidad = isNaN(cantidad) ? 0 : cantidad;
-        cantidad = cantidad > 1 ? (cantidad - 1) : 1;
-        $(this).parent().prev().val(cantidad);
-    });
+            var cantidad = parseInt($(this).parent().prev().val());
+            cantidad = isNaN(cantidad) ? 0 : cantidad;
+            cantidad = cantidad > 1 ? (cantidad - 1) : 1;
+            $(this).parent().prev().val(cantidad);
+        });
 
     $("body").on("click", ".mas", function () {
         if ($.trim($(this).data("bloqueada")) !== "") return false;
@@ -411,7 +415,7 @@ function CargarResumenCampaniaHeader(showPopup) {
         },
         error: function (data, error) { }
     });
-};
+}
 
 function microefectoPedidoGuardado() {
     $(".contenedor_circulos").fadeIn();
@@ -440,14 +444,14 @@ function CargarCantidadNotificacionesSinLeer() {
                     $(document).find(".js-notificaciones").html(0);
                     $(document).find(".js-notificaciones").removeClass("notificaciones_activas");
                     $(document).find("#mensajeNotificaciones").html("No tienes notificaciones. ");
-                };
+                }
 
                 data.mensaje = data.mensaje || "";
-            };
+            }
         },
         error: function (data, error) { }
     });
-};
+}
 
 function AbrirModalFeErratas() {
     waitingDialog({});
@@ -485,7 +489,7 @@ function AbrirModalFeErratas() {
     setTimeout(function () { showDialog("ModalFeDeErratas") }, 1500);
     closeWaitingDialog();
     return false;
-};
+}
 function SeparadorMiles(pnumero) {
     var resultado = "";
     var numero = pnumero.replace(/\,/g, '');
@@ -495,14 +499,14 @@ function SeparadorMiles(pnumero) {
 
     if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
 
-    for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
+    for (var  i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
         resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
 
     if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
 
     if (numero[0] == "-") return "-" + resultado;
     else return resultado;
-};
+}
 
 function ValidarCorreoComunidad(tipo) {
     $.ajaxSetup({
@@ -517,11 +521,7 @@ function ValidarCorreoComunidad(tipo) {
             $('#ErrorUsuario').html("Debe ingresar un apodo.");
             result = false;
         }
-        else {
-            if ($('#ErrorUsuario').html() != "Este apodo ya existe.") {
 
-            }
-        }
 
         if ($('#txtNuevoCorreoComunidad').val() == 'Correo electrónico') {
             $('#ErrorCorreo').css({ "display": "block" });
@@ -537,11 +537,7 @@ function ValidarCorreoComunidad(tipo) {
                 $('#ErrorCorreo').css({ "color": "red" });
                 result = false;
             }
-            else {
-                if ($('#ErrorCorreo').html() != "Este correo ya existe.") {
-
-                }
-            }
+     
         }
 
         if (result) {
@@ -610,9 +606,7 @@ function ValidarCorreoComunidad(tipo) {
             if ($('#ErrorCorreo').html() != '')
                 return;
 
-            var params = {
-                correo: $("#txtCorreoComunidad").val()
-            };
+     
 
             waitingDialog({});
             jQuery.ajax({
@@ -620,7 +614,9 @@ function ValidarCorreoComunidad(tipo) {
                 url: baseUrl + 'Bienvenida/ValidarCorreoComunidad',
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(params),
+                data: JSON.stringify({
+                    correo: $("#txtCorreoComunidad").val()
+                }),
                 async: true,
                 success: function (data) {
 
@@ -652,7 +648,7 @@ function ValidarCorreoComunidad(tipo) {
             });
         }
     }
-};
+}
 
 function alert_msg(message, titulo, funcion) {
     titulo = titulo || "MENSAJE";
@@ -668,7 +664,7 @@ function alert_msg(message, titulo, funcion) {
 function alert_msg_com(message) {
     $('#DialogMensajesCom .message_text').html(message);
     $('#DialogMensajesCom').dialog('open');
-};
+}
 function AbrirModalRegistroComunidad() {
 
     if (gTipoUsuario == '2') {
@@ -687,10 +683,10 @@ function AbrirModalRegistroComunidad() {
     SendPushMiComunidad();
 
     return false;
-};
+}
 function SendPushMiComunidad() {
     dataLayer.push({ 'event': 'virtualPage', 'pageUrl': '/mi-comunidad/formulario-de-registro', 'pageTitle': 'Mi comunidad – Formulario de registro' });
-};
+}
 function ValidarUsuarioIngresado(usuario) {
     $.ajaxSetup({
         cache: false
@@ -720,7 +716,7 @@ function ValidarUsuarioIngresado(usuario) {
             alert('Ocurrió un error al intentar validar el usuario. Por favor, volver a intentar.');
         }
     });
-};
+}
 function ValidarCorreoIngresado(correo) {
     $.ajaxSetup({
         cache: false
@@ -749,11 +745,11 @@ function ValidarCorreoIngresado(correo) {
             alert('Ocurrió un error al intentar validar el correo. Por favor, volver a intentar.');
         }
     });
-};
+}
 function ValidarCorreo(correo) {
     var expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+[a-zA-Z0-9]{2,4}$/;
     return expr.test(correo);
-};
+}
 
 function MostrarShowRoomBannerLateral() {
 
@@ -956,7 +952,7 @@ function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
 
 function RedirectIngresaTuPedido() {
     location.href = baseUrl + 'Pedido/Index';
-};
+}
 function CerrarSesion() {
     if (typeof (Storage) !== 'undefined') {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
@@ -974,10 +970,10 @@ function CerrarSesion() {
     }
 
     location.href = baseUrl + 'Login/LogOut';
-};
+}
 function Notificaciones() {
     location.href = baseUrl + 'Notificaciones/Index';
-};
+}
 function SetMarcaGoogleAnalyticsTermino() {
     dataLayer.push({
         'event': 'virtualEvent',
@@ -985,7 +981,7 @@ function SetMarcaGoogleAnalyticsTermino() {
         'action': 'Click enlace',
         'label': 'Términos y Condiciones'
     });
-};
+}
 
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
@@ -1032,7 +1028,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
 function alert_msg_pedido(message) {
     $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
     $('#alertDialogMensajes').dialog('open');
-};
+}
 
 function animacionFlechaScroll() {
     $(".flecha_scroll").animate({
@@ -1066,7 +1062,7 @@ function agregarProductoAlCarrito(o) {
             'height': imagenProducto.css("height"),
             'width': imagenProducto.css("width"),
             'top': imagenProducto.offset().top,
-            'left': imagenProducto.offset().left,
+            'left': imagenProducto.offset().left
         }).animate({
             'top': carrito.offset().top,
             'left': carrito.offset().left,
@@ -1105,7 +1101,7 @@ function checkCountdownODD() {
     });
 
     return ok;
-};
+}
 
 function getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID) {
     var qty = 0;
@@ -1127,7 +1123,7 @@ function getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID) {
     });
 
     return qty;
-};
+}
 
 function messageConfirmacion(title, message, fnAceptar) {
     title = $.trim(title);

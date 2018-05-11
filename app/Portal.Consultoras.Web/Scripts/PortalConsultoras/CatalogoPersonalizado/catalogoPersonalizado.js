@@ -212,7 +212,7 @@ function processFilterCatalogoPersonalizado() {
 }
 
 function OcultarSliderMobile() {
-    processFilterCatalogoPersonalizado()
+    processFilterCatalogoPersonalizado();
     $('#custom-filters').hide();
     $('#orderby-filter').show();
     $('#divCatalogoPersonalizado').show();
@@ -381,7 +381,7 @@ function CargarCatalogoPersonalizado() {
                     $('#divCatalogoPersonalizado').append(htmlDiv);
 
                     if (tipoOrigen == 1) {
-                        var t = offsetRegistros + data.data.length
+                        var t = offsetRegistros + data.data.length;
                         $("#divCantProductos").html('Mostrando ' + t.toString() + " de " + data.totalRegistros + " productos");
                     }
 
@@ -404,7 +404,7 @@ function CargarCatalogoPersonalizado() {
                                 'precision': 2,
                                 'min': parseFloat(data.precioMinimo),
                                 'max': parseFloat(data.precioMaximo),
-                                'value': rr,
+                                'value': rr
                             });
                         }
 

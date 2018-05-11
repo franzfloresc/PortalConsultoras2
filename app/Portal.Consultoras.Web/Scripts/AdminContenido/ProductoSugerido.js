@@ -86,8 +86,8 @@ var ProductoSugerido = function (config) {
                 _limpiarFiltrosNemotecnico();
                 _obtenerImagenes(params, 1);
             } else {
-                alert(response.message)
-            };
+                alert(response.message);
+            }
         }
         closeWaitingDialog();
     };

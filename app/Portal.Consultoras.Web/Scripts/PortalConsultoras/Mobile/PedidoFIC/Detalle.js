@@ -1225,7 +1225,7 @@ function InsertarProducto(model, asyncX) {
     });
 
     return retorno;
-};
+}
 
 function MostrarMensajeProl(data) {
 
@@ -1284,5 +1284,5 @@ function ValidarPermiso(obj) {
         return false;
     }
     return true;
-};
+}
 

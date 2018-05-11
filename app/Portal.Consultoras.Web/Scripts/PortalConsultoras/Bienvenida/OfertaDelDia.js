@@ -571,7 +571,7 @@ $(document).ready(function () {
         }
 
         var tipoEstrategiaID = itemCampos.find('.tipoestrategia-id-odd').val();
-        var estrategiaID = itemCampos.find('.estrategia-id-odd').val();
+        
         var marcaID = itemCampos.find('.marca-id-odd').val();
         var cuv2 = itemCampos.find('.cuv2-odd').val();
         var precio = itemCampos.find('.precio-odd').val();
@@ -731,7 +731,7 @@ $(document).ready(function () {
         });
 
         return ok;
-    };
+    }
 
     function ValidarStockEstrategia(producto) {
         var d = $.Deferred();
@@ -821,7 +821,7 @@ $(document).ready(function () {
         });
 
         return qty;
-    };
+    }
 
     function ResetearCantidadesDelPopup() {
         $("#divOddCarrusel").find(".liquidacion_rango_cantidad_pedido.txtcantidad-odd").val(1);
@@ -943,7 +943,7 @@ function odd_desktop_procesar_evento_before_change(event, slick, currentSlide, n
             accion = 'next';
         } else {
             accion = 'prev';
-        };
+        }
 
         if (accion == "prev") {
             index = nextSlide;
@@ -989,7 +989,7 @@ function odd_mobile_procesar_evento_before_change(event, slick, currentSlide, ne
             accion = 'next';
         } else {
             accion = 'prev';
-        };
+        }
 
         if (accion == "prev") {
             index = nextSlide;

@@ -1659,7 +1659,7 @@ function of_google_analytics_producto_impresion_arrows(event, slick, currentSlid
             accion = 'next';
         } else {
             accion = 'prev';
-        };
+        }
 
         if (accion == "prev") {
             index = nextSlide;
@@ -1871,8 +1871,6 @@ function of_google_analytics_product_click(entorno, element, meta) {
     if (meta == "") { list = list + "Descuento Adicional"; }
 
     position = element + 1;
-
-    var origen = "Popup Oferta Final - Listado";
     name = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalNombreComercial").val();
 
     var precio_valorizado = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalPrecioValorizado").val();

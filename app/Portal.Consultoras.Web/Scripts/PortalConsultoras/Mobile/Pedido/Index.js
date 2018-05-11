@@ -143,12 +143,12 @@ $(document).ready(function () {
         } else {
             VisibleEstrategias(false);
             $("footer").hide();
-        };
+        }
 
         if (codigo.length == 5) {
             $("#txtCodigoProducto").blur();
             BuscarByCUV(codigo);
-        };
+        }
     });
 
     $(".ValidaAlfabeto").keypress(function (evt) {
@@ -381,7 +381,7 @@ function ValidarPermiso(obj) {
         return false;
     }
     return true;
-};
+}
 
 function BuscarByCUV(cuv) {
 
@@ -447,7 +447,7 @@ function BuscarByCUV(cuv) {
             }
         }
     });
-};
+}
 function ObservacionesProducto(item) {
     $("#hdfValorFlagNueva").val(item.FlagNueva);
     if (item.FlagNueva == 1) {
@@ -473,7 +473,7 @@ function ObservacionesProducto(item) {
         if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
             if (!item.TieneRDC)
                 MostrarMensaje("mensajeCUVOfertaEspecial");
-        };
+        }
 
         var tipoOferta = $("#hdTipoOfertaSisID").val();
         if (tipoOferta == ofertaLiquidacion) {
@@ -510,7 +510,7 @@ function ObservacionesProducto(item) {
     $("#btnAgregarProducto").removeAttr("disabled");
     $("#divProductoInformacion").show();
     $("#divProductoMantenedor").show();
-};
+}
 function IngresoFAD(producto) {
     var item = {
         CUV: producto.CUV,
@@ -531,7 +531,7 @@ function IngresoFAD(producto) {
         },
         error: function (data, error) { }
     });
-};
+}
 function ObtenerEstrategiaCoincidente(cuv) {
     var cadListaRecomendados = $("#hdListaEstrategiasPedido").val() || "[]";
     var listaRecomendados = JSON.parse(cadListaRecomendados);
@@ -545,7 +545,7 @@ function ObtenerEstrategiaCoincidente(cuv) {
     });
 
     return estratgiaEncontrada;
-};
+}
 function ObtenerProductosSugeridos(CUV) {
     $('.js-slick-prev-h').remove();
     $('.js-slick-next-h').remove();
@@ -564,7 +564,7 @@ function ObtenerProductosSugeridos(CUV) {
         async: true,
         cache: false,
         success: function (data) {
-            if (!checkTimeout(data)) { CloseLoading(); return false };
+            if (!checkTimeout(data)) { CloseLoading(); return false }
             $('#hdfCUV').val(CUV);
             productoSugerido = true;
 
@@ -663,7 +663,7 @@ function InsertarProductoSugerido(model) {
             CloseLoading();
         }
     });
-};
+}
 
 function AgregarProductoListado() {
     ShowLoading();
@@ -717,7 +717,7 @@ function AgregarProductoListado() {
             }
         }
     });
-};
+}
 
 function InsertarProducto() {
     var esOfertaNueva = $("#hdfValorFlagNueva").val() === "1";
@@ -855,7 +855,7 @@ function InsertarProducto() {
         }
     });
 
-};
+}
 
 function VisibleEstrategias(accion) {
     accion == accion || false;
@@ -881,7 +881,7 @@ function PedidoOnSuccess() {
     $("#txtCodigoProducto").val("");
     $("#btnAgregarProducto").attr("disabled", "disabled");
     $("#divProductoObservaciones").html("");
-};
+}
 
 function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, Cantidad, Marca, variant, listaDes, posicion) {
     posicion = posicion || 1;
@@ -911,7 +911,7 @@ function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, 
             }
         });
     }
-};
+}
 function MostrarMensaje(tipoMensaje, message) {
     var $divMensaje;
     switch (tipoMensaje) {
@@ -957,8 +957,8 @@ function MostrarMensaje(tipoMensaje, message) {
             $divMensaje.find("#divMensaje").html(message);
             $divMensaje.show();
             break;
-    };
-};
+    }
+}
 
 function MostrarDetalleGanancia() {
     var div = $('#detalleGanancia');

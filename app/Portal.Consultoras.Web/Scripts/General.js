@@ -139,7 +139,7 @@ jQuery(document).ready(function () {
             posicion = posicion || 0;
             return this.indexOf(stringBuscada, posicion) === posicion;
         };
-    };
+    }
 
     Right = function (str, n) {
         if (n <= 0)
@@ -665,12 +665,8 @@ function compare_dates(fecha, fecha2) {
 
 function IsValidUrl(value) {
     var matcher = /(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi;
-
-    var match = value.match(matcher)
-    if (match)
-        return true;
-    else
-        return false;
+    var match = value.match(matcher);
+    return match;
 }
 
 function isMobile() {
@@ -975,7 +971,7 @@ function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, po
             }
         }
     });
-};
+}
 
 function MensajeEstadoPedido() {
     xMensajeEstadoPedido(false);
@@ -1848,7 +1844,7 @@ function limpiar_local_storage() {
             localStorage.setItem('SBTokenPedido', itemSBTokenPedido);
         }
     }
-};
+}
 
 function _validartieneMasVendidos() {
     if (tieneMasVendidos === 0 || tieneMasVendidos === 1) {

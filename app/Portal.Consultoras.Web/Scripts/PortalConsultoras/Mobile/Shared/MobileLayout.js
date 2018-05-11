@@ -402,7 +402,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     });
 
     return restringido;
-};
+}
 
 function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
 
@@ -428,7 +428,7 @@ function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, po
             }
         }
     });
-};
+}
 
 function ValidarCorreoComunidad(tipo) {
     $.ajaxSetup({
@@ -920,7 +920,7 @@ function SeparadorMiles(pnumero) {
 
     if (numero[0] == "-") return "-" + resultado;
     else return resultado;
-};
+}
 
 function TrackingJetloreAdd(cantidad, campania, cuv) {
     var esJetlore = esPaisTrackingJetlore == "1";

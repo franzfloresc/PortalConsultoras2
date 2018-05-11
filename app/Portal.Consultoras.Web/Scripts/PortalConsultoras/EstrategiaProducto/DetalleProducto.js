@@ -1,19 +1,13 @@
 ﻿var masVendidosModule = (function () {
-    "use strict"
+    "use strict";
 
-    var CONTANSTES_ = {
 
-    };
-
-    var elements = {
-
-    };
 
     var setting = {
         baseUrl: ''
     };
 
-    var lista = [];
+ 
 
     var _bindEvents = function () {
         $(document).ready(function () {
@@ -236,14 +230,14 @@
                 item.ArrayContenidoSet = item.DescripcionCUV2.split('|').slice(1);
             } else {
                 item.DescripcionCUV2 = (item.DescripcionCUV2.length > 40 ? item.DescripcionCUV2.substring(0, 40) + "..." : item.DescripcionCUV2);
-            };
+            }
 
             item.Posicion = i + 1;
             item.MostrarTextoLibre = (item.TextoLibre ? $.trim(item.TextoLibre).length > 0 : false);
             item.UrlDetalle = urlOfertaDetalle + '/' + (item.ID || item.Id) || "";
         });
         return isList ? lista : lista[0];
-    };
+    }
 
     var _pintarUltimoComentarioConsultora = function (item) {
         var xdiv = "#consultant-commentary-" + item.EstrategiaID.toString();

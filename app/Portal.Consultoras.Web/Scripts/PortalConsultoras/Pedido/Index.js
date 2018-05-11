@@ -1431,7 +1431,7 @@ function ObtenerProductosSugeridos(CUV) {
                     accion = 'next';
                 } else {
                     accion = 'prev';
-                };
+                }
                 var posicionEstrategia, recomendado, arraySugerido;
                 if (accion == 'prev') {
                     var posicionPrimerActivo = $($('#divCarruselSugerido').find(".slick-active")[0]).find('.hdPosicionSugerido').val();
@@ -3426,7 +3426,7 @@ function AjaxError(data) {
 function HidePopupEstrategiasEspeciales() {
     $('#popupDetalleCarousel_lanzamiento').hide();
     $('#popupDetalleCarousel_packNuevas').hide();
-};
+}
 function MostrarDetalleGanancia() {
     var div = $('#detalleGanancia');
     div[0].children[0].innerHTML = $('#hdeCabezaEscala').val();
@@ -3568,7 +3568,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
             }
             else if (mostrarAlerta == true) {
-                AbrirPopupPedidoReservado(data.message, '1')
+                AbrirPopupPedidoReservado(data.message, '1');
             }
         },
         error: function (error, x) {
@@ -3576,7 +3576,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
         }
     });
     return restringido;
-};
+}
 
 function ConfirmarModificar() {
     waitingDialog({});

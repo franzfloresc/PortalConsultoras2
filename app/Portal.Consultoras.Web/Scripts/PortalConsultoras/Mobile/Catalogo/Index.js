@@ -195,16 +195,21 @@ function ColumnasDeshabilitadasxPais(valor, accion, label) {
         deferedCam[camp] = jQuery.Deferred();
 
         deferedCam[camp] = ObtenerEstadoCatalogo(camp, deferedCam[camp]);
-        deferedCam[camp].done(function (data, camp) {
-            if (data != null) GetCatalogosLinksByCampania(data, camp);
-            else cont += cantCat;
-        });
+        deferedCam[camp].done(meDone);
     }
 
     $.when(deferedCam[aCam[0]], deferedCam[aCam[1]], deferedCam[aCam[2]]).done(function () {
         FinRenderCatalogo();
     });
 }
+
+var meDone =function (data, camp) {
+    if (data != null) GetCatalogosLinksByCampania(data, camp);
+    else cont += cantCat;
+}
+
+
+
 function ObtenerEstadoCatalogo(campana, defered) {
     jQuery.ajax({
         type: "GET",

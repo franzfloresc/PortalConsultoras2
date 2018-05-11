@@ -764,7 +764,7 @@ function CrearDialogs() {
             $(this).dialog('close');
         }
     });
-};
+}
 
 function CargarPopupsConsultora() {
 
@@ -784,10 +784,10 @@ function CargarPopupsConsultora() {
 
 function ShowPopupTonosTallas() {
     $('.js-contenedor-popup-tonotalla').show();
-};
+}
 function HidePopupTonosTallas() {
     $('.js-contenedor-popup-tonotalla').hide();
-};
+}
 function CambiarTonoTalla(ddlTonoTalla) {
     $(ddlTonoTalla).parents('#divTonosTallas').find('#CUV').attr("value", $("option:selected", ddlTonoTalla).attr("value"));
     $(ddlTonoTalla).parents('#divTonosTallas').find("#PrecioOferta").attr("value", $("option:selected", ddlTonoTalla).attr("precio-real"));
@@ -795,7 +795,7 @@ function CambiarTonoTalla(ddlTonoTalla) {
 
     $(ddlTonoTalla).parents('#divTonosTallas').find('.nombre_producto').html('<b>' + $("option:selected", ddlTonoTalla).attr("desc-talla") + '</b>');
     $(ddlTonoTalla).parents('#divTonosTallas').find('.producto_precio_oferta').html('<b>' + viewBagSimbolo + " " + $("option:selected", ddlTonoTalla).attr("desc-precio") + '</b>');
-};
+}
 
 function alert_unidadesAgregadas(message, exito) {
     if (exito == 1) {
@@ -835,7 +835,7 @@ function CargarCarouselLiquidaciones() {
             }
         }
     });
-};
+}
 function ArmarCarouselLiquidaciones(data) {
     data = EstructurarDataCarouselLiquidaciones(data.lista);
     arrayLiquidaciones = data;
@@ -970,7 +970,7 @@ function ArmarCarouselLiquidaciones(data) {
 
     $(".js-slick-prev-liq").insertBefore('#divCarruselLiquidaciones').hide();
     $(".js-slick-next-liq").insertAfter('#divCarruselLiquidaciones');
-};
+}
 function EstructurarDataCarouselLiquidaciones(array) {
     $.each(array, function (i, item) {
         item.DescripcionCompleta = item.Descripcion;
@@ -988,11 +988,11 @@ function EstructurarDataCarouselLiquidaciones(array) {
             item.TipoTallaColor = "";
             item.TextoBotonTallaColor = "";
             item.TieneTallaColor = false;
-        };
+        }
     });
 
     return array;
-};
+}
 function AgregarProductoLiquidacion(contenedor) {
     var inputCantidad = $(contenedor).find("#txtCantidad").val();
     if (!$.isNumeric(inputCantidad)) {
@@ -1099,7 +1099,7 @@ function AgregarProductoLiquidacion(contenedor) {
             });
         }
     });
-};
+}
 
 function ProcesarActualizacionMostrarContenedorCupon() {
     if (paginaOrigenCupon) {
@@ -1129,7 +1129,7 @@ function CargarProductoLiquidacionPopup(objProducto, objHidden) {
             'desc-precio="' + strDescPrecio + '"' +
             'precio-real="' + strPrecioReal + '"' +
             '>' + strDescTalla + '</option>';
-    };
+    }
 
     $(divTonosTallas).find('#ddlTallaColorLiq').html(option);
 
@@ -1153,7 +1153,7 @@ function CargarProductoLiquidacionPopup(objProducto, objHidden) {
 
     closeWaitingDialog();
     ShowPopupTonosTallas();
-};
+}
 
 function CargarBanners() {
     $('.flexslider').html('<ul class="slides"></ul>');
@@ -1304,7 +1304,7 @@ function CargarBanners() {
             }
         }
     });
-};
+}
 function EnlaceBanner(URL, TrackText, TipoAccion, CUVpedido, CantCUVpedido, Id, Posicion, Titulo, link) {
     if (TipoAccion == 0 || TipoAccion == 2) {
         SetGoogleAnalyticsBannerPrincipal(URL, TrackText, Id, Posicion, Titulo);
@@ -1327,7 +1327,7 @@ function EnlaceBanner(URL, TrackText, TipoAccion, CUVpedido, CantCUVpedido, Id, 
 
         return false;
     }
-};
+}
 
 function AgregarCUVBannerPedido() {
 
@@ -1424,7 +1424,7 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
             }
         }
     });
-};
+}
 function SetGoogleAnalyticsBannerIntermedios(URL, TrackText, PaginaNueva, Id, Posicion, Titulo) {
     dataLayer.push({
         'event': 'promotionClick',
@@ -1452,7 +1452,7 @@ function SetGoogleAnalyticsBannerIntermedios(URL, TrackText, PaginaNueva, Id, Po
         window.location.href = URL;
     }
     return false;
-};
+}
 function SetGoogleAnalyticsBannerPrincipal(URL, TrackText, Id, Posicion, Titulo) {
     dataLayer.push({
         'event': 'promotionClick',
@@ -1477,7 +1477,7 @@ function SetGoogleAnalyticsBannerPrincipal(URL, TrackText, Id, Posicion, Titulo)
         window.open(URL, '_blank');
     }
     return false;
-};
+}
 function SetGoogleAnalyticsBannerInferiores(URL, TrackText, Tipo, Id, Posicion, Titulo, OpenTab) {
     var id;
     dataLayer.push({
@@ -1507,7 +1507,7 @@ function SetGoogleAnalyticsBannerInferiores(URL, TrackText, Tipo, Id, Posicion, 
         window.open(URL, '_blank');
     }
     return false;
-};
+}
 function SetGoogleAnalyticsPromotionClick(Id, Posicion, Titulo) {
     dataLayer.push({
         'event': 'promotionClick',
@@ -1525,7 +1525,7 @@ function SetGoogleAnalyticsPromotionClick(Id, Posicion, Titulo) {
     });
 
     return false;
-};
+}
 
 function CargarMisDatos() {
     $.ajax({
@@ -1555,7 +1555,7 @@ function CargarMisDatos() {
         },
         error: function (data, error) { }
     });
-};
+}
 function CambiarContrasenia() {
     var oldPassword = $("#txtContraseniaAnterior").val();
     var newPassword01 = $("#txtNuevaContrasenia01").val();
@@ -1844,7 +1844,7 @@ function CargarMisCursos() {
             }
         }
     });
-};
+}
 function porcentajesCursos() {
     $(".porcentaje_curso").addClass("mostrarPorcentajes");
 
@@ -1862,7 +1862,7 @@ function porcentajesCursos() {
             this.$el.find('span').text(Math.round(to));
         }
     });
-};
+}
 function GetCursoMarquesina(id) {
     var url = baseUrl + "MiAcademia/Cursos?idcurso=" + id;
     window.open(url, '_blank');
@@ -1974,10 +1974,10 @@ function ActualizarDatos() {
     });
 
     return result;
-};
+}
 function DownloadAttachPDFTerminos() {
     $('#hrefTerminos').attr('href', UrlPdfTerminosyCondiciones);
-};
+}
 function CerrarPopupActualizacionDatos() {
 
     var ClaveSecreta = $('#txtActualizarClaveSecreta').val();
@@ -2008,7 +2008,7 @@ function CerrarPopupActualizacionDatos() {
             }
         }
     });
-};
+}
 
 
 function ActualizarDatosMexico() {
@@ -2259,13 +2259,13 @@ function MostrarDemandaAnticipada() {
             }
         }
     });
-};
+}
 function AceptarDemandaAnticipada() {
     InsertarDemandaAnticipada(1);
-};
+}
 function CancelarDemandaAnticipada() {
     InsertarDemandaAnticipada(0);
-};
+}
 function InsertarDemandaAnticipada(tipo) {
     waitingDialog({});
 
@@ -2295,7 +2295,7 @@ function InsertarDemandaAnticipada(tipo) {
             }
         }
     });
-};
+}
 
 function CrearPopupComunicado() {
     $('#divComunicado').dialog({
@@ -2316,13 +2316,13 @@ function CrearPopupComunicado() {
             $('#divComunicado').dialog('close');
         }
     });
-};
+}
 function AbrirComunicado() {
     if (viewBagVisualizoComunicado == "0") {
         showDialog("divComunicado");
         $("#divComunicado").siblings(".ui-dialog-titlebar").hide();
     }
-};
+}
 function AceptarComunicado() {
     waitingDialog({});
     $.ajax({
@@ -2342,7 +2342,7 @@ function AceptarComunicado() {
             }
         }
     });
-};
+}
 
 function AbrirPopupFlexipago() {
     if (typeof gTipoUsuario !== 'undefined') {
@@ -2362,7 +2362,7 @@ function AbrirPopupFlexipago() {
             }
         }
     }
-};
+}
 function RechazarInvitacionFlex() {
     waitingDialog({});
     jQuery.ajax({
@@ -2386,7 +2386,7 @@ function RechazarInvitacionFlex() {
         }
     });
     return false;
-};
+}
 function InscribeteFlex() {
     var cc = (viewBagCodigoConsultora);
     var ca = (viewBagCampaniaActual);
@@ -2399,7 +2399,7 @@ function InscribeteFlex() {
         window.open("http://FLEXIPAGO.SOMOSBELCORP.COM/FlexipagoCO/inscripcion.html?PP=" + String(pp) + "&CC=" + String(cc) + "&CA=" + String(ca), "_blank");
     }
     return false;
-};
+}
 function ConoceFlex() {
     var cc = (viewBagCodigoConsultora);
     var ca = (viewBagCampaniaActual);
@@ -2412,7 +2412,7 @@ function ConoceFlex() {
         window.open("http://FLEXIPAGO.SOMOSBELCORP.COM/FlexipagoCO/index.html?PP=" + String(pp) + "&CC=" + String(cc) + "&CA=" + String(ca), "_blank");
     }
     return false;
-};
+}
 
 function RedirectPagaEnLineaAnalytics() {
     if (ViewBagRutaChile != "") {
@@ -2421,7 +2421,7 @@ function RedirectPagaEnLineaAnalytics() {
     else {
         window.open('https://www.belcorpchile.cl/BP_Servipag/PagoConsultora.aspx?c=' + viewBagUrlChileEncriptada, "_blank");
     }
-};
+}
 
 function MostrarCajaSuenioNavidad() {
     $("#txtSuenioNavidad").focus();
@@ -2512,7 +2512,7 @@ function stopVideo() {
             }
         }
     } catch (e) { }
-};
+}
 function playVideo() {
     try {
         if (player) {
@@ -2530,7 +2530,7 @@ function playVideo() {
             });
         }
     } catch (e) { }
-};
+}
 
 function CrearPopShow() {
     // 18/07/2017 => AlanAupe => cbNoMostrarPopupShowRoom => no existe en todo el portal
@@ -3338,7 +3338,7 @@ function onYouTubeIframeAPIReady(playerId) {
             'onStateChange': onPlayerStateChange
         }
     });
-};
+}
 
 function onPlayerStateChange(event) {
     // track when video ends
