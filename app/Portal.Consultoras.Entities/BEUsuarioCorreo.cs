@@ -57,10 +57,37 @@ namespace Portal.Consultoras.Entities
         public string ContextoBase { get; set; }
 
         [DataMember]
-        public bool FlagBloqueoCorreo { get; set; }
+        public string OpcionCorreoActiva { get; set; }
 
         [DataMember]
-        public bool FlagBloqueoCelular { get; set; }
+        public string OpcionSmsActiva { get; set; }
+
+        [DataMember]
+        public int HoraRestanteCorreo { get; set; }
+
+        [DataMember]
+        public int HoraRestanteSms { get; set; }
+
+        [DataMember]
+        public int IdEstadoActividad { get; set; }
+
+        [DataMember]
+        public int OrigenID { get; set; }
+
+        [DataMember]
+        public string codigoGenerado { get; set; }
+
+        [DataMember]
+        public bool opcionHabilitar { get; set; }
+
+        [DataMember]
+        public int tipoEnvio { get; set; }
+
+        [DataMember]
+        public bool EsMobile { get; set; }
+
+        [DataMember]
+        public string resultado { get; set; }
 
         public BEUsuarioCorreo()
         { }
@@ -89,10 +116,8 @@ namespace Portal.Consultoras.Entities
                 Celular = Convert.ToString(row["Celular"]);
             if (DataRecord.HasColumn(row, "PrimerNombre"))
                 PrimerNombre = Convert.ToString(row["PrimerNombre"]);
-            if (DataRecord.HasColumn(row, "FlagBloqueoCorreo"))
-                FlagBloqueoCorreo = Convert.ToBoolean(row["FlagBloqueoCorreo"]);
-            if (DataRecord.HasColumn(row, "FlagBloqueoCelular"))
-                FlagBloqueoCelular = Convert.ToBoolean(row["FlagBloqueoCelular"]);
+            if (DataRecord.HasColumn(row, "IdEstadoActividad"))
+                IdEstadoActividad = Convert.ToInt32(row["IdEstadoActividad"]);
         }
 
     }
