@@ -57,10 +57,21 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetProductoComercialByCampaniaBySearchRegionZona(int CampaniaID, int RowCount, int Criterio, string CodigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, bool validarOpt)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByCampaniaBySearchRegionZona_SB2");
+            bool busquedaCuv;
+            if (Criterio == 1)
+                busquedaCuv = true;
+            else
+                busquedaCuv = false;
+
+            DbCommand command;
+            if (busquedaCuv)
+                command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByCampaniaBySearchRegionZonaCuv");
+            else
+                command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByCampaniaBySearchRegionZonaDescripcion");
+
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
             Context.Database.AddInParameter(command, "@RowCount", DbType.Int32, RowCount);
-            Context.Database.AddInParameter(command, "@Criterio", DbType.Int32, Criterio);
+            //Context.Database.AddInParameter(command, "@Criterio", DbType.Int32, Criterio);
             Context.Database.AddInParameter(command, "@CodigoDescripcion", DbType.String, CodigoDescripcion);
             Context.Database.AddInParameter(command, "@RegionID", DbType.Int32, RegionID);
             Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, ZonaID);
