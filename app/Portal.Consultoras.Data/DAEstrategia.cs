@@ -49,6 +49,12 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@CUV2", DbType.String, entidad.CUV2);
                 Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+
+                Context.Database.AddInParameter(command, "@AgregarEnMatriz", DbType.Boolean, entidad.AgregarEnMatriz);
+                Context.Database.AddInParameter(command, "@UsuarioRegistro", DbType.String, entidad.UsuarioRegistro);
+                	 
+
+
                 return Context.ExecuteReader(command);
             }
         }
