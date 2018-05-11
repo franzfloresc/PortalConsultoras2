@@ -2062,6 +2062,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ObservacionInformativa = resultado.Informativas,
                     ObservacionRestrictiva = resultado.Restrictivas,
                     ErrorProl = resultado.Error,
+                    AvisoProl = resultado.Aviso,
                     Reserva = resultado.Reserva,
                     ZonaValida = userData.ZonaValida,
                     ValidacionInteractiva = userData.ValidacionInteractiva,

@@ -836,32 +836,28 @@ function SeparadorMiles(pnumero) {
 }
 
 function EjecutarPROL(cuvOfertaProl) {
-    cuvOfertaProl = cuvOfertaProl || "";
     if (gTipoUsuario == '2') {
         var msgg = "Recuerda que este pedido no se va a facturar. Pronto podrás acceder a todos los beneficios de Somos Belcorp.";
         $('#popupInformacionSB2Malo').find('#mensajeInformacionSB2_Malo').text(msgg);
         $('#popupInformacionSB2Malo').show();
+        return;
     }
-    else {
-        if (ReservadoOEnHorarioRestringido(true)) {
-            return false;
-        }
-
-        if (cuvOfertaProl != "") {
-            EjecutarServicioPROL();
-        } else {
-            if (($("#divContenidoDetalle > div") || []).length > 0) {
-                if ($('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').hasClass('icono_alerta check_icono_mobile')) {
-                    $('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').removeClass("icono_alerta check_icono_mobile");
-                    $('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').addClass("icono_alerta exclamacion_icono_mobile");
-                    $('#popup-observaciones-prol .content_mensajeAlerta .titulo_compartir').html("<b>IMPORTANTE</b>");
-                }
-                EjecutarServicioPROL();
-            } else {
-                messageInfoMalo('No existen productos en su Pedido.');
-            }
-        }
+    
+    cuvOfertaProl = cuvOfertaProl || "";
+    var pedidoVacio = (($("#divContenidoDetalle > div") || []).length === 0);
+    if (cuvOfertaProl == "" && pedidoVacio) {
+        messageInfoMalo(mensajePedidoVacio);
+        return;
     }
+    if (ReservadoOEnHorarioRestringido(true)) return;
+        
+    var objIconoPopup = $('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile');
+    if (cuvOfertaProl == "" && !pedidoVacio && objIconoPopup.hasClass('icono_alerta check_icono_mobile')) {
+        objIconoPopup.removeClass("icono_alerta check_icono_mobile");
+        objIconoPopup.addClass("icono_alerta exclamacion_icono_mobile");
+        $('#popup-observaciones-prol .content_mensajeAlerta .titulo_compartir').html("<b>IMPORTANTE</b>");
+    }
+    EjecutarServicioPROL();    
 }
 
 function EjecutarServicioPROL() {
@@ -934,7 +930,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
     $("hdfPROLSinStock").val(model.ProlSinStock == true ? "1" : "0");
     $("hdfModificaPedido").val(model.EsModificacion == true ? "1" : "0");
 
-    var mensajePedidoCheckout = ConstruirObservacionesPROL(model);
+    ConstruirObservacionesPROL(model);
 
     $('#btnGuardarPedido').text(model.Prol);
     var tooltips = model.ProlTooltip.split('|');
@@ -1038,51 +1034,31 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
 }
 
 function ConstruirObservacionesPROL(model) {
-
     var mensajePedido = "";
     if (model.ErrorProl) {
-        mensajePedido += "-1 " + model.ListaObservacionesProl[0].Descripcion;
-
-        $("#modal-prol-titulo").html("ERROR");
+        mensajePedido = model.ListaObservacionesProl[0].Descripcion;
+        $("#modal-prol-titulo").html(model.AvisoProl ? "AVISO" : "ERROR");
         $("#modal-prol-contenido").html(mensajePedido);
-
         return mensajePedido;
     }
 
-    if (model.ObservacionRestrictiva == false && model.ObservacionInformativa == false) {
+    if (!model.ObservacionRestrictiva && !model.ObservacionInformativa) {
+        $('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').removeClass("icono_alerta exclamacion_icono_mobile");
+        $('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').addClass("icono_alerta check_icono_mobile");
+        $('#popup-observaciones-prol .content_mensajeAlerta .titulo_compartir').html("¡LO <b>LOGRASTE</b>!");
+        mensajePedido += "Tu pedido fue guardado con éxito.";
+        $("#modal-prol-titulo").html(mensajePedido);
 
-        if (model.ProlSinStock) {
-            $('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').removeClass("icono_alerta exclamacion_icono_mobile");
-            $('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').addClass("icono_alerta check_icono_mobile");
-            $('#popup-observaciones-prol .content_mensajeAlerta .titulo_compartir').html("¡LO <b>LOGRASTE</b>!");
-            mensajePedido += "Tu pedido fue guardado con éxito.";
-
-            $("#modal-prol-titulo").html(mensajePedido);
-            $("#modal-prol-contenido").html(mensajePedido);
-
-        } else {
-            $('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').removeClass("icono_alerta exclamacion_icono_mobile");
-            $('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').addClass("icono_alerta check_icono_mobile");
-            $('#popup-observaciones-prol .content_mensajeAlerta .titulo_compartir').html("¡LO <b>LOGRASTE</b>!");
-            mensajePedido += "Tu pedido fue guardado con éxito.";
-
-            $("#modal-prol-titulo").html(mensajePedido);
+        if (model.ProlSinStock) $("#modal-prol-contenido").html(mensajePedido);
+        else {
             $("#modal-prol-contenido").html("Tu pedido fue guardado con éxito. Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.");
-
             mensajePedido += " Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.";
         }
-
-        mensajePedido = "-1 " + mensajePedido;
-
-        return mensajePedido;
-
+        return "-1 " + mensajePedido;
     }
 
-    if (model.EsDiaProl) {
-        $("#modal-prol-titulo").html("IMPORTANTE");
-    } else {
-        $("#modal-prol-titulo").html("AVISO");
-    }
+    if (model.EsDiaProl) $("#modal-prol-titulo").html("IMPORTANTE");
+    else $("#modal-prol-titulo").html("AVISO");
 
     var htmlObservacionesPROL = "<ul style='padding-left: 15px; list-style-type: none; text-align: center;'>";
     if (model.ListaObservacionesProl.length == 0) {
@@ -1117,7 +1093,6 @@ function ConstruirObservacionesPROL(model) {
     htmlObservacionesPROL += "</ul>";
 
     $("#modal-prol-contenido").html(htmlObservacionesPROL);
-
     return mensajePedido;
 }
 

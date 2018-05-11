@@ -40,6 +40,7 @@
   <xs:element name="BEInputReservaProl" nillable="true" type="tns:BEInputReservaProl" />
   <xs:complexType name="BEResultadoReservaProl">
     <xs:sequence>
+      <xs:element minOccurs="0" name="Aviso" type="xs:boolean" />
       <xs:element minOccurs="0" name="CodigoMensaje" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EnviarCorreo" type="xs:boolean" />
       <xs:element minOccurs="0" name="Error" type="xs:boolean" />

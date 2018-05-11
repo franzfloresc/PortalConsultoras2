@@ -172,6 +172,7 @@ namespace Portal.Consultoras.Web.Models
         public bool ObservacionRestrictiva { get; set; }
 
         public bool ErrorProl { get; set; }
+        public bool AvisoProl { get; set; }
 
         public bool Reserva { get; set; }
 

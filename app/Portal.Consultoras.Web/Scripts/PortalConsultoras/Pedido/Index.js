@@ -232,20 +232,18 @@ $(document).ready(function () {
             return false;
         }
     });
-    $('#btnValidarPROL').click(function () {
+    $('#btnValidarPROL').on('click', function (e) {
         if (gTipoUsuario == 2) { //Postulante
             var mesg = "Recuerda que este pedido no se va a facturar. Pronto podrás acceder a todos los beneficios de Somos Belcorp.";
             $('#dialog_MensajePostulante #tituloContenido').text("IMPORTANTE");
             $('#dialog_MensajePostulante #mensajePostulante').text(mesg);
             $('#dialog_MensajePostulante').show();
 
-            if (indicadorGPRSB == 1) {
-                ConfirmarModificar();
-            }
+            if (indicadorGPRSB == 1) ConfirmarModificar();
         }
-        else {
-            EjecutarPROL();
-        }
+        else EjecutarPROL();
+
+        e.stopPropagation(); //Para evitar que se cierre el popup de divObservacionesPROL
     });
 
     $("body").on("mouseleave", ".cantidad_detalle_focus", function () {
@@ -637,7 +635,7 @@ function CrearDialogs() {
         modal: true,
         closeOnEscape: true,
         width: 500,
-        draggable: true,
+        draggable: true
     });
 
     $('#divConfirmValidarPROL').dialog({
@@ -2051,27 +2049,30 @@ function SaveDeleteAnalytics(descripcion, cuv, price, brand, category, variant, 
 }
 
 function EjecutarPROL() {
-    if (ReservadoOEnHorarioRestringido(true)) {
-        return false;
-    }
-    if (HorarioRestringido())
-        return;
-
     AbrirSplash();
-    RecalcularPROL();
+    if (!EsValidoReservar()) {
+        CerrarSplash();
+        return;
+    }
+
+    EjecutarServicioPROL();
 }
 
-function RecalcularPROL() {
-    var total = parseFloat($('#hdfTotal').val());
+function EsValidoReservar() {
+    if (!EsValidoMontoTotalReserva()) return false;
+    if (ReservadoOEnHorarioRestringido(true)) return false;
 
-    if (total != 0) {
-        EjecutarServicioPROL();
-    } else {
-        if ($('#hdfEstadoPedido').val() == 1)
-            EliminarPedido();
-        else
-            CerrarSplash();
-    }
+    return true;
+}
+
+function EsValidoMontoTotalReserva() {
+    var total = parseFloat($('#hdfTotal').val());
+    if (total != 0) return true;
+
+    CrearPopupAvisoReserva(mensajePedidoVacio);
+    ShowPopupObservacionesReserva(true);
+    if ($('#hdfEstadoPedido').val() == 1) EliminarPedido();
+    return false;
 }
 
 function EjecutarServicioPROL() {
@@ -2118,14 +2119,8 @@ function EjecutarServicioPROL() {
                             }
                         } else {
                             var tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
-
                             cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
-                            if (!cumpleOferta.resultado) {
-                                $('#DivObsBut').css({ "display": "none" });
-                                $('#DivObsInfBut').css({ "display": "block" });
-                                showDialog("divObservacionesPROL");
-                                $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
-                            }
+                            if (!cumpleOferta.resultado) ShowPopupObservacionesReserva(false);
                             CargarDetallePedido();
                         }
                     } else {
@@ -2146,16 +2141,9 @@ function EjecutarServicioPROL() {
                         CargarDetallePedido();
                     }
                 } else {
-                    $('#DivObsBut').css({ "display": "block" });
-                    $('#DivObsInfBut').css({ "display": "none" });
-
                     var tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
-
                     cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
-                    if (!cumpleOferta.resultado) {
-                        showDialog("divObservacionesPROL");
-                        $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
-                    }
+                    if (!cumpleOferta.resultado) ShowPopupObservacionesReserva(true);
                     CargarDetallePedido();
                 }
 
@@ -2209,7 +2197,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
 
     var mensajePedido = "";
 
-    if (response.data.ErrorProl == false) {
+    if (!response.data.ErrorProl) {
         if (inicio) {
             if (!response.data.ValidacionInteractiva) {
 
@@ -2237,12 +2225,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
             }
         }
         else {
-            if (response.data.EsDiaProl) {
-                $("#divTituloObservacionesPROL").html("Importante");
-            }
-            else {
-                $("#divTituloObservacionesPROL").html("Aviso");
-            }
+            $("#divTituloObservacionesPROL").html(response.data.EsDiaProl ? "Importante" : "Aviso");
 
             var html = "<ul>";
             var msgDefault = "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
@@ -2288,11 +2271,9 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
     }
     else {
         mensajePedido = response.data.ListaObservacionesProl[0].Descripcion;
-
-        $("#divTituloObservacionesPROL").html("ERROR");
-        $("#divMensajeObservacionesPROL").html("ERROR: " + mensajePedido);
+        if (response.data.AvisoProl) CrearPopupAvisoReserva(mensajePedido);
+        else CrearPopupErrorReserva(mensajePedido);
     }
-
     $("#hdfMensajePedido").val(mensajePedido);
 
     var montoAhorro = parseFloat(response.data.MontoAhorroCatalogo) + parseFloat(response.data.MontoAhorroRevista);
@@ -2368,11 +2349,7 @@ function MostrarMensajeProl(response) {
                     }, 3000);
                 }
             } else {
-                $('#DivObsBut').css({ "display": "none" });
-                $('#DivObsInfBut').css({ "display": "block" });
-
-                showDialog("divObservacionesPROL");
-                $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
+                ShowPopupObservacionesReserva(false);
                 CargarDetallePedido();
             }
         } else {
@@ -2389,19 +2366,14 @@ function MostrarMensajeProl(response) {
             CargarDetallePedido();
         }
     } else {
-        $('#DivObsBut').css({ "display": "block" });
-        $('#DivObsInfBut').css({ "display": "none" });
-
-        showDialog("divObservacionesPROL");
-        $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
-
+        ShowPopupObservacionesReserva(true);
         CargarDetallePedido();
     }
 }
 
 function EliminarPedido() {
     AbrirSplash();
-    if (HorarioRestringido()) {
+    if (ReservadoOEnHorarioRestringido(true)) {
         CerrarSplash();
         return;
     }
@@ -3562,7 +3534,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 return false;
             }
 
-            if (data.success == false) {
+            if (!data.success) {
                 restringido = false;
                 return false;
             }
@@ -3570,16 +3542,14 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             if (data.pedidoReservado) {
                 if (mostrarAlerta == true) {
                     CerrarSplash();
-                    AbrirMensaje(data.message);
+                    AbrirPopupPedidoReservado(data.message, '1');
                 }
                 else {
                     AbrirSplash();
                     location.href = urlValidadoPedido;
                 }
             }
-            else if (mostrarAlerta == true) {
-                AbrirPopupPedidoReservado(data.message, '1')
-            }
+            else if (mostrarAlerta == true) AbrirMensaje(data.message)
         },
         error: function (error, x) {
             AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
@@ -3630,3 +3600,22 @@ function ProcesarActualizacionMostrarContenedorCupon() {
         }
     }
 }
+
+function CrearPopupErrorReserva(mensajePedido) {
+    $("#divTituloObservacionesPROL").html("Error");
+    $("#divMensajeObservacionesPROL").html("ERROR: " + mensajePedido);
+}
+
+function CrearPopupAvisoReserva(mensajePedido) {
+    $("#divTituloObservacionesPROL").html("Aviso");
+    $("#divMensajeObservacionesPROL").html(mensajePedido);
+}
+
+function ShowPopupObservacionesReserva(mostrarBoton) {
+    $('#DivObsBut').css({ "display": (mostrarBoton ? "block" : "none") });
+    $('#DivObsInfBut').css({ "display": (!mostrarBoton ? "block" : "none") });
+
+    showDialog("divObservacionesPROL");
+    $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
+}
+

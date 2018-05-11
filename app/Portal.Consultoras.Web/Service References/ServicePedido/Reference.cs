@@ -564,6 +564,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool AvisoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoMensajeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -648,6 +651,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Aviso {
+            get {
+                return this.AvisoField;
+            }
+            set {
+                if ((this.AvisoField.Equals(value) != true)) {
+                    this.AvisoField = value;
+                    this.RaisePropertyChanged("Aviso");
+                }
             }
         }
         
