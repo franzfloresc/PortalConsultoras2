@@ -18,7 +18,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var IdCurso = sessionManager.GetMiAcademia(); /* SOPORTEC-266 */
+                var IdCurso = sessionManager.GetMiAcademia();
+
+                if (IdCurso > 0)
+                {
+                    sessionManager.SetMiAcademia(0);
+                }
+
                 string key = GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
                 string urlLms = GetConfiguracionManager(IdCurso == 0 ? Constantes.ConfiguracionManager.UrlLMS : Constantes.ConfiguracionManager.CursosMarquesina);
                 string isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
@@ -68,11 +74,6 @@ namespace Portal.Consultoras.Web.Controllers
                               createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004");
 
                 urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(urlLms, isoUsuario, token, IdCurso);
-
-                if (IdCurso > 0)
-                {
-                    sessionManager.SetMiAcademia(0);
-                }
 
                 if (HttpContext.Request.UrlReferrer != null)
                     return Redirect(exito ? urlLms : HttpContext.Request.UrlReferrer.AbsoluteUri);
