@@ -361,7 +361,6 @@ namespace Portal.Consultoras.Web.Models
         
         public bool TienePagoEnLinea { get; set; }
         public string DocumentoIdentidad { get; set; }
-        public bool ParticipaEnProgramaNueva { get; set; }
         
         public double CompraVDirectaCer { get; set; }
         public double IVACompraVDirectaCer { get; set; }

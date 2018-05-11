@@ -1420,12 +1420,6 @@ namespace Portal.Consultoras.Web.Controllers
                             return Json(productosModel, JsonRequestBehavior.AllowGet);
                         }
 
-                    case Enumeradores.ValidacionProgramaNuevas.NoParticipaEnProgramaNuevas:
-                        {
-                            productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacionBusqueda.NoParticipaProgramaNuevas));
-                            return Json(productosModel, JsonRequestBehavior.AllowGet);
-                        }
-
                     case Enumeradores.ValidacionProgramaNuevas.CuvNoPerteneceASuPrograma:
                         {
                             productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacionBusqueda.CuvNoPerteneceASuPrograma));
@@ -4516,7 +4510,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var svc = new ODSServiceClient())
                 {
-                    numero = svc.ValidarBusquedaProgramaNuevas(userData.PaisID, userData.CampaniaID, Convert.ToInt32(userData.ConsultoraID), userData.CodigoPrograma, userData.ConsecutivoNueva, cuv, userData.EsConsultoraNueva, userData.ParticipaEnProgramaNueva);
+                    numero = svc.ValidarBusquedaProgramaNuevas(userData.PaisID, userData.CampaniaID, Convert.ToInt32(userData.ConsultoraID), userData.CodigoPrograma, userData.ConsecutivoNueva, cuv);
                 }
             }
             catch (Exception ex)
