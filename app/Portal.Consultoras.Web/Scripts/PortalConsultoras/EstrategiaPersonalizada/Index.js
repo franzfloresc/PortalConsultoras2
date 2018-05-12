@@ -122,6 +122,14 @@ function SeccionCargarProductos(objConsulta) {
         return false;
     }
 
+    if (objConsulta.Codigo === CONS_CODIGO_SECCION.LAN) {
+        if (!varContenedor.CargoHv) {
+            varContenedor.CargoHv = true;
+            OfertaCargarProductos({ VarListaStorage: "ListaLAN", UrlCargarProductos: objConsulta.UrlObtenerProductos }, false, objConsulta);
+        }
+        return false;
+    }
+
     var param = {
         codigo: objConsulta.Codigo,
         campaniaId: objConsulta.CampaniaId,
@@ -209,8 +217,10 @@ function SeccionMostrarProductos(data) {
                 tieneIndividual = true;
             }
         });
+        data.lista = new Array();
+        data.lista = data.listaLan;
         if (data.listaLan !== undefined && data.listaLan.length > 0 && tieneIndividual) {
-            RDLocalStorageListado(lsListaRD + data.campaniaId, data, CONS_CODIGO_SECCION.LAN);
+            RDLocalStorageListado("listaLAN" + data.campaniaId, data, CONS_CODIGO_SECCION.LAN);
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
         } else {
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();

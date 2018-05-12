@@ -419,6 +419,11 @@ function OfertaArmarEstrategiasContenedor(responseData, busquedaModel) {
         listaSeccionesRD = ["RD", "RDR"];
     }
 
+    if (busquedaModel.VarListaStorage === "ListaLAN") {
+        listaSeccionesRD = ["LAN"];
+    }
+
+
     $.each(listaSeccionesRD, function (ind, tipo) {
         response.Seccion = listaSeccion[tipo + "-" + response.CampaniaID];
 
@@ -437,10 +442,15 @@ function OfertaArmarEstrategiasContenedor(responseData, busquedaModel) {
 }
 
 function OfertaArmarEstrategiasContenedorSeccion(response) {
+    if (response.codigo == "LAN") {
+        response.CantidadProductos = response.listaLan.length;
+        SeccionMostrarProductos(response);
+        return false;
+    }
     response.listaPerdio = response.listaPerdio || [];
     response.CantidadProductos = response.lista.length + response.listaPerdio.length;
     var cant = response.Seccion.CantidadProductos || 0;
-    cant = cant == 0 ? response.lista.length : cant;
+    cant = cant == 0 ? (response.lista.length || response.listaLan.length) : cant;
     if (cant > 0) {
         var newLista = [];
         var listaItem = response.lista;
