@@ -8,6 +8,7 @@
       <xs:element minOccurs="0" name="codigoVentaGanador" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="estadoPedidoMontoMaximo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="estadoPedidoMontoMinimo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="exitCode" type="xs:int" />
       <xs:element minOccurs="0" name="formaPagoGanador" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="indDeuda" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="indNueva" nillable="true" type="xs:string" />
@@ -18,6 +19,8 @@
       <xs:element minOccurs="0" name="montoMaximo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="montoPedidoMontoMaximo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="montoPedidoMontoMinimo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="montoReclamoPendiente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="montoSaldoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="montoTiendaVirtual" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="montoTotalDcto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="montoTotalOporAhorro" nillable="true" type="xs:string" />

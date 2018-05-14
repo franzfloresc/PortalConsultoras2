@@ -43,27 +43,27 @@ namespace Portal.Consultoras.Entities
 
         public BEConsultoraFicticia(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CodigoUsuario") && row["CodigoUsuario"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoUsuario"))
                 CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
-            if (DataRecord.HasColumn(row, "CodigoConsultora") && row["CodigoConsultora"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoConsultora"))
                 CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-            if (DataRecord.HasColumn(row, "CodigoConsultoraFicticia") && row["CodigoConsultoraFicticia"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoConsultoraFicticia"))
                 CodigoConsultoraFicticia = Convert.ToString(row["CodigoConsultoraFicticia"]);
-            if (DataRecord.HasColumn(row, "PrimerNombre") && row["PrimerNombre"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PrimerNombre"))
                 PrimerNombre = Convert.ToString(row["PrimerNombre"]);
-            if (DataRecord.HasColumn(row, "SegundoNombre") && row["SegundoNombre"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "SegundoNombre"))
                 SegundoNombre = Convert.ToString(row["SegundoNombre"]);
-            if (DataRecord.HasColumn(row, "PrimerApellido") && row["PrimerApellido"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PrimerApellido"))
                 PrimerApellido = Convert.ToString(row["PrimerApellido"]);
-            if (DataRecord.HasColumn(row, "SegundoApellido") && row["SegundoApellido"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "SegundoApellido"))
                 SegundoApellido = Convert.ToString(row["SegundoApellido"]);
-            if (DataRecord.HasColumn(row, "NombreCompleto") && row["NombreCompleto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NombreCompleto"))
                 NombreCompleto = Convert.ToString(row["NombreCompleto"]);
-            if (DataRecord.HasColumn(row, "PaisNombre") && row["PaisNombre"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PaisNombre"))
                 PaisNombre = Convert.ToString(row["PaisNombre"]);
-            if (DataRecord.HasColumn(row, "ZonaNombre") && row["ZonaNombre"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ZonaNombre"))
                 ZonaNombre = Convert.ToString(row["ZonaNombre"]);
-            if (DataRecord.HasColumn(row, "ConsultoraID") && row["ConsultoraID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ConsultoraID"))
                 ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
         }
     }
