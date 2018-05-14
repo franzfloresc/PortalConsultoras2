@@ -2422,9 +2422,9 @@ namespace Portal.Consultoras.Service
             return _pedidoAppBusinessLogic.Delete(pedidoDetalle);
         }
 
-        public BEPedidoDetalleAppResult ReservaPedidoDetalleApp(BEUsuario usuario)
+        public async Task<BEPedidoDetalleAppResult> ReservaPedidoDetalleApp(BEUsuario usuario)
         {
-            return _pedidoAppBusinessLogic.Reserva(usuario);
+            return await _pedidoAppBusinessLogic.Reserva(usuario);
         }
 
         public BEPedidoDetalleAppResult DeshacerReservaPedidoApp(BEUsuario usuario)
