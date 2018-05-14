@@ -1850,9 +1850,7 @@ namespace Portal.Consultoras.BizLogic
 
         public int ValidarDesactivaRevistaGana(int paisID, int campaniaID, string codigoZona)
         {
-            var daPedidoWeb = new DAPedidoWeb(paisID);
-            int rslt = daPedidoWeb.ValidarDesactivaRevistaGana(campaniaID, codigoZona);
-            return rslt;
+            return new DAPedidoWeb(paisID).ValidarDesactivaRevistaGana(campaniaID, codigoZona);
         }
 
         public BECUVCredito ValidarCUVCreditoPorCUVRegular(int paisID, string codigoConsultora, string cuv, int campaniaID)

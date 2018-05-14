@@ -581,62 +581,62 @@ namespace Portal.Consultoras.BizLogic.Pedido
         return true;
     }
 
-    private bool BloqueoProductosDigitales(BEUsuario usuario, BEProducto producto, BEProductoAppBuscar productoBuscar)
-    {
-        var result = true;
-
-        if (producto == null) return true;
-
-        if (usuario.RevistaDigital != null && usuario.RevistaDigital.BloqueoProductoDigital)
+        private bool BloqueoProductosDigitales(BEUsuario usuario, BEProducto producto, BEProductoAppBuscar productoBuscar)
         {
-            result = !(
-                        producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
-                        || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-                        || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
-                    );
-        }
+            var result = true;
 
-        if (result && usuario.OfertaDelDiaModel != null && usuario.OfertaDelDiaModel.BloqueoProductoDigital)
-        {
-            result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaDelDia);
-        }
+            if (producto == null) return true;
 
-        if (result && usuario.GuiaNegocio != null && usuario.GuiaNegocio.BloqueoProductoDigital)
-        {
-            result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
-        }
-
-        if (result && usuario.OptBloqueoProductoDigital)
-        {
-            result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaParaTi);
-        }
-
-        if (result && usuario.RevistaDigital.TieneRDCR)
-        {
-            var dato = usuario.GuiaNegocio.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.BloquearProductoGnd) ?? new BEConfiguracionPaisDatos();
-            dato.Valor1 = Util.Trim(dato.Valor1);
-            if (dato.Estado && dato.Valor1 != string.Empty)
+            if (usuario.RevistaDigital != null && usuario.RevistaDigital.BloqueoProductoDigital)
             {
-                result = (!dato.Valor1.Contains(producto.CUV));
+                result = !(
+                            producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
+                            || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+                            || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
+                        );
             }
+
+            if (result && usuario.OfertaDelDiaModel != null && usuario.OfertaDelDiaModel.BloqueoProductoDigital)
+            {
+                result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaDelDia);
+            }
+
+            if (result && usuario.GuiaNegocio != null && usuario.GuiaNegocio.BloqueoProductoDigital)
+            {
+                result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
+            }
+
+            if (result && usuario.OptBloqueoProductoDigital)
+            {
+                result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaParaTi);
+            }
+
+            if (result && usuario.RevistaDigital.TieneRDCR)
+            {
+                var dato = usuario.GuiaNegocio.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.BloquearProductoGnd) ?? new BEConfiguracionPaisDatos();
+                dato.Valor1 = Util.Trim(dato.Valor1);
+                if (dato.Estado && dato.Valor1 != string.Empty)
+                {
+                    result = (!dato.Valor1.Contains(producto.CUV));
+                }
+            }
+
+            return result;
         }
 
-        return result;
-    }
-
-    private BEProductoApp ProductoBuscarRespuesta(string codigoRespuesta, string mensajeRespuesta = null, BEProducto producto = null)
-    {
-        LogPerformance(cuvBuscar, "Fin busqueda producto");
-        LogPerformance(cuvBuscar, string.Empty);
-
-        return new BEProductoApp()
+        private BEProductoApp ProductoBuscarRespuesta(string codigoRespuesta, string mensajeRespuesta = null, BEProducto producto = null)
         {
-            CodigoRespuesta = codigoRespuesta,
-            MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoAppValidacion.Message[codigoRespuesta] : mensajeRespuesta,
-            Producto = producto
-        };
-    }
-    #endregion
+            LogPerformance(cuvBuscar, "Fin busqueda producto");
+            LogPerformance(cuvBuscar, string.Empty);
+
+            return new BEProductoApp()
+            {
+                CodigoRespuesta = codigoRespuesta,
+                MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoAppValidacion.Message[codigoRespuesta] : mensajeRespuesta,
+                Producto = producto
+            };
+        }
+        #endregion
 
         #region Insert
         private BEPedidoDetalleAppResult PedidoDetalleRespuesta(string codigoRespuesta, string mensajeRespuesta = null)
