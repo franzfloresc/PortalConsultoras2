@@ -150,14 +150,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         private void LogPerformance(string cuv, string mensaje)
         {
-            var pathFile = AppDomain.CurrentDomain.BaseDirectory + "Log\\";
-            if (!System.IO.Directory.Exists(pathFile)) System.IO.Directory.CreateDirectory(pathFile);
-            string path = string.Format("{0}LogPerformance_GetCuv_{1}.portal", pathFile, DateTime.Now.ToString("yyyy-MM-dd"));
-            using (var stream = new System.IO.StreamWriter(path, true))
-            {
-                if(string.IsNullOrEmpty(mensaje)) stream.WriteLine(string.Empty);
-                else stream.WriteLine(string.Format("{0} => {1} => {2}", DateTime.Now.ToString("HH:mm:ss.fff"), cuv, mensaje));
-            }
+            //var pathFile = AppDomain.CurrentDomain.BaseDirectory + "Log\\";
+            //if (!System.IO.Directory.Exists(pathFile)) System.IO.Directory.CreateDirectory(pathFile);
+            //string path = string.Format("{0}LogPerformance_GetCuv_{1}.portal", pathFile, DateTime.Now.ToString("yyyy-MM-dd"));
+            //using (var stream = new System.IO.StreamWriter(path, true))
+            //{
+            //    if(string.IsNullOrEmpty(mensaje)) stream.WriteLine(string.Empty);
+            //    else stream.WriteLine(string.Format("{0} => {1} => {2}", DateTime.Now.ToString("HH:mm:ss.fff"), cuv, mensaje));
+            //}
         }
 
         public BEPedidoDetalleAppResult Insert(BEPedidoDetalleApp pedidoDetalle)
