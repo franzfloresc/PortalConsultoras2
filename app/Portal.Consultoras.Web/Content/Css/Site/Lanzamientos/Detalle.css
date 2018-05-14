@@ -231,9 +231,9 @@
 
     .detalle-prod .detalle-info .label-nuevo {
         width: 137px;
-        position: absolute;
-        margin-top: -36px;
-        margin-left: -44px;
+        position: relative;
+        top: -36px;
+        left: -36px;
         height: 37px;
     }
 
@@ -327,7 +327,7 @@
             .detalle-prod .detalle-info .detalle-bloque-uno .bloque2 span.gana-rojo {
                 display: block;
                 font-size: 13px;
-                font-weight: normal;
+                font-weight: bold;
                 font-style: normal;
                 font-stretch: normal;
                 line-height: normal;
