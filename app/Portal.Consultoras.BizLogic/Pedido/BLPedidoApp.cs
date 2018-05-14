@@ -13,6 +13,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic.Pedido
 {
@@ -476,7 +477,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
         }
 
-        public BEPedidoDetalleAppResult Reserva(BEUsuario usuario)
+        public async Task<BEPedidoDetalleAppResult> Reserva(BEUsuario usuario)
         {
             try
             {
@@ -517,8 +518,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     CodigoPrograma = usuario.CodigoPrograma,
                     ConsecutivoNueva = usuario.ConsecutivoNueva
                 };
-                var result = _reservaBusinessLogic.EjecutarReservaProl(input);
-                var resultadoReserva = result.Result;
+                var resultadoReserva = await _reservaBusinessLogic.EjecutarReservaProl(input);
 
                 var code = string.Empty;
                 if(usuario.DiaPROL) code = ((int)resultadoReserva.ResultadoReservaEnum + 2010).ToString();

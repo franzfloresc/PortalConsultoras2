@@ -1273,7 +1273,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEPedidoDetalleAppResult DeletePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
         [OperationContract]
-        BEPedidoDetalleAppResult ReservaPedidoDetalleApp(BEUsuario usuario);
+        Task<BEPedidoDetalleAppResult> ReservaPedidoDetalleApp(BEUsuario usuario);
         [OperationContract]
         BEPedidoDetalleAppResult DeshacerReservaPedidoApp(BEUsuario usuario);
         #endregion
