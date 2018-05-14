@@ -6,6 +6,7 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -120,7 +121,15 @@ namespace Portal.Consultoras.Web.Controllers
             var certificadoId = 0;
             var nombre = "";
             var mensajeError = "";
-            var cantidadCampaniaConsecutiva = ConfigurationManager.AppSettings["cantCampaniaConsecutivaCertComercial"] ?? "5";
+            var cantidadCampaniaConsecutiva = "";// ConfigurationManager.AppSettings["cantCampaniaConsecutivaCertComercial"] ?? "5";
+
+            short codigoTablaLogica = 140;
+            var CampaniaConsecutiva = new List<BETablaLogicaDatos>();
+            using (var tablaLogica = new SACServiceClient())
+            {
+                CampaniaConsecutiva = tablaLogica.GetTablaLogicaDatos(userData.PaisID, codigoTablaLogica).ToList();
+                cantidadCampaniaConsecutiva = CampaniaConsecutiva[0].Valor;
+            }
 
             switch (userData.PaisID)
             {
@@ -267,17 +276,24 @@ namespace Portal.Consultoras.Web.Controllers
                         switch (userData.PaisID)
                         {
                             case Constantes.PaisID.Peru:
-                                model.TipoDocumento = "documento de identidad";
+                                model.Pais = "Peru";
                                 break;
                             default:
-                                model.TipoDocumento = "cédula de ciudadanía";
+                                model.Pais = "";
                                 break;
                         }
 
                         model.CodigoIso = userData.CodigoISO;
-                        model.CantidadConsecutivaNueva = ConfigurationManager.AppSettings["cantCampaniaConsecutivaCertComercial"] ?? "5";
-                        var view = model.NombreVista;
 
+                        short codigoTablaLogica = 140;
+                        var CampaniaConsecutiva = new List<BETablaLogicaDatos>();
+                        using (var tablaLogica = new SACServiceClient())
+                        {
+                            CampaniaConsecutiva = tablaLogica.GetTablaLogicaDatos(userData.PaisID, codigoTablaLogica).ToList();
+                            model.CantidadConsecutivaNueva = CampaniaConsecutiva[0].Valor;
+                        }
+
+                        var view = model.NombreVista;
 
                         string html = RenderViewToString(ControllerContext,
                             view, model, true);

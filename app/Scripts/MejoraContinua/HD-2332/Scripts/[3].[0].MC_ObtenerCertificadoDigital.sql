@@ -92,6 +92,8 @@ BEGIN
 		WHERE Campania = @CampaniaId AND ConsultoraId = ConsultoraId AND TipoCert = @TipoCert
 	END
 
+	DECLARE @DocumentoResponsable VARCHAR(30) = (SELECT documento FROM CertificadoDigitalConfig WHERE TipoCert = @TipoCert);
+
 	SELECT 
 		1 AS Result,
 		Campania,
@@ -111,7 +113,8 @@ BEGIN
 		UrlFirma,
 		Responsable,
 		Cargo,
-		NumeroVeces
+		NumeroVeces,
+		@DocumentoResponsable DocumentoResponsable
 	FROM dbo.CertificadoDigitalLog 
 	WHERE Campania = @CampaniaId AND ConsultoraId = @ConsultoraId AND TipoCert = @TipoCert
 END

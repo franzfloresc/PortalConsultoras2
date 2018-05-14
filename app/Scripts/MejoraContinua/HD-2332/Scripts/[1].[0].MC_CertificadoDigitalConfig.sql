@@ -16,6 +16,7 @@ BEGIN
 		UrlFirma VARCHAR(150),
 		Responsable VARCHAR(50),
 		Cargo VARCHAR(30),
+		Documento VARCHAR(30),
 		TipoCert TINYINT,
 		UsuarioCreacion VARCHAR(20),
 		FechaCreacion DATETIME DEFAULT GETDATE(),
@@ -34,6 +35,7 @@ BEGIN
 		UrlFirma,
 		Responsable,
 		Cargo,
+		Documento,
 		TipoCert,
 		UsuarioCreacion
 	)
@@ -42,11 +44,12 @@ BEGIN
 		'Lima', 
 		'Certificado de No Adeudo',
 		'no mantiene deuda',
-		'',
-		'',
-		'',
+		'CETCO S.A.',
+		'RUC 20100123763',
+		'211 3614',
 		'http://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/EC/MVENEGAS.jpg',
 		'Franco Jaime Lizarraga',
+		'Apoderado',
 		'DNI 40593750',
 		1,
 		'ADMSAC'
@@ -63,19 +66,21 @@ BEGIN
 		UrlFirma,
 		Responsable,
 		Cargo,
+		Documento,
 		TipoCert,
 		UsuarioCreacion
 	)
 	VALUES
 	(   
 		'Lima', 
-		'',
+		'Cetfificafo Comercial',
 		'',
 		'CETCO S.A.',
 		'RUC 20100123763',
-		'023935900',
+		'211 3614',
 		'http://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/EC/MVENEGAS.jpg',
 		'Franco Jaime Lizarraga',
+		'Apoderado',
 		'DNI 40593750',
 		2,
 		'ADMSAC'
