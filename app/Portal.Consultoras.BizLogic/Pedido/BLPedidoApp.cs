@@ -156,7 +156,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             using (var stream = new System.IO.StreamWriter(path, true))
             {
                 if(string.IsNullOrEmpty(mensaje)) stream.WriteLine(string.Empty);
-                else stream.WriteLine(string.Format("{0} => {1} => {2}", DateTime.Now, cuv, mensaje));
+                else stream.WriteLine(string.Format("{0} => {1} => {2}", DateTime.Now.ToString("HH:mm:ss.fff"), cuv, mensaje));
             }
         }
 
@@ -560,26 +560,26 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         #region GetCUV
         private bool BloqueoProductosCatalogo(BERevistaDigital revistaDigital, string codigosRevistaImpresa, BEProducto producto, BEProductoAppBuscar productoBuscar)
-    {
-        if (producto == null) return true;
-
-        revistaDigital = revistaDigital ?? new BERevistaDigital();
-
-        if (!revistaDigital.TieneRDC) return true;
-
-        if (!revistaDigital.EsActiva) return true;
-
-        if (revistaDigital.BloquearRevistaImpresaGeneral != null)
         {
-            if (revistaDigital.BloquearRevistaImpresaGeneral == 1) return !codigosRevistaImpresa.Contains(producto.CodigoCatalogo.ToString());
-        }
-        else
-        {
-            if (revistaDigital.BloqueoRevistaImpresa) return !codigosRevistaImpresa.Contains(producto.CodigoCatalogo.ToString());
-        }
+            if (producto == null) return true;
 
-        return true;
-    }
+            revistaDigital = revistaDigital ?? new BERevistaDigital();
+
+            if (!revistaDigital.TieneRDC) return true;
+
+            if (!revistaDigital.EsActiva) return true;
+
+            if (revistaDigital.BloquearRevistaImpresaGeneral != null)
+            {
+                if (revistaDigital.BloquearRevistaImpresaGeneral == 1) return !codigosRevistaImpresa.Contains(producto.CodigoCatalogo.ToString());
+            }
+            else
+            {
+                if (revistaDigital.BloqueoRevistaImpresa) return !codigosRevistaImpresa.Contains(producto.CodigoCatalogo.ToString());
+            }
+
+            return true;
+        }
 
         private bool BloqueoProductosDigitales(BEUsuario usuario, BEProducto producto, BEProductoAppBuscar productoBuscar)
         {
