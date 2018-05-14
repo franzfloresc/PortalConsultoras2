@@ -1,5 +1,5 @@
-﻿using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
+
 using System;
 using System.Data;
 using System.Runtime.Serialization;
@@ -9,21 +9,6 @@ namespace Portal.Consultoras.Entities
     [DataContract]
     public class BEProducto
     {
-        private string msCUV;
-
-        private string msDescripcion;
-        private decimal mdPrecioCatalogo;
-
-        private int miMarcaID;
-
-        private bool mbEstaEnRevista;
-
-        private bool mbTieneStock;
-        private bool mbEsExpoOferta;
-        private string msCUVRevista;
-        private string msCUVComplemento;
-        private int msIndicadorMontoMinimo;
-
         [DataMember]
         public string CodigoSAP { get; set; }
 
@@ -33,73 +18,33 @@ namespace Portal.Consultoras.Entities
         public int TipoOfertaSisID { get; set; }
 
         [DataMember]
-        public string CUV
-        {
-            get { return msCUV; }
-            set { msCUV = value; }
-        }
+        public string CUV { get; set; }
         [DataMember]
-        public int IndicadorMontoMinimo
-        {
-            get { return msIndicadorMontoMinimo; }
-            set { msIndicadorMontoMinimo = value; }
-        }
+        public int IndicadorMontoMinimo { get; set; }
 
         [DataMember]
-        public string Descripcion
-        {
-            get { return msDescripcion; }
-            set { msDescripcion = value; }
-        }
+        public string Descripcion { get; set; }
         [DataMember]
-        public decimal PrecioCatalogo
-        {
-            get { return mdPrecioCatalogo; }
-            set { mdPrecioCatalogo = value; }
-        }
+        public decimal PrecioCatalogo { get; set; }
 
         [DataMember]
-        public int MarcaID
-        {
-            get { return miMarcaID; }
-            set { miMarcaID = value; }
-        }
+        public int MarcaID { get; set; }
 
         [DataMember]
-        public bool EstaEnRevista
-        {
-            get { return mbEstaEnRevista; }
-            set { mbEstaEnRevista = value; }
-        }
+        public bool EstaEnRevista { get; set; }
 
         [DataMember]
-        public bool TieneStock
-        {
-            get { return mbTieneStock; }
-            set { mbTieneStock = value; }
-        }
+        public bool TieneStock { get; set; }
         [DataMember]
-        public bool EsExpoOferta
-        {
-            get { return mbEsExpoOferta; }
-            set { mbEsExpoOferta = value; }
-        }
+        public bool EsExpoOferta { get; set; }
         [DataMember]
-        public string CUVRevista
-        {
-            get { return msCUVRevista; }
-            set { msCUVRevista = value; }
-        }
+        public string CUVRevista { get; set; }
         [DataMember]
         public string MensajeEstaEnRevista1 { get; set; }
         [DataMember]
         public string MensajeEstaEnRevista2 { get; set; }
         [DataMember]
-        public string CUVComplemento
-        {
-            get { return msCUVComplemento; }
-            set { msCUVComplemento = value; }
-        }
+        public string CUVComplemento { get; set; }
 
         [DataMember]
         public string DescripcionMarca { get; set; }
@@ -171,102 +116,84 @@ namespace Portal.Consultoras.Entities
 
         public BEProducto(IDataRecord datarec)
         {
-            msCUV = (datarec["CUV"] ?? "").ToString();
-            if (DataRecord.HasColumn(datarec, "CodigoSAP") && datarec["CodigoSAP"] != DBNull.Value)
-                CodigoSAP = DbConvert.ToString(datarec["CodigoSAP"]);
-            if (DataRecord.HasColumn(datarec, "PrecioCatalogo") && datarec["PrecioCatalogo"] != DBNull.Value)
-                mdPrecioCatalogo = DbConvert.ToDecimal(datarec["PrecioCatalogo"]);
+            if (DataRecord.HasColumn(datarec, "CUV"))
+                CUV = Convert.ToString(datarec["CUV"]);
+            if (DataRecord.HasColumn(datarec, "CodigoSAP"))
+                CodigoSAP = Convert.ToString(datarec["CodigoSAP"]);
+            if (DataRecord.HasColumn(datarec, "PrecioCatalogo"))
+                PrecioCatalogo = Convert.ToDecimal(datarec["PrecioCatalogo"]);
+            if (DataRecord.HasColumn(datarec, "MarcaID"))
+                MarcaID = Convert.ToInt32(datarec["MarcaID"]);
+            if (DataRecord.HasColumn(datarec, "EstaEnRevista"))
+                EstaEnRevista = Convert.ToBoolean(datarec["EstaEnRevista"]);
+            if (DataRecord.HasColumn(datarec, "TieneStock"))
+                TieneStock = Convert.ToBoolean(datarec["TieneStock"]);
+            if (DataRecord.HasColumn(datarec, "EsExpoOferta"))
+                EsExpoOferta = Convert.ToBoolean(datarec["EsExpoOferta"]);
+            if (DataRecord.HasColumn(datarec, "CUVRevista"))
+                CUVRevista = Convert.ToString(datarec["CUVRevista"]);
+            if (DataRecord.HasColumn(datarec, "CUVComplemento"))
+                CUVComplemento = Convert.ToString(datarec["CUVComplemento"]);
 
-            if (DataRecord.HasColumn(datarec, "MarcaID") && datarec["MarcaID"] != DBNull.Value)
-                miMarcaID = DbConvert.ToInt32(datarec["MarcaID"]);
-
-            if (DataRecord.HasColumn(datarec, "EstaEnRevista") && datarec["EstaEnRevista"] != DBNull.Value)
-                mbEstaEnRevista = DbConvert.ToBoolean(datarec["EstaEnRevista"]);
-
-            if (DataRecord.HasColumn(datarec, "TieneStock") && datarec["TieneStock"] != DBNull.Value)
-                mbTieneStock = DbConvert.ToBoolean(datarec["TieneStock"]);
-            if (DataRecord.HasColumn(datarec, "EsExpoOferta") && datarec["EsExpoOferta"] != DBNull.Value)
-                mbEsExpoOferta = DbConvert.ToBoolean(datarec["EsExpoOferta"]);
-            if (DataRecord.HasColumn(datarec, "CUVRevista") && datarec["CUVRevista"] != DBNull.Value)
-                msCUVRevista = datarec["CUVRevista"].ToString();
-            if (DataRecord.HasColumn(datarec, "CUVComplemento") && datarec["CUVComplemento"] != DBNull.Value)
-                msCUVComplemento = datarec["CUVComplemento"].ToString();
-
-            if (DataRecord.HasColumn(datarec, "IndicadorMontoMinimo") && datarec["IndicadorMontoMinimo"] != DBNull.Value)
-                msIndicadorMontoMinimo = Convert.ToInt32(datarec["IndicadorMontoMinimo"]);
+            if (DataRecord.HasColumn(datarec, "IndicadorMontoMinimo"))
+                IndicadorMontoMinimo = Convert.ToInt32(datarec["IndicadorMontoMinimo"]);
             else
-                msIndicadorMontoMinimo = 1;
+                IndicadorMontoMinimo = 1;
 
-            if (DataRecord.HasColumn(datarec, "ConfiguracionOfertaID") && datarec["ConfiguracionOfertaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "ConfiguracionOfertaID"))
                 ConfiguracionOfertaID = Convert.ToInt32(datarec["ConfiguracionOfertaID"]);
-            if (DataRecord.HasColumn(datarec, "TipoOfertaSisID") && datarec["TipoOfertaSisID"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "TipoOfertaSisID"))
                 TipoOfertaSisID = Convert.ToInt32(datarec["TipoOfertaSisID"]);
-
-            if (DataRecord.HasColumn(datarec, "DescripcionMarca") && datarec["DescripcionMarca"] != DBNull.Value)
-                DescripcionMarca = datarec["DescripcionMarca"].ToString();
-
-            if (DataRecord.HasColumn(datarec, "DescripcionCategoria") && datarec["DescripcionCategoria"] != DBNull.Value)
-                DescripcionCategoria = datarec["DescripcionCategoria"].ToString();
-
-            if (DataRecord.HasColumn(datarec, "DescripcionEstrategia") && datarec["DescripcionEstrategia"] != DBNull.Value)
-                DescripcionEstrategia = datarec["DescripcionEstrategia"].ToString();
-
-            if (DataRecord.HasColumn(datarec, "FlagNueva") && datarec["FlagNueva"] != DBNull.Value)
-                FlagNueva = datarec["FlagNueva"].ToString();
-            if (DataRecord.HasColumn(datarec, "TipoEstrategiaID") && datarec["TipoEstrategiaID"] != DBNull.Value)
-                TipoEstrategiaID = datarec["TipoEstrategiaID"].ToString();
-
-            if (DataRecord.HasColumn(datarec, "IndicadorOfertaCUV") && datarec["IndicadorOfertaCUV"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "DescripcionMarca"))
+                DescripcionMarca = Convert.ToString(datarec["DescripcionMarca"]);
+            if (DataRecord.HasColumn(datarec, "DescripcionCategoria"))
+                DescripcionCategoria = Convert.ToString(datarec["DescripcionCategoria"]);
+            if (DataRecord.HasColumn(datarec, "DescripcionEstrategia"))
+                DescripcionEstrategia = Convert.ToString(datarec["DescripcionEstrategia"]);
+            if (DataRecord.HasColumn(datarec, "FlagNueva"))
+                FlagNueva = Convert.ToString(datarec["FlagNueva"]);
+            if (DataRecord.HasColumn(datarec, "TipoEstrategiaID"))
+                TipoEstrategiaID = Convert.ToString(datarec["TipoEstrategiaID"]);
+            if (DataRecord.HasColumn(datarec, "IndicadorOfertaCUV"))
                 IndicadorOfertaCUV = Convert.ToBoolean(datarec["IndicadorOfertaCUV"]);
-
-            if (DataRecord.HasColumn(datarec, "ImagenProductoSugerido") && datarec["ImagenProductoSugerido"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "ImagenProductoSugerido"))
                 ImagenProductoSugerido = Convert.ToString(datarec["ImagenProductoSugerido"]);
-
-            if (DataRecord.HasColumn(datarec, "TieneSugerido") && datarec["TieneSugerido"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "TieneSugerido"))
                 TieneSugerido = Convert.ToInt32(datarec["TieneSugerido"]);
-
-            if (DataRecord.HasColumn(datarec, "CodigoProducto") && datarec["CodigoProducto"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CodigoProducto"))
                 CodigoProducto = Convert.ToString(datarec["CodigoProducto"]);
-
-            if (DataRecord.HasColumn(datarec, "PrecioValorizado") && datarec["PrecioValorizado"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "PrecioValorizado"))
                 PrecioValorizado = Convert.ToDecimal(datarec["PrecioValorizado"]);
-
-            if (DataRecord.HasColumn(datarec, "TieneOfertaRevista") && datarec["TieneOfertaRevista"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "TieneOfertaRevista"))
                 TieneOfertaRevista = Convert.ToBoolean(datarec["TieneOfertaRevista"]);
-
-            if (DataRecord.HasColumn(datarec, "TieneLanzamientoCatalogoPersonalizado") && datarec["TieneLanzamientoCatalogoPersonalizado"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "TieneLanzamientoCatalogoPersonalizado"))
                 TieneLanzamientoCatalogoPersonalizado = Convert.ToBoolean(datarec["TieneLanzamientoCatalogoPersonalizado"]);
-
-            if (DataRecord.HasColumn(datarec, "TipoOfertaRevista") && datarec["TipoOfertaRevista"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "TipoOfertaRevista"))
                 TipoOfertaRevista = Convert.ToString(datarec["TipoOfertaRevista"]).Trim();
-
-            if (DataRecord.HasColumn(datarec, "CodigoCatalago") && datarec["CodigoCatalago"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CodigoCatalago"))
                 CodigoCatalogo = Convert.ToInt32(datarec["CodigoCatalago"]);
-
-            if (DataRecord.HasColumn(datarec, "CatalogoDescripcion") && datarec["CatalogoDescripcion"] != DBNull.Value)
-                CatalogoDescripcion = datarec["CatalogoDescripcion"].ToString();
-
-            if (DataRecord.HasColumn(datarec, "ImagenURL") && datarec["ImagenURL"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CatalogoDescripcion"))
+                CatalogoDescripcion = Convert.ToString(datarec["CatalogoDescripcion"]);
+            if (DataRecord.HasColumn(datarec, "ImagenURL"))
                 ImagenURL = Convert.ToString(datarec["ImagenURL"]);
-
-            if (DataRecord.HasColumn(datarec, "Nombre") && datarec["Nombre"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Nombre"))
                 Nombre = Convert.ToString(datarec["Nombre"]);
-            if (DataRecord.HasColumn(datarec, "Descripcion") && datarec["Descripcion"] != DBNull.Value)
-                msDescripcion = Convert.ToString(datarec["Descripcion"]);
-            if (DataRecord.HasColumn(datarec, "Volumen") && datarec["Volumen"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Descripcion"))
+                Descripcion = Convert.ToString(datarec["Descripcion"]);
+            if (DataRecord.HasColumn(datarec, "Volumen"))
                 Volumen = Convert.ToString(datarec["Volumen"]);
-            if (DataRecord.HasColumn(datarec, "Tono") && datarec["Tono"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Tono"))
                 Tono = Convert.ToString(datarec["Tono"]);
-            if (DataRecord.HasColumn(datarec, "ImagenProducto") && datarec["ImagenProducto"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "ImagenProducto"))
                 ImagenProducto = Convert.ToString(datarec["ImagenProducto"]);
-            if (DataRecord.HasColumn(datarec, "DescripcionOferta") && datarec["DescripcionOferta"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "DescripcionOferta"))
                 DescripcionOferta = Convert.ToString(datarec["DescripcionOferta"]);
-            if (DataRecord.HasColumn(datarec, "DescripcionProducto") && datarec["DescripcionProducto"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "DescripcionProducto"))
                 DescripcionProducto = Convert.ToString(datarec["DescripcionProducto"]);
-
-            TipoEstrategiaCodigo = DataRecord.GetColumn<string>(datarec, "TipoEstrategiaCodigo");
-            if (DataRecord.HasColumn(datarec, "EsOfertaIndependiente") && datarec["EsOfertaIndependiente"] != DBNull.Value)
-                EsOfertaIndependiente = (datarec["EsOfertaIndependiente"].ToBool());
+            if (DataRecord.HasColumn(datarec, "TipoEstrategiaCodigo"))
+                TipoEstrategiaCodigo = Convert.ToString(datarec["TipoEstrategiaCodigo"]);
+            if (DataRecord.HasColumn(datarec, "EsOfertaIndependiente"))
+                EsOfertaIndependiente = Convert.ToBoolean(datarec["EsOfertaIndependiente"]);
         }
 
         //Refactor Inheritance
