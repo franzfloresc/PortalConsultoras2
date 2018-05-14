@@ -33,6 +33,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         private List<ObjMontosProl> montosProl = new List<ObjMontosProl> { new ObjMontosProl() };
 
+        private string cuvBuscar = string.Empty;
+
         public BLPedidoApp() : this(new BLProducto(), 
                                     new BLPedidoWeb(),
                                     new BLPedidoWebDetalle(),
@@ -76,12 +78,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             try
             {
+                cuvBuscar = productoBuscar.CodigoDescripcion;
                 LogPerformance(productoBuscar.CodigoDescripcion, "Inicio busqueda producto");
 
                 //Informacion de palancas
                 var usuario = productoBuscar.Usuario;
                 usuario = _usuarioBusinessLogic.GetSesionUsuarioPedidoApp(usuario);
-
                 LogPerformance(productoBuscar.CodigoDescripcion, "Informacion de palancas");
 
                 //Validación producto no existe
@@ -96,21 +98,18 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     productoBuscar.Criterio,
                                     productoBuscar.RowCount,
                                     productoBuscar.ValidarOpt).FirstOrDefault();
-                if (producto == null) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
-
                 LogPerformance(productoBuscar.CodigoDescripcion, "Busqueda producto");
+                if (producto == null) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
 
                 //Validación producto en catalogos
                 var bloqueoProductoCatalogo = BloqueoProductosCatalogo(usuario.RevistaDigital, usuario.CodigosRevistaImpresa, producto, productoBuscar);
-                if (!bloqueoProductoCatalogo) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
-
                 LogPerformance(productoBuscar.CodigoDescripcion, "Bloqueo productos catalogo");
+                if (!bloqueoProductoCatalogo) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
 
                 //Validación Gana +
                 var bloqueoProductoDigitales = BloqueoProductosDigitales(usuario, producto, productoBuscar);
-                if (!bloqueoProductoDigitales) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
-
                 LogPerformance(productoBuscar.CodigoDescripcion, "Bloqueo productos digitales");
+                if (!bloqueoProductoDigitales) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
 
                 //Validación producto agotado
                 if (!producto.TieneStock) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_AGOTADO, null, producto);
@@ -131,6 +130,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var desactivaRevistaGana = _pedidoWebBusinessLogic.ValidarDesactivaRevistaGana(productoBuscar.PaisID,
                                                     usuario.CampaniaID,
                                                     usuario.CodigoZona);
+                    LogPerformance(productoBuscar.CodigoDescripcion, "Información de producto con oferta en revista");
                     var tieneRDC = usuario.RevistaDigital.TieneRDC && usuario.RevistaDigital.EsActiva;
                     if (!producto.EsExpoOferta && producto.CUVRevista.Length != 0 && desactivaRevistaGana == 0 && !tieneRDC)
                     {
@@ -138,11 +138,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         else return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, null, producto);
                     }
                 }
-
-                LogPerformance(productoBuscar.CodigoDescripcion, "Información de producto con oferta en revista");
-
-                LogPerformance(productoBuscar.CodigoDescripcion, "Fin busqueda producto");
-                LogPerformance(productoBuscar.CodigoDescripcion, string.Empty);
 
                 return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.SUCCESS, null, producto);
             }
@@ -631,6 +626,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
     private BEProductoApp ProductoBuscarRespuesta(string codigoRespuesta, string mensajeRespuesta = null, BEProducto producto = null)
     {
+        LogPerformance(cuvBuscar, "Fin busqueda producto");
+        LogPerformance(cuvBuscar, string.Empty);
+
         return new BEProductoApp()
         {
             CodigoRespuesta = codigoRespuesta,
