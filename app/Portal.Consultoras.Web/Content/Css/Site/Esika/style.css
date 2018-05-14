@@ -19645,12 +19645,16 @@ label.checkpop.c_on {
 }
 
 .content_belcorp {
-	max-width: 1189px;
-	margin: 0 auto;
-	height: auto;
-	position: relative;
-	font-family: 'Lato';
-    text-align:center;
+    max-width: 1189px;
+    margin: 0 auto;
+    height: auto;
+    position: relative;
+    font-family: 'Lato';
+    text-align: left;
+}
+
+.content_belcorp_centrar_productos {
+    text-align: center;
 }
 
 .content_datos {
