@@ -5,6 +5,8 @@ var sElementos = {
     listadoProductos: "[data-seccion-productos]"
 };
 
+var listaLAN = listaLAN || "listaLAN";
+
 var CONS_TIPO_PRESENTACION = {
     CarruselSimple: 1,
     CarruselPrevisuales: 2,
@@ -32,7 +34,8 @@ var timer;
 
 var varContenedor = {
     CargoRevista: false,
-    CargoHv: false
+    CargoHv: false,
+    CargoLan: false
 }
 
 $(document).ready(function () {
@@ -123,9 +126,9 @@ function SeccionCargarProductos(objConsulta) {
     }
 
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.LAN) {
-        if (!varContenedor.CargoHv) {
-            varContenedor.CargoHv = true;
-            OfertaCargarProductos({ VarListaStorage: "ListaLAN", UrlCargarProductos: objConsulta.UrlObtenerProductos }, false, objConsulta);
+        if (!varContenedor.CargoLan) {
+            varContenedor.CargoLan = true;
+            OfertaCargarProductos({ VarListaStorage: listaLAN , UrlCargarProductos: objConsulta.UrlObtenerProductos }, false, objConsulta);
         }
         return false;
     }
@@ -220,7 +223,7 @@ function SeccionMostrarProductos(data) {
         data.lista = new Array();
         data.lista = data.listaLan;
         if (data.listaLan !== undefined && data.listaLan.length > 0 && tieneIndividual) {
-            RDLocalStorageListado("listaLAN" + data.campaniaId, data, CONS_CODIGO_SECCION.LAN);
+            RDLocalStorageListado(listaLAN + data.campaniaId, data, CONS_CODIGO_SECCION.LAN);
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
         } else {
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();

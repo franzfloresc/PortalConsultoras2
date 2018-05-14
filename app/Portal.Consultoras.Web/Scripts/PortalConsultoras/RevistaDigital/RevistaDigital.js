@@ -2,6 +2,7 @@
 var campaniaId = campaniaId || 0;
 var CantidadFilas = CantidadFilas || 15;
 var lsListaRD = lsListaRD || "ListaRD";
+var listaLAN = listaLAN || "listaLAN";
 var indCampania = indCampania || 0;
 var isDetalle = false;
 var esPrimeraCarga = true;
@@ -419,7 +420,7 @@ function OfertaArmarEstrategiasContenedor(responseData, busquedaModel) {
         listaSeccionesRD = ["RD", "RDR"];
     }
 
-    if (busquedaModel.VarListaStorage === "ListaLAN") {
+    if (busquedaModel.VarListaStorage === listaLAN) {
         listaSeccionesRD = ["LAN"];
     }
 
