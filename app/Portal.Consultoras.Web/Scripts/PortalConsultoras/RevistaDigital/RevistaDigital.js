@@ -317,7 +317,11 @@ function OfertaArmarEstrategias(response, busquedaModel) {
                 ExperienciaGanaMas.OcultarAgregar = true;
                 ExperienciaGanaMas.OcultarVerDetalle = true;
                 ExperienciaGanaMas.MostrarLoQuieres = !revistaDigital.EsSuscrita && !revistaDigital.EsActiva ? true : false;
-
+                if (window.location.href.toLowerCase().indexOf("/herramientasventa/revisar")) {
+                    ExperienciaGanaMas.MostrarLoQuieres = false;
+                    ExperienciaGanaMas.OcultarAgregar = false;
+                    ExperienciaGanaMas.OcultarVerDetalle = false;
+                }
                 $.each(modeloTemp.lista, function (ind, tem) {
                     if (tem.ClaseBloqueada != '') {
                         tem.ExperienciaGanaMas = ExperienciaGanaMas;
@@ -358,7 +362,11 @@ function OfertaArmarEstrategias(response, busquedaModel) {
                             ExperienciaGanaMas.OcultarAgregar = true;
                             ExperienciaGanaMas.OcultarVerDetalle = true;
                             ExperienciaGanaMas.MostrarLoQuieres = !revistaDigital.EsSuscrita && !revistaDigital.EsActiva ? true : false;
-
+                            if (window.location.href.toLowerCase().indexOf("/herramientasventa/revisar")) {
+                                ExperienciaGanaMas.MostrarLoQuieres = false;
+                                ExperienciaGanaMas.OcultarAgregar = false;
+                                ExperienciaGanaMas.OcultarVerDetalle = false;
+                            };
                             $.each(modeloTemp.lista, function (ind, tem) {
                                 if (tem.ClaseBloqueada != '') {
                                     tem.ExperienciaGanaMas = ExperienciaGanaMas;
@@ -377,6 +385,7 @@ function OfertaArmarEstrategias(response, busquedaModel) {
             $("#block_inscribete").hide();
         }
     }
+   
 
     ResizeBoxContnet();
 
