@@ -632,7 +632,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             inactivarResponse = content.Equals("true");
 
-            return activarResponse || activarResponse;
+            return activarResponse || inactivarResponse;
         }
 
         public Dictionary<string, object> getEstrategiaCuv(string cuv, string campania, string tipoEstrategia, string pais, string prod, string perfil)
