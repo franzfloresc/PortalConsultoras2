@@ -310,25 +310,7 @@ function OfertaArmarEstrategias(response, busquedaModel) {
             tem.TipoAccionAgregar = 0;
         });
     }
-
-    if (revistaDigital) {
-        if (revistaDigital.TieneRDC) {
-            if (!revistaDigital.EsActiva) {
-                var ExperienciaGanaMas = new Object();
-                ExperienciaGanaMas.OcultarAgregar = true;
-                ExperienciaGanaMas.OcultarVerDetalle = true;
-                ExperienciaGanaMas.MostrarLoQuieres = !revistaDigital.EsSuscrita && !revistaDigital.EsActiva ? true : false;
-
-                $.each(modeloTemp.lista, function (ind, tem) {
-                    if (tem.ClaseBloqueada != '') {
-                        tem.ExperienciaGanaMas = ExperienciaGanaMas;
-                        tem.TieneVerDetalle = !ExperienciaGanaMas.OcultarVerDetalle;
-                    }
-                });
-            }
-        }
-    }
-
+    
     var htmlDiv = SetHandlebars("#producto-landing-template", modeloTemp);
     divProd.find('#divOfertaProductos').append(htmlDiv);
     if (response.cantidadTotal == 0) {
@@ -351,25 +333,6 @@ function OfertaArmarEstrategias(response, busquedaModel) {
                     tem.EsBanner = false;
                     tem.EsLanzamiento = false;
                 });
-
-                if (revistaDigital) {
-                    if (revistaDigital.TieneRDC) {
-                        if (!revistaDigital.EsActiva) {
-                            var ExperienciaGanaMas = new Object();
-                            ExperienciaGanaMas.OcultarAgregar = true;
-                            ExperienciaGanaMas.OcultarVerDetalle = true;
-                            ExperienciaGanaMas.MostrarLoQuieres = !revistaDigital.EsSuscrita && !revistaDigital.EsActiva ? true : false;
-
-                            $.each(modeloTemp.lista, function (ind, tem) {
-                                if (tem.ClaseBloqueada != '') {
-                                    tem.ExperienciaGanaMas = ExperienciaGanaMas;
-                                    tem.TieneVerDetalle = !ExperienciaGanaMas.OcultarVerDetalle;
-                                }
-                            });
-                        }
-                    }
-                }
-
 
                 var htmlDivPerdio = SetHandlebars("#producto-landing-template", modeloTemp);
                 divPredio.append(htmlDivPerdio);
@@ -397,7 +360,6 @@ function RDLocalStorageListado(key, valor, codigo) {
             valLocalStorage.response.listaLan = valor.listaLan;
         }
         else if (valor) {
-            valor.response.listaLan = valLocalStorage.listaLan || (valLocalStorage.response || {}).listaLan || {};
             valLocalStorage = Clone(valor);
         }
     }

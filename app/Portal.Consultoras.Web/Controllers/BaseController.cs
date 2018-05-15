@@ -1315,7 +1315,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     TienePaginaProducto = fichaProducto.PuedeVerDetalle,
                     TienePaginaProductoMob = fichaProducto.PuedeVerDetalleMob,
-                    TieneVerDetalle = true,
 
                     TipoAccionAgregar = TipoAccionAgregar(fichaProducto.TieneVariedad, fichaProducto.TipoEstrategia.Codigo),
                     LimiteVenta = fichaProducto.LimiteVenta
@@ -1326,9 +1325,10 @@ namespace Portal.Consultoras.Web.Controllers
             return listaRetorno;
         }
 
-        public int TipoAccionAgregar(int tieneVariedad, string codigoTipoEstrategia, string codigoTipos = "")
+        public int TipoAccionAgregar(int tieneVariedad, string codigoTipoEstrategia, bool bloqueado = false, string codigoTipos = "")
         {
             var tipo = tieneVariedad == 0 ? codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackNuevas ? 1 : 2 : 3;
+
             if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)
             {
                 tipo = userData.esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva() ? 0 : tipo;
@@ -1336,6 +1336,12 @@ namespace Portal.Consultoras.Web.Controllers
             else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
             {
                 tipo = codigoTipos == Constantes.TipoEstrategiaSet.IndividualConTonos || codigoTipos == Constantes.TipoEstrategiaSet.CompuestaFija ? 2 : 3;
+            }
+            else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi 
+                || codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso 
+                || codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento)
+            {
+                tipo =  bloqueado && revistaDigital.EsNoSuscritaInactiva() ? 4 : tipo;
             }
             return tipo;
         }

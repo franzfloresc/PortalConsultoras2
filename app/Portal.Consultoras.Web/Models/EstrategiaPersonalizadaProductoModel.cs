@@ -20,7 +20,6 @@ namespace Portal.Consultoras.Web.Models
         public int TipoEstrategiaImagenMostrar { get; set; } // puede controlarse con el codigo de tipo estrategia
         public string ClaseEstrategia { get; set; }
         public int Posicion { get; set; }
-        public bool TieneVerDetalle { get; set; }
         public bool TienePaginaProducto { get; set; }
         public bool TienePaginaProductoMob { get; set; }
         public string FotoProducto01 { get; set; }
@@ -37,11 +36,12 @@ namespace Portal.Consultoras.Web.Models
         public decimal Precio2 { get; set; }
         public string PrecioTachado { get; set; }
         public string PrecioVenta { get; set; }
-        
+
         /// <summary>
         /// 1: AGRÉGALO - No alterar cantidad, caso pack nuevas
         /// 2: AGRÉGALO - Si puede alterar cantidad
-        /// 3: ELIGE TU OPCIÓN
+        /// 4: ¿LO QUIERES?3: ELIGE TU OPCIÓN
+        /// 4: ¿LO QUIERES?
         /// </summary>
         public int TipoAccionAgregar { get; set; } // es para los diferentes botones que sale en la seccion de agrega, elegir tono, ...
 
