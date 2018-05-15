@@ -11732,6 +11732,8 @@ span.icon-advertencia {
     color: #613c87;
     text-align: center;
     margin-bottom: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .check_intriga:before {
