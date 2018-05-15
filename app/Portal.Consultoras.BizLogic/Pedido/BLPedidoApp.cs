@@ -30,6 +30,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private readonly IEscalaDescuentoBusinessLogic _escalaDescuentoBusinessLogic;
         private readonly IMensajeMetaConsultoraBusinessLogic _mensajeMetaConsultoraBusinessLogic;
         private readonly IReservaBusinessLogic _reservaBusinessLogic;
+        private readonly ITipoEstrategiaBusinessLogic _tipoEstrategiaBusinessLogic;
 
         private List<ObjMontosProl> montosProl = new List<ObjMontosProl> { new ObjMontosProl() };
 
@@ -45,7 +46,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     new BLConsultorasProgramaNuevas(),
                                     new BLEscalaDescuento(),
                                     new BLMensajeMetaConsultora(),
-                                    new BLReserva())
+                                    new BLReserva(),
+                                    new BLTipoEstrategia())
         { }
 
         public BLPedidoApp(IProductoBusinessLogic productoBusinessLogic, 
@@ -58,7 +60,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             IConsultorasProgramaNuevasBusinessLogic consultorasProgramaNuevasBusinessLogic,
                             IEscalaDescuentoBusinessLogic escalaDescuentoBusinessLogic,
                             IMensajeMetaConsultoraBusinessLogic mensajeMetaConsultoraBusinessLogic,
-                            IReservaBusinessLogic reservaBusinessLogic)
+                            IReservaBusinessLogic reservaBusinessLogic,
+                            ITipoEstrategiaBusinessLogic tipoEstrategiaBusinessLogic)
         {
             _productoBusinessLogic = productoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
@@ -71,6 +74,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             _escalaDescuentoBusinessLogic = escalaDescuentoBusinessLogic;
             _mensajeMetaConsultoraBusinessLogic = mensajeMetaConsultoraBusinessLogic;
             _reservaBusinessLogic = reservaBusinessLogic;
+            _tipoEstrategiaBusinessLogic = tipoEstrategiaBusinessLogic;
         }
 
         #region Publicos
@@ -79,12 +83,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
             try
             {
                 cuvBuscar = productoBuscar.CodigoDescripcion;
-                LogPerformance(productoBuscar.CodigoDescripcion, "Inicio busqueda producto");
 
-                //Informacion de palancas
+                ////Informacion de palancas
                 var usuario = productoBuscar.Usuario;
                 usuario = _usuarioBusinessLogic.GetSesionUsuarioPedidoApp(usuario);
-                LogPerformance(productoBuscar.CodigoDescripcion, "Informacion de palancas");
 
                 //Validación producto no existe
                 var producto = _productoBusinessLogic.SelectProductoByCodigoDescripcionSearchRegionZona(
@@ -98,18 +100,31 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     productoBuscar.Criterio,
                                     productoBuscar.RowCount,
                                     productoBuscar.ValidarOpt).FirstOrDefault();
-                LogPerformance(productoBuscar.CodigoDescripcion, "Busqueda producto");
                 if (producto == null) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
 
                 //Validación producto en catalogos
                 var bloqueoProductoCatalogo = BloqueoProductosCatalogo(usuario.RevistaDigital, usuario.CodigosRevistaImpresa, producto, productoBuscar);
-                LogPerformance(productoBuscar.CodigoDescripcion, "Bloqueo productos catalogo");
                 if (!bloqueoProductoCatalogo) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
 
-                //Validación Gana +
-                var bloqueoProductoDigitales = BloqueoProductosDigitales(usuario, producto, productoBuscar);
-                LogPerformance(productoBuscar.CodigoDescripcion, "Bloqueo productos digitales");
-                if (!bloqueoProductoDigitales) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
+                //Validacion Tipo Estrategia
+                if (!string.IsNullOrEmpty(producto.TipoEstrategiaID))
+                {
+                    var tipoEstrategiaRequest = new BETipoEstrategia()
+                    {
+                        PaisID = productoBuscar.PaisID,
+                        TipoEstrategiaID = Convert.ToInt32(producto.TipoEstrategiaID)
+                    };
+                    var tipoEstrategiaResponse = _tipoEstrategiaBusinessLogic.GetTipoEstrategias(tipoEstrategiaRequest).FirstOrDefault();
+                    if (tipoEstrategiaResponse != null)
+                    {
+                        if (!string.IsNullOrEmpty(tipoEstrategiaResponse.MensajeValidacion))
+                            return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_ESTRATEGIA, tipoEstrategiaResponse.MensajeValidacion);
+                    }
+                }
+
+                ////Validación Gana +
+                //var bloqueoProductoDigitales = BloqueoProductosDigitales(usuario, producto, productoBuscar);
+                //if (!bloqueoProductoDigitales) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
 
                 //Validación producto agotado
                 if (!producto.TieneStock) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_AGOTADO, null, producto);
@@ -117,12 +132,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 //Validación producto liquidaciones
                 if (producto.TipoOfertaSisID == Constantes.ConfiguracionOferta.Liquidacion) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_LIQUIDACION, null, producto);
 
-                //Validación producto showroom
-                if (producto.TipoOfertaSisID == Constantes.ConfiguracionOferta.ShowRoom)
-                {
-                    if (usuario.EsShowRoom) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_SHOWROOM, null, producto);
-                    else return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_SHOWROOM_NODISPONIBLE, null, producto);
-                }
+                ////Validación producto showroom
+                //if (producto.TipoOfertaSisID == Constantes.ConfiguracionOferta.ShowRoom)
+                //{
+                //    if (usuario.EsShowRoom) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_SHOWROOM, null, producto);
+                //    else return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_SHOWROOM_NODISPONIBLE, null, producto);
+                //}
 
                 //Información de producto con oferta en revista
                 if (usuario.RevistaDigital != null)
@@ -130,7 +145,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var desactivaRevistaGana = _pedidoWebBusinessLogic.ValidarDesactivaRevistaGana(productoBuscar.PaisID,
                                                     usuario.CampaniaID,
                                                     usuario.CodigoZona);
-                    LogPerformance(productoBuscar.CodigoDescripcion, "Información de producto con oferta en revista");
                     var tieneRDC = usuario.RevistaDigital.TieneRDC && usuario.RevistaDigital.EsActiva;
                     if (!producto.EsExpoOferta && producto.CUVRevista.Length != 0 && desactivaRevistaGana == 0 && !tieneRDC)
                     {
@@ -150,14 +164,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         private void LogPerformance(string cuv, string mensaje)
         {
-            //var pathFile = AppDomain.CurrentDomain.BaseDirectory + "Log\\";
-            //if (!System.IO.Directory.Exists(pathFile)) System.IO.Directory.CreateDirectory(pathFile);
-            //string path = string.Format("{0}LogPerformance_GetCuv_{1}.portal", pathFile, DateTime.Now.ToString("yyyy-MM-dd"));
-            //using (var stream = new System.IO.StreamWriter(path, true))
-            //{
-            //    if(string.IsNullOrEmpty(mensaje)) stream.WriteLine(string.Empty);
-            //    else stream.WriteLine(string.Format("{0} => {1} => {2}", DateTime.Now.ToString("HH:mm:ss.fff"), cuv, mensaje));
-            //}
+            var pathFile = AppDomain.CurrentDomain.BaseDirectory + "Log\\";
+            if (!System.IO.Directory.Exists(pathFile)) System.IO.Directory.CreateDirectory(pathFile);
+            string path = string.Format("{0}LogPerformance_GetCuv_{1}.portal", pathFile, DateTime.Now.ToString("yyyy-MM-dd"));
+            using (var stream = new System.IO.StreamWriter(path, true))
+            {
+                if (string.IsNullOrEmpty(mensaje)) stream.WriteLine(string.Empty);
+                else stream.WriteLine(string.Format("{0} => {1} => {2}", DateTime.Now.ToString("HH:mm:ss.fff"), cuv, mensaje));
+            }
         }
 
         public BEPedidoDetalleAppResult Insert(BEPedidoDetalleApp pedidoDetalle)
@@ -168,6 +182,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 //Informacion de usuario
                 var usuario = pedidoDetalle.Usuario;
+                usuario = _usuarioBusinessLogic.GetSesionUsuarioPedidoApp(usuario);
                 usuario.EsConsultoraNueva = _usuarioBusinessLogic.EsConsultoraNueva(usuario);
 
                 //Validacion reserva u horario restringido
@@ -581,48 +596,48 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return true;
         }
 
-        private bool BloqueoProductosDigitales(BEUsuario usuario, BEProducto producto, BEProductoAppBuscar productoBuscar)
-        {
-            var result = true;
+        //private bool BloqueoProductosDigitales(BEUsuario usuario, BEProducto producto, BEProductoAppBuscar productoBuscar)
+        //{
+        //    var result = true;
 
-            if (producto == null) return true;
+        //    if (producto == null) return true;
 
-            if (usuario.RevistaDigital != null && usuario.RevistaDigital.BloqueoProductoDigital)
-            {
-                result = !(
-                            producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
-                            || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-                            || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
-                        );
-            }
+        //    if (usuario.RevistaDigital != null && usuario.RevistaDigital.BloqueoProductoDigital)
+        //    {
+        //        result = !(
+        //                    producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
+        //                    || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+        //                    || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
+        //                );
+        //    }
 
-            if (result && usuario.OfertaDelDiaModel != null && usuario.OfertaDelDiaModel.BloqueoProductoDigital)
-            {
-                result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaDelDia);
-            }
+        //    if (result && usuario.OfertaDelDiaModel != null && usuario.OfertaDelDiaModel.BloqueoProductoDigital)
+        //    {
+        //        result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaDelDia);
+        //    }
 
-            if (result && usuario.GuiaNegocio != null && usuario.GuiaNegocio.BloqueoProductoDigital)
-            {
-                result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
-            }
+        //    if (result && usuario.GuiaNegocio != null && usuario.GuiaNegocio.BloqueoProductoDigital)
+        //    {
+        //        result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
+        //    }
 
-            if (result && usuario.OptBloqueoProductoDigital)
-            {
-                result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaParaTi);
-            }
+        //    if (result && usuario.OptBloqueoProductoDigital)
+        //    {
+        //        result = (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaParaTi);
+        //    }
 
-            if (result && usuario.RevistaDigital.TieneRDCR)
-            {
-                var dato = usuario.GuiaNegocio.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.BloquearProductoGnd) ?? new BEConfiguracionPaisDatos();
-                dato.Valor1 = Util.Trim(dato.Valor1);
-                if (dato.Estado && dato.Valor1 != string.Empty)
-                {
-                    result = (!dato.Valor1.Contains(producto.CUV));
-                }
-            }
+        //    if (result && usuario.RevistaDigital.TieneRDCR)
+        //    {
+        //        var dato = usuario.GuiaNegocio.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.BloquearProductoGnd) ?? new BEConfiguracionPaisDatos();
+        //        dato.Valor1 = Util.Trim(dato.Valor1);
+        //        if (dato.Estado && dato.Valor1 != string.Empty)
+        //        {
+        //            result = (!dato.Valor1.Contains(producto.CUV));
+        //        }
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
 
         private BEProductoApp ProductoBuscarRespuesta(string codigoRespuesta, string mensajeRespuesta = null, BEProducto producto = null)
         {
