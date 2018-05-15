@@ -97,10 +97,14 @@
 
 
 @media (min-width: 430px) {
+    .desplegablegnd .gndcontenido .contenedorgnd .portadagnd img {
+        width: 70%;
+    }
 
-    .desplegablegnd .gndcontenido .contenedorgnd .portadagnd img { width: 70%; }
-    .desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a { width: 60%;}
-
+    .desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a {
+        width: 60%;
+    }
+}
 @media (max-width: 375px) {
     .desplegablegnd .gndcontenido .contenedorgnd .infognd {
         padding-top: 2%;
