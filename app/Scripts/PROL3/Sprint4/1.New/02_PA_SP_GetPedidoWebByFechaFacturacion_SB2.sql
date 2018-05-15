@@ -166,7 +166,9 @@ BEGIN
 	join dbo.PedidoWebDetalle pd with(nolock) on p.CampaniaID = pd.CampaniaID and p.PedidoID = pd.PedidoID and isnull(pd.EsKitNueva, '0') != 1
 	join ods.Campania ca with(nolock) on p.CampaniaID = ca.Codigo
 	join ods.ProductoComercial pr with(nolock) on ca.CampaniaID = pr.CampaniaID and pd.CUV = pr.CUV
-	where pk.NroLote = @NroLote and isnull(p.VersionProl,2) = 2 and pd.PedidoDetalleIDPadre is null
+	where
+		pk.NroLote = @NroLote and pd.PedidoDetalleIDPadre is null and
+		(isnull(p.VersionProl,2) = 2 or pd.AceptoBackOrder = 1)
 	group by p.CampaniaID, p.PedidoID, c.Codigo, pd.CUV, pr.CodigoProducto, pd.OrigenPedidoWeb
 	having sum(pd.Cantidad) > 0
 
