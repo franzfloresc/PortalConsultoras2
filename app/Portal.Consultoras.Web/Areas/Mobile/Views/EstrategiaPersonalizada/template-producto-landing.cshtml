@@ -123,9 +123,13 @@
                                     ELIGE TU OPCIÓN
                                 </a>
                             </div>
-                        {{else}}
-                        <div class="texto_elige_tono">&nbsp;</div>
                         {{/iff}}
+                            <div class="producto_nombre_descripcion">
+                                <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                                    AGREGADO
+                                    <div class="icono"></div>
+                                </div>
+                            </div>
                         </div>
                     }
                     else
