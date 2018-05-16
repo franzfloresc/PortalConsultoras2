@@ -101,6 +101,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int HorasDuracionRestriccion { get; set; }
         [DataMember]
+        [Column("NroCampanias")]
         public int NroCampanias { get; set; }
         [DataMember]
         public DateTime FechaFinFIC { get; set; }
