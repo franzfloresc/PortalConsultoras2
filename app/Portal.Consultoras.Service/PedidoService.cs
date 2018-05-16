@@ -58,9 +58,11 @@ namespace Portal.Consultoras.Service
         private readonly IConfiguracionProgramaNuevasBusinessLogic _configuracionProgramaNuevasBusinessLogic;
         private readonly ITrackingBusinessLogic _trackingBusinessLogic;
         private readonly IPedidoAppBusinessLogic _pedidoAppBusinessLogic;
+        private readonly BLCuponesProgramaNuevas BLCuponesProgramaNuevas;
+        private readonly IPedidoWebSetBusinessLogic _pedidoWebSetBusinessLogic;
 
-        public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb(), new BLConfiguracionProgramaNuevas(), new BLTracking(),
-            new BLPedidoApp())
+        public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb(), new BLConfiguracionProgramaNuevas(), new BLTracking(), 
+            new BLPedidoApp(), new BLPedidoWebSet())
         {
             BLPedidoWebDetalle = new BLPedidoWebDetalle();
             BLPedidoWeb = new BLPedidoWeb();
@@ -87,17 +89,22 @@ namespace Portal.Consultoras.Service
             BLCuponConsultora = new BLCuponConsultora();
             blFichaProducto = new BLFichaProducto();
             BLPagoEnLinea = new BLPagoEnLinea();
+            BLCuponesProgramaNuevas = new BLCuponesProgramaNuevas();
         }
 
-        public PedidoService(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic, IPedidoWebBusinessLogic pedidoWebBusinessLogic,
-            IConfiguracionProgramaNuevasBusinessLogic configuracionProgramaNuevasBusinessLogic, ITrackingBusinessLogic trackingBusinessLogic,
-            IPedidoAppBusinessLogic pedidoAppBusinessLogic)
+        public PedidoService(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic,
+            IPedidoWebBusinessLogic pedidoWebBusinessLogic,
+            IConfiguracionProgramaNuevasBusinessLogic configuracionProgramaNuevasBusinessLogic, 
+            ITrackingBusinessLogic trackingBusinessLogic,
+            IPedidoAppBusinessLogic pedidoAppBusinessLogic,           
+            IPedidoWebSetBusinessLogic pedidoWebSetBusinessLogic)
         {
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
             _configuracionProgramaNuevasBusinessLogic = configuracionProgramaNuevasBusinessLogic;
             _trackingBusinessLogic = trackingBusinessLogic;
             _pedidoAppBusinessLogic = pedidoAppBusinessLogic;
+            _pedidoWebSetBusinessLogic = pedidoWebSetBusinessLogic;
         }
 
         #region Reporte Lider
@@ -1878,16 +1885,6 @@ namespace Portal.Consultoras.Service
             BLPedidoWeb.DeshacerUltimaDescargaPedido(PaisID);
         }
 
-        public int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int nroLore)
-        {
-            return new BLEstrategia().InsertEstrategiaTemporal(paisId, lista, campaniaId, codigoUsuario, nroLore);
-        }
-        
-        public int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId)
-        {
-            return new BLEstrategia().InsertEstrategiaOfertaParaTi(paisId, lista, campaniaId, codigoUsuario, estrategiaId);
-        }
-
         public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
             return blEstrategia.GetEstrategiaODD(paisID, codCampania, codConsultora, fechaInicioFact);
@@ -2314,8 +2311,43 @@ namespace Portal.Consultoras.Service
             return new BLEstrategia().InsertarProductoShowroomMasiva(entidad);
         }
 
-        #region PedidoApp
-        public BEProductoApp GetCUVApp(BEProductoAppBuscar productoBuscar)
+        public bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId)
+        {
+            return BLPedidoWebDetalle.InsertPedidoWebSet(paisID, Campaniaid, PedidoID, CantidadSet, CuvSet, ConsultoraId, CodigoUsuario, CuvsStringList, EstrategiaId);
+
+        }
+
+        public bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad)
+        {
+            return BLPedidoWebDetalle.UpdCantidadPedidoWebSet(paisId, setId, cantidad);
+        }
+
+        public List<BEPedidoWebSetDetalle> GetPedidoWebSetDetalle(int paisID, int campania, long consultoraId)
+        {
+            return BLPedidoWebDetalle.GetPedidoWebSetDetalle(paisID, campania, consultoraId);
+        }
+
+        public BEPedidoWebSet ObtenerPedidoWebSet(int paisId, int setId)
+        {
+            return _pedidoWebSetBusinessLogic.Obtener(paisId, setId);
+        }
+
+        public bool EliminarPedidoWebSet(int paisId, int setId)
+        {
+            return _pedidoWebSetBusinessLogic.Eliminar(paisId, setId);
+        }
+
+        public DateTime? ObtenerFechaInicioSets(int paisId)
+        {
+            return _pedidoWebSetBusinessLogic.ObtenerFechaInicioSets(paisId);
+        }
+        public List<string> ObtenerListadoCuvCupon(int paisId, int campaniaId)
+        {
+            return BLCuponesProgramaNuevas.ObtenerListadoCuvCupon(paisId, campaniaId);
+        }
+
+    #region PedidoApp
+    public BEProductoApp GetCUVApp(BEProductoAppBuscar productoBuscar)
         {
             return _pedidoAppBusinessLogic.GetCUV(productoBuscar);
         }
@@ -2325,16 +2357,31 @@ namespace Portal.Consultoras.Service
             return _pedidoAppBusinessLogic.Insert(pedidoDetalle);
         }
 
-        public void UpdateProlApp(BEPedidoDetalleApp pedidoDetalle)
+        public BEPedidoWeb GetPedidoApp(BEUsuario usuario)
         {
-            _pedidoAppBusinessLogic.UpdateProl(pedidoDetalle);
+            return _pedidoAppBusinessLogic.Get(usuario);
         }
 
-        public List<BEPedidoWebDetalle> GetPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
+        public bool InsertKitInicio(BEUsuario usuario)
         {
-            return _pedidoAppBusinessLogic.GetDetalle(pedidoDetalle);
+            return _pedidoAppBusinessLogic.InsertKitInicio(usuario);
+        }
+
+        public BEPedidoDetalleAppResult UpdatePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
+        {
+            return _pedidoAppBusinessLogic.Update(pedidoDetalle);
+        }
+
+        public BEConfiguracionPedido GetConfiguracionPedidoApp(int paisID, string codigoUsuario)
+        {
+            return _pedidoAppBusinessLogic.GetConfiguracion(paisID, codigoUsuario);
+        }
+
+        public BEPedidoDetalleAppResult DeletePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
+        {
+            return _pedidoAppBusinessLogic.Delete(pedidoDetalle);
         }
         #endregion
-        
+
     }
 }

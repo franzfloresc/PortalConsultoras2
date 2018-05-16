@@ -1,4 +1,6 @@
-USE BelcorpPeru_BPT
+﻿--USE BelcorpPeru_BPT
+--GO
+USE [BelcorpColombia_PL50]
 GO
 
 PRINT DB_NAME()
@@ -12,20 +14,27 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE ActualizarTonos_CargaEstrategiaProductoTemporal
+CREATE PROCEDURE ActualizarTonos_CargaEstrategiaProductoTemporal(
+@CampaniaActual INT = 0,
+@CampaniaSiguiente INT = 0
+)
 AS
 BEGIN
-	DECLARE @CampaniaActual INT;
-	SET @CampaniaActual = 201809--dbo.fnGetCampaniaActualPais();
-	PRINT @CampaniaActual;
+	IF @CampaniaActual = 0
+	BEGIN
+		SET @CampaniaActual = dbo.fnGetCampaniaActualPais();
+		--PRINT @CampaniaActual;
+	END
 
-	DECLARE @CampaniaSiguiente INT
-	SET @CampaniaSiguiente = 201810--dbo.fnGetCampaniaSiguiente(@CampaniaActual);
-	PRINT @CampaniaSiguiente;
+	IF @CampaniaSiguiente = 0
+	BEGIN
+		SET @CampaniaSiguiente = dbo.fnGetCampaniaSiguiente(@CampaniaActual);
+		--PRINT @CampaniaSiguiente;
+	END
 
 	DECLARE @NumeroLote INT
 	SET @NumeroLote = FORMAT(GETDATE() , 'yyMMddHHmm');
-	PRINT @NumeroLote;
+	--PRINT @NumeroLote;
 
 	insert into EstrategiaProductoTemporal
 	(
@@ -45,50 +54,84 @@ BEGIN
 			,Descripcion
 			,IdMarca
 	)
-	select 
-		NumeroLote = @NumeroLote  
-		,ET.CampaniaId
-		,P.Cuv
-		,ET.CUV2
-		,P.CODIGO_ESTRATEGIA
-		,P.GRUPO
-		,P.CODIGO_SAP
-		,P.CANTIDAD
-		,P.PRECIO_UNITARIO
-		,P.PRECIO_VALORIZADO
-		,P.ORDEN
-		,P.DIGITABLE
-		,P.FACTOR_CUADRE
-		,P.DESCRIPCION
-		,P.IDMARCA
-	from 
-	Estrategia ET
-		INNER JOIN	(SELECT  
-					CODIGO_ESTRATEGIA = PM.EstrategiaIDSicc 
-					,CUV = CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END
-					,GRUPO = ISNULL(PMO.NUMEROGRUPO,0) 
-					,CODIGO_SAP = PMO.CodigoProducto 
-					,CANTIDAD = ISNULL(PMO.FactorRepeticion,1) 
-					,PRECIO_UNITARIO = (PMO.PrecioUnitario) 
-					,PRECIO_VALORIZADO = (PMO.PrecioValorizado) 
-					,ORDEN = CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END 
-					,DIGITABLE = PMO.IndicadorDigitable 
-					,COD_VENTA_HIJO = PMO.CUV 
-					,FACTOR_CUADRE = CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT) 
-					,DESCRIPCION = PMO.DESCRIPCION 
-					,IDMARCA = PMO.MarcaID 
-					,CUV2 = PM.CUV 
-					,CAMPANIAID = PMO.AnoCampania
-					FROM ODS.ProductoComercial PM WITH (NOLOCK) 
-					INNER JOIN ODS.ProductoComercial PMO 
-						ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc 
-						AND PM.AnoCampania =PMO.AnoCampania 
-						AND PM.CodigoOferta = PMO.CodigoOferta
-						AND PM.AnoCampania IN (@CampaniaActual,@CampaniaSiguiente)
-						AND PMO.AnoCampania IN (@CampaniaActual,@CampaniaSiguiente)
-						) p
-			ON p.CUV2 = ET.CUV2
-			AND P.CampaniaID = ET.CampaniaId
-			AND ET.CampaniaID IN (@CampaniaActual,@CampaniaSiguiente)
+	SELECT 
+	NumeroLote
+	,Campania
+	,Cuv
+	,CuvPadre
+	,CodigoEstrategia
+	,Grupo
+	,CodigoSap
+	,Cantidad
+	,PrecioUnitario
+	,PrecioValorizado
+	,Orden
+	,Digitable
+	,FactorCuadre
+	,Descripcion
+	,IdMarca
+	FROM(
+		select 
+			NumeroLote = @NumeroLote  
+			,Campania = ET.CampaniaId
+			,Cuv = P.Cuv
+			,CuvPadre = ET.CUV2
+			,CodigoEstrategia = P.CODIGO_ESTRATEGIA
+			,P.GRUPO
+			,CodigoSap = P.CODIGO_SAP
+			,P.CANTIDAD
+			,PrecioUnitario = P.PRECIO_UNITARIO
+			,PrecioValorizado = P.PRECIO_VALORIZADO
+			,P.ORDEN
+			,P.DIGITABLE
+			,FactorCuadre = P.FACTOR_CUADRE
+			,P.DESCRIPCION
+			,P.IDMARCA
+		from 
+		Estrategia ET
+			INNER JOIN	(SELECT  
+						CODIGO_ESTRATEGIA = PM.EstrategiaIDSicc 
+						,CUV = CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END
+						,GRUPO = ISNULL(PMO.NUMEROGRUPO,0) 
+						,CODIGO_SAP = PMO.CodigoProducto 
+						,CANTIDAD = ISNULL(PMO.FactorRepeticion,1) 
+						,PRECIO_UNITARIO = (PMO.PrecioUnitario) 
+						,PRECIO_VALORIZADO = (PMO.PrecioValorizado) 
+						,ORDEN = CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END 
+						,DIGITABLE = PMO.IndicadorDigitable 
+						,COD_VENTA_HIJO = PMO.CUV 
+						,FACTOR_CUADRE = CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT) 
+						,DESCRIPCION = PMO.DESCRIPCION 
+						,IDMARCA = PMO.MarcaID 
+						,CUV2 = PM.CUV 
+						,CAMPANIAID = PMO.AnoCampania
+						FROM ODS.ProductoComercial PM WITH (NOLOCK) 
+						INNER JOIN ODS.ProductoComercial PMO 
+							ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc 
+							AND PM.AnoCampania =PMO.AnoCampania 
+							AND PM.CodigoOferta = PMO.CodigoOferta
+							AND PM.AnoCampania IN (@CampaniaActual,@CampaniaSiguiente)
+							AND PMO.AnoCampania IN (@CampaniaActual,@CampaniaSiguiente)
+							) p
+				ON p.CUV2 = ET.CUV2
+				AND P.CampaniaID = ET.CampaniaId
+				AND ET.CampaniaID IN (@CampaniaActual,@CampaniaSiguiente)
+		) TMP
+	GROUP BY 
+	NumeroLote
+	,Campania
+	,Cuv
+	,CuvPadre
+	,CodigoEstrategia
+	,Grupo
+	,CodigoSap
+	,Cantidad
+	,PrecioUnitario
+	,PrecioValorizado
+	,Orden
+	,Digitable
+	,FactorCuadre
+	,Descripcion
+	,IdMarca
 END
 GO

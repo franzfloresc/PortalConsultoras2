@@ -18,7 +18,6 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
-using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.SessionManager;
 using Portal.Consultoras.Web.Models.Common;
 
@@ -1259,6 +1258,15 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult PopupCerrar()
         {
+            if(configEstrategiaSR.BeShowRoomConsultora==null)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "BeShowRoomConsultora es null"
+                });
+            }
+
             configEstrategiaSR.BeShowRoomConsultora.MostrarPopup = false;
             configEstrategiaSR.BeShowRoomConsultora.MostrarPopupVenta = false;
             return Json(new
@@ -1740,6 +1748,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 sessionManager.SetPedidoWeb(null);
                 sessionManager.SetDetallesPedido(null);
+                sessionManager.SetDetallesPedidoSetAgrupado(null);
 
                 UpdPedidoWebMontosPROL();
 
@@ -1756,6 +1765,18 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
+
+
+                if (tipo == 1 )
+                {
+
+
+                    using (var pedidoServiceClient = new PedidoServiceClient())
+                    {
+                        pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
+                            , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0);
+                    }
+                }
 
                 return Json(new
                 {

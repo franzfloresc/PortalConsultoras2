@@ -26,7 +26,7 @@ namespace Portal.Consultoras.BizLogic
         List<BECargaMasivaImagenes> GetListaImagenesProductoSugeridoByCampania(int paisId, int campaniaId);
         List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleAprobar(int paisID, BEProductoComentarioFilter filter);
         List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, BEProductoComentarioFilter filter);
-        
+
         List<BEEstrategia> GetOfertaByCUV(BEEstrategia entidad);
         BEProductoComentario GetProductoComentarioByCodSap(int paisID, string codigoSap);
         IList<BEConfiguracionValidacionZE> GetRegionZonaZE(int PaisID, int RegionID, int ZonaID);
@@ -36,11 +36,9 @@ namespace Portal.Consultoras.BizLogic
         int InsertarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad);
         List<int> InsertarProductoShowroomMasiva(BEEstrategiaMasiva entidad);
         int InsertEstrategia(BEEstrategia entidad);
-        int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId);
-        int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int nroLore);
         int InsertTallaColorCUV(BETallaColor entidad);
         int ValidarCUVsRecomendados(BEEstrategia entidad);
         string ValidarStockEstrategia(BEEstrategia entidad);
-        
+
     }
 }

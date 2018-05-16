@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Web;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
+using Portal.Consultoras.Web.Areas.Mobile.Models;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -64,6 +65,15 @@ namespace Portal.Consultoras.Web.SessionManager
             HttpContext.Current.Session["PedidoWebDetalle"] = detallesPedidoWeb;
         }
 
+        List<BEPedidoWebDetalle> ISessionManager.GetDetallesPedidoSetAgrupado()
+        {
+            return (List<BEPedidoWebDetalle>)HttpContext.Current.Session["PedidoWebSetAgrupado"];
+        }
+
+        void ISessionManager.SetDetallesPedidoSetAgrupado(List<BEPedidoWebDetalle> detallesPedidoWeb)
+        {
+            HttpContext.Current.Session["PedidoWebSetAgrupado"] = detallesPedidoWeb;
+        }
         List<ObservacionModel> ISessionManager.GetObservacionesProl()
         {
             return (List<ObservacionModel>)HttpContext.Current.Session["ObservacionesPROL"];
@@ -398,6 +408,16 @@ namespace Portal.Consultoras.Web.SessionManager
         public Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel GetEstrategiaSR()
         {
             return (Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel)HttpContext.Current.Session["ConfigEstrategiaSR"];
+        }
+        
+        void ISessionManager.SetPedidosFacturados(PedidoWebClientePrincipalMobilModel model)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.PedidosFacturados] = model;
+        }
+
+        PedidoWebClientePrincipalMobilModel ISessionManager.GetPedidosFacturados()
+        {
+            return (PedidoWebClientePrincipalMobilModel)HttpContext.Current.Session[Constantes.ConstSession.PedidosFacturados];
         }
 
         EstrategiaPersonalizadaProductoModel ISessionManager.ProductoTemporal

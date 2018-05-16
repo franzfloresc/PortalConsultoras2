@@ -235,6 +235,7 @@ namespace Portal.Consultoras.Common
             public const string TippingPoint = "TippingPoint";
             public const string TippingPoint_MontoVentaExigido = "TippingPoint_MontoVentaExigido";
             public const string MensajeMetaConsultora = "MensajeMetaConsultora";
+            public const string ActualizarDatosConsultora = "ActualizarDatosConsultora";
 
             // prol
             public const string PROL_CalculoMontosProl = "PROL_CalculoMontosProl";
@@ -305,6 +306,10 @@ namespace Portal.Consultoras.Common
             public const string DescargaExcelMaxItems = "DescargaExcelMaxItems";
 
             public const string ConsultoraNuevaBannerAppMostrar = "ConsultoraNuevaBannerAppMostrar";
+
+            public const string PedidosFacturados = "PedidosFacturados";
+
+            
         }
 
         public static class ConfiguracionManager
@@ -1922,6 +1927,10 @@ namespace Portal.Consultoras.Common
                     public const string ERROR_STOCK_ESTRATEGIA = "2102";
                     public const string ERROR_KIT_INICIO = "2103";
                     public const string ERROR_GRABAR = "2104";
+                    public const string ERROR_VALIDA_DATOS = "2105";
+                    public const string ERROR_ACTUALIZAR = "2106";
+                    public const string ERROR_ELIMINAR = "2107";
+                    public const string ERROR_ELIMINAR_TODO = "2108";
                 }
 
                 public static Dictionary<string, string> Message
@@ -1936,6 +1945,10 @@ namespace Portal.Consultoras.Common
                                 {Code.ERROR_STOCK_ESTRATEGIA, string.Empty},
                                 {Code.ERROR_KIT_INICIO, "Ocurrió un error al ejecutar la operación."},
                                 {Code.ERROR_GRABAR, "Ocurrió un error al insertar el pedido."},
+                                {Code.ERROR_VALIDA_DATOS , string.Empty },
+                                {Code.ERROR_ACTUALIZAR,"Ocurrió un error al actualizar el pedido." },
+                                {Code.ERROR_ELIMINAR,"Ocurrió un error al eliminar el detalle de pedido." },
+                                {Code.ERROR_ELIMINAR_TODO,"Ocurrió un error al eliminar el pedido." }
                             });
                     }
                 }
@@ -1994,5 +2007,18 @@ namespace Portal.Consultoras.Common
             public const string ReemplazoDesc = "{remDes}";
             public const string Stock = "{stock}";
         }
+
+        #region Pin Autenticidad
+        public class EnviarCorreoYSms
+        {
+            public const string Activo = "Activo";
+            public const string IdEstadoActividad = "IdEstadoActividad";
+
+            public const int RecuperarClave = 1;
+            public const int Autenticacion = 2;
+            public const int EnviarPorEmail = 1;
+            public const int EnviarPorSms = 2;
+        }
+        #endregion  
     }
 }

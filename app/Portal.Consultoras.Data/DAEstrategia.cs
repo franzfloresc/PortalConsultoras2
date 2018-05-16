@@ -365,82 +365,6 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteScalar(command).ToString();
         }
-        
-        public int InsertEstrategiaTemporal(List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int nroLore)
-        {
-            var listaTypes = lista.Select(item => new BEEstrategiaType
-            {
-                CampaniaId = campaniaId,
-                CodigoSap = item.CodigoProducto,
-                CUV = item.CUV2,
-                Descripción = item.DescripcionCUV2,
-                LimiteVenta = item.LimiteVenta,
-                OfertaUltimoMinuto = item.OfertaUltimoMinuto,
-                PrecioOferta = item.Precio2,
-                PrecioTachado = item.Precio,
-                UsuarioCreacion = codigoUsuario,
-                FotoProducto01 = item.ImagenURL,
-                CodigoEstrategia = item.CodigoEstrategia,
-                TieneVariedad = item.TieneVariedad,
-                PrecioPublico = item.PrecioPublico,
-                Ganancia = item.Ganancia,
-                Niveles = item.Niveles
-            }).ToList();
-
-            var command = new SqlCommand("dbo.InsertEstrategiaTemporal");
-            command.CommandType = CommandType.StoredProcedure;
-
-            command.Parameters.Add(new SqlParameter("@EstrategiaTemporal", SqlDbType.Structured)
-            {
-                TypeName = "dbo.EstrategiaTemporalType",
-                Value = new GenericDataReader<BEEstrategiaType>(listaTypes)
-            });
-
-            command.Parameters.Add(new SqlParameter("@NumeroLoteAnt", SqlDbType.Int) { Value = nroLore });
-            command.Parameters.Add(new SqlParameter("@NroLote", SqlDbType.Int) { Direction = ParameterDirection.Output, Value = 0 });
-
-            Context.ExecuteNonQuery(command);
-
-            return Convert.ToInt32(command.Parameters["@NroLote"].Value);
-        }
-        
-        public int InsertEstrategiaOfertaParaTi(List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId)
-        {
-            var listaTypes = lista.Select(item => new BEEstrategiaType
-            {
-                CampaniaId = campaniaId,
-                CodigoSap = item.CodigoProducto,
-                CUV = item.CUV2,
-                Descripción = item.DescripcionCUV2,
-                LimiteVenta = item.LimiteVenta,
-                OfertaUltimoMinuto = item.OfertaUltimoMinuto,
-                PrecioOferta = item.Precio2,
-                PrecioTachado = item.Precio,
-                UsuarioCreacion = codigoUsuario,
-                FotoProducto01 = item.ImagenURL,
-                TieneVariedad = item.TieneVariedad,
-                CodigoEstrategia = item.CodigoEstrategia,
-                PrecioPublico = item.PrecioPublico,
-                Ganancia = item.Ganancia,
-                Niveles = item.Niveles
-            }).ToList();
-
-            var command =
-                new SqlCommand("dbo.InsertEstrategiaOfertaParaTi") { CommandType = CommandType.StoredProcedure };
-
-            var parameter =
-                new SqlParameter("@EstrategiaTemporal", SqlDbType.Structured)
-                {
-                    TypeName = "dbo.EstrategiaTemporalType",
-                    Value = new GenericDataReader<BEEstrategiaType>(listaTypes)
-                };
-
-            var parameter2 = new SqlParameter("@TipoEstrategia", SqlDbType.Int) { Value = estrategiaId };
-
-            command.Parameters.Add(parameter);
-            command.Parameters.Add(parameter2);
-            return Context.ExecuteNonQuery(command);
-        }
 
         public IDataReader GetEstrategiaODD(int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
@@ -641,7 +565,7 @@ namespace Portal.Consultoras.Data
                 return result;
             }
         }
-        
+
         #region Nuevo Masivo
 
         public int GetCantidadOfertasPersonalizadas(int campaniaId, int tipoConfigurado, string codigoEstrategia)
@@ -657,7 +581,7 @@ namespace Portal.Consultoras.Data
             }
             return result;
         }
-        
+
         public IDataReader GetOfertasPersonalizadasByTipoConfigurado(int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetOfertasPersonalizadasByTipoConfigurado"))
@@ -671,7 +595,7 @@ namespace Portal.Consultoras.Data
                 return Context.ExecuteReader(command);
             }
         }
-        
+
         public int GetCantidadOfertasPersonalizadasTemporal(int nroLote, int tipoConfigurado)
         {
             int result;
@@ -684,7 +608,7 @@ namespace Portal.Consultoras.Data
             }
             return result;
         }
-        
+
         public int EstrategiaTemporalDelete(int nroLote)
         {
             int result;
@@ -705,7 +629,7 @@ namespace Portal.Consultoras.Data
                 return Context.ExecuteReader(command);
             }
         }
-        
+
         public int EstrategiaTemporalInsertarMasivo(int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalInsertarMasivo"))

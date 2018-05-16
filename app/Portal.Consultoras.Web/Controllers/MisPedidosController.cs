@@ -220,6 +220,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     sessionManager.SetObservacionesProl(null);
                     sessionManager.SetDetallesPedido(null);
+                    sessionManager.SetDetallesPedidoSetAgrupado(null);
                     UpdPedidoWebMontosPROL();
                     dataBarra = GetDataBarra();
                 }

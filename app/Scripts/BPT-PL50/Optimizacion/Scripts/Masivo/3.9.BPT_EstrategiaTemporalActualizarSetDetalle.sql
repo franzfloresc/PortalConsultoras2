@@ -9,10 +9,9 @@ CREATE PROCEDURE EstrategiaTemporalActualizarSetDetalle
 )
 AS
 BEGIN
-	--DECLARE @tipoPer varchar(5)
-	--set @tipoPer = dbo.fnGetTipoPersonalizacion(@EstrategiaCodigo)
-	--select @tipoPer
-	
+
+	delete from EstrategiaProductoTemporal where NumeroLote = @NroLote
+
 	insert into EstrategiaProductoTemporal
 	(
 			NumeroLote
