@@ -29,9 +29,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (modelo == null || modelo.EstrategiaID <= 0)
                 return GetRedirectTo(origenPantalla);
-
-            modelo.FotoProductoSmall = Util.GenerarRutaImagenResize(modelo.FotoProducto01, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium);
-
+            
             ViewBag.OrigenUrl = GetActionTo(origenPantalla, origen);
 
             ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;

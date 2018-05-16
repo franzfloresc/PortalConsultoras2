@@ -178,8 +178,6 @@ namespace Portal.Consultoras.Entities
         public int IdMatrizComercial { get; set; }
         [DataMember]
         public string FotoProducto01 { get; set; }
-        [DataMember]
-        public string FotoProductoSmall { get; set; }
 
         #region EstrategiaDetalle
         [DataMember]

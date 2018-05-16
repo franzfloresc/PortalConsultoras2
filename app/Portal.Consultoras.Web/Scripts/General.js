@@ -322,6 +322,23 @@ jQuery(document).ready(function () {
                     return "Fomato Incorrecto";
                 }
             });
+
+            //se puede extender el metodo para medium
+            //Enviar un parametro tipo y cambiar el metodo a ImgRenderUrl
+            Handlebars.registerHelper('ImgSmall', function (imgOriginal) {
+                imgOriginal = $.trim(imgOriginal);
+                if (imgOriginal === '') {
+                    return new Handlebars.SafeString(imgOriginal);
+                }
+                urlRender = imgOriginal;
+                var listaCadena = imgOriginal.split('.');
+                if (listaCadena.length > 1) {
+                    var ext = listaCadena[listaCadena.length - 1];
+                    var urlRender = imgOriginal.substr(0, imgOriginal.length - ext.length - 1);
+                    urlRender = urlRender + '_small.' + ext;
+                }
+                return new Handlebars.SafeString(urlRender);
+            });
         }
     }
 

@@ -23,7 +23,6 @@ namespace Portal.Consultoras.Web.Models
         public bool TienePaginaProducto { get; set; }
         public bool TienePaginaProductoMob { get; set; }
         public string FotoProducto01 { get; set; }
-        public string FotoProductoSmall { get; set; }
         public string ImagenURL { get; set; }
         public string DescripcionMarca { get; set; }
         public string DescripcionResumen { get; set; } // Puede ser el nombre de un set, o la descripcion simple

@@ -65,6 +65,7 @@
 @{
     var btnDesabled = 0;
     var btnDesabledClass = "";
+    var fotoMedium = Util.GenerarRutaImagenResizeMedium(Model.FotoProducto01);
 }
 <div style="height: 15px;"></div>
 <div data-item="" data-tipoestrategiaimagenmostrar="@Model.TipoEstrategiaImagenMostrar" data-estadoregistro="@ViewBag.EstadoSuscripcion">
@@ -82,7 +83,7 @@
             }
             
             <div class="content_imagen_ficha">
-                <img id="fav_imagen_prod" src="@Model.FotoProductoSmall" alt="PRODUCTO" class="imagen_producto">
+                <img id="fav_imagen_prod" src="@fotoMedium" alt="PRODUCTO" class="imagen_producto">
             </div>
             <div class="marca_oferta048">@Model.DescripcionMarca</div>
             <div id="fav_nombre_prod" class="titulo_ficha_producto">@Model.DescripcionCompleta</div>

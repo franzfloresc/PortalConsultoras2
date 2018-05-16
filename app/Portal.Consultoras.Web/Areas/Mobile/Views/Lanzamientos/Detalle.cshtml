@@ -6,6 +6,7 @@
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
     var urlDomain = Util.GetUrlHost(Request);
+    var fotoSmall = Util.GenerarRutaImagenResizeSmall(Model.FotoProducto01);
 }
 
 @section styles{
@@ -21,7 +22,7 @@
             <div class="detalle-prod">
 
                 <div class="detalle-img">
-                    <div class="img-portada" style="background:url(@Model.FotoProductoSmall);"></div>
+                    <div class="img-portada" style="background:url(@fotoSmall);"></div>
                 </div>
                 <div class="detalle-info">
                     <div class="label-nuevo">
