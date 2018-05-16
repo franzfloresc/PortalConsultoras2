@@ -3202,6 +3202,32 @@ namespace Portal.Consultoras.Common
 
             return colorStr == "" ? defecto : colorStr;
         }
+
+        public static string EnmascararCorreo(string correo)
+        {
+            string[] separada = correo.Split('@');
+            int inicio = 2;
+            int final = 1;
+            int longitud;
+            if (separada[0].Length > inicio + final)
+                longitud = separada[0].Length - final - inicio;
+            else
+                longitud = 1;
+
+            separada[0] = separada[0].Remove(inicio, longitud).Insert(inicio, new string('*', longitud));
+            return correo = String.Join("@", separada);
+        }
+
+        public static string EnmascararCelular(string celular)
+        {
+            int inicio = 1; 
+            int final = 2;
+            int longitud = celular.Length;
+            string strOcultar = celular.Substring(inicio, longitud - final - inicio);
+            int longitudOcultar = strOcultar.Length;
+            string caracter = "*".PadLeft(longitudOcultar,'*');
+            return celular.Replace(strOcultar, caracter);        
+        }
     }
 
     public static class DataRecord

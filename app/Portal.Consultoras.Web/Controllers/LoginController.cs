@@ -2168,7 +2168,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected virtual void ActualizarSubscripciones(RevistaDigitalModel revistaDigitalModel, UsuarioModel usuarioModel)
         {
-            var rds = new BERevistaDigitalSuscripcion
+            var rds = new ServicePedido.BERevistaDigitalSuscripcion
             {
                 PaisID = usuarioModel.PaisID,
                 CodigoConsultora = usuarioModel.CodigoConsultora
@@ -2750,36 +2750,30 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToRoute("UniqueRoute", route);
         }
 
-        #region Recuperar Contraseña
+        #region Olvide Contraseña
         [AllowAnonymous]
         [HttpPost]
-        public JsonResult ObtenerDatosUsuario(int paisId, string textoRecuperacion, int nroOpcion)
+        public JsonResult GetRestaurarClaveByValor(int paisID, string valorIngresado, int prioridad)
         {
-            /// Origen 1: Recuperar Contraseña
-            /// Origen 2: Pin de AutenticaciónAction
-
-            /// nroOpcion 1: Opción enviar Correo y/o enviar SMS
-            /// nroOpcion 2: Obtiene datos de chat
-            /// nroOpcion 3: Obtiene datos de llamadas
-            /// nroOpcion 4: Contiene Horario de llamadas - Última prioridad
-
             try
             {
-                paisId = paisId == 0 ? Convert.ToInt32(TempData["PaisID"]) : paisId;
-                textoRecuperacion = !string.IsNullOrEmpty(textoRecuperacion) ? textoRecuperacion : Convert.ToString(TempData["CodigoUsuario"]);
-
-                BEUsuarioCorreo oUsuCorreo = DatosUsuarioCorreo(paisId, textoRecuperacion, nroOpcion);
+                BEUsuarioCorreo oDatos = null;
+                using (var sv = new UsuarioServiceClient())
+                {
+                    oDatos = sv.GetRestaurarClaveByValor(paisID, valorIngresado, prioridad);
+                }
 
                 return Json(new
                 {
                     success = true,
-                    data = oUsuCorreo,
+                    data = oDatos,
+                    esMobile = EsDispositivoMovil(),
                     message = "OK"
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, textoRecuperacion, Util.GetPaisISO(paisId));
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, valorIngresado, Util.GetPaisISO(paisID));
                 return Json(new
                 {
                     success = false,
@@ -2788,184 +2782,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                logManager.LogErrorWebServicesBusWrap(ex, textoRecuperacion, Util.GetPaisISO(paisId), string.Empty);
+                logManager.LogErrorWebServicesBusWrap(ex, valorIngresado, Util.GetPaisISO(paisID), string.Empty);
                 return Json(new
                 {
                     success = false,
                     message = "Error al procesar la solicitud"
                 });
-            }
-        }
-
-        private BEUsuarioCorreo DatosUsuarioCorreo(int paisId, string textoRecuperacion, int nroOpcion)
-        {
-            try
-            {
-                BEUsuarioCorreo oDatos = new BEUsuarioCorreo();
-                oDatos = GetTemData();
-
-                if (nroOpcion == 1 || oDatos.Cantidad == 0)
-                {
-                    using (var sv = new UsuarioServiceClient())
-                    {
-                        oDatos = sv.GetRestaurarClaveByCodUsuario(textoRecuperacion, paisId);
-                    }
-
-                    if (oDatos != null)
-                        SetTemData(oDatos, paisId);
-                }
-
-                if (oDatos.Cantidad != 0)
-                {
-                    oDatos.resultado = "";
-                    oDatos.EsMobile = EsDispositivoMovil();
-
-                    if (nroOpcion == 1)
-                    {
-                        if (oDatos.Correo != "" && oDatos.Celular != "")
-                            oDatos.resultado = "prioridad1";
-                        else if (oDatos.Correo != "" && oDatos.Celular == "")
-                            oDatos.resultado = "prioridad1_correo";
-                        else if (oDatos.Correo == "" && oDatos.Celular != "")
-                            oDatos.resultado = "prioridad1_sms";
-
-                        if (oDatos.resultado == "")
-                            nroOpcion = 2;
-                    }
-
-                    if (nroOpcion == 2)
-                    {
-                        BEHorario horarioChat;
-                        using (SACServiceClient sv = new SACServiceClient())
-                        {
-                            horarioChat = sv.GetHorarioByCodigo(paisId, Constantes.CodigoHorario.ChatEmtelco, true);
-                        }
-
-                        bool mostrarChat = false;
-                        bool habilitarChat = false;
-
-                        if (horarioChat != null)
-                        {
-                            string paisISO = Util.GetPaisISO(paisId);
-                            mostrarChat = (ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"] ?? "").Contains(paisISO);
-                            oDatos.descripcionHorario = horarioChat.Resumen;
-                            habilitarChat = horarioChat.EstaDisponible;
-                        }
-
-                        if (mostrarChat && habilitarChat)
-                            oDatos.resultado = "prioridad2_chat";
-
-                        if (oDatos.resultado == "")
-                            nroOpcion = 3;
-                    }
-
-                    if (nroOpcion == 3)
-                    {
-                        BEHorario horarioBResponde;
-                        bool habilitarBResponde = false;
-
-                        using (SACServiceClient sv = new SACServiceClient())
-                        {
-                            horarioBResponde = sv.GetHorarioByCodigo(paisId, Constantes.CodigoHorario.BelcorpResponde, true);
-                        }
-
-                        oDatos.descripcionHorario = horarioBResponde.Resumen;
-                        habilitarBResponde = horarioBResponde.EstaDisponible;
-
-                        if (habilitarBResponde)
-                        {
-                            switch (paisId)
-                            {
-                                case 2:
-                                    {
-                                        //BOLIVIA
-                                        oDatos.TelefonoCentral = "901-105678"; break;
-                                    };
-                                case 3:
-                                    {
-                                        //CHILE
-                                        oDatos.TelefonoCentral = "02-28762100"; break;
-                                    };
-                                case 4:
-                                    {
-                                        //COLOMBIA
-                                        oDatos.TelefonoCentral = "01-8000-9-37452,5948060"; break;
-                                    };
-                                case 5:
-                                    {
-                                        //COSTA RICA
-                                        oDatos.TelefonoCentral = "800-000-5235,22019601,22019602"; break;
-                                    };
-                                case 6:
-                                    {
-                                        //ECUADOR
-                                        oDatos.TelefonoCentral = "1800-76667"; break;
-                                    };
-                                case 7:
-                                    {
-                                        //EL SALVADOR
-                                        oDatos.TelefonoCentral = "800-37452-000,25101198,25101199"; break;
-                                    };
-                                case 8:
-                                    {
-                                        //GUATEMALA
-                                        oDatos.TelefonoCentral = "1-801-81-37452,22856185,23843795"; break;
-                                    };
-                                case 9:
-                                    {
-                                        //MEXICO
-                                        oDatos.TelefonoCentral = "01-800-2352677"; break;
-                                    };
-                                case 10:
-                                    {
-                                        //PANAMA
-                                        oDatos.TelefonoCentral = "800-5235,377-9399"; break;
-                                    };
-                                case 11:
-                                    {
-                                        //PERU
-                                        oDatos.TelefonoCentral = "01-2113614,080-11-3030"; break;
-                                    };
-                                case 12:
-                                    {
-                                        //PUERTO RICO
-                                        oDatos.TelefonoCentral = "1-866-366-3235,787-622-3235"; break;
-                                    };
-                                case 13:
-                                    {
-                                        //REPUBLICA DOMINICANA
-                                        oDatos.TelefonoCentral = "1-809-200-5235,809-620-5235"; break;
-                                    };
-                                case 14:
-                                    {
-                                        //VENEZUELA
-                                        oDatos.TelefonoCentral = "0501-2352677"; break;
-                                    };
-                            }
-
-                            if (oDatos.TelefonoCentral.Length > 0)
-                                oDatos.resultado = "prioridad2_llamada";
-                        }
-
-                        if (oDatos.resultado == "")
-                            nroOpcion = 4;
-                    }
-
-                    if (nroOpcion == 4)
-                        oDatos.resultado = "prioridad3";
-                }
-
-                return oDatos;
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, textoRecuperacion, Util.GetPaisISO(paisId));
-                return null;
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, textoRecuperacion, Util.GetPaisISO(paisId), string.Empty);
-                return null;
             }
         }
 
@@ -2973,231 +2795,237 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ProcesaEnvioCorreo(int EsMobile, int NroIntetos, int OrigenID)
         {
-            var oUsuCorreo = new BEUsuarioCorreo();
-            bool envioCorreo = false;
-            int PaisID = Convert.ToInt32(TempData["PaisID"]);
+            //var oUsuCorreo = new BEUsuarioCorreo();
+            //bool envioCorreo = false;
+            //int PaisID = Convert.ToInt32(TempData["PaisID"]);
 
-            try
-            {
-                oUsuCorreo.CodigoUsuario = Convert.ToString(TempData["CodigoUsuario"]);
-                oUsuCorreo.PrimerNombre = Convert.ToString(TempData["PrimerNombre"]);
-                oUsuCorreo.NombreCompleto = Convert.ToString(TempData["NombreCompleto"]);
-                oUsuCorreo.Correo = Convert.ToString(TempData["Email"]);
-                oUsuCorreo.Celular = Convert.ToString(TempData["Celular"]);
-                oUsuCorreo.tipoEnvio = Convert.ToInt32(TempData["TipoEnvio"]);
-                oUsuCorreo.CodigoISO = Util.GetPaisISO(PaisID);
-                oUsuCorreo.IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
+            //try
+            //{
+            //    oUsuCorreo.CodigoUsuario = Convert.ToString(TempData["CodigoUsuario"]);
+            //    oUsuCorreo.PrimerNombre = Convert.ToString(TempData["PrimerNombre"]);
+            //    oUsuCorreo.NombreCompleto = Convert.ToString(TempData["NombreCompleto"]);
+            //    oUsuCorreo.Correo = Convert.ToString(TempData["Email"]);
+            //    oUsuCorreo.Celular = Convert.ToString(TempData["Celular"]);
+            //    //oUsuCorreo.tipoEnvio = Convert.ToInt32(TempData["TipoEnvio"]);
+            //    //oUsuCorreo.CodigoISO = Util.GetPaisISO(PaisID);
+            //    //oUsuCorreo.IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
 
-                if (oUsuCorreo.Correo != "")
-                {
-                    oUsuCorreo.Cantidad = NroIntetos;
-                    oUsuCorreo.OrigenID = OrigenID;
-                    oUsuCorreo.EsMobile = Convert.ToBoolean(EsMobile);
+            //    if (oUsuCorreo.Correo != "")
+            //    {
+            //        oUsuCorreo.Cantidad = NroIntetos;
+            //        oUsuCorreo.OrigenID = OrigenID;
+            //        oUsuCorreo.EsMobile = Convert.ToBoolean(EsMobile);
 
-                    using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                    {
-                        envioCorreo = sv.EnviarEmail(PaisID, oUsuCorreo);
-                    }
+            //        using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            //        {
+            //            envioCorreo = sv.EnviarEmail(PaisID, oUsuCorreo);
+            //        }
 
-                    SetTemData(oUsuCorreo, PaisID);
-                    TempData["TipoEnvio"] = Constantes.EnviarCorreoYSms.EnviarPorEmail;
+            //        SetTemData(oUsuCorreo, PaisID);
+            //        TempData["TipoEnvio"] = Constantes.EnviarCorreoYSms.EnviarPorEmail;
 
-                    if (envioCorreo)
-                        return SuccessJson("", true);
-                    else
-                        return SuccessJson(MensajesOlvideContrasena("6"), false);
-                }
-                else
-                {
-                    return SuccessJson(MensajesOlvideContrasena("3"), true);
-                }
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, oUsuCorreo.Correo, Util.GetPaisISO(PaisID));
-                return ErrorJson(Constantes.MensajesError.RecuperarContrasenia, true);
-            }
+            //        if (envioCorreo)
+            //            return SuccessJson("", true);
+            //        else
+            //            return SuccessJson(MensajesOlvideContrasena("6"), false);
+            //    }
+            //    else
+            //    {
+            //        return SuccessJson(MensajesOlvideContrasena("3"), true);
+            //    }
+            //}
+            //catch (FaultException ex)
+            //{
+            //    LogManager.LogManager.LogErrorWebServicesPortal(ex, oUsuCorreo.Correo, Util.GetPaisISO(PaisID));
+            //    return ErrorJson(Constantes.MensajesError.RecuperarContrasenia, true);
+            //}
+
+            return null;
         }
 
         [AllowAnonymous]
         [HttpPost]
         public JsonResult ProcesaEnvioSms(int NroIntetos, int OrigenID)
         {
-            var oUsuCorreo = new BEUsuarioCorreo();
-            bool EnvioSms = false;
+            //var oUsuCorreo = new BEUsuarioCorreo();
+            //bool EnvioSms = false;
 
-            try
-            {
-                int PaisID = Convert.ToInt32(TempData["PaisID"]);
-                bool EsMobile = EsDispositivoMovil();
+            //try
+            //{
+            //    int PaisID = Convert.ToInt32(TempData["PaisID"]);
+            //    bool EsMobile = EsDispositivoMovil();
 
-                if (PaisID != 0 && Convert.ToString(TempData["Celular"]) != "")
-                {
+            //    if (PaisID != 0 && Convert.ToString(TempData["Celular"]) != "")
+            //    {
 
-                    oUsuCorreo.CodigoUsuario = Convert.ToString(TempData["CodigoUsuario"]);
-                    oUsuCorreo.PrimerNombre = Convert.ToString(TempData["PrimerNombre"]);
-                    oUsuCorreo.NombreCompleto = Convert.ToString(TempData["NombreCompleto"]);
-                    oUsuCorreo.Correo = Convert.ToString(TempData["Email"]);
-                    oUsuCorreo.Celular = Convert.ToString(TempData["Celular"]);
-                    oUsuCorreo.tipoEnvio = Convert.ToInt32(TempData["TipoEnvio"]);
-                    oUsuCorreo.CodigoISO = Util.GetPaisISO(PaisID);
-                    oUsuCorreo.IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
+            //        oUsuCorreo.CodigoUsuario = Convert.ToString(TempData["CodigoUsuario"]);
+            //        oUsuCorreo.PrimerNombre = Convert.ToString(TempData["PrimerNombre"]);
+            //        oUsuCorreo.NombreCompleto = Convert.ToString(TempData["NombreCompleto"]);
+            //        oUsuCorreo.Correo = Convert.ToString(TempData["Email"]);
+            //        oUsuCorreo.Celular = Convert.ToString(TempData["Celular"]);
+            //        oUsuCorreo.tipoEnvio = Convert.ToInt32(TempData["TipoEnvio"]);
+            //        oUsuCorreo.CodigoISO = Util.GetPaisISO(PaisID);
+            //        oUsuCorreo.IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
 
-                    var urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
-                    string requestUrl = "Api/EnviarSMS";
+            //        var urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
+            //        string requestUrl = "Api/EnviarSMS";
 
-                    oUsuCorreo.opcionHabilitar = true;
-                    if (NroIntetos >= 2)
-                        oUsuCorreo.opcionHabilitar = false;
+            //        oUsuCorreo.opcionHabilitar = true;
+            //        if (NroIntetos >= 2)
+            //            oUsuCorreo.opcionHabilitar = false;
 
-                    var data = new
-                    {
-                        CodigoUsuario = oUsuCorreo.CodigoUsuario,
-                        nroCelular = oUsuCorreo.Celular,
-                        OrigenID = OrigenID,
-                        CodigoIso = oUsuCorreo.CodigoISO,
-                        CampaniaID = 0, //Si no requiere campaña solo se envia Cero.
-                        IdEstadoActividad = oUsuCorreo.IdEstadoActividad,
-                        OpcionHabilitada = oUsuCorreo.opcionHabilitar,
-                        EsMobile = EsMobile
-                    };
+            //        var data = new
+            //        {
+            //            CodigoUsuario = oUsuCorreo.CodigoUsuario,
+            //            nroCelular = oUsuCorreo.Celular,
+            //            OrigenID = OrigenID,
+            //            CodigoIso = oUsuCorreo.CodigoISO,
+            //            CampaniaID = 0, //Si no requiere campaña solo se envia Cero.
+            //            IdEstadoActividad = oUsuCorreo.IdEstadoActividad,
+            //            OpcionHabilitada = oUsuCorreo.opcionHabilitar,
+            //            EsMobile = EsMobile
+            //        };
 
-                    HttpClient httpClient = new HttpClient();
-                    httpClient.BaseAddress = new Uri(urlApi);
-                    httpClient.DefaultRequestHeaders.Accept.Clear();
-                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //        HttpClient httpClient = new HttpClient();
+            //        httpClient.BaseAddress = new Uri(urlApi);
+            //        httpClient.DefaultRequestHeaders.Accept.Clear();
+            //        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    string dataString = JsonConvert.SerializeObject(data);
-                    HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = httpClient.PostAsync(requestUrl, contentPost).GetAwaiter().GetResult();
-                    EnvioSms = response.IsSuccessStatusCode;
-                    httpClient.Dispose();
+            //        string dataString = JsonConvert.SerializeObject(data);
+            //        HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+            //        HttpResponseMessage response = httpClient.PostAsync(requestUrl, contentPost).GetAwaiter().GetResult();
+            //        EnvioSms = response.IsSuccessStatusCode;
+            //        httpClient.Dispose();
 
-                    SetTemData(oUsuCorreo, PaisID);
-                    TempData["TipoEnvio"] = Constantes.EnviarCorreoYSms.EnviarPorSms;
-                }
+            //        SetTemData(oUsuCorreo, PaisID);
+            //        TempData["TipoEnvio"] = Constantes.EnviarCorreoYSms.EnviarPorSms;
+            //    }
 
-                if (EnvioSms)
-                    return SuccessJson(MensajesOlvideContrasena(""), EnvioSms);
-                else
-                    return SuccessJson(MensajesOlvideContrasena("6"), EnvioSms);
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, oUsuCorreo.CodigoUsuario, oUsuCorreo.CodigoISO);
-                return SuccessJson(MensajesOlvideContrasena("6"), false);
-            }
+            //    if (EnvioSms)
+            //        return SuccessJson(MensajesOlvideContrasena(""), EnvioSms);
+            //    else
+            //        return SuccessJson(MensajesOlvideContrasena("6"), EnvioSms);
+            //}
+            //catch (FaultException ex)
+            //{
+            //    LogManager.LogManager.LogErrorWebServicesPortal(ex, oUsuCorreo.CodigoUsuario, oUsuCorreo.CodigoISO);
+            //    return SuccessJson(MensajesOlvideContrasena("6"), false);
+            //}
+
+            return null;
         }
 
         [AllowAnonymous]
         [HttpPost]
         public async Task<JsonResult> ObtenerCodigoGenerado(int OrigenID, string Codigoingresado)
         {
-            var oUsuCorreo = new BEUsuarioCorreo();
-            int paisID = 0;
+            //var oUsuCorreo = new BEUsuarioCorreo();
+            //int paisID = 0;
 
-            try
-            {
-                string iguales = "";
-                string newUri = "";
-                bool igual = false;
-                
-                oUsuCorreo.OrigenID = OrigenID;
-                paisID = Convert.ToInt32(TempData["PaisID"]);
+            //try
+            //{
+            //    string iguales = "";
+            //    string newUri = "";
+            //    bool igual = false;
 
-                oUsuCorreo.CodigoUsuario = Convert.ToString(TempData["CodigoUsuario"]);
-                oUsuCorreo.PrimerNombre = Convert.ToString(TempData["PrimerNombre"]);
-                oUsuCorreo.NombreCompleto = Convert.ToString(TempData["NombreCompleto"]);
-                oUsuCorreo.Correo = Convert.ToString(TempData["Email"]);
-                oUsuCorreo.Celular = Convert.ToString(TempData["Celular"]);
-                oUsuCorreo.tipoEnvio = Convert.ToInt32(TempData["TipoEnvio"]);
-                oUsuCorreo.CodigoISO = Util.GetPaisISO(paisID);
-                oUsuCorreo.IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
+            //    oUsuCorreo.OrigenID = OrigenID;
+            //    paisID = Convert.ToInt32(TempData["PaisID"]);
 
-                using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                {
-                    iguales = sv.GetCodigoGenerado(paisID, oUsuCorreo, Codigoingresado);
-                }
+            //    oUsuCorreo.CodigoUsuario = Convert.ToString(TempData["CodigoUsuario"]);
+            //    oUsuCorreo.PrimerNombre = Convert.ToString(TempData["PrimerNombre"]);
+            //    oUsuCorreo.NombreCompleto = Convert.ToString(TempData["NombreCompleto"]);
+            //    oUsuCorreo.Correo = Convert.ToString(TempData["Email"]);
+            //    oUsuCorreo.Celular = Convert.ToString(TempData["Celular"]);
+            //    oUsuCorreo.tipoEnvio = Convert.ToInt32(TempData["TipoEnvio"]);
+            //    oUsuCorreo.CodigoISO = Util.GetPaisISO(paisID);
+            //    oUsuCorreo.IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
 
-                if (iguales == "1")
-                {
-                    igual = true;
+            //    using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            //    {
+            //        iguales = sv.GetCodigoGenerado(paisID, oUsuCorreo, Codigoingresado);
+            //    }
 
-                    switch (OrigenID)
-                    {
-                        case 1:
-                            {
-                                string urlportal = oUsuCorreo.ContextoBase;
-                                DateTime diasolicitud = DateTime.Now;
-                                string fechasolicitud = diasolicitud.ToString("d/M/yyyy HH:mm:ss");
-                                string paisiso = oUsuCorreo.CodigoISO;
-                                string codigousuario = oUsuCorreo.CodigoUsuario;
-                                string nombre = oUsuCorreo.NombreCompleto.Trim().Split(' ').First();
-                                newUri = Convert.ToString(Portal.Consultoras.Common.Util.GetUrlRecuperarContrasenia(urlportal, paisID, oUsuCorreo.CodigoUsuario, paisiso, codigousuario, fechasolicitud, nombre));
-                            }
-                            break;
+            //    if (iguales == "1")
+            //    {
+            //        igual = true;
 
-                        case 2:
-                            {
-                                TempData["FlagPin"] = true;
-                                return await Redireccionar(paisID, oUsuCorreo.CodigoUsuario);
-                            };
-                    }
-                }
+            //        switch (OrigenID)
+            //        {
+            //            case 1:
+            //                {
+            //                    string urlportal = oUsuCorreo.ContextoBase;
+            //                    DateTime diasolicitud = DateTime.Now;
+            //                    string fechasolicitud = diasolicitud.ToString("d/M/yyyy HH:mm:ss");
+            //                    string paisiso = oUsuCorreo.CodigoISO;
+            //                    string codigousuario = oUsuCorreo.CodigoUsuario;
+            //                    string nombre = oUsuCorreo.NombreCompleto.Trim().Split(' ').First();
+            //                    newUri = Convert.ToString(Portal.Consultoras.Common.Util.GetUrlRecuperarContrasenia(urlportal, paisID, oUsuCorreo.CodigoUsuario, paisiso, codigousuario, fechasolicitud, nombre));
+            //                }
+            //                break;
 
-                SetTemData(oUsuCorreo, paisID);
+            //            case 2:
+            //                {
+            //                    TempData["FlagPin"] = true;
+            //                    return await Redireccionar(paisID, oUsuCorreo.CodigoUsuario);
+            //                };
+            //        }
+            //    }
 
-                return Json(new
-                {
-                    success = igual,
-                    origen = OrigenID,
-                    redirectTo = newUri,
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, oUsuCorreo.CodigoUsuario, Util.GetPaisISO(paisID));
-                return Json(new
-                {
-                    success = false,
-                    message = "Error al verificar el codigo ingresado."
-                });
-            }
+            //    SetTemData(oUsuCorreo, paisID);
+
+            //    return Json(new
+            //    {
+            //        success = igual,
+            //        origen = OrigenID,
+            //        redirectTo = newUri,
+            //    }, JsonRequestBehavior.AllowGet);
+            //}
+            //catch (FaultException ex)
+            //{
+            //    LogManager.LogManager.LogErrorWebServicesPortal(ex, oUsuCorreo.CodigoUsuario, Util.GetPaisISO(paisID));
+            //    return Json(new
+            //    {
+            //        success = false,
+            //        message = "Error al verificar el codigo ingresado."
+            //    });
+            //}
+
+            return null;
         }
 
         private void SetTemData(BEUsuarioCorreo oUsuCorreo, int PaisID)
         {
-            TempData["PaisID"] = PaisID;
+            //TempData["PaisID"] = PaisID;
 
-            TempData["CodigoISO"] = oUsuCorreo.CodigoISO;
-            TempData["CodigoUsuario"] = oUsuCorreo.CodigoUsuario;
-            TempData["PrimerNombre"] = oUsuCorreo.PrimerNombre;
-            TempData["NombreCompleto"] = oUsuCorreo.NombreCompleto;
-            TempData["IdEstadoActividad"] = oUsuCorreo.IdEstadoActividad;
-            TempData["Email"] = oUsuCorreo.Correo;
-            TempData["Celular"] = oUsuCorreo.Celular;
-            TempData["OpcionCorreoActiva"] = oUsuCorreo.OpcionCorreoActiva;
-            TempData["OpcionSmsActiva"] = oUsuCorreo.OpcionSmsActiva;
-            TempData["HoraRestanteCorreo"] = oUsuCorreo.HoraRestanteCorreo;
-            TempData["HoraRestanteSms"] = oUsuCorreo.HoraRestanteSms;
-            TempData["Cantidad"] = oUsuCorreo.Cantidad;
+            //TempData["CodigoISO"] = oUsuCorreo.CodigoISO;
+            //TempData["CodigoUsuario"] = oUsuCorreo.CodigoUsuario;
+            //TempData["PrimerNombre"] = oUsuCorreo.PrimerNombre;
+            //TempData["NombreCompleto"] = oUsuCorreo.NombreCompleto;
+            //TempData["IdEstadoActividad"] = oUsuCorreo.IdEstadoActividad;
+            //TempData["Email"] = oUsuCorreo.Correo;
+            //TempData["Celular"] = oUsuCorreo.Celular;
+            //TempData["OpcionCorreoActiva"] = oUsuCorreo.OpcionCorreoActiva;
+            //TempData["OpcionSmsActiva"] = oUsuCorreo.OpcionSmsActiva;
+            //TempData["HoraRestanteCorreo"] = oUsuCorreo.HoraRestanteCorreo;
+            //TempData["HoraRestanteSms"] = oUsuCorreo.HoraRestanteSms;
+            //TempData["Cantidad"] = oUsuCorreo.Cantidad;
         }
 
         private BEUsuarioCorreo GetTemData()
         {
             var oUsuCorreo = new BEUsuarioCorreo();
-            oUsuCorreo.CodigoUsuario = Convert.ToString(TempData["CodigoUsuario"]);
-            oUsuCorreo.CodigoISO = Convert.ToString(TempData["CodigoISO"]);
-            oUsuCorreo.PrimerNombre = Convert.ToString(TempData["PrimerNombre"]);
-            oUsuCorreo.NombreCompleto = Convert.ToString(TempData["NombreCompleto"]);
-            oUsuCorreo.IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
-            oUsuCorreo.Correo = Convert.ToString(TempData["Email"]);
-            oUsuCorreo.Celular = Convert.ToString(TempData["Celular"]);
-            oUsuCorreo.OpcionCorreoActiva = Convert.ToString(TempData["OpcionCorreoActiva"]);
-            oUsuCorreo.OpcionSmsActiva = Convert.ToString(TempData["OpcionSmsActiva"]);
-            oUsuCorreo.HoraRestanteCorreo = Convert.ToInt32(TempData["HoraRestanteCorreo"]);
-            oUsuCorreo.HoraRestanteSms = Convert.ToInt32(TempData["HoraRestanteSms"]);
-            oUsuCorreo.Cantidad = Convert.ToInt32(TempData["Cantidad"]);
+            //oUsuCorreo.CodigoUsuario = Convert.ToString(TempData["CodigoUsuario"]);
+            //oUsuCorreo.CodigoISO = Convert.ToString(TempData["CodigoISO"]);
+            //oUsuCorreo.PrimerNombre = Convert.ToString(TempData["PrimerNombre"]);
+            //oUsuCorreo.NombreCompleto = Convert.ToString(TempData["NombreCompleto"]);
+            //oUsuCorreo.IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
+            //oUsuCorreo.Correo = Convert.ToString(TempData["Email"]);
+            //oUsuCorreo.Celular = Convert.ToString(TempData["Celular"]);
+            //oUsuCorreo.OpcionCorreoActiva = Convert.ToString(TempData["OpcionCorreoActiva"]);
+            //oUsuCorreo.OpcionSmsActiva = Convert.ToString(TempData["OpcionSmsActiva"]);
+            //oUsuCorreo.HoraRestanteCorreo = Convert.ToInt32(TempData["HoraRestanteCorreo"]);
+            //oUsuCorreo.HoraRestanteSms = Convert.ToInt32(TempData["HoraRestanteSms"]);
+            //oUsuCorreo.Cantidad = Convert.ToInt32(TempData["Cantidad"]);
 
             return oUsuCorreo;
         }

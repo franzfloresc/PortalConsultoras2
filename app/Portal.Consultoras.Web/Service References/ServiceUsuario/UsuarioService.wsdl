@@ -31,7 +31,8 @@
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
-      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
+      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IUsuarioService_UpdateUsuarioEmailTelefono_InputMessage">
@@ -214,11 +215,11 @@
   <wsdl:message name="IUsuarioService_RecuperarContrasenia_OutputMessage">
     <wsdl:part name="parameters" element="tns:RecuperarContraseniaResponse" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetRestaurarClaveByCodUsuario_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetRestaurarClaveByCodUsuario" />
+  <wsdl:message name="IUsuarioService_GetRestaurarClaveByValor_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRestaurarClaveByValor" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetRestaurarClaveByCodUsuario_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetRestaurarClaveByCodUsuarioResponse" />
+  <wsdl:message name="IUsuarioService_GetRestaurarClaveByValor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRestaurarClaveByValorResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_EnviarEmail_InputMessage">
     <wsdl:part name="parameters" element="tns:EnviarEmail" />
@@ -881,9 +882,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/RecuperarContrasenia" message="tns:IUsuarioService_RecuperarContrasenia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/RecuperarContraseniaResponse" message="tns:IUsuarioService_RecuperarContrasenia_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetRestaurarClaveByCodUsuario">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetRestaurarClaveByCodUsuario" message="tns:IUsuarioService_GetRestaurarClaveByCodUsuario_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetRestaurarClaveByCodUsuarioResponse" message="tns:IUsuarioService_GetRestaurarClaveByCodUsuario_OutputMessage" />
+    <wsdl:operation name="GetRestaurarClaveByValor">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetRestaurarClaveByValor" message="tns:IUsuarioService_GetRestaurarClaveByValor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetRestaurarClaveByValorResponse" message="tns:IUsuarioService_GetRestaurarClaveByValor_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="EnviarEmail">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/EnviarEmail" message="tns:IUsuarioService_EnviarEmail_InputMessage" />
@@ -1518,8 +1519,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetRestaurarClaveByCodUsuario">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetRestaurarClaveByCodUsuario" style="document" />
+    <wsdl:operation name="GetRestaurarClaveByValor">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetRestaurarClaveByValor" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2611,8 +2612,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetRestaurarClaveByCodUsuario">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetRestaurarClaveByCodUsuario" style="document" />
+    <wsdl:operation name="GetRestaurarClaveByValor">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetRestaurarClaveByValor" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

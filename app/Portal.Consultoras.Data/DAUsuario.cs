@@ -798,26 +798,28 @@ namespace Portal.Consultoras.Data
 
         public int InsCodigoGenerado(BEUsuarioCorreo oUsuCorreo)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsCodigoGenerado");
-            Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsuCorreo.OrigenID);
-            Context.Database.AddInParameter(command, "@TipoEnvio", DbType.Int32, oUsuCorreo.tipoEnvio);
-            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsuCorreo.CodigoUsuario);
-            Context.Database.AddInParameter(command, "@CodigoGenerado", DbType.AnsiString, oUsuCorreo.codigoGenerado);
-            Context.Database.AddInParameter(command, "@EsMobile", DbType.Boolean, oUsuCorreo.EsMobile);
-            Context.Database.AddInParameter(command, "@OpcionHabilitada", DbType.Boolean, oUsuCorreo.opcionHabilitar);
+            //DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsCodigoGenerado");
+            //Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsuCorreo.OrigenID);
+            //Context.Database.AddInParameter(command, "@TipoEnvio", DbType.Int32, oUsuCorreo.tipoEnvio);
+            //Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsuCorreo.CodigoUsuario);
+            //Context.Database.AddInParameter(command, "@CodigoGenerado", DbType.AnsiString, oUsuCorreo.codigoGenerado);
+            //Context.Database.AddInParameter(command, "@EsMobile", DbType.Boolean, oUsuCorreo.EsMobile);
+            //Context.Database.AddInParameter(command, "@OpcionHabilitada", DbType.Boolean, oUsuCorreo.opcionHabilitar);
 
-            return Context.ExecuteNonQuery(command);
+            //return Context.ExecuteNonQuery(command);
+            return 1;
         }
 
         public string GetCodigoGenerado(BEUsuarioCorreo oUsuCorreo, string CodIngresado)
         {
-            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.GetCodigoGenerado"); ;
-            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsuCorreo.CodigoUsuario);
-            Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsuCorreo.OrigenID);
-            Context.Database.AddInParameter(command, "@TipoEnvio", DbType.AnsiString, oUsuCorreo.tipoEnvio);
-            Context.Database.AddInParameter(command, "@CodigoIngresado", DbType.AnsiString, CodIngresado);
+            //DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.GetCodigoGenerado"); ;
+            //Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsuCorreo.CodigoUsuario);
+            //Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsuCorreo.OrigenID);
+            //Context.Database.AddInParameter(command, "@TipoEnvio", DbType.AnsiString, oUsuCorreo.tipoEnvio);
+            //Context.Database.AddInParameter(command, "@CodigoIngresado", DbType.AnsiString, CodIngresado);
 
-            return Convert.ToString(Context.ExecuteScalar(command));
+            //return Convert.ToString(Context.ExecuteScalar(command));
+            return "";
         }
 
         public IDataReader GetOpcionHabilitada(string CodigoUsuario, int OrigenID)

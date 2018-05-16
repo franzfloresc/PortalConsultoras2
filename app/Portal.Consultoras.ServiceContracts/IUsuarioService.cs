@@ -353,7 +353,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region Restaurar Contraseña
         [OperationContract]
-        BEUsuarioCorreo GetRestaurarClaveByCodUsuario(string ValorRestauracion, int PaisID);
+        BEUsuarioCorreo GetRestaurarClaveByValor(int paisID, string valorIngresado, int prioridad);
 
         [OperationContract]
         bool EnviarEmail(int paisID, BEUsuarioCorreo objEmail);

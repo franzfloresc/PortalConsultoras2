@@ -805,16 +805,16 @@ namespace Portal.Consultoras.Service
         }
 
         #region Restaurar Contraseña
-        public BEUsuarioCorreo GetRestaurarClaveByCodUsuario(string ValorRestauracion, int PaisID)
+        public BEUsuarioCorreo GetRestaurarClaveByValor(int paisID, string valorIngresado, int prioridad)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.GetRestaurarClaveByCodUsuario(ValorRestauracion, PaisID);
+            return BLUsuario.GetRestaurarClaveByValor(paisID, valorIngresado, prioridad);
         }
 
         public bool EnviarEmail(int paisID, BEUsuarioCorreo objEmail)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.EnviarEmail(paisID, objEmail);
+            return BLUsuario.ProcesoEnvioEmail(paisID, objEmail);
         }
         #endregion
 

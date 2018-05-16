@@ -212,7 +212,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.Valor, f => f.MapFrom(c => c.Valor))
                 .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
 
-            Mapper.CreateMap<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>();
+            Mapper.CreateMap<ServicePedido.BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>();
 
             Mapper.CreateMap<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>()
                 .ForMember(t => t.CodigoNivel, f => f.MapFrom(c => c.CodigoNivel))

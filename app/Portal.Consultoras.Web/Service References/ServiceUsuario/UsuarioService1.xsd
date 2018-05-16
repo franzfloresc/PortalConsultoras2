@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
-  <xs:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:element name="UpdateUsuarioEmailTelefono">
     <xs:complexType>
       <xs:sequence>
@@ -461,18 +461,19 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetRestaurarClaveByCodUsuario">
+  <xs:element name="GetRestaurarClaveByValor">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="ValorRestauracion" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="valorIngresado" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="prioridad" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetRestaurarClaveByCodUsuarioResponse">
+  <xs:element name="GetRestaurarClaveByValorResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetRestaurarClaveByCodUsuarioResult" nillable="true" type="q28:BEUsuarioCorreo" />
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetRestaurarClaveByValorResult" nillable="true" type="q28:BEUsuarioCorreo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

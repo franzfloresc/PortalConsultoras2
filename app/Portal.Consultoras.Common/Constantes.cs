@@ -1645,11 +1645,6 @@ namespace Portal.Consultoras.Common
             public const string CalculoPuntos = "X;K";
             public const string CalculoProgramaNuevas = "P";
         }
-        public struct CodigoHorario
-        {
-            public const string ChatEmtelco = "ChatEmtelco";
-            public const string BelcorpResponde = "BelcorpResponde";
-        }
 
         public static class ComunicadoTipoDispositivo
         {
@@ -2006,6 +2001,43 @@ namespace Portal.Consultoras.Common
             public const string ReemplazoCuv = "{remCuv}";
             public const string ReemplazoDesc = "{remDes}";
             public const string Stock = "{stock}";
+        }
+
+        #region OlvideContraseña
+        public class OlvideContraseña
+        {
+            public class Activacion
+            {
+                public const short TablaLogicaID = 8;
+                public const int MostarTodasOpciones = 800;
+                public const int PaisesEmail = 801;
+                public const int PaisesSms = 802;
+                public const int PaisesChat = 803;
+                public const int PaisesBelcorpResponde = 804;
+            }
+
+            public class NombreOpcion
+            {
+                public const int MostrarEmailyCelular = 1;
+                public const int MostrarEmail = 2;
+                public const int MostrarCelular = 3;
+                public const int MostrarChat = 4;
+                public const int MostrarBelcorpResponde = 5;
+                public const int MostrarMensajeFueraHorario = 6;
+
+            }
+
+            public class Codigo
+            {
+                public const int CodigoOrigen = 1;
+            }
+        }
+        #endregion
+
+        public class CodigoOpciones
+        {
+            public const string ChatEmtelco = "ChatEmtelco";
+            public const string BelcorpResponde = "BelcorpResponde";
         }
 
         #region Pin Autenticidad

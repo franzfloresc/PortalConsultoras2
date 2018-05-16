@@ -1105,47 +1105,42 @@ function Fondofestivo(id) {
 }
 
 function RecuperarContrasenia() {
+    debugger
     if (indicadorPin == 0) {
         PaisID = $("#cboPaisCambioClave").val();
         if (PaisID == '0') {
         alert("Debe seleccionar un pais.");
         return false;
-    }
+        }
 
         var nombreDato = $(".cboPaisCambioClave option:selected").attr("data-campoclave");
         CodigoUsuario = $("#txtCorreoElectronico").val();
         if (CodigoUsuario == "") {
         alert("Debe ingresar " + nombreDato)
         return false;
-    }       
-    }  
-
+        }       
+    }
     waitingDialog();
 
     jQuery.ajax({
         type: 'POST',
-        url: urlObtenerDatosUsuario,
+        url: urlGetRestaurarClave,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify({ paisId: PaisID, textoRecuperacion: CodigoUsuario, nroOpcion: tipoOpcion}),
+        data: JSON.stringify({ paisID: PaisID, valorIngresado: CodigoUsuario, prioridad: tipoOpcion}),
         async: true,
         success: function (response) { 
             if (response.success) {
-                
-                var datos = response.data;
-                
-                if (datos.resultado == "") {
+                if (response.data == null) {
                     alert(nombreDato + " Incorrectas.")
                     return false;
-                }   
-
+                }                
+                var datos = response.data;
                 if (indicadorPin == 0)
                     origen = 1;
 
                 OcultarContenidoPopup();
                 
-                var nroCelular = $.trim(datos.Celular);
-                var email = $.trim(datos.Correo);
                 var primerNombre = $.trim(datos.PrimerNombre) + ", ";
 
                 var tituloPopup = "CAMBIO DE <b>CONTRASEÑA</b>"
@@ -1155,18 +1150,13 @@ function RecuperarContrasenia() {
 
                 $("#spnNombreConsultora").append(nomConsultora);
 
-                var e_correo = "";
-                var e_numero = "";
-                correoRecuperar = Enmascarar_Correo(email);
-
-                //$("#hd_CONTEXTO_BASE").val(response.data.ContextoBase);
                 $("#linkvolverInicio").hide();  
                 $("#vermasopciones1").hide();
 
                 $(".MenCorreoEnviado_Pin").hide()
                 $(".pMenCorreoEnviado_RC").show();
 
-                if (email != "")
+                if (datos.Correo != "")
                 {
                     if (datos.OpcionCorreoActiva == "0") {
 
@@ -1177,7 +1167,7 @@ function RecuperarContrasenia() {
                     }
                 }
 
-                if (nroCelular != "")
+                if (datos.Celular != "")
                 {
                     if (datos.OpcionSmsActiva == "0") {
 
@@ -1188,16 +1178,14 @@ function RecuperarContrasenia() {
                     }
                 }                
                 
-                switch (datos.resultado)
+                switch (datos.MostrarOpcion)
                 {
-                    case "prioridad1":
+                    case 1:
                         {
-                            e_correo = Enmascarar_Correo(email);
-                            $(".EmailEmascarado").html(e_correo);
-                            $("#spcorreo").html(e_correo);
+                            $(".EmailEmascarado").html(datos.CorreoEnmascarado);
+                            $("#spcorreo").html(datos.CorreoEnmascarado);
 
-                            e_numero = Enmascarar_Numero(nroCelular);
-                            $(".NumCelularDestino").html(e_numero);
+                            $(".NumCelularDestino").html(datos.CelularEnmascarado);
 
                             $("#vermasopciones1").attr("data-recuperar", "2");
 
@@ -1208,11 +1196,10 @@ function RecuperarContrasenia() {
                             $("#prioridad1").show();
                         } break;
 
-                    case "prioridad1_correo":
+                    case 2:
                         {
-                            e_correo = Enmascarar_Correo(email);
-                            $("#spcorreo").html(e_correo);
-                            $(".EmailEmascarado").html(e_correo);
+                            $("#spcorreo").html(datos.CorreoEnmascarado);
+                            $(".EmailEmascarado").html(datos.CorreoEnmascarado);
                             $("#vermasopciones1").attr("data-recuperar", "2");
 
                             if ($("#prioridad1_correo").hasClass("deshabilitar_opcion_correo"))
@@ -1222,10 +1209,9 @@ function RecuperarContrasenia() {
                             $("#prioridad1_correo").show();
                         } break;
 
-                    case "prioridad1_sms":
+                    case 3:
                         {
-                            e_numero = Enmascarar_Numero(nroCelular);
-                            $(".NumCelularDestino").html(e_numero);
+                            $(".NumCelularDestino").html(datos.CelularEnmascarado);
                             $("#vermasopciones1").attr("data-recuperar", "2");
 
                             if ($("#prioridad1_sms").hasClass("deshabilitar_opcion_correo"))
@@ -1235,7 +1221,7 @@ function RecuperarContrasenia() {
                             $("#prioridad1_sms").show();                           
                         } break;
 
-                    case "prioridad2_chat":
+                    case 4:
                         {                            
                             //set variables nuevo chat
                             emt_client_type = datos.TipoUsuario;
@@ -1245,8 +1231,7 @@ function RecuperarContrasenia() {
                             emt_id = datos.CodigoUsuario;
                             emt_type = '1';
                             //fin set variables nuevo chat
-
-                            //v_IsMovilDevice = $(".lk_chat").attr("ismovildevice");                            
+                        
                             $("#hdCodigoConsultora").val(datos.CodigoUsuario);
                             $("#divHoraiosAtencion").html(datos.descripcionHorario);
 
@@ -1256,10 +1241,10 @@ function RecuperarContrasenia() {
                             $("#prioridad2_chat").show();
                         } break;                        
 
-                    case "prioridad2_llamada":
+                    case 5:
                         {                                    
                             var paisId = PaisID;
-                            if (datos.EsMobile) {
+                            if (response.esMobile) {
 
                                 $(".fonoMobile").remove();
                                 var htmlFono = "<a class='central_telefonica fonoMobile' href='tel:#CELULAR#' onclick='return (navigator.userAgent.match(/Android|iPhone|iPad|iPod|Mobile/i))!=null;'>";
@@ -1317,7 +1302,7 @@ function RecuperarContrasenia() {
                             }                            
                         } break;
 
-                    case "prioridad3":
+                    case 6:
                         {
                             if (indicadorPin == 1) {
                                 var tituloPopup = "VERIFICACIÓN DE <b>AUTENTICIDAD</b>"
