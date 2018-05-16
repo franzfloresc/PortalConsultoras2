@@ -355,7 +355,7 @@
                         {{#iff detalle.IndicadorMontoMinimo '==' 0}}
                         <span class="texto_rojo">*</span>
                         {{/iff}}
-                        <span id="DescripcionProducto_{{detalle.PedidoDetalleID}}">{{Split detalle.DescripcionProd '|' 0}}</span>
+                        <span">{{Split detalle.DescripcionProd '|' 0}}</span>
                     </span>
                     {{#iff detalle.EsKitNueva '==' false}}
                     <span class="nom_cliente">Cliente: {{detalle.Nombre}}</span>
@@ -377,65 +377,49 @@
                 {{else}}
                 
                 <div class="icono_eliminar_item_pedido">
-                    <a href="javascript:;" title="Eliminar" onclick="EliminarPedidoEvento(event)" data-pedidodetalleid="{{detalle.PedidoDetalleID}}">
+                    <a href="javascript:;" title="Eliminar" onclick="EliminarPedidoEvento(event)" data-pedidodetalleid="{{detalle.PedidoDetalleID}}" data-setid="{{detalle.SetID}}">
                         <img src="@Url.Content("~/Content/Images/Esika/tacho-copy.png")" alt="Eliminar" />
                     </a>
                 </div>
                 
                 {{/if}}
-            </div>
-            <div style="display: none;">
-                <input type="hidden" id="PrecioUnidad_{{detalle.PedidoDetalleID}}" name="PrecioUnidad_{{detalle.PedidoDetalleID}}" value="{{detalle.PrecioUnidad}}">
-                <input type="hidden" id="ClienteID_{{detalle.PedidoDetalleID}}" name="ClienteID_{{detalle.PedidoDetalleID}}" value="{{detalle.ClienteID}}">
-                <input type="hidden" id="ClienteNombre_{{detalle.PedidoDetalleID}}" name="ClienteNombre_{{detalle.PedidoDetalleID}}" value="{{detalle.Nombre}}">
-                <input type="hidden" id="CantidadTemporal_{{detalle.PedidoDetalleID}}" name="CantidadTemporal_{{detalle.PedidoDetalleID}}" value="{{detalle.Cantidad}}">
-
-                <input type="hidden" id="CampaniaID_{{detalle.PedidoDetalleID}}" name="CampaniaID_{{detalle.PedidoDetalleID}}" value="{{detalle.CampaniaID}}">
-                <input type="hidden" id="PedidoID_{{detalle.PedidoDetalleID}}" name="PedidoID_{{detalle.PedidoDetalleID}}" value="{{detalle.PedidoID}}">
-                <input type="hidden" id="TipoOfertaSisID_{{detalle.PedidoDetalleID}}" name="TipoOfertaSisID_{{detalle.PedidoDetalleID}}" value="{{detalle.TipoOfertaSisID}}">
-                <input type="hidden" id="CUV_{{detalle.PedidoDetalleID}}" name="CUV_{{detalle.PedidoDetalleID}}" value="{{detalle.CUV}}">
-
-                <input type="hidden" id="DescripcionProd_{{detalle.PedidoDetalleID}}" name="DescripcionProd_{{detalle.PedidoDetalleID}}" value="{{Split detalle.DescripcionProd '|' 0}}">
-                <input type="hidden" id="MarcaID_{{detalle.PedidoDetalleID}}" name="MarcaID_{{detalle.PedidoDetalleID}}" value="{{detalle.MarcaID}}">
-                <input type="hidden" id="DescripcionOferta_{{detalle.PedidoDetalleID}}" name="DescripcionOferta_{{detalle.PedidoDetalleID}}" value="{{detalle.DescripcionOferta}}">
-                <input type="hidden" id="EsBackOrder_{{detalle.PedidoDetalleID}}" name="EsBackOrder_{{detalle.PedidoDetalleID}}" value="{{detalle.EsBackOrder}}">
-            </div>
+            </div>            
             <div class="bloque_cantidades_precios_items_ingresados">
                 <div class="contenedor_cantidadProductos">
                     <div data-cantidad-contenedor="">
                         <div class="campo_cantidadProductos">
                             {{#iff detalle.EsKitNueva '==' true}}
                             <input type="tel"
-                                   class="ValidaNumeral ValidaPasteNumeral"
-                                   id="Cantidad_{{detalle.PedidoDetalleID}}"
+                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"                                   
                                    maxlength="2"
                                    name="Cantidad_{{detalle.PedidoDetalleID}}"
                                    value="{{detalle.Cantidad}}"
                                    data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
+                                   data-setId="{{detalle.SetID}}"
                                    data-cantidad-input="-"
                                    readonly="readonly"
                                    autocomplete="off">
                             {{else iff detalle.TipoEstrategiaID '==' 1}}
                             <input type="tel"
-                                   class="ValidaNumeral ValidaPasteNumeral"
-                                   id="Cantidad_{{detalle.PedidoDetalleID}}"
+                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"                                   
                                    maxlength="2"
                                    name="Cantidad_{{detalle.PedidoDetalleID}}"
                                    value="{{detalle.Cantidad}}"
                                    data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
+                                   data-setId="{{detalle.SetID}}"
                                    data-cantidad-input="-"
                                    readonly="readonly"
                                    autocomplete="off">
                             {{else}}
                             <input type="tel"
-                                   class="ValidaNumeral ValidaPasteNumeral"
-                                   id="Cantidad_{{detalle.PedidoDetalleID}}"
+                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"                                   
                                    maxlength="2"
                                    name="Cantidad_{{detalle.PedidoDetalleID}}"
                                    onblur="UpdateLiquidacionEvento(event)"
                                    onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
                                    value="{{detalle.Cantidad}}"
                                    data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
+                                   data-setId="{{detalle.SetID}}"
                                    data-cantidad-input="-"
                                    autocomplete="off">
                             {{/iff}}
@@ -455,7 +439,7 @@
                         {{/if}}
                         {{/if}}
                         <!-- FIN ICONO ADVERTENCIA -->
-                        <span>{{../Simbolo}} <label id="ImporteTotal_{{detalle.PedidoDetalleID}}">{{detalle.FormatoImporteTotal}}</label></span>
+                        <span>{{../Simbolo}} <label class="ImporteTotal">{{detalle.FormatoImporteTotal}}</label></span>
                     </span>
                 </div>
             </div>
@@ -479,7 +463,7 @@
             {{else}}
             <div class="stock_content">
                 <div class="texto_stock">No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña?</div>
-                <a class="btn_no_stock" onclick="EliminarPedidoEvento(event, '{{EsBackOrder}}');" data-pedidodetalleid="{{detalle.PedidoDetalleID}}">NO, GRACIAS</a>
+                <a class="btn_no_stock" onclick="EliminarPedidoEvento(event, '{{EsBackOrder}}');" data-pedidodetalleid="{{detalle.PedidoDetalleID}}" data-setid="{{detalle.SetID}}" >NO, GRACIAS</a>
                 <a class="btn_si_stock" onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" href="javascript:;">¡SI, POR FAVOR!</a>
                 <hr class="clear" />
             </div>

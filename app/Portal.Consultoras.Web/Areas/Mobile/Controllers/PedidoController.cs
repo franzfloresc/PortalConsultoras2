@@ -27,6 +27,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             sessionManager.SetObservacionesProl(null);
             sessionManager.SetPedidoWeb(null);
             sessionManager.SetDetallesPedido(null);
+            sessionManager.SetDetallesPedidoSetAgrupado(null);
 
             var configuracionCampania = GetConfiguracionCampania(userData);
             if (configuracionCampania == null)
@@ -174,6 +175,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             sessionManager.SetObservacionesProl(null);
             sessionManager.SetDetallesPedido(null);
+            sessionManager.SetDetallesPedidoSetAgrupado(null);
 
             BEConfiguracionCampania beConfiguracionCampania;
             using (var sv = new PedidoServiceClient())
@@ -356,7 +358,26 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 CodigoISO = userData.CodigoISO,
                 Simbolo = userData.Simbolo
             };
-            model.SetDetalleMobileFromDetalleWeb(PedidoJerarquico(lstPedidoWebDetalle));
+
+
+            var pedidoWeb = ObtenerPedidoWeb();
+
+            int result = 0;            
+            using (var sv = new PedidoServiceClient())
+            {
+                DateTime? fechaInicioSetAgrupado = sv.ObtenerFechaInicioSets(userData.PaisID);
+                if (fechaInicioSetAgrupado.HasValue)
+                    result = DateTime.Compare(fechaInicioSetAgrupado.Value.Date, pedidoWeb.FechaRegistro.Date);
+            }
+
+            if (result >= 0)
+            {
+                model.SetDetalleMobileFromDetalleWeb(PedidoJerarquico(lstPedidoWebDetalle));
+            }
+            else
+            {
+                model.SetDetalleMobileFromDetalleWeb(lstPedidoWebDetalle);
+            }
             model.Detalle.Update(detalle => { if (string.IsNullOrEmpty(detalle.Nombre)) detalle.Nombre = userData.NombreConsultora; });
             model.Detalle.Update(item => item.DescripcionPrecioUnidad = Util.DecimalToStringFormat(item.PrecioUnidad, model.CodigoISO));
             model.Detalle.Update(item => item.DescripcionImporteTotal = Util.DecimalToStringFormat(item.ImporteTotal, model.CodigoISO));

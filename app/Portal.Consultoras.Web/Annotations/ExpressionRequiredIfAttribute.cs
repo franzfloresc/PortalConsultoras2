@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Web.Annotations
         }
 
         //To avoid multiple rules with same name
-        protected static Dictionary<string, int> CountPerField = null;
+        public static Dictionary<string, int> CountPerField = null;
 
         public ExpressionRequiredIfAttribute(string otherProperty, object otherPropertyValue)
             : base("'{0}' is required because '{1}' has a value {3}'{2}'.")
