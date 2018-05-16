@@ -2529,19 +2529,15 @@ namespace Portal.Consultoras.Web.Controllers
             string v_valoranterior = string.Empty;
             string v_valoractual = string.Empty;
             string dataString = string.Empty;
-            string apinombre = string.Empty;
+            string apinombre = "Api/LogActualizaciones";
 
-            try
+            //Data actual viene del Model       => model
+            //Data anterior viene del userData  => userData 
+            if (userData != null && p_modelo != null && p_Accion.Trim().ToUpper() == "MODIFICACION")
             {
-                apinombre = "Api/LogActualizaciones";
-
-                //Data actual viene del Model       => model
-                //Data anterior viene del userData  => userData 
-
-                if (userData != null && p_modelo != null && p_Accion.Trim().ToUpper() == "MODIFICACION")
+                string _seccion = "Mis Datos";
+                try
                 {
-                    string _seccion = "Mis Datos";
-
                     if (string.IsNullOrEmpty(userData.Sobrenombre)) userData.Sobrenombre = "";
                     if (string.IsNullOrEmpty(userData.EMail)) userData.EMail = "";
                     if (string.IsNullOrEmpty(userData.Telefono)) userData.Telefono = "";
@@ -2601,14 +2597,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                     SetUserData(userData);
                 }
-                else if (p_Accion.Trim().ToUpper() == "CONSULTA")
+                catch (Exception ex)
                 {
-                    EjecutarLogDynamoDB(data, apinombre, "", "", "", p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, p_Seccion);
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
                 }
             }
-            catch (Exception ex)
+            else if (p_Accion.Trim().ToUpper() == "CONSULTA")
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
+                EjecutarLogDynamoDB(data, apinombre, "", "", "", p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, p_Seccion);
             }
         }
 
