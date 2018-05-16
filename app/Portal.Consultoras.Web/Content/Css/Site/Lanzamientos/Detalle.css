@@ -231,9 +231,9 @@
 
     .detalle-prod .detalle-info .label-nuevo {
         width: 137px;
-        position: relative;
-        top: -36px;
-        left: -36px;
+        position: absolute;
+        margin-top: -36px;
+        margin-left: -36px;
         height: 37px;
     }
 

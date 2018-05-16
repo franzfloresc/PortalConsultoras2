@@ -337,7 +337,7 @@ $(document).ready(function () {
                 lazyLoad: 'ondemand',
                 infinite: true,
                 vertical: false,
-                slidesToShow: 3,
+                slidesToShow: 2,
                 slidesToScroll: 1,
                 variableWidth: true, 
                 autoplay: false,
@@ -347,6 +347,7 @@ $(document).ready(function () {
             }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
                 odd_desktop_procesar_evento_before_change(event, slick, currentSlide, nextSlide);
             });
+            $("#divOddCarrusel > .slick-list").css("width", "824px");
         }
     }
 
