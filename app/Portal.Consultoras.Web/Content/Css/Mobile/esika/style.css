@@ -7763,6 +7763,7 @@ input[type='checkbox']:checked + span:after {
     letter-spacing: .5px;
     text-align: center;
     color: #a18328;
+    margin-top: 7px;
 }
 
     .content_carrusel_agregado .agregado .icono {
