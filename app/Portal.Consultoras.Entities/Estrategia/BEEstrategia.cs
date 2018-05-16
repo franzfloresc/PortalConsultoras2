@@ -180,8 +180,6 @@ namespace Portal.Consultoras.Entities
         public string FotoProducto01 { get; set; }
         [DataMember]
         public string FotoProductoSmall { get; set; }
-        [DataMember]
-        public string FotoProductoMedium { get; set; }
 
         #region EstrategiaDetalle
         [DataMember]

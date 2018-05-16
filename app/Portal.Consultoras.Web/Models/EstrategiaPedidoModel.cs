@@ -34,7 +34,6 @@ namespace Portal.Consultoras.Web.Models
         public string ImagenURL { get; set; }
         public string FotoProducto01 { get; set; }
         public string FotoProductoSmall { get; set; }
-        public string FotoProductoMedium { get; set; }
         public string FotoProducto02 { get; set; }
         public string FotoProducto03 { get; set; }
         public int EtiquetaID { get; set; }

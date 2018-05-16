@@ -319,7 +319,6 @@ namespace Portal.Consultoras.BizLogic
                 estrategia.GananciaString = Util.DecimalToStringFormat(estrategia.Ganancia, codigoIso);
                 estrategia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.FotoProducto01, carpetaPais);
                 estrategia.FotoProductoSmall = Util.GenerarRutaImagenResize(estrategia.FotoProducto01, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
-                estrategia.FotoProductoMedium = Util.GenerarRutaImagenResize(estrategia.FotoProducto01, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium);
                 estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
             });
             return estrategiasResult;

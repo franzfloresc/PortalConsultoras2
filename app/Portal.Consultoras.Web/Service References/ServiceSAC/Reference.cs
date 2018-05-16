@@ -2343,9 +2343,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private string FotoProducto01Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string FotoProductoMediumField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FotoProductoSmallField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2485,9 +2482,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipoTallaColorField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string URLCompartirField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UrlVideoDesktopField;
@@ -3078,19 +3072,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.FotoProducto01Field, value) != true)) {
                     this.FotoProducto01Field = value;
                     this.RaisePropertyChanged("FotoProducto01");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string FotoProductoMedium {
-            get {
-                return this.FotoProductoMediumField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.FotoProductoMediumField, value) != true)) {
-                    this.FotoProductoMediumField = value;
-                    this.RaisePropertyChanged("FotoProductoMedium");
                 }
             }
         }
@@ -3702,19 +3683,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.TipoTallaColorField, value) != true)) {
                     this.TipoTallaColorField = value;
                     this.RaisePropertyChanged("TipoTallaColor");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string URLCompartir {
-            get {
-                return this.URLCompartirField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.URLCompartirField, value) != true)) {
-                    this.URLCompartirField = value;
-                    this.RaisePropertyChanged("URLCompartir");
                 }
             }
         }
