@@ -101,41 +101,40 @@ namespace Portal.Consultoras.PublicService.Cryptography
             // (CBC). Use default options for other symmetric key parameters.
             symmetricKey.Mode = CipherMode.CBC;
 
+            // Tipo de Relleno
+            symmetricKey.Padding = PaddingMode.PKCS7;
+
             // Generate encryptor from the existing key bytes and initialization 
             // vector. Key size will be defined based on the number of the key 
             // bytes.
-            ICryptoTransform encryptor = symmetricKey.CreateEncryptor
-            (
-                keyBytes,
-                initVectorBytes
-            );
+            ICryptoTransform encryptor = symmetricKey.CreateEncryptor(keyBytes, initVectorBytes);
 
             // Define memory stream which will be used to hold encrypted data.
             MemoryStream memoryStream = new MemoryStream();
 
+
+            string cipherText = "";
+
             // Define cryptographic stream (always use Write mode for encryption).
-            CryptoStream cryptoStream = new CryptoStream
-            (
-                memoryStream,
-                encryptor,
-                CryptoStreamMode.Write
-            );
+            using (CryptoStream cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
+            {
 
-            // Start encrypting.
-            cryptoStream.Write(plainTextBytes, 0, plainTextBytes.Length);
+                // Start encrypting.
+                cryptoStream.Write(plainTextBytes, 0, plainTextBytes.Length);
 
-            // Finish encrypting.
-            cryptoStream.FlushFinalBlock();
+                // Finish encrypting.
+                cryptoStream.FlushFinalBlock();
 
-            // Convert our encrypted data from a memory stream into a byte array.
-            byte[] cipherTextBytes = memoryStream.ToArray();
+                // Convert our encrypted data from a memory stream into a byte array.
+                byte[] cipherTextBytes = memoryStream.ToArray();
 
-            // Close both streams.
-            memoryStream.Close();
-            cryptoStream.Close();
+                // Close both streams.
+                memoryStream.Close();
+                cryptoStream.Close();
 
-            // Convert encrypted data into a base64-encoded string.
-            string cipherText = Convert.ToBase64String(cipherTextBytes);
+                // Convert encrypted data into a base64-encoded string.
+                cipherText = Convert.ToBase64String(cipherTextBytes);
+            }
 
             // Return encrypted string.
             return cipherText;
@@ -234,6 +233,9 @@ namespace Portal.Consultoras.PublicService.Cryptography
             // (CBC). Use default options for other symmetric key parameters.
             symmetricKey.Mode = CipherMode.CBC;
 
+            // Tipo de Relleno
+            symmetricKey.Padding = PaddingMode.PKCS7;
+
             // Generate decryptor from the existing key bytes and initialization 
             // vector. Key size will be defined based on the number of the key 
             // bytes.
@@ -246,39 +248,27 @@ namespace Portal.Consultoras.PublicService.Cryptography
             // Define memory stream which will be used to hold encrypted data.
             MemoryStream memoryStream = new MemoryStream(cipherTextBytes);
 
+            // 
+            string plainText = "";
             // Define cryptographic stream (always use Read mode for encryption).
-            CryptoStream cryptoStream = new CryptoStream
-            (
-                memoryStream,
-                decryptor,
-                CryptoStreamMode.Read
-            );
+            using (CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
+            {
+                // Since at this point we don't know what the size of decrypted data
+                // will be, allocate the buffer long enough to hold ciphertext;
+                // plaintext is never longer than ciphertext.
+                byte[] plainTextBytes = new byte[cipherTextBytes.Length];
 
-            // Since at this point we don't know what the size of decrypted data
-            // will be, allocate the buffer long enough to hold ciphertext;
-            // plaintext is never longer than ciphertext.
-            byte[] plainTextBytes = new byte[cipherTextBytes.Length];
+                // Start decrypting.
+                int decryptedByteCount = cryptoStream.Read(plainTextBytes, 0, plainTextBytes.Length);
 
-            // Start decrypting.
-            int decryptedByteCount = cryptoStream.Read
-            (
-                plainTextBytes,
-                0,
-                plainTextBytes.Length
-            );
+                // Close both streams.
+                memoryStream.Close();
+                cryptoStream.Close();
 
-            // Close both streams.
-            memoryStream.Close();
-            cryptoStream.Close();
-
-            // Convert decrypted data into a string. 
-            // Let us assume that the original plaintext string was UTF8-encoded.
-            string plainText = Encoding.UTF8.GetString
-            (
-                plainTextBytes,
-                0,
-                decryptedByteCount
-            );
+                // Convert decrypted data into a string. 
+                // Let us assume that the original plaintext string was UTF8-encoded.
+                plainText = Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount);
+            }
 
             // Return decrypted string.   
             return plainText;
