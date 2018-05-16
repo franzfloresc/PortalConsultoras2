@@ -317,7 +317,7 @@ function OfertaArmarEstrategias(response, busquedaModel) {
                 ExperienciaGanaMas.OcultarAgregar = true;
                 ExperienciaGanaMas.OcultarVerDetalle = true;
                 ExperienciaGanaMas.MostrarLoQuieres = !revistaDigital.EsSuscrita && !revistaDigital.EsActiva ? true : false;
-                if (window.location.href.toLowerCase().indexOf("/herramientasventa/revisar")) {
+                if (window.location.href.toLowerCase().indexOf("/herramientasventa/revisar") > -1) {
                     ExperienciaGanaMas.MostrarLoQuieres = false;
                     ExperienciaGanaMas.OcultarAgregar = false;
                     ExperienciaGanaMas.OcultarVerDetalle = false;
@@ -362,7 +362,7 @@ function OfertaArmarEstrategias(response, busquedaModel) {
                             ExperienciaGanaMas.OcultarAgregar = true;
                             ExperienciaGanaMas.OcultarVerDetalle = true;
                             ExperienciaGanaMas.MostrarLoQuieres = !revistaDigital.EsSuscrita && !revistaDigital.EsActiva ? true : false;
-                            if (window.location.href.toLowerCase().indexOf("/herramientasventa/revisar")) {
+                            if (window.location.href.toLowerCase().indexOf("/herramientasventa/revisar") > -1) {
                                 ExperienciaGanaMas.MostrarLoQuieres = false;
                                 ExperienciaGanaMas.OcultarAgregar = false;
                                 ExperienciaGanaMas.OcultarVerDetalle = false;
