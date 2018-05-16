@@ -9,7 +9,7 @@ namespace Portal.Consultoras.Data
     {
         public DABotmakerApiLog(int paisID) : base(paisID, EDbSource.Portal) { }
 
-        public IDataReader Insert(DEChatbotProactivaResultado resultado)
+        public void Insert(DEChatbotProactivaResultado resultado)
         {
             using (var command = Context.Database.GetStoredProcCommand("dbo.InsertBotmakerApiLog"))
             {
@@ -26,12 +26,8 @@ namespace Portal.Consultoras.Data
                 parDetalle.Value = new GenericDataReader<DEChatbotProactivaMensaje>(resultado.ListMensaje);
                 command.Parameters.Add(parDetalle);
 
-                using (var reader = Context.ExecuteReader(command))
-                {
-                    return reader;
-                }
+                Context.ExecuteNonQuery(command);
             }
-
         }
     }
 }
