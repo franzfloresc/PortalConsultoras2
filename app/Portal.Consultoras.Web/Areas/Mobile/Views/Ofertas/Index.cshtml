@@ -6,7 +6,17 @@
 }
 @section styles{
 
-@System.Web.Optimization.Styles.Render("~/bundles/css/Site/ccsOfertasMobile")
+    @System.Web.Optimization.Styles.Render("~/bundles/css/Site/ccsOfertasMobile")
+
+    <style type="text/css">
+        #btn_init {
+            display: none !important;
+        }
+
+        #btn_open {
+            display: none !important;
+        }
+    </style>
 
 }
 
@@ -21,20 +31,20 @@
          data-cantidadProductos="@seccion.CantidadMostrar"
          data-OrigenPedidoWeb="@seccion.OrigenPedido"
          data-OrigenPedidoWeb-popup="@seccion.OrigenPedidoPopup"
-         id="@seccion.Codigo" >
+         id="@seccion.Codigo">
         <div data-seccion-content="" class="seccion-content-contenedor">
             @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/presentacion-" + seccion.TemplatePresentacion + ".cshtml", seccion)
         </div>
         <div data-seccion-load="" class="seccion-loading-contenedor">
-            <br/>
-            <br/>
-            <br/>
+            <br />
+            <br />
+            <br />
             Cargando @seccion.Titulo
-            <br/>
-            <img src="@Url.Content("~/Content/Images/Loading.gif")"/>
-            <br/>
-            <br/>
-            <br/>
+            <br />
+            <img src="@Url.Content("~/Content/Images/Loading.gif")" />
+            <br />
+            <br />
+            <br />
         </div>
     </div>
 }
@@ -52,5 +62,5 @@
         var urlOfertaDetalleProductoLan = '@Url.Action("Detalle", "Lanzamientos", new { area = "Mobile" })';
         var OrigenDesktopODD = 0;
     </script>
-@System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/JsSB2-Ofertas")
+    @System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/JsSB2-Ofertas")
 }
