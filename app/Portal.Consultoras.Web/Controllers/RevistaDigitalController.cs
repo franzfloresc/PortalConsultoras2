@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceAsesoraOnline;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,20 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class RevistaDigitalController : BaseRevistaDigitalController
     {
+        public RevistaDigitalController()
+            : base()
+        {
+        }
+
+        public RevistaDigitalController(ISessionManager sessionManager)
+            : base(sessionManager)
+        {
+        }
+
+        public RevistaDigitalController(ISessionManager sessionManager, ILogManager logManager)
+            : base(sessionManager, logManager)
+        {
+        }
         public ActionResult Index()
         {
             try
@@ -128,6 +144,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                if (model == null) throw new ArgumentNullException("model", "model no puede ser nulo");
+
                 if (!(revistaDigital.TieneRevistaDigital()) || EsCampaniaFalsa(model.CampaniaID))
                 {
                     return Json(new
@@ -140,24 +158,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var palanca = "";
-
-                if (revistaDigital.ActivoMdo)
-                {
-                    palanca = Constantes.TipoEstrategiaCodigo.RevistaDigital;
-                }
-                else
-                {
-                    palanca = model.CampaniaID != userData.CampaniaID
-                        || (revistaDigital.TieneRDC && revistaDigital.EsActiva)
-                        ? Constantes.TipoEstrategiaCodigo.RevistaDigital
-                        : "";
-                }
-
-                var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
-                var listModelCompleta = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
-
-                listModelCompleta = listModelCompleta.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                List<EstrategiaPersonalizadaProductoModel> listModelCompleta = NewMethod(model);
 
                 var listModel = listModelCompleta;
 
@@ -210,7 +211,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "RevistaDigitalController.RDObtenerProductos");
                 return Json(new
                 {
                     success = false,
@@ -218,6 +219,29 @@ namespace Portal.Consultoras.Web.Controllers
                     data = ""
                 });
             }
+        }
+
+        private List<EstrategiaPersonalizadaProductoModel> NewMethod(BusquedaProductoModel model)
+        {
+            var palanca = string.Empty;
+
+            if (revistaDigital.ActivoMdo)
+            {
+                palanca = Constantes.TipoEstrategiaCodigo.RevistaDigital;
+            }
+            else
+            {
+                palanca = model.CampaniaID != userData.CampaniaID
+                    || (revistaDigital.TieneRDC && revistaDigital.EsActiva)
+                    ? Constantes.TipoEstrategiaCodigo.RevistaDigital
+                    : string.Empty;
+            }
+
+            var listaFinal1 = ConsultarEstrategiasModel(string.Empty, model.CampaniaID, palanca);
+            var listModelCompleta = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
+
+            listModelCompleta = listModelCompleta.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+            return listModelCompleta;
         }
 
         [HttpPost]
