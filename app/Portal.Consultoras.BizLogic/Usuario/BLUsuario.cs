@@ -544,24 +544,20 @@ namespace Portal.Consultoras.BizLogic
             return usuario;
         }
 
-        public BEUsuario GetSesionUsuarioPedidoApp(BEUsuario usuario)
+        public BEUsuario GetSesionUsuarioPedidoApp(BEUsuario usuario, string codigoConfiguracionPais)
         {
             try
             {
                 CodigoUsuarioLog = usuario.CodigoUsuario;
                 PaisIDLog = usuario.PaisID;
 
-                var configuracionPaisTask = Task.Run(() => ConfiguracionPaisUsuario(usuario));
+                var configuracionPaisTask = Task.Run(() => ConfiguracionPaisUsuario(usuario, codigoConfiguracionPais));
                 var codigosRevistasTask = Task.Run(() => ObtenerCodigoRevistaFisica(usuario.PaisID));
-                //var showRoomTask = Task.Run(() => CargarEntidadesShowRoom(usuario));
 
-                Task.WaitAll(
-                                configuracionPaisTask,
-                                codigosRevistasTask);
+                Task.WaitAll(configuracionPaisTask, codigosRevistasTask);
 
                 usuario = configuracionPaisTask.Result;
-                usuario.CodigosRevistaImpresa = codigosRevistasTask.Result;
-                //usuario.EsShowRoom = showRoomTask.Result;                
+                usuario.CodigosRevistaImpresa = codigosRevistasTask.Result;             
             }
             catch (Exception ex)
             {
@@ -2424,53 +2420,31 @@ namespace Portal.Consultoras.BizLogic
         #endregion
 
         #region UserData
-        private BEUsuario ConfiguracionPaisUsuario(BEUsuario usuarioModel)
+        private BEUsuario ConfiguracionPaisUsuario(BEUsuario usuario, string codigoConfiguracionPais)
         {
             var revistaDigitalModel = new BERevistaDigital();
-            //var guiaNegocio = new BEGuiaNegocio();
 
             try
             {
-                var configuracionesPaisModels = GetConfiguracionPais(usuarioModel);
+                var configuraciones = GetConfiguracionPais(usuario);
 
-                if (configuracionesPaisModels.Any())
+                var configuracion = configuraciones.Where(x => x.Codigo == codigoConfiguracionPais).FirstOrDefault();
+
+                if (configuracion == null) return usuario;
+
+                switch (configuracion.Codigo)
                 {
-                    var configuracionPaisDatosAll = GetConfiguracionPaisDatos(usuarioModel);
-
-                    foreach (var c in configuracionesPaisModels)
-                    {
-                        var configuracionPaisDatos = configuracionPaisDatosAll.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList();
-
-                        switch (c.Codigo)
-                        {
-                            case Constantes.ConfiguracionPais.RevistaDigital:
-                                revistaDigitalModel = ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel, configuracionPaisDatos, usuarioModel.CodigoISO);
-                                revistaDigitalModel = ConfiguracionPaisRevistaDigital(revistaDigitalModel, usuarioModel);
-                                revistaDigitalModel.BloqueoRevistaImpresa = c.BloqueoRevistaImpresa;
-                                break;
-                            case Constantes.ConfiguracionPais.RevistaDigitalReducida:
-                                revistaDigitalModel.TieneRDCR = true;
-                                revistaDigitalModel.BloqueoRevistaImpresa = revistaDigitalModel.BloqueoRevistaImpresa || c.BloqueoRevistaImpresa;
-                                continue;
-                            case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
-                                usuarioModel.TieneValidacionMontoMaximo = c.Estado;
-                                break;
-                            //case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
-                            //    guiaNegocio = ConfiguracionPaisDatosGuiaNegocio(configuracionPaisDatos);
-                            //    break;
-                            //case Constantes.ConfiguracionPais.OfertaDelDia:
-                            //    usuarioModel.OfertaDelDiaModel = ConfiguracionPaisDatosOfertaDelDia(usuarioModel.OfertaDelDiaModel, configuracionPaisDatos);
-                            //    break;
-                            //case Constantes.ConfiguracionPais.OfertasParaTi:
-                            //    usuarioModel = ConfiguracionPaisDatosUsuario(usuarioModel, configuracionPaisDatos);
-                            //    break;
-                        }
-                    }
-
-                    //guiaNegocio.BloqueoProductoDigital = guiaNegocio.BloqueoProductoDigital || (revistaDigitalModel.EsSuscritaActiva() && revistaDigitalModel.SociaEmpresariaExperienciaGanaMas);
-
-                    //usuarioModel.GuiaNegocio = guiaNegocio;
-                    usuarioModel.RevistaDigital = revistaDigitalModel;
+                    case Constantes.ConfiguracionPais.RevistaDigital:
+                        var configuracionPaisDatosAll = GetConfiguracionPaisDatos(usuario);
+                        var configuracionPaisDatos = configuracionPaisDatosAll.Where(d => d.ConfiguracionPaisID == configuracion.ConfiguracionPaisID).ToList();
+                        revistaDigitalModel = ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel, configuracionPaisDatos, usuario.CodigoISO);
+                        revistaDigitalModel = ConfiguracionPaisRevistaDigital(revistaDigitalModel, usuario);
+                        revistaDigitalModel.BloqueoRevistaImpresa = configuracion.BloqueoRevistaImpresa;
+                        usuario.RevistaDigital = revistaDigitalModel;
+                        break;
+                    case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
+                        usuario.TieneValidacionMontoMaximo = configuracion.Estado;
+                        break;
                 }
             }
             catch (Exception ex)
@@ -2478,7 +2452,7 @@ namespace Portal.Consultoras.BizLogic
                 LogManager.SaveLog(ex, CodigoUsuarioLog, PaisIDLog);
             }
 
-            return usuarioModel;
+            return usuario;
         }
 
         private List<BEConfiguracionPais> GetConfiguracionPais(BEUsuario usuario)
@@ -2552,11 +2526,6 @@ namespace Portal.Consultoras.BizLogic
 
             revistaDigitalModel.CantidadCampaniaEfectiva = GetValor1ToIntAndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.CantidadCampaniaEfectiva);
             revistaDigitalModel.BloquearRevistaImpresaGeneral = GetValor1ToIntAndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.BloquearPedidoRevistaImp);
-            revistaDigitalModel.BloqueoProductoDigital = GetValor1ToBoolAndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
-
-            #region SociaEmpresaria
-            revistaDigitalModel.SociaEmpresariaExperienciaGanaMas = GetValor1ToBoolAndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.SociaEEmpresariaExperienciaClub);
-            #endregion
 
             return revistaDigitalModel;
         }
@@ -2604,11 +2573,7 @@ namespace Portal.Consultoras.BizLogic
 
                 revistaDigitalModel.EsActiva = ca > usuarioModel.CampaniaID;
             }
-
-            revistaDigitalModel.EsSuscrita = revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
             #endregion
-
-            revistaDigitalModel.BloqueoProductoDigital = revistaDigitalModel.BloqueoProductoDigital || !revistaDigitalModel.EsActiva;
 
             return revistaDigitalModel;
         }
@@ -2625,15 +2590,6 @@ namespace Portal.Consultoras.BizLogic
             rds.CampaniaID = usuarioModel.CampaniaID;
             revistaDigitalModel.SuscripcionEfectiva = _revistaDigitalSuscripcionBusinessLogic.SingleActiva(rds);
         }
-
-        //private string RemplazaTagNombre(string cadena, string nombre)
-        //{
-        //    cadena = Common.Util.Trim(cadena);
-        //    nombre = Common.Util.Trim(nombre);
-        //    return cadena.Replace(Constantes.TagCadenaRd.Nombre, nombre)
-        //        .Replace(Constantes.TagCadenaRd.Nombre1, nombre)
-        //        .Replace(Constantes.TagCadenaRd.Nombre2, nombre);
-        //}
 
         private string ObtenerCodigoRevistaFisica(int paisId)
         {
@@ -2653,45 +2609,6 @@ namespace Portal.Consultoras.BizLogic
             return result;
         }
 
-        private BEUsuario ConfiguracionPaisDatosUsuario(BEUsuario modelo, List<BEConfiguracionPaisDatos> listaDatos)
-        {
-            if (listaDatos == null || !listaDatos.Any()) return modelo;
-
-            var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
-            if (value1 != null) modelo.OptBloqueoProductoDigital = (value1.Valor1 == "1");
-
-            return modelo;
-        }
-
-        private BEOfertaDelDia ConfiguracionPaisDatosOfertaDelDia(BEOfertaDelDia modelo, List<BEConfiguracionPaisDatos> listaDatos)
-        {
-            modelo = modelo ?? new BEOfertaDelDia();
-            if (listaDatos == null || !listaDatos.Any())
-                return modelo;
-
-            var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
-            if (value1 != null) modelo.BloqueoProductoDigital = value1.Valor1 == "1";
-
-            return modelo;
-
-        }
-
-        //private BEGuiaNegocio ConfiguracionPaisDatosGuiaNegocio(List<BEConfiguracionPaisDatos> listaDatos)
-        //{
-        //    var modelo = new BEGuiaNegocio();
-
-        //    if (listaDatos == null || !listaDatos.Any()) return modelo;
-
-        //    var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
-        //    if (value1 != null) modelo.BloqueoProductoDigital = value1.Valor1 == "1";
-
-        //    listaDatos.RemoveAll(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
-
-        //    modelo.ConfiguracionPaisDatos = listaDatos ?? new List<BEConfiguracionPaisDatos>();
-
-        //    return modelo;
-        //}
-
         private int GetValor1ToIntAndDelete(List<BEConfiguracionPaisDatos> configuracionesPaisDatos, string codigo)
         {
             var result = 0;
@@ -2705,56 +2622,6 @@ namespace Portal.Consultoras.BizLogic
 
             return result;
         }
-
-        private bool GetValor1ToBoolAndDelete(List<BEConfiguracionPaisDatos> configuracionesPaisDatos, string codigo)
-        {
-            var result = false;
-
-            var dato = configuracionesPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
-            if (dato != null)
-            {
-                result = dato.Valor1 == "1";
-                configuracionesPaisDatos.RemoveAll(d => d.Codigo == codigo);
-            }
-
-            return result;
-        }
-
-        //private bool CargarEntidadesShowRoom(BEUsuario model)
-        //{
-        //    var esShowRoom = false;
-        //    const int SHOWROOM_ESTADO_ACTIVO = 1;
-
-        //    try
-        //    {
-        //        if (!PaisTieneShowRoom(model.CodigoISO)) return esShowRoom;
-
-        //        var codigoConsultora = model.UsuarioPrueba == 1 ? model.ConsultoraAsociada : model.CodigoConsultora;
-
-        //        var BeShowRoom = _showRoomEventoBusinessLogic.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
-
-        //        var BeShowRoomConsultora = _showRoomEventoBusinessLogic.GetShowRoomConsultora(model.PaisID, model.CampaniaID, codigoConsultora,
-        //                                        BeShowRoom != null && BeShowRoom.TienePersonalizacion);
-
-        //        if (BeShowRoom != null && BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO && BeShowRoomConsultora != null) esShowRoom = true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.SaveLog(ex, model.CodigoUsuario, model.PaisID);
-        //    }
-
-        //    return esShowRoom;
-        //}
-
-        //private bool PaisTieneShowRoom(string codigoIsoPais)
-        //{
-        //    if (string.IsNullOrEmpty(codigoIsoPais))
-        //        return false;
-
-        //    var paisesShowRoom = WebConfig.PaisesShowRoom;
-        //    var tieneShowRoom = paisesShowRoom.Contains(codigoIsoPais);
-        //    return tieneShowRoom;
-        //}
         #endregion
 
         private string GetUsuarioRealPostulante(int paisID, string codigoUsuario)

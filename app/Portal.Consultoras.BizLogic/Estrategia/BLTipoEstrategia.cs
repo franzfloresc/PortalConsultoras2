@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Common;
 
 using System.Collections.Generic;
 
@@ -23,17 +24,10 @@ namespace Portal.Consultoras.BizLogic
 
         public List<BETipoEstrategia> GetTipoEstrategias(BETipoEstrategia entidad)
         {
-            var listaTipoEstrategias = new List<BETipoEstrategia>();
-
-            var daTipoEstrategia = new DATipoEstrategia(entidad.PaisID);
-            using (var reader = daTipoEstrategia.GetTipoEstrategia(entidad))
+            using (var reader = new DATipoEstrategia(entidad.PaisID).GetTipoEstrategia(entidad))
             {
-                while (reader.Read())
-                {
-                    listaTipoEstrategias.Add(new BETipoEstrategia(reader));
-                }
+                return reader.MapToCollection<BETipoEstrategia>();
             }
-            return listaTipoEstrategias;
         }
     }
 }
