@@ -11,21 +11,14 @@ namespace Portal.Consultoras.Data
         {
         }
 
-        public IDataReader GetReporteValidacion(int campaniaID)
+        public IDataReader GetReporteValidacionUnificado(int campaniaID, int tipoEstrategia)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetReporteValidacion");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetReporteValidacionUnificado");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
-
+            Context.Database.AddInParameter(command, "@TipoEstrategia", DbType.Int32, tipoEstrategia);
             return Context.ExecuteReader(command);
         }
-
-        public IDataReader GetReporteValidacionODD(int campaniaID)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetReporteValidacionODD");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
-
-            return Context.ExecuteReader(command);
-        }
+   
 
         public IDataReader GetReporteValidacionSRCampania(int campaniaID)
         {

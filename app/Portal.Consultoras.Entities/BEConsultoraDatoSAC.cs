@@ -44,37 +44,37 @@
 
         public BEConsultoraDatoSAC(IDataRecord datarec)
         {
-            if (DataRecord.HasColumn(datarec, "consultoraID") && datarec["consultoraID"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "consultoraID"))
                 consultoraID = DbConvert.ToInt32(datarec["consultoraID"]);
-            if (DataRecord.HasColumn(datarec, "codigo") && datarec["Codigo"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "codigo"))
                 codigo = DbConvert.ToString(datarec["codigo"]);
-            if (DataRecord.HasColumn(datarec, "nombreCompleto") && datarec["nombreCompleto"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "nombreCompleto"))
                 nombreCompleto = DbConvert.ToString(datarec["nombreCompleto"]);
-            if (DataRecord.HasColumn(datarec, "seccion") && datarec["seccion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "seccion"))
                 seccion = DbConvert.ToString(datarec["seccion"]);
-            if (DataRecord.HasColumn(datarec, "zona") && datarec["zona"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "zona"))
                 zona = DbConvert.ToString(datarec["Zona"]);
-            if (DataRecord.HasColumn(datarec, "region") && datarec["region"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "region"))
                 region = DbConvert.ToString(datarec["region"]);
-            if (DataRecord.HasColumn(datarec, "direccionDomicilio") && datarec["direccionDomicilio"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "direccionDomicilio"))
                 direccionDomicilio = DbConvert.ToString(datarec["direccionDomicilio"]);
-            if (DataRecord.HasColumn(datarec, "direccionEntrega") && datarec["direccionEntrega"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "direccionEntrega"))
                 direccionEntrega = DbConvert.ToString(datarec["direccionEntrega"]);
-            if (DataRecord.HasColumn(datarec, "telefono1") && datarec["telefono1"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "telefono1"))
                 telefono1 = DbConvert.ToString(datarec["telefono1"]);
-            if (DataRecord.HasColumn(datarec, "telefono2") && datarec["telefono2"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "telefono2"))
                 telefono2 = DbConvert.ToString(datarec["telefono2"]);
-            if (DataRecord.HasColumn(datarec, "email") && datarec["email"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "email"))
                 email = DbConvert.ToString(datarec["email"]);
-            if (DataRecord.HasColumn(datarec, "validoEmail") && datarec["validoEmail"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "validoEmail"))
                 validoEmail = DbConvert.ToString(datarec["validoEmail"]);
-            if (DataRecord.HasColumn(datarec, "fechaNacimiento") && datarec["fechaNacimiento"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "fechaNacimiento"))
                 fechaNacimiento = DbConvert.ToString(datarec["fechaNacimiento"]);
-            if (DataRecord.HasColumn(datarec, "estadoCivil") && datarec["estadoCivil"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "estadoCivil"))
                 estadoCivil = DbConvert.ToString(datarec["estadoCivil"]);
-            if (DataRecord.HasColumn(datarec, "ofertaWeb") && datarec["ofertaWeb"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "ofertaWeb"))
                 ofertaWeb = DbConvert.ToString(datarec["ofertaWeb"]);
-            if (DataRecord.HasColumn(datarec, "cataloVirtual") && datarec["cataloVirtual"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "cataloVirtual"))
                 cataloVirtual = DbConvert.ToString(datarec["cataloVirtual"]);
 
         }

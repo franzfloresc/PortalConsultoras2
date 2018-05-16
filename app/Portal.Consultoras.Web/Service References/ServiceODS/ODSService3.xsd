@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="Enumeradores.ValidacionProgramaNuevas">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ContinuaFlujo" />
+      <xs:enumeration value="ProductoNoExiste" />
+      <xs:enumeration value="Mensaje1" />
+      <xs:enumeration value="Mensaje2" />
+      <xs:enumeration value="Mensaje3" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Enumeradores.ValidacionProgramaNuevas" nillable="true" type="tns:Enumeradores.ValidacionProgramaNuevas" />
+</xs:schema>

@@ -22,8 +22,8 @@ namespace Portal.Consultoras.Entities
             myRegionID = Convert.ToInt32(row["RegionID"]);
             myCodigo = row["Codigo"].ToString();
             myNombre = row["Nombre"].ToString();
-            if (DataRecord.HasColumn(row, "CantidadDias") && row["CantidadDias"] != DBNull.Value)
-                myCantidadDias = row["CantidadDias"] == null ? 0 : Convert.ToInt32(row["CantidadDias"]);
+            if (DataRecord.HasColumn(row, "CantidadDias"))
+                myCantidadDias = Convert.ToInt32(row["CantidadDias"]);
         }
 
         [DataMember]
