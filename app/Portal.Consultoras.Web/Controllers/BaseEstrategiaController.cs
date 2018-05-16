@@ -35,6 +35,18 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
+        public RevistaDigitalModel RevistaDigital
+        {
+            get
+            {
+                return revistaDigital;
+            }
+            set
+            {
+                revistaDigital = value;
+            }
+        }
+
         public List<BEEstrategia> ConsultarEstrategias(string cuv = "", int campaniaId = 0, string codAgrupacion = "")
         {
             codAgrupacion = Util.Trim(codAgrupacion);
