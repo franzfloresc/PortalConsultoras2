@@ -305,13 +305,16 @@ function OfertaArmarEstrategias(response, busquedaModel) {
         tem.EsLanzamiento = false;
     });
 
+    var modelHtml = Clone(modeloTemp);
+
     if (response.Mobile) {
-        $.each(modeloTemp.lista, function (ind, tem) {
-            tem.TipoAccionAgregar = 0;
+        $.each(modelHtml.lista, function (ind, temh) {
+            temh.TipoAccionAgregarBack = Clone(temh.TipoAccionAgregar);
+            temh.TipoAccionAgregar = 0;
         });
     }
     
-    var htmlDiv = SetHandlebars("#producto-landing-template", modeloTemp);
+    var htmlDiv = SetHandlebars("#producto-landing-template", modelHtml);
     divProd.find('#divOfertaProductos').append(htmlDiv);
     if (response.cantidadTotal == 0) {
         divProd.find('#no-productos').show();

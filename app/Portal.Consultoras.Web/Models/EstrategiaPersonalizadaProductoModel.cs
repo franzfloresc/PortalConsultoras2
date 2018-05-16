@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Web.Models
         /// <summary>
         /// 1: AGRÉGALO - No alterar cantidad, caso pack nuevas
         /// 2: AGRÉGALO - Si puede alterar cantidad
-        /// 4: ¿LO QUIERES?3: ELIGE TU OPCIÓN
+        /// 3: ELIGE TU OPCIÓN
         /// 4: ¿LO QUIERES?
         /// </summary>
         public int TipoAccionAgregar { get; set; } // es para los diferentes botones que sale en la seccion de agrega, elegir tono, ...

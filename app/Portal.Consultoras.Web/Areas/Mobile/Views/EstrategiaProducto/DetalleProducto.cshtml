@@ -103,8 +103,8 @@
                 <input type="hidden" class="CUV" value="{{CUV2}}" />
                 <input type="hidden" class="rsFBMensaje" value="" />
                 <input type="hidden" class="rsWAMensaje" value="" />
-                <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
-                <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
+                <input type="hidden" class="rsFBRutaImagen" value="{{ImgUrl FotoProducto01}}" />
+                <input type="hidden" class="rsWARutaImagen" value="{{ImgUrl FotoProducto01}}" />
                 <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
                 <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
                 <input type="hidden" class="Nombre" value="{{DescripcionCUV2}}" />
@@ -136,8 +136,8 @@
                 <input type="hidden" class="CUV" value="{{CUV2}}" />
                 <input type="hidden" class="rsFBMensaje" value="" />
                 <input type="hidden" class="rsWAMensaje" value="" />
-                <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
-                <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
+                <input type="hidden" class="rsFBRutaImagen" value="{{ImgUrl FotoProducto01}}" />
+                <input type="hidden" class="rsWARutaImagen" value="{{ImgUrl FotoProducto01}}" />
                 <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
                 <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
                 <input type="hidden" class="Nombre" value="{{DescripcionCompleta}}" />
@@ -167,8 +167,8 @@
                     <input type="hidden" class="CUV" value="{{CUV2}}" />
                     <input type="hidden" class="rsFBMensaje" value="" />
                     <input type="hidden" class="rsWAMensaje" value="" />
-                    <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
-                    <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
+                    <input type="hidden" class="rsFBRutaImagen" value="{{ImgUrl FotoProducto01}}" />
+                    <input type="hidden" class="rsWARutaImagen" value="{{ImgUrl FotoProducto01}}" />
                     <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
                     <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
                     <input type="hidden" class="Nombre" value="{{DescripcionCUV2}}" />
@@ -179,7 +179,7 @@
                 </div>
                 <div data-estrategia="{{CodigoEstrategia}}"></div>
                 <div class="content_imagen_best">
-                    <div class="content_fondo_bestSeller"><img src="{{FotoProducto01}}" /></div>
+                    <div class="content_fondo_bestSeller"><img src="{{ImgUrl FotoProducto01}}" /></div>
                 </div>
                 <hr class="clear" />
                 <div class="wrapper_resumen_mobile" style="margin-top:10px;">
@@ -218,7 +218,7 @@
                                 <div class="slider_item" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" {{/iff}}>
                                     <a href="#" class="slider_item_content">
                                         <div data-img="">
-                                            <img src="{{FotoProducto01}}" class="imagen_carrusel_best">
+                                            <img src="{{ImgUrl FotoProducto01}}" class="imagen_carrusel_best">
                                         </div>
                                         <div class="marca_carrusel_best">{{DescripcionMarca}}</div>
                                         <span class="title">{{DescripcionCortada}}</span>

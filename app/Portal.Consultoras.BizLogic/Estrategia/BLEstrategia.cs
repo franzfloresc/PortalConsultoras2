@@ -317,7 +317,7 @@ namespace Portal.Consultoras.BizLogic
                 estrategia.PrecioString = Util.DecimalToStringFormat(estrategia.Precio2, codigoIso);
                 estrategia.PrecioTachado = Util.DecimalToStringFormat(estrategia.Precio, codigoIso);
                 estrategia.GananciaString = Util.DecimalToStringFormat(estrategia.Ganancia, codigoIso);
-                estrategia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.FotoProducto01, carpetaPais);
+                //estrategia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.FotoProducto01, carpetaPais);
                 estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
             });
             return estrategiasResult;
@@ -396,7 +396,7 @@ namespace Portal.Consultoras.BizLogic
 
             listaEstrategias.ForEach(item =>
             {
-                item.FotoProducto01 = string.IsNullOrEmpty(item.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, item.FotoProducto01, carpetaPais);
+                item.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, item.FotoProducto01, carpetaPais);
             });
 
             return listaEstrategias;

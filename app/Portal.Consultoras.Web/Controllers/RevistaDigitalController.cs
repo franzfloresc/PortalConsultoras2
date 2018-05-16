@@ -76,6 +76,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (modelo != null)
             {
+                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                 modelo.ClaseBloqueada = Util.Trim(modelo.ClaseBloqueada);
                 modelo.ClaseEstrategia = Util.Trim(modelo.ClaseEstrategia);
                 modelo.CodigoEstrategia = Util.Trim(modelo.CodigoEstrategia);
@@ -85,6 +86,7 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.PrecioTachado = Util.Trim(modelo.PrecioTachado);
                 modelo.CodigoVariante = Util.Trim(modelo.CodigoVariante);
                 modelo.TextoLibre = Util.Trim(modelo.TextoLibre);
+                modelo.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, modelo.FotoProducto01);
             }
 
             sessionManager.ProductoTemporal = modelo;

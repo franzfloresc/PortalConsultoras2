@@ -322,21 +322,20 @@ jQuery(document).ready(function () {
                     return "Fomato Incorrecto";
                 }
             });
-
-            //se puede extender el metodo para medium
-            //Enviar un parametro tipo y cambiar el metodo a ImgRenderUrl
+            
             Handlebars.registerHelper('ImgSmall', function (imgOriginal) {
-                imgOriginal = $.trim(imgOriginal);
-                if (imgOriginal === '') {
-                    return new Handlebars.SafeString(imgOriginal);
-                }
-                urlRender = imgOriginal;
-                var listaCadena = imgOriginal.split('.');
-                if (listaCadena.length > 1) {
-                    var ext = listaCadena[listaCadena.length - 1];
-                    var urlRender = imgOriginal.substr(0, imgOriginal.length - ext.length - 1);
-                    urlRender = urlRender + '_small.' + ext;
-                }
+                var urlRender = ImgUrlRender(imgOriginal, variablesPortal.ExtensionImgSmall);
+                return new Handlebars.SafeString(urlRender);
+            });
+
+            // por si en un futuro se puede utilizar
+            //Handlebars.registerHelper('ImgMedium', function (imgOriginal) {
+            //    var urlRender = ImgUrlRender(imgOriginal, variablesPortal.ExtensionImgMedium);
+            //    return new Handlebars.SafeString(urlRender);
+            //});
+            
+            Handlebars.registerHelper('ImgUrl', function (imgOriginal) {
+                var urlRender = ImgUrlRender(imgOriginal);
                 return new Handlebars.SafeString(urlRender);
             });
         }
@@ -479,6 +478,30 @@ jQuery(document).ready(function () {
         return newLista;
     };
 })(jQuery);
+
+function ImgUrlRender(imgOriginal, tipo) {
+    imgOriginal = $.trim(imgOriginal);
+    if (imgOriginal === '') {
+        return imgOriginal;
+    }
+
+    var urlRender = imgOriginal;
+    var listaCadena = imgOriginal.split('.');
+    if (listaCadena.length > 1) {
+        var ext = listaCadena[listaCadena.length - 1];
+        urlRender = imgOriginal.substr(0, imgOriginal.length - ext.length - 1);
+        tipo = $.trim(tipo);
+        urlRender = urlRender + tipo + '.' + ext;
+    }
+
+    if (imgOriginal.startsWith('http')) {
+        return urlRender;
+    }
+
+    urlRender = variablesPortal.ImgUrlBase + urlRender;
+
+    return urlRender;
+}
 
 function showDialog(dialogId) {
     $("#" + dialogId).dialog("open");

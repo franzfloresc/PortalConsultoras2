@@ -36,9 +36,9 @@ function GetProductoStorage(cuv, campania, nombreKey) {
     }
 
     sl = JSON.parse(sl);
-    var listaProd = sl.response.listaLan.Find("CUV2", cuv) || new Array();
+    var listaProd = (sl.response.listaLan || []).Find("CUV2", cuv) || new Array();
     if (listaProd.length == 0) {
-        listaProd = sl.response.lista.Find("CUV2", cuv) || new Array();
+        listaProd = (sl.response.lista || []).Find("CUV2", cuv) || new Array();
     }
     if (listaProd.length > 0) {
         listaProd[0].Posicion = 0;

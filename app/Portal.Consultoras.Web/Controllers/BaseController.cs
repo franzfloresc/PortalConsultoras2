@@ -4743,10 +4743,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         private VariablesGeneralesPortalModel getBaseVariablesPortal()
         {
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
             var baseVariablesGeneral = new VariablesGeneralesPortalModel
             {
-                UrlCompartir = Util.GetUrlCompartirFB(userData.CodigoISO)
-            };
+                UrlCompartir = Util.GetUrlCompartirFB(userData.CodigoISO),
+                ExtensionImgSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall,
+                //ExtensionImgMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium,
+                ImgUrlBase = ConfigS3.GetUrlFileS3Base(carpetaPais)
+        };
 
             return baseVariablesGeneral;
 

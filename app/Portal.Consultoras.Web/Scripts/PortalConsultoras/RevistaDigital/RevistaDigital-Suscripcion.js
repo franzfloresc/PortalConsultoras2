@@ -196,13 +196,6 @@ function RDDesuscripcion() {
     });
 }
 
-function RDRedireccionarDetalle(event) {
-    var obj = EstrategiaObtenerObj(event);
-    EstrategiaGuardarTemporal(obj);
-    var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital/Detalle");
-    window.location = url + "?cuv=" + obj.CUV2 + "&campaniaId=" + obj.CampaniaID;
-}
-
 function MostrarTerminos() {
     var win = window.open(urlTerminosCondicionesRD, "_blank");
     if (win) {
