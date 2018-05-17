@@ -55,7 +55,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return RedirectToAction("Index", "Bienvenida", new { area = IsMobile() ? "Mobile" : "" });
                 }
 
-                var modelo = sessionManager.ProductoTemporal;
+                var modelo = sessionManager.GetProductoTemporal();
                 if (modelo == null || modelo.EstrategiaID == 0 || EsCampaniaFalsa(modelo.CampaniaID) ||
                     modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
                 {

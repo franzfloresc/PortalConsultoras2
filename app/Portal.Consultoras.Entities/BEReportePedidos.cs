@@ -56,7 +56,7 @@ namespace Portal.Consultoras.Entities
                 SolicitudClienteID = Convert.ToInt32(row["SolicitudClienteID"]);
             if (DataRecord.HasColumn(row, "Estado"))
                 Estado = row["Estado"].ToString();
-            if (DataRecord.HasColumn(row, "FechaSolicitud") && row["FechaSolicitud"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaSolicitud"))
                 FechaSolicitud = Convert.ToDateTime(row["FechaSolicitud"]);
             if (DataRecord.HasColumn(row, "NombreCliente"))
                 NombreCliente = row["NombreCliente"].ToString();
@@ -74,9 +74,9 @@ namespace Portal.Consultoras.Entities
                 Producto = row["Producto"].ToString();
             if (DataRecord.HasColumn(row, "Tono"))
                 Tono = row["Tono"].ToString();
-            if (DataRecord.HasColumn(row, "Cantidad") && row["Cantidad"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Cantidad"))
                 Cantidad = Convert.ToInt16(row["Cantidad"]);
-            if (DataRecord.HasColumn(row, "Precio") && row["Precio"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Precio"))
                 Precio = Convert.ToDecimal(row["Precio"]);
             if (DataRecord.HasColumn(row, "MensajeCliente"))
                 MensajeCliente = row["MensajeCliente"].ToString();

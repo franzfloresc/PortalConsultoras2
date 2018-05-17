@@ -65,18 +65,18 @@ namespace Portal.Consultoras.Entities
             this.ConsultoraCorreo = Convert.ToString(row["ConsultoraCorreo"]);
             this.ConsultoraCelular = Convert.ToString(row["ConsultoraCelular"]);
 
-            if (DataRecord.HasColumn(row, "Campania") && row["Campania"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Campania"))
                 this.Campania = Convert.ToString(row["Campania"]);
-            if (DataRecord.HasColumn(row, "Leido") && row["Leido"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Leido"))
                 this.Leido = Convert.ToInt16(row["Leido"]);
 
             this.MarcaID = Convert.ToInt32(row["MarcaID"]);
             this.Marca = Convert.ToString(row["Marca"]);
 
-            if (DataRecord.HasColumn(row, "TipoUsuario") && row["TipoUsuario"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TipoUsuario"))
                 this.TipoUsuario = Convert.ToInt32(row["TipoUsuario"]);
 
-            if (DataRecord.HasColumn(row, "FlagConsultora") && row["FlagConsultora"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FlagConsultora"))
                 this.FlagConsultora = Convert.ToBoolean(row["FlagConsultora"]);
 
             this.FechaSolicitud = Convert.ToDateTime(row["FechaSolicitud"]);
@@ -88,7 +88,7 @@ namespace Portal.Consultoras.Entities
             this.ClienteDireccion = Convert.ToString(row["ClienteDireccion"]);
             this.Mensaje = Convert.ToString(row["Mensaje"]);
 
-            if (DataRecord.HasColumn(row, "Total") && row["Total"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Total"))
                 this.Total = Convert.ToDecimal(row["Total"]);
 
             this.Cantidad = Convert.ToInt32(row["Cantidad"]);
@@ -112,9 +112,9 @@ namespace Portal.Consultoras.Entities
 
         public BEResultadoMisPedidosAppCatalogo(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Error") && row["Error"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Error"))
                 Error = Convert.ToBoolean(row["Error"].ToString());
-            if (DataRecord.HasColumn(row, "Mensaje") && row["Mensaje"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Mensaje"))
                 Mensaje = Convert.ToString(row["Mensaje"]);
         }
 
@@ -183,9 +183,9 @@ namespace Portal.Consultoras.Entities
 
         public BEResultadoPedidoDetalleAppCatalogo(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Error") && row["Error"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Error"))
                 Error = Convert.ToBoolean(row["Error"].ToString());
-            if (DataRecord.HasColumn(row, "Mensaje") && row["Mensaje"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Mensaje"))
                 Mensaje = Convert.ToString(row["Mensaje"]);
         }
 

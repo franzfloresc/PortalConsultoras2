@@ -93,7 +93,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "ConsultoraID"))
                 ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
             if (DataRecord.HasColumn(row, "ClienteID"))
-                ClienteID = row["ClienteID"] == DBNull.Value ? (short)0 : Convert.ToInt16(row["ClienteID"]);
+                ClienteID = Convert.ToInt16(row["ClienteID"]);
             if (DataRecord.HasColumn(row, "Cantidad"))
                 Cantidad = Convert.ToInt32(row["Cantidad"]);
             if (DataRecord.HasColumn(row, "PrecioUnidad"))
@@ -116,9 +116,9 @@ namespace Portal.Consultoras.Entities
                 ModificaPedidoReservado = Convert.ToBoolean(row["ModificaPedidoReservado"]);
             if (DataRecord.HasColumn(row, "Simbolo"))
                 Simbolo = Convert.ToString(row["Simbolo"]);
-            if (DataRecord.HasColumn(row, "ConfiguracionOfertaID") && row["TipoOfertaSisID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ConfiguracionOfertaID"))
                 ConfiguracionOfertaID = Convert.ToInt32(row["ConfiguracionOfertaID"]);
-            if (DataRecord.HasColumn(row, "TipoOfertaSisID") && row["TipoOfertaSisID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TipoOfertaSisID"))
                 TipoOfertaSisID = Convert.ToInt32(row["TipoOfertaSisID"]);
         }
 
@@ -135,7 +135,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "ConsultoraID"))
                 ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
             if (DataRecord.HasColumn(row, "ClienteID"))
-                ClienteID = row["ClienteID"] == DBNull.Value ? (short)0 : Convert.ToInt16(row["ClienteID"]);
+                ClienteID = Convert.ToInt16(row["ClienteID"]);
             if (DataRecord.HasColumn(row, "Cantidad"))
                 Cantidad = Convert.ToInt32(row["Cantidad"]);
             if (DataRecord.HasColumn(row, "PrecioUnidad"))
@@ -147,7 +147,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "DescripcionProd"))
                 DescripcionProd = Convert.ToString(row["DescripcionProd"]);
             if (DataRecord.HasColumn(row, "Nombre"))
-                Nombre = row["Nombre"] == DBNull.Value ? Consultora : Convert.ToString(row["Nombre"]);
+                Nombre = Convert.ToString(row["Nombre"]);
             if (DataRecord.HasColumn(row, "eMail"))
                 eMail = Convert.ToString(row["eMail"]);
             if (DataRecord.HasColumn(row, "OfertaWeb"))
@@ -155,16 +155,16 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "CUVPadre"))
                 CUVPadre = Convert.ToString(row["CUVPadre"]);
             if (DataRecord.HasColumn(row, "PedidoDetalleIDPadre"))
-                PedidoDetalleIDPadre = row["PedidoDetalleIDPadre"] == DBNull.Value ? (short)0 : Convert.ToInt16(row["PedidoDetalleIDPadre"]);
+                PedidoDetalleIDPadre = Convert.ToInt16(row["PedidoDetalleIDPadre"]);
             if (DataRecord.HasColumn(row, "ModificaPedidoReservado"))
                 ModificaPedidoReservado = Convert.ToBoolean(row["ModificaPedidoReservado"]);
             if (DataRecord.HasColumn(row, "Simbolo"))
                 Simbolo = Convert.ToString(row["Simbolo"]);
-            if (DataRecord.HasColumn(row, "ConfiguracionOfertaID") && row["TipoOfertaSisID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ConfiguracionOfertaID"))
                 ConfiguracionOfertaID = Convert.ToInt32(row["ConfiguracionOfertaID"]);
-            if (DataRecord.HasColumn(row, "TipoOfertaSisID") && row["TipoOfertaSisID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TipoOfertaSisID"))
                 TipoOfertaSisID = Convert.ToInt32(row["TipoOfertaSisID"]);
-            if (DataRecord.HasColumn(row, "IndicadorMontoMinimo") && row["IndicadorMontoMinimo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "IndicadorMontoMinimo"))
                 IndicadorMontoMinimo = Convert.ToInt32(row["IndicadorMontoMinimo"]);
             else
                 IndicadorMontoMinimo = 1;

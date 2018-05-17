@@ -173,79 +173,86 @@ namespace Portal.Consultoras.Entities.ShowRoom
         [ViewProperty]
         [Column("TieneVariedad")]
         public int TieneVariedad { get; set; }
+        
+        [DataMember]
+        [ViewProperty]
+        [Column("FlagRevista")]
+        public int FlagRevista { get; set; }
 
         public BEShowRoomOferta()
         { }
 
         public BEShowRoomOferta(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "OfertaShowRoomID") && row["OfertaShowRoomID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "OfertaShowRoomID"))
                 OfertaShowRoomID = Convert.ToInt32(row["OfertaShowRoomID"]);
-            if (DataRecord.HasColumn(row, "CampaniaID") && row["CampaniaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CampaniaID"))
                 CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "CUV") && row["CUV"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CUV"))
                 CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "TipoOfertaSisID") && row["TipoOfertaSisID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TipoOfertaSisID"))
                 TipoOfertaSisID = Convert.ToInt32(row["TipoOfertaSisID"]);
-            if (DataRecord.HasColumn(row, "ConfiguracionOfertaID") && row["ConfiguracionOfertaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ConfiguracionOfertaID"))
                 ConfiguracionOfertaID = Convert.ToInt32(row["ConfiguracionOfertaID"]);
-            if (DataRecord.HasColumn(row, "Descripcion") && row["Descripcion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Descripcion"))
                 Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "PrecioOferta") && row["PrecioOferta"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PrecioOferta"))
                 PrecioOferta = Convert.ToDecimal(row["PrecioOferta"]);
-            if (DataRecord.HasColumn(row, "PrecioValorizado") && row["PrecioValorizado"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PrecioValorizado"))
                 PrecioValorizado = Convert.ToDecimal(row["PrecioValorizado"]);
-            if (DataRecord.HasColumn(row, "Stock") && row["Stock"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Stock"))
                 Stock = Convert.ToInt32(row["Stock"]);
-            if (DataRecord.HasColumn(row, "StockInicial") && row["StockInicial"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "StockInicial"))
                 StockInicial = Convert.ToInt32(row["StockInicial"]);
-            if (DataRecord.HasColumn(row, "ImagenProducto") && row["ImagenProducto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ImagenProducto"))
                 ImagenProducto = Convert.ToString(row["ImagenProducto"]);
-            if (DataRecord.HasColumn(row, "Orden") && row["Orden"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Orden"))
                 Orden = Convert.ToInt32(row["Orden"]);
-            if (DataRecord.HasColumn(row, "UnidadesPermitidas") && row["UnidadesPermitidas"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "UnidadesPermitidas"))
                 UnidadesPermitidas = Convert.ToInt32(row["UnidadesPermitidas"]);
-            if (DataRecord.HasColumn(row, "FlagHabilitarProducto") && row["FlagHabilitarProducto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FlagHabilitarProducto"))
                 FlagHabilitarProducto = Convert.ToBoolean(row["FlagHabilitarProducto"]);
-            if (DataRecord.HasColumn(row, "DescripcionLegal") && row["DescripcionLegal"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescripcionLegal"))
                 DescripcionLegal = Convert.ToString(row["DescripcionLegal"]);
-            if (DataRecord.HasColumn(row, "CategoriaID") && row["CategoriaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CategoriaID"))
                 CategoriaID = Convert.ToString(row["CategoriaID"]);
-            if (DataRecord.HasColumn(row, "UsuarioRegistro") && row["UsuarioRegistro"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "UsuarioRegistro"))
                 UsuarioRegistro = Convert.ToString(row["UsuarioRegistro"]);
-            if (DataRecord.HasColumn(row, "FechaRegistro") && row["FechaRegistro"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaRegistro"))
                 FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
-            if (DataRecord.HasColumn(row, "UsuarioModificacion") && row["UsuarioModificacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "UsuarioModificacion"))
                 UsuarioModificacion = Convert.ToString(row["UsuarioModificacion"]);
-            if (DataRecord.HasColumn(row, "FechaModificacion") && row["FechaModificacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaModificacion"))
                 FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
-            if (DataRecord.HasColumn(row, "ImagenMini") && row["ImagenMini"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ImagenMini"))
                 ImagenMini = Convert.ToString(row["ImagenMini"]);
 
-            if (DataRecord.HasColumn(row, "NroOrden") && row["NroOrden"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NroOrden"))
                 NroOrden = Convert.ToInt32(row["NroOrden"]);
-            if (DataRecord.HasColumn(row, "CodigoCampania") && row["CodigoCampania"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoCampania"))
                 CodigoCampania = Convert.ToString(row["CodigoCampania"]);
-            if (DataRecord.HasColumn(row, "CodigoTipoOferta") && row["CodigoTipoOferta"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoTipoOferta"))
                 CodigoTipoOferta = Convert.ToString(row["CodigoTipoOferta"]);
-            if (DataRecord.HasColumn(row, "TipoOferta") && row["TipoOferta"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TipoOferta"))
                 TipoOferta = Convert.ToString(row["TipoOferta"]);
-            if (DataRecord.HasColumn(row, "CodigoProducto") && row["CodigoProducto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoProducto"))
                 CodigoProducto = Convert.ToString(row["CodigoProducto"]);
-            if (DataRecord.HasColumn(row, "MarcaID") && row["MarcaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MarcaID"))
                 MarcaID = Convert.ToInt32(row["MarcaID"]);
-            if (DataRecord.HasColumn(row, "CodigoCategoria") && row["CodigoCategoria"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoCategoria"))
                 CodigoCategoria = Convert.ToString(row["CodigoCategoria"]);
-            if (DataRecord.HasColumn(row, "TipNegocio") && row["TipNegocio"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TipNegocio"))
                 TipNegocio = Convert.ToString(row["TipNegocio"]);
-            if (DataRecord.HasColumn(row, "DescripcionCategoria") && row["DescripcionCategoria"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescripcionCategoria"))
                 DescripcionCategoria = Convert.ToString(row["DescripcionCategoria"]);
-            if (DataRecord.HasColumn(row, "EsSubCampania") && row["EsSubCampania"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "EsSubCampania"))
                 EsSubCampania = Convert.ToBoolean(row["EsSubCampania"]);
-            if (DataRecord.HasColumn(row, "CodigoEstrategia") && row["CodigoEstrategia"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoEstrategia"))
                 CodigoEstrategia = Convert.ToString(row["CodigoEstrategia"]);
-            if (DataRecord.HasColumn(row, "TieneVariedad") && row["TieneVariedad"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TieneVariedad"))
                 TieneVariedad = Convert.ToInt32(row["TieneVariedad"]);
+            if (DataRecord.HasColumn(row, "FlagRevista"))
+                FlagRevista = Convert.ToInt32(row["FlagRevista"]);
 
         }
     }

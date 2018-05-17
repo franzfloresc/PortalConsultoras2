@@ -128,6 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseUtilities.cs" />
+    <Compile Include="Nodo.cs" />
     <Compile Include="ClientIP.cs" />
     <Compile Include="CollectionExtension.cs" />
     <Compile Include="BETuplaEditable.cs" />
@@ -160,7 +161,6 @@
     <Compile Include="PagoEnLinea\RespuestaAutorizacionVisa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegexUtilities.cs" />
-    <Compile Include="RestClient.cs" />
     <Compile Include="Settings\ServiceSettings.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="WebConfig.cs" />
