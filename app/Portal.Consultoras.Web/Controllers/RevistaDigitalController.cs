@@ -181,7 +181,8 @@ namespace Portal.Consultoras.Web.Controllers
                         listPerdio = listModelCompleta.Where(e =>
                             (e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
                             || e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso)
-                            && e.FlagRevista == Constantes.FlagRevista.Valor2
+                            && (e.FlagRevista == Constantes.FlagRevista.Valor1 ||
+                            e.FlagRevista == Constantes.FlagRevista.Valor2)
                             ).ToList();
 
                         listPerdio.ForEach(e =>
