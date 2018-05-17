@@ -162,8 +162,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (mdo0 && model.CampaniaID == userData.CampaniaID)
                 {
-                    var listaRd = listaFinal1.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi || e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso).ToList();
-                    listModel1 = listaFinal1.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.OfertasParaMi && e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.PackAltoDesembolso).ToList();
+                    var listaRd = listaFinal1.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi || e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso).ToList();
+                    listModel1 = listaFinal1.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.OfertasParaMi && e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackAltoDesembolso).ToList();
                     listModel1.AddRange(listaRd.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor0));
                 }
                 else
@@ -212,8 +212,8 @@ namespace Portal.Consultoras.Web.Controllers
                     if (mdo0)
                     {
                         listPerdio = listModelCompleta.Where(e =>
-                            (e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-                            || e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso)
+                            (e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+                            || e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso)
                             && e.FlagRevista == Constantes.FlagRevista.Valor2
                             ).ToList();
 
