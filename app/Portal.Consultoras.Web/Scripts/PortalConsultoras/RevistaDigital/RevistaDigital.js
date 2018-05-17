@@ -438,6 +438,7 @@ function OfertaArmarEstrategiasContenedor(responseData, busquedaModel) {
 
 function OfertaArmarEstrategiasContenedorSeccion(response) {
     response.listaPerdio = response.listaPerdio || [];
+    response.lista = response.lista || [];
     response.CantidadProductos = response.lista.length + response.listaPerdio.length;
     var cant = response.Seccion.CantidadProductos || 0;
     cant = cant == 0 ? response.lista.length : cant;
