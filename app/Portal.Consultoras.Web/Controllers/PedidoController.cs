@@ -2265,7 +2265,6 @@ namespace Portal.Consultoras.Web.Controllers
                 eMail = userData.EMail
             };
 
-            ViewBag.Simbolo = model.Simbolo;
             ViewBag.Total_Minimo = model.Total_Minimo;
             ViewBag.CodigoISOPais = userData.CodigoISO;
 

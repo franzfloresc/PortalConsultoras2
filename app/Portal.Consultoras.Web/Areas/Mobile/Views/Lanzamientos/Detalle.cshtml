@@ -7,6 +7,7 @@
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
     var urlDomain = Util.GetUrlHost(Request);
     var fotoSmall = Util.GenerarRutaImagenResizeSmall(Model.FotoProducto01);
+    var vbSimbolo = ViewBag.Simbolo ?? "";
 }
 
 @section styles{
@@ -34,9 +35,9 @@
                             <h1>@Model.DescripcionResumen</h1>
                         </div>
                         <div class="bloque2">
-                            <span class="precio-tachado">@Model.Simbolo @Model.PrecioTachado</span>
-                            <span class="precio-para-ti">Precio para tí<b>@Model.Simbolo @Model.PrecioVenta</b></span>
-                            <span class="gana-rojo">GANA @Model.Simbolo @Model.GananciaString</span>
+                            <span class="precio-tachado">@vbSimbolo @Model.PrecioTachado</span>
+                            <span class="precio-para-ti">Precio para tí<b>@vbSimbolo @Model.PrecioVenta</b></span>
+                            <span class="gana-rojo">GANA @vbSimbolo @Model.GananciaString</span>
                         </div>
                         <div style="clear:both;"></div>
                     </div>

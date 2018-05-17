@@ -4749,7 +4749,8 @@ namespace Portal.Consultoras.Web.Controllers
                 UrlCompartir = Util.GetUrlCompartirFB(userData.CodigoISO),
                 ExtensionImgSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall,
                 //ExtensionImgMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium,
-                ImgUrlBase = ConfigS3.GetUrlFileS3Base(carpetaPais)
+                ImgUrlBase = ConfigS3.GetUrlFileS3Base(carpetaPais),
+                SimboloMoneda = userData.Simbolo
         };
 
             return baseVariablesGeneral;

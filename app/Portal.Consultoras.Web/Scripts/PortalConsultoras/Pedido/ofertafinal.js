@@ -12,7 +12,6 @@ var oUpsellingGanado = null;
 var superoMinimo = false;
 var montoPedidoInicial = 0;
 var montoPedidoFinal = 0;
-var simbolo = $("#hdSimbolo").val();
 var totalProductosOF = 0;
 var tipoMeta = null;
 
@@ -270,7 +269,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     objOf.MetaPorcentaje = $.trim(objOf.TipoMeta);
     objOf.Detalle = cumpleOferta.productosMostrar;
     objOf.TotalPedido = $("#hdfTotal").val();
-    objOf.Simbolo = objOf.Simbolo || $("#hdSimbolo").val();
+    objOf.Simbolo = objOf.Simbolo || variablesPortal.SimboloMoneda;
     objOf.Upselling = oUpselling;
     montoPedidoInicial = objOf.TotalPedido;
     montoPedidoFinal = objOf.TotalPedido;
@@ -657,7 +656,7 @@ function validarGanoRegalo(totalPedido) {
             }
 
             if (oUpsellingGanado != null) {
-                $('#of-regalo-montometa-msg3').text(simbolo + DecimalToStringFormat(oUpsellingGanado.MontoPedidoFinal));
+                $('#of-regalo-montometa-msg3').text(variablesPortal.SimboloMoneda + DecimalToStringFormat(oUpsellingGanado.MontoPedidoFinal));
                 $('#of-regalo-descripcion').text(oUpsellingGanado.Descripcion);
                 $('#of-regalo-imagen').attr('src', oUpsellingGanado.RegaloImagenUrl);
                 $('#of-regalo-descripcion-larga').text(oUpsellingGanado.RegaloDescripcion);
@@ -684,8 +683,8 @@ function validarGanoRegalo(totalPedido) {
                 $('#msg-regalo-sp-4').show();
             }
 
-            $('[data-regalo-agrega]').text(simbolo + agrega);
-            $('#of-regalo-montometa').text(simbolo + DecimalToStringFormat(oUpselling.Meta.MontoMeta));
+            $('[data-regalo-agrega]').text(variablesPortal.SimboloMoneda + agrega);
+            $('#of-regalo-montometa').text(variablesPortal.SimboloMoneda + DecimalToStringFormat(oUpselling.Meta.MontoMeta));
             $('#content-regalo-agrega').show();
         }
     }
@@ -700,7 +699,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
 
     if (consultoraRegaloPN == 'True') {
         var montoMeta = parseFloat(metaMonto) + parseFloat(metaTotal);
-        mostrarMensajeRegaloPN(tipoMeta, data.total, montoMeta, simbolo, 2)
+        mostrarMensajeRegaloPN(tipoMeta, data.total, montoMeta, variablesPortal.SimboloMoneda, 2)
     }
 
     if (tipoMeta == "MM") {
@@ -736,7 +735,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
             if (consultoraRegaloPN == 'True') {  // CASE 3,4,5
                 var nivel = oRegaloPN.CodigoNivel;
                 var sep1 = (tipoOrigen == 1) ? ' | ' : '<br />';
-                var msg3 = 'Monto Total de Pedido: ' + simbolo + ' ' + data.formatoTotal + sep1 + 'Ganancia Estimada Total: ' + simbolo + ' ' + data.DataBarra.MontoGananciaStr;
+                var msg3 = 'Monto Total de Pedido: ' + variablesPortal.SimboloMoneda + ' ' + data.formatoTotal + sep1 + 'Ganancia Estimada Total: ' + variablesPortal.SimboloMoneda + ' ' + data.DataBarra.MontoGananciaStr;
 
                 if (nivel == '01' || nivel == '02' || nivel == '03') {
                     $('#msjOfertaFinal span').html(msg3);
@@ -745,14 +744,14 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
                     if (tipoOrigen == 1)
                         $("#msjOfertaFinal span").html(msg3);
                     else
-                        $("#msjOfertaFinal span").html('Monto Total de Pedido: ' + simbolo + ' ' + data.formatoTotal);
+                        $("#msjOfertaFinal span").html('Monto Total de Pedido: ' + variablesPortal.SimboloMoneda + ' ' + data.formatoTotal);
 
                     $('#msjOfertaFinal').css('margin-bottom', '0');
                 }
                 $('#msjOfertaFinal').show();
             }
             else
-                $("#msjOfertaFinal span").html("<b>" + msj + simbolo + " " + data.DataBarra.MontoGananciaStr + "</b><br />Monto total: " + simbolo + " " + data.formatoTotal);
+                $("#msjOfertaFinal span").html("<b>" + msj + variablesPortal.SimboloMoneda + " " + data.DataBarra.MontoGananciaStr + "</b><br />Monto total: " + variablesPortal.SimboloMoneda + " " + data.formatoTotal);
 
             if (tipoOrigen == 1) {
                 $("#ofIconoSuperior").removeClass("icono_exclamacion");
@@ -798,10 +797,10 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
 
             if (nivel == '01' || nivel == '02' || nivel == '03') {
                 // CASE 9
-                var msg1 = '<b>AHORA TU MONTO TOTAL' + sep2 + 'DE PEDIDO ES ' + simbolo + ' ' + data.formatoTotal + '</b>';
+                var msg1 = '<b>AHORA TU MONTO TOTAL' + sep2 + 'DE PEDIDO ES ' + variablesPortal.SimboloMoneda + ' ' + data.formatoTotal + '</b>';
                 $('#spnTituloOfertaFinal span').html(msg1);
 
-                $('#msjOfertaFinal span').html('Ganancia Estimada Total: ' + simbolo + ' ' + data.DataBarra.MontoGananciaStr);
+                $('#msjOfertaFinal span').html('Ganancia Estimada Total: ' + variablesPortal.SimboloMoneda + ' ' + data.DataBarra.MontoGananciaStr);
 
                 if (tipoOrigen == 2) $('#msjOfertaFinal').css('margin-top', '15px');
                 if (tipoOrigen == 1) $('div.contenedor_bloques_agregaProductos').css('padding-top', '10px');
@@ -813,7 +812,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
 
                 if (data.total >= oRegaloPN.TippingPoint) {
                     // CASE 11
-                    var msg1 = '<b>AHORA TU MONTO TOTAL' + sep2 + 'DE PEDIDO ES DE ' + simbolo + ' ' + data.formatoTotal + '</b>';
+                    var msg1 = '<b>AHORA TU MONTO TOTAL' + sep2 + 'DE PEDIDO ES DE ' + variablesPortal.SimboloMoneda + ' ' + data.formatoTotal + '</b>';
                     msg1 += '<br /><span style="font-weight: normal;font-size:14px;"><b>Y GANASTE UN ' + oRegaloPN.DescripcionPremio + '*</b>';
                     msg1 += ', AHORA PUEDES ACCEDER A PACKS EXCLUSIVOS NUEVAS**</span>';
 
@@ -823,7 +822,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
                         $('#spnTituloOfertaFinal').css('max-width', '700px');
                         $('#spnTituloOfertaFinal').css('margin', '0 auto');
 
-                        $('#msjOfertaFinal span').html('Ganancia Estimada Total: ' + simbolo + ' ' + data.DataBarra.MontoGananciaStr);
+                        $('#msjOfertaFinal span').html('Ganancia Estimada Total: ' + variablesPortal.SimboloMoneda + ' ' + data.DataBarra.MontoGananciaStr);
                         $('#msjOfertaFinal').css('padding-top', '10px');
                         $('#msjOfertaFinal').show();
                     }
@@ -835,16 +834,16 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
                 }
                 else {
                     // CASE 10
-                    var msg1 = '<b>AHORA TU MONTO TOTAL' + sep2 + 'DE PEDIDO  ES ' + simbolo + ' ' + data.formatoTotal + '</b>';
+                    var msg1 = '<b>AHORA TU MONTO TOTAL' + sep2 + 'DE PEDIDO  ES ' + variablesPortal.SimboloMoneda + ' ' + data.formatoTotal + '</b>';
                     $('#spnTituloOfertaFinal span').html(msg1);
 
                     if (tipoOrigen == 1) {
-                        $('#msjOfertaFinal span').html('Ganancia Estimada Total: ' + simbolo + ' ' + data.DataBarra.MontoGananciaStr);
+                        $('#msjOfertaFinal span').html('Ganancia Estimada Total: ' + variablesPortal.SimboloMoneda + ' ' + data.DataBarra.MontoGananciaStr);
                         $('#msjOfertaFinal').css('margin-bottom', '0');
                         $('#msjOfertaFinal').show();
                     }
 
-                    var msg2 = 'AGREGA ' + simbolo + ' ' + DecimalToStringFormat(stp) + ' PARA <b>GANAR UN ' + oRegaloPN.DescripcionPremio + '*</b>';
+                    var msg2 = 'AGREGA ' + variablesPortal.SimboloMoneda + ' ' + DecimalToStringFormat(stp) + ' PARA <b>GANAR UN ' + oRegaloPN.DescripcionPremio + '*</b>';
                     msg2 += ' Y ACCEDER A PACKS EXCLUSIVOS NUEVAS**';
 
                     $('#msg-regalo-pn').html(msg2);
@@ -857,7 +856,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
             $('#txt-disclaimer-pn').html(disclaimer);
         }
         else
-            $("#spnTituloOfertaFinal span").html("¡AHORA TU <b>GANANCIA ESTIMADA ES " + simbolo + " " + data.DataBarra.MontoGananciaStr + "!</b>");
+            $("#spnTituloOfertaFinal span").html("¡AHORA TU <b>GANANCIA ESTIMADA ES " + variablesPortal.SimboloMoneda + " " + data.DataBarra.MontoGananciaStr + "!</b>");
 
         if (tipoOrigen == "1") {
             $("#msjOfertaFinal").attr("class", "ganancia_total_pop");
@@ -877,7 +876,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
             if (tipoOrigen == "1") {
                 $("#msjOfertaFinal").attr("class", "ganancia_total_pop");
             }
-            $("#msjOfertaFinal span").html("<b>" + msj + simbolo + " " + data.DataBarra.MontoGananciaStr + "</b><br />Monto total: " + simbolo + " " + data.formatoTotal);
+            $("#msjOfertaFinal span").html("<b>" + msj + variablesPortal.SimboloMoneda + " " + data.DataBarra.MontoGananciaStr + "</b><br />Monto total: " + variablesPortal.SimboloMoneda + " " + data.formatoTotal);
         }
         else {
             $("#msjOfertaFinal span[data-monto]").html(DecimalToStringFormat(montolimite - parseFloat(data.total)));
@@ -912,7 +911,7 @@ function getAbrevNumPedido(nivel) {
     return abrev;
 }
 
-function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag) {
+function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simboloParam, flag) {
     if (oRegaloPN == null)
         oRegaloPN = GetRegaloProgramaNuevas();
 
@@ -968,7 +967,7 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
                     else {
                         // CASE 4
                         msg1 = '<b>¡LLEGASTE AL MONTO MÍNIMO!</b>';
-                        msg2 = 'AGREGA ' + simbolo + ' ' + DecimalToStringFormat(stp) + ' PARA <b>GANAR UN ' + oRegaloPN.DescripcionPremio + '*</b>';
+                        msg2 = 'AGREGA ' + simboloParam + ' ' + DecimalToStringFormat(stp) + ' PARA <b>GANAR UN ' + oRegaloPN.DescripcionPremio + '*</b>';
                         msg2 += ' Y ACCEDER A PACKS EXCLUSIVOS NUEVAS**';
 
                         $('#spnTituloOfertaFinal span').html(msg1);
@@ -984,14 +983,14 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
                     // CASE 1
                     msg2 = 'ALCÁNZALO CON ESTAS OFERTAS Y <b>GANA UN ' + oRegaloPN.DescripcionPremio + '*</b>';
                     if (oRegaloPN.Valorizado > 0)
-                        msg2 += ', PUEDES VENDERLO A ' + simbolo + ' ' + oRegaloPN.PrecioValorizadoFormat;
+                        msg2 += ', PUEDES VENDERLO A ' + simboloParam + ' ' + oRegaloPN.PrecioValorizadoFormat;
 
                     $('#msg-regalo-pn').html(msg2);
                     $('#msg-regalo-pn2').html(msg2);
                 }
                 else {
                     // CASE 2
-                    msg2 = 'AGREGA ' + simbolo + ' ' + DecimalToStringFormat(stp) + ' PARA <b>GANAR UN ' + oRegaloPN.DescripcionPremio + '*</b>';
+                    msg2 = 'AGREGA ' + simboloParam + ' ' + DecimalToStringFormat(stp) + ' PARA <b>GANAR UN ' + oRegaloPN.DescripcionPremio + '*</b>';
                     msg2 += ' Y ACCEDER A PACKS EXCLUSIVOS NUEVAS**';
 
                     $('#msg-regalo-pn').html(msg2);
@@ -1027,16 +1026,16 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
                     $('#spnTituloOfertaFinal span').html(msg1);
 
                     if (tipoOrigen == 1)
-                        $('#msjOfertaFinal span').html('Monto Total de Pedido: ' + simbolo + ' ' + dataBarra.TotalPedidoStr + ' | ' + 'Ganancia Estimada Total: ' + simbolo + ' ' + dataBarra.MontoGananciaStr);
+                        $('#msjOfertaFinal span').html('Monto Total de Pedido: ' + simboloParam + ' ' + dataBarra.TotalPedidoStr + ' | ' + 'Ganancia Estimada Total: ' + simboloParam + ' ' + dataBarra.MontoGananciaStr);
                     else
-                        $('#msjOfertaFinal span').html('Monto Total de Pedido: ' + simbolo + ' ' + montoTotal);
+                        $('#msjOfertaFinal span').html('Monto Total de Pedido: ' + simboloParam + ' ' + montoTotal);
 
                     $('#msjOfertaFinal').show();
                 }
                 else {
                     // CASE 7
                     msg1 = '<b>¡GUARDASTE TU PEDIDO CON ÉXITO!</b>';
-                    msg2 = 'AGREGA ' + simbolo + ' ' + DecimalToStringFormat(stp) + ' PARA <b>GANAR UN ' + oRegaloPN.DescripcionPremio + '*</b>';
+                    msg2 = 'AGREGA ' + simboloParam + ' ' + DecimalToStringFormat(stp) + ' PARA <b>GANAR UN ' + oRegaloPN.DescripcionPremio + '*</b>';
                     msg2 += ' Y ACCEDER A PACKS EXCLUSIVOS NUEVAS**';
                     if (tipoOrigen == 1) msg2 += ' ¡APROVECHA ESTAS OFERTAS!';
 
@@ -1395,7 +1394,7 @@ function InsertUpSellingRegalo(id, cuv) {
                             $('#of-regalo-descripcion').text(titulo);
                             $('#of-regalo-imagen').attr('src', imagen);
                             $('#of-regalo-descripcion-larga').text(descripcion);
-                            $('#of-regalo-montometa-msg3').text(simbolo + DecimalToStringFormat(montoPedidoFinal));
+                            $('#of-regalo-montometa-msg3').text(variablesPortal.SimboloMoneda + DecimalToStringFormat(montoPedidoFinal));
 
                             upSellingGanadoPromise = GetUpSellingGanadoPromise();
 
@@ -1532,7 +1531,7 @@ function CargarVerDetalleOF(objInput, e) {
     objEntidad.DescripcionComercial = $(divPadre).find(".hdOfertaFinal" + "DescripcionComercial").val();
     objEntidad.Volumen = $(divPadre).find(".hdOfertaFinal" + "Volumen").val();
     objEntidad.Descripcion = $(divPadre).find(".hdOfertaFinal" + "NombreComercial").val();
-    objEntidad.Simbolo = $("#hdSimbolo").val();
+    objEntidad.Simbolo = variablesPortal.SimboloMoneda;
     objEntidad.PrecioValorizado = $(divPadre).find(".hdOfertaFinal" + "PrecioValorizado").val();
     objEntidad.PrecioValorizadoString = $(divPadre).find(".hdOfertaFinal" + "PrecioValorizadoString").val();
     objEntidad.PrecioCatalogoString = $(divPadre).find(".hdOfertaFinal" + "PrecioCatalogoString").val();

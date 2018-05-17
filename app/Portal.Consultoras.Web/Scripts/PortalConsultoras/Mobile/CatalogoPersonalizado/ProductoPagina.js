@@ -90,7 +90,7 @@ function ObtenerOfertaRevista2(item) {
                     return false;
                 }
 
-                response.data.dataPROL.Simbolo = vbSimbolo;
+                response.data.dataPROL.Simbolo = variablesPortal.SimboloMoneda;
                 response.data.dataPROL.TxtGanancia = response.data.txtGanancia;
                 response.data.dataPROL.TxtRecibeGratis = response.data.txtRecibeGratis;
 

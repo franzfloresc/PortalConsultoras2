@@ -74,7 +74,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             ViewBag.PaisID = userData.PaisID;
-            ViewBag.Simbolo = userData.Simbolo;
             ViewBag.NombreCompleto = userData.NombreConsultora;
             ViewBag.Marca = model.MarcaNombre;
 
@@ -245,9 +244,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             else model.Total = model.ListaNotificacionesDetallePedido.Sum(p => p.ImporteTotal);
             model.DecimalToString = this.CreateConverterDecimalToString(userData.PaisID);
-
-            ViewBag.Simbolo = userData.Simbolo;
-
+            
             return View("ListadoObservaciones", model);
         }
 
@@ -292,7 +289,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.ListaNotificacionesDetallePedido = lstObservacionesPedido;
             model.NombreConsultora = userData.NombreConsultora;
             model.Origen = 3;
-            ViewBag.Simbolo = userData.Simbolo;
 
             return View("DetalleObservacionesStock", model);
         }
@@ -316,8 +312,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.Campania = notificacion.CampaniaId;
                 ViewBag.FechaEjecucion = notificacion.FechaHoraValidación;
             }
-
-            ViewBag.Simbolo = userData.Simbolo;
 
             return View("DetalleSolicitudClienteCatalogo", model);
         }

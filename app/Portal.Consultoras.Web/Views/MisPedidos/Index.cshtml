@@ -454,7 +454,7 @@
         <div class="totalPedidoFacturado">
             <span>TOTAL:</span>
             <span>
-                <b>{{Simbolo}} {{detalle.ImporteTotal}}</b>
+                <b>{{SimboloMoneda}} {{detalle.ImporteTotal}}</b>
             </span>
         </div>
         <div class="paginador_pedidos mostrarPaginadorPedidos inferior" style="display:none;">
@@ -506,9 +506,9 @@
             <div class="totalTexto">MONTO TOTAL:</div>
         </div>
         <div class="content_datos_pedidosFacturados padding_area_montosTotales" style="font-size:15px;">
-            <div class="totalNumero texto_bold">{{Simbolo}} {{SubTotal}}</div>
-            <div class="totalNumero texto_bold">{{Simbolo}} {{OfertaNiveles}}</div>
-            <div class="totalNumero texto_bold">{{Simbolo}} {{ImporteTotal}}</div>
+            <div class="totalNumero texto_bold">{{SimboloMoneda}} {{SubTotal}}</div>
+            <div class="totalNumero texto_bold">{{SimboloMoneda}} {{OfertaNiveles}}</div>
+            <div class="totalNumero texto_bold">{{SimboloMoneda}} {{ImporteTotal}}</div>
         </div>
     </div>
 </script>
@@ -527,8 +527,8 @@
         <div class="codigo_prod">{{detalle.CUV}}</div>
         <div class="descripcion_prod">{{detalle.DescripcionProd}}</div>
         <div class="cantidadProd">{{detalle.Cantidad}}</div>
-        <div class="precioUnitario_prod">{{detalle.Simbolo}} {{detalle.PrecioUnidad}}</div>
-        <div class="importePago_prod">{{detalle.Simbolo}} {{detalle.ImporteTotal}}</div>
+        <div class="precioUnitario_prod">{{SimboloMoneda}} {{detalle.PrecioUnidad}}</div>
+        <div class="importePago_prod">{{SimboloMoneda}} {{detalle.ImporteTotal}}</div>
         <div class="importePago_prod">{{detalle.NombreCliente}}</div>
     </div>
     {{/each}}
@@ -542,7 +542,7 @@
             </div>
         </div>
         <div class="content_datos_pedidosFacturados padding_area_montosTotales">
-            <div class="totalNumero texto_bold" style="font-size:15px;">{{Simbolo}} {{ImporteTotal}}</div>
+            <div class="totalNumero texto_bold" style="font-size:15px;">{{SimboloMoneda}} {{ImporteTotal}}</div>
         </div>
     </div>
     <div class="linea_separadora" style="height:1px;"></div>
@@ -596,7 +596,7 @@
                 {{/iff}}
                 :
             </span>
-           <b>&nbsp;&nbsp;{{Simbolo}} <span data-facturadoCabecera=""> </span></b>
+           <b>&nbsp;&nbsp;{{SimboloMoneda}} <span data-facturadoCabecera=""> </span></b>
         </div>
     </div>
     <div class="clear"></div>
@@ -627,11 +627,11 @@
                 <div class="codigo_prod">{{detalle.CUV}}</div>
                 <div class="descripcion_prod">{{detalle.DescripcionProd}}</div>
                 <div class="cantidadProd">{{detalle.Cantidad}}</div>
-                <div class="precioUnitario_prod">{{Simbolo}} {{detalle.PrecioUnidad}}</div>
-                <div class="totalPrecio_prod">{{Simbolo}} {{detalle.ImporteTotal}}</div>
+                <div class="precioUnitario_prod">{{SimboloMoneda}} {{detalle.PrecioUnidad}}</div>
+                <div class="totalPrecio_prod">{{SimboloMoneda}} {{detalle.ImporteTotal}}</div>
                 {{#iff detalle.tipo '==' 'f'}}
-                <div class="totalPrecio_prod">{{Simbolo}} {{detalle.MontoEscala}}</div>
-                <div class="totalPrecio_prod">{{Simbolo}} {{detalle.ImportePagar}}</div>
+                <div class="totalPrecio_prod">{{SimboloMoneda}} {{detalle.MontoEscala}}</div>
+                <div class="totalPrecio_prod">{{SimboloMoneda}} {{detalle.ImportePagar}}</div>
                 {{/iff}}
                 <div class="cliente">{{detalle.NombreCliente}}</div>
             </div>
@@ -648,9 +648,9 @@
             <div class="totalTexto">TOTAL FACTURADO:</div>
         </div>
         <div class="content_datos_pedidosFacturados padding_area_montosTotales">
-            <div class="totalNumero texto_bold">{{Simbolo}} <span data-total=""></span></div>
-            <div class="totalNumero texto_bold">{{Simbolo}} <span data-flete=""></span></div>
-            <div class="totalNumero texto_bold">{{Simbolo}} <span data-facturado=""></span></div>
+            <div class="totalNumero texto_bold">{{SimboloMoneda}} <span data-total=""></span></div>
+            <div class="totalNumero texto_bold">{{SimboloMoneda}} <span data-flete=""></span></div>
+            <div class="totalNumero texto_bold">{{SimboloMoneda}} <span data-facturado=""></span></div>
         </div>
     </div>
     {{else}}
@@ -669,10 +669,10 @@
                 <!--MONTOS-->
                 <div class="monto_resumenValidado">
                     <div class="monto_1">Total sin Dscto.</div>
-                    <div class="monto_numero" style="opacity:0.6">{{Simbolo}} {{ImporteTotal}}</div>
+                    <div class="monto_numero" style="opacity:0.6">{{SimboloMoneda}} {{ImporteTotal}}</div>
                     <hr class="clear">
                     <div class="monto_1">Dscto. por niveles </div>
-                    <div class="monto_numero">{{Simbolo}} {{OfertaNiveles}}</div>
+                    <div class="monto_numero">{{SimboloMoneda}} {{OfertaNiveles}}</div>
                 </div>
                 <!--FIN-->
             </div>
@@ -680,8 +680,8 @@
             <div class="totalTexto">@(cabezaEscala.Trim().ToUpper()): </div>
         </div>
         <div class="content_datos_pedidosFacturados padding_area_montosTotales" style="font-size:15px;">
-            <div class="totalNumero texto_bold">{{Simbolo}} {{ImporteFacturado}}</div>
-            <div class="totalNumero texto_bold">{{Simbolo}} {{Ganancia}}</div>
+            <div class="totalNumero texto_bold">{{SimboloMoneda}} {{ImporteFacturado}}</div>
+            <div class="totalNumero texto_bold">{{SimboloMoneda}} {{Ganancia}}</div>
         </div>
     </div>
     {{/iff}}

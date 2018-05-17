@@ -794,7 +794,7 @@ function CambiarTonoTalla(ddlTonoTalla) {
     $(ddlTonoTalla).parents('#divTonosTallas').find("#DescripcionProd").attr("value", $("option:selected", ddlTonoTalla).attr("desc-talla"));
 
     $(ddlTonoTalla).parents('#divTonosTallas').find('.nombre_producto').html('<b>' + $("option:selected", ddlTonoTalla).attr("desc-talla") + '</b>');
-    $(ddlTonoTalla).parents('#divTonosTallas').find('.producto_precio_oferta').html('<b>' + viewBagSimbolo + " " + $("option:selected", ddlTonoTalla).attr("desc-precio") + '</b>');
+    $(ddlTonoTalla).parents('#divTonosTallas').find('.producto_precio_oferta').html('<b>' + variablesPortal.SimboloMoneda + " " + $("option:selected", ddlTonoTalla).attr("desc-precio") + '</b>');
 };
 
 function alert_unidadesAgregadas(message, exito) {
@@ -978,7 +978,7 @@ function EstructurarDataCarouselLiquidaciones(array) {
         item.DescripcionCompleta = item.Descripcion;
         item.Descripcion = (item.Descripcion.length > 40 ? item.Descripcion.substring(0, 40) + "..." : item.Descripcion);
 
-        item.Simbolo = viewBagSimbolo;
+        item.Simbolo = variablesPortal.SimboloMoneda;
         item.Posicion = i + 1;
         item.TallaColor = $.trim(item.TallaColor);
         if (item.TallaColor.length > 1 && item.TallaColor.indexOf('^') > -1) {

@@ -234,9 +234,9 @@ else
                 </div>|
                 <div class="marca_oferta048">{{DescripcionMarca}}</div>
                 <div class="nombre_producto_048">{{Descripcion}}</div>
-                <div class="precio_tachado_048"><span>{{Simbolo}} {{DecimalToStringFormat precio_catalogo}}</span></div>
-                <div class="precio_para_ti_048">Precio para ti <b>{{Simbolo}} {{DecimalToStringFormat precio_revista}}</b></div>
-                <div class="gana_048" style="margin-bottom:0">{{TxtGanancia}} {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
+                <div class="precio_tachado_048"><span>{{SimboloMoneda}} {{DecimalToStringFormat precio_catalogo}}</span></div>
+                <div class="precio_para_ti_048">Precio para ti <b>{{SimboloMoneda}} {{DecimalToStringFormat precio_revista}}</b></div>
+                <div class="gana_048" style="margin-bottom:0">{{TxtGanancia}} {{SimboloMoneda}} {{DecimalToStringFormat ganancia}}</div>
                 <hr class="clear" />
                 <div style="overflow:hidden; margin-bottom:100px;">
                     <div class="texto_comparte">Comparte este producto con tus clientes:</div>
@@ -317,9 +317,9 @@ else
             </div>
             <div class="marca_oferta048">Esika</div>
             <div class="nombre_producto_048">{{Descripcion}}</div>
-            <div class="precio_tachado_048"><span>{{Simbolo}} {{DecimalToStringFormat precio_catalogo}}</span></div>
-            <div class="precio_para_ti_048">Precio para ti <b>{{Simbolo}} {{DecimalToStringFormat precio_revista}}</b></div>
-            <div class="gana_048">{{TxtGanancia}} {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
+            <div class="precio_tachado_048"><span>{{SimboloMoneda}} {{DecimalToStringFormat precio_catalogo}}</span></div>
+            <div class="precio_para_ti_048">Precio para ti <b>{{SimboloMoneda}} {{DecimalToStringFormat precio_revista}}</b></div>
+            <div class="gana_048">{{TxtGanancia}} {{SimboloMoneda}} {{DecimalToStringFormat ganancia}}</div>
             <hr class="clear" />
             <div style="margin-bottom:30px; margin-top:5px;">
                 <div class="content_cantidad_ficha_producto" style="width:52%;">
@@ -444,9 +444,9 @@ else
                 </div>
                 <div class="marca_oferta048">{{DescripcionMarca}}</div>
                 <div class="nombre_producto_048">{{Descripcion}}</div>
-                <div class="precio_tachado_048"><span>{{Simbolo}} {{DecimalToStringFormat precio_catalogo}}</span></div>
-                <div class="precio_para_ti_048">Precio para ti <b>{{Simbolo}} {{DecimalToStringFormat precio_revista}}</b></div>
-                <div class="gana_048">{{TxtGanancia}} {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
+                <div class="precio_tachado_048"><span>{{SimboloMoneda}} {{DecimalToStringFormat precio_catalogo}}</span></div>
+                <div class="precio_para_ti_048">Precio para ti <b>{{SimboloMoneda}} {{DecimalToStringFormat precio_revista}}</b></div>
+                <div class="gana_048">{{TxtGanancia}} {{SimboloMoneda}} {{DecimalToStringFormat ganancia}}</div>
                 <hr class="clear" />
                 <div class="texto_detalle_048">CÓMPRALO POR CANTIDAD<br />Y OBTÉN MAS GANANCIAs</div>
 
@@ -454,8 +454,8 @@ else
                 {{#each lista_ObjNivel as |nivel|}}
                 <div class="content_detalle_048">
                     <div class="detalle_Cantidad_pack">Compra <b>{{nivel.escala_nivel}}</b>{{../Descripcion}}</div>
-                    <div class="precio_para_ti_048">Precio para ti <b>{{../Simbolo}} {{DecimalToStringFormat nivel.precio_nivel}}</b></div>
-                    <div class="gana_048">{{../TxtGanancia}} {{../Simbolo}} {{DecimalToStringFormat nivel.ganancia_nivel}}</div>
+                    <div class="precio_para_ti_048">Precio para ti <b>{{SimboloMoneda}} {{DecimalToStringFormat nivel.precio_nivel}}</b></div>
+                    <div class="gana_048">{{../TxtGanancia}} {{SimboloMoneda}} {{DecimalToStringFormat nivel.ganancia_nivel}}</div>
                     <div class="linea_separadora_black flecha_048"></div>
                     <div class="recibe_gratis">{{../TxtRecibeGratis}}:</div>
 
@@ -517,8 +517,8 @@ else
             <div class="titulo_pack_detalle">HAS COMPRADO</div>
             <div class="linea_separadora_black flecha_048"></div>
             <div class="detalle_Cantidad_pack"> <b>{{Cantidad_Total}}</b>{{Descripcion}}</div>
-            <div class="precio_para_ti_048">Precio para ti <b>{{Simbolo}} {{DecimalToStringFormat Precio_Total}}</b></div>
-            <div class="gana_048">{{TxtGanancia}} {{Simbolo}} {{DecimalToStringFormat Ganancia_Total}}</div>
+            <div class="precio_para_ti_048">Precio para ti <b>{{SimboloMoneda}} {{DecimalToStringFormat Precio_Total}}</b></div>
+            <div class="gana_048">{{TxtGanancia}} {{SimboloMoneda}} {{DecimalToStringFormat Ganancia_Total}}</div>
             <div class="texto_gratis_pop">{{TxtRecibeGratis}}</div>
             <div class="linea_separadora_black flecha_048"></div>
 

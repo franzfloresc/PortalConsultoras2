@@ -29,8 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return RedirectToAction("Index", "Bienvenida");
             }
-
-            ViewBag.Simbolo = userData.Simbolo;
+            
             ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
 
             if (Session["ListFiltersFAV"] != null)

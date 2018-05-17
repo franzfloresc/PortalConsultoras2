@@ -29,7 +29,6 @@ namespace Portal.Consultoras.Web.Models
         public string DescripcionCortada { get; set; } // Es la descripcion extendida solo con 40 caracteres
         public string DescripcionDetalle { get; set; } // Es la descripcion extendida 
         public string DescripcionCompleta { get; set; }
-        public string Simbolo { get; set; }
         public decimal Precio { get; set; }
         public decimal Precio2 { get; set; }
         public string PrecioTachado { get; set; }

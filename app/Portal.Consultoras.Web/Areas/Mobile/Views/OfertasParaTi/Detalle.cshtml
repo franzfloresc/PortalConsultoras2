@@ -66,6 +66,7 @@
     var btnDesabled = 0;
     var btnDesabledClass = "";
     var fotoMedium = Util.GenerarRutaImagenResizeMedium(Model.FotoProducto01);
+    var vbSimbolo = ViewBag.Simbolo ?? "";
 }
 <div style="height: 15px;"></div>
 <div data-item="" data-tipoestrategiaimagenmostrar="@Model.TipoEstrategiaImagenMostrar" data-estadoregistro="@ViewBag.EstadoSuscripcion">
@@ -90,18 +91,18 @@
 
             @if (Model.Precio > 0)
             {
-                <div class="precio_tachado_048"> Valorizado a: <span>@Model.Simbolo @Model.PrecioTachado</span></div>
+                <div class="precio_tachado_048"> Valorizado a: <span>@vbSimbolo @Model.PrecioTachado</span></div>
             }
             @if (Model.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.HerramientasVenta)
             {
                 if (String.IsNullOrEmpty(Model.PrecioNiveles))
                 {
-                    <div class="precio_para_ti_048 precio_para_ti_048_izquierdo">Precio para ti:</div> <div class="precio_para_ti_048_derecho"><b>@Model.Simbolo @Model.PrecioVenta</b></div>
+                    <div class="precio_para_ti_048 precio_para_ti_048_izquierdo">Precio para ti:</div> <div class="precio_para_ti_048_derecho"><b>@vbSimbolo @Model.PrecioVenta</b></div>
                 }
                 else
                 {
                     <div class="precio_para_ti_048">
-                        <div class="precio_para_ti_048 precio_para_ti_048_izquierdo">Precio para ti:</div><b>1x @Model.Simbolo @Model.PrecioVenta</b>
+                        <div class="precio_para_ti_048 precio_para_ti_048_izquierdo">Precio para ti:</div><b>1x @vbSimbolo @Model.PrecioVenta</b>
                     </div>
                     var PrecioNiveles = Model.PrecioNiveles.Split('|').ToList();
                     foreach (var item in PrecioNiveles)
@@ -114,11 +115,11 @@
             }
             else
             {
-                <div class="precio_para_ti_048">Precio para ti: <b>@Model.Simbolo @Model.PrecioVenta</b></div>
+                <div class="precio_para_ti_048">Precio para ti: <b>@vbSimbolo @Model.PrecioVenta</b></div>
             }
             @if (Model.Ganancia > 0)
             {
-                <div class="gana_048">Gana: @Model.Simbolo @Model.GananciaString</div>
+                <div class="gana_048">Gana: @vbSimbolo @Model.GananciaString</div>
             }
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="@Model.CUV2" />

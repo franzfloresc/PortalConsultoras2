@@ -598,7 +598,6 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.DescripcionCortada = estrategia.DescripcionCortada;
                 prodModel.DescripcionDetalle = estrategia.DescripcionDetalle;
                 prodModel.DescripcionCompleta = estrategia.DescripcionCUV2.Split('|')[0];
-                prodModel.Simbolo = userData.Simbolo;
                 prodModel.Precio = estrategia.Precio;
                 prodModel.Precio2 = estrategia.Precio2;
                 prodModel.PrecioTachado = estrategia.PrecioTachado;

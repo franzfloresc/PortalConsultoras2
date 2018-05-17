@@ -57,7 +57,7 @@
                         <div class="precio_ficha_producto">
                             {{#iff Precio '>' 0}}
                             <div style="margin-top:-5px;">
-                                <span class="texto_precio_ficha">Valorizado a:</span> <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
+                                <span class="texto_precio_ficha">Valorizado a:</span> <span class="producto_precio_normal">{{SimboloMoneda}} {{PrecioTachado}}</span>
                                 <div style="clear:both;"></div>
                             </div>
                             {{/iff}}
@@ -65,7 +65,7 @@
                                 <span class="texto_precio_ficha">Precio para ti:</span>
                                 <div class="precios_para_ti">
                                     <p style="font-size:13px;">
-                                        {{#iff  PrecioNiveles '!=' ''}}1x{{/iff}} {{Simbolo}} {{PrecioVenta}}
+                                        {{#iff  PrecioNiveles '!=' ''}}1x{{/iff}} {{SimboloMoneda}} {{PrecioVenta}}
                                     </p>
                                     {{#iff PrecioNiveles '!=' ''}}
                                     {{#each lstPrecioNiveles as |item|}}
@@ -77,7 +77,7 @@
                             </div>
                             {{#iff Ganancia '>' 0}}
                             <div style="color: #e81c36; letter-spacing: .5px; text-transform: uppercase;font-weight: 700;font-size: 16px;line-height: 17.6px;">
-                                Gana: {{Simbolo}} {{GananciaString}}
+                                Gana: {{SimboloMoneda}} {{GananciaString}}
                             </div>
                             {{/iff}}
                         </div>

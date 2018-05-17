@@ -303,7 +303,7 @@ $(document).ready(function () {
         $(contenedorOfertas).hide();
 
         data.CantidadProductos = data.ListaOfertas.length;
-        data.Simbolo = vbSimbolo;
+        data.Simbolo = variablesPortal.SimboloMoneda;
         data.TextoVerDetalle = data.CantidadProductos > 1 ? "VER MÁS OFERTAS" : "VER OFERTA";
         data.UsuarioNombre = $.trim(usuarioNombre).toUpperCase();
         data.ListaOfertas = AsignarClaseCssAPalabraGratisDesktop(data.ListaOfertas);

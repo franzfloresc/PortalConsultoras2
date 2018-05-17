@@ -276,7 +276,7 @@
                 </div>
                 <div class="precio_set_dia">
                     <div class="nombre_set_oferta">{{NombreOferta}}</div>
-                    <span>@ViewBag.Simbolo {{PrecioOfertaFormat}}</span>
+                    <span>{{SimboloMoneda}} {{PrecioOfertaFormat}}</span>
                 </div>
                 <div style="float: left">
                     <input type="hidden" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
@@ -345,8 +345,8 @@
                                     <div class="height_min">
                                         <div class="titulo_set_ODD">{{detalle.NombreOferta}}</div>
                                         <div class="descripcion_set_ofertaDia">{{{detalle.DescripcionOferta}}}</div>
-                                        <div class="precio_valorizado_oferta">VALORIZADO EN <span>@ViewBag.Simbolo {{detalle.PrecioCatalogoFormat}}</span></div>
-                                        <div class="precio_ofertaDia">A SOLO <span>@ViewBag.Simbolo {{detalle.PrecioOfertaFormat}}</span></div>
+                                        <div class="precio_valorizado_oferta">VALORIZADO EN <span>{{SimboloMoneda}} {{detalle.PrecioCatalogoFormat}}</span></div>
+                                        <div class="precio_ofertaDia">A SOLO <span>{{SimboloMoneda}} {{detalle.PrecioOfertaFormat}}</span></div>
                                     </div>
                                     <div>
                                         <div class="liquidacion_rango_home js-no-popup">
@@ -398,9 +398,9 @@
                                     <a class="ver_detalle_carrusel" onclick="odd_google_analytics_product_click('{{detalle.NombreOferta}}', '{{detalle.CUV2}}', {{detalle.PrecioOferta}}, '{{DescripcionMarca}}', '', {{Position}}, 'Oferta del día - Banner');" style="top: 80px;">VER DETALLE</a>
                                     <div class="titulo_carrusel_ODD">{{detalle.NombreOferta}}</div>
                                     {{#iff detalle.PrecioCatalogo '>' 0}}
-                                    <div class="valorizado_carrusel_ODD">VALORIZADO EN <span>{{{../Simbolo}}} {{detalle.PrecioCatalogoFormat}}</span></div>
+                                    <div class="valorizado_carrusel_ODD">VALORIZADO EN <span>{{SimboloMoneda}} {{detalle.PrecioCatalogoFormat}}</span></div>
                                     {{/iff}}
-                                    <div class="precio_carrusel_ODD">{{{../Simbolo}}} {{detalle.PrecioOfertaFormat}}</div>
+                                    <div class="precio_carrusel_ODD">{{SimboloMoneda}} {{detalle.PrecioOfertaFormat}}</div>
                                 </div>
                                 <div style="text-align: center">
                                     <div class="liquidacion_rango_home js-no-popup">
@@ -443,7 +443,6 @@
 
     <script type="text/javascript">
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
-        var vbSimbolo = '@ViewBag.Simbolo';
         var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
         var viewBagRol = '@ViewBag.Rol';
         var usuarioNombre = '@ViewBag.UsuarioNombre';

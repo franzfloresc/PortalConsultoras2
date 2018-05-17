@@ -731,7 +731,6 @@ function CrearDialogs() {
 function MostrarInformacionCliente(clienteId) {
     $("#hdnClienteID_").val(clienteId);
     var nomCli = $("#ddlClientes option:selected").text();
-    var simbolo = $("#hdfSimbolo").val();
     var monto = $("#hdfTotalCliente").val();
 
     $(".pMontoCliente").css("display", "none");
@@ -739,7 +738,7 @@ function MostrarInformacionCliente(clienteId) {
     if ($("#hdnClienteID_").val() != "-1") {
         $(".pMontoCliente").css("display", "block");
         $("#spnNombreCliente").html(nomCli + " :");
-        $("#spnTotalCliente").html(simbolo + monto);
+        $("#spnTotalCliente").html(variablesPortal.SimboloMoneda + monto);
     }
 }
 
@@ -2009,7 +2008,6 @@ function ActualizarModeloPaginar(ClienteID) {
     $("#hdnClienteID_").val(ClienteID);
 
     var nomCli = $("#ddlClientes option:selected").text();
-    var simbolo = $("#hdfSimbolo").val();
     var monto = $("#hdfTotalCliente").val();
 
     $(".pMontoCliente").css("display", "none");
@@ -2017,7 +2015,7 @@ function ActualizarModeloPaginar(ClienteID) {
     if ($("#hdnClienteID_").val() != "-1") {
         $(".pMontoCliente").css("display", "block");
         $("#spnNombreCliente").html(nomCli + " :");
-        $("#spnTotalCliente").html(simbolo + monto);
+        $("#spnTotalCliente").html(variablesPortal.SimboloMoneda + monto);
     }
 }
 
@@ -2312,12 +2310,12 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
         var htmlMontos = "";
         htmlMontos += '<p class="monto_descuento">';
         htmlMontos += '<b>';
-        htmlMontos += $("#hdSimbolo").val() + ' <span class="num" id="spnMontoDescuento"></span>';
+        htmlMontos += variablesPortal.SimboloMoneda + ' <span class="num" id="spnMontoDescuento"></span>';
         htmlMontos += '</b>';
         htmlMontos += '</p>';
         htmlMontos += '<p class="monto_montodescuento">';
         htmlMontos += '<b>';
-        htmlMontos += $("#hdSimbolo").val() + '<span class="num" id="spnMontoEscala"></span>';
+        htmlMontos += variablesPortal.SimboloMoneda + '<span class="num" id="spnMontoEscala"></span>';
         htmlMontos += '</b>';
         htmlMontos += '</p>';
 
@@ -2549,12 +2547,12 @@ function CalcularTotalPedido(Total, Total_Minimo) {
         Total = parseFloat(Total).toFixed(0);
         $('#sTotal').html(SeparadorMiles(Total));
         $('#hdfTotal').val(SeparadorMiles(Total));
-        $("#spPedidoWebAcumulado").text(vbSimbolo + " " + SeparadorMiles(Total));
+        $("#spPedidoWebAcumulado").text(variablesPortal.SimboloMoneda + " " + SeparadorMiles(Total));
     } else {
         Total = parseFloat(Total.replace(',', ''));
         $('#sTotal').html(parseFloat(Total).toFixed(2));
         $('#hdfTotal').val(parseFloat(Total).toFixed(2));
-        $("#spPedidoWebAcumulado").text(vbSimbolo + " " + parseFloat(Total).toFixed(2));
+        $("#spPedidoWebAcumulado").text(variablesPortal.SimboloMoneda + " " + parseFloat(Total).toFixed(2));
     }
 }
 
@@ -2649,7 +2647,6 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
             $('#txtLPTempCant' + PedidoDetalleID).val($('#txtLPCant' + PedidoDetalleID).val());
 
             var nomCli = $("#ddlClientes option:selected").text();
-            var simbolo = data.Simbolo;
             var monto = data.Total_Cliente;
 
             $(".pMontoCliente").css("display", "none");
@@ -2657,7 +2654,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
             if (data.ClienteID_ != "-1") {
                 $(".pMontoCliente").css("display", "block");
                 $("#spnNombreCliente").html(nomCli + " :");
-                $("#spnTotalCliente").html(simbolo + monto);
+                $("#spnTotalCliente").html(variablesPortal.SimboloMoneda + monto);
             }
 
             CalcularTotalPedido(data.Total, data.Total_Minimo);
@@ -2750,7 +2747,6 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
             $("#hdfLPCliIni" + PedidoDetalleID).val($('#hdfLPCli' + PedidoDetalleID).val());
 
             var nomCli = $("#ddlClientes option:selected").text();
-            var simbolo = data.Simbolo;
             var monto = data.Total_Cliente;
 
             $(".pMontoCliente").css("display", "none");
@@ -2758,11 +2754,11 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
             if (data.ClienteID_ != "-1") {
                 $(".pMontoCliente").css("display", "block");
                 $("#spnNombreCliente").html(nomCli + " :");
-                $("#spnTotalCliente").html(simbolo + monto);
+                $("#spnTotalCliente").html(variablesPortal.SimboloMoneda + monto);
             }
 
             $('#hdfTotal').val(data.Total);
-            $("#spPedidoWebAcumulado").text(vbSimbolo + " " + data.TotalFormato);
+            $("#spPedidoWebAcumulado").text(variablesPortal.SimboloMoneda + " " + data.TotalFormato);
 
             var totalUnidades = parseInt($("#pCantidadProductosPedido").html());
             totalUnidades = totalUnidades - parseInt(CantidadAnti) + parseInt(Cantidad);
@@ -2932,7 +2928,6 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                 if (PROL == "0") $('#txtLPTempCant' + PedidoDetalleID).val($('#txtLPCant' + PedidoDetalleID).val());
 
                                 var nomCli = $("#ddlClientes option:selected").text();
-                                var simbolo = data.Simbolo;
                                 var monto = data.Total_Cliente;
 
                                 $(".pMontoCliente").css("display", "none");
@@ -2940,7 +2935,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                 if (data.ClienteID_ != "-1") {
                                     $(".pMontoCliente").css("display", "block");
                                     $("#spnNombreCliente").html(nomCli + " :");
-                                    $("#spnTotalCliente").html(simbolo + monto);
+                                    $("#spnTotalCliente").html(variablesPortal.SimboloMoneda + monto);
                                 }
 
                                 var totalUnidades = parseInt($("#pCantidadProductosPedido").html());
@@ -3102,7 +3097,6 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                     if (PROL == "0") $('#txtLPTempCant' + PedidoDetalleID).val($('#txtLPCant' + PedidoDetalleID).val());
 
                                     var nomCli = $("#ddlClientes option:selected").text();
-                                    var simbolo = data.Simbolo;
                                     var monto = data.Total_Cliente;
 
                                     $(".pMontoCliente").css("display", "none");
@@ -3110,7 +3104,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                     if (data.ClienteID_ != "-1") {
                                         $(".pMontoCliente").css("display", "block");
                                         $("#spnNombreCliente").html(nomCli + " :");
-                                        $("#spnTotalCliente").html(simbolo + monto);
+                                        $("#spnTotalCliente").html(variablesPortal.SimboloMoneda + monto);
                                     }
 
                                     var totalUnidades = parseInt($("#pCantidadProductosPedido").html());

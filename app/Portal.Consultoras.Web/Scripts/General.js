@@ -338,6 +338,11 @@ jQuery(document).ready(function () {
                 var urlRender = ImgUrlRender(imgOriginal);
                 return new Handlebars.SafeString(urlRender);
             });
+            
+            Handlebars.registerHelper('SimboloMoneda', function () {
+                var simbMon = variablesPortal.SimboloMoneda || "";
+                return new Handlebars.SafeString(simbMon);
+            });
         }
     }
 
@@ -843,13 +848,13 @@ function ActualizarGanancia(data) {
     data.TotalPedidoStr = data.TotalPedidoStr || "";
 
     $("[data-ganancia]").html(data.MontoGananciaStr || "");
-    $("[data-ganancia2]").html(vbSimbolo + " " + data.MontoGananciaStr || "");
+    $("[data-ganancia2]").html(variablesPortal.SimboloMoneda + " " + data.MontoGananciaStr || "");
     $("[data-pedidocondescuento]").html(DecimalToStringFormat(data.TotalPedido - data.MontoDescuento));
-    $("[data-montodescuento]").html(vbSimbolo + " " + data.MontoDescuentoStr);
-    $("[data-pedidototal]").html(vbSimbolo + " " + data.TotalPedidoStr);
+    $("[data-montodescuento]").html(variablesPortal.SimboloMoneda + " " + data.MontoDescuentoStr);
+    $("[data-pedidototal]").html(variablesPortal.SimboloMoneda + " " + data.TotalPedidoStr);
     $("[data-cantidadproducto]").html(data.CantidadProductos);
-    $("[data-montoahorrocatalogo]").html(vbSimbolo + " " + data.MontoAhorroCatalogoStr);
-    $("[data-montoahorrorevista]").html(vbSimbolo + " " + data.MontoAhorroRevistaStr);
+    $("[data-montoahorrocatalogo]").html(variablesPortal.SimboloMoneda + " " + data.MontoAhorroCatalogoStr);
+    $("[data-montoahorrorevista]").html(variablesPortal.SimboloMoneda + " " + data.MontoAhorroRevistaStr);
 
     $(".num-menu-shop").html(data.CantidadProductos);
     $(".js-span-pedidoingresado").html(data.TotalPedidoStr);

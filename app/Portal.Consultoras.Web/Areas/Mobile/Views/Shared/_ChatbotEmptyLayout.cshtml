@@ -21,6 +21,7 @@
     }
     <link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
 
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpVariablesGeneralesPortal.cshtml")
     <script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
     </script>
@@ -99,7 +100,6 @@
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
-        var vbSimbolo = '@ViewBag.Simbolo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
         var urlChatbot = '@System.Configuration.ConfigurationManager.AppSettings.Get("UrlChatbot")';
         var ingresoExterno = '@ViewContext.GetUniqueSession("IngresoExterno")';
