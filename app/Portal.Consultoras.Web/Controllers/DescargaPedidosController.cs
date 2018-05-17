@@ -423,7 +423,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var data = new
                 {
                     success = true,
-                    mensaje = "Archivo generado satisfactoriamente"
+                    mensaje = "El proceso de carga de pedidos por cliente ha finalizado satisfactoriamente."
                 };
 
                 return Json(data, JsonRequestBehavior.AllowGet);

@@ -2392,9 +2392,13 @@ namespace Portal.Consultoras.Service
             {
                 _pedidoWebBusinessLogic.DescargaPedidosCliente(paisID, nroLote, codigoUsuario);
             }
-            catch (Exception ex)
+            catch (BizLogicException ex)
             {
                 throw new FaultException(ex.Message);
+            }
+            catch (Exception)
+            {
+                throw new FaultException("Error desconocido.");
             }
         }
     }

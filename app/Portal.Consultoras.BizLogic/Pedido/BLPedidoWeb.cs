@@ -2465,31 +2465,64 @@ namespace Portal.Consultoras.BizLogic
                 {
                     lstPedidos = reader.MapToCollection<BEDescargaPedidoCliente>();
                 };
-                if (!lstPedidos.Any()) return;
+                if (!lstPedidos.Any()) throw new BizLogicException("No existen pedidos para generar el archivo");
 
+                //Configuracion nombre archivo
                 var codigoPais = Common.Util.GetPaisISO(paisID);
                 var fechaFacturacion = lstPedidos.FirstOrDefault().FechaFacturacion;
                 var fileGuid = Guid.NewGuid();
 
-                //configuracion FTP
-                //var ftpSection = (FtpConfigurationSection)ConfigurationManager.GetSection("Belcorp.FtpConfiguration");
-                //var key = string.Format("{0}-{1}", codigoPais, "DR");
-                //var ftpElement = ftpSection.FtpConfigurations[key];
+                var ftpSection = (FtpConfigurationSection)ConfigurationManager.GetSection("Belcorp.FtpConfiguration");
+                var key = string.Format("{0}-{1}", codigoPais, "DR");
+                var ftpElement = ftpSection.FtpConfigurations[key];
 
                 //Generar el archivo txt
                 var section = (DataAccessConfiguration)ConfigurationManager.GetSection("Belcorp.Configuration");
                 var element = section.Countries[paisID];
                 var clienteTemplate = ParseTemplate(WebConfig.GetByTagName(element.OrderClienteTemplate));
-                //var headerFile = FormatFile(codigoPais, ftpElement.Header, fechaFacturacion, fileGuid);
-                var headerFile = FormatFile(codigoPais, "CLIENTE.TXT", fechaFacturacion, fileGuid);
+                var clientFile = FormatFile(codigoPais, ftpElement.Client, fechaFacturacion, fileGuid);
 
-                using (var streamWriter = new StreamWriter(headerFile))
+                using (var streamWriter = new StreamWriter(clientFile))
                 {
                     foreach (var pedido in lstPedidos)
                     {
                         streamWriter.WriteLine(ClienteLine(clienteTemplate, pedido));
                     }
                 }
+
+                //Envío FTP
+                if (WebConfig.OrderDownloadFtpUpload == "1")
+                {
+                    try
+                    {
+                        var ftpAddressFileName = string.Concat(ftpElement.Address, ftpElement.Client);
+                        BLFileManager.FtpUploadFile(ftpAddressFileName, clientFile, ftpElement.UserName, ftpElement.Password);
+                    }
+                    catch (Exception ex)
+                    {
+                        LogManager.SaveLog(ex, codigoUsuario, codigoPais);
+                        throw new BizLogicException("No se pudo subir los archivos de pedidos al destino FTP.", ex);
+                    }
+                }
+
+                //Envío S3
+                if (WebConfig.OrderDownloadS3 == "1")
+                {
+                    try
+                    {
+                        var carpetaPais = string.Concat(WebConfig.S3_Pedidos, codigoPais);
+                        if (!string.IsNullOrEmpty(clientFile)) ConfigS3.SetFileS3(clientFile, carpetaPais, Path.GetFileName(clientFile), false, false, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        LogManager.SaveLog(ex, codigoUsuario, codigoPais);
+                        throw new BizLogicException("No se pudo subir los archivos de pedidos al destino S3.", ex);
+                    }
+                }
+            }
+            catch(BizLogicException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
