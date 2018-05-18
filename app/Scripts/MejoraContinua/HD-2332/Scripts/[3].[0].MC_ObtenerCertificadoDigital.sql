@@ -40,7 +40,7 @@ BEGIN
 
 		SELECT 
 			@TipoDocumento = TipoDocumento, 
-			@NumeroDocumento = Numero 
+			@NumeroDocumento = RIGHT(Numero,8) 
 		FROM ods.Identificacion 
 		WHERE ConsultoraId = @ConsultoraId AND DocumentoPrincipal = 1
 

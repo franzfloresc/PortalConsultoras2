@@ -14,10 +14,19 @@
         <span style="width:35.4pt; display:inline-block">&#xa0;</span>
         <span style="font-family:Arial">No. @Model.NumeroSecuencia</span>
     </p>
-    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
-        <span style="font-family: Arial;">@Model.Ciudad,</span>
-        <span style="font-family: Arial;">@Model.FechaCreacion</span>
-    </p>
+    @if (Model.Pais == "Peru")
+    {
+        <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+            <span style="font-family: Arial;">&nbsp;</span>
+        </p>
+    }
+    else
+    {
+        <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+            <span style="font-family: Arial;">@Model.Ciudad,</span>
+            <span style="font-family: Arial;">@Model.FechaCreacion</span>
+        </p>
+    }
     <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
         <span style="font-family: Arial;">&nbsp;</span>
     </p>
@@ -27,8 +36,8 @@
 
     @if (Model.Pais == "Peru")
     {
-        <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
-            <span style="font-family: Arial;"><u><b>CONSTANCIA DE NO ADEUDO</b></u></span>
+        <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 14pt;">
+            <span style="font-family: Arial;text-align:center;"><u><b>CONSTANCIA DE NO ADEUDO</b></u></span>
         </p>
     }
     else
@@ -119,7 +128,7 @@
 
         @if (Model.Pais == "Peru")
         {
-            <span style="font-family: Arial;">@Model.Ciudad, @Model.FechaCreacionTexto</span>
+            <span style="font-family: Arial;">@Model.Ciudad, @Model.FechaCreacion</span>
         }
         else
         {
