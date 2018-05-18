@@ -21,9 +21,15 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@RespuestaBotmaker", DbType.String, resultado.Respuesta ?? "");
                 Context.Database.AddInParameter(command, "@ErrorLog", DbType.String, resultado.ErrorLog ?? "");
 
-                var parDetalle = new SqlParameter("@Detalle", SqlDbType.Structured);
-                parDetalle.TypeName = "dbo.BotmakerApiLogDetalleType";
-                parDetalle.Value = new GenericDataReader<DEChatbotProactivaMensaje>(resultado.ListMensaje);
+                //var parDetalle = new SqlParameter("@Detalle", SqlDbType.Structured);
+                //parDetalle.TypeName = "dbo.BotmakerApiLogDetalleType";
+                //parDetalle.Value = new GenericDataReader<DEChatbotProactivaMensaje>(resultado.ListMensaje);
+                var parDetalle = new SqlParameter("@Detalle", SqlDbType.Structured)
+                {
+                    TypeName = "dbo.BotmakerApiLogDetalleType",
+                    Value = new GenericDataReader<DEChatbotProactivaMensaje>(resultado.ListMensaje)
+                };
+               
                 command.Parameters.Add(parDetalle);
 
                 Context.ExecuteNonQuery(command);

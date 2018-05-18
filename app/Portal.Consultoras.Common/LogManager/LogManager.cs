@@ -155,6 +155,10 @@ namespace Portal.Consultoras.Common
                     }
                 }
 
+                var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
+                string ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
+                string acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+
                 var data = new
                 {
                     Aplicacion = Constantes.LogDynamoDB.AplicacionPortalConsultoras,
@@ -162,9 +166,14 @@ namespace Portal.Consultoras.Common
                     Usuario = logError.CodigoUsuario,
                     Mensaje = exceptionMessage,
                     StackTrace = exceptionStackTrace,
+
+                    CurrentUrl = urlRequest,
+                    ControllerName = ctrl.ToLower(),
+                    ActionName = acti.ToLower(),
+
                     Extra = new Dictionary<string, string>() {
                         { "Origen", logError.Origen },
-                        { "Url", urlRequest },
+                        //{ "Url", urlRequest },
                         { "Browser", browserRequest },
                         { "TipoTrace", "LogManager" },
                         { "Server", Environment.MachineName }

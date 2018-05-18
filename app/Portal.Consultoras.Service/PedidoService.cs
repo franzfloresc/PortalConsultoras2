@@ -2257,26 +2257,7 @@ namespace Portal.Consultoras.Service
             return _pedidoWebBusinessLogic.GetMisPedidosFacturados(paisID, ConsultoraID, CampaniaID, ClienteID, NombreConsultora);
         }
         #endregion
-
-        #region CargaMasivaImagenes
-
-        public List<BECargaMasivaImagenes> GetListaImagenesEstrategiasByCampania(int paisId, int campaniaId)
-        {
-            return blEstrategia.GetListaImagenesEstrategiasByCampania(paisId, campaniaId);
-        }
-
-        public List<BECargaMasivaImagenes> GetListaImagenesOfertaLiquidacionByCampania(int paisId, int campaniaId)
-        {
-            return blEstrategia.GetListaImagenesOfertaLiquidacionByCampania(paisId, campaniaId);
-        }
-
-        public List<BECargaMasivaImagenes> GetListaImagenesProductoSugeridoByCampania(int paisId, int campaniaId)
-        {
-            return blEstrategia.GetListaImagenesProductoSugeridoByCampania(paisId, campaniaId);
-        }
-
-        #endregion
-
+        
         #region ProductosPrecargados
         public int GetFlagProductosPrecargados(int paisID, string CodigoConsultora, int CampaniaID)
         {
@@ -2427,6 +2408,16 @@ namespace Portal.Consultoras.Service
         {
             return await _pedidoAppBusinessLogic.Delete(pedidoDetalle);
         }
+
+        public BEPedidoDetalleAppResult ReservaPedidoDetalleApp(BEUsuario usuario)
+        {
+            return _pedidoAppBusinessLogic.Reserva(usuario);
+        }
+
+        public BEPedidoDetalleAppResult DeshacerReservaPedidoApp(BEUsuario usuario)
+        {
+            return _pedidoAppBusinessLogic.DeshacerReservaPedido(usuario);
+        }        
         #endregion
     }
 }

@@ -33,6 +33,7 @@
       <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IsSelected" type="xs:boolean" />
       <xs:element minOccurs="0" name="Titulo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Valor" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FuenteIngresoModelSAC" nillable="true" type="tns:FuenteIngresoModelSAC" />

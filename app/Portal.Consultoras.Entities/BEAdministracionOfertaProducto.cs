@@ -23,11 +23,11 @@ namespace Portal.Consultoras.Entities
 
         public BEAdministracionOfertaProducto(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "OfertaAdmID") && row["OfertaAdmID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "OfertaAdmID"))
                 OfertaAdmID = Convert.ToInt32(row["OfertaAdmID"]);
-            if (DataRecord.HasColumn(row, "Correos") && row["Correos"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Correos"))
                 Correos = Convert.ToString(row["Correos"]);
-            if (DataRecord.HasColumn(row, "StockMinimo") && row["StockMinimo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "StockMinimo"))
                 StockMinimo = Convert.ToInt32(row["StockMinimo"]);
         }
     }

@@ -194,14 +194,6 @@ function UpdateLiquidacionEvento(evento) {
 }
 
 function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, EsBackOrder, PrecioUnidad, detalleObj, elementRow) {
-    var urlAccion = TipoOfertaSisID == ofertaLiquidacion
-        ? urlValidarUnidadesPermitidasPedidoProducto
-        : TipoOfertaSisID == ofertaShowRoom
-            ? urlValidarUnidadesPermitidasPedidoProductoShowRoom
-            : TipoOfertaSisID == ofertaAccesorizate
-                ? urlValidarUnidadesPermitidasPedidoProducto2
-                : "";
-
     var urls = new Object();
     if (TipoOfertaSisID == ofertaLiquidacion) {
         urls.urlValidarUnidadesPermitidas = urlValidarUnidadesPermitidasPedidoProducto;
@@ -531,7 +523,6 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
 
                 ActualizarGanancia(data.DataBarra);
                 CargarPedido();
-                var descripcionMarca = GetDescripcionMarca(MarcaID);
                 TrackingJetloreRemove(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
                 dataLayer.push({
                     'event': 'removeFromCart',
@@ -829,42 +820,6 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
             CloseLoading();
         }
     });
-}
-
-function GetDescripcionMarca(marcaId) {
-    var result = "";
-
-    switch (marcaId) {
-        case 1:
-            result = "Lbel";
-            break;
-        case 2:
-            result = "Esika";
-            break;
-        case 3:
-            result = "Cyzone";
-            break;
-        case 4:
-            result = "S&M";
-            break;
-        case 5:
-            result = "Home Collection";
-            break;
-        case 6:
-            result = "Finart";
-            break;
-        case 7:
-            result = "Generico";
-            break;
-        case 8:
-            result = "Glance";
-            break;
-        default:
-            result = "NO DISPONIBLE";
-            break;
-    }
-
-    return result;
 }
 
 function TagManagerClickEliminarProducto(descripcionProd, cuv, precioUnidad, descripcionMarca, descripcionOferta, cantidad) {

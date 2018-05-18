@@ -1,6 +1,4 @@
-﻿using Portal.Consultoras.Common;
-using System;
-using System.Data;
+﻿using System;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -21,19 +19,6 @@ namespace Portal.Consultoras.Web.Models
 
         public EstadoCuentaModel()
         {
-        }
-        public EstadoCuentaModel(IDataRecord row)
-        {
-            if (DataRecord.HasColumn(row, "Fecha"))
-                Fecha = Convert.ToDateTime(row["Fecha"]);
-            if (DataRecord.HasColumn(row, "Glosa"))
-                Glosa = Convert.ToString(row["Glosa"]);
-            if (DataRecord.HasColumn(row, "Cargo"))
-                Cargo = Convert.ToDecimal(row["Cargo"]);
-            if (DataRecord.HasColumn(row, "Abono"))
-                Abono = Convert.ToDecimal(row["Abono"]);
-            if (DataRecord.HasColumn(row, "TipoMovimiento"))
-                TipoMovimiento = Convert.ToInt16(row["TipoMovimiento"]);
         }
     }
 }

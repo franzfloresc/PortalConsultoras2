@@ -133,6 +133,7 @@
       <xs:element minOccurs="0" name="MontoMinimoFlexipago" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoMinimoPedido" type="xs:decimal" />
       <xs:element minOccurs="0" name="MostrarAyudaWebTraking" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MostrarBotonValidar" type="xs:boolean" />
       <xs:element minOccurs="0" name="Nivel" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NivelEducacion" type="xs:int" />
       <xs:element minOccurs="0" name="NivelLider" type="xs:int" />
@@ -897,6 +898,7 @@
       <xs:element minOccurs="0" name="RutaPaqueteDocumentario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SaldoDeuda" type="xs:decimal" />
       <xs:element minOccurs="0" name="TippingPoint" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ValidacionAbierta" type="xs:boolean" />
       <xs:element minOccurs="0" name="VersionProl" type="xs:unsignedByte" />
       <xs:element minOccurs="0" name="olstBEPedidoWebDetalle" nillable="true" type="tns:ArrayOfBEPedidoWebDetalle" />
     </xs:sequence>
@@ -1203,6 +1205,7 @@
       <xs:extension base="tns:BaseEntidad">
         <xs:sequence>
           <xs:element minOccurs="0" name="Activo" type="xs:int" />
+          <xs:element minOccurs="0" name="AgregarEnMatriz" type="xs:boolean" />
           <xs:element minOccurs="0" name="CUV1" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CUV2" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
@@ -1299,6 +1302,7 @@
           <xs:element minOccurs="0" name="UrlVideoMobile" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UsuarioRegistro" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ValidarPeriodoFacturacion" type="xs:boolean" />
           <xs:element minOccurs="0" name="Zona" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ZonaHoraria" type="xs:double" />
