@@ -2214,6 +2214,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private int ActivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool AgregarEnMatrizField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CUV1Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2493,6 +2496,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private string UsuarioModificacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UsuarioRegistroField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ValidarPeriodoFacturacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2510,6 +2516,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.ActivoField.Equals(value) != true)) {
                     this.ActivoField = value;
                     this.RaisePropertyChanged("Activo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool AgregarEnMatriz {
+            get {
+                return this.AgregarEnMatrizField;
+            }
+            set {
+                if ((this.AgregarEnMatrizField.Equals(value) != true)) {
+                    this.AgregarEnMatrizField = value;
+                    this.RaisePropertyChanged("AgregarEnMatriz");
                 }
             }
         }
@@ -3719,6 +3738,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.UsuarioModificacionField, value) != true)) {
                     this.UsuarioModificacionField = value;
                     this.RaisePropertyChanged("UsuarioModificacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UsuarioRegistro {
+            get {
+                return this.UsuarioRegistroField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UsuarioRegistroField, value) != true)) {
+                    this.UsuarioRegistroField = value;
+                    this.RaisePropertyChanged("UsuarioRegistro");
                 }
             }
         }
@@ -15463,6 +15495,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpsellingMarcaCategoriaFlagsEditar", ReplyAction="http://tempuri.org/ISACService/UpsellingMarcaCategoriaFlagsEditarResponse")]
         System.Threading.Tasks.Task<bool> UpsellingMarcaCategoriaFlagsEditarAsync(int paisId, int upSellingId, bool CategoriaApoyada, bool CategoriaMonto);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetListEnumStringCache", ReplyAction="http://tempuri.org/ISACService/GetListEnumStringCacheResponse")]
+        string[] GetListEnumStringCache();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetListEnumStringCache", ReplyAction="http://tempuri.org/ISACService/GetListEnumStringCacheResponse")]
+        System.Threading.Tasks.Task<string[]> GetListEnumStringCacheAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/RemoveDataCache", ReplyAction="http://tempuri.org/ISACService/RemoveDataCacheResponse")]
         string RemoveDataCache(int paisID, string cacheItemString, string customKey);
         
@@ -16887,6 +16925,14 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public System.Threading.Tasks.Task<bool> UpsellingMarcaCategoriaFlagsEditarAsync(int paisId, int upSellingId, bool CategoriaApoyada, bool CategoriaMonto) {
             return base.Channel.UpsellingMarcaCategoriaFlagsEditarAsync(paisId, upSellingId, CategoriaApoyada, CategoriaMonto);
+        }
+        
+        public string[] GetListEnumStringCache() {
+            return base.Channel.GetListEnumStringCache();
+        }
+        
+        public System.Threading.Tasks.Task<string[]> GetListEnumStringCacheAsync() {
+            return base.Channel.GetListEnumStringCacheAsync();
         }
         
         public string RemoveDataCache(int paisID, string cacheItemString, string customKey) {

@@ -636,8 +636,13 @@
     <!-- POPUP VIDEO INTRODUCTORIO -->
     <div class="popup_video_introductorio" style="display:none;" id="videoIntroductorio">
         <div class="contenedor_video_introductorio">
-            <div id="divPlayer"></div>
-
+            <!--divPlayer-->
+            <!-- Cargador de Youtube (usando script: implements/youtube.js) -------------------------------- -->
+            <div id="ytBienvenidaIndex"
+                 data-youtube="{ width:'100%', enablejsapi:1, playerVars:{rel:0} }"
+                 class="yt-video"
+            ></div>
+            <!-- -------------------------------------------------------------------------------------------- -->
         </div>
         <div class="btn_cerrar_actualizarMisDatos">
             <a href="javascript:;" id="cerrarVideoIntroductorio">
@@ -2207,6 +2212,7 @@
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
         var showPopupMisDatos = '@(Model.ShowPopupMisDatos ? 1 : 0)';
         var popupInicialCerrado = '@(Model.PopupInicialCerrado ? 1 : 0)';
+        var popupCambioClave = '@Model.OpcionCambiaClave';
 
         var asesoraOnlineObj = AsesoraOnline({
             asesoraOnlineUrl: '@Url.Action("Index", "AsesoraOnline")',

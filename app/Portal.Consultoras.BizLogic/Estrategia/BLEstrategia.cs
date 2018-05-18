@@ -366,18 +366,6 @@ namespace Portal.Consultoras.BizLogic
             return daEstrategia.GetImagenOfertaPersonalizadaOF(campaniaID, cuv);
         }
 
-        public int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int nroLore)
-        {
-            var daEstrategia = new DAEstrategia(paisId);
-            return daEstrategia.InsertEstrategiaTemporal(lista, campaniaId, codigoUsuario, nroLore);
-        }
-
-        public int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId)
-        {
-            var daEstrategia = new DAEstrategia(paisId);
-            return daEstrategia.InsertEstrategiaOfertaParaTi(lista, campaniaId, codigoUsuario, estrategiaId);
-        }
-
         public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
             var listaEstrategias = new List<BEEstrategia>();
@@ -519,59 +507,7 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #endregion
-
-        #region CargaMasivaImagenes
-
-        public List<BECargaMasivaImagenes> GetListaImagenesEstrategiasByCampania(int paisId, int campaniaId)
-        {
-            var lista = new List<BECargaMasivaImagenes>();
-            var daEstrategia = new DAEstrategia(paisId);
-
-            using (var reader = daEstrategia.GetListaImagenesEstrategiasByCampania(campaniaId))
-            {
-                while (reader.Read())
-                {
-                    lista.Add(new BECargaMasivaImagenes(reader));
-                }
-            }
-
-            return lista;
-        }
-
-        public List<BECargaMasivaImagenes> GetListaImagenesOfertaLiquidacionByCampania(int paisId, int campaniaId)
-        {
-            var lista = new List<BECargaMasivaImagenes>();
-            var daEstrategia = new DAEstrategia(paisId);
-
-            using (var reader = daEstrategia.GetListaImagenesOfertaLiquidacionByCampania(campaniaId))
-            {
-                while (reader.Read())
-                {
-                    lista.Add(new BECargaMasivaImagenes(reader));
-                }
-            }
-
-            return lista;
-        }
-
-        public List<BECargaMasivaImagenes> GetListaImagenesProductoSugeridoByCampania(int paisId, int campaniaId)
-        {
-            var lista = new List<BECargaMasivaImagenes>();
-            var daEstrategia = new DAEstrategia(paisId);
-
-            using (var reader = daEstrategia.GetListaImagenesProductoSugeridoByCampania(campaniaId))
-            {
-                while (reader.Read())
-                {
-                    lista.Add(new BECargaMasivaImagenes(reader));
-                }
-            }
-
-            return lista;
-        }
-
-        #endregion
-
+        
         public List<int> InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
         {
             try

@@ -42,35 +42,35 @@
 
         public BEConsultoraEstadoSAC(IDataRecord datarec)
         {
-            if (DataRecord.HasColumn(datarec, "consultoraID") && datarec["consultoraID"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "consultoraID"))
                 consultoraID = DbConvert.ToInt32(datarec["consultoraID"]);
-            if (DataRecord.HasColumn(datarec, "codigo") && datarec["Codigo"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "codigo"))
                 codigo = DbConvert.ToString(datarec["codigo"]);
-            if (DataRecord.HasColumn(datarec, "estadoConsultora") && datarec["estadoConsultora"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "estadoConsultora"))
                 estadoConsultora = DbConvert.ToString(datarec["estadoConsultora"]);
-            if (DataRecord.HasColumn(datarec, "campanaIngreso") && datarec["campanaIngreso"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "campanaIngreso"))
                 campanaIngreso = DbConvert.ToInt32(datarec["campanaIngreso"]);
-            if (DataRecord.HasColumn(datarec, "montoMinimo") && datarec["montoMinimo"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "montoMinimo"))
                 montoMinimo = DbConvert.ToDouble(datarec["montoMinimo"]);
-            if (DataRecord.HasColumn(datarec, "segmento") && datarec["segmento"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "segmento"))
                 segmento = DbConvert.ToString(datarec["segmento"]);
-            if (DataRecord.HasColumn(datarec, "ultimaCampanaFacturada") && datarec["ultimaCampanaFacturada"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "ultimaCampanaFacturada"))
                 ultimaCampanaFacturada = DbConvert.ToInt32(datarec["ultimaCampanaFacturada"]);
-            if (DataRecord.HasColumn(datarec, "montoMaximoPedido") && datarec["montoMaximoPedido"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "montoMaximoPedido"))
                 montoMaximoPedido = DbConvert.ToDouble(datarec["montoMaximoPedido"]);
-            if (DataRecord.HasColumn(datarec, "autorizaPasarPedido") && datarec["autorizaPasarPedido"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "autorizaPasarPedido"))
                 autorizaPasarPedido = DbConvert.ToString(datarec["autorizaPasarPedido"]);
-            if (DataRecord.HasColumn(datarec, "montoUltimoPedido") && datarec["montoUltimoPedido"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "montoUltimoPedido"))
                 montoUltimoPedido = DbConvert.ToDouble(datarec["montoUltimoPedido"]);
-            if (DataRecord.HasColumn(datarec, "montoSaldoActual") && datarec["montoSaldoActual"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "montoSaldoActual"))
                 montoSaldoActual = DbConvert.ToDouble(datarec["montoSaldoActual"]);
-            if (DataRecord.HasColumn(datarec, "campanaVigente") && datarec["campanaVigente"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "campanaVigente"))
                 campanaVigente = DbConvert.ToInt32(datarec["campanaVigente"]);
-            if (DataRecord.HasColumn(datarec, "fechaFacturacion") && datarec["fechaFacturacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "fechaFacturacion"))
                 fechaFacturacion = DbConvert.ToString(datarec["fechaFacturacion"]);
-            if (DataRecord.HasColumn(datarec, "pedidoFacturado") && datarec["pedidoFacturado"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "pedidoFacturado"))
                 pedidoFacturado = DbConvert.ToInt32(datarec["pedidoFacturado"]);
-            if (DataRecord.HasColumn(datarec, "numeroCampania") && datarec["numeroCampania"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "numeroCampania"))
                 numeroCampania = DbConvert.ToInt32(datarec["numeroCampania"]);
         }
     }

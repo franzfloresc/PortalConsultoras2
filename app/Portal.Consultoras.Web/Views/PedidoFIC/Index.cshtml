@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Pedido FIC";
 }
-@section styles{   
+@section styles{
     <link href="@Url.Content("~/Content/Css/Site/style-pedido.css")" rel="stylesheet" />
 
     <style>
@@ -17,18 +17,18 @@
         .no_mostrar {
             display: none;
         }
-        .texto_pedidos{
-            font-size:14px;
-            font-weight:400;
-        }
 
+        .texto_pedidos {
+            font-size: 14px;
+            font-weight: 400;
+        }
     </style>
 }
 
 <div class="franja_negra" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
 
 <h1 class="titulo_principal_interiores pedido_left" style="margin-top:0px">INGRESA <strong>TU PEDIDO</strong></h1>
-<div class="wrapper_general2">   
+<div class="wrapper_general2">
     
     <h1 class="titulo_principal_interiores pedido_left" style="margin-top: -10px;">
         INGRESA <strong>TU PEDIDO FIC - @ViewBag.PedidoFIC @ViewBag.MensajeFIC</strong>
@@ -56,7 +56,7 @@
             <input type="hidden" id="hdfDescripcionProd" value="@Model.DescripcionProd" name="DescripcionProd" />
             <input type="hidden" id="hdfMarcaID" value="@Model.MarcaID" name="MarcaID" />
             <input type="hidden" id="hdfPrecioUnidad" value="@Model.PrecioUnidad" name="PrecioUnidad" />
-            <input type="hidden" id="hdfClienteID" value="@Model.ClienteID" name="ClienteID" />            
+            <input type="hidden" id="hdfClienteID" value="@Model.ClienteID" name="ClienteID" />
 
             <div id="divObservaciones" class="pedidos_no_existe" style="position:relative;"></div>
 
@@ -101,7 +101,7 @@
             <input id="btnAgregar" type="submit" value="AGREGAR" disabled="disabled" onkeydown="Tabular()" class="pedido_agregado" />
         </form>
     </div>
-    <div class="clear"></div> 
+    <div class="clear"></div>
     <div class="PedidoFic">
         <div class="mensaje_fic"><b>Recuerda:</b> este pedido NO te será facturado. Solo nos estas ayudando a conocer tus preferencias y las de tus clientes</div>
         <div class="paginador_pedidos mostrarPaginadorPedidos" style="margin-bottom:14px;">
@@ -134,7 +134,7 @@
         </div>
         <!--PAGINADOR INFERIOR-->
         <div class="paginador_pedidos mostrarPaginadorPedidos inferior">
-            <div id="paginadorPie">                
+            <div id="paginadorPie">
             </div>
         </div>
         <!--FIN-->
@@ -203,7 +203,7 @@
         @if (ViewBag.IndicadorOfertaFIC == 1)
         {
             <div>
-                <img src="@Url.Content(ViewBag.ImagenUrlOfertaFIC)"/>
+                <img src="@Url.Content(ViewBag.ImagenUrlOfertaFIC)" />
             </div>
             <div>
                 <br />

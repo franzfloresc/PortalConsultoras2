@@ -811,23 +811,43 @@ namespace Portal.Consultoras.Service
             return BLUsuario.GetRestaurarClaveByCodUsuario(ValorRestauracion, PaisID);
         }
 
-        public string EnviaClaveAEmail(int paisId, string textoRecuperacion, bool EsMobile, int nroVeces, BEUsuarioCorreo pRestaurar)
+        public bool EnviarEmail(int paisID, BEUsuarioCorreo objEmail)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.EnviaClaveAEmail(paisId, textoRecuperacion, EsMobile, nroVeces, pRestaurar);
-        }
-
-        public void UpdFechaBloqueoRestaurarClave(int paisId, string CodigoUsuario)
-        {
-            var BLUsuario = new BLUsuario();
-            BLUsuario.UpdFechaBloqueoRestaurarClave(paisId, CodigoUsuario);
-        }
-
-        public string GetCodigoSMS(int paisID, string CodigoConsultora, string Origen)
-        {
-            var BLUsuario = new BLUsuario();
-            return (BLUsuario.GetCodigoSMS(paisID, CodigoConsultora, Origen));
+            return BLUsuario.EnviarEmail(paisID, objEmail);
         }
         #endregion
+
+        #region Pin Autenticacion
+        public BEPinAutenticacion GetPinAutenticidad(int paisID, string CodigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetPinAutenticidad(paisID, CodigoUsuario);
+        }
+
+        public string GetCodigoGenerado(int PaisID, BEUsuarioCorreo oUsuCorreo, string CodGenerado)
+        {
+            var BLUsuario = new BLUsuario();
+            return (BLUsuario.GetCodigoGenerado(PaisID, oUsuCorreo, CodGenerado));
+        }
+
+        public BEUsuarioCorreo GetOpcionHabilitada(int PaisID, BEUsuarioCorreo oUsuCorreo)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetOpcionHabilitada(PaisID, oUsuCorreo);
+        }
+
+        public void UpdFlagAutenticacion(int paisID, string CodigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            BLUsuario.UpdFlagAutenticacion(paisID, CodigoUsuario);
+        }
+        #endregion
+
+        public bool GetConsultoraParticipaEnPrograma(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetConsultoraParticipaEnPrograma(paisID, codigoPrograma, codigoConsultora, campaniaID);
+        }
     }
 }

@@ -81,6 +81,7 @@
     }
 
 </div>
+<hr class="clear" />
 <div>
     <div class="set_encuentras_producto" id="set_relacionados">
         <div class="wrapper_resumen_mobile">
@@ -105,7 +106,7 @@
             </div>
         </div>
     }
-
+    <hr class="clear" />
     <div class="comparte_set_encuentras_producto_video" data-posicion="0" data-item="165">
         <div data-compartir-campos="" style="display:none;">
             <input type="hidden" class="CUV" value="@Model.CUV2" />
@@ -141,7 +142,7 @@
     @Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
 }
 
-@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", true } })
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/Lanzamientos-Detalle")
     <script type="text/javascript">

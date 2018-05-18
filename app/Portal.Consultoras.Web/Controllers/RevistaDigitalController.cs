@@ -89,7 +89,7 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, modelo.FotoProducto01);
             }
 
-            sessionManager.ProductoTemporal = modelo;
+            sessionManager.SetProductoTemporal(modelo);
 
             return Json(new
             {
@@ -294,7 +294,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (mensaje != "")
                 return mensaje;
 
-            var entidad = new BERevistaDigitalSuscripcion
+            var entidad = new ServicePedido.BERevistaDigitalSuscripcion
             {
                 PaisID = userData.PaisID,
                 CodigoConsultora = userData.CodigoConsultora,
@@ -336,7 +336,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             if (entidad.RevistaDigitalSuscripcionID <= 0) return "";
-            revistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
+            revistaDigital.SuscripcionModel = Mapper.Map<ServicePedido.BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
             revistaDigital.NoVolverMostrar = true;
             revistaDigital.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
             revistaDigital.EsSuscrita = revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;

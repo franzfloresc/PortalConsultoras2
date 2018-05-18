@@ -17,8 +17,8 @@ namespace Portal.Consultoras.Web.Controllers
             //3: Colaborador
             //4: Lider
             //5: GZ
-
-            if (UserData().Lider == 1)
+            
+            if (userData.Lider == 1)
             {
                 tipoUsuario = 4;
             }
@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Web.Controllers
                 int esColaborador;
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    esColaborador = sv.GetValidarColaboradorZona(UserData().PaisID, UserData().CodigoZona);
+                    esColaborador = sv.GetValidarColaboradorZona(userData.PaisID, userData.CodigoZona);
                 }
 
                 if (esColaborador == 1)
@@ -42,9 +42,9 @@ namespace Portal.Consultoras.Web.Controllers
                 usuario = sv.GetUsuarioInformacion(new BEUsuarioComunidad()
                 {
                     UsuarioId = 0,
-                    CodigoUsuario = UserData().CodigoUsuario,
+                    CodigoUsuario = userData.CodigoUsuario,
                     Tipo = 3,
-                    PaisId = UserData().PaisID,
+                    PaisId = userData.PaisID,
                     TipoUsuario = tipoUsuario
                 });
             }

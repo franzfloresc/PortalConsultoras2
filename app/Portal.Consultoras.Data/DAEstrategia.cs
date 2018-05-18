@@ -49,6 +49,11 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@CUV2", DbType.String, entidad.CUV2);
                 Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+                Context.Database.AddInParameter(command, "@AgregarEnMatriz", DbType.Boolean, entidad.AgregarEnMatriz);
+                Context.Database.AddInParameter(command, "@UsuarioRegistro", DbType.String, entidad.UsuarioRegistro);
+                	 
+
+
                 return Context.ExecuteReader(command);
             }
         }
@@ -366,82 +371,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteScalar(command).ToString();
         }
 
-        public int InsertEstrategiaTemporal(List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int nroLore)
-        {
-            var listaTypes = lista.Select(item => new BEEstrategiaType
-            {
-                CampaniaId = campaniaId,
-                CodigoSap = item.CodigoProducto,
-                CUV = item.CUV2,
-                Descripción = item.DescripcionCUV2,
-                LimiteVenta = item.LimiteVenta,
-                OfertaUltimoMinuto = item.OfertaUltimoMinuto,
-                PrecioOferta = item.Precio2,
-                PrecioTachado = item.Precio,
-                UsuarioCreacion = codigoUsuario,
-                FotoProducto01 = item.ImagenURL,
-                CodigoEstrategia = item.CodigoEstrategia,
-                TieneVariedad = item.TieneVariedad,
-                PrecioPublico = item.PrecioPublico,
-                Ganancia = item.Ganancia,
-                Niveles = item.Niveles
-            }).ToList();
-
-            var command = new SqlCommand("dbo.InsertEstrategiaTemporal");
-            command.CommandType = CommandType.StoredProcedure;
-
-            command.Parameters.Add(new SqlParameter("@EstrategiaTemporal", SqlDbType.Structured)
-            {
-                TypeName = "dbo.EstrategiaTemporalType",
-                Value = new GenericDataReader<BEEstrategiaType>(listaTypes)
-            });
-
-            command.Parameters.Add(new SqlParameter("@NumeroLoteAnt", SqlDbType.Int) { Value = nroLore });
-            command.Parameters.Add(new SqlParameter("@NroLote", SqlDbType.Int) { Direction = ParameterDirection.Output, Value = 0 });
-
-            Context.ExecuteNonQuery(command);
-
-            return Convert.ToInt32(command.Parameters["@NroLote"].Value);
-        }
-
-        public int InsertEstrategiaOfertaParaTi(List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId)
-        {
-            var listaTypes = lista.Select(item => new BEEstrategiaType
-            {
-                CampaniaId = campaniaId,
-                CodigoSap = item.CodigoProducto,
-                CUV = item.CUV2,
-                Descripción = item.DescripcionCUV2,
-                LimiteVenta = item.LimiteVenta,
-                OfertaUltimoMinuto = item.OfertaUltimoMinuto,
-                PrecioOferta = item.Precio2,
-                PrecioTachado = item.Precio,
-                UsuarioCreacion = codigoUsuario,
-                FotoProducto01 = item.ImagenURL,
-                TieneVariedad = item.TieneVariedad,
-                CodigoEstrategia = item.CodigoEstrategia,
-                PrecioPublico = item.PrecioPublico,
-                Ganancia = item.Ganancia,
-                Niveles = item.Niveles
-            }).ToList();
-
-            var command =
-                new SqlCommand("dbo.InsertEstrategiaOfertaParaTi") { CommandType = CommandType.StoredProcedure };
-
-            var parameter =
-                new SqlParameter("@EstrategiaTemporal", SqlDbType.Structured)
-                {
-                    TypeName = "dbo.EstrategiaTemporalType",
-                    Value = new GenericDataReader<BEEstrategiaType>(listaTypes)
-                };
-
-            var parameter2 = new SqlParameter("@TipoEstrategia", SqlDbType.Int) { Value = estrategiaId };
-
-            command.Parameters.Add(parameter);
-            command.Parameters.Add(parameter2);
-            return Context.ExecuteNonQuery(command);
-        }
-
         public IDataReader GetEstrategiaODD(int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasODD"))
@@ -578,38 +507,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
         #endregion
-
-        #region CargaMasivaImagenes
-
-        public IDataReader GetListaImagenesEstrategiasByCampania(int campaniaId)
-        {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaImagenesEstrategiasByCampania"))
-            {
-                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
-                return Context.ExecuteReader(command);
-            }
-        }
-
-        public IDataReader GetListaImagenesOfertaLiquidacionByCampania(int campaniaId)
-        {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaImagenesOfertaLiquidacionByCampania"))
-            {
-                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
-                return Context.ExecuteReader(command);
-            }
-        }
-
-        public IDataReader GetListaImagenesProductoSugeridoByCampania(int campaniaId)
-        {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaImagenesProductoSugeridoByCampania"))
-            {
-                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
-                return Context.ExecuteReader(command);
-            }
-        }
-
-        #endregion
-
+        
         public List<int> InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarEstrategiaMasiva"))

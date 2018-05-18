@@ -109,24 +109,14 @@
                 $('.content_left_pagos').hide();
                 switch (Estado) {
                     case "2":
-                        $('#sMensajePedidoPROL').html(Observaciones);
-                        $('#sTituloNotificacion').html("PEDIDO NO RESERVADO");
-                        $('#SaltoLinea').html('&nbsp;');
-                        if (EsMontoMinimo == "True") {
-                            $('#sMensajeFacturacion').html('Añade más productos y no pierdas la oportunidad de hacer crecer tu negocio con Belcorp.');
-                        }
-                        break;
                     case "3":
                         $('#sMensajePedidoPROL').html(Observaciones);
                         $('#sTituloNotificacion').html("PEDIDO NO RESERVADO");
-                        $('#sMensajeFacturacion').html('Añade más productos y no pierdas la oportunidad de hacer crecer tu negocio con Belcorp.');
+
+                        if (EsMontoMinimo != "True") $('#sMensajeFacturacion').parent('td').hide();
+                        else $('#sMensajeFacturacion').html('Añade más productos y no pierdas la oportunidad de hacer crecer tu negocio con Belcorp.');
                         break;
                     case "4":
-                        $('#sFelicitaciones').html('¡Lo lograste!');
-                        $('#sMensajePedidoPROL').html(Observaciones);
-                        var Mensaje = "Será enviado a Belcorp " + DescripcionFacturacion(FacturaHoy, DiaFact, MesFact) + ", siempre y cuando cumplas con el monto mínimo y no tengas deuda pendiente.";
-                        $('#sMensajeFacturacion').html(Mensaje);
-                        break;
                     case "5":
                         $('#sFelicitaciones').html('¡Lo lograste!');
                         $('#sMensajePedidoPROL').html(Observaciones);

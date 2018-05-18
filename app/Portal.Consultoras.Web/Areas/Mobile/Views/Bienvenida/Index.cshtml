@@ -76,8 +76,8 @@
     </div>
 </div>
 
-<div class="wrapper_resumen_mobile sombra_wrapper">
-    <div class="content_320" style="text-align:center;">
+<div class="wrapper_resumen_mobile">
+    <div class="content_320" style="text-align:center; padding-bottom: 7px;">
         <!--QUITAR CENTER CUANDO HAY FOTO-->
         <div class="content_foto">
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
@@ -162,10 +162,20 @@
                 <span><b>C@(Model.NumeroCampania) @(ViewBag.MensajeFechaPromesa)</b></span>
             </div>
             <a role="link" region="Central" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="btn_seguirp_mobile seguimientoPedido2" href="/Mobile/SeguimientoPedido">SIGUE TU PEDIDO</a>
+            <!-- ENLACE PARA INGRESO DE PEDIDO FIC -->
+            @if (ViewBag.IndicadorPermisoFIC == 1)
+            {
+                <a href="@Url.Action("Index", "PedidoFIC", new { area = "Mobile" })" role="menu" region="Medio" parent="Ingreso Pedido Fic" id="lnk-ingresa-pedido-fic" class="enlace_ingresa_tu_pedido_fic text-uppercase" title="Ingresa tu pedido FIC">
+                    <span class="icono_flecha_ir_ingreso_pedido_fic"></span>
+                    Ingresa tu pedido Fic
+                </a>
+            }
+            <!-- FIN - ENLACE PARA INGRESO DE PEDIDO FIC -->
         </div>
         <hr class="clear" />
         <!--FIN RESUMEN-->
     </div>
+    <div class="linea_separadora_mobile" style="margin-top: 16px; "></div>
 </div>
 <!--CONSULTORA ONLINE-->
 @if (ViewBag.CantPedidosPendientes > 0)
@@ -185,7 +195,7 @@
 }
 
 <!--FIN-->
-<div class="fondo_faf5e6">
+<div class="fondo_faf5e6" style="display: none">
     @if (ViewBag.CantPedidosPendientes <= 0)
     {
         <div class="pestana_lbel"></div>
@@ -202,16 +212,9 @@
        class="btn_seguirp_mobile seguimientoPedido" href="@Url.Action("Index", "SeguimientoPedido", new { area = "Mobile" })">SEGUIMIENTO A TU PEDIDO</a>
 
     <a role="link" region="Central" parent="Mira el Video de Bienvenida" title="Mira el Video de Bienvenida" class="btn_seguirp_mobile ver_video_introductorio" href="javascript:;">MIRA EL VIDEO DE BIENVENIDA</a>
-    <!-- ENLACE PARA INGRESO DE PEDIDO FIC -->
-    @if (ViewBag.IndicadorPermisoFIC == 1)
-    {
-        <a href="@Url.Action("Index", "PedidoFIC", new { area = "Mobile" })" role="menu" region="Medio" parent="Ingreso Pedido Fic" id="lnk-ingresa-pedido-fic" class="enlace_ingresa_tu_pedido_fic text-uppercase" title="Ingresa tu pedido FIC">
-            <span class="icono_flecha_ir_ingreso_pedido_fic"></span>
-            Ingresa tu pedido Fic
-        </a>
-    }
-    <!-- FIN - ENLACE PARA INGRESO DE PEDIDO FIC -->
+
 </div>
+
 <div class="wrapper_resumen_mobile">
     <div class="content_320">
         <!--ITEM 1-->
@@ -690,8 +693,13 @@
 <div id="VideoIntroductorio" class="MensajeAlertaMobile" style="display:none">
     <div class="content_video_introductorio">
         <a class="cerrar_video" href="javascript:;" id="cerrarVideoIntroductorio"><img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Icono Check" /></a>
-        <div id="divPlayer">
-        </div>
+
+        <!--div id="divPlayer"></div-->
+
+        <div id="ytMobileBienvenidaIndex"
+             data-youtube="{ width:'100%', enablejsapi:1, playerVars:{rel:0} }"
+             class="yt-video"></div>
+
     </div>
 </div>
 <!-- FIN POPUP VIDEO INTRODUCTORIO -->
@@ -702,7 +710,7 @@
 }
 <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
 
-@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml",  new ViewDataDictionary {{ "TieneBotones", true }})
 
 <!--SHOWROOM: modal popup -->
 <div class="modal fade" id="PopShowroom">

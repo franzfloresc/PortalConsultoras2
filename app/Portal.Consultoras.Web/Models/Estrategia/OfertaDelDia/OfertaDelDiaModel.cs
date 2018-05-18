@@ -11,6 +11,7 @@ namespace Portal.Consultoras.Web.Models
         {
             ListaOfertas = new List<OfertaDelDiaModel>();
             ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
+            ConfiguracionContenedor = new ConfiguracionSeccionHomeModel();
         }
 
         public int ID { get; set; }

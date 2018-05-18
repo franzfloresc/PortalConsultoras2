@@ -8,6 +8,9 @@ belcorp.settings.uniquePrefix = "/g/";
 jQuery(document).ready(function () {
     CreateLoading();
 
+    redimensionarMenusTabs();
+
+
     $("header").resize(function () {
         LayoutMenu();
     });
@@ -453,6 +456,8 @@ jQuery(document).ready(function () {
         return pEnteraFinal + pDecimal;
     }
 
+    IsNullOrEmpty = function (texto) { return texto == null || texto === ''; }
+
     $(document).scroll(function () {
         try {
             $(".loadingScreenWindow").css("top", (($(window).height() / 2) + $(document).scrollTop() - $(".loadingScreenWindow").height()) + "px");
@@ -483,6 +488,17 @@ jQuery(document).ready(function () {
         return newLista;
     };
 })(jQuery);
+
+function redimensionarMenusTabs() {
+    var total_menu_contenedor = $(".bc_para_ti-menu ul li").size();
+
+    if (total_menu_contenedor > 2) {
+        $('.bc_para_ti-menu ul li').addClass('fix_menu_tabs_mobil_3');
+    }
+    else {
+        $('.bc_para_ti-menu ul li').addClass('fix_menu_tabs_mobil_2');
+    }
+}
 
 function ImgUrlRender(imgOriginal, tipo) {
     imgOriginal = $.trim(imgOriginal);
@@ -1168,8 +1184,7 @@ function ResizeMensajeEstadoPedido() {
 function cerrarMensajeEstadoPedido() {
     $.ajax({
         type: 'Post',
-        url: baseUrl + 'Bienvenida/CerrarMensajeEstadoPedido',
-        data: '',
+        url: baseUrl + 'Bienvenida/CerrarMensajeEstadoPedido',        
         cache: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',

@@ -1,5 +1,5 @@
 ﻿var admPalancaDatos = (function () {
-    'use strict'
+    'use strict';
 
     var _elemento = {
         TablaId: '#tblPalanca',
@@ -187,6 +187,31 @@
         _RegistroObterner(entidad);
     }
 
+
+    var _RegistroObternerImagen = function () {
+        var frmDatos = $(_elemento.DivFormulario);
+        if (frmDatos.length == 0) {
+            return false;
+        }
+        var listaFrmDatos = frmDatos.find("div[data-tipodato='img']");
+        if (listaFrmDatos.length == 0) {
+            return false;
+        }
+
+        $.each(listaFrmDatos, function (ind, datox) {
+            var idConca = $.trim($(datox).attr('id')).split('-');
+            if (idConca.length != 4) {
+                return false;
+            }
+            var codigoDato = $.trim(idConca[3]);
+            if (codigoDato != "") {
+                UploadFilePalanca(codigoDato);
+            }
+        });
+    };
+
+
+
     var CrearRegistro = function () {
         var entidad = {
             PalancaCodigo: '',
@@ -215,7 +240,7 @@
                     $(_elemento.DialogRegistroDatosHtml).empty();
                     $(_elemento.DialogRegistroDatosHtml).
                         html(result)
-                        .ready(_RegistroObternerImagen(this));
+                        .ready(_RegistroObternerImagen());
 
                     $(_elemento.ChbxEstado).prop("checked", $(_elemento.DivFormulario).attr('data-estado') === "True");
 
@@ -224,7 +249,7 @@
                     $(_elemento.DialogRegistroHtml).empty();
                     $(_elemento.DialogRegistroHtml)
                         .html(result)
-                        .ready(_RegistroObternerImagen(this));
+                        .ready(_RegistroObternerImagen());
 
                     showDialog(_elemento.DialogRegistro);
                     $('body').css({ 'overflow-x': 'hidden' });
@@ -237,7 +262,7 @@
                 }
                 else {
                     $(_elemento.DialogRegistroHtml).empty();
-                    $(_elemento.DialogRegistroHtml).html(result)
+                    $(_elemento.DialogRegistroHtml).html(result);
                     showDialog(_elemento.DialogRegistro);
                     $('body').css({ 'overflow-x': 'hidden' });
                     $('body').css({ 'overflow-y': 'hidden' });
@@ -277,27 +302,7 @@
         return true;
     };
 
-    var _RegistroObternerImagen = function () {
-        var frmDatos = $(_elemento.DivFormulario);
-        if (frmDatos.length == 0) {
-            return false;
-        }
-        var listaFrmDatos = frmDatos.find("div[data-tipodato='img']");
-        if (listaFrmDatos.length == 0) {
-            return false;
-        }
-
-        $.each(listaFrmDatos, function (ind, datox) {
-            var idConca = $.trim($(datox).attr('id')).split('-');
-            if (idConca.length != 4) {
-                return false;
-            }
-            var codigoDato = $.trim(idConca[3]);
-            if (codigoDato != "") {
-                UploadFilePalanca(codigoDato);
-            }
-        });
-    };
+   
 
     var _CargarComponente = function () {
 

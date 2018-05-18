@@ -272,6 +272,12 @@
   <wsdl:message name="ISACService_UpsellingMarcaCategoriaFlagsEditar_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpsellingMarcaCategoriaFlagsEditarResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_GetListEnumStringCache_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListEnumStringCache" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetListEnumStringCache_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListEnumStringCacheResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_RemoveDataCache_InputMessage">
     <wsdl:part name="parameters" element="tns:RemoveDataCache" />
   </wsdl:message>
@@ -1509,6 +1515,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpsellingMarcaCategoriaFlagsEditar" message="tns:ISACService_UpsellingMarcaCategoriaFlagsEditar_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpsellingMarcaCategoriaFlagsEditarResponse" message="tns:ISACService_UpsellingMarcaCategoriaFlagsEditar_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetListEnumStringCache">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetListEnumStringCache" message="tns:ISACService_GetListEnumStringCache_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetListEnumStringCacheResponse" message="tns:ISACService_GetListEnumStringCache_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="RemoveDataCache">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/RemoveDataCache" message="tns:ISACService_RemoveDataCache_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/RemoveDataCacheResponse" message="tns:ISACService_RemoveDataCache_OutputMessage" />
@@ -2576,6 +2586,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpsellingMarcaCategoriaFlagsEditar">
       <soap:operation soapAction="http://tempuri.org/ISACService/UpsellingMarcaCategoriaFlagsEditar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListEnumStringCache">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetListEnumStringCache" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4551,6 +4570,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpsellingMarcaCategoriaFlagsEditar">
       <soap:operation soapAction="http://tempuri.org/ISACService/UpsellingMarcaCategoriaFlagsEditar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListEnumStringCache">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetListEnumStringCache" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
