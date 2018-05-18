@@ -47,25 +47,25 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         public BEShowRoomCompraPorCompra(IDataRecord datarec)
         {
-            if (datarec.HasColumn("CompraxCompraID") && datarec["CompraxCompraID"] != DBNull.Value)
+            if (datarec.HasColumn("CompraxCompraID"))
                 CompraxCompraID = DbConvert.ToInt32(datarec["CompraxCompraID"]);
-            if (datarec.HasColumn("EventoID") && datarec["EventoID"] != DBNull.Value)
+            if (datarec.HasColumn("EventoID"))
                 EventoID = DbConvert.ToInt32(datarec["EventoID"]);
-            if (datarec.HasColumn("CUV") && datarec["CUV"] != DBNull.Value)
+            if (datarec.HasColumn("CUV"))
                 CUV = DbConvert.ToString(datarec["CUV"]);
-            if (datarec.HasColumn("SAP") && datarec["SAP"] != DBNull.Value)
+            if (datarec.HasColumn("SAP"))
                 SAP = DbConvert.ToString(datarec["SAP"]);
-            if (datarec.HasColumn("Orden") && datarec["Orden"] != DBNull.Value)
+            if (datarec.HasColumn("Orden"))
                 Orden = DbConvert.ToInt32(datarec["Orden"]);
-            if (datarec.HasColumn("PrecioValorizado") && datarec["PrecioValorizado"] != DBNull.Value)
+            if (datarec.HasColumn("PrecioValorizado"))
                 PrecioValorizado = DbConvert.ToDecimal(datarec["PrecioValorizado"]);
-            if (datarec.HasColumn("UsuarioCreacion") && datarec["UsuarioCreacion"] != DBNull.Value)
+            if (datarec.HasColumn("UsuarioCreacion"))
                 UsuarioCreacion = DbConvert.ToString(datarec["UsuarioCreacion"]);
-            if (datarec.HasColumn("FechaCreacion") && datarec["FechaCreacion"] != DBNull.Value)
+            if (datarec.HasColumn("FechaCreacion"))
                 FechaCreacion = DbConvert.ToDateTime(datarec["FechaCreacion"]);
-            if (datarec.HasColumn("UsuarioModificacion") && datarec["UsuarioModificacion"] != DBNull.Value)
+            if (datarec.HasColumn("UsuarioModificacion"))
                 UsuarioModificacion = DbConvert.ToString(datarec["UsuarioModificacion"]);
-            if (datarec.HasColumn("FechaModificacion") && datarec["FechaModificacion"] != DBNull.Value)
+            if (datarec.HasColumn("FechaModificacion"))
                 FechaModificacion = DbConvert.ToDateTime(datarec["FechaModificacion"]);
         }
     }

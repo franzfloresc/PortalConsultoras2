@@ -88,57 +88,57 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         public BEShowRoomEvento(IDataRecord datarec)
         {
-            if (DataRecord.HasColumn(datarec, "EventoID") && datarec["EventoID"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "EventoID"))
                 EventoID = DbConvert.ToInt32(datarec["EventoID"]);
-            if (DataRecord.HasColumn(datarec, "CampaniaID") && datarec["CampaniaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CampaniaID"))
                 CampaniaID = DbConvert.ToInt32(datarec["CampaniaID"]);
-            if (DataRecord.HasColumn(datarec, "Nombre") && datarec["Nombre"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Nombre"))
                 Nombre = DbConvert.ToString(datarec["Nombre"]);
-            if (DataRecord.HasColumn(datarec, "Imagen1") && datarec["Imagen1"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Imagen1"))
                 Imagen1 = DbConvert.ToString(datarec["Imagen1"]);
-            if (DataRecord.HasColumn(datarec, "Imagen2") && datarec["Imagen2"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Imagen2"))
                 Imagen2 = DbConvert.ToString(datarec["Imagen2"]);
-            if (DataRecord.HasColumn(datarec, "Descuento") && datarec["Descuento"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Descuento"))
                 Descuento = DbConvert.ToDecimal(datarec["Descuento"]);
-            if (DataRecord.HasColumn(datarec, "FechaCreacion") && datarec["FechaCreacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "FechaCreacion"))
                 FechaCreacion = DbConvert.ToDateTime(datarec["FechaCreacion"]);
-            if (DataRecord.HasColumn(datarec, "UsuarioCreacion") && datarec["UsuarioCreacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "UsuarioCreacion"))
                 UsuarioCreacion = DbConvert.ToString(datarec["UsuarioCreacion"]);
-            if (DataRecord.HasColumn(datarec, "FechaModificacion") && datarec["FechaModificacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "FechaModificacion"))
                 FechaModificacion = DbConvert.ToDateTime(datarec["FechaModificacion"]);
-            if (DataRecord.HasColumn(datarec, "UsuarioModificacion") && datarec["UsuarioModificacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "UsuarioModificacion"))
                 UsuarioModificacion = DbConvert.ToString(datarec["UsuarioModificacion"]);
-            if (DataRecord.HasColumn(datarec, "TextoEstrategia") && datarec["TextoEstrategia"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "TextoEstrategia"))
                 TextoEstrategia = DbConvert.ToString(datarec["TextoEstrategia"]);
-            if (DataRecord.HasColumn(datarec, "OfertaEstrategia") && datarec["OfertaEstrategia"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "OfertaEstrategia"))
                 OfertaEstrategia = DbConvert.ToDecimal(datarec["OfertaEstrategia"]);
-            if (DataRecord.HasColumn(datarec, "Tema") && datarec["Tema"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Tema"))
                 Tema = DbConvert.ToString(datarec["Tema"]);
-            if (DataRecord.HasColumn(datarec, "DiasAntes") && datarec["DiasAntes"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "DiasAntes"))
                 DiasAntes = DbConvert.ToInt32(datarec["DiasAntes"]);
-            if (DataRecord.HasColumn(datarec, "DiasDespues") && datarec["DiasDespues"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "DiasDespues"))
                 DiasDespues = DbConvert.ToInt32(datarec["DiasDespues"]);
-            if (DataRecord.HasColumn(datarec, "NumeroPerfiles") && datarec["NumeroPerfiles"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "NumeroPerfiles"))
                 NumeroPerfiles = DbConvert.ToInt32(datarec["NumeroPerfiles"]);
-            if (DataRecord.HasColumn(datarec, "ImagenCabeceraProducto") && datarec["ImagenCabeceraProducto"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "ImagenCabeceraProducto"))
                 ImagenCabeceraProducto = DbConvert.ToString(datarec["ImagenCabeceraProducto"]);
-            if (DataRecord.HasColumn(datarec, "ImagenVentaSetPopup") && datarec["ImagenVentaSetPopup"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "ImagenVentaSetPopup"))
                 ImagenVentaSetPopup = DbConvert.ToString(datarec["ImagenVentaSetPopup"]);
-            if (DataRecord.HasColumn(datarec, "ImagenVentaTagLateral") && datarec["ImagenVentaTagLateral"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "ImagenVentaTagLateral"))
                 ImagenVentaTagLateral = DbConvert.ToString(datarec["ImagenVentaTagLateral"]);
-            if (DataRecord.HasColumn(datarec, "ImagenPestaniaShowRoom") && datarec["ImagenPestaniaShowRoom"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "ImagenPestaniaShowRoom"))
                 ImagenPestaniaShowRoom = DbConvert.ToString(datarec["ImagenPestaniaShowRoom"]);
-            if (DataRecord.HasColumn(datarec, "ImagenPreventaDigital") && datarec["ImagenPreventaDigital"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "ImagenPreventaDigital"))
                 ImagenPreventaDigital = DbConvert.ToString(datarec["ImagenPreventaDigital"]);
-            if (DataRecord.HasColumn(datarec, "Estado") && datarec["Estado"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Estado"))
                 Estado = DbConvert.ToInt32(datarec["Estado"]);
-            if (DataRecord.HasColumn(datarec, "TieneCategoria") && datarec["TieneCategoria"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "TieneCategoria"))
                 TieneCategoria = DbConvert.ToBoolean(datarec["TieneCategoria"]);
-            if (DataRecord.HasColumn(datarec, "TieneCompraXcompra") && datarec["TieneCompraXcompra"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "TieneCompraXcompra"))
                 TieneCompraXcompra = DbConvert.ToBoolean(datarec["TieneCompraXcompra"]);
-            if (DataRecord.HasColumn(datarec, "TieneSubCampania") && datarec["TieneSubCampania"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "TieneSubCampania"))
                 TieneSubCampania = DbConvert.ToBoolean(datarec["TieneSubCampania"]);
-            if (DataRecord.HasColumn(datarec, "TienePersonalizacion") && datarec["TienePersonalizacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "TienePersonalizacion"))
                 TienePersonalizacion = DbConvert.ToBoolean(datarec["TienePersonalizacion"]);
         }
     }

@@ -64,67 +64,67 @@ namespace Portal.Consultoras.Entities
 
         public BEPedidoFacturado(IDataRecord row, int Tipo)
         {
-            if (DataRecord.HasColumn(row, "Campania") && row["Campania"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Campania"))
                 Campania = Convert.ToInt32(row["Campania"]);
 
-            if (DataRecord.HasColumn(row, "ImporteTotal") && row["ImporteTotal"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ImporteTotal"))
                 ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
 
-            if (DataRecord.HasColumn(row, "EstadoPedido") && row["EstadoPedido"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "EstadoPedido"))
                 EstadoPedido = Convert.ToString(row["EstadoPedido"]);
 
-            if (DataRecord.HasColumn(row, "Cantidad") && row["Cantidad"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Cantidad"))
                 Cantidad = Convert.ToInt32(row["Cantidad"]);
 
-            if (DataRecord.HasColumn(row, "PedidoId") && row["PedidoId"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PedidoId"))
                 PedidoId = Convert.ToInt32(row["PedidoId"]);
         }
 
         public BEPedidoFacturado(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CodigoConsultora") && row["CodigoConsultora"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoConsultora"))
                 CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
 
-            if (DataRecord.HasColumn(row, "MontoDescuento") && row["MontoDescuento"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MontoDescuento"))
                 MontoDescuento = Convert.ToDecimal(row["MontoDescuento"]);
 
-            if (DataRecord.HasColumn(row, "CodigoTerritorio") && row["CodigoTerritorio"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoTerritorio"))
                 CodigoTerritorio = Convert.ToString(row["CodigoTerritorio"]);
 
-            if (DataRecord.HasColumn(row, "CUV") && row["CUV"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CUV"))
                 CUV = Convert.ToString(row["CUV"]);
 
-            if (DataRecord.HasColumn(row, "CodigoProducto") && row["CodigoProducto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoProducto"))
                 CodigoProducto = Convert.ToString(row["CodigoProducto"]);
 
-            if (DataRecord.HasColumn(row, "Descripcion") && row["Descripcion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Descripcion"))
                 Descripcion = Convert.ToString(row["Descripcion"]);
 
-            if (DataRecord.HasColumn(row, "Cantidad") && row["Cantidad"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Cantidad"))
                 Cantidad = Convert.ToInt32(row["Cantidad"]);
 
-            if (DataRecord.HasColumn(row, "PrecioUnidad") && row["PrecioUnidad"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PrecioUnidad"))
                 PrecioUnidad = Convert.ToDecimal(row["PrecioUnidad"]);
 
-            if (DataRecord.HasColumn(row, "ImporteTotal") && row["ImporteTotal"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ImporteTotal"))
                 ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
 
-            if (DataRecord.HasColumn(row, "CodigoTipoOferta") && row["CodigoTipoOferta"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoTipoOferta"))
                 CodigoTipoOferta = Convert.ToString(row["CodigoTipoOferta"]);
 
-            if (DataRecord.HasColumn(row, "Origen") && row["Origen"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Origen"))
                 Origen = Convert.ToString(row["Origen"]);
 
-            if (DataRecord.HasColumn(row, "FechaUltimaActualizacion") && row["FechaUltimaActualizacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaUltimaActualizacion"))
                 FechaUltimaActualizacion = Convert.ToDateTime(row["FechaUltimaActualizacion"]);
 
-            if (DataRecord.HasColumn(row, "PedidoId") && row["PedidoId"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PedidoId"))
                 PedidoId = Convert.ToInt32(row["PedidoId"]);
 
-            if (DataRecord.HasColumn(row, "ClienteID") && row["ClienteID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ClienteID"))
                 ClienteID = Convert.ToInt32(row["ClienteID"]);
 
-            if (DataRecord.HasColumn(row, "NombreCliente") && row["NombreCliente"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NombreCliente"))
                 NombreCliente = Convert.ToString(row["NombreCliente"]);
         }
     }

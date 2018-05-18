@@ -40,7 +40,9 @@ namespace Portal.Consultoras.BizLogic
         HVEstrategia,
         ConfiguracionValidacion,
         TablaLogicaDatos,
-        CuponesProgramaNuevas
+        CuponesProgramaNuevas,
+        ProductoProgramaNuevas,
+        ProductosExclusivos
     }
 
     internal class CacheManager<T>

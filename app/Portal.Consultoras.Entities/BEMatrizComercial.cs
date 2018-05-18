@@ -47,19 +47,19 @@ namespace Portal.Consultoras.Entities
 
         public BEMatrizComercial(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "IdMatrizComercial") && row["IdMatrizComercial"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "IdMatrizComercial"))
                 IdMatrizComercial = Convert.ToInt32(row["IdMatrizComercial"]);
-            if (DataRecord.HasColumn(row, "CodigoSAP") && row["CodigoSAP"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoSAP"))
                 CodigoSAP = Convert.ToString(row["CodigoSAP"]);
-            if (DataRecord.HasColumn(row, "DescripcionOriginal") && row["DescripcionOriginal"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescripcionOriginal"))
                 DescripcionOriginal = Convert.ToString(row["DescripcionOriginal"]);
-            if (DataRecord.HasColumn(row, "Descripcion") && row["Descripcion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Descripcion"))
                 Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "DescripcionProductoComercial") && row["DescripcionProductoComercial"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescripcionProductoComercial"))
                 DescripcionProductoComercial = Convert.ToString(row["DescripcionProductoComercial"]);
-            if (DataRecord.HasColumn(row, "DescripcionProductoComercial") && row["DescripcionProductoComercial"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescripcionProductoComercial"))
                 DescripcionProductoComercial = Convert.ToString(row["DescripcionProductoComercial"]);
-            if (DataRecord.HasColumn(row, "FotoProducto") && row["FotoProducto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FotoProducto"))
                 FotoProducto = Convert.ToString(row["FotoProducto"]);
         }
     }
