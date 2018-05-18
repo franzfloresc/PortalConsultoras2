@@ -61,6 +61,8 @@ namespace Portal.Consultoras.Common
 
             public const short Registrado = 1;
             public const short Facturado = 2;
+
+            public const string PedidoValidado = "PV";
         }
 
         public static class PaisID
@@ -235,6 +237,7 @@ namespace Portal.Consultoras.Common
             public const string TippingPoint = "TippingPoint";
             public const string TippingPoint_MontoVentaExigido = "TippingPoint_MontoVentaExigido";
             public const string MensajeMetaConsultora = "MensajeMetaConsultora";
+            public const string ActualizarDatosConsultora = "ActualizarDatosConsultora";
 
             // prol
             public const string PROL_CalculoMontosProl = "PROL_CalculoMontosProl";
@@ -305,6 +308,10 @@ namespace Portal.Consultoras.Common
             public const string DescargaExcelMaxItems = "DescargaExcelMaxItems";
 
             public const string ConsultoraNuevaBannerAppMostrar = "ConsultoraNuevaBannerAppMostrar";
+
+            public const string PedidosFacturados = "PedidosFacturados";
+
+            
         }
 
         public static class ConfiguracionManager
@@ -1881,10 +1888,9 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_PRODUCTO_NOEXISTE = "1101";
                 public const string ERROR_PRODUCTO_AGOTADO = "1102";
                 public const string ERROR_PRODUCTO_LIQUIDACION = "1103";
-                public const string ERROR_PRODUCTO_SHOWROOM = "1104";
-                public const string ERROR_PRODUCTO_SHOWROOM_NODISPONIBLE = "1105";
                 public const string ERROR_PRODUCTO_OFERTAREVISTA_ESIKA = "1106";
                 public const string ERROR_PRODUCTO_OFERTAREVISTA_LBEL = "1107";
+                public const string ERROR_PRODUCTO_ESTRATEGIA = "1108";
 
                 public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
                 public const string ERROR_STOCK_ESTRATEGIA = "2102";
@@ -1912,6 +1918,9 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_GUARDAR_MONTO_MAX = "2025";
                 public const string ERORR_GUARDAR_NO_DISP = "2026";
                 public const string ERROR_GUARDAR_DEUDA = "2027";
+
+                public const string ERROR_DESHACER_PEDIDO = "2109";
+                public const string ERROR_DESHACER_PEDIDO_ESTADO = "2110";
             }
             public static Dictionary<string, string> Message
             {
@@ -1924,10 +1933,9 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_PRODUCTO_NOEXISTE, "Este producto no existe."},
                         {Code.ERROR_PRODUCTO_AGOTADO, "Este producto está agotado."},
                         {Code.ERROR_PRODUCTO_LIQUIDACION, "Este producto solo está disponible desde la sección de Liquidación Web."},
-                        {Code.ERROR_PRODUCTO_SHOWROOM, "Este producto solo está disponible desde la sección de Venta Digital."},
-                        {Code.ERROR_PRODUCTO_SHOWROOM_NODISPONIBLE, "Esta promoción no se encuentra disponible."},
                         {Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, "Este producto está de oferta en la Guía de Negocio Ésika."},
                         {Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, "Este producto está de oferta en Mi Negocio L’Bel."},
+                        {Code.ERROR_PRODUCTO_ESTRATEGIA, string.Empty},
 
                         {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, string.Empty},
                         {Code.ERROR_STOCK_ESTRATEGIA, string.Empty},
@@ -1955,6 +1963,9 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_GUARDAR_MONTO_MAX, "Pedido no guardado, excede monto máximo." },
                         {Code.ERORR_GUARDAR_NO_DISP, "Guardar no disponible." },
                         {Code.ERROR_GUARDAR_DEUDA, "Pedido no guardado, deuda pendiente." },
+
+                        {Code.ERROR_DESHACER_PEDIDO , "Ocurrió un error al deshacer el pedido." },
+                        {Code.ERROR_DESHACER_PEDIDO_ESTADO , "El pedido no se encuentra reservado." }
                     });
                 }
             }
@@ -2012,5 +2023,18 @@ namespace Portal.Consultoras.Common
             public const string ReemplazoDesc = "{remDes}";
             public const string Stock = "{stock}";
         }
+
+        #region Pin Autenticidad
+        public class EnviarCorreoYSms
+        {
+            public const string Activo = "Activo";
+            public const string IdEstadoActividad = "IdEstadoActividad";
+
+            public const int RecuperarClave = 1;
+            public const int Autenticacion = 2;
+            public const int EnviarPorEmail = 1;
+            public const int EnviarPorSms = 2;
+        }
+        #endregion  
     }
 }

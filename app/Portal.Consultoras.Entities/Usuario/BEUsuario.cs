@@ -395,7 +395,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "TieneOfertaLog") && row["TieneOfertaLog"] != DBNull.Value)
                 TieneOfertaLog = Convert.ToInt32(row["TieneOfertaLog"]);
 
-            if (DataRecord.HasColumn(row, "IndicadorGPRSB") && row["IndicadorGPRSB"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "IndicadorGPRSB"))
                 IndicadorGPRSB = Convert.ToInt32(row["IndicadorGPRSB"]);
 
             if (DataRecord.HasColumn(row, "EstadoPedido") && row["EstadoPedido"] != DBNull.Value)
@@ -478,9 +478,6 @@ namespace Portal.Consultoras.Entities
                 ValidacionInteractiva = DbConvert.ToBoolean(row["ValidacionInteractiva"]);
             if (DataRecord.HasColumn(row, "MensajeValidacionInteractiva") && row["MensajeValidacionInteractiva"] != DBNull.Value)
                 MensajeValidacionInteractiva = DbConvert.ToString(row["MensajeValidacionInteractiva"]);
-
-            if (DataRecord.HasColumn(row, "IndicadorGPRSB") && row["IndicadorGPRSB"] != DBNull.Value)
-                IndicadorGPRSB = Convert.ToInt32(row["IndicadorGPRSB"]);
 
             if (DataRecord.HasColumn(row, "EstadoPedido") && row["EstadoPedido"] != DBNull.Value)
                 EstadoPedido = Convert.ToInt32(row["EstadoPedido"]);
@@ -1457,10 +1454,6 @@ namespace Portal.Consultoras.Entities
         public string CodigosRevistaImpresa { get; set; }
         [DataMember]
         public bool OptBloqueoProductoDigital { get; set; }
-        [DataMember]
-        public BEOfertaDelDia OfertaDelDiaModel { get; set; }
-        [DataMember]
-        public BEGuiaNegocio GuiaNegocio { get; set; }
         [DataMember]
         public bool TieneValidacionMontoMaximo { get; set; }
         [DataMember]
