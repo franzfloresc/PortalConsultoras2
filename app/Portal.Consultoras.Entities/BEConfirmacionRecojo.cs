@@ -142,7 +142,7 @@ namespace Portal.Consultoras.Entities
                 FechaRecojo = Convert.ToDateTime(row["FechaRecojo"]);
 
             if (DataRecord.HasColumn(row, "FechaEstimadoRecojo"))
-                FechaEstimadoRecojo = row["FechaEstimadoRecojo"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(row["FechaEstimadoRecojo"]);
+                FechaEstimadoRecojo = Convert.ToDateTime(row["FechaEstimadoRecojo"]);
             if (DataRecord.HasColumn(row, "EstadoRecojoID"))
                 EstadoRecojoID = Convert.ToInt32(row["EstadoRecojoID"]);
             if (DataRecord.HasColumn(row, "EstadoRecojo"))

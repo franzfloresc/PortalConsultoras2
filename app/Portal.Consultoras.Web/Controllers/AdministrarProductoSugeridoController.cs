@@ -204,16 +204,12 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.UsuarioModificacion = userData.CodigoConsultora;
 
                 #region Imagen Resize 
-
-                List<EntidadMagickResize> listaImagenesResize;
-
+                
                 string rutaImagen = entidad.ImagenProducto.Clone().ToString();
                 var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
-                listaImagenesResize = ObtenerListaImagenesResize(entidad.ImagenProducto, rutaImagen.ToLower().Contains(valorAppCatalogo));
 
-                if (listaImagenesResize != null && listaImagenesResize.Count > 0)
-                    MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
-
+                ImagenesResizeProceso(entidad.ImagenProducto, rutaImagen.ToLower().Contains(valorAppCatalogo));
+                
                 #endregion
 
                 string r;

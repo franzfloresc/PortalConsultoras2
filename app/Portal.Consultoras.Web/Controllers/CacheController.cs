@@ -1,7 +1,11 @@
 ﻿using Portal.Consultoras.Common;
-using System;
-using System.Web.Mvc;
+using Portal.Consultoras.Web.Models.Cache;
+using Portal.Consultoras.Web.Models.Common;
 using Portal.Consultoras.Web.ServiceSAC;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -9,25 +13,36 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.PaisId = userData.PaisID;
-            return View();
+            if (userData.RolID != Constantes.Rol.AdministradorSAC) return RedirectToAction("Index", "Bienvenida");
+
+            var model = new ListStringModel { List = new List<string>() };
+            try
+            {
+                using (var sv = new SACServiceClient())
+                {
+                    model.List = sv.GetListEnumStringCache().ToList();
+                }
+            }
+            catch(Exception ex) { LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoUsuario, userData.CodigoISO); }
+
+            return View(model);
         }
 
         [HttpPost]
-        public JsonResult Eliminar(int paisID, string cacheItemString, string customKey)
+        public JsonResult Eliminar(CacheModel model)
         {
             try
             {
                 string respuesta;
                 using (var sv = new SACServiceClient())
                 {
-                    respuesta = sv.RemoveDataCache(userData.PaisID, cacheItemString, customKey);
+                    respuesta = sv.RemoveDataCache(userData.PaisID, model.CacheItemString, model.CustomKey);
                 }
                 return SuccessJson(respuesta);
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoUsuario, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoUsuario, userData.CodigoISO);
                 return ErrorJson(Constantes.MensajesError.Cache_Eliminar);
             }
         }

@@ -20,11 +20,11 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         public BEShowRoomPerfil(IDataRecord datarec)
         {
-            if (DataRecord.HasColumn(datarec, "PerfilID") && datarec["PerfilID"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "PerfilID"))
                 PerfilID = DbConvert.ToInt32(datarec["PerfilID"]);
-            if (DataRecord.HasColumn(datarec, "PerfilDescripcion") && datarec["PerfilDescripcion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "PerfilDescripcion"))
                 PerfilDescripcion = DbConvert.ToString(datarec["PerfilDescripcion"]);
-            if (DataRecord.HasColumn(datarec, "EventoID") && datarec["EventoID"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "EventoID"))
                 EventoID = DbConvert.ToInt32(datarec["EventoID"]);
         }
     }

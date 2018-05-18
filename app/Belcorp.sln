@@ -45,8 +45,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portal.Consultoras.Web.Unit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portal.Consultoras.Common.UnitTest", "Portal.Consultoras.Common.UnitTest\Portal.Consultoras.Common.UnitTest.csproj", "{768112E9-D206-4F6E-9080-0E6A19ED159B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portal.Consultoras.Data.Rest", "Portal.Consultoras.Data.Service\Portal.Consultoras.Data.Rest.csproj", "{5156C092-F202-405E-BCB1-69C659B9AF8D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
@@ -411,42 +409,6 @@ Global
 		{768112E9-D206-4F6E-9080-0E6A19ED159B}.Staging|Mixed Platforms.Build.0 = Release|Any CPU
 		{768112E9-D206-4F6E-9080-0E6A19ED159B}.Staging|x86.ActiveCfg = Release|Any CPU
 		{768112E9-D206-4F6E-9080-0E6A19ED159B}.Staging|x86.Build.0 = Release|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.CD_ROM|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.CD_ROM|Mixed Platforms.Build.0 = Release|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.CD_ROM|x86.ActiveCfg = Release|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.CD_ROM|x86.Build.0 = Release|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.Debug|x86.Build.0 = Debug|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.DVD-5|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.DVD-5|Mixed Platforms.Build.0 = Debug|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.DVD-5|x86.ActiveCfg = Debug|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.DVD-5|x86.Build.0 = Debug|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.Release|x86.ActiveCfg = Release|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.Release|x86.Build.0 = Release|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.SingleImage|Any CPU.Build.0 = Release|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.SingleImage|x86.ActiveCfg = Release|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.SingleImage|x86.Build.0 = Release|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.Staging|Any CPU.ActiveCfg = Release|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.Staging|Any CPU.Build.0 = Release|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.Staging|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.Staging|Mixed Platforms.Build.0 = Release|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.Staging|x86.ActiveCfg = Release|Any CPU
-		{5156C092-F202-405E-BCB1-69C659B9AF8D}.Staging|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -463,7 +425,6 @@ Global
 		{6A7ABF96-986A-4A90-9022-4E2A43F0B25D} = {84F42BD5-939F-4867-806E-3C24565E6FE8}
 		{4A849885-1EB7-4DD7-94B2-6CEB78F54648} = {C13E2A26-3BED-40AB-9380-9ED869E8DDDC}
 		{768112E9-D206-4F6E-9080-0E6A19ED159B} = {C13E2A26-3BED-40AB-9380-9ED869E8DDDC}
-		{5156C092-F202-405E-BCB1-69C659B9AF8D} = {84F42BD5-939F-4867-806E-3C24565E6FE8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A7FE41D0-CD75-4D56-A9DA-F6E4236F0A68}

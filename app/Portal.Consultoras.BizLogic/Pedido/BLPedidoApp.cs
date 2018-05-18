@@ -383,12 +383,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return config;
         }
 
-        public BEPedidoDetalleAppResult Delete(BEPedidoDetalleApp pedidoDetalle)
+        public async Task<BEPedidoDetalleAppResult> Delete(BEPedidoDetalleApp pedidoDetalle)
         {
             try
             {
                 //Informacion de usuario
                 var usuario = pedidoDetalle.Usuario;
+                usuario.PaisID = pedidoDetalle.PaisID;
 
                 //Validacion reserva u horario restringido
                 var validacionHorario = _pedidoWebBusinessLogic.ValidacionModificarPedido(pedidoDetalle.PaisID,
@@ -403,7 +404,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (pedidoDetalle.Producto == null)
                 {
                     //Eliminar pedido
-                    var result = _pedidoWebDetalleBusinessLogic.DelPedidoWebDetalleMasivo(pedidoDetalle.PaisID, usuario.CampaniaID, pedidoDetalle.PedidoID, usuario.CodigoUsuario);
+                    var result = await _pedidoWebDetalleBusinessLogic.DelPedidoWebDetalleMasivo(usuario, pedidoDetalle.PedidoID);
                     if (!result) return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_ELIMINAR_TODO);
                 }
                 else
@@ -503,7 +504,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     CodigoPrograma = usuario.CodigoPrograma,
                     ConsecutivoNueva = usuario.ConsecutivoNueva
                 };
-                var resultadoReserva = await _reservaBusinessLogic.EjecutarReservaProl(input);
+                var resultadoReserva = await _reservaBusinessLogic.EjecutarReserva(input);
 
                 var code = string.Empty;
                 if(usuario.DiaPROL) code = ((int)resultadoReserva.ResultadoReservaEnum + 2010).ToString();

@@ -230,114 +230,58 @@ namespace Portal.Consultoras.BizLogic
         {
             int nroLote = 0;
             DAPedidoWeb daPedidoWeb = null;
-
-            DataSet dsPedidosDd = null;
-            DataTable dtPedidosDd = null;
             DAPedidoDD daPedidoDd = null;
+            DataSet dsPedidosWeb = null, dsPedidosDd = null;
+            DataTable dtPedidosWeb = null, dtPedidosDd = null, dtDatosConsultora = null;
+
+            FtpConfigurationElement ftpElement;
+            FtpConfigurationElement ftpElementCoDat = null;
 
             Exception exceptionCoDat = null;
             string headerFile, detailFile;
             string dataConFile = null, nombreCoDat = null, errorCoDat = null;
             string detailFileAct, nombreDetalleAct = null;
             string headerFileS3, detailFileS3, dataConFileS3 = null;
-            DateTime fechaHoraPais;
+            string nombreCabecera, nombreDetalle;
             bool incluirConsultora = ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && tipoCronograma == 1;
 
-            try
-            {
-                fechaHoraPais = new DAPedidoWeb(paisID).GetFechaHoraPais();
-            }
-            catch
-            {
-                fechaHoraPais = DateTime.Now;
-            }
-
-            bool isFox;
+            DateTime fechaHoraPais;
+            try { fechaHoraPais = new DAPedidoWeb(paisID).GetFechaHoraPais(); }
+            catch { fechaHoraPais = DateTime.Now; }
+            
             string codigoPais = null;
-
             try
             {
                 codigoPais = new BLZonificacion().SelectPais(paisID).CodigoISO;
                 var codigoPaisProd = new BLZonificacion().SelectPais(paisID).CodigoISOProd;
 
-                int tmpCronograma;
-                if (tipoCronograma == 2 && marcarPedido)
-                    tmpCronograma = 3;
-                else
-                    tmpCronograma = tipoCronograma;
-
-                TemplateField[] detailTemplate;
+                int tmpCronograma = (tipoCronograma == 2 && marcarPedido) ? 3 : tipoCronograma;                
                 var section = (DataAccessConfiguration)ConfigurationManager.GetSection("Belcorp.Configuration");
                 var element = section.Countries[paisID];
 
-                string orderHeaderTemplate;
-                if (ConfigurationManager.AppSettings["HasDiffCA-PRD"].Contains(codigoPais) && tmpCronograma != 1)
-                    orderHeaderTemplate = element.OrderHeaderTemplate + "PRD";
-                else
-                {
-                    if (codigoPais == Constantes.CodigosISOPais.Colombia)
-                    {
-                        if (tmpCronograma == 2)
-                            orderHeaderTemplate = element.OrderHeaderTemplate + "DA";
-                        else
-                            orderHeaderTemplate = element.OrderHeaderTemplate;
-                    }
-                    else
-                        orderHeaderTemplate = element.OrderHeaderTemplate;
-                }
+                string postfixHeaderTemplate =
+                    (ConfigurationManager.AppSettings["HasDiffCA-PRD"].Contains(codigoPais) && tmpCronograma != 1) ? "PRD" :
+                    (codigoPais == Constantes.CodigosISOPais.Colombia && tmpCronograma == 2) ? "DA" : "";
+                string postfixDetailTemplate = (codigoPais == Constantes.CodigosISOPais.Colombia && tmpCronograma == 2) ? "DA" : "";
 
-                var headerTemplate = ParseTemplate(ConfigurationManager.AppSettings[orderHeaderTemplate]);
-
-                if (codigoPais == Constantes.CodigosISOPais.Colombia)
-                {
-                    if (tmpCronograma == 2)
-                        detailTemplate = ParseTemplate(ConfigurationManager.AppSettings[element.OrderDetailTemplate + "DA"]);
-                    else
-                        detailTemplate = ParseTemplate(ConfigurationManager.AppSettings[element.OrderDetailTemplate]);
-                }
-                else
-                    detailTemplate = ParseTemplate(ConfigurationManager.AppSettings[element.OrderDetailTemplate]);
+                var headerTemplate = ParseTemplate(ConfigurationManager.AppSettings[element.OrderHeaderTemplate + postfixHeaderTemplate]);
+                var detailTemplate = ParseTemplate(ConfigurationManager.AppSettings[element.OrderDetailTemplate + postfixDetailTemplate]);
 
                 daPedidoWeb = new DAPedidoWeb(paisID);
-
-                DataSet dsPedidosWeb;
-                DataTable dtPedidosWeb;
-                isFox = ConfigurationManager.AppSettings["IsFOX"].Contains(codigoPais);
-
+                
                 try
                 {
-
                     daPedidoWeb.InsPedidoDescarga(fechaFacturacion, 1, tipoCronograma, marcarPedido, usuario, out nroLote);
-                    if (isFox)
-                    {
-                        if (ConfigurationManager.AppSettings["OrderDownloadIncludeDD"] == "1")
-                        {
-                            try
-                            {
-                                daPedidoDd = new DAPedidoDD(paisID);
-
-                                daPedidoDd.GetPedidoDDByFechaFacturacionFox(codigoPais, tipoCronograma, fechaFacturacion, nroLote, new string[] { element.DDName, element.DbName });
-                            }
-                            catch (SqlException ex)
-                            {
-                                LogManager.SaveLog(ex, usuario, codigoPais);
-                                throw new BizLogicException("No se pudo acceder al origen de datos de pedidos DD.", ex);
-                            }
-                        }
-                    }
-
                     dsPedidosWeb = daPedidoWeb.GetPedidoWebByFechaFacturacion(fechaFacturacion, tmpCronograma, nroLote);
                     dtPedidosWeb = dsPedidosWeb.Tables[0]; // Obtiene cabecera
                 }
                 catch (SqlException ex)
                 {
-                    if (ex.Number == 50000)
-                        throw new BizLogicException("Existe una descarga de pedidos en proceso para la fecha seleccionada.", ex);
-                    else
-                        throw new BizLogicException("No se pudo acceder al origen de datos de pedidos Web.", ex);
+                    if (ex.Number == 50000) throw new BizLogicException("Existe una descarga de pedidos en proceso para la fecha seleccionada.", ex);
+                    else throw new BizLogicException("No se pudo acceder al origen de datos de pedidos Web.", ex);
                 }
 
-                if (ConfigurationManager.AppSettings["OrderDownloadIncludeDD"] == "1" && !isFox)
+                if (ConfigurationManager.AppSettings["OrderDownloadIncludeDD"] == "1")
                 {
                     try
                     {
@@ -351,9 +295,7 @@ namespace Portal.Consultoras.BizLogic
                         throw new BizLogicException("No se pudo acceder al origen de datos de pedidos DD.", ex);
                     }
                 }
-
-                DataTable dtDatosConsultora = null;
-
+                
                 if (incluirConsultora)
                 {
                     try
@@ -369,10 +311,7 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
 
-                TransactionOptions transactionOptions = new TransactionOptions
-                {
-                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
-                };
+                TransactionOptions transactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
                 using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
                 {
                     this.ConfigurarDTCargaWebDD(dsPedidosWeb, dsPedidosDd, fechaFacturacion, nroLote, usuario, codigoPais);
@@ -381,28 +320,20 @@ namespace Portal.Consultoras.BizLogic
                     transaction.Complete();
                 }
 
-
-                FtpConfigurationElement ftpElement;
-                FtpConfigurationElement ftpElementCoDat = null;
-
                 Guid fileGuid = Guid.NewGuid();
                 string key = codigoPais + "-" + (tipoCronograma == 1 ? "DR" : marcarPedido ? "DA-PRD" : "DA");
                 String keyActDat = codigoPais + "-" + "ACDAT";
                 var ftpSection = (FtpConfigurationSection)ConfigurationManager.GetSection("Belcorp.FtpConfiguration");
 
-                string nombreCabecera;
-                string nombreDetalle;
                 try
                 {
-
                     ftpElement = ftpSection.FtpConfigurations[key];
                     var ftpElementActDAt = ftpSection.FtpConfigurations[keyActDat];
 
                     headerFileS3 = headerFile = FormatFile(codigoPais, ftpElement.Header, fechaFacturacion, fileGuid);
                     detailFileS3 = detailFile = FormatFile(codigoPais, ftpElement.Detail, fechaFacturacion, fileGuid);
                     detailFileAct = FormatFile(codigoPais, ftpElementActDAt.Detail, fechaFacturacion, fileGuid);
-
-
+                    
                     nombreCabecera = headerFile.Replace(ConfigurationManager.AppSettings["OrderDownloadPath"], "");
                     nombreDetalle = detailFile.Replace(ConfigurationManager.AppSettings["OrderDownloadPath"], "");
                     nombreDetalleAct = detailFileAct.Replace(ConfigurationManager.AppSettings["OrderDownloadPath"], "");
@@ -413,72 +344,52 @@ namespace Portal.Consultoras.BizLogic
 
                     using (var streamWriter = new StreamWriter(headerFile))
                     {
-                        if (dtPedidosWeb.Rows.Count != 0 && dsPedidosWeb.Tables[1].Rows.Count > 0)
+                        bool vacio = true;
+                        if (dtPedidosWeb.Rows.Count > 0 && dsPedidosWeb.Tables[1].Rows.Count > 0)
                         {
+                            vacio = false;
                             foreach (DataRow row in dtPedidosWeb.Rows)
                             {
                                 streamWriter.WriteLine(HeaderLine(headerTemplate, row, codigoPaisProd, fechaProceso, fechaFactura, lote, "W"));
                             }
-
-                            if (dtPedidosDd != null)
-                            {
-                                foreach (DataRow row in dtPedidosDd.Rows)
-                                {
-                                    streamWriter.WriteLine(HeaderLine(headerTemplate, row, codigoPaisProd, fechaProceso, fechaFactura, lote, "D"));
-                                }
-                            }
                         }
-                        else
+                        if (dtPedidosDd != null && dtPedidosDd.Rows.Count > 0)
                         {
-                            if (dtPedidosDd != null)
+                            vacio = false;
+                            foreach (DataRow row in dtPedidosDd.Rows)
                             {
-                                foreach (DataRow row in dtPedidosDd.Rows)
-                                {
-                                    streamWriter.WriteLine(HeaderLine(headerTemplate, row, codigoPaisProd, fechaProceso, fechaFactura, lote, "D"));
-                                }
+                                streamWriter.WriteLine(HeaderLine(headerTemplate, row, codigoPaisProd, fechaProceso, fechaFactura, lote, "D"));
                             }
-                            else
-                                streamWriter.Write(string.Empty);
                         }
+
+                        if(vacio) streamWriter.Write(string.Empty);
                     }
 
                     dtPedidosWeb = dsPedidosWeb.Tables[1];
-                    if (dsPedidosDd != null)
-                        dtPedidosDd = dsPedidosDd.Tables[1];
+                    if (dsPedidosDd != null) dtPedidosDd = dsPedidosDd.Tables[1];
 
                     using (var streamWriter = new StreamWriter(detailFile))
                     {
-                        if (dtPedidosWeb.Rows.Count != 0)
+                        bool vacio = true;
+                        if (dtPedidosWeb.Rows.Count > 0)
                         {
+                            vacio = false;
                             foreach (DataRow row in dtPedidosWeb.Rows)
                             {
                                 streamWriter.WriteLine(DetailLine(detailTemplate, row, codigoPaisProd, lote));
                             }
-
-                            if (dtPedidosDd != null)
-                            {
-                                foreach (DataRow row in dtPedidosDd.Rows)
-                                {
-                                    streamWriter.WriteLine(DetailLine(detailTemplate, row, codigoPaisProd, lote));
-                                }
-                            }
                         }
-                        else
+                        if (dtPedidosDd != null && dtPedidosDd.Rows.Count > 0)
                         {
-                            if (dtPedidosDd != null)
+                            vacio = false;
+                            foreach (DataRow row in dtPedidosDd.Rows)
                             {
-                                foreach (DataRow row in dtPedidosDd.Rows)
-                                {
-                                    streamWriter.WriteLine(DetailLine(detailTemplate, row, codigoPaisProd, lote));
-                                }
+                                streamWriter.WriteLine(DetailLine(detailTemplate, row, codigoPaisProd, lote));
                             }
-                            else
-                                streamWriter.Write(string.Empty);
                         }
+
+                        if(vacio) streamWriter.Write(string.Empty);
                     }
-
-
-
                 }
                 catch (Exception ex)
                 {
@@ -494,7 +405,6 @@ namespace Portal.Consultoras.BizLogic
                         var actdatosTemplate = ParseTemplate(ConfigurationManager.AppSettings[element.ActDatosTemplate], descargaActDatosv2);
                         ftpElementCoDat = ftpSection.FtpConfigurations[codigoPais + "-ACDAT"];
                         dataConFileS3 = dataConFile = FormatFile(codigoPais, ftpElementCoDat.Header, fechaFacturacion, fileGuid);
-
                         nombreCoDat = dataConFile.Replace(ConfigurationManager.AppSettings["OrderDownloadPath"], "");
 
                         using (var streamWriter = new StreamWriter(dataConFile))
@@ -527,56 +437,38 @@ namespace Portal.Consultoras.BizLogic
                         BLFileManager.CompressFile(headerFile, zipHeaderFile, ftpElement.Header);
                         BLFileManager.CompressFile(detailFile, zipDetailFile, ftpElement.Detail);
                     }
+                                        
+                    if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
+                    {
+                        try
+                        {
+                            BLFileManager.FtpUploadFile(ftpElement.Address + ftpElement.Header, headerFile, ftpElement.UserName, ftpElement.Password);
+                            BLFileManager.FtpUploadFile(ftpElement.Address + ftpElement.Detail, detailFile, ftpElement.UserName, ftpElement.Password);
+                        }
+                        catch (Exception ex)
+                        {
+                            LogManager.SaveLog(ex, usuario, codigoPais);
+                            throw new BizLogicException("No se pudo subir los archivos de pedidos al destino FTP.", ex);
+                        }
 
-                    if (isFox)
-                    {
-                        string srvName = ConfigurationManager.AppSettings["GetServerName"];
-                        headerFile = srvName + Path.GetFileName(headerFile);
-                        detailFile = srvName + Path.GetFileName(detailFile);
-                        detailFileAct = srvName + Path.GetFileName(detailFileAct);
-                        if (incluirConsultora) dataConFile = srvName + Path.GetFileName(dataConFile);
-                    }
-                    else
-                    {
-                        if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
+                        if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && tipoCronograma == 1 && string.IsNullOrEmpty(errorCoDat))
                         {
                             try
                             {
-                                BLFileManager.FtpUploadFile(ftpElement.Address + ftpElement.Header,
-                                    headerFile, ftpElement.UserName, ftpElement.Password);
-
-                                BLFileManager.FtpUploadFile(ftpElement.Address + ftpElement.Detail,
-                                    detailFile, ftpElement.UserName, ftpElement.Password);
+                                BLFileManager.FtpUploadFile(ftpElementCoDat.Address + ftpElementCoDat.Header, dataConFile, ftpElementCoDat.UserName, ftpElementCoDat.Password);
                             }
                             catch (Exception ex)
                             {
                                 LogManager.SaveLog(ex, usuario, codigoPais);
-                                throw new BizLogicException("No se pudo subir los archivos de pedidos al destino FTP.", ex);
-                            }
-
-                            if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && !isFox && tipoCronograma == 1)
-                            {
-                                if (string.IsNullOrEmpty(errorCoDat))
-                                {
-                                    try
-                                    {
-                                        BLFileManager.FtpUploadFile(ftpElementCoDat.Address + ftpElementCoDat.Header,
-                                            dataConFile, ftpElementCoDat.UserName, ftpElementCoDat.Password);
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        LogManager.SaveLog(ex, usuario, codigoPais);
-                                        exceptionCoDat = ex;
-                                        errorCoDat = "No se pudo subir los archivos de datos de consultora al destino FTP.";
-                                    }
-                                }
+                                exceptionCoDat = ex;
+                                errorCoDat = "No se pudo subir los archivos de datos de consultora al destino FTP.";
                             }
                         }
-                        detailFile = headerFile = dataConFile = null;
-                        detailFileAct = null;
                     }
+                    detailFile = headerFile = dataConFile = null;
+                    detailFileAct = null;
 
-                    if (isFox || (dtPedidosDd != null && dtPedidosDd.Rows.Count > 0))
+                    if (dtPedidosDd != null && dtPedidosDd.Rows.Count > 0)
                     {
                         try
                         {
@@ -682,7 +574,7 @@ namespace Portal.Consultoras.BizLogic
                     MailUtilities.EnviarMailProcesoDescargaExcepcion("Descarga de pedidos", codigoPais, fechaHoraPais, descripcionProceso, error, errorExcepcion);
                 }
 
-                if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && !isFox && tipoCronograma == 1 &&
+                if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && tipoCronograma == 1 &&
                     string.IsNullOrEmpty(errorCoDat) && !string.IsNullOrEmpty(dataConFileS3))
                 {
                     try
@@ -1125,6 +1017,7 @@ namespace Portal.Consultoras.BizLogic
                     case "IPUSUARIO": item = (DataRecord.HasColumn(row, "IPUsuario") ? row["IPUsuario"].ToString() : string.Empty); break;
                     case "TIPOCUPON": item = (DataRecord.HasColumn(row, "TipoCupon") ? row["TipoCupon"].ToString() : string.Empty); break;
                     case "VALORCUPON": item = (DataRecord.HasColumn(row, "ValorCupon") ? row["ValorCupon"].ToString() : string.Empty); break;
+                    case "PEDIDOSAPID": item = (DataRecord.HasColumn(row, "PedidoSapId") ? row["PedidoSapId"].ToString() : string.Empty); break;
                     default: item = string.Empty; break;
                 }
                 line += item.PadRight(field.Size);
@@ -1691,6 +1584,12 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
             return 0;
+        }
+
+        public void ClearPedidoSapId(int paisID, int campaniaID, int pedidoID)
+        {
+            var daPedidoWeb = new DAPedidoWeb(paisID);
+            daPedidoWeb.ClearPedidoSapId(campaniaID, pedidoID);
         }
 
         public int GetFechaNoHabilFacturacion(int paisID, string CodigoZona, DateTime Fecha)
@@ -2461,6 +2360,108 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #endregion
+
+        public void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario)
+        {
+            var lstPedidos = new List<BEDescargaPedidoCliente>();
+
+            try
+            {
+                //Obtener la informacion de pedidos del ultimo lote generado
+                using (var reader = new DAPedidoWeb(paisID).DescargaPedidosCliente(nroLote))
+                {
+                    lstPedidos = reader.MapToCollection<BEDescargaPedidoCliente>();
+                };
+                if (!lstPedidos.Any()) throw new BizLogicException("No existen pedidos para generar el archivo");
+
+                //Configuracion nombre archivo
+                var codigoPais = Common.Util.GetPaisISO(paisID);
+                var fechaFacturacion = lstPedidos.FirstOrDefault().FechaFacturacion;
+                var fileGuid = Guid.NewGuid();
+
+                var ftpSection = (FtpConfigurationSection)ConfigurationManager.GetSection("Belcorp.FtpConfiguration");
+                var key = string.Format("{0}-{1}", codigoPais, "DR");
+                var ftpElement = ftpSection.FtpConfigurations[key];
+
+                //Generar el archivo txt
+                var section = (DataAccessConfiguration)ConfigurationManager.GetSection("Belcorp.Configuration");
+                var element = section.Countries[paisID];
+                var clienteTemplate = ParseTemplate(WebConfig.GetByTagName(element.OrderClienteTemplate));
+                var clientFile = FormatFile(codigoPais, ftpElement.Client, fechaFacturacion, fileGuid);
+
+                using (var streamWriter = new StreamWriter(clientFile))
+                {
+                    foreach (var pedido in lstPedidos)
+                    {
+                        streamWriter.WriteLine(ClienteLine(clienteTemplate, pedido));
+                    }
+                }
+
+                //Envío FTP
+                if (WebConfig.OrderDownloadFtpUpload == "1")
+                {
+                    try
+                    {
+                        var ftpAddressFileName = string.Concat(ftpElement.Address, ftpElement.Client);
+                        BLFileManager.FtpUploadFile(ftpAddressFileName, clientFile, ftpElement.UserName, ftpElement.Password);
+                    }
+                    catch (Exception ex)
+                    {
+                        LogManager.SaveLog(ex, codigoUsuario, codigoPais);
+                        throw new BizLogicException("No se pudo subir los archivos de pedidos al destino FTP.", ex);
+                    }
+                }
+
+                //Envío S3
+                if (WebConfig.OrderDownloadS3 == "1")
+                {
+                    try
+                    {
+                        var carpetaPais = string.Concat(WebConfig.S3_Pedidos, codigoPais);
+                        if (!string.IsNullOrEmpty(clientFile)) ConfigS3.SetFileS3(clientFile, carpetaPais, Path.GetFileName(clientFile), false, false, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        LogManager.SaveLog(ex, codigoUsuario, codigoPais);
+                        throw new BizLogicException("No se pudo subir los archivos de pedidos al destino S3.", ex);
+                    }
+                }
+            }
+            catch(BizLogicException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, codigoUsuario, paisID);
+                throw ex;
+            }
+        }
+
+        private string ClienteLine(TemplateField[] template, BEDescargaPedidoCliente row)
+        {
+            var line = string.Empty;
+            var item = string.Empty;
+
+            foreach (var field in template)
+            {
+                switch (field.FieldName)
+                {
+                    case "PAISISO": item = row.PaisISO; break;
+                    case "CAMPANIAID": item = row.CampaniaID.ToString(); break;
+                    case "CODIGOCONSULTORA": item = row.CodigoConsultora; break;
+                    case "FECHAFACTURACION": item = row.FechaFacturacion.ToString("ddMMyyyy"); break;
+                    case "CUV": item = row.CUV; break;
+                    case "CANTIDAD": item = row.Cantidad.ToString(); break;
+                    case "CODIGOCLIENTE": item = row.CodigoCliente.ToString(); break;
+                    default: item = string.Empty; break;
+                }
+
+                line = string.Concat(line, item.PadRight(field.Size));
+            }
+
+            return line;
+        }
     }
 
     internal class TemplateField

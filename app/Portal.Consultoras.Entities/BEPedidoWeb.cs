@@ -162,7 +162,7 @@ namespace Portal.Consultoras.Entities
                 MontoAhorroCatalogo = Convert.ToDecimal(row["MontoAhorroCatalogo"]);
             if (row.HasColumn("MontoAhorroRevista"))
                 MontoAhorroRevista = Convert.ToDecimal(row["MontoAhorroRevista"]);
-            if (row.HasColumn("DescuentoProl")) 
+            if (row.HasColumn("DescuentoProl"))
                 DescuentoProl = Convert.ToDecimal(row["DescuentoProl"]);
             if (row.HasColumn("MontoEscala"))
                 MontoEscala = Convert.ToDecimal(row["MontoEscala"]);

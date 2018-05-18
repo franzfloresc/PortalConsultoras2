@@ -1,5 +1,0 @@
-	 <!--INICIO Revista Digital-->
-    <add key="CodigoRevistaDigitalIssuu" value="piloto_rev{0}{1}{2}" />
-    <add key="UrlTerminosCondicionesRD" value="http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/FileConsultoras/PE/Terminos_y_condiciones_Esika_para_mi.pdf" />  
-    <add key="UrlPreguntasFrecuentesRD" value="http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/FileConsultoras/PE/Preguntas_Frecuentes_Esika_para_mi.pdf" />
-    <!--FIN Revista Digital-->

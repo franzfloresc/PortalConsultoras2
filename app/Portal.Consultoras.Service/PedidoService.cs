@@ -180,8 +180,9 @@ namespace Portal.Consultoras.Service
             {
                 throw new FaultException(ex.Message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.SaveLog(ex, "", "");
                 throw new FaultException("Error desconocido.");
             }
         }
@@ -603,9 +604,9 @@ namespace Portal.Consultoras.Service
 
         #endregion
 
-        public bool DelPedidoWebDetalleMasivo(int PaisID, int CampaniaID, int PedidoID, string CodigoUsuario)
+        public async Task<bool> DelPedidoWebDetalleMasivo(BEUsuario usuario, int pedidoId)
         {
-            return BLPedidoWebDetalle.DelPedidoWebDetalleMasivo(PaisID, CampaniaID, PedidoID, CodigoUsuario);
+            return await BLPedidoWebDetalle.DelPedidoWebDetalleMasivo(usuario, pedidoId);
         }
 
         public bool DelPedidoWebDetallePackNueva(int PaisID, long ConsultoraID, int PedidoID)
@@ -1987,12 +1988,12 @@ namespace Portal.Consultoras.Service
 
         public async Task<BEResultadoReservaProl> CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo)
         {
-            return await new BLReserva().CargarSesionAndEjecutarReservaProl(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil, enviarCorreo);
+            return await new BLReserva().CargarSesionAndEjecutarReserva(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil, enviarCorreo);
         }
 
         public async Task<BEResultadoReservaProl> EjecutarReservaProl(BEInputReservaProl input)
         {
-            return await new BLReserva().EjecutarReservaProl(input);
+            return await new BLReserva().EjecutarReserva(input);
         }
 
         public int InsMatrizComercialImagen(BEMatrizComercialImagen entity)
@@ -2023,6 +2024,11 @@ namespace Portal.Consultoras.Service
         public string DeshacerPedidoValidado(BEUsuario usuario, string tipo)
         {
             return new BLReserva().DeshacerPedidoValidado(usuario, tipo);
+        }
+
+        public async Task<bool> DeshacerReservaPedido(BEUsuario usuario, int pedidoId)
+        {
+            return await new BLReserva().DeshacerReservaPedido(usuario, pedidoId);
         }
 
         public string GetTokenIndicadorPedidoAutentico(int paisID, string paisISO, string codigoRegion, string codigoZona)
@@ -2251,26 +2257,7 @@ namespace Portal.Consultoras.Service
             return _pedidoWebBusinessLogic.GetMisPedidosFacturados(paisID, ConsultoraID, CampaniaID, ClienteID, NombreConsultora);
         }
         #endregion
-
-        #region CargaMasivaImagenes
-
-        public List<BECargaMasivaImagenes> GetListaImagenesEstrategiasByCampania(int paisId, int campaniaId)
-        {
-            return blEstrategia.GetListaImagenesEstrategiasByCampania(paisId, campaniaId);
-        }
-
-        public List<BECargaMasivaImagenes> GetListaImagenesOfertaLiquidacionByCampania(int paisId, int campaniaId)
-        {
-            return blEstrategia.GetListaImagenesOfertaLiquidacionByCampania(paisId, campaniaId);
-        }
-
-        public List<BECargaMasivaImagenes> GetListaImagenesProductoSugeridoByCampania(int paisId, int campaniaId)
-        {
-            return blEstrategia.GetListaImagenesProductoSugeridoByCampania(paisId, campaniaId);
-        }
-
-        #endregion
-
+        
         #region ProductosPrecargados
         public int GetFlagProductosPrecargados(int paisID, string CodigoConsultora, int CampaniaID)
         {
@@ -2417,9 +2404,9 @@ namespace Portal.Consultoras.Service
             return _pedidoAppBusinessLogic.GetConfiguracion(paisID, codigoUsuario);
         }
 
-        public BEPedidoDetalleAppResult DeletePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
+        public async Task<BEPedidoDetalleAppResult> DeletePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
         {
-            return _pedidoAppBusinessLogic.Delete(pedidoDetalle);
+            return await _pedidoAppBusinessLogic.Delete(pedidoDetalle);
         }
 
         public async Task<BEPedidoDetalleAppResult> ReservaPedidoDetalleApp(BEUsuario usuario)
@@ -2432,5 +2419,21 @@ namespace Portal.Consultoras.Service
             return _pedidoAppBusinessLogic.DeshacerReservaPedido(usuario);
         }        
         #endregion
+
+        public void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario)
+        {
+            try
+            {
+                _pedidoWebBusinessLogic.DescargaPedidosCliente(paisID, nroLote, codigoUsuario);
+            }
+            catch (BizLogicException ex)
+            {
+                throw new FaultException(ex.Message);
+            }
+            catch (Exception)
+            {
+                throw new FaultException("Error desconocido.");
+            }
+        }
     }
 }

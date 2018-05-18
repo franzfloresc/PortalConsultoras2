@@ -212,7 +212,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.Valor, f => f.MapFrom(c => c.Valor))
                 .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
 
-            Mapper.CreateMap<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>();
+            Mapper.CreateMap<ServicePedido.BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>();
 
             Mapper.CreateMap<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>()
                 .ForMember(t => t.CodigoNivel, f => f.MapFrom(c => c.CodigoNivel))
@@ -245,11 +245,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BEConfiguracionOfertasHome, ConfiguracionSeccionHomeModel>();
             Mapper.CreateMap<BEProductoComentarioDetalle, EstrategiaProductoComentarioModel>();
 
-            Mapper.CreateMap<BEPais, PaisModel>()
-                .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto))
-                .ForMember(t => t.CodigoISO, f => f.MapFrom(c => c.CodigoISO));
+            Mapper.CreateMap<BEPais, PaisModel>();
 
             Mapper.CreateMap<RegaloOfertaFinal, OfertaFinalRegaloModel>();
 
@@ -292,7 +288,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<BEMiCertificado, MiCertificadoModel>();
              
-             Mapper.CreateMap<ServiceODS.BEPagoEnLineaInfo, PagoEnlineaInfoModel>();
+             //Mapper.CreateMap<ServiceODS.BEPagoEnLineaInfo, PagoEnlineaInfoModel>();
 
 
             Mapper.CreateMap<BEEtiqueta, EtiquetaModel>()
