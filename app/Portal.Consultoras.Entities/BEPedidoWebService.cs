@@ -154,7 +154,7 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "CodigoTipoOferta"))
                 CodigoTipoOferta = Convert.ToString(row["CodigoTipoOferta"]);
-            if (DataRecord.HasColumn(row, "Origen") && row["Origen"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Origen"))
                 Origen = Convert.ToString(row["Origen"]);
         }
     }

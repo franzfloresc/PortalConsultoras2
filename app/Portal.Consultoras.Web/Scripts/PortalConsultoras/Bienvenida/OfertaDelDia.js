@@ -58,7 +58,7 @@ $(document).ready(function () {
 
         if (props.TipoOrigenPantallaODD == CONS_TIPO_ORIGEN.MOBILE_HOME) {
             self.CargarODDMobile();
-            odd_mobile_google_analytics_promotion_impresion();
+            odd_mobile_home_google_analytics_promotion_impresion();
         }
 
         if (props.TipoOrigenPantallaODD == CONS_TIPO_ORIGEN.ESCRITORIO_HOME) {
@@ -319,17 +319,17 @@ $(document).ready(function () {
             $(contenedorOfertas + ' [data-odd-tipoventana="carrusel"]').show();
         }
 
-        if (cantidadProductos <= 3) {
-            var wc = $('#divOddCarrusel').width();
-            var witem = ((wc) / cantidadProductos);
-            var witemc = $($('#divOddCarrusel [data-item]>div').get(0)).innerWidth();
-            witemc = (witem - witemc) / 2;
-            $('#divOddCarrusel [data-item]').css("width", witem + "px");
-            $('#divOddCarrusel [data-item]>div').css("margin-left", witemc + "px");
-            $('#divOddCarrusel [data-item]>div').css("margin-right", witemc + "px");
-        }
+        //if (cantidadProductos <= 3) {
+        //    var wc = $('#divOddCarrusel').width();
+        //    var witem = ((wc) / cantidadProductos);
+        //    var witemc = $($('#divOddCarrusel [data-item]>div').get(0)).innerWidth();
+           // witemc = (witem - witemc) / 2;
+            //$('#divOddCarrusel [data-item]').css("width", witem + "px");
+            //$('#divOddCarrusel [data-item]>div').css("margin-left", witemc + "px");
+            //$('#divOddCarrusel [data-item]>div').css("margin-right", witemc + "px");
+        //}
 
-        if (cantidadProductos > 3) {
+        if (cantidadProductos > 2) {
             EstablecerLazyCarrusel($('#divOddCarrusel'));
 
             $('#divOddCarrusel.slick-initialized').slick('unslick');
@@ -337,8 +337,9 @@ $(document).ready(function () {
                 lazyLoad: 'ondemand',
                 infinite: true,
                 vertical: false,
-                slidesToShow: 3,
+                slidesToShow: 2,
                 slidesToScroll: 1,
+                variableWidth: true, 
                 autoplay: false,
                 speed: 260,
                 prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
@@ -346,6 +347,7 @@ $(document).ready(function () {
             }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
                 odd_desktop_procesar_evento_before_change(event, slick, currentSlide, nextSlide);
             });
+            $("#divOddCarrusel > .slick-list").css("width", "824px");
         }
     }
 
@@ -398,7 +400,7 @@ $(document).ready(function () {
         }
     }
 
-    function odd_mobile_google_analytics_promotion_impresion() {
+    function odd_mobile_home_google_analytics_promotion_impresion() {
         if ($('#banner-odd-mobile').length > 0) {
             var id = $('#banner-odd-mobile').find("#estrategia-id-odd").val();
             var name = "Oferta del día - " + $('#banner-odd-mobile').find("#nombre-odd").val();
@@ -571,7 +573,6 @@ $(document).ready(function () {
         }
 
         var tipoEstrategiaID = itemCampos.find('.tipoestrategia-id-odd').val();
-        
         var marcaID = itemCampos.find('.marca-id-odd').val();
         var cuv2 = itemCampos.find('.cuv2-odd').val();
         var precio = itemCampos.find('.precio-odd').val();

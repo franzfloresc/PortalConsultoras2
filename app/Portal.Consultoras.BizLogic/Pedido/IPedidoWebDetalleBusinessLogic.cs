@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Portal.Consultoras.Entities;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -7,7 +8,7 @@ namespace Portal.Consultoras.BizLogic
     {
         void AceptarBackOrderPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle);
         void DelPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle);
-        bool DelPedidoWebDetalleMasivo(int PaisID, int CampaniaID, int PedidoID, string CodigoUsuario);
+        Task<bool> DelPedidoWebDetalleMasivo(BEUsuario usuario, int pedidoId);
         bool DelPedidoWebDetallePackNueva(int PaisID, long ConsultoraID, int PedidoID);
         IList<BEPedidoWebDetalle> GetClientesByCampania(int paisID, int campaniaID, long consultoraID);
         IList<BEPedidoWebDetalle> GetClientesByCampaniaByClienteID(int paisID, int campaniaID, long consultoraID, string ClienteID);

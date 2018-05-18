@@ -3,7 +3,8 @@
 //youtube
 var tag = null;
 var firstScriptTag = null;
-var player;
+
+var player = oYTPlayers['ytMobileBienvenidaIndex'].instance, $divPlayer = $("#ytMobileBienvenidaIndex");
 
 $(document).ready(function () {
     $(".termino_condiciones_intriga").click(function () {
@@ -33,15 +34,12 @@ $(document).ready(function () {
     $(".ver_video_introductorio").click(function () {
         $('#VideoIntroductorio').show();
 
-        ConfigurarYoutube();
-
+        //ConfigurarYoutube();
+        var player = oYTPlayers['ytMobileBienvenidaIndex'].instance;
         setTimeout(function () { playVideo(); }, 500);
 
-        setTimeout(function () {
-            if (player.playVideo) {
-                player.playVideo();
-            }
-        }, 2000);
+        setTimeout(function () { if (player.playVideo) { player.playVideo(); } }, 2000);
+
     });
     $("#cerrarVideoIntroductorio").click(function () {
         stopVideo();
@@ -267,27 +265,26 @@ function AgregarTagManagerShowRoomCheckBox() {
 }
 
 function stopVideo() {
+    var player = oYTPlayers['ytMobileBienvenidaIndex'].instance;
     if (player) {
-        if (player.stopVideo) {
-            player.stopVideo();
-        }
-        else {
 
-            var urlVideo = $("#divPlayer").attr("src");
-            $("#divPlayer").attr("src", "");
-            $("#divPlayer").attr("src", urlVideo);
+        if (player.stopVideo) { player.stopVideo(); } else {
+            var urlVideo = $divPlayer.attr("src");
+            $divPlayer.attr("src", "");
+            $divPlayer.attr("src", urlVideo);
         }
     }
 }
 
 function playVideo() {
+    var player = oYTPlayers['ytMobileBienvenidaIndex'].instance;
     if (player) {
-        if (player.playVideo) {
-            player.playVideo();
-        }
+
+        if (player.playVideo) { player.playVideo(); }
         else {
-            document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            $divPlayer[0].contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
         }
+
     }
 }
 
@@ -714,7 +711,7 @@ function VerTutorialMobile() {
 
     setTimeout(function () { $(window).resize(); }, 50);
 }
-
+/*
 function ConfigurarYoutube() {
     if (tag == null) {
         tag = document.createElement("script");
@@ -738,4 +735,4 @@ function onYouTubeIframeAPIReady(playerId) {
         videoId: videoIdMostrar,
         playerVars: { rel: 0 }
     });
-}
+}*/

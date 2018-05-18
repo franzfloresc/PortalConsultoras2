@@ -76,9 +76,9 @@ namespace Portal.Consultoras.Entities
                 UrlItem = Convert.ToString(row["UrlItem"]);
             if (DataRecord.HasColumn(row, "PaginaNueva"))
                 PaginaNueva = Convert.ToBoolean(row["PaginaNueva"]);
-            if (DataRecord.HasColumn(row, "RolId") && row["RolId"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "RolId"))
                 RolId = Convert.ToInt32(row["RolId"]);
-            if (DataRecord.HasColumn(row, "Mostrar") && row["Mostrar"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Mostrar"))
                 Mostrar = Convert.ToBoolean(row["Mostrar"]);
             if (DataRecord.HasColumn(row, "Posicion"))
                 Posicion = Convert.ToString(row["Posicion"]);
@@ -87,22 +87,22 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "DescripcionPaginaNueva"))
                 DescripcionPaginaNueva = Convert.ToString(row["DescripcionPaginaNueva"]);
 
-            if (DataRecord.HasColumn(row, "UrlImagen") && row["UrlImagen"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "UrlImagen"))
             {
                 UrlImagen = Convert.ToString(row["UrlImagen"]);
             }
 
-            if (DataRecord.HasColumn(row, "EsSoloImagen") && row["EsSoloImagen"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "EsSoloImagen"))
             {
                 EsSoloImagen = Convert.ToBoolean(row["EsSoloImagen"]);
             }
 
-            if (DataRecord.HasColumn(row, "EsMenuEspecial") && row["EsMenuEspecial"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "EsMenuEspecial"))
             {
                 EsMenuEspecial = Convert.ToBoolean(row["EsMenuEspecial"]);
             }
 
-            if (DataRecord.HasColumn(row, "EsServicios") && row["EsServicios"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "EsServicios"))
             {
                 EsServicios = Convert.ToBoolean(row["EsServicios"]);
             }

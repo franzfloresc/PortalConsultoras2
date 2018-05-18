@@ -414,12 +414,12 @@ function BuscarByCUV(cuv) {
                 CloseLoading();
                 return false;
             }
-
+            
             $("#txtCantidad").removeAttr("disabled");
             var item = data[0];
 
             if (item.MarcaID == 0) {
-                MostrarMensaje("mensajeCUVNoExiste");
+                MostrarMensaje("mensajeProgramaNuevas", item.CUV);
                 existeCUV = false;
                 $("#divProductoInformacion").hide();
                 $('#hdfCUV').val(cuv);
@@ -433,7 +433,7 @@ function BuscarByCUV(cuv) {
             $("#hdTipoOfertaSisID").val(item.TipoOfertaSisID);
             $("#hdConfiguracionOfertaID").val(item.ConfiguracionOfertaID);
             $("#hdTipoEstrategiaID").val(item.TipoEstrategiaID);
-
+            
             CloseLoading();
             ObservacionesProducto(item);
         },
@@ -952,7 +952,13 @@ function MostrarMensaje(tipoMensaje, message) {
             $divMensaje.show();
             break;
         case "mensajeCUVShowRoom":
-             $divMensaje = $('#divMensajeCUV');
+            $divMensaje = $('#divMensajeCUV');
+            $divMensaje.find("#divIcono").attr("class", "icono_exclamacion");
+            $divMensaje.find("#divMensaje").html(message);
+            $divMensaje.show();
+            break;
+        case "mensajeProgramaNuevas":
+            $divMensaje = $('#divMensajeCUV');
             $divMensaje.find("#divIcono").attr("class", "icono_exclamacion");
             $divMensaje.find("#divMensaje").html(message);
             $divMensaje.show();

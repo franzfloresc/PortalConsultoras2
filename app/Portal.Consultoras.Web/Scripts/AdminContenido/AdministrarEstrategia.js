@@ -382,7 +382,7 @@
     var _obtenerFiltrarEstrategiaSuccess = function (editData, id) {
         return function (data, textStatus, jqXHR) {
 
-            if (data.success == false) {
+           if (data.success == false) {
                 _toastHelper.success(data.message);
                 closeWaitingDialog();
                 return false;
@@ -427,7 +427,7 @@
 
             $("#txtAlcance").val($("#ddlPais option:selected").html());
             $("#spanCampania").val($("#ddlCampania option:selected").html());
-            $("#spanTipoEstrategia").val($("#ddlTipoEstrategia option:selected").html().trim());
+            $("#spanTipoEstrategia").val($("#ddlTipoEstrategia option:selected").html() ? $("#ddlTipoEstrategia option:selected").html().trim():'');
             $("#hdEstrategiaID").val(data.EstrategiaID);
             $("#hdTipoEstrategiaID").val(data.TipoEstrategiaID);
             $("#hdCampania").val(data.CampaniaID);

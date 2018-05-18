@@ -18,12 +18,13 @@ $(document).ready(function () {
             vertical: false,
             infinite: true,
             speed: 300,
+            useCSS: true,
             centerPadding: '0px',
             centerMode: true,
             slidesToScroll: 1,
             variableWidth: false,
-            prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0; text-align:left; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0; text-align:right; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
+            prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -35px; text-align:left; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -35px; text-align:right; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
         });
 
         $('#contenedor-showroom-subcampanias').slick('slickGoTo', 1);

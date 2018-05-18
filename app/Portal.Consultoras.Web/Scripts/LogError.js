@@ -113,13 +113,19 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
 
 function registrarLogError(objError) {
 
-    if (isPagina('localhost') || location.host.indexOf('qa.somosbelcorp.com') > 0) {
+    if (isPagina('localhost') || location.host.indexOf('qa') > 0 || location.host.indexOf('ppr') > 0) {
         console.log(objError);
     }
 
     if (!urlLogDynamo) return;
 
     var urlLogError = urlLogDynamo + "Api/LogError";
+
+    // Ctrl, Action, Url actual
+    var controllerName = window.controllerName
+        , actionName = window.actionName
+        , currentUrl = window.location.href
+    ;
 
     var extra = [
         { 'key': 'Origen', 'value': objError.Origen },
@@ -134,6 +140,11 @@ function registrarLogError(objError) {
         'Usuario': userData.codigoConsultora,
         'Mensaje': objError.Mensaje,
         'StackTrace': objError.StackTrace,
+
+        'CurrentUrl': currentUrl,
+        'ControllerName': controllerName,
+        'ActionName': actionName,
+
         'Extra': extra
     };
 

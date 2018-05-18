@@ -461,7 +461,8 @@
 
         $(elements.ContenedorTituloGanaste).empty();
                             
-        $(elements.ContenedorTituloGanaste).append(nombreAlias.toUpperCase() + " ¡TIENES UN CUPÓN DE " + valor + simbolo + " DE DSCTO!");             
+        $(elements.ContenedorTituloGanaste).append(nombreAlias.toUpperCase() + " ¡TIENES UN CUPÓN DE DSCTO!"); 
+        //$(elements.ContenedorTituloGanaste).append(nombreAlias.toUpperCase() + " ¡TIENES UN CUPÓN DE " + valor + simbolo + " DE DSCTO!");             
         //$(elements.ContenedorTituloGanaste).append("¡ACTIVASTE TU CUPÓN DE " + valor + simbolo + " DE DSCTO!");              
 
         $(elements.ContenedorTexto02Ganaste).empty();

@@ -40,6 +40,7 @@ $(document).ready(function () {
     }
   
 });
+/*
 function onYouTubeIframeAPIReady() {
     if (typeof videoKey != "undefined") {
         player = new YT.Player("player", {
@@ -61,8 +62,9 @@ function onYouTubeIframeAPIReady() {
             }
         });
     }
-}
+}*/
 
+/*
 function onScrollDown(event) {
     $(window).scroll(function () {
         var windowHeight = $(window).scrollTop();
@@ -72,9 +74,10 @@ function onScrollDown(event) {
             event.target.pauseVideo();
         }
     });
-}
+}*/
 
 // when video ends
+/*
 function onPlayerStateChange(event) {
     if (typeof estaSuscrita == "undefined")
         return false;
@@ -89,7 +92,7 @@ function onPlayerStateChange(event) {
         rdAnalyticsModule.CompartirProducto("YTI", player.getVideoUrl(), "");
         done = true;
     }
-}
+}*/
 
 function ScrollUser(anchor, alto) {
     var topMenu = ($("#seccion-fixed-menu").position() || {}).top || 0;

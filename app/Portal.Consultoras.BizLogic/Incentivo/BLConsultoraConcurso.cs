@@ -56,6 +56,7 @@ namespace Portal.Consultoras.BizLogic
             using (TransactionScope transScope = new TransactionScope(TransactionScopeOption.Required, transOptions))
             {
                 DAConcurso.ActualizarInsertarPuntosConcurso(CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcurso, PuntosExigidosConcurso);
+                transScope.Complete();
             }
         }
 

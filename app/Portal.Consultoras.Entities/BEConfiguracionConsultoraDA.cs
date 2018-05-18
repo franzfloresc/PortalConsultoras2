@@ -30,11 +30,11 @@ namespace Portal.Consultoras.Entities
                 ZonaID = Convert.ToInt32(row["ZonaID"]);
             if (DataRecord.HasColumn(row, "ConsultoraID"))
                 ConsultoraID = Convert.ToInt32(row["ConsultoraID"]);
-            if (DataRecord.HasColumn(row, "CampaniaID") && row["CampaniaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CampaniaID"))
                 CampaniaID = row["CampaniaID"].ToString();
-            if (DataRecord.HasColumn(row, "TipoConfiguracion") && row["TipoConfiguracion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TipoConfiguracion"))
                 TipoConfiguracion = Convert.ToByte(row["TipoConfiguracion"]);
-            if (DataRecord.HasColumn(row, "CodigoUsuario") && row["CodigoUsuario"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoUsuario"))
                 CodigoUsuario = row["CodigoUsuario"].ToString();
         }
 

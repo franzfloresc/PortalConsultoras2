@@ -201,7 +201,7 @@ var menuModule = (function () {
 
         if (esAncla === "True") {
             _changeLogoMenuDesktopAndMobile();
-            if (currentLocation.indexOf("/ofertasparati") > -1) {
+            if (currentLocation.indexOf("/ofertasparati") > -1 || currentLocation.indexOf("/Lanzamientos/Detalle") > -1) {
                 var indexOf = currentLocation.replace("?", "&").indexOf("&campaniaid=");
                 var controller = "Ofertas#";
                 if (indexOf > 0) {
@@ -327,5 +327,7 @@ $(document).ready(function () {
     $(document).ajaxStop(function () {
         menuModule.checkAnchor();
     });
-   
+    window.onresize = function (event) {
+        menuModule.Resize();
+    };
 });

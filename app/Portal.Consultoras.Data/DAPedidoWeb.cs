@@ -96,14 +96,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoWeb.PedidoID);
             Context.Database.AddInParameter(command, "@CodigoUsuarioModificacion", DbType.String, pedidoWeb.CodigoUsuarioModificacion);
             Context.Database.AddInParameter(command, "@MontoTotalProl", DbType.Decimal, pedidoWeb.MontoTotalProl);
-            //Context.Database.AddInParameter(command, "@MontoAhorroCatalogo", DbType.Decimal, pedidoWeb.MontoAhorroCatalogo);
-            //Context.Database.AddInParameter(command, "@MontoAhorroRevista", DbType.Decimal, pedidoWeb.MontoAhorroRevista);
-            //Context.Database.AddInParameter(command, "@MontoDescuento", DbType.Decimal, pedidoWeb.DescuentoProl);
-            //Context.Database.AddInParameter(command, "@MontoEscala", DbType.Decimal, pedidoWeb.MontoEscala);
             Context.Database.AddInParameter(command, "@EstimadoGanancia", DbType.Decimal, gananciaEstimada);
             Context.Database.AddInParameter(command, "@EstadoPedido", DbType.Int16, pedidoWeb.EstadoPedido);
-            Context.Database.AddInParameter(command, "@PedidoSapId", DbType.Int64, pedidoWeb.PedidoSapId);
-            Context.Database.AddInParameter(command, "@VersionProl", DbType.Byte, pedidoWeb.VersionProl);
 
             return Context.ExecuteNonQuery(command);
         }
@@ -222,6 +216,21 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@NombreArchivoCabecera", DbType.String, NombreArchivoCabecera);
             Context.Database.AddInParameter(command, "@NombreArchivoDetalle", DbType.String, NombreArchivoDetalle);
             Context.Database.AddInParameter(command, "@NombreServer", DbType.String, NombreServer);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
+        /// <summary>
+        /// Marca los cupones de los pedidos web como usuados.
+        /// </summary>
+        /// <param name="NroLote"></param>
+        /// <param name="FirmarPedido"></param>
+        /// <returns></returns>
+        public int UpdCuponPedidoWebEnviado(int NroLote, bool FirmarPedido)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdCuponPedidoWebEnviado");
+            Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, NroLote);
+            Context.Database.AddInParameter(command, "@FirmarPedido", DbType.Boolean, FirmarPedido);
 
             return Context.ExecuteNonQuery(command);
         }
@@ -521,6 +530,14 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public void ClearPedidoSapId(int campaniaID, int pedidoID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ClearPedidoWebPedidoSapId");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoID);
+            Context.ExecuteNonQuery(command);
+        }
+
         public DateTime GetFechaHoraPais()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetFechaHoraPais");
@@ -652,6 +669,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@MontoAhorroRevista", DbType.Decimal, bePedidoWeb.MontoAhorroRevista);
             Context.Database.AddInParameter(command, "@MontoDescuento", DbType.Decimal, bePedidoWeb.DescuentoProl);
             Context.Database.AddInParameter(command, "@MontoEscala", DbType.Decimal, bePedidoWeb.MontoEscala);
+            Context.Database.AddInParameter(command, "@VersionProl", DbType.Byte, bePedidoWeb.VersionProl);
+            Context.Database.AddInParameter(command, "@PedidoSapId", DbType.Int64, bePedidoWeb.PedidoSapId);
 
             Context.ExecuteNonQuery(command);
         }
