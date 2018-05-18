@@ -70,5 +70,12 @@ namespace Portal.Consultoras.BizLogic
         {
             get { return (string)this["detail"]; }
         }
+
+        [ConfigurationProperty("client", IsRequired = false)]
+        public string Client
+        {
+            get { return (string)this["client"]; }
+        }
+
     }
 }

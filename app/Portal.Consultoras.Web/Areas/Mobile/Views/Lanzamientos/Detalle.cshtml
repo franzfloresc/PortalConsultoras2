@@ -6,6 +6,7 @@
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
     var urlDomain = Util.GetUrlHost(Request);
+    var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 
 @section styles{
@@ -121,18 +122,25 @@
             <input type="hidden" class="Volumen" value="" />
             <input type="hidden" class="Palanca" value="LAN" />
         </div>
-        <div class="wrapper_resumen_mobile" style="height: 150px;">
-            <hr />
-            <p>Comparte el producto con tus clientes:</p>
-            <ul>
-                <li>
-                    <a href="javascript: void(0);" data-compartir="WA" style="display: block;
-    background: #119e06;
-    padding: 5px;"><img src="~/Content/Images/mobile/img-icon/whatsapp-50x50.png" alt=""></a>
-                </li>
-                <li><a href="javascript: void(0);" data-compartir="FB"><img src="~/Content/Images/mobile/Esika/facebook.png" alt=""></a></li>
-            </ul>
-        </div>
+        @if (!mobileConfiguracion.EsAppMobile)
+        {
+            <div class="wrapper_resumen_mobile" style="height: 150px;">
+                <hr />
+                <p>Comparte el producto con tus clientes:</p>
+                <ul>
+                    <li>
+                        <a href="javascript: void(0);" data-compartir="WA" style="display: block;background: #119e06;padding: 5px;">
+                            <img src="~/Content/Images/mobile/img-icon/whatsapp-50x50.png" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript: void(0);" data-compartir="FB">
+                            <img src="~/Content/Images/mobile/Esika/facebook.png" alt="">
+                        </a>
+                    </li>
+
+                </ul>
+            </div>}
     </div>
 </div>
 

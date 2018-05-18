@@ -32,11 +32,11 @@ namespace Portal.Consultoras.BizLogic
         
         public List<BEConfiguracionPaisDatos> GetList(BEConfiguracionPaisDatos entidad)
         {
-            List<BEConfiguracionPaisDatos> lista;
+            var lista = new List<BEConfiguracionPaisDatos>();
+
             try
             {
-                var da = new DAConfiguracionPaisDatos(entidad.PaisID);
-                using (var reader = da.GetList(entidad))
+                using (var reader = new DAConfiguracionPaisDatos(entidad.PaisID).GetList(entidad))
                 {
                     lista = reader.MapToCollection<BEConfiguracionPaisDatos>(true);
                 }
@@ -44,9 +44,9 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, "", entidad.PaisID.ToString());
-                lista = new List<BEConfiguracionPaisDatos>();
             }
-            return lista;
+
+            return lista ?? new List<BEConfiguracionPaisDatos>();
         }
 
         public List<BEConfiguracionPaisDatos> GetListComponente(BEConfiguracionPaisDatos entidad)

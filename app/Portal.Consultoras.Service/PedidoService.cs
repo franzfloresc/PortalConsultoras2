@@ -2409,9 +2409,9 @@ namespace Portal.Consultoras.Service
             return await _pedidoAppBusinessLogic.Delete(pedidoDetalle);
         }
 
-        public BEPedidoDetalleAppResult ReservaPedidoDetalleApp(BEUsuario usuario)
+        public async Task<BEPedidoDetalleAppResult> ReservaPedidoDetalleApp(BEUsuario usuario)
         {
-            return _pedidoAppBusinessLogic.Reserva(usuario);
+            return await _pedidoAppBusinessLogic.Reserva(usuario);
         }
 
         public BEPedidoDetalleAppResult DeshacerReservaPedidoApp(BEUsuario usuario)
@@ -2419,5 +2419,21 @@ namespace Portal.Consultoras.Service
             return _pedidoAppBusinessLogic.DeshacerReservaPedido(usuario);
         }        
         #endregion
+
+        public void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario)
+        {
+            try
+            {
+                _pedidoWebBusinessLogic.DescargaPedidosCliente(paisID, nroLote, codigoUsuario);
+            }
+            catch (BizLogicException ex)
+            {
+                throw new FaultException(ex.Message);
+            }
+            catch (Exception)
+            {
+                throw new FaultException("Error desconocido.");
+            }
+        }
     }
 }
