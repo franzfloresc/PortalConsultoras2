@@ -1316,5 +1316,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         DateTime? ObtenerFechaInicioSets(int paisId);
+
+        [OperationContract]
+        void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario);
     }
 }

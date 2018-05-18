@@ -2461,6 +2461,108 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #endregion
+
+        public void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario)
+        {
+            var lstPedidos = new List<BEDescargaPedidoCliente>();
+
+            try
+            {
+                //Obtener la informacion de pedidos del ultimo lote generado
+                using (var reader = new DAPedidoWeb(paisID).DescargaPedidosCliente(nroLote))
+                {
+                    lstPedidos = reader.MapToCollection<BEDescargaPedidoCliente>();
+                };
+                if (!lstPedidos.Any()) throw new BizLogicException("No existen pedidos para generar el archivo");
+
+                //Configuracion nombre archivo
+                var codigoPais = Common.Util.GetPaisISO(paisID);
+                var fechaFacturacion = lstPedidos.FirstOrDefault().FechaFacturacion;
+                var fileGuid = Guid.NewGuid();
+
+                var ftpSection = (FtpConfigurationSection)ConfigurationManager.GetSection("Belcorp.FtpConfiguration");
+                var key = string.Format("{0}-{1}", codigoPais, "DR");
+                var ftpElement = ftpSection.FtpConfigurations[key];
+
+                //Generar el archivo txt
+                var section = (DataAccessConfiguration)ConfigurationManager.GetSection("Belcorp.Configuration");
+                var element = section.Countries[paisID];
+                var clienteTemplate = ParseTemplate(WebConfig.GetByTagName(element.OrderClienteTemplate));
+                var clientFile = FormatFile(codigoPais, ftpElement.Client, fechaFacturacion, fileGuid);
+
+                using (var streamWriter = new StreamWriter(clientFile))
+                {
+                    foreach (var pedido in lstPedidos)
+                    {
+                        streamWriter.WriteLine(ClienteLine(clienteTemplate, pedido));
+                    }
+                }
+
+                //Envío FTP
+                if (WebConfig.OrderDownloadFtpUpload == "1")
+                {
+                    try
+                    {
+                        var ftpAddressFileName = string.Concat(ftpElement.Address, ftpElement.Client);
+                        BLFileManager.FtpUploadFile(ftpAddressFileName, clientFile, ftpElement.UserName, ftpElement.Password);
+                    }
+                    catch (Exception ex)
+                    {
+                        LogManager.SaveLog(ex, codigoUsuario, codigoPais);
+                        throw new BizLogicException("No se pudo subir los archivos de pedidos al destino FTP.", ex);
+                    }
+                }
+
+                //Envío S3
+                if (WebConfig.OrderDownloadS3 == "1")
+                {
+                    try
+                    {
+                        var carpetaPais = string.Concat(WebConfig.S3_Pedidos, codigoPais);
+                        if (!string.IsNullOrEmpty(clientFile)) ConfigS3.SetFileS3(clientFile, carpetaPais, Path.GetFileName(clientFile), false, false, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        LogManager.SaveLog(ex, codigoUsuario, codigoPais);
+                        throw new BizLogicException("No se pudo subir los archivos de pedidos al destino S3.", ex);
+                    }
+                }
+            }
+            catch(BizLogicException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, codigoUsuario, paisID);
+                throw ex;
+            }
+        }
+
+        private string ClienteLine(TemplateField[] template, BEDescargaPedidoCliente row)
+        {
+            var line = string.Empty;
+            var item = string.Empty;
+
+            foreach (var field in template)
+            {
+                switch (field.FieldName)
+                {
+                    case "PAISISO": item = row.PaisISO; break;
+                    case "CAMPANIAID": item = row.CampaniaID.ToString(); break;
+                    case "CODIGOCONSULTORA": item = row.CodigoConsultora; break;
+                    case "FECHAFACTURACION": item = row.FechaFacturacion.ToString("ddMMyyyy"); break;
+                    case "CUV": item = row.CUV; break;
+                    case "CANTIDAD": item = row.Cantidad.ToString(); break;
+                    case "CODIGOCLIENTE": item = row.CodigoCliente.ToString(); break;
+                    default: item = string.Empty; break;
+                }
+
+                line = string.Concat(line, item.PadRight(field.Size));
+            }
+
+            return line;
+        }
     }
 
     internal class TemplateField
