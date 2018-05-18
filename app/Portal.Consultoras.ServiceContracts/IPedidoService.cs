@@ -293,10 +293,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BECrossSellingAsociacion> GetCUVAsociadoByFilter(int PaisID, int CampaniaID, string CUV, string CodigoSegmento);
-
-
+        
         [OperationContract]
-        bool DelPedidoWebDetalleMasivo(int PaisID, int CampaniaID, int PedidoID, string CodigoUsuario);
+        Task<bool> DelPedidoWebDetalleMasivo(BEUsuario usuario, int pedidoId);
 
         [OperationContract]
         bool DelPedidoWebDetallePackNueva(int PaisID, long ConsultoraID, int PedidoID);
@@ -1110,6 +1109,9 @@ namespace Portal.Consultoras.ServiceContracts
         string DeshacerPedidoValidado(BEUsuario usuario, string tipo);
 
         [OperationContract]
+        Task<bool> DeshacerReservaPedido(BEUsuario usuario, int pedidoId);
+
+        [OperationContract]
         BEConsultoraResumen ObtenerResumen(int paisId, int codigoCampania, long consultoraId);
 
         #region Cupon
@@ -1219,20 +1221,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEMisPedidosFacturados> GetMisPedidosFacturados(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora);
         #endregion
-
-        #region CargaMasivaImagenes
-
-        [OperationContract]
-        List<BECargaMasivaImagenes> GetListaImagenesEstrategiasByCampania(int paisId, int campaniaId);
-
-        [OperationContract]
-        List<BECargaMasivaImagenes> GetListaImagenesOfertaLiquidacionByCampania(int paisId, int campaniaId);
-
-        [OperationContract]
-        List<BECargaMasivaImagenes> GetListaImagenesProductoSugeridoByCampania(int paisId, int campaniaId);
-
-        #endregion
-
+        
         #region ProductosPrecargados
         [OperationContract]
         int GetFlagProductosPrecargados(int paisID, string CodigoConsultora, int CampaniaID);
@@ -1271,7 +1260,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEConfiguracionPedido GetConfiguracionPedidoApp(int paisID, string codigoUsuario);
         [OperationContract]
-        BEPedidoDetalleAppResult DeletePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
+        Task<BEPedidoDetalleAppResult> DeletePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
         [OperationContract]
         Task<BEPedidoDetalleAppResult> ReservaPedidoDetalleApp(BEUsuario usuario);
         [OperationContract]

@@ -12,28 +12,15 @@ namespace Portal.Consultoras.BizLogic
         {
             var reporteValidaciones = new List<BEReporteValidacion>();
             var daReporteValidacion = new DAReporteValidacion(paisID);
-            if (tipoEstrategia == 4)
+
+            using (IDataReader reader = daReporteValidacion.GetReporteValidacionUnificado(campaniaID, tipoEstrategia))
             {
-                using (IDataReader reader = daReporteValidacion.GetReporteValidacion(campaniaID))
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        var reporteValidacion = new BEReporteValidacion(reader);
-                        reporteValidaciones.Add(reporteValidacion);
-                    }
+                    var reporteValidacion = new BEReporteValidacion(reader);
+                    reporteValidaciones.Add(reporteValidacion);
                 }
-            }
-            if (tipoEstrategia == 7)
-            {
-                using (IDataReader reader = daReporteValidacion.GetReporteValidacionODD(campaniaID))
-                {
-                    while (reader.Read())
-                    {
-                        var reporteValidacion = new BEReporteValidacion(reader);
-                        reporteValidaciones.Add(reporteValidacion);
-                    }
-                }
-            }
+            } 
 
             return reporteValidaciones;
         }

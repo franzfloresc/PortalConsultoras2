@@ -64,7 +64,7 @@ namespace Portal.Consultoras.Entities
             if (row.HasColumn("Situacion"))
                 Situacion = Convert.ToString(row["Situacion"]);
             if (row.HasColumn("Fecha"))
-                Fecha = row["Fecha"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(row["Fecha"]);
+                Fecha = Convert.ToDateTime(row["Fecha"]);
 
             if (row.HasColumn("ValorTurno"))
                 ValorTurno = Convert.ToString(row["ValorTurno"]);
@@ -111,9 +111,9 @@ namespace Portal.Consultoras.Entities
             Latitud = Convert.ToString(row["Latitud"]);
             Longitud = Convert.ToString(row["Longitud"]);
             Observacion = Convert.ToString(row["Observacion"]);
-            if (DataRecord.HasColumn(row, "Boleta") && row["Boleta"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Boleta"))
                 Boleta = Convert.ToString(row["Boleta"]);
-            if (DataRecord.HasColumn(row, "Foto") && row["Foto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Foto"))
                 Foto = Convert.ToString(row["Foto"]);
         }
     }

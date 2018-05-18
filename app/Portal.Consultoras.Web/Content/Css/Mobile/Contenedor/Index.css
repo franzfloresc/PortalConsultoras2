@@ -61,10 +61,15 @@
 
     .bc_para_ti-menu ul li {
         display: inline-block;
-        width: 33.3%;
         cursor: pointer;
         margin-top: 0;
+        padding-right: 0 !important;
+        padding-left: 0 !important
     }
+        .bc_para_ti-menu ul li.menu_medio{
+            padding-right: 3px !important;
+            padding-left: 3px !important
+        }
 
         .bc_para_ti-menu ul li a {
             display: block;
@@ -99,6 +104,13 @@
                 .bc_para_ti-menu ul li a img.click-menu {
                     display: none;
                 }
+.fix_menu_tabs_mobil_2 {
+    width: 50% !important;
+}
+
+.fix_menu_tabs_mobil_3 {
+    width: 33.33% !important;
+}
 
 .bc_para_ti-menu-opciones ul {
     margin: 0;

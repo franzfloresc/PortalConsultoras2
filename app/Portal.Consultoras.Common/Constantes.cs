@@ -738,6 +738,10 @@ namespace Portal.Consultoras.Common
             public const int HVMobileLanding = 2011;
             public const int HVMobileLandingPopup = 2011;
             #endregion
+
+            #region Programa de Nuevas
+            public const string Mensaje1 = "El código solicitado es exclusivo del Programa de Nuevas.";
+            #endregion  
         }
 
         public static class TipoTutorial
@@ -1118,6 +1122,7 @@ namespace Portal.Consultoras.Common
             public const string Cache_Eliminar = "Ocurrió un error al eliminar la caché. Inténtelo más tarde";
             public const string Reserva_Error = "Hubo un error al tratar de realizar la validación del pedido, por favor vuelva a intentarlo.";
             public const string Reserva_SinDetalle = "No tiene productos que reservar esta campaña.";
+            public const string DeleteAllPedido_Error = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
         }
 
         public static class ConfiguracionPais
@@ -1799,6 +1804,40 @@ namespace Portal.Consultoras.Common
                 public const short BannerCupon = 1;
                 public const short BannerPremio = 2;
             }
+
+            public class EncenderValidacion
+            {
+                public const short TablaLogicaID = 7;
+                public const string Activo = "Activo"; 
+            }
+
+            public class Rango
+            {
+                public const short TablaLogicaID = 6;
+                public const string cuvInicio = "cuvInicio";
+                public const string cuvFinal = "cuvFinal";
+            }
+
+            public class MensajeValidacionBusqueda
+            {
+                public const string ConsultoraNoNueva = "El código solicitado es exclusivo para quienes participan del Programa de Nuevas.";
+                public const string CuvNoPerteneceASuPrograma = "El codigo ingresado es incorrecto. Revise el folleto del Programa de Nuevas y solicite el que le corresponde.";
+            }
+
+            public class MensajeValidacionCantidadMaxima
+            {
+                public const string ExcedeCantidad = "Las unidades ingresadas exceden el máximo permitido (#n#) en esta campaña";
+            }
+
+            public class MensajeValidacionElectividadProductos
+            {
+                public const string ExisteElectivoEnSuPedido = "El código ingresado no puede ser agregado al pedido. El pedido contiene un pack del Programa de Nuevas.";
+            }
+        }
+
+        public class VentaExclusiva
+        {
+            public const string CuvNoEsVentaExclusiva = "El código solicitado pertenece a la Venta Exclusiva. Usted no cumple las condiciones para solicitarlo.";
         }
 
         public class Comunicado
@@ -1995,8 +2034,10 @@ namespace Portal.Consultoras.Common
         public class ProlObsCod
         {
             public const string Deuda = "Deuda";
-            public const string MontoMinimoVenta = "MontoMinimoVenta";
-            public const string MontoMinimoFact = "MontoMinimoFact";
+            public const string MontoMinVenta = "MontoMinVenta";
+            public const string MontoMinFact = "MontoMinFact";
+            public const string MontoMinVentaDesc = "MontoMinVentaDesc";
+            public const string MontoMinFactDesc = "MontoMinFactDesc";
             public const string MontoMaximo  = "MontoMaximo";
             public const string LimiteVenta0 = "LimiteVenta0";
             public const string LimiteVenta = "LimiteVenta";
@@ -2017,6 +2058,7 @@ namespace Portal.Consultoras.Common
             public const string DeudaMonto = "{deuMon}";
             public const string MaximoMonto = "{maxMon}";
             public const string MinimoMonto = "{minMon}";
+            public const string DescuentoMonto = "{descMon}";
             public const string DetalleCuv = "{detCuv}";
             public const string LimiteVenta = "{limVen}";
             public const string ReemplazoCuv = "{remCuv}";

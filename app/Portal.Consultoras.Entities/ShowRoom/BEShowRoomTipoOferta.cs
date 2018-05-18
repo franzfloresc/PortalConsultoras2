@@ -34,21 +34,21 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         public BEShowRoomTipoOferta(IDataRecord row)
         {
-            if (row.HasColumn("TipoOfertaID") && row["TipoOfertaID"] != DBNull.Value)
+            if (row.HasColumn("TipoOfertaID"))
                 TipoOfertaID = Convert.ToInt32(row["TipoOfertaID"]);
-            if (row.HasColumn("Codigo") && row["Codigo"] != DBNull.Value)
+            if (row.HasColumn("Codigo"))
                 Codigo = Convert.ToString(row["Codigo"]);
-            if (row.HasColumn("Descripcion") && row["Descripcion"] != DBNull.Value)
+            if (row.HasColumn("Descripcion"))
                 Descripcion = Convert.ToString(row["Descripcion"]);
-            if (row.HasColumn("Activo") && row["Activo"] != DBNull.Value)
+            if (row.HasColumn("Activo"))
                 Activo = Convert.ToBoolean(row["Activo"]);
-            if (row.HasColumn("FechaCreacion") && row["FechaCreacion"] != DBNull.Value)
+            if (row.HasColumn("FechaCreacion"))
                 FechaCreacion = Convert.ToDateTime(row["FechaCreacion"]);
-            if (row.HasColumn("UsuarioCreacion") && row["UsuarioCreacion"] != DBNull.Value)
+            if (row.HasColumn("UsuarioCreacion"))
                 UsuarioCreacion = Convert.ToString(row["UsuarioCreacion"]);
-            if (row.HasColumn("FechaModificacion") && row["FechaModificacion"] != DBNull.Value)
+            if (row.HasColumn("FechaModificacion"))
                 FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
-            if (row.HasColumn("UsuarioModificacion") && row["UsuarioModificacion"] != DBNull.Value)
+            if (row.HasColumn("UsuarioModificacion"))
                 UsuarioModificacion = Convert.ToString(row["UsuarioModificacion"]);
         }
     }

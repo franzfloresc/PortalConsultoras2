@@ -21,15 +21,15 @@ namespace Portal.Consultoras.Entities
 
         public BELogParametroDiasCargaPedido(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Fecha") && row["Fecha"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Fecha"))
                 Fecha = Convert.ToString(row["Fecha"]);
-            if (DataRecord.HasColumn(row, "CodigoUsuario") && row["CodigoUsuario"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoUsuario"))
                 CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
-            if (DataRecord.HasColumn(row, "CodigosRegionZona") && row["CodigosRegionZona"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigosRegionZona"))
                 CodigosRegionZona = Convert.ToString(row["CodigosRegionZona"]);
-            if (DataRecord.HasColumn(row, "DiasParametroCargaAnterior") && row["DiasParametroCargaAnterior"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DiasParametroCargaAnterior"))
                 DiasParametroCargaAnterior = Convert.ToInt16(row["DiasParametroCargaAnterior"]);
-            if (DataRecord.HasColumn(row, "DiasParametroCargaActual") && row["DiasParametroCargaActual"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DiasParametroCargaActual"))
                 DiasParametroCargaActual = Convert.ToInt16(row["DiasParametroCargaActual"]);
         }
     }

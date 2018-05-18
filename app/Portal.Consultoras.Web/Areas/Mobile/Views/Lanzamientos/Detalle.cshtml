@@ -4,9 +4,9 @@
 @model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaProductoModel
 
 @{
-	Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
-	var urlDomain = Util.GetUrlHost(Request);
-	var mobileConfiguracion = Html.MobileAppConfiguracion();
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
+    var urlDomain = Util.GetUrlHost(Request);
+    var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 
 @section styles{
@@ -69,7 +69,7 @@
                         <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
                         <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
-                    <a class="@Model.ClaseBloqueada btn_agregar_ficha_producto" 
+                    <a class="@Model.ClaseBloqueada btn_agregar_ficha_producto"
                        id="tbnAgregarProducto"
                        data-bloqueada="@Model.ClaseBloqueada"
                        onclick="javascript:EstrategiaAgregar(event, true); ">AGRÉGALO</a>
@@ -80,6 +80,7 @@
     }
 
 </div>
+<hr class="clear" />
 <div>
     <div class="set_encuentras_producto" id="set_relacionados">
         <div class="wrapper_resumen_mobile">
@@ -104,43 +105,43 @@
             </div>
         </div>
     }
+    <hr class="clear" />
+    <div class="comparte_set_encuentras_producto_video" data-posicion="0" data-item="165">
+        <div data-compartir-campos="" style="display:none;">
+            <input type="hidden" class="CUV" value="@Model.CUV2" />
+            <input type="hidden" class="rsFBMensaje" value="" />
+            <input type="hidden" class="rsFBRuta" value="@Model.UrlCompartir" />
+            <input type="hidden" class="rsWAMensaje" value="" />
+            <input type="hidden" class="rsWARuta" value="@Model.UrlCompartir" />
+            <input type="hidden" class="rsFBRutaImagen" value="@Model.FotoProducto01" />
+            <input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
+            <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
+            <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
+            <input type="hidden" class="Nombre" value="@Model.DescripcionResumen" />
+            <input type="hidden" class="ProductoDescripcion" value="@Model.DescripcionDetalle" />
+            <input type="hidden" class="Volumen" value="" />
+            <input type="hidden" class="Palanca" value="LAN" />
+        </div>
+        @if (!mobileConfiguracion.EsAppMobile)
+        {
+            <div class="wrapper_resumen_mobile" style="height: 150px;">
+                <hr />
+                <p>Comparte el producto con tus clientes:</p>
+                <ul>
+                    <li>
+                        <a href="javascript: void(0);" data-compartir="WA" style="display: block;background: #119e06;padding: 5px;">
+                            <img src="~/Content/Images/mobile/img-icon/whatsapp-50x50.png" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript: void(0);" data-compartir="FB">
+                            <img src="~/Content/Images/mobile/Esika/facebook.png" alt="">
+                        </a>
+                    </li>
 
-		<div class="comparte_set_encuentras_producto_video" data-posicion="0" data-item="165">
-			<div data-compartir-campos="" style="display:none;">
-				<input type="hidden" class="CUV" value="@Model.CUV2" />
-				<input type="hidden" class="rsFBMensaje" value="" />
-				<input type="hidden" class="rsFBRuta" value="@Model.UrlCompartir" />
-				<input type="hidden" class="rsWAMensaje" value="" />
-				<input type="hidden" class="rsWARuta" value="@Model.UrlCompartir" />
-				<input type="hidden" class="rsFBRutaImagen" value="@Model.FotoProducto01" />
-				<input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
-				<input type="hidden" class="MarcaID" value="@Model.MarcaID" />
-				<input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
-				<input type="hidden" class="Nombre" value="@Model.DescripcionResumen" />
-				<input type="hidden" class="ProductoDescripcion" value="@Model.DescripcionDetalle" />
-				<input type="hidden" class="Volumen" value="" />
-				<input type="hidden" class="Palanca" value="LAN" />
-			</div>
-			@if (!mobileConfiguracion.EsAppMobile)
-			{
-				<div class="wrapper_resumen_mobile" style="height: 150px;">
-					<hr />
-					<p>Comparte el producto con tus clientes:</p>
-					<ul>
-						<li>
-							<a href="javascript: void(0);" data-compartir="WA" style="display: block;background: #119e06;padding: 5px;">
-								<img src="~/Content/Images/mobile/img-icon/whatsapp-50x50.png" alt="">
-							</a>
-						</li>
-						<li>
-							<a href="javascript: void(0);" data-compartir="FB">
-								<img src="~/Content/Images/mobile/Esika/facebook.png" alt="">
-							</a>
-						</li>
-					</ul>
-				</div>
-			}
-		</div>
+                </ul>
+            </div>}
+    </div>
 </div>
 
 
@@ -149,7 +150,7 @@
     @Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
 }
 
-@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", true } })
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/Lanzamientos-Detalle")
     <script type="text/javascript">

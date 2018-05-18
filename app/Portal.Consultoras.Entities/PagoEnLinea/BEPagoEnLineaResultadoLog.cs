@@ -112,101 +112,101 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
 
         public BEPagoEnLineaResultadoLog(IDataRecord datarec)
         {
-            if (DataRecord.HasColumn(datarec, "PagoEnLineaResultadoLogId") && datarec["PagoEnLineaResultadoLogId"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "PagoEnLineaResultadoLogId"))
                 PagoEnLineaResultadoLogId = DbConvert.ToInt32(datarec["PagoEnLineaResultadoLogId"]);
-            if (DataRecord.HasColumn(datarec, "ConsultoraId") && datarec["ConsultoraId"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "ConsultoraId"))
                 ConsultoraId = DbConvert.ToInt64(datarec["ConsultoraId"]);            
-            if (DataRecord.HasColumn(datarec, "CodigoConsultora") && datarec["CodigoConsultora"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CodigoConsultora"))
                 CodigoConsultora = DbConvert.ToString(datarec["CodigoConsultora"]);
-            if (DataRecord.HasColumn(datarec, "NumeroDocumento") && datarec["NumeroDocumento"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "NumeroDocumento"))
                 NumeroDocumento = DbConvert.ToString(datarec["NumeroDocumento"]);
-            if (DataRecord.HasColumn(datarec, "CampaniaId") && datarec["CampaniaId"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CampaniaId"))
                 CampaniaId = DbConvert.ToInt32(datarec["CampaniaId"]);
-            if (DataRecord.HasColumn(datarec, "FechaVencimiento") && datarec["FechaVencimiento"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "FechaVencimiento"))
                 FechaVencimiento = DbConvert.ToDateTime(datarec["FechaVencimiento"]);            
-            if (DataRecord.HasColumn(datarec, "MontoPago") && datarec["MontoPago"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "MontoPago"))
                 MontoPago = DbConvert.ToDecimal(datarec["MontoPago"]);
-            if (DataRecord.HasColumn(datarec, "MontoGastosAdministrativos") && datarec["MontoGastosAdministrativos"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "MontoGastosAdministrativos"))
                 MontoGastosAdministrativos = DbConvert.ToDecimal(datarec["MontoGastosAdministrativos"]);
-            if (DataRecord.HasColumn(datarec, "TipoTarjeta") && datarec["TipoTarjeta"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "TipoTarjeta"))
                 TipoTarjeta = DbConvert.ToString(datarec["TipoTarjeta"]);
-            if (DataRecord.HasColumn(datarec, "CodigoError") && datarec["CodigoError"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CodigoError"))
                 CodigoError = DbConvert.ToString(datarec["CodigoError"]);
-            if (DataRecord.HasColumn(datarec, "MensajeError") && datarec["MensajeError"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "MensajeError"))
                 MensajeError = DbConvert.ToString(datarec["MensajeError"]);
-            if (DataRecord.HasColumn(datarec, "IdGuidTransaccion") && datarec["IdGuidTransaccion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "IdGuidTransaccion"))
                 IdGuidTransaccion = DbConvert.ToString(datarec["IdGuidTransaccion"]);
-            if (DataRecord.HasColumn(datarec, "IdGuidExternoTransaccion") && datarec["IdGuidExternoTransaccion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "IdGuidExternoTransaccion"))
                 IdGuidExternoTransaccion = DbConvert.ToString(datarec["IdGuidExternoTransaccion"]);
-            if (DataRecord.HasColumn(datarec, "MerchantId") && datarec["MerchantId"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "MerchantId"))
                 MerchantId = DbConvert.ToString(datarec["MerchantId"]);
-            if (DataRecord.HasColumn(datarec, "IdTokenUsuario") && datarec["IdTokenUsuario"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "IdTokenUsuario"))
                 IdTokenUsuario = DbConvert.ToString(datarec["IdTokenUsuario"]);
-            if (DataRecord.HasColumn(datarec, "AliasNameTarjeta") && datarec["AliasNameTarjeta"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "AliasNameTarjeta"))
                 AliasNameTarjeta = DbConvert.ToString(datarec["AliasNameTarjeta"]);
-            if (DataRecord.HasColumn(datarec, "FechaTransaccion") && datarec["FechaTransaccion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "FechaTransaccion"))
                 FechaTransaccion = DbConvert.ToDateTime(datarec["FechaTransaccion"]);
-            if (DataRecord.HasColumn(datarec, "ResultadoValidacionCVV2") && datarec["ResultadoValidacionCVV2"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "ResultadoValidacionCVV2"))
                 ResultadoValidacionCVV2 = DbConvert.ToString(datarec["ResultadoValidacionCVV2"]);
-            if (DataRecord.HasColumn(datarec, "CsiMensaje") && datarec["CsiMensaje"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CsiMensaje"))
                 CsiMensaje = DbConvert.ToString(datarec["CsiMensaje"]);
-            if (DataRecord.HasColumn(datarec, "IdUnicoTransaccion") && datarec["IdUnicoTransaccion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "IdUnicoTransaccion"))
                 IdUnicoTransaccion = DbConvert.ToString(datarec["IdUnicoTransaccion"]);
-            if (DataRecord.HasColumn(datarec, "Etiqueta") && datarec["Etiqueta"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Etiqueta"))
                 Etiqueta = DbConvert.ToString(datarec["Etiqueta"]);
-            if (DataRecord.HasColumn(datarec, "RespuestaSistemAntifraude") && datarec["RespuestaSistemAntifraude"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "RespuestaSistemAntifraude"))
                 RespuestaSistemAntifraude = DbConvert.ToString(datarec["RespuestaSistemAntifraude"]);
-            if (DataRecord.HasColumn(datarec, "CsiPorcentajeDescuento") && datarec["CsiPorcentajeDescuento"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CsiPorcentajeDescuento"))
                 CsiPorcentajeDescuento = DbConvert.ToDecimal(datarec["CsiPorcentajeDescuento"]);
-            if (DataRecord.HasColumn(datarec, "NumeroCuota") && datarec["NumeroCuota"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "NumeroCuota"))
                 NumeroCuota = DbConvert.ToString(datarec["NumeroCuota"]);
-            if (DataRecord.HasColumn(datarec, "TokenTarjetaGuardada") && datarec["TokenTarjetaGuardada"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "TokenTarjetaGuardada"))
                 TokenTarjetaGuardada = DbConvert.ToString(datarec["TokenTarjetaGuardada"]);
-            if (DataRecord.HasColumn(datarec, "CsiImporteComercio") && datarec["CsiImporteComercio"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CsiImporteComercio"))
                 CsiImporteComercio = DbConvert.ToDecimal(datarec["CsiImporteComercio"]);
-            if (DataRecord.HasColumn(datarec, "CsiCodigoPrograma") && datarec["CsiCodigoPrograma"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CsiCodigoPrograma"))
                 CsiCodigoPrograma = DbConvert.ToString(datarec["CsiCodigoPrograma"]);
-            if (DataRecord.HasColumn(datarec, "DescripcionIndicadorComercioElectronico") && datarec["DescripcionIndicadorComercioElectronico"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "DescripcionIndicadorComercioElectronico"))
                 DescripcionIndicadorComercioElectronico = DbConvert.ToString(datarec["DescripcionIndicadorComercioElectronico"]);
-            if (DataRecord.HasColumn(datarec, "IndicadorComercioElectronico") && datarec["IndicadorComercioElectronico"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "IndicadorComercioElectronico"))
                 IndicadorComercioElectronico = DbConvert.ToString(datarec["IndicadorComercioElectronico"]);
-            if (DataRecord.HasColumn(datarec, "DescripcionCodigoAccion") && datarec["DescripcionCodigoAccion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "DescripcionCodigoAccion"))
                 DescripcionCodigoAccion = DbConvert.ToString(datarec["DescripcionCodigoAccion"]);
-            if (DataRecord.HasColumn(datarec, "NombreBancoEmisor") && datarec["NombreBancoEmisor"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "NombreBancoEmisor"))
                 NombreBancoEmisor = DbConvert.ToString(datarec["NombreBancoEmisor"]);
-            if (DataRecord.HasColumn(datarec, "ImporteCuota") && datarec["ImporteCuota"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "ImporteCuota"))
                 ImporteCuota = DbConvert.ToDecimal(datarec["ImporteCuota"]);
-            if (DataRecord.HasColumn(datarec, "CsiTipoCobro") && datarec["CsiTipoCobro"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CsiTipoCobro"))
                 CsiTipoCobro = DbConvert.ToString(datarec["CsiTipoCobro"]);
-            if (DataRecord.HasColumn(datarec, "NumeroReferencia") && datarec["NumeroReferencia"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "NumeroReferencia"))
                 NumeroReferencia = DbConvert.ToString(datarec["NumeroReferencia"]);
-            if (DataRecord.HasColumn(datarec, "Respuesta") && datarec["Respuesta"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Respuesta"))
                 Respuesta = DbConvert.ToString(datarec["Respuesta"]);
-            if (DataRecord.HasColumn(datarec, "NumeroOrdenTienda") && datarec["NumeroOrdenTienda"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "NumeroOrdenTienda"))
                 NumeroOrdenTienda = DbConvert.ToString(datarec["NumeroOrdenTienda"]);
-            if (DataRecord.HasColumn(datarec, "CodigoAccion") && datarec["CodigoAccion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CodigoAccion"))
                 CodigoAccion = DbConvert.ToString(datarec["CodigoAccion"]);
-            if (DataRecord.HasColumn(datarec, "ImporteAutorizado") && datarec["ImporteAutorizado"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "ImporteAutorizado"))
                 ImporteAutorizado = DbConvert.ToDecimal(datarec["ImporteAutorizado"]);
-            if (DataRecord.HasColumn(datarec, "CodigoAutorizacion") && datarec["CodigoAutorizacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CodigoAutorizacion"))
                 CodigoAutorizacion = DbConvert.ToString(datarec["CodigoAutorizacion"]);
-            if (DataRecord.HasColumn(datarec, "CodigoTienda") && datarec["CodigoTienda"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CodigoTienda"))
                 CodigoTienda = DbConvert.ToString(datarec["CodigoTienda"]);
-            if (DataRecord.HasColumn(datarec, "NumeroTarjeta") && datarec["NumeroTarjeta"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "NumeroTarjeta"))
                 NumeroTarjeta = DbConvert.ToString(datarec["NumeroTarjeta"]);
-            if (DataRecord.HasColumn(datarec, "OrigenTarjeta") && datarec["OrigenTarjeta"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "OrigenTarjeta"))
                 OrigenTarjeta = DbConvert.ToString(datarec["OrigenTarjeta"]);
-            if (DataRecord.HasColumn(datarec, "EstadoSsicc") && datarec["EstadoSsicc"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "EstadoSsicc"))
                 EstadoSsicc = DbConvert.ToInt32(datarec["EstadoSsicc"]);
-            if (DataRecord.HasColumn(datarec, "Visualizado") && datarec["Visualizado"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Visualizado"))
                 Visualizado = DbConvert.ToBoolean(datarec["Visualizado"]);
-            if (DataRecord.HasColumn(datarec, "UsuarioCreacion") && datarec["UsuarioCreacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "UsuarioCreacion"))
                 UsuarioCreacion = DbConvert.ToString(datarec["UsuarioCreacion"]);
-            if (DataRecord.HasColumn(datarec, "UsuarioModificacion") && datarec["UsuarioModificacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "UsuarioModificacion"))
                 UsuarioModificacion = DbConvert.ToString(datarec["UsuarioModificacion"]);
-            if (DataRecord.HasColumn(datarec, "FechaCreacion") && datarec["FechaCreacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "FechaCreacion"))
                 FechaCreacion = DbConvert.ToDateTime(datarec["FechaCreacion"]);
-            if (DataRecord.HasColumn(datarec, "FechaModificacion") && datarec["FechaModificacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "FechaModificacion"))
                 FechaModificacion = DbConvert.ToDateTime(datarec["FechaModificacion"]);
         }
 

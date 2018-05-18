@@ -488,9 +488,16 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerISOPais(int paisID)
         {
-            string iso = Util.GetPaisISO(paisID);
-            string habilitarNemotecnico = ObtenerValorTablaLogica(paisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoMatriz);
-
+            string habilitarNemotecnico = "";
+            string iso = "";
+            if (paisID > 0)
+            {
+                iso = Util.Trim(Util.GetPaisISO(paisID));
+                if (iso != "")
+                {
+                    habilitarNemotecnico = ObtenerValorTablaLogica(paisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoMatriz);
+                }
+            }
             return Json(new
             {
                 ISO = iso,
