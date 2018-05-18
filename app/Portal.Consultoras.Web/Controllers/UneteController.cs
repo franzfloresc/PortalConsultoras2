@@ -1480,10 +1480,13 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (reporteDiasEspera != null)
                         {
-                            var data = reporteDiasEspera.ToList().FirstOrDefault(x => x.SolicitudPostulanteId == item.SolicitudPostulanteID).ResumenDiasEspera.Split('|');
-                            item.DetalleDiasEsperaGSAC = data[0];
-                            item.DetalleDiasEsperaAFFVV = data[1];
-                            item.DetalleDiasEsperaASAC = data[2];
+                            if (reporteDiasEspera.Count > 0)
+                            {
+                                var data = reporteDiasEspera.ToList().FirstOrDefault(x => x.SolicitudPostulanteId == item.SolicitudPostulanteID).ResumenDiasEspera.Split('|');
+                                item.DetalleDiasEsperaGSAC = data[0];
+                                item.DetalleDiasEsperaAFFVV = data[1];
+                                item.DetalleDiasEsperaASAC = data[2];
+                            }                            
                         }
                     }
                 }
