@@ -343,3 +343,6 @@
 .text_descrition_prd_bpt {
     padding: 0 10% !important;
 }
+.content_item_home_bpt {
+    min-height: 397px;
+}

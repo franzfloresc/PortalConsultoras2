@@ -293,10 +293,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BECrossSellingAsociacion> GetCUVAsociadoByFilter(int PaisID, int CampaniaID, string CUV, string CodigoSegmento);
-
-
+        
         [OperationContract]
-        bool DelPedidoWebDetalleMasivo(int PaisID, int CampaniaID, int PedidoID, string CodigoUsuario);
+        Task<bool> DelPedidoWebDetalleMasivo(BEUsuario usuario, int pedidoId);
 
         [OperationContract]
         bool DelPedidoWebDetallePackNueva(int PaisID, long ConsultoraID, int PedidoID);
@@ -643,6 +642,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<int> InsertarProductoShowroomMasiva(BEEstrategiaMasiva entidad);
+        [OperationContract]
+        List<string> ObtenerListadoCuvCupon(int paisId, int campaniaId);
 
         [OperationContract]
         List<BEEstrategia> FiltrarEstrategia(BEEstrategia entidad);
@@ -1108,6 +1109,9 @@ namespace Portal.Consultoras.ServiceContracts
         string DeshacerPedidoValidado(BEUsuario usuario, string tipo);
 
         [OperationContract]
+        Task<bool> DeshacerReservaPedido(BEUsuario usuario, int pedidoId);
+
+        [OperationContract]
         BEConsultoraResumen ObtenerResumen(int paisId, int codigoCampania, long consultoraId);
 
         #region Cupon
@@ -1217,20 +1221,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEMisPedidosFacturados> GetMisPedidosFacturados(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora);
         #endregion
-
-        #region CargaMasivaImagenes
-
-        [OperationContract]
-        List<BECargaMasivaImagenes> GetListaImagenesEstrategiasByCampania(int paisId, int campaniaId);
-
-        [OperationContract]
-        List<BECargaMasivaImagenes> GetListaImagenesOfertaLiquidacionByCampania(int paisId, int campaniaId);
-
-        [OperationContract]
-        List<BECargaMasivaImagenes> GetListaImagenesProductoSugeridoByCampania(int paisId, int campaniaId);
-
-        #endregion
-
+        
         #region ProductosPrecargados
         [OperationContract]
         int GetFlagProductosPrecargados(int paisID, string CodigoConsultora, int CampaniaID);
@@ -1261,9 +1252,19 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEPedidoDetalleAppResult InsertPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
         [OperationContract]
-        void UpdateProlApp(BEPedidoDetalleApp pedidoDetalle);
+        BEPedidoWeb GetPedidoApp(BEUsuario usuario);
         [OperationContract]
-        List<BEPedidoWebDetalle> GetPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
+        bool InsertKitInicio(BEUsuario usuario);
+        [OperationContract]
+        BEPedidoDetalleAppResult UpdatePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
+        [OperationContract]
+        BEConfiguracionPedido GetConfiguracionPedidoApp(int paisID, string codigoUsuario);
+        [OperationContract]
+        Task<BEPedidoDetalleAppResult> DeletePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
+        [OperationContract]
+        BEPedidoDetalleAppResult ReservaPedidoDetalleApp(BEUsuario usuario);
+        [OperationContract]
+        BEPedidoDetalleAppResult DeshacerReservaPedidoApp(BEUsuario usuario);
         #endregion
 
         #region Pago en Linea
@@ -1285,5 +1286,24 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEPagoEnLineaResultadoLogReporte> ObtenerPagoEnLineaByFiltro(int paisId, BEPagoEnLineaFiltro filtro);
         #endregion
+        
+        [OperationContract]
+        bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId);
+
+
+        [OperationContract]
+        bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad);
+
+        [OperationContract]
+        List<BEPedidoWebSetDetalle> GetPedidoWebSetDetalle(int paisID, int campania, long consultoraId);
+
+        [OperationContract]
+        BEPedidoWebSet ObtenerPedidoWebSet(int paisId, int setId);
+
+        [OperationContract]
+        bool EliminarPedidoWebSet(int paisId, int setId);
+
+        [OperationContract]
+        DateTime? ObtenerFechaInicioSets(int paisId);
     }
 }

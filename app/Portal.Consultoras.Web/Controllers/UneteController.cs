@@ -1340,10 +1340,13 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (!string.IsNullOrEmpty(item.DiasEnEspera))
                     {
-                        var data = reporteDiasEspera.ToList().FirstOrDefault(x => x.SolicitudPostulanteId == item.SolicitudPostulanteID).ResumenDiasEspera.Split('|');
-                        item.DetalleDiasEsperaGSAC = data[0];
-                        item.DetalleDiasEsperaAFFVV = data[1];
-                        item.DetalleDiasEsperaASAC = data[2];
+                        if (reporteDiasEspera != null)
+                        {
+                            var data = reporteDiasEspera.ToList().FirstOrDefault(x => x.SolicitudPostulanteId == item.SolicitudPostulanteID).ResumenDiasEspera.Split('|');
+                            item.DetalleDiasEsperaGSAC = data[0];
+                            item.DetalleDiasEsperaAFFVV = data[1];
+                            item.DetalleDiasEsperaASAC = data[2];
+                        }
                     }
                 }
 
@@ -1386,9 +1389,15 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_MotivoRechazo");
         }
 
-        public ActionResult ErrorGenerandoCodigo()
+        public ActionResult ErrorGenerandoCodigo(string NumeroDocumento)
         {
-            ViewBag.HTMLSACUnete = getHTMLSACUnete("ErrorGenerandoCodigo", null);
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ErrorGenerandoCodigo", "&numeroDocumento=" + NumeroDocumento);
+            return PartialView("_Message");
+        }
+
+        public ActionResult ErrorLog(string NumeroDocumento)
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ErrorLog", "&numeroDocumento=" + NumeroDocumento);
             return PartialView("_Message");
         }
 

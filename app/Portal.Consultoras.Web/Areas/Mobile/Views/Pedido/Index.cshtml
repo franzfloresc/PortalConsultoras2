@@ -356,7 +356,7 @@
 </div>
 <!-- FIN POPUP CLIENTE AGREGADO -->
 
-@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", true } })
 
 <script id="js-CarruselSugerido" type="text/x-handlebars-template">
     {{#each this}}

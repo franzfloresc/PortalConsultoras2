@@ -82,82 +82,82 @@ namespace Portal.Consultoras.Entities
 
         public BEConsultoraCatalogo(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CodigoConsultora") && row["CodigoConsultora"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoConsultora"))
                 this.CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
 
-            if (DataRecord.HasColumn(row, "NombreCompleto") && row["NombreCompleto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NombreCompleto"))
                 this.NombreCompleto = Convert.ToString(row["NombreCompleto"]);
 
-            if (DataRecord.HasColumn(row, "ZonaID") && row["ZonaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ZonaID"))
                 this.IdZona = Convert.ToInt32((row["ZonaID"]).ToString());
 
-            if (DataRecord.HasColumn(row, "Correo") && row["Correo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Correo"))
                 this.Correo = Convert.ToString(row["Correo"]);
 
-            if (DataRecord.HasColumn(row, "Celular") && row["Celular"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Celular"))
                 this.TelefonoCelular = Convert.ToString(row["Celular"]);
 
-            if (DataRecord.HasColumn(row, "CodigoZona") && row["CodigoZona"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoZona"))
                 this.CodigoZona = Convert.ToString(row["CodigoZona"]);
 
-            if (DataRecord.HasColumn(row, "FechaInicioFacturacion") && row["FechaInicioFacturacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaInicioFacturacion"))
                 this.DiaFacturacion = Convert.ToDateTime((row["FechaInicioFacturacion"]).ToString());
 
-            if (DataRecord.HasColumn(row, "CampaniaActual") && row["CampaniaActual"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CampaniaActual"))
                 this.CampaniaActual = Convert.ToInt32((row["CampaniaActual"]).ToString());
 
-            if (DataRecord.HasColumn(row, "HoraCierre") && row["HoraCierre"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "HoraCierre"))
                 this.HoraCierre = Convert.ToDateTime(row["HoraCierre"].ToString()).ToShortTimeString();
 
-            if (DataRecord.HasColumn(row, "EstadoActividad") && row["EstadoActividad"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "EstadoActividad"))
                 this.Estado = Convert.ToInt32((row["EstadoActividad"]).ToString());
 
-            if (DataRecord.HasColumn(row, "CodigoUsuario") && row["CodigoUsuario"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoUsuario"))
                 this.CodigoUsuario = Convert.ToString((row["CodigoUsuario"]));
 
-            if (DataRecord.HasColumn(row, "Pais") && row["Pais"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Pais"))
                 this.Pais = Convert.ToString(row["Pais"]);
 
-            if (DataRecord.HasColumn(row, "IdConsultora") && row["IdConsultora"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "IdConsultora"))
                 this.IdConsultora = Convert.ToInt64(row["IdConsultora"]);
 
-            if (DataRecord.HasColumn(row, "CodigoRegion") && row["CodigoRegion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoRegion"))
                 this.CodigoRegion = Convert.ToString(row["CodigoRegion"]);
 
-            if (DataRecord.HasColumn(row, "CodigoSeccion") && row["CodigoSeccion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoSeccion"))
                 this.CodigoSeccion = Convert.ToString(row["CodigoSeccion"]);
 
-            if (DataRecord.HasColumn(row, "RolId") && row["RolId"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "RolId"))
                 this.RolId = Convert.ToInt32(row["RolId"]);
 
-            if (DataRecord.HasColumn(row, "IdEstadoActividad") && row["IdEstadoActividad"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "IdEstadoActividad"))
                 this.IdEstadoActividad = Convert.ToInt32(row["IdEstadoActividad"]);
 
-            if (DataRecord.HasColumn(row, "AutorizaPedido") && row["AutorizaPedido"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "AutorizaPedido"))
                 this.AutorizaPedido = Convert.ToString(row["AutorizaPedido"]);
 
-            if (DataRecord.HasColumn(row, "EsAfiliado") && row["EsAfiliado"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "EsAfiliado"))
                 this.EsAfiliado = Convert.ToBoolean(row["EsAfiliado"]);
 
-            if (DataRecord.HasColumn(row, "UltimaCampania") && row["UltimaCampania"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "UltimaCampania"))
                 this.UltimaCampania = Convert.ToInt32(row["UltimaCampania"]);
 
-            if (DataRecord.HasColumn(row, "Ubigeo") && row["Ubigeo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Ubigeo"))
                 this.Ubigeo = Convert.ToString(row["Ubigeo"]);
 
-            if (DataRecord.HasColumn(row, "UnidadGeografica1") && row["UnidadGeografica1"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "UnidadGeografica1"))
                 this.UnidadGeografica1 = Convert.ToString(row["UnidadGeografica1"]);
 
-            if (DataRecord.HasColumn(row, "UnidadGeografica2") && row["UnidadGeografica2"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "UnidadGeografica2"))
                 this.UnidadGeografica2 = Convert.ToString(row["UnidadGeografica2"]);
 
-            if (DataRecord.HasColumn(row, "UnidadGeografica3") && row["UnidadGeografica3"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "UnidadGeografica3"))
                 this.UnidadGeografica3 = Convert.ToString(row["UnidadGeografica3"]);
 
-            if (DataRecord.HasColumn(row, "CampaniaActualID") && row["CampaniaActualID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CampaniaActualID"))
                 this.CampaniaActualID = Convert.ToInt32(row["CampaniaActualID"]);
 
-            if (DataRecord.HasColumn(row, "IdEstadoActividad") && row["IdEstadoActividad"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "IdEstadoActividad"))
                 this.IdEstadoActividad = Convert.ToInt32(row["IdEstadoActividad"]);
         }
     }

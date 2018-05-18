@@ -32,17 +32,17 @@
 
         public BEUbigeo(IDataRecord row)
         {
-            if (row.HasColumn("UbigeoID") && row["UbigeoID"] != DBNull.Value)
+            if (row.HasColumn("UbigeoID"))
                 UbigeoID = Convert.ToInt32(row["UbigeoID"]);
-            if (row.HasColumn("CodigoUbigeo") && row["CodigoUbigeo"] != DBNull.Value)
+            if (row.HasColumn("CodigoUbigeo"))
                 CodigoUbigeo = Convert.ToString(row["CodigoUbigeo"]);
-            if (row.HasColumn("UnidadGeografica1") && row["UnidadGeografica1"] != DBNull.Value)
+            if (row.HasColumn("UnidadGeografica1"))
                 UnidadGeografica1 = Convert.ToString(row["UnidadGeografica1"]);
-            if (row.HasColumn("UnidadGeografica2") && row["UnidadGeografica2"] != DBNull.Value)
+            if (row.HasColumn("UnidadGeografica2"))
                 UnidadGeografica2 = Convert.ToString(row["UnidadGeografica2"]);
-            if (row.HasColumn("UnidadGeografica3") && row["UnidadGeografica3"] != DBNull.Value)
+            if (row.HasColumn("UnidadGeografica3"))
                 UnidadGeografica3 = Convert.ToString(row["UnidadGeografica3"]);
-            if (row.HasColumn("UnidadGeografica4") && row["UnidadGeografica4"] != DBNull.Value)
+            if (row.HasColumn("UnidadGeografica4"))
                 UnidadGeografica4 = Convert.ToString(row["UnidadGeografica4"]);
         }
     }

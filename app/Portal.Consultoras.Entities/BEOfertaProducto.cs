@@ -136,78 +136,78 @@ namespace Portal.Consultoras.Entities
 
         public BEOfertaProducto(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "OfertaProductoID") && row["OfertaProductoID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "OfertaProductoID"))
                 OfertaProductoID = Convert.ToInt32(row["OfertaProductoID"]);
-            if (DataRecord.HasColumn(row, "NroOrden") && row["NroOrden"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NroOrden"))
                 NroOrden = Convert.ToInt32(row["NroOrden"]);
-            if (DataRecord.HasColumn(row, "CampaniaID") && row["CampaniaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CampaniaID"))
                 CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "CodigoCampania") && row["CodigoCampania"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoCampania"))
                 CodigoCampania = Convert.ToString(row["CodigoCampania"]);
-            if (DataRecord.HasColumn(row, "CUV") && row["CUV"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CUV"))
                 CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "CodigoTipoOferta") && row["CodigoTipoOferta"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoTipoOferta"))
                 CodigoTipoOferta = Convert.ToString(row["CodigoTipoOferta"]);
-            if (DataRecord.HasColumn(row, "TipoOferta") && row["TipoOferta"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TipoOferta"))
                 TipoOferta = Convert.ToString(row["TipoOferta"]);
-            if (DataRecord.HasColumn(row, "Descripcion") && row["Descripcion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Descripcion"))
                 Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "PrecioOferta") && row["PrecioOferta"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PrecioOferta"))
                 PrecioOferta = Convert.ToDecimal(row["PrecioOferta"]);
-            if (DataRecord.HasColumn(row, "Stock") && row["Stock"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Stock"))
                 Stock = Convert.ToInt32(row["Stock"]);
-            if (DataRecord.HasColumn(row, "ImagenProducto") && row["ImagenProducto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ImagenProducto"))
                 ImagenProducto = Convert.ToString(row["ImagenProducto"]);
-            if (DataRecord.HasColumn(row, "UnidadesPermitidas") && row["UnidadesPermitidas"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "UnidadesPermitidas"))
                 UnidadesPermitidas = Convert.ToInt32(row["UnidadesPermitidas"]);
-            if (DataRecord.HasColumn(row, "FlagHabilitarProducto") && row["FlagHabilitarProducto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FlagHabilitarProducto"))
                 FlagHabilitarProducto = Convert.ToInt32(row["FlagHabilitarProducto"]);
-            if (DataRecord.HasColumn(row, "Orden") && row["Orden"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Orden"))
                 Orden = Convert.ToInt32(row["Orden"]);
-            if (DataRecord.HasColumn(row, "ConfiguracionOfertaID") && row["ConfiguracionOfertaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ConfiguracionOfertaID"))
                 ConfiguracionOfertaID = Convert.ToInt32(row["ConfiguracionOfertaID"]);
-            if (DataRecord.HasColumn(row, "CodigoProducto") && row["CodigoProducto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoProducto"))
                 CodigoProducto = Convert.ToString(row["CodigoProducto"]);
-            if (DataRecord.HasColumn(row, "DescripcionLegal") && row["DescripcionLegal"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescripcionLegal"))
                 DescripcionLegal = Convert.ToString(row["DescripcionLegal"]);
-            if (DataRecord.HasColumn(row, "TipoOfertaSisID") && row["TipoOfertaSisID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TipoOfertaSisID"))
                 TipoOfertaSisID = Convert.ToInt32(row["TipoOfertaSisID"]);
-            if (DataRecord.HasColumn(row, "MarcaID") && row["MarcaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MarcaID"))
                 MarcaID = Convert.ToInt32(row["MarcaID"]);
-            if (DataRecord.HasColumn(row, "StockInicial") && row["StockInicial"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "StockInicial"))
                 StockInicial = Convert.ToInt32(row["StockInicial"]);
 
-            if (DataRecord.HasColumn(row, "ID") && row["ID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ID"))
                 ID = Convert.ToInt32(row["ID"]);
 
-            if (DataRecord.HasColumn(row, "CUV") && row["CUV"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CUV"))
                 CUV = row["CUV"].ToString();
 
-            if (DataRecord.HasColumn(row, "DescripcionCUV") && row["DescripcionCUV"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescripcionCUV"))
                 DescripcionCUV = row["DescripcionCUV"].ToString();
 
-            if (DataRecord.HasColumn(row, "PrecioUnitario") && row["PrecioUnitario"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PrecioUnitario"))
                 PrecioUnitario = Convert.ToDecimal(row["PrecioUnitario"].ToString());
 
-            if (DataRecord.HasColumn(row, "Tipo") && row["Tipo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Tipo"))
                 Tipo = row["Tipo"].ToString();
 
-            if (DataRecord.HasColumn(row, "DescripcionTipo") && row["DescripcionTipo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescripcionTipo"))
                 DescripcionTipo = row["DescripcionTipo"].ToString();
 
-            if (DataRecord.HasColumn(row, "DescripcionTallaColor") && row["DescripcionTallaColor"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescripcionTallaColor"))
                 DescripcionTallaColor = row["DescripcionTallaColor"].ToString();
 
-            if (DataRecord.HasColumn(row, "TallaColor") && row["TallaColor"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TallaColor"))
                 TallaColor = row["TallaColor"].ToString();
 
-            if (DataRecord.HasColumn(row, "DescripcionMarca") && row["DescripcionMarca"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescripcionMarca"))
                 DescripcionMarca = row["DescripcionMarca"].ToString();
 
-            if (DataRecord.HasColumn(row, "DescripcionCategoria") && row["DescripcionCategoria"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescripcionCategoria"))
                 DescripcionCategoria = row["DescripcionCategoria"].ToString();
 
-            if (DataRecord.HasColumn(row, "DescripcionEstrategia") && row["DescripcionEstrategia"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescripcionEstrategia"))
                 DescripcionEstrategia = row["DescripcionEstrategia"].ToString();
 
         }

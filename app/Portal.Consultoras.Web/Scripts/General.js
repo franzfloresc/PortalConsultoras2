@@ -7,6 +7,9 @@ belcorp.settings.uniquePrefix = "/g/";
 
 jQuery(document).ready(function () {
     CreateLoading();
+
+    redimensionarMenusTabs();
+
     $("body").on("click", "[data-compartir]", function (e) {
         e.preventDefault();
         CompartirRedesSociales(e);
@@ -437,6 +440,8 @@ jQuery(document).ready(function () {
         return pEnteraFinal + pDecimal;
     }
 
+    IsNullOrEmpty = function (texto) { return texto == null || texto === ''; }
+
     $(document).scroll(function () {
         try {
             $(".loadingScreenWindow").css("top", (($(window).height() / 2) + $(document).scrollTop() - $(".loadingScreenWindow").height()) + "px");
@@ -467,6 +472,17 @@ jQuery(document).ready(function () {
         return newLista;
     };
 })(jQuery);
+
+function redimensionarMenusTabs() {
+    var total_menu_contenedor = $(".bc_para_ti-menu ul li").size();
+
+    if (total_menu_contenedor > 2) {
+        $('.bc_para_ti-menu ul li').addClass('fix_menu_tabs_mobil_3');
+    }
+    else {
+        $('.bc_para_ti-menu ul li').addClass('fix_menu_tabs_mobil_2');
+    }
+}
 
 function showDialog(dialogId) {
     $("#" + dialogId).dialog("open");
@@ -1128,8 +1144,7 @@ function ResizeMensajeEstadoPedido() {
 function cerrarMensajeEstadoPedido() {
     $.ajax({
         type: 'Post',
-        url: baseUrl + 'Bienvenida/CerrarMensajeEstadoPedido',
-        data: '',
+        url: baseUrl + 'Bienvenida/CerrarMensajeEstadoPedido',        
         cache: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -1177,10 +1192,10 @@ function CompartirRedesSociales(e) {
 
     var padre = obj.parents("[data-item]");
     var article = $(padre).find("[data-compartir-campos]").eq(0);
-
+    var ruta = $(article).find(".rs" + tipoRedes + "Ruta").val() || "";
+    if (ruta == "") return false;
+    
     var label = $(article).find(".rs" + tipoRedes + "Mensaje").val();
-    var ruta = $(article).find(".rs" + tipoRedes + "Ruta").val();
-
     if (label != "") {
         dataLayer.push({
             'event': 'virtualEvent',
@@ -1190,8 +1205,6 @@ function CompartirRedesSociales(e) {
             'value': 0
         });
     }
-
-    if (ruta == "") return false;
 
     CompartirRedesSocialesInsertar(article, tipoRedes, ruta);
 }
@@ -1211,9 +1224,6 @@ function CompartirRedesSocialesTexto(texto) {
 
 
 function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre) {
-    if (!nombre) {
-        nombre = "";
-    }
 
     id = $.trim(id);
     if (id == "0" || id == "") {
@@ -1225,6 +1235,8 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre) 
     }
 
     ruta = ruta.replace('[valor]', id);
+
+    nombre = $.trim(nombre);
 
     try {
         if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {

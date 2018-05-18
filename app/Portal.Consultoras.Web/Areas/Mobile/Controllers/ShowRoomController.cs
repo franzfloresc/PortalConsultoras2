@@ -360,11 +360,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             var modelo = ViewDetalleOferta(id);
             modelo.EstrategiaId = id;
-            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-            bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+            bool esFacturacion = EsFacturacion();
 
-            var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, userData.BeShowRoom.EventoID,
-                        userData.BeShowRoom.CampaniaID);
+            var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, userData.BeShowRoom.EventoID, userData.BeShowRoom.CampaniaID);
             modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
             modelo.TieneCompraXcompra = userData.BeShowRoom.TieneCompraXcompra;
 
@@ -381,11 +379,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             var modelo = ViewDetalleOferta(id);
             modelo.EstrategiaId = id;
-            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-            bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+            bool esFacturacion = EsFacturacion();
 
-            var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, userData.BeShowRoom.EventoID,
-                        userData.BeShowRoom.CampaniaID);
+            var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, userData.BeShowRoom.EventoID, userData.BeShowRoom.CampaniaID);
             modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
             modelo.TieneCompraXcompra = userData.BeShowRoom.TieneCompraXcompra;
 

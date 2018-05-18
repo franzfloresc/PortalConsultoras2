@@ -34,19 +34,19 @@
 
         public BETipoMeta(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "IdTipoMeta") && row["IdTipoMeta"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "IdTipoMeta"))
                 IdTipoMeta = Convert.ToInt32(row["IdTipoMeta"]);
-            if (DataRecord.HasColumn(row, "CodigoMeta") && row["CodigoMeta"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoMeta"))
                 CodigoMeta = Convert.ToString(row["CodigoMeta"]);
-            if (DataRecord.HasColumn(row, "Descripcion") && row["Descripcion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Descripcion"))
                 Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "EstadoActivo") && row["EstadoActivo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "EstadoActivo"))
                 EstadoActivo = Convert.ToInt32(row["EstadoActivo"]);
-            if (DataRecord.HasColumn(row, "MontoMinimo") && row["MontoMinimo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MontoMinimo"))
                 MontoMinimo = Convert.ToDecimal(row["MontoMinimo"]);
-            if (DataRecord.HasColumn(row, "MontoMaximo") && row["MontoMaximo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MontoMaximo"))
                 MontoMaximo = Convert.ToDecimal(row["MontoMaximo"]);
-            if (DataRecord.HasColumn(row, "PaisID") && row["PaisID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PaisID"))
                 PaisID = Convert.ToInt32(row["PaisID"]);
         }
     }

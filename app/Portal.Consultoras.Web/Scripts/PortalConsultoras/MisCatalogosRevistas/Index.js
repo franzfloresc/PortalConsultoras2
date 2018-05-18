@@ -521,7 +521,7 @@ function CatalogoEnviarEmail() {
     var _Flagchklbel = "0";
     var _Flagchkcyzone = "0";
     var _Flagchkesika = "0";
-    var _Flagchkfinart = "0";
+    
 
     var clientes = new Array();
     for (var i = 0; i < correoEnviar.length; i++) {
@@ -545,7 +545,7 @@ function CatalogoEnviarEmail() {
             _Flagchklbel = objCorreo.LBel;
             _Flagchkesika = objCorreo.Esika;
             _Flagchkcyzone = objCorreo.Cyzone;
-            _Flagchkfinart = objCorreo.Finart;
+            
         }
         clientes.push(objCorreo);
     }

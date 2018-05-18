@@ -49,40 +49,40 @@ namespace Portal.Consultoras.Entities
 
         public BECrossSellingProducto(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CrossSellingProductoID") && row["CrossSellingProductoID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CrossSellingProductoID"))
                 CrossSellingProductoID = Convert.ToInt32(row["CrossSellingProductoID"]);
-            if (DataRecord.HasColumn(row, "NroOrden") && row["NroOrden"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NroOrden"))
                 NroOrden = Convert.ToInt32(row["NroOrden"]);
-            if (DataRecord.HasColumn(row, "CampaniaID") && row["CampaniaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CampaniaID"))
                 CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "CodigoCampania") && row["CodigoCampania"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoCampania"))
                 CodigoCampania = Convert.ToString(row["CodigoCampania"]);
-            if (DataRecord.HasColumn(row, "CUV") && row["CUV"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CUV"))
                 CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "Descripcion") && row["Descripcion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Descripcion"))
                 Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "PrecioOferta") && row["PrecioOferta"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PrecioOferta"))
                 PrecioOferta = Convert.ToDecimal(row["PrecioOferta"]);
-            if (DataRecord.HasColumn(row, "ImagenProducto") && row["ImagenProducto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ImagenProducto"))
                 ImagenProducto = Convert.ToString(row["ImagenProducto"]);
-            if (DataRecord.HasColumn(row, "FlagHabilitarProducto") && row["FlagHabilitarProducto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FlagHabilitarProducto"))
                 FlagHabilitarProducto = Convert.ToInt32(row["FlagHabilitarProducto"]);
-            if (DataRecord.HasColumn(row, "ConfiguracionOfertaID") && row["ConfiguracionOfertaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ConfiguracionOfertaID"))
                 ConfiguracionOfertaID = Convert.ToInt32(row["ConfiguracionOfertaID"]);
-            if (DataRecord.HasColumn(row, "TipoOfertaSisID") && row["TipoOfertaSisID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TipoOfertaSisID"))
                 TipoOfertaSisID = Convert.ToInt32(row["TipoOfertaSisID"]);
-            if (DataRecord.HasColumn(row, "MensajeProducto") && row["MensajeProducto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MensajeProducto"))
                 MensajeProducto = Convert.ToString(row["MensajeProducto"]);
-            if (DataRecord.HasColumn(row, "CodigoProducto") && row["CodigoProducto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoProducto"))
                 CodigoProducto = Convert.ToString(row["CodigoProducto"]);
-            if (DataRecord.HasColumn(row, "CodigoTipoOferta") && row["CodigoTipoOferta"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoTipoOferta"))
                 CodigoTipoOferta = Convert.ToString(row["CodigoTipoOferta"]);
-            if (DataRecord.HasColumn(row, "MarcaID") && row["MarcaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MarcaID"))
                 MarcaID = Convert.ToString(row["MarcaID"]);
-            if (DataRecord.HasColumn(row, "SubTipoOfertaSisID") && row["SubTipoOfertaSisID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "SubTipoOfertaSisID"))
                 SubTipoOfertaSisID = Convert.ToInt32(row["SubTipoOfertaSisID"]);
 
-            if (DataRecord.HasColumn(row, "EtiquetaPrecio") && row["EtiquetaPrecio"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "EtiquetaPrecio"))
                 EtiquetaPrecio = Convert.ToString(row["EtiquetaPrecio"]);
             else
                 EtiquetaPrecio = string.Empty;
