@@ -31,21 +31,21 @@
 
         public BELogPedidoDDInvalido(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "LogPedidoID") && row["LogPedidoID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "LogPedidoID"))
                 LogPedidoID = Convert.ToInt32(row["LogPedidoID"]);
-            if (DataRecord.HasColumn(row, "CodigoConsultora") && row["CodigoConsultora"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoConsultora"))
                 CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-            if (DataRecord.HasColumn(row, "CodigoUsuario") && row["CodigoUsuario"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoUsuario"))
                 CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
-            if (DataRecord.HasColumn(row, "CampaniaID") && row["CampaniaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CampaniaID"))
                 CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "NombreConsultora") && row["NombreConsultora"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NombreConsultora"))
                 NombreConsultora = Convert.ToString(row["NombreConsultora"]);
-            if (DataRecord.HasColumn(row, "FechaRegistro") && row["FechaRegistro"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaRegistro"))
                 FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
-            if (DataRecord.HasColumn(row, "FechaNotificacion") && row["FechaNotificacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaNotificacion"))
                 FechaNotificacion = Convert.ToDateTime(row["FechaNotificacion"]);
-            if (DataRecord.HasColumn(row, "IndicadorNotificado") && row["IndicadorNotificado"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "IndicadorNotificado"))
                 IndicadorNotificado = Convert.ToBoolean(row["IndicadorNotificado"]);
         }
     }

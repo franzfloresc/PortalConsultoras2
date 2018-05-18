@@ -3,10 +3,6 @@ using Moq;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.UnitTest.Controllers
@@ -55,7 +51,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 }
 
                 logManager.Verify(x => x.LogErrorWebServicesBusWrap(
-                    It.Is<Exception>(e=> e.Message.Contains("revistaDigital no puede ser nulo.")),
+                    It.Is<Exception>(e => e.Message.Contains("revistaDigital no puede ser nulo.")),
                     It.IsAny<string>(),
                     It.IsAny<string>(),
                     It.Is<string>(str => str.Contains("BaseLanzamientosController.Detalle"))
@@ -89,7 +85,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void Detalle_ConsultoraTieneRevistaDigitalYEsActivaYProductoTemporalEsNulo_DebeRedireccionarAOfertas()
             {
-                sessionManager.Setup(x => x.ProductoTemporal).Returns((EstrategiaPersonalizadaProductoModel)null);
+                sessionManager.Setup(x => x.GetProductoTemporal()).Returns((EstrategiaPersonalizadaProductoModel)null);
                 controller.RevistaDigital = new RevistaDigitalModel
                 {
                     TieneRDC = true,
@@ -106,7 +102,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             public void Detalle_ConsultoraTieneRevistaDigitalYEsActivaProductoTemporalIdEsCero_DebeRedireccionarAOfertas()
             {
                 sessionManager
-                    .Setup(x => x.ProductoTemporal)
+                    .Setup(x => x.GetProductoTemporal())
                     .Returns(new EstrategiaPersonalizadaProductoModel { });
                 controller.RevistaDigital = new RevistaDigitalModel
                 {
@@ -126,7 +122,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             public void Detalle_ConsultoraTieneRevistaDigitalYEsActivaProductoTemporalTieneCampaniaInvalida_DebeRedireccionarAOfertas(int campaniaId)
             {
                 sessionManager
-                    .Setup(x => x.ProductoTemporal)
+                    .Setup(x => x.GetProductoTemporal())
                     .Returns(new EstrategiaPersonalizadaProductoModel { EstrategiaID = 1, CampaniaID = campaniaId });
                 controller.RevistaDigital = new RevistaDigitalModel
                 {
@@ -144,8 +140,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             public void Detalle_ConsultoraTieneRevistaDigitalYEsActivaCuvDelUrlNoCoincideConProductoTemporal_DebeRedireccionarAOfertas()
             {
                 sessionManager
-                    .Setup(x => x.ProductoTemporal)
-                    .Returns(new EstrategiaPersonalizadaProductoModel { EstrategiaID = 1,CUV2 = "99988" });
+                    .Setup(x => x.GetProductoTemporal())
+                    .Returns(new EstrategiaPersonalizadaProductoModel { EstrategiaID = 1, CUV2 = "99988" });
                 controller.RevistaDigital = new RevistaDigitalModel
                 {
                     TieneRDC = true,
@@ -162,7 +158,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             public void Detalle_ConsultoraTieneRevistaDigitalYEsActivaCampaniaIdDelUrlNoCoincideConProductoTemporal_DebeRedireccionarAOfertas()
             {
                 sessionManager
-                    .Setup(x => x.ProductoTemporal)
+                    .Setup(x => x.GetProductoTemporal())
                     .Returns(new EstrategiaPersonalizadaProductoModel { EstrategiaID = 1, CUV2 = "99988", CampaniaID = 0 });
                 controller.RevistaDigital = new RevistaDigitalModel
                 {

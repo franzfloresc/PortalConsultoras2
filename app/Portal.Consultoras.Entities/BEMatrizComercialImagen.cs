@@ -40,19 +40,19 @@ namespace Portal.Consultoras.Entities
 
         public BEMatrizComercialImagen(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "IdMatrizComercialImagen") && row["IdMatrizComercialImagen"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "IdMatrizComercialImagen"))
                 IdMatrizComercialImagen = Convert.ToInt32(row["IdMatrizComercialImagen"]);
-            if (DataRecord.HasColumn(row, "IdMatrizComercial") && row["IdMatrizComercial"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "IdMatrizComercial"))
                 IdMatrizComercial = Convert.ToInt32(row["IdMatrizComercial"]);
-            if (DataRecord.HasColumn(row, "Foto") && row["Foto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Foto"))
                 Foto = Convert.ToString(row["Foto"]);
-            if (DataRecord.HasColumn(row, "NemoTecnico") && row["NemoTecnico"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NemoTecnico"))
                 NemoTecnico = Convert.ToString(row["NemoTecnico"]);
-            if (DataRecord.HasColumn(row, "DescripcionComercial") && row["DescripcionComercial"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescripcionComercial"))
                 DescripcionComercial = Convert.ToString(row["DescripcionComercial"]);
-            if (DataRecord.HasColumn(row, "FechaRegistro") && row["FechaRegistro"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaRegistro"))
                 FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
-            if (DataRecord.HasColumn(row, "TotalRegistros") && row["TotalRegistros"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TotalRegistros"))
                 TotalRegistros = Convert.ToInt32(row["TotalRegistros"]);
         }
     }
