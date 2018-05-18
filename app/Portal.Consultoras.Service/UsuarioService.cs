@@ -597,7 +597,13 @@ namespace Portal.Consultoras.Service
             var blUsuario = new BLUsuario();
             return blUsuario.GetValidarLoginSB2(paisID, codigoUsuario, contrasenia);
         }
-
+      
+        public BEValidaLoginSB2 GetValidarLoginJsonWebToken(int paisID, string documento)
+        {
+            var blUsuario = new BLUsuario();
+            return blUsuario.GetValidarLoginJsonWebToken(paisID, documento);
+        }
+        
         public BEValidaLoginSB2 GetValidarAutoLogin(int paisID, string codigoUsuario, string proveedor)
         {
             var blUsuario = new BLUsuario();
