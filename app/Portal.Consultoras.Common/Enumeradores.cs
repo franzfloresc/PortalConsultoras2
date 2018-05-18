@@ -299,5 +299,23 @@
             HerramientasVentaComprar = 10,
             HerramientasVentaRevisar = 11
         }
+
+        public enum EnvioEmail
+        {
+            NoSehaEncontradoEmail = 0,
+            ErrorAlEnviarEmail = 1,
+            SeEnvioCorrectoEmail = 2,
+            ExcedioCantidad = 3,
+            OrigenNoExiste = 4
+        }
+
+        public enum EnvioSms
+        {
+            NoSehaEncontradoCelular = 0,
+            ErrorAlEnviarSms = 1,
+            SeEnvioCorrectoElSms = 2,
+            ExcedioCantidad = 3,
+            OrigenNoExiste = 4
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Entities;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities;
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
@@ -351,23 +352,23 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         string RecuperarContrasenia(int paisId, string textoRecuperacion);
 
-        #region Restaurar Contraseña
+        #region OLVIDE CONTRASENIA
         [OperationContract]
         BEUsuarioCorreo GetRestaurarClaveByValor(int paisID, string valorIngresado, int prioridad);
 
         [OperationContract]
-        bool EnviarEmail(int paisID, BEUsuarioCorreo objEmail);
+        Enumeradores.EnvioEmail ProcesaEnvioEmail(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile);
+
+        [OperationContract]
+        Enumeradores.EnvioSms ProcesaEnvioSms(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile, string urlApi);
+
+        [OperationContract]
+        bool VerificarIgualdadCodigoIngresado(int PaisID, int origenID, string codigoUsuario, string codigoIngresado);
         #endregion
 
         #region Pin Autenticidad
         [OperationContract]
-        BEPinAutenticacion GetPinAutenticidad(int paisID, string CodigoUsuario);
-
-        [OperationContract]
-        string GetCodigoGenerado(int PaisID, BEUsuarioCorreo oUsuCorreo, string CodGenerado);
-
-        [OperationContract]
-        BEUsuarioCorreo GetOpcionHabilitada(int PaisID, BEUsuarioCorreo oUsuCorreo);
+        BEUsuarioCorreo GetPinAutenticidad(int paisID, string CodigoUsuario);
 
         [OperationContract]
         void UpdFlagAutenticacion(int paisID, string CodigoUsuario);

@@ -804,37 +804,37 @@ namespace Portal.Consultoras.Service
             return BLUsuario.RecuperarContrasenia(paisId, textoRecuperacion);
         }
 
-        #region Restaurar Contraseña
+        #region OLVIDE CONTRASENIA
         public BEUsuarioCorreo GetRestaurarClaveByValor(int paisID, string valorIngresado, int prioridad)
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.GetRestaurarClaveByValor(paisID, valorIngresado, prioridad);
         }
 
-        public bool EnviarEmail(int paisID, BEUsuarioCorreo objEmail)
+        public Enumeradores.EnvioEmail ProcesaEnvioEmail (int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.ProcesoEnvioEmail(paisID, objEmail);
+            return BLUsuario.ProcesaEnvioEmail(paisID, valorRestaurar, origenID, CantidadEnvios, esMobile);
+        }
+
+        public Enumeradores.EnvioSms ProcesaEnvioSms(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile, string urlApi)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ProcesaEnvioSms(paisID, valorRestaurar, origenID, CantidadEnvios, esMobile, urlApi);
+        }
+
+        public bool VerificarIgualdadCodigoIngresado(int PaisID, int origenID, string codigoUsuario, string codigoIngresado)
+        {
+            var BLUsuario = new BLUsuario();
+            return (BLUsuario.VerificarIgualdadCodigoIngresado(PaisID, origenID, codigoUsuario, codigoIngresado));
         }
         #endregion
 
-        #region Pin Autenticacion
-        public BEPinAutenticacion GetPinAutenticidad(int paisID, string CodigoUsuario)
+        #region Verificacion de Autenticidad
+        public BEUsuarioCorreo GetPinAutenticidad(int paisID, string CodigoUsuario)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.GetPinAutenticidad(paisID, CodigoUsuario);
-        }
-
-        public string GetCodigoGenerado(int PaisID, BEUsuarioCorreo oUsuCorreo, string CodGenerado)
-        {
-            var BLUsuario = new BLUsuario();
-            return (BLUsuario.GetCodigoGenerado(PaisID, oUsuCorreo, CodGenerado));
-        }
-
-        public BEUsuarioCorreo GetOpcionHabilitada(int PaisID, BEUsuarioCorreo oUsuCorreo)
-        {
-            var BLUsuario = new BLUsuario();
-            return BLUsuario.GetOpcionHabilitada(PaisID, oUsuCorreo);
+            return BLUsuario.GetVerificacionAutenticidad(paisID, CodigoUsuario);
         }
 
         public void UpdFlagAutenticacion(int paisID, string CodigoUsuario)

@@ -26,7 +26,8 @@ namespace Portal.Consultoras.Entities
         public string Descripcion { get; set; }
         [DataMember]
         public int TipoUsuario { get; set; }
-
+        [DataMember]
+        public int IdEstadoActividad { get; set; }
 
         [DataMember]
         public string OpcionCorreoActiva { get; set; }
@@ -48,6 +49,16 @@ namespace Portal.Consultoras.Entities
         public string TelefonoCentral { get; set; }
         [DataMember]
         public string CodigoISO { get; set; }
+        [DataMember]
+        public int OrigenID { get; set; }
+        [DataMember]
+        public bool opcionHabilitar { get; set; }
+        [DataMember]
+        public int CantidadEnvios { get; set; }
+        [DataMember]
+        public bool EsMobile { get; set; }
+        [DataMember]
+        public string MensajeSaludo { get; set; }
 
 
 
@@ -157,6 +168,8 @@ namespace Portal.Consultoras.Entities
                 CodigoISO = Convert.ToString(row["CodigoISO"]);
             if (DataRecord.HasColumn(row, "TipoUsuario") && row["TipoUsuario"] != DBNull.Value)
                 TipoUsuario = Convert.ToInt32(row["TipoUsuario"]);
+            if (DataRecord.HasColumn(row, "IdEstadoActividad") && row["IdEstadoActividad"] != DBNull.Value)
+                IdEstadoActividad = Convert.ToInt32(row["IdEstadoActividad"]);
         }
 
         //public BEUsuarioCorreo(IDataRecord row)

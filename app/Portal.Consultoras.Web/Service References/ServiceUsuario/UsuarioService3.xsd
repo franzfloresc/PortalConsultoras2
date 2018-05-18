@@ -8,4 +8,24 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Enumeradores.RechazoBannerUrl" nillable="true" type="tns:Enumeradores.RechazoBannerUrl" />
+  <xs:simpleType name="Enumeradores.EnvioEmail">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NoSehaEncontradoEmail" />
+      <xs:enumeration value="ErrorAlEnviarEmail" />
+      <xs:enumeration value="SeEnvioCorrectoEmail" />
+      <xs:enumeration value="ExcedioCantidad" />
+      <xs:enumeration value="OrigenNoExiste" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Enumeradores.EnvioEmail" nillable="true" type="tns:Enumeradores.EnvioEmail" />
+  <xs:simpleType name="Enumeradores.EnvioSms">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NoSehaEncontradoCelular" />
+      <xs:enumeration value="ErrorAlEnviarSms" />
+      <xs:enumeration value="SeEnvioCorrectoElSms" />
+      <xs:enumeration value="ExcedioCantidad" />
+      <xs:enumeration value="OrigenNoExiste" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Enumeradores.EnvioSms" nillable="true" type="tns:Enumeradores.EnvioSms" />
 </xs:schema>

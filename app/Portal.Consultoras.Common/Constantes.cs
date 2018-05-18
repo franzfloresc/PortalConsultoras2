@@ -2003,17 +2003,23 @@ namespace Portal.Consultoras.Common
             public const string Stock = "{stock}";
         }
 
-        #region OlvideContraseña
+        #region Olvide Contrasenia
         public class OlvideContraseña
         {
             public class Activacion
             {
                 public const short TablaLogicaID = 8;
-                public const int MostarTodasOpciones = 800;
-                public const int PaisesEmail = 801;
-                public const int PaisesSms = 802;
-                public const int PaisesChat = 803;
-                public const int PaisesBelcorpResponde = 804;
+                public const string MostarTodasOpciones = "MostarTodasOpciones";
+                public const string PaisesEmail = "PaisesEmail";
+                public const string PaisesSms = "PaisesSms";
+                public const string PaisesChat = "PaisesChat";
+                public const string PaisesBelcorpResponde = "PaisesBelcorpResponde";
+            }
+
+            public class CodigoOpciones
+            {
+                public const string ChatEmtelco = "ChatEmtelco";
+                public const string BelcorpResponde = "BelcorpResponde";
             }
 
             public class NombreOpcion
@@ -2027,29 +2033,51 @@ namespace Portal.Consultoras.Common
 
             }
 
-            public class Codigo
+            public class Mensajes
             {
-                public const int CodigoOrigen = 1;
+                public const string ErrorPais = "No se ha encontrado el País.";
+                public const string ErrorValor = "No se ha encontrado el valor ingresado.";
+                public const string CorreoNoIdentificado = "Correo electrónico no identificado.";
+                public const string ErrorEnviarCorreo = "Error al realizar el envío del correo, inténtelo mas tarde.";
+                public const string ErrorEnviarSms = "Error al realizar el envío del mensaje de texto, inténtelo mas tarde.";
+                public const string ExcedeCantidad = "Ha excedido la cantidad de envios.";
+                public const string OrigenEnvioDesconocido = "Origen de envío desconocido.";
+                public const string EnvioCorreoExitoso = "Te hemos enviado un enlace a tu correo, para restaurar tu clave.";
+                public const string EnvioSmsExitoso = "Mensaje de texto enviado correctamente";
             }
+
+            public const int Origen = 1;
         }
         #endregion
 
-        public class CodigoOpciones
+        #region Verificar Pin Autenticidad
+        public class VerificacionAutenticidad
         {
-            public const string ChatEmtelco = "ChatEmtelco";
-            public const string BelcorpResponde = "BelcorpResponde";
+            public class Activacion
+            {
+                public const short TablaLogicaID = 139;
+                public const string Activar = "Activar";
+                public const string PaisesEmail = "PaisesEmail";
+                public const string PaisesSms = "PaisesSms";
+            }
+
+            public class NombreOpcion
+            {
+                public const int MostrarEmailyCelular = 1;
+                public const int MostrarEmail = 2;
+                public const int MostrarCelular = 3;
+            }
+
+            public const string IdEstadoActividad = "IdEstadoActividad";
+            public const string MensajeNueva = "MensajeNueva";
+            public const string MensajeReactivada = "MensajeReactivada";
+            public const int Origen = 2;
         }
 
-        #region Pin Autenticidad
-        public class EnviarCorreoYSms
+        public class TipoEnvioEmailSms
         {
-            public const string Activo = "Activo";
-            public const string IdEstadoActividad = "IdEstadoActividad";
-
-            public const int RecuperarClave = 1;
-            public const int Autenticacion = 2;
-            public const int EnviarPorEmail = 1;
-            public const int EnviarPorSms = 2;
+            public const string EnviarPorEmail = "Email";
+            public const string EnviarPorSms = "SMS";
         }
         #endregion  
     }

@@ -3205,6 +3205,7 @@ namespace Portal.Consultoras.Common
 
         public static string EnmascararCorreo(string correo)
         {
+            if (string.IsNullOrEmpty(correo.Trim())) return "";
             string[] separada = correo.Split('@');
             int inicio = 2;
             int final = 1;
@@ -3213,13 +3214,13 @@ namespace Portal.Consultoras.Common
                 longitud = separada[0].Length - final - inicio;
             else
                 longitud = 1;
-
             separada[0] = separada[0].Remove(inicio, longitud).Insert(inicio, new string('*', longitud));
             return correo = String.Join("@", separada);
         }
 
         public static string EnmascararCelular(string celular)
         {
+            if (string.IsNullOrEmpty(celular.Trim())) return "";
             int inicio = 1; 
             int final = 2;
             int longitud = celular.Length;

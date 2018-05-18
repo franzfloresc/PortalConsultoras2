@@ -315,25 +315,25 @@ namespace Portal.Consultoras.Web.Controllers
         public async Task<JsonResult> Redireccionar(int paisId, string codigoUsuario, string returnUrl = null,
             bool hizoLoginExterno = false)
         {
-            BEPinAutenticacion oPin = null;
+            BEUsuarioCorreo oVerificarAutenticidad = null;
             bool flagPin = Convert.ToBoolean(TempData["FlagPin"]);
 
             if (!flagPin)
             {
-                oPin = PinAutenticacion(paisId, codigoUsuario);
+                oVerificarAutenticidad = VerificacionAutenticidad(paisId, codigoUsuario);
 
-                if (oPin != null)
+                if (oVerificarAutenticidad != null)
                 {
                     return Json(new
                     {
                         success = true,
-                        data = oPin,
+                        data = oVerificarAutenticidad,
                         redirectTo = ""
                     }, JsonRequestBehavior.AllowGet);
                 }
             }
 
-            oPin = null;
+            oVerificarAutenticidad = null;
 
             pasoLog = "Login.Redireccionar";
             var usuario = await GetUserData(paisId, codigoUsuario);
@@ -343,7 +343,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    data = oPin,
+                    data = oVerificarAutenticidad,
                     redirectTo = "Error al procesar la solicitud"
                 });
             }
@@ -380,7 +380,7 @@ namespace Portal.Consultoras.Web.Controllers
                             return Json(new
                             {
                                 success = true,
-                                data = oPin,
+                                data = oVerificarAutenticidad,
                                 redirectTo = Url.Action("Index", "MisDatos", new { area = "Mobile" })
                             });
                         }
@@ -394,7 +394,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = true,
-                        data = oPin,
+                        data = oVerificarAutenticidad,
                         redirectTo = urlx
                     });
                 }
@@ -410,7 +410,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    data = oPin,
+                    data = oVerificarAutenticidad,
                     redirectTo = urlx2
                 });
             }
@@ -418,7 +418,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new
             {
                 success = true,
-                data = oPin,
+                data = oVerificarAutenticidad,
                 redirectTo = Url.Action("Index", "Bienvenida")
             });
         }
@@ -2640,20 +2640,20 @@ namespace Portal.Consultoras.Web.Controllers
             return res;
         }
 
-        private string MensajesOlvideContrasena(string tipoMensaje)
-        {
-            tipoMensaje = Util.Trim(tipoMensaje);
-            switch (tipoMensaje)
-            {
-                case "1": return "El Número de Cédula ingresado no existe.";
-                case "2": return "No tienes un correo registrado para el envío de tu clave. Por favor comunícate con el Servicio de Atención al Cliente.";
-                case "3": return "Correo electrónico no identificado.";
-                case "4": return "Te hemos enviado una nueva clave a tu correo.";
-                case "5": return "Ocurrió un problema al recuperar tu contraseña.";
-                case "6": return "Error al realizar proceso, inténtelo mas tarde.";
-                default: return "";
-            }
-        }
+        //private string MensajesOlvideContrasena(string tipoMensaje)
+        //{
+        //    tipoMensaje = Util.Trim(tipoMensaje);
+        //    switch (tipoMensaje)
+        //    {
+        //        case "1": return "El Número de Cédula ingresado no existe.";
+        //        case "2": return "No tienes un correo registrado para el envío de tu clave. Por favor comunícate con el Servicio de Atención al Cliente.";
+        //        case "3": return "Correo electrónico no identificado.";
+        //        case "4": return "Te hemos enviado una nueva clave a tu correo.";
+        //        case "5": return "Ocurrió un problema al recuperar tu contraseña.";
+        //        case "6": return "Error al realizar proceso, inténtelo mas tarde.";
+        //        default: return "";
+        //    }
+        //}
 
         public RevistaDigitalModel FormatTextConfiguracionPaisDatosModel(RevistaDigitalModel revistaDigital,
             string nombreConsultora)
@@ -2750,18 +2750,19 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToRoute("UniqueRoute", route);
         }
 
-        #region Olvide Contraseña
+        #region OLVIDE CONTRASEÑA
         [AllowAnonymous]
         [HttpPost]
-        public JsonResult GetRestaurarClaveByValor(int paisID, string valorIngresado, int prioridad)
+        public JsonResult GetRestaurarClaveByValor(int paisID, string valorRestaurar, int prioridad)
         {
             try
             {
                 BEUsuarioCorreo oDatos = null;
                 using (var sv = new UsuarioServiceClient())
                 {
-                    oDatos = sv.GetRestaurarClaveByValor(paisID, valorIngresado, prioridad);
+                    oDatos = sv.GetRestaurarClaveByValor(paisID, valorRestaurar, prioridad);
                 }
+                SetTemData(oDatos, paisID, valorRestaurar);
 
                 return Json(new
                 {
@@ -2773,7 +2774,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, valorIngresado, Util.GetPaisISO(paisID));
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, valorRestaurar, Util.GetPaisISO(paisID));
                 return Json(new
                 {
                     success = false,
@@ -2782,7 +2783,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                logManager.LogErrorWebServicesBusWrap(ex, valorIngresado, Util.GetPaisISO(paisID), string.Empty);
+                logManager.LogErrorWebServicesBusWrap(ex, valorRestaurar, Util.GetPaisISO(paisID), string.Empty);
                 return Json(new
                 {
                     success = false,
@@ -2793,273 +2794,164 @@ namespace Portal.Consultoras.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public JsonResult ProcesaEnvioCorreo(int EsMobile, int NroIntetos, int OrigenID)
+        public JsonResult ProcesaEnvioCorreo(int CantidadEnvios, int origenID)
         {
-            //var oUsuCorreo = new BEUsuarioCorreo();
-            //bool envioCorreo = false;
-            //int PaisID = Convert.ToInt32(TempData["PaisID"]);
-
-            //try
-            //{
-            //    oUsuCorreo.CodigoUsuario = Convert.ToString(TempData["CodigoUsuario"]);
-            //    oUsuCorreo.PrimerNombre = Convert.ToString(TempData["PrimerNombre"]);
-            //    oUsuCorreo.NombreCompleto = Convert.ToString(TempData["NombreCompleto"]);
-            //    oUsuCorreo.Correo = Convert.ToString(TempData["Email"]);
-            //    oUsuCorreo.Celular = Convert.ToString(TempData["Celular"]);
-            //    //oUsuCorreo.tipoEnvio = Convert.ToInt32(TempData["TipoEnvio"]);
-            //    //oUsuCorreo.CodigoISO = Util.GetPaisISO(PaisID);
-            //    //oUsuCorreo.IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
-
-            //    if (oUsuCorreo.Correo != "")
-            //    {
-            //        oUsuCorreo.Cantidad = NroIntetos;
-            //        oUsuCorreo.OrigenID = OrigenID;
-            //        oUsuCorreo.EsMobile = Convert.ToBoolean(EsMobile);
-
-            //        using (UsuarioServiceClient sv = new UsuarioServiceClient())
-            //        {
-            //            envioCorreo = sv.EnviarEmail(PaisID, oUsuCorreo);
-            //        }
-
-            //        SetTemData(oUsuCorreo, PaisID);
-            //        TempData["TipoEnvio"] = Constantes.EnviarCorreoYSms.EnviarPorEmail;
-
-            //        if (envioCorreo)
-            //            return SuccessJson("", true);
-            //        else
-            //            return SuccessJson(MensajesOlvideContrasena("6"), false);
-            //    }
-            //    else
-            //    {
-            //        return SuccessJson(MensajesOlvideContrasena("3"), true);
-            //    }
-            //}
-            //catch (FaultException ex)
-            //{
-            //    LogManager.LogManager.LogErrorWebServicesPortal(ex, oUsuCorreo.Correo, Util.GetPaisISO(PaisID));
-            //    return ErrorJson(Constantes.MensajesError.RecuperarContrasenia, true);
-            //}
-
-            return null;
+            int paisID = Convert.ToInt32(TempData["PaisID"]);
+            if (paisID == 0) return SuccessJson(Constantes.OlvideContraseña.Mensajes.ErrorPais, false);
+            string valor = Convert.ToString(TempData["valorRestaurar"]);
+            if (valor == "") return SuccessJson(Constantes.OlvideContraseña.Mensajes.ErrorValor, false);
+            try
+            {
+                Enumeradores.EnvioEmail EstadoEnvio = Enumeradores.EnvioEmail.SeEnvioCorrectoEmail;
+                using (var svc = new UsuarioServiceClient())
+                {
+                    EstadoEnvio = svc.ProcesaEnvioEmail(paisID, valor, origenID, CantidadEnvios, EsDispositivoMovil());
+                }
+                TempData["PaisID"] = paisID;
+                TempData["ValorIngresado"] = valor;
+                switch (EstadoEnvio)
+                {
+                    case Enumeradores.EnvioEmail.NoSehaEncontradoEmail:
+                        return SuccessJson(Constantes.OlvideContraseña.Mensajes.CorreoNoIdentificado, false);
+                    case Enumeradores.EnvioEmail.ErrorAlEnviarEmail:
+                        return SuccessJson(Constantes.OlvideContraseña.Mensajes.ErrorEnviarCorreo, false);
+                    case Enumeradores.EnvioEmail.ExcedioCantidad:
+                        return SuccessJson(Constantes.OlvideContraseña.Mensajes.ExcedeCantidad, false);
+                    case Enumeradores.EnvioEmail.OrigenNoExiste:
+                        return SuccessJson(Constantes.OlvideContraseña.Mensajes.OrigenEnvioDesconocido, false);
+                }
+                return SuccessJson(Constantes.OlvideContraseña.Mensajes.EnvioCorreoExitoso, true);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, valor, Util.GetPaisISO(paisID));
+                return ErrorJson(Constantes.MensajesError.RecuperarContrasenia, true);
+            }
         }
 
         [AllowAnonymous]
         [HttpPost]
-        public JsonResult ProcesaEnvioSms(int NroIntetos, int OrigenID)
+        public JsonResult ProcesaEnvioSms(int cantidadEnvios, int origenID)
         {
-            //var oUsuCorreo = new BEUsuarioCorreo();
-            //bool EnvioSms = false;
+            int paisID = Convert.ToInt32(TempData["PaisID"]);
+            if (paisID == 0) return SuccessJson(Constantes.OlvideContraseña.Mensajes.ErrorPais, false);
+            string valor = Convert.ToString(TempData["valorRestaurar"]);
+            if (valor == "") return SuccessJson(Constantes.OlvideContraseña.Mensajes.ErrorValor, false);
 
-            //try
-            //{
-            //    int PaisID = Convert.ToInt32(TempData["PaisID"]);
-            //    bool EsMobile = EsDispositivoMovil();
+            try
+            {
+                var urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
+                Enumeradores.EnvioSms EstadoEnvio = Enumeradores.EnvioSms.SeEnvioCorrectoElSms;
+                using (var svc = new UsuarioServiceClient())
+                {
+                    EstadoEnvio = svc.ProcesaEnvioSms(paisID, valor, origenID, cantidadEnvios, EsDispositivoMovil(), urlApi);
+                }
+                TempData["PaisID"] = paisID;
+                TempData["ValorIngresado"] = valor;
 
-            //    if (PaisID != 0 && Convert.ToString(TempData["Celular"]) != "")
-            //    {
-
-            //        oUsuCorreo.CodigoUsuario = Convert.ToString(TempData["CodigoUsuario"]);
-            //        oUsuCorreo.PrimerNombre = Convert.ToString(TempData["PrimerNombre"]);
-            //        oUsuCorreo.NombreCompleto = Convert.ToString(TempData["NombreCompleto"]);
-            //        oUsuCorreo.Correo = Convert.ToString(TempData["Email"]);
-            //        oUsuCorreo.Celular = Convert.ToString(TempData["Celular"]);
-            //        oUsuCorreo.tipoEnvio = Convert.ToInt32(TempData["TipoEnvio"]);
-            //        oUsuCorreo.CodigoISO = Util.GetPaisISO(PaisID);
-            //        oUsuCorreo.IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
-
-            //        var urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
-            //        string requestUrl = "Api/EnviarSMS";
-
-            //        oUsuCorreo.opcionHabilitar = true;
-            //        if (NroIntetos >= 2)
-            //            oUsuCorreo.opcionHabilitar = false;
-
-            //        var data = new
-            //        {
-            //            CodigoUsuario = oUsuCorreo.CodigoUsuario,
-            //            nroCelular = oUsuCorreo.Celular,
-            //            OrigenID = OrigenID,
-            //            CodigoIso = oUsuCorreo.CodigoISO,
-            //            CampaniaID = 0, //Si no requiere campaña solo se envia Cero.
-            //            IdEstadoActividad = oUsuCorreo.IdEstadoActividad,
-            //            OpcionHabilitada = oUsuCorreo.opcionHabilitar,
-            //            EsMobile = EsMobile
-            //        };
-
-            //        HttpClient httpClient = new HttpClient();
-            //        httpClient.BaseAddress = new Uri(urlApi);
-            //        httpClient.DefaultRequestHeaders.Accept.Clear();
-            //        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            //        string dataString = JsonConvert.SerializeObject(data);
-            //        HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-            //        HttpResponseMessage response = httpClient.PostAsync(requestUrl, contentPost).GetAwaiter().GetResult();
-            //        EnvioSms = response.IsSuccessStatusCode;
-            //        httpClient.Dispose();
-
-            //        SetTemData(oUsuCorreo, PaisID);
-            //        TempData["TipoEnvio"] = Constantes.EnviarCorreoYSms.EnviarPorSms;
-            //    }
-
-            //    if (EnvioSms)
-            //        return SuccessJson(MensajesOlvideContrasena(""), EnvioSms);
-            //    else
-            //        return SuccessJson(MensajesOlvideContrasena("6"), EnvioSms);
-            //}
-            //catch (FaultException ex)
-            //{
-            //    LogManager.LogManager.LogErrorWebServicesPortal(ex, oUsuCorreo.CodigoUsuario, oUsuCorreo.CodigoISO);
-            //    return SuccessJson(MensajesOlvideContrasena("6"), false);
-            //}
-
-            return null;
+                switch (EstadoEnvio)
+                {
+                    case Enumeradores.EnvioSms.NoSehaEncontradoCelular:
+                        return SuccessJson(Constantes.OlvideContraseña.Mensajes.CorreoNoIdentificado, false);
+                    case Enumeradores.EnvioSms.ErrorAlEnviarSms:
+                        return SuccessJson(Constantes.OlvideContraseña.Mensajes.ErrorEnviarCorreo, false);
+                    case Enumeradores.EnvioSms.ExcedioCantidad:
+                        return SuccessJson(Constantes.OlvideContraseña.Mensajes.ExcedeCantidad, false);
+                    case Enumeradores.EnvioSms.OrigenNoExiste:
+                        return SuccessJson(Constantes.OlvideContraseña.Mensajes.OrigenEnvioDesconocido, false);
+                }                
+                return SuccessJson(Constantes.OlvideContraseña.Mensajes.EnvioSmsExitoso, true);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, valor, Util.GetPaisISO(paisID));
+                return ErrorJson(Constantes.MensajesError.RecuperarContrasenia, true);
+            }
         }
 
         [AllowAnonymous]
         [HttpPost]
         public async Task<JsonResult> ObtenerCodigoGenerado(int OrigenID, string Codigoingresado)
         {
-            //var oUsuCorreo = new BEUsuarioCorreo();
-            //int paisID = 0;
-
-            //try
-            //{
-            //    string iguales = "";
-            //    string newUri = "";
-            //    bool igual = false;
-
-            //    oUsuCorreo.OrigenID = OrigenID;
-            //    paisID = Convert.ToInt32(TempData["PaisID"]);
-
-            //    oUsuCorreo.CodigoUsuario = Convert.ToString(TempData["CodigoUsuario"]);
-            //    oUsuCorreo.PrimerNombre = Convert.ToString(TempData["PrimerNombre"]);
-            //    oUsuCorreo.NombreCompleto = Convert.ToString(TempData["NombreCompleto"]);
-            //    oUsuCorreo.Correo = Convert.ToString(TempData["Email"]);
-            //    oUsuCorreo.Celular = Convert.ToString(TempData["Celular"]);
-            //    oUsuCorreo.tipoEnvio = Convert.ToInt32(TempData["TipoEnvio"]);
-            //    oUsuCorreo.CodigoISO = Util.GetPaisISO(paisID);
-            //    oUsuCorreo.IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
-
-            //    using (UsuarioServiceClient sv = new UsuarioServiceClient())
-            //    {
-            //        iguales = sv.GetCodigoGenerado(paisID, oUsuCorreo, Codigoingresado);
-            //    }
-
-            //    if (iguales == "1")
-            //    {
-            //        igual = true;
-
-            //        switch (OrigenID)
-            //        {
-            //            case 1:
-            //                {
-            //                    string urlportal = oUsuCorreo.ContextoBase;
-            //                    DateTime diasolicitud = DateTime.Now;
-            //                    string fechasolicitud = diasolicitud.ToString("d/M/yyyy HH:mm:ss");
-            //                    string paisiso = oUsuCorreo.CodigoISO;
-            //                    string codigousuario = oUsuCorreo.CodigoUsuario;
-            //                    string nombre = oUsuCorreo.NombreCompleto.Trim().Split(' ').First();
-            //                    newUri = Convert.ToString(Portal.Consultoras.Common.Util.GetUrlRecuperarContrasenia(urlportal, paisID, oUsuCorreo.CodigoUsuario, paisiso, codigousuario, fechasolicitud, nombre));
-            //                }
-            //                break;
-
-            //            case 2:
-            //                {
-            //                    TempData["FlagPin"] = true;
-            //                    return await Redireccionar(paisID, oUsuCorreo.CodigoUsuario);
-            //                };
-            //        }
-            //    }
-
-            //    SetTemData(oUsuCorreo, paisID);
-
-            //    return Json(new
-            //    {
-            //        success = igual,
-            //        origen = OrigenID,
-            //        redirectTo = newUri,
-            //    }, JsonRequestBehavior.AllowGet);
-            //}
-            //catch (FaultException ex)
-            //{
-            //    LogManager.LogManager.LogErrorWebServicesPortal(ex, oUsuCorreo.CodigoUsuario, Util.GetPaisISO(paisID));
-            //    return Json(new
-            //    {
-            //        success = false,
-            //        message = "Error al verificar el codigo ingresado."
-            //    });
-            //}
-
-            return null;
-        }
-
-        private void SetTemData(BEUsuarioCorreo oUsuCorreo, int PaisID)
-        {
-            //TempData["PaisID"] = PaisID;
-
-            //TempData["CodigoISO"] = oUsuCorreo.CodigoISO;
-            //TempData["CodigoUsuario"] = oUsuCorreo.CodigoUsuario;
-            //TempData["PrimerNombre"] = oUsuCorreo.PrimerNombre;
-            //TempData["NombreCompleto"] = oUsuCorreo.NombreCompleto;
-            //TempData["IdEstadoActividad"] = oUsuCorreo.IdEstadoActividad;
-            //TempData["Email"] = oUsuCorreo.Correo;
-            //TempData["Celular"] = oUsuCorreo.Celular;
-            //TempData["OpcionCorreoActiva"] = oUsuCorreo.OpcionCorreoActiva;
-            //TempData["OpcionSmsActiva"] = oUsuCorreo.OpcionSmsActiva;
-            //TempData["HoraRestanteCorreo"] = oUsuCorreo.HoraRestanteCorreo;
-            //TempData["HoraRestanteSms"] = oUsuCorreo.HoraRestanteSms;
-            //TempData["Cantidad"] = oUsuCorreo.Cantidad;
-        }
-
-        private BEUsuarioCorreo GetTemData()
-        {
-            var oUsuCorreo = new BEUsuarioCorreo();
-            //oUsuCorreo.CodigoUsuario = Convert.ToString(TempData["CodigoUsuario"]);
-            //oUsuCorreo.CodigoISO = Convert.ToString(TempData["CodigoISO"]);
-            //oUsuCorreo.PrimerNombre = Convert.ToString(TempData["PrimerNombre"]);
-            //oUsuCorreo.NombreCompleto = Convert.ToString(TempData["NombreCompleto"]);
-            //oUsuCorreo.IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
-            //oUsuCorreo.Correo = Convert.ToString(TempData["Email"]);
-            //oUsuCorreo.Celular = Convert.ToString(TempData["Celular"]);
-            //oUsuCorreo.OpcionCorreoActiva = Convert.ToString(TempData["OpcionCorreoActiva"]);
-            //oUsuCorreo.OpcionSmsActiva = Convert.ToString(TempData["OpcionSmsActiva"]);
-            //oUsuCorreo.HoraRestanteCorreo = Convert.ToInt32(TempData["HoraRestanteCorreo"]);
-            //oUsuCorreo.HoraRestanteSms = Convert.ToInt32(TempData["HoraRestanteSms"]);
-            //oUsuCorreo.Cantidad = Convert.ToInt32(TempData["Cantidad"]);
-
-            return oUsuCorreo;
-        }
-
-        #endregion
-
-        #region Pin Autenticacion
-        public BEPinAutenticacion PinAutenticacion(int PaisID, string CodigoUsuario)
-        {
-            BEPinAutenticacion oPin = null;
+            int paisID = Convert.ToInt32(TempData["PaisID"]);
+            string codigoUsuario = Convert.ToString(TempData["CodigoUsuario"]);
+            string codigoIso = Convert.ToString(TempData["CodigoISO"]);
+            string primerNombre = Convert.ToString(TempData["PrimerNombre"]);
 
             try
             {
-                if (PaisID != 0)
-                {
-                    using (var sv = new UsuarioServiceClient())
-                    {
-                        oPin = sv.GetPinAutenticidad(PaisID, CodigoUsuario);
-                    }
+                bool iguales = false;
+                string newUri = "";
 
-                    TempData["PaisID"] = PaisID;
-                    TempData["CodigoUsuario"] = oPin.CodigoUsuario;
-                    TempData["PrimerNombre"] = oPin.PrimerNombre;
-                    TempData["Email"] = oPin.Email;
-                    TempData["Celular"] = oPin.Celular;
-                    TempData["IdEstadoActividad"] = oPin.IdEstadoActividad;
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    iguales = sv.VerificarIgualdadCodigoIngresado(paisID, OrigenID, codigoUsuario, Codigoingresado);
                 }
+
+                if (iguales)
+                {
+                    switch (OrigenID)
+                    {
+                        case 1:
+                            {
+                                string urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
+                                DateTime diasolicitud = DateTime.Now;
+                                string fechasolicitud = diasolicitud.ToString("d/M/yyyy HH:mm:ss");
+                                string CodigoIso = codigoIso;
+                                string codigousuario = codigoUsuario;
+                                string nombre = primerNombre;
+                                newUri = Convert.ToString(Portal.Consultoras.Common.Util.GetUrlRecuperarContrasenia(urlportal, paisID, codigoUsuario, CodigoIso, codigousuario, fechasolicitud, nombre));
+                            }
+                            break;
+
+                        case 2:
+                            {
+                                TempData["FlagPin"] = true;
+                                return await Redireccionar(paisID, codigoUsuario);
+                            };
+                    }
+                }
+                return Json(new
+                {
+                    success = iguales,
+                    origen = OrigenID,
+                    redirectTo = newUri,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, codigoUsuario, Util.GetPaisISO(paisID));
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al verificar el codigo ingresado."
+                });
+            }
+        }
+
+        private void SetTemData(BEUsuarioCorreo oRestaurar, int paisID, string valorRestaurar)
+        {
+            TempData["PaisID"] = paisID;
+            TempData["valorRestaurar"] = valorRestaurar;
+            TempData["CodigoISO"] = oRestaurar.CodigoISO;
+            TempData["CodigoUsuario"] = oRestaurar.CodigoUsuario;
+            TempData["NombreCompleto"] = oRestaurar.NombreCompleto;
+        }
+        #endregion
+
+        #region Pin Autenticacion
+        public BEUsuarioCorreo VerificacionAutenticidad(int paisID, string codigoUsuario)
+        {
+            try
+            {
+                using (var sv = new UsuarioServiceClient())
+                    return sv.GetPinAutenticidad(paisID, codigoUsuario);
             }
             catch (Exception ex)
             {
                 logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty, "LoginController.PinAutenticacion");
+                return null;
             }
-
-            return oPin;
         }
         #endregion
     }
