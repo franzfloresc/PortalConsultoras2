@@ -93,7 +93,7 @@ namespace Portal.Consultoras.Entities
                 Nombres = Convert.ToString(row["Nombres"]);
             if (row.HasColumn("Apellidos"))
                 Apellidos = Convert.ToString(row["Apellidos"]);
-            if (row.HasColumn("FechaNacimiento") && row["FechaNacimiento"] != DBNull.Value)
+            if (row.HasColumn("FechaNacimiento"))
                 FechaNacimiento = Convert.ToString(row["FechaNacimiento"]);
             if (row.HasColumn("Correo"))
                 Correo = Convert.ToString(row["Correo"]);
@@ -105,9 +105,9 @@ namespace Portal.Consultoras.Entities
                 LinkPerfil = Convert.ToString(row["LinkPerfil"]);
             if (row.HasColumn("FotoPerfil"))
                 FotoPerfil = Convert.ToString(row["FotoPerfil"]);
-            if (row.HasColumn("FechaRegistro") && row["FechaRegistro"] != DBNull.Value)
+            if (row.HasColumn("FechaRegistro"))
                 FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
-            if (row.HasColumn("Estado") && row["Estado"] != DBNull.Value)
+            if (row.HasColumn("Estado"))
                 Estado = Convert.ToInt16(row["Estado"]);
         }
     }

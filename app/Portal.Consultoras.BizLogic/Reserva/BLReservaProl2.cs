@@ -57,6 +57,16 @@ namespace Portal.Consultoras.BizLogic.Reserva
             return resultado;
         }
 
+        public async Task<bool> DeshacerReservaPedido(BEUsuario usuario, int pedidoId)
+        {
+            string codigoIso = Util.GetPaisISO(usuario.PaisID);
+            using (var sv = new ServiceStockSsic())
+            {
+                sv.Url = ConfigurationManager.AppSettings["Prol_" + codigoIso];
+                return await Task.Run(() => sv.wsDesReservarPedido(usuario.CodigoConsultora, codigoIso));
+            }
+        }
+
         private async Task<RespuestaProl> ConsumirServicioProl(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             string listaProductos = string.Join("|", listPedidoWebDetalle.Select(x => x.CUV).ToArray());

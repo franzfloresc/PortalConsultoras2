@@ -20,11 +20,11 @@
 
         public BEPaqueteDocumentario(IDataRecord datarec)
         {
-            if (DataRecord.HasColumn(datarec, "codigoConsultora") && datarec["codigoConsultora"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "codigoConsultora"))
                 codigoConsultora = DbConvert.ToString(datarec["codigoConsultora"]);
-            if (DataRecord.HasColumn(datarec, "campaniaID") && datarec["campaniaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "campaniaID"))
                 campaniaID = DbConvert.ToString(datarec["campaniaID"]);
-            if (DataRecord.HasColumn(datarec, "estado") && datarec["estado"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "estado"))
                 estado = DbConvert.ToString(datarec["estado"]);
         }
     }
