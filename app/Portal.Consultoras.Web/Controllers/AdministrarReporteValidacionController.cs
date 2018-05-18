@@ -14,6 +14,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private const string NombreReporteValidacionOPT = "ReporteValidacionOPT";
         private const string NombreReporteValidacionODD = "ReporteValidacionODD";
+        private const string NombreReporteValidacionOPM = "ReporteValidacionOPM";
         private const string NombreReporteValidacionSR = "ReporteValidacionSR";
 
         private const string NombreSRHoja1 = "Campaña";
@@ -81,7 +82,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             foreach (var item in lst)
             {
-                if (item.CodigoGeneral == 4 || item.CodigoGeneral == 7)
+                if (item.CodigoGeneral == 4 || item.CodigoGeneral == 7 || item.CodigoGeneral == 10)
                 {
                     lista.Add(new TipoEstrategiaModel
                     {
@@ -123,6 +124,8 @@ namespace Portal.Consultoras.Web.Controllers
                 nombreReporte = NombreReporteValidacionOPT;
             if (int.Parse(TipoEstrategiaID) == 7)
                 nombreReporte = NombreReporteValidacionODD;
+            if (int.Parse(TipoEstrategiaID) == 10)
+                nombreReporte = NombreReporteValidacionOPM;
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
@@ -262,7 +265,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {"CÓDIGO PAÍS", "CodPais"},
                 {"CUV PADRE", "CUV2"}
             };
-            if (tipoEstrategiaId == 4)
+            if (tipoEstrategiaId == 4 || tipoEstrategiaId == 10)
             {
                 dic.Add("DESCRIPCIÓN DE LA OFERTA (OPT: NOMBRE OFERTA / OPT: P1 + P2 + P3)", "DescripcionCUV2");
                 dic.Add("DESCRIPCIÓN VISUALIZACIÓN DE LA CONSULTORA (CORTA)", "DescripcionCorta");

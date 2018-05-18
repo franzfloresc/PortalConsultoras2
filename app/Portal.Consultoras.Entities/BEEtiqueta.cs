@@ -57,16 +57,16 @@ namespace Portal.Consultoras.Entities
 
         public BEEtiqueta(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "EtiquetaID") && row["EtiquetaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "EtiquetaID"))
                 EtiquetaID = Convert.ToInt32(row["EtiquetaID"]);
 
-            if (DataRecord.HasColumn(row, "Descripcion") && row["Descripcion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Descripcion"))
                 Descripcion = row["Descripcion"].ToString();
 
-            if (DataRecord.HasColumn(row, "Estado") && row["Estado"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Estado"))
                 Estado = Convert.ToInt32(row["Estado"]);
 
-            if (DataRecord.HasColumn(row, "CodigoGeneral") && row["CodigoGeneral"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoGeneral"))
                 this.CodigoGeneral = Convert.ToInt32(row["CodigoGeneral"]);
         }
     }

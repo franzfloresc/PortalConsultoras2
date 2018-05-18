@@ -160,7 +160,8 @@ namespace Portal.Consultoras.Service
         public IList<BEResumenCampania> GetFlexipago(int paisID, int CampaniaID, int ConsultoraID)
         {
             var blResumenCampania = new BLResumenCampania();
-            return blResumenCampania.GetFlexipago(paisID, CampaniaID, ConsultoraID);
+            //solucion a error en producción :Parameters to 'GetFlexipago' have the same names but not the same order as the method arguments.
+            return blResumenCampania.GetFlexipago(paisID, ConsultoraID , CampaniaID);
         }
 
         public IList<BEResumenCampania> GetDeudaTotal(int paisID, int ConsultoraID)

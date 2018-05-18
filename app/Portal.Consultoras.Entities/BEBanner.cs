@@ -42,19 +42,19 @@ namespace Portal.Consultoras.Entities
             mbFlagConsultoraNueva = Convert.ToBoolean(datarec["FlagConsultoraNueva"]);
             miTiempoRotacion = Convert.ToInt32(datarec["TiempoRotacion"]);
             miTipoContenido = Convert.ToInt32(datarec["TipoContenido"]);
-            if (DataRecord.HasColumn(datarec, "Nombre") && datarec["Nombre"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Nombre"))
                 Nombre = Convert.ToString(datarec["Nombre"]);
-            if (DataRecord.HasColumn(datarec, "PaginaNueva") && datarec["PaginaNueva"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "PaginaNueva"))
                 PaginaNueva = Convert.ToInt32(datarec["PaginaNueva"]);
-            if (DataRecord.HasColumn(datarec, "TituloComentario") && datarec["TituloComentario"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "TituloComentario"))
                 TituloComentario = Convert.ToString(datarec["TituloComentario"]);
-            if (DataRecord.HasColumn(datarec, "TextoComentario") && datarec["TextoComentario"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "TextoComentario"))
                 TextoComentario = Convert.ToString(datarec["TextoComentario"]);
-            if (DataRecord.HasColumn(datarec, "TipoAccion") && datarec["TipoAccion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "TipoAccion"))
                 miTipoAccion = Convert.ToInt32(datarec["TipoAccion"]);
-            if (DataRecord.HasColumn(datarec, "CuvPedido") && datarec["CuvPedido"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CuvPedido"))
                 miCUVpedido = Convert.ToString(datarec["CuvPedido"]);
-            if (DataRecord.HasColumn(datarec, "CantCuvPedido") && datarec["CantCuvPedido"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CantCuvPedido"))
                 miCantCUVpedido = Convert.ToInt32(datarec["CantCuvPedido"]);
 
             PaisesSegZona = new BEBannerSegmentoZona[0];
