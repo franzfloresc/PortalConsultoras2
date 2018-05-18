@@ -86,35 +86,41 @@ namespace Portal.Consultoras.Common
             client.Dispose();
         }
 
-        public static bool SetFileS3(string path, string carpetaPais, string fileName)
+        public static bool SetFileS3(string path, string carpetaPais, string fileName, bool actualizar = false)
         {
-            return SetFileS3(path, carpetaPais, fileName, true, true, false);
+            return SetFileS3(path, carpetaPais, fileName, true, true, false, actualizar);
         }
 
-        public static bool SetFileS3(string path, string carpetaPais, string fileName, bool archivoPublico, bool EliminarArchivo, bool throwException)
+        public static bool SetFileS3(string path, string carpetaPais, string fileName, bool archivoPublico, bool EliminarArchivo, bool throwException, bool actualizar = false)
         {
             try
             {
                 if (fileName == "")
                     return true;
 
-                if (File.Exists(path))
+                if (File.Exists(path) || actualizar)
                 {
                     var inputStream = new FileStream(path, FileMode.Open);
+
+                    var request = new PutObjectRequest
+                    {
+                        BucketName = ConfigS3.BUCKET_NAME,
+                        Key = ConfigS3.ROOT_DIRECTORY + "/" +
+                              ((carpetaPais != "") ? carpetaPais + "/" : "") +
+                              fileName,
+                        InputStream = inputStream
+                    };
+
+                    if (archivoPublico)
+                        request.CannedACL = Amazon.S3.S3CannedACL.PublicRead;
+
                     using (var client = Amazon.AWSClientFactory.CreateAmazonS3Client(ConfigS3.MY_AWS_ACCESS_KEY_ID, ConfigS3.MY_AWS_SECRET_KEY, Amazon.RegionEndpoint.USEast1))
                     {
-                        var request = new PutObjectRequest
-                        {
-                            BucketName = ConfigS3.BUCKET_NAME,
-                            Key = ConfigS3.ROOT_DIRECTORY + "/" +
-                                  ((carpetaPais != "") ? carpetaPais + "/" : "") +
-                                  fileName,
-                            InputStream = inputStream
-                        };
-                        if (archivoPublico) request.CannedACL = Amazon.S3.S3CannedACL.PublicRead;
                         client.PutObject(request);
                     }
-                    if (EliminarArchivo) File.Delete(path);
+
+                    if (EliminarArchivo)
+                        File.Delete(path);
                 }
 
                 return true;

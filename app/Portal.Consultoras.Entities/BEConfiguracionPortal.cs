@@ -20,11 +20,11 @@ namespace Portal.Consultoras.Entities
 
         public BEConfiguracionPortal(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "EstadoSimplificacionCUV") && row["EstadoSimplificacionCUV"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "EstadoSimplificacionCUV"))
                 EstadoSimplificacionCUV = DbConvert.ToBoolean(row["EstadoSimplificacionCUV"]);
-            if (DataRecord.HasColumn(row, "EsquemaDAConsultora") && row["EsquemaDAConsultora"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "EsquemaDAConsultora"))
                 EsquemaDAConsultora = DbConvert.ToBoolean(row["EsquemaDAConsultora"]);
-            if (DataRecord.HasColumn(row, "TipoProcesoCarga") && row["TipoProcesoCarga"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TipoProcesoCarga"))
                 TipoProcesoCarga = DbConvert.ToBoolean(row["TipoProcesoCarga"]);
         }
 

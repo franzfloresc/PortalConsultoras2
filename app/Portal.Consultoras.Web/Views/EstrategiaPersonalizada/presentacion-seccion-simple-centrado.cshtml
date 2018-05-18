@@ -3,22 +3,24 @@
 @{
     var seccionTituloClass = "seccion-titulo";
     var vermasClass = "";
-
+    var classOpt = "";
     if (ViewBag.EsSuscrita)
     {
         seccionTituloClass += " seccion-titulo-dorado";
         vermasClass += " dorado";
     }
-}
-
-<style>
-    .slick-slider {
-        margin-top: 15px !important;
+    if (Model.Codigo.ToLower().Equals("opt"))
+    {
+        classOpt = "carrusel-simple-opt";
     }
+}
+<style>
+    #carrusel-simple-opt .contenido_834 .revistadigital-landing { min-width: auto !important; }
+    #carrusel-simple-opt .contenido_834 .slick-list { width: 824px !important;}
 </style>
 <div class="bc_plantilla_estrategia_personalizada" style="background: url(@Model.ImagenFondo) center center no-repeat; background-position: center !important; min-height: 500px;vertical-align: middle;"
      data-plantilla="simple-centrado">
-    <div class="parche_presentacion_contenedor">
+    <div class="parche_presentacion_contenedor parche_presentacion_contenedor_834">
         <div class="bloque-titulo">
             <div class="@seccionTituloClass">
                 <span>@Model.Titulo</span>
@@ -37,7 +39,7 @@
         </div>
     </div>
     <div class="clear"></div>
-    <div class="content_estrategia_carrusel">
-        <div class="contenido" data-seccion-productos=""></div>
+    <div class="content_estrategia_carrusel content_estrategia_carrusel_834" id="@classOpt">
+        <div class="contenido contenido_834" data-seccion-productos="" ></div>
     </div>
 </div>

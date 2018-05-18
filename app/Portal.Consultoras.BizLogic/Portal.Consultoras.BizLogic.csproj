@@ -205,9 +205,11 @@
     <Compile Include="Pedido\ITrackingBusinessLogic.cs" />
     <Compile Include="Producto\IProductoBusinessLogic.cs" />
     <Compile Include="Reserva\BLReservaSicc.cs" />
+    <Compile Include="Reserva\IReservaBusinessLogic.cs" />
     <Compile Include="Pedido\IPedidoWebSetBusinessLogic.cs" />
     <Compile Include="Reserva\IReservaExternaBL.cs" />
     <Compile Include="Reserva\BLReservaProl2.cs" />
+    <Compile Include="Reserva\RestClient.cs" />
     <Compile Include="Resources\IncentivoMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -298,10 +300,6 @@
     <ProjectReference Include="..\Portal.Consultoras.Data.Hana\Portal.Consultoras.Data.Hana.csproj">
       <Project>{6A7ABF96-986A-4A90-9022-4E2A43F0B25D}</Project>
       <Name>Portal.Consultoras.Data.Hana</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Portal.Consultoras.Data.Service\Portal.Consultoras.Data.Rest.csproj">
-      <Project>{5156c092-f202-405e-bcb1-69c659b9af8d}</Project>
-      <Name>Portal.Consultoras.Data.Rest</Name>
     </ProjectReference>
     <ProjectReference Include="..\Portal.Consultoras.Data\Portal.Consultoras.Data.csproj">
       <Project>{022e2be6-d149-4cd7-8af4-b1df2ace8888}</Project>

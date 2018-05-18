@@ -18,8 +18,15 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                var IdCurso = sessionManager.GetMiAcademia();
+
+                if (IdCurso > 0)
+                {
+                    sessionManager.SetMiAcademia(0);
+                }
+
                 string key = GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
-                string urlLms = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLMS);
+                string urlLms = GetConfiguracionManager(IdCurso == 0 ? Constantes.ConfiguracionManager.UrlLMS : Constantes.ConfiguracionManager.CursosMarquesina);
                 string isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
                 string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
                 string eMail = userData.EMail.Trim() == string.Empty ? eMailNoExiste : userData.EMail;
@@ -66,10 +73,12 @@ namespace Portal.Consultoras.Web.Controllers
                 var exito = !(getUser.codigo == "003" || getUser.codigo == "004" || getUser.codigo == "005" ||
                               createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004");
 
-                urlLms = String.Format(urlLms, isoUsuario, token);
+                urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token) : String.Format(urlLms, isoUsuario, token, IdCurso);
 
-                if (HttpContext.Request.UrlReferrer != null)
-                    return Redirect(exito ? urlLms : HttpContext.Request.UrlReferrer.AbsoluteUri);
+                if (exito)
+                {
+                    return Redirect(urlLms);
+                }
             }
             catch (Exception ex)
             {

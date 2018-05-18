@@ -33,25 +33,25 @@ namespace Portal.Consultoras.Entities
 
         public BESolicitudClienteCatalogo(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Pais") && row["Pais"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Pais"))
                 Pais = Convert.ToString(row["Pais"]);
 
-            if (DataRecord.HasColumn(row, "CodigoConsultora") && row["CodigoConsultora"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoConsultora"))
                 CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
 
-            if (DataRecord.HasColumn(row, "AsuntoNotificacion") && row["AsuntoNotificacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "AsuntoNotificacion"))
                 AsuntoNotificacion = Convert.ToString(row["AsuntoNotificacion"]);
 
-            if (DataRecord.HasColumn(row, "DetalleNotificacion") && row["DetalleNotificacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DetalleNotificacion"))
                 DetalleNotificacion = Convert.ToString(row["DetalleNotificacion"]);
 
-            if (DataRecord.HasColumn(row, "Campania") && row["Campania"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Campania"))
                 Campania = Convert.ToString(row["Campania"]);
 
-            if (DataRecord.HasColumn(row, "CorreoCliente") && row["CorreoCliente"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CorreoCliente"))
                 CorreoCliente = Convert.ToString(row["CorreoCliente"]);
 
-            if (DataRecord.HasColumn(row, "FechaIngreso") && row["FechaIngreso"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaIngreso"))
                 FechaIngreso = Convert.ToDateTime((row["FechaIngreso"]).ToString());
         }
     }

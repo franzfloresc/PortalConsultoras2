@@ -34,21 +34,21 @@ namespace Portal.Consultoras.Entities
 
         public BELogGPRValidacionDetalle(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "LogGPRValidacionDetalleId") && row["LogGPRValidacionDetalleId"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "LogGPRValidacionDetalleId"))
                 this.LogGPRValidacionDetalleId = Convert.ToInt64(row["LogGPRValidacionDetalleId"]);
-            if (DataRecord.HasColumn(row, "LogGPRValidacionId") && row["LogGPRValidacionId"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "LogGPRValidacionId"))
                 this.LogGPRValidacionId = Convert.ToInt64(row["LogGPRValidacionId"]);
-            if (DataRecord.HasColumn(row, "CUV") && row["CUV"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CUV"))
                 this.CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "Descripcion") && row["Descripcion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Descripcion"))
                 this.Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "Cantidad") && row["Cantidad"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Cantidad"))
                 this.Cantidad = Convert.ToInt32(row["Cantidad"]);
-            if (DataRecord.HasColumn(row, "PrecioUnidad") && row["PrecioUnidad"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PrecioUnidad"))
                 this.PrecioUnidad = Convert.ToDecimal(row["PrecioUnidad"]);
-            if (DataRecord.HasColumn(row, "ImporteTotal") && row["ImporteTotal"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ImporteTotal"))
                 this.ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
-            if (DataRecord.HasColumn(row, "IndicadorOferta") && row["IndicadorOferta"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "IndicadorOferta"))
                 this.IndicadorOferta = Convert.ToBoolean(row["IndicadorOferta"]);
         }
     }

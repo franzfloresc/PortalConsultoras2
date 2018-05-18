@@ -41,6 +41,9 @@ namespace Portal.Consultoras.Data.Rest.ServiceSicc {
         private string estadoPedidoMontoMinimoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int exitCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string formaPagoGanadorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -69,6 +72,12 @@ namespace Portal.Consultoras.Data.Rest.ServiceSicc {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string montoPedidoMontoMinimoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string montoReclamoPendienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string montoSaldoRechazoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string montoTiendaVirtualField;
@@ -193,6 +202,19 @@ namespace Portal.Consultoras.Data.Rest.ServiceSicc {
                 if ((object.ReferenceEquals(this.estadoPedidoMontoMinimoField, value) != true)) {
                     this.estadoPedidoMontoMinimoField = value;
                     this.RaisePropertyChanged("estadoPedidoMontoMinimo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int exitCode {
+            get {
+                return this.exitCodeField;
+            }
+            set {
+                if ((this.exitCodeField.Equals(value) != true)) {
+                    this.exitCodeField = value;
+                    this.RaisePropertyChanged("exitCode");
                 }
             }
         }
@@ -323,6 +345,32 @@ namespace Portal.Consultoras.Data.Rest.ServiceSicc {
                 if ((object.ReferenceEquals(this.montoPedidoMontoMinimoField, value) != true)) {
                     this.montoPedidoMontoMinimoField = value;
                     this.RaisePropertyChanged("montoPedidoMontoMinimo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string montoReclamoPendiente {
+            get {
+                return this.montoReclamoPendienteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.montoReclamoPendienteField, value) != true)) {
+                    this.montoReclamoPendienteField = value;
+                    this.RaisePropertyChanged("montoReclamoPendiente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string montoSaldoRechazo {
+            get {
+                return this.montoSaldoRechazoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.montoSaldoRechazoField, value) != true)) {
+                    this.montoSaldoRechazoField = value;
+                    this.RaisePropertyChanged("montoSaldoRechazo");
                 }
             }
         }
