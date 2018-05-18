@@ -271,6 +271,8 @@
       <xs:element minOccurs="0" name="AppSE" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CallCenter" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MovilGR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MovilGZ" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PortalGZ" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UB" nillable="true" type="xs:string" />
     </xs:sequence>

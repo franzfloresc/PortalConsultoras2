@@ -23,17 +23,17 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         public BEShowRoomPersonalizacionNivel(IDataRecord row)
         {
-            if (row.HasColumn("PersonalizacionNivelId") && row["PersonalizacionNivelId"] != DBNull.Value)
+            if (row.HasColumn("PersonalizacionNivelId"))
                 PersonalizacionNivelId = Convert.ToInt32(row["PersonalizacionNivelId"]);
-            if (row.HasColumn("EventoID") && row["EventoID"] != DBNull.Value)
+            if (row.HasColumn("EventoID"))
                 EventoID = Convert.ToInt32(row["EventoID"]);
-            if (row.HasColumn("PersonalizacionId") && row["PersonalizacionId"] != DBNull.Value)
+            if (row.HasColumn("PersonalizacionId"))
                 PersonalizacionId = Convert.ToInt32(row["PersonalizacionId"]);
-            if (row.HasColumn("NivelId") && row["NivelId"] != DBNull.Value)
+            if (row.HasColumn("NivelId"))
                 NivelId = Convert.ToInt32(row["NivelId"]);
-            if (row.HasColumn("CategoriaId") && row["CategoriaId"] != DBNull.Value)
+            if (row.HasColumn("CategoriaId"))
                 CategoriaId = Convert.ToInt32(row["CategoriaId"]);
-            if (row.HasColumn("Valor") && row["Valor"] != DBNull.Value)
+            if (row.HasColumn("Valor"))
                 Valor = Convert.ToString(row["Valor"]);
         }
     }

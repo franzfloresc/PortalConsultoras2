@@ -29,19 +29,19 @@ namespace Portal.Consultoras.Entities
 
         public BEEventoFestivo(IDataRecord row)
         {
-            if (row.HasColumn("Nombre") && row["Nombre"] != DBNull.Value)
+            if (row.HasColumn("Nombre"))
                 Nombre = Convert.ToString(row["Nombre"]);
-            if (row.HasColumn("Alcance") && row["Alcance"] != DBNull.Value)
+            if (row.HasColumn("Alcance"))
                 Alcance = Convert.ToString(row["Alcance"]);
-            if (row.HasColumn("Periodo") && row["Periodo"] != DBNull.Value)
+            if (row.HasColumn("Periodo"))
                 Periodo = Convert.ToString(row["Periodo"]);
-            if (row.HasColumn("Inicio") && row["Inicio"] != DBNull.Value)
+            if (row.HasColumn("Inicio"))
                 Inicio = Convert.ToString(row["Inicio"]);
-            if (row.HasColumn("Fin") && row["Fin"] != DBNull.Value)
+            if (row.HasColumn("Fin"))
                 Fin = Convert.ToString(row["Fin"]);
-            if (row.HasColumn("Personalizacion") && row["Personalizacion"] != DBNull.Value)
+            if (row.HasColumn("Personalizacion"))
                 Personalizacion = Convert.ToString(row["Personalizacion"]);
-            if (row.HasColumn("Estado") && row["Estado"] != DBNull.Value)
+            if (row.HasColumn("Estado"))
                 Estado = Convert.ToBoolean(row["Estado"]);
         }
 

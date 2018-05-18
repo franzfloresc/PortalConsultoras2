@@ -23,17 +23,17 @@ namespace Portal.Consultoras.Entities
 
         public BELogConfiguracionCronograma(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "FechaRegistro") && row["FechaRegistro"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaRegistro"))
                 FechaRegistro = Convert.ToString(row["FechaRegistro"]);
-            if (DataRecord.HasColumn(row, "CodigoUsuario") && row["CodigoUsuario"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoUsuario"))
                 CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
-            if (DataRecord.HasColumn(row, "CodigoRegion") && row["CodigoRegion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoRegion"))
                 CodigoRegion = Convert.ToInt16(row["CodigoRegion"]);
-            if (DataRecord.HasColumn(row, "CodigoZona") && row["CodigoZona"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoZona"))
                 CodigoZona = Convert.ToInt16(row["CodigoZona"]);
-            if (DataRecord.HasColumn(row, "DiasDuracionAnterior") && row["DiasDuracionAnterior"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DiasDuracionAnterior"))
                 DiasDuracionAnterior = Convert.ToInt16(row["DiasDuracionAnterior"]);
-            if (DataRecord.HasColumn(row, "DiasDuracionActual") && row["DiasDuracionActual"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DiasDuracionActual"))
                 DiasDuracionActual = Convert.ToInt16(row["DiasDuracionActual"]);
         }
     }
