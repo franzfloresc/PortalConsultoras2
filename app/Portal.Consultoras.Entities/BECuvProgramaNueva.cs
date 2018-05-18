@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Entities
 
         public BECuvProgramaNueva(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Codigo") && row["Codigo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Codigo"))
                 Codigo = Convert.ToString(row["Codigo"]);
         }
     }

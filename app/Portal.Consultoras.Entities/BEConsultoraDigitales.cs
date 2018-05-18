@@ -18,11 +18,11 @@ namespace Portal.Consultoras.Entities
 
         public BEConsultoraDigitales(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "IPUsuario") && row["IPUsuario"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "IPUsuario"))
                 IPUsuario = Convert.ToString(row["IPUsuario"]);
-            if (DataRecord.HasColumn(row, "CampaniaID") && row["CampaniaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CampaniaID"))
                 CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "CodigoConsultora") && row["CodigoConsultora"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoConsultora"))
                 CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
 
         }

@@ -90,6 +90,19 @@ namespace Portal.Consultoras.Common
             catch { }
         }
 
+        public static void EnviarMailPinAutenticacion(string emailFrom, string emailTo, string titulo, string displayname, string logo, string nombre, string Pin)
+        {
+            string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\mailing_proceso_Pin_Autenticacion.html";
+            string htmlTemplate = FileManager.GetContenido(templatePath);
+
+            htmlTemplate = htmlTemplate.Replace("#Logo#", logo);
+            htmlTemplate = htmlTemplate.Replace("#Nombre#", nombre);
+            htmlTemplate = htmlTemplate.Replace("#Pin#", Pin);
+
+            try { Util.EnviarMail(emailFrom, emailTo, string.Empty, titulo, htmlTemplate, true, displayname); }
+            catch { }
+        }
+
         public static void EnviarMailProcesoActualizaMisDatos(string emailFrom, string emailTo, string titulo, string displayname, string logo, string nombre, string url, string fondo,
             string parametros)
         {

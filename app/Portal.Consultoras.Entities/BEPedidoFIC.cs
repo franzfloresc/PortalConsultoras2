@@ -88,11 +88,11 @@ namespace Portal.Consultoras.Entities
                 PaisID = Convert.ToInt32(row["PaisID"]);
             if (DataRecord.HasColumn(row, "CantidadProductos"))
                 CantidadProductos = Convert.ToInt32(row["CantidadProductos"]);
-            if (DataRecord.HasColumn(row, "Bloqueado") && row["Bloqueado"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Bloqueado"))
                 Bloqueado = Convert.ToInt16(row["Bloqueado"]);
             if (DataRecord.HasColumn(row, "Nombres"))
                 Nombres = Convert.ToString(row["Nombres"]);
-            if (DataRecord.HasColumn(row, "DescripcionBloqueo") && row["DescripcionBloqueo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescripcionBloqueo"))
                 DescripcionBloqueo = Convert.ToString(row["DescripcionBloqueo"]);
             if (DataRecord.HasColumn(row, "CodigoZona"))
                 CodigoZona = Convert.ToString(row["CodigoZona"]);

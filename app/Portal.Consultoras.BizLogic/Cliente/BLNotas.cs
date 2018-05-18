@@ -39,13 +39,21 @@ namespace Portal.Consultoras.BizLogic.Cliente
 
         public ResponseType<List<BENota>> Listar(int paisId, long consultoraId, short clienteId = 0)
         {
-            List<BENota> notas;
-            var daCliente = new DACliente(paisId);
+            var notas = new List<BENota>();
 
-            using (IDataReader reader = daCliente.NotaObtener(consultoraId, clienteId))
-                notas = reader.MapToCollection<BENota>();
+            try
+            {
+                using (var reader = new DACliente(paisId).NotaObtener(consultoraId, clienteId))
+                {
+                    notas = reader.MapToCollection<BENota>();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, consultoraId, paisId);
+            }
 
-            return ResponseType<List<BENota>>.Build(data: notas);
+            return ResponseType<List<BENota>>.Build(data: notas ?? new List<BENota>());
         }
 
         public ResponseType<bool> Actualizar(int paisId, BENota nota)

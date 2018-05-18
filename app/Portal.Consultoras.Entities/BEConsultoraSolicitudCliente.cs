@@ -28,22 +28,22 @@ namespace Portal.Consultoras.Entities
 
         public BEConsultoraSolicitudCliente(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Codigo") && row["Codigo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Codigo"))
                 Codigo = Convert.ToString(row["Codigo"]);
 
-            if (DataRecord.HasColumn(row, "Nombre") && row["Nombre"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Nombre"))
                 Nombre = Convert.ToString(row["Nombre"]);
 
-            if (DataRecord.HasColumn(row, "NombreCompleto") && row["NombreCompleto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NombreCompleto"))
                 NombreCompleto = Convert.ToString(row["NombreCompleto"]);
 
-            if (DataRecord.HasColumn(row, "Email") && row["Email"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Email"))
                 Email = Convert.ToString(row["Email"]);
 
-            if (DataRecord.HasColumn(row, "CodigoISO") && row["CodigoISO"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoISO"))
                 CodigoISO = Convert.ToString(row["CodigoISO"]);
 
-            if (DataRecord.HasColumn(row, "MarcaNombre") && row["MarcaNombre"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MarcaNombre"))
                 MarcaNombre = Convert.ToString(row["MarcaNombre"]);
         }
     }

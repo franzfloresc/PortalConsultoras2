@@ -1,11 +1,22 @@
 ﻿using Portal.Consultoras.Common;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 
 namespace Portal.Consultoras.BizLogic
 {
     public class BLCache
     {
+        public List<string> GetListEnumString()
+        {
+            var listString = new List<string>();
+            foreach (ECacheItem cacheItem in Enum.GetValues(typeof(ECacheItem)))
+            {
+                listString.Add(cacheItem.ToString());
+            }
+            return listString;
+        }
+
         public string RemoveData(int paisID, string cacheItemString, string customKey)
         {
             if (ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.EnabledRemoveCache] != "1")
