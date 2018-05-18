@@ -51,6 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.Lanzamiento, campaniaId));
                     break;
                 case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                    // cache de amazaon en la capa BL
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada, campaniaId));
                     break;
                 case Constantes.TipoEstrategiaCodigo.HerramientasVenta:

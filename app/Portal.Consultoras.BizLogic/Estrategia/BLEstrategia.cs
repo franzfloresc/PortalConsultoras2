@@ -203,6 +203,9 @@ namespace Portal.Consultoras.BizLogic
                         break;
                     case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
 
+                        // eliminar data de cache manager
+                        // se puede enviar un parametro para no validar si existe data en cache
+                        // crear un metodo en la BL que limpie cache x key (este metodo puede ser reutilizado por otro lado)
                         estrategias = (List<BEEstrategia>)CacheManager<BEEstrategia>.GetData(entidad.PaisID, ECacheItem.GNDEstrategia, entidad.CampaniaID.ToString());
                         if (estrategias == null || !estrategias.Any())
                         {
