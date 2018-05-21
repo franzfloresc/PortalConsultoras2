@@ -246,9 +246,19 @@
         });
     };
     
+
+    var configurarTextoPopUp = function () {
+
+        if (EsSuscripcionInmediata) 
+            $('.estasganando').html('YA ESTÁS SUSCRITA');
+        else
+            $('.estasganando').prepend('DISFRUTA LOS BENEFICIOS DESDE LA CAMPAÑA ');
+    }
+
+
     var _init = function(){
-        //
         _bindEvents();
+        configurarTextoPopUp();
     };
     
     return {

@@ -359,13 +359,16 @@ namespace Portal.Consultoras.Web.Controllers
 
             return "";
         }
-
+      
         private void RecargarPalancas()
         {
-            ConsultarEstrategias(string.Empty,userData.CampaniaID , Constantes.TipoEstrategiaCodigo.RevistaDigital);
-            ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.Lanzamiento);
-            ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
-            ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.LosMasVendidos);
+            if (EsSuscripcionInmediata())
+            {
+                ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
+                ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.Lanzamiento);
+                ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
+                ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.LosMasVendidos);
+            }
         }
 
         private string RegistroSuscripcionValidar(int tipo)
