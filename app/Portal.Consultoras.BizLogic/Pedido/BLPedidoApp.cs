@@ -139,11 +139,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
         }
 
-        private void LogPerformance(string cuv, string mensaje)
+        private void LogPerformance(string cuv, string mensaje , string nombreArchivo)
         {
             var pathFile = AppDomain.CurrentDomain.BaseDirectory + "Log\\";
             if (!System.IO.Directory.Exists(pathFile)) System.IO.Directory.CreateDirectory(pathFile);
-            string path = string.Format("{0}LogPerformance_GetCuv_{1}.portal", pathFile, DateTime.Now.ToString("yyyy-MM-dd"));
+            string path = string.Format("{0}LogPerformance_{1}_{2}.portal", pathFile, DateTime.Now.ToString("yyyy-MM-dd"), nombreArchivo);
             using (var stream = new System.IO.StreamWriter(path, true))
             {
                 if (string.IsNullOrEmpty(mensaje)) stream.WriteLine(string.Empty);
@@ -202,11 +202,16 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         public BEPedidoWeb Get(BEUsuario usuario)
         {
+            //Inicio método 
+            LogPerformance("", "Inicio Metodo GET", "GET");
             var pedido = new BEPedidoWeb();
 
             try
             {
+                //Obtiene  Cabecera 
+                LogPerformance("Inicio", "Obtener cabecera", "GET");
                 pedido = _pedidoWebBusinessLogic.GetPedidoWebByCampaniaConsultora(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
+                LogPerformance("Fin", "Fin cabecera", "GET");
 
                 var pedidoID = 0;
                 var pedidoBuscar = new BEPedidoAppBuscar()
@@ -218,6 +223,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     CodigoPrograma = usuario.CodigoPrograma,
                     ConsecutivoNueva = usuario.ConsecutivoNueva
                 };
+
+                //Obtener Detalle
+                LogPerformance("Inicio", "Obtener detalle", "GET");
+
                 var pedidos = ObtenerPedidoWebDetalle(pedidoBuscar, out pedidoID);
                 pedidos.Where(x => x.ClienteID == 0).Update(x => x.NombreCliente = usuario.Nombre);
                 pedido.olstBEPedidoWebDetalle = pedidos;
@@ -226,8 +235,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 pedido.CantidadCuv = pedidos.Count;
 
                 pedido.TippingPoint = 0;
+
+                LogPerformance("Fin", "Obtener detalle", "GET");
+
+                //Programa nuevas
                 if (usuario.MontoMaximoPedido > 0)
                 {
+                    LogPerformance("Inicio", "Configuracion programa nuevas", "GET");
+
                     var tp = GetConfiguracionProgramaNuevas(usuario);
 
                     if (tp.IndExigVent == "1")
@@ -235,6 +250,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         var obeConsultorasProgramaNuevas = GetConsultorasProgramaNuevas(usuario, tp.CodigoPrograma);
                         if (obeConsultorasProgramaNuevas != null) pedido.TippingPoint = obeConsultorasProgramaNuevas.MontoVentaExigido;
                     }
+
+                    LogPerformance("Fin", "Configuracion programa nuevas", "GET");
                 }
             }
             catch (Exception ex)
@@ -333,9 +350,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
             try
             {
                 //Informacion de usuario y palancas
+                LogPerformance("Inicio", "Informacion palancas", "UPDATE");
                 var usuario = _usuarioBusinessLogic.GetSesionUsuarioPedidoApp(pedidoDetalle.Usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo);
+                LogPerformance("Fin", "Informacion palancas", "UPDATE");
 
                 //Validacion reserve u horario restringido
+                LogPerformance("Inicio", "Validacion horario", "UPDATE");
                 var validacionHorario = _pedidoWebBusinessLogic.ValidacionModificarPedido(pedidoDetalle.PaisID,
                                                                                           usuario.ConsultoraID,
                                                                                           usuario.CampaniaID,
@@ -344,16 +364,26 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (validacionHorario.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno)
                     return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, validacionHorario.Mensaje);
 
+                LogPerformance("Fin", "Validacion horario", "UPDATE");
+
                 //Validar stock
+                LogPerformance("Inicio", "Validacion stock", "UPDATE");
                 var result = ValidarStockEstrategia(usuario, pedidoDetalle, out mensaje);
                 if (!result) return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_STOCK_ESTRATEGIA, mensaje);
 
+                LogPerformance("Fin", "Validacion stock", "UPDATE");
+
                 //accion actualizar
+                LogPerformance("Inicio", "Accion actualizar", "UPDATE");
                 var accionActualizar = PedidoActualizar(usuario, pedidoDetalle);
                 if (accionActualizar != Constantes.PedidoAppValidacion.Code.SUCCESS) return PedidoDetalleRespuesta(accionActualizar);
 
+                LogPerformance("Fin", "Accion actualizar", "UPDATE");
+
                 //actualiza PROL
+                LogPerformance("Inicio", "Actualiza PROL", "UPDATE");
                 UpdateProl(usuario);
+                LogPerformance("Fin", "Actualiza PROL", "UPDATE");
 
                 return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.SUCCESS);
 
