@@ -583,8 +583,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var resultadoReserva = await _reservaBusinessLogic.EjecutarReserva(input);
                 LogPerformance("EjecutarReserva");
                 var code = string.Empty;
-                if(usuario.DiaPROL) code = ((int)resultadoReserva.ResultadoReservaEnum + 2010).ToString();
-                else code = ((int)resultadoReserva.ResultadoReservaEnum + 2020).ToString();
+                var enumReserva = (int)resultadoReserva.ResultadoReservaEnum;
+                if (usuario.DiaPROL) code = (enumReserva + 2010).ToString();
+                else code = (enumReserva + 2020).ToString();
 
                 var observaciones = ObtenerMensajePROLAnalytics(resultadoReserva.ListPedidoObservacion);
 
@@ -697,7 +698,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 CodigoRespuesta = (codigoRespuesta == Constantes.PedidoAppValidacion.Code.SUCCESS_RESERVA ||
                                     codigoRespuesta == Constantes.PedidoAppValidacion.Code.SUCCESS_RESERVA_OBS ||
-                                    codigoRespuesta == Constantes.PedidoAppValidacion.Code.SUCCESS_GUARDAR_OBS ||
+                                    codigoRespuesta == Constantes.PedidoAppValidacion.Code.SUCCESS_GUARDAR ||
                                     codigoRespuesta == Constantes.PedidoAppValidacion.Code.SUCCESS_GUARDAR_OBS ?
                                     Constantes.PedidoAppValidacion.Code.SUCCESS : codigoRespuesta),
                 MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoAppValidacion.Message[codigoRespuesta] : mensajeRespuesta
@@ -1232,10 +1233,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         private string ConfigurarUrlServiceProl(string codigoISO)
         {
-            var ambiente = WebConfig.Ambiente.ToUpper();
-            var pais = codigoISO;
-            var key = ambiente.Trim().ToUpper() + "_Prol_" + pais.Trim().ToUpper();
-            return ConfigurationManager.AppSettings[key];
+            var key = string.Concat("Prol_", codigoISO.Trim().ToUpper());
+            return WebConfig.GetByTagName(key);
         }
         #endregion
 
