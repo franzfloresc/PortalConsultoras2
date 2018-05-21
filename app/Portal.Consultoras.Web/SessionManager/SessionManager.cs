@@ -398,6 +398,16 @@ namespace Portal.Consultoras.Web.SessionManager
             return (PedidoWebClientePrincipalMobilModel)HttpContext.Current.Session[Constantes.ConstSession.PedidosFacturados];
         }
 
+        public void SetMiAcademia(int id) /* SOPORTEC-266 */
+        {
+            HttpContext.Current.Session["MiAcademia"] = id;
+        }
+
+        public int GetMiAcademia() /* SOPORTEC-266 */
+        {
+            return (int) HttpContext.Current.Session["MiAcademia"];
+        }
+
         void ISessionManager.SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
         {
             HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = modelo;

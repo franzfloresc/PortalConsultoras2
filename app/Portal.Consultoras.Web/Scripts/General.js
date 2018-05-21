@@ -440,6 +440,8 @@ jQuery(document).ready(function () {
         return pEnteraFinal + pDecimal;
     }
 
+    IsNullOrEmpty = function (texto) { return texto == null || texto === ''; }
+
     $(document).scroll(function () {
         try {
             $(".loadingScreenWindow").css("top", (($(window).height() / 2) + $(document).scrollTop() - $(".loadingScreenWindow").height()) + "px");
@@ -1188,11 +1190,10 @@ function CompartirRedesSociales(e) {
     if (tipoRedes == "") tipoRedes = $.trim($(obj).attr("data-compartir"));
     if (tipoRedes == "") return false;
 
-    var ruta = $(article).find(".rs" + tipoRedes + "Ruta").val();
-    if (ruta == "") return false;
-
     var padre = obj.parents("[data-item]");
     var article = $(padre).find("[data-compartir-campos]").eq(0);
+    var ruta = $(article).find(".rs" + tipoRedes + "Ruta").val() || "";
+    if (ruta == "") return false;
     
     var label = $(article).find(".rs" + tipoRedes + "Mensaje").val();
     if (label != "") {
@@ -1223,7 +1224,6 @@ function CompartirRedesSocialesTexto(texto) {
 
 
 function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre) {
-
 
     id = $.trim(id);
     if (id == "0" || id == "") {

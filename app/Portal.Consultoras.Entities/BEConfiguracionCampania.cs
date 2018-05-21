@@ -71,6 +71,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public TimeSpan HoraInicioNoFacturable { get; set; }
         [DataMember]
+        [Column("HoraCierreNoFacturable")]
         public TimeSpan HoraCierreNoFacturable { get; set; }
         [DataMember]
         [Column("EstadoPedido")]
@@ -100,6 +101,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int HorasDuracionRestriccion { get; set; }
         [DataMember]
+        [Column("NroCampanias")]
         public int NroCampanias { get; set; }
         [DataMember]
         public DateTime FechaFinFIC { get; set; }
@@ -108,6 +110,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string ImagenURLOfertaFIC { get; set; }
         [DataMember]
+        [Column("PROLSinStock")]
         public bool PROLSinStock { get; set; }
         [DataMember]
         public DateTime FechaInicioReFacturacion { get; set; }
@@ -133,6 +136,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public TimeSpan HoraCierreZonaDemAntiCierre { get; set; }
         [DataMember]
+        [Column("ValidacionInteractiva")]
         public bool ValidacionInteractiva { get; set; }
         [DataMember]
         public string MensajeValidacionInteractiva { get; set; }

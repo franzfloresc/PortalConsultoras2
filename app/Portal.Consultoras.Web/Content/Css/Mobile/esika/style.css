@@ -7763,6 +7763,7 @@ input[type='checkbox']:checked + span:after {
     letter-spacing: .5px;
     text-align: center;
     color: #a18328;
+    margin-top: 7px;
 }
 
     .content_carrusel_agregado .agregado .icono {
@@ -12566,6 +12567,8 @@ a {
     color: #e81c36;
     text-align: center;
     margin-bottom: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .saludo_paginacion {
@@ -14820,8 +14823,7 @@ a {
     line-height:21.5px;
     text-align: center;
     font-weight: bold;
-    margin: 14px auto 10px;
-    padding-left: 12px;
+    margin: 14px auto 10px;    
     background-image: url(../../../Images/mobile/Esika/indicador_pedido.png);
     background-repeat: no-repeat;
     background-position: 0 center;

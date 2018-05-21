@@ -79,6 +79,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.SegmentoInternoID, f => f.MapFrom(c => c.SegmentoInternoID == null ? 0 : Convert.ToInt32(c.SegmentoInternoID)));
 
             Mapper.CreateMap<UsuarioModel, ServicePedido.BEUsuario>()
+                .ForMember(t => t.FechaInicioFacturacion, f => f.MapFrom(c => c.FechaInicioCampania))
+                .ForMember(t => t.FechaFinFacturacion, f => f.MapFrom(c => c.FechaFinCampania))
                 .ForMember(t => t.MontoMinimoFlexipago, f => f.Ignore())
                 .ForMember(t => t.OfertaDelDia, f => f.Ignore());
 

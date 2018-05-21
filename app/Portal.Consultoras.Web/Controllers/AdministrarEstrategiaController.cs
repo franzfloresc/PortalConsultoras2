@@ -859,7 +859,9 @@ namespace Portal.Consultoras.Web.Controllers
                     EstrategiaID = Convert.ToInt32(EstrategiaID),
                     CampaniaID = Convert.ToInt32(CampaniaID),
                     TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
-                    CUV2 = cuv2
+                    CUV2 = cuv2,
+                     AgregarEnMatriz=true,
+                     UsuarioRegistro = userData.CodigoConsultora
                 };
 
                 List<BEEstrategia> lst;

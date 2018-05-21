@@ -292,7 +292,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<BEMiCertificado, MiCertificadoModel>();
              
-             Mapper.CreateMap<ServiceODS.BEPagoEnLineaInfo, PagoEnlineaInfoModel>();
+             //Mapper.CreateMap<ServiceODS.BEPagoEnLineaInfo, PagoEnlineaInfoModel>();
 
 
             Mapper.CreateMap<BEEtiqueta, EtiquetaModel>()
