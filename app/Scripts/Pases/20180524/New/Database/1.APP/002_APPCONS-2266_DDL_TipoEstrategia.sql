@@ -1,0 +1,84 @@
+﻿USE BelcorpPeru
+GO
+
+IF NOT EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'MensajeValidacion' AND TABLE_NAME = 'TipoEstrategia')
+	ALTER TABLE dbo.TipoEstrategia ADD MensajeValidacion VARCHAR(150)
+GO
+
+USE BelcorpMexico
+GO
+
+IF NOT EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'MensajeValidacion' AND TABLE_NAME = 'TipoEstrategia')
+	ALTER TABLE dbo.TipoEstrategia ADD MensajeValidacion VARCHAR(150)
+GO
+
+USE BelcorpColombia
+GO
+
+IF NOT EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'MensajeValidacion' AND TABLE_NAME = 'TipoEstrategia')
+	ALTER TABLE dbo.TipoEstrategia ADD MensajeValidacion VARCHAR(150)
+GO
+
+USE BelcorpSalvador
+GO
+
+IF NOT EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'MensajeValidacion' AND TABLE_NAME = 'TipoEstrategia')
+	ALTER TABLE dbo.TipoEstrategia ADD MensajeValidacion VARCHAR(150)
+GO
+
+USE BelcorpPuertoRico
+GO
+
+IF NOT EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'MensajeValidacion' AND TABLE_NAME = 'TipoEstrategia')
+	ALTER TABLE dbo.TipoEstrategia ADD MensajeValidacion VARCHAR(150)
+GO
+
+USE BelcorpPanama
+GO
+
+IF NOT EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'MensajeValidacion' AND TABLE_NAME = 'TipoEstrategia')
+	ALTER TABLE dbo.TipoEstrategia ADD MensajeValidacion VARCHAR(150)
+GO
+
+USE BelcorpGuatemala
+GO
+
+IF NOT EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'MensajeValidacion' AND TABLE_NAME = 'TipoEstrategia')
+	ALTER TABLE dbo.TipoEstrategia ADD MensajeValidacion VARCHAR(150)
+GO
+
+USE BelcorpEcuador
+GO
+
+IF NOT EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'MensajeValidacion' AND TABLE_NAME = 'TipoEstrategia')
+	ALTER TABLE dbo.TipoEstrategia ADD MensajeValidacion VARCHAR(150)
+GO
+
+USE BelcorpDominicana
+GO
+
+IF NOT EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'MensajeValidacion' AND TABLE_NAME = 'TipoEstrategia')
+	ALTER TABLE dbo.TipoEstrategia ADD MensajeValidacion VARCHAR(150)
+GO
+
+USE BelcorpCostaRica
+GO
+
+IF NOT EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'MensajeValidacion' AND TABLE_NAME = 'TipoEstrategia')
+	ALTER TABLE dbo.TipoEstrategia ADD MensajeValidacion VARCHAR(150)
+GO
+
+USE BelcorpChile
+GO
+
+IF NOT EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'MensajeValidacion' AND TABLE_NAME = 'TipoEstrategia')
+	ALTER TABLE dbo.TipoEstrategia ADD MensajeValidacion VARCHAR(150)
+GO
+
+USE BelcorpBolivia
+GO
+
+IF NOT EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'MensajeValidacion' AND TABLE_NAME = 'TipoEstrategia')
+	ALTER TABLE dbo.TipoEstrategia ADD MensajeValidacion VARCHAR(150)
+GO
+
