@@ -467,9 +467,6 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "MensajeValidacionInteractiva"))
                 MensajeValidacionInteractiva = DbConvert.ToString(row["MensajeValidacionInteractiva"]);
 
-            if (DataRecord.HasColumn(row, "IndicadorGPRSB"))
-                IndicadorGPRSB = Convert.ToInt32(row["IndicadorGPRSB"]);
-
             if (DataRecord.HasColumn(row, "EstadoPedido"))
                 EstadoPedido = Convert.ToInt32(row["EstadoPedido"]);
 
@@ -1110,6 +1107,7 @@ namespace Portal.Consultoras.Entities
         public DateTime? FechaCancelacionSuscripcion { get; set; }
 
         [DataMember]
+        [Column("SegmentoInternoId")]
         public int? SegmentoInternoID
         {
             get;
@@ -1454,5 +1452,7 @@ namespace Portal.Consultoras.Entities
         public bool TieneValidacionMontoMaximo { get; set; }
         [DataMember]
         public bool EsShowRoom { get; set; }
+        [DataMember]
+        public bool MostrarBotonValidar { get; set; }
     }
 }

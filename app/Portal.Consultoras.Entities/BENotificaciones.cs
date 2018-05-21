@@ -132,9 +132,9 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "StockDisponible"))
                 StockDisponible = Convert.ToInt32(row["StockDisponible"]);
             if (DataRecord.HasColumn(row, "MontoAhorroCatalogo"))
-                MontoAhorroCatalogo = Convert.ToInt32(row["MontoAhorroCatalogo"]);
+                MontoAhorroCatalogo = Convert.ToDecimal(row["MontoAhorroCatalogo"]);
             if (DataRecord.HasColumn(row, "MontoAhorroRevista"))
-                MontoAhorroRevista = Convert.ToInt32(row["MontoAhorroRevista"]);
+                MontoAhorroRevista = Convert.ToDecimal(row["MontoAhorroRevista"]);
             if (DataRecord.HasColumn(row, "NombreCliente"))
                 NombreCliente = Convert.ToString(row["NombreCliente"]);
         }

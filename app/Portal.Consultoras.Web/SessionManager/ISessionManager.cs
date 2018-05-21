@@ -160,5 +160,9 @@ namespace Portal.Consultoras.Web.SessionManager
         List<BEPedidoWebDetalle> GetDetallesPedidoSetAgrupado();
 
         void SetDetallesPedidoSetAgrupado(List<BEPedidoWebDetalle> detallesPedidoWeb);
+
+        void SetMiAcademia(int id); /* SOPORTEC-266 */
+
+        int GetMiAcademia(); /* SOPORTEC-266 */
     }
 }
