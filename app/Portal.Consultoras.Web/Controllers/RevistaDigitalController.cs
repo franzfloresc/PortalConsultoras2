@@ -208,7 +208,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (TieneProductosPerdio(campaniaId))
                 {
                     var mdo0 = revistaDigital.ActivoMdo && !revistaDigital.EsActiva;
-                    int tipo = 2;
                     if (mdo0)
                     {
                         listPerdio = listModelCompleta.Where(e =>
@@ -227,10 +226,9 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var listPerdio1 = ConsultarEstrategiasModel("", campaniaId, Constantes.TipoEstrategiaCodigo.RevistaDigital);
                         listPerdio = listPerdio1.Where(p => p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas && p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
-                        tipo = 1;
                     }
 
-                    listPerdioFormato = ConsultarEstrategiasFormatearModelo(listPerdio, tipo);
+                    listPerdioFormato = ConsultarEstrategiasFormatearModelo(listPerdio, 1);
                 }
 
             }
