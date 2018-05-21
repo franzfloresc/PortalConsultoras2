@@ -126,7 +126,6 @@
     .bc_plantilla-banner img {
         width: 100%;
     }
-
 .bc_plantilla_estrategia_personalizada .titulo {
     display: block;
     padding: 4% 2.5% 2% 2.5%;
@@ -432,7 +431,7 @@
 }
 
 .bc_estrategia_contenido {
-    min-height: 800px;
+    /*max-height: 800px;*/
 }
 
 .seccion-content-contenedor {
@@ -478,7 +477,6 @@
 .parche_presentacion_contenedor {
     max-width: 980px;
     margin: auto;
-
 }
 
     .parche_presentacion_contenedor .bloque-titulo {
@@ -499,7 +497,6 @@
             letter-spacing: 1px;
             font-family: 'Lato';
             text-transform: uppercase;
-            border: 1px solid transparent;
             padding-left: 60px;
         }
 
@@ -548,100 +545,180 @@
         clear: both;
     }
 
-    /**/
+/**/
 
-    .zona_dorada_contenedor_desktop {
-            width: 100%;
-            height: 280px;
-            background-color: #c39934;
-        }
-        .contenido_zona_dorada_contenedor_desktop {
-            /*position: relative;
+.zona_dorada_contenedor_desktop {
+    width: 100%;
+    height: 280px;
+    background-color: #c39934;
+}
+
+.contenido_zona_dorada_contenedor_desktop {
+    /*position: relative;
             top: -255px;
     width: 77% !important;
     margin: auto;
     margin-right: 89px;*/
-            top: -255px;
-            margin: auto;
+    top: -255px;
+    margin: auto;
+    max-width: 1000px;
+    padding: 0 8px;
+    position:relative;
+}
+
+    .contenido_zona_dorada_contenedor_desktop .block-cont {
+        display: table;
+        height: 40px;
+    }
+
+        .contenido_zona_dorada_contenedor_desktop .block-cont .block-cell {
+            display: table-cell;
+            height: 40px;
+            vertical-align: middle;
         }
-		.contenido_zona_dorada_contenedor_desktop .block-cont{
-			display: table;
-			height: 40px;
-		}
-		.contenido_zona_dorada_contenedor_desktop .block-cont .block-cell{
-			display: table-cell;
-			height: 40px;
-			vertical-align: middle;
-		}
-		.contenido_zona_dorada_contenedor_desktop .cont-uno{
-			width:90px;
-			position: absolute;
-		}
-        .contenido_zona_dorada_contenedor_desktop .logo-dorado-contenedor{
-            width:100%;
-            height:40px;
-            background:url(/Content/Images/RevistaDigital/logo-club-ganamas-blanco.png);
-            background-size:cover;
+
+    .contenido_zona_dorada_contenedor_desktop .cont-uno {
+        width: 90px;
+        position: absolute;
+    }
+
+    .contenido_zona_dorada_contenedor_desktop .logo-dorado-contenedor {
+        width: 100%;
+        height: 40px;
+        background: url(/Content/Images/RevistaDigital/logo-club-ganamas-blanco.png);
+        background-size: cover;
+    }
+
+    .contenido_zona_dorada_contenedor_desktop .cont-dos {
+        width: 80%;
+        margin-left: -39px;
+        float: left;
+    }
+
+        .contenido_zona_dorada_contenedor_desktop .cont-dos p {
+            font-size: 13px;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: 0.5px;
+            text-align: left;
+            color: #ffffff;
+            margin-bottom: 0;
+            display: block;
+            padding-left: 40px;
+            display: inline-block;
+            position: absolute;
+            padding: 13px 0px;
+            margin-left: 50px;
         }
-            .contenido_zona_dorada_contenedor_desktop .cont-dos {
-                width: 80%;
-                padding-left: 90px;
-                float: left;
-            }
-		.contenido_zona_dorada_contenedor_desktop .cont-dos p{
-			font-size: 13px;
-		  
-		  font-style: normal;
-		  font-stretch: normal;
-		  line-height: normal;
-		  letter-spacing: 0.5px;
-		  text-align: left;
-		  color: #ffffff;
-          margin-bottom:0;
-          display:block;
-          padding-left: 40px;
-		}
+
             .contenido_zona_dorada_contenedor_desktop .cont-dos p b {
                 font-weight: 900;
             }
-		.contenido_zona_dorada_contenedor_desktop .cont-tres{
-			width:20%;
-			float:left;
-		}
-            .contenido_zona_dorada_contenedor_desktop .cont-tres a {
-                font-size: 13px;
-                font-weight: bold;
-                font-style: normal;
-                font-stretch: normal;
-                line-height: normal;
-                letter-spacing: 1px;
-                text-align: center;
-                color: #c39934;
-                background: white;
-                text-decoration: none;
-                padding: 11.5px;
-                width: 200px;
-                float: right;
-            }
-            .contenido_zona_dorada_contenedor_desktop .fix-zona-dorada {
-                background-color: #c39934;
-                text-align: center !important;
-                max-width: 1100px !important;
-                /* margin: auto !important; */
-                margin-left: 15% !important;
-                margin: auto;
-            }
-            .bc_plantilla_estrategia_personalizada{
-                padding-left: 5%;
-            }
-            /*@media (max-width:1350px){
-                .contenido_zona_dorada_contenedor_desktop .fix-zona-dorada {
-                    padding: 0 6% !important;
-                }
-            }
 
-            @media (max-width: 1320px){
-                .contenido_zona_dorada_contenedor_desktop .fix-zona-dorada {
-                    padding: 0 5.1% !important;
-                }
-            }*/
+    .contenido_zona_dorada_contenedor_desktop .cont-tres {
+        width: 20%;
+        float: left;
+    }
+
+        .contenido_zona_dorada_contenedor_desktop .cont-tres a {
+            font-size: 13px;
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: 1px;
+            text-align: center;
+            color: #c39934;
+            background: white;
+            text-decoration: none;
+            padding: 11.5px;
+            width: 200px;
+            float: right;
+        }
+
+    .contenido_zona_dorada_contenedor_desktop .fix-zona-dorada {
+        background-color: #c39934;
+        text-align: center !important;
+        max-width: 1000px !important;
+        margin: auto;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+.bc_plantilla_estrategia_personalizada {
+    padding-left: 138px;
+}
+.contenido_zona_dorada_contenedor_desktop .xblock-cont-uno {
+    float: left;
+    width: 80%;
+}
+
+    .contenido_zona_dorada_contenedor_desktop .xblock-cont-uno img {
+        float: left;
+    }
+
+    .contenido_zona_dorada_contenedor_desktop .xblock-cont-uno p {
+        float: left;
+        font-size: 13px;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 0.5px;
+        text-align: left;
+        color: #ffffff;
+        margin-bottom: 0;
+        display: block;
+        padding-left: 40px;
+        /* display: inline-block; */
+        position: absolute;
+        padding: 13px 0px;
+        margin-left: 150px;
+    }
+
+        .contenido_zona_dorada_contenedor_desktop .xblock-cont-uno p b {
+            font-weight: 900;
+        }
+
+.contenido_zona_dorada_contenedor_desktop .xblock-cont-dos {
+    float: left;
+    width: 20%;
+}
+
+    .contenido_zona_dorada_contenedor_desktop .xblock-cont-dos a {
+        font-size: 13px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 1px;
+        text-align: center;
+        color: #c39934;
+        background: white;
+        text-decoration: none;
+        padding: 11.5px;
+        width: 100%;
+    }
+.fixed_contenedor_head {
+    position: fixed;
+    top: 61px;
+}
+
+.fixed_head {
+    position: fixed;
+    top: 61px;
+    width: 100%;
+    margin: auto;
+    z-index: 9;
+    right: 0;
+    padding-left: 142px;
+    max-width: initial;
+}
+
+.fixed_head_cabecera {
+    width: 983px;
+}
+
+.fixed_productos {
+    top: 28px !important;
+}

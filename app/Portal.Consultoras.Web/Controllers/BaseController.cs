@@ -181,7 +181,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (var pedidoServiceClient = new PedidoServiceClient())
                     {
-
                         var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
                         {
                             PaisId = userData.PaisID,
@@ -230,14 +229,14 @@ namespace Portal.Consultoras.Web.Controllers
             var detallesPedidoWeb = (List<BEPedidoWebDetalle>)null;
             try
             {
-               
-                    detallesPedidoWeb = sessionManager.GetDetallesPedidoSetAgrupado();
+
+                detallesPedidoWeb = sessionManager.GetDetallesPedidoSetAgrupado();
 
                 if (detallesPedidoWeb == null)
                 {
                     using (var pedidoServiceClient = new PedidoServiceClient())
                     {
-                         
+
                         var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
                         {
                             PaisId = userData.PaisID,
@@ -247,7 +246,7 @@ namespace Portal.Consultoras.Web.Controllers
                             EsBpt = EsOpt() == 1,
                             CodigoPrograma = userData.CodigoPrograma,
                             NumeroPedido = userData.ConsecutivoNueva,
-                            AgruparSet= true
+                            AgruparSet = true
                         };
 
                         detallesPedidoWeb = pedidoServiceClient.SelectByCampania(bePedidoWebDetalleParametros).ToList();
@@ -293,7 +292,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var temp = observaciones.Where(o => o.CUV == item.CUV).ToList();
                 if (temp.Count != 0)
                 {
-                    if (temp[0].Caso == 0) item.TipoObservacion = 0;
+                    if (temp.Any(o => o.Caso == 0)) item.TipoObservacion = 0;
                     else item.TipoObservacion = temp[0].Tipo;
 
                     foreach (var ob in temp)
@@ -1699,14 +1698,6 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        protected string ConfigurarUrlServiceProl()
-        {
-            var ambiente = GetConfiguracionManager(Constantes.ConfiguracionManager.Ambiente);
-            var pais = UserData().CodigoISO;
-            var key = ambiente.Trim().ToUpper() + "_Prol_" + pais.Trim().ToUpper();
-            return ConfigurationManager.AppSettings[key];
-        }
-
         protected BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(string constSession)
         {
             constSession = constSession ?? "";
@@ -1773,7 +1764,7 @@ namespace Portal.Consultoras.Web.Controllers
             return displayTiempo;
         }
 
-        public BarraConsultoraModel GetDataBarra(bool inEscala = true, bool inMensaje = false,bool Agrupado=false)
+        public BarraConsultoraModel GetDataBarra(bool inEscala = true, bool inMensaje = false, bool Agrupado = false)
         {
             var objR = new BarraConsultoraModel
             {
@@ -1842,10 +1833,11 @@ namespace Portal.Consultoras.Web.Controllers
                 var listProducto = new List<BEPedidoWebDetalle>();
                 if (Agrupado)
                 {
-                     listProducto = ObtenerPedidoWebSetDetalleAgrupado(); ObtenerPedidoWebDetalle();                   
+                    listProducto = ObtenerPedidoWebSetDetalleAgrupado(); ObtenerPedidoWebDetalle();
                 }
-                else {
-                     listProducto = ObtenerPedidoWebDetalle();
+                else
+                {
+                    listProducto = ObtenerPedidoWebDetalle();
                 }
 
                 objR.TotalPedido = listProducto.Sum(d => d.ImporteTotal);
@@ -2824,9 +2816,11 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (deuda.Any())
             {
-                model.CuerpoDetalles.Add(string.Format("Tener una <b>deuda</b> de {0} {1}", userData.Simbolo, Util.DecimalToStringFormat(deuda.FirstOrDefault().Valor, userData.CodigoISO)));
+                var item = deuda.FirstOrDefault();
+                model.CuerpoDetalles.Add(string.Format("Tener una <b>deuda</b> de {0} {1}", userData.Simbolo, Util.DecimalToStringFormat(item.Valor, userData.CodigoISO)));
                 model.CuerpoMensaje2 = "Te invitamos a <b>cancelar</b> el saldo pendiente y <b>reservar</b> tu pedido el día de hoy para que sea facturado exitosamente.";
                 model.MotivoRechazo = Constantes.GPRMotivoRechazo.ActualizacionDeuda;
+                model.Campania = item.Campania;
             }
         }
 
@@ -4617,7 +4611,17 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Resize Imagen Default       
 
-        public List<EntidadMagickResize> ObtenerListaImagenesResize(string rutaImagen, bool esAppCalatogo = false)
+        public string ImagenesResizeProceso(string urlImagen, bool esAppCalatogo = false)
+        {
+            string mensajeErrorImagenResize = "";
+            bool actualizar = true;
+            var listaImagenesResize = ObtenerListaImagenesResize(urlImagen, esAppCalatogo, actualizar);
+            if (listaImagenesResize != null && listaImagenesResize.Count > 0)
+                mensajeErrorImagenResize = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize, actualizar);
+            return mensajeErrorImagenResize;
+        }
+
+        public List<EntidadMagickResize> ObtenerListaImagenesResize(string rutaImagen, bool esAppCalatogo = false, bool actualizar = false)
         {
             var listaImagenesResize = new List<EntidadMagickResize>();
 
@@ -4651,7 +4655,7 @@ namespace Portal.Consultoras.Web.Controllers
                 int alto = 0;
 
                 EntidadMagickResize entidadResize;
-                if (!Util.ExisteUrlRemota(rutaImagenSmall))
+                if (!Util.ExisteUrlRemota(rutaImagenSmall) || actualizar)
                 {
                     GetDimensionesImagen(rutaImagen, listaValoresImagenesResize, Constantes.ConfiguracionImagenResize.TipoImagenSmall, out alto, out ancho);
 
@@ -4670,7 +4674,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                if (!Util.ExisteUrlRemota(rutaImagenMedium))
+                if (!Util.ExisteUrlRemota(rutaImagenMedium) || actualizar)
                 {
                     GetDimensionesImagen(rutaImagen, listaValoresImagenesResize, Constantes.ConfiguracionImagenResize.TipoImagenMedium, out alto, out ancho);
 
@@ -5649,6 +5653,13 @@ namespace Portal.Consultoras.Web.Controllers
             resultado = fecha.Day + " " + nombreMes;
 
             return resultado;
+        }
+
+        protected bool EsFacturacion()
+        {
+            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+            bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+            return esFacturacion;
         }
         public void registraLogDynamoCDR(MisReclamosModel model)
         {

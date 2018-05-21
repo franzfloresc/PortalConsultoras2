@@ -1,4 +1,7 @@
-﻿namespace Portal.Consultoras.Entities.ReservaProl
+﻿using OpenSource.Library.DataAccess;
+using System.Collections.Generic;
+
+namespace Portal.Consultoras.Entities.ReservaProl
 {
     public class BEPedidoWebDetalleExplotado
     {
@@ -45,5 +48,14 @@
         public string ValCodiOrig { get; set; }
         public decimal OportunidadAhorro { get; set; }
         public int UnidadesReservadasSap { get; set; }
+        public int OrigenPedidoWeb { get; set; }
+
+        [ViewProperty]
+        public List<string> ListCuvOrigen { get; set; }
+
+        public BEPedidoWebDetalleExplotado()
+        {
+            ListCuvOrigen = new List<string>();
+        }
     }
 }

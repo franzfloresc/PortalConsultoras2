@@ -3,13 +3,26 @@
 
 @{
     var headerClass = "";
-
+    var classOpt = "";
     if (ViewBag.EsSuscrita)
     {
         headerClass += " seccion-titulo-dorado";
     }
+    if (Model.Codigo.ToLower().Equals("opt"))
+    {
+        classOpt = "carrusel-simple-opt";
+    }
 }
 
+<style>
+    #carrusel-simple-opt .box_producto_mobile_fix {
+        height: 405px !important;
+    }
+
+    #carrusel-simple-opt .product-add {
+        margin-top: 10px;
+    }
+</style>
 <div class="bc_plantilla_estrategia_personalizada" style="padding: 0 10%;" data-plantilla="simple-centrado">
     @if (@Model.Titulo != "")
     {
@@ -17,5 +30,5 @@
             <h2 class="@headerClass">@Model.Titulo</h2>
         </div>
     }
-    <div class="contenido" data-seccion-productos=""></div>
+    <div class="contenido" data-seccion-productos="" id="@classOpt"></div>
 </div>

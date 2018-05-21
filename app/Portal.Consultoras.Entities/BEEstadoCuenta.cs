@@ -46,25 +46,25 @@ namespace Portal.Consultoras.Entities
 
         public BEEstadoCuenta(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CodigoConsultora") && row["CodigoConsultora"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoConsultora"))
                 CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
 
-            if (DataRecord.HasColumn(row, "FechaRegistro") && row["FechaRegistro"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaRegistro"))
                 FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
 
-            if (DataRecord.HasColumn(row, "DescripcionOperacion") && row["DescripcionOperacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescripcionOperacion"))
                 DescripcionOperacion = Convert.ToString(row["DescripcionOperacion"]);
 
-            if (DataRecord.HasColumn(row, "MontoOperacion") && row["MontoOperacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MontoOperacion"))
                 MontoOperacion = Convert.ToDecimal(row["MontoOperacion"]);
 
-            if (DataRecord.HasColumn(row, "Cargo") && row["Cargo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Cargo"))
                 Cargo = Convert.ToDecimal(row["Cargo"]);
 
-            if (DataRecord.HasColumn(row, "Abono") && row["Abono"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Abono"))
                 Abono = Convert.ToDecimal(row["Abono"]);
 
-            if (DataRecord.HasColumn(row, "Orden") && row["Orden"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Orden"))
                 Orden = Convert.ToInt32(row["Orden"]);
         }
 

@@ -72,56 +72,56 @@ namespace Portal.Consultoras.Entities
 
         public BETipoEstrategia(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "TipoEstrategiaID") && row["TipoEstrategiaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TipoEstrategiaID"))
                 TipoEstrategiaID = Convert.ToInt32(row["TipoEstrategiaID"]);
 
-            if (DataRecord.HasColumn(row, "DescripcionEstrategia") && row["DescripcionEstrategia"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescripcionEstrategia"))
                 DescripcionEstrategia = row["DescripcionEstrategia"].ToString();
 
-            if (DataRecord.HasColumn(row, "DescripcionOferta") && row["DescripcionOferta"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescripcionOferta"))
                 DescripcionOferta = row["DescripcionOferta"].ToString();
 
-            if (DataRecord.HasColumn(row, "Orden") && row["Orden"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Orden"))
                 Orden = Convert.ToInt32(row["Orden"]);
 
             if (DataRecord.HasColumn(row, "FlagActivo")) FlagActivo = Convert.ToInt32(row["FlagActivo"]);
 
-            if (DataRecord.HasColumn(row, "OfertaID") && row["OfertaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "OfertaID"))
                 OfertaID = row["OfertaID"].ToString();
 
-            if (DataRecord.HasColumn(row, "ImagenEstrategia") && row["ImagenEstrategia"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ImagenEstrategia"))
                 ImagenEstrategia = row["ImagenEstrategia"].ToString();
 
-            if (DataRecord.HasColumn(row, "FlagNueva") && row["FlagNueva"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FlagNueva"))
                 FlagNueva = Convert.ToInt32(row["FlagNueva"]);
 
-            if (DataRecord.HasColumn(row, "FlagRecoPerfil") && row["FlagRecoPerfil"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FlagRecoPerfil"))
                 FlagRecoPerfil = Convert.ToInt32(row["FlagRecoPerfil"]);
 
-            if (DataRecord.HasColumn(row, "FlagRecoProduc") && row["FlagRecoProduc"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FlagRecoProduc"))
                 FlagRecoProduc = Convert.ToInt32(row["FlagRecoProduc"]);
 
-            if (DataRecord.HasColumn(row, "CodigoPrograma") && row["CodigoPrograma"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoPrograma"))
                 CodigoPrograma = Convert.ToString(row["CodigoPrograma"]);
 
-            if (DataRecord.HasColumn(row, "FlagMostrarImg") && row["FlagMostrarImg"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FlagMostrarImg"))
                 FlagMostrarImg = Convert.ToInt32(row["FlagMostrarImg"]);
 
-            if (DataRecord.HasColumn(row, "CodigoGeneral") && row["CodigoGeneral"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoGeneral"))
                 CodigoGeneral = Convert.ToInt32(row["CodigoGeneral"]);
 
-            if (DataRecord.HasColumn(row, "Codigo") && row["Codigo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Codigo"))
                 Codigo = Convert.ToString(row["Codigo"]);
-            if (DataRecord.HasColumn(row, "MostrarImgOfertaIndependiente") && row["MostrarImgOfertaIndependiente"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MostrarImgOfertaIndependiente"))
                 MostrarImgOfertaIndependiente = Convert.ToBoolean(row["MostrarImgOfertaIndependiente"]);
 
-            if (DataRecord.HasColumn(row, "ImagenOfertaIndependiente") && row["ImagenOfertaIndependiente"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ImagenOfertaIndependiente"))
                 ImagenOfertaIndependiente = row["ImagenOfertaIndependiente"].ToString();
 
-            if (DataRecord.HasColumn(row, "FlagValidarImagen") && row["FlagValidarImagen"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FlagValidarImagen"))
                 FlagValidarImagen = Convert.ToInt32(row["FlagValidarImagen"]);
 
-            if (DataRecord.HasColumn(row, "PesoMaximoImagen") && row["PesoMaximoImagen"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PesoMaximoImagen"))
                 PesoMaximoImagen = Convert.ToInt32(row["PesoMaximoImagen"]);
         }
 

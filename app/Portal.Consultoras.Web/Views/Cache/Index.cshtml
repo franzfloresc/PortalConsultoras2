@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Portal.Consultoras.Web.Models.Common.ListStringModel
+@{
     ViewBag.Title = "Administrador Cache";
 }
 
@@ -21,20 +22,14 @@
                 </div>
             </div>*@
             <div class="div-3">
-                <div class="titJ">PaisID:</div>
-                <div class="borde_redondeado">
-                    <input type="text" id="txtPaisId" value="@ViewBag.PaisID">
+                <div class="titF">Cache Item:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.List, new SelectList(Model.List), "-- Seleccionar --", new { id = "ddlCacheItem" })
                 </div>
             </div>
             <div class="div-3">
-                <div class="titJ">Cache Item:</div>
-                <div class="borde_redondeado">
-                    <input type="text" id="txtCacheItem">
-                </div>
-            </div>
-            <div class="div-3">
-                <div class="titJ">Custom Key:</div>
-                <div class="borde_redondeado">
+                <div class="titF">Custom Key:</div>
+                <div class="selectA borde_redondeado">
                     <input type="text" id="txtCustomKey">
                 </div>
             </div>
@@ -52,24 +47,27 @@
 {
     <script type="text/javascript">
         function Eliminar() {
+            cacheItemString = $('#ddlCacheItem').val();
+            if (IsNullOrEmpty(cacheItemString)) {
+                alert('Debe seleccionar un tipo de caché.');
+                return;
+            }
+
             var waiting = {
                 message: 'Espere unos minutos, por favor...',
                 title: 'Eliminando Caché'
             };
             waitingDialog(waiting);
 
-            var params = {
-                paisID: $('#txtPaisId').val(),
-                cacheItemString: $('#txtCacheItem').val(),
-                customKey: $('#txtCustomKey').val(),
-            };
-
             $.ajax({
                 type: 'POST',
                 url: window.baseUrl + 'Cache/Eliminar',
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(params),
+                data: JSON.stringify({
+                    CacheItemString: cacheItemString,
+                    CustomKey: $('#txtCustomKey').val(),
+                }),
                 async: true,
                 cache: false,
                 success: function (data) {

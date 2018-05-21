@@ -38,27 +38,27 @@ namespace Portal.Consultoras.Entities
         public string EtiquetaPrecio { get; set; }
         public BECrossSellingAsociacion(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CrossSellingAsociacionID") && row["CrossSellingAsociacionID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CrossSellingAsociacionID"))
                 CrossSellingAsociacionID = Convert.ToInt32(row["CrossSellingAsociacionID"]);
-            if (DataRecord.HasColumn(row, "NroOrden") && row["NroOrden"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NroOrden"))
                 NroOrden = Convert.ToInt32(row["NroOrden"]);
-            if (DataRecord.HasColumn(row, "CodigoCampania") && row["CodigoCampania"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoCampania"))
                 CodigoCampania = Convert.ToString(row["CodigoCampania"]);
-            if (DataRecord.HasColumn(row, "CUV") && row["CUV"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CUV"))
                 CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "Descripcion") && row["Descripcion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Descripcion"))
                 Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "PrecioOferta") && row["PrecioOferta"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PrecioOferta"))
                 PrecioOferta = Convert.ToDecimal(row["PrecioOferta"]);
-            if (DataRecord.HasColumn(row, "CUVAsociado") && row["CUVAsociado"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CUVAsociado"))
                 CUVAsociado = Convert.ToString(row["CUVAsociado"]);
-            if (DataRecord.HasColumn(row, "CUVAsociado2") && row["CUVAsociado2"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CUVAsociado2"))
                 CUVAsociado2 = Convert.ToString(row["CUVAsociado2"]);
-            if (DataRecord.HasColumn(row, "CodigoSegmento") && row["CodigoSegmento"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoSegmento"))
                 CodigoSegmento = Convert.ToString(row["CodigoSegmento"]);
-            if (DataRecord.HasColumn(row, "CampaniaID") && row["CampaniaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CampaniaID"))
                 CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "EtiquetaPrecio") && row["EtiquetaPrecio"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "EtiquetaPrecio"))
                 EtiquetaPrecio = Convert.ToString(row["EtiquetaPrecio"]);
             else
                 EtiquetaPrecio = string.Empty;
