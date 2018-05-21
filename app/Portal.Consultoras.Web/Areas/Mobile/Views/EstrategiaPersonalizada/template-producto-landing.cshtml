@@ -30,7 +30,8 @@
                     </p>
                 </div>
             </div>
-            <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento, '@Constantes.ConfiguracionPais.Lanzamiento')" class="portada portada_off">VER LANZAMIENTOS</a>
+            <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento, '@Constantes.ConfiguracionPais.Lanzamiento')" 
+               class="portada portada_off">VER LANZAMIENTOS</a>
         </div>
     </div>
     {{else}}
@@ -86,7 +87,11 @@
                     <div class="texto_elige_tono">&nbsp;</div>
                     <div class="producto_nombre_descripcion">
                         <div class="liquidacion_rango_home">
-                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad' class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" disabled="disabled" style="border: 1px solid #b0b0b0;width:100%!important" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
+                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad' disabled="disabled" 
+                                   class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" 
+                                   style="border: 1px solid #b0b0b0;width:100%!important" 
+                                   onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" 
+                                   {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
                         </div>
                         <div class="clear"></div>
                         <a class="boton_Agregalo_home {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregar(event); ">
@@ -99,7 +104,10 @@
                     <div class="producto_nombre_descripcion">
                         <div class="liquidacion_rango_home">
                             <a class="cantidad_menos_home" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad' class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral {{ClaseBloqueada}}" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
+                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad' 
+                                   class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral {{ClaseBloqueada}}" 
+                                   onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" 
+                                   {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
                             <a class="cantidad_mas_home" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                         </div>
                         <div class="clear"></div>
