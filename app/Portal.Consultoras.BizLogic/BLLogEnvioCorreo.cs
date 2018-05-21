@@ -2,6 +2,7 @@
 {
     using Data;
     using Entities;
+    using Portal.Consultoras.Common;
     using System;
     using System.Collections.Generic;
 
@@ -20,11 +21,11 @@
                 }
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.SaveLog(ex, "", paisID);
                 return false;
             }
-
         }
     }
 }

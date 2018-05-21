@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
+using Portal.Consultoras.Web.Areas.Mobile.Models;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -63,6 +64,15 @@ namespace Portal.Consultoras.Web.SessionManager
             HttpContext.Current.Session["PedidoWebDetalle"] = detallesPedidoWeb;
         }
 
+        List<BEPedidoWebDetalle> ISessionManager.GetDetallesPedidoSetAgrupado()
+        {
+            return (List<BEPedidoWebDetalle>)HttpContext.Current.Session["PedidoWebSetAgrupado"];
+        }
+
+        void ISessionManager.SetDetallesPedidoSetAgrupado(List<BEPedidoWebDetalle> detallesPedidoWeb)
+        {
+            HttpContext.Current.Session["PedidoWebSetAgrupado"] = detallesPedidoWeb;
+        }
         List<ObservacionModel> ISessionManager.GetObservacionesProl()
         {
             return (List<ObservacionModel>)HttpContext.Current.Session["ObservacionesPROL"];
@@ -246,7 +256,7 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneOpmX1] ?? false);
         }
-        
+
         public void SetTieneHv(bool tieneHv)
         {
             HttpContext.Current.Session[Constantes.ConstSession.TieneHv] = tieneHv;
@@ -368,7 +378,7 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (DateTime)HttpContext.Current.Session["StartSession"];
         }
-        
+
         void ISessionManager.SetDatosPagoVisa(PagoEnLineaModel model)
         {
             HttpContext.Current.Session[Constantes.ConstSession.DatosPagoVisa] = model;
@@ -378,18 +388,46 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (PagoEnLineaModel)HttpContext.Current.Session[Constantes.ConstSession.DatosPagoVisa];
         }
-
-        EstrategiaPersonalizadaProductoModel ISessionManager.ProductoTemporal
+        void ISessionManager.SetPedidosFacturados(PedidoWebClientePrincipalMobilModel model)
         {
-            get
-            {
-                return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
-            }
-
-            set
-            {
-                HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = value;
-            }
+            HttpContext.Current.Session[Constantes.ConstSession.PedidosFacturados] = model;
         }
+
+        PedidoWebClientePrincipalMobilModel ISessionManager.GetPedidosFacturados()
+        {
+            return (PedidoWebClientePrincipalMobilModel)HttpContext.Current.Session[Constantes.ConstSession.PedidosFacturados];
+        }
+
+        public void SetMiAcademia(int id) /* SOPORTEC-266 */
+        {
+            HttpContext.Current.Session["MiAcademia"] = id;
+        }
+
+        public int GetMiAcademia() /* SOPORTEC-266 */
+        {
+            return (int) HttpContext.Current.Session["MiAcademia"];
+        }
+
+        void ISessionManager.SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = modelo;
+        }
+
+        EstrategiaPersonalizadaProductoModel ISessionManager.GetProductoTemporal()
+        {
+            return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
+        }
+
+        //EstrategiaPersonalizadaProductoModel ISessionManager.ProductoTemporal
+        //{
+        //    get
+        //    {
+        //        return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
+        //    }
+        //    set
+        //    {
+        //        HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = value;
+        //    }
+        //}
     }
 }

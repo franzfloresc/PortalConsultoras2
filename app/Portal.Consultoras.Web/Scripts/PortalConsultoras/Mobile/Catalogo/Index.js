@@ -40,9 +40,14 @@ $(document).ready(function () {
 
     $('#campaniaRevista').val(rCampSelect);
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
+        
         $("[data-tag-html]").hide();
         var tag = $(this).attr("data-tag") || "";
         var obj = $("[data-tag-html='" + tag + "']");
+
+        //soluciona error en producción: Uncaught ReferenceError: TagManagerPaginasVirtuales is not defined
+        if (tag === "Revistas") TagManagerPaginasVirtuales();
+
         $.each(obj, function (ind, objTag) {
             $(objTag).fadeIn(300).show();
         });
@@ -57,6 +62,7 @@ $(document).ready(function () {
         $("#barCursor").css("opacity", "0");
     });
 
+
     ordenCat[0] = isEsika ? tagLbel : tagEsika;
     ordenCat[1] = isEsika ? tagEsika : tagLbel;
     ordenCat[2] = tagCyzone;
@@ -65,6 +71,16 @@ $(document).ready(function () {
     CargarCarruselCatalogo();
     ColumnasDeshabilitadasxPais();
     CargarTodosCorreo();
+    
+
+    //soluciona error en producción : Uncaught ReferenceError: CatalogoMostrar is not defined
+    $("#divCatalogo a > img").click(function (e) {
+       
+        var img = $(this).attr("id") || "";
+        if (img === "cata_img_prev") CatalogoMostrar(-1, this);
+        else CatalogoMostrar(1, this);
+
+    });
 
     $(".mostrar_todos").html($.trim($(".mostrar_todos").html()).replace("##", listaCorreo.length));
 
@@ -130,6 +146,7 @@ function InsertarLogCatalogoDynamo(opcionAccion, campaniaCatalogo, marca, cantid
 }
 
 function CargarCarruselCatalogo() {
+    
     ShowLoading();
 
     var htmlBase = "";
@@ -448,7 +465,7 @@ function CatalogoEnviarEmail() {
     var _Flagchklbel = "0";
     var _Flagchkcyzone = "0";
     var _Flagchkesika = "0";
-    var _Flagchkfinart = "0";
+   
 
     var clientes = new Array();
     for (var i = 0; i < correoEnviar.length; i++) {
@@ -472,7 +489,7 @@ function CatalogoEnviarEmail() {
             _Flagchklbel = objCorreo.LBel;
             _Flagchkesika = objCorreo.Esika;
             _Flagchkcyzone = objCorreo.Cyzone;
-            _Flagchkfinart = objCorreo.Finart;
+           
         }
         clientes.push(objCorreo);
     }
@@ -637,6 +654,7 @@ function RevistaMostrar(accion, btn) {
 }
 
 function TagManagerPaginasVirtuales() {
+    
     var urlPrefix = getMobilePrefixUrl();
     dataLayer.push({
         'event': 'virtualPage',

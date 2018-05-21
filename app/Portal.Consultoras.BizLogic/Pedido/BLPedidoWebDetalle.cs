@@ -1,12 +1,15 @@
+using Portal.Consultoras.BizLogic.Reserva;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.PublicService.Cryptography;
 
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
@@ -502,31 +505,34 @@ namespace Portal.Consultoras.BizLogic
             return pedidoWebDetalle;
         }
 
-        public bool DelPedidoWebDetalleMasivo(int PaisID, int CampaniaID, int PedidoID, string CodigoUsuario)
+        public async Task<bool> DelPedidoWebDetalleMasivo(BEUsuario usuario, int pedidoId)
         {
-            var daPedidoWeb = new DAPedidoWeb(PaisID);
-            var daPedidoWebDetalle = new DAPedidoWebDetalle(PaisID);
-            bool success = true;
-            TransactionOptions oTransactionOptions =
-                new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
+            var daPedidoWeb = new DAPedidoWeb(usuario.PaisID);
+            var daPedidoWebDetalle = new DAPedidoWebDetalle(usuario.PaisID);
+            var blReserva= new BLReserva();
 
+            TransactionOptions oTransactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
             try
             {
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
-                    daPedidoWebDetalle.DelPedidoWebDetalleMasivo(CampaniaID, PedidoID);
-                    daPedidoWeb.UpdPedidoWebByEstadoConTotalesMasivo(CampaniaID, PedidoID, 201, false, 0, 0, CodigoUsuario);
-                    daPedidoWeb.DelIndicadorPedidoAutenticoCompleto(new BEIndicadorPedidoAutentico { PedidoID = PedidoID, CampaniaID = CampaniaID });
-
+                    daPedidoWebDetalle.DelPedidoWebDetalleMasivo(usuario.CampaniaID, pedidoId);
+                    daPedidoWeb.UpdPedidoWebByEstadoConTotalesMasivo(usuario.CampaniaID, pedidoId, 201, false, 0, 0, usuario.CodigoUsuario);
+                    daPedidoWeb.DelIndicadorPedidoAutenticoCompleto(new BEIndicadorPedidoAutentico { PedidoID = pedidoId, CampaniaID = usuario.CampaniaID });
+                    
                     oTransactionScope.Complete();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                success = false;
+                LogManager.SaveLog(ex, usuario.CodigoUsuario, usuario.PaisID);
+                return false;
             }
 
-            return success;
+            try { if (usuario.ZonaValida) await blReserva.DeshacerReservaPedido(usuario, pedidoId); }
+            catch (Exception ex) { LogManager.SaveLog(ex, usuario.CodigoUsuario, usuario.PaisID); }
+
+            return true;
         }
 
         public bool DelPedidoWebDetallePackNueva(int PaisID, long ConsultoraID, int PedidoID)
@@ -574,6 +580,30 @@ namespace Portal.Consultoras.BizLogic
             {
                 daPedidoWebDetalle.InsPedidoWebAccionesPROL(item, Tipo, Accion);
             }
+        }
+
+        public bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId)
+        {
+            var pedidoWebDetalle = new List<BEPedidoWebDetalle>();
+            var daPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
+
+            var result = daPedidoWebDetalle.InsertPedidoWebSet(Campaniaid, PedidoID, CantidadSet, CuvSet, ConsultoraId, CodigoUsuario, CuvsStringList, EstrategiaId);
+
+
+            return result;
+        }
+
+        public bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad)
+        {
+            DAPedidoWebDetalle daPedidoWebDetalle = new DAPedidoWebDetalle(paisId);
+            return daPedidoWebDetalle.UpdCantidadPedidoWebSet(setId, cantidad);
+        }
+
+        public List<BEPedidoWebSetDetalle> GetPedidoWebSetDetalle(int paisID, int campania, long consultoraId)
+        {
+            DAPedidoWebDetalle daPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
+            using (IDataReader reader = daPedidoWebDetalle.GetPedidoWebSetDetalle(campania, consultoraId))
+                return reader.MapToCollection<BEPedidoWebSetDetalle>(closeReaderFinishing: true);
         }
     }
 }

@@ -28,11 +28,11 @@ namespace Portal.Consultoras.Entities
         {
             if (DataRecord.HasColumn(row, "CUV"))
                 CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "IndicadorDscto") && row["IndicadorDscto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "IndicadorDscto"))
                 IndicadorDscto = row["IndicadorDscto"].ToString();
             if (DataRecord.HasColumn(row, "PrecioUnidad"))
                 PrecioUnidad = Convert.ToDecimal(row["PrecioUnidad"]);
-            if (DataRecord.HasColumn(row, "PrecioCatalogo2") && row["PrecioCatalogo2"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PrecioCatalogo2"))
                 PrecioCatalogo2 = Convert.ToDecimal(row["PrecioCatalogo2"]);
             if (DataRecord.HasColumn(row, "Cantidad"))
                 Cantidad = Convert.ToInt32(row["Cantidad"]);

@@ -99,16 +99,6 @@
             return re.test(keyChar);
         }
     });
-    $("body").on("mouseenter", ".info_copy", function () {
-        var mar = $(this).parent().parent() || '0';
-        mar = mar === '0' ? mar : mar.parent();
-        mar = mar === '0' ? mar : $.trim(mar.css("margin-top")).replace("px", "");
-        var pos = $(this).position();
-        $(this).parent().parent().find("div.msj_info").show();
-    });
-    $("body").on("mouseleave", ".info_copy", function () {
-        $(this).parent().parent().find("div.msj_info").hide();
-    });
     $("body").on("mouseleave", ".cantidad_detalle_focus", function () {
         var idPed = $(this).find("input.liquidacion_rango_cantidad_pedido").attr('data-pedido');
         var cant = $('#txtLPCant' + idPed).val();
@@ -516,12 +506,6 @@ function GuardarCliente() {
 
 
 function PedidoOnSuccess() {
-
-    var ItemCantidad = $("#txtCantidad").val();
-    var ItemPrecio = $("#hdfPrecioUnidad").val();
-    var descripcion = $('#txtDescripcionProd').val();
-    var ItemTotal = parseFloat(ItemCantidad * ItemPrecio).toFixed(2);
-
     $("#divObservaciones").html("");
     $("#hdnDescripcionEstrategia").val("");
     $("#hdnDescripcionLarga").val("");
@@ -609,7 +593,7 @@ function BuscarByCUV(CUV) {
 
 function CambiarCliente(elem) {
     var rows = $($('[data-paginacion="rows"]')[0]).val() || 10;
-    CargarDetallePedido(1, rows, elem.value);
+    CargarDetallePedido(1, rows);
 }
 
 function ObservacionesProducto(item) {
@@ -704,7 +688,6 @@ function CargarAutocomplete() {
 function CalcularTotal() {
     $('#sSimbolo').html($('#hdfSimbolo').val());
     $('#sSimbolo_minimo').html($('#hdfSimbolo').val());
-    var hdfTotal = $('#hdfTotal').val();
     $("#divListadoPedido").find('a[class="imgIndicadorCUV"]').tooltip({
         content: "<img src='" + baseUrl + "Content/Images/aviso.png" + "' />",
         position: { my: "left bottom", at: "left top-20%", collision: "flipfit" }
@@ -801,7 +784,6 @@ function EliminarPedido() {
 }
 
 function ValidarUpdate(PedidoDetalleID, FlagValidacion) {
-    var CliID = $('#hdfLPCli' + PedidoDetalleID).val();
     var CliDes = $('#txtLPCli' + PedidoDetalleID).val();
     var CliDesVal = $('#hdfLPCliDes' + PedidoDetalleID).val();
     var Cantidad = $('#txtLPCant' + PedidoDetalleID).val();
@@ -841,10 +823,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
 
     var CliID = $('#hdfLPCli' + PedidoDetalleID).val();
     var CliDes = $('#txtLPCli' + PedidoDetalleID).val();
-    var CliDesVal = $('#hdfLPCliDes' + PedidoDetalleID).val();
     var Cantidad = $('#txtLPCant' + PedidoDetalleID).val();
-    var CantidadAnti = $('#txtLPTempCant' + PedidoDetalleID).val();
-    var ClienteAnti = $('#hdfLPTempCliDes' + PedidoDetalleID).val();
     var DesProd = $('#lblLPDesProd' + PedidoDetalleID).html();
     var ClienteID_ = $('#ddlClientes').val();
 
@@ -907,6 +886,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
 }
 
 function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi) {
+
     AbrirSplash();
     if (HorarioRestringido()) {
         CerrarSplash();

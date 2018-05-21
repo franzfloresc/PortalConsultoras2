@@ -201,6 +201,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     sessionManager.SetPedidoWeb(null);
                     sessionManager.SetDetallesPedido(null);
+                    sessionManager.SetDetallesPedidoSetAgrupado(null);
                 }
 
                 UpdPedidoWebMontosPROL();
@@ -218,6 +219,12 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
+
+                using (var pedidoServiceClient = new PedidoServiceClient())
+                {
+                    pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
+                        , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0);
+                }
 
                 return Json(new
                 {
@@ -698,10 +705,8 @@ namespace Portal.Consultoras.Web.Controllers
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                     var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, entidad.ImagenProducto);
 
-                    var listaImagenesResize = ObtenerListaImagenesResize(rutaImagenCompleta);
-                    if (listaImagenesResize != null && listaImagenesResize.Count > 0)
-                        mensajeErrorImagenResize = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
-
+                    mensajeErrorImagenResize = ImagenesResizeProceso(rutaImagenCompleta);
+                    
                     #endregion                    
 
                     sv.InsOfertaProducto(entidad);
@@ -755,9 +760,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                     var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, entidad.ImagenProducto);
 
-                    var listaImagenesResize = ObtenerListaImagenesResize(rutaImagenCompleta);
-                    if (listaImagenesResize != null && listaImagenesResize.Count > 0)
-                        mensajeErrorImagenResize = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
+                    mensajeErrorImagenResize = ImagenesResizeProceso(rutaImagenCompleta);
 
                     #endregion                    
 
