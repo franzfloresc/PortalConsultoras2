@@ -251,8 +251,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         if (obeConsultorasProgramaNuevas != null) pedido.TippingPoint = obeConsultorasProgramaNuevas.MontoVentaExigido;
                     }
 
-                    LogPerformance("Fin", "Configuracion programa nuevas", "GET");
+                   
                 }
+
+                LogPerformance("Fin", "Configuracion programa nuevas", "GET");
             }
             catch (Exception ex)
             {
@@ -558,6 +560,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             try
             {
+                LogPerformance("Inicio", "Obtener pedido", "DeshacerPedido");
                 //Obtener pedido
                 pedido = _pedidoWebBusinessLogic.GetPedidoWebByCampaniaConsultora(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
 
@@ -565,9 +568,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (!(pedido.EstadoPedido == Constantes.EstadoPedido.Procesado && !pedido.ModificaPedidoReservado && !pedido.ValidacionAbierta))
                     return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_DESHACER_PEDIDO_ESTADO);
 
+                LogPerformance("Fin", "Obtener pedido", "DeshacerPedido");
+
                 //Deshacer Pedido 
+                LogPerformance("Inicio", "Deshacer pedido reserva", "DeshacerPedido");
                 mensaje = _reservaBusinessLogic.DeshacerPedidoValidado(usuario, Constantes.EstadoPedido.PedidoValidado);
                 if (mensaje != string.Empty) return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_DESHACER_PEDIDO, mensaje);
+                LogPerformance("Fin", "Deshacer pedido reserva", "DeshacerPedido");
 
                 return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.SUCCESS);
             }
