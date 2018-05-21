@@ -2373,8 +2373,8 @@ namespace Portal.Consultoras.Service
             return BLCuponesProgramaNuevas.ObtenerListadoCuvCupon(paisId, campaniaId);
         }
 
-    #region PedidoApp
-    public BEProductoApp GetCUVApp(BEProductoAppBuscar productoBuscar)
+        #region PedidoApp
+        public BEProductoApp GetCUVApp(BEProductoAppBuscar productoBuscar)
         {
             return _pedidoAppBusinessLogic.GetCUV(productoBuscar);
         }
@@ -2416,7 +2416,7 @@ namespace Portal.Consultoras.Service
 
         public BEPedidoDetalleAppResult DeshacerReservaPedidoApp(BEUsuario usuario)
         {
-            return _pedidoAppBusinessLogic.DeshacerReservaPedido(usuario);
+            return _pedidoAppBusinessLogic.DeshacerReserva(usuario);
         }        
         #endregion
 

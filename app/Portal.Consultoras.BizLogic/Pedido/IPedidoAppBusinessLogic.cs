@@ -17,6 +17,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         BEConfiguracionPedido GetConfiguracion(int paisID, string codigoUsuario);
         Task<BEPedidoDetalleAppResult> Delete(BEPedidoDetalleApp pedidoDetalle);
         Task<BEPedidoDetalleAppResult> Reserva(BEUsuario usuario);
-        BEPedidoDetalleAppResult DeshacerReservaPedido(BEUsuario usuario);
+        BEPedidoDetalleAppResult DeshacerReserva(BEUsuario usuario);
     }
 }
