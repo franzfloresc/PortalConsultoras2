@@ -158,7 +158,24 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                List<EstrategiaPersonalizadaProductoModel> listModelCompleta = NewMethod(model);
+                var palanca = string.Empty;
+
+                if (revistaDigital.ActivoMdo)
+                {
+                    palanca = Constantes.TipoEstrategiaCodigo.RevistaDigital;
+                }
+                else
+                {
+                    palanca = model.CampaniaID != userData.CampaniaID
+                        || (revistaDigital.TieneRDC && revistaDigital.EsActiva)
+                        ? Constantes.TipoEstrategiaCodigo.RevistaDigital
+                        : string.Empty;
+                }
+
+                var listaFinal1 = ConsultarEstrategiasModel(string.Empty, model.CampaniaID, palanca);
+                var listModelCompleta = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
+
+                listModelCompleta = listModelCompleta.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
 
                 var listModel = listModelCompleta;
 
@@ -220,29 +237,6 @@ namespace Portal.Consultoras.Web.Controllers
                     data = ""
                 });
             }
-        }
-
-        private List<EstrategiaPersonalizadaProductoModel> NewMethod(BusquedaProductoModel model)
-        {
-            var palanca = string.Empty;
-
-            if (revistaDigital.ActivoMdo)
-            {
-                palanca = Constantes.TipoEstrategiaCodigo.RevistaDigital;
-            }
-            else
-            {
-                palanca = model.CampaniaID != userData.CampaniaID
-                    || (revistaDigital.TieneRDC && revistaDigital.EsActiva)
-                    ? Constantes.TipoEstrategiaCodigo.RevistaDigital
-                    : string.Empty;
-            }
-
-            var listaFinal1 = ConsultarEstrategiasModel(string.Empty, model.CampaniaID, palanca);
-            var listModelCompleta = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
-
-            listModelCompleta = listModelCompleta.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
-            return listModelCompleta;
         }
 
         [HttpPost]
