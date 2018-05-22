@@ -1190,7 +1190,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.PaisID,
                         model.CampaniaID,
                         codigoConsultora,
-                        model.BeShowRoom != null && model.BeShowRoom.TienePersonalizacion);
+                        true);
 
                     model.ListaShowRoomNivel = pedidoService.GetShowRoomNivel(model.PaisID).ToList();
                     model.ListaShowRoomPersonalizacion = pedidoService.GetShowRoomPersonalizacion(model.PaisID).ToList();
