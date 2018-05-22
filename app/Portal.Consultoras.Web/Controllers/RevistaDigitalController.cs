@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.SessionManager;
+
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -351,20 +353,20 @@ namespace Portal.Consultoras.Web.Controllers
             userData.Menu = null;
             Session[Constantes.ConstSession.MenuContenedor] = null;
             SetUserData(userData);
-            LimpiarEstrategia(entidad.PaisID,entidad.CampaniaID.ToString());
-            RecargarPalancas();
+            if (EsSuscripcionInmediata())
+            {
+                LimpiarEstrategia(entidad.PaisID, entidad.CampaniaID.ToString());
+                RecargarPalancas();
+            }
             return "";
         }
       
         private void RecargarPalancas()
         {
-            if (EsSuscripcionInmediata())
-            {
                 ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
                 ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.Lanzamiento);
                 ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
                 ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.LosMasVendidos);
-            }
         }
 
         private string RegistroSuscripcionValidar(int tipo)
@@ -646,19 +648,23 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void LimpiarEstrategia(int paisID, string campaniaID)
         {
-            //Session
-
+            //Limpiar session del servidor
+            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)] = null;
+            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.HerramientasVenta)] = null;
+            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.Lanzamiento)] = null;
+            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.LosMasVendidos)] = null;
+            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.OfertaParaTi)] = null;//
+            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.OfertaWeb)] = null;//
+            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.PackNuevas)] = null;//
+            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.RevistaDigital)] = null;
+            Session[Constantes.ConstSession.ListaProductoShowRoom] = null;//
+            sessionManager.SetEstrategiaODD(null);
             //Limpia cache de Redis
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                sv.LimpiarCacheRedis(paisID, "28", campaniaID);
-                sv.LimpiarCacheRedis(paisID, "29", campaniaID);
+                sv.LimpiarCacheRedis(paisID, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada, campaniaID);
+                sv.LimpiarCacheRedis(paisID, Constantes.TipoEstrategiaCodigo.HerramientasVenta, campaniaID);
             }
-        }
-
-        private void ListarEstrategia()
-        {
-
         }
     }
 }
