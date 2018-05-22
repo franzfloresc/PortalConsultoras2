@@ -63,7 +63,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (model.TipoCronogramaID == 5)
                 {
-                    var fechaproceso = model.FechaFacturacion.Year.ToString("yyyyMMdd");
+                    var fechaproceso = model.FechaFacturacion.ToString("yyyyMMdd");
                     using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
                     {
                         sv.GetInformacionCursoLiderDescarga(UserData().PaisID, UserData().CodigoISO, fechaproceso, UserData().CodigoUsuario);
