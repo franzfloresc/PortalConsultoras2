@@ -2182,7 +2182,15 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.MesFaltante = userData.FechaInicioCampania.Month;
             model.AnioFaltante = userData.FechaInicioCampania.Year;
-
+            
+            if (userData.ListaShowRoomPersonalizacionConsultora == null)
+            {
+                model.ImagenPopupShowroomIntriga = "";
+                model.ImagenBannerShowroomIntriga = "";
+                model.ImagenPopupShowroomVenta = "";
+                model.ImagenBannerShowroomVenta = "";
+                return model;
+            }
 
             foreach (var item in userData.ListaShowRoomPersonalizacionConsultora)
             {
