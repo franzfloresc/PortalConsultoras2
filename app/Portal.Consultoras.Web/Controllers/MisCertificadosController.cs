@@ -79,7 +79,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (userData.MontoDeuda > 0)
                     {
-                        mensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un Paz y Salvo";
+                        mensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un certficado de Paz y Salvo";
                         break;
                     }
 
@@ -91,7 +91,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (userData.MontoDeuda > 0)
                     {
-                        mensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un No Adeudo";
+                        mensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un certificado de No Adeudo";
                         break;
                     }
 
