@@ -536,7 +536,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
         }
 
-        public async Task<BEPedidoDetalleAppResult> Reserva(BEUsuario usuario)
+        public async Task<BEPedidoReservaAppResult> Reserva(BEUsuario usuario)
         {
             try
             {
@@ -551,7 +551,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                                                     usuario.AceptacionConsultoraDA);
                 LogPerformance("ValidacionModificarPedido");
                 if (validacionHorario.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno)
-                    return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, validacionHorario.Mensaje);
+                    return PedidoReservaRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, validacionHorario.Mensaje);
 
                 ActualizarEsDiaPROLyMostrarBotonValidarPedido(usuario);
 
@@ -587,14 +587,15 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (usuario.DiaPROL) code = (enumReserva + 2010).ToString();
                 else code = (enumReserva + 2020).ToString();
 
-                var observaciones = ObtenerMensajePROLAnalytics(resultadoReserva.ListPedidoObservacion);
+                var obsPedido = ObtenerMensajePROLAnalytics(resultadoReserva.ListPedidoObservacion);
+                var obsByCuv = ObtenerMensajePROLByCuv(resultadoReserva.ListPedidoObservacion);
 
-                return PedidoDetalleRespuesta(code, observaciones);
+                return PedidoReservaRespuesta(code, obsPedido, obsByCuv);
             }
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, usuario.CodigoUsuario, usuario.PaisID);
-                return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_INTERNO, ex.Message);
+                return PedidoReservaRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_INTERNO, ex.Message);
             }
         }
 
@@ -605,11 +606,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             try
             {
- 
                 nombreServicio = "DeshacerReserva";
                 LogPerformance("Inicio");
- 
-                
  
                 //Obtener pedido
                 pedido = _pedidoWebBusinessLogic.GetPedidoWebByCampaniaConsultora(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
@@ -619,15 +617,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (!(pedido.EstadoPedido == Constantes.EstadoPedido.Procesado && !pedido.ModificaPedidoReservado && !pedido.ValidacionAbierta))
                     return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_DESHACER_PEDIDO_ESTADO);
 
-                 
-
                 //Deshacer Pedido 
-                 
                 mensaje = _reservaBusinessLogic.DeshacerPedidoValidado(usuario, Constantes.EstadoPedido.PedidoValidado);
                 LogPerformance("DeshacerPedidoValidado");
                 if (mensaje != string.Empty) return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_DESHACER_PEDIDO, mensaje);
                  
-
                 return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.SUCCESS);
             }
             catch (Exception ex)
@@ -1258,6 +1252,30 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (!Regex.IsMatch(Util.SubStr(item.CUV, 0), @"^\d+$")) return item.Descripcion;
             }
             return string.Empty;
+        }
+
+        private List<BEPedidoObservacion> ObtenerMensajePROLByCuv(List<BEPedidoObservacion> lista)
+        {
+            var result = lista.Where(x => Regex.IsMatch(Util.SubStr(x.CUV, 0), @"^\d+$")).ToList();
+            return result.Any() ? result : null;
+        }
+
+        private BEPedidoReservaAppResult PedidoReservaRespuesta(string codigoRespuesta, string mensajeRespuesta = null,
+            List<BEPedidoObservacion> observaciones = null)
+        {
+            LogPerformance("Fin");
+            LogPerformance(string.Empty);
+
+            return new BEPedidoReservaAppResult()
+            {
+                CodigoRespuesta = (codigoRespuesta == Constantes.PedidoAppValidacion.Code.SUCCESS_RESERVA ||
+                                    codigoRespuesta == Constantes.PedidoAppValidacion.Code.SUCCESS_RESERVA_OBS ||
+                                    codigoRespuesta == Constantes.PedidoAppValidacion.Code.SUCCESS_GUARDAR ||
+                                    codigoRespuesta == Constantes.PedidoAppValidacion.Code.SUCCESS_GUARDAR_OBS ?
+                                    Constantes.PedidoAppValidacion.Code.SUCCESS : codigoRespuesta),
+                MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoAppValidacion.Message[codigoRespuesta] : mensajeRespuesta,
+                Observaciones = observaciones
+            };
         }
         #endregion
     }
