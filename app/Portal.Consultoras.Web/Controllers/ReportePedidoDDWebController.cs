@@ -162,7 +162,7 @@ namespace Portal.Consultoras.Web.Controllers
                         a.TipoProceso,
                         FomatearMontoDecimalGPR(string.IsNullOrEmpty(a.MotivoRechazo) ? " " : a.MotivoRechazo)
                     }
-                })
+                }).ToList()
             };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
