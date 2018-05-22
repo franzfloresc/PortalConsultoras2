@@ -39,8 +39,13 @@ namespace Portal.Consultoras.Web.Controllers
                 (revistaDigital.EsSuscrita && !revistaDigital.EsActiva && !revistaDigital.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion) ||
                 (revistaDigital.EsSuscrita && revistaDigital.EsActiva && !revistaDigital.SociaEmpresariaSuscritaActivaCancelarSuscripcion)));
             modelo.CancelarSuscripcion = CancelarSuscripcion(revistaDigital.SuscripcionModel.Origen, userData.CodigoISO);
-
+            modelo.EsSuscripcionInmediata = EsSuscripcionInmediata();
             return View("template-informativa", modelo);
+        }
+
+        public bool EsSuscripcionInmediata()
+        {
+            return revistaDigital.SuscripcionModel != null ? ((revistaDigital.SuscripcionModel.CampaniaEfectiva == revistaDigital.SuscripcionModel.CampaniaID)&& revistaDigital.CantidadCampaniaEfectiva==0) : false;
         }
 
         public ActionResult ViewLanding(int tipo)
@@ -96,7 +101,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult DetalleModel(string cuv, int campaniaId)
         {
-            var modelo = sessionManager.ProductoTemporal;
+            var modelo = sessionManager.GetProductoTemporal();
             if (modelo == null || modelo.EstrategiaID == 0 || modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
             {
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });

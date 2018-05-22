@@ -31,25 +31,25 @@ namespace Portal.Consultoras.Entities
 
         public BELogActualizacionFacturacion(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "TipoRegistro") && row["TipoRegistro"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TipoRegistro"))
                 TipoRegistro = Convert.ToString(row["TipoRegistro"]);
-            if (DataRecord.HasColumn(row, "CodigoUsuario") && row["CodigoUsuario"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoUsuario"))
                 CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
-            if (DataRecord.HasColumn(row, "Fecha") && row["Fecha"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Fecha"))
                 Fecha = Convert.ToString(row["Fecha"]);
-            if (DataRecord.HasColumn(row, "CodigosZonaRegion") && row["CodigosZonaRegion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigosZonaRegion"))
                 CodigosZonaRegion = Convert.ToString(row["CodigosZonaRegion"]);
-            if (DataRecord.HasColumn(row, "CodigosZonaRegionIncompleto") && row["CodigosZonaRegionIncompleto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigosZonaRegionIncompleto"))
                 CodigosZonaRegionIncompleto = Convert.ToString(row["CodigosZonaRegionIncompleto"]);
-            if (DataRecord.HasColumn(row, "FechaFacturacion") && row["FechaFacturacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaFacturacion"))
                 FechaFacturacion = Convert.ToString(row["FechaFacturacion"]);
-            if (DataRecord.HasColumn(row, "FechaFinFacturacion") && row["FechaFinFacturacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaFinFacturacion"))
                 FechaFinFacturacion = Convert.ToString(row["FechaFinFacturacion"]);
-            if (DataRecord.HasColumn(row, "FechaRefacturacion") && row["FechaRefacturacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaRefacturacion"))
                 FechaRefacturacion = Convert.ToString(row["FechaRefacturacion"]);
-            if (DataRecord.HasColumn(row, "Mensaje") && row["Mensaje"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Mensaje"))
                 Mensaje = Convert.ToString(row["Mensaje"]);
-            if (DataRecord.HasColumn(row, "CampaniaCodigo") && row["CampaniaCodigo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CampaniaCodigo"))
                 CampaniaCodigo = Convert.ToString(row["CampaniaCodigo"]);
         }
     }

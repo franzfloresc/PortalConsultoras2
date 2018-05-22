@@ -19,11 +19,11 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         public BEShowRoomNivel(IDataRecord row)
         {
-            if (row.HasColumn("NivelId") && row["NivelId"] != DBNull.Value)
+            if (row.HasColumn("NivelId"))
                 NivelId = Convert.ToInt32(row["NivelId"]);
-            if (row.HasColumn("Codigo") && row["Codigo"] != DBNull.Value)
+            if (row.HasColumn("Codigo"))
                 Codigo = Convert.ToString(row["Codigo"]);
-            if (row.HasColumn("Descripcion") && row["Descripcion"] != DBNull.Value)
+            if (row.HasColumn("Descripcion"))
                 Descripcion = Convert.ToString(row["Descripcion"]);
         }
     }

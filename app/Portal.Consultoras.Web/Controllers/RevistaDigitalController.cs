@@ -88,7 +88,7 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.UrlCompartir = Util.Trim(modelo.UrlCompartir);
             }
 
-            sessionManager.ProductoTemporal = modelo;
+            sessionManager.SetProductoTemporal(modelo);
 
             return Json(new
             {
@@ -208,7 +208,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (TieneProductosPerdio(campaniaId))
                 {
                     var mdo0 = revistaDigital.ActivoMdo && !revistaDigital.EsActiva;
-                    int tipo = 2;
                     if (mdo0)
                     {
                         listPerdio = listModelCompleta.Where(e =>
@@ -227,10 +226,9 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var listPerdio1 = ConsultarEstrategiasModel("", campaniaId, Constantes.TipoEstrategiaCodigo.RevistaDigital);
                         listPerdio = listPerdio1.Where(p => p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas && p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
-                        tipo = 1;
                     }
 
-                    listPerdioFormato = ConsultarEstrategiasFormatearModelo(listPerdio, tipo);
+                    listPerdioFormato = ConsultarEstrategiasFormatearModelo(listPerdio, 1);
                 }
 
             }
@@ -354,7 +352,19 @@ namespace Portal.Consultoras.Web.Controllers
             Session[Constantes.ConstSession.MenuContenedor] = null;
             SetUserData(userData);
             LimpiarEstrategia(entidad.PaisID,entidad.CampaniaID.ToString());
+            RecargarPalancas();
             return "";
+        }
+      
+        private void RecargarPalancas()
+        {
+            if (EsSuscripcionInmediata())
+            {
+                ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
+                ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.Lanzamiento);
+                ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
+                ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.LosMasVendidos);
+            }
         }
 
         private string RegistroSuscripcionValidar(int tipo)

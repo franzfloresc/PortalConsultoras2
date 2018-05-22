@@ -1864,6 +1864,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool MostrarAyudaWebTrakingField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool MostrarBotonValidarField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NivelField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3669,6 +3672,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.MostrarAyudaWebTrakingField.Equals(value) != true)) {
                     this.MostrarAyudaWebTrakingField = value;
                     this.RaisePropertyChanged("MostrarAyudaWebTraking");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool MostrarBotonValidar {
+            get {
+                return this.MostrarBotonValidarField;
+            }
+            set {
+                if ((this.MostrarBotonValidarField.Equals(value) != true)) {
+                    this.MostrarBotonValidarField = value;
+                    this.RaisePropertyChanged("MostrarBotonValidar");
                 }
             }
         }
@@ -10143,6 +10159,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdFlagAutenticacion", ReplyAction="http://tempuri.org/IUsuarioService/UpdFlagAutenticacionResponse")]
         System.Threading.Tasks.Task UpdFlagAutenticacionAsync(int paisID, string CodigoUsuario);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnPrograma", ReplyAction="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnProgramaResponse")]
+        bool GetConsultoraParticipaEnPrograma(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnPrograma", ReplyAction="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnProgramaResponse")]
+        System.Threading.Tasks.Task<bool> GetConsultoraParticipaEnProgramaAsync(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Select", ReplyAction="http://tempuri.org/IUsuarioService/SelectResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario);
         
@@ -10987,6 +11009,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task UpdFlagAutenticacionAsync(int paisID, string CodigoUsuario) {
             return base.Channel.UpdFlagAutenticacionAsync(paisID, CodigoUsuario);
+        }
+        
+        public bool GetConsultoraParticipaEnPrograma(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID) {
+            return base.Channel.GetConsultoraParticipaEnPrograma(paisID, codigoPrograma, codigoConsultora, campaniaID);
+        }
+        
+        public System.Threading.Tasks.Task<bool> GetConsultoraParticipaEnProgramaAsync(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID) {
+            return base.Channel.GetConsultoraParticipaEnProgramaAsync(paisID, codigoPrograma, codigoConsultora, campaniaID);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario) {

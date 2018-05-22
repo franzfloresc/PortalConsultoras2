@@ -92,7 +92,7 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetTieneOpmX1(bool tieneOpmX1);
 
         bool GetTieneOpmX1();
-        
+
         void SetTieneHv(bool tieneHv);
 
         bool GetTieneHv();
@@ -140,26 +140,34 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetStartSession(DateTime StartSession);
 
         DateTime GetStartSession();
-        
+
         void SetDatosPagoVisa(PagoEnLineaModel model);
 
         IShowRoom ShowRoom { get; }
 
         PagoEnLineaModel GetDatosPagoVisa();
 
-        EstrategiaPersonalizadaProductoModel ProductoTemporal { get; set; }
+        void SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo);
+
+        EstrategiaPersonalizadaProductoModel GetProductoTemporal();
+
         void SetEstrategiaODD(Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel data);
+
         Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel GetEstrategiaODD();
 
         void SetEstrategiaSR(Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel data);
         Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel GetEstrategiaSR();
-        
+
         void SetPedidosFacturados(PedidoWebClientePrincipalMobilModel model);
-        
+
         PedidoWebClientePrincipalMobilModel GetPedidosFacturados();
-        
+
         List<BEPedidoWebDetalle> GetDetallesPedidoSetAgrupado();
 
         void SetDetallesPedidoSetAgrupado(List<BEPedidoWebDetalle> detallesPedidoWeb);
+
+        void SetMiAcademia(int id);
+
+        int GetMiAcademia();
     }
 }

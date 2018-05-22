@@ -14,15 +14,15 @@ namespace Portal.Consultoras.Common.MagickNet
         /// </summary>
         /// <param name="lista">Lista con los valores de cada imagen a generar</param>
         /// <returns>Proceso correctamente retorna vacio, sino retorna un mensaje de error</returns>
-        public static string GuardarImagenesResize(List<EntidadMagickResize> lista)
+        public static string GuardarImagenesResize(List<EntidadMagickResize> lista, bool actualizar = false)
         {
             var txtBuil = new StringBuilder();
             foreach (var item in lista)
             {
-                if (!Util.ExisteUrlRemota(item.RutaImagenResize))
+                if (!Util.ExisteUrlRemota(item.RutaImagenResize) || actualizar)
                 {
                     var nombreImagen = Path.GetFileName(item.RutaImagenResize);
-                    var resultadoImagenResize = GuardarImagenResize(item.CodigoIso, item.RutaImagenOriginal, nombreImagen, item.Width, item.Height);
+                    var resultadoImagenResize = GuardarImagenResize(item.CodigoIso, item.RutaImagenOriginal, nombreImagen, item.Width, item.Height, actualizar);
 
                     if (!resultadoImagenResize)
                     {
@@ -34,7 +34,7 @@ namespace Portal.Consultoras.Common.MagickNet
             return txtBuil.ToString();
         }
 
-        public static bool GuardarImagenResize(string codigoIso, string rutaImagenOriginal, string nombreImagenGuardar, int width, int height)
+        private static bool GuardarImagenResize(string codigoIso, string rutaImagenOriginal, string nombreImagenGuardar, int width, int height, bool actualizar = false)
         {
             var resultado = true;
 
@@ -43,16 +43,16 @@ namespace Portal.Consultoras.Common.MagickNet
             var rutaImagenResize = rutaImagenOriginal.Clone().ToString();
             rutaImagenResize = rutaImagenResize.Replace(soloImagen, nombreImagenGuardar);
 
-            var nombreImagenOriginal = Path.GetFileName(rutaImagenOriginal);
-
-            if (!Util.ExisteUrlRemota(rutaImagenResize))
+            if (!Util.ExisteUrlRemota(rutaImagenResize) || actualizar)
             {
+                var nombreImagenOriginal = Path.GetFileName(rutaImagenOriginal);
+
                 string rutaImagenTemporal = Path.Combine(Globals.RutaTemporales, nombreImagenOriginal);
 
                 var esOk = GuardarImagenToTemporal(codigoIso, rutaImagenOriginal, rutaImagenTemporal);
 
                 if (esOk)
-                    esOk = GuardarImagen(codigoIso, rutaImagenTemporal, width, height, nombreImagenGuardar);
+                    esOk = GuardarImagen(codigoIso, rutaImagenTemporal, width, height, nombreImagenGuardar, actualizar);
 
                 File.Delete(rutaImagenTemporal);
 
@@ -73,7 +73,7 @@ namespace Portal.Consultoras.Common.MagickNet
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog(ex, "", codigoIso);
+                LogManager.SaveLog(ex, "", codigoIso, "MagickNetLibrary.GuardarImagenToTemporal");
                 resultado = false;
             }
             finally
@@ -84,7 +84,7 @@ namespace Portal.Consultoras.Common.MagickNet
             return resultado;
         }
 
-        private static bool GuardarImagen(string codigoIso, string rutaImagenOriginal, int width, int height, string nombreImagenGuardar)
+        private static bool GuardarImagen(string codigoIso, string rutaImagenOriginal, int width, int height, string nombreImagenGuardar, bool actualizar = false)
         {
             var resultado = true;
 
@@ -92,11 +92,11 @@ namespace Portal.Consultoras.Common.MagickNet
             {
                 string rutaTemporalGuardar = Path.Combine(Globals.RutaTemporales, nombreImagenGuardar);
 
+                MagickGeometry size = new MagickGeometry(width, height);
+                size.IgnoreAspectRatio = true;
+
                 using (MagickImage imagen = new MagickImage(rutaImagenOriginal))
                 {
-                    MagickGeometry size = new MagickGeometry(width, height);
-                    size.IgnoreAspectRatio = true;
-
                     imagen.Resize(size);
 
                     // Guardar la imagen resize a carpeta temporal                                                               
@@ -105,12 +105,12 @@ namespace Portal.Consultoras.Common.MagickNet
 
                 //Guardar la imagen resize a Amazon
                 var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
-                ConfigS3.SetFileS3(rutaTemporalGuardar, carpetaPais, nombreImagenGuardar);
+                ConfigS3.SetFileS3(rutaTemporalGuardar, carpetaPais, nombreImagenGuardar, actualizar);
             }
             catch (Exception ex)
             {
                 resultado = false;
-                LogManager.SaveLog(ex, "", codigoIso);
+                LogManager.SaveLog(ex, "", codigoIso, "MagickNetLibrary.GuardarImagen");
             }
 
             return resultado;

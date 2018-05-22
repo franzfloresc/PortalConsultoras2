@@ -40,6 +40,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
+
                 model.PartialSectionBpt = GetPartialSectionBptModel(revistaDigital);
                 ViewBag.UrlImgMiAcademia = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImgMiAcademia) + "/" + userData.CodigoISO + "/academia.png";
                 ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);

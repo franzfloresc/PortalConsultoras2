@@ -47,40 +47,40 @@ namespace Portal.Consultoras.Entities
 
         public BEPedidoDescarga(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "FechaHoraInicio") && row["FechaHoraInicio"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaHoraInicio"))
                 FechaHoraInicio = Convert.ToDateTime(row["FechaHoraInicio"]);
 
-            if (DataRecord.HasColumn(row, "FechaHoraFin") && row["FechaHoraFin"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaHoraFin"))
                 FechaHoraFin = Convert.ToDateTime(row["FechaHoraFin"]);
 
-            if (DataRecord.HasColumn(row, "Estado") && row["Estado"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Estado"))
                 Estado = row["Estado"].ToString();
 
-            if (DataRecord.HasColumn(row, "Mensaje") && row["Mensaje"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Mensaje"))
                 Mensaje = row["Mensaje"].ToString();
 
-            if (DataRecord.HasColumn(row, "NumeroPedidosWeb") && row["NumeroPedidosWeb"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NumeroPedidosWeb"))
                 NumeroPedidosWeb = Convert.ToInt32(row["NumeroPedidosWeb"]);
 
-            if (DataRecord.HasColumn(row, "NumeroPedidosDD") && row["NumeroPedidosDD"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NumeroPedidosDD"))
                 NumeroPedidosDD = Convert.ToInt32(row["NumeroPedidosDD"]);
 
-            if (DataRecord.HasColumn(row, "TipoProceso") && row["TipoProceso"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TipoProceso"))
                 TipoProceso = row["TipoProceso"].ToString();
 
-            if (DataRecord.HasColumn(row, "FechaFacturacion") && row["FechaFacturacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaFacturacion"))
                 FechaFacturacion = Convert.ToDateTime(row["FechaFacturacion"].ToString());
 
-            if (DataRecord.HasColumn(row, "NroLote") && row["NroLote"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NroLote"))
                 NroLote = Convert.ToInt32(row["NroLote"]);
 
-            if (DataRecord.HasColumn(row, "Desmarcado") && row["Desmarcado"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Desmarcado"))
                 Desmarcado = Convert.ToBoolean(row["Desmarcado"]);
 
-            if (DataRecord.HasColumn(row, "FechaProceso") && row["FechaProceso"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaProceso"))
                 FechaProceso = Convert.ToDateTime(row["FechaProceso"]);
 
-            if (DataRecord.HasColumn(row, "FechaEnvio") && row["FechaEnvio"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaEnvio"))
                 FechaEnvio = Convert.ToDateTime(row["FechaEnvio"]);
 
         }

@@ -26,9 +26,6 @@
     <Setting Name="Portal_Consultoras_Web_ServiceOSBBelcorpPedido_PedidoBS" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://osb.soa.galileo.ebel:8102/AppBelcorp-proPedido-context-root/portPedidoPSSOAP11?WSDL</Value>
     </Setting>
-    <Setting Name="Portal_Consultoras_Web_ServicePROL_ServiceStockSsic" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/wsPROLSicc/ServiceStockSsic.asmx</Value>
-    </Setting>
     <Setting Name="Portal_Consultoras_Web_ServicePROLArchivoReserva_ReservaPedidos" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://prdelb-webprol-261815517.us-east-1.elb.amazonaws.com/WsRsrvExeEtl/ReservaPedidos.asmx</Value>
     </Setting>

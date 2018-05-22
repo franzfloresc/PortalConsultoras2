@@ -194,14 +194,6 @@ function UpdateLiquidacionEvento(evento) {
 }
 
 function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, EsBackOrder, PrecioUnidad, detalleObj, elementRow) {
-    var urlAccion = TipoOfertaSisID == ofertaLiquidacion
-        ? urlValidarUnidadesPermitidasPedidoProducto
-        : TipoOfertaSisID == ofertaShowRoom
-            ? urlValidarUnidadesPermitidasPedidoProductoShowRoom
-            : TipoOfertaSisID == ofertaAccesorizate
-                ? urlValidarUnidadesPermitidasPedidoProducto2
-                : "";
-
     var urls = new Object();
     if (TipoOfertaSisID == ofertaLiquidacion) {
         urls.urlValidarUnidadesPermitidas = urlValidarUnidadesPermitidasPedidoProducto;
@@ -531,7 +523,6 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
 
                 ActualizarGanancia(data.DataBarra);
                 CargarPedido();
-                var descripcionMarca = GetDescripcionMarca(MarcaID);
                 TrackingJetloreRemove(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
                 dataLayer.push({
                     'event': 'removeFromCart',
@@ -831,42 +822,6 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
     });
 }
 
-function GetDescripcionMarca(marcaId) {
-    var result = "";
-
-    switch (marcaId) {
-        case 1:
-            result = "Lbel";
-            break;
-        case 2:
-            result = "Esika";
-            break;
-        case 3:
-            result = "Cyzone";
-            break;
-        case 4:
-            result = "S&M";
-            break;
-        case 5:
-            result = "Home Collection";
-            break;
-        case 6:
-            result = "Finart";
-            break;
-        case 7:
-            result = "Generico";
-            break;
-        case 8:
-            result = "Glance";
-            break;
-        default:
-            result = "NO DISPONIBLE";
-            break;
-    }
-
-    return result;
-}
-
 function TagManagerClickEliminarProducto(descripcionProd, cuv, precioUnidad, descripcionMarca, descripcionOferta, cantidad) {
     var variant = "Estándar";
     if (descripcionOferta != "") {
@@ -1009,7 +964,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
     $("hdfPROLSinStock").val(model.ProlSinStock == true ? "1" : "0");
     $("hdfModificaPedido").val(model.EsModificacion == true ? "1" : "0");
 
-    var mensajePedidoCheckout = ConstruirObservacionesPROL(model);
+    ConstruirObservacionesPROL(model);
 
     $('#btnGuardarPedido').text(model.Prol);
     var tooltips = model.ProlTooltip.split('|');

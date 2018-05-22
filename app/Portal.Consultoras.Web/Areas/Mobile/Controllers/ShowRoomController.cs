@@ -360,8 +360,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             var modelo = ViewDetalleOferta(id);
             modelo.EstrategiaId = id;
-            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-            bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+            bool esFacturacion = EsFacturacion();
 
             var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, configEstrategiaSR.BeShowRoom.EventoID,
                         configEstrategiaSR.BeShowRoom.CampaniaID);
@@ -381,8 +380,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             var modelo = ViewDetalleOferta(id);
             modelo.EstrategiaId = id;
-            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-            bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+            bool esFacturacion = EsFacturacion();
 
             var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, configEstrategiaSR.BeShowRoom.EventoID,
                         configEstrategiaSR.BeShowRoom.CampaniaID);
