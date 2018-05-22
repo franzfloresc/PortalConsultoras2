@@ -1454,8 +1454,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return Json(new
                 {
-                    success = nroLote > 0 || nroLote == -1,
-                    message = nroLote > 0 || nroLote == -1 ? "Se insertaron en la tabla temporal de Estrategia." : "Error al insertar las estrategias",
+                    success = nroLote > 0,
+                    message = nroLote > 0 ? "Se insertaron en la tabla temporal de Estrategia." : "Error al insertar las estrategias",
                     extra = "",
                     pagina,
                     cantGuardadaTemporal = listBeEstrategias.Count,
@@ -1642,7 +1642,7 @@ namespace Portal.Consultoras.Web.Controllers
                             userData.CodigoUsuario, nroLote);
                     }
                 }
-                return nroLote > 0 ? nroLote : listaBeEstrategias.Any() ? 0 : -1;
+                return nroLote;
             }
             catch (Exception ex)
             {
