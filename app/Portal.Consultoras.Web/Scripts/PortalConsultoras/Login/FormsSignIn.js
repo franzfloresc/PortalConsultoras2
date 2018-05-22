@@ -136,7 +136,8 @@ $(document).ready(function () {
         $("#box-pop-up").hide();
     });
 
-    $("#btnLogin").click(function () {
+    $("#btnLogin").click(function (e) {
+        e.preventDefault();
         IniciarLogin();
     });
 
@@ -1573,7 +1574,7 @@ function IniciarLogin() {
     }
 
     if (!valid) {
-        e.preventDefault();
+        //e.preventDefault();
         return false;
     }
 
