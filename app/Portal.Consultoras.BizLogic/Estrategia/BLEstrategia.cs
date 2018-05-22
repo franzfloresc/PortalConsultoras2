@@ -164,7 +164,6 @@ namespace Portal.Consultoras.BizLogic
 
         public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad)
         {
-
             try
             {
                 var estrategias = new List<BEEstrategia>();
@@ -375,7 +374,7 @@ namespace Portal.Consultoras.BizLogic
             var listaEstrategias = new List<BEEstrategia>();
             var daEstrategia = new DAEstrategia(paisID);
 
-            using (var reader = daEstrategia.GetEstrategiaODD(codCampania, codConsultora, fechaInicioFact))
+            using (var reader = daEstrategia.ListarEstrategiasODD(codCampania, codConsultora, fechaInicioFact))
             {
                 while (reader.Read())
                 {
@@ -591,6 +590,28 @@ namespace Portal.Consultoras.BizLogic
             {
                 throw;
             }
+        }
+
+        public bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia,string campaniaID)
+        {
+            try
+            {
+                switch (codigoTipoEstrategia)
+                {
+                    case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                        CacheManager<BEEstrategia>.RemoveData(paisID, ECacheItem.GNDEstrategia, campaniaID);
+                        break;
+                    case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
+                        CacheManager<BEEstrategia>.RemoveData(paisID, ECacheItem.HVEstrategia, campaniaID);
+                        break;
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
         }
 
     }

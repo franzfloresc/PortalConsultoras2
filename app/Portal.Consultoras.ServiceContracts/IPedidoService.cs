@@ -1288,5 +1288,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         DateTime? ObtenerFechaInicioSets(int paisId);
+
+        [OperationContract]
+        bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia, string campaniaID);
+
     }
 }

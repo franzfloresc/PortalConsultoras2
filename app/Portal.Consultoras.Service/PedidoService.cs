@@ -2383,5 +2383,10 @@ namespace Portal.Consultoras.Service
         }
         #endregion
 
+        public bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia, string campaniaID)
+        {
+            return blEstrategia.LimpiarCacheRedis(paisID, codigoTipoEstrategia, campaniaID);
+        }
+
     }
 }

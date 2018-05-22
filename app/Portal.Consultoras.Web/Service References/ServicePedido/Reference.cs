@@ -38494,6 +38494,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerFechaInicioSets", ReplyAction="http://tempuri.org/IPedidoService/ObtenerFechaInicioSetsResponse")]
         System.Threading.Tasks.Task<System.Nullable<System.DateTime>> ObtenerFechaInicioSetsAsync(int paisId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/LimpiarCacheRedis", ReplyAction="http://tempuri.org/IPedidoService/LimpiarCacheRedisResponse")]
+        bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia, string campaniaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/LimpiarCacheRedis", ReplyAction="http://tempuri.org/IPedidoService/LimpiarCacheRedisResponse")]
+        System.Threading.Tasks.Task<bool> LimpiarCacheRedisAsync(int paisID, string codigoTipoEstrategia, string campaniaID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ValidarPriorizacionShowRoom", ReplyAction="http://tempuri.org/IPedidoService/ValidarPriorizacionShowRoomResponse")]
         int ValidarPriorizacionShowRoom(int paisID, int ConfiguracionOfertaID, int CampaniaID, int Orden);
         
@@ -41096,6 +41102,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<System.Nullable<System.DateTime>> ObtenerFechaInicioSetsAsync(int paisId) {
             return base.Channel.ObtenerFechaInicioSetsAsync(paisId);
+        }
+        
+        public bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia, string campaniaID) {
+            return base.Channel.LimpiarCacheRedis(paisID, codigoTipoEstrategia, campaniaID);
+        }
+        
+        public System.Threading.Tasks.Task<bool> LimpiarCacheRedisAsync(int paisID, string codigoTipoEstrategia, string campaniaID) {
+            return base.Channel.LimpiarCacheRedisAsync(paisID, codigoTipoEstrategia, campaniaID);
         }
         
         public int ValidarPriorizacionShowRoom(int paisID, int ConfiguracionOfertaID, int CampaniaID, int Orden) {

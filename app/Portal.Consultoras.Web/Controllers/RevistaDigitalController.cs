@@ -341,21 +341,19 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     break;
             }
-
             if (entidad.RevistaDigitalSuscripcionID <= 0) return "";
             revistaDigital.SuscripcionModel = Mapper.Map<ServicePedido.BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
             revistaDigital.NoVolverMostrar = true;
             revistaDigital.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
             revistaDigital.EsSuscrita = revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
             var campaniaEfectiva = userData.CampaniaID + revistaDigital.CantidadCampaniaEfectiva;
-            revistaDigital.CampaniaActiva =
-                campaniaEfectiva.ToString().Substring(campaniaEfectiva.ToString().Length - 2);
+            revistaDigital.CampaniaActiva = campaniaEfectiva.ToString().Substring(campaniaEfectiva.ToString().Length - 2);
             sessionManager.SetRevistaDigital(revistaDigital);
             userData.MenuMobile = null;
             userData.Menu = null;
             Session[Constantes.ConstSession.MenuContenedor] = null;
             SetUserData(userData);
-
+            LimpiarEstrategia(entidad.PaisID,entidad.CampaniaID.ToString());
             return "";
         }
 
@@ -634,6 +632,23 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 });
             }
+        }
+
+        private void LimpiarEstrategia(int paisID, string campaniaID)
+        {
+            //Session
+
+            //Limpia cache de Redis
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                sv.LimpiarCacheRedis(paisID, "28", campaniaID);
+                sv.LimpiarCacheRedis(paisID, "29", campaniaID);
+            }
+        }
+
+        private void ListarEstrategia()
+        {
+
         }
     }
 }

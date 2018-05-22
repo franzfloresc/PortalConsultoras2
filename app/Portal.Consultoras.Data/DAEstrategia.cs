@@ -366,7 +366,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteScalar(command).ToString();
         }
 
-        public IDataReader GetEstrategiaODD(int codCampania, string codConsultora, DateTime fechaInicioFact)
+        public IDataReader ListarEstrategiasODD(int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasODD"))
             {
