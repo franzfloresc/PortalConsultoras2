@@ -57,17 +57,13 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetProductoComercialByCampaniaBySearchRegionZona(int CampaniaID, int RowCount, int Criterio, string CodigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, bool validarOpt)
         {
-            bool busquedaCuv;
-            if (Criterio == 1)
-                busquedaCuv = true;
-            else
-                busquedaCuv = false;
+            bool busquedaCuv = Criterio == 1;
 
             DbCommand command;
             if (busquedaCuv)
-                command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByCampaniaBySearchRegionZonaCuv_2");
+                command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByCuvByFilter");
             else
-                command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByCampaniaBySearchRegionZonaDescripcion_2");
+                command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByDescripcionByFilter");
 
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
             Context.Database.AddInParameter(command, "@RowCount", DbType.Int32, RowCount);
