@@ -931,9 +931,7 @@ FuncionesGenerales = {
 };
 
 function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
-    var dataNueva;
-     dataNueva = data || {};
-    dataNueva = {
+    var dataNueva = {
         'Fecha': new Date().getTime(),
         'Aplicacion': userData.aplicacion,
         'Pais': userData.pais,
