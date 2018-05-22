@@ -741,11 +741,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBa
         if (CantidadAnti == Cantidad)
             return false;
     }
-    //else {
-    //    if (ClienteAnti == CliDes) //todo: Obs ClienteAnti no esta declarado ni se usa
-    //        return false;
-    //}
-
+    
     if (CliDes.length == 0) {
         CliID = 0;
     }
@@ -1285,7 +1281,6 @@ function MostrarDetalleGanancia() {
 }
 
 function InsertarProducto(model, asyncX) {
-    //alert("seguimiento Alan, copiar el caso para hacer seguimiento de donde se llama a este metodo");
     var retorno = new Object();
 
     jQuery.ajax({
