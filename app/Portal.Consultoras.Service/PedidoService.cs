@@ -2416,7 +2416,7 @@ namespace Portal.Consultoras.Service
 
         public BEPedidoDetalleAppResult DeshacerReservaPedidoApp(BEUsuario usuario)
         {
-            return _pedidoAppBusinessLogic.DeshacerReservaPedido(usuario);
+            return _pedidoAppBusinessLogic.DeshacerReserva(usuario);
         }        
         #endregion
 
