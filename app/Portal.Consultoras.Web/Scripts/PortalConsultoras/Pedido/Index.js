@@ -2840,7 +2840,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
             cache: false
         });
 
-        var val = ValidarUpdate(PedidoDetalleID, FlagValidacion);
+        var val = ValidarUpdate(PedidoDetalleID, FlagValidacion, rowElement);
         if (!val) {
             CerrarSplash();
             return false;
@@ -2848,11 +2848,11 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
 
         CliID = $(rowElement).find(".hdfLPCli").val();
         CliDes = $(rowElement).find(".txtLPCli").val();
-        Cantidad = $(txtLPCant);
+        Cantidad = $(txtLPCant).val();
         CantidadAnti = $(txtLPTempCant).val();
         DesProd = $(rowElement).find(".lblLPDesProd").html();
 
-         Flag = 2;
+        Flag = 2;
         StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
         if (CliDes.length == 0) CliID = 0;
 
@@ -2991,7 +2991,8 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
 
             $.ajaxSetup({
                 cache: false
-            });
+             });
+
             CliID = $(rowElement).find(".hdfLPCli").val();
             CliDes = $(rowElement).find(".txtLPCli").val();
             CliDesVal = $(rowElement).find(".hdfLPCliDes").val();
@@ -2999,7 +3000,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
             CantidadAnti = $(txtLPTempCant).val();
             ClienteAnti = $(rowElement).find(".hdfLPTempCliDes").val();
             DesProd = $(rowElement).find(".lblLPDesProd").val();
-             Flag = 2;
+            Flag = 2;
             StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
 
             if (FlagValidacion == "1") {
@@ -3029,6 +3030,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
             if (CliDes.length == 0) {
                 CliID = 0;
             }
+
             $.getJSON(baseUrl + 'ShowRoom/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV, Cantidad: StockNuevo, PrecioUnidad: PrecioUnidad }, function (data) {
                 if (data.message != "") { /*Validación Pedido Máximo*/
                     AbrirMensajeEstrategia(data.message);
