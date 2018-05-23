@@ -355,6 +355,11 @@ namespace Portal.Consultoras.Web.Controllers
             SetUserData(userData);
             if (EsSuscripcionInmediata())
             {
+                if(tipo == Constantes.EstadoRDSuscripcion.Activo)
+                    revistaDigital.EsActiva = true;
+                else if (tipo == Constantes.EstadoRDSuscripcion.Desactivo)
+                    revistaDigital.EsActiva = false;
+
                 LimpiarEstrategia(entidad.PaisID, entidad.CampaniaID.ToString());
                 RecargarPalancas();
             }
@@ -367,6 +372,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.Lanzamiento);
                 ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
                 ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.LosMasVendidos);
+                 ConsultarEstrategias(string.Empty, userData.CampaniaID,string.Empty);
         }
 
         private string RegistroSuscripcionValidar(int tipo)
