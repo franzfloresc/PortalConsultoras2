@@ -42,7 +42,7 @@ namespace Portal.Consultoras.BizLogic
         TablaLogicaDatos,
         CuponesProgramaNuevas,
         ProductoProgramaNuevas,
-        ProductosExclusivos
+        ProductosExclusivos,
         DatosRestaurarClave,
         HorarioChat,
         HorarioBelcorpResponde,
