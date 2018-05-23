@@ -1029,14 +1029,16 @@
         var PaisId = $('#ddlPaisesBanSegZona').val();
         var Segmento = -1;
         var ConfiguracionZona = "";
+        var tipoAcceso = '';
         $.ajaxSetup({
             cache: false,
             async: false
         });
         $.getJSON(baseUrl + 'Banner/ObtenerSegmentoZona', { BannerId: BannerId, CampaniaId: CampaniaId, PaisId: PaisId }, function (data) {
             if (checkTimeout(data)) {
-                Segmento = data.Segmento,
-                ConfiguracionZona = data.ConfiguracionZona
+                Segmento = data.Segmento;
+                ConfiguracionZona = data.ConfiguracionZona;
+                tipoAcceso = data.TipoAcceso > 0 ? data.TipoAcceso : '';
             }
         });
         $.ajaxSetup({
@@ -1044,6 +1046,7 @@
         });
 
         $('#ddlSegmentoBanner').val(Segmento);
+        $('#ddlTipoAcceso').val(tipoAcceso);
         return ConfiguracionZona;
     }
 
@@ -1060,6 +1063,8 @@
         var CampaniaId = $('#ddlCampania').val();
         var PaisId = $('#ddlPaisesBanSegZona').val();
         var Segmento = -100;
+        var TipoAcceso = $('#ddlTipoAcceso').val();
+        var flConsultorasSegmento = $('#flConsultorasSegmento')[0].files;
 
         var SegmentoInterno = "";
 
@@ -1086,17 +1091,56 @@
             alert("No se ha marcado ninguna zona o región.");
             return false;
         }
+
+        if (!TipoAcceso) {
+            TipoAcceso = -1;
+        }
+
+        var formData = new FormData();
+        formData.append("BannerId", BannerId);
+        formData.append("CampaniaId", CampaniaId);
+        formData.append("PaisId", PaisId);
+        formData.append("Segmento", Segmento);
+        formData.append("ConfiguracionZona", zonas);
+        formData.append("TipoAcceso", TipoAcceso);
+
+        if (flConsultorasSegmento && flConsultorasSegmento.length > 0) {
+            formData.append("csvConsultoras", flConsultorasSegmento[0]);
+        }
+
         $.ajaxSetup({
             cache: false,
         });
-        $.getJSON(baseUrl + 'Banner/UpdBannerPaisSegmentoZona', { BannerId: BannerId, CampaniaId: CampaniaId, PaisId: PaisId, Segmento: Segmento, ConfiguracionZona: zonas, SegmentoInternoId: SegmentoInterno }, function (data) {
-            if (checkTimeout(data)) {
-                alert(data.Mensaje);
-                $('#ddlPaisesBanSegZona').val('')
-                $("#arbolRegionZona").html("");
-                $('#ddlSegmentoBanner').empty();
+
+        var obj = {
+            BannerId: BannerId,
+            CampaniaId: CampaniaId,
+            PaisId: PaisId,
+            Segmento: Segmento,
+            ConfiguracionZona: zonas,
+            SegmentoInterno: SegmentoInterno,
+            TipoAcceso: TipoAcceso,
+            csvConsultoras: flConsultorasSegmento
+        };
+        console.log(obj);
+        $.ajax({
+            url: baseUrl + 'Banner/UpdBannerPaisSegmentoZona',
+            data: formData,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    alert(data.Mensaje);
+                    $('#ddlPaisesBanSegZona').val('');
+                    $('#ddlTipoAcceso').val('');
+                    $('#flConsultorasSegmento').val('');
+                    $("#arbolRegionZona").html("");
+                    $('#ddlSegmentoBanner').empty();
+                }
             }
         });
+
         return false;
     }
 
@@ -2200,6 +2244,7 @@
         </div>
     </div>
 </div>
+
 <div id="DialogSegZonaBanner" style="display: none">
     <div class="Content_modal">
         @Html.Hidden("hdBannerIdSegZon")
@@ -2229,6 +2274,22 @@
                     <input type="checkbox" id="chkSeleccionar" />
                     Seleccionar todo
                 </label>
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titC">Tipo de Acceso:</div>
+            <div class="selectA borde_redondeado">
+                <select id="ddlTipoAcceso">
+                    <option value="">-- Seleccionar --</option>
+                    <option value="1">Inclusión</option>
+                    <option value="2">Exclusión</option>
+                </select>
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titC">Adjuntar Consultoras (codigos.csv):</div>
+            <div class="input_file">
+                <input type="file" id="flConsultorasSegmento" value="" accept=".csv" />
             </div>
         </div>
     </div>
