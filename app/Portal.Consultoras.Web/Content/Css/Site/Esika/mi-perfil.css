@@ -97,13 +97,18 @@
 .icono_validacion_codigo_sms,
 .celular_actualizado,
 .icono_actualizacion_celular_exitoso,
-.mensaje_celular_actualizado
+.mensaje_celular_actualizado,
+.vista_cambiar_foto_perfil,
+.wrapper_content_cambiar_foto_perfil,
+.opciones_foto_perfil,
+.icono_opcion_foto_perfil img
 {
     display:block;
 }
 
 .datos_usuario_iniciales,
-.form_cambio_datos
+.form_cambio_datos,
+.opciones_foto_perfil
 {
     font-size:12px;
     color:#000;
@@ -120,7 +125,8 @@
 .wrapper_content_mi_perfil,
 .wrapper_content_cambiar_contrasenia,
 .wrapper_content_actualizar_correo,
-.wrapper_content_actualizar_celular
+.wrapper_content_actualizar_celular,
+.wrapper_content_cambiar_foto_perfil
 {
     margin:0 auto;
     height:auto;
@@ -153,7 +159,10 @@
 .icono_back_arrow,
 .cambiar_correo_info span,
 .enlace_cambiar_correo,
-.campo_ingreso_codigo_sms
+.campo_ingreso_codigo_sms,
+.icono_cerrar,
+.icono_opcion_foto_perfil,
+.descrip_opcion_foto_perfil
 {
     display:inline-block;
     vertical-align:top;
@@ -243,11 +252,16 @@
     text-decoration:underline;
 }
 
-.form_cambio_datos{
+.form_cambio_datos,
+.opciones_foto_perfil
+{
     background-color:#FFF;
+    margin-bottom:79px;
+}
+
+.form_cambio_datos{
     padding-top:30px;
     padding-bottom:30px;
-    margin-bottom:79px;
 }
 
 .grupo_form_cambio_datos{
@@ -467,14 +481,16 @@
 
 .wrapper_content_cambiar_contrasenia,
 .wrapper_content_actualizar_correo,
-.wrapper_content_actualizar_celular
+.wrapper_content_actualizar_celular,
+.wrapper_content_cambiar_foto_perfil
 {
     width:520px;
 }
 
 .vista_cambiar_contrasenia,
 .vista_actualizar_correo,
-.vista_actualizar_celular
+.vista_actualizar_celular,
+.vista_cambiar_foto_perfil
 {
     background-color:#EDEDED;
     padding:37px;
@@ -484,7 +500,8 @@
     margin-bottom:11px;
 }
 
-.icono_back_arrow{
+.icono_back_arrow,
+.icono_cerrar{
     width:18px;
     height:21px;
     margin-top:1px;
@@ -493,7 +510,8 @@
 
 .icono_back_arrow img,
 .icono_correo_sobre img,
-.icono_mensaje_sms img
+.icono_mensaje_sms img,
+.icono_cerrar img
 {
     width:100%;
     height:auto;
@@ -554,7 +572,9 @@
 .icono_mensaje_sms,
 .btn_acept,
 .campos_ingreso_codigo_sms,
-.icono_actualizacion_celular_exitoso
+.icono_actualizacion_celular_exitoso,
+.opcion_foto_perfil,
+.icono_opcion_foto_perfil img
 {
     margin-left:auto;
     margin-right:auto;
@@ -741,6 +761,77 @@
 .validacion_exitosa{
     border-color:#66A231;
     background-image:url("../../../Images/icono_validacion_codigo_sms_correcto.svg");
+}
+
+.opciones_foto_perfil{
+    padding-top:73px;
+    padding-bottom:73px;
+}
+
+.opcion_foto_perfil {
+    width: 260px;
+    height: 90px;
+    padding-left: 38px;
+    padding-right: 38px;
+    padding-bottom: 29px;
+    background-color:#FFF;
+    border: 1px solid #E7E1E1;
+    margin-bottom: 20px;
+    -moz-box-shadow: 0 8px 11px -7px rgba(103, 103, 103, 0.5);
+    -webkit-box-shadow: 0 8px 11px -7px rgba(103, 103, 103, 0.5);
+    box-shadow: 0 8px 11px -7px rgba(103, 103, 103, 0.5);
+    text-decoration: none;
+    color: #000;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+    .opcion_foto_perfil:hover{
+        width:280px;
+        background-color:#fbfbfb;
+        -moz-box-shadow: 0 4px 11px -7px rgba(103, 103, 103, 0.9);
+        -webkit-box-shadow: 0 4px 11px -7px rgba(103, 103, 103, 0.9);
+        box-shadow: 0 4px 11px -7px rgba(103, 103, 103, 0.9);
+    }
+
+.opcion_tomar_foto,
+.opcion_cargar_foto_desde_galeria
+{
+    padding-top:26px;
+}
+
+.opcion_eliminar_foto{
+    padding-top:23px;
+}
+
+.icono_opcion_foto_perfil{
+    margin-right:20px;
+}
+
+.icono_opcion_foto_perfil img{
+    width:auto;
+    height:100%;
+}
+
+.icono_tomar_foto,
+.icono_cargar_foto_desde_galeria,
+.icono_eliminar_foto
+{
+    width:44px;
+}
+
+.icono_tomar_foto{
+    height:33px;
+}
+
+.icono_cargar_foto_desde_galeria{
+    height:34px;
+}
+
+.icono_eliminar_foto{
+    height:45px;
 }
 
 /* FIN - CAMBIA TU CONTRASEÑA, ACTUALIZA TU CORREO ELECTRÓNICO */

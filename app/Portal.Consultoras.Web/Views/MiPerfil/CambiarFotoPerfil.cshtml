@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Cambiar foto de perfil";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
+{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/mi-perfil.css")">
+}
+else
+{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Lbel/mi-perfil.css")">
+}
+
+<div class="fondo_f9f9f9">
+    <div class="content_belcorp">
+        <div class="fondo_negro_lateral"></div>
+        <div class="titulo_interiores"><span>ACTUALIZA</span> TU NÚMERO DE CELULAR</div>
+    </div>
+    <hr class="clear" />
+    <div class="linea_separadora" style="margin-top:-1px"></div>
+</div>
+<section class="vista_cambiar_foto_perfil">
+    <div class="wrapper_content_cambiar_foto_perfil">
+        <div>
+            <a href="#" title="Volver" class="enlace_volver_a_mi_perfil text-uppercase text-bold">
+                <span class="icono_cerrar">
+                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup_color_negro.svg")" alt="Cerrar" />
+                </span>
+                <span class="enlace_texto">Cerrar</span>
+            </a>
+            <div class="opciones_foto_perfil">
+                <a href="#" title="Tomar una foto" class="opcion_foto_perfil opcion_tomar_foto">
+                    <span class="icono_opcion_foto_perfil icono_tomar_foto v-alignMiddle">
+                        <img src="@Url.Content("~/Content/Images/icono_tomar_foto.svg")" alt="Tomar una foto" />
+                    </span>
+                    <span class="descrip_opcion_foto_perfil text-uppercase v-alignMiddle">Tomar una foto</span>
+                </a>
+                <a href="#" title="Desde mi galería" class="opcion_foto_perfil opcion_cargar_foto_desde_galeria">
+                    <span class="icono_opcion_foto_perfil icono_cargar_foto_desde_galeria v-alignMiddle">
+                        <img src="@Url.Content("~/Content/Images/icono_cargar_foto_desde_galeria.svg")" alt="Desde mi galería" />
+                    </span>
+                    <span class="descrip_opcion_foto_perfil text-uppercase v-alignMiddle">Desde mi galería</span>
+                </a>
+                <a href="#" title="Eliminar foto" class="opcion_foto_perfil opcion_eliminar_foto">
+                    <span class="icono_opcion_foto_perfil icono_eliminar_foto v-alignMiddle">
+                        <img src="@Url.Content("~/Content/Images/icono_eliminar.svg")" alt="Eliminar foto" />
+                    </span>
+                    <span class="descrip_opcion_foto_perfil text-uppercase v-alignMiddle">Eliminar foto</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+

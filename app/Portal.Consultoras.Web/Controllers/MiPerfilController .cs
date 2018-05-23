@@ -29,5 +29,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult CambiarFotoPerfil()
+        {
+            return View();
+        }
     }
 }
