@@ -522,6 +522,7 @@
         <xs:element minOccurs="0" name="origenID" type="xs:int" />
         <xs:element minOccurs="0" name="codigoUsuario" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="codigoIngresado" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="IdEstadoActividad" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -545,19 +546,6 @@
       <xs:sequence>
         <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPinAutenticidadResult" nillable="true" type="q31:BEUsuarioCorreo" />
       </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="UpdFlagAutenticacion">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="UpdFlagAutenticacionResponse">
-    <xs:complexType>
-      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="Select">

@@ -6418,7 +6418,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int IdEstadoActividadField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MensajeField;
+        private string MensajeSaludoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int MostrarOpcionField;
@@ -6440,6 +6440,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TelefonoCentralField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneAutenticacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TipoUsuarioField;
@@ -6653,14 +6656,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Mensaje {
+        public string MensajeSaludo {
             get {
-                return this.MensajeField;
+                return this.MensajeSaludoField;
             }
             set {
-                if ((object.ReferenceEquals(this.MensajeField, value) != true)) {
-                    this.MensajeField = value;
-                    this.RaisePropertyChanged("Mensaje");
+                if ((object.ReferenceEquals(this.MensajeSaludoField, value) != true)) {
+                    this.MensajeSaludoField = value;
+                    this.RaisePropertyChanged("MensajeSaludo");
                 }
             }
         }
@@ -6752,6 +6755,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.TelefonoCentralField, value) != true)) {
                     this.TelefonoCentralField = value;
                     this.RaisePropertyChanged("TelefonoCentral");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneAutenticacion {
+            get {
+                return this.TieneAutenticacionField;
+            }
+            set {
+                if ((this.TieneAutenticacionField.Equals(value) != true)) {
+                    this.TieneAutenticacionField = value;
+                    this.RaisePropertyChanged("TieneAutenticacion");
                 }
             }
         }
@@ -9921,22 +9937,16 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.EnvioSms> ProcesaEnvioSmsAsync(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile, string urlApi);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/VerificarIgualdadCodigoIngresado", ReplyAction="http://tempuri.org/IUsuarioService/VerificarIgualdadCodigoIngresadoResponse")]
-        bool VerificarIgualdadCodigoIngresado(int PaisID, int origenID, string codigoUsuario, string codigoIngresado);
+        bool VerificarIgualdadCodigoIngresado(int PaisID, int origenID, string codigoUsuario, string codigoIngresado, int IdEstadoActividad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/VerificarIgualdadCodigoIngresado", ReplyAction="http://tempuri.org/IUsuarioService/VerificarIgualdadCodigoIngresadoResponse")]
-        System.Threading.Tasks.Task<bool> VerificarIgualdadCodigoIngresadoAsync(int PaisID, int origenID, string codigoUsuario, string codigoIngresado);
+        System.Threading.Tasks.Task<bool> VerificarIgualdadCodigoIngresadoAsync(int PaisID, int origenID, string codigoUsuario, string codigoIngresado, int IdEstadoActividad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetPinAutenticidad", ReplyAction="http://tempuri.org/IUsuarioService/GetPinAutenticidadResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo GetPinAutenticidad(int paisID, string CodigoUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetPinAutenticidad", ReplyAction="http://tempuri.org/IUsuarioService/GetPinAutenticidadResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo> GetPinAutenticidadAsync(int paisID, string CodigoUsuario);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdFlagAutenticacion", ReplyAction="http://tempuri.org/IUsuarioService/UpdFlagAutenticacionResponse")]
-        void UpdFlagAutenticacion(int paisID, string CodigoUsuario);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdFlagAutenticacion", ReplyAction="http://tempuri.org/IUsuarioService/UpdFlagAutenticacionResponse")]
-        System.Threading.Tasks.Task UpdFlagAutenticacionAsync(int paisID, string CodigoUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Select", ReplyAction="http://tempuri.org/IUsuarioService/SelectResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario);
@@ -10760,12 +10770,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.ProcesaEnvioSmsAsync(paisID, valorRestaurar, origenID, CantidadEnvios, esMobile, urlApi);
         }
         
-        public bool VerificarIgualdadCodigoIngresado(int PaisID, int origenID, string codigoUsuario, string codigoIngresado) {
-            return base.Channel.VerificarIgualdadCodigoIngresado(PaisID, origenID, codigoUsuario, codigoIngresado);
+        public bool VerificarIgualdadCodigoIngresado(int PaisID, int origenID, string codigoUsuario, string codigoIngresado, int IdEstadoActividad) {
+            return base.Channel.VerificarIgualdadCodigoIngresado(PaisID, origenID, codigoUsuario, codigoIngresado, IdEstadoActividad);
         }
         
-        public System.Threading.Tasks.Task<bool> VerificarIgualdadCodigoIngresadoAsync(int PaisID, int origenID, string codigoUsuario, string codigoIngresado) {
-            return base.Channel.VerificarIgualdadCodigoIngresadoAsync(PaisID, origenID, codigoUsuario, codigoIngresado);
+        public System.Threading.Tasks.Task<bool> VerificarIgualdadCodigoIngresadoAsync(int PaisID, int origenID, string codigoUsuario, string codigoIngresado, int IdEstadoActividad) {
+            return base.Channel.VerificarIgualdadCodigoIngresadoAsync(PaisID, origenID, codigoUsuario, codigoIngresado, IdEstadoActividad);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo GetPinAutenticidad(int paisID, string CodigoUsuario) {
@@ -10774,14 +10784,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo> GetPinAutenticidadAsync(int paisID, string CodigoUsuario) {
             return base.Channel.GetPinAutenticidadAsync(paisID, CodigoUsuario);
-        }
-        
-        public void UpdFlagAutenticacion(int paisID, string CodigoUsuario) {
-            base.Channel.UpdFlagAutenticacion(paisID, CodigoUsuario);
-        }
-        
-        public System.Threading.Tasks.Task UpdFlagAutenticacionAsync(int paisID, string CodigoUsuario) {
-            return base.Channel.UpdFlagAutenticacionAsync(paisID, CodigoUsuario);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario) {

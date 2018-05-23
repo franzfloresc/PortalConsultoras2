@@ -324,6 +324,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (oVerificarAutenticidad != null)
                 {
+                    oVerificarAutenticidad.EsMobile = EsDispositivoMovil();
+
                     return Json(new
                     {
                         success = true,
@@ -2640,21 +2642,6 @@ namespace Portal.Consultoras.Web.Controllers
             return res;
         }
 
-        //private string MensajesOlvideContrasena(string tipoMensaje)
-        //{
-        //    tipoMensaje = Util.Trim(tipoMensaje);
-        //    switch (tipoMensaje)
-        //    {
-        //        case "1": return "El Número de Cédula ingresado no existe.";
-        //        case "2": return "No tienes un correo registrado para el envío de tu clave. Por favor comunícate con el Servicio de Atención al Cliente.";
-        //        case "3": return "Correo electrónico no identificado.";
-        //        case "4": return "Te hemos enviado una nueva clave a tu correo.";
-        //        case "5": return "Ocurrió un problema al recuperar tu contraseña.";
-        //        case "6": return "Error al realizar proceso, inténtelo mas tarde.";
-        //        default: return "";
-        //    }
-        //}
-
         public RevistaDigitalModel FormatTextConfiguracionPaisDatosModel(RevistaDigitalModel revistaDigital,
             string nombreConsultora)
         {
@@ -2762,13 +2749,15 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     oDatos = sv.GetRestaurarClaveByValor(paisID, valorRestaurar, prioridad);
                 }
-                SetTemData(oDatos, paisID, valorRestaurar);
-
+                if (oDatos != null)
+                {
+                    SetTemData(paisID, valorRestaurar, oDatos.CodigoISO, oDatos.CodigoUsuario, oDatos.PrimerNombre, oDatos.IdEstadoActividad);
+                    oDatos.EsMobile = EsDispositivoMovil();
+                } 
                 return Json(new
                 {
                     success = true,
                     data = oDatos,
-                    esMobile = EsDispositivoMovil(),
                     message = "OK"
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -2798,8 +2787,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             int paisID = Convert.ToInt32(TempData["PaisID"]);
             if (paisID == 0) return SuccessJson(Constantes.OlvideContraseña.Mensajes.ErrorPais, false);
-            string valor = Convert.ToString(TempData["valorRestaurar"]);
+            string valor = "";
+            if (origenID == 1)
+                valor = Convert.ToString(TempData["valorRestaurar"]);
+            else
+                valor = Convert.ToString(TempData["CodigoUsuario"]);
             if (valor == "") return SuccessJson(Constantes.OlvideContraseña.Mensajes.ErrorValor, false);
+
             try
             {
                 Enumeradores.EnvioEmail EstadoEnvio = Enumeradores.EnvioEmail.SeEnvioCorrectoEmail;
@@ -2808,7 +2802,8 @@ namespace Portal.Consultoras.Web.Controllers
                     EstadoEnvio = svc.ProcesaEnvioEmail(paisID, valor, origenID, CantidadEnvios, EsDispositivoMovil());
                 }
                 TempData["PaisID"] = paisID;
-                TempData["ValorIngresado"] = valor;
+                TempData["valorRestaurar"] = valor;
+                TempData["CodigoUsuario"] = valor;
                 switch (EstadoEnvio)
                 {
                     case Enumeradores.EnvioEmail.NoSehaEncontradoEmail:
@@ -2864,6 +2859,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
+                TempData["PaisID"] = paisID;
+                TempData["ValorIngresado"] = valor;
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, valor, Util.GetPaisISO(paisID));
                 return ErrorJson(Constantes.MensajesError.RecuperarContrasenia, true);
             }
@@ -2877,6 +2874,7 @@ namespace Portal.Consultoras.Web.Controllers
             string codigoUsuario = Convert.ToString(TempData["CodigoUsuario"]);
             string codigoIso = Convert.ToString(TempData["CodigoISO"]);
             string primerNombre = Convert.ToString(TempData["PrimerNombre"]);
+            int IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
 
             try
             {
@@ -2885,7 +2883,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    iguales = sv.VerificarIgualdadCodigoIngresado(paisID, OrigenID, codigoUsuario, Codigoingresado);
+                    iguales = sv.VerificarIgualdadCodigoIngresado(paisID, OrigenID, codigoUsuario, Codigoingresado, IdEstadoActividad);
                 }
 
                 if (iguales)
@@ -2911,6 +2909,7 @@ namespace Portal.Consultoras.Web.Controllers
                             };
                     }
                 }
+                SetTemData(paisID, "", codigoIso, codigoUsuario, primerNombre, IdEstadoActividad);
                 return Json(new
                 {
                     success = iguales,
@@ -2920,6 +2919,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
+                SetTemData(paisID, "", codigoIso, codigoUsuario, primerNombre, IdEstadoActividad);
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, codigoUsuario, Util.GetPaisISO(paisID));
                 return Json(new
                 {
@@ -2929,13 +2929,14 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private void SetTemData(BEUsuarioCorreo oRestaurar, int paisID, string valorRestaurar)
+        private void SetTemData(int paisID, string valorRestaurar, string codigoIso, string codigoUsuario, string primerNombre, int idEstadoActividad)
         {
             TempData["PaisID"] = paisID;
             TempData["valorRestaurar"] = valorRestaurar;
-            TempData["CodigoISO"] = oRestaurar.CodigoISO;
-            TempData["CodigoUsuario"] = oRestaurar.CodigoUsuario;
-            TempData["NombreCompleto"] = oRestaurar.NombreCompleto;
+            TempData["CodigoISO"] = codigoIso;
+            TempData["CodigoUsuario"] = codigoUsuario;
+            TempData["PrimerNombre"] = primerNombre;
+            TempData["IdEstadoActividad"] = idEstadoActividad;
         }
         #endregion
 
@@ -2944,8 +2945,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                var objVerificacion = new BEUsuarioCorreo();
                 using (var sv = new UsuarioServiceClient())
-                    return sv.GetPinAutenticidad(paisID, codigoUsuario);
+                    objVerificacion = sv.GetPinAutenticidad(paisID, codigoUsuario);
+                if(objVerificacion != null)
+                    SetTemData(paisID, "", objVerificacion.CodigoISO, objVerificacion.CodigoUsuario, objVerificacion.PrimerNombre, objVerificacion.IdEstadoActividad);
+
+                return objVerificacion;
             }
             catch (Exception ex)
             {

@@ -363,15 +363,12 @@ namespace Portal.Consultoras.ServiceContracts
         Enumeradores.EnvioSms ProcesaEnvioSms(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile, string urlApi);
 
         [OperationContract]
-        bool VerificarIgualdadCodigoIngresado(int PaisID, int origenID, string codigoUsuario, string codigoIngresado);
+        bool VerificarIgualdadCodigoIngresado(int PaisID, int origenID, string codigoUsuario, string codigoIngresado, int IdEstadoActividad);
         #endregion
 
         #region Pin Autenticidad
         [OperationContract]
         BEUsuarioCorreo GetPinAutenticidad(int paisID, string CodigoUsuario);
-
-        [OperationContract]
-        void UpdFlagAutenticacion(int paisID, string CodigoUsuario);
         #endregion
     }
 }

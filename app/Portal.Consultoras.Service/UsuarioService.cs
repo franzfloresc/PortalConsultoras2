@@ -823,10 +823,10 @@ namespace Portal.Consultoras.Service
             return BLUsuario.ProcesaEnvioSms(paisID, valorRestaurar, origenID, CantidadEnvios, esMobile, urlApi);
         }
 
-        public bool VerificarIgualdadCodigoIngresado(int PaisID, int origenID, string codigoUsuario, string codigoIngresado)
+        public bool VerificarIgualdadCodigoIngresado(int PaisID, int origenID, string codigoUsuario, string codigoIngresado, int IdEstadoActividad)
         {
             var BLUsuario = new BLUsuario();
-            return (BLUsuario.VerificarIgualdadCodigoIngresado(PaisID, origenID, codigoUsuario, codigoIngresado));
+            return (BLUsuario.VerificarIgualdadCodigoIngresado(PaisID, origenID, codigoUsuario, codigoIngresado, IdEstadoActividad));
         }
         #endregion
 
@@ -835,12 +835,6 @@ namespace Portal.Consultoras.Service
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.GetVerificacionAutenticidad(paisID, CodigoUsuario);
-        }
-
-        public void UpdFlagAutenticacion(int paisID, string CodigoUsuario)
-        {
-            var BLUsuario = new BLUsuario();
-            BLUsuario.UpdFlagAutenticacion(paisID, CodigoUsuario);
         }
         #endregion
     }

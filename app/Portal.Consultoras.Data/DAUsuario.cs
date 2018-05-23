@@ -810,13 +810,13 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        public bool VerificarIgualdadCodigoIngresado(int origenID, string codigoUsuario, string codigoIngresado)
+        public bool VerificarIgualdadCodigoIngresado(int origenID, string codigoUsuario, string codigoIngresado, int IdEstadoActividad)
         {
             DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.GetCodigoGenerado"); ;
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
             Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, origenID);
             Context.Database.AddInParameter(command, "@CodigoIngresado", DbType.AnsiString, codigoIngresado);
-
+            Context.Database.AddInParameter(command, "@IdEstadoActividad", DbType.Int32, IdEstadoActividad);
             return Convert.ToBoolean(Context.ExecuteScalar(command));
         }
         #endregion
@@ -828,14 +828,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodgioUsuario", DbType.AnsiString, CodigoUsuario);
 
             return Context.ExecuteReader(command);
-        }
-
-        public void UpdFlagAutenticacion(string CodigoUsuario)
-        {
-            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.UpdFlagTieneAutenticacion");
-            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoUsuario);
-
-            Context.ExecuteNonQuery(command);
         }
         #endregion
 

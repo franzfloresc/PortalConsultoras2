@@ -188,7 +188,7 @@
 
                         if (resul.length > 1) {
                             var datos = response.data;
-                            MostrarPopupPin(datos);
+                            PopupVerificacionAutenticidad(datos);
                             closeWaitingDialog();
                         }
 
@@ -542,7 +542,7 @@
 
 
     @*Nueva Version olvide contraseña HD-1254*@
-    @{
+    @*@{
         if (HttpContext.Current.Request.Browser.IsMobileDevice)
         {
             <a href="#" class="lk_chat" ismovildevice="1" target="_blank"></a>
@@ -551,7 +551,7 @@
         {
             <a href="#" class="lk_chat" ismovildevice="0"></a>
         }
-    }
+    }*@
     <!-- OPCIONES CORREO Y SMS -->
     <div id="popupRestaurarClave" style="display:none;">
         <div id="popup_opciones_recuperacion_contrasenia">
@@ -596,10 +596,10 @@
                     para verificar la autenticidad te enviaremos un PIN a tu celular o a tu e-mail según la opción que elijas:</span>
                     <!-- FIN - MENSAJE PARA PIN DE AUTENTICACION CONSULTORA NUEVA-->
 
-                    <!-- INICIO - MENSAJE PARA PIN DE AUTENTICACION CONSULTORA REACTIVADA -->
+                    @*<!-- INICIO - MENSAJE PARA PIN DE AUTENTICACION CONSULTORA REACTIVADA -->
                     <span id="menAutenticacionReactivada" class="texto_disculpa" style="display:none;">ya que has vuelto después de tiempo, 
                     para verificar la autenticidad te enviaremos un PIN a tu celular o a tu e-mail según la opción que elijas:</span>
-                    <!-- FIN - MENSAJE PARA PIN DE AUTENTICACION CONSULTORA REACTIVADA -->
+                    <!-- FIN - MENSAJE PARA PIN DE AUTENTICACION CONSULTORA REACTIVADA -->*@
                 </div>
 
                 <div class="opciones_recuperacion_contrasenia">
@@ -727,7 +727,7 @@
                         Ver más opciones
                     </a>
                     <a id="linkvolverInicio" class="accion_alternativa_posterior_envio_password aVolverInicio" title="Reenviar mensaje a mi correo" style="cursor:pointer;display:none;">Volver al inicio</a>
-                    <a id="MenInferiorPin" style="display:none;color:black; cursor:pointer; text-decoration:none;"><b>Si necesitas actualizar alguno de tus datos de contacto, comunícate con el Call Center.</b></a>
+                    <div id="MenInferiorAutenticidad" style="display:none;color:black;">Si no reconoces tu correo o celular, comunícate con nuestro <a id="BelcorpRespondeVerificacion" style="color:black;cursor:pointer;">Call Center</a></div>
                 </div>
             </div>
         </div>

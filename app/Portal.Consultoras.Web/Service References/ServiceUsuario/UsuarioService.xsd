@@ -540,7 +540,7 @@
       <xs:element minOccurs="0" name="HoraRestanteCorreo" type="xs:int" />
       <xs:element minOccurs="0" name="HoraRestanteSms" type="xs:int" />
       <xs:element minOccurs="0" name="IdEstadoActividad" type="xs:int" />
-      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeSaludo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MostrarOpcion" type="xs:int" />
       <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OpcionCorreoActiva" nillable="true" type="xs:string" />
@@ -548,6 +548,7 @@
       <xs:element minOccurs="0" name="OrigenID" type="xs:int" />
       <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TelefonoCentral" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TieneAutenticacion" type="xs:boolean" />
       <xs:element minOccurs="0" name="TipoUsuario" type="xs:int" />
       <xs:element minOccurs="0" name="opcionHabilitar" type="xs:boolean" />
     </xs:sequence>
