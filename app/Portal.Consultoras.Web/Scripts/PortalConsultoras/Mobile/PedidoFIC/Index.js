@@ -114,8 +114,7 @@ $(document).ready(function () {
             });
         }
     });
-
-   // ReservadoOEnHorarioRestringido(false);
+    
     $("#divProductoMantenedor").hide();
     $(".btn_verMiPedido").on("click", function () {
         
@@ -605,10 +604,6 @@ function CancelarProductosSugeridos() {
 
 function InsertarProductoSugerido(model) {
     ShowLoading();
-    //if (ReservadoOEnHorarioRestringido()) {
-    //    CloseLoading();
-    //    return false;
-    //}
 
     jQuery.ajax({
         type: 'POST',
@@ -665,10 +660,6 @@ function InsertarProductoSugerido(model) {
 function AgregarProductoListado() {
     
     ShowLoading();
-    //if (ReservadoOEnHorarioRestringido()) {
-    //    CloseLoading();
-    //    return false;
-    //}
 
     var CUV = $('#hdfCUV').val();
     $("#hdCuvRecomendado").val(CUV);

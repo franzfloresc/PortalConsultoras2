@@ -124,7 +124,6 @@ function EstrategiaVerDetalleMobile(estrategia, origen) {
     origen = $.trim(origen) || 0;
     var id = estrategia.EstrategiaID;
     var route = "/OfertasParaTi/Detalle?id=";
-    //var route = "/HerramientasVenta/Detalle?id=";
     var url = getMobilePrefixUrl() + route + id + "&&origen=" + origen + "&&campaniaId=" + (estrategia.CampaniaID || campaniaCodigo);
     try {
         if (typeof EstrategiaGuardarTemporal == "function" && typeof GetProductoStorage == "function") {
