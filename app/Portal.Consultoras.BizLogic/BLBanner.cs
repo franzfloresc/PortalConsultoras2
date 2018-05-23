@@ -428,11 +428,12 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daBanner.GetBannerSegmentoSeccion(CampaniaId, BannerId, PaisId))
                 while (reader.Read())
                 {
-                    obeBannerSegmentoZona = new BEBannerSegmentoZona()
+                    obeBannerSegmentoZona = new BEBannerSegmentoZona
                     {
                         Segmento = Convert.ToInt32(reader["Segmento"]),
                         ConfiguracionZona = Convert.ToString(reader["ConfiguracionZona"]),
-                        SegmentoInterno = Convert.ToString(reader["SegmentoInterno"])
+                        SegmentoInterno = Convert.ToString(reader["SegmentoInterno"]),
+                        TipoAcceso = Convert.ToInt32(reader["TipoAcceso"])
                     };
                 }
             return obeBannerSegmentoZona;
