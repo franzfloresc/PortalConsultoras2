@@ -286,6 +286,7 @@
     <Compile Include="Controllers\AdministrarReporteValidacionController.cs" />
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
     <Compile Include="Controllers\AppController.cs" />
+    <Compile Include="Controllers\MiPerfilController .cs" />
     <Compile Include="Controllers\AsesoraOnlineController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
     <Compile Include="Controllers\BaseGuiaNegocioController.cs" />
@@ -1264,11 +1265,13 @@
     <Content Include="Content\Css\Site\Admin\Estrategias\UpSelling.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\index.css" />
     <Content Include="Content\Css\Site\Contenedor\Index.css" />
+    <Content Include="Content\Css\Site\Esika\mi-perfil.css" />
     <Content Include="Content\Css\Site\Esika\styleDefault.css" />
     <Content Include="Content\Css\Site\Esika\unsubscribe.css" />
     <Content Include="Content\Css\Site\Images\carrusel_next_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Landing\producto.landing.css" />
+    <Content Include="Content\Css\Site\Lbel\mi-perfil.css" />
     <Content Include="Content\Css\Site\Lbel\unsubscribe.css" />
     <Content Include="Content\Css\Site\Lanzamientos\Detalle.css" />
     <Content Include="Content\Css\Site\Contenedor\carrusel.individual.css" />
@@ -1410,8 +1413,21 @@
     <Content Include="Content\Images\dateTimePicker\cal_minus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_plus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_reverse.gif" />
+    <Content Include="Content\Images\Esika\icono_avatar.svg" />
+    <Content Include="Content\Images\Esika\icono_camara.svg" />
+    <Content Include="Content\Images\Esika\icono_cambiar_dato.svg" />
+    <Content Include="Content\Images\Esika\icono_candado.svg" />
+    <Content Include="Content\Images\Esika\icono_info_alerta.svg" />
+    <Content Include="Content\Images\Esika\icono_plus.svg" />
     <Content Include="Content\Images\flecha-campo-select.svg" />
     <Content Include="Content\Images\icono-calendario.svg" />
+    <Content Include="Content\Images\icono_eliminar.svg" />
+    <Content Include="Content\Images\icono_envelope.svg" />
+    <Content Include="Content\Images\icono_sms.svg" />
+    <Content Include="Content\Images\icono_validacion_codigo_sms_correcto.svg" />
+    <Content Include="Content\Images\icono_validacion_codigo_sms_erroneo.svg" />
+    <Content Include="Content\Images\icono_ver_password.svg" />
+    <Content Include="Content\Images\icono_volver.svg" />
     <Content Include="Content\Images\Lbel\icono_check_lbel.png" />
     <Content Include="Content\Images\Login2\Icons\icono-envelope-esika.png" />
     <Content Include="Content\Images\Login2\Icons\icono-envelope-lbel.png" />
@@ -5020,6 +5036,10 @@
     <Content Include="Views\Lanzamientos\Detalle.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales.cshtml" />
     <Content Include="Views\Lanzamientos\Template_LanzamientosTonos.cshtml" />
+    <Content Include="Views\MiPerfil\Index.cshtml" />
+    <Content Include="Views\MiPerfil\CambiarContrasenia.cshtml" />
+    <Content Include="Views\MiPerfil\ActualizarCorreo.cshtml" />
+    <Content Include="Views\MiPerfil\ActualizarCelular.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

@@ -1,0 +1,126 @@
+﻿@{
+    ViewBag.Title = "Mi Perfil";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
+{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/mi-perfil.css")">
+}
+else
+{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Lbel/mi-perfil.css")">
+}
+
+<div class="fondo_f9f9f9">
+    <div class="content_belcorp">
+        <div class="fondo_negro_lateral"></div>
+        <div class="titulo_interiores titulo_misPagos"><span>MI</span> PERFIL</div>
+    </div>
+    <hr class="clear" />
+    <div class="linea_separadora" style="margin-top:-1px"></div>
+</div>
+<section class="datos_usuario_iniciales w-100">
+    <div class="wrapper_content_mi_perfil">
+        <div class="foto_consultora">
+            <a href="#" title="Editar imagen" class="icono_camara default-background-color"></a>
+            <div class="contenedor_foto_consultora">
+                <img src="@Url.Content("~/Content/Images/Esika/icono_avatar.svg")" alt="Imagen Consultora" class="consultora_img" />
+            </div>
+        </div>
+        <div class="datos_consultora text-left text-uppercase">
+            <div class="nombre_consultora text-bold">
+                Valeria Tarazona Portocarrero
+            </div>
+            <div class="datos_codigo_y_zona">
+                <div class="datos_codigo">
+                    <span>Código :</span>
+                    <span class="text-bold">4567834372</span>
+                </div>
+                <div class="datos_zona">
+                    <span>Zona :</span>
+                    <span class="text-bold">9011</span>
+                </div>
+            </div>
+            <div class="datos_gerente_zona">
+                <span>Gerente de zona : </span>
+                <span class="text-bold">Alejandra Vásquez</span>
+            </div>
+            <a href="#" title="Cambiar contraseña" class="enlace_cambiar_contrasenia_consultora text-bold">
+                <span class="icono_cambio_password"></span>
+                <span class="enlace_texto">Cambiar contraseña</span>
+            </a>
+        </div>
+    </div>
+</section>
+<section class="form_cambio_datos">
+    <div class="wrapper_content_mi_perfil">
+        <fieldset class="grupo_form_cambio_datos text-uppercase">
+            <div class="w-82">
+                <input id="NombreCortoConsultora" name="NombreCortoConsultora" class="w-100" type="text" value="" />
+                <label for="NombreCortoConsultora" class="w-100">¿Cómo quieres que te llamemos?</label>
+            </div>
+        </fieldset>
+        <fieldset class="grupo_form_cambio_datos text-uppercase">
+            <div class="w-82">
+                <input id="CorreoElectronicoConsultora" name="CorreoElectronicoConsultora" class="w-100" type="text" value="" />
+                <label for="CorreoElectronicoConsultora" class="w-100">Correo Electrónico</label>
+                <div class="tooltip_info_revision_correo">
+                    <div class="icono_info_alerta"></div>
+                    <div class="tooltip_texto">
+                        <p>
+                            Revisa tu correo <span class="text-bold">valeria.tarazona@gmail.com</span><br />para cambiar de cuenta.
+                        </p>
+                        <a href="#" class="enlace_no_cambiar_correo" title="Ya no quiero cambiar mi correo">
+                            Ya no quiero cambiar mi correo
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <a href="#" title="Cambiar" class="enlace_cambiar_dato w-18 text-right">
+                <span class="icono_cambiar_dato"></span>
+                <span class="enlace_texto text-bold">Cambiar</span>
+            </a>
+        </fieldset>
+        <fieldset class="grupo_form_cambio_datos text-uppercase">
+            <div class="w-82">
+                <input id="CelularConsultora" name="CelularConsultora" class="w-100" type="text" value="" />
+                <label for="CelularConsultora" class="w-100">Celular</label>
+            </div>
+            <a href="#" title="Cambiar" class="enlace_cambiar_dato w-18 text-right">
+                <span class="icono_cambiar_dato"></span>
+                <span class="enlace_texto text-bold">Cambiar</span>
+            </a>
+        </fieldset>
+        <fieldset class="grupo_form_cambio_datos text-uppercase">
+            <div class="w-82">
+                <input id="TelefonoFijoConsultora" name="CelularConsultora" class="w-100" type="text" value="" />
+                <label for="TelefonoFijoConsultora" class="w-100">Número fijo</label>
+            </div>
+        </fieldset>
+        <fieldset class="grupo_form_cambio_datos text-uppercase mb-61">
+            <a href="#" title="Agregar otro número" class="enlace_agregar_num_adicional">
+                <span class="icono_agregar_num_adicional"></span>
+                <span class="enlace_texto text-bold">Agregar otro número</span>
+            </a>
+            <div class="w-82">
+                <input id="NumeroAdicionalConsultora" name="NumeroAdicionalConsultora" class="w-100" disabled="disabled" type="text" value="" />
+                <label for="NumeroAdicionalConsultora" class="label_num_adicional w-100">Número adicional</label>
+            </div>
+            <a href="#" title="Cambiar" class="enlace_eliminar_numero_adicional w-18 text-right">
+                <span class="icono_eliminar_numero_adicional"></span>
+                <span class="enlace_texto text-bold">Eliminar</span>
+            </a>
+        </fieldset>
+        <div class="linea_separadora"></div>
+        <fieldset class="grupo_form_cambio_datos text-uppercase">
+            <div class="w-100 text-right">
+                <button type="button" class="btn_guardar_datos_nuevos text-uppercase text-bold default-background-color mt-23">
+                    Guardar
+                </button>
+            </div>
+        </fieldset>
+    </div>
+</section>
+
+
