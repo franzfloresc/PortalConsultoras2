@@ -455,12 +455,12 @@ namespace Portal.Consultoras.BizLogic
             return lista;
         }
 
-        public void UpdBannerPaisSegmentoZona(int CampaniaId, int BannerId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInterno)
+        public void UpdBannerPaisSegmentoZona(BEBannerSegmentoZona segmentoZona)
         {
-            DABanner daBanner = new DABanner();
-            daBanner.UpdBannerPaisSegmentoZona(CampaniaId, BannerId, PaisId, Segmento, ConfiguracionZona, SegmentoInterno);
-            CacheManager<BEBanner>.RemoveData(ECacheItem.Banners, CampaniaId.ToString());
-            CacheManager<BEBanner>.RemoveData(ECacheItem.BannersBienvenida, CampaniaId.ToString());
+            var daBanner = new DABanner();
+            daBanner.UpdBannerPaisSegmentoZona(segmentoZona);
+            CacheManager<BEBanner>.RemoveData(ECacheItem.Banners, segmentoZona.CampaniaId.ToString());
+            CacheManager<BEBanner>.RemoveData(ECacheItem.BannersBienvenida, segmentoZona.CampaniaId.ToString());
         }
 
         public void DeleteCacheBanner(int CampaniaID)
