@@ -291,7 +291,8 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros)
+        public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros, 
+            bool consultoraOnLine = true)
         {
             var pedidoWebDetalle = new List<BEPedidoWebDetalle>();
             var daPedidoWebDetalle = new DAPedidoWebDetalle(bePedidoWebDetalleParametros.PaisId);
@@ -305,29 +306,30 @@ namespace Portal.Consultoras.BizLogic
                 }
 
             #region ConsultoraOnline
-
-            var daConsultoraOnline = new DAConsultoraOnline(bePedidoWebDetalleParametros.PaisId);
-            var listaProductosConsultoraOnline = new List<BESolicitudClienteDetalle>();
-
-            using (IDataReader reader = daConsultoraOnline.GetProductoByCampaniaByConsultoraId(bePedidoWebDetalleParametros.CampaniaId, bePedidoWebDetalleParametros.ConsultoraId))
-                while (reader.Read())
-                {
-                    var entidad = new BESolicitudClienteDetalle(reader);
-                    listaProductosConsultoraOnline.Add(entidad);
-                }
-
-            if (listaProductosConsultoraOnline.Count > 0)
+            if (consultoraOnLine)
             {
-                foreach (var item in pedidoWebDetalle)
-                {
-                    var itemConsultoraOnline = listaProductosConsultoraOnline.FirstOrDefault(p => p.PedidoWebID == item.PedidoID && p.PedidoWebDetalleID == item.PedidoDetalleID);
-                    if (itemConsultoraOnline != null)
+                var daConsultoraOnline = new DAConsultoraOnline(bePedidoWebDetalleParametros.PaisId);
+                var listaProductosConsultoraOnline = new List<BESolicitudClienteDetalle>();
+
+                using (IDataReader reader = daConsultoraOnline.GetProductoByCampaniaByConsultoraId(bePedidoWebDetalleParametros.CampaniaId, bePedidoWebDetalleParametros.ConsultoraId))
+                    while (reader.Read())
                     {
-                        item.FlagConsultoraOnline = true;
+                        var entidad = new BESolicitudClienteDetalle(reader);
+                        listaProductosConsultoraOnline.Add(entidad);
+                    }
+
+                if (listaProductosConsultoraOnline.Count > 0)
+                {
+                    foreach (var item in pedidoWebDetalle)
+                    {
+                        var itemConsultoraOnline = listaProductosConsultoraOnline.FirstOrDefault(p => p.PedidoWebID == item.PedidoID && p.PedidoWebDetalleID == item.PedidoDetalleID);
+                        if (itemConsultoraOnline != null)
+                        {
+                            item.FlagConsultoraOnline = true;
+                        }
                     }
                 }
             }
-
             #endregion
 
             return pedidoWebDetalle;

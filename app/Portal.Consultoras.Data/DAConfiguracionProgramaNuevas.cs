@@ -15,23 +15,27 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetConfiguracionProgramaNuevas(BEConfiguracionProgramaNuevas entidad)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionProgramaNuevas_SB2");
-            Context.Database.AddInParameter(command, "@Campania", DbType.String, entidad.CampaniaInicio);
-            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, entidad.CodigoRegion);
-            Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, entidad.CodigoZona);
+            using (var command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionProgramaNuevas_SB2"))
+            {
+                Context.Database.AddInParameter(command, "@Campania", DbType.String, entidad.CampaniaInicio);
+                Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, entidad.CodigoRegion);
+                Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, entidad.CodigoZona);
 
-            return Context.ExecuteReader(command);
+                return Context.ExecuteReader(command);
+            }
         }
 
         public IDataReader GetConfiguracionProgramaDespuesPrimerPedido(BEConfiguracionProgramaNuevas entidad)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionProgramaNuevas_2y3PedidoSB2");
-            Context.Database.AddInParameter(command, "@Campania", DbType.String, entidad.CampaniaInicio);
-            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, entidad.CodigoRegion);
-            Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, entidad.CodigoZona);
-            Context.Database.AddInParameter(command, "@CodigoNivel", DbType.String, entidad.CodigoNivel);
+            using (var command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionProgramaNuevas_2y3PedidoSB2"))
+            {
+                Context.Database.AddInParameter(command, "@Campania", DbType.String, entidad.CampaniaInicio);
+                Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, entidad.CodigoRegion);
+                Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, entidad.CodigoZona);
+                Context.Database.AddInParameter(command, "@CodigoNivel", DbType.String, entidad.CodigoNivel);
 
-            return Context.ExecuteReader(command);
+                return Context.ExecuteReader(command);
+            }
         }
 
         #region ConfiguracionApp
