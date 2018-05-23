@@ -17,9 +17,6 @@
     <div class="video-visual">
         <div class="video-container">
 
-            <!--div id="player"></div-->
-            <!--, videoId:'@@Model.TipoEstrategiaDetalle.UrlVideoMobile-->
-            <!--data-extra="{'descripcionResumen':'@@Model.DescripcionResumen'}"-->
             <div id="ytMobileRevistaDigitalTemplateInformativa"
                 data-youtube="{ height:'415', width:'100%', enablejsapi:1, fs:0, showinfo:0, modestbranding:1, loop:1, playerVars:{autoplay:1,rel:0}}"
                 class="yt-video"
@@ -277,12 +274,6 @@ else if(Model.CancelarSuscripcion)
         var isScroll = false;
         window.estaSuscrita = '@Model.EsSuscrita';
         
-        /*
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        var player;*/ // create youtube player
     </script>
 
     @Scripts.Render("~/bundles/Mobile/RevistaDigital-Info")

@@ -47,23 +47,15 @@ else
     </div>
 }
 
-<!--GUIA NEGOCIO-->
 <div id="GuiaNegocio" style="display: none;">
-    <!--FICHA 003A-->
     <div id="Ficha_003A" style="display: none;">
     </div>
-    <!--FIN-->
-    <!--FICHA 048B-->
     <div id="Ficha_048B" class="content_oferta_guia_negocio" style="display: none;">
     </div>
 
-    <!--FICHA 048A-->
     <div id="Ficha_048A" style="display:none;">
     </div>
-    <!--FIN-->
 </div>
-<!--GUIA NEGOCIO-->
-<!--PRECIO CATALOGO-->
 <div id="PrecioCatalogo" style="display: none;">
     <div class="wrapper_resumen_mobile" style="padding-bottom: 96px;" data-item="catalogopersonalizado">
         <div class="content_oferta_guia_negocio">
@@ -172,12 +164,9 @@ else
 
     </div>
     </div>
-    <!--PRECIO CATALOGO-->
-    <!--HAY QUE DESAPARECER EL SCROLL DEL BODY, CUANDO GENEREN ESTE POP UP ME AVISAN-->
     <div class="PopMobile1" id="PopupResumenOferta048N" style="display: none;">
 
     </div>
-    <!--FIN-->
 
     <script id="template-oferta003" type="text/x-handlebars-template">
         <div data-oferta-popup="" data-item="">
@@ -342,7 +331,6 @@ else
             </div>
             <div class="texto_detalle_048">Cómpralo por pack y gana más</div>
 
-            <!--PACK-->
             {{#each lista_oObjPack as |pack|}}
             <div class="content_detalle_048 item_pack_personalizado">
                 <input type="hidden" class="hdItemPackCuv" value="{{pack.cuv_pack}}" />
@@ -380,7 +368,6 @@ else
                 </div>
 
             </div>
-            <!--FIN-->
             {{/each}}
 
             <div>
@@ -462,7 +449,6 @@ else
                 <hr class="clear" />
                 <div class="texto_detalle_048">CÓMPRALO POR CANTIDAD<br />Y OBTÉN MAS GANANCIAs</div>
 
-                <!--NIVEL-->
                 {{#each lista_ObjNivel as |nivel|}}
                 <div class="content_detalle_048">
                     <div class="detalle_Cantidad_pack">Compra <b>{{nivel.escala_nivel}}</b>{{../Descripcion}}</div>
@@ -493,7 +479,6 @@ else
 
                 </div>
                 {{/each}}
-                <!--FIN-->
 
                 <div style="overflow:hidden; margin-bottom:100px;">
                     <div class="texto_comparte">Comparte este producto con tus clientes:</div>
@@ -524,7 +509,6 @@ else
             </a>
             <hr class="clear">
 
-            <!--NIVEL-->
 
             <div class="titulo_pack_detalle">HAS COMPRADO</div>
             <div class="linea_separadora_black flecha_048"></div>
@@ -548,8 +532,6 @@ else
                 </div>
             </div>
             {{/each}}
-
-            <!--FIN-->
 
             <a class="btn_anuncio_agregado" href="javascript:;" onclick="closeResumenOferta048Mobile();">OK, ENTENDIDO</a>
 

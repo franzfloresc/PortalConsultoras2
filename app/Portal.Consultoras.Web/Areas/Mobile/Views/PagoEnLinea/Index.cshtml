@@ -20,39 +20,25 @@
 
 }
 
-<!-- TÍTULO -->
 <div class="cabecera_vista_pago_en_linea">
     <a href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
     PAGO EN LÍNEA
 </div>
-<!-- FIN - TÍTULO -->
 
 <div class="content_belcorp">
     <div class="pestana_lbel"></div>
 
-    <!-- VISTA PROCESO DE PAGO EN LÍNEA -->
-
     <div class="proceso_de_pago_en_linea">
-
-        <!-- CANTIDAD PASOS PROCESO DE PAGO -->
 
         <div class="cantidad_pasos_proceso_pago" id="divProcesoPasosVisa">
 
-            <!-- CANTIDAD DE PASOS PROCESO PAGO EN LÍNEA -->
-            <!--  Cuando el paso esté en proceso, agregar la clase paso_activo, cuando esté el paso completado agregar la clase paso_completado también -->
             <span class="paso_proceso_pago_en_linea paso_activo">1</span>
             <span class="paso_proceso_pago_en_linea mr-0">2</span>
-
-            <!-- FIN - CANTIDAD DE PASOS PROCESO PAGO EN LÍNEA -->
 
             <div class="linea_conectora_pasos">
                 <span class="fondo_pasos_proceso_pago_avance"></span>
             </div>
         </div>
-
-        <!-- FIN - CANTIDAD PASOS PROCESO DE PAGO -->
-
-        <!-- VISTA SELECCIÓN MONTO A PAGAR -->
 
         <div class="seleccion_monto_a_pagar" id="divPagoEnLineaPaso1">
             <div class="campo_seleccion_monto_a_pagar" id="divMetodoPagoVisa">
@@ -119,23 +105,17 @@
                     <div class="barra_activacion" data-estado="0">
                         <div class="control_activacion">
                         </div>
-                        <!-- TOOLTIP QUE TE INDICA QUE DEBES ACEPTAR LOS TÉRMINOS Y CONDICIONES ANTES DE HACER EL PAGO -->
                         <div class="tooltip_terminos_y_condiciones" style="display:none;" id="divTooltipTerminosCondiciones">
                             <span>Debes aceptar los términos y condiciones</span>
                         </div>
-                        <!-- FIN - TOOLTIP QUE TE INDICA QUE DEBES ACEPTAR LOS TÉRMINOS Y CONDICIONES ANTES DE HACER EL PAGO -->
                     </div>
                 </div>
                 <div class="descripcion_opcion_activacion">
-                    <!-- Acepta los <a title="Términos y condiciones" class="ver_terminos_y_condiciones">términos y condiciones</a> -->
                     Acepta los términos y condiciones  
                 </div>
             </div>
         </div>
 
-        <!-- FIN - VISTA SELECCIÓN MONTO A PAGAR -->
-
-        <!-- INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA (OCULTAR CUANDO LA VISTA PAGO EXITOSO ESTÉ ACTIVA) -->
         <div class="contenedor_info_pago_seguro_y_ctas" id="divBannerInferiorVisa">
             <div class="info_pago_seguro_con_tarjetas">
                 <div class="icono_pago_seguro">
@@ -150,22 +130,16 @@
                 </div>
             </div>
 
-            <!-- CALL TO ACTION PAGO EN LÍNEA -->            
             <button type="button" class="cta_pago_en_linea btn_pago_credito_visa" id="btnPagarVisa">
                 <span>
                     Continuar
                 </span>
             </button>
-            <!-- FIN - CALL TO ACTION PAGO EN LÍNEA -->
 
         </div>
-        <!-- FIN - INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA (OCULTAR CUANDO LA VISTA PAGO EXITOSO ESTÉ ACTIVA) -->
     </div>
 
-    <!-- FIN - VISTA PROCESO DE PAGO EN LÍNEA -->
 </div>
-
-<!-- POPUP DE TÉRMINOS Y CONDICIONES -->
 
 <div class="fondo_modal">
     <div class="popup_terminos_y_condiciones">
@@ -193,11 +167,9 @@
                 <div class="barra_activacion" data-estado="0">
                     <div class="control_activacion">
                     </div>
-                    <!-- TOOLTIP QUE TE INDICA QUE DEBES ACEPTAR LOS TÉRMINOS Y CONDICIONES ANTES DE HACER EL PAGO -->
                     <div class="tooltip_terminos_y_condiciones" style="display:none;">
                         <span>Debes aceptar los términos y condiciones</span>
                     </div>
-                    <!-- FIN - TOOLTIP QUE TE INDICA QUE DEBES ACEPTAR LOS TÉRMINOS Y CONDICIONES ANTES DE HACER EL PAGO -->
                 </div>
             </div>
             <div class="descripcion_opcion_activacion">
@@ -206,8 +178,6 @@
         </div>
     </div>
 </div>
-
-<!-- FIN - POPUP DE TÉRMINOS Y CONDICIONES -->
 
 @section scripts{    
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/Index.js")"></script>
