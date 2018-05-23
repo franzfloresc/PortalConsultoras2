@@ -241,6 +241,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Segmento", DbType.Int32, segmentoZona.Segmento);
             Context.Database.AddInParameter(command, "@ConfiguracionZona", DbType.AnsiString, segmentoZona.ConfiguracionZona);
             Context.Database.AddInParameter(command, "@SegmentoInternoID", DbType.AnsiString, segmentoZona.SegmentoInterno);
+            Context.Database.AddInParameter(command, "@TipoAcceso", DbType.Int32, segmentoZona.TipoAcceso);
+            Context.Database.AddInParameter(command, "@CodigosConsultora", DbType.AnsiString, segmentoZona.CodigosConsultora);
 
             Context.ExecuteNonQuery(command);
         }
