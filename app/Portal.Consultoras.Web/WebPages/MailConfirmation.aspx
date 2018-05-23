@@ -18,7 +18,21 @@
     <script src="../Scripts/General.js" type="text/javascript"></script>
     
     <link href="../Content/Css/Site/Esika/reset.css" rel="stylesheet" data-id="cssResetEsika"/>
-    <link href="../Content/Css/Site/Esika/style.css" rel="stylesheet" data-id="cssStyleEsika"/>
+    
+    <%--<link href="../Content/Css/Site/Esika/style.css" rel="stylesheet" data-id="cssStyleEsika"/>--%>
+    <link href="~/Content/Css/Site/Esika/StyleDiv/style01.css" rel="stylesheet" data-id="cssStyleEsika"/>
+    <link href="~/Content/Css/Site/Esika/StyleDiv/style02.css" rel="stylesheet" data-id="cssStyleEsika"/>
+    <link href="~/Content/Css/Site/Esika/StyleDiv/style03.css" rel="stylesheet" data-id="cssStyleEsika"/>
+    <link href="~/Content/Css/Site/Esika/StyleDiv/style04.css" rel="stylesheet" data-id="cssStyleEsika"/>
+    <link href="~/Content/Css/Site/Esika/StyleDiv/style05.css" rel="stylesheet" data-id="cssStyleEsika"/>
+    <link href="~/Content/Css/Site/Esika/StyleDiv/style06.css" rel="stylesheet" data-id="cssStyleEsika"/>
+    <link href="~/Content/Css/Site/Esika/StyleDiv/style07.css" rel="stylesheet" data-id="cssStyleEsika"/>
+    <link href="~/Content/Css/Site/Esika/StyleDiv/style08.css" rel="stylesheet" data-id="cssStyleEsika"/>
+    <link href="~/Content/Css/Site/Esika/StyleDiv/style09.css" rel="stylesheet" data-id="cssStyleEsika"/>
+    <link href="~/Content/Css/Site/Esika/StyleDiv/style10.css" rel="stylesheet" data-id="cssStyleEsika"/>
+    <link href="~/Content/Css/Site/Esika/StyleDiv/style11.css" rel="stylesheet" data-id="cssStyleEsika"/>
+    <link href="~/Content/Css/Site/Esika/StyleDiv/style12.css" rel="stylesheet" data-id="cssStyleEsika"/>
+
     <link href="../Content/Css/ui.jquery/Esika/jquery-ui.css" rel="stylesheet" data-id="cssJqueryEsika"/>
     <link href="../Content/Css/Site/Lbel/reset.css" rel="stylesheet" data-id="cssResetLbel"/>
     <link href="../Content/Css/Site/Lbel/style.css" rel="stylesheet" data-id="cssStyleLbel"/>
