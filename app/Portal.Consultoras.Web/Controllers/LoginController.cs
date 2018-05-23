@@ -275,7 +275,6 @@ namespace Portal.Consultoras.Web.Controllers
                     success = true,
                     redirectTo = Url.Action("Index", "Login")
                 });
-                //return RedirectToAction("Index", "Login");
             }
             catch (FaultException ex)
             {
@@ -313,7 +312,6 @@ namespace Portal.Consultoras.Web.Controllers
                 success = true,
                 redirectTo = Url.Action("Index", "Login")
             });
-            //return RedirectToAction("Index", "Login");
         }
 
         [AllowAnonymous]

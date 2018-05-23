@@ -150,9 +150,7 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo);
 
         EstrategiaPersonalizadaProductoModel GetProductoTemporal();
-
-        //EstrategiaPersonalizadaProductoModel ProductoTemporal { get; set; }
-
+        
         void SetPedidosFacturados(PedidoWebClientePrincipalMobilModel model);
 
         PedidoWebClientePrincipalMobilModel GetPedidosFacturados();
@@ -161,8 +159,8 @@ namespace Portal.Consultoras.Web.SessionManager
 
         void SetDetallesPedidoSetAgrupado(List<BEPedidoWebDetalle> detallesPedidoWeb);
 
-        void SetMiAcademia(int id); /* SOPORTEC-266 */
+        void SetMiAcademia(int id);
 
-        int GetMiAcademia(); /* SOPORTEC-266 */
+        int GetMiAcademia();
     }
 }

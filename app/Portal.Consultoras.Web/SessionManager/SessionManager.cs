@@ -398,12 +398,12 @@ namespace Portal.Consultoras.Web.SessionManager
             return (PedidoWebClientePrincipalMobilModel)HttpContext.Current.Session[Constantes.ConstSession.PedidosFacturados];
         }
 
-        public void SetMiAcademia(int id) /* SOPORTEC-266 */
+        public void SetMiAcademia(int id)
         {
             HttpContext.Current.Session["MiAcademia"] = id;
         }
 
-        public int GetMiAcademia() /* SOPORTEC-266 */
+        public int GetMiAcademia()
         {
             return (int) HttpContext.Current.Session["MiAcademia"];
         }
@@ -417,17 +417,6 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
         }
-
-        //EstrategiaPersonalizadaProductoModel ISessionManager.ProductoTemporal
-        //{
-        //    get
-        //    {
-        //        return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
-        //    }
-        //    set
-        //    {
-        //        HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = value;
-        //    }
-        //}
+        
     }
 }
