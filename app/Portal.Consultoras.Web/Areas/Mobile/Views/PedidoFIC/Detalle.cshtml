@@ -31,7 +31,6 @@
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar detalleP" title="Regresar"></a>
-            @*<a href="@Request.UrlReferrer.LocalPath" class="enlace_regresar detalleP" title="Regresar"></a>*@
 }
                 }
                 <h2 class="nombre_campania_pedido">
@@ -68,26 +67,6 @@
     <input type="submit" value="GUARDA TU PEDIDO" id="btnGuardarPedido" name="btnGuardarPedido" onclick="MensajeGuardar();" />
 </div>
 
-<!-- START Popup para Observaciones PROL -->
-@*<div class="MensajeAlertaMobile" id="popup-observaciones-prol" style="display:none;">
-    <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="$('#popup-observaciones-prol').hide();">
-            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-        </a>
-        <hr class="clear">
-        <div id="iconoPopupMobile" class="icono_alerta exclamacion_icono_mobile"></div>
-        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
-        <div class="mensaje_alerta" id="modal-prol-contenido"></div>
-        <div id="modal-prol-botonesAceptarCancelar" style="display: none;">
-            <a href="javascript:;" onclick="AceptarObsInformativas();" class="btn_ok_mobile"><b>OK</b></a>
-            <a href="javascript:;" onclick="CancelarObsInformativas();" class="btn_ok_mobile"><b>CANCELAR</b></a>
-        </div>
-        <div id="modal-prol-botoneAceptar">
-            <a href="javascript:;" onclick="$('#popup-observaciones-prol').hide();" class="btn_ok_mobile"><b>OK</b></a>
-        </div>
-    </div>
-</div>*@
-<!-- END Popup para Observaciones PROL -->
 <!-- START POPUP PERSONALIZADO 2 SEGUNDOS SE OCULTA -->
 <div id="popup-eliminar-mensaje" class="MensajeAlertaMobile" style="display:none;">
     <div class="content_mensajeAlerta">
@@ -682,8 +661,7 @@
         var ofertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
         var ofertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
         var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
-
-        @*var urlEjecutarServicioPROL = '@Url.Action("EjecutarServicioPROL", "PedidoFIC", new {area = ""})';*@
+        
         var urlEjecutarServicioPROL = '@Url.Action("AdministradorPedido", "PedidoFIC", new {area = "Mobile"})';
         var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new {area = "Mobile"})';
         var urlHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';

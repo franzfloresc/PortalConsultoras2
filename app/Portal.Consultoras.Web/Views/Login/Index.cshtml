@@ -418,72 +418,7 @@
                             <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente correo_electronico_consult" style="display: none;" id="spsincorreo">No existe correo registrado</span>
                         </div>
                     </div>
-
-                    @*<div class="opciones_recuperacionContrasenia opcion_chateaConNosotros" id="divChatearConNosotros" onclick="javascript:Construir_EnlacexDispositivo(2);">*@
-                    @*<div class="opciones_recuperacionContrasenia opcion_chateaConNosotros" id="divChatearConNosotros">
-                            <div class="icono_chateaConNosotros"></div>
-                            <div class="bloque_texto_opcionRecuperacionContrasenia">
-                                <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc">Chatea con nosotros</span>
-                                <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente horarios_atencion_chat">
-                                    @{
-                                        if (HttpContext.Current.Request.Browser.IsMobileDevice)
-                                        {
-                                            <a href="#" class="lk_chat" ismovildevice="1" target="_blank">L-V: 08:00 a 20:00 y S: 08:00 a 18:00</a>
-                                        }
-                                        else
-                                        {
-                                            <a href="#" class="lk_chat" ismovildevice="0">L-V: 08:00 a 20:00 y S: 08:00 a 18:00</a>
-                                        }
-                                    }
-                                </span>
-                            </div>
-                        </div>*@
-
-                    @*@{
-                            if (HttpContext.Current.Request.Browser.IsMobileDevice)
-                            {
-                                <a href="#" class="lk_chat" ismovildevice="1" target="_blank">
-                                    <div class="opciones_recuperacionContrasenia opcion_chateaConNosotros" id="divChatearConNosotros2">
-                                        <div class="icono_chateaConNosotros"></div>
-                                        <div class="bloque_texto_opcionRecuperacionContrasenia">
-                                            <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc">Chatea con nosotros</span>
-                                            <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente horarios_atencion_chat" id="sp_chat">
-                                            </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            }
-                            else
-                            {
-                                <a href="#" class="lk_chat" ismovildevice="0">
-                                    <div class="opciones_recuperacionContrasenia opcion_chateaConNosotros" id="divChatearConNosotros2">
-                                        <div class="icono_chateaConNosotros"></div>
-                                        <div class="bloque_texto_opcionRecuperacionContrasenia">
-                                            <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc">Chatea con nosotros</span>
-                                            <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente horarios_atencion_chat" id="sp_chat">
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                </a>
-                            }
-                        }
-
-                        @if (!HttpContext.Current.Request.Browser.IsMobileDevice)
-                        {
-                            <a id="lk_telefono" href="http://www.belcorpresponde.com/" target="_blank">
-                                <!-- TELÉFONOS CENTRALES PARA VERSIÓN DESKTOP -->
-                                <div class="opciones_recuperacionContrasenia contenedor_telefonos_desktop">
-                                    <div class="icono_llamanos"></div>
-                                    <div class="bloque_texto_opcionRecuperacionContrasenia">
-                                        <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc texto_llamanos_mayusc">Llámanos</span>
-                                        <div id="divTelefonosDesktop" style="padding-left:6px; padding-right:6px;font-size:11px;letter-spacing:0.5px;font-family:lato;font-weight: 300;"></div>
-                                    </div>
-                                </div>
-                                <!-- FIN TELÉFONOS CENTRALES PARA VERSIÓN DESKTOP -->
-                            </a>
-                        }*@
-
+                    
                     @if (ViewBag.PaisID == 11)
                     {
                         <a id="lk_telefono">
@@ -540,8 +475,6 @@
         <div></div>
     </script>
 
-
-    @*Nueva Version olvide contraseña HD-1254*@
     @{
         if (HttpContext.Current.Request.Browser.IsMobileDevice)
         {
@@ -703,9 +636,6 @@
                                     <div class="mb-3">
                                         <span class="divHorario">Lunes a Viernes: 08:00 a 20:00</span>
                                     </div>
-                                    @*<div>
-                                            <span class="divHs">Sábados: 08:00 a 18:00</span>
-                                        </div>*@
                                 </div>
                             </div>
                         </div>
@@ -816,7 +746,6 @@
                     <h1 id="MenSegundoIntentoSms" style="display:none;font-size:16px;">Por favor, espera un momento, te hemos enviado un nuevo código</h1>
                     <br />
                     <div class="icono_mensaje_sms">
-                        @*<img src="~/Content/Images/Login2/Icons/icono_nuevo_correo.png" alt="Alternate Text" />*@
                     </div>
                     <br />
                     <p>
