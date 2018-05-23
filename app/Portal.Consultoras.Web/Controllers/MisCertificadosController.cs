@@ -35,6 +35,8 @@ namespace Portal.Consultoras.Web.Controllers
                     listaCertificados = ObtenerCertificados();
                     sessionManager.SetMisCertificados(listaCertificados);
                 }
+
+                ViewBag.PaisUser = userData.PaisID;
             }
             catch (Exception ex)
             {
@@ -49,10 +51,16 @@ namespace Portal.Consultoras.Web.Controllers
             var listaCertificados = new List<MiCertificadoModel>();
 
             var certificadoNoAdeudo = ObtenerCertificadoNoAdeudo();
-            listaCertificados.Add(certificadoNoAdeudo);
+            if (certificadoNoAdeudo != null)
+            {
+                listaCertificados.Add(certificadoNoAdeudo);
+            }
 
             var certificadoComercial = ObtenerCertificadoComercial();
-            listaCertificados.Add(certificadoComercial);
+            if (certificadoComercial != null)
+            {
+                listaCertificados.Add(certificadoComercial);
+            }
 
             var certificadoTributario = ObtenerCertificadoTributario();
             if (certificadoTributario != null)
@@ -87,7 +95,7 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
                 case Constantes.PaisID.Ecuador:
                 case Constantes.PaisID.Peru:
-                    nombre = "No Adeudo";
+                    nombre = (userData.PaisID == Constantes.PaisID.Peru) ? "Constancia No Adeudo" : "No Adeudo";
 
                     if (userData.MontoDeuda > 0)
                     {
@@ -98,9 +106,11 @@ namespace Portal.Consultoras.Web.Controllers
                     certificadoId = 1;
                     break;
                 default:
-                    certificado.Nombre = "";
+                    nombre = "";
                     break;
             }
+
+            if (nombre == "") return certificado;
 
             certificado.CertificadoId = certificadoId;
             certificado.Nombre = nombre;
@@ -117,7 +127,6 @@ namespace Portal.Consultoras.Web.Controllers
         private MiCertificadoModel ObtenerCertificadoComercial()
         {
             var certificado = new MiCertificadoModel();
-
             var certificadoId = 0;
             var nombre = "";
             var mensajeError = "";
@@ -136,7 +145,6 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.PaisID.Colombia:
                 case Constantes.PaisID.Ecuador:
                 case Constantes.PaisID.Peru:
-                    nombre = "Certificado Comercial";
 
                     bool tieneCampaniaConsecutivas;
                     using (PedidoServiceClient ps = new PedidoServiceClient())
@@ -152,18 +160,20 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     certificadoId = 2;
+                    nombre = "Certificado Comercial";
 
                     break;
                 default:
-                    certificado.Nombre = "";
+                    nombre = "";
                     break;
             }
+
+            if (nombre == "") return certificado;
 
             certificado.CertificadoId = certificadoId;
             certificado.Nombre = nombre;
             certificado.MensajeError = mensajeError;
             certificado.NombreVista = "~/Views/MisCertificados/ComercialPdf.cshtml";
-
             return certificado;
         }
 
