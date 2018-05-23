@@ -1481,6 +1481,10 @@ namespace Portal.Consultoras.Service
 
         #endregion
 
+        public List<string> GetListEnumStringCache()
+        {
+            return new BLCache().GetListEnumString();
+        }
         public string RemoveDataCache(int paisID, string cacheItemString, string customKey)
         {
             return new BLCache().RemoveData(paisID, cacheItemString, customKey);

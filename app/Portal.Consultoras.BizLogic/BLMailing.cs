@@ -139,7 +139,7 @@ namespace Portal.Consultoras.BizLogic
             {
                 while (reader.Read())
                 {
-                    if (DataRecord.HasColumn(reader, "CorreoEmisor") && reader["CorreoEmisor"] != DBNull.Value)
+                    if (DataRecord.HasColumn(reader, "CorreoEmisor"))
                         correoEmisor = Convert.ToString(reader["CorreoEmisor"]);
                 }
             }

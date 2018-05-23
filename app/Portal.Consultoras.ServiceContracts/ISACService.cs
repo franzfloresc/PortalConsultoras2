@@ -761,6 +761,8 @@ namespace Portal.Consultoras.ServiceContracts
         #endregion
 
         [OperationContract]
+        List<string> GetListEnumStringCache();
+        [OperationContract]
         string RemoveDataCache(int paisID, string cacheItemString, string customKey);
     }
 }

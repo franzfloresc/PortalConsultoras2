@@ -299,23 +299,28 @@
             HerramientasVentaComprar = 10,
             HerramientasVentaRevisar = 11
         }
-
-        public enum EnvioEmail
+        
+        public enum RestService
         {
-            NoSehaEncontradoEmail = 0,
-            ErrorAlEnviarEmail = 1,
-            SeEnvioCorrectoEmail = 2,
-            ExcedioCantidad = 3,
-            OrigenNoExiste = 4
+            ReservaSicc
         }
 
-        public enum EnvioSms
+        public enum ValidacionProgramaNuevas
         {
-            NoSehaEncontradoCelular = 0,
-            ErrorAlEnviarSms = 1,
-            SeEnvioCorrectoElSms = 2,
-            ExcedioCantidad = 3,
-            OrigenNoExiste = 4
+            ContinuaFlujo = 0,
+            ProductoNoExiste = 1,
+            ConsultoraNoNueva = 2,
+            NoParticipaEnProgramaNuevas = 3,
+            CuvNoPerteneceASuPrograma = 4,
+            ExisteUnElectivoEnPedido = 5,
+            CuvPerteneceProgramaNuevas = 6
+        }
+
+        public enum ValidacionVentaExclusiva
+        {
+            ContinuaFlujo = 0,
+            ConsultoraNoVentaExclusiva = 1,
+            CuvNoLePerteneceAConsultora = 3
         }
     }
 }

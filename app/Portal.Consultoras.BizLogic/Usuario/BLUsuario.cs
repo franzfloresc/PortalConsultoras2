@@ -398,25 +398,39 @@ namespace Portal.Consultoras.BizLogic
                 if (configuracionConsultora != null)
                 {
                     usuario.CampaniaID = configuracionConsultora.CampaniaID;
-                    usuario.ZonaHoraria = configuracionConsultora.ZonaHoraria;
                     usuario.FechaInicioFacturacion = configuracionConsultora.FechaInicioFacturacion;
-                    usuario.AceptacionConsultoraDA = configuracionConsultora.AceptacionConsultoraDA;
-                    usuario.HoraFin = configuracionConsultora.HoraFin;
-                    usuario.EsZonaDemAnti = configuracionConsultora.EsZonaDemAnti;
-                    usuario.HoraCierreZonaNormal = configuracionConsultora.HoraCierreZonaNormal;
-                    usuario.HoraCierreZonaDemAnti = configuracionConsultora.HoraCierreZonaDemAnti;
-                    usuario.DiasAntes = configuracionConsultora.DiasAntes;
-                    usuario.HoraInicio = configuracionConsultora.HoraInicio;
-                    usuario.HoraInicioNoFacturable = configuracionConsultora.HoraInicioNoFacturable;
                     usuario.FechaFinFacturacion = configuracionConsultora.FechaFinFacturacion;
                     usuario.CampaniaDescripcion = configuracionConsultora.CampaniaDescripcion;
+                    usuario.HoraInicio = configuracionConsultora.HoraInicio;
+                    usuario.HoraFin = configuracionConsultora.HoraFin;
                     usuario.ZonaValida = configuracionConsultora.ZonaValida;
+                    usuario.HoraInicioNoFacturable = configuracionConsultora.HoraInicioNoFacturable;
+                    usuario.HoraCierreNoFacturable = configuracionConsultora.HoraCierreNoFacturable;
+                    usuario.DiasAntes = configuracionConsultora.DiasAntes;
+                    usuario.HoraCierreZonaNormal = configuracionConsultora.HoraCierreZonaNormal;
+                    usuario.HoraCierreZonaDemAnti = configuracionConsultora.HoraCierreZonaDemAnti;
+                    usuario.ZonaHoraria = configuracionConsultora.ZonaHoraria;
+                    usuario.EsZonaDemAnti = configuracionConsultora.EsZonaDemAnti;
+                    usuario.DiasDuracionCronograma = configuracionConsultora.DiasDuracionCronograma;
+                    usuario.HabilitarRestriccionHoraria = configuracionConsultora.HabilitarRestriccionHoraria;
+                    usuario.HorasDuracionRestriccion = configuracionConsultora.HorasDuracionRestriccion;
+                    usuario.NroCampanias = configuracionConsultora.NroCampanias;
+                    usuario.FechaFinFIC = configuracionConsultora.FechaFinFIC;
+                    usuario.IndicadorOfertaFIC = configuracionConsultora.IndicadorOfertaFIC;
+                    usuario.ImagenURLOfertaFIC = configuracionConsultora.ImagenURLOfertaFIC;
+                    usuario.PROLSinStock = configuracionConsultora.PROLSinStock;
                     usuario.NuevoPROL = true;
                     usuario.ZonaNuevoPROL = true;
+                    usuario.EstadoSimplificacionCUV = configuracionConsultora.EstadoSimplificacionCUV;
+                    usuario.EsquemaDAConsultora = configuracionConsultora.EsquemaDAConsultora;
+                    usuario.HoraCierreZonaDemAntiCierre = configuracionConsultora.HoraCierreZonaDemAntiCierre;
+                    usuario.ValidacionInteractiva = configuracionConsultora.ValidacionInteractiva;
+                    usuario.MensajeValidacionInteractiva = configuracionConsultora.MensajeValidacionInteractiva;
                     usuario.IndicadorGPRSB = configuracionConsultora.IndicadorGPRSB;
-                    usuario.ValidacionAbierta = configuracionConsultora.ValidacionAbierta;
-                    usuario.EstadoPedido = configuracionConsultora.EstadoPedido;
                     usuario.FechaActualPais = configuracionConsultora.FechaActualPais;
+                    usuario.EstadoPedido = configuracionConsultora.EstadoPedido;
+                    usuario.ValidacionAbierta = configuracionConsultora.ValidacionAbierta;
+                    usuario.AceptacionConsultoraDA = configuracionConsultora.AceptacionConsultoraDA;
                 }
 
                 if (usuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
@@ -2934,6 +2948,10 @@ namespace Portal.Consultoras.BizLogic
 
             return codigoUsuario;
         }
-
+        
+        public bool GetConsultoraParticipaEnPrograma(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID)
+        {
+            return new DAUsuario(paisID).GetConsultoraParticipaEnPrograma(codigoPrograma, codigoConsultora, campaniaID);
+        }
     }
 }

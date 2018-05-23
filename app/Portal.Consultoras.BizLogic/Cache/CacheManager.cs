@@ -41,6 +41,8 @@ namespace Portal.Consultoras.BizLogic
         ConfiguracionValidacion,
         TablaLogicaDatos,
         CuponesProgramaNuevas,
+        ProductoProgramaNuevas,
+        ProductosExclusivos
         DatosRestaurarClave,
         HorarioChat,
         HorarioBelcorpResponde,

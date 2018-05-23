@@ -1305,7 +1305,7 @@ namespace Portal.Consultoras.Common
                                 else
                                 {
                                     if (property.PropertyType == typeof(Nullable<DateTime>) || property.PropertyType == typeof(DateTime))
-                                        ws.Cell(row, col).Style.DateFormat.Format = !string.IsNullOrWhiteSpace(dateFormat)? dateFormat: "dd/MM/yyyy";
+                                        ws.Cell(row, col).Style.DateFormat.Format = !string.IsNullOrWhiteSpace(dateFormat) ? dateFormat : "dd/MM/yyyy";
                                     else
                                         ws.Cell(row, col).Style.NumberFormat.Format = "@";
                                     ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
@@ -3237,9 +3237,8 @@ namespace Portal.Consultoras.Common
         {
             if (r == null) return false;
 
-            columnName = columnName.Trim();
-
-            if (string.IsNullOrEmpty(columnName)) return false;
+            columnName = (columnName ?? "").Trim();
+            if (columnName == "") return false;
 
             for (int i = 0; i < r.FieldCount; i++)
             {
@@ -3249,6 +3248,7 @@ namespace Portal.Consultoras.Common
 
             return false;
         }
+
         public static bool HasColumn(this DataRow row, string columnName)
         {
             if (row == null) return false;
@@ -3256,7 +3256,8 @@ namespace Portal.Consultoras.Common
             columnName = (columnName ?? "").Trim();
             if (columnName == "") return false;
 
-            if (row.Table.Columns.Contains(columnName)) return row[columnName] != DBNull.Value;
+            if (row.Table.Columns.Contains(columnName))
+                return row[columnName] != DBNull.Value;
 
             return false;
         }
