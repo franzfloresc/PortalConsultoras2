@@ -152,6 +152,8 @@ namespace Portal.Consultoras.Web.Controllers
                         tieneCampaniaConsecutivas = ps.TieneCampaniaConsecutivas(userData.PaisID, userData.CampaniaID, int.Parse(cantidadCampaniaConsecutiva), userData.ConsultoraID);
                     }
 
+                    nombre = "Certificado Comercial";
+
                     if (!tieneCampaniaConsecutivas)
                     {
                         mensajeError = "No has sido constante en las últimas " + cantidadCampaniaConsecutiva +
@@ -160,7 +162,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     certificadoId = 2;
-                    nombre = "Certificado Comercial";
 
                     break;
                 default:
