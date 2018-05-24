@@ -1,0 +1,94 @@
+﻿@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.Models
+@model NotificacionesModel
+
+@{
+    ViewBag.Title = "Cambiar Contraseña";
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
+{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/esika/mi-perfil.css")">
+}
+else
+{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/lbel/mi-perfil.css")">
+}
+
+<!-- TÍTULO -->
+<div class="titulo_mobile">
+    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+        }
+    }
+    &nbsp;&nbsp;&nbsp;&nbsp;CAMBIA TU FOTO DE PERFIL
+</div>
+<div class="pestana_esika"></div>
+<div class="pestana_lbel"></div>
+<!-- FIN - TÍTULO -->
+
+<div class="content_belcorp">
+    <section class="vista_actualizar_correo">
+        <div class="wrapper_content_actualizar_correo">
+            <div>
+                <div class="form_actualizar_correo">
+                    <div class="correo_electronico_actual">
+                        <span class="w-100 text-uppercase">Tu correo electrónico actual es :</span>
+                        <span class="w-100">vtarazona@belcorp.biz</span>
+                    </div>
+                    <fieldset class="grupo_form_cambio_datos text-uppercase">
+                        <div class="w-100">
+                            <input id="NuevoCorreo" name="NuevoCorreo" class="w-100" type="text" value="" />
+                            <label for="NuevoCorreo" class="w-100">Ingresa tu nuevo correo electrónico</label>
+                        </div>
+                    </fieldset>
+                    <fieldset class="grupo_form_cambio_datos text-uppercase">
+                        <div class="pull-left text-left v-alignMiddle">
+                            <a href="#" title="Cancelar" class="enlace_cancelar">Cancelar</a>
+                        </div>
+                        <div class="pull-right text-right v-alignMiddle">
+                            <button type="button" class="btn_cambiar_contrasenia text-uppercase text-bold default-background-color">
+                                Cambiar
+                            </button>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="revisa_tu_correo text-center" style="display:none;">
+                    <h1 class="titulo_revisa_tu_correo text-uppercase">
+                        Revisa <span class="text-bold">tu correo</span>
+                    </h1>
+                    <div class="icono_correo_sobre">
+                        <img src="@Url.Content("~/Content/Images/icono_envelope.svg")" alt="Revisa tu correo" />
+                    </div>
+                    <p class="w-100 envio_instrucciones_info">
+                        <span class="w-100">Te hemos enviado las instrucciones a:</span>
+                        <span class="w-100 text-bold">valeria.tarazona@gmail.com</span>
+                    </p>
+                    <p class="w-100 envio_instrucciones_info">
+                        <span class="w-100">¿Aún no recibes nuestro correo?</span>
+                        <a href="#" title="Reenvíenme las instrucciones" class="enlace_reenviar_instrucciones w-100 text-uppercase text-bold">
+                            Reenvíenme las instrucciones
+                        </a>
+                    </p>
+                    <p class="w-100 cambiar_correo_info">
+                        <span>¿Este no es tu correo?</span>
+                        <a href="#" title="Cambia tu correo" class="enlace_cambiar_correo text-bold">Cambia tu correo</a>
+                    </p>
+                </div>
+            </div>
+            <div class="correo_actualizado text-center" style="display:none;">
+                <div class="icono_actualizacion_correo_exitoso"></div>
+                <h1 class="titulo_correo_actualizado text-uppercase">
+                    ¡Actualizaste <span class="text-bold">tu correo</span>!
+                </h1>
+                <p class="mensaje_correo_actualizado">
+                    Continúa visitando somosbelcorp.com<br />y descubre todas la ofertas que tenemos para ti.
+                </p>
+                <button type="button" class="btn_acept text-uppercase text-bold default-background-color">Ok</button>
+            </div>
+        </div>
+    </section>
+</div>

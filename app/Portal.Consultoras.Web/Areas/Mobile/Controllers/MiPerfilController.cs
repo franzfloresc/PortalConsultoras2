@@ -31,6 +31,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             return View();
         }
+
+        public ActionResult ActualizarCorreo()
+        {
+            return View();
+        }
         
     }
 }

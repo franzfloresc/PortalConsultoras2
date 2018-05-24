@@ -4102,6 +4102,7 @@
     <Content Include="Areas\Mobile\Views\MiPerfil\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\MiPerfil\CambiarContrasenia.cshtml" />
     <Content Include="Areas\Mobile\Views\MiPerfil\CambiarFotoPerfil.cshtml" />
+    <Content Include="Areas\Mobile\Views\MiPerfil\ActualizarCorreo.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>

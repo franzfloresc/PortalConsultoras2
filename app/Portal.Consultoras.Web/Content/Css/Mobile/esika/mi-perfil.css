@@ -675,6 +675,10 @@
     width:119px;
 }
 
+.form_actualizar_correo{
+    margin-top:7px;
+}
+
 .correo_electronico_actual,
 .celular_actual
 {
@@ -686,13 +690,14 @@
 .celular_actual span:first-child
 {
     margin-bottom:5px;
+    font-size:11px;
 }
 
 .envio_instrucciones_info span:last-child,
 .correo_electronico_actual span:last-child,
 .celular_actual span:last-child
 {
-    font-size:17px;
+    font-size:15px;
 }
 
 .correo_electronico_actual span:last-child,
