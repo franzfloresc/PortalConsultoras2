@@ -239,17 +239,27 @@ namespace Portal.Consultoras.Common
                 if (logError.Exception != null)
                 {
                     exceptionMessage = logError.Exception.Message;
-
-                    var innerException = logError.Exception.InnerException;
-                    while (innerException != null)
-                    {
-                        exceptionMessage = string.Format("{0}, InnerException: {1}", exceptionMessage, innerException.Message);
-                    }
                 }
 
-                var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
-                string ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
-                string acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+                string className;
+                string methodName;
+                string application;
+
+                if (logError.Origen.Equals("Servidor"))
+                {
+                    application = "WebService";
+                    
+                    StackTrace st = new StackTrace(logError.Exception, true);
+                    StackFrame frame = st.GetFrame(st.FrameCount - 1); 
+                    className = frame.GetMethod().DeclaringType.Name;
+                    methodName = frame.GetMethod().Name;
+                } else
+                {
+                    var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
+                    className = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
+                    methodName = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+                    application = "Web";
+                }                
 
                 var data = new
                 {
@@ -257,10 +267,10 @@ namespace Portal.Consultoras.Common
                     HostName = Environment.MachineName,
                     ThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId,
                     Level = "ERROR",
-                    Class = ctrl.ToLower(),
-                    Method = acti.ToLower(),
+                    Class = className,
+                    Method = methodName,
                     Message = exceptionMessage,
-                    Application = "Web",
+                    Application = application,
                     Pais = logError.IsoPais,
                     User = logError.CodigoUsuario,
                     Exception = logError.Exception,
@@ -271,7 +281,16 @@ namespace Portal.Consultoras.Common
 
                 using (HttpClient httpClient = new HttpClient())
                 {
-                    httpClient.PostAsync(GetUrl(urlApi), new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json"));
+                    httpClient.DefaultRequestHeaders.Accept.Clear();
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    dataString = JsonConvert.SerializeObject(data);
+
+                    HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = httpClient.PostAsync(GetUrl(urlApi), contentPost).GetAwaiter().GetResult();
+
+                    var result = response.IsSuccessStatusCode;
                 }
             }
             catch (Exception ex)
