@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.BannerModel
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.BannerModel
 @{
     Layout = "~/Views/Shared/_SACLayout.cshtml";
     ViewBag.Title = "Gestión de Banners";
@@ -1102,6 +1103,7 @@
         formData.append("PaisId", PaisId);
         formData.append("Segmento", Segmento);
         formData.append("ConfiguracionZona", zonas);
+        formData.append("SegmentoInterno", SegmentoInterno);
         formData.append("TipoAcceso", TipoAcceso);
 
         if (flConsultorasSegmento && flConsultorasSegmento.length > 0) {
@@ -1112,17 +1114,6 @@
             cache: false,
         });
 
-        var obj = {
-            BannerId: BannerId,
-            CampaniaId: CampaniaId,
-            PaisId: PaisId,
-            Segmento: Segmento,
-            ConfiguracionZona: zonas,
-            SegmentoInterno: SegmentoInterno,
-            TipoAcceso: TipoAcceso,
-            csvConsultoras: flConsultorasSegmento
-        };
-        console.log(obj);
         $.ajax({
             url: baseUrl + 'Banner/UpdBannerPaisSegmentoZona',
             data: formData,
@@ -2281,8 +2272,8 @@
             <div class="selectA borde_redondeado">
                 <select id="ddlTipoAcceso">
                     <option value="">-- Seleccionar --</option>
-                    <option value="1">Inclusión</option>
-                    <option value="2">Exclusión</option>
+                    <option value="@Constantes.TipoAccesoSegmento.Inclusion">Inclusión</option>
+                    <option value="@Constantes.TipoAccesoSegmento.Exclusion">Exclusión</option>
                 </select>
             </div>
         </div>
