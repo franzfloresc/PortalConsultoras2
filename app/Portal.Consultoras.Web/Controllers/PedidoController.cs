@@ -2102,11 +2102,11 @@ namespace Portal.Consultoras.Web.Controllers
         #region Productos Faltantes
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public JsonResult GetProductoFaltante(string cuv, string descripcion)
+        public JsonResult GetProductoFaltante(string cuv, string descripcion , string categoria , string revista)
         {
             try
             {
-                var productosFaltantes = GetProductosFaltantes(cuv, descripcion);
+                var productosFaltantes = GetProductosFaltantes(cuv, descripcion , categoria , revista);
                 var model = productosFaltantes.GroupBy(pf => pf.Categoria).Select(pfg => new ProductoFaltanteModel
                 {
                     Categoria = pfg.Key,
@@ -2120,7 +2120,31 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new { result = false, data = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public JsonResult GetFiltrosProductoFaltante()
+        {
+            try
+            {
+                BECategoria[] beCategoria;
+                BECatalogoRevista_ODS[] beCatalogoRevista_ODS;
 
+                using (var sv = new SACServiceClient())
+                {
+                    beCategoria = sv.SelectCategoria(userData.PaisID);
+                    beCatalogoRevista_ODS = sv.SelectCatalogoRevista_Filtro(userData.PaisID);
+                }
+                return Json(new
+                {
+                    result = true,
+                    data = beCategoria,
+                    data1 = beCatalogoRevista_ODS
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new { result = false, data = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         #endregion
 
         #region Clientes

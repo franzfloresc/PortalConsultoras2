@@ -68,7 +68,7 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEProductoFaltante> GetProductoFaltanteByEntity(int paisID, BEProductoFaltante productofaltante, string ColumnaOrden, string Ordenamiento, int PaginaActual, int FlagPaginacion, int RegistrosPorPagina);
 
         [OperationContract]
-        IList<BEProductoFaltante> GetProductoFaltanteByCampaniaAndZonaID(int paisID, int campaniaID, int ZonaID, string cuv, string descripcion);
+        IList<BEProductoFaltante> GetProductoFaltanteByCampaniaAndZonaID(int paisID, int campaniaID, int ZonaID, string cuv, string descripcion, string codCategoria, string codCatalogoRevista);
 
         [OperationContract]
         string InsProductoFaltanteMasivo(int paisID, string paisISO, string CodigoUsuario, int campaniaID, IList<BEProductoFaltante> productosFaltantes, bool FaltanteUltimoMinuto);
@@ -771,5 +771,23 @@ namespace Portal.Consultoras.ServiceContracts
         List<string> GetListEnumStringCache();
         [OperationContract]
         string RemoveDataCache(int paisID, string cacheItemString, string customKey);
+
+        #region Categoria 
+
+        [OperationContract]
+        IList<BECategoria> SelectCategoria(int paisID);
+
+        #endregion
+
+        #region Catálogos y Revistas
+       
+        [OperationContract]
+        IList<BECatalogoRevista_ODS> SelectCatalogoRevista_Filtro(int paisID);
+
+        [OperationContract]
+        IList<BECatalogoRevista_ODS> SelectCatalogoRevista_ODS(int paisID);
+
+        #endregion
+
     }
 }

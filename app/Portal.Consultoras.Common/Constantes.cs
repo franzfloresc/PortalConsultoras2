@@ -311,7 +311,9 @@ namespace Portal.Consultoras.Common
 
             public const string PedidosFacturados = "PedidosFacturados";
 
-            
+            public const string DescripcionPedidoOtro = "OTROS";
+            public const int CodigoPedidoOtro = 0;
+
         }
 
         public static class ConfiguracionManager

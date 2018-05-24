@@ -3483,6 +3483,224 @@ namespace Portal.Consultoras.Web.ServiceSAC {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BECategoria", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BECategoria : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoCategoriaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionCategoriaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EliminadoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoCategoria {
+            get {
+                return this.CodigoCategoriaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoCategoriaField, value) != true)) {
+                    this.CodigoCategoriaField = value;
+                    this.RaisePropertyChanged("CodigoCategoria");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionCategoria {
+            get {
+                return this.DescripcionCategoriaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionCategoriaField, value) != true)) {
+                    this.DescripcionCategoriaField = value;
+                    this.RaisePropertyChanged("DescripcionCategoria");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Eliminado {
+            get {
+                return this.EliminadoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EliminadoField, value) != true)) {
+                    this.EliminadoField = value;
+                    this.RaisePropertyChanged("Eliminado");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BECatalogoRevista_ODS", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BECatalogoRevista_ODS : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CheckSumIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CodigoCatalogoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionCatalogoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EstadoActivoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdMatrizCatalogoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PaisIDField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CheckSumID {
+            get {
+                return this.CheckSumIDField;
+            }
+            set {
+                if ((this.CheckSumIDField.Equals(value) != true)) {
+                    this.CheckSumIDField = value;
+                    this.RaisePropertyChanged("CheckSumID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CodigoCatalogo {
+            get {
+                return this.CodigoCatalogoField;
+            }
+            set {
+                if ((this.CodigoCatalogoField.Equals(value) != true)) {
+                    this.CodigoCatalogoField = value;
+                    this.RaisePropertyChanged("CodigoCatalogo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Descripcion {
+            get {
+                return this.DescripcionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
+                    this.DescripcionField = value;
+                    this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionCatalogo {
+            get {
+                return this.DescripcionCatalogoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionCatalogoField, value) != true)) {
+                    this.DescripcionCatalogoField = value;
+                    this.RaisePropertyChanged("DescripcionCatalogo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EstadoActivo {
+            get {
+                return this.EstadoActivoField;
+            }
+            set {
+                if ((this.EstadoActivoField.Equals(value) != true)) {
+                    this.EstadoActivoField = value;
+                    this.RaisePropertyChanged("EstadoActivo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdMatrizCatalogo {
+            get {
+                return this.IdMatrizCatalogoField;
+            }
+            set {
+                if ((this.IdMatrizCatalogoField.Equals(value) != true)) {
+                    this.IdMatrizCatalogoField = value;
+                    this.RaisePropertyChanged("IdMatrizCatalogo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PaisID {
+            get {
+                return this.PaisIDField;
+            }
+            set {
+                if ((this.PaisIDField.Equals(value) != true)) {
+                    this.PaisIDField = value;
+                    this.RaisePropertyChanged("PaisID");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEBelcorpNoticia", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
     public partial class BEBelcorpNoticia : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -13319,6 +13537,24 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/RemoveDataCache", ReplyAction="http://tempuri.org/ISACService/RemoveDataCacheResponse")]
         System.Threading.Tasks.Task<string> RemoveDataCacheAsync(int paisID, string cacheItemString, string customKey);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/SelectCategoria", ReplyAction="http://tempuri.org/ISACService/SelectCategoriaResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BECategoria[] SelectCategoria(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/SelectCategoria", ReplyAction="http://tempuri.org/ISACService/SelectCategoriaResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BECategoria[]> SelectCategoriaAsync(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/SelectCatalogoRevista_Filtro", ReplyAction="http://tempuri.org/ISACService/SelectCatalogoRevista_FiltroResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BECatalogoRevista_ODS[] SelectCatalogoRevista_Filtro(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/SelectCatalogoRevista_Filtro", ReplyAction="http://tempuri.org/ISACService/SelectCatalogoRevista_FiltroResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BECatalogoRevista_ODS[]> SelectCatalogoRevista_FiltroAsync(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/SelectCatalogoRevista_ODS", ReplyAction="http://tempuri.org/ISACService/SelectCatalogoRevista_ODSResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BECatalogoRevista_ODS[] SelectCatalogoRevista_ODS(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/SelectCatalogoRevista_ODS", ReplyAction="http://tempuri.org/ISACService/SelectCatalogoRevista_ODSResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BECatalogoRevista_ODS[]> SelectCatalogoRevista_ODSAsync(int paisID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia", ReplyAction="http://tempuri.org/ISACService/UpdateBelcorpNoticiaResponse")]
         void UpdateBelcorpNoticia(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad);
         
@@ -13928,10 +14164,10 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[]> GetProductoFaltanteByEntityAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante productofaltante, string ColumnaOrden, string Ordenamiento, int PaginaActual, int FlagPaginacion, int RegistrosPorPagina);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetProductoFaltanteByCampaniaAndZonaID", ReplyAction="http://tempuri.org/ISACService/GetProductoFaltanteByCampaniaAndZonaIDResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[] GetProductoFaltanteByCampaniaAndZonaID(int paisID, int campaniaID, int ZonaID, string cuv, string descripcion);
+        Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[] GetProductoFaltanteByCampaniaAndZonaID(int paisID, int campaniaID, int ZonaID, string cuv, string descripcion, string codCategoria, string codCatalogoRevista);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetProductoFaltanteByCampaniaAndZonaID", ReplyAction="http://tempuri.org/ISACService/GetProductoFaltanteByCampaniaAndZonaIDResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[]> GetProductoFaltanteByCampaniaAndZonaIDAsync(int paisID, int campaniaID, int ZonaID, string cuv, string descripcion);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[]> GetProductoFaltanteByCampaniaAndZonaIDAsync(int paisID, int campaniaID, int ZonaID, string cuv, string descripcion, string codCategoria, string codCatalogoRevista);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsProductoFaltanteMasivo", ReplyAction="http://tempuri.org/ISACService/InsProductoFaltanteMasivoResponse")]
         string InsProductoFaltanteMasivo(int paisID, string paisISO, string CodigoUsuario, int campaniaID, Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[] productosFaltantes, bool FaltanteUltimoMinuto);
@@ -14703,6 +14939,30 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public System.Threading.Tasks.Task<string> RemoveDataCacheAsync(int paisID, string cacheItemString, string customKey) {
             return base.Channel.RemoveDataCacheAsync(paisID, cacheItemString, customKey);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BECategoria[] SelectCategoria(int paisID) {
+            return base.Channel.SelectCategoria(paisID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BECategoria[]> SelectCategoriaAsync(int paisID) {
+            return base.Channel.SelectCategoriaAsync(paisID);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BECatalogoRevista_ODS[] SelectCatalogoRevista_Filtro(int paisID) {
+            return base.Channel.SelectCatalogoRevista_Filtro(paisID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BECatalogoRevista_ODS[]> SelectCatalogoRevista_FiltroAsync(int paisID) {
+            return base.Channel.SelectCatalogoRevista_FiltroAsync(paisID);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BECatalogoRevista_ODS[] SelectCatalogoRevista_ODS(int paisID) {
+            return base.Channel.SelectCatalogoRevista_ODS(paisID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BECatalogoRevista_ODS[]> SelectCatalogoRevista_ODSAsync(int paisID) {
+            return base.Channel.SelectCatalogoRevista_ODSAsync(paisID);
         }
         
         public void UpdateBelcorpNoticia(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad) {
@@ -15513,12 +15773,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.GetProductoFaltanteByEntityAsync(paisID, productofaltante, ColumnaOrden, Ordenamiento, PaginaActual, FlagPaginacion, RegistrosPorPagina);
         }
         
-        public Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[] GetProductoFaltanteByCampaniaAndZonaID(int paisID, int campaniaID, int ZonaID, string cuv, string descripcion) {
-            return base.Channel.GetProductoFaltanteByCampaniaAndZonaID(paisID, campaniaID, ZonaID, cuv, descripcion);
+        public Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[] GetProductoFaltanteByCampaniaAndZonaID(int paisID, int campaniaID, int ZonaID, string cuv, string descripcion, string codCategoria, string codCatalogoRevista) {
+            return base.Channel.GetProductoFaltanteByCampaniaAndZonaID(paisID, campaniaID, ZonaID, cuv, descripcion, codCategoria, codCatalogoRevista);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[]> GetProductoFaltanteByCampaniaAndZonaIDAsync(int paisID, int campaniaID, int ZonaID, string cuv, string descripcion) {
-            return base.Channel.GetProductoFaltanteByCampaniaAndZonaIDAsync(paisID, campaniaID, ZonaID, cuv, descripcion);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[]> GetProductoFaltanteByCampaniaAndZonaIDAsync(int paisID, int campaniaID, int ZonaID, string cuv, string descripcion, string codCategoria, string codCatalogoRevista) {
+            return base.Channel.GetProductoFaltanteByCampaniaAndZonaIDAsync(paisID, campaniaID, ZonaID, cuv, descripcion, codCategoria, codCatalogoRevista);
         }
         
         public string InsProductoFaltanteMasivo(int paisID, string paisISO, string CodigoUsuario, int campaniaID, Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[] productosFaltantes, bool FaltanteUltimoMinuto) {

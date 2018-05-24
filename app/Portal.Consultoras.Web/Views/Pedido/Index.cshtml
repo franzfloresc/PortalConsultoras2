@@ -463,7 +463,7 @@
                     }
 
                     <li data-id="4" data-name="Productos Agotados" data-position="pedido-inferior-4">
-                        <a onclick="AnalyticsBannersInferiores({ id: '4', name: 'Productos Agotados', position: 'pedido-inferior-4' }); CargarProductoAgotados();" href="javascript:;" title="Productos Agotados">
+                        <a onclick="AnalyticsBannersInferiores({ id: '4', name: 'Productos Agotados', position: 'pedido-inferior-4' }); CargarProductoAgotados(1);" href="javascript:;" title="Productos Agotados">
                             <div class="imagen_banner_inferior">
                                 <img data-src="@Model.UrlBanner03" alt="Infórmate aquí" data-lazy-seccion-banner-pedido="" />
                             </div>
@@ -896,14 +896,19 @@
         <div class="contenedor_lista_productosAgotados">
             <h6>PRODUCTOS <b>AGOTADOS</b> de <b>@((string)ViewBag.Campania.ToUpper())</b></h6>
             <div class="content_cuv">
+                Categoria:
+                <select id="ddlCategoriaProductoAgotado" style="width: 160px; border: 1px solid #cccccc;" class="producto_faltante"></select>
                 CUV:
                 <input id="producto-faltante-busqueda-cuv" type="text" class="producto_faltante ValidaNumeralPedido" maxlength="5">
+                <input type="button" onclick="CargarProductoAgotados(0);" class="buscar_icono">
+            </div>
+            <div class="content_cuv">
                 Producto:
                 <input id="producto-faltante-busqueda-descripcion" type="text" class="producto_faltante">
-                <input type="button" onclick="CargarProductoAgotados();" class="buscar_icono">
+                Catalogo o Revista:
+                <select id="ddlCatalogoRevistaProductoAgotado" style="width: 160px; border: 1px solid #cccccc;" class="producto_faltante"></select>
             </div>
-            <div class="tabla_productos_agotados" id="tblProductosFaltantes" style="overflow-y:hidden;">
-            </div>
+            <div class="tabla_productos_agotados" id="tblProductosFaltantes" style="overflow-y:hidden;"></div>
         </div>
         <div class="clear"></div>
     </div>
