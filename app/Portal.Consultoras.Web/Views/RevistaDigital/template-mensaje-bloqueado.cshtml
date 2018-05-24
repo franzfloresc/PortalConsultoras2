@@ -1,7 +1,35 @@
 ﻿
 @model Portal.Consultoras.Web.Models.MensajeProductoBloqueadoModel
-<div class="Content_general_pop_up" id="divMensajeBloqueada" style="display: none;">
-    <div class="popup_rd_bloqueado">
+@using Portal.Consultoras.Web.Models
+@{
+
+    var divid = @Model.divId ?? "divMensajeBloqueada";
+}
+
+<div class="Content_general_pop_up contenedor_fondo_popup contenido-popup-nuevo-2017 popup-prod-bloqueado" id="@Model.IdPopup"
+     data-popup-main="" data-popup-function-hide="" style="display:none;">
+    <div class="centrar-estructura" data-popup-body="" style="border: 5px solid #C39934; background:transparent;">
+        <a class="cerrar-popup" data-popup-close=""><img src="@Url.Content("~/Content/Images/close-icon.svg")" alt=""></a>
+
+
+        <div class="centrar-vertical-contenido">
+            <div class="clear"></div>
+            <p class="primer-texto" style="">
+                @Model.MensajePopupPrimero
+            </p>
+            <p class="segundo-texto" style="">
+                @Model.MensajePopupSegundo
+            </p>
+
+            <a href="@Model.UrlBtnPopup" class="btn-popup" data-popup-close="" style="">
+                <span>@Model.MensajeBtnPopup</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="Content_general_pop_up popup-prod-bloqueado" id="@divid" style="display: none;" data-popup-main="">
+    <div class="popup_rd_bloqueado" data-popup-body="">
         <a class="cerrar_fichaProducto" style="position: absolute; top:0px; right: -35px;" href="javascript:;" data-popup-close="divMensajeBloqueada">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate="" text="">
         </a>
@@ -15,11 +43,14 @@
         <hr class="clear" />
         @if (Model.BtnInscribirse)
         {
-            <div class="rd_btn" style="display:none;" data-estadoregistro0="">
-                <div class="btn_diagonal rd_btn_rojo"><a href="javascript: RDPageInformativa()">INSCRIBIRME A ÉSIKA PARA MÍ</a></div>
+            <div class="rd_btn" data-estadoregistro0="">
+                <div class="btn_diagonal rd_btn_rojo"><a href="javascript: RDPageInformativa()">SUSCRÍBETE</a></div>
             </div>
         }
-        <div class="popup_text">¿TIENES DUDAS?</div>
-        <a href="javascript: RDPageInformativa();" class="popup_text rd_ver_mas">ENTÉRATE MÁS DE ÉSIKA PARA MÍ AQUÍ</a>
+        @if (Model.MensajeTieneDudas)
+        {
+            <div class="popup_text">¿TIENES DUDAS?</div>
+            <a href="javascript: RDPageInformativa();" class="popup_text rd_ver_mas">CONOCE TODO SOBRE CLUB GANA+</a>
+        }
     </div>
 </div>

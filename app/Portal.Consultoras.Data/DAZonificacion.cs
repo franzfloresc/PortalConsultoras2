@@ -1,5 +1,4 @@
-﻿using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
+﻿using Portal.Consultoras.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -196,7 +195,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoTerritorio", DbType.String, codigoTerritorio);
             return Context.ExecuteReader(command);
         }
-        
+
         public IDataReader GetSegmentoBanner()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetSegmento");

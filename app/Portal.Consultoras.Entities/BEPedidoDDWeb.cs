@@ -71,18 +71,19 @@ namespace Portal.Consultoras.Entities
         public decimal MontoMinimoPedido { get; set; }
         [DataMember]
         public decimal ImporteTotalMM { get; set; }
-        // 2446 - Inicio
         [DataMember]
         public string Region { get; set; }
-        // 2446 - Fin
-        //SB20-871
         [DataMember]
         public string MotivoRechazo { get; set; }
         [DataMember]
         public int EsRechazado { get; set; }
-        //F- SB20-871
         [DataMember]
         public string DocumentoIdentidad { get; set; }
+        [DataMember]
+        public DateTime? FechaRegistroInicio { get; set; }
+        [DataMember]
+        public DateTime? FechaRegistroFin { get; set; }
+
         public BEPedidoDDWeb()
         { }
 
@@ -102,7 +103,7 @@ namespace Portal.Consultoras.Entities
                 ConsultoraNombre = Convert.ToString(row["ConsultoraNombre"]);
             if (DataRecord.HasColumn(row, "ImporteTotal"))
                 ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
-            if (DataRecord.HasColumn(row, "ConsultoraSaldo") && row["ConsultoraSaldo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ConsultoraSaldo"))
                 ConsultoraSaldo = Convert.ToDecimal(row["ConsultoraSaldo"]);
             if (DataRecord.HasColumn(row, "UsuarioResponsable"))
                 UsuarioResponsable = Convert.ToString(row["UsuarioResponsable"]);
@@ -111,7 +112,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "EstadoValidacionNombre"))
                 EstadoValidacionNombre = Convert.ToString(row["EstadoValidacionNombre"]);
             if (DataRecord.HasColumn(row, "FechaReserva"))
-                FechaReserva = row["FechaReserva"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(row["FechaReserva"]);
+                FechaReserva = Convert.ToDateTime(row["FechaReserva"]);
             if (DataRecord.HasColumn(row, "Zona"))
                 Zona = Convert.ToString(row["Zona"]);
             if (DataRecord.HasColumn(row, "IndicadorEnviado"))
@@ -126,19 +127,16 @@ namespace Portal.Consultoras.Entities
                 CUV = Convert.ToString(row["CUV"]);
             if (DataRecord.HasColumn(row, "PrimeraCampaniaCodigo"))
                 PrimeraCampaniaCodigo = Convert.ToString(row["PrimeraCampaniaCodigo"]);
-            if (DataRecord.HasColumn(row, "MontoMinimoPedido") && row["MontoMinimoPedido"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MontoMinimoPedido"))
                 MontoMinimoPedido = Convert.ToDecimal(row["MontoMinimoPedido"]);
-            if (DataRecord.HasColumn(row, "ImporteTotalMM") && row["ImporteTotalMM"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ImporteTotalMM"))
                 ImporteTotalMM = Convert.ToDecimal(row["ImporteTotalMM"]);
-            if (DataRecord.HasColumn(row, "PedidoID") && row["PedidoID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PedidoID"))
                 PedidoID = Convert.ToInt32(row["PedidoID"]);
-            // 2446 - Inicio
-            if (DataRecord.HasColumn(row, "Region") && row["Region"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Region"))
                 Region = Convert.ToString(row["Region"]);
-            // 2446 - Fin
             if (DataRecord.HasColumn(row, "DescuentoProl"))
-                this.DescuentoProl = row["DescuentoProl"] == DBNull.Value ? 0 : Convert.ToDecimal(row["DescuentoProl"]);
-            // SB20-871
+                this.DescuentoProl = Convert.ToDecimal(row["DescuentoProl"]);
             if (DataRecord.HasColumn(row, "MotivoRechazo"))
                 this.MotivoRechazo = Convert.ToString(row["MotivoRechazo"]);
             this.ImporteTotalConDescuento = this.ImporteTotal - this.DescuentoProl;

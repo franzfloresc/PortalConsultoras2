@@ -20,14 +20,14 @@ namespace Portal.Consultoras.Web.Controllers
             var lst = GetParametrosConfiguracion();
             ViewBag.CodigoConsultora = UserData().CodigoConsultora;
             ViewBag.Nombre = UserData().NombreConsultora;
-            ViewBag.FURL = lst[0].chrValor.ToString();
-            ViewBag.LOGN = lst[1].chrValor.ToString();
-            ViewBag.METH = lst[2].chrValor.ToString();
-            ViewBag.PTNR = lst[3].chrValor.ToString();
-            ViewBag.PURL = lst[4].chrValor.ToString();
-            ViewBag.RURL = lst[5].chrValor.ToString();
-            ViewBag.TYPE = lst[6].chrValor.ToString();
-            ViewBag.EMAIL = UserData().EMail.ToString();
+            ViewBag.FURL = lst[0].chrValor;
+            ViewBag.LOGN = lst[1].chrValor;
+            ViewBag.METH = lst[2].chrValor;
+            ViewBag.PTNR = lst[3].chrValor;
+            ViewBag.PURL = lst[4].chrValor;
+            ViewBag.RURL = lst[5].chrValor;
+            ViewBag.TYPE = lst[6].chrValor;
+            ViewBag.EMAIL = UserData().EMail;
             ViewBag.PaisID = UserData().PaisID;
 
             return View();
@@ -50,12 +50,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public decimal GetSaldoActualConsultora()
         {
-            decimal Saldo = 0;
+            decimal saldo = 0;
             try
             {
                 using (ServiceODS.ODSServiceClient sv = new ServiceODS.ODSServiceClient())
                 {
-                    Saldo = sv.GetSaldoActualConsultora(UserData().PaisID, UserData().CodigoConsultora);
+                    saldo = sv.GetSaldoActualConsultora(UserData().PaisID, UserData().CodigoConsultora);
                 }
             }
             catch (FaultException ex)
@@ -66,7 +66,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
-            return Saldo;
+            return saldo;
         }
 
         public List<ServiceContenido.BEPayPalConfiguracion> GetParametrosConfiguracion()
@@ -92,9 +92,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult InsertDatosPago(string NroTarjeta, decimal Monto)
         {
-            bool rslt = false;
             try
             {
+                bool rslt;
                 using (ServiceContenido.ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
                 {
                     rslt = sv.ExistePagoPendiente(UserData().PaisID, Monto, NroTarjeta, DateTime.Now);
@@ -144,20 +144,21 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                int paisID = UserData().PaisID;
+                int paisId = UserData().PaisID;
                 List<BEPayPalConfiguracion> lst;
                 using (ServiceContenido.ContenidoServiceClient srv = new ServiceContenido.ContenidoServiceClient())
                 {
-                    lst = srv.GetReporteAbonos(paisID, "0282", chrCodigoConsultora, intDia, intMes, intAnho, chrCodigoTransaccion).ToList();
+                    lst = srv.GetReporteAbonos(paisId, "0282", chrCodigoConsultora, intDia, intMes, intAnho, chrCodigoTransaccion).ToList();
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
 
-                BEPager pag = new BEPager();
                 IEnumerable<BEPayPalConfiguracion> items = lst;
 
                 #region Sort Section
@@ -211,9 +212,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -223,15 +224,15 @@ namespace Portal.Consultoras.Web.Controllers
                     rows = from a in items
                            select new
                            {
-                               id = a.chrRETCodigoTransaccion.ToString(),
+                               id = a.chrRETCodigoTransaccion,
                                cell = new string[]
                                {
-                                   a.chrCodigoConsultora.ToString(),
-                                   a.vchNombreCompleto.ToString(),
+                                   a.chrCodigoConsultora,
+                                   a.vchNombreCompleto,
                                    a.datSYSFechaCreacion.ToString(),
                                    a.mnyMontoAbono.ToString("#0.00"),
-                                   a.chrRETCodigoAutorizacionBancaria.ToString(),
-                                   a.chrRETCodigoTransaccion.ToString()
+                                   a.chrRETCodigoAutorizacionBancaria,
+                                   a.chrRETCodigoTransaccion
                                }
                            }
                 };
@@ -244,10 +245,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<string> lst = new List<string>();
 
-            int Anho = DateTime.Now.Year;
-            int fin = Anho + 14;
+            int anho = DateTime.Now.Year;
+            int fin = anho + 14;
 
-            for (var i = Anho; i <= fin; i++)
+            for (var i = anho; i <= fin; i++)
             {
                 lst.Add((i).ToString());
             }
@@ -280,7 +281,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             try
             {
-                string[] resultado = null;
+                string[] resultado;
 
                 DateTime fecha = DateTime.Parse(fechaEjecucion);
 

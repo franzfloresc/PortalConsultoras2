@@ -1,5 +1,4 @@
 ﻿using Portal.Consultoras.Common;
-
 using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
@@ -31,10 +30,7 @@ namespace Portal.Consultoras.Entities
 
                 return _Textovinculo;
             }
-            set
-            {
-
-            }
+            set { }
         }
     }
 }

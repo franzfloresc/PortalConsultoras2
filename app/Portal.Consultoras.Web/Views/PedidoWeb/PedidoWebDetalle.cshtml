@@ -22,7 +22,6 @@
             colNames: ['Nombre', 'Opcion'],
             colModel: [
                 { name: 'Nombre', index: 'Nombre', width: 120, editable: true, resizable: false },
-                //{ name: 'Activo', index: 'Activo', width: 12, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions }
                 { name: 'Activo', index: 'Activo', width: 12, editable: true, sortable: false, align: 'center', resizable: false, hidden: true }
             ],
             jsonReader:
@@ -103,8 +102,6 @@
 
         function ShowActions(cellvalue, options, rowObject) {
             var cellValueInt = parseInt(cellvalue);
-            //var Email = "&nbsp;<a href='#' onclick=\"return jQuery('#list').EnviarEmail('" + rowObject[2] + "','" + rowObject[1] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Email.png")' alt='Enviar Email' title='Enviar Email' border='0' /></a>";
-            //return Email;
         };
     }
 
@@ -221,13 +218,6 @@
                                 <p class="azul">Estás en <span>@ViewBag.Campania</span>, te quedan <strong>@ViewBag.Dias días</strong> para el cierre.</p>
                             }
                             <p>@ViewBag.MensajeCierreCampania</p>
-							<!-- R2161 -->
-                            //R20151104
-                            if (ViewBag.TieneFechaPromesa == 1)
-                            { 
-
-                                    <p>@ViewBag.MensajeFechaPromesa</p>
-                            }
                         }
                         else
                         {

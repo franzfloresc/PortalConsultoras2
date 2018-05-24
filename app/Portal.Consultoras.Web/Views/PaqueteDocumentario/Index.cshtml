@@ -35,7 +35,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['Nombre', 'Fecha Facturación', 'Visualizar'],//R20150906
+            colNames: ['Nombre', 'Fecha Facturación', 'Visualizar'],
             colModel: [
                 { name: 'Nombre', index: 'Nombre', width: 100, editable: true, resizable: false },
                 { name: 'FechaFacturacion', index: 'FechaFacturacion', width: 60, editable: true, resizable: false, align: 'center' },
@@ -106,12 +106,7 @@
                             {
                                 <p class="azul">Estás en <span>@ViewBag.Campania</span>, te quedan <strong>@ViewBag.Dias días</strong> para el cierre.</p>
                             }
-                            <p>@ViewBag.MensajeCierreCampania</p>
-                            if (ViewBag.TieneFechaPromesa == 1)
-                            { 
-                                //R20151104
-                                    <p>@ViewBag.MensajeFechaPromesa</p>
-                            }
+                            <p>@ViewBag.MensajeCierreCampania</p>                            
                         }
                         else
                         {

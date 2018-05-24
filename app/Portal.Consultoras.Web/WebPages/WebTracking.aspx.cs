@@ -3,11 +3,11 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Linq;
 using System.Configuration;
+using System.Linq;
+using System.Web.UI;
 using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -32,18 +32,14 @@ namespace Portal.Consultoras.Web.WebPages
             if (campania == null) CargarTablasMaestras();
             else CargarPedidoEspecifico(campania, nroPedido);
 
-            try
+            if (Util.Trim(ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.Ambiente]) != "PR")
             {
-                if (ConfigurationManager.AppSettings["Ambiente"].ToString() != "PR")
-                {
-                    lnkPoliticasVenta.NavigateUrl = "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/SeguimientoPedido/" + Convert.ToString(ViewState["PAISISO"]) + "/Politica.pdf";
-                }
-                else
-                {
-                    lnkPoliticasVenta.NavigateUrl = "https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/SeguimientoPedido/" + Convert.ToString(ViewState["PAISISO"]) + "/Politica.pdf";
-                }
+                lnkPoliticasVenta.NavigateUrl = "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/SeguimientoPedido/" + Convert.ToString(ViewState["PAISISO"]) + "/Politica.pdf";
             }
-            catch  {}
+            else
+            {
+                lnkPoliticasVenta.NavigateUrl = "https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/SeguimientoPedido/" + Convert.ToString(ViewState["PAISISO"]) + "/Politica.pdf";
+            }
 
         }
 
@@ -58,9 +54,9 @@ namespace Portal.Consultoras.Web.WebPages
                 Label lblFecha = (Label)gridPedidos.Rows[index].FindControl("lblFecha");
                 Label lblEstado = (Label)gridPedidos.Rows[index].FindControl("lblEstado");
 
-                int paisID = Convert.ToInt32(ViewState["PAIS"]);
+                int paisId = Convert.ToInt32(ViewState["PAIS"]);
                 string codigo = Convert.ToString(ViewState["CODIGO"]);
-                string paisISO = Convert.ToString(ViewState["PAISISO"]);
+                string paisIso = Convert.ToString(ViewState["PAISISO"]);
                 string campana = lblCampana.Text;
                 string nropedido = lblNumeroPedido.Text;
                 string estado = lblEstado.Text;
@@ -68,7 +64,7 @@ namespace Portal.Consultoras.Web.WebPages
 
                 pnlNovedadesEntrega.Visible = true;
                 pnlNovedadesPostVenta.Visible = false;
-                CargarSeguimientoPedido(paisID, codigo, campana, fecha, nropedido, paisISO, estado);
+                CargarSeguimientoPedido(paisId, codigo, campana, fecha, nropedido, paisIso, estado);
             }
         }
 
@@ -79,145 +75,132 @@ namespace Portal.Consultoras.Web.WebPages
                 int index = Convert.ToInt32(e.CommandArgument.ToString());
 
                 Label lblNumeroRecojo = (Label)gridPostVenta.Rows[index].FindControl("lblNumeroRecojo");
-                int estadoRecojoID = (int)gridPostVenta.DataKeys[index]["EstadoRecojoID"];
-                int paisID = Convert.ToInt32(ViewState["PAIS"]);
+                int estadoRecojoId = gridPostVenta.DataKeys[index] != null ? (int)gridPostVenta.DataKeys[index]["EstadoRecojoID"] : 0;
+                int paisId = Convert.ToInt32(ViewState["PAIS"]);
                 string nroRecojo = lblNumeroRecojo.Text;
 
 
                 pnlNovedadesPostVenta.Visible = true;
                 pnlNovedadesEntrega.Visible = false;
-                CargarSeguimientoPostVenta(paisID, nroRecojo, estadoRecojoID);
+                CargarSeguimientoPostVenta(paisId, nroRecojo, estadoRecojoId);
             }
         }
 
         protected void gridDatos_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            string paisISO = Convert.ToString(ViewState["PAISISO"]);
+            string paisIso = Convert.ToString(ViewState["PAISISO"]);
+            Image boton = (Image)e.Row.FindControl("imgMuestra");
+            Image botonSi = (Image)e.Row.FindControl("imgSI");
+            Image botonNo = (Image)e.Row.FindControl("imgNO");
+            Image botonNo2 = (Image)e.Row.FindControl("imgNO2");
+            Label lblTexto = (Label)e.Row.FindControl("lblTexto");
+            Label lblFecha = (Label)e.Row.FindControl("lblFecha");
+            LinkButton botonSegPed = (LinkButton)e.Row.FindControl("imgSegPed");
+            Label lblTextoValorTurno = (Label)e.Row.FindControl("lblTextoValorTurno");
 
-            Image boton = new Image();
-            boton = (Image)e.Row.FindControl("imgMuestra");
-
-            Image botonSI = new Image();
-            botonSI = (Image)e.Row.FindControl("imgSI");
-
-            Image botonNO = new Image();
-            botonNO = (Image)e.Row.FindControl("imgNO");
-
-            Image botonNO2 = new Image();
-            botonNO2 = (Image)e.Row.FindControl("imgNO2");
-
-            Label lblTexto = new Label();
-            lblTexto = (Label)e.Row.FindControl("lblTexto");
-
-            Label lblFecha = new Label();
-            lblFecha = (Label)e.Row.FindControl("lblFecha");
-
-            LinkButton botonSegPed = new LinkButton();
-            botonSegPed = (LinkButton)e.Row.FindControl("imgSegPed");
-          
-            Label lblTextoValorTurno = new Label();
-            lblTextoValorTurno = (Label)e.Row.FindControl("lblTextoValorTurno");
             if (lblTextoValorTurno != null)
-                lblTextoValorTurno.ForeColor = System.Drawing.ColorTranslator.FromHtml((System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(paisISO)) ? "#e81c36" : "#b75d9f"); 
+                lblTextoValorTurno.ForeColor = System.Drawing.ColorTranslator.FromHtml((ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(paisIso)) ? "#e81c36" : "#b75d9f");
 
-            if (boton != null)
+            if (boton == null)
+                return;
+
+            BETracking tracking = e.Row.DataItem as BETracking;
+
+            if (tracking == null) return;
+
+            string strSituacion = tracking.Situacion;
+
+            if (strSituacion.Contains("<br/>"))
             {
-                BETracking tracking = e.Row.DataItem as BETracking;
+                strSituacion = strSituacion.Substring(0, strSituacion.IndexOf("<br/>"));
+            }
 
-                if (tracking == null) return;
+            string strFecha = string.Empty;
 
-                string strSituacion = tracking.Situacion;
+            if (tracking.Fecha.HasValue)
+                strFecha = tracking.Fecha.Value.TimeOfDay.TotalHours.Equals(0) 
+                    ? tracking.Fecha.Value.ToString("dd/MM/yyyy")
+                    : tracking.Fecha.Value.ToString();
 
-                /*SB20-964 - INICIO */
-                if (strSituacion.Contains("<br/>")) {
-                    strSituacion = strSituacion.Substring(0, strSituacion.IndexOf("<br/>"));
-                }
-                /*SB20-964 - FIN */
-
-                string strFecha = string.Empty;
-
-                if (tracking.Fecha.HasValue)
-                    strFecha = tracking.Fecha.Value.TimeOfDay.TotalHours == 0 ? tracking.Fecha.Value.ToString("dd/MM/yyyy") : tracking.Fecha.Value.ToString();
-
-                if (strFecha == string.Empty)
+            if (strFecha == string.Empty)
+            {
+                botonSi.Visible = false;
+                botonNo.Visible = true;
+                if (strSituacion.ToUpper() == "CHEQUEADO")
                 {
-                    botonSI.Visible = false;
-                    botonNO.Visible = true;
-                    if (strSituacion.ToUpper() == "CHEQUEADO")
-                    {
-                        botonSI.Visible = false;
-                        botonNO.Visible = false;
-                    }
+                    botonSi.Visible = false;
+                    botonNo.Visible = false;
+                }
+            }
+            else
+            {
+                if (strFecha == "01/01/2001")
+                {
+                    botonSi.Visible = false;
+                    botonNo.Visible = true;
                 }
                 else
                 {
-                    if (strFecha == "01/01/2001")
+                    if (strFecha == "01/01/2010" || strFecha == "02/01/2010")
                     {
-                        botonSI.Visible = false;
-                        botonNO.Visible = true;
-                    }
-                    else
-                    {
-                        if (strFecha == "01/01/2010" || strFecha == "02/01/2010")
+                        botonNo.Visible = false;
+                        if (strFecha == "01/01/2010")
                         {
-                            botonNO.Visible = false;
-                            if (strFecha == "01/01/2010")
-                            {
-                                botonSI.Visible = true;
-                                botonNO2.Visible = false;
-                                lblFecha.ForeColor = System.Drawing.Color.Blue;
-                                lblFecha.Font.Bold = true;
-                            }
-                            else
-                            {
-                                botonSI.Visible = false;
-                                botonNO2.Visible = true;
-                                lblFecha.ForeColor = System.Drawing.Color.Red;
-                                lblFecha.Font.Bold = true;
-                            }
-
-                            lblTexto.Visible = true;
-                            botonSegPed.Visible = true;
+                            botonSi.Visible = true;
+                            botonNo2.Visible = false;
+                            lblFecha.ForeColor = System.Drawing.Color.Blue;
+                            lblFecha.Font.Bold = true;
                         }
                         else
                         {
-                            botonSI.Visible = true;
-                            botonNO.Visible = false;
+                            botonSi.Visible = false;
+                            botonNo2.Visible = true;
+                            lblFecha.ForeColor = System.Drawing.Color.Red;
+                            lblFecha.Font.Bold = true;
                         }
+
+                        lblTexto.Visible = true;
+                        botonSegPed.Visible = true;
+                    }
+                    else
+                    {
+                        botonSi.Visible = true;
+                        botonNo.Visible = false;
                     }
                 }
-
-                switch (strSituacion.ToUpper())
-                {
-                    case "PEDIDO RECIBIDO":
-                        boton.ImageUrl = "~/Content/Images/webtracking/pedidorecibido.png";
-                        break;
-                    case "FACTURADO":
-                        boton.ImageUrl = "~/Content/Images/webtracking/factura.png";
-                        break;
-                    case "INICIO DE ARMADO":
-                        boton.ImageUrl = "~/Content/Images/webtracking/box.png";
-                        boton.Width = 70;
-                        break;
-                    case "CHEQUEADO":
-                        boton.ImageUrl = "~/Content/Images/webtracking/check.png";
-                        boton.Width = 50;
-                        break;
-                    case "PUESTO EN TRANSPORTE":
-                        boton.ImageUrl = "~/Content/Images/webtracking/camion.png";
-                        boton.Width = 70;
-                        break;
-                    case "ENTREGADO":
-                        boton.ImageUrl = "~/Content/Images/webtracking/home.png";
-                        boton.Width = 55;
-                        break;
-                    case "FECHA ESTIMADA DE ENTREGA":
-                        boton.ImageUrl = "~/Content/Images/webtracking/calendario.png";
-                        botonSI.Visible = false;
-                        botonNO.Visible = false;
-                        break;
-                }
             }
+
+            switch (strSituacion.ToUpper())
+            {
+                case "PEDIDO RECIBIDO":
+                    boton.ImageUrl = "~/Content/Images/webtracking/pedidorecibido.png";
+                    break;
+                case "FACTURADO":
+                    boton.ImageUrl = "~/Content/Images/webtracking/factura.png";
+                    break;
+                case "INICIO DE ARMADO":
+                    boton.ImageUrl = "~/Content/Images/webtracking/box.png";
+                    boton.Width = 70;
+                    break;
+                case "CHEQUEADO":
+                    boton.ImageUrl = "~/Content/Images/webtracking/check.png";
+                    boton.Width = 50;
+                    break;
+                case "PUESTO EN TRANSPORTE":
+                    boton.ImageUrl = "~/Content/Images/webtracking/camion.png";
+                    boton.Width = 70;
+                    break;
+                case "ENTREGADO":
+                    boton.ImageUrl = "~/Content/Images/webtracking/home.png";
+                    boton.Width = 55;
+                    break;
+                case "FECHA ESTIMADA DE ENTREGA":
+                    boton.ImageUrl = "~/Content/Images/webtracking/calendario.png";
+                    botonSi.Visible = false;
+                    botonNo.Visible = false;
+                    break;
+            }
+
         }
 
         protected void BtnCancel1_Click(object sender, EventArgs e)
@@ -226,14 +209,14 @@ namespace Portal.Consultoras.Web.WebPages
 
             if (hidMostrarAyuda == "1")
             {
-                int paisID = Convert.ToInt32(ViewState["PAIS"]);
+                int paisId = Convert.ToInt32(ViewState["PAIS"]);
                 string codigo = Convert.ToString(ViewState["CODIGO"]);
 
                 try
                 {
                     using (UsuarioServiceClient sv = new UsuarioServiceClient())
                     {
-                        sv.UpdateIndicadorAyudaWebTracking(paisID, codigo, true);
+                        sv.UpdateIndicadorAyudaWebTracking(paisId, codigo, true);
                     }
                     lblMensaje.Visible = false;
                 }
@@ -266,16 +249,16 @@ namespace Portal.Consultoras.Web.WebPages
                     return false;
                 }
 
-                int paisID = Convert.ToInt32(query[0]);
+                int paisId = Convert.ToInt32(query[0]);
                 string codigoConsultora = query[1];
                 int mostrarAyuda = Convert.ToInt32(query[2]);
-                string paisISO = query[3];
-                int campanhaID = int.Parse(query[4]);
+                string paisIso = query[3];
+                int campanhaId = int.Parse(query[4]);
 
                 ViewState["CODIGO"] = codigoConsultora;
-                ViewState["PAIS"] = paisID;
-                ViewState["PAISISO"] = paisISO;
-                ViewState["CAMPANHAID"] = campanhaID;
+                ViewState["PAIS"] = paisId;
+                ViewState["PAISISO"] = paisIso;
+                ViewState["CAMPANHAID"] = campanhaId;
                 ViewState["MOSTRARAYUDA"] = mostrarAyuda;
                 return true;
             }
@@ -291,18 +274,18 @@ namespace Portal.Consultoras.Web.WebPages
         {
             try
             {
-                int paisID = Convert.ToInt32(ViewState["PAIS"]);
+                int paisId = Convert.ToInt32(ViewState["PAIS"]);
                 string codigoConsultora = Convert.ToString(ViewState["CODIGO"]);
-                string paisISO = Convert.ToString(ViewState["PAISISO"]);
-                int campanhaID = Convert.ToInt32(ViewState["CAMPANHAID"]);
+                string paisIso = Convert.ToString(ViewState["PAISISO"]);
+                //int campanhaId = Convert.ToInt32(ViewState["CAMPANHAID"]);
                 int mostrarAyuda = Convert.ToInt32(ViewState["MOSTRARAYUDA"]);
 
-                CargarPedidos(paisID, codigoConsultora, paisISO, campanhaID);
-                if (paisISO == "CO")
+                CargarPedidos(paisId, codigoConsultora);
+                if (paisIso == Constantes.CodigosISOPais.Colombia)
                 {
                     lnkPoliticasVenta.Visible = true;
                     pPostVenta.Visible = true;
-                    CargarPostVenta(paisID, codigoConsultora);
+                    CargarPostVenta(paisId, codigoConsultora);
                 }
                 else
                 {
@@ -323,14 +306,14 @@ namespace Portal.Consultoras.Web.WebPages
             if (nroPedido == "0") nroPedido = null;
             try
             {
-                int paisID = Convert.ToInt32(ViewState["PAIS"]);
+                int paisId = Convert.ToInt32(ViewState["PAIS"]);
                 string codigoConsultora = Convert.ToString(ViewState["CODIGO"]);
-                string paisISO = Convert.ToString(ViewState["PAISISO"]);
+                string paisIso = Convert.ToString(ViewState["PAISISO"]);
 
-                BETracking bETracking = new BETracking();
+                BETracking beTracking;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    bETracking = sv.GetPedidoByConsultoraAndCampaniaAndNroPedido(paisID, codigoConsultora, Convert.ToInt32(campania), nroPedido);
+                    beTracking = sv.GetPedidoByConsultoraAndCampaniaAndNroPedido(paisId, codigoConsultora, Convert.ToInt32(campania), nroPedido);
                 }
 
                 pnlNovedadesEntrega.Visible = true;
@@ -338,7 +321,7 @@ namespace Portal.Consultoras.Web.WebPages
                 HtmlTableCell row1 = (HtmlTableCell)vTracking.FindControl("cellPedidos");
                 row1.Style.Add("display", "none");
 
-                CargarSeguimientoPedido(paisID, codigoConsultora, campania, bETracking.Fecha.HasValue ? bETracking.Fecha.Value : DateTime.Now, bETracking.NumeroPedido, paisISO, bETracking.Estado);
+                CargarSeguimientoPedido(paisId, codigoConsultora, campania, beTracking.Fecha.HasValue ? beTracking.Fecha.Value : DateTime.Now, beTracking.NumeroPedido, paisIso, beTracking.Estado);
             }
             catch (Exception ex)
             {
@@ -347,32 +330,32 @@ namespace Portal.Consultoras.Web.WebPages
             }
         }
 
-        private void CargarPedidos(int paisID, string codigo, string paisISO, int campanhaID)
+        private void CargarPedidos(int paisId, string codigo)
         {
-            IList<BETracking> pedidos = new List<BETracking>();
-            List<BETracking> listaPedidos = new List<BETracking>();
+            IList<BETracking> pedidos;
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                pedidos = sv.GetPedidosByConsultora(paisID, codigo, 6);
+                pedidos = sv.GetPedidosByConsultora(paisId, codigo, 6);
             }
 
+            List<BETracking> listaPedidos = new List<BETracking>();
             listaPedidos.AddRange(pedidos);
 
             gridPedidos.DataSource = listaPedidos;
             gridPedidos.DataBind();
         }
 
-        private void CargarPostVenta(int paisID, string codigo)
+        private void CargarPostVenta(int paisId, string codigo)
         {
-            IList<BEPostVenta> postVentas = new List<BEPostVenta>();
-            List<BEPostVenta> listaPostVenta = new List<BEPostVenta>();
+            IList<BEPostVenta> postVentas;
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                postVentas = sv.GetMisPostVentaByConsultora(paisID, codigo);
+                postVentas = sv.GetMisPostVentaByConsultora(paisId, codigo);
             }
 
+            List<BEPostVenta> listaPostVenta = new List<BEPostVenta>();
             listaPostVenta.AddRange(postVentas);
 
             gridPostVenta.DataSource = listaPostVenta;
@@ -387,9 +370,6 @@ namespace Portal.Consultoras.Web.WebPages
                 pnlSeguimientoPostVenta.Visible = false;
                 pnlSinTracking.Visible = false;
 
-                IList<BETracking> tracking = new List<BETracking>();
-                IList<BENovedadTracking> novedades = new List<BENovedadTracking>();
-                BENovedadFacturacion oBENovedadFacturacion = null; //R2004
 
                 if (string.IsNullOrEmpty(nropedido))
                 {
@@ -407,6 +387,9 @@ namespace Portal.Consultoras.Web.WebPages
                     return;
                 }
 
+                IList<BENovedadTracking> novedades = new List<BENovedadTracking>();
+                BENovedadFacturacion obeNovedadFacturacion;
+                IList<BETracking> tracking;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     tracking = sv.GetTrackingByPedido(paisID, codigo, campana, nropedido);
@@ -414,32 +397,30 @@ namespace Portal.Consultoras.Web.WebPages
                     if (ConfigurationManager.AppSettings["WebTrackingConfirmacion"].Contains(paisISO))
                     {
                         novedades = sv.GetNovedadesTracking(paisID, nropedido);
-                    }//R2209
-
-                    //R2004 - Inicio
+                    }
+                    
                     pnlStatusGeneral.Visible = false;
                     if (estado == "RECHAZADO")
                     {
-                        oBENovedadFacturacion = sv.GetPedidoRechazadoByConsultora(paisID, campana, codigo, fecha);
-                        if (oBENovedadFacturacion != null)
+                        obeNovedadFacturacion = sv.GetPedidoRechazadoByConsultora(paisID, campana, codigo, fecha);
+                        if (obeNovedadFacturacion != null)
                         {
                             lblEstadoFacturacion.Text = "RECHAZADO";
-                            lblNovedadFacturacion.Text = "PEDIDO RECHAZADO POR " + oBENovedadFacturacion.DescripcionMotivo.ToUpper();
+                            lblNovedadFacturacion.Text = "PEDIDO RECHAZADO POR " + obeNovedadFacturacion.DescripcionMotivo.ToUpper();
                             pnlStatusGeneral.Visible = true;
                         }
                     }
 
                     if (estado == "ANULADO")
                     {
-                        oBENovedadFacturacion = sv.GetPedidoAnuladoByConsultora(paisID, campana, codigo, fecha, nropedido);
-                        if (oBENovedadFacturacion != null)
+                        obeNovedadFacturacion = sv.GetPedidoAnuladoByConsultora(paisID, campana, codigo, fecha, nropedido);
+                        if (obeNovedadFacturacion != null)
                         {
                             lblEstadoFacturacion.Text = "ANULADO";
-                            lblNovedadFacturacion.Text = oBENovedadFacturacion.DescripcionMotivo.ToUpper();
+                            lblNovedadFacturacion.Text = obeNovedadFacturacion.DescripcionMotivo.ToUpper();
                             pnlStatusGeneral.Visible = true;
                         }
                     }
-                    //R2004 - Fin
                 }
 
                 if (tracking.Count == 0)
@@ -454,7 +435,9 @@ namespace Portal.Consultoras.Web.WebPages
                         string strTexto = string.Empty;
 
                         if (item.Fecha.HasValue)
-                            strFecha = item.Fecha.Value.TimeOfDay.TotalHours == 0 ? item.Fecha.Value.ToString("dd/MM/yyyy") : item.Fecha.Value.ToString();
+                            strFecha = item.Fecha.Value.TimeOfDay.TotalHours.Equals(0) 
+                                ? item.Fecha.Value.ToString("dd/MM/yyyy") 
+                                : item.Fecha.Value.ToString();
 
                         if (strFecha == "01/01/2001")
                         {
@@ -481,10 +464,9 @@ namespace Portal.Consultoras.Web.WebPages
 
                         item.CodigoConsultora = strFecha;
                         item.NumeroPedido = strTexto;
-
-                        /*SB20-964 - INICIO */
+                        
                         if (item.Etapa == 6 && !string.IsNullOrEmpty(item.ValorTurno))
-                        {                          
+                        {
                             if (item.ValorTurno.ToUpper() == "AM")
                             {
                                 item.ValorTurno = "<b>En la mañana</b>";
@@ -494,11 +476,10 @@ namespace Portal.Consultoras.Web.WebPages
                                 item.ValorTurno = "<b>En la tarde</b>";
                             }
                             else
-                            {                               
+                            {
                                 item.ValorTurno = string.Empty;
                             }
                         }
-                        /*SB20-964 - FIN */
                     }
 
                     lblNovCampania.Text = campana;
@@ -529,8 +510,8 @@ namespace Portal.Consultoras.Web.WebPages
                 pnlSeguimientoPostVenta.Visible = true;
                 pnlSeguimientoPedido.Visible = false;
 
-                IList<BEPostVenta> listaSeguimiento = new List<BEPostVenta>();
-                IList<BEPostVenta> listaNovedadesPostVenta = new List<BEPostVenta>();
+                IList<BEPostVenta> listaSeguimiento;
+                IList<BEPostVenta> listaNovedadesPostVenta;
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -624,19 +605,16 @@ namespace Portal.Consultoras.Web.WebPages
             {
                 mvTracking.ActiveViewIndex = 1;
 
-                foreach (GridViewRow row in gvNovedades.Rows)
-                {
-                    //row.BackColor = System.Drawing.ColorTranslator.FromHtml("#f8fcfd");
-                }
-
                 gvNovedades.SelectedIndex = 0;
-                //gvNovedades.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#94ddf5");
+                if (gvNovedades.DataKeys[0] != null)
+                {
+                    string lat = (string) gvNovedades.DataKeys[0]["Latitud"];
+                    string longi = (string) gvNovedades.DataKeys[0]["Longitud"];
+                    string novedad = "Entrega";
 
-                string Lat = (string)gvNovedades.DataKeys[0]["Latitud"];
-                string Long = (string)gvNovedades.DataKeys[0]["Longitud"];
-                string Novedad = "Entrega";
-
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Mapa", "CargarMapa(" + Lat + "," + Long + ",'" + Novedad + "');", true);
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Mapa",
+                        "CargarMapa(" + lat + "," + longi + ",'" + novedad + "');", true);
+                }
             }
         }
 
@@ -649,58 +627,62 @@ namespace Portal.Consultoras.Web.WebPages
         {
             if (e.CommandName == "Mapa")
             {
-                foreach (GridViewRow row in gvNovedades.Rows)
+
+                int index = Convert.ToInt32(e.CommandArgument.ToString());
+                gvNovedades.SelectedIndex = index;
+
+                if (gvNovedades.DataKeys[index] != null)
                 {
-                    //row.BackColor = System.Drawing.ColorTranslator.FromHtml("#f8fcfd");
+                    string lat = (string) gvNovedades.DataKeys[index]["Latitud"];
+                    string longi = (string) gvNovedades.DataKeys[index]["Longitud"];
+                    string novedad = "Entrega";
+
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Mapa",
+                        "CargarMapa(" + lat + "," + longi + ",'" + novedad + "');", true);
                 }
-
-                int Index = Convert.ToInt32(e.CommandArgument.ToString());
-                gvNovedades.SelectedIndex = Index;
-                //gvNovedades.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#94ddf5");
-
-                string Lat = (string)gvNovedades.DataKeys[Index]["Latitud"];
-                string Long = (string)gvNovedades.DataKeys[Index]["Longitud"];
-                string Novedad = "Entrega";
-
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Mapa", "CargarMapa(" + Lat + "," + Long + ",'" + Novedad + "');", true);
 
             }
 
             else if (e.CommandName == "Foto")
             {
-                int Index = Convert.ToInt32(e.CommandArgument.ToString());
+                int index = Convert.ToInt32(e.CommandArgument.ToString());
 
-                string urlImagen = "";
-                urlImagen = (string)gvNovedades.DataKeys[Index]["Foto"];
-                string Novedad = "Entrega";
-
-                int imagenExiste = 0;
-
-                if (urlImagen != string.Empty && urlImagen != null)
+                if (gvNovedades.DataKeys[index] != null)
                 {
-                    imagenExiste = 1;
-                }
+                    string urlImagen = (string)gvNovedades.DataKeys[index]["Foto"];
+                    string novedad = "Entrega";
 
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Foto", "CargarFoto(" + imagenExiste + ",'" + urlImagen + "','" + Novedad + "');", true);
+                    int imagenExiste = 0;
+
+                    if (!string.IsNullOrEmpty(urlImagen))
+                    {
+                        imagenExiste = 1;
+                    }
+
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Foto", "CargarFoto(" + imagenExiste + ",'" + urlImagen + "','" + novedad + "');", true);
+                }
 
             }
 
             else if (e.CommandName == "Boleta")
             {
-
-                int Index = Convert.ToInt32(e.CommandArgument.ToString());
-                string urlImagen = "";
-                urlImagen = (string)gvNovedades.DataKeys[Index]["Boleta"];
-                string Novedad = "Entrega";
-
-                int imagenExiste = 0;
-
-                if (urlImagen != string.Empty && urlImagen != null)
+                int index = Convert.ToInt32(e.CommandArgument.ToString());
+                if (gvNovedades.DataKeys[index] != null)
                 {
-                    imagenExiste = 1;
-                }
+                    string urlImagen = (string) gvNovedades.DataKeys[index]["Boleta"];
+                    string novedad = "Entrega";
 
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Boleta", "CargarBoleta(" + imagenExiste + ",'" + urlImagen + "','" + Novedad + "');", true);
+                    int imagenExiste = 0;
+
+                    if (!string.IsNullOrEmpty(urlImagen))
+                    {
+                        imagenExiste = 1;
+                    }
+
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Boleta",
+                        "CargarBoleta(" + imagenExiste + ",'" + urlImagen + "','" + novedad + "');", true);
+
+                }
 
             }
 
@@ -708,52 +690,35 @@ namespace Portal.Consultoras.Web.WebPages
 
         protected void gvNovedades_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            string paisISO = Convert.ToString(ViewState["PAISISO"]);
+            string paisIso = Convert.ToString(ViewState["PAISISO"]);
 
-            if (paisISO == "CO")
+            if (paisIso == Constantes.CodigosISOPais.Colombia && e.Row.RowType == DataControlRowType.DataRow)
             {
-                if (e.Row.RowType == DataControlRowType.DataRow)
-                {
-                    ImageButton botonFoto = new ImageButton();
-                    botonFoto = (ImageButton)e.Row.FindControl("btnFoto");
-                    botonFoto.Visible = true;
+                ImageButton botonFoto = (ImageButton)e.Row.FindControl("btnFoto");
+                botonFoto.Visible = true;
 
-                    ImageButton botonBoleta = new ImageButton();
-                    botonBoleta = (ImageButton)e.Row.FindControl("btnBoleta");
-                    botonBoleta.Visible = true;
-
-                }
+                ImageButton botonBoleta = (ImageButton)e.Row.FindControl("btnBoleta");
+                botonBoleta.Visible = true;
             }
 
         }
 
         protected void gridSeguimientoPostVenta_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            Image boton = new Image();
-            boton = (Image)e.Row.FindControl("imgMuestra");
-
-            Image botonSI = new Image();
-            botonSI = (Image)e.Row.FindControl("imgSI");
-
-            Image botonNO2 = new Image();
-            botonNO2 = (Image)e.Row.FindControl("imgNO2");
-
-            Label lblTexto = new Label();
-            lblTexto = (Label)e.Row.FindControl("lblTexto");
-
-            Label lblFecha = new Label();
-            lblFecha = (Label)e.Row.FindControl("lblFecha");
-
-            LinkButton botonSegPed = new LinkButton();
-            botonSegPed = (LinkButton)e.Row.FindControl("imgSegPed");
+            Image boton = (Image)e.Row.FindControl("imgMuestra");
+            Image botonSi = (Image)e.Row.FindControl("imgSI");
+            Image botonNo2 = (Image)e.Row.FindControl("imgNO2");
+            Label lblTexto = (Label)e.Row.FindControl("lblTexto");
+            Label lblFecha = (Label)e.Row.FindControl("lblFecha");
+            LinkButton botonSegPed = (LinkButton)e.Row.FindControl("imgSegPed");
 
             if (boton != null)
             {
                 BEPostVenta seguimientoPostVenta = e.Row.DataItem as BEPostVenta;
                 if (seguimientoPostVenta == null) return;
 
-                int estadoRecojoID = seguimientoPostVenta.EstadoRecojoID;
-                if (estadoRecojoID == 0) boton.ImageUrl = "~/Content/Images/webtracking/calendario.png";
+                int estadoRecojoId = seguimientoPostVenta.EstadoRecojoID;
+                if (estadoRecojoId == 0) boton.ImageUrl = "~/Content/Images/webtracking/calendario.png";
                 else
                 {
                     lblFecha.ForeColor = System.Drawing.Color.Blue;
@@ -764,15 +729,15 @@ namespace Portal.Consultoras.Web.WebPages
                     boton.ImageUrl = "~/Content/Images/webtracking/home.png";
                     boton.Width = 55;
 
-                    if (estadoRecojoID == 1)
+                    if (estadoRecojoId == 1)
                     {
-                        botonSI.Visible = true;
-                        botonNO2.Visible = false;
+                        botonSi.Visible = true;
+                        botonNo2.Visible = false;
                     }
                     else
                     {
-                        botonNO2.Visible = true;
-                        botonSI.Visible = false;
+                        botonNo2.Visible = true;
+                        botonSi.Visible = false;
                     }
                 }
             }
@@ -784,22 +749,19 @@ namespace Portal.Consultoras.Web.WebPages
             {
                 mvTracking.ActiveViewIndex = 1;
 
-                foreach (GridViewRow row in gvNovedadesPostVenta.Rows)
+                gvNovedadesPostVenta.SelectedIndex = 0;
+                if (gvNovedadesPostVenta.DataKeys[0] != null)
                 {
-                    //row.BackColor = System.Drawing.ColorTranslator.FromHtml("#f8fcfd");
+                    string lat = (string) gvNovedadesPostVenta.DataKeys[0]["Latitud"];
+                    string longi = (string) gvNovedadesPostVenta.DataKeys[0]["Longitud"];
+                    string novedad = "Recojo";
+
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Mapa",
+                        "CargarMapa(" + lat + "," + longi + ",'" + novedad + "');", true);
+
                 }
 
-                gvNovedadesPostVenta.SelectedIndex = 0;
-                //gvNovedadesPostVenta.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#94ddf5");
-
-                string Lat = (string)gvNovedadesPostVenta.DataKeys[0]["Latitud"];
-                string Long = (string)gvNovedadesPostVenta.DataKeys[0]["Longitud"];
-                string Novedad = "Recojo";
-
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Mapa", "CargarMapa(" + Lat + "," + Long + ",'" + Novedad + "');", true);
-
             }
-
 
         }
 
@@ -807,79 +769,70 @@ namespace Portal.Consultoras.Web.WebPages
         {
             if (e.CommandName == "Mapa")
             {
-                foreach (GridViewRow row in gvNovedadesPostVenta.Rows)
+                int index = Convert.ToInt32(e.CommandArgument.ToString());
+                gvNovedadesPostVenta.SelectedIndex = index;
+                if (gvNovedadesPostVenta.DataKeys[index] != null)
                 {
-                    //row.BackColor = System.Drawing.ColorTranslator.FromHtml("#f8fcfd");
+                    string lat = (string)gvNovedadesPostVenta.DataKeys[index]["Latitud"];
+                    string longi = (string)gvNovedadesPostVenta.DataKeys[index]["Longitud"];
+                    string novedad = "Recojo";
+
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Mapa", "CargarMapa(" + lat + "," + longi + ",'" + novedad + "');", true);
                 }
-
-                int Index = Convert.ToInt32(e.CommandArgument.ToString());
-                gvNovedadesPostVenta.SelectedIndex = Index;
-                //gvNovedadesPostVenta.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#94ddf5");
-
-                string Lat = (string)gvNovedadesPostVenta.DataKeys[Index]["Latitud"];
-                string Long = (string)gvNovedadesPostVenta.DataKeys[Index]["Longitud"];
-                string Novedad = "Recojo";
-
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Mapa", "CargarMapa(" + Lat + "," + Long + ",'" + Novedad + "');", true);
             }
 
             else if (e.CommandName == "Foto")
             {
-                int Index = Convert.ToInt32(e.CommandArgument.ToString());
-
-                string urlImagen = "";
-                urlImagen = (string)gvNovedadesPostVenta.DataKeys[Index]["Foto1"];
-                string Novedad = "Recojo";
-
-                int imagenExiste = 0;
-
-                if (urlImagen != string.Empty && urlImagen != null)
+                int index = Convert.ToInt32(e.CommandArgument.ToString());
+                if (gvNovedadesPostVenta.DataKeys[index] != null)
                 {
-                    imagenExiste = 1;
-                }
+                    string urlImagen = (string)gvNovedadesPostVenta.DataKeys[index]["Foto1"];
+                    string novedad = "Recojo";
 
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Foto", "CargarFoto(" + imagenExiste + ",'" + urlImagen + "','" + Novedad + "');", true);
+                    int imagenExiste = 0;
+
+                    if (!string.IsNullOrEmpty(urlImagen))
+                    {
+                        imagenExiste = 1;
+                    }
+
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Foto", "CargarFoto(" + imagenExiste + ",'" + urlImagen + "','" + novedad + "');", true);
+                }
 
             }
 
             else if (e.CommandName == "Boleta")
             {
-
-                int Index = Convert.ToInt32(e.CommandArgument.ToString());
-                string urlImagen = "";
-                urlImagen = (string)gvNovedadesPostVenta.DataKeys[Index]["Foto2"];
-                string Novedad = "Recojo";
-
-                int imagenExiste = 0;
-
-                if (urlImagen != string.Empty && urlImagen != null)
+                int index = Convert.ToInt32(e.CommandArgument.ToString());
+                if (gvNovedadesPostVenta.DataKeys[index] != null)
                 {
+                    string urlImagen = (string)gvNovedadesPostVenta.DataKeys[index]["Foto2"];
+                    string novedad = "Recojo";
 
-                    imagenExiste = 1;
+                    int imagenExiste = 0;
+
+                    if (!string.IsNullOrEmpty(urlImagen))
+                    {
+                        imagenExiste = 1;
+                    }
+
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Boleta", "CargarBoleta(" + imagenExiste + ",'" + urlImagen + "','" + novedad + "');", true);
                 }
-
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Boleta", "CargarBoleta(" + imagenExiste + ",'" + urlImagen + "','" + Novedad + "');", true);
 
             }
         }
 
         protected void gvNovedadesPostVenta_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            string paisISO = Convert.ToString(ViewState["PAISISO"]);
+            string paisIso = Convert.ToString(ViewState["PAISISO"]);
 
-            if (paisISO == "CO")
+            if (paisIso == Constantes.CodigosISOPais.Colombia && e.Row.RowType == DataControlRowType.DataRow)
             {
-                if (e.Row.RowType == DataControlRowType.DataRow)
-                {
-                    ImageButton botonFoto = new ImageButton();
-                    botonFoto = (ImageButton)e.Row.FindControl("btnFoto");
-                    botonFoto.Visible = true;
+                ImageButton botonFoto = (ImageButton)e.Row.FindControl("btnFoto");
+                botonFoto.Visible = true;
 
-                    ImageButton botonBoleta = new ImageButton();
-                    botonBoleta = (ImageButton)e.Row.FindControl("btnBoleta");
-                    botonBoleta.Visible = true;
-
-                }
+                ImageButton botonBoleta = (ImageButton)e.Row.FindControl("btnBoleta");
+                botonBoleta.Visible = true;
             }
         }
     }

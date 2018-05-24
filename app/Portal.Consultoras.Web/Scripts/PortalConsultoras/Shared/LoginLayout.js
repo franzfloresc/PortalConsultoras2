@@ -13,12 +13,12 @@ $(document).ready(function () {
     LocalStorageLimpiar();
 
     if (esPaisEsika == 'True') {
-        $('#cssStyle').attr('disabled', false);
-        $('#cssStyleLbel').attr('disabled', true);
+        $('#cssStyle>link').attr('disabled', false);
+        $('#cssStyleLbel>link').attr('disabled', true);
     }
     if (esPaisLbel == 'True') {
-        $('#cssStyle').attr('disabled', true);
-        $('#cssStyleLbel').attr('disabled', false);
+        $('#cssStyle>link').attr('disabled', true);
+        $('#cssStyleLbel>link').attr('disabled', false);
     }
 
     $(".DropDown").change(function () {
@@ -65,7 +65,6 @@ $(document).ready(function () {
 });
 
 function Jqueryplaceholder(Control) {
-    var placeholder = $('#' + Control).attr('placeholder');
     $('#' + Control).val('');
     $('#' + Control).focus(function () {
         var placeholdertext = $(this).attr('placeholder');
@@ -268,6 +267,8 @@ function LocalStorageLimpiar() {
     if (typeof (Storage) !== 'undefined') {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
+        var itemChatEConnected = localStorage.getItem('connected');//add
+        var itemChatEConfigParams = localStorage.getItem('ConfigParams');//add
 
         localStorage.clear();
 
@@ -277,6 +278,14 @@ function LocalStorageLimpiar() {
 
         if (typeof (itemSBTokenPedido) !== 'undefined' && itemSBTokenPedido !== null) {
             localStorage.setItem('SBTokenPedido', itemSBTokenPedido);
+        }
+
+        if (typeof (itemChatEConnected) !== 'undefined' && itemChatEConnected !== null) {//add
+            localStorage.setItem('connected', itemChatEConnected);
+        }
+
+        if (typeof (itemChatEConfigParams) !== 'undefined' && itemChatEConfigParams !== null) {//add
+            localStorage.setItem('ConfigParams', itemChatEConfigParams);
         }
     }
 };

@@ -33,7 +33,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     Codigo = "-- Seleccionar --"
                                 }};
                 IEnumerable<RegionModel> lstRegion = new List<RegionModel>();
-        
+
                 IEnumerable<ZonaModel> lstZona = new List<ZonaModel>();
 
                 model.listaPaises = CargarDropDowListPaises();
@@ -81,70 +81,75 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 string param = Util.DesencriptarQueryString(parametros);
-                string[] lista = param.Split(new char[] { ';' });
+                string[] lista = param.Split(';');
 
-                string Campaniaddl = lista[0];
-                string Regionddl = lista[1];
-                string Zonaddl = lista[2];
-                string Paisddl = lista[3];
-                string Fechaddl = lista[4];
+                string campaniaddl = lista[0];
+                string regionddl = lista[1];
+                string zonaddl = lista[2];
+                string paisddl = lista[3];
                 string territoriotxt = lista[5];
-                string EstadoPedidoddl = lista[6];
-                string CodConsultoratxt = lista[7];
-                string Bloqueadoddl = lista[8];
+                string codConsultoratxt = lista[7];
 
-                string Campaniaddl_val = lista[9];
-                string Regionddl_val = lista[10];
-                string Zonaddl_val = lista[11];
-                string Paisddl_val = lista[12];
-                string Fechaddl_val = lista[13];
-                string EstadoPedidoddl_val = lista[14];
-                string Bloqueadoddl_val = lista[15];
-                string territoriotxt_ID = lista[16];
-                string CodConsultoratxt_ID = lista[17];
+                string campaniaddlVal = lista[9];
+                string regionddlVal = lista[10];
+                string zonaddlVal = lista[11];
+                string paisddlVal = lista[12];
+                string fechaddlVal = lista[13];
+                string estadoPedidoddlVal = lista[14];
+                string bloqueadoddlVal = lista[15];
+                string territoriotxtId = lista[16];
+                string codConsultoratxtId = lista[17];
 
                 string page = lista[18];
                 string sortname = lista[19];
                 string sortorder = lista[20];
                 string rowNum = lista[21];
 
-                IEnumerable<CampaniaModel> lstCampania = new List<CampaniaModel>() {
-                                new CampaniaModel() {
-                                    CampaniaID = Convert.ToInt32((string.IsNullOrEmpty(Campaniaddl_val) ? "0" : Campaniaddl_val)),
-                                    Codigo = Campaniaddl
-                                }
-            };
-                IEnumerable<RegionModel> lstRegion = new List<RegionModel>() {
-                                new RegionModel() {
-                                    RegionID = Convert.ToInt32((string.IsNullOrEmpty(Regionddl_val) ? "0" :Regionddl_val )),
-                                    Codigo = Regionddl
-                                }
-            };
-                IEnumerable<ZonaModel> lstZona = new List<ZonaModel>() {
-                                new ZonaModel() {
-                                    ZonaID = Convert.ToInt32((string.IsNullOrEmpty(Zonaddl_val) ? "0" :Zonaddl_val)),
-                                    Codigo = Zonaddl
-                                }
-            };
-                IEnumerable<PaisModel> listaPaises = new List<PaisModel>() {
-                                new PaisModel() {
-                                    PaisID = Convert.ToInt32(Paisddl_val),
-                                    Nombre = Paisddl
-                                }
-            };
+                IEnumerable<CampaniaModel> lstCampania = new List<CampaniaModel>()
+                {
+                    new CampaniaModel()
+                    {
+                        CampaniaID = Convert.ToInt32((string.IsNullOrEmpty(campaniaddlVal) ? "0" : campaniaddlVal)),
+                        Codigo = campaniaddl
+                    }
+                };
+                IEnumerable<RegionModel> lstRegion = new List<RegionModel>()
+                {
+                    new RegionModel()
+                    {
+                        RegionID = Convert.ToInt32((string.IsNullOrEmpty(regionddlVal) ? "0" : regionddlVal)),
+                        Codigo = regionddl
+                    }
+                };
+                IEnumerable<ZonaModel> lstZona = new List<ZonaModel>()
+                {
+                    new ZonaModel()
+                    {
+                        ZonaID = Convert.ToInt32((string.IsNullOrEmpty(zonaddlVal) ? "0" : zonaddlVal)),
+                        Codigo = zonaddl
+                    }
+                };
+                IEnumerable<PaisModel> listaPaises = new List<PaisModel>()
+                {
+                    new PaisModel()
+                    {
+                        PaisID = Convert.ToInt32(paisddlVal),
+                        Nombre = paisddl
+                    }
+                };
                 model = new ConsultaPedidoModel()
                 {
                     listaPaises = listaPaises,
                     listaCampania = lstCampania,
                     listaRegiones = lstRegion,
                     listaZonas = lstZona,
-                    Fechaddl_val = Fechaddl_val,
-                    EstadoPedidoddl_val = EstadoPedidoddl_val,
-                    Bloqueadoddl_val = Bloqueadoddl_val,
+                    Fechaddl_val = fechaddlVal,
+                    EstadoPedidoddl_val = estadoPedidoddlVal,
+                    Bloqueadoddl_val = bloqueadoddlVal,
                     territoriotxt = territoriotxt,
-                    CodConsultoratxt = CodConsultoratxt,
-                    territoriotxt_ID = territoriotxt_ID,
-                    CodConsultoratxt_ID = CodConsultoratxt_ID,
+                    CodConsultoratxt = codConsultoratxt,
+                    territoriotxt_ID = territoriotxtId,
+                    CodConsultoratxt_ID = codConsultoratxtId,
                     vpage = page,
                     vsortname = sortname,
                     vsortorder = sortorder,
@@ -159,6 +164,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
+
             return View(model);
         }
 
@@ -166,21 +172,23 @@ namespace Portal.Consultoras.Web.Controllers
         {
 
             string obj = Util.DesencriptarQueryString(parametros);
-            string[] lista = obj.Split(new char[] { ';' });
+            string[] lista = obj.Split(';');
 
-            var model = new ConsultaPedidoModel();
-            model.CodigoConsultora = lista[0].ToString();
-            model.Nombres = lista[1].ToString();
-            model.Direccion = lista[2].ToString();
-            model.CodigoTerritorio = lista[3].ToString();
-            model.PedidoID = lista[4].ToString();
-            model.CampaniaID = Convert.ToInt32(lista[5].ToString());
-            model.vpage = lista[6].ToString();
-            model.vsortname = lista[7].ToString();
-            model.vsortorder = lista[8].ToString();
-            model.vrowNum = lista[9].ToString();
-            model.PaisID = Convert.ToInt32(lista[10]);
-            model.Usuario = lista[11];
+            var model = new ConsultaPedidoModel
+            {
+                CodigoConsultora = lista[0],
+                Nombres = lista[1],
+                Direccion = lista[2],
+                CodigoTerritorio = lista[3],
+                PedidoID = lista[4],
+                CampaniaID = Convert.ToInt32(lista[5]),
+                vpage = lista[6],
+                vsortname = lista[7],
+                vsortorder = lista[8],
+                vrowNum = lista[9],
+                PaisID = Convert.ToInt32(lista[10]),
+                Usuario = lista[11]
+            };
             return View(model);
         }
         #endregion
@@ -201,37 +209,24 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public IEnumerable<CampaniaModel> DropDownCampanias(int PaisID)
+        public IEnumerable<CampaniaModel> DropDownCampanias(int paisId)
         {
             IList<BECampania> lista;
             using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
             {
-                lista = servicezona.SelectCampanias(PaisID);
+                lista = servicezona.SelectCampanias(paisId);
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-               .ForMember(x => x.CampaniaID, t => t.MapFrom(c => c.CampaniaID))
-               .ForMember(x => x.Codigo, t => t.MapFrom(c => c.Codigo))
-               .ForMember(x => x.Anio, t => t.MapFrom(c => c.Anio))
-               .ForMember(x => x.NombreCorto, t => t.MapFrom(c => c.NombreCorto))
-               .ForMember(x => x.PaisID, t => t.MapFrom(c => c.PaisID))
-               .ForMember(x => x.Activo, t => t.MapFrom(c => c.Activo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
         }
 
-        public IEnumerable<ZonaModel> DropDownZonas(int PaisID)
+        public IEnumerable<ZonaModel> DropDownZonas(int paisId)
         {
             IList<BEZona> lista;
             using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
             {
-                lista = servicezona.SelectAllZonas(PaisID);
+                lista = servicezona.SelectAllZonas(paisId);
             }
-
-            Mapper.CreateMap<BEZona, ZonaModel>()
-               .ForMember(x => x.ZonaID, t => t.MapFrom(c => c.ZonaID))
-               .ForMember(x => x.Codigo, t => t.MapFrom(c => c.Codigo))
-               .ForMember(x => x.Nombre, t => t.MapFrom(c => c.Nombre))
-               .ForMember(x => x.RegionID, t => t.MapFrom(c => c.RegionID));
 
             return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lista);
         }
@@ -292,13 +287,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                     lst = srv.SelectPedidosWebByFilter(pedido, "01012013", regionid, territorioid).ToList();
                 }
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
 
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+
                 IEnumerable<BEPedidoWeb> items = lst;
 
                 #region Sort Section
@@ -322,9 +319,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 int total = lst.FindAll(x => x.Bloqueado == 0).Count;
 
@@ -340,21 +337,25 @@ namespace Portal.Consultoras.Web.Controllers
                            {
                                id = a.PedidoID,
                                cell = new string[]
-                                        {
-                                           a.CampaniaID.ToString(),
-                                           a.Direccion,
-                                           a.CodigoTerritorio,
-                                           a.PedidoID.ToString(),
-                                           a.CodigoZona.ToString(),
-                                           a.CodigoConsultora.ToString(),
-                                           a.Nombres,
-                                           (UserData().PaisID == 4)? a.MontoPedido.ToString("#,##0").Replace(',','.') : a.MontoPedido.ToString("0.00"),
-                                           (UserData().PaisID == 4)? a.SaldoDeuda.ToString("#,##0").Replace(',','.') : a.SaldoDeuda.ToString("0.00"),
-                                           a.DescripcionBloqueo,
-                                           a.Bloqueado.ToString(),
-                                           a.IndicadorEnviado.ToString(),
-                                           a.FechaProceso.ToString()
-                                        }
+                               {
+                            a.CampaniaID.ToString(),
+                            a.Direccion,
+                            a.CodigoTerritorio,
+                            a.PedidoID.ToString(),
+                            a.CodigoZona,
+                            a.CodigoConsultora,
+                            a.Nombres,
+                            UserData().PaisID == 4
+                                ? a.MontoPedido.ToString("#,##0").Replace(',', '.')
+                                : a.MontoPedido.ToString("0.00"),
+                            UserData().PaisID == 4
+                                ? a.SaldoDeuda.ToString("#,##0").Replace(',', '.')
+                                : a.SaldoDeuda.ToString("0.00"),
+                            a.DescripcionBloqueo,
+                            a.Bloqueado.ToString(),
+                            a.IndicadorEnviado.ToString(),
+                            a.FechaProceso.ToString()
+                               }
                            }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -371,62 +372,43 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lst = srv.SelectDetalleBloqueoPedidoByPedidoId(paisID, pedidoID).ToList();
                 }
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
 
-                BEPager pag = new BEPager();
-                IEnumerable<BEPedidoWebDetalle> items = lst;
-
-                #region Sort Section
-                if (sord == "asc")
+                BEGrid grid = new BEGrid
                 {
-                    switch (sidx)
-                    {
-                        case "CodVenta":
-                            items = lst.OrderBy(x => x.CUV);
-                            break;
-                    }
-                }
-                else
-                {
-                    switch (sidx)
-                    {
-                        case "CodVenta":
-                            items = lst.OrderByDescending(x => x.CUV);
-                            break;
-                    }
-                }
-                #endregion
-                if (string.IsNullOrEmpty(vCodVenta))
-                    items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                else
-                    items = items.Where(p => p.CUV.ToUpper().Contains(vCodVenta.ToUpper())).ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
 
-                pag = Util.PaginadorGenerico(grid, lst.ToList());
+                BEPager pag = Util.PaginadorGenerico(grid, lst.ToList());
 
                 var data = new
                 {
                     total = pag.PageCount,
                     page = pag.CurrentPage,
                     records = pag.RecordCount,
-                    totalimporte = (UserData().PaisID == 4) ? lst.Sum(x => x.ImporteTotal).ToString("#,##0").Replace(',', '.') : lst.Sum(x => x.ImporteTotal).ToString("0.00"),
+                    totalimporte = (UserData().PaisID == 4)
+                        ? lst.Sum(x => x.ImporteTotal).ToString("#,##0").Replace(',', '.')
+                        : lst.Sum(x => x.ImporteTotal).ToString("0.00"),
                     simbolo = lst[0].Simbolo,
                     rows = from a in lst
                            select new
                            {
                                id = a.PedidoID,
                                cell = new string[]
-                                        {
-                                           a.CUV,
-                                           a.DescripcionProd,
-                                           a.Cantidad.ToString(),
-                                           (UserData().PaisID == 4)? a.PrecioUnidad.ToString("#,##0").Replace(',','.') : a.PrecioUnidad.ToString("0.00"),
-                                           (UserData().PaisID == 4)? a.ImporteTotal.ToString("#,##0").Replace(',','.') : a.ImporteTotal.ToString("0.00")
+                               {
+                            a.CUV,
+                            a.DescripcionProd,
+                            a.Cantidad.ToString(),
+                            UserData().PaisID == 4
+                                ? a.PrecioUnidad.ToString("#,##0").Replace(',', '.')
+                                : a.PrecioUnidad.ToString("0.00"),
+                            UserData().PaisID == 4
+                                ? a.ImporteTotal.ToString("#,##0").Replace(',', '.')
+                                : a.ImporteTotal.ToString("0.00")
 
-                                       }
+                               }
                            }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -438,13 +420,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<ConsultaPedidoModel, BEPedidoWeb>()
-                    .ForMember(t => t.PedidoID, f => f.MapFrom(c => c.PedidoID))
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.CodigoConsultora, f => f.MapFrom(c => c.CodigoConsultora))
-                    .ForMember(t => t.DescripcionBloqueo, f => f.MapFrom(c => c.DescripcionBloqueo));
-
                 BEPedidoWeb pedido = Mapper.Map<ConsultaPedidoModel, BEPedidoWeb>(model);
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -487,12 +462,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<ConsultaPedidoModel, BEPedidoWeb>()
-                    .ForMember(t => t.PedidoID, f => f.MapFrom(c => c.PedidoID))
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.CodigoConsultora, f => f.MapFrom(c => c.CodigoConsultora))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID));
-
                 BEPedidoWeb pedido = Mapper.Map<ConsultaPedidoModel, BEPedidoWeb>(model);
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -559,13 +528,15 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = srv.SelectPedidosWebByFilter(pedido, vFecha, regionid, territorioid).ToList();
             }
 
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("Cod. Zona", "CodigoZona");
-            dic.Add("Cod. Consultora", "CodigoConsultora");
-            dic.Add("Nombre", "Nombres");
-            dic.Add("Monto Pedido", "MontoPedido");
-            dic.Add("Saldo Deuda", "SaldoDeuda");
-            dic.Add("pedido Bloqueado", "Bloqueado");
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                {"Cod. Zona", "CodigoZona"},
+                {"Cod. Consultora", "CodigoConsultora"},
+                {"Nombre", "Nombres"},
+                {"Monto Pedido", "MontoPedido"},
+                {"Saldo Deuda", "SaldoDeuda"},
+                {"pedido Bloqueado", "Bloqueado"}
+            };
             ExportToExcel("PedidosExcel", lst, dic);
             return View();
         }
@@ -578,12 +549,14 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = srv.SelectDetalleBloqueoPedidoByPedidoId(paisID, pedidoID).ToList();
             }
 
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("Cod. Venta", "CUV");
-            dic.Add("Descripción", "DescripcionProd");
-            dic.Add("Cantidad", "Cantidad");
-            dic.Add("Precio Unitario", "PrecioUnidad");
-            dic.Add("Precio Total", "ImporteTotal");
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                {"Cod. Venta", "CUV"},
+                {"Descripción", "DescripcionProd"},
+                {"Cantidad", "Cantidad"},
+                {"Precio Unitario", "PrecioUnidad"},
+                {"Precio Total", "ImporteTotal"}
+            };
             ExportToExcel("PedidosBloqueoExcel", lst, dic);
             return View();
         }
@@ -593,25 +566,24 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 string extension = ".xlsx";
-                string originalFileName = System.IO.Path.GetFileNameWithoutExtension(filename) + extension;
+                string originalFileName = Path.GetFileNameWithoutExtension(filename) + extension;
 
                 var wb = new XLWorkbook();
                 var ws = wb.Worksheets.Add("Hoja1");
-                List<string> Columns = new List<string>();
+                List<string> columns = new List<string>();
                 int index = 1;
 
                 foreach (KeyValuePair<string, string> keyvalue in columnDefinition)
                 {
                     ws.Cell(1, index).Value = keyvalue.Key;
                     index++;
-                    Columns.Add(keyvalue.Value);
+                    columns.Add(keyvalue.Value);
                 }
                 int row = 2;
-                int col = 0;
                 foreach (var dataItem in (System.Collections.IEnumerable)Source)
                 {
-                    col = 1;
-                    foreach (string column in Columns)
+                    var col = 1;
+                    foreach (string column in columns)
                     {
                         foreach (PropertyInfo property in dataItem.GetType().GetProperties())
                         {
@@ -679,8 +651,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return false;
             }
         }
@@ -725,13 +698,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);

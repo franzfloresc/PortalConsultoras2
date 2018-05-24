@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Portal.Consultoras.Entities;
+using System;
 using System.Data;
 using System.Data.Common;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Data
 {
@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@NroPedido", DbType.String, nroPedido);
             return Context.ExecuteReader(command);
         }
-        
+
         public IDataReader GetTrackingByPedido(string codigo, string campana, string nropedido)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetTrackingByConsultoraCampaniaFecha");
@@ -86,7 +86,7 @@ namespace Portal.Consultoras.Data
 
             return int.Parse(Context.ExecuteScalar(command).ToString());
         }
-        
+
         public void InsLogConfirmacionEntrega(BELogConfirmacionEntrega oBELogConfirmacionEntrega)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("BelEntrega.InsLogConfirmacionEntrega");
@@ -171,5 +171,12 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetTrackingPedidoByConsultora(string codigoConsultora, int top)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetTrackingPedidoByConsultora");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+            Context.Database.AddInParameter(command, "@Top", DbType.Int32, top);
+            return Context.ExecuteReader(command);
+        }
     }
 }

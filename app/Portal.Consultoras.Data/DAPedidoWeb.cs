@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Portal.Consultoras.Entities;
+using System;
 using System.Data;
 using System.Data.Common;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
 using System.Data.SqlClient;
-using System.Configuration;
 
 namespace Portal.Consultoras.Data
 {
@@ -48,7 +42,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@PaisID", DbType.Byte, pedidoweb.PaisID);
             Context.Database.AddInParameter(command, "@IPUsuario", DbType.AnsiString, pedidoweb.IPUsuario);
             Context.Database.AddOutParameter(command, "@PedidoID", DbType.Int32, pedidoweb.PedidoID);
-            Context.Database.AddInParameter(command, "@CodigoUsuarioCreacion", DbType.String, pedidoweb.CodigoUsuarioCreacion);         
+            Context.Database.AddInParameter(command, "@CodigoUsuarioCreacion", DbType.String, pedidoweb.CodigoUsuarioCreacion);
 
             Context.ExecuteNonQuery(command);
             return Convert.ToInt32(command.Parameters["@PedidoID"].Value);
@@ -95,6 +89,19 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
+        public int UpdPedidoWebReserva(BEPedidoWeb pedidoWeb, decimal gananciaEstimada)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdPedidoWebReserva");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, pedidoWeb.CampaniaID);
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoWeb.PedidoID);
+            Context.Database.AddInParameter(command, "@CodigoUsuarioModificacion", DbType.String, pedidoWeb.CodigoUsuarioModificacion);
+            Context.Database.AddInParameter(command, "@MontoTotalProl", DbType.Decimal, pedidoWeb.MontoTotalProl);
+            Context.Database.AddInParameter(command, "@EstimadoGanancia", DbType.Decimal, gananciaEstimada);
+            Context.Database.AddInParameter(command, "@EstadoPedido", DbType.Int16, pedidoWeb.EstadoPedido);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
         public int UpdPedidoWebByEstadoConTotales(int CampaniaID, int PedidoID, short EstadoPedido, bool ModificaPedidoReservado, int Clientes, decimal TotalPedido, string codigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdPedidoWebGeneral");
@@ -126,51 +133,47 @@ namespace Portal.Consultoras.Data
 
         private void InsLogPedidoDescargaDetalle(DataSet dsPedidos)
         {
-            DataTable dtPedidosDetalle = null;
-
             if (dsPedidos != null)
             {
-                dtPedidosDetalle = dsPedidos.Tables[1];
+                var dtPedidosDetalle = dsPedidos.Tables[1];
 
                 if (dtPedidosDetalle.Rows.Count > 0)
                 {
-                    SqlBulkCopy oSqlBulkCopy_Detalle = new SqlBulkCopy(Context.Database.ConnectionString);
-                    oSqlBulkCopy_Detalle.DestinationTableName = "LogCargaPedidoDetalle";
+                    SqlBulkCopy oSqlBulkCopyDetalle = new SqlBulkCopy(Context.Database.ConnectionString);
+                    oSqlBulkCopyDetalle.DestinationTableName = "LogCargaPedidoDetalle";
 
-                    oSqlBulkCopy_Detalle.ColumnMappings.Add("LogFechaFacturacion", "FechaFacturacion");
-                    oSqlBulkCopy_Detalle.ColumnMappings.Add("LogNroLote", "NroLote");
-                    oSqlBulkCopy_Detalle.ColumnMappings.Add("PedidoID", "PedidoID");
-                    oSqlBulkCopy_Detalle.ColumnMappings.Add("CodigoVenta", "CUV");
-                    oSqlBulkCopy_Detalle.ColumnMappings.Add("Cantidad", "Cantidad");
+                    oSqlBulkCopyDetalle.ColumnMappings.Add("LogFechaFacturacion", "FechaFacturacion");
+                    oSqlBulkCopyDetalle.ColumnMappings.Add("LogNroLote", "NroLote");
+                    oSqlBulkCopyDetalle.ColumnMappings.Add("PedidoID", "PedidoID");
+                    oSqlBulkCopyDetalle.ColumnMappings.Add("CodigoVenta", "CUV");
+                    oSqlBulkCopyDetalle.ColumnMappings.Add("Cantidad", "Cantidad");
 
-                    oSqlBulkCopy_Detalle.WriteToServer(dtPedidosDetalle);
-                    oSqlBulkCopy_Detalle.Close();
+                    oSqlBulkCopyDetalle.WriteToServer(dtPedidosDetalle);
+                    oSqlBulkCopyDetalle.Close();
                 }
             }
         }
 
         private void InsLogPedidoDescarga(DataSet dsPedidos)
         {
-            DataTable dtPedidosCabecera = null;
-
             if (dsPedidos != null)
             {
-                dtPedidosCabecera = dsPedidos.Tables[0];
+                var dtPedidosCabecera = dsPedidos.Tables[0];
 
                 if (dtPedidosCabecera.Rows.Count != 0)
                 {
-                    SqlBulkCopy oSqlBulkCopy_Cabecera = new SqlBulkCopy(Context.Database.ConnectionString);
-                    oSqlBulkCopy_Cabecera.DestinationTableName = "LogCargaPedido";
+                    SqlBulkCopy oSqlBulkCopyCabecera = new SqlBulkCopy(Context.Database.ConnectionString);
+                    oSqlBulkCopyCabecera.DestinationTableName = "LogCargaPedido";
 
-                    oSqlBulkCopy_Cabecera.ColumnMappings.Add("LogFechaFacturacion", "FechaFacturacion");
-                    oSqlBulkCopy_Cabecera.ColumnMappings.Add("LogNroLote", "NroLote");
-                    oSqlBulkCopy_Cabecera.ColumnMappings.Add("PedidoID", "PedidoID");
-                    oSqlBulkCopy_Cabecera.ColumnMappings.Add("LogCantidad", "Cantidad");
-                    oSqlBulkCopy_Cabecera.ColumnMappings.Add("Origen", "Origen");
-                    oSqlBulkCopy_Cabecera.ColumnMappings.Add("LogCodigoUsuarioProceso", "CodigoUsuarioProceso");
+                    oSqlBulkCopyCabecera.ColumnMappings.Add("LogFechaFacturacion", "FechaFacturacion");
+                    oSqlBulkCopyCabecera.ColumnMappings.Add("LogNroLote", "NroLote");
+                    oSqlBulkCopyCabecera.ColumnMappings.Add("PedidoID", "PedidoID");
+                    oSqlBulkCopyCabecera.ColumnMappings.Add("LogCantidad", "Cantidad");
+                    oSqlBulkCopyCabecera.ColumnMappings.Add("Origen", "Origen");
+                    oSqlBulkCopyCabecera.ColumnMappings.Add("LogCodigoUsuarioProceso", "CodigoUsuarioProceso");
 
-                    oSqlBulkCopy_Cabecera.WriteToServer(dtPedidosCabecera);
-                    oSqlBulkCopy_Cabecera.Close();
+                    oSqlBulkCopyCabecera.WriteToServer(dtPedidosCabecera);
+                    oSqlBulkCopyCabecera.Close();
 
                     InsLogPedidoDescargaDetalle(dsPedidos);
                 }
@@ -213,6 +216,21 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@NombreArchivoCabecera", DbType.String, NombreArchivoCabecera);
             Context.Database.AddInParameter(command, "@NombreArchivoDetalle", DbType.String, NombreArchivoDetalle);
             Context.Database.AddInParameter(command, "@NombreServer", DbType.String, NombreServer);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
+        /// <summary>
+        /// Marca los cupones de los pedidos web como usuados.
+        /// </summary>
+        /// <param name="NroLote"></param>
+        /// <param name="FirmarPedido"></param>
+        /// <returns></returns>
+        public int UpdCuponPedidoWebEnviado(int NroLote, bool FirmarPedido)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdCuponPedidoWebEnviado");
+            Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, NroLote);
+            Context.Database.AddInParameter(command, "@FirmarPedido", DbType.Boolean, FirmarPedido);
 
             return Context.ExecuteNonQuery(command);
         }
@@ -324,7 +342,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, BEPedidoDDWeb.ConsultoraCodigo);
             Context.Database.AddInParameter(command, "@EstadoPedido", DbType.AnsiString, BEPedidoDDWeb.EstadoValidacion);
             Context.Database.AddInParameter(command, "@EsRechazado", DbType.AnsiString, BEPedidoDDWeb.EsRechazado);
-            
+            Context.Database.AddInParameter(command, "@FechaRegistroInicio", DbType.Date, BEPedidoDDWeb.FechaRegistroInicio);
+            Context.Database.AddInParameter(command, "@FechaRegistroFin", DbType.Date, BEPedidoDDWeb.FechaRegistroFin);
 
             return Context.ExecuteReader(command);
         }
@@ -464,6 +483,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@ZonaCodigo", DbType.AnsiString, BEPedidoDDWeb.ZonaCodigo);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, BEPedidoDDWeb.ConsultoraCodigo);
             Context.Database.AddInParameter(command, "@EstadoPedido", DbType.AnsiString, BEPedidoDDWeb.EstadoValidacion);
+            Context.Database.AddInParameter(command, "@FechaRegistroInicio", DbType.Date, BEPedidoDDWeb.FechaRegistroInicio);
+            Context.Database.AddInParameter(command, "@FechaRegistroFin", DbType.Date, BEPedidoDDWeb.FechaRegistroFin);
 
             return Context.ExecuteReader(command);
         }
@@ -498,6 +519,23 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
 
             return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetPedidoSapId(int campaniaID, int pedidoID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoSapId");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoID);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public void ClearPedidoSapId(int campaniaID, int pedidoID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ClearPedidoWebPedidoSapId");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoID);
+            Context.ExecuteNonQuery(command);
         }
 
         public DateTime GetFechaHoraPais()
@@ -612,7 +650,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        
+
         public int ValidarDesactivaRevistaGana(int campaniaID, string codigoZona)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarDesactivaRevistaGana");
@@ -631,6 +669,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@MontoAhorroRevista", DbType.Decimal, bePedidoWeb.MontoAhorroRevista);
             Context.Database.AddInParameter(command, "@MontoDescuento", DbType.Decimal, bePedidoWeb.DescuentoProl);
             Context.Database.AddInParameter(command, "@MontoEscala", DbType.Decimal, bePedidoWeb.MontoEscala);
+            Context.Database.AddInParameter(command, "@VersionProl", DbType.Byte, bePedidoWeb.VersionProl);
+            Context.Database.AddInParameter(command, "@PedidoSapId", DbType.Int64, bePedidoWeb.PedidoSapId);
 
             Context.ExecuteNonQuery(command);
         }
@@ -651,7 +691,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        
+
         public IDataReader GetPedidosIngresadoFacturado(int consultoraID, int campaniaID, int top)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosIngresadoFacturado_SB2");
@@ -719,7 +759,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@maxDias", DbType.Int32, maxDias);
 
             return Context.ExecuteReader(command);
-        }            
+        }
 
         public IDataReader GetPedidosFacturadoDetalle(int pedidoID)
         {
@@ -728,19 +768,20 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        
+
         public IDataReader ObtenerUltimaDescargaPedido()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimaDescargaPedido");
             return Context.ExecuteReader(command);
         }
         public IDataReader DesmarcarUltimaDescargaPedido()
-        {                
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DesmarcarUltimaDescargaPedido");            
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DesmarcarUltimaDescargaPedido");
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader ObtenerUltimaDescargaExitosa() {
+        public IDataReader ObtenerUltimaDescargaExitosa()
+        {
             DbCommand Command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimaDescargaExitosa");
             return Context.ExecuteReader(Command);
         }
@@ -857,10 +898,9 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@CampaniaID ", DbType.Int32, CampaniaID);
                 return Convert.ToInt32(Context.ExecuteScalar(command));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return 1;
-                throw ex;
             }
 
         }
@@ -874,6 +914,30 @@ namespace Portal.Consultoras.Data
 
             Context.ExecuteNonQuery(command);
         }
+        #endregion
+
+
+        #region Certificado Digital
+        public bool TieneCampaniaConsecutivas(int campaniaId, int cantidadCampaniaConsecutiva, long consultoraId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.TieneCampaniaConsecutivas");
+            Context.Database.AddInParameter(command, "@CampaniaId", DbType.AnsiString, campaniaId);
+            Context.Database.AddInParameter(command, "@CantidadCampaniaConsecutiva", DbType.Int32, cantidadCampaniaConsecutiva);
+            Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, consultoraId);
+
+            return Convert.ToBoolean(Context.ExecuteScalar(command));
+        }
+
+        public IDataReader ObtenerCertificadoDigital(int campaniaId, long consultoraId, Int16 tipoCert)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerCertificadoDigital");
+            Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, campaniaId);
+            Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, consultoraId);
+            Context.Database.AddInParameter(command, "@TipoCert", DbType.Int16, tipoCert);
+
+            return Context.ExecuteReader(command);
+        }
+
         #endregion
     }
 }

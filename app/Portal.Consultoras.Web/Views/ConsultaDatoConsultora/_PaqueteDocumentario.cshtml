@@ -1,14 +1,14 @@
 ﻿<script type="text/javascript">
-    function validarExiteInformacion() //08/09/2014 - Elmer Cangahuala Marquez - R2013-2
+    function validarExiteInformacion()
     {
         if (jQuery.trim($("#txtDCConsultoraID").val()) == "") {
-            
-            fnGrillaPaqueteDocumentario();
-                  alert("Codigo de Consultora invalido, verificar");
+            alert("Codigo de Consultora invalido, verificar");
             $("#divMensaje").html("");
             $("#ddlCampaniaPaquete").val('--Seleccionar--');
         }
-        fnGrillaPaqueteDocumentario();
+        else {
+            fnGrillaPaqueteDocumentario();
+        }
     }
 
     function ControlesPaqueteDocumentario() { 
@@ -26,20 +26,6 @@
             }
 
         });
-
-        //$.ajax({
-        //    dataType: "json",
-        //    url: baseUrl + "ConsultaDatoConsultora/GetCampaniasRVDigitalWeb",
-        //    success: function (resultado) {
-        //        $("#ddlCampaniaPaquete").empty();
-
-        //        for (var i in resultado) {
-        //            var campania = resultado[i];
-        //            $("#ddlCampaniaPaquete").append('<option value=' + campania.CampaniaID + '>' + campania.Codigo + '</option>');
-        //        }
-        //    }
-        //});
-
 
         $("#ddlCampaniaPaquete").change(function () {
             if ($("#ddlCampaniaPaquete").val() != "")

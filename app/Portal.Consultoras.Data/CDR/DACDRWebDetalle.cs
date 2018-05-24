@@ -5,7 +5,7 @@ using System.Data.Common;
 
 namespace Portal.Consultoras.Data.CDR
 {
-    public class DACDRWebDetalle  : DataAccess
+    public class DACDRWebDetalle : DataAccess
     {
         public DACDRWebDetalle(int paisID)
             : base(paisID, EDbSource.Portal)
@@ -33,15 +33,13 @@ namespace Portal.Consultoras.Data.CDR
 
         public int DelCDRWebDetalle(BECDRWebDetalle entity)
         {
-            int result;
-
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelCDRWebDetalle");
             Context.Database.AddInParameter(command, "CDRWebDetalleID", DbType.Int32, entity.CDRWebDetalleID);
 
-            result = Context.ExecuteNonQuery(command);
+            var result = Context.ExecuteNonQuery(command);
 
             return result;
-        }        
+        }
 
         public IDataReader GetCDRWebDetalle(BECDRWebDetalle entity, int pedidoId)
         {
@@ -62,13 +60,11 @@ namespace Portal.Consultoras.Data.CDR
 
         public int UpdCdrWebDetalleCantidadObservado(BECDRWebDetalle entity)
         {
-            int result;
-
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdCdrWebDetalleCantidadObservado");
             Context.Database.AddInParameter(command, "CDRWebDetalleID", DbType.Int32, entity.CDRWebDetalleID);
             Context.Database.AddInParameter(command, "Cantidad", DbType.Int32, entity.Cantidad);
 
-            result = Context.ExecuteNonQuery(command);
+            int result = Context.ExecuteNonQuery(command);
 
             return result;
         }

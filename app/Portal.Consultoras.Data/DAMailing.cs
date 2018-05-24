@@ -1,16 +1,12 @@
 ﻿using Portal.Consultoras.Entities;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Data
 {
-    public class DAMailing: DataAccess
+    public class DAMailing : DataAccess
     {
         public DAMailing()
             : base()
@@ -25,7 +21,7 @@ namespace Portal.Consultoras.Data
         }
 
         public IDataReader ObtenerPlantillasEmailingSE()
-        { 
+        {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerPlantillasEmailingSE");
             return Context.ExecuteReader(command);
 
@@ -45,10 +41,10 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.QuitarPaisPlantillaEmailingSE");
             Context.Database.AddInParameter(command, "@PlantillaID", DbType.Int32, PlantillaID);
             Context.Database.AddInParameter(command, "@PaisID", DbType.Int32, PaisID);
-            return  Context.ExecuteNonQuery(command);
+            return Context.ExecuteNonQuery(command);
         }
 
-        public int CopiarPaisPlantillaEmailingSE(int PaisID, int PlantillaID,int PaisDestinoID,string CodigoUsuario)
+        public int CopiarPaisPlantillaEmailingSE(int PaisID, int PlantillaID, int PaisDestinoID, string CodigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.CopiarPlantillaEmailingSE");
             Context.Database.AddInParameter(command, "@PlantillaID", DbType.Int32, PlantillaID);
@@ -76,11 +72,11 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
         }
 
-        public IDataReader ListaLogEmailingAutomaticoSE (int PaisID) 
+        public IDataReader ListaLogEmailingAutomaticoSE(int PaisID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListaLogEmailingAutomaticoSE");
             Context.Database.AddInParameter(command, "@PaisID", DbType.String, PaisID);
-            return  Context.ExecuteReader(command);
+            return Context.ExecuteReader(command);
         }
 
         public IDataReader CondicionesConsultoraSE(DataTable lista)
@@ -113,14 +109,17 @@ namespace Portal.Consultoras.Data
             Context.ExecuteReader(command);
         }
 
-        public DateTime GetPaisZonaHoraria() {
+        public DateTime GetPaisZonaHoraria()
+        {
 
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetFechaHoraPais");
-          
+
             return Convert.ToDateTime(Context.ExecuteScalar(command));
 
         }
-        public IDataReader GetPlantillasPais(int PaisID) {
+
+        public IDataReader GetPlantillasPais(int PaisID)
+        {
 
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerPlantillasPais");
             Context.Database.AddInParameter(command, "@PaisID", DbType.Int64, PaisID);
@@ -128,8 +127,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
 
         }
-
-
 
         public IDataReader ObtenerCorreoEmisor(int PaisID)
         {

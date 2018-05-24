@@ -13,13 +13,15 @@ namespace Portal.Consultoras.BizLogic.CDR
         {
             try
             {
-                var retorno = 0;
-                var DACDRWebDetalle = new DACDRWebDetalle(PaisID);
-                TransactionOptions oTransactionOptions = new TransactionOptions();
-                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                int retorno;
+                var daCdrWebDetalle = new DACDRWebDetalle(PaisID);
+                TransactionOptions oTransactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
-                    retorno = DACDRWebDetalle.InsCDRWebDetalle(entity);
+                    retorno = daCdrWebDetalle.InsCDRWebDetalle(entity);
                     oTransactionScope.Complete();
                 }
                 return retorno;
@@ -35,13 +37,15 @@ namespace Portal.Consultoras.BizLogic.CDR
         {
             try
             {
-                var retorno = 0;
-                var DACDRWebDetalle = new DACDRWebDetalle(PaisID);
-                TransactionOptions oTransactionOptions = new TransactionOptions();
-                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                int retorno;
+                var daCdrWebDetalle = new DACDRWebDetalle(PaisID);
+                TransactionOptions oTransactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
-                    retorno = DACDRWebDetalle.DelCDRWebDetalle(entity);
+                    retorno = daCdrWebDetalle.DelCDRWebDetalle(entity);
                     oTransactionScope.Complete();
                 }
                 return retorno;
@@ -58,8 +62,8 @@ namespace Portal.Consultoras.BizLogic.CDR
 
             try
             {
-                var DACDRWebDetalle = new DACDRWebDetalle(PaisID);
-                using (IDataReader reader = DACDRWebDetalle.GetCDRWebDetalle(entity, pedidoId))
+                var daCdrWebDetalle = new DACDRWebDetalle(PaisID);
+                using (IDataReader reader = daCdrWebDetalle.GetCDRWebDetalle(entity, pedidoId))
                 {
                     while (reader.Read())
                     {
@@ -81,8 +85,8 @@ namespace Portal.Consultoras.BizLogic.CDR
 
             try
             {
-                var DACDRWebDetalle = new DACDRWebDetalle(PaisID);
-                using (IDataReader reader = DACDRWebDetalle.GetCDRWebDetalleLog(entity))
+                var daCdrWebDetalle = new DACDRWebDetalle(PaisID);
+                using (IDataReader reader = daCdrWebDetalle.GetCDRWebDetalleLog(entity))
                 {
                     while (reader.Read())
                     {
@@ -100,20 +104,22 @@ namespace Portal.Consultoras.BizLogic.CDR
 
         public bool DetalleActualizarObservado(int paisId, List<BECDRWebDetalle> lista)
         {
-            var resultado = false;
+            bool resultado;
 
             try
             {
-                var DACDRWebDetalle = new DACDRWebDetalle(paisId);
-                TransactionOptions oTransactionOptions = new TransactionOptions();
-                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                var daCdrWebDetalle = new DACDRWebDetalle(paisId);
+                TransactionOptions oTransactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
                     foreach (var becdrWebDetalle in lista)
                     {
-                        DACDRWebDetalle.UpdCdrWebDetalleCantidadObservado(becdrWebDetalle);
+                        daCdrWebDetalle.UpdCdrWebDetalleCantidadObservado(becdrWebDetalle);
                     }
-                    
+
                     oTransactionScope.Complete();
                 }
                 resultado = true;

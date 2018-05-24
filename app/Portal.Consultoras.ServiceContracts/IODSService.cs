@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Portal.Consultoras.Entities;
+using Portal.Consultoras.Common;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ServiceModel;
-using Portal.Consultoras.Entities;
-using Portal.Consultoras.Entities.CDR;
+using Portal.Consultoras.Entities.ProgramaNuevas;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -34,7 +32,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BEProducto> SelectProductoByListaCuvSearchRegionZona(int paisID, int campaniaID,
         string codigoDescripcion, int regionID, int zonaID, string codigoRegion, string codigoZona, bool validarOpt);
-        
+
         [OperationContract]
         IList<BEProducto> GetProductoComercialByListaCuv(int paisID, int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv);
 
@@ -60,7 +58,7 @@ namespace Portal.Consultoras.ServiceContracts
         void LoadConsultoraCodigo(int paisID);
 
         [OperationContract]
-        decimal GetSaldoActualConsultora(int paisID, string Codigo);
+        decimal GetSaldoActualConsultora(int paisID, string Codigo);        
 
         [OperationContract]
         IList<BEMensajeCUV> GetMensajesCUVsByPaisAndCampania(int CampaniaID, int paisID);
@@ -143,12 +141,11 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEProducto> SelectProductoToKitInicio(int paisID, int campaniaID, string cuv);
 
         [OperationContract]
-        string GetNombreProducto048ByCuv(int paisID, int campaniaId, string cuv);        
+        string GetNombreProducto048ByCuv(int paisID, int campaniaId, string cuv);
 
         [OperationContract]
         IList<BEProductoAppCatalogo> GetNombreProducto048ByListaCUV(int paisID, int campaniaId, string listaCUV);
 
-        //PL20-1237
         [OperationContract]
         int InsProductoCompartido(BEProductoCompartido ProComp);
 
@@ -157,5 +154,21 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BEProducto> GetListBrothersByCUV(int paisID, int codCampania, string cuv);
+
+        #region ProgramaNuevas
+        [OperationContract]
+        Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv);
+
+        [OperationContract]
+        int ValidarCantidadMaximaProgramaNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada);
+
+        [OperationContract]
+        bool ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, List<string> lstCuvPedido);
+        #endregion
+
+        #region ValidarVentaExclusiva
+        [OperationContract]
+        Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(int paisID, int campaniaID, string codigoConsultora, string cuv);
+        #endregion
     }
 }

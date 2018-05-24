@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Portal.Consultoras.Entities;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Entities;
-using System.Data.SqlClient;
-using OpenSource.Library.DataAccess;
 
 namespace Portal.Consultoras.Data
 {
@@ -28,7 +21,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-
         public int ValidarConfiguracionCrossSelling(int CampaniaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionCrossSellingByCampania");
@@ -36,8 +28,6 @@ namespace Portal.Consultoras.Data
 
             return int.Parse(Context.ExecuteScalar(command).ToString());
         }
-
-        
 
         public IDataReader GetCampaniasPorPais(int CampaniaID)
         {

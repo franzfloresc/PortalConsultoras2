@@ -7,10 +7,12 @@
 @{
     var layout = ViewContext.MobilePedidoLayout();
     ViewBag.SourcePage = 2;
-
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
-    var revistaDigital = Model.RevistaDigital ?? new RevistaDigitalModel();
     var mobileConfiguracion = Html.MobileAppConfiguracion();
+}
+@section styles
+{
+    @Styles.Render("~/bundles/Css/Mobile/Site/CssPedido")
 }
 <div class="wrapper_resumen_mobile sin_padding">
     @if (!mobileConfiguracion.EsAppMobile)
@@ -20,13 +22,6 @@
             INGRESAR PEDIDO C@(Model.CampaniaNro)
         </div>
     }
-    
-    @*@if (mobileConfiguracion.EsAppMobile)
-    {
-        @Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")
-        <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
-        <input type="hidden" id="hdfTotal" value="@Model.Total" />
-    }*@
 
     <!-- BANNERS INGRESO DE PEDIDO -->
     <div class="banner_ingresoPedido nuevaAlturaBanner" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center center;">
@@ -41,7 +36,7 @@
                 {
                     <input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" />
                 }
-               
+
                 <input type="tel" name="codigoProducto" value="" placeholder="Código" id="txtCodigoProducto" oninput="FuncionesGenerales.MaxLengthCheck(this, 5)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
             </form>
         </div>
@@ -143,42 +138,42 @@
                                         Model.CodigoIso == Constantes.CodigosISOPais.Guatemala ||
                                         Model.CodigoIso == Constantes.CodigosISOPais.Salvador ||
                                         Model.CodigoIso == Constantes.CodigosISOPais.Dominicana ||
-                                        Model.CodigoIso == Constantes.CodigosISOPais.PuertoRico)    //PE,CO,EC,GT.SV,PR,DO
+                                        Model.CodigoIso == Constantes.CodigosISOPais.PuertoRico)
                             {
                                 cabezaEscala = "Ganancia estimada total";
                                 pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
                                 lbl1Ganancia = "Mis descuentos";
                                 lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
                             }
-                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Mexico || Model.CodigoIso == Constantes.CodigosISOPais.Panama)    //PA,MX
+                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Mexico || Model.CodigoIso == Constantes.CodigosISOPais.Panama)
                             {
                                 cabezaEscala = "Ganancia estimada total";
                                 pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
                                 lbl1Ganancia = "Mis descuentos";
                                 lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
                             }
-                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Chile)// CH
+                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Chile)
                             {
                                 cabezaEscala = "Comisión y ahorro total";
                                 pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
                                 lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
                                 lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
                             }
-                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Venezuela)// VE
+                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Venezuela)
                             {
                                 cabezaEscala = "Oportunidad de ahorro total";
                                 pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
                                 lbl1Ganancia = "Por tus compras de productos de catalogo";
                                 lbl2Ganancia = "Por tus comprar de productos de revista";
                             }
-                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Bolivia)// BO
+                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Bolivia)
                             {
                                 cabezaEscala = "Ganancia total";
                                 pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
                                 lbl1Ganancia = "Mis descuentos";
                                 lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
                             }
-                            else if (Model.CodigoIso == Constantes.CodigosISOPais.CostaRica)// CR
+                            else if (Model.CodigoIso == Constantes.CodigosISOPais.CostaRica)
                             {
                                 cabezaEscala = "Oportunidad de ahorro total";
                                 pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
@@ -225,8 +220,8 @@
     }
     <!--FIN-->
     <!--INICIO CARRUSEL-->
-    <div id="divListaEstrategias" style="display:none">
-        <div id="contenedor_template_estrategia_cabecera"></div>
+    <div id="divListaEstrategias" style="display:none; margin-bottom: 50px;">
+        @Html.Partial("~/Areas/Mobile/Views/Pedido/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
     </div>
 
     <!--FIN CARRUSEL-->
@@ -305,10 +300,9 @@
 
 </div>
 <!--FIN-->
-<!--SB20-483 - INICIO -->
 <!-- POPUP MIS GANANCIAS -->
 
-<div class="contenedor_fondo_popup" id="popupGanancias" style="display:none;">
+<div class="contenedor_fondo_popup_ganancia" id="popupGanancias" style="display:none;">
     <div class="popup_mis_ganancias">
         <div class="btn_cerrar_actualizarMisDatos">
             <a href="javascript:;" title="Cerrar" class="cerrar_tutorial" onclick="return $('#popupGanancias').fadeOut(200);">
@@ -340,7 +334,6 @@
 
 
 <!-- FIN POPUP MIS GANANCIAS -->
-<!--SB20-483 - FIN -->
 <!-- POPUP AGREGAR CLIENTE -->
 <div class="contenedor_popup_clientes modal" id="divAgregarCliente" style="display: none;">
     <div class="popup_agregarCliente">
@@ -363,8 +356,7 @@
 </div>
 <!-- FIN POPUP CLIENTE AGREGADO -->
 
-@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-header-mobile.cshtml", Model.RevistaDigital)
-@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", true } })
 
 <script id="js-CarruselSugerido" type="text/x-handlebars-template">
     {{#each this}}
@@ -382,11 +374,12 @@
             <input type="hidden" class="hdSugeridoDescripcionCategoria" value="{{DescripcionCategoria}}" />
             <input type="hidden" class="hdSugeridoDescripcionMarca" value="{{DescripcionMarca}}" />
             <input type="hidden" class="hdSugeridoDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+            <input type="hidden" class="hdTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
         </div>
 
         <div class="content_item_home">
             <div class="producto_img_mobile">
-                <img src="{{ImagenProductoSugerido}}">
+                <img src="{{ImagenProductoSugeridoSmall}}">
             </div>
             <div class="producto_nombre_descripcion">
                 <h6>{{DescripcionMarca}}</h6>
@@ -443,7 +436,7 @@
         var ofertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
         var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
 
-        var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new {area = ""})';
+        var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new {area = ""})';
         var urlFindByCUV = '@Url.Action("FindByCUV", "Pedido", new {area = ""})';
         var urlObtenerProductosSugeridos = '@Url.Action("ObtenerProductosSugeridos", "Pedido", new { area = "" })';
         var urlIngresoFAD = '@Url.Action("IngresoFAD", "Pedido", new {area = ""})';
@@ -489,18 +482,17 @@
         var viewBagAmbiente = '@ViewBag.Ambiente';
         var correo = '@Model.EMail';
         var celular = '@Model.Celular';
-        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital", new { area = "Mobile" })';
 
         var VirtualCoachCuv = '@ViewBag.VirtualCoachCuv';
         var VirtualCoachCampana = '@ViewBag.VirtualCoachCampana' || 0;
         var dataBarra = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.DataBarra))');
-        var listaMensajeMeta = dataBarra.ListaMensajeMeta;
+        var listaMensajeMeta = dataBarra == null ? null : dataBarra.ListaMensajeMeta;
     </script>
 
     @if (mobileConfiguracion.EsAppMobile)
     {
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
                 belcorp.estrategia.initialize();
                 belcorp.pedido.initialize();
                 belcorp.pedido.subscribe("onProductoAgregado", MostrarBarra);

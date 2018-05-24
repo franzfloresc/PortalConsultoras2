@@ -1,11 +1,14 @@
 ﻿using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceSAC;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -26,16 +29,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return;
             }
 
-            var userData = UserData();
             ViewBag.CodigoCampania = userData.CampaniaID.ToString();
 
             try
             {
                 ViewBag.EsMobile = 2;
-                BuildMenuMobile(userData);
+                BuildMenuMobile(userData, revistaDigital);
                 CargarValoresGenerales(userData);
-
-                ShowRoomModel ShowRoom = new ShowRoomModel();
 
                 bool mostrarBanner, permitirCerrarBanner = false;
                 if (SiempreMostrarBannerPL20()) mostrarBanner = true;
@@ -82,9 +82,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ViewBag.OfertaDelDia = ofertaDelDia;
 
                     ViewBag.MostrarOfertaDelDia =
-                        userData.IndicadorGPRSB == 1 || userData.CloseOfertaDelDia
-                        ? false
-                        : (userData.TieneOfertaDelDia && ofertaDelDia != null && ofertaDelDia.TeQuedan.TotalSeconds > 0);
+                            !(userData.IndicadorGPRSB == 1 || userData.CloseOfertaDelDia)
+                            && userData.TieneOfertaDelDia
+                            && ofertaDelDia != null
+                            && ofertaDelDia.TeQuedan.TotalSeconds > 0;
 
                     showRoomBannerLateral.EstadoActivo = mostrarBannerTop ? "0" : "1";
                 }
@@ -94,19 +95,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 ViewBag.EstadoActivo = mostrarBannerTop ? "0" : "1";
 
-                if (mostrarBanner)
+                if (mostrarBanner
+                    && !(
+                            (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
+                            || userData.IndicadorGPRSB == 0
+                        )
+                )
                 {
-                    if (!(
-                        (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
-                        || userData.IndicadorGPRSB == 0)
-                    )
-                    {
-                        ViewBag.MostrarBannerPL20 = false;
-                        ViewBag.MostrarOfertaDelDia = false;
-                    }
+                    ViewBag.MostrarBannerPL20 = false;
+                    ViewBag.MostrarOfertaDelDia = false;
+
                 }
 
                 ViewBag.MostrarODD = NoMostrarBannerODD();
+
+                MostrarBannerApp();
             }
             catch (Exception ex)
             {
@@ -118,7 +121,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                var oddModel = this.GetOfertaDelDiaModel();
+                var oddModel = GetOfertaDelDiaModel();
                 return Json(new
                 {
                     success = oddModel != null,
@@ -171,16 +174,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private bool SiempreMostrarBannerPL20()
         {
-            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
+            string actionName = ControllerContext.RouteData.Values["action"].ToString();
 
             if (controllerName == "Bienvenida" && actionName == "Index") return true;
             return false;
         }
+
         private bool NuncaMostrarBannerPL20()
         {
-            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
 
             if (controllerName == "Pedido") return true;
             if (controllerName == "CatalogoPersonalizado") return true;
@@ -200,8 +203,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private bool NuncaMostrarBannerTopPL20()
         {
-            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
+            string actionName = ControllerContext.RouteData.Values["action"].ToString();
 
             if (controllerName == "Bienvenida" && actionName == "Index") return true;
             if (controllerName == "Pedido") return true;
@@ -218,8 +221,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private bool NoMostrarBannerODD()
         {
-            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
 
             if (controllerName == "OfertaLiquidacion") return true;
             if (controllerName == "CatalogoPersonalizado") return true;
@@ -260,6 +262,76 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 routeValues.Add(uniqueSessionAttribute.IdentifierKey, uniqueKey);
 
             return RedirectToRoute(uniqueSessionAttribute.RouteName, routeValues);
+        }
+
+        #region BannerApp
+        [HttpGet]
+        public JsonResult OcultarBannerApp()
+        {
+            try
+            {
+                Session["OcultarBannerApp"] = true;
+
+                return Json(new
+                {
+                    success = true,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private void MostrarBannerApp()
+        {
+            if (Session["OcultarBannerApp"] != null)
+            {
+                Session["BannerApp"] = null;
+                return;
+            }
+
+            if (Session["BannerApp"] == null)
+            {
+                var lstComunicados = ObtenerComunicadoPorConsultora();
+                Session["BannerApp"] = lstComunicados.FirstOrDefault(x => x.Descripcion == Constantes.Comunicado.AppConsultora);
+            }
+
+            var oComunicados = (BEComunicado)Session["BannerApp"];
+            if (oComunicados != null)
+            {
+                ViewBag.MostrarBannerApp = true;
+                ViewBag.BannerApp = oComunicados;
+            }
+        }
+
+        #endregion
+
+        public List<BEComunicado> ObtenerComunicadoPorConsultora()
+        {
+            using (var sac = new SACServiceClient())
+            {
+                var lstComunicados = sac.ObtenerComunicadoPorConsultora(UserData().PaisID, UserData().CodigoConsultora,
+                        Constantes.ComunicadoTipoDispositivo.Mobile, UserData().CodigorRegion, UserData().CodigoZona, UserData().ConsultoraNueva);
+
+                return lstComunicados.ToList();
+            }
+        }
+
+        public async Task<List<BEComunicado>> ObtenerComunicadoPorConsultoraAsync()
+        {
+            using (var sac = new SACServiceClient())
+            {
+                var lstComunicados = await sac.ObtenerComunicadoPorConsultoraAsync(UserData().PaisID, UserData().CodigoConsultora,
+                        Constantes.ComunicadoTipoDispositivo.Mobile, UserData().CodigorRegion, UserData().CodigoZona, UserData().ConsultoraNueva);
+
+                return lstComunicados.ToList();
+            }
         }
     }
 }

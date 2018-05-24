@@ -8,7 +8,7 @@ namespace Portal.Consultoras.Service
 {
     public class ZonificacionService : IZonificacionService
     {
-        private BLZonificacion BLZonificacion;
+        private readonly BLZonificacion BLZonificacion;
 
         public ZonificacionService()
         {
@@ -45,8 +45,6 @@ namespace Portal.Consultoras.Service
             return BLZonificacion.SelectAllRegiones(paisID);
         }
 
-        //R20151221 - Parámetro
-
         public IList<BEGetRegionByPaisParametroCarga> GetRegionByPaisParametroCarga(int paisID)
         {
             return BLZonificacion.GetRegionByPaisParametroCarga(paisID);
@@ -57,14 +55,10 @@ namespace Portal.Consultoras.Service
             return BLZonificacion.GetZonaByPaisParametroCarga(paisID);
         }
 
-        //R20151221 Fín Parámetro
-
-
         public IList<BETerritorio> SelectAllTerritorios(int paisID)
         {
             return BLZonificacion.SelectAllTerritorios(paisID);
         }
-
 
         public IList<BETerritorio> SelectTerritorioByCodigo(int paisID, string codigo, int rowCount)
         {
@@ -155,19 +149,16 @@ namespace Portal.Consultoras.Service
             return BLZonificacion.SearchTerritoriosByZona(paisID, codigoZona, codigoTerritorio);
         }
 
-        //RQ_BS - R2133
         public IList<BESegmentoBanner> GetSegmentoBanner(int PaisID)
         {
             return BLZonificacion.GetSegmentoBanner(PaisID);
         }
 
-        //RQ_BS - R2133
         public IList<BEZonificacionJerarquia> GetZonificacionJerarquia(int PaisID)
         {
             return BLZonificacion.GetZonificacionJerarquia(PaisID);
         }
 
-        /*RE2544 - CS(CGI) */
         public IList<BESegmentoBanner> GetSegmentoInternoBanner(int PaisID)
         {
             return BLZonificacion.GetSegmentoInternoBanner(PaisID);

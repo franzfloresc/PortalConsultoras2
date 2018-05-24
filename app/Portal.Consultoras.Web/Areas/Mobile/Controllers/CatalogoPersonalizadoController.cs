@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -28,7 +27,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             ViewBag.Simbolo = userData.Simbolo;
-            ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
+            ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
 
             if (Session["ListFiltersFAV"] != null)
             {
@@ -39,7 +38,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.FiltersByPublished = lst.Where(x => x.TablaLogicaID == 97).ToList();
             }
 
-            ViewBag.UrlImagenFAVMobile = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVMobile"), userData.CodigoISO);
+            ViewBag.UrlImagenFAVMobile = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVMobile), userData.CodigoISO);
             ViewBag.EsLebel = userData.EsLebel;
             return View(model);
         }
@@ -52,10 +51,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"];
             if (listaProductoModel == null)
                 return RedirectToAction("Index");
-            if( !listaProductoModel.Any((x => x.CUV == model.CUVFP)))
+            if (!listaProductoModel.Any((x => x.CUV == model.CUVFP)))
                 return RedirectToAction("Index");
 
-            var productoModel = listaProductoModel.FirstOrDefault(x => x.CUV == model.CUVFP);
+            var productoModel = listaProductoModel.FirstOrDefault(x => x.CUV == model.CUVFP) ?? new ProductoModel();
 
             if (productoModel.EsMaquillaje && productoModel.Hermanos == null)
             {
@@ -81,7 +80,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             productoModel.FBRuta = GetUrlCompartirFB();
-            ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
+            ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
             ViewBag.EsLebel = userData.EsLebel;
 
             return View(productoModel);

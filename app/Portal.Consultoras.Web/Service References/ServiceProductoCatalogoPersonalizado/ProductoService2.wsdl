@@ -55,6 +55,12 @@
   <wsdl:message name="IProductoService_ObtenerRegaloOfertaFinal_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerRegaloOfertaFinalResponse" />
   </wsdl:message>
+  <wsdl:message name="IProductoService_ObtenerRegaloMontoMeta_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerRegaloMontoMeta" />
+  </wsdl:message>
+  <wsdl:message name="IProductoService_ObtenerRegaloMontoMeta_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerRegaloMontoMetaResponse" />
+  </wsdl:message>
   <wsdl:message name="IProductoService_InsertarRegaloOfertaFinal_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertarRegaloOfertaFinal" />
   </wsdl:message>
@@ -93,6 +99,10 @@
     <wsdl:operation name="ObtenerRegaloOfertaFinal">
       <wsdl:input wsaw:Action="http://tempuri.org/IProductoService/ObtenerRegaloOfertaFinal" message="tns:IProductoService_ObtenerRegaloOfertaFinal_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IProductoService/ObtenerRegaloOfertaFinalResponse" message="tns:IProductoService_ObtenerRegaloOfertaFinal_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerRegaloMontoMeta">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProductoService/ObtenerRegaloMontoMeta" message="tns:IProductoService_ObtenerRegaloMontoMeta_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProductoService/ObtenerRegaloMontoMetaResponse" message="tns:IProductoService_ObtenerRegaloMontoMeta_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="InsertarRegaloOfertaFinal">
       <wsdl:input wsaw:Action="http://tempuri.org/IProductoService/InsertarRegaloOfertaFinal" message="tns:IProductoService_InsertarRegaloOfertaFinal_InputMessage" />
@@ -166,6 +176,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerRegaloOfertaFinal">
       <soap:operation soapAction="http://tempuri.org/IProductoService/ObtenerRegaloOfertaFinal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerRegaloMontoMeta">
+      <soap:operation soapAction="http://tempuri.org/IProductoService/ObtenerRegaloMontoMeta" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

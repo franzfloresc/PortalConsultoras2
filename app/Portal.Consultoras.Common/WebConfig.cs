@@ -14,10 +14,56 @@ namespace Portal.Consultoras.Common
         {
             get
             {
-                return ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
+                return ConfigurationManager.AppSettings["PaisesEsika"] ?? string.Empty;
+            }
+        }
+        public static string WebTrackingConfirmacion
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["WebTrackingConfirmacion"] ?? string.Empty;
             }
         }
 
+        public static string PaisesFraccionKitNuevas
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["PaisesFraccionKitNuevas"] ?? string.Empty;
+            }
+        }
+
+        public static string Ambiente
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["Ambiente"] ?? string.Empty;
+            }
+        }
+
+        public static string QA_Prol_ServicesCalculos
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["QA_Prol_ServicesCalculos"] ?? string.Empty;
+            }
+        }
+
+        public static string PR_Prol_ServicesCalculos
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["PR_Prol_ServicesCalculos"] ?? string.Empty;
+            }
+        }
+
+        public static string PaisesShowRoom
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["PaisesShowRoom"] ?? string.Empty;
+            }
+        }
         #endregion
     }
 }

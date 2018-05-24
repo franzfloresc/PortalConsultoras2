@@ -9,13 +9,14 @@
         case "PEDREC": TipoOrigen = 6; break;
         case "CDR": TipoOrigen = 7; break;
         case "CDR-CULM": TipoOrigen = 8; break;
+        case "PAYONLINE": TipoOrigen = 9; break;
         default: TipoOrigen = 3; break;
     }
 
     if (Visualizado == "False") {
         $.ajaxSetup({ cache: false });
         $.get(baseUrl + "Notificaciones/ActualizarEstadoNotificacion?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen)
-            .success(function (data){ if (checkTimeout(data) && data.success) $(obj).removeClass("no_leido"); });
+            .success(function (data) { if (checkTimeout(data) && data.success) $(obj).removeClass("no_leido"); });
     }
 
     if (TipoOrigen == 6) {
@@ -86,43 +87,41 @@
             }
         }).error(function (jqXHR, textStatus, errorThrown) { closeWaitingDialog(); });
     }
-    else {
+    else if (TipoOrigen == 9) {
+        $.ajaxSetup({ cache: false });
+        $.get(baseUrl + "Notificaciones/DetallePagoEnLinea?solicitudId=" + ProcesoId).success(function (data) {
+            if (checkTimeout(data)) {
+
+                $('#divListadoObservaciones').html(data);
+                $('#divObservaciones').show();
+                $('.content_left_pagos').hide();
+                CargarCantidadNotificacionesSinLeer();
+                closeWaitingDialog();
+            }
+        }).error(function (jqXHR, textStatus, errorThrown) { closeWaitingDialog(); });
+    } else {
         $.ajaxSetup({ cache: false });
         $.get(baseUrl + "Notificaciones/ListarObservaciones?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen).success(function (data) {
             if (checkTimeout(data)) {
-                
+
                 $('#divListadoObservaciones').html(data);
                 $('#divObservaciones').show();
                 $('.content_left_pagos').hide();
                 switch (Estado) {
                     case "2":
-                        $('#sMensajePedidoPROL').html(Observaciones);
-                        $('#sTituloNotificacion').html("PEDIDO NO RESERVADO");
-                        $('#SaltoLinea').html('&nbsp;');
-                        if (EsMontoMinimo == "True") {
-                            $('#sMensajeFacturacion').html('Añade más productos y no pierdas la oportunidad de hacer crecer tu negocio con Belcorp.');
-                        }
-                        //$('#sMontoTotal').html($('#sMontoTotal2').html());
-                        break;
                     case "3":
                         $('#sMensajePedidoPROL').html(Observaciones);
                         $('#sTituloNotificacion').html("PEDIDO NO RESERVADO");
-                        $('#sMensajeFacturacion').html('Añade más productos y no pierdas la oportunidad de hacer crecer tu negocio con Belcorp.');
-                        //$('#sMontoTotal').html($('#sMontoTotal2').html());
+
+                        if (EsMontoMinimo != "True") $('#sMensajeFacturacion').parent('td').hide();
+                        else $('#sMensajeFacturacion').html('Añade más productos y no pierdas la oportunidad de hacer crecer tu negocio con Belcorp.');
                         break;
                     case "4":
-                        $('#sFelicitaciones').html('¡Lo lograste!');
-                        $('#sMensajePedidoPROL').html(Observaciones);
-                        var Mensaje = "Será enviado a Belcorp " + DescripcionFacturacion(FacturaHoy, DiaFact, MesFact) + ", siempre y cuando cumplas con el monto mínimo y no tengas deuda pendiente.";
-                        $('#sMensajeFacturacion').html(Mensaje);
-                        //$('#sMontoTotal').html($('#sMontoTotal2').html());
-                        break;
                     case "5":
                         $('#sFelicitaciones').html('¡Lo lograste!');
                         $('#sMensajePedidoPROL').html(Observaciones);
                         var Mensaje = "Será enviado a Belcorp " + DescripcionFacturacion(FacturaHoy, DiaFact, MesFact) + ", siempre y cuando cumplas con el monto mínimo y no tengas deuda pendiente.";
                         $('#sMensajeFacturacion').html(Mensaje);
-                        //$('#sMontoTotal').html($('#sMontoTotal2').html());
                         break;
                 }
                 CargarCantidadNotificacionesSinLeer()

@@ -1,5 +1,4 @@
-﻿using Portal.Consultoras.Web.ServicePedido;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
@@ -93,7 +92,7 @@ namespace Portal.Consultoras.Web.Models
             get
             {
                 decimal precioValorizado = 0;
-                try { precioValorizado = Convert.ToDecimal(PrecioTachado); } catch { }
+                try { precioValorizado = Convert.ToDecimal(PrecioTachado); } catch { /*no log*/ }
 
                 return (precioValorizado - Precio2);
             }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="10px" viewBox="0 0 20 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>Triangle</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Mobile-2.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="landing-de-suscripción-(m-l'bel)" transform="translate(-150.000000, -1005.000000)" fill="#613C87">
+            <g id="funcionamiento" transform="translate(0.000000, 995.000000)">
+                <g id="indicador">
+                    <polygon id="Triangle" transform="translate(160.000000, 15.000000) rotate(180.000000) translate(-160.000000, -15.000000) " points="160 10 170 20 150 20"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

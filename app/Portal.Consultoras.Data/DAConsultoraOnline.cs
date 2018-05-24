@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Data
 {
@@ -46,8 +41,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@SolicitudClienteId", DbType.Int64, solicitudClienteId);
             return Context.ExecuteReader(command);
         }
-		
-		public IDataReader GetCantidadPedidosConsultoraOnline(long ConsultoraId)
+
+        public IDataReader GetCantidadPedidosConsultoraOnline(long ConsultoraId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCantidadPedidosConsultoraOnline");
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, ConsultoraId);
@@ -67,7 +62,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        
+
         public IDataReader GetCantidadSolicitudesPedido(long ConsultoraId, int Campania)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCantidadSolicitudesPedido_SB2");
@@ -86,8 +81,17 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetProductoByCampaniaByConsultoraId(int campaniaId, long consultoraId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetSolicitudesPedidoDetalleByCampaniaByConsultoraId");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, consultoraId);
+
+            return Context.ExecuteReader(command);
+        }
+
         #region AppCatalogo
-        
+
         public IDataReader GetPedidosClienteAppCatalogo(string DispositivoID, int Campania)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("AppCatalogos.GetMisPedidosCliente");

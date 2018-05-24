@@ -40,22 +40,22 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "PaisID"))
                 PaisID = Convert.ToInt32(row["PaisID"]);
 
-            if (DataRecord.HasColumn(row, "NombrePais") && row["NombrePais"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NombrePais"))
                 NombrePais = Convert.ToString(row["NombrePais"]);
 
             if (DataRecord.HasColumn(row, "PlantillaDetalle"))
                 PlantillaDetalle = Convert.ToString(row["PlantillaDetalle"]);
 
-            if (DataRecord.HasColumn(row, "UsuarioCreacion") && row["UsuarioCreacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "UsuarioCreacion"))
                 UsuarioCreacion = Convert.ToString(row["UsuarioCreacion"]);
 
-            if (DataRecord.HasColumn(row, "FechaCreacion") && row["FechaCreacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaCreacion"))
                 FechaCreacion = Convert.ToDateTime(row["FechaCreacion"]);
 
-            if (DataRecord.HasColumn(row, "UsuarioModificacion") && row["UsuarioModificacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "UsuarioModificacion"))
                 UsuarioModificacion = Convert.ToString(row["UsuarioModificacion"]);
 
-            if (DataRecord.HasColumn(row, "FechaModificacion") && row["FechaModificacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaModificacion"))
                 FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
 
         }
@@ -78,7 +78,7 @@ namespace Portal.Consultoras.Entities
 
         public BEPlantillasMailing(IDataReader row)
         {
-            if (DataRecord.HasColumn(row, "PlantillaID") && row["PlantillaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PlantillaID"))
                 PlantillaID = Convert.ToInt32(row["PlantillaID"]);
 
             if (DataRecord.HasColumn(row, "Descripcion"))
@@ -119,27 +119,27 @@ namespace Portal.Consultoras.Entities
         public int ConsultoraID { get; set; }
         public BELogEmailingAutomaticoSE(IDataReader row)
         {
-            if (DataRecord.HasColumn(row, "ID") && row["ID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ID"))
                 ID = Convert.ToInt32(row["ID"]);
-            if (DataRecord.HasColumn(row, "CodigoConsultora") && row["CodigoConsultora"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoConsultora"))
                 CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-            if (DataRecord.HasColumn(row, "Correo") && row["Correo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Correo"))
                 Correo = Convert.ToString(row["Correo"]);
-            if (DataRecord.HasColumn(row, "PaisID") && row["PaisID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PaisID"))
                 PaisID = Convert.ToInt32(row["PaisID"]);
-            if (DataRecord.HasColumn(row, "CampaniaID") && row["CampaniaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CampaniaID"))
                 CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "RegionID") && row["RegionID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "RegionID"))
                 RegionID = Convert.ToInt32(row["RegionID"]);
-            if (DataRecord.HasColumn(row, "ZonaID") && row["ZonaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ZonaID"))
                 ZonaID = Convert.ToInt32(row["ZonaID"]);
-            if (DataRecord.HasColumn(row, "SeccionID") && row["SeccionID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "SeccionID"))
                 SeccionID = Convert.ToInt32(row["SeccionID"]);
-            if (DataRecord.HasColumn(row, "Plantilla") && row["Plantilla"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Plantilla"))
                 Plantilla = Convert.ToString(row["Plantilla"]);
-            if (DataRecord.HasColumn(row, "FechaEnvio") && row["FechaEnvio"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaEnvio"))
                 FechaEnvio = Convert.ToDateTime(row["FechaEnvio"]);
-            if (DataRecord.HasColumn(row, "ConsultoraID") && row["ConsultoraID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ConsultoraID"))
                 ConsultoraID = Convert.ToInt32(row["ConsultoraID"]);
 
         }
@@ -172,23 +172,23 @@ namespace Portal.Consultoras.Entities
         public string Plantilla { get; set; }
         public BEConsultoraMailing(IDataReader row)
         {
-            if (DataRecord.HasColumn(row, "ConsultoraID") && row["ConsultoraID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ConsultoraID"))
                 ConsultoraID = Convert.ToInt32(row["ConsultoraID"]);
-            if (DataRecord.HasColumn(row, "PrimerNombre") && row["PrimerNombre"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PrimerNombre"))
                 PrimerNombre = Convert.ToString(row["PrimerNombre"]);
-            if (DataRecord.HasColumn(row, "Email") && row["Email"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Email"))
                 Email = Convert.ToString(row["Email"]);
-            if (DataRecord.HasColumn(row, "CampaniaID") && row["CampaniaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CampaniaID"))
                 CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "RegionID") && row["RegionID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "RegionID"))
                 RegionID = Convert.ToInt32(row["RegionID"]);
-            if (DataRecord.HasColumn(row, "ZonaID") && row["ZonaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ZonaID"))
                 ZonaID = Convert.ToInt32(row["ZonaID"]);
-            if (DataRecord.HasColumn(row, "SeccionID") && row["SeccionID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "SeccionID"))
                 SeccionID = Convert.ToInt32(row["SeccionID"]);
-            if (DataRecord.HasColumn(row, "Codigo") && row["Codigo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Codigo"))
                 CodigoConsultora = Convert.ToString(row["Codigo"]);
-            if (DataRecord.HasColumn(row, "PlantillaID") && row["PlantillaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PlantillaID"))
                 PlantillaID = Convert.ToInt32(row["PlantillaID"]);
 
         }

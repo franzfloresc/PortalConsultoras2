@@ -1,6 +1,5 @@
 ﻿@model Portal.Consultoras.Web.Models.SolicitudClienteConsultoraModel
 @using System.Globalization;
-<!-- R2442 - cambio de disenio-->
     <input type="hidden" class="cSolicitudClienteID" value="@Model.SolicitudClienteId"/>
      <div id="ldnHeader">
          <div id="ldnHeader_titulo"><p>Estimada<br /> <b>@ViewBag.NombreCompleto</b></p></div>
@@ -15,7 +14,7 @@
             <div class="clear"></div>
 
             <div style="margin:5px auto 5px auto;width:700px;font-family:'museo_sans_100regular';font-size:14px;color:#425363">
-                @if(String.IsNullOrEmpty(Model.Estado))//R2548 - CS
+                @if(String.IsNullOrEmpty(Model.Estado))
                 {
                     <p>Tienes hasta el @Model.FechaEjecucion.ToString("dddd", new CultureInfo("es-ES")) @Model.FechaDescripcion a las @Model.FechaEjecucion.ToString("HH:mm") horas para contactarte con tu nuevo cliente y notificarnos <br /> si vas aceptar o rechazar su pedido presionando los botones al final de este mensaje. Sus datos son:</p>
     

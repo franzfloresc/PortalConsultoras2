@@ -1,14 +1,37 @@
 var fallingObjects = new Array();
+var listaIconoLluvia = listaIconoLluvia || null;
+var esMobile = esMobile || false;
+var vfallSpeed = vfallSpeed || 15;
+var vnumObjects = vnumObjects || 100;
 
 var closeImagenRain = 0;    //si es 0 se mostrara,
-var timeCloseRain = 30000;   //tiempo de visualización del efecto
+var timeCloseRain = timeCloseRain || 30000;   //tiempo de visualización del efecto
+var esShowRoom = esShowRoom || false;
 
-var numObjects = 8,
+var numObjects = vnumObjects,
 	waft = 50,
-	fallSpeed = 4,
+    fallSpeed = vfallSpeed,
 	wind = 0;
-newObject(iconoLluvia, 22, 22);
-newObject(iconoLluvia, 35, 35);
+
+var heightIcon = esMobile ? 7 : 15;
+var widthIcon = esMobile ? 7 : 15;
+
+if (listaIconoLluvia != null) {
+    var par = 0;
+    $.each(listaIconoLluvia, function (index, value) {
+        newObject(value, heightIcon, widthIcon);
+    });
+}
+else {
+    if (esShowRoom) {
+        newObject(iconoLluvia, 22, 22);
+        newObject(iconoLluvia, 35, 35);
+    }
+    else {
+        newObject(iconoLluvia, heightIcon, widthIcon);
+        newObject(iconoLluvia, heightIcon, widthIcon);
+    }
+}
 
 var objects = new Array(),
 	winOffset = 0,
@@ -30,7 +53,7 @@ function newObject(url, height, width) {
 }
 
 function winSize() {
-    winWidthSR = (moz) ? window.innerWidth - 180 : document.body.clientWidth - 180;
+    winWidthSR = (moz) ? window.innerWidth - 20 : document.body.clientWidth - 20;
     winHeightSR = (moz) ? window.innerHeight - 200 : document.body.clientHeight - 200;
 }
 
@@ -46,25 +69,25 @@ function fallObject(num, vari, nu) {
 }
 
 function fall() {
-	for (i = 0; i < numObjects; i++) {
-		var fallingObject = document.getElementById('fO' + i);
-		if ((objects[i][1] > (winHeightSR - (objects[i][5] + objects[i][7]))) || (objects[i][0] > (winWidthSR - (objects[i][2] + objects[i][8])))) {
-			fallObject(i, objects[i][6], 0);
-		}
-		objects[i][0] += wind;
-		objects[i][1] += objects[i][5];
-		objects[i][4] += objects[i][3];
-		var k = (100 - (objects[i][1] * 100 / winHeightSR)) / 100;
-			k = Math.round(k * 100) / 100;
-		with(fallingObject.style) {
-			top = objects[i][1] + winOffset + 'px';
-			left = objects[i][0] + (objects[i][2] * Math.cos(objects[i][4])) + 'px';
-			opacity = k;
-		}
-	}
+    for (i = 0; i < numObjects; i++) {
+        var fallingObject = document.getElementById('fO' + i);
+        if ((objects[i][1] > (winHeightSR - (objects[i][5] + objects[i][7]))) || (objects[i][0] > (winWidthSR - (objects[i][2] + objects[i][8])))) {
+            fallObject(i, objects[i][6], 0);
+        }
+        objects[i][0] += wind;
+        objects[i][1] += objects[i][5];
+        objects[i][4] += objects[i][3];
+        var k = (100 - (objects[i][1] * 100 / winHeightSR)) / 100;
+        k = Math.round(k * 100) / 100;
+        with (fallingObject.style) {
+            top = objects[i][1] + winOffset + 'px';
+            left = objects[i][0] + (objects[i][2] * Math.cos(objects[i][4])) + 'px';
+            opacity = k;
+        }
+    }
 
-	if (closeImagenRain == 0) {
-	    setTimeout("fall()", 30);
-	    $("img[id^='fO']").show();
-	}
+    if (closeImagenRain == 0) {
+        setTimeout("fall()", 15);
+        $("img[id^='fO']").show();
+    }
 }

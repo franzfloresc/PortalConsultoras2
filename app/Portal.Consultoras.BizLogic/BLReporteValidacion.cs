@@ -1,11 +1,8 @@
-﻿﻿using Portal.Consultoras.Entities;
+﻿using System;
 using Portal.Consultoras.Data;
-using System;
+using Portal.Consultoras.Entities;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -14,29 +11,16 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEReporteValidacion> GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia)
         {
             var reporteValidaciones = new List<BEReporteValidacion>();
-            var DAReporteValidacion = new DAReporteValidacion(paisID);
-            if (tipoEstrategia == 4)
+            var daReporteValidacion = new DAReporteValidacion(paisID);
+
+            using (IDataReader reader = daReporteValidacion.GetReporteValidacionUnificado(campaniaID, tipoEstrategia))
             {
-                using (IDataReader reader = DAReporteValidacion.GetReporteValidacion(campaniaID))
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        var reporteValidacion = new BEReporteValidacion(reader);
-                        reporteValidaciones.Add(reporteValidacion);
-                    }
+                    var reporteValidacion = new BEReporteValidacion(reader);
+                    reporteValidaciones.Add(reporteValidacion);
                 }
-            }
-            if (tipoEstrategia == 7)
-            {
-                using (IDataReader reader = DAReporteValidacion.GetReporteValidacionODD(campaniaID))
-                {
-                    while (reader.Read())
-                    {
-                        var reporteValidacion = new BEReporteValidacion(reader);
-                        reporteValidaciones.Add(reporteValidacion);
-                    }
-                }
-            }
+            } 
 
             return reporteValidaciones;
         }
@@ -44,9 +28,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEReporteValidacionSRCampania> GetReporteShowRoomCampania(int paisID, int campaniaID)
         {
             var reporteValidaciones = new List<BEReporteValidacionSRCampania>();
-            var DAReporteValidacion = new DAReporteValidacion(paisID);
+            var daReporteValidacion = new DAReporteValidacion(paisID);
 
-            using (IDataReader reader = DAReporteValidacion.GetReporteValidacionSRCampania(campaniaID))
+            using (IDataReader reader = daReporteValidacion.GetReporteValidacionSRCampania(campaniaID))
             {
                 while (reader.Read())
                 {
@@ -61,9 +45,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEReporteValidacionSRPersonalizacion> GetReporteShowRoomPersonalizacion(int paisID, int campaniaID)
         {
             var reporteValidaciones = new List<BEReporteValidacionSRPersonalizacion>();
-            var DAReporteValidacion = new DAReporteValidacion(paisID);
+            var daReporteValidacion = new DAReporteValidacion(paisID);
 
-            using (IDataReader reader = DAReporteValidacion.GetReporteValidacionSRPersonalizacion(campaniaID))
+            using (IDataReader reader = daReporteValidacion.GetReporteValidacionSRPersonalizacion(campaniaID))
             {
                 while (reader.Read())
                 {
@@ -77,35 +61,31 @@ namespace Portal.Consultoras.BizLogic
 
         public IList<BEReporteValidacionSROferta> GetReporteShowRoomOferta(int paisID, int campaniaID)
         {
-            var reporteValidaciones = new List<BEReporteValidacionSROferta>();
-            var DAReporteValidacion = new DAReporteValidacion(paisID);
-
-            using (IDataReader reader = DAReporteValidacion.GetReporteValidacionSROferta(campaniaID))
+            List<BEReporteValidacionSROferta> reporteValidaciones = new List<BEReporteValidacionSROferta>();
+            DAReporteValidacion daReporteValidacion = new DAReporteValidacion(paisID);
+            using (IDataReader reader = daReporteValidacion.GetReporteValidacionSROferta(campaniaID))
             {
                 while (reader.Read())
                 {
-                    var reporteValidacion = new BEReporteValidacionSROferta(reader);
+                    BEReporteValidacionSROferta reporteValidacion = new BEReporteValidacionSROferta(reader);
                     reporteValidaciones.Add(reporteValidacion);
                 }
             }
-
             return reporteValidaciones;
         }
 
         public IList<BEReporteValidacionSRComponentes> GetReporteShowRoomComponentes(int paisID, int campaniaID)
         {
-            var reporteValidaciones = new List<BEReporteValidacionSRComponentes>();
-            var DAReporteValidacion = new DAReporteValidacion(paisID);
-
-            using (IDataReader reader = DAReporteValidacion.GetReporteValidacionSRComponentes(campaniaID))
+            List<BEReporteValidacionSRComponentes> reporteValidaciones = new List<BEReporteValidacionSRComponentes>();
+            DAReporteValidacion daReporteValidacion = new DAReporteValidacion(paisID);
+            using (IDataReader reader = daReporteValidacion.GetReporteValidacionSRComponentes(campaniaID))
             {
                 while (reader.Read())
                 {
-                    var reporteValidacion = new BEReporteValidacionSRComponentes(reader);
+                    BEReporteValidacionSRComponentes reporteValidacion = new BEReporteValidacionSRComponentes(reader);
                     reporteValidaciones.Add(reporteValidacion);
                 }
             }
-
             return reporteValidaciones;
         }
     }

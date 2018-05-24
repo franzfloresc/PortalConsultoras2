@@ -25,8 +25,8 @@
     &nbsp;&nbsp;&nbsp;&nbsp;LOS FAVORITOS DE TUS CLIENTES
 </div>
 <div class="fondo_f2f2f2" style="background: #f5f7f7; border-bottom:0">
-    <div class="pestana_esika"></div><!--PESTANA ESIKA-->
-    <div class="pestana_lbel mobileLiquidaciones pestana_favoritos"></div><!--PESTANA LBEL-->
+    <div class="pestana_esika"></div>
+    <div class="pestana_lbel mobileLiquidaciones pestana_favoritos"></div>
 </div>
 <div class="content_favoritos_banner">
     <div class="content_banner_imagen_fav">
@@ -43,8 +43,6 @@
     <div class="texto_descripcionCatalogoPersonalizado">
         Encuentra una selección de los productos que tus clientes de seguro te solicitarán
     </div>
-
-    <!--SB20-1197 - INICIO -->
 
     <div id="orderby-filter">
         <div id="content-orderby">
@@ -216,8 +214,6 @@
         </div>
     </div>
 
-
-    <!--SB20-1197 - FIN -->
     <div class="Content_favoritos_new">
         <div id="divCatalogoPersonalizado" class="contenedor_productos_liquidacion">
         </div>
@@ -354,7 +350,11 @@
                 </div>
                 {{/if}}
                 <div class="producto_nombre_descripcion">
-                    <h6>{{DescripcionMarca}}</h6>
+                    {{#IsNullOrEmpty DescripcionMarca '!='}}
+                        <h6>{{DescripcionMarca}}</h6>
+                    {{else}}
+                        <h6>&ensp;&nbsp;</h6>
+                    {{/IsNullOrEmpty}}
 
                     <p class="nombre_producto" onclick="mostrarFichaProductoFAV('{{CUV}}');" style=" cursor pointer;">
                         <b>{{Descripcion}}</b>
@@ -604,8 +604,8 @@
 
             <div class="row_20">
                 <div class="titulo_mobile">{{pack.nombre_pack}}</div>
-                <div class="pestana_esika"></div><!--PESTANA ESIKA-->
-                <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+                <div class="pestana_esika"></div>
+                <div class="pestana_lbel"></div>
             </div>
             <div class="content_item_oferta">
                 <div class="titulo_producto_oferta"><span class="texto_unidad_pack">Precio para ti: </span>{{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
@@ -669,7 +669,6 @@
     <script type="text/javascript">
         var urlObtenerOfertaRevista = '@Url.Action("ObtenerOfertaRevista", "CatalogoPersonalizado", new { area = "" })';
         var urlObtenerProductosCatalogoPersonalizado = '@Url.Action("ObtenerProductosCatalogoPersonalizado", "CatalogoPersonalizado", new { area = "" })';
-        var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
         var cantidadRegistros = 12;

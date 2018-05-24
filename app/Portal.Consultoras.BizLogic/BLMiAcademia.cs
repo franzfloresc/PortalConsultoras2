@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Data;
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
-using Portal.Consultoras.Data;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -18,42 +14,42 @@ namespace Portal.Consultoras.BizLogic
         public void GetInformacionCursoLiderDescarga(int PaisId, string PaisISO, string FechaProceso, string Usuario)
         {
             int nroLote = 0;
-            DAMiAcademia DAMiAcademia = new DAMiAcademia(PaisId);
+            DAMiAcademia daMiAcademia = new DAMiAcademia(PaisId);
 
-            string headerFile = null, NombreCabecera = null;
             try
             {
                 var section = (DataAccessConfiguration)ConfigurationManager.GetSection("Belcorp.Configuration");
                 var element = section.Countries[PaisId];
 
-                string OrderTemplate = element.LetCursoTemplate;
-                TemplateField[] headerTemplate = ParseTemplate(ConfigurationManager.AppSettings[OrderTemplate]);
-                
-                DataSet dsCursoLider;
+                string orderTemplate = element.LetCursoTemplate;
+                TemplateField[] headerTemplate = ParseTemplate(ConfigurationManager.AppSettings[orderTemplate]);
+
                 DataTable dtCursoLider;
 
                 try
                 {
-                    nroLote = DAMiAcademia.InsLetCursoDescarga(FechaProceso, Usuario);
-                    dsCursoLider = DAMiAcademia.GetInformacionCursoLiderDescarga(nroLote, FechaProceso);
+                    nroLote = daMiAcademia.InsLetCursoDescarga(FechaProceso, Usuario);
+                    var dsCursoLider = daMiAcademia.GetInformacionCursoLiderDescarga(nroLote, FechaProceso);
                     dtCursoLider = dsCursoLider.Tables[0];
                 }
                 catch (SqlException ex)
                 {
                     if (ex.Number == 50000) throw new BizLogicException("Existe una descarga de cursos de líderes en proceso.", ex);
-                    else throw new BizLogicException("No es posible acceder a la información de cursos de líderes.", ex);
+                    throw new BizLogicException("No es posible acceder a la información de cursos de líderes.", ex);
                 }
 
-                FtpConfigurationElement ftpElement = null;
+                FtpConfigurationElement ftpElement;
                 Guid fileGuid = Guid.NewGuid();
                 string key = PaisISO + "-LET";
                 var ftpSection = (FtpConfigurationSection)ConfigurationManager.GetSection("Belcorp.FtpConfiguration");
 
+                string headerFile;
+                string nombreCabecera;
                 try
                 {
                     ftpElement = ftpSection.FtpConfigurations[key];
                     headerFile = FormatFile(PaisISO, ftpElement.Header, FechaProceso, fileGuid);
-                    NombreCabecera = headerFile.Replace(ConfigurationManager.AppSettings["OrderDownloadPath"], "");
+                    nombreCabecera = headerFile.Replace(ConfigurationManager.AppSettings["OrderDownloadPath"], "");
 
                     using (var streamWriter = new StreamWriter(headerFile))
                     {
@@ -72,23 +68,21 @@ namespace Portal.Consultoras.BizLogic
                     throw new BizLogicException("No se pudo generar los archivos de descarga de pedidos.", ex);
                 }
 
-                if (headerFile != null) //Si generó algún archivo continúa
+                if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
                 {
-                    if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
+                    try
                     {
-                        try
-                        {
-                            BLFileManager.FtpUploadFile(ftpElement.Address + ftpElement.Header,
-                                headerFile, ftpElement.UserName, ftpElement.Password);
-                        }
-                        catch (Exception ex)
-                        {
-                            throw new BizLogicException("No se pudo subir los archivos de Cursos de Líderes al destino FTP.", ex);
-                        }
+                        BLFileManager.FtpUploadFile(ftpElement.Address + ftpElement.Header,
+                            headerFile, ftpElement.UserName, ftpElement.Password);
                     }
-
-                    DAMiAcademia.UpdLetCursoDescarga(nroLote, 2, string.Empty, string.Empty, NombreCabecera, System.Environment.MachineName);
+                    catch (Exception ex)
+                    {
+                        throw new BizLogicException("No se pudo subir los archivos de Cursos de Líderes al destino FTP.", ex);
+                    }
                 }
+
+                daMiAcademia.UpdLetCursoDescarga(nroLote, 2, string.Empty, string.Empty, nombreCabecera, System.Environment.MachineName);
+
             }
             catch (Exception ex)
             {
@@ -96,10 +90,12 @@ namespace Portal.Consultoras.BizLogic
                 {
                     string error = "Error desconocido: " + ex.Message;
                     string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
-                    try {
-                        DAMiAcademia.UpdLetCursoDescarga(nroLote, 99, error, errorExcepcion, string.Empty, string.Empty);
+                    try
+                    {
+                        daMiAcademia.UpdLetCursoDescarga(nroLote, 99, error, errorExcepcion, string.Empty, string.Empty);
                     }
-                    catch (Exception ex2) {
+                    catch (Exception ex2)
+                    {
                         LogManager.SaveLog(ex2, Usuario, PaisISO);
                     }
                     MailUtilities.EnviarMailProcesoDescargaExcepcion("Descarga de pedidos", PaisISO, FechaProceso, Enumeradores.TipoDescargaPedidos.GenerarLideres.ToString(), error, errorExcepcion);
@@ -129,7 +125,7 @@ namespace Portal.Consultoras.BizLogic
 
         private string HeaderLine(TemplateField[] template, DataRow row)
         {
-            string line = string.Empty;
+            var txtBuil = new StringBuilder();
             foreach (TemplateField field in template)
             {
                 string item;
@@ -143,8 +139,9 @@ namespace Portal.Consultoras.BizLogic
                     default: item = string.Empty; break;
                 }
 
-                line += item + ",";
+                txtBuil.Append(item + ",");
             }
+            string line = txtBuil.ToString();
             return string.IsNullOrEmpty(line) ? line : line.Substring(0, line.Length - 1);
         }
     }

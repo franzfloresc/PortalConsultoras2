@@ -788,11 +788,11 @@
                     align: 'center',
                     hidden: true
                 },
-                { name: 'Zona', index: 'Zona', width: 20, editable: true, resizable: false, align: 'left' },//R1957 – ECM - Cambio en alineación
-                { name: 'CUV', index: 'CUV', width: 20, editable: true, resizable: false, align: 'left' },//R1957 – ECM - Cambio en alineación
-                { name: 'Descripcion', index: 'Descripcion', width: 50, editable: true, resizable: false, align: 'left' },//R1957 – ECM - Cambio en alineación
-                { name: 'FaltanteUltimoMinuto', index: 'FaltanteUltimoMinuto', width: 30, editable: true, align: 'left', resizable: false, formatter: LoadCheckState },//R1957 – ECM - Cambio en alineación
-                { name: 'FechaRegistro', index: 'FechaRegistro', width: 20, editable: true, resizable: false, align: 'left' },//R1957 – ECM - Cambio en alineación
+                { name: 'Zona', index: 'Zona', width: 20, editable: true, resizable: false, align: 'left' },
+                { name: 'CUV', index: 'CUV', width: 20, editable: true, resizable: false, align: 'left' },
+                { name: 'Descripcion', index: 'Descripcion', width: 50, editable: true, resizable: false, align: 'left' },
+                { name: 'FaltanteUltimoMinuto', index: 'FaltanteUltimoMinuto', width: 30, editable: true, align: 'left', resizable: false, formatter: LoadCheckState },
+                { name: 'FechaRegistro', index: 'FechaRegistro', width: 20, editable: true, resizable: false, align: 'left' },
                 { name: 'vOpcion', index: 'vOpcion', width: 10, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions }
             ],
             multiselect: true,
@@ -931,7 +931,7 @@
 
         function ShowActions(cellvalue, options, rowObject) {
             var cellValueInt = parseInt(cellvalue);
-            var Del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[1] + "','" + rowObject[3] + "','" + rowObject[0] + "','" + rowObject[2] + "','" + rowObject[5] + "','" + rowObject[6] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Registro' title='Eliminar Registro' border='0' /></a>"; //R1957 – ECM - Se modifico la comilla por apostrofe
+            var Del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[1] + "','" + rowObject[3] + "','" + rowObject[0] + "','" + rowObject[2] + "','" + rowObject[5] + "','" + rowObject[6] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Registro' title='Eliminar Registro' border='0' /></a>";
             return Del;
         }
 
@@ -976,7 +976,6 @@
             } else {
 
                 objetos = { Items: [] };
-                console.log($('#txtFiltro02').val());
 
                 flag = 1;
                 totalRegistros = arrayDataDelete.length;

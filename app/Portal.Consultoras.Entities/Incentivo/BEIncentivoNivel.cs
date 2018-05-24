@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
@@ -40,12 +41,17 @@ namespace Portal.Consultoras.Entities
         [Column("PuntosExigidosFaltantes")]
         [DataMember]
         public int PuntosExigidosFaltantes { get; set; }
+
+        #region Premio
         [DataMember]
         public string CodigoPremio { get; set; }
         [DataMember]
         public string DescripcionPremio { get; set; }
         [DataMember]
         public string NumeroPremio { get; set; }
+        [DataMember]
+        public List<BEIncentivoPremio> Premios { get; set; }
+        #endregion
 
         public BEIncentivoNivel()
         {

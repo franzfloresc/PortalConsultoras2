@@ -1,25 +1,36 @@
-﻿using System.Collections.Generic;
-using System.Data;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+
+using System;
+using System.Collections.Generic;
+using System.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
     public class BLTablaLogicaDatos : ITablaLogicaDatosBusinessLogic
     {
-        public List<BETablaLogicaDatos> GetTablaLogicaDatos(int paisID, short TablaLogicaID)
+        public List<BETablaLogicaDatos> GetTablaLogicaDatos(int paisID, short tablaLogicaID)
         {
-            List<BETablaLogicaDatos> TablaLogicaDatos = new List<BETablaLogicaDatos>();
+            var lst = new List<BETablaLogicaDatos>();
 
-            var DATablaLogicaDatos = new DATablaLogicaDatos(paisID);
-            using (IDataReader reader = DATablaLogicaDatos.GetTablaLogicaDatos(TablaLogicaID))
+            try
             {
-                while (reader.Read())
+                using (IDataReader reader = new DATablaLogicaDatos(paisID).GetTablaLogicaDatos(tablaLogicaID))
                 {
-                    TablaLogicaDatos.Add(new BETablaLogicaDatos(reader));
+                    lst = reader.MapToCollection<BETablaLogicaDatos>();
                 }
             }
-            return TablaLogicaDatos;
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, string.Empty, paisID);
+            }
+
+            return lst;
+        }
+        public List<BETablaLogicaDatos> GetTablaLogicaDatosCache(int paisID, short tablaLogicaID)
+        {
+            return CacheManager<List<BETablaLogicaDatos>>.ValidateDataElement(paisID, ECacheItem.TablaLogicaDatos, tablaLogicaID.ToString(), () => GetTablaLogicaDatos(paisID, tablaLogicaID));
         }
     }
 }

@@ -6,7 +6,7 @@ var MatrizComercial = function (config) {
         getImagesByIdMatrizAction: config.getImagesByIdMatrizAction || '',
         getImagesByNemotecnico: config.getImagesByNemotecnico || '',
         actualizarNemotecnicoAction: config.actualizarNemotecnicoAction || '',
-        numeroImagenesPorPagina: config.numeroImagenesPorPagina || 10,      
+        numeroImagenesPorPagina: config.numeroImagenesPorPagina || 10,
         habilitarNemotecnico: false,
         expValidacionNemotecnico: config.expValidacionNemotecnico,
         actualizarDescripcionComercialAction: config.actualizarDescripcionComercialAction
@@ -20,10 +20,10 @@ var MatrizComercial = function (config) {
         fnObtenerImagenes(_editData, page, false);
     };
 
-    var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick, numeroImagenesPorPagina: _config.numeroImagenesPorPagina});
+    var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick, numeroImagenesPorPagina: _config.numeroImagenesPorPagina });
 
     var _nemotecnico = Nemotecnico({ expresionValidacion: _config.expValidacionNemotecnico, prefixControlNemotecnico: 'label-nemotecnico-', actualizarNemotecnicoAction: _config.actualizarNemotecnicoAction });
-    var _descripcionComercial = DescripcionComercial({ prefixControlDescripcionComercial: 'label-descripcioncomercial-', actualizarDescripcionComercialAction: _config.actualizarDescripcionComercialAction});
+    var _descripcionComercial = DescripcionComercial({ prefixControlDescripcionComercial: 'label-descripcioncomercial-', actualizarDescripcionComercialAction: _config.actualizarDescripcionComercialAction });
 
     var _limpiarFiltrosNemotecnico = function () {
         $('#txtBusquedaNemotecnico').val('');
@@ -72,7 +72,7 @@ var MatrizComercial = function (config) {
                 if (response.success) {
                     _editData.idMatrizComercial = response.idMatrizComercial;
                     if (response.isNewRecord) {
-                        $('#list').trigger('reloadGrid');//refrescar la grilla con id generado
+                        $('#list').trigger('reloadGrid');
                         //regenerar el file-upload-add para que use el id generado
                         $("#file-upload-add").empty();
                         _crearFileUploadAdd(_editData);
@@ -88,8 +88,8 @@ var MatrizComercial = function (config) {
     };
 
     var _updateImageListOnUpload = function (imageElementId, response) {
-            _limpiarFiltrosNemotecnico();
-            _obtenerImagenes(_editData, 1, true);
+        _limpiarFiltrosNemotecnico();
+        _obtenerImagenes(_editData, 1, true);
     };
 
     var _editar = function (id, idMatrizComercial) {
@@ -102,7 +102,7 @@ var MatrizComercial = function (config) {
             descripcionOriginal: getCell(id, 'DescripcionOriginal'),
             imagenes: [],
             habilitarNemotecnico: _config.habilitarNemotecnico
-        };       
+        };
 
         $("#matriz-imagenes-paginacion").empty();
 
@@ -136,7 +136,7 @@ var MatrizComercial = function (config) {
     var _limpiarBusquedaNemotecnico = function () {
         _limpiarFiltrosNemotecnico();
         waitingDialog({});
-        _obtenerImagenes(_editData, 1 , true);
+        _obtenerImagenes(_editData, 1, true);
     };
 
     var _obtenerImagenesSuccess = function (editData, recargarPaginacion) {
@@ -178,7 +178,7 @@ var MatrizComercial = function (config) {
         if (!val) {
             msj += ' - Debe ingresar un Nemotecnico .\n';
         }
-            
+
         return msj;
     };
 

@@ -4,7 +4,6 @@
     using System;
     using System.Data;
     using System.Data.Common;
-    using System.Runtime.Remoting.Contexts;
 
     public class DASolicitudCredito : DataAccess
     {
@@ -192,15 +191,15 @@
 
             if (paisID == 12 || paisID == 13)
             {
-            if (string.IsNullOrEmpty(TipoSolicitud))
-                Context.Database.AddInParameter(command, "@TipoSolicitud", DbType.String, DBNull.Value);
-            else
-                Context.Database.AddInParameter(command, "@TipoSolicitud", DbType.String, TipoSolicitud);
+                if (string.IsNullOrEmpty(TipoSolicitud))
+                    Context.Database.AddInParameter(command, "@TipoSolicitud", DbType.String, DBNull.Value);
+                else
+                    Context.Database.AddInParameter(command, "@TipoSolicitud", DbType.String, TipoSolicitud);
 
-            if (string.IsNullOrEmpty(CodigoConsultora))
-                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, DBNull.Value);
-            else
-                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, CodigoConsultora);
+                if (string.IsNullOrEmpty(CodigoConsultora))
+                    Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, DBNull.Value);
+                else
+                    Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, CodigoConsultora);
             }
 
             return Context.ExecuteReader(command);
@@ -328,7 +327,7 @@
 
             return Context.ExecuteNonQuery(command);
         }
-        
+
         public IDataReader ListarColoniasByTerritorio(string codigo)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarColoniasByTerritorio");

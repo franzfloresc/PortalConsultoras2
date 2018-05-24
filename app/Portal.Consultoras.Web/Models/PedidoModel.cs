@@ -17,7 +17,7 @@ namespace Portal.Consultoras.Web.Models
         public int Flag { get; set; }
         public int Stock { get; set; }
         public string ClienteDescripcion { set; get; }
-        public bool IndicadorOfertaCUV  { get; set; }
+        public bool IndicadorOfertaCUV { get; set; }
 
         public string urlBanner_01 { get; set; }
         public string urlBanner_02 { get; set; }
@@ -72,6 +72,7 @@ namespace Portal.Consultoras.Web.Models
         public string ClienteID_ { get; set; }
 
         public List<BEPedidoWebDetalle> ListaDetalle { get; set; }
+        public List<PedidoWebDetalleModel> ListaDetalleFormato { get; set; }
         public List<ServiceSAC.BEProductoFaltante> ListaProductoFaltante { get; set; }
         public List<ServiceSAC.BEOfertaWeb> ListaOfertaWeb { get; set; }
         public List<ObservacionModel> ListaObservacionesPROL { get; set; }
@@ -105,7 +106,7 @@ namespace Portal.Consultoras.Web.Models
 
         public string DescripcionMarca { get; set; }
         public int LimiteVenta { get; set; }
-        
+
         public string TotalSinDsctoFormato { get; set; }
         public string TotalConDsctoFormato { get; set; }
 
@@ -133,8 +134,8 @@ namespace Portal.Consultoras.Web.Models
         public string MensajeCUV { get; set; }
         public int? DesactivaRevistaGana { get; set; }
         public string ObservacionCUV { get; set; }
-        public string DescripcionMarca { get; set; }        
-        public string DescripcionCategoria { get; set; }      
+        public string DescripcionMarca { get; set; }
+        public string DescripcionCategoria { get; set; }
         public string DescripcionEstrategia { get; set; }
         public string FlagNueva { get; set; }
         public string TipoEstrategiaID { get; set; }
@@ -178,7 +179,7 @@ namespace Portal.Consultoras.Web.Models
         public bool PaisEsikizado { get; set; }
 
         public string UrlCompartirFB { get; set; }
-        
+
         public string NombreComercial { get; set; }
         public string NombreComercialCorto { get; set; }
 
@@ -196,10 +197,14 @@ namespace Portal.Consultoras.Web.Models
 
         public int Cantidad { get; set; }
         public bool EsOfertaIndependiente { get; set; }
-        
+
         public bool TieneRDC { get; set; }
 
         public int FactorCuadre { get; set; }
+
+        public string ImagenProductoSugeridoSmall { get; set; }
+
+        public string ImagenProductoSugeridoMedium { get; set; }
 
         public object Clone()
         {

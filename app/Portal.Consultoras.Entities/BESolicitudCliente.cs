@@ -84,71 +84,70 @@ namespace Portal.Consultoras.Entities
 
         public BESolicitudCliente(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "SolicitudClienteID") && row["SolicitudClienteID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "SolicitudClienteID"))
                 SolicitudClienteID = Convert.ToInt64(row["SolicitudClienteID"].ToString());
-            if (DataRecord.HasColumn(row, "ConsultoraID") && row["ConsultoraID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ConsultoraID"))
                 CodigoConsultora = Convert.ToString(row["ConsultoraID"]);
-            if (DataRecord.HasColumn(row, "NombreCompleto") && row["NombreCompleto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NombreCompleto"))
                 NombreCompleto = Convert.ToString(row["NombreCompleto"]);
-            if (DataRecord.HasColumn(row, "Email") && row["Email"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Email"))
                 Email = Convert.ToString(row["Email"]);
-            if (DataRecord.HasColumn(row, "CodigoUbigeo") && row["CodigoUbigeo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoUbigeo"))
                 CodigoUbigeo = Convert.ToString(row["CodigoUbigeo"]);
-            if (DataRecord.HasColumn(row, "Telefono") && row["Telefono"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Telefono"))
                 Telefono = Convert.ToString(row["Telefono"]);
-            if (DataRecord.HasColumn(row, "Mensaje") && row["Mensaje"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Mensaje"))
                 Mensaje = Convert.ToString(row["Mensaje"]);
-            if (DataRecord.HasColumn(row, "Campania") && row["Campania"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Campania"))
                 Campania = Convert.ToString(row["Campania"]);
-            if (DataRecord.HasColumn(row, "MarcaID") && row["MarcaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MarcaID"))
                 MarcaID = Convert.ToInt32(row["MarcaID"].ToString());
-            if (DataRecord.HasColumn(row, "MarcaNombre") && row["MarcaNombre"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MarcaNombre"))
                 MarcaNombre = Convert.ToString(row["MarcaNombre"].ToString());
-            if (DataRecord.HasColumn(row, "Leido") && row["Leido"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Leido"))
                 Leido = Convert.ToInt32(row["Leido"]);
-            if (DataRecord.HasColumn(row, "MensajeaCliente") && row["MensajeaCliente"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MensajeaCliente"))
                 MensajeaCliente = Convert.ToString(row["MensajeaCliente"]);
-            if (DataRecord.HasColumn(row, "Estado") && row["Estado"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Estado"))
                 Estado = Convert.ToString(row["Estado"]);
-            if (DataRecord.HasColumn(row, "NumIteracion") && row["NumIteracion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NumIteracion"))
                 NumIteracion = Convert.ToInt32(row["NumIteracion"].ToString());
-            if (DataRecord.HasColumn(row, "Direccion") && row["Direccion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Direccion"))
                 Direccion = Convert.ToString(row["Direccion"].ToString());
-            if (DataRecord.HasColumn(row, "NombreGZ") && row["NombreGZ"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NombreGZ"))
                 NombreGZ = Convert.ToString(row["NombreGZ"]);
-            if (DataRecord.HasColumn(row, "EmailGZ") && row["EmailGZ"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "EmailGZ"))
                 EmailGZ = Convert.ToString(row["EmailGZ"]);
-            if (DataRecord.HasColumn(row, "MensajeaGZ") && row["MensajeaGZ"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MensajeaGZ"))
                 MensajeaGZ = Convert.ToString(row["MensajeaGZ"]);
-            if (DataRecord.HasColumn(row, "UsuarioModificacion") && row["UsuarioModificacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "UsuarioModificacion"))
                 UsuarioModificacion = Convert.ToString(row["UsuarioModificacion"]);
-            if (DataRecord.HasColumn(row, "FechaModificacion") && row["FechaModificacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaModificacion"))
                 FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
-            if (DataRecord.HasColumn(row, "FechaSolicitud") && row["FechaSolicitud"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaSolicitud"))
                 FechaSolicitud = Convert.ToDateTime(row["FechaSolicitud"]);
-            /* R2319 - AAHA 02022015 - Inicio */
-            if (DataRecord.HasColumn(row, "Seccion") && row["Seccion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Seccion"))
                 Seccion = Convert.ToString(row["Seccion"]);
-            if (DataRecord.HasColumn(row, "NombreConsultoraAsignada") && row["NombreConsultoraAsignada"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NombreConsultoraAsignada"))
                 NombreConsultoraAsignada = Convert.ToString(row["NombreConsultoraAsignada"]);
-            if (DataRecord.HasColumn(row, "CorreoConsultoraAsginada") && row["CorreoConsultoraAsginada"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CorreoConsultoraAsginada"))
                 CorreoConsultoraAsginada = Convert.ToString(row["CorreoConsultoraAsginada"]);
 
-            if (DataRecord.HasColumn(row, "EnviadoGZ") && row["EnviadoGZ"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "EnviadoGZ"))
                 EnviadoGZ = Convert.ToString(row["EnviadoGZ"]);
-            if (DataRecord.HasColumn(row, "UnidadGeografica1") && row["UnidadGeografica1"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "UnidadGeografica1"))
                 UnidadGeografica1 = Convert.ToString(row["UnidadGeografica1"]);
-            if (DataRecord.HasColumn(row, "UnidadGeografica2") && row["UnidadGeografica2"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "UnidadGeografica2"))
                 UnidadGeografica2 = Convert.ToString(row["UnidadGeografica2"]);
-            if (DataRecord.HasColumn(row, "UnidadGeografica3") && row["UnidadGeografica3"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "UnidadGeografica3"))
                 UnidadGeografica3 = Convert.ToString(row["UnidadGeografica3"]);
-            if (DataRecord.HasColumn(row, "TipoDistribucion") && row["TipoDistribucion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TipoDistribucion"))
                 TipoDistribucion = Convert.ToInt32(row["TipoDistribucion"]);
 
-            if (DataRecord.HasColumn(row, "EstadoSolicitudClienteId") && row["EstadoSolicitudClienteId"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "EstadoSolicitudClienteId"))
                 EstadoSolicitudClienteId = Convert.ToInt32(row["EstadoSolicitudClienteId"]);
 
-            if (DataRecord.HasColumn(row, "PedidoWebID") && row["PedidoWebID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PedidoWebID"))
                 PedidoWebID = Convert.ToInt32(row["PedidoWebID"]);
         }
 
@@ -188,31 +187,31 @@ namespace Portal.Consultoras.Entities
 
         public BESolicitudClienteDetalle(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "SolicitudClienteID") && row["SolicitudClienteID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "SolicitudClienteID"))
                 SolicitudClienteID = Convert.ToInt64(row["SolicitudClienteID"]);
-            if (DataRecord.HasColumn(row, "SolicitudClienteDetalleID") && row["SolicitudClienteDetalleID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "SolicitudClienteDetalleID"))
                 SolicitudClienteDetalleID = Convert.ToInt64(row["SolicitudClienteDetalleID"]);
 
-            if (DataRecord.HasColumn(row, "CUV") && row["CUV"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CUV"))
                 CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "Producto") && row["Producto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Producto"))
                 DescripcionProducto = Convert.ToString(row["Producto"]);
-            if (DataRecord.HasColumn(row, "Cantidad") && row["Cantidad"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Cantidad"))
                 Cantidad = Convert.ToInt32(row["Cantidad"].ToString());
-            if (DataRecord.HasColumn(row, "Precio") && row["Precio"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Precio"))
                 Precio = Convert.ToDecimal(row["Precio"]);
             if (DataRecord.HasColumn(row, "Tono"))
                 Tono = Convert.ToString(row["Tono"]);
-            if (DataRecord.HasColumn(row, "DescripcionMarca") && row["DescripcionMarca"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescripcionMarca"))
                 DescripcionMarca = Convert.ToString(row["DescripcionMarca"]);
 
-            if (DataRecord.HasColumn(row, "TipoAtencion") && row["TipoAtencion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TipoAtencion"))
                 TipoAtencion = Convert.ToInt32(row["TipoAtencion"]);
 
-            if (DataRecord.HasColumn(row, "PedidoWebID") && row["PedidoWebID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PedidoWebID"))
                 PedidoWebID = Convert.ToInt32(row["PedidoWebID"]);
 
-            if (DataRecord.HasColumn(row, "PedidoWebDetalleID") && row["PedidoWebDetalleID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PedidoWebDetalleID"))
                 PedidoWebDetalleID = Convert.ToInt32(row["PedidoWebDetalleID"]);
 
         }
@@ -245,15 +244,15 @@ namespace Portal.Consultoras.Entities
 
         public BESolicitudClienteDetalleStoreParameter(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CUV") && row["CUV"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CUV"))
                 CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "Producto") && row["Producto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Producto"))
                 DescripcionProducto = Convert.ToString(row["Producto"]);
-            if (DataRecord.HasColumn(row, "Cantidad") && row["Cantidad"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Cantidad"))
                 Cantidad = Convert.ToInt32(row["Cantidad"].ToString());
-            if (DataRecord.HasColumn(row, "Precio") && row["Precio"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Precio"))
                 Precio = Convert.ToDecimal(row["Precio"]);
-            if (DataRecord.HasColumn(row, "Tono") && row["Tono"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Tono"))
                 Tono = Convert.ToString(row["Tono"]);
         }
     }
@@ -301,9 +300,9 @@ namespace Portal.Consultoras.Entities
 
         public BEResultadoSolicitud(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Resultado") && row["Resultado"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Resultado"))
                 Resultado = Convert.ToInt32(row["Resultado"].ToString());
-            if (DataRecord.HasColumn(row, "Mensaje") && row["Mensaje"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Mensaje"))
                 Mensaje = Convert.ToString(row["Mensaje"]);
         }
 
@@ -329,11 +328,11 @@ namespace Portal.Consultoras.Entities
 
         public BESolicitudNuevaConsultora(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Nombre") && row["Nombre"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Nombre"))
                 Nombre = Convert.ToString(row["Nombre"].ToString());
-            if (DataRecord.HasColumn(row, "EMail") && row["EMail"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "EMail"))
                 Email = Convert.ToString(row["EMail"]);
-            if (DataRecord.HasColumn(row, "MarcaNombre") && row["MarcaNombre"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MarcaNombre"))
                 MarcaNombre = Convert.ToString(row["MarcaNombre"]);
         }
     }

@@ -60,49 +60,49 @@ namespace Portal.Consultoras.Entities
 
         public BEProductoAppCatalogo(IDataRecord datarec)
         {
-            if (DataRecord.HasColumn(datarec, "CodigoIso") && datarec["CodigoIso"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CodigoIso"))
                 CodigoIso = Convert.ToString(datarec["CodigoIso"]);
 
-            if (DataRecord.HasColumn(datarec, "IdMarca") && datarec["IdMarca"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "IdMarca"))
                 IdMarca = Convert.ToInt32(datarec["IdMarca"]);
 
-            if (DataRecord.HasColumn(datarec, "CodigoMarca") && datarec["CodigoMarca"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CodigoMarca"))
                 CodigoMarca = Convert.ToString(datarec["CodigoMarca"]);
 
-            if (DataRecord.HasColumn(datarec, "NombreMarca") && datarec["NombreMarca"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "NombreMarca"))
                 NombreMarca = Convert.ToString(datarec["NombreMarca"]);
 
-            if (DataRecord.HasColumn(datarec, "CampaniaId") && datarec["CampaniaId"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CampaniaId"))
                 CampaniaId = Convert.ToInt32(datarec["CampaniaId"]);
 
-            if (DataRecord.HasColumn(datarec, "Cuv") && datarec["Cuv"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Cuv"))
                 Cuv = Convert.ToString(datarec["Cuv"]);
 
-            if (DataRecord.HasColumn(datarec, "CodigoSap") && datarec["CodigoSap"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CodigoSap"))
                 CodigoSap = Convert.ToString(datarec["CodigoSap"]);
 
-            if (DataRecord.HasColumn(datarec, "DescripcionComercial") && datarec["DescripcionComercial"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "DescripcionComercial"))
                 DescripcionComercial = Convert.ToString(datarec["DescripcionComercial"]);
 
-            if (DataRecord.HasColumn(datarec, "NombreComercial") && datarec["NombreComercial"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "NombreComercial"))
                 NombreComercial = Convert.ToString(datarec["NombreComercial"]);
 
-            if (DataRecord.HasColumn(datarec, "Descripcion") && datarec["Descripcion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Descripcion"))
                 Descripcion = Convert.ToString(datarec["Descripcion"]);
 
-            if (DataRecord.HasColumn(datarec, "PrecioValorizado") && datarec["PrecioValorizado"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "PrecioValorizado"))
                 PrecioValorizado = Convert.ToDecimal(datarec["PrecioValorizado"]);
 
-            if (DataRecord.HasColumn(datarec, "PrecioCatalogo") && datarec["PrecioCatalogo"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "PrecioCatalogo"))
                 PrecioCatalogo = Convert.ToDecimal(datarec["PrecioCatalogo"]);
 
-            if (DataRecord.HasColumn(datarec, "Volumen") && datarec["Volumen"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Volumen"))
                 Volumen = Convert.ToString(datarec["Volumen"]);
 
-            if (DataRecord.HasColumn(datarec, "Imagen") && datarec["Imagen"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Imagen"))
                 Imagen = Convert.ToString(datarec["Imagen"]);
 
-            if (DataRecord.HasColumn(datarec, "Sello") && datarec["Sello"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Sello"))
                 Sello = Convert.ToString(datarec["Sello"]);
         }
     }

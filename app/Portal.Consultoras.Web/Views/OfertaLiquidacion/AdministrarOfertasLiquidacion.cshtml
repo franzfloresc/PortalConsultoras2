@@ -342,6 +342,7 @@
         });
 
         $(".qq-upload-list").css("display", "none");
+        
     });
 
     function formatUrl(url) {
@@ -613,8 +614,7 @@
             var image = "";
             var filename = rowObject[10].replace(/^.*[\\\/]/, '')
             if (rowObject[10] != "") {
-                // image = '<img src="' + '@Url.Content("~/Content/Matriz/")' + rowObject[10] + '" alt="" width="70px" height="60px" title="" border="0" />';
-                image = '<img src="' + rowObject[10] + '" alt="" width="70px" height="60px" title="" border="0" />'; // 1664
+                image = '<img src="' + rowObject[10] + '" alt="" width="70px" height="60px" title="" border="0" />';
             } else {
                 image = '<img src="@Url.Content("~/Content/Images/prod_grilla_vacio.png")" alt="" width="60px" height="60px" title="" border="0" />';
             }

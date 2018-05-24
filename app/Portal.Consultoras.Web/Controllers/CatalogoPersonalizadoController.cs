@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -30,7 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             ViewBag.Simbolo = userData.Simbolo;
-            ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
+            ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
 
             if (Session["ListFiltersFAV"] != null)
             {
@@ -44,12 +45,14 @@ namespace Portal.Consultoras.Web.Controllers
             var listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"] ?? new List<ProductoModel>();
             if (listaProductoModel.Any())
             {
-                ViewBag.PrecioMin = listaProductoModel.OrderBy(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
-                ViewBag.PrecioMax = listaProductoModel.OrderByDescending(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
+                var entProd = listaProductoModel.OrderBy(x => x.PrecioCatalogo).FirstOrDefault() ?? new ProductoModel();
+                ViewBag.PrecioMin = entProd.PrecioCatalogoString;
+                entProd = listaProductoModel.OrderByDescending(x => x.PrecioCatalogo).FirstOrDefault() ?? new ProductoModel();
+                ViewBag.PrecioMax = entProd.PrecioCatalogoString;
 
                 var sobrenombre = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
                 ViewBag.NombreConsultoraFAV = sobrenombre.First().ToString().ToUpper() + sobrenombre.ToLower().Substring(1);
-                ViewBag.UrlImagenFAVLanding = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVLanding"), userData.CodigoISO);
+                ViewBag.UrlImagenFAVLanding = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVLanding), userData.CodigoISO);
             }
 
             return View(model);
@@ -67,13 +70,13 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
 
-            int CantProFav = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings.Get("LimiteJetloreCatalogoPersonalizadoHome"));
-            return ObtenerProductos(CantProFav);
+            int cantProFav = Convert.ToInt32(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizadoHome));
+            return ObtenerProductos(cantProFav);
         }
 
         public JsonResult ObtenerProductosCatalogoPersonalizado(int cantidad, int offset, List<FiltroResultadoModel> lstFilters = null, int tipoOrigen = 0)
         {
-            int limiteJetloreCatalogoPersonalizado = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreCatalogoPersonalizado"));
+            int limiteJetloreCatalogoPersonalizado = int.Parse(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizado));
             cantidad = (offset + cantidad > limiteJetloreCatalogoPersonalizado) ? (limiteJetloreCatalogoPersonalizado - offset) : cantidad;
             return ObtenerProductos(cantidad, offset, lstFilters, tipoOrigen);
         }
@@ -105,6 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [Obsolete("Migrado PL50-50")]
         private JsonResult ObtenerProductos(int cantidad, int offset = 0, List<FiltroResultadoModel> lstFilters = null, int tipoOrigen = 0)
         {
             if (userData.CatalogoPersonalizado != Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp
@@ -118,7 +122,6 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
             //tipoOfertaFinal: 1 -> ARP; 2 -> Jetlore
-            List<Producto> lista;
             var listaProductoModel = new List<ProductoModel>();
             int flt = 0;
 
@@ -127,9 +130,10 @@ namespace Portal.Consultoras.Web.Controllers
                 #region obtener catalogo personalizado
                 if (Session["ProductosCatalogoPersonalizado"] == null)
                 {
-                    string paisesConPcm = ConfigurationManager.AppSettings.Get("PaisesConPcm");
+                    string paisesConPcm = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesConPcm);
                     int tipoProductoMostrar = paisesConPcm.Contains(userData.CodigoISO) ? 2 : 1;
 
+                    List<Producto> lista;
                     using (ProductoServiceClient ps = new ProductoServiceClient())
                     {
                         var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
@@ -143,11 +147,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (lista.Any())
                     {
-                        int limiteJetlore = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreCatalogoPersonalizado"));
+                        int limiteJetlore = int.Parse(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizado));
                         lista = lista.Take(limiteJetlore).ToList();
 
                         string codigosCuv = string.Join(",", lista.Select(p => p.Cuv));
-                        List<BEProducto> lstProducto = new List<BEProducto>();
+                        List<ServiceODS.BEProducto> lstProducto;
 
                         using (ODSServiceClient sv = new ODSServiceClient())
                         {
@@ -156,7 +160,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         foreach (var producto in lista)
                         {
-                            BEProducto beProducto = lstProducto.FirstOrDefault(p => p.CUV == producto.Cuv);
+                            ServiceODS.BEProducto beProducto = lstProducto.FirstOrDefault(p => p.CUV == producto.Cuv);
 
                             if (beProducto == null) continue;
 
@@ -251,41 +255,36 @@ namespace Portal.Consultoras.Web.Controllers
                 listaProductoModel.Update(c => c.IsAgregado = listaPedido.Any(p => p.CUV == c.CUV));
 
                 #region filtros
-                var totalRegistros = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreCatalogoPersonalizado"));
-                var precioMinimo = listaProductoModel.OrderBy(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
-                var precioMaximo = listaProductoModel.OrderByDescending(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
+                var totalRegistros = int.Parse(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizado));
+                var prodModel = listaProductoModel.OrderBy(x => x.PrecioCatalogo).FirstOrDefault() ?? new ProductoModel();
+                var precioMinimo = prodModel.PrecioCatalogoString;
+                prodModel = listaProductoModel.OrderByDescending(x => x.PrecioCatalogo).FirstOrDefault() ?? new ProductoModel();
+                var precioMaximo = prodModel.PrecioCatalogoString;
                 var totalRegistrosFilter = totalRegistros;
 
-                if (lstFilters == null && tipoOrigen == 1)
+                if (lstFilters == null && tipoOrigen == 1 && Session["UserFiltersFAV"] != null)
                 {
-                    if (Session["UserFiltersFAV"] != null)
+                    lstFilters = (List<FiltroResultadoModel>)Session["UserFiltersFAV"] ?? new List<FiltroResultadoModel>();
+                }
+
+                if (lstFilters != null)
+                {
+                    for (int i = 0; i < lstFilters.Count; i++)
                     {
-                        lstFilters = (List<FiltroResultadoModel>)Session["UserFiltersFAV"] ?? new List<FiltroResultadoModel>();
+                        var v1 = lstFilters[i].Valor1 == null ? "" : lstFilters[i].Valor1;
+                        if (Convert.ToInt32(lstFilters[i].Id) <= 1 || v1.Length <= 0) continue;
+
+                        if (lstFilters[i].Id == "4"
+                            && Convert.ToDouble(lstFilters[i].Valor1).Equals(Convert.ToDouble(precioMinimo))
+                            && Convert.ToDouble(lstFilters[i].Valor2).Equals(Convert.ToDouble(precioMaximo))) continue;
+
+                        flt += v1.Split(',').Length;
                     }
                 }
 
                 if (lstFilters != null)
                 {
-                    string v1 = "";
-                    for (int i = 0; i < lstFilters.Count(); i++)
-                    {
-                        v1 = lstFilters[i].Valor1 == null ? "" : lstFilters[i].Valor1;
-                        if (Convert.ToInt32(lstFilters[i].Id) > 1 && v1.Length > 0)
-                        {
-                            if (lstFilters[i].Id == "4" && Convert.ToDouble(lstFilters[i].Valor1) == Convert.ToDouble(precioMinimo) && Convert.ToDouble(lstFilters[i].Valor2) == Convert.ToDouble(precioMaximo))
-                            {
-                            }
-                            else
-                            {
-                                flt += v1.Split(',').Count();
-                            }
-                        }
-                    }
-                }
-
-                if (lstFilters != null)
-                {
-                    var lstProductoModelFilter = new List<ProductoModel>();
+                    List<ProductoModel> lstProductoModelFilter;
                     var changedFilters = false;
 
                     if (Session["UserFiltersFAV"] != null)
@@ -293,7 +292,7 @@ namespace Portal.Consultoras.Web.Controllers
                         var userFilters = (List<FiltroResultadoModel>)Session["UserFiltersFAV"] ?? new List<FiltroResultadoModel>();
                         foreach (var filter in lstFilters)
                         {
-                            var userFilter = userFilters.Where(x => x.Id == filter.Id).FirstOrDefault();
+                            var userFilter = userFilters.FirstOrDefault(x => x.Id == filter.Id);
                             if (userFilter != null)
                             {
                                 if (filter.Valor1 != userFilter.Valor1 || filter.Valor2 != userFilter.Valor2 || filter.Orden != userFilter.Orden)
@@ -358,16 +357,13 @@ namespace Portal.Consultoras.Web.Controllers
                                 lstProductoModelFilter = lstProductoModelFilter.Where(x => Convert.ToDecimal(x.PrecioCatalogoString) >= Convert.ToDecimal(item.Valor1)
                                     && Convert.ToDecimal(x.PrecioCatalogoString) <= Convert.ToDecimal(item.Valor2)).ToList();
                             }
-                            else if (item.Id == "5")
+                            else if (item.Id == "5" && !string.IsNullOrEmpty(item.Valor1))
                             {
-                                if (!string.IsNullOrEmpty(item.Valor1))
+                                int ind = (item.Valor1.Contains(",")) ? -1 : 0;
+                                if (ind == 0)
                                 {
-                                    int ind = (item.Valor1.Contains(",")) ? -1 : 0;
-                                    if (ind == 0)
-                                    {
-                                        bool er = item.Valor1 != "SC";
-                                        lstProductoModelFilter = lstProductoModelFilter.Where(x => x.TieneOfertaEnRevista == er).ToList();
-                                    }
+                                    bool er = item.Valor1 != "SC";
+                                    lstProductoModelFilter = lstProductoModelFilter.Where(x => x.TieneOfertaEnRevista == er).ToList();
                                 }
                             }
                         }
@@ -416,28 +412,24 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                BEProducto producto = new BEProducto();
-                BEProducto productPack = new BEProducto();
-                BEProducto productNivel = new BEProducto();
-
-                var ambiente = ConfigurationManager.AppSettings["Ambiente"] ?? "";
+                var ambiente = GetConfiguracionManager(Constantes.ConfiguracionManager.Ambiente);
                 var keyWeb = ambiente.ToUpper() == "QA" ? "QA_Prol_ServicesCalculos" : "PR_Prol_ServicesCalculos";
 
-                ObjOfertaCatalogos dataPROL;
+                ObjOfertaCatalogos dataProl;
                 using (var sv = new ServicesCalculoPrecioNiveles())
                 {
                     sv.Url = ConfigurationManager.AppSettings[keyWeb];
-                    dataPROL = sv.Ofertas_catalogo(userData.CodigoISO, userData.CampaniaID.ToString(), cuv, userData.CodigoConsultora, userData.ZonaID.ToString(), tipoOfertaRevista);
+                    dataProl = sv.Ofertas_catalogo(userData.CodigoISO, userData.CampaniaID.ToString(), cuv, userData.CodigoConsultora, userData.ZonaID.ToString(), tipoOfertaRevista);
                 }
-                dataPROL = dataPROL ?? new ObjOfertaCatalogos();
+                dataProl = dataProl ?? new ObjOfertaCatalogos();
 
                 #region nombre de los pack
 
-                dataPROL.lista_oObjPack = dataPROL.lista_oObjPack ?? new ObjPack[0];
+                dataProl.lista_oObjPack = dataProl.lista_oObjPack ?? new ObjPack[0];
 
-                if (dataPROL.lista_oObjPack.Length > 0)
+                if (dataProl.lista_oObjPack.Length > 0)
                 {
-                    foreach (var item in dataPROL.lista_oObjPack)
+                    foreach (var item in dataProl.lista_oObjPack)
                     {
                         using (ODSServiceClient sv = new ODSServiceClient())
                         {
@@ -452,37 +444,41 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region para la imagen
 
-                string listaSap = "|";
+
                 string caracterSepara = "|";
 
-                dataPROL.lista_oObjGratis = dataPROL.lista_oObjGratis ?? new ObjGratis[0];
-                dataPROL.lista_oObjItemPack = dataPROL.lista_oObjItemPack ?? new ObjItemPack[0];
+                var txtBuil = new StringBuilder();
+                txtBuil.Append(caracterSepara);
 
-                if (dataPROL.lista_oObjGratis.Length > 0)
+                dataProl.lista_oObjGratis = dataProl.lista_oObjGratis ?? new ObjGratis[0];
+                dataProl.lista_oObjItemPack = dataProl.lista_oObjItemPack ?? new ObjItemPack[0];
+
+                if (dataProl.lista_oObjGratis.Length > 0)
                 {
-                    foreach (var objGrati in dataPROL.lista_oObjGratis)
+                    foreach (var objGrati in dataProl.lista_oObjGratis)
                     {
                         objGrati.codsap_nivel_gratis = Util.SubStr(objGrati.codsap_nivel_gratis, 0);
                         if (objGrati.codsap_nivel_gratis == "")
                             continue;
 
-                        var add = listaSap.Contains(caracterSepara + objGrati.codsap_nivel_gratis + caracterSepara);
-                        listaSap += !add ? objGrati.codsap_nivel_gratis + caracterSepara : "";
+                        var add = txtBuil.ToString().Contains(caracterSepara + objGrati.codsap_nivel_gratis + caracterSepara);
+                        txtBuil.Append(!add ? objGrati.codsap_nivel_gratis + caracterSepara : "");
                     }
                 }
 
-                if (dataPROL.lista_oObjItemPack.Length > 0)
+                if (dataProl.lista_oObjItemPack.Length > 0)
                 {
-                    foreach (var objItemPack in dataPROL.lista_oObjItemPack)
+                    foreach (var objItemPack in dataProl.lista_oObjItemPack)
                     {
                         objItemPack.codsap_item_pack = Util.SubStr(objItemPack.codsap_item_pack, 0);
                         if (objItemPack.codsap_item_pack == "")
                             continue;
 
-                        var add = listaSap.Contains(caracterSepara + objItemPack.codsap_item_pack + caracterSepara);
-                        listaSap += !add ? objItemPack.codsap_item_pack + caracterSepara : "";
+                        var add = txtBuil.ToString().Contains(caracterSepara + objItemPack.codsap_item_pack + caracterSepara);
+                        txtBuil.Append(!add ? objItemPack.codsap_item_pack + caracterSepara : "");
                     }
                 }
+                string listaSap = txtBuil.ToString();
 
                 if (listaSap.Length > 2)
                 {
@@ -493,13 +489,12 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         listaProductoBySap = ps.ObtenerProductosByCodigoSap(userData.CodigoISO, userData.CampaniaID, listaSap).ToList();
                     }
-                    listaProductoBySap = listaProductoBySap ?? new List<Producto>();
-                    
+
                     foreach (var itemSap in listaProductoBySap)
                     {
-                        if (dataPROL.lista_oObjGratis.Length > 0)
+                        if (dataProl.lista_oObjGratis.Length > 0)
                         {
-                            foreach (var objGrati in dataPROL.lista_oObjGratis)
+                            foreach (var objGrati in dataProl.lista_oObjGratis)
                             {
                                 objGrati.codsap_nivel_gratis = Util.SubStr(objGrati.codsap_nivel_gratis, 0);
                                 if (objGrati.codsap_nivel_gratis == "")
@@ -518,9 +513,9 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
 
-                        if (dataPROL.lista_oObjItemPack.Length > 0)
+                        if (dataProl.lista_oObjItemPack.Length > 0)
                         {
-                            foreach (var objItemPack in dataPROL.lista_oObjItemPack)
+                            foreach (var objItemPack in dataProl.lista_oObjItemPack)
                             {
                                 objItemPack.codsap_item_pack = Util.SubStr(objItemPack.codsap_item_pack, 0);
                                 if (objItemPack.codsap_item_pack == "")
@@ -542,10 +537,11 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 #endregion
+                ServiceODS.BEProducto producto;
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    producto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, dataPROL.cuv_revista,
-                        userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, false).FirstOrDefault();
+                    producto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, dataProl.cuv_revista,
+                        userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, false).FirstOrDefault() ?? new ServiceODS.BEProducto();
                 }
 
                 var txtGanancia = userData.CodigoISO == Constantes.CodigosISOPais.Peru ? "Gana" :
@@ -561,7 +557,7 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "",
                     data = new
                     {
-                        dataPROL = dataPROL,
+                        dataPROL = dataProl,
                         producto = producto,
                         txtGanancia,
                         txtRecibeGratis
@@ -586,13 +582,6 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 int id;
-                AutoMapper.Mapper.CreateMap<ProductoCompartidoModel, BEProductoCompartido>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.mPaisID))
-                    .ForMember(t => t.PcCampaniaID, f => f.MapFrom(c => c.mCampaniaID))
-                    .ForMember(t => t.PcCuv, f => f.MapFrom(c => c.mCUV))
-                    .ForMember(t => t.PcPalanca, f => f.MapFrom(c => c.mPalanca))
-                    .ForMember(t => t.PcDetalle, f => f.MapFrom(c => c.mDetalle))
-                    .ForMember(t => t.PcApp, f => f.MapFrom(c => c.mApplicacion));
 
                 BEProductoCompartido entidad = AutoMapper.Mapper.Map<ProductoCompartidoModel, BEProductoCompartido>(ProCompModel);
                 using (ODSServiceClient svc = new ODSServiceClient())
@@ -629,11 +618,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var productoModel = new ProductoModel();
-                var listaProductoModel = new List<ProductoModel>();
-                listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"] ?? new List<ProductoModel>();
-
-                productoModel = listaProductoModel.Where(x => x.CUV == cuv).FirstOrDefault();
+                var listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"] ?? new List<ProductoModel>();
+                var productoModel = listaProductoModel.FirstOrDefault(x => x.CUV == cuv);
 
                 if (productoModel == null || !productoModel.EsMaquillaje || productoModel.Hermanos != null)
                 {
@@ -647,8 +633,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 productoModel.UrlCompartirFB = GetUrlCompartirFB();
-                
-                var listaHermanos = new List<BEProducto>();
+
+                List<ServiceODS.BEProducto> listaHermanos;
                 using (ODSServiceClient svc = new ODSServiceClient())
                 {
                     listaHermanos = svc.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, cuv).ToList();
@@ -656,15 +642,17 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (listaHermanos.Any())
                 {
-                    string joinCuv = string.Empty;
+
+                    var txtBuil = new StringBuilder();
                     foreach (var item in listaHermanos)
                     {
-                        joinCuv += item.CUV + ",";
+                        txtBuil.Append(item.CUV + ",");
                     }
+                    string joinCuv = txtBuil.ToString();
 
                     joinCuv = joinCuv.Substring(0, joinCuv.Length - 1);
 
-                    var listaAppCatalogo = new List<Producto>();
+                    List<Producto> listaAppCatalogo;
                     using (ProductoServiceClient svc = new ProductoServiceClient())
                     {
                         listaAppCatalogo = svc.ObtenerProductosAppCatalogoByListaCUV(userData.CodigoISO, userData.CampaniaID, joinCuv).ToList();
@@ -688,8 +676,8 @@ namespace Portal.Consultoras.Web.Controllers
                             });
                         }
 
-                        var ListaTonos = productoModel.Hermanos.OrderBy(e => e.NombreBulk).ToList();
-                        productoModel.Tonos = ListaTonos;
+                        var listaTonos = productoModel.Hermanos.OrderBy(e => e.NombreBulk).ToList();
+                        productoModel.Tonos = listaTonos;
                     }
 
                     Session["ProductosCatalogoPersonalizadoFilter"] = listaProductoModel;
@@ -734,8 +722,9 @@ namespace Portal.Consultoras.Web.Controllers
                     data = lstProductoModelFilter
                 });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,

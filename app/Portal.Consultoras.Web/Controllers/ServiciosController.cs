@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using System.Text;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -18,50 +19,50 @@ namespace Portal.Consultoras.Web.Controllers
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "Servicios/AdministrarServicios"))
                 return RedirectToAction("Index", "Bienvenida");
 
-            var model = new ServicioModel();
-            model.listaParametros = DropDowListParametros();
+            var model = new ServicioModel { listaParametros = DropDowListParametros() };
             return View(model);
         }
+
         public ActionResult MantenimientoServicios()
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "Servicios/MantenimientoServicios"))
                 return RedirectToAction("Index", "Bienvenida");
 
-            var model = new ServicioModel();
-            model.DropDownListCampania = CargarCampania();
+            var model = new ServicioModel { DropDownListCampania = CargarCampania() };
             model.DropDownListCampania.Insert(0, new BECampania() { CampaniaID = 0, Codigo = "-- Seleccionar --" });
 
             return View(model);
         }
+
         public ActionResult MantenimientoServicio()
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "Servicios/MantenimientoServicio"))
                 return RedirectToAction("Index", "Bienvenida");
 
-            var model = new ServicioModel();
-            model.DropDownListCampania = CargarCampania();
+            var model = new ServicioModel { DropDownListCampania = CargarCampania() };
             model.DropDownListCampania.Insert(0, new BECampania() { CampaniaID = 0, Codigo = "-- Seleccionar --" });
 
             return View(model);
         }
+
         public ActionResult RedireccionServicio(int ServicioId, string Url)
         {
-            IList<ServiceSAC.BEServicioParametro> lst_param = new List<ServiceSAC.BEServicioParametro>();
+            IList<BEServicioParametro> lstParam;
 
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst_param = sv.GetParametrosbyServicio(ServicioId).ToList();
+                lstParam = sv.GetParametrosbyServicio(ServicioId).ToList();
             }
 
-            if (lst_param.Count > 0)
+            if (lstParam.Count > 0)
             {
-                Url = Url + "?";
-
-                foreach (BEServicioParametro param in lst_param)
+                var txtBuil = new StringBuilder();
+                foreach (BEServicioParametro param in lstParam)
                 {
-                    Url = Url + param.Abreviatura + "=" + DevolverValorParametro(param.ParametroId) + "&";
+                    txtBuil.Append(param.Abreviatura + "=" + DevolverValorParametro(param.ParametroId) + "&");
                 }
 
+                Url = Util.Trim(Url) + "?" + txtBuil.ToString();
                 Url = Url.Substring(0, Url.Length - 1);
             }
             return Redirect(Url);
@@ -75,22 +76,17 @@ namespace Portal.Consultoras.Web.Controllers
             else
                 return Update(model);
         }
+
         [HttpPost]
         public JsonResult Update(ServicioModel model)
         {
-            int vValidation = 0;
             try
             {
-                Mapper.CreateMap<ServicioModel, BEServicio>()
-                    .ForMember(t => t.ServicioId, f => f.MapFrom(c => c.ServicioId))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.Url, f => f.MapFrom(c => c.Url));
-
                 BEServicio entidad = Mapper.Map<ServicioModel, BEServicio>(model);
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    vValidation = sv.UpdServicio(entidad);
+                    var vValidation = sv.UpdServicio(entidad);
 
                     if (vValidation == 1)
                     {
@@ -101,15 +97,13 @@ namespace Portal.Consultoras.Web.Controllers
                             extra = ""
                         });
                     }
-                    else
+
+                    return Json(new
                     {
-                        return Json(new
-                        {
-                            success = false,
-                            message = "Ocurrió un error al actualizar registro, por favor inténtelo mas tarde.",
-                            extra = ""
-                        });
-                    }
+                        success = false,
+                        message = "Ocurrió un error al actualizar registro, por favor inténtelo mas tarde.",
+                        extra = ""
+                    });
                 }
             }
             catch (FaultException ex)
@@ -133,22 +127,17 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult Insert(ServicioModel model)
         {
-            int vValidation = 0;
             try
             {
-                Mapper.CreateMap<ServicioModel, BEServicio>()
-                    .ForMember(t => t.ServicioId, f => f.MapFrom(c => c.ServicioId))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.Url, f => f.MapFrom(c => c.Url));
-
                 BEServicio entidad = Mapper.Map<ServicioModel, BEServicio>(model);
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    vValidation = sv.InsServicio(entidad);
+                    var vValidation = sv.InsServicio(entidad);
 
                     if (vValidation == 1)
                     {
@@ -191,15 +180,15 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult InsertParametro(int ServicioId, int ParametroId)
         {
-            int vValidation = 0;
             try
             {
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    vValidation = sv.InsServicioParametro(ServicioId, ParametroId);
+                    var vValidation = sv.InsServicioParametro(ServicioId, ParametroId);
 
                     if (vValidation == 1)
                     {
@@ -210,27 +199,23 @@ namespace Portal.Consultoras.Web.Controllers
                             extra = ""
                         });
                     }
-                    else
+
+                    if (vValidation == -1)
                     {
-                        if (vValidation == -1)
+                        return Json(new
                         {
-                            return Json(new
-                            {
-                                success = false,
-                                message = "El parámetro ya ha sido agregado, intente con otro.",
-                                extra = ""
-                            });
-                        }
-                        else
-                        {
-                            return Json(new
-                            {
-                                success = false,
-                                message = "Ocurrió un error al insertar registro, por favor inténtelo mas tarde.",
-                                extra = ""
-                            });
-                        }
+                            success = false,
+                            message = "El parámetro ya ha sido agregado, intente con otro.",
+                            extra = ""
+                        });
                     }
+
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Ocurrió un error al insertar registro, por favor inténtelo mas tarde.",
+                        extra = ""
+                    });
                 }
             }
             catch (FaultException ex)
@@ -254,15 +239,15 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult Delete(int ServicioID)
         {
-            int vValidation = 0;
             try
             {
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    vValidation = sv.DelServicio(ServicioID);
+                    var vValidation = sv.DelServicio(ServicioID);
 
                     if (vValidation != 0)
                     {
@@ -273,15 +258,13 @@ namespace Portal.Consultoras.Web.Controllers
                             extra = ""
                         });
                     }
-                    else
+
+                    return Json(new
                     {
-                        return Json(new
-                        {
-                            success = false,
-                            message = "Ocurrió un error al intentar eliminar registro, por favor inténtelo mas tarde.",
-                            extra = ""
-                        });
-                    }
+                        success = false,
+                        message = "Ocurrió un error al intentar eliminar registro, por favor inténtelo mas tarde.",
+                        extra = ""
+                    });
                 }
             }
             catch (FaultException ex)
@@ -305,15 +288,15 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult DeleteServicioParametro(int ServicioID, int ParametroId)
         {
-            int vValidation = 0;
             try
             {
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    vValidation = sv.DelServicioParametro(ServicioID, ParametroId);
+                    var vValidation = sv.DelServicioParametro(ServicioID, ParametroId);
 
                     if (vValidation != 0)
                     {
@@ -324,15 +307,13 @@ namespace Portal.Consultoras.Web.Controllers
                             extra = ""
                         });
                     }
-                    else
+
+                    return Json(new
                     {
-                        return Json(new
-                        {
-                            success = false,
-                            message = "Ocurrió un error al intentar eliminar registro, por favor inténtelo mas tarde.",
-                            extra = ""
-                        });
-                    }
+                        success = false,
+                        message = "Ocurrió un error al intentar eliminar registro, por favor inténtelo mas tarde.",
+                        extra = ""
+                    });
                 }
             }
             catch (FaultException ex)
@@ -356,6 +337,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult MantenerEstado(string ServicioId, string CampaniaInicialId, string CampaniaFinalId, string ISOPais, string Estado)
         {
@@ -372,20 +354,20 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (item[0].ServicioId == Convert.ToInt32(ServicioId))
                     {
-                        item[0].AR = (ISOPais == "AR" ? Estado : item[0].AR);
-                        item[0].BO = (ISOPais == "BO" ? Estado : item[0].BO);
-                        item[0].CL = (ISOPais == "CL" ? Estado : item[0].CL);
-                        item[0].CO = (ISOPais == "CO" ? Estado : item[0].CO);
-                        item[0].CR = (ISOPais == "CR" ? Estado : item[0].CR);
-                        item[0].DO = (ISOPais == "DO" ? Estado : item[0].DO);
-                        item[0].EC = (ISOPais == "EC" ? Estado : item[0].EC);
-                        item[0].GT = (ISOPais == "GT" ? Estado : item[0].GT);
-                        item[0].MX = (ISOPais == "MX" ? Estado : item[0].MX);
-                        item[0].PA = (ISOPais == "PA" ? Estado : item[0].PA);
-                        item[0].PE = (ISOPais == "PE" ? Estado : item[0].PE);
-                        item[0].PR = (ISOPais == "PR" ? Estado : item[0].PR);
-                        item[0].SV = (ISOPais == "SV" ? Estado : item[0].SV);
-                        item[0].VE = (ISOPais == "VE" ? Estado : item[0].VE);
+                        item[0].AR = (ISOPais == Constantes.CodigosISOPais.Argentina ? Estado : item[0].AR);
+                        item[0].BO = (ISOPais == Constantes.CodigosISOPais.Bolivia ? Estado : item[0].BO);
+                        item[0].CL = (ISOPais == Constantes.CodigosISOPais.Chile ? Estado : item[0].CL);
+                        item[0].CO = (ISOPais == Constantes.CodigosISOPais.Colombia ? Estado : item[0].CO);
+                        item[0].CR = (ISOPais == Constantes.CodigosISOPais.CostaRica ? Estado : item[0].CR);
+                        item[0].DO = (ISOPais == Constantes.CodigosISOPais.Dominicana ? Estado : item[0].DO);
+                        item[0].EC = (ISOPais == Constantes.CodigosISOPais.Ecuador ? Estado : item[0].EC);
+                        item[0].GT = (ISOPais == Constantes.CodigosISOPais.Guatemala ? Estado : item[0].GT);
+                        item[0].MX = (ISOPais == Constantes.CodigosISOPais.Mexico ? Estado : item[0].MX);
+                        item[0].PA = (ISOPais == Constantes.CodigosISOPais.Panama ? Estado : item[0].PA);
+                        item[0].PE = (ISOPais == Constantes.CodigosISOPais.Peru ? Estado : item[0].PE);
+                        item[0].PR = (ISOPais == Constantes.CodigosISOPais.PuertoRico ? Estado : item[0].PR);
+                        item[0].SV = (ISOPais == Constantes.CodigosISOPais.Salvador ? Estado : item[0].SV);
+                        item[0].VE = (ISOPais == Constantes.CodigosISOPais.Venezuela ? Estado : item[0].VE);
                     }
                 }
 
@@ -422,16 +404,16 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult DeleteEstado(int ServicioId, int CampaniaId, string ISOPais)
         {
-            int vValidation = 0;
             try
             {
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    vValidation = sv.DelServicioCampania(CampaniaId, ServicioId, ISOPais);
+                    var vValidation = sv.DelServicioCampania(CampaniaId, ServicioId, ISOPais);
 
                     if (vValidation == 1)
                     {
@@ -474,17 +456,18 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult InsertEstado(string IDs, string CampaniaInicialId, string CampaniaFinalId)
         {
             try
             {
-                string[] List_Id = IDs.Split(',');
-                List<List<BEEstadoServicio>> lista;
+                string[] listId = IDs.Split(',');
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    foreach (string item in List_Id)
+                    foreach (string item in listId)
                     {
+                        List<List<BEEstadoServicio>> lista;
                         if (CampaniaFinalId == "0")
                         {
                             lista = (List<List<BEEstadoServicio>>)Session["ListaIndividual"];
@@ -495,74 +478,74 @@ namespace Portal.Consultoras.Web.Controllers
                                 {
                                     #region Establece Estados
                                     if (list[0].AR == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "AR");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Argentina);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "AR");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Argentina);
 
                                     if (list[0].BO == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "BO");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Bolivia);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "BO");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Bolivia);
 
                                     if (list[0].CL == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "CL");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Chile);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "CL");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Chile);
 
                                     if (list[0].CO == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "CO");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Colombia);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "CO");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Colombia);
 
                                     if (list[0].CR == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "CR");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.CostaRica);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "CR");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.CostaRica);
 
                                     if (list[0].DO == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "DO");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Dominicana);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "DO");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Dominicana);
 
                                     if (list[0].EC == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "EC");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Ecuador);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "EC");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Ecuador);
 
                                     if (list[0].GT == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "GT");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Guatemala);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "GT");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Guatemala);
 
                                     if (list[0].MX == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "MX");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Mexico);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "MX");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Mexico);
 
                                     if (list[0].PA == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "PA");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Panama);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "PA");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Panama);
 
                                     if (list[0].PE == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "PE");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Peru);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "PE");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Peru);
 
                                     if (list[0].PR == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "PR");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.PuertoRico);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "PR");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.PuertoRico);
 
                                     if (list[0].SV == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "SV");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Salvador);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "SV");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Salvador);
 
                                     if (list[0].VE == "1")
-                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "VE");
+                                        sv.InsServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Venezuela);
                                     else
-                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, "VE");
+                                        sv.DelServicioCampania(Convert.ToInt32(list[0].CampaniaInicialId), list[0].ServicioId, Constantes.CodigosISOPais.Venezuela);
                                     #endregion
                                 }
                             }
@@ -577,74 +560,74 @@ namespace Portal.Consultoras.Web.Controllers
                                 {
                                     #region Establece Estados
                                     if (list[0].AR == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "AR");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Argentina);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "AR");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Argentina);
 
                                     if (list[0].BO == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "BO");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Bolivia);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "BO");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Bolivia);
 
                                     if (list[0].CL == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "CL");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Chile);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "CL");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Chile);
 
                                     if (list[0].CO == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "CO");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Colombia);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "CO");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Colombia);
 
                                     if (list[0].CR == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "CR");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.CostaRica);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "CR");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.CostaRica);
 
                                     if (list[0].DO == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "DO");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Dominicana);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "DO");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Dominicana);
 
                                     if (list[0].EC == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "EC");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Ecuador);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "EC");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Ecuador);
 
                                     if (list[0].GT == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "GT");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Guatemala);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "GT");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Guatemala);
 
                                     if (list[0].MX == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "MX");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Mexico);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "MX");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Mexico);
 
                                     if (list[0].PA == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "PA");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Panama);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "PA");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Panama);
 
                                     if (list[0].PE == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "PE");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Peru);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "PE");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Peru);
 
                                     if (list[0].PR == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "PR");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.PuertoRico);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "PR");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.PuertoRico);
 
                                     if (list[0].SV == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "SV");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Salvador);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "SV");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Salvador);
 
                                     if (list[0].VE == "1")
-                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "VE");
+                                        sv.InsServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Venezuela);
                                     else
-                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, "VE");
+                                        sv.DelServicioCampaniaRango(Convert.ToInt32(list[0].CampaniaInicialId), Convert.ToInt32(list[0].CampaniaFinalId), list[0].ServicioId, Constantes.CodigosISOPais.Venezuela);
                                     #endregion
                                 }
                             }
@@ -685,21 +668,22 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<BEServicio> lst;
-                using (SACServiceClient sv = new SACServiceClient())
+                List<BEServicio> lst = new List<BEServicio>();
+                if (vCampaniaInicial != "0")
                 {
-                    if (vCampaniaInicial == "0")
-                        lst = new List<BEServicio>();
-                    else
+                    using (SACServiceClient sv = new SACServiceClient())
+                    {
                         lst = sv.GetServicios(vDescripcion).ToList();
+                    }
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<BEServicio> items = lst;
 
                 #region Sort Section
@@ -735,9 +719,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Paginador(grid, lst);
+                BEPager pag = Paginador(grid, lst);
 
                 var data = new
                 {
@@ -761,29 +745,31 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return RedirectToAction("Index", "Bienvenida");
         }
+
         public ActionResult ConsultarServicio(string sidx, string sord, int page, int rows, string vDescripcion, string vCampaniaInicial)
         {
             if (ModelState.IsValid)
             {
-                List<BEServicio> lst;
-
                 Session["ListaIndividual"] = null;
                 Session["ListaRango"] = null;
 
-                using (SACServiceClient sv = new SACServiceClient())
+                List<BEServicio> lst = new List<BEServicio>();
+                if (vCampaniaInicial != "0")
                 {
-                    if (vCampaniaInicial == "0")
-                        lst = new List<BEServicio>();
-                    else
+                    using (SACServiceClient sv = new SACServiceClient())
+                    {
                         lst = sv.GetServicios(vDescripcion).ToList();
+                    }
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+
                 IEnumerable<BEServicio> items = lst;
 
                 #region Sort Section
@@ -819,9 +805,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Paginador(grid, lst);
+                BEPager pag = Paginador(grid, lst);
 
                 var data = new
                 {
@@ -845,6 +831,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return RedirectToAction("Index", "Bienvenida");
         }
+
         public ActionResult ConsultarParametrosbyServicios(string sidx, string sord, int page, int rows, int ServicioId)
         {
             if (ModelState.IsValid)
@@ -855,12 +842,14 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetParametrosbyServicio(ServicioId).ToList();
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+
                 IEnumerable<BEServicioParametro> items = lst;
 
                 #region Sort Section
@@ -884,9 +873,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = PaginadorDetalle(grid, lst);
+                BEPager pag = PaginadorDetalle(grid, lst);
 
                 var data = new
                 {
@@ -898,7 +887,7 @@ namespace Portal.Consultoras.Web.Controllers
                            {
                                cell = new string[]
                                {
-                                   a.Correlativo.ToString(),
+                                   a.Correlativo,
                                    a.ServicioId.ToString(),
                                    a.ParametroId.ToString(),
                                    a.Descripcion
@@ -910,6 +899,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return RedirectToAction("Index", "Bienvenida");
         }
+
         public ActionResult ConsultarEstadoServiciobyPais(string sidx, string sord, int page, int rows, int ServicioId, int CampaniaId)
         {
             if (ModelState.IsValid)
@@ -920,12 +910,13 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetEstadoServiciobyPais(ServicioId, CampaniaId).ToList();
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<BEEstadoServicio> items = lst;
 
                 #region Sort Section
@@ -933,7 +924,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     switch (sidx)
                     {
-                        case "AR":
+                        case Constantes.CodigosISOPais.Argentina:
                             items = lst.OrderBy(x => x.AR);
                             break;
                     }
@@ -942,16 +933,16 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     switch (sidx)
                     {
-                        case "AR":
+                        case Constantes.CodigosISOPais.Argentina:
                             items = lst.OrderByDescending(x => x.AR);
                             break;
                     }
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = PaginadorEstado(grid, lst);
+                BEPager pag = PaginadorEstado(grid, lst);
 
                 var data = new
                 {
@@ -964,20 +955,20 @@ namespace Portal.Consultoras.Web.Controllers
                                id = ServicioId.ToString(),
                                cell = new string[]
                                {
-                                   a.AR.ToString(),
-                                   a.BO.ToString(),
-                                   a.CL.ToString(),
-                                   a.CO.ToString(),
-                                   a.CR.ToString(),
-                                   a.EC.ToString(),
-                                   a.SV.ToString(),
-                                   a.GT.ToString(),
-                                   a.MX.ToString(),
-                                   a.PA.ToString(),
-                                   a.PE.ToString(),
-                                   a.PR.ToString(),
-                                   a.DO.ToString(),
-                                   a.VE.ToString(),
+                                   a.AR,
+                                   a.BO,
+                                   a.CL,
+                                   a.CO,
+                                   a.CR,
+                                   a.EC,
+                                   a.SV,
+                                   a.GT,
+                                   a.MX,
+                                   a.PA,
+                                   a.PE,
+                                   a.PR,
+                                   a.DO,
+                                   a.VE,
                                    ServicioId.ToString(),
                                 }
                            }
@@ -987,6 +978,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return RedirectToAction("Index", "Bienvenida");
         }
+
         public ActionResult ConsultarEstadoServiciobyPais2(string sidx, string sord, int page, int rows, int ServicioId, int CampaniaInicioID, int CampaniaFinalID)
         {
             if (ModelState.IsValid)
@@ -1002,8 +994,7 @@ namespace Portal.Consultoras.Web.Controllers
                         lst[0].ServicioId = ServicioId;
                         if (Session["ListaIndividual"] == null)
                         {
-                            List<List<BEEstadoServicio>> lista = new List<List<BEEstadoServicio>>();
-                            lista.Add(lst);
+                            List<List<BEEstadoServicio>> lista = new List<List<BEEstadoServicio>> { lst };
                             Session["ListaIndividual"] = lista;
                         }
                         else
@@ -1030,8 +1021,7 @@ namespace Portal.Consultoras.Web.Controllers
                         lst[0].ServicioId = ServicioId;
                         if (Session["ListaRango"] == null)
                         {
-                            List<List<BEEstadoServicio>> lista = new List<List<BEEstadoServicio>>();
-                            lista.Add(lst);
+                            List<List<BEEstadoServicio>> lista = new List<List<BEEstadoServicio>> { lst };
                             Session["ListaRango"] = lista;
                         }
                         else
@@ -1053,12 +1043,14 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+
                 IEnumerable<BEEstadoServicio> items = lst;
 
                 #region Sort Section
@@ -1066,7 +1058,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     switch (sidx)
                     {
-                        case "AR":
+                        case Constantes.CodigosISOPais.Argentina:
                             items = lst.OrderBy(x => x.AR);
                             break;
                     }
@@ -1075,16 +1067,16 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     switch (sidx)
                     {
-                        case "AR":
+                        case Constantes.CodigosISOPais.Argentina:
                             items = lst.OrderByDescending(x => x.AR);
                             break;
                     }
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = PaginadorEstado(grid, lst);
+                BEPager pag = PaginadorEstado(grid, lst);
 
                 var data = new
                 {
@@ -1097,20 +1089,20 @@ namespace Portal.Consultoras.Web.Controllers
                                id = ServicioId.ToString(),
                                cell = new string[]
                                {
-                                   a.AR.ToString(),
-                                   a.BO.ToString(),
-                                   a.CL.ToString(),
-                                   a.CO.ToString(),
-                                   a.CR.ToString(),
-                                   a.EC.ToString(),
-                                   a.SV.ToString(),
-                                   a.GT.ToString(),
-                                   a.MX.ToString(),
-                                   a.PA.ToString(),
-                                   a.PE.ToString(),
-                                   a.PR.ToString(),
-                                   a.DO.ToString(),
-                                   a.VE.ToString(),
+                                   a.AR,
+                                   a.BO,
+                                   a.CL,
+                                   a.CO,
+                                   a.CR,
+                                   a.EC,
+                                   a.SV,
+                                   a.GT,
+                                   a.MX,
+                                   a.PA,
+                                   a.PE,
+                                   a.PR,
+                                   a.DO,
+                                   a.VE,
                                    ServicioId.ToString(),
                                 }
                            }
@@ -1126,64 +1118,60 @@ namespace Portal.Consultoras.Web.Controllers
 
             BEPager pag = new BEPager();
 
-            int RecordCount;
+            var recordCount = lst.Count;
 
-            RecordCount = lst.Count;
+            pag.RecordCount = recordCount;
 
-            pag.RecordCount = RecordCount;
+            int pageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
+            pag.PageCount = pageCount;
 
-            int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
+            int currentPage = item.CurrentPage;
+            pag.CurrentPage = currentPage;
 
-            int CurrentPage = (int)item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
-
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
+            if (currentPage > pageCount)
+                pag.CurrentPage = pageCount;
 
             return pag;
         }
+
         public BEPager PaginadorDetalle(BEGrid item, List<BEServicioParametro> lst)
         {
 
             BEPager pag = new BEPager();
 
-            int RecordCount;
+            var recordCount = lst.Count;
 
-            RecordCount = lst.Count;
+            pag.RecordCount = recordCount;
 
-            pag.RecordCount = RecordCount;
+            int pageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
+            pag.PageCount = pageCount;
 
-            int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
+            int currentPage = item.CurrentPage;
+            pag.CurrentPage = currentPage;
 
-            int CurrentPage = (int)item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
-
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
+            if (currentPage > pageCount)
+                pag.CurrentPage = pageCount;
 
             return pag;
         }
+
         public BEPager PaginadorEstado(BEGrid item, List<BEEstadoServicio> lst)
         {
 
             BEPager pag = new BEPager();
 
-            int RecordCount;
+            var recordCount = lst.Count;
 
-            RecordCount = lst.Count;
+            pag.RecordCount = recordCount;
 
-            pag.RecordCount = RecordCount;
+            int pageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
+            pag.PageCount = pageCount;
 
-            int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
+            int currentPage = item.CurrentPage;
+            pag.CurrentPage = currentPage;
 
-            int CurrentPage = (int)item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
-
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
+            if (currentPage > pageCount)
+                pag.CurrentPage = pageCount;
 
             return pag;
         }
@@ -1195,13 +1183,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectParametros().ToList();
             }
-            Mapper.CreateMap<BEParametro, ParametroModel>()
-                    .ForMember(t => t.ParametroId, f => f.MapFrom(c => c.ParametroId))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.Abreviatura, f => f.MapFrom(c => c.Abreviatura));
 
             return Mapper.Map<IList<BEParametro>, IEnumerable<ParametroModel>>(lst);
         }
+
         private List<BECampania> CargarCampania()
         {
             using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
@@ -1211,9 +1196,9 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private string DevolverValorParametro(int ParametroId)
+        private string DevolverValorParametro(int parametroId)
         {
-            switch (ParametroId)
+            switch (parametroId)
             {
                 case 1:
                     return UserData().CodigoISO;
@@ -1229,7 +1214,6 @@ namespace Portal.Consultoras.Web.Controllers
                     return "";
             }
         }
-
 
         public JsonResult CargarArbolRegionesZonas(int? pais)
         {
@@ -1284,18 +1268,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult CargarSegmentoPais(int PaisId)
         {
-            IEnumerable<BESegmentoBanner> lst = null;
+            IEnumerable<BESegmentoBanner> lst;
 
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (PaisId == 14)
-                {
-                    lst = sv.GetSegmentoBanner(PaisId);
-                }
-                else
-                {
-                    lst = sv.GetSegmentoInternoBanner(PaisId);
-                }
+                lst = PaisId == 14
+                    ? sv.GetSegmentoBanner(PaisId)
+                    : sv.GetSegmentoInternoBanner(PaisId);
             }
 
             return Json(new
@@ -1306,16 +1285,16 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerSegmentoZona(int ServicioId, int CampaniaId, int PaisId)
         {
-            BEServicioSegmentoZona oBEServicioSegmentoZona = null;
+            BEServicioSegmentoZona obeServicioSegmentoZona;
 
             using (SACServiceClient sv = new SACServiceClient())
             {
-                oBEServicioSegmentoZona = sv.GetServicioCampaniaSegmentoZona(ServicioId, CampaniaId, PaisId);
+                obeServicioSegmentoZona = sv.GetServicioCampaniaSegmentoZona(ServicioId, CampaniaId, PaisId);
             }
 
-            if (oBEServicioSegmentoZona == null)
+            if (obeServicioSegmentoZona == null)
             {
-                oBEServicioSegmentoZona = new BEServicioSegmentoZona()
+                obeServicioSegmentoZona = new BEServicioSegmentoZona()
                 {
                     Segmento = -1,
                     ConfiguracionZona = string.Empty
@@ -1324,83 +1303,75 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Json(new
             {
-                Segmento = oBEServicioSegmentoZona.Segmento,
-                ConfiguracionZona = oBEServicioSegmentoZona.ConfiguracionZona
+                Segmento = obeServicioSegmentoZona.Segmento,
+                ConfiguracionZona = obeServicioSegmentoZona.ConfiguracionZona
             }, JsonRequestBehavior.AllowGet);
         }
 
-        private IEnumerable<PaisModel> DropDowListPaisesByServicioId(int ServicioId, int PaisId, int Tipo)
+        private IEnumerable<PaisModel> DropDowListPaisesByServicioId(int servicioId, int paisId, int tipo)
         {
             List<BEServicioSegmentoZona> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = sv.GetServicioCampaniaSegmentoZonaAsignados(ServicioId, PaisId, Tipo).ToList();
+                lst = sv.GetServicioCampaniaSegmentoZonaAsignados(servicioId, paisId, tipo).ToList();
             }
 
-            Mapper.CreateMap<BEServicioSegmentoZona, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisId))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.NombrePais))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombrePais));
             return Mapper.Map<IList<BEServicioSegmentoZona>, IEnumerable<PaisModel>>(lst);
         }
 
-        private IEnumerable<CampaniaModel> DropDowListCampaniasByServicioId(int ServicioId, int PaisId, int Tipo)
+        private IEnumerable<CampaniaModel> DropDowListCampaniasByServicioId(int servicioId, int paisId, int tipo)
         {
             List<BEServicioSegmentoZona> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = sv.GetServicioCampaniaSegmentoZonaAsignados(ServicioId, PaisId, Tipo).ToList();
+                lst = sv.GetServicioCampaniaSegmentoZonaAsignados(servicioId, paisId, tipo).ToList();
             }
 
-            Mapper.CreateMap<BEServicioSegmentoZona, CampaniaModel>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaId))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.DesCampania))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.DesCampania));
             return Mapper.Map<IList<BEServicioSegmentoZona>, IEnumerable<CampaniaModel>>(lst);
 
         }
 
         public JsonResult UpdServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInternoId)
         {
-            string Mensaje = string.Empty;
+            string mensaje;
             try
             {
                 using (SACServiceClient sv = new SACServiceClient())
                 {
                     sv.UpdServicioCampaniaSegmentoZona(ServicioId, CampaniaId, PaisId, Segmento, ConfiguracionZona, SegmentoInternoId);
                 }
-                Mensaje = "La información se guardó con éxito.";
+                mensaje = "La información se guardó con éxito.";
             }
             catch (Exception ex)
             {
-                Mensaje = "Ocurrió un error: " + ex.Message;
+                mensaje = "Ocurrió un error: " + ex.Message;
             }
             EliminarCacheServicio(CampaniaId, PaisId);
 
             return Json(new
             {
-                Mensaje = Mensaje
+                Mensaje = mensaje
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public void EliminarCacheServicio(int CampaniaId, int PaisId)
+        public void EliminarCacheServicio(int campaniaId, int paisId)
         {
             try
             {
                 using (SACServiceClient svc = new SACServiceClient())
                 {
-                    svc.DeleteCacheServicio(Util.GetPaisISO(PaisId), CampaniaId);
+                    svc.DeleteCacheServicio(Util.GetPaisISO(paisId), campaniaId);
                 }
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, "", Util.GetPaisISO(PaisId));
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", Util.GetPaisISO(paisId));
             }
         }
 
         public JsonResult ObtenerServicioCampaniaSegmentoZona(int CampaniaId, int ServicioId, int PaisId)
         {
-            BEServicioSegmentoZona servicio = null;
+            BEServicioSegmentoZona servicio;
 
             using (SACServiceClient sv = new SACServiceClient())
             {

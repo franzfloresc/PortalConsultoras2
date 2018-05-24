@@ -1,42 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
+using System.Collections.Generic;
+using System.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
     public class BLConfiguracionValidacion
     {
-        public IList<BEConfiguracionValidacion> GetConfiguracionValidacion(int paisID, int CampaniaID)
+        public bool EstaActivoProl3(int paisID)
         {
-            var lista = new List<BEConfiguracionValidacion>();
-            var DAConfiguracionValidacion = new DAConfiguracionValidacion(paisID);
+            var entidad = GetConfiguracionValidacionCache(paisID);
 
-            using (IDataReader reader = DAConfiguracionValidacion.GetConfiguracionValidacion(CampaniaID))
-                while (reader.Read())
-                {
-                    var entidad = new BEConfiguracionValidacion(reader);
-                    entidad.PaisID = paisID;
-                    lista.Add(entidad);
-                }
+            if (entidad == null) return false;
+            return entidad.TieneProl3;
+        }
+        
+        public BEConfiguracionValidacion GetConfiguracionValidacion(int paisID)
+        {
+            using (IDataReader reader = new DAConfiguracionValidacion(paisID).GetConfiguracionValidacion())
+            {
+                if (reader.Read()) return new BEConfiguracionValidacion(reader) { PaisID = paisID };
+            }
+            return null;
+        }
+        public BEConfiguracionValidacion GetConfiguracionValidacionCache(int paisID)
+        {
+            return CacheManager<BEConfiguracionValidacion>.ValidateDataElement(paisID, ECacheItem.ConfiguracionValidacion, () => GetConfiguracionValidacion(paisID));
+        }
 
-            return lista;
+        public IList<BEConfiguracionValidacion> GetListConfiguracionValidacion(int paisID)
+        {
+            var entidad = GetConfiguracionValidacion(paisID);
+
+            if (entidad == null) return new List<BEConfiguracionValidacion>();
+            return new List<BEConfiguracionValidacion> { entidad };
         }
 
         public void InsertConfiguracionValidacion(BEConfiguracionValidacion entidad)
         {
-            var DAConfiguracionValidacion = new DAConfiguracionValidacion(entidad.PaisID);
-            DAConfiguracionValidacion.Insert(entidad);
+            var daConfiguracionValidacion = new DAConfiguracionValidacion(entidad.PaisID);
+            daConfiguracionValidacion.Insert(entidad);
         }
 
         public void UpdateConfiguracionValidacion(BEConfiguracionValidacion entidad)
         {
-            var DAConfiguracionValidacion = new DAConfiguracionValidacion(entidad.PaisID);
-            DAConfiguracionValidacion.Update(entidad);
+            var daConfiguracionValidacion = new DAConfiguracionValidacion(entidad.PaisID);
+            daConfiguracionValidacion.Update(entidad);
         }
     }
 }

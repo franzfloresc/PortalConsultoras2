@@ -5,7 +5,6 @@
 @model Portal.Consultoras.Web.Models.ShowRoomEventoModel
 @{
     ViewBag.Title = "ShowRoom";
-    //Layout = "~/Views/Shared/_MainLayout.cshtml";
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
 }
 
@@ -13,54 +12,14 @@
 
     <link href="@Url.Content("~/Content/Css/Site/jquery.range.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/Landing/producto.landing.css")" rel="stylesheet" />
 }
 
 <input type="hidden" id="hdListaProductosEnShowRoom" value="@JsonConvert.SerializeObject(Model.ListaShowRoomOferta)" />
 <input type="hidden" id="hdTotalProductos" value="@Model.ListaShowRoomOferta.Count" />
 <!--MAQUETADO NUEVO-->
-<div class="catalogoPersonalizadoBloque">
-
-    @*<div class="content_banner_intriga">
-            <img src="@ViewBag.BannerImagenVenta" alt="" />
-        </div>*@
-    <div class="content_belcorp">
-        @*<div class="content_filtros_left" style="display:none;">
-                <span class="titulo_filtro_fav">FILTROS</span>
-                <div class="linea_separadora" style="height: 3px;"></div>
-                <div id="divBorrarFiltros" class="texto_fav_filtro" style="cursor: pointer; display: none;"> BORRAR FILTROS</div>
-                <div id="limiteFlt" class="linea_separadora"></div>
-
-                <!--PRIMER FILTRO-->
-                @if (Model.TieneCategoria)
-                {
-                    if (Model.ListaCategoria != null && Model.ListaCategoria.Count > 0)
-                    {
-                        <span class="titulo_filtro_fav">CATEGORÍAS</span>
-                        <hr class="clear">
-
-                        <div id="div-filter-category">
-                            @foreach (var itemCategoria in Model.ListaCategoria)
-                            {
-                                if (!string.IsNullOrEmpty(itemCategoria.Descripcion))
-                                {
-                                    <div data-filtro-categoria="" class="seleccion_filtro_fav" data-categoriacodigo="@itemCategoria.Codigo">@itemCategoria.Descripcion</div>
-                                    <input type="hidden" id="hdatacategoriadescripcion" value="@itemCategoria.Descripcion" />
-                                }
-                            }
-                        </div>
-                        <div class="linea_separadora"></div>
-                    }
-                }
-
-                <!--TERCER FILTRO-->
-                <span class="titulo_filtro_fav">RANGO DE PRECIO</span>
-                <div class="content_filtro_range">
-                    <input class="range-slider" value="" style="width: 100%; display: none;" />
-                </div>
-
-                <hr class="clear" />
-
-            </div>*@
+<div class="catalogoPersonalizadoBloque BloqueLandingRD">
+    <div class="content_belcorp parche_productos_1000">
         <div class="content-left-item content_new_showroom">
             <div style="float:left;">
                 <div id="divCantProductos" class="cantidad_productos_resultado">
@@ -114,11 +73,9 @@
                 }
 
             </div>
-
-            <hr class="clear" />
-            <div id="divProductosShowRoom"></div>
         </div>
-
+        <hr class="clear" />
+        <div class="contenedor_productos_showroom" id="divProductosShowRoom" style="margin-top: 25px;"></div>
     </div>
 
     <div class="popup_banner_especial" id="PopupBannerEspecial"> </div>
@@ -138,14 +95,12 @@
             }
 
             <div class="banner_especial_showroom" style="background: @Model.ColorFondoContenidoOfertaSubCampania;display:none">
-                @*<div id="CerrarOfertaEspecial"> <button type="button" class="CerrarOfertaEspecial"> X</button> </div>*@
                 <div class="promocion_especial_header">
                     <div class="titulo_promocion_showroom" style="background: url(@Model.ImagenFondoTituloOfertaSubCampania) no-repeat right top">
                         <div class="content_titulo" style="color: @Model.ColorTextoInicialOfertaSubCampania">
                             @Model.TextoInicialOfertaSubCampania
                             <span class="titulo_banner_showroom" style="color: @Model.ColorTextoTituloOfertaSubCampania">@Model.TextoTituloOfertaSubCampania</span>
                         </div>
-                        @*<div style="left: -150%; width: 150%; height: 73px; background: @Model.ColorFondoTituloOfertaSubCampania; position: absolute; top: 0; z-index: 151;"></div>*@
                     </div>
                     <div class="content_set_especial_header" id="content_set_especial_header">
                         <div class="content_imagen_promocion">
@@ -163,11 +118,17 @@
                     <a href="#" class="btn_descubre_set_especial info_desplegable" id="BajarOfertaEspecial"></a>
 
                 </div>
-                <div class="content_set_oferta_especial">
-                    @*<hr class="clear" />*@
-
+                <style>
+                    /*.slick-list{
+                        margin: 0 5% !important;
+                    }
+                    .slick-initialized .slick-slide {
+                        margin: 0 .4% !important;
+                    }*/
+                </style>
+                <div class="content_set_oferta_especial" style="max-width: 1024px;
+    padding: 0 0% 0 6%;">
                     <div class="content_carrusel_oferta_especial" id="contenedor-showroom-subcampanias"></div>
-                    @*<hr class="clear" />*@
                 </div>
             </div>
         }
@@ -213,11 +174,10 @@
                         </div>
 
                     </div>
-                    @*<a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeCompraPorCompra();" style="color: black;">x</a>*@
                 </div>
-                                }
-                            }
-                        }
+            }
+        }
+    }
 
 </div>
 
@@ -260,7 +220,7 @@
                                 }
                                 else
                                 {
-                                    <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" data-img-lazy="1"/>
+                                    <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" data-img-lazy="1" />
                                 }
                             </div>
 
@@ -295,8 +255,8 @@
                 <div class="legal_footer_compra">@Model.TextoDescripcionLegalCpc</div>
             </div>
         </div>
-                            }
-                        }
+    }
+}
 <!--FIN-->
 
 <div id="divMensajeProductoAgregado" class="divAgregarShowRoom" style="display: none;">
@@ -335,27 +295,21 @@
         </div>
         <div class="content_item_carrusel">
             <div class="producto_img_home" data-img="">
-                <img src="{{producto.ImagenProducto}}" class="imagen_producto" data-img-lazy="1"/>
+                <img src="{{producto.ImagenProducto}}" class="imagen_producto" data-img-lazy="1" />
             </div>
             <div class="content_info_set_especial">
                 <div class="titulo_set_especial">{{producto.Descripcion}}</div>
                 <div class="descripcion_set_especial">
 
-                    {{#each producto.ListaDetalleOfertaShowRoom as |detalle|}}
-                    {{detalle.NombreProducto}} <br />
+                    {{#each producto.ProductoTonos as |detalle|}}
+                    {{detalle.NombreComercial}} <br />
                     {{/each}}
-                    @*+ Máscara Full Size APA Color Negro <br />
-                        + Demaquillador Bifásico Libre de grasa<br />
-                        + Labial Perfect Match Volumen<br />
-                        + Labial en Barra Colorfix Pimienta Caliente<br />
-                        + <b>¡GRATIS!</b> Delineador Plumón*@
                 </div>
                 <div class="precio_set_especial_showroom">VALORIZADO EN {{Simbolo}} {{producto.FormatoPrecioValorizado}}</div>
                 <div class="precio_set_especial_showroom" style="margin-top: -3px;"> A SOLO <span class="precio_real_set">{{Simbolo}} {{producto.FormatoPrecioOferta}}</span></div>
             </div>
             <div class="producto_nombre_descripcion" style="padding-bottom: 15px">
                 <div class="liquidacion_rango_home js-no-popup">
-                    @*<input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup">*@
                     <input type="text" value="1" min="1" max="99" size="2" maxlength="2" id="txtCantidad"
                            class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
                            oninput="FuncionesGenerales.MaxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
@@ -368,14 +322,6 @@
                 <a class="boton_Agregalo_home js-no-popup" data-btn-agregar-sr="">
                     AGRÉGALO
                 </a>
-
-                @*<div class="clear"></div>
-                    <div style="padding-top:9px; height: 15px;">
-                        <div class="agregado product-add" style="text-align:right;display:none;">
-                            AGREGADO
-                            <div class="icono"></div>
-                        </div>
-                    </div>*@
             </div>
 
         </div>
@@ -387,57 +333,77 @@
 
 <script id="template-showroom" type="text/x-handlebars-template">
     {{#each this as |item|}}
-    <div class="set-productos-showroom" data-posicion="{{Posicion}}" data-item="{{OfertaShowRoomID}}">
-        <div data-campos="">
-            <input type="hidden" class="hdOfertaShowRoomID" value="{{OfertaShowRoomID}}" />
-            <input type="hidden" class="valorCuv" value="{{CUV}}" />
-            <input type="hidden" class="claseMarcaID" value="{{MarcaID}}" />
-            <input type="hidden" class="clasePrecioUnidad" value="{{PrecioOferta}}" />
-            <input type="hidden" class="claseConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
-            <input type="hidden" class="DescripcionProd" value="{{Descripcion}}" />
-            <input type="hidden" class="DescripcionMarca" value="{{DescripcionMarca}}" />
-            <input type="hidden" class="posicionEstrategia" value="{{Posicion}}" />
-        </div>
-
-        <div class="producto_img_home mini" data-img="" onclick="click_producto_showroow('{{Descripcion}}','{{CUV}}','{{PrecioOferta}}','{{DescripcionMarca}}','{{Posicion}}')">
-            {{#IsNullOrEmpty ImagenProducto '=='}}
-            <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" data-lazy-seccion-showroom="" />
-            {{else}}
-            <img data-src="{{ImagenProducto}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" data-lazy-seccion-showroom="" />
-            {{/IsNullOrEmpty}}
-
-            <a class="ver_detalle_carrusel" href="{{UrlDetalle}}">VER DETALLE</a>
-        </div>
-        <div class="producto_nombre_descripcion">
-            <p class="nombre-producto-set">{{Descripcion}}</p>
-            <div class="producto_precio" style="margin-bottom: 3px;">
-                <span class="precio-oferta-normal">{{Simbolo}} {{FormatoPrecioValorizado}}</span>
-                <span class="precio-oferta-venta"><b>{{Simbolo}} {{FormatoPrecioOferta}}</b></span>
+    <div class="revistadigital-landing">
+        <div class="content_item_carrusel" data-posicion="{{Posicion}}" data-item="{{OfertaShowRoomID}}">
+            <div data-campos="">
+                <input type="hidden" class="hdOfertaShowRoomID" value="{{OfertaShowRoomID}}" />
+                <input type="hidden" class="valorCuv" value="{{CUV}}" />
+                <input type="hidden" class="claseMarcaID" value="{{MarcaID}}" />
+                <input type="hidden" class="clasePrecioUnidad" value="{{PrecioOferta}}" />
+                <input type="hidden" class="claseConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+                <input type="hidden" class="DescripcionProd" value="{{Descripcion}}" />
+                <input type="hidden" class="DescripcionMarca" value="{{DescripcionMarca}}" />
+                <input type="hidden" class="posicionEstrategia" value="{{Posicion}}" />
             </div>
-            <div class="liquidacion_rango_home" data-cantidad-contenedor="">
-                <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
-                       class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-                       oninput="FuncionesGenerales.MaxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); "
-                       data-input="cantidad" data-cantidad-input="-">
-                <div class="liquidacion_rango_right_pedido">
-                    <a class="mas" data-cantidad-agregar="+" href="javascript:;"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                    <a class="menos" data-cantidad-agregar="-" href="javascript:;"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+
+            <div class="producto_img_home" data-img="" onclick="click_producto_showroow('{{Descripcion}}','{{CUV}}','{{PrecioOferta}}','{{DescripcionMarca}}','{{Posicion}}')">
+                {{#IsNullOrEmpty ImagenProducto '=='}}
+                <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" data-lazy-seccion-showroom="" />
+                {{else}}
+                <img data-src="{{ImagenProducto}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" data-lazy-seccion-showroom="" />
+                {{/IsNullOrEmpty}}
+
+                <a class="ver_detalle_carrusel" href="{{UrlDetalle}}">VER DETALLE</a>
+            </div>
+            <div class="producto_nombre_descripcion" data-item-tag="descripcion">
+                <h6>&ensp;&nbsp;</h6>
+                <p class="nombre-producto nombre_producto"><b>{{Descripcion}}</b></p>
+            </div>
+            <div class="producto_nombre_descripcion" data-item-tag="precio">
+                <div>
+                    <span class="precio-oferta-normal">{{Simbolo}} {{FormatoPrecioValorizado}}</span>
+                    <span class="precio-oferta-venta"><b>{{Simbolo}} {{FormatoPrecioOferta}}</b></span>
                 </div>
             </div>
-            <a class="boton_Agregalo_home" data-btn-agregar-sr="">
-                AGRÉGALO
-            </a>
             <div class="clear"></div>
-            <div style="padding-top: 9px;margin-bottom:6px; height: 15px;">
-                <div class="agregado product-add" style="text-align: right; display: {{Agregado}};">
-                    AGREGADO
-                    <div class="icono"></div>
+            <div class="producto_nombre_descripcion" data-item-tag="agregar">
+                {{#iff TipoAccionAgregar '==' '0'}}
+                <div class="texto_elige_tono"></div>
+                <div class="clear"></div>
+                <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                    <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
+                           class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                           oninput="FuncionesGenerales.MaxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); "
+                           data-input="cantidad" data-cantidad-input="-">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas" data-cantidad-agregar="+" href="javascript:;"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos" data-cantidad-agregar="-" href="javascript:;"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home" data-btn-agregar-sr="">
+                    AGRÉGALO
+                </a>
+                {{/iff}}
+                {{#iff TipoAccionAgregar '==' '1'}}
+                <div class="texto_elige_tono"></div>
+                <div class="clear"></div>
+                <a class="btn_elige_tono" href="{{UrlDetalle}}">
+                    <b style="color:#000000">ELIGE TU OPCIÓN</b>
+                </a>
+                {{/iff}}
+
+                <div class="clear"></div>
+                <div style="margin-top: 9px;margin-bottom:9px; height: 15px;">
+                    <div class="agregado product-add" style="text-align: right; display: {{Agregado}};">
+                        AGREGADO
+                        <div class="icono"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    {{/each}}
-    <hr class="clear" />
+        </div>
+        {{/each}}
+        <hr class="clear" />
 </script>
 
 @section scripts{
@@ -460,6 +426,9 @@
         var itemsCompraXCompra = '@Model.ListaShowRoomCompraPorCompra.Count';
         var tieneSubCampania = '@Model.TieneSubCampania';
         var itemsSubCampania = @Model.ListaShowRoomOferta.Where(p => p.EsSubCampania).OrderBy(p => p.Orden).ToList().Count;
+        var vfallSpeed = 4;
+        var vnumObjects = 8;
+        var esShowRoom = true;
 
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")"></script>

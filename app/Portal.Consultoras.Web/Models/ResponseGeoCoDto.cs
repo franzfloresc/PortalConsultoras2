@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace CORP.BEL.Unete.Utils.ServicioLocal
+﻿namespace CORP.BEL.Unete.Utils.ServicioLocal
 {
     public class ResponseGeoCoDto
     {

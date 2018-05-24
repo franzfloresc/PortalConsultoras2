@@ -40,7 +40,7 @@
         tablaCupones: '#tabla-cupones',
         tablaCuponConsultoras: '#tabla-cupon-consultoras',
         chckActivo: '#chckActivo',
-        contenedorCheckActivo:'#contenedor-check-activo',
+        contenedorCheckActivo: '#contenedor-check-activo',
         contenedorEstadoCuponConsultora: '#contenedor-estado-cupon-consultora',
         contenedorCuponConsultora: '#contenedor-cupon-consultora',
         contenedorCupon: '#contenedor-cupon',
@@ -176,8 +176,6 @@
         return true;
     }
 
-    var _setDefaultValues = function () { };
-
     var _inicializarDialogs = function () {
         _iniDialogMantenimientoCupon();
         _iniDialogMantenimientoCuponConsultora();
@@ -235,7 +233,7 @@
     };
 
     var _iniDialogMantenimientoCargaCuponConsultora = function () {
-        var mantCargaCuponConsultoraDialog = $(elements.popupMantenimientoCargaCuponConsultora).dialog({
+        $(elements.popupMantenimientoCargaCuponConsultora).dialog({
             autoOpen: false,
             resizable: false,
             modal: true,
@@ -457,20 +455,7 @@
         }
 
         return true;
-    };
-
-    var _esValidoListar = function (paisId, campaniaId) {
-        var messsage = '';
-
-        if (paisId == '') {
-            messsage += 'Debe seleccionar un país \n';
-        }
-        if (campaniaId == '') {
-            messsage += 'Debe seleccionar una campaña \n';
-        }
-
-        return (messsage.length <= 0);
-    }
+    };    
 
     var _showActionsEventoCupon = function (cellvalue, options, rowObject) {
 
@@ -546,7 +531,6 @@
             altclass: 'jQGridAltRowClass',
             loadComplete: function () { },
             gridComplete: function () {
-                var cantidadRegistros = jQuery(elements.tablaCupones).jqGrid('getGridParam', 'reccount');
                 closeWaitingDialog();
             }
         });
@@ -609,7 +593,6 @@
             altclass: 'jQGridAltRowClass',
             loadComplete: function () { },
             gridComplete: function () {
-                var cantidadRegistros = jQuery(elements.tablaCuponConsultoras).jqGrid('getGridParam', 'reccount');
                 $(elements.contenedorGrillaCuponConsultoras).show();
                 closeWaitingDialog();
             }
@@ -642,7 +625,7 @@
                         } else {
                             alert(actualizarCuponResponse.message);
                         }
-                    
+
                         closeWaitingDialog();
                     }
                 });
@@ -685,7 +668,7 @@
             },
             VerDetalle: function (cuponId, tipoId, tipo, descripcion) {
                 waitingDialog({});
-                
+
                 $(elements.contenedorGrillaCuponConsultoras).hide();
                 _setearValoresDelContenedorCuponConsultora(cuponId, tipoId, tipo, descripcion);
                 _listarCuponConsultoras(cuponId);
@@ -791,78 +774,7 @@
                 closeWaitingDialog();
             }
         });
-    };
-    
-    var _atacharEventosDeExtension = function () {
-        $.jgrid.extend({
-            Activar: function (cuponId, tipo, descripcion, estado) {
-                waitingDialog({});
-
-                var idTipo = (tipo.toUpperCase() == CONTANSTES_CUPON.NOMBRE_TIPO_MONTO ? CONTANSTES_CUPON.CODIGO_TIPO_MONTO : CONTANSTES_CUPON.CODIGO_TIPO_PORCENTAJE);
-                var cuponModel = {
-                    cuponId: cuponId,
-                    tipo: idTipo,
-                    descripcion: descripcion,
-                    campaniaId: $(elements.ddlCampania + " option:selected").val(),
-                    estado: true
-                };
-                var actualizarCuponPromise = _actualizarCuponPromise(cuponModel);
-
-                $.when(actualizarCuponPromise).then(function (actualizarCuponResponse) {
-                    if (checkTimeout(actualizarCuponResponse)) {
-                        if (actualizarCuponResponse.success) {
-                            alert('El cupón fue activado.');
-                            _listarCuponesPorCampania();
-                        } else {
-                            alert(actualizarCuponResponse.message);
-                        }
-
-                        closeWaitingDialog();
-                    }
-                });
-
-                return false;
-            },
-            Desactivar: function (cuponId, tipo, descripcion, estado) {
-                waitingDialog({});
-
-                var idTipo = (tipo.toUpperCase() == CONTANSTES_CUPON.NOMBRE_TIPO_MONTO ? CONTANSTES_CUPON.CODIGO_TIPO_MONTO : CONTANSTES_CUPON.CODIGO_TIPO_PORCENTAJE);
-                var cuponModel = {
-                    cuponId: cuponId,
-                    tipo: idTipo,
-                    descripcion: descripcion,
-                    campaniaId: $(elements.ddlCampania + " option:selected").val(),
-                    estado: false
-                };
-                var actualizarCuponPromise = _actualizarCuponPromise(cuponModel);
-
-                $.when(actualizarCuponPromise).then(function (actualizarCuponResponse) {
-                    if (checkTimeout(actualizarCuponResponse)) {
-                        if (actualizarCuponResponse.success) {
-                            alert('El cupón fue desactivado.');
-                            _listarCuponesPorCampania();
-                        } else {
-                            alert(actualizarCuponResponse.message);
-                        }
-
-                        closeWaitingDialog();
-                    }
-                });
-
-                return false;
-            },
-            Editar: function (cuponId, tipo, descripcion, estado) {
-                _resetearValoresPopupMantenimientoCupon();
-                _setearValoresEditarCupon(cuponId, tipo, descripcion, estado);
-                showDialog(setting.contenedorMantenimientoCupon);
-                return false;
-            },
-            VerDetalle: function (cuponId) {
-                alert('VerDetalle');
-                return false;
-            }
-        });
-    };
+    };    
 
     var _setearValoresEditarCupon = function (cuponId, tipo, descripcion, estado) {
         var activo = (estado.toLowerCase() == 'true');
@@ -994,9 +906,9 @@
         _inicializarDialogs();
         _loadAjaxForms();
         _iniDialogMantenimientoCupon();
-        _listarCuponesPorCampania();
+        //_listarCuponesPorCampania();
     };
-        
+
     return {
         ini: function (parameters) {
             initializer(parameters);

@@ -1,0 +1,114 @@
+﻿/* viñeta gnd */
+.desplegablegnd {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.desplegablegnd .gndcontenido {
+    margin: auto;
+    width: 94%;
+    border: 1px solid #e7e1e1;
+}
+
+.desplegablegnd .gndcontenido .nrognd {
+    background: black;
+    color: white;
+    text-align: center;
+    padding: 13.5px 4%;
+}
+
+.desplegablegnd .gndcontenido .nrognd .numeritognd {
+    text-align: left;
+    width: 80%;
+    font-size: 11px;
+    letter-spacing: 2px;
+    float: left;
+}
+
+.desplegablegnd .gndcontenido .nrognd .flechitagnd {
+    text-align: right;
+    width: 10%;
+    display: inline-block;
+}
+
+.desplegablegnd .gndcontenido .nrognd .flechitagnd img {
+    width: 15px;
+    height: 15px;
+    writing-mode: horizontal-tb;
+    transform: rotate(180deg);
+    position: relative;
+    top: -1px;
+}
+
+.desplegablegnd .gndcontenido .contenedorgnd {
+    padding: 4%;
+    text-align: center;
+    background: white;
+}
+
+.desplegablegnd .gndcontenido .contenedorgnd .portadagnd {
+    float: left;
+    width: 35%;
+}
+
+.desplegablegnd .gndcontenido .contenedorgnd .portadagnd img { width: 100%; }
+
+.desplegablegnd .gndcontenido .contenedorgnd .infognd {
+    float: right;
+    width: 60%;
+    padding-top: 4%;
+}
+
+.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd {
+    display: table;
+    width: 100%;
+}
+
+.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd p {
+    display: block;
+    width: 100%;
+    font-size: 12px;
+}
+
+.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a {
+    display: block;
+    margin: auto;
+    text-align: center;
+    width: 75%;
+    border: 1px solid black;
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 6px 15px;
+    color: black;
+    margin-top: 10px;
+    transition: .3s;
+}
+
+.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a:hover {
+    background: black;
+    color: white;
+}
+
+
+@media (min-width: 430px) {
+    .desplegablegnd .gndcontenido .contenedorgnd .portadagnd img {
+        width: 70%;
+    }
+
+    .desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a {
+        width: 60%;
+    }
+}
+@media (max-width: 375px) {
+    .desplegablegnd .gndcontenido .contenedorgnd .infognd {
+        padding-top: 2%;
+    }
+    .desplegablegnd .gndcontenido .contenedorgnd .portadagnd img { width: 100%; }
+}
+/*fin viñeta gnd*/

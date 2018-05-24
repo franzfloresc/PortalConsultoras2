@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -15,46 +10,46 @@ namespace Portal.Consultoras.Web.WebPages
             if (!IsPostBack)
             {
                 string query = Convert.ToString(Request.QueryString["DocumentId"]);
-                string DocumentId = query.Substring(2, query.Length - 2);
-                string TipoCatalogo = query.Substring(0, 2);
+                string documentId = query.Substring(2, query.Length - 2);
+                string tipoCatalogo = query.Substring(0, 2);
 
-                string Titulo = string.Empty;
-                string Descripcion = string.Empty;
-                var ImageCatalogo = "https://image.issuu.com/" + DocumentId + "/jpg/page_1_thumb_medium.jpg";
+                string titulo = string.Empty;
+                string descripcion = string.Empty;
+                var imageCatalogo = "https://image.issuu.com/" + documentId + "/jpg/page_1_thumb_medium.jpg";
 
-                switch (TipoCatalogo)
+                switch (tipoCatalogo)
                 {
                     case "LB":
-                        Titulo = "Catálogo L'Bel";
-                        Descripcion = "Mira las novedades de esta campaña en el catálogo online L´Bel. El mejor cuidado para tu piel, fragancias, maquillaje y cuidado corporal.";
+                        titulo = "Catálogo L'Bel";
+                        descripcion = "Mira las novedades de esta campaña en el catálogo online L´Bel. El mejor cuidado para tu piel, fragancias, maquillaje y cuidado corporal.";
                         break;
                     case "CY":
-                        Titulo = "Catálogo CyZone";
-                        Descripcion = "Mira lo último en maquillaje, moda y accesorios.¡No te pierdas las promociones que Cyzone tiene para ti!";
+                        titulo = "Catálogo CyZone";
+                        descripcion = "Mira lo último en maquillaje, moda y accesorios.¡No te pierdas las promociones que Cyzone tiene para ti!";
                         break;
                     case "ES":
-                        Titulo = "Catálogo Esika";
-                        Descripcion = "Encuentra los mejores productos de belleza a precios irresistibles. Entérate de nuestras novedades y pídelas a tu consultora. ¡Muchas ofertas te están esperando!";
+                        titulo = "Catálogo Esika";
+                        descripcion = "Encuentra los mejores productos de belleza a precios irresistibles. Entérate de nuestras novedades y pídelas a tu consultora. ¡Muchas ofertas te están esperando!";
                         break;
                     case "FI":
-                        Titulo = "Catálogo Esika by Finart";
-                        Descripcion = "Encuentra los mejores productos a precios irresistibles. Entérate de nuestras novedades y pídelas a tu consultora. ¡Muchas ofertas te están esperando!";
+                        titulo = "Catálogo Esika by Finart";
+                        descripcion = "Encuentra los mejores productos a precios irresistibles. Entérate de nuestras novedades y pídelas a tu consultora. ¡Muchas ofertas te están esperando!";
                         break;
                 }
 
                 HtmlMeta metaTitle = new HtmlMeta();
                 metaTitle.Attributes.Add("property", "og:title");
-                metaTitle.Attributes.Add("content", Titulo);
+                metaTitle.Attributes.Add("content", titulo);
                 Header.Controls.Add(metaTitle);
 
                 HtmlMeta metaDescripcion = new HtmlMeta();
                 metaDescripcion.Attributes.Add("property", "og:description");
-                metaDescripcion.Attributes.Add("content", Descripcion);
+                metaDescripcion.Attributes.Add("content", descripcion);
                 Header.Controls.Add(metaDescripcion);
 
                 HtmlMeta metaImage = new HtmlMeta();
                 metaImage.Attributes.Add("property", "og:image");
-                metaImage.Attributes.Add("content", ImageCatalogo);
+                metaImage.Attributes.Add("content", imageCatalogo);
                 Header.Controls.Add(metaImage);
 
                 HtmlMeta metaSite = new HtmlMeta();

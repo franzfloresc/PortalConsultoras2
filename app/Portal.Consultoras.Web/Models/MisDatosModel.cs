@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-
-namespace Portal.Consultoras.Web.Models
+﻿namespace Portal.Consultoras.Web.Models
 {
     public class MisDatosModel
     {
         public string PaisISO { get; set; }
         public string CodigoUsuario { get; set; }
+        public string CodigoUsuarioReal { get; set; }
         public string NombreCompleto { get; set; }
         public string EMail { get; set; }
         public string Telefono { get; set; }
@@ -28,5 +27,6 @@ namespace Portal.Consultoras.Web.Models
             get { return @"utm_source=Transactional&utm_medium=email&utm_content=ConfirmarCuenta&utm_campaing=RegistroShowRoomIntriga{{NOMBRE_EVENTO}}"; }
 
         }
+        public string VerCambiarClave { get; set; }
     }
 }

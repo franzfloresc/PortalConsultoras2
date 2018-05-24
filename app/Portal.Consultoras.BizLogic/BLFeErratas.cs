@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
+using System.Collections.Generic;
+using System.Data;
 using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
@@ -15,50 +11,34 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEFeErratas> SelectFeErratas(int paisID, int campaniaID)
         {
             var lista = new List<BEFeErratas>();
-            var DAFeErratas = new DAFeErratas(paisID);
+            var daFeErratas = new DAFeErratas(paisID);
 
-            using (IDataReader reader = DAFeErratas.SelectFeErratas(paisID, campaniaID))
+            using (IDataReader reader = daFeErratas.SelectFeErratas(paisID, campaniaID))
                 while (reader.Read())
                 {
                     var entidad = new BEFeErratas(reader);
-                    //entidad.PaisID = paisID;
                     lista.Add(entidad);
                 }
 
             return lista;
         }
 
-        //public BEFeErratas GetFeErratasById(int paisID, int feErratasID)
-        //{
-        //    var entidad = new BEFeErratas();
-        //    var DAFeErratas = new DAFeErratas(paisID);
-
-        //    using (IDataReader reader = DAFeErratas.GetFeErratasById(feErratasID))
-        //    if (reader.Read())
-        //    {
-        //        entidad = new BEFeErratas(reader);
-        //        //entidad.PaisID = paisID;
-        //    }
-
-        //    return entidad;
-        //}
-
         public void InsertFeErratas(BEFeErratas entidad)
         {
-            var DAFeErratas = new DAFeErratas(entidad.PaisID);
-            DAFeErratas.Insert(entidad);
+            var daFeErratas = new DAFeErratas(entidad.PaisID);
+            daFeErratas.Insert(entidad);
         }
 
         public void UpdateFeErratas(BEFeErratas entidad)
         {
-            var DAFeErratas = new DAFeErratas(entidad.PaisID);
-            DAFeErratas.Update(entidad);
+            var daFeErratas = new DAFeErratas(entidad.PaisID);
+            daFeErratas.Update(entidad);
         }
 
         public void DeleteFeErratas(int paisID, int feErratasID)
         {
-            var DAFeErratas = new DAFeErratas(paisID);
-            DAFeErratas.Delete(feErratasID);
+            var daFeErratas = new DAFeErratas(paisID);
+            daFeErratas.Delete(feErratasID);
         }
 
         public void SaveMultiple(int paisID, List<BEFeErratas> erratasUpdate, List<BEFeErratas> erratasDel)
@@ -88,13 +68,12 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEFeErratas> SelectFeErratasEntradas(int paisID, int campaniaID, string titulo)
         {
             var lista = new List<BEFeErratas>();
-            var DAFeErratas = new DAFeErratas(paisID);
+            var daFeErratas = new DAFeErratas(paisID);
 
-            using (IDataReader reader = DAFeErratas.SelectFeErratasEntradas(paisID, campaniaID, titulo))
+            using (IDataReader reader = daFeErratas.SelectFeErratasEntradas(paisID, campaniaID, titulo))
                 while (reader.Read())
                 {
                     var entidad = new BEFeErratas(reader);
-                    //entidad.PaisID = paisID;
                     lista.Add(entidad);
                 }
 

@@ -56,7 +56,7 @@
                     <span>
 
                         @Html.Hidden("txtLPTempCant" + item.PedidoDetalleID, item.Cantidad)
-                        @Html.TextBoxFor(modelItem => item.Cantidad, new { id = "txtLPCant" + item.PedidoDetalleID, maxlength = "2", onblur = "UpdateLiquidacion(" + item.CampaniaID + "," + item.PedidoID + "," + item.PedidoDetalleID + "," + item.TipoOfertaSisID + ",'" + item.CUV.ToString() + "','1','" + item.Cantidad + "')", style = "border-style: none; background-color:#F0F6F8; width: 30px;", @class = "ValidaNumeralPedido" })
+                        @Html.TextBoxFor(modelItem => item.Cantidad, new { id = "txtLPCant" + item.PedidoDetalleID, maxlength = "2", onblur = "UpdateLiquidacion(event, " + item.CampaniaID + "," + item.PedidoID + "," + item.PedidoDetalleID + "," + item.TipoOfertaSisID + ",'" + item.CUV.ToString() + "','1','" + item.Cantidad + ",'" + item.SetId+ "')", style = "border-style: none; background-color:#F0F6F8; width: 30px;", @class = "ValidaNumeralPedido" })
                     </span>
                 </td>
                 <td class="center">
@@ -71,7 +71,6 @@
                     <span>
                         @if (item.IndicadorMontoMinimo == 1)
                         {
-                            //@Html.Hidden("lblLPImpTotalMinimo" + item.ImporteTotal, item.ImporteTotal, new { @class = "classImporteTotal_minimo" })
                             @Html.LabelFor(modelItem => item.ImporteTotal, string.Format("{0:N2}", item.ImporteTotal), new { id = "lblLPImpTotalMinimo" + item.PedidoDetalleID, @class = "classImporteTotal_minimo", style = "display: none;" })
                         }
                         @Html.LabelFor(modelItem => item.ImporteTotal, string.Format("{0:N2}", item.ImporteTotal), new { id = "lblLPImpTotal" + item.PedidoDetalleID, @class = "classImporteTotal" })

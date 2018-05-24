@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Common
 {
     public static class LogManager
     {
-        public static void SaveLog(Exception exception, string codigoUsuario, string paisISO)
+        public static void SaveLog(Exception exception, string codigoUsuario, string paisISO, string adicional = "")
         {
             SaveLog(new LogError
             {
@@ -21,7 +21,47 @@ namespace Portal.Consultoras.Common
                 CodigoUsuario = codigoUsuario,
                 IsoPais = paisISO,
                 Origen = "Servidor",
-                Titulo = "Seguimiento de Errores Servicio Portal"
+                Titulo = "Seguimiento de Errores Servicio Portal",
+                InformacionAdicional = adicional
+            });
+        }
+
+        public static void SaveLog(Exception exception, string codigoUsuario, int paisId, string adicional = "")
+        {
+            SaveLog(new LogError
+            {
+                Exception = exception,
+                CodigoUsuario = codigoUsuario,
+                IsoPais = paisId.ToString(),
+                Origen = "Servidor",
+                Titulo = "Seguimiento de Errores Servicio Portal",
+                InformacionAdicional = adicional
+            });
+        }
+
+        public static void SaveLog(Exception exception, long consultoraId, int paisId, string adicional = "")
+        {
+            SaveLog(new LogError
+            {
+                Exception = exception,
+                CodigoUsuario = consultoraId.ToString(),
+                IsoPais = paisId.ToString(),
+                Origen = "Servidor",
+                Titulo = "Seguimiento de Errores Servicio Portal",
+                InformacionAdicional = adicional
+            });
+        }
+
+        public static void SaveLog(Exception exception, long consultoraId, string paisIso, string adicional = "")
+        {
+            SaveLog(new LogError
+            {
+                Exception = exception,
+                CodigoUsuario = consultoraId.ToString(),
+                IsoPais = paisIso,
+                Origen = "Servidor",
+                Titulo = "Seguimiento de Errores Servicio Portal",
+                InformacionAdicional = adicional
             });
         }
 
@@ -31,7 +71,7 @@ namespace Portal.Consultoras.Common
             {
                 if (logError == null || logError.Exception == null) return;
 
-                if (Util.isNumeric(logError.IsoPais))
+                if (Util.IsNumeric(logError.IsoPais))
                 {
                     logError.IsoPais = Util.GetPaisISO(int.Parse(logError.IsoPais));
                 }
@@ -91,10 +131,13 @@ namespace Portal.Consultoras.Common
                 var urlRequest = string.Empty;
                 var browserRequest = string.Empty;
 
-                if (HttpContext.Current.Request != null)
+                if (HttpContext.Current != null && HttpContext.Current.Request != null)
                 {
-                    urlRequest = HttpContext.Current.Request.Url.ToString();
-                    browserRequest = HttpContext.Current.Request.UserAgent;
+                    if (HttpContext.Current.Request != null)
+                    {
+                        urlRequest = HttpContext.Current.Request.Url.ToString();
+                        browserRequest = HttpContext.Current.Request.UserAgent;
+                    }
                 }
 
                 var exceptionMessage = string.Empty;
@@ -115,6 +158,10 @@ namespace Portal.Consultoras.Common
                     }
                 }
 
+                var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
+                string ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
+                string acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+
                 var data = new
                 {
                     Aplicacion = Constantes.LogDynamoDB.AplicacionPortalConsultoras,
@@ -122,9 +169,14 @@ namespace Portal.Consultoras.Common
                     Usuario = logError.CodigoUsuario,
                     Mensaje = exceptionMessage,
                     StackTrace = exceptionStackTrace,
+
+                    CurrentUrl = urlRequest,
+                    ControllerName = ctrl.ToLower(),
+                    ActionName = acti.ToLower(),
+
                     Extra = new Dictionary<string, string>() {
                         { "Origen", logError.Origen },
-                        { "Url", urlRequest },
+                        //{ "Url", urlRequest },
                         { "Browser", browserRequest },
                         { "TipoTrace", "LogManager" },
                         { "Server", Environment.MachineName }

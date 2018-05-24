@@ -22,13 +22,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 listaClientes = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
             }
 
-            Mapper.CreateMap<BECliente, ClienteMobileModel>()
-                .ForMember(t => t.Email, f => f.MapFrom(c => c.eMail))
-                .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                .ForMember(t => t.Telefono, f => f.MapFrom(c => c.Telefono))
-                .ForMember(t => t.Celular, f => f.MapFrom(c => c.Celular))
-                .ForMember(t => t.TieneTelefono, f => f.MapFrom(c => c.TieneTelefono));
-
             var listaClienteModel = Mapper.Map<List<BECliente>, List<ClienteMobileModel>>(listaClientes);
 
             return View(listaClienteModel);
@@ -37,7 +30,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpGet]
         public PartialViewResult AgregarCliente(ClienteMobileModel model)
         {
-            if(model.ClienteID != 0)
+            if (model.ClienteID != 0)
             {
                 try
                 {
@@ -48,7 +41,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         model = Mapper.Map<ClienteMobileModel>(clienteService);
                     }
                 }
-                catch (FaultException ex){ LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO); }
+                catch (FaultException ex) { LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO); }
                 catch (Exception ex) { LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO); }
             }
             return PartialView(model);
@@ -59,7 +52,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             List<BEClienteDB> clientes = new List<BEClienteDB>();
             List<BEClienteContactoDB> contactos = new List<BEClienteContactoDB>();
-            List<BEClienteDB> response = new List<BEClienteDB>();
 
             try
             {
@@ -108,12 +100,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     Contactos = contactos.ToArray()
                 });
 
+                List<BEClienteDB> response;
                 using (var sv = new ClienteServiceClient())
                 {
                     response = sv.SaveDB(userData.PaisID, clientes.ToArray()).ToList();
                 }
 
-                var itemResponse = response.First();
+                var itemResponse = response.FirstOrDefault() ?? new BEClienteDB();
 
                 if (itemResponse.CodigoRespuesta == Constantes.ClienteValidacion.Code.SUCCESS)
                 {
@@ -163,20 +156,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var userData = UserData();
             try
             {
-                bool rslt = false;
+                bool rslt;
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
                     rslt = sv.Delete(userData.PaisID, userData.ConsultoraID, clienteId);
                 }
-                string Mensaje = string.Empty;
-                Mensaje = rslt
+
+                var mensaje = rslt
                     ? "Se eliminó satisfactoriamente el registro."
                     : "No es posible eliminar al cliente dado que se encuentra asociado a un pedido.";
 
                 return Json(new
                 {
                     success = rslt,
-                    message = Mensaje,
+                    message = mensaje,
                     extra = ""
                 });
 

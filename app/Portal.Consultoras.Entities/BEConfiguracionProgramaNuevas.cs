@@ -1,9 +1,9 @@
-﻿
-using OpenSource.Library.DataAccess;
+﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
 using System;
 using System.Data;
 using System.Runtime.Serialization;
+
 namespace Portal.Consultoras.Entities
 {
     [DataContract]
@@ -27,28 +27,30 @@ namespace Portal.Consultoras.Entities
         public string CodigoZona { get; set; }
         [DataMember]
         public string CodigoRegion { get; set; }
+        [DataMember]
+        public string CodigoNivel { get; set; }
 
         public BEConfiguracionProgramaNuevas() { }
 
         public BEConfiguracionProgramaNuevas(IDataRecord datarec)
         {
-            if (DataRecord.HasColumn(datarec, "CodigoPrograma") && datarec["CodigoPrograma"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CodigoPrograma"))
                 CodigoPrograma = DbConvert.ToString(datarec["CodigoPrograma"]);
-            if (DataRecord.HasColumn(datarec, "CampaniaInicio") && datarec["CampaniaInicio"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CampaniaInicio"))
                 CampaniaInicio = DbConvert.ToString(datarec["CampaniaInicio"]);
-            if (DataRecord.HasColumn(datarec, "CampaniaFin") && datarec["CampaniaFin"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CampaniaFin"))
                 CampaniaFin = DbConvert.ToString(datarec["CampaniaFin"]);
-            if (DataRecord.HasColumn(datarec, "IndExigVent") && datarec["IndExigVent"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "IndExigVent"))
                 IndExigVent = DbConvert.ToString(datarec["IndExigVent"]);
-            if (DataRecord.HasColumn(datarec, "IndProgObli") && datarec["IndProgObli"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "IndProgObli"))
                 IndProgObli = DbConvert.ToString(datarec["IndProgObli"]);
-            if (DataRecord.HasColumn(datarec, "CuponKit") && datarec["CuponKit"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CuponKit"))
                 CuponKit = DbConvert.ToString(datarec["CuponKit"]);
-            if (DataRecord.HasColumn(datarec, "CUVKit") && datarec["CUVKit"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CUVKit"))
                 CUVKit = DbConvert.ToString(datarec["CUVKit"]);
-            if (DataRecord.HasColumn(datarec, "CodigoZona") && datarec["CodigoZona"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CodigoZona"))
                 CodigoZona = DbConvert.ToString(datarec["CodigoZona"]);
-            if (DataRecord.HasColumn(datarec, "CodigoRegion") && datarec["CodigoRegion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CodigoRegion"))
                 CodigoRegion = DbConvert.ToString(datarec["CodigoRegion"]);
         }
     }

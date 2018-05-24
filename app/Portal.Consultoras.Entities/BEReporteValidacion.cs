@@ -26,43 +26,43 @@ namespace Portal.Consultoras.Entities
 
         public BEReporteValidacion(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "TipoEstrategia") && row["TipoEstrategia"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TipoEstrategia"))
                 _TipoPersonalizacion = Convert.ToString(row["TipoEstrategia"]);
 
-            if (DataRecord.HasColumn(row, "CUV2") && row["CUV2"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CUV2"))
                 _CUV2 = Convert.ToString(row["CUV2"]);
 
-            if (DataRecord.HasColumn(row, "CampaniaID") && row["CampaniaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CampaniaID"))
                 _AnioCampanaVenta = Convert.ToString(row["CampaniaID"]);
 
-            if (DataRecord.HasColumn(row, "Pais") && row["Pais"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Pais"))
                 _CodPais = Convert.ToString(row["Pais"]);
 
-            if (DataRecord.HasColumn(row, "DescripcionCUV2") && row["DescripcionCUV2"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescripcionCUV2"))
                 _DescripcionCUV2 = Convert.ToString(row["DescripcionCUV2"]);
 
-            if (DataRecord.HasColumn(row, "DescripcionCorta") && row["DescripcionCorta"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DescripcionCorta"))
                 _DescripcionCorta = Convert.ToString(row["DescripcionCorta"]);
 
-            if (DataRecord.HasColumn(row, "ImagenUrl") && row["ImagenUrl"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ImagenUrl"))
                 _ImagenUrl = Convert.ToString(row["ImagenUrl"]);
 
-            if (DataRecord.HasColumn(row, "PrecioNormal") && row["PrecioNormal"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PrecioNormal"))
                 _PrecioNormal = Convert.ToDecimal(row["PrecioNormal"]);
 
-            if (DataRecord.HasColumn(row, "PrecioOfertaDigital") && row["PrecioOfertaDigital"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PrecioOfertaDigital"))
                 _PrecioOfertaDigital = Convert.ToDecimal(row["PrecioOfertaDigital"]);
 
-            if (DataRecord.HasColumn(row, "LimiteVenta") && row["LimiteVenta"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "LimiteVenta"))
                 _LimiteVenta = Convert.ToInt32(row["LimiteVenta"]);
 
-            if (DataRecord.HasColumn(row, "Activo") && row["Activo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Activo"))
                 _Activo = Convert.ToInt32(row["Activo"]);
 
-            if (DataRecord.HasColumn(row, "CUVPrecioTachado") && row["CUVPrecioTachado"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CUVPrecioTachado"))
                 _CUVPrecioTachado = Convert.ToString(row["CUVPrecioTachado"]);
 
-            if (DataRecord.HasColumn(row, "PrecioTachado") && row["PrecioTachado"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PrecioTachado"))
                 _PrecioTachado = Convert.ToDecimal(row["PrecioTachado"]);
         }
 
@@ -177,31 +177,31 @@ namespace Portal.Consultoras.Entities
 
         public BEReporteValidacionSRCampania(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Pais") && row["Pais"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Pais"))
                 _CodPais = Convert.ToString(row["Pais"]);
 
-            if (DataRecord.HasColumn(row, "Campania") && row["Campania"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Campania"))
                 _Campania = Convert.ToString(row["Campania"]);
 
-            if (DataRecord.HasColumn(row, "CUV") && row["CUV"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CUV"))
                 _CUV = Convert.ToString(row["CUV"]);
 
-            if (DataRecord.HasColumn(row, "NombreEvento") && row["NombreEvento"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NombreEvento"))
                 _NombreEvento = Convert.ToString(row["NombreEvento"]);
 
-            if (DataRecord.HasColumn(row, "DiasAntes") && row["DiasAntes"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DiasAntes"))
                 _DiasAntesFacturacion = Convert.ToInt32(row["DiasAntes"]);
 
-            if (DataRecord.HasColumn(row, "DiasDespues") && row["DiasDespues"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DiasDespues"))
                 _DiasDespuesFacturacion = Convert.ToInt32(row["DiasDespues"]);
 
-            if (DataRecord.HasColumn(row, "FlagHabilitarEvento") && row["FlagHabilitarEvento"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FlagHabilitarEvento"))
                 _FlagHabilitarEvento = Convert.ToInt32(row["FlagHabilitarEvento"]);
 
-            if (DataRecord.HasColumn(row, "FlagHabilitarCompraXCompra") && row["FlagHabilitarCompraXCompra"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FlagHabilitarCompraXCompra"))
                 _FlagHabilitarCompraXCompra = Convert.ToInt32(row["FlagHabilitarCompraXCompra"]);
 
-            if (DataRecord.HasColumn(row, "FlagHabilitarSubCampania") && row["FlagHabilitarSubCampania"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FlagHabilitarSubCampania"))
                 _FlagHabilitarSubCampania = Convert.ToInt32(row["FlagHabilitarSubCampania"]);
         }
 
@@ -297,35 +297,35 @@ namespace Portal.Consultoras.Entities
         public BEReporteValidacionSRPersonalizacion(IDataRecord row)
         {
             #region Reporte Validacion para ShowRoom Hoja 2
-            if (DataRecord.HasColumn(row, "Personalizacion") && row["Personalizacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Personalizacion"))
                 _Personalizacion = Convert.ToString(row["Personalizacion"]);
-            if (DataRecord.HasColumn(row, "Medio") && row["Medio"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Medio"))
                 _Medio = Convert.ToString(row["Medio"]);
-            if (DataRecord.HasColumn(row, "BO") && row["BO"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "BO"))
                 _BO = Convert.ToString(row["BO"]);
-            if (DataRecord.HasColumn(row, "CL") && row["CL"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CL"))
                 _CL = Convert.ToString(row["CL"]);
-            if (DataRecord.HasColumn(row, "CO") && row["CO"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CO"))
                 _CO = Convert.ToString(row["CO"]);
-            if (DataRecord.HasColumn(row, "CR") && row["CR"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CR"))
                 _CR = Convert.ToString(row["CR"]);
-            if (DataRecord.HasColumn(row, "DO") && row["DO"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DO"))
                 _DO = Convert.ToString(row["DO"]);
-            if (DataRecord.HasColumn(row, "EC") && row["EC"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "EC"))
                 _EC = Convert.ToString(row["EC"]);
-            if (DataRecord.HasColumn(row, "GT") && row["GT"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "GT"))
                 _GT = Convert.ToString(row["GT"]);
-            if (DataRecord.HasColumn(row, "MX") && row["MX"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MX"))
                 _MX = Convert.ToString(row["MX"]);
-            if (DataRecord.HasColumn(row, "PA") && row["PA"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PA"))
                 _PA = Convert.ToString(row["PA"]);
-            if (DataRecord.HasColumn(row, "PE") && row["PE"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PE"))
                 _PE = Convert.ToString(row["PE"]);
-            if (DataRecord.HasColumn(row, "PR") && row["PR"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PR"))
                 _PR = Convert.ToString(row["PR"]);
-            if (DataRecord.HasColumn(row, "SV") && row["SV"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "SV"))
                 _SV = Convert.ToString(row["SV"]);
-            if (DataRecord.HasColumn(row, "VE") && row["VE"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "VE"))
                 _VE = Convert.ToString(row["VE"]);
             #endregion
         }
@@ -463,43 +463,43 @@ namespace Portal.Consultoras.Entities
 
         public BEReporteValidacionSROferta(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Pais") && row["Pais"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Pais"))
                 _CodPais = Convert.ToString(row["Pais"]);
 
-            if (DataRecord.HasColumn(row, "Campania") && row["Campania"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Campania"))
                 _Campania = Convert.ToString(row["Campania"]);
 
-            if (DataRecord.HasColumn(row, "CUV") && row["CUV"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CUV"))
                 _CUV = Convert.ToString(row["CUV"]);
 
-            if (DataRecord.HasColumn(row, "CodigoTO") && row["CodigoTO"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoTO"))
                 _CodigoTO = Convert.ToString(row["CodigoTO"]);
 
-            if (DataRecord.HasColumn(row, "SAP") && row["SAP"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "SAP"))
                 _CodigoSAP = Convert.ToString(row["SAP"]);
 
-            if (DataRecord.HasColumn(row, "Descripcion") && row["Descripcion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Descripcion"))
                 _Descripcion = Convert.ToString(row["Descripcion"]);
 
-            if (DataRecord.HasColumn(row, "PrecioValorizado") && row["PrecioValorizado"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PrecioValorizado"))
                 _PrecioValorizado = Convert.ToDecimal(row["PrecioValorizado"]);
 
-            if (DataRecord.HasColumn(row, "PrecioOferta") && row["PrecioOferta"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PrecioOferta"))
                 _PrecioOferta = Convert.ToDecimal(row["PrecioOferta"]);
 
-            if (DataRecord.HasColumn(row, "UnidadesPermitidas") && row["UnidadesPermitidas"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "UnidadesPermitidas"))
                 _UnidadesPermitidas = Convert.ToInt32(row["UnidadesPermitidas"]);
 
-            if (DataRecord.HasColumn(row, "EsSubCampania") && row["EsSubCampania"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "EsSubCampania"))
                 _EsSubCampania = Convert.ToInt32(row["EsSubCampania"]);
 
-            if (DataRecord.HasColumn(row, "HabilitarOferta") && row["HabilitarOferta"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "HabilitarOferta"))
                 _HabilitarOferta = Convert.ToInt32(row["HabilitarOferta"]);
 
-            if (DataRecord.HasColumn(row, "FlagImagenCargada") && row["FlagImagenCargada"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FlagImagenCargada"))
                 _FlagImagenCargada = Convert.ToInt32(row["FlagImagenCargada"]);
 
-            if (DataRecord.HasColumn(row, "FlagImagenMINI") && row["FlagImagenMINI"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FlagImagenMINI"))
                 _FlagImagenMINI = Convert.ToInt32(row["FlagImagenMINI"]);
         }
 
@@ -609,36 +609,28 @@ namespace Portal.Consultoras.Entities
         private string _CUV;
         private string _Nombre;
         private string _Descripcion1;
-        private string _Descripcion2;
-        private string _Descripcion3;
         private string _FlagImagenCargada;
         #endregion
 
         public BEReporteValidacionSRComponentes(IDataRecord row)
         {
 
-            if (DataRecord.HasColumn(row, "Pais") && row["Pais"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Pais"))
                 _CodPais = Convert.ToString(row["Pais"]);
 
-            if (DataRecord.HasColumn(row, "Campania") && row["Campania"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Campania"))
                 _Campania = Convert.ToString(row["Campania"]);
 
-            if (DataRecord.HasColumn(row, "CUV") && row["CUV"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CUV"))
                 _CUV = Convert.ToString(row["CUV"]);
 
-            if (DataRecord.HasColumn(row, "Nombre") && row["Nombre"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Nombre"))
                 _Nombre = Convert.ToString(row["Nombre"]);
 
-            if (DataRecord.HasColumn(row, "Descripcion1") && row["Descripcion1"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Descripcion1"))
                 _Descripcion1 = Convert.ToString(row["Descripcion1"]);
 
-            if (DataRecord.HasColumn(row, "Descripcion2") && row["Descripcion2"] != DBNull.Value)
-                _Descripcion2 = Convert.ToString(row["Descripcion2"]);
-
-            if (DataRecord.HasColumn(row, "Descripcion3") && row["Descripcion3"] != DBNull.Value)
-                _Descripcion3 = Convert.ToString(row["Descripcion3"]);
-
-            if (DataRecord.HasColumn(row, "FlagImagenCargada") && row["FlagImagenCargada"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FlagImagenCargada"))
                 _FlagImagenCargada = Convert.ToString(row["FlagImagenCargada"]);
         }
 
@@ -676,20 +668,6 @@ namespace Portal.Consultoras.Entities
         {
             get { return _Descripcion1; }
             set { _Descripcion1 = value; }
-        }
-
-        [DataMember]
-        public string Descripcion2
-        {
-            get { return _Descripcion2; }
-            set { _Descripcion2 = value; }
-        }
-
-        [DataMember]
-        public string Descripcion3
-        {
-            get { return _Descripcion3; }
-            set { _Descripcion3 = value; }
         }
 
         [DataMember]

@@ -84,7 +84,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/LogError.js",
                 "~/Scripts/menu.js",
                 "~/Scripts/General.js",
-                "~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js"
+                "~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js",
+                "~/Scripts/PortalConsultoras/Shared/MenuContenedor.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Scripts/MobileLayoutContenedor").Include(
@@ -106,7 +107,6 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
                 "~/Scripts/PortalConsultoras/Shared/MenuContenedor.js"
-                
             ));
 
             bundles.Add(new ScriptBundle("~/Scripts/MobileLayoutEmpty").Include(
@@ -146,7 +146,9 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/slick.css",
                "~/Content/Css/Site/Esika/reset.css",
                "~/Content/Css/Site/Esika/style.css",
+               "~/Content/Css/Site/Esika/styleDefault.css",
                "~/Content/Css/ui.jquery/Esika/jquery-ui.css",
+               "~/Content/Css/Site/RevistaDigital/index.css",
                "~/Content/Css/Site/Esika/revistaDigital.css",
                "~/Content/Css/Site/Esika/seccion-descarga-imprime.css"
                ));
@@ -155,30 +157,50 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/asesora-online.css"
             ));
 
-            bundles.Add(new StyleBundle("~/Content/Css/Site/Esika/Contenedor").Include("~/Content/Css/Site/Esika/Contenedor.css"));
+            bundles.Add(new StyleBundle("~/Content/Css/Site/Esika/Contenedor").Include(
+                "~/Content/Css/Site/Contenedor/Index.css",
+                "~/Content/Css/Site/Esika/Contenedor.css"
+            ));
+
+            bundles.Add(new StyleBundle("~/Content/Css/Mobile/Esika/Contenedor").Include(
+                "~/Content/Css/Mobile/Contenedor/Index.css",
+                "~/Content/Css/Mobile/Esika/Contenedor.css"
+            ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/Lbel/CssSB2").Include(
                "~/Content/Css/Site/flipclock.css",
                "~/Content/Css/Site/slick.css",
                "~/Content/Css/Site/Lbel/reset.css",
+               "~/Content/Css/Site/Lbel/styleDefault.css",
                "~/Content/Css/Site/Lbel/style.css",
                "~/Content/Css/ui.jquery/Lbel/jquery-ui.css",
+               "~/Content/Css/Site/RevistaDigital/index.css",
                "~/Content/Css/Site/Lbel/revistaDigital.css",
                "~/Content/Css/Site/Lbel/seccion-descarga-imprime.css"
-               ));
+            ));
 
-            bundles.Add(new StyleBundle("~/Content/Css/Site/Lbel/Contenedor").Include("~/Content/Css/Site/Lbel/Contenedor.css"));
+            bundles.Add(new StyleBundle("~/Content/Css/Site/Lbel/Contenedor").Include(
+                "~/Content/Css/Site/Contenedor/Index.css",
+                "~/Content/Css/Site/Lbel/Contenedor.css"
+            ));
+
+            bundles.Add(new StyleBundle("~/Content/Css/Mobile/Lbel/Contenedor").Include(
+                "~/Content/Css/Mobile/Contenedor/Index.css",
+                "~/Content/Css/Mobile/Lbel/Contenedor.css"
+            ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Mobile/esika/CssSB2Mobile").Include(
                "~/Content/Css/Mobile/Esika/icomon.css",
                "~/Content/Css/Mobile/Esika/menu.css",
                "~/Content/Css/Mobile/Esika/style.css",
+               "~/Content/Css/Site/Esika/styleDefault.css",
                "~/Content/Css/Mobile/Esika/theme.css",
                "~/Content/Css/Mobile/flexslider.css",
                "~/Content/Css/Mobile/flipclock.css",
                "~/Content/Css/Site/slick.css",
                "~/Content/Css/Site/asesora-online.css",
                "~/Content/Css/Mobile/Esika/misDatos.css",
+               "~/Content/Css/Mobile/RevistaDigital/index.css",
                "~/Content/Css/Mobile/Esika/revistaDigital.css",
                "~/Content/Css/Mobile/Esika/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css"
@@ -188,11 +210,13 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/lbel/icomon.css",
                "~/Content/Css/Mobile/lbel/menu.css",
                "~/Content/Css/Mobile/lbel/style.css",
+               "~/Content/Css/Site/Lbel/styleDefault.css",
                "~/Content/Css/Mobile/lbel/theme.css",
                "~/Content/Css/Mobile/flexslider.css",
                "~/Content/Css/Mobile/flipclock.css",
                "~/Content/Css/Site/slick.css",
                "~/Content/Css/Mobile/lbel/misDatos.css",
+               "~/Content/Css/Mobile/RevistaDigital/index.css",
                "~/Content/Css/Mobile/Lbel/revistaDigital.css",
                "~/Content/Css/Mobile/Lbel/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css"
@@ -201,7 +225,9 @@ namespace Portal.Consultoras.Web
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssBienvenida").Include(
                 "~/Content/Css/Mobile/Esika/bootstrap-slider.min.css",
                 "~/Content/Css/Site/jquery.rateyo.css",
-                "~/Content/Css/Site/flexslider.css"
+                "~/Content/Css/Site/flexslider.css",
+                "~/Content/Css/Site/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
+                "~/Content/Css/Site/RevistaDigital/PopupSuscripcion.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2").Include(
@@ -223,6 +249,7 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Bienvenida").Include(
+                "~/Scripts/implements/youtube.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Index.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
                 "~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js",
@@ -230,6 +257,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-SuscripcionPopup.js",
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
@@ -245,7 +273,8 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssPedido").Include(
                 "~/Content/Css/Site/slick-pedido.css",
-                "~/Content/Css/Site/style-pedido.css"
+                "~/Content/Css/Site/style-pedido.css",
+                "~/Content/Css/Site/RevistaDigital/Bienvenido-Pedido-Catalogo.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Pedido").Include(
@@ -263,7 +292,7 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsMobile/Bienvenida").Include(
-                "~/Scripts/jquery.rateyo.js",
+                "~/Scripts/implements/youtube.js",
                 "~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js",
                 "~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
@@ -272,6 +301,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-SuscripcionPopup.js",
                 "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
@@ -280,7 +310,14 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new StyleBundle("~/bundles/Css/Site/CcsBienvenida").Include(
-                "~/Content/Css/Site/jquery.rateyo.css"
+                "~/Content/Css/Site/jquery.rateyo.css",
+                "~/Content/Css/Mobile/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
+                "~/Content/Css/Mobile/RevistaDigital/PopupSuscripcion.css"
+            ));
+
+            bundles.Add(new StyleBundle("~/bundles/Css/Site/MisCatalogoRevista").Include(
+                "~/Content/Css/Site/jquery.tag-editor.css",
+                "~/Content/Css/Site/RevistaDigital/Bienvenido-Pedido-Catalogo.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JS-Login").Include(
@@ -318,6 +355,33 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"
             ));
 
+            bundles.Add(new StyleBundle("~/Content/Css/Site/Login2/Esika").Include(
+               "~/Content/Css/Site/Login2/style_esika.css"
+            ));
+            bundles.Add(new StyleBundle("~/Content/Css/Site/Login2/Lbel").Include(
+               "~/Content/Css/Site/Login2/style_lbel.css"
+            ));
+
+            bundles.Add(new ScriptBundle("~/bundles/JsMobile/PedidoFICDetalle").Include(
+                "~/Scripts/PortalConsultoras/Mobile/PedidoFIC/Detalle.js",
+                "~/Scripts/PortalConsultoras/Pedido/ofertaFinal.js",
+                "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
+                "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"
+            ));
+            bundles.Add(new ScriptBundle("~/bundles/JsMobile/PedidoFIC").Include(
+                "~/Scripts/PortalConsultoras/Mobile/PedidoFIC/Index.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js",
+                "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
+                "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
+                "~/Scripts/PortalConsultoras/Pedido/barra.js"
+             ));
+
             bundles.Add(new ScriptBundle("~/bundles/ActualizarMatrizCampaniaModuleMin").Include(
                 "~/Scripts/fileuploader.js",
                 "~/Scripts/jquery.form.js",
@@ -346,7 +410,9 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/ccsOfertas").Include(
                 "~/Content/Css/Site/slick-pedido.css",
-                "~/Content/Css/Site/flexslider.css"
+                "~/Content/Css/Site/flexslider.css",
+                "~/Content/Css/Site/Contenedor/carrusel.individual.css",
+                "~/Content/Css/Site/Contenedor/producto.simple.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsMobile/JsSB2-Ofertas").Include(
@@ -361,11 +427,27 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/ccsOfertasMobile").Include(
                 "~/Content/Css/Site/slick.css",
-                "~/Content/Css/Site/jquery.rateyo.css"
+                "~/Content/Css/Site/jquery.rateyo.css",
+                "~/Content/Css/Mobile/Contenedor/carrusel.individual.css"
+            ));
+
+            bundles.Add(new StyleBundle("~/bundles/Css/Mobile/Site/CssPedido").Include(
+                "~/Content/Css/Mobile/RevistaDigital/Bienvenido-Pedido-Catalogo.css"
+            ));
+
+            bundles.Add(new StyleBundle("~/bundles/Css/Mobile/Site/MisCatalogoRevista").Include(
+                "~/Content/Css/Mobile/jquery.tag-editor.css",
+                "~/Content/Css/Mobile/RevistaDigital/Bienvenido-Pedido-Catalogo.css"
+            ));
+
+            bundles.Add(new StyleBundle("~/bundles/Css/Mobile/Site/OfertaParaTi-Detalle").Include(
+                "~/Content/Css/Mobile/RevistaDigital/OfertaParaTi-Detalle.css"
             ));
 
             #region RevistaDigital
             bundles.Add(new ScriptBundle("~/bundles/RevistaDigital-Info").Include(
+                "~/Scripts/implements/youtube.js",
+                "~/Scripts/General.js",
                 "~/Scripts/jquery.flexslider.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
@@ -373,12 +455,13 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
-                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-ConfirmarDatos.js"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/RevistaDigital-Info").Include(
-                "~/Content/Css/Site/slick-pedido.css",
-                "~/Content/Css/Site/flexslider.css"
+                "~/Content/Css/Site/RevistaDigital/PaginaInformativa.css",
+                "~/Content/Css/Site/RevistaDigital/ConfirmarDatos.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/RevistaDigital-Landing").Include(
@@ -391,37 +474,49 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
             ));
-            
+
             bundles.Add(new StyleBundle("~/bundles/css/Site/RevistaDigital-Landing").Include(
-                "~/Content/Css/Site/slick-pedido.css",
-                "~/Content/Css/Site/flexslider.css"
+                "~/Content/Css/Site/ProductoListado/Landing.css",
+                "~/Content/Css/Site/Landing/producto.landing.css"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/RevistaDigital-Detalle").Include(
+            bundles.Add(new ScriptBundle("~/bundles/Lanzamientos-Detalle").Include(
+                "~/Scripts/jquery.flexslider.js",
+                "~/Scripts/implements/youtube.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
-                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
+                "~/Scripts/PortalConsultoras/Lanzamientos/detalle-lanzamiento.js"
             ));
 
-            bundles.Add(new StyleBundle("~/bundles/css/Site/RevistaDigital-Detalle").Include(
+            bundles.Add(new StyleBundle("~/bundles/css/Site/Lanzamientos-Detalle").Include(
+                "~/Content/Css/Site/Lanzamientos/Detalle.css"
+            ));
+
+            bundles.Add(new StyleBundle("~/bundles/css/Mobile/Lanzamientos-Detalle").Include(
+                "~/Content/Css/Mobile/Lanzamientos/Detalle.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/Mobile/RevistaDigital-Info").Include(
+                "~/Scripts/implements/youtube.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
-                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-ConfirmarDatos.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/css/Mobile/Site/RevistaDigital-Info").Include(
-                "~/Content/Css/Site/slick-pedido.css",
-                "~/Content/Css/Site/flexslider.css"
+                "~/Content/Css/Mobile/RevistaDigital/PaginaInformativa.css",
+                "~/Content/Css/Mobile/RevistaDigital/ConfirmarDatos.css",
+                "~/Content/Css/Mobile/RevistaDigital/PopupSuscripcion.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/Mobile/RevistaDigital-Landing").Include(
@@ -433,26 +528,21 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
             ));
 
-            bundles.Add(new StyleBundle("~/bundles/css/Mobile/Site/RevistaDigital-Landing").Include(
-                "~/Content/Css/Site/slick-pedido.css",
-                "~/Content/Css/Site/flexslider.css"
-            ));
-
-            bundles.Add(new ScriptBundle("~/bundles/Mobile/RevistaDigital-Detalle").Include(
+            bundles.Add(new ScriptBundle("~/bundles/Mobile/GuiaNegocio-Landing").Include(
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
-                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
-                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js"
+                "~/Scripts/PortalConsultoras/Mobile/GuiaNegocio/GuiaNegocio-Landing.js"
             ));
 
-            bundles.Add(new StyleBundle("~/bundles/css/Mobile/Site/RevistaDigital-Detalle").Include(
-                "~/Content/Css/Site/jquery.range.css",
+            bundles.Add(new StyleBundle("~/bundles/css/Mobile/Site/RevistaDigital-Landing").Include(
                 "~/Content/Css/Site/slick-pedido.css",
-                "~/Content/Css/Site/flexslider.css"
+                "~/Content/Css/Site/flexslider.css",
+                "~/Content/Css/Mobile/RevistaDigital/RedimensionLandingRD.css"
             ));
-
+            
             bundles.Add(new ScriptBundle("~/bundles/JsMobile/CDRWeb").Include(
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Mobile/MisReclamos/Index.js"
@@ -469,9 +559,36 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
             ));
 
+           
+
             #region GuiaNegocio
 
             bundles.Add(new ScriptBundle("~/bundles/GuiaNegocio-Landing").Include(
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
+                "~/Scripts/PortalConsultoras/GuiaNegocio/GuiaNegocio-Landing.js"
+            ));
+
+
+            bundles.Add(new StyleBundle("~/bundles/css/Site/GuiaNegocio-Landing").Include(
+                "~/Content/Css/Site/ProductoListado/Landing.css",
+                "~/Content/Css/Site/RevistaDigital/Gnd-Flotante.css",
+                "~/Content/Css/Site/Landing/producto.landing.css"
+            ));
+
+            bundles.Add(new StyleBundle("~/bundles/css/Mobile/Site/GuiaNegocio-Landing").Include(
+                "~/Content/Css/Mobile/RevistaDigital/Gnd-Flotante.css",
+                "~/Content/Css/Mobile/RevistaDigital/RedimensionLandingRD.css"
+            ));
+
+            #endregion
+
+            #region HerramientasVenta
+
+            bundles.Add(new ScriptBundle("~/bundles/HerramientasVenta-Landing").Include(
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
@@ -481,13 +598,22 @@ namespace Portal.Consultoras.Web
             ));
 
 
-            bundles.Add(new StyleBundle("~/bundles/css/Site/GuiaNegocio-Landing").Include(
-                "~/Content/Css/Site/slick-pedido.css",
-                "~/Content/Css/Site/Esika/revistaDigital.css"
+            bundles.Add(new StyleBundle("~/bundles/css/Site/HerramientasVenta-Landing").Include(
+                "~/Content/Css/Site/ProductoListado/Landing.css",
+                "~/Content/Css/Site/Landing/producto.landing.css"
             ));
 
             #endregion
 
+            #region Estrategias-UpSelling
+            bundles.Add(new StyleBundle("~/bundles/estrategias-upselling-css")
+                .Include("~/Content/Css/Site/Admin/Estrategias/UpSelling.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/estrategias-upselling").Include(
+                "~/Scripts/knockout-{version}.js",
+                "~/Scripts/knockout.extensions.js"
+            ));
+            #endregion
 #if DEBUG
             BundleTable.EnableOptimizations = false;
 #else

@@ -35,28 +35,28 @@ namespace Portal.Consultoras.Entities
         public BEBelcorpResponde() { }
         public BEBelcorpResponde(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "PaisID") && row["PaisID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PaisID"))
                 PaisID = Convert.ToInt32(row["PaisID"]);
-            if (DataRecord.HasColumn(row, "Telefono1") && row["Telefono1"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Telefono1"))
                 Telefono1 = Convert.ToString(row["Telefono1"]);
-            if (DataRecord.HasColumn(row, "Telefono2") && row["Telefono2"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Telefono2"))
                 Telefono2 = Convert.ToString(row["Telefono2"]);
-            if (DataRecord.HasColumn(row, "Escribenos") && row["Escribenos"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Escribenos"))
                 Escribenos = Convert.ToString(row["Escribenos"]);
-            if (DataRecord.HasColumn(row, "EscribenosURL") && row["EscribenosURL"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "EscribenosURL"))
                 EscribenosURL = Convert.ToString(row["EscribenosURL"]);
-            if (DataRecord.HasColumn(row, "Chat") && row["Chat"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Chat"))
                 Chat = Convert.ToString(row["Chat"]);
-            if (DataRecord.HasColumn(row, "ChatURL") && row["ChatURL"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ChatURL"))
                 ChatURL = Convert.ToString(row["ChatURL"]);
-            if (DataRecord.HasColumn(row, "ParametroPais") && row["ParametroPais"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ParametroPais"))
                 ParametroPais = Convert.ToBoolean(row["ParametroPais"]);
-            if (DataRecord.HasColumn(row, "ParametroCodigoConsultora") && row["ParametroCodigoConsultora"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ParametroCodigoConsultora"))
                 ParametroCodigoConsultora = Convert.ToBoolean(row["ParametroCodigoConsultora"]);
 
-            if (DataRecord.HasColumn(row, "Correo") && row["Correo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Correo"))
                 Correo = Convert.ToString(row["Correo"]);
-            if (DataRecord.HasColumn(row, "CorreoBcc") && row["CorreoBcc"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CorreoBcc"))
                 CorreoBcc = Convert.ToString(row["CorreoBcc"]);
         }
     }

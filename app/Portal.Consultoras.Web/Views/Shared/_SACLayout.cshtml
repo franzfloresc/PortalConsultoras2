@@ -18,6 +18,7 @@
     @System.Web.Optimization.Scripts.Render("~/bundles/JQGridJs")
     @System.Web.Optimization.Styles.Render("~/Content/Css/Site/CssMain")
     <link href="@Url.Content("~/Content/Css/Spectrum/spectrum.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Css/colorpicker/colorpicker.css")" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
         var userData = {
@@ -31,9 +32,22 @@
             'codigoConsultora': '@ViewBag.CodigoConsultoraDL'
         };
 
-        var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
+        window.urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
+
+        // Seteando Controlador y Accion
+        @{
+            var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
+            string ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
+            string acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+        }
+        window.controllerName = '@ctrl.ToLower()';
+        window.actionName     = '@acti.ToLower()';
+        //console.log("controllerName:" + controllerName + " | actionName:" + actionName);
+
         window.history.forward();
         function noBack() { window.history.forward(); }
+
+        var ViewBagEsMobile = '@ViewBag.EsMobile';
     </script>
     <script type="text/javascript">
         (function () {
@@ -46,16 +60,15 @@
     @System.Web.Optimization.Scripts.Render("~/bundles/JSTree")
     @System.Web.Optimization.Scripts.Render("~/bundles/JsPluginsHeaderSAC")
     <script type="text/javascript" src="@Url.Content("~/Scripts/Spectrum/spectrum.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/colorpicker/colorpicker.js")"></script>
     <!-- jquery library -->
-
     <!--Cambios_Landing_Comunidad-->
-    <script type="text/javascript" src="@Url.Content("~/Scripts/fuzescale-1.3.min.js")"></script> 
+    <script type="text/javascript" src="@Url.Content("~/Scripts/fuzescale-1.3.min.js")"></script>
 
     <!--[if lt IE 9]>
-	<script src="~/Scripts/selectivizr-and-extra-selectors.min.js"></script>
-	<script src="~/Scripts/IE8.js"></script>
+    <script src="~/Scripts/selectivizr-and-extra-selectors.min.js"></script>
+    <script src="~/Scripts/IE8.js"></script>
     <![endif]-->
-
     <!--Cambios_Landing_Comunidad-->
     <!--[if gte IE 7]>
         <style type="text/css">

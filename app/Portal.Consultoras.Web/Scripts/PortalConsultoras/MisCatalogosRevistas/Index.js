@@ -1,12 +1,15 @@
 ﻿var tagLbel = "Lbel";
 var tagEsika = "Esika";
-var tagCyzone = "Cyzone";
+var tagCyzone = "Cyzone";
+
 var campSelect = "";
-var campSelectI = 1;
+var campSelectI = 1;
+
 var aCam = new Array();
 var linkCat = new Object();
 var descrCat = new Object();
-var ordenCat = new Object();
+var ordenCat = new Object();
+
 var cantCat = 3;
 var cantCam = 3;
 var cont = 0;
@@ -22,15 +25,15 @@ var cantCamRev = 3;
 var aCamRev = new Array();
 
 $(document).ready(function () {
-    ObtenerURLExpofertas();
-    campSelect = $("#hdCampaniaActual").val().substring(4, 6);
+    configurarContenedorExpoOfertas();
+    campSelect = getNumeroCampania(getCodigoCampaniaActual());
 
-    $('#campaniaRevista').val($("#hdCampaniaActual").val());
-    $("#contentCatalogo #TextoCampania").text("CATÁLOGOS C-" + campSelect);    
-    aCam.push($("#hdCampaniaAnterior").val());
-    aCam.push($("#hdCampaniaActual").val());
-    aCam.push($("#hdCampaniaSiguiente").val());
-    
+    $('#campaniaRevista').val(getCodigoCampaniaActual());
+    $("#contentCatalogo #TextoCampania").text("CATÁLOGOS C-" + campSelect);
+    aCam.push(getCodigoCampaniaAnterior());
+    aCam.push(getCodigoCampaniaActual());
+    aCam.push(getCodigoCampaniaSiguiente());
+
     nombreCat[tagLbel] = "L'Bel";
     nombreCat[tagEsika] = "Ésika";
     nombreCat[tagCyzone] = "Cyzone";
@@ -53,7 +56,7 @@ $(document).ready(function () {
     CargarTodosCorreo();
 
     $(".mostrar_todos").html($.trim($(".mostrar_todos").html()).replace("##", listaCorreo.length));
-    
+
     $('#tagCorreo').tagsInput({
         'width': '100%',
         'height': '50px',
@@ -63,7 +66,7 @@ $(document).ready(function () {
         'unique': true,
         'validate': /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i,
         classMain: 'tag-editor tag_fijo_scroll',
-        autocomplete_url: '', //baseUrl + 'MisCatalogosRevistas/AutocompleteCorreo'
+        autocomplete_url: '',
         'autocomplete': {
             'source': listaCorreo,
             'create': renderItemCliente,
@@ -71,7 +74,7 @@ $(document).ready(function () {
         }
     });
 
-    $(".mostrar_todos").on("click", function () {        
+    $(".mostrar_todos").on("click", function () {
         CargarTodosCorreo();
         $.each(listaCorreo, function (ind, item) {
             item.email = $.trim(item.email);
@@ -83,12 +86,33 @@ $(document).ready(function () {
 
     $("#divCheckbox [data-cat] > div").on("click", function () {
         var obj = $(this).parents("[data-cat]");
-        var tipo = obj.attr("data-cat");
         obj.find("[type='checkbox']").Checked();
     });
 
     $("#btnEnviarCorreo").on("click", function () { CatalogoEnviarEmail(); });
 });
+
+function getCodigoCampaniaAnterior() {
+    return $.trim($("#hdCampaniaAnterior").val()) || '';
+}
+
+function getCodigoCampaniaActual() {
+    return $.trim($("#hdCampaniaActual").val()) || '';
+}
+
+function getCodigoCampaniaSiguiente() {
+    return $.trim($("#hdCampaniaSiguiente").val()) || '';
+}
+
+function getNumeroCampania(codigoCampania) {
+    codigoCampania = codigoCampania || '';
+    return codigoCampania.substring(4, 6);
+}
+
+function getAnioCampania(codigoCampania) {
+    codigoCampania = codigoCampania || '';
+    return codigoCampania.substring(0, 4);
+}
 
 function InsertarLogCatalogoDynamo(opcionAccion, campaniaCatalogo, marca, cantidad) {
     InsertarLogDymnamo(
@@ -96,14 +120,14 @@ function InsertarLogCatalogoDynamo(opcionAccion, campaniaCatalogo, marca, cantid
         opcionAccion,
         false,
         [
-            {'key': 'CampaniaCatalogo', 'value': campaniaCatalogo },
-            {'key': 'Marca', 'value': marca },
-            {'key': 'Cantidad', 'value': cantidad }
+            { 'key': 'CampaniaCatalogo', 'value': campaniaCatalogo },
+            { 'key': 'Marca', 'value': marca },
+            { 'key': 'Cantidad', 'value': cantidad }
         ]
     );
 }
 
-function ObtenerURLExpofertas() {
+function configurarContenedorExpoOfertas() {
     $.ajax({
         type: 'POST',
         url: baseUrl + 'Banner/ObtenerBannerPaginaPrincipal',
@@ -111,34 +135,35 @@ function ObtenerURLExpofertas() {
         dataType: 'Json',
         success: function (dataResult) {
             if (checkTimeout(dataResult)) {
-                if (dataResult.success) {
-                    var $arrayBanners = $.grep(dataResult.data, function (e) { return e.GrupoBannerID == -5; });
-                    if ($arrayBanners.length > 1) {
-                        var urlExpoferta = "";
-                        $.each($arrayBanners, function (key, banner) {
-                            if (banner.TituloComentario.toLowerCase() == "expoferta") {
-                                urlExpoferta = banner.URL;
-                            }
-                        });
-                        if (urlExpoferta.length > 0) {
-                            $('#contenedorExpofertaMCR').show();
-                            $('#catalogoExpoferta').click(function () {
-                                dataLayer.push({
-                                    'event': 'virtualEvent',
-                                    'category': 'Catálogos y revistas',
-                                    'action': 'Ver expoferta',
-                                    'label': 'Expoferta',
-                                    'value': 0
-                                });
-                                window.open(urlExpoferta, '_blank');
-                            });
-                        }
-                        else $('#contenedorExpofertaMCR').hide();
-
-                        $("#catalogoExpoferta").css("cursor", "pointer");
-                    }                   
+                if (!dataResult.success) {
+                    MonstrarExclamacion('Error al cargar la informacion de Expoferta.');
+                    return;
                 }
-                else MonstrarExclamacion('Error al cargar la informacion de Expoferta.');
+
+                var $arrayBanners = $.grep(dataResult.data, function (e) {
+                    return e.GrupoBannerID == -5;
+                });
+
+                if ($arrayBanners.length === 0)
+                    return;
+
+                var urlExpoferta = '';
+                $.each($arrayBanners, function (key, banner) {
+                    if (banner.TituloComentario.toLowerCase() === "expoferta") {
+                        urlExpoferta = banner.URL;
+                    }
+                });
+
+                $("#catalogoExpoferta").css("cursor", "pointer");
+                $('#contenedorExpofertaMCR').hide();
+
+                if (urlExpoferta.length > 0) {
+                    $('#contenedorExpofertaMCR').show();
+                    $('#catalogoExpoferta').click(function () {
+                        SetGoogleAnalytics('', 'Ver expoferta', 'Expoferta');
+                        window.open(urlExpoferta, '_blank');
+                    });
+                }
             }
         }
     });
@@ -161,16 +186,16 @@ function CargarCarruselCatalogo() {
         var tipo = "";
 
         if (i < cantCat) {
-            anio = $("#hdCampaniaAnterior").val().substring(0, 4);
-            nro = $("#hdCampaniaAnterior").val().substring(4, 6);
+            anio = getAnioCampania(getCodigoCampaniaAnterior());
+            nro = getNumeroCampania(getCodigoCampaniaAnterior());
         }
         else if (i < cantCat * 2) {
-            anio = $("#hdCampaniaActual").val().substring(0, 4);
-            nro = $("#hdCampaniaActual").val().substring(4, 6);
+            anio = getAnioCampania(getCodigoCampaniaActual());
+            nro = getNumeroCampania(getCodigoCampaniaActual());
         }
         else if (i < cantCat * 3) {
-            anio = $("#hdCampaniaSiguiente").val().substring(0, 4);
-            nro = $("#hdCampaniaSiguiente").val().substring(4, 6);
+            anio = getAnioCampania(getCodigoCampaniaSiguiente());
+            nro = getNumeroCampania(getCodigoCampaniaSiguiente());
         }
 
         var x = i - parseInt(i / cantCat) * cantCat;
@@ -203,10 +228,10 @@ function CargarCarruselCatalogo() {
     closeWaitingDialog();
 }
 
-function FinRenderCatalogo() {   
+function FinRenderCatalogo() {
     waitingDialog();
     if (cont >= cantCam * cantCat) {
-        campSelect = campSelect || $("#hdCampaniaActual").val().substring(4, 6);
+        campSelect = campSelect || getAnioCampania(getCodigoCampaniaActual());
         campSelectI = campSelectI || 1;
         $("#contentCatalogo #TextoCampania").text("CATÁLOGOS C-" + campSelect);
         $("#divCatalogo > div > div").show();
@@ -215,10 +240,10 @@ function FinRenderCatalogo() {
     }
 }
 
-function ColumnasDeshabilitadasxPais(valor, accion, label) {   
+function ColumnasDeshabilitadasxPais(valor, accion, label) {
     waitingDialog();
 
-    if (!(typeof (accion) === 'undefined')) {
+    if (typeof (accion) !== 'undefined') {
         SetGoogleAnalytics("", accion, label);
     }
 
@@ -259,21 +284,21 @@ function ObtenerEstadoCatalogo(campana, defered) {
     return defered.promise();
 }
 
-function GetCatalogosLinksByCampania(data, campania) {    
+function GetCatalogosLinksByCampania(data, campania) {
     waitingDialog();
-    $.ajaxSetup({ cache: false });    
+    $.ajaxSetup({ cache: false });
     var paisNombre = $("#hdPaisNombre").val();
 
-    var anio = campania.substring(0, 4);
-    var nro = campania.substring(4, 6);
+    var anio = getAnioCampania(campania);
+    var nro = getNumeroCampania(campania);
     var idCat = "#divCatalogo";
 
     for (var i = 0; i < cantCat; i++) {
 
         var tagCat = i == 0 && data.estadoLbel != 1 ? tagLbel
             : i == 1 && data.estadoCyzone != 1 ? tagCyzone
-            : i == 2 && data.estadoEsika != 1 ? tagEsika
-            : "";
+                : i == 2 && data.estadoEsika != 1 ? tagEsika
+                    : "";
 
         if (tagCat == "") {
             cont++;
@@ -281,48 +306,46 @@ function GetCatalogosLinksByCampania(data, campania) {
         }
 
         var estado = i == 0 && data.estadoLbel != 1 ? "1"
-        : i == 1 && data.estadoCyzone != 1 ? "1"
-        : i == 2 && data.estadoEsika != 1 ? "1"
-        : "0";
+            : i == 1 && data.estadoCyzone != 1 ? "1"
+                : i == 2 && data.estadoEsika != 1 ? "1"
+                    : "0";
 
         var elemItem = "[data-cam='" + campania + "'][data-cat='" + tagCat + "']";
         $(idCat).find(elemItem).find("[data-tipo='content']").hide();
-        $(elemItem).attr("data-estado", estado || "0")
-
-        var catalogo = tagCat.toLowerCase() + "." + paisNombre + ".c" + nro + "." + anio;
-
-            var codigoISSUU = '', urlCat;
-            $.each(data.listCatalogo, function (key, catalogo) {
-                if (catalogo.marcaCatalogo.toLowerCase() == tagCat.toLowerCase()) {
-                    codigoISSUU = catalogo.DocumentID;
-                    urlCat = catalogo.SkinURL;
-                }                
-            });
-            cont++;
-            if (codigoISSUU == '') {
-                $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", linkCat[tagCat]);
-                $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('','Ver catálogo','" + tagCat + "')");
-                $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgNoDisponible);
+        $(elemItem).attr("data-estado", estado)
+        
+        var codigoISSUU = '', urlCat;
+        $.each(data.listCatalogo, function (key, catalogo) {
+            if (catalogo.marcaCatalogo.toLowerCase() == tagCat.toLowerCase()) {
+                codigoISSUU = catalogo.DocumentID;
+                urlCat = catalogo.SkinURL;
             }
-            else {
-                var n = campania.substring(4, 6);
-                var a = campania.substring(0, 4);
-                $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver catálogo','" + tagCat + "')");
-                $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);
-                $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
-                $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
+        });
+        cont++;
+        if (codigoISSUU == '') {
+            $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", linkCat[tagCat]);
+            $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('','Ver catálogo','" + tagCat + "')");
+            $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgNoDisponible);
+        }
+        else {
+            var a = getAnioCampania(campania);
+            var n = getNumeroCampania(campania);
+            $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver catálogo','" + tagCat + "')");
+            $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);
+            $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
+            $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
 
-                $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
-                $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
-            }
+            $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
+            $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
+        }
     }
 
-        FinRenderCatalogo();
+    FinRenderCatalogo();
 }
 
 function ObtenerCodigoISSUU(catalogo, defered, elemItem, tagCat, campaniaX) {
     var codigoISSUU = "";
-    var urlGetImg = '//search.issuu.com/api/2_0/document?username=somosbelcorp&q=docname:' + catalogo + '&jsonCallback=?';
+    var urlGetImg = urlBuscadorIssu + 'docname:' + catalogo + '&jsonCallback=?';
     jQuery.ajax({
         type: "GET",
         url: urlGetImg,
@@ -351,7 +374,7 @@ function CatalogoMostrar(accion, btn) {
     campSelectI = campSelectI <= 0 ? 0 : campSelectI >= cantCam - 1 ? cantCam - 1 : campSelectI;
 
     var campS = aCam[campSelectI];
-    campSelect = campS.substring(4, 6);
+    campSelect = getNumeroCampania(campS);
     $("#contentCatalogo #TextoCampania").text("CATÁLOGOS C-" + campSelect);
     $("#divCatalogo > div").hide();
     $("#divCatalogo > div[data-cam='" + campS + "'][data-estado='1']").show();
@@ -449,7 +472,7 @@ function AbrirCompartirCorreo(tipoCatalogo, campania) {
     }
 }
 
-function CargarTodosCorreo() {    
+function CargarTodosCorreo() {
     listaCorreo = listaCorreo || new Array();
     if (listaCorreo.length > 0) {
         return listaCorreo;
@@ -477,7 +500,7 @@ function CargarTodosCorreo() {
     });
 }
 
-function CatalogoEnviarEmail() {    
+function CatalogoEnviarEmail() {
     waitingDialog();
 
     $('#tagCorreo').addTag($('#tagCorreo_tag').val());
@@ -498,7 +521,7 @@ function CatalogoEnviarEmail() {
     var _Flagchklbel = "0";
     var _Flagchkcyzone = "0";
     var _Flagchkesika = "0";
-    var _Flagchkfinart = "0";
+    
 
     var clientes = new Array();
     for (var i = 0; i < correoEnviar.length; i++) {
@@ -522,17 +545,13 @@ function CatalogoEnviarEmail() {
             _Flagchklbel = objCorreo.LBel;
             _Flagchkesika = objCorreo.Esika;
             _Flagchkcyzone = objCorreo.Cyzone;
-            _Flagchkfinart = objCorreo.Finart;
+            
         }
         clientes.push(objCorreo);
     }
-
-    // Flags => Considerar a todos los clientes
-    var FlagMarcas = _Flagchklbel + "|" + _Flagchkcyzone + "|" + _Flagchkesika + "|" + _Flagchkfinart;
-
-    var campActual = $("#hdCampaniaActual").val();
-    var campComparte = campaniaEmail; //$("#hdCampaniaComparte").val();
-    var Tipo = campActual == campComparte ? "1" : "2";
+    
+    var campActual = getCodigoCampaniaActual();
+    var campComparte = campaniaEmail;
 
     var mensaje = $("#comentarios").val();
     if (_Flagchklbel == "1") {
@@ -571,7 +590,6 @@ function CatalogoEnviarEmail() {
         url: baseUrl + 'MisCatalogosRevistas/EnviarEmail',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        //data: JSON.stringify({ CatalogoClienteModel: EmailsLbel, EmailsCyzone: EmailsCyzone, EmailsEsika: EmailsEsika, EmailsFinart: EmailsFinart, Mensaje: mensaje }),
         data: JSON.stringify({ ListaCatalogosCliente: clientes, Mensaje: mensaje, Campania: campaniaEmail }),
         async: true,
         success: function (data) {
@@ -601,13 +619,13 @@ function CatalogoEnviarEmail() {
 }
 
 function renderItemCliente(event, ui) {
-    var htmlTag = '' //'<div class="foto_usuario_compartir"><img src="' + urlIconoClienteAutoCompletar + '" alt="" /></div>'
+    var htmlTag = ''
         + '<a>'
-                + '<div class="content_datos_c">'
-                    + '<div class="nombre_compartir">{nombre}</div>'
-                    + '<div class="correo_compartir">{email}</div>'
-                + '</div>'
-    + '</a>';
+        + '<div class="content_datos_c">'
+        + '<div class="nombre_compartir">{nombre}</div>'
+        + '<div class="correo_compartir">{email}</div>'
+        + '</div>'
+        + '</a>';
     $(this).data('ui-autocomplete')._renderItem = function (ul, item) {
         var htmlTagAdd = htmlTag.replace('{nombre}', item.nombre);
         htmlTagAdd = htmlTagAdd.replace('{email}', item.email);
@@ -624,20 +642,17 @@ jQuery(document).ready(function () {
     aCamRev.push($("#hdrCampaniaActual").val());
     aCamRev.push($("#hdrCampaniaSiguiente").val());
 
-    rCampSelect = $("#hdrCampaniaActual").val();
-    $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + rCampSelect.substring(4, 6));
-
-    waitingDialog({ title: "Cargando Imagen" });    
-    MostrarRevistaCorrecta(rCampSelect);
+    waitingDialog({ title: "Cargando Imagen" });
+    MostrarRevistaCorrecta($("#hdrCampaniaActual").val());
 });
 
-function RevistaMostrar(accion, btn) {   
+function RevistaMostrar(accion, btn) {
     rCampSelectI = accion == -1 ? rCampSelectI - 1 : accion == 1 ? rCampSelectI + 1 : rCampSelectI;
     rCampSelectI = rCampSelectI <= 0 ? 0 : rCampSelectI >= cantCamRev - 1 ? cantCamRev - 1 : rCampSelectI;
 
     rCampSelect = aCamRev[rCampSelectI] || "";
 
-    $("#numero_campania").text(rCampSelect); //EMP
+    $("#numero_campania").text(rCampSelect);
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Catálogos y revistas',
@@ -648,6 +663,8 @@ function RevistaMostrar(accion, btn) {
 
     waitingDialog({ title: "Cargando Imagen" });
     MostrarRevistaCorrecta(rCampSelect);
+
+    $("#contentRevista [data-accion] img").show();
 
     $("#contentRevista > span[data-accion] img").show();
     if (rCampSelectI == 0 || rCampSelectI == cantCamRev - 1) {
@@ -670,39 +687,45 @@ function MostrarMiRevista() {
     frmMiRevista.submit();
 }
 
-function MostrarRevistaCorrecta(campania) {
-    var urlImagen = "";
-    var defered = jQuery.Deferred();
-    defered = ObtenerImagenRevista(campania, defered);
-    defered.done(function (urlRevista) { urlImagen = urlRevista; });
-
-    $.when(defered).done(function () {
-        $("#imgPortadaGana").attr("src", !urlImagen || urlImagen == "" ? defaultImageRevista : urlImagen);
-        $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + rCampSelect.substring(4, 6));
-        FinRenderCatalogo();
+function MostrarRevistaCorrecta(codigoCampania) {
+    var promise = getUrlImagenPortadaRevistaPromise(codigoCampania);
+    $.when(promise).done(function (promiseResult) {
+        if (checkTimeout(promiseResult)) {
+            var urlImagen = promiseResult || defaultImageRevista;
+            $("#imgPortadaGana").attr("src", urlImagen);
+            $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + getNumeroCampania(codigoCampania));
+            FinRenderCatalogo();
+        }
     });
 }
 
-function ObtenerImagenRevista(campania, defered) {
+function getUrlImagenPortadaRevistaPromise(codigoCampania) {
+
+    var defered = jQuery.Deferred();
+
+    var data = JSON.stringify({
+        codigoRevista: RevistaCodigoIssuu[codigoCampania]
+    });
     jQuery.ajax({
         type: 'POST',
         url: urlObtenerPortadaRevista,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify({ codigoRevista: RevistaCodigoIssuu[campania] }),
+        data: data,
         success: function (response) {
-            if (checkTimeout(response)) defered.resolve(response ? response : defaultImageRevista);
+            defered.resolve(response);
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) defered.resolve(defaultImageRevista);
+        error: function () {
+            defered.resolve(defaultImageRevista);
         }
     });
+
     return defered.promise();
 }
 
 // mensaje alerta
 
-function MonstrarExclamacion(texto) {    
+function MonstrarExclamacion(texto) {
     $("#mensaje_exclamacion #mensaje_exclamacion_texto").html(texto);
     $("#mensaje_exclamacion").show();
 }

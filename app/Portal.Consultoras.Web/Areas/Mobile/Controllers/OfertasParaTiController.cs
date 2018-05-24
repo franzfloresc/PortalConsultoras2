@@ -7,7 +7,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class OfertasParaTiController : BaseEstrategiaController
     {
-
         public ActionResult Detalle(int id, int origen)
         {
             try
@@ -15,7 +14,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return RenderDetalle(id, origen);
 
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, string.Empty);
             }
@@ -30,12 +29,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (modelo == null || modelo.EstrategiaID <= 0)
                 return GetRedirectTo(origenPantalla);
+            
+            ViewBag.OrigenUrl = GetActionTo(origenPantalla, origen);
 
-            ViewBag.OrigenUrl = GetActionTo(origenPantalla);
             ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
-            ViewBag.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
-
             ViewBag.origenPedidoWebEstrategia = GetOrigenPedidoWebDetalle(origen);
+
             return View(modelo);
         }
 
@@ -53,7 +52,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return pantalla;
         }
-        
+
         public virtual int GetOrigenPedidoWebDetalle(int origenPantalla)
         {
             var result = 0;
@@ -69,11 +68,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 case Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedor:
                     result = Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedorPopup;
                     break;
-
                 case Constantes.OrigenPedidoWeb.CatalogoPersonalizadoMobile:
                     result = Constantes.OrigenPedidoWeb.CatalogoPersonalizadoMobilePopUp;
                     break;
-
                 case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion:
                     result = Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomePopUp;
                     break;
@@ -83,19 +80,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 case Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding:
                     result = Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingPopUp;
                     break;
-
                 case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento:
                     result = Constantes.OrigenPedidoWeb.LanzamientoMobileHomePopup;
                     break;
                 case Constantes.OrigenPedidoWeb.LanzamientoMobileContenedor:
                     result = Constantes.OrigenPedidoWeb.LanzamientoMobileContenedorPopup;
                     break;
-
                 case Constantes.OrigenPedidoWeb.GNDMobileLanding:
                     result = Constantes.OrigenPedidoWeb.GNDMobileLandingPopup;
                     break;
+                case Constantes.OrigenPedidoWeb.HVMobileLanding:
+                    result = Constantes.OrigenPedidoWeb.HVMobileLandingPopup;
+                    break;
+                case Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage:
+                    result = Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage;
+                    break;
             }
-            
+
             result = result == 0 ? Constantes.OrigenPedidoWeb.OfertasParaTiMobileDetalle : result;
 
             return result;
@@ -112,7 +113,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 case Enumeradores.PantallaOrigenPedidoWeb.Pedido:
                     return RedirectToAction("Index", "Pedido", new { area = "Mobile" });
                 case Enumeradores.PantallaOrigenPedidoWeb.RevistaDigital:
-                    return RedirectToAction("Index", "RevistaDigital", new { area = "Mobile" });
+                    return RedirectToAction("Comprar", "RevistaDigital", new { area = "Mobile" });
                 case Enumeradores.PantallaOrigenPedidoWeb.GuiaNegocioDigital:
                     return RedirectToAction("Index", "GuiaNegocio", new { area = "Mobile" });
                 case Enumeradores.PantallaOrigenPedidoWeb.Liquidacion:
@@ -120,14 +121,36 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 case Enumeradores.PantallaOrigenPedidoWeb.ShowRoom:
                 case Enumeradores.PantallaOrigenPedidoWeb.OfertaParaTi:
                 case Enumeradores.PantallaOrigenPedidoWeb.General:
+                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 default:
                     return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
             }
         }
 
-        public virtual string GetActionTo(Enumeradores.PantallaOrigenPedidoWeb origenPantalla)
+        public virtual string GetActionTo(Enumeradores.PantallaOrigenPedidoWeb origenPantalla, int origenPedidoWeb)
         {
-            var result = string.Empty;
+            string result = "";
+
+            switch (origenPedidoWeb)
+            {
+                case Constantes.OrigenPedidoWeb.GNDMobileLanding:
+                case Constantes.OrigenPedidoWeb.GNDMobileLandingPopup:
+                    result = Url.Action("Index", "GuiaNegocio", new { area = "Mobile" });
+                    break;
+                case Constantes.OrigenPedidoWeb.LanzamientoMobileContenedor:
+                case Constantes.OrigenPedidoWeb.LanzamientoMobileContenedorPopup:
+                    result = Url.Action("Index", "Ofertas", new { area = "Mobile" });
+                    break;
+                case Constantes.OrigenPedidoWeb.HVMobileLanding:
+                    result = Url.Action("Comprar", "HerramientasVenta", new { area = "Mobile" });
+                    break;
+                case Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage:
+                    result = Url.Action("Index", "Ofertas", new { area = "Mobile" });
+                    break;
+            }
+
+            if (result != "")
+                return result;
 
             switch (origenPantalla)
             {
@@ -141,16 +164,27 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     result = Url.Action("Index", "Pedido", new { area = "Mobile" });
                     break;
                 case Enumeradores.PantallaOrigenPedidoWeb.RevistaDigital:
-                    result = Url.Action("Index", "RevistaDigital", new { area = "Mobile" });
+                    result = Url.Action("Comprar", "RevistaDigital", new { area = "Mobile" });
                     break;
                 case Enumeradores.PantallaOrigenPedidoWeb.GuiaNegocioDigital:
                     result = Url.Action("Index", "GuiaNegocio", new { area = "Mobile" });
+                    if (origenPedidoWeb == Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedor)
+                        result = Url.Action("Index", "Ofertas", new { area = "Mobile" });
+                    
+                    break;
+                case Enumeradores.PantallaOrigenPedidoWeb.HerramientasVentaComprar:
+                    result = Url.Action("Comprar", "HerramientasVenta", new { area = "Mobile" });
+                    break;
+                case Enumeradores.PantallaOrigenPedidoWeb.HerramientasVentaRevisar:
+                    result = Url.Action("Revisar", "HerramientasVenta", new { area = "Mobile" });
                     break;
                 case Enumeradores.PantallaOrigenPedidoWeb.Liquidacion:
                 case Enumeradores.PantallaOrigenPedidoWeb.CatalogoPersonalizado:
                 case Enumeradores.PantallaOrigenPedidoWeb.ShowRoom:
                 case Enumeradores.PantallaOrigenPedidoWeb.OfertaParaTi:
                 case Enumeradores.PantallaOrigenPedidoWeb.General:
+                    result = Url.Action("Index", "Bienvenida", new { area = "Mobile" });
+                    break;
                 default:
                     result = Url.Action("Index", "Bienvenida", new { area = "Mobile" });
                     break;

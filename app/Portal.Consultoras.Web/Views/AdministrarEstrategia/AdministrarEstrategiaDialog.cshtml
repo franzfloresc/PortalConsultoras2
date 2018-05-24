@@ -13,8 +13,8 @@
     <input type="hidden" id="hdCodigoPrograma" value="">
     <input type="hidden" id="hdNumeroPedido" value="">
     <input type="hidden" id="hdEstrategiaPrecioAnt" />
+    <input type="hidden" id="hdImagenMiniaturaURLAnterior" />
     <div class="Content_modal">
-
         <div class="div-3">
             <div class="titG">Campaña:</div>
             <div class="selectP2 borde_redondeado">
@@ -62,16 +62,8 @@
                     </div>
                     <div style="display: inline-block; padding-left: 40px;">Valorizado:</div>
                     <div style="display: inline-block;">
-                        <input type="text" id="txtPrecio" style="width: 60px;"/>
-                    </div>
-                    @*<div style="display: inline-block;">CUV:</div>
-                    <div style="display: inline-block;">
-                        <input type="text" id="txtCUV" maxlength="5" class="ValidaNumeral" style="width: 60px;" />
-                    </div>
-                    <div style="display: inline-block;">Precio:</div>
-                    <div style="display: inline-block;">
                         <input type="text" id="txtPrecio" style="width: 60px;" />
-                    </div>*@
+                    </div>
                 </div>
             </div>
         </div>
@@ -82,11 +74,13 @@
             </div>
         </div>
         <div class="div-3">
-            <div class="titG">Talla/Color:</div>
-            <div class="titG" style="width: auto;">
-                <a href="#" style="margin-left: 5px" id="linkTallaColor">
-                    <img src='@Url.Content("~/Content/Images/icons/small/list-icon2.png")' border="0" alt="Agregar Tonos/Tallas/Colores" title="Agregar Tonos/Tallas/Colores" />
-                </a>
+            <div id="seccionTallaColor">
+                <div class="titG">Talla/Color:</div>
+                <div class="titG" style="width: auto;">
+                    <a href="#" style="margin-left: 5px" id="linkTallaColor">
+                        <img src='@Url.Content("~/Content/Images/icons/small/list-icon2.png")' border="0" alt="Agregar Tonos/Tallas/Colores" title="Agregar Tonos/Tallas/Colores" />
+                    </a>
+                </div>
             </div>
             <div class="titG">¿Activar Oferta?</div>
             <div class="selectCheck borde_redondeado">
@@ -97,14 +91,68 @@
                 <input type="checkbox" class="check" id="chkEsOfertaIndependiente" style="margin-top: 2px;  margin-left: 15px;" />
             </div>
         </div>
+        <div class="div-3" id="divSeccionIndividual">
+            <div id="seccionFlagIndividual">
+                <div class="titG">Producto Individual:</div>
+                <div class="titG" style="width: auto;">
+                    <input type="checkbox" class="check" id="chkFlagIndividual" style="margin-top: -5px;" />
+                </div>
+            </div>
+            <div id="seccionSlogan">
+                <div class="titG" style="width: auto;margin-left:20px;">Slogan:</div>
+                <div class="titG" style="width: auto;">
+                    <input type="text" id="txtSlogan" style="width: 480px;" />
+                </div>
+            </div>
+        </div>
         <div class="div-3">
             <div class="titG">
                 <span>Imagen Seleccionada:</span>
+
             </div>
             <div class="titG">
                 <div class="pdr_modal borde_redondeado alignrigth">
-                    <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="imgSeleccionada" class="img-matriz-preview" data-id="">
+                    <img name="picture-normal" src='@Url.Content("~/Content/Images/" + imagenVacia)' id="imgSeleccionada" class="img-matriz-preview" style="font-size:9px !important;" data-id="">
                 </div>
+            </div>
+
+            <div id="seccionImagenMiniatura">
+                <div class="titG">Imagen Miniatura:</div>
+                <div class="titG3">
+                    <div class="pdr_modal borde_redondeado alignrigth">
+                        <img name="picture-mini" src='@Url.Content("~/Content/Images/" + imagenVacia)' id="imgMiniSeleccionada" class="img-matriz-preview" style="font-size:9px !important;" data-id="">
+                    </div>
+                </div>
+                <div class="titC" style="padding: 0; width: 180px; padding-right: 20px;">
+                    <div class="input_search">
+                        <div id="fpPopupImagenProducto">
+                            <script type="text/javascript">
+                            $.ajaxSetup({ cache: false });
+                            var uploader = new qq.FileUploader({
+                                allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
+                                element: document.getElementById('fpPopupImagenProducto'),
+                                action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
+                                onComplete: function (id, fileName, responseJSON) {
+                                    if (checkTimeout(responseJSON)) {
+                                        $(".qq-upload-list").css("display", "none");
+                                        if (responseJSON.success) {
+                                            var rutaImagen = '@Url.Content("~/Content/Temporales/")' + responseJSON.name;
+                                            $("#imgMiniSeleccionada").attr('src', rutaImagen);
+                                        }
+                                        else {
+                                            alert(responseJSON.message);
+                                        }
+                                    }
+                                },
+                                onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                                onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                                onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                            });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -152,10 +200,9 @@
                         <div class="pdr_modal2 borde_redondeado alignrigth">
                             <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-fondo-desktop" class="img-matriz-preview2" data-id="">
                         </div>
-                        <div class="inforRdText">929 x 552 pixeles</div>
+                        <div class="inforRdText">794 x 395 pixeles</div>
                     </div>
-                    <br /><br />
-                    <div style="display: inline-block; width: 100%;">
+                    @*<div style="display: inline-block; width: 100%; display: none;">
                         <input type="hidden" id="nombre-img-prev-desktop" />
                         <label style="width: 130px; display: inline-block;">Imagen Previsual: </label>
                         <div id="img-prev-desktop" style="display: inline-block;vertical-align: middle;"></div>
@@ -163,18 +210,18 @@
                             <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-prev-desktop" class="img-matriz-preview2" data-id="">
                         </div>
                         <div class="inforRdText">130 x 130 pixeles</div>
-                    </div>
+                    </div>*@
                 </div>
                 <div class="fontColorAdm" style="display: inline-block; width: 47%; text-align: left; padding: 8px; margin-right: -3px; vert-align: top; position: absolute">
-                    <h4 style="display: none">Carrusel Mobile</h4>
-                    <div style="display: none; width: 100%">
+                    <h4>Carrusel Mobile</h4>
+                    <div style="width: 100%">
                         <input type="hidden" id="nombre-img-fondo-mobile" />
                         <label style="width: 130px; display: inline-block;">Imagen de Fondo: </label>
                         <div id="img-fondo-mobile" style="display: inline-block; vertical-align: middle;"></div>
                         <div class="pdr_modal2 borde_redondeado alignrigth">
                             <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-fondo-mobile" class="img-matriz-preview2" data-id="">
                         </div>
-
+                        <div class="inforRdText">1024 x 155 pixeles</div>
                     </div>
                 </div>
             </div>
@@ -189,7 +236,7 @@
                         <div class="pdr_modal2 borde_redondeado alignrigth">
                             <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-ficha-fondo-desktop" class="img-matriz-preview2" data-id="">
                         </div>
-                        <div class="inforRdText">1920 x 370 pixeles</div>
+                        <div class="inforRdText">1280 x 322 pixeles</div>
                     </div>
                     <br /><br />
                     <div style="display: inline-block; width: 100%;">
@@ -201,7 +248,6 @@
                         </div>
                         <div class="inforRdText">121 x 32 pixeles</div>
                     </div>
-
                     <br /><br />
                     <div style="display: inline-block; width: 100%;">
                         <label style="width: 245px;display: inline-block;">Key Video: <span style="font-size: 11px"> https://www.youtube.com/watch?v=</span></label>
@@ -215,9 +261,9 @@
                         <label style="width: 130px; display: inline-block;">Imagen de Fondo: </label>
                         <div id="img-ficha-fondo-mobile" style="display: inline-block; vertical-align: middle;"></div>
                         <div class="pdr_modal2 borde_redondeado alignrigth">
-                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-ficha-fondo-mobile" class="img-matriz-preview2" data-id="">
+                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-ficha-fondo-mobile" class="img-matriz-preview2" data-id="" />
                         </div>
-                        <div class="inforRdText">1024 x 280 pixeles</div>
+                        <div class="inforRdText">1024 x 176 pixeles</div>
                     </div>
                     <br /><br />
                     <div style="display: inline-block; width: 100%">
@@ -281,20 +327,34 @@
                 </div>
             </div>
             <div id="divInformacionAdicionalEstrategiaContenido" style="display: none;">
-                <div class="div-3">
-                    <div class="titG">Mensaje Adicional:</div>
-                    <div class="titE">
-                        <input type="text" id="txtTextoLibre" maxlength="100" style="width: 360px;" />
+                <div id="seccionEsSubCampania">
+                    <div class="div-3">
+                        <div class="titG4">¿Es SubCampaña?:</div>
+                        <div class="titE">
+                            <div class="selectCheck borde_redondeado">
+                                <input style="text-align:left; position:absolute; left:0px; top:-14px;" type="checkbox" class="check" id="chkEsSubCampania">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="div-3 OfertaUltimoMinuto">
-                    <div class="titH">Oferta de Último Minuto</div>
-                    <div class="selectCheck borde_redondeado">
-                        <input type="checkbox" class="check" id="chkOfertaUltimoMinuto" style="margin-top: 2px; margin-left: 15px;" />
+
+                <div id="seccionMensajeAdicional">
+                    <div class="div-3">
+                        <div id="lblMensaje" class="titG">Mensaje Adicional:</div>
+                        <div class="titE">
+                            <textarea rows="3" id="txtTextoLibre" maxlength="400" style="resize: none;font-size: 14px; font-weight: normal; resize: none;overflow-y: scroll; background-color:#fff; border-color: #B4B4B4; width:400px"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div id="seccionOfertaUltimoMinuto">
+                    <div class="div-3 OfertaUltimoMinuto">
+                        <div class="titH">Oferta de Último Minuto</div>
+                        <div class="selectCheck borde_redondeado">
+                            <input type="checkbox" class="check" id="chkOfertaUltimoMinuto" style="margin-top: 2px; margin-left: 15px;" />
+                        </div>
                     </div>
                 </div>
                 <div class="div-est-3 DatosNuevas" id="div-orden" style="display: none">
-                    <!--SB20-312 -->
                     <div class="titB">&nbsp;</div>
                     <div class="titB">Orden:</div>
                     <div class="titB">
@@ -329,8 +389,8 @@
 <script id="matriz-comercial-item-template" type="text/x-handlebars-template">
     {{#each imagenes}}
     <div class="titG2 div-img-matriz-comercial">
-        <div class="pdr_modal borde_redondeado aligncenter">
-            <img id="img-matriz-{{@@index}}" title='{{NemoTecnico}}' src='{{Foto}}' class="img-matriz-preview">
+        <div id='contenedor' class="pdr_modal borde_redondeado aligncenter">
+            <img name="picture-{{@@index}}" id="img-matriz-{{@@index}}" title='{{NemoTecnico}}' src='{{Foto}}' class="img-matriz-preview" style="font-size:9px !important;">
         </div>
         <div class="pdr_modal_check aligncenter">
             <input type="checkbox" value="{{Foto}}" id="chkImagenProducto{{@@index}}" class="chkImagenProducto">
@@ -363,172 +423,11 @@
     <div class="zona_estrategia_3"></div>
     <div class="zona_estrategia_4"></div>
 </div>
+
 <script id="descripcion-comercial-template" type="text/x-handlebars-template">
-    <div style="text-align:center; color:black;" onclick='javascript:editarDescripcionComercial({{IdMatrizComercialImagen}})'>
+    <div style="text-align:center; color:black;" onclick='javascript:adminEstrategiaModule.EditarDescripcionComercial({{IdMatrizComercialImagen}})'>
         <img src="../Content/Images/PL20/editar.png" style="width:14px; height:14px">
         <a id="label-descripcioncomercial-{{IdMatrizComercialImagen}}" title="{{DescripcionComercial}}">{{DescripcionComercial}}</a>
     </div>
 </script>
-
-<script type="text/javascript">
-
-    $("#linkTallaColor").click(function () {
-        if ($.trim($("#txtCUV2").val()) == "") {
-            alert("Debe ingresar un valor para CUV2");
-            return false;
-        }
-        fnGrillaTC();
-        showDialog("DialogTonoMarca");
-        return false;
-    });
-    function CerrarTallaColor() {
-
-        var params = {
-            CampaniaID: $("#ddlCampania").val(),
-            CUV2: $("#txtCUV2").val(),
-            TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
-            CUV1: "",
-            flag: "3",
-            FlagNueva: "0",
-            FlagRecoProduc: "0",
-            FlagRecoPerfil: "0"
-        };
-
-        jQuery.ajax({
-            type: 'POST',
-            url: baseUrl + 'AdministrarEstrategia/GetOfertaByCUV',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(params),
-            async: true,
-            success: function (data) {
-                if (data.message == "OK") {
-                    var cantidad = parseInt(data.precio);
-                    if (cantidad > 0) {
-                        alert("Debe ingresar todas las descripciones a las tallas/colores.");
-                        return false;
-                    } else {
-                        HideDialog("DialogTonoMarca");
-                    }
-                } else {
-                    alert(data.message);
-                }
-            },
-            error: function (data, error) {
-                alert(data.message);
-            }
-        });
-    }
-
-    function fnGrillaTC() {
-        $("#listTC").jqGrid("GridUnload");
-        jQuery("#listTC").jqGrid({
-            url: baseUrl + "AdministrarEstrategia/ConsultarTallaColor",
-            hidegrid: false,
-            datatype: 'json',
-            postData: ({
-                CampaniaID: $("#ddlCampania").val(),
-                CUV: $("#txtCUV2").val()
-            }),
-            mtype: 'GET',
-            contentType: "application/json; charset=utf-8",
-            colNames: ['ID', 'CUV', 'Descripción', 'Precio', 'Tipo', 'Talla/Color', 'Desc T/C', '', ''],
-            colModel: [
-                { name: 'ID', index: 'ID', width: 0, editable: true, resizable: false, hidden: true },
-                { name: 'CUV', index: 'CUV', width: 20, editable: true, resizable: false, hidden: false },
-                { name: 'DescripcionCUV', index: 'DescripcionCUV', width: 110, editable: true, resizable: false, hidden: false },
-                { name: 'PrecioUnitario', index: 'PrecioUnitario', width: 30, editable: true, resizable: false, hidden: false },
-                { name: 'Tipo', index: 'Tipo', width: 0, editable: true, resizable: false, hidden: true },
-                { name: 'DescripcionTipo', index: 'DescripcionTipo', width: 50, editable: true, resizable: false, hidden: false },
-                { name: 'DescripcionTallaColor', index: 'DescripcionTallaColor', width: 90, editable: true, resizable: false, hidden: false },
-                { name: 'Accion', index: 'Accion', width: 30, editable: true, resizable: false, hidden: false, align: "center", formatter: ShowActionsTC },
-                { name: 'IDAux', index: 'IDAux', width: 0, editable: true, resizable: false, hidden: true }
-            ],
-            jsonReader:
-            {
-                root: "rows",
-                page: "page",
-                total: "total",
-                records: "records",
-                repeatitems: true,
-                cell: "cell",
-                id: "id"
-            },
-            pager: jQuery('#pagerTC'),
-            loadtext: 'Cargando datos...',
-            recordtext: "{0} - {1} de {2} Registros",
-            emptyrecords: 'No hay resultados',
-            rowNum: 10,
-            scrollOffset: 0,
-            rowList: [],
-            sortname: 'ID',
-            sortorder: 'asc',
-            viewrecords: true,
-            multiselect: false,
-            height: 'auto',
-            width: 650,
-            pgtext: 'Pág: {0} de {1}',
-            altRows: true,
-            altclass: 'jQGridAltRowClass',
-            loadComplete: function () { },
-            gridComplete: function () {
-                showDialog("DialogTonoMarca");
-            }
-        });
-        jQuery("#listTC").jqGrid('navGrid', "#pagerTC", { edit: false, add: false, refresh: false, del: false, search: false });
-        jQuery("#listTC").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
-    }
-
-    var chkImagenProductoOnClick = function () {
-
-        imagen = '';
-
-        $(".chkImagenProducto").prop('checked', false);
-        $(this).attr('checked', 'checked');
-        imagen = $(this).attr('value');
-        $("#imgSeleccionada").attr("src", imagen);
-    };
-
-    var imagenOnClick = function () {
-        $("#imgZonaEstrategia").attr("src", $(this).attr("src"));
-        var index = $(this).attr("id").split("-");
-        var descripcionComercial = $("#descripcion-comercial-" + index[2]).attr("value");
-        var idMatrizComercial = $("#id-matriz-comercial-imagen-" + index[2]).attr("value");
-        var editData = {
-            IdMatrizComercialImagen: idMatrizComercial,
-            DescripcionComercial: descripcionComercial
-        };
-        if (habilitarNemoTecnico) {
-            SetHandlebars('#descripcion-comercial-template', editData, '#descripcion-comercial');
-            $("#divVistaPrevia").find("#descripcion-comercial").show();
-        } else {
-            $("#divVistaPrevia").find("#descripcion-comercial").hide();
-        }
-        isVistaPreviaOpened = true;
-        showDialog('divVistaPrevia');
-    };
-
-    var imagenEstrategiaOnClick = function () {
-        $('#divImagenEstrategiaContenido').show();
-        $('#divInformacionAdicionalEstrategiaContenido').hide();
-    };
-
-    var informacionAdicionalEstrategiaOnClick = function () {
-        $('#divImagenEstrategiaContenido').hide();
-        $('#divInformacionAdicionalEstrategiaContenido').show();
-    };
-
-    $(".chkImagenProducto").on("click", chkImagenProductoOnClick);
-
-    $("#imgSeleccionada").on("click", imagenOnClick);
-
-    $("#matriz-comercial-images").on("click", ".img-matriz-preview", imagenOnClick);
-
-    $("#matriz-comercial-images").on("click", ".chkImagenProducto", chkImagenProductoOnClick);
-
-    $("#divImagenEstrategia").on("click", imagenEstrategiaOnClick);
-
-    $("#divInformacionAdicionalEstrategia").on("click", informacionAdicionalEstrategiaOnClick);
-
-
-</script>
+    

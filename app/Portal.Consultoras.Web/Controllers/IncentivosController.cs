@@ -16,13 +16,13 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 List<BEIncentivo> lst;
-                int paisID = userData.PaisID;
-                int campaniaID = userData.CampaniaID;
+                int paisId = userData.PaisID;
+                int campaniaId = userData.CampaniaID;
                 string iso = userData.CodigoISO;
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    lst = sv.SelectIncentivos(paisID, campaniaID).ToList();
+                    lst = sv.SelectIncentivos(paisId, campaniaId).ToList();
                 }
 
                 if (lst != null && lst.Count > 0)
@@ -35,8 +35,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var incentivosModel = new IncentivosModel()
                 {
-                    PaisID = paisID,
-                    CampaniaID = campaniaID,
+                    PaisID = paisId,
+                    CampaniaID = campaniaId,
                     ISO = iso,
                     listaIncentivos = lst
                 };

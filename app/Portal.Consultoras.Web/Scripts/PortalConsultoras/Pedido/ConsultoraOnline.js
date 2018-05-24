@@ -318,7 +318,7 @@ function RechazarPedido() {
         data: JSON.stringify(obj),
         success: function (data) {
             closeWaitingDialog();
-            if (checkTimeout(data)) {                
+            if (checkTimeout(data)) {
                 if (data.success == true) {
                     $('#btnRechazarPedido').prop('disabled', false);
                     $('#dialog_motivoRechazo').hide();
@@ -331,7 +331,7 @@ function RechazarPedido() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) {                
+            if (checkTimeout(data)) {
                 alert_msg("Ocurrió un error inesperado al momento de desafiliarte. Consulte con su administrador del sistema para obtener mayor información");
             }
         }
@@ -388,7 +388,6 @@ function AceptarPedido(pedidoId, tipo) {
         if (isOk && detalle.length > 0) {
             var key = (tipo == 1) ? '#sc-d1' : '#sc-d2';
             var name = $(popup).find(key + '-nombre').text();
-            var phone = $(popup).find(key + '-telefono').text();
             var email = $(popup).find(key + '-correo').text();
 
             var cliente = {
@@ -428,16 +427,13 @@ function AceptarPedido(pedidoId, tipo) {
                         }
                     }
                 },
-                error: function (response) {
-                    console.log(response)
-                }
+                error: function (response) { }
             });
         }
     }
 }
 
 function AceptarPedidoRegistraClienteOK(obj) {
-    //console.log(obj);
 
     if (obj != null && _pedido !== null) {
         _pedido.ClienteId = obj.ClienteID;
@@ -447,12 +443,10 @@ function AceptarPedidoRegistraClienteOK(obj) {
 }
 
 function AceptarPedidoRegistraClienteCancel(obj) {
-    //console.log(obj);
 }
 
 function ProcesarAceptarPedido(pedido) {
-    //console.log(pedido);
-    
+
     waitingDialog({});
     $.ajax({
         type: 'POST',

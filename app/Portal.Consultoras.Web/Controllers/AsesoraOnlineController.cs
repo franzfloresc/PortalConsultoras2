@@ -10,26 +10,27 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AsesoraOnlineController : Controller
     {
-        private static string IsoPais;
-        private static string CodigoConsultora;
-        private static string Origen;
+        private static string _isoPais;
+        private static string _codigoConsultora;
+        private static string _origen;
+
         public ActionResult Index(string param)
         {
             try
             {
                 if (param.Length > 10)
                 {
-                    IsoPais = param.Substring(0, 2);
-                    CodigoConsultora = param.Substring(2, 7);
-                    Origen = param.Substring(9);
+                    _isoPais = param.Substring(0, 2);
+                    _codigoConsultora = param.Substring(2, 7);
+                    _origen = param.Substring(9);
                 }
             }
             catch (Exception ex)
             {
-                IsoPais = String.Empty;
-                CodigoConsultora = String.Empty;
-                Origen = String.Empty;
-                LogManager.LogManager.LogErrorWebServicesBus(ex, CodigoConsultora, IsoPais);
+                _isoPais = String.Empty;
+                _codigoConsultora = String.Empty;
+                _origen = String.Empty;
+                LogManager.LogManager.LogErrorWebServicesBus(ex, _codigoConsultora, _isoPais);
             }
 
             return View();
@@ -38,24 +39,26 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult EnviarFormulario(AsesoraOnlineModel model)
         {
-            int resultado = 0;
-            ServiceAsesoraOnline.BEUsuario usuario = new ServiceAsesoraOnline.BEUsuario();
             try
             {
-                BEAsesoraOnline entidad = new BEAsesoraOnline();
-                entidad.CodigoConsultora = CodigoConsultora;
-                entidad.Origen = Origen;
-                entidad.Respuesta1 = Convert.ToInt32(model.Respuesta1);
-                entidad.Respuesta2 = Convert.ToInt32(model.Respuesta2);
-                entidad.Respuesta3 = Convert.ToInt32(model.Respuesta3);
-                entidad.Respuesta4 = Convert.ToInt32(model.Respuesta4);
-                entidad.Respuesta5 = Convert.ToInt32(model.Respuesta5);
-                entidad.ConfirmacionInscripcion = 1;
+                BEAsesoraOnline entidad = new BEAsesoraOnline
+                {
+                    CodigoConsultora = _codigoConsultora,
+                    Origen = _origen,
+                    Respuesta1 = Convert.ToInt32(model.Respuesta1),
+                    Respuesta2 = Convert.ToInt32(model.Respuesta2),
+                    Respuesta3 = Convert.ToInt32(model.Respuesta3),
+                    Respuesta4 = Convert.ToInt32(model.Respuesta4),
+                    Respuesta5 = Convert.ToInt32(model.Respuesta5),
+                    ConfirmacionInscripcion = 1
+                };
 
+                int resultado;
+                BEUsuario usuario;
                 using (AsesoraOnlineServiceClient sv = new AsesoraOnlineServiceClient())
                 {
-                    resultado = sv.EnviarFormulario(IsoPais, entidad);
-                    usuario = sv.GetUsuarioByCodigoConsultora(IsoPais, CodigoConsultora);
+                    resultado = sv.EnviarFormulario(_isoPais, entidad);
+                    usuario = sv.GetUsuarioByCodigoConsultora(_isoPais, _codigoConsultora);
                     if (resultado.Equals(1))
                     {
                         var from = ConfigurationManager.AppSettings[Constantes.ConstSession.EmailAsesoraOnline] ?? "";
@@ -68,12 +71,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, CodigoConsultora, IsoPais);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, _codigoConsultora, _isoPais);
                 return Json(new { success = false, message = ex.Message, extra = "" });
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, CodigoConsultora, IsoPais);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, _codigoConsultora, _isoPais);
                 return Json(new
                 {
                     success = false,
@@ -86,13 +89,11 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ActualizarEstadoConfiguracionPaisDetalle(string isoPais, string codigoConsultora)
         {
-            int resultado = 0;
             try
             {
                 using (AsesoraOnlineServiceClient sv = new AsesoraOnlineServiceClient())
                 {
-                    int desactivado = 0;
-                    resultado = sv.ActualizarEstadoConfiguracionPaisDetalle(isoPais, codigoConsultora, desactivado);
+                    sv.ActualizarEstadoConfiguracionPaisDetalle(isoPais, codigoConsultora, 0);
                 }
 
                 return Json(new { success = true, message = "Se actualizó con éxito." });
@@ -111,6 +112,68 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente."
                 }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public ActionResult CancelarSuscripcion(string pais = "", string codconsultora = "")
+        {
+            ViewBag.Pais = pais;
+            ViewBag.CodConsultora = codconsultora;
+            ViewBag.Resultado = CancelaSuscripcion(pais, codconsultora);
+            return View();
+        }
+
+        public string CancelaSuscripcion(string pais = "", string codconsultora = "")
+        {
+            var resul = "";
+            try
+            {
+                using (AsesoraOnlineServiceClient sv = new AsesoraOnlineServiceClient())
+                {
+                    resul = sv.CancelarSuscripcion(pais, codconsultora);
+                }
+
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, codconsultora, pais);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, codconsultora, pais);
+            }
+            return resul;
+        }
+
+        public ActionResult VolverSuscripcion(string pais = "", string codconsultora = "")
+        {
+            ViewBag.Pais = pais;
+            ViewBag.CodConsultora = codconsultora;
+            ViewBag.Resultado = VuelveASuscripcion(pais, codconsultora);
+            return View();
+        }
+
+
+        public int VuelveASuscripcion(string pais = "", string codconsultora = "")
+        {
+            var resul = 0;
+            try
+            {
+                using (AsesoraOnlineServiceClient sv = new AsesoraOnlineServiceClient())
+                {
+                    resul = sv.VuelveASuscripcion(pais, codconsultora);
+                    //pruebas2334
+                }
+
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, codconsultora, pais);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, codconsultora, pais);
+            }
+            return resul;
         }
     }
 }

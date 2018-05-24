@@ -1,0 +1,81 @@
+﻿@using Portal.Consultoras.Web.Models
+@{
+    var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
+
+    var seccionTituloClass = "seccion-titulo";
+    var camapaniaEfectiva = "C" + revistaDigital.CampaniaActiva;
+    if (ViewBag.EsSuscrita)
+    {
+        seccionTituloClass += " seccion-titulo-dorado";
+    }
+}
+<div class="bc_plantilla_estrategia_personalizada">
+    <div class="bc_slider parche_presentacion_contenedor parche_presentacion_contenedor_834"
+         data-plantilla="carrusel-previsuales"
+         style="position: relative;">
+        <div class="bloque-titulo">
+            <div class="@seccionTituloClass">
+                <span>@Model.Titulo</span>
+            </div>
+            <div class="parche_clear"></div>
+        </div>
+        <div class="content_slider_ept" data-seccion-productos=""
+             style="max-width: 814px !important; position: relative; top: -56px;">
+        </div>
+    </div>
+</div>
+<script id="lanzamiento-carrusel-individual-template" type="text/x-handlebars-template">
+    {{#each this.listaLan as |lan|}}
+    {{#if lan.TipoEstrategiaDetalle.FlagIndividual}}
+    <div class="lonuevo_carrusel"
+         style="background: url({{lan.TipoEstrategiaDetalle.ImgFondoDesktop}}); background-color: #24303c !important;"
+         data-item="{{lan.EstrategiaID}}"
+         data-item-cuv="{{CUV2}}">
+        <div style="display:none;" data-estrategia="{{JSON2string lan}}"></div>
+        @if (revistaDigital.EsActiva)
+        {
+            <img class="logo-club logo-club-negro" src="{{lan.TipoEstrategiaDetalle.ImgFichaDesktop}}" />
+        }
+        else
+        {
+            <img class="logo-club" src="/Content/Images/RevistaDigital/etiqueta-club-ganamas-dorado-independiente.svg" />
+        }
+
+        <div class="lonuevo_carrusel_portada">
+            <div class="cont" onclick="javascript:VerPopupExpGanaMas();">
+                <div class="foto_prod" style="background: url({{lan.FotoProducto01}});">
+                </div>
+            </div>
+        </div>
+        <div class="lonuevo_carrusel_info">
+            <div class="cont" data-acortartxt="">
+                <p>{{lan.DescripcionResumen}}</p>
+                <span>{{lan.TipoEstrategiaDetalle.Slogan}}</span>
+                @if (revistaDigital.EsActiva)
+                {
+                    <a href="javascript:void(0)" class="negro" data-item-accion='verdetalle'>VER PRODUCTO</a>
+                }
+                else
+                {
+                    if (revistaDigital.EsSuscrita)
+                    {
+                        <span class="noti">
+                            <b>Encuéntralo en @camapaniaEfectiva</b>
+                        </span>
+                    }
+                    else
+                    {
+                        <a href="javascript:;" class="js-no-popup" data-bloqueada="{{ClaseBloqueada}}"
+                           onclick="javascript:VerPopupExpGanaMas(); ">
+                            ¿LO QUIERES?
+                        </a>
+                    }
+                }
+
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+    {{/if}}
+    {{/each}}
+</script>

@@ -25,7 +25,7 @@
     };
 
     var _enviarFormulario = function () {
-       
+
         _dataLayerVC("Suscripción Exitosa", "(not available)");
         var respuesta1 = $("#revisar-catalogo-clientes:checked").val();
         var respuesta2 = $("#dejar-catalogo-clientes:checked").val();
@@ -70,9 +70,7 @@
                 }
 
             },
-            error: function (data, error) {
-                alert(data.message);
-            }
+            error: function (data, error) { }
         });
 
         return false;

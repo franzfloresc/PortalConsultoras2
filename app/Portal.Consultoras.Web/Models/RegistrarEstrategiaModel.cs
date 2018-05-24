@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -34,22 +32,35 @@ namespace Portal.Consultoras.Web.Models
         public string ColorFondo { get; set; }
         public string FlagEstrella { get; set; }
         public string CodigoTipoEstrategia { get; set; }
-        
-        // Atributos usados solo para la estrategia de lanzamiento.
-        public string ImgFondoDesktop { get; set; }
-        public string ImgPrevDesktop { get; set; }
-        public string ImgFichaDesktop { get; set; }
-        public string UrlVideoDesktop { get; set; }
-        public string ImgFondoMobile { get; set; }
-        public string ImgFichaMobile { get; set; }
-        public string UrlVideoMobile { get; set; }
-        public string ImgFichaFondoDesktop { get; set; }
-        public string ImgFichaFondoMobile { get; set; }
+
+        #region Lan
+        public bool FlagIndividual { get; set; }
+        public string Slogan { get; set; }
+
         public string ImgHomeDesktop { get; set; }
         public string ImgHomeMobile { get; set; }
+        public string ImgFondoDesktop { get; set; }
+        public string ImgFondoMobile { get; set; }
+        public string ImgFichaDesktop { get; set; }
+        public string ImgFichaFondoDesktop { get; set; }
+        public string ImgFichaMobile { get; set; }
+        public string ImgFichaFondoMobile { get; set; }
+
+        public string UrlVideoDesktop { get; set; }
+        public string UrlVideoMobile { get; set; }
+
+        #endregion
+
         public string PrecioAnt { get; set; }
         public string Ganancia { get; set; }
         public bool EsOfertaIndependiente { get; set; }
-
+        public string CodigoPrograma { get; set; }
+        public string CodigoConcurso { get; set; }
+        public string TipoConcurso { get; set; }
+        public string RutaImagenCompleta { get; set; }
+        public string ImagenMiniaturaURL { get; set; }
+        public string ImagenMiniaturaURLAnterior { get; set; }
+        public int EsSubCampania { get; set; }
+        public string Niveles { get; set; }
     }
 }

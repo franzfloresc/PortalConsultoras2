@@ -22,8 +22,8 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new EstrategiaOutModel();
             try
             {
-                var codAgrupa = revistaDigital.TieneRDR ||
-                    (revistaDigital.TieneRDC && revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo) ?
+                var codAgrupa = (revistaDigital.TieneRDC && revistaDigital.EsActiva) 
+                    || (revistaDigital.TieneRDC && revistaDigital.ActivoMdo) ?
                     Constantes.TipoEstrategiaCodigo.RevistaDigital : "";
 
                 var listModel = ConsultarEstrategiasHomePedido(cuv, codAgrupa);

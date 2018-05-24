@@ -43,11 +43,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void UpdateDatos(BEUsuario usuario, string CorreoAnterior);
-        
-        //1796 Inicio
+
         [OperationContract]
         int UpdUsuarioRechazarInvitacion(int PaisID, string CodigoUsuario);
-        //1796 Fin
 
         [OperationContract]
         int UpdateDatosPrimeraVez(int PaisID, string CodigoUsuario, string Email, string Telefono, string TelefonoTrabajo, string Celular, string CorreoAnterior, bool AceptoContrato);
@@ -81,7 +79,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         bool ChangePasswordUser(int paisID, string codigoUsuarioAutenticado, string emailCodigoUsuarioModificado, string password, string emailUsuarioModificado, EAplicacionOrigen origen);
-        
+
         [OperationContract]
         int UpdUsuarioDatosPrimeraVezEstado(int PaisID, string CodigoUsuario);
 
@@ -108,7 +106,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEKitNueva> GetValidarConsultoraNueva(int paisID, string CodigoConsultora);
-        
+
         [OperationContract]
         int ValidarUsuarioPrueba(string CodigoUsuario, int paisID);
 
@@ -151,23 +149,20 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void UpdUsuarioDD(BEUsuario usuario);
 
-        //CCSS_JZ_PROL2
 
         [OperationContract]
-        IList<BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR);
-
-        //FRZ-12
-        [OperationContract]
-        int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR);
+        IList<BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea);
 
         [OperationContract]
-        IList<BENotificacionesDetalle> GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen); //R2073
+        int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea);
 
         [OperationContract]
-        IList<BENotificacionesDetallePedido> GetNotificacionesConsultoraDetallePedido(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen); //R2073
+        IList<BENotificacionesDetalle> GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen);
 
         [OperationContract]
-        //IList<BEMisPedidos> GetNotificacionesConsultoraOnline(int PaisID, long ConsultoraId);
+        IList<BENotificacionesDetallePedido> GetNotificacionesConsultoraDetallePedido(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen);
+
+        [OperationContract]
         IList<BEMisPedidos> GetMisPedidosConsultoraOnline(int PaisID, long ConsultoraId, int Campania);
 
         [OperationContract]
@@ -185,11 +180,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEMisPedidos GetPedidoClienteOnlineBySolicitudClienteId(int paisID, long solicitudClienteId);
 
-        //[OperationContract]
-        //IList<BEProducto> GetValidarCUVMisPedidos(int PaisID, int Campania, string InputCUV, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona);
-
         [OperationContract]
-        void UpdNotificacionesConsultoraVisualizacion(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen); //R2073
+        void UpdNotificacionesConsultoraVisualizacion(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen);
 
         [OperationContract]
         BEConsultoraDatoSAC DatoConsultoraSAC(string paisID, string codigoConsultora, string documento);
@@ -197,15 +189,12 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEConsultoraEstadoSAC ConsultoraEstadoSAC(string paisID, string codigoConsultora);
 
-        //RQ_NS - R2133
         [OperationContract]
         IList<BENotificacionesDetallePedido> GetValidacionStockProductos(int PaisID, long ConsultoraId, long ValAutomaticaPROLLogId);
 
-        //RQ_FP - R2161
         [OperationContract]
         String GetFechaPromesaCronogramaByCampania(int PaisID, int CampaniaId, string CodigoConsultora, DateTime Fechafact);
 
-        //R2116 INICIO
         [OperationContract]
         int UpdateDatosPrimeraVezMexico(int PaisID, string CodigoUsuario, string Nombre, string Apellidos, string Telefono, string TelefonoTrabajo, string Celular, string Email, long IdConsultora, string CodigoConsultora, int CampaniaID_Actual, int CampaniaID_UltimaF, int RegionID, int ZonaID, string EmailAnterior);
         [OperationContract]
@@ -214,9 +203,7 @@ namespace Portal.Consultoras.ServiceContracts
         int SelectSegmento(int paisID, int segmentoID);
         [OperationContract]
         int SelectTiempo(int paisID);
-        //R2116 FIN 
 
-        /* R2392 - AHAA - LIDERES - INICIO */
         [OperationContract]
         int ValidarEstadoSubscripcion(string PaisISO, string CodigoUsuario, int NroDiasPermitidos);
         [OperationContract]
@@ -231,24 +218,21 @@ namespace Portal.Consultoras.ServiceContracts
         int ConfirmarSuscripcion(string PaisISO, string Email);
         [OperationContract]
         List<BEUsuario> GenerarReporteSuscripcionLideres(string PaisISO, string TipoReporte);
-        /* R2392 - AHAA - LIDERES - FIN */
 
-        //R2319
         [OperationContract]
-        void UpdNotificacionSolicitudClienteVisualizacion(int paisID, long SolicitudClienteId);     
-        /*20150802*/
+        void UpdNotificacionSolicitudClienteVisualizacion(int paisID, long SolicitudClienteId);
+
         [OperationContract]
         void UpdNotificacionSolicitudClienteCatalogoVisualizacion(int paisID, long SolicitudClienteCatalogoId);
+
         [OperationContract]
         void UpdNotificacionPedidoRechazadoVisualizacion(int paisID, long procesoId);
 
         [OperationContract]
         BENotificacionesDetalleCatalogo ObtenerDetalleNotificacion(int PaisID, long SolicitudClienteCatalogoId);
 
-        /*R2520 - JICM - LIDERES - INI*/
         [OperationContract]
         List<BEUsuario> ObtenerResultadoEncuesta(int paisID, int campaniaInicio, int campaniaFin);
-        /*R2520 - JICM - LIDERES - FIN*/
 
         [OperationContract]
         int GetCantidadPedidosConsultoraOnline(int PaisID, long ConsultoraId);
@@ -264,49 +248,59 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void UpdNotificacionSolicitudCdrVisualizacion(int paisID, long procesoId);
-        
+
         [OperationContract]
         void UpdNotificacionCdrCulminadoVisualizacion(int paisID, long procesoId);
 
         [OperationContract]
+        void UpdNotificacionPagoEnLineaVisualizacion(int paisId, int procesoId);
+
+        [OperationContract]
         int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono);
 
-        /*EPD-1012*/
         [OperationContract]
         BEValidaLoginSB2 GetValidarLoginSB2(int paisID, string codigoUsuario, string contrasenia);
-        /*EPD-1012*/
 
-        /*EPD-2340*/
         [OperationContract]
         BEValidaLoginSB2 GetValidarAutoLogin(int paisID, string codigoUsuario, string proveedor);
 
         [OperationContract]
         int InsUsuarioExternoPais(int paisID, BEUsuarioExternoPais entidad);
-        /*EPD-2340*/
 
         [OperationContract]
         bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo,
             string codigoUsuarioAutenticado, EAplicacionOrigen origen);
 
-        
+
         [OperationContract]
         int ExisteUsuario(int paisId, string codigoUsuario, string clave);
-          
+
         [OperationContract]
         bool ValidarUsuario(string paisIso, string codigoUsuario, string clave);
 
         [OperationContract]
         List<BEConfiguracionPais> GetConfiguracionPais(BEConfiguracionPais entidad);
-        
+
+        [OperationContract]
+        List<BEConfiguracionPaisDatos> GetConfiguracionPaisComponente(BEConfiguracionPaisDatos entidad);
+
+        [OperationContract]
+        List<BEConfiguracionPaisDatos> GetConfiguracionPaisComponenteDatos(BEConfiguracionPaisDatos entidad);
+
+        [OperationContract]
+        bool ConfiguracionPaisComponenteDeshabilitar(BEConfiguracionPaisDatos entidad);
+
+        [OperationContract]
+        int ConfiguracionPaisDatosGuardar(int paisId, List<BEConfiguracionPaisDatos> entidad);
+
         [OperationContract]
         bool ValidarConfiguracionPaisDetalle(BEConfiguracionPaisDetalle entidad);
-        
-        //EPD-1836
+
+        [OperationContract]
+        List<BEConfiguracionPaisDatos> GetConfiguracionPaisDatos(BEConfiguracionPaisDatos entidad);
+
         [OperationContract]
         int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad);
-        
-        [OperationContract]
-        string RecuperarContrasenia(int paisId, string correo);
 
         [OperationContract]
         string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior);
@@ -314,11 +308,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         int EliminarUsuarioPostulante(string paisISO, string numeroDocumento);
 
-        //EPD-2058
         [OperationContract]
         BEUsuarioPostulante GetUsuarioPostulante(int paisId, string numeroDocumento);
-        
-        /*EPD-1837*/
+
         [OperationContract]
         int InsertUsuarioExterno(int paisID, BEUsuarioExterno usuarioExterno);
 
@@ -331,29 +323,57 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEUsuarioExterno> GetListaLoginExterno(int paisID, string codigoUsuario);
 
-        /*
-        [OperationContract]
-        bool GetExisteEmailActivo(int paisID, string email);
-         * */
-       
-        /*EPD-1837*/
-
         [OperationContract]
         void UpdatePosutlanteMensajes(int paisID, string codigoUsuario, int tipo);
-        
+
         [OperationContract]
         BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania,
             bool usuarioPrueba, int aceptacionConsultoraDA);
-
+        
+        [OperationContract]
+        BEUsuarioChatEmtelco GetUsuarioChatEmtelco(int paisID, string codigoUsuario);
+        
         #region TerminosCondiciones
         [OperationContract]
         bool InsertTerminosCondiciones(BETerminosCondiciones terminos);
+        [OperationContract]
+        bool InsertTerminosCondicionesMasivo(int paisID, List<BETerminosCondiciones> terminos);
         #endregion
 
         #region EventoFestivo
-        /*HD-817*/
         [OperationContract]
         IList<BEEventoFestivo> GetEventoFestivo(int paisID, string Alcance, int Campania);
         #endregion
+
+        [OperationContract]
+        int UpdUsuarioFotoPerfil(int paisID, string codigoUsuario, string fileName);
+
+        [OperationContract]
+        string RecuperarContrasenia(int paisId, string textoRecuperacion);
+
+        #region Restaurar Contraseña
+        [OperationContract]
+        BEUsuarioCorreo GetRestaurarClaveByCodUsuario(string ValorRestauracion, int PaisID);
+
+        [OperationContract]
+        bool EnviarEmail(int paisID, BEUsuarioCorreo objEmail);
+        #endregion
+
+        #region Pin Autenticidad
+        [OperationContract]
+        BEPinAutenticacion GetPinAutenticidad(int paisID, string CodigoUsuario);
+
+        [OperationContract]
+        string GetCodigoGenerado(int PaisID, BEUsuarioCorreo oUsuCorreo, string CodGenerado);
+
+        [OperationContract]
+        BEUsuarioCorreo GetOpcionHabilitada(int PaisID, BEUsuarioCorreo oUsuCorreo);
+
+        [OperationContract]
+        void UpdFlagAutenticacion(int paisID, string CodigoUsuario);
+        #endregion
+
+        [OperationContract]
+        bool GetConsultoraParticipaEnPrograma(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID);
     }
 }

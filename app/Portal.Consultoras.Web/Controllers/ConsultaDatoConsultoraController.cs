@@ -1,45 +1,55 @@
-﻿namespace Portal.Consultoras.Web.Controllers
-{
-    using AutoMapper;
-    using Portal.Consultoras.Common;
-    using Portal.Consultoras.Web.Models;
-    using Portal.Consultoras.Web.ServiceCliente;
-    using Portal.Consultoras.Web.ServicePedido;
-    using Portal.Consultoras.Web.ServiceSAC;
-    using Portal.Consultoras.Web.ServiceUsuario;
-    using Portal.Consultoras.Web.ServiceZonificacion;
-    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.IO;
-    using System.Linq;
-    using System.Net;
-    using System.Web.Mvc;
-    using System.Web.Script.Serialization;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceCliente;
+using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Web.Mvc;
 
+namespace Portal.Consultoras.Web.Controllers
+{
     public class ConsultaDatoConsultoraController : BaseController
     {
         public ActionResult ConsultaDatoConsultora()
         {
-            var model = new ConsultaDatoConsultoraModel();
-            model.listaPaises = DropDowListPaises();
-            model.PaisID = userData.PaisID;
-            model.listaCampania = ObtenterCampaniasPorPais(userData.PaisID);
+            var model = new ConsultaDatoConsultoraModel
+            {
+                listaPaises = DropDowListPaises(),
+                PaisID = userData.PaisID,
+                listaCampania = ObtenterCampaniasPorPais(userData.PaisID)
+            };
             return View(model);
         }
 
         public ActionResult DatoConsultora(string paisID, string codigoConsultora, string documento)
         {
+            JsonResult v_retorno = null;
+            ServiceUsuario.UsuarioServiceClient consultora = null;
+            BEConsultoraDatoSAC consultoraDato;
+
             try
-            {
-                ServiceUsuario.UsuarioServiceClient consultora = new ServiceUsuario.UsuarioServiceClient();
-                BEConsultoraDatoSAC consultoraDato = consultora.DatoConsultoraSAC(paisID, codigoConsultora, documento);
-                return Json(consultoraDato, JsonRequestBehavior.AllowGet);
+            {            
+                consultora = new ServiceUsuario.UsuarioServiceClient();
+                consultoraDato = new BEConsultoraDatoSAC();
+
+                consultoraDato = consultora.DatoConsultoraSAC(paisID, codigoConsultora, documento);   
+                if (consultoraDato != null) ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Datos de Consultora");
+
+                //UserData().PaisID = 0;
+                v_retorno = Json(consultoraDato, JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                return Json(null, JsonRequestBehavior.AllowGet);
+                v_retorno = Json(null, JsonRequestBehavior.AllowGet);
             }
+
+            return v_retorno;
         }
 
         #region EstadoConsultora
@@ -47,8 +57,9 @@
         {
             try
             {
-                ServiceUsuario.UsuarioServiceClient consultora = new ServiceUsuario.UsuarioServiceClient();
+                UsuarioServiceClient consultora = new UsuarioServiceClient();
                 BEConsultoraEstadoSAC consultoraEstado = consultora.ConsultoraEstadoSAC(paisID, codigoConsultora);
+                ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Estado de Consultora"); //HD-881
                 return Json(consultoraEstado, JsonRequestBehavior.AllowGet);
             }
             catch
@@ -61,9 +72,8 @@
         {
             try
             {
-                List<BEOfertaNueva> lista;
-                ServicePedido.PedidoServiceClient svc = new ServicePedido.PedidoServiceClient();
-                lista = svc.GetProductosOfertaConsultoraNueva(userData.PaisID, Convert.ToInt32(campaniaId), Convert.ToInt32(consultoraID)).ToList();
+                PedidoServiceClient svc = new PedidoServiceClient();
+                var lista = svc.GetProductosOfertaConsultoraNueva(userData.PaisID, Convert.ToInt32(campaniaId), Convert.ToInt32(consultoraID)).ToList();
                 var data = new
                 {
                     rows = from a in lista
@@ -72,7 +82,7 @@
                                cell = new string[]
                                {
                                    a.OfertaNuevaId.ToString(),
-                                   a.DescripcionProd.ToString()
+                                   a.DescripcionProd
                                }
                            }
                 };
@@ -87,33 +97,33 @@
 
         public ActionResult EstadoCuenta(string sidx, string sord, int page, int rows, string codigoConsultora)
         {
+            try
+            {
+                ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Estado de Cuenta"); //HD-881
+            }
+            catch (Exception ex)
+            {
+                Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }            
+
             if (ModelState.IsValid)
             {
-                List<EstadoCuentaModel> lst;
-                string DeudaActualConultora = "0.00";
 
-                long ConsulID = ObtenerConsultoraId(codigoConsultora);
-                lst = EstadodeCuenta(ConsulID);
+                long consulId = ObtenerConsultoraId(codigoConsultora);
+                var lst = EstadodeCuenta(consulId);
 
+                string deudaActualConultora;
                 using (SACServiceClient client = new SACServiceClient())
                 {
-                    DeudaActualConultora = client.GetDeudaActualConsultora(userData.PaisID, ConsulID);
+                    deudaActualConultora = client.GetDeudaActualConsultora(userData.PaisID, consulId);
                 }
 
                 string fechaVencimiento;
                 string montoPagar;
-                string simbolo;
                 if (lst.Count == 0)
                 {
                     fechaVencimiento = "";
-                    if (userData.PaisID == 4)
-                    {
-                        montoPagar = "0";
-                    }
-                    else
-                    {
-                        montoPagar = "0.0";
-                    }
+                    montoPagar = userData.PaisID == 4 ? "0" : "0.0";
                 }
                 else
                 {
@@ -121,28 +131,24 @@
                         fechaVencimiento = lst[lst.Count - 1].Fecha.ToString("dd/MM/yyyy");
                     else
                         fechaVencimiento = string.Empty;
-                    if (userData.PaisID == 4)
-                    {
-                        montoPagar = string.Format("{0:#,##0}", DeudaActualConultora.Replace(',', '.'));//lst[lst.Count - 1].Cargo).Replace(',', '.');
-                    }
-                    else
-                    {
-                        montoPagar = string.Format("{0:#,##0.00}", DeudaActualConultora); //lst[lst.Count - 1].Cargo);
-                    }
+                    montoPagar = userData.PaisID == 4
+                        ? string.Format("{0:#,##0}", deudaActualConultora.Replace(',', '.'))
+                        : string.Format("{0:#,##0.00}", deudaActualConultora);
                 }
-                simbolo = string.Format("{0} ", userData.Simbolo);
+                var simbolo = string.Format("{0} ", userData.Simbolo);
 
                 if (lst.Count != 0)
                 {
                     lst.RemoveAt(lst.Count - 1);
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<EstadoCuentaModel> items = lst;
 
                 #region Sort Section
@@ -184,9 +190,9 @@
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
 
-                pag = Paginador(grid, lst);
+                BEPager pag = Paginador(grid, lst);
 
                 items.Where(x => x.Glosa == null).Update(r => r.Glosa = string.Empty);
 
@@ -205,12 +211,14 @@
                                select new
                                {
                                    cell = new string[]
-                               {
-                                   a.Fecha.ToString("dd/MM/yyyy"),
-                                   a.Glosa.ToString(),
-                                   string.Format("{0} ", userData.Simbolo) + string.Format("{0:#,##0}", a.Cargo).Replace(',','.'),
-                                   string.Format("{0} ", userData.Simbolo) + string.Format("{0:#,##0}", a.Abono).Replace(',','.')
-                                }
+                                   {
+                                a.Fecha.ToString("dd/MM/yyyy"),
+                                a.Glosa,
+                                string.Format("{0} ", userData.Simbolo) +
+                                string.Format("{0:#,##0}", a.Cargo).Replace(',', '.'),
+                                string.Format("{0} ", userData.Simbolo) +
+                                string.Format("{0:#,##0}", a.Abono).Replace(',', '.')
+                                   }
                                }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
@@ -229,18 +237,19 @@
                                select new
                                {
                                    cell = new string[]
-                               {
-                                   a.Fecha.ToString("dd/MM/yyyy"),
-                                   a.Glosa.ToString(),
-                                   string.Format("{0} ", userData.Simbolo) + string.Format("{0:#,##0.00}", a.Cargo),
-                                   string.Format("{0} ", userData.Simbolo) + string.Format("{0:#,##0.00}", a.Abono)
-                                }
+                                   {
+                                a.Fecha.ToString("dd/MM/yyyy"),
+                                a.Glosa,
+                                string.Format("{0} ", userData.Simbolo) + string.Format("{0:#,##0.00}", a.Cargo),
+                                string.Format("{0} ", userData.Simbolo) + string.Format("{0:#,##0.00}", a.Abono)
+                                   }
                                }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
 
             }
+            
             return RedirectToAction("Index", "Bienvenida");
         }
 
@@ -248,9 +257,18 @@
 
         public ActionResult PedidoFacturado(string sidx, string sord, int page, int rows, string codigoConsultora)
         {
-            if (ModelState.IsValid)
+            try
             {
-                List<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb> lst = new List<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb>();
+                ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Pedido Facturado"); //HD-881
+            }
+            catch (Exception ex)
+            {
+                Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            if (ModelState.IsValid) //
+            {
+                List<ServicePedido.BEPedidoWeb> lst = new List<ServicePedido.BEPedidoWeb>();
                 List<BEPedidoFacturado> lista = new List<BEPedidoFacturado>();
                 try
                 {
@@ -266,33 +284,37 @@
 
                 foreach (var pedido in lista)
                 {
-                    Portal.Consultoras.Web.ServicePedido.BEPedidoWeb oBEPedidoWeb = new Portal.Consultoras.Web.ServicePedido.BEPedidoWeb();
-                    oBEPedidoWeb.CampaniaID = pedido.Campania;
-                    oBEPedidoWeb.ImporteTotal = pedido.ImporteTotal;
-                    oBEPedidoWeb.CantidadProductos = pedido.Cantidad;
+                    ServicePedido.BEPedidoWeb obePedidoWeb = new ServicePedido.BEPedidoWeb
+                    {
+                        CampaniaID = pedido.Campania,
+                        ImporteTotal = pedido.ImporteTotal,
+                        CantidadProductos = pedido.Cantidad
+                    };
+
                     if (!string.IsNullOrEmpty(pedido.EstadoPedido))
                     {
                         string[] parametros = pedido.EstadoPedido.Split(';');
                         if (parametros.Length >= 3)
                         {
-                            oBEPedidoWeb.EstadoPedidoDesc = OrigenDescripcion(parametros[0]);
-                            oBEPedidoWeb.Direccion = parametros[1] == string.Empty ? "0" : parametros[1];
-                            oBEPedidoWeb.CodigoUsuarioCreacion = parametros[2] == string.Empty ? "" : Convert.ToDateTime(parametros[2]).ToShortDateString();
+                            obePedidoWeb.EstadoPedidoDesc = OrigenDescripcion(parametros[0]);
+                            obePedidoWeb.Direccion = parametros[1] == string.Empty ? "0" : parametros[1];
+                            obePedidoWeb.CodigoUsuarioCreacion = parametros[2] == string.Empty ? "" : Convert.ToDateTime(parametros[2]).ToShortDateString();
                         }
 
 
                     }
 
-                    lst.Add(oBEPedidoWeb);
+                    lst.Add(obePedidoWeb);
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                BEPager pag = new BEPager();
-                IEnumerable<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb> items = lst;
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+                IEnumerable<ServicePedido.BEPedidoWeb> items = lst;
 
                 #region Sort Section
                 if (sord == "asc")
@@ -333,10 +355,9 @@
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 if (userData.PaisID == 4)
                 {
@@ -350,15 +371,15 @@
                                {
                                    id = a.CampaniaID,
                                    cell = new string[]
-                               {
-                                   DescripcionCampania(a.CampaniaID.ToString()),
-                                   a.EstadoPedidoDesc,
-                                   (userData.Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotal).Replace(',','.')),
-                                   a.CantidadProductos.ToString(),
-                                   a.CodigoUsuarioCreacion,
-                                   a.Direccion,
-                                   a.ImporteTotal.ToString()
-                                }
+                                   {
+                                DescripcionCampania(a.CampaniaID.ToString()),
+                                a.EstadoPedidoDesc,
+                                (userData.Simbolo + " " + string.Format("{0:#,##0}", a.ImporteTotal).Replace(',', '.')),
+                                a.CantidadProductos.ToString(),
+                                a.CodigoUsuarioCreacion,
+                                a.Direccion,
+                                a.ImporteTotal.ToString()
+                                   }
                                }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
@@ -375,20 +396,21 @@
                                {
                                    id = a.CampaniaID,
                                    cell = new string[]
-                               {
-                                   DescripcionCampania(a.CampaniaID.ToString()),
-                                   a.EstadoPedidoDesc,
-                                   (userData.Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotal)),
-                                   a.CantidadProductos.ToString(),
-                                   a.CodigoUsuarioCreacion,
-                                   a.Direccion,
-                                   a.ImporteTotal.ToString()
-                                }
+                                   {
+                                DescripcionCampania(a.CampaniaID.ToString()),
+                                a.EstadoPedidoDesc,
+                                (userData.Simbolo + " " + string.Format("{0:#,##0.00}", a.ImporteTotal)),
+                                a.CantidadProductos.ToString(),
+                                a.CodigoUsuarioCreacion,
+                                a.Direccion,
+                                a.ImporteTotal.ToString()
+                                   }
                                }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
             }
+
             return RedirectToAction("Index", "Bienvenida");
         }
 
@@ -396,8 +418,8 @@
         {
             if (ModelState.IsValid)
             {
-                decimal Flete2 = flete == string.Empty ? 0 : Convert.ToDecimal(flete);
-                decimal TotalFacturado = totalFacturado == string.Empty ? 0 : Convert.ToDecimal(totalFacturado);
+                decimal flete2 = flete == string.Empty ? 0 : Convert.ToDecimal(flete);
+                decimal totalFacturadoD = totalFacturado == string.Empty ? 0 : Convert.ToDecimal(totalFacturado);
                 string importeTotal;
                 string fleteString;
                 string totalFacturadoString;
@@ -405,19 +427,19 @@
                 if (userData.PaisID == 4)
                 {
 
-                    fleteString = string.Format("{0:#,##0}", Flete2).Replace(',', '.');
-                    totalFacturadoString = string.Format("{0:#,##0}", TotalFacturado).Replace(',', '.');
-                    importeTotal = string.Format("{0:#,##0}", TotalFacturado - Flete2).Replace(',', '.');
+                    fleteString = string.Format("{0:#,##0}", flete2).Replace(',', '.');
+                    totalFacturadoString = string.Format("{0:#,##0}", totalFacturadoD).Replace(',', '.');
+                    importeTotal = string.Format("{0:#,##0}", totalFacturadoD - flete2).Replace(',', '.');
                 }
                 else
                 {
-                    fleteString = string.Format("{0:#,##0.00}", Flete2);
-                    totalFacturadoString = string.Format("{0:#,##0.00}", TotalFacturado);
-                    importeTotal = string.Format("{0:#,##0.00}", TotalFacturado - Flete2);
+                    fleteString = string.Format("{0:#,##0.00}", flete2);
+                    totalFacturadoString = string.Format("{0:#,##0.00}", totalFacturadoD);
+                    importeTotal = string.Format("{0:#,##0.00}", totalFacturadoD - flete2);
                 }
 
 
-                List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle> lst = new List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle>();
+                List<ServicePedido.BEPedidoWebDetalle> lst = new List<ServicePedido.BEPedidoWebDetalle>();
                 List<BEPedidoFacturado> lista;
                 try
                 {
@@ -438,7 +460,7 @@
                 {
                     if (pedido.CUV.Trim().Length > 0 &&
                         pedido.Descripcion.Trim().Length > 0)
-                        lst.Add(new Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle
+                        lst.Add(new ServicePedido.BEPedidoWebDetalle
                         {
                             CUV = pedido.CUV,
                             DescripcionProd = pedido.Descripcion,
@@ -449,13 +471,14 @@
                         });
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                BEPager pag = new BEPager();
-                IEnumerable<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle> items = lst;
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+                IEnumerable<ServicePedido.BEPedidoWebDetalle> items = lst;
 
                 #region Sort Section
                 if (sord == "asc")
@@ -510,10 +533,9 @@
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 if (userData.PaisID == 4)
                 {
@@ -532,16 +554,18 @@
                                {
                                    id = a.CUV,
                                    cell = new string[]
-                               {
-                                   a.CUV,
-                                   a.DescripcionProd,
-                                   a.Cantidad.ToString(),
-                                   (userData.Simbolo + " " + string.Format("{0:#,##0}",a.PrecioUnidad).Replace(',','.')),
-                                   (userData.Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotal).Replace(',','.')),
-                                   (" " + a.ImporteTotal.ToString("#,##0").Replace(',','.')),
-                                   (userData.Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotalPedido).Replace(',','.')),
-                                   (userData.Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotal - a.ImporteTotalPedido).Replace(',','.'))
-                                }
+                                   {
+                                a.CUV,
+                                a.DescripcionProd,
+                                a.Cantidad.ToString(),
+                                (userData.Simbolo + " " + string.Format("{0:#,##0}", a.PrecioUnidad).Replace(',', '.')),
+                                (userData.Simbolo + " " + string.Format("{0:#,##0}", a.ImporteTotal).Replace(',', '.')),
+                                (" " + a.ImporteTotal.ToString("#,##0").Replace(',', '.')),
+                                (userData.Simbolo + " " +
+                                 string.Format("{0:#,##0}", a.ImporteTotalPedido).Replace(',', '.')),
+                                (userData.Simbolo + " " +
+                                 string.Format("{0:#,##0}", a.ImporteTotal - a.ImporteTotalPedido).Replace(',', '.'))
+                                   }
                                }
                     };
 
@@ -564,16 +588,17 @@
                                {
                                    id = a.CUV,
                                    cell = new string[]
-                               {
-                                   a.CUV,
-                                   a.DescripcionProd,
-                                   a.Cantidad.ToString(),
-                                   (userData.Simbolo + " " + string.Format("{0:#,##0.00}",a.PrecioUnidad)),
-                                   (userData.Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotal)),
-                                   (" " + a.ImporteTotal.ToString("#0.00")),
-                                   (userData.Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotalPedido)),
-                                   (userData.Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotal - a.ImporteTotalPedido))
-                                }
+                                   {
+                                a.CUV,
+                                a.DescripcionProd,
+                                a.Cantidad.ToString(),
+                                (userData.Simbolo + " " + string.Format("{0:#,##0.00}", a.PrecioUnidad)),
+                                (userData.Simbolo + " " + string.Format("{0:#,##0.00}", a.ImporteTotal)),
+                                (" " + a.ImporteTotal.ToString("#0.00")),
+                                (userData.Simbolo + " " + string.Format("{0:#,##0.00}", a.ImporteTotalPedido)),
+                                (userData.Simbolo + " " +
+                                 string.Format("{0:#,##0.00}", a.ImporteTotal - a.ImporteTotalPedido))
+                                   }
                                }
                     };
 
@@ -587,28 +612,37 @@
         {
             if (ModelState.IsValid)
             {
-                List<ServicePedido.BEPedidoWebDetalle> olstPedido = new List<ServicePedido.BEPedidoWebDetalle>();
-                using (ServicePedido.PedidoServiceClient sv = new ServicePedido.PedidoServiceClient())
+                List<ServicePedido.BEPedidoWebDetalle> olstPedido;
+
+                var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
                 {
-                    olstPedido = sv.SelectByCampania(userData.PaisID, int.Parse(campaniaId), long.Parse(consultoraId), "", EsOpt()).ToList();
+                    PaisId = userData.PaisID,
+                    CampaniaId = int.Parse(campaniaId),
+                    ConsultoraId = long.Parse(consultoraId),
+                    Consultora = "",
+                    EsBpt = EsOpt() == 1,
+                    CodigoPrograma = userData.CodigoPrograma,
+                    NumeroPedido = userData.ConsecutivoNueva
+                };
+
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+
+                    olstPedido = sv.SelectByCampania(bePedidoWebDetalleParametros).ToList();
+
                 }
 
-                decimal Total = 0;
-                string TotalPW;
+                decimal total = 0;
+                string totalPw;
 
                 if (olstPedido.Count != 0)
                 {
-                    Total = olstPedido.Sum(p => p.ImporteTotal);
+                    total = olstPedido.Sum(p => p.ImporteTotal);
                 }
 
-                if (userData.PaisID == 4)
-                {
-                    TotalPW = string.Format("{0:#,##0}", Total).Replace(',', '.');
-                }
-                else
-                {
-                    TotalPW = string.Format("{0:N2}", Total);
-                }
+                totalPw = userData.PaisID == 4 ?
+                    string.Format("{0:#,##0}", total).Replace(',', '.')
+                    : string.Format("{0:N2}", total);
 
 
                 List<ServiceCliente.BEPedidoWebDetalle> lst;
@@ -617,12 +651,13 @@
                     lst = sv.GetClientesByCampania(userData.PaisID, int.Parse(campaniaId), long.Parse(consultoraId)).ToList();
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<ServiceCliente.BEPedidoWebDetalle> items = lst;
 
                 #region Sort Section
@@ -646,14 +681,13 @@
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
-                    totalPW = TotalPW,
+                    totalPW = totalPw,
                     simbolo = userData.Simbolo,
                     total = pag.PageCount,
                     page = pag.CurrentPage,
@@ -664,10 +698,10 @@
                                id = a.ClienteID,
                                cell = new string[]
                                {
-                                   a.Nombre,
-                                   a.ClienteID.ToString(),
-                                   a.eMail
-                                }
+                            a.Nombre,
+                            a.ClienteID.ToString(),
+                            a.eMail
+                               }
                            }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -685,12 +719,13 @@
                     lst = sv.GetPedidoWebDetalleByCliente(userData.PaisID, int.Parse(campaniaId), long.Parse(consultoraId), int.Parse(clientId)).ToList();
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<ServiceCliente.BEPedidoWebDetalle> items = lst;
 
                 #region Sort Section
@@ -738,10 +773,9 @@
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 if (userData.PaisID == 4)
                 {
@@ -751,20 +785,21 @@
                         total = pag.PageCount,
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
-                        totalSum = string.Format("{0:#,##0}", (from req in lst select req.ImporteTotal).Sum()).Replace(',', '.'),
+                        totalSum = string.Format("{0:#,##0}", (from req in lst select req.ImporteTotal).Sum())
+                            .Replace(',', '.'),
                         rows = from a in items
                                select new
                                {
                                    id = a.PedidoDetalleID,
                                    cell = new string[]
-                               {
-                                   a.CUV,
-                                   a.DescripcionProd,
-                                   a.Cantidad.ToString(),
-                                   (userData.Simbolo + " " + string.Format("{0:#,##0}",a.PrecioUnidad).Replace(',','.')),
-                                   (userData.Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotal).Replace(',','.')),
-                                   a.ImporteTotal.ToString("#0.00")
-                                }
+                                   {
+                                a.CUV,
+                                a.DescripcionProd,
+                                a.Cantidad.ToString(),
+                                (userData.Simbolo + " " + string.Format("{0:#,##0}", a.PrecioUnidad).Replace(',', '.')),
+                                (userData.Simbolo + " " + string.Format("{0:#,##0}", a.ImporteTotal).Replace(',', '.')),
+                                a.ImporteTotal.ToString("#0.00")
+                                   }
                                }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
@@ -783,14 +818,14 @@
                                {
                                    id = a.PedidoDetalleID,
                                    cell = new string[]
-                               {
-                                   a.CUV,
-                                   a.DescripcionProd,
-                                   a.Cantidad.ToString(),
-                                   (userData.Simbolo + " " + string.Format("{0:#,##0.00}",a.PrecioUnidad)),
-                                   (userData.Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotal)),
-                                   a.ImporteTotal.ToString("#0.00")
-                                }
+                                   {
+                                a.CUV,
+                                a.DescripcionProd,
+                                a.Cantidad.ToString(),
+                                (userData.Simbolo + " " + string.Format("{0:#,##0.00}", a.PrecioUnidad)),
+                                (userData.Simbolo + " " + string.Format("{0:#,##0.00}", a.ImporteTotal)),
+                                a.ImporteTotal.ToString("#0.00")
+                                   }
                                }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
@@ -813,120 +848,124 @@
                         extra = ""
                     });
                 }
-                else
+
+                decimal total = 0;
+                List<ServiceCliente.BEPedidoWebDetalle> lst;
+                using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
-                    decimal Total = 0;
-                    List<ServiceCliente.BEPedidoWebDetalle> lst = new List<ServiceCliente.BEPedidoWebDetalle>();
-                    using (ClienteServiceClient sv = new ClienteServiceClient())
-                    {
-                        lst = sv.GetPedidoWebDetalleByCliente(userData.PaisID, int.Parse(CampaniaId), long.Parse(consultoraId), int.Parse(ClientId)).ToList();
-                    }
+                    lst = sv.GetPedidoWebDetalleByCliente(userData.PaisID, int.Parse(CampaniaId), long.Parse(consultoraId), int.Parse(ClientId)).ToList();
+                }
 
 
-                    #region Mensaje a Enviar
-                    string mailBody = string.Empty;
-                    mailBody = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">";
-                    mailBody += "<div style='font-size:12px;'>Hola,</div> <br />";
-                    mailBody += "<div style='font-size:12px;'> El detalle de tu pedido para la campaña <b>" + CampaniaId.ToString() + "</b> es el siguiente :</div> <br /><br />";
-                    mailBody += "<table border='1' style='width: 80%;'>";
-                    mailBody += "<tr style='color: #FFFFFF'>";
-                    mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 126px; background-color: #666699;'>";
-                    mailBody += "Cod. Venta";
-                    mailBody += "</td>";
-                    mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 347px; background-color: #666699;'>";
-                    mailBody += "Descripción";
-                    mailBody += "</td>";
-                    mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 124px; background-color: #666699;'>";
-                    mailBody += "Cantidad";
-                    mailBody += "</td>";
-                    mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 182px; background-color: #666699;'>";
-                    mailBody += "Precio Unit.";
-                    mailBody += "</td>";
-                    mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 165px; background-color: #666699;'>";
-                    mailBody += "Precio Total";
-                    mailBody += "</td>";
-                    mailBody += "</tr>";
+                #region Mensaje a Enviar
 
-                    for (int i = 0; i < lst.Count; i++)
-                    {
+                var txtBuil = new StringBuilder();
 
-                        mailBody += "<tr>";
-                        mailBody += "<td style='font-size:11px; width: 126px; text-align: center;'>";
-                        mailBody += "" + lst[i].CUV.ToString() + "";
-                        mailBody += "</td>";
-                        mailBody += " <td style='font-size:11px; width: 347px;'>";
-                        mailBody += "" + lst[i].DescripcionProd.ToString() + "";
-                        mailBody += "</td>";
-                        mailBody += "<td style='font-size:11px; width: 124px; text-align: center;'>";
-                        mailBody += "" + lst[i].Cantidad.ToString() + "";
-                        mailBody += "</td>";
-                        if (userData.PaisID == 4)
-                        {
-                            mailBody += "<td style='font-size:11px; width: 182px; text-align: center;'>";
-                            mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].PrecioUnidad).Replace(',', '.') + "";
-                            mailBody += "</td>";
-                            mailBody += "<td style='font-size:11px; width: 165px; text-align: center;'>";
-                            mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].ImporteTotal).Replace(',', '.') + "";
-                            mailBody += "</td>";
+                txtBuil.Append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">");
+                txtBuil.Append("<div style='font-size:12px;'>Hola,</div> <br />");
+                txtBuil.Append("<div style='font-size:12px;'> El detalle de tu pedido para la campaña <b>" + CampaniaId.ToString() + "</b> es el siguiente :</div> <br /><br />");
+                txtBuil.Append("<table border='1' style='width: 80%;'>");
+                txtBuil.Append("<tr style='color: #FFFFFF'>");
+                txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 126px; background-color: #666699;'>");
+                txtBuil.Append("Cod. Venta");
+                txtBuil.Append("</td>");
+                txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 347px; background-color: #666699;'>");
+                txtBuil.Append("Descripción");
+                txtBuil.Append("</td>");
+                txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 124px; background-color: #666699;'>");
+                txtBuil.Append("Cantidad");
+                txtBuil.Append("</td>");
+                txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 182px; background-color: #666699;'>");
+                txtBuil.Append("Precio Unit.");
+                txtBuil.Append("</td>");
+                txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 165px; background-color: #666699;'>");
+                txtBuil.Append("Precio Total");
+                txtBuil.Append("</td>");
+                txtBuil.Append("</tr>");
 
-                        }
-                        else
-                        {
-                            mailBody += "<td style='font-size:11px; width: 182px; text-align: center;'>";
-                            mailBody += "" + userData.Simbolo + lst[i].PrecioUnidad.ToString("#0.00") + "";
-                            mailBody += "</td>";
-                            mailBody += "<td style='font-size:11px; width: 165px; text-align: center;'>";
-                            mailBody += "" + userData.Simbolo + lst[i].ImporteTotal.ToString("#0.00") + "";
-                            mailBody += "</td>";
-                        }
-                        mailBody += "</tr>";
-                        Total += lst[i].ImporteTotal;
+                for (int i = 0; i < lst.Count; i++)
+                {
 
-                    }
-                    mailBody += "<tr>";
-                    mailBody += "<td colspan='4' style='font-size:11px; text-align: right; font-weight: bold'>";
-                    mailBody += "Total :";
-                    mailBody += "</td>";
-                    mailBody += "<td style='font-size:11px; text-align: center; font-weight: bold'>";
+                    txtBuil.Append("<tr>");
+                    txtBuil.Append("<td style='font-size:11px; width: 126px; text-align: center;'>");
+                    txtBuil.Append("" + lst[i].CUV + "");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append(" <td style='font-size:11px; width: 347px;'>");
+                    txtBuil.Append("" + lst[i].DescripcionProd + "");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("<td style='font-size:11px; width: 124px; text-align: center;'>");
+                    txtBuil.Append("" + lst[i].Cantidad.ToString() + "");
+                    txtBuil.Append("</td>");
+
                     if (userData.PaisID == 4)
                     {
-                        mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", Total).Replace(',', '.') + "";
+                        txtBuil.Append("<td style='font-size:11px; width: 182px; text-align: center;'>");
+                        txtBuil.Append("" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].PrecioUnidad).Replace(',', '.') + "");
+                        txtBuil.Append("</td>");
+                        txtBuil.Append("<td style='font-size:11px; width: 165px; text-align: center;'>");
+                        txtBuil.Append("" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].ImporteTotal).Replace(',', '.') + "");
+                        txtBuil.Append("</td>");
                     }
                     else
                     {
-                        mailBody += "" + userData.Simbolo + Total.ToString("#0.00") + "";
+                        txtBuil.Append("<td style='font-size:11px; width: 182px; text-align: center;'>");
+                        txtBuil.Append("" + userData.Simbolo + lst[i].PrecioUnidad.ToString("#0.00") + "");
+                        txtBuil.Append("</td>");
+                        txtBuil.Append("<td style='font-size:11px; width: 165px; text-align: center;'>");
+                        txtBuil.Append("" + userData.Simbolo + lst[i].ImporteTotal.ToString("#0.00") + "");
+                        txtBuil.Append("</td>");
                     }
 
-                    mailBody += "</td>";
-                    mailBody += "</tr>";
-                    mailBody += "</table>";
-                    mailBody += "<br /><br />";
-                    mailBody += "<div style='font-size:12px;'>Saludos,</div>";
-                    mailBody += "<br /><br />";
-                    mailBody += "<table border='0'>";
-                    mailBody += "<tr>";
-                    mailBody += "<td>";
-                    mailBody += "<img src='cid:Logo' border='0' />";
-                    mailBody += "</td>";
-                    mailBody += "<td style='text-align: center; font-size:12px;'>";
-                    mailBody += "<strong>" + userData.NombreConsultora + "</strong> <br />";
-                    mailBody += "<strong>Consultora</strong>";
-                    mailBody += "</td>";
-                    mailBody += "</tr>";
-                    mailBody += "</table>";
+                    txtBuil.Append("</tr>");
 
-                    #endregion
+                    total += lst[i].ImporteTotal;
 
-                    Util.EnviarMail("no-responder@somosbelcorp.com", ClientId.ToString().Equals("0") ? userData.EMail : Email, "(" + userData.CodigoISO + ") Pedido Solicitado", mailBody, true, userData.NombreConsultora);
-
-
-                    return Json(new
-                    {
-                        success = true,
-                        message = "Se envió satisfactoriamente el correo al cliente seleccionado.",
-                        extra = ""
-                    });
                 }
+
+                txtBuil.Append("<tr>");
+                txtBuil.Append("<td colspan='4' style='font-size:11px; text-align: right; font-weight: bold'>");
+                txtBuil.Append("Total :");
+                txtBuil.Append("</td>");
+                txtBuil.Append("<td style='font-size:11px; text-align: center; font-weight: bold'>");
+
+                if (userData.PaisID == 4)
+                {
+                    txtBuil.Append("" + userData.Simbolo + string.Format("{0:#,##0}", total).Replace(',', '.') + "");
+                }
+                else
+                {
+                    txtBuil.Append("" + userData.Simbolo + total.ToString("#0.00") + "");
+                }
+
+                txtBuil.Append("</td>");
+                txtBuil.Append("</tr>");
+                txtBuil.Append("</table>");
+                txtBuil.Append("<br /><br />");
+                txtBuil.Append("<div style='font-size:12px;'>Saludos,</div>");
+                txtBuil.Append("<br /><br />");
+                txtBuil.Append("<table border='0'>");
+                txtBuil.Append("<tr>");
+                txtBuil.Append("<td>");
+                txtBuil.Append("<img src='cid:Logo' border='0' />");
+                txtBuil.Append("</td>");
+                txtBuil.Append("<td style='text-align: center; font-size:12px;'>");
+                txtBuil.Append("<strong>" + userData.NombreConsultora + "</strong> <br />");
+                txtBuil.Append("<strong>Consultora</strong>");
+                txtBuil.Append("</td>");
+                txtBuil.Append("</tr>");
+                txtBuil.Append("</table>");
+
+                string mailBody = txtBuil.ToString();
+                #endregion
+
+                Util.EnviarMail("no-responder@somosbelcorp.com", ClientId.Equals("0") ? userData.EMail : Email, "(" + userData.CodigoISO + ") Pedido Solicitado", mailBody, true, userData.NombreConsultora);
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Se envió satisfactoriamente el correo al cliente seleccionado.",
+                    extra = ""
+                });
             }
             catch (Exception ex)
             {
@@ -945,29 +984,48 @@
         public ActionResult SeguimientoPedido(string codigo)
         {
             string url = "";
-            string paisID = userData.PaisID.ToString();
-            string codigoConsultora = codigo;
-            string mostrarAyudaWebTracking = Convert.ToInt32(true).ToString();
-            string paisISO = userData.CodigoISO.Trim();
-            string campanhaID = userData.CampaniaID.ToString();
-            url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisID, codigoConsultora, mostrarAyudaWebTracking, paisISO, campanhaID);
-            return Json(url, JsonRequestBehavior.AllowGet);
+            try
+            {                
+                string paisID = userData.PaisID.ToString();
+                string codigoConsultora = codigo;
+                string mostrarAyudaWebTracking = Convert.ToInt32(true).ToString();
+                string paisISO = userData.CodigoISO.Trim();
+                string campanhaID = userData.CampaniaID.ToString();
+                url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisID, codigoConsultora, mostrarAyudaWebTracking, paisISO, campanhaID);
+                ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Seguimiento Pedido"); //HD-881
+                return Json(url, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json("", JsonRequestBehavior.AllowGet);
+            }           
         }
 
         public ActionResult PaqueteDocumentario(string sidx, string sord, int page, int rows, string campania, string codigo)
         {
+            try
+            {
+                ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigo, "Paquete Documentario"); //HD-881
+            }
+            catch (Exception ex)
+            {
+                Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            
+
             BEGrid grid = new BEGrid();
             grid.PageSize = rows;
             grid.CurrentPage = page;
             grid.SortColumn = sidx;
             grid.SortOrder = sord;
+            //int buscar = int.Parse(txtBuscar);
             BEPager pag = new BEPager();
             bool ErrorServicio;
             string ErrorCode;
             string ErrorMessage;
             List<RVPRFModel> lst = new List<RVPRFModel>();
-            if (!string.IsNullOrEmpty(campania))
-                lst = GetPDFRVDigital(campania, codigo, out ErrorServicio, out ErrorCode, out ErrorMessage);
+            if (!string.IsNullOrEmpty(campania)) lst = GetListPaqueteDocumentario(codigo, campania, "");
             IEnumerable<RVPRFModel> items = lst;
 
             #region Sort Section
@@ -990,8 +1048,8 @@
                 }
             }
             #endregion
-            
-            pag = Paginador(grid, campania, lst);
+
+           // BEPager pag = Paginador(grid, campania, lst);
 
             var data = new
             {
@@ -1003,88 +1061,21 @@
                        {
                            id = a.Nombre + "-" + a.FechaFacturacion,
                            cell = new string[]
-                                {
-                                a.Nombre,
-                                a.FechaFacturacion,
-                                a.Ruta,
-                                }
-
+                           {
+                        a.Nombre,
+                        a.FechaFacturacion,
+                        a.Ruta,
+                           }
                        }
             };
+            
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetCampaniasRVDigitalWeb(string CodigoConsultora)
         {
-            UsuarioModel usuario = userData;
-            var complain = new RVDWebCampaniasParam { Pais = usuario.CodigoISO, Tipo = "1", CodigoConsultora = ((usuario.UsuarioPrueba == 1) ? usuario.ConsultoraAsociada : CodigoConsultora) };
-            List<CampaniaModel> lstCampaniaModel = new List<CampaniaModel>();
-            string ErrorCode = string.Empty;
-            string ErrorMessage = string.Empty;
-            try
-            {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                string output = serializer.Serialize(complain);
-
-                string strUri = ConfigurationManager.AppSettings["WS_RV_Campanias_NEW"];
-                Uri uri = new Uri(strUri);
-                WebRequest request = WebRequest.Create(uri);
-                request.Method = "POST";
-                request.ContentType = "application/json; charset=utf-8";
-
-                using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
-                {
-                    writer.Write(output);
-                }
-
-                WebResponse responce = request.GetResponse();
-                Stream reader = responce.GetResponseStream();
-                StreamReader sReader = new StreamReader(reader);
-                string outResult = sReader.ReadToEnd();
-                sReader.Close();
-
-                JavaScriptSerializer json_serializer = new JavaScriptSerializer();
-
-                WrapperCampanias st = json_serializer.Deserialize<WrapperCampanias>(outResult);
-                if (st != null)
-                {
-                    if (st.LIS_CampanaResult != null)
-                    {
-                        if (st.LIS_CampanaResult.lista != null)
-                        {
-                            if (st.LIS_CampanaResult.lista.Count != 0)
-                            {
-                                foreach (var item in st.LIS_CampanaResult.lista)
-                                {
-                                    lstCampaniaModel.Add(new CampaniaModel() { CampaniaID = Convert.ToInt32(item), Codigo = item });
-                                }
-                            }
-                            else
-                            {
-                                ErrorCode = st.LIS_CampanaResult.errorCode;
-                                ErrorMessage = st.LIS_CampanaResult.errorMessage;
-                            }
-                        }
-                        else
-                        {
-                            ErrorCode = st.LIS_CampanaResult.errorCode;
-                            ErrorMessage = st.LIS_CampanaResult.errorMessage;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-            if (lstCampaniaModel.Count != 0)
-                return Json(lstCampaniaModel.Distinct().OrderBy(p => p.CampaniaID).ToList(), JsonRequestBehavior.AllowGet);
-            else
-
-
-                return Json(lstCampaniaModel, JsonRequestBehavior.AllowGet);
-
-
+            string errorMessage;
+            return Json(GetListCampaniaPaqueteDocumentario(CodigoConsultora, out errorMessage), JsonRequestBehavior.AllowGet);
         }
 
         #region metodos genericos
@@ -1093,191 +1084,43 @@
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (userData.RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(userData.PaisID));
-                }
-
+                lst = userData.RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
-        private IEnumerable<CampaniaModel> ObtenterCampaniasPorPais(int PaisID)
+        private IEnumerable<CampaniaModel> ObtenterCampaniasPorPais(int paisId)
         {
             List<BECampania> lista;
             using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
             {
-                lista = servicezona.SelectCampanias(PaisID).ToList();
+                lista = servicezona.SelectCampanias(paisId).ToList();
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                .ForMember(x => x.CampaniaID, t => t.MapFrom(c => c.CampaniaID))
-                .ForMember(x => x.NombreCorto, t => t.MapFrom(c => c.NombreCorto))
-                .ForMember(x => x.Codigo, t => t.MapFrom(c => c.Codigo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
-        }
-
-        public List<RVPRFModel> GetPDFRVDigital(string campania, string codigo, out bool ErrorServicio, out string ErrorCode, out string ErrorMessage)
-        {
-            UsuarioModel usuario = userData;
-            string Marca;
-            string NombrePais = DevolverNombrePais(codigo, out Marca);
-            var complain = new RVDWebCampaniasParam { Pais = usuario.CodigoISO, Tipo = "1", CodigoConsultora = ((usuario.UsuarioPrueba == 1) ? usuario.ConsultoraAsociada : codigo), Campana = campania };
-            List<RVPRFModel> lstRVPRFModel = new List<RVPRFModel>();
-            ErrorServicio = false;
-            ErrorCode = string.Empty;
-            ErrorMessage = string.Empty;
-            try
-            {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                string output = serializer.Serialize(complain);
-
-                string strUri = ConfigurationManager.AppSettings["WS_RV_PDF_NEW"];
-                Uri uri = new Uri(strUri);
-                WebRequest request = WebRequest.Create(uri);
-                request.Method = "POST";
-                request.ContentType = "application/json; charset=utf-8";
-
-                using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
-                {
-                    writer.Write(output);
-                }
-
-                WebResponse responce = request.GetResponse();
-                Stream reader = responce.GetResponseStream();
-                StreamReader sReader = new StreamReader(reader);
-                string outResult = sReader.ReadToEnd();
-                sReader.Close();
-
-                JavaScriptSerializer json_serializer = new JavaScriptSerializer();
-
-                WrapperPDFWeb st = json_serializer.Deserialize<WrapperPDFWeb>(outResult);
-                if (st != null)
-                {
-                    if (st.GET_URLResult != null)
-                    {
-                        if (st.GET_URLResult.errorCode == "00000" || st.GET_URLResult.errorMessage == "OK")
-                        {
-                            if (st.GET_URLResult.objeto != null && st.GET_URLResult.objeto.Count != 0)
-                            {
-                                foreach (var item in st.GET_URLResult.objeto)
-                                {
-                                    lstRVPRFModel.Add(new RVPRFModel() { Nombre = "Paquete Documentario", FechaFacturacion = item.fechaFacturacion, Ruta = Convert.ToString(item.url) });
-                                }
-                            }
-
-                        }
-                        else
-                        {
-                            ErrorCode = st.GET_URLResult.errorCode;
-                            ErrorMessage = st.GET_URLResult.errorMessage;
-                        }
-
-                    }
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                ErrorServicio = true;
-            }
-
-            return lstRVPRFModel;
-        }
-
-        public string DevolverNombrePais(string ISO, out string Marca)
-        {
-            string result = string.Empty;
-            Marca = string.Empty;
-
-            switch (ISO)
-            {
-                case "AR":
-                    result = "ARGENTINA";
-                    Marca = "L'Bel";
-                    break;
-                case "BO":
-                    result = "BOLIVIA";
-                    Marca = "Esika";
-                    break;
-                case "CL":
-                    result = "CHILE";
-                    Marca = "Esika";
-                    break;
-                case "CO":
-                    result = "COLOMBIA";
-                    Marca = "L'Bel";
-                    break;
-                case "CR":
-                    result = "COSTA RICA";
-                    Marca = "L'Bel";
-                    break;
-                case "DO":
-                    result = "DOMINICANA";
-                    Marca = "L'Bel";
-                    break;
-                case "EC":
-                    result = "ECUADOR";
-                    Marca = "L'Bel";
-                    break;
-                case "SV":
-                    result = "EL SALVADOR";
-                    Marca = "Esika";
-                    break;
-                case "GT":
-                    result = "GUATEMALA";
-                    Marca = "Esika";
-                    break;
-                case "MX":
-                    result = "MEXICO";
-                    Marca = "L'Bel";
-                    break;
-                case "PA":
-                    result = "PANAMA";
-                    Marca = "L'Bel";
-                    break;
-                case "PE":
-                    result = "PERU";
-                    Marca = "Esika";
-                    break;
-                case "PR":
-                    result = "PUERTO RICO";
-                    Marca = "L'Bel";
-                    break;
-                case "VE":
-                    result = "VENEZUELA";
-                    Marca = "L'Bel";
-                    break;
-            }
-            return result;
         }
 
         public BEPager Paginador(BEGrid item, string vBusqueda, List<RVPRFModel> lst)
         {
             BEPager pag = new BEPager();
 
-            int RecordCount;
+            var recordCount = string.IsNullOrEmpty(vBusqueda)
+                ? lst.Count
+                : lst.Count(p => p.Nombre.ToUpper().Contains(vBusqueda.ToUpper()));
 
-            if (string.IsNullOrEmpty(vBusqueda))
-                RecordCount = lst.Count;
-            else
-                RecordCount = lst.Where(p => p.Nombre.ToUpper().Contains(vBusqueda.ToUpper())).ToList().Count();
+            pag.RecordCount = recordCount;
 
-            pag.RecordCount = RecordCount;
+            int pageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
+            pag.PageCount = pageCount;
 
-            int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
+            int currentPage = item.CurrentPage;
+            pag.CurrentPage = currentPage;
 
-            int CurrentPage = (int)item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
-
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
+            if (currentPage > pageCount)
+                pag.CurrentPage = pageCount;
 
             return pag;
         }
@@ -1300,50 +1143,48 @@
             return fecha;
         }
 
-        private List<EstadoCuentaModel> EstadodeCuenta(long ConsultoraID)
+        private List<EstadoCuentaModel> EstadodeCuenta(long consultoraId)
         {
-            List<EstadoCuentaModel> lst = ObtenerEstadoCuenta(ConsultoraID);
+            List<EstadoCuentaModel> lst = ObtenerEstadoCuenta(consultoraId);
 
             return lst;
         }
 
         public long ObtenerConsultoraId(string codigoConsultora)
         {
-            long ConsultoraIdmetodo;
+            long consultoraIdmetodo;
             using (ServiceODS.ODSServiceClient sv = new ServiceODS.ODSServiceClient())
             {
-                ConsultoraIdmetodo = sv.GetConsultoraIdByCodigo(userData.PaisID, codigoConsultora);
+                consultoraIdmetodo = sv.GetConsultoraIdByCodigo(userData.PaisID, codigoConsultora);
             }
 
-            return ConsultoraIdmetodo;
+            return consultoraIdmetodo;
         }
 
         public BEPager Paginador(BEGrid item, List<EstadoCuentaModel> lst)
         {
             BEPager pag = new BEPager();
 
-            int RecordCount;
+            var recordCount = lst.Count;
 
-            RecordCount = lst.Count;
+            pag.RecordCount = recordCount;
 
-            pag.RecordCount = RecordCount;
+            int pageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
+            pag.PageCount = pageCount;
 
-            int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
+            int currentPage = item.CurrentPage;
+            pag.CurrentPage = currentPage;
 
-            int CurrentPage = (int)item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
-
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
+            if (currentPage > pageCount)
+                pag.CurrentPage = pageCount;
 
             return pag;
         }
 
-        public string OrigenDescripcion(string Origen)
+        public string OrigenDescripcion(string origen)
         {
-            string result = string.Empty;
-            switch (Origen)
+            string result;
+            switch (origen)
             {
                 case "A":
                     result = "PEDIDO ESPECIAL";
@@ -1367,24 +1208,24 @@
                     result = "MIXTO (DD + WEB)";
                     break;
                 default:
-                    result = Origen;
+                    result = origen;
                     break;
 
             }
             return result;
         }
 
-        public string DescripcionCampania(string CampaniaID)
+        public string DescripcionCampania(string campaniaId)
         {
-            string DesCamp = string.Empty;
+            string DesCamp;
             try
             {
-                DesCamp = CampaniaID.Substring(0, 4) + "-C" + CampaniaID.Substring(4, 2);
+                DesCamp = campaniaId.Substring(0, 4) + "-C" + campaniaId.Substring(4, 2);
             }
             catch (Exception ex)
             {
                 Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                DesCamp = CampaniaID;
+                DesCamp = campaniaId;
             }
             return DesCamp;
         }

@@ -35,10 +35,9 @@ $(document).ready(function () {
                 e.preventDefault();
 
                 $(this).parents(".contenedor_fondo_popup").fadeOut(400);
-                //$(this).parent().fadeOut(400);            
             },
             mostrarBotonSuscripcionMobile: function () {
-                if(window.matchMedia("(max-width:767px)").matches) {
+                if (window.matchMedia("(max-width:767px)").matches) {
                     if ($(window).scrollTop() > $("#formulario-inscripcion").offset().top - 200) {
                         $(".cta_inscripcion_fixed").removeClass("mostrar_cta_inscripcion_mobile_fijo");
                     }
@@ -54,14 +53,14 @@ $(document).ready(function () {
 
         me.Funciones = {
             inicializarEventos: function () {
-                
+
                 $("body").on("click", ".cta_inscripcion", function () {
                     me.Funciones.dataLayerVirtualCoach("Click Botón", "Quiero Subscribirme");
                     me.Eventos.irASeccionFormulario;
                 });
-                $("body").on("click", ".cerrar_popup_inscripcion", function () { me.Funciones.dataLayerVirtualCoach("Banner Confirmación", "Cerrar popup"); $(this).parents(".contenedor_fondo_popup").fadeOut(400);});
-                $("body").on("click", "#datos_son_correctos", function () { me.Funciones.dataLayerVirtualCoach("Banner Confirmación", "Click botón Todos mis datos son correctos"); $(this).parents(".contenedor_fondo_popup").fadeOut(400);});
-                   
+                $("body").on("click", ".cerrar_popup_inscripcion", function () { me.Funciones.dataLayerVirtualCoach("Banner Confirmación", "Cerrar popup"); $(this).parents(".contenedor_fondo_popup").fadeOut(400); });
+                $("body").on("click", "#datos_son_correctos", function () { me.Funciones.dataLayerVirtualCoach("Banner Confirmación", "Click botón Todos mis datos son correctos"); $(this).parents(".contenedor_fondo_popup").fadeOut(400); });
+
                 $("body").on("click", ".arrow_down_coach_virtual", me.Eventos.scrollDownArrow);
                 $(document).on("scroll", me.Eventos.mostrarBotonSuscripcionMobile);
                 $("#enviar-form").on("click", asesoraOnlineObj.enviarFormulario);
@@ -75,7 +74,7 @@ $(document).ready(function () {
                     'action': action,
                     'label': label
                 });
-                
+
             }
         };
 

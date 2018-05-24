@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Web.ServicePedido;
+﻿using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Layout;
+using Portal.Consultoras.Web.Models.MisCertificados;
+using Portal.Consultoras.Web.Models.PagoEnLinea;
+using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
+using System;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -42,6 +44,14 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetRevistaDigital(RevistaDigitalModel revistaDigital);
 
         RevistaDigitalModel GetRevistaDigital();
+
+        void SetHerramientasVenta(HerramientasVentaModel herramientasVenta);
+
+        HerramientasVentaModel GetHerramientasVenta();
+
+        void SetGuiaNegocio(GuiaNegocioModel modeloGnd);
+
+        GuiaNegocioModel GetGuiaNegocio();
 
         void SetIsContrato(int isContrato);
 
@@ -83,10 +93,14 @@ namespace Portal.Consultoras.Web.SessionManager
 
         bool GetTieneOpmX1();
 
-        void SetTieneRdr(bool tieneRdr);
+        void SetTieneHv(bool tieneHv);
 
-        bool GetTieneRdr();
-        
+        bool GetTieneHv();
+
+        void SetTieneHvX1(bool tieneHv);
+
+        bool GetTieneHvX1();
+
         void SetUserData(UsuarioModel usuario);
 
         UsuarioModel GetUserData();
@@ -94,5 +108,61 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetMontosProl(List<ObjMontosProl> montosProl);
 
         List<ObjMontosProl> GetMontosProl();
+
+        void SetMisCertificados(List<MiCertificadoModel> lista);
+
+        List<MiCertificadoModel> GetMisCertificados();
+
+        void SetMisCertificadosData(List<BEMiCertificado> lista);
+
+        List<BEMiCertificado> GetMisCertificadosData();
+
+        void SetFlagLogCargaOfertas(bool habilitarLog);
+
+        void SetListFiltersFAV(List<ServiceSAC.BETablaLogicaDatos> lista);
+
+        bool GetFlagLogCargaOfertas();
+
+        void SetMenuContenedorActivo(MenuContenedorModel menuContenedorActivo);
+
+        MenuContenedorModel GetMenuContenedorActivo();
+
+        void SetMenuContenedor(List<ConfiguracionPaisModel> menuContenedor);
+
+        List<ConfiguracionPaisModel> GetMenuContenedor();
+
+        void SetSeccionesContenedor(int campaniaId, List<BEConfiguracionOfertasHome> seccionesContenedor);
+
+        List<BEConfiguracionOfertasHome> GetSeccionesContenedor(int campaniaId);
+
+        List<ServiceSAC.BETablaLogicaDatos> GetListFiltersFAV();
+
+        void SetStartSession(DateTime StartSession);
+
+        DateTime GetStartSession();
+
+        void SetDatosPagoVisa(PagoEnLineaModel model);
+
+        IShowRoom ShowRoom { get; }
+
+        PagoEnLineaModel GetDatosPagoVisa();
+
+        void SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo);
+
+        EstrategiaPersonalizadaProductoModel GetProductoTemporal();
+
+        //EstrategiaPersonalizadaProductoModel ProductoTemporal { get; set; }
+
+        void SetPedidosFacturados(PedidoWebClientePrincipalMobilModel model);
+
+        PedidoWebClientePrincipalMobilModel GetPedidosFacturados();
+
+        List<BEPedidoWebDetalle> GetDetallesPedidoSetAgrupado();
+
+        void SetDetallesPedidoSetAgrupado(List<BEPedidoWebDetalle> detallesPedidoWeb);
+
+        void SetMiAcademia(int id); /* SOPORTEC-266 */
+
+        int GetMiAcademia(); /* SOPORTEC-266 */
     }
 }

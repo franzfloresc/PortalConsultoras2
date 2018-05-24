@@ -2,6 +2,7 @@
 @using Portal.Consultoras.Web.Models;
 @using Portal.Consultoras.Web.Areas.Mobile.Helpers
 @using Newtonsoft.Json;
+@using Portal.Consultoras.Web.Helpers
 
 @{
     ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
@@ -10,41 +11,50 @@
     OfertaDelDiaModel ofertaDelDia = null;
     if (ViewBag.MostrarOfertaDelDia == true) { ofertaDelDia = ViewBag.OfertaDelDia; }
     ofertaDelDia = ofertaDelDia ?? new OfertaDelDiaModel();
+
+    bool esIngresoUnico = ViewContext.EsIngresoUnico();
 }
 
 <!DOCTYPE html>
 <html lang="es-PE">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="SomosBelcorp Web Mobile" />
-    <title>Somos Belcorp</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="description" content="SomosBelcorp Web Mobile" />
 
-    <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+	<title>Somos Belcorp</title>
 
-    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
-    {
-        <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
-        @Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
-    }
-    else
-    {
-        <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
-        @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
-    }
-    <link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
-    
+	@Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
+
+	<link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+
+	@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+	{
+		<link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
+		@Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
+		@Styles.Render("~/Content/Css/Mobile/Esika/Contenedor")
+	}
+	else
+	{
+		<link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
+		@Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
+		@Styles.Render("~/Content/Css/Mobile/Lbel/Contenedor")
+	}
+
+	<link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
+
     <script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
+        var revistaDigital = @Html.Raw(Json.Encode(ViewBag.revistaDigital));
     </script>
 
-    @RenderSection("styles", required: false)
+	@RenderSection("styles", required: false)
 
-    @if (TempData.ContainsKey("PixelCodigoIso"))
-    {
-        <noscript id="noscript-pixel-image"></noscript>
-    }
+	@if (TempData.ContainsKey("PixelCodigoIso"))
+	{
+		<noscript id="noscript-pixel-image"></noscript>
+	}
 </head>
 <body>
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
@@ -95,7 +105,7 @@
         <br />
         <div class="saludo_menu">¡Hola @ViewBag.NombreConsultora!</div>
         @Html.Partial("_MobileMenuLateral")
-        <a role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
+        <a  id="lnk-cerrar-sesion" role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
     </div>
 
     <!-- alert-top -->
@@ -126,7 +136,7 @@
                 <ul class="slides">
                     @if (ViewBag.MostrarOfertaDelDiaContenedor == true)
                     {
-                        <li>
+                        <li style="height: 60px;">
                             @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBannerTop.cshtml", ofertaDelDia);
                         </li>
                     }
@@ -137,6 +147,12 @@
                     }
                 </ul>
             </div>
+        }
+        @if (ViewBag.MostrarBannerApp == true && !ViewBag.MostrarBannerRechazo == true)
+        {
+            <!--BANNER APP-->
+            <div class="banner_app"><div>X</div></div>
+            <!--END BANNER APP-->
         }
         <!--END BANNER-->
 
@@ -151,6 +167,11 @@
                 </div>
                 <div class="col-xs-4 text-right">
                     <div class="menu-shop">
+                        <div class="contenedor_circulos">
+                            <div class="circulo-1 iniciarTransicion"></div>
+                            <div class="circulo-2 iniciarTransicion"></div>
+                            <div class="circulo-3 iniciarTransicion"></div>
+                        </div>
                         <a role="link" region="Superior" parent="Pedido" title="Pedido"
                            class="campana_mobile" href="@Url.Action("Detalle", "Pedido", new { area = "Mobile" })" id="lnk-sup-pedido">
                             <span role="link" region="Superior" parent="Pedido" title="Pedido" class="icon-menu-shop"><i class="icon-shop-belcorp"></i></span>
@@ -168,35 +189,35 @@
 
     <!-- content -->
     <section style="min-height: 380px;">
-        <div id="contentmobile" data-content="" style="margin-top: 60px;">
+        <div id="contentmobile" data-content="">
 
             @if (ViewBag.MostrarBannerPL20 == true && ViewBag.MostrarBannerOtros == false)
             {
                 if (ViewBag.MostrarODD == false)
                 {
-                <div id="content_slider_banner" class="content_slider_banner" style="display:none;">
-                    @if (ViewBag.PermitirCerrarBannerPL20 == true)
-                    {
-                        <a class="btn_cerrar_oferta_mobile" href="javascript:void(0);" onclick="closeBannerPL20();">X</a>
-                    }
-                    <div id="flexslider">
-                        <ul class="slides">
-                            @if (ViewBag.MostrarShowRoomBannerLateral == true)
-                            {
-                                <li>
-                                    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloqueBannerShowRoom.cshtml", showRoomBannerLateral)
-                                </li>
-                            }
+                    <div id="content_slider_banner" class="content_slider_banner" style="display:none;">
+                        @if (ViewBag.PermitirCerrarBannerPL20 == true)
+                        {
+                            <a class="btn_cerrar_oferta_mobile" href="javascript:void(0);" onclick="closeBannerPL20();">X</a>
+                        }
+                        <div id="flexslider">
+                            <ul class="slides">
+                                @if (ViewBag.MostrarShowRoomBannerLateral == true)
+                                {
+                                    <li>
+                                        @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloqueBannerShowRoom.cshtml", showRoomBannerLateral)
+                                    </li>
+                                }
 
-                            @if (ViewBag.MostrarOfertaDelDia == true)
-                            {
-                                <li>
-                                    @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBanner.cshtml", ofertaDelDia)
-                                </li>
-                            }
-                        </ul>
+                                @if (ViewBag.MostrarOfertaDelDia == true)
+                                {
+                                    <li>
+                                        @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBanner.cshtml", ofertaDelDia)
+                                    </li>
+                                }
+                            </ul>
+                        </div>
                     </div>
-                </div>
                 }
             }
             @RenderBody()
@@ -299,16 +320,14 @@
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/vp_BloquePopupMensajesInformacion.cshtml")
 
     <!--POP MENSAJE POSTULANTE-->
-    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupPostulante.cshtml")    
-    <!--FIN--> 
-
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupPostulante.cshtml")
+    <!--FIN-->
     <!--POP COMUNIDAD-->
-    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupComunidad.cshtml")    
-    <!--FIN-->    
-            
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupComunidad.cshtml")
+    <!--FIN-->
     <!--POP MENSAJE SESION FINALIZADA Error-->
-    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupSesionFinalizada.cshtml")    
-    <!--FIN-->    
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupSesionFinalizada.cshtml")
+    <!--FIN-->
 
     <div style="display:none">
         <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
@@ -321,7 +340,7 @@
         var urlValidarCorreoComunidad = '@Url.Action("ValidarCorreoComunidad", "Bienvenida", new { area = "" })';
         var urlValidarCorreoIngresado = '@Url.Action("ValidarCorreoIngresado", "Bienvenida", new { area = "" })';
         var urlValidarUsuarioIngresado = '@Url.Action("ValidarUsuarioIngresado", "Bienvenida", new { area = "" })';
-        var urlGetCantidadProductos = '@Url.Action("GetResumenCampania", "GestionContenido", new { area = "" })';
+        var urlGetCantidadProductos = '@Url.Action("GetResumenCampaniaAgrupado", "GestionContenido", new { area = "" })';
         var urlGetNotificacionesSinLeer = '@Url.Action("GetNotificacionesSinLeer", "Notificaciones", new { area = "" })';
         var urlGetCantidadPedidos = '@Url.Action("GetCantidadPedidos", "ConsultoraOnline", new { area = "Mobile" })';
         var urlGetShowRoom = '@Url.Action("MostrarShowRoomBannerLateral", "Bienvenida", new { area = "" })';
@@ -353,7 +372,6 @@
         var cerrarRechazado = '@ViewBag.CerrarRechazado';
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
 
-        //ODD
         var mostrarOfertaDelDia = '@ViewBag.MostrarODD';
         var vbMmostrarOfertaDelDia = '@ViewBag.MostrarOfertaDelDia';
         var usuarioNombre = '@ViewBag.UsuarioNombre';
@@ -364,14 +382,21 @@
         var MostrarBannerOtros = '@ViewBag.MostrarBannerOtros';
         var ocultarBannerTop = '@Session["OcultarBannerTop"]';
         var TipoOrigenPantallaODD = 2;
+        // New Chat
+        var emt_client_type = '@ViewBag.TipoUsuario';
+        var emt_country = '@ViewBag.CodigoISODL';
+        var emt_email_address = '@ViewBag.CorreoC';
+        var emt_first_name = '@ViewBag.NombreC';
+        var emt_id = '@ViewBag.CodigoUsuario';
+        var emt_type = '0';
 
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
 
         var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
-        var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl'; //EPD-1682
-        var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
+        var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl';
+        window.urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         var userData = {
             'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
             'rol': '@(Constantes.LogDynamoDB.RolConsultora)',
@@ -390,23 +415,43 @@
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
         var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
         var OrigenDesktopODD = 0;
+
+        //BANNER APP
+        var urlOcultarBannerApp = '@Url.Action("OcultarBannerApp", "Bienvenida", new { area = "Mobile" })';
+        var actionName = '@ViewContext.RouteData.GetRequiredString("action")';
+        var controllerName = '@ViewContext.RouteData.GetRequiredString("controller")';
+        var oBannerApp = @Html.Raw(@Json.Encode(ViewBag.BannerApp));
+
+        // Seteando Controlador y Accion
+        @{
+            var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
+            string ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
+            string acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+        }
+        window.controllerName = '@ctrl.ToLower()';
+        window.actionName     = '@acti.ToLower()';
+        //console.log("controllerName:" + controllerName + " | actionName:" + actionName);
     </script>
 
     @if (ViewBag.MostrarOfertaDelDiaContenedor == true)
     {
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            window.OfertaDelDia.CargarODD();
-        });
-    </script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                window.OfertaDelDia.CargarODD();
+
+                $("div[id^='content_oferta_dia_mobile']").click(function () {
+                        document.location.href = urlOfertaDelDiaMobile;
+                });
+            });
+        </script>
     }
 
     @if (ViewBag.MostrarBannerPL20 == true || ViewBag.MostrarBannerOtros == true)
     {
-    if (ViewBag.MostrarShowRoomBannerLateral == true)
-    {
-    <script type="text/javascript">
+        if (ViewBag.MostrarShowRoomBannerLateral == true)
+        {
+            <script type="text/javascript">
         var mostrarShowRoomProductos = '@showRoomBannerLateral.MostrarShowRoomProductos';
         var showRoomDiasFaltantes = @showRoomBannerLateral.DiasFaltantes;
         var showRoomMesFaltante = @showRoomBannerLateral.MesFaltante;
@@ -494,14 +539,12 @@
                 $("#lnkConoceMasShowRoomBannerLateralHoy, #lnkConoceMasShowRoomBannerLateralImagenHoy").click(function () {
                     AgregarTagManagerShowRoomBannerLateralConocesMas(true);
                 });
-                //AgregarTagManagerShowRoomBannerLateral(true);
             }
             else {
                 $("#lnkConoceMasShowRoomBannerLateral").click(function () {
                     AgregarTagManagerShowRoomBannerLateralConocesMas(false);
                 });
                 AgregarTimerShowRoom(showRoomDiasFaltantes, showRoomMesFaltante, showRoomAnioFaltante);
-                //AgregarTagManagerShowRoomBannerLateral(false);
             }
         }
 
@@ -578,7 +621,6 @@
                 minutes = minutes - (days * 24 * 60) - (hours * 60);
                 seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
 
-                //$("#time").text("Time until new year:\nDays: " + days + " Hours: " + hours + " Minutes: " + minutes + " Seconds: " + seconds);
                 $(".clsDia").html(days);
                 $(".clsHora").html(hours);
                 $(".clsMinuto").html(minutes);
@@ -597,8 +639,8 @@
             }, 1000);
         }
 
-    </script>
-    }
+            </script>
+        }
     }
     <script type="text/javascript">
         function messageInfoPostulante() {
@@ -610,6 +652,17 @@
     </script>
     @RenderSection("scripts", required: false)
     @{Html.PlaceScripts();}
+
+    @{ 
+        if (!esIngresoUnico)
+        {
+            <link href="@Url.Content("~/emt_chat/css/style-client.css")" rel="stylesheet">
+            <link rel="stylesheet" href="@Url.Content("~/emt_chat/css/font-awesome.min.css")">
+            <div class="CMXD-containment-wrapper"></div><div id="marca"> <div class="CMXD-btn-help"> <div id="btn_init" class="CMXD-help" style="display:none;"></div><div id="btn_open" class="CMXD-open" style="display: none"></div></div><div class="container-movil"></div><div id="CMXD-container-chat" class="CMXD-container-chat" style="display: none"> <div class="CMXD-header-chat"> <i class="fa fa-comments-o" aria-hidden="true"></i> CHAT EN LÍNEA <div class="CMXD-icons"> <a class="display-a" id="btn_minimize" href=""> <i class="fa fa-minus" aria-hidden="true"></i> </a> <a class="display-a" id="btn_wClose" href="" style="display: none"> <i class="fa fa-times" aria-hidden="true"></i> </a> </div><hr class="CMXD-line"> </div><div id="chat"> <div id="interaction" class="CMXD-container-welcome" style="display: none"> <div class='chat-wrapper'> <div id="transcript" class='chat-message padding container-chat'></div></div><div id="slideDownTranscript" class="message-end CMXD-animate2"> <span class="fa fa-angle-double-down"></span> </div><div class="container-txt"> <textarea class="txtarea" rows="2" id="Entry" placeholder="Escribe un Mensaje..."></textarea> <a class="" href=""> <div class="send send2" id="btn_Send"> <i class="fa fa-paper-plane-o" aria-hidden="true"></i><br>Enviar </div></a> </div></div><div id="loading" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="loading_image" src="" alt=""> </div><div id="loading_title" class="CMXD-welcome"> Bienvenida a nuestro <br>chat en línea </div><div id="loading_description" class="CMXD-description"> En un momento uno de nuestros asesores estará contigo </div></div></div><div id="schedule" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="schedule_image" src="" alt="Imagen fuera de horario"> </div><div id="schedule_title" class="CMXD-welcome"> </div><div id="schedule_description" class="CMXD-description"> </div></div></div><div id="Error" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="Error_image" src="" alt=""> </div><div class="CMXD-welcome"> Error de conexión </div><div class="CMXD-description"> En estos momentos no es posible establecer conexión. Por favor intenta más tarde. <br /><br /> <a href="" class="btn-no display-a" id="btn_mclose"> OK</a> </div></div></div><div id="alert" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="alert_image" src="" alt=""> </div><div class="CMXD-welcome"> ¿Desea cerrar la sesión de chat? </div><div class="CMXD-description"> <a href="" class="btn-yes display-a" id="btn_close"> Si</a> <a href="" class="btn-no display-a" id="btn_nwClose"> No</a> </div></div></div></div><div id="poll" class="pop-up"> <div class="CMXD-container-welcome"> <div id="poll_title" class="CMXD-welcome"> <br />Encuesta de Satisfacción </div><div id="poll_description" class="CMXD-description"> </div></div></div></div></div>
+            <script type="text/javascript" src="@Url.Content("~/emt_chat/js/gen.js")"></script>
+        }
+    }
+
     @if (TempData.ContainsKey("PixelCodigoIso"))
     {
         @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login-Header")
@@ -617,7 +670,7 @@
             var pixelAnalytics = Analytics();
             pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
         </script>
-        @TempData.Remove("PixelCodigoIso");
+        TempData.Remove("PixelCodigoIso");
     }
 </body>
 </html>

@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Pago Exitoso";
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+@section styles{
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Esika/pago-en-linea.css")">
+
+    <style type="text/css">
+        .footer-page {
+            display: none;
+            margin-bottom: 54px;
+        }
+    </style>
+
+}
+
+<!-- TÍTULO -->
+<div class="cabecera_vista_pago_en_linea">
+    <a href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
+    PAGO EN LÍNEA
+</div>
+<!-- FIN - TÍTULO -->
+
+<div class="content_belcorp">
+    <div class="pestana_lbel"></div>
+
+    <!-- VISTA PROCESO DE PAGO EN LÍNEA -->
+
+    <div class="proceso_de_pago_en_linea">
+
+        <!-- VISTA PAGO RECHAZADO -->
+
+        <div class="pago_rechazado">
+
+            <div class="icono_pago_rechazado"></div>
+            <h3 class="titulo_pago_rechazado">
+                Pago <strong>rechazado</strong>
+            </h3>
+            <p class="mensaje_pago_rechazado">
+                Tu pago no se pudo realizar.
+            </p>
+
+        </div>
+        @if (!string.IsNullOrEmpty(Model.DescripcionCodigoAccion))
+        {
+            <br />
+            <div class="resumen_pago">
+                <p class="info_num_operacion_pago">
+                    Número de operación: <span class="num_operacion_pago">@Model.NumeroOperacion</span>
+                </p>
+                <div class="num_tarjeta">
+                    <span>Fecha de Operación:</span>
+                    <span>@Model.FechaCreacionString</span>
+                </div>
+                <div class="num_tarjeta">
+                    <span>Motivo de Denegación:</span>
+                    <span>@Model.DescripcionCodigoAccion</span>
+                </div>
+            </div>
+        }
+        <!-- FIN - VISTA PAGO RECHAZADO -->
+
+    </div>
+
+    <!-- FIN - VISTA PROCESO DE PAGO EN LÍNEA -->
+
+</div>
+
+@section scripts{
+
+}

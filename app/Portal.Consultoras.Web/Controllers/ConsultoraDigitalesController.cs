@@ -6,7 +6,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ConsultoraDigitalesController : BaseController
     {
-
         public ActionResult Index()
         {
 
@@ -24,16 +23,12 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult RealizarDescarga()
         {
-            string mensaje = string.Empty;
             try
             {
-                string fechaproceso;
-
                 using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
                 {
-
                     DateTime theDate = DateTime.Now;
-                    fechaproceso = theDate.ToString("yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture);
+                    var fechaproceso = theDate.ToString("yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture);
 
                     sv.GetConsultoraDigitalesDescarga(UserData().PaisID, UserData().CodigoISO, fechaproceso, UserData().CodigoUsuario);
                 }
@@ -56,7 +51,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
 
     }
 }

@@ -1,26 +1,17 @@
-﻿using System.Text;
-using System.Threading.Tasks;
+﻿using Portal.Consultoras.Entities;
 using System.Data;
 using System.Data.Common;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
 using System.Data.SqlClient;
 
 namespace Portal.Consultoras.Data
 {
     public class DAConfiguracionValidacion : DataAccess
     {
-        public DAConfiguracionValidacion(int paisID)
-            : base(paisID, EDbSource.Portal)
-        {
+        public DAConfiguracionValidacion(int paisID) : base(paisID, EDbSource.Portal) {}
 
-        }
-
-        public IDataReader GetConfiguracionValidacion(int CampaniaID)
+        public IDataReader GetConfiguracionValidacion()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionValidacion");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
-
             return Context.ExecuteReader(command);
         }
 

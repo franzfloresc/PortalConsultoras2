@@ -10,6 +10,8 @@
 
     <title>Belcorp | Portal Consultoras</title>
 
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
+
     <link href="@Url.Content("~/Content/Css/Site/flipclock.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Site/slick.css")" rel="stylesheet" />
 
@@ -51,15 +53,29 @@
         var tieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia';
         var mostrarOfertaDelDiaContenedor ='@ViewBag.MostrarOfertaDelDiaContenedor';
         var esContenedorOfertas = true;
-
-        var UrlChat = '@ViewBag.UrlBelcorpChat';
+        // New Chat
+        var emt_client_type = '@ViewBag.TipoUsuario';
+        var emt_country = '@ViewBag.CodigoISODL';
+        var emt_email_address = '@ViewBag.CorreoC';
+        var emt_first_name = '@ViewBag.NombreC';
+        var emt_id = '@ViewBag.CodigoUsuario';
+        var emt_type = '0';
+        // New Chat -->
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
-        var UrlChatAnterior = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpNew?token=@ViewBag.TokenAtento';
-        var BelcorpFechaChat_Pais = '@(System.Configuration.ConfigurationManager.AppSettings["FechaChat_" + ViewBag.CodigoISODL])';
-        var PaisesChatEMTELCO ='@(System.Configuration.ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"])';
         var FechaActual = '@(DateTime.Now.ToString("dd/MM/yyyy"))';
 
-        var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
+        window.urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
+
+        // Seteando Controlador y Accion
+        @{
+            var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
+            string ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
+            string acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+        }
+        window.controllerName = '@ctrl.ToLower()';
+        window.actionName     = '@acti.ToLower()';
+        //console.log("controllerName:" + controllerName + " | actionName:" + actionName);
+
         var userData = {
             'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
             'rol': '@(Constantes.LogDynamoDB.RolConsultora)',
@@ -72,10 +88,12 @@
         };
         var usuarioNombre = '@ViewBag.UsuarioNombre';
         var controllerName = '@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower()';
+
+        var revistaDigital = @Html.Raw(Json.Encode(ViewBag.revistaDigital));
     </script>
     <style id="styleRelojOdd"></style>
     @RenderSection("styles", required: false)
-    
+
     @if (TempData.ContainsKey("PixelCodigoIso"))
     {
         <noscript id="noscript-pixel-image"></noscript>
@@ -97,38 +115,37 @@
     }
 
     <script type="text/javascript">
-            if (!String.prototype.startsWith) {
-                String.prototype.startsWith = function (searchString, position) {
-                    position = position || 0;
-                    return this.indexOf(searchString, position) === position;
-                };
-            }
+        if (!String.prototype.startsWith) {
+            String.prototype.startsWith = function (searchString, position) {
+                position = position || 0;
+                return this.indexOf(searchString, position) === position;
+            };
+        }
     </script>
 
-    @if (ViewBag.Rol == Constantes.Rol.Consultora)
-    {
-        string nombre_pais = ViewBag.PaisAnalytics;
-
-        switch (nombre_pais)
+    @*@if (ViewBag.Rol == Constantes.Rol.Consultora)
         {
-            case "EC":
-                @*<div class="boton_ayuda"><span id="belcorpChat1" class="boton-home"><a href="http://200.32.70.19/Belcorp/" target="_blank">¿Necesitas ayuda?</a> </span></div>*@
-            //break;
-            case "CO":
-            case "BO":
-            case "CL":
-            case "MX":
-            case "PR":
-            case "DO":
-            case "PE":
-            case "PA":
-            case "CR":
-            case "SV":
-            case "GT":
-                <div class="boton_ayuda"><span class="boton-home belcorpChat"><a href="#">¿Necesitas ayuda?</a> </span></div>
-                break;
-        }
-    }
+            string nombre_pais = ViewBag.PaisAnalytics;
+
+            switch (nombre_pais)
+            {
+                case "EC":
+                //break;
+                case "CO":
+                case "BO":
+                case "CL":
+                case "MX":
+                case "PR":
+                case "DO":
+                case "PE":
+                case "PA":
+                case "CR":
+                case "SV":
+                case "GT":
+                    <div class="boton_ayuda"><span class="boton-home belcorpChat"><a href="#">¿Necesitas ayuda?</a> </span></div>
+                    break;
+            }
+        }*@
     <!-- cabecera -->
     <header>
         <!--BANNER -->
@@ -155,7 +172,6 @@
         </div>
         <div class="clear"></div>
     </header>
-
     <div class="fondo_oscuro"></div>
     <!-- end cabecera -->
     <!-- contenedor -->
@@ -163,6 +179,8 @@
         .data-layaout-body {
             width: initial !important;
         }
+        
+
     </style>
     @{
         string controllerAction = this.ViewContext.RouteData.Values["controller"].ToString() + this.ViewContext.RouteData.Values["action"].ToString();
@@ -193,6 +211,11 @@
                 <div class="footerTerminos">
                     <a id="linkTerminosCondicionesShowRoom" onclick="SetMarcaGoogleAnalyticsTermino();" target="_blank">T&eacute;rminos y condiciones</a>
                 </div>
+            }
+
+            @if (ViewBag.BannerInferior != null)
+            {
+                @Html.Partial("~/Views/ShowRoom/_BannerInferior.cshtml", (Portal.Consultoras.Web.Models.Estrategia.ShowRoom.BannerInferiorConfiguracion)ViewBag.BannerInferior)
             }
             <!-- footer -->
             <hr class="clear" />
@@ -236,7 +259,7 @@
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTemplateResumenCampania.cshtml")
 
     <!--OFERTA DEL DIA -->
-    <script id="ofertadeldia-template" type="text/x-handlebars-template">
+<script id="ofertadeldia-template" type="text/x-handlebars-template">
         <div data-odd-tipoventana="baner">
             <div class="content_oferta_dia" id="banner-odd" data-item="">
                 <div style="display:none;" data-item-campos="">
@@ -255,7 +278,7 @@
                     <input type="hidden" Class="marca-descripcion-odd" value="{{DescripcionMarca}}" />
                     <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
                 </div>
-                <div class="solo_hoy">
+                <div>
                     <div style="height:42px; overflow:hidden;"><img src="{{ImagenSoloHoy}}" id="img-solohoy-odd" alt="" /></div>
                     <div class="clock"></div>
                     <div class="message"></div>
@@ -278,18 +301,27 @@
             </div>
             <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeOfertaDelDia(this);" style="display: none;">x</a>
         </div>
-        <div class="content_pop_oferta_dia {{ClassDimension}}" id="PopOfertaDia">
-            <div class="solo_hoy content_landing_odd" style="width:100%; margin-top:4px;margin-bottom: 12px;">
-                <a class="regresar_carrusel" href="javascript: void(0);" data-odd-accion="regresar" style="display:none;">REGRESAR</a> <!--SOLO SE MUESTRA CUANDO SE VA AL DETALLE DE UN PRODUCTO-->
-                <div id="imgSoloHoy" style="height:42px; overflow:hidden;float:left;margin-top: 19px; margin-left:47px"><img src="{{ImagenSoloHoy}}" alt="" style="width:74%" /></div>
-                <div class="clock" style="float:right"></div>
+        <div class="{{ClassDimension}}" id="PopOfertaDia">
+            <div class="parche_presentacion_contenedor parche_presentacion_contenedor_834">
+                <div class="rd_volver" style="position: absolute; margin-top: 28px;">
+                    <a href="javascript: void(0);" data-odd-accion="regresar" style="display:none;">
+                        <img class="previous_volver icono_clase_control_color_dinamico" src="/Content/Images/PL20/ld_arrowright_blanco.png" style="width: 8px">
+                        <span class="clase_control_color_dinamico" style="top: -4px; position: absolute;left: 15px; font-weight: bold; font-family: 'Lato'; font-size:15px; color:#fff;">VOLVER</span>
+                    </a>
+                </div>
+                <!--SOLO SE MUESTRA CUANDO SE VA AL DETALLE DE UN PRODUCTO-->
+                <div id="imgSoloHoy" style="height:42px; overflow:hidden;float:left;margin-top: 19px; margin-left:-13px; "><img src="{{ImagenSoloHoy}}" alt="" style="width:74%" /></div>
+                <div class="clock" style="float:right;     left: 50px;
+    top: 22px;"></div>
+                <div style="clear:both;"></div>
             </div>
             <hr class="clear" />
             <!--AÑADIR LA CLASE "content_780_ODD" PARA REDIMENSIONAR EL TAMAÑO DEL DISPLAY EN 1 Ó 2-->
             <!--CASO 1 CARRUSEL A 1024-->
-            <div data-odd-tipoventana="detalle" style="display:none;">
+            <div data-odd-tipoventana="detalle" style="display:none; margin-top: 50px">
                 <hr class="clear" />
-                <div class="content_90" style="margin-top: 20px; padding-bottom:25px;">
+                <div class="parche_presentacion_contenedor parche_presentacion_contenedor_834">
+
                     <div id="divOddCarruselDetalle">
                         {{#each this.ListaOfertas  as |detalle|}}
                         <div data-item="" data-item-position="{{detalle.ID}}">
@@ -326,39 +358,42 @@
                                 <input type="hidden" Class="marca-descripcion-odd" value="{{DescripcionMarca}}" />
                                 <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
                             </div>
-                            <div class="content_set_pop_hoy">
-                                <div class="right_set_hoy">
-                                    <div class="height_min">
-                                        <div class="titulo_set_ODD">{{detalle.NombreOferta}}</div>
-                                        <div class="descripcion_set_ofertaDia">{{{detalle.DescripcionOferta}}}</div>
-                                        <div class="precio_valorizado_oferta">VALORIZADO EN <span>@ViewBag.Simbolo {{detalle.PrecioCatalogoFormat}}</span></div>
-                                        <div class="precio_ofertaDia">A SOLO <span>@ViewBag.Simbolo {{detalle.PrecioOfertaFormat}}</span></div>
-                                    </div>
-                                    <div @*style="text-align: center"*@>
-                                        <div class="liquidacion_rango_home js-no-popup">
-                                            <input type="text" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
-                                            <div class="liquidacion_rango_right_pedido js-no-popup">
-                                                <a class="mas js-no-popup" tabindex="0" style="border-bottom:1px solid white">
-                                                    <img class="js-no-popup" src="/Content/Images/PL20/mas.png" alt="">
-                                                </a>
-                                                <a class="menos js-no-popup" tabindex="0">
-                                                    <img class="js-no-popup" src="/Content/Images/PL20/menos.png" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar" data-odd-accion-type="detail" data-odd-accion-element="{{detalle.ID}}">AGRÉGALO</a>
-                                    </div>
-                                </div>
+                            <div class="content_set_pop_hoy" style="width:100%;">
                                 <div class="imagen_set_Oferta_pop">
-                                    <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1"/>                                 
+                                    <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1" />
                                     <div class="compartir_redes_ficha" style="margin-top:10px;">
-                                        <div class="texto_compartelo" style="color:#fff;">Comparte la oferta con tus clientes</div>
-                                        <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB">
+                                        <div class="texto_compartelo clase_control_color_dinamico" style="color:#fff;">Comparte la oferta con tus clientes</div>
+                                        <a class="btn_compartir_facebook_ficha btn_compartir_facebook_ficha_fix_ODD" href="javascript: void(0);" data-compartir="FB">
                                             <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/dUttu2lhWRcJ1AQ/face_new.png" />
                                         </a>
                                         <hr class="clear">
                                     </div>
                                 </div>
+                                <div class="right_set_hoy clase_control_color_dinamico">
+                                    <div class="height_min">
+                                        <div class="titulo_set_ODD clase_control_color_dinamico">{{detalle.NombreOferta}}</div>
+                                        <div class="descripcion_set_ofertaDia clase_control_color_dinamico">{{{detalle.DescripcionOferta}}}</div>
+                                        <div class="precio_valorizado_oferta clase_control_color_dinamico">VALORIZADO EN <span>@ViewBag.Simbolo {{detalle.PrecioCatalogoFormat}}</span></div>
+                                        <div class="precio_ofertaDia clase_control_color_dinamico">A SOLO <span>@ViewBag.Simbolo {{detalle.PrecioOfertaFormat}}</span></div>
+                                    </div>
+                                    <div>
+                                        <div class="liquidacion_rango_home js-no-popup">
+                                            <input type="text" style="color:white;" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd clase_control_color_dinamico" tabindex="0">
+                                            <div class="liquidacion_rango_right_pedido js-no-popup clase_control_color_dinamico">
+                                                <a class="mas js-no-popup clase_control_color_dinamico" tabindex="0">
+                                                    <div class="cross cross_clase_control_color_dinamico"></div>
+                                                    <img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="" style="display:none">
+                                                </a>
+                                                <a class="menos js-no-popup clase_control_color_dinamico" tabindex="0">
+                                                    <div class="cross_line cross_line_clase_control_color_dinamico"></div>
+                                                    <img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" style="display:none">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <a class="btn_pop_agregalo_oferta clase_control_color_dinamico" data-odd-accion="agregar" data-odd-accion-type="detail" data-odd-accion-element="{{detalle.ID}}">AGRÉGALO</a>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
                             </div>
                         </div>
                         {{/each}}
@@ -366,67 +401,69 @@
                 </div>
             </div>
             <!--CASO CARRUSEL DE 3 PRODUCTOS A MAS A 1024-->
-            <div style="display:none;" data-odd-tipoventana="carrusel">
+            <div  style="display:none;" data-odd-tipoventana="carrusel" class="content_estrategia_carrusel content_estrategia_carrusel_834">
                 <div class="saludo_mas_productos" data-odd-texto="cliente" style="display:none;">{{UsuarioNombre}}, APROVECHA ESTAS OFERTAS ¡SOLO HOY!</div>
-                <div class="content_90">
-                    <div id="divOddCarrusel">
+                    <div id="divOddCarrusel" class="contenido contenido_834">
                         {{#each this.ListaOfertas  as |detalle|}}
-                        <div data-item="" data-item-position="{{detalle.ID}}" style="float:left; overflow:hidden;">
-                            <div class="content_item_carrusel_ODD">
-                                <div style="display:none;" data-item-campos="">
-                                    <input type="hidden" class="tipoestrategia-id-odd" value="{{detalle.TipoEstrategiaID}}" />
-                                    <input type="hidden" class="estrategia-id-odd" value="{{detalle.EstrategiaID}}" />
-                                    <input type="hidden" class="marca-id-odd" value="{{detalle.MarcaID}}" />
-                                    <input type="hidden" class="cuv2-odd" value="{{detalle.CUV2}}" />
-                                    <input type="hidden" class="limite-venta-odd" value="{{detalle.LimiteVenta}}" />
-                                    <input type="hidden" class="flagnueva-odd" value="{{detalle.FlagNueva}}" />
-                                    <input type="hidden" class="precio-odd" value="{{detalle.PrecioOferta}}" />
-                                    <input type="hidden" class="nombre-odd" value="{{detalle.NombreOferta}}" />
-                                    <input type="hidden" class="indmonto-min-odd" value="{{detalle.IndicadorMontoMinimo}}" />
-                                    <input type="hidden" class="teimagenmostrar-odd" value="{{detalle.TipoEstrategiaImagenMostrar}}" />
-                                    <input type="hidden" Class="imagen-odd" value="{{detalle.ImagenDisplay}}" />
-                                    <input type="hidden" class="origenPedidoWeb-odd" value="3" />
-                                    <input type="hidden" Class="marca-descripcion-odd" value="{{DescripcionMarca}}" />
-                                    <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
-                                </div>
-                                <div class="content_img_carrusel_ODD" data-odd-accion="verdetalle">
-                                    <div style="height:139px;">
-                                        <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1"/>
+                            <div data-item="" data-item-position="{{detalle.ID}}" class="revistadigital-landing" style="min-width: auto;">
+                                <div class="content_item_carrusel" >
+                                    <div style="display:none;" data-item-campos="">
+                                        <input type="hidden" class="tipoestrategia-id-odd" value="{{detalle.TipoEstrategiaID}}" />
+                                        <input type="hidden" class="estrategia-id-odd" value="{{detalle.EstrategiaID}}" />
+                                        <input type="hidden" class="marca-id-odd" value="{{detalle.MarcaID}}" />
+                                        <input type="hidden" class="cuv2-odd" value="{{detalle.CUV2}}" />
+                                        <input type="hidden" class="limite-venta-odd" value="{{detalle.LimiteVenta}}" />
+                                        <input type="hidden" class="flagnueva-odd" value="{{detalle.FlagNueva}}" />
+                                        <input type="hidden" class="precio-odd" value="{{detalle.PrecioOferta}}" />
+                                        <input type="hidden" class="nombre-odd" value="{{detalle.NombreOferta}}" />
+                                        <input type="hidden" class="indmonto-min-odd" value="{{detalle.IndicadorMontoMinimo}}" />
+                                        <input type="hidden" class="teimagenmostrar-odd" value="{{detalle.TipoEstrategiaImagenMostrar}}" />
+                                        <input type="hidden" Class="imagen-odd" value="{{detalle.ImagenDisplay}}" />
+                                        <input type="hidden" class="origenPedidoWeb-odd" value="3" />
+                                        <input type="hidden" Class="marca-descripcion-odd" value="{{DescripcionMarca}}" />
+                                        <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
                                     </div>
-                                    <a class="ver_detalle_carrusel" style="top: 80px;" onclick="odd_google_analytics_product_click('{{detalle.NombreOferta}}', '{{detalle.CUV2}}', {{detalle.PrecioOferta}}, '{{DescripcionMarca}}', '', {{Position}}, 'Oferta del día - Slider Productos');">VER DETALLE</a>
-                                    <div class="titulo_carrusel_ODD">{{detalle.NombreOferta}}</div>
-                                    {{#iff detalle.PrecioCatalogo '>' 0}}
-                                    <div class="valorizado_carrusel_ODD">VALORIZADO EN <span>{{{../Simbolo}}} {{detalle.PrecioCatalogoFormat}}</span></div>
-                                    {{/iff}}
-                                    <div class="precio_carrusel_ODD">{{{../Simbolo}}} {{detalle.PrecioOfertaFormat}}</div>
-                                </div>
-                                <div style="text-align: center">
-                                    <div class="liquidacion_rango_home js-no-popup">
-                                        <input type="text" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
-                                        <div class="liquidacion_rango_right_pedido js-no-popup">
-                                            <a class="mas js-no-popup" tabindex="0" style="border-bottom:1px solid white">
-                                                <img class="js-no-popup" src="/Content/Images/PL20/mas.png" alt="">
-                                            </a>
-                                            <a class="menos js-no-popup" tabindex="0">
-                                                <img class="js-no-popup" src="/Content/Images/PL20/menos.png" alt="">
-                                            </a>
+                                    <div class="producto_img_home" data-odd-accion="verdetalle">
+                                        <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1" />
+                                        <a class="ver_detalle_carrusel" style="top: 80px;" onclick="odd_google_analytics_product_click('{{EscapeSpecialChars detalle.NombreOferta}}', '{{detalle.CUV2}}', {{detalle.PrecioOferta}}, '{{EscapeSpecialChars DescripcionMarca}}', '', {{Position}}, 'Oferta del día - Slider Productos');">VER DETALLE</a>
+                                    </div>
+                                    <div class="producto_nombre_descripcion" data-item-tag="descripcion">
+                                        <h6>&ensp;&nbsp;</h6>
+                                        <p class="nombre-producto nombre_producto"><b>{{detalle.NombreOferta}}</b></p>
+                                    </div>
+                                    <div class="producto_nombre_descripcion" data-item-tag="precio">
+                                        <div>
+                                            {{#iff detalle.PrecioCatalogo '>' 0}}
+                                            <span class="producto_precio_normal">{{{../Simbolo}}} {{detalle.PrecioCatalogoFormat}}</span>
+                                            {{/iff}}
+                                            <span class="producto_precio_oferta">{{{../Simbolo}}} {{detalle.PrecioOfertaFormat}}</span>
                                         </div>
                                     </div>
-                                    <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar" data-odd-accion-type="list" data-odd-accion-element="{{detalle.ID}}">AGRÉGALO</a>
-                                </div>
-                                <!-- SE AÑADIO EL CHECK AGREGADO  -->
-                                <div style="padding-top:6px; height: 15px;">
-                                    <div class="agregado product-add" style="text-align:right; display:{{detalle.Agregado}};">
-                                        AGREGADO
-                                        <div class="icono"></div>
+                                    <div class="producto_nombre_descripcion" data-item-tag="agregar">
+                                        <div class="texto_elige_tono"></div>
+                                        <div class="clear"></div>
+                                        <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                                            <input type="text" value="1" size="2" maxlength="2"
+                                                   class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd"
+                                                   tabindex="0">
+                                            <div class="liquidacion_rango_right_pedido js-no-popup">
+                                                <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                                                <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                                            </div>
+                                        </div>
+                                        <a class="boton_Agregalo_home" data-odd-accion="agregar" data-odd-accion-type="list" data-odd-accion-element="{{detalle.ID}}">AGRÉGALO</a>
+                                        <div class="clear"></div>
+                                        <div style="margin: 9px 0;height: 15px;">
+                                            <div class="agregado product-add" style="text-align:right; display:{{detalle.Agregado}};">
+                                                AGREGADO
+                                                <div class="icono"></div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <!--FIN SE AÑADIO EL CHECK AGREGADO -->
                             </div>
-                        </div>
                         {{/each}}
-                    </div>
-                </div>
+                        </div>
             </div>
 
             <!--FIN-->
@@ -475,7 +512,12 @@
     </script>
 
     @RenderSection("scripts", required: false)
-    
+
+    <link href="@Url.Content("~/emt_chat/css/style-client.css")" rel="stylesheet">
+    <link rel="stylesheet" href="@Url.Content("~/emt_chat/css/font-awesome.min.css")">
+    <div class="CMXD-containment-wrapper"></div><div id="marca"> <div class="CMXD-btn-help"> <div id="btn_init" class="CMXD-help"></div><div id="btn_open" class="CMXD-open" style="display: none"></div></div><div class="container-movil"></div><div id="CMXD-container-chat" class="CMXD-container-chat" style="display: none"> <div class="CMXD-header-chat"> <i class="fa fa-comments-o" aria-hidden="true"></i> CHAT EN LÍNEA <div class="CMXD-icons"> <a class="display-a" id="btn_minimize" href=""> <i class="fa fa-minus" aria-hidden="true"></i> </a> <a class="display-a" id="btn_wClose" href="" style="display: none"> <i class="fa fa-times" aria-hidden="true"></i> </a> </div><hr class="CMXD-line"> </div><div id="chat"> <div id="interaction" class="CMXD-container-welcome" style="display: none"> <div class='chat-wrapper'> <div id="transcript" class='chat-message padding container-chat'></div></div><div id="slideDownTranscript" class="message-end CMXD-animate2"> <span class="fa fa-angle-double-down"></span> </div><div class="container-txt"> <textarea class="txtarea" rows="2" id="Entry" placeholder="Escribe un Mensaje..."></textarea> <a class="" href=""> <div class="send send2" id="btn_Send"> <i class="fa fa-paper-plane-o" aria-hidden="true"></i><br>Enviar </div></a> </div></div><div id="loading" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="loading_image" src="" alt=""> </div><div id="loading_title" class="CMXD-welcome"> Bienvenida a nuestro <br>chat en línea </div><div id="loading_description" class="CMXD-description"> En un momento uno de nuestros asesores estará contigo </div></div></div><div id="schedule" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="schedule_image" src="" alt="Imagen fuera de horario"> </div><div id="schedule_title" class="CMXD-welcome"> </div><div id="schedule_description" class="CMXD-description"> </div></div></div><div id="Error" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="Error_image" src="" alt=""> </div><div class="CMXD-welcome"> Error de conexión </div><div class="CMXD-description"> En estos momentos no es posible establecer conexión. Por favor intenta más tarde. <br /><br /> <a href="" class="btn-no display-a" id="btn_mclose"> OK</a> </div></div></div><div id="alert" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="alert_image" src="" alt=""> </div><div class="CMXD-welcome"> ¿Desea cerrar la sesión de chat? </div><div class="CMXD-description"> <a href="" class="btn-yes display-a" id="btn_close"> Si</a> <a href="" class="btn-no display-a" id="btn_nwClose"> No</a> </div></div></div></div><div id="poll" class="pop-up"> <div class="CMXD-container-welcome"> <div id="poll_title" class="CMXD-welcome"> <br />Encuesta de Satisfacción </div><div id="poll_description" class="CMXD-description"> </div></div></div></div></div>
+    <script type="text/javascript" src="@Url.Content("~/emt_chat/js/gen.js")"></script>
+
     @if (TempData.ContainsKey("PixelCodigoIso"))
     {
         @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login-Header")

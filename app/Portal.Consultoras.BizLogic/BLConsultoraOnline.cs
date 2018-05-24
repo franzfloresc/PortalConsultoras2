@@ -1,11 +1,7 @@
-﻿using System;
+﻿using Portal.Consultoras.Data;
+using Portal.Consultoras.Entities;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Data;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -13,9 +9,9 @@ namespace Portal.Consultoras.BizLogic
     {
         public IList<BEMisPedidos> GetMisPedidos(int PaisID, long ConsultoraId, int Campania)
         {
-            var DAMisPedidos = new DAConsultoraOnline(PaisID);
+            var daMisPedidos = new DAConsultoraOnline(PaisID);
             var misPedidos = new List<BEMisPedidos>();
-            using (IDataReader reader = DAMisPedidos.GetSolicitudesPedido(ConsultoraId, Campania))
+            using (IDataReader reader = daMisPedidos.GetSolicitudesPedido(ConsultoraId, Campania))
             {
                 while (reader.Read())
                 {
@@ -29,9 +25,9 @@ namespace Portal.Consultoras.BizLogic
 
         public IList<BEMisPedidosDetalle> GetMisPedidosDetalle(int PaisID, long PedidoID)
         {
-            var DAMisPedidos = new DAConsultoraOnline(PaisID);
+            var daMisPedidos = new DAConsultoraOnline(PaisID);
             var miPedidoDetalles = new List<BEMisPedidosDetalle>();
-            using (IDataReader reader = DAMisPedidos.GetSolicitudesPedidoDetalle(PedidoID))
+            using (IDataReader reader = daMisPedidos.GetSolicitudesPedidoDetalle(PedidoID))
             {
                 while (reader.Read())
                 {
@@ -45,9 +41,9 @@ namespace Portal.Consultoras.BizLogic
 
         public IList<BEMisPedidos> GetMisPedidosClienteOnline(int paisID, long consultoraId, int campania)
         {
-            var DAMisPedidos = new DAConsultoraOnline(paisID);
+            var daMisPedidos = new DAConsultoraOnline(paisID);
             var misPedidos = new List<BEMisPedidos>();
-            using (IDataReader reader = DAMisPedidos.GetMisPedidosClienteOnline(consultoraId, campania))
+            using (IDataReader reader = daMisPedidos.GetMisPedidosClienteOnline(consultoraId, campania))
             {
                 while (reader.Read())
                 {
@@ -72,9 +68,9 @@ namespace Portal.Consultoras.BizLogic
         public int GetCantidadPedidosConsultoraOnline(int PaisID, long ConsultoraId)
         {
             var cantidad = -1;
-            var DAConsultoraOnline = new DAConsultoraOnline(PaisID);
+            var daConsultoraOnline = new DAConsultoraOnline(PaisID);
 
-            using (IDataReader reader = DAConsultoraOnline.GetCantidadPedidosConsultoraOnline(ConsultoraId))
+            using (IDataReader reader = daConsultoraOnline.GetCantidadPedidosConsultoraOnline(ConsultoraId))
             {
                 while (reader.Read())
                 {
@@ -87,9 +83,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEProducto> GetValidarCUVMisPedidos(int PaisID, int Campania, string InputCUV, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona)
         {
             IList<BEProducto> productos = new List<BEProducto>();
-            var DAConsultoraOnline = new DAConsultoraOnline(PaisID);
+            var daConsultoraOnline = new DAConsultoraOnline(PaisID);
 
-            using (IDataReader reader = DAConsultoraOnline.GetValidarCUVSolicitudPedido(Campania, InputCUV, RegionID, ZonaID, CodigoRegion, CodigoZona))
+            using (IDataReader reader = daConsultoraOnline.GetValidarCUVSolicitudPedido(Campania, InputCUV, RegionID, ZonaID, CodigoRegion, CodigoZona))
             {
                 while (reader.Read())
                 {
@@ -102,9 +98,9 @@ namespace Portal.Consultoras.BizLogic
         public int GetCantidadSolicitudesPedido(int PaisID, long ConsultoraId, int Campania)
         {
             var cant = -1;
-            var DAConsultoraOnline = new DAConsultoraOnline(PaisID);
+            var daConsultoraOnline = new DAConsultoraOnline(PaisID);
 
-            using (IDataReader reader = DAConsultoraOnline.GetCantidadSolicitudesPedido(ConsultoraId, Campania))
+            using (IDataReader reader = daConsultoraOnline.GetCantidadSolicitudesPedido(ConsultoraId, Campania))
             {
                 while (reader.Read())
                 {
@@ -117,9 +113,9 @@ namespace Portal.Consultoras.BizLogic
         public string GetSaldoHorasSolicitudesPedido(int PaisID, long ConsultoraId, int Campania)
         {
             var saldo = "";
-            var DAConsultoraOnline = new DAConsultoraOnline(PaisID);
+            var daConsultoraOnline = new DAConsultoraOnline(PaisID);
 
-            using (IDataReader reader = DAConsultoraOnline.GetSaldoHorasSolicitudesPedido(ConsultoraId, Campania))
+            using (IDataReader reader = daConsultoraOnline.GetSaldoHorasSolicitudesPedido(ConsultoraId, Campania))
             {
                 while (reader.Read())
                 {
@@ -127,6 +123,21 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
             return saldo;
+        }
+
+        public IList<BESolicitudClienteDetalle> GetProductoByCampaniaByConsultoraId(int paisId, int campaniaId, long consultoraId)
+        {
+            var daConsultoraOnline = new DAConsultoraOnline(paisId);
+            var lista = new List<BESolicitudClienteDetalle>();
+            using (IDataReader reader = daConsultoraOnline.GetProductoByCampaniaByConsultoraId(campaniaId, consultoraId))
+            {
+                while (reader.Read())
+                {
+                    var entidad = new BESolicitudClienteDetalle(reader);
+                    lista.Add(entidad);
+                }
+                return lista;
+            }
         }
     }
 }

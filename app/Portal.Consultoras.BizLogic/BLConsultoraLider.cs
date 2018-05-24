@@ -1,54 +1,43 @@
-﻿using System;
+﻿using Portal.Consultoras.Data;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
-using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
     public class BLConsultoraLider
     {
-        //2397 CampaniaLider - Codigo(i = 0)
         public IList<string> GetLiderCampaniaActual(int paisID, long ConsultoraID, string CodigoPais)
         {
-            List<string> Datos = new List<string>();
-            var DAConsultora = new DAConsultoraLiderODS(paisID);
+            List<string> datos = new List<string>();
+            var daConsultora = new DAConsultoraLiderODS(paisID);
 
-            using (IDataReader reader = DAConsultora.GetLiderCampaniaActual(ConsultoraID, CodigoPais))
+            using (IDataReader reader = daConsultora.GetLiderCampaniaActual(ConsultoraID, CodigoPais))
                 while (reader.Read())
                 {
-                    int i = 0;
-                    Datos.Add(reader.GetValue(i).ToString());
-                    i++;
+                    datos.Add(reader.GetValue(0).ToString());
                 }
-            if (Datos.Count < 1) Datos.Add("");
-            return Datos;
+            if (datos.Count < 1) datos.Add("");
+            return datos;
         }
 
-        //2397 ProyectaNivel  - FlgProyecta(i = 0)
         public IList<string> GetProyectaNivel(int paisID, long ConsultoraID)
         {
-            List<string> Datos = new List<string>();
-            var DAConsultora = new DAConsultoraLider(paisID);
+            List<string> datos = new List<string>();
+            var daConsultora = new DAConsultoraLider(paisID);
 
-            using (IDataReader reader = DAConsultora.GetFlgProyecta(ConsultoraID))
+            using (IDataReader reader = daConsultora.GetFlgProyecta(ConsultoraID))
                 while (reader.Read())
                 {
-                    int i = 0;
-                    Datos.Add(reader.GetValue(i).ToString());
-                    i++;
+                    datos.Add(reader.GetValue(0).ToString());
                 }
-            if (Datos.Count < 1) Datos.Add("");
-            return Datos;
+            if (datos.Count < 1) datos.Add("");
+            return datos;
         }
-        //2397 - control de cambios
+
         public DataSet ObtenerParametrosSuperateLider(int paisID, long ConsultoraID, int CampaniaVenta)
         {
-            var DAConsultoraLider = new DAConsultoraLider(paisID);
-            return DAConsultoraLider.ObtenerParametrosSuperateLider(ConsultoraID, CampaniaVenta);
+            var daConsultoraLider = new DAConsultoraLider(paisID);
+            return daConsultoraLider.ObtenerParametrosSuperateLider(ConsultoraID, CampaniaVenta);
         }
     }
 }

@@ -32,10 +32,18 @@
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System" />
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Mobile" />
-      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd6" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Comunicado" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="ISACService_GetCampaniaActivaPais_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCampaniaActivaPais" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetCampaniaActivaPais_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCampaniaActivaPaisResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_GetFechaHoraPais_InputMessage">
     <wsdl:part name="parameters" element="tns:GetFechaHoraPais" />
   </wsdl:message>
@@ -126,11 +134,29 @@
   <wsdl:message name="ISACService_GetConfiguracionPais_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetConfiguracionPaisResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_GetConfiguracionPaisByCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionPaisByCode" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetConfiguracionPaisByCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionPaisByCodeResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_UpdateConfiguracionPais_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateConfiguracionPais" />
   </wsdl:message>
   <wsdl:message name="ISACService_UpdateConfiguracionPais_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateConfiguracionPaisResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetConfiguracionPaisDatos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionPaisDatos" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetConfiguracionPaisDatos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionPaisDatosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetHorarioByCodigo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetHorarioByCodigo" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetHorarioByCodigo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetHorarioByCodigoResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_ListConfiguracionOfertasHome_InputMessage">
     <wsdl:part name="parameters" element="tns:ListConfiguracionOfertasHome" />
@@ -161,6 +187,108 @@
   </wsdl:message>
   <wsdl:message name="ISACService_ActualizarDescripcionEstrategia_OutputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarDescripcionEstrategiaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ActualizarTonoEstrategia_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarTonoEstrategia" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ActualizarTonoEstrategia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarTonoEstrategiaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingObtener_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingObtener" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingObtener_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingObtenerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingInsertar_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingInsertar" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingInsertar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingInsertarResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingActualizar_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingActualizar" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingActualizar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingActualizarResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingEliminar_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingEliminar" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingEliminar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingEliminarResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingDetallesObtener_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingDetallesObtener" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingDetallesObtener_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingDetallesObtenerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingDetalleObtener_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingDetalleObtener" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingDetalleObtener_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingDetalleObtenerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingObtenerMontoMeta_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingObtenerMontoMeta" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingObtenerMontoMeta_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingObtenerMontoMetaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingInsertarRegalo_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingInsertarRegalo" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingInsertarRegalo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingInsertarRegaloResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingObtenerRegaloGanado_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingObtenerRegaloGanado" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingObtenerRegaloGanado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingObtenerRegaloGanadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingReporteMontoMeta_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingReporteMontoMeta" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingReporteMontoMeta_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingReporteMontoMetaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpsellingMarcaCategoriaObtener_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpsellingMarcaCategoriaObtener" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpsellingMarcaCategoriaObtener_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpsellingMarcaCategoriaObtenerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpsellingMarcaCategoriaInsertar_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpsellingMarcaCategoriaInsertar" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpsellingMarcaCategoriaInsertar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpsellingMarcaCategoriaInsertarResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpsellingMarcaCategoriaEliminar_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpsellingMarcaCategoriaEliminar" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpsellingMarcaCategoriaEliminar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpsellingMarcaCategoriaEliminarResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpsellingMarcaCategoriaFlagsEditar_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpsellingMarcaCategoriaFlagsEditar" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpsellingMarcaCategoriaFlagsEditar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpsellingMarcaCategoriaFlagsEditarResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetListEnumStringCache_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListEnumStringCache" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetListEnumStringCache_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListEnumStringCacheResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_RemoveDataCache_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveDataCache" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_RemoveDataCache_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveDataCacheResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_UpdateBelcorpNoticia_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateBelcorpNoticia" />
@@ -359,6 +487,12 @@
   </wsdl:message>
   <wsdl:message name="ISACService_InsertarComunicadoVisualizado_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertarComunicadoVisualizadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ActualizarVisualizoComunicado_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarVisualizoComunicado" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ActualizarVisualizoComunicado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarVisualizoComunicadoResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_InsertarDonacionConsultora_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertarDonacionConsultora" />
@@ -665,12 +799,6 @@
   </wsdl:message>
   <wsdl:message name="ISACService_GetConsultoraDigitalesDescarga_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetConsultoraDigitalesDescargaResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetCampaniaActivaPais_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetCampaniaActivaPais" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetCampaniaActivaPais_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetCampaniaActivaPaisResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_GetCronogramaByCampania_InputMessage">
     <wsdl:part name="parameters" element="tns:GetCronogramaByCampania" />
@@ -1183,6 +1311,10 @@
     <wsdl:part name="parameters" element="tns:InsertBelcorpNoticiaResponse" />
   </wsdl:message>
   <wsdl:portType name="ISACService">
+    <wsdl:operation name="GetCampaniaActivaPais">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCampaniaActivaPais" message="tns:ISACService_GetCampaniaActivaPais_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetCampaniaActivaPaisResponse" message="tns:ISACService_GetCampaniaActivaPais_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetFechaHoraPais">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetFechaHoraPais" message="tns:ISACService_GetFechaHoraPais_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetFechaHoraPaisResponse" message="tns:ISACService_GetFechaHoraPais_OutputMessage" />
@@ -1243,9 +1375,21 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionPais" message="tns:ISACService_GetConfiguracionPais_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionPaisResponse" message="tns:ISACService_GetConfiguracionPais_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPaisByCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionPaisByCode" message="tns:ISACService_GetConfiguracionPaisByCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionPaisByCodeResponse" message="tns:ISACService_GetConfiguracionPaisByCode_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UpdateConfiguracionPais">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateConfiguracionPais" message="tns:ISACService_UpdateConfiguracionPais_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateConfiguracionPaisResponse" message="tns:ISACService_UpdateConfiguracionPais_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPaisDatos">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionPaisDatos" message="tns:ISACService_GetConfiguracionPaisDatos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionPaisDatosResponse" message="tns:ISACService_GetConfiguracionPaisDatos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHorarioByCodigo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetHorarioByCodigo" message="tns:ISACService_GetHorarioByCodigo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetHorarioByCodigoResponse" message="tns:ISACService_GetHorarioByCodigo_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ListConfiguracionOfertasHome">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ListConfiguracionOfertasHome" message="tns:ISACService_ListConfiguracionOfertasHome_InputMessage" />
@@ -1266,6 +1410,74 @@
     <wsdl:operation name="ActualizarDescripcionEstrategia">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ActualizarDescripcionEstrategia" message="tns:ISACService_ActualizarDescripcionEstrategia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ActualizarDescripcionEstrategiaResponse" message="tns:ISACService_ActualizarDescripcionEstrategia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarTonoEstrategia">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ActualizarTonoEstrategia" message="tns:ISACService_ActualizarTonoEstrategia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ActualizarTonoEstrategiaResponse" message="tns:ISACService_ActualizarTonoEstrategia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingObtener">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpSellingObtener" message="tns:ISACService_UpSellingObtener_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpSellingObtenerResponse" message="tns:ISACService_UpSellingObtener_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingInsertar">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpSellingInsertar" message="tns:ISACService_UpSellingInsertar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpSellingInsertarResponse" message="tns:ISACService_UpSellingInsertar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingActualizar">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpSellingActualizar" message="tns:ISACService_UpSellingActualizar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpSellingActualizarResponse" message="tns:ISACService_UpSellingActualizar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingEliminar">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpSellingEliminar" message="tns:ISACService_UpSellingEliminar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpSellingEliminarResponse" message="tns:ISACService_UpSellingEliminar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingDetallesObtener">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpSellingDetallesObtener" message="tns:ISACService_UpSellingDetallesObtener_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpSellingDetallesObtenerResponse" message="tns:ISACService_UpSellingDetallesObtener_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingDetalleObtener">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpSellingDetalleObtener" message="tns:ISACService_UpSellingDetalleObtener_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpSellingDetalleObtenerResponse" message="tns:ISACService_UpSellingDetalleObtener_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingObtenerMontoMeta">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpSellingObtenerMontoMeta" message="tns:ISACService_UpSellingObtenerMontoMeta_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpSellingObtenerMontoMetaResponse" message="tns:ISACService_UpSellingObtenerMontoMeta_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingInsertarRegalo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpSellingInsertarRegalo" message="tns:ISACService_UpSellingInsertarRegalo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpSellingInsertarRegaloResponse" message="tns:ISACService_UpSellingInsertarRegalo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingObtenerRegaloGanado">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpSellingObtenerRegaloGanado" message="tns:ISACService_UpSellingObtenerRegaloGanado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpSellingObtenerRegaloGanadoResponse" message="tns:ISACService_UpSellingObtenerRegaloGanado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingReporteMontoMeta">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpSellingReporteMontoMeta" message="tns:ISACService_UpSellingReporteMontoMeta_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpSellingReporteMontoMetaResponse" message="tns:ISACService_UpSellingReporteMontoMeta_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpsellingMarcaCategoriaObtener">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpsellingMarcaCategoriaObtener" message="tns:ISACService_UpsellingMarcaCategoriaObtener_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpsellingMarcaCategoriaObtenerResponse" message="tns:ISACService_UpsellingMarcaCategoriaObtener_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpsellingMarcaCategoriaInsertar">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpsellingMarcaCategoriaInsertar" message="tns:ISACService_UpsellingMarcaCategoriaInsertar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpsellingMarcaCategoriaInsertarResponse" message="tns:ISACService_UpsellingMarcaCategoriaInsertar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpsellingMarcaCategoriaEliminar">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpsellingMarcaCategoriaEliminar" message="tns:ISACService_UpsellingMarcaCategoriaEliminar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpsellingMarcaCategoriaEliminarResponse" message="tns:ISACService_UpsellingMarcaCategoriaEliminar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpsellingMarcaCategoriaFlagsEditar">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpsellingMarcaCategoriaFlagsEditar" message="tns:ISACService_UpsellingMarcaCategoriaFlagsEditar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpsellingMarcaCategoriaFlagsEditarResponse" message="tns:ISACService_UpsellingMarcaCategoriaFlagsEditar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetListEnumStringCache">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetListEnumStringCache" message="tns:ISACService_GetListEnumStringCache_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetListEnumStringCacheResponse" message="tns:ISACService_GetListEnumStringCache_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveDataCache">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/RemoveDataCache" message="tns:ISACService_RemoveDataCache_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/RemoveDataCacheResponse" message="tns:ISACService_RemoveDataCache_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="UpdateBelcorpNoticia">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia" message="tns:ISACService_UpdateBelcorpNoticia_InputMessage" />
@@ -1398,6 +1610,10 @@
     <wsdl:operation name="InsertarComunicadoVisualizado">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertarComunicadoVisualizado" message="tns:ISACService_InsertarComunicadoVisualizado_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertarComunicadoVisualizadoResponse" message="tns:ISACService_InsertarComunicadoVisualizado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarVisualizoComunicado">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ActualizarVisualizoComunicado" message="tns:ISACService_ActualizarVisualizoComunicado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ActualizarVisualizoComunicadoResponse" message="tns:ISACService_ActualizarVisualizoComunicado_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="InsertarDonacionConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertarDonacionConsultora" message="tns:ISACService_InsertarDonacionConsultora_InputMessage" />
@@ -1602,10 +1818,6 @@
     <wsdl:operation name="GetConsultoraDigitalesDescarga">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetConsultoraDigitalesDescarga" message="tns:ISACService_GetConsultoraDigitalesDescarga_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetConsultoraDigitalesDescargaResponse" message="tns:ISACService_GetConsultoraDigitalesDescarga_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetCampaniaActivaPais">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCampaniaActivaPais" message="tns:ISACService_GetCampaniaActivaPais_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetCampaniaActivaPaisResponse" message="tns:ISACService_GetCampaniaActivaPais_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetCronogramaByCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCronogramaByCampania" message="tns:ISACService_GetCronogramaByCampania_InputMessage" />
@@ -1950,6 +2162,15 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISACService" type="tns:ISACService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCampaniaActivaPais">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniaActivaPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetFechaHoraPais">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetFechaHoraPais" style="document" />
       <wsdl:input>
@@ -2085,8 +2306,35 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPaisByCode">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionPaisByCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdateConfiguracionPais">
       <soap:operation soapAction="http://tempuri.org/ISACService/UpdateConfiguracionPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPaisDatos">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionPaisDatos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHorarioByCodigo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetHorarioByCodigo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2132,6 +2380,159 @@
     </wsdl:operation>
     <wsdl:operation name="ActualizarDescripcionEstrategia">
       <soap:operation soapAction="http://tempuri.org/ISACService/ActualizarDescripcionEstrategia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarTonoEstrategia">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ActualizarTonoEstrategia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingObtener">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingObtener" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingInsertar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingInsertar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingActualizar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingActualizar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingEliminar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingEliminar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingDetallesObtener">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingDetallesObtener" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingDetalleObtener">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingDetalleObtener" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingObtenerMontoMeta">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingObtenerMontoMeta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingInsertarRegalo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingInsertarRegalo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingObtenerRegaloGanado">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingObtenerRegaloGanado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingReporteMontoMeta">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingReporteMontoMeta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpsellingMarcaCategoriaObtener">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpsellingMarcaCategoriaObtener" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpsellingMarcaCategoriaInsertar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpsellingMarcaCategoriaInsertar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpsellingMarcaCategoriaEliminar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpsellingMarcaCategoriaEliminar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpsellingMarcaCategoriaFlagsEditar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpsellingMarcaCategoriaFlagsEditar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListEnumStringCache">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetListEnumStringCache" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveDataCache">
+      <soap:operation soapAction="http://tempuri.org/ISACService/RemoveDataCache" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2429,6 +2830,15 @@
     </wsdl:operation>
     <wsdl:operation name="InsertarComunicadoVisualizado">
       <soap:operation soapAction="http://tempuri.org/ISACService/InsertarComunicadoVisualizado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarVisualizoComunicado">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ActualizarVisualizoComunicado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2888,15 +3298,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetConsultoraDigitalesDescarga">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetConsultoraDigitalesDescarga" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCampaniaActivaPais">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniaActivaPais" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3673,6 +4074,15 @@
   <wsdl:binding name="BasicHttpsBinding_ISACService" type="tns:ISACService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_ISACService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCampaniaActivaPais">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniaActivaPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetFechaHoraPais">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetFechaHoraPais" style="document" />
       <wsdl:input>
@@ -3808,8 +4218,35 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPaisByCode">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionPaisByCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdateConfiguracionPais">
       <soap:operation soapAction="http://tempuri.org/ISACService/UpdateConfiguracionPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPaisDatos">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionPaisDatos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHorarioByCodigo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetHorarioByCodigo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3855,6 +4292,159 @@
     </wsdl:operation>
     <wsdl:operation name="ActualizarDescripcionEstrategia">
       <soap:operation soapAction="http://tempuri.org/ISACService/ActualizarDescripcionEstrategia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarTonoEstrategia">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ActualizarTonoEstrategia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingObtener">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingObtener" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingInsertar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingInsertar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingActualizar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingActualizar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingEliminar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingEliminar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingDetallesObtener">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingDetallesObtener" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingDetalleObtener">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingDetalleObtener" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingObtenerMontoMeta">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingObtenerMontoMeta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingInsertarRegalo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingInsertarRegalo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingObtenerRegaloGanado">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingObtenerRegaloGanado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingReporteMontoMeta">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingReporteMontoMeta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpsellingMarcaCategoriaObtener">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpsellingMarcaCategoriaObtener" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpsellingMarcaCategoriaInsertar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpsellingMarcaCategoriaInsertar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpsellingMarcaCategoriaEliminar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpsellingMarcaCategoriaEliminar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpsellingMarcaCategoriaFlagsEditar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpsellingMarcaCategoriaFlagsEditar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListEnumStringCache">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetListEnumStringCache" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveDataCache">
+      <soap:operation soapAction="http://tempuri.org/ISACService/RemoveDataCache" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4152,6 +4742,15 @@
     </wsdl:operation>
     <wsdl:operation name="InsertarComunicadoVisualizado">
       <soap:operation soapAction="http://tempuri.org/ISACService/InsertarComunicadoVisualizado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarVisualizoComunicado">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ActualizarVisualizoComunicado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4611,15 +5210,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetConsultoraDigitalesDescarga">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetConsultoraDigitalesDescarga" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCampaniaActivaPais">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniaActivaPais" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

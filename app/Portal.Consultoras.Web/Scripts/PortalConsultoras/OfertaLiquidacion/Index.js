@@ -106,9 +106,7 @@ $(document).ready(function () {
 
         var txtCantidad = $(contenedor).find("#txtCantidadPopup");
         var Cantidad = $(contenedor).find("#txtCantidadPopup")[0].value;
-        var OfertaProductoID = $(contenedor).find(".OfertaProductoID")[0].value;
         var div = "Agregado";
-        var TipoOfertaID = $(contenedor).find(".TipoOfertaSisID")[0].value;
         var ConfiguracionOfertaID = $(contenedor).find(".ConfiguracionOfertaID")[0].value;
         var MarcaID = $(contenedor).find(".MarcaID")[0].value;
         var CUV = $(contenedor).find(".CUV")[0].value;
@@ -120,7 +118,6 @@ $(document).ready(function () {
         var DescripcionMarca = $(contenedor).find(".DescripcionMarca")[0].value;
         var DescripcionCategoria = $(contenedor).find(".DescripcionCategoria")[0].value;
         var DescripcionEstrategia = $(contenedor).find(".DescripcionEstrategia")[0].value;
-        var imagenProducto = $(contenedor).find(".Content_modal_ZE img").attr("src");
 
         if (Cantidad == "" || Cantidad == 0) {
             AbrirMensaje("La cantidad ingresada debe ser mayor que 0, verifique.", "LO SENTIMOS");
@@ -145,7 +142,7 @@ $(document).ready(function () {
                     closeWaitingDialog();
                     AbrirMensaje(data.message);
                     return false;
-                } 
+                }
                 if (parseInt(data.Saldo) < parseInt(Cantidad)) {
                     var Saldo = data.Saldo;
                     var UnidadesPermitidas = data.UnidadesPermitidas;
@@ -213,9 +210,6 @@ $(document).ready(function () {
                                 },
                                 error: function (data, error) {
                                     closeWaitingDialog();
-                                    if (checkTimeout(data)) {
-                                        AbrirMensaje(data.message);
-                                    }
                                 }
                             });
 
@@ -233,9 +227,7 @@ $(document).ready(function () {
         agregarProductoAlCarrito(this);
         var txtCantidad = $(this).parents('.liquidacion_item').find(".txtCantidad");
         var Cantidad = $(this).parents('.liquidacion_item').find(".txtCantidad")[0].value;
-        var OfertaProductoID = $(this).parents('.liquidacion_item').find(".OfertaProductoID")[0].value;
         var div = "Agregado";
-        var TipoOfertaID = $(this).parents('.liquidacion_item').find(".TipoOfertaSisID")[0].value;
         var ConfiguracionOfertaID = $(this).parents('.liquidacion_item').find(".ConfiguracionOfertaID")[0].value;
         var MarcaID = $(this).parents('.liquidacion_item').find(".MarcaID")[0].value;
         var CUV = $(this).parents('.liquidacion_item').find(".CUV")[0].value;
@@ -247,7 +239,6 @@ $(document).ready(function () {
         var DescripcionMarca = $(this).parents('.liquidacion_item').find(".DescripcionMarca")[0].value;
         var DescripcionCategoria = $(this).parents('.liquidacion_item').find(".DescripcionCategoria")[0].value;
         var DescripcionEstrategia = $(this).parents('.liquidacion_item').find(".DescripcionEstrategia")[0].value;
-        var imagenProducto = $(this).parents('.liquidacion_item').find(".liquidacion_imagen img").attr("src");
         var posicion = parseInt($(this).parents('.liquidacion_item').attr('data-idposicion'));
 
         if (Cantidad == "" || Cantidad == 0) {
@@ -270,12 +261,12 @@ $(document).ready(function () {
                 cache: false
             });
 
-            $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV, Cantidad: Cantidad, PrecioUnidad: PrecioUnidad}, function (data) {
+            $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV, Cantidad: Cantidad, PrecioUnidad: PrecioUnidad }, function (data) {
                 if (data.message != "") { /*Validación Pedido Máximo*/
                     closeWaitingDialog();
                     AbrirMensaje(data.message);
                     return false;
-                } 
+                }
                 if (parseInt(data.Saldo) < parseInt(Cantidad)) {
                     var Saldo = data.Saldo;
                     var UnidadesPermitidas = data.UnidadesPermitidas;
@@ -332,18 +323,15 @@ $(document).ready(function () {
                                     $(lblStock).text(parseInt(Stock - Cantidad));
                                     $(HiddenStock).val(parseInt(Stock - Cantidad));
                                     $(txtCantidad).val(1);
-                                        InfoCommerceGoogle(parseFloat(Cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, Cantidad, DescripcionMarca, DescripcionEstrategia, posicion);
+                                    InfoCommerceGoogle(parseFloat(Cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, Cantidad, DescripcionMarca, DescripcionEstrategia, posicion);
                                     CargarResumenCampaniaHeader(true);
                                     TrackingJetloreAdd(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
                                     ActualizarGanancia(data.DataBarra);
-                                    
+
                                     closeWaitingDialog();
                                 },
                                 error: function (data, error) {
                                     closeWaitingDialog();
-                                    if (checkTimeout(data)) {
-                                        AbrirMensaje(data.message);
-                                    }
                                 }
                             });
 
@@ -378,8 +366,6 @@ function ValidarCargaOfertasLiquidacion() {
     cargandoRegistros = true;
 
     waitingDialog();
-    /*** EPD-1682 La consultora podra visualizar las liquidaciones cuando su pedido este reservado***/
-    //ReservadoOEnHorarioRestringidoAsync(true, UnlinkCargarOfertasToScroll, CargarOfertasLiquidacion);
     CargarOfertasLiquidacion();
 }
 function CargarOfertasLiquidacion() {
@@ -391,16 +377,12 @@ function CargarOfertasLiquidacion() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
-            if (data.lista.length > 0) ArmarCarouselLiquidaciones(data.lista);
-            if (!data.verMas) UnlinkCargarOfertasToScroll();
-            offsetRegistros += cantidadRegistros;
+                if (data.lista.length > 0) ArmarCarouselLiquidaciones(data.lista);
+                if (!data.verMas) UnlinkCargarOfertasToScroll();
+                offsetRegistros += cantidadRegistros;
             }
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-            console.log(error);
-            }
-        },
+        error: function (data, error) { },
         complete: function (data) {
             closeWaitingDialog();
             cargandoRegistros = false;
@@ -427,23 +409,14 @@ function ArmarCarouselLiquidaciones(data) {
         };
         arrayOfertas.push(itemOferta);
     });
-
-    /* 
-    EPD-1871
-    dataLayer.push({
-        'event': 'productImpression',
-        'ecommerce': {
-            'impressions': arrayOfertas
-        }
-    })
-    */
 };
 function EstructurarDataCarouselLiquidaciones(array) {
     var contadorLq = 1;
     $.each(array, function (i, item) {
-        item.Descripcion = (item.Descripcion.length > 159 ? item.Descripcion.substring(0,159) + "..." : item.Descripcion);
+        item.Descripcion = (item.Descripcion.length > 159 ? item.Descripcion.substring(0, 159) + "..." : item.Descripcion);
         item.Posicion = contadorLq;
-               
+
+        item.TallaColor = $.trim(item.TallaColor);
         if (item.TallaColor.length > 2 && item.TallaColor.indexOf('^') > -1) {
             item.TipoTallaColor = item.TallaColor.split("^")[0];
             item.TextoBotonTallaColor = (item.TipoTallaColor == "C" ? "ELEGIR TONO" : "ELEGIR COLOR");
@@ -452,7 +425,6 @@ function EstructurarDataCarouselLiquidaciones(array) {
         } else {
             item.TipoTallaColor = "";
             item.TextoBotonTallaColor = "";
-            item.TallaColor = "";
             item.TieneTallaColor = false;
         };
         contadorLq++;
@@ -603,7 +575,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             if (!checkTimeout(data)) {
                 return false;
             }
-         
+
             if (data.success == false) {
                 restringido = false;
                 return false;
@@ -617,7 +589,6 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 if (mostrarAlerta == true) {
                     closeWaitingDialog();
                     AbrirPopupPedidoReservado(data.message, "1");
-                    //AbrirMensaje(data.message, "LO SENTIMOS");
                 }
                 else fnRedireccionar();
             }
@@ -627,7 +598,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
         error: function (data, error) {
             if (checkTimeout(data)) {
                 AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.', "LO SENTIMOS");
-        }
+            }
         }
     });
     return restringido;
@@ -651,7 +622,7 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
                 fnNoRestringido();
                 return false;
             }
-            
+
             if (data.pedidoReservado && !mostrarAlerta) {
                 waitingDialog();
                 location.href = location.href = baseUrl + 'Pedido/PedidoValidado';
@@ -667,7 +638,7 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
         error: function (data, error) {
             if (checkTimeout(data)) {
                 AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.', "LO SENTIMOS");
-        }
+            }
         }
     });
 }

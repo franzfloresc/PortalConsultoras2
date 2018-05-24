@@ -1,0 +1,92 @@
+﻿@model Portal.Consultoras.Web.Models.Common.ListStringModel
+@{
+    ViewBag.Title = "Administrador Cache";
+}
+
+<div class="wrap_cab">
+    <div class="filtros">
+        <div class="elements">
+            <div class="div-2">
+                <h1>Administrador Caché</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="border-wrapper_reg">
+            @*<div class="div-3">
+                <div class="titF">País :</div>
+                <div class="selectP2 borde_redondeado">
+                    <input type="text" id="txtPais" disabled="disabled" />
+                </div>
+            </div>*@
+            <div class="div-3">
+                <div class="titF">Cache Item:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.List, new SelectList(Model.List), "-- Seleccionar --", new { id = "ddlCacheItem" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titF">Custom Key:</div>
+                <div class="selectA borde_redondeado">
+                    <input type="text" id="txtCustomKey">
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titF"></div>
+                <div class="input_add_alert_left">
+                    <input type="button" name="" id="btnEliminar" value="Eliminar" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="loadingScreen"></div>
+@section Scripts
+{
+    <script type="text/javascript">
+        function Eliminar() {
+            cacheItemString = $('#ddlCacheItem').val();
+            if (IsNullOrEmpty(cacheItemString)) {
+                alert('Debe seleccionar un tipo de caché.');
+                return;
+            }
+
+            var waiting = {
+                message: 'Espere unos minutos, por favor...',
+                title: 'Eliminando Caché'
+            };
+            waitingDialog(waiting);
+
+            $.ajax({
+                type: 'POST',
+                url: window.baseUrl + 'Cache/Eliminar',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({
+                    CacheItemString: cacheItemString,
+                    CustomKey: $('#txtCustomKey').val(),
+                }),
+                async: true,
+                cache: false,
+                success: function (data) {
+                    if (!checkTimeout(data)) return;
+
+                    closeWaitingDialog();
+                    alert(data.message);
+                },
+                error: function (data, error) {
+                    if (!checkTimeout(data)) return;
+
+                    closeWaitingDialog();
+                    alert("Se perdió la comunicación. Por favor refrescar la página.");
+                }
+            });
+        }
+
+        $(function () {
+            $('#btnEliminar').on('click', Eliminar);
+        });
+    </script>
+}

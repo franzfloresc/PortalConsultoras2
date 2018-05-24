@@ -20,11 +20,11 @@ namespace Portal.Consultoras.Entities
 
         public BEKitNueva(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Estado") && row["Estado"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Estado"))
                 Estado = Convert.ToInt32(row["Estado"]);
-            if (DataRecord.HasColumn(row, "Monto") && row["Monto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Monto"))
                 Monto = Convert.ToDecimal(row["Monto"]);
-            if (DataRecord.HasColumn(row, "EstadoProceso") && row["EstadoProceso"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "EstadoProceso"))
                 EstadoProceso = Convert.ToInt32(row["EstadoProceso"]);
         }
     }

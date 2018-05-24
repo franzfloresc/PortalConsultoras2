@@ -8,7 +8,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index()
         {
-
             var fileName = "Landing_escala_dscto_" + userData.CodigoISO + ".jpg";
             var carpetaPais = Globals.UrlEscalaDescuentos + "/" + userData.CodigoISO;
             ViewBag.Ruta = ConfigCdn.GetUrlFileCdn(carpetaPais, fileName);

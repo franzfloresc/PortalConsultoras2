@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Portal.Consultoras.Entities;
+using System;
 using System.Data;
 using System.Data.Common;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Data
 {
@@ -18,7 +13,8 @@ namespace Portal.Consultoras.Data
 
         }
 
-        public int setUsuarioVideoIntroductorio(string CodigoUsuario) {
+        public int setUsuarioVideoIntroductorio(string CodigoUsuario)
+        {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.setUsuarioVideoIntroductorio_SB2");
             Context.Database.AddInParameter(command, "@codigoUsuario", DbType.AnsiString, CodigoUsuario);
 
@@ -51,7 +47,7 @@ namespace Portal.Consultoras.Data
         public IDataReader GetUsuarioByConsultora(string CodigoConsultora)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioByConsultora");
-            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);            
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
             return Context.ExecuteReader(command);
         }
 
@@ -323,7 +319,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        
+
         public IDataReader GetValidarLoginSB2(string codigoUsuario, string contrasenia)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLogin");
@@ -615,8 +611,8 @@ namespace Portal.Consultoras.Data
         public int ExisteUsuario(string codigoUsuario, string clave)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ExisteUsuario");
-            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);            
-            Context.Database.AddInParameter(command, "@Clave", DbType.AnsiString, clave);            
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+            Context.Database.AddInParameter(command, "@Clave", DbType.AnsiString, clave);
             return Convert.ToInt32(Context.ExecuteScalar(command));
         }
 
@@ -628,7 +624,7 @@ namespace Portal.Consultoras.Data
             return Convert.ToBoolean(Context.ExecuteScalar(command));
         }
 
-        
+
         public int UpdateUsuarioEmailTelefono(long ConsultoraID, string Email, string Telefono)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioEMailCDRWeb");
@@ -737,13 +733,26 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteNonQuery(command);
         }
+
+        public BEUsuarioChatEmtelco GetUsuarioChatEmtelco(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioChatEmtelco");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+
+            BEUsuarioChatEmtelco usuarioChatemtelco = null;
+            using (IDataReader reader = Context.ExecuteReader(command))
+            {
+                if (reader.Read()) usuarioChatemtelco = new BEUsuarioChatEmtelco(reader);
+            }
+            return usuarioChatemtelco;
+        }
         
         public int UpdUsuarioExterno(BEUsuarioExterno usuarioexterno)
-        {            
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioExterno");        
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioExterno");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, usuarioexterno.CodigoUsuario);
             Context.Database.AddInParameter(command, "@FotoPerfil", DbType.AnsiString, usuarioexterno.FotoPerfil);
-            
+
             return Context.ExecuteNonQuery(command);
         }
 
@@ -757,5 +766,95 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
         #endregion
+
+        public int UpdUsuarioFotoPerfil(string codigoUsuario, string fotoPerfil)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioFotoPerfil");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+            Context.Database.AddInParameter(command, "@FotoPerfil", DbType.AnsiString, fotoPerfil);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
+        #region Restaurar Contraseña
+        public IDataReader GetRestaurarClaveUsuario(string CampoRestablecer, int PaisID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarValorRestauracionClave");
+            Context.Database.AddInParameter(command, "@CodigoEntrante", DbType.AnsiString, CampoRestablecer);
+            Context.Database.AddInParameter(command, "@PaisID", DbType.AnsiString, PaisID);
+
+            return Context.ExecuteReader(command);
+        }
+        #endregion
+
+        #region Pin Autenticidad
+        public IDataReader GetPinAutenticidad(string CodigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPinAutenticacion");
+            Context.Database.AddInParameter(command, "@CodgioUsuario", DbType.AnsiString, CodigoUsuario);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public int InsCodigoGenerado(BEUsuarioCorreo oUsuCorreo)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsCodigoGenerado");
+            Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsuCorreo.OrigenID);
+            Context.Database.AddInParameter(command, "@TipoEnvio", DbType.Int32, oUsuCorreo.tipoEnvio);
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsuCorreo.CodigoUsuario);
+            Context.Database.AddInParameter(command, "@CodigoGenerado", DbType.AnsiString, oUsuCorreo.codigoGenerado);
+            Context.Database.AddInParameter(command, "@EsMobile", DbType.Boolean, oUsuCorreo.EsMobile);
+            Context.Database.AddInParameter(command, "@OpcionHabilitada", DbType.Boolean, oUsuCorreo.opcionHabilitar);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public string GetCodigoGenerado(BEUsuarioCorreo oUsuCorreo, string CodIngresado)
+        {
+            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.GetCodigoGenerado"); ;
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsuCorreo.CodigoUsuario);
+            Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsuCorreo.OrigenID);
+            Context.Database.AddInParameter(command, "@TipoEnvio", DbType.AnsiString, oUsuCorreo.tipoEnvio);
+            Context.Database.AddInParameter(command, "@CodigoIngresado", DbType.AnsiString, CodIngresado);
+
+            return Convert.ToString(Context.ExecuteScalar(command));
+        }
+
+        public IDataReader GetOpcionHabilitada(string CodigoUsuario, int OrigenID)
+        {
+            var objFlag = new BEUsuarioCorreo();
+
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetHabilitaOpcion");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, OrigenID);
+
+            return (Context.ExecuteReader(command));
+        }
+
+        public void UpdFlagAutenticacion(string CodigoUsuario)
+        {
+            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.UpdFlagTieneAutenticacion");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoUsuario);
+
+            Context.ExecuteNonQuery(command);
+        }
+        #endregion
+
+        public string GetUsuarioRealPostulante(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioRealPostulante");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+            return Context.ExecuteScalar(command).ToString();
+        }
+
+        public bool GetConsultoraParticipaEnPrograma(string codigoPrograma, string codigoConsultora, int campaniaID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetParticipacionProgramaNuevas");
+            Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, codigoPrograma);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+
+            return Convert.ToBoolean(Context.ExecuteScalar(command));
+        }
     }
 }

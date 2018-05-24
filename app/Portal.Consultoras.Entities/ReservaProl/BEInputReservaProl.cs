@@ -50,6 +50,7 @@ namespace Portal.Consultoras.Entities.ReservaProl
         public bool FechaHoraReserva { get; set; }
         [DataMember]
         public bool ProlV2 { get; set; }
+        public byte VersionProl { get; set; }
         [DataMember]
         public bool ZonaValida { get; set; }
         [DataMember]
@@ -67,5 +68,9 @@ namespace Portal.Consultoras.Entities.ReservaProl
         public int SegmentoInternoID { get; set; }
         [DataMember]
         public int EsOpt { get; set; }
+        [DataMember]
+        public string CodigoPrograma { get; set; }
+        [DataMember]
+        public int ConsecutivoNueva { get; set; }
     }
 }

@@ -18,22 +18,16 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (usuario != null)
             {
-                string paisID = usuario.PaisID.ToString();
+                string paisId = usuario.PaisID.ToString();
 
-                string codigoConsultora;
-                if (UserData().UsuarioPrueba == 1)
-                {
-                    codigoConsultora = UserData().ConsultoraAsociada;
-                }
-                else
-                {
-                    codigoConsultora = usuario.CodigoConsultora;
-                }
+                var codigoConsultora = UserData().UsuarioPrueba == 1
+                    ? UserData().ConsultoraAsociada
+                    : usuario.CodigoConsultora;
                 string mostrarAyudaWebTracking = Convert.ToInt32(usuario.MostrarAyudaWebTraking).ToString();
-                string paisISO = userData.CodigoISO.Trim();
-                string campanhaID = userData.CampaniaID.ToString();
+                string paisIso = userData.CodigoISO.Trim();
+                string campanhaId = userData.CampaniaID.ToString();
 
-                string url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisID, codigoConsultora, mostrarAyudaWebTracking, paisISO, campanhaID);
+                string url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisId, codigoConsultora, mostrarAyudaWebTracking, paisIso, campanhaId);
 
                 ViewBag.URLWebTracking = url;
             }

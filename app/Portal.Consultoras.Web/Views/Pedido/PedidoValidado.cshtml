@@ -117,7 +117,6 @@
             <div id="divListado"></div>
         </div>
         <div class="montos_pedidoValidado">
-            <!--SB20-483 - INICIO -->
             <div class="contenedor_montos_sinDescuento">
                 <div class="caja_montos_textos_sinDescuento pValidado">
                     <span>TOTAL SIN DSCTO.</span>
@@ -129,7 +128,6 @@
                 </div>
             </div>
             <hr class="clear">
-            <!--SB20-483 - FIN -->
 
             <div class="monto_totalValidado"><b>MONTO TOTAL :</b><span>@Model.Simbolo @Model.TotalConDsctoFormato</span></div>
 
@@ -327,11 +325,9 @@
     </div>
 </div>
 
-<!--SB20-483 - INICIO -->
-
 <!-- POPUP MIS GANANCIAS -->
 
-<div class="contenedor_fondo_popup" id="popupGanancias" style="display:none;">
+<div class="contenedor_fondo_popup_ganancia" id="popupGanancias" style="display:none;">
     <div class="popup_mis_ganancias">
         <div class="btn_cerrar_actualizarMisDatos">
             <a href="javascript:;" title="Cerrar" class="cerrar_tutorial" onclick="return $('#popupGanancias').fadeOut(200);">
@@ -361,8 +357,6 @@
 </div>
 
 <!-- FIN POPUP MIS GANANCIAS -->
-
-<!--SB20-483 - INICIO -->
 
 <div id="divConfirmValidarPROL" style="display: none;">
     <div class="terminos_title_2">
@@ -436,8 +430,8 @@
 
         </div>
         <div class="cantidad_listado cantidad_listado_pdd">{{Cantidad}}</div>
-        <div class="unitario_listado"> {{PrecioUnidad}}</div>
-        <div class="total_listado">{{ImporteTotal}}</div>
+        <div class="unitario_listado">@Model.Simbolo {{FormatoPrecioUnidad}}</div>
+        <div class="total_listado">@Model.Simbolo {{FormatoImporteTotal}}</div>
         <div class="cliente_listado">{{Nombre}}</div>
 
         {{#if AceptoBackOrder}}

@@ -23,13 +23,13 @@
                 <td class="center">
                     SOMOSBELCORP
                 </td>
-                <td class="center"><!-- R2073 -->                    
+                <td class="center">
                     <a href="#" onclick="VisualizarPopup('@item.ProcesoId','@item.Observaciones','@item.Estado','@item.FacturaHoy.ToString()','@item.FechaFacturacion.Day','@item.FechaFacturacion.Month','@item.Visualizado.ToString()','@item.Asunto','@item.Proceso','@item.EsMontoMinimo.ToString()')" >@item.Asunto</a>
                 </td>
                 <td class="center">
                     @Html.DisplayTextFor(modelItem => item.FechaHoraValidación)
                 </td>
-                <td class="center"><!-- R2133 -->
+                <td class="center">
                     @if (item.CampaniaId != 0)
                     {
                        @Html.DisplayTextFor(modelItem => item.CampaniaId)

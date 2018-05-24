@@ -25,8 +25,6 @@
         }
     }
 
-    ///////////////////////////
-
     function ReservadoOEnHorarioRestringido(mostrarAlerta) {
 
         mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
@@ -53,20 +51,15 @@
                         }
                         else if (mostrarAlerta == true)
                             alert_msg(data.message);
-                            //setTimeout(function () { location.href = '@Url.Action("Index", "Bienvenida")'; }, 2500);
                     }
                 }
             },
             error: function (error) {
-                console.log(error);
                 alert_msg('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
             }
         });
         return restringido;
     }
-
-
-    //////////////////////////
 
     function AgregarOfertaProducto(Object) {
 

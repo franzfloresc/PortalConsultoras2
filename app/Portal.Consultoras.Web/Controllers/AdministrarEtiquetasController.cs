@@ -34,13 +34,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -51,9 +47,11 @@ namespace Portal.Consultoras.Web.Controllers
             if (ModelState.IsValid)
             {
                 List<BEEtiqueta> lst;
-                BEEtiqueta entidad = new BEEtiqueta();
-                entidad.PaisID = UserData().PaisID;
-                entidad.Estado = -1;
+                BEEtiqueta entidad = new BEEtiqueta
+                {
+                    PaisID = UserData().PaisID,
+                    Estado = -1
+                };
 
                 if (Consulta == "1")
                 {
@@ -67,12 +65,13 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = new List<BEEtiqueta>();
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<BEEtiqueta> items = lst;
 
                 #region Sort Section
@@ -102,9 +101,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -118,7 +117,7 @@ namespace Portal.Consultoras.Web.Controllers
                                cell = new string[]
                                {
                                    a.EtiquetaID.ToString(),
-                                   a.Descripcion.ToString(),
+                                   a.Descripcion,
                                    a.Estado.ToString()
                                 }
                            }
@@ -131,18 +130,19 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Eliminar(string PaisID, string EtiquetaID)
         {
-            int resultado = 0;
             string operacion = "eliminó";
             try
             {
-                BEEtiqueta entidad = new BEEtiqueta();
-                entidad.EtiquetaID = Convert.ToInt32(EtiquetaID);
-                entidad.PaisID = Convert.ToInt32(PaisID);
-                entidad.Estado = 0;
+                BEEtiqueta entidad = new BEEtiqueta
+                {
+                    EtiquetaID = Convert.ToInt32(EtiquetaID),
+                    PaisID = Convert.ToInt32(PaisID),
+                    Estado = 0
+                };
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    resultado = sv.InsertarEtiqueta(entidad);
+                    sv.InsertarEtiqueta(entidad);
                 }
 
                 return Json(new
@@ -177,21 +177,22 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Registrar(string PaisID, string Descripcion, string EtiquetaID)
         {
-            int resultado = 0;
             string operacion = "registró";
             try
             {
-                BEEtiqueta entidad = new BEEtiqueta();
-                entidad.EtiquetaID = Convert.ToInt32(EtiquetaID);
-                entidad.PaisID = Convert.ToInt32(PaisID);
-                entidad.Descripcion = Descripcion;
-                entidad.Estado = 1;
-                entidad.UsuarioCreacion = UserData().CodigoUsuario;
-                entidad.UsuarioModificacion = UserData().CodigoUsuario;
+                BEEtiqueta entidad = new BEEtiqueta
+                {
+                    EtiquetaID = Convert.ToInt32(EtiquetaID),
+                    PaisID = Convert.ToInt32(PaisID),
+                    Descripcion = Descripcion,
+                    Estado = 1,
+                    UsuarioCreacion = UserData().CodigoUsuario,
+                    UsuarioModificacion = UserData().CodigoUsuario
+                };
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    resultado = sv.InsertarEtiqueta(entidad);
+                    sv.InsertarEtiqueta(entidad);
                 }
 
                 if (EtiquetaID != "0")

@@ -1,32 +1,45 @@
-﻿
-@model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
-<style>
-    .slick-slider {
-        margin-top: 15px !important;
+﻿@model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
+
+@{
+    var seccionTituloClass = "seccion-titulo";
+    var vermasClass = "";
+    var classOpt = "";
+    if (ViewBag.EsSuscrita)
+    {
+        seccionTituloClass += " seccion-titulo-dorado";
+        vermasClass += " dorado";
     }
+    if (Model.Codigo.ToLower().Equals("opt"))
+    {
+        classOpt = "carrusel-simple-opt";
+    }
+}
+<style>
+    #carrusel-simple-opt .contenido_834 .revistadigital-landing { min-width: auto !important; }
+    #carrusel-simple-opt .contenido_834 .slick-list { width: 824px !important;}
 </style>
 <div class="bc_plantilla_estrategia_personalizada" style="background: url(@Model.ImagenFondo) center center no-repeat; background-position: center !important; min-height: 500px;vertical-align: middle;"
      data-plantilla="simple-centrado">
-    <div class="parche_presentacion_contenedor">
+    <div class="parche_presentacion_contenedor parche_presentacion_contenedor_834">
         <div class="bloque-titulo">
-            <div class="seccion-titulo">
+            <div class="@seccionTituloClass">
                 <span>@Model.Titulo</span>
             </div>
-            <div class="cantidad" style="display:none;"data-productos-info="">
+            <div class="cantidad" style="display:none;" data-productos-info="">
                 <span id="divCantProductos">Mostrando <span data-productos-mostrar="">@Model.CantidadMostrar</span> de <span data-productos-total="">@Model.CantidadProductos</span></span>
             </div>
 
             @if (Model.VerMas)
             {
                 <div class="ir">
-                    <a href="javascript: menuModule.sectionClick('@Model.UrlLandig', '@Model.Titulo')">VER MÁS OFERTAS</a>
+                    <a class="@vermasClass" href="javascript: menuModule.sectionClick('@Model.UrlLandig', '@Model.TituloBtnAnalytics')">VER MÁS OFERTAS</a>
                 </div>
             }
             <div class="parche_clear"></div>
         </div>
     </div>
     <div class="clear"></div>
-    <div class="content_estrategia_carrusel">
-        <div class="contenido" data-seccion-productos=""></div>
+    <div class="content_estrategia_carrusel content_estrategia_carrusel_834" id="@classOpt">
+        <div class="contenido contenido_834" data-seccion-productos="" ></div>
     </div>
 </div>

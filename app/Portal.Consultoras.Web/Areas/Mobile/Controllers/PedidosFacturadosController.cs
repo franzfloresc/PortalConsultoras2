@@ -32,11 +32,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 foreach (var pedido in lista3Ultimos)
                 {
-                    var bePedidoWeb = new PedidoWebMobilModel();
-                    bePedidoWeb.PedidoId = pedido.PedidoId;
-                    bePedidoWeb.CampaniaID = pedido.Campania;
-                    bePedidoWeb.ImporteTotal = pedido.ImporteTotal;
-                    bePedidoWeb.CantidadProductos = pedido.Cantidad;
+                    var bePedidoWeb = new PedidoWebMobilModel
+                    {
+                        PedidoId = pedido.PedidoId,
+                        CampaniaID = pedido.Campania,
+                        ImporteTotal = pedido.ImporteTotal,
+                        CantidadProductos = pedido.Cantidad
+                    };
 
                     if (!string.IsNullOrEmpty(pedido.EstadoPedido))
                     {
@@ -52,9 +54,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         bePedidoWeb.ImporteTotal = pedido.ImporteTotal;
 
                     }
+
+              
                     model.ListaPedidoCliente.Add(bePedidoWeb);
                 }
-                Session["PedidosFacturados"] = model;
+
+
+                sessionManager.SetPedidosFacturados(model);
+                //Session["PedidosFacturados"] = model;
             }
             catch (FaultException ex)
             {
@@ -74,11 +81,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var model = new PedidoWebMobilModel();
             try
             {
-                var pedidosFacturados = Session["PedidosFacturados"] as PedidoWebClientePrincipalMobilModel;
-                if (pedidosFacturados == null) return PartialView();
+                //var pedidosFacturados = Session["PedidosFacturados"] as PedidoWebClientePrincipalMobilModel;
+                var pedidosFacturados = sessionManager.GetPedidosFacturados();
+                if (pedidosFacturados == null) return PartialView("Detalle", model);
 
                 var pedidoWebMobile = pedidosFacturados.ListaPedidoCliente.FirstOrDefault(p => p.CampaniaID == campaniaID && p.PedidoId == pedidoId);
-                if (pedidoWebMobile == null) return PartialView();
+                if (pedidoWebMobile == null) return PartialView("Detalle", model);
 
                 model.CodigoISO = userData.CodigoISO;
                 model.Simbolo = userData.Simbolo;
@@ -87,8 +95,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.Flete = pedidoWebMobile.Flete;
 
                 BEPedidoFacturado[] listaPedidosFacturadosDetalle;
+                //
                 using (var service = new SACServiceClient())
                 {
+
                     listaPedidosFacturadosDetalle = service.GetPedidosFacturadosDetalle(userData.PaisID, campaniaID.ToString(), "0", "0", userData.CodigoConsultora, pedidoId);
                 }
 
@@ -130,7 +140,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public string OrigenDescripcion(string origen)
         {
-            var result = string.Empty;
+            string result;
             switch (origen)
             {
                 case "A":
@@ -161,16 +171,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return result;
         }
 
-        public string DescripcionCampania(string CampaniaID)
+        public string DescripcionCampania(string campaniaId)
         {
-            var descripcionCampania = string.Empty;
+            string descripcionCampania;
             try
             {
-                descripcionCampania = CampaniaID.Substring(0, 4) + "-C" + CampaniaID.Substring(4, 2);
+                descripcionCampania = campaniaId.Substring(0, 4) + "-C" + campaniaId.Substring(4, 2);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                descripcionCampania = CampaniaID;
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                descripcionCampania = campaniaId;
             }
             return descripcionCampania;
         }

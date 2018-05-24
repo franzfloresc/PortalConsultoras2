@@ -23,8 +23,8 @@ namespace Portal.Consultoras.Entities
             msCodigo = row["Codigo"].ToString();
             msNombre = row["Nombre"].ToString();
             msNombreGerenteZona = row["NombreGerenteZona"] == null ? "" : row["NombreGerenteZona"].ToString();
-            if (DataRecord.HasColumn(row, "CantidadDias") && row["CantidadDias"] != DBNull.Value)
-                msCantidadDias = row["CantidadDias"] == null ? 0 : Convert.ToInt32(row["CantidadDias"]);
+            if (DataRecord.HasColumn(row, "CantidadDias"))
+                msCantidadDias = Convert.ToInt32(row["CantidadDias"]);
         }
 
         [DataMember]

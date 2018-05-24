@@ -4,7 +4,6 @@ using Portal.Consultoras.Web.ServiceCatalogosIssuu;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -29,8 +28,8 @@ namespace Portal.Consultoras.Web.Controllers
         /// <returns></returns>
         public JsonResult GetDetalleCatalogos()
         {
-            int nroCampanias = -1;
-            String CampaniaActiva = String.Empty;
+            int nroCampanias;
+            String campaniaActiva;
 
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
@@ -40,31 +39,31 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
             {
-                CampaniaActiva = sv.GetCampaniaActivaPais(userData.PaisID, DateTime.Now).AnoCampana;
+                campaniaActiva = sv.GetCampaniaActivaPais(userData.PaisID, DateTime.Now).AnoCampana;
             }
             userData.NroCampanias = nroCampanias;
 
-            CatalogosRevistas.PaisNombre = getPaisNombreByISO(userData.CodigoISO);
-            CatalogosRevistas.CampaniaActual = CampaniaActiva;
-            CatalogosRevistas.CampaniaAnterior = AddCampaniaAndNumero(Convert.ToInt32(CampaniaActiva), -1).ToString();
-            CatalogosRevistas.CampaniaSiguiente = AddCampaniaAndNumero(Convert.ToInt32(CampaniaActiva), 1).ToString();
+            CatalogosRevistas.PaisNombre = GetPaisNombreByISO(userData.CodigoISO);
+            CatalogosRevistas.CampaniaActual = campaniaActiva;
+            CatalogosRevistas.CampaniaAnterior = AddCampaniaAndNumero(Convert.ToInt32(campaniaActiva), -1).ToString();
+            CatalogosRevistas.CampaniaSiguiente = AddCampaniaAndNumero(Convert.ToInt32(campaniaActiva), 1).ToString();
 
             CatalogosRevistas.CodigoRevistaActual = GetRevistaCodigoIssuu(CatalogosRevistas.CampaniaActual);
             CatalogosRevistas.CodigoRevistaAnterior = GetRevistaCodigoIssuu(CatalogosRevistas.CampaniaAnterior);
             CatalogosRevistas.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(CatalogosRevistas.CampaniaSiguiente);
 
-            List<Catalogo> CatalogosAnteriores = this.GetCatalogosPublicados(userData.CodigoISO, CatalogosRevistas.CampaniaAnterior);
-            List<Catalogo> CatalogosActuales = this.GetCatalogosPublicados(userData.CodigoISO, CatalogosRevistas.CampaniaActual);
-            List<Catalogo> CatalogosSiguientes = this.GetCatalogosPublicados(userData.CodigoISO, CatalogosRevistas.CampaniaSiguiente);
+            List<Catalogo> catalogosAnteriores = this.GetCatalogosPublicados(userData.CodigoISO, CatalogosRevistas.CampaniaAnterior);
+            List<Catalogo> catalogosActuales = this.GetCatalogosPublicados(userData.CodigoISO, CatalogosRevistas.CampaniaActual);
+            List<Catalogo> catalogosSiguientes = this.GetCatalogosPublicados(userData.CodigoISO, CatalogosRevistas.CampaniaSiguiente);
 
             var data = new
             {
                 campaniaActual = CatalogosRevistas.CampaniaActual,
                 campaniaAnterior = CatalogosRevistas.CampaniaAnterior,
                 campaniaSiguiente = CatalogosRevistas.CampaniaSiguiente,
-                catalogosAnteriores = CatalogosAnteriores,
-                catalogosActuales = CatalogosActuales,
-                catalogosSiguientes = CatalogosSiguientes
+                catalogosAnteriores = catalogosAnteriores,
+                catalogosActuales = catalogosActuales,
+                catalogosSiguientes = catalogosSiguientes
             };
 
             return Json(data, JsonRequestBehavior.AllowGet);
@@ -73,14 +72,14 @@ namespace Portal.Consultoras.Web.Controllers
         /// <summary>
         /// Obtener los catalogos por campaña odernados por: LBel, Esika y Cyzone
         /// </summary>
-        /// <param name="paisISO"></param>
+        /// <param name="paisIso"></param>
         /// <param name="campaniaId"></param>
         /// <returns></returns>
-        public List<Catalogo> GetCatalogosPublicados(string paisISO, string campaniaId)
+        public List<Catalogo> GetCatalogosPublicados(string paisIso, string campaniaId)
         {
             List<Catalogo> catalogos = new List<Catalogo>();
-            string urlISSUUSearch = "http://search.issuu.com/api/2_0/document?username=somosbelcorp&q=";
-            string urlISSUUVisor = ConfigurationManager.AppSettings["UrlIssuu"];
+            const string urlIssuuSearch = "http:" + Constantes.CatalogoUrlIssu.Buscador;
+            string urlIssuuVisor = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlIssuu);
             List<String> preferences = new List<String> { "LBel", "Esika", "Cyzone" };
 
             try
@@ -90,7 +89,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string catalogoCyzone = GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.Cyzone);
                 string catalogoFinart = GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.Finart);
 
-                var url = urlISSUUSearch +
+                var url = urlIssuuSearch +
                     "docname:" + catalogoLbel + "+OR+" +
                     "docname:" + catalogoEsika + "+OR+" +
                     "docname:" + catalogoCyzone + "+OR+" +
@@ -101,9 +100,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (Stream myStream = wc.OpenRead(new Uri(url)))
                     {
-                        using (StreamReader streamReader = new StreamReader(myStream))
+                        if (myStream != null)
                         {
-                            response = streamReader.ReadToEnd();
+                            using (StreamReader streamReader = new StreamReader(myStream))
+                            {
+                                response = streamReader.ReadToEnd();
+                            }
                         }
                     }
                 }
@@ -116,13 +118,17 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     string docName = doc["docname"], documentId = doc["documentId"];
 
-                    if (docName == catalogoLbel) catalogos.Add(new Catalogo { AnoCampana = campaniaId.Substring(4, 2), IdMarcaCatalogo = Constantes.Marca.LBel, marcaCatalogo = "LBel", DocumentID = documentId, SkinURL = string.Format(urlISSUUVisor, docName) });
-                    else if (docName == catalogoEsika) catalogos.Add(new Catalogo { AnoCampana = campaniaId.Substring(4, 2), IdMarcaCatalogo = Constantes.Marca.Esika, marcaCatalogo = "Esika", DocumentID = documentId, SkinURL = string.Format(urlISSUUVisor, docName) });
-                    else if (docName == catalogoCyzone) catalogos.Add(new Catalogo { AnoCampana = campaniaId.Substring(4, 2), IdMarcaCatalogo = Constantes.Marca.Cyzone, marcaCatalogo = "Cyzone", DocumentID = documentId, SkinURL = string.Format(urlISSUUVisor, docName) });
-                    else if (docName == catalogoFinart) catalogos.Add(new Catalogo { AnoCampana = campaniaId.Substring(4, 2), IdMarcaCatalogo = Constantes.Marca.Finart, marcaCatalogo = "Finart", DocumentID = documentId, SkinURL = string.Format(urlISSUUVisor, docName) });
+                    if (docName == catalogoLbel) catalogos.Add(new Catalogo { AnoCampana = campaniaId.Substring(4, 2), IdMarcaCatalogo = Constantes.Marca.LBel, marcaCatalogo = "LBel", DocumentID = documentId, SkinURL = string.Format(urlIssuuVisor, docName) });
+                    else if (docName == catalogoEsika) catalogos.Add(new Catalogo { AnoCampana = campaniaId.Substring(4, 2), IdMarcaCatalogo = Constantes.Marca.Esika, marcaCatalogo = "Esika", DocumentID = documentId, SkinURL = string.Format(urlIssuuVisor, docName) });
+                    else if (docName == catalogoCyzone) catalogos.Add(new Catalogo { AnoCampana = campaniaId.Substring(4, 2), IdMarcaCatalogo = Constantes.Marca.Cyzone, marcaCatalogo = "Cyzone", DocumentID = documentId, SkinURL = string.Format(urlIssuuVisor, docName) });
+                    else if (docName == catalogoFinart) catalogos.Add(new Catalogo { AnoCampana = campaniaId.Substring(4, 2), IdMarcaCatalogo = Constantes.Marca.Finart, marcaCatalogo = "Finart", DocumentID = documentId, SkinURL = string.Format(urlIssuuVisor, docName) });
                 }
             }
-            catch (Exception) { catalogos = new List<Catalogo>(); }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                catalogos = new List<Catalogo>();
+            }
             return catalogos.OrderBy(i => preferences.IndexOf(i.marcaCatalogo)).ToList();
         }
 

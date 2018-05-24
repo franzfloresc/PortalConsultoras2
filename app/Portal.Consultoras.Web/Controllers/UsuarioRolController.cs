@@ -25,11 +25,15 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
-            var model = new UsuarioRolModel();
-            model.DropDownListRol = CargarRol();
-            model.listaPaises = DropDowListPaises();
+
+            var model = new UsuarioRolModel
+            {
+                DropDownListRol = CargarRol(),
+                listaPaises = DropDowListPaises()
+            };
             return View(model);
         }
+
         public ActionResult ConsultarUsuarioRol(string sidx, string sord, int page, int rows, string vRolDescripcion, string vNombreUsuario)
         {
             if (ModelState.IsValid)
@@ -40,12 +44,14 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.SelectUsuarioRol(UserData().PaisID, vRolDescripcion, vNombreUsuario).ToList();
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+
                 IEnumerable<ServiceUsuario.BEUsuarioRol> items = lst;
 
                 #region Sort Section
@@ -75,9 +81,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Paginador(grid, lst);
+                BEPager pag = Paginador(grid, lst);
 
                 var data = new
                 {
@@ -106,14 +112,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<UsuarioRolModel, ServiceSeguridad.BEUsuarioRol>()
-                    .ForMember(t => t.RolID, f => f.MapFrom(c => c.RolID))
-                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario));
-
                 ServiceSeguridad.BEUsuarioRol entidad = Mapper.Map<UsuarioRolModel, ServiceSeguridad.BEUsuarioRol>(model);
                 entidad.paisID = UserData().PaisID;
 
-                List<BERol> lst = new List<BERol>();
                 int result;
 
                 using (SeguridadServiceClient sv = new SeguridadServiceClient())
@@ -162,15 +163,12 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult EliminarUsuarioRol(UsuarioRolModel model)
         {
             try
             {
-                Mapper.CreateMap<UsuarioRolModel, ServiceUsuario.BEUsuarioRol>()
-                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
-                    .ForMember(t => t.RolID, f => f.MapFrom(c => c.RolID));
-
                 int retorno;
 
                 ServiceUsuario.BEUsuarioRol entidad = Mapper.Map<UsuarioRolModel, ServiceUsuario.BEUsuarioRol>(model);
@@ -228,21 +226,17 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult ValidarUsuario(ConsultoraFicticiaModel model)
         {
             try
             {
-                Mapper.CreateMap<ConsultoraFicticiaModel, BEUsuario>()
-                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID));
-
                 BEUsuario entidad = Mapper.Map<ConsultoraFicticiaModel, BEUsuario>(model);
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    bool result;
-                    result = sv.IsUserExist(entidad.PaisID, entidad.CodigoUsuario);
+                    var result = sv.IsUserExist(entidad.PaisID, entidad.CodigoUsuario);
 
                     if (result)
                     {
@@ -289,39 +283,35 @@ namespace Portal.Consultoras.Web.Controllers
 
             BEPager pag = new BEPager();
 
-            int RecordCount;
+            var recordCount = lst.Count;
 
-            RecordCount = lst.Count;
+            pag.RecordCount = recordCount;
 
-            pag.RecordCount = RecordCount;
+            int pageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
+            pag.PageCount = pageCount;
 
-            int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
+            int currentPage = item.CurrentPage;
+            pag.CurrentPage = currentPage;
 
-            int CurrentPage = (int)item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
-
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
+            if (currentPage > pageCount)
+                pag.CurrentPage = pageCount;
 
             return pag;
         }
+
         private IEnumerable<PaisModel> DropDowListPaises()
         {
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
+
         private List<BERol> CargarRol()
         {
             var model = new UsuarioRolModel();

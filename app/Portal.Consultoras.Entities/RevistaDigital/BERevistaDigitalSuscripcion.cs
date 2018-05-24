@@ -1,6 +1,5 @@
-﻿using Portal.Consultoras.Common;
-using System;
-using System.Data;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.RevistaDigital
@@ -9,40 +8,41 @@ namespace Portal.Consultoras.Entities.RevistaDigital
     public class BERevistaDigitalSuscripcion : BaseEntidad
     {
         [DataMember]
+        [Column("RevistaDigitalSuscripcionID")]
         public int RevistaDigitalSuscripcionID { get; set; }
         [DataMember]
+        [Column("CodigoConsultora")]
         public string CodigoConsultora { get; set; }
         [DataMember]
+        [Column("CampaniaID")]
         public int CampaniaID { get; set; }
         [DataMember]
+        [Column("FechaSuscripcion")]
         public DateTime FechaSuscripcion { get; set; }
         [DataMember]
+        [Column("FechaDesuscripcion")]
         public DateTime FechaDesuscripcion { get; set; }
         [DataMember]
+        [Column("EstadoRegistro")]
         public int EstadoRegistro { get; set; }
         [DataMember]
+        [Column("EstadoEnvio")]
         public int EstadoEnvio { get; set; }
         [DataMember]
         public string IsoPais { get; set; }
         [DataMember]
+        [Column("CodigoZona")]
         public string CodigoZona { get; set; }
         [DataMember]
+        [Column("EMail")]
         public string EMail { get; set; }
+        [DataMember]
+        [Column("CampaniaEfectiva")]
+        public int CampaniaEfectiva { get; set; }
+        [DataMember]
+        [Column("Origen")]
+        public string Origen { get; set; }
 
         public BERevistaDigitalSuscripcion() { }
-
-        public BERevistaDigitalSuscripcion(IDataRecord row)
-        {
-            if (row.HasColumn("RevistaDigitalSuscripcionID")) RevistaDigitalSuscripcionID = Convert.ToInt32(row["RevistaDigitalSuscripcionID"]);
-            if (row.HasColumn("CodigoConsultora")) CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-            if (row.HasColumn("FechaSuscripcion")) FechaSuscripcion = Convert.ToDateTime(row["FechaSuscripcion"]);
-            if (row.HasColumn("FechaDesuscripcion")) FechaDesuscripcion = Convert.ToDateTime(row["FechaDesuscripcion"]);
-            if (row.HasColumn("EstadoRegistro")) EstadoRegistro = Convert.ToInt32(row["EstadoRegistro"]);
-            if (row.HasColumn("EstadoEnvio")) EstadoEnvio = Convert.ToInt32(row["EstadoEnvio"]);
-            if (row.HasColumn("IsoPais")) IsoPais = Convert.ToString(row["IsoPais"]);
-            if (row.HasColumn("CampaniaID")) CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (row.HasColumn("CodigoZona")) CodigoZona = Convert.ToString(row["CodigoZona"]);
-            if (row.HasColumn("EMail")) EMail = Convert.ToString(row["EMail"]);
-        }
     }
 }

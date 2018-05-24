@@ -58,10 +58,8 @@
                 alert("Debe seleccionar una Campaña, verifique");
         });
     });
-
-
+    
     function fnGrilla() {
-
         jQuery("#list").jqGrid({
             url: baseUrl + "CronogramaFIC/ConsultarCronogramaFIC",
             hidegrid: false,
@@ -123,112 +121,100 @@
         };
     }
 
-        $.jgrid.extend({
-            Editar: function (Id, Zona, Campania, Pais, CampaniaID, Fecha) {
-                $("#txtFecIniFac").val(Fecha);
-                $("#lblPais").text(Pais);
-                $("#lblCampania").text(Campania);
-                $("#lblZona").text(Zona);
-                $("#txtFecIniFacN").val("");
-                HideDiv();
-                return false;
-            }
-        });
-
-
-        function GetDateJson(jsonDate) {
-            var jsonDate = jsonDate;
-            var value = new Date(parseInt(jsonDate.substr(6)));
-            var ret = value.getMonth() + 1 + "/" + value.getDate() + "/" + value.getFullYear();
-            return ret;
+    $.jgrid.extend({
+        Editar: function (Id, Zona, Campania, Pais, CampaniaID, Fecha) {
+            $("#txtFecIniFac").val(Fecha);
+            $("#lblPais").text(Pais);
+            $("#lblCampania").text(Campania);
+            $("#lblZona").text(Zona);
+            $("#txtFecIniFacN").val("");
+            HideDiv();
+            return false;
         }
+    });
 
-        function ShowDiv() {
-            LimpiarCampos();
-            $("#Registro").hide();
-            $("#Listado").show('slow');
-        }
+    function GetDateJson(jsonDate) {
+        var jsonDate = jsonDate;
+        var value = new Date(parseInt(jsonDate.substr(6)));
+        var ret = value.getMonth() + 1 + "/" + value.getDate() + "/" + value.getFullYear();
+        return ret;
+    }
 
-        function HideDiv() {
-            $("#Listado").hide('slow');
-            $("#Registro").show();
-        }
+    function ShowDiv() {
+        LimpiarCampos();
+        $("#Registro").hide();
+        $("#Listado").show('slow');
+    }
 
-        function LimpiarCampos() {
-            $("#lblPais").text('');
-            $("#lblCampania").text('');
-            $("#lblZona").text('');
-            $('#txtFecIniFac').val('');
-            $('#txtFecIniFacN').val('');
-        }
+    function HideDiv() {
+        $("#Listado").hide('slow');
+        $("#Registro").show();
+    }
 
-        function IniDivRegistro() {
-            $("#txtFecIniFacN").datepicker({
-                showOn: "button",
-                buttonImage: '@Url.Content("~/Content/Images/calendar.png")',
-                buttonImageOnly: true,
-                dateFormat: 'dd/mm/yy'
-            }).mask('99/99/9999');
-        }
+    function LimpiarCampos() {
+        $("#lblPais").text('');
+        $("#lblCampania").text('');
+        $("#lblZona").text('');
+        $('#txtFecIniFac').val('');
+        $('#txtFecIniFacN').val('');
+    }
 
+    function IniDivRegistro() {
+        $("#txtFecIniFacN").datepicker({
+            showOn: "button",
+            buttonImage: '@Url.Content("~/Content/Images/calendar.png")',
+            buttonImageOnly: true,
+            dateFormat: 'dd/mm/yy'
+        }).mask('99/99/9999');
+    }
+    
     function GuardarCronograma() {
-        var Fecha = jQuery.trim($("#txtFecIniFacN").val());
-        var AnioCampania = jQuery.trim($("#ddlCampania option:selected").text().substr(0, 4));
-        var PaisId = $("#ddlPais").val();
         var vMessage = "";
+        var fecha = $.trim($("#txtFecIniFacN").val());
 
-        if (Fecha == "")
-            vMessage += "- Debe ingresar la Fecha limiate pra el ingreso a Pedido FIC.\n";
-
-        if (Fecha != "") {
-            if (Fecha.length == 10) {
-                var AnioFecha = jQuery.trim($("#txtFecIniFacN").val()).substr(6, 4);
-                if (AnioCampania > AnioFecha || AnioCampania < AnioFecha)
-                    vMessage += "- Debe ingresar Una Fecha correspondiente al año de la Campaña.\n";
-            }
-        }
+        if (fecha == "") vMessage += "- Debe ingresar la fecha límite para el ingreso a Pedido FIC.\n";
+        else if (fecha.length != 10) vMessage += "- Debe ingresar una fecha válida para el ingreso a Pedido FIC.\n";
 
         if (vMessage != "") {
             alert(vMessage);
             $('#txtFecIniFacN').focus();
             return false;
-        } else {
+        }
 
-            var Cronograma = {
-                FechaFin: jQuery('#txtFecIniFacN').val(),
-                PaisID: PaisId,
-                Zona: $("#lblZona").text(),
-                Campania: $("#lblCampania").text()
-            };
+        var Cronograma = {
+            FechaFin: fecha,
+            PaisID: $("#ddlPais").val(),
+            Zona: $("#lblZona").text(),
+            Campania: $("#lblCampania").text()
+        };
 
-            jQuery.ajax({
-                type: 'POST',
-                url: baseUrl + 'CronogramaFIC/Update',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(Cronograma),
-                async: true,
-                success: function (data) {
-                    if (checkTimeout(data)) {
-                        if (data.success) {
-                            var item = data.items;
-                            alert(data.message);
-                            ShowDiv();
-                            jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
-                        }
-                        else {
-                            alert(data.message);
-                        }
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'CronogramaFIC/Update',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(Cronograma),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    if (data.success) {
+                        var item = data.items;
+                        alert(data.message);
+                        ShowDiv();
+                        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
                     }
-                },
-                error: function (data, error) {
-                    if (checkTimeout(data)) {
-                        alert("Ocurrio un Error, vuelva a ingresar");
+                    else {
+                        alert(data.message);
                     }
                 }
-            });
-            return false;
-        }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    alert("Ocurrio un Error, vuelva a ingresar");
+                }
+            }
+        });
+        return false;
     }
 </script>
 

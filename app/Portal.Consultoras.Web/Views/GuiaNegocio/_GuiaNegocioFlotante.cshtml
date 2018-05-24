@@ -1,0 +1,22 @@
+﻿<div class="desplegablegnd">
+    <div class="gndcontenido">
+        <div class="gnd">
+            <span class="gndcerrar">
+                <span id="tituloGuiaNegocioFloteante"></span>
+                <img src="~/Content/Images/expand-button.png" class="flechitagnd" />
+            </span> 
+            <div class="gndbloque">
+                <img id="imgPortadaRevista" src="~/Content/Images/revista_no_disponible.jpg" alt="">
+                <p class="txtgnd">Encuentra aquí las mismas ofertas de la guía de negocio impresa </p>
+                <a href="javascript:;" class="irgnd" id="btnVerGuiaNegocio">VER GUÍA</a>
+                <div style="display: none;">
+                    @using (Html.BeginForm("MiRevista", "MisCatalogosRevistas", FormMethod.Post, new { id = "frmGuiaNegocio", target = "_blank" }))
+                    {
+                    <input type="hidden" name="campaniaRevista" id="campaniaRevista" value="">
+                    }
+                </div>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+</div>

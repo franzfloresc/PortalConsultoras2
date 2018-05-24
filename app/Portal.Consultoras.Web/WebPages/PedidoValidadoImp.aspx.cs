@@ -1,12 +1,10 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.ServicePedido;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -16,19 +14,19 @@ namespace Portal.Consultoras.Web.WebPages
         {
             string parametros = Request.QueryString["parametros"];
             string param = Util.DesencriptarQueryString(parametros);
-            string[] lista = param.Split(new char[] { ';' });
-            string paisID = lista[0];
-            string campaniaID = lista[1];
-            string consultoraID = lista[2];
+            string[] lista = param.Split(';');
+            string paisId = lista[0];
+            string campaniaId = lista[1];
+            string consultoraId = lista[2];
 
             Converter<decimal, string> moneyToString;
-            if (paisID == "4") moneyToString = new Converter<decimal, string>(p => p.ToString("n0", new System.Globalization.CultureInfo("es-CO")));
+            if (paisId == "4") moneyToString = new Converter<decimal, string>(p => p.ToString("n0", new System.Globalization.CultureInfo("es-CO")));
             else moneyToString = new Converter<decimal, string>(p => p.ToString("n2", new System.Globalization.CultureInfo("es-PE")));
 
-            List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
+            List<BEPedidoWebDetalle> olstPedidoWebDetalle;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                olstPedidoWebDetalle = sv.SelectByPedidoValidado(Convert.ToInt32(paisID), Convert.ToInt32(campaniaID), Convert.ToInt64(consultoraID), lista[4]).ToList();
+                olstPedidoWebDetalle = sv.SelectByPedidoValidado(Convert.ToInt32(paisId), Convert.ToInt32(campaniaId), Convert.ToInt64(consultoraId), lista[4]).ToList();
             }
                         
             lblUsuario.Text = "Hola, " + lista[4];
@@ -61,13 +59,13 @@ namespace Portal.Consultoras.Web.WebPages
 
             string simbolo = lista[3];
             bool estadoSimplificacionCuv = (lista[7] == "1");
-            decimal subtotal, descuento, total;
+            decimal total;
 
-            if(estadoSimplificacionCuv && olstPedidoWebDetalle != null &&
+            if(estadoSimplificacionCuv &&
                 olstPedidoWebDetalle.Any(item => string.IsNullOrEmpty(item.ObservacionPROL) && item.IndicadorOfertaCUV))
             {
-                subtotal = olstPedidoWebDetalle.Where(p => p.PedidoDetalleIDPadre == 0).Sum(p => p.ImporteTotal);
-                descuento = -olstPedidoWebDetalle[0].DescuentoProl;
+                var subtotal = olstPedidoWebDetalle.Where(p => p.PedidoDetalleIDPadre == 0).Sum(p => p.ImporteTotal);
+                var descuento = -olstPedidoWebDetalle[0].DescuentoProl;
                 total = subtotal + descuento;
                                 
                 sb = new StringBuilder();

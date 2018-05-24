@@ -7,16 +7,18 @@ using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic.RevistaDigital
 {
-    public class BLRevistaDigitalSuscripcion
+    public class BLRevistaDigitalSuscripcion : IRevistaDigitalSuscripcionBusinessLogic
     {
         public int Suscripcion(BERevistaDigitalSuscripcion entidad)
         {
             try
             {
-                var retorno = 0;
+                int retorno;
                 var da = new DARevistaDigitalSuscripcion(entidad.PaisID);
-                TransactionOptions oTransactionOptions = new TransactionOptions();
-                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                TransactionOptions oTransactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
                     retorno = da.Suscripcion(entidad);
@@ -36,10 +38,12 @@ namespace Portal.Consultoras.BizLogic.RevistaDigital
         {
             try
             {
-                var retorno = 0;
+                int retorno;
                 var da = new DARevistaDigitalSuscripcion(entidad.PaisID);
-                TransactionOptions oTransactionOptions = new TransactionOptions();
-                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                TransactionOptions oTransactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
                     retorno = da.Desuscripcion(entidad);
@@ -64,17 +68,54 @@ namespace Portal.Consultoras.BizLogic.RevistaDigital
                 var da = new DARevistaDigitalSuscripcion(entidad.PaisID);
                 using (IDataReader reader = da.Single(entidad))
                 {
-                    while (reader.Read())
-                    {
-                        entity = new BERevistaDigitalSuscripcion(reader);
-                    }
+                    entity = reader.MapToObject<BERevistaDigitalSuscripcion>();
                 }
             }
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, entidad.CodigoConsultora, entidad.PaisID.ToString());
-                entity = new BERevistaDigitalSuscripcion();
             }
+
+            return entity;
+        }
+
+        public BERevistaDigitalSuscripcion SingleActiva(BERevistaDigitalSuscripcion entidad)
+        {
+            var entity = new BERevistaDigitalSuscripcion();
+
+            try
+            {
+                var da = new DARevistaDigitalSuscripcion(entidad.PaisID);
+                using (IDataReader reader = da.SingleActiva(entidad))
+                {
+                    entity = reader.MapToObject<BERevistaDigitalSuscripcion>();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, entidad.CodigoConsultora, entidad.PaisID.ToString());
+            }
+
+            return entity;
+        }
+
+        public BERevistaDigitalSuscripcion GetLast(BERevistaDigitalSuscripcion entidad)
+        {
+            var entity = new BERevistaDigitalSuscripcion();
+
+            try
+            {
+                var da = new DARevistaDigitalSuscripcion(entidad.PaisID);
+                using (IDataReader reader = da.GetLast(entidad))
+                {
+                    entity = reader.MapToObject<BERevistaDigitalSuscripcion>();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, entidad.CodigoConsultora, entidad.PaisID.ToString());
+            }
+
             return entity;
         }
     }

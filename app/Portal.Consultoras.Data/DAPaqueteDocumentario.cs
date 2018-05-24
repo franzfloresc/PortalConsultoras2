@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Data
 {
     public class DAPaqueteDocumentario : DataAccess
     {
-            public DAPaqueteDocumentario(int paisID)
+        public DAPaqueteDocumentario(int paisID)
             : base(paisID, EDbSource.Portal)
         {
 
         }
 
-        public int ActualizarEstadoPaqueteDocumentario(string codigo,int campania)
+        public int ActualizarEstadoPaqueteDocumentario(string codigo, int campania)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ActualizarEstadoPaqueteDocumentario");
             Context.Database.AddInParameter(command, "@Codigo", DbType.String, codigo);

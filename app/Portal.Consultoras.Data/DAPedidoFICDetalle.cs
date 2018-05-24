@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Portal.Consultoras.Entities;
+using System;
 using System.Data;
 using System.Data.Common;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Data
 {
@@ -35,7 +30,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@ClienteID", DbType.Int32, ClienteID);
 
             return Context.ExecuteReader(command);
-        }       
+        }
 
         public IDataReader GetPedidoWebDetalleByPedidoValidado(int CampaniaID, long ConsultoraID)
         {
@@ -164,7 +159,7 @@ namespace Portal.Consultoras.Data
 
             int result = Context.ExecuteNonQuery(command);
             return result;
-        } 
+        }
 
         public short DelPedidoFICDetalleByCUV(int CampaniaID, int PedidoID, string CUV)
         {
@@ -175,8 +170,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddOutParameter(command, "@Deleted", DbType.Int16, 2);
 
             Context.ExecuteNonQuery(command);
-            short Deleted = Convert.ToInt16(command.Parameters["@Deleted"].Value);
-            return Deleted;
+            short deleted = Convert.ToInt16(command.Parameters["@Deleted"].Value);
+            return deleted;
         }
 
         public int DelPedidoFICDetalleMasivo(int CampaniaID, int PedidoID)

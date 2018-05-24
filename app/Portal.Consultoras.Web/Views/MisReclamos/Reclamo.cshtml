@@ -15,7 +15,7 @@
     <div class="linea_separadora" style="margin-top:-1px"></div>
 </div>
 <div class="content_belcorp" style="min-height:600px;">
-    <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
+    <div class="pestana_lbel"></div>
     <div class="texto_titulo_reclamos" id="TituloReclamo">
         Queremos verte siempre satisfecha con nuestros productos y servicio <br />
         <span>
@@ -232,7 +232,6 @@
                 <div class="float_left">
                     <span class="texto_correo">Correo Electrónico</span>
                     <input type="hidden" id="hdEmail" value="@Model.Email" />
-                    @*@Html.TextBox("txtEmail", (string) Model.Email, new {@class = "correo_reclamo"})*@
                     <input type="text" name="txtEmail" id="txtEmail" value="@Model.Email" class="correo_reclamo" onkeydown="return limitarMaximo(event,this.value,100,'txtTelefono')" />
                     <br />
                     <div class="correo_reclamo_error">
@@ -244,7 +243,6 @@
                 <div class="float_left">
                     <span class="texto_correo">Celular de contacto</span>
                     <input type="hidden" id="hdTelefono" value="@Model.Telefono" />
-                    @*@Html.TextBox("txtTelefono", (string) Model.Telefono, new {@class = "correo_reclamo"})*@
                     <input type="text" name="txtTelefono" id="txtTelefono" value="@Model.Telefono" class="correo_reclamo" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefono')" />
                     <br />
                     <div class="correo_reclamo_error">
@@ -288,7 +286,7 @@
         <div class="texto_mensaje_alerta" id="mensaje_exclamacion_titulo">¡SOLICITUD<b> ENVIADA</b>!</div>
         <div class="sub_texto_alerta" id="mensaje_exclamacion_texto">Vamos a evaluarla y en un plazo de 30 minutos te enviaremos una respuesta a tu correo electrónico</div>
         <div class="content_btn_imprimir">
-            <a class="btn_imprimir_reclamo"> <div class="icono_imprimir_reclamo"></div>IMPRIMIR SOLICITUD</a>
+            <a class="btn_imprimir_reclamo" href="javascript:printElement('.content_sombra_reclamo')"> <div class="icono_imprimir_reclamo"></div>IMPRIMIR SOLICITUD</a>
         </div>
         <hr class="clear" />
         <br />

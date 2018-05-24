@@ -7,6 +7,9 @@ belcorp.settings.uniquePrefix = "/g/";
 
 jQuery(document).ready(function () {
     CreateLoading();
+
+    redimensionarMenusTabs();
+
     $("body").on("click", "[data-compartir]", function (e) {
         e.preventDefault();
         CompartirRedesSociales(e);
@@ -38,6 +41,8 @@ jQuery(document).ready(function () {
             });
         }
     }
+    
+
 });
 (function ($) {
     $.fn.Readonly = function (val) {
@@ -218,6 +223,7 @@ jQuery(document).ready(function () {
                     case null:
                         ret = typeof a == "boolean";
                         bool = ret ? a : false;
+                        ret = true;
                         break;
                     default: break;
                 }
@@ -278,6 +284,11 @@ jQuery(document).ready(function () {
                 return new Handlebars.SafeString(cadena).string;
             });
 
+            Handlebars.registerHelper('EscapeSpecialChars', function (textoOrigen) {
+                textoOrigen = textoOrigen.replace(/'/g, "\\'");
+                return new Handlebars.SafeString(textoOrigen);
+            });
+
             Handlebars.registerHelper('Split', function (cadena, separador, pos, opts) {
                 cadena = cadena || "";
                 var listCade = cadena.split(separador);
@@ -329,8 +340,7 @@ jQuery(document).ready(function () {
         if ($.trim(urlTemplate) == "" || $.trim(idHtml) == "") {
             return false;
         }
-
-        //$(idHtml).load(urlTemplate, function (dataTemplate, status, xhr) {
+        
         jQuery.get(urlTemplate, function (dataTemplate) {
             dataTemplate = $.trim(dataTemplate);
 
@@ -356,13 +366,12 @@ jQuery(document).ready(function () {
         return "";
 
     }
-    SetHandlebars = function (idTemplate, data, idHtml) {
-
+    SetHandlebars = function (idTemplate, data, idHtml) {                                               
         if (!Handlebars.helpers.iff)
             HandlebarsRegisterHelper();
 
         if ($(idTemplate).length === 0 || typeof data === "undefined") {
-           
+
             return false;
         }
 
@@ -406,13 +415,13 @@ jQuery(document).ready(function () {
         formatDecimalPais = formatDecimalPais || new Object();
         noDecimal = noDecimal || false;
         var decimal = formatDecimalPais.decimal || ".";
-        var decimalCantidad = noDecimal ? 0 : formatDecimalPais.decimalCantidad;
+        var decimalCantidad = noDecimal ? 0 : (formatDecimalPais.decimalCantidad || 0 );
         var miles = formatDecimalPais.miles || ",";
 
         monto = monto || 0;
-        var montoOrig = parseFloat($.trim(monto)) == NaN ? "0" : $.trim(monto);
+        var montoOrig = isNaN($.trim(monto)) ? "0" : $.trim(monto);
 
-        decimalCantidad = parseInt(decimalCantidad) == NaN ? 0 : parseInt(decimalCantidad);
+        decimalCantidad = isNaN(decimalCantidad) ? 0 : parseInt(decimalCantidad);
 
         var pEntera = $.trim(parseInt(montoOrig));
         var pDecimal = $.trim((parseFloat(montoOrig) - parseFloat(pEntera)).toFixed(decimalCantidad));
@@ -430,6 +439,8 @@ jQuery(document).ready(function () {
 
         return pEnteraFinal + pDecimal;
     }
+
+    IsNullOrEmpty = function (texto) { return texto == null || texto === ''; }
 
     $(document).scroll(function () {
         try {
@@ -461,6 +472,17 @@ jQuery(document).ready(function () {
         return newLista;
     };
 })(jQuery);
+
+function redimensionarMenusTabs() {
+    var total_menu_contenedor = $(".bc_para_ti-menu ul li").size();
+
+    if (total_menu_contenedor > 2) {
+        $('.bc_para_ti-menu ul li').addClass('fix_menu_tabs_mobil_3');
+    }
+    else {
+        $('.bc_para_ti-menu ul li').addClass('fix_menu_tabs_mobil_2');
+    }
+}
 
 function showDialog(dialogId) {
     $("#" + dialogId).dialog("open");
@@ -496,6 +518,20 @@ function CreateLoading() {
     $("#loadingScreen").parent().find(".ui-dialog-titlebar").hide();
 }
 
+
+function printElement(selector) {
+    var element = document.querySelector(selector);
+    if (!element) {
+        return;
+    }
+    var printContents = element.innerHTML;
+    var originalContents = document.body.innerHTML;
+
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+}
+
 function waitingDialog(waiting) {
     try {
         if (!$("#loadingScreen")) {
@@ -529,7 +565,7 @@ function closeWaitingDialog() {
 }
 
 function AbrirLoad(opcion) {
-    try {        
+    try {
         if (isMobile()) {
             ShowLoading(opcion);
         }
@@ -547,7 +583,7 @@ function CerrarLoad(opcion) {
             CloseLoading(opcion);
         }
         else {
-            closeWaitingDialog(opcion);
+            closeWaitingDialog();
         }
     } catch (e) {
 
@@ -671,7 +707,7 @@ function getMobilePrefixUrl() {
 function isPagina(pagina) {
     pagina = $.trim(pagina).toLowerCase();
     if (pagina == "") return false;
-    return ($.trim(location.href) + "/").toLowerCase().indexOf("/" + pagina + "/") > 0;
+    return ("/" + $.trim(location.href).ReplaceAll(":", "/") + "/").toLowerCase().indexOf("/" + pagina + "/") > 0;
 }
 
 function isHome() {
@@ -689,9 +725,9 @@ function checkTimeout(data) {
     var thereIsStillTime = true;
 
     if (data) {
-        var eval = data.responseText ? data.responseText : data;
-        if (jQuery.type(eval) === "string") {
-            if ((eval.indexOf('<input type="hidden" id="PaginaLogin" />') > -1) || (eval.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1) || (eval == '"_Logon_"'))
+        var evalText = data.responseText ? data.responseText : data;
+        if (jQuery.type(evalText) === "string") {
+            if ((evalText.indexOf('<input type="hidden" id="PaginaLogin" />') > -1) || (evalText.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1) || (evalText == '"_Logon_"'))
                 thereIsStillTime = false;
         }
 
@@ -740,7 +776,6 @@ function paginadorAccionGenerico(obj) {
     var paginaActualCambio = padre.find("[data-paginacion='page']").val() || 1;
     var rows = padre.find("[data-paginacion='rows'] > option:selected").val() || 0;
     var pageCount = padre.find("[data-paginacion='pageCount']").html() || 0;
-    var recordCount = padre.find("[data-paginacion='recordCount']").html() || 0;
 
     pageCount = parseInt(pageCount, 10);
     paginaActual = parseInt(paginaActual, 10);
@@ -791,7 +826,6 @@ function ActualizarGanancia(data) {
     $("[data-ganancia]").html(data.MontoGananciaStr || "");
     $("[data-ganancia2]").html(vbSimbolo + " " + data.MontoGananciaStr || "");
     $("[data-pedidocondescuento]").html(DecimalToStringFormat(data.TotalPedido - data.MontoDescuento));
-    //$("[data-montodescuento]").html(vbSimbolo + (data.MontoDescuento == 0 ? " " : " -") + data.MontoDescuentoStr);
     $("[data-montodescuento]").html(vbSimbolo + " " + data.MontoDescuentoStr);
     $("[data-pedidototal]").html(vbSimbolo + " " + data.TotalPedidoStr);
     $("[data-cantidadproducto]").html(data.CantidadProductos);
@@ -835,7 +869,15 @@ FuncionesGenerales = {
         var te = String.fromCharCode(tecla);
         return patron.test(te);
     },
-
+    ValidarSoloDecimalPositivo: function (event, element, validarDecimal) {
+        event = event || window.event;
+        var charCode = event.which || event.keyCode;
+        if (charCode == 8 || charCode == 13 || (validarDecimal ? (element.value.indexOf('.') == -1 ? charCode == 46 : false) : false))
+            return true;
+        else if ((charCode < 48) || (charCode > 57))
+            return false;
+        return true;
+    },
     ValidarSoloNumerosAndSpecialCharater: function (e) {
         var tecla = (document.all) ? e.keyCode : e.which;
         if (tecla == 8) return true;
@@ -886,7 +928,7 @@ FuncionesGenerales = {
         if (object.value.length > cantidadMaxima)
             object.value = object.value.slice(0, cantidadMaxima);
     },
-    IsGuid: function(input) {
+    IsGuid: function (input) {
         var guidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
         return guidRegex.test(input);
     }
@@ -918,8 +960,8 @@ function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
             url: urlLogDynamo + "Api/LogUsabilidad",
             dataType: "json",
             data: data,
-            success: function (result) { console.log(result); },
-            error: function (x, xh, xhr) { console.log(x); }
+            success: function (result) { },
+            error: function (x, xh, xhr) { }
         });
     }
 }
@@ -989,6 +1031,10 @@ function LayoutMenu() {
 }
 
 function LayoutMenuFin() {
+
+    if (typeof menuModule !== "undefined")
+        menuModule.Resize();
+
     // validar si sale en dos lineas
     var idMenus = "#ulNavPrincipal-0 > li";
 
@@ -1058,6 +1104,9 @@ function LayoutMenuFin() {
     }
 
     LayoutHeader();
+
+    if (typeof menuModule !== "undefined")
+        menuModule.Resize();
 }
 
 function ResizeMensajeEstadoPedido() {
@@ -1095,8 +1144,7 @@ function ResizeMensajeEstadoPedido() {
 function cerrarMensajeEstadoPedido() {
     $.ajax({
         type: 'Post',
-        url: baseUrl + 'Bienvenida/CerrarMensajeEstadoPedido',
-        data: '',
+        url: baseUrl + 'Bienvenida/CerrarMensajeEstadoPedido',        
         cache: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -1123,9 +1171,7 @@ function cerrarMensajePostulante() {
                 LayoutHeader();
             }
         },
-        error: function (response) {
-            console.log(response);
-        }
+        error: function (response) { }
     });
 }
 
@@ -1146,10 +1192,10 @@ function CompartirRedesSociales(e) {
 
     var padre = obj.parents("[data-item]");
     var article = $(padre).find("[data-compartir-campos]").eq(0);
-
+    var ruta = $(article).find(".rs" + tipoRedes + "Ruta").val() || "";
+    if (ruta == "") return false;
+    
     var label = $(article).find(".rs" + tipoRedes + "Mensaje").val();
-    var ruta = $(article).find(".rs" + tipoRedes + "Ruta").val();
-
     if (label != "") {
         dataLayer.push({
             'event': 'virtualEvent',
@@ -1159,8 +1205,6 @@ function CompartirRedesSociales(e) {
             'value': 0
         });
     }
-
-    if (ruta == "") return false;
 
     CompartirRedesSocialesInsertar(article, tipoRedes, ruta);
 }
@@ -1180,22 +1224,19 @@ function CompartirRedesSocialesTexto(texto) {
 
 
 function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre) {
-    if (!nombre) {
-        nombre = "";
-    }
 
     id = $.trim(id);
     if (id == "0" || id == "") {
-        console.log("CompartirRedesSocialesAbrirVentana Falta ID");
         return false;
     }
     ruta = $.trim(ruta);
     if (ruta == "") {
-        console.log("CompartirRedesSocialesAbrirVentana Falta Ruta");
         return false;
     }
 
     ruta = ruta.replace('[valor]', id);
+
+    nombre = $.trim(nombre);
 
     try {
         if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
@@ -1278,14 +1319,8 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
                     AbrirMensaje(response.message);
                 }
             }
-            //CerrarLoad();
         },
-        error: function (response, error) {
-            //CloseLoading();
-            if (checkTimeout(response)) {
-                console.log(response);
-            }
-        }
+        error: function (response, error) { }
     });
 }
 
@@ -1309,7 +1344,7 @@ function ModificarPedido2(pTipo) {
     }
     else {
         if (_ModificacionPedidoProl === "0")
-            ConfirmarModificar2('');
+            ConfirmarModificar2();
         else
             showDialog("divConfirmValidarPROL");
         return false;
@@ -1407,7 +1442,7 @@ function MostrarMenu(codigo, accion) {
     codigo = $.trim(codigo);
     if (codigo == "")
         return false;
-    
+
     var idMenus = "#ulNavPrincipal-0";
     var menu = $(idMenus).find("[data-codigo='" + codigo + "']");
     menu = menu.length == 0 ? $(idMenus).find("[data-codigo='" + codigo.toLowerCase() + "']") : menu;
@@ -1474,7 +1509,7 @@ function odd_desktop_google_analytics_promotion_click_verofertas() {
         var creative = $('#banner-odd').find(".nombre-odd").val() + " - " + $('#banner-odd').find(".cuv2-odd").val();
         var origenOdd = OrigenDesktopODD;
         var positionName = origenOdd == 1 ? 'Banner Superior Home - 1' : origenOdd == 2 ? 'Banner Superior Pedido - 1' : "";
-        
+
         dataLayer.push({
             'event': 'promotionClick',
             'ecommerce': {
@@ -1489,7 +1524,7 @@ function odd_desktop_google_analytics_promotion_click_verofertas() {
                 }
             }
         });
-        
+
         odd_desktop_google_analytics_product_impresion();
     }
 }
@@ -1499,9 +1534,9 @@ function odd_desktop_google_analytics_product_impresion(data, NameContenedor) {
     var detalle = $("[data-odd-tipoventana='detalle']");
     var listaOferta = data == undefined ? null : data;
     var impresions = new Array();
+    var divs = new Array();
 
     if (carrusel.length > 0 && carrusel.is(":visible")) {
-        var divs = new Array();
         var div1 = $(carrusel).find("[data-item-position = 0]")[0];
         var div2 = $(carrusel).find("[data-item-position = 1]")[0];
         var div3 = $(carrusel).find("[data-item-position = 2]")[0];
@@ -1539,8 +1574,8 @@ function odd_desktop_google_analytics_product_impresion(data, NameContenedor) {
             });
         });
     }
-    
-    if (listaOferta != null || listaOferta != undefined) {        
+
+    if (listaOferta != null || listaOferta != undefined) {
         var NameList = NameContenedor == "#OfertaDelDia" ? "Oferta del día - Banner" : NameContenedor == "#OfertasDelDiaOfertas" ? "Oferta del día - Detalle Slider" : "";
         if (NameContenedor == "#OfertaDelDia") {
             NameList = "Oferta del día - Banner";
@@ -1556,18 +1591,17 @@ function odd_desktop_google_analytics_product_impresion(data, NameContenedor) {
                 'position': 1
             });
         }
-        else if (NameContenedor == "#OfertasDelDiaOfertas")
-        {
-            NameList == "Oferta del día - Detalle Slider";
+        else if (NameContenedor == "#OfertasDelDiaOfertas") {
+            NameList = "Oferta del día - Detalle Slider";
             if (listaOferta.ListaOfertas.length > 1) {
-                NameList == "Oferta del día - Slider Productos";
+                NameList = "Oferta del día - Slider Productos";
                 lstOferta = data.ListaOfertas;
 
                 $.each(lstOferta, function (index, item) {
                     impresions.push({
                         'name': item.NombreOferta,
                         'id': item.CUV2,
-                        'price': item.PrecioOferta, 
+                        'price': item.PrecioOferta,
                         'brand': item.DescripcionMarca,
                         'category': 'No disponible',
                         'variant': item.TipoEstrategiaDescripcion,
@@ -1636,7 +1670,7 @@ function odd_desktop_google_analytics_addtocart(tipo, element) {
     var dimension15 = fechaAddToCart - fechaMostrarBanner;
     if (dimension15 != 0)
         dimension15 = (dimension15 / 1000);
-    
+
     dimension15 = parseInt(dimension15);
 
     var data = {
@@ -1740,9 +1774,7 @@ function GuardarIndicadorPedidoAutentico() {
                             localStorage.setItem('SBTokenPedido', response.message);
                         }
                     },
-                    error: function (response) {
-                        console.log(response);
-                    }
+                    error: function (response) { }
                 });
             } else {
 
@@ -1767,16 +1799,13 @@ function GuardarIndicadorPedidoAutentico() {
                             }
                         }
                     },
-                    error: function (response) {
-                        console.log(response);
-                    }
+                    error: function (response) { }
                 });
             }
         }
     }
 }
 
-/*** EPD-2378 ***/
 function EnviarCorreoPedidoReservado() {
     jQuery.ajax({
         type: 'POST',
@@ -1791,8 +1820,6 @@ function EnviarCorreoPedidoReservado() {
         }
     });
 }
-/*** Fin EPD-2378 ***/
-
 
 function AbrirPopupFade(ident) {
     $(ident).fadeIn();
@@ -1875,10 +1902,6 @@ Object.defineProperty(Object.prototype, "in", {
 });
 var registerEvent = function (eventName) {
     var self = this;
-    if (self[eventName]) {
-        console.log("event already exists");
-    }
-
     self[eventName] = self[eventName] || {};
     self[eventName].callBacks = [];
     self[eventName].subscribe = function (cb) {
@@ -1886,8 +1909,13 @@ var registerEvent = function (eventName) {
             self[eventName].callBacks.push(cb);
             return;
         }
+        
+    }
 
-        console.log("invalid callback " + cb);
+    self[eventName].emit = function (args) {
+        self[eventName].callBacks.forEach(function (cb) {
+            cb.call(undefined, args);
+        });
     }
 
     self.subscribe = function (event, cb) {
@@ -1897,12 +1925,11 @@ var registerEvent = function (eventName) {
                 return;
             }
         }
-
-        console.log("no event exists " + event);
     }
 
     self.applyChanges = function (event, args) {
         if (self[event]) {
+            //todo: could be emit
             self[event].callBacks.forEach(function (cb) {
                 cb.call(undefined, args);
             });
@@ -1930,7 +1957,7 @@ function EstablecerLazyCarrusel(elementoHtml) {
                 $(value).removeAttr("data-src");
             }
         }
-        
+
     });
 
 }
@@ -1957,5 +1984,24 @@ function EstablecerAccionLazyImagenAll(nombreAtributo) {
 
     $(nombreAtributo).lazy({
         delay: 0
+    });
+}
+
+function CuponPopupCerrar() {
+    //AbrirLoad();
+    $('#Cupon3').hide();
+
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Cupon/PopupCerrar',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            //CerrarLoad();
+            //window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
+        },
+        error: function (data, error) {
+            //CerrarLoad();
+        }
     });
 }

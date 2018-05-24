@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
-using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -14,45 +13,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class MisDatosController : BaseMobileController
     {
-        public ActionResult Index(bool vc = false)
+        public ActionResult Index(bool vc = false, string opcionCambiaClave = "")
         {
-            BEUsuario beusuario = new BEUsuario();
             ViewBag.DatosIniciales = new BienvenidaHomeModel();
 
             var model = new MisDatosModel();
 
-            if (userData.PaisID == 9)
-            {
-                ViewBag.limiteMinimoTelef = 5;
-                ViewBag.limiteMaximoTelef = 15;
-            }
-            else if (userData.PaisID == 11)
-            {
-                ViewBag.limiteMinimoTelef = 7;
-                ViewBag.limiteMaximoTelef = 9;
-            }
-            else if (userData.PaisID == 4)
-            {
-                ViewBag.limiteMinimoTelef = 10;
-                ViewBag.limiteMaximoTelef = 10;
-            }
-            else if (userData.PaisID == 8 || userData.PaisID == 7 || userData.PaisID == 10 || userData.PaisID == 5)
-            {
-                ViewBag.limiteMinimoTelef = 8;
-                ViewBag.limiteMaximoTelef = 8;
-            }
-            else if (userData.PaisID == 6)
-            {
-                ViewBag.limiteMinimoTelef = 9;
-                ViewBag.limiteMaximoTelef = 10;
-            }
-            else
-            {
-                ViewBag.limiteMinimoTelef = 0;
-                ViewBag.limiteMaximoTelef = 15;
-            }
+            model.VerCambiarClave = opcionCambiaClave;
+            
+            int limiteMinimoTelef, limiteMaximoTelef;
+            GetLimitNumberPhone(out limiteMinimoTelef, out limiteMaximoTelef);
+            ViewBag.limiteMinimoTelef = limiteMinimoTelef;
+            ViewBag.limiteMaximoTelef = limiteMaximoTelef;
 
-
+            BEUsuario beusuario;
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
                 beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
@@ -73,7 +47,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.CompartirDatos = beusuario.CompartirDatos;
                 model.AceptoContrato = beusuario.AceptoContrato;
                 model.UsuarioPrueba = userData.UsuarioPrueba;
-                model.NombreArchivoContrato = ConfigurationManager.AppSettings["Contrato_ActualizarDatos_" + userData.CodigoISO].ToString();
+                model.CodigoUsuarioReal = userData.CodigoUsuario;
+                model.NombreArchivoContrato = GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
 
                 BEZona[] bezona;
                 using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
@@ -93,14 +68,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
                 model.CodigoUsuario = userData.CodigoUsuario + " (Zona: " + userData.CodigoZona + ")";
-                string PaisesDigitoControl = ConfigurationManager.AppSettings["PaisesDigitoControl"].ToString();
+                string paisesDigitoControl = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
                 model.DigitoVerificador = string.Empty;
-                if (PaisesDigitoControl.Contains(model.PaisISO))
+
+                if (paisesDigitoControl.Contains(model.PaisISO) && !String.IsNullOrEmpty(beusuario.DigitoVerificador))
                 {
-                    if (!String.IsNullOrEmpty(beusuario.DigitoVerificador))
-                    {
-                        model.CodigoUsuario = string.Format("{0} - {1} (Zona:{2})", userData.CodigoUsuario, beusuario.DigitoVerificador, userData.CodigoZona);
-                    }
+                    model.CodigoUsuario = string.Format("{0} - {1} (Zona:{2})", userData.CodigoUsuario, beusuario.DigitoVerificador, userData.CodigoZona);
                 }
             }
 
@@ -116,14 +89,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    int resultExiste;
-                    bool result;
-
-                    resultExiste = sv.ExisteUsuario(userData.PaisID, userData.CodigoUsuario, OldPassword);
+                    var resultExiste = sv.ExisteUsuario(userData.PaisID, userData.CodigoUsuario, OldPassword);
 
                     if (resultExiste == Constantes.ValidacionExisteUsuario.Existe)
                     {
-                        result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
+                        var result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
                             NewPassword, "", userData.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
 
                         rslt = result ? 2 : 1;
@@ -166,43 +136,45 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpPost]
         public JsonResult ActualizarDatos(MisDatosModel model)
         {
+            JsonResult v_retorno = null;
+            BEUsuario entidad = null;
+            string resultado = string.Empty;
+            string[] lst = null;
+            string v_campomodificacion = string.Empty;
+
+            string CorreoAnterior = string.Empty;
+
             try
             {
-                Mapper.CreateMap<MisDatosModel, BEUsuario>()
-                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
-                    .ForMember(t => t.EMail, f => f.MapFrom(c => c.EMail))
-                    .ForMember(t => t.Telefono, f => f.MapFrom(c => c.Telefono))
-                    .ForMember(t => t.TelefonoTrabajo, f => f.MapFrom(c => c.TelefonoTrabajo))
-                    .ForMember(t => t.Celular, f => f.MapFrom(c => c.Celular))
-                    .ForMember(t => t.Sobrenombre, f => f.MapFrom(c => c.Sobrenombre))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.NombreCompleto))
-                    .ForMember(t => t.CompartirDatos, f => f.MapFrom(c => c.CompartirDatos))
-                    .ForMember(t => t.AceptoContrato, f => f.MapFrom(c => c.AceptoContrato));
+                var usuario = Mapper.Map<MisDatosModel, BEUsuario>(model);
 
-                BEUsuario entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
-                string CorreoAnterior = model.CorreoAnterior;
+                entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
+                CorreoAnterior = model.CorreoAnterior;
 
-                entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : UserData().CodigoUsuario;
+                entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : userData.CodigoUsuario;
                 entidad.EMail = (entidad.EMail == null) ? "" : entidad.EMail;
                 entidad.Telefono = (entidad.Telefono == null) ? "" : entidad.Telefono;
                 entidad.TelefonoTrabajo = (entidad.TelefonoTrabajo == null) ? "" : entidad.TelefonoTrabajo;
                 entidad.Celular = (entidad.Celular == null) ? "" : entidad.Celular;
                 entidad.Sobrenombre = (entidad.Sobrenombre == null) ? "" : entidad.Sobrenombre;
-                entidad.ZonaID = UserData().ZonaID;
-                entidad.RegionID = UserData().RegionID;
-                entidad.ConsultoraID = UserData().ConsultoraID;
-                entidad.PaisID = UserData().PaisID;
+                entidad.ZonaID = userData.ZonaID;
+                entidad.RegionID = userData.RegionID;
+                entidad.ConsultoraID = userData.ConsultoraID;
+                entidad.PaisID = userData.PaisID;
                 entidad.PrimerNombre = userData.PrimerNombre;
-                entidad.CodigoISO = UserData().CodigoISO;
+                entidad.CodigoISO = userData.CodigoISO;
 
                 using (UsuarioServiceClient svr = new UsuarioServiceClient())
                 {
-                    string resultado = svr.ActualizarMisDatos(entidad, CorreoAnterior);
-                    string[] lst = resultado.Split('|');
+                    resultado = svr.ActualizarMisDatos(entidad, CorreoAnterior);
+
+                    if(model != null) ActualizarDatosLogDynamoDB(model, "MI NEGOCIO|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
+
+                    lst = resultado.Split('|');
 
                     if (lst[0] == "0")
                     {
-                        return Json(new
+                        v_retorno = Json(new
                         {
                             Cantidad = lst[3],
                             success = false,
@@ -212,7 +184,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                     else
                     {
-                        return Json(new
+                        v_retorno = Json(new
                         {
                             Cantidad = 0,
                             success = true,
@@ -225,7 +197,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return Json(new
+
+                v_retorno = Json(new
                 {
                     Cantidad = 0,
                     success = false,
@@ -236,7 +209,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return Json(new
+
+                v_retorno = Json(new
                 {
                     Cantidad = 0,
                     success = false,
@@ -244,6 +218,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     extra = ""
                 });
             }
+
+            return v_retorno;
         }
 
         [HttpPost]
@@ -251,11 +227,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                Mapper.CreateMap<MisDatosModel, BEUsuario>()
-                    .ForMember(t => t.AceptoContrato, f => f.MapFrom(c => c.AceptoContrato));
-
                 BEUsuario entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
-                string CorreoAnterior = model.CorreoAnterior;
 
                 entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : UserData().CodigoUsuario;
                 entidad.ZonaID = UserData().ZonaID;
@@ -315,14 +287,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 });
             }
         }
+
         public JsonResult ValidadTelefonoConsultora(string Telefono)
         {
             try
             {
-                int cantidad = 0;
                 using (UsuarioServiceClient svr = new UsuarioServiceClient())
                 {
-                    cantidad = svr.ValidarTelefonoConsultora(userData.PaisID, Telefono, userData.CodigoUsuario);
+                    var cantidad = svr.ValidarTelefonoConsultora(userData.PaisID, Telefono, userData.CodigoUsuario);
                     if (cantidad > 0)
                     {
                         return Json(new
@@ -352,7 +324,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
 
     }
 }

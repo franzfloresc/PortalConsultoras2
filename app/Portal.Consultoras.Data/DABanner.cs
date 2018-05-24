@@ -1,13 +1,10 @@
-﻿using System;
+﻿using OpenSource.Library.DataAccess;
+using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Data
 {
@@ -37,11 +34,7 @@ namespace Portal.Consultoras.Data
 
         public int InsUpdGrupoBanner(BEGrupoBanner grupoBanner)
         {
-            BEGrupoConsultora[] consultoras;
-            if (grupoBanner.Consultoras != null)
-                consultoras = grupoBanner.Consultoras;
-            else
-                consultoras = new BEGrupoConsultora[0];
+            var consultoras = grupoBanner.Consultoras ?? new BEGrupoConsultora[0];
 
             var consultorasReader = new GenericDataReader<BEGrupoConsultora>(consultoras);
 
@@ -55,7 +48,7 @@ namespace Portal.Consultoras.Data
             command.Parameters.Add(parameter);
 
             parameter = new SqlParameter("@GrupoBannerID", SqlDbType.Int);
-            parameter.Value = (int)grupoBanner.GrupoBannerID;
+            parameter.Value = grupoBanner.GrupoBannerID;
             command.Parameters.Add(parameter);
 
             parameter = new SqlParameter("@TiempoRotacion", SqlDbType.Int);
@@ -77,10 +70,10 @@ namespace Portal.Consultoras.Data
 
             if (banner.Paises != null && banner.Paises.Length > 0)
             {
-                foreach (int paisID in banner.Paises)
+                foreach (int paisId in banner.Paises)
                 {
-                    if (paisID > 0)
-                        dtPaises.Rows.Add(paisID);
+                    if (paisId > 0)
+                        dtPaises.Rows.Add(paisId);
                 }
                 dtPaises.AcceptChanges();
             }
@@ -99,7 +92,7 @@ namespace Portal.Consultoras.Data
             command.Parameters.Add(parameter);
 
             parameter = new SqlParameter("@GrupoBannerID", SqlDbType.Int);
-            parameter.Value = (int)banner.GrupoBannerID;
+            parameter.Value = banner.GrupoBannerID;
             command.Parameters.Add(parameter);
 
             parameter = new SqlParameter("@Orden", SqlDbType.Int);
@@ -193,14 +186,14 @@ namespace Portal.Consultoras.Data
 
         public int UpdOrdenNumberBanner(IEnumerable<BEBannerOrden> lstBanners)
         {
-            var BannersReader = new GenericDataReader<BEBannerOrden>(lstBanners);
+            var bannersReader = new GenericDataReader<BEBannerOrden>(lstBanners);
 
             var command = new SqlCommand("dbo.UpdNroOrdenBanners");
             command.CommandType = CommandType.StoredProcedure;
 
             var parameter = new SqlParameter("@BannersOrden", SqlDbType.Structured);
             parameter.TypeName = "dbo.BannerOrdenType";
-            parameter.Value = BannersReader;
+            parameter.Value = bannersReader;
             command.Parameters.Add(parameter);
 
             return Context.ExecuteNonQuery(command);
@@ -230,7 +223,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@PaisId", DbType.Int32, PaisId);
             return Context.ExecuteReader(command);
         }
-        
+
         public IDataReader GetBannerPaisesAsignados(int CampaniaId, int BannerId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetBannerPaisesAsignados");
@@ -238,7 +231,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@BannerId", DbType.Int32, BannerId);
             return Context.ExecuteReader(command);
         }
-        
+
         public void UpdBannerPaisSegmentoZona(int CampaniaId, int BannerId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInterno)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdBannerPaisSegmentoZona");

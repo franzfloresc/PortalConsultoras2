@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
-using Portal.Consultoras.Entities;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
+using Portal.Consultoras.Entities;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -13,133 +12,146 @@ namespace Portal.Consultoras.BizLogic
     {
         public IList<BEServicio> SelectServicio(string Descripcion)
         {
-            List<BEServicio> Servicios = new List<BEServicio>();
+            List<BEServicio> servicios = new List<BEServicio>();
 
-            var DAServicio = new DAServicio();
-            using (IDataReader reader = DAServicio.GetServicios(Descripcion))
+            var daServicio = new DAServicio();
+            using (IDataReader reader = daServicio.GetServicios(Descripcion))
                 while (reader.Read())
                 {
-                    Servicios.Add(new BEServicio(reader));
+                    servicios.Add(new BEServicio(reader));
                 }
-            return Servicios;
+            return servicios;
         }
+
         public IList<BEServicioCampania> SelectServicioByCampaniaPais(int PaisId, int CampaniaId)
         {
-            IList<BEServicioCampania> Servicios = (IList<BEServicioCampania>)CacheManager<BEServicioCampania>.GetData(PaisId, ECacheItem.ServiciosBelcorp, CampaniaId.ToString());
-            if (Servicios == null)
+            IList<BEServicioCampania> servicios = (IList<BEServicioCampania>)CacheManager<BEServicioCampania>.GetData(PaisId, ECacheItem.ServiciosBelcorp, CampaniaId.ToString());
+            if (servicios == null)
             {
-                Servicios = new List<BEServicioCampania>();
-                var DAServicio = new DAServicio();
-                using (IDataReader reader = DAServicio.GetServicioByCampaniaPais(PaisId, CampaniaId))
+                servicios = new List<BEServicioCampania>();
+                var daServicio = new DAServicio();
+                using (IDataReader reader = daServicio.GetServicioByCampaniaPais(PaisId, CampaniaId))
                     while (reader.Read())
                     {
-                        Servicios.Add(new BEServicioCampania(reader));
+                        servicios.Add(new BEServicioCampania(reader));
                     }
-                CacheManager<BEServicioCampania>.AddData(PaisId, ECacheItem.ServiciosBelcorp, CampaniaId.ToString(), Servicios);
+                CacheManager<BEServicioCampania>.AddData(PaisId, ECacheItem.ServiciosBelcorp, CampaniaId.ToString(), servicios);
             }
-            return Servicios;
+            return servicios;
         }
+
         public IList<BEServicioCampania> SelectServicioByCampaniaPaisAdministrador(int PaisId, int CampaniaId)
         {
-            List<BEServicioCampania> Servicios = new List<BEServicioCampania>();
+            List<BEServicioCampania> servicios = new List<BEServicioCampania>();
 
-            var DAServicio = new DAServicio();
-            using (IDataReader reader = DAServicio.GetServicioByCampaniaPais(PaisId, CampaniaId))
+            var daServicio = new DAServicio();
+            using (IDataReader reader = daServicio.GetServicioByCampaniaPais(PaisId, CampaniaId))
                 while (reader.Read())
                 {
-                    Servicios.Add(new BEServicioCampania(reader));
+                    servicios.Add(new BEServicioCampania(reader));
                 }
-            return Servicios;
+            return servicios;
         }
+
         public IList<BEParametro> SelectParametros()
         {
-            List<BEParametro> Parametros = new List<BEParametro>();
+            List<BEParametro> parametros = new List<BEParametro>();
 
-            var DAServicio = new DAServicio();
-            using (IDataReader reader = DAServicio.GetParametros())
+            var daServicio = new DAServicio();
+            using (IDataReader reader = daServicio.GetParametros())
                 while (reader.Read())
                 {
-                    Parametros.Add(new BEParametro(reader));
+                    parametros.Add(new BEParametro(reader));
                 }
-            return Parametros;
+            return parametros;
         }
+
         public IList<BEServicioParametro> SelectParametrosbyServicio(int ServicioId)
         {
-            List<BEServicioParametro> Parametros = new List<BEServicioParametro>();
+            List<BEServicioParametro> parametros = new List<BEServicioParametro>();
 
-            var DAServicio = new DAServicio();
-            using (IDataReader reader = DAServicio.GetParametrobyServicio(ServicioId))
+            var daServicio = new DAServicio();
+            using (IDataReader reader = daServicio.GetParametrobyServicio(ServicioId))
                 while (reader.Read())
                 {
-                    Parametros.Add(new BEServicioParametro(reader));
+                    parametros.Add(new BEServicioParametro(reader));
                 }
-            return Parametros;
+            return parametros;
         }
+
         public IList<BEEstadoServicio> SelectEstadoServiciobyPais(int ServicioId, int CampaniaId)
         {
-            List<BEEstadoServicio> Parametros = new List<BEEstadoServicio>();
+            List<BEEstadoServicio> parametros = new List<BEEstadoServicio>();
 
-            var DAServicio = new DAServicio();
-            using (IDataReader reader = DAServicio.GetEstadoServiciobyPais(ServicioId, CampaniaId))
+            var daServicio = new DAServicio();
+            using (IDataReader reader = daServicio.GetEstadoServiciobyPais(ServicioId, CampaniaId))
                 while (reader.Read())
                 {
-                    Parametros.Add(new BEEstadoServicio(reader));
+                    parametros.Add(new BEEstadoServicio(reader));
                 }
-            return Parametros;
+            return parametros;
         }
 
         public int InsServicio(BEServicio servicio)
         {
-            var DAServicio = new DAServicio();
-            return DAServicio.InsServicio(servicio);
+            var daServicio = new DAServicio();
+            return daServicio.InsServicio(servicio);
         }
+
         public int UpdServicio(BEServicio servicio)
         {
-            var DAServicio = new DAServicio();
-            return DAServicio.UpdServicio(servicio);
+            var daServicio = new DAServicio();
+            return daServicio.UpdServicio(servicio);
         }
+
         public int DelServicio(int ServicioId)
         {
-            var DAServicio = new DAServicio();
-            return DAServicio.DelServicio(ServicioId);
+            var daServicio = new DAServicio();
+            return daServicio.DelServicio(ServicioId);
         }
+
         public int DelServicioParametro(int ServicioId, int ParametroId)
         {
-            var DAServicio = new DAServicio();
-            return DAServicio.DelServicioParametro(ServicioId, ParametroId);
+            var daServicio = new DAServicio();
+            return daServicio.DelServicioParametro(ServicioId, ParametroId);
         }
+
         public int InsServicioParametro(int ServicioId, int ParametroId)
         {
-            var DAServicio = new DAServicio();
-            return DAServicio.InsServicioParametro(ServicioId, ParametroId);
+            var daServicio = new DAServicio();
+            return daServicio.InsServicioParametro(ServicioId, ParametroId);
         }
+
         public int InsServicioCampania(int CampaniaId, int ServicioId, string CodigoISO)
         {
-            var DAServicio = new DAServicio();
+            var daServicio = new DAServicio();
             CacheManager<BEServicioCampania>.RemoveData(GetPaisID(CodigoISO), ECacheItem.ServiciosBelcorp, CampaniaId.ToString());
 
-            return DAServicio.InsServicioCampania(CampaniaId, ServicioId, CodigoISO);
+            return daServicio.InsServicioCampania(CampaniaId, ServicioId, CodigoISO);
         }
+
         public int InsServicioCampaniaRango(int CampaniaId, int CampaniaFinalId, int ServicioId, string CodigoISO)
         {
-            var DAServicio = new DAServicio();
+            var daServicio = new DAServicio();
             CacheManager<BEServicioCampania>.RemoveData(GetPaisID(CodigoISO), ECacheItem.ServiciosBelcorp, CampaniaId.ToString());
 
-            return DAServicio.InsServicioCampaniaRango(CampaniaId, CampaniaFinalId, ServicioId, CodigoISO);
+            return daServicio.InsServicioCampaniaRango(CampaniaId, CampaniaFinalId, ServicioId, CodigoISO);
         }
+
         public int DelServicioCampania(int CampaniaId, int ServicioId, string CodigoISO)
         {
-            var DAServicio = new DAServicio();
+            var daServicio = new DAServicio();
             CacheManager<BEServicioCampania>.RemoveData(GetPaisID(CodigoISO), ECacheItem.ServiciosBelcorp, CampaniaId.ToString());
 
-            return DAServicio.DelServicioCampania(CampaniaId, ServicioId, CodigoISO);
+            return daServicio.DelServicioCampania(CampaniaId, ServicioId, CodigoISO);
         }
+
         public int DelServicioCampaniaRango(int CampaniaId, int CampaniaFinalId, int ServicioId, string CodigoISO)
         {
-            var DAServicio = new DAServicio();
+            var daServicio = new DAServicio();
             CacheManager<BEServicioCampania>.RemoveData(GetPaisID(CodigoISO), ECacheItem.ServiciosBelcorp, CampaniaId.ToString());
 
-            return DAServicio.DelServicioCampaniaRango(CampaniaId, CampaniaFinalId, ServicioId, CodigoISO);
+            return daServicio.DelServicioCampaniaRango(CampaniaId, CampaniaFinalId, ServicioId, CodigoISO);
         }
 
         public void DeleteCacheServicio(string CodigoISO, int CampaniaId)
@@ -151,25 +163,25 @@ namespace Portal.Consultoras.BizLogic
         {
             List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
             {
-                new KeyValuePair<string, string>("1", "AR"),
-                new KeyValuePair<string, string>("2", "BO"),
-                new KeyValuePair<string, string>("3", "CL"),
-                new KeyValuePair<string, string>("4", "CO"),
-                new KeyValuePair<string, string>("5", "CR"),
-                new KeyValuePair<string, string>("6", "EC"),
-                new KeyValuePair<string, string>("7", "SV"),
-                new KeyValuePair<string, string>("8", "GT"),
-                new KeyValuePair<string, string>("9", "MX"),
-                new KeyValuePair<string, string>("10", "PA"),
-                new KeyValuePair<string, string>("11", "PE"),
-                new KeyValuePair<string, string>("12", "PR"),
-                new KeyValuePair<string, string>("13", "DO"),
-                new KeyValuePair<string, string>("14", "VE"),
+                new KeyValuePair<string, string>("1", Constantes.CodigosISOPais.Argentina),
+                new KeyValuePair<string, string>("2", Constantes.CodigosISOPais.Bolivia),
+                new KeyValuePair<string, string>("3", Constantes.CodigosISOPais.Chile),
+                new KeyValuePair<string, string>("4", Constantes.CodigosISOPais.Colombia),
+                new KeyValuePair<string, string>("5", Constantes.CodigosISOPais.CostaRica),
+                new KeyValuePair<string, string>("6", Constantes.CodigosISOPais.Ecuador),
+                new KeyValuePair<string, string>("7", Constantes.CodigosISOPais.Salvador),
+                new KeyValuePair<string, string>("8", Constantes.CodigosISOPais.Guatemala),
+                new KeyValuePair<string, string>("9", Constantes.CodigosISOPais.Mexico),
+                new KeyValuePair<string, string>("10", Constantes.CodigosISOPais.Panama),
+                new KeyValuePair<string, string>("11", Constantes.CodigosISOPais.Peru),
+                new KeyValuePair<string, string>("12", Constantes.CodigosISOPais.PuertoRico),
+                new KeyValuePair<string, string>("13", Constantes.CodigosISOPais.Dominicana),
+                new KeyValuePair<string, string>("14", Constantes.CodigosISOPais.Venezuela),
             };
-            string paisID = "0";
+            string paisId;
             try
             {
-                paisID = (from c in listaPaises
+                paisId = (from c in listaPaises
                           where c.Value == ISO.ToUpper()
                           select c.Key).SingleOrDefault();
             }
@@ -177,38 +189,41 @@ namespace Portal.Consultoras.BizLogic
             {
                 throw new Exception("Hubo un error en obtener el País");
             }
-            return int.Parse(paisID);
+
+            if (paisId == null) paisId = "0";
+
+            return int.Parse(paisId);
         }
 
         public BEServicioSegmentoZona GetServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId)
         {
-            BEServicioSegmentoZona oBEServicioSegmentoZona = null;
+            BEServicioSegmentoZona obeServicioSegmentoZona = null;
 
-            var DAServicio = new DAServicio();
-            using (IDataReader reader = DAServicio.GetServicioCampaniaSegmentoZona(ServicioId, CampaniaId, PaisId))
+            var daServicio = new DAServicio();
+            using (IDataReader reader = daServicio.GetServicioCampaniaSegmentoZona(ServicioId, CampaniaId, PaisId))
                 while (reader.Read())
                 {
-                    oBEServicioSegmentoZona = new BEServicioSegmentoZona()
+                    obeServicioSegmentoZona = new BEServicioSegmentoZona()
                     {
                         Segmento = Convert.ToInt32(reader["Segmento"]),
                         ConfiguracionZona = Convert.ToString(reader["ConfiguracionZona"]),
                         SegmentoInternoID = Convert.ToString(reader["SegmentoInternoID"])
                     };
                 }
-            return oBEServicioSegmentoZona;
+            return obeServicioSegmentoZona;
         }
 
         public List<BEServicioSegmentoZona> GetServicioCampaniaSegmentoZonaAsignados(int ServicioId, int PaisId, int Tipo)
         {
-            List<BEServicioSegmentoZona> Lista = new List<BEServicioSegmentoZona>();
+            List<BEServicioSegmentoZona> lista = new List<BEServicioSegmentoZona>();
 
-            var DAServicio = new DAServicio();
-            using (IDataReader reader = DAServicio.GetServicioCampaniaSegmentoZonaAsignados(ServicioId, PaisId, Tipo))
+            var daServicio = new DAServicio();
+            using (IDataReader reader = daServicio.GetServicioCampaniaSegmentoZonaAsignados(ServicioId, PaisId, Tipo))
                 while (reader.Read())
                 {
                     if (Tipo == 1)
                     {
-                        Lista.Add(new BEServicioSegmentoZona()
+                        lista.Add(new BEServicioSegmentoZona()
                         {
                             PaisId = Convert.ToInt32(reader["PaisId"]),
                             NombrePais = Convert.ToString(reader["NombrePais"])
@@ -216,20 +231,20 @@ namespace Portal.Consultoras.BizLogic
                     }
                     else
                     {
-                        Lista.Add(new BEServicioSegmentoZona()
+                        lista.Add(new BEServicioSegmentoZona()
                         {
                             CampaniaId = Convert.ToInt32(reader["CampaniaId"]),
                             DesCampania = Convert.ToString(reader["CampaniaId"])
                         });
                     }
                 }
-            return Lista;
+            return lista;
         }
-        
+
         public void UpdServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInterno)
         {
-            DAServicio DAServicio = new DAServicio();
-            DAServicio.UpdServicioCampaniaSegmentoZona(ServicioId, CampaniaId, PaisId, Segmento, ConfiguracionZona, SegmentoInterno);
+            DAServicio daServicio = new DAServicio();
+            daServicio.UpdServicioCampaniaSegmentoZona(ServicioId, CampaniaId, PaisId, Segmento, ConfiguracionZona, SegmentoInterno);
             CacheManager<BEServicioCampania>.RemoveData(PaisId, ECacheItem.ServiciosBelcorp, CampaniaId.ToString());
         }
     }

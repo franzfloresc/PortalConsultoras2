@@ -1,11 +1,10 @@
 ﻿using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.ServiceContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Service
 {
@@ -28,45 +27,45 @@ namespace Portal.Consultoras.Service
 
         public int GetPaisID(string ISO)
         {
-            List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
-            {
-                new KeyValuePair<string, string>("1", "AR"),
-                new KeyValuePair<string, string>("2", "BO"),
-                new KeyValuePair<string, string>("3", "CL"),
-                new KeyValuePair<string, string>("4", "CO"),
-                new KeyValuePair<string, string>("5", "CR"),
-                new KeyValuePair<string, string>("6", "EC"),
-                new KeyValuePair<string, string>("7", "SV"),
-                new KeyValuePair<string, string>("8", "GT"),
-                new KeyValuePair<string, string>("9", "MX"),
-                new KeyValuePair<string, string>("10", "PA"),
-                new KeyValuePair<string, string>("11", "PE"),
-                new KeyValuePair<string, string>("12", "PR"),
-                new KeyValuePair<string, string>("13", "DO"),
-                new KeyValuePair<string, string>("14", "VE"),
-            };
-            string paisID = "0";
             try
             {
-                paisID = (from c in listaPaises
-                          where c.Value == ISO.ToUpper()
-                          select c.Key).SingleOrDefault();
+                List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>("1", Constantes.CodigosISOPais.Argentina),
+                    new KeyValuePair<string, string>("2", Constantes.CodigosISOPais.Bolivia),
+                    new KeyValuePair<string, string>("3", Constantes.CodigosISOPais.Chile),
+                    new KeyValuePair<string, string>("4", Constantes.CodigosISOPais.Colombia),
+                    new KeyValuePair<string, string>("5", Constantes.CodigosISOPais.CostaRica),
+                    new KeyValuePair<string, string>("6", Constantes.CodigosISOPais.Ecuador),
+                    new KeyValuePair<string, string>("7", Constantes.CodigosISOPais.Salvador),
+                    new KeyValuePair<string, string>("8", Constantes.CodigosISOPais.Guatemala),
+                    new KeyValuePair<string, string>("9", Constantes.CodigosISOPais.Mexico),
+                    new KeyValuePair<string, string>("10", Constantes.CodigosISOPais.Panama),
+                    new KeyValuePair<string, string>("11", Constantes.CodigosISOPais.Peru),
+                    new KeyValuePair<string, string>("12", Constantes.CodigosISOPais.PuertoRico),
+                    new KeyValuePair<string, string>("13", Constantes.CodigosISOPais.Dominicana),
+                    new KeyValuePair<string, string>("14", Constantes.CodigosISOPais.Venezuela),
+                };
+
+                string paisId = (from c in listaPaises
+                                 where c.Value == ISO.ToUpper()
+                                 select c.Key).SingleOrDefault() ?? "";
+
+                int outVal;
+                int.TryParse(paisId, out outVal);
+                return outVal;
             }
             catch (Exception)
             {
                 throw new Exception("Hubo un error en obtener el País");
             }
-            if (paisID != null)
-            {
-                return int.Parse(paisID);
-            }
-            else return 0;
         }
+
         public List<BEUnidadGeografica> ObtenerUbigeosPais(string paisCodigoISO)
-        {            
-            var BLUbigeo = new BLUbigeo();
-            int PaisId = GetPaisID(paisCodigoISO);
-            return BLUbigeo.GetUbigeosPorPais(PaisId);
+        {
+            var blUbigeo = new BLUbigeo();
+            int paisId = GetPaisID(paisCodigoISO);
+            return blUbigeo.GetUbigeosPorPais(paisId);
         }
     }
 }

@@ -78,6 +78,8 @@
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Services" />
@@ -87,21 +89,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\IMenuAppBusinessLogic.cs" />
+    <Compile Include="BLCuponesProgramaNuevas.cs" />
+    <Compile Include="BLHorario.cs" />
     <Compile Include="BLAdministrarEstrategia.cs" />
     <Compile Include="BLConfiguracionOfertasHome.cs" />
     <Compile Include="BLAsesoraOnline.cs" />
     <Compile Include="BLCupon.cs" />
+    <Compile Include="Cache\BLCache.cs" />
     <Compile Include="Cliente\BLClienteDB.cs" />
+    <Compile Include="Cliente\IClienteBusinessLogic.cs" />
+    <Compile Include="Comunicado\IComunicadoBusinessLogic.cs" />
+    <Compile Include="Configuracion\BLConfiguracionPaisDatos.cs" />
+    <Compile Include="Configuracion\IConfiguracionPaisBusinessLogic.cs" />
+    <Compile Include="Configuracion\IConfiguracionPaisDatosBusinessLogic.cs" />
+    <Compile Include="Cupon\ICuponConsultoraBusinessLogic.cs" />
+    <Compile Include="Estrategia\EstrategiaBusinessLogic.cs" />
+    <Compile Include="Estrategia\IConfiguracionProgramaNuevasBusinessLogic.cs" />
+    <Compile Include="Estrategia\IEstrategiaBusinessLogic.cs" />
+    <Compile Include="Estrategia\IUpSellingBusinessLogic.cs" />
+    <Compile Include="Estrategia\IUpSellingMarcaCategoriaBusinessLogic.cs" />
+    <Compile Include="Estrategia\UpSellingBusinessLogic.cs" />
+    <Compile Include="Estrategia\UpsellingMarcaCategoriaBusinessLogic.cs" />
+    <Compile Include="ICatalogoBusinessLogic.cs" />
     <Compile Include="Incentivo\BLConsultoraConcurso.cs" />
     <Compile Include="BLFichaProducto.cs" />
     <Compile Include="BLPalabraInvalida.cs" />
     <Compile Include="BLProductoPalabra.cs" />
-    <Compile Include="BLCuponConsultora.cs" />
+    <Compile Include="Cupon\BLCuponConsultora.cs" />
     <Compile Include="BLProactivaChatbot.cs" />
-    <Compile Include="BLConfiguracionPais.cs" />
+    <Compile Include="Configuracion\BLConfiguracionPais.cs" />
     <Compile Include="BLConfiguracionPaisDetalle.cs" />
     <Compile Include="BLReporteValidacion.cs" />
-    <Compile Include="BLReservaProl.cs" />
+    <Compile Include="Pedido\IEscalaDescuentoBusinessLogic.cs" />
+    <Compile Include="Pedido\IMensajeMetaConsultoraBusinessLogic.cs" />
+    <Compile Include="Pedido\IPedidoWebDetalleBusinessLogic.cs" />
+    <Compile Include="ProgramaNuevas\IConsultorasProgramaNuevasBusinessLogic.cs" />
+    <Compile Include="Reserva\BLReserva.cs" />
     <Compile Include="BLEstrategiaProducto.cs" />
     <Compile Include="BizLogicException.cs" />
     <Compile Include="BLAfiliaClienteConsultora.cs" />
@@ -112,11 +136,11 @@
     <Compile Include="BLCatalogo.cs" />
     <Compile Include="Cliente\BLCliente.cs" />
     <Compile Include="BLComprobantePercepcion.cs" />
-    <Compile Include="BLComunicado.cs" />
+    <Compile Include="Comunicado\BLComunicado.cs" />
     <Compile Include="BLConfiguracionCampania.cs" />
     <Compile Include="BLConfiguracionParametroCarga.cs" />
     <Compile Include="BLConfiguracionPortal.cs" />
-    <Compile Include="BLConfiguracionProgramaNuevas.cs" />
+    <Compile Include="Estrategia\BLConfiguracionProgramaNuevas.cs" />
     <Compile Include="BLConfiguracionTipoProcesoCargaPedidos.cs" />
     <Compile Include="BLConfiguracionValidacion.cs" />
     <Compile Include="BLConfiguracionValidacionNuevoPROL.cs" />
@@ -126,7 +150,7 @@
     <Compile Include="BLConsultoraCatalogo.cs" />
     <Compile Include="BLConsultoraFicticia.cs" />
     <Compile Include="BLConsultoraLider.cs" />
-    <Compile Include="BLConsultorasProgramaNuevas.cs" />
+    <Compile Include="ProgramaNuevas\BLConsultorasProgramaNuevas.cs" />
     <Compile Include="BLContenidoDato.cs" />
     <Compile Include="BLContenidoRevista.cs" />
     <Compile Include="BLContratoAceptacion.cs" />
@@ -137,9 +161,9 @@
     <Compile Include="BLCuv.cs" />
     <Compile Include="BLDatosBelcorp.cs" />
     <Compile Include="BLDupla.cs" />
-    <Compile Include="BLEscalaDescuento.cs" />
+    <Compile Include="Pedido\BLEscalaDescuento.cs" />
     <Compile Include="BLEstadoCuenta.cs" />
-    <Compile Include="BLEstrategia.cs" />
+    <Compile Include="Estrategia\BLEstrategia.cs" />
     <Compile Include="BLEtiqueta.cs" />
     <Compile Include="BLFactorGanancia.cs" />
     <Compile Include="BLFeErratas.cs" />
@@ -152,8 +176,8 @@
     <Compile Include="BLLogPedidoDDInvalido.cs" />
     <Compile Include="BLMailing.cs" />
     <Compile Include="BLMensajeCUV.cs" />
-    <Compile Include="BLMensajeMetaConsultora.cs" />
-    <Compile Include="BLMenuApp.cs" />
+    <Compile Include="Pedido\BLMensajeMetaConsultora.cs" />
+    <Compile Include="App\BLMenuApp.cs" />
     <Compile Include="BLMenuMobile.cs" />
     <Compile Include="BLMiAcademia.cs" />
     <Compile Include="BLConsultoraOnline.cs" />
@@ -173,39 +197,55 @@
     <Compile Include="BLPedidoFacturado.cs" />
     <Compile Include="BLPedidoFICDetalle.cs" />
     <Compile Include="Incentivo\IConsultoraConcursoBusinessLogic.cs" />
+    <Compile Include="Pedido\BLPedidoApp.cs" />
+    <Compile Include="PagoEnlinea\BLPagoEnLinea.cs" />
+    <Compile Include="Pedido\BLPedidoWebSet.cs" />
+    <Compile Include="Pedido\BLTracking.cs" />
+    <Compile Include="Pedido\IPedidoAppBusinessLogic.cs" />
     <Compile Include="Pedido\IPedidoWebBusinessLogic.cs" />
+    <Compile Include="Pedido\ITrackingBusinessLogic.cs" />
+    <Compile Include="Producto\IProductoBusinessLogic.cs" />
+    <Compile Include="Reserva\BLReservaSicc.cs" />
+    <Compile Include="Reserva\IReservaBusinessLogic.cs" />
+    <Compile Include="Pedido\IPedidoWebSetBusinessLogic.cs" />
+    <Compile Include="Reserva\IReservaExternaBL.cs" />
+    <Compile Include="Reserva\BLReservaProl2.cs" />
+    <Compile Include="Reserva\RestClient.cs" />
     <Compile Include="Resources\IncentivoMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>IncentivoMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="RevistaDigital\IRevistaDigitalSuscripcionBusinessLogic.cs" />
+    <Compile Include="ShowRoom\IShowRoomEventoBusinessLogic.cs" />
     <Compile Include="TablaLogicaDatos\ITablaLogicaDatosBusinessLogic.cs" />
     <Compile Include="Resources\MotivoRechazoMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MotivoRechazoMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Usuario\IResumenCampaniaBusinessLogic.cs" />
     <Compile Include="Usuario\IUsuarioBusinessLogic.cs" />
     <Compile Include="Pedido\BLPedidoRechazado.cs" />
     <Compile Include="BLPedidoReporteLider.cs" />
     <Compile Include="Pedido\BLPedidoWeb.cs" />
     <Compile Include="BLPedidoWebAnteriores.cs" />
-    <Compile Include="BLPedidoWebDetalle.cs" />
+    <Compile Include="Pedido\BLPedidoWebDetalle.cs" />
     <Compile Include="BLPedidoWebDetalleManager.cs" />
     <Compile Include="BLPermiso.cs" />
     <Compile Include="BLPopupPais.cs" />
     <Compile Include="BLProcesoPedidoRechazado.cs" />
-    <Compile Include="BLProducto.cs" />
+    <Compile Include="Producto\BLProducto.cs" />
     <Compile Include="BLProductoFaltante.cs" />
     <Compile Include="BLProductoSugerido.cs" />
     <Compile Include="BLProveedorDespachoCobranza.cs" />
     <Compile Include="BLReporteIntegradoWebDD.cs" />
-    <Compile Include="BLResumenCampania.cs" />
+    <Compile Include="Usuario\BLResumenCampania.cs" />
     <Compile Include="BLRol.cs" />
     <Compile Include="BLRolPermiso.cs" />
     <Compile Include="BLSegmentoPlaneamiento.cs" />
     <Compile Include="BLServicio.cs" />
-    <Compile Include="BLShowRoomEvento.cs" />
+    <Compile Include="ShowRoom\BLShowRoomEvento.cs" />
     <Compile Include="BLSolicitudCliente.cs" />
     <Compile Include="BLSolicitudClienteCatalogo.cs" />
     <Compile Include="BLSolicitudCredito.cs" />
@@ -213,11 +253,10 @@
     <Compile Include="TablaLogicaDatos\BLTablaLogicaDatos.cs" />
     <Compile Include="BLTipoEstrategia.cs" />
     <Compile Include="BLTipoMeta.cs" />
-    <Compile Include="BLTracking.cs" />
     <Compile Include="BLUbigeo.cs" />
     <Compile Include="BLValidacionAutomatica.cs" />
     <Compile Include="BLZonificacion.cs" />
-    <Compile Include="CacheManager.cs" />
+    <Compile Include="Cache\CacheManager.cs" />
     <Compile Include="BLLugarPago.cs" />
     <Compile Include="BLIncentivo.cs" />
     <Compile Include="CDR\BLCDRParametria.cs" />
@@ -296,6 +335,9 @@
     <Content Include="Templates\mailing_proceso_descarga_excepcion.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Templates\mailing_proceso_Pin_Autenticacion.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Templates\mailing_proceso_recuperar_contrasenia.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -315,6 +357,7 @@
       <LastGenOutput>PedidoInsertMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

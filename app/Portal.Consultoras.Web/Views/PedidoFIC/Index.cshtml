@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Pedido FIC";
 }
-@section styles{   
+@section styles{
     <link href="@Url.Content("~/Content/Css/Site/style-pedido.css")" rel="stylesheet" />
 
     <style>
@@ -17,18 +17,18 @@
         .no_mostrar {
             display: none;
         }
-        .texto_pedidos{
-            font-size:14px;
-            font-weight:400;
-        }
 
+        .texto_pedidos {
+            font-size: 14px;
+            font-weight: 400;
+        }
     </style>
 }
 
 <div class="franja_negra" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
 
 <h1 class="titulo_principal_interiores pedido_left" style="margin-top:0px">INGRESA <strong>TU PEDIDO</strong></h1>
-<div class="wrapper_general2">   
+<div class="wrapper_general2">
 
     <input id="hdSimbolo" type="hidden" value="@Model.Simbolo" />
 
@@ -58,7 +58,7 @@
             <input type="hidden" id="hdfDescripcionProd" value="@Model.DescripcionProd" name="DescripcionProd" />
             <input type="hidden" id="hdfMarcaID" value="@Model.MarcaID" name="MarcaID" />
             <input type="hidden" id="hdfPrecioUnidad" value="@Model.PrecioUnidad" name="PrecioUnidad" />
-            <input type="hidden" id="hdfClienteID" value="@Model.ClienteID" name="ClienteID" />            
+            <input type="hidden" id="hdfClienteID" value="@Model.ClienteID" name="ClienteID" />
 
             <div id="divObservaciones" class="pedidos_no_existe" style="position:relative;"></div>
 
@@ -103,17 +103,18 @@
             <input id="btnAgregar" type="submit" value="AGREGAR" disabled="disabled" onkeydown="Tabular()" class="pedido_agregado" />
         </form>
     </div>
-    <div class="clear"></div> 
+    <div class="clear"></div>
     <div class="PedidoFic">
         <div class="mensaje_fic"><b>Recuerda:</b> este pedido NO te será facturado. Solo nos estas ayudando a conocer tus preferencias y las de tus clientes</div>
-        <div class="paginador_pedidos mostrarPaginadorPedidos">
+        <div class="paginador_pedidos mostrarPaginadorPedidos" style="margin-bottom:14px;">
             <div class="titulo_pedidos_fic">
-                MIS <b>PEDIDOS</b>
+                <h1>MIS <b>PRODUCTOS</b></h1>
             </div>
             <!--PAGINADOR-->
-            <div id="paginadorCab" class="content_paginador">
+            <div id="paginadorCab" class="content_paginador" style="margin-top:22px;">
             </div>
             <!--FIN-->
+            <div class="clearfix"></div>
         </div>
         <div class="grilla_pedidos" data-tag="table" id="tbListaPedido">
             <div class="encabezado_ingresoPedido">
@@ -135,7 +136,7 @@
         </div>
         <!--PAGINADOR INFERIOR-->
         <div class="paginador_pedidos mostrarPaginadorPedidos inferior">
-            <div id="paginadorPie">                
+            <div id="paginadorPie">
             </div>
         </div>
         <!--FIN-->
@@ -169,7 +170,7 @@
 
                     <div class="tooltip_importanteGuardarPedido">
                         Haz click aquí cuando<br>hayas finalizado
-                        <span>Podras optar por un pedido sorpresa a un super precio</span>
+                        <span>Podrás optar por un pedido sorpresa a un super precio</span>
                     </div>
                     <div class="boton_guardarPedido">
                         <input type="button" id="btnValidarPROL" value="Guarda tu pedido" style="text-transform: uppercase;" class="info_copy">
@@ -194,32 +195,6 @@
             </p>
             <div class="clear"></div>
         </div>
-        <!--BANNERS-->
-        <div class="contenedor_banners" style="width:72%;">
-            <ul>
-                <li>
-                    <a href="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/ProductosDescontinuados/MX/201613.pdf" title="Productos Descontinuados" target="_blank">
-                        <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Banners/IngresoPedido/MX/banner_01.png" alt="Productos Descontinuados">
-                        <div>PRODUCTOS DESCONTINUADOS</div>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="/OfertaLiquidacion/OfertasLiquidacion" title="Liquidaciones Web">
-                        <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Banners/IngresoPedido/MX/banner_02.png" alt="Liquidaciones Web">
-                        <div>LIQUIDACIONES WEB</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:;" title="Productos Agotados" onclick="CargarProductoAgotados();">
-                        <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Banners/IngresoPedido/MX/banner_03.png" alt="Productos Agotados">
-                        <div>PRODUCTOS AGOTADOS</div>
-                    </a>
-                </li>
-            </ul>
-            <div class="clear"></div>
-        </div>
-        <!--FIN-->
     </div>
 </div>
 
@@ -230,7 +205,7 @@
         @if (ViewBag.IndicadorOfertaFIC == 1)
         {
             <div>
-                <img src="@Url.Content(ViewBag.ImagenUrlOfertaFIC)"/>
+                <img src="@Url.Content(ViewBag.ImagenUrlOfertaFIC)" />
             </div>
             <div>
                 <br />

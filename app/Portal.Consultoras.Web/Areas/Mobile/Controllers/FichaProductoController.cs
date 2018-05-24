@@ -13,14 +13,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             return View();
         }
+
         public ActionResult Detalle(string param)
         {
-            string cuv = string.Empty;
-            int campanaId = 0;
             try
             {
-                cuv = param.Substring(0, 5);
-                campanaId = Convert.ToInt32(param.Substring(5, 6));
+                var cuv = param.Substring(0, 5);
+                var campanaId = Convert.ToInt32(param.Substring(5, 6));
                 var producto = (FichaProductoDetalleModel)null;
                 if (userData.CampaniaID == campanaId)
                 {
@@ -40,7 +39,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.VirtualCoachCampana = campanaId;
                 return View(producto);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }

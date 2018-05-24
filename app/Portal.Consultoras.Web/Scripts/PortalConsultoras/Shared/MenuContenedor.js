@@ -5,6 +5,7 @@ var menuModule = (function () {
         claseActivo: "activo",
         claseActivoP: "titulo-menu",
         menu2: "[data-layout-menu2]",
+        menu1: "[data-layout-menu1]",
         menu2Ul: "[data-layout-menu2] ul",
         menu2Li: "[data-layout-menu2] ul li",
         menu1Li: "[data-layout-menu1] ul li",
@@ -15,10 +16,15 @@ var menuModule = (function () {
         seccionMenuFija: "#seccion-fixed-menu",
         header: "header",
         bcMenuEstrategia: ".bc_menu_estrategia",
+        subnavegadorUl: "ul.subnavegador",
         aHover: "ul.subnavegador li a",
-        aMenuActivo: "ul.subnavegador li a.activo",
-        bcParaTiMenu: ".op_menu-horizontal ul li a",
-        bcParaTiMenuActivo: ".op_menu-horizontal ul li a.activo",
+        aMenuActivo: function () {
+            return "ul.subnavegador li a." + this.claseActivo;
+        },//"ul.subnavegador li a.activo",
+        bcParaTiMenu: ".op_menu-horizontal ul li a",    
+        bcParaTiMenuActivo: function () {
+            return ".op_menu-horizontal ul li a." + this.claseActivo;
+        },//".op_menu-horizontal ul li a.activo",
         mobContent: "#mob-content-layout",
         menuMobHome: ".opcion_home_vistaOfertas"
     },
@@ -34,22 +40,27 @@ var menuModule = (function () {
         alturaH,
         scr = false,
         alturaE;
+    var paddingTab = "1.5px";
 
     function _getHeight(element) {
         return $(element).outerHeight(true);
     }
     function _moverSubMenuContenedorOfertasMobile() {
         if ($(elementos.menu2Ul).length) {
-            var menuContendorActivo = $(elementos.menu2Ul + " li").find(".activo")[0];
+            var menuContendorActivo = $(elementos.menu2Ul + " li").find("." + elementos.claseActivo)[0];
             var posicionMenu = $(menuContendorActivo).parent("li").attr("data-slick-index");
-            $(elementos.menu2Ul).slick('slickGoTo', parseInt(posicionMenu));
+            $(elementos.menu2Ul).slick("slickGoTo", parseInt(posicionMenu));
         }
     }
-    function _changeLogoMobile() {
-        var img = $.trim($(elementos.menuMobHome).find('img').attr("src"));
+    function _changeLogoMenuDesktopAndMobile() {
+        if (!isMobile())_changeLogoMenu(elementos.subnavegadorUl);
+        if (isMobile())_changeLogoMenu(elementos.menuMobHome);
+    }
+    function _changeLogoMenu(selector) {
+        var img = $.trim($(selector).find("img").attr("src"));
         if (img !== "") {
             img = img.replace("_hover.", "_normal.");
-            $(elementos.menuMobHome).find('img').attr("src", img);
+            $(selector).find("img").attr("src", img);
         }
     }
     function _animateScrollTo(codigo, topHeight) {
@@ -66,46 +77,52 @@ var menuModule = (function () {
         alturaH = _getHeight(elementos.header);
         alturaE = alturaH + _getHeight(elementos.bcMenuEstrategia);
 
+        var esSuscrita = $(elementos.subnavegadorUl).data("es-suscrita");
+        //var esActiva = $(elementos.subnavegadorUl).data("es-activa");
+        if (esSuscrita) {
+            elementos.claseActivo = "activo-dorado";
+        }
+
         url = document.location.href;
         $(elementos.seccionMenuMobile).height(_getHeight(elementos.seccionMenuFija) + 5);
         if ($(elementos.bcParaTiMenu).hasClass(elementos.claseActivo)) {
-            $(elementos.bcParaTiMenuActivo).find('img.hover').css('display', 'none');
-            $(elementos.bcParaTiMenuActivo).find('img.default').css('display', 'none');
-            $(elementos.bcParaTiMenuActivo).find('img.click-menu').css('display', 'inline');
+            $(elementos.bcParaTiMenuActivo).find("img.hover").css("display", "none");
+            $(elementos.bcParaTiMenuActivo).find("img.default").css("display", "none");
+            $(elementos.bcParaTiMenuActivo).find("img.click-menu").css("display", "inline");
         }
         if ($(elementos.aHover).hasClass(elementos.claseActivo)) {
-            var img = $.trim($(elementos.aMenuActivo).find('img').attr("src"));
+            var img = $.trim($(elementos.aMenuActivo()).find("img").attr("src"));
             if (img !== "") {
                 img = img.replace("_normal.", "_hover.");
-                $(elementos.aMenuActivo).find('img').attr("src", img);
+                $(elementos.aMenuActivo()).find("img").attr("src", img);
             }
         }
     }
     function setHover() {
         $(elementos.aHover).hover(function (e) {
-            var img = $.trim($(this).find('.contenedorImagen img').attr("src"));
+            var img = $.trim($(this).find(".contenedorImagen img").attr("src"));
             if (img !== "") {
                 img = img.replace("_normal.", "_hover.");
-                $(this).find('.contenedorImagen img').attr("src", img);
+                $(this).find(".contenedorImagen img").attr("src", img);
             }
         }, function (e) {
             if (!$(this).hasClass(elementos.claseActivo)) {
-                var img = $.trim($(this).find('.contenedorImagen img').attr("src"));
+                var img = $.trim($(this).find(".contenedorImagen img").attr("src"));
                 if (img !== "") {
                     img = img.replace("_hover.", "_normal.");
-                    $(this).find('.contenedorImagen img').attr("src", img);
+                    $(this).find(".contenedorImagen img").attr("src", img);
                 }
             }
         });
         $(elementos.bcParaTiMenu).hover(function (e) {
-            $(this).find('img.hover').css('display', 'inline');
-            $(this).find('img.default').css('display', 'none');
-            $(this).find('img.click-menu').css('display', 'none');
+            $(this).find("img.hover").css("display", "inline");
+            $(this).find("img.default").css("display", "none");
+            $(this).find("img.click-menu").css("display", "none");
         }, function (e) {
             if (!$(this).hasClass(elementos.claseActivo)) {
-                $(this).find('img.hover').css('display', 'none');
-                $(this).find('img.default').css('display', 'inline');
-                $(this).find('img.click-menu').css('display', 'none');
+                $(this).find("img.hover").css("display", "none");
+                $(this).find("img.default").css("display", "inline");
+                $(this).find("img.click-menu").css("display", "none");
             }
         });
     }
@@ -120,7 +137,6 @@ var menuModule = (function () {
         if (st > lastScrollTop) {
             //fix the menu 
             if (st > seccionMenuMobileHeight) {
-                //$(elementos.seccionMenuMobile).show();
                 $(elementos.seccionMenuFija).css("position", "fixed")
                     .css("top", navbarHeight - seccionMenuMobileHeight);
             }
@@ -136,20 +152,18 @@ var menuModule = (function () {
     }
     function hasScrolledDesktop(st) {
         if (st > alturaE) {
-            $('.op-menu-vertical').addClass('menu-fixed');
-            $('.op-menu-vertical').css('top', alturaH + "px");
+            $(".op-menu-vertical").addClass("menu-fixed");
+            $(".op-menu-vertical").css("top", alturaH + "px");
         } else {
-            $('.op-menu-vertical').removeClass('menu-fixed');
-            $('.op-menu-vertical').css('top', "");
+            $(".op-menu-vertical").removeClass("menu-fixed");
+            $(".op-menu-vertical").css("top", "");
         }
     }
     function checkAnchor() {
         var menuHeight = navbarHeight;
         if (isMobile()) {
             menuHeight += seccionFixedMenuHeigt;
-            _moverSubMenuContenedorOfertasMobile();
         }
-
         if (url.indexOf(anchorMark) > -1) {
             var strippedUrl = url.toString().split(anchorMark);
 
@@ -167,8 +181,11 @@ var menuModule = (function () {
                         _animateScrollTo(elementos.html, menuHeight);
                     }
                 }
-                _changeLogoMobile();
+                _changeLogoMenuDesktopAndMobile();
             }
+        }
+        if (isMobile()) {
+            _moverSubMenuContenedorOfertasMobile();
         }
     }
     function menuClick(e, url) {
@@ -183,8 +200,8 @@ var menuModule = (function () {
         objHtmlEvent.find("a").addClass(elementos.claseActivo);
 
         if (esAncla === "True") {
-            _changeLogoMobile();
-            if (currentLocation.indexOf("/ofertasparati") > -1) {
+            _changeLogoMenuDesktopAndMobile();
+            if (currentLocation.indexOf("/ofertasparati") > -1 || currentLocation.indexOf("/Lanzamientos/Detalle") > -1) {
                 var indexOf = currentLocation.replace("?", "&").indexOf("&campaniaid=");
                 var controller = "Ofertas#";
                 if (indexOf > 0) {
@@ -211,10 +228,10 @@ var menuModule = (function () {
             url = $.trim(url);
             url = url[0] !== "/" ? "/" + url : url;
             if (codigo.indexOf("INICIO") > -1) {
-                var img = $.trim($(elementos.menuMobHome).find('img').attr("src"));
+                var img = $.trim($(elementos.menuMobHome).find("img").attr("src"));
                 if (img !== "") {
                     img = img.replace("_normal.", "_hover.");
-                    $(elementos.menuMobHome).find('img').attr("src", img);
+                    $(elementos.menuMobHome).find("img").attr("src", img);
                 }
                 _animateScrollTo(elementos.html, menuHeight);
             }
@@ -224,19 +241,19 @@ var menuModule = (function () {
             window.location = window.location.origin + url;
         }
     }
-    function tabClick(element, url) {
+    function tabClick(element, url, pantalla) {
         if (window.location.pathname.toLowerCase() === url.toLowerCase()) return;
         var campania = $(element).data("campania") || "";
         var codigo = $(element).data("codigo") || "";
         if (typeof rdAnalyticsModule !== "undefined") {
-            rdAnalyticsModule.Tabs(codigo, campania);
+            rdAnalyticsModule.Tabs(codigo, campania, pantalla);
         }
         window.location = window.location.origin + url;
     }
     function setCarrouselMenu() {
         if (isMobile()) {
-            $(elementos.menu2Ul + '.slick-initialized').slick('unslick');
-            $(elementos.menu2Ul).not('.slick-initialized').slick({
+            $(elementos.menu2Ul + ".slick-initialized").slick("unslick");
+            $(elementos.menu2Ul).not(".slick-initialized").slick({
                 infinite: false,
                 vertical: false,
                 slidesToScroll: 1,
@@ -254,6 +271,32 @@ var menuModule = (function () {
         }
         window.location.href = url;
     }
+    function tabResize() {
+
+        var listaMenu = $(elementos.menu1Li);
+        if (listaMenu.length === 0)
+            return false;
+        
+        var anchoMenu = $(elementos.menu1).outerWidth(true);
+        if (anchoMenu <= 0)
+            return false;
+
+        var anchoTab = anchoMenu / listaMenu.length;
+        $.each(listaMenu, function (ind, menuTab) {
+            $(menuTab).css("width", anchoTab + "px");
+            if (ind === 0) {
+                $(menuTab).css("padding-right", paddingTab);
+            }
+            else if (ind === listaMenu.length - 1) {
+                $(menuTab).css("padding-left", paddingTab);
+            }
+            else {
+                $(menuTab).css("padding-left", paddingTab);
+                $(menuTab).css("padding-right", paddingTab);
+            }
+        });
+        
+    }
     return {
         init: init,
         setHover: setHover,
@@ -263,16 +306,16 @@ var menuModule = (function () {
         menuClick: menuClick,
         setCarrouselMenu: setCarrouselMenu,
         tabClick: tabClick,
-        sectionClick: sectionClick
+        sectionClick: sectionClick,
+        Resize: tabResize
     };
 })();
 
 $(document).ready(function () {
     menuModule.init();
     menuModule.setHover();
-    menuModule.setCarrouselMenu();
     LayoutHeaderFin();
-    $(window).on('scroll',
+    $(window).on("scroll",
         function () {
             if (isMobile()) {
                 menuModule.hasScrolledMobile($(window).scrollTop());
@@ -280,9 +323,11 @@ $(document).ready(function () {
                 menuModule.hasScrolledDesktop($(window).scrollTop());
             }
         });
-
+    menuModule.setCarrouselMenu();
     $(document).ajaxStop(function () {
         menuModule.checkAnchor();
     });
-
+    window.onresize = function (event) {
+        menuModule.Resize();
+    };
 });

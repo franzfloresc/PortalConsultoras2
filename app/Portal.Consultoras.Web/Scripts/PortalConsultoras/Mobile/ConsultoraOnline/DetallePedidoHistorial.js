@@ -46,7 +46,6 @@ function CancelarSolicitud(solicitudClienteIdActual, marcaIdActual) {
                 error: function (data, error) {
                     if (checkTimeout(data)) {
                         MensajeErrorCancelado('Hubieron problemas de conexion al intentar cancelar su solicitud, inténtelo más tarde.');
-                        console.log(data, error);
                     }
                 },
                 complete: CloseLoading
@@ -99,7 +98,7 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
         error: function (data, error) {
             CloseLoading();
             if (checkTimeout(data)) {
-                alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');                
+                alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
                 fnRestringido();
             }
         }

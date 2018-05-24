@@ -1,7 +1,7 @@
-﻿using System.Data;
-using System.Data.Common;
-using Portal.Consultoras.Entities;
+﻿using Portal.Consultoras.Entities;
 using System;
+using System.Data;
+using System.Data.Common;
 
 namespace Portal.Consultoras.Data
 {

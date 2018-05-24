@@ -7,17 +7,16 @@ namespace Portal.Consultoras.Service
 {
     public class CDRService : ICDRService
     {
-
-        private BLCDRWeb BLCDRWeb;
-        private BLCDRWebDetalle BLCDRWebDetalle;
-        private BLCDRWebMotivoOperacion BLCDRWebMotivoOperacion;
-        private BLCDRWebDescripcion BLCDRWebDescripcion;
-        private BLLogCDRWeb bLLogCDRWeb;
-        private BLLogCDRWebDetalle bLLogCDRWebDetalle;
-        private BLCDRParametria BLCDRParametria;
-        private BLCDRWebDatos BLCDRWebDatos;
-        private BLLogCDRWebCulminado BLLogCDRWebCulminado;
-        private BLLogCDRWebDetalleCulminado BLLogCDRWebDetalleCulminado;
+        private readonly BLCDRWeb BLCDRWeb;
+        private readonly BLCDRWebDetalle BLCDRWebDetalle;
+        private readonly BLCDRWebMotivoOperacion BLCDRWebMotivoOperacion;
+        private readonly BLCDRWebDescripcion BLCDRWebDescripcion;
+        private readonly BLLogCDRWeb bLLogCDRWeb;
+        private readonly BLLogCDRWebDetalle bLLogCDRWebDetalle;
+        private readonly BLCDRParametria BLCDRParametria;
+        private readonly BLCDRWebDatos BLCDRWebDatos;
+        private readonly BLLogCDRWebCulminado BLLogCDRWebCulminado;
+        private readonly BLLogCDRWebDetalleCulminado BLLogCDRWebDetalleCulminado;
 
         public CDRService()
         {
@@ -93,7 +92,6 @@ namespace Portal.Consultoras.Service
             return BLCDRWebMotivoOperacion.GetCDRWebMotivoOperacion(PaisID, entity);
         }
 
-
         public int InsCDRWebDescripcion(int PaisID, BECDRWebDescripcion entity)
         {
             return BLCDRWebDescripcion.InsCDRWebDescripcion(PaisID, entity);
@@ -159,15 +157,9 @@ namespace Portal.Consultoras.Service
             return BLCDRWeb.GetCDRWebDetalleReporte(PaisID, entity);
         }
 
-
-        //EPD-1919
         public BECDRWeb GetMontoFletePorZonaId(int paisId, BECDRWeb entity)
         {
             return BLCDRWeb.GetMontoFletePorZonaId(paisId, entity.ZonaID);
         }
-        //public List<BECDRTipoOperacion> GetCDRWebTipoOperacion(int PaisID)
-        //{
-        //    return BLCDRWebMotivoOperacion.GetCDRWebTipoOperacion(PaisID);
-        //}
     }
 }

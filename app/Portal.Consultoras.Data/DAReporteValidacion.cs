@@ -1,10 +1,6 @@
-﻿﻿using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Data
 {
@@ -15,21 +11,14 @@ namespace Portal.Consultoras.Data
         {
         }
 
-        public IDataReader GetReporteValidacion(int campaniaID)
+        public IDataReader GetReporteValidacionUnificado(int campaniaID, int tipoEstrategia)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetReporteValidacion");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetReporteValidacionUnificado");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
-
+            Context.Database.AddInParameter(command, "@TipoEstrategia", DbType.Int32, tipoEstrategia);
             return Context.ExecuteReader(command);
         }
-
-        public IDataReader GetReporteValidacionODD(int campaniaID)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetReporteValidacionODD");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
-
-            return Context.ExecuteReader(command);
-        }
+   
 
         public IDataReader GetReporteValidacionSRCampania(int campaniaID)
         {
@@ -49,17 +38,15 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetReporteValidacionSROferta(int campaniaID)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetReporteValidacionShowRoomOferta");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetReporteValidacionShowRoomOfertaV2");
             Context.Database.AddInParameter(command, "@campania", DbType.Int32, campaniaID);
-
             return Context.ExecuteReader(command);
         }
 
         public IDataReader GetReporteValidacionSRComponentes(int campaniaID)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetReporteValidacionShowRoomComponentes");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetReporteValidacionShowRoomComponentesV2");
             Context.Database.AddInParameter(command, "@campania", DbType.Int32, campaniaID);
-
             return Context.ExecuteReader(command);
         }
     }

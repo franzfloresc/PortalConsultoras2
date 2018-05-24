@@ -1,14 +1,13 @@
-using System;
-using System.Web.Mvc;
-using System.ServiceModel;
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Helpers;
-using Portal.Consultoras.Common;
-
+using Portal.Consultoras.Web.ServicePedido;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -18,8 +17,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public async Task<ViewResult> Index()
         {
             var listaPedidos = new List<MisPedidosCampaniaModel>();
-            var top = 3;
-
+            var top = 6;
+            var campaniaMarcada = false;
+          
             try
             {
                 var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
@@ -28,18 +28,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     var result = await service.GetMisPedidosByCampaniaAsync(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, mobileConfiguracion.ClienteID, top);
 
-                    foreach(var item in result)
+                    foreach (var item in result)
                     {
+                        if (mobileConfiguracion.EsAppMobile && mobileConfiguracion.Campania > 0) campaniaMarcada = (item.CampaniaID == mobileConfiguracion.Campania);
+
                         listaPedidos.Add(new MisPedidosCampaniaModel()
                         {
                             CampaniaID = item.CampaniaID,
                             CodigoEstadoPedido = item.CodigoEstadoPedido,
                             DescripcionEstadoPedido = item.DescripcionEstadoPedido,
                             NumeroCampania = (item.CampaniaID.ToString().Length == 6 ? string.Format("C{0}", item.CampaniaID.Substring(4, 2)) : string.Empty),
-                            EsCampaniaActual = (item.CampaniaID == userData.CampaniaID)
+                            EsCampaniaActual = (item.CampaniaID == userData.CampaniaID),
+                            EsCampaniaMarcarda = campaniaMarcada
                         });
                     }
                 }
+
+                if (!listaPedidos.Any(p => p.EsCampaniaMarcarda)) listaPedidos[0].EsCampaniaMarcarda =  true;
             }
             catch (FaultException ex)
             {
@@ -66,8 +71,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     var result = service.GetMisPedidosIngresados(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, mobileConfiguracion.ClienteID, userData.NombreConsultora);
 
-                    var TotalPedido = result.Sum(x => x.ImportePedido);
-                    ViewBag.TotalPedido = Util.DecimalToStringFormat(TotalPedido, userData.CodigoISO, userData.Simbolo);
+                    var totalPedido = result.Sum(x => x.ImportePedido);
+                    ViewBag.TotalPedido = Util.DecimalToStringFormat(totalPedido, userData.CodigoISO, userData.Simbolo);
 
                     foreach (var item in result)
                     {
@@ -116,8 +121,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     var result = service.GetMisPedidosFacturados(userData.PaisID, userData.ConsultoraID, campaniaID, mobileConfiguracion.ClienteID, userData.NombreConsultora);
 
-                    var TotalPedido = result.Sum(x => x.ImportePedido);
-                    ViewBag.TotalPedido = Util.DecimalToStringFormat(TotalPedido, userData.CodigoISO, userData.Simbolo);
+                    var totalPedido = result.Sum(x => x.ImportePedido);
+                    ViewBag.TotalPedido = Util.DecimalToStringFormat(totalPedido, userData.CodigoISO, userData.Simbolo);
 
                     foreach (var item in result)
                     {

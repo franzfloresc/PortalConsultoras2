@@ -410,4 +410,18 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEConsultoraMailing" nillable="true" type="tns:BEConsultoraMailing" />
+  <xs:complexType name="ArrayOfBEVisaConfiguracion">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEVisaConfiguracion" nillable="true" type="tns:BEVisaConfiguracion" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEVisaConfiguracion" nillable="true" type="tns:ArrayOfBEVisaConfiguracion" />
+  <xs:complexType name="BEVisaConfiguracion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Parametro" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Valor" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEVisaConfiguracion" nillable="true" type="tns:BEVisaConfiguracion" />
 </xs:schema>

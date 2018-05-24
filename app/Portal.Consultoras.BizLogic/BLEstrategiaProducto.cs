@@ -10,10 +10,17 @@ namespace Portal.Consultoras.BizLogic
     {
         public int InsertEstrategiaProducto(BEEstrategiaProducto entidad)
         {
+            var da = new DAEstrategiaProducto(entidad.PaisID);
+            int result = da.InsertEstrategiaProducto(entidad);
+            return result;
+        }
+
+        public int UpdateEstrategiaProducto(BEEstrategiaProducto entidad)
+        {
             try
             {
                 var DA = new DAEstrategiaProducto(entidad.PaisID);
-                int result = DA.InsertEstrategiaProducto(entidad);
+                int result = DA.UpdateEstrategiaProducto(entidad);
                 return result;
             }
             catch (Exception) { throw; }
@@ -22,9 +29,9 @@ namespace Portal.Consultoras.BizLogic
         public List<BEEstrategiaProducto> GetEstrategiaProducto(BEEstrategia entidad)
         {
             var lista = new List<BEEstrategiaProducto>();
-            var DA = new DAEstrategiaProducto(entidad.PaisID);
+            var da = new DAEstrategiaProducto(entidad.PaisID);
 
-            using (IDataReader reader = DA.GetEstrategiaProducto(entidad))
+            using (IDataReader reader = da.GetEstrategiaProducto(entidad))
                 while (reader.Read())
                 {
                     var entidadR = new BEEstrategiaProducto(reader);
@@ -33,5 +40,15 @@ namespace Portal.Consultoras.BizLogic
 
             return lista;
         }
+
+        public bool DeleteEstrategiaProducto(BEEstrategiaProducto entidad)
+        {
+            var DA = new DAEstrategiaProducto(entidad.PaisID);
+
+            var result = DA.DeleteEstrategiaProducto(entidad);
+            return result;
+        }
+
+
     }
 }

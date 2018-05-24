@@ -1,0 +1,634 @@
+﻿
+.pack-a-medida, .sin-codigos, .mejores-ofertas, .gana-mas, .suscribete-gratis {
+    margin: 0 5px;
+}
+
+.video-visual {
+    width: 100%;
+    overflow: hidden;
+    background: #2e2e2e;
+}
+
+    .video-visual .video-container {
+        position: relative;
+        padding-bottom: 48%;
+        padding-top: 30px;
+        height: 0;
+        overflow: hidden;
+    }
+
+        .video-visual .video-container iframe, .video-visual .video-container object, .video-visual .video-container embed {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+    .video-visual .videobg {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #111;
+    }
+
+    /* horizontally center the video */
+    .video-visual .videobg-width {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: -9999px;
+        right: -9999px;
+        margin: auto;
+    }
+
+    /* set video aspect ratio and vertically center */
+    .video-visual .videobg-aspect {
+        position: absolute;
+        width: 100%;
+        height: 0;
+        top: -9999px;
+        bottom: -9999px;
+        margin: auto;
+        padding-bottom: 56.25%;
+        overflow: hidden;
+    }
+
+    .video-visual .videobg-make-height {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    .video-visual .videobg-hide-controls {
+        box-sizing: content-box;
+        position: relative;
+        height: 100%;
+        width: 100%;
+        padding: 55px 97.7777px;
+        top: -55px;
+        left: -97.7777px;
+    }
+
+    .video-visual .videobg iframe {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        border: 0 none;
+    }
+
+.bloques-gana-mas {
+}
+
+.gana-mas {
+    background: white;
+    padding-top: 1px;
+}
+
+    .gana-mas img {
+        margin-top: 30px !important;
+        margin-bottom: 20px !important;
+    }
+
+    .gana-mas span {
+        display: block;
+        text-align: center;
+        font-weight: 700;
+        letter-spacing: .5px;
+        font-size: 13px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        padding: 0 20px;
+    }
+
+.pack-a-medida {
+    background: #c39934;
+}
+
+.sin-codigos {
+    background: #67686a;
+}
+
+.mejores-ofertas {
+    background: #3a3a3c;
+}
+
+.como-funciona {
+    background: #f5f5f5;
+}
+
+    .como-funciona .contenedor-mobile-fix {
+        margin-bottom: 0px !important;
+    }
+
+    .como-funciona .arrow {
+        display: block;
+        margin: auto;
+        width: 20px;
+        height: 26px !important;
+        background: url('/Content/Images/RevistaDigital/triangulo-dorado.svg');
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+
+    .como-funciona p.titulo {
+        font-size: 15px;
+        letter-spacing: .5;
+        font-weight: 700;
+        text-align: center;
+        display: block;
+        color: #c39934 !important;
+        margin-bottom: 30px !important;
+    }
+
+    .como-funciona span.recuerda {
+        display: inline-block;
+        text-align: center;
+        font-weight: 700;
+        letter-spacing: .5px;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+.suscribete-gratis {
+    background: white;
+}
+
+.bloques-gana-mas .contenedor-mobile-fix {
+    padding: 20px;
+    margin-bottom: 5px;
+}
+
+    .bloques-gana-mas .contenedor-mobile-fix > .bloque-texto {
+        width: 49%;
+        float: left;
+        padding-right: 1%;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix > .bloque-img {
+        width: 49%;
+        float: left;
+        padding-left: 1%;
+        max-height: 128px;
+        display: table;
+    }
+
+        .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-uno {
+            width: 135px;
+            height: 80px !important;
+            background: url('/Content/Images/RevistaDigital/personalizacion-visual-desktop.png');
+            background-size: contain;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+
+        .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-dos {
+            width: 135px;
+            height: 80px !important;
+            background: url('/Content/Images/no-mas-codigo-visual.png');
+            background-size: 40%;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+
+        .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-tres {
+            width: 135px;
+            height: 80px !important;
+            background-size: contain;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+
+    .bloques-gana-mas .contenedor-mobile-fix .clear {
+        clear: both;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix p.titulo {
+        display: block;
+        letter-spacing: .5px;
+        font-size: 15px;
+        font-weight: 700;
+        margin: 0 0 5pt 0;
+        color: white;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix span.texto {
+        display: block;
+        text-align: left;
+        font-size: 13px;
+        letter-spacing: .5px;
+        color: white;
+        font-weight: 300;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix span.nro {
+        float: left;
+        width: 15%;
+        font-weight: 700;
+        text-align: left;
+        font-size: 21px;
+    }
+
+        .bloques-gana-mas .contenedor-mobile-fix span.nro img {
+            width: 12px;
+            height: 10px;
+            margin-top: 5px;
+        }
+
+    .bloques-gana-mas .contenedor-mobile-fix span.txt {
+        float: left;
+        width: 83%;
+        letter-spacing: .5px;
+        text-align: left;
+        margin-bottom: 30px;
+        font-size: 13px;
+        padding-left: 2%;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix span.recuerda-txt {
+        font-weight: 700;
+        letter-spacing: 1px;
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+        margin-top: 30px;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix .instrucciones {
+        color: black !important;
+        text-align: left !important;
+        font-weight: normal;
+        font-size: 13px !important;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix img {
+        width: 135px;
+        display: block;
+        margin: auto;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix .visual-funcionamiento {
+        width: 124px;
+        height: 135px;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position-x: right;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix .logo {
+        width: 145px;
+        display: block;
+        margin: auto;
+        margin-bottom: 30px;
+        margin-top: 35px;
+        height: auto;
+        float: initial;
+        height: 50px;
+        background: url('/Content/Images/logo-club-ganamas-dorado.svg');
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix .mobil-nro-funciona2 {
+        display: none;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix .caja-club-derecha p {
+        font-weight: bold;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        display: block;
+        text-align: left;
+        margin-bottom: 5px;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix .caja-club-derecha span {
+        display: block;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        text-align: left;
+        color: #909090;
+    }
+
+        .bloques-gana-mas .contenedor-mobile-fix .caja-club-derecha span b {
+            color: black;
+        }
+
+    .bloques-gana-mas .contenedor-mobile-fix .caja-club-derecha hr {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        border: none;
+        height: 1px;
+        width: 100%;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix .caja-club-derecha hr.dorado{
+        background:#c39934 !important;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix .caja-club-izquierda img {
+        width: 288px !important;
+        display: block;
+        margin-top: 25px;
+        margin: auto;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix .caja-club-izquierda {
+        margin-top: 25px;
+        margin-bottom: 25px;
+    }
+
+.suscribete-gratis a.btn-suscribete {
+    background: #c39934;
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    width: 100%;
+    display: block;
+    text-align: center;
+    padding: 20px 0;
+    text-transform: uppercase;
+    margin: 30px 0;
+    font-size: 13px;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .3);
+}
+
+.suscribete-gratis a.terminos {
+    display: block;
+    text-align: center;
+    color: black;
+    margin-bottom: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.suscribete-gratis p.txt-deseas-cancelar {
+    color: #c39934;
+    font-weight: 700;
+    letter-spacing: .5px !important;
+    text-transform: uppercase;
+    margin-left: -8px;
+    display: block;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.suscribete-gratis span.deseas-cancelar {
+    display: block;
+    text-align: center;
+    padding: 0 20px;
+    font-size: 13px;
+    letter-spacing: .5px;
+    margin-top: 20px;
+}
+
+a.btn-suscribete-video {
+    font-weight: 600;
+    text-decoration: none;
+    width: 100%;
+    display: block;
+    padding: 20px 0;
+    text-transform: uppercase;
+    position: fixed;
+    bottom: -100%;
+    letter-spacing: 1.5px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    z-index: 999;
+    background: #c39934;
+    box-shadow: 0 3px 6px 6px rgba(0, 0, 0, .5);
+}
+
+@media (max-width: 767px) {
+    .bloques-gana-mas .contenedor-mobile-fix img {
+        width: 120px;
+        display: block;
+        margin: auto;
+    }
+}
+
+@media(max-width:600px) {
+    .bloques-gana-mas .contenedor-mobile-fix > .bloque-texto {
+        width: 55%;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix > .bloque-img {
+        width: 45%;
+    }
+
+        .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-uno {
+            background: url('/Content/Images/RevistaDigital/personalizacion-visual-mobile.png');
+            background-size: contain;
+            background-position: center center;
+            background-repeat: no-repeat;
+            width: 135px;
+            height: 80px !important;
+        }
+
+        .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-dos {
+            background-size: 70% !important;
+        }
+}
+
+@media(max-width:400px) {
+
+    .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-dos {
+        background-size: 80% !important;
+    }
+}
+
+@media (max-width: 533px) {
+    .bloques-gana-mas .contenedor-mobile-fix > .bloque-img {
+        min-height: 80px;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix > .tips-info {
+        min-height: 112px;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix > .sin-codigos {
+        min-height: 100px;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix > .img-pack {
+        min-height: 88px;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix .mobil-nro-funciona {
+        display: none !important;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix .mobil-nro-funciona2 {
+        display: initial !important;
+    }
+}
+
+@media (max-width: 1200px) {
+    .que-ofrecemos .ofrece-bloque .icono img {
+        padding-top: 5px;
+    }
+
+    .que-ofrecemos .ofrece-bloque .icono .img {
+        text-align: right;
+    }
+}
+
+@media (max-width: 600px) {
+    .que-ofrecemos .ofrece-bloque .icono img {
+        padding-top: 5px;
+    }
+
+    .que-ofrecemos .ofrece-bloque .icono .img {
+        text-align: center;
+    }
+}
+
+@media (max-width: 550px) {
+    .que-ofrecemos .ofrece-bloque .icono img {
+        padding-top: 0;
+    }
+
+    .show-gana .contenedor .img-descriptiva img {
+        width: 170px;
+    }
+
+    .show-gana .contenedor .texto-descriptivo {
+        height: 170px;
+    }
+
+        .show-gana .contenedor .texto-descriptivo > div {
+            height: auto;
+        }
+}
+
+@media (max-width: 550px) {
+    .show-gana .contenedor .texto-descriptivo {
+        padding-left: 5%;
+    }
+}
+
+@media (max-width: 400px) {
+    .que-ofrecemos .ofrece-bloque .icono img {
+        width: 34px;
+        position: relative;
+        right: 9px;
+    }
+
+    .show-gana .contenedor .texto-descriptivo {
+        height: 133.33px;
+    }
+
+    .show-gana .contenedor .img-descriptiva img {
+        width: 133.34px;
+    }
+
+    .show-gana .contenedor .texto-descriptivo span.txt-descriptivo {
+        font-size: 9px;
+    }
+
+    .show-gana .contenedor .texto-descriptivo p.gana-mas {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 550px) {
+    .que-ofrecemos .ofrece-bloque .icono {
+        float: left;
+        width: 13%;
+        display: table;
+        height: 66.66px;
+    }
+}
+
+/* PREGUNTAS FRECUENTAS NUEVAS */
+.preguntas-frecuentes-cont-sus {
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+
+    .preguntas-frecuentes-cont-sus .contenedor-mobile-fix {
+        padding: 0 25px;
+    }
+
+        .preguntas-frecuentes-cont-sus .contenedor-mobile-fix p {
+            display: block;
+            color: black;
+            font-size: 13px;
+            padding: 15px;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
+            text-align: left;
+            margin-bottom: 0;
+            position: relative;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        .preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.despliegue {
+            float: right;
+            font-weight: bolder;
+        }
+
+        .preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.nodespliegue {
+            float: right;
+            font-weight: bolder;
+            display: none;
+        }
+
+    .preguntas-frecuentes-cont-sus ul.preg-frecuentes {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+        .preguntas-frecuentes-cont-sus ul.preg-frecuentes ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            border: 1px solid #e0e0e0;
+            padding: 15px;
+            position: relative;
+            z-index: 0;
+            display: none;
+            top: -1px;
+        }
+
+            .preguntas-frecuentes-cont-sus ul.preg-frecuentes ul b {
+                font-size: 13px;
+                font-weight: bolder;
+                margin-bottom: 5pt;
+                display: block;
+                letter-spacing: .5px;
+            }
+
+            .preguntas-frecuentes-cont-sus ul.preg-frecuentes ul span {
+                display: block;
+                letter-spacing: .5px;
+                margin-bottom: 15pt;
+                text-align: left;
+            }
+
+            .preguntas-frecuentes-cont-sus ul.preg-frecuentes ul li a.descargar {
+                display: block;
+                text-align: left;
+                color: black;
+                margin-bottom: 20px;
+                font-size: 13px;
+                font-weight: bold;
+                text-decoration: underline;
+            }

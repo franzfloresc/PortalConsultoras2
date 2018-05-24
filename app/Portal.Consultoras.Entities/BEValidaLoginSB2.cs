@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Entities
             if (row.HasColumn("CodigoUsuario"))
                 CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
 
-            if (row.HasColumn("TipoUsuario") && row["TipoUsuario"] != DBNull.Value)
+            if (row.HasColumn("TipoUsuario"))
                 TipoUsuario = Convert.ToInt32(row["TipoUsuario"]);
         }
     }

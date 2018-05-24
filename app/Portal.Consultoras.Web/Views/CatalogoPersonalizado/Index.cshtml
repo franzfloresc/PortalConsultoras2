@@ -444,7 +444,11 @@
             </div>
             {{/if}}
             <div class="producto_nombre_descripcion">
-                <h6>{{DescripcionMarca}}</h6>
+                {{#IsNullOrEmpty DescripcionMarca '!='}}
+                    <h6>{{DescripcionMarca}}</h6>
+                {{else}}
+                    <h6>&ensp;&nbsp;</h6>
+                {{/IsNullOrEmpty}}
                 <p class="nombre_producto">
                     <b>{{Descripcion}}</b>
                 </p>
@@ -940,8 +944,8 @@
         var offsetRegistros = 0;
         var cargandoRegistros = false;
 
-        var tipoOrigen = "1";   //PL20-1227
-        var urlGetInfoFichaProducto = '@Url.Action("GetInfoFichaProductoFAV", "CatalogoPersonalizado")';    //PL20-1268
+        var tipoOrigen = "1";
+        var urlGetInfoFichaProducto = '@Url.Action("GetInfoFichaProductoFAV", "CatalogoPersonalizado")';
         var simbolo = '@ViewBag.Simbolo';
         var precioMin = '@ViewBag.PrecioMin';
         var precioMax = '@ViewBag.PrecioMax';

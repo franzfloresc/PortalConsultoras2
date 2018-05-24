@@ -24,20 +24,21 @@
             var productoModel = {
                 'CUV': '@Model.CUV',
                 'Cantidad': '1',
-                'DescripcionProd': '@Html.Raw(@Model.Descripcion)', //EPD-2598
-                'IndicadorMontoMinimo': '@Model.IndicadorMontoMinimo',
+                'PrecioUnidad': '@Model.PrecioCatalogo',
+                'TipoEstrategiaID': '@Model.TipoEstrategiaID',
                 'MarcaID': '@Model.MarcaID',
-                'PrecioUnidad': '@Model.PrecioCatalogo'
+                'DescripcionProd': '@Html.Raw(@Model.Descripcion)',
+                'IndicadorMontoMinimo': '@Model.IndicadorMontoMinimo'
             };
 
             var urlHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new { area = "" })';
             var urlDesreservarPedido = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "", Tipo = "PV" })';
-            var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new { area = "" })';
+            var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new { area = "" })';
             var urlPedidoWeb = '@Url.Action("Index", "Pedido", new { area = "" })';
             var urlPedidoMobile = '@Url.Action("Index", "Pedido", new { area = "Mobile" })';
 
             var mensajePostFail = 'Hubieron problemas de conexión al intentar registrar su producto. Inténtelo más tarde.';
-            var mensajeRegistroSatisfactorio = 'El producto se registró satisfactoriamente';            
+            var mensajeRegistroSatisfactorio = 'El producto se registró satisfactoriamente';
         </script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/IncentivosSMS/Index.js")"></script>
     </head>
@@ -74,15 +75,6 @@
                         <div class="nombre_set_individual">
                             <span class="cantidad_set">x1</span>Grazzia
                         </div>
-                        @*<div class="nombre_set_individual">
-                            <span class="cantidad_set">x1</span>Love Bomb
-                        </div>
-                        <div class="nombre_set_individual">
-                            <span class="cantidad_set">x1</span>Labial duradero (tono referencial)
-                        </div>
-                        <div class="nombre_set_individual">
-                            <span class="cantidad_set">x1</span>Loción perfumada Expression
-                        </div>*@
 
                         <div class="linea_separadora" style="margin-top: 20px; margin-bottom: 10px;"></div>
                         <div class="content_agregar">

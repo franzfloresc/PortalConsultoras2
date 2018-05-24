@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
@@ -8,20 +7,20 @@ namespace Portal.Consultoras.Entities
     public class BETablaLogicaDatos
     {
         [DataMember]
+        [Column("TablaLogicaDatosID")]
         public short TablaLogicaDatosID { get; set; }
         [DataMember]
+        [Column("TablaLogicaID")]
         public short TablaLogicaID { get; set; }
         [DataMember]
+        [Column("Codigo")]
         public string Codigo { get; set; }
         [DataMember]
+        [Column("Descripcion")]
         public string Descripcion { get; set; }
 
-        public BETablaLogicaDatos(IDataRecord row)
-        {
-            TablaLogicaDatosID = Convert.ToInt16(row["TablaLogicaDatosID"]);
-            TablaLogicaID = Convert.ToInt16(row["TablaLogicaID"]);
-            Codigo = Convert.ToString(row["Codigo"]);
-            Descripcion = Convert.ToString(row["Descripcion"]);
-        }
+        [DataMember]
+        [Column("Valor")]
+        public string Valor { get; set; }
     }
 }

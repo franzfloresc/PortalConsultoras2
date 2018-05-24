@@ -57,13 +57,14 @@ namespace Portal.Consultoras.Web.Controllers
                     lst.Update(x => x.ImagenProducto03 = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto03));
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
 
-                BEPager pag = new BEPager();
                 IEnumerable<BEOfertaNueva> items = lst;
 
                 #region Sort Section
@@ -117,9 +118,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -172,7 +173,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 string mensaje = string.Empty;
-                int result = 0;
+                int result;
                 using (PedidoServiceClient svc = new PedidoServiceClient())
                 {
                     result = svc.ValidarOfertasNuevas(new BEOfertaNueva()
@@ -228,7 +229,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 string mensaje = string.Empty;
-                int result = 0;
+                int result;
                 using (PedidoServiceClient svc = new PedidoServiceClient())
                 {
                     result = svc.ValidarUnidadesPermitidas(new BEOfertaNueva()
@@ -286,8 +287,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string mensaje = string.Empty;
-                BEOfertaNueva result = null;
+                BEOfertaNueva result;
                 using (PedidoServiceClient svc = new PedidoServiceClient())
                 {
                     result = svc.GetDescripcionPackByCUV(vPaisID, vCUV, (string.IsNullOrEmpty(vCodigoCampania) ? 0 : Convert.ToInt32(vCodigoCampania)));
@@ -335,20 +335,13 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public IEnumerable<CampaniaModel> DropDownCampanias(int PaisID)
+        public IEnumerable<CampaniaModel> DropDownCampanias(int paisId)
         {
             IList<BECampania> lista;
             using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
             {
-                lista = servicezona.SelectCampanias(PaisID);
+                lista = servicezona.SelectCampanias(paisId);
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-               .ForMember(x => x.CampaniaID, t => t.MapFrom(c => c.CampaniaID))
-               .ForMember(x => x.Codigo, t => t.MapFrom(c => c.Codigo))
-               .ForMember(x => x.Anio, t => t.MapFrom(c => c.Anio))
-               .ForMember(x => x.NombreCorto, t => t.MapFrom(c => c.NombreCorto))
-               .ForMember(x => x.PaisID, t => t.MapFrom(c => c.PaisID))
-               .ForMember(x => x.Activo, t => t.MapFrom(c => c.Activo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
         }
@@ -358,13 +351,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (userData.RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(userData.PaisID));
-                }
-
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -372,11 +361,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerISOPais(int paisID)
         {
-            string ISO = Util.GetPaisISO(paisID);
+            string iso = Util.GetPaisISO(paisID);
 
             return Json(new
             {
-                ISO = ISO
+                ISO = iso
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -384,7 +373,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                int result = 0;
+                int result;
                 using (PedidoServiceClient svc = new PedidoServiceClient())
                 {
                     result = svc.UpdEstadoPacksOfertasNuevas(userData.PaisID, userData.CodigoConsultora, vCambioEstado);
@@ -430,24 +419,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<OfertaNuevaModel, BEOfertaNueva>()
-                        .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                        .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                        .ForMember(t => t.CampaniaIDFin, f => f.MapFrom(c => c.CampaniaIDFin))
-                        .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                        .ForMember(t => t.NumeroPedido, f => f.MapFrom(c => c.NumeroPedido))
-                        .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                        .ForMember(t => t.PrecioNormal, f => f.MapFrom(c => c.PrecioNormal))
-                        .ForMember(t => t.PrecioParaTi, f => f.MapFrom(c => c.PrecioParaTi))
-                        .ForMember(t => t.UnidadesPermitidas, f => f.MapFrom(c => c.UnidadesPermitidas))
-                        .ForMember(t => t.ImagenProducto01, f => f.MapFrom(c => c.ImagenProducto01))
-                        .ForMember(t => t.ImagenProducto02, f => f.MapFrom(c => c.ImagenProducto02))
-                        .ForMember(t => t.ImagenProducto03, f => f.MapFrom(c => c.ImagenProducto03))
-                        .ForMember(t => t.FlagImagenActiva, f => f.MapFrom(c => c.FlagImagenActiva))
-                        .ForMember(t => t.FlagHabilitarOferta, f => f.MapFrom(c => c.FlagHabilitarOferta))
-                        .ForMember(t => t.UsuarioRegistro, f => f.MapFrom(c => c.UsuarioRegistro))
-                        .ForMember(t => t.ganahasta, f => f.MapFrom(c => c.ganahasta));
-
                 BEOfertaNueva entidad = Mapper.Map<OfertaNuevaModel, BEOfertaNueva>(model);
 
                 using (PedidoServiceClient svc = new PedidoServiceClient())
@@ -455,14 +426,14 @@ namespace Portal.Consultoras.Web.Controllers
                     string tempImage01 = model.ImagenProducto01 ?? string.Empty;
                     string tempImage02 = model.ImagenProducto02 ?? string.Empty;
                     string tempImage03 = model.ImagenProducto03 ?? string.Empty;
-                    int paisID = userData.PaisID;
-                    string ISO = Util.GetPaisISO(paisID);
-                    var carpetaPais = Globals.UrlOfertasNuevas + "/" + ISO;
+                    int paisId = userData.PaisID;
+                    string iso = Util.GetPaisISO(paisId);
+                    var carpetaPais = Globals.UrlOfertasNuevas + "/" + iso;
 
                     if (!string.IsNullOrEmpty(tempImage01))
                     {
                         string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = ISO + "_" + model.CUV + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
+                        var newfilename = iso + "_" + model.CUV + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
                         var path = Path.Combine(Globals.RutaTemporales, tempImage01);
                         ConfigS3.SetFileS3(path, carpetaPais, newfilename);
                         entidad.ImagenProducto01 = newfilename;
@@ -473,7 +444,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!string.IsNullOrEmpty(tempImage02))
                     {
                         string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = ISO + "_" + model.CUV + "_" + time + "_" + "02" + "_" + FileManager.RandomString() + ".png";
+                        var newfilename = iso + "_" + model.CUV + "_" + time + "_" + "02" + "_" + FileManager.RandomString() + ".png";
                         var path = Path.Combine(Globals.RutaTemporales, tempImage02);
                         ConfigS3.SetFileS3(path, carpetaPais, newfilename);
                         entidad.ImagenProducto02 = newfilename;
@@ -484,7 +455,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!string.IsNullOrEmpty(tempImage03))
                     {
                         string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = ISO + "_" + model.CUV + "_" + time + "_" + "03" + "_" + FileManager.RandomString() + ".png";
+                        var newfilename = iso + "_" + model.CUV + "_" + time + "_" + "03" + "_" + FileManager.RandomString() + ".png";
                         var path = Path.Combine(Globals.RutaTemporales, tempImage03);
                         ConfigS3.SetFileS3(path, carpetaPais, newfilename);
                         entidad.ImagenProducto03 = newfilename;
@@ -492,7 +463,7 @@ namespace Portal.Consultoras.Web.Controllers
                     else
                         entidad.ImagenProducto03 = string.Empty;
 
-                    entidad.PaisID = paisID;
+                    entidad.PaisID = paisId;
                     entidad.UsuarioRegistro = userData.CodigoConsultora;
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Nueva;
                     entidad.ConfiguracionOfertaID = Constantes.TipoOferta.Nueva;
@@ -532,24 +503,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<OfertaNuevaModel, BEOfertaNueva>()
-                        .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                        .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                        .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                        .ForMember(t => t.NumeroPedido, f => f.MapFrom(c => c.NumeroPedido))
-                        .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                        .ForMember(t => t.PrecioNormal, f => f.MapFrom(c => c.PrecioNormal))
-                        .ForMember(t => t.PrecioParaTi, f => f.MapFrom(c => c.PrecioParaTi))
-                        .ForMember(t => t.UnidadesPermitidas, f => f.MapFrom(c => c.UnidadesPermitidas))
-                        .ForMember(t => t.ImagenProducto01, f => f.MapFrom(c => c.ImagenProducto01))
-                        .ForMember(t => t.ImagenProducto02, f => f.MapFrom(c => c.ImagenProducto02))
-                        .ForMember(t => t.ImagenProducto03, f => f.MapFrom(c => c.ImagenProducto03))
-                        .ForMember(t => t.FlagImagenActiva, f => f.MapFrom(c => c.FlagImagenActiva))
-                        .ForMember(t => t.FlagHabilitarOferta, f => f.MapFrom(c => c.FlagHabilitarOferta))
-                        .ForMember(t => t.OfertaNuevaId, f => f.MapFrom(c => c.OfertaNuevaId))
-                        .ForMember(t => t.UsuarioModificacion, f => f.MapFrom(c => c.UsuarioModificacion))
-                        .ForMember(t => t.ganahasta, f => f.MapFrom(c => c.ganahasta));
-
                 BEOfertaNueva entidad = Mapper.Map<OfertaNuevaModel, BEOfertaNueva>(model);
 
                 using (PedidoServiceClient svc = new PedidoServiceClient())
@@ -560,14 +513,14 @@ namespace Portal.Consultoras.Web.Controllers
                     string tempImagenProductoAnterior01 = model.ImagenProductoAnterior01 ?? string.Empty;
                     string tempImagenProductoAnterior02 = model.ImagenProductoAnterior02 ?? string.Empty;
                     string tempImagenProductoAnterior03 = model.ImagenProductoAnterior03 ?? string.Empty;
-                    int paisID = userData.PaisID;
-                    string ISO = Util.GetPaisISO(paisID);
-                    var carpetaPais = Globals.UrlOfertasNuevas + "/" + ISO;
+                    int paisId = userData.PaisID;
+                    string iso = Util.GetPaisISO(paisId);
+                    var carpetaPais = Globals.UrlOfertasNuevas + "/" + iso;
 
                     if (tempImage01 != tempImagenProductoAnterior01)
                     {
                         string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = ISO + "_" + model.CUV + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
+                        var newfilename = iso + "_" + model.CUV + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
                         var path = Path.Combine(Globals.RutaTemporales, tempImage01);
                         ConfigS3.DeleteFileS3(carpetaPais, tempImagenProductoAnterior01);
                         ConfigS3.SetFileS3(path, carpetaPais, newfilename);
@@ -579,7 +532,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (tempImage02 != tempImagenProductoAnterior02)
                     {
                         string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = ISO + "_" + model.CUV + "_" + time + "_" + "02" + "_" + FileManager.RandomString() + ".png";
+                        var newfilename = iso + "_" + model.CUV + "_" + time + "_" + "02" + "_" + FileManager.RandomString() + ".png";
                         var path = Path.Combine(Globals.RutaTemporales, tempImage02);
                         ConfigS3.DeleteFileS3(carpetaPais, tempImagenProductoAnterior02);
                         ConfigS3.SetFileS3(path, carpetaPais, newfilename);
@@ -591,7 +544,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (tempImage03 != tempImagenProductoAnterior03)
                     {
                         string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = ISO + "_" + model.CUV + "_" + time + "_" + "03" + "_" + FileManager.RandomString() + ".png";
+                        var newfilename = iso + "_" + model.CUV + "_" + time + "_" + "03" + "_" + FileManager.RandomString() + ".png";
                         var path = Path.Combine(Globals.RutaTemporales, tempImage03);
                         ConfigS3.DeleteFileS3(carpetaPais, tempImagenProductoAnterior03);
                         ConfigS3.SetFileS3(path, carpetaPais, newfilename);
@@ -600,7 +553,7 @@ namespace Portal.Consultoras.Web.Controllers
                     else if (string.IsNullOrEmpty(tempImage03))
                         entidad.ImagenProducto03 = string.Empty;
 
-                    entidad.PaisID = paisID;
+                    entidad.PaisID = paisId;
                     entidad.UsuarioModificacion = userData.CodigoConsultora;
 
                     svc.UpdOfertasNuevas(entidad);
@@ -638,20 +591,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<OfertaNuevaModel, BEOfertaNueva>()
-                        .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                        .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                        .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                        .ForMember(t => t.OfertaNuevaId, f => f.MapFrom(c => c.OfertaNuevaId));
-
                 BEOfertaNueva entidad = Mapper.Map<OfertaNuevaModel, BEOfertaNueva>(model);
 
                 using (PedidoServiceClient svc = new PedidoServiceClient())
                 {
-                    int paisID = userData.PaisID;
-                    string ISO = Util.GetPaisISO(paisID);
+                    int paisId = userData.PaisID;
 
-                    entidad.PaisID = paisID;
+                    entidad.PaisID = paisId;
                     entidad.UsuarioModificacion = userData.CodigoConsultora;
 
                     svc.DelOfertasNuevas(entidad, Constantes.TipoOferta.Nueva);
@@ -689,12 +635,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                int result = 0;
+                int result;
                 using (PedidoServiceClient svc = new PedidoServiceClient())
                 {
                     result = svc.UpdEstadoPacksOfertasNueva(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CodigoConsultora, userData.CampaniaID);
                 }
-
 
                 if (result == 0)
                     return Json(new { result = false, mensaje = "Ocurrió un error al actualizar el numero de acceso al sistema" }, JsonRequestBehavior.AllowGet);

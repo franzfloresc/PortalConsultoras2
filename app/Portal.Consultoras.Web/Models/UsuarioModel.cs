@@ -1,11 +1,8 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -55,8 +52,6 @@ namespace Portal.Consultoras.Web.Models
             this.ValidacionAbierta = false;
             this.MenuNotificaciones = 0;
             this.TieneNotificaciones = 0;
-            this.NuevoPROL = false;
-            this.ZonaNuevoPROL = false;
             this.EsUsuarioComunidad = false;
             this.SegmentoConstancia = string.Empty;
             this.SeccionAnalytics = string.Empty;
@@ -74,6 +69,7 @@ namespace Portal.Consultoras.Web.Models
             this.EsLebel = false;
             this.TieneCDRExpress = false;
             this.PopupBienvenidaCerrado = false;
+            this.FotoPerfil = string.Empty;
         }
 
         public string Celular { get; set; }
@@ -81,6 +77,7 @@ namespace Portal.Consultoras.Web.Models
         public string TelefonoTrabajo { get; set; }
         public int CambioClave { get; set; }
         public int ConsultoraNueva { get; set; }
+        public bool EsConsultoraNueva { get; set; }
         public string NombrePais { get; set; }
         public string BanderaImagen { get; set; }
         public string CodigoFuente { get; set; }
@@ -95,6 +92,10 @@ namespace Portal.Consultoras.Web.Models
         public string NombreConsultora { get; set; }
         public string CodigoConsultora { get; set; }
         public string CodigoUsuario { get; set; }
+        
+        /// <summary>
+        /// Codigo Campaña
+        /// </summary>
         public int CampaniaID { get; set; }
 
         public string CampaniaAnio
@@ -233,12 +234,9 @@ namespace Portal.Consultoras.Web.Models
         public static bool HasAcces(List<PermisoModel> lista, string Action)
         {
             bool estado = false;
-            if (lista != null)
+            if (lista != null && lista.Count > 0)
             {
-                if (lista.Count > 0)
-                {
-                    estado = HasAccessRecursive(lista, Action);
-                }
+                estado = HasAccessRecursive(lista, Action);
             }
             return estado;
         }
@@ -246,33 +244,19 @@ namespace Portal.Consultoras.Web.Models
         {
             foreach (var permiso in lista)
             {
-                if (permiso.UrlItem.ToLower().Equals(Action.ToLower()))
-                {
-                    return true;
-                }
-
-                if (HasAccessRecursive(permiso.SubMenus, Action))
-                {
-                    return true;
-                }
+                if (permiso.UrlItem.ToLower().Equals(Action.ToLower())) return true;
+                if (HasAccessRecursive(permiso.SubMenus, Action)) return true;
             }
-
             return false;
         }
         public bool PROLSinStock { get; set; }
-        public bool NuevoPROL { get; set; }
-        public bool ZonaNuevoPROL { get; set; }
         public DateTime FechaPromesaEntrega { get; set; }
         public bool EsUsuarioComunidad { get; set; }
         public string SegmentoConstancia { get; set; }
         public string SeccionAnalytics { get; set; }
         public string DescripcionNivel { get; set; }
         public bool esConsultoraLider { get; set; }
-        public int? SegmentoInternoID
-        {
-            get;
-            set;
-        }
+        public int? SegmentoInternoID { get; set; }
 
         public bool ValidacionInteractiva { get; set; }
         public string MensajeValidacionInteractiva { get; set; }
@@ -298,6 +282,7 @@ namespace Portal.Consultoras.Web.Models
         public int VioTutorialSalvavidas { get; set; }
         public int TieneHana { get; set; }
         public int IndicadorBloqueoCDR { get; set; }
+        public bool OptBloqueoProductoDigital { get; set; }
         public int IndicadorGPRSB { get; set; }
         public int EsCDRWebZonaValida { get; set; }
         public int EstadoPedido { get; set; }
@@ -364,5 +349,24 @@ namespace Portal.Consultoras.Web.Models
         public string ClaseLogoSB { get; set; }
         public bool PopupBienvenidaCerrado { get; set; }
         public bool TieneGND { get; set; }
+        public string CodigosRevistaImpresa { get; set; }
+        public string CodigoPrograma { get; set; }
+        public int ConsecutivoNueva { get; set; }
+
+        public DateTime FechaHoy { get; set; }
+
+        public string FotoPerfil { get; set; }
+
+        public string CodigoUsuarioHost { get; set; }
+        
+        public bool TienePagoEnLinea { get; set; }
+        public string DocumentoIdentidad { get; set; }
+        
+        public double CompraVDirectaCer { get; set; }
+        public double IVACompraVDirectaCer { get; set; }
+        public double RetailCer { get; set; }
+        public double IVARetailCer { get; set; }
+        public double TotalCompraCer { get; set; }
+        public double IvaTotalCer { get; set; }
     }
 }

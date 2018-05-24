@@ -54,28 +54,21 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int PaisID)
+        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
         {
             IList<BECampania> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = sv.SelectCampanias(PaisID);
+                lst = sv.SelectCampanias(paisId);
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
@@ -100,12 +93,13 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.SelectFeErratas(vpaisID, vCampaniaID).ToList();
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<BEFeErratas> items = lst;
 
                 #region Sort Section
@@ -153,9 +147,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -187,17 +181,9 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Mantener(AdministrarFeErratasModel model)
         {
-            var listaEntradas = Session["entradas"] as List<AdministrarFeErratasModel>;
-            if (listaEntradas != null && listaEntradas.Count > 0)
+            var listaEntradas = Session["entradas"] as List<AdministrarFeErratasModel> ?? new List<AdministrarFeErratasModel>();
+            if (listaEntradas.Count > 0)
             {
-                Mapper.CreateMap<AdministrarFeErratasModel, BEFeErratas>()
-                   .ForMember(t => t.FeErratasID, f => f.MapFrom(c => c.FeErratasID))
-                   .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                   .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                   .ForMember(t => t.Titulo, f => f.MapFrom(c => c.Titulo))
-                   .ForMember(t => t.Pagina, f => f.MapFrom(c => c.Pagina))
-                   .ForMember(t => t.Dice, f => f.MapFrom(c => c.Dice))
-                   .ForMember(t => t.DebeDecir, f => f.MapFrom(c => c.DebeDecir));
                 var updateErratas = listaEntradas.Where(x => !x.Eliminar).Select(Mapper.Map<AdministrarFeErratasModel, BEFeErratas>).ToArray();
                 foreach (var item in updateErratas)
                 {
@@ -285,11 +271,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<AdministrarFeErratasModel> listaEntradas = null;
-                
+                List<AdministrarFeErratasModel> listaEntradas;
+
                 if (Session["entradas"] != null)
                 {
-                    listaEntradas = (Session["entradas"] as List<AdministrarFeErratasModel>).Where(e => e.Eliminar == false).ToList();
+                    listaEntradas = (Session["entradas"] as List<AdministrarFeErratasModel> ?? new List<AdministrarFeErratasModel>())
+                        .Where(e => !e.Eliminar).ToList();
                 }
                 else
                 {
@@ -298,23 +285,20 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         lst = sv.SelectFeErratasEntradas(vpaisID, vCampaniaID, vTitulo).ToList();
                     }
-                    Mapper.CreateMap<BEFeErratas, AdministrarFeErratasModel>()
-                       .ForMember(t => t.FeErratasID, f => f.MapFrom(c => c.FeErratasID))
-                       .ForMember(t => t.Pagina, f => f.MapFrom(c => c.Pagina))
-                       .ForMember(t => t.Dice, f => f.MapFrom(c => c.Dice))
-                       .ForMember(t => t.DebeDecir, f => f.MapFrom(c => c.DebeDecir));
+
                     List<AdministrarFeErratasModel> entidades = Mapper.Map<IEnumerable<BEFeErratas>, List<AdministrarFeErratasModel>>(lst);
                     listaEntradas = new List<AdministrarFeErratasModel>();
                     listaEntradas.AddRange(entidades);
                     Session["entradas"] = listaEntradas;
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<AdministrarFeErratasModel> items = listaEntradas;
 
                 #region Sort Section
@@ -350,9 +334,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, listaEntradas);
+                BEPager pag = Util.PaginadorGenerico(grid, listaEntradas);
 
                 var data = new
                 {
@@ -386,7 +370,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     Session["entradas"] = new List<AdministrarFeErratasModel>();
                 }
-                List<AdministrarFeErratasModel> listaEntradas = Session["entradas"] as List<AdministrarFeErratasModel>;
+                List<AdministrarFeErratasModel> listaEntradas = Session["entradas"] as List<AdministrarFeErratasModel> ?? new List<AdministrarFeErratasModel>();
                 int nuevoId = (listaEntradas.Count + 1) * -1;
                 model.FeErratasID = nuevoId;
                 listaEntradas.Add(model);
@@ -426,8 +410,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<AdministrarFeErratasModel> listaEntradas = Session["entradas"] as List<AdministrarFeErratasModel>;
-                AdministrarFeErratasModel entrada = listaEntradas.SingleOrDefault(e => e.FeErratasID == model.FeErratasID);
+                List<AdministrarFeErratasModel> listaEntradas = Session["entradas"] as List<AdministrarFeErratasModel> ?? new List<AdministrarFeErratasModel>();
+                AdministrarFeErratasModel entrada = listaEntradas.SingleOrDefault(e => e.FeErratasID == model.FeErratasID) ?? new AdministrarFeErratasModel();
                 entrada.Pagina = model.Pagina;
                 entrada.Dice = model.Dice;
                 entrada.DebeDecir = model.DebeDecir;
@@ -467,8 +451,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<AdministrarFeErratasModel> listaEntradas = Session["entradas"] as List<AdministrarFeErratasModel>;
-                AdministrarFeErratasModel entrada = listaEntradas.SingleOrDefault(e => e.FeErratasID == FeErratasID);
+                List<AdministrarFeErratasModel> listaEntradas = Session["entradas"] as List<AdministrarFeErratasModel> ?? new List<AdministrarFeErratasModel>();
+                AdministrarFeErratasModel entrada = listaEntradas.SingleOrDefault(e => e.FeErratasID == FeErratasID) ?? new AdministrarFeErratasModel();
                 if (entrada.FeErratasID < 0)
                 {
                     listaEntradas.RemoveAll(e => e.FeErratasID == FeErratasID);

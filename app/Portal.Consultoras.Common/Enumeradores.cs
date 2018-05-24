@@ -20,7 +20,6 @@
             Excel
         }
 
-        //2140
         public enum TypeDocPais
         {
             AR = 1,
@@ -39,7 +38,6 @@
             VE = 14
         }
 
-        //2295
         public enum TypeMarca
         {
             LBel = 1,
@@ -86,8 +84,8 @@
             //PendienteDobleOptin = 7
             GenerandoCodigo = 7,
             EnAprobacionSAC = 8,
-            YaConCodigoOCR = 9, //Se agregó 30-03-2017
-            PendienteConfirmarCorreo = 10 //Se agregó 30-03-2017
+            YaConCodigoOCR = 9,
+            PendienteConfirmarCorreo = 10
         }
 
         public enum TipoParametro
@@ -251,7 +249,8 @@
             Ninguno = 0,
             GPR = 2,
             Reservado = 3,
-            HorarioRestringido = 4
+            HorarioRestringido = 4,
+            Facturado = 5
         }
 
         public enum TipoLogin
@@ -268,7 +267,8 @@
             NoReservadoObservaciones = 3,
             NoReservadoMontoMinimo = 4,
             NoReservadoMontoMaximo = 5,
-            ReservaNoDisponible = 6
+            ReservaNoDisponible = 6,
+            NoReservadoDeuda = 7
         }
 
         public enum TipoProductoComentario
@@ -286,7 +286,7 @@
 
         public enum PantallaOrigenPedidoWeb
         {
-            Default=0,
+            Default = 0,
             Home = 1,
             Pedido = 2,
             Liquidacion = 3,
@@ -295,8 +295,32 @@
             OfertaParaTi = 6,
             RevistaDigital = 7,
             GuiaNegocioDigital = 8,
-            General = 9
+            General = 9,
+            HerramientasVentaComprar = 10,
+            HerramientasVentaRevisar = 11
+        }
+        
+        public enum RestService
+        {
+            ReservaSicc
         }
 
+        public enum ValidacionProgramaNuevas
+        {
+            ContinuaFlujo = 0,
+            ProductoNoExiste = 1,
+            ConsultoraNoNueva = 2,
+            NoParticipaEnProgramaNuevas = 3,
+            CuvNoPerteneceASuPrograma = 4,
+            ExisteUnElectivoEnPedido = 5,
+            CuvPerteneceProgramaNuevas = 6
+        }
+
+        public enum ValidacionVentaExclusiva
+        {
+            ContinuaFlujo = 0,
+            ConsultoraNoVentaExclusiva = 1,
+            CuvNoLePerteneceAConsultora = 3
+        }
     }
 }

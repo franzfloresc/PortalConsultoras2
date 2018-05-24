@@ -40,13 +40,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -61,20 +57,13 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int PaisID)
+        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
         {
             IList<BECampania> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = sv.SelectCampanias(PaisID);
+                lst = sv.SelectCampanias(paisId);
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                    .ForMember(t => t.Anio, f => f.MapFrom(c => c.Anio))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Activo, f => f.MapFrom(c => c.Activo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
@@ -89,14 +78,13 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetConfiguracionCampaniasPorPais(PaisID, CampaniaID).ToList();
                 }
 
-                string ISO = Util.GetPaisISO(PaisID);
-
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<BEConfiguracionCrossSelling> items = lst;
 
                 #region Sort Section
@@ -126,9 +114,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
                 lst.Update(x => x.Pais = Util.GetPaisNombre(PaisID));
                 var data = new
                 {
@@ -158,11 +146,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<ConfiguracionCrossSellingModel, BEConfiguracionCrossSelling>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.HabilitarDiasValidacion, f => f.MapFrom(c => c.HabilitarDiasValidacion));
-
                 BEConfiguracionCrossSelling entidad = Mapper.Map<ConfiguracionCrossSellingModel, BEConfiguracionCrossSelling>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -238,14 +221,15 @@ namespace Portal.Consultoras.Web.Controllers
                     lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
                 }                                            
 
-                string ISO = Util.GetPaisISO(PaisID);
+                string iso = Util.GetPaisISO(PaisID);
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<BECrossSellingProducto> items = lst;
 
                 #region Sort Section
@@ -287,11 +271,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
-                
-                lst.Update(x => x.ISOPais = ISO);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
+                lst.Update(x => x.ISOPais = iso);
                 var data = new
                 {
                     total = pag.PageCount,
@@ -304,13 +287,13 @@ namespace Portal.Consultoras.Web.Controllers
                                cell = new string[]
                                {
                                    a.CodigoProducto,
-                                   a.CodigoCampania.ToString(),
-                                   a.CUV.ToString(),
-                                   a.Descripcion.ToString(),
+                                   a.CodigoCampania,
+                                   a.CUV,
+                                   a.Descripcion,
                                    a.PrecioOferta.ToString("#0.00"),
-                                   a.ImagenProducto.ToString(),
+                                   a.ImagenProducto,
                                    a.FlagHabilitarProducto.ToString(),
-                                   a.MensajeProducto.ToString(),
+                                   a.MensajeProducto,
                                    a.ISOPais,
                                    a.CampaniaID.ToString(),
                                    a.CrossSellingProductoID.ToString()
@@ -327,17 +310,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<CrossSellingProductoModel, BECrossSellingProducto>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
-                    .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
-                    .ForMember(t => t.CodigoCampania, f => f.MapFrom(c => c.CodigoCampania))
-                    .ForMember(t => t.FlagHabilitarProducto, f => f.MapFrom(c => c.FlagHabilitarProducto))
-                    .ForMember(t => t.MensajeProducto, f => f.MapFrom(c => c.MensajeProducto));
-
                 BECrossSellingProducto entidad = Mapper.Map<CrossSellingProductoModel, BECrossSellingProducto>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -381,17 +353,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<CrossSellingProductoModel, BECrossSellingProducto>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
-                    .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
-                    .ForMember(t => t.CodigoCampania, f => f.MapFrom(c => c.CodigoCampania))
-                    .ForMember(t => t.FlagHabilitarProducto, f => f.MapFrom(c => c.FlagHabilitarProducto))
-                    .ForMember(t => t.MensajeProducto, f => f.MapFrom(c => c.MensajeProducto));
-
                 BECrossSellingProducto entidad = Mapper.Map<CrossSellingProductoModel, BECrossSellingProducto>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -435,11 +396,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<CrossSellingProductoModel, BECrossSellingProducto>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV));
-
                 BECrossSellingProducto entidad = Mapper.Map<CrossSellingProductoModel, BECrossSellingProducto>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -528,47 +484,38 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        private IEnumerable<CrossSellingProductoModel> DropDowListProductosRecomendadosHabilitados(int PaisID, int CampaniaID, int tipo)
+        private IEnumerable<CrossSellingProductoModel> DropDowListProductosRecomendadosHabilitados(int paisId, int campaniaId, int tipo)
         {
             List<BECrossSellingProducto> lst;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lst = sv.GetProductosRecomendadosHabilitados(PaisID, CampaniaID, tipo).ToList();
+                lst = sv.GetProductosRecomendadosHabilitados(paisId, campaniaId, tipo).ToList();
 
             }
-            Mapper.CreateMap<BECrossSellingProducto, CrossSellingProductoModel>()
-                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
 
             return Mapper.Map<IList<BECrossSellingProducto>, IEnumerable<CrossSellingProductoModel>>(lst);
         }
 
-        private IEnumerable<CrossSellingAsociacionModel> GetDescripcionByCUV(int PaisID, int CampaniaID, string CUV)
+        private IEnumerable<CrossSellingAsociacionModel> GetDescripcionByCUV(int paisId, int campaniaId, string cuv)
         {
             List<BECrossSellingAsociacion> lst;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lst = sv.GetDescripcionProductoByCUV(PaisID, CampaniaID, CUV).ToList();
+                lst = sv.GetDescripcionProductoByCUV(paisId, campaniaId, cuv).ToList();
 
             }
-            Mapper.CreateMap<BECrossSellingAsociacion, CrossSellingAsociacionModel>()
-                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
 
             return Mapper.Map<IList<BECrossSellingAsociacion>, IEnumerable<CrossSellingAsociacionModel>>(lst);
         }
 
-        private IEnumerable<CrossSellingAsociacionModel> GetCUVAsociadoByFilter(int PaisID, int CampaniaID, string CUV, string CodigoSegmento)
+        private IEnumerable<CrossSellingAsociacionModel> GetCUVAsociadoByFilter(int paisId, int campaniaId, string cuv, string codigoSegmento)
         {
             List<BECrossSellingAsociacion> lst;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lst = sv.GetCUVAsociadoByFilter(PaisID, CampaniaID, CUV, CodigoSegmento).ToList();
+                lst = sv.GetCUVAsociadoByFilter(paisId, campaniaId, cuv, codigoSegmento).ToList();
 
             }
-            Mapper.CreateMap<BECrossSellingAsociacion, CrossSellingAsociacionModel>()
-                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
 
             return Mapper.Map<IList<BECrossSellingAsociacion>, IEnumerable<CrossSellingAsociacionModel>>(lst);
         }
@@ -586,14 +533,13 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = sv.GetCrossSellingAsociacionListado(PaisID, CampaniaID, CUV).ToList();
                     }
 
-                    string ISO = Util.GetPaisISO(PaisID);
-
-                    BEGrid grid = new BEGrid();
-                    grid.PageSize = rows;
-                    grid.CurrentPage = page;
-                    grid.SortColumn = sidx;
-                    grid.SortOrder = sord;
-                    BEPager pag = new BEPager();
+                    BEGrid grid = new BEGrid
+                    {
+                        PageSize = rows,
+                        CurrentPage = page,
+                        SortColumn = sidx,
+                        SortOrder = sord
+                    };
                     IEnumerable<BECrossSellingAsociacion> items = lst;
 
                     #region Sort Section
@@ -635,9 +581,9 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     #endregion
 
-                    items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                    pag = Util.PaginadorGenerico(grid, lst);
+                    BEPager pag = Util.PaginadorGenerico(grid, lst);
                     var data = new
                     {
                         total = pag.PageCount,
@@ -648,14 +594,14 @@ namespace Portal.Consultoras.Web.Controllers
                                {
                                    id = a.NroOrden,
                                    cell = new string[]
-                               {
-                                   a.CodigoCampania.ToString(),
-                                   a.CUV.ToString(),
-                                   a.Descripcion.ToString(),
-                                   a.PrecioOferta.ToString("#0.00"),
-                                   a.CrossSellingAsociacionID.ToString(),
-                                   a.CampaniaID.ToString()
-                                }
+                                   {
+                                a.CodigoCampania,
+                                a.CUV,
+                                a.Descripcion,
+                                a.PrecioOferta.ToString("#0.00"),
+                                a.CrossSellingAsociacionID.ToString(),
+                                a.CampaniaID.ToString()
+                                   }
                                }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
@@ -673,14 +619,13 @@ namespace Portal.Consultoras.Web.Controllers
                             lst = sv.GetSegmentoPlaneamiento(PaisID, CampaniaID).ToList();
                         }
 
-                        string ISO = Util.GetPaisISO(PaisID);
-
-                        BEGrid grid = new BEGrid();
-                        grid.PageSize = rows;
-                        grid.CurrentPage = page;
-                        grid.SortColumn = sidx;
-                        grid.SortOrder = sord;
-                        BEPager pag = new BEPager();
+                        BEGrid grid = new BEGrid
+                        {
+                            PageSize = rows,
+                            CurrentPage = page,
+                            SortColumn = sidx,
+                            SortOrder = sord
+                        };
                         IEnumerable<BESegmentoPlaneamiento> items = lst;
 
                         #region Sort Section
@@ -716,9 +661,9 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         #endregion
 
-                        items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                        items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                        pag = Util.PaginadorGenerico(grid, lst);
+                        BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                         var data = new
                         {
@@ -730,12 +675,12 @@ namespace Portal.Consultoras.Web.Controllers
                                    {
                                        id = a.NroOrden,
                                        cell = new string[]
-                               {
-                                   CampaniaID.ToString(),
-                                   a.CodigoSegmento.ToString(),
-                                   a.CrossSellingAsociacionID.ToString(),
-                                   a.DescripcionSegmento.ToString()
-                                }
+                                       {
+                                    CampaniaID.ToString(),
+                                    a.CodigoSegmento,
+                                    a.CrossSellingAsociacionID.ToString(),
+                                    a.DescripcionSegmento
+                                       }
                                    }
                         };
                         return Json(data, JsonRequestBehavior.AllowGet);
@@ -755,16 +700,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<CrossSellingAsociacionModel, BECrossSellingAsociacion>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                    .ForMember(t => t.CUVAsociado, f => f.MapFrom(c => c.CUVAsociado))
-                    .ForMember(t => t.CUVAsociado2, f => f.MapFrom(c => c.CUVAsociado2))
-                    .ForMember(t => t.CodigoSegmento, f => f.MapFrom(c => c.CodigoSegmento))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.EtiquetaPrecio, f => f.MapFrom(c => c.EtiquetaPrecio));
-
                 BECrossSellingAsociacion entidad = Mapper.Map<CrossSellingAsociacionModel, BECrossSellingAsociacion>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -806,15 +741,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<CrossSellingAsociacionModel, BECrossSellingAsociacion>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                    .ForMember(t => t.CUVAsociado, f => f.MapFrom(c => c.CUVAsociado))
-                    .ForMember(t => t.CUVAsociado2, f => f.MapFrom(c => c.CUVAsociado2))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.EtiquetaPrecio, f => f.MapFrom(c => c.EtiquetaPrecio));
-
                 BECrossSellingAsociacion entidad = Mapper.Map<CrossSellingAsociacionModel, BECrossSellingAsociacion>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -856,12 +782,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<CrossSellingAsociacionModel, BECrossSellingAsociacion>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                    .ForMember(t => t.CUVAsociado, f => f.MapFrom(c => c.CUVAsociado));
-
                 BECrossSellingAsociacion entidad = Mapper.Map<CrossSellingAsociacionModel, BECrossSellingAsociacion>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -913,22 +833,21 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                int PaisID = UserData().PaisID;
+                int paisId = UserData().PaisID;
                 List<BECrossSellingAsociacion> lst;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    lst = sv.GetCUVAsociadoByFilter(PaisID, CampaniaID, "", CodigoSegmento).ToList();
+                    lst = sv.GetCUVAsociadoByFilter(paisId, CampaniaID, "", CodigoSegmento).ToList();
 
                 }
 
-                string ISO = Util.GetPaisISO(PaisID);
-
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<BECrossSellingAsociacion> items = lst;
 
                 #region Sort Section
@@ -970,9 +889,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
                 var data = new
                 {
                     total = pag.PageCount,
@@ -985,9 +904,9 @@ namespace Portal.Consultoras.Web.Controllers
                                cell = new string[]
                                {
                                    CampaniaID.ToString(),
-                                   a.CUV.ToString(),
-                                   a.Descripcion.ToString(),
-                                   a.EtiquetaPrecio.ToString(),
+                                   a.CUV,
+                                   a.Descripcion,
+                                   a.EtiquetaPrecio,
                                    a.CrossSellingAsociacionID.ToString()
                                 }
                            }
@@ -1004,10 +923,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<CrossSellingAsociacionModel, BECrossSellingAsociacion>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.CrossSellingAsociacionID, f => f.MapFrom(c => c.CrossSellingAsociacionID))
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID));
                 BECrossSellingAsociacion entidad = Mapper.Map<CrossSellingAsociacionModel, BECrossSellingAsociacion>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())

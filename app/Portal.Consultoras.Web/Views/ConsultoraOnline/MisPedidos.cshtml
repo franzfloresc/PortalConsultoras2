@@ -146,7 +146,7 @@
 
             $.ajax({
                 type: "POST",
-                url: baseUrl + "ConsultoraOnline/CancelarPedido", //R2442 - JICM - se actualiza url
+                url: baseUrl + "ConsultoraOnline/CancelarPedido",
                 contentType: 'application/json',
                 data: JSON.stringify(params),
                 success: function (data) {
@@ -161,9 +161,6 @@
                             $('#MensajeConsultora' + objHtmlPanelTarget).html('');
 
                             $('#modal_cancelar_pedido').fuzemodal('close');
-                        }
-                        else {
-                            console.log(data.message);
                         }
                     }
                 },
@@ -329,8 +326,6 @@
                     $('#' + panelTarget).html(imgAceptado);
                     cell.parent().html(htmlCancelContent);
 
-                } else {
-                    console.log('Error al invocar /ConsultoraOnline/AceptarPedido');
                 }
             });
 

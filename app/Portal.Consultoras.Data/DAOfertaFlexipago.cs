@@ -5,9 +5,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Data
 {
@@ -212,9 +209,9 @@ namespace Portal.Consultoras.Data
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPermisoFlexipago");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.AnsiString, CampaniaID.ToString());            
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.AnsiString, CampaniaID.ToString());
             int result = int.Parse(Context.ExecuteScalar(command).ToString());
-            return result == 0 ? false : true;
+            return result != 0;
         }
     }
 }

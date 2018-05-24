@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
-using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -18,7 +17,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index()
         {
-            BEUsuario beusuario = new BEUsuario();
+            BEUsuario beusuario;
             var model = new MisDatosModel();
 
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
@@ -38,15 +37,14 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CompartirDatos = beusuario.CompartirDatos;
                 model.AceptoContrato = beusuario.AceptoContrato;
                 model.UsuarioPrueba = UserData().UsuarioPrueba;
-                model.NombreArchivoContrato = ConfigurationManager.AppSettings["Contrato_ActualizarDatos_" + UserData().CodigoISO].ToString();
+                model.NombreArchivoContrato = GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + UserData().CodigoISO);
 
                 BEZona[] bezona;
                 using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
                 {
                     bezona = sv.SelectZonaById(UserData().PaisID, UserData().ZonaID);
                 }
-                if (bezona.ToList().Count == 0) model.NombreGerenteZonal = "";
-                else model.NombreGerenteZonal = bezona[0].NombreGerenteZona;
+                model.NombreGerenteZonal = bezona.ToList().Count == 0 ? "" : bezona[0].NombreGerenteZona;
 
                 if (beusuario.EMailActivo) model.CorreoAlerta = "";
                 if ((!beusuario.EMailActivo) && beusuario.EMail != "") model.CorreoAlerta = "Su correo aun no ha sido activado";
@@ -59,11 +57,11 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                string PaisesDigitoControl = ConfigurationManager.AppSettings["PaisesDigitoControl"].ToString();
+                string paisesDigitoControl = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
                 model.DigitoVerificador = string.Empty;
-                if (PaisesDigitoControl.Contains(model.PaisISO))
+                if (paisesDigitoControl.Contains(model.PaisISO))
                 {
-                    model.DigitoVerificador = beusuario.DigitoVerificador.ToString();
+                    model.DigitoVerificador = beusuario.DigitoVerificador;
                 }
             }
 
@@ -78,14 +76,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    int resultExiste;
-                    bool result;
-
-                    resultExiste = sv.ExisteUsuario(userData.PaisID, userData.CodigoUsuario, OldPassword);
+                    var resultExiste = sv.ExisteUsuario(userData.PaisID, userData.CodigoUsuario, OldPassword);
 
                     if (resultExiste == Constantes.ValidacionExisteUsuario.Existe)
                     {
-                        result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
+                        var result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
                             NewPassword, "", userData.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
 
                         rslt = result ? 2 : 1;
@@ -128,43 +123,45 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ActualizarDatos(MisDatosModel model)
         {
+            JsonResult v_retorno = null;
+            BEUsuario entidad = null;
+            string resultado = string.Empty;
+            string[] lst = null;
+            string v_campomodificacion = string.Empty;
+
+            string CorreoAnterior = string.Empty;
+
             try
             {
-                Mapper.CreateMap<MisDatosModel, BEUsuario>()
-                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
-                    .ForMember(t => t.EMail, f => f.MapFrom(c => c.EMail))
-                    .ForMember(t => t.Telefono, f => f.MapFrom(c => c.Telefono))
-                    .ForMember(t => t.TelefonoTrabajo, f => f.MapFrom(c => c.TelefonoTrabajo))
-                    .ForMember(t => t.Celular, f => f.MapFrom(c => c.Celular))
-                    .ForMember(t => t.Sobrenombre, f => f.MapFrom(c => c.Sobrenombre))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.NombreCompleto))
-                    .ForMember(t => t.CompartirDatos, f => f.MapFrom(c => c.CompartirDatos))
-                    .ForMember(t => t.AceptoContrato, f => f.MapFrom(c => c.AceptoContrato));
+                var usuario = Mapper.Map<MisDatosModel, BEUsuario>(model);
 
-                BEUsuario entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
-                string CorreoAnterior = model.CorreoAnterior;
+                entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
+                CorreoAnterior = model.CorreoAnterior;
 
-                entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : UserData().CodigoUsuario;
+                entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : userData.CodigoUsuario;
                 entidad.EMail = (entidad.EMail == null) ? "" : entidad.EMail;
                 entidad.Telefono = (entidad.Telefono == null) ? "" : entidad.Telefono;
                 entidad.TelefonoTrabajo = (entidad.TelefonoTrabajo == null) ? "" : entidad.TelefonoTrabajo;
                 entidad.Celular = (entidad.Celular == null) ? "" : entidad.Celular;
                 entidad.Sobrenombre = (entidad.Sobrenombre == null) ? "" : entidad.Sobrenombre;
-                entidad.ZonaID = UserData().ZonaID;
-                entidad.RegionID = UserData().RegionID;
-                entidad.ConsultoraID = UserData().ConsultoraID;
-                entidad.PaisID = UserData().PaisID;
+                entidad.ZonaID = userData.ZonaID;
+                entidad.RegionID = userData.RegionID;
+                entidad.ConsultoraID = userData.ConsultoraID;
+                entidad.PaisID = userData.PaisID;
                 entidad.PrimerNombre = userData.PrimerNombre;
-                entidad.CodigoISO = UserData().CodigoISO;
-
+                entidad.CodigoISO = userData.CodigoISO;
+                
                 using (UsuarioServiceClient svr = new UsuarioServiceClient())
                 {
-                    string resultado = svr.ActualizarMisDatos(entidad, CorreoAnterior);
-                    string[] lst = resultado.Split('|');
+                    resultado = svr.ActualizarMisDatos(entidad, CorreoAnterior);
+
+                    if (model != null) ActualizarDatosLogDynamoDB(model, "MI NEGOCIO/MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
+
+                    lst = resultado.Split('|');
 
                     if (lst[0] == "0")
                     {
-                        return Json(new
+                        v_retorno = Json(new
                         {
                             Cantidad = lst[3],
                             success = false,
@@ -174,7 +171,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        return Json(new
+                        v_retorno = Json(new
                         {
                             Cantidad = 0,
                             success = true,
@@ -187,7 +184,8 @@ namespace Portal.Consultoras.Web.Controllers
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return Json(new
+
+                v_retorno = Json(new
                 {
                     Cantidad = 0,
                     success = false,
@@ -198,7 +196,8 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return Json(new
+
+                v_retorno = Json(new
                 {
                     Cantidad = 0,
                     success = false,
@@ -206,6 +205,8 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 });
             }
+
+            return v_retorno;
         }
 
         [HttpPost]
@@ -213,11 +214,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<MisDatosModel, BEUsuario>()
-                    .ForMember(t => t.AceptoContrato, f => f.MapFrom(c => c.AceptoContrato));
-
                 BEUsuario entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
-                string CorreoAnterior = model.CorreoAnterior;
 
                 entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : UserData().CodigoUsuario;
                 entidad.ZonaID = UserData().ZonaID;

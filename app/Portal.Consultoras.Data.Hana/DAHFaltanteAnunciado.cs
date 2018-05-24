@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Portal.Consultoras.Data.Hana.Entities;
 using Portal.Consultoras.Entities;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
 
 namespace Portal.Consultoras.Data.Hana
 {
@@ -14,40 +11,41 @@ namespace Portal.Consultoras.Data.Hana
     {
         public List<BEProductoFaltante> GetProductoFaltanteAnunciado(int paisId, int campaniaId)
         {
-            var listBE = new List<BEProductoFaltante>();
-            var listaHana = new List<FaltanteAnunciadoHana>();
+            var listBe = new List<BEProductoFaltante>();
 
             try
             {
-                var codigoIsoHana = Util.GetCodigoIsoHana(paisId);
+                var codigoIsoHana = Common.Util.GetPaisIsoSicc(paisId);
                 string rutaServiceHana = ConfigurationManager.AppSettings.Get("RutaServiceHana");
 
                 string urlConParametros = rutaServiceHana + "ObtenerFaltanteAnunciado/" + codigoIsoHana + "/" + campaniaId;
 
                 string responseFromServer = Util.ObtenerJsonServicioHana(urlConParametros);
 
-                listaHana = JsonConvert.DeserializeObject<List<FaltanteAnunciadoHana>>(responseFromServer);
+                var listaHana = JsonConvert.DeserializeObject<List<FaltanteAnunciadoHana>>(responseFromServer);
 
                 foreach (var faltanteAnunciadoHana in listaHana)
                 {
-                    var beProductoFaltante = new BEProductoFaltante();
-                    beProductoFaltante.CUV = faltanteAnunciadoHana.codigoVenta;
-                    beProductoFaltante.Descripcion = string.IsNullOrEmpty(faltanteAnunciadoHana.DESPROD)
-                        ? "Sin Descripción"
-                        : faltanteAnunciadoHana.DESPROD;
-                    beProductoFaltante.Zona = faltanteAnunciadoHana.codigoZona ?? "";
-                    beProductoFaltante.Estado = faltanteAnunciadoHana.estadoActivo;
-                    beProductoFaltante.CampaniaID = campaniaId;
+                    var beProductoFaltante = new BEProductoFaltante
+                    {
+                        CUV = faltanteAnunciadoHana.codigoVenta,
+                        Descripcion = string.IsNullOrEmpty(faltanteAnunciadoHana.DESPROD)
+                            ? "Sin Descripción"
+                            : faltanteAnunciadoHana.DESPROD,
+                        Zona = faltanteAnunciadoHana.codigoZona ?? "",
+                        Estado = faltanteAnunciadoHana.estadoActivo,
+                        CampaniaID = campaniaId
+                    };
 
-                    listBE.Add(beProductoFaltante);
+                    listBe.Add(beProductoFaltante);
                 }
             }
             catch (Exception)
             {
-                listBE = new List<BEProductoFaltante>();
+                listBe = new List<BEProductoFaltante>();
             }
 
-            return listBE;
+            return listBe;
         }
     }
 }

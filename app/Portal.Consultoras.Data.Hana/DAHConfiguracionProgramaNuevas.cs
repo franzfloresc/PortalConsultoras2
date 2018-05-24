@@ -4,6 +4,7 @@ using Portal.Consultoras.Entities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using Common = Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Data.Hana
 {
@@ -14,7 +15,7 @@ namespace Portal.Consultoras.Data.Hana
             var programaNueva = new BEConfiguracionProgramaNuevas();
             try
             {
-                var codigoIsoHana = Util.GetCodigoIsoHana(paisId);
+                var codigoIsoHana = Common.Util.GetPaisIsoSicc(paisId);
                 string rutaServiceHana = ConfigurationManager.AppSettings.Get("RutaServiceHana");
 
                 string urlConParametros = rutaServiceHana + "ObtenerConfiguracionProgramaNuevas/" + codigoIsoHana + "/" +
@@ -22,7 +23,7 @@ namespace Portal.Consultoras.Data.Hana
                 string responseFromServer = Util.ObtenerJsonServicioHana(urlConParametros);
                 List<ConfiguracionProgramaNuevasHana> listaHana = JsonConvert.DeserializeObject<List<ConfiguracionProgramaNuevasHana>>(responseFromServer);
 
-                if(listaHana != null && listaHana.Count > 0)
+                if (listaHana != null && listaHana.Count > 0)
                 {
                     var configuracionProgramaNuevasHana = listaHana[0];
 
@@ -37,7 +38,7 @@ namespace Portal.Consultoras.Data.Hana
                     programaNueva.CodigoZona = entidad.CodigoZona;
                 }
             }
-            catch(Exception) { programaNueva = new BEConfiguracionProgramaNuevas(); }
+            catch (Exception) { programaNueva = new BEConfiguracionProgramaNuevas(); }
 
             return programaNueva;
         }

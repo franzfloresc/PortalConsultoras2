@@ -7,7 +7,6 @@ function Init() {
     FB.getLoginStatus(function (response) {
         CloseLoading();
         if (response.status === 'connected') ValidarUsuarioFBAsociado(response);
-        //else LoginFB();
     });
 
     $('#btnLoginFB').on('click', LoginFB);
@@ -39,7 +38,7 @@ function ExistsExternalUser(provider, id, fnFinal) {
     ShowLoading();
     $.post('/Login/CheckExternalUser', { proveedor: provider, appid: id })
         .done(function (response) { if (response.success) exists = response.exists; })
-        .fail(function (error) { console.log(error); })
+        .fail(function (error) { ConsoleLog(error); })
         .always(function () {
             CloseLoading();
             if ($.isFunction(fnFinal)) fnFinal(exists);
@@ -53,7 +52,7 @@ function MostrarLoginNormal(responseFB) {
 }
 
 function AsociarUsuarioFB() {
-    ValidarLoginNormal(function(paisID, paisISO, user, password){ 
+    ValidarLoginNormal(function (paisID, paisISO, user, password) {
         ShowLoading();
         FB.api('/me', 'GET', { fields: 'birthday,email,first_name,gender,hometown,id,last_name,link,location,name,picture.type(large)' }, function (responseFB) {
             CloseLoading();

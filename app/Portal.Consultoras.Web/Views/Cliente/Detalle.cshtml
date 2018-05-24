@@ -34,15 +34,6 @@
     @Html.HiddenFor(model => model.ClienteID)
     @Html.HiddenFor(model => model.CodigoCliente)
 
-    @*@Html.TextBoxFor(model => model.Nombre, new { placeholder = "Nombres y Apellidos", maxlength = "50", @class = "input-nombre", autocomplete = "off" })
-    <div class="noti mensaje_producto_noExiste" id="divNotiNombre">
-        <div class="noti_message red_texto_size">
-            <span class="icono_advertencia_notificacion"></span>
-            <span class="descripcion_mensaje">
-                Por favor ingresa un nombre válido.
-            </span>
-        </div>
-    </div>*@
     @Html.TextBoxFor(model => model.NombreCliente, new { placeholder = "Nombres", maxlength = "100", @class = "input-nombre", autocomplete = "off" })
     <div class="noti mensaje_producto_noExiste" id="divNotiNombre">
         <div class="noti_message red_texto_size">
@@ -88,8 +79,9 @@
     });
 
     $(".input-number").keypress(function (e) {
+       
         $(this).val($(this).val().replace(/[^\d].+/, ""));
-        if ((event.which < 48 || event.which > 57)) event.preventDefault();
+        if ((e.which < 48 || e.which > 57)) e.preventDefault();
     });
 
     $(".input-nombre").keypress(function (evt) {
@@ -114,7 +106,6 @@
         $('#divNotiNombre').hide();
         $('#divNotiCorreo').hide();
 
-        //if (jQuery.trim($(div).find('#Nombre').val()) == "") {
         if (jQuery.trim($(div).find('#NombreCliente').val()) == "") {
             vcont++;
             $('#divNotiNombre').show();
@@ -137,7 +128,6 @@
 
         var id = $(div).find('#ClienteID').val();
         var codigo = $(div).find('#CodigoCliente').val();
-        //var nombre = $(div).find('#Nombre').val();
         var nombreCliente = jQuery.trim($(div).find('#NombreCliente').val());
         var apellidoCliente = jQuery.trim($(div).find('#ApellidoCliente').val());
         var correo = jQuery.trim($(div).find('#eMail').val());
@@ -147,7 +137,6 @@
         var item = {
             ClienteID: id,
             CodigoCliente: codigo,
-            //Nombre: nombre,
             NombreCliente: nombreCliente,
             ApellidoCliente: apellidoCliente,
             Nombre: jQuery.trim(nombreCliente + " " + apellidoCliente),

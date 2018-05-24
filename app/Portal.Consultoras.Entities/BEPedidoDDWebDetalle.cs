@@ -30,11 +30,10 @@ namespace Portal.Consultoras.Entities
         public bool IndicadorPromocion { get; set; }
         [DataMember]
         public string UsuarioResponsable { get; set; }
-        [DataMember]  // R20151003 - Inicio
+        [DataMember]
         public bool IndicadorEnviado { get; set; }
         [DataMember]
-        public DateTime FechaEnvio { get; set; }  // R20151003 - Fin
-        //SB20-871
+        public DateTime FechaEnvio { get; set; }
         [DataMember]
         public string MotivoRechazo { get; set; }
 
@@ -56,23 +55,22 @@ namespace Portal.Consultoras.Entities
                 PrecioUnitario = Convert.ToDecimal(row["PrecioUnitario"]);
             if (DataRecord.HasColumn(row, "PrecioTotal"))
                 PrecioTotal = Convert.ToDecimal(row["PrecioTotal"]);
-            if (DataRecord.HasColumn(row, "IndicadorDigitable") && row["IndicadorDigitable"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "IndicadorDigitable"))
                 IndicadorDigitable = Convert.ToBoolean(row["IndicadorDigitable"]);
-            if (DataRecord.HasColumn(row, "IndicadorMontoMinimo") && row["IndicadorMontoMinimo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "IndicadorMontoMinimo"))
                 IndicadorMontoMinimo = Convert.ToBoolean(row["IndicadorMontoMinimo"]);
-            if (DataRecord.HasColumn(row, "IndicadorFaltanteAnunciado") && row["IndicadorFaltanteAnunciado"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "IndicadorFaltanteAnunciado"))
                 IndicadorFaltanteAnunciado = Convert.ToBoolean(row["IndicadorFaltanteAnunciado"]);
-            if (DataRecord.HasColumn(row, "IndicadorPromocion") && row["IndicadorPromocion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "IndicadorPromocion"))
                 IndicadorPromocion = Convert.ToBoolean(row["IndicadorPromocion"]);
-            if (DataRecord.HasColumn(row, "UsuarioResponsable") && row["UsuarioResponsable"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "UsuarioResponsable"))
                 UsuarioResponsable = Convert.ToString(row["UsuarioResponsable"]);
-            if (DataRecord.HasColumn(row, "PedidoDetalleID") && row["PedidoDetalleID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PedidoDetalleID"))
                 PedidoDetalleID = Convert.ToInt32(row["PedidoDetalleID"]);
-            if (DataRecord.HasColumn(row, "IndicadorEnviado") && row["IndicadorEnviado"] != DBNull.Value) // R20151003 - Inicio
+            if (DataRecord.HasColumn(row, "IndicadorEnviado"))
                 IndicadorEnviado = Convert.ToBoolean(row["IndicadorEnviado"]);
-            if (DataRecord.HasColumn(row, "FechaEnvio") && row["FechaEnvio"] != DBNull.Value)
-                FechaEnvio = Convert.ToDateTime(row["FechaEnvio"]);  // R20151003 - Fin
-            // SB20-871
+            if (DataRecord.HasColumn(row, "FechaEnvio"))
+                FechaEnvio = Convert.ToDateTime(row["FechaEnvio"]);
             if (DataRecord.HasColumn(row, "MotivoRechazo"))
                 MotivoRechazo = Convert.ToString(row["MotivoRechazo"]);
 

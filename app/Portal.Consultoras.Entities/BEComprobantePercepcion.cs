@@ -4,7 +4,6 @@ using System;
 using System.Data;
 using System.Runtime.Serialization;
 
-
 namespace Portal.Consultoras.Entities
 {
     [DataContract]
@@ -68,7 +67,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "NumeroLote"))
                 NumeroLote = Convert.ToString(row["NumeroLote"]);
             if (DataRecord.HasColumn(row, "EstadoActivo"))
-                EstadoActivo = (row["EstadoActivo"] == DBNull.Value) ? 0 : Convert.ToInt32(row["EstadoActivo"]);
+                EstadoActivo = Convert.ToInt32(row["EstadoActivo"]);
             if (DataRecord.HasColumn(row, "NumeroComprobanteCorrelativo"))
                 NumeroComprobanteCorrelativo = Convert.ToString(row["NumeroComprobanteCorrelativo"]);
             if (DataRecord.HasColumn(row, "PaisID"))

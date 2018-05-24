@@ -1,8 +1,11 @@
-/*INI: Loading*/
+/*INICIO Loading*/
 @font-face {
     font-family: 'icomoon';
     src: url('fonts/icomoon/icomoon.eot?ur7cdc');
-    src: url('fonts/icomoon/icomoon.eot?ur7cdc#iefix') format('embedded-opentype'), url('fonts/icomoon/icomoon.ttf?ur7cdc') format('truetype'), url('fonts/icomoon/icomoon.woff?ur7cdc') format('woff'), url('fonts/icomoon/icomoon.svg?ur7cdc#icomoon') format('svg');
+    src: url('fonts/icomoon/icomoon.eot?ur7cdc#iefix') format('embedded-opentype'),
+        url('fonts/icomoon/icomoon.ttf?ur7cdc') format('truetype'),
+        url('fonts/icomoon/icomoon.woff?ur7cdc') format('woff'),
+        url('fonts/icomoon/icomoon.svg?ur7cdc#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -10,24 +13,29 @@
 @font-face {
     font-family: 'logo_esika';
     src: url('fonts/icomoon/logo_esika.eot?ur7cdc');
-    src: url('fonts/icomoon/logo_esika.eot?ur7cdc#iefix') format('embedded-opentype'), url('fonts/icomoon/logo_esika.ttf?ur7cdc') format('truetype'), url('fonts/icomoon/logo_esika.woff?ur7cdc') format('woff'), url('fonts/icomoon/logo_esika.svg?ur7cdc#icomoon') format('svg');
+    src: url('fonts/icomoon/logo_esika.eot?ur7cdc#iefix') format('embedded-opentype'),
+        url('fonts/icomoon/logo_esika.ttf?ur7cdc') format('truetype'),
+        url('fonts/icomoon/logo_esika.woff?ur7cdc') format('woff'),
+        url('fonts/icomoon/logo_esika.svg?ur7cdc#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
-body{
-    
-    margin:0;
+
+body {
+    margin: 0;
 }
-*{
-    box-sizing:border-box;      
+
+* {
+    box-sizing: border-box;
 }
+
 .content-spinner2 {
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(147, 148, 151, 0.5);
+    background: rgba(147, 148, 151, .5);
     z-index: 99999;
     display: none;
 }
@@ -67,41 +75,41 @@ body{
             position: absolute;
             width: 7px;
             height: 7px;
-            background: #FFFFFF;
-            left: 0px;
-            top: 0px;
+            background: #fff;
+            left: 0;
+            top: 0;
             -o-border-radius: 11px;
             border-radius: 11px;
         }
 
     .busy-loader .ball-1 {
-        -webkit-animation-delay: 0.96s;
-        -ms-animation-delay: 0.96s;
-        animation-delay: 0.96s;
+        -webkit-animation-delay: .96s;
+        -ms-animation-delay: .96s;
+        animation-delay: .96s;
     }
 
     .busy-loader .ball-2 {
-        -webkit-animation-delay: 0.19s;
-        -ms-animation-delay: 0.19s;
-        animation-delay: 0.19s;
+        -webkit-animation-delay: .19s;
+        -ms-animation-delay: .19s;
+        animation-delay: .19s;
     }
 
     .busy-loader .ball-3 {
-        -webkit-animation-delay: 0.38s;
-        -ms-animation-delay: 0.38s;
-        animation-delay: 0.38s;
+        -webkit-animation-delay: .38s;
+        -ms-animation-delay: .38s;
+        animation-delay: .38s;
     }
 
     .busy-loader .ball-4 {
-        -webkit-animation-delay: 0.58s;
-        -ms-animation-delay: 0.58s;
-        animation-delay: 0.58s;
+        -webkit-animation-delay: .58s;
+        -ms-animation-delay: .58s;
+        animation-delay: .58s;
     }
 
     .busy-loader .ball-5 {
-        -webkit-animation-delay: 0.77s;
-        -ms-animation-delay: 0.77s;
-        animation-delay: 0.77s;
+        -webkit-animation-delay: .77s;
+        -ms-animation-delay: .77s;
+        animation-delay: .77s;
     }
 
 @-webkit-keyframes orbit {
@@ -116,7 +124,7 @@ body{
         opacity: 1;
         -webkit-transform: rotate(300deg);
         -webkit-animation-timing-function: linear;
-        -webkit-origin: 0%;
+        -webkit-origin: 0;
     }
 
     30% {
@@ -170,7 +178,7 @@ body{
         opacity: 1;
         -ms-transform: rotate(300deg);
         -ms-animation-timing-function: linear;
-        -ms-origin: 0%;
+        -ms-origin: 0;
     }
 
     30% {
@@ -228,7 +236,7 @@ body{
         transform: rotate(300deg);
         -webkit-animation-timing-function: linear;
         animation-timing-function: linear;
-        origin: 0%;
+        origin: 0;
     }
 
     30% {
@@ -279,24 +287,23 @@ body{
         transform: rotate(900deg);
     }
 }
-/*FIN: Loading*/
+/*FIN Loading*/
 
-/*INI: Popups Mensajes*/
+/*INICIO Popups Mensajes*/
 .MensajeAlertaMobile {
     position: fixed;
-    z-index: 2010;   
-    display:none;
+    z-index: 2010;
+    display: none;
     width: 100%;
     height: 100%;
     padding: 15px;
     top: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,.5);
 }
 
 .content_mensajeAlerta {
     width: 100%;
     height: 100%;
-    /* height: 0; */
     margin: 0 auto;
     position: relative;
     background: white;
@@ -305,15 +312,13 @@ body{
 }
 
 .cerrar_popMobile {
-    cursor:pointer;
+    cursor: pointer;
     width: 19px;
     height: 19px;
     display: block;
     position: relative;
-    /* direction: ltr; */
     right: 0;
     float: right;
-    /* text-align: right; */
 }
 
     .cerrar_popMobile img {
@@ -328,14 +333,13 @@ body{
 }
 
 .check_icono_mobile {
-    background: url("../../Images/Esika/icono_check_esika.svg") no-repeat;
+    background: url('../../Images/Esika/icono_check_esika.svg') no-repeat;
     background-size: cover;
 }
 
 .exclamacion_icono_mobile {
-    background: url("../../Images/Esika/icono_exclamacion_esika.png") no-repeat;
+    background: url('../../Images/Esika/icono_exclamacion_esika.png') no-repeat;
     background-size: cover;
-   
 }
 
 .icono_alerta img {
@@ -346,7 +350,7 @@ body{
     font-family: 'Lato';
     font-size: 24px;
     font-weight: 300;
-    line-height: 0.82;
+    line-height: .82;
     text-align: center;
     color: #000000;
     margin-top: 30px;
@@ -371,9 +375,9 @@ body{
     display: block;
     background-color: #e81c36;
     margin-bottom: 20px;
-    color:#FFF!important;
-    text-decoration:none!important;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: #FFF !important;
+    text-decoration: none !important;
+    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
     font-size: 14px;
 }
 
@@ -383,12 +387,11 @@ body{
         line-height: 28px;
     }
 }
-/*FIN: Popups Mensajes*/
+/*FIN Popups Mensajes*/
 
-.btn_facebook_chat{
-        width: 100%;
+.btn_facebook_chat {
+    width: 100%;
     height: 45px;
-    /* background: #3b56a8; */
     color: white;
     border-radius: 3px;
     border: 0;
@@ -398,33 +401,29 @@ body{
     font-family: 'Lato';
     padding: 0;
     padding-left: 16px;
-    background: #3b56a8 url(../../Images/PL20/facebook_login.png) no-repeat;
+    background: #3b56a8 url('../../Images/PL20/facebook_login.png') no-repeat;
     background-position: 21px 14px;
     display: block;
-    text-align: center;    
+    text-align: center;
     -webkit-appearance: none;
 }
-.wrapper_chatbot{
-    padding:15px 26px;
-    position:relative;
+
+.wrapper_chatbot {
+    padding: 15px 26px;
+    position: relative;
 }
-.texto_facebook{
-    float:left;
+
+.texto_facebook {
+    float: left;
     margin-top: 3px;
     margin-left: 14px;
-    margin-bottom:15px;
-    letter-spacing:0.2px;
-    font-family:'Lato';
-    font-size:12px;
+    margin-bottom: 15px;
+    letter-spacing: .2px;
+    font-family: 'Lato';
+    font-size: 12px;
 }
-/*.texto_facebook{
-    font-size:12px;
-    display:block;
-    font-family:'Lato';
-    margin-bottom:15px;
-    letter-spacing:0.2px;
-}*/
-.logo_esika_facebook{
+
+.logo_esika_facebook {
     float: left;
     text-align: center;
     font-family: 'logo_esika';
@@ -432,40 +431,34 @@ body{
     height: 20px;
     margin-top: -2px;
 }
-.logo_esika_facebook:before{
-     content: "\e911";
-    font-size: 24px;
-    color: #e81c36;
-}
-/*.logo_esika_facebook{
-    width:60px;
-    margin:0 auto;
-    font-family: 'logo_esika';
-}*/
-/*.logo_esika_facebook:before{
-     content: "\e911";
-    font-size: 29px;
-    color: #e81c36;
-}*/
-.logo_esika_facebook img{
-    width:100%;
-}
-.salir_chatbot{
+
+    .logo_esika_facebook:before {
+        content: '\e911';
+        font-size: 24px;
+        color: #e81c36;
+    }
+
+    .logo_esika_facebook img {
+        width: 100%;
+    }
+
+.salir_chatbot {
     float: left;
     padding-left: 20px;
     padding-top: 3px;
     height: 20px;
     margin-bottom: -2px;
     margin-right: 11px;
-    letter-spacing: 0.3px;
+    letter-spacing: .3px;
     font-weight: 700;
     font-family: 'Lato';
     font-size: 12px;
     text-decoration: none;
     color: black;
-    background: url(../../Images/PL20/flecha_regresa_chat.png) no-repeat;
+    background: url('../../Images/PL20/flecha_regresa_chat.png') no-repeat;
 }
-.campo_input_chat{
+
+.campo_input_chat {
     margin-top: 10px;
     margin-bottom: 12px;
     width: 100%;
@@ -475,8 +468,12 @@ body{
     position: relative;
     font-family: 'icomoon';
 }
-#div_select_pais { background: left 2px top 10px no-repeat; }
-.input_chat{
+
+#div_select_pais {
+    background: left 2px top 10px no-repeat;
+}
+
+.input_chat {
     width: 100%;
     border: 0;
     height: 28px;
@@ -485,16 +482,16 @@ body{
     box-sizing: border-box;
     position: relative;
     background: transparent;
-    font-family:'Lato';
-    letter-spacing: 0.3px;
+    font-family: 'Lato';
+    letter-spacing: .3px;
 }
+
 .select_pais_chat {
     width: -moz-calc(100% - 21px);
     width: calc(100% - 21px);
     width: -webkit-calc(100% - 21px);
     width: -webkit-calc(~'100% - 21px');
     float: right;
-    /* padding-left: 25px; */
     border: 0;
     height: 28px;
     box-sizing: border-box;
@@ -503,16 +500,18 @@ body{
     font-size: 12px;
     color: #595959;
 }
+
 .select_pais_chat_activo {
     font-size: 20px;
     color: black;
 }
-    .select_pais_chat > option {
-        font-size: 12px;
-        color: #595959;
-    }
 
-.clear{
+.select_pais_chat > option {
+    font-size: 12px;
+    color: #595959;
+}
+
+.clear {
     background: none;
     border: 0;
     clear: both;
@@ -528,58 +527,91 @@ body{
 }
 
 .icono_usuario_chatbot:before {
-    content: "\e903";
+    content: '\e903';
     font-size: 20px;
     text-align: left;
     color: black;
     margin-right: 7px;
     top: 2px;
-    /* float: left; */
     position: absolute;
     z-index: 100;
 }
+
 .icono_pass_chatbot:before {
-    content: "\e900";
+    content: '\e900';
     font-size: 20px;
     text-align: left;
     color: black;
     margin-right: 7px;
     top: 2px;
-    /* float: left; */
     position: absolute;
     z-index: 100;
 }
-.btnLogin{
+
+.btnLogin {
     color: white;
     background-color: #e81c36;
-    border:0;
-    border-radius: 2px;    
+    border: 0;
+    border-radius: 2px;
     font-size: 13px;
     font-weight: bold;
-    height: 45px;  
+    height: 45px;
     text-align: center;
     margin-top: 6px;
-    width: 100%;  
+    width: 100%;
     display: block;
-    box-sizing: border-box;   
+    box-sizing: border-box;
     line-height: 45px;
     font-family: 'Lato';
 }
-#txtUsuario{    
-    font-size:20px;
-}
-#txtPassword{    
-    font-size:12px;
-}
-#txtUsuario::-webkit-input-placeholder { font-size:12px; color:#595959; }
-#txtUsuario:-moz-placeholder { font-size:12px; color:#595959;}
-#txtUsuario::-moz-placeholder {  font-size:12px; color:#595959; }
-#txtUsuario:-ms-input-placeholder { font-size:12px; color:#595959;}
 
-#txtPassword::-webkit-input-placeholder { font-size:12px; color:#595959 }
-#txtPassword:-moz-placeholder { font-size:12px; color:#595959 }
-#txtPassword::-moz-placeholder {  font-size:12px; color:#595959  }
-#txtPassword:-ms-input-placeholder { font-size:12px; color:#595959  }
+#txtUsuario {
+    font-size: 20px;
+}
+
+#txtPassword {
+    font-size: 12px;
+}
+
+#txtUsuario::-webkit-input-placeholder {
+    font-size: 12px;
+    color: #595959;
+}
+
+#txtUsuario:-moz-placeholder {
+    font-size: 12px;
+    color: #595959;
+}
+
+#txtUsuario::-moz-placeholder {
+    font-size: 12px;
+    color: #595959;
+}
+
+#txtUsuario:-ms-input-placeholder {
+    font-size: 12px;
+    color: #595959;
+}
+
+#txtPassword::-webkit-input-placeholder {
+    font-size: 12px;
+    color: #595959;
+}
+
+#txtPassword:-moz-placeholder {
+    font-size: 12px;
+    color: #595959;
+}
+
+#txtPassword::-moz-placeholder {
+    font-size: 12px;
+    color: #595959;
+}
+
+#txtPassword:-ms-input-placeholder {
+    font-size: 12px;
+    color: #595959;
+}
 
 .ayuda_usuario_facebook_chatBot {
     top: 3px;
@@ -593,6 +625,7 @@ body{
     width: 31px;
     height: 25px;
 }
+
 .helper_facebook_chatBot {
     width: 20px;
     height: 20px;
@@ -604,12 +637,14 @@ body{
     background-repeat: no-repeat;
     text-decoration: none;
 }
-.helper_facebook_chatBot:before {
-    content: "\e902";
-    font-size: 18px;
-    text-align: left;
-    color: #949494;
-}
+
+    .helper_facebook_chatBot:before {
+        content: '\e902';
+        font-size: 18px;
+        text-align: left;
+        color: #949494;
+    }
+
 .mensaje_ayuda_usuario_chatBot {
     box-sizing: border-box;
     display: none;
@@ -625,19 +660,22 @@ body{
     border: 1px solid black;
     z-index: 10000000;
 }
+
 .ayuda_usuario_facebook_chatBot:hover .mensaje_ayuda_usuario_chatBot {
     display: block;
 }
+
 .mensaje_ayuda_usuario_chatBot:after, .mensaje_ayuda_usuario_chatBot:before {
     left: 100%;
     top: 24px;
     border: solid transparent;
-    content: " ";
+    content: ' ';
     height: 0;
     width: 0;
     position: absolute;
     pointer-events: none;
 }
+
 .mensaje_ayuda_usuario_chatBot:before {
     border-color: rgba(0, 0, 0, 0);
     border-left-color: #000;
@@ -645,14 +683,16 @@ body{
     border-width: 10px;
     margin-top: -10px;
 }
+
 .mensaje_ayuda_usuario_chatBot:after {
     border-color: rgba(255, 255, 255, 0);
-   border-left-color: #ffffff;
+    border-left-color: #ffffff;
     border-right-color: transparent;
     border-width: 9px;
     margin-top: -9px;
 }
-.logo_normal{
+
+.logo_normal {
     float: left;
     text-align: center;
     font-family: 'logo_esika';
@@ -660,27 +700,31 @@ body{
     height: 20px;
     margin-top: -2px;
 }
-.logo_normal:before {
-    content: "\e911";
-    font-size: 24px;
-    color: #e81c36;
-}
-.logo_normal img{
-    width:100%;
-}
-.texto_normal{
+
+    .logo_normal:before {
+        content: '\e911';
+        font-size: 24px;
+        color: #e81c36;
+    }
+
+    .logo_normal img {
+        width: 100%;
+    }
+
+.texto_normal {
     margin-top: 3px;
-    font-family:'Lato';
-    float:left;
-    font-size:12px;
+    font-family: 'Lato';
+    float: left;
+    font-size: 12px;
     margin-left: 14px;
 }
-.titulo_campo{
+
+.titulo_campo {
     font-family: 'Lato';
     font-size: 11px;
     position: absolute;
     top: -8px;
     color: black;
     z-index: 100;
-    left: 25px;    
+    left: 25px;
 }

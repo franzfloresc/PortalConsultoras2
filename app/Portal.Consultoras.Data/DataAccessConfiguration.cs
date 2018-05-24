@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
+﻿using System.Configuration;
 
 namespace Portal.Consultoras.Data
 {
@@ -105,13 +100,13 @@ namespace Portal.Consultoras.Data
         {
             get { return (string)this["ocwsolact"]; }
         }
-        
+
         [ConfigurationProperty("consuflex", IsRequired = false)]
         public string ConsuFlexTemplate
         {
             get { return (string)this["consuflex"]; }
         }
-        
+
         [ConfigurationProperty("letcurso", IsRequired = false)]
         public string LetCursoTemplate
         {

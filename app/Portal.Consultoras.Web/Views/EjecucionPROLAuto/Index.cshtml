@@ -3,6 +3,24 @@
 @{
     ViewBag.Title = "Ejecutar Validación Automática PROL";
 }
+
+<style>
+    .titulo_grilla_ListaProcesoAutoProl {
+        color: #00a2e8;
+        text-decoration: none;
+        font-weight: normal;
+        padding: 5px;
+        font-size: 12px !Important;
+        font-family: 'museo_sans_500regular';
+        font-weight: normal !Important;
+        
+        background: #f0f6f8;        
+    }
+    .fondoInfo_grilla_ListaProcesoAutoProl{
+        background: #f8fcfd;
+    }
+</style>
+
 <script type="text/javascript">
 
     jQuery(function () {
@@ -82,11 +100,11 @@
                 if (checkTimeout(data)) {
                     closeWaitingDialog();
                     if (data.success == true) {
-                        alert(data.mensaje);
+                        alert(data.message);
                         ListarProceso();
                     }
                     else {
-                        alert(data.mensaje);
+                        alert(data.message);
                     }
                 }
             },
@@ -145,7 +163,7 @@
 <div class="wrap">
     <div class="container clearfix">
         <div class="border-wrapper">
-            <div id="divListadoPedido" class="tabla2">
+            <div id="divListadoPedido" class="tabla2" style="overflow-x:hidden;">
                 @if (Model != null)
                 {
                     Html.RenderPartial("ListaProcesoPROL", this.Model);
@@ -165,9 +183,6 @@
                     cache: false
                 });
                 $('#divListadoPedido').hide().load(baseUrl + 'EjecucionPROLAuto/ListarProcesoParcial').fadeIn('slow');
-                //$.get(baseUrl + "EjecucionPROLAuto/ListarProcesoParcial", function (data) {
-                //    $('#divListadoPedido').html(data);
-                //});
             }, 60000);
         });
     </script>

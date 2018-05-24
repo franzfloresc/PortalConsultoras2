@@ -3,24 +3,24 @@ function CargarEventosExternos() {
     if (!webViewFallBack) {
         var d1 = $.Deferred();
         arrayDeferred.push(d1);
-        window.extAsyncInit = function () { console.log('extAsyncInit'); d1.resolve(); };
+        window.extAsyncInit = function () { ConsoleLog('extAsyncInit'); d1.resolve(); };
     }
     if (cargaApiFacebook) {
         var d2 = $.Deferred();
         arrayDeferred.push(d2);
-        window.fbAsyncInit = function () { console.log('fbAsyncInit'); d2.resolve(); };
+        window.fbAsyncInit = function () { ConsoleLog('fbAsyncInit'); d2.resolve(); };
     }
-    console.log(arrayDeferred);
+    ConsoleLog(arrayDeferred);
 }
 CargarEventosExternos();
 
 $(document).ready(function () { CargarPlugins(); });
 
 function CargarPlugins() {
-    if (arrayDeferred.length > 0){
+    if (arrayDeferred.length > 0) {
         ShowLoading();
         $.when.apply($, arrayDeferred).then(function () {
-            console.log('Terminó CargarPlugins');
+            ConsoleLog('Terminó CargarPlugins');
             CloseLoading();
             MainInit();
         });
@@ -81,14 +81,7 @@ function ResponderBotmaker(url, data) {
             }
             else CloseWindow();
         })
-        .fail(function (a, b, c) {
-            console.log(a); console.log(b); console.log(c);
-            console.log("error");
-        })
-        .always(function (a, b, c) {
-            console.log(a); console.log(b); console.log(c);
-            console.log("finished");
-        });
+        .fail(function (error) { ConsoleLog(error); })
 }
 
 function ShowLoading() { $("#loading-spin").fadeIn(); }
@@ -99,7 +92,7 @@ function MessageInfoError(message, fnAceptar) {
     $('#mensajeInformacionSB2_Error').html(message);
     $('#popupInformacionSB2Error .btn-aceptar').off('click');
     if ($.isFunction(fnAceptar)) $('#popupInformacionSB2Error .btn-aceptar').on('click', fnAceptar);
-    
+
     $('#popupInformacionSB2Error').show();
 }
 function MostrarArrayMensaje(arrayMessage) {
@@ -113,4 +106,11 @@ function MostrarArrayMensaje(arrayMessage) {
 
 function IsNullOrEmpty(valor) {
     return valor == null || valor == "";
+}
+
+function ConsoleLog(variable) {
+    if (!window.console) return;
+    if (!window.console.log) return;
+
+    console.log(variable);
 }

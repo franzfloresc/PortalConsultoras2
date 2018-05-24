@@ -60,6 +60,10 @@
     <Reference Include="HiQPdf">
       <HintPath>..\Binaries\HiQPdf.dll</HintPath>
     </Reference>
+    <Reference Include="Magick.NET-Q16-AnyCPU, Version=7.0.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magick.NET-Q16-AnyCPU.7.0.7.300\lib\net40\Magick.NET-Q16-AnyCPU.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MaxMind.Db, Version=2.0.0.0, Culture=neutral, PublicKeyToken=66afa4cc5ae853ac, processorArchitecture=MSIL">
       <HintPath>..\packages\MaxMind.Db.2.1.3\lib\net45\MaxMind.Db.dll</HintPath>
       <Private>True</Private>
@@ -85,6 +89,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -123,6 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseUtilities.cs" />
+    <Compile Include="Nodo.cs" />
     <Compile Include="ClientIP.cs" />
     <Compile Include="CollectionExtension.cs" />
     <Compile Include="BETuplaEditable.cs" />
@@ -131,6 +137,7 @@
     <Compile Include="ConfigCdn.cs" />
     <Compile Include="ConfigS3.cs" />
     <Compile Include="Constantes.cs" />
+    <Compile Include="Conversores.cs" />
     <Compile Include="Crypto.cs" />
     <Compile Include="Cryptography\AESAlgorithm.cs" />
     <Compile Include="Dictionaries.cs" />
@@ -142,13 +149,20 @@
     <Compile Include="Globals.cs" />
     <Compile Include="LogManager\LogError.cs" />
     <Compile Include="LogManager\LogManager.cs" />
+    <Compile Include="MagickNet\EntidadMagickResize.cs" />
+    <Compile Include="MagickNet\MagickNetLibrary.cs" />
     <Compile Include="MailUtilities.cs" />
     <Compile Include="MandrillMail.cs" />
     <Compile Include="MapUtil.cs" />
     <Compile Include="MaxMind\MaxMindReader.cs" />
     <Compile Include="NeoGridCipher.cs" />
+    <Compile Include="PagoEnLinea\Data.cs" />
+    <Compile Include="PagoEnLinea\DataRequestAut.cs" />
+    <Compile Include="PagoEnLinea\JsonHelper.cs" />
+    <Compile Include="PagoEnLinea\RespuestaAutorizacionVisa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegexUtilities.cs" />
+    <Compile Include="Settings\ServiceSettings.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="WebConfig.cs" />
     <Compile Include="WebConfigKeys.cs" />

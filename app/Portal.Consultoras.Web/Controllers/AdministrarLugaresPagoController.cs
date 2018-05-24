@@ -44,13 +44,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -66,18 +62,16 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.SelectLugarPago(vpaisID).ToList();
                 }
 
-                if (lst != null && lst.Count > 0)
-                {
-                    var carpetaPais = Globals.UrlLugaresPago + "/" + userData.CodigoISO;
-                    lst.Update(x => x.ArchivoLogo = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ArchivoLogo));
-                }
+                var carpetaPais = Globals.UrlLugaresPago + "/" + UserData().CodigoISO;
+                if (lst.Count > 0) { lst.Update(x => x.ArchivoLogo = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ArchivoLogo); }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<BELugarPago> items = lst;
 
                 #region Sort Section
@@ -131,8 +125,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).OrderBy(x => x.Posicion);
-                pag = Util.PaginadorGenerico(grid, lst);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).OrderBy(x => x.Posicion);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -179,7 +173,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Insertar(AdministrarLugaresPagoModel model)
         {
-            int lintPosicion = 0;
             try
             {
                 BELugarPago entidad = Mapper.Map<AdministrarLugaresPagoModel, BELugarPago>(model);
@@ -193,25 +186,27 @@ namespace Portal.Consultoras.Web.Controllers
                 if (entidad.ArchivoInstructivo == null)
                     entidad.ArchivoInstructivo = string.Empty;
 
+
+                string tempImage01 = model.ArchivoLogo ?? string.Empty;
+                string iso = Util.GetPaisISO(model.PaisID);
+                if (!string.IsNullOrEmpty(tempImage01))
+                {
+                    string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
+                    var newfilename = iso + "_" + model.LugarPagoID.ToString() + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
+                    var carpetaPais = Globals.UrlLugaresPago + "/" + iso;
+                    var path = Path.Combine(Globals.RutaTemporales, tempImage01);
+                    ConfigS3.SetFileS3(path, carpetaPais, newfilename);
+
+                    entidad.ArchivoLogo = newfilename;
+                }
+                else
+                {
+                    entidad.ArchivoLogo = string.Empty;
+                }
+
+                int lintPosicion;
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    string tempImage01 = model.ArchivoLogo ?? string.Empty;
-                    string ISO = Util.GetPaisISO(model.PaisID);
-                    if (!string.IsNullOrEmpty(tempImage01))
-                    {
-                        string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = ISO + "_" + model.LugarPagoID.ToString() + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
-                        var carpetaPais = Globals.UrlLugaresPago + "/" + ISO;
-                        var path = Path.Combine(Globals.RutaTemporales, tempImage01);
-                        ConfigS3.SetFileS3(path, carpetaPais, newfilename);
-
-                        entidad.ArchivoLogo = newfilename;
-                    }
-                    else
-                    {
-                        entidad.ArchivoLogo = string.Empty;
-                    }
-
                     lintPosicion = sv.InsertLugarPago(entidad);
                 }
                 return Json(new
@@ -248,7 +243,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Actualizar(AdministrarLugaresPagoModel model)
         {
-            int lintPosicion = 0;
             try
             {
                 BELugarPago entidad = Mapper.Map<AdministrarLugaresPagoModel, BELugarPago>(model);
@@ -256,33 +250,34 @@ namespace Portal.Consultoras.Web.Controllers
                 if (entidad.ArchivoInstructivo == null)
                     entidad.ArchivoInstructivo = string.Empty;
 
+                string tempImage01 = model.ArchivoLogo ?? string.Empty;
+                string tempImagenLogoAnterior01 = model.ArchivoLogoAnterior ?? string.Empty;
+                string iso = Util.GetPaisISO(model.PaisID);
+
+                if (!string.IsNullOrEmpty(tempImage01))
+                {
+                    string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
+                    var newfilename = iso + "_" + model.LugarPagoID.ToString() + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
+
+                    var path = Path.Combine(Globals.RutaTemporales, tempImage01);
+                    var carpetaPais = Globals.UrlLugaresPago + "/" + iso;
+                    ConfigS3.SetFileS3(path, carpetaPais, newfilename);
+
+                    if (tempImagenLogoAnterior01 != string.Empty)
+                    {
+                        ConfigS3.DeleteFileS3(carpetaPais, tempImagenLogoAnterior01);
+                    }
+
+                    entidad.ArchivoLogo = newfilename;
+                }
+                else
+                {
+                    entidad.ArchivoLogo = string.Empty;
+                }
+
+                int lintPosicion;
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    string tempImage01 = model.ArchivoLogo ?? string.Empty;
-                    string tempImagenLogoAnterior01 = model.ArchivoLogoAnterior ?? string.Empty;
-                    string ISO = Util.GetPaisISO(model.PaisID);
-
-                    if (!string.IsNullOrEmpty(tempImage01))
-                    {
-                        string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = ISO + "_" + model.LugarPagoID.ToString() + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
-
-                        var path = Path.Combine(Globals.RutaTemporales, tempImage01);
-                        var carpetaPais = Globals.UrlLugaresPago + "/" + ISO;
-                        ConfigS3.SetFileS3(path, carpetaPais, newfilename);
-
-                        if (tempImagenLogoAnterior01 != string.Empty)
-                        {
-                            ConfigS3.DeleteFileS3(carpetaPais, tempImagenLogoAnterior01);
-                        }
-
-                        entidad.ArchivoLogo = newfilename;
-                    }
-                    else
-                    {
-                        entidad.ArchivoLogo = string.Empty;
-                    }
-
                     lintPosicion = sv.UpdateLugarPago(entidad);
                 }
                 return Json(new

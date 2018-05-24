@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Text;
 using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
@@ -15,9 +13,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BELogModificacionCronograma> GetLogModificacionCronograma(int paisID)
         {
             var lista = new List<BELogModificacionCronograma>();
-            var DALogModificacionCronograma = new DALogModificacionCronograma(paisID);
+            var daLogModificacionCronograma = new DALogModificacionCronograma(paisID);
 
-            using (IDataReader reader = DALogModificacionCronograma.GetLogModificacionCronograma(paisID))
+            using (IDataReader reader = daLogModificacionCronograma.GetLogModificacionCronograma(paisID))
                 while (reader.Read())
                 {
                     var entidad = new BELogModificacionCronograma(reader);
@@ -29,15 +27,15 @@ namespace Portal.Consultoras.BizLogic
 
         public void InsLogModificacionCronogramaMasivo(int paisID, string CodigoUsuario, List<BELogModificacionCronograma> listaEntidades)
         {
-            TransactionOptions transactionOptions = new TransactionOptions();
-            transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
-            var DALogModificacionCronograma = new DALogModificacionCronograma(paisID);
+            TransactionOptions transactionOptions =
+                new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
+            var daLogModificacionCronograma = new DALogModificacionCronograma(paisID);
 
             using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
             {
                 foreach (var entidad in listaEntidades)
                 {
-                    DALogModificacionCronograma.InsLogModificacionCronograma(CodigoUsuario, entidad);
+                    daLogModificacionCronograma.InsLogModificacionCronograma(CodigoUsuario, entidad);
                 }
                 transaction.Complete();
             }
@@ -45,15 +43,15 @@ namespace Portal.Consultoras.BizLogic
 
         public void InsLogConfiguracionCronogramaMasivo(int paisID, string CodigoUsuario, List<BELogConfiguracionCronograma> listaEntidades)
         {
-            TransactionOptions transactionOptions = new TransactionOptions();
-            transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
-            var DALogModificacionCronograma = new DALogModificacionCronograma(paisID);
+            TransactionOptions transactionOptions =
+                new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
+            var daLogModificacionCronograma = new DALogModificacionCronograma(paisID);
 
             string xml = CrearLogCongiraucionCronogramaXxml(listaEntidades);
 
             using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
             {
-                DALogModificacionCronograma.InsLogConfiguracionCronogarma(CodigoUsuario, xml);
+                daLogModificacionCronograma.InsLogConfiguracionCronogarma(CodigoUsuario, xml);
                 transaction.Complete();
             }
         }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -23,7 +20,6 @@ namespace Portal.Consultoras.Web.Models
         public IEnumerable<PosicionBannerPedidoModel> listaPoscionBannerPedido { set; get; }
         public string grupoUrlPDF { get; set; }
         public string grupoTipoUrl { get; set; }
-        
 
         public AdministrarBannerPedidoModel()
         {

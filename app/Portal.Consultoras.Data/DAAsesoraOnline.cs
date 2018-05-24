@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Data
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ExisteConsultoraEnAsesoraOnline");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
-            return (int) Context.ExecuteScalar(command);
+            return (int)Context.ExecuteScalar(command);
         }
 
         public int ActualizarEstadoConfiguracionPaisDetalle(string codigoConsultora, int estado)
@@ -56,5 +56,18 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
             return (int)Context.ExecuteScalar(command);
         }
+        public string CancelarSuscripcion(string codigoConsultora)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("CoachVirtual.CancelarSuscripcion");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+            return Context.ExecuteScalar(command).ToString();
+        }
+        public int VuelveASuscripcion(string codigoConsultora)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("CoachVirtual.VuelveASuscripcion");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+            return (int)Context.ExecuteScalar(command);
+        }
+
     }
 }

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Portal.Consultoras.Web.ServiceUnete;
-using Portal.Consultoras.Common;
-using System.ComponentModel.DataAnnotations;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Annotations;
 using Portal.Consultoras.Web.ServiceSAC;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -52,10 +48,10 @@ namespace Portal.Consultoras.Web.Models
         [Required(ErrorMessage = "Este campo es obligatorio")]
         [MaxLength(1, ErrorMessage = "Máximo 1 caractér")]
         public string Sexo { get; set; }
-        
+
         [Required(ErrorMessage = "Este campo es obligatorio")]
         public string FechaNacimiento { get; set; }
-        
+
         [MaxLength(140, ErrorMessage = "Máximo 140 caractéres")]
         public string Direccion { get; set; }
 
@@ -111,7 +107,7 @@ namespace Portal.Consultoras.Web.Models
 
         public int? TipoContacto { get; set; }
 
-        [MaxLength(15, ErrorMessage = "Máximo 15 caractéres")]        
+        [MaxLength(15, ErrorMessage = "Máximo 15 caractéres")]
         public string CodigoConsultoraRecomienda { get; set; }
 
         public string NombreConsultoraRecomienda { get; set; }
@@ -122,7 +118,7 @@ namespace Portal.Consultoras.Web.Models
         public string NombrePrefijoCelular { get; set; }
 
         public string NombreColonia { get; set; }
-        
+
         public string DireccionMx { get; set; }
 
         [RequiredIf("CodigoPais", "PE", ErrorMessage = "Este campo es obligatorio")]
@@ -206,21 +202,20 @@ namespace Portal.Consultoras.Web.Models
         /// </summary>
         public static Dictionary<string, string> DocumentoIdentidad = new Dictionary<string, string>
         {
-            { "BO", CC },
-            { "CL", RUT },
-            { "CO", CC },
-            { "CR", "" },
-            { "DO", "" },
-            { "EC", "" },
-            { "GT", "" },
-            { "MX", "" },
-            { "PA", "" },
-            { "PE", DNI },
-            { "PR", "" },
-            { "SV", "" },
-            { "VE", "" },
+            { Constantes.CodigosISOPais.Bolivia, CC },
+            { Constantes.CodigosISOPais.Chile, RUT },
+            { Constantes.CodigosISOPais.Colombia, CC },
+            { Constantes.CodigosISOPais.CostaRica, "" },
+            { Constantes.CodigosISOPais.Dominicana, "" },
+            { Constantes.CodigosISOPais.Ecuador, "" },
+            { Constantes.CodigosISOPais.Guatemala, "" },
+            { Constantes.CodigosISOPais.Mexico, "" },
+            { Constantes.CodigosISOPais.Panama, "" },
+            { Constantes.CodigosISOPais.Peru, DNI },
+            { Constantes.CodigosISOPais.PuertoRico, "" },
+            { Constantes.CodigosISOPais.Salvador, "" },
+            { Constantes.CodigosISOPais.Venezuela, "" },
         };
     }
-    
-    
+
 }

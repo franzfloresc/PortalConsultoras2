@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Threading;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -69,8 +64,9 @@ namespace Portal.Consultoras.Web.WebPages
                     }
                 } while (length > 0); //Repeat until no data is read
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "Download - Page_Load");
 
                 FileWebRequest fileReq = (FileWebRequest)FileWebRequest.Create(url);
                 FileWebResponse fileResp = (FileWebResponse)fileReq.GetResponse();
@@ -128,49 +124,6 @@ namespace Portal.Consultoras.Web.WebPages
                 }
             }
 
-
-            //try
-            //{
-            //    string requestFile = Request.QueryString["file"];
-
-            //    if (string.IsNullOrEmpty(requestFile))
-            //    {
-            //        throw new FileNotFoundException("File to download cannot be null or empty");
-            //    }
-
-            //    var uri = new Uri(requestFile);
-            //    string filename = Path.GetFullPath(uri.LocalPath);
-            //    var fileInfo = new FileInfo(filename);
-
-            //    if (!fileInfo.Exists)
-            //    {
-            //        throw new FileNotFoundException("File to download was not found", filename);
-            //    }
-
-            //    // get content type based on file extension. Example:
-            //    // http://stackoverflow.com/a/691599
-            //    Response.ContentType = GetContentType(fileInfo.Extension);
-
-            //    Response.AddHeader("Content-Disposition",
-            //                       "attachment; filename=\"" + fileInfo.Name + "\"");
-            //    Response.WriteFile(fileInfo.FullName);
-            //    Response.End();
-            //}
-            //catch (ThreadAbortException)
-            //{
-            //    // ignore exception
-            //}
-            //catch (FileNotFoundException ex)
-            //{
-            //    Response.StatusCode = (int)System.Net.HttpStatusCode.NotFound;
-            //    Response.StatusDescription = ex.Message;
-            //}
-            //catch (Exception ex)
-            //{
-            //    Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
-            //    Response.StatusDescription =
-            //    string.Format("Error downloading file: {0}", ex.Message);
-            //}
         }
 
         private string GetFileNameFromUrl(string url)

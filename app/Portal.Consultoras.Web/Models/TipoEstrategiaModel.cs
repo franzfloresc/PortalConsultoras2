@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Web.Models
         public string Codigo { get; set; }
 
         public int FlagValidarImagen { get; set; }
-        public int PesoMaximoImagen { get; set; } 
+        public int PesoMaximoImagen { get; set; }
 
     }
 }

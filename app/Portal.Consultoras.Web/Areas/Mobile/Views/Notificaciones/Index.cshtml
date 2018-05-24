@@ -30,8 +30,8 @@
         } }
     &nbsp;&nbsp;&nbsp;&nbsp;MIS NOTIFICACIONES
 </div>
-<div class="pestana_esika"></div><!--PESTANA ESIKA-->
-<div class="pestana_lbel"></div><!--PESTANA LBEL-->
+<div class="pestana_esika"></div>
+<div class="pestana_lbel"></div>
 @if (Model.ListaNotificaciones.Count == 0)
 {
 
@@ -95,7 +95,8 @@ else
         var urlListarObservacionesStock = '@Url.Action("ListarObservacionesStock", "Notificaciones", new { area = "Mobile" })';
         var urlListarObservaciones = '@Url.Action("ListarObservaciones", "Notificaciones", new { area = "Mobile" })';
         var urlListarDetalleCDR = '@Url.Action("DetalleCDR", "Notificaciones", new { area = "Mobile"})';
-        var urlListarDetalleCDRCulminado = '@Url.Action("DetalleNotificacionesCDR", "Notificaciones", new {area="Mobile" })';
+        var urlListarDetalleCDRCulminado = '@Url.Action("DetalleNotificacionesCDR", "Notificaciones", new { area = "Mobile" })';
+        var urlListarPayOnline = '@Url.Action("DetallePagoEnLinea", "Notificaciones", new { area = "Mobile" })';
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Notificaciones/Index.js")"></script>
 }

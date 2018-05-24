@@ -1,7 +1,5 @@
-﻿using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Common;
-using System;
-using System.Data;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.Cupon
@@ -10,67 +8,58 @@ namespace Portal.Consultoras.Entities.Cupon
     public class BECuponConsultora
     {
         [DataMember]
+        [Column("CuponConsultoraId")]
         public int CuponConsultoraId { get; set; }
 
         [DataMember]
+        [Column("CodigoConsultora")]
         public string CodigoConsultora { get; set; }
 
         [DataMember]
+        [Column("CampaniaId")]
         public int CampaniaId { get; set; }
 
         [DataMember]
+        [Column("CuponId")]
         public int CuponId { get; set; }
 
         [DataMember]
+        [Column("ValorAsociado")]
         public decimal ValorAsociado { get; set; }
 
         [DataMember]
+        [Column("EstadoCupon")]
         public int EstadoCupon { get; set; }
 
         [DataMember]
+        [Column("EnvioCorreo")]
         public bool EnvioCorreo { get; set; }
 
         [DataMember]
+        [Column("FechaCreacion")]
         public DateTime FechaCreacion { get; set; }
 
         [DataMember]
+        [Column("FechaModificacion")]
         public DateTime FechaModificacion { get; set; }
 
         [DataMember]
+        [Column("UsuarioCreacion")]
         public string UsuarioCreacion { get; set; }
 
         [DataMember]
+        [Column("UsuarioModificacion")]
         public string UsuarioModificacion { get; set; }
 
         [DataMember]
+        [Column("TipoCupon")]
         public string TipoCupon { get; set; }
 
-        public BECuponConsultora(IDataRecord datarec)
-        {
-            if (DataRecord.HasColumn(datarec, "CuponConsultoraId") && datarec["CuponConsultoraId"] != DBNull.Value)
-                CuponConsultoraId = DbConvert.ToInt32(datarec["CuponConsultoraId"]);
-            if (DataRecord.HasColumn(datarec, "CodigoConsultora") && datarec["CodigoConsultora"] != DBNull.Value)
-                CodigoConsultora = DbConvert.ToString(datarec["CodigoConsultora"]);
-            if (DataRecord.HasColumn(datarec, "CampaniaId") && datarec["CampaniaId"] != DBNull.Value)
-                CampaniaId = DbConvert.ToInt32(datarec["CampaniaId"]);
-            if (DataRecord.HasColumn(datarec, "CuponId") && datarec["CuponId"] != DBNull.Value)
-                CuponId = DbConvert.ToInt32(datarec["CuponId"]);
-            if (DataRecord.HasColumn(datarec, "ValorAsociado") && datarec["ValorAsociado"] != DBNull.Value)
-                ValorAsociado = DbConvert.ToDecimal(datarec["ValorAsociado"]);
-            if (DataRecord.HasColumn(datarec, "EstadoCupon") && datarec["EstadoCupon"] != DBNull.Value)
-                EstadoCupon = DbConvert.ToInt32(datarec["EstadoCupon"]);
-            if (DataRecord.HasColumn(datarec, "EnvioCorreo") && datarec["EnvioCorreo"] != DBNull.Value)
-                EnvioCorreo = DbConvert.ToBoolean(datarec["EnvioCorreo"]);
-            if (DataRecord.HasColumn(datarec, "FechaCreacion") && datarec["FechaCreacion"] != DBNull.Value)
-                FechaCreacion = DbConvert.ToDateTime(datarec["FechaCreacion"]);
-            if (DataRecord.HasColumn(datarec, "FechaModificacion") && datarec["FechaModificacion"] != DBNull.Value)
-                FechaModificacion = DbConvert.ToDateTime(datarec["FechaModificacion"]);
-            if (DataRecord.HasColumn(datarec, "UsuarioCreacion") && datarec["UsuarioCreacion"] != DBNull.Value)
-                UsuarioCreacion = DbConvert.ToString(datarec["UsuarioCreacion"]);
-            if (DataRecord.HasColumn(datarec, "UsuarioModificacion") && datarec["UsuarioModificacion"] != DBNull.Value)
-                UsuarioModificacion = DbConvert.ToString(datarec["UsuarioModificacion"]);
-            if (DataRecord.HasColumn(datarec, "TipoCupon") && datarec["TipoCupon"] != DBNull.Value)
-                TipoCupon = DbConvert.ToString(datarec["TipoCupon"]);
-        }
+        [DataMember]
+        [Column("TipoCondicion")]
+        public short TipoCondicion { get; set; }
+
+        [DataMember]
+        public decimal MontoMaximoDescuento { get; set; }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     arrayTracking = sv.GetPedidosByConsultora(userData.PaisID, userData.CodigoConsultora, 3);
                 }
-                if(arrayTracking != null && arrayTracking.Any())
+                if (arrayTracking != null && arrayTracking.Any())
                 {
                     model.ListaEstadoSeguimiento = Mapper.Map<List<SeguimientoMobileModel>>(arrayTracking);
 
@@ -67,7 +67,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 if (pedidoSeleccionado != null)
-                { 
+                {
                     Mapper.Map(pedidoSeleccionado, model);
                     if (!TieneDetalles(model))
                     {
@@ -75,18 +75,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         return View(model);
                     }
 
-                    var listaEstadoSeguimiento = new List<BETracking>();
+                    List<BETracking> listaEstadoSeguimiento;
                     var novedades = new List<BENovedadTracking>();
                     using (var service = new PedidoServiceClient())
                     {
                         listaEstadoSeguimiento = service.GetTrackingByPedido(userData.PaisID, codigoConsultora, model.Campana.ToString(), model.NumeroPedido).ToList();
-                        if (ConfigurationManager.AppSettings["WebTrackingConfirmacion"].Contains(userData.CodigoISO))
+                        if (GetConfiguracionManager(Constantes.ConfiguracionManager.WebTrackingConfirmacion).Contains(userData.CodigoISO))
                         {
                             novedades = service.GetNovedadesTracking(userData.PaisID, model.NumeroPedido).ToList();
                         }
                     }
-                    if (listaEstadoSeguimiento.Count == 0) listaEstadoSeguimiento = AgregarTracking(codigoConsultora, model.Fecha.Value);
-                    
+                    if (listaEstadoSeguimiento.Count == 0 && model.Fecha != null)
+                        listaEstadoSeguimiento = AgregarTracking(codigoConsultora, model.Fecha.Value);
+
                     foreach (var item in listaEstadoSeguimiento)
                     {
                         var estadoSeguimiento = Mapper.Map<SeguimientoMobileModel>(item);
@@ -95,7 +96,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             estadoSeguimiento.DiaMes = item.Fecha.Value.ToString("dd/MM");
                             estadoSeguimiento.HoraMinuto = item.Fecha.Value.ToString("hh:mm tt");
 
-                            switch (estadoSeguimiento.DiaMes)
+                            var fechaFormatted = item.Fecha.HasValue
+                                ? item.Fecha.Value.TimeOfDay.TotalHours.Equals(0)
+                                    ? item.Fecha.Value.ToString("dd/MM/yyyy")
+                                    : item.Fecha.Value.ToString()
+                                : "";
+
+                            switch (fechaFormatted)
                             {
                                 case "01/01/2001":
                                     estadoSeguimiento.DiaMes = string.Empty;
@@ -149,47 +156,61 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private List<BETracking> AgregarTracking(string codigo, DateTime fecha)
         {
             List<BETracking> lista = new List<BETracking>();
-            BETracking beTracking = new BETracking();
-            beTracking.CodigoConsultora = codigo;
-            beTracking.Etapa = 1;
-            beTracking.Situacion = "Pedido Recibido";
-            beTracking.Fecha = fecha;
+            BETracking beTracking = new BETracking
+            {
+                CodigoConsultora = codigo,
+                Etapa = 1,
+                Situacion = "Pedido Recibido",
+                Fecha = fecha
+            };
             lista.Add(beTracking);
 
-            beTracking = new BETracking();
-            beTracking.Etapa = 2;
-            beTracking.Situacion = "Facturado";
-            beTracking.Fecha = null;
+            beTracking = new BETracking
+            {
+                Etapa = 2,
+                Situacion = "Facturado",
+                Fecha = null
+            };
             lista.Add(beTracking);
 
-            beTracking = new BETracking();
-            beTracking.Etapa = 3;
-            beTracking.Situacion = "Inicio de Armado";
-            beTracking.Fecha = null;
+            beTracking = new BETracking
+            {
+                Etapa = 3,
+                Situacion = "Inicio de Armado",
+                Fecha = null
+            };
             lista.Add(beTracking);
 
-            beTracking = new BETracking();
-            beTracking.Etapa = 4;
-            beTracking.Situacion = "Chequeado";
-            beTracking.Fecha = null;
+            beTracking = new BETracking
+            {
+                Etapa = 4,
+                Situacion = "Chequeado",
+                Fecha = null
+            };
             lista.Add(beTracking);
 
-            beTracking = new BETracking();
-            beTracking.Etapa = 5;
-            beTracking.Situacion = "Puesto en transporte";
-            beTracking.Fecha = null;
+            beTracking = new BETracking
+            {
+                Etapa = 5,
+                Situacion = "Puesto en transporte",
+                Fecha = null
+            };
             lista.Add(beTracking);
 
-            beTracking = new BETracking();
-            beTracking.Etapa = 6;
-            beTracking.Situacion = "Fecha Estimada de Entrega";
-            beTracking.Fecha = null;
+            beTracking = new BETracking
+            {
+                Etapa = 6,
+                Situacion = "Fecha Estimada de Entrega",
+                Fecha = null
+            };
             lista.Add(beTracking);
 
-            beTracking = new BETracking();
-            beTracking.Etapa = 7;
-            beTracking.Situacion = "Entregado";
-            beTracking.Fecha = null;
+            beTracking = new BETracking
+            {
+                Etapa = 7,
+                Situacion = "Entregado",
+                Fecha = null
+            };
             lista.Add(beTracking);
 
             return lista;

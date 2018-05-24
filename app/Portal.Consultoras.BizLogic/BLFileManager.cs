@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ICSharpCode.SharpZipLib.Zip;
+using System;
 using System.IO;
 using System.Net;
-using ICSharpCode.SharpZipLib.Zip;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -20,10 +16,9 @@ namespace Portal.Consultoras.BizLogic
                 zipOuput.SetLevel(5);// Normal compression
                 byte[] buffer = new byte[bufferSize];
 
-                ZipEntry entry = new ZipEntry(inZipFileName);
+                ZipEntry entry = new ZipEntry(inZipFileName) { DateTime = DateTime.Now };
 
                 // Could also use the last write time or similar for the file.
-                entry.DateTime = DateTime.Now;
                 zipOuput.PutNextEntry(entry);
 
                 using (FileStream fs = File.OpenRead(fileName))
@@ -55,10 +50,9 @@ namespace Portal.Consultoras.BizLogic
                 username = split[1];
             }
 
-            if (domain == null)
-                request.Credentials = new NetworkCredential(username, password);
-            else
-                request.Credentials = new NetworkCredential(username, password, domain);
+            request.Credentials = domain == null
+                ? new NetworkCredential(username, password)
+                : new NetworkCredential(username, password, domain);
 
             request.UsePassive = true;
             request.UseBinary = true;

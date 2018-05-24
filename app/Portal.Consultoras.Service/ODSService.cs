@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.ServiceContracts;
+using System;
+using System.Collections.Generic;
+using Portal.Consultoras.Entities.ProgramaNuevas;
 
 namespace Portal.Consultoras.Service
 {
     public class ODSService : IODSService
     {
-        private BLProducto BLProducto;
-        private BLMensajeCUV BLMensajeCUV;
-        private BLConsultora BLConsultora;
-        private BLTipoMeta BLTipoMeta;
-        private BLUbigeo BLUbigeo;
+        private readonly IProductoBusinessLogic BLProducto;
+        private readonly BLMensajeCUV BLMensajeCUV;
+        private readonly BLConsultora BLConsultora;
+        private readonly BLTipoMeta BLTipoMeta;
+        private readonly BLUbigeo BLUbigeo;
 
         public ODSService()
         {
@@ -26,7 +25,6 @@ namespace Portal.Consultoras.Service
             BLUbigeo = new BLUbigeo();
         }
 
-        // Nueva funcionalidad para la parametrización de CUVs
         public IList<BEMensajeCUV> GetMensajesCUVsByPaisAndCampania(int CampaniaID, int paisID)
         {
             return BLMensajeCUV.GetMensajesCUVsByPaisAndCampania(CampaniaID, paisID);
@@ -54,50 +52,49 @@ namespace Portal.Consultoras.Service
 
         public IList<BEProducto> SelectProductoByCodigoDescripcion(int paisID, int campaniaID, string codigoDescripcion, int criterio, int rowCount)
         {
-            //return BLProducto.SelectProductoByCodigoDescripcion(paisID, campaniaID, codigoDescripcion, criterio, rowCount);
             return BLProducto.SelectProductoByCodigoDescripcionSearch(paisID, campaniaID, codigoDescripcion, criterio, rowCount);
         }
 
         public IList<BEConsultoraCodigo> SelectConsultoraCodigo(int paisID, int regionID, int zonaID, string codigo, int rowCount)
         {
-            var BLConsultora = new BLConsultora();
-            return BLConsultora.SelectConsultoraCodigo(paisID, regionID, zonaID, codigo, rowCount);
+            var blConsultora = new BLConsultora();
+            return blConsultora.SelectConsultoraCodigo(paisID, regionID, zonaID, codigo, rowCount);
         }
 
         public IList<BEConsultoraCodigo> SelectConsultoraCodigo_A(int paisID, string codigo, int rowCount)
         {
-            var BLConsultora = new BLConsultora();
-            return BLConsultora.SelectConsultoraCodigo(paisID, codigo, rowCount);
+            var blConsultora = new BLConsultora();
+            return blConsultora.SelectConsultoraCodigo(paisID, codigo, rowCount);
         }
 
         public IList<BEConsultoraCodigo> SelectConsultoraByCodigo(int paisID, string codigo)
         {
-            var BLConsultora = new BLConsultora();
-            return BLConsultora.SelectConsultoraCodigo(paisID, codigo);
+            var blConsultora = new BLConsultora();
+            return blConsultora.SelectConsultoraCodigo(paisID, codigo);
         }
 
         public IList<BEConsultora> SelectConsultoraByID(int paisID, Int64 ConsultoraID)
         {
-            var BLConsultora = new BLConsultora();
-            return BLConsultora.SelectConsultoraByID(paisID, ConsultoraID);
+            var blConsultora = new BLConsultora();
+            return blConsultora.SelectConsultoraByID(paisID, ConsultoraID);
         }
 
         public void LoadConsultoraCodigo(int paisID)
         {
-            var BLConsultora = new BLConsultora();
-            BLConsultora.LoadConsultoraCodigo(paisID);
+            var blConsultora = new BLConsultora();
+            blConsultora.LoadConsultoraCodigo(paisID);
         }
 
         public IList<BEComprobantePercepcion> SelectComprobantePercepcion(int paisID, long ConsultoraID)
         {
-            var BLComprobantePercepcion = new BLComprobantePercepcion();
-            return BLComprobantePercepcion.SelectComprobantePercepcion(paisID, ConsultoraID);
+            var blComprobantePercepcion = new BLComprobantePercepcion();
+            return blComprobantePercepcion.SelectComprobantePercepcion(paisID, ConsultoraID);
         }
 
         public IList<BEComprobantePercepcionDetalle> SelectComprobantePercepcionDetalle(int paisID, int IdComprobantePercepcion)
         {
-            var BLComprobantePercepcion = new BLComprobantePercepcion();
-            return BLComprobantePercepcion.SelectComprobantePercepcionDetalle(paisID, IdComprobantePercepcion);
+            var blComprobantePercepcion = new BLComprobantePercepcion();
+            return blComprobantePercepcion.SelectComprobantePercepcionDetalle(paisID, IdComprobantePercepcion);
         }
 
         public decimal GetSaldoActualConsultora(int paisID, string Codigo)
@@ -139,6 +136,7 @@ namespace Portal.Consultoras.Service
             return BLConsultora.GetConsultoraIdByCodigo(paisID, CodigoConsultora);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public IList<BEProducto> GetProductoComercialByListaCuv(int paisID, int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv)
         {
             return BLProducto.GetProductoComercialByListaCuv(paisID, campaniaID, regionID, zonaID, codigoRegion, codigoZona, listaCuv);
@@ -225,8 +223,8 @@ namespace Portal.Consultoras.Service
 
         public IList<BEProducto> GetValidarCUVMisPedidos(int PaisID, int Campania, string InputCUV, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona)
         {
-            var BLMisPedidos = new BLConsultoraOnline();
-            return BLMisPedidos.GetValidarCUVMisPedidos(PaisID, Campania, InputCUV, RegionID, ZonaID, CodigoRegion, CodigoZona);
+            var blMisPedidos = new BLConsultoraOnline();
+            return blMisPedidos.GetValidarCUVMisPedidos(PaisID, Campania, InputCUV, RegionID, ZonaID, CodigoRegion, CodigoZona);
         }
 
         #endregion
@@ -246,7 +244,6 @@ namespace Portal.Consultoras.Service
             return BLProducto.GetNombreProducto048ByListaCUV(paisID, campaniaId, listaCUV);
         }
 
-        //PL20-1237
         public int InsProductoCompartido(BEProductoCompartido ProComp)
         {
             return BLProducto.InsProductoCompartido(ProComp);
@@ -261,5 +258,28 @@ namespace Portal.Consultoras.Service
         {
             return BLProducto.GetListBrothersByCUV(paisID, codCampania, cuv);
         }
+        #region Programa Nuevas Activo
+        public Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv)
+        {
+            return BLProducto.ValidarBusquedaProgramaNuevas(paisID, campaniaID, ConsultoraID, codigoPrograma, consecutivoNueva, cuv);
+        }
+
+        public int ValidarCantidadMaximaProgramaNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada)
+        {
+            return BLProducto.ValidarCantidadMaximaProgramaNuevas(paisID, campaniaID, consecutivoNueva, codigoPrograma, cantidadEnPedido, cuvIngresado, cantidadIngresada);
+        }
+
+        public bool ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, List<string> lstCuvPedido)
+        {
+            return BLProducto.ValidaCuvElectivo(paisID, campaniaID, cuvIngresado, consecutivoNueva, codigoPrograma, lstCuvPedido);
+        }
+        #endregion
+
+        #region VentaExclusiva
+        public Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(int paisID, int campaniaID, string codigoConsultora, string cuv)
+        {
+            return BLProducto.ValidarVentaExclusiva(paisID, campaniaID, codigoConsultora, cuv);
+        }
+        #endregion
     }
 }

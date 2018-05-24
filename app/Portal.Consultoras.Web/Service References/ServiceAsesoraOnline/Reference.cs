@@ -197,6 +197,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool AceptaPoliticaPrivacidadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool AceptaTerminosCondicionesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -210,6 +213,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ActualizarClaveField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int AniosPermanenciaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string AnoCampaniaIngresoField;
@@ -254,6 +260,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private string CodigoISOField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoProgramaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoTerritorioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -264,6 +273,12 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigorRegionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigosConcursosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigosProgramaNuevasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool CompartirDatosField;
@@ -281,6 +296,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private string ConfirmarClaveField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ConsecutivoNuevaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ConsultoraAsociadaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -291,6 +309,18 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ConsultoraNuevaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CuponEstadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal CuponMontoMaxDsctoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal CuponPctDescuentoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short CuponTipoCondicionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionNivelField;
@@ -323,6 +353,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private bool EMailActivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsAniversarioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EsCDRWebZonaValidaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -330,6 +363,12 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsConsecutivoNuevaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsConsultoraNuevaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsCumpleanioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EsJovenField;
@@ -545,6 +584,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private int PasePedidoWebField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool PasoSextoPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool PedidoFICActivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -564,6 +606,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int RegionIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short RevistaDigitalSuscripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string RolField;
@@ -626,6 +671,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private int TieneCuponField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneGNDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TieneHanaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -642,6 +690,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private short TipoUsuarioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UrlBannerGanaMasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int UsuarioPruebaField;
@@ -717,6 +768,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool AceptaPoliticaPrivacidad {
+            get {
+                return this.AceptaPoliticaPrivacidadField;
+            }
+            set {
+                if ((this.AceptaPoliticaPrivacidadField.Equals(value) != true)) {
+                    this.AceptaPoliticaPrivacidadField = value;
+                    this.RaisePropertyChanged("AceptaPoliticaPrivacidad");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool AceptaTerminosCondiciones {
             get {
                 return this.AceptaTerminosCondicionesField;
@@ -777,6 +841,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((object.ReferenceEquals(this.ActualizarClaveField, value) != true)) {
                     this.ActualizarClaveField = value;
                     this.RaisePropertyChanged("ActualizarClave");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int AniosPermanencia {
+            get {
+                return this.AniosPermanenciaField;
+            }
+            set {
+                if ((this.AniosPermanenciaField.Equals(value) != true)) {
+                    this.AniosPermanenciaField = value;
+                    this.RaisePropertyChanged("AniosPermanencia");
                 }
             }
         }
@@ -964,6 +1041,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoPrograma {
+            get {
+                return this.CodigoProgramaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoProgramaField, value) != true)) {
+                    this.CodigoProgramaField = value;
+                    this.RaisePropertyChanged("CodigoPrograma");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string CodigoTerritorio {
             get {
                 return this.CodigoTerritorioField;
@@ -1011,6 +1101,32 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((object.ReferenceEquals(this.CodigorRegionField, value) != true)) {
                     this.CodigorRegionField = value;
                     this.RaisePropertyChanged("CodigorRegion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigosConcursos {
+            get {
+                return this.CodigosConcursosField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigosConcursosField, value) != true)) {
+                    this.CodigosConcursosField = value;
+                    this.RaisePropertyChanged("CodigosConcursos");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigosProgramaNuevas {
+            get {
+                return this.CodigosProgramaNuevasField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigosProgramaNuevasField, value) != true)) {
+                    this.CodigosProgramaNuevasField = value;
+                    this.RaisePropertyChanged("CodigosProgramaNuevas");
                 }
             }
         }
@@ -1081,6 +1197,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ConsecutivoNueva {
+            get {
+                return this.ConsecutivoNuevaField;
+            }
+            set {
+                if ((this.ConsecutivoNuevaField.Equals(value) != true)) {
+                    this.ConsecutivoNuevaField = value;
+                    this.RaisePropertyChanged("ConsecutivoNueva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string ConsultoraAsociada {
             get {
                 return this.ConsultoraAsociadaField;
@@ -1128,6 +1257,58 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((this.ConsultoraNuevaField.Equals(value) != true)) {
                     this.ConsultoraNuevaField = value;
                     this.RaisePropertyChanged("ConsultoraNueva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CuponEstado {
+            get {
+                return this.CuponEstadoField;
+            }
+            set {
+                if ((this.CuponEstadoField.Equals(value) != true)) {
+                    this.CuponEstadoField = value;
+                    this.RaisePropertyChanged("CuponEstado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal CuponMontoMaxDscto {
+            get {
+                return this.CuponMontoMaxDsctoField;
+            }
+            set {
+                if ((this.CuponMontoMaxDsctoField.Equals(value) != true)) {
+                    this.CuponMontoMaxDsctoField = value;
+                    this.RaisePropertyChanged("CuponMontoMaxDscto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal CuponPctDescuento {
+            get {
+                return this.CuponPctDescuentoField;
+            }
+            set {
+                if ((this.CuponPctDescuentoField.Equals(value) != true)) {
+                    this.CuponPctDescuentoField = value;
+                    this.RaisePropertyChanged("CuponPctDescuento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short CuponTipoCondicion {
+            get {
+                return this.CuponTipoCondicionField;
+            }
+            set {
+                if ((this.CuponTipoCondicionField.Equals(value) != true)) {
+                    this.CuponTipoCondicionField = value;
+                    this.RaisePropertyChanged("CuponTipoCondicion");
                 }
             }
         }
@@ -1263,6 +1444,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsAniversario {
+            get {
+                return this.EsAniversarioField;
+            }
+            set {
+                if ((this.EsAniversarioField.Equals(value) != true)) {
+                    this.EsAniversarioField = value;
+                    this.RaisePropertyChanged("EsAniversario");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int EsCDRWebZonaValida {
             get {
                 return this.EsCDRWebZonaValidaField;
@@ -1297,6 +1491,32 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((this.EsConsecutivoNuevaField.Equals(value) != true)) {
                     this.EsConsecutivoNuevaField = value;
                     this.RaisePropertyChanged("EsConsecutivoNueva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsConsultoraNueva {
+            get {
+                return this.EsConsultoraNuevaField;
+            }
+            set {
+                if ((this.EsConsultoraNuevaField.Equals(value) != true)) {
+                    this.EsConsultoraNuevaField = value;
+                    this.RaisePropertyChanged("EsConsultoraNueva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsCumpleanio {
+            get {
+                return this.EsCumpleanioField;
+            }
+            set {
+                if ((this.EsCumpleanioField.Equals(value) != true)) {
+                    this.EsCumpleanioField = value;
+                    this.RaisePropertyChanged("EsCumpleanio");
                 }
             }
         }
@@ -2225,6 +2445,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool PasoSextoPedido {
+            get {
+                return this.PasoSextoPedidoField;
+            }
+            set {
+                if ((this.PasoSextoPedidoField.Equals(value) != true)) {
+                    this.PasoSextoPedidoField = value;
+                    this.RaisePropertyChanged("PasoSextoPedido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool PedidoFICActivo {
             get {
                 return this.PedidoFICActivoField;
@@ -2311,6 +2544,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((this.RegionIDField.Equals(value) != true)) {
                     this.RegionIDField = value;
                     this.RaisePropertyChanged("RegionID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short RevistaDigitalSuscripcion {
+            get {
+                return this.RevistaDigitalSuscripcionField;
+            }
+            set {
+                if ((this.RevistaDigitalSuscripcionField.Equals(value) != true)) {
+                    this.RevistaDigitalSuscripcionField = value;
+                    this.RaisePropertyChanged("RevistaDigitalSuscripcion");
                 }
             }
         }
@@ -2576,6 +2822,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneGND {
+            get {
+                return this.TieneGNDField;
+            }
+            set {
+                if ((this.TieneGNDField.Equals(value) != true)) {
+                    this.TieneGNDField = value;
+                    this.RaisePropertyChanged("TieneGND");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int TieneHana {
             get {
                 return this.TieneHanaField;
@@ -2649,6 +2908,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((this.TipoUsuarioField.Equals(value) != true)) {
                     this.TipoUsuarioField = value;
                     this.RaisePropertyChanged("TipoUsuario");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UrlBannerGanaMas {
+            get {
+                return this.UrlBannerGanaMasField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UrlBannerGanaMasField, value) != true)) {
+                    this.UrlBannerGanaMasField = value;
+                    this.RaisePropertyChanged("UrlBannerGanaMas");
                 }
             }
         }
@@ -2983,6 +3255,18 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAsesoraOnlineService/EnviarMailBienvenidaAsesoraOnline", ReplyAction="http://tempuri.org/IAsesoraOnlineService/EnviarMailBienvenidaAsesoraOnlineRespons" +
             "e")]
         System.Threading.Tasks.Task EnviarMailBienvenidaAsesoraOnlineAsync(string emailFrom, string emailTo, string titulo, string displayname, string nombreConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAsesoraOnlineService/CancelarSuscripcion", ReplyAction="http://tempuri.org/IAsesoraOnlineService/CancelarSuscripcionResponse")]
+        string CancelarSuscripcion(string paisISO, string codigoConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAsesoraOnlineService/CancelarSuscripcion", ReplyAction="http://tempuri.org/IAsesoraOnlineService/CancelarSuscripcionResponse")]
+        System.Threading.Tasks.Task<string> CancelarSuscripcionAsync(string paisISO, string codigoConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAsesoraOnlineService/VuelveASuscripcion", ReplyAction="http://tempuri.org/IAsesoraOnlineService/VuelveASuscripcionResponse")]
+        int VuelveASuscripcion(string paisISO, string codigoConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAsesoraOnlineService/VuelveASuscripcion", ReplyAction="http://tempuri.org/IAsesoraOnlineService/VuelveASuscripcionResponse")]
+        System.Threading.Tasks.Task<int> VuelveASuscripcionAsync(string paisISO, string codigoConsultora);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -3058,6 +3342,22 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         public System.Threading.Tasks.Task EnviarMailBienvenidaAsesoraOnlineAsync(string emailFrom, string emailTo, string titulo, string displayname, string nombreConsultora) {
             return base.Channel.EnviarMailBienvenidaAsesoraOnlineAsync(emailFrom, emailTo, titulo, displayname, nombreConsultora);
+        }
+        
+        public string CancelarSuscripcion(string paisISO, string codigoConsultora) {
+            return base.Channel.CancelarSuscripcion(paisISO, codigoConsultora);
+        }
+        
+        public System.Threading.Tasks.Task<string> CancelarSuscripcionAsync(string paisISO, string codigoConsultora) {
+            return base.Channel.CancelarSuscripcionAsync(paisISO, codigoConsultora);
+        }
+        
+        public int VuelveASuscripcion(string paisISO, string codigoConsultora) {
+            return base.Channel.VuelveASuscripcion(paisISO, codigoConsultora);
+        }
+        
+        public System.Threading.Tasks.Task<int> VuelveASuscripcionAsync(string paisISO, string codigoConsultora) {
+            return base.Channel.VuelveASuscripcionAsync(paisISO, codigoConsultora);
         }
     }
 }

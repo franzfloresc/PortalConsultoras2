@@ -1,17 +1,16 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Data;
+using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
-
-using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.BizLogic
 {
     public class BLClienteDB : IClienteDBBusinessLogic
     {
-        DAClienteDB clienteData;
+        readonly DAClienteDB clienteData;
 
         public BLClienteDB()
         {
@@ -20,40 +19,40 @@ namespace Portal.Consultoras.BizLogic
 
         public long InsertCliente(BEClienteDB cliente)
         {
-            long CodigoCliente = 0;
+            long codigoCliente;
 
-            using (TransactionScope Ambito = new TransactionScope(TransactionScopeOption.Required, TimeSpan.FromMinutes(0)))
+            using (TransactionScope ambito = new TransactionScope(TransactionScopeOption.Required, TimeSpan.FromMinutes(0)))
             {
-                CodigoCliente = clienteData.InsertCliente(cliente);
+                codigoCliente = clienteData.InsertCliente(cliente);
 
-                if (CodigoCliente > 0 && cliente.Contactos != null)
+                if (codigoCliente > 0 && cliente.Contactos != null)
                 {
                     foreach (var item in cliente.Contactos)
                     {
                         if (item.Estado == Constantes.ClienteEstado.Inactivo) continue;
 
-                        item.CodigoCliente = CodigoCliente;
+                        item.CodigoCliente = codigoCliente;
                         item.ContactoClienteID = clienteData.InsertContactoCliente(item);
                         if (item.ContactoClienteID == 0)
                         {
-                            CodigoCliente = 0;
+                            codigoCliente = 0;
                             item.CodigoCliente = 0;
                             break;
                         }
                     }
                 }
 
-                if (CodigoCliente > 0) Ambito.Complete();
+                if (codigoCliente > 0) ambito.Complete();
             }
 
-            return CodigoCliente;
+            return codigoCliente;
         }
 
         public bool UpdateCliente(BEClienteDB cliente)
         {
-            bool result = false;
+            bool result;
 
-            using (TransactionScope Ambito = new TransactionScope(TransactionScopeOption.Required, TimeSpan.FromMinutes(0)))
+            using (TransactionScope ambito = new TransactionScope(TransactionScopeOption.Required, TimeSpan.FromMinutes(0)))
             {
                 result = clienteData.UpdateCliente(cliente);
 
@@ -84,7 +83,7 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
 
-                if (result) Ambito.Complete();
+                if (result) ambito.Complete();
             }
 
             return result;

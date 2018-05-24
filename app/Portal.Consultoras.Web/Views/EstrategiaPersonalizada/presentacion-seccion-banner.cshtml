@@ -1,30 +1,41 @@
-﻿
-@model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
+﻿@model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
 
-<div class="parche_presentacion_contenedor" 
-     onclick="javascript: menuModule.sectionClick('@Model.UrlLandig', '@Model.Titulo')" 
-     style="background: url(@Model.ImagenFondo);
+@{ 
+    var seccionTituloClass = "seccion-titulo";
+    var vermasClass = "";
+
+    if (ViewBag.EsSuscrita)
+    {
+        seccionTituloClass += " seccion-titulo-dorado";
+        vermasClass += " dorado";
+    }
+}
+<div class="bc_plantilla_estrategia_personalizada">
+    <div class="parche_presentacion_contenedor parche_presentacion_contenedor_834"
+         onclick="javascript: menuModule.sectionClick('@Model.UrlLandig', '@Model.TituloBtnAnalytics');"
+         style="background: url(@Model.ImagenFondo);
             height: 500px;
-            background-position: center;
+            background-position: 54.5% 0;
             background-repeat: no-repeat;
             background-size: cover;"
-     data-plantilla="Banner">
+         data-plantilla="Banner">
 
-    <div class="bloque-titulo">
-        <div class="seccion-titulo">
-            <span>@Model.Titulo</span>
-        </div>
-        <div class="cantidad">
-            <span style="display:none;">Mostrando 3 de 161</span>
-        </div>
-
-        @if (Model.VerMas)
-        {
-            <div class="ir">
-                <a href="javascript:void(0);">VER MÁS OFERTAS</a>
+        <div class="bloque-titulo">
+            <div class="@seccionTituloClass">
+                <span>@Model.Titulo</span>
             </div>
-        }
-        <div class="parche_clear"></div>
+            <div class="cantidad">
+                <span style="display:none;">Mostrando 3 de 161</span>
+            </div>
+
+            @if (Model.VerMas)
+            {
+                <div class="ir">
+                    <a class="@vermasClass" href="javascript:void(0);">VER MÁS OFERTAS</a>
+                </div>
+            }
+            <div class="parche_clear"></div>
+        </div>
+        <div class="bloque-contenido"></div>
     </div>
-    <div class="bloque-contenido"></div>
 </div>

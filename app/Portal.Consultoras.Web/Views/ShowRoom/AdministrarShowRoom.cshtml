@@ -70,9 +70,9 @@
                 <div class="input_search">
                     <input type="button" value="Buscar" id="btnBuscar" name="">
                 </div>
-                <div class="">
-                    <input type="button" value="Tipos de Oferta" id="btnTiposOferta" name="" 
-                           style="border-radius: 10px; background: #00A2E8; color: white; -webkit-appearance: none; border: 0; height: 40px; margin-left: 10px;">
+                <div class="input_search">
+                    <input type="button" value="Tipos de Oferta" id="btnTiposOferta" name="">
+                           <!--style="border-radius: 10px; background: #00A2E8; color: white; -webkit-appearance: none; border: 0; height: 40px; margin-left: 10px;">-->
                 </div>
             </div>
         </div>
@@ -144,9 +144,9 @@
                 <select id="cbNivelEvento"></select>
             </div>
 
-            <div class="">
-                <input type="button" value="Buscar Personalización" id="btnBuscarPersonalizacionNivel" name=""
-                       style="border-radius: 10px; background: #00A2E8; color: white; -webkit-appearance: none; border: 0; height: 38px;">
+            <div class="input_horizontal">
+                <input type="button" value="Buscar Personalización" id="btnBuscarPersonalizacionNivel" name="">
+                       <!--style="border-radius: 10px; background: #00A2E8; color: white; -webkit-appearance: none; border: 0; height: 38px;">-->
             </div>
         </div>
     </div>
@@ -161,9 +161,9 @@
                 <select id="cbCategoriaEvento"></select>
             </div>
 
-            <div class="">
-                <input type="button" value="Buscar Personalización Categoría" id="btnBuscarPersonalizacionCategoria" name=""
-                       style="border-radius: 10px; background: #00A2E8; color: white; -webkit-appearance: none; border: 0; height: 38px;">
+            <div class="input_horizontal">
+                <input type="button" value="Buscar Personalización Categoría" id="btnBuscarPersonalizacionCategoria" name="">
+                       <!--style="border-radius: 10px; background: #00A2E8; color: white; -webkit-appearance: none; border: 0; height: 38px;">-->
             </div>
         </div>
     </div>
@@ -813,8 +813,7 @@
     var urlGetShowRoomPerfiles = baseUrl + 'ShowRoom/GetShowRoomPerfiles';
     var urlGuardarImagenShowRoom = baseUrl + 'ShowRoom/GuardarImagenShowRoom';
     var urlGuardarShowRoom = baseUrl + 'ShowRoom/GuardarShowRoom';
-    var urlUpdateOfertaShowRoom = baseUrl + 'ShowRoom/UpdateOfertaShowRoom';
-    var urlInsertOfertaShowRoom = baseUrl + 'ShowRoom/InsertOfertaShowRoom';
+    var urlInsertOrUpdateOfertaShowRoom = baseUrl + 'ShowRoom/InsertOrUpdateOfertaShowRoom';
     var urlInsertOfertaShowRoomDetalle = baseUrl + 'ShowRoom/InsertOfertaShowRoomDetalle';
     var urlUpdateOfertaShowRoomDetalle = baseUrl + 'ShowRoom/UpdateOfertaShowRoomDetalle';
     var urlDeshabilitarOfertaShowRoom = baseUrl + 'ShowRoom/DeshabilitarOfertaShowRoom';
@@ -888,10 +887,6 @@
                         vMessage += "- Debe ingresar la cantidad de perfiles.\n";
                     if (parseInt(jQuery.trim($('#txtEventoNumeroPerfiles').val())) <= 0)
                         vMessage += "- La cantidad de perfiles debe ser mayor a cero.\n";
-                    //if (jQuery.trim($('#txtEventoRutaShowRoomPopup').val()) == "")
-                    //    vMessage += "- Debe ingresar la ruta del Popup del Evento ShowRoom.\n";
-                    //if (jQuery.trim($('#txtEventoRutaShowRoomBannerLateral').val()) == "")
-                    //    vMessage += "- Debe ingresar la ruta del del Banner Lateral del Evento ShowRoom.\n";
 
                     if (vMessage != "") {
                         alert(vMessage);
@@ -1000,11 +995,6 @@
                     if (jQuery.trim($('#txtUnidadesPermitidasModal').val()) == "" || jQuery.trim($('#txtOrdenModal').val()) == "0")
                         vMessage += "- Debe ingresar las unidades permitidas válido.\n";
 
-                    //if (jQuery.trim($('#hdStockProducto').val()) == "0" && $("#chkHabilitarOferta").attr('checked')) {
-                    //    vMessage += "- La Oferta no se podrá habilitar hasta que el stock sea mayor que 0.\n";
-                    //    $("#chkHabilitarOferta").removeAttr('checked');
-                    //}
-
                     if (vMessage != "") {
                         alert(vMessage);
                         return false;
@@ -1027,15 +1017,6 @@
             width: 900,
             draggable: true,
             title: "Edición de Productos"
-            //buttons:
-            //{
-            //    "Guardar": function () {
-            //        alert("hola");
-            //    },
-            //    "Cancelar": function () {
-            //        $(this).dialog('close');
-            //    }
-            //}
         });
 
         $('#DialogRegistroOfertaShowRoomDetalleEditar').dialog({
@@ -2460,12 +2441,6 @@
     }
 
     function RegistrarOfertaShowRoom() {
-        var accion = "";
-        if ($("#FlagTransaccion").val() == "1")
-            accion = urlUpdateOfertaShowRoom;
-        else
-            accion = urlInsertOfertaShowRoom;
-
         var Item = {
             CampaniaID: jQuery('#hdCampaniaID').val(),
             CUV: jQuery('#txtCUVModal').val(),
@@ -2481,11 +2456,8 @@
             FlagHabilitarProducto: $("#chkHabilitarOferta").attr('checked') ? 1 : 0,
             CodigoTipoOferta: $.trim($("#hdCodigoOferta").val()),
             PaisID: paisID,
-            //CantidadIncrementa: $("#txtCantidad").val() == '' ? '0' : $("#txtCantidad").val(),
             CantidadIncrementa: 0,
-            //Incrementa: $("#ddlIncrementar").val(),
             Incrementa: 0,
-            //Agotado: $("#chkAgotado").attr('checked') ? 1 : 0
             Agotado: 0,
             ConfiguracionOfertaID: $("#hdConfiguracionOfertaID").val(),
             EsSubCampania: $("#chkEsSubCampania").attr('checked') ? true : false
@@ -2494,7 +2466,7 @@
         waitingDialog({ title: "Procesando" });
         jQuery.ajax({
             type: 'POST',
-            url: accion,
+            url: urlInsertOrUpdateOfertaShowRoom,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(Item),
@@ -2508,9 +2480,7 @@
                         LimpiarDatos();
                         jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
                     }
-                    else {
-                        alert(data.message);
-                    }
+                    else alert(data.message);
                 }
             },
             error: function (data, error) {
@@ -2707,7 +2677,7 @@
     function ShowImage(cellvalue, options, rowObject) {
         var image = "";
         if (rowObject[16] != "") {
-            image = '<img src="' + rowObject[16] + '" alt="" width="70px" height="60px" title="" border="0" />'; // 1664
+            image = '<img src="' + rowObject[16] + '" alt="" width="70px" height="60px" title="" border="0" />';
         } else {
             image = '<img src="' + imagenProductoVacio + '" alt="" width="60px" height="60px" title="" border="0" />';
         }
@@ -2717,7 +2687,7 @@
     function ShowImageDetalle(cellvalue, options, rowObject) {
         var image = "";
         if (rowObject[7] != "") {
-            image = '<img src="' + rowObject[7] + '" alt="" width="70px" height="60px" title="" border="0" />'; // 1664
+            image = '<img src="' + rowObject[7] + '" alt="" width="70px" height="60px" title="" border="0" />';
         } else {
             image = '<img src="' + imagenProductoVacio + '" alt="" width="60px" height="60px" title="" border="0" />';
         }
@@ -2840,17 +2810,6 @@
                     $('#chkEsSubCampania').attr('checked', true);
                 else
                     $('#chkEsSubCampania').removeAttr('checked');
-
-                //$('#ddlIncrementar').val('0');
-                //$('#txtCantidad').val('0');
-                //$('#chkAgotado').removeAttr('checked');
-
-                //$('#ddlIncrementar').removeAttr('disabled');
-                //$('#txtCantidad').removeAttr('disabled');
-                //$('#txtCantidad').css('background-color', '');
-                //$('#ddlIncrementar').css('background-color', '');
-                //$('#dvcantidad').removeAttr('style');
-                //$('#dvincrementa').removeAttr('style');
 
                 showDialog("DialogRegistroOfertaShowRoom");
 
@@ -3048,7 +3007,6 @@
             $("#txtTipoOfertaDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'TipoOferta'));
             $("#txtCUVDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'CUV'));
             $("#txtDescripcionDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'Descripcion'));
-            //$("#txtPrecioValorizadoDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'PrecioValorizado'));
             $("#txtPrecioValorizadoDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'PrecioValorizado'));
 
             showDialog("DialogRegistroOfertaShowRoomDetalle");
@@ -3403,12 +3361,6 @@
             async: true,
             success: function (data) {
                 if (checkTimeout(data)) {
-                    //closeWaitingDialog();
-
-                    //if (data.success == true) {
-                    //    alert(data.message);
-                    //} else
-                    //    alert(data.message);
                 }
             },
             error: function (data, error) {
@@ -3490,48 +3442,6 @@
         $("#" + elementoDivVerImagen).html(html);
 
         $("#" + elementoHiddenImagen).val(nombreImagen);
-
-        //var item = {
-        //    PersonalizacionNivelId: personalizacionNivelId,
-        //    PersonalizacionId: personalizacionId,
-        //    EventoId: eventoId,
-        //    NivelId: nivelId,
-        //    Atributo: atributo,
-        //    Valor: '',
-        //    NombreImagen: nombreImagen,
-        //    NombreImagenAnterior: $("#" + nombreImagen + 'Anterior').val(),
-        //    EsImagen: true
-        //};
-
-        //jQuery.ajax({
-        //    type: 'POST',
-        //    url: urlGuardarPersonalizacionNivelShowRoom,
-        //    dataType: 'json',
-        //    contentType: 'application/json; charset=utf-8',
-        //    data: JSON.stringify(item),
-        //    async: true,
-        //    success: function (data) {
-        //        if (checkTimeout(data)) {
-        //            closeWaitingDialog();
-        //            if (data.success == true) {
-        //                alert(data.message);
-        //                //actualizar los inputs de la imagen respectiva
-
-        //                $("#" + elementoHiddenImagen).val(data.extra);
-        //                $("#" + elementoHiddenImagen + "Anterior").val(data.extra);
-        //            }
-        //            else {
-        //                alert(data.message);
-        //            }
-        //        }
-        //    },
-        //    error: function (data, error) {
-        //        if (checkTimeout(data)) {
-        //            closeWaitingDialog();
-        //            alert(data.message);
-        //        }
-        //    }
-        //});
     }
 
     function fnGrillaTiposOferta() {
@@ -3539,10 +3449,6 @@
             url: urlConsultarTiposOferta,
             hidegrid: false,
             datatype: 'json',
-            //postData: ({
-            //    PaisID: function () { return $("#ddlPais").val() },
-            //    CampaniaID: function () { return ($("#ddlCampania").val() == "" ? "0" : $("#ddlCampania").val()); }
-            //}),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
             colNames: ['ID', 'Código', 'Descripción', 'Acciones'],
@@ -3581,7 +3487,6 @@
             loadComplete: function () {
             },
             gridComplete: function () {
-                //ObtenerShowRoomPerfiles();
             }
         });
         jQuery("#listShowRoomTipoOferta").jqGrid('navGrid', "#pagerShowRoomTipoOferta", { edit: false, add: false, refresh: false, del: false, search: false });
@@ -3628,7 +3533,6 @@
             async: false,
             success: function (data) {
                 if (checkTimeout(data)) {
-                    //closeWaitingDialog();
                     if (data.success == true) {
                         resultado = data.resultado;
 
@@ -3642,7 +3546,6 @@
             },
             error: function (data, error) {
                 if (checkTimeout(data)) {
-                    //closeWaitingDialog();
                     alert(data.message);
                 }
             }

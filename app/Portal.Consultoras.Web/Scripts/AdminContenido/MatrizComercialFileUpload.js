@@ -3,11 +3,11 @@ var MatrizComercialFileUpload = function (config) {
     var _config = {
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction || '',
         allowedExtensions: config.allowedExtensions || ['jpg', 'png', 'jpeg'],
-        habilitarNemotecnico: config.habilitarNemotecnico || false       
+        habilitarNemotecnico: config.habilitarNemotecnico || false
     };
 
     var _validarImagen = '1';
-    var _nemotecnico = config.nemotecnico; //|| Nemotecnico({})
+    var _nemotecnico = config.nemotecnico;
     var _uploader = '';
 
     var _validarNemotecnico = function (fileName) {
@@ -23,8 +23,7 @@ var MatrizComercialFileUpload = function (config) {
         if ($("#ddlTipoEstrategia option:selected").attr("data-FValidarImagen") == _validarImagen) {
             return tamanoMaximo;
         }
-        else
-        {
+        else {
             return 0;
         }
     }

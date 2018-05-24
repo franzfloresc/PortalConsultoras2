@@ -39,7 +39,6 @@
             }
         });
         fnGrilla();
-		//R2161
         $("#chkSeleccionar").click(function () {
             if (this.checked)
                 $.jstree._reference($("#arbolRegionZona")).check_all();
@@ -75,7 +74,6 @@
         });
     });
 
-	//R2161
 	function CargarSegmentoPais() {
         var PaisId = $('#ddlPaisesServSegZona').val();
         if (PaisId != -1) {
@@ -496,7 +494,6 @@
         var Edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "','" + rowObject[1] + "','" + rowObject[2] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar' title='Editar' border='0' /></a>";
         var Del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar' title='Eliminar' border='0' /></a>";
         var Par = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').AgregarParametro('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/list_add_font.png")' alt='Parametros' title='Agregar Parametros' border='0' /></a>";
-        //RQ_PBS - R2161
         var Conf = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').ConfigurarSegZona('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/configuracion.png")' alt='Configurar Segmento y Zona' title='Configurar Segmento y Zona' border='0' /></a>";
         return Edit + Del + Par + Conf;
     };
@@ -788,7 +785,6 @@
     </div>
     @Html.Hidden("hdServicioId_Param")
 </div>
-<!-- R2161 -->
 <div id="DialogSegZonaServicio" style="display: none">
     <div class="Content_modal">
         @Html.Hidden("hdSeccionIdSegZon")

@@ -1,7 +1,7 @@
 ﻿
 <script id="lanzamiento-carrusel-template" type="text/x-handlebars-template">
     {{#each this.listaLan as |lan|}}
-        <div class="content_item_ept" data-item="{{lan.EstrategiaID}}" data-item-cuv="{{CUV2}}" data-ImgPrevia="{{lan.TipoEstrategiaDetalle.ImgPrevDesktop}}">
+        <div class="content_item_ept" data-item="{{lan.EstrategiaID}}" data-item-cuv="{{CUV2}}" data-ImgPrevia="{{lan.TipoEstrategiaDetalle.ImgPrevDesktop}}" style="min-height: 440px;">
             <div data-item-tag="body" class="lan_content_body">
                 <div style="display:none;"><div data-estrategia="{{JSON2string lan}}"></div></div>
                 <div class="detalle_set_banner" data-item-tag="contenido">
@@ -36,7 +36,7 @@
                     </div>
                     {{/if}}
                     
-                    <div data-item-tag="descripcion">
+                    <div data-item-tag="descripcion">           
                         {{#iff lan.DescripcionResumen '!=' ''}}
                             <div class="titulo_set_banner_ept">{{lan.DescripcionResumen}}</div>
                         {{/iff}}
@@ -53,15 +53,27 @@
                         </div>
                     </div>
                     <div class="producto_nombre_descripcion" data-item-tag="agregar">
-                        
-                        {{#if ../Mobile}}
+
+
+
+                        {{#iff TipoAccionAgregar '==' '3'}}
+                            <div onclick="javascript: VerDetalleEstrategia(event);">
+                                <div class="texto_elige_tono">¡AHORA ELIGE TU TONO!</div>
+                                <div class="clear"></div>
+                                <a href="javascript:;" class="btn_elige_tono js-no-popup">
+                                    <div>ELIGE TU OPCIÓN</div>
+                                </a>
+                            </div>
+                        {{/iff}}
+                        {{#iff TipoAccionAgregar '!=' '3'}}
+                            {{#if ../Mobile}}
                             <div class="liquidacion_rango_home">
                                 <a class="cantidad_menos_home" tabindex="0" data-bloqueada="{{lan.ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                                 <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral {{lan.ClaseBloqueada}}" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" tabindex="0" {{#iff lan.ClaseBloqueada '!=' ''}} disabled="disabled" {{/iff}}>
                                 <a class="cantidad_mas_home" tabindex="0" data-bloqueada="{{lan.ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                             </div>
                             <div class="clear"></div>
-                        {{else}}
+                            {{else}}
                             <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                                 <input type="text" value="1" min="1" max="99" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral {{lan.ClaseBloqueada}}" {{#iff lan.ClaseBloqueada '!=' ''}} disabled="disabled" {{/iff}} oninput="FuncionesGenerales.MaxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad" data-cantidad-input="-">
                                 <div class="liquidacion_rango_right_pedido">
@@ -69,11 +81,12 @@
                                     <a class="menos" data-cantidad-agregar="-" href="javascript:;" data-bloqueada="{{lan.ClaseBloqueada}}"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                                 </div>
                             </div>
-                        {{/if}}
-                        <a class="boton_Agregalo_home {{lan.ClaseBloqueada}}" data-bloqueada="{{lan.ClaseBloqueada}}" href="javascript:;" data-campaniaid="{{lan.CampaniaID}}"
-                            onclick="javascript:EstrategiaAgregar(event); ">
-                            AGRÉGALO
-                        </a>                    
+                            {{/if}}
+                            <a class="boton_Agregalo_home {{lan.ClaseBloqueada}}" data-bloqueada="{{lan.ClaseBloqueada}}" href="javascript:;" data-campaniaid="{{lan.CampaniaID}}"
+                               onclick="javascript:EstrategiaAgregar(event); ">
+                                AGRÉGALO
+                            </a>
+                        {{/iff}}
 
                         <div class="clear"></div>
                         <div style="margin-top:9px; height: 15px;">
@@ -106,7 +119,7 @@
             {{else}}
             {{#iff lan.TipoEstrategiaDetalle.ImgFondoDesktop '!=' ''}}
                 <div class="imagen_fondo" data-item-tag="fotofondo">
-                    <img src="{{lan.TipoEstrategiaDetalle.ImgFondoDesktop}}" alt="" />
+                    <img src="{{lan.TipoEstrategiaDetalle.ImgFondoDesktop}}" alt="" style="position: relative; left: 1px;" />
                 </div>
             {{/iff}}
             {{/if}}

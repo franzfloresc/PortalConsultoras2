@@ -1,7 +1,7 @@
-﻿using Portal.Consultoras.ServiceContracts;
-using Portal.Consultoras.Entities.AsesoraOnline;
-using Portal.Consultoras.BizLogic;
+﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.AsesoraOnline;
+using Portal.Consultoras.ServiceContracts;
 
 namespace Portal.Consultoras.Service
 {
@@ -34,7 +34,17 @@ namespace Portal.Consultoras.Service
 
         public void EnviarMailBienvenidaAsesoraOnline(string emailFrom, string emailTo, string titulo, string displayname, string nombreConsultora)
         {
-           new BLAsesoraOnline().EnviarMailBienvenidaAsesoraOnline(emailFrom, emailTo, titulo, displayname, nombreConsultora);
+            new BLAsesoraOnline().EnviarMailBienvenidaAsesoraOnline(emailFrom, emailTo, titulo, displayname, nombreConsultora);
+        }
+
+        public string CancelarSuscripcion(string paisISO, string codigoConsultora)
+        {
+            return new BLAsesoraOnline().CancelarSuscripcion(paisISO, codigoConsultora);
+        }
+
+        public int VuelveASuscripcion(string paisISO, string codigoConsultora)
+        {
+            return new BLAsesoraOnline().VuelveASuscripcion(paisISO, codigoConsultora);
         }
     }
 }

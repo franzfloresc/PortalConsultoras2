@@ -1,0 +1,229 @@
+﻿@using System.Web.Optimization
+@using Newtonsoft.Json
+@model Portal.Consultoras.Web.Models.Estrategia.UpSellingAdminModel
+
+@if (Model.EsPaisEsika)
+{
+    <link href="@Url.Content("~/Content/Css/Site/Esika/gestorContenido.css")" rel="stylesheet" type="text/css" />
+}
+else
+{
+    <link href="@Url.Content("~/Content/Css/Site/Lbel/gestorContenido.css")" rel="stylesheet" type="text/css" />
+}
+
+@Styles.Render("~/bundles/estrategias-upselling-css")
+
+<div id="upSellingCRUD">
+    <div data-bind="fadeVisible: !$root.mostrarFormularioUpSelling()">
+        <div class="wrap_cab">
+            <div class="filtros2">
+                <div class="elements">
+                    <div class="div-2">
+                        <h1><span>OFERTA FINAL - REGALOS</span></h1>
+                    </div>
+                    <div class="div-3">
+                        <div class="titB">Pais:</div>
+                        <div class="selectA">
+                            @Html.Label(Model.PaisNombre)
+                        </div>
+                        <div class="titB">Campaña:</div>
+                        <div class="selectA">
+                            @Html.DropDownList("cmbCampanas", new SelectList(Model.Campanas, "CampaniaID", "Codigo"), "-- Seleccionar --")
+                        </div>
+                        <div>
+                            <input type="button" id="btnBuscar" value="Buscar" style="height:37px; margin-left: 32px;" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="div-3">
+                        <div class="titB"></div>
+                        <input type="button" value="Nuevo" data-bind="click:nuevo" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wrap">
+            <div class="container clearfix">
+                <table id="list"></table>
+                <div id="pager"></div>
+            </div>
+        </div>
+    </div>
+
+    @*formulario de edicion*@
+    <div data-bind="fadeVisible: $root.mostrarFormularioUpSelling()">
+        <div data-bind="with: upSellingSeleccionado" class="wrap_cab">
+            <div class="elements">
+                <div class="div-2">
+                    <h1><span>OFERTA FINAL - REGALOS</span></h1>
+                </div>
+                <div class="div-3">
+                    <div class="titC titCD">Campaña:</div>
+                    <div class="selectA">
+                        <select data-bind="options: $root.campanasPais,
+                            optionsText: 'Codigo',
+                            optionsValue: 'Codigo',
+                            value: CodigoCampana"></select>
+                    </div>
+                    <div class="titC titCD">Activo:</div>
+                    <div>
+                        <input type="checkbox" data-bind="checked: Activo" />
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titC titCD" data-bind="preview : 'TextoMetaPrincipal'">Texto Meta principal:</div>
+                    <div class="selectA" data-bind="css: { error: TextoMetaPrincipal.hasError }">
+                        <input type="text" data-bind="value: TextoMetaPrincipal" />
+                    </div>
+                    <div class="titC titCD" data-bind="preview : 'TextoInferior'">Texto Inferior:</div>
+                    <div class="selectA" data-bind="css: { error: TextoInferior.hasError }">
+                        <input type="text" data-bind="value: TextoInferior" />
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titC titCD" data-bind="preview : 'TextoGanastePrincipal'">Texto Ganaste Principal:</div>
+                    <div class="selectA" data-bind="css: { error: TextoGanastePrincipal.hasError }">
+                        <input type="text" data-bind="value: TextoGanastePrincipal" />
+                    </div>
+                    <div class="titC titCD" data-bind="preview : 'TextoGanastePremio'">Texto Ganaste Premio:</div>
+                    <div class="selectA" data-bind="css: { error: TextoGanastePremio.hasError }">
+                        <input type="text" data-bind="value: TextoGanastePremio" />
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titC titCD" data-bind="preview : 'TextoGanasteBoton'">Texto Ganaste Boton:</div>
+                    <div class="selectA" data-bind="css: { error: TextoGanasteBoton.hasError }">
+                        <input type="text" data-bind="value: TextoGanasteBoton"  maxlength="21" />
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titC titCD" data-bind="preview : 'ImagenFondoPrincipalDesktop'">Imagen Fondo Principal Desktop(308x608): </div>
+                    <div class="selectA" data-bind="css: { error: ImagenFondoPrincipalDesktop.hasError }">
+                        <div data-bind="upLoader: { valueAccessor: ImagenFondoPrincipalDesktop, url: $root.settings().urlFileUpload }, imageSize: { show:true, attr:'alt'}"></div>
+                        <div>
+                            <img data-bind="attr: {src: ImagenFondoPrincipalDesktopUrl() }, imageSize: { show:true, attr:'title'}" class="img-preview">
+                        </div>
+                    </div>
+                    <div class="titC titCD" data-bind="preview : 'ImagenFondoPrincipalMobile'">Imagen Fondo Principal Mobile(400x815):</div>
+                    <div class="selectA" data-bind="css: { error: ImagenFondoPrincipalMobile.hasError }">
+                        <div data-bind="upLoader: { valueAccessor: ImagenFondoPrincipalMobile, url: $root.settings().urlFileUpload } "></div>
+                        <div>
+                            <img data-bind="attr: {src: ImagenFondoPrincipalMobileUrl() }, imageSize: { show:true, attr:'title'}" class="img-preview">
+                        </div>
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titC titCD" data-bind="preview : 'ImagenFondoGanasteMobile'">
+                        Imagen Fondo Mobile Pequeña(374x92):
+                    </div>
+                    <div class="selectA" data-bind="css: { error: ImagenFondoGanasteMobile.hasError }">
+                        <div data-bind="upLoader: { valueAccessor: ImagenFondoGanasteMobile, url: $root.settings().urlFileUpload } "></div>
+                        <div>
+                            <img data-bind="attr: {src: ImagenFondoGanasteMobileUrl() }, imageSize: { show:true, attr:'title'}" class="img-preview">
+                        </div>
+                    </div>
+                    <div id="previewPopUp">
+                        <div>
+                            <div id="previewThumbnail">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tabs" class="div-3">
+                    <ul>
+                        <li><a href="#tab-regalos">Regalos</a></li>
+                        <li><a href="#tab-categorias-apoyadas">Categorias apoyadas</a></li>
+                        <li><a href="#tab-ganadoras" id="ganadorasLink" data-bind="click: $root.TraerListaGanadoras">Ganadoras</a></li>
+                    </ul>
+                    @*seccion regalos*@
+                    <div id="tab-regalos">
+                        @Html.Partial("_Detalle")
+                    </div>
+                    @*regalos*@
+                    <div id="tab-categorias-apoyadas"></div>
+                    <div id="tab-ganadoras">
+                        <div>
+                            <div class="div-3">
+                                <input type="button" id="exportGRid" value="Exportar" data-bind="click: $root.exportarListaGanadoras" />
+                            </div>
+                            <div class="div-3">
+                                <div class="wrap">
+                                    <div class="container clearfix">
+                                        <table id="listOfertaFinalMontoMeta"></table>
+                                    </div>
+                                    <div id="pagerListaRegalos"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titD"></div>
+                    <div class="titC"></div>
+                    <div class="titC"></div>
+                    <div class="titB"></div>
+                    <div class="titA"></div>
+                    <div class="titA"></div>
+                    <input type="button" value="Guardar" data-bind="click:$root.save,
+                                                                value: $root.upSellingSeleccionadoIsDirty() ? '*Guardar': 'Guardar',
+                                            style: { background: $root.upSellingSeleccionadoIsDirty()? '#5bc0de':'' }" />
+                    <input type="button" value="Cancelar" data-bind="click:$root.cancel" />
+                </div>
+            </div>
+        </div>
+    </div>
+    @*popup regalo*@
+    <div id="editRegaloPopUp" data-bind="with: regaloSeleccionado">
+        @Html.Partial("_DetalleEdit")
+    </div>
+</div>
+
+<form action="/UpSelling/ExportarExcel" id="reporteListaGanadorasForm" style="display:none">
+    <input type="text" name="upSellingIdListaGanadoras" value="1">
+    <input type="text" name="campaniaListaGanadoras" value="">
+    <input type="submit" value="Submit">
+</form>
+
+
+@Scripts.Render("~/bundles/estrategias-upselling")
+@*<script src="@Url.Content(string.Format("~/Scripts/PortalConsultoras/Estrategia/UpSelling/Index.js?ver{0}", DateTime.Now.Ticks.ToString()))" type="text/javascript"></script>*@
+@section scripts{
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Estrategia/UpSelling/api.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Estrategia/UpSelling/Index.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
+
+    <script>
+        jQuery(document).ready(function() {
+            belcorp.estrategias.upselling.initialize({
+                idCampaniaHidden: 'campaniaListaGanadoras',
+                urlImagenDesactivar: '@Url.Content("~/Content/Images/NotAllowed.png")',
+                urlImagenEdit: '@Url.Content("~/Content/Images/Edit.png")',
+                urlImagengenDelete: '@Url.Content("~/Content/Images/Delete.png")',
+                idGrilla: 'list',
+                idPager: 'pager',
+                urlUpSellingObtener: '@Url.Action("Obtener", "UpSelling")',
+                urlUpSellingObtenerRegalos: '@Url.Action("ObtenerRegalos", "UpSelling")',
+                urlUpSellingGuardar: '@Url.Action("Guardar", "UpSelling")',
+                urlUpSellingEliminar: '@Url.Action("Eliminar", "UpSelling")',
+                urlUpSellingActualizarCabecera: '@Url.Action("Actualizar", "UpSelling")',
+                buttonBuscarId: 'btnBuscar',
+                buttonNuevoId: 'btnNuevo',
+                cmbCampanas: $("#cmbCampanas"),
+                idTabs: 'tabs',
+                idGrillaRegalos: 'listRegalos',
+                idPagerRegalos: 'pagerRegalos',
+                idTargetDiv: 'upSellingCRUD',
+                campanasPais: JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.Campanas))'),
+                idDivPopUpRegalo: 'editRegaloPopUp',
+                idListaGanadorasHidden: 'upSellingIdListaGanadoras',
+                idFormReporteListaGanadoras: 'reporteListaGanadorasForm',
+                urlListaGanadorasObtener: '@Url.Action("ObtenerOfertaFinalMontoMeta", "UpSelling")' ,
+                paisNombre: '@Model.PaisNombre',
+                urlFileUpload : '@Url.Action("ImageLanzamientoUpload", "FileUpload")',
+                urlTemporal: '@Url.Content("~/Content/Temporales")/',
+                divPreviewPopUp: $('#previewPopUp'),
+                divPreviewThumbnail: $('#previewThumbnail')
+            });
+        });
+    </script>
+}

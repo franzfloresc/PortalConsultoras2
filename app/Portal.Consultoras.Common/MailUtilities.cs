@@ -90,6 +90,19 @@ namespace Portal.Consultoras.Common
             catch { }
         }
 
+        public static void EnviarMailPinAutenticacion(string emailFrom, string emailTo, string titulo, string displayname, string logo, string nombre, string Pin)
+        {
+            string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\mailing_proceso_Pin_Autenticacion.html";
+            string htmlTemplate = FileManager.GetContenido(templatePath);
+
+            htmlTemplate = htmlTemplate.Replace("#Logo#", logo);
+            htmlTemplate = htmlTemplate.Replace("#Nombre#", nombre);
+            htmlTemplate = htmlTemplate.Replace("#Pin#", Pin);
+
+            try { Util.EnviarMail(emailFrom, emailTo, string.Empty, titulo, htmlTemplate, true, displayname); }
+            catch { }
+        }
+
         public static void EnviarMailProcesoActualizaMisDatos(string emailFrom, string emailTo, string titulo, string displayname, string logo, string nombre, string url, string fondo,
             string parametros)
         {
@@ -109,7 +122,6 @@ namespace Portal.Consultoras.Common
             catch { }
         }
 
-        //1774
         public static string CuerpoMensajePersonalizado(string url, string nombreConsultora, string param_querystring, bool esPaisEsika)
         {
             string s_html = string.Empty;
@@ -144,7 +156,6 @@ namespace Portal.Consultoras.Common
             s_html += "<td style=\"text-align:center; font-family:'Calibri'; font-size:20px; color:#000; padding-bottom:15px;\">Confírmanos tu dirección de correo para tener tu información actualizada y que puedas acceder a todos nuestros beneficios</td>";
             s_html += "</tr>";
             s_html += "<tr>";
-            //s_html += "<td style=\"text-align:center; font-family:'Calibri'; color:#000; font-weight:500; font-size:14px; padding-bottom:30px;  padding-left:14px; padding-right:14px;\">Confirma tu correo para acceder a todos nuestros beneficios: para tener la info actualizada</td>";
             s_html += "</tr>";
             s_html += "<tr>";
             s_html += "<td>";
@@ -185,7 +196,7 @@ namespace Portal.Consultoras.Common
             s_html += "<a href='http://www.lbel.com/'><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/T3o8rSPUKtKpe4g/logo-lbel.png\" alt=\"Logo L'bel\" /></a>";
             s_html += "</td>";
             s_html += "<td style=\"width:15%; text-align:left;border-right:1px solid #FFF;\">";
-            s_html += "<a href='http://www.cyzone.com/'><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/qZf6NJ5d9D75LCO/logo-cyzone.png\" alt=\"Logo Cyzone\" /></a>";
+            s_html += "<a href='http://www.cyzone.com/'><img src=\"https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Correo/logo-cyzone.png\" alt=\"Logo Cyzone\" /></a>";
             s_html += "</td>";
             s_html += "<td style=\"width:15%; font-family:'Calibri'; font-weight:400; font-size:13px; color:#FFF; vertical-align:middle;\">";
             s_html += "<table align=\"center\" style=\"text-align:center; width:100%;\">";
@@ -333,7 +344,7 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("<a href=\"http://www.lbel.com/\"><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/T3o8rSPUKtKpe4g/logo-lbel.png\" alt =\"Logo L'bel\"/></a>");
             sBuilder.Append("</td>");
             sBuilder.Append("<td style=\"width: 15%; text-align: left; border-right: 1px solid #FFF;\">");
-            sBuilder.Append("<a href=\"http://www.cyzone.com/\" ><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/qZf6NJ5d9D75LCO/logo-cyzone.png\" alt =\"Logo Cyzone\"/></a>");
+            sBuilder.Append("<a href=\"http://www.cyzone.com/\" ><img src=\"https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Correo/logo-cyzone.png\" alt =\"Logo Cyzone\"/></a>");
             sBuilder.Append("</td>");
             sBuilder.Append("<td style=\"width: 15%; font-family:'Calibri'; font-weight: 400; font-size:13px; color:#FFF; vertical-align:middle;\">");
             sBuilder.Append("<a href=\"https://www.facebook.com/SomosBelcorpOficial?fref=ts\" style=\"text-decoration: none\">");

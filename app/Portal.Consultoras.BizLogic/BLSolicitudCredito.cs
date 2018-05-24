@@ -9,7 +9,7 @@
     using System.Data;
     using System.Data.SqlClient;
     using System.IO;
-    using System.Text; //R2044
+    using System.Text;
     using System.Transactions;
 
     public class BLSolicitudCredito
@@ -17,9 +17,9 @@
         public IList<BESolicitudCredito> GetSolicitudCreditos(BESolicitudCredito objSolicitud)
         {
             var solicitudes = new List<BESolicitudCredito>();
-            var DASolicitud = new DASolicitudCredito(objSolicitud.PaisID);
+            var daSolicitud = new DASolicitudCredito(objSolicitud.PaisID);
 
-            using (IDataReader reader = DASolicitud.GetSolicitudCreditos(objSolicitud))
+            using (IDataReader reader = daSolicitud.GetSolicitudCreditos(objSolicitud))
             {
                 var columns = ((IDataRecord)reader).GetAllNames();
 
@@ -57,7 +57,7 @@
             try
             {
                 DASolicitudCredito daSolicitudCredito = new DASolicitudCredito(paisID);
-                if (paisID == 9) // Mexico R2155
+                if (paisID == 9) // Mexico
                 {
                     resultado = daSolicitudCredito.InsertarSolicitudCreditoMX(beSolicitudCredito);
                 }
@@ -105,7 +105,7 @@
 
             return beSolicitudCredito;
         }
-        // C20150926 - CAH --> Se agrego el parametro paisID
+
         public IList<BESolicitudCredito> BuscarSolicitudCredito(int paisID, string codigoZona, string codigoTerritorio, DateTime? fechaInicioSolicitud, DateTime? fechaFinSolicitud, string numeroDocumento, int estadoSolicitud, string TipoSolicitud, string CodigoConsultora)
         {
             var solicitudes = new List<BESolicitudCredito>();
@@ -142,7 +142,6 @@
             return beSolicitudCredito;
         }
 
-        //R2044
         public string[] DescargaSolicitudes(int paisID, string codigoUsuario)
         {
             var numeroLote = 0;
@@ -158,7 +157,7 @@
 
             string pathFileSolCredito = string.Empty, pathFileSolCreditoS3 = string.Empty;
             string pathFileSolActualizacion = string.Empty, pathFileSolActualizacionS3 = string.Empty;
-            string pathFileConsuFlex = string.Empty, pathFileConsuFlexS3 = string.Empty;
+            string pathFileConsuFlexS3 = string.Empty;
             string fileSolCredito = string.Empty;
             string fileSolActualizacion = string.Empty;
             string fileConsuFlex = string.Empty;
@@ -342,6 +341,7 @@
                     fileConsuFlex = FormatFile(codigoPais, ftpElementConsuFlex.Header, fechaProceso, fileGuid);
 
                     var path = ConfigurationManager.AppSettings.Get("OrderDownloadPath");
+                    string pathFileConsuFlex;
                     pathFileConsuFlexS3 = pathFileConsuFlex = path + fileConsuFlex;
 
                     try
@@ -381,8 +381,10 @@
 
                 #endregion
 
-                TransactionOptions transactionOptions = new TransactionOptions();
-                transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                TransactionOptions transactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
                 using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
                 {
                     if (paisConSolicitudCredito)
@@ -400,26 +402,20 @@
             }
             catch (Exception ex)
             {
-                if (paisConSolicitudCredito)
+                if (paisConSolicitudCredito && numeroLote > 0)
                 {
-                    if (numeroLote > 0)
-                    {
-                        string error = ex is BizLogicException ? ex.Message : "Error desconocido.";
-                        string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
-                        daSolicitud.UpdSolicitudDescarga(numeroLote, 99, error, errorExcepcion, string.Empty, string.Empty, string.Empty);
-                        MailUtilities.EnviarMailProcesoDescargaExcepcion("Solicitud de Crédito", codigoPais, fechaProceso, "Único", error, errorExcepcion);
-                    }
+                    string error = ex is BizLogicException ? ex.Message : "Error desconocido.";
+                    string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
+                    daSolicitud.UpdSolicitudDescarga(numeroLote, 99, error, errorExcepcion, string.Empty, string.Empty, string.Empty);
+                    MailUtilities.EnviarMailProcesoDescargaExcepcion("Solicitud de Crédito", codigoPais, fechaProceso, "Único", error, errorExcepcion);
                 }
 
-                if (paisConFlexipago)
+                if (paisConFlexipago && numeroLoteConsuFlex > 0)
                 {
-                    if (numeroLoteConsuFlex > 0)
-                    {
-                        string error = ex is BizLogicException ? ex.Message : "Error desconocido.";
-                        string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
-                        daSolicitud.UpdFlexipagoDescarga(numeroLoteConsuFlex, 99, error, errorExcepcion, string.Empty, string.Empty);
-                        MailUtilities.EnviarMailProcesoDescargaExcepcion("Flexipago", codigoPais, fechaProceso, "Único", error, errorExcepcion);
-                    }
+                    string error = ex is BizLogicException ? ex.Message : "Error desconocido.";
+                    string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
+                    daSolicitud.UpdFlexipagoDescarga(numeroLoteConsuFlex, 99, error, errorExcepcion, string.Empty, string.Empty);
+                    MailUtilities.EnviarMailProcesoDescargaExcepcion("Flexipago", codigoPais, fechaProceso, "Único", error, errorExcepcion);
                 }
                 throw;
             }
@@ -463,7 +459,7 @@
                 }
             }
 
-            string[] s = null;
+            string[] s;
             if (string.IsNullOrEmpty(pathFileSolCredito) && string.IsNullOrEmpty(pathFileSolActualizacion)) s = new string[] { };
             else s = new string[] { pathFileSolCredito, pathFileSolActualizacion };
             return s;
@@ -492,7 +488,7 @@
 
         private static string BuildLine(IEnumerable<TemplateField> template, DataRow row)
         {
-            var line = string.Empty;
+            var txtBuil = new StringBuilder();
             foreach (var field in template)
             {
                 var item = string.Empty;
@@ -503,62 +499,52 @@
                     {
                         if (row[field.FieldName].ToString().Length > field.Size)
                         {
-                            row[field.FieldName] = row[field.FieldName].ToString().Substring(0,field.Size);
+                            row[field.FieldName] = row[field.FieldName].ToString().Substring(0, field.Size);
                         }
                         item = row[field.FieldName].ToString();
                     }
                 }
 
-                line += item.PadRight(field.Size);
+                txtBuil.Append(item.PadRight(field.Size));
             }
-            return line;
+            return txtBuil.ToString();
         }
 
-        // R2155 - inicio
         public List<BETablaLogicaDatos> ListarColoniasByTerritorio(int paisID, string codigo)
         {
-            var colonias = new List<BETablaLogicaDatos>();
-            var DASolicitud = new DASolicitudCredito(paisID);
+            var daSolicitud = new DASolicitudCredito(paisID);
 
-            using (IDataReader reader = DASolicitud.ListarColoniasByTerritorio(codigo))
+            using (IDataReader reader = daSolicitud.ListarColoniasByTerritorio(codigo))
             {
-                while (reader.Read())
-                {
-                    var solicitud = new BETablaLogicaDatos(reader);
-                    colonias.Add(solicitud);
-                }
+                return reader.MapToCollection<BETablaLogicaDatos>();
             }
-            return colonias;
         }
+
         public string ValidarNumeroRFC(int paisID, string numeroRFC)
         {
-            var DASolicitud = new DASolicitudCredito(paisID);
-            return DASolicitud.ValidarNumeroRFC(numeroRFC);
+            var daSolicitud = new DASolicitudCredito(paisID);
+            return daSolicitud.ValidarNumeroRFC(numeroRFC);
         }
-        // R2155 - Fin
 
-        //R20150909 - Inicio
         public DateTime GetFechaHoraPais(int paisID)
         {
-            DateTime FechaHoraPais;
+            DateTime fechaHoraPais;
             try
             {
-                FechaHoraPais = new DASolicitudCredito(paisID).GetFechaHoraPais();
+                fechaHoraPais = new DASolicitudCredito(paisID).GetFechaHoraPais();
             }
             catch
             {
-                FechaHoraPais = DateTime.Now;
+                fechaHoraPais = DateTime.Now;
             }
-            return FechaHoraPais;
+            return fechaHoraPais;
         }
-        //R20150909 - Fin		   
 
         public DataTable ReporteSolidCreditDia(int paisID, string codigoRegion, DateTime? fechaInicioSolicitud, DateTime? fechaFinSolicitud)
         {
-            // var solicitudes = new List<BESolicitudCredito>();
             DASolicitudCredito daSolicitudCredito = new DASolicitudCredito(paisID);
             DataTable dtRepRegion = new DataTable();
-            DataSet dsRepRegion = dsRepRegion = daSolicitudCredito.ReporteSolidCreditDia(codigoRegion, fechaInicioSolicitud, fechaFinSolicitud);
+            DataSet dsRepRegion = daSolicitudCredito.ReporteSolidCreditDia(codigoRegion, fechaInicioSolicitud, fechaFinSolicitud);
 
             try
             {

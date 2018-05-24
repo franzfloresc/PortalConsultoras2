@@ -1,5 +1,5 @@
-﻿using Portal.Consultoras.Web.Areas.Mobile.Models;
-using System.Configuration;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Areas.Mobile.Models;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
@@ -11,7 +11,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var userData = UserData();
             MiAsesorBellezaModel model = new MiAsesorBellezaModel();
 
-            if (userData.CodigoISO == "PA")
+            if (userData.CodigoISO == Constantes.CodigosISOPais.Panama)
             {
                 model.OrdenMaximo = 2;
                 model.OrdenLbel = 1;
@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.OrdenMaximo = 3;
                 model.OrdenCyzone = 3;
 
-                if (ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO))
+                if (GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
                 {
                     model.OrdenEsika = 1;
                     model.OrdenLbel = 2;

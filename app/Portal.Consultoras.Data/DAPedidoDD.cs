@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Portal.Consultoras.Entities;
+using System;
+using System.Configuration;
 using System.Data;
 using System.Data.Common;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
 using System.Data.SqlClient;
-using System.Configuration;
 
 namespace Portal.Consultoras.Data
 {
@@ -50,40 +45,26 @@ namespace Portal.Consultoras.Data
                 {
                     con2.Open();
 
-                    //using (SqlCommand command2 = new SqlCommand("delete from TmpCabeceraDD", con2))
-                    //{
-                    //    command2.CommandType = CommandType.Text;
-                    //    command2.ExecuteNonQuery();
-                    //}
-
-                    SqlBulkCopy oSqlBulkCopy_Cabecera = new SqlBulkCopy(con2);
-                    oSqlBulkCopy_Cabecera.DestinationTableName = "TmpCabeceraDD";
+                    SqlBulkCopy oSqlBulkCopyCabecera = new SqlBulkCopy(con2);
+                    oSqlBulkCopyCabecera.DestinationTableName = "TmpCabeceraDD";
 
                     // Escribimos los datos en la tabla destino.
-                    oSqlBulkCopy_Cabecera.WriteToServer(reader);
+                    oSqlBulkCopyCabecera.WriteToServer(reader);
 
                     // Cerrar SqlBulkCopy y liberar memoria.
-                    oSqlBulkCopy_Cabecera.Close();
+                    oSqlBulkCopyCabecera.Close();
 
                     // Obtiene el segundo select del DataReader
                     reader.NextResult();
 
-
-                    //using (SqlCommand command3 = new SqlCommand("delete from TmpDetalleDD", con2))
-                    //{
-                    //    command3.CommandType = CommandType.Text;
-                    //    command3.ExecuteNonQuery();
-                    //}
-                    //Context.ExecuteNonQuery(command);
-
-                    SqlBulkCopy oSqlBulkCopy_Detalle = new SqlBulkCopy(con2);
-                    oSqlBulkCopy_Detalle.DestinationTableName = "TmpDetalleDD";
+                    SqlBulkCopy oSqlBulkCopyDetalle = new SqlBulkCopy(con2);
+                    oSqlBulkCopyDetalle.DestinationTableName = "TmpDetalleDD";
 
                     // Escribimos los datos en la tabla destino.
-                    oSqlBulkCopy_Detalle.WriteToServer(reader);
+                    oSqlBulkCopyDetalle.WriteToServer(reader);
 
                     // Cerrar SqlBulkCopy y liberar memoria.
-                    oSqlBulkCopy_Detalle.Close();
+                    oSqlBulkCopyDetalle.Close();
                 }
             }
         }
@@ -124,6 +105,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@RegionCodigo", DbType.AnsiString, BEPedidoDDWeb.RegionCodigo);
             Context.Database.AddInParameter(command, "@ZonaCodigo", DbType.AnsiString, BEPedidoDDWeb.ZonaCodigo);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, BEPedidoDDWeb.ConsultoraCodigo);
+            Context.Database.AddInParameter(command, "@FechaRegistroInicio", DbType.Date, BEPedidoDDWeb.FechaRegistroInicio);
+            Context.Database.AddInParameter(command, "@FechaRegistroFin", DbType.Date, BEPedidoDDWeb.FechaRegistroFin);
 
             return Context.ExecuteReader(command);
         }
@@ -146,6 +129,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@RegionCodigo", DbType.AnsiString, BEPedidoDDWeb.RegionCodigo);
             Context.Database.AddInParameter(command, "@ZonaCodigo", DbType.AnsiString, BEPedidoDDWeb.ZonaCodigo);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, BEPedidoDDWeb.ConsultoraCodigo);
+            Context.Database.AddInParameter(command, "@FechaRegistroInicio", DbType.Date, BEPedidoDDWeb.FechaRegistroInicio);
+            Context.Database.AddInParameter(command, "@FechaRegistroFin", DbType.Date, BEPedidoDDWeb.FechaRegistroFin);
 
             return Context.ExecuteReader(command);
         }
@@ -243,7 +228,7 @@ namespace Portal.Consultoras.Data
 
             return Convert.ToBoolean(Context.ExecuteScalar(command));
         }
-        
+
         public IDataReader ValidarCuvDescargado(int anioCampania, string codigoVenta, string codigoConsultora)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarCampaniaCUVDescargado");

@@ -8,7 +8,6 @@
     var mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
     var mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
     var backgroundVenta = mostrarPopupIntriga ? "" : "background: url('" + @Model.ImagenFondo + "') center center no-repeat;";
-
 }
 
 @if (esShowRoom)
@@ -17,11 +16,20 @@
          data-OrigenPedidoWeb=""
          data-plantilla="ShowRoom"
          style="@backgroundVenta;min-height: 500px; vertical-align: middle;">
-        <div class="parche_presentacion_contenedor">
+        <div class="parche_presentacion_contenedor  parche_presentacion_contenedor_834">
             @if (mostrarPopupVenta)
             {
+                var seccionTituloClass = "seccion-titulo";
+                var vermasClass = "";
+
+                if (ViewBag.EsSuscrita)
+                {
+                    seccionTituloClass += " seccion-titulo-dorado";
+                    vermasClass += " dorado";
+                }
+
                 <div class="bloque-titulo">
-                    <div class="seccion-titulo">
+                    <div class="@seccionTituloClass">
                         <span>@Model.Titulo</span>
                     </div>
                     <div class="cantidad">
@@ -30,8 +38,9 @@
 
                     @if (Model.VerMas)
                     {
+                        
                         <div class="ir">
-                            <a href="javascript: menuModule.sectionClick('@Model.UrlLandig', '@Model.Titulo')">VER MÁS OFERTAS</a>
+                            <a class="@vermasClass" href="javascript: menuModule.sectionClick('@Model.UrlLandig', '@Model.TituloBtnAnalytics')">VER MÁS OFERTAS</a>
                         </div>
                     }
                     <div class="parche_clear"></div>
@@ -45,45 +54,42 @@
         }
         else
         {
-            <div class="contenido" data-seccion-productos=""></div>
+            <div class="contenido" data-seccion-productos="" style="width: 88%;"></div>
         }
     </div>
 
 
-if (mostrarPopupIntriga)
-{
-    <script id="template-showroom" type="text/x-handlebars-template">
-        <div class="" data-popup-main="" style="max-height: 550px;">
-            <div class="" data-popup-body style="text-align:center; position:relative">
-                <input type="hidden" id="hdEventoIDShowRoom" value="{{EventoId}}" />
-                <input type="hidden" id="spnShowRoomEvento" value="{{EventoNombre}}" />
-                <input type="hidden" id="spnShowRoomEventoDescripcion" value="{{EventoTema}}" />
-                <div class="contenedorMensajeIntrigaA">
-                    <div class="dias_intriga_home dias_inicio_landing" style="text-align: center; padding:0">{{MensajeDiasFaltantes}}</div>
+    if (mostrarPopupIntriga)
+    {
+        <script id="template-showroom" type="text/x-handlebars-template">
+            <div class="" data-popup-main="" style="max-height: 550px;">
+                <div class="" data-popup-body style="text-align:center; position:relative">
+                    <input type="hidden" id="hdEventoIDShowRoom" value="{{EventoId}}" />
+                    <input type="hidden" id="spnShowRoomEvento" value="{{EventoNombre}}" />
+                    <input type="hidden" id="spnShowRoomEventoDescripcion" value="{{EventoTema}}" />
+                    <div class="contenedorMensajeIntrigaA">
+                        <div class="dias_intriga_home dias_inicio_landing" style="text-align: center; padding:0">{{MensajeDiasFaltantes}}</div>
+                    </div>
+                    <div class="contenedorMensajeIntrigaB">
+                    </div>
+                    <a href="/ShowRoom/Intriga">
+                        <img class="imagen_dias_intriga_inicio" style="height: 500px;" src="@Model.ImagenFondo" />
+                    </a>
                 </div>
-                <div class="contenedorMensajeIntrigaB">
-                </div>
-                <a href="/ShowRoom/Intriga">
-                    <img class="imagen_dias_intriga_inicio" style="height: 500px;" src="@Model.ImagenFondo" />
-                </a>
             </div>
-        </div>
-    </script>
-}
+        </script>
+    }
 
     if (mostrarPopupVenta)
     {
         <script id="template-showroom" type="text/x-handlebars-template">
-            <div class="content_estrategia_carrusel" style="height: auto;">
-                <div id="container-showroom-landing" class="content-favclientes content_carrusel_agregado">
-                    <div>
+            <div class="content_estrategia_carrusel content_estrategia_carrusel_834" style="height: auto;">
 
-                        <div class="clear"></div>
-                        @*<hr class="clear" />*@
-                        <div class="contenido" style="position:relative;">
+                        <div class="contenido contenido_834" style="position:relative;">
                             {{#each this.data as |item|}}
-                            <div class="" style="float: left; height: 100%; min-height: 1px; width:300px">
+                            <div class="revistadigital-landing">
                                 <div class="content_item_carrusel" data-posicion="{{Posicion}}" data-item="{{OfertaShowRoomID}}">
+                                    
                                     <div data-campos="" style="display:none;">
                                         <input type="hidden" class="hdOfertaShowRoomID" value="{{OfertaShowRoomID}}" />
                                         <input type="hidden" class="valorCuv" value="{{CUV}}" />
@@ -93,22 +99,33 @@ if (mostrarPopupIntriga)
                                         <input type="hidden" class="DescripcionProd" value="{{Descripcion}}" />
                                         <input type="hidden" class="DescripcionMarca" value="{{DescripcionMarca}}" />
                                         <input type="hidden" class="posicionEstrategia" value="{{Posicion}}" />
-                                    <input type="hidden" class="origenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopShowRoomContenedor" />
+                                        <input type="hidden" class="origenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopShowRoomContenedor" />
                                     </div>
-                                    <div class="producto_img_home mini" data-img="">
-                                        {{#IsNullOrEmpty ImagenProducto '=='}}
-                                            <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="max-width: 100% !important;" class="imagen_producto" alt="" data-img-lazy="1"/>
-                                        {{else}}
-                                            <img src="{{ImagenProducto}}" alt="" style="max-width: 100% !important;" class="imagen_producto" data-img-lazy="1"/>
-                                        {{/IsNullOrEmpty}}
-                                        <a class="ver_detalle_carrusel" href="{{UrlDetalle}}">VER DETALLE</a>
-                                    </div>
-                                    <div class="producto_nombre_descripcion">
-                                        <p class="nombre-producto-set">{{Descripcion}}</p>
-                                        <div class="producto_precio" style="margin-bottom: 3px;">
-                                            <span class="precio-oferta-normal">{{Simbolo}} {{FormatoPrecioValorizado}}</span>
-                                            <span class="precio-oferta-venta"><b>{{Simbolo}} {{FormatoPrecioOferta}}</b></span>
+                                    <div data-item-tag="contenido">
+                                        <div class="producto_img_home" data-img="">
+                                            {{#IsNullOrEmpty ImagenProducto '=='}}
+                                            <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="max-width: 100% !important;" class="imagen_producto" alt="" data-img-lazy="1" />
+                                            {{else}}
+                                            <img src="{{ImagenProducto}}" alt="" style="max-width: 100% !important;" class="imagen_producto" data-img-lazy="1" />
+                                            {{/IsNullOrEmpty}}
+                                            <a class="ver_detalle_carrusel" href="{{UrlDetalle}}">VER DETALLE</a>
                                         </div>
+                                    </div>
+                                    <div class="producto_nombre_descripcion" data-item-tag="descripcion">
+                                        <h6>&ensp;&nbsp;</h6>
+                                        <p class="nombre-producto nombre_producto"><b>{{Descripcion}}</b></p>
+                                    </div>
+                                    <div class="producto_nombre_descripcion" data-item-tag="precio">
+                                        <div>
+                                            <span class="producto_precio_normal">{{Simbolo}} {{FormatoPrecioValorizado}}</span>
+                                            <span class="producto_precio_oferta"><b>{{Simbolo}} {{FormatoPrecioOferta}}</b></span>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="producto_nombre_descripcion" data-item-tag="agregar">
+                                        {{#iff TipoAccionAgregar '==' '0'}}
+                                        <div class="texto_elige_tono"></div>
+                                        <div class="clear"></div>
                                         <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                                             <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
                                                    class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
@@ -120,6 +137,14 @@ if (mostrarPopupIntriga)
                                             </div>
                                         </div>
                                         <a class="boton_Agregalo_home" data-btn-agregar-sr="">AGRÉGALO</a>
+                                        {{/iff}}
+                                        {{#iff TipoAccionAgregar '==' '1'}}
+                                        <div class="texto_elige_tono"></div>
+                                        <div class="clear"></div>
+                                        <a class="btn_elige_tono" href="{{UrlDetalle}}">
+                                            <b style="color:#000000">ELIGE TU OPCIÓN</b>
+                                        </a>
+                                        {{/iff}}
                                         <div class="clear"></div>
                                         <div style="margin-top: 9px; margin-bottom: 9px; height: 15px;">
                                             <div class="agregado product-add" style="text-align: right; display: {{Agregado}};">
@@ -132,8 +157,6 @@ if (mostrarPopupIntriga)
                             </div>
                             {{/each}}
                             <div class="clear"></div>
-                        </div>
-                    </div>
                     <hr class="clear" />
                 </div>
             </div>

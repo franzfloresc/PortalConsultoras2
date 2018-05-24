@@ -2,7 +2,6 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
-using System.Configuration;
 using System.ServiceModel;
 using System.Web.Mvc;
 
@@ -12,11 +11,11 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            BEUsuario beusuario = new BEUsuario();
             var model = new ActualizarDatosModel();
 
             try
             {
+                BEUsuario beusuario;
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
                     beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
@@ -87,13 +86,14 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        var message = "";
+                        string message;
                         if (model.ActualizarClave != "")
                         {
                             var cambio = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario, model.ConfirmarClave.ToUpper(), "", userData.CodigoUsuario, EAplicacionOrigen.BienvenidaConsultora);
 
-                            if (cambio) message = "Los datos han sido actualizados correctamente.";
-                            else message = "Los datos han sido actualizados correctamente.-La contraseña no ha sido modificada, intentelo mas tarde.";
+                            message = cambio
+                                ? "Los datos han sido actualizados correctamente."
+                                : "Los datos han sido actualizados correctamente.-La contraseña no ha sido modificada, intentelo mas tarde.";
                         }
                         else
                         {
@@ -104,21 +104,15 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             try
                             {
-                                var param_querystring = Util.EncriptarQueryString(new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, model.Email });
+                                var paramQuerystring = Util.EncriptarQueryString(new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, model.Email });
 
-                                bool tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
-                                string nomconsultora = string.Empty;
+                                bool tipopais = GetPaisesEsikaFromConfig().Contains(userData.CodigoISO);
 
-                                if (String.IsNullOrEmpty(userData.Sobrenombre))
-                                {
-                                    nomconsultora = userData.PrimerNombre;
-                                }
-                                else
-                                {
-                                    nomconsultora = userData.Sobrenombre;
-                                }
+                                var nomconsultora = String.IsNullOrEmpty(userData.Sobrenombre)
+                                    ? userData.PrimerNombre
+                                    : userData.Sobrenombre;
 
-                                var cadena = MailUtilities.CuerpoMensajePersonalizado(Util.GetUrlHost(this.HttpContext.Request).ToString(), nomconsultora, param_querystring, tipopais);
+                                var cadena = MailUtilities.CuerpoMensajePersonalizado(Util.GetUrlHost(this.HttpContext.Request).ToString(), nomconsultora, paramQuerystring, tipopais);
 
                                 Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "Confirmación de Correo", cadena, true, userData.NombreConsultora);
                                 message += "-Se ha enviado un correo electrónico de verificación a la dirección ingresada.";
@@ -172,27 +166,27 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                int result = 0;
+                int result;
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
                     result = sv.UpdUsuarioRechazarInvitacion(userData.PaisID, userData.CodigoUsuario);
-                    if (result == 0)
+                }
+                if (result == 0)
+                {
+                    return Json(new
                     {
-                        return Json(new
-                        {
-                            success = false,
-                            message = "Error al actualizar Rechazo de Incitación, intentelo mas tarde",
-                            extra = ""
-                        });
-                    }
-                    else
+                        success = false,
+                        message = "Error al actualizar Rechazo de Incitación, intentelo mas tarde",
+                        extra = ""
+                    });
+                }
+                else
+                {
+                    return Json(new
                     {
-                        return Json(new
-                        {
-                            success = true,
-                            message = ""
-                        });
-                    }
+                        success = true,
+                        message = ""
+                    });
                 }
             }
             catch (FaultException ex)
@@ -222,32 +216,32 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                int result = 0;
+                int result;
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
                     result = sv.UpdUsuarioDatosPrimeraVezEstado(userData.PaisID, userData.CodigoUsuario);
+                }
 
-                    if (result == 0)
+                if (result == 0)
+                {
+                    return Json(new
                     {
-                        return Json(new
-                        {
-                            success = false,
-                            message = "Error al actualizar datos, intentelo mas tarde",
-                            extra = ""
-                        });
-                    }
-                    else
-                    {
-                        userData.CambioClave = 1;
-                        Session["PrimeraVezSession"] = null;
+                        success = false,
+                        message = "Error al actualizar datos, intentelo mas tarde",
+                        extra = ""
+                    });
+                }
+                else
+                {
+                    userData.CambioClave = 1;
+                    Session["PrimeraVezSession"] = null;
 
-                        return Json(new
-                        {
-                            success = true,
-                            message = "Los datos han sido actualizados correctamente."
-                        });
-                    }
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Los datos han sido actualizados correctamente."
+                    });
                 }
             }
             catch (FaultException ex)
@@ -282,14 +276,10 @@ namespace Portal.Consultoras.Web.Controllers
                 var sCelular = "";
                 var sNombre = "";
                 var sApellidos = "";
-                long sConsultorioID = 0;
                 var sCodigoConsultora = "";
                 var sEmailAnterior = "";
-                int campaniaID = 0;
                 int campaniaUltimo = 0;
                 int result;
-                int regionID = 0;
-                int zonaID = 0;
 
                 if (model.m_Nombre != null) sNombre = model.m_Nombre;
                 if (model.m_Apellidos != null) sApellidos = model.m_Apellidos;
@@ -299,62 +289,58 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.Celular != null) sCelular = model.Celular;
                 if (model.CodigoConsultora != null) sCodigoConsultora = model.CodigoConsultora;
 
-                sConsultorioID = model.ConsultoraID;
-                campaniaID = userData.CampaniaID;
-                regionID = userData.RegionID;
-                zonaID = userData.ZonaID;
+                var sConsultorioId = model.ConsultoraID;
+                var campaniaId = userData.CampaniaID;
+                var regionId = userData.RegionID;
+                var zonaId = userData.ZonaID;
 
                 if (model.Email != "")
                 {
-                    int cantidad = 0;
+                    int cantidad;
                     using (UsuarioServiceClient svr = new UsuarioServiceClient())
                     {
                         cantidad = svr.ValidarEmailConsultora(userData.PaisID, model.Email, userData.CodigoUsuario);
+                    }
 
-                        if (cantidad > 0)
+                    if (cantidad > 0)
+                    {
+                        return Json(new
                         {
-                            return Json(new
-                            {
-                                success = false,
-                                message = "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.",
-                                extra = ""
-                            });
-                        }
+                            success = false,
+                            message = "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.",
+                            extra = ""
+                        });
                     }
                 }
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    result = sv.UpdateDatosPrimeraVezMexico(userData.PaisID, userData.CodigoUsuario, sNombre, sApellidos, sTelefono, sTelefonoTrabajo, sCelular, sEmail, sConsultorioID, sCodigoConsultora, campaniaID, campaniaUltimo, regionID, zonaID, sEmailAnterior);
-
-                    if (result == 0)
-                    {
-                        return Json(new
-                        {
-                            success = false,
-                            message = "Error al actualizar datos, intentelo mas tarde",
-                            extra = ""
-                        });
-                    }
-                    else
-                    {
-                        var message = "";
-
-                        message = "Gracias por actualizar tus datos.</br> Junto con tu próximo pedido recibirás un </br> regalo sorpresa";
-                        userData.NombreConsultora = sNombre + ' ' + sApellidos;
-                        userData.EMail = sEmail;
-                        userData.Telefono = sTelefono;
-                        userData.TelefonoTrabajo = sTelefonoTrabajo;
-                        userData.Celular = sCelular;
-
-                        return Json(new
-                        {
-                            success = true,
-                            message = message,
-                            extra = ""
-                        });
-                    }
+                    result = sv.UpdateDatosPrimeraVezMexico(userData.PaisID, userData.CodigoUsuario, sNombre, sApellidos, sTelefono, sTelefonoTrabajo, sCelular, sEmail, sConsultorioId, sCodigoConsultora, campaniaId, campaniaUltimo, regionId, zonaId, sEmailAnterior);
                 }
+
+                if (result == 0)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Error al actualizar datos, intentelo mas tarde",
+                        extra = ""
+                    });
+                }
+
+                var message = "Gracias por actualizar tus datos.</br> Junto con tu próximo pedido recibirás un </br> regalo sorpresa";
+                userData.NombreConsultora = sNombre + ' ' + sApellidos;
+                userData.EMail = sEmail;
+                userData.Telefono = sTelefono;
+                userData.TelefonoTrabajo = sTelefonoTrabajo;
+                userData.Celular = sCelular;
+
+                return Json(new
+                {
+                    success = true,
+                    message = message,
+                    extra = ""
+                });
             }
             catch (FaultException ex)
             {

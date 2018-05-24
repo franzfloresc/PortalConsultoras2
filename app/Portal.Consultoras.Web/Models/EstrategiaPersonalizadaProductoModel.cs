@@ -12,6 +12,7 @@ namespace Portal.Consultoras.Web.Models
             ArrayContenidoSet = new List<string>();
             ListaDescripcionDetalle = new List<string>();
             Hermanos = new List<ProductoModel>();
+            PuedeAgregarProducto = true;
         }
 
         public int CampaniaID { get; set; }
@@ -24,6 +25,8 @@ namespace Portal.Consultoras.Web.Models
         public bool TienePaginaProducto { get; set; }
         public bool TienePaginaProductoMob { get; set; }
         public string FotoProducto01 { get; set; }
+        public string FotoProductoSmall { get; set; }
+        public string FotoProductoMedium { get; set; }
         public string ImagenURL { get; set; }
         public string DescripcionMarca { get; set; }
         public string DescripcionResumen { get; set; } // Puede ser el nombre de un set, o la descripcion simple
@@ -34,7 +37,7 @@ namespace Portal.Consultoras.Web.Models
         public decimal Precio { get; set; }
         public decimal Precio2 { get; set; }
         public string PrecioTachado { get; set; }
-        public string PrecioVenta { get; set; } 
+        public string PrecioVenta { get; set; }
         public int TipoAccionAgregar { get; set; } // es para los diferentes botones que sale en la seccion de agrega, elegir tono, ...
         public string ClaseBloqueada { get; set; }
         public bool ProductoPerdio { get; set; }
@@ -47,7 +50,7 @@ namespace Portal.Consultoras.Web.Models
         public List<string> ListaDescripcionDetalle { get; set; }
         public string TextoLibre { get; set; }
         public decimal PrecioPublico { get; set; }
-        
+
         public int MarcaID { get; set; }
         public string UrlCompartir { get; set; }
 
@@ -59,5 +62,12 @@ namespace Portal.Consultoras.Web.Models
         public bool EsOfertaIndependiente { get; set; }
         public string ImagenOfertaIndependiente { get; set; }
         public bool MostrarImgOfertaIndependiente { get; set; }
+        public string PrecioNiveles { get; set; }
+
+        public int FlagRevista { get; set; }
+        public bool PuedeAgregarProducto { get; set; }
+
+        public string CodigoProducto { get; set; }
+        public MensajeProductoBloqueadoModel MensajeProductoBloqueado { get; set; }
     }
 }

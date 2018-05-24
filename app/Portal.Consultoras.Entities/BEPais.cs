@@ -26,6 +26,8 @@ namespace Portal.Consultoras.Entities
         public bool HabilitarRestriccionHoraria { get; set; }
         public int HorasDuracionRestriccion { get; set; }
 
+        public string Mensajes { get; set; }
+
         public BEPais() { }
         public BEPais(IDataRecord row)
         {
@@ -34,16 +36,18 @@ namespace Portal.Consultoras.Entities
             NombreCorto = row["NombreSimple"].ToString();
             Nombre = row["NombreComplejo"].ToString();
 
-            if (DataRecord.HasColumn(row, "CodigoISOProd") && row["CodigoISOProd"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoISOProd"))
                 CodigoISOProd = row["CodigoISOProd"].ToString();
-            if (DataRecord.HasColumn(row, "ZonaHoraria") && row["ZonaHoraria"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ZonaHoraria"))
                 ZonaHoraria = Convert.ToDouble(row["ZonaHoraria"]);
-            if (DataRecord.HasColumn(row, "DiasAntes") && row["DiasAntes"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "DiasAntes"))
                 DiasAntes = Convert.ToInt32(row["DiasAntes"]);
-            if (DataRecord.HasColumn(row, "HabilitarRestriccionHoraria") && row["HabilitarRestriccionHoraria"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "HabilitarRestriccionHoraria"))
                 HabilitarRestriccionHoraria = Convert.ToBoolean(row["HabilitarRestriccionHoraria"]);
-            if (DataRecord.HasColumn(row, "HorasDuracionRestriccion") && row["HorasDuracionRestriccion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "HorasDuracionRestriccion"))
                 HorasDuracionRestriccion = Convert.ToInt32(row["HorasDuracionRestriccion"]);
+            if (DataRecord.HasColumn(row, "Mensajes"))
+                Mensajes = row["Mensajes"].ToString();
         }
     }
 }

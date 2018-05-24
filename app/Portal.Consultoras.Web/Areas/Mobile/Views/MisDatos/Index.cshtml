@@ -4,22 +4,12 @@
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 
-@*<div class="content_slider_home">
-        <div id="sliderHomeLoading" class="center">
-            <br />
-            <img src="@Url.Content("~/Content/Images/Loading.gif")" /> Cargando...
-            <br />
-        </div>
-        <div class="flexslider">
-            <ul class="slides"></ul>
-        </div>
-    </div>*@
-
 <div class="wrapper_resumen_mobile wrapper_actualizarMisDatos">
 
     <h1 class="titulo_actualizarMisDatos titulo_misDatos">MIS&nbsp;<b>DATOS</b></h1>
     <input type="hidden" id="hdn_CorreoMD" value="@Model.EMail" />
     <input type="hidden" id="hdn_CodigoUsuarioMD" value="@Model.CodigoUsuario" />
+    <input type="hidden" id="hdn_CodigoUsuarioReal" value="@Model.CodigoUsuarioReal" />
     <input type="hidden" id="hdn_NombreCompletoMD" value="@Model.NombreCompleto" />
     <input type="hidden" id="hdn_CaracterMinimo" value="@ViewBag.limiteMinimoTelef" />
 
@@ -197,6 +187,8 @@
     {
     <script type="text/javascript">
         var VC_Datos = '@ViewBag.VC_Datos'
+        var VerCambioClave = '@Model.VerCambiarClave';
+
         $(".misDatosContraseniaEnlace").click(function () {
             if ($(".campos_cambiarContrasenia").is(":visible")) {
                 $(".campos_cambiarContrasenia").fadeOut(200);
@@ -218,6 +210,9 @@
         });
 
         $("#btnActualizarMD").click(ActualizarMD);
+
+        if (VerCambioClave = '1')
+            $(".misDatosContraseniaEnlace").trigger("click");
 
         function ActualizarMD() {
 
@@ -263,16 +258,6 @@
                     return false;
                 }
 
-                /*
-                if (viewBagPaisID == 4) {//Validacion solo para Colombia, numero de celular debe empezar con 3.
-                    if ($('#txtCelularMD').val().substr(0, 1) != "3") {
-                        AbrirMensaje("Número de celular tiene formato incorrecto.");
-                        $('#txtCelularMD').focus();
-                        return false;
-                    }
-                }
-                */
-
                 if ($("#txtTelefonoTrabajoMD").val().trim() != "") {
                     var MinCaracterOtroTelefono = limitarMinimo($('#txtTelefonoTrabajoMD').val(), $("#hdn_CaracterMinimo").val(), 3);
                     if (!MinCaracterOtroTelefono) {
@@ -282,12 +267,12 @@
             }
 
             var item = {
-                CodigoUsuario: jQuery('#hdn_CodigoUsuarioMD').val(),
+                CodigoUsuario: jQuery('#hdn_CodigoUsuarioReal').val(),
                 EMail: $.trim(jQuery('#txtEMailMD').val()),
-                Telefono: jQuery('#txtTelefonoMD').val(),
-                TelefonoTrabajo: jQuery('#txtTelefonoTrabajoMD').val(),
-                Celular: jQuery('#txtCelularMD').val(),
-                Sobrenombre: jQuery('#txtSobrenombreMD').val(),
+            Telefono: $.trim(jQuery('#txtTelefonoMD').val()),
+            TelefonoTrabajo: $.trim(jQuery('#txtTelefonoTrabajoMD').val()),
+            Celular: $.trim(jQuery('#txtCelularMD').val()),
+            Sobrenombre: $.trim(jQuery('#txtSobrenombreMD').val()),
                 CorreoAnterior: $.trim(jQuery('#hdn_CorreoMD').val()),
                 NombreCompleto: jQuery('#hdn_NombreCompletoMD').val(),
                 CompartirDatos: false,
@@ -410,9 +395,9 @@
 
 function ValidarTelefono(celular) {
     var resultado = false;
-	ShowLoading();;
+	ShowLoading();
     var item = {
-        Telefono: celular //$("#txtCelular").val()
+        Telefono: celular
     };
 
     jQuery.ajax({
@@ -459,7 +444,7 @@ $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
             var newPassword01 = $("#txtNuevaContrasenia01").val();
             var newPassword02 = $("#txtNuevaContrasenia02").val();
             var vMessage = "";
-            ShowLoading();;
+            ShowLoading();
             if (oldPassword == "")
                 vMessage += "- Debe ingresar la Contraseña Anterior.\n";
 
@@ -487,7 +472,7 @@ $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
                     NewPassword: newPassword01
                 };
 
-                ShowLoading();;
+                ShowLoading();
                 jQuery.ajax({
                     type: 'POST',
                     url: '@Url.Action("CambiarContrasenia", "MisDatos", new { area = "Mobile" })',

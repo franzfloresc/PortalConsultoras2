@@ -14,28 +14,6 @@ namespace Portal.Consultoras.Web.UnitTest.AreasMobile.Mobile
     public class OfertasParaTiUnitTests
     {
         [TestClass]
-        public class Base
-        {
-            public Mock<ISessionManager> sessionManager;
-            public Mock<ILogManager> logManager;
-
-            [TestInitialize]
-            public void Test_Initialize()
-            {
-                sessionManager = new Mock<ISessionManager>();
-                logManager = new Mock<ILogManager>();
-
-            }
-
-            [TestCleanup]
-            public void Test_Cleanup()
-            {
-                sessionManager = null;
-                logManager = null;
-            }
-        }
-
-        [TestClass]
         public class Detalle : Base
         {
             public class OfertasParaTiControllerStub01 : OfertasParaTiController
@@ -124,7 +102,7 @@ namespace Portal.Consultoras.Web.UnitTest.AreasMobile.Mobile
             }
 
             [TestMethod]
-            public void GetRedirectTo_WhenPantallaOrigenPedidoWebIsRevistaDigital_RedirectsToRevistaDigital()
+            public void GetRedirectTo_WhenPantallaOrigenPedidoWebIsRevistaDigital_RedirectsToRevistaDigitalComprar()
             {
                 //Arrange
                 var controller = new OfertasParaTiController();
@@ -135,7 +113,7 @@ namespace Portal.Consultoras.Web.UnitTest.AreasMobile.Mobile
                 //Assert
                 Assert.AreEqual("Mobile", result.RouteValues["area"]);
                 Assert.AreEqual("RevistaDigital", result.RouteValues["controller"]);
-                Assert.AreEqual("Index", result.RouteValues["action"]);
+                Assert.AreEqual("Comprar", result.RouteValues["action"]);
             }
 
             [TestMethod]

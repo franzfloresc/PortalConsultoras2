@@ -4,9 +4,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using svUsuario = Portal.Consultoras.Web.ServiceUsuario;
 
@@ -34,17 +32,19 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    svUsuario.BEUsuario entidad = new svUsuario.BEUsuario();
-                    entidad.EMail = Util.Trim(confirmarModel.EMailNuevo);
-                    entidad.Celular = Util.Trim(confirmarModel.Celular);
-                    entidad.CodigoUsuario = userData.CodigoUsuario;
-                    entidad.Telefono = userData.Telefono;
-                    entidad.TelefonoTrabajo = userData.TelefonoTrabajo;
-                    entidad.Sobrenombre = userData.Sobrenombre;
-                    entidad.ZonaID = userData.ZonaID;
-                    entidad.RegionID = userData.RegionID;
-                    entidad.ConsultoraID = userData.ConsultoraID;
-                    entidad.PaisID = userData.PaisID;
+                    svUsuario.BEUsuario entidad = new svUsuario.BEUsuario
+                    {
+                        EMail = Util.Trim(confirmarModel.EMailNuevo),
+                        Celular = Util.Trim(confirmarModel.Celular),
+                        CodigoUsuario = userData.CodigoUsuario,
+                        Telefono = userData.Telefono,
+                        TelefonoTrabajo = userData.TelefonoTrabajo,
+                        Sobrenombre = userData.Sobrenombre,
+                        ZonaID = userData.ZonaID,
+                        RegionID = userData.RegionID,
+                        ConsultoraID = userData.ConsultoraID,
+                        PaisID = userData.PaisID
+                    };
 
                     if (!string.IsNullOrEmpty(entidad.EMail))
                     {
@@ -57,20 +57,17 @@ namespace Portal.Consultoras.Web.Controllers
 
                     string correoAnterior = Util.Trim(userData.EMail);
                     string correoNuevo = entidad.EMail;
-                    bool emailActivo = userData.EMailActivo;
 
                     ActualizarDatos(entidad, correoAnterior);
                     ActualizarDatosSesion(entidad, correoNuevo, correoAnterior);
 
-                    var emailValidado = userData.EMailActivo;
 
                     string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, correoNuevo, "UrlReturn,cupon" };
-                    string param_querystring = Util.Encrypt(string.Join(";", parametros));
-                    HttpRequestBase request = this.HttpContext.Request;
+                    string paramQuerystring = Util.Encrypt(string.Join(";", parametros));
 
-                    bool tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
+                    bool tipopais = GetPaisesEsikaFromConfig().Contains(userData.CodigoISO);
 
-                    var cadena = MailUtilities.CuerpoMensajePersonalizado(Util.GetUrlHost(this.HttpContext.Request).ToString(), userData.Sobrenombre, param_querystring, tipopais);
+                    var cadena = MailUtilities.CuerpoMensajePersonalizado(Util.GetUrlHost(this.HttpContext.Request).ToString(), userData.Sobrenombre, paramQuerystring, tipopais);
 
                     Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correoNuevo, "Confirmación de Correo", cadena, true, userData.NombreConsultora);
 
@@ -103,10 +100,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string url = (Util.GetUrlHost(this.HttpContext.Request).ToString());
+                string url = Util.GetUrlHost(this.HttpContext.Request).ToString();
                 string montoLimite = ObtenerMontoLimiteDelCupon();
                 CuponConsultoraModel cuponModel = ObtenerDatosCupon();
-                bool tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
+                bool tipopais = GetPaisesEsikaFromConfig().Contains(userData.CodigoISO);
                 string mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon, url, montoLimite, tipopais);
                 string correo = userData.EMail;
                 Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correo, "Activación de Cupón", mailBody, true, userData.NombreConsultora);
@@ -121,21 +118,19 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                bool tieneOfertasPlan20 = TieneOfertasPlan20();
-                return Json(new { success = true, tieneOfertasPlan20 = tieneOfertasPlan20, message = "" }, JsonRequestBehavior.AllowGet);
+                bool tieneOfertasPlan20 = true;
+                //tieneOfertasPlan20 = TieneOfertasPlan20();
+
+                return Json(new { success = true, tieneOfertasPlan20 = tieneOfertasPlan20, message = "" }, JsonRequestBehavior.AllowGet);   
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
         }
 
         private CuponConsultoraModel ObtenerDatosCupon()
         {
-            CuponConsultoraModel cuponModel;
             BECuponConsultora cuponResult = ObtenerCuponDesdeServicio();
 
-            if (cuponResult != null)
-                cuponModel = MapearBECuponConsultoraACuponConsultoraModel(cuponResult);
-            else
-                cuponModel = null;
+            var cuponModel = cuponResult != null ? MapearBECuponConsultoraACuponConsultoraModel(cuponResult) : null;
 
             return cuponModel;
         }
@@ -145,28 +140,32 @@ namespace Portal.Consultoras.Web.Controllers
             using (PedidoServiceClient svClient = new PedidoServiceClient())
             {
                 int paisId = userData.PaisID;
-                BECuponConsultora cuponBE = new BECuponConsultora();
-                cuponBE.CodigoConsultora = userData.CodigoConsultora;
-                cuponBE.CampaniaId = userData.CampaniaID;
+                BECuponConsultora cuponBe = new BECuponConsultora
+                {
+                    CodigoConsultora = userData.CodigoConsultora,
+                    CampaniaId = userData.CampaniaID
+                };
 
-                var cuponResult = svClient.GetCuponConsultoraByCodigoConsultoraCampaniaId(paisId, cuponBE);
+                var cuponResult = svClient.GetCuponConsultoraByCodigoConsultoraCampaniaId(paisId, cuponBe);
                 return cuponResult;
             }
         }
 
         private string ObtenerMontoLimiteDelCupon()
         {
+            List<BETablaLogicaDatos> listSegmentos;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                List<BETablaLogicaDatos> list_segmentos = new List<BETablaLogicaDatos>();
-                list_segmentos = sv.GetTablaLogicaDatos(userData.PaisID, 103).ToList();
+                listSegmentos = sv.GetTablaLogicaDatos(userData.PaisID, 103).ToList();
 
-                var descripcion = list_segmentos.FirstOrDefault(x => x.Codigo == userData.CampaniaID.ToString()).Descripcion;
-                decimal montoLimite = (string.IsNullOrEmpty(descripcion) ? 0 : Convert.ToDecimal(descripcion));
-                string montoLimiteFormateado = String.Format("{0:0.00}", montoLimite);
-
-                return montoLimiteFormateado;
             }
+
+            var descripcion = (listSegmentos.FirstOrDefault(x => x.Codigo == userData.CampaniaID.ToString()) ?? new BETablaLogicaDatos())
+                .Descripcion;
+            decimal montoLimite = (string.IsNullOrEmpty(descripcion) ? 0 : Convert.ToDecimal(descripcion));
+            string montoLimiteFormateado = String.Format("{0:0.00}", montoLimite);
+
+            return montoLimiteFormateado;
         }
 
         private bool ValidarDisponibilidadDeNuevoEmail(string email)
@@ -190,7 +189,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             userData.EMail = entidad.EMail;
             userData.Celular = entidad.Celular;
-            userData.EMailActivo = correoNuevo == correoAnterior ? userData.EMailActivo : false;
+            userData.EMailActivo = correoNuevo == correoAnterior && userData.EMailActivo;
             SetUserData(userData);
         }
 
@@ -198,27 +197,42 @@ namespace Portal.Consultoras.Web.Controllers
         {
             using (PedidoServiceClient svClient = new PedidoServiceClient())
             {
-                BECuponConsultora cuponBE = new BECuponConsultora();
-                cuponBE.CodigoConsultora = userData.CodigoConsultora;
-                cuponBE.CampaniaId = userData.CampaniaID;
-                cuponBE.EstadoCupon = Constantes.EstadoCupon.Activo;
-                cuponBE.EnvioCorreo = true;
+                BECuponConsultora cuponBe = new BECuponConsultora
+                {
+                    CodigoConsultora = userData.CodigoConsultora,
+                    CampaniaId = userData.CampaniaID,
+                    EstadoCupon = Constantes.EstadoCupon.Activo,
+                    EnvioCorreo = true
+                };
 
-                svClient.UpdateCuponConsultoraEstadoCupon(userData.PaisID, cuponBE);
-                svClient.UpdateCuponConsultoraEnvioCorreo(userData.PaisID, cuponBE);
+                svClient.UpdateCuponConsultoraEstadoCupon(userData.PaisID, cuponBe);
+                svClient.UpdateCuponConsultoraEnvioCorreo(userData.PaisID, cuponBe);
             }
         }
 
         private bool TieneOfertasPlan20()
         {
             var flag = false;
-            List<BEPedidoWebDetalle> listaPedidoWebDetalle = new List<BEPedidoWebDetalle>();
+            var flagValidacionCodigoCatalogo = false;   
+            var flagValidacionAppCatalogo = false;  
+            List<BEPedidoWebDetalle> listaPedidoWebDetalle;
 
             if (sessionManager.GetDetallesPedido() == null)
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    listaPedidoWebDetalle = sv.SelectByCampania(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora, EsOpt()).ToList();
+                    var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+                    {
+                        PaisId = userData.PaisID,
+                        CampaniaId = userData.CampaniaID,
+                        ConsultoraId = userData.ConsultoraID,
+                        Consultora = userData.NombreConsultora,
+                        EsBpt = EsOpt() == 1,
+                        CodigoPrograma = userData.CodigoPrograma,
+                        NumeroPedido = userData.ConsecutivoNueva
+                    };
+
+                    listaPedidoWebDetalle = sv.SelectByCampania(bePedidoWebDetalleParametros).ToList();
                 }
             }
             else
@@ -226,19 +240,46 @@ namespace Portal.Consultoras.Web.Controllers
                 listaPedidoWebDetalle = sessionManager.GetDetallesPedido();
             }
 
-            List<BETablaLogicaDatos> lstCodigosOfertas = new List<BETablaLogicaDatos>();
+            #region Logica validacion por Codigo de Catalogo    
+
+            List<BETablaLogicaDatos> lstCodigosOfertas; 
             using (SACServiceClient svc = new SACServiceClient())
             {
                 lstCodigosOfertas = svc.GetTablaLogicaDatos(userData.PaisID, Constantes.TipoOfertasPlan20.TablaLogicaId).ToList();
             }
 
-            if (listaPedidoWebDetalle.Any()  && lstCodigosOfertas.Any())
+
+            var listaCodigoTipoOferta = new List<string>(); 
+            listaCodigoTipoOferta.Add("126");   
+
+            if (listaPedidoWebDetalle.Any() && lstCodigosOfertas.Any()) 
             {
-                var lstTmp = listaPedidoWebDetalle.Where(x => lstCodigosOfertas.Any(y => x.CodigoCatalago == int.Parse(y.Codigo)));
-                flag = lstTmp.Any();
+                var producto = listaPedidoWebDetalle.FirstOrDefault(x => lstCodigosOfertas.Any(y => x.CodigoCatalago == int.Parse(y.Codigo))    
+                                                        && listaCodigoTipoOferta.Any(y => x.CodigoTipoOferta.Trim() != y)   
+                                                        && x.TipoEstrategiaCodigo.Trim() != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);     
+
+                if (producto != null)   
+                    flagValidacionCodigoCatalogo = true;
             }
 
-            return flag;
+            #endregion
+
+            #region Logica validacion por App Catalogo y OrigenPedidoWeb    
+
+            if (listaPedidoWebDetalle.Any())    
+            {
+                var producto = listaPedidoWebDetalle.FirstOrDefault(p => p.OrigenPedidoWeb.ToString().StartsWith("4")   
+                                                                    && listaCodigoTipoOferta.Any(y => p.CodigoTipoOferta.Trim() != y)   
+                                                                    && p.TipoEstrategiaCodigo.Trim() != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);     
+                if (producto != null)   
+                    flagValidacionAppCatalogo = true;
+            }
+
+            #endregion
+
+            flag = flagValidacionCodigoCatalogo && flagValidacionAppCatalogo;   
+
+            return flag;    
         }
 
         private void ValidarPopupDelGestorPopups()
@@ -254,56 +295,24 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private CuponConsultoraModel MapearBECuponConsultoraACuponConsultoraModel(BECuponConsultora cuponBE)
+        private CuponConsultoraModel MapearBECuponConsultoraACuponConsultoraModel(BECuponConsultora cuponBe)
         {
-            var codigoISO = userData.CodigoISO;
+            var codigoIso = userData.CodigoISO;
 
-            return new CuponConsultoraModel(codigoISO)
+            return new CuponConsultoraModel(codigoIso)
             {
-                CuponConsultoraId = cuponBE.CuponConsultoraId,
-                CodigoConsultora = cuponBE.CodigoConsultora,
-                CampaniaId = cuponBE.CampaniaId,
-                CuponId = cuponBE.CuponId,
-                ValorAsociado = cuponBE.ValorAsociado,
-                EstadoCupon = cuponBE.EstadoCupon,
-                CorreoGanasteEnviado = cuponBE.EnvioCorreo,
-                FechaCreacion = cuponBE.FechaCreacion,
-                FechaModificacion = cuponBE.FechaModificacion,
-                UsuarioCreacion = cuponBE.UsuarioCreacion,
-                UsuarioModificacion = cuponBE.UsuarioModificacion,
-                TipoCupon = cuponBE.TipoCupon
-            };
-        }
-
-        private BECupon MapearCuponModelABECupon(CuponModel cuponModel)
-        {
-            return new BECupon()
-            {
-                CuponId = cuponModel.CuponId,
-                Tipo = cuponModel.Tipo,
-                Descripcion = cuponModel.Descripcion,
-                CampaniaId = cuponModel.CampaniaId,
-                Estado = cuponModel.Estado,
-                FechaCreacion = cuponModel.FechaCreacion,
-                FechaModificacion = cuponModel.FechaModificacion,
-                UsuarioCreacion = cuponModel.UsuarioCreacion,
-                UsuarioModificacion = cuponModel.UsuarioModificacion
-            };
-        }
-
-        private CuponModel MapearBECuponACuponModel(BECupon cuponBE)
-        {
-            return new CuponModel()
-            {
-                CuponId = cuponBE.CuponId,
-                Tipo = cuponBE.Tipo,
-                Descripcion = cuponBE.Descripcion,
-                CampaniaId = cuponBE.CampaniaId,
-                Estado = cuponBE.Estado,
-                FechaCreacion = cuponBE.FechaCreacion,
-                FechaModificacion = cuponBE.FechaModificacion,
-                UsuarioCreacion = cuponBE.UsuarioCreacion,
-                UsuarioModificacion = cuponBE.UsuarioModificacion
+                CuponConsultoraId = cuponBe.CuponConsultoraId,
+                CodigoConsultora = cuponBe.CodigoConsultora,
+                CampaniaId = cuponBe.CampaniaId,
+                CuponId = cuponBe.CuponId,
+                ValorAsociado = cuponBe.ValorAsociado,
+                EstadoCupon = cuponBe.EstadoCupon,
+                CorreoGanasteEnviado = cuponBe.EnvioCorreo,
+                FechaCreacion = cuponBe.FechaCreacion,
+                FechaModificacion = cuponBe.FechaModificacion,
+                UsuarioCreacion = cuponBe.UsuarioCreacion,
+                UsuarioModificacion = cuponBe.UsuarioModificacion,
+                TipoCupon = cuponBe.TipoCupon
             };
         }
 
@@ -312,22 +321,47 @@ namespace Portal.Consultoras.Web.Controllers
             var celularActual = userData.Celular;
             if (!celularActual.Equals(model.Celular))
             {
-                svUsuario.BEUsuario entidad = new svUsuario.BEUsuario();
-                entidad.CodigoUsuario = userData.CodigoUsuario;
-                entidad.EMail = userData.EMail;
-                entidad.Telefono = userData.Telefono;
-                entidad.TelefonoTrabajo = userData.TelefonoTrabajo;
-                entidad.Celular = Util.Trim(model.Celular);
-                entidad.Sobrenombre = userData.Sobrenombre;
-                entidad.ZonaID = userData.ZonaID;
-                entidad.RegionID = userData.RegionID;
-                entidad.ConsultoraID = userData.ConsultoraID;
-                entidad.PaisID = userData.PaisID;
+                svUsuario.BEUsuario entidad = new svUsuario.BEUsuario
+                {
+                    CodigoUsuario = userData.CodigoUsuario,
+                    EMail = userData.EMail,
+                    Telefono = userData.Telefono,
+                    TelefonoTrabajo = userData.TelefonoTrabajo,
+                    Celular = Util.Trim(model.Celular),
+                    Sobrenombre = userData.Sobrenombre,
+                    ZonaID = userData.ZonaID,
+                    RegionID = userData.RegionID,
+                    ConsultoraID = userData.ConsultoraID,
+                    PaisID = userData.PaisID
+                };
 
                 ActualizarDatos(entidad, entidad.EMail);
 
                 userData.Celular = entidad.Celular;
                 SetUserData(userData);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult PopupCerrar()
+        {
+            try
+            {
+                Session[Constantes.ConstSession.TipoPopUpMostrar] = Constantes.TipoPopUp.Ninguno;
+
+                return Json(new
+                {
+                    success = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ""
+                }, JsonRequestBehavior.AllowGet);
             }
         }
     }

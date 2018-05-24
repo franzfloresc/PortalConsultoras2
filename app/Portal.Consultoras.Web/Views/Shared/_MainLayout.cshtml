@@ -5,10 +5,13 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=10,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="description" content="Portal de consultoras" />
     <meta name="author" content="Belcorp" />
 
     <title>Belcorp | Portal Consultoras</title>
+
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
 
     <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900" rel="stylesheet" type="text/css">
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
@@ -17,7 +20,7 @@
         @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Esika/CssSB2")
     }
     else
-    { 
+    {
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
         @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Lbel/CssSB2")
     }
@@ -46,15 +49,19 @@
         var tieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia';
         var mostrarOfertaDelDiaContenedor ='@ViewBag.MostrarOfertaDelDiaContenedor';
         var esContenedorOfertas = false;
-
-        var UrlChat = '@ViewBag.UrlBelcorpChat';
+        // New Chat
+        var emt_client_type = '@ViewBag.TipoUsuario';
+        var emt_country = '@ViewBag.CodigoISODL';
+        var emt_email_address = '@ViewBag.CorreoC';
+        var emt_first_name = '@ViewBag.NombreC';
+        var emt_id = '@ViewBag.CodigoUsuario';
+        var emt_type = '0';
+        // New Chat -->
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
-        var UrlChatAnterior = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpNew?token=@ViewBag.TokenAtento';
-        var BelcorpFechaChat_Pais = '@(System.Configuration.ConfigurationManager.AppSettings["FechaChat_" + ViewBag.CodigoISODL])';
-        var PaisesChatEMTELCO ='@(System.Configuration.ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"])';
         var FechaActual = '@(DateTime.Now.ToString("dd/MM/yyyy"))';
 
-        var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
+        window.urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
+
         var userData = {
             'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
             'rol': '@(Constantes.LogDynamoDB.RolConsultora)',
@@ -67,6 +74,19 @@
         };
         var usuarioNombre = '@ViewBag.UsuarioNombre';
         var controllerName = '@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower()';
+
+        var revistaDigital = @Html.Raw(Json.Encode(ViewBag.revistaDigital));
+
+        // Seteando Controlador y Accion
+        @{
+            var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
+            string ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
+            string acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+        }
+        window.controllerName = '@ctrl.ToLower()';
+        window.actionName     = '@acti.ToLower()';
+        //console.log("controllerName:" + controllerName + " | actionName:" + actionName);
+
     </script>
     <style id="styleRelojOdd"></style>
     @RenderSection("styles", required: false)
@@ -92,38 +112,36 @@
     }
 
     <script type="text/javascript">
-            if (!String.prototype.startsWith) {
-                String.prototype.startsWith = function (searchString, position) {
-                    position = position || 0;
-                    return this.indexOf(searchString, position) === position;
-                };
-            }
+        if (!String.prototype.startsWith) {
+            String.prototype.startsWith = function (searchString, position) {
+                position = position || 0;
+                return this.indexOf(searchString, position) === position;
+            };
+        }
     </script>
 
-    @if (ViewBag.Rol == Constantes.Rol.Consultora)
-    {
-        string nombre_pais = ViewBag.PaisAnalytics;
-
-        switch (nombre_pais)
+    @*@if (ViewBag.Rol == Constantes.Rol.Consultora)
         {
-            case "EC":
-                @*<div class="boton_ayuda"><span id="belcorpChat1" class="boton-home"><a href="http://200.32.70.19/Belcorp/" target="_blank">¿Necesitas ayuda?</a> </span></div>*@
-            //break;
-            case "CO":
-            case "BO":
-            case "CL":
-            case "MX":
-            case "PR":
-            case "DO":
-            case "PE":
-            case "PA":
-            case "CR":
-            case "SV":
-            case "GT":
-                <div class="boton_ayuda"><span class="boton-home belcorpChat"><a href="#">¿Necesitas ayuda?</a> </span></div>
-                break;
-        }
-    }
+            string nombre_pais = ViewBag.PaisAnalytics;
+
+            switch (nombre_pais)
+            {
+                case "EC":
+                case "CO":
+                case "BO":
+                case "CL":
+                case "MX":
+                case "PR":
+                case "DO":
+                case "PE":
+                case "PA":
+                case "CR":
+                case "SV":
+                case "GT":
+                    <div class="boton_ayuda"><span class="boton-home belcorpChat"><a href="#">¿Necesitas ayuda?</a> </span></div>
+                    break;
+            }
+        }*@
     <!-- cabecera -->
     <header>
         <!--BANNER -->
@@ -139,7 +157,7 @@
         {
             <div class="bloque_oferta_dia" id="OfertaDelDia" style="display: none"></div>
         }
-        
+
         <!--END BANNER -->
         <div class="clear"></div>
         <div class="wrapper_header">
@@ -164,12 +182,12 @@
     }
     <div id="contentmain" class="content" data-content="" style="margin-top: 61px;">
         @if (!(controllerAction == "bienvenidaindex"
-                || controllerAction == "showroomindex"
-                || controllerAction == "showroomintriga"
-                || controllerAction == "revistadigitalindex"
-                || controllerAction == "revistadigitaldetalle"
-                || controllerAction == "revistadigitalinscripcion")
-                && (@ViewBag.Title != "" && @ViewBag.Title != null))
+                            || controllerAction == "showroomindex"
+                            || controllerAction == "showroomintriga"
+                            || controllerAction == "revistadigitalindex"
+                            || controllerAction == "revistadigitaldetalle"
+                            || controllerAction == "revistadigitalinformacion")
+                            && (@ViewBag.Title != "" && @ViewBag.Title != null))
         {
             <div class="SubHeader">
                 <div class="ubicacion_web">
@@ -180,12 +198,19 @@
         }
 
         @RenderBody()
+
         @if (ViewBag.TerminoMostrar == 1)
         {
             <div class="footerTerminos">
                 <a id="linkTerminosCondicionesShowRoom" onclick="SetMarcaGoogleAnalyticsTermino();" target="_blank">T&eacute;rminos y condiciones</a>
             </div>
         }
+
+        @if (ViewBag.BannerInferior != null)
+        {
+            @Html.Partial("~/Views/ShowRoom/_BannerInferior.cshtml", (Portal.Consultoras.Web.Models.Estrategia.ShowRoom.BannerInferiorConfiguracion)ViewBag.BannerInferior)
+        }
+
         <!-- footer -->
         <hr class="clear" />
         <footer class="footer_e">
@@ -196,7 +221,7 @@
     <!-- end contenedor -->
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpFeDeErratas.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpRegistroComunidad.cshtml")
-    
+
     <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
     <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
     <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
@@ -206,7 +231,7 @@
     <input type="hidden" id="hdFlagValidacionReserva" value="0" />
     <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
     <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />
-    
+
     <!-- Div Banner Lateral ShowRoom -->
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBannerLateralShowRoom.cshtml")
 
@@ -220,16 +245,22 @@
 
     <!-- POPUP MENSAJE USUARIO POSTULANTE -->
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogMensajePostulante.cshtml")
-    
+
     <!-- POPUP PEDIDO RESERVADO -->
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogPedidoReservado.cshtml")
-    
+
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTemplateResumenCampania.cshtml")
 
     <!--OFERTA DEL DIA -->
     <script id="ofertadeldia-template" type="text/x-handlebars-template">
         <div data-odd-tipoventana="baner">
             <div class="content_oferta_dia" id="banner-odd" data-item="">
+                <div class="content_oferta_dia_img izquierda_img">
+                    <img src="https://lh6.googleusercontent.com/XQ_8c_lRv3g8a3VTVgmF6MkITCn72T4TigQTDldhqzhUsv-OWWAve4cEwYDFSBnhgBu60RCucknFaY4p8sZ1=w1366-h613" alt="">
+                </div>
+                <div class="content_oferta_dia_img derecha_img">
+                    <img src="https://lh6.googleusercontent.com/XQ_8c_lRv3g8a3VTVgmF6MkITCn72T4TigQTDldhqzhUsv-OWWAve4cEwYDFSBnhgBu60RCucknFaY4p8sZ1=w1366-h613" alt="">
+                </div>
                 <div style="display:none;" data-item-campos="">
                     <input type="hidden" Class="tipoestrategia-id-odd" value="{{TipoEstrategiaID}}" />
                     <input type="hidden" Class="estrategia-id-odd" value="{{EstrategiaID}}" />
@@ -260,9 +291,9 @@
                 </div>
                 <div style="float: left">
                     <input type="hidden" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
-                    <a class="btn_agrega_set_dia" data-odd-accion="agregar" data-odd-accion-type="banner" data-odd-accion-element="0" data-odd-cabecera-position="0" href="javascript: void(0);" >AGRÉGALO YA</a>
+                    <a class="btn_agrega_set_dia" data-odd-accion="agregar" data-odd-accion-type="banner" data-odd-accion-element="0" data-odd-cabecera-position="0" href="javascript: void(0);">AGRÉGALO YA</a>
                 </div>
-                <a class="btn_detalle_hoy" data-odd-accion="veroferta"  data-odd-cantidad="{{CantidadProductos}}" onclick="odd_desktop_google_analytics_promotion_click_verofertas();">
+                <a class="btn_detalle_hoy" data-odd-accion="veroferta" data-odd-cantidad="{{CantidadProductos}}" onclick="odd_desktop_google_analytics_promotion_click_verofertas();">
                     <div class="circulo_hoy"><span id="odd_simbolo_ver_ofertas">+</span></div>
                     <div class="texto_detalle_set">{{TextoVerDetalle}}</div>
                 </a>
@@ -314,7 +345,7 @@
                             </div>
                             <div class="content_set_pop_hoy">
                                 <div class="imagen_set_Oferta_pop">
-                                    <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1"/>  
+                                    <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1" />
                                     <div class="compartir_redes_ficha">
                                         <div class="texto_compartelo" style="color:#fff;">Comparte la oferta con tus clientes</div>
                                         <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB">
@@ -329,8 +360,8 @@
                                         <div class="descripcion_set_ofertaDia">{{{detalle.DescripcionOferta}}}</div>
                                         <div class="precio_valorizado_oferta">VALORIZADO EN <span>@ViewBag.Simbolo {{detalle.PrecioCatalogoFormat}}</span></div>
                                         <div class="precio_ofertaDia">A SOLO <span>@ViewBag.Simbolo {{detalle.PrecioOfertaFormat}}</span></div>
-                                    </div>                                   
-                                    <div @*style="text-align: center"*@>
+                                    </div>
+                                    <div>
                                         <div class="liquidacion_rango_home js-no-popup">
                                             <input type="text" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
                                             <div class="liquidacion_rango_right_pedido js-no-popup">
@@ -376,8 +407,8 @@
                                     <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
                                 </div>
                                 <div class="content_img_carrusel_ODD" data-odd-accion="verdetalle">
-                                    <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1"/>
-                                    <a class="ver_detalle_carrusel" onclick = "odd_google_analytics_product_click('{{detalle.NombreOferta}}', '{{detalle.CUV2}}', {{detalle.PrecioOferta}}, '{{DescripcionMarca}}', '', {{Position}}, 'Oferta del día - Banner');" style="top: 80px;">VER DETALLE</a>
+                                    <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1" />
+                                    <a class="ver_detalle_carrusel" onclick="odd_google_analytics_product_click('{{detalle.NombreOferta}}', '{{detalle.CUV2}}', {{detalle.PrecioOferta}}, '{{DescripcionMarca}}', '', {{Position}}, 'Oferta del día - Banner');" style="top: 80px;">VER DETALLE</a>
                                     <div class="titulo_carrusel_ODD">{{detalle.NombreOferta}}</div>
                                     {{#iff detalle.PrecioCatalogo '>' 0}}
                                     <div class="valorizado_carrusel_ODD">VALORIZADO EN <span>{{{../Simbolo}}} {{detalle.PrecioCatalogoFormat}}</span></div>
@@ -396,7 +427,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar" data-odd-accion-type="list" data-odd-accion-element="{{detalle.ID}}" >AGRÉGALO</a>
+                                    <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar" data-odd-accion-type="list" data-odd-accion-element="{{detalle.ID}}">AGRÉGALO</a>
                                 </div>
                                 <!-- SE AÑADIO EL CHECK AGREGADO  -->
                                 <div style="padding-top:6px; height: 15px;">
@@ -418,7 +449,7 @@
     </script>
     <!--OFERTA DEL DIA -->
     <!--OFERTA DEL DIA STYLE -->
-    @Html.Partial("_template-ofertadeldia-style")
+    @*Html.Partial("_template-ofertadeldia-style")*@
     <!-- FIN OFERTA DEL DIA STYLE -->
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
@@ -445,7 +476,7 @@
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
         var codigoAnclaOdd = '@ViewBag.CodigoAnclaOdd';
         var OrigenDesktopODD = 0;
-     </script>
+    </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
     <script type='text/javascript'>
         (function () {
@@ -460,6 +491,12 @@
     </script>
 
     @RenderSection("scripts", required: false)
+
+    <link href="@Url.Content("~/emt_chat/css/style-client.css")" rel="stylesheet">
+    <link rel="stylesheet" href="@Url.Content("~/emt_chat/css/font-awesome.min.css")">
+    <div class="CMXD-containment-wrapper"></div><div id="marca"> <div class="CMXD-btn-help"> <div id="btn_init" class="CMXD-help"></div><div id="btn_open" class="CMXD-open" style="display: none"></div></div><div class="container-movil"></div><div id="CMXD-container-chat" class="CMXD-container-chat" style="display: none"> <div class="CMXD-header-chat"> <i class="fa fa-comments-o" aria-hidden="true"></i> CHAT EN LÍNEA <div class="CMXD-icons"> <a class="display-a" id="btn_minimize" href=""> <i class="fa fa-minus" aria-hidden="true"></i> </a> <a class="display-a" id="btn_wClose" href="" style="display: none"> <i class="fa fa-times" aria-hidden="true"></i> </a> </div><hr class="CMXD-line"> </div><div id="chat"> <div id="interaction" class="CMXD-container-welcome" style="display: none"> <div class='chat-wrapper'> <div id="transcript" class='chat-message padding container-chat'></div></div><div id="slideDownTranscript" class="message-end CMXD-animate2"> <span class="fa fa-angle-double-down"></span> </div><div class="container-txt"> <textarea class="txtarea" rows="2" id="Entry" placeholder="Escribe un Mensaje..."></textarea> <a class="" href=""> <div class="send send2" id="btn_Send"> <i class="fa fa-paper-plane-o" aria-hidden="true"></i><br>Enviar </div></a> </div></div><div id="loading" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="loading_image" src="" alt=""> </div><div id="loading_title" class="CMXD-welcome"> Bienvenida a nuestro <br>chat en línea </div><div id="loading_description" class="CMXD-description"> En un momento uno de nuestros asesores estará contigo </div></div></div><div id="schedule" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="schedule_image" src="" alt="Imagen fuera de horario"> </div><div id="schedule_title" class="CMXD-welcome"> </div><div id="schedule_description" class="CMXD-description"> </div></div></div><div id="Error" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="Error_image" src="" alt=""> </div><div class="CMXD-welcome"> Error de conexión </div><div class="CMXD-description"> En estos momentos no es posible establecer conexión. Por favor intenta más tarde. <br /><br /> <a href="" class="btn-no display-a" id="btn_mclose"> OK</a> </div></div></div><div id="alert" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="alert_image" src="" alt=""> </div><div class="CMXD-welcome"> ¿Desea cerrar la sesión de chat? </div><div class="CMXD-description"> <a href="" class="btn-yes display-a" id="btn_close"> Si</a> <a href="" class="btn-no display-a" id="btn_nwClose"> No</a> </div></div></div></div><div id="poll" class="pop-up"> <div class="CMXD-container-welcome"> <div id="poll_title" class="CMXD-welcome"> <br />Encuesta de Satisfacción </div><div id="poll_description" class="CMXD-description"> </div></div></div></div></div>
+    <script type="text/javascript" src="@Url.Content("~/emt_chat/js/gen.js")"></script>
+
     @if (TempData.ContainsKey("PixelCodigoIso"))
     {
         @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login-Header")
@@ -467,7 +504,7 @@
             var pixelAnalytics = Analytics();
             pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
         </script>
-        @TempData.Remove("PixelCodigoIso");
+        TempData.Remove("PixelCodigoIso");
     }
 </body>
 </html>

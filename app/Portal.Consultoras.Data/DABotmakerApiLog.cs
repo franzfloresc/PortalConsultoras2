@@ -1,7 +1,6 @@
 ﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Entities;
 using System.Data;
-using System.Data.Common;
 using System.Data.SqlClient;
 
 namespace Portal.Consultoras.Data
@@ -22,15 +21,19 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@RespuestaBotmaker", DbType.String, resultado.Respuesta ?? "");
                 Context.Database.AddInParameter(command, "@ErrorLog", DbType.String, resultado.ErrorLog ?? "");
 
-                var parDetalle = new SqlParameter("@Detalle", SqlDbType.Structured);
-                parDetalle.TypeName = "dbo.BotmakerApiLogDetalleType";
-                parDetalle.Value = new GenericDataReader<DEChatbotProactivaMensaje>(resultado.ListMensaje);
+                //var parDetalle = new SqlParameter("@Detalle", SqlDbType.Structured);
+                //parDetalle.TypeName = "dbo.BotmakerApiLogDetalleType";
+                //parDetalle.Value = new GenericDataReader<DEChatbotProactivaMensaje>(resultado.ListMensaje);
+                var parDetalle = new SqlParameter("@Detalle", SqlDbType.Structured)
+                {
+                    TypeName = "dbo.BotmakerApiLogDetalleType",
+                    Value = new GenericDataReader<DEChatbotProactivaMensaje>(resultado.ListMensaje)
+                };
+               
                 command.Parameters.Add(parDetalle);
 
-                using (var reader = Context.ExecuteReader(command))
-                {
-                    return reader;
-                }
+                //soluciona error en producción :Remove the 'using' statement; it will cause automatic disposal of 'reader'.
+                return Context.ExecuteReader(command);
             }
 
         }

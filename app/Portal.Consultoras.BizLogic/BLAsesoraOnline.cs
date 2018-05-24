@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Portal.Consultoras.Entities.AsesoraOnline;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.AsesoraOnline;
+using System;
+using System.Collections.Generic;
 using System.Data;
-using Portal.Consultoras.Common;
+using System.Linq;
 
 //Made by Uchida Virtual Coach
 namespace Portal.Consultoras.BizLogic
@@ -14,74 +14,75 @@ namespace Portal.Consultoras.BizLogic
     {
         public int EnviarFormulario(string paisISO, BEAsesoraOnline entidad)
         {
-            int paisID = GetPaisID(paisISO);
-            var DAAsesoraOnline = new DAAsesoraOnline(paisID);
-            return DAAsesoraOnline.EnviarFormulario(entidad);
+            int paisId = GetPaisID(paisISO);
+            var daAsesoraOnline = new DAAsesoraOnline(paisId);
+            return daAsesoraOnline.EnviarFormulario(entidad);
         }
 
         public BEUsuario GetUsuarioByCodigoConsultora(string paisISO, string codigoConsultora)
         {
             BEUsuario entidad = new BEUsuario();
-            int paisID = GetPaisID(paisISO);
-            var DAAsesoraOnline = new DAAsesoraOnline(paisID);
+            int paisId = GetPaisID(paisISO);
+            var daAsesoraOnline = new DAAsesoraOnline(paisId);
 
-            using (IDataReader reader = DAAsesoraOnline.GetUsuarioByCodigoConsultora(codigoConsultora))
-            while (reader.Read())
-            {
-                entidad = new BEUsuario(reader, true);
-            }
+            using (IDataReader reader = daAsesoraOnline.GetUsuarioByCodigoConsultora(codigoConsultora))
+                while (reader.Read())
+                {
+                    entidad = new BEUsuario(reader, true);
+                }
 
             return entidad;
         }
 
         public int ExisteConsultoraEnAsesoraOnline(string paisISO, string codigoConsultora)
         {
-            int paisID = GetPaisID(paisISO);
-            var DAAsesoraOnline = new DAAsesoraOnline(paisID);
-            return DAAsesoraOnline.ExisteConsultoraEnAsesoraOnline(codigoConsultora);
+            int paisId = GetPaisID(paisISO);
+            var daAsesoraOnline = new DAAsesoraOnline(paisId);
+            return daAsesoraOnline.ExisteConsultoraEnAsesoraOnline(codigoConsultora);
         }
 
         public int ActualizarEstadoConfiguracionPaisDetalle(string paisISO, string codigoConsultora, int estado)
         {
-            int paisID = GetPaisID(paisISO);
-            var DAAsesoraOnline = new DAAsesoraOnline(paisID);
-            return DAAsesoraOnline.ActualizarEstadoConfiguracionPaisDetalle(codigoConsultora, estado);
+            int paisId = GetPaisID(paisISO);
+            var daAsesoraOnline = new DAAsesoraOnline(paisId);
+            return daAsesoraOnline.ActualizarEstadoConfiguracionPaisDetalle(codigoConsultora, estado);
         }
 
         public int ValidarAsesoraOnlineConfiguracionPais(string paisISO, string codigoConsultora)
         {
-            int paisID = GetPaisID(paisISO);
-            var DAAsesoraOnline = new DAAsesoraOnline(paisID);
-            return DAAsesoraOnline.ValidarAsesoraOnlineConfiguracionPais(codigoConsultora);
+            int paisId = GetPaisID(paisISO);
+            var daAsesoraOnline = new DAAsesoraOnline(paisId);
+            return daAsesoraOnline.ValidarAsesoraOnlineConfiguracionPais(codigoConsultora);
         }
 
-        public void EnviarMailBienvenidaAsesoraOnline(string emailFrom, string emailTo, string titulo, string displayname, string nombreConsultora) {
-            MailUtilities.EnviarMailBienvenidaAsesoraOnline(emailFrom,  emailTo,  titulo, displayname, nombreConsultora);
+        public void EnviarMailBienvenidaAsesoraOnline(string emailFrom, string emailTo, string titulo, string displayname, string nombreConsultora)
+        {
+            MailUtilities.EnviarMailBienvenidaAsesoraOnline(emailFrom, emailTo, titulo, displayname, nombreConsultora);
         }
 
         public int GetPaisID(string ISO)
         {
             List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
             {
-                new KeyValuePair<string, string>("1", "AR"),
-                new KeyValuePair<string, string>("2", "BO"),
-                new KeyValuePair<string, string>("3", "CL"),
-                new KeyValuePair<string, string>("4", "CO"),
-                new KeyValuePair<string, string>("5", "CR"),
-                new KeyValuePair<string, string>("6", "EC"),
-                new KeyValuePair<string, string>("7", "SV"),
-                new KeyValuePair<string, string>("8", "GT"),
-                new KeyValuePair<string, string>("9", "MX"),
-                new KeyValuePair<string, string>("10", "PA"),
-                new KeyValuePair<string, string>("11", "PE"),
-                new KeyValuePair<string, string>("12", "PR"),
-                new KeyValuePair<string, string>("13", "DO"),
-                new KeyValuePair<string, string>("14", "VE"),
+                new KeyValuePair<string, string>("1", Constantes.CodigosISOPais.Argentina),
+                new KeyValuePair<string, string>("2", Constantes.CodigosISOPais.Bolivia),
+                new KeyValuePair<string, string>("3", Constantes.CodigosISOPais.Chile),
+                new KeyValuePair<string, string>("4", Constantes.CodigosISOPais.Colombia),
+                new KeyValuePair<string, string>("5", Constantes.CodigosISOPais.CostaRica),
+                new KeyValuePair<string, string>("6", Constantes.CodigosISOPais.Ecuador),
+                new KeyValuePair<string, string>("7", Constantes.CodigosISOPais.Salvador),
+                new KeyValuePair<string, string>("8", Constantes.CodigosISOPais.Guatemala),
+                new KeyValuePair<string, string>("9", Constantes.CodigosISOPais.Mexico),
+                new KeyValuePair<string, string>("10", Constantes.CodigosISOPais.Panama),
+                new KeyValuePair<string, string>("11", Constantes.CodigosISOPais.Peru),
+                new KeyValuePair<string, string>("12", Constantes.CodigosISOPais.PuertoRico),
+                new KeyValuePair<string, string>("13", Constantes.CodigosISOPais.Dominicana),
+                new KeyValuePair<string, string>("14", Constantes.CodigosISOPais.Venezuela),
             };
-            string paisID = "0";
+            string paisId;
             try
             {
-                paisID = (from c in listaPaises
+                paisId = (from c in listaPaises
                           where c.Value == ISO.ToUpper()
                           select c.Key).SingleOrDefault();
             }
@@ -89,11 +90,28 @@ namespace Portal.Consultoras.BizLogic
             {
                 throw new Exception("Hubo un error en obtener el País");
             }
-            if (paisID != null)
+
+            if (paisId != null)
             {
-                return int.Parse(paisID);
+                return int.Parse(paisId);
             }
-            else return 0;
+
+            return 0;
         }
+
+        public string CancelarSuscripcion(string paisISO, string codigoConsultora)
+        {
+            int paisId = GetPaisID(paisISO);
+            var objDASuscripcionConsultora = new DAAsesoraOnline(paisId);
+            return objDASuscripcionConsultora.CancelarSuscripcion(codigoConsultora);
+        }
+
+        public int VuelveASuscripcion(string paisISO, string codigoConsultora)
+        {
+            int paisId = GetPaisID(paisISO);
+            var objDASuscripcionConsultora = new DAAsesoraOnline(paisId);
+            return objDASuscripcionConsultora.VuelveASuscripcion(codigoConsultora);
+        }
+
     }
 }

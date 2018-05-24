@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -148,5 +144,8 @@ namespace Portal.Consultoras.Web.Models
         public bool AceptoBackOrder { get; set; }
 
         public int CodigoCatalago { get; set; }
+
+        public bool FlagNueva { get; set; }
+        public int SetID { get; set; }
     }
 }

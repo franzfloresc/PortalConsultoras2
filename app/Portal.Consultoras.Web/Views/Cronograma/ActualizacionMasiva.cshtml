@@ -13,9 +13,6 @@
             buttonImage: '@Url.Content("~/Content/Images/calendar.png")',
             buttonImageOnly: true,
             dateFormat: 'dd/mm/yy'
-            //onClose: function (selectedDate) {
-            //    $("#txtFechaReFacturacion").datepicker("option", "minDate", selectedDate)
-            //}
         }).mask('99/99/9999');
         $("#txtFechaReFacturacion").datepicker({
             showOn: "button",
@@ -50,7 +47,6 @@
                 { name: 'Fecha', index: 'Fecha', width: 12, editable: true, resizable: false },
                 { name: 'CampaniaCodigo', index: 'CampaniaCodigo', width: 10, editable: true, resizable: false },
                 { name: 'CodigosZonaRegionIncompleto', index: 'CodigosZonaRegionIncompleto', width: 42, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions },
-                //{ name: 'CodigosZonaRegionIncompleto', index: 'CodigosZonaRegionIncompleto', width: 80, editable: true, resizable: false },
                 { name: 'FechaFacturacion', index: 'FechaFacturacion', width: 12, editable: true, resizable: false },
                 { name: 'FechaFinFacturacion', index: 'FechaFinFacturacion', width: 12, editable: true, resizable: false, hidden: true },
                 { name: 'FechaReFacturacion', index: 'FechaReFacturacion', width: 12, editable: true, resizable: false }
@@ -237,9 +233,6 @@
                 buttonImage: '@Url.Content("~/Content/Images/calendar.png")',
                 buttonImageOnly: true,
                 dateFormat: 'dd/mm/yy'
-                //onClose: function (selectedDate) {
-                //    $("#txtFechaReFacturacion").datepicker("option", "minDate", selectedDate)
-                //}
             }).mask('99/99/9999');
             $("#txtFechaReFacturacion").datepicker({
                 showOn: "button",
@@ -260,9 +253,6 @@
                 dateFormat: 'dd/mm/yy',
                 minDate: new Date("01/01/" + (parseInt($("#ddlCampania").val().substring(0, 4)) - 1).toString()),
                 maxDate: new Date("12/31/" +  $("#ddlCampania").val().substring(0, 4))
-                //onClose: function (selectedDate) {
-                //    $("#txtFechaReFacturacion").datepicker("option", "minDate", selectedDate)
-                //}
             }).mask('99/99/9999');
             $("#txtFechaReFacturacion").datepicker({
                 showOn: "button",
@@ -319,7 +309,7 @@
             </div>
             <div class="div-4" id="Alerta">
                 <div class="noti2" style="width: 97.5%;">
-                    <div id="">
+                    <div>
                         <div class="viewport">
                             <div class="overview" style="top: 0px; height:80px; overflow:auto;">
                                 <h3>Importante</h3>

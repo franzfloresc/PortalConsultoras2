@@ -5,10 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Common;
-using System.Configuration;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -16,8 +12,8 @@ namespace Portal.Consultoras.BizLogic
     {
         public void InsProductoFaltante(int paisID, string paisISO, string CodigoUsuario, IList<BEProductoFaltante> productosFaltantes, bool FaltanteUltimoMinuto)
         {
-            var DAproductofaltante = new DAProductoFaltante(paisID);
-            DAproductofaltante.InsProductoFaltante(productosFaltantes, FaltanteUltimoMinuto);
+            var daProductofaltante = new DAProductoFaltante(paisID);
+            daProductofaltante.InsProductoFaltante(productosFaltantes, FaltanteUltimoMinuto);
         }
 
         public string InsProductoFaltanteMasivo(int paisID, string paisISO, string CodigoUsuario, int campaniaID, IList<BEProductoFaltante> productosFaltantes, bool FaltanteUltimoMinuto)
@@ -47,31 +43,28 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
 
-            var DAproductofaltante = new DAProductoFaltante(paisID);
-            string result = DAproductofaltante.InsProductoFaltanteMasivo(paisID, lstFinal, FaltanteUltimoMinuto);
+            var daProductofaltante = new DAProductoFaltante(paisID);
+            string result = daProductofaltante.InsProductoFaltanteMasivo(paisID, lstFinal, FaltanteUltimoMinuto);
 
             return result;
         }
 
-
         public bool DelProductoFaltante(int paisID, string paisISO, string CodigoUsuario, BEProductoFaltante productofaltante)
         {
             bool deleted;
-            var DAproductofaltante = new DAProductoFaltante(paisID);
-            var DAproductofaltanteDD = new DAProductoFaltanteDD(paisID);
+            var daProductofaltante = new DAProductoFaltante(paisID);
 
-            DAproductofaltante.DelProductoFaltante(productofaltante, out deleted);
+            daProductofaltante.DelProductoFaltante(productofaltante, out deleted);
 
             return deleted;
         }
 
-        public int DelProductoFaltante2(int paisID, string paisISO, string CodigoUsuario, IList<BEProductoFaltante> productofaltante,int flag,int pais ,int campania,int zona,string cuv,string e_producto,DateTime fecha)
+        public int DelProductoFaltante2(int paisID, string paisISO, string CodigoUsuario, IList<BEProductoFaltante> productofaltante, int flag, int pais, int campania, int zona, string cuv, string e_producto, DateTime fecha)
         {
             int deleted;
-            var DAproductofaltante = new DAProductoFaltante(paisID);
-            var DAproductofaltanteDD = new DAProductoFaltanteDD(paisID);
+            var daProductofaltante = new DAProductoFaltante(paisID);
 
-            DAproductofaltante.DelProductoFaltante2(productofaltante.ToList(), out deleted,flag,pais,campania,zona,cuv,e_producto,fecha);
+            daProductofaltante.DelProductoFaltante2(productofaltante.ToList(), out deleted, flag, pais, campania, zona, cuv, e_producto, fecha);
 
             return deleted;
         }
@@ -79,13 +72,12 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEProductoFaltante> GetProductoFaltanteByEntity(int paisID, BEProductoFaltante productofaltante, string ColumnaOrden, string Ordenamiento, int PaginaActual, int FlagPaginacion, int RegistrosPorPagina)
         {
             var productos = new List<BEProductoFaltante>();
-            var DAproductofaltante = new DAProductoFaltante(paisID);
+            var daProductofaltante = new DAProductoFaltante(paisID);
 
-            using (IDataReader reader = DAproductofaltante.GetProductoFaltanteByEntity(productofaltante, ColumnaOrden, Ordenamiento, PaginaActual, FlagPaginacion, RegistrosPorPagina,paisID))//R1957
+            using (IDataReader reader = daProductofaltante.GetProductoFaltanteByEntity(productofaltante, ColumnaOrden, Ordenamiento, PaginaActual, FlagPaginacion, RegistrosPorPagina, paisID))//R1957
                 while (reader.Read())
                 {
-                    var prodfal = new BEProductoFaltante(reader);
-                    prodfal.PaisID = paisID;
+                    var prodfal = new BEProductoFaltante(reader) { PaisID = paisID };
                     productos.Add(prodfal);
                 }
 
@@ -95,12 +87,12 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEProductoFaltante> GetProductoFaltanteByCampaniaAndZonaID(int paisID, int CampaniaID, int ZonaID, string cuv, string descripcion)
         {
             var productos = new List<BEProductoFaltante>();
-            var DAproductofaltante = new DAProductoFaltante(paisID);
-            var BLPais = new BLPais();
+            var daProductofaltante = new DAProductoFaltante(paisID);
+            var blPais = new BLPais();
 
-            if (!BLPais.EsPaisHana(paisID)) // Validar si informacion de pais es de origen Normal o Hana
-            {               
-                using (IDataReader reader = DAproductofaltante.GetProductoFaltanteByCampaniaAndZonaID(CampaniaID, ZonaID, cuv, descripcion))
+            if (!blPais.EsPaisHana(paisID)) // Validar si informacion de pais es de origen Normal o Hana
+            {
+                using (IDataReader reader = daProductofaltante.GetProductoFaltanteByCampaniaAndZonaID(CampaniaID, ZonaID, cuv, descripcion))
                     while (reader.Read())
                     {
                         var prodfal = new BEProductoFaltante(reader);
@@ -109,10 +101,10 @@ namespace Portal.Consultoras.BizLogic
             }
             else
             {
-                var DAHFaltanteAnunciado = new DAHFaltanteAnunciado();
-                var productosHana = DAHFaltanteAnunciado.GetProductoFaltanteAnunciado(paisID, CampaniaID);
-                
-                using (IDataReader reader = DAproductofaltante.GetOnlyProductoFaltante(productosHana, CampaniaID, ZonaID, cuv, descripcion))
+                var dahFaltanteAnunciado = new DAHFaltanteAnunciado();
+                var productosHana = dahFaltanteAnunciado.GetProductoFaltanteAnunciado(paisID, CampaniaID);
+
+                using (IDataReader reader = daProductofaltante.GetOnlyProductoFaltante(productosHana, CampaniaID, ZonaID, cuv, descripcion))
                     while (reader.Read())
                     {
                         var prodfal = new BEProductoFaltante(reader);
@@ -124,8 +116,8 @@ namespace Portal.Consultoras.BizLogic
 
         public void InsLogIngresoFAD(int PaisID, int CampaniaId, long ConsultoraId, string CUV, int Cantidad, decimal PrecioUnidad, int ZonaId)
         {
-            var DAproductofaltante = new DAProductoFaltante(PaisID);
-            DAproductofaltante.InsLogIngresoFAD(CampaniaId, ConsultoraId, CUV, Cantidad, PrecioUnidad, ZonaId);
+            var daProductofaltante = new DAProductoFaltante(PaisID);
+            daProductofaltante.InsLogIngresoFAD(CampaniaId, ConsultoraId, CUV, Cantidad, PrecioUnidad, ZonaId);
         }
 
         public int DelProductoFaltanteMasivo(int paisID, int campaniaID, string zona, string cuv, string fecha, string descripcion)
