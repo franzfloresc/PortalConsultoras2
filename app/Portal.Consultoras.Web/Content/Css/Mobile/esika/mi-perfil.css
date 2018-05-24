@@ -24,8 +24,16 @@
     margin-top:31px;
 }
 
+.mt-40{
+    margin-top:40px;
+}
+
 .mb-26{
     margin-bottom:26px;
+}
+
+.mb-40{
+    margin-bottom:40px;
 }
 
 .mb-61{
@@ -131,6 +139,7 @@
 .vista_cambiar_foto_perfil,
 .wrapper_content_cambiar_foto_perfil,
 .opciones_foto_perfil,
+.opcion_foto_perfil,
 .icono_opcion_foto_perfil img
 {
     display:block;
@@ -297,7 +306,7 @@
     .grupo_form_cambio_datos label{
         cursor:default;
         position:absolute;
-        top:22px;
+        top:25px;
         left:0;
         font-size:13px;
     }
@@ -657,6 +666,11 @@
     padding:0;
 }
 
+.mensaje_contrasenia_actualizada{
+    padding-left:10px;
+    padding-right:10px;
+}
+
 .btn_acept{
     width:119px;
 }
@@ -798,8 +812,8 @@
 }
 
 .opciones_foto_perfil{
-    padding-top:73px;
-    padding-bottom:73px;
+    padding-top:26px;
+    padding-bottom:26px;
 }
 
 .opcion_foto_perfil {
@@ -810,7 +824,7 @@
     padding-bottom: 29px;
     background-color:#FFF;
     border: 1px solid #E7E1E1;
-    margin-bottom: 20px;
+    margin-bottom: 27px;
     -moz-box-shadow: 0 8px 11px -7px rgba(103, 103, 103, 0.5);
     -webkit-box-shadow: 0 8px 11px -7px rgba(103, 103, 103, 0.5);
     box-shadow: 0 8px 11px -7px rgba(103, 103, 103, 0.5);
