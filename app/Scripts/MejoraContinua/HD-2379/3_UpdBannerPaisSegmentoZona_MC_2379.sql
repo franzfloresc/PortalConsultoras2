@@ -51,12 +51,13 @@ AS
  END  
  ELSE  
  BEGIN
+
   UPDATE dbo.BannerPaisSegmentoZona
   SET
    Segmento = @Segmento,
    ConfiguracionZona = @ConfiguracionZona,
    SegmentoInterno = @SegmentoInternoID,
-   CodigosConsultora = @CodigosConsultora,
+   CodigosConsultora = IsNULL(@CodigosConsultora, CodigosConsultora),
    TipoAcceso = @TipoAcceso
   WHERE CampaniaId = @CampaniaId and
     BannerId = @BannerId and  

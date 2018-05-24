@@ -1192,7 +1192,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (postFile == null)
             {
-                return string.Empty;
+                return null;
             }
             IStreamReader reader = new DefaultStreamReader();
 

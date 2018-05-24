@@ -10,7 +10,7 @@ namespace Portal.Consultoras.Common.Reader
         {
             if (!CanProcessStream(stream))
             {
-                return string.Empty;
+                return null;
             }
 
             var lines = await GetLines(stream, transformer);
