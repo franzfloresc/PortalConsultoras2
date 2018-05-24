@@ -55,8 +55,8 @@ namespace Portal.Consultoras.Web.Controllers
         protected ILogManager logManager;
         private readonly TablaLogicaProvider _tablaLogicaProvider;
         private readonly ShowRoomProvider _showRoomProvider;
-        protected Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel estrategiaODD;
-        protected Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel configEstrategiaSR;
+        protected Models.Estrategia.OfertaDelDia.DataModel estrategiaODD;
+        protected Models.Estrategia.ShowRoom.ConfigModel configEstrategiaSR;
         #endregion
 
         #region Constructor
@@ -1196,7 +1196,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.PaisID,
                         model.CampaniaID,
                         codigoConsultora,
-                        configEstrategiaSR.BeShowRoom != null && configEstrategiaSR.BeShowRoom.TienePersonalizacion);
+                        true);
 
                     configEstrategiaSR.ListaNivel = pedidoService.GetShowRoomNivel(model.PaisID).ToList();
 

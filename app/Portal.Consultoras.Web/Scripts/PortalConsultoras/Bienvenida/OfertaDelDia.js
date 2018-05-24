@@ -608,7 +608,6 @@ $(document).ready(function () {
             IndicadorMontoMinimo: indMontoMinimo,
             ClienteID_: '-1',
             TipoEstrategiaImagen: teImagenMostrar || 0,
-            
             Descripcion: descripcion,
             TipoOferta: tipoEstrategiaID
         };

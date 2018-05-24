@@ -2843,7 +2843,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
             cache: false
         });
 
-        var val = ValidarUpdate(PedidoDetalleID, FlagValidacion);
+        var val = ValidarUpdate(PedidoDetalleID, FlagValidacion, rowElement);
         if (!val) {
             CerrarSplash();
             return false;
@@ -2851,7 +2851,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
 
         var CliID = $(rowElement).find(".hdfLPCli").val();
         var CliDes = $(rowElement).find(".txtLPCli").val();
-        var Cantidad = $(txtLPCant);
+        var Cantidad = $(txtLPCant).val();
         var CantidadAnti = $(txtLPTempCant).val();
         var DesProd = $(rowElement).find(".lblLPDesProd").html();
 
