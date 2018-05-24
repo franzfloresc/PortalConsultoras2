@@ -78,6 +78,7 @@ namespace Portal.Consultoras.Common
 
                 RegistrarArchivoTexto(logError, pathFile);
                 RegistrarDynamoDB(logError);
+                RegistrarElastic(logError);
             }
             catch (Exception)
             {
@@ -210,6 +211,85 @@ namespace Portal.Consultoras.Common
 
                 RegistrarArchivoTexto(logError);
             }
+        }
+
+        private static void RegistrarElastic(LogError logError)
+        {
+            var urlApi = ConfigurationManager.AppSettings.Get("UrlLogElastic");
+
+            if (string.IsNullOrEmpty(urlApi)) return;
+
+            var dataString = string.Empty;
+            try
+            {
+                var urlRequest = string.Empty;
+                var browserRequest = string.Empty;
+
+                if (HttpContext.Current != null && HttpContext.Current.Request != null)
+                {
+                    if (HttpContext.Current.Request != null)
+                    {
+                        urlRequest = HttpContext.Current.Request.Url.ToString();
+                        browserRequest = HttpContext.Current.Request.UserAgent;
+                    }
+                }
+
+                var exceptionMessage = string.Empty;
+
+                if (logError.Exception != null)
+                {
+                    exceptionMessage = logError.Exception.Message;
+
+                    var innerException = logError.Exception.InnerException;
+                    while (innerException != null)
+                    {
+                        exceptionMessage = string.Format("{0}, InnerException: {1}", exceptionMessage, innerException.Message);
+                    }
+                }
+
+                var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
+                string ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
+                string acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+
+                var data = new
+                {
+                    Date = DateTime.Now,
+                    HostName = Environment.MachineName,
+                    ThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId,
+                    Level = "ERROR",
+                    Class = ctrl.ToLower(),
+                    Method = acti.ToLower(),
+                    Message = exceptionMessage,
+                    Application = "Web",
+                    Pais = logError.IsoPais,
+                    User = logError.CodigoUsuario,
+                    Exception = logError.Exception,
+                    Url = urlRequest,
+                    Navigator = browserRequest,
+                    Trace = "LogManager"
+                };                
+
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.PostAsync(GetUrl(urlApi), new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json"));
+                }
+            }
+            catch (Exception ex)
+            {
+                logError.Exception = ex;
+                logError.InformacionAdicional = dataString;
+                logError.Titulo = "Seguimiento de Errores Elastic";
+
+                RegistrarArchivoTexto(logError);
+            }
+        }
+
+        private static string GetUrl(string endpoint)
+        {
+            var pattern = ConfigurationManager.AppSettings.Get("PatternElastic");
+
+            string indexName = pattern + DateTime.Now.ToString("yyyy.MM.dd");
+            return endpoint + "/" + indexName + "/LogEvent";
         }
     }
 }

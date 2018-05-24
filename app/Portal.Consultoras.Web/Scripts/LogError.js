@@ -68,7 +68,7 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
     // HTTP Status Messages 
     // https://www.w3schools.com/tags/ref_httpmessages.asp
 
-    var urlAjax = window.location.origin + "" + settings.url;
+    var urlAjax = window.location.origin + " -> " + settings.url;
 
     var message = settings.url + ": ";
     var stackTrace = "";
@@ -116,7 +116,6 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
 function registrarLogError(objError) {
 
     if (isPagina('localhost')) {
-        //console.log(objError);
         return;
     }
 
@@ -171,6 +170,9 @@ function registrarLogErrorElastic(objError) {
     if (isPagina('localhost')) {
         console.log(objError);
         return;
+    }
+    else if (location.host.indexOf('qa') > 0 || location.host.indexOf('ppr') > 0) {
+        console.log(objError);
     }
 
     if (!urlLogElastic) return;
