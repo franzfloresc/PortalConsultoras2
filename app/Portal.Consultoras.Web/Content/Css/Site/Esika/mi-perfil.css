@@ -56,7 +56,6 @@
 .w-100,
 .datos_usuario_iniciales,
 .wrapper_content_mi_perfil,
-.foto_consultora,
 .contenedor_foto_consultora,
 .icono_camara,
 .icono_camara_img,
@@ -68,6 +67,7 @@
 .grupo_form_cambio_datos,
 .grupo_form_cambio_datos label,
 .grupo_form_cambio_datos input,
+.contenedor_campos_num_adicional,
 .tooltip_info_revision_correo,
 .vista_cambiar_contrasenia,
 .wrapper_content_cambiar_contrasenia,
@@ -355,7 +355,6 @@
 }
 
 .grupo_form_cambio_datos .label_num_adicional,
-.enlace_eliminar_numero_adicional,
 .tooltip_info_revision_correo
 {
     display:none;
