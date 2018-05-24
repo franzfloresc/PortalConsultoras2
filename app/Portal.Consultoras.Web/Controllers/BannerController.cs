@@ -165,7 +165,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 lstGrupoConsultora.RemoveAll(x => x.PaisID == 0);
 
-                BEGrupoBanner obeGrupo = new BEGrupoBanner
+                var obeGrupo = new BEGrupoBanner
                 {
                     CampaniaID = model.CampaniaID,
                     GrupoBannerID = model.GrupoBannerID,
@@ -1126,8 +1126,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public async Task<JsonResult> UpdBannerPaisSegmentoZona(HttpPostedFileBase csvConsultoras, BEBannerSegmentoZona segmentoZona)
         {
-            //int BannerId, int CampaniaId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInternoId
-
             segmentoZona.CodigosConsultora = await GetCodes(csvConsultoras); 
             var mensaje = UpdateBannerPaisSegmentoZonaInternal(segmentoZona);
 
