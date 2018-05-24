@@ -1123,7 +1123,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daConfiguracionCampania.GetConfiguracionCampania(PaisID, ZonaID, RegionID, ConsultoraID))
                 if (reader.Read())
                 {
-                    configuracion = new BEConfiguracionCampania(reader);
+                    configuracion = reader.MapToObject<BEConfiguracionCampania>();
                 }
 
             if (configuracion != null)
