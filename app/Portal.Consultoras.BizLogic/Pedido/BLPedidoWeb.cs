@@ -2133,26 +2133,17 @@ namespace Portal.Consultoras.BizLogic
             {
                 using (var reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
                 {
-
-            BEUsuario usuario = null;
-            using (IDataReader reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
-            {
-                if (reader.Read()) usuario = new BEUsuario(reader, true,true);
+                    if (reader.Read()) usuario = new BEUsuario(reader, true, true);
                 }
 
                 if (usuario != null)
                 {
-                    using (var reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : consultoraID))
+                    using (IDataReader reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
                     {
-            BEConfiguracionCampania configuracion = null;
-            if (usuario != null)
-            {
-                using (IDataReader reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
-                {
                         if (reader.Read()) configuracion = reader.MapToObject<BEConfiguracionCampania>();
                     }
                 }
-
+            
                 if (configuracion != null)
                 {
                     if (validarGPR && configuracion.IndicadorGPRSB == 1)
