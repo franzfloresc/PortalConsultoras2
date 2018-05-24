@@ -115,7 +115,7 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
 
 function registrarLogError(objError) {
 
-    if (isPagina('localhost') || location.host.indexOf('qa') > 0 || location.host.indexOf('ppr') > 0) {
+    if (isPagina('localhost')) {
         //console.log(objError);
         return;
     }
@@ -168,7 +168,7 @@ function registrarLogError(objError) {
 
 function registrarLogErrorElastic(objError) {
 
-    if (isPagina('localhost') || location.host.indexOf('qa') > 0 || location.host.indexOf('ppr') > 0) {
+    if (isPagina('localhost')) {
         console.log(objError);
         return;
     }
