@@ -1,11 +1,6 @@
 ﻿USE [BelcorpPeru]
 GO
-/* 
-Autor : Carlos Soria 
-Fecha: 13/05/2015
-Nombre del store procedure modificado: UpdBannerPaisSegmentoZona
-Descripcion: Sirve para actualizar y/o insertar el nuevo campo SegmentoInternoId de la tabla bannerPaisSegmentoZona.
-*/                 
+           
 ALTER procedure [dbo].[UpdBannerPaisSegmentoZona]  
  @CampaniaId int,  
  @BannerId int,  
