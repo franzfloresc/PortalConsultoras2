@@ -280,7 +280,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 if (upsellingActivo == null)
                     return Json(ResultModel<string>.BuildBad("no hay upselling activo", string.Empty), JsonRequestBehavior.AllowGet);
 
-                upsellingActivo.Regalos = upsellingActivo.Regalos.Where(r => r.Activo == true).ToList();
+                upsellingActivo.Regalos = upsellingActivo.Regalos.Where(r => r.Activo).ToList();
 
                 var regalos = upsellingActivo.Regalos.Any(r => r.Activo);
 

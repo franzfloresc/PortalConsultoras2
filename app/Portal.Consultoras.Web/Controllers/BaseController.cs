@@ -2182,7 +2182,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.MesFaltante = userData.FechaInicioCampania.Month;
             model.AnioFaltante = userData.FechaInicioCampania.Year;
-            
+
             if (userData.ListaShowRoomPersonalizacionConsultora == null)
             {
                 model.ImagenPopupShowroomIntriga = "";
@@ -2521,16 +2521,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected void ActualizarDatosLogDynamoDB(MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "", string p_Seccion = "")
         {
-            object data = null;
-            string v_campomodificacion = string.Empty;
-            string v_valoranterior = string.Empty;
-            string v_valoractual = string.Empty;
             string dataString = string.Empty;
-            string apinombre = string.Empty;
 
             try
             {
-                apinombre = "Api/LogActualizaciones";
+
+                object data = null;
+                string apinombre = "Api/LogActualizaciones";
 
                 //Data actual viene del Model       => model
                 //Data anterior viene del userData  => userData 
@@ -2550,6 +2547,10 @@ namespace Portal.Consultoras.Web.Controllers
                     if (string.IsNullOrEmpty(p_modelo.Telefono)) p_modelo.Telefono = "";
                     if (string.IsNullOrEmpty(p_modelo.Celular)) p_modelo.Celular = "";
                     if (string.IsNullOrEmpty(p_modelo.TelefonoTrabajo)) p_modelo.TelefonoTrabajo = "";
+
+                    string v_campomodificacion = string.Empty;
+                    string v_valoranterior = string.Empty;
+                    string v_valoractual = string.Empty;
 
                     if (userData.Sobrenombre.ToString().Trim().ToUpper() != p_modelo.Sobrenombre.ToString().Trim().ToUpper())
                     {
@@ -2605,21 +2606,22 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO, dataString);
             }
         }
 
         protected void EjecutarLogDynamoDB(object data, string requestUrl, string campomodificacion, string valoractual, string valoranterior, string origen, string aplicacion, string accion, string codigoconsultorabuscado, string seccion = "")
         {
             string dataString = string.Empty;
-            string urlApi = string.Empty;
-            bool noQuitar = false;
-            
-            if (userData.CodigoISO != "PE")
-                seccion = "";
 
             try
             {
+                string urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
+                if (string.IsNullOrEmpty(urlApi)) return;
+
+                if (userData.CodigoISO != "PE")
+                    seccion = "";
+
                 var paisesAdmitidos = new List<BETablaLogicaDatos>();
                 short codigoTablaLogica = 138;
 
@@ -2628,6 +2630,7 @@ namespace Portal.Consultoras.Web.Controllers
                     paisesAdmitidos = tablaLogica.GetTablaLogicaDatos(userData.PaisID, codigoTablaLogica).ToList();
                 }
 
+                bool noQuitar = false;
                 foreach (var item in paisesAdmitidos)
                 {
                     if (Convert.ToInt32(item.Codigo) == Convert.ToInt32(userData.PaisID))
@@ -2648,8 +2651,6 @@ namespace Portal.Consultoras.Web.Controllers
                             UsuarioConsultado = codigoconsultorabuscado,
                             Seccion = seccion
                         };
-                        urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
-                        if (string.IsNullOrEmpty(urlApi)) return;
 
                         HttpClient httpClient = new HttpClient();
                         httpClient.BaseAddress = new Uri(urlApi);
@@ -2663,7 +2664,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     }
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -2675,6 +2676,9 @@ namespace Portal.Consultoras.Web.Controllers
             var dataString = string.Empty;
             try
             {
+                var urlApi = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
+                if (string.IsNullOrEmpty(urlApi)) return;
+
                 var data = new
                 {
                     FechaRegistro = "",
@@ -2686,21 +2690,12 @@ namespace Portal.Consultoras.Web.Controllers
                     SolicitudId = solicitudId
                 };
 
-
-                var urlApi = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
-
-                if (string.IsNullOrEmpty(urlApi)) return;
-
                 var httpClient = new HttpClient { BaseAddress = new Uri(urlApi) };
                 httpClient.DefaultRequestHeaders.Accept.Clear();
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
                 dataString = JsonConvert.SerializeObject(data);
-
                 HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-
                 var response = httpClient.PostAsync("Api/LogGestionSacUnete", contentPost).GetAwaiter().GetResult();
-
                 var noQuitar = response.IsSuccessStatusCode;
 
                 httpClient.Dispose();
@@ -5069,7 +5064,7 @@ namespace Portal.Consultoras.Web.Controllers
                 resultado = svr.ActualizarMisDatos(usuario, correoAnterior);
             }
 
-            return resultado;
+            return Util.Trim(resultado);
         }
 
         protected List<RVPRFModel> GetListPaqueteDocumentario(string codigoConsultora, string campania, string numeroPedido)

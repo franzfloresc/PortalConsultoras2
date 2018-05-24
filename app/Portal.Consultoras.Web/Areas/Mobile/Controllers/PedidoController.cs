@@ -362,10 +362,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             var pedidoWeb = ObtenerPedidoWeb();
 
-            int result = 0;            
+            int result = 0;
+            
             using (var sv = new PedidoServiceClient())
-            {
-                DateTime? fechaInicioSetAgrupado = sv.ObtenerFechaInicioSets(userData.PaisID);
+            {
+
+                DateTime? fechaInicioSetAgrupado = sv.ObtenerFechaInicioSets(userData.PaisID);
+
                 if (fechaInicioSetAgrupado.HasValue)
                     result = DateTime.Compare(fechaInicioSetAgrupado.Value.Date, pedidoWeb.FechaRegistro.Date);
             }
