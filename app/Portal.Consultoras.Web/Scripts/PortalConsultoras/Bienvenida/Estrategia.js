@@ -1027,10 +1027,9 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
         IndicadorMontoMinimo: indicadorMontoMinimo,
         ClienteID_: '-1',
         TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
-
         Descripcion: descripcion,
         TipoOferta: datosEst.TipoEstrategiaID || $("#hdTipoEstrategiaID").val(),
-        tipoEstrategiaImagen: tipoEstrategiaImagen || 0
+        TipoEstrategiaImagen: tipoEstrategiaImagen || 0
     };
 
     jQuery.ajax({
