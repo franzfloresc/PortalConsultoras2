@@ -1094,7 +1094,7 @@ $(window).on("scroll", function () {
     if (isMobile()) {
         var cabecera_mobil = $('header').outerHeight(true);
         var tabs_mobil = $('#seccion-menu-mobile').outerHeight(true);
-        var cont_prod_mobil = $('#divOfertaProductos').outerHeight(true);
+        var cont_prod_mobil = $('#divProductosShowRoom').outerHeight(true);
         var menu_para_ti = $('.bc_para_ti-menu-opciones').outerHeight(true);
         var total_head_sin = menu_para_ti + cabecera_mobil;
         var total_head_mobil = cabecera_mobil + cont_prod_mobil;
