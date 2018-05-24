@@ -32,6 +32,10 @@
     margin-bottom:61px!important;
 }
 
+.pt-8{
+    padding-top:8px;
+}
+
 .w-29{
     width:29%;
 }
@@ -41,11 +45,15 @@
     margin-right:-2px;
 }
 
-.w-70{
-    width:70%;
+.w-71{
+    width:71.2%;
 }
 
 .wrapper_content_mi_perfil,
+.wrapper_content_cambiar_contrasenia,
+.wrapper_content_actualizar_correo,
+.wrapper_content_actualizar_celular,
+.wrapper_content_cambiar_foto_perfil,
 .w-100
 {
     width:100%;
@@ -58,6 +66,14 @@
 .center-block{
     margin-left:auto;
     margin-right:auto;
+}
+
+.pull-left{
+    float:left;
+}
+
+.pull-right{
+    float:right;
 }
 
 /* FIN - HELPERS */
@@ -265,7 +281,6 @@
 .opciones_foto_perfil
 {
     background-color:#FFF;
-    margin-bottom:79px;
 }
 
 .form_cambio_datos{
@@ -284,7 +299,7 @@
         position:absolute;
         top:22px;
         left:0;
-        font-size:11px;
+        font-size:12px;
     }
 
     .grupo_form_cambio_datos label,
@@ -411,13 +426,17 @@
     transition: all 0.3s ease;
 }
 
-.btn_guardar_datos_nuevos:hover,
-.btn_cambiar_contrasenia:hover,
-.btn_continuar:hover,
-.btn_acept:hover
-{
-    background-color: rgba(232,28,54,0.8);
+.btn_guardar_datos_nuevos{
+    background-color:#CDC7C8;
 }
+
+    .btn_guardar_datos_nuevos.default-background-color:hover,
+    .btn_cambiar_contrasenia:hover,
+    .btn_continuar:hover,
+    .btn_acept:hover
+    {
+        background-color: rgba(232,28,54,0.8);
+    }
 
 .tooltip_info_revision_correo {
     width: auto;
@@ -486,21 +505,14 @@
 
 /* CAMBIA TU CONTRASEÑA, ACTUALIZA TU CORREO ELECTRÓNICO */
 
-.wrapper_content_cambiar_contrasenia,
-.wrapper_content_actualizar_correo,
-.wrapper_content_actualizar_celular,
-.wrapper_content_cambiar_foto_perfil
-{
-    width:520px;
-}
 
 .vista_cambiar_contrasenia,
 .vista_actualizar_correo,
 .vista_actualizar_celular,
 .vista_cambiar_foto_perfil
 {
-    background-color:#EDEDED;
-    padding:37px;
+    background-color:#FFF;
+    padding:20px;
 }
 
 .enlace_volver_a_mi_perfil{
@@ -534,15 +546,14 @@
 .celular_actualizado
 {
     background-color:#FFF;
-    min-height:355px;
-    padding:50px 80px;
 }
 
 .enlace_cancelar{
     text-decoration: underline;
-    padding-top: 27px;
     width: 72px;
-    font-size:12.5px;
+    height: 45px;
+    line-height: 45px;
+    font-size: 12.5px;
 }
 
 .btn_cambiar_contrasenia,
