@@ -115,6 +115,11 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
 
 function registrarLogError(objError) {
 
+    if (isPagina('localhost') || location.host.indexOf('qa') > 0 || location.host.indexOf('ppr') > 0) {
+        //console.log(objError);
+        return;
+    }
+
     if (!urlLogDynamo) return;
 
     var urlLogError = urlLogDynamo + "Api/LogError";
@@ -165,6 +170,7 @@ function registrarLogErrorElastic(objError) {
 
     if (isPagina('localhost') || location.host.indexOf('qa') > 0 || location.host.indexOf('ppr') > 0) {
         console.log(objError);
+        return;
     }
 
     if (!urlLogElastic) return;
