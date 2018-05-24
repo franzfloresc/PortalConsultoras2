@@ -2133,14 +2133,23 @@ namespace Portal.Consultoras.BizLogic
             {
                 using (var reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
                 {
-                    if (reader.Read()) usuario = new BEUsuario(reader, true);
+
+            BEUsuario usuario = null;
+            using (IDataReader reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
+            {
+                if (reader.Read()) usuario = new BEUsuario(reader, true,true);
                 }
 
                 if (usuario != null)
                 {
                     using (var reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : consultoraID))
                     {
-                        if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
+            BEConfiguracionCampania configuracion = null;
+            if (usuario != null)
+            {
+                using (IDataReader reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
+                {
+                        if (reader.Read()) configuracion = reader.MapToObject<BEConfiguracionCampania>();
                     }
                 }
 
