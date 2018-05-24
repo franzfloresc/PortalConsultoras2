@@ -91,7 +91,17 @@
             });
 
             $('#enlaceChat').click(function (e) {
-                $('#btn_init').click();
+                var btnInit = $('#btn_init').css('display');
+                var btnOpen = $('#btn_open').css('display');
+
+                if (btnInit == 'block') {
+                    $('#btn_init').click();
+                }
+
+                if (btnOpen == 'block') {
+                    $('#btn_open').click(); 
+                }
+
                 e.preventDefault();
             });
         </script>
