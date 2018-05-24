@@ -1045,18 +1045,4 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetVisaConfiguracion">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="PaisId" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetVisaConfiguracionResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q56="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetVisaConfiguracionResult" nillable="true" type="q56:ArrayOfBEVisaConfiguracion" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
 </xs:schema>

@@ -409,6 +409,12 @@
   <wsdl:message name="IPortalService_ValidarCodigoVerificacionSolicitudPostulante_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidarCodigoVerificacionSolicitudPostulanteResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerDescripcionErrorGenerandoCodigo_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerDescripcionErrorGenerandoCodigo" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerDescripcionErrorGenerandoCodigo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerDescripcionErrorGenerandoCodigoResponse" />
+  </wsdl:message>
   <wsdl:message name="IPortalService_ObtenerListaAutocompletarUbigeo_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerListaAutocompletarUbigeo" />
   </wsdl:message>
@@ -679,6 +685,10 @@
     <wsdl:operation name="ValidarCodigoVerificacionSolicitudPostulante">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ValidarCodigoVerificacionSolicitudPostulante" message="tns:IPortalService_ValidarCodigoVerificacionSolicitudPostulante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ValidarCodigoVerificacionSolicitudPostulanteResponse" message="tns:IPortalService_ValidarCodigoVerificacionSolicitudPostulante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDescripcionErrorGenerandoCodigo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerDescripcionErrorGenerandoCodigo" message="tns:IPortalService_ObtenerDescripcionErrorGenerandoCodigo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerDescripcionErrorGenerandoCodigoResponse" message="tns:IPortalService_ObtenerDescripcionErrorGenerandoCodigo_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerListaAutocompletarUbigeo">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerListaAutocompletarUbigeo" message="tns:IPortalService_ObtenerListaAutocompletarUbigeo_InputMessage" />
@@ -1274,6 +1284,15 @@
     </wsdl:operation>
     <wsdl:operation name="ValidarCodigoVerificacionSolicitudPostulante">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ValidarCodigoVerificacionSolicitudPostulante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDescripcionErrorGenerandoCodigo">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerDescripcionErrorGenerandoCodigo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
