@@ -80,63 +80,23 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEBannerInfo> SelectBannerByConsultora(int paisID, int campaniaID, string codigoConsultora, bool consultoraNueva)
         {
             IList<BEBanner> banners = SelectBanner(campaniaID);
-            IList<BEGrupoBanner> grupos = SelectGrupoBanner(campaniaID);
             var bannersByConsultora = new List<BEBannerInfo>();
-            BEGrupoConsultora consultora = null;
 
             foreach (BEBanner banner in banners)
             {
-                if (banner.FlagConsultoraNueva)
-                {
-                    if (consultoraNueva && banner.Paises != null && banner.Paises.Contains(paisID))
-                    {
-                        BEBannerInfo temp = new BEBannerInfo(banner);
-                        List<BEBannerSegmentoZona> segzona = banner.PaisesSegZona.Where(p => p.PaisId == paisID).ToList();
-                        if (segzona.Count > 0)
-                        {
-                            temp.Segmento = segzona[0].Segmento;
-                            temp.ConfiguracionZona = segzona[0].ConfiguracionZona;
-                        }
+                if (banner.Paises == null || !banner.Paises.Contains(paisID)) continue;
 
-                        bannersByConsultora.Add(temp);
-                    }
-                    continue;
+                var temp = new BEBannerInfo(banner);
+                var segzona = banner.PaisesSegZona.FirstOrDefault(p => p.PaisId == paisID);
+                if (segzona != null)
+                {
+                    temp.Segmento = segzona.Segmento;
+                    temp.ConfiguracionZona = segzona.ConfiguracionZona;
                 }
 
-                if (banner.FlagGrupoConsultora)
-                {
-                    var grupo = grupos.ToList().Find(x => x.GrupoBannerID == banner.GrupoBannerID);
-                    if (grupo != null && grupo.Consultoras != null)
-                        consultora = grupo.Consultoras.ToList().Find(y => y.ConsultoraCodigo == codigoConsultora && y.PaisID == paisID);
-
-                    if (consultora != null)
-                    {
-                        BEBannerInfo temp = new BEBannerInfo(banner);
-                        List<BEBannerSegmentoZona> segzona = banner.PaisesSegZona.Where(p => p.PaisId == paisID).ToList();
-                        if (segzona.Count > 0)
-                        {
-                            temp.Segmento = segzona[0].Segmento;
-                            temp.ConfiguracionZona = segzona[0].ConfiguracionZona;
-                        }
-
-                        bannersByConsultora.Add(temp);
-                    }
-                    continue;
-                }
-
-                if (banner.Paises != null && banner.Paises.Contains(paisID))
-                {
-                    BEBannerInfo temp = new BEBannerInfo(banner);
-                    List<BEBannerSegmentoZona> segzona = banner.PaisesSegZona.Where(p => p.PaisId == paisID).ToList();
-                    if (segzona.Count > 0)
-                    {
-                        temp.Segmento = segzona[0].Segmento;
-                        temp.ConfiguracionZona = segzona[0].ConfiguracionZona;
-                    }
-
-                    bannersByConsultora.Add(temp);
-                }
+                bannersByConsultora.Add(temp);
             }
+
             return bannersByConsultora;
         }
 
