@@ -675,12 +675,25 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
             value.UrlDetalle = urlDetalleShowRoom + '/' + value.OfertaShowRoomID;
         });
 
-
+        
         SetHandlebars("#template-showroom", response.listaNoSubCampania, '#divProductosShowRoom');
+        
+
         if (response.listaNoSubCampaniaPerdio != undefined) {
             if (response.listaNoSubCampaniaPerdio.length > 0) {
                 $("#block_inscribete").show();
-                SetHandlebars("#template-showroom", response.listaNoSubCampaniaPerdio, '#divOfertaProductosPerdio');
+
+                //JN (sección gana+ en ShowRoom)
+                //Agregamos al modelo un objeto llamado ExperienciaGanaMas para controlar si se muestra sección dorada o no.
+                //Uso de SetHandlebars , index.cshtml, <script id="template-showroom"...) 
+                var modeloTemp = Clone(response);
+                var ExperienciaGanaMas = new Object();
+                ExperienciaGanaMas.MostrarLoQuieres = !revistaDigital.EsSuscrita && !revistaDigital.EsActiva ? true : false;
+
+                $.each(modeloTemp.listaNoSubCampaniaPerdio, function (ind, tem) {
+                    tem.ExperienciaGanaMas = ExperienciaGanaMas;
+                });
+                SetHandlebars("#template-showroom", modeloTemp.listaNoSubCampaniaPerdio, '#divOfertaProductosPerdio');
             }
         }
         $("#spnCantidadFiltro").html(response.listaNoSubCampania.length);

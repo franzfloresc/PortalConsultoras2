@@ -86,7 +86,7 @@
     {
         if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
         {
-            <!--Bryan NO SUSCRITA Historia 636-->
+            <!--JN NO SUSCRITA Historia 636-->
             <!-- INICIO ZONA DORADA-->
             <div id="block_inscribete" style="display: none;">
                 <div class="zona_dorada_contenedor_desktop">
@@ -451,6 +451,12 @@
             </div>
             <div class="clear"></div>
             <div class="producto_nombre_descripcion" data-item-tag="agregar">
+                {{#iff this.ExperienciaGanaMas.MostrarLoQuieres}}
+                <a href="javascript:;" class="btn_elige_tono js-no-popup" data-bloqueada="{{ClaseBloqueada}}"
+                   onclick="javascript:VerPopupExpGanaMas(); ">
+                    ¿LO QUIERES?
+                </a>
+                {{else}}
                 {{#iff TipoAccionAgregar '==' '0'}}
                 <div class="texto_elige_tono"></div>
                 <div class="clear"></div>
@@ -467,7 +473,6 @@
                 <a class="boton_Agregalo_home" data-btn-agregar-sr="">
                     AGRÉGALO
                 </a>
-                {{/iff}}
                 {{#iff TipoAccionAgregar '==' '1'}}
                 <div class="texto_elige_tono"></div>
                 <div class="clear"></div>
@@ -475,6 +480,10 @@
                     <b style="color:#000000">ELIGE TU OPCIÓN</b>
                 </a>
                 {{/iff}}
+                {{/iff}}
+                {{/iff}}
+
+
 
                 <div class="clear"></div>
                 <div style="margin-top: 9px;margin-bottom:9px; height: 15px;">
@@ -489,6 +498,8 @@
     {{/each}}
     <hr class="clear" />
 </script>
+
+@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", @Model.MensajeProductoBloqueado)
 
 @section scripts{
 

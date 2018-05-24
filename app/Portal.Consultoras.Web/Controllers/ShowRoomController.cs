@@ -168,6 +168,13 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
+                //21-may-2018
+                var dato = ObtenerPerdio(userData.CampaniaID);
+                showRoomEventoModel.ProductosPerdio = dato.Estado;
+                showRoomEventoModel.PerdioTitulo = dato.Valor1;
+                showRoomEventoModel.PerdioSubTitulo = dato.Valor2;
+                showRoomEventoModel.MensajeProductoBloqueado = MensajeProductoBloqueado();
+
                 return View(showRoomEventoModel);
 
             }
@@ -2923,12 +2930,25 @@ namespace Portal.Consultoras.Web.Controllers
                     return ErrorJson(string.Empty);
 
                 bool esFacturacion = EsFacturacion();
-                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
+                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion, false);
 
                 var urlCompartir = GetUrlCompartirFB();
                 productosShowRoom.ForEach(p => p.UrlCompartir = urlCompartir);
+                var listaNoSubCampania = new List<ShowRoomOfertaModel>();
+                var listaNoSubCampaniaPerdio = new List<ShowRoomOfertaModel>();
+                
+                //var listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
 
-                var listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
+                if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
+                {
+                    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+                    listaNoSubCampaniaPerdio = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista != Constantes.FlagRevista.Valor0).ToList();
+                }
+                else
+                {
+                    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
+                }
+                
                 var totalNoSubCampania = listaNoSubCampania.Count;
 
                 if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
@@ -2980,7 +3000,8 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "Ok",
                     listaNoSubCampania,
                     totalNoSubCampania,
-                    listaSubCampania
+                    listaSubCampania,
+                    listaNoSubCampaniaPerdio   //JN: Nueva lista de CUV en Zona Dorada
                 });
             }
             catch (Exception ex)
