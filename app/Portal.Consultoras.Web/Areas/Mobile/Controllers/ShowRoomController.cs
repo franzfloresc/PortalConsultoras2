@@ -90,6 +90,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ActionExecutingMobile();
             var showRoomEventoModel = OfertaShowRoom();
 
+            //24-may-2018 (JN)
+            var dato = ObtenerPerdio(userData.CampaniaID);
+            showRoomEventoModel.ProductosPerdio = dato.Estado;
+            showRoomEventoModel.PerdioTitulo = dato.Valor1;
+            showRoomEventoModel.PerdioSubTitulo = dato.Valor2;
+            showRoomEventoModel.MensajeProductoBloqueado = MensajeProductoBloqueado();
+
             if (!string.IsNullOrEmpty(query))
             {
                 string param = Util.Decrypt(query);
