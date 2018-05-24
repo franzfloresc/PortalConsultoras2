@@ -3,7 +3,6 @@
         He agregado <span>{{cantidadProductos}}</span> unidades.<br />
         Últimos agregados:
     </div>
-    <!--ITEMS CARRITO-->
     {{#each this.ultimosTresPedidos}}
     <div class="productos_agregado_carrito">
         <div class="marca_belcorp">{{DescripcionLarga}}</div>
@@ -13,11 +12,9 @@
         <div class="precio_carrito">{{{../Simbolo}}}{{ImporteTotal}}</div>
     </div>
     {{/each}}
-    <!--FIN-->
     <div class="pago_pedido_carrito">
         <div class="info_copy">
             <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" />
-            <!--TOOLTIP-->
             <div class="tooltip_importe">
                 <div class="left_reservado">
                     <div class="datos_Reservado">
@@ -32,7 +29,6 @@
                     </div>
                 </div>
             </div>
-            <!--FIN-->
         </div>
         PEDIDO TOTAL
         <span>{{Simbolo}} <span data-pedidocondescuento="">{{montoWebConDescuentoStr}}</span></span>

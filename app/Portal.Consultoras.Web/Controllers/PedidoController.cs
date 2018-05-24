@@ -865,7 +865,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var detallePedido = _pedidoSetProvider.ObtenerDetalle(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
                 foreach (var detalle in set.Detalles)
                 {
-                    BEPedidoWebDetalle pedidoWebDetalle = listaPedidoWebDetalle.Where(p => p.CUV == detalle.CUV).FirstOrDefault();
+                    BEPedidoWebDetalle pedidoWebDetalle = listaPedidoWebDetalle.FirstOrDefault(p => p.CUV == detalle.CUV);
                     if (pedidoWebDetalle == null) continue;
                     int cantidad = pedidoWebDetalle.Cantidad - detallePedido.Where(p => p.CUV == detalle.CUV).Sum(p => set.Cantidad * p.FactorRepeticion);
                     if (cantidad > 0)
@@ -4638,15 +4638,22 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string mensaje = "";
-
                 FichaProductoDetalleModel ficha = Session[Constantes.SessionNames.FichaProductoTemporal] as FichaProductoDetalleModel;
+                
+                if (ficha == null)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Ocurrio un error, vuelva ha intentalo."
+                    });
+                }
 
                 var numero = Convert.ToInt32(Cantidad);
 
-                if (ficha != null && numero > ficha.LimiteVenta)
+                if (numero > ficha.LimiteVenta)
                 {
-                    mensaje = "La cantidad no debe ser mayor que la cantidad limite ( " + ficha.LimiteVenta + " ).";
+                    string mensaje = "La cantidad no debe ser mayor que la cantidad limite ( " + ficha.LimiteVenta + " ).";
                     return Json(new
                     {
                         success = false,

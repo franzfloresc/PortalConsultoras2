@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Linq;
-using System.Web.WebPages;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -28,7 +27,6 @@ namespace Portal.Consultoras.Web.Models
         public string ImgFichaMobile { get; set; }//es el sello
         public string ImgFichaFondoMobile { get; set; }
         public string UrlVideoMobile { get; set; }
-
-        //public string ImgPrevDesktop { get; set; }
+        
     }
 }

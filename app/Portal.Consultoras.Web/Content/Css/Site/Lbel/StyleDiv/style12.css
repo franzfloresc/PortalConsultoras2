@@ -1,0 +1,2813 @@
+﻿
+/*SHOWROOM*/
+
+.contenedor_productos_showroom {
+    display: block;
+    position: relative;
+    text-align: center;
+}
+
+.set-productos-showroom {
+    background-color: white;
+    border: 1px solid #e6e3e3;
+    -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    display: inline-block;
+    height: 338px;
+    margin: 15px 25.516px 15px 0;
+    padding-bottom: 12px;
+    position: relative;
+    vertical-align: top;
+    width: 240.66px;
+}
+
+    .set-productos-showroom:nth-child(4n) {
+        margin-right: 0;
+    }
+
+.nombre-producto-set {
+    font-size: 13px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 177px;
+    overflow: hidden;
+    height: 41px;
+    margin-top: 9px;
+    font-weight: 700;
+}
+
+.precio-oferta-venta {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    font-size: 18px;
+    width: 50%;
+    padding-left: 5px;
+}
+
+.precio-oferta-normal {
+    margin: 0;
+    padding: 0;
+    text-align: right;
+    text-decoration: line-through;
+    font-size: 14px;
+    width: 50%;
+    padding-right: 5px;
+}
+
+.fondo_set {
+    width: 100%;
+    height: 396px;
+    background-size: cover !important;
+    padding-top: 60px;
+}
+
+.content_producto_set {
+    float: left;
+    width: 22%;
+    height: 373px;
+    margin-top: 60px;
+    text-align: center;
+}
+
+.content_detalle_set {
+    width: 48%;
+    float: left;
+    min-height: 100px;
+    background: white;
+    margin-left: 0;
+    padding: 30px;
+    font-family: 'Lato';
+}
+
+.content_solo_ficha_set {
+    width: 100%;
+    float: left;
+    margin-left: 10em;
+}
+
+.titulo_set {
+    font-size: 20px;
+    line-height: 22px;
+    color: black;
+    font-weight: 700;
+}
+
+.precio_valorizado_showroom {
+    text-align: right;
+    font-size: 13px;
+    font-weight: 300;
+    height: 16px;
+    text-decoration: line-through;
+}
+
+.precio_oferta_venta {
+    font-size: 13px;
+    text-align: right;
+    height: 28px;
+}
+
+    .precio_oferta_venta b {
+        font-size: 20px;
+        margin-left: 7px;
+    }
+
+.ganancia_showroom {
+    font-size: 13px;
+    color: #613c87;
+    text-align: right;
+    text-transform: uppercase;
+}
+
+.titulo_separador {
+    width: 100%;
+    margin-top: 20px;
+    font-size: 13px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid black;
+}
+
+.nombre_marca_set {
+    margin: 21px 0 0 2.5%;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: black;
+    width: 100%;
+    font-weight: 300;
+}
+
+.content_detalle_showroom {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.cantidad_set_individual {
+    width: 5%;
+    font-size: 13px;
+    float: left;
+}
+
+.nombre_set_individual {
+    width: 50%;
+    float: left;
+    font-size: 13px;
+}
+
+.tonos_set_individual {
+    float: right;
+    width: 36%;
+}
+
+.detalle_set_showroom {
+    font-size: 13px;
+    font-weight: 300;
+    display: block;
+}
+
+.precio_regular_set {
+    width: 25%;
+    text-align: right;
+    float: right;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.btn_aregar_set {
+    float: right;
+    background: black;
+    color: white;
+}
+
+.titulo_carrusel_showroom {
+    font-family: 'Lato';
+    font-size: 15px;
+    font-weight: 300;
+    color: black;
+    text-align: center;
+    margin-top: 28px;
+    margin-bottom: 40px;
+    margin-left: 10em;
+}
+
+.content_tip_negocio {
+    margin-top: 50px;
+    border-top: 1px solid black;
+    padding-top: 20px;
+    margin-left: 10em;
+}
+
+.titulo_tip {
+    text-transform: uppercase;
+    display: block;
+    font-size: 16px;
+}
+
+.tip_negocio_showroom {
+    font-size: 13px;
+    font-family: 'Lato';
+    background: url('/Content/Images/Showroom/icono_tip_lbel.png') no-repeat;
+    padding-left: 55px;
+    padding-top: 15px;
+    margin-bottom: 50px;
+}
+
+.tip_negocio_showroom {
+    font-size: 13px;
+    font-family: 'Lato';
+    background: url('/Content/Images/Showroom/icono_tip.png') no-repeat;
+    padding-left: 55px;
+    padding-top: 15px;
+    margin-bottom: 50px;
+}
+
+.titulo_compra_POP {
+    font-family: 'LAto';
+    font-size: 58px;
+    font-weight: 700;
+    text-align: center;
+    color: white;
+}
+
+.precio_set_compra {
+    font-family: 'LAto';
+    font-size: 24px;
+    text-align: center;
+}
+
+.content_carrusel_pop_compra {
+    margin-top: 30px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.content_imagen_compra {
+    width: 40%;
+    height: 250px;
+    text-align: center;
+    float: left;
+    margin-top: 25px;
+}
+
+    .content_imagen_compra img {
+        width: 100%;
+        display: block;
+        margin: 0 auto;
+    }
+
+.content_datos_carrusel {
+    width: 50%;
+    margin-left: 10%;
+    float: left;
+    padding-top: 40px;
+    font-family: 'Lato';
+}
+
+.producto_compra {
+    font-size: 13.5px;
+    line-height: 14.5px;
+    margin-bottom: 7px;
+    font-weight: 700;
+}
+
+.descripcion_producto_compra {
+    font-size: 13px;
+    letter-spacing: .2px;
+    font-weight: 300;
+    margin-bottom: 15px;
+    line-height: 15px;
+}
+
+.notificacion_compra {
+    margin-left: 29%;
+    background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat;
+    background-size: 16px 16px;
+    font-family: 'Lato';
+    font-size: 11px;
+    padding-left: 20px;
+    margin-top: 15px;
+}
+
+.content_ficha_compra {
+    float: left;
+    width: 20%;
+    height: auto;
+    background: white;
+    margin-left: 2%;
+    padding: 40px 25px 25px 25px;
+    -webkit-box-shadow: 0 15px 13px -8px rgba(236,236,236,1);
+    -moz-box-shadow: 0 15px 13px -8px rgba(236,236,236,1);
+    box-shadow: 0 15px 13px -8px rgba(236,236,236,1);
+}
+
+.content_imagen_carrusel_compra {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    position: relative;
+}
+
+    .content_imagen_carrusel_compra:hover .ver_detalle_carrusel {
+        opacity: 1;
+    }
+
+    .content_imagen_carrusel_compra img {
+        width: 100%;
+    }
+
+.btn_agrega_carrusel_compra {
+    width: 100%;
+    height: 45px;
+    display: block;
+    line-height: 45px;
+    font-size: 13px;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid black;
+    font-weight: 700;
+}
+
+.content_banner_compra {
+    position: fixed;
+    bottom: 0;
+    background: white;
+    height: 73px;
+    margin-left: 12em;
+    -webkit-box-shadow: -2px 1px 18px -4px rgba(0,0,0,.5);
+    -moz-box-shadow: -2px 1px 18px -4px rgba(0,0,0,.5);
+    box-shadow: -2px 1px 18px -4px rgba(0,0,0,.5);
+    z-index: 1000;
+}
+
+.content_interno_banner {
+    margin-left: 27%;
+}
+
+.content_imagen_banner_compra {
+    width: 58px;
+}
+
+    .content_imagen_banner_compra img {
+        height: 73px;
+        float: left;
+    }
+
+.content_oferta {
+    font-family: 'Lato';
+    font-size: 12px;
+    padding-top: 11px;
+    padding-left: 15px;
+    float: left;
+    width: 51%;
+}
+
+.content_oferta_promocion {
+    font-size: 13.5px;
+    font-family: 'Lato';
+    font-weight: 900;
+    letter-spacing: .5px;
+    line-height: 15px;
+    display: block;
+}
+
+.solo_falta_compra {
+    color: #747474;
+    display: block;
+}
+
+.btn_ver_detalle_compra {
+    width: 29%;
+    height: 31px;
+    font-size: 13px;
+    font-family: 'Lato';
+    line-height: 30px;
+    text-align: center;
+    float: left;
+    border: 1px solid black;
+    margin-top: 21px;
+    margin-left: 3%;
+}
+
+.enlace_chat a {
+    display: inline;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.menu_socia_empresaria > .new_menu > .new_menu_a {
+    font-size: 10.5px;
+    letter-spacing: .5px;
+    height: 36px;
+}
+
+@media screen and (max-width: 1104px) {
+    .new_menu {
+        margin-left: 2.2%;
+    }
+
+    .menu_socia_empresaria > .new_menu {
+        margin-left: 1% !important;
+    }
+}
+
+@media screen and (max-width: 1150px) {
+    .menu_socia_empresaria > .new_menu {
+        margin-left: 1.8%;
+    }
+}
+
+.menu_socia_empresaria > .new_menu:first-child {
+    margin-left: 0;
+}
+
+.etiqueta_showroom {
+    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/JmqkvgJXcyHcBZR/etiqueta_lbel.png') no-repeat;
+    padding-left: 19px;
+}
+
+.content_imagen_individual {
+    width: 9%;
+    margin-right: 1%;
+    float: left;
+}
+
+.titulo_promocion {
+    font-family: 'Lato';
+    font-weight: 900;
+    font-size: 34px;
+    line-height: 73px;
+    letter-spacing: 2.6px;
+    color: white;
+    background: rgba(171,136,59,.8);
+    position: absolute;
+    width: 23%;
+    height: 73px;
+    left: 0;
+    text-align: right;
+    padding-right: 20px;
+    padding-left: 15px;
+}
+
+    .titulo_promocion:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        z-index: 2000;
+        right: -50px;
+        width: 0;
+        height: 0;
+        border-top: 73px solid transparent;
+        border-left: 50px solid rgba(171,136,59,.8);
+        border-bottom: 73px solid rgba(171,136,59,.8);
+    }
+
+.content_ficha_compra:after {
+    content: '';
+    width: 100%;
+    height: 10px;
+    background: #bda571;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.titulo_producto_compra_carrusel {
+    font-family: 'Lato';
+    font-size: 14.5px;
+    margin-top: 10px;
+    line-height: 17px;
+    text-align: center;
+    margin-bottom: 3px;
+}
+
+.content_titulo_pop {
+    background: #bda571;
+}
+
+.titulo_pop_compra {
+    font-family: 'Lato';
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 5px;
+}
+
+.legal_footer_compra {
+    font-family: 'Lato';
+    font-size: 12px;
+    font-weight: 300;
+    margin-bottom: 20px;
+    text-align: center;
+    margin-top: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.marca_producto {
+    color: black;
+    text-transform: uppercase;
+    margin-bottom: 0;
+    font-weight: 300;
+    font-family: 'lato';
+}
+
+.texto_precio_ficha {
+    font-family: 'Lato';
+    font-size: 13px;
+    font-weight: 400;
+    margin-right: 10px;
+    width: 90px;
+}
+
+.precios_para_ti {
+    margin-top: -3px;
+    display: inline-table;
+}
+
+    .precios_para_ti p {
+        display: block;
+        margin-bottom: 0px;
+    }
+
+.ganancia_ficha {
+    color: #613c87;
+    font-weight: 400;
+    font-size: 13px;
+    margin-top: -3px;
+}
+
+.content_producto_tono {
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    position: relative;
+}
+
+.sub_nombre_producto {
+    font-size: 13px;
+    font-weight: 700;
+    font-family: 'lato';
+}
+
+.cantidad_producto_opt {
+    margin-right: 5px;
+}
+
+.sub_precio {
+    font-family: 'lato';
+    font-size: 11px;
+}
+
+.content_tono_principal {
+    width: 20%;
+    height: auto;
+    float: left;
+    margin-left: 5%;
+}
+
+    .content_tono_principal img {
+        width: 100%;
+    }
+
+.detalle_precio_opt {
+    overflow: hidden;
+}
+
+.combo_select_tono {
+    border: 1px solid #b0b0b0;
+    margin-left: 2%;
+    margin-top: 4px;
+    width: 73%;
+    float: right;
+    height: 33px;
+    line-height: 33px;
+    padding-left: 10px;
+    font-family: 'lato';
+    font-size: 13px;
+    position: relative;
+}
+
+.mas_info_tono {
+    display: block;
+    float: right;
+    padding-right: 7px;
+}
+
+.content_tonos_ficha {
+    width: 73%;
+    position: absolute;
+    border: 1px solid #b0b0b0;
+    border-top: 0;
+    z-index: 5;
+    height: auto;
+    top: 35px;
+    right: 0;
+    background: white;
+    padding: 0 10px 10px 10px;
+    -webkit-box-shadow: 0 12px 11px -9px rgba(173,168,173,1);
+    -moz-box-shadow: 0 12px 11px -9px rgba(173,168,173,1);
+    box-shadow: 0 12px 11px -9px rgba(173,168,173,1);
+    display: none;
+}
+
+.content_tono_combo {
+    width: 15%;
+    height: 23px;
+    margin-right: 2%;
+    float: left;
+}
+
+    .content_tono_combo img {
+        width: 100%;
+    }
+
+    .content_tono_combo:nth-child(6n) {
+        margin-right: 0;
+    }
+
+.mod-ofer1 .boton_Agregalo_home {
+    width: 139px;
+}
+
+.enlace_chat a {
+    display: inline;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.vineta {
+    list-style-image: url('https://www.somosbelcorp.com/Content/Images/Lbel/indicador_pedido.png');
+}
+
+.icono_celular {
+    background: url('/Content/Images/Esika/celular_mailing.png') no-repeat;
+    background-position: 4px 0;
+    height: 24px;
+    padding-top: 3px;
+}
+
+.btnnotificacion {
+    text-decoration: none;
+    font-family: 'Lato';
+    font-weight: 700;
+    color: black;
+    font-size: 12px;
+    border: 2px solid #979797;
+    text-align: center;
+    padding: 10px;
+    width: 40%;
+    margin: 0 auto;
+    margin-top: 25px;
+}
+
+.tooltipPedido {
+    display: none;
+    position: absolute;
+    top: 6px;
+    left: 100%;
+    background: white;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-weight: 400;
+    z-index: 100;
+}
+
+.pedidoPadreToolTip:hover .tooltipPedido {
+    display: block;
+}
+
+.tooltipPedido:after, .tooltipPedido:before {
+    right: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: ' ';
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    z-index: 30;
+}
+
+.tooltipPedido:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-right-color: #fff;
+    border-width: 8px;
+    margin-top: -8px;
+}
+
+.tooltipPedido:before {
+    border-color: rgba(204, 204, 204, 0);
+    border-right-color: #ccc;
+    border-width: 9px;
+    margin-top: -9px;
+}
+
+.descri_list {
+    font-size: 12px;
+    font-weight: 700;
+    width: 26%;
+}
+
+.cantidad_listado_pdd {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.enlace_chat a {
+    display: inline;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.vineta {
+    list-style-image: url('https://www.somosbelcorp.com/Content/Images/Lbel/indicador_pedido.png');
+}
+
+.btnnotificacion {
+    text-decoration: none;
+    font-family: 'Lato';
+    font-weight: 700;
+    color: black;
+    font-size: 12px;
+    border: 2px solid #979797;
+    text-align: center;
+    padding: 10px;
+    width: 40%;
+    margin: 0 auto;
+    margin-top: 25px;
+}
+/*HOMOLOGAR OPT*/
+.tono_select_opt {
+    border: 2px solid black;
+    height: 45px;
+    width: 100%;
+    font-family: 'Lato';
+    font-size: 13px;
+    color: black;
+    background: url('/Content/Images/mobile/Esika/menu_mobile.png') no-repeat;
+    background-position: 98% 19px;
+    position: relative;
+    margin-bottom: 5px;
+}
+
+.texto_sin_tono {
+    display: block;
+    font-weight: bold;
+}
+
+.tono_seleccionado {
+    width: 41px;
+    height: 43px;
+    float: left;
+    overflow: hidden;
+}
+
+    .tono_seleccionado img {
+        width: 100%;
+    }
+
+.texto_tono_seleccionado {
+    float: left;
+    width: 70%;
+    margin-left: 10px;
+    margin-top: 11px;
+    height: 17px;
+    overflow: hidden;
+}
+
+.content_tonos_select {
+    width: 101%;
+    max-height: 176px;
+    overflow-y: auto;
+    border: 1px solid #b0b0b0;
+    position: absolute;
+    background: white;
+    top: 43px;
+    z-index: 105;
+    left: -2px;
+    display: none;
+}
+
+    .content_tonos_select .content_tono_elegido {
+        border-bottom: 1px solid #b0b0b0;
+    }
+
+        .content_tonos_select .content_tono_elegido:last-child {
+            border-bottom: 0;
+        }
+
+.tono_no_seleccionado {
+    background: black url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3L4waZ4IJhbxugs/flecha_tono_white.png') no-repeat;
+    background-position: 97% 19px;
+    color: white;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+}
+
+.tono_por_elegir {
+    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/1HAjgYt9lPnsBjk/tono_por_elegir.png') no-repeat;
+    background-position: 97% 17px;
+}
+
+.tono_escogido {
+    border: 1px solid #b0b0b0;
+    padding-top: 1px;
+}
+
+.content_producto_tono:last-child {
+    border-bottom: 0 !important;
+}
+
+.content_tono_detalle:hover {
+    border: 1px solid black;
+}
+
+.titulo_contenido {
+    font-family: 'Lato';
+    font-size: 13px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid black;
+}
+
+.texto_elige_tono {
+    font-family: 'LAto';
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #613c87;
+    text-align: center;
+    height: 20px;
+    width: 100%;
+    letter-spacing: .2px;
+}
+
+.btn_elige_tono {
+    display: block;
+    margin-top: 7px;
+    width: 100%;
+    height: 45px;
+    line-height: 44px;
+    background: white;
+    color: black;
+    text-align: center;
+    border: 1px solid #000;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.banner_showroom_home {
+    width: 29%;
+    min-height: 703px;
+    float: left;
+    z-index: 20;
+    position: relative;
+}
+
+    .banner_showroom_home img {
+        height: 703px;
+        width: auto;
+        display: block;
+    }
+
+.solo_inferior {
+    font-size: 17px;
+    display: block;
+    height: 18px;
+    margin-top: 5px;
+}
+
+@media screen and (max-width: 1262px) {
+    .solo_inferior {
+        display: inline-block;
+        margin-left: 5px;
+    }
+}
+
+.compartir_catalogo_facebook_Brasil {
+    width: 48%;
+    margin: auto;
+    height: 30px;
+    line-height: 41px;
+    text-align: center;
+    background: #336699;
+    margin-top: 10px;
+}
+
+.content_carrusel_catalogo_Brasil {
+    width: 198px;
+    float: left;
+    height: 320px;
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+
+.banner_showroom_home {
+    width: 29%;
+    min-height: 703px;
+    float: left;
+    z-index: 20;
+    position: relative;
+}
+/*CAMBIOS EN OFERTA DEL DÍA*/
+.regresar_carrusel {
+    color: white;
+    font-family: 'Lato';
+    font-size: 14px;
+    letter-spacing: .2px;
+    float: left;
+    margin-right: 15px;
+    background: url('/Content/Images/Esika/regresar.png') no-repeat;
+    background-size: 13px 24px;
+    padding-left: 16px;
+    background-position: 0 -1px;
+}
+
+.titulo_set_ODD {
+    color: white;
+    font-family: 'Lato';
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    line-height: 32px;
+}
+
+.barra_inferior {
+    width: 40px;
+    height: 1px;
+    background: white;
+    margin: 0 auto;
+    margin-top: 3px;
+    margin-bottom: 55px;
+}
+
+.saludo_mas_productos {
+    color: white;
+    font-family: 'Lato';
+    font-size: 15px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.content_90 {
+    width: 88%;
+    margin: 0 auto;
+}
+
+.content_780_ODD {
+    width: 780px;
+}
+
+    .content_780_ODD .content_set_pop_hoy {
+        width: 94%;
+        margin-top: 40px;
+    }
+
+    .content_780_ODD .right_set_hoy {
+        margin-left: 27px;
+    }
+
+.content_item_carrusel_ODD {
+    width: 260px;
+    padding: 30px 30px 11px 30px;
+    border: 1px solid white;
+    float: left;
+    margin-top: 12px;
+    margin-bottom: 30px;
+    background: #a3001f;
+    background: rgba(255,255,255,0);
+}
+
+.content_img_carrusel_ODD {
+    width: 100%;
+    position: relative;
+}
+
+    .content_img_carrusel_ODD img {
+        width: 100%;
+    }
+
+.titulo_carrusel_ODD {
+    line-height: 18px;
+    font-family: 'Lato';
+    font-size: 15px;
+    margin-top: 10px;
+    color: black;
+    height: 39px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.valorizado_carrusel_ODD {
+    font-family: 'Lato';
+    font-size: 11px;
+    color: black;
+    text-align: center;
+}
+
+    .valorizado_carrusel_ODD span {
+    }
+
+.precio_carrusel_ODD {
+    font-family: 'Lato';
+    font-size: 22px;
+    color: black;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 14px;
+}
+
+.content_item_carrusel_ODD .btn_pop_agregalo_oferta {
+}
+
+.content_780_ODD .content_90 {
+    width: 85%;
+}
+
+.content_780_ODD .imagen_set_Oferta_pop {
+    width: 300px;
+}
+
+.content_780_ODD .compartir_redes_ficha {
+    padding-left: 40px;
+}
+
+.slick-slide .content_item_carrusel_ODD {
+    margin-left: 20px;
+}
+/*SPRINT 11*/
+.banner_especial_showroom {
+    position: fixed;
+    height: auto;
+    bottom: 0;
+    z-index: 150;
+    margin-left: 12em;
+    -webkit-box-shadow: -2px 1px 18px -4px rgba(0,0,0,.5);
+    -moz-box-shadow: -2px 1px 18px -4px rgba(0,0,0,.5);
+    box-shadow: -2px 1px 18px -4px rgba(0,0,0,.5);
+}
+
+.promocion_especial_header {
+    width: auto;
+    height: 73px;
+    max-width: 1024px;
+    margin: 0;
+}
+
+.titulo_promocion_showroom {
+    width: 425px;
+    height: 73px;
+    padding-right: 60px;
+    position: relative;
+    float: left;
+}
+
+    .titulo_promocion_showroom:after {
+        content: '';
+        left: -100%;
+        width: 100%;
+        height: 73px;
+        background: black;
+        position: absolute;
+        top: 0;
+        z-index: 151;
+    }
+
+.titulo_banner_showroom {
+    display: block;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.content_titulo {
+    float: right;
+    position: relative;
+    font-family: 'Lato';
+    font-size: 15px;
+    letter-spacing: 2px;
+    line-height: 26px;
+    padding-top: 11px;
+}
+
+.content_set_especial_header {
+    float: right;
+}
+
+.content_imagen_promocion {
+    text-align: center;
+    margin: 2.5px 0 0 -85px;
+    position: absolute;
+    width: 72px;
+}
+
+    .content_imagen_promocion img {
+        width: 94%;
+    }
+
+.content_set_precio_especial {
+    font-family: 'Lato';
+    font-size: 15px;
+    color: black;
+    font-weight: 700;
+    float: left;
+    width: 215px;
+    margin-right: 20px;
+    margin-top: 2px;
+    line-height: 21px;
+    text-transform: uppercase;
+}
+
+.precio_set_especial {
+    font-size: 18px;
+}
+
+.btn_descubre_set_especial {
+    margin-top: 21px;
+    float: left;
+    display: block;
+    height: 35px;
+    border: 1px solid black;
+    text-align: center;
+    background: black url('/Content/Images/PL20/flecha_set_Especial_white.png') no-repeat;
+    background-position: 6px 6px;
+    padding-left: 34px;
+    padding-right: 20px;
+    font-family: 'LAto';
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 32px;
+    color: white;
+}
+
+.info_desplegable {
+    background: black url('/Content/Images/PL20/flecha_set_Especial_2white.png') no-repeat;
+    background-position: 4px 8px;
+    width: 35px;
+    float: right;
+    display: none;
+    z-index: 200;
+    padding-right: 0;
+}
+
+.content_set_oferta_especial {
+    width: 100%;
+    height: 440px;
+    position: relative;
+    display: none;
+}
+
+.content_carrusel_oferta_especial {
+    max-width: 1100px;
+    margin: 0 auto;
+    font-family: 'Lato';
+}
+
+    .content_carrusel_oferta_especial .content_item_carrusel {
+        width: 290px;
+        margin-bottom: 13px;
+        margin: 0 auto;
+        float: none;
+    }
+
+.titulo_set_especial {
+    font-size: 15px;
+    margin-bottom: 5px;
+    color: black;
+    text-align: left;
+    font-weight: 700;
+    height: 20px;
+    overflow: hidden;
+}
+
+.descripcion_set_especial {
+    height: 93px;
+    margin-bottom: 5px;
+    font-size: 12px;
+    line-height: 15px;
+    overflow: hidden;
+}
+
+    .descripcion_set_especial b {
+        color: #613c87;
+    }
+
+.content_info_set_especial {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.precio_set_especial_showroom {
+    font-size: 11px;
+}
+
+.precio_real_set {
+    font-weight: 700;
+    font-size: 17px;
+}
+
+.color-para-todas-marcas {
+    color: #d9b33f;
+    font-weight: 700;
+}
+
+.content_90 .slick-slider {
+    margin-top: 0 !important;
+}
+
+.CerrarOfertaEspecial {
+    font-family: 'Lato';
+    font-size: 25px;
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    color: black;
+    position: absolute;
+    right: 10px;
+    top: -2px;
+}
+/*SPRINT 12*/
+.contenedor_cupon {
+    position: absolute;
+    width: 27%;
+    height: 53px;
+    color: white;
+    font-family: 'Lato';
+    font-size: 12px;
+    z-index: 100;
+    padding-left: 10%;
+    padding-top: 8px;
+    background: black url('/Content/Images/PL20/icono_cupon.png') no-repeat;
+    background-size: 45px 19px;
+    background-position: 23% 16px;
+}
+
+    .contenedor_cupon::after {
+        position: absolute;
+        content: '';
+        right: -35px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 53px 0 0 35px;
+        border-color: transparent transparent transparent #000000;
+        z-index: 100;
+        top: 0;
+    }
+
+.link_cupon_home {
+    color: white;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.content_cupon_pedido {
+    width: 94%;
+    height: 44px;
+    background: black url('/Content/Images/PL20/icono_cupon.png') no-repeat;
+    background-size: 22%;
+    background-position: 19px 6px;
+    position: relative;
+    font-family: 'Lato';
+    font-size: 12px;
+    float: left;
+    color: white;
+    margin-right: 2.1%;
+    position: relative;
+    z-index: 100;
+    padding-left: 26%;
+    padding-top: 5px;
+    line-height: 15px;
+}
+
+    .content_cupon_pedido::before {
+        position: absolute;
+        content: '';
+        right: -20px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 44px 0 0 20px;
+        border-color: transparent transparent transparent #000000;
+        z-index: 100;
+        top: 0;
+    }
+
+.content_pedido_cupon_monto {
+    width: 100%;
+    height: 51px;
+    border-bottom: 1px solid black;
+    margin-bottom: 10px;
+}
+
+.icono_cupon_monto {
+    display: block !important;
+    float: left;
+    width: 85px;
+    height: 51px;
+    font-family: 'LAto';
+    font-size: 12px;
+    background: black;
+    position: relative;
+    text-align: right;
+    padding-right: 13px;
+    padding-top: 5px;
+}
+
+    .icono_cupon_monto img {
+        width: 120%;
+    }
+
+    .icono_cupon_monto::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: -23px;
+        z-index: 100;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 51px 0 0 23px;
+        border-color: transparent transparent transparent #000000;
+    }
+
+.texto_cupon_monto {
+    text-align: left;
+    font-size: 11px;
+    font-family: 'LAto';
+    float: left;
+    margin-left: 30px;
+    line-height: 1.47;
+    width: 222px;
+}
+
+.content_cupon {
+    width: 664px;
+    height: 360px;
+    position: relative;
+    top: 50%;
+    margin: 13% auto auto auto;
+    background: url('/Content/Images/PL20/fondo_cupon_desktop_lbel.png') no-repeat;
+}
+
+.content_monto_cupon {
+    float: left;
+    width: 38%;
+    padding-right: 2%;
+    padding-top: 40px;
+    margin-left: 27px;
+    font-family: 'Lato';
+    box-sizing: border-box;
+}
+
+.titulo_gana {
+    font-size: 13.7px;
+    color: white;
+    height: 46px;
+    letter-spacing: .5px;
+    line-height: 20px;
+    -moz-text-align-last: justify;
+    margin-top: -8px;
+    margin-bottom: 18px;
+    text-align: center;
+}
+
+    .titulo_gana span {
+        font-size: 20px;
+        letter-spacing: 1.1px;
+        font-weight: 700;
+    }
+
+.subtitulo_gana {
+    font-family: 'Lato';
+    font-weight: 700;
+    color: white;
+    font-size: 14px;
+    letter-spacing: 1.2px;
+    text-align: center;
+}
+
+.monto_gana {
+    font-family: 'Lato';
+    font-size: 103px;
+    color: white;
+    font-weight: 700;
+    margin-top: -36px;
+    width: 124px;
+    height: 126px;
+    text-align: right;
+    display: inline-block;
+}
+
+.tipo_moneda {
+    font-size: 38px;
+}
+
+.legal_cupon {
+    margin-top: 30px;
+    color: white;
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 12px;
+}
+
+.content_cupon_datos {
+    float: left;
+    width: 57%;
+    padding: 35px 60px 0 42px;
+    position: relative;
+}
+
+.btn_confirma_cupon {
+    display: block;
+    background: #613c87;
+    width: 100%;
+    height: 45px;
+    color: white;
+    font-family: 'LAto';
+    font-size: 14px;
+    letter-spacing: .5px;
+    line-height: 43px;
+    text-align: center;
+    margin-top: 21px;
+    font-weight: 700;
+}
+
+.texto_cupon_datos {
+    font-family: 'LAto';
+    font-size: 15px;
+    text-align: center;
+    margin-bottom: 12px;
+    line-height: 19px;
+    color: black;
+}
+
+.cupon2 {
+    text-align: center;
+    padding-top: 50px;
+    background: url('/Content/Images/PL20/fondo_cupon_lbel_gano.png') no-repeat;
+}
+
+.titulo_cupon2 {
+    font-family: 'LAto';
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.texto_cupon2, .valida_datos_cupon2 {
+    font-family: 'lato';
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.valida_datos_cupon2 {
+    margin-top: 0;
+}
+
+.correo_confirmacion {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+    color: black;
+}
+
+.btn_cupon2 {
+    display: inline-block;
+    width: 27%;
+    margin-top: 22px;
+    text-decoration: underline;
+    color: #333333;
+}
+
+.icono_cupon2 {
+    width: 59px;
+    height: 41px;
+    margin: 0 auto;
+    background: url('/Content/Images/PL20/mail_lbel.png') no-repeat;
+    margin-bottom: 5px;
+}
+
+.cupon3 {
+    text-align: center;
+    padding-top: 30px;
+    background: url('/Content/Images/PL20/fondo_cupon_recuerda_lbel.png') no-repeat;
+}
+
+.icono_cupon3 {
+    width: 120px;
+    height: 45px;
+    margin: 0 auto;
+    background: url('/Content/Images/PL20/cupon_gif_morado.gif') no-repeat;
+    margin-bottom: 3px;
+}
+
+.texto_cupon3 {
+    text-align: center;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.info_recuerda_cupon {
+    float: left;
+    width: 33%;
+    font-family: 'Lato';
+    font-size: 13px;
+    height: 72px;
+}
+
+    .info_recuerda_cupon span {
+        display: block;
+        margin-top: 14px;
+        line-height: 15px;
+    }
+
+    .info_recuerda_cupon:last-child {
+        border-right: 0;
+    }
+
+.info_recuerda_cupon_ganaste {
+    display: inline-table;
+    float: none;
+    width: 40%;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.info_recuerda_cupon_line {
+    border: solid 1.5px rgba(149, 145, 146, 0.57);
+    display: inline-table;
+    height: 61.1px;
+    opacity: 0.2;
+    width: 1.5px;
+}
+
+.SubHeader {
+    background: #fff;
+}
+
+.reclamo_motivo_select:nth-child(2n) {
+    margin-right: 0;
+}
+
+.height_min {
+    min-height: 267px;
+}
+
+.content_780_ODD .height_min {
+    min-height: 238px;
+}
+/*SPRINT 13*/
+.content_producto_alternativo {
+    text-align: center;
+    height: auto;
+}
+
+.content_imagen_alternativo {
+    width: 55px;
+    height: 55px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+    .content_imagen_alternativo img {
+        width: 55px;
+        height: 55px;
+    }
+
+.numero_pedido {
+    position: relative;
+    margin-top: -40px;
+    margin-bottom: 20px;
+}
+
+    .numero_pedido.mt-0 {
+        margin-top: 0;
+    }
+
+    .numero_pedido.mb-21 {
+        margin-bottom: -21px;
+    }
+
+.numero_pedido_fondo {
+    width: auto;
+    float: left;
+    height: 42px;
+}
+
+    .numero_pedido_fondo img {
+        position: absolute;
+        float: left;
+        width: auto;
+        height: 42px;
+    }
+
+.content-texto-numero-pedido {
+    width: auto;
+    position: absolute;
+    color: white;
+    float: left;
+    padding: 1.3%;
+}
+
+.numero_pd {
+    font-family: 'Austin';
+    font-size: 33px;
+    font-weight: normal;
+    font-style: italic;
+    line-height: .36;
+    letter-spacing: 1px;
+}
+
+.posicion_pd {
+    font-family: 'Austin';
+    font-size: 21px;
+    font-weight: normal;
+    font-style: italic;
+    line-height: .57;
+    letter-spacing: 1px;
+}
+
+.texto_pd {
+    font-family: 'Lato';
+    font-size: 16px;
+    font-weight: bold;
+    line-height: .75;
+}
+
+.content-texto-producto-alternativo {
+    display: inline-block;
+    padding-left: 10px;
+    font-family: 'Lato';
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: black;
+    vertical-align: middle;
+    padding-top: 5px;
+    max-width: 485px;
+}
+
+    .content-texto-producto-alternativo b {
+        font-weight: 900 !important;
+    }
+
+.fondo_gris_OF {
+    background: #f5f5f5;
+    min-height: 570px;
+}
+
+.tipo_porcentaje {
+    color: white;
+    font-size: 73px;
+    float: d;
+    display: inline-block;
+    font-weight: 700;
+    margin-top: -21px;
+    letter-spacing: 1px;
+    width: 63px;
+    text-align: right;
+    margin-bottom: 13px;
+}
+
+.txt-ayuda1-pn {
+    font-family: 'Lato';
+    font-size: 11px;
+    text-align: center;
+    line-height: 1.09;
+    letter-spacing: .2px;
+    color: #6a6a6a;
+    margin-top: -5px;
+    padding-bottom: 10px;
+}
+
+.contenedor-texto-agregar {
+    display: block;
+}
+
+.contenedorCuponInfo.content_cupon_pedido .contenedor-texto-agregar {
+    display: inline-block;
+}
+/*SPRINT 14*/
+.titulo_mas_vendido {
+    background: #f0f0f0;
+    display: inline-block;
+    text-align: center;
+    letter-spacing: 2.1px;
+    font-size: 25px;
+    margin-top: 31px;
+    margin-bottom: 7px;
+    font-family: 'lato';
+    PADDING-LEFT: 15px;
+    padding-right: 15px;
+    position: relative;
+    font-weight: 300;
+    z-index: 10;
+}
+
+.contenedor_termino_condiciones_cupon {
+    margin: 0 auto;
+    margin-top: 22px;
+    font-family: 'Lato';
+    font-size: 10.5px;
+    width: 90%;
+    color: #494949;
+    text-align: left;
+    position: relative;
+}
+
+
+.mensaje_alerta_cupon1 {
+    color: #613c87;
+    font-size: 10.5px;
+    letter-spacing: .3px;
+    position: absolute;
+    bottom: -17px;
+    border-top: 1px solid #613c87;
+    width: 88%;
+    padding-top: 2px;
+}
+
+.icono_alerta_cupon {
+    width: 17px;
+    height: 17px;
+    background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat;
+    background-size: contain;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.borde_seleccion_alerta:before {
+    border: 1px solid #613c87;
+}
+
+.icono_recuerda_cupon {
+    padding-top: 10px;
+    width: 34px;
+    height: 42px;
+    margin: 0 auto;
+    background: url('/Content/Images/PL20/calendario_lbel.jpg') no-repeat center bottom;
+}
+
+.recuerda_icono2 {
+    background: url('/Content/Images/PL20/maquillaje_lbel.jpg') no-repeat center bottom;
+}
+
+.recuerda_icono3 {
+    background: url('/Content/Images/PL20/agenda_lbel.jpg') no-repeat center bottom;
+}
+
+.content_mas_vendidos {
+    padding-top: 15px;
+    padding-bottom: 40px;
+    overflow: hidden;
+    margin-top: 30px;
+}
+
+.content_carrusel_mas_vendidos {
+    width: 90%;
+    margin: 0 auto;
+    height: auto;
+}
+
+    .content_carrusel_mas_vendidos .producto_nombre_descripcion {
+        margin-bottom: 0;
+    }
+
+    .content_carrusel_mas_vendidos .producto_precio {
+        margin-bottom: 0;
+    }
+
+    .content_carrusel_mas_vendidos .content_item_carrusel {
+        border: 0;
+        box-shadow: none;
+    }
+
+.content_puntuacion {
+    padding-left: 16px;
+    padding-right: 16px;
+    overflow: hidden;
+    padding-bottom: 7px;
+    padding-top: 8px;
+    text-align: center;
+}
+
+.cantidad_puntuacion {
+    font-family: 'Lato';
+    font-size: 13px;
+    font-weight: 700;
+    padding-left: 2px;
+    padding-right: 5px;
+    display: inline-block;
+    vertical-align: top;
+}
+/*SPRINT 15*/
+.fondo_set_best_seller {
+    width: 100%;
+    background: #eeeeee;
+    height: 400px;
+    padding-top: 60px;
+}
+
+.content_producto_set_best_seller {
+    float: left;
+    width: 35%;
+    height: auto;
+    text-align: center;
+}
+
+.imagen_producto_best_seller {
+    height: 330px;
+    width: auto;
+    margin-top: 55px;
+}
+
+.fondo_set_best_seller .content_detalle_set {
+    width: 53%;
+    min-height: 500px;
+}
+
+.producto_best_detalle {
+    font-family: 'Lato';
+    font-size: 12px;
+    color: black;
+    letter-spacing: .8px;
+    line-height: 22px;
+}
+
+.titulo_set {
+    letter-spacing: .8px;
+}
+
+.comentarios_best_seller_ficha {
+    min-height: 150px;
+    width: 100%;
+    font-family: 'Lato';
+    font-size: 14px;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.content_puntuacion_detalle {
+    margin-bottom: 34px;
+    margin-top: 7px;
+}
+
+    .content_puntuacion_detalle .rateyo-readonly-widg {
+        padding: 0;
+    }
+
+.texto_puntuacion_detalle {
+    display: inline-block;
+    padding-left: 10px;
+    font-family: 'Lato';
+    font-size: 13px;
+    font-weight: 700;
+    vertical-align: top;
+    text-decoration: underline;
+}
+
+.fondo_set_best_seller .ganancia_showroom {
+    margin-top: 3px;
+}
+
+.content_carrusel_bestSeller {
+    margin-top: 40px;
+    width: 100%;
+    background: #eeeeee;
+    overflow: hidden;
+    padding-bottom: 41px;
+}
+
+.titulo_carrusel_best {
+    letter-spacing: .9px;
+    font-family: 'Lato';
+    font-size: 17px;
+    color: black;
+    margin-top: 42px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.content_carrusel_bestSeller .content_item_carrusel {
+    border: 0;
+    background: none;
+}
+
+.content_carrusel_best {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.content_carrusel_bestSeller .producto_nombre_descripcion {
+    margin-bottom: 0;
+}
+
+.content_carrusel_bestSeller .producto_precio {
+    margin-bottom: 0;
+}
+
+.content_carrusel_bestSeller .content_item_carrusel {
+    border: 0;
+    box-shadow: none;
+}
+
+.section_comentarios {
+    margin-top: 35px;
+}
+
+.titulo_principal_comentarios {
+    font-family: 'Lato';
+    font-size: 20px;
+    color: black;
+    font-weight: 700;
+    text-align: center;
+    line-height: 22px;
+    letter-spacing: 1.2px;
+    margin-bottom: 15px;
+}
+
+.subtexto_comentario {
+    font-family: 'Lato';
+    font-size: 16px;
+    color: black;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+.content_filtros_bestSeller {
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.select_bestSeller {
+    display: block;
+    float: right;
+    width: 188px;
+    border: 1px solid #979797;
+    height: 44px;
+    line-height: 44px;
+    font-family: 'Lato';
+    font-size: 13px;
+    padding-left: 9px;
+    color: black;
+}
+
+.texto_filtros_bestSeller {
+    font-family: 'Lato';
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .4px;
+    float: right;
+    margin-right: 20px;
+    margin-top: 12px;
+}
+
+.contentAgregarComentarios {
+    padding: 35px 90px 35px 90px;
+    width: 100%;
+    background: #f6f6f6;
+    border: 1px dashed #979797;
+    margin-bottom: 45px;
+}
+
+.texto_agregarComentarios {
+    width: 220px;
+    margin: 0 auto;
+    font-family: 'Lato';
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .4px;
+    padding-left: 25px;
+    cursor: pointer;
+    background: url('/Content/Images/PL20/icono_agregar.png') no-repeat;
+}
+
+.contentValoracion {
+    display: none;
+}
+
+.subtitulo_comentarios {
+    font-family: 'Lato';
+    font-size: 13px;
+    line-height: 22px;
+    letter-spacing: .4px;
+    margin-bottom: 25px;
+    text-align: center;
+    margin-top: -5px;
+}
+
+.content_detalle_puntuacion {
+    float: left;
+    width: 20%;
+    font-family: 'Lato';
+    font-size: 13px;
+    line-height: 22px;
+    letter-spacing: .4px;
+}
+
+.content_detalle_comentarios {
+    float: right;
+    width: 75%;
+}
+
+.texto_comentario_usuario {
+    display: block;
+    width: 100%;
+    height: 156px;
+    background: white;
+    border: 1px solid #979797;
+    padding: 10px;
+    color: black;
+    font-family: 'Lato';
+    font-size: 13px;
+    line-height: 22px;
+    letter-spacing: .4px;
+}
+
+.rateyo-readonly-puntuacion {
+    padding: 0 !important;
+    margin-top: 4px;
+    margin-bottom: 40px;
+    display: block !important;
+}
+
+.respuesta_pregunta {
+    width: 42%;
+    max-width: 70px;
+    float: left;
+    margin-right: 13px;
+    border: 1px solid #979797;
+    height: 30px;
+    line-height: 30px;
+    font-family: 'Lato';
+    font-size: 14px;
+    color: #979797;
+    text-align: center;
+    margin-top: 15px;
+}
+
+    .respuesta_pregunta:last-child {
+        margin-right: 0;
+    }
+
+.enviar_comentario_Seller {
+    display: block;
+    width: 215px;
+    height: 44px;
+    background: #ababab;
+    font-family: 'Lato';
+    font-size: 13px;
+    color: #979797;
+    letter-spacing: .4px;
+    color: white;
+    text-align: center;
+    float: right;
+    line-height: 44px;
+    margin-top: 17px;
+}
+
+.cancelar_comentario {
+    display: block;
+    float: right;
+    margin-right: 26px;
+    margin-top: 30px;
+    font-family: 'Lato';
+    font-size: 13px;
+    color: black;
+    letter-spacing: .4px;
+    text-decoration: underline;
+}
+
+.content_confirmacion_comentario {
+    display: none;
+}
+
+.icono_check_comentario {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    background: url('/Content/Images/Esika/icono_check_esika.png') no-repeat;
+    background-size: cover;
+    margin-top: 30px;
+}
+
+.extra_titulo {
+    margin-top: 20px;
+    letter-spacing: .6px;
+}
+
+.btn_cerrar_comentario {
+    font-family: 'Lato';
+    font-size: 13px;
+    letter-spacing: .4px;
+    margin: 0 auto;
+    width: 215px;
+    height: 45px;
+    line-height: 45px;
+    background: black;
+    color: white;
+    text-align: center;
+    MARGIN-BOTTOM: 30px;
+}
+
+.content_comentario_usuario {
+    width: 100%;
+    height: auto;
+    margin-bottom: 43px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #979797;
+    overflow: hidden;
+}
+
+.foto_usuario_comentario {
+    float: left;
+    width: 68px;
+    height: 68px;
+    border-radius: 100px;
+    overflow: hidden;
+    margin-right: 20px;
+}
+
+    .foto_usuario_comentario img {
+        height: 100%;
+    }
+
+.datos_usuario_comentario {
+    float: left;
+}
+
+.puntuacion_usuario_visible {
+    padding: 0 !important;
+}
+
+.nombre_usuario_comentario {
+    font-family: 'Lato';
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: .4px;
+    margin-top: 7px;
+}
+
+.fecha_comentario {
+    font-family: 'Lato';
+    font-size: 13px;
+}
+
+.comentario_realizado_usuario {
+    font-family: 'Lato';
+    font-size: 14px;
+    line-height: 22px;
+    width: 77%;
+    float: right;
+    margin-top: 33px;
+}
+
+.content_comentario_usuario:last-child {
+    border-bottom: 0;
+}
+
+.respuesta_pregunta:hover {
+    background: black;
+    color: white;
+}
+
+.respuesta_valida {
+    background: black;
+    color: white;
+}
+/*SPRINT 18*/
+.content_regalo_sorpresa {
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center center;
+    display: inline-block;
+    margin: 35px -13px 0 0;
+    height: 608px;
+    padding: 15px 25px 15px 25px;
+    position: relative;
+    vertical-align: top;
+    width: 308px;
+    z-index: 21;
+}
+
+.fondo_blanco_regalo {
+    display: block;
+    width: 260px;
+    min-height: 308px;
+    margin: 0 auto;
+    background: white;
+}
+
+.titulo_regalo_sorpresa {
+    font-family: 'Lato';
+    font-size: 17px;
+    letter-spacing: 1px;
+    margin-bottom: 22px;
+    text-align: center;
+    margin-top: 7px;
+    color: white;
+    line-height: 22px;
+}
+
+#of-regalo-msg1 b {
+    font-size: 18px;
+}
+
+.titulo_regalo_producto {
+    font-family: 'Lato';
+    font-weight: 900;
+    color: black;
+    font-size: 13px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.content_imagen_sorpresa {
+    width: 163px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+    .content_imagen_sorpresa img {
+        width: 100%;
+    }
+
+.descripcion_regalo {
+    font-family: 'Lato';
+    font-size: 10px;
+    margin-top: 16px;
+    text-align: center;
+}
+
+.content_detalle_monto {
+    font-family: 'Lato';
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: .5px;
+    color: white;
+    background: black;
+    position: relative;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 6px;
+    padding-bottom: 5px;
+    width: 100%;
+    margin: 0 auto;
+    min-height: 58px;
+}
+
+    .content_detalle_monto:after {
+        top: 100%;
+        left: 50%;
+        border: solid transparent;
+        content: ' ';
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-color: rgba(0, 0, 0, 0);
+        border-top-color: #000;
+        border-width: 9px;
+        margin-left: -7px;
+        z-index: 5;
+    }
+
+#of-regalo-montosaldo {
+    font-size: 18px;
+}
+
+.icono_regalo_sorpresa {
+    margin: 0 auto 8px auto;
+    width: 80px;
+}
+
+    .icono_regalo_sorpresa img {
+        width: 100%;
+    }
+
+.txt_regalo_sorpresa_popup {
+    font-family: 'Lato';
+    text-align: center;
+    color: #ffffff;
+}
+
+.box_regalo_sorpresa_popup {
+    margin-bottom: 15px;
+}
+
+.span_1_regalo_sorpresa_popup {
+    font-size: 13px;
+    letter-spacing: 1.1px;
+}
+
+.span_2_regalo_sorpresa_popup {
+    font-size: 16px;
+    font-weight: 900;
+    line-height: normal;
+    letter-spacing: 1.1px;
+}
+
+.span_1_regalo_ganaste_popup {
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+}
+
+.span_2_regalo_ganaste_popup {
+    font-size: 10.5px;
+    letter-spacing: .5px;
+}
+
+.arrow_box {
+    position: relative;
+    background: #000000;
+    width: 207px;
+    margin: 0 auto 0px auto;
+    padding: 5px 0 5px 0;
+    z-index: 1;
+}
+
+    .arrow_box:after {
+        top: 100%;
+        left: 50%;
+        content: " ";
+        border: solid transparent;
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-color: rgba(0, 0, 0, 0);
+        border-top-color: #000000;
+        border-width: 10px;
+        margin-left: -10px;
+    }
+
+.arrow_box_2 {
+    padding: 11px 0 11px 0;
+}
+
+.span_1_regalo_sorpresa_producto {
+    font-size: 10.5px;
+    letter-spacing: .5px;
+}
+
+.span_2_regalo_sorpresa_producto {
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: .9px;
+}
+
+.span_1_regalo_ganaste_producto {
+    font-size: 12px;
+    line-height: 1.17;
+    letter-spacing: .4px;
+}
+
+.bold_1_regalo_ganaste_producto {
+    letter-spacing: .5px;
+    font-weight: 700;
+}
+
+.span_2_regalo_ganaste_producto {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.38;
+    letter-spacing: .5px;
+}
+
+.content_info_regalo {
+    position: relative;
+    padding: 22px 10px 22px 10px;
+    background: #FFF;
+    width: 207px;
+    display: block;
+    margin: 0 auto 15px auto;
+    min-height: 293px;
+    border: 1px solid #e7e1e1;
+    box-shadow: 0 15px 18px -7px rgba(0,0,0,1);
+    -moz-box-shadow: 0 15px 18px -7px rgba(0,0,0,1);
+    -o-box-shadow: 0 15px 18px -7px rgba(0,0,0,1);
+    -ms-box-shadow: 0 15px 18px -7px rgba(0,0,0,1);
+    -webkit-box-shadow: 0 15px 18px -7px rgba(0,0,0,1);
+}
+
+.boton_quiero_este_premio {
+    display: block;
+    height: 38px;
+    line-height: 37px;
+    background: black;
+    color: white;
+    text-align: center;
+    border: 1px solid #000;
+    font-size: 13px;
+    cursor: pointer;
+    margin: 17px auto 0 auto;
+    width: 95%;
+    vertical-align: top;
+    letter-spacing: .5px;
+}
+
+.content_regalo_sinstock {
+    background-color: #ffffffb3;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.txt_agotado {
+    font-family: Lato;
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: 1.3px;
+    color: #d0021b;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.txt_paginacion_premio {
+    color: #fff;
+    font-family: Lato;
+    font-size: 11.7px;
+    letter-spacing: .7px;
+    text-align: center;
+    width: 100%;
+}
+
+.span_paginacion_premio_1 {
+    font-weight: bold;
+}
+
+.txt_nota_premio {
+    margin-top: 16px;
+    font-family: 'Lato';
+    font-size: 12px;
+    display: block;
+    color: white;
+    text-align: center;
+    line-height: 1.25;
+}
+
+    .txt_nota_premio b {
+        font-weight: 900;
+    }
+
+.btn_legal_RS {
+    font-family: 'Lato';
+    font-size: 12px;
+    display: block;
+    color: white;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.btn_regresa_OF {
+    cursor: pointer;
+    left: 25px;
+    position: absolute;
+    top: 15px;
+}
+
+.img_regresa_OF {
+    margin-top: 3.2px;
+    position: absolute;
+    width: 8px;
+}
+
+.span_regresa_OF {
+    color: white;
+    font-family: 'Lato';
+    font-size: 11px;
+    letter-spacing: .5px;
+    position: relative;
+    padding-left: 15px;
+    text-transform: uppercase;
+}
+
+#divGanoRegalo .btn_legal_RS {
+    margin-top: 30px;
+}
+
+#divCarruselRegalo .content_item_carrusel_ofertaFinal {
+    height: auto;
+}
+
+.contenedor_boton_reservarPedido {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.titulo_regalo_2 {
+    font-family: 'Lato';
+    letter-spacing: 1px;
+    font-size: 19px;
+    margin-bottom: 36px;
+    margin-top: 7px;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 24px;
+}
+
+.font_32 {
+    font-weight: 700;
+    padding-bottom: 6px;
+    display: block;
+    font-size: 32px;
+    line-height: 35px;
+}
+
+.bold_900 {
+    font-weight: 900;
+}
+
+.bloque_detalle_gris {
+    height: 150px;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    z-index: 1;
+}
+
+/*EPD-1919 INICIO*/
+.content_tipo_despacho {
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-family: 'Lato';
+    font-size: 15px;
+    text-align: left;
+}
+
+.cdr_tipo_despacho_icono {
+    padding-left: 35px;
+    padding-bottom: 10px;
+    padding-top: 2px;
+    background: url('/Content/Images/Esika/terminos.png') no-repeat;
+    display: inline;
+}
+
+.cdr_tipo_despacho_icono_active {
+    padding-left: 35px;
+    padding-bottom: 10px;
+    padding-top: 2px;
+    display: inline;
+    background: url('/Content/Images/Lbel/icono_check_lbel.svg') no-repeat;
+    background-size: 75%;
+}
+
+.cdr_tipo_despacho_icono {
+    padding-left: 35px;
+    padding-bottom: 10px;
+    padding-top: 2px;
+    background: url('/Content/Images/Esika/terminos.png') no-repeat;
+    display: inline;
+}
+
+.cdr_tipo_despacho_contenido {
+    margin-left: 35px;
+    margin-top: -22px;
+    display: block;
+}
+
+.mensaje_informativo_despacho {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-family: 'Lato';
+    font-size: 15px;
+    text-align: center;
+    align-content: center;
+    display: block;
+}
+/*EPD-1919 FIN*/
+.previsualizales-ofertas {
+    max-width: 800px;
+    margin: auto;
+    max-height: 550px;
+}
+
+.imagen_fondo {
+    min-height: 532px;
+    max-width: 96% !important;
+    margin: auto;
+}
+/*SPRINT 19*/
+.content_new_showroom {
+    width: 100%;
+    padding-top: 35px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.content_filtro_categoria {
+    -webkit-box-shadow: inset 0 0 0 1px #b8b8b8;
+    -moz-box-shadow: inset 0 0 0 1px #b8b8b8;
+    box-shadow: inset 0 0 0 1px #b8b8b8;
+    height: 33px;
+    line-height: 32px;
+    position: relative;
+    float: left;
+    min-width: 330px;
+    padding-left: 15px;
+    padding-right: 30px;
+    font-family: 'LAto';
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: .3px;
+    margin-right: 20px;
+    background: white;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 5px;
+}
+
+.content_detalle_filtro {
+    width: 100%;
+    position: absolute;
+    z-index: 20;
+    top: 33px;
+    border: 1px solid #b8b8b8;
+    border-top: 0;
+    left: 0;
+    background: white;
+    min-height: 100px;
+}
+
+.content_filtro_range_showroom {
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.filtros_derecha_SHOWROOM {
+    float: left;
+    font-family: 'Lato';
+    font-size: 13px;
+}
+
+.cantidad_productos_resultado {
+    float: right;
+    font-family: 'Lato';
+    font-size: 13px;
+    padding-top: 6px;
+}
+
+.content_landing_odd .flip-clock-wrapper ul li a div div.inn {
+    font-size: 35px;
+}
+
+.content_landing_odd .flip-clock-wrapper ul {
+    width: 20px;
+    height: 44px;
+}
+
+.content_landing_odd .flip-clock-wrapper {
+    margin: 15px 120px 0 10px;
+}
+
+.content_landing_odd .flip-clock-dot {
+    width: 4px;
+    height: 4px;
+}
+
+    .content_landing_odd .flip-clock-dot.bottom {
+        top: 17px;
+    }
+
+.content_landing_odd .flip-clock-divider {
+    margin-top: 8px;
+    margin-right: 1px;
+}
+
+.content_item_carrusel_ODD .agregado {
+    color: white;
+}
+
+    .content_item_carrusel_ODD .agregado .icono {
+        background: url('/Content/Images/group_blanco.svg') center center no-repeat;
+    }
+
+.imagen_dias_intriga_inicio {
+    display: block;
+    width: 100vw;
+    height: 590px;
+    object-fit: cover;
+    font-size: 55px;
+    top: 36%;
+}
+
+.dias_inicio_landing {
+    top: 123px;
+    font-size: 72px;
+    padding: 0 29.45%;
+}
+
+.saludo_landing {
+    top: 109px;
+    font-size: 17px;
+}
+
+.desactivar_boton_popup_confirma_datos {
+    background: #e0e0e0;
+}
+
+.activar_boton_popup_confirma_datos {
+    background: #c39934 !important;
+}
+
+@-webkit-keyframes flash {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .1;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes flash {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .1;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.contenedor_fondo_popup {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: rgba(0, 0, 0, .85);
+    z-index: 10000;
+    display: table;
+}
+
+.contenedor_fondo_popup_ganancia {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1000;
+    overflow: auto;
+}
+
+.contenido .centrar-estructura {
+    height: 80%;
+}
+
+
+.btn_desactivado_general {
+    background: #e5e5e5;
+    border: 1px solid #d2d2d2;
+    color: #b9b9b9;
+}
+
+/* metodo para centrar todos los contenedores con productos en el landing RevistaDigital */
+
+.divOfertaProductosfix, .divOfertaProductosPerdiofix {
+}
+
+.divOfertaProductosfixNoDorado {
+    max-width: 1189px;
+    margin: 0 80px 0 180px;
+}

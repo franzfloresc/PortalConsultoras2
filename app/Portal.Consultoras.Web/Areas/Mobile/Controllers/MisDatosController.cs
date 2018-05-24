@@ -20,7 +20,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var model = new MisDatosModel();
 
             model.VerCambiarClave = opcionCambiaClave;
-            
+
             int limiteMinimoTelef, limiteMaximoTelef;
             GetLimitNumberPhone(out limiteMinimoTelef, out limiteMaximoTelef);
             ViewBag.limiteMinimoTelef = limiteMinimoTelef;
@@ -137,19 +137,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public JsonResult ActualizarDatos(MisDatosModel model)
         {
             JsonResult v_retorno = null;
-            BEUsuario entidad = null;
-            string resultado = string.Empty;
-            string[] lst = null;
-            string v_campomodificacion = string.Empty;
-
-            string CorreoAnterior = string.Empty;
-
+            
             try
             {
-                var usuario = Mapper.Map<MisDatosModel, BEUsuario>(model);
-
-                entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
-                CorreoAnterior = model.CorreoAnterior;
+                var entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
+                var CorreoAnterior = model.CorreoAnterior;
 
                 entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : userData.CodigoUsuario;
                 entidad.EMail = (entidad.EMail == null) ? "" : entidad.EMail;
@@ -164,62 +156,57 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 entidad.PrimerNombre = userData.PrimerNombre;
                 entidad.CodigoISO = userData.CodigoISO;
 
+                string resultado = string.Empty;
                 using (UsuarioServiceClient svr = new UsuarioServiceClient())
                 {
                     resultado = svr.ActualizarMisDatos(entidad, CorreoAnterior);
-
-                    if(model != null) ActualizarDatosLogDynamoDB(model, "MI NEGOCIO|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
-
-                    lst = resultado.Split('|');
-
-                    if (lst[0] == "0")
-                    {
-                        v_retorno = Json(new
-                        {
-                            Cantidad = lst[3],
-                            success = false,
-                            message = lst[2],
-                            extra = ""
-                        });
-                    }
-                    else
-                    {
-                        v_retorno = Json(new
-                        {
-                            Cantidad = 0,
-                            success = true,
-                            message = lst[2],
-                            extra = ""
-                        });
-                    }
                 }
+
+                if (model != null)
+                    ActualizarDatosLogDynamoDB(model, "MI NEGOCIO|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
+
+                var lst = resultado.Split('|');
+
+                if (lst[0] == "0")
+                {
+                    v_retorno = Json(new
+                    {
+                        Cantidad = lst[3],
+                        success = false,
+                        message = lst[2],
+                        extra = ""
+                    });
+                }
+                else
+                {
+                    v_retorno = Json(new
+                    {
+                        Cantidad = 0,
+                        success = true,
+                        message = lst[2],
+                        extra = ""
+                    });
+                }
+
+                return v_retorno;
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
 
-                v_retorno = Json(new
-                {
-                    Cantidad = 0,
-                    success = false,
-                    message = "Ocurrió un error al acceder al servicio, intente nuevamente.",
-                    extra = ""
-                });
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-
-                v_retorno = Json(new
-                {
-                    Cantidad = 0,
-                    success = false,
-                    message = "Ocurrió un error al acceder al servicio, intente nuevamente.",
-                    extra = ""
-                });
             }
 
-            return v_retorno;
+            return Json(new
+            {
+                Cantidad = 0,
+                success = false,
+                message = "Ocurrió un error al acceder al servicio, intente nuevamente.",
+                extra = ""
+            });
         }
 
         [HttpPost]

@@ -212,13 +212,6 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Obtener Ofertas ShowRoom
-        //public bool TienePersonalizacion()
-        //{
-        //    var showRoomEvento = userData.BeShowRoom;
-        //    var tienePersonalizacion = showRoomEvento != null && showRoomEvento.TienePersonalizacion;
-        //    return tienePersonalizacion;
-        //}
-
         protected virtual List<BEShowRoomOferta> ObtenerOfertasShowRoom()
         {
             var listaShowRoomOferta = ObtenerListaProductoShowRoomService(userData.CampaniaID, userData.CodigoConsultora);
@@ -228,8 +221,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<ShowRoomOfertaModel> ObtenerListaProductoShowRoom(int campaniaId, string codigoConsultora, bool esFacturacion = false)
         {
-            //var tienePersonalizacion = TienePersonalizacion();
-
             var listaDetalle = ObtenerPedidoWebDetalle();
 
             if (Session[Constantes.ConstSession.ListaProductoShowRoom] != null)

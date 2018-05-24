@@ -115,8 +115,6 @@
     <div class="clear"></div>
 
     <div class="caja_pedidos">
-        <!--SIN OFERTAS PARA TI AÑADIR ESTILO "sinOfertasParaTi"-->
-        <!-- DIV BARRA -->
         <div data-barra-width="">
             <div id="divBarra">
                 <div id="divBarraMensaje">
@@ -146,8 +144,6 @@
             </div>
             <div class="clear"></div>
         </div>
-
-        <!-- FIN DIV BARRA -->
 
         <input type="hidden" id="hdValidarPROL" value="@Model.FlagValidacionPedido" />
         <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
@@ -485,7 +481,6 @@
                         <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Acción</div>
                     </div>
                     <div class="linea_separadora" style="margin-top:-1px"></div>
-                    <!--CONTENIDO DE TABLAS PERCEPCIÓN-->
                     <div>
                         <div id="divPedidosPend"> </div>
                     </div>
@@ -549,14 +544,12 @@
     <hr class="clear" />
 </div>
 
-<!-- POPUP DETAllE CLIENTE -->
 <div class="contenedor_popup_agregarCliente mis_clientes" id="divAgregarCliente">
     <div class="popup_agregarCliente">
         <div id="divDetalleCliente"></div>
     </div>
 </div>
 
-<!-- POPUP MIS GANANCIAS -->
 <div class="contenedor_fondo_popup_ganancia" id="popupGanancias" style="display:none;">
     <div class="popup_mis_ganancias">
         <div class="btn_cerrar_actualizarMisDatos">
@@ -585,8 +578,6 @@
         </div>
     </div>
 </div>
-<!-- FIN POPUP MIS GANANCIAS -->
-<!-- POPUP TUTORIAL INGRESO DE PEDIDO -->
 <div class="contenedor_fondo_popup contenedor_fondo_popup_oscuro fondo_tutorial" id="popup_tutorial_pedido" style="display: none;">
     <div class="popup_tutorial_pedido" style="position: relative; margin: 0 auto; display: block; min-width: 900px !important;">
         <div id="slide1_container" class="shadow">
@@ -606,7 +597,6 @@
         </div>
     </div>
 </div>
-<!-- FIN POPUP TUTORIAL INGRESO DE PEDIDO -->
 
 <div id="DialogMensajes" style="display: none;">
     <div class="terminos_title_2">
@@ -883,8 +873,6 @@
         </div>
     </div>
 </div>
-<!-- FIN POPUP CONFIRMACION DE PEDIDO RESEERVADO -->
-<!-- POPUP PRODUCTOS AGOTADOS -->
 <div class="contenedor_popup_productosAgotados" id="divProductoAgotado" style="display: none;">
     <div class="popup_productosAgotados">
         <div class="btn_cerrar_agregarUnidades">
@@ -908,8 +896,6 @@
         <div class="clear"></div>
     </div>
 </div>
-<!-- FIN PRODUCTOS AGOTADOS -->
-<!-- POPUP PRODUCTOS SUGERIDOS -->
 <div class="contenedor_popup_productosSugeridos1" id="divProductoAgotadoFinal" style="display:none;">
     <div class="popup_productosSugeridos" style="height:456px;">
         <div class="mensaje_noExisteProducto">
@@ -943,12 +929,8 @@
         <div class="clear"></div>
     </div>
 </div>
-<!-- FIN PRODUCTOS SUGERIDOS -->
-<!-- POPUP OFERTA FINAL -->
 <div class="contenedor_popup_ofertaFinal center_text" id="divOfertaFinal" data-popup-main="" data-popup-function-hide="PopupOfertaFinalCerrar">
 </div>
-<!-- FIN POPUP OFERTA FINAL -->
-<!--POP UP ESCALA DE DESCUENTO FICHA-->
 <div class="contenedor_popup_ofertaFinal" id="contenedor_popup_ofertaFinalVerDetalle" style="display: none;">
     <div class="popup_ofertaFinal" style="padding:35px;">
         <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#contenedor_popup_ofertaFinal').hide();">REGRESAR</a>
@@ -998,20 +980,13 @@
         <hr class="clear" />
     </div>
 </div>
-<!--FIN-->
-<!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento"></div>
-<!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
-<!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
-<!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
 
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGana.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmar.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaste.cshtml")
 
-
-<!--POPUP PRODUCTOS PRECARGADOS - HD1399 -->
 @if (Model.MostrarPopupPrecargados)
 {
     <div class="contenedor_popup_agregarUnidades" id="dialog_mensajeProductosPrecargados" style="display: block;">
@@ -1034,11 +1009,9 @@
         </div>
     </div>
 }
-<!--FIN POPUP PRODUCTOS PRECARGADOS - HD1399 -->
 
 @if (ViewBag.MostrarPedidosPendientes == "1")
 {
-    <!--PENDIENTES APP CATALOGO-->
     <div id="popup_pendientes" class="contenedor_popup_percepciones" style="display: none;">
         <div class="popup_Pendientes">
             <div class="cubre"></div>
@@ -1056,10 +1029,6 @@
 
         </div>
     </div>
-    <!--FIN PENDIENTES APP CATALOGO-->
-
-
-    <!--Popup mensaje como lo atenderas -->
 
     <div class="contenedor_popup_agregarUnidades" id="dialog_mensajeComoAtender" style="display: none;">
         <div class="popup_agregarUnidades">
@@ -1079,9 +1048,7 @@
             </div>
         </div>
     </div>
-    <!--Popup mensaje como lo atenderas -->
 
-    <!--PENDIENTES PORTAL-->
     <div id="popup2_pendientes" class="contenedor_popup_percepciones popupPendientesPORTAL" style="display: none;">
         <div class="popup_Pendientes">
             <div class="cubre cubre2"></div>
@@ -1098,15 +1065,11 @@
             <div id="divPopup2PedidoPend"></div>
         </div>
     </div>
-    <!--FIN OPCION PENDIENTES DE PEDIDO-->
 
-    <!--TRUCOS DE BLOQUEO-->
     <div class="truco_bloqueo sim1"></div>
     <div class="truco_bloqueo sim3"></div>
     <div class="truco_bloqueo sim4"></div>
-    <!--TRUCOS DE BLOQUEO-->
 
-    <!--INICIO MODAL DE CONFIRMACIÓN DE RECHAZO EN PENDIENTES-->
     <div class="contenedor_popup_agregarUnidades" id="dialog_confirmacionRechazo" style="display: none;">
         <div class="popup_rechazarPendientes">
             <input type="hidden" id="hdePedidoIdRechazo" />
@@ -1147,9 +1110,7 @@
             </div>
         </div>
     </div>
-    <!--FINAL MODAL DE CONFIRMACIÓN DE RECHAZO EN PENDIENTES-->
 
-    <!--INICIO MODAL DE CONFIRMACIÓN DE RECHAZO EN PENDIENTES-->
     <div class="contenedor_popup_agregarUnidades" id="dialog_motivoRechazo" style="display: none;">
         <div class="popup_agregarUnidades mrechaza">
             <div class="btn_cerrar_agregarUnidades">
@@ -1178,9 +1139,7 @@
             </button>
         </div>
     </div>
-    <!--FINAL MODAL DE CONFIRMACIÓN DE RECHAZO EN PENDIENTES-->
 
-    <!--INICIO MODAL ACEPTAR PEDIDOS PENDIENTES-->
     <div class="contenedor_popup_agregarUnidades" id="dialog_aceptasPendientes" style="display: none;">
         <div class="popup_agregarUnidades">
             <input type="hidden" id="hdePedidoIdAcepto" />
@@ -1218,11 +1177,7 @@
             </div>
         </div>
     </div>
-    <!--FIN MODAL ACEPTAR PEDIDOS PENDIENTES-->
 
-
-
-    <!--TAPS-->
     <div class="tapsPedidos"></div>
 
     <script id="pedidopend-template" type="text/x-handlebars-template">
@@ -1329,20 +1284,15 @@
                 <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">¿Cómo lo Atenderás?</div>
             </div>
             <div class="linea_separadora" style="margin-top:-1px"></div>
-            <!--CONTENIDO DE TABLAS PERCEPCIÓN-->
 
             <div style="max-height: 226px; overflow-y:auto;">
-
                 <div id="divDetPedidoPend"> </div>
-
             </div>
 
             <div class="linea_separadora" style="height:2px;"></div>
 
             <div class="calculo_PendientesTotal">
-
                 <h4 class="txtderecha">TOTAL PEDIDO: <span>@Model.Simbolo {{PrecioTotal}}</span></h4>
-
             </div>
 
             <div class="linea_separadora_roja" style="height: 2px;"></div>
@@ -1418,19 +1368,14 @@
                 <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Subtotal</div>
             </div>
             <div class="linea_separadora" style="margin-top:-1px"></div>
-            <!--CONTENIDO DE TABLAS PERCEPCIÓN-->
             <div style="max-height:419px; overflow:auto;">
-
                 <div id="divDet2PedidoPend"> </div>
-
             </div>
 
             <div class="linea_separadora" style="height:2px;"></div>
 
             <div class="calculo_PendientesTotal">
-
                 <h4 class="txtderecha">TOTAL PEDIDO: <span>@Model.Simbolo {{PrecioTotal}}</span></h4>
-
             </div>
 
             <div class="linea_separadora_roja" style="height: 2px;"></div>
@@ -1874,7 +1819,6 @@
     </div>
 
     <div class="popup_ofertaFinal pt-26" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body="" id="div-popup-ofertafinal">
-        <!--SI SALE EL DIV DE PRODUCTO ALTERNATIVO SE AÑADE LA CLASE "fondo_gris_OF"-->
         <div class="numero_pedido mt-0 mb-21" id="div-numero-pedido" style="display: none;">
             <div class="numero_pedido_fondo">
                 <img id="img-numero-pedido-fondo" src="/Content/Images/popup_pedido/numero_pedido_site_bg.png">
@@ -1902,7 +1846,7 @@
                         <span><b>AÚN TE FALTA {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> PARA LLEGAR AL MONTO MÍNIMO</b></span>
                         {{else if_eq TipoMeta 'GM'}}
                         <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b>!</span>
-                        {{else}}    <!--se espera escala de dscto-->
+                        {{else}}
                         <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b>!</span>
                         {{/if_eq}}
                     </h1>
@@ -1918,7 +1862,7 @@
                         {{/iff}}
                         {{else if_eq TipoMeta 'RG'}}
                         <span>@ViewBag.NombreConsultora, APROVECHA ESTAS OFERTAS Y <b>GANA PREMIOS INCREÍBLES</b></span>
-                        {{else}}    <!--se espera escala de dscto-->
+                        {{else}} 
                         <span>ALCANZA EL <b style="font-size:23px;">{{MetaPorcentaje}}%</b> DSCTO AGREGANDO {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> DE ESTAS OFERTAS</span>
                         {{/if_eq}}
                     </div>

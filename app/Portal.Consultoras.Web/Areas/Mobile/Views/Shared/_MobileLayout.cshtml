@@ -79,7 +79,6 @@
     <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
     <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />
 
-    <!-- Menu icon -->
     <div class="menu">
         <div class="content_close">
             <div class="icon-close">
@@ -87,13 +86,6 @@
             </div>
         </div>
         <div class="foto_menu">
-            <!--
-            <div class="content_foto">
-                <div class="foto_usuaria_mobile">
-                    <img src="/Content/Images/mobile/Esika/user.jpg" alt="-">
-                </div>
-            </div>
-                -->
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
             {
                 <div class="foto_usuaria_mobile">
@@ -107,7 +99,6 @@
         <a  id="lnk-cerrar-sesion" role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
     </div>
 
-    <!-- alert-top -->
     <div id="divAlertaPedidosOnline" class="alert-top alert-success alert-top-conline" style="display: none;">
         <a href="@Url.Action("MisPedidos", "ConsultoraOnline", new { area = "Mobile" })">
             <span class="alert-icon"><i class="icon-notificaciones-belcorp"></i></span>
@@ -117,9 +108,7 @@
         <span class="alert-close"><i class="icon-close-belcorp"></i></span>
     </div>
 
-    <!-- header -->
     <header id="new-header">
-        <!--BANNER-->
         @if (ViewBag.mostrarBannerPostulante == true)
         {
             @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloqueMensajesPostulante.cshtml")
@@ -149,11 +138,8 @@
         }
         @if (ViewBag.MostrarBannerApp == true && !ViewBag.MostrarBannerRechazo == true)
         {
-            <!--BANNER APP-->
             <div class="banner_app"><div>X</div></div>
-            <!--END BANNER APP-->
         }
-        <!--END BANNER-->
 
         <div class="container-fluid" style="padding-top:9px; padding-bottom:9px;">
             <div class="row">
@@ -186,7 +172,6 @@
         </div>
     </header>
 
-    <!-- content -->
     <section style="min-height: 380px;">
         <div id="contentmobile" data-content="">
 
@@ -227,7 +212,6 @@
         </div>
     </section>
 
-    <!-- footer -->
     <footer class="footer-page">
         @Html.Partial("_MobileMenuFooter")
         <hr class="clear" />
@@ -318,15 +302,9 @@
 
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/vp_BloquePopupMensajesInformacion.cshtml")
 
-    <!--POP MENSAJE POSTULANTE-->
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupPostulante.cshtml")
-    <!--FIN-->
-    <!--POP COMUNIDAD-->
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupComunidad.cshtml")
-    <!--FIN-->
-    <!--POP MENSAJE SESION FINALIZADA Error-->
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupSesionFinalizada.cshtml")
-    <!--FIN-->
 
     <div style="display:none">
         <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>

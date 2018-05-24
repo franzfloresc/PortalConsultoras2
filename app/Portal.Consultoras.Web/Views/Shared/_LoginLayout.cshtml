@@ -107,10 +107,7 @@
     @RenderSection("headerScripts", required: false)
 </head>
 <body class="body_login @Model.NombreClase" onload="noback();" onpageshow="if(event.persisted) noback();" onunload="">
-    <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <!-- Google Tag Manager -->
+
     <noscript>
         <iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8" height="0" width="0" style="display:none;visibility:hidden;"></iframe>
     </noscript>
@@ -129,14 +126,10 @@
             f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-M8QMC8');
     </script>
-    <!-- End Google Tag Manager -->
-    <!-- MANTENIMIENTO -->
     <div id="divMant" style="display: none;" class="modal_mantenimiento">
         <a href="#" onclick="closeMant();">
         </a>
     </div>
-    <!-- CIERRA MANTENIMIENTO -->
-    <!-- AVISO PRIVACIDAD -->
     <div id="box-pop-up" style="display: none;">
         <div class="content-pop-up">
             <div class="cabecera">
@@ -248,7 +241,6 @@
         </div>
     </div>
 
-    <!--POPUP MODAL CREA TU CORREO AQUI-->
     <div id="bg_1" style="display: none;">
         <div class="content_bg_1">
             <a href="javascript:closeit()" class="cerrar"></a>
@@ -282,9 +274,7 @@
         <span class="hola"></span>
         <div id="content">
             <section id="main_formulaio">
-                <!-- wrapper -->
                 <div class="wrapper">
-                    <!-- wrapMain -->
                     <div class="wrapMain">
                         <div class="content-left">
                             <label id="PageTitleLabel" style="display: none;"></label>
@@ -294,9 +284,7 @@
                                 @RenderBody()
                             </section>
                         </div>
-                        <!-- MENU PARTE SUPERIOR -->
                         <div class="content-right">
-                            <!-- top -->
                             <div class="top">
                                 <div class="boxMenu">
                                     <div class="nav">
@@ -318,11 +306,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- cierra top -->
                         </div>
                         <div class="sombra_superior"></div>
 
-                        <!-- ALERTAS PARA VALIDACION DE INPUTS USUARIO-->
                         <div class="content-alerta-red-user  left">
                             <div class="alerta_red_peru_user left">@Html.Raw(Constantes.TooltipLoginUsuario.PE)</div>
                             <div class="alerta_red_bolivia_user left">@Html.Raw(Constantes.TooltipLoginUsuario.BO)</div>
@@ -336,7 +322,6 @@
                             <div class="alerta_red_cam_user9 left">@Html.Raw(Constantes.TooltipLoginUsuario.PA)</div>
                             <div class="alerta_red_cam_user7 left">@Html.Raw(Constantes.TooltipLoginUsuario.CAM)</div>
                         </div>
-                        <!-- ALERTAS PARA VALIDACION DE INPUTS CLAVE-->
                         <div class="content-alerta-red-clave">
                             <div class="alerta_red_peru_clave left">@Html.Raw(Constantes.TooltipLoginPassword.PE)</div>
                             <div class="alerta_red_bolivia_clave left">@Html.Raw(Constantes.TooltipLoginPassword.BO)</div>
@@ -351,9 +336,7 @@
                         </div>
 
                     </div>
-                    <!-- Cierra wrapMain -->
                 </div>
-                <!-- wrapper -->
             </section>
         </div>
         <div class="logo_content_ab">
@@ -377,11 +360,7 @@
         <input id="hddFondoFestivoEsika" type="hidden" value="@Model.RutaEventoEsika" />
         <input id="hddFondoFestivoLebel" type="hidden" value="@Model.RutaEventoLBel" />
     </div>
-
-    <!--[if lt IE 11>
-        <script src="http://github.com/aFarkas/html5shiv/blob/master/dist/html5shiv.js"></script>
-     <![endif]-->
-
+    
     @Scripts.Render("~/bundles/JsLogin2")
 
     @RenderSection("scripts", required: false)
