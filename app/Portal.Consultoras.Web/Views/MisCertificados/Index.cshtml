@@ -44,11 +44,11 @@
         <div>
             @if (Constantes.PaisID.Peru == ViewBag.PaisUser)
             {
-                <p>*El documento que se emitir&aacute; a trav&eacute;s de este canal puede no tener validez legal para ciertas entidades que exigen un sello o firma f&iacute; del mismo. Para estos casos, usted deber&aacute; realizar la solicitud de su CONSTANCIA DE NO ADEUDO o CERTIFICACION COMERCIAL por el <a href="https://google.com.pe" target="_blank" style="display: inline-block;text-decoration: underline;font-weight: 600;">chat</a>.</p>
+                <p>*El documento que se emitir&aacute; a trav&eacute;s de este canal puede no tener validez legal para ciertas entidades que exigen un sello o firma f&iacute;sica del mismo. Para estos casos, usted deber&aacute; realizar la solicitud de su CONSTANCIA DE NO ADEUDO o CERTIFICACION COMERCIAL por el <a id="enlaceChat" href="javascript:;" style="display: inline-block;text-decoration: underline;font-weight: 600;">chat</a>.</p>
             }
             else
             {
-                <p>*El documento que se emitir&aacute; a trav&eacute;s de este canal puede no tener validez legal para ciertas entidades que exigen un sello o firma f&iacute; del mismo. Para estos casos, usted deber&aacute; realizar la solicitud de su Certificado directamente en las oficinas de Belcorp @ViewBag.NombrePais</p>
+                <p>*El documento que se emitir&aacute; a trav&eacute;s de este canal puede no tener validez legal para ciertas entidades que exigen un sello o firma f&iacute;sica del mismo. Para estos casos, usted deber&aacute; realizar la solicitud de su Certificado directamente en las oficinas de Belcorp @ViewBag.NombrePais</p>
             }
         </div>
     </div>
@@ -88,6 +88,11 @@
 
                     e.preventDefault();
                 });
+            });
+
+            $('#enlaceChat').click(function (e) {
+                $('#btn_init').click();
+                e.preventDefault();
             });
         </script>
     }
