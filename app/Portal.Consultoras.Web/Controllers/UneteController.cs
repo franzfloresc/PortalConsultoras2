@@ -1458,31 +1458,50 @@ namespace Portal.Consultoras.Web.Controllers
             int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso,
             int MostrarPaso1y2SE = 1)
         {
-            var Source = ObtenerPostulante(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, MostrarPaso1y2SE);
-            var columnDefinition = GetDictionaryReporteGestionPostulantes(CodigoISO, Estado);
+            var url = ObtenerPostulante(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, MostrarPaso1y2SE);
+            //var columnDefinition = GetDictionaryReporteGestionPostulantes(CodigoISO, Estado);
 
-            MemoryStream workbook = new MemoryStream();
+            //MemoryStream workbook = new MemoryStream();
 
-            workbook = ExcelExportHelper.ExportarExcel("Reporte_ObtenerListaConsultora", "GestionaPostulante", columnDefinition, Source);
-            string saveAsFileName = "Reporte_ObtenerListaConsultora" + DateTime.Now.ToString("ddMMyyyy_HHmmss") + ".xlsx";
-            return File(workbook.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", string.Format("{0}", saveAsFileName));
+            //workbook = ExcelExportHelper.ExportarExcel("Reporte_ObtenerListaConsultora", "GestionaPostulante", columnDefinition, Source);
+            //string saveAsFileName = "Reporte_ObtenerListaConsultora" + DateTime.Now.ToString("ddMMyyyy_HHmmss") + ".xlsx";
 
+
+            //return File(workbook.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", string.Format("{0}", saveAsFileName));
+            return new RedirectResult(url);
         }
 
 
-        public List<SolicitudPostulanteBE> ObtenerPostulante(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre,
-            int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso,
-            int MostrarPaso1y2SE = 1)
+        //public List<SolicitudPostulanteBE> ObtenerPostulante(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre,
+        //    int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso,
+        //    int MostrarPaso1y2SE = 1)
+        //{
+        //    using (var sv = new PortalServiceClient())
+        //    {
+
+        //        List<SolicitudPostulanteBE> resultado = sv.ObtenerReporteGestionPostulante(PrefijoISOPais, FechaDesde,
+        //                FechaHasta, Nombre,
+        //                Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO,
+        //                MostrarPaso1y2SE)
+        //            .ToList();
+
+        //        return resultado;
+        //    }
+        //}
+
+        public string ObtenerPostulante(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre,
+        int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso,
+        int MostrarPaso1y2SE = 1)
         {
+            string resultado = string.Empty;
             using (var sv = new PortalServiceClient())
             {
 
-                List<SolicitudPostulanteBE> resultado = sv.ObtenerReporteGestionPostulante(PrefijoISOPais, FechaDesde,
-                        FechaHasta, Nombre,
-                        Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO,
-                        MostrarPaso1y2SE)
-                    .ToList();
-             
+                resultado = sv.ObtenerReporteGestionPostulante(PrefijoISOPais, FechaDesde,
+                       FechaHasta, Nombre,
+                       Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO,
+                       MostrarPaso1y2SE);                   
+
                 return resultado;
             }
         }

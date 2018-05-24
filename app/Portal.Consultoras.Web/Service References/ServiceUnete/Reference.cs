@@ -11337,10 +11337,10 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.paginacionGrid> ConsultarSolicitudesPostulanteV2Async(Portal.Consultoras.Web.ServiceUnete.GestionaPostulanteModelSAC model);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerReporteGestionPostulante", ReplyAction="http://tempuri.org/IPortalService/ObtenerReporteGestionPostulanteResponse")]
-        Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteBE[] ObtenerReporteGestionPostulante(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int MostrarPaso1y2SE);
+        string ObtenerReporteGestionPostulante(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int MostrarPaso1y2SE);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerReporteGestionPostulante", ReplyAction="http://tempuri.org/IPortalService/ObtenerReporteGestionPostulanteResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteBE[]> ObtenerReporteGestionPostulanteAsync(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int MostrarPaso1y2SE);
+        System.Threading.Tasks.Task<string> ObtenerReporteGestionPostulanteAsync(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int MostrarPaso1y2SE);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetDictionaryReporteFuenteIngreso", ReplyAction="http://tempuri.org/IPortalService/GetDictionaryReporteFuenteIngresoResponse")]
         System.Collections.Generic.Dictionary<string, string> GetDictionaryReporteFuenteIngreso();
@@ -11872,11 +11872,11 @@ namespace Portal.Consultoras.Web.ServiceUnete {
             return base.Channel.ConsultarSolicitudesPostulanteV2Async(model);
         }
         
-        public Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteBE[] ObtenerReporteGestionPostulante(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int MostrarPaso1y2SE) {
+        public string ObtenerReporteGestionPostulante(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int MostrarPaso1y2SE) {
             return base.Channel.ObtenerReporteGestionPostulante(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO, MostrarPaso1y2SE);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteBE[]> ObtenerReporteGestionPostulanteAsync(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int MostrarPaso1y2SE) {
+        public System.Threading.Tasks.Task<string> ObtenerReporteGestionPostulanteAsync(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int MostrarPaso1y2SE) {
             return base.Channel.ObtenerReporteGestionPostulanteAsync(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO, MostrarPaso1y2SE);
         }
         
