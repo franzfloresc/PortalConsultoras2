@@ -1845,7 +1845,7 @@ function ConfirmarEliminarRegaloGenerico(campaniaId, pedidoId, pedidoDetalleId, 
 
 function ContinuarEliminacion() {
     var popup = $('#divAvisoEliminarRegaloGenerico');
-    DeletePedido(popup.attr('data-campaniaId'), popup.attr('data-pedidoId'), popup.attr('data-pedidoDetalleId'), popup.attr('data-tipoOfertaSisId'), popup.attr('data-cuv'), popup.attr('data-cantidad'), popup.attr('data-clienteId'), popup.attr('data-cuvReco'), popup.attr('data-esBackOrder'))
+    DeletePedido(popup.attr('data-campaniaId'), popup.attr('data-pedidoId'), popup.attr('data-pedidoDetalleId'), popup.attr('data-tipoOfertaSisId'), popup.attr('data-cuv'), popup.attr('data-cantidad'), popup.attr('data-clienteId'), popup.attr('data-cuvReco'), popup.attr('data-esBackOrder'), popup.attr('data-setId'))
 }
 
 function CerrarAvisoEliminarRegalo() {
