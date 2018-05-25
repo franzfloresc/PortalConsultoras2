@@ -1376,15 +1376,30 @@
 
     function ShowBannerOptions(val, options, rowObject) {
         var BannerId = rowObject[0];
+        
+        var hasGroupNew = HasGroupOrNewConsultora(rowObject);
+
         var SeccionId = (Number)(rowObject[1]);
         $("#hdn_SeccionID").val(SeccionId);
         var editar = "&nbsp;<a href='#' onclick=\"return $('#list').EditBanner(" + BannerId + ", this);\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Banner' title='Editar Banner' border='0' /></a>";
         var eliminar = "&nbsp;<a href='#' onclick=\"return $('#list').DeleteBanner('" + BannerId + "', this);\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Banner' title='Eliminar Banner' border='0' /></a>";
-        var segzona = "&nbsp;<a href='#' onclick=\"return $('#list').SegZonaBanner('" + BannerId + "', this);\" >" + "<img src='@Url.Content("~/Content/Images/configuracion.png")' alt='Configurar Segmento y Zona' title='Configurar Segmento y Zona' border='0' /></a>";
+        var segzona = "&nbsp;<a href='#' onclick=\"return $('#list').SegZonaBanner('" + BannerId + "', " + hasGroupNew + ", this);\" >" + "<img src='@Url.Content("~/Content/Images/configuracion.png")' alt='Configurar Segmento y Zona' title='Configurar Segmento y Zona' border='0' /></a>";
         if(SeccionId < 6 || SeccionId > 9)
             return editar + eliminar + segzona;
         else
             return editar + eliminar;
+    }
+
+    function HasGroupOrNewConsultora(cells) {
+        if (!cells) {
+            return false;
+        }
+        
+        if (cells.length < 29) {
+            return false;
+        }
+        
+        return cells[27] === 'true' || cells[28] === 'true';
     }
 
     function formatearArchivo(val, options, rowObject) {
@@ -1731,12 +1746,16 @@
             return false;
         },
 
-        SegZonaBanner: function (id, obj) {
+        SegZonaBanner: function (id, hasGroupOrNew, obj) {
             var subgrid = $(obj).closest('table');
             var Titulo = subgrid.jqGrid('getCell', id, 'Titulo');
             var CampaniaId = $('#ddlCampania').val();
             $('#hdBannerIdSegZon').val(id);
             $('#ddlSegmentoBanner').empty();
+            $('#ddlTipoAcceso').val('');
+            $('#flConsultorasSegmento').val('');
+
+            $("#flConsultorasSegmento").prop('disabled', hasGroupOrNew);
 
             flgBnOperacionAct = flgBnOperacion.editar;
 
