@@ -14,6 +14,14 @@ $(document).ready(function () {
         me.Funciones = {
             InicializarEventos: function () {
                 $('body').on('blur', '.grupo_form_cambio_datos input', me.Eventos.LabelActivo);
+            },
+            CamposFormularioConDatos: function () {
+                var camposFormulario = $('.grupo_form_cambio_datos input');
+                $.map(camposFormulario, function (campoFormulario, key) {
+                    if ($(campoFormulario).val() != '') {
+                        $(campoFormulario).addClass('campo_con_datos');
+                    }
+                });
             }
         },
         me.Eventos = {
@@ -28,6 +36,7 @@ $(document).ready(function () {
         },
         me.Inicializar = function () {
             me.Funciones.InicializarEventos();
+            me.Funciones.CamposFormularioConDatos();
         }
     }
 
