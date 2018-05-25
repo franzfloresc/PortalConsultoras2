@@ -88,6 +88,7 @@ SELECT
   , ISNULL(e.CodigoEstrategia,0) AS 'CodigoEstrategia'
   ,ISNULL(e.TieneVariedad,0) AS 'TieneVariedad'
   ,e.TipoEstrategiaId AS ConfiguracionOfertaID
+  ,op.FlagRevista
 FROM dbo.Estrategia E WITH (NOLOCK)
 	  INNER JOIN @OfertasPersonalizadas op ON E.CampaniaID = op.AnioCampanaVenta AND E.CUV2 = op.CUV
 	  INNER JOIN ods.ProductoComercial PC WITH (NOLOCK) ON PC.CUV = E.CUV2 AND PC.AnoCampania = E.CampaniaID
