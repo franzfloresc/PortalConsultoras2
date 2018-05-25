@@ -895,19 +895,32 @@
         </div>
         <div class="contenedor_lista_productosAgotados">
             <h6>PRODUCTOS <b>AGOTADOS</b> de <b>@((string)ViewBag.Campania.ToUpper())</b></h6>
+
             <div class="content_cuv">
-                Categoria:
-                <select id="ddlCategoriaProductoAgotado" style="width: 160px; border: 1px solid #cccccc;" class="producto_faltante"></select>
-                CUV:
-                <input id="producto-faltante-busqueda-cuv" type="text" class="producto_faltante ValidaNumeralPedido" maxlength="5">
-                <input type="button" onclick="CargarProductoAgotados(0);" class="buscar_icono">
+                <section>
+                    <div class="filtroInput">
+                        <label  for="ddlCategoriaProductoAgotado">Categoria</label>
+                        <select id="ddlCategoriaProductoAgotado" class="producto_faltante"></select>
+                    </div>
+                    <div class="filtroInput">
+                        <label for="producto-faltante-busqueda-cuv">CUV</label>
+                        <input id="producto-faltante-busqueda-cuv" type="text" class="producto_faltante ValidaNumeralPedido" maxlength="5">
+                    </div>
+                    <div class="filtroInput">
+                        <label for="producto-faltante-busqueda-descripcion">Producto</label>
+                        <input id="producto-faltante-busqueda-descripcion" type="text" class="producto_faltante">
+                    </div>
+                    <div class="filtroInput">
+                        <label  for="ddlCatalogoRevistaProductoAgotado">Catalogo o Revista</label>
+                        <select id="ddlCatalogoRevistaProductoAgotado"  class="producto_faltante"></select>
+                    </div>
+                    <div class="filtroButton">
+                        <input type="button" onclick="CargarProductoAgotados(0);" class="buscar_icono">
+                    </div>
+                    <br style="clear:both;" />
+                </section>
             </div>
-            <div class="content_cuv">
-                Producto:
-                <input id="producto-faltante-busqueda-descripcion" type="text" class="producto_faltante">
-                Catalogo o Revista:
-                <select id="ddlCatalogoRevistaProductoAgotado" style="width: 160px; border: 1px solid #cccccc;" class="producto_faltante"></select>
-            </div>
+
             <div class="tabla_productos_agotados" id="tblProductosFaltantes" style="overflow-y:hidden;"></div>
         </div>
         <div class="clear"></div>
