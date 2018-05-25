@@ -365,7 +365,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     if (consultoraNueva && banner.Paises != null && banner.Paises.Contains(paisID))
                     {
-                        FilterSegmentos(paisID, codigoConsultora, banner, bannersByConsultora);
+                        bannersByConsultora.AddRange(GetBannersBySegmento(banner, paisID));
                     }
                 }
                 else if (banner.FlagGrupoConsultora)
@@ -376,34 +376,38 @@ namespace Portal.Consultoras.BizLogic
 
                     if (consultora != null)
                     {
-                        FilterSegmentos(paisID, codigoConsultora, banner, bannersByConsultora);
+                        bannersByConsultora.AddRange(GetBannersBySegmento(banner, paisID));
                     }
                 }
                 else if (banner.Paises != null && banner.Paises.Contains(paisID))
                 {
-                    FilterSegmentos(paisID, codigoConsultora, banner, bannersByConsultora);
+                    bannersByConsultora.AddRange(GetBannersBySegmentoRelacion(banner, paisID, codigoConsultora));
                 }
             }
             return bannersByConsultora;
         }
 
-        private static void FilterSegmentos(int paisId, string codigoConsultora, BEBanner banner, List<BEBannerInfo> bannersByConsultora)
+        private static IEnumerable<BEBannerInfo> GetBannersBySegmento(BEBanner banner, int paisId)
         {
-            List<BEBannerSegmentoZona> segzona = banner.PaisesSegZona.Where(p => p.PaisId == paisId).ToList();
-            if (segzona.Count > 0)
-            {
-                segzona.ForEach(seg =>
-                {
-                    if (!ValidAccessConsultora(codigoConsultora, seg)) return;
+            return from seg in banner.PaisesSegZona
+                   where seg.PaisId == paisId
+                   select new BEBannerInfo(banner)
+                   {
+                       Segmento = seg.Segmento,
+                       ConfiguracionZona = seg.ConfiguracionZona
+                   };
+        }
 
-                    BEBannerInfo temp = new BEBannerInfo(banner)
-                    {
-                        Segmento = seg.Segmento,
-                        ConfiguracionZona = seg.ConfiguracionZona
-                    };
-                    bannersByConsultora.Add(temp);
-                });
-            }
+        private static IEnumerable<BEBannerInfo> GetBannersBySegmentoRelacion(BEBanner banner, int paisId, string codigoConsultora)
+        {
+            return from seg in banner.PaisesSegZona
+                   where seg.PaisId == paisId
+                   && ValidAccessConsultora(codigoConsultora, seg)
+                   select new BEBannerInfo(banner)
+                   {
+                       Segmento = seg.Segmento,
+                       ConfiguracionZona = seg.ConfiguracionZona
+                   };
         }
 
         private static bool ValidAccessConsultora(string codigoConsultora, BEBannerSegmentoZona seg)
