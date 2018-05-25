@@ -112,7 +112,7 @@ function CargarCarouselEstrategias(cuv) {
             $('#divListadoEstrategia').html('<div style="text-align: center;">Ocurrio un error al cargar los productos.</div>');
         }
     });
-};
+}
 
 var CargarCarouselMasVendidos = function (origen) {
     var model = obtenerModelMasVendidos();
@@ -549,6 +549,8 @@ function ArmarCarouselEstrategias(data) {
 }
 
 function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
+
+    var posicionEstrategia, recomendado, arrayEstrategia;
     var origen = tipoOrigenEstrategia == 1 ? "Home" : tipoOrigenEstrategia == 11 ? "Pedido" :
         tipoOrigenEstrategia == 2 ? "MobileHome" : tipoOrigenEstrategia == 21 ? "MobilePedido" : "";
     var accion;
@@ -560,15 +562,14 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
         accion = 'next';
     } else {
         accion = 'prev';
-    };
+    }
 
     if (accion == 'prev') {
         var posicionPrimerActivo = $($('#divListadoEstrategia').find(".slick-active")[0]).find('.PosicionEstrategia').val();
-        var posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
-        var recomendado = arrayOfertasParaTi[posicionEstrategia];
-        var arrayEstrategia = new Array();
-
-        var impresionRecomendado = {
+         posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
+         recomendado = arrayOfertasParaTi[posicionEstrategia];
+         arrayEstrategia = new Array();
+        arrayEstrategia.push({
             'name': recomendado.DescripcionCompleta,
             'id': recomendado.CUV2,
             'price': $.trim(recomendado.Precio2),
@@ -577,9 +578,7 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
             'variant': recomendado.DescripcionEstrategia,
             'list': 'Ofertas para ti - ' + origen,
             'position': recomendado.Posicion
-        };
-
-        arrayEstrategia.push(impresionRecomendado);
+        });
 
         dataLayer.push({
             'event': 'productImpression',
@@ -595,11 +594,10 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
         });
     } else if (accion == 'next') {
         var posicionUltimoActivo = $($('#divListadoEstrategia').find(".slick-active").slice(-1)[0]).find('.PosicionEstrategia').val();
-        var posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
-        var recomendado = arrayOfertasParaTi[posicionEstrategia];
-        var arrayEstrategia = new Array();
-
-        var impresionRecomendado = {
+         posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
+         recomendado = arrayOfertasParaTi[posicionEstrategia];
+         arrayEstrategia = new Array();
+         arrayEstrategia.push({
             'name': recomendado.DescripcionCompleta,
             'id': recomendado.CUV2,
             'price': $.trim(recomendado.Precio2),
@@ -608,9 +606,7 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
             'variant': recomendado.DescripcionEstrategia,
             'list': 'Ofertas para ti - ' + origen,
             'position': recomendado.Posicion
-        };
-
-        arrayEstrategia.push(impresionRecomendado);
+        });
 
         dataLayer.push({
             'event': 'productImpression',
@@ -647,7 +643,7 @@ function EstructurarDataCarousel(array) {
             item.ArrayContenidoSet = item.DescripcionCUV2.split('|').slice(1);
         } else {
             item.DescripcionCUV2 = (item.DescripcionCUV2.length > 40 ? item.DescripcionCUV2.substring(0, 40) + "..." : item.DescripcionCUV2);
-        };
+        }
 
         item.Posicion = i + 1;
         item.MostrarTextoLibre = (item.TextoLibre ? $.trim(item.TextoLibre).length > 0 : false);
@@ -655,7 +651,7 @@ function EstructurarDataCarousel(array) {
         item.PrecioVenta = item.PrecioString;
     });
     return isList ? lista : lista[0];
-};
+}
 
 function EstrategiaVerDetalle(id, origen) {
     if ($.trim(origen) == "") {
@@ -1076,8 +1072,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             MostrarBarra(data, '1');
                             ActualizarGanancia(data.DataBarra);
                             CargarCarouselEstrategias(cuv);
-                            if (_validartieneMasVendidos() === 1) {
-                            }
+                          
 
                             CargarResumenCampaniaHeader(true);
                         }
@@ -1109,8 +1104,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             else if (tipoOrigenEstrategia != 272) {
                                 CargarCarouselEstrategias(cuv);
 
-                                if (_validartieneMasVendidos() === 1) {
-                                }
+                           
                             }
                         }
 
@@ -1146,11 +1140,11 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
             }
         }
     });
-};
+}
 
 function HidePopupEstrategiasEspeciales() {
     $('#popupDetalleCarousel_packNuevas').hide();
-};
+}
 
 function CerrarLoad() {
     if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 172) {
@@ -1183,13 +1177,13 @@ function AbrirLoad() {
         ShowLoading();
     }
     else {
-        waitingDialog()
+        waitingDialog();
     }
 }
 
 function AbrirMensajeEstrategia(txt) {
     if (tipoOrigenEstrategia == 1) {
-        alert_msg_pedido(txt)
+        alert_msg_pedido(txt);
     }
     else if (tipoOrigenEstrategia == 11 || tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 172) {
         alert_msg(txt);
@@ -1215,6 +1209,7 @@ function ProcesarActualizacionMostrarContenedorCupon() {
 }
 
 function RevisarMostrarContenedorCupon() {
+   
     if (typeof finishLoadCuponContenedorInfo !== 'undefined' && finishLoadCuponContenedorInfo) {
         if (cuponModule) {
             cuponModule.revisarMostrarContenedorCupon();

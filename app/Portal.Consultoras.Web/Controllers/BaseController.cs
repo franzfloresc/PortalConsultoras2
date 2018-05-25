@@ -200,6 +200,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
                     item.Nombre = string.IsNullOrEmpty(item.Nombre) ? userData.NombreConsultora : item.Nombre;
+                    item.DescripcionOferta = ObtenerDescripcionOferta(item);
                 }
                 var observacionesProl = sessionManager.GetObservacionesProl();
                 if (detallesPedidoWeb.Count > 0 && observacionesProl != null)
@@ -257,6 +258,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
                     item.Nombre = string.IsNullOrEmpty(item.Nombre) ? userData.NombreConsultora : item.Nombre;
+                    item.DescripcionOferta = ObtenerDescripcionOferta(item);
                 }
                 var observacionesProl = sessionManager.GetObservacionesProl();
                 if (detallesPedidoWeb.Count > 0 && observacionesProl != null)
@@ -1196,7 +1198,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.PaisID,
                         model.CampaniaID,
                         codigoConsultora,
-                        configEstrategiaSR.BeShowRoom != null && configEstrategiaSR.BeShowRoom.TienePersonalizacion);
+                        true);
 
                     configEstrategiaSR.ListaNivel = pedidoService.GetShowRoomNivel(model.PaisID).ToList();
 
@@ -2205,7 +2207,15 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.MesFaltante = userData.FechaInicioCampania.Month;
             model.AnioFaltante = userData.FechaInicioCampania.Year;
-
+            
+            if (configEstrategiaSR.ListaPersonalizacionConsultora == null)
+            {
+                model.ImagenPopupShowroomIntriga = "";
+                model.ImagenBannerShowroomIntriga = "";
+                model.ImagenPopupShowroomVenta = "";
+                model.ImagenBannerShowroomVenta = "";
+                return model;
+            }
 
             foreach (var item in configEstrategiaSR.ListaPersonalizacionConsultora)
             {
@@ -5116,6 +5126,17 @@ namespace Portal.Consultoras.Web.Controllers
                 resultado = svr.ActualizarMisDatos(usuario, correoAnterior);
             }
 
+            if (resultado.Split('|')[0] != "0")
+            {
+                var userDataX = UserData();
+                if (usuario.EMail != correoAnterior)
+                {
+                    userDataX.EMail = usuario.EMail;
+                }
+                userDataX.Celular = usuario.Celular;
+                sessionManager.SetUserData(userDataX);
+            }
+
             return resultado;
         }
 
@@ -5708,5 +5729,71 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
         }
+        private string ObtenerDescripcionOferta(BEPedidoWebDetalle item)
+        {
+            var descripcion = "";
+            var pedidoValidado = sessionManager.GetPedidoValidado();
+
+            if (pedidoValidado)
+            {
+                if (!string.IsNullOrWhiteSpace(item.DescripcionOferta))
+                {
+                    descripcion = (item.DescripcionOferta.Replace("[", "")).Replace("]", "");
+                }
+                else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Liquidacion)
+                {
+                    descripcion = "OFERTA LIQUIDACIÓN";
+                }
+                else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Flexipago)
+                {
+                    descripcion = "OFERTA FLEXIPAGO";
+                }
+                else
+                {
+                    descripcion = "";
+                }
+            }
+            else
+            {
+                if (item.FlagConsultoraOnline)
+                {
+                    descripcion = "CLIENTE ONLINE";
+                }
+                else
+                {
+                    if (item.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal)
+                    {
+                        descripcion = "";
+                    }
+                    else if (item.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal)
+                    {
+                        descripcion = "";
+                    }
+                    else if (!string.IsNullOrWhiteSpace(item.DescripcionOferta))
+                    {
+                        descripcion = item.DescripcionOferta;
+                    }
+                    else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Liquidacion)
+                    {
+                        descripcion = "OFERTA LIQUIDACIÓN";
+                    }
+                    else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Flexipago)
+                    {
+                        descripcion = "OFERTA FLEXIPAGO";
+                    }
+                    else if (item.TipoOfertaSisID == Constantes.ConfiguracionOferta.ShowRoom)
+                    {
+                        descripcion = "OFERTAS ESPECIALES GANA+";
+                    }
+                    else
+                    {
+                        descripcion = "";
+                    }
+                }
+            }
+
+            return descripcion;
+        }
+
     }
 }

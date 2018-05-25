@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿var tieneMicroefecto = false;
+var animacion = true;
+$(document).ready(function () {
     $('#txtClienteDescripcion').autocomplete({
         source: baseUrl + "Pedido/AutocompleteByCliente",
         minLength: 4,
@@ -280,7 +282,6 @@ function InsertarProducto(form) {
             if (checkTimeout(response)) {
                 if (response.success == true) {
                     $("#hdErrorInsertarProducto").val(response.errorInsertarProducto);
-
                     tieneMicroefecto = true;
                     CargarDetallePedido();
                 } else {
@@ -356,8 +357,7 @@ function ValidarCUV() {
             $("#btnAgregar").attr("disabled", "disabled");
         }
     } else {
-        if ($("#txtCUV").val().length == 5) {
-        } else {
+        if ($("#txtCUV").val().length !== 5) {
             $("#txtCantidad").val("");
             $("#hdfCUV").val("");
             $("#hdfDescripcionProd").val("");
@@ -367,6 +367,7 @@ function ValidarCUV() {
             $("#txtPrecioR").val("");
             $("#hdfPrecioUnidad").val("");
         }
+
     }
 }
 
@@ -788,7 +789,7 @@ function ValidarUpdate(PedidoDetalleID, FlagValidacion) {
     var Cantidad = $('#txtLPCant' + PedidoDetalleID).val();
     var CantidadAnti = $('#txtLPTempCant' + PedidoDetalleID).val();
     var ClienteAnti = $('#hdfLPTempCliDes' + PedidoDetalleID).val();
-    var DesProd = $('#lblLPDesProd' + PedidoDetalleID).html();
+  
 
     if (FlagValidacion == "1") {
         if (CantidadAnti == Cantidad)
@@ -968,4 +969,4 @@ function GuardarOfertaFICenPedido() {
             }
         }
     });
-};
+}

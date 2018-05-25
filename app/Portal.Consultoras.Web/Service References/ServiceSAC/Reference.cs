@@ -4081,7 +4081,13 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private string ImagenOfertaIndependienteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MensajeValidacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool MostrarImgOfertaIndependienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreComercialField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string OfertaIDField;
@@ -4284,6 +4290,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MensajeValidacion {
+            get {
+                return this.MensajeValidacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MensajeValidacionField, value) != true)) {
+                    this.MensajeValidacionField = value;
+                    this.RaisePropertyChanged("MensajeValidacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool MostrarImgOfertaIndependiente {
             get {
                 return this.MostrarImgOfertaIndependienteField;
@@ -4292,6 +4311,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.MostrarImgOfertaIndependienteField.Equals(value) != true)) {
                     this.MostrarImgOfertaIndependienteField = value;
                     this.RaisePropertyChanged("MostrarImgOfertaIndependiente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreComercial {
+            get {
+                return this.NombreComercialField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreComercialField, value) != true)) {
+                    this.NombreComercialField = value;
+                    this.RaisePropertyChanged("NombreComercial");
                 }
             }
         }

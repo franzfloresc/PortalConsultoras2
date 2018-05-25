@@ -15,8 +15,7 @@ namespace Portal.Consultoras.BizLogic
 
             try
             {
-                var da = new DAConfiguracionPais(entidad.Detalle.PaisID);
-                using (IDataReader reader = da.GetList(entidad))
+                using (var reader = new DAConfiguracionPais(entidad.Detalle.PaisID).GetList(entidad))
                 {
                     lista = reader.MapToCollection<BEConfiguracionPais>();
                 }

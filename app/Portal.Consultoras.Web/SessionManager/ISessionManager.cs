@@ -169,5 +169,9 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetMiAcademia(int id);
 
         int GetMiAcademia();
+
+        void SetPedidoValidado(bool validado);
+
+        bool GetPedidoValidado();
     }
 }
