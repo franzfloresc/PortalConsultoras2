@@ -299,23 +299,9 @@ namespace Portal.Consultoras.Web.Controllers
                 IEnumerable<BEPedidoWeb> items = lst;
 
                 #region Sort Section
-                if (sord == "asc")
+                if(sidx == "CodZona")
                 {
-                    switch (sidx)
-                    {
-                        case "CodZona":
-                            items = lst.OrderBy(x => x.CodigoZona);
-                            break;
-                    }
-                }
-                else
-                {
-                    switch (sidx)
-                    {
-                        case "CodZona":
-                            items = lst.OrderByDescending(x => x.CodigoZona);
-                            break;
-                    }
+                    items = (sord == "asc") ? lst.OrderBy(x => x.CodigoZona) : lst.OrderByDescending(x => x.CodigoZona);
                 }
                 #endregion
 
@@ -587,39 +573,40 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         foreach (PropertyInfo property in dataItem.GetType().GetProperties())
                         {
-                            if (column == property.Name)
+                            if (column != property.Name) continue;
+
+                            if (property.PropertyType == typeof(Nullable<bool>) || property.PropertyType == typeof(bool))
                             {
-                                if (property.PropertyType == typeof(Nullable<bool>) || property.PropertyType == typeof(bool))
+                                string value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
+                                string siOrNo = (value == "True") ? "Si" : "No";
+                                ws.Cell(row, col).Value = (string.IsNullOrEmpty(value) ? "" : siOrNo);
+                                break;
+                            }
+
+                            if (property.PropertyType == typeof(Nullable<DateTime>) || property.PropertyType == typeof(DateTime))
+                                ws.Cell(row, col).Style.DateFormat.Format = "dd/MM/yyyy";
+                            else
+                                ws.Cell(row, col).Style.NumberFormat.Format = "@";
+
+                            if (UserData().PaisID == 4)
+                            {
+                                if (col == 4 || col == 5)
                                 {
-                                    string value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
-                                    ws.Cell(row, col).Value = (string.IsNullOrEmpty(value) ? "" : (value == "True" ? "Si" : "No"));
+                                    string valorDecimal = Convert.ToDecimal(System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null)).ToString("#,##0").Replace(',', '.');
+                                    ws.Cell(row, col).Value = valorDecimal;
                                 }
                                 else
                                 {
-                                    if (property.PropertyType == typeof(Nullable<DateTime>) || property.PropertyType == typeof(DateTime))
-                                        ws.Cell(row, col).Style.DateFormat.Format = "dd/MM/yyyy";
-                                    else
-                                        ws.Cell(row, col).Style.NumberFormat.Format = "@";
-
-                                    if (UserData().PaisID == 4)
-                                    {
-                                        if (col == 4 || col == 5)
-                                        {
-                                            string valorDecimal = Convert.ToDecimal(System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null)).ToString("#,##0").Replace(',', '.');
-                                            ws.Cell(row, col).Value = valorDecimal;
-                                        }
-                                        else
-                                        {
-                                            ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
-                                    }
+                                    ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
                                 }
-                                break;
                             }
+                            else
+                            {
+                                ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
+                            }
+
+                            break;
+
                         }
                         col++;
                     }

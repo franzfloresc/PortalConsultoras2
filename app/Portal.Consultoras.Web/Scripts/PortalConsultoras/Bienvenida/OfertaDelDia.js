@@ -722,7 +722,7 @@ $(document).ready(function () {
         });
 
         return ok;
-    };
+    }
 
     function ValidarStockEstrategia(producto) {
         var d = $.Deferred();
@@ -812,7 +812,7 @@ $(document).ready(function () {
         });
 
         return qty;
-    };
+    }
 
     function ResetearCantidadesDelPopup() {
         $("#divOddCarrusel").find(".liquidacion_rango_cantidad_pedido.txtcantidad-odd").val(1);
@@ -934,7 +934,7 @@ function odd_desktop_procesar_evento_before_change(event, slick, currentSlide, n
             accion = 'next';
         } else {
             accion = 'prev';
-        };
+        }
 
         if (accion == "prev") {
             index = nextSlide;
@@ -980,7 +980,7 @@ function odd_mobile_procesar_evento_before_change(event, slick, currentSlide, ne
             accion = 'next';
         } else {
             accion = 'prev';
-        };
+        }
 
         if (accion == "prev") {
             index = nextSlide;
