@@ -2138,7 +2138,7 @@ namespace Portal.Consultoras.BizLogic
 
                 if (usuario != null)
                 {
-                    using (IDataReader reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
+                    using (var reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
                     {
                           configuracion =  reader.MapToObject<BEConfiguracionCampania>(true); 
                     }
