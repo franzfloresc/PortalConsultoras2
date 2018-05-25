@@ -1445,10 +1445,6 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool OptBloqueoProductoDigital { get; set; }
         [DataMember]
-        public BEOfertaDelDia OfertaDelDiaModel { get; set; }
-        [DataMember]
-        public BEGuiaNegocio GuiaNegocio { get; set; }
-        [DataMember]
         public bool TieneValidacionMontoMaximo { get; set; }
         [DataMember]
         public bool EsShowRoom { get; set; }

@@ -32523,24 +32523,6 @@ h1#penmostreo .campana {
 }
 
 @media screen and (max-width:1280px) {
-    .content_pop_oferta_dia {
-        margin-left: 12em !important;
-    }
-}
-
-.content_pop_oferta_dia {
-    margin: 0 auto;
-    left: 0;
-    right: 0;
-    position: relative;
-    margin-top: 0;
-    max-width: 1024px;
-    height: 500px;
-    margin: auto, auto;
-    padding: 10px 0;
-}
-
-@media screen and (max-width:1280px) {
     /*.content_estrategia_carrusel {
         margin-left: 12em !important;
     }*/
