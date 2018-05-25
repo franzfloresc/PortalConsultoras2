@@ -144,7 +144,8 @@
 .wrapper_content_cambiar_foto_perfil,
 .opciones_foto_perfil,
 .opcion_foto_perfil,
-.icono_opcion_foto_perfil img
+.icono_opcion_foto_perfil img,
+.titulo_correo_pendiente_confirmacion
 {
     display:block;
 }
@@ -614,6 +615,7 @@
 .icono_actualizacion_correo_exitoso,
 .titulo_contrasenia_actualizada,
 .titulo_revisa_tu_correo,
+.titulo_correo_pendiente_confirmacion,
 .titulo_correo_actualizado,
 .titulo_revisa_tu_celular,
 .icono_mensaje_sms,
@@ -641,6 +643,7 @@
 .titulo_contrasenia_actualizada,
 .titulo_correo_actualizado,
 .titulo_revisa_tu_correo,
+.titulo_correo_pendiente_confirmacion,
 .titulo_revisa_tu_celular
 {
     font-family:'Lato', sans-serif;
@@ -749,6 +752,17 @@
 
 .enlace_reenviar_instrucciones{
     font-size:13px;
+}
+
+.correo_pendiente_de_confirmar > div{
+    border: 1px solid #000;
+    padding: 28.3px 17px 15px;
+}
+
+.titulo_correo_pendiente_confirmacion{
+    margin-top:0;
+    font-size:16px;
+    line-height:23px;
 }
 
 .cambiar_correo_info{
