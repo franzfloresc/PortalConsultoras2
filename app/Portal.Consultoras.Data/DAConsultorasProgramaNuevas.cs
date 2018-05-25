@@ -13,12 +13,14 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetConsultorasProgramaNuevas(BEConsultorasProgramaNuevas entidad)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultorasProgramaNuevas_SB2");
-            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.CodigoConsultora);
-            Context.Database.AddInParameter(command, "@Campania", DbType.String, entidad.Campania);
-            Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, entidad.CodigoPrograma);
+            using (var command = Context.Database.GetStoredProcCommand("dbo.GetConsultorasProgramaNuevas_SB2"))
+            {
+                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.CodigoConsultora);
+                Context.Database.AddInParameter(command, "@Campania", DbType.String, entidad.Campania);
+                Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, entidad.CodigoPrograma);
 
-            return Context.ExecuteReader(command);
+                return Context.ExecuteReader(command);
+            }
         }
 
         public IDataReader GetConsultorasProgramaNuevasByConsultoraId(long consultoraId)
