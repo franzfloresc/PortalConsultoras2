@@ -161,6 +161,10 @@
                 alert("Debe seleccionar una Campaña, verifique");
                 return false;
             }
+            if ($("#ddlRegion").val() == "") {
+                alert("Debe seleccionar una Region, verifique");
+                return false;
+            }
             fnGrilla();
         });
         $("#btnExcel").click(function () {
@@ -401,7 +405,7 @@
     }
 
     function SendData(paisISO, CampaniaCod, ConsultoraCod, ConsultoraNombre, UsuarioNombre, Origen, Validado, Saldo, Importe, importeConDescuento, tipoProceso, motivoRechazo) {
-        debugger;
+       
         var form1 = document.createElement("form");
         var data = document.createElement("input");
         form1.setAttribute("id", "form1");

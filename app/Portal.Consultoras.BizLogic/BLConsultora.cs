@@ -27,7 +27,7 @@ namespace Portal.Consultoras.BizLogic
             return consultorasCodigo;
         }
 
-        private List<BEConsultoraCodigo> SelectConsultoraCodigoPorCodigoYRowCount(int paisId, string codigo , int rowCount)
+        private List<BEConsultoraCodigo> SelectConsultoraPorCodigoYRowCount(int paisId, string codigo , int rowCount)
         {
             List<BEConsultoraCodigo>  consultorasCodigo = new List<BEConsultoraCodigo>();
             var daConsultora = new DAConsultora(paisId);
@@ -41,7 +41,7 @@ namespace Portal.Consultoras.BizLogic
 
         public IList<BEConsultoraCodigo> SelectConsultoraCodigo(int paisID, string codigo, int rowCount)
         {
-            IList<BEConsultoraCodigo> consultoras = SelectConsultoraCodigoPorCodigoYRowCount(paisID, codigo , rowCount);
+            IList<BEConsultoraCodigo> consultoras = SelectConsultoraPorCodigoYRowCount(paisID, codigo , rowCount);
 
             return consultoras.OrderBy(x => x.Codigo).ToList();
         }
