@@ -36376,55 +36376,118 @@ height:30px;
 
 /* MEJORA CONTINUA CONSULTORAS - HD-2212 - PROGRAMA DE NUEVAS: MOSTRAR IMAGEN DEL REGALO EN LA BARRA DE DESCUENTOS */
 
-.contenedor_tippingPoint{
-    cursor:pointer;
+.contenedor_tippingPoint {
+    cursor: pointer;
+    position: relative;
+    -moz-animation: animacionTippingPoint 0.8s infinite ease-out;
+    -o-animation: animacionTippingPoint 0.8s infinite ease-out;
+    -webkit-animation: animacionTippingPoint 0.8s infinite ease-out;
+    animation: animacionTippingPoint 0.8s infinite ease-out;
 }
 
-    .contenedor_tippingPoint:hover .tooltip_regalo_meta_tippingPoint {
+@keyframes animacionTippingPoint {
+  0% {
+    top:0;
+  }
+
+  50% {
+    top:-7px;
+  }
+
+  100%{
+     top:0;
+  }
+}
+
+@-moz-keyframes animacionTippingPoint {
+  0% {
+    top:0;
+  }
+
+  50% {
+    top:-7px;
+  }
+
+  100%{
+     top:0;
+  }
+}
+
+@-o-keyframes animacionTippingPoint {
+  0% {
+    top:0;
+  }
+
+  50% {
+    top:-7px;
+  }
+
+  100%{
+     top:0;
+  }
+}
+
+@-webkit-keyframes animacionTippingPoint {
+  0% {
+    top:0;
+  }
+
+  50% {
+    top:-7px;
+  }
+
+  100%{
+     top:0;
+  }
+}
+
+    .contenedor_tippingPoint:hover + .tooltip_regalo_meta_tippingPoint {
         display: block;
-        -moz-animation-name: mostrarTooltip;
-        -o-animation-name: mostrarTooltip;
-        -webkit-animation-name: mostrarTooltip;
-        animation-name: mostrarTooltip;
-        -moz-animation-duration: 0.2s;
-        -o-animation-duration: 0.2s;
-        -webkit-animation-duration: 0.2s;
-        animation-duration: 0.2s;
-        -moz-animation-fill-mode: forwards;
-        -o-animation-fill-mode: forwards;
-        -webkit-animation-fill-mode: forwards;
-        animation-fill-mode: forwards;
+        -moz-animation: mostrarTooltip 0.2s ease;
+        -o-animation: mostrarTooltip 0.2s ease;
+        -webkit-animation: mostrarTooltip 0.2s ease;
+        animation: mostrarTooltip 0.2s ease;
     }
 
-@keyframes mostrarTooltip {
-  from {
-    opacity:0;
-  }
+    @keyframes mostrarTooltip {
+      from {
+        opacity:0;
+      }
 
-  to {
-    opacity:1;
-  }
-}
+      to {
+        opacity:1;
+      }
+    }
 
-@-moz-keyframes mostrarTooltip {
-  from {
-    opacity:0;
-  }
+    @-moz-keyframes mostrarTooltip {
+      from {
+        opacity:0;
+      }
 
-  to {
-    opacity:1;
-  }
-}
+      to {
+        opacity:1;
+      }
+    }
 
-@-webkit-keyframes mostrarTooltip {
-  from {
-    opacity:0;
-  }
+    @-o-keyframes mostrarTooltip {
+      from {
+        opacity:0;
+      }
 
-  to {
-    opacity:1;
-  }
-}
+      to {
+        opacity:1;
+      }
+    }
+
+    @-webkit-keyframes mostrarTooltip {
+      from {
+        opacity:0;
+      }
+
+      to {
+        opacity:1;
+      }
+    }
 
 .tooltip_regalo_meta_tippingPoint {
     display: none;

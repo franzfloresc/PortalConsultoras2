@@ -214,15 +214,18 @@ function MostrarBarra(datax, destino) {
             + '</div>';
     var htmlTippintPoint = '<div id="punto_{punto}" data-punto="{select}">'
                 + '<div class="monto_minimo_barra">'
-                    + '<div class="contenedor_tippingPoint" style="width:{wText}px;position: absolute; top:-15px;" data-texto>'
-                        + '<div class="tooltip_regalo_meta_tippingPoint">'
-                            + '<div class="tooltip_producto_regalo_img">'
-                                + '<img src="https://S3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_2000755302017843863_noksafgnse.png" alt="Producto de regalo"/>'
+                    + '<div style="width:{wText}px;position: absolute; top:-15px;" data-texto>'
+                        + '<div class="contenedor_tippingPoint">'
+                            + '<div class="tippingPoint {estado}"></div>'
+                            + '<div class="monto_meta_tippingPoint default-color">S/. 350</div>'
+                            + '<div class="tooltip_regalo_meta_tippingPoint">'
+                                + '<div class="tooltip_producto_regalo_img">'
+                                    + '<img src="https://S3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_2000755302017843863_noksafgnse.png" alt="Producto de regalo"/>'
+                                + '</div>'
+                                + '<div class="tooltip_producto_regalo_descripcion">Llega a <span>S/. 350</span><br>y llévate de regalo<br><strong>1 Magnat Select 90 ml</strong></div>'
                             + '</div>'
-                            + '<div class="tooltip_producto_regalo_descripcion">Llega a <span>S/. 350</span><br>y llévate de regalo<br><strong>1 Magnat Select 90 ml</strong></div>'
                         + '</div>'
-                        + '<div class="tippingPoint {estado}"></div>'
-                        + '<div class="monto_meta_tippingPoint default-color">S/. 350</div></div>'
+                    + '</div>'
                     + '<div class="linea_indicador_barra"></div>'
                 + '</div>'
             + '</div>';
@@ -232,7 +235,6 @@ function MostrarBarra(datax, destino) {
                     + '<div style="margin-left: {marl}px;width: {wText}px;position: absolute;" data-texto>{texto}</div>'
                 + '</div>'
             + '</div>';
-
     if (mx > 0 || destino == '1')
         htmlPuntoLimite = htmlPunto;
 
