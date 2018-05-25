@@ -23,7 +23,7 @@ function CargarProgramasBelcorp() {
         },
         error: function (data, error) { }
     });
-};
+}
 function ArmarProgramasBelcorp(data) {
     data = EstructurarDataProgramasBelcorp(data);
     var htmlDiv = SetHandlebars("#ProgramasBelcorp-template", data);
@@ -42,12 +42,12 @@ function ArmarProgramasBelcorp(data) {
                         '</span>',
                         '<a href="' + urlIncentivos + '" title="DESCÚBRELOS AQUÍ">DESCÚBRELOS AQUÍ</a>',
                     '</div>',
-             '</div>',
+             '</div>'
         ].join("\n");
     };
 
     $('#contenidoProgramasBelcorp').empty().append(htmlDiv);
-};
+}
 function EstructurarDataProgramasBelcorp(array) {
     $.each(array, function (i, item) {
         if (item.Descripcion.trim() == "Brillante 2016") {
@@ -65,9 +65,9 @@ function EstructurarDataProgramasBelcorp(array) {
         } else if (item.Descripcion.trim() == "Programa Nuevas") {
             item.urlImgBeneficios = urlS3Raiz + "MisBeneficios/" + codigoISO_MB + "/programanuevas.png";
             item.DetalleDesripcion = "<b>Gana desde el comienzo</b> con las mejores herramientas para tu negocio: productos ganadores, demostradores, fichas de los TOP de Ésika y más.";
-            item.Descripcion = "PROGRAMA <b>NUEVAS</b>"
+            item.Descripcion = "PROGRAMA <b>NUEVAS</b>";
         }
     });
 
     return array;
-};
+}

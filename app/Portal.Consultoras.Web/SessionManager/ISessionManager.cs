@@ -164,5 +164,9 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetMiAcademia(int id); /* SOPORTEC-266 */
 
         int GetMiAcademia(); /* SOPORTEC-266 */
+
+        void SetPedidoValidado(bool validado);
+
+        bool GetPedidoValidado();
     }
 }
