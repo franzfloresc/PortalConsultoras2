@@ -1674,7 +1674,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<string> ObtenerListadoCuvCupon()
         {
-            var lista = new List<string>();
+            List<string> lista;
 
             using(PedidoServiceClient ps = new PedidoServiceClient())
             {

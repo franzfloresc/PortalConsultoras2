@@ -1823,7 +1823,7 @@ namespace Portal.Consultoras.Web.Controllers
                 objR.MontoGanancia = objR.MontoAhorroCatalogo + objR.MontoAhorroRevista;
                 objR.MontoGananciaStr = Util.DecimalToStringFormat(objR.MontoGanancia, userData.CodigoISO);
 
-                var listProducto = new List<BEPedidoWebDetalle>();
+                List<BEPedidoWebDetalle> listProducto;
                 if (Agrupado)
                 {
                     listProducto = ObtenerPedidoWebSetDetalleAgrupado(); ObtenerPedidoWebDetalle();
@@ -2622,7 +2622,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData.CodigoISO != "PE")
                     seccion = "";
 
-                var paisesAdmitidos = new List<BETablaLogicaDatos>();
+                List<BETablaLogicaDatos> paisesAdmitidos;
                 short codigoTablaLogica = 138;
 
                 using (var tablaLogica = new SACServiceClient())

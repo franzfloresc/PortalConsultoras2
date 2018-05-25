@@ -3167,7 +3167,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 TempData["FlagPin"] = true;
                                 return await Redireccionar(paisID, oUsuCorreo.CodigoUsuario);
-                            };
+                            }
                     }
                 }
 
