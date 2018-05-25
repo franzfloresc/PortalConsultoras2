@@ -3,6 +3,8 @@ using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.Pedido.App;
 using System.Threading.Tasks;
 
+using System.Threading.Tasks;
+
 namespace Portal.Consultoras.BizLogic.Pedido
 {
     public interface IPedidoAppBusinessLogic
@@ -14,7 +16,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         BEPedidoDetalleAppResult Update(BEPedidoDetalleApp pedidoDetalle);
         BEConfiguracionPedido GetConfiguracion(int paisID, string codigoUsuario);
         Task<BEPedidoDetalleAppResult> Delete(BEPedidoDetalleApp pedidoDetalle);
-        BEPedidoDetalleAppResult Reserva(BEUsuario usuario);
+        Task<BEPedidoDetalleAppResult> Reserva(BEUsuario usuario);
         BEPedidoDetalleAppResult DeshacerReservaPedido(BEUsuario usuario);
     }
 }

@@ -32,14 +32,13 @@ $(document).ready(function () {
         var tipoOfertaSisID = $(divPadre).find(".hdOfertaFinalTipoOfertaSisID").val();
         var configuracionOfertaID = $(divPadre).find(".hdOfertaFinalConfiguracionOfertaID").val();
         var indicadorMontoMinimo = $(divPadre).find(".hdOfertaFinalIndicadorMontoMinimo").val();
-        var tipo = $(divPadre).find(".hdOfertaFinalTipo").val();
+        
         var marcaID = $(divPadre).find(".hdOfertaFinalMarcaID").val();
         var precioUnidad = $(divPadre).find(".hdOfertaFinalPrecioUnidad").val();
         var descripcionProd = $(divPadre).find(".hdOfertaFinalDescripcionProd").val();
-        var pagina = $(divPadre).find(".hdOfertaFinalPagina").val();
-        var descripcionCategoria = $(divPadre).find(".hdOfertaFinalDescripcionCategoria").val();
-        var descripcionMarca = $(divPadre).find(".hdOfertaFinalDescripcionMarca").val();
-        var descripcionEstrategia = $(divPadre).find(".hdOfertaFinalDescripcionEstrategia").val();
+        
+       
+      
         var tipoEstrategiaId = $(divPadre).find(".hdOfertaFinalTipoEstrategiaID").val();
         var OrigenPedidoWeb = tipoOrigen == "1" ? DesktopPedidoOfertaFinal : MobilePedidoOfertaFinal;
         tipoOfertaFinal_Log = $(divPadre).find(".hdTipoMeta").val();
@@ -82,10 +81,10 @@ $(document).ready(function () {
         };
         var add;
         if (tipoOrigen == "1") {
-            var add = AgregarProducto('PedidoInsertar', model, "", false, false);
+             add = AgregarProducto('PedidoInsertar', model, "", false, false);
         }
         else {
-            var add = InsertarProducto(model, false);
+             add = InsertarProducto(model, false);
         }
 
         if (add == null || !add.success) {
@@ -131,14 +130,14 @@ $(document).ready(function () {
         var tipoOfertaSisID = $(divPadre).find(".hdOfertaFinalTipoOfertaSisID").val();
         var configuracionOfertaID = $(divPadre).find(".hdOfertaFinalConfiguracionOfertaID").val();
         var indicadorMontoMinimo = $(divPadre).find(".hdOfertaFinalIndicadorMontoMinimo").val();
-        var tipo = $(divPadre).find(".hdOfertaFinalTipo").val();
+        
         var marcaID = $(divPadre).find(".hdOfertaFinalMarcaID").val();
         var precioUnidad = $(divPadre).find(".hdOfertaFinalPrecioUnidad").val();
         var descripcionProd = $(divPadre).find(".hdOfertaFinalDescripcionProd").val();
-        var pagina = $(divPadre).find(".hdOfertaFinalPagina").val();
-        var descripcionCategoria = $(divPadre).find(".hdOfertaFinalDescripcionCategoria").val();
-        var descripcionMarca = $(divPadre).find(".hdOfertaFinalDescripcionMarca").val();
-        var descripcionEstrategia = $(divPadre).find(".hdOfertaFinalDescripcionEstrategia").val();
+        
+      
+       
+        
         var tipoEstrategiaId = $(divPadre).find(".hdOfertaFinalTipoEstrategiaID").val();
         var OrigenPedidoWeb = tipoOrigen == "1" ? DesktopPedidoOfertaFinal : MobilePedidoOfertaFinal;
 
@@ -181,10 +180,10 @@ $(document).ready(function () {
 
         var add;
         if (tipoOrigen == "1") {
-            var add = AgregarProducto('PedidoInsertar', model, "", false, false);
+             add = AgregarProducto('PedidoInsertar', model, "", false, false);
         }
         else {
-            var add = InsertarProducto(model, false);
+             add = InsertarProducto(model, false);
         }
 
         if (add == null || !add.success) {
@@ -692,19 +691,22 @@ function validarGanoRegalo(totalPedido) {
 }
 
 function ActulizarValoresPopupOfertaFinal(data, popup) {
+    var nivel;
+    var msg1 = "", msj ="";
+    var montolimite = 0;
     var tipoMeta = $("#divOfertaFinal div[data-meta]").attr("data-meta") || data.TipoMeta;
     var metaMonto = $("#msjOfertaFinal").attr("data-meta-monto");
     if (isNaN(metaMonto)) metaMonto = 0;
     var metaTotal = $("#divOfertaFinal div[data-meta-total]").attr("data-meta-total");
     montoPedidoFinal = data.total;
-
+    var upSellingMontoMetaPromise;
     if (consultoraRegaloPN == 'True') {
         var montoMeta = parseFloat(metaMonto) + parseFloat(metaTotal);
         mostrarMensajeRegaloPN(tipoMeta, data.total, montoMeta, simbolo, 2)
     }
 
     if (tipoMeta == "MM") {
-        var montolimite = parseFloat(metaMonto) + parseFloat(metaTotal);
+         montolimite = parseFloat(metaMonto) + parseFloat(metaTotal);
 
         if (parseFloat(data.total) >= montolimite) {
             // TODO: guardar el monto al pasar el monto minimo
@@ -724,7 +726,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
                 }
             }
 
-            var msj = "Ahora tu ganancia estimada total es ";
+             msj = "Ahora tu ganancia estimada total es ";
 
             if (consultoraRegaloPN != 'True')
                 $("#spnTituloOfertaFinal span").html("¡LLEGASTE AL <b>MONTO MÍNIMO!</b>");
@@ -734,7 +736,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
             }
 
             if (consultoraRegaloPN == 'True') {  // CASE 3,4,5
-                var nivel = oRegaloPN.CodigoNivel;
+                 nivel = oRegaloPN.CodigoNivel;
                 var sep1 = (tipoOrigen == 1) ? ' | ' : '<br />';
                 var msg3 = 'Monto Total de Pedido: ' + simbolo + ' ' + data.formatoTotal + sep1 + 'Ganancia Estimada Total: ' + simbolo + ' ' + data.DataBarra.MontoGananciaStr;
 
@@ -792,13 +794,13 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
     }
     else if (tipoMeta == "GM") {
         if (consultoraRegaloPN == 'True') {
-            var nivel = oRegaloPN.CodigoNivel;
+             nivel = oRegaloPN.CodigoNivel;
             var sep2 = (tipoOrigen == 1) ? ' ' : '<br />';
             var disclaimer = '*En caso tu pedido no tenga observaciones y supere el monto mínimo.';
 
             if (nivel == '01' || nivel == '02' || nivel == '03') {
                 // CASE 9
-                var msg1 = '<b>AHORA TU MONTO TOTAL' + sep2 + 'DE PEDIDO ES ' + simbolo + ' ' + data.formatoTotal + '</b>';
+                 msg1 = '<b>AHORA TU MONTO TOTAL' + sep2 + 'DE PEDIDO ES ' + simbolo + ' ' + data.formatoTotal + '</b>';
                 $('#spnTituloOfertaFinal span').html(msg1);
 
                 $('#msjOfertaFinal span').html('Ganancia Estimada Total: ' + simbolo + ' ' + data.DataBarra.MontoGananciaStr);
@@ -813,7 +815,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
 
                 if (data.total >= oRegaloPN.TippingPoint) {
                     // CASE 11
-                    var msg1 = '<b>AHORA TU MONTO TOTAL' + sep2 + 'DE PEDIDO ES DE ' + simbolo + ' ' + data.formatoTotal + '</b>';
+                     msg1 = '<b>AHORA TU MONTO TOTAL' + sep2 + 'DE PEDIDO ES DE ' + simbolo + ' ' + data.formatoTotal + '</b>';
                     msg1 += '<br /><span style="font-weight: normal;font-size:14px;"><b>Y GANASTE UN ' + oRegaloPN.DescripcionPremio + '*</b>';
                     msg1 += ', AHORA PUEDES ACCEDER A PACKS EXCLUSIVOS NUEVAS**</span>';
 
@@ -835,7 +837,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
                 }
                 else {
                     // CASE 10
-                    var msg1 = '<b>AHORA TU MONTO TOTAL' + sep2 + 'DE PEDIDO  ES ' + simbolo + ' ' + data.formatoTotal + '</b>';
+                     msg1 = '<b>AHORA TU MONTO TOTAL' + sep2 + 'DE PEDIDO  ES ' + simbolo + ' ' + data.formatoTotal + '</b>';
                     $('#spnTituloOfertaFinal span').html(msg1);
 
                     if (tipoOrigen == 1) {
@@ -867,10 +869,10 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
     else {
         var faltante = $("#msjOfertaFinal").attr("data-meta-monto");
         var totalPedido = $("#divOfertaFinal div[data-meta-total]").attr("data-meta-total");
-        var montolimite = parseFloat(faltante) + parseFloat(totalPedido);
+         montolimite = parseFloat(faltante) + parseFloat(totalPedido);
 
         if (parseFloat(data.total) >= montolimite) {
-            var msj = tipoOrigen == "2" ? "Ganancia estimada total: " : "Ahora tu ganancia estimada total es ";
+             msj = tipoOrigen == "2" ? "Ganancia estimada total: " : "Ahora tu ganancia estimada total es ";
             var porc = $("#msjOfertaFinal").attr("data-meta-porcentaje");
             if (consultoraRegaloPN !== 'True')
                 $("#spnTituloOfertaFinal span").html("¡LLEGASTE AL <b>" + porc + "% DSCTO!</b>");
@@ -1145,7 +1147,7 @@ function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMen
             }
             else {
                 var flagObs = true;
-                for (i = 0; i < listaObservacionesProl.length; i++) {
+                for (var i = 0; i < listaObservacionesProl.length; i++) {
                     if (listaObservacionesProl[i].Caso != 0) {
                         flagObs = false;
                         break;
@@ -1208,7 +1210,7 @@ function ObtenerProductosOfertaFinal(tipoOfertaFinal) {
         cache: false,
         success: function (response) {
             if (checkTimeout(response)) {
-                if (tipoOrigen == "1") CerrarSplash()
+                if (tipoOrigen == "1") CerrarSplash();
                 else CloseLoading();
 
                 if (response.success) {
@@ -1268,9 +1270,9 @@ function GetUpSellingGanadoPromise() {
         contentType: 'application/json; charset=utf-8',
         async: true
     });
-    promise.done(function (response) {
+    promise.done(function(response) {
         d.resolve(response);
-    })
+    });
     promise.fail(d.reject);
     return d.promise();
 }
@@ -1284,9 +1286,9 @@ function GetUpSellingMontoMetaPromise() {
         contentType: 'application/json; charset=utf-8',
         async: true
     });
-    promise.done(function (response) {
+    promise.done(function(response) {
         d.resolve(response);
-    })
+    });
     promise.fail(d.reject);
     return d.promise();
 }
@@ -1397,7 +1399,7 @@ function InsertUpSellingRegalo(id, cuv) {
                             $('#of-regalo-descripcion-larga').text(descripcion);
                             $('#of-regalo-montometa-msg3').text(simbolo + DecimalToStringFormat(montoPedidoFinal));
 
-                            upSellingGanadoPromise = GetUpSellingGanadoPromise();
+                            var upSellingGanadoPromise = GetUpSellingGanadoPromise();
 
                             var effect = 'slide';
                             var options = { direction: 'right' };
@@ -1470,10 +1472,7 @@ function AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_log, gap_Log, tipo
         data: JSON.stringify(param),
         async: true,
         success: function (response) {
-            if (checkTimeout(response)) {
-                if (response.success == true) {
-                }
-            }
+
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -1507,10 +1506,7 @@ function AgregarOfertaFinalLogBulk(tipoOfertaFinal_log, gap_Log, listaProductos)
         data: JSON.stringify(params),
         async: true,
         success: function (response) {
-            if (checkTimeout(response)) {
-                if (response.success == true) {
-                }
-            }
+        
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -1603,15 +1599,13 @@ function of_google_analytics_producto_impresion(origen, meta, lista) {
     if (origen == 1) {
         if (lista.length >= 3) {
 
-            for (i = 0; i < 3; i++) {
-                var impresion;
-                var item;
-                item = lista[i];
+            for (var i = 0; i < 3; i++) {
+              
+                var item = lista[i];
                 if (item.DescripcionEstrategia == "") {
                     item.DescripcionEstrategia = "Estándar";
                 }
-
-                impresion =
+                   impresions.push(
                     {
                         name: item.NombreComercialCorto,
                         id: item.CUV,
@@ -1621,30 +1615,26 @@ function of_google_analytics_producto_impresion(origen, meta, lista) {
                         variant: item.DescripcionEstrategia,
                         list: list,
                         position: i + 1
-                    };
-                impresions.push(impresion);
+                    });
             }
         }
     }
 
     if (origen == 2) {
-        var impresion;
-        var item;
-        item = lista[0];
-        if (item.DescripcionEstrategia == "")
-            item.DescripcionEstrategia = "Estándar";
-        impresion =
-            {
-                name: item.NombreComercialCorto,
-                id: item.CUV,
-                price: item.PrecioCatalogoString,
-                brand: item.DescripcionMarca,
-                category: 'No Disponible',
-                variant: item.DescripcionEstrategia,
+        
+        var item0 = lista[0];
+        if (item0.DescripcionEstrategia == "")
+            item0.DescripcionEstrategia = "Estándar";
+        impresions.push({
+            name: item0.NombreComercialCorto,
+            id: item0.CUV,
+            price: item0.PrecioCatalogoString,
+            brand: item0.DescripcionMarca,
+            category: 'No Disponible',
+            variant: item0.DescripcionEstrategia,
                 list: list,
                 position: 1
-            };
-        impresions.push(impresion);
+            });
     }
 
     dataLayer.push({
@@ -1669,7 +1659,7 @@ function of_google_analytics_producto_impresion_arrows(event, slick, currentSlid
             accion = 'next';
         } else {
             accion = 'prev';
-        };
+        }
 
         if (accion == "prev") {
             index = nextSlide;
@@ -1687,14 +1677,13 @@ function of_google_analytics_producto_impresion_arrows(event, slick, currentSlid
         if (meta == "GM") { list = list + "Gana más"; }
         if (meta == "") { list = list + "Descuento Adicional"; }
 
-        var impresion;
-        var item;
-        item = lista[index];
+       
+        var item= lista[index];
         if (item.DescripcionEstrategia == "") {
             item.DescripcionEstrategia = "Estándar";
         }
 
-        impresion =
+        impresions.push(
             {
                 name: item.NombreComercialCorto,
                 id: item.CUV,
@@ -1704,8 +1693,8 @@ function of_google_analytics_producto_impresion_arrows(event, slick, currentSlid
                 variant: item.DescripcionEstrategia,
                 list: list,
                 position: index + 1
-            };
-        impresions.push(impresion);
+            }
+        );
     }
 }
 
@@ -1714,7 +1703,8 @@ function of_google_analytics_addtocar(entorno, ubic, element, meta) {
     var products = [];
     var product;
     var list;
-    var name, price, brand, id, variant, quantity, position
+     
+    var name, price, brand, id, variant, quantity, position, precio_valorizado, precio_valorizado_string = "", precio_catalogo_string="";
 
     if (entorno != "desktop" && entorno != "mobile")
         return;
@@ -1757,14 +1747,14 @@ function of_google_analytics_addtocar(entorno, ubic, element, meta) {
             origen = "Popup Oferta Final - Detalle";
             name = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".Nombre").val();
 
-            var precio_valorizado = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".PrecioValorizado").val();
-            var precio_valorizado_string = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".PrecioValorizadoString").val();
-            var precio_catalogo_string = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".PrecioCatalogoString").val();
+             precio_valorizado = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".PrecioValorizado").val();
+             precio_valorizado_string = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".PrecioValorizadoString").val();
+              precio_catalogo_string = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".PrecioCatalogoString").val();
             if (precio_valorizado > 0) {
-                price = precio_valorizado_string
+                price = precio_valorizado_string;
             }
             else {
-                price = precio_catalogo_string
+                price = precio_catalogo_string;
             }
 
             brand = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".MarcaNombre").val();
@@ -1792,14 +1782,14 @@ function of_google_analytics_addtocar(entorno, ubic, element, meta) {
             origen = "Popup Oferta Final - Listado";
             name = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalNombreComercial").val();
 
-            var precio_valorizado = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalPrecioValorizado").val();
-            var precio_valorizado_string = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalPrecioValorizadoString").val();
-            var precio_catalogo_string = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalPrecioCatalogoString").val();
+             precio_valorizado = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalPrecioValorizado").val();
+             precio_valorizado_string = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalPrecioValorizadoString").val();
+              precio_catalogo_string = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalPrecioCatalogoString").val();
             if (precio_valorizado > 0) {
-                price = precio_valorizado_string
+                price = precio_valorizado_string;
             }
             else {
-                price = precio_catalogo_string
+                price = precio_catalogo_string;
             }
 
             brand = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalDescripcionMarca").val();
@@ -1825,14 +1815,14 @@ function of_google_analytics_addtocar(entorno, ubic, element, meta) {
             origen = "Popup Oferta Final - Detalle";
             name = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".Nombre").val();
 
-            var precio_valorizado = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".PrecioValorizado").val();
-            var precio_valorizado_string = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".PrecioValorizadoString").val();
-            var precio_catalogo_string = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".PrecioCatalogoString").val();
+             precio_valorizado = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".PrecioValorizado").val();
+             precio_valorizado_string = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".PrecioValorizadoString").val();
+             precio_catalogo_string = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".PrecioCatalogoString").val();
             if (precio_valorizado > 0) {
-                price = precio_valorizado_string
+                price = precio_valorizado_string;
             }
             else {
-                price = precio_catalogo_string
+                price = precio_catalogo_string;
             }
 
             brand = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".MarcaNombre").val();
@@ -1881,18 +1871,16 @@ function of_google_analytics_product_click(entorno, element, meta) {
     if (meta == "") { list = list + "Descuento Adicional"; }
 
     position = element + 1;
-
-    origen = "Popup Oferta Final - Listado";
     name = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalNombreComercial").val();
 
     var precio_valorizado = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalPrecioValorizado").val();
     var precio_valorizado_string = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalPrecioValorizadoString").val();
     var precio_catalogo_string = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalPrecioCatalogoString").val();
     if (precio_valorizado > 0) {
-        price = precio_valorizado_string
+        price = precio_valorizado_string;
     }
     else {
-        price = precio_catalogo_string
+        price = precio_catalogo_string;
     }
 
     brand = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalDescripcionMarca").val();

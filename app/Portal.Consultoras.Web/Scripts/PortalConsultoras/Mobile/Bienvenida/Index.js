@@ -274,7 +274,7 @@ function stopVideo() {
             $divPlayer.attr("src", urlVideo);
         }
     }
-};
+}
 
 function playVideo() {
     var player = oYTPlayers['ytMobileBienvenidaIndex'].instance;
@@ -286,7 +286,7 @@ function playVideo() {
         }
 
     }
-};
+}
 
 function UpdateUsuarioTutorialMobile() {
     $.ajax({
@@ -302,7 +302,7 @@ function UpdateUsuarioTutorialMobile() {
         },
         error: function (data) { }
     });
-};
+}
 
 function RedirectPagaEnLineaAnalytics() {
 
@@ -312,7 +312,7 @@ function RedirectPagaEnLineaAnalytics() {
     else {
         window.open('https://www.belcorpchile.cl/BP_Servipag/PagoConsultora.aspx?c=' + ViewBagUrlChileEncriptada, "_blank");
     }
-};
+}
 
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
@@ -357,7 +357,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
         }
     });
     return restringido;
-};
+}
 
 function CargarPopupsConsultora() {
 
@@ -372,7 +372,7 @@ function CargarPopupsConsultora() {
     else if (TipoPopUpMostrar == popupRevistaDigitalSuscripcion) {
         rdPopup.Mostrar();
     }
-};
+}
 
 function MostrarDemandaAnticipada() {
     $.ajax({
@@ -405,15 +405,15 @@ function MostrarDemandaAnticipada() {
             }
         }
     });
-};
+}
 
 function AceptarDemandaAnticipada() {
     InsertarDemandaAnticipada(1);
-};
+}
 
 function CancelarDemandaAnticipada() {
     InsertarDemandaAnticipada(0);
-};
+}
 
 function InsertarDemandaAnticipada(tipo) {
     var params = { tipoConfiguracion: tipo };
@@ -444,7 +444,7 @@ function InsertarDemandaAnticipada(tipo) {
             }
         }
     });
-};
+}
 
 function TagManagerCatalogosPersonalizados() {
     if (!!document.getElementById("flagCatalogoPersonalizado")) {
@@ -462,7 +462,7 @@ function TagManagerCatalogosPersonalizados() {
             }
         });
     }
-};
+}
 
 $("#content_oferta_dia_mobile").click(function () {
     $('#PopOfertaDia').slideDown();
@@ -676,7 +676,7 @@ function VerSeccionBienvenida(seccion) {
     switch (seccion) {
         case "Belcorp":
             id = ".content_belcorp";
-            break
+            break;
         case "MisOfertas":
             id = "#divListaEstrategias";
             break;
@@ -735,4 +735,4 @@ function onYouTubeIframeAPIReady(playerId) {
         videoId: videoIdMostrar,
         playerVars: { rel: 0 }
     });
-};*/
+}*/

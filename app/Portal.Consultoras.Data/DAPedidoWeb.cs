@@ -657,8 +657,7 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarDesactivaRevistaGana");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
             Context.Database.AddInParameter(command, "@Codigo", DbType.AnsiString, codigoZona);
-            int result = Convert.ToInt32(Context.ExecuteScalar(command));
-            return result;
+            return Convert.ToInt32(Context.ExecuteScalar(command));
         }
 
         public void UpdateMontosPedidoWeb(BEPedidoWeb bePedidoWeb)
@@ -940,5 +939,12 @@ namespace Portal.Consultoras.Data
         }
 
         #endregion
+
+        public IDataReader DescargaPedidosCliente(int nroLote)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetLogCargaPedidoCliente");
+            Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+            return Context.ExecuteReader(command);
+        }
     }
 }
