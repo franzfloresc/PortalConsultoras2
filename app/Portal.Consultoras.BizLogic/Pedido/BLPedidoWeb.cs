@@ -2140,7 +2140,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     using (IDataReader reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
                     {
-                          configuracion =  reader.MapToObject<BEConfiguracionCampania>(true); //new BEConfiguracionCampania(reader);
+                          configuracion =  reader.MapToObject<BEConfiguracionCampania>(true); 
                     }
                 }
             
