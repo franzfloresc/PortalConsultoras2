@@ -1,7 +1,7 @@
 USE BelcorpPeru
 GO
 
-IF NOT EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 
+IF EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 
 	AND OBJECT_ID = OBJECT_ID('[GPR].[MotivoRechazo]'))
 BEGIN
 
@@ -14,7 +14,7 @@ GO
 USE BelcorpMexico
 GO
 
-IF NOT EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 
+IF EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 
 	AND OBJECT_ID = OBJECT_ID('[GPR].[MotivoRechazo]'))
 BEGIN
 
@@ -27,7 +27,7 @@ GO
 USE BelcorpColombia
 GO
 
-IF NOT EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 
+IF EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 
 	AND OBJECT_ID = OBJECT_ID('[GPR].[MotivoRechazo]'))
 BEGIN
 
@@ -40,7 +40,7 @@ GO
 USE BelcorpSalvador
 GO
 
-IF NOT EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 
+IF EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 
 	AND OBJECT_ID = OBJECT_ID('[GPR].[MotivoRechazo]'))
 BEGIN
 
@@ -53,7 +53,7 @@ GO
 USE BelcorpPuertoRico
 GO
 
-IF NOT EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 
+IF EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 
 	AND OBJECT_ID = OBJECT_ID('[GPR].[MotivoRechazo]'))
 BEGIN
 
@@ -66,7 +66,7 @@ GO
 USE BelcorpPanama
 GO
 
-IF NOT EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 
+IF EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 
 	AND OBJECT_ID = OBJECT_ID('[GPR].[MotivoRechazo]'))
 BEGIN
 
@@ -79,7 +79,7 @@ GO
 USE BelcorpGuatemala
 GO
 
-IF NOT EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 
+IF EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 
 	AND OBJECT_ID = OBJECT_ID('[GPR].[MotivoRechazo]'))
 BEGIN
 
@@ -92,7 +92,7 @@ GO
 USE BelcorpEcuador
 GO
 
-IF NOT EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 
+IF EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 
 	AND OBJECT_ID = OBJECT_ID('[GPR].[MotivoRechazo]'))
 BEGIN
 
@@ -105,7 +105,7 @@ GO
 USE BelcorpDominicana
 GO
 
-IF NOT EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 
+IF EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 
 	AND OBJECT_ID = OBJECT_ID('[GPR].[MotivoRechazo]'))
 BEGIN
 
@@ -118,7 +118,7 @@ GO
 USE BelcorpCostaRica
 GO
 
-IF NOT EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 
+IF EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 
 	AND OBJECT_ID = OBJECT_ID('[GPR].[MotivoRechazo]'))
 BEGIN
 
@@ -131,7 +131,7 @@ GO
 USE BelcorpChile
 GO
 
-IF NOT EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 
+IF EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 
 	AND OBJECT_ID = OBJECT_ID('[GPR].[MotivoRechazo]'))
 BEGIN
 
@@ -144,7 +144,7 @@ GO
 USE BelcorpBolivia
 GO
 
-IF NOT EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 
+IF EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 
 	AND OBJECT_ID = OBJECT_ID('[GPR].[MotivoRechazo]'))
 BEGIN
 
