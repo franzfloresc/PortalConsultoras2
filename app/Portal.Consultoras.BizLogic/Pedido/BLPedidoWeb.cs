@@ -1123,7 +1123,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daConfiguracionCampania.GetConfiguracionCampania(PaisID, ZonaID, RegionID, ConsultoraID))
                 if (reader.Read())
                 {
-                    configuracion = reader.MapToObject<BEConfiguracionCampania>();
+                    configuracion = new BEConfiguracionCampania(reader);
                 }
 
             if (configuracion != null)
@@ -2140,7 +2140,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     using (IDataReader reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
                     {
-                        if (reader.Read()) configuracion = reader.MapToObject<BEConfiguracionCampania>();
+                          configuracion =  reader.MapToObject<BEConfiguracionCampania>(true); 
                     }
                 }
             
