@@ -28,6 +28,10 @@
     margin-top:40px;
 }
 
+.mb-15{
+    margin-bottom:15px;
+}
+
 .mb-26{
     margin-bottom:26px;
 }
@@ -814,6 +818,11 @@
 .validacion_exitosa{
     border-color:#66A231;
     background-image:url("../../../Images/icono_validacion_codigo_sms_correcto.svg");
+}
+
+.celular_actualizado{
+    margin-top:32px;
+    margin-bottom:36px;
 }
 
 .opciones_foto_perfil{
