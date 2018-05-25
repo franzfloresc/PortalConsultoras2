@@ -262,6 +262,9 @@ namespace Portal.Consultoras.ServiceContracts
         BEValidaLoginSB2 GetValidarLoginSB2(int paisID, string codigoUsuario, string contrasenia);
 
         [OperationContract]
+        BEValidaLoginSB2 GetValidarLoginJsonWebToken(int paisID, string documento);
+
+        [OperationContract]
         BEValidaLoginSB2 GetValidarAutoLogin(int paisID, string codigoUsuario, string proveedor);
 
         [OperationContract]

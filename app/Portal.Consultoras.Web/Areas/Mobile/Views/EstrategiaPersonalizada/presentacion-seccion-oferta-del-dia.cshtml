@@ -1,8 +1,8 @@
 ﻿@using Portal.Consultoras.Web.Models;
 
 @{
-    OfertaDelDiaModel ofertaDelDia = new OfertaDelDiaModel();
-    ofertaDelDia = ViewBag.OfertaDelDia;
+    OfertaDelDiaModel ofertaDelDia = ViewBag.OfertaDelDia ?? new OfertaDelDiaModel();
+    ofertaDelDia.ConfiguracionContenedor = ofertaDelDia.ConfiguracionContenedor ?? new ConfiguracionSeccionHomeModel();
 }
 
 <div class="contenedor_banner_showroom_vistaOfertas_seccion_inferior">
