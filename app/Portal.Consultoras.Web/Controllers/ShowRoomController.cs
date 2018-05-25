@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
         private int _ofertaId;
         private bool _blnRecibido;
         private readonly ISessionManager _sessionManager;
-        protected Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel configEstrategiaSR;
+        protected Models.Estrategia.ShowRoom.ConfigModel configEstrategiaSR;
 
         public ShowRoomController()
         {
