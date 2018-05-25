@@ -107,6 +107,7 @@
     <Compile Include="Estrategia\EstrategiaBusinessLogic.cs" />
     <Compile Include="Estrategia\IConfiguracionProgramaNuevasBusinessLogic.cs" />
     <Compile Include="Estrategia\IEstrategiaBusinessLogic.cs" />
+    <Compile Include="Estrategia\ITipoEstrategiaBusinessLogic.cs" />
     <Compile Include="Estrategia\IUpSellingBusinessLogic.cs" />
     <Compile Include="Estrategia\IUpSellingMarcaCategoriaBusinessLogic.cs" />
     <Compile Include="Estrategia\UpSellingBusinessLogic.cs" />
@@ -251,7 +252,7 @@
     <Compile Include="BLSolicitudCredito.cs" />
     <Compile Include="BLSuenioNavidad.cs" />
     <Compile Include="TablaLogicaDatos\BLTablaLogicaDatos.cs" />
-    <Compile Include="BLTipoEstrategia.cs" />
+    <Compile Include="Estrategia\BLTipoEstrategia.cs" />
     <Compile Include="BLTipoMeta.cs" />
     <Compile Include="BLUbigeo.cs" />
     <Compile Include="BLValidacionAutomatica.cs" />
