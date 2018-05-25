@@ -208,8 +208,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             };
 
             ValidarStatusCampania(beConfiguracionCampania);
-
-            TimeSpan horaCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
+            
             var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month);
 
             if (!userData.DiaPROL)  // Periodo de venta
