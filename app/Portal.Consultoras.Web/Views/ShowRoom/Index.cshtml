@@ -111,7 +111,7 @@
         else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
         {
             <!-- INICIO ZONA DORADA-->
-            <div id="block_inscribete">
+            <div id="block_inscribete" style="display: none;">
                 <div class="zona_dorada_contenedor_desktop">
 
                 </div>
@@ -138,7 +138,7 @@
         else
         {
             <div>
-                <div id="block_inscribete">
+                <div id="block_inscribete" style="display: none;">
                     <div class="content_belcorp">
                         <div class="block_inscribete_predio">
                             <span class="hblock_title_perdio">@Model.PerdioTitulo</span><br />
@@ -151,7 +151,7 @@
         }
 
         <div class="content_belcorp parche_productos_1000" data-listado-content="" style="margin-bottom: 55px;">
-            <div id="divOfertaProductosPerdio" class="divOfertaProductosPerdiofix" data-content-perdido="@Model.CampaniaID" style="position: relative; top: -230px;"></div>
+            <div id="divOfertaProductosPerdio" class="divOfertaProductosPerdiofix" data-content-perdido="@Model.CampaniaID" style="position: relative; top: -230px; display: none;"></div>
 
         </div>
     }

@@ -675,13 +675,13 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
             value.UrlDetalle = urlDetalleShowRoom + '/' + value.OfertaShowRoomID;
         });
 
-        
         SetHandlebars("#template-showroom", response.listaNoSubCampania, '#divProductosShowRoom');
         
 
         if (response.listaNoSubCampaniaPerdio != undefined) {
             if (response.listaNoSubCampaniaPerdio.length > 0) {
                 $("#block_inscribete").show();
+                $("#divOfertaProductosPerdio").show();
 
                 //JN (sección gana+ en ShowRoom)
                 //Agregamos al modelo un objeto llamado ExperienciaGanaMas para controlar si se muestra sección dorada o no.
