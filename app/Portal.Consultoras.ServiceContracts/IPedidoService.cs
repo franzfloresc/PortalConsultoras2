@@ -1238,7 +1238,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         Task<BEPedidoDetalleAppResult> DeletePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
         [OperationContract]
-        BEPedidoDetalleAppResult ReservaPedidoDetalleApp(BEUsuario usuario);
+        Task<BEPedidoDetalleAppResult> ReservaPedidoDetalleApp(BEUsuario usuario);
         [OperationContract]
         BEPedidoDetalleAppResult DeshacerReservaPedidoApp(BEUsuario usuario);
         #endregion
@@ -1281,5 +1281,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         DateTime? ObtenerFechaInicioSets(int paisId);
+
+        [OperationContract]
+        void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario);
     }
 }

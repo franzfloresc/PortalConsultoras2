@@ -281,7 +281,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         ? ""
                         : terminosCondiciones.Valor;
                 }
-
+                
                 using (SACServiceClient svc = new SACServiceClient())
                 {
                     showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();

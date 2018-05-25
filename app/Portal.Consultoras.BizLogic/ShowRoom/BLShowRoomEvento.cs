@@ -104,7 +104,7 @@ namespace Portal.Consultoras.BizLogic
                     entidad = new BEShowRoomEventoConsultora(reader);
                 }
             }
-
+                
             return entidad;
         }
 

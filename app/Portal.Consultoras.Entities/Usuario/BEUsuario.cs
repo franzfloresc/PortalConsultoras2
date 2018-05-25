@@ -1443,11 +1443,11 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CodigosRevistaImpresa { get; set; }
         [DataMember]
-        public bool OptBloqueoProductoDigital { get; set; }
-        [DataMember]
         public BEOfertaDelDia OfertaDelDiaModel { get; set; }
         [DataMember]
         public BEGuiaNegocio GuiaNegocio { get; set; }
+        [DataMember]
+        public bool OptBloqueoProductoDigital { get; set; }
         [DataMember]
         public bool TieneValidacionMontoMaximo { get; set; }
         [DataMember]

@@ -1,5 +1,4 @@
-﻿
-namespace Portal.Consultoras.Entities
+﻿namespace Portal.Consultoras.Entities
 {
     public class BEOfertaDelDia
     {
