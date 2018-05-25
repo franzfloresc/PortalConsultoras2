@@ -136,7 +136,8 @@ $(document).ready(function () {
         $("#box-pop-up").hide();
     });
 
-    $("#btnLogin").click(function () {
+    $("#btnLogin").click(function (e) {
+        e.preventDefault();
         IniciarLogin();
     });
 
@@ -1131,7 +1132,7 @@ function RecuperarContrasenia() {
         async: true,
         success: function (response) { 
             if (response.success) {
-                
+                var telefonos;
                 var datos = response.data;
                 
                 if (datos.resultado == "") {
@@ -1266,7 +1267,7 @@ function RecuperarContrasenia() {
                                 htmlFono += "<div class='icono_llamada'></div>";
                                 htmlFono += "<div class='texto_opcion_llamada'>#TEXTO#</div></a>";
 
-                                var telefonos = datos.TelefonoCentral.split(',');
+                                telefonos = datos.TelefonoCentral.split(',');
                                 if (paisId == 11) {
 
                                     var Lima = htmlFono.replace("#CELULAR#", telefonos[0]);
@@ -1292,7 +1293,7 @@ function RecuperarContrasenia() {
 
                             } else {
                                 $(".clstelefono").remove();
-                                var telefonos = datos.TelefonoCentral.split(',');
+                                telefonos = datos.TelefonoCentral.split(',');
                                 if (paisId == 11) {
                                     $(".nametitlepais").html("Central Telefónica del Perú");
                                     $("#contenidotelefono").append("<span class='clstelefono'>Lima: " + telefonos[0] + "</span>");
@@ -1573,7 +1574,7 @@ function IniciarLogin() {
     }
 
     if (!valid) {
-        e.preventDefault();
+        //e.preventDefault();
         return false;
     }
 

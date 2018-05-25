@@ -3825,7 +3825,9 @@
     <Content Include="Content\FAQ\Afiliacion.pdf" />
     <Content Include="Content\FAQ\Afiliacion_OLD.pdf" />
     <Content Include="Content\FAQ\CCC_TC_Consultoras.pdf" />
-    <Content Include="Content\FAQ\CONDICIONES_DE_USO_WEB_PE.pdf" />
+    <Content Include="Content\FAQ\CONDICIONES_DE_USO_WEB_PE.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\FAQ\Contrato_ActualizarDatos_BO.pdf" />
     <Content Include="Content\FAQ\Contrato_ActualizarDatos_CL.pdf" />
     <Content Include="Content\FAQ\Contrato_ActualizarDatos_CO.pdf" />

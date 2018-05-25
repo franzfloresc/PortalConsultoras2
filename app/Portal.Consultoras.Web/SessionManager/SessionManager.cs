@@ -429,5 +429,15 @@ namespace Portal.Consultoras.Web.SessionManager
         //        HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = value;
         //    }
         //}
+
+        public void SetPedidoValidado(bool validado)
+        {
+            HttpContext.Current.Session["PedidoValidado"] = validado;
+        }
+
+        public bool GetPedidoValidado()
+        {
+            return Convert.ToBoolean(HttpContext.Current.Session["PedidoValidado"]);
+        }
     }
 }

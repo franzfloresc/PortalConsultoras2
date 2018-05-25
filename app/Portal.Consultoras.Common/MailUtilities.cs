@@ -72,8 +72,7 @@ namespace Portal.Consultoras.Common
             string emailFrom = ConfigurationManager.AppSettings["EmailFromProcesoDescargaExcepcion"] ?? "";
             string emailTo = ConfigurationManager.AppSettings["EmailToProcesoDescargaExcepcion"] ?? "";
 
-            try { Util.EnviarMail(emailFrom, emailTo, "", titulo, htmlTemplate, true); }
-            catch (Exception) { }
+            Util.EnviarMail(emailFrom, emailTo, "", titulo, htmlTemplate, true);
         }
 
         public static void EnviarMailProcesoRecuperaContrasenia(string emailFrom, string emailTo, string titulo, string displayname, string logo, string nombre, string url, string fondo)
@@ -86,8 +85,7 @@ namespace Portal.Consultoras.Common
             htmlTemplate = htmlTemplate.Replace("#Url#", url);
             htmlTemplate = htmlTemplate.Replace("#Fondo#", fondo);
 
-            try { Util.EnviarMail(emailFrom, emailTo, string.Empty, titulo, htmlTemplate, true, displayname); }
-            catch { }
+            Util.EnviarMail(emailFrom, emailTo, string.Empty, titulo, htmlTemplate, true, displayname);
         }
 
         public static void EnviarMailPinAutenticacion(string emailFrom, string emailTo, string titulo, string displayname, string logo, string nombre, string Pin)
@@ -115,11 +113,9 @@ namespace Portal.Consultoras.Common
             htmlTemplate = htmlTemplate.Replace("#Fondo#", fondo);
             htmlTemplate = htmlTemplate.Replace("#Parametros#", parametros);
 
-            try
-            {
-                Util.EnviarMailMasivoColas(emailFrom, emailTo, titulo, htmlTemplate, true, displayname);
-            }
-            catch { }
+
+            Util.EnviarMailMasivoColas(emailFrom, emailTo, titulo, htmlTemplate, true, displayname);
+
         }
 
         public static string CuerpoMensajePersonalizado(string url, string nombreConsultora, string param_querystring, bool esPaisEsika)
@@ -398,8 +394,8 @@ namespace Portal.Consultoras.Common
 
             htmlTemplate = htmlTemplate.Replace("#NombreConsultora#", nombreConsultora);
 
-            try { Util.EnviarMail(emailFrom, emailTo, string.Empty, titulo, htmlTemplate, true, displayname); }
-            catch { }
+            Util.EnviarMail(emailFrom, emailTo, string.Empty, titulo, htmlTemplate, true, displayname);
+
         }
     }
 
