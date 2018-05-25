@@ -78,7 +78,7 @@ namespace Portal.Consultoras.Common
                 var deleteRequest = new DeleteObjectRequest
                 {
                     BucketName = BUCKET_NAME,
-                    Key = root + carpeta + fileName;
+                    Key = root + carpeta + fileName
                 };
                 // Fix Error: cliente no cuenta con permiso para eliminar archivos. 
                 try
@@ -95,11 +95,11 @@ namespace Portal.Consultoras.Common
             client.Dispose();
         }
 
-        public static bool SetFileS3(string path, string carpetaPais, string fileName)
+        public static bool SetFileS3(string path, string carpetaPais, string fileName, bool actualizar = false)
         {
-            return SetFileS3(path, carpetaPais, fileName, true, true, false);
+            return SetFileS3(path, carpetaPais, fileName, true, true, false, actualizar);
         }
-        public static bool SetFileS3(string path, string carpetaPais, string fileName, bool archivoPublico, bool EliminarArchivo, bool throwException)
+        public static bool SetFileS3(string path, string carpetaPais, string fileName, bool archivoPublico, bool EliminarArchivo, bool throwException, bool actualizar = false)
         {
             try
             {

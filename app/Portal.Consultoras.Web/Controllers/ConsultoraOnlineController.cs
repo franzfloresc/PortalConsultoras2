@@ -459,7 +459,7 @@ namespace Portal.Consultoras.Web.Controllers
             mensaje.AppendLine("<a href=\"https://www.youtube.com/user/somosbelcorp\" target=\"_blank\">");
             mensaje.AppendLine(String.Format(
                 "<img src=\"{0}\" width=\"27\" height=\"30\" border=\"0\" alt=\"Youtube\" align=\"left\"></a>",
-                ConfigCdn.GetUrlFileCdn(carpetaPais, "Youtube.png", string.Empty)));
+                ConfigCdn.GetUrlFileCdn(carpetaPais, "Youtube.png")));
             mensaje.AppendLine("</td>");
             mensaje.AppendLine("</tr>");
             mensaje.AppendLine("<tr>");

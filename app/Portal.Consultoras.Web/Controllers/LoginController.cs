@@ -1470,7 +1470,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
                 foreach (var oferta in ofertasDelDia)
                 {
-                    oferta.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, oferta.ImagenURL, carpetaPais);
+                    oferta.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetaPais, oferta.ImagenURL);
 
                     var oddModel = new OfertaDelDiaModel
                     {

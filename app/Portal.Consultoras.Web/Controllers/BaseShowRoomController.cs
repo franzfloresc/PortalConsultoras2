@@ -601,7 +601,7 @@ namespace Portal.Consultoras.Web.Controllers
                     string imagenProducto = string.Empty;
                     if (!string.IsNullOrEmpty(item.ImagenProducto))
                     {
-                        imagenProducto = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + userData.CodigoISO, item.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO);
+                        imagenProducto = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, item.ImagenProducto);
                     }
                     else
                     {
@@ -655,7 +655,7 @@ namespace Portal.Consultoras.Web.Controllers
                     prod.Descripcion = item.Descripcion1;
                     if (!string.IsNullOrEmpty(item.ImagenProducto))
                     {
-                        prod.Imagen = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + userData.CodigoISO, item.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO);
+                        prod.Imagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, item.ImagenProducto);
                     }
                     if (!string.IsNullOrEmpty(item.NombreMarca))
                     {

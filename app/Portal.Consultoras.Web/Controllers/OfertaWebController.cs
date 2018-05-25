@@ -563,7 +563,7 @@ namespace Portal.Consultoras.Web.Controllers
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 int configuracionOfertaId = lstConfiguracion.Find(x => x.CodigoOferta == codigoOferta).ConfiguracionOfertaID;
-                flagExiste = sv.ValidarPriorizacion(userData.PaisID, ConfiguracionOfertaID, CampaniaID, Orden);
+                flagExiste = sv.ValidarPriorizacion(userData.PaisID, configuracionOfertaId, CampaniaID, Orden);
             }
 
             return Json(new

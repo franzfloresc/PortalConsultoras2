@@ -1987,7 +1987,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string iso = Util.GetPaisISO(userData.PaisID);
                 var carpetaPais = Globals.UrlMatriz + "/" + iso;
 
-                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + iso));
+                lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
 
                 var data = new
                 {

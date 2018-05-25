@@ -1980,7 +1980,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
-                ruta = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + rutaNombreExtension + soloExtension);
+                ruta = ConfigCdn.GetUrlFileCdn(carpetaPais, soloImagen + rutaNombreExtension + soloExtension);
             }
             else
             {

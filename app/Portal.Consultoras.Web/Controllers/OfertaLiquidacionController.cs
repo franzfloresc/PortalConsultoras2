@@ -703,7 +703,7 @@ namespace Portal.Consultoras.Web.Controllers
                     #region Imagen Resize 
 
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, entidad.ImagenProducto);
+                    var rutaImagenCompleta = ConfigCdn.GetUrlFileCdn(carpetaPais, entidad.ImagenProducto);
 
                     mensajeErrorImagenResize = ImagenesResizeProceso(rutaImagenCompleta);
                     
@@ -758,7 +758,7 @@ namespace Portal.Consultoras.Web.Controllers
                     #region Imagen Resize 
 
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, entidad.ImagenProducto);
+                    var rutaImagenCompleta = ConfigCdn.GetUrlFileCdn(carpetaPais, entidad.ImagenProducto);
 
                     mensajeErrorImagenResize = ImagenesResizeProceso(rutaImagenCompleta);
 

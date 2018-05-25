@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEConfiguracionCampania obeConfiguracionCampania;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
+                    obeConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
                 }
                 if (obeConfiguracionCampania != null)
                     ValidarStatusCampania(obeConfiguracionCampania);
@@ -132,7 +132,7 @@ namespace Portal.Consultoras.Web.Controllers
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 int cantidad = sv.ObtenerMaximoItemsaMostrarFlexipago(userData.PaisID);
-                lst = sv.GetOfertaProductosPortalFlexipago(userData.PaisID, Constantes.ConfiguracionOferta.Flexipago, userData.CodigoConsultora, userData.CampaniaID).Take(Cantidad).ToList();
+                lst = sv.GetOfertaProductosPortalFlexipago(userData.PaisID, Constantes.ConfiguracionOferta.Flexipago, userData.CodigoConsultora, userData.CampaniaID).Take(cantidad).ToList();
             }
 
             return Mapper.Map<IList<BEOfertaFlexipago>, List<OfertaFlexipagoModel>>(lst);
