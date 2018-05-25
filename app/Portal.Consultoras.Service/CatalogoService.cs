@@ -11,19 +11,19 @@ namespace Portal.Consultoras.Service
 {
     public class CatalogoService : ICatalogoService
     {
-        public BEConsultoraCatalogo GetConsultoraCatalogo(string paisISO, string codigoConsultora)
+        public BEConsultoraCatalogo GetConsultoraCatalogo(string PaisISO, string CodigoConsultora)
         {
             #region Validacion de parámetros
 
-            if (string.IsNullOrEmpty(paisISO)) throw new Exception("El parámetro PaisISO no puede ser vacio.");
-            if (string.IsNullOrEmpty(codigoConsultora)) throw new Exception("El parámetro CodigoConsultora no puede ser vacio.");
-            int paisId = GetPaisID(paisISO);
+            if (string.IsNullOrEmpty(PaisISO)) throw new Exception("El parámetro PaisISO no puede ser vacio.");
+            if (string.IsNullOrEmpty(CodigoConsultora)) throw new Exception("El parámetro CodigoConsultora no puede ser vacio.");
+            int paisId = GetPaisID(PaisISO);
             if (paisId == 0) throw new Exception("El parámetro PaisISO no es válido");
 
             #endregion
 
             string paisesCodigoDocumento = ConfigurationManager.AppSettings["CONSULTORA_CATALOGO_PAISES_POR_DOCUMENTO"];
-            bool parametroEsDocumento = paisesCodigoDocumento.Contains(paisISO.ToUpper());
+            bool parametroEsDocumento = paisesCodigoDocumento.Contains(PaisISO.ToUpper());
 
             int tipoFiltroUbigeo;
             var listTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(paisId, 66);
@@ -31,8 +31,8 @@ namespace Portal.Consultoras.Service
             int.TryParse(filtroUbigeo.Codigo, out tipoFiltroUbigeo);
 
             BLConsultoraCatalogo consultoraCatalogo = new BLConsultoraCatalogo();
-            BEConsultoraCatalogo result = consultoraCatalogo.GetConsultoraCatalogo(paisId, codigoConsultora, parametroEsDocumento, tipoFiltroUbigeo);
-            result.Pais = paisISO;
+            BEConsultoraCatalogo result = consultoraCatalogo.GetConsultoraCatalogo(paisId, CodigoConsultora, parametroEsDocumento, tipoFiltroUbigeo);
+            result.Pais = PaisISO;
             return result;
         }
 
