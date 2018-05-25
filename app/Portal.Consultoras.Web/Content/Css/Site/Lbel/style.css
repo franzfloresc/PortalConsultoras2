@@ -26424,7 +26424,7 @@ input[type='checkbox']:checked + span:after {
     height: 25px;
     width: 24px;
     margin: 0 auto;
-    background: url('../../../Images/tippingPoint.svg') no-repeat;
+    background: url('../../../Images/tippingPointActivo.svg') no-repeat;
     background-size:100%;
 }
 
@@ -26432,11 +26432,6 @@ input[type='checkbox']:checked + span:after {
         background: url('../../../Images/tippingPointActivo.svg') no-repeat;
         background-size:100%;
     }
-
-.monto_meta_tippingPoint{
-    margin-top:2px;
-    font-size:12px;
-}
 
 /*PEDIDO VALIDADO*/
 .cod_venta_listado {
@@ -36376,6 +36371,12 @@ height:30px;
 
 /* MEJORA CONTINUA CONSULTORAS - HD-2212 - PROGRAMA DE NUEVAS: MOSTRAR IMAGEN DEL REGALO EN LA BARRA DE DESCUENTOS */
 
+.monto_meta_tippingPoint{
+    margin-top:2px;
+    font-size:12px;
+    color:#e81c36;
+}
+
 .contenedor_tippingPoint {
     cursor: pointer;
     position: relative;
@@ -36441,7 +36442,7 @@ height:30px;
   }
 }
 
-    .contenedor_tippingPoint:hover + .tooltip_regalo_meta_tippingPoint {
+    .contenedor_tippingPoint:hover .tooltip_regalo_meta_tippingPoint {
         display: block;
         -moz-animation: mostrarTooltip 0.2s ease;
         -o-animation: mostrarTooltip 0.2s ease;

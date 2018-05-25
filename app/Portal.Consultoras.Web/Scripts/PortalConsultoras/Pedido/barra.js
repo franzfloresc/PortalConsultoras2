@@ -217,7 +217,7 @@ function MostrarBarra(datax, destino) {
                     + '<div style="width:{wText}px;position: absolute; top:-15px;" data-texto>'
                         + '<div class="contenedor_tippingPoint">'
                             + '<div class="tippingPoint {estado}"></div>'
-                            + '<div class="monto_meta_tippingPoint default-color">S/. 350</div>'
+                            + '<div class="monto_meta_tippingPoint">S/. 350</div>'
                             + '<div class="tooltip_regalo_meta_tippingPoint">'
                                 + '<div class="tooltip_producto_regalo_img">'
                                     + '<img src="https://S3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_2000755302017843863_noksafgnse.png" alt="Producto de regalo"/>'
