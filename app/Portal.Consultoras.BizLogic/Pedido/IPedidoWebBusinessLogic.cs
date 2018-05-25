@@ -72,5 +72,7 @@ namespace Portal.Consultoras.BizLogic
         List<BEMisPedidosFacturados> GetMisPedidosFacturados(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora);
         List<BEMisPedidosIngresados> GetMisPedidosIngresados(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora);
         #endregion
+
+        void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario);
     }
 }

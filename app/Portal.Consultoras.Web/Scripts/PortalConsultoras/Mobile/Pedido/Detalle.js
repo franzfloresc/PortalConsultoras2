@@ -856,7 +856,7 @@ function SeparadorMiles(pnumero) {
 
     if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
 
-    for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
+    for (var i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
         resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
 
     if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
@@ -950,6 +950,7 @@ function EjecutarServicioPROLSinOfertaFinal() {
 }
 
 function RespuestaEjecutarServicioPROL(response, inicio) {
+    var tipoMensaje;
     inicio = inicio == null || inicio == undefined ? true : inicio;
     var model = response.data;
 
@@ -980,7 +981,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
 
     if (model.Reserva != true) {
         if (inicio) {
-            var tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
+             tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
             cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
         }
         if (!cumpleOferta.resultado) {
@@ -1028,7 +1029,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
         }
 
         if (inicio) {
-            var tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
+            tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
             cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
         }
 
