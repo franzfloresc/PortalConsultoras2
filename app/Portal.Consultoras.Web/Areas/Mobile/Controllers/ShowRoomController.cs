@@ -18,9 +18,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     {
         #region Variables
 
-        private const string keyFechaGetCantidadProductos = "fechaGetCantidadProductos";
-        private const string keyCantidadGetCantidadProductos = "cantidadGetCantidadProductos";
-
         private static readonly string CodigoProceso = ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.EmailCodigoProceso];
         private int OfertaID = 0;
         private bool blnRecibido = false;
@@ -264,9 +261,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private ShowRoomEventoModel OfertaShowRoom()
         {
-            Session[keyFechaGetCantidadProductos] = null;
-            Session[keyCantidadGetCantidadProductos] = null;
-
             if (!ValidarIngresoShowRoom(false))
             {
                 return null;
@@ -279,12 +273,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (!showRoomEventoModel.ListaShowRoomOferta.Any())
                     return null;
 
-                var terminosCondiciones = userData.ListaShowRoomPersonalizacionConsultora.FirstOrDefault(
+                if (userData.ListaShowRoomPersonalizacionConsultora != null)
+                {
+                    var terminosCondiciones = userData.ListaShowRoomPersonalizacionConsultora.FirstOrDefault(
                         p => p.Atributo == Constantes.ShowRoomPersonalizacion.Mobile.UrlTerminosCondiciones);
-                showRoomEventoModel.UrlTerminosCondiciones = terminosCondiciones == null
-                    ? ""
-                    : terminosCondiciones.Valor;
-
+                    showRoomEventoModel.UrlTerminosCondiciones = terminosCondiciones == null
+                        ? ""
+                        : terminosCondiciones.Valor;
+                }
+                
                 using (SACServiceClient svc = new SACServiceClient())
                 {
                     showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
