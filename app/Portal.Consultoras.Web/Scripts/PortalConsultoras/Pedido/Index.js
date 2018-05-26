@@ -435,6 +435,11 @@ $(document).ready(function () {
     $('#producto-faltante-busqueda-cuv, #producto-faltante-busqueda-descripcion').on('keypress', function (e) {
         if (e.which == 13) CargarProductoAgotados(0);
     });
+   
+    $('#ddlCategoriaProductoAgotado, #ddlCatalogoRevistaProductoAgotado').on('change', function (e) {
+        CargarProductoAgotados(0);
+    });
+   
     $(document).on('click', '#idImagenCerrar', function (e) {
         $(this).parent().remove();
     });
@@ -3421,7 +3426,12 @@ function CerrarProductoAgotados() {
 }
 
 function CargarProductoAgotados(identificador) {
+
     var filtro = identificador == undefined ? 0 : identificador;
+
+    if (filtro == 1)
+        CargarFiltrosProductoAgotados();
+
     var data =
     {
         cuv         : $('#producto-faltante-busqueda-cuv').val(),
@@ -3439,12 +3449,16 @@ function CargarProductoAgotados(identificador) {
         async: true,
         success: function (response) {
             if (!checkTimeout(response)) return false;
-            if (filtro == 1)
-                CargarFiltrosProductoAgotados();
-           
+
             CerrarSplash();
             if (response.result) {
                 SetHandlebars("#productos-faltantes-template", response.data, '#tblProductosFaltantes');
+             
+                if (response.data.length == 0)
+                    $("#tblProductosFaltantes table").find("#tfoot").removeClass("hidden"); 
+                else
+                    $("#tblProductosFaltantes table").find("#tfoot").addClass("hidden"); 
+
                 $("#divProductoAgotado").show();
             }
             else alert(response.data);
@@ -3455,6 +3469,9 @@ function CargarProductoAgotados(identificador) {
 
 function CargarFiltrosProductoAgotados()
 {
+    $("#ddlCategoriaProductoAgotado").find('option').remove();
+    $("#ddlCatalogoRevistaProductoAgotado").find('option').remove();
+
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Pedido/GetFiltrosProductoFaltante',

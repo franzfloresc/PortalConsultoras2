@@ -1796,7 +1796,7 @@
                     {{#each Detalle}}
                     <tr>
                         <td class="categoria_productoAgotado">{{../Categoria}}</td>
-                        <td class="codigo_productoAgotado">{{CUV}}</tdclass="codigo_productoAgotado">
+                        <td class="codigo_productoAgotado">{{CUV}}</td>
                         <td class="producto_productoAgotado">{{Descripcion}}</td>
                         <td class="catalogo_productoAgotado">{{Catalogo}}</td>
                         <td class="pagina_productoAgotado text-right">{{NumeroPagina}}</td>
@@ -1806,7 +1806,10 @@
                 </table>
             </td>
         </tr>
-
+        <tr id="tfoot">
+            <td colspan="5" style="text-align: right;"> No se encontro información para mostrar</td>
+        </tr>
+          @*<tfoot> </tfoot>*@
     </table>
 </script>
 
