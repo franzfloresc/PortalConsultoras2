@@ -23,6 +23,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool AvisoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoMensajeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -107,6 +110,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Aviso {
+            get {
+                return this.AvisoField;
+            }
+            set {
+                if ((this.AvisoField.Equals(value) != true)) {
+                    this.AvisoField = value;
+                    this.RaisePropertyChanged("Aviso");
+                }
             }
         }
         
@@ -651,9 +667,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool ValidacionInteractivaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ValorGPRField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private double ZonaHorariaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1055,19 +1068,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ValidacionInteractivaField.Equals(value) != true)) {
                     this.ValidacionInteractivaField = value;
                     this.RaisePropertyChanged("ValidacionInteractiva");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ValorGPR {
-            get {
-                return this.ValorGPRField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ValorGPRField, value) != true)) {
-                    this.ValorGPRField = value;
-                    this.RaisePropertyChanged("ValorGPR");
                 }
             }
         }

@@ -3,6 +3,7 @@
   <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
   <xs:complexType name="BEResultadoReservaProl">
     <xs:sequence>
+      <xs:element minOccurs="0" name="Aviso" type="xs:boolean" />
       <xs:element minOccurs="0" name="CodigoMensaje" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EnviarCorreo" type="xs:boolean" />
       <xs:element minOccurs="0" name="Error" type="xs:boolean" />
@@ -79,7 +80,6 @@
       <xs:element minOccurs="0" name="Sobrenombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ValidacionAbierta" type="xs:boolean" />
       <xs:element minOccurs="0" name="ValidacionInteractiva" type="xs:boolean" />
-      <xs:element minOccurs="0" name="ValorGPR" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ZonaHoraria" type="xs:double" />
       <xs:element minOccurs="0" name="ZonaValida" type="xs:boolean" />
     </xs:sequence>
