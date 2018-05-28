@@ -40,7 +40,6 @@ namespace Portal.Consultoras.BizLogic
             var lstComunicado = new List<BEComunicado>();
             var lstComunicadoVista = new List<BEComunicadoVista>();
             var lstComunicadoSegmentacion = new List<BEComunicadoSegmentacion>();
-            var lstComunicadoFinal = new List<BEComunicado>();
 
             using (var reader = new DAComunicado(paisID).ObtenerComunicadoPorConsultora(CodigoConsultora, TipoDispositivo))
             {
@@ -48,7 +47,9 @@ namespace Portal.Consultoras.BizLogic
 
                 if (reader.NextResult()) lstComunicadoVista = reader.MapToCollection<BEComunicadoVista>();
                 if (reader.NextResult()) lstComunicadoSegmentacion = reader.MapToCollection<BEComunicadoSegmentacion>();
+            }
 
+            var lstComunicadoFinal = new List<BEComunicado>();
                 foreach (var item in lstComunicado)
                 {
                     item.Vistas = lstComunicadoVista.Where(x => x.ComunicadoId == item.ComunicadoId).ToList();
@@ -95,8 +96,7 @@ namespace Portal.Consultoras.BizLogic
                         }
                     }
                 }
-            }
-
+            
             return lstComunicadoFinal;
         }
 

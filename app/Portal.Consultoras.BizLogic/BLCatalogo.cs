@@ -260,8 +260,6 @@ namespace Portal.Consultoras.BizLogic
             }
             else
             {
-                //codigo                                      = ServiceSettings.Instance.CodigoCatalogoIssuu;
-                //catalogoRevista.CodigoIssuu                 = string.Format(codigo, catalogoRevista.MarcaDescripcion.ToLower(), GetPaisNombreByISO(catalogoRevista.PaisISO), catalogoRevista.CampaniaID.Substring(4, 2), catalogoRevista.CampaniaID.Substring(0, 4));
                 catalogoRevista.CodigoIssuu = GetCatalogoCodigoIssuu(catalogoRevista.CampaniaID.ToString(), catalogoRevista.MarcaID, catalogoRevista.PaisISO, codigoZona, ServiceSettings.Instance.CodigoCatalogoIssuu, nroCampania, anioCampania);
             }
         }
