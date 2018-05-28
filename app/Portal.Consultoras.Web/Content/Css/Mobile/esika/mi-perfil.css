@@ -472,8 +472,8 @@
     }
 
 .tooltip_info_revision_correo {
-    width: auto;
-    max-width: 320px;
+    width: 100%;
+    max-width: 300px;
     min-height: 98px;
     padding: 17px 12px;
     position: absolute;
@@ -481,7 +481,7 @@
     left: 0;
     border:1px solid #dcdcdc;
     background-color: #FFF;
-    z-index: 2;
+    z-index: 4;
     -moz-box-shadow: 0 1px 8px 1px rgba(150, 150, 150, 0.5);
     -webkit-box-shadow: 0 1px 8px 1px rgba(150, 150, 150, 0.5);
     box-shadow: 0 1px 8px 1px rgba(150, 150, 150, 0.5);
@@ -520,7 +520,7 @@
 }
 
 .tooltip_texto{
-    width:90.5%;
+    width:88%;
     text-transform:initial;
 }
 
