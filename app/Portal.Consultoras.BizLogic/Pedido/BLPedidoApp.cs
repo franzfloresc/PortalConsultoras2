@@ -1,17 +1,16 @@
-﻿using Portal.Consultoras.Entities;
-using Portal.Consultoras.Entities.ReservaProl;
-using Portal.Consultoras.Entities.Pedido;
-using Portal.Consultoras.Entities.Pedido.App;
+﻿using Portal.Consultoras.BizLogic.Reserva;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Data.ServiceCalculoPROL;
 using Portal.Consultoras.Data.ServicePROL;
-using Portal.Consultoras.BizLogic.Reserva;
-
+using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.Entities.Pedido.App;
+using Portal.Consultoras.Entities.ReservaProl;
+using Portal.Consultoras.PublicService.Cryptography;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -442,15 +441,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 var pedidoID = 0;
                 var lst = (pedidoDetalle.Producto == null ? new List<BEPedidoWebDetalle>() : ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID));
-                if (!lst.Any())
+                if (!lst.Any() && usuario.ZonaValida)
                 {
-                    if (usuario.ZonaValida)
+                    using (var sv = new ServiceStockSsic())
                     {
-                        using (var sv = new ServiceStockSsic())
-                        {
-                            sv.Url = ConfigurarUrlServiceProl(usuario.CodigoISO);
-                            sv.wsDesReservarPedido(usuario.CodigoConsultora, usuario.CodigoISO);
-                        }
+                        sv.Url = ConfigurarUrlServiceProl(usuario.CodigoISO);
+                        sv.wsDesReservarPedido(usuario.CodigoConsultora, usuario.CodigoISO);
                     }
                 }
 
@@ -524,12 +520,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
         public BEPedidoDetalleAppResult DeshacerReservaPedido(BEUsuario usuario)
         {
             var mensaje = string.Empty;
-            var pedido = new BEPedidoWeb();
 
             try
             {
                 //Obtener pedido
-                pedido = _pedidoWebBusinessLogic.GetPedidoWebByCampaniaConsultora(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
+                var pedido = _pedidoWebBusinessLogic.GetPedidoWebByCampaniaConsultora(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
 
                 //verificapedidoValidado
                 if (!(pedido.EstadoPedido == Constantes.EstadoPedido.Procesado && !pedido.ModificaPedidoReservado && !pedido.ValidacionAbierta))
@@ -955,8 +950,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         #region Get
         private List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle(BEPedidoAppBuscar pedidoDetalle, out int pedidoID)
         {
-            var detallesPedidoWeb = new List<BEPedidoWebDetalle>();
-
             var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
             {
                 PaisId = pedidoDetalle.PaisID,
@@ -967,7 +960,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 NumeroPedido = pedidoDetalle.ConsecutivoNueva
             };
 
-            detallesPedidoWeb = _pedidoWebDetalleBusinessLogic.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
+            var detallesPedidoWeb = _pedidoWebDetalleBusinessLogic.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
 
             pedidoID = detallesPedidoWeb.Any() ? detallesPedidoWeb.First().PedidoID : 0;
 

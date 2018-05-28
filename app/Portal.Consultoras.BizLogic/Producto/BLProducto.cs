@@ -392,7 +392,7 @@ namespace Portal.Consultoras.BizLogic
             if (lstProdcutos == null || lstProdcutos.Count == 0) return false;
             lstProdcutos = FiltrarProductosNuevasByNivelyCodigoPrograma(lstProdcutos, consecutivoNueva, codigoPrograma);
             if (lstProdcutos.Count == 0) return false;
-            var oCuv = lstProdcutos.Where(a => a.CodigoCupon == cuvIngresado).FirstOrDefault();
+            var oCuv = lstProdcutos.FirstOrDefault(a => a.CodigoCupon == cuvIngresado);
             if (oCuv.IndicadorCuponIndependiente) return false;
             List<BEProductoProgramaNuevas> lstElectivas = lstProdcutos.Where(a => !a.IndicadorCuponIndependiente && a.CodigoCupon != cuvIngresado).ToList();
             if (lstElectivas.Count == 0) return false;
