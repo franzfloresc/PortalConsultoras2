@@ -1,7 +1,4 @@
 ﻿@using Portal.Consultoras.Web.Helpers
-@using Portal.Consultoras.Web.Models
-@model NotificacionesModel
-
 @{
     ViewBag.Title = "Mi Perfil";
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
@@ -33,7 +30,7 @@ else
     <section class="datos_usuario_iniciales w-100">
         <div class="wrapper_content_mi_perfil text-center">
             <div class="foto_consultora center-block">
-                <a href="#" title="Editar imagen" class="icono_camara default-background-color"></a>
+                <a href="@Url.Action("CambiarFotoPerfil", "MiPerfil", new {area = "Mobile"})" title="Editar imagen" class="icono_camara default-background-color"></a>
                 <div class="contenedor_foto_consultora">
                     <img src="@Url.Content("~/Content/Images/Esika/icono_avatar.svg")" alt="Imagen Consultora" class="consultora_img" />
                 </div>
@@ -56,7 +53,7 @@ else
                     <span class="w-50 text-left">Gerente de zona : </span>
                     <span class="w-50 text-right text-bold">Alejandra Vásquez</span>
                 </div>
-                <a href="#" title="Cambiar contraseña" class="enlace_cambiar_contrasenia_consultora text-bold">
+                <a href="@Url.Action("CambiarContrasenia", "MiPerfil", new {area = "Mobile"})" title="Cambiar contraseña" class="enlace_cambiar_contrasenia_consultora text-bold">
                     <span class="icono_cambio_password"></span>
                     <span class="enlace_texto">Cambiar contraseña</span>
                 </a>
@@ -87,7 +84,7 @@ else
                         </div>
                     </div>
                 </div>
-                <a href="#" title="Cambiar" class="enlace_cambiar_dato w-29 text-right">
+                <a href="@Url.Action("ActualizarCorreo", "MiPerfil", new {area = "Mobile"})" title="Cambiar" class="enlace_cambiar_dato w-29 text-right">
                     <span class="icono_cambiar_dato"></span>
                     <span class="enlace_texto text-bold">Cambiar</span>
                 </a>
@@ -97,7 +94,7 @@ else
                     <input id="CelularConsultora" name="CelularConsultora" class="w-100" type="text" value="" />
                     <label for="CelularConsultora" class="w-100">Celular</label>
                 </div>
-                <a href="#" title="Cambiar" class="enlace_cambiar_dato w-29 text-right">
+                <a href="@Url.Action("ActualizarCelular", "MiPerfil", new {area = "Mobile"})" title="Cambiar" class="enlace_cambiar_dato w-29 text-right">
                     <span class="icono_cambiar_dato"></span>
                     <span class="enlace_texto text-bold">Cambiar</span>
                 </a>
@@ -113,9 +110,9 @@ else
                     <span class="icono_agregar_num_adicional"></span>
                     <span class="enlace_texto text-bold">Agregar otro número</span>
                 </a>
-                <div class="contenedor_campos_num_adicional" style="display:none;">
+                <div class="contenedor_campos_num_adicional w-100" style="display:none;">
                     <div class="w-71">
-                        <input id="NumeroAdicionalConsultora" name="NumeroAdicionalConsultora" class="w-100" disabled="disabled" type="text" value="" />
+                        <input id="NumeroAdicionalConsultora" name="NumeroAdicionalConsultora" class="w-100" type="text" value="" />
                         <label for="NumeroAdicionalConsultora" class="label_num_adicional w-100">Número adicional</label>
                     </div>
                     <a href="#" title="Cambiar" class="enlace_eliminar_numero_adicional w-29 text-right">

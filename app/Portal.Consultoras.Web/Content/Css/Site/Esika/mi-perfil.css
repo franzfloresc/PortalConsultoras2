@@ -149,6 +149,7 @@
 .grupo_form_cambio_datos > div,
 .icono_cambiar_dato,
 .enlace_texto,
+.contenedor_campos_num_adicional > div,
 .icono_agregar_num_adicional,
 .icono_eliminar_numero_adicional,
 .enlace_cambiar_contrasenia_consultora,
@@ -341,6 +342,8 @@
     margin-right:-3px;
     vertical-align:bottom;
     padding-bottom:12px;
+    position:relative;
+    z-index:3;
 }
 
 .icono_cambiar_dato{

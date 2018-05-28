@@ -187,6 +187,7 @@
 .grupo_form_cambio_datos > div,
 .icono_cambiar_dato,
 .enlace_texto,
+.contenedor_campos_num_adicional > div,
 .icono_agregar_num_adicional,
 .icono_eliminar_numero_adicional,
 .enlace_cambiar_dato,
@@ -395,6 +396,8 @@
     margin-right:-3px;
     vertical-align:bottom;
     padding-bottom:9px;
+    position:relative;
+    z-index:3;
 }
 
 .icono_cambiar_dato{
@@ -412,7 +415,6 @@
 }
 
 .grupo_form_cambio_datos .label_num_adicional,
-.enlace_eliminar_numero_adicional,
 .tooltip_info_revision_correo
 {
     display:none;
