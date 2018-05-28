@@ -22317,6 +22317,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string ImagenProductoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MostrarAgotadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int OrdenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -22425,6 +22428,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.ImagenProductoField, value) != true)) {
                     this.ImagenProductoField = value;
                     this.RaisePropertyChanged("ImagenProducto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MostrarAgotado {
+            get {
+                return this.MostrarAgotadoField;
+            }
+            set {
+                if ((this.MostrarAgotadoField.Equals(value) != true)) {
+                    this.MostrarAgotadoField = value;
+                    this.RaisePropertyChanged("MostrarAgotado");
                 }
             }
         }

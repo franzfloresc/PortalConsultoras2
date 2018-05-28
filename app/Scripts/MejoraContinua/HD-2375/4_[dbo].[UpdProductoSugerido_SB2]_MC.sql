@@ -12,6 +12,7 @@ ALTER PROCEDURE [dbo].[UpdProductoSugerido_SB2]
 	,@ImagenProducto varchar(150)
 	,@Estado int
 	,@UsuarioModificacion varchar(50)
+	,@MostrarAgotado INT
 )
 AS
 BEGIN
@@ -21,7 +22,6 @@ BEGIN
 	select @Existe = ProductoSugeridoID
 	from ProductoSugerido
 	where ProductoSugeridoID = @ProductoSugeridoID
-
 	set @Existe = isnull(@Existe, 0)
 	if	@Existe > 0
 	begin
@@ -30,7 +30,6 @@ BEGIN
 		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion;
 		-- SELECT 'Return Status' = @return_status;
 		set @Return = @return_status
-
 		if	@return_status = ''
 		begin
 			UPDATE ProductoSugerido
@@ -47,13 +46,13 @@ BEGIN
 			set @Return = convert(varchar, @ProductoSugeridoID)  + '|Se actualizó con éxito el producto sugerido.'
 			IF EXISTS(SELECT * FROM ProductoSugeridoPadre WHERE CUV = @CUV AND CampaniaID = @CampaniaID) /*HD-2375*/
 			BEGIN
-				UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioModificacion, FechaModificacion = GETDATE()
+				UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioModificacion, FechaModificacion = GETDATE(), MostrarAgotado = @MostrarAgotado
 				WHERE CUV = @CUV AND CampaniaID = @CampaniaID
 			END
 			ELSE
 			BEGIN
-				INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
-				VALUES(@CampaniaID, @CUV, @UsuarioModificacion, GETDATE(), @UsuarioModificacion, GETDATE())
+				INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, MostrarAgotado, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
+				VALUES(@CampaniaID, @CUV, @MostrarAgotado, @UsuarioModificacion, GETDATE(), NULL, NULL)
 			END
 
 		end
@@ -74,6 +73,7 @@ ALTER PROCEDURE [dbo].[UpdProductoSugerido_SB2]
 	,@ImagenProducto varchar(150)
 	,@Estado int
 	,@UsuarioModificacion varchar(50)
+	,@MostrarAgotado INT
 )
 AS
 BEGIN
@@ -83,7 +83,6 @@ BEGIN
 	select @Existe = ProductoSugeridoID
 	from ProductoSugerido
 	where ProductoSugeridoID = @ProductoSugeridoID
-
 	set @Existe = isnull(@Existe, 0)
 	if	@Existe > 0
 	begin
@@ -92,7 +91,6 @@ BEGIN
 		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion;
 		-- SELECT 'Return Status' = @return_status;
 		set @Return = @return_status
-
 		if	@return_status = ''
 		begin
 			UPDATE ProductoSugerido
@@ -109,13 +107,13 @@ BEGIN
 			set @Return = convert(varchar, @ProductoSugeridoID)  + '|Se actualizó con éxito el producto sugerido.'
 			IF EXISTS(SELECT * FROM ProductoSugeridoPadre WHERE CUV = @CUV AND CampaniaID = @CampaniaID) /*HD-2375*/
 			BEGIN
-				UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioModificacion, FechaModificacion = GETDATE()
+				UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioModificacion, FechaModificacion = GETDATE(), MostrarAgotado = @MostrarAgotado
 				WHERE CUV = @CUV AND CampaniaID = @CampaniaID
 			END
 			ELSE
 			BEGIN
-				INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
-				VALUES(@CampaniaID, @CUV, @UsuarioModificacion, GETDATE(), @UsuarioModificacion, GETDATE())
+				INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, MostrarAgotado, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
+				VALUES(@CampaniaID, @CUV, @MostrarAgotado, @UsuarioModificacion, GETDATE(), NULL, NULL)
 			END
 
 		end
@@ -136,6 +134,7 @@ ALTER PROCEDURE [dbo].[UpdProductoSugerido_SB2]
 	,@ImagenProducto varchar(150)
 	,@Estado int
 	,@UsuarioModificacion varchar(50)
+	,@MostrarAgotado INT
 )
 AS
 BEGIN
@@ -145,7 +144,6 @@ BEGIN
 	select @Existe = ProductoSugeridoID
 	from ProductoSugerido
 	where ProductoSugeridoID = @ProductoSugeridoID
-
 	set @Existe = isnull(@Existe, 0)
 	if	@Existe > 0
 	begin
@@ -154,7 +152,6 @@ BEGIN
 		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion;
 		-- SELECT 'Return Status' = @return_status;
 		set @Return = @return_status
-
 		if	@return_status = ''
 		begin
 			UPDATE ProductoSugerido
@@ -171,13 +168,13 @@ BEGIN
 			set @Return = convert(varchar, @ProductoSugeridoID)  + '|Se actualizó con éxito el producto sugerido.'
 			IF EXISTS(SELECT * FROM ProductoSugeridoPadre WHERE CUV = @CUV AND CampaniaID = @CampaniaID) /*HD-2375*/
 			BEGIN
-				UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioModificacion, FechaModificacion = GETDATE()
+				UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioModificacion, FechaModificacion = GETDATE(), MostrarAgotado = @MostrarAgotado
 				WHERE CUV = @CUV AND CampaniaID = @CampaniaID
 			END
 			ELSE
 			BEGIN
-				INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
-				VALUES(@CampaniaID, @CUV, @UsuarioModificacion, GETDATE(), @UsuarioModificacion, GETDATE())
+				INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, MostrarAgotado, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
+				VALUES(@CampaniaID, @CUV, @MostrarAgotado, @UsuarioModificacion, GETDATE(), NULL, NULL)
 			END
 
 		end
@@ -198,6 +195,7 @@ ALTER PROCEDURE [dbo].[UpdProductoSugerido_SB2]
 	,@ImagenProducto varchar(150)
 	,@Estado int
 	,@UsuarioModificacion varchar(50)
+	,@MostrarAgotado INT
 )
 AS
 BEGIN
@@ -207,7 +205,6 @@ BEGIN
 	select @Existe = ProductoSugeridoID
 	from ProductoSugerido
 	where ProductoSugeridoID = @ProductoSugeridoID
-
 	set @Existe = isnull(@Existe, 0)
 	if	@Existe > 0
 	begin
@@ -216,7 +213,6 @@ BEGIN
 		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion;
 		-- SELECT 'Return Status' = @return_status;
 		set @Return = @return_status
-
 		if	@return_status = ''
 		begin
 			UPDATE ProductoSugerido
@@ -233,13 +229,13 @@ BEGIN
 			set @Return = convert(varchar, @ProductoSugeridoID)  + '|Se actualizó con éxito el producto sugerido.'
 			IF EXISTS(SELECT * FROM ProductoSugeridoPadre WHERE CUV = @CUV AND CampaniaID = @CampaniaID) /*HD-2375*/
 			BEGIN
-				UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioModificacion, FechaModificacion = GETDATE()
+				UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioModificacion, FechaModificacion = GETDATE(), MostrarAgotado = @MostrarAgotado
 				WHERE CUV = @CUV AND CampaniaID = @CampaniaID
 			END
 			ELSE
 			BEGIN
-				INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
-				VALUES(@CampaniaID, @CUV, @UsuarioModificacion, GETDATE(), @UsuarioModificacion, GETDATE())
+				INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, MostrarAgotado, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
+				VALUES(@CampaniaID, @CUV, @MostrarAgotado, @UsuarioModificacion, GETDATE(), NULL, NULL)
 			END
 
 		end
@@ -260,6 +256,7 @@ ALTER PROCEDURE [dbo].[UpdProductoSugerido_SB2]
 	,@ImagenProducto varchar(150)
 	,@Estado int
 	,@UsuarioModificacion varchar(50)
+	,@MostrarAgotado INT
 )
 AS
 BEGIN
@@ -269,7 +266,6 @@ BEGIN
 	select @Existe = ProductoSugeridoID
 	from ProductoSugerido
 	where ProductoSugeridoID = @ProductoSugeridoID
-
 	set @Existe = isnull(@Existe, 0)
 	if	@Existe > 0
 	begin
@@ -278,7 +274,6 @@ BEGIN
 		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion;
 		-- SELECT 'Return Status' = @return_status;
 		set @Return = @return_status
-
 		if	@return_status = ''
 		begin
 			UPDATE ProductoSugerido
@@ -295,13 +290,13 @@ BEGIN
 			set @Return = convert(varchar, @ProductoSugeridoID)  + '|Se actualizó con éxito el producto sugerido.'
 			IF EXISTS(SELECT * FROM ProductoSugeridoPadre WHERE CUV = @CUV AND CampaniaID = @CampaniaID) /*HD-2375*/
 			BEGIN
-				UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioModificacion, FechaModificacion = GETDATE()
+				UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioModificacion, FechaModificacion = GETDATE(), MostrarAgotado = @MostrarAgotado
 				WHERE CUV = @CUV AND CampaniaID = @CampaniaID
 			END
 			ELSE
 			BEGIN
-				INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
-				VALUES(@CampaniaID, @CUV, @UsuarioModificacion, GETDATE(), @UsuarioModificacion, GETDATE())
+				INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, MostrarAgotado, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
+				VALUES(@CampaniaID, @CUV, @MostrarAgotado, @UsuarioModificacion, GETDATE(), NULL, NULL)
 			END
 
 		end
@@ -322,6 +317,7 @@ ALTER PROCEDURE [dbo].[UpdProductoSugerido_SB2]
 	,@ImagenProducto varchar(150)
 	,@Estado int
 	,@UsuarioModificacion varchar(50)
+	,@MostrarAgotado INT
 )
 AS
 BEGIN
@@ -331,7 +327,6 @@ BEGIN
 	select @Existe = ProductoSugeridoID
 	from ProductoSugerido
 	where ProductoSugeridoID = @ProductoSugeridoID
-
 	set @Existe = isnull(@Existe, 0)
 	if	@Existe > 0
 	begin
@@ -340,7 +335,6 @@ BEGIN
 		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion;
 		-- SELECT 'Return Status' = @return_status;
 		set @Return = @return_status
-
 		if	@return_status = ''
 		begin
 			UPDATE ProductoSugerido
@@ -357,13 +351,13 @@ BEGIN
 			set @Return = convert(varchar, @ProductoSugeridoID)  + '|Se actualizó con éxito el producto sugerido.'
 			IF EXISTS(SELECT * FROM ProductoSugeridoPadre WHERE CUV = @CUV AND CampaniaID = @CampaniaID) /*HD-2375*/
 			BEGIN
-				UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioModificacion, FechaModificacion = GETDATE()
+				UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioModificacion, FechaModificacion = GETDATE(), MostrarAgotado = @MostrarAgotado
 				WHERE CUV = @CUV AND CampaniaID = @CampaniaID
 			END
 			ELSE
 			BEGIN
-				INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
-				VALUES(@CampaniaID, @CUV, @UsuarioModificacion, GETDATE(), @UsuarioModificacion, GETDATE())
+				INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, MostrarAgotado, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
+				VALUES(@CampaniaID, @CUV, @MostrarAgotado, @UsuarioModificacion, GETDATE(), NULL, NULL)
 			END
 
 		end
@@ -384,6 +378,7 @@ ALTER PROCEDURE [dbo].[UpdProductoSugerido_SB2]
 	,@ImagenProducto varchar(150)
 	,@Estado int
 	,@UsuarioModificacion varchar(50)
+	,@MostrarAgotado INT
 )
 AS
 BEGIN
@@ -393,7 +388,6 @@ BEGIN
 	select @Existe = ProductoSugeridoID
 	from ProductoSugerido
 	where ProductoSugeridoID = @ProductoSugeridoID
-
 	set @Existe = isnull(@Existe, 0)
 	if	@Existe > 0
 	begin
@@ -402,7 +396,6 @@ BEGIN
 		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion;
 		-- SELECT 'Return Status' = @return_status;
 		set @Return = @return_status
-
 		if	@return_status = ''
 		begin
 			UPDATE ProductoSugerido
@@ -419,13 +412,13 @@ BEGIN
 			set @Return = convert(varchar, @ProductoSugeridoID)  + '|Se actualizó con éxito el producto sugerido.'
 			IF EXISTS(SELECT * FROM ProductoSugeridoPadre WHERE CUV = @CUV AND CampaniaID = @CampaniaID) /*HD-2375*/
 			BEGIN
-				UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioModificacion, FechaModificacion = GETDATE()
+				UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioModificacion, FechaModificacion = GETDATE(), MostrarAgotado = @MostrarAgotado
 				WHERE CUV = @CUV AND CampaniaID = @CampaniaID
 			END
 			ELSE
 			BEGIN
-				INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
-				VALUES(@CampaniaID, @CUV, @UsuarioModificacion, GETDATE(), @UsuarioModificacion, GETDATE())
+				INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, MostrarAgotado, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
+				VALUES(@CampaniaID, @CUV, @MostrarAgotado, @UsuarioModificacion, GETDATE(), NULL, NULL)
 			END
 
 		end
@@ -446,6 +439,7 @@ ALTER PROCEDURE [dbo].[UpdProductoSugerido_SB2]
 	,@ImagenProducto varchar(150)
 	,@Estado int
 	,@UsuarioModificacion varchar(50)
+	,@MostrarAgotado INT
 )
 AS
 BEGIN
@@ -455,7 +449,6 @@ BEGIN
 	select @Existe = ProductoSugeridoID
 	from ProductoSugerido
 	where ProductoSugeridoID = @ProductoSugeridoID
-
 	set @Existe = isnull(@Existe, 0)
 	if	@Existe > 0
 	begin
@@ -464,7 +457,6 @@ BEGIN
 		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion;
 		-- SELECT 'Return Status' = @return_status;
 		set @Return = @return_status
-
 		if	@return_status = ''
 		begin
 			UPDATE ProductoSugerido
@@ -481,13 +473,13 @@ BEGIN
 			set @Return = convert(varchar, @ProductoSugeridoID)  + '|Se actualizó con éxito el producto sugerido.'
 			IF EXISTS(SELECT * FROM ProductoSugeridoPadre WHERE CUV = @CUV AND CampaniaID = @CampaniaID) /*HD-2375*/
 			BEGIN
-				UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioModificacion, FechaModificacion = GETDATE()
+				UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioModificacion, FechaModificacion = GETDATE(), MostrarAgotado = @MostrarAgotado
 				WHERE CUV = @CUV AND CampaniaID = @CampaniaID
 			END
 			ELSE
 			BEGIN
-				INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
-				VALUES(@CampaniaID, @CUV, @UsuarioModificacion, GETDATE(), @UsuarioModificacion, GETDATE())
+				INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, MostrarAgotado, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
+				VALUES(@CampaniaID, @CUV, @MostrarAgotado, @UsuarioModificacion, GETDATE(), NULL, NULL)
 			END
 
 		end
@@ -508,6 +500,7 @@ ALTER PROCEDURE [dbo].[UpdProductoSugerido_SB2]
 	,@ImagenProducto varchar(150)
 	,@Estado int
 	,@UsuarioModificacion varchar(50)
+	,@MostrarAgotado INT
 )
 AS
 BEGIN
@@ -517,7 +510,6 @@ BEGIN
 	select @Existe = ProductoSugeridoID
 	from ProductoSugerido
 	where ProductoSugeridoID = @ProductoSugeridoID
-
 	set @Existe = isnull(@Existe, 0)
 	if	@Existe > 0
 	begin
@@ -526,7 +518,6 @@ BEGIN
 		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion;
 		-- SELECT 'Return Status' = @return_status;
 		set @Return = @return_status
-
 		if	@return_status = ''
 		begin
 			UPDATE ProductoSugerido
@@ -543,13 +534,13 @@ BEGIN
 			set @Return = convert(varchar, @ProductoSugeridoID)  + '|Se actualizó con éxito el producto sugerido.'
 			IF EXISTS(SELECT * FROM ProductoSugeridoPadre WHERE CUV = @CUV AND CampaniaID = @CampaniaID) /*HD-2375*/
 			BEGIN
-				UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioModificacion, FechaModificacion = GETDATE()
+				UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioModificacion, FechaModificacion = GETDATE(), MostrarAgotado = @MostrarAgotado
 				WHERE CUV = @CUV AND CampaniaID = @CampaniaID
 			END
 			ELSE
 			BEGIN
-				INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
-				VALUES(@CampaniaID, @CUV, @UsuarioModificacion, GETDATE(), @UsuarioModificacion, GETDATE())
+				INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, MostrarAgotado, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
+				VALUES(@CampaniaID, @CUV, @MostrarAgotado, @UsuarioModificacion, GETDATE(), NULL, NULL)
 			END
 
 		end
@@ -570,6 +561,7 @@ ALTER PROCEDURE [dbo].[UpdProductoSugerido_SB2]
 	,@ImagenProducto varchar(150)
 	,@Estado int
 	,@UsuarioModificacion varchar(50)
+	,@MostrarAgotado INT
 )
 AS
 BEGIN
@@ -579,7 +571,6 @@ BEGIN
 	select @Existe = ProductoSugeridoID
 	from ProductoSugerido
 	where ProductoSugeridoID = @ProductoSugeridoID
-
 	set @Existe = isnull(@Existe, 0)
 	if	@Existe > 0
 	begin
@@ -588,7 +579,6 @@ BEGIN
 		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion;
 		-- SELECT 'Return Status' = @return_status;
 		set @Return = @return_status
-
 		if	@return_status = ''
 		begin
 			UPDATE ProductoSugerido
@@ -605,13 +595,13 @@ BEGIN
 			set @Return = convert(varchar, @ProductoSugeridoID)  + '|Se actualizó con éxito el producto sugerido.'
 			IF EXISTS(SELECT * FROM ProductoSugeridoPadre WHERE CUV = @CUV AND CampaniaID = @CampaniaID) /*HD-2375*/
 			BEGIN
-				UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioModificacion, FechaModificacion = GETDATE()
+				UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioModificacion, FechaModificacion = GETDATE(), MostrarAgotado = @MostrarAgotado
 				WHERE CUV = @CUV AND CampaniaID = @CampaniaID
 			END
 			ELSE
 			BEGIN
-				INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
-				VALUES(@CampaniaID, @CUV, @UsuarioModificacion, GETDATE(), @UsuarioModificacion, GETDATE())
+				INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, MostrarAgotado, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
+				VALUES(@CampaniaID, @CUV, @MostrarAgotado, @UsuarioModificacion, GETDATE(), NULL, NULL)
 			END
 
 		end
@@ -632,6 +622,7 @@ ALTER PROCEDURE [dbo].[UpdProductoSugerido_SB2]
 	,@ImagenProducto varchar(150)
 	,@Estado int
 	,@UsuarioModificacion varchar(50)
+	,@MostrarAgotado INT
 )
 AS
 BEGIN
@@ -641,7 +632,6 @@ BEGIN
 	select @Existe = ProductoSugeridoID
 	from ProductoSugerido
 	where ProductoSugeridoID = @ProductoSugeridoID
-
 	set @Existe = isnull(@Existe, 0)
 	if	@Existe > 0
 	begin
@@ -650,7 +640,6 @@ BEGIN
 		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion;
 		-- SELECT 'Return Status' = @return_status;
 		set @Return = @return_status
-
 		if	@return_status = ''
 		begin
 			UPDATE ProductoSugerido
@@ -667,13 +656,13 @@ BEGIN
 			set @Return = convert(varchar, @ProductoSugeridoID)  + '|Se actualizó con éxito el producto sugerido.'
 			IF EXISTS(SELECT * FROM ProductoSugeridoPadre WHERE CUV = @CUV AND CampaniaID = @CampaniaID) /*HD-2375*/
 			BEGIN
-				UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioModificacion, FechaModificacion = GETDATE()
+				UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioModificacion, FechaModificacion = GETDATE(), MostrarAgotado = @MostrarAgotado
 				WHERE CUV = @CUV AND CampaniaID = @CampaniaID
 			END
 			ELSE
 			BEGIN
-				INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
-				VALUES(@CampaniaID, @CUV, @UsuarioModificacion, GETDATE(), @UsuarioModificacion, GETDATE())
+				INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, MostrarAgotado, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
+				VALUES(@CampaniaID, @CUV, @MostrarAgotado, @UsuarioModificacion, GETDATE(), NULL, NULL)
 			END
 
 		end
@@ -694,6 +683,7 @@ ALTER PROCEDURE [dbo].[UpdProductoSugerido_SB2]
 	,@ImagenProducto varchar(150)
 	,@Estado int
 	,@UsuarioModificacion varchar(50)
+	,@MostrarAgotado INT
 )
 AS
 BEGIN
@@ -703,7 +693,6 @@ BEGIN
 	select @Existe = ProductoSugeridoID
 	from ProductoSugerido
 	where ProductoSugeridoID = @ProductoSugeridoID
-
 	set @Existe = isnull(@Existe, 0)
 	if	@Existe > 0
 	begin
@@ -712,7 +701,6 @@ BEGIN
 		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion;
 		-- SELECT 'Return Status' = @return_status;
 		set @Return = @return_status
-
 		if	@return_status = ''
 		begin
 			UPDATE ProductoSugerido
@@ -729,13 +717,13 @@ BEGIN
 			set @Return = convert(varchar, @ProductoSugeridoID)  + '|Se actualizó con éxito el producto sugerido.'
 			IF EXISTS(SELECT * FROM ProductoSugeridoPadre WHERE CUV = @CUV AND CampaniaID = @CampaniaID) /*HD-2375*/
 			BEGIN
-				UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioModificacion, FechaModificacion = GETDATE()
+				UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioModificacion, FechaModificacion = GETDATE(), MostrarAgotado = @MostrarAgotado
 				WHERE CUV = @CUV AND CampaniaID = @CampaniaID
 			END
 			ELSE
 			BEGIN
-				INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
-				VALUES(@CampaniaID, @CUV, @UsuarioModificacion, GETDATE(), @UsuarioModificacion, GETDATE())
+				INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, MostrarAgotado, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
+				VALUES(@CampaniaID, @CUV, @MostrarAgotado, @UsuarioModificacion, GETDATE(), NULL, NULL)
 			END
 
 		end

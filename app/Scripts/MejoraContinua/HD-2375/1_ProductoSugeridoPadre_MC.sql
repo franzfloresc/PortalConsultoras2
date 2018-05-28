@@ -7,6 +7,7 @@ GO
 CREATE TABLE dbo.ProductoSugeridoPadre(
 	CampaniaID INT,
 	CUV VARCHAR(20),
+	MostrarAgotado BIT,
 	UsuarioRegistro VARCHAR(50),
 	FechaRegistro DATETIME,
 	UsuarioModificacion VARCHAR(50),
@@ -22,6 +23,7 @@ GO
 CREATE TABLE dbo.ProductoSugeridoPadre(
 	CampaniaID INT,
 	CUV VARCHAR(20),
+	MostrarAgotado BIT,
 	UsuarioRegistro VARCHAR(50),
 	FechaRegistro DATETIME,
 	UsuarioModificacion VARCHAR(50),
@@ -37,6 +39,7 @@ GO
 CREATE TABLE dbo.ProductoSugeridoPadre(
 	CampaniaID INT,
 	CUV VARCHAR(20),
+	MostrarAgotado BIT,
 	UsuarioRegistro VARCHAR(50),
 	FechaRegistro DATETIME,
 	UsuarioModificacion VARCHAR(50),
@@ -52,6 +55,7 @@ GO
 CREATE TABLE dbo.ProductoSugeridoPadre(
 	CampaniaID INT,
 	CUV VARCHAR(20),
+	MostrarAgotado BIT,
 	UsuarioRegistro VARCHAR(50),
 	FechaRegistro DATETIME,
 	UsuarioModificacion VARCHAR(50),
@@ -67,6 +71,7 @@ GO
 CREATE TABLE dbo.ProductoSugeridoPadre(
 	CampaniaID INT,
 	CUV VARCHAR(20),
+	MostrarAgotado BIT,
 	UsuarioRegistro VARCHAR(50),
 	FechaRegistro DATETIME,
 	UsuarioModificacion VARCHAR(50),
@@ -82,6 +87,7 @@ GO
 CREATE TABLE dbo.ProductoSugeridoPadre(
 	CampaniaID INT,
 	CUV VARCHAR(20),
+	MostrarAgotado BIT,
 	UsuarioRegistro VARCHAR(50),
 	FechaRegistro DATETIME,
 	UsuarioModificacion VARCHAR(50),
@@ -97,6 +103,7 @@ GO
 CREATE TABLE dbo.ProductoSugeridoPadre(
 	CampaniaID INT,
 	CUV VARCHAR(20),
+	MostrarAgotado BIT,
 	UsuarioRegistro VARCHAR(50),
 	FechaRegistro DATETIME,
 	UsuarioModificacion VARCHAR(50),
@@ -112,6 +119,7 @@ GO
 CREATE TABLE dbo.ProductoSugeridoPadre(
 	CampaniaID INT,
 	CUV VARCHAR(20),
+	MostrarAgotado BIT,
 	UsuarioRegistro VARCHAR(50),
 	FechaRegistro DATETIME,
 	UsuarioModificacion VARCHAR(50),
@@ -127,6 +135,7 @@ GO
 CREATE TABLE dbo.ProductoSugeridoPadre(
 	CampaniaID INT,
 	CUV VARCHAR(20),
+	MostrarAgotado BIT,
 	UsuarioRegistro VARCHAR(50),
 	FechaRegistro DATETIME,
 	UsuarioModificacion VARCHAR(50),
@@ -142,6 +151,7 @@ GO
 CREATE TABLE dbo.ProductoSugeridoPadre(
 	CampaniaID INT,
 	CUV VARCHAR(20),
+	MostrarAgotado BIT,
 	UsuarioRegistro VARCHAR(50),
 	FechaRegistro DATETIME,
 	UsuarioModificacion VARCHAR(50),
@@ -157,6 +167,7 @@ GO
 CREATE TABLE dbo.ProductoSugeridoPadre(
 	CampaniaID INT,
 	CUV VARCHAR(20),
+	MostrarAgotado BIT,
 	UsuarioRegistro VARCHAR(50),
 	FechaRegistro DATETIME,
 	UsuarioModificacion VARCHAR(50),
@@ -172,6 +183,7 @@ GO
 CREATE TABLE dbo.ProductoSugeridoPadre(
 	CampaniaID INT,
 	CUV VARCHAR(20),
+	MostrarAgotado BIT,
 	UsuarioRegistro VARCHAR(50),
 	FechaRegistro DATETIME,
 	UsuarioModificacion VARCHAR(50),

@@ -11,6 +11,7 @@ ALTER PROCEDURE [dbo].[InsProductoSugerido_SB2](
 	,@ImagenProducto VARCHAR(150)
 	,@Estado INT
 	,@UsuarioRegistro VARCHAR(50)
+	,@MostrarAgotado INT
 )
 AS
 BEGIN
@@ -19,7 +20,6 @@ BEGIN
 	DECLARE @return_status VARCHAR(max);
 	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro;
 	SET @Return = @return_status
-
 	IF @return_status = ''
 	BEGIN
 		INSERT INTO ProductoSugerido
@@ -52,13 +52,13 @@ BEGIN
 
 		IF EXISTS(SELECT * FROM ProductoSugeridoPadre WHERE CUV = @CUV AND CampaniaID = @CampaniaID) /*HD-2375*/
 		BEGIN
-			UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioRegistro, FechaModificacion = GETDATE()
+			UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioRegistro, FechaModificacion = GETDATE(), MostrarAgotado = @MostrarAgotado
 			WHERE CUV = @CUV AND CampaniaID = @CampaniaID
 		END
 		ELSE
 		BEGIN
-			INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
-			VALUES(@CampaniaID, @CUV, @UsuarioRegistro, GETDATE(), NULL, NULL)
+			INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, MostrarAgotado, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
+			VALUES(@CampaniaID, @CUV, @MostrarAgotado, @UsuarioRegistro, GETDATE(), NULL, NULL)
 		END
 	END
 END
@@ -76,6 +76,7 @@ ALTER PROCEDURE [dbo].[InsProductoSugerido_SB2](
 	,@ImagenProducto VARCHAR(150)
 	,@Estado INT
 	,@UsuarioRegistro VARCHAR(50)
+	,@MostrarAgotado INT
 )
 AS
 BEGIN
@@ -84,7 +85,6 @@ BEGIN
 	DECLARE @return_status VARCHAR(max);
 	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro;
 	SET @Return = @return_status
-
 	IF @return_status = ''
 	BEGIN
 		INSERT INTO ProductoSugerido
@@ -117,13 +117,13 @@ BEGIN
 
 		IF EXISTS(SELECT * FROM ProductoSugeridoPadre WHERE CUV = @CUV AND CampaniaID = @CampaniaID) /*HD-2375*/
 		BEGIN
-			UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioRegistro, FechaModificacion = GETDATE()
+			UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioRegistro, FechaModificacion = GETDATE(), MostrarAgotado = @MostrarAgotado
 			WHERE CUV = @CUV AND CampaniaID = @CampaniaID
 		END
 		ELSE
 		BEGIN
-			INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
-			VALUES(@CampaniaID, @CUV, @UsuarioRegistro, GETDATE(), NULL, NULL)
+			INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, MostrarAgotado, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
+			VALUES(@CampaniaID, @CUV, @MostrarAgotado, @UsuarioRegistro, GETDATE(), NULL, NULL)
 		END
 	END
 END
@@ -141,6 +141,7 @@ ALTER PROCEDURE [dbo].[InsProductoSugerido_SB2](
 	,@ImagenProducto VARCHAR(150)
 	,@Estado INT
 	,@UsuarioRegistro VARCHAR(50)
+	,@MostrarAgotado INT
 )
 AS
 BEGIN
@@ -149,7 +150,6 @@ BEGIN
 	DECLARE @return_status VARCHAR(max);
 	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro;
 	SET @Return = @return_status
-
 	IF @return_status = ''
 	BEGIN
 		INSERT INTO ProductoSugerido
@@ -182,13 +182,13 @@ BEGIN
 
 		IF EXISTS(SELECT * FROM ProductoSugeridoPadre WHERE CUV = @CUV AND CampaniaID = @CampaniaID) /*HD-2375*/
 		BEGIN
-			UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioRegistro, FechaModificacion = GETDATE()
+			UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioRegistro, FechaModificacion = GETDATE(), MostrarAgotado = @MostrarAgotado
 			WHERE CUV = @CUV AND CampaniaID = @CampaniaID
 		END
 		ELSE
 		BEGIN
-			INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
-			VALUES(@CampaniaID, @CUV, @UsuarioRegistro, GETDATE(), NULL, NULL)
+			INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, MostrarAgotado, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
+			VALUES(@CampaniaID, @CUV, @MostrarAgotado, @UsuarioRegistro, GETDATE(), NULL, NULL)
 		END
 	END
 END
@@ -206,6 +206,7 @@ ALTER PROCEDURE [dbo].[InsProductoSugerido_SB2](
 	,@ImagenProducto VARCHAR(150)
 	,@Estado INT
 	,@UsuarioRegistro VARCHAR(50)
+	,@MostrarAgotado INT
 )
 AS
 BEGIN
@@ -214,7 +215,6 @@ BEGIN
 	DECLARE @return_status VARCHAR(max);
 	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro;
 	SET @Return = @return_status
-
 	IF @return_status = ''
 	BEGIN
 		INSERT INTO ProductoSugerido
@@ -247,13 +247,13 @@ BEGIN
 
 		IF EXISTS(SELECT * FROM ProductoSugeridoPadre WHERE CUV = @CUV AND CampaniaID = @CampaniaID) /*HD-2375*/
 		BEGIN
-			UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioRegistro, FechaModificacion = GETDATE()
+			UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioRegistro, FechaModificacion = GETDATE(), MostrarAgotado = @MostrarAgotado
 			WHERE CUV = @CUV AND CampaniaID = @CampaniaID
 		END
 		ELSE
 		BEGIN
-			INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
-			VALUES(@CampaniaID, @CUV, @UsuarioRegistro, GETDATE(), NULL, NULL)
+			INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, MostrarAgotado, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
+			VALUES(@CampaniaID, @CUV, @MostrarAgotado, @UsuarioRegistro, GETDATE(), NULL, NULL)
 		END
 	END
 END
@@ -271,6 +271,7 @@ ALTER PROCEDURE [dbo].[InsProductoSugerido_SB2](
 	,@ImagenProducto VARCHAR(150)
 	,@Estado INT
 	,@UsuarioRegistro VARCHAR(50)
+	,@MostrarAgotado INT
 )
 AS
 BEGIN
@@ -279,7 +280,6 @@ BEGIN
 	DECLARE @return_status VARCHAR(max);
 	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro;
 	SET @Return = @return_status
-
 	IF @return_status = ''
 	BEGIN
 		INSERT INTO ProductoSugerido
@@ -312,13 +312,13 @@ BEGIN
 
 		IF EXISTS(SELECT * FROM ProductoSugeridoPadre WHERE CUV = @CUV AND CampaniaID = @CampaniaID) /*HD-2375*/
 		BEGIN
-			UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioRegistro, FechaModificacion = GETDATE()
+			UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioRegistro, FechaModificacion = GETDATE(), MostrarAgotado = @MostrarAgotado
 			WHERE CUV = @CUV AND CampaniaID = @CampaniaID
 		END
 		ELSE
 		BEGIN
-			INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
-			VALUES(@CampaniaID, @CUV, @UsuarioRegistro, GETDATE(), NULL, NULL)
+			INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, MostrarAgotado, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
+			VALUES(@CampaniaID, @CUV, @MostrarAgotado, @UsuarioRegistro, GETDATE(), NULL, NULL)
 		END
 	END
 END
@@ -336,6 +336,7 @@ ALTER PROCEDURE [dbo].[InsProductoSugerido_SB2](
 	,@ImagenProducto VARCHAR(150)
 	,@Estado INT
 	,@UsuarioRegistro VARCHAR(50)
+	,@MostrarAgotado INT
 )
 AS
 BEGIN
@@ -344,7 +345,6 @@ BEGIN
 	DECLARE @return_status VARCHAR(max);
 	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro;
 	SET @Return = @return_status
-
 	IF @return_status = ''
 	BEGIN
 		INSERT INTO ProductoSugerido
@@ -377,13 +377,13 @@ BEGIN
 
 		IF EXISTS(SELECT * FROM ProductoSugeridoPadre WHERE CUV = @CUV AND CampaniaID = @CampaniaID) /*HD-2375*/
 		BEGIN
-			UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioRegistro, FechaModificacion = GETDATE()
+			UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioRegistro, FechaModificacion = GETDATE(), MostrarAgotado = @MostrarAgotado
 			WHERE CUV = @CUV AND CampaniaID = @CampaniaID
 		END
 		ELSE
 		BEGIN
-			INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
-			VALUES(@CampaniaID, @CUV, @UsuarioRegistro, GETDATE(), NULL, NULL)
+			INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, MostrarAgotado, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
+			VALUES(@CampaniaID, @CUV, @MostrarAgotado, @UsuarioRegistro, GETDATE(), NULL, NULL)
 		END
 	END
 END
@@ -401,6 +401,7 @@ ALTER PROCEDURE [dbo].[InsProductoSugerido_SB2](
 	,@ImagenProducto VARCHAR(150)
 	,@Estado INT
 	,@UsuarioRegistro VARCHAR(50)
+	,@MostrarAgotado INT
 )
 AS
 BEGIN
@@ -409,7 +410,6 @@ BEGIN
 	DECLARE @return_status VARCHAR(max);
 	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro;
 	SET @Return = @return_status
-
 	IF @return_status = ''
 	BEGIN
 		INSERT INTO ProductoSugerido
@@ -442,13 +442,13 @@ BEGIN
 
 		IF EXISTS(SELECT * FROM ProductoSugeridoPadre WHERE CUV = @CUV AND CampaniaID = @CampaniaID) /*HD-2375*/
 		BEGIN
-			UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioRegistro, FechaModificacion = GETDATE()
+			UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioRegistro, FechaModificacion = GETDATE(), MostrarAgotado = @MostrarAgotado
 			WHERE CUV = @CUV AND CampaniaID = @CampaniaID
 		END
 		ELSE
 		BEGIN
-			INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
-			VALUES(@CampaniaID, @CUV, @UsuarioRegistro, GETDATE(), NULL, NULL)
+			INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, MostrarAgotado, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
+			VALUES(@CampaniaID, @CUV, @MostrarAgotado, @UsuarioRegistro, GETDATE(), NULL, NULL)
 		END
 	END
 END
@@ -466,6 +466,7 @@ ALTER PROCEDURE [dbo].[InsProductoSugerido_SB2](
 	,@ImagenProducto VARCHAR(150)
 	,@Estado INT
 	,@UsuarioRegistro VARCHAR(50)
+	,@MostrarAgotado INT
 )
 AS
 BEGIN
@@ -474,7 +475,6 @@ BEGIN
 	DECLARE @return_status VARCHAR(max);
 	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro;
 	SET @Return = @return_status
-
 	IF @return_status = ''
 	BEGIN
 		INSERT INTO ProductoSugerido
@@ -507,13 +507,13 @@ BEGIN
 
 		IF EXISTS(SELECT * FROM ProductoSugeridoPadre WHERE CUV = @CUV AND CampaniaID = @CampaniaID) /*HD-2375*/
 		BEGIN
-			UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioRegistro, FechaModificacion = GETDATE()
+			UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioRegistro, FechaModificacion = GETDATE(), MostrarAgotado = @MostrarAgotado
 			WHERE CUV = @CUV AND CampaniaID = @CampaniaID
 		END
 		ELSE
 		BEGIN
-			INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
-			VALUES(@CampaniaID, @CUV, @UsuarioRegistro, GETDATE(), NULL, NULL)
+			INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, MostrarAgotado, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
+			VALUES(@CampaniaID, @CUV, @MostrarAgotado, @UsuarioRegistro, GETDATE(), NULL, NULL)
 		END
 	END
 END
@@ -531,6 +531,7 @@ ALTER PROCEDURE [dbo].[InsProductoSugerido_SB2](
 	,@ImagenProducto VARCHAR(150)
 	,@Estado INT
 	,@UsuarioRegistro VARCHAR(50)
+	,@MostrarAgotado INT
 )
 AS
 BEGIN
@@ -539,7 +540,6 @@ BEGIN
 	DECLARE @return_status VARCHAR(max);
 	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro;
 	SET @Return = @return_status
-
 	IF @return_status = ''
 	BEGIN
 		INSERT INTO ProductoSugerido
@@ -572,13 +572,13 @@ BEGIN
 
 		IF EXISTS(SELECT * FROM ProductoSugeridoPadre WHERE CUV = @CUV AND CampaniaID = @CampaniaID) /*HD-2375*/
 		BEGIN
-			UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioRegistro, FechaModificacion = GETDATE()
+			UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioRegistro, FechaModificacion = GETDATE(), MostrarAgotado = @MostrarAgotado
 			WHERE CUV = @CUV AND CampaniaID = @CampaniaID
 		END
 		ELSE
 		BEGIN
-			INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
-			VALUES(@CampaniaID, @CUV, @UsuarioRegistro, GETDATE(), NULL, NULL)
+			INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, MostrarAgotado, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
+			VALUES(@CampaniaID, @CUV, @MostrarAgotado, @UsuarioRegistro, GETDATE(), NULL, NULL)
 		END
 	END
 END
@@ -596,6 +596,7 @@ ALTER PROCEDURE [dbo].[InsProductoSugerido_SB2](
 	,@ImagenProducto VARCHAR(150)
 	,@Estado INT
 	,@UsuarioRegistro VARCHAR(50)
+	,@MostrarAgotado INT
 )
 AS
 BEGIN
@@ -604,7 +605,6 @@ BEGIN
 	DECLARE @return_status VARCHAR(max);
 	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro;
 	SET @Return = @return_status
-
 	IF @return_status = ''
 	BEGIN
 		INSERT INTO ProductoSugerido
@@ -637,13 +637,13 @@ BEGIN
 
 		IF EXISTS(SELECT * FROM ProductoSugeridoPadre WHERE CUV = @CUV AND CampaniaID = @CampaniaID) /*HD-2375*/
 		BEGIN
-			UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioRegistro, FechaModificacion = GETDATE()
+			UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioRegistro, FechaModificacion = GETDATE(), MostrarAgotado = @MostrarAgotado
 			WHERE CUV = @CUV AND CampaniaID = @CampaniaID
 		END
 		ELSE
 		BEGIN
-			INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
-			VALUES(@CampaniaID, @CUV, @UsuarioRegistro, GETDATE(), NULL, NULL)
+			INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, MostrarAgotado, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
+			VALUES(@CampaniaID, @CUV, @MostrarAgotado, @UsuarioRegistro, GETDATE(), NULL, NULL)
 		END
 	END
 END
@@ -661,6 +661,7 @@ ALTER PROCEDURE [dbo].[InsProductoSugerido_SB2](
 	,@ImagenProducto VARCHAR(150)
 	,@Estado INT
 	,@UsuarioRegistro VARCHAR(50)
+	,@MostrarAgotado INT
 )
 AS
 BEGIN
@@ -669,7 +670,6 @@ BEGIN
 	DECLARE @return_status VARCHAR(max);
 	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro;
 	SET @Return = @return_status
-
 	IF @return_status = ''
 	BEGIN
 		INSERT INTO ProductoSugerido
@@ -702,13 +702,13 @@ BEGIN
 
 		IF EXISTS(SELECT * FROM ProductoSugeridoPadre WHERE CUV = @CUV AND CampaniaID = @CampaniaID) /*HD-2375*/
 		BEGIN
-			UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioRegistro, FechaModificacion = GETDATE()
+			UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioRegistro, FechaModificacion = GETDATE(), MostrarAgotado = @MostrarAgotado
 			WHERE CUV = @CUV AND CampaniaID = @CampaniaID
 		END
 		ELSE
 		BEGIN
-			INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
-			VALUES(@CampaniaID, @CUV, @UsuarioRegistro, GETDATE(), NULL, NULL)
+			INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, MostrarAgotado, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
+			VALUES(@CampaniaID, @CUV, @MostrarAgotado, @UsuarioRegistro, GETDATE(), NULL, NULL)
 		END
 	END
 END
@@ -726,6 +726,7 @@ ALTER PROCEDURE [dbo].[InsProductoSugerido_SB2](
 	,@ImagenProducto VARCHAR(150)
 	,@Estado INT
 	,@UsuarioRegistro VARCHAR(50)
+	,@MostrarAgotado INT
 )
 AS
 BEGIN
@@ -734,7 +735,6 @@ BEGIN
 	DECLARE @return_status VARCHAR(max);
 	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro;
 	SET @Return = @return_status
-
 	IF @return_status = ''
 	BEGIN
 		INSERT INTO ProductoSugerido
@@ -767,13 +767,13 @@ BEGIN
 
 		IF EXISTS(SELECT * FROM ProductoSugeridoPadre WHERE CUV = @CUV AND CampaniaID = @CampaniaID) /*HD-2375*/
 		BEGIN
-			UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioRegistro, FechaModificacion = GETDATE()
+			UPDATE ProductoSugeridoPadre SET UsuarioModificacion = @UsuarioRegistro, FechaModificacion = GETDATE(), MostrarAgotado = @MostrarAgotado
 			WHERE CUV = @CUV AND CampaniaID = @CampaniaID
 		END
 		ELSE
 		BEGIN
-			INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
-			VALUES(@CampaniaID, @CUV, @UsuarioRegistro, GETDATE(), NULL, NULL)
+			INSERT INTO ProductoSugeridoPadre(CampaniaID, CUV, MostrarAgotado, UsuarioRegistro, FechaRegistro, UsuarioModificacion, FechaModificacion)
+			VALUES(@CampaniaID, @CUV, @MostrarAgotado, @UsuarioRegistro, GETDATE(), NULL, NULL)
 		END
 	END
 END
