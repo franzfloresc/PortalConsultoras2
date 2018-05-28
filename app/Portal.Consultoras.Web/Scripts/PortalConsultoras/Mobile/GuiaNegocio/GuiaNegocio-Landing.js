@@ -1,10 +1,9 @@
 ﻿$(document).ready(function () {
     $("#tituloGuiaNegocioFloteante").html("REVISTA C-" + campaniaId.toString().substring(4, 6));
-    if (origenPedidoWebEstrategia) {
-        if (origenPedidoWebEstrategia = 2811) {
-            $("#marca").css("z-index", "-100");
-            $(".CMXD-btn-help").css("z-index","-100");
-        }
+
+    if (origenPedidoWebEstrategia == 2811) {
+        $("#marca").css("z-index", "-100");
+        $(".CMXD-btn-help").css("z-index", "-100");
     }
 
     mostrarImagenPortadaRevista(campaniaId);
