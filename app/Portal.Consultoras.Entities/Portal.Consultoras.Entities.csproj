@@ -82,6 +82,7 @@
     <Compile Include="Externos\ReservaSicc\BEDetalleSicc.cs" />
     <Compile Include="Externos\ReservaSicc\BEPedidoSicc.cs" />
     <Compile Include="Pedido\BEConfiguracionPedido.cs" />
+    <Compile Include="Pedido\BEDescargaPedidoCliente.cs" />
     <Compile Include="Pedido\BEPedidoBarra.cs" />
     <Compile Include="Pedido\App\BEPedidoAppBuscar.cs" />
     <Compile Include="ReservaProl\BEPedidoWebDetalleExplotado.cs" />
@@ -140,8 +141,6 @@
     <Compile Include="Incentivo\BEIncentivoProgramaNuevasNivel.cs" />
     <Compile Include="Incentivo\BEIncentivoProgramaNuevasPremio.cs" />
     <Compile Include="Mobile\BEApp.cs" />
-    <Compile Include="Oferta\BEGuiaNegocio.cs" />
-    <Compile Include="Oferta\BEOfertaDelDia.cs" />
     <Compile Include="Pedido\App\BEPedidoDetalleApp.cs" />
     <Compile Include="Pedido\App\BEPedidoDetalleAppResult.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaFiltro.cs" />
