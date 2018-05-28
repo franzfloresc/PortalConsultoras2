@@ -37,7 +37,7 @@ namespace Portal.Consultoras.BizLogic
         public List<BEComunicado> ObtenerComunicadoPorConsultora(int paisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion,
             string CodigoZona, int IdEstadoActividad)
         {
-            var lstComunicado = new List<BEComunicado>();
+            List<BEComunicado> lstComunicado;
             var lstComunicadoVista = new List<BEComunicadoVista>();
             var lstComunicadoSegmentacion = new List<BEComunicadoSegmentacion>();
 

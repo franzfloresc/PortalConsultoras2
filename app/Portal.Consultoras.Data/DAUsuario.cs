@@ -818,7 +818,7 @@ namespace Portal.Consultoras.Data
 
         public string GetCodigoGenerado(BEUsuarioCorreo oUsuCorreo, string CodIngresado)
         {
-            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.GetCodigoGenerado");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCodigoGenerado");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsuCorreo.CodigoUsuario);
             Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsuCorreo.OrigenID);
             Context.Database.AddInParameter(command, "@TipoEnvio", DbType.AnsiString, oUsuCorreo.tipoEnvio);
