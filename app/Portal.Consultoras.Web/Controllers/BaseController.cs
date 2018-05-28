@@ -5778,5 +5778,14 @@ namespace Portal.Consultoras.Web.Controllers
             return descripcion;
         }
 
+        protected void GetNotificacionesValAutoProl(long procesoId, int tipoOrigen, out List<BENotificacionesDetalle> lstObservaciones, out List<BENotificacionesDetallePedido> lstObservacionesPedido)
+        {
+            using (var service = new UsuarioServiceClient())
+            {
+                lstObservaciones = service.GetNotificacionesConsultoraDetalle(userData.PaisID, procesoId, tipoOrigen).ToList();
+                lstObservacionesPedido = service.GetNotificacionesConsultoraDetallePedido(userData.PaisID, procesoId, tipoOrigen).ToList();
+            }
+            lstObservaciones = lstObservaciones.GroupBy(o => o.CUV).Select(g => g.First()).ToList();
+        }
     }
 }
