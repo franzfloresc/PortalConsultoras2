@@ -8,8 +8,8 @@
     <link href="../Content/Css/Site/Esika/reset.css" rel="stylesheet" />    
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700italic,300,700,900" rel="stylesheet" type="text/css" />
 
-    <%--<link href="../Content/Css/Site/Esika/style.css" rel="stylesheet" />--%>
-    <link href="~/Content/Css/Site/Esika/StyleDiv/style01.css" rel="stylesheet" />
+    <link href="../Content/Css/Site/Esika/style.css" rel="stylesheet" />
+    <%--<link href="~/Content/Css/Site/Esika/StyleDiv/style01.css" rel="stylesheet" />
     <link href="~/Content/Css/Site/Esika/StyleDiv/style02.css" rel="stylesheet" />
     <link href="~/Content/Css/Site/Esika/StyleDiv/style03.css" rel="stylesheet" />
     <link href="~/Content/Css/Site/Esika/StyleDiv/style04.css" rel="stylesheet" />
@@ -20,7 +20,7 @@
     <link href="~/Content/Css/Site/Esika/StyleDiv/style09.css" rel="stylesheet" />
     <link href="~/Content/Css/Site/Esika/StyleDiv/style10.css" rel="stylesheet" />
     <link href="~/Content/Css/Site/Esika/StyleDiv/style11.css" rel="stylesheet" />
-    <link href="~/Content/Css/Site/Esika/StyleDiv/style12.css" rel="stylesheet" />
+    <link href="~/Content/Css/Site/Esika/StyleDiv/style12.css" rel="stylesheet" />--%>
 
     <link href="../Content/Css/Site/calc.css" rel="stylesheet" />
     <link href="../Content/Css/ui.jquery/Esika/jquery-ui.css" rel="stylesheet" />
