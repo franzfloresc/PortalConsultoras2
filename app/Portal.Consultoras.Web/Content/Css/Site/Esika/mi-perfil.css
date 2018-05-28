@@ -85,6 +85,7 @@
 .titulo_correo_actualizado,
 .icono_actualizacion_correo_exitoso,
 .mensaje_correo_actualizado,
+.correo_pendiente_de_confirmar,
 .vista_actualizar_celular,
 .wrapper_content_actualizar_celular,
 .celular_actual,
@@ -521,6 +522,7 @@
 .contrasenia_actualizada,
 .form_actualizar_correo,
 .revisa_tu_correo,
+.correo_pendiente_de_confirmar,
 .correo_actualizado,
 .form_actualizar_celular,
 .revisa_tu_celular,
@@ -567,6 +569,7 @@
 .icono_actualizacion_correo_exitoso,
 .titulo_contrasenia_actualizada,
 .titulo_revisa_tu_correo,
+.titulo_correo_pendiente_confirmacion,
 .titulo_correo_actualizado,
 .titulo_revisa_tu_celular,
 .icono_mensaje_sms,
@@ -594,6 +597,7 @@
 .titulo_contrasenia_actualizada,
 .titulo_correo_actualizado,
 .titulo_revisa_tu_correo,
+.titulo_correo_pendiente_confirmacion,
 .titulo_revisa_tu_celular
 {
     font-family:'Lato', sans-serif;
@@ -654,6 +658,7 @@
 }
 
 .titulo_revisa_tu_correo,
+.titulo_correo_pendiente_confirmacion,
 .titulo_revisa_tu_celular
 {
     font-size:21px;
@@ -692,6 +697,10 @@
 
 .enlace_reenviar_instrucciones{
     font-size:13px;
+}
+
+.titulo_correo_pendiente_confirmacion{
+    margin-top:0;
 }
 
 .cambiar_correo_info{

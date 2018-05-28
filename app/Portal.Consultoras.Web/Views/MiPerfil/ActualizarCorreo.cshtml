@@ -73,6 +73,31 @@ else
                     <a href="#" title="Cambia tu correo" class="enlace_cambiar_correo text-bold">Cambia tu correo</a>
                 </p>
             </div>
+            <div class="correo_pendiente_de_confirmar text-center mt-20 mb-40" style="display:none;">
+                <div class="mb-40">
+                    <h1 class="titulo_correo_pendiente_confirmacion text-uppercase">
+                        Tienes pendiente<br /><span class="text-bold">confirmar tu correo para<br />actualizarlo</span>
+                    </h1>
+                    <div class="icono_correo_sobre">
+                        <img src="@Url.Content("~/Content/Images/icono_envelope.svg")" alt="Revisa tu correo" />
+                    </div>
+                    <p class="w-100 envio_instrucciones_info">
+                        <span class="w-100">Te hemos enviado las instrucciones a:</span>
+                        <span class="w-100 text-bold">valeria.tarazona@gmail.com</span>
+                    </p>
+                    <p class="w-100 envio_instrucciones_info">
+                        <span class="w-100">¿Aún no recibes nuestro correo?</span>
+                        <a href="#" title="Reenvíenme las instrucciones" class="enlace_reenviar_instrucciones w-100 text-uppercase text-bold">
+                            Reenvíenme las instrucciones
+                        </a>
+                    </p>
+                    <p class="w-100 cambiar_correo_info">
+                        <span>¿Este no es tu correo?</span>
+                        <a href="#" title="Cambia tu correo" class="enlace_cambiar_correo text-bold">Cambia tu correo</a>
+                    </p>
+                </div>
+                <a href="#" class="enlace_no_cambiar_correo" title="Ya no deseo actualizar mi correo">Ya no deseo actualizar mi correo</a>
+            </div>
         </div>
         <div class="correo_actualizado text-center" style="display:none;">
             <div class="icono_actualizacion_correo_exitoso"></div>
