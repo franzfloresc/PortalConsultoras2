@@ -19670,19 +19670,117 @@ label.checkpop.c_on {
 }
 
 .foto_perfil_home {
-    width: 97px;
-    height: 96px;
+    width: 99px;
+    height: 98px;
     border-radius: 100px;
     -moz-border-radius: 100px;
     -webkit-border-radius: 100px;
     position: relative;
     float: left;
-    overflow: hidden;
+    background-color:rgba(229,229,229,1);
+    background-image:url('../../../Images/icono_avatar.svg');
+    background-repeat:no-repeat;
+    background-position: center 14px;
+    background-size: 75%;
 }
 
     .foto_perfil_home img {
         width: 100%;
     }
+
+.actualizar_datos {
+    background-image: url('../../../Images/mobile/icono_editar_foto_perfil.svg');
+    background-position: center 5px;
+    background-repeat: no-repeat;
+    background-size: 63%;
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    right: -3px;
+    border-radius: 100%;
+    text-decoration: none;
+    color: #FFF;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+    .actualizar_datos:hover{
+        text-decoration:none;
+        color:#FFF;
+        background-color:#bf0d24;
+    }
+
+.icono_info_alerta,
+.tooltip_texto
+{
+    display: inline-block;
+    vertical-align:top;
+}
+
+.icono_info_alerta{
+    width: 20px;
+    height: 20px;
+    background-image: url(../../../Images/Esika/icono_info_alerta.svg);
+    margin-right: 5px;
+}
+
+.tooltip_info_revision_correo {
+    width: 100%;
+    min-width: 285px;
+    max-width:300px;
+    min-height: 70px;
+    padding: 17px 12px;
+    position: absolute;
+    top: -84%;
+    left: 0;
+    border:1px solid #dcdcdc;
+    background-color: #FFF;
+    z-index: 4;
+    -moz-box-shadow: 0 4px 10px -1px rgba(150, 150, 150, 0.5);
+    -webkit-box-shadow: 0 4px 10px -1px rgba(150, 150, 150, 0.5);
+    box-shadow: 0 4px 10px -1px rgba(150, 150, 150, 0.5);
+}
+
+.tooltip_info_revision_correo:after, .tooltip_info_revision_correo:before {
+	top: 100%;
+    left: 48px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.tooltip_info_revision_correo:after {
+	border-color: rgba(136, 183, 213, 0);
+    border-top-color: #FFF;
+    border-width: 8px;
+    margin-left: -8px;
+}
+
+.tooltip_info_revision_correo:before {
+	border-color: rgba(204, 204, 204, 0);
+	border-top-color: #dcdcdc;
+	border-width: 9px;
+	margin-left: -9px;
+}
+
+.tooltip_texto{
+    width:88%;
+    text-transform:initial;
+}
+
+.tooltip_texto p{
+    margin:0;
+    padding:0;
+    text-align:left;
+    font-size:12.5px;
+}
 
 .resumen_belcorp_cam {
     font-family: 'lato';

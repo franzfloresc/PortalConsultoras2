@@ -83,10 +83,18 @@
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
             {
                 <div class="foto_usuaria_mobile">
-                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
+                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto;" />
+                    <a href="@Url.Action("Index", "MiPerfil", new {area = "Mobile"})" title="Actualizar datos" class="subir_foto_mobile default-background"></a>
+                    <div class="tooltip_info_revision_correo" style="display:none;">
+                        <div class="icono_info_alerta"></div>
+                        <div class="tooltip_texto">
+                            <p>
+                                Ingresa y actualiza tu correo y/o celular para poder contactanos contigo.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             }
-
         </div>
         <!--RESUMEN DATOS CONSULTORA Y CAMPAÑA-->
         <div class="content_resumen_dato_mobile" style="text-align:left">

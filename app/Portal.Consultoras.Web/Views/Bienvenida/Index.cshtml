@@ -41,22 +41,27 @@
 <div class="content_belcorp">
     <div class="content_datos">
         <div class="contenedor_img_perfil" style="display:none;">
-
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
             {
                 <div class="foto_perfil_home">
-                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
+                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto;" />
+                    <a href="@Url.Action("Index", "MiPerfil", new {area = ""})" title="Actualizar datos" class="actualizar_datos default-background"></a>
+                    <div class="tooltip_info_revision_correo" style="display:none;">
+                        <div class="icono_info_alerta"></div>
+                        <div class="tooltip_texto">
+                            <p>
+                                Ingresa y actualiza tu correo y/o celular para poder contactanos contigo.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             }
-
             <div class="clear"></div>
-
         </div>
 
         <div class="resumen_belcorp_cam">
             @if (!string.IsNullOrEmpty(ViewBag.MensajeAniversario))
             {
-
             <div class="nombre_consultora_2018">
                 ¡Feliz Aniversario @nombreConsultora 
                 @if (ViewBag.TipoUsuario != 2)
