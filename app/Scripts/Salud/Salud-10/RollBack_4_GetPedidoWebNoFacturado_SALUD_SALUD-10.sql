@@ -1,7 +1,7 @@
 USE BelcorpPeru
 GO
 
-CREATE PROCEDURE GetPedidoWebNoFacturado
+ALTER PROCEDURE GetPedidoWebNoFacturado
 	@PaisID	INT,
 	@CampaniaID	INT,
 	@RegionCodigo VARCHAR(8) = NULL,
@@ -108,7 +108,7 @@ GO
 USE BelcorpMexico
 GO
 
-CREATE PROCEDURE GetPedidoWebNoFacturado
+ALTER PROCEDURE GetPedidoWebNoFacturado
 	@PaisID	INT,
 	@CampaniaID	INT,
 	@RegionCodigo VARCHAR(8) = NULL,
@@ -215,7 +215,7 @@ GO
 USE BelcorpColombia
 GO
 
-CREATE PROCEDURE GetPedidoWebNoFacturado
+ALTER PROCEDURE GetPedidoWebNoFacturado
 	@PaisID	INT,
 	@CampaniaID	INT,
 	@RegionCodigo VARCHAR(8) = NULL,
@@ -322,7 +322,7 @@ GO
 USE BelcorpSalvador
 GO
 
-CREATE PROCEDURE GetPedidoWebNoFacturado
+ALTER PROCEDURE GetPedidoWebNoFacturado
 	@PaisID	INT,
 	@CampaniaID	INT,
 	@RegionCodigo VARCHAR(8) = NULL,
@@ -429,7 +429,7 @@ GO
 USE BelcorpPuertoRico
 GO
 
-CREATE PROCEDURE GetPedidoWebNoFacturado
+ALTER PROCEDURE GetPedidoWebNoFacturado
 	@PaisID	INT,
 	@CampaniaID	INT,
 	@RegionCodigo VARCHAR(8) = NULL,
@@ -536,7 +536,7 @@ GO
 USE BelcorpPanama
 GO
 
-CREATE PROCEDURE GetPedidoWebNoFacturado
+ALTER PROCEDURE GetPedidoWebNoFacturado
 	@PaisID	INT,
 	@CampaniaID	INT,
 	@RegionCodigo VARCHAR(8) = NULL,
@@ -643,7 +643,7 @@ GO
 USE BelcorpGuatemala
 GO
 
-CREATE PROCEDURE GetPedidoWebNoFacturado
+ALTER PROCEDURE GetPedidoWebNoFacturado
 	@PaisID	INT,
 	@CampaniaID	INT,
 	@RegionCodigo VARCHAR(8) = NULL,
@@ -750,7 +750,7 @@ GO
 USE BelcorpEcuador
 GO
 
-CREATE PROCEDURE GetPedidoWebNoFacturado
+ALTER PROCEDURE GetPedidoWebNoFacturado
 	@PaisID	INT,
 	@CampaniaID	INT,
 	@RegionCodigo VARCHAR(8) = NULL,
@@ -857,7 +857,7 @@ GO
 USE BelcorpDominicana
 GO
 
-CREATE PROCEDURE GetPedidoWebNoFacturado
+ALTER PROCEDURE GetPedidoWebNoFacturado
 	@PaisID	INT,
 	@CampaniaID	INT,
 	@RegionCodigo VARCHAR(8) = NULL,
@@ -964,7 +964,7 @@ GO
 USE BelcorpCostaRica
 GO
 
-CREATE PROCEDURE GetPedidoWebNoFacturado
+ALTER PROCEDURE GetPedidoWebNoFacturado
 	@PaisID	INT,
 	@CampaniaID	INT,
 	@RegionCodigo VARCHAR(8) = NULL,
@@ -1071,7 +1071,7 @@ GO
 USE BelcorpChile
 GO
 
-CREATE PROCEDURE GetPedidoWebNoFacturado
+ALTER PROCEDURE GetPedidoWebNoFacturado
 	@PaisID	INT,
 	@CampaniaID	INT,
 	@RegionCodigo VARCHAR(8) = NULL,
@@ -1178,7 +1178,7 @@ GO
 USE BelcorpBolivia
 GO
 
-CREATE PROCEDURE GetPedidoWebNoFacturado
+ALTER PROCEDURE GetPedidoWebNoFacturado
 	@PaisID	INT,
 	@CampaniaID	INT,
 	@RegionCodigo VARCHAR(8) = NULL,
