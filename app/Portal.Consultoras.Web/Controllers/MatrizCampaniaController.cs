@@ -738,21 +738,21 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
-        public string grabarBloque()
-        {
-            string rpta = "";
-            //long n = Request.InputStream.Length;
-            long n = long.Parse(Request.InputStream.ToString().Split('~')[0]);
-            int pais= int.Parse(Request.InputStream.ToString().Split('~')[1]);
-            if (n > 0)
-            {
-                byte[] buffer = new byte[n];
-                Request.InputStream.Read(buffer, 0, buffer.Length);
-                string data = Encoding.UTF8.GetString(buffer);
-                rpta=InsertarProductoMasivo(pais, data);
-            }
-            return rpta;
-        }
+        //public string grabarBloque()
+        //{
+        //    string rpta = "";
+        //    //long n = Request.InputStream.Length;
+        //    long n = long.Parse(Request.InputStream.ToString().Split('~')[0]);
+        //    int pais= int.Parse(Request.InputStream.ToString().Split('~')[1]);
+        //    if (n > 0)
+        //    {
+        //        byte[] buffer = new byte[n];
+        //        Request.InputStream.Read(buffer, 0, buffer.Length);
+        //        string data = Encoding.UTF8.GetString(buffer);
+        //        rpta=InsertarProductoMasivo(pais, data);
+        //    }
+        //    return rpta;
+        //}
 
 
 
