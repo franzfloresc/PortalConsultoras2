@@ -493,5 +493,38 @@ namespace Portal.Consultoras.BizLogic
         #endregion
         #endregion
 
+        public string ValidarMatrizCampaniaMasivo(int paisID, string CUVs, int AnioCampania)
+        {
+            return new DAProductoDescripcion(paisID).ValidarMatrizCampaniaMasivo(CUVs, AnioCampania);
+        }
+
+        public string RegistrarProductoMasivo(int paisID, string data)
+        {
+            return new DAProductoDescripcion(paisID).RegistrarProductoMasivo(data);
+        }
+
+        public void UpdProductoDescripcionMasivo(int paisID, int campaniaID, IList<BEProductoDescripcion> productos, string codigoUsuario)
+        {
+
+            var daProductoDescripcion = new DAProductoDescripcion(paisID);
+
+            List<BEProductoDescripcion> lstFinal = new List<BEProductoDescripcion>();
+
+            //foreach (BEProductoDescripcion be in productos)
+            //{
+            //    BEProductoDescripcion item = new BEProductoDescripcion();
+            //    item.CampaniaID = campaniaID;
+            //    item.CUV  = be.CUV;
+            //    item.Descripcion  = be.Descripcion;
+            //    item.PrecioProducto = be.PrecioProducto;
+            //    item.FactorRepeticion = be.FactorRepeticion;
+            //    lstFinal.Add(item);
+            //}
+
+            // daProductoDescripcion.UpdProductoDescripcionMasivo(paisID,campaniaID, lstFinal, codigoUsuario);
+            daProductoDescripcion.UpdProductoDescripcionMasivo(paisID, campaniaID, productos, codigoUsuario);
+
+        }
+
     }
 }
