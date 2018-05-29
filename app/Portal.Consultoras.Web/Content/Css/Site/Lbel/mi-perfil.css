@@ -246,7 +246,7 @@
 .icono_cambio_password{
     width:13px;
     height:16px;
-    background-image:url("../../../Images/Esika/icono_candado.svg");
+    background-image:url("../../../Images/Lbel/icono_candado.svg");
     background-size:100%;
     margin-right:7px;
 }
@@ -349,7 +349,7 @@
 .icono_cambiar_dato{
     width:16px;
     height:16px;
-    background-image:url("../../../Images/Esika/icono_cambiar_dato.svg");
+    background-image:url("../../../Images/Lbel/icono_cambiar_dato.svg");
     margin-right:5px;
 }
 
@@ -368,7 +368,7 @@
 .icono_agregar_num_adicional{
     width:15px;
     height:15px;
-    background-image:url("../../../Images/Esika/icono_plus.svg");
+    background-image:url("../../../Images/Lbel/icono_plus.svg");
     margin-right:3px;
     position:relative;
     top:2px;
@@ -460,7 +460,7 @@
 .icono_info_alerta{
     width: 20px;
     height: 20px;
-    background-image: url(../../../Images/Esika/icono_info_alerta.svg);
+    background-image: url(../../../Images/Lbel/icono_info_alerta.svg);
     margin-right: 5px;
 }
 
@@ -672,16 +672,19 @@
 .icono_mensaje_sms
 {
     margin-bottom:13.5px;
+    background-size:100%;
 }
 
 .icono_correo_sobre{
     width:78px;
     height:46px;
+    background-image:url('../../../Images/Lbel/icono_envelope.svg');
 }
 
 .icono_mensaje_sms{
     width:71px;
     height:50px;
+    background-image:url('../../../Images/Lbel/icono_sms.svg');
 }
 
 .envio_instrucciones_info{

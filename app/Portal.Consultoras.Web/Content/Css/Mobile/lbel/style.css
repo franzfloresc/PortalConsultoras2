@@ -4592,7 +4592,6 @@ table > thead > tr > th {
     width: 77px;
     height: 76px;
     border-radius: 100px;
-    overflow: hidden;
     position:relative;
     background-color:rgba(229,229,229,1);
     background-image:url('../../../Images/icono_avatar.svg');
@@ -4642,7 +4641,7 @@ table > thead > tr > th {
 .icono_info_alerta{
     width: 20px;
     height: 20px;
-    background-image: url(../../../Images/Esika/icono_info_alerta.svg);
+    background-image: url(../../../Images/Lbel/icono_info_alerta.svg);
     margin-right: 5px;
 }
 

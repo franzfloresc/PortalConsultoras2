@@ -672,16 +672,19 @@
 .icono_mensaje_sms
 {
     margin-bottom:13.5px;
+    background-size:100%;
 }
 
 .icono_correo_sobre{
     width:78px;
     height:46px;
+    background-image:url('../../../Images/Esika/icono_envelope.svg');
 }
 
 .icono_mensaje_sms{
     width:71px;
     height:50px;
+    background-image:url('../../../Images/Esika/icono_sms.svg');
 }
 
 .envio_instrucciones_info{
