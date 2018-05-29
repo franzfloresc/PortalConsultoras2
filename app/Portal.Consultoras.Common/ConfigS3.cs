@@ -56,7 +56,10 @@ namespace Portal.Consultoras.Common
             if (fileName.StartsWith("https:/"))
                 return fileName;
 
-            return URL_S3 + "/" + BUCKET_NAME + "/" + ROOT_DIRECTORY + "/" + rutaRevistaDigital + "/" + (carpetaPais != "" ? carpetaPais + "/" : "") + fileName;
+            var root = string.IsNullOrEmpty(ROOT_DIRECTORY) ? "" : ROOT_DIRECTORY + "/";
+            var carpeta = string.IsNullOrEmpty(carpetaPais) ? "" : carpetaPais + "/";
+
+            return URL_S3 + "/" + BUCKET_NAME + "/" + root + "/" + rutaRevistaDigital + "/" + carpeta + fileName;
         }
 
         public static void DeleteFileS3(string carpetaPais, string fileName)
