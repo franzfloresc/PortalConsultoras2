@@ -1468,11 +1468,11 @@ namespace Portal.Consultoras.Web.Controllers
         int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso,
         int MostrarPaso1y2SE = 1)
         {
-            string resultado = string.Empty;
+            //string resultado = string.Empty;
             using (var sv = new PortalServiceClient())
             {
 
-                resultado = sv.ObtenerReporteGestionPostulante(PrefijoISOPais, FechaDesde,
+                var resultado = sv.ObtenerReporteGestionPostulante(PrefijoISOPais, FechaDesde,
                        FechaHasta, Nombre,
                        Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO,
                        MostrarPaso1y2SE);                   
