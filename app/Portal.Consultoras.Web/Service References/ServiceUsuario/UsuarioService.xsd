@@ -294,6 +294,7 @@
       <xs:element minOccurs="0" name="MontoMinimoFlexipago" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoMinimoPedido" type="xs:decimal" />
       <xs:element minOccurs="0" name="MostrarAyudaWebTraking" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MostrarBotonValidar" type="xs:boolean" />
       <xs:element minOccurs="0" name="Nivel" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NivelEducacion" type="xs:int" />
       <xs:element minOccurs="0" name="NivelLider" type="xs:int" />

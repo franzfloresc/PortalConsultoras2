@@ -2318,9 +2318,9 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        public Enumeradores.EnvioSms ProcesaEnvioSms(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile, string urlApi)
+        public Enumeradores.EnvioSms ProcesaEnvioSms(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile)
         {
-            if (CantidadEnvios >= 3) return Enumeradores.EnvioSms.ExcedioCantidad;
+            if (CantidadEnvios >= 3) return Enumeradores.EnvioSms.ExcedioCantidad;        
             if (origenID == 0) return Enumeradores.EnvioSms.OrigenNoExiste;
             var oRestaurar = GetDatosUsuarioByValorCache(paisID, valorRestaurar);
             if (oRestaurar == null) return Enumeradores.EnvioSms.NoSehaEncontradoCelular;
@@ -2330,6 +2330,9 @@ namespace Portal.Consultoras.BizLogic
                 oRestaurar.OrigenID = origenID;
                 oRestaurar.EsMobile = esMobile;
 
+                BEEnviarSms SmsDatos = GetConfiguracionSmsCache(paisID, origenID);
+                string urlApi = ConfigurationManager.AppSettings.Get("SmsConsultoras");
+
                 string requestUrl = "Api/EnviarSMS";
                 oRestaurar.opcionHabilitar = true;
                 if (CantidadEnvios >= 2)
@@ -2337,14 +2340,14 @@ namespace Portal.Consultoras.BizLogic
 
                 var data = new
                 {
-                    CodigoUsuario = oRestaurar.CodigoUsuario,
+                    usuario = "SMS_SYNCRONO",
+                    contraseña = "",
+                    codigoIso = "BO",
+                    codigoUsuario = oRestaurar.CodigoUsuario,
+                    campaniaID = 201809, //Si no requiere campaña solo se envia Cero.
+                    orgienID = 1,
                     nroCelular = oRestaurar.Celular,
-                    OrigenID = origenID,
-                    CodigoIso = oRestaurar.CodigoISO,
-                    CampaniaID = 0, //Si no requiere campaña solo se envia Cero.
-                    IdEstadoActividad = 1,
-                    OpcionHabilitada = oRestaurar.opcionHabilitar,
-                    EsMobile = esMobile
+                    mensaje = string.Format(SmsDatos.Mensaje, Common.Util.GenerarCodigoRandom())
                 };
 
                 HttpClient httpClient = new HttpClient();
@@ -2524,6 +2527,19 @@ namespace Portal.Consultoras.BizLogic
                 return Enumeradores.EnvioEmail.ErrorAlEnviarEmail;
             }
         }
+
+        private BEEnviarSms GetConfiguracionSmsCache(int paisID, int origenID)
+        {
+            return CacheManager<BEEnviarSms>.ValidateDataElement(paisID, ECacheItem.ConfiguracionSms, paisID.ToString() + origenID.ToString(), () => GetConfiguracionSms(paisID, origenID));
+        }
+
+        private BEEnviarSms GetConfiguracionSms(int paisID, int origenID)
+        {
+            var DAUsuario = new DAUsuario(paisID);
+            using (IDataReader rd = DAUsuario.GetConfiguracionSms(origenID))
+                if (rd.Read()) return new BEEnviarSms(rd);
+            return null;
+        }
         #endregion
         #endregion
 
@@ -2600,6 +2616,7 @@ namespace Portal.Consultoras.BizLogic
                 return Enumeradores.EnvioEmail.ErrorAlEnviarEmail;
             }
         }
+
         #endregion
 
         #region UserData

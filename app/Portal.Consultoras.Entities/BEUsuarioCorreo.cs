@@ -93,4 +93,16 @@ namespace Portal.Consultoras.Entities
                 TieneAutenticacion = Convert.ToBoolean(row["TieneAutenticacion"]);
         }
     }
+
+    [DataContract]
+    public class BErespuestaSms
+    {
+        [DataMember]
+        public string Codigo { get; set; }
+        [DataMember]
+        public string Mensaje { get; set; }
+
+        public BErespuestaSms()
+        { }
+    }
 }

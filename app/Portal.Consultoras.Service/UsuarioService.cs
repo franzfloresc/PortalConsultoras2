@@ -817,10 +817,10 @@ namespace Portal.Consultoras.Service
             return BLUsuario.ProcesaEnvioEmail(paisID, valorRestaurar, origenID, CantidadEnvios, esMobile);
         }
 
-        public Enumeradores.EnvioSms ProcesaEnvioSms(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile, string urlApi)
+        public Enumeradores.EnvioSms ProcesaEnvioSms(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.ProcesaEnvioSms(paisID, valorRestaurar, origenID, CantidadEnvios, esMobile, urlApi);
+            return BLUsuario.ProcesaEnvioSms(paisID, valorRestaurar, origenID, CantidadEnvios, esMobile);
         }
 
         public bool VerificarIgualdadCodigoIngresado(int PaisID, int origenID, string codigoUsuario, string codigoIngresado, int IdEstadoActividad)

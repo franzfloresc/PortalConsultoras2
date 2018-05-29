@@ -360,7 +360,7 @@ namespace Portal.Consultoras.ServiceContracts
         Enumeradores.EnvioEmail ProcesaEnvioEmail(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile);
 
         [OperationContract]
-        Enumeradores.EnvioSms ProcesaEnvioSms(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile, string urlApi);
+        Enumeradores.EnvioSms ProcesaEnvioSms(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile);
 
         [OperationContract]
         bool VerificarIgualdadCodigoIngresado(int PaisID, int origenID, string codigoUsuario, string codigoIngresado, int IdEstadoActividad);

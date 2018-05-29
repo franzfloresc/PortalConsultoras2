@@ -2871,16 +2871,19 @@ namespace Portal.Consultoras.Web.Controllers
         {
             int paisID = Convert.ToInt32(TempData["PaisID"]);
             if (paisID == 0) return SuccessJson(Constantes.OlvideContraseña.Mensajes.ErrorPais, false);
-            string valor = Convert.ToString(TempData["valorRestaurar"]);
+            string valor = "";
+            if (origenID == 1)
+                valor = Convert.ToString(TempData["valorRestaurar"]);
+            else
+                valor = Convert.ToString(TempData["CodigoUsuario"]);
             if (valor == "") return SuccessJson(Constantes.OlvideContraseña.Mensajes.ErrorValor, false);
 
             try
             {
-                var urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
                 Enumeradores.EnvioSms EstadoEnvio = Enumeradores.EnvioSms.SeEnvioCorrectoElSms;
                 using (var svc = new UsuarioServiceClient())
                 {
-                    EstadoEnvio = svc.ProcesaEnvioSms(paisID, valor, origenID, cantidadEnvios, EsDispositivoMovil(), urlApi);
+                    EstadoEnvio = svc.ProcesaEnvioSms(paisID, valor, origenID, cantidadEnvios, EsDispositivoMovil());
                 }
                 TempData["PaisID"] = paisID;
                 TempData["ValorIngresado"] = valor;

@@ -504,7 +504,6 @@
         <xs:element minOccurs="0" name="origenID" type="xs:int" />
         <xs:element minOccurs="0" name="CantidadEnvios" type="xs:int" />
         <xs:element minOccurs="0" name="esMobile" type="xs:boolean" />
-        <xs:element minOccurs="0" name="urlApi" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -545,6 +544,23 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPinAutenticidadResult" nillable="true" type="q31:BEUsuarioCorreo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetConsultoraParticipaEnPrograma">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoPrograma" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetConsultoraParticipaEnProgramaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetConsultoraParticipaEnProgramaResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

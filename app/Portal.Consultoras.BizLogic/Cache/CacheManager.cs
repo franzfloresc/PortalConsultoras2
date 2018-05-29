@@ -46,6 +46,7 @@ namespace Portal.Consultoras.BizLogic
         DatosRestaurarClave,
         HorarioChat,
         HorarioBelcorpResponde,
+        ConfiguracionSms,
     }
 
     internal class CacheManager<T>

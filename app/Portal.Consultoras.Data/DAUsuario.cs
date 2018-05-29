@@ -847,5 +847,12 @@ namespace Portal.Consultoras.Data
 
             return Convert.ToBoolean(Context.ExecuteScalar(command));
         }
+
+        public IDataReader GetConfiguracionSms(int origenID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("GetConfiguracionSms");
+            Context.Database.AddInParameter(command, "@OrigenID", DbType.String, origenID);
+            return Context.ExecuteReader(command);
+        }
     }
 }

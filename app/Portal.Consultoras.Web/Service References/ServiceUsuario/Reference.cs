@@ -1864,6 +1864,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool MostrarAyudaWebTrakingField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool MostrarBotonValidarField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NivelField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3669,6 +3672,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.MostrarAyudaWebTrakingField.Equals(value) != true)) {
                     this.MostrarAyudaWebTrakingField = value;
                     this.RaisePropertyChanged("MostrarAyudaWebTraking");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool MostrarBotonValidar {
+            get {
+                return this.MostrarBotonValidarField;
+            }
+            set {
+                if ((this.MostrarBotonValidarField.Equals(value) != true)) {
+                    this.MostrarBotonValidarField = value;
+                    this.RaisePropertyChanged("MostrarBotonValidar");
                 }
             }
         }
@@ -9931,10 +9947,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.EnvioEmail> ProcesaEnvioEmailAsync(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ProcesaEnvioSms", ReplyAction="http://tempuri.org/IUsuarioService/ProcesaEnvioSmsResponse")]
-        Portal.Consultoras.Common.Enumeradores.EnvioSms ProcesaEnvioSms(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile, string urlApi);
+        Portal.Consultoras.Common.Enumeradores.EnvioSms ProcesaEnvioSms(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ProcesaEnvioSms", ReplyAction="http://tempuri.org/IUsuarioService/ProcesaEnvioSmsResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.EnvioSms> ProcesaEnvioSmsAsync(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile, string urlApi);
+        System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.EnvioSms> ProcesaEnvioSmsAsync(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/VerificarIgualdadCodigoIngresado", ReplyAction="http://tempuri.org/IUsuarioService/VerificarIgualdadCodigoIngresadoResponse")]
         bool VerificarIgualdadCodigoIngresado(int PaisID, int origenID, string codigoUsuario, string codigoIngresado, int IdEstadoActividad);
@@ -9947,6 +9963,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetPinAutenticidad", ReplyAction="http://tempuri.org/IUsuarioService/GetPinAutenticidadResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo> GetPinAutenticidadAsync(int paisID, string CodigoUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnPrograma", ReplyAction="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnProgramaResponse")]
+        bool GetConsultoraParticipaEnPrograma(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnPrograma", ReplyAction="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnProgramaResponse")]
+        System.Threading.Tasks.Task<bool> GetConsultoraParticipaEnProgramaAsync(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Select", ReplyAction="http://tempuri.org/IUsuarioService/SelectResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario);
@@ -10762,12 +10784,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.ProcesaEnvioEmailAsync(paisID, valorRestaurar, origenID, CantidadEnvios, esMobile);
         }
         
-        public Portal.Consultoras.Common.Enumeradores.EnvioSms ProcesaEnvioSms(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile, string urlApi) {
-            return base.Channel.ProcesaEnvioSms(paisID, valorRestaurar, origenID, CantidadEnvios, esMobile, urlApi);
+        public Portal.Consultoras.Common.Enumeradores.EnvioSms ProcesaEnvioSms(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile) {
+            return base.Channel.ProcesaEnvioSms(paisID, valorRestaurar, origenID, CantidadEnvios, esMobile);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.EnvioSms> ProcesaEnvioSmsAsync(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile, string urlApi) {
-            return base.Channel.ProcesaEnvioSmsAsync(paisID, valorRestaurar, origenID, CantidadEnvios, esMobile, urlApi);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.EnvioSms> ProcesaEnvioSmsAsync(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile) {
+            return base.Channel.ProcesaEnvioSmsAsync(paisID, valorRestaurar, origenID, CantidadEnvios, esMobile);
         }
         
         public bool VerificarIgualdadCodigoIngresado(int PaisID, int origenID, string codigoUsuario, string codigoIngresado, int IdEstadoActividad) {
@@ -10784,6 +10806,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo> GetPinAutenticidadAsync(int paisID, string CodigoUsuario) {
             return base.Channel.GetPinAutenticidadAsync(paisID, CodigoUsuario);
+        }
+        
+        public bool GetConsultoraParticipaEnPrograma(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID) {
+            return base.Channel.GetConsultoraParticipaEnPrograma(paisID, codigoPrograma, codigoConsultora, campaniaID);
+        }
+        
+        public System.Threading.Tasks.Task<bool> GetConsultoraParticipaEnProgramaAsync(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID) {
+            return base.Channel.GetConsultoraParticipaEnProgramaAsync(paisID, codigoPrograma, codigoConsultora, campaniaID);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario) {

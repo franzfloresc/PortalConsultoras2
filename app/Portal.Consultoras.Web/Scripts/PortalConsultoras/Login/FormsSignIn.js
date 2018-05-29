@@ -1222,10 +1222,10 @@ function ProcesaEnvioSMS() {
     $(".codigoSms").val("");
 
     var parametros = {
-        NroIntetos: nroIntentosSms,
-        OrigenID: origen
+        cantidadEnvios: nroIntentosSms,
+        origenID: origen
     };
-
+    debugger
     waitingDialog();
     $.ajax({
         type: 'POST',
@@ -1235,6 +1235,7 @@ function ProcesaEnvioSMS() {
         data: JSON.stringify(parametros),
         async: true,
         success: function (response) {
+            debugger
             if (response.success) {
                 procesoEmail = false;
                 procesoSms = true;
