@@ -200,7 +200,7 @@ BEGIN
 	SELECT
 	ET.EstrategiaTemporalId	
 	,CodigoEstrategia = PC.EstrategiaIdSicc				
-	,TieneVariedad = 0		
+	,TieneVariedad = 1	
 	,PrecioPublico = SUM(PC.PrecioUnitario * PC.FactorRepeticion * PC.CodigoFactorCuadre)
 	,Ganancia =  SUM((PC.IndicadorPreUni - PC.PrecioUnitario) * PC.FactorRepeticion * PC.CodigoFactorCuadre)
 	FROM #EstrategiaTemporal ET
