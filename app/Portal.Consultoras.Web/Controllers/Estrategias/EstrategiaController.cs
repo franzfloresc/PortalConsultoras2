@@ -380,6 +380,12 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             }
             return model;
         }
-
+        
+        [HttpGet]
+        public JsonResult ConsultarEstrategiaCuv(string cuv)
+        {
+            var modelo = EstrategiaGetDetalleCuv(cuv);
+            return Json(modelo.Hermanos, JsonRequestBehavior.AllowGet);
+        }
     }
 }
