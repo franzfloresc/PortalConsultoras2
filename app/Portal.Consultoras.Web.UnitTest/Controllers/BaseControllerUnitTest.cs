@@ -943,7 +943,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 Assert.AreEqual("/HerramientasVenta/Comprar", result.UrlLandig);
                 Assert.AreEqual(true, result.VerMas);
                 //
-                Assert.AreEqual("HerramientasVenta/HVObtenerProductos", result.UrlObtenerProductos);
+                Assert.AreEqual("Estrategia/HVObtenerProductos", result.UrlObtenerProductos);
                 Assert.AreEqual(Constantes.OrigenPedidoWeb.HVDesktopContenedor, result.OrigenPedido);
                 //
                 Assert.AreEqual("seccion-simple-centrado", result.TemplatePresentacion);
