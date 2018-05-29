@@ -734,7 +734,7 @@ var bannerFunc = (function () {
             }
 
             if (!dataResult.success) {
-                alert('Error al cargar el Banner.');
+                console.log('No se pudo cargar la configuración de Banners.');
                 return false;
             }
 
