@@ -329,6 +329,13 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetValidarLoginJsonWebToken(string documento)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLoginJsonWebToken");
+            Context.Database.AddInParameter(command, "@Documento", DbType.AnsiString, documento);
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetValidarAutoLogin(string codigoUsuario, string proveedor)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarAutoLogin");
