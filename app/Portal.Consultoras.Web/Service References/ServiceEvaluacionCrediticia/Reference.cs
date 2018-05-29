@@ -254,6 +254,16 @@ namespace Portal.Consultoras.Web.ServiceEvaluacionCrediticia {
             "sponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceEvaluacionCrediticia.EvaluacionCrediticiaBE> ConsultarServicioCrediticioPeruAsync(string codigoIso, string tipoIdentificacion, string numeroDocumento);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioPeruZo" +
+            "na", ReplyAction="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioPeruZo" +
+            "naResponse")]
+        Portal.Consultoras.Web.ServiceEvaluacionCrediticia.EvaluacionCrediticiaBE ConsultarServicioCrediticioPeruZona(string codigoIso, string tipoIdentificacion, string numeroDocumento, string codZona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioPeruZo" +
+            "na", ReplyAction="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioPeruZo" +
+            "naResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceEvaluacionCrediticia.EvaluacionCrediticiaBE> ConsultarServicioCrediticioPeruZonaAsync(string codigoIso, string tipoIdentificacion, string numeroDocumento, string codZona);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioCam", ReplyAction="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioCamRes" +
             "ponse")]
         Portal.Consultoras.Web.ServiceEvaluacionCrediticia.EvaluacionCrediticiaBE ConsultarServicioCrediticioCam(string codigoIso, int tipoDocumento, string numeroDocumento);
@@ -330,6 +340,14 @@ namespace Portal.Consultoras.Web.ServiceEvaluacionCrediticia {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceEvaluacionCrediticia.EvaluacionCrediticiaBE> ConsultarServicioCrediticioPeruAsync(string codigoIso, string tipoIdentificacion, string numeroDocumento) {
             return base.Channel.ConsultarServicioCrediticioPeruAsync(codigoIso, tipoIdentificacion, numeroDocumento);
+        }
+        
+        public Portal.Consultoras.Web.ServiceEvaluacionCrediticia.EvaluacionCrediticiaBE ConsultarServicioCrediticioPeruZona(string codigoIso, string tipoIdentificacion, string numeroDocumento, string codZona) {
+            return base.Channel.ConsultarServicioCrediticioPeruZona(codigoIso, tipoIdentificacion, numeroDocumento, codZona);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceEvaluacionCrediticia.EvaluacionCrediticiaBE> ConsultarServicioCrediticioPeruZonaAsync(string codigoIso, string tipoIdentificacion, string numeroDocumento, string codZona) {
+            return base.Channel.ConsultarServicioCrediticioPeruZonaAsync(codigoIso, tipoIdentificacion, numeroDocumento, codZona);
         }
         
         public Portal.Consultoras.Web.ServiceEvaluacionCrediticia.EvaluacionCrediticiaBE ConsultarServicioCrediticioCam(string codigoIso, int tipoDocumento, string numeroDocumento) {
