@@ -63,8 +63,7 @@ namespace Portal.Consultoras.Web.Models
         public string ImagenOfertaIndependiente { get; set; }
         public bool MostrarImgOfertaIndependiente { get; set; }
         public string PrecioNiveles { get; set; }
-
-        public int FlagRevista { get; set; }
+        
         public bool PuedeAgregarProducto { get; set; }
 
         public string CodigoProducto { get; set; }

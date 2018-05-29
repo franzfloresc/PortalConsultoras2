@@ -48,6 +48,7 @@ namespace Portal.Consultoras.Service
         private readonly BLParticipantesDemandaAnticipada BLParticipantesDemandaAnticipada;
         private readonly BLPopupPais BLPopupPais;
         private readonly BLApp _blApp;
+        private readonly BLAdministrarEstrategia _blAdministrarEstrategia;
 
         private readonly IComunicadoBusinessLogic _comunicadoBusinessLogic;
 
@@ -86,6 +87,7 @@ namespace Portal.Consultoras.Service
             BLParticipantesDemandaAnticipada = new BLParticipantesDemandaAnticipada();
             BLPopupPais = new BLPopupPais();
             _blApp = new BLApp();
+            _blAdministrarEstrategia = new BLAdministrarEstrategia();
         }
 
         public SACService(IComunicadoBusinessLogic comunicadoBusinessLogic)
@@ -844,7 +846,7 @@ namespace Portal.Consultoras.Service
         }
         #endregion
 
-        #region "Banner en Pase de Pedido"
+        #region Banner en Pase de Pedido
         public IList<BEBannerPedido> SelectBannerPedido(int paisID, int campaniaID)
         {
             try
@@ -1405,13 +1407,6 @@ namespace Portal.Consultoras.Service
             var bl = new BLAdministrarEstrategia();
             return bl.ActualizarDescripcionEstrategia(paisId, campaniaId, tipoEstrategiaId, listaDescripcionEstrategias);
         }
-
-        public int ActualizarTonoEstrategia(int paisId, int estrategiaId, string codigoEstrategia, int tieneVariedad)
-        {
-            var bl = new BLAdministrarEstrategia();
-            return bl.ActualizarTonoEstrategia(paisId, estrategiaId, codigoEstrategia, tieneVariedad);
-        }
-
         #endregion
 
         #region UpSelling
@@ -1518,8 +1513,57 @@ namespace Portal.Consultoras.Service
         {
             return new UpsellingMarcaCategoriaBusinessLogic(paisId).UpsellingMarcaCategoriaFlagsEditar(upSellingId, CategoriaApoyada, CategoriaMonto);
         }
-     
+
 
         #endregion
+
+        #region Nuevo Masivo
+
+        public int GetCantidadOfertasPersonalizadas(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia)
+        {
+            return _blAdministrarEstrategia.GetCantidadOfertasPersonalizadas(paisId, campaniaId, tipoConfigurado, codigoEstrategia);
+        }
+        
+        public List<BEEstrategia> GetOfertasPersonalizadasByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv)
+        {
+            return _blAdministrarEstrategia.GetOfertasPersonalizadasByTipoConfigurado(paisId, campaniaId, tipoConfigurado, estrategiaCodigo, pagina, cantidadCuv);
+        }
+
+        public int GetCantidadOfertasPersonalizadasTemporal(int paisId, int nroLote, int tipoConfigurado)
+        {
+            return _blAdministrarEstrategia.GetCantidadOfertasPersonalizadasTemporal(paisId, nroLote, tipoConfigurado);
+        }
+
+        public int EstrategiaTemporalDelete(int paisId, int nroLote)
+        {
+            return _blAdministrarEstrategia.EstrategiaTemporalDelete(paisId, nroLote);
+        }
+        
+        public List<BEEstrategia> GetOfertasPersonalizadasByTipoConfiguradoTemporal(int paisId, int tipoConfigurado, int nroLote)
+        {
+            return _blAdministrarEstrategia.GetOfertasPersonalizadasByTipoConfiguradoTemporal(paisId, tipoConfigurado, nroLote);
+        }
+
+        public int EstrategiaTemporalInsertarMasivo(int paisId, int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote)
+        {
+            return _blAdministrarEstrategia.EstrategiaTemporalInsertarMasivo(paisId, campaniaId, estrategiaCodigo, pagina, cantidadCuv, nroLote);
+        }
+
+        public bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int nroLote)
+        {
+            return _blAdministrarEstrategia.EstrategiaTemporalActualizarPrecioNivel(paisId, nroLote);
+        }
+
+        public bool EstrategiaTemporalActualizarSetDetalle(int paisId, int nroLote)
+        {
+            return _blAdministrarEstrategia.EstrategiaTemporalActualizarSetDetalle(paisId, nroLote);
+        }
+
+        public int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote)
+        {
+            return _blAdministrarEstrategia.EstrategiaTemporalInsertarEstrategiaMasivo(paisId, nroLote);
+        }
+        #endregion
+
     }
 }

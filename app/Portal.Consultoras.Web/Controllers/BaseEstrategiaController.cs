@@ -40,30 +40,29 @@ namespace Portal.Consultoras.Web.Controllers
             codAgrupacion = Util.Trim(codAgrupacion);
             var listEstrategia = new List<BEEstrategia>();
 
-            if (codAgrupacion != Constantes.TipoEstrategiaCodigo.Lanzamiento
-                && codAgrupacion != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada
-                && codAgrupacion != Constantes.TipoEstrategiaCodigo.HerramientasVenta)
-            {
-                listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.PackNuevas, campaniaId));
-                listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.OfertaWeb, campaniaId));
-            }
-
             switch (codAgrupacion)
             {
                 case Constantes.TipoEstrategiaCodigo.RevistaDigital:
-                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.Lanzamiento, campaniaId));
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.PackNuevas, campaniaId));
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.OfertaWeb, campaniaId));
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.RevistaDigital, campaniaId));
                     break;
                 case Constantes.TipoEstrategiaCodigo.Lanzamiento:
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.Lanzamiento, campaniaId));
                     break;
                 case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                    // cache de amazaon en la capa BL
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada, campaniaId));
                     break;
                 case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.HerramientasVenta, campaniaId));
                     break;
+                case Constantes.TipoEstrategiaCodigo.LosMasVendidos:
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.LosMasVendidos, campaniaId));
+                    break;
                 default:
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.PackNuevas, campaniaId));
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.OfertaWeb, campaniaId));
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.OfertaParaTi, campaniaId));
                     break;
             }
@@ -107,6 +106,11 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoTipoEstrategia = tipo
                 };
 
+                if (tipo == Constantes.TipoEstrategiaCodigo.LosMasVendidos)
+                {
+                    entidad.ConsultoraID = (userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID).ToString();
+                }
+
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     listEstrategia = sv.GetEstrategiasPedido(entidad).ToList();
@@ -115,7 +119,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (campaniaId == userData.CampaniaID)
                 {
                     if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas
-                        || tipo == Constantes.TipoEstrategiaCodigo.Lanzamiento
                         || tipo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
                         || tipo == Constantes.TipoEstrategiaCodigo.OfertaWeb)
                     {
@@ -147,30 +150,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return listEstrategia;
         }
-
-        public List<BEEstrategia> ConsultarMasVendidos()
-        {
-            var entidad = new BEEstrategia
-            {
-                PaisID = userData.PaisID,
-                CampaniaID = userData.CampaniaID,
-                ConsultoraID = (userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID).ToString(),
-                Zona = userData.ZonaID.ToString(),
-                ZonaHoraria = userData.ZonaHoraria,
-                FechaInicioFacturacion = userData.FechaFinCampania,
-                ValidarPeriodoFacturacion = true,
-                Simbolo = userData.Simbolo,
-            };
-
-            List<BEEstrategia> listEstrategia;
-            using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                listEstrategia = sv.GetMasVendidos(entidad).ToList();
-            }
-
-            return listEstrategia;
-        }
-
+        
         public EstrategiaPersonalizadaProductoModel EstrategiaGetDetalle(int id, string cuv = "")
         {
             EstrategiaPersonalizadaProductoModel estrategiaModelo;
@@ -432,9 +412,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (codAgrupacion == Constantes.TipoEstrategiaCodigo.RevistaDigital)
                 {
-                    var estrategiaLanzamiento = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento) ?? new BEEstrategia();
-
-                    listModel = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                    var listModelLan = ConsultarEstrategias(cuv, 0, Constantes.TipoEstrategiaCodigo.Lanzamiento);
+                    var estrategiaLanzamiento = listModelLan.FirstOrDefault() ?? new BEEstrategia();
 
                     if (!listModel.Any() && estrategiaLanzamiento.EstrategiaID <= 0)
                     {
@@ -647,8 +626,6 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.Ganancia = estrategia.Ganancia;
                 prodModel.GananciaString = estrategia.GananciaString;
 
-                prodModel.FlagRevista = estrategia.FlagRevista;
-
                 prodModel.TipoAccionAgregar = estrategia.TieneVariedad == 0 ? estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas ? 1 : 2 : 3;
 
                 if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento)
@@ -720,7 +697,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<EstrategiaPedidoModel> ConsultarMasVendidosModel()
         {
-            var listaProducto = ConsultarMasVendidos();
+            var listaProducto = ConsultarEstrategias("", 0, Constantes.TipoEstrategiaCodigo.LosMasVendidos);
             var listaProductoModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
             listaProductoModel = ConsultarEstrategiasModelFormato(listaProductoModel);
             return listaProductoModel;

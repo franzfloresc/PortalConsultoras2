@@ -227,7 +227,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.EstadoSimplificacionCuv = userData.EstadoSimplificacionCUV;
                 model.ErrorInsertarProducto = "";
-                model.ListaEstrategias = new List<BEEstrategia>();
+                model.ListaEstrategias = new List<ServicePedido.BEEstrategia>();
                 model.ZonaNuevoProlM = true;
                 model.NombreConsultora = userData.NombreConsultora;
                 model.PaisID = userData.PaisID;
@@ -1362,7 +1362,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 int outVal;
-                var entidad = new BEEstrategia
+                var entidad = new ServicePedido.BEEstrategia
                 {
                     PaisID = userData.PaisID,
                     CUV2 = CUV,
@@ -1606,8 +1606,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new ServiceODS.BEProducto();
 
-                var estrategias = (List<BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia] ?? new List<BEEstrategia>();
-                var estrategia = estrategias.FirstOrDefault(p => p.CUV2 == producto.CUV) ?? new BEEstrategia();
+                var estrategias = (List<ServicePedido.BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia] ?? new List<ServicePedido.BEEstrategia>();
+                var estrategia = estrategias.FirstOrDefault(p => p.CUV2 == producto.CUV) ?? new ServicePedido.BEEstrategia();
 
                 var observacionCuv = ObtenerObservacionCreditoCuv(userModel, cuvCredito);
 
@@ -1751,14 +1751,6 @@ namespace Portal.Consultoras.Web.Controllers
                     )
                     .ToList();
             }
-
-            if (userData.OfertaDelDia != null && userData.OfertaDelDia.BloqueoProductoDigital)
-            {
-                beProductos = beProductos
-                    .Where(prod => prod.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaDelDia)
-                    .ToList();
-            }
-
             if (guiaNegocio.BloqueoProductoDigital)
             {
                 beProductos = beProductos
@@ -4471,7 +4463,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private JsonResult EstrategiaAgregarProducto(ref string mensaje, BEEstrategia estrategia, PedidoCrudModel model, bool revisionIndividualStock =true)
+        private JsonResult EstrategiaAgregarProducto(ref string mensaje, ServicePedido.BEEstrategia estrategia, PedidoCrudModel model, bool revisionIndividualStock =true)
         {
             #region Validar Stock Estrategia
             var ofertas = estrategia.DescripcionCUV2.Split('|');
@@ -4576,11 +4568,11 @@ namespace Portal.Consultoras.Web.Controllers
             return estado;
         }
 
-        private BEEstrategia FiltrarEstrategiaPedido(string estrategiaId, int flagNueva = 0)
+        private ServicePedido.BEEstrategia FiltrarEstrategiaPedido(string estrategiaId, int flagNueva = 0)
         {
-            List<BEEstrategia> lst;
+            List<ServicePedido.BEEstrategia> lst;
 
-            var entidad = new BEEstrategia
+            var entidad = new ServicePedido.BEEstrategia
             {
                 PaisID = userData.PaisID,
                 EstrategiaID = Convert.ToInt32(estrategiaId),
@@ -4593,7 +4585,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            var estrategia = lst.Count > 0 ? lst[0] : new BEEstrategia();
+            var estrategia = lst.Count > 0 ? lst[0] : new ServicePedido.BEEstrategia();
             estrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, estrategia.ImagenURL);
             estrategia.Simbolo = userData.Simbolo;
 
@@ -4606,7 +4598,7 @@ namespace Portal.Consultoras.Web.Controllers
             var mensaje = "";
             try
             {
-                var entidad = new BEEstrategia
+                var entidad = new ServicePedido.BEEstrategia
                 {
                     PaisID = userData.PaisID,
                     Cantidad = cantidad,

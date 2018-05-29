@@ -189,7 +189,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool ValidarIngresoShowRoom(bool esIntriga)
         {
-            if (!userData.CargoEntidadesShowRoom)
+            if (!configEstrategiaSR.CargoEntidadesShowRoom)
                 return false;
 
             var resultado = false;
@@ -733,7 +733,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var showRoomEvento = userData.BeShowRoom;
+                var showRoomEvento = configEstrategiaSR.BeShowRoom;
                 var codigoConsultora = userData.CodigoConsultora;
 
                 showRoomEventoModel = Mapper.Map<BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
