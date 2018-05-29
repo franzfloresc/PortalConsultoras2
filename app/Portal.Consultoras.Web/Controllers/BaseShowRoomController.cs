@@ -226,7 +226,7 @@ namespace Portal.Consultoras.Web.Controllers
             return listaShowRoomOferta;
         }
 
-        public List<ShowRoomOfertaModel> ObtenerListaProductoShowRoom(int campaniaId, string codigoConsultora, bool esFacturacion = false)
+        public List<ShowRoomOfertaModel> ObtenerListaProductoShowRoom(int campaniaId, string codigoConsultora, bool esFacturacion = false, bool conFiltroMdo = true)
         {
             //var tienePersonalizacion = TienePersonalizacion();
 
@@ -239,11 +239,14 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var listaShowRoomOferta = ObtenerListaProductoShowRoomService(campaniaId, codigoConsultora);
-            listaShowRoomOferta = ObtenerListaProductoShowRoomMdo(listaShowRoomOferta);
+            if(conFiltroMdo)
+                listaShowRoomOferta = ObtenerListaProductoShowRoomMdo(listaShowRoomOferta, Constantes.FlagRevista.Valor0);
+            
             var listadoOfertasTodasModel1 = ObtenerListaProductoShowRoomFormato(listaShowRoomOferta, listaDetalle, esFacturacion);
+            
             return listadoOfertasTodasModel1;
         }
-
+        
         private List<ShowRoomOfertaModel> ObtenerListaProductoShowRoomSession(List<BEPedidoWebDetalle> listaPedidoDetalle)
         {
             var listadoOfertasTodas = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom];
@@ -339,7 +342,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listaShowRoomOfertaFinal.Add(beShowRoomOferta);
                 }
-            }
+            }                                           
 
             Session[Constantes.ConstSession.ListaProductoShowRoom] = listaShowRoomOfertaFinal;
             List<ShowRoomOfertaModel> listadoOfertasTodasModel1 = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOfertaFinal);
@@ -357,11 +360,11 @@ namespace Portal.Consultoras.Web.Controllers
             return listadoOfertasTodasModel1;
         }
 
-        private List<BEShowRoomOferta> ObtenerListaProductoShowRoomMdo(List<BEShowRoomOferta> listaShowRoomOferta)
+        private List<BEShowRoomOferta> ObtenerListaProductoShowRoomMdo(List<BEShowRoomOferta> listaShowRoomOferta, int flagRevistaValor = 0 )
         {
             if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
             {
-                listaShowRoomOferta = listaShowRoomOferta.Where(p => p.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+                listaShowRoomOferta = listaShowRoomOferta.Where(p => p.FlagRevista == (flagRevistaValor == 0 ? Constantes.FlagRevista.Valor0 : flagRevistaValor)).ToList();
             }
             return listaShowRoomOferta;
         }

@@ -5723,6 +5723,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
         }
+        
         private string ObtenerDescripcionOferta(BEPedidoWebDetalle item)
         {
             var descripcion = "";
@@ -5788,6 +5789,60 @@ namespace Portal.Consultoras.Web.Controllers
 
             return descripcion;
         }
+        
+        #region Revista digital y Sección DORADA
+        public ConfiguracionPaisDatosModel ObtenerPerdio(int campaniaId)
+        {
+            var dato = new ConfiguracionPaisDatosModel();
+            if (TieneProductosPerdio(campaniaId))
+            {
+                var codigo = "";
+                bool upper = false;
+                if (!revistaDigital.EsSuscrita)
+                {
+                    codigo = Constantes.ConfiguracionPaisDatos.RD.NSPerdiste;
+                    upper = true;
+                }
+                else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+                {
+                    codigo = Constantes.ConfiguracionPaisDatos.RD.SNAPerdiste;
+                    upper = true;
+                }
+                else
+                {
+                    codigo = IsMobile() ? Constantes.ConfiguracionPaisDatos.RD.MPerdiste : Constantes.ConfiguracionPaisDatos.RD.DPerdiste;
+                }
+
+                dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+
+                dato.Valor1 = RemplazaTag(dato.Valor1, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
+                dato.Valor2 = RemplazaTag(dato.Valor2, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
+
+                if (upper)
+                {
+                    dato.Valor1 = dato.Valor1.ToUpper();
+                    dato.Valor2 = dato.Valor2.ToUpper();
+                }
+
+                dato.Estado = true;
+            }
+
+            dato.Valor1 = Util.Trim(dato.Valor1);
+            dato.Valor2 = Util.Trim(dato.Valor2);
+
+            return dato;
+        }
+        
+        public bool TieneProductosPerdio(int campaniaId)
+        {
+            if (revistaDigital.TieneRDC && !revistaDigital.EsActiva &&
+                campaniaId == userData.CampaniaID)
+                return true;
+
+            return false;
+        }
+        #endregion
+
 
     }
 }
