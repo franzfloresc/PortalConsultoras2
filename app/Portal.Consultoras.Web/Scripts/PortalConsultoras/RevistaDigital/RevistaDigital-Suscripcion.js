@@ -72,10 +72,9 @@ function RDPopupMobileCerrar() {
 }
 
 function RDSuscripcion() {
-
+    debugger;
     AbrirLoad();
     rdAnalyticsModule.Inscripcion();
-
     var rdSuscriocionPromise = RDSuscripcionPromise();
     rdSuscriocionPromise.then(
         function (data) {
@@ -87,12 +86,10 @@ function RDSuscripcion() {
                 AbrirMensaje(data.message);
                 return false;
             }
-
             $("#PopRDSuscripcion").css("display", "block");
-
             $(".popup_confirmacion_datos .form-datos input").keyup(); //to update button style
-
-            return false;
+            LimpiarLocalStorage();
+           return false;
         },
         function (xhr, status, error) {
             CerrarLoad();
@@ -137,7 +134,7 @@ function RDDesuscripcion() {
                 AbrirMensaje(data.message);
                 return false;
             }
-
+            LimpiarLocalStorage();
             window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
         },
         error: function (data, error) {
@@ -173,3 +170,30 @@ function RedireccionarContenedorInformativa(origenWeb) {
 
     window.location = (isMobile() ? "/Mobile" : "") + "/RevistaDigital/Informacion";
 }
+
+function LimpiarLocalStorage() {
+    if (typeof (Storage) !== 'undefined') {
+        var itemSBTokenPais = localStorage.getItem('SBTokenPais');
+        var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
+        var itemChatEConnected = localStorage.getItem('connected');
+        var itemChatEConfigParams = localStorage.getItem('ConfigParams');
+
+        localStorage.clear();
+
+        if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
+            localStorage.setItem('SBTokenPais', itemSBTokenPais);
+        }
+
+        if (typeof (itemSBTokenPedido) !== 'undefined' && itemSBTokenPedido !== null) {
+            localStorage.setItem('SBTokenPedido', itemSBTokenPedido);
+        }
+
+        if (typeof (itemChatEConnected) !== 'undefined' && itemChatEConnected !== null) {
+            localStorage.setItem('connected', itemChatEConnected);
+        }
+
+        if (typeof (itemChatEConfigParams) !== 'undefined' && itemChatEConfigParams !== null) {
+            localStorage.setItem('ConfigParams', itemChatEConfigParams);
+        }
+    }
+};

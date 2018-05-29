@@ -56,8 +56,13 @@ namespace Portal.Consultoras.Web.Controllers
                 (revistaDigital.EsSuscrita && !revistaDigital.EsActiva && !revistaDigital.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion) ||
                 (revistaDigital.EsSuscrita && revistaDigital.EsActiva && !revistaDigital.SociaEmpresariaSuscritaActivaCancelarSuscripcion)));
             modelo.CancelarSuscripcion = CancelarSuscripcion(revistaDigital.SuscripcionEfectiva.Origen, userData.CodigoISO);
-
+            modelo.EsSuscripcionInmediata = EsSuscripcionInmediata();
             return View("template-informativa", modelo);
+        }
+
+        public bool EsSuscripcionInmediata()
+        {
+            return revistaDigital.SuscripcionModel != null ? (revistaDigital.ActivoMdo&&(revistaDigital.SuscripcionModel.CampaniaEfectiva == revistaDigital.SuscripcionModel.CampaniaID)&& revistaDigital.CantidadCampaniaEfectiva==0) : false;
         }
 
         public ActionResult ViewLanding(int tipo)

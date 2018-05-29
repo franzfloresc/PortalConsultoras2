@@ -265,7 +265,14 @@
         margin-bottom: 10px;
         margin-top: 30px;
     }
-
+    .bloques-gana-mas .contenedor-mobile-fix span.recuerda-txt-2 {
+        letter-spacing: 1px;
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+        margin-top: 30px;
+    }
     .bloques-gana-mas .contenedor-mobile-fix .instrucciones {
         color: black !important;
         text-align: left !important;

@@ -1284,5 +1284,10 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario);
+        
+        [OperationContract]
+        bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia, string campaniaID);
+
+
     }
 }
