@@ -332,6 +332,54 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+        
+        [HttpGet]
+        public JsonResult BSObtenerOfertas()
+        {
+            try
+            {
+                var model = new EstrategiaOutModel();
+
+                var listModel = ConsultarMasVendidosModel();
+
+                model.Lista = listModel;
+
+                model = BSActualizarPosicion(model);
+                model = BSActualizarPrecioFormateado(model);
+
+                return Json(new { success = true, data = model }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message });
+            }
+        }
+
+        private EstrategiaOutModel BSActualizarPosicion(EstrategiaOutModel model)
+        {
+            if (model != null)
+            {
+                for (int i = 0; i <= model.Lista.Count - 1; i++)
+                {
+                    model.Lista[i].Posicion = i + 1;
+                }
+            }
+            return model;
+        }
+
+        private EstrategiaOutModel BSActualizarPrecioFormateado(EstrategiaOutModel model)
+        {
+            if (model != null)
+            {
+                for (int i = 0; i <= model.Lista.Count - 1; i++)
+                {
+                    model.Lista[i].Posicion = i + 1;
+                    model.Lista[i].PrecioTachado = Util.DecimalToStringFormat(model.Lista[i].Precio, userData.CodigoISO);
+                    model.Lista[i].GananciaString = Util.DecimalToStringFormat(model.Lista[i].Ganancia, userData.CodigoISO);
+                }
+            }
+            return model;
+        }
 
     }
 }

@@ -145,7 +145,7 @@ var _obtenerModelMasVendidosPromise = function () {
     var d = $.Deferred();
     var promise = $.ajax({
         type: 'GET',
-        url: baseUrl + "OfertasMasVendidos/ObtenerOfertas",
+        url: baseUrl + "Estrategia/BSObtenerOfertas",
         data: "",
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
