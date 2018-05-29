@@ -2129,7 +2129,7 @@
         var telefonoTrabajo = '@Model.TelefonoTrabajo';
         var sobreNombre = '@Model.SobreNombre';
         var nombreGerenteZonal =  '@Model.NombreGerenteZonal';
-        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
+        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
         var showPopupMisDatos = '@(Model.ShowPopupMisDatos ? 1 : 0)';
         var popupInicialCerrado = '@(Model.PopupInicialCerrado ? 1 : 0)';
         var popupCambioClave = '@Model.OpcionCambiaClave';
@@ -2145,7 +2145,7 @@
         asesoraOnlineObj.asignarEventos(paisISO, viewBagCodigoConsultora);
         var verSeccion = '@ViewBag.VerSeccion' || '';
         var OrigenDesktopODD = 1;
-        var nombreAlias = '@Util.SubStr(Model.NombreConsultora, 0)';    
+        var nombreAlias = '@Util.SubStr(Model.NombreConsultora, 0)';
         var viewBagTieneHV = '@((ViewBag.TieneHV ??  false).ToString().ToLower())' == 'true';
 </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")

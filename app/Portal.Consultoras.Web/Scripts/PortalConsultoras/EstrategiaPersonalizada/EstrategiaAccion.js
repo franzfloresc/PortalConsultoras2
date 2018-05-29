@@ -284,7 +284,7 @@ function EstrategiaGuardarTemporal(obj) {
     var ruta = "";
 
     if (typeof urlOfertaDetalleProductoTem == "undefined") {
-        ruta = "/RevistaDigital/GuardarProductoTemporal";
+        ruta = "/Estrategia/GuardarProductoTemporal";
     }
     else {
         ruta = urlOfertaDetalleProductoTem;
