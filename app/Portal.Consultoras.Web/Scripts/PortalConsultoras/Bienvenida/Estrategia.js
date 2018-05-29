@@ -96,7 +96,7 @@ $(document).ready(function () {
 function CargarCarouselEstrategias(cuv) {
     $.ajax({
         type: 'GET',
-        url: baseUrl + 'OfertasParaTi/JsonConsultarEstrategias',
+        url: baseUrl + 'Estrategia/JsonConsultarEstrategias',
         data: {
             cuv: cuv,
             tipoOrigenEstrategia: tipoOrigenEstrategia
