@@ -47,11 +47,6 @@ namespace Portal.Consultoras.Web.WebPages
                 {
                     divCambiarClave.Visible = false;
                     Response.Redirect(urlportal);
-
-                    //txtmarca.Text = esEsika ? "esika" : "lbel";
-                    //string titulo = "Sesión Expirada";
-                    //string mensaje = "Se ha expirado el tiempo del cambio de contraseña. Vuelva a solicitarla";
-                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "MensajeSesionExpirada", "$(function() { MostrarSesionExpirada('" + titulo + "', '" + mensaje + "'); });", true);
                 }
                 else
                 {

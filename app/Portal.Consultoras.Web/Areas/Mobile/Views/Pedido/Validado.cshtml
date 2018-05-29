@@ -14,7 +14,6 @@
 
 <div id="ResumenPedidoReservado">
     <div class="wrapper_resumen_mobile">
-        <!--RESUMEN PEDIDO RESERVADO-->
         @if (Model.MostrarEscalaDescuento)
         {
             <div>
@@ -106,7 +105,6 @@
             <div class="linea_gris" style="margin-top:10px;"></div>
             <span class="detalle_reservado">DETALLE</span>
             <div class="linea_gris"></div>
-            <!--LISTADO PEDIDO RESERVADO-->
             @foreach (var item in Model.Detalle)
             {
                 <div class="detalle_pedido_reservado">
@@ -169,7 +167,6 @@
                 <div class="importe_final">
                     <div class="info_validado">
                         <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" />
-                        <!--TOOLTIP-->
                         <div class="tooltip_validado_importe">
                             <div class="left_reservado">
                                 <div class="datos_Reservado">
@@ -185,7 +182,6 @@
                             </div>
                             <div style="clear:both;"></div>
                         </div>
-                        <!--FIN-->
                     </div>
                     <b>MONTO TOTAL</b>
                 </div>
@@ -197,11 +193,9 @@
                 <div class="ganancia_Pedidovalidado" style="font-size:15px">@Model.Simbolo @Model.DescripcionGanaciaEstimada</div>
             </div>
             <hr class="clear" />
-            <!--FIN LISTADO-->
         </div>
 
         <a class="btn_ver_pedido_reservado" data-toggle="collapse" data-parent="#accordion" href="#PedidoReservado">VER MI PEDIDO</a>
-        <!--TOOLTIP-->
         <div class="tooltip_validado">
             <div class="icono_tooltip_validado"></div>
             @{
@@ -237,8 +231,6 @@
     </div>
 </div>
 
-<!-- POPUP MIS GANANCIAS -->
-
 <div class="contenedor_fondo_popup_ganancia" id="popupGanancias" style="display:none;">
     <div class="popup_mis_ganancias">
         <div class="btn_cerrar_actualizarMisDatos">
@@ -267,8 +259,6 @@
         </div>
     </div>
 </div>
-
-<!-- FIN POPUP MIS GANANCIAS -->
 
 @section Scripts{
     <script type="text/javascript">

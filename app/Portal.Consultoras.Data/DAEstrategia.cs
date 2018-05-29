@@ -512,8 +512,6 @@ namespace Portal.Consultoras.Data
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarEstrategiaMasiva"))
             {
-                //byte[] tempBytes = System.Text.Encoding.GetEncoding("ISO-8859-1").GetBytes(entidad.EstrategiaXML.ToString());
-                //string estrategiaXML = System.Text.Encoding.UTF8.GetString(tempBytes);
                 Context.Database.AddInParameter(command, "@EstrategiaXML", DbType.Xml, entidad.EstrategiaXML.ToString());
                 Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);

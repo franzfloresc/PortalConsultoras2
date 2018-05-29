@@ -35,6 +35,18 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
+        public RevistaDigitalModel RevistaDigital
+        {
+            get
+            {
+                return revistaDigital;
+            }
+            set
+            {
+                revistaDigital = value;
+            }
+        }
+
         public List<BEEstrategia> ConsultarEstrategias(string cuv = "", int campaniaId = 0, string codAgrupacion = "")
         {
             codAgrupacion = Util.Trim(codAgrupacion);
@@ -69,7 +81,7 @@ namespace Portal.Consultoras.Web.Controllers
             return listEstrategia;
         }
 
-        public List<BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, int campaniaId = 0)
+        protected virtual List<BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, int campaniaId = 0)
         {
             var listEstrategia = new List<BEEstrategia>();
             try

@@ -57,12 +57,10 @@
         pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
     }
 }
-<!-- Titulo -->
 <div class="fondo_f9f9f9">
     <div class="content_belcorp content_belcorp_misPedidos">
         <div class="fondo_negro_lateral"></div>
         <div class="titulo_interiores">MIS <span>PEDIDOS</span></div>
-        <!--INICIO PESTAÑAS-->
         <div class="titulo_tabs mis_pagos_tabs">
             <ul class="tabs_pagos" data-tab="tab">
                 <li class="one">
@@ -84,7 +82,6 @@
                 <hr id="barCursor" />
             </ul>
         </div>
-        <!--FIN PESTAÑAS-->
     </div>
     <hr class="clear" />
     <div class="linea_separadora" style="margin-top:-1px"></div>
@@ -93,7 +90,6 @@
     <div class="pestana_lbel" style="margin-bottom:0;"></div>
 </div>
 
-<!-- Fin titulo-->
 @if (Model.MostrarClienteOnline) {
     <div id="ClientesOnline" data-tag-html="PedidosClientesOnline" class="content_belcorp content_belcorp_misPedidos" style="display:none">
         <div class="tabla_misPedidos">
@@ -111,7 +107,6 @@
     </div>
 }
 
-<!--FIN-->
 <div id="divUltimosPedidos" data-tag-html="UltimasCampanias" style="display:none">
     <div data-div="f">
         <div class="popup_frame" data-popup="facturado">
@@ -147,7 +142,6 @@
                         </div>
                         <div class="linea_separadora" style="height:2px; margin-top:21px;"></div>
                     </div>
-                    <!--CONTENIDO TABLAS FACTURADOS-->
                     <div id="divContenidofacturado">
                     </div>
                 </div>
@@ -189,7 +183,6 @@
                             </div>
                             <div class="linea_separadora" style="height:2px; margin-top:21px;"></div>
                         </div>
-                        <!-- CONTENIDO TABLAS CLIENTE-->
                         <div class="acordion_contenedor" id="pedidoPorCliente" data-camp="" data-idpedido="">
                         </div>
                     </div>
@@ -200,9 +193,7 @@
     <div data-div="d">
         <div class="content_belcorp content_belcorp_misPedidos" id="contenidoGrilla">
            
-            <!--INICIO TABLA MIS PEDIDOS-->
             <div class="tabla_misPedidos">
-                <!--CONTENEDOR -->
                 <div class="content_mis_pedidos">
                     <div class="icono_campanias"></div>
                     <div class="titulo_detalle_pago titulo_campanias">
@@ -211,7 +202,6 @@
                     <div class="texto_descripcion" style="margin-top:23px; margin-bottom:17px;">@mensajeCantidad</div>
                     <hr class="clear" />
                     <div class="linea_separadora" style="height:2px"></div>
-                    <!-- CABECERA DE TABLAS -->
                     <div class="content_datos_mispedidos">
                         <div class="nombre_campania texto_gris_cabeceraMisPedidos">Campaña</div>
                         <div class="fecha_pedido texto_gris_cabeceraMisPedidos">Fecha</div>
@@ -222,7 +212,6 @@
                         <div class="pack_documentario texto_gris_cabeceraMisPedidos">Paq. Document.</div>
                         <div class="estado_detalles texto_gris_cabeceraMisPedidos">Ver Estado / Detalles</div>
                     </div>
-                    <!-- FIN CABECERA DE TABLAS -->
                     <div class="linea_separadora" style="margin-top:-1px"></div>
                     @foreach (var item in Model.ListaFacturados)
 {
@@ -282,10 +271,8 @@
         </div>
     </div>
 }
-                    <!--FIN CONTENIDO DE TABLAS -->
                 </div>
             </div>
-            <!--FIN CONTENIDO TABLA MIS PEDIDOS-->
         </div>
     </div>
     <div id="lblcampania" hidden="hidden"></div>
@@ -293,17 +280,14 @@
 <div style="display:none;">
     @Html.DropDownListFor(model => model.ClienteId, new SelectList(Model.Clientes, "ClienteID", "Nombre"), new { id = "ddlClientes" })
 </div>
-<!--POP UP SEGUIMIENTO DE PEDIDO-->
 <div class="POPUP_deskptop" id="PopSeguimiento">
     <div class="wrapper_seguimiento">
         <a class="btn_regresar" href="javascript:;" onclick="javascript: $('#PopSeguimiento').hide();">REGRESAR</a>
         <iframe src="" width="100%" height="100%"></iframe>
     </div>
 </div>
-<!--FIN-->
 
 @if (Model.MostrarClienteOnline) {
-    <!--PENDIENTES APP CATALOGO-->
     <div id="popup_cliente_online_detalle" class="contenedor_popup_percepciones" style="display: none;">
         <div class="popup_Pendientes">
             <div class="cubre"></div>
@@ -367,8 +351,6 @@
             </div>
         </div>
     </div>
-    <!--FIN PENDIENTES APP CATALOGO-->
-    <!--INICIO MODAL DE CONFIRMACIÓN DE CANCELADO-->
     <div class="contenedor_popup_agregarUnidades" id="dialog_confirmacionCancelado" style="display: none;">
         <div class="popup_rechazarPendientes">
             <input type="hidden" id="hdePedidoIdRechazo" />
@@ -389,8 +371,6 @@
             </div>
         </div>
     </div>
-    <!--FINAL MODAL DE CONFIRMACIÓN DE CANCELADO-->
-    <!--INICIO MODAL DE SELECCIÓN DE RAZÓN DE CANCELADO-->
     <div class="contenedor_popup_agregarUnidades" id="dialog_motivoCancelado" style="display: none;">
         <div class="popup_agregarUnidades mrechaza">
             <div class="btn_cerrar_agregarUnidades">
@@ -417,8 +397,6 @@
             </button>
         </div>
     </div>
-    <!--FINAL MODAL DE SELECCIÓN DE RAZÓN DE CANCELADO-->
-    <!--INICIO MODAL DE MENSAJE DE CANCELADO-->
     <div class="contenedor_popup_agregarUnidades" id="dialog_mensajeCancelado" style="display: none;">
         <div class="popup_rechazarPendientes">
 
@@ -437,7 +415,6 @@
             </div>
         </div>
     </div>
-    <!--FINAL MODAL DE MENSAJE DE CANCELADO-->
 }
 
 <script id="html-detalle-ingresado" type="text/x-handlebars-template">
@@ -521,7 +498,6 @@
         <div class="importePago_prod texto_gris_popup">Subtotal</div>
         <div class="importePago_prod texto_gris_popup">Cliente</div>
     </div>
-    <!--CONTENIDO DE TABLAS FACTURADOS-->
     {{#each this.Rows as |detalle|}}
     <div class="content_datos_pedidosIngresados">
         <div class="codigo_prod">{{detalle.CUV}}</div>
@@ -548,7 +524,6 @@
     <div class="linea_separadora" style="height:1px;"></div>
 </script>
 <script id="html-detalle-facturado" type="text/x-handlebars-template">
-    <!--Paginador-->
     <div class="paginador_pedidos mostrarPaginadorPedidos inferior" style="width:46%; margin-top:0px!important; padding-bottom:43px!important; float:right;">
         <div>
             <ul class="paginador_notificaciones" data-paginacion="block" data-camp="{{CampaniaId}}" data-cliente="{{ClienteID}}" data-estado="{{tipo}}" data-idpedido="{{pedidoId}}">
@@ -601,9 +576,7 @@
     </div>
     <div class="clear"></div>
     <div class="linea_separadora" style="height:1px;"></div>
-    <!--fin Paginador-->
     <div id="divGrilla">
-        <!--CABECERA DE TABLAS FACTURADOS-->
         <div class="content_datos_pedidosFacturados">
             <div class="codigo_prod texto_gris_popup">Código</div>
             <div class="descripcion_prod texto_gris_popup">Producto</div>
@@ -620,7 +593,6 @@
             </div>
             {{/iff}}
         </div>
-        <!--CONTENIDO DE TABLAS FACTURADOS-->
         <div id="pedidoSugerido">
             {{#each this.Rows as |detalle|}}
             <div class="content_datos_pedidosFacturados">
@@ -639,7 +611,6 @@
         </div>
     </div>
     <div class="linea_separadora_roja" style="height: 2px; margin-top:-1px;"></div>
-    <!--FIN CONTENIDO DE TABLAS FACTURADOS-->
     {{#iff tipo '==' 'f'}}
     <div style="text-align:right; padding-right:40px;">
         <div class="content_datos_pedidosFacturados padding_area_montosTotales" style="width:13%!important;">
@@ -666,7 +637,6 @@
         <div class="content_datos_pedidosFacturados padding_area_montosTotales" style="width:18%!important; font-size:14px;">
             <div class="info_extra_Validado">
                 <img src="/Content/Images/Esika/info-copy.png">
-                <!--MONTOS-->
                 <div class="monto_resumenValidado">
                     <div class="monto_1">Total sin Dscto.</div>
                     <div class="monto_numero" style="opacity:0.6">{{SimboloMoneda}} {{ImporteTotal}}</div>
@@ -674,7 +644,6 @@
                     <div class="monto_1">Dscto. por niveles </div>
                     <div class="monto_numero">{{SimboloMoneda}} {{OfertaNiveles}}</div>
                 </div>
-                <!--FIN-->
             </div>
             <div class="totalTexto">MONTO TOTAL:</div>
             <div class="totalTexto">@(cabezaEscala.Trim().ToUpper()): </div>

@@ -316,7 +316,6 @@
                 <span class="texto_estado_solicitud">RECHAZADO</span>{{item.Observacion}}
             </div>
             <hr class="clear" />
-            <!--PRODUCTO OBSERVADO-->
             <div class="content_producto_observado">
                 <div class="nota_producto_observado">
                     {{#if_eq item.TipoMotivoRechazo '1'}}
@@ -342,7 +341,6 @@
                 <a data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x" class="btn_eliminar_observado">ELIMINAR PRODUCTO</a>
                 <hr class="clear" />
             </div>
-            <!--FIN-->
         </div>
         {{/if_eq}}    
     {{/each}}    

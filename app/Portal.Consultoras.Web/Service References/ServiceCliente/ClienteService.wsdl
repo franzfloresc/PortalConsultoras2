@@ -33,7 +33,8 @@
       <xsd:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" />
       <xsd:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Framework" />
       <xsd:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
-      <xsd:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/System" />
+      <xsd:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd6" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/System" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IClienteService_Insert_InputMessage">

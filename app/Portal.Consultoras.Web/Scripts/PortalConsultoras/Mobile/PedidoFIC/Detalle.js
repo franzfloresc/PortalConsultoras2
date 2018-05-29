@@ -5,7 +5,6 @@ var tipoOrigen = '2';
 var esPedidoValidado = false;
 
 $(document).ready(function () {
-    //ReservadoOEnHorarioRestringido(false);
     $('body').on('click', ".icono_kitNuevas a", function (e) {
         var mostrar = $(this).next();
         if (mostrar.css("display") == "none") mostrar.fadeIn(200);
@@ -122,11 +121,6 @@ function UpdateLiquidacionEvento(evento) {
         return false;
     }
 
-    //if (ReservadoOEnHorarioRestringido()) {
-    //    $('#Cantidad_' + id).val($("#CantidadTemporal_" + id).val());
-    //    return false;
-    //}
-
     var obj = GetProductoEntidad(id);
 
 
@@ -242,17 +236,7 @@ function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetall
     }
 
     ShowLoading();
-
-    //if (ReservadoOEnHorarioRestringido()) {
-    //    CloseLoading();
-    //    return false;
-    //}
-
-    //if (HorarioRestringido()) {
-    //    CloseLoading();
-    //    return false;
-    //}
-
+    
     $.ajaxSetup({ cache: false });
 
     var CliID = $('#ClienteID_' + PedidoDetalleID).val();

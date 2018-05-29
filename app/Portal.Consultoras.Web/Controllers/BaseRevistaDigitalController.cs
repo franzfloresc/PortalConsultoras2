@@ -1,6 +1,8 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.SessionManager;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -10,6 +12,21 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BaseRevistaDigitalController : BaseEstrategiaController
     {
+        public BaseRevistaDigitalController()
+            : base()
+        {
+        }
+
+        public BaseRevistaDigitalController(ISessionManager sessionManager)
+            : base(sessionManager)
+        {
+        }
+
+        public BaseRevistaDigitalController(ISessionManager sessionManager, ILogManager logManager)
+            : base(sessionManager, logManager)
+        {
+        }
+
         public ActionResult IndexModel()
         {
             if (revistaDigital.TieneRDI)
@@ -38,7 +55,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ((!revistaDigital.EsSuscrita && (!revistaDigital.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion || !revistaDigital.SociaEmpresariaSuscritaActivaCancelarSuscripcion)) ||
                 (revistaDigital.EsSuscrita && !revistaDigital.EsActiva && !revistaDigital.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion) ||
                 (revistaDigital.EsSuscrita && revistaDigital.EsActiva && !revistaDigital.SociaEmpresariaSuscritaActivaCancelarSuscripcion)));
-            modelo.CancelarSuscripcion = CancelarSuscripcion(revistaDigital.SuscripcionModel.Origen, userData.CodigoISO);
+            modelo.CancelarSuscripcion = CancelarSuscripcion(revistaDigital.SuscripcionEfectiva.Origen, userData.CodigoISO);
 
             return View("template-informativa", modelo);
         }
@@ -184,7 +201,7 @@ namespace Portal.Consultoras.Web.Controllers
             var valorDato = "";
             switch (valor)
             {
-                case 0: valorDato = IsMobile() ? dato.Valor1 : dato.Valor2; break;
+                case 0: valorDato = IsMobile() ? dato.Valor2 : dato.Valor1; break;
                 case 1: valorDato = dato.Valor1; break;
                 case 2: valorDato = dato.Valor2; break;
                 case 3: valorDato = dato.Valor3; break;

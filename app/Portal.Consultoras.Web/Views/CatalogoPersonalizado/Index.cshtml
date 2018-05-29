@@ -51,7 +51,6 @@
                 <div class="linea_separadora" style="height:3px;"></div>
                 <div class="texto_fav_filtro" style="cursor:pointer;display:none;"> BORRAR FILTROS</div>
                 <div id="limiteFlt" class="linea_separadora"></div>
-                <!--PRIMER FILTRO-->
                 <span class="titulo_filtro_fav">CATEGORÍAS</span>
                 <hr class="clear" />              
                 <div id="div-filter-category">
@@ -73,7 +72,6 @@
                     }
                 </div>
                 <div class="linea_separadora"></div>
-                <!--SEGUNDO FILTRO-->
                 <span class="titulo_filtro_fav">MARCAS</span>
                 <hr class="clear" />
                 <div id="div-filter-brand">
@@ -94,7 +92,6 @@
                                         
                 </div>
                 <div class="linea_separadora"></div>
-                <!--TERCER FILTRO-->
                 <span class="titulo_filtro_fav">RANGO DE PRECIO</span>
                 <div class="content_filtro_range">
                     <input class="range-slider" value="" style="width:100%; display:none;"/>
@@ -103,7 +100,6 @@
                 <hr class="clear" />
               
                 <div class="linea_separadora"></div>
-                <!--CUARTO FILTRO-->
                 <span class="titulo_filtro_fav">TIPO DE PUBLICACIÓN</span>
                 <hr class="clear" />
                 <div id="div-filter-published">
@@ -151,7 +147,7 @@
             </div>
            
             <div class="clear"></div>
-        </div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
+        </div>
     </div>
 </div>
 
@@ -276,7 +272,6 @@
             <div class="titulo_popupCatalogoPersonalizado">OFERTA EN GUÍA DE NEGOCIO</div>
             <div class="linea_encabezado_popupCatalogoPersonalizado"></div>
         </div>
-        <!--ITEM 1-->
         <div class="item_pack_personalizado">
             <div class="content_item_pack">
                 <div class="img_principal_pack">
@@ -297,7 +292,6 @@
                 <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista">AGRÉGALO</a>
             </div>
         </div>
-        <!--ITEM 2-->
         <div class="content_66">
             <div class="content_carrusel_pack">
                 <a class="flechas_carrusel" style="left:-10%;"><img src="@Url.Content("/Content/Images/Esika/previous_ofertas_home.png")" /></a>
@@ -408,9 +402,7 @@
         </div>
     </div>
 </div>
-<!--POP UP FICHA PRODUCTO NUEVA-->
 <div id="PopFichaProductoNueva" class="Content_general_pop_up"></div>
-<!--FIN-->
 
 <script id="template-catalogopersonalizado" type="text/x-handlebars-template">
     <div class="content-favclientes catper pantallaCatalogoPersonalizado">
@@ -746,7 +738,6 @@
                 <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.CatalogoPersonalizadoDesktopPopUp" />
             </div>
         </div>
-        <!--ITEM 1-->
         <div class="item_pack_personalizado">
             <div class="content_item_pack">
                 <div class="img_principal_pack">
@@ -771,7 +762,6 @@
         </div>
         <div class="content_66">
             <div class="content_carrusel_pack" id="divCarruselPack">
-                <!--ITEM 2-->
                 {{#each lista_oObjPack as |pack|}}
                 <div class="item_pack_personalizado linea_d">
                     <input type="hidden" class="hdItemPackCuv" value="{{pack.cuv_pack}}" />
@@ -898,7 +888,6 @@
             {{#if EsMaquillaje }}
             <div class="content_tonos">
                 <div class="linea_gris" style="height:1px;"></div>
-                <!--SELECCION DE TONOS-->
                 <div class="content_tonos_maquillaje">
                     {{#each Hermanos as |item1|}}
                     <div id="fav_tono_{{item1.CUV}}" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'{{item1.CUV}}',1)">
@@ -913,7 +902,6 @@
                     <option value="{{item2.CUV}}">{{item2.NombreBulk}}</option>
                     {{/each}}
                 </select>
-                <!--FIN-->
             </div>
             {{/if}}
             <div class="liquidacion_rango_home">
