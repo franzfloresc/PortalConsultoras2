@@ -3523,7 +3523,7 @@ namespace Portal.Consultoras.Web.Controllers
                             seccion.VerMas = false;
                             break;
                         case Constantes.ConfiguracionPais.Lanzamiento:
-                            seccion.UrlObtenerProductos = "Lanzamientos/RDObtenerProductosLan";
+                            seccion.UrlObtenerProductos = "Estrategia/RDObtenerProductosLan";
                             seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.LanzamientoMobileContenedor : Constantes.OrigenPedidoWeb.LanzamientoDesktopContenedor;
                             seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.LanzamientoMobileContenedorPopup : Constantes.OrigenPedidoWeb.LanzamientoDesktopContenedorPopup;
                             seccion.VerMas = false;
