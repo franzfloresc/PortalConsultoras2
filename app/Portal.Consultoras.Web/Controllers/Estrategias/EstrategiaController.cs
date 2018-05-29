@@ -85,7 +85,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 });
             }
         }
-        
+
         private List<EstrategiaPersonalizadaProductoModel> ListaPerdio(int campaniaId, List<EstrategiaPedidoModel> listModelCompleta)
         {
             var listPerdioFormato = new List<EstrategiaPersonalizadaProductoModel>();
@@ -122,7 +122,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             }
             return listPerdioFormato;
         }
-        
+
         [HttpPost]
         public JsonResult GNDObtenerProductos(BusquedaProductoModel model)
         {
@@ -176,7 +176,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 });
             }
         }
-        
+
         [HttpPost]
         public JsonResult HVObtenerProductos(BusquedaProductoModel model)
         {
@@ -213,7 +213,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 });
             }
         }
-        
+
         [HttpPost]
         public JsonResult RDObtenerProductosLan(BusquedaProductoModel model)
         {
@@ -261,5 +261,28 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             }
         }
 
+        [HttpPost]
+        public JsonResult ConsultarEstrategiasOPT()
+        {
+            try
+            {
+                var listModel = ConsultarEstrategiasFormatearModelo(ConsultarEstrategiasModel());
+                return Json(new
+                {
+                    success = true,
+                    lista = listModel,
+                    codigo = Constantes.ConfiguracionPais.OfertasParaTi
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return Json(new
+            {
+                success = false
+            });
+        }
     }
 }

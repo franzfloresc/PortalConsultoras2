@@ -3517,7 +3517,7 @@ namespace Portal.Consultoras.Web.Controllers
                             seccion.UrlObtenerProductos = "";
                             break;
                         case Constantes.ConfiguracionPais.OfertasParaTi:
-                            seccion.UrlObtenerProductos = "OfertasParaTi/ConsultarEstrategiasOPT";
+                            seccion.UrlObtenerProductos = "Estrategia/ConsultarEstrategiasOPT";
                             seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedor : Constantes.OrigenPedidoWeb.OfertasParaTiDesktopContenedor;
                             seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedorPopup : Constantes.OrigenPedidoWeb.OfertasParaTiDesktopContenedorPopup;
                             seccion.VerMas = false;
