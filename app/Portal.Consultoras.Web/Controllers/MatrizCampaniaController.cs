@@ -44,7 +44,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
-        public ActionResult ActualizarMatrizCampaniaNew()
+        public ActionResult ActualizarmatrizcampaniaNew()
         {
             try
             {
@@ -625,7 +625,7 @@ namespace Portal.Consultoras.Web.Controllers
             StringBuilder CamposNovalidos = new StringBuilder();
 
             var campo = "";
-            int numero = 0;
+            uint numero = 0;
             decimal numerodecimal;
             bool resultado;
 
@@ -638,7 +638,7 @@ namespace Portal.Consultoras.Web.Controllers
                 campo = registros[j].Split('¦')[0];
                 CUV += registros[j].Split('¦')[0];
                 CUV += '¬';
-                resultado = int.TryParse(campo, out numero);
+                resultado = uint.TryParse(campo, out numero);
                 if (!resultado || campo.Length != 5)
                 {
                     FlagCampoValido = false;
@@ -654,15 +654,26 @@ namespace Portal.Consultoras.Web.Controllers
                 resultado = decimal.TryParse(campo, out numerodecimal);
                 if (!resultado)
                 {
+
                     FlagCampoValido = false;
                     rpta.Append(" Precio Producto invalido -");
                 }
+                else
+                {
+                    if (decimal.Parse(campo)<0)
+                    {
+                        FlagCampoValido = false;
+                        rpta.Append(" Precio Producto invalido -");
+                    }
+                }
+
+
                 campo = registros[j].Split('¦')[3];
-                resultado = int.TryParse(campo, out numero);
+                resultado = uint.TryParse(campo, out numero);
                 if (!resultado)
                 {
                     FlagCampoValido = false;
-                    rpta.Append(" Factor Repeticion no válido ");
+                    rpta.Append(" Factor Repetición no válido ");
                 }
                 if (rpta.Length > 0)
                 {
@@ -725,6 +736,26 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
         }
+
+
+        public string grabarBloque()
+        {
+            string rpta = "";
+            //long n = Request.InputStream.Length;
+            long n = long.Parse(Request.InputStream.ToString().Split('~')[0]);
+            int pais= int.Parse(Request.InputStream.ToString().Split('~')[1]);
+            if (n > 0)
+            {
+                byte[] buffer = new byte[n];
+                Request.InputStream.Read(buffer, 0, buffer.Length);
+                string data = Encoding.UTF8.GetString(buffer);
+                rpta=InsertarProductoMasivo(pais, data);
+            }
+            return rpta;
+        }
+
+
+
     }
 
 

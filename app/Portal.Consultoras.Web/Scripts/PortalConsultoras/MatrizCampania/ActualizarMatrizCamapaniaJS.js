@@ -26,7 +26,11 @@
         }
         e.target.value = '';
     }
-    document.getElementById('btnProcesarMasivo').onclick = function () { GrabarMatrizCampaniaMasivo(); }
+    document.getElementById('btnProcesarMasivo').onclick = function () {
+        //nroEnvio = 1;
+        //GrabarMatrizBloque();
+        GrabarMatrizCampaniaMasivo();
+    }
     document.getElementById('ddlCampaniaM').onchange = function () {
         Limpiar();
     }
@@ -109,6 +113,47 @@ function GrabarMatrizCampania() {
         });
     }
 }
+
+function GrabarMatrizBloque(){
+
+    var tabla = document.getElementById('tbValidos');
+    var anioCampania = document.getElementById('ddlCampaniaM').value;
+    var pais = document.getElementById('ddlPaisM').value;
+    var data = "";
+    var nRegistros = tabla.rows.length;
+
+    var bloque = (nroEnvio - 1) * nroRegEnv;
+    var inicio = bloque;
+    var fin = bloque + nroRegEnv;
+
+
+    for (var i = inicio; i < fin; i++) {
+
+        if (i < nRegistros) {
+
+            data += anioCampania;
+            data += "|";
+            for (var j = 0; j < 4; j++) {
+                data += tabla.rows[i].cells[j].innerHTML;
+                data += "|";
+            }
+            data = data.substring(0, data.length - 1);
+            data += '¬';
+
+
+        }
+        else break;      
+    }
+    data = data.substring(0, data.length - 1);
+    data += data +'~'+ pais
+
+    var url = "MatrizCampania/grabarBloque";
+    var urlBase = window.sessionStorage.getItem("urlBase");
+    url = urlBase + url;
+
+    requestServer(url ,"POST", mostrarGrabar, data, null);
+}
+
 function GrabarMatrizCampaniaMasivo() {
     var tabla = document.getElementById('tbValidos');
     var anioCampania = document.getElementById('ddlCampaniaM').value;
@@ -794,3 +839,66 @@ function Limpiar() {
     document.getElementById('divArchivo').style.display = 'block';
 
 }
+//grabar masivo
+
+var nRegistros;
+var nroRegRec = 100000;
+var nroRegEnv = 10000;
+var totalRec;
+var totalEnv;
+var nroEnvio = 0;
+var regRecibidos = 0;
+var regEnviados = 0;
+
+
+function grabarBloque() {
+    var bloque = (nroEnvio - 1) * nroRegEnv;
+    var inicio = bloque;
+    var fin = bloque + nroRegEnv;
+    var data = "";
+    
+    for (var i = inicio; i < fin; i++) {
+        if (i < nRegistros) {
+            data += matriz[i].join("|");
+            data += "¬";
+        }
+        else break;
+    }
+    data = data.substring(0, data.length - 1);
+    requestServer("MatrizCampania/grabarBloque","POST", mostrarGrabar, data, null);
+   
+}
+
+function mostrarGrabar(rpta) {
+    if (rpta == "") {
+        regEnviados += nroRegEnv;
+        //document.getElementById("spnMensaje").innerHTML = "Envio Nro: " + nroEnvio + " - Duración Envio: " + tiempo + " msg - Reg Grabados: " + regEnviados;
+        nroEnvio++;
+        if (nroEnvio <= totalEnv) {
+            grabarBloque();
+        }
+        else {
+            //document.getElementById("spnMensaje").innerHTML = "Total Envios: " + totalEnv + " - Duración Total: " + tiempoTotal + " msg - Reg Grabados: " + nRegistros;
+        }
+    }
+    else alert(rpta);
+}
+
+function requestServer(url, tipo, metodo, texto, metodoError) {
+    var xhr = new XMLHttpRequest();
+    xhr.open(tipo, url, true);
+    xhr.onreadystatechange = function () {
+        if (xhr.status == 200 && xhr.readyState == 4) {
+            metodo(xhr.responseText);
+        }
+    }
+    xhr.onerror = function () {
+        console.log(xhr.responseText);
+        metodoError();
+    }
+    if (tipo == "get") xhr.send();
+    else {
+        if (texto != null && texto != "") xhr.send(texto);
+    }
+}
+
