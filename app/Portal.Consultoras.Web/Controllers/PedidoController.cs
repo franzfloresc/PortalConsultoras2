@@ -83,10 +83,13 @@ namespace Portal.Consultoras.Web.Controllers
                 if (configuracionCampania.CampaniaID == 0)
                     return RedirectToAction("CampaniaZonaNoConfigurada");
 
+                sessionManager.SetPedidoValidado(false);
+
                 if (configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado &&
                     !configuracionCampania.ModificaPedidoReservado &&
                     !configuracionCampania.ValidacionAbierta)
                 {
+                    sessionManager.SetPedidoValidado(true);
                     return RedirectToAction("PedidoValidado");
                 }
 
@@ -1500,7 +1503,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var cuv = productos.First().CUV.Trim();
             var mensajeByCuv = GetMensajeByCUV(userModel, cuv);
-            var tieneRdc = revistaDigital.TieneRDC && revistaDigital.EsActiva;
+            var tieneRdc = ValidarTieneRDoRDR();
 
             productosModel.AddRange(productos.Select(prod => new ProductoModel()
             {
@@ -1610,7 +1613,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var mensajeByCuv = GetMensajeByCUV(userModel, producto.CUV.Trim());
 
-                var tieneRdc = revistaDigital.TieneRDC && revistaDigital.EsActiva;
+                var tieneRdc = ValidarTieneRDoRDR();
 
                 var revistaGana = ValidarDesactivaRevistaGana(userModel);
 
@@ -4829,6 +4832,11 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo;
             }
+        }
+
+        private bool ValidarTieneRDoRDR()
+        {
+            return (revistaDigital.TieneRDC && revistaDigital.EsActiva) || revistaDigital.TieneRDCR;
         }
     }
 }
