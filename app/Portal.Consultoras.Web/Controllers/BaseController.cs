@@ -3531,7 +3531,7 @@ namespace Portal.Consultoras.Web.Controllers
                         case Constantes.ConfiguracionPais.RevistaDigitalReducida:
                         case Constantes.ConfiguracionPais.RevistaDigital:
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + (menuActivo.CampaniaId > userData.CampaniaID ? "RevistaDigital/Revisar" : "RevistaDigital/Comprar");
-                            seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductos";
+                            seccion.UrlObtenerProductos = "Estrategia/RDObtenerProductos";
                             seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedor;
                             seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedorPopup;
                             break;
