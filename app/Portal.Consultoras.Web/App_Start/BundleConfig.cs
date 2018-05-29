@@ -40,6 +40,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/Scripts/PortalConsultoras/ShowRoom/ShowRoomJs").Include(
                 "~/Scripts/PortalConsultoras/ShowRoom/Index.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js"
                 ));
 

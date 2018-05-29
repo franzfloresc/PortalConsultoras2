@@ -38483,6 +38483,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DescargaPedidosCliente", ReplyAction="http://tempuri.org/IPedidoService/DescargaPedidosClienteResponse")]
         System.Threading.Tasks.Task DescargaPedidosClienteAsync(int paisID, int nroLote, string codigoUsuario);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/LimpiarCacheRedis", ReplyAction="http://tempuri.org/IPedidoService/LimpiarCacheRedisResponse")]
+        bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia, string campaniaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/LimpiarCacheRedis", ReplyAction="http://tempuri.org/IPedidoService/LimpiarCacheRedisResponse")]
+        System.Threading.Tasks.Task<bool> LimpiarCacheRedisAsync(int paisID, string codigoTipoEstrategia, string campaniaID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ValidarPriorizacionShowRoom", ReplyAction="http://tempuri.org/IPedidoService/ValidarPriorizacionShowRoomResponse")]
         int ValidarPriorizacionShowRoom(int paisID, int ConfiguracionOfertaID, int CampaniaID, int Orden);
         
@@ -41093,6 +41099,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task DescargaPedidosClienteAsync(int paisID, int nroLote, string codigoUsuario) {
             return base.Channel.DescargaPedidosClienteAsync(paisID, nroLote, codigoUsuario);
+        }
+        
+        public bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia, string campaniaID) {
+            return base.Channel.LimpiarCacheRedis(paisID, codigoTipoEstrategia, campaniaID);
+        }
+        
+        public System.Threading.Tasks.Task<bool> LimpiarCacheRedisAsync(int paisID, string codigoTipoEstrategia, string campaniaID) {
+            return base.Channel.LimpiarCacheRedisAsync(paisID, codigoTipoEstrategia, campaniaID);
         }
         
         public int ValidarPriorizacionShowRoom(int paisID, int ConfiguracionOfertaID, int CampaniaID, int Orden) {
