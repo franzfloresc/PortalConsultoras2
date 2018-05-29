@@ -403,66 +403,88 @@
 }
 <!--LOS MAS VENDIDOS-->
 
-<div class="wrapper_resumen_mobile">
-    <div id="div-linea-OPT" class="linea_separadora_mobile" style="display: none;"></div> <!--SI TIENE OFERTAS PARA TI NO DEBERIA ESTAR ESTA LINEA-->
-    @if (Model.ShowRoomMostrarLista == 0)
-    {
-        <div class="nueva_seccion_fav" onclick="mostrarCatalogoPersonalizado();" style="cursor: pointer;">
-            <div class="content_banner_fav">
-                <div class="content_imagen_banner_fav">
-                    <img data-src="@ViewBag.UrlImagenFAVMobile" alt="favoritos" data-lazy-seccion-banner-home="" />
-                </div>
-                <div class="texto_fav_banner">
-                    @ViewBag.NombreConsultoraFAV, estos son los
-                    <span class="favoritos_txt">FAVORITOS</span>
-                    <span class="texto_2_fav">DE TUS CLIENTES</span>
-                    <a class="btn_compralos_banner_fav" href="javascript:">CÓMPRALOS</a>
+    <div class="wrapper_resumen_mobile">
+        <div id="div-linea-OPT" class="linea_separadora_mobile" style="display: none;"></div> <!--SI TIENE OFERTAS PARA TI NO DEBERIA ESTAR ESTA LINEA-->
+        @if (Model.ShowRoomMostrarLista == 0)
+        {
+            <div class="nueva_seccion_fav" onclick="mostrarCatalogoPersonalizado();" style="cursor: pointer;">
+                <div class="content_banner_fav">
+                    <div class="content_imagen_banner_fav">
+                        <img data-src="@ViewBag.UrlImagenFAVMobile" alt="favoritos" data-lazy-seccion-banner-home="" />
+                    </div>
+                    <div class="texto_fav_banner">
+                        @ViewBag.NombreConsultoraFAV, estos son los
+                        <span class="favoritos_txt">FAVORITOS</span>
+                        <span class="texto_2_fav">DE TUS CLIENTES</span>
+                        <a class="btn_compralos_banner_fav" href="javascript:">CÓMPRALOS</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
+        }
 
 
-    <div class="linea_separadora_mobile" style="margin-top:-1px;"></div>
-    <!--VIDEOS-->
-    <div class="comartir_home_mobile">
-        APRENDE A VENDER MÁS
-        @if (tipoUsuaio == 2)
-        {
-            <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia"
-               class="btn_compartelos" href="#" onclick="return messageInfoPostulante();">ENTRA A “MI ACADEMIA”</a>
-        }
-        else
-        {
-            <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia"
-               class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">ENTRA A “MI ACADEMIA”</a>
-        }
-    </div>
-    <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia" class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">
-        <div class="imagen_catalogo video_esika">
-            <img data-src="@Model.UrlImagenMiAcademia" alt="-" data-lazy-seccion-banner-home="" />
-        </div>
-    </a>
-    <hr class="clear" />
-    <div class="linea_separadora_mobile"></div>
-    <!--FIN-->
-    <!--LIQUIDACIÓN-->
-    @if (Model.CodigoISO != Constantes.CodigosISOPais.Venezuela)
-    {
+        <div class="linea_separadora_mobile" style="margin-top:-1px;"></div>
+        <!--VIDEOS-->
         <div class="comartir_home_mobile">
-            LIQUIDACIÓN WEB
-            <a role="link" region="Central" parent="Oferta Liquidacion" title="Compártelos"
-               class="btn_compartelos" href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">¡ENTRA Y APROVECHA!</a>
+            APRENDE A VENDER MÁS
+            @if (tipoUsuaio == 2)
+            {
+                <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia"
+                   class="btn_compartelos" href="#" onclick="return messageInfoPostulante();">ENTRA A “MI ACADEMIA”</a>
+            }
+            else
+            {
+                <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia"
+                   class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">ENTRA A “MI ACADEMIA”</a>
+            }
         </div>
-        <div class="imagen_catalogo liquidacion_esika">
-            <a href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">
-                <img data-src="@Model.UrlImagenLiquidaciones" alt="-" data-lazy-seccion-banner-home="" />
-            </a>
-        </div>
+        <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia" class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">
+            <div class="imagen_catalogo video_esika">
+                <img data-src="@Model.UrlImagenMiAcademia" alt="-" data-lazy-seccion-banner-home="" />
+            </div>
+        </a>
         <hr class="clear" />
-        <div class="linea_separadora_mobile mg_bottom"></div>
-    }
-    <!--FIN-->
+        <div class="linea_separadora_mobile"></div>
+        <!--FIN-->
+        <!--LIQUIDACIÓN-->
+        @if (Model.CodigoISO != Constantes.CodigosISOPais.Venezuela)
+        {
+            <div class="comartir_home_mobile">
+                LIQUIDACIÓN WEB
+                <a role="link" region="Central" parent="Oferta Liquidacion" title="Compártelos"
+                   class="btn_compartelos" href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">¡ENTRA Y APROVECHA!</a>
+            </div>
+            <div class="imagen_catalogo liquidacion_esika">
+                <a href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">
+                    <img data-src="@Model.UrlImagenLiquidaciones" alt="-" data-lazy-seccion-banner-home="" />
+                </a>
+            </div>
+            <hr class="clear" />
+            <div class="linea_separadora_mobile mg_bottom"></div>
+        }
+        <!--FIN-->
+        <!--Expoferta-->
+        <div id="dvExpoOferta" style="display: none;">
+            <div class="comartir_home_mobile">
+                EXPOFERTAS
+                <a role="link"
+                   region="Central"
+                   title="EXPOFERTAS"
+                   target="_blank"
+                   class="btn_compartelos" href="#"></a>
+            </div>
+            <div class="imagen_catalogo liquidacion_esika">
+                <a href="#" target="_blank">
+                    <img alt="Expo Oferta"
+                         data-lazy-seccion-banner-home=""
+                         style="margin-top:20px" />
+                </a>
+            </div>
+            <hr class="clear" />
+            <div class="linea_separadora_mobile mg_bottom"></div>
+        </div>
+        <!--FIN-->
+    </div>
 </div>
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
 <input type="hidden" id="hdPosicion" value="0" />
@@ -812,7 +834,7 @@
 
 <!--FIN-->
 @section scripts{
-    <script type="text/javascript">
+<script type="text/javascript">
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
         var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
@@ -861,8 +883,8 @@
         var consultoraNuevaBannerAppMostrar = '@Model.ConsultoraNuevaBannerAppMostrar';
         var mostrarPopupCuponGanaste = (@Model.TipoPopUpMostrar == 11) ? 'true' : 'false';
         var nombreAlias = '@Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!")';
-
-    </script>
+        var numeroCampania = '@Model.NumeroCampania';
+</script>
     @Scripts.Render("~/bundles/JsMobile/Bienvenida")
 
 }
