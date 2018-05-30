@@ -73,9 +73,9 @@ INSERT INTO @OfertasPersonalizadas(Orden, CUV, TipoPersonalizacion, FlagRevista,
     E.EstrategiaID,
     E.CUV2,
     E.DescripcionCUV2,
-     dbo.ObtenerDescripcionEtiqueta(EtiquetaID),
+     dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
     E.Precio,
-    dbo.ObtenerDescripcionEtiqueta(EtiquetaID2),
+    dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
     E.Precio2,
     ISNULL(E.TextoLibre, '') AS TextoLibre,
     E.FlagEstrella,
@@ -117,3 +117,4 @@ INSERT INTO @OfertasPersonalizadas(Orden, CUV, TipoPersonalizacion, FlagRevista,
 
   SET NOCOUNT OFF
 END
+GO

@@ -10,7 +10,8 @@ SET NOCOUNT ON;
 	
 	DECLARE @StrCampaniaID CHAR(6) = CONVERT(CHAR(6),@CampaniaID)
 	DECLARE @tablaCuvFaltante table( CUV varchar(6))
-	DECLARE @EstrategiaCodigo varchar(100) = '007'
+	DECLARE @EstrategiaCodigoOPM varchar(100) = '007'
+	DECLARE @EstrategiaCodigoPAD varchar(100) = '008'
 
 	insert into @tablaCuvFaltante(CUV)
 	select CUV from [dbo].[ObtenerCuvFaltante](@CampaniaID,@CodigoConsultora)
@@ -47,7 +48,11 @@ SET NOCOUNT ON;
 
 	INSERT INTO @OfertasPersonalizadas(Orden,CUV,TipoPersonalizacion,FlagRevista,AnioCampanaVenta)
 	SELECT Orden,CUV,TipoPersonalizacion,FlagRevista,AnioCampanaVenta 
-	from [dbo].[ListarEstrategiasForzadas](@CampaniaID,@EstrategiaCodigo)
+	from [dbo].[ListarEstrategiasForzadas](@CampaniaID,@EstrategiaCodigoOPM)
+
+	INSERT INTO @OfertasPersonalizadas(Orden,CUV,TipoPersonalizacion,FlagRevista,AnioCampanaVenta)
+	SELECT Orden,CUV,TipoPersonalizacion,FlagRevista,AnioCampanaVenta 
+	from [dbo].[ListarEstrategiasForzadas](@CampaniaID,@EstrategiaCodigoPAD)
 	
 	SELECT
 		E.EstrategiaID,
@@ -76,7 +81,9 @@ SET NOCOUNT ON;
 		, E.TieneVariedad		
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
-		, TE.FlagMostrarImg AS FlagMostrarImg	
+		, TE.FlagMostrarImg AS FlagMostrarImg
+		, M.Descripcion as DescripcionMarca
+		, 'NO DISPONIBLE' AS DescripcionCategoria	
 		, E.PrecioPublico
 		, E.Ganancia
 		, OP.FlagRevista
@@ -96,3 +103,4 @@ SET NOCOUNT ON;
 
 SET NOCOUNT OFF
 END
+GO
