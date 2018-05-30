@@ -501,7 +501,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = lote > 0,
                     message = lote > 0 ? "Se insertaron las Estrategias." : "Error al insertar las estrategias.",
-                    NroLote = lote
+                    NroLote = nroLote,
+                    NroLoteRetorno = lote
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
