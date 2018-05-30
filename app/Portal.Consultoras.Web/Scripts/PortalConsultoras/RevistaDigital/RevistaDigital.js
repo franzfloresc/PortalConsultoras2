@@ -335,7 +335,11 @@ function OfertaArmarEstrategias(response, busquedaModel) {
             }
         } else {
             $("#block_inscribete").hide();
+            $("#divOfertaProductosPerdio").remove();
         }
+    }
+    else {
+        $("#divOfertaProductosPerdio").remove();
     }
    
 
