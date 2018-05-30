@@ -236,24 +236,26 @@ namespace Portal.Consultoras.Web.Controllers
             var txtBuil = new StringBuilder();
             txtBuil.Append(separador);
 
-            if (estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
-            {
-                List<ServiceODS.BEProducto> listaHermanosE;
-                using (ODSServiceClient svc = new ODSServiceClient())
-                {
-                    listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, estrategiaModelo.CampaniaID, estrategiaModelo.CUV2).ToList();
-                }
+            //if (estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
+            //{
+            //    List<ServiceODS.BEProducto> listaHermanosE;
+            //    using (ODSServiceClient svc = new ODSServiceClient())
+            //    {
+            //        listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, estrategiaModelo.CampaniaID, estrategiaModelo.CUV2).ToList();
+            //    }
 
-                foreach (var item in listaHermanosE)
-                {
-                    item.CodigoSAP = Util.Trim(item.CodigoSAP);
-                    if (item.CodigoSAP != "" && !txtBuil.ToString().Contains(separador + item.CodigoSAP + separador))
-                        txtBuil.Append(item.CodigoSAP + separador);
-                }
-            }
+            //    foreach (var item in listaHermanosE)
+            //    {
+            //        item.CodigoSAP = Util.Trim(item.CodigoSAP);
+            //        if (item.CodigoSAP != "" && !txtBuil.ToString().Contains(separador + item.CodigoSAP + separador))
+            //            txtBuil.Append(item.CodigoSAP + separador);
+            //    }
+            //}
 
             var listaProducto = new List<BEEstrategiaProducto>();
-            if (estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija || estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
+            if (estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija 
+                || estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable
+                || estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
             {
                 var estrategiaX = new EstrategiaPedidoModel() { PaisID = userData.PaisID, EstrategiaID = estrategiaModelo.EstrategiaID };
                 using (PedidoServiceClient svc = new PedidoServiceClient())
