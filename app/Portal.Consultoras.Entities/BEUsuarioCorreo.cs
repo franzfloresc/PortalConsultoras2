@@ -13,6 +13,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CodigoUsuario { get; set; }
         [DataMember]
+        public string CodigoConsultora { get; set; }
+        [DataMember]
         public string NombreCompleto { get; set; }
         [DataMember]
         public string PrimerNombre { get; set; }
@@ -30,6 +32,10 @@ namespace Portal.Consultoras.Entities
         public int IdEstadoActividad { get; set; }
         [DataMember]
         public bool TieneAutenticacion { get; set; }
+        [DataMember]
+        public int ZonaID { get; set; }
+        [DataMember]
+        public string campaniaID { get; set; }
 
         [DataMember]
         public string OpcionCorreoActiva { get; set; }
@@ -91,18 +97,8 @@ namespace Portal.Consultoras.Entities
                 IdEstadoActividad = Convert.ToInt32(row["IdEstadoActividad"]);
             if (DataRecord.HasColumn(row, "TieneAutenticacion") && row["TieneAutenticacion"] != DBNull.Value)
                 TieneAutenticacion = Convert.ToBoolean(row["TieneAutenticacion"]);
+            if (DataRecord.HasColumn(row, "ZonaID") && row["ZonaID"] != DBNull.Value)
+                ZonaID = Convert.ToInt32(row["ZonaID"]);
         }
-    }
-
-    [DataContract]
-    public class BErespuestaSms
-    {
-        [DataMember]
-        public string Codigo { get; set; }
-        [DataMember]
-        public string Mensaje { get; set; }
-
-        public BErespuestaSms()
-        { }
     }
 }

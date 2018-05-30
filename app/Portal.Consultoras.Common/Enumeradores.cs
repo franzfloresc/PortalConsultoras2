@@ -325,20 +325,21 @@
 
         public enum EnvioEmail
         {
-            NoSehaEncontradoEmail = 0,
-            ErrorAlEnviarEmail = 1,
-            SeEnvioCorrectoEmail = 2,
+            EmailNoEncontrado = 0,
+            ErrorEnviarEmail = 1,
+            OkEnviarEmail = 2,
             ExcedioCantidad = 3,
-            OrigenNoExiste = 4
+            OrigenNoAsignado = 4,
+            OrigenNoExiste = 5
         }
 
         public enum EnvioSms
         {
-            NoSehaEncontradoCelular = 0,
-            ErrorAlEnviarSms = 1,
-            SeEnvioCorrectoElSms = 2,
+            CelularNoEncontrado = 0,
+            ErrorEnviarSms = 1,
+            OkEnviarSms = 2,
             ExcedioCantidad = 3,
-            OrigenNoExiste = 4
+            OrigenNoAsignado = 4
         }
     }
 }

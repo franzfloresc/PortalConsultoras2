@@ -2830,7 +2830,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                Enumeradores.EnvioEmail EstadoEnvio = Enumeradores.EnvioEmail.SeEnvioCorrectoEmail;
+                Enumeradores.EnvioEmail EstadoEnvio = Enumeradores.EnvioEmail.OkEnviarEmail;
                 using (var svc = new UsuarioServiceClient())
                 {
                     EstadoEnvio = svc.ProcesaEnvioEmail(paisID, valor, origenID, CantidadEnvios, EsDispositivoMovil());
@@ -2840,9 +2840,9 @@ namespace Portal.Consultoras.Web.Controllers
                 TempData["CodigoUsuario"] = valor;
                 switch (EstadoEnvio)
                 {
-                    case Enumeradores.EnvioEmail.NoSehaEncontradoEmail:
+                    case Enumeradores.EnvioEmail.EmailNoEncontrado:
                         return SuccessJson(Constantes.OlvideContraseña.Mensajes.CorreoNoIdentificado, false);
-                    case Enumeradores.EnvioEmail.ErrorAlEnviarEmail:
+                    case Enumeradores.EnvioEmail.ErrorEnviarEmail:
                         return SuccessJson(Constantes.OlvideContraseña.Mensajes.ErrorEnviarCorreo, false);
                     case Enumeradores.EnvioEmail.ExcedioCantidad:
                         return SuccessJson(Constantes.OlvideContraseña.Mensajes.ExcedeCantidad, false);
@@ -2873,7 +2873,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                Enumeradores.EnvioSms EstadoEnvio = Enumeradores.EnvioSms.SeEnvioCorrectoElSms;
+                Enumeradores.EnvioSms EstadoEnvio = Enumeradores.EnvioSms.OkEnviarSms;
                 using (var svc = new UsuarioServiceClient())
                 {
                     EstadoEnvio = svc.ProcesaEnvioSms(paisID, valor, origenID, cantidadEnvios, EsDispositivoMovil());
@@ -2883,13 +2883,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                 switch (EstadoEnvio)
                 {
-                    case Enumeradores.EnvioSms.NoSehaEncontradoCelular:
+                    case Enumeradores.EnvioSms.CelularNoEncontrado:
                         return SuccessJson(Constantes.OlvideContraseña.Mensajes.CorreoNoIdentificado, false);
-                    case Enumeradores.EnvioSms.ErrorAlEnviarSms:
+                    case Enumeradores.EnvioSms.ErrorEnviarSms:
                         return SuccessJson(Constantes.OlvideContraseña.Mensajes.ErrorEnviarCorreo, false);
                     case Enumeradores.EnvioSms.ExcedioCantidad:
                         return SuccessJson(Constantes.OlvideContraseña.Mensajes.ExcedeCantidad, false);
-                    case Enumeradores.EnvioSms.OrigenNoExiste:
+                    case Enumeradores.EnvioSms.OrigenNoAsignado:
                         return SuccessJson(Constantes.OlvideContraseña.Mensajes.OrigenEnvioDesconocido, false);
                 }                
                 return SuccessJson(Constantes.OlvideContraseña.Mensajes.EnvioSmsExitoso, true);

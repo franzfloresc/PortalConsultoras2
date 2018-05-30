@@ -142,7 +142,7 @@ namespace Portal.Consultoras.Common
             public const int BusquedaNemotecnicoProductoSugerido = 9853;
             public const int BusquedaNemotecnicoZonaEstrategia = 9854;
             public const int Tonos = 9802;
-            
+
             public const int ValoresImagenesResizeWitdhMaxSmall = 12101;
             public const int ValoresImagenesResizeHeightSmall = 12102;
             public const int ValoresImagenesResizeWitdhMaxMedium = 12103;
@@ -311,7 +311,7 @@ namespace Portal.Consultoras.Common
 
             public const string PedidosFacturados = "PedidosFacturados";
 
-            
+
         }
 
         public static class ConfiguracionManager
@@ -425,7 +425,7 @@ namespace Portal.Consultoras.Common
             public const string Catalogo_Piloto_Grupos = "Catalogo_Piloto_Grupos_";
             public const string Catalogo_Marca_Piloto = "Catalogo_Marca_Piloto_";
             public const string SubGuion = "_";
-            
+
             public const string EnabledRemoveCache = "EnabledRemoveCache";
             public const string UrlServiceSicc = "UrlServiceSicc";
             public const string MenuCondicionesDescripcion = "CONDICIONES DE USO WEB";
@@ -1803,7 +1803,7 @@ namespace Portal.Consultoras.Common
             public class EncenderValidacion
             {
                 public const short TablaLogicaID = 7;
-                public const string Activo = "Activo"; 
+                public const string Activo = "Activo";
             }
 
             public class Rango
@@ -2019,7 +2019,7 @@ namespace Portal.Consultoras.Common
             public const int Valor2 = 2;
             public const int Valor3 = 3;
         }
-        
+
         public class ProlCodigoRechazo
         {
             public const string MontoMinimo = "XXXXX";
@@ -2033,7 +2033,7 @@ namespace Portal.Consultoras.Common
             public const string MontoMinFact = "MontoMinFact";
             public const string MontoMinVentaDesc = "MontoMinVentaDesc";
             public const string MontoMinFactDesc = "MontoMinFactDesc";
-            public const string MontoMaximo  = "MontoMaximo";
+            public const string MontoMaximo = "MontoMaximo";
             public const string LimiteVenta0 = "LimiteVenta0";
             public const string LimiteVenta = "LimiteVenta";
             public const string Promocion2003 = "Promocion2003";
@@ -2064,12 +2064,13 @@ namespace Portal.Consultoras.Common
         #region Olvide Contrasenia
         public class OlvideContraseña
         {
+            public const string OrigenDescripcion = "Olvide Contraseña";
+
             public class Activacion
             {
                 public const short TablaLogicaID = 8;
                 public const string MostarTodasOpciones = "MostarTodasOpciones";
                 public const string PaisesEmail = "PaisesEmail";
-                public const string PaisesSms = "PaisesSms";
                 public const string PaisesChat = "PaisesChat";
                 public const string PaisesBelcorpResponde = "PaisesBelcorpResponde";
             }
@@ -2111,12 +2112,13 @@ namespace Portal.Consultoras.Common
         #region Verificar Pin Autenticidad
         public class VerificacionAutenticidad
         {
+            public const string OrigenDescripcion = "Verificacion de Autenticidad";
+
             public class Activacion
             {
                 public const short TablaLogicaID = 139;
                 public const string Activar = "Activar";
                 public const string PaisesEmail = "PaisesEmail";
-                public const string PaisesSms = "PaisesSms";
             }
 
             public class NombreOpcion
@@ -2126,10 +2128,19 @@ namespace Portal.Consultoras.Common
                 public const int MostrarCelular = 3;
             }
 
+            public const string TieneZona = "TieneZona";
             public const string IdEstadoActividad = "IdEstadoActividad";
             public const string MensajeNueva = "MensajeNueva";
             public const string MensajeReactivada = "MensajeReactivada";
             public const int Origen = 2;
+        }
+
+        public class CredencialesSMS
+        {
+            public const short TablaLogicaID = 133;
+            public const string USUARIO = "USUARIO";
+            public const string CLAVE = "CLAVE";
+            public const string RutaRecurso = "Api/EnviarSMS";
         }
 
         public class TipoEnvioEmailSms

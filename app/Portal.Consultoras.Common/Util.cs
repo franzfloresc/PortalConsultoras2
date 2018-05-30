@@ -4,6 +4,7 @@ using MaxMind.Db;
 using MaxMind.Util;
 using Microsoft.IdentityModel.Protocols.WSIdentity;
 using Microsoft.IdentityModel.Protocols.WSTrust;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -15,6 +16,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Reflection;
@@ -3144,17 +3147,49 @@ namespace Portal.Consultoras.Common
 
         public static string GenerarCodigoRandom()
         {
-            try
-            {
-                Random rnd = new Random();
-                string NroGenrado = Convert.ToString(rnd.Next(111111, 999999));
+            Random rnd = new Random();
+            return Convert.ToString(rnd.Next(111111, 999999));
+        }
 
-                return NroGenrado;
-            }
-            catch (Exception)
+        public static bool CallSmsConsultoras(int origenID, string codUsuario, string origenDesc, string usuarioSms, string NroCelular, string mensaje, 
+            string codigoIso, bool esMobile, string urlApiSms, string CodConsultora = "", string claveSms = "", string campaniaID = "0")
+        {
+            if (origenID == 0) return false;
+            if (codUsuario == "") return false;
+            if (origenDesc == "") return false;
+            if (usuarioSms == "") return false;
+            if (NroCelular == "") return false;
+            if (mensaje == "") return false;
+            if (codigoIso == "") return false;
+
+            string requestUrl = Constantes.CredencialesSMS.RutaRecurso;
+
+            var data = new
             {
-                return "";
-            }
+                OrgienID = origenID,
+                CodigoUsuario = codUsuario,
+                CodigoConsultora = CodConsultora,
+                OrigenDescripcion = origenDesc,
+                UsuarioSms = usuarioSms,
+                ClaveSms = claveSms,
+                CampaniaID = campaniaID,
+                NroCelular = NroCelular,
+                Mensaje = mensaje,
+                CodigoIso = codigoIso,
+                EsMobile = esMobile
+            };
+
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(urlApiSms);
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            string dataString = JsonConvert.SerializeObject(data);
+            HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = httpClient.PostAsync(requestUrl, contentPost).GetAwaiter().GetResult();
+            bool EstadoEnvio = response.IsSuccessStatusCode;
+            httpClient.Dispose();
+
+            return EstadoEnvio;
         }
 
         public static string ColorFormato(string colorStr, string defecto = "")

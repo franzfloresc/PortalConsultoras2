@@ -25,6 +25,11 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Mensaje { get; set; }
 
+        [DataMember]
+        public string usuario { get; set; }
+        [DataMember]
+        public string clave { get; set; }
+
         public BEEnviarSms()
         {
         }
