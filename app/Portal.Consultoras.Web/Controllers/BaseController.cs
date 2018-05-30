@@ -1670,6 +1670,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return fichaProductoModelo;
         }
+
         #endregion
 
         public string NombreMes(int mes)
