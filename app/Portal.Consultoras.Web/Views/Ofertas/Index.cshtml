@@ -75,13 +75,12 @@
 
 @section scripts{
 <script type="text/javascript">
-    var urlOfertaCargarProductos = "@Url.Action("RDObtenerProductos", "RevistaDigital")";
-    var urlCargarProductosHv = '@Url.Action("HVObtenerProductos", "HerramientasVenta")';
+    var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "Estrategia", new { area = ""})';
+    var urlCargarProductosHv = '@Url.Action("HVObtenerProductos", "Estrategia", new { area = ""})';
     var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
     var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital")';
-    var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
+    var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
     var urlOfertaDetalleProductoLan = '@Url.Action("Detalle", "Lanzamientos")';
-    var urlOfertaDetalleProductoLanTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
     var isScroll = false;
     var tipoOrigenPantalla = 1;
     var TipoOrigenPantallaODD = 111;

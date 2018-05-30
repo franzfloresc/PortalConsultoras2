@@ -284,7 +284,7 @@ function EstrategiaGuardarTemporal(obj) {
     var ruta = "";
 
     if (typeof urlOfertaDetalleProductoTem == "undefined") {
-        ruta = "/RevistaDigital/GuardarProductoTemporal";
+        ruta = "/Estrategia/GuardarProductoTemporal";
     }
     else {
         ruta = urlOfertaDetalleProductoTem;
@@ -316,7 +316,7 @@ function EstrategiaCargarCuv(cuv) {
     var detalle = new Array();
     $.ajax({
         type: 'GET',
-        url: baseUrl + 'OfertasParaTi/ConsultarEstrategiaCuv?cuv=' + cuv,
+        url: baseUrl + 'Estrategia/ConsultarEstrategiaCuv?cuv=' + cuv,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         async: false,

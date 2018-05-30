@@ -92,9 +92,9 @@
 <script type="text/javascript">
     var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
     var tipoOrigenPantalla = 1;
-    var urlOfertaCargarProductos = '@Url.Action("GNDObtenerProductos", "GuiaNegocio")';
+    var urlOfertaCargarProductos = '@Url.Action("GNDObtenerProductos", "Estrategia", new { area = ""})';
     var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.GNDDesktopLanding';
-    var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
+    var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
     var tipoOrigenEstrategia = 1;
     var CantidadFilas = @Model.CantidadFilas;
     var mayormenor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor';
