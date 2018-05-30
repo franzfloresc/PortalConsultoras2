@@ -230,8 +230,11 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.UsuarioModificacion = userData.CodigoConsultora;
 
                 #region Imagen Resize 
+
+                if (string.IsNullOrEmpty(entidad.ImagenProducto)) return Json(new { success = false, message = "La información ingresada se encuentra incompleta. Por favor, revisar.\n- Debe de seleccionar una imagen.", extra = ""});
                 
                 string rutaImagen = entidad.ImagenProducto.Clone().ToString();
+
                 var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
 
                 ImagenesResizeProceso(entidad.ImagenProducto, rutaImagen.ToLower().Contains(valorAppCatalogo));
