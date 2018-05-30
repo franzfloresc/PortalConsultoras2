@@ -10,6 +10,11 @@ CREATE PROCEDURE EstrategiaTemporalActualizarSetDetalle
 AS
 BEGIN
 
+	SET @NroLote = ISNULL(@NroLote, 0)
+
+	IF @NroLote > 0
+	BEGIN
+
 	delete from EstrategiaProductoTemporal where NumeroLote = @NroLote
 
 	insert into EstrategiaProductoTemporal
@@ -91,5 +96,6 @@ BEGIN
 
 	where ET.NumeroLote = @NroLote
 
+	END
 END
 GO
