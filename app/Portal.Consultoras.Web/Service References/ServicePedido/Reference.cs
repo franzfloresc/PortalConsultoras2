@@ -13199,6 +13199,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string DescripcionEstadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DocumentoResponsableField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaIngresoConsultoraField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -13324,6 +13327,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.DescripcionEstadoField, value) != true)) {
                     this.DescripcionEstadoField = value;
                     this.RaisePropertyChanged("DescripcionEstado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DocumentoResponsable {
+            get {
+                return this.DocumentoResponsableField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DocumentoResponsableField, value) != true)) {
+                    this.DocumentoResponsableField = value;
+                    this.RaisePropertyChanged("DocumentoResponsable");
                 }
             }
         }
