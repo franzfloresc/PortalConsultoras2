@@ -541,6 +541,7 @@
                         $("#divPaso3").addClass("boton_redondo_admcontenido_on");
                     } else {
                         _toastHelper.error(data.message);
+                        _eventos.clickCancelarMasivo1();
                     }
                 },
                 error: function (data, error) {
@@ -553,6 +554,7 @@
         clickCancelarMasivo1: function () {
             _variablesInicializar();
             HideDialog("DialogNuevoMasivo");
+            closeWaitingDialog();
         },
         clickCancelarMasivo2: function () {
 
@@ -590,6 +592,7 @@
         clickAceptarMasivo3: function () {
             _variablesInicializar();
             HideDialog("DialogNuevoMasivo");
+            closeWaitingDialog();
         },
     }
 

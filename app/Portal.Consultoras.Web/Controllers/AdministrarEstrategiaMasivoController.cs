@@ -243,7 +243,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = false,
                     message = ex.Message,
-                    extra = ""
+                    extra = "",
+                    nroLote
                 }, JsonRequestBehavior.AllowGet);
             }
 
@@ -251,7 +252,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 success = true,
                 message = "Se eliminaron las estrategias de la tabla temporal",
-                extra = ""
+                extra = "",
+                nroLote
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -338,7 +340,10 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         success = cantTotalPagina > 0,
                         message = cantTotalPagina > 0 ? "" : "No existen Estrategias para Insertar",
-                        continuaPaso = true
+                        continuaPaso = true,
+                        entidadMasivo.Pagina,
+                        entidadMasivo.NroLote,
+                        entidadMasivo.CantidadCuv
                     }, JsonRequestBehavior.AllowGet);
                 }
 
@@ -349,7 +354,10 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "No existen Estrategias para Insertar"
+                        message = "No existen Estrategias para Insertar",
+                        entidadMasivo.Pagina,
+                        entidadMasivo.NroLote,
+                        entidadMasivo.CantidadCuv
                     }, JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -361,7 +369,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = entidadMasivo.NroLote > 0,
-                    message = entidadMasivo.NroLote > 0 ? "Se insertaron en la tabla temporal de Estrategia." : "Error al insertar las estrategias",
+                    message = entidadMasivo.NroLote > 0 ? "Se insertaron en la tabla temporal de Estrategia." : "Error al insertar las Estrategias Temporal.",
                     entidadMasivo.Pagina,
                     entidadMasivo.NroLote,
                     entidadMasivo.CantidadCuv
@@ -492,7 +500,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = lote > 0,
-                    message = lote > 0 ? "Se insertaron las Estrategias." : "Error al insertar las estrategias."
+                    message = lote > 0 ? "Se insertaron las Estrategias." : "Error al insertar las estrategias.",
+                    NroLote = lote
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
