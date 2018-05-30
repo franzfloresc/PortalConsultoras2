@@ -1,0 +1,9 @@
+USE BelcorpPeru
+GO
+
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
+		WHERE TABLE_NAME = N'CertificadoDigitalLog')
+BEGIN
+	DROP TABLE dbo.CertificadoDigitalLog
+END
+GO

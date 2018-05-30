@@ -87,6 +87,12 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                sessionManager.setBEUsuarioModel(items.ToList());
+
+                foreach (var item in items)
+                {
+                    RegistrarLogDynamoCambioClave("CONSULTA", item.CodigoConsultora, "", "");
+                }
 
                 BEPager pag = Paginador(grid, lst);
 
@@ -106,6 +112,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                            }
                 };
+
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
             return RedirectToAction("Consultar");
@@ -153,6 +160,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                         if (result)
                         {
+                            registraDynamo(model);
+
                             return Json(new
                             {
                                 success = true,
@@ -212,6 +221,33 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Bienvenida");
             string url = GetConfiguracionManager(Constantes.ConfiguracionManager.GZURL) + "?PAIS=" + UserData().CodigoISO + "&USUARIO=" + UserData().CodigoUsuario;
             return Redirect(url);
+        }
+
+        private void registraDynamo(UpdatePassSACModel model)
+        {
+            var extraeContraseñaAnterior = "";
+            var lstUsuario = sessionManager.getBEUsuarioModel();
+            foreach (var item in lstUsuario)
+            {
+                if (item.CodigoConsultora == model.CodigoConsultora)
+                {
+                    extraeContraseñaAnterior = item.ClaveSecreta;
+                }
+            }
+
+            List<BEUsuario> lst;
+            using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            {
+                lst = sv.SelectByNombre(Convert.ToInt32(model.PaisID), model.CodigoConsultora).ToList();
+            }
+
+            var contraseñaCambiada = "";
+            foreach (var item in lst)
+            {
+                contraseñaCambiada = item.ClaveSecreta;
+            }
+
+            RegistrarLogDynamoCambioClave("MODIFICACION", model.CodigoConsultora, contraseñaCambiada, extraeContraseñaAnterior);
         }
     }
 }
