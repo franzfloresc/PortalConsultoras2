@@ -1,6 +1,5 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceAsesoraOnline;
 using System;
 using System.Configuration;
 using System.ServiceModel;
