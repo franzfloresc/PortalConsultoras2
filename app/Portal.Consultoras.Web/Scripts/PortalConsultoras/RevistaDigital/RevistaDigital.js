@@ -408,6 +408,8 @@ function OfertaArmarEstrategiasContenedorSeccion(response) {
         return false;
     }
     response.listaPerdio = response.listaPerdio || [];
+    response.listaLan = response.listaLan || [];
+    response.lista = response.lista || [];
     response.CantidadProductos = response.lista.length + response.listaPerdio.length;
     var cant = response.Seccion.CantidadProductos || 0;
     cant = cant == 0 ? (response.lista.length || response.listaLan.length) : cant;
