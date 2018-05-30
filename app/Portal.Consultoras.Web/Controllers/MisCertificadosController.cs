@@ -6,6 +6,7 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -34,6 +35,8 @@ namespace Portal.Consultoras.Web.Controllers
                     listaCertificados = ObtenerCertificados();
                     sessionManager.SetMisCertificados(listaCertificados);
                 }
+
+                ViewBag.PaisUser = userData.PaisID;
             }
             catch (Exception ex)
             {
@@ -48,10 +51,16 @@ namespace Portal.Consultoras.Web.Controllers
             var listaCertificados = new List<MiCertificadoModel>();
 
             var certificadoNoAdeudo = ObtenerCertificadoNoAdeudo();
-            listaCertificados.Add(certificadoNoAdeudo);
+            if (certificadoNoAdeudo != null)
+            {
+                listaCertificados.Add(certificadoNoAdeudo);
+            }
 
             var certificadoComercial = ObtenerCertificadoComercial();
-            listaCertificados.Add(certificadoComercial);
+            if (certificadoComercial != null)
+            {
+                listaCertificados.Add(certificadoComercial);
+            }
 
             var certificadoTributario = ObtenerCertificadoTributario();
             if (certificadoTributario != null)
@@ -78,27 +87,30 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (userData.MontoDeuda > 0)
                     {
-                        mensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un Paz y Salvo";
+                        mensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un certficado de Paz y Salvo";
                         break;
                     }
 
                     certificadoId = 1;
                     break;
                 case Constantes.PaisID.Ecuador:
-                    nombre = "No Adeudo";
+                case Constantes.PaisID.Peru:
+                    nombre = (userData.PaisID == Constantes.PaisID.Peru) ? "Constancia No Adeudo" : "No Adeudo";
 
                     if (userData.MontoDeuda > 0)
                     {
-                        mensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un No Adeudo";
+                        mensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un certificado de No Adeudo";
                         break;
                     }
 
                     certificadoId = 1;
                     break;
                 default:
-                    certificado.Nombre = "";
+                    nombre = "";
                     break;
             }
+
+            if (nombre == "") return certificado;
 
             certificado.CertificadoId = certificadoId;
             certificado.Nombre = nombre;
@@ -115,23 +127,32 @@ namespace Portal.Consultoras.Web.Controllers
         private MiCertificadoModel ObtenerCertificadoComercial()
         {
             var certificado = new MiCertificadoModel();
-
             var certificadoId = 0;
             var nombre = "";
             var mensajeError = "";
-            var cantidadCampaniaConsecutiva = ConfigurationManager.AppSettings["cantCampaniaConsecutivaCertComercial"] ?? "5";
+            var cantidadCampaniaConsecutiva = "";// ConfigurationManager.AppSettings["cantCampaniaConsecutivaCertComercial"] ?? "5";
+
+            short codigoTablaLogica = 140;
+            var CampaniaConsecutiva = new List<BETablaLogicaDatos>();
+            using (var tablaLogica = new SACServiceClient())
+            {
+                CampaniaConsecutiva = tablaLogica.GetTablaLogicaDatos(userData.PaisID, codigoTablaLogica).ToList();
+                cantidadCampaniaConsecutiva = CampaniaConsecutiva[0].Valor;
+            }
 
             switch (userData.PaisID)
             {
                 case Constantes.PaisID.Colombia:
                 case Constantes.PaisID.Ecuador:
-                    nombre = "Certificado Comercial";
+                case Constantes.PaisID.Peru:
 
                     bool tieneCampaniaConsecutivas;
                     using (PedidoServiceClient ps = new PedidoServiceClient())
                     {
                         tieneCampaniaConsecutivas = ps.TieneCampaniaConsecutivas(userData.PaisID, userData.CampaniaID, int.Parse(cantidadCampaniaConsecutiva), userData.ConsultoraID);
                     }
+
+                    nombre = "Certificado Comercial";
 
                     if (!tieneCampaniaConsecutivas)
                     {
@@ -144,15 +165,16 @@ namespace Portal.Consultoras.Web.Controllers
 
                     break;
                 default:
-                    certificado.Nombre = "";
+                    nombre = "";
                     break;
             }
+
+            if (nombre == "") return certificado;
 
             certificado.CertificadoId = certificadoId;
             certificado.Nombre = nombre;
             certificado.MensajeError = mensajeError;
             certificado.NombreVista = "~/Views/MisCertificados/ComercialPdf.cshtml";
-
             return certificado;
         }
 
@@ -262,10 +284,27 @@ namespace Portal.Consultoras.Web.Controllers
                         model.TotalCompra = Math.Round(userData.TotalCompraCer, 2).ToString();
                         model.IvaTotal = Math.Round(userData.IvaTotalCer, 2).ToString();
 
-                        model.CodigoIso = userData.CodigoISO;
-                        model.CantidadConsecutivaNueva = ConfigurationManager.AppSettings["cantCampaniaConsecutivaCertComercial"] ?? "5";
-                        var view = model.NombreVista;
+                        switch (userData.PaisID)
+                        {
+                            case Constantes.PaisID.Peru:
+                                model.Pais = "Peru";
+                                break;
+                            default:
+                                model.Pais = "";
+                                break;
+                        }
 
+                        model.CodigoIso = userData.CodigoISO;
+
+                        short codigoTablaLogica = 140;
+                        var CampaniaConsecutiva = new List<BETablaLogicaDatos>();
+                        using (var tablaLogica = new SACServiceClient())
+                        {
+                            CampaniaConsecutiva = tablaLogica.GetTablaLogicaDatos(userData.PaisID, codigoTablaLogica).ToList();
+                            model.CantidadConsecutivaNueva = CampaniaConsecutiva[0].Valor;
+                        }
+
+                        var view = model.NombreVista;
 
                         string html = RenderViewToString(ControllerContext,
                             view, model, true);
