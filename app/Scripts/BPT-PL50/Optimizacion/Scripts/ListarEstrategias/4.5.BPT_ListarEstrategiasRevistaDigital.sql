@@ -81,7 +81,9 @@ SET NOCOUNT ON;
 		, E.TieneVariedad		
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
-		, TE.FlagMostrarImg AS FlagMostrarImg	
+		, TE.FlagMostrarImg AS FlagMostrarImg
+		, M.Descripcion as DescripcionMarca
+		, 'NO DISPONIBLE' AS DescripcionCategoria	
 		, E.PrecioPublico
 		, E.Ganancia
 		, OP.FlagRevista
