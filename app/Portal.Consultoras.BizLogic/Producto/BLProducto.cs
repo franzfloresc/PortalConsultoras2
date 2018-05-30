@@ -112,6 +112,15 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
 
+            productos.Update(p =>
+            {
+                if (p.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ShowRoom)
+                {
+                    p.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;
+                    p.ConfiguracionOfertaID = 11;
+                }
+            });
+
             return (from producto in productos
                     orderby (criterio == 1 ? producto.CUV : producto.Descripcion)
                     select producto).ToList();

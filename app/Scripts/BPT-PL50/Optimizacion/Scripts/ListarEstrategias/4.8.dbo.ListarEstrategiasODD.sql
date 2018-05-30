@@ -67,8 +67,8 @@ BEGIN
 		AND op.TipoPersonalizacion = 'ODD'
 END
 
-INSERT INTO @OfertasPersonalizadas(Orden, CUV, TipoPersonalizacion, FlagRevista, AnioCampanaVenta)
-	SELECT Orden, CUV, TipoPersonalizacion, FlagRevista, AnioCampanaVenta 
+INSERT INTO @OfertasPersonalizadas(Orden, CUV, TipoPersonalizacion, FlagRevista, AnioCampanaVenta, DiaInicio)
+	SELECT Orden, CUV, TipoPersonalizacion, FlagRevista, AnioCampanaVenta,DiaInicio
 	FROM dbo.ListarEstrategiasForzadas(@CodCampania, @EstrategiaCodigo)
 
 SELECT 
