@@ -1,4 +1,4 @@
-USE BelcorpPeru_PL50
+USE BelcorpColombia_PL50
 GO
  -- exec ShowRoom.GetShowRoomOfertasConsultoraPersonalizada 201807, '000001740'  
 ALTER PROCEDURE ShowRoom.GetShowRoomOfertasConsultoraPersonalizada 
@@ -96,7 +96,8 @@ FROM dbo.Estrategia E WITH (NOLOCK)
 	  LEFT JOIN dbo.Marca M WITH (NOLOCK)    ON M.MarcaId = PC.MarcaId
   WHERE E.Activo = 1
 	  AND NOT EXISTS (SELECT CUV  FROM @tablaCuvFaltante TF  WHERE E.CUV2 = TF.CUV)
-
+	      ORDER BY 
+		op.Orden ASC, EstrategiaID ASC
   SET NOCOUNT OFF
   END
 
