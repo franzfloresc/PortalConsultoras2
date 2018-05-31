@@ -695,5 +695,17 @@ namespace Portal.Consultoras.Data
             }
         }
 
+        public IDataReader GetEstrategiaProgramaNuevas(BEEstrategia entidad)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEstrategiaProgramaNuevas"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+                Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV2);
+                Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, entidad.CodigoPrograma);
+                Context.Database.AddInParameter(command, "@CodigoEstrategia", DbType.String, entidad.CodigoEstrategia);
+                return Context.ExecuteReader(command);
+            }
+        }
+
     }
 }
