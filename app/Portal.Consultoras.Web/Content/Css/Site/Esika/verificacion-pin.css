@@ -158,7 +158,7 @@ body
     background-color:#EDEDED;
     padding:37px;
     font-size:14px;
-    height:calc(100vh - 81px);
+    height:auto;
 }
 
 .wrapper_content_restablecer_contrasenia,
@@ -604,6 +604,9 @@ body
     background-image:url('../../../Images/Esika/icono_envelope.svg');
 }
 
+.enlace_volver_mobile{
+    display:none;
+}
 
 @media screen and (max-width:991px){
 
@@ -663,9 +666,11 @@ body
 
     .titulo_interiores{
         width: 100%;
+        height:54px;
         padding-left: 15px;
         padding-right:15px;
         background: transparent;
+        font-weight:700;
     }
 
     .titulo_interiores,
@@ -727,6 +732,25 @@ body
     .codigo_sms_caducidad{
         margin-bottom:0;
     }
+
+    .enlace_volver_mobile{
+        display:inline-block;
+        width:18px;
+        height:21px;
+        text-decoration:none;
+        margin-right:6px;
+    }
+
+        .enlace_volver_mobile:hover{
+            text-decoration:none;
+        }
+
+        .enlace_volver_mobile img{
+            width: 100%;
+            height: auto;
+            position: relative;
+            top: -12px;
+        }
 
 }
 
