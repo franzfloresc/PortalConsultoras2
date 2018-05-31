@@ -589,6 +589,22 @@ body
 
     /* HELPERS MOBILE */
 
+    .mb-15-mobile{
+        margin-bottom:15px;
+    }
+
+    .mb-20-mobile{
+        margin-bottom:20px;
+    }
+
+    .mb-33-mobile{
+        margin-bottom:33px;
+    }
+
+    .mt-20-mobile{
+        margin-top:20px;
+    }
+
     .w-40-mobile{
         width:40%;
     }
@@ -678,6 +694,10 @@ body
         width:200px;
         margin-left:auto;
         margin-right:auto;
+    }
+
+    .codigo_sms_caducidad{
+        margin-bottom:0;
     }
 
 }
