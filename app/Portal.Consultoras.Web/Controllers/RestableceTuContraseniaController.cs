@@ -11,11 +11,11 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+           return View();
         }
         public ActionResult VerificarAutenticidad()
         {
-            return View();
+           return View();
         }
     }
 }
