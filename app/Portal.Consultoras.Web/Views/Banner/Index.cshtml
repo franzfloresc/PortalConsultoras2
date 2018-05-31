@@ -1074,6 +1074,12 @@
                 SegmentoInterno += $(this).val() + ",";
             }
         });
+
+        if (SegmentoInterno == "") {
+            alert("No se ha marcado ningún Segmento.");
+            return false;
+        }
+
         if (SegmentoInterno != "") {
             SegmentoInterno = SegmentoInterno.substring(0, SegmentoInterno.length - 1);
         }
@@ -1088,6 +1094,7 @@
         if (zonas != "") {
             zonas = zonas.substring(0, zonas.length - 1);
         }
+
         if (zonas == "") {
             alert("No se ha marcado ninguna zona o región.");
             return false;
