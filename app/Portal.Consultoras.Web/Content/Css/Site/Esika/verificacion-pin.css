@@ -59,6 +59,10 @@
     margin-bottom:13px;
 }
 
+.mb-20{
+    margin-bottom:20px;
+}
+
 .mb-31{
     margin-bottom:31px;
 }
@@ -195,7 +199,8 @@ body
 .revisa_tu_correo,
 .revisa_tu_celular,
 .celular_validado,
-.correo_validado
+.correo_validado,
+.no_te_saltes_este_paso
 {
     background-color:#FFF;
     min-height:355px;
@@ -205,7 +210,8 @@ body
 .revisa_tu_celular,
 .celular_validado,
 .revisa_tu_correo,
-.correo_validado
+.correo_validado,
+.no_te_saltes_este_paso
 {
     padding:45px 115px 48px;
 }
@@ -324,7 +330,8 @@ body
 }
 
 .btn_continuar,
-.enlace_ir_a_somos_belcorp
+.enlace_ir_a_somos_belcorp,
+.enlace_continuar_verificacion
 {
     height: 45px;
     color: #FFF;
@@ -339,7 +346,8 @@ body
 }
 
     .btn_continuar:hover,
-    .enlace_ir_a_somos_belcorp:hover
+    .enlace_ir_a_somos_belcorp:hover,
+    .enlace_continuar_verificacion:hover
     {
         background-color: rgba(232,28,54,0.8);
     }
@@ -426,7 +434,8 @@ body
 }
 
 .enlace_call_center,
-.enlace_actualizar_contrasenia
+.enlace_actualizar_contrasenia,
+.enlace_no_deseo_ingresar
 {
     text-decoration:underline;
 }
@@ -569,12 +578,23 @@ body
     background-size:100%;
 }
 
-.enlace_ir_a_somos_belcorp{
-    width:194px;
+.enlace_ir_a_somos_belcorp,
+.enlace_continuar_verificacion
+{
     line-height:45px;
 }
 
-.enlace_actualizar_contrasenia{
+.enlace_ir_a_somos_belcorp{
+    width:194px;
+}
+
+.enlace_continuar_verificacion{
+    width:231px;
+}
+
+.enlace_actualizar_contrasenia,
+.enlace_no_deseo_ingresar
+{
     font-size:13px;
 }
 
@@ -601,8 +621,16 @@ body
         margin-bottom:33px;
     }
 
+    .mt-15-mobile{
+        margin-top:15px;
+    }
+
     .mt-20-mobile{
         margin-top:20px;
+    }
+
+    .mt-40-mobile{
+        margin-top:40px;
     }
 
     .w-40-mobile{
