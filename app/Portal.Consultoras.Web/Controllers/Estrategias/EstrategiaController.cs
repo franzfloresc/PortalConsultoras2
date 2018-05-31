@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                         : string.Empty;
                 }
 
-                var listaFinal1 = ConsultarEstrategiasModel(string.Empty, model.CampaniaID, palanca);
+                var listaFinal1 = ConsultarEstrategiasModel(model.CampaniaID, palanca);
 
                 List<EstrategiaPedidoModel> listModel1;
 
@@ -106,7 +106,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     }
                     else
                     {
-                        var listPerdio1 = ConsultarEstrategiasModel("", campaniaId, Constantes.TipoEstrategiaCodigo.RevistaDigital);
+                        var listPerdio1 = ConsultarEstrategiasModel(campaniaId, Constantes.TipoEstrategiaCodigo.RevistaDigital);
                         listPerdio = listPerdio1.Where(p => p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas && p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
                     }
 
@@ -138,7 +138,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     });
                 }
 
-                var listaFinal1 = ConsultarEstrategiasModel("", 0, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
+                var listaFinal1 = ConsultarEstrategiasModel(0, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
 
                 if (revistaDigital.TieneRDCR)
                 {
@@ -182,7 +182,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         {
             try
             {
-                var listaFinal1 = ConsultarEstrategiasModel(string.Empty, model.CampaniaID, Constantes.TipoEstrategiaCodigo.HerramientasVenta);
+                var listaFinal1 = ConsultarEstrategiasModel(model.CampaniaID, Constantes.TipoEstrategiaCodigo.HerramientasVenta);
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
 
                 listModel = listModel
@@ -231,7 +231,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     });
                 }
 
-                var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.Lanzamiento);
+                var listaFinal1 = ConsultarEstrategiasModel(model.CampaniaID, Constantes.TipoEstrategiaCodigo.Lanzamiento);
 
                 var perdio = TieneProductosPerdio(model.CampaniaID) ? 1 : 0;
 
@@ -286,7 +286,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
         [HttpGet]
-        public JsonResult JsonConsultarEstrategias(string cuv, string tipoOrigenEstrategia = "")
+        public JsonResult JsonConsultarEstrategias(string tipoOrigenEstrategia = "")
         {
 
             var model = new EstrategiaOutModel();
@@ -296,7 +296,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     || (revistaDigital.TieneRDC && revistaDigital.ActivoMdo) ?
                     Constantes.TipoEstrategiaCodigo.RevistaDigital : "";
 
-                var listModel = ConsultarEstrategiasHomePedido(cuv, codAgrupa);
+                var listModel = ConsultarEstrategiasHomePedido(codAgrupa);
 
                 model.CodigoEstrategia = GetCodigoEstrategia();
                 model.Consultora = userData.Sobrenombre;

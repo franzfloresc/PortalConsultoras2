@@ -246,7 +246,7 @@ $(document).ready(function () {
         showClienteDetalle(null);
     });
 
-    CargarCarouselEstrategias("");
+    CargarCarouselEstrategias();
 
     var CuvEnSession = $.trim($("#hdCuvEnSession").val());
     if (CuvEnSession != "") {
@@ -640,7 +640,7 @@ function InsertarProductoSugerido(model) {
 
             var cuv = cuv || "" ;
 
-            CargarCarouselEstrategias(cuv);
+            CargarCarouselEstrategias();
             $("#txtCodigoProducto").val("");
             $("#hdCuvEnSession").val("");
             if (data.modificoBackOrder) messageInfo('Recuerda que debes volver a validar tu pedido.');

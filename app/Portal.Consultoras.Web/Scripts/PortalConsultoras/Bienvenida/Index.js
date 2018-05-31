@@ -212,7 +212,7 @@ $(document).ready(function () {
     });
 
     CrearDialogs();
-    CargarCarouselEstrategias("");
+    CargarCarouselEstrategias();
     if (_validartieneMasVendidos() === 1) {
         masVendidosModule.readVariables({
             baseUrl: baseUrl,
