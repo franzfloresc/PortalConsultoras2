@@ -801,9 +801,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         #region Imagen Resize  
 
-                        var listaImagenesResize = ObtenerListaImagenesResize(model.RutaImagenCompleta);
-                        if (listaImagenesResize != null && listaImagenesResize.Count > 0)
-                            mensajeErrorImagenResize = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
+                        mensajeErrorImagenResize = ImagenesResizeProceso(model.RutaImagenCompleta);
 
                         #endregion
 
@@ -921,7 +919,9 @@ namespace Portal.Consultoras.Web.Controllers
                     EstrategiaID = Convert.ToInt32(EstrategiaID),
                     CampaniaID = Convert.ToInt32(CampaniaID),
                     TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
-                    CUV2 = cuv2
+                    CUV2 = cuv2,
+                     AgregarEnMatriz=true,
+                     UsuarioRegistro = userData.CodigoConsultora
                 };
 
                 if (usarMsPer(tipoEstrategiaCodigo))

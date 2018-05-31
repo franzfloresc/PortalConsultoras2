@@ -29,7 +29,17 @@
 
     <script type="text/javascript">
         var isEsika = '@ViewContext.EsPaisEsika().ToString().ToLower()';
-        var urlLogDynamo = '@Portal.Consultoras.Web.Infraestructure.Settings.Instance.UrlLogDynamo';
+        window.urlLogDynamo = '@Portal.Consultoras.Web.Infraestructure.Settings.Instance.UrlLogDynamo';
+
+        // Seteando Controlador y Accion
+        @{
+            var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
+            string ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
+            string acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+        }
+        window.controllerName = '@ctrl.ToLower()';
+        window.actionName     = '@acti.ToLower()';
+        //console.log("controllerName:" + controllerName + " | actionName:" + actionName);
     </script>
 
     @RenderSection("styles", required: false)
@@ -204,7 +214,7 @@
 	<script type="text/javascript">
     var baseUrl = "@Url.Content("~")";
     var urlReservadoEnHorarioRestringuido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
-    var urlGetCantidadProductos = '@Url.Action("GetResumenCampania", "GestionContenido", new { area = "" })';
+    var urlGetCantidadProductos = '@Url.Action("GetResumenCampaniaAgrupado", "GestionContenido", new { area = "" })';
     var urlGetNotificacionesSinLeer = '@Url.Action("GetNotificacionesSinLeer", "Notificaciones", new { area = "" })';
     var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
     var vbSimbolo = '@ViewBag.Simbolo';
@@ -240,6 +250,12 @@
     var fingerprintOk = '@ViewBag.FingerprintOk';
     var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
 
+
+   /// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // IPN : Resuelve fix : urlPedidoValidado is not defined 
+  /// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
+  //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     var userData = {
         'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
         'rol': '@(Constantes.LogDynamoDB.RolConsultora)',

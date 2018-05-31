@@ -13307,6 +13307,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpsellingMarcaCategoriaFlagsEditar", ReplyAction="http://tempuri.org/ISACService/UpsellingMarcaCategoriaFlagsEditarResponse")]
         System.Threading.Tasks.Task<bool> UpsellingMarcaCategoriaFlagsEditarAsync(int paisId, int upSellingId, bool CategoriaApoyada, bool CategoriaMonto);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetListEnumStringCache", ReplyAction="http://tempuri.org/ISACService/GetListEnumStringCacheResponse")]
+        string[] GetListEnumStringCache();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetListEnumStringCache", ReplyAction="http://tempuri.org/ISACService/GetListEnumStringCacheResponse")]
+        System.Threading.Tasks.Task<string[]> GetListEnumStringCacheAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/RemoveDataCache", ReplyAction="http://tempuri.org/ISACService/RemoveDataCacheResponse")]
         string RemoveDataCache(int paisID, string cacheItemString, string customKey);
         
@@ -14681,6 +14687,14 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public System.Threading.Tasks.Task<bool> UpsellingMarcaCategoriaFlagsEditarAsync(int paisId, int upSellingId, bool CategoriaApoyada, bool CategoriaMonto) {
             return base.Channel.UpsellingMarcaCategoriaFlagsEditarAsync(paisId, upSellingId, CategoriaApoyada, CategoriaMonto);
+        }
+        
+        public string[] GetListEnumStringCache() {
+            return base.Channel.GetListEnumStringCache();
+        }
+        
+        public System.Threading.Tasks.Task<string[]> GetListEnumStringCacheAsync() {
+            return base.Channel.GetListEnumStringCacheAsync();
         }
         
         public string RemoveDataCache(int paisID, string cacheItemString, string customKey) {

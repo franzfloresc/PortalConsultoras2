@@ -30,23 +30,23 @@ namespace Portal.Consultoras.Entities.Cupon
 
         public BECupon(IDataRecord datarec)
         {
-            if (DataRecord.HasColumn(datarec, "CuponId") && datarec["CuponId"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CuponId"))
                 CuponId = DbConvert.ToInt32(datarec["CuponId"]);
-            if (DataRecord.HasColumn(datarec, "Tipo") && datarec["Tipo"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Tipo"))
                 Tipo = DbConvert.ToString(datarec["Tipo"]);
-            if (DataRecord.HasColumn(datarec, "Descripcion") && datarec["Descripcion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Descripcion"))
                 Descripcion = DbConvert.ToString(datarec["Descripcion"]);
-            if (DataRecord.HasColumn(datarec, "CampaniaId") && datarec["CampaniaId"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CampaniaId"))
                 CampaniaId = DbConvert.ToInt32(datarec["CampaniaId"]);
-            if (DataRecord.HasColumn(datarec, "Estado") && datarec["Estado"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Estado"))
                 Estado = DbConvert.ToBoolean(datarec["Estado"]);
-            if (DataRecord.HasColumn(datarec, "FechaCreacion") && datarec["FechaCreacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "FechaCreacion"))
                 FechaCreacion = DbConvert.ToDateTime(datarec["FechaCreacion"]);
-            if (DataRecord.HasColumn(datarec, "FechaModificacion") && datarec["FechaModificacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "FechaModificacion"))
                 FechaModificacion = DbConvert.ToDateTime(datarec["FechaModificacion"]);
-            if (DataRecord.HasColumn(datarec, "UsuarioCreacion") && datarec["UsuarioCreacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "UsuarioCreacion"))
                 UsuarioCreacion = DbConvert.ToString(datarec["UsuarioCreacion"]);
-            if (DataRecord.HasColumn(datarec, "UsuarioModificacion") && datarec["UsuarioModificacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "UsuarioModificacion"))
                 UsuarioModificacion = DbConvert.ToString(datarec["UsuarioModificacion"]);
         }
     }

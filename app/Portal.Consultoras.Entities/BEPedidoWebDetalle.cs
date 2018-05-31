@@ -158,7 +158,9 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public string CodigoTipoOferta { get; set; }
-
+        
+        [DataMember]
+        public int SetID { get; set; }
 
         public BEPedidoWebDetalle()
         { }
@@ -199,7 +201,7 @@ namespace Portal.Consultoras.Entities
                 ModificaPedidoReservado = Convert.ToBoolean(row["ModificaPedidoReservado"]);
             if (DataRecord.HasColumn(row, "Simbolo"))
                 Simbolo = Convert.ToString(row["Simbolo"]);
-            if (DataRecord.HasColumn(row, "ConfiguracionOfertaID") && row["TipoOfertaSisID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ConfiguracionOfertaID"))
                 ConfiguracionOfertaID = Convert.ToInt32(row["ConfiguracionOfertaID"]);
             if (DataRecord.HasColumn(row, "TipoOfertaSisID"))
                 TipoOfertaSisID = Convert.ToInt32(row["TipoOfertaSisID"]);
@@ -259,7 +261,9 @@ namespace Portal.Consultoras.Entities
                 ProgramaNuevoActivado = Convert.ToBoolean(row["ProgramaNuevoActivado"]);
             if (DataRecord.HasColumn(row, "CodigoTipoOferta"))
                 CodigoTipoOferta = Convert.ToString(row["CodigoTipoOferta"]);
-
+            
+            if (DataRecord.HasColumn(row, "SetID"))
+                SetID = Convert.ToInt32(row["SetID"]);
 
         }
 
@@ -287,12 +291,11 @@ namespace Portal.Consultoras.Entities
                 CUV = Convert.ToString(row["CUV"]);
             if (DataRecord.HasColumn(row, "DescripcionProd"))
                 DescripcionProd = Convert.ToString(row["DescripcionProd"]);
-
-            // si HasColumn is true => never row["Nombre"] == DBNull.Value is true
+            
             if (DataRecord.HasColumn(row, "Nombre"))
-                Nombre = row["Nombre"] == DBNull.Value ? Consultora : Convert.ToString(row["Nombre"]);
+                Nombre = Convert.ToString(row["Nombre"]);
             if (DataRecord.HasColumn(row, "Nombre"))
-                NombreCliente = row["Nombre"] == DBNull.Value ? Consultora : Convert.ToString(row["Nombre"]);
+                NombreCliente = Convert.ToString(row["Nombre"]);
 
             if (DataRecord.HasColumn(row, "eMail"))
                 eMail = Convert.ToString(row["eMail"]);
@@ -306,7 +309,7 @@ namespace Portal.Consultoras.Entities
                 ModificaPedidoReservado = Convert.ToBoolean(row["ModificaPedidoReservado"]);
             if (DataRecord.HasColumn(row, "Simbolo"))
                 Simbolo = Convert.ToString(row["Simbolo"]);
-            if (DataRecord.HasColumn(row, "ConfiguracionOfertaID") && row["TipoOfertaSisID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ConfiguracionOfertaID"))
                 ConfiguracionOfertaID = Convert.ToInt32(row["ConfiguracionOfertaID"]);
             if (DataRecord.HasColumn(row, "TipoOfertaSisID"))
                 TipoOfertaSisID = Convert.ToInt32(row["TipoOfertaSisID"]);
@@ -373,6 +376,9 @@ namespace Portal.Consultoras.Entities
                 ProgramaNuevoActivado = Convert.ToBoolean(row["ProgramaNuevoActivado"]);
             if (DataRecord.HasColumn(row, "CodigoTipoOferta"))
                 CodigoTipoOferta = Convert.ToString(row["CodigoTipoOferta"]);
+                
+            if (DataRecord.HasColumn(row, "SetID"))
+                SetID = Convert.ToInt32(row["SetID"]);
 
         }
     }

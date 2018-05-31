@@ -3,7 +3,8 @@
 //youtube
 var tag = null;
 var firstScriptTag = null;
-var player;
+
+var player = oYTPlayers['ytMobileBienvenidaIndex'].instance, $divPlayer = $("#ytMobileBienvenidaIndex");
 
 $(document).ready(function () {
     $(".termino_condiciones_intriga").click(function () {
@@ -33,15 +34,12 @@ $(document).ready(function () {
     $(".ver_video_introductorio").click(function () {
         $('#VideoIntroductorio').show();
 
-        ConfigurarYoutube();
-
+        //ConfigurarYoutube();
+        var player = oYTPlayers['ytMobileBienvenidaIndex'].instance;
         setTimeout(function () { playVideo(); }, 500);
 
-        setTimeout(function () {
-            if (player.playVideo) {
-                player.playVideo();
-            }
-        }, 2000);
+        setTimeout(function () { if (player.playVideo) { player.playVideo(); } }, 2000);
+
     });
     $("#cerrarVideoIntroductorio").click(function () {
         stopVideo();
@@ -267,29 +265,28 @@ function AgregarTagManagerShowRoomCheckBox() {
 }
 
 function stopVideo() {
+    var player = oYTPlayers['ytMobileBienvenidaIndex'].instance;
     if (player) {
-        if (player.stopVideo) {
-            player.stopVideo();
-        }
-        else {
 
-            var urlVideo = $("#divPlayer").attr("src");
-            $("#divPlayer").attr("src", "");
-            $("#divPlayer").attr("src", urlVideo);
+        if (player.stopVideo) { player.stopVideo(); } else {
+            var urlVideo = $divPlayer.attr("src");
+            $divPlayer.attr("src", "");
+            $divPlayer.attr("src", urlVideo);
         }
     }
-};
+}
 
 function playVideo() {
+    var player = oYTPlayers['ytMobileBienvenidaIndex'].instance;
     if (player) {
-        if (player.playVideo) {
-            player.playVideo();
-        }
+
+        if (player.playVideo) { player.playVideo(); }
         else {
-            document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            $divPlayer[0].contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
         }
+
     }
-};
+}
 
 function UpdateUsuarioTutorialMobile() {
     $.ajax({
@@ -305,7 +302,7 @@ function UpdateUsuarioTutorialMobile() {
         },
         error: function (data) { }
     });
-};
+}
 
 function RedirectPagaEnLineaAnalytics() {
 
@@ -315,7 +312,7 @@ function RedirectPagaEnLineaAnalytics() {
     else {
         window.open('https://www.belcorpchile.cl/BP_Servipag/PagoConsultora.aspx?c=' + ViewBagUrlChileEncriptada, "_blank");
     }
-};
+}
 
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
@@ -360,7 +357,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
         }
     });
     return restringido;
-};
+}
 
 function CargarPopupsConsultora() {
 
@@ -375,7 +372,7 @@ function CargarPopupsConsultora() {
     else if (TipoPopUpMostrar == popupRevistaDigitalSuscripcion) {
         rdPopup.Mostrar();
     }
-};
+}
 
 function MostrarDemandaAnticipada() {
     $.ajax({
@@ -408,15 +405,15 @@ function MostrarDemandaAnticipada() {
             }
         }
     });
-};
+}
 
 function AceptarDemandaAnticipada() {
     InsertarDemandaAnticipada(1);
-};
+}
 
 function CancelarDemandaAnticipada() {
     InsertarDemandaAnticipada(0);
-};
+}
 
 function InsertarDemandaAnticipada(tipo) {
     var params = { tipoConfiguracion: tipo };
@@ -447,7 +444,7 @@ function InsertarDemandaAnticipada(tipo) {
             }
         }
     });
-};
+}
 
 function TagManagerCatalogosPersonalizados() {
     if (!!document.getElementById("flagCatalogoPersonalizado")) {
@@ -465,7 +462,7 @@ function TagManagerCatalogosPersonalizados() {
             }
         });
     }
-};
+}
 
 $("#content_oferta_dia_mobile").click(function () {
     $('#PopOfertaDia').slideDown();
@@ -679,7 +676,7 @@ function VerSeccionBienvenida(seccion) {
     switch (seccion) {
         case "Belcorp":
             id = ".content_belcorp";
-            break
+            break;
         case "MisOfertas":
             id = "#divListaEstrategias";
             break;
@@ -714,7 +711,7 @@ function VerTutorialMobile() {
 
     setTimeout(function () { $(window).resize(); }, 50);
 }
-
+/*
 function ConfigurarYoutube() {
     if (tag == null) {
         tag = document.createElement("script");
@@ -738,4 +735,4 @@ function onYouTubeIframeAPIReady(playerId) {
         videoId: videoIdMostrar,
         playerVars: { rel: 0 }
     });
-};
+}*/

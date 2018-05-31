@@ -61,6 +61,8 @@ namespace Portal.Consultoras.Common
 
             public const short Registrado = 1;
             public const short Facturado = 2;
+
+            public const string PedidoValidado = "PV";
         }
 
         public static class PaisID
@@ -235,6 +237,7 @@ namespace Portal.Consultoras.Common
             public const string TippingPoint = "TippingPoint";
             public const string TippingPoint_MontoVentaExigido = "TippingPoint_MontoVentaExigido";
             public const string MensajeMetaConsultora = "MensajeMetaConsultora";
+            public const string ActualizarDatosConsultora = "ActualizarDatosConsultora";
 
             // prol
             public const string PROL_CalculoMontosProl = "PROL_CalculoMontosProl";
@@ -305,6 +308,10 @@ namespace Portal.Consultoras.Common
             public const string DescargaExcelMaxItems = "DescargaExcelMaxItems";
 
             public const string ConsultoraNuevaBannerAppMostrar = "ConsultoraNuevaBannerAppMostrar";
+
+            public const string PedidosFacturados = "PedidosFacturados";
+
+            
         }
 
         public static class ConfiguracionManager
@@ -733,6 +740,10 @@ namespace Portal.Consultoras.Common
             public const int HVMobileLanding = 2011;
             public const int HVMobileLandingPopup = 2011;
             #endregion
+
+            #region Programa de Nuevas
+            public const string Mensaje1 = "El código solicitado es exclusivo del Programa de Nuevas.";
+            #endregion  
         }
 
         public static class TipoTutorial
@@ -1113,6 +1124,7 @@ namespace Portal.Consultoras.Common
             public const string Cache_Eliminar = "Ocurrió un error al eliminar la caché. Inténtelo más tarde";
             public const string Reserva_Error = "Hubo un error al tratar de realizar la validación del pedido, por favor vuelva a intentarlo.";
             public const string Reserva_SinDetalle = "No tiene productos que reservar esta campaña.";
+            public const string DeleteAllPedido_Error = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
         }
 
         public static class ConfiguracionPais
@@ -1794,6 +1806,40 @@ namespace Portal.Consultoras.Common
                 public const short BannerCupon = 1;
                 public const short BannerPremio = 2;
             }
+
+            public class EncenderValidacion
+            {
+                public const short TablaLogicaID = 7;
+                public const string Activo = "Activo"; 
+            }
+
+            public class Rango
+            {
+                public const short TablaLogicaID = 6;
+                public const string cuvInicio = "cuvInicio";
+                public const string cuvFinal = "cuvFinal";
+            }
+
+            public class MensajeValidacionBusqueda
+            {
+                public const string ConsultoraNoNueva = "El código solicitado es exclusivo para quienes participan del Programa de Nuevas.";
+                public const string CuvNoPerteneceASuPrograma = "El codigo ingresado es incorrecto. Revise el folleto del Programa de Nuevas y solicite el que le corresponde.";
+            }
+
+            public class MensajeValidacionCantidadMaxima
+            {
+                public const string ExcedeCantidad = "Las unidades ingresadas exceden el máximo permitido (#n#) en esta campaña";
+            }
+
+            public class MensajeValidacionElectividadProductos
+            {
+                public const string ExisteElectivoEnSuPedido = "El código ingresado no puede ser agregado al pedido. El pedido contiene un pack del Programa de Nuevas.";
+            }
+        }
+
+        public class VentaExclusiva
+        {
+            public const string CuvNoEsVentaExclusiva = "El código solicitado pertenece a la Venta Exclusiva. Usted no cumple las condiciones para solicitarlo.";
         }
 
         public class Comunicado
@@ -1875,71 +1921,93 @@ namespace Portal.Consultoras.Common
 
         public static class PedidoAppValidacion
         {
-            public static class ProductoBuscar
+            private static Dictionary<string, string> _Message;
+            public static class Code
             {
-                private static Dictionary<string, string> _Message;
+                public const string SUCCESS = "0000";
+                public const string ERROR_INTERNO = "9999";
+                public const string ERROR_PRODUCTO_NOEXISTE = "1101";
+                public const string ERROR_PRODUCTO_AGOTADO = "1102";
+                public const string ERROR_PRODUCTO_LIQUIDACION = "1103";
+                public const string ERROR_PRODUCTO_OFERTAREVISTA_ESIKA = "1106";
+                public const string ERROR_PRODUCTO_OFERTAREVISTA_LBEL = "1107";
+                public const string ERROR_PRODUCTO_ESTRATEGIA = "1108";
 
-                public static class Code
-                {
-                    public const string SUCCESS = "0000";
-                    public const string ERROR_INTERNO = "9999";
-                    public const string ERROR_PRODUCTO_NOEXISTE = "1101";
-                    public const string ERROR_PRODUCTO_AGOTADO = "1102";
-                    public const string ERROR_PRODUCTO_LIQUIDACION = "1103";
-                    public const string ERROR_PRODUCTO_SHOWROOM = "1104";
-                    public const string ERROR_PRODUCTO_SHOWROOM_NODISPONIBLE = "1105";
-                    public const string ERROR_PRODUCTO_OFERTAREVISTA_ESIKA = "1106";
-                    public const string ERROR_PRODUCTO_OFERTAREVISTA_LBEL = "1107";
-                }
+                public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
+                public const string ERROR_STOCK_ESTRATEGIA = "2102";
+                public const string ERROR_KIT_INICIO = "2103";
+                public const string ERROR_GRABAR = "2104";
+                public const string ERROR_VALIDA_DATOS = "2105";
+                public const string ERROR_ACTUALIZAR = "2106";
+                public const string ERROR_ELIMINAR = "2107";
+                public const string ERROR_ELIMINAR_TODO = "2108";
 
-                public static Dictionary<string, string> Message
+                public const string ERROR_RESERVA_NINGUNO = "2010";
+                public const string SUCCESS_RESERVA = "2011";
+                public const string SUCCESS_RESERVA_OBS = "2012";
+                public const string ERROR_RESERVA_OBS = "2013";
+                public const string ERROR_RESERVA_MONTO_MIN = "2014";
+                public const string ERROR_RESERVA_MONTO_MAX = "2015";
+                public const string ERORR_RESERVA_NO_DISP = "2016";
+                public const string ERROR_RESERVA_DEUDA = "2017";
+
+                public const string ERROR_GUARDAR_NINGUNO = "2020";
+                public const string SUCCESS_GUARDAR = "2021";
+                public const string SUCCESS_GUARDAR_OBS = "2022";
+                public const string ERROR_GUARDAR_OBS = "2023";
+                public const string ERROR_GUARDAR_MONTO_MIN = "2024";
+                public const string ERROR_GUARDAR_MONTO_MAX = "2025";
+                public const string ERORR_GUARDAR_NO_DISP = "2026";
+                public const string ERROR_GUARDAR_DEUDA = "2027";
+
+                public const string ERROR_DESHACER_PEDIDO = "2109";
+                public const string ERROR_DESHACER_PEDIDO_ESTADO = "2110";
+            }
+            public static Dictionary<string, string> Message
+            {
+                get
                 {
-                    get
-                    {
-                        return _Message ?? (_Message = new Dictionary<string, string>
+                    return _Message ?? (_Message = new Dictionary<string, string>
                     {
                         {Code.SUCCESS, "OK"},
                         {Code.ERROR_INTERNO, string.Empty},
                         {Code.ERROR_PRODUCTO_NOEXISTE, "Este producto no existe."},
                         {Code.ERROR_PRODUCTO_AGOTADO, "Este producto está agotado."},
                         {Code.ERROR_PRODUCTO_LIQUIDACION, "Este producto solo está disponible desde la sección de Liquidación Web."},
-                        {Code.ERROR_PRODUCTO_SHOWROOM, "Este producto solo está disponible desde la sección de Venta Digital."},
-                        {Code.ERROR_PRODUCTO_SHOWROOM_NODISPONIBLE, "Esta promoción no se encuentra disponible."},
                         {Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, "Este producto está de oferta en la Guía de Negocio Ésika."},
                         {Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, "Este producto está de oferta en Mi Negocio L’Bel."},
+                        {Code.ERROR_PRODUCTO_ESTRATEGIA, string.Empty},
+
+                        {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, string.Empty},
+                        {Code.ERROR_STOCK_ESTRATEGIA, string.Empty},
+                        {Code.ERROR_KIT_INICIO, "Ocurrió un error al ejecutar la operación."},
+                        {Code.ERROR_GRABAR, "Ocurrió un error al insertar el pedido."},
+                        {Code.ERROR_VALIDA_DATOS , string.Empty },
+                        {Code.ERROR_ACTUALIZAR, "Ocurrió un error al actualizar el pedido." },
+                        {Code.ERROR_ELIMINAR, "Ocurrió un error al eliminar el detalle de pedido." },
+                        {Code.ERROR_ELIMINAR_TODO, "Ocurrió un error al eliminar el pedido." },
+
+                        {Code.ERROR_RESERVA_NINGUNO, "El pedido no se reservó." },
+                        {Code.SUCCESS_RESERVA, "Pedido reservado." },
+                        {Code.SUCCESS_RESERVA_OBS, "Pedido reservado, productos con observaciones." },
+                        {Code.ERROR_RESERVA_OBS, "Pedido no reservado, productos con observaciones." },
+                        {Code.ERROR_RESERVA_MONTO_MIN, "Pedido no reservado, no supera monto mínimo." },
+                        {Code.ERROR_RESERVA_MONTO_MAX, "Pedido no reservado, excede monto máximo." },
+                        {Code.ERORR_RESERVA_NO_DISP, "Reserva no disponible." },
+                        {Code.ERROR_RESERVA_DEUDA, "Pedido no reservado, deuda pendiente." },
+
+                        {Code.ERROR_GUARDAR_NINGUNO, "El pedido no se guardó." },
+                        {Code.SUCCESS_GUARDAR, "Pedido guardado." },
+                        {Code.SUCCESS_GUARDAR_OBS, "Pedido guardado, productos con observaciones." },
+                        {Code.ERROR_GUARDAR_OBS, "Pedido no guardado, productos con observaciones." },
+                        {Code.ERROR_GUARDAR_MONTO_MIN, "Pedido no guardado, no supera monto mínimo." },
+                        {Code.ERROR_GUARDAR_MONTO_MAX, "Pedido no guardado, excede monto máximo." },
+                        {Code.ERORR_GUARDAR_NO_DISP, "Guardar no disponible." },
+                        {Code.ERROR_GUARDAR_DEUDA, "Pedido no guardado, deuda pendiente." },
+
+                        {Code.ERROR_DESHACER_PEDIDO , "Ocurrió un error al deshacer el pedido." },
+                        {Code.ERROR_DESHACER_PEDIDO_ESTADO , "El pedido no se encuentra reservado." }
                     });
-                    }
-                }
-            }
-
-            public class PedidoInsertar
-            {
-                private static Dictionary<string, string> _Message;
-
-                public static class Code
-                {
-                    public const string SUCCESS = "0000";
-                    public const string ERROR_INTERNO = "9999";
-                    public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
-                    public const string ERROR_STOCK_ESTRATEGIA = "2102";
-                    public const string ERROR_KIT_INICIO = "2103";
-                    public const string ERROR_GRABAR = "2104";
-                }
-
-                public static Dictionary<string, string> Message
-                {
-                    get
-                    {
-                        return _Message ?? (_Message = new Dictionary<string, string>
-                            {
-                                {Code.SUCCESS, "OK"},
-                                {Code.ERROR_INTERNO, string.Empty},
-                                {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, string.Empty},
-                                {Code.ERROR_STOCK_ESTRATEGIA, string.Empty},
-                                {Code.ERROR_KIT_INICIO, "Ocurrió un error al ejecutar la operación."},
-                                {Code.ERROR_GRABAR, "Ocurrió un error al insertar el pedido."},
-                            });
-                    }
                 }
             }
         }
@@ -1968,8 +2036,10 @@ namespace Portal.Consultoras.Common
         public class ProlObsCod
         {
             public const string Deuda = "Deuda";
-            public const string MontoMinimoVenta = "MontoMinimoVenta";
-            public const string MontoMinimoFact = "MontoMinimoFact";
+            public const string MontoMinVenta = "MontoMinVenta";
+            public const string MontoMinFact = "MontoMinFact";
+            public const string MontoMinVentaDesc = "MontoMinVentaDesc";
+            public const string MontoMinFactDesc = "MontoMinFactDesc";
             public const string MontoMaximo  = "MontoMaximo";
             public const string LimiteVenta0 = "LimiteVenta0";
             public const string LimiteVenta = "LimiteVenta";
@@ -1990,11 +2060,25 @@ namespace Portal.Consultoras.Common
             public const string DeudaMonto = "{deuMon}";
             public const string MaximoMonto = "{maxMon}";
             public const string MinimoMonto = "{minMon}";
+            public const string DescuentoMonto = "{descMon}";
             public const string DetalleCuv = "{detCuv}";
             public const string LimiteVenta = "{limVen}";
             public const string ReemplazoCuv = "{remCuv}";
             public const string ReemplazoDesc = "{remDes}";
             public const string Stock = "{stock}";
         }
+
+        #region Pin Autenticidad
+        public class EnviarCorreoYSms
+        {
+            public const string Activo = "Activo";
+            public const string IdEstadoActividad = "IdEstadoActividad";
+
+            public const int RecuperarClave = 1;
+            public const int Autenticacion = 2;
+            public const int EnviarPorEmail = 1;
+            public const int EnviarPorSms = 2;
+        }
+        #endregion  
     }
 }

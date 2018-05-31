@@ -78,33 +78,33 @@ namespace Portal.Consultoras.Entities
             this.Estado = Convert.ToString(row["Estado"]);
             this.FechaSolicitud = Convert.ToDateTime(row["FechaSolicitud"]);
 
-            if (DataRecord.HasColumn(row, "Campania") && row["Campania"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Campania"))
                 this.Campania = Convert.ToString(row["Campania"]);
-            if (DataRecord.HasColumn(row, "Leido") && row["Leido"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Leido"))
                 this.Leido = Convert.ToInt16(row["Leido"]);
-            if (DataRecord.HasColumn(row, "NumIteracion") && row["NumIteracion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NumIteracion"))
                 this.NumIteracion = Convert.ToInt32(row["NumIteracion"]);
-            if (DataRecord.HasColumn(row, "CodigoUbigeo") && row["CodigoUbigeo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoUbigeo"))
                 this.CodigoUbigeo = Convert.ToString(row["CodigoUbigeo"]);
 
-            if (DataRecord.HasColumn(row, "FechaModificacion") && row["FechaModificacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FechaModificacion"))
                 this.FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
-            if (DataRecord.HasColumn(row, "FlagMedio") && row["FlagMedio"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FlagMedio"))
                 this.FlagMedio = Convert.ToString(row["FlagMedio"]);
-            if (DataRecord.HasColumn(row, "FlagConsultora") && row["FlagConsultora"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "FlagConsultora"))
                 this.FlagConsultora = Convert.ToBoolean(row["FlagConsultora"]);
 
-            if (DataRecord.HasColumn(row, "MContacto") && row["MContacto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MContacto"))
                 this.MedioContacto = Convert.ToString(row["MContacto"]);
-            if (DataRecord.HasColumn(row, "PrecioTotal") && row["PrecioTotal"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PrecioTotal"))
                 this.PrecioTotal = Convert.ToDecimal(row["PrecioTotal"]);
-            if (DataRecord.HasColumn(row, "Marca") && row["Marca"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Marca"))
                 this.Marca = Convert.ToString(row["Marca"]);
 
-            if (DataRecord.HasColumn(row, "SaldoHoras") && row["SaldoHoras"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "SaldoHoras"))
                 this.SaldoHoras = Convert.ToString(row["SaldoHoras"]);
 
-            if (DataRecord.HasColumn(row, "PedidoWebID") && row["PedidoWebID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PedidoWebID"))
                 this.PedidoWebID = Convert.ToInt32(row["PedidoWebID"]);
 
 
@@ -171,19 +171,19 @@ namespace Portal.Consultoras.Entities
             this.Cantidad = Convert.ToInt32(row["Cantidad"]);
             this.PrecioTotal = this.PrecioUnitario * this.Cantidad;
 
-            if (DataRecord.HasColumn(row, "MarcaID") && row["MarcaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MarcaID"))
                 this.MarcaID = Convert.ToInt32(row["MarcaID"]);
 
-            if (DataRecord.HasColumn(row, "MContacto") && row["MContacto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MContacto"))
                 this.MedioContacto = Convert.ToString(row["MContacto"]);
 
-            if (DataRecord.HasColumn(row, "TipoAtencion") && row["TipoAtencion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TipoAtencion"))
                 this.TipoAtencion = Convert.ToInt32(row["TipoAtencion"]);
 
-            if (DataRecord.HasColumn(row, "PedidoWebID") && row["PedidoWebID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PedidoWebID"))
                 this.PedidoWebID = Convert.ToInt32(row["PedidoWebID"]);
 
-            if (DataRecord.HasColumn(row, "PedidoWebDetalleID") && row["PedidoWebDetalleID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PedidoWebDetalleID"))
                 this.PedidoWebDetalleID = Convert.ToInt32(row["PedidoWebDetalleID"]);
         }
     }

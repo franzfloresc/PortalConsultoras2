@@ -40,9 +40,14 @@ $(document).ready(function () {
 
     $('#campaniaRevista').val(rCampSelect);
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
+        
         $("[data-tag-html]").hide();
         var tag = $(this).attr("data-tag") || "";
         var obj = $("[data-tag-html='" + tag + "']");
+
+        //soluciona error en producción: Uncaught ReferenceError: TagManagerPaginasVirtuales is not defined
+        if (tag === "Revistas") TagManagerPaginasVirtuales();
+
         $.each(obj, function (ind, objTag) {
             $(objTag).fadeIn(300).show();
         });
@@ -57,6 +62,7 @@ $(document).ready(function () {
         $("#barCursor").css("opacity", "0");
     });
 
+
     ordenCat[0] = isEsika ? tagLbel : tagEsika;
     ordenCat[1] = isEsika ? tagEsika : tagLbel;
     ordenCat[2] = tagCyzone;
@@ -65,6 +71,16 @@ $(document).ready(function () {
     CargarCarruselCatalogo();
     ColumnasDeshabilitadasxPais();
     CargarTodosCorreo();
+    
+
+    //soluciona error en producción : Uncaught ReferenceError: CatalogoMostrar is not defined
+    $("#divCatalogo a > img").click(function (e) {
+       
+        var img = $(this).attr("id") || "";
+        if (img === "cata_img_prev") CatalogoMostrar(-1, this);
+        else CatalogoMostrar(1, this);
+
+    });
 
     $(".mostrar_todos").html($.trim($(".mostrar_todos").html()).replace("##", listaCorreo.length));
 
@@ -130,9 +146,10 @@ function InsertarLogCatalogoDynamo(opcionAccion, campaniaCatalogo, marca, cantid
 }
 
 function CargarCarruselCatalogo() {
+    
     ShowLoading();
 
-    var htmlBase = "";
+    
     var totalItem = cantCat * cantCam;
 
     $("#divCatalogo").children()
@@ -195,16 +212,21 @@ function ColumnasDeshabilitadasxPais(valor, accion, label) {
         deferedCam[camp] = jQuery.Deferred();
 
         deferedCam[camp] = ObtenerEstadoCatalogo(camp, deferedCam[camp]);
-        deferedCam[camp].done(function (data, camp) {
-            if (data != null) GetCatalogosLinksByCampania(data, camp);
-            else cont += cantCat;
-        });
+        deferedCam[camp].done(meDone);
     }
 
     $.when(deferedCam[aCam[0]], deferedCam[aCam[1]], deferedCam[aCam[2]]).done(function () {
         FinRenderCatalogo();
     });
 }
+
+var meDone =function (data, camp) {
+    if (data != null) GetCatalogosLinksByCampania(data, camp);
+    else cont += cantCat;
+}
+
+
+
 function ObtenerEstadoCatalogo(campana, defered) {
     jQuery.ajax({
         type: "GET",
@@ -229,12 +251,12 @@ function GetCatalogosLinksByCampania(data, campania) {
     ShowLoading();
     $.ajaxSetup({ cache: false });
 
-    var paisNombre = $("#hdPaisNombre").val();
+   
 
     var defered = new Object();
 
-    var anio = campania.substring(0, 4);
-    var nro = campania.substring(4, 6);
+    
+    
     var idCat = "#divCatalogo";
 
     for (var i = 0; i < cantCat; i++) {
@@ -257,7 +279,7 @@ function GetCatalogosLinksByCampania(data, campania) {
 
         var elemItem = "[data-cam='" + campania + "'][data-cat='" + tagCat + "']";
         $(idCat).find(elemItem).find("[data-tipo='content']").hide();
-        $(elemItem).attr("data-estado", estado)
+        $(elemItem).attr("data-estado", estado);
         
         var codigoISSUU = '', urlCat;
         $.each(data.listCatalogo, function (key, catalogo) {
@@ -448,7 +470,7 @@ function CatalogoEnviarEmail() {
     var _Flagchklbel = "0";
     var _Flagchkcyzone = "0";
     var _Flagchkesika = "0";
-    var _Flagchkfinart = "0";
+   
 
     var clientes = new Array();
     for (var i = 0; i < correoEnviar.length; i++) {
@@ -472,13 +494,13 @@ function CatalogoEnviarEmail() {
             _Flagchklbel = objCorreo.LBel;
             _Flagchkesika = objCorreo.Esika;
             _Flagchkcyzone = objCorreo.Cyzone;
-            _Flagchkfinart = objCorreo.Finart;
+           
         }
         clientes.push(objCorreo);
     }
 
-    var campActual = $("#hdCampaniaActual").val();
-    var campComparte = campaniaEmail;
+ 
+ 
 
     if (_Flagchklbel == "1") {
         dataLayer.push({
@@ -637,6 +659,7 @@ function RevistaMostrar(accion, btn) {
 }
 
 function TagManagerPaginasVirtuales() {
+    
     var urlPrefix = getMobilePrefixUrl();
     dataLayer.push({
         'event': 'virtualPage',

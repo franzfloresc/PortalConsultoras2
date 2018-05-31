@@ -18,12 +18,13 @@ $(document).ready(function () {
             vertical: false,
             infinite: true,
             speed: 300,
+            useCSS: true,
             centerPadding: '0px',
             centerMode: true,
             slidesToScroll: 1,
             variableWidth: false,
-            prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0; text-align:left; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0; text-align:right; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
+            prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -35px; text-align:left; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -35px; text-align:right; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
         });
 
         $('#contenedor-showroom-subcampanias').slick('slickGoTo', 1);
@@ -38,18 +39,19 @@ $(document).ready(function () {
         $('.content_set_oferta_especial').slideUp();
 
     });
-
+    var stilo;
     $("#CerrarOfertaEspecial").on("click", function () {
         $('.banner_especial_showroom').hide();
         $(".footer_e").css("margin-bottom", "0px");
         localStorage["cerrar_banner_sub_campanias"] = true;
     });
+
     if (localStorage["cerrar_banner_sub_campanias"])
         $('.banner_especial_showroom').hide();
     else {
-        var stilo = $('.banner_especial_showroom').attr("style");
+        stilo = $('.banner_especial_showroom').attr("style");
         if (stilo != null) {
-            var stilo = stilo.replace("display:none", "display:block");
+            stilo = stilo.replace("display:none", "display:block");
             $('.banner_especial_showroom').attr("style", stilo);
             $('.banner_especial_showroom').show();
         }
@@ -83,7 +85,7 @@ $(document).ready(function () {
         modal: true,
         closeOnEscape: true,
         width: 456,
-        draggable: true,
+        draggable: true
     });
 
     $("#btnCerrarSet").click(function () {
@@ -130,10 +132,10 @@ $(document).ready(function () {
         $(divs).each(function (index, value) {
             var existe = false;
             var id = $(value).find(".valorCuv").val();
-            $(array_impresions_tactica_desktop).each(function (ind, val) {
+            $(array_impresions_tactica_desktop).each(function(ind, val) {
                 if (val.id == id)
                     existe = true;
-            })
+            });
 
             if (!existe) {
                 array_impresions_tactica_desktop.push({
@@ -233,9 +235,9 @@ $(document).ready(function () {
     }
     else if (ver_subcamapania == true && ver_compraxcompra == true) {
         $("#divBannerCompraPorCompra").hide();
-        var stilo = $('.banner_especial_showroom').attr("style");
+         stilo = $('.banner_especial_showroom').attr("style");
         if (stilo != null) {
-            var stilo = stilo.replace("display:none", "display:block");
+             stilo = stilo.replace("display:none", "display:block");
             $('.banner_especial_showroom').attr("style", stilo);
             $('.banner_especial_showroom').show();
         }
@@ -243,9 +245,9 @@ $(document).ready(function () {
     }
     else if (ver_subcamapania == true) {
         $("#divBannerCompraPorCompra").hide();
-        var stilo = $('.banner_especial_showroom').attr("style");
+         stilo = $('.banner_especial_showroom').attr("style");
         if (stilo != null) {
-            var stilo = stilo.replace("display:none", "display:block");
+             stilo = stilo.replace("display:none", "display:block");
             $('.banner_especial_showroom').attr("style", stilo);
             $('.banner_especial_showroom').show();
         }
@@ -562,21 +564,3 @@ function compraxcompra_promotion_impression() {
     });
 }
 
-function compraxcompra_promotion_impression() {
-    var id = $("#divBannerCompraPorCompra").data("cuv");
-    var name = 'Showroom – ' + $("#divBannerCompraPorCompra").data("descripcion");
-    dataLayer.push({
-        'event': 'promotionView',
-        'ecommerce': {
-            'promoView': {
-                'promotions': [
-                    {
-                        'id': id,
-                        'name': name,
-                        'position': 'Showroom Footer',
-                        'creative': 'Promocion Showroom'
-                    }]
-            }
-        }
-    });
-}

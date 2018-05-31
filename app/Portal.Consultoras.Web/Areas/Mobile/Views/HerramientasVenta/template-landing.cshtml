@@ -20,8 +20,14 @@
             font-size: 12px;
             border: 1px solid rgba(0, 0, 0, .21);
             float: left;
-            margin-left: 1%;
-            margin-right: 1%;
+        }
+
+        #btn_init {
+            display: none !important;
+        }
+
+        #btn_open {
+            display: none !important;
         }
     </style>
 }
@@ -35,13 +41,15 @@
                     <div id="orderby-filter" style="display: block;">
                         <div id="content-orderby" style="margin: 15px 0; text-align: center;">
                             <div id="divFiltros">
-                                <select class="btn3-ffc slct-box-filtro-mobile" data-filtro-tipo="fijo" data-filtro-campo="marca" style="width:40%;">
+                                <select class="btn3-ffc slct-box-filtro-mobile" data-filtro-tipo="fijo" data-filtro-campo="marca" style="width:40%; margin-left: 0;">
                                     @foreach (var item in Model.FiltersByBrand)
                                     {
                                         <option value="@item.Codigo">@item.Descripcion</option>
                                     }
                                 </select>
-                                <select class="btn3-ffc slct-box-filtro-mobile" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden" style="width:56%;">
+                                <select class="btn3-ffc slct-box-filtro-mobile" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden" style="width: 57.5%;
+    margin-right: 0;
+    margin-left: 2.5%;">
                                     @foreach (var item1 in Model.FiltersBySorting)
                                     {
                                         <option value="@item1.Codigo">@item1.Descripcion</option>
@@ -84,7 +92,7 @@
 @Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 <div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.HVMobileLanding"></div>
 
-@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
 
 @section scripts{
 <script type="text/javascript">

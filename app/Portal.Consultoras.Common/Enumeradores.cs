@@ -299,5 +299,28 @@
             HerramientasVentaComprar = 10,
             HerramientasVentaRevisar = 11
         }
+        
+        public enum RestService
+        {
+            ReservaSicc
+        }
+
+        public enum ValidacionProgramaNuevas
+        {
+            ContinuaFlujo = 0,
+            ProductoNoExiste = 1,
+            ConsultoraNoNueva = 2,
+            NoParticipaEnProgramaNuevas = 3,
+            CuvNoPerteneceASuPrograma = 4,
+            ExisteUnElectivoEnPedido = 5,
+            CuvPerteneceProgramaNuevas = 6
+        }
+
+        public enum ValidacionVentaExclusiva
+        {
+            ContinuaFlujo = 0,
+            ConsultoraNoVentaExclusiva = 1,
+            CuvNoLePerteneceAConsultora = 3
+        }
     }
 }

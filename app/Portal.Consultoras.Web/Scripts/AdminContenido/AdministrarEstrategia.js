@@ -299,10 +299,10 @@
                 });
             } else {
                 _toastHelper.error(response.message);
-            };
+            }
         }
         closeWaitingDialog();
-    };
+    }
     var _obtenerParamsFileUpload = function (itemData, editData) {
         return {
             elementId: itemData.elementId,
@@ -387,7 +387,7 @@
     var _obtenerFiltrarEstrategiaSuccess = function (editData, id) {
         return function (data, textStatus, jqXHR) {
 
-            if (data.success == false) {
+           if (data.success == false) {
                 _toastHelper.success(data.message);
                 closeWaitingDialog();
                 return false;
@@ -440,7 +440,7 @@
 
             $("#txtAlcance").val($("#ddlPais option:selected").html());
             $("#spanCampania").val($("#ddlCampania option:selected").html());
-            $("#spanTipoEstrategia").val($("#ddlTipoEstrategia option:selected").html().trim());
+            $("#spanTipoEstrategia").val($("#ddlTipoEstrategia option:selected").html() ? $("#ddlTipoEstrategia option:selected").html().trim():'');
             $("#hdEstrategiaID").val(data.EstrategiaID);
             $("#hdTipoEstrategiaID").val(data.TipoEstrategiaID);
             $("#hdCampania").val(data.CampaniaID);
@@ -906,7 +906,7 @@
                 data: JSON.stringify(params),
                 async: true,
                 success: function (data) {
-                    var objPreview, objChkImagen, idImagen, dataImagen, imgFormat;
+                    var objPreview, objChkImagen, idImagen, dataImagen;
                     $("#mensajeErrorCUV").val("");
 
                     if (data.message == "OK") {
@@ -4495,7 +4495,7 @@
             if (strZonas != "") {
                 $.jstree._reference($("#arbolRegionZona")).uncheck_all();
                 var strZonasArreglo = strZonas.split(",");
-                for (i = 0; i < strZonasArreglo.length; i++) {
+                for (var i = 0; i < strZonasArreglo.length; i++) {
                     $("#arbolRegionZona").jstree("check_node", "#" + strZonasArreglo[i], true);
                 }
                 $("#chkSeleccionar").attr("checked", true);

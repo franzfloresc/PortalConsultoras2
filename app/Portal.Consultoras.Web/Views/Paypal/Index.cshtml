@@ -130,7 +130,7 @@
         $(document).ready(function () {
 
             $('#AMOUNT2').keypress(function (e) {
-                var character = String.fromCharCode(e.keyCode)
+                var character = String.fromCharCode(e.keyCode);
                 var newValue = this.value + character;
                 if (isNaN(newValue) || hasDecimalPlace(newValue, 3)) {
                     e.preventDefault();

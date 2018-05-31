@@ -262,6 +262,9 @@ namespace Portal.Consultoras.ServiceContracts
         BEValidaLoginSB2 GetValidarLoginSB2(int paisID, string codigoUsuario, string contrasenia);
 
         [OperationContract]
+        BEValidaLoginSB2 GetValidarLoginJsonWebToken(int paisID, string documento);
+
+        [OperationContract]
         BEValidaLoginSB2 GetValidarAutoLogin(int paisID, string codigoUsuario, string proveedor);
 
         [OperationContract]
@@ -332,7 +335,7 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         BEUsuarioChatEmtelco GetUsuarioChatEmtelco(int paisID, string codigoUsuario);
-
+        
         #region TerminosCondiciones
         [OperationContract]
         bool InsertTerminosCondiciones(BETerminosCondiciones terminos);
@@ -356,13 +359,24 @@ namespace Portal.Consultoras.ServiceContracts
         BEUsuarioCorreo GetRestaurarClaveByCodUsuario(string ValorRestauracion, int PaisID);
 
         [OperationContract]
-        string EnviaClaveAEmail(int paisId, string textoRecuperacion, bool EsMobile, int nroVeces, BEUsuarioCorreo pRestaurar);
-
-        [OperationContract]
-        void UpdFechaBloqueoRestaurarClave(int paisId, string CodigoUsuario);
-
-        [OperationContract]
-        string GetCodigoSMS(int paisID, string CodigoConsultora, string Origen);
+        bool EnviarEmail(int paisID, BEUsuarioCorreo objEmail);
         #endregion
+
+        #region Pin Autenticidad
+        [OperationContract]
+        BEPinAutenticacion GetPinAutenticidad(int paisID, string CodigoUsuario);
+
+        [OperationContract]
+        string GetCodigoGenerado(int PaisID, BEUsuarioCorreo oUsuCorreo, string CodGenerado);
+
+        [OperationContract]
+        BEUsuarioCorreo GetOpcionHabilitada(int PaisID, BEUsuarioCorreo oUsuCorreo);
+
+        [OperationContract]
+        void UpdFlagAutenticacion(int paisID, string CodigoUsuario);
+        #endregion
+
+        [OperationContract]
+        bool GetConsultoraParticipaEnPrograma(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID);
     }
 }

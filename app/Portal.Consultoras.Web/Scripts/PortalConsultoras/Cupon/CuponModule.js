@@ -1,5 +1,5 @@
 ﻿var cuponModule = (function () {
-    "use strict"
+    "use strict";
 
     var CONS_CUPON = {
         NO_MOSTRAR_CUPON: 0,
@@ -153,11 +153,13 @@
             var confirmacionPromise = enviarCorreoConfirmacionEmailPromise(model);
 
             confirmacionPromise.then(function (response) {
-                if (response.success) {
-                } else {
+                if (!response.success) {
+
                     AbrirMensaje(response.message, "MENSAJE DE VALIDACIÓN");
                 }
-            }, function (xhr, status, error) { });
+            }, function(xhr, status, error) {
+                
+            });
         });
 
         $(document).on("keyup", elements.TxtCorreoIngresado, function () {
@@ -291,31 +293,8 @@
         //}     
     }
 
-    var revisarMostrarContenedorCupon = function () {
-        if (CumpleMostrarContenedorCupon) {
-            $(elements.ContenedorCuponInfo).each(function (index) {
-                var existeContenedorTextoDesktop = $(this).find('div.texto_cupon_monto').length > 0;
-                var existeContenedorTextoMobile = $(this).find('div.texto_cupon').length > 0;
 
-                if (existeContenedorTextoDesktop) {
-                    $(this).find('div.texto_cupon_monto').empty();
-                    $(this).find('div.texto_cupon_monto').append(mensaje);
-                    $(this).show();
-                }
-                else if (existeContenedorTextoMobile) {
-                    $(this).find('div.texto_cupon').empty();
-                    $(this).find('div.texto_cupon').append(mensaje);
-                    $(this).show();
-                } else {
-                    $(this).empty();
-                    $(this).append(mensaje);
-                    $(this).show();
-                }
-                if (TieneOfertasPlan20) { cambiarImagenPorGif($(this)); }
-                else { cambiarGifPorImagen($(this)); }
-            });
-        }
-    }
+    
 
     var obtenerCupon = function () {
         var cuponPromise = obtenerCuponPromise();
@@ -355,24 +334,7 @@
         return d.promise();
     }
 
-    var enviarCorreoGanasteCuponPromise = function (model) {
-        var d = $.Deferred();
-        var promise = $.ajax({
-            type: 'POST',
-            url: setting.BaseUrl + setting.UrlEnviarCorreoGanaste,
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(model),
-            async: true
-        });
-
-        promise.done(function (response) {
-            d.resolve(response);
-        })
-        promise.fail(d.reject);
-
-        return d.promise();
-    }
+    
 
     var enviarCorreoConfirmacionEmailPromise = function (model) {
         var d = $.Deferred();
@@ -499,7 +461,8 @@
 
         $(elements.ContenedorTituloGanaste).empty();
                             
-        $(elements.ContenedorTituloGanaste).append(nombreAlias.toUpperCase() + " ¡TIENES UN CUPÓN DE " + valor + simbolo + " DE DSCTO!");             
+        $(elements.ContenedorTituloGanaste).append(nombreAlias.toUpperCase() + " ¡TIENES UN CUPÓN DE DSCTO!"); 
+        //$(elements.ContenedorTituloGanaste).append(nombreAlias.toUpperCase() + " ¡TIENES UN CUPÓN DE " + valor + simbolo + " DE DSCTO!");             
         //$(elements.ContenedorTituloGanaste).append("¡ACTIVASTE TU CUPÓN DE " + valor + simbolo + " DE DSCTO!");              
 
         $(elements.ContenedorTexto02Ganaste).empty();
@@ -601,35 +564,31 @@
         }, function (xhr, status, error) { });
     }
 
-    var mostrarContenedorConocelo = function () {
-        setting.CumpleMostrarContenedorCupon = true;
-        $(elements.ContenedorCuponInfo).hide();
-        $(elements.ContenedorCuponConocelo).show();
-    }
 
     var cambiarImagenPorGif = function (contenedor) {
-
+        var backImg = "", nuevoBackImg = "";
+        
         if ($(contenedor).find('img').length > 0) {
-            var backImg = $(contenedor).find('img').attr('src');
-            var nuevoBackImg = backImg.replace('icono_cupon.png', 'cupon_gif_negro.gif');
+            backImg = $(contenedor).find('img').attr('src');
+            nuevoBackImg = backImg.replace('icono_cupon.png', 'cupon_gif_negro.gif');
             $(contenedor).find('img').attr('src', nuevoBackImg);
             return;
         }
-        var backImg = $(contenedor).css('background-image');
-        var nuevoBackImg = backImg.replace('icono_cupon.png', 'cupon_gif_negro.gif');
+        backImg = $(contenedor).css('background-image');
+        nuevoBackImg = backImg.replace('icono_cupon.png', 'cupon_gif_negro.gif');
         $(contenedor).css('background-image', nuevoBackImg);
     }
 
     var cambiarGifPorImagen = function (contenedor) {
-
+        var nuevoBackImg, backImg;
         if ($(contenedor).find('img').length > 0) {
-            var backImg = $(contenedor).find('img').attr('src');
-            var nuevoBackImg = backImg.replace('cupon_gif_negro.gif', 'icono_cupon.png');
+             backImg = $(contenedor).find('img').attr('src');
+             nuevoBackImg = backImg.replace('cupon_gif_negro.gif', 'icono_cupon.png');
             $(contenedor).find('img').attr('src', nuevoBackImg);
             return;
         }
-        var backImg = $(contenedor).css('background-image');
-        var nuevoBackImg = backImg.replace('cupon_gif_negro.gif', 'icono_cupon.png');
+         backImg = $(contenedor).css('background-image');
+         nuevoBackImg = backImg.replace('cupon_gif_negro.gif', 'icono_cupon.png');
         $(contenedor).css('background-image', nuevoBackImg);
     }
 
@@ -709,6 +668,7 @@
             mostrarContenedorCuponPorPagina();
         },
         revisarMostrarContenedorCupon: function () {
+          
             mostrarContenedorCuponPorPagina();
         },
         mostrarPopupGanaste: mostrarPopupGanasteAlConfirmarCorreo,

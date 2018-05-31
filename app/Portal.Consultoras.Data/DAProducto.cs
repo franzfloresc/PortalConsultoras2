@@ -57,16 +57,23 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetProductoComercialByCampaniaBySearchRegionZona(int CampaniaID, int RowCount, int Criterio, string CodigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, bool validarOpt)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByCampaniaBySearchRegionZona_SB2");
+            bool busquedaCuv = Criterio == 1;
+
+            DbCommand command;
+            if (busquedaCuv)
+                command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByCuvByFilter");
+            else
+                command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByDescripcionByFilter");
+
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
             Context.Database.AddInParameter(command, "@RowCount", DbType.Int32, RowCount);
-            Context.Database.AddInParameter(command, "@Criterio", DbType.Int32, Criterio);
+            //Context.Database.AddInParameter(command, "@Criterio", DbType.Int32, Criterio);
             Context.Database.AddInParameter(command, "@CodigoDescripcion", DbType.String, CodigoDescripcion);
             Context.Database.AddInParameter(command, "@RegionID", DbType.Int32, RegionID);
             Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, ZonaID);
             Context.Database.AddInParameter(command, "@CodigoRegion", DbType.AnsiString, CodigoRegion);
             Context.Database.AddInParameter(command, "@CodigoZona", DbType.AnsiString, CodigoZona);
-            Context.Database.AddInParameter(command, "@ValidarOPT", DbType.Boolean, validarOpt);
+            //Context.Database.AddInParameter(command, "@ValidarOPT", DbType.Boolean, validarOpt);
 
             return Context.ExecuteReader(command);
         }
@@ -235,6 +242,33 @@ namespace Portal.Consultoras.Data
                 return Context.ExecuteReader(dbCommand);
             }
         }
+        #region Programa Nuevas
+        public IDataReader GetProductosProgramaNuevas(int campianiaID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductosProgramaNuevas");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campianiaID);
 
+            return Context.ExecuteReader(command);
+        }
+        #endregion
+
+        #region Venta Exclusiva
+        public IDataReader GetProductosExclusivos(int campaniaID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoExclusivos");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetConsultoraProductoExclusivo(int campaniaID, string codigoConsultora)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraProductoExclusivo");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+
+            return Context.ExecuteReader(command);
+        }
+        #endregion
     }
 }

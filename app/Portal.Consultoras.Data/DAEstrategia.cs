@@ -49,6 +49,12 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@CUV2", DbType.String, entidad.CUV2);
                 Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+
+                Context.Database.AddInParameter(command, "@AgregarEnMatriz", DbType.Boolean, entidad.AgregarEnMatriz);
+                Context.Database.AddInParameter(command, "@UsuarioRegistro", DbType.String, entidad.UsuarioRegistro);
+                	 
+
+
                 return Context.ExecuteReader(command);
             }
         }
@@ -656,38 +662,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
         #endregion
-
-        #region CargaMasivaImagenes
-
-        public IDataReader GetListaImagenesEstrategiasByCampania(int campaniaId)
-        {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaImagenesEstrategiasByCampania"))
-            {
-                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
-                return Context.ExecuteReader(command);
-            }
-        }
-
-        public IDataReader GetListaImagenesOfertaLiquidacionByCampania(int campaniaId)
-        {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaImagenesOfertaLiquidacionByCampania"))
-            {
-                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
-                return Context.ExecuteReader(command);
-            }
-        }
-
-        public IDataReader GetListaImagenesProductoSugeridoByCampania(int campaniaId)
-        {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaImagenesProductoSugeridoByCampania"))
-            {
-                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
-                return Context.ExecuteReader(command);
-            }
-        }
-
-        #endregion
-
+        
         public List<int> InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarEstrategiaMasiva"))
