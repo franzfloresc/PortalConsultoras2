@@ -22,12 +22,23 @@
 
     <link rel="shortcut icon" type="image/x-icon" id="iconoPagina" data-id="iconPagina" href="@ViewBag.IconoPagina" />
 
-    <div data-id="cssStyle" id="cssStyle" @(ViewBag.EsPaisEsika == false ? "disabled='disabled'" : "")>
-        @Styles.Render("~/Content/Css/Site/Login2/Esika")
-    </div>
-    <div data-id="cssStyleLbel" id="cssStyleLbel" @(ViewBag.EsPaisLbel == false ? "disabled='disabled'" : "")>
-        @Styles.Render("~/Content/Css/Site/Login2/Lbel")
-    </div>
+    @if (ViewBag.EsPaisEsika) {
+        <div data-id="cssStyle" 
+             class="current-belcorp-style" 
+             data-srcesika="@Url.Content("~/Content/Css/Site/Login2/style_esika.css")" 
+             data-srclbel="@Url.Content("~/Content/Css/Site/Login2/style_lbel.css")" 
+             id="cssStyle"
+        >@Styles.Render("~/Content/Css/Site/Login2/Esika")</div>
+    }
+    
+    @if (ViewBag.EsPaisLbel) {
+        <div data-id="cssStyleLbel" 
+             class="current-belcorp-style" 
+             data-srcesika="@Url.Content("~/Content/Css/Site/Login2/style_esika.css")" 
+             data-srclbel="@Url.Content("~/Content/Css/Site/Login2/style_lbel.css")" 
+             id="cssStyleLbel" 
+        >@Styles.Render("~/Content/Css/Site/Login2/Lbel")</div>
+    }
 
     @Styles.Render("~/Content/Css/Login")
 
