@@ -465,6 +465,7 @@
     <Compile Include="Models\Estrategia\UpSellingModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingRegaloModel.cs" />
     <Compile Include="Models\GuiaNegocioModel.cs" />
+    <Compile Include="Models\ObservacionModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaReporteModel.cs" />
     <Compile Include="Models\PartialSectionBpt.cs" />
     <Compile Include="Models\BusquedaProductoModel.cs" />
@@ -490,6 +491,7 @@
     <Compile Include="Models\MensajesCDRExpressModel.cs" />
     <Compile Include="Models\PedidoCrudModel.cs" />
     <Compile Include="Models\PagoEnLineaConfiguracion.cs" />
+    <Compile Include="Models\PedidoDetalleModel.cs" />
     <Compile Include="Models\Pedido\PedidoWebSetDetalleModel.cs" />
     <Compile Include="Models\PagoEnlineaInfoModel.cs" />
     <Compile Include="Models\PagoEnLinea\DataToken.cs" />
@@ -629,7 +631,6 @@
     <Compile Include="Models\PedidoAsociadoModel.cs" />
     <Compile Include="Models\PedidoDetalleCarritoModel.cs" />
     <Compile Include="Models\PedidoFICModel.cs" />
-    <Compile Include="Models\PedidoModel.cs" />
     <Compile Include="Models\PedidoSb2Model.cs" />
     <Compile Include="Models\PedidoWebDetalleModel.cs" />
     <Compile Include="Models\PercepcionesModel.cs" />
@@ -639,6 +640,7 @@
     <Compile Include="Models\ProductoCompartidoModel.cs" />
     <Compile Include="Models\ProductoFaltanteModel.cs" />
     <Compile Include="Models\Pedido\PedidoWebSetModel.cs" />
+    <Compile Include="Models\ProductoModel.cs" />
     <Compile Include="Models\ProveedorDespachoCobranzaModel.cs" />
     <Compile Include="Models\RechazoModel.cs" />
     <Compile Include="Models\OfertaFinalRegaloModel.cs" />
