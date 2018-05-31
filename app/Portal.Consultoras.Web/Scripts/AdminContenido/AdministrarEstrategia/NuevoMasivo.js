@@ -505,7 +505,6 @@
         },
         clickAceptarMasivo2: function () {
 
-            console.log('ejecutando clickAceptarMasivo2 - inicio'); 
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
                 tipoConfigurado: 1,
@@ -513,6 +512,7 @@
                 nroLote: _variables.NroLote
             };
 
+            console.log('ejecutando clickAceptarMasivo2 - inicio', params); 
             waitingDialog();
 
             jQuery.ajax({
