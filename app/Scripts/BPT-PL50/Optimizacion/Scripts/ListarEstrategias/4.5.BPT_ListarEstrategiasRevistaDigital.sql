@@ -94,6 +94,7 @@ SET NOCOUNT ON;
 		, E.PrecioPublico
 		, E.Ganancia
 		, OP.FlagRevista
+		, OP.Orden
 	FROM dbo.Estrategia E with(nolock)
 		INNER JOIN @OfertasPersonalizadas op ON E.CampaniaID = op.AnioCampanaVenta AND E.CUV2 = op.CUV
 		INNER JOIN ods.ProductoComercial PC with(nolock) ON  PC.CUV = E.CUV2 AND PC.AnoCampania = E.CampaniaID
