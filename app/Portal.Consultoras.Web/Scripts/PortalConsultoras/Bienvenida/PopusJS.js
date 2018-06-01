@@ -33,6 +33,7 @@
                 }
             }
         }
+       
 
         document.getElementById('Cupon1').onclick = document.getElementById('Cupon2').onclick = document.getElementById('Cupon3').onclick = function () {
             if (document.getElementById('Cupon1').style.display == '' || document.getElementById('Cupon2').style.display == '' || document.getElementById('Cupon3').style.display == '') {
