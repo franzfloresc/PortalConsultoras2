@@ -150,6 +150,7 @@
         jQuery("#listCargaMasiva1").setGridParam({ datatype: "json", page: 1 }).trigger("reloadGrid");
     }
     var _fnGrillaEstrategias2 = function () {
+        waitingDialog();
         console.log('ejecutando de _fnGrillaEstrategias2 - inicio');
         $("#listCargaMasiva2").jqGrid("GridUnload");
         console.log(_config.urlEstrategiaTemporalConsultar);
@@ -205,6 +206,7 @@
             loadComplete: function () { },
             gridComplete: function () {
                 console.log('ejecutando de _fnGrillaEstrategias2 - gridComplete - inicio', _variables.cantidadPrecargar2);
+                closeWaitingDialog();
                 if (_variables.cantidadPrecargar2 == 0) {
                     $("#divMostrarPreCarga2").css("display", "none");
                 } else {
@@ -489,8 +491,14 @@
                             _eventos.clickAceptarMasivo1();
                         }
                         else if (data.continuaPaso === true) {
-                            console.log('antes de _fnGrillaEstrategias2');
-                            _fnGrillaEstrategias2();
+                            console.log('antes de _fnGrillaEstrategias2', data);
+                            closeWaitingDialog();
+                            if (data.messageComplemento == "") {
+                                _fnGrillaEstrategias2();
+                            }
+                            else {
+                                _toastHelper.error(data.messageComplemento);
+                            }
                         }
                     } else {
                         _toastHelper.error(data.message);

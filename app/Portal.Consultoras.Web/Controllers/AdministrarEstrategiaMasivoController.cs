@@ -331,15 +331,17 @@ namespace Portal.Consultoras.Web.Controllers
                 var cantTotalPagina = (entidadMasivo.CantTotal / entidadMasivo.CantidadCuv) + (entidadMasivo.CantTotal % entidadMasivo.CantidadCuv == 0 ? 0 : 1);
                 if (cantTotalPagina < entidadMasivo.Pagina)
                 {
+                    string mensajeComplemento = "";
                     if (cantTotalPagina > 0)
                     {
-                        MasivoEstrategiaTemporalExecComplemento(entidadMasivo);
+                        mensajeComplemento = MasivoEstrategiaTemporalExecComplemento(entidadMasivo);
                     }
 
                     return Json(new
                     {
                         success = cantTotalPagina > 0,
                         message = cantTotalPagina > 0 ? "" : "No existen Estrategias para Insertar",
+                        messageComplemento = mensajeComplemento,
                         continuaPaso = true,
                         entidadMasivo.Pagina,
                         entidadMasivo.NroLote,
@@ -427,17 +429,29 @@ namespace Portal.Consultoras.Web.Controllers
             return lote;
         }
 
-        private bool MasivoEstrategiaTemporalExecComplemento(AdministrarEstrategiaMasivoModel entidadMasivo)
+        private string MasivoEstrategiaTemporalExecComplemento(AdministrarEstrategiaMasivoModel entidadMasivo)
         {
-            bool rpta = true;
+            string rpta = "";
+            bool rptaService = false;
             try
             {
-                MasivoEstrategiaTemporalPrecio(entidadMasivo);
-                MasivoEstrategiaTemporalSetDetalle(entidadMasivo);
+                rptaService = MasivoEstrategiaTemporalPrecio(entidadMasivo);
+                if (rptaService)
+                {
+                    rptaService = MasivoEstrategiaTemporalSetDetalle(entidadMasivo);
+                    if (!rptaService)
+                    {
+                        rpta = "Error al cargar tonos.";
+                    }
+                }
+                else
+                {
+                    rpta = "Error al cargar precios.";
+                }
             }
             catch (Exception)
             {
-                rpta = false;
+                rptaService = false;
             }
             return rpta;
         }
