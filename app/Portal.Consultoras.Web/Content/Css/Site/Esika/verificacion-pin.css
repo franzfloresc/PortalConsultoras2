@@ -147,6 +147,51 @@ body
     margin-top:31px!important;
 }
 
+.fondo_f9f9f9 {
+    background: #f9f9f9;
+    width: 100%;
+    overflow: hidden;
+}
+
+.content_belcorp {
+    max-width: 1189px;
+    margin: 0 auto;
+    height: auto;
+    position: relative;
+    font-family: 'Lato';
+}
+
+.fondo_negro_lateral {
+    height: 50px;
+    position: absolute;
+    left: -45%;
+    background: black;
+    z-index: -0;
+    width: 50%;
+}
+
+.titulo_interiores {
+    padding-right: 50px;
+    float: left;
+    background: black url(../../../Images/Esika/titulo_interiores.png) no-repeat;
+    background-position: right;
+    height: 50px;
+    font-family: 'lato';
+    font-size: 13pt;
+    font-weight: 300;
+    color: white;
+    line-height: 50px;
+    letter-spacing: .5px;
+    position: relative;
+    z-index: 5;
+}
+
+.linea_separadora {
+    width: 100%;
+    height: 1px;
+    background: black;
+}
+
 .w-18,
 .w-82
 {
