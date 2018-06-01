@@ -439,6 +439,14 @@ namespace Portal.Consultoras.Common
             public const int Jetlore = 2;
         }
 
+        #region Banner Security
+        public static class TipoAccesoSegmento
+        {
+            public const byte Inclusion = 1;
+            public const byte Exclusion = 2;
+        }
+        #endregion
+
         public static class OrigenPantallaWeb
         {
             // Primer Dígito -- Plataforma
@@ -521,7 +529,6 @@ namespace Portal.Consultoras.Common
             public const int DesktopPedido = 12;
             public const int MobilePedido = 22;
             public const int AppPedido = 42;
-
 
             #region OfertasParaTi
             public const int OfertasParaTiDesktopHome = 1121;

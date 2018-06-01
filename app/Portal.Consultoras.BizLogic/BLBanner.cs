@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -291,7 +292,9 @@ namespace Portal.Consultoras.BizLogic
                             BannerId = Convert.ToInt32(reader[0]),
                             PaisId = Convert.ToInt32(reader[1]),
                             Segmento = Convert.ToInt32(reader[2]),
-                            ConfiguracionZona = Convert.ToString(reader[3])
+                            ConfiguracionZona = Convert.ToString(reader[3]),
+                            CodigosConsultora = Convert.ToString(reader[4]),
+                            TipoAcceso = Convert.ToInt32(reader[5])
                         });
                     }
 
@@ -322,19 +325,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     if (consultoraNueva && banner.Paises != null && banner.Paises.Contains(paisID))
                     {
-                        List<BEBannerSegmentoZona> segzona = banner.PaisesSegZona.Where(p => p.PaisId == paisID).ToList();
-                        if (segzona.Count > 0)
-                        {
-                            segzona.ForEach(seg =>
-                            {
-                                BEBannerInfo temp = new BEBannerInfo(banner)
-                                {
-                                    Segmento = seg.Segmento,
-                                    ConfiguracionZona = seg.ConfiguracionZona
-                                };
-                                bannersByConsultora.Add(temp);
-                            });
-                        }
+                        bannersByConsultora.AddRange(GetBannersBySegmento(banner, paisID));
                     }
                 }
                 else if (banner.FlagGrupoConsultora)
@@ -345,39 +336,60 @@ namespace Portal.Consultoras.BizLogic
 
                     if (consultora != null)
                     {
-                        List<BEBannerSegmentoZona> segzona = banner.PaisesSegZona.Where(p => p.PaisId == paisID).ToList();
-                        if (segzona.Count > 0)
-                        {
-                            segzona.ForEach(seg =>
-                            {
-                                BEBannerInfo temp = new BEBannerInfo(banner)
-                                {
-                                    Segmento = seg.Segmento,
-                                    ConfiguracionZona = seg.ConfiguracionZona
-                                };
-                                bannersByConsultora.Add(temp);
-                            });
-                        }
+                        bannersByConsultora.AddRange(GetBannersBySegmento(banner, paisID));
                     }
                 }
                 else if (banner.Paises != null && banner.Paises.Contains(paisID))
                 {
-                    List<BEBannerSegmentoZona> segzona = banner.PaisesSegZona.Where(p => p.PaisId == paisID).ToList();
-                    if (segzona.Count > 0)
-                    {
-                        segzona.ForEach(seg =>
-                        {
-                            BEBannerInfo temp = new BEBannerInfo(banner)
-                            {
-                                Segmento = seg.Segmento,
-                                ConfiguracionZona = seg.ConfiguracionZona
-                            };
-                            bannersByConsultora.Add(temp);
-                        });
-                    }
+                    bannersByConsultora.AddRange(GetBannersBySegmentoRelacion(banner, paisID, codigoConsultora));
                 }
             }
             return bannersByConsultora;
+        }
+
+        private static IEnumerable<BEBannerInfo> GetBannersBySegmento(BEBanner banner, int paisId)
+        {
+            return from seg in banner.PaisesSegZona
+                   where seg.PaisId == paisId
+                   select new BEBannerInfo(banner)
+                   {
+                       Segmento = seg.Segmento,
+                       ConfiguracionZona = seg.ConfiguracionZona
+                   };
+        }
+
+        private static IEnumerable<BEBannerInfo> GetBannersBySegmentoRelacion(BEBanner banner, int paisId, string codigoConsultora)
+        {
+            return from seg in banner.PaisesSegZona
+                   where seg.PaisId == paisId
+                   && ValidAccessConsultora(codigoConsultora, seg)
+                   select new BEBannerInfo(banner)
+                   {
+                       Segmento = seg.Segmento,
+                       ConfiguracionZona = seg.ConfiguracionZona
+                   };
+        }
+
+        private static bool ValidAccessConsultora(string codigoConsultora, BEBannerSegmentoZona seg)
+        {
+            if (seg.TipoAcceso <= 0) return true;
+
+            var consultoras = seg.CodigosConsultora.Split(',');
+            if (consultoras.Length <= 0) return true;
+
+            if (seg.TipoAcceso == Constantes.TipoAccesoSegmento.Inclusion &&
+                !consultoras.Contains(codigoConsultora))
+            {
+                return false;
+            }
+
+            if (seg.TipoAcceso == Constantes.TipoAccesoSegmento.Exclusion &&
+                consultoras.Contains(codigoConsultora))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public BEBannerSegmentoZona GetBannerSegmentoSeccion(int CampaniaId, int BannerId, int PaisId)
@@ -388,11 +400,12 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daBanner.GetBannerSegmentoSeccion(CampaniaId, BannerId, PaisId))
                 while (reader.Read())
                 {
-                    obeBannerSegmentoZona = new BEBannerSegmentoZona()
+                    obeBannerSegmentoZona = new BEBannerSegmentoZona
                     {
                         Segmento = Convert.ToInt32(reader["Segmento"]),
                         ConfiguracionZona = Convert.ToString(reader["ConfiguracionZona"]),
-                        SegmentoInterno = Convert.ToString(reader["SegmentoInterno"])
+                        SegmentoInterno = Convert.ToString(reader["SegmentoInterno"]),
+                        TipoAcceso = Convert.ToInt32(reader["TipoAcceso"])
                     };
                 }
             return obeBannerSegmentoZona;
@@ -415,12 +428,12 @@ namespace Portal.Consultoras.BizLogic
             return lista;
         }
 
-        public void UpdBannerPaisSegmentoZona(int CampaniaId, int BannerId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInterno)
+        public void UpdBannerPaisSegmentoZona(BEBannerSegmentoZona segmentoZona)
         {
-            DABanner daBanner = new DABanner();
-            daBanner.UpdBannerPaisSegmentoZona(CampaniaId, BannerId, PaisId, Segmento, ConfiguracionZona, SegmentoInterno);
-            CacheManager<BEBanner>.RemoveData(ECacheItem.Banners, CampaniaId.ToString());
-            CacheManager<BEBanner>.RemoveData(ECacheItem.BannersBienvenida, CampaniaId.ToString());
+            var daBanner = new DABanner();
+            daBanner.UpdBannerPaisSegmentoZona(segmentoZona);
+            CacheManager<BEBanner>.RemoveData(ECacheItem.Banners, segmentoZona.CampaniaId.ToString());
+            CacheManager<BEBanner>.RemoveData(ECacheItem.BannersBienvenida, segmentoZona.CampaniaId.ToString());
         }
 
         public void DeleteCacheBanner(int CampaniaID)
