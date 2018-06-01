@@ -2970,6 +2970,7 @@
     <Content Include="Content\Images\mobile\icono-acepto-politica-cdr.png" />
     <Content Include="Content\Images\mobile\icono-cerrar-popup-inscripcion-mobile.svg" />
     <Content Include="Content\Images\mobile\icono-eliminar-cdr.png" />
+    <Content Include="Content\Images\mobile\icono-menu-mobile.svg" />
     <Content Include="Content\Images\mobile\icono_regalo.png" />
     <Content Include="Content\Images\mobile\icono_regalo_estrella.png" />
     <Content Include="Content\Images\mobile\icon_caja.png" />
