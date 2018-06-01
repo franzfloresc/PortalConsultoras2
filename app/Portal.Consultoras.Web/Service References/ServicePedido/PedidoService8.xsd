@@ -886,7 +886,7 @@
   <xs:element name="ReservaPedidoDetalleAppResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q67="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido.App" minOccurs="0" name="ReservaPedidoDetalleAppResult" nillable="true" type="q67:BEPedidoDetalleAppResult" />
+        <xs:element xmlns:q67="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido.App" minOccurs="0" name="ReservaPedidoDetalleAppResult" nillable="true" type="q67:BEPedidoReservaAppResult" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

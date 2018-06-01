@@ -3018,83 +3018,6 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEVisaConfiguracion", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BEVisaConfiguracion : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DescripcionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ParametroField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ValorField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Descripcion {
-            get {
-                return this.DescripcionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
-                    this.DescripcionField = value;
-                    this.RaisePropertyChanged("Descripcion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Parametro {
-            get {
-                return this.ParametroField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ParametroField, value) != true)) {
-                    this.ParametroField = value;
-                    this.RaisePropertyChanged("Parametro");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Valor {
-            get {
-                return this.ValorField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ValorField, value) != true)) {
-                    this.ValorField = value;
-                    this.RaisePropertyChanged("Valor");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceContenido.IContenidoService")]
     public interface IContenidoService {
@@ -3521,12 +3444,6 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/ObtenerCorreoEmisor", ReplyAction="http://tempuri.org/IContenidoService/ObtenerCorreoEmisorResponse")]
         System.Threading.Tasks.Task<string> ObtenerCorreoEmisorAsync(int PaisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetVisaConfiguracion", ReplyAction="http://tempuri.org/IContenidoService/GetVisaConfiguracionResponse")]
-        Portal.Consultoras.Web.ServiceContenido.BEVisaConfiguracion[] GetVisaConfiguracion(int PaisId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetVisaConfiguracion", ReplyAction="http://tempuri.org/IContenidoService/GetVisaConfiguracionResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEVisaConfiguracion[]> GetVisaConfiguracionAsync(int PaisId);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -4174,14 +4091,6 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         
         public System.Threading.Tasks.Task<string> ObtenerCorreoEmisorAsync(int PaisID) {
             return base.Channel.ObtenerCorreoEmisorAsync(PaisID);
-        }
-        
-        public Portal.Consultoras.Web.ServiceContenido.BEVisaConfiguracion[] GetVisaConfiguracion(int PaisId) {
-            return base.Channel.GetVisaConfiguracion(PaisId);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEVisaConfiguracion[]> GetVisaConfiguracionAsync(int PaisId) {
-            return base.Channel.GetVisaConfiguracionAsync(PaisId);
         }
     }
 }

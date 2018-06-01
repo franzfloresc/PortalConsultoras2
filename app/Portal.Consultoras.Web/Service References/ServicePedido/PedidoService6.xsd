@@ -998,6 +998,7 @@
       <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
       <xs:element minOccurs="0" name="ImagenProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MostrarAgotado" type="xs:int" />
       <xs:element minOccurs="0" name="Orden" type="xs:int" />
       <xs:element minOccurs="0" name="ProductoSugeridoID" type="xs:int" />
       <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />

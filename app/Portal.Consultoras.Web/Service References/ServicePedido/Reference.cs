@@ -17283,6 +17283,83 @@ namespace Portal.Consultoras.Web.ServicePedido {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEPedidoReservaAppResult", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido.App")]
+    [System.SerializableAttribute()]
+    public partial class BEPedidoReservaAppResult : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoRespuestaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MensajeRespuestaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServicePedido.BEPedidoObservacion[] ObservacionesField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoRespuesta {
+            get {
+                return this.CodigoRespuestaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoRespuestaField, value) != true)) {
+                    this.CodigoRespuestaField = value;
+                    this.RaisePropertyChanged("CodigoRespuesta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MensajeRespuesta {
+            get {
+                return this.MensajeRespuestaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MensajeRespuestaField, value) != true)) {
+                    this.MensajeRespuestaField = value;
+                    this.RaisePropertyChanged("MensajeRespuesta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoObservacion[] Observaciones {
+            get {
+                return this.ObservacionesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ObservacionesField, value) != true)) {
+                    this.ObservacionesField = value;
+                    this.RaisePropertyChanged("Observaciones");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEPagoEnLineaResultadoLog", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.PagoEnLinea")]
     [System.SerializableAttribute()]
     public partial class BEPagoEnLineaResultadoLog : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -22333,6 +22410,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string ImagenProductoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MostrarAgotadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int OrdenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -22441,6 +22521,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.ImagenProductoField, value) != true)) {
                     this.ImagenProductoField = value;
                     this.RaisePropertyChanged("ImagenProducto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MostrarAgotado {
+            get {
+                return this.MostrarAgotadoField;
+            }
+            set {
+                if ((this.MostrarAgotadoField.Equals(value) != true)) {
+                    this.MostrarAgotadoField = value;
+                    this.RaisePropertyChanged("MostrarAgotado");
                 }
             }
         }
@@ -37622,10 +37715,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleAppResult> DeletePedidoDetalleAppAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleApp pedidoDetalle);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ReservaPedidoDetalleApp", ReplyAction="http://tempuri.org/IPedidoService/ReservaPedidoDetalleAppResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleAppResult ReservaPedidoDetalleApp(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
+        Portal.Consultoras.Web.ServicePedido.BEPedidoReservaAppResult ReservaPedidoDetalleApp(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ReservaPedidoDetalleApp", ReplyAction="http://tempuri.org/IPedidoService/ReservaPedidoDetalleAppResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleAppResult> ReservaPedidoDetalleAppAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoReservaAppResult> ReservaPedidoDetalleAppAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DeshacerReservaPedidoApp", ReplyAction="http://tempuri.org/IPedidoService/DeshacerReservaPedidoAppResponse")]
         Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleAppResult DeshacerReservaPedidoApp(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
@@ -40271,11 +40364,11 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.DeletePedidoDetalleAppAsync(pedidoDetalle);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleAppResult ReservaPedidoDetalleApp(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoReservaAppResult ReservaPedidoDetalleApp(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
             return base.Channel.ReservaPedidoDetalleApp(usuario);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleAppResult> ReservaPedidoDetalleAppAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoReservaAppResult> ReservaPedidoDetalleAppAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
             return base.Channel.ReservaPedidoDetalleAppAsync(usuario);
         }
         
