@@ -14759,11 +14759,11 @@ span.icon-advertencia {
 .agregarBackgroundCincuentaAniosBelcorp{
     background-image:url('../../../Images/mobile/cincuenta_anios_belcorp_cabecera_mobile.svg');
     background-repeat:no-repeat;
-    background-position:-19px top;
+    background-position:-23px top;
 }
 
 .icono_menuMobile_cincuenta_anios_belcorp img{
-    width: 27px!important;
+    width: 22px!important;
     height: 22px;
     position: relative;
     left: -5px!important;
