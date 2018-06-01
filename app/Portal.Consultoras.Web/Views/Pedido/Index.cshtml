@@ -463,7 +463,7 @@
                     }
 
                     <li data-id="4" data-name="Productos Agotados" data-position="pedido-inferior-4">
-                        <a onclick="AnalyticsBannersInferiores({ id: '4', name: 'Productos Agotados', position: 'pedido-inferior-4' }); CargarProductoAgotados();" href="javascript:;" title="Productos Agotados">
+                        <a onclick="AnalyticsBannersInferiores({ id: '4', name: 'Productos Agotados', position: 'pedido-inferior-4' }); CargarProductoAgotados(1);" href="javascript:;" title="Productos Agotados">
                             <div class="imagen_banner_inferior">
                                 <img data-src="@Model.UrlBanner03" alt="Infórmate aquí" data-lazy-seccion-banner-pedido="" />
                             </div>
@@ -895,15 +895,33 @@
         </div>
         <div class="contenedor_lista_productosAgotados">
             <h6>PRODUCTOS <b>AGOTADOS</b> de <b>@((string)ViewBag.Campania.ToUpper())</b></h6>
+
             <div class="content_cuv">
-                CUV:
-                <input id="producto-faltante-busqueda-cuv" type="text" class="producto_faltante ValidaNumeralPedido" maxlength="5">
-                Producto:
-                <input id="producto-faltante-busqueda-descripcion" type="text" class="producto_faltante">
-                <input type="button" onclick="CargarProductoAgotados();" class="buscar_icono">
+                <section>
+                    <div class="filtroInput">
+                        <label  for="ddlCategoriaProductoAgotado">Categoria</label>
+                        <select id="ddlCategoriaProductoAgotado" class="producto_faltante"></select>
+                    </div>
+                    <div class="filtroInput">
+                        <label for="producto-faltante-busqueda-cuv">CUV</label>
+                        <input id="producto-faltante-busqueda-cuv" type="text" class="producto_faltante ValidaNumeralPedido" maxlength="5">
+                    </div>
+                    <div class="filtroInput">
+                        <label for="producto-faltante-busqueda-descripcion">Producto</label>
+                        <input id="producto-faltante-busqueda-descripcion" type="text" class="producto_faltante">
+                    </div>
+                    <div class="filtroInput">
+                        <label  for="ddlCatalogoRevistaProductoAgotado">Catalogo o Revista</label>
+                        <select id="ddlCatalogoRevistaProductoAgotado"  class="producto_faltante"></select>
+                    </div>
+                    <div class="filtroButton">
+                        <input type="button" onclick="CargarProductoAgotados(0);" class="buscar_icono">
+                    </div>
+                    <br style="clear:both;" />
+                </section>
             </div>
-            <div class="tabla_productos_agotados" id="tblProductosFaltantes" style="overflow-y:hidden;">
-            </div>
+
+            <div class="tabla_productos_agotados" id="tblProductosFaltantes" style="overflow-y:hidden;"></div>
         </div>
         <div class="clear"></div>
     </div>
@@ -1755,7 +1773,7 @@
                     {{#each Detalle}}
                     <tr>
                         <td class="categoria_productoAgotado">{{../Categoria}}</td>
-                        <td class="codigo_productoAgotado">{{CUV}}</tdclass="codigo_productoAgotado">
+                        <td class="codigo_productoAgotado">{{CUV}}</td>
                         <td class="producto_productoAgotado">{{Descripcion}}</td>
                         <td class="catalogo_productoAgotado">{{Catalogo}}</td>
                         <td class="pagina_productoAgotado text-right">{{NumeroPagina}}</td>
@@ -1765,7 +1783,10 @@
                 </table>
             </td>
         </tr>
-
+        <tr id="tfoot">
+            <td colspan="5" style="text-align: right;"> No se encontro información para mostrar</td>
+        </tr>
+          @*<tfoot> </tfoot>*@
     </table>
 </script>
 

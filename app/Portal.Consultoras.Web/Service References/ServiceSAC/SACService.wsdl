@@ -290,6 +290,24 @@
   <wsdl:message name="ISACService_RemoveDataCache_OutputMessage">
     <wsdl:part name="parameters" element="tns:RemoveDataCacheResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_SelectCategoria_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectCategoria" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SelectCategoria_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectCategoriaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SelectCatalogoRevista_Filtro_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectCatalogoRevista_Filtro" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SelectCatalogoRevista_Filtro_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectCatalogoRevista_FiltroResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SelectCatalogoRevista_ODS_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectCatalogoRevista_ODS" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SelectCatalogoRevista_ODS_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectCatalogoRevista_ODSResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_UpdateBelcorpNoticia_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateBelcorpNoticia" />
   </wsdl:message>
@@ -1479,6 +1497,18 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/RemoveDataCache" message="tns:ISACService_RemoveDataCache_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/RemoveDataCacheResponse" message="tns:ISACService_RemoveDataCache_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="SelectCategoria">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectCategoria" message="tns:ISACService_SelectCategoria_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SelectCategoriaResponse" message="tns:ISACService_SelectCategoria_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectCatalogoRevista_Filtro">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectCatalogoRevista_Filtro" message="tns:ISACService_SelectCatalogoRevista_Filtro_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SelectCatalogoRevista_FiltroResponse" message="tns:ISACService_SelectCatalogoRevista_Filtro_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectCatalogoRevista_ODS">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectCatalogoRevista_ODS" message="tns:ISACService_SelectCatalogoRevista_ODS_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SelectCatalogoRevista_ODSResponse" message="tns:ISACService_SelectCatalogoRevista_ODS_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UpdateBelcorpNoticia">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia" message="tns:ISACService_UpdateBelcorpNoticia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticiaResponse" message="tns:ISACService_UpdateBelcorpNoticia_OutputMessage" />
@@ -2533,6 +2563,33 @@
     </wsdl:operation>
     <wsdl:operation name="RemoveDataCache">
       <soap:operation soapAction="http://tempuri.org/ISACService/RemoveDataCache" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectCategoria">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectCategoria" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectCatalogoRevista_Filtro">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectCatalogoRevista_Filtro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectCatalogoRevista_ODS">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectCatalogoRevista_ODS" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4445,6 +4502,33 @@
     </wsdl:operation>
     <wsdl:operation name="RemoveDataCache">
       <soap:operation soapAction="http://tempuri.org/ISACService/RemoveDataCache" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectCategoria">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectCategoria" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectCatalogoRevista_Filtro">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectCatalogoRevista_Filtro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectCatalogoRevista_ODS">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectCatalogoRevista_ODS" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
