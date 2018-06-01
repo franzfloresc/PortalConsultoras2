@@ -344,6 +344,7 @@ namespace Portal.Consultoras.Common
             public const string BelcorpRespondeTEL = "BelcorpRespondeTEL_{0}";
             public const string DES_UBIGEO = "DES_UBIGEO_";
             public const string FechaChat = "FechaChat_";
+            public const string MensajeChatBienvenida = " Te damos la bienvenida a nuestro chat, en un momento uno de nuestro creadores de experiencia le estará atendiendo. ";
             public const string PaisesBelcorpChatEMTELCO = "PaisesBelcorpChatEMTELCO";
             public const string UrlBelcorpChat = "UrlBelcorpChat";
             public const string UrlChatPA = "UrlChatPA";
