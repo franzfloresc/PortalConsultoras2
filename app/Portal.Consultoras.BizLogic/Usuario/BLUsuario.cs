@@ -377,7 +377,11 @@ namespace Portal.Consultoras.BizLogic
             var listEstadosValidos = new List<int> { Constantes.EstadoActividadConsultora.Registrada, Constantes.EstadoActividadConsultora.Retirada };
             if (!(listEstadosValidos.Contains(usuario.ConsultoraNueva))) return false;
 
-            return true;
+            int campaniaAnterior = Common.Util.AddCampaniaAndNumero(usuario.CampaniaID, -1, usuario.NroCampanias);
+            if (campaniaAnterior <= 0) return false;
+
+            var existsPedidoAnterior = new BLPedidoWeb().ExistsPedidoWebByCampaniaConsultora(usuario.PaisID, campaniaAnterior, usuario.usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID);
+            return !existsPedidoAnterior;
         }
 
         public BEUsuario GetSesionUsuarioWS(int paisID, string codigoUsuario)
