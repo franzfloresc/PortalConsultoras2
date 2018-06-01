@@ -92,21 +92,21 @@
         <div class="content_resumen_dato_mobile" style="text-align:left">
             @if (!string.IsNullOrEmpty(ViewBag.MensajeAniversario))
             {
-                <div class="nombre_consultora_2018">
+                <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                     ¡Feliz Aniversario @nombreConsultora
                 </div>
             }
             else if (!string.IsNullOrEmpty(ViewBag.MensajeCumpleanos))
             {
 
-                <div class="nombre_consultora_2018">
+                <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                     ¡Feliz Cumpleaños @nombreConsultora
                 </div>
             }
             else if (!string.IsNullOrEmpty(ViewBag.SaludoFestivo))
             {
 
-                <div class="nombre_consultora_2018">
+                <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                     ¡@ViewBag.SaludoFestivo @nombreConsultora
                 </div>
             }
@@ -123,13 +123,13 @@
 
                 if (CampaniaEfectiva.Equals(CampaniaActual))
                 {
-                    <div class="nombre_consultora_2018">
+                    <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                         ¡Bienvenida al <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Club Gana+</a> @nombreConsultora
                     </div>
                 }
                 else
                 {
-                    <div class="nombre_consultora_2018">
+                    <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                         ¡Hola @nombreConsultora
                     </div>
                 }
@@ -137,7 +137,7 @@
             }
             else
             {
-                <div class="nombre_consultora_2018">
+                <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                     ¡Hola @nombreConsultora
                 </div>
             }
