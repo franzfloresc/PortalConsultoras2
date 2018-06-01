@@ -60,7 +60,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int OrigenID { get; set; }
         [DataMember]
-        public bool opcionHabilitar { get; set; }
+        public bool opcionHabilitar { get { return true; } set { } }
         [DataMember]
         public int CantidadEnvios { get; set; }
         [DataMember]

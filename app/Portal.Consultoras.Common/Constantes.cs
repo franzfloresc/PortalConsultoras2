@@ -2066,13 +2066,14 @@ namespace Portal.Consultoras.Common
         {
             public const string OrigenDescripcion = "Olvide Contraseña";
 
-            public class Activacion
+            public class TablaLogica
             {
                 public const short TablaLogicaID = 8;
                 public const string MostarTodasOpciones = "MostarTodasOpciones";
-                public const string PaisesEmail = "PaisesEmail";
-                public const string PaisesChat = "PaisesChat";
-                public const string PaisesBelcorpResponde = "PaisesBelcorpResponde";
+                public const string OpcionEmail = "OpcionEmail";
+                public const string OpcionSms = "OpcionSms";
+                public const string OpcionChat = "OpcionChat";
+                public const string OpcionBelcorpResponde = "OpcionBelcorpResponde";
             }
 
             public class CodigoOpciones
@@ -2096,13 +2097,13 @@ namespace Portal.Consultoras.Common
             {
                 public const string ErrorPais = "No se ha encontrado el País.";
                 public const string ErrorValor = "No se ha encontrado el valor ingresado.";
-                public const string CorreoNoIdentificado = "Correo electrónico no identificado.";
-                public const string ErrorEnviarCorreo = "Error al realizar el envío del correo, inténtelo mas tarde.";
-                public const string ErrorEnviarSms = "Error al realizar el envío del mensaje de texto, inténtelo mas tarde.";
-                public const string ExcedeCantidad = "Ha excedido la cantidad de envios.";
-                public const string OrigenEnvioDesconocido = "Origen de envío desconocido.";
-                public const string EnvioCorreoExitoso = "Te hemos enviado un enlace a tu correo, para restaurar tu clave.";
-                public const string EnvioSmsExitoso = "Mensaje de texto enviado correctamente";
+                //public const string CorreoNoIdentificado = "Correo electrónico no identificado.";
+                //public const string ErrorEnviarCorreo = "Error al realizar el envío del correo, inténtelo mas tarde.";
+                //public const string ErrorEnviarSms = "Error al realizar el envío del mensaje de texto, inténtelo mas tarde.";
+                //public const string ExcedeCantidad = "Ha excedido la cantidad de envios.";
+                //public const string OrigenEnvioDesconocido = "Origen de envío desconocido.";
+                //public const string EnvioCorreoExitoso = "Te hemos enviado un enlace a tu correo, para restaurar tu clave.";
+                //public const string EnvioSmsExitoso = "Mensaje de texto enviado correctamente";
             }
 
             public const int Origen = 1;
@@ -2114,11 +2115,14 @@ namespace Portal.Consultoras.Common
         {
             public const string OrigenDescripcion = "Verificacion de Autenticidad";
 
-            public class Activacion
+            public class TablaLogica
             {
                 public const short TablaLogicaID = 139;
                 public const string Activar = "Activar";
-                public const string PaisesEmail = "PaisesEmail";
+                public const string TieneZona = "TieneZona";
+                public const string OpcionEmail = "OpcionEmail";
+                public const string OpcionSms = "OpcionSms";
+                public const string IdEstadoActividad = "IdEstadoActividad";
             }
 
             public class NombreOpcion
@@ -2126,21 +2130,31 @@ namespace Portal.Consultoras.Common
                 public const int MostrarEmailyCelular = 1;
                 public const int MostrarEmail = 2;
                 public const int MostrarCelular = 3;
-            }
-
-            public const string TieneZona = "TieneZona";
-            public const string IdEstadoActividad = "IdEstadoActividad";
-            public const string MensajeNueva = "MensajeNueva";
-            public const string MensajeReactivada = "MensajeReactivada";
+                public const int SinOpcion = 4;
+            }           
+            
             public const int Origen = 2;
         }
 
-        public class CredencialesSMS
+        public class EnviarSMS
         {
-            public const short TablaLogicaID = 133;
-            public const string USUARIO = "USUARIO";
-            public const string CLAVE = "CLAVE";
-            public const string RutaRecurso = "Api/EnviarSMS";
+            public class CredencialesSMS
+            {
+                public const short TablaLogicaID = 133;
+                public const string USUARIO = "USUARIO";
+                public const string CLAVE = "CLAVE";
+                public const string RutaRecurso = "Api/EnviarSMS";
+            }
+
+            public class Mensaje
+            {
+                public const string NoEnviaSMS = "Mensaje de texto no enviado, inténtelo mas tarde.";
+            }
+        }
+
+        public class EnviarEmail
+        {
+            public const string NoEnvioEmail = "Email no se ha enviado, inténtelo mas tarde.";
         }
 
         public class TipoEnvioEmailSms

@@ -342,7 +342,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (!flagPin)
             {
-                oVerificarAutenticidad = VerificacionAutenticidad(paisId, codigoUsuario);
+                oVerificarAutenticidad = TieneVerificacionAutenticidad(paisId, codigoUsuario);
 
                 if (oVerificarAutenticidad != null)
                 {
@@ -2785,7 +2785,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 if (oDatos != null)
                 {
-                    SetTemData(paisID, valorRestaurar, oDatos.CodigoISO, oDatos.CodigoUsuario, oDatos.PrimerNombre, oDatos.IdEstadoActividad);
+                    SetTemData(paisID, oDatos.CodigoISO, oDatos.CodigoUsuario, oDatos.PrimerNombre, oDatos.IdEstadoActividad, valorRestaurar);
                     oDatos.EsMobile = EsDispositivoMovil();
                 } 
                 return Json(new
@@ -2821,13 +2821,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             int paisID = Convert.ToInt32(TempData["PaisID"]);
             if (paisID == 0) return SuccessJson(Constantes.OlvideContraseña.Mensajes.ErrorPais, false);
-            string valor = "";
-            if (origenID == 1)
-                valor = Convert.ToString(TempData["valorRestaurar"]);
-            else
-                valor = Convert.ToString(TempData["CodigoUsuario"]);
+            string valor = Convert.ToString(TempData["valorCodigoUsuario"]);
             if (valor == "") return SuccessJson(Constantes.OlvideContraseña.Mensajes.ErrorValor, false);
-
             try
             {
                 Enumeradores.EnvioEmail EstadoEnvio = Enumeradores.EnvioEmail.OkEnviarEmail;
@@ -2836,23 +2831,19 @@ namespace Portal.Consultoras.Web.Controllers
                     EstadoEnvio = svc.ProcesaEnvioEmail(paisID, valor, origenID, CantidadEnvios, EsDispositivoMovil());
                 }
                 TempData["PaisID"] = paisID;
-                TempData["valorRestaurar"] = valor;
-                TempData["CodigoUsuario"] = valor;
+                TempData["valorCodigoUsuario"] = valor;
                 switch (EstadoEnvio)
                 {
-                    case Enumeradores.EnvioEmail.EmailNoEncontrado:
-                        return SuccessJson(Constantes.OlvideContraseña.Mensajes.CorreoNoIdentificado, false);
-                    case Enumeradores.EnvioEmail.ErrorEnviarEmail:
-                        return SuccessJson(Constantes.OlvideContraseña.Mensajes.ErrorEnviarCorreo, false);
-                    case Enumeradores.EnvioEmail.ExcedioCantidad:
-                        return SuccessJson(Constantes.OlvideContraseña.Mensajes.ExcedeCantidad, false);
-                    case Enumeradores.EnvioEmail.OrigenNoExiste:
-                        return SuccessJson(Constantes.OlvideContraseña.Mensajes.OrigenEnvioDesconocido, false);
+                    case Enumeradores.EnvioEmail.OkEnviarEmail:
+                        return SuccessJson("", true);
+                    default:
+                        return SuccessJson(Constantes.EnviarEmail.NoEnvioEmail, false);
                 }
-                return SuccessJson(Constantes.OlvideContraseña.Mensajes.EnvioCorreoExitoso, true);
             }
             catch (FaultException ex)
             {
+                TempData["PaisID"] = paisID;
+                TempData["valorCodigoUsuario"] = valor;
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, valor, Util.GetPaisISO(paisID));
                 return ErrorJson(Constantes.MensajesError.RecuperarContrasenia, true);
             }
@@ -2864,40 +2855,29 @@ namespace Portal.Consultoras.Web.Controllers
         {
             int paisID = Convert.ToInt32(TempData["PaisID"]);
             if (paisID == 0) return SuccessJson(Constantes.OlvideContraseña.Mensajes.ErrorPais, false);
-            string valor = "";
-            if (origenID == 1)
-                valor = Convert.ToString(TempData["valorRestaurar"]);
-            else
-                valor = Convert.ToString(TempData["CodigoUsuario"]);
+            string valor = Convert.ToString(TempData["valorCodigoUsuario"]);
             if (valor == "") return SuccessJson(Constantes.OlvideContraseña.Mensajes.ErrorValor, false);
-
             try
             {
-                Enumeradores.EnvioSms EstadoEnvio = Enumeradores.EnvioSms.OkEnviarSms;
+                Enumeradores.EnvioSms EstadoEnvio = Enumeradores.EnvioSms.ErrorEnviarSms;
                 using (var svc = new UsuarioServiceClient())
                 {
                     EstadoEnvio = svc.ProcesaEnvioSms(paisID, valor, origenID, cantidadEnvios, EsDispositivoMovil());
                 }
                 TempData["PaisID"] = paisID;
-                TempData["ValorIngresado"] = valor;
-
+                TempData["valorCodigoUsuario"] = valor;
                 switch (EstadoEnvio)
                 {
-                    case Enumeradores.EnvioSms.CelularNoEncontrado:
-                        return SuccessJson(Constantes.OlvideContraseña.Mensajes.CorreoNoIdentificado, false);
-                    case Enumeradores.EnvioSms.ErrorEnviarSms:
-                        return SuccessJson(Constantes.OlvideContraseña.Mensajes.ErrorEnviarCorreo, false);
-                    case Enumeradores.EnvioSms.ExcedioCantidad:
-                        return SuccessJson(Constantes.OlvideContraseña.Mensajes.ExcedeCantidad, false);
-                    case Enumeradores.EnvioSms.OrigenNoAsignado:
-                        return SuccessJson(Constantes.OlvideContraseña.Mensajes.OrigenEnvioDesconocido, false);
+                    case Enumeradores.EnvioSms.OkEnviarSms:
+                        return SuccessJson("", true);
+                    default:
+                        return SuccessJson(Constantes.EnviarSMS.Mensaje.NoEnviaSMS, false);
                 }                
-                return SuccessJson(Constantes.OlvideContraseña.Mensajes.EnvioSmsExitoso, true);
             }
             catch (FaultException ex)
             {
                 TempData["PaisID"] = paisID;
-                TempData["ValorIngresado"] = valor;
+                TempData["valorCodigoUsuario"] = valor;
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, valor, Util.GetPaisISO(paisID));
                 return ErrorJson(Constantes.MensajesError.RecuperarContrasenia, true);
             }
@@ -2946,7 +2926,7 @@ namespace Portal.Consultoras.Web.Controllers
                             };
                     }
                 }
-                SetTemData(paisID, "", codigoIso, codigoUsuario, primerNombre, IdEstadoActividad);
+                SetTemData(paisID, codigoIso, codigoUsuario, primerNombre, IdEstadoActividad);
                 return Json(new
                 {
                     success = iguales,
@@ -2956,7 +2936,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                SetTemData(paisID, "", codigoIso, codigoUsuario, primerNombre, IdEstadoActividad);
+                SetTemData(paisID, codigoIso, codigoUsuario, primerNombre, IdEstadoActividad);
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, codigoUsuario, Util.GetPaisISO(paisID));
                 return Json(new
                 {
@@ -2966,10 +2946,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private void SetTemData(int paisID, string valorRestaurar, string codigoIso, string codigoUsuario, string primerNombre, int idEstadoActividad)
+        private void SetTemData(int paisID, string codigoIso, string codigoUsuario, string primerNombre, int idEstadoActividad, string valorRestaurar = "")
         {
             TempData["PaisID"] = paisID;
-            TempData["valorRestaurar"] = valorRestaurar;
+            TempData["valorCodigoUsuario"] = valorRestaurar == "" ? codigoUsuario : valorRestaurar;
             TempData["CodigoISO"] = codigoIso;
             TempData["CodigoUsuario"] = codigoUsuario;
             TempData["PrimerNombre"] = primerNombre;
@@ -2978,7 +2958,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region Pin Autenticacion
-        public BEUsuarioCorreo VerificacionAutenticidad(int paisID, string codigoUsuario)
+        public BEUsuarioCorreo TieneVerificacionAutenticidad(int paisID, string codigoUsuario)
         {
             try
             {
@@ -2986,7 +2966,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var sv = new UsuarioServiceClient())
                     objVerificacion = sv.GetPinAutenticidad(paisID, codigoUsuario);
                 if(objVerificacion != null)
-                    SetTemData(paisID, "", objVerificacion.CodigoISO, objVerificacion.CodigoUsuario, objVerificacion.PrimerNombre, objVerificacion.IdEstadoActividad);
+                    SetTemData(paisID, objVerificacion.CodigoISO, objVerificacion.CodigoUsuario, objVerificacion.PrimerNombre, objVerificacion.IdEstadoActividad);
 
                 return objVerificacion;
             }

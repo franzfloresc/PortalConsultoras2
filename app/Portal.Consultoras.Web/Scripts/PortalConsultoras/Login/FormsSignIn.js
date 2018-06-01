@@ -1226,7 +1226,7 @@ function ProcesaEnvioSMS() {
         cantidadEnvios: nroIntentosSms,
         origenID: origen
     };
-    debugger
+
     waitingDialog();
     $.ajax({
         type: 'POST',
@@ -1236,7 +1236,6 @@ function ProcesaEnvioSMS() {
         data: JSON.stringify(parametros),
         async: true,
         success: function (response) {
-            debugger
             if (response.success) {
                 procesoEmail = false;
                 procesoSms = true;
@@ -1347,34 +1346,6 @@ function Regresar() {
 
     $("#popupRestaurarClave").show();
 }
-
-//function Enmascarar_Correo(p_correo) {
-//    var v_literal = "", v_correo = "";
-
-//    v_literal = p_correo.split("@")[0];
-
-//    $.each(v_literal.split(""), function (index, value) {
-//        v_correo += (index === 0 || index === 1 || index === v_literal.length - 1) ? value : "*";
-//    });
-
-//    v_correo = v_correo + "@" + p_correo.split("@")[1];
-
-//    return v_correo;
-//}
-
-//function Enmascarar_Numero(pNumCelular) {
-//    if (pNumCelular.length == 0)
-//        return "";
-//    else {
-//        var _nLongitud = pNumCelular.length;
-//        var v_literal = pNumCelular.trim().split("");
-//        var v_numero = "";
-//        for (var i = 0; i < _nLongitud; i++) {
-//            v_numero += (i === 0 || i === v_literal.length - 1 || i === v_literal.length - 2) ? v_literal[i] : "*";
-//        }
-//        return v_numero;
-//    }
-//}
 
 function OcultarContenidoPopup()
 {

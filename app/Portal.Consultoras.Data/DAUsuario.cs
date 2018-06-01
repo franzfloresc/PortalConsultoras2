@@ -823,7 +823,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsuCorreo.OrigenID);
             Context.Database.AddInParameter(command, "@OrigenDescripcion", DbType.AnsiString, strOrigen);
             Context.Database.AddInParameter(command, "@TipoEnvio", DbType.AnsiString, tipoEnvio);
-            Context.Database.AddInParameter(command, "@CodigoGenerado", DbType.Boolean, codigoGenerado);
+            Context.Database.AddInParameter(command, "@CodigoGenerado", DbType.AnsiString, codigoGenerado);
             Context.Database.AddInParameter(command, "@OpcionHabilitada", DbType.Boolean, oUsuCorreo.opcionHabilitar);
 
             Context.ExecuteNonQuery(command);

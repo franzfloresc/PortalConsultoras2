@@ -3162,7 +3162,7 @@ namespace Portal.Consultoras.Common
             if (mensaje == "") return false;
             if (codigoIso == "") return false;
 
-            string requestUrl = Constantes.CredencialesSMS.RutaRecurso;
+            string requestUrl = Constantes.EnviarSMS.CredencialesSMS.RutaRecurso;
 
             var data = new
             {
