@@ -36380,13 +36380,14 @@ height:30px;
     position: relative;
     float: left;
     left: 0;
-    width: 94.97px;
+    width: 98px;
     height: 61px;
+    overflow:hidden;
 }
 
 .cincuenta_anios_belcorp img{
-    width:104%;
-    height:auto;
+    width: auto;
+    height: 111%;
 }
 
 .cincuenta_anios_belcorp + .logo_esika{
