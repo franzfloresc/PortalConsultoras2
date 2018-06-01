@@ -6,7 +6,7 @@ IF NOT EXISTS (SELECT 1 FROM   tablalogica WHERE  tablalogicaid = 141)
       VALUES     (141, 'Producto sugerido agotado'); 
 
       INSERT INTO tablalogicadatos (tablalogicadatosid, tablalogicaid, codigo, descripcion, valor) 
-      VALUES     (14101, 141, 1, 'Activo', 1); 
+      VALUES     (14101, 141, 1, 'Activo', 0); 
   END 
 GO
 
@@ -18,7 +18,7 @@ IF NOT EXISTS (SELECT 1 FROM   tablalogica WHERE  tablalogicaid = 141)
       VALUES     (141, 'Producto sugerido agotado'); 
 
       INSERT INTO tablalogicadatos (tablalogicadatosid, tablalogicaid, codigo, descripcion, valor) 
-      VALUES     (14101, 141, 1, 'Activo', 1); 
+      VALUES     (14101, 141, 1, 'Activo', 0); 
   END 
 GO
 
@@ -30,7 +30,7 @@ IF NOT EXISTS (SELECT 1 FROM   tablalogica WHERE  tablalogicaid = 141)
       VALUES     (141, 'Producto sugerido agotado'); 
 
       INSERT INTO tablalogicadatos (tablalogicadatosid, tablalogicaid, codigo, descripcion, valor) 
-      VALUES     (14101, 141, 1, 'Activo', 1); 
+      VALUES     (14101, 141, 1, 'Activo', 0); 
   END 
 GO
 
@@ -42,7 +42,7 @@ IF NOT EXISTS (SELECT 1 FROM   tablalogica WHERE  tablalogicaid = 141)
       VALUES     (141, 'Producto sugerido agotado'); 
 
       INSERT INTO tablalogicadatos (tablalogicadatosid, tablalogicaid, codigo, descripcion, valor) 
-      VALUES     (14101, 141, 1, 'Activo', 1); 
+      VALUES     (14101, 141, 1, 'Activo', 0); 
   END 
 GO
 
@@ -54,7 +54,7 @@ IF NOT EXISTS (SELECT 1 FROM   tablalogica WHERE  tablalogicaid = 141)
       VALUES     (141, 'Producto sugerido agotado'); 
 
       INSERT INTO tablalogicadatos (tablalogicadatosid, tablalogicaid, codigo, descripcion, valor) 
-      VALUES     (14101, 141, 1, 'Activo', 1); 
+      VALUES     (14101, 141, 1, 'Activo', 0); 
   END 
 GO
 
@@ -66,7 +66,7 @@ IF NOT EXISTS (SELECT 1 FROM   tablalogica WHERE  tablalogicaid = 141)
       VALUES     (141, 'Producto sugerido agotado'); 
 
       INSERT INTO tablalogicadatos (tablalogicadatosid, tablalogicaid, codigo, descripcion, valor) 
-      VALUES     (14101, 141, 1, 'Activo', 1); 
+      VALUES     (14101, 141, 1, 'Activo', 0); 
   END 
 GO
 
@@ -78,7 +78,7 @@ IF NOT EXISTS (SELECT 1 FROM   tablalogica WHERE  tablalogicaid = 141)
       VALUES     (141, 'Producto sugerido agotado'); 
 
       INSERT INTO tablalogicadatos (tablalogicadatosid, tablalogicaid, codigo, descripcion, valor) 
-      VALUES     (14101, 141, 1, 'Activo', 1); 
+      VALUES     (14101, 141, 1, 'Activo', 0); 
   END 
 GO
 
@@ -90,7 +90,7 @@ IF NOT EXISTS (SELECT 1 FROM   tablalogica WHERE  tablalogicaid = 141)
       VALUES     (141, 'Producto sugerido agotado'); 
 
       INSERT INTO tablalogicadatos (tablalogicadatosid, tablalogicaid, codigo, descripcion, valor) 
-      VALUES     (14101, 141, 1, 'Activo', 1); 
+      VALUES     (14101, 141, 1, 'Activo', 0); 
   END 
 GO
 
@@ -102,7 +102,7 @@ IF NOT EXISTS (SELECT 1 FROM   tablalogica WHERE  tablalogicaid = 141)
       VALUES     (141, 'Producto sugerido agotado'); 
 
       INSERT INTO tablalogicadatos (tablalogicadatosid, tablalogicaid, codigo, descripcion, valor) 
-      VALUES     (14101, 141, 1, 'Activo', 1); 
+      VALUES     (14101, 141, 1, 'Activo', 0); 
   END 
 GO
 
@@ -114,7 +114,7 @@ IF NOT EXISTS (SELECT 1 FROM   tablalogica WHERE  tablalogicaid = 141)
       VALUES     (141, 'Producto sugerido agotado'); 
 
       INSERT INTO tablalogicadatos (tablalogicadatosid, tablalogicaid, codigo, descripcion, valor) 
-      VALUES     (14101, 141, 1, 'Activo', 1); 
+      VALUES     (14101, 141, 1, 'Activo', 0); 
   END 
 GO
 
@@ -126,7 +126,7 @@ IF NOT EXISTS (SELECT 1 FROM   tablalogica WHERE  tablalogicaid = 141)
       VALUES     (141, 'Producto sugerido agotado'); 
 
       INSERT INTO tablalogicadatos (tablalogicadatosid, tablalogicaid, codigo, descripcion, valor) 
-      VALUES     (14101, 141, 1, 'Activo', 1); 
+      VALUES     (14101, 141, 1, 'Activo', 0); 
   END 
 GO
 
@@ -138,6 +138,6 @@ IF NOT EXISTS (SELECT 1 FROM   tablalogica WHERE  tablalogicaid = 141)
       VALUES     (141, 'Producto sugerido agotado'); 
 
       INSERT INTO tablalogicadatos (tablalogicadatosid, tablalogicaid, codigo, descripcion, valor) 
-      VALUES     (14101, 141, 1, 'Activo', 1); 
+      VALUES     (14101, 141, 1, 'Activo', 0); 
   END 
 GO
