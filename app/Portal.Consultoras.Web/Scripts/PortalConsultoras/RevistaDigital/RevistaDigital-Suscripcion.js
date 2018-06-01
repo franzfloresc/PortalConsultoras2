@@ -1,4 +1,6 @@
 ﻿
+var lsListaRD = lsListaRD || "ListaRD";
+
 $(document).ready(function () {
     "use strict";
     var clickabrir = 1;
@@ -139,6 +141,11 @@ function RDSuscripcion() {
             if (!data.success) {
                 AbrirMensaje(data.message);
                 return false;
+            }
+
+            if (data.revistaDigital) {
+                var key = lsListaRD + data.CampaniaID;
+                RDActualizarTipoAccionAgregar(data.revistaDigital, key);
             }
 
             $("#PopRDSuscripcion").css("display", "block");
