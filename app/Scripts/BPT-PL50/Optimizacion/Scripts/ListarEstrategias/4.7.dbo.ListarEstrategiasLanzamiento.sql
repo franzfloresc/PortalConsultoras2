@@ -1,4 +1,4 @@
-USE [BelcorpPeru_PL50]
+USE [BelcorpColombia_PL50]
 GO
 -- exec dbo.ListarEstrategiasLanzamiento 201807, '000685941'
 ALTER PROCEDURE [dbo].[ListarEstrategiasLanzamiento]
@@ -105,7 +105,41 @@ INSERT INTO @tablaCuvFaltante (CUV)
 	)
 
 	INSERT INTO @OfertaEstrategiasLanzamiento
-	  SELECT
+	SELECT 
+		EstrategiaID,
+		CUV2,
+		DescripcionCUV2,
+		EtiquetaDescripcion,
+		Precio,
+		EtiquetaDescripcion2,
+		Precio2,
+		TextoLibre,
+		FlagEstrella,
+		ColorFondo,
+		TipoEstrategiaID,
+		FotoProducto01,
+		ImagenURL,
+		LimiteVenta,
+		MarcaID,
+		Descripcion,
+		Orden Orden1,
+		Orden Orden2,
+		IndicadorMontoMinimo,
+		CodigoProducto,
+		FlagNueva,
+		TipoTallaColor,
+		TipoEstrategiaImagenMostrar,
+		EtiquetaID,
+		EtiquetaID2,
+		CodigoEstrategia,
+		TieneVariedad,
+		CODIGO,
+		DescripcionEstrategia,
+		FlagMostrarImg,
+		PrecioPublico,
+		Ganancia
+	 FROM(
+	  SELECT DISTINCT
 		E.EstrategiaID,
 		e.CUV2,
 		e.DescripcionCUV2,
@@ -137,7 +171,8 @@ INSERT INTO @tablaCuvFaltante (CUV)
 		TE.DescripcionEstrategia,
 		ISNULL(TE.FlagMostrarImg, 0) AS FlagMostrarImg,
 		E.PrecioPublico,
-		E.Ganancia
+		E.Ganancia,
+		op.Orden
 	  FROM dbo.Estrategia E WITH (NOLOCK)
 		  INNER JOIN @OfertasPersonalizadas op    ON E.CampaniaID = op.AnioCampanaVenta    AND E.CUV2 = op.CUV
 		  INNER JOIN ods.ProductoComercial PC WITH (NOLOCK)    ON PC.CUV = E.CUV2    AND PC.AnoCampania = E.CampaniaID
@@ -146,7 +181,7 @@ INSERT INTO @tablaCuvFaltante (CUV)
 	  WHERE E.Activo = 1
 		  AND TE.FlagActivo = 1
 		  AND TE.flagRecoPerfil = 1
-		  AND NOT EXISTS (SELECT    CUV  FROM @tablaCuvFaltante TF  WHERE E.CUV2 = TF.CUV)
+		  AND NOT EXISTS (SELECT    CUV  FROM @tablaCuvFaltante TF  WHERE E.CUV2 = TF.CUV)) op
 		ORDER BY 
 			op.Orden ASC, EstrategiaID ASC
 
