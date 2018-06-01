@@ -36419,4 +36419,12 @@ height:30px;
 
 }
 
+@media screen and (max-width:1240px){
+
+    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika{
+        width: 682px!important;
+    }
+
+}
+
 /* FIN - HD-2513 - 50 AÑOS BELCORP */
