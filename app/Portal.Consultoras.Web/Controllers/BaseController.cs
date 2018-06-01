@@ -5864,5 +5864,9 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        public bool EsDispositivoMovil()
+        {
+            return Request.Browser.IsMobileDevice;
+        }
     }
 }
