@@ -112,6 +112,15 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void UpdProductoDescripcion(BEProductoDescripcion producto, string codigoUsuario);
 
+        [OperationContract]
+        void UpdProductoDescripcionMasivo(int paisID, int campaniaID, IList<BEProductoDescripcion> listaProductos, string codigoUsuario);
+
+        [OperationContract]
+        string ValidarMatrizCampaniaMasivo(int paisID, string CUVs, int AnioCampania);
+
+        [OperationContract]
+        string RegistrarProductoMasivo(int paisID, string data);
+
         #endregion
 
         #region Oferta Web

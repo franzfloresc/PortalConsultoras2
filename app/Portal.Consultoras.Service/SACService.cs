@@ -263,6 +263,21 @@ namespace Portal.Consultoras.Service
             BLProducto.UpdProductoDescripcion(producto, codigoUsuario);
         }
 
+
+        public void UpdProductoDescripcionMasivo(int paisID, int campaniaID, IList<BEProductoDescripcion> listaProductos, string codigoUsuario)
+        {
+            BLProducto.UpdProductoDescripcionMasivo(paisID, campaniaID, listaProductos, codigoUsuario);
+        }
+        public string ValidarMatrizCampaniaMasivo(int paisID, string CUVs, int AnioCampania)
+        {
+            return BLProducto.ValidarMatrizCampaniaMasivo(paisID, CUVs, AnioCampania);
+        }
+
+        public string RegistrarProductoMasivo(int paisID, string data)
+        {
+            return BLProducto.RegistrarProductoMasivo(paisID, data);
+        }
+
         #endregion
 
         #region Oferta Web
