@@ -36369,17 +36369,24 @@ height:30px;
 
 /* HD-2513 - 50 AÑOS BELCORP */
 
+.wrapper_header_cincuenta_anios_belcorp{
+    width:100%!important;
+    min-width:1189px!important;
+    max-width:1440px!important;
+}
+
 .cincuenta_anios_belcorp{
     display: block;
-    position: absolute;
-    left: -85px;
+    position: relative;
+    float: left;
+    left: 0;
     width: 94.97px;
-    height: 67.52px;
+    height: 61.52px;
 }
 
 .cincuenta_anios_belcorp img{
-    width:auto;
-    height:100%;
+    width:104%;
+    height:auto;
 }
 
 .cincuenta_anios_belcorp + .logo_esika{
@@ -36387,7 +36394,7 @@ height:30px;
 }
 
 .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika{
-    width:778px!important;
+    width:729px!important;
 }
 
 .color_cincuenta_anios_belcorp{
@@ -36403,5 +36410,13 @@ height:30px;
         background-color:#BA8B47;
         color:#BA8B47;
     }
+
+@media screen and (max-width:1365px){
+
+    .wrapper_header_cincuenta_anios_belcorp{
+        max-width:none!important;
+    }
+
+}
 
 /* FIN - HD-2513 - 50 AÑOS BELCORP */
