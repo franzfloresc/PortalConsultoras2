@@ -508,6 +508,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "IvaTotal"))
                 IvaTotal = Convert.ToDouble(row["IvaTotal"]);
+
+            if (DataRecord.HasColumn(row, "IndicadorConsultoraOficina"))
+                EsConsultoraOficina = Convert.ToInt32(row["IndicadorConsultoraOficina"]) == 1;
         }
 
         [Column("ConsultoraAsociadoID")]
@@ -1450,5 +1453,7 @@ namespace Portal.Consultoras.Entities
         public bool EsShowRoom { get; set; }
         [DataMember]
         public bool MostrarBotonValidar { get; set; }
+        [DataMember]
+        public bool EsConsultoraOficina { get; set; }
     }
 }
