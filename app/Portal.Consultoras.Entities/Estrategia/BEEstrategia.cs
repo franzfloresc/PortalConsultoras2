@@ -55,6 +55,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("DescripcionCUV2")]
         public string DescripcionCUV2 { get; set; }
+        [DataMember]
+        public string DescripcionCortaCUV2 { get; set; }
         [Column("Activo")]
         public bool activo { get; set; }
         private int _Activo;

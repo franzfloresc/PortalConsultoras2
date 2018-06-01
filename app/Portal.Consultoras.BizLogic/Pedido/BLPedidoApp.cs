@@ -674,17 +674,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 lstEstrategia = ConsultarEstrategiasHomePedido(string.Empty, codAgrupa, usuario);
 
-                ListaModelo = (from estrategia in lstEstrategia
-                               select new BEEstrategia
-                               {
-                                   CUV = estrategia.CUV2,
-                                   DescripcionProducto = Util.SubStrCortarNombre(estrategia.DescripcionCUV2, 40),
-                                   MarcaID = estrategia.MarcaID,
-                                   DescripcionMarca = estrategia.DescripcionMarca,
-                                   Ganancia = estrategia.Ganancia,
-                                   PrecioValorizado = estrategia.Precio,
-                                   ImagenURL = estrategia.FotoProductoSmall
-                               }).ToList();
+                lstEstrategia.Update(x => x.DescripcionCortaCUV2 = Util.SubStrCortarNombre(x.DescripcionCUV2, 40));
             }
             catch (Exception ex)
             {
@@ -1355,12 +1345,16 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         public List<BEEstrategia> ConsultarEstrategias(string cuv, int campaniaId, string codAgrupacion, BEUsuario usuario)
         {
-            codAgrupacion = Util.Trim(codAgrupacion);
             var listEstrategia = new List<BEEstrategia>();
 
-            if (codAgrupacion != Constantes.TipoEstrategiaCodigo.Lanzamiento
-                && codAgrupacion != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada
-                && codAgrupacion != Constantes.TipoEstrategiaCodigo.HerramientasVenta)
+            var lstExcluye = new List<string>()
+            {
+                Constantes.TipoEstrategiaCodigo.Lanzamiento,
+                Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada,
+                Constantes.TipoEstrategiaCodigo.HerramientasVenta
+            };
+
+            if(!lstExcluye.Any(x => x == codAgrupacion))
             {
                 listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.PackNuevas, usuario));
                 listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.OfertaWeb, usuario));
@@ -1369,6 +1363,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             switch (codAgrupacion)
             {
                 case Constantes.TipoEstrategiaCodigo.RevistaDigital:
+                    //listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.Lanzamiento, usuario));
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.RevistaDigital, usuario));
                     break;
                 default:
@@ -1381,9 +1376,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         public List<BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, BEUsuario usuario)
         {
-            var listEstrategia = new List<BEEstrategia>();
-            tipo = Util.Trim(tipo);
-
             var entidad = new BEEstrategia
             {
                 PaisID = usuario.PaisID,
@@ -1397,8 +1389,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 CodigoTipoEstrategia = tipo
             };
 
-            listEstrategia = _estrategiaBusinessLogic.GetEstrategiasPedido(entidad);
-
+            var listEstrategia = _estrategiaBusinessLogic.GetEstrategiasPedido(entidad);
             if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas && listEstrategia.Any())
                 listEstrategia = ConsultarEstrategiasFiltrarPackNuevasPedido(listEstrategia, usuario);
 
@@ -1416,8 +1407,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 CodigoPrograma = usuario.CodigoPrograma,
                 ConsecutivoNueva = usuario.ConsecutivoNueva
             };
-            var pedidoID = 0;
 
+            var pedidoID = 0;
             var pedidoWebDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
             listEstrategia = listEstrategia.Where(e => !pedidoWebDetalle.Any(d => d.CUV == e.CUV2)).ToList();
 
