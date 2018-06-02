@@ -485,22 +485,25 @@
                     closeWaitingDialog();
                     if (data.success) {
                         if (data.continuaPaso == undefined) {
-                            _variables.Pagina = (data.Pagina || 0) + 1;
-                            _variables.NroLote = data.NroLote;
-                            _variables.CantidadCuv = _variables.CantidadCuv || data.CantidadCuv;
-                            _eventos.clickAceptarMasivo1();
-                        }
-                        else if (data.continuaPaso === true) {
-                            console.log('antes de _fnGrillaEstrategias2', data);
-                            closeWaitingDialog();
+                            data.messageComplemento = data.messageComplemento || "";
                             if (data.messageComplemento == "") {
-                                _fnGrillaEstrategias2();
+                                _variables.Pagina = (data.Pagina || 0) + 1;
+                                _variables.NroLote = data.NroLote;
+                                _variables.CantidadCuv = _variables.CantidadCuv || data.CantidadCuv;
+                                _eventos.clickAceptarMasivo1();
                             }
                             else {
+                                _eventos.clickCancelarMasivo1();
                                 _toastHelper.error(data.messageComplemento);
                             }
                         }
+                        else if (data.continuaPaso === true) {
+                            console.log('antes de _fnGrillaEstrategias2');
+                            closeWaitingDialog();
+                            _fnGrillaEstrategias2();
+                        }
                     } else {
+                        _eventos.clickCancelarMasivo1();
                         _toastHelper.error(data.message);
                     }
                 },

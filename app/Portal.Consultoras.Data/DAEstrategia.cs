@@ -620,21 +620,23 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        public bool EstrategiaTemporalActualizarPrecioNivel(int nroLote)
+        public bool EstrategiaTemporalActualizarPrecioNivel(int nroLote, int pagina)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalActualizarPrecioNivel"))
             {
                 Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+                Context.Database.AddInParameter(command, "@Pagina", DbType.Int32, pagina);
                 Context.ExecuteReader(command);
                 return true;
             }
         }
 
-        public bool EstrategiaTemporalActualizarSetDetalle(int nroLote)
+        public bool EstrategiaTemporalActualizarSetDetalle(int nroLote, int pagina)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalActualizarSetDetalle"))
             {
                 Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+                Context.Database.AddInParameter(command, "@Pagina", DbType.Int32, pagina);
                 Context.ExecuteReader(command);
                 return true;
             }

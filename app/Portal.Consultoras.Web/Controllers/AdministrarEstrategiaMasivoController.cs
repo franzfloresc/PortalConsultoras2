@@ -331,17 +331,10 @@ namespace Portal.Consultoras.Web.Controllers
                 var cantTotalPagina = (entidadMasivo.CantTotal / entidadMasivo.CantidadCuv) + (entidadMasivo.CantTotal % entidadMasivo.CantidadCuv == 0 ? 0 : 1);
                 if (cantTotalPagina < entidadMasivo.Pagina)
                 {
-                    string mensajeComplemento = "";
-                    if (cantTotalPagina > 0)
-                    {
-                        mensajeComplemento = MasivoEstrategiaTemporalExecComplemento(entidadMasivo);
-                    }
-
                     return Json(new
                     {
-                        success = cantTotalPagina > 0,
-                        message = cantTotalPagina > 0 ? "" : "No existen Estrategias para Insertar",
-                        messageComplemento = mensajeComplemento,
+                        success = true,
+                        message = "Termino paso 2",
                         continuaPaso = true,
                         entidadMasivo.Pagina,
                         entidadMasivo.NroLote,
@@ -362,16 +355,16 @@ namespace Portal.Consultoras.Web.Controllers
                         entidadMasivo.CantidadCuv
                     }, JsonRequestBehavior.AllowGet);
                 }
-                else
-                {
-                    entidadMasivo.NroLote = nroLoteAux;
-                }
 
+                entidadMasivo.NroLote = nroLoteAux;
 
+                var mensajeComplemento = MasivoEstrategiaTemporalExecComplemento(entidadMasivo);
+                
                 return Json(new
                 {
-                    success = entidadMasivo.NroLote > 0,
-                    message = entidadMasivo.NroLote > 0 ? "Se insertaron en la tabla temporal de Estrategia." : "Error al insertar las Estrategias Temporal.",
+                    success = true,
+                    message = "Se insertaron en la tabla temporal de Estrategia.",
+                    messageComplemento = mensajeComplemento,
                     entidadMasivo.Pagina,
                     entidadMasivo.NroLote,
                     entidadMasivo.CantidadCuv
@@ -421,16 +414,20 @@ namespace Portal.Consultoras.Web.Controllers
             catch (TimeoutException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                lote = 0;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                lote = 0;
             }
             return lote;
         }
 
         private string MasivoEstrategiaTemporalExecComplemento(AdministrarEstrategiaMasivoModel entidadMasivo)
         {
+            // si todo este proceso esta en MasivoEstrategiaTemporalInsertar, puede salir timed out
+            // se divide el proceso para evitar timed out
             string rpta = "";
             bool rptaService = false;
             try
@@ -463,7 +460,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var svc = new SACServiceClient())
                 {
-                    rpta = svc.EstrategiaTemporalActualizarPrecioNivel(userData.PaisID, entidadMasivo.NroLote);
+                    rpta = svc.EstrategiaTemporalActualizarPrecioNivel(userData.PaisID, entidadMasivo.NroLote, entidadMasivo.Pagina);
                 }
                 rpta = true;
             }
@@ -487,7 +484,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var svc = new SACServiceClient())
                 {
-                    rpta = svc.EstrategiaTemporalActualizarSetDetalle(userData.PaisID, entidadMasivo.NroLote);
+                    rpta = svc.EstrategiaTemporalActualizarSetDetalle(userData.PaisID, entidadMasivo.NroLote, entidadMasivo.Pagina);
                 }
                 rpta = true;
             }
