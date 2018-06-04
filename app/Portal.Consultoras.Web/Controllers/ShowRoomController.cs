@@ -44,16 +44,12 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Bienvenida");
             }
 
-            var ofertasShowRoom = ObtenerOfertasShowRoom();
-
-            if (!ofertasShowRoom.Any())
+            var model = ObtenerPrimeraOfertaShowRoom();
+            if (model == null)
             {
                 return RedirectToAction("Index", "Bienvenida");
             }
-
-            ActualizarUrlImagenes(ofertasShowRoom);
-
-            var model = ObtenerPrimeraOfertaShowRoom(ofertasShowRoom);
+            InicializarViewbag();
             model.Simbolo = userData.Simbolo;
             model.CodigoISO = userData.CodigoISO;
             model.Suscripcion = (configEstrategiaSR.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora()).Suscripcion;
@@ -62,8 +58,6 @@ namespace Portal.Consultoras.Web.Controllers
             model.Celular = userData.Celular;
             model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
             model.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == model.CUV) ? "block" : "none";
-
-            InicializarViewbag();
 
             return View(model);
         }
@@ -99,16 +93,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
 
-                if (mostrarPopupIntriga)
-                {
-                    return RedirectToAction("Intriga", "ShowRoom");
-                }
-                if (!ValidarIngresoShowRoom(false))
-                    return RedirectToAction("Index", "Bienvenida");
+                if (mostrarPopupIntriga) return RedirectToAction("Intriga", "ShowRoom");
+                if (!ValidarIngresoShowRoom(false)) return RedirectToAction("Index", "Bienvenida");
 
                 if (query != null)
                 {
-                    if (Request.Browser.IsMobileDevice)
+                    if (GetIsMobileDevice())
                     {
                         return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", query });
                     }
@@ -151,14 +141,10 @@ namespace Portal.Consultoras.Web.Controllers
                 var showRoomEventoModel = CargarValoresModel();
                 showRoomEventoModel.ListaShowRoomOferta = ValidarUnidadesPermitidas(showRoomEventoModel.ListaShowRoomOferta);
                 showRoomEventoModel.ListaShowRoomOferta = showRoomEventoModel.ListaShowRoomOferta ?? new List<ShowRoomOfertaModel>();
-                if (!showRoomEventoModel.ListaShowRoomOferta.Any())
-                    return RedirectToAction("Index", "Bienvenida");
 
-                using (var svc = new SACServiceClient())
-                {
-                    showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
-                }
+                if (!showRoomEventoModel.ListaShowRoomOferta.Any()) return RedirectToAction("Index", "Bienvenida");
 
+                showRoomEventoModel.FiltersBySorting = GetTablaLogicaDatos(Constantes.TablaLogica.OrdenamientoShowRoom);
                 var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => !x.EsSubCampania).ToList();
                 ViewBag.PrecioMin = xlistaShowRoom.Any() ? xlistaShowRoom.Min(p => p.PrecioOferta) : Convert.ToDecimal(0);
                 ViewBag.PrecioMax = xlistaShowRoom.Any() ? xlistaShowRoom.Max(p => p.PrecioOferta) : Convert.ToDecimal(0);
@@ -168,7 +154,6 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
-                //21-may-2018
                 var dato = ObtenerPerdio(userData.CampaniaID);
                 showRoomEventoModel.ProductosPerdio = dato.Estado;
                 showRoomEventoModel.PerdioTitulo = dato.Valor1;
@@ -211,7 +196,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (query != null)
                 {
-                    if (Request.Browser.IsMobileDevice)
+                    if (GetIsMobileDevice())
                     {
                         return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", query });
                     }
@@ -257,10 +242,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!showRoomEventoModel.ListaShowRoomOferta.Any())
                     return RedirectToAction("Index", "Bienvenida");
 
-                using (var svc = new SACServiceClient())
-                {
-                    showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
-                }
+                showRoomEventoModel.FiltersBySorting = GetTablaLogicaDatos(Constantes.TablaLogica.OrdenamientoShowRoom);
 
                 var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => !x.EsSubCampania).ToList();
                 ViewBag.PrecioMin = xlistaShowRoom.Any() ? xlistaShowRoom.Min(p => p.PrecioOferta) : Convert.ToDecimal(0);
@@ -315,11 +297,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerParametroPersonalizacion(int paisId)
         {
-            List<BETablaLogicaDatos> datos;
-            using (var svc = new SACServiceClient())
-            {
-                datos = svc.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.Plan20).ToList();
-            }
+            var datos = GetTablaLogicaDatos(Constantes.TablaLogica.Plan20);
 
             var campaniaMinimaPersonalizacion = "";
             if (datos.Any())
@@ -2846,7 +2824,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult DetalleOfertaCUV(string query)
         {
-            if (Request.Browser.IsMobileDevice)
+            if (GetIsMobileDevice())
             {
                 return RedirectToAction("DetalleOfertaCUV", "ShowRoom", new { area = "Mobile", query });
             }

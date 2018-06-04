@@ -77,7 +77,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
             var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
-            bool mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
+            var mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
 
             if (mostrarPopupIntriga)
             {
@@ -85,9 +85,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             ActionExecutingMobile();
-            var showRoomEventoModel = OfertaShowRoom();
 
-            //24-may-2018 (JN)
+            var showRoomEventoModel = OfertaShowRoom();
             var dato = ObtenerPerdio(userData.CampaniaID);
             showRoomEventoModel.ProductosPerdio = dato.Estado;
             showRoomEventoModel.PerdioTitulo = dato.Valor1;
@@ -209,16 +208,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
                 ActionExecutingMobile();
 
-                var ofertasShowRoom = ObtenerOfertasShowRoom();
+                var model = ObtenerPrimeraOfertaShowRoom();
 
-                if (!ofertasShowRoom.Any())
+                if (model == null)
                 {
                     return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
-
-                ActualizarUrlImagenes(ofertasShowRoom);
-
-                var model = ObtenerPrimeraOfertaShowRoom(ofertasShowRoom);
 
                 model.Simbolo = userData.Simbolo;
                 model.CodigoISO = userData.CodigoISO;
@@ -229,7 +224,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     showRoomBannerLateral.LetrasDias = "FALTAN " + Convert.ToInt32(showRoomBannerLateral.DiasFaltantes).ToString() + " DÍAS";
                 }
-                else { showRoomBannerLateral.LetrasDias = "FALTA " + Convert.ToInt32(showRoomBannerLateral.DiasFaltantes).ToString() + " DÍA"; }
+                else
+                {
+                    showRoomBannerLateral.LetrasDias = "FALTA " + Convert.ToInt32(showRoomBannerLateral.DiasFaltantes).ToString() + " DÍA";
+                }
 
                 ViewBag.LetrasDias = showRoomBannerLateral.LetrasDias;
                 ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
@@ -288,11 +286,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         ? ""
                         : terminosCondiciones.Valor;
                 }
-                
-                using (SACServiceClient svc = new SACServiceClient())
-                {
-                    showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
-                }
+
+                showRoomEventoModel.FiltersBySorting = GetTablaLogicaDatos(Constantes.TablaLogica.OrdenamientoShowRoom);
 
                 var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => !x.EsSubCampania).ToList();
                 ViewBag.PrecioMin = xlistaShowRoom.Any() ? xlistaShowRoom.Min(p => p.PrecioOferta) : Convert.ToDecimal(0);
