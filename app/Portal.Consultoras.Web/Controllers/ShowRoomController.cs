@@ -144,11 +144,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!showRoomEventoModel.ListaShowRoomOferta.Any()) return RedirectToAction("Index", "Bienvenida");
 
-                using (var svc = new SACServiceClient())
-                {
-                    showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.OrdenamientoShowRoom).ToList();
-                }
-
+                showRoomEventoModel.FiltersBySorting = GetTablaLogicaDatos(Constantes.TablaLogica.OrdenamientoShowRoom);
                 var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => !x.EsSubCampania).ToList();
                 ViewBag.PrecioMin = xlistaShowRoom.Any() ? xlistaShowRoom.Min(p => p.PrecioOferta) : Convert.ToDecimal(0);
                 ViewBag.PrecioMax = xlistaShowRoom.Any() ? xlistaShowRoom.Max(p => p.PrecioOferta) : Convert.ToDecimal(0);
@@ -158,7 +154,6 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
-                //21-may-2018
                 var dato = ObtenerPerdio(userData.CampaniaID);
                 showRoomEventoModel.ProductosPerdio = dato.Estado;
                 showRoomEventoModel.PerdioTitulo = dato.Valor1;
@@ -247,10 +242,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!showRoomEventoModel.ListaShowRoomOferta.Any())
                     return RedirectToAction("Index", "Bienvenida");
 
-                using (var svc = new SACServiceClient())
-                {
-                    showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
-                }
+                showRoomEventoModel.FiltersBySorting = GetTablaLogicaDatos(Constantes.TablaLogica.OrdenamientoShowRoom);
 
                 var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => !x.EsSubCampania).ToList();
                 ViewBag.PrecioMin = xlistaShowRoom.Any() ? xlistaShowRoom.Min(p => p.PrecioOferta) : Convert.ToDecimal(0);
@@ -305,11 +297,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerParametroPersonalizacion(int paisId)
         {
-            List<BETablaLogicaDatos> datos;
-            using (var svc = new SACServiceClient())
-            {
-                datos = svc.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.Plan20).ToList();
-            }
+            var datos = GetTablaLogicaDatos(Constantes.TablaLogica.Plan20);
 
             var campaniaMinimaPersonalizacion = "";
             if (datos.Any())
