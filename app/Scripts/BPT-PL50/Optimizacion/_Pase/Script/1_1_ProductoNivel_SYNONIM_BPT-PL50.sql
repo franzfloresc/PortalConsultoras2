@@ -31,7 +31,7 @@ else
 declare @SQLString varchar(max)
 set @SQLString = 'CREATE SYNONYM [ods].[ProductoNivel] FOR [ODS_' + @CodigoISO + @DbSigla + '].[dbo].[ProductoNivel]';
 
-EXECUTE sp_executesql  @SQLString
+exec(@SQLString)
 GO
 
 
@@ -68,7 +68,7 @@ else
 declare @SQLString varchar(max)
 set @SQLString = 'CREATE SYNONYM [ods].[ProductoNivel] FOR [ODS_' + @CodigoISO + @DbSigla + '].[dbo].[ProductoNivel]';
 
-EXECUTE sp_executesql  @SQLString
+exec(@SQLString)
 GO
 
 
@@ -105,7 +105,7 @@ else
 declare @SQLString varchar(max)
 set @SQLString = 'CREATE SYNONYM [ods].[ProductoNivel] FOR [ODS_' + @CodigoISO + @DbSigla + '].[dbo].[ProductoNivel]';
 
-EXECUTE sp_executesql  @SQLString
+exec(@SQLString)
 GO
 
 
@@ -142,7 +142,7 @@ else
 declare @SQLString varchar(max)
 set @SQLString = 'CREATE SYNONYM [ods].[ProductoNivel] FOR [ODS_' + @CodigoISO + @DbSigla + '].[dbo].[ProductoNivel]';
 
-EXECUTE sp_executesql  @SQLString
+exec(@SQLString)
 GO
 
 
@@ -179,7 +179,7 @@ else
 declare @SQLString varchar(max)
 set @SQLString = 'CREATE SYNONYM [ods].[ProductoNivel] FOR [ODS_' + @CodigoISO + @DbSigla + '].[dbo].[ProductoNivel]';
 
-EXECUTE sp_executesql  @SQLString
+exec(@SQLString)
 GO
 
 
@@ -216,7 +216,7 @@ else
 declare @SQLString varchar(max)
 set @SQLString = 'CREATE SYNONYM [ods].[ProductoNivel] FOR [ODS_' + @CodigoISO + @DbSigla + '].[dbo].[ProductoNivel]';
 
-EXECUTE sp_executesql  @SQLString
+exec(@SQLString)
 GO
 
 
@@ -253,7 +253,7 @@ else
 declare @SQLString varchar(max)
 set @SQLString = 'CREATE SYNONYM [ods].[ProductoNivel] FOR [ODS_' + @CodigoISO + @DbSigla + '].[dbo].[ProductoNivel]';
 
-EXECUTE sp_executesql  @SQLString
+exec(@SQLString)
 GO
 
 
@@ -290,7 +290,7 @@ else
 declare @SQLString varchar(max)
 set @SQLString = 'CREATE SYNONYM [ods].[ProductoNivel] FOR [ODS_' + @CodigoISO + @DbSigla + '].[dbo].[ProductoNivel]';
 
-EXECUTE sp_executesql  @SQLString
+exec(@SQLString)
 GO
 
 
@@ -327,7 +327,7 @@ else
 declare @SQLString varchar(max)
 set @SQLString = 'CREATE SYNONYM [ods].[ProductoNivel] FOR [ODS_' + @CodigoISO + @DbSigla + '].[dbo].[ProductoNivel]';
 
-EXECUTE sp_executesql  @SQLString
+exec(@SQLString)
 GO
 
 
@@ -364,7 +364,7 @@ else
 declare @SQLString varchar(max)
 set @SQLString = 'CREATE SYNONYM [ods].[ProductoNivel] FOR [ODS_' + @CodigoISO + @DbSigla + '].[dbo].[ProductoNivel]';
 
-EXECUTE sp_executesql  @SQLString
+exec(@SQLString)
 GO
 
 
@@ -401,7 +401,7 @@ else
 declare @SQLString varchar(max)
 set @SQLString = 'CREATE SYNONYM [ods].[ProductoNivel] FOR [ODS_' + @CodigoISO + @DbSigla + '].[dbo].[ProductoNivel]';
 
-EXECUTE sp_executesql  @SQLString
+exec(@SQLString)
 GO
 
 
@@ -438,7 +438,7 @@ else
 declare @SQLString varchar(max)
 set @SQLString = 'CREATE SYNONYM [ods].[ProductoNivel] FOR [ODS_' + @CodigoISO + @DbSigla + '].[dbo].[ProductoNivel]';
 
-EXECUTE sp_executesql  @SQLString
+exec(@SQLString)
 GO
 
 
