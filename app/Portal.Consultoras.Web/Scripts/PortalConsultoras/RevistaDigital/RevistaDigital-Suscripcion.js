@@ -198,6 +198,11 @@ function RDDesuscripcion() {
                 return false;
             }
 
+            if (data.revistaDigital) {
+                var key = lsListaRD + data.CampaniaID;
+                RDActualizarTipoAccionAgregar(data.revistaDigital, key);
+            }
+
             window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
         },
         error: function (data, error) {

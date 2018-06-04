@@ -134,6 +134,8 @@ function RDActualizarTipoAccionAgregar(revistaDigital, key){
     $.each(valLocalStorage.response.listaPerdio, function(ind, item) {
         if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
             item.TipoAccionAgregar = 5;
+        if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+            item.TipoAccionAgregar = 4;
     });
 
     LocalStorageListado(key, valLocalStorage, 0);
