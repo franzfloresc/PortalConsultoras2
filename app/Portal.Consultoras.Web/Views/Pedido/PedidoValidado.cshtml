@@ -394,22 +394,10 @@
     <div class="content_listado_notificaciones">
         <div class="cod_venta_listado">{{CUV}}</div>
         <div class="descripcion_listado pedidoPadreToolTip descri_list" style="position:relative;">
-            {{#if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
+            
             <span class="texto_pedidos_ofertas">
-                <label>OFERTA LIQUIDACIÓN</label>
+                <label for="{{DescripcionOferta}}">{{DescripcionOferta}}</label>
             </span>
-            {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Flexipago'}}
-            <span class="texto_pedidos_ofertas">
-                <label>OFERTA FLEXIPLAGO</label>
-            </span>
-            {{else}}
-            {{#IsNullOrEmpty DescripcionOferta '!='}}
-            <span class="texto_pedidos_ofertas">
-                <label for="{{DescripcionOferta}}">{{{Replace (Replace DescripcionOferta '[' '') ']' ''}}}</label>
-            </span>
-            {{/IsNullOrEmpty}}
-            {{/if_eq}}
-
 
             {{#if_eq TipoPedido 'M'}}
             <span style="position:relative">

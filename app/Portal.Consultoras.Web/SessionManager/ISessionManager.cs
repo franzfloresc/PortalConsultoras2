@@ -164,5 +164,14 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetMiAcademia(int id); /* SOPORTEC-266 */
 
         int GetMiAcademia(); /* SOPORTEC-266 */
+
+        void SetPedidoValidado(bool validado);
+
+        bool GetPedidoValidado();
+        EstrategiaPersonalizadaProductoModel ProductoTemporal { get; set; }
+
+        void setBEUsuarioModel (List<ServiceUsuario.BEUsuario> model);
+
+        List<ServiceUsuario.BEUsuario> getBEUsuarioModel();
     }
 }
