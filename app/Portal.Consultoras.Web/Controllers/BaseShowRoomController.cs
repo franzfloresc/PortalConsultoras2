@@ -216,6 +216,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var listaShowRoomOferta = ObtenerListaProductoShowRoomService(userData.CampaniaID, userData.CodigoConsultora);
             listaShowRoomOferta = ObtenerListaProductoShowRoomMdo(listaShowRoomOferta);
+            ActualizarUrlImagenes(listaShowRoomOferta);
             return listaShowRoomOferta;
         }
 
@@ -796,12 +797,21 @@ namespace Portal.Consultoras.Web.Controllers
             return showRoomEventoModel;
         }
 
-        protected virtual void ActualizarUrlImagenes(List<BEShowRoomOferta> ofertasShowRoom)
+        private void ActualizarUrlImagenes(List<BEShowRoomOferta> ofertasShowRoom)
         {
-            ofertasShowRoom.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto)
-                            ? "" : ConfigS3.GetUrlFileS3(ObtenerCarpetaPais(), x.ImagenProducto, ObtenerCarpetaPais()));
-            ofertasShowRoom.Update(x => x.ImagenMini = string.IsNullOrEmpty(x.ImagenMini)
-                ? "" : ConfigS3.GetUrlFileS3(ObtenerCarpetaPais(), x.ImagenMini, ObtenerCarpetaPais()));
+            ofertasShowRoom.Update(x =>
+            {
+                x.ImagenProducto = string.Empty;
+                x.ImagenMini = string.Empty;
+                if (string.IsNullOrEmpty(x.ImagenProducto))
+                {
+                    x.ImagenProducto= ConfigS3.GetUrlFileS3(ObtenerCarpetaPais(), x.ImagenProducto, ObtenerCarpetaPais());
+                }
+                if (string.IsNullOrEmpty(x.ImagenMini))
+                {
+                    x.ImagenProducto = ConfigS3.GetUrlFileS3(ObtenerCarpetaPais(), x.ImagenMini, ObtenerCarpetaPais());
+                }
+            });
         }
 
         protected virtual string ObtenerCarpetaPais()

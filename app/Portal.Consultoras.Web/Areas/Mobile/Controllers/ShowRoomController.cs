@@ -216,7 +216,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
 
-                ActualizarUrlImagenes(ofertasShowRoom);
 
                 var model = ObtenerPrimeraOfertaShowRoom(ofertasShowRoom);
 
@@ -229,7 +228,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     showRoomBannerLateral.LetrasDias = "FALTAN " + Convert.ToInt32(showRoomBannerLateral.DiasFaltantes).ToString() + " DÍAS";
                 }
-                else { showRoomBannerLateral.LetrasDias = "FALTA " + Convert.ToInt32(showRoomBannerLateral.DiasFaltantes).ToString() + " DÍA"; }
+                else
+                {
+                    showRoomBannerLateral.LetrasDias = "FALTA " + Convert.ToInt32(showRoomBannerLateral.DiasFaltantes).ToString() + " DÍA";
+                }
 
                 ViewBag.LetrasDias = showRoomBannerLateral.LetrasDias;
                 ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
