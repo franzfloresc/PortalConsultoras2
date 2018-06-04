@@ -141,12 +141,12 @@ namespace Portal.Consultoras.Web.Controllers
                 var showRoomEventoModel = CargarValoresModel();
                 showRoomEventoModel.ListaShowRoomOferta = ValidarUnidadesPermitidas(showRoomEventoModel.ListaShowRoomOferta);
                 showRoomEventoModel.ListaShowRoomOferta = showRoomEventoModel.ListaShowRoomOferta ?? new List<ShowRoomOfertaModel>();
-                if (!showRoomEventoModel.ListaShowRoomOferta.Any())
-                    return RedirectToAction("Index", "Bienvenida");
+
+                if (!showRoomEventoModel.ListaShowRoomOferta.Any()) return RedirectToAction("Index", "Bienvenida");
 
                 using (var svc = new SACServiceClient())
                 {
-                    showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
+                    showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.OrdenamientoShowRoom).ToList();
                 }
 
                 var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => !x.EsSubCampania).ToList();
