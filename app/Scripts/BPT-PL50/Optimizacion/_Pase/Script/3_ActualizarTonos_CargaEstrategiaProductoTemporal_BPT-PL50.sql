@@ -1,6 +1,7 @@
 ﻿GO
 USE BelcorpPeru
 GO
+
 GO
 PRINT DB_NAME()
 IF EXISTS(	SELECT *

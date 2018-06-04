@@ -30,7 +30,7 @@ else
 	set @DbSigla = ''
 declare @SQLString varchar(max)
 set @SQLString = 'CREATE SYNONYM [ods].[OfertasPersonalizadasCUV] FOR [ODS_' + @CodigoISO + @DbSigla + '].[dbo].[OfertasPersonalizadasCUV]';
-EXECUTE sp_executesql  @SQLString
+exec(@SQLString)
 
 GO
 
@@ -66,7 +66,7 @@ else
 	set @DbSigla = ''
 declare @SQLString varchar(max)
 set @SQLString = 'CREATE SYNONYM [ods].[OfertasPersonalizadasCUV] FOR [ODS_' + @CodigoISO + @DbSigla + '].[dbo].[OfertasPersonalizadasCUV]';
-EXECUTE sp_executesql  @SQLString
+exec(@SQLString)
 
 GO
 
@@ -102,7 +102,7 @@ else
 	set @DbSigla = ''
 declare @SQLString varchar(max)
 set @SQLString = 'CREATE SYNONYM [ods].[OfertasPersonalizadasCUV] FOR [ODS_' + @CodigoISO + @DbSigla + '].[dbo].[OfertasPersonalizadasCUV]';
-EXECUTE sp_executesql  @SQLString
+exec(@SQLString)
 
 GO
 
@@ -138,7 +138,7 @@ else
 	set @DbSigla = ''
 declare @SQLString varchar(max)
 set @SQLString = 'CREATE SYNONYM [ods].[OfertasPersonalizadasCUV] FOR [ODS_' + @CodigoISO + @DbSigla + '].[dbo].[OfertasPersonalizadasCUV]';
-EXECUTE sp_executesql  @SQLString
+exec(@SQLString)
 
 GO
 
@@ -174,7 +174,7 @@ else
 	set @DbSigla = ''
 declare @SQLString varchar(max)
 set @SQLString = 'CREATE SYNONYM [ods].[OfertasPersonalizadasCUV] FOR [ODS_' + @CodigoISO + @DbSigla + '].[dbo].[OfertasPersonalizadasCUV]';
-EXECUTE sp_executesql  @SQLString
+exec(@SQLString)
 
 GO
 
@@ -210,7 +210,7 @@ else
 	set @DbSigla = ''
 declare @SQLString varchar(max)
 set @SQLString = 'CREATE SYNONYM [ods].[OfertasPersonalizadasCUV] FOR [ODS_' + @CodigoISO + @DbSigla + '].[dbo].[OfertasPersonalizadasCUV]';
-EXECUTE sp_executesql  @SQLString
+exec(@SQLString)
 
 GO
 
@@ -246,7 +246,7 @@ else
 	set @DbSigla = ''
 declare @SQLString varchar(max)
 set @SQLString = 'CREATE SYNONYM [ods].[OfertasPersonalizadasCUV] FOR [ODS_' + @CodigoISO + @DbSigla + '].[dbo].[OfertasPersonalizadasCUV]';
-EXECUTE sp_executesql  @SQLString
+exec(@SQLString)
 
 GO
 
@@ -282,7 +282,7 @@ else
 	set @DbSigla = ''
 declare @SQLString varchar(max)
 set @SQLString = 'CREATE SYNONYM [ods].[OfertasPersonalizadasCUV] FOR [ODS_' + @CodigoISO + @DbSigla + '].[dbo].[OfertasPersonalizadasCUV]';
-EXECUTE sp_executesql  @SQLString
+exec(@SQLString)
 
 GO
 
@@ -318,7 +318,7 @@ else
 	set @DbSigla = ''
 declare @SQLString varchar(max)
 set @SQLString = 'CREATE SYNONYM [ods].[OfertasPersonalizadasCUV] FOR [ODS_' + @CodigoISO + @DbSigla + '].[dbo].[OfertasPersonalizadasCUV]';
-EXECUTE sp_executesql  @SQLString
+exec(@SQLString)
 
 GO
 
@@ -354,7 +354,7 @@ else
 	set @DbSigla = ''
 declare @SQLString varchar(max)
 set @SQLString = 'CREATE SYNONYM [ods].[OfertasPersonalizadasCUV] FOR [ODS_' + @CodigoISO + @DbSigla + '].[dbo].[OfertasPersonalizadasCUV]';
-EXECUTE sp_executesql  @SQLString
+exec(@SQLString)
 
 GO
 
@@ -390,7 +390,7 @@ else
 	set @DbSigla = ''
 declare @SQLString varchar(max)
 set @SQLString = 'CREATE SYNONYM [ods].[OfertasPersonalizadasCUV] FOR [ODS_' + @CodigoISO + @DbSigla + '].[dbo].[OfertasPersonalizadasCUV]';
-EXECUTE sp_executesql  @SQLString
+exec(@SQLString)
 
 GO
 
@@ -426,7 +426,7 @@ else
 	set @DbSigla = ''
 declare @SQLString varchar(max)
 set @SQLString = 'CREATE SYNONYM [ods].[OfertasPersonalizadasCUV] FOR [ODS_' + @CodigoISO + @DbSigla + '].[dbo].[OfertasPersonalizadasCUV]';
-EXECUTE sp_executesql  @SQLString
+exec(@SQLString)
 
 GO
 
