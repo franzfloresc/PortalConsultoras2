@@ -691,7 +691,7 @@ namespace Portal.Consultoras.ServiceContracts
         BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible);
 
         #endregion
-        
+
         #region ConfiguracionOfertasHome
         [OperationContract]
         List<BEConfiguracionOfertasHome> ListConfiguracionOfertasHome(int paisId, int campaniaId);
@@ -711,8 +711,6 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEDescripcionEstrategia> ActualizarDescripcionEstrategia(int paisId, int campaniaId,
                 int tipoEstrategiaId, List<BEDescripcionEstrategia> listaDescripcionEstrategias);
 
-        [OperationContract]
-        int ActualizarTonoEstrategia(int paisId, int estrategiaId, string codigoEstrategia, int tieneVariedad);
         #endregion
 
         #region UpSelling
@@ -798,5 +796,35 @@ namespace Portal.Consultoras.ServiceContracts
 
         #endregion
 
+         #region Nuevo Masivo
+
+        [OperationContract]
+        int GetCantidadOfertasPersonalizadas(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia);
+
+        [OperationContract]
+        List<BEEstrategia> GetOfertasPersonalizadasByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv);
+
+        [OperationContract]
+        int GetCantidadOfertasPersonalizadasTemporal(int paisId, int nroLote, int tipoConfigurado);
+
+        [OperationContract]
+        int EstrategiaTemporalDelete(int paisId, int nroLote);
+        
+        [OperationContract]
+        List<BEEstrategia> GetOfertasPersonalizadasByTipoConfiguradoTemporal(int paisId, int tipoConfigurado, int nroLote);
+        
+        [OperationContract]
+        int EstrategiaTemporalInsertarMasivo(int paisId, int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote);
+
+        [OperationContract]
+        bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int nroLote, int pagina);
+
+        [OperationContract]
+        bool EstrategiaTemporalActualizarSetDetalle(int paisID, int nroLote, int pagina);
+
+        [OperationContract]
+        int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote);
+
+        #endregion
     }
 }

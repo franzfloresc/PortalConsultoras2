@@ -149,7 +149,6 @@
 <input id="hdfPROLSinStock" type="hidden" value="0" />
 <input id="hdfModificaPedido" type="hidden" value="0" />
 <input type="hidden" id="hdfTotal" value="@Model.Total" />
-<input id="hdSimbolo" type="hidden" value="@Model.Simbolo" />
 
 <!-- POPUP MIS GANANCIAS -->
 
@@ -176,7 +175,7 @@
     </div>
     <div class="montos_resumen">
         <span><b data-cantidadproducto="">{{this.TotalProductos}}</b>&nbsp;&nbsp;UNIDADES</span>
-        <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>     
+        <span><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>     
     </div>
 
     <div class="detalle_pedido_ingresado">
@@ -326,7 +325,7 @@
                 </div>
                 <div class="precios_item">
                     <span class="precio_normal_pedido">
-                        <span>{{../Simbolo}} {{detalle.FormatoPrecioUnidad}}</span>
+                        <span>{{SimboloMoneda}} {{detalle.FormatoPrecioUnidad}}</span>
                     </span>
                     <span class="precio_oferta_pedido">
                         <!-- ICONO ADVERTENCIA -->
@@ -336,7 +335,7 @@
                         {{/if}}
                         {{/if}}
                         <!-- FIN ICONO ADVERTENCIA -->
-                        <span>{{../Simbolo}} <label id="ImporteTotal_{{detalle.PedidoDetalleID}}">{{detalle.FormatoImporteTotal}}</label></span>
+                        <span>{{SimboloMoneda}} <label id="ImporteTotal_{{detalle.PedidoDetalleID}}">{{detalle.FormatoImporteTotal}}</label></span>
                     </span>
                 </div>
             </div>
@@ -381,7 +380,7 @@
 
         <div class="montos_resumen">
             <span><b data-cantidadproducto="">{{TotalProductos}}</b>&nbsp;&nbsp;UNIDADES</span>
-            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>           
+            <span><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>           
         </div>
     </div>
 
@@ -429,7 +428,7 @@
 
                 <h1 class="ofertaFinal_titulo" id="spnTituloOfertaFinal">
                     {{#if_eq TipoMeta 'MM'}}
-                    <span><b>AÚN TE FALTA {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span><br />PARA LLEGAR AL MONTO MÍNIMO</b></span>
+                    <span><b>AÚN TE FALTA {{SimboloMoneda}} <span data-monto="">{{MetaMontoStr}}</span><br />PARA LLEGAR AL MONTO MÍNIMO</b></span>
                     {{else if_eq TipoMeta 'GM'}}
                     <span>¡GUARDASTE TU <b>PEDIDO<br />CON ÉXITO!</b></span>
                     {{else}} <!--se espera escala de dscto-->
@@ -448,7 +447,7 @@
                     {{else if_eq TipoMeta 'RG'}}
                     <span class="mensaje_premios_increibles">@ViewBag.NombreConsultora APROVECHA ESTAS OFERTAS Y <b>GANA PREMIOS INCREÍBLES</b></span>
                     {{else}}    <!--se espera escala de dscto-->
-                    <span>ALCANZA EL <b style="font-size:23px;">{{MetaPorcentaje}}%</b> DSCTO AGREGANDO {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> DE ESTAS OFERTAS</span>
+                    <span>ALCANZA EL <b style="font-size:23px;">{{MetaPorcentaje}}%</b> DSCTO AGREGANDO {{SimboloMoneda}} <span data-monto="">{{MetaMontoStr}}</span> DE ESTAS OFERTAS</span>
                     {{/if_eq}}
                 </div>
                 <div class="content_producto_alternativo" id="div-regalo-pn" style="display: none;">
@@ -488,7 +487,6 @@
                                 <input type="hidden" class="hdOfertaFinalPrecioValorizadoString" value="{{PrecioValorizadoString}}" />
                                 <input type="hidden" class="hdOfertaFinalPrecioCatalogoString" value="{{PrecioCatalogoString}}" />
                                 <input type="hidden" class="hdOfertaFinalDescripcionComercial" value="{{DescripcionComercial}}" />
-                                <input type="hidden" class="hdOfertaFinalUrlCompartirFB" value="{{UrlCompartirFB}}" />
                                 <input type="hidden" class="hdOfertaFinalDescripcionRelacionado" value="{{CUVComplemento}}" />
                                 <input type="hidden" class="hdOfertaFinalCUVPedidoImagen" value="{{CUVPedidoImagen}}" />
                                 <input type="hidden" class="hdOfertaFinalID" value="{{ID}}" />
@@ -507,9 +505,9 @@
                                         </p>
                                         <div class="producto_precio">
                                             {{#iff PrecioValorizado '>' '0'}}
-                                            <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
+                                            <span class="producto_precio_normal">{{SimboloMoneda}} {{PrecioValorizadoString}}</span>
                                             {{/iff}}
-                                            <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
+                                            <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{PrecioCatalogoString}}</b></span>
                                         </div>
                                     </div>
                                     <div class="contenedor_cantidadProductos">
@@ -604,9 +602,9 @@
         <div class="titulo_ficha_producto" style="line-height:16px;">{{NombreComercial}}</div>
         <div class="precio_ficha_producto">
             {{#iff PrecioValorizado '>' '0'}}
-            <span class="precio_tachado_ficha">{{Simbolo}} {{PrecioValorizadoString}}</span><br />
+            <span class="precio_tachado_ficha">{{SimboloMoneda}} {{PrecioValorizadoString}}</span><br />
             {{/iff}}
-            <span class="texto_comple_ficha">Precio para ti </span>&nbsp;{{Simbolo}} {{PrecioCatalogoString}}
+            <span class="texto_comple_ficha">Precio para ti </span>&nbsp;{{SimboloMoneda}} {{PrecioCatalogoString}}
         </div>
         {{#iff DescripcionRelacionado '!=' ''}}
         <div class="producto_sugerido_texto">
@@ -619,9 +617,7 @@
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="{{CUV}}" />
                 <input type="hidden" class="rsFBMensaje" value="" />
-                <input type="hidden" class="rsFBRuta" value="{{UrlCompartirFB}}" />
                 <input type="hidden" class="rsWAMensaje" value="" />
-                <input type="hidden" class="rsWARuta" value="{{UrlCompartirFB}}" />
                 <input type="hidden" class="rsFBRutaImagen" value="{{ImagenProductoSugerido}}" />
                 <input type="hidden" class="rsWARutaImagen" value="{{ImagenProductoSugerido}}" />
                 <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
@@ -721,7 +717,6 @@
         var autoReservar = ('@Model.AutoReservar'.toLowerCase() == 'true');
         var tieneCupon = '@Model.TieneCupon';
         var esEmailActivo = '@Model.EmailActivo';
-        var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
         var viewBagCampaniaActual = '@Model.CampaniaActual';
         var paisISO = '@ViewBag.paisISO';
         var viewBagAmbiente = '@ViewBag.Ambiente';

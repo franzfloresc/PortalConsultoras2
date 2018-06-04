@@ -105,7 +105,6 @@
     <Compile Include="Configuracion\IConfiguracionPaisBusinessLogic.cs" />
     <Compile Include="Configuracion\IConfiguracionPaisDatosBusinessLogic.cs" />
     <Compile Include="Cupon\ICuponConsultoraBusinessLogic.cs" />
-    <Compile Include="Estrategia\EstrategiaBusinessLogic.cs" />
     <Compile Include="Estrategia\IConfiguracionProgramaNuevasBusinessLogic.cs" />
     <Compile Include="Estrategia\IEstrategiaBusinessLogic.cs" />
     <Compile Include="Estrategia\ITipoEstrategiaBusinessLogic.cs" />

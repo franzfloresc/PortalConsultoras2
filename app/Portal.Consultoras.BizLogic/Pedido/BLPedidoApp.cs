@@ -1,16 +1,15 @@
-﻿using Portal.Consultoras.Entities;
-using Portal.Consultoras.Entities.ReservaProl;
-using Portal.Consultoras.Entities.Pedido;
-using Portal.Consultoras.Entities.Pedido.App;
+﻿using Portal.Consultoras.BizLogic.Reserva;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Data.ServiceCalculoPROL;
 using Portal.Consultoras.Data.ServicePROL;
-using Portal.Consultoras.BizLogic.Reserva;
-
+using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.Entities.Pedido.App;
+using Portal.Consultoras.Entities.ReservaProl;
+using Portal.Consultoras.PublicService.Cryptography;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -473,7 +472,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 LogManager.SaveLog(ex, pedidoDetalle.Usuario.CodigoUsuario, pedidoDetalle.PaisID);
                 return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_INTERNO, ex.Message);
             }
-            
+
         }
 
         public BEConfiguracionPedido GetConfiguracion(int paisID, string codigoUsuario)

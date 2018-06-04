@@ -291,6 +291,8 @@ function EstrategiaGuardarTemporal(obj) {
         ruta = urlOfertaDetalleProductoTem;
     }
 
+    obj.TipoAccionAgregar = obj.TipoAccionAgregarBack || obj.TipoAccionAgregar;
+
     jQuery.ajax({
         type: 'POST',
         url: ruta,
