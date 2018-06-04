@@ -265,8 +265,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
         public async Task<bool> DeshacerReservaPedido(BEUsuario usuario, int pedidoId)
         {
-            UpdateDiaPROL(usuario);
-            if (!usuario.DiaPROL) return true;
+            UpdateDiaPROLAndEsHoraReserva(usuario);
+            if (!usuario.DiaPROL || !usuario.EsHoraReserva) return true;
 
             var reservaExternaBL = NewReservaExternaBL(GetVersionProl(usuario.PaisID));
             return await reservaExternaBL.DeshacerReservaPedido(usuario, pedidoId);
