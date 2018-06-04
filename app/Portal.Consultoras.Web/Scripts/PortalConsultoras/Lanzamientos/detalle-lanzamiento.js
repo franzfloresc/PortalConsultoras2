@@ -54,7 +54,7 @@
             return false;
         }
 
-        var str = LocalStorageListado(lsListaRD + campaniaId, '', 1) || '';
+        var str = LocalStorageListado("listaLAN" + campaniaId, '', 1) || '';
 
         if (str === '') {
             return false;

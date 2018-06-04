@@ -4,6 +4,7 @@
 
 @{
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
+    var vbSimbolo = ViewBag.Simbolo ?? "";
 }
 
 @section styles{
@@ -28,9 +29,7 @@
                 <div data-compartir-campos="" style="display:none;">
                     <input type="hidden" class="CUV" value="@Model.CUV2" />
                     <input type="hidden" class="rsFBMensaje" value="" />
-                    <input type="hidden" class="rsFBRuta" value="@Model.UrlCompartir" />
                     <input type="hidden" class="rsWAMensaje" value="" />
-                    <input type="hidden" class="rsWARuta" value="@Model.UrlCompartir" />
                     <input type="hidden" class="rsFBRutaImagen" value="@Model.FotoProducto01" />
                     <input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
                     <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
@@ -57,9 +56,9 @@
                             <h1>@Model.DescripcionResumen</h1>
                         </div>
                         <div class="bloque2">
-                            <span class="precio-tachado">@Model.Simbolo @Model.PrecioTachado</span>
-                            <span class="precio-para-ti">Precio para tí<b>@Model.Simbolo @Model.PrecioVenta</b></span>
-                            <span class="gana-rojo">GANA @Model.Simbolo @Model.GananciaString</span>
+                            <span class="precio-tachado">@vbSimbolo @Model.PrecioTachado</span>
+                            <span class="precio-para-ti">Precio para tí<b>@vbSimbolo @Model.PrecioVenta</b></span>
+                            <span class="gana-rojo">GANA @vbSimbolo @Model.GananciaString</span>
                         </div>
                         <div style="clear:both;"></div>
                     </div>
@@ -76,7 +75,7 @@
                     <div class="detalle-bloque-tres">
                         @Html.Partial("~/Views/Lanzamientos/Template_LanzamientosTonos.cshtml", Model)
                     </div>
-                    @if (Model.PuedeAgregarProducto)
+                    @if (Model.TipoAccionAgregar > 0)
                     {
 
                         <div class="input_agregar_cantidad">

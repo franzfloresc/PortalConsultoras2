@@ -86,6 +86,7 @@ header {
     min-height: 61px;
     margin: 0 auto;
     max-width: 1189px;
+    position:relative;
 }
 
 .user-profile {
@@ -3789,7 +3790,8 @@ a.subir_carousel, a.bajar_carousel {
     overflow-x: hidden;
     overflow-y: auto;
     height: 100%;
-    max-height: 438px;
+    /*max-height: 438px;*/
+    max-height: 460px;
     padding-left: 10px;
     padding-right: 7px;
 }
@@ -33078,6 +33080,35 @@ h1#penmostreo .campana {
     font-size: 14px;
     margin-top: 20px;
 }
+    .content_cuv section .filtroInput {
+        float: left;
+    }
+
+        .content_cuv section .filtroInput label {
+            display: block;
+            margin-left: 5px;
+        }
+
+        .content_cuv section .filtroInput select[id='ddlCategoriaProductoAgotado'] {
+            width: 170px;
+        }
+
+        .content_cuv section .filtroInput select[id='ddlCatalogoRevistaProductoAgotado'] {
+            width: 170px;
+        }
+
+        .content_cuv section .filtroInput input[id='producto-faltante-busqueda-cuv'] {
+            width: 80px;
+        }
+
+        .content_cuv section .filtroInput input[id='producto-faltante-busqueda-descripcion'] {
+            width: 170px;
+        }
+
+    .content_cuv section .filtroButton {
+        float: left;
+        margin-top: 23px;
+    }
 
 .buscar_icono {
     background: white url('../../../Images/Esika/lupa.png') no-repeat center right;
@@ -36365,3 +36396,66 @@ height:30px;
     max-width: 1189px;
     margin: 0 80px 0 180px;
 }
+
+/* HD-2513 - 50 AÑOS BELCORP */
+
+.wrapper_header_cincuenta_anios_belcorp{
+    width:100%!important;
+    min-width:1189px!important;
+    max-width:1440px!important;
+}
+
+.cincuenta_anios_belcorp{
+    display: block;
+    position: relative;
+    float: left;
+    left: 0;
+    width: 98px;
+    height: 61px;
+    overflow:hidden;
+}
+
+.cincuenta_anios_belcorp img{
+    width: auto;
+    height: 111%;
+}
+
+.cincuenta_anios_belcorp + .logo_esika{
+    margin-left:23px;
+}
+
+.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika{
+    width:729px!important;
+}
+
+.color_cincuenta_anios_belcorp{
+    color:#A06219;
+}
+
+.boton_cincuenta_anios_belcorp{
+    background-color:#BA8B47;
+    border:2px solid #BA8B47;
+}
+
+    .boton_cincuenta_anios_belcorp:hover{
+        background-color:#BA8B47;
+        color:#BA8B47;
+    }
+
+@media screen and (max-width:1365px){
+
+    .wrapper_header_cincuenta_anios_belcorp{
+        max-width:none!important;
+    }
+
+}
+
+@media screen and (max-width:1240px){
+
+    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika{
+        width: 682px!important;
+    }
+
+}
+
+/* FIN - HD-2513 - 50 AÑOS BELCORP */

@@ -232,15 +232,17 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public void UpdBannerPaisSegmentoZona(int CampaniaId, int BannerId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInterno)
+        public void UpdBannerPaisSegmentoZona(BEBannerSegmentoZona segmentoZona)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdBannerPaisSegmentoZona");
-            Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, CampaniaId);
-            Context.Database.AddInParameter(command, "@BannerId", DbType.Int32, BannerId);
-            Context.Database.AddInParameter(command, "@PaisId", DbType.Int32, PaisId);
-            Context.Database.AddInParameter(command, "@Segmento", DbType.Int32, Segmento);
-            Context.Database.AddInParameter(command, "@ConfiguracionZona", DbType.AnsiString, ConfiguracionZona);
-            Context.Database.AddInParameter(command, "@SegmentoInternoID", DbType.AnsiString, SegmentoInterno);
+            Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, segmentoZona.CampaniaId);
+            Context.Database.AddInParameter(command, "@BannerId", DbType.Int32, segmentoZona.BannerId);
+            Context.Database.AddInParameter(command, "@PaisId", DbType.Int32, segmentoZona.PaisId);
+            Context.Database.AddInParameter(command, "@Segmento", DbType.Int32, segmentoZona.Segmento);
+            Context.Database.AddInParameter(command, "@ConfiguracionZona", DbType.AnsiString, segmentoZona.ConfiguracionZona);
+            Context.Database.AddInParameter(command, "@SegmentoInternoID", DbType.AnsiString, segmentoZona.SegmentoInterno);
+            Context.Database.AddInParameter(command, "@TipoAcceso", DbType.Int32, segmentoZona.TipoAcceso);
+            Context.Database.AddInParameter(command, "@CodigosConsultora", DbType.AnsiString, segmentoZona.CodigosConsultora);
 
             Context.ExecuteNonQuery(command);
         }

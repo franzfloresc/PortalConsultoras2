@@ -29,6 +29,7 @@
 	}
 	<link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
 
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpVariablesGeneralesPortal.cshtml")
 	<script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
         window.urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
@@ -229,13 +230,12 @@
 
 	@Scripts.Render("~/Scripts/MobileLayout")
 
-	<script type="text/javascript">
+    <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
         var urlReservadoEnHorarioRestringuido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var urlGetCantidadProductos = '@Url.Action("GetResumenCampaniaAgrupado", "GestionContenido", new { area = "" })';
         var urlGetNotificacionesSinLeer = '@Url.Action("GetNotificacionesSinLeer", "Notificaciones", new { area = "" })';
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
-        var vbSimbolo = '@ViewBag.Simbolo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
         var urlChatbot = '@System.Configuration.ConfigurationManager.AppSettings.Get("UrlChatbot")';
         var ingresoExterno = '@ViewContext.GetUniqueSession("IngresoExterno")';
@@ -277,7 +277,7 @@
         var OrigenDesktopODD = 0;
 
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++
-         // parametros _MobileLayout 
+         // parametros _MobileLayout
         //++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore'; //
@@ -295,7 +295,8 @@
         var emt_first_name = '@ViewBag.NombreC';
         var emt_id = '@ViewBag.CodigoUsuario';
         var emt_type = '0';
-
+        var emt_device = ' ';
+        var emt_default_message = '@Html.Raw(Constantes.ConfiguracionManager.MensajeChatBienvenida)';
 
         var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl';
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
@@ -321,7 +322,7 @@
         var actionName = '@ViewContext.RouteData.GetRequiredString("action")';
         var controllerName = '@ViewContext.RouteData.GetRequiredString("controller")';
         var oBannerApp = @Html.Raw(@Json.Encode(ViewBag.BannerApp));
-	</script>
+    </script>
 
 	<script type="text/javascript">
 		$(function () {

@@ -282,9 +282,7 @@
         var urlValidadoPedido = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
         var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
 
-        var simbolo = '@Model.Simbolo';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-        var vbSimbolo = simbolo;
         var productoSugerido = false;
         var productoAgotado = false;
 
@@ -298,7 +296,6 @@
         var paginaOrigenCupon = 21;
         var tieneMasVendidos = @Model.TieneMasVendidos;
         var esEmailActivo = '@Model.EmailActivo';
-        var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
         var viewBagCampaniaActual = '@Model.CampaniaActual';
         var tipoOrigenEstrategia = 21;
         var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido;

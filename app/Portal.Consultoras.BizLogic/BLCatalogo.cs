@@ -477,5 +477,39 @@ namespace Portal.Consultoras.BizLogic
             }
         }
         #endregion
+
+        #region Catalogo Revista ODS
+
+        public List<BECatalogoRevista_ODS> SelectCatalogoRevistas_ODS(int paisID)
+        {
+            var catalogos = new List<BECatalogoRevista_ODS>();
+            var daCatalogo = new DACatalogo(paisID);
+
+            using (IDataReader reader = daCatalogo.GetCatalogoRevistas_ODS())
+                while (reader.Read())
+                {
+                    var catalogo = new BECatalogoRevista_ODS(reader);
+                    catalogos.Add(catalogo);
+                }
+
+            return catalogos;
+        }
+
+        public List<BECatalogoRevista_ODS> PS_CatalogoRevistas_ODS(int paisID)
+        {
+            var oLista = new List<BECatalogoRevista_ODS>();
+            var catalogos = SelectCatalogoRevistas_ODS(paisID);
+
+            oLista = catalogos.Where(x => x.Descripcion != null && x.Descripcion != Constantes.ConstSession.DescripcionPedidoOtro)
+                              .GroupBy(test => test.Descripcion)
+                              .Select(grp => grp.First())
+                              .ToList();
+
+            if (catalogos.Where(x => x.Descripcion == Constantes.ConstSession.DescripcionPedidoOtro).Count() > 0)
+                oLista.Add ( new BECatalogoRevista_ODS { Descripcion= Constantes.ConstSession.DescripcionPedidoOtro , CodigoCatalogo = Constantes.ConstSession.CodigoPedidoOtro });
+            return oLista;
+        }
+
+        #endregion
     }
 }
