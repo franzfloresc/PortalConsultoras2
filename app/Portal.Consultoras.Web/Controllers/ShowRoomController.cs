@@ -93,16 +93,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
 
-                if (mostrarPopupIntriga)
-                {
-                    return RedirectToAction("Intriga", "ShowRoom");
-                }
-                if (!ValidarIngresoShowRoom(false))
-                    return RedirectToAction("Index", "Bienvenida");
+                if (mostrarPopupIntriga) return RedirectToAction("Intriga", "ShowRoom");
+                if (!ValidarIngresoShowRoom(false)) return RedirectToAction("Index", "Bienvenida");
 
                 if (query != null)
                 {
-                    if (Request.Browser.IsMobileDevice)
+                    if (GetIsMobileDevice())
                     {
                         return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", query });
                     }
@@ -205,7 +201,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (query != null)
                 {
-                    if (Request.Browser.IsMobileDevice)
+                    if (GetIsMobileDevice())
                     {
                         return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", query });
                     }
@@ -2840,7 +2836,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult DetalleOfertaCUV(string query)
         {
-            if (Request.Browser.IsMobileDevice)
+            if (GetIsMobileDevice())
             {
                 return RedirectToAction("DetalleOfertaCUV", "ShowRoom", new { area = "Mobile", query });
             }

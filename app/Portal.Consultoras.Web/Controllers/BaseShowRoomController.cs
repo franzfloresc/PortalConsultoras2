@@ -518,9 +518,7 @@ namespace Portal.Consultoras.Web.Controllers
             
             modelo.FBMensaje = "";
 
-            bool esMovil = Request.Browser.IsMobileDevice;
-            var tipoAplicacion = esMovil
-                    ? Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile
+            var tipoAplicacion = GetIsMobileDevice() ? Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile
                     : Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop;
 
             modelo.TextoCondicionCompraCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoCondicionCompraCpc, tipoAplicacion);
@@ -783,16 +781,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 showRoomEventoModel.ListaCategoria = listaCategoria;
 
-                bool esMovil = Request.Browser.IsMobileDevice;
-                var tipoAplicacion = esMovil
-                    ? Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile
+                var tipoAplicacion = GetIsMobileDevice() ? Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile
                     : Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop;
 
                 showRoomEventoModel.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.UrlTerminosCondiciones, tipoAplicacion);
                 showRoomEventoModel.TextoCondicionCompraCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoCondicionCompraCpc, tipoAplicacion);
                 showRoomEventoModel.TextoDescripcionLegalCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoDescripcionLegalCpc, tipoAplicacion);
 
-                if (esMovil)
+                if (GetIsMobileDevice())
                 {
                     showRoomEventoModel.TextoInicialOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoInicialOfertaSubCampania, tipoAplicacion);
                     showRoomEventoModel.ColorTextoInicialOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ColorTextoInicialOfertaSubCampania, tipoAplicacion);
@@ -827,6 +823,10 @@ namespace Portal.Consultoras.Web.Controllers
             return Globals.UrlMatriz + "/" + userData.CodigoISO;
         }
 
-        
+
+        protected virtual bool GetIsMobileDevice()
+        {
+            return Request.Browser.IsMobileDevice;
+        }
     }
 }

@@ -77,7 +77,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
             var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
-            bool mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
+            var mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
 
             if (mostrarPopupIntriga)
             {
@@ -85,9 +85,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             ActionExecutingMobile();
-            var showRoomEventoModel = OfertaShowRoom();
 
-            //24-may-2018 (JN)
+            var showRoomEventoModel = OfertaShowRoom();
             var dato = ObtenerPerdio(userData.CampaniaID);
             showRoomEventoModel.ProductosPerdio = dato.Estado;
             showRoomEventoModel.PerdioTitulo = dato.Valor1;
