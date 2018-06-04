@@ -209,15 +209,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
                 ActionExecutingMobile();
 
-                var ofertasShowRoom = ObtenerOfertasShowRoom();
+                var model = ObtenerPrimeraOfertaShowRoom();
 
-                if (!ofertasShowRoom.Any())
+                if (model == null)
                 {
                     return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
-
-
-                var model = ObtenerPrimeraOfertaShowRoom(ofertasShowRoom);
 
                 model.Simbolo = userData.Simbolo;
                 model.CodigoISO = userData.CodigoISO;

@@ -44,16 +44,12 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Bienvenida");
             }
 
-            var ofertasShowRoom = ObtenerOfertasShowRoom();
-
-            if (!ofertasShowRoom.Any())
+            var model = ObtenerPrimeraOfertaShowRoom();
+            if (model == null)
             {
                 return RedirectToAction("Index", "Bienvenida");
             }
-
             InicializarViewbag();
-
-            var model = ObtenerPrimeraOfertaShowRoom(ofertasShowRoom);
             model.Simbolo = userData.Simbolo;
             model.CodigoISO = userData.CodigoISO;
             model.Suscripcion = (configEstrategiaSR.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora()).Suscripcion;
