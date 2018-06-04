@@ -150,6 +150,7 @@
         jQuery("#listCargaMasiva1").setGridParam({ datatype: "json", page: 1 }).trigger("reloadGrid");
     }
     var _fnGrillaEstrategias2 = function () {
+        waitingDialog();
         console.log('ejecutando de _fnGrillaEstrategias2 - inicio');
         $("#listCargaMasiva2").jqGrid("GridUnload");
         console.log(_config.urlEstrategiaTemporalConsultar);
@@ -205,6 +206,7 @@
             loadComplete: function () { },
             gridComplete: function () {
                 console.log('ejecutando de _fnGrillaEstrategias2 - gridComplete - inicio', _variables.cantidadPrecargar2);
+                closeWaitingDialog();
                 if (_variables.cantidadPrecargar2 == 0) {
                     $("#divMostrarPreCarga2").css("display", "none");
                 } else {
@@ -483,16 +485,25 @@
                     closeWaitingDialog();
                     if (data.success) {
                         if (data.continuaPaso == undefined) {
-                            _variables.Pagina = (data.Pagina || 0) + 1;
-                            _variables.NroLote = data.NroLote;
-                            _variables.CantidadCuv = _variables.CantidadCuv || data.CantidadCuv;
-                            _eventos.clickAceptarMasivo1();
+                            data.messageComplemento = data.messageComplemento || "";
+                            if (data.messageComplemento == "") {
+                                _variables.Pagina = (data.Pagina || 0) + 1;
+                                _variables.NroLote = data.NroLote;
+                                _variables.CantidadCuv = _variables.CantidadCuv || data.CantidadCuv;
+                                _eventos.clickAceptarMasivo1();
+                            }
+                            else {
+                                _eventos.clickCancelarMasivo1();
+                                _toastHelper.error(data.messageComplemento);
+                            }
                         }
                         else if (data.continuaPaso === true) {
                             console.log('antes de _fnGrillaEstrategias2');
+                            closeWaitingDialog();
                             _fnGrillaEstrategias2();
                         }
                     } else {
+                        _eventos.clickCancelarMasivo1();
                         _toastHelper.error(data.message);
                     }
                 },
@@ -505,7 +516,6 @@
         },
         clickAceptarMasivo2: function () {
 
-            console.log('ejecutando clickAceptarMasivo2 - inicio'); 
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
                 tipoConfigurado: 1,
@@ -513,6 +523,7 @@
                 nroLote: _variables.NroLote
             };
 
+            console.log('ejecutando clickAceptarMasivo2 - inicio', params); 
             waitingDialog();
 
             jQuery.ajax({
@@ -541,6 +552,7 @@
                         $("#divPaso3").addClass("boton_redondo_admcontenido_on");
                     } else {
                         _toastHelper.error(data.message);
+                        _eventos.clickCancelarMasivo1();
                     }
                 },
                 error: function (data, error) {
@@ -553,6 +565,7 @@
         clickCancelarMasivo1: function () {
             _variablesInicializar();
             HideDialog("DialogNuevoMasivo");
+            closeWaitingDialog();
         },
         clickCancelarMasivo2: function () {
 
@@ -590,6 +603,7 @@
         clickAceptarMasivo3: function () {
             _variablesInicializar();
             HideDialog("DialogNuevoMasivo");
+            closeWaitingDialog();
         },
     }
 
