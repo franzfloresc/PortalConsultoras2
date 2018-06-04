@@ -170,6 +170,10 @@ body
     width: 50%;
 }
 
+.pestana_lbel{
+    display:none;
+}
+
 .titulo_interiores {
     padding-right: 50px;
     float: left;
