@@ -337,7 +337,7 @@ $(document).ready(function () {
                 lazyLoad: 'ondemand',
                 infinite: true,
                 vertical: false,
-                slidesToShow: 2,
+                slidesToShow: 4,
                 slidesToScroll: 1,
                 variableWidth: true, 
                 autoplay: false,
@@ -704,8 +704,20 @@ $(document).ready(function () {
                     .find(".product-add")
                     .css("display", "block");
 
-            } else
+            } else {
                 $(item).find(".product-add").css("display", "block");
+
+                var clonados = $('#divOddCarrusel div.slick-slide');
+                var posi1 = $(item).attr('data-item-position');
+
+                $.each(clonados, function (key, value) {
+                    var posi2 = $(value).attr('data-item-position');
+                    if (posi1 == posi2) {
+                        $(value).find(".product-add").css("display", "block");
+                    }
+                });
+            }
+                
         }
     }
 
