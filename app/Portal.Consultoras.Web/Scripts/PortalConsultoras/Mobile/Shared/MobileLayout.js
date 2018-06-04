@@ -143,6 +143,16 @@
         return false;
     });
 
+    $("body").on('click', '#btn_init', function () {
+        var data = {
+            'event': 'virtualEvent',
+            'category': controllerName,
+            'action': 'Clic en Chat',
+            'label': '¿Quieres ayuda?'
+        };
+        dataLayer.push(data);
+    });
+
     $("#btn_cerrar_oferta_mobile").click(function () {
         var curSlide = $("#flexslidertop").find(".flex-active-slide").html();
         if (curSlide.indexOf("BloqueOfertaDiaHeader") > -1) {
