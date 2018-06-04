@@ -1284,6 +1284,7 @@
     <Content Include="Content\Css\Site\RevistaDigital\index.css" />
     <Content Include="Content\Css\Site\ShowRoom.css" />
     <Content Include="Content\Css\Site\ShowRoom.css" />
+    <Content Include="Content\Images\cincuenta_anios_belcorp_cabecera.svg" />
     <Content Include="Content\Images\carrusel_n_blanco.png" />
     <Content Include="Content\Images\carrusel_p_blanco.png" />
     <Content Include="Content\Images\colorpicker\blank.gif" />
@@ -2905,6 +2906,7 @@
     <Content Include="Content\Images\mobile\cdr_paso2_activo.png" />
     <Content Include="Content\Images\mobile\cdr_paso3.png" />
     <Content Include="Content\Images\mobile\cdr_paso3_activo.png" />
+    <Content Include="Content\Images\mobile\cincuenta_anios_belcorp_cabecera_mobile.svg" />
     <Content Include="Content\Images\mobile\dropdown-arrow.png" />
     <Content Include="Content\Images\mobile\Esika\app.png" />
     <Content Include="Content\Images\mobile\Esika\bandera.png" />
@@ -2970,6 +2972,7 @@
     <Content Include="Content\Images\mobile\icono-acepto-politica-cdr.png" />
     <Content Include="Content\Images\mobile\icono-cerrar-popup-inscripcion-mobile.svg" />
     <Content Include="Content\Images\mobile\icono-eliminar-cdr.png" />
+    <Content Include="Content\Images\mobile\icono-menu-mobile.svg" />
     <Content Include="Content\Images\mobile\icono_regalo.png" />
     <Content Include="Content\Images\mobile\icono_regalo_estrella.png" />
     <Content Include="Content\Images\mobile\icon_caja.png" />
