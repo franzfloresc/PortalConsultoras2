@@ -420,12 +420,12 @@ else
                     <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{FormatoPrecioOferta}}</b></span>
                 </div>
             </div>
-               <div class="producto_precio">
-               {{#iff TipoAccionAgregar '==' '2'}}
-                  <div class="texto_elige_tono">&ensp;&nbsp;</div>
-               {{/iff}}
-               {{#iff TipoAccionAgregar '==' '3'}}
-            <div class="texto_elige_tono"> ELIGE TU OPCIÓN </div>
+
+            {{#iff TipoAccionAgregar '==' '2'}}
+                <div class="texto_elige_tono">&ensp;&nbsp;</div>
+            {{/iff}}
+            {{#iff TipoAccionAgregar '==' '3'}}
+                <div class="texto_elige_tono"> ELIGE TU OPCIÓN </div>
             {{/iff}}
             <div class="clear"></div>
         </div>
