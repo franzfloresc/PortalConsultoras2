@@ -16,7 +16,6 @@
 
 <input type="hidden" id="hdListaProductosEnShowRoom" value="@JsonConvert.SerializeObject(Model.ListaShowRoomOferta)" />
 <input type="hidden" id="hdTotalProductos" value="@Model.ListaShowRoomOferta.Count" />
-<!--MAQUETADO NUEVO-->
 <div class="catalogoPersonalizadoBloque">
     <div class="content_belcorp">
         <div class="content-left-item content_new_showroom">
@@ -252,7 +251,6 @@
         </div>
                             }
                         }
-<!--FIN-->
 
 <div id="divMensajeProductoAgregado" class="divAgregarShowRoom" style="display: none;">
     <div class="titulo_producto_agregado">
@@ -347,7 +345,6 @@
             <img data-src="{{ImagenProducto}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" data-lazy-seccion-showroom="" />
             {{/IsNullOrEmpty}}
 
-            @*<a class="ver_detalle_carrusel" href="{{UrlDetalle}}">VER DETALLE</a>*@
         </div>
         <div class="producto_nombre_descripcion">
             <p class="nombre-producto-set">{{Descripcion}}</p>

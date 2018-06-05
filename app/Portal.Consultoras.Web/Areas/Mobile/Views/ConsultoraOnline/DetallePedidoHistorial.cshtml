@@ -46,7 +46,6 @@
     <hr class="clear" />
 </div>
 <div class="wrapper_resumen_mobile">
-    <!--DETALLE PENDIENTE-->
     @foreach (var detalle in Model.Detalles)
     {
         <div class="detalle_pedido_reservado">
@@ -84,8 +83,6 @@
         </div>
     }
 
-    <!--fin-->
-    <!--MONTO FINAL-->
     <div class="left_reservado">
         <div class="importe_final" style="font-size:16px;"><b>MONTO TOTAL</b> </div>
     </div>
@@ -97,7 +94,6 @@
     { <a href="javascript:AbrirConfirmacionCancelado();" class="btn_cancelar_pendientes">QUIERO CANCELAR TODO EL PEDIDO</a> }
 </div>
 
-<!--INICIO MODAL DE CONFIRMACIÓN DE CANCELADO-->
 <div id="dialog_confirmacionCancelado" class="MensajeAlertaMobile">
     <div class="content_mensajeAlerta">
         <a class="cerrar_popMobile" onclick="NoAceptarConfirmacionCancelado();">
@@ -116,8 +112,6 @@
 
     </div>
 </div>
-<!--FINAL MODAL DE CONFIRMACIÓN DE CANCELADO-->
-<!--INICIO MODAL DE SELECCIÓN DE RAZÓN DE CANCELADO-->
 <div id="dialog_motivoCancelado" class="MensajeAlertaMobile" style="padding:10px;">
     <div class="content_mensajeAlerta">
         <a class="cerrar_popMobile" onclick="CancelarSolicitud(@Model.SolicitudClienteID, @Model.MarcaID);">
@@ -135,8 +129,6 @@
         <a class="btn_acepto_pedido" onclick="CancelarSolicitud(@Model.SolicitudClienteID, @Model.MarcaID);">ENVIAR</a>
     </div>
 </div>
-<!--FINAL MODAL DE SELECCIÓN DE RAZÓN DE CANCELADO-->
-<!--INICIO MODAL DE MENSAJE DE CANCELADO-->
 <div id="dialog_mensajeCancelado" class="MensajeAlertaMobile">
     <div class="content_mensajeAlerta">
         <a class="cerrar_popMobile" onclick="CerrarMensajeCancelado();">
@@ -149,7 +141,6 @@
         <a class="btn_ok_mobile" onclick="CerrarMensajeCancelado();">OK</a>
     </div>
 </div>
-<!--FINAL MODAL DE MENSAJE DE CANCELADO-->
 
 @section scripts{
     <script>

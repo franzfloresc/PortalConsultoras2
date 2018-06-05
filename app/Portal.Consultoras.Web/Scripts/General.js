@@ -736,7 +736,6 @@ function getMobilePrefixUrl() {
     var currentUrl = $.trim(location.href).toLowerCase();
     var uniqueIndexOfUrl = currentUrl.indexOf(uniquePrefix);
     var isUniqueUrl = uniqueIndexOfUrl > 0;
-    //36 is Guid Length
     return isUniqueUrl ? currentUrl.substring(uniqueIndexOfUrl, uniqueIndexOfUrl + uniquePrefix.length + 36) : "/mobile";
 }
 
@@ -1134,7 +1133,6 @@ function LayoutMenuFin() {
 
     // caso no entre en el menu
     // poner en dos renglones
-
     if ($(".wrapper_header").height() > 61) {
         console.log("menu en mas de una linea");
     }
@@ -1824,7 +1822,6 @@ var registerEvent = function (eventName) {
 
     self.applyChanges = function (event, args) {
         if (self[event]) {
-            //todo: could be emit
             self[event].callBacks.forEach(function (cb) {
                 cb.call(undefined, args);
             });
@@ -1883,7 +1880,6 @@ function EstablecerAccionLazyImagenAll(nombreAtributo) {
 }
 
 function CuponPopupCerrar() {
-    //AbrirLoad();
     $('#Cupon3').hide();
 
     $.ajax({
@@ -1892,11 +1888,8 @@ function CuponPopupCerrar() {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
-            //CerrarLoad();
-            //window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
         },
         error: function (data, error) {
-            //CerrarLoad();
         }
     });
 }

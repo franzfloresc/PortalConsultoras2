@@ -586,12 +586,10 @@ namespace Portal.Consultoras.BizLogic
 
         public bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId)
         {
-            var pedidoWebDetalle = new List<BEPedidoWebDetalle>();
             var daPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
 
             var result = daPedidoWebDetalle.InsertPedidoWebSet(Campaniaid, PedidoID, CantidadSet, CuvSet, ConsultoraId, CodigoUsuario, CuvsStringList, EstrategiaId);
-
-
+            
             return result;
         }
 

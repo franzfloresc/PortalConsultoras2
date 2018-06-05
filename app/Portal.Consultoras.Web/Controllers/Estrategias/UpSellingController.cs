@@ -286,14 +286,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 if (!regalos)
                     return Json(ResultModel<string>.BuildBad("no hay regalos o no estan activos", string.Empty), JsonRequestBehavior.AllowGet);
-
-                //var tipoMeta = await _upSellingProvider.ObtenerMontoMeta(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-                //if (tipoMeta != null)
-                //{
-                //    tipoMeta.FormatoMontoMeta = Util.DecimalToStringFormat(tipoMeta.MontoMeta, userData.CodigoISO);
-                //    upsellingActivo.Meta = tipoMeta;
-                //}
-
+                
                 return Json(ResultModel<UpSellingModel>.BuildOk(upsellingActivo), JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)

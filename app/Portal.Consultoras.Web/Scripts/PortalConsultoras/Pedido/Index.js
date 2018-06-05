@@ -143,7 +143,6 @@ $(document).ready(function () {
             $("#hdConfiguracionOfertaID").val(ui.item.ConfiguracionOfertaID);
             $("#hdfIndicadorMontoMinimo").val(ui.item.IndicadorMontoMinimo);
             $("#hdTipoEstrategiaID").val(ui.item.TipoEstrategiaID);
-            //ObservacionesProducto(ui.item);
             $('#hdMetodoBusqueda').val('Por descripción');
 
             if (ui.item.CUV.length === 5) {
@@ -200,7 +199,6 @@ $(document).ready(function () {
     $(".ValidaAlfanumerico").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : (window.event ? window.event.keyCode : null);
         if (!charCode) return false;
-        //var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
             return true;
         } else {
