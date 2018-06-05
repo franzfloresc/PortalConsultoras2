@@ -31,7 +31,6 @@
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar detalleP" title="Regresar"></a>
-            @*<a href="@Request.UrlReferrer.LocalPath" class="enlace_regresar detalleP" title="Regresar"></a>*@
 }
                 }
                 <h2 class="nombre_campania_pedido">
@@ -39,13 +38,11 @@
                     <span>@ViewBag.DescripcionCampaniaActual</span>
                 </h2>
 
-                <!-- INFO SOBRE PEDIDO FIC -->
                 <div class="bloque_info_pedido_fic text-left mb-20">
                     <p class="info_pedido_fic">
                         <strong>Recuerda :</strong> este pedido <span class="text-uppercase">No</span> te será facturado. Sólo nos estás ayudando a conocer tus preferencias y la de tus clientes.
                     </p>
                 </div>
-                <!-- FIN - INFO SOBRE PEDIDO FIC -->
 
                 <div id="divProductosDetalle">
                     <div class="text-center">
@@ -68,27 +65,6 @@
     <input type="submit" value="GUARDA TU PEDIDO" id="btnGuardarPedido" name="btnGuardarPedido" onclick="MensajeGuardar();" />
 </div>
 
-<!-- START Popup para Observaciones PROL -->
-@*<div class="MensajeAlertaMobile" id="popup-observaciones-prol" style="display:none;">
-    <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="$('#popup-observaciones-prol').hide();">
-            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-        </a>
-        <hr class="clear">
-        <div id="iconoPopupMobile" class="icono_alerta exclamacion_icono_mobile"></div>
-        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
-        <div class="mensaje_alerta" id="modal-prol-contenido"></div>
-        <div id="modal-prol-botonesAceptarCancelar" style="display: none;">
-            <a href="javascript:;" onclick="AceptarObsInformativas();" class="btn_ok_mobile"><b>OK</b></a>
-            <a href="javascript:;" onclick="CancelarObsInformativas();" class="btn_ok_mobile"><b>CANCELAR</b></a>
-        </div>
-        <div id="modal-prol-botoneAceptar">
-            <a href="javascript:;" onclick="$('#popup-observaciones-prol').hide();" class="btn_ok_mobile"><b>OK</b></a>
-        </div>
-    </div>
-</div>*@
-<!-- END Popup para Observaciones PROL -->
-<!-- START POPUP PERSONALIZADO 2 SEGUNDOS SE OCULTA -->
 <div id="popup-eliminar-mensaje" class="MensajeAlertaMobile" style="display:none;">
     <div class="content_mensajeAlerta">
         <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popup-eliminar-item').hide();">
@@ -117,7 +93,6 @@
     </div>
 </div>
 
-<!--POP MENSAJE IMPORTANTE-->
 <div id="popup-eliminar-item" class="MensajeAlertaMobile" style="display:none;">
     <div class="content_mensajeAlerta">
         <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popup-eliminar-item').hide();">
@@ -130,8 +105,6 @@
         <a href="javascript:;" onclick="ConfirmaEliminarPedido();" class="btn_ok_mobile"><b>OK</b></a>
     </div>
 </div>
-<!--FIN-->
-<!--POP MENSAJE LO LOGRASTE-->
 <div id="MensajeLograste" class="MensajeAlertaMobile" style="display:none;">
     <div class="content_mensajeAlerta">
         <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeLograste').hide();">
@@ -144,13 +117,10 @@
         <a class="btn_ok_mobile"><b>OK</b></a>
     </div>
 </div>
-<!--FIN-->
 
 <input id="hdfPROLSinStock" type="hidden" value="0" />
 <input id="hdfModificaPedido" type="hidden" value="0" />
 <input type="hidden" id="hdfTotal" value="@Model.Total" />
-
-<!-- POPUP MIS GANANCIAS -->
 
 <div class="contenedor_fondo_popup_ganancia" id="popupGanancias" style="display:none;">
     <div class="popup_mis_ganancias">
@@ -163,8 +133,6 @@
 
     </div>
 </div>
-
-<!-- FIN POPUP MIS GANANCIAS -->
 
 <script id="template-Detalle" type="text/x-handlebars-template">
     <div class="textos_resumen">
@@ -328,13 +296,11 @@
                         <span>{{SimboloMoneda}} {{detalle.FormatoPrecioUnidad}}</span>
                     </span>
                     <span class="precio_oferta_pedido">
-                        <!-- ICONO ADVERTENCIA -->
                         {{#if ../EstadoSimplificacionCuv}}
                         {{#if detalle.IndicadorOfertaCUV}}
                         <span class="icon-advertencia"></span>
                         {{/if}}
                         {{/if}}
-                        <!-- FIN ICONO ADVERTENCIA -->
                         <span>{{SimboloMoneda}} <label id="ImporteTotal_{{detalle.PedidoDetalleID}}">{{detalle.FormatoImporteTotal}}</label></span>
                     </span>
                 </div>
@@ -385,9 +351,7 @@
     </div>
 
     <div class="mensajes_adicionales_ingresoPedido" id="iconoAdvertenciaNotificacion" style="display: none;">
-        <!-- ICONO ADVERTENCIA -->
         <span class="icono_advertencia_notificacion"></span>
-        <!-- FIN ICONO ADVERTENCIA -->
         <span class="detalle_mensajeAdicional">
             El precio total no incluye el descuento para ofertas con más de un precio (1x, 2x).<br />
             Al validar tu pedido, el sistema elegirá la mejor combinación de precios posibles para ti.
@@ -405,12 +369,10 @@
 <script id="ofertaFinal-template" type="text/x-handlebars-template">
     <div data-popup-body="">
         <div class="popup_ofertaFinal fondo_gris_popup" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}">
-            <!--SI SALE EL DIV DE PRODUCTO ALTERNATIVO SE AÑADE LA CLASE "fondo_gris_OF"-->
             <div class="btn_regalo_sorpresa" id="linkRegaloSorpresa" style="display: none;">DESCUBRE TU PREMIO <span style="text-decoration: underline;">AQUÍ</span></div>
             <a class="cerrar_popMobile" href="javascript:;" style="top:7px; right:7px;" data-popup-close="divOfertaFinal" onclick="of_google_analytics_cerrar_popup()">
                 <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="Cerrar">
             </a>
-            <!---->
             <div class="numero_pedido" id="div-numero-pedido" style="display: none;">
                 <div class="numero_pedido_fondo">
                     <img id="img-numero-pedido-fondo" src="/Content/Images/popup_pedido/numero_pedido_mobile_bg.png">
@@ -431,7 +393,7 @@
                     <span><b>AÚN TE FALTA {{SimboloMoneda}} <span data-monto="">{{MetaMontoStr}}</span><br />PARA LLEGAR AL MONTO MÍNIMO</b></span>
                     {{else if_eq TipoMeta 'GM'}}
                     <span>¡GUARDASTE TU <b>PEDIDO<br />CON ÉXITO!</b></span>
-                    {{else}} <!--se espera escala de dscto-->
+                    {{else}}
                     <span>¡GUARDASTE TU <b>PEDIDO<br />CON ÉXITO!</b></span>
                     {{/if_eq}}
                 </h1>
@@ -446,7 +408,7 @@
                     {{/iff}}
                     {{else if_eq TipoMeta 'RG'}}
                     <span class="mensaje_premios_increibles">@ViewBag.NombreConsultora APROVECHA ESTAS OFERTAS Y <b>GANA PREMIOS INCREÍBLES</b></span>
-                    {{else}}    <!--se espera escala de dscto-->
+                    {{else}}
                     <span>ALCANZA EL <b style="font-size:23px;">{{MetaPorcentaje}}%</b> DSCTO AGREGANDO {{SimboloMoneda}} <span data-monto="">{{MetaMontoStr}}</span> DE ESTAS OFERTAS</span>
                     {{/if_eq}}
                 </div>
@@ -556,7 +518,6 @@
                 </div>
             </div>
         </div>
-        <!-- POP UP MOBILE REGALO SORPRESA-->
 
         @{
             var imagenFondoOFRegalo = (ViewBag.ImagenFondoOFRegalo != null) ? ViewBag.ImagenFondoOFRegalo : "";
@@ -678,8 +639,7 @@
         var ofertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
         var ofertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
         var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
-
-        @*var urlEjecutarServicioPROL = '@Url.Action("EjecutarServicioPROL", "PedidoFIC", new {area = ""})';*@
+        
         var urlEjecutarServicioPROL = '@Url.Action("AdministradorPedido", "PedidoFIC", new {area = "Mobile"})';
         var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new {area = "Mobile"})';
         var urlHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';

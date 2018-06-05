@@ -2517,18 +2517,7 @@ namespace Portal.Consultoras.Web.Controllers
                     OpcionAccion = opcionAccion,
                     DispositivoCategoria = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB",
                     DispositivoID = GetIPCliente(),
-                    Version = "2.0",
-
-                    //Apodo = userData.Sobrenombre,
-                    //NuevoApodo = entidad.Sobrenombre,
-                    //Email = userData.EMail,
-                    //NuevoEmail = entidad.EMail,
-                    //Telefono = userData.Telefono,
-                    //NuevoTelefono = entidad.Telefono,
-                    //Celular = userData.Celular,
-                    //NuevoCelular = entidad.Celular,
-                    //TelefonoTrabajo = userData.TelefonoTrabajo,
-                    //NuevoTelefonoTrabajo = entidad.TelefonoTrabajo,
+                    Version = "2.0"
                 };
 
 
@@ -2743,8 +2732,7 @@ namespace Portal.Consultoras.Web.Controllers
             string urlApi = string.Empty;
             string apiController = string.Empty;
             bool noQuitar = false;
-
-            /*** Se registra sección Solo para Perú HD-881 ***/
+            
             if (userData.CodigoISO != "PE")
                 seccion = "";
 
@@ -2797,6 +2785,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     }
                 }
+                
             }
             catch (Exception ex)
             {
@@ -3541,7 +3530,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaEntidad = sessionManager.GetSeccionesContenedor(menuActivo.CampaniaId);
                 if (listaEntidad == null)
                 {
-                    listaEntidad = GetConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaId); // secciones de base de datos 
+                    listaEntidad = GetConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaId);
                     sessionManager.SetSeccionesContenedor(menuActivo.CampaniaId, listaEntidad);
                 }
 
@@ -5550,8 +5539,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string sessionToken = model.PagoVisaModel.SessionToken;
                 string merchantId = model.PagoVisaModel.MerchantId;
-                string accessKeyId = model.PagoVisaModel.AccessKeyId; /*Colocar aquí el accessKeyId*/
-                string secretAccessKey = model.PagoVisaModel.SecretAccessKey; /*Colocar aquí el secretAccessKey*/
+                string accessKeyId = model.PagoVisaModel.AccessKeyId;
+                string secretAccessKey = model.PagoVisaModel.SecretAccessKey;
 
                 var respuestaAutorizacion = GenerarAutorizacionBotonPagos(sessionToken, merchantId, transactionToken, accessKeyId, secretAccessKey);
                 var respuestaVisa = JsonHelper.JsonDeserialize<RespuestaAutorizacionVisa>(respuestaAutorizacion);

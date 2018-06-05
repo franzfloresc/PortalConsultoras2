@@ -182,7 +182,6 @@
         </div>
         <hr class="clear" />
         <div class="info_centro">
-            <!-- AÑADIR LA CLASES "mt_47" PARA CENTRAR LA INFORMACIÓN -->
             Mi deuda actual es:
             <div class="deuda_home" id="spanDeuda">
                 @Model.Simbolo
@@ -197,31 +196,31 @@
         {
             <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" 
                href="@Url.Action("Index","PagoEnLinea")" class="btn_paga_online btn_100_paga"
-               style="margin-top: 10px;"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
+               style="margin-top: 10px;"> PAGA EN L&Iacute;NEA</a>
             if (Model.PaisID == Constantes.PaisID.Ecuador || Model.PaisID == Constantes.PaisID.Peru)
             {
                 <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Electrónica" class="boton_facturacion_e btn_100_facturacion" 
                    href="@Url.Action("Index", "FacturaElectronica")" target="_blank"
-                   style="margin-top: 10px;"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a> <!-- AGREGAR LA CLASES="btn_100_facturacion"-->
+                   style="margin-top: 10px;"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a> 
             }
         }
         else
         {
             if (Model.PaisID == Constantes.PaisID.Chile)
             {
-                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
+                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a>
             }
             else if (Model.PaisID == Constantes.PaisID.Colombia)
             {
-                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="https://www.zonapagos.com/t_belstar/pagos.asp"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
+                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="https://www.zonapagos.com/t_belstar/pagos.asp"> PAGA EN L&Iacute;NEA</a>
             }
             else if (Model.PaisID == Constantes.PaisID.PuertoRico)
             {
-                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="@Url.Action("Index", "Paypal")"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
+                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="@Url.Action("Index", "Paypal")"> PAGA EN L&Iacute;NEA</a>
             }
             else if (Model.PaisID == Constantes.PaisID.Ecuador || Model.PaisID == Constantes.PaisID.Peru)
             {
-                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Electrónica" class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a> <!-- AGREGAR LA CLASES="btn_100_facturacion"-->
+                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Electrónica" class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a> 
             }
             else if (Model.PaisID == Constantes.PaisID.Venezuela)
             {
@@ -282,7 +281,6 @@
             </div>
             <span>Pedido ingresado: <span id="spanPedidoIngresado"></span></span>
         </div>
-        <!--ESCALA DE DESCUENTO-->
         <div class="content_escala" data-divescala="cuadrado" data-barra-width="">
             <div id="divBarra">
                 <div id="divBarraLimite"></div>
@@ -294,7 +292,6 @@
                 </div>
             </div>
         </div>
-        <!--FIN ESCALA DE DESCUENTO-->
     </div>
     <div class="item_catalogo">
         <img src="@Model.UrlImagenCompartirCatalogo" style="max-width: 100%!important;" />
@@ -308,18 +305,11 @@
 {
     Html.RenderPartial("MasVendidos");
 }
-<!--CAROUSEL OFERTAS PARA TI-->
 <div id="divListaEstrategias" class="fondo_gris" style="display:none;">
     @Html.Partial("~/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
 </div>
-<!--FIN CAROUSEL OFERTAS PARA TI-->
-<!--REVISTA DIGITAL -->
 <div class="fondo_gris content_belcorp" id="divRevistaDigital"></div>
-<!-- FIN REVISTA DIGITAL -->
-<!--SHOWROOM -->
 <div class="content_belcorp" id="divProductosShowRoom"></div>
-<!-- FIN-->
-<!--CATALOGO PERSONALIZADO-->
 @if (Model.CatalogoPersonalizadoDesktop != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
     <div class="content_belcorp">
@@ -345,11 +335,8 @@
     </div>
 }
 
-<!--FIN CATALOGO PERSONALIZADO-->
-
 <div class="content_belcorp" id="seccionMiAcademiaLiquidacion">
     <div class="linea_separadora" id="linea_separadoraCP" style="display:none;"></div>
-    <!--TUTORIALES-->
     <div class="content_video_home" style="display:block;@(Model.PrefijoPais == "VE" ? "width:100%;" : "")" id="divTutoriales">
         <div class="titulo_video">
             <div>MI ACADEMIA</div>
@@ -365,8 +352,6 @@
         </div>
 
     </div>
-    <!-- FIN TUTORIALES-->
-    <!-- SIN TUTORIALES -->
     <div class="content_video_home sinTutoriales" style="display:none;@(Model.PrefijoPais == "VE" ? "width:100%;" : "")" id="divSinTutoriales">
         <div class="titulo_video">
             <div>MI ACADEMIA</div>
@@ -383,8 +368,6 @@
         </div>
     </div>
 
-    <!-- FIN SIN TUTORIALES-->
-    <!-- TUTORIALES PARA VENEZUELA -->
     <div class="content_video_home miAcademia_venezuela" style="display:none;" id="divTutorialesV">
         <div class="titulo_video">
             <div>MI ACADEMIA</div>
@@ -398,8 +381,6 @@
             <div id="divMisCursosV"></div>
         </div>
     </div>
-    <!-- FIN TUTORIALES PARA VENEZUELA -->
-    <!--CAROUSEL LIQUIDACION HOME-->
     <div class="carrusel_liquidacion" style="@(Model.PrefijoPais == "VE" ? "display:none;" : "display:block;")">
         <div class="titulo_carrusel_liquidacion">
             LIQUIDACIONES WEB
@@ -412,8 +393,6 @@
             </div>
         </div>
     </div>
-    <!--FIN CAROUSEL LIQUIDACION HOME-->
-    <!--ENLACES-->
     <hr class="clear" />
     <div id="bannerBajos" class="center">
         <br />
@@ -428,7 +407,6 @@
     <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll">
     </a>
 </div>
-<!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
 <div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; overflow: hidden;">
     <div class="Content_modal_ZE texto-centrado" style="overflow: hidden;">
         <div style="position: absolute; width: 100%;">
@@ -471,8 +449,6 @@
         </table>
     </div>
 </div>
-<!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
-<!-- POPUP ESCOGER TONO -->
 <div class="contenedor_popup_escogerTono js-contenedor-popup-tonotalla">
     <div class="popup_escogerTono" id="divTonosTallas">
         <input type="hidden" id="MarcaID" value="">
@@ -535,8 +511,6 @@
         <div class="clear"></div>
     </div>
 </div>
-<!-- FIN POPUP ESCOGER TONO -->
-<!-- POPUP AGREGASTE UNIDADES -->
 <div class="contenedor_popup_agregarUnidades" id="dialog_AgregasteUnidades" style="display: none;">
     <div id="popupConfirmacionDatos" class="popup_agregarUnidades">
         <div class="btn_cerrar_agregarUnidades">
@@ -557,16 +531,10 @@
         </div>
     </div>
 </div>
-<!-- FIN AGREGASTE UNIDADES -->
-<!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
-<!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
-<!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
 
-<!-- POPUPs HOME -->
 <div class="contenedor_fondo_popup" id="fondoComunPopUp" style="display:none;">
-    <!-- POPUP INSCRIPCION COACH VIRTUAL -->
     <div id="virtual-coach-dialog" class="popup_inscripcion_asesoria_online tipografia_lato" style="display:none;">
         <a id="cerrar-virtual-coach-dialog" class="cerrar_popup_inscripcion" title="Cerrar">
         </a>
@@ -632,17 +600,12 @@
             No volver a ver este mensaje
         </a>
     </div>
-    <!-- FIN POPUP INSCRIPCION COACH VIRTUAL -->
-    <!-- POPUP VIDEO INTRODUCTORIO -->
     <div class="popup_video_introductorio" style="display:none;" id="videoIntroductorio">
         <div class="contenedor_video_introductorio">
-            <!--divPlayer-->
-            <!-- Cargador de Youtube (usando script: implements/youtube.js) -------------------------------- -->
             <div id="ytBienvenidaIndex"
                  data-youtube="{ width:'100%', enablejsapi:1, playerVars:{rel:0} }"
                  class="yt-video"
             ></div>
-            <!-- -------------------------------------------------------------------------------------------- -->
         </div>
         <div class="btn_cerrar_actualizarMisDatos">
             <a href="javascript:;" id="cerrarVideoIntroductorio">
@@ -651,8 +614,6 @@
             </a>
         </div>
     </div>
-    <!-- FIN POPUP VIDEO INTRODUCTORIO -->
-    <!-- POPUP ACTUALIZACIÓN DATOS -->
     <div class="popup_actualizarMisDatos" id="popupActualizarMisDatosMexico" style="display: none;">
         <div class="btn_cerrar_actualizarMisDatos">
             <a href="javascript:;" title="Cerrar" id="btnCerrarActualizarDatosMexico">
@@ -811,8 +772,6 @@
             </form>
         </div>
     </div>
-    <!-- FIN POPUP ACTUALIZACIÓN DATOS -->
-    <!-- POPUP ACEPTACIÓN DE CONTRATO -->
     <div class="popup_aceptacionContrato" id="popupAceptacionContrato" style="display: none;">
         <div class="btn_cerrar_aceptacionContrato">
             <a href="javascript:;" id="cerrarAceptacionContrato" title="Cerrar">
@@ -834,8 +793,6 @@
             </button>
         </div>
     </div>
-    <!-- FIN POPUP ACEPTACIÓN DE CONTRATO -->
-    <!-- POPUP DEMANDA ANTICIPADA -->
     <div class="popup_demandaAnticipada" id="popupDemandaAnticipada" style="display: none;">
         <div class="contenido_popUp">
             <h1 class="titulo_demandaAnticipada">
@@ -882,8 +839,6 @@
             </div>
         </div>
     </div>
-    <!-- FIN POPUP DEMANDA ANTICIPADA -->
-    <!-- POPUP INVITACIÓN A FLEXIPAGO -->
     <div class="popup_invitacionFlexiPago" id="popupInvitaionFlexipago" style="display: none;">
         <div class="btn_cerrar_invitacionFlexipago">
             <a href="javascript:;" id="cerrarInvitacionFlexipago" title="Cerrar">
@@ -909,8 +864,6 @@
         </div>
         <div class="clear"></div>
     </div>
-    <!-- FIN POPUP INVITACIÓN A FLEXIPAGO -->
-    <!-- POPUP MIS DATOS -->
     <div class="popup_actualizarMisDatos" id="popupMisDatos" style="display: none;">
         <div class="btn_cerrar_actualizarMisDatos">
             <a href="javascript:void(0);" id="cerrarPopupMisDatos" title="Cerrar">
@@ -1094,8 +1047,6 @@
             </form>
         </div>
     </div>
-    <!-- FIN POPUP MIS DATOS -->
-    <!-- POPUP TUTORIAL HOME-->
     <div id="popup_tutorial_home" style="display: none;">
         <div class="popup_tutorial_home" style="position: relative; margin: 0 auto; display: block; min-width: 900px !important;">
             <div id="slide1_container" class="shadow">
@@ -1120,15 +1071,9 @@
             </div>
         </div>
     </div>
-    <!-- FIN POPUP TUTORIAL -->
-    <!-- POPUP COMUNICADOS -->
     <div id="popupComunicados" style="display:none;"></div>
-    <!-- FIN POPUP COMUNICADOS -->
 </div>
 
-<!-- FIN POPUP POPUPs HOME -->
-<!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
-<!--POP UP FOTO CARGADA-->
 <div class="popup_actualizarMisDatos" id="CamaraIntroductoria" style="display: none;">
     <div class="btn_cerrar_actualizarMisDatos">
         <a href="javascript:CerrarCamara();" title="Cerrar">
@@ -1170,8 +1115,6 @@
         <a class="btn_tomar_foto">TOMAR FOTO</a>
     </div>
 </div>
-<!--FIN POP UP FOTO CARGADA-->
-<!--POP UP FOTO ACTUALIZADA-->
 <div id="PopUpFotoActualizada" class="CompartirCorreoPop" style="display:none">
     <div class="content_foto_cargada">
         <a class="cerrar_compartir" href="javascript:;" onclick="javascript: $('#PopUpFotoActualizada').hide();">
@@ -1185,8 +1128,6 @@
         <div class="sub_text_actualizada">Tu foto se ha actualizado</div>
     </div>
 </div>
-<!--FIN POP UP FOTO ACTUALIZADA-->
-<!-- POPUP IMAGEN PERFIL -->
 <div class="contenedor_fondo_popup" id="PopUpFotoActualizada2" style="display: none;">
     <div class="popup_img_perfil">
         <h1>MI <b>FOTO</b></h1>
@@ -1225,11 +1166,7 @@
         <div class="sub_text_actualizada">Tu foto se ha actualizado</div>
     </div>
 </div>
-<!-- FIN POPUP IMAGEN PERFIL -->
-<!-- POPUP OFERTAS 003, 048 -->
 <div data-oferta=""></div>
-<!-- FIN POPUP OFERTAS 003, 048 -->
-<!-- POP UP SHOWROOM HTML-->
 <div id="DialogoMensajeBannerShowRoom" class="fondo_popupShowRoom" style="display: none;">
     <div style="background: white; overflow: inherit; position: relative; top: 50%; margin: -240px auto 0 auto; width: 821px; height: 480px; padding: 0; z-index: 1100; ">
         <div id="btnCerrarPopShowroom" class="btnCerrarShowroom" style="margin-right:-50px"></div>
@@ -1305,9 +1242,7 @@
     </div>
 </div>
 
-<!--POP UP FICHA PRODUCTO NUEVA-->
 <div id="PopFichaProductoNueva" class="Content_general_pop_up"></div>
-<!--FIN-->
 
 <div id="divConfirmarCUVBanner" style="display: none;">
     <div class="terminos_title_2">
@@ -1845,7 +1780,6 @@
                 <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.CatalogoPersonalizadoDesktopHomePopUp" />
             </div>
         </div>
-        <!--ITEM 1-->
         <div class="item_pack_personalizado">
             <div class="content_item_pack">
                 <div class="img_principal_pack">
@@ -1870,7 +1804,6 @@
         </div>
         <div class="content_66">
             <div class="content_carrusel_pack" id="divCarruselPack">
-                <!--ITEM 2-->
                 {{#each lista_oObjPack as |pack|}}
                 <div class="item_pack_personalizado linea_d">
                     <input type="hidden" class="hdItemPackCuv" value="{{pack.cuv_pack}}" />
@@ -2028,7 +1961,6 @@
             {{#if EsMaquillaje }}
             <div class="content_tonos">
                 <div class="linea_gris" style="height:1px;"></div>
-                <!--SELECCION DE TONOS-->
                 <div class="content_tonos_maquillaje">
                     {{#each Hermanos as |item1|}}
                     <div id="fav_tono_{{CUV}}" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'{{item1.CUV}}',1)">
@@ -2043,7 +1975,6 @@
                     <option value="{{item2.CUV}}">{{item2.NombreBulk}}</option>
                     {{/each}}
                 </select>
-                <!--FIN-->
             </div>
             {{/if}}
             <div class="liquidacion_rango_home">
@@ -2062,8 +1993,6 @@
 
 <input type="hidden" id="hdDataBarra" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.DataBarra)" />
 
-<!--FIN-->
-<!--NUEVO POP UP DE SHOWROOM Venta-->
 <div class="Content_general_pop_up" style="display: none;" id="PopShowroomVenta" data-popup-main="" data-popup-function-hide="SRPopupCerrar('V')">
     <div class="content_pop_up_intriga" data-popup-body>
         <input type="hidden" id="hdEventoIDShowRoomVenta" />
@@ -2083,22 +2012,14 @@
     </div>
 
 </div>
-<!--FIN-->
-<!--POP UP DE CUPON-->
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGana.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmar.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaste.cshtml")
 
-<!--FIN-->
-<!--REVISTA DIGITAL -->
-<!-- POPUP REVISTA DIGITAL Suscripcion -->
 @if (revistaDigital.TieneRDS == true)
 {
     @Html.Partial("~/Views/RevistaDigital/template-popup-suscripcion.cshtml")
 }
-<!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
-<!--FIN REVISTA DIGITAL-->
-<!--EPD-1204 INICIO-->
 <script id="js-LugaresPago" type="text/x-handlebars-template">
     {{#each this.listaLugaresPago as |lugar|}}
     <div>
@@ -2111,7 +2032,6 @@
 
 @System.Web.Optimization.Scripts.Render("~/Scripts/PortalConsultoras/Bienvenida/AsesoraOnline.js")
 
-<!--EPD-1204 FIN-->
 @section scripts{
 <script type="text/javascript">
         var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
