@@ -360,9 +360,7 @@
     left:0;
 }
 
-.grupo_form_cambio_datos .label_num_adicional,
-.tooltip_info_revision_correo
-{
+.grupo_form_cambio_datos .label_num_adicional{
     display:none;
 }
 
@@ -417,7 +415,7 @@
         background-color: rgba(232,28,54,0.8);
     }
 
-.tooltip_info_revision_correo {
+.tooltip_info_revision_correo{
     width: auto;
     max-width: 320px;
     min-height: 98px;
@@ -434,6 +432,7 @@
 }
 
 .tooltip_info_revision_correo:after, .tooltip_info_revision_correo:before {
+    top:initial;
 	bottom: 100%;
     left: 23px;
     border: solid transparent;

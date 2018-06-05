@@ -4604,6 +4604,11 @@ table > thead > tr > th {
         background-color:#bf0d24;
     }
 
+.subir_foto_mobile_menu{
+    right: 6px;
+    top: -1px;
+}
+
 .foto_usuaria_mobile,
 .icono_info_alerta,
 .tooltip_texto
