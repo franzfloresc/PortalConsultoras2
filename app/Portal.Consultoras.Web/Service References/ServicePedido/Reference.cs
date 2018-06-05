@@ -38283,6 +38283,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/LimpiarCacheRedis", ReplyAction="http://tempuri.org/IPedidoService/LimpiarCacheRedisResponse")]
         System.Threading.Tasks.Task<bool> LimpiarCacheRedisAsync(int paisID, string codigoTipoEstrategia, string campaniaID);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerCuvSetDetalle", ReplyAction="http://tempuri.org/IPedidoService/ObtenerCuvSetDetalleResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] ObtenerCuvSetDetalle(int paisID, int campaniaID, long consultoraID, int pedidoID, string ListaSet);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerCuvSetDetalle", ReplyAction="http://tempuri.org/IPedidoService/ObtenerCuvSetDetalleResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[]> ObtenerCuvSetDetalleAsync(int paisID, int campaniaID, long consultoraID, int pedidoID, string ListaSet);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ActualizarEstrategiaProducto", ReplyAction="http://tempuri.org/IPedidoService/ActualizarEstrategiaProductoResponse")]
         int ActualizarEstrategiaProducto(Portal.Consultoras.Web.ServicePedido.BEEstrategiaProducto entidad);
         
@@ -40819,6 +40825,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<bool> LimpiarCacheRedisAsync(int paisID, string codigoTipoEstrategia, string campaniaID) {
             return base.Channel.LimpiarCacheRedisAsync(paisID, codigoTipoEstrategia, campaniaID);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] ObtenerCuvSetDetalle(int paisID, int campaniaID, long consultoraID, int pedidoID, string ListaSet) {
+            return base.Channel.ObtenerCuvSetDetalle(paisID, campaniaID, consultoraID, pedidoID, ListaSet);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[]> ObtenerCuvSetDetalleAsync(int paisID, int campaniaID, long consultoraID, int pedidoID, string ListaSet) {
+            return base.Channel.ObtenerCuvSetDetalleAsync(paisID, campaniaID, consultoraID, pedidoID, ListaSet);
         }
         
         public int ActualizarEstrategiaProducto(Portal.Consultoras.Web.ServicePedido.BEEstrategiaProducto entidad) {

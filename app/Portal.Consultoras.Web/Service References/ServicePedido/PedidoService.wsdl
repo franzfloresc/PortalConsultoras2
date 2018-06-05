@@ -170,6 +170,12 @@
   <wsdl:message name="IPedidoService_LimpiarCacheRedis_OutputMessage">
     <wsdl:part name="parameters" element="tns:LimpiarCacheRedisResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerCuvSetDetalle_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerCuvSetDetalle" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerCuvSetDetalle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerCuvSetDetalleResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_ActualizarEstrategiaProducto_InputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarEstrategiaProducto" />
   </wsdl:message>
@@ -2559,6 +2565,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/LimpiarCacheRedis" message="tns:IPedidoService_LimpiarCacheRedis_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/LimpiarCacheRedisResponse" message="tns:IPedidoService_LimpiarCacheRedis_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerCuvSetDetalle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerCuvSetDetalle" message="tns:IPedidoService_ObtenerCuvSetDetalle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerCuvSetDetalleResponse" message="tns:IPedidoService_ObtenerCuvSetDetalle_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ActualizarEstrategiaProducto">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ActualizarEstrategiaProducto" message="tns:IPedidoService_ActualizarEstrategiaProducto_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ActualizarEstrategiaProductoResponse" message="tns:IPedidoService_ActualizarEstrategiaProducto_OutputMessage" />
@@ -4280,6 +4290,15 @@
     </wsdl:operation>
     <wsdl:operation name="LimpiarCacheRedis">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/LimpiarCacheRedis" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerCuvSetDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerCuvSetDetalle" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7929,6 +7948,15 @@
     </wsdl:operation>
     <wsdl:operation name="LimpiarCacheRedis">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/LimpiarCacheRedis" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerCuvSetDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerCuvSetDetalle" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
