@@ -6284,7 +6284,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int ZonaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string campaniaIDField;
+        private int campaniaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool opcionHabilitarField;
@@ -6651,12 +6651,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string campaniaID {
+        public int campaniaID {
             get {
                 return this.campaniaIDField;
             }
             set {
-                if ((object.ReferenceEquals(this.campaniaIDField, value) != true)) {
+                if ((this.campaniaIDField.Equals(value) != true)) {
                     this.campaniaIDField = value;
                     this.RaisePropertyChanged("campaniaID");
                 }
@@ -9826,11 +9826,11 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/VerificarIgualdadCodigoIngresado", ReplyAction="http://tempuri.org/IUsuarioService/VerificarIgualdadCodigoIngresadoResponse")]
         System.Threading.Tasks.Task<bool> VerificarIgualdadCodigoIngresadoAsync(int PaisID, int origenID, string codigoUsuario, string codigoIngresado, int IdEstadoActividad);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetPinAutenticidad", ReplyAction="http://tempuri.org/IUsuarioService/GetPinAutenticidadResponse")]
-        Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo GetPinAutenticidad(int paisID, string CodigoUsuario);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidad", ReplyAction="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidadResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo GetVerificacionAutenticidad(int paisID, string CodigoUsuario);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetPinAutenticidad", ReplyAction="http://tempuri.org/IUsuarioService/GetPinAutenticidadResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo> GetPinAutenticidadAsync(int paisID, string CodigoUsuario);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidad", ReplyAction="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidadResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo> GetVerificacionAutenticidadAsync(int paisID, string CodigoUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnPrograma", ReplyAction="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnProgramaResponse")]
         bool GetConsultoraParticipaEnPrograma(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID);
@@ -10676,12 +10676,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.VerificarIgualdadCodigoIngresadoAsync(PaisID, origenID, codigoUsuario, codigoIngresado, IdEstadoActividad);
         }
         
-        public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo GetPinAutenticidad(int paisID, string CodigoUsuario) {
-            return base.Channel.GetPinAutenticidad(paisID, CodigoUsuario);
+        public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo GetVerificacionAutenticidad(int paisID, string CodigoUsuario) {
+            return base.Channel.GetVerificacionAutenticidad(paisID, CodigoUsuario);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo> GetPinAutenticidadAsync(int paisID, string CodigoUsuario) {
-            return base.Channel.GetPinAutenticidadAsync(paisID, CodigoUsuario);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo> GetVerificacionAutenticidadAsync(int paisID, string CodigoUsuario) {
+            return base.Channel.GetVerificacionAutenticidadAsync(paisID, CodigoUsuario);
         }
         
         public bool GetConsultoraParticipaEnPrograma(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID) {

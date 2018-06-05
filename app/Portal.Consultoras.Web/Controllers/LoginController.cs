@@ -554,6 +554,13 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
+        [AllowAnonymous]
+        public ActionResult VerificaAutenticidad()
+        {
+
+            return View();
+        }
+
         [HttpPost]
         public ActionResult checkExternalUser(string codigoISO, string proveedor, string appid)
         {
@@ -2962,10 +2969,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+
                 var objVerificacion = new BEUsuarioCorreo();
+                var obj = (BEUsuarioCorreo)TempData["Data"];
                 using (var sv = new UsuarioServiceClient())
-                    objVerificacion = sv.GetPinAutenticidad(paisID, codigoUsuario);
-                if(objVerificacion != null)
+                    objVerificacion = sv.GetVerificacionAutenticidad(paisID, codigoUsuario);
+                if (objVerificacion != null)
+                    TempData["Data"] = objVerificacion;
                     SetTemData(paisID, objVerificacion.CodigoISO, objVerificacion.CodigoUsuario, objVerificacion.PrimerNombre, objVerificacion.IdEstadoActividad);
 
                 return objVerificacion;

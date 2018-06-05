@@ -35,7 +35,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int ZonaID { get; set; }
         [DataMember]
-        public string campaniaID { get; set; }
+        public int campaniaID { get; set; }
 
         [DataMember]
         public string OpcionCorreoActiva { get; set; }

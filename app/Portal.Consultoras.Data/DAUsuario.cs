@@ -838,13 +838,13 @@ namespace Portal.Consultoras.Data
         #endregion
 
         #region Verificacion Autenticidad
-        //public IDataReader GetAlcanseVerificacionAutenticidad(string CodigoUsuario)
-        //{
-        //    DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPinAutenticacion");
-        //    Context.Database.AddInParameter(command, "@CodgioUsuario", DbType.AnsiString, CodigoUsuario);
-
-        //    return Context.ExecuteReader(command);
-        //}
+        public IDataReader GetUsuarioVerificacionAutenticidad(int paisID, string CodigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioVerificacionAutenticidad");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@PaisID", DbType.Int32, paisID);
+            return Context.ExecuteReader(command);
+        }
 
         public bool GetAlcanseVerificacionAutenticidad(int zonaID)
         {

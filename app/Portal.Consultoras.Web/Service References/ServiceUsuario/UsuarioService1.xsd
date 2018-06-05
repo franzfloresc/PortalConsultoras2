@@ -547,7 +547,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetPinAutenticidad">
+  <xs:element name="GetVerificacionAutenticidad">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
@@ -555,10 +555,10 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetPinAutenticidadResponse">
+  <xs:element name="GetVerificacionAutenticidadResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPinAutenticidadResult" nillable="true" type="q32:BEUsuarioCorreo" />
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetVerificacionAutenticidadResult" nillable="true" type="q32:BEUsuarioCorreo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

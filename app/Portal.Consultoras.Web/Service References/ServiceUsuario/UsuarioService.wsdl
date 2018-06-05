@@ -245,11 +245,11 @@
   <wsdl:message name="IUsuarioService_VerificarIgualdadCodigoIngresado_OutputMessage">
     <wsdl:part name="parameters" element="tns:VerificarIgualdadCodigoIngresadoResponse" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetPinAutenticidad_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetPinAutenticidad" />
+  <wsdl:message name="IUsuarioService_GetVerificacionAutenticidad_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetVerificacionAutenticidad" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetPinAutenticidad_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetPinAutenticidadResponse" />
+  <wsdl:message name="IUsuarioService_GetVerificacionAutenticidad_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetVerificacionAutenticidadResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_GetConsultoraParticipaEnPrograma_InputMessage">
     <wsdl:part name="parameters" element="tns:GetConsultoraParticipaEnPrograma" />
@@ -908,9 +908,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/VerificarIgualdadCodigoIngresado" message="tns:IUsuarioService_VerificarIgualdadCodigoIngresado_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/VerificarIgualdadCodigoIngresadoResponse" message="tns:IUsuarioService_VerificarIgualdadCodigoIngresado_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetPinAutenticidad">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetPinAutenticidad" message="tns:IUsuarioService_GetPinAutenticidad_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetPinAutenticidadResponse" message="tns:IUsuarioService_GetPinAutenticidad_OutputMessage" />
+    <wsdl:operation name="GetVerificacionAutenticidad">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidad" message="tns:IUsuarioService_GetVerificacionAutenticidad_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidadResponse" message="tns:IUsuarioService_GetVerificacionAutenticidad_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetConsultoraParticipaEnPrograma">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnPrograma" message="tns:IUsuarioService_GetConsultoraParticipaEnPrograma_InputMessage" />
@@ -1574,8 +1574,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetPinAutenticidad">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetPinAutenticidad" style="document" />
+    <wsdl:operation name="GetVerificacionAutenticidad">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidad" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2676,8 +2676,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetPinAutenticidad">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetPinAutenticidad" style="document" />
+    <wsdl:operation name="GetVerificacionAutenticidad">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidad" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

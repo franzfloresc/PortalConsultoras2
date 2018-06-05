@@ -1,10 +1,10 @@
-using Newtonsoft.Json;
 using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.BizLogic.RevistaDigital;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.OpcionesVerificacion;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.PublicService.Cryptography;
@@ -14,9 +14,6 @@ using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic
@@ -2539,7 +2536,7 @@ namespace Portal.Consultoras.BizLogic
                 string codGenerado = Common.Util.GenerarCodigoRandom();
                 oConfSms.Mensaje = string.Format(oConfSms.Mensaje, codGenerado);
                 bool EstadoEnvio = Common.Util.CallSmsConsultoras(oUsu.OrigenID, oUsu.CodigoUsuario, oConfSms.OrigenDescripcion, oCredencial.usuario, oUsu.Celular, oConfSms.Mensaje,
-                    oUsu.CodigoISO, oUsu.EsMobile, urlApi, oUsu.CodigoConsultora, oConfSms.clave, oUsu.campaniaID);                
+                    oUsu.CodigoISO, oUsu.EsMobile, urlApi, oUsu.CodigoConsultora, oConfSms.clave, oUsu.campaniaID.ToString());                
                 if (CantidadEnvios >= 2) oUsu.opcionHabilitar = false;                
                 InsCodigoGenerado(oUsu, paisID, oConfSms.OrigenDescripcion, Constantes.TipoEnvioEmailSms.EnviarPorSms, codGenerado);                
                 if (EstadoEnvio) return Enumeradores.EnvioSms.OkEnviarSms;
@@ -2553,42 +2550,74 @@ namespace Portal.Consultoras.BizLogic
         }
         #endregion
 
-        #region VERIFICACION DE AUTENTICIDAD
+        #region Opciones De Verificacion
+        private BEOpcionesVerificacion GetOpcionesVerificacion(int paisID, int origenID)
+        {
+            var BLobj = new BLOpcionesVerificacion();
+            return BLobj.GetOpcionesVerificacionCache(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
+        }
+
+        private bool ValidaCampania(int campaniaActual, int campaniaInicio, int campaniaFin)
+        {
+            if (campaniaActual == 0) return true;
+            if (campaniaInicio == 0 && campaniaFin == 0) return true;
+            if (campaniaInicio != 0 && campaniaFin == 0)
+                if (campaniaInicio <= campaniaActual) return true;
+            if (campaniaInicio == 0 && campaniaFin != 0)
+                if (campaniaFin >= campaniaActual) return true;
+            if (campaniaInicio <= campaniaActual && campaniaActual <= campaniaFin) return true;
+            return false;
+        }
+
+        private bool ValidaZona(List<BEZonasOpcionesVerificacion> lstZona, int ZonaID)
+        {
+            if (lstZona.Any(a => a.ZonaID == ZonaID)) return true;
+            return false;
+        }
+        #endregion
+
+        #region Verificacion De Autenticidad
         public BEUsuarioCorreo GetVerificacionAutenticidad(int paisID, string CodigoUsuario)
         {
             try
-            {
-                List<BETablaLogicaDatos> lstTabla = GetFlagEncendido(paisID, Constantes.VerificacionAutenticidad.TablaLogica.TablaLogicaID, Constantes.VerificacionAutenticidad.TablaLogica.Activar);
-                if (lstTabla == null) return null;
-                BEUsuarioCorreo oDatosUsuario = GetDatosUsuarioByValor(paisID, CodigoUsuario);
-                if (oDatosUsuario == null) return null;
-                if (!oDatosUsuario.TieneAutenticacion) return null;
-                var tieneEstadoActividad = lstTabla.Where(a => a.Codigo == Constantes.VerificacionAutenticidad.TablaLogica.IdEstadoActividad).ToList();
-                if (tieneEstadoActividad.Count == 0) return null;
-                oDatosUsuario.MensajeSaludo = tieneEstadoActividad.Where(b => b.Valor == oDatosUsuario.IdEstadoActividad.ToString()).Select(c => c.Descripcion).FirstOrDefault();
-                if (string.IsNullOrEmpty(oDatosUsuario.MensajeSaludo)) return null;
-                if (lstTabla.Where(a => a.Codigo == Constantes.VerificacionAutenticidad.TablaLogica.TieneZona).Select(b => b.Valor).FirstOrDefault() == "1")
-                    if (!GetAlcanseVerificacionAutenticidad(paisID, oDatosUsuario.ZonaID)) return null;
-                oDatosUsuario.MensajeSaludo = string.Format(oDatosUsuario.MensajeSaludo, "<b>" + oDatosUsuario.PrimerNombre + "</b>");                
-                GetOpcionHabilitar(paisID, oDatosUsuario.CodigoUsuario, Constantes.VerificacionAutenticidad.Origen, ref oDatosUsuario);
-                string codigoIso = Common.Util.GetPaisISO(paisID);
-                oDatosUsuario.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion;
-                if (lstTabla.Where(a => a.Codigo == Constantes.VerificacionAutenticidad.TablaLogica.OpcionEmail).Select(b => b.Valor).FirstOrDefault() == "1")
+            {    
+                /*Obteniendo Datos de Verificacion de Autenticidad*/
+                var oVerificacion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
+                if (oVerificacion == null) return null;
+                /*Obtenienido Datos de Usuario*/
+                var oUsu = GetUsuarioVerificacionAutenticidad(paisID, CodigoUsuario);
+                if (oUsu == null) return null;
+                /*validando si tiene Zona*/
+                if (oVerificacion.lstZonas.Count > 0)
+                    if (!ValidaZona(oVerificacion.lstZonas, oUsu.ZonaID)) return null;
+                /*Validando si corresponde al Usuario*/
+                if (oVerificacion.lstFiltros.Count > 0)
                 {
-                    oDatosUsuario.CorreoEnmascarado = Common.Util.EnmascararCorreo(oDatosUsuario.Correo);
-                    oDatosUsuario.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarEmail;
+                    var usuFiltro = oVerificacion.lstFiltros.Where(a => a.IdEstadoActividad == oUsu.IdEstadoActividad).FirstOrDefault();
+                    if (usuFiltro == null) return null;
+                    /*Validando campania*/
+                    if (!ValidaCampania(oUsu.campaniaID, usuFiltro.CampaniaInicio, usuFiltro.CampaniaFinal)) return null;
+                    oUsu.MensajeSaludo = string.Format(usuFiltro.MensajeSaludo, "<b>" + oUsu.PrimerNombre + "</b>");
                 }
-                if (lstTabla.Where(a => a.Codigo == Constantes.VerificacionAutenticidad.TablaLogica.OpcionSms).Select(b => b.Valor).FirstOrDefault() == "1")
+
+                oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion;
+                if (oVerificacion.OpcionEmail)
                 {
-                    oDatosUsuario.CelularEnmascarado = Common.Util.EnmascararCelular(oDatosUsuario.Celular);
-                    if (oDatosUsuario.MostrarOpcion == Constantes.VerificacionAutenticidad.NombreOpcion.MostrarEmail)
-                        oDatosUsuario.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarEmailyCelular;
+                    oUsu.CorreoEnmascarado = Common.Util.EnmascararCorreo(oUsu.Correo);
+                    oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarEmail;
+                }
+                if (oVerificacion.OpcionSms)
+                {
+                    oUsu.CelularEnmascarado = Common.Util.EnmascararCelular(oUsu.Celular);
+                    if (oUsu.MostrarOpcion == Constantes.VerificacionAutenticidad.NombreOpcion.MostrarEmail)
+                        oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarEmailyCelular;
                     else
-                        oDatosUsuario.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarCelular;
+                        oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarCelular;
                 }
-                if (oDatosUsuario.MostrarOpcion == Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion) return null;
-                oDatosUsuario.TelefonoCentral = GetNumeroBelcorpRespondeByPaisID(paisID);
-                return oDatosUsuario;
+                if (oUsu.MostrarOpcion == Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion) return null;
+                GetOpcionHabilitar(paisID, oUsu.CodigoUsuario, Constantes.VerificacionAutenticidad.Origen, ref oUsu);
+                oUsu.TelefonoCentral = GetNumeroBelcorpRespondeByPaisID(paisID);
+                return oUsu;
             }
             catch (Exception ex)
             {
@@ -2596,7 +2625,22 @@ namespace Portal.Consultoras.BizLogic
                 return null;
             }
         }
-        
+
+        private BEUsuarioCorreo GetUsuarioVerificacionAutenticidadCache(int paisID, string CodigoUsuario)
+        {
+            return CacheManager<BEUsuarioCorreo>.ValidateDataElement(paisID, ECacheItem.DatosPinAutenticacion, paisID.ToString() + CodigoUsuario.ToString(), () => GetUsuarioVerificacionAutenticidad(paisID, CodigoUsuario));
+        }
+
+        private BEUsuarioCorreo GetUsuarioVerificacionAutenticidad(int paisID, string CodigoUsuario)
+        {
+            var DAUsuario = new DAUsuario(paisID);
+            using (IDataReader rd = DAUsuario.GetUsuarioVerificacionAutenticidad(paisID, CodigoUsuario))
+            {
+                if (rd.Read()) return new BEUsuarioCorreo(rd);
+            }
+            return null;
+        }
+
         public Enumeradores.EnvioEmail EnviarEmailVerificacionAutenticidad(int paisID, BEUsuarioCorreo oUsuCorreo)
         {
             try
@@ -2625,11 +2669,11 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        private bool GetAlcanseVerificacionAutenticidad(int paisID, int zonaID)
-        {
-            var DAUsuario = new DAUsuario(paisID);
-            return DAUsuario.GetAlcanseVerificacionAutenticidad(zonaID);
-        }
+        //private bool GetAlcanseVerificacionAutenticidad(int paisID, int zonaID)
+        //{
+        //    var DAUsuario = new DAUsuario(paisID);
+        //    return DAUsuario.GetAlcanseVerificacionAutenticidad(zonaID);
+        //}
         #endregion
 
         #region UserData

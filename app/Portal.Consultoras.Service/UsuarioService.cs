@@ -837,7 +837,7 @@ namespace Portal.Consultoras.Service
         #endregion
 
         #region Verificacion de Autenticidad
-        public BEUsuarioCorreo GetPinAutenticidad(int paisID, string CodigoUsuario)
+        public BEUsuarioCorreo GetVerificacionAutenticidad(int paisID, string CodigoUsuario)
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.GetVerificacionAutenticidad(paisID, CodigoUsuario);

@@ -2061,9 +2061,17 @@ namespace Portal.Consultoras.Common
             public const string Stock = "{stock}";
         }
 
+        public class OpcionesDeVerificacion
+        {
+            public const int OrigenOlvideContraseña = 1;
+            public const int OrigenVericacionAutenticidad = 2;
+            public const int OrigenActulizarDatos = 3;            
+        }
+
         #region Olvide Contrasenia
         public class OlvideContraseña
         {
+            public const int Origen = 1;
             public const string OrigenDescripcion = "Olvide Contraseña";
 
             public class TablaLogica
@@ -2104,9 +2112,7 @@ namespace Portal.Consultoras.Common
                 //public const string OrigenEnvioDesconocido = "Origen de envío desconocido.";
                 //public const string EnvioCorreoExitoso = "Te hemos enviado un enlace a tu correo, para restaurar tu clave.";
                 //public const string EnvioSmsExitoso = "Mensaje de texto enviado correctamente";
-            }
-
-            public const int Origen = 1;
+            }            
         }
         #endregion
 

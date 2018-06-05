@@ -5039,6 +5039,7 @@
     <Content Include="Views\Lanzamientos\Template_LanzamientosTonos.cshtml" />
     <Content Include="Views\RestableceTuContrasenia\Index.cshtml" />
     <Content Include="Views\RestableceTuContrasenia\VerificarAutenticidad.cshtml" />
+    <Content Include="Views\Login\VerificaAutenticidad.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
