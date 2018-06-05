@@ -152,7 +152,9 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = revistaDigital.EstadoSuscripcion > 0,
-                    message = revistaDigital.EstadoSuscripcion > 0 ? "" : "Ocurrió un error, vuelva a intentarlo."
+                    message = revistaDigital.EstadoSuscripcion > 0 ? "" : "Ocurrió un error, vuelva a intentarlo.",
+                    revistaDigital = getRevistaDigitalShortModel(),
+                    CampaniaID = userData.CampaniaID
                 }, JsonRequestBehavior.AllowGet);
 
             }

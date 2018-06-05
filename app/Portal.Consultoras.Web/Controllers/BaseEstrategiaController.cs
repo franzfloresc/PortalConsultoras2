@@ -285,90 +285,13 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 if (fichaProductoModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija || fichaProductoModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
                 {
-                    var listaHermanosX = new List<ProductoModel>();
-                    listaProducto = listaProducto.OrderBy(p => p.Grupo).ToList();
-                    listaHermanos = listaHermanos.OrderBy(p => p.CodigoProducto).ToList();
-
-                    var idPk = 1;
-                    listaHermanos.ForEach(h => h.ID = idPk++);
-
-                    idPk = 0;
-                    foreach (var item in listaProducto)
-                    {
-                        var prod = (ProductoModel)(listaHermanos.FirstOrDefault(p => item.SAP == p.CodigoProducto) ?? new ProductoModel()).Clone();
-                        if (Util.Trim(prod.CodigoProducto) == "")
-                            continue;
-
-                        var listaIgual = listaHermanos.Where(p => item.SAP == p.CodigoProducto);
-                        if (listaIgual.Count() > 1)
-                        {
-                            prod = (ProductoModel)(listaHermanos.FirstOrDefault(p => item.SAP == p.CodigoProducto && p.ID > idPk) ?? new ProductoModel()).Clone();
-                        }
-
-                        prod.Orden = item.Orden;
-                        prod.Grupo = item.Grupo;
-                        prod.PrecioCatalogo = item.Precio;
-                        prod.PrecioCatalogoString = Util.DecimalToStringFormat(item.Precio, userData.CodigoISO);
-                        prod.Digitable = item.Digitable;
-                        prod.CUV = Util.Trim(item.CUV);
-                        prod.Cantidad = item.Cantidad;
-                        prod.FactorCuadre = item.FactorCuadre > 0 ? item.FactorCuadre : 1;
-                        listaHermanosX.Add(prod);
-                        idPk = prod.ID;
-                    }
-
-                    listaHermanos = listaHermanosX;
-
-                    if (fichaProductoModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija)
-                    {
-                        listaHermanos.ForEach(h => { h.Digitable = 0; h.NombreComercial = Util.Trim(h.NombreComercial); });
-                        listaHermanos = listaHermanos.Where(h => h.NombreComercial != "").ToList();
-                    }
-                    else if (fichaProductoModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
-                    {
-                        var listaHermanosR = new List<ProductoModel>();
-                        ProductoModel hermano;
-                        foreach (var item in listaHermanos)
-                        {
-                            hermano = (ProductoModel)item.Clone();
-                            hermano.Hermanos = new List<ProductoModel>();
-                            if (hermano.Digitable == 1)
-                            {
-                                var existe = false;
-                                foreach (var itemR in listaHermanosR)
-                                {
-                                    existe = itemR.Hermanos.Any(h => h.CUV == hermano.CUV);
-                                    if (existe) break;
-                                }
-                                if (existe) continue;
-
-                                hermano.Hermanos = listaHermanos.Where(p => p.Grupo == hermano.Grupo).OrderBy(p => p.Orden).ToList();
-                            }
-                            listaHermanosR.Add(hermano);
-                        }
-                        listaHermanos = listaHermanosR.OrderBy(p => p.Orden).ToList();
-                    }
+                    #region 2002 - 2003
+                    listaHermanos = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaProducto, listaHermanos);
+                    #endregion
                 }
                 #region Factor Cuadre
-
-                var listaHermanosCuadre = new List<ProductoModel>();
-
-                foreach (var hermano in listaHermanos)
-                {
-                    listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
-
-                    if (hermano.FactorCuadre > 1)
-                    {
-                        for (var i = 0; i < hermano.FactorCuadre - 1; i++)
-                        {
-                            listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
-                        }
-                    }
-                }
-
+                    fichaProductoModelo.Hermanos = GetEstrategiaDetalleFactorCuadre(listaHermanos);
                 #endregion
-
-                fichaProductoModelo.Hermanos = listaHermanosCuadre;
             }
             catch (Exception ex)
             {
@@ -535,6 +458,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
             }
+
             return listaHermanosCuadre;
         }
 

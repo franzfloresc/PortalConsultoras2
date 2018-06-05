@@ -1,4 +1,11 @@
-﻿using System;
+﻿//------------------------------------------------------------------------------
+// <Definición>
+//     Fecha              : 04/06/2018
+//     Archivo Creado por : Zoluxiones (JN)
+//     Propósito          : Clase Vista-Modelo que agrupa estrategias de diferentes palancas del sitio.
+// </Definición>
+//------------------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -29,6 +36,13 @@ namespace Portal.Consultoras.Web.Models
         public bool TienePaginaProductoMob { get; set; }
         public string FotoProducto01 { get; set; }
         public string ImagenURL { get; set; }
+        public string ClaseBloqueada { get; set; }
+        public int FlagNueva { get; set; }
+        public int FlagRevista { get; set; }
+        public bool IsAgregado { get; set; }
+        public string CodigoVariante { get; set; }
+        public string TextoLibre { get; set; }
+        public int MarcaID { get; set; }
 
         public string CUV { get; set; }
         public string CUV2 { get; set; }

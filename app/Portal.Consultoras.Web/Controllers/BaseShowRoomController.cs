@@ -17,6 +17,11 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BaseShowRoomController : BaseMobileController
     {
+        public BaseShowRoomController():base()
+        {
+                
+        }
+
         protected void ActionExecutingMobile()
         {
             if (sessionManager.GetUserData() == null) return;
