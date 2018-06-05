@@ -2237,7 +2237,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var model = new PedidoSb2Model
                 {
                     ListaObservacionesProl = listObservacionModel,
-                    ObservacionInformativa = resultado.Informativas,
                     ObservacionRestrictiva = resultado.Restrictivas,
                     ErrorProl = resultado.Error,
                     AvisoProl = resultado.Aviso,

@@ -567,7 +567,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
         private bool DebeEnviarCorreoReservaProl(BEInputReservaProl input, BEResultadoReservaProl resultado)
         {
-            if (!resultado.Reserva || resultado.Informativas || input.Email.IsNullOrEmptyTrim()) return false;
+            if (!resultado.Reserva || input.Email.IsNullOrEmptyTrim()) return false;
             try
             {
                 var lstLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(input.PaisID, 54).ToList();
