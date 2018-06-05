@@ -1,4 +1,6 @@
 ﻿
+var lsListaRD = lsListaRD || "ListaRD";
+
 $(document).ready(function () {
     "use strict";
     var clickabrir = 1;
@@ -72,9 +74,10 @@ function RDPopupMobileCerrar() {
 }
 
 function RDSuscripcion() {
-    debugger;
+
     AbrirLoad();
     rdAnalyticsModule.Inscripcion();
+
     var rdSuscriocionPromise = RDSuscripcionPromise();
     rdSuscriocionPromise.then(
         function (data) {
@@ -86,6 +89,12 @@ function RDSuscripcion() {
                 AbrirMensaje(data.message);
                 return false;
             }
+
+            if (data.revistaDigital) {
+                var key = lsListaRD + data.CampaniaID;
+                RDActualizarTipoAccionAgregar(data.revistaDigital, key);
+            }
+
             $("#PopRDSuscripcion").css("display", "block");
             $(".popup_confirmacion_datos .form-datos input").keyup(); //to update button style
             LimpiarLocalStorage();
@@ -133,6 +142,11 @@ function RDDesuscripcion() {
             if (data.success !== true) {
                 AbrirMensaje(data.message);
                 return false;
+            }
+
+            if (data.revistaDigital) {
+                var key = lsListaRD + data.CampaniaID;
+                RDActualizarTipoAccionAgregar(data.revistaDigital, key);
             }
             LimpiarLocalStorage();
             window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";

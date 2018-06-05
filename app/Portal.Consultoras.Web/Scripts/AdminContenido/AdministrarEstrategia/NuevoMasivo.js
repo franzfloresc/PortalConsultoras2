@@ -150,7 +150,10 @@
         jQuery("#listCargaMasiva1").setGridParam({ datatype: "json", page: 1 }).trigger("reloadGrid");
     }
     var _fnGrillaEstrategias2 = function () {
+        waitingDialog();
+        console.log('ejecutando de _fnGrillaEstrategias2 - inicio');
         $("#listCargaMasiva2").jqGrid("GridUnload");
+        console.log(_config.urlEstrategiaTemporalConsultar);
         jQuery("#listCargaMasiva2").jqGrid({
             url: _config.urlEstrategiaTemporalConsultar,
             hidegrid: false,
@@ -202,6 +205,8 @@
             altclass: "jQGridAltRowClass",
             loadComplete: function () { },
             gridComplete: function () {
+                console.log('ejecutando de _fnGrillaEstrategias2 - gridComplete - inicio', _variables.cantidadPrecargar2);
+                closeWaitingDialog();
                 if (_variables.cantidadPrecargar2 == 0) {
                     $("#divMostrarPreCarga2").css("display", "none");
                 } else {
@@ -217,12 +222,14 @@
 
                 $("#divPaso2").removeClass("boton_redondo_admcontenido_off");
                 $("#divPaso2").addClass("boton_redondo_admcontenido_on");
+                console.log('ejecutando de _fnGrillaEstrategias2 - gridComplete - fin');
             }
         });
-        jQuery("#listCargaMasiva2").jqGrid("navGrid",
-            "#pagerCargaMasiva2",
+        jQuery("#listCargaMasiva2").jqGrid("navGrid", "#pagerCargaMasiva2",
             { edit: false, add: false, refresh: false, del: false, search: false });
         jQuery("#listCargaMasiva2").setGridParam({ datatype: "json", page: 1 }).trigger("reloadGrid");
+
+        console.log('ejecutando de _fnGrillaEstrategias2 - gridComplete - fin');
     }
     var _fnGrillaCuv1 = function (tipo) {
         $("#listGrillaCuv1").jqGrid("clearGridData");
@@ -478,15 +485,25 @@
                     closeWaitingDialog();
                     if (data.success) {
                         if (data.continuaPaso == undefined) {
-                            _variables.Pagina = (data.Pagina || 0) + 1;
-                            _variables.NroLote = data.NroLote;
-                            _variables.CantidadCuv = _variables.CantidadCuv || data.CantidadCuv;
-                            _eventos.clickAceptarMasivo1();
+                            data.messageComplemento = data.messageComplemento || "";
+                            if (data.messageComplemento == "") {
+                                _variables.Pagina = (data.Pagina || 0) + 1;
+                                _variables.NroLote = data.NroLote;
+                                _variables.CantidadCuv = _variables.CantidadCuv || data.CantidadCuv;
+                                _eventos.clickAceptarMasivo1();
+                            }
+                            else {
+                                _eventos.clickCancelarMasivo1();
+                                _toastHelper.error(data.messageComplemento);
+                            }
                         }
                         else if (data.continuaPaso === true) {
+                            console.log('antes de _fnGrillaEstrategias2');
+                            closeWaitingDialog();
                             _fnGrillaEstrategias2();
                         }
                     } else {
+                        _eventos.clickCancelarMasivo1();
                         _toastHelper.error(data.message);
                     }
                 },
@@ -498,6 +515,7 @@
             });
         },
         clickAceptarMasivo2: function () {
+
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
                 tipoConfigurado: 1,
@@ -505,6 +523,7 @@
                 nroLote: _variables.NroLote
             };
 
+            console.log('ejecutando clickAceptarMasivo2 - inicio', params); 
             waitingDialog();
 
             jQuery.ajax({
@@ -515,6 +534,8 @@
                 data: JSON.stringify(params),
                 async: true,
                 success: function (data) {
+
+                    console.log('ejecutando clickAceptarMasivo2 - ajax - inicio', data); 
                     if (data.success) {
                         closeWaitingDialog();
                         $("#divMasivoPaso1").hide();
@@ -531,18 +552,24 @@
                         $("#divPaso3").addClass("boton_redondo_admcontenido_on");
                     } else {
                         _toastHelper.error(data.message);
+                        _eventos.clickCancelarMasivo1();
                     }
                 },
                 error: function (data, error) {
                     _toastHelper.error(_config.MensajeErrorGeneral);
                 }
             });
+
+            console.log('ejecutando clickAceptarMasivo2 - fin'); 
         },
         clickCancelarMasivo1: function () {
             _variablesInicializar();
             HideDialog("DialogNuevoMasivo");
+            closeWaitingDialog();
         },
         clickCancelarMasivo2: function () {
+
+            console.log('ejecutando clickCancelarMasivo2 - inicio'); 
             var params = {
                 nroLote: _variables.NroLote
             };
@@ -555,6 +582,8 @@
                 data: JSON.stringify(params),
                 async: true,
                 success: function (data) {
+
+                    console.log('ejecutando clickAceptarMasivo2 - ajax - inicio', data); 
                     if (data.success) {
                         _variablesInicializar();
                         HideDialog("DialogNuevoMasivo");
@@ -568,10 +597,13 @@
                     _toastHelper.error(_config.MensajeErrorGeneral);
                 }
             });
+
+            console.log('ejecutando clickCancelarMasivo2 - fin'); 
         },
         clickAceptarMasivo3: function () {
             _variablesInicializar();
             HideDialog("DialogNuevoMasivo");
+            closeWaitingDialog();
         },
     }
 

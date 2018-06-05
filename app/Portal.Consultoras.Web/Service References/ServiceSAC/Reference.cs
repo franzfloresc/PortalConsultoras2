@@ -15578,16 +15578,16 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         System.Threading.Tasks.Task<int> EstrategiaTemporalInsertarMasivoAsync(int paisId, int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarPrecioNivel", ReplyAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarPrecioNivelResponse")]
-        bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int nroLote);
+        bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int nroLote, int pagina);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarPrecioNivel", ReplyAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarPrecioNivelResponse")]
-        System.Threading.Tasks.Task<bool> EstrategiaTemporalActualizarPrecioNivelAsync(int paisId, int nroLote);
+        System.Threading.Tasks.Task<bool> EstrategiaTemporalActualizarPrecioNivelAsync(int paisId, int nroLote, int pagina);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalle", ReplyAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalleResponse")]
-        bool EstrategiaTemporalActualizarSetDetalle(int paisID, int nroLote);
+        bool EstrategiaTemporalActualizarSetDetalle(int paisID, int nroLote, int pagina);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalle", ReplyAction="http://tempuri.org/ISACService/EstrategiaTemporalActualizarSetDetalleResponse")]
-        System.Threading.Tasks.Task<bool> EstrategiaTemporalActualizarSetDetalleAsync(int paisID, int nroLote);
+        System.Threading.Tasks.Task<bool> EstrategiaTemporalActualizarSetDetalleAsync(int paisID, int nroLote, int pagina);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/EstrategiaTemporalInsertarEstrategiaMasivo", ReplyAction="http://tempuri.org/ISACService/EstrategiaTemporalInsertarEstrategiaMasivoResponse" +
             "")]
@@ -17023,20 +17023,20 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.EstrategiaTemporalInsertarMasivoAsync(paisId, campaniaId, estrategiaCodigo, pagina, cantidadCuv, nroLote);
         }
         
-        public bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int nroLote) {
-            return base.Channel.EstrategiaTemporalActualizarPrecioNivel(paisId, nroLote);
+        public bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int nroLote, int pagina) {
+            return base.Channel.EstrategiaTemporalActualizarPrecioNivel(paisId, nroLote, pagina);
         }
         
-        public System.Threading.Tasks.Task<bool> EstrategiaTemporalActualizarPrecioNivelAsync(int paisId, int nroLote) {
-            return base.Channel.EstrategiaTemporalActualizarPrecioNivelAsync(paisId, nroLote);
+        public System.Threading.Tasks.Task<bool> EstrategiaTemporalActualizarPrecioNivelAsync(int paisId, int nroLote, int pagina) {
+            return base.Channel.EstrategiaTemporalActualizarPrecioNivelAsync(paisId, nroLote, pagina);
         }
         
-        public bool EstrategiaTemporalActualizarSetDetalle(int paisID, int nroLote) {
-            return base.Channel.EstrategiaTemporalActualizarSetDetalle(paisID, nroLote);
+        public bool EstrategiaTemporalActualizarSetDetalle(int paisID, int nroLote, int pagina) {
+            return base.Channel.EstrategiaTemporalActualizarSetDetalle(paisID, nroLote, pagina);
         }
         
-        public System.Threading.Tasks.Task<bool> EstrategiaTemporalActualizarSetDetalleAsync(int paisID, int nroLote) {
-            return base.Channel.EstrategiaTemporalActualizarSetDetalleAsync(paisID, nroLote);
+        public System.Threading.Tasks.Task<bool> EstrategiaTemporalActualizarSetDetalleAsync(int paisID, int nroLote, int pagina) {
+            return base.Channel.EstrategiaTemporalActualizarSetDetalleAsync(paisID, nroLote, pagina);
         }
         
         public int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote) {

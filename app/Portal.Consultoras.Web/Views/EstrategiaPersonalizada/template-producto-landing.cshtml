@@ -34,15 +34,15 @@
         <div data-item-tag="body" class="content_item_carrusel" {{#iff TipoAccionAgregar '!=' '4' }} style="cursor:pointer;" {{/iff}}>
             <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
             <div data-item-tag="contenido"
-                 {{#iff TipoAccionAgregar '!=' '4'}}
-                    onclick="javascript:VerDetalleEstrategia(event);"
-                 {{else}}
+                 {{#iff TipoAccionAgregar 'ContainsArray' '[4,5]'}}
                     onclick="javascript:VerPopupExpGanaMas();"
+                 {{else}}
+                    onclick="javascript:VerDetalleEstrategia(event);"
                  {{/iff}}>
                 <div class="producto_img_home" data-item-tag="foto">
                     <img class="imagen_producto" style="max-width: 100% !important;" data-src="{{ImgUrl FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
-                    {{#iff TipoAccionAgregar '!=' '4'}}
-                        <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
+                    {{#iff TipoAccionAgregar 'ContainsArray' '[1,2,3]'}}
+                    <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
                     {{/iff}}
                 </div>
                 {{#iff ImagenURL '!=' ''}}

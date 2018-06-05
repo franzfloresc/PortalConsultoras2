@@ -1549,14 +1549,14 @@ namespace Portal.Consultoras.Service
             return _blAdministrarEstrategia.EstrategiaTemporalInsertarMasivo(paisId, campaniaId, estrategiaCodigo, pagina, cantidadCuv, nroLote);
         }
 
-        public bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int nroLote)
+        public bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int nroLote, int pagina)
         {
-            return _blAdministrarEstrategia.EstrategiaTemporalActualizarPrecioNivel(paisId, nroLote);
+            return _blAdministrarEstrategia.EstrategiaTemporalActualizarPrecioNivel(paisId, nroLote, pagina);
         }
 
-        public bool EstrategiaTemporalActualizarSetDetalle(int paisId, int nroLote)
+        public bool EstrategiaTemporalActualizarSetDetalle(int paisId, int nroLote, int pagina)
         {
-            return _blAdministrarEstrategia.EstrategiaTemporalActualizarSetDetalle(paisId, nroLote);
+            return _blAdministrarEstrategia.EstrategiaTemporalActualizarSetDetalle(paisId, nroLote, pagina);
         }
 
         public int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote)
