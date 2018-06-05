@@ -206,6 +206,18 @@
   <wsdl:message name="IPedidoService_ObtenerFechaInicioSets_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerFechaInicioSetsResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_DescargaPedidosCliente_InputMessage">
+    <wsdl:part name="parameters" element="tns:DescargaPedidosCliente" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_DescargaPedidosCliente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DescargaPedidosClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerCuvSetDetalle_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerCuvSetDetalle" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerCuvSetDetalle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerCuvSetDetalleResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_InsertEstrategiaTemporal_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertEstrategiaTemporal" />
   </wsdl:message>
@@ -2619,6 +2631,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerFechaInicioSets" message="tns:IPedidoService_ObtenerFechaInicioSets_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerFechaInicioSetsResponse" message="tns:IPedidoService_ObtenerFechaInicioSets_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="DescargaPedidosCliente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DescargaPedidosCliente" message="tns:IPedidoService_DescargaPedidosCliente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DescargaPedidosClienteResponse" message="tns:IPedidoService_DescargaPedidosCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerCuvSetDetalle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerCuvSetDetalle" message="tns:IPedidoService_ObtenerCuvSetDetalle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerCuvSetDetalleResponse" message="tns:IPedidoService_ObtenerCuvSetDetalle_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsertEstrategiaTemporal">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertEstrategiaTemporal" message="tns:IPedidoService_InsertEstrategiaTemporal_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertEstrategiaTemporalResponse" message="tns:IPedidoService_InsertEstrategiaTemporal_OutputMessage" />
@@ -4394,6 +4414,24 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerFechaInicioSets">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerFechaInicioSets" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DescargaPedidosCliente">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/DescargaPedidosCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerCuvSetDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerCuvSetDetalle" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8097,6 +8135,24 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerFechaInicioSets">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerFechaInicioSets" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DescargaPedidosCliente">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/DescargaPedidosCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerCuvSetDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerCuvSetDetalle" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
