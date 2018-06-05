@@ -844,5 +844,28 @@ namespace Portal.Consultoras.Web.Controllers
 
             return tablaLogicaDatosModel;
         }
+
+        protected void UpdShowRoomEventoConsultoraEmailRecibido(string CodigoConsultora, int CampaniaID)
+        {
+
+            BEShowRoomEventoConsultora entidad = new BEShowRoomEventoConsultora
+            {
+                CodigoConsultora = CodigoConsultora,
+                CampaniaID = CampaniaID
+            };
+
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, entidad);
+            }
+        }
+
+        protected bool GetEventoConsultoraRecibido()
+        {
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                return Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
+            }
+        }
     }
 }
