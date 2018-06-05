@@ -93,12 +93,11 @@ $(document).ready(function () {
     }
 });
 
-function CargarCarouselEstrategias(cuv) {
+function CargarCarouselEstrategias() {
     $.ajax({
         type: 'GET',
         url: baseUrl + 'Estrategia/JsonConsultarEstrategias',
         data: {
-            cuv: cuv,
             tipoOrigenEstrategia: tipoOrigenEstrategia
         },
         dataType: 'json',
@@ -1070,7 +1069,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                         if (tipoOrigenEstrategia == 1) {
                             MostrarBarra(data, '1');
                             ActualizarGanancia(data.DataBarra);
-                            CargarCarouselEstrategias(cuv);
+                            CargarCarouselEstrategias();
                           
 
                             CargarResumenCampaniaHeader(true);
@@ -1080,7 +1079,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             $("#hdErrorInsertarProducto").val(data.errorInsertarProducto);
 
                             cierreCarouselEstrategias();
-                            CargarCarouselEstrategias(cuv);
+                            CargarCarouselEstrategias();
                             CargarResumenCampaniaHeader();
                             HideDialog("divVistaPrevia");
 
@@ -1101,7 +1100,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                                 }
                             }
                             else if (tipoOrigenEstrategia != 272) {
-                                CargarCarouselEstrategias(cuv);
+                                CargarCarouselEstrategias();
 
                            
                             }

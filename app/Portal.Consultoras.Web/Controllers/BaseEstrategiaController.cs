@@ -47,7 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public List<BEEstrategia> ConsultarEstrategias(string cuv = "", int campaniaId = 0, string codAgrupacion = "")
+        public List<BEEstrategia> ConsultarEstrategias(int campaniaId = 0, string codAgrupacion = "")
         {
             codAgrupacion = Util.Trim(codAgrupacion);
             var listEstrategia = new List<BEEstrategia>();
@@ -480,14 +480,14 @@ namespace Portal.Consultoras.Web.Controllers
             return estrategia;
         }
 
-        public List<EstrategiaPedidoModel> ConsultarEstrategiasHomePedido(string cuv = "", string codAgrupacion = "")
+        public List<EstrategiaPedidoModel> ConsultarEstrategiasHomePedido(string codAgrupacion = "")
         {
             List<BEEstrategia> listModel;
             if (Session[Constantes.ConstSession.ListaEstrategia] != null)
                 listModel = (List<BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia];
             else
             {
-                listModel = ConsultarEstrategias(cuv, 0, codAgrupacion);
+                listModel = ConsultarEstrategias(0, codAgrupacion);
 
                 if (!listModel.Any())
                 {
@@ -499,7 +499,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (codAgrupacion == Constantes.TipoEstrategiaCodigo.RevistaDigital)
                 {
-                    var listModelLan = ConsultarEstrategias(cuv, 0, Constantes.TipoEstrategiaCodigo.Lanzamiento);
+                    var listModelLan = ConsultarEstrategias(0, Constantes.TipoEstrategiaCodigo.Lanzamiento);
                     var estrategiaLanzamiento = listModelLan.FirstOrDefault() ?? new BEEstrategia();
 
                     if (!listModel.Any() && estrategiaLanzamiento.EstrategiaID <= 0)
@@ -543,9 +543,9 @@ namespace Portal.Consultoras.Web.Controllers
             return listaProductoModel;
         }
 
-        public List<EstrategiaPedidoModel> ConsultarEstrategiasModel(string cuv = "", int campaniaId = 0, string codAgrupacion = "")
+        public List<EstrategiaPedidoModel> ConsultarEstrategiasModel(int campaniaId = 0, string codAgrupacion = "")
         {
-            var listaProducto = ConsultarEstrategias(cuv, campaniaId, codAgrupacion);
+            var listaProducto = ConsultarEstrategias(campaniaId, codAgrupacion);
 
             List<EstrategiaPedidoModel> listaProductoModel = ConsultarEstrategiasModelFormato(listaProducto);
 
@@ -777,7 +777,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<EstrategiaPedidoModel> ConsultarMasVendidosModel()
         {
-            var listaProducto = ConsultarEstrategias("", 0, Constantes.TipoEstrategiaCodigo.LosMasVendidos);
+            var listaProducto = ConsultarEstrategias(0, Constantes.TipoEstrategiaCodigo.LosMasVendidos);
             var listaProductoModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
             listaProductoModel = ConsultarEstrategiasModelFormato(listaProductoModel);
             return listaProductoModel;

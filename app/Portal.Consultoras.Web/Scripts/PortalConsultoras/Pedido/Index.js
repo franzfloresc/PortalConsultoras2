@@ -438,7 +438,7 @@ $(document).ready(function () {
     CrearDialogs();
     MostrarBarra();
     CargarDetallePedido();
-    CargarCarouselEstrategias("");
+    CargarCarouselEstrategias();
     CargarAutocomplete();  
     CargarDialogMesajePostulantePedido();
     EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-pedido]");
@@ -903,7 +903,7 @@ function AgregarProductoZonaEstrategia(tipoEstrategiaImagen) {
             $("#hdErrorInsertarProducto").val(data.errorInsertarProducto);
 
             cierreCarouselEstrategias();
-            CargarCarouselEstrategias(param2.CUV);
+            CargarCarouselEstrategias();
             HideDialog("divVistaPrevia");
             PedidoOnSuccess();
             if (data.modificoBackOrder) showDialog('divBackOrderModificado');
@@ -1892,7 +1892,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
 
             if (tipoOfertaSisId != '0') {
                 cierreCarouselEstrategias();
-                CargarCarouselEstrategias(cuv);
+                CargarCarouselEstrategias();
             }
             MostrarBarra(data);
             $("#pCantidadProductosPedido").html(data.cantidadTotalProductos > 0 ? data.cantidadTotalProductos : 0);

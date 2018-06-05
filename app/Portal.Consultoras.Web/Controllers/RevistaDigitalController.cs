@@ -238,11 +238,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void RecargarPalancas()
         {
-            ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
-            ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.Lanzamiento);
-            ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
-            ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.LosMasVendidos);
-            ConsultarEstrategias(string.Empty, userData.CampaniaID, string.Empty);
+            ConsultarEstrategias(userData.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
+            ConsultarEstrategias(userData.CampaniaID, Constantes.TipoEstrategiaCodigo.Lanzamiento);
+            ConsultarEstrategias(userData.CampaniaID, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
+            ConsultarEstrategias(userData.CampaniaID, Constantes.TipoEstrategiaCodigo.LosMasVendidos);
+            ConsultarEstrategias(userData.CampaniaID, string.Empty);
         }
 
         private string RegistroSuscripcionValidar(int tipo)
