@@ -1,7 +1,6 @@
 ﻿GO
 USE BelcorpPeru
 GO
-
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalActualizarSetDetalle') AND type IN ( N'P', N'PC' ) )
 	DROP PROCEDURE dbo.EstrategiaTemporalActualizarSetDetalle
@@ -14,9 +13,9 @@ CREATE PROCEDURE EstrategiaTemporalActualizarSetDetalle
 AS
 BEGIN
 
-	SET @NroLote = ISNULL(@NroLote, 0)
-	IF @NroLote > 0
-	BEGIN
+SET @NroLote = ISNULL(@NroLote, 0)
+IF @NroLote > 0
+BEGIN
 	delete from EstrategiaProductoTemporal where NumeroLote = @NroLote and Pagina = @Pagina
 
 	insert into EstrategiaProductoTemporal
@@ -42,53 +41,27 @@ BEGIN
 		ET.NumeroLote
 		,ET.pagina
 		,ET.CampaniaId
-		,P.Cuv
+		,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END
 		,ET.CUV
-		,P.CODIGO_ESTRATEGIA
-		,P.GRUPO
-		,P.CODIGO_SAP
-		,P.CANTIDAD
-		,P.PRECIO_UNITARIO
-		,P.PRECIO_VALORIZADO
-		,P.ORDEN
-		,P.DIGITABLE
-		,P.FACTOR_CUADRE
-		,P.DESCRIPCION
-		,P.IDMARCA
-	from
-	EstrategiaTemporal ET
-		INNER JOIN (
-			SELECT
-					PM.EstrategiaIDSicc CODIGO_ESTRATEGIA
-					,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END CUV
-					,ISNULL(PMO.NUMEROGRUPO,0) GRUPO
-					,PMO.CodigoProducto CODIGO_SAP
-					,ISNULL(PMO.FactorRepeticion,1) CANTIDAD
-					,(PMO.PrecioUnitario) PRECIO_UNITARIO
-					,(PMO.PrecioValorizado) PRECIO_VALORIZADO
-					,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END ORDEN
-					,PMO.IndicadorDigitable DIGITABLE
-					,PMO.CUV COD_VENTA_HIJO
-					,CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT) FACTOR_CUADRE
-					,PMO.DESCRIPCION DESCRIPCION
-					,PMO.MarcaID IDMARCA
-					,PM.CUV CUV2
-					,PMO.AnoCampania as CampaniaID
-				FROM ODS.ProductoComercial PM WITH (NOLOCK)
-				INNER JOIN ODS.ProductoComercial PMO
-					ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc
-					AND PM.AnoCampania =PMO.AnoCampania
-					AND PM.CodigoOferta = PMO.CodigoOferta
-
-				WHERE PMO.AnoCampania in (
-					select CampaniaId
-					from EstrategiaTemporal etx
-					where etx.NumeroLote = @NroLote and etx.Pagina = @Pagina
-				)
-			) p
-			on p.CUV2 = ET.CUV
-			and P.CampaniaID = ET.CampaniaId
-
+		,PM.EstrategiaIDSicc
+		,ISNULL(PMO.NUMEROGRUPO,0)
+		,PMO.CodigoProducto
+		,ISNULL(PMO.FactorRepeticion,1)
+		,PMO.PrecioUnitario
+		,PMO.PrecioValorizado
+		,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END
+		,PMO.IndicadorDigitable
+		,CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT)
+		,PMO.DESCRIPCION
+		,PMO.MarcaID
+	from EstrategiaTemporal ET
+		INNER JOIN ODS.ProductoComercial PM WITH (NOLOCK)
+			ON PM.CUV = ET.CUV
+			AND PM.AnoCampania = et.CampaniaID
+		INNER JOIN ODS.ProductoComercial PMO WITH (NOLOCK)
+			ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc
+			AND PM.AnoCampania =PMO.AnoCampania
+			AND PM.CodigoOferta = PMO.CodigoOferta
 	where ET.NumeroLote = @NroLote
 		and ET.Pagina = @Pagina
 	UPDATE ET
@@ -102,14 +75,13 @@ BEGIN
 		AND EPT.Pagina = ET.Pagina
 		and EPT.CuvPadre = ET.CUV
 
-	END
+END
 END
 GO
 
 GO
 USE BelcorpMexico
 GO
-
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalActualizarSetDetalle') AND type IN ( N'P', N'PC' ) )
 	DROP PROCEDURE dbo.EstrategiaTemporalActualizarSetDetalle
@@ -122,9 +94,9 @@ CREATE PROCEDURE EstrategiaTemporalActualizarSetDetalle
 AS
 BEGIN
 
-	SET @NroLote = ISNULL(@NroLote, 0)
-	IF @NroLote > 0
-	BEGIN
+SET @NroLote = ISNULL(@NroLote, 0)
+IF @NroLote > 0
+BEGIN
 	delete from EstrategiaProductoTemporal where NumeroLote = @NroLote and Pagina = @Pagina
 
 	insert into EstrategiaProductoTemporal
@@ -150,53 +122,27 @@ BEGIN
 		ET.NumeroLote
 		,ET.pagina
 		,ET.CampaniaId
-		,P.Cuv
+		,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END
 		,ET.CUV
-		,P.CODIGO_ESTRATEGIA
-		,P.GRUPO
-		,P.CODIGO_SAP
-		,P.CANTIDAD
-		,P.PRECIO_UNITARIO
-		,P.PRECIO_VALORIZADO
-		,P.ORDEN
-		,P.DIGITABLE
-		,P.FACTOR_CUADRE
-		,P.DESCRIPCION
-		,P.IDMARCA
-	from
-	EstrategiaTemporal ET
-		INNER JOIN (
-			SELECT
-					PM.EstrategiaIDSicc CODIGO_ESTRATEGIA
-					,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END CUV
-					,ISNULL(PMO.NUMEROGRUPO,0) GRUPO
-					,PMO.CodigoProducto CODIGO_SAP
-					,ISNULL(PMO.FactorRepeticion,1) CANTIDAD
-					,(PMO.PrecioUnitario) PRECIO_UNITARIO
-					,(PMO.PrecioValorizado) PRECIO_VALORIZADO
-					,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END ORDEN
-					,PMO.IndicadorDigitable DIGITABLE
-					,PMO.CUV COD_VENTA_HIJO
-					,CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT) FACTOR_CUADRE
-					,PMO.DESCRIPCION DESCRIPCION
-					,PMO.MarcaID IDMARCA
-					,PM.CUV CUV2
-					,PMO.AnoCampania as CampaniaID
-				FROM ODS.ProductoComercial PM WITH (NOLOCK)
-				INNER JOIN ODS.ProductoComercial PMO
-					ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc
-					AND PM.AnoCampania =PMO.AnoCampania
-					AND PM.CodigoOferta = PMO.CodigoOferta
-
-				WHERE PMO.AnoCampania in (
-					select CampaniaId
-					from EstrategiaTemporal etx
-					where etx.NumeroLote = @NroLote and etx.Pagina = @Pagina
-				)
-			) p
-			on p.CUV2 = ET.CUV
-			and P.CampaniaID = ET.CampaniaId
-
+		,PM.EstrategiaIDSicc
+		,ISNULL(PMO.NUMEROGRUPO,0)
+		,PMO.CodigoProducto
+		,ISNULL(PMO.FactorRepeticion,1)
+		,PMO.PrecioUnitario
+		,PMO.PrecioValorizado
+		,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END
+		,PMO.IndicadorDigitable
+		,CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT)
+		,PMO.DESCRIPCION
+		,PMO.MarcaID
+	from EstrategiaTemporal ET
+		INNER JOIN ODS.ProductoComercial PM WITH (NOLOCK)
+			ON PM.CUV = ET.CUV
+			AND PM.AnoCampania = et.CampaniaID
+		INNER JOIN ODS.ProductoComercial PMO WITH (NOLOCK)
+			ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc
+			AND PM.AnoCampania =PMO.AnoCampania
+			AND PM.CodigoOferta = PMO.CodigoOferta
 	where ET.NumeroLote = @NroLote
 		and ET.Pagina = @Pagina
 	UPDATE ET
@@ -210,14 +156,13 @@ BEGIN
 		AND EPT.Pagina = ET.Pagina
 		and EPT.CuvPadre = ET.CUV
 
-	END
+END
 END
 GO
 
 GO
 USE BelcorpColombia
 GO
-
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalActualizarSetDetalle') AND type IN ( N'P', N'PC' ) )
 	DROP PROCEDURE dbo.EstrategiaTemporalActualizarSetDetalle
@@ -230,9 +175,9 @@ CREATE PROCEDURE EstrategiaTemporalActualizarSetDetalle
 AS
 BEGIN
 
-	SET @NroLote = ISNULL(@NroLote, 0)
-	IF @NroLote > 0
-	BEGIN
+SET @NroLote = ISNULL(@NroLote, 0)
+IF @NroLote > 0
+BEGIN
 	delete from EstrategiaProductoTemporal where NumeroLote = @NroLote and Pagina = @Pagina
 
 	insert into EstrategiaProductoTemporal
@@ -258,53 +203,27 @@ BEGIN
 		ET.NumeroLote
 		,ET.pagina
 		,ET.CampaniaId
-		,P.Cuv
+		,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END
 		,ET.CUV
-		,P.CODIGO_ESTRATEGIA
-		,P.GRUPO
-		,P.CODIGO_SAP
-		,P.CANTIDAD
-		,P.PRECIO_UNITARIO
-		,P.PRECIO_VALORIZADO
-		,P.ORDEN
-		,P.DIGITABLE
-		,P.FACTOR_CUADRE
-		,P.DESCRIPCION
-		,P.IDMARCA
-	from
-	EstrategiaTemporal ET
-		INNER JOIN (
-			SELECT
-					PM.EstrategiaIDSicc CODIGO_ESTRATEGIA
-					,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END CUV
-					,ISNULL(PMO.NUMEROGRUPO,0) GRUPO
-					,PMO.CodigoProducto CODIGO_SAP
-					,ISNULL(PMO.FactorRepeticion,1) CANTIDAD
-					,(PMO.PrecioUnitario) PRECIO_UNITARIO
-					,(PMO.PrecioValorizado) PRECIO_VALORIZADO
-					,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END ORDEN
-					,PMO.IndicadorDigitable DIGITABLE
-					,PMO.CUV COD_VENTA_HIJO
-					,CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT) FACTOR_CUADRE
-					,PMO.DESCRIPCION DESCRIPCION
-					,PMO.MarcaID IDMARCA
-					,PM.CUV CUV2
-					,PMO.AnoCampania as CampaniaID
-				FROM ODS.ProductoComercial PM WITH (NOLOCK)
-				INNER JOIN ODS.ProductoComercial PMO
-					ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc
-					AND PM.AnoCampania =PMO.AnoCampania
-					AND PM.CodigoOferta = PMO.CodigoOferta
-
-				WHERE PMO.AnoCampania in (
-					select CampaniaId
-					from EstrategiaTemporal etx
-					where etx.NumeroLote = @NroLote and etx.Pagina = @Pagina
-				)
-			) p
-			on p.CUV2 = ET.CUV
-			and P.CampaniaID = ET.CampaniaId
-
+		,PM.EstrategiaIDSicc
+		,ISNULL(PMO.NUMEROGRUPO,0)
+		,PMO.CodigoProducto
+		,ISNULL(PMO.FactorRepeticion,1)
+		,PMO.PrecioUnitario
+		,PMO.PrecioValorizado
+		,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END
+		,PMO.IndicadorDigitable
+		,CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT)
+		,PMO.DESCRIPCION
+		,PMO.MarcaID
+	from EstrategiaTemporal ET
+		INNER JOIN ODS.ProductoComercial PM WITH (NOLOCK)
+			ON PM.CUV = ET.CUV
+			AND PM.AnoCampania = et.CampaniaID
+		INNER JOIN ODS.ProductoComercial PMO WITH (NOLOCK)
+			ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc
+			AND PM.AnoCampania =PMO.AnoCampania
+			AND PM.CodigoOferta = PMO.CodigoOferta
 	where ET.NumeroLote = @NroLote
 		and ET.Pagina = @Pagina
 	UPDATE ET
@@ -318,14 +237,13 @@ BEGIN
 		AND EPT.Pagina = ET.Pagina
 		and EPT.CuvPadre = ET.CUV
 
-	END
+END
 END
 GO
 
 GO
 USE BelcorpSalvador
 GO
-
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalActualizarSetDetalle') AND type IN ( N'P', N'PC' ) )
 	DROP PROCEDURE dbo.EstrategiaTemporalActualizarSetDetalle
@@ -338,9 +256,9 @@ CREATE PROCEDURE EstrategiaTemporalActualizarSetDetalle
 AS
 BEGIN
 
-	SET @NroLote = ISNULL(@NroLote, 0)
-	IF @NroLote > 0
-	BEGIN
+SET @NroLote = ISNULL(@NroLote, 0)
+IF @NroLote > 0
+BEGIN
 	delete from EstrategiaProductoTemporal where NumeroLote = @NroLote and Pagina = @Pagina
 
 	insert into EstrategiaProductoTemporal
@@ -366,53 +284,27 @@ BEGIN
 		ET.NumeroLote
 		,ET.pagina
 		,ET.CampaniaId
-		,P.Cuv
+		,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END
 		,ET.CUV
-		,P.CODIGO_ESTRATEGIA
-		,P.GRUPO
-		,P.CODIGO_SAP
-		,P.CANTIDAD
-		,P.PRECIO_UNITARIO
-		,P.PRECIO_VALORIZADO
-		,P.ORDEN
-		,P.DIGITABLE
-		,P.FACTOR_CUADRE
-		,P.DESCRIPCION
-		,P.IDMARCA
-	from
-	EstrategiaTemporal ET
-		INNER JOIN (
-			SELECT
-					PM.EstrategiaIDSicc CODIGO_ESTRATEGIA
-					,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END CUV
-					,ISNULL(PMO.NUMEROGRUPO,0) GRUPO
-					,PMO.CodigoProducto CODIGO_SAP
-					,ISNULL(PMO.FactorRepeticion,1) CANTIDAD
-					,(PMO.PrecioUnitario) PRECIO_UNITARIO
-					,(PMO.PrecioValorizado) PRECIO_VALORIZADO
-					,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END ORDEN
-					,PMO.IndicadorDigitable DIGITABLE
-					,PMO.CUV COD_VENTA_HIJO
-					,CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT) FACTOR_CUADRE
-					,PMO.DESCRIPCION DESCRIPCION
-					,PMO.MarcaID IDMARCA
-					,PM.CUV CUV2
-					,PMO.AnoCampania as CampaniaID
-				FROM ODS.ProductoComercial PM WITH (NOLOCK)
-				INNER JOIN ODS.ProductoComercial PMO
-					ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc
-					AND PM.AnoCampania =PMO.AnoCampania
-					AND PM.CodigoOferta = PMO.CodigoOferta
-
-				WHERE PMO.AnoCampania in (
-					select CampaniaId
-					from EstrategiaTemporal etx
-					where etx.NumeroLote = @NroLote and etx.Pagina = @Pagina
-				)
-			) p
-			on p.CUV2 = ET.CUV
-			and P.CampaniaID = ET.CampaniaId
-
+		,PM.EstrategiaIDSicc
+		,ISNULL(PMO.NUMEROGRUPO,0)
+		,PMO.CodigoProducto
+		,ISNULL(PMO.FactorRepeticion,1)
+		,PMO.PrecioUnitario
+		,PMO.PrecioValorizado
+		,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END
+		,PMO.IndicadorDigitable
+		,CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT)
+		,PMO.DESCRIPCION
+		,PMO.MarcaID
+	from EstrategiaTemporal ET
+		INNER JOIN ODS.ProductoComercial PM WITH (NOLOCK)
+			ON PM.CUV = ET.CUV
+			AND PM.AnoCampania = et.CampaniaID
+		INNER JOIN ODS.ProductoComercial PMO WITH (NOLOCK)
+			ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc
+			AND PM.AnoCampania =PMO.AnoCampania
+			AND PM.CodigoOferta = PMO.CodigoOferta
 	where ET.NumeroLote = @NroLote
 		and ET.Pagina = @Pagina
 	UPDATE ET
@@ -426,14 +318,13 @@ BEGIN
 		AND EPT.Pagina = ET.Pagina
 		and EPT.CuvPadre = ET.CUV
 
-	END
+END
 END
 GO
 
 GO
 USE BelcorpPuertoRico
 GO
-
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalActualizarSetDetalle') AND type IN ( N'P', N'PC' ) )
 	DROP PROCEDURE dbo.EstrategiaTemporalActualizarSetDetalle
@@ -446,9 +337,9 @@ CREATE PROCEDURE EstrategiaTemporalActualizarSetDetalle
 AS
 BEGIN
 
-	SET @NroLote = ISNULL(@NroLote, 0)
-	IF @NroLote > 0
-	BEGIN
+SET @NroLote = ISNULL(@NroLote, 0)
+IF @NroLote > 0
+BEGIN
 	delete from EstrategiaProductoTemporal where NumeroLote = @NroLote and Pagina = @Pagina
 
 	insert into EstrategiaProductoTemporal
@@ -474,53 +365,27 @@ BEGIN
 		ET.NumeroLote
 		,ET.pagina
 		,ET.CampaniaId
-		,P.Cuv
+		,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END
 		,ET.CUV
-		,P.CODIGO_ESTRATEGIA
-		,P.GRUPO
-		,P.CODIGO_SAP
-		,P.CANTIDAD
-		,P.PRECIO_UNITARIO
-		,P.PRECIO_VALORIZADO
-		,P.ORDEN
-		,P.DIGITABLE
-		,P.FACTOR_CUADRE
-		,P.DESCRIPCION
-		,P.IDMARCA
-	from
-	EstrategiaTemporal ET
-		INNER JOIN (
-			SELECT
-					PM.EstrategiaIDSicc CODIGO_ESTRATEGIA
-					,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END CUV
-					,ISNULL(PMO.NUMEROGRUPO,0) GRUPO
-					,PMO.CodigoProducto CODIGO_SAP
-					,ISNULL(PMO.FactorRepeticion,1) CANTIDAD
-					,(PMO.PrecioUnitario) PRECIO_UNITARIO
-					,(PMO.PrecioValorizado) PRECIO_VALORIZADO
-					,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END ORDEN
-					,PMO.IndicadorDigitable DIGITABLE
-					,PMO.CUV COD_VENTA_HIJO
-					,CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT) FACTOR_CUADRE
-					,PMO.DESCRIPCION DESCRIPCION
-					,PMO.MarcaID IDMARCA
-					,PM.CUV CUV2
-					,PMO.AnoCampania as CampaniaID
-				FROM ODS.ProductoComercial PM WITH (NOLOCK)
-				INNER JOIN ODS.ProductoComercial PMO
-					ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc
-					AND PM.AnoCampania =PMO.AnoCampania
-					AND PM.CodigoOferta = PMO.CodigoOferta
-
-				WHERE PMO.AnoCampania in (
-					select CampaniaId
-					from EstrategiaTemporal etx
-					where etx.NumeroLote = @NroLote and etx.Pagina = @Pagina
-				)
-			) p
-			on p.CUV2 = ET.CUV
-			and P.CampaniaID = ET.CampaniaId
-
+		,PM.EstrategiaIDSicc
+		,ISNULL(PMO.NUMEROGRUPO,0)
+		,PMO.CodigoProducto
+		,ISNULL(PMO.FactorRepeticion,1)
+		,PMO.PrecioUnitario
+		,PMO.PrecioValorizado
+		,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END
+		,PMO.IndicadorDigitable
+		,CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT)
+		,PMO.DESCRIPCION
+		,PMO.MarcaID
+	from EstrategiaTemporal ET
+		INNER JOIN ODS.ProductoComercial PM WITH (NOLOCK)
+			ON PM.CUV = ET.CUV
+			AND PM.AnoCampania = et.CampaniaID
+		INNER JOIN ODS.ProductoComercial PMO WITH (NOLOCK)
+			ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc
+			AND PM.AnoCampania =PMO.AnoCampania
+			AND PM.CodigoOferta = PMO.CodigoOferta
 	where ET.NumeroLote = @NroLote
 		and ET.Pagina = @Pagina
 	UPDATE ET
@@ -534,14 +399,13 @@ BEGIN
 		AND EPT.Pagina = ET.Pagina
 		and EPT.CuvPadre = ET.CUV
 
-	END
+END
 END
 GO
 
 GO
 USE BelcorpPanama
 GO
-
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalActualizarSetDetalle') AND type IN ( N'P', N'PC' ) )
 	DROP PROCEDURE dbo.EstrategiaTemporalActualizarSetDetalle
@@ -554,9 +418,9 @@ CREATE PROCEDURE EstrategiaTemporalActualizarSetDetalle
 AS
 BEGIN
 
-	SET @NroLote = ISNULL(@NroLote, 0)
-	IF @NroLote > 0
-	BEGIN
+SET @NroLote = ISNULL(@NroLote, 0)
+IF @NroLote > 0
+BEGIN
 	delete from EstrategiaProductoTemporal where NumeroLote = @NroLote and Pagina = @Pagina
 
 	insert into EstrategiaProductoTemporal
@@ -582,53 +446,27 @@ BEGIN
 		ET.NumeroLote
 		,ET.pagina
 		,ET.CampaniaId
-		,P.Cuv
+		,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END
 		,ET.CUV
-		,P.CODIGO_ESTRATEGIA
-		,P.GRUPO
-		,P.CODIGO_SAP
-		,P.CANTIDAD
-		,P.PRECIO_UNITARIO
-		,P.PRECIO_VALORIZADO
-		,P.ORDEN
-		,P.DIGITABLE
-		,P.FACTOR_CUADRE
-		,P.DESCRIPCION
-		,P.IDMARCA
-	from
-	EstrategiaTemporal ET
-		INNER JOIN (
-			SELECT
-					PM.EstrategiaIDSicc CODIGO_ESTRATEGIA
-					,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END CUV
-					,ISNULL(PMO.NUMEROGRUPO,0) GRUPO
-					,PMO.CodigoProducto CODIGO_SAP
-					,ISNULL(PMO.FactorRepeticion,1) CANTIDAD
-					,(PMO.PrecioUnitario) PRECIO_UNITARIO
-					,(PMO.PrecioValorizado) PRECIO_VALORIZADO
-					,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END ORDEN
-					,PMO.IndicadorDigitable DIGITABLE
-					,PMO.CUV COD_VENTA_HIJO
-					,CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT) FACTOR_CUADRE
-					,PMO.DESCRIPCION DESCRIPCION
-					,PMO.MarcaID IDMARCA
-					,PM.CUV CUV2
-					,PMO.AnoCampania as CampaniaID
-				FROM ODS.ProductoComercial PM WITH (NOLOCK)
-				INNER JOIN ODS.ProductoComercial PMO
-					ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc
-					AND PM.AnoCampania =PMO.AnoCampania
-					AND PM.CodigoOferta = PMO.CodigoOferta
-
-				WHERE PMO.AnoCampania in (
-					select CampaniaId
-					from EstrategiaTemporal etx
-					where etx.NumeroLote = @NroLote and etx.Pagina = @Pagina
-				)
-			) p
-			on p.CUV2 = ET.CUV
-			and P.CampaniaID = ET.CampaniaId
-
+		,PM.EstrategiaIDSicc
+		,ISNULL(PMO.NUMEROGRUPO,0)
+		,PMO.CodigoProducto
+		,ISNULL(PMO.FactorRepeticion,1)
+		,PMO.PrecioUnitario
+		,PMO.PrecioValorizado
+		,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END
+		,PMO.IndicadorDigitable
+		,CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT)
+		,PMO.DESCRIPCION
+		,PMO.MarcaID
+	from EstrategiaTemporal ET
+		INNER JOIN ODS.ProductoComercial PM WITH (NOLOCK)
+			ON PM.CUV = ET.CUV
+			AND PM.AnoCampania = et.CampaniaID
+		INNER JOIN ODS.ProductoComercial PMO WITH (NOLOCK)
+			ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc
+			AND PM.AnoCampania =PMO.AnoCampania
+			AND PM.CodigoOferta = PMO.CodigoOferta
 	where ET.NumeroLote = @NroLote
 		and ET.Pagina = @Pagina
 	UPDATE ET
@@ -642,14 +480,13 @@ BEGIN
 		AND EPT.Pagina = ET.Pagina
 		and EPT.CuvPadre = ET.CUV
 
-	END
+END
 END
 GO
 
 GO
 USE BelcorpGuatemala
 GO
-
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalActualizarSetDetalle') AND type IN ( N'P', N'PC' ) )
 	DROP PROCEDURE dbo.EstrategiaTemporalActualizarSetDetalle
@@ -662,9 +499,9 @@ CREATE PROCEDURE EstrategiaTemporalActualizarSetDetalle
 AS
 BEGIN
 
-	SET @NroLote = ISNULL(@NroLote, 0)
-	IF @NroLote > 0
-	BEGIN
+SET @NroLote = ISNULL(@NroLote, 0)
+IF @NroLote > 0
+BEGIN
 	delete from EstrategiaProductoTemporal where NumeroLote = @NroLote and Pagina = @Pagina
 
 	insert into EstrategiaProductoTemporal
@@ -690,53 +527,27 @@ BEGIN
 		ET.NumeroLote
 		,ET.pagina
 		,ET.CampaniaId
-		,P.Cuv
+		,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END
 		,ET.CUV
-		,P.CODIGO_ESTRATEGIA
-		,P.GRUPO
-		,P.CODIGO_SAP
-		,P.CANTIDAD
-		,P.PRECIO_UNITARIO
-		,P.PRECIO_VALORIZADO
-		,P.ORDEN
-		,P.DIGITABLE
-		,P.FACTOR_CUADRE
-		,P.DESCRIPCION
-		,P.IDMARCA
-	from
-	EstrategiaTemporal ET
-		INNER JOIN (
-			SELECT
-					PM.EstrategiaIDSicc CODIGO_ESTRATEGIA
-					,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END CUV
-					,ISNULL(PMO.NUMEROGRUPO,0) GRUPO
-					,PMO.CodigoProducto CODIGO_SAP
-					,ISNULL(PMO.FactorRepeticion,1) CANTIDAD
-					,(PMO.PrecioUnitario) PRECIO_UNITARIO
-					,(PMO.PrecioValorizado) PRECIO_VALORIZADO
-					,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END ORDEN
-					,PMO.IndicadorDigitable DIGITABLE
-					,PMO.CUV COD_VENTA_HIJO
-					,CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT) FACTOR_CUADRE
-					,PMO.DESCRIPCION DESCRIPCION
-					,PMO.MarcaID IDMARCA
-					,PM.CUV CUV2
-					,PMO.AnoCampania as CampaniaID
-				FROM ODS.ProductoComercial PM WITH (NOLOCK)
-				INNER JOIN ODS.ProductoComercial PMO
-					ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc
-					AND PM.AnoCampania =PMO.AnoCampania
-					AND PM.CodigoOferta = PMO.CodigoOferta
-
-				WHERE PMO.AnoCampania in (
-					select CampaniaId
-					from EstrategiaTemporal etx
-					where etx.NumeroLote = @NroLote and etx.Pagina = @Pagina
-				)
-			) p
-			on p.CUV2 = ET.CUV
-			and P.CampaniaID = ET.CampaniaId
-
+		,PM.EstrategiaIDSicc
+		,ISNULL(PMO.NUMEROGRUPO,0)
+		,PMO.CodigoProducto
+		,ISNULL(PMO.FactorRepeticion,1)
+		,PMO.PrecioUnitario
+		,PMO.PrecioValorizado
+		,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END
+		,PMO.IndicadorDigitable
+		,CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT)
+		,PMO.DESCRIPCION
+		,PMO.MarcaID
+	from EstrategiaTemporal ET
+		INNER JOIN ODS.ProductoComercial PM WITH (NOLOCK)
+			ON PM.CUV = ET.CUV
+			AND PM.AnoCampania = et.CampaniaID
+		INNER JOIN ODS.ProductoComercial PMO WITH (NOLOCK)
+			ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc
+			AND PM.AnoCampania =PMO.AnoCampania
+			AND PM.CodigoOferta = PMO.CodigoOferta
 	where ET.NumeroLote = @NroLote
 		and ET.Pagina = @Pagina
 	UPDATE ET
@@ -750,14 +561,13 @@ BEGIN
 		AND EPT.Pagina = ET.Pagina
 		and EPT.CuvPadre = ET.CUV
 
-	END
+END
 END
 GO
 
 GO
 USE BelcorpEcuador
 GO
-
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalActualizarSetDetalle') AND type IN ( N'P', N'PC' ) )
 	DROP PROCEDURE dbo.EstrategiaTemporalActualizarSetDetalle
@@ -770,9 +580,9 @@ CREATE PROCEDURE EstrategiaTemporalActualizarSetDetalle
 AS
 BEGIN
 
-	SET @NroLote = ISNULL(@NroLote, 0)
-	IF @NroLote > 0
-	BEGIN
+SET @NroLote = ISNULL(@NroLote, 0)
+IF @NroLote > 0
+BEGIN
 	delete from EstrategiaProductoTemporal where NumeroLote = @NroLote and Pagina = @Pagina
 
 	insert into EstrategiaProductoTemporal
@@ -798,53 +608,27 @@ BEGIN
 		ET.NumeroLote
 		,ET.pagina
 		,ET.CampaniaId
-		,P.Cuv
+		,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END
 		,ET.CUV
-		,P.CODIGO_ESTRATEGIA
-		,P.GRUPO
-		,P.CODIGO_SAP
-		,P.CANTIDAD
-		,P.PRECIO_UNITARIO
-		,P.PRECIO_VALORIZADO
-		,P.ORDEN
-		,P.DIGITABLE
-		,P.FACTOR_CUADRE
-		,P.DESCRIPCION
-		,P.IDMARCA
-	from
-	EstrategiaTemporal ET
-		INNER JOIN (
-			SELECT
-					PM.EstrategiaIDSicc CODIGO_ESTRATEGIA
-					,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END CUV
-					,ISNULL(PMO.NUMEROGRUPO,0) GRUPO
-					,PMO.CodigoProducto CODIGO_SAP
-					,ISNULL(PMO.FactorRepeticion,1) CANTIDAD
-					,(PMO.PrecioUnitario) PRECIO_UNITARIO
-					,(PMO.PrecioValorizado) PRECIO_VALORIZADO
-					,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END ORDEN
-					,PMO.IndicadorDigitable DIGITABLE
-					,PMO.CUV COD_VENTA_HIJO
-					,CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT) FACTOR_CUADRE
-					,PMO.DESCRIPCION DESCRIPCION
-					,PMO.MarcaID IDMARCA
-					,PM.CUV CUV2
-					,PMO.AnoCampania as CampaniaID
-				FROM ODS.ProductoComercial PM WITH (NOLOCK)
-				INNER JOIN ODS.ProductoComercial PMO
-					ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc
-					AND PM.AnoCampania =PMO.AnoCampania
-					AND PM.CodigoOferta = PMO.CodigoOferta
-
-				WHERE PMO.AnoCampania in (
-					select CampaniaId
-					from EstrategiaTemporal etx
-					where etx.NumeroLote = @NroLote and etx.Pagina = @Pagina
-				)
-			) p
-			on p.CUV2 = ET.CUV
-			and P.CampaniaID = ET.CampaniaId
-
+		,PM.EstrategiaIDSicc
+		,ISNULL(PMO.NUMEROGRUPO,0)
+		,PMO.CodigoProducto
+		,ISNULL(PMO.FactorRepeticion,1)
+		,PMO.PrecioUnitario
+		,PMO.PrecioValorizado
+		,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END
+		,PMO.IndicadorDigitable
+		,CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT)
+		,PMO.DESCRIPCION
+		,PMO.MarcaID
+	from EstrategiaTemporal ET
+		INNER JOIN ODS.ProductoComercial PM WITH (NOLOCK)
+			ON PM.CUV = ET.CUV
+			AND PM.AnoCampania = et.CampaniaID
+		INNER JOIN ODS.ProductoComercial PMO WITH (NOLOCK)
+			ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc
+			AND PM.AnoCampania =PMO.AnoCampania
+			AND PM.CodigoOferta = PMO.CodigoOferta
 	where ET.NumeroLote = @NroLote
 		and ET.Pagina = @Pagina
 	UPDATE ET
@@ -858,14 +642,13 @@ BEGIN
 		AND EPT.Pagina = ET.Pagina
 		and EPT.CuvPadre = ET.CUV
 
-	END
+END
 END
 GO
 
 GO
 USE BelcorpDominicana
 GO
-
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalActualizarSetDetalle') AND type IN ( N'P', N'PC' ) )
 	DROP PROCEDURE dbo.EstrategiaTemporalActualizarSetDetalle
@@ -878,9 +661,9 @@ CREATE PROCEDURE EstrategiaTemporalActualizarSetDetalle
 AS
 BEGIN
 
-	SET @NroLote = ISNULL(@NroLote, 0)
-	IF @NroLote > 0
-	BEGIN
+SET @NroLote = ISNULL(@NroLote, 0)
+IF @NroLote > 0
+BEGIN
 	delete from EstrategiaProductoTemporal where NumeroLote = @NroLote and Pagina = @Pagina
 
 	insert into EstrategiaProductoTemporal
@@ -906,53 +689,27 @@ BEGIN
 		ET.NumeroLote
 		,ET.pagina
 		,ET.CampaniaId
-		,P.Cuv
+		,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END
 		,ET.CUV
-		,P.CODIGO_ESTRATEGIA
-		,P.GRUPO
-		,P.CODIGO_SAP
-		,P.CANTIDAD
-		,P.PRECIO_UNITARIO
-		,P.PRECIO_VALORIZADO
-		,P.ORDEN
-		,P.DIGITABLE
-		,P.FACTOR_CUADRE
-		,P.DESCRIPCION
-		,P.IDMARCA
-	from
-	EstrategiaTemporal ET
-		INNER JOIN (
-			SELECT
-					PM.EstrategiaIDSicc CODIGO_ESTRATEGIA
-					,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END CUV
-					,ISNULL(PMO.NUMEROGRUPO,0) GRUPO
-					,PMO.CodigoProducto CODIGO_SAP
-					,ISNULL(PMO.FactorRepeticion,1) CANTIDAD
-					,(PMO.PrecioUnitario) PRECIO_UNITARIO
-					,(PMO.PrecioValorizado) PRECIO_VALORIZADO
-					,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END ORDEN
-					,PMO.IndicadorDigitable DIGITABLE
-					,PMO.CUV COD_VENTA_HIJO
-					,CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT) FACTOR_CUADRE
-					,PMO.DESCRIPCION DESCRIPCION
-					,PMO.MarcaID IDMARCA
-					,PM.CUV CUV2
-					,PMO.AnoCampania as CampaniaID
-				FROM ODS.ProductoComercial PM WITH (NOLOCK)
-				INNER JOIN ODS.ProductoComercial PMO
-					ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc
-					AND PM.AnoCampania =PMO.AnoCampania
-					AND PM.CodigoOferta = PMO.CodigoOferta
-
-				WHERE PMO.AnoCampania in (
-					select CampaniaId
-					from EstrategiaTemporal etx
-					where etx.NumeroLote = @NroLote and etx.Pagina = @Pagina
-				)
-			) p
-			on p.CUV2 = ET.CUV
-			and P.CampaniaID = ET.CampaniaId
-
+		,PM.EstrategiaIDSicc
+		,ISNULL(PMO.NUMEROGRUPO,0)
+		,PMO.CodigoProducto
+		,ISNULL(PMO.FactorRepeticion,1)
+		,PMO.PrecioUnitario
+		,PMO.PrecioValorizado
+		,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END
+		,PMO.IndicadorDigitable
+		,CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT)
+		,PMO.DESCRIPCION
+		,PMO.MarcaID
+	from EstrategiaTemporal ET
+		INNER JOIN ODS.ProductoComercial PM WITH (NOLOCK)
+			ON PM.CUV = ET.CUV
+			AND PM.AnoCampania = et.CampaniaID
+		INNER JOIN ODS.ProductoComercial PMO WITH (NOLOCK)
+			ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc
+			AND PM.AnoCampania =PMO.AnoCampania
+			AND PM.CodigoOferta = PMO.CodigoOferta
 	where ET.NumeroLote = @NroLote
 		and ET.Pagina = @Pagina
 	UPDATE ET
@@ -966,14 +723,13 @@ BEGIN
 		AND EPT.Pagina = ET.Pagina
 		and EPT.CuvPadre = ET.CUV
 
-	END
+END
 END
 GO
 
 GO
 USE BelcorpCostaRica
 GO
-
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalActualizarSetDetalle') AND type IN ( N'P', N'PC' ) )
 	DROP PROCEDURE dbo.EstrategiaTemporalActualizarSetDetalle
@@ -986,9 +742,9 @@ CREATE PROCEDURE EstrategiaTemporalActualizarSetDetalle
 AS
 BEGIN
 
-	SET @NroLote = ISNULL(@NroLote, 0)
-	IF @NroLote > 0
-	BEGIN
+SET @NroLote = ISNULL(@NroLote, 0)
+IF @NroLote > 0
+BEGIN
 	delete from EstrategiaProductoTemporal where NumeroLote = @NroLote and Pagina = @Pagina
 
 	insert into EstrategiaProductoTemporal
@@ -1014,53 +770,27 @@ BEGIN
 		ET.NumeroLote
 		,ET.pagina
 		,ET.CampaniaId
-		,P.Cuv
+		,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END
 		,ET.CUV
-		,P.CODIGO_ESTRATEGIA
-		,P.GRUPO
-		,P.CODIGO_SAP
-		,P.CANTIDAD
-		,P.PRECIO_UNITARIO
-		,P.PRECIO_VALORIZADO
-		,P.ORDEN
-		,P.DIGITABLE
-		,P.FACTOR_CUADRE
-		,P.DESCRIPCION
-		,P.IDMARCA
-	from
-	EstrategiaTemporal ET
-		INNER JOIN (
-			SELECT
-					PM.EstrategiaIDSicc CODIGO_ESTRATEGIA
-					,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END CUV
-					,ISNULL(PMO.NUMEROGRUPO,0) GRUPO
-					,PMO.CodigoProducto CODIGO_SAP
-					,ISNULL(PMO.FactorRepeticion,1) CANTIDAD
-					,(PMO.PrecioUnitario) PRECIO_UNITARIO
-					,(PMO.PrecioValorizado) PRECIO_VALORIZADO
-					,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END ORDEN
-					,PMO.IndicadorDigitable DIGITABLE
-					,PMO.CUV COD_VENTA_HIJO
-					,CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT) FACTOR_CUADRE
-					,PMO.DESCRIPCION DESCRIPCION
-					,PMO.MarcaID IDMARCA
-					,PM.CUV CUV2
-					,PMO.AnoCampania as CampaniaID
-				FROM ODS.ProductoComercial PM WITH (NOLOCK)
-				INNER JOIN ODS.ProductoComercial PMO
-					ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc
-					AND PM.AnoCampania =PMO.AnoCampania
-					AND PM.CodigoOferta = PMO.CodigoOferta
-
-				WHERE PMO.AnoCampania in (
-					select CampaniaId
-					from EstrategiaTemporal etx
-					where etx.NumeroLote = @NroLote and etx.Pagina = @Pagina
-				)
-			) p
-			on p.CUV2 = ET.CUV
-			and P.CampaniaID = ET.CampaniaId
-
+		,PM.EstrategiaIDSicc
+		,ISNULL(PMO.NUMEROGRUPO,0)
+		,PMO.CodigoProducto
+		,ISNULL(PMO.FactorRepeticion,1)
+		,PMO.PrecioUnitario
+		,PMO.PrecioValorizado
+		,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END
+		,PMO.IndicadorDigitable
+		,CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT)
+		,PMO.DESCRIPCION
+		,PMO.MarcaID
+	from EstrategiaTemporal ET
+		INNER JOIN ODS.ProductoComercial PM WITH (NOLOCK)
+			ON PM.CUV = ET.CUV
+			AND PM.AnoCampania = et.CampaniaID
+		INNER JOIN ODS.ProductoComercial PMO WITH (NOLOCK)
+			ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc
+			AND PM.AnoCampania =PMO.AnoCampania
+			AND PM.CodigoOferta = PMO.CodigoOferta
 	where ET.NumeroLote = @NroLote
 		and ET.Pagina = @Pagina
 	UPDATE ET
@@ -1074,14 +804,13 @@ BEGIN
 		AND EPT.Pagina = ET.Pagina
 		and EPT.CuvPadre = ET.CUV
 
-	END
+END
 END
 GO
 
 GO
 USE BelcorpChile
 GO
-
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalActualizarSetDetalle') AND type IN ( N'P', N'PC' ) )
 	DROP PROCEDURE dbo.EstrategiaTemporalActualizarSetDetalle
@@ -1094,9 +823,9 @@ CREATE PROCEDURE EstrategiaTemporalActualizarSetDetalle
 AS
 BEGIN
 
-	SET @NroLote = ISNULL(@NroLote, 0)
-	IF @NroLote > 0
-	BEGIN
+SET @NroLote = ISNULL(@NroLote, 0)
+IF @NroLote > 0
+BEGIN
 	delete from EstrategiaProductoTemporal where NumeroLote = @NroLote and Pagina = @Pagina
 
 	insert into EstrategiaProductoTemporal
@@ -1122,53 +851,27 @@ BEGIN
 		ET.NumeroLote
 		,ET.pagina
 		,ET.CampaniaId
-		,P.Cuv
+		,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END
 		,ET.CUV
-		,P.CODIGO_ESTRATEGIA
-		,P.GRUPO
-		,P.CODIGO_SAP
-		,P.CANTIDAD
-		,P.PRECIO_UNITARIO
-		,P.PRECIO_VALORIZADO
-		,P.ORDEN
-		,P.DIGITABLE
-		,P.FACTOR_CUADRE
-		,P.DESCRIPCION
-		,P.IDMARCA
-	from
-	EstrategiaTemporal ET
-		INNER JOIN (
-			SELECT
-					PM.EstrategiaIDSicc CODIGO_ESTRATEGIA
-					,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END CUV
-					,ISNULL(PMO.NUMEROGRUPO,0) GRUPO
-					,PMO.CodigoProducto CODIGO_SAP
-					,ISNULL(PMO.FactorRepeticion,1) CANTIDAD
-					,(PMO.PrecioUnitario) PRECIO_UNITARIO
-					,(PMO.PrecioValorizado) PRECIO_VALORIZADO
-					,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END ORDEN
-					,PMO.IndicadorDigitable DIGITABLE
-					,PMO.CUV COD_VENTA_HIJO
-					,CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT) FACTOR_CUADRE
-					,PMO.DESCRIPCION DESCRIPCION
-					,PMO.MarcaID IDMARCA
-					,PM.CUV CUV2
-					,PMO.AnoCampania as CampaniaID
-				FROM ODS.ProductoComercial PM WITH (NOLOCK)
-				INNER JOIN ODS.ProductoComercial PMO
-					ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc
-					AND PM.AnoCampania =PMO.AnoCampania
-					AND PM.CodigoOferta = PMO.CodigoOferta
-
-				WHERE PMO.AnoCampania in (
-					select CampaniaId
-					from EstrategiaTemporal etx
-					where etx.NumeroLote = @NroLote and etx.Pagina = @Pagina
-				)
-			) p
-			on p.CUV2 = ET.CUV
-			and P.CampaniaID = ET.CampaniaId
-
+		,PM.EstrategiaIDSicc
+		,ISNULL(PMO.NUMEROGRUPO,0)
+		,PMO.CodigoProducto
+		,ISNULL(PMO.FactorRepeticion,1)
+		,PMO.PrecioUnitario
+		,PMO.PrecioValorizado
+		,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END
+		,PMO.IndicadorDigitable
+		,CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT)
+		,PMO.DESCRIPCION
+		,PMO.MarcaID
+	from EstrategiaTemporal ET
+		INNER JOIN ODS.ProductoComercial PM WITH (NOLOCK)
+			ON PM.CUV = ET.CUV
+			AND PM.AnoCampania = et.CampaniaID
+		INNER JOIN ODS.ProductoComercial PMO WITH (NOLOCK)
+			ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc
+			AND PM.AnoCampania =PMO.AnoCampania
+			AND PM.CodigoOferta = PMO.CodigoOferta
 	where ET.NumeroLote = @NroLote
 		and ET.Pagina = @Pagina
 	UPDATE ET
@@ -1182,14 +885,13 @@ BEGIN
 		AND EPT.Pagina = ET.Pagina
 		and EPT.CuvPadre = ET.CUV
 
-	END
+END
 END
 GO
 
 GO
 USE BelcorpBolivia
 GO
-
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalActualizarSetDetalle') AND type IN ( N'P', N'PC' ) )
 	DROP PROCEDURE dbo.EstrategiaTemporalActualizarSetDetalle
@@ -1202,9 +904,9 @@ CREATE PROCEDURE EstrategiaTemporalActualizarSetDetalle
 AS
 BEGIN
 
-	SET @NroLote = ISNULL(@NroLote, 0)
-	IF @NroLote > 0
-	BEGIN
+SET @NroLote = ISNULL(@NroLote, 0)
+IF @NroLote > 0
+BEGIN
 	delete from EstrategiaProductoTemporal where NumeroLote = @NroLote and Pagina = @Pagina
 
 	insert into EstrategiaProductoTemporal
@@ -1230,53 +932,27 @@ BEGIN
 		ET.NumeroLote
 		,ET.pagina
 		,ET.CampaniaId
-		,P.Cuv
+		,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END
 		,ET.CUV
-		,P.CODIGO_ESTRATEGIA
-		,P.GRUPO
-		,P.CODIGO_SAP
-		,P.CANTIDAD
-		,P.PRECIO_UNITARIO
-		,P.PRECIO_VALORIZADO
-		,P.ORDEN
-		,P.DIGITABLE
-		,P.FACTOR_CUADRE
-		,P.DESCRIPCION
-		,P.IDMARCA
-	from
-	EstrategiaTemporal ET
-		INNER JOIN (
-			SELECT
-					PM.EstrategiaIDSicc CODIGO_ESTRATEGIA
-					,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.CUV ELSE PMO.CUV END CUV
-					,ISNULL(PMO.NUMEROGRUPO,0) GRUPO
-					,PMO.CodigoProducto CODIGO_SAP
-					,ISNULL(PMO.FactorRepeticion,1) CANTIDAD
-					,(PMO.PrecioUnitario) PRECIO_UNITARIO
-					,(PMO.PrecioValorizado) PRECIO_VALORIZADO
-					,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END ORDEN
-					,PMO.IndicadorDigitable DIGITABLE
-					,PMO.CUV COD_VENTA_HIJO
-					,CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT) FACTOR_CUADRE
-					,PMO.DESCRIPCION DESCRIPCION
-					,PMO.MarcaID IDMARCA
-					,PM.CUV CUV2
-					,PMO.AnoCampania as CampaniaID
-				FROM ODS.ProductoComercial PM WITH (NOLOCK)
-				INNER JOIN ODS.ProductoComercial PMO
-					ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc
-					AND PM.AnoCampania =PMO.AnoCampania
-					AND PM.CodigoOferta = PMO.CodigoOferta
-
-				WHERE PMO.AnoCampania in (
-					select CampaniaId
-					from EstrategiaTemporal etx
-					where etx.NumeroLote = @NroLote and etx.Pagina = @Pagina
-				)
-			) p
-			on p.CUV2 = ET.CUV
-			and P.CampaniaID = ET.CampaniaId
-
+		,PM.EstrategiaIDSicc
+		,ISNULL(PMO.NUMEROGRUPO,0)
+		,PMO.CodigoProducto
+		,ISNULL(PMO.FactorRepeticion,1)
+		,PMO.PrecioUnitario
+		,PMO.PrecioValorizado
+		,CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END
+		,PMO.IndicadorDigitable
+		,CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT)
+		,PMO.DESCRIPCION
+		,PMO.MarcaID
+	from EstrategiaTemporal ET
+		INNER JOIN ODS.ProductoComercial PM WITH (NOLOCK)
+			ON PM.CUV = ET.CUV
+			AND PM.AnoCampania = et.CampaniaID
+		INNER JOIN ODS.ProductoComercial PMO WITH (NOLOCK)
+			ON PM.EstrategiaIDSicc = PMO.EstrategiaIDSicc
+			AND PM.AnoCampania =PMO.AnoCampania
+			AND PM.CodigoOferta = PMO.CodigoOferta
 	where ET.NumeroLote = @NroLote
 		and ET.Pagina = @Pagina
 	UPDATE ET
@@ -1290,7 +966,7 @@ BEGIN
 		AND EPT.Pagina = ET.Pagina
 		and EPT.CuvPadre = ET.CUV
 
-	END
+END
 END
 GO
 
