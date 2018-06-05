@@ -987,10 +987,8 @@
                     if (data.listasegmento.length > 0) {
                         for (var item in data.listasegmento) {
                             if (data.listasegmento.hasOwnProperty(+item)) {
-                                ddlSegmentoBanner.append('<div style="display:block"><div style="float:left"><input type="Checkbox" value="' + data.listasegmento[item].BannerSegmentoId + '" style="display:inline-block !important; height: 15px !important;" /></div><div style="float:left;">' + data.listasegmento[item].BannerSegmentoDes + '</div> <div style="clear: both"></div></div>');
-
+                                ddlSegmentoBanner.append('<div style="display:block"><div style="float:left"><input type="Checkbox" value="' + data.listasegmento[item].BannerSegmentoId + '" style="display:inline-block !important; height: 15px !important;" /></div><div style="float:left;">' + data.listasegmento[item].BannerSegmentoDes + '</div> <div style="clear: both"></div></div>');                                
                             }
-
                         }
 
                         var BannerId = $("#hdBannerIdSegZon").val();
@@ -1384,7 +1382,7 @@
 
     function ShowBannerOptions(val, options, rowObject) {
         var BannerId = rowObject[0];
-        
+
         var hasGroupNew = HasGroupOrNewConsultora(rowObject);
 
         var SeccionId = (Number)(rowObject[1]);
@@ -1402,11 +1400,11 @@
         if (!cells) {
             return false;
         }
-        
+
         if (cells.length < 29) {
             return false;
         }
-        
+
         return cells[27] === 'true' || cells[28] === 'true';
     }
 
@@ -2233,7 +2231,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div id="div_cuv" style="display: none;">
                 <div class="div-3">
                     <div class="titG">CUV:</div>
@@ -2271,96 +2269,107 @@
                 <select id="ddlPaisesBanSegZona"></select>
             </div>
         </div>
-        <div class="div-3">
-            <div class="titC">Segmento:</div>
-            <div class="selectA borde_redondeado">
-                <ul id="ddlSegmentoBanner"></ul>&nbsp;
+        <div>
+            <div style="float:left">
+                <div class="div-3">
+                    <div class="titC">Segmento:</div>
+                    <div class="selectA borde_redondeado">
+                        <ul id="ddlSegmentoBanner"></ul>&nbsp;
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="div-3">
-            <div class="titC">Jerarquía:</div>
-            <div class="treeview_content borde_redondeado">
-                <div id="arbolRegionZona" class="demo">
+            <div style="float:left">
+                <div class="div-3">
+                    <div class="titC">Jerarquía:</div>
+                    <div class="treeview_content borde_redondeado">
+                        <div id="arbolRegionZona" class="demo">
+                        </div>
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titC"></div>
+                    <div class="titH">
+                        <div style="float:left">
+                            <label id="lblSeleccionar">
+                                <input type="checkbox" id="chkSeleccionar" />
+
+                            </label>
+                        </div>
+                        <div style="float:left; margin-top:10px">
+                            Seleccionar todo
+                        </div>
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+            </div>
+            <div class="div-3">
+                <div class="titC">Tipo de Acceso:</div>
+                <div class="selectA borde_redondeado">
+                    <select id="ddlTipoAcceso">
+                        <option value="">-- Seleccionar --</option>
+                        <option value="@Constantes.TipoAccesoSegmento.Inclusion">Inclusión</option>
+                        <option value="@Constantes.TipoAccesoSegmento.Exclusion">Exclusión</option>
+                    </select>
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titC">Adjuntar Consultoras:</div>
+                <div class="input_file">
+                    <input type="file" id="flConsultorasSegmento" value="" accept=".csv" />
+                    <div style="margin-top:15px">Formato de Archivo (*.csv) <br> - Código Consultora</div>
                 </div>
             </div>
         </div>
-        <div class="div-3">
-            <div class="titC"></div>
-            <div class="titH">
-                <label id="lblSeleccionar">
-                    <input type="checkbox" id="chkSeleccionar" />
-                    Seleccionar todo
-                </label>
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titC">Tipo de Acceso:</div>
-            <div class="selectA borde_redondeado">
-                <select id="ddlTipoAcceso">
-                    <option value="">-- Seleccionar --</option>
-                    <option value="@Constantes.TipoAccesoSegmento.Inclusion">Inclusión</option>
-                    <option value="@Constantes.TipoAccesoSegmento.Exclusion">Exclusión</option>
-                </select>
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titC">Adjuntar Consultoras:</div>
-            <div class="input_file">
-                <input type="file" id="flConsultorasSegmento" value="" accept=".csv" />
-                <div style="margin-top:15px">Formato de Archivo (*.csv) <br> - Código Consultora</div>
-            </div>
-        </div>
     </div>
-</div>
 
-<div id="DialogMensajesBanner">
-    <div class="Content_modal">
-        <div class="message_text">
-            Ocurrió un error en la comunicación o la sesión ha expirado. Por favor vuelva a autenticarse.
-        </div>
-    </div>
-</div>
-@Html.Hidden("hdn_SeccionID")
-<div id="DialogPreviewBanPrincipal" style="display: none">
-    <div class="Content_modal">
-        <div class="div-3">
-            <div class="titC">País:</div>
-            <div class="selectA borde_redondeado">
-                <select id="ddlPaisesBanPrinpl"></select>
+    <div id="DialogMensajesBanner">
+        <div class="Content_modal">
+            <div class="message_text">
+                Ocurrió un error en la comunicación o la sesión ha expirado. Por favor vuelva a autenticarse.
             </div>
         </div>
-        <div class="border_banner" id="divBanPPreview">
+    </div>
+    @Html.Hidden("hdn_SeccionID")
+    <div id="DialogPreviewBanPrincipal" style="display: none">
+        <div class="Content_modal">
+            <div class="div-3">
+                <div class="titC">País:</div>
+                <div class="selectA borde_redondeado">
+                    <select id="ddlPaisesBanPrinpl"></select>
+                </div>
+            </div>
+            <div class="border_banner" id="divBanPPreview">
+            </div>
         </div>
     </div>
-</div>
 
-<div id="DialogPreviewBanPrincipalSB2" style="display: none">
-    <div class="Content_modal">
-        <div class="div-3">
-            <div class="titC">País:</div>
-            <div class="selectA borde_redondeado">
-                <select id="ddlPaisesBanPrinpl_SB2"></select>
+    <div id="DialogPreviewBanPrincipalSB2" style="display: none">
+        <div class="Content_modal">
+            <div class="div-3">
+                <div class="titC">País:</div>
+                <div class="selectA borde_redondeado">
+                    <select id="ddlPaisesBanPrinpl_SB2"></select>
+                </div>
+            </div>
+            <div class="border_banner" id="divBanPPreviewSB2">
             </div>
         </div>
-        <div class="border_banner" id="divBanPPreviewSB2">
-        </div>
     </div>
-</div>
 
-<div id="DialogPreviewBanBaja" style="display: none">
-    <div class="Content_modal">
-        <div class="div-3">
-            <div class="titC">País:</div>
-            <div class="selectA borde_redondeado">
-                <select id="ddlPaisesBanBaja"></select>
+    <div id="DialogPreviewBanBaja" style="display: none">
+        <div class="Content_modal">
+            <div class="div-3">
+                <div class="titC">País:</div>
+                <div class="selectA borde_redondeado">
+                    <select id="ddlPaisesBanBaja"></select>
+                </div>
+            </div>
+            <div class="border_banner" id="divBanBPreview">
             </div>
         </div>
-        <div class="border_banner" id="divBanBPreview">
+    </div>
+    <div id="DialogImagenContainer" style="display: none;">
+        <div class="Content_modal">
+            <img src='' id="imgModal" />
         </div>
     </div>
-</div>
-<div id="DialogImagenContainer" style="display: none;">
-    <div class="Content_modal">
-        <img src='' id="imgModal" />
-    </div>
-</div>
