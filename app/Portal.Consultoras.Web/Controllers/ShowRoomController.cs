@@ -28,12 +28,10 @@ namespace Portal.Consultoras.Web.Controllers
         private static readonly string CodigoProceso = ConfigurationManager.AppSettings["EmailCodigoProceso"];
         private int _ofertaId;
         private bool _blnRecibido;
-        private readonly ISessionManager _sessionManager;
         protected Models.Estrategia.ShowRoom.ConfigModel configEstrategiaSR;
 
-        public ShowRoomController()
+        public ShowRoomController():base()
         {
-            _sessionManager = SessionManager.SessionManager.Instance;
             configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
         }
 
@@ -3583,7 +3581,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult DesactivarBannerInferior()
         {
-            _sessionManager.ShowRoom.BannerInferiorConfiguracion.Activo = false;
+            sessionManager.ShowRoom.BannerInferiorConfiguracion.Activo = false;
 
             return Json(ResultModel<bool>.BuildOk(true), JsonRequestBehavior.AllowGet);
         }
