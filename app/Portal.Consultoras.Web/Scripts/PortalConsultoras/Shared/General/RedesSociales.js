@@ -110,7 +110,7 @@
         } else if (tipoRedes == "WA") {
             if (texto != "")
                 texto = texto + " - ";
-            $("#HiddenRedesSocialesWA").attr("href", 'javascript:window.location=CompartirRedesSocialesTexto("' + texto + ruta + '")');
+            $("#HiddenRedesSocialesWA").attr("href", 'javascript:window.location=RedesSociales.CompartirTexto("' + texto + ruta + '")');
             $("#HiddenRedesSocialesWA")[0].click();
         }
     }
@@ -168,7 +168,8 @@
     }
 
     return {
-        init: Inicializar
+        init: Inicializar,
+        CompartirTexto: CompartirRedesSocialesTexto
     }
 })();
 
