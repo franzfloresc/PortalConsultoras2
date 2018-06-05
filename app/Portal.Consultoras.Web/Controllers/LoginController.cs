@@ -1282,8 +1282,13 @@ namespace Portal.Consultoras.Web.Controllers
                 datos = await service.GetTablaLogicaDatosAsync(paisId, 142);
             }
 
+            if (datos == null)
+            {
+                return string.Empty;
+            }
+
             var result = datos.FirstOrDefault(r => r.TablaLogicaDatosID == 14201);
-            return result == null ? string.Empty : result.Descripcion;
+            return result == null ? string.Empty : result.Valor;
         }
 
         private async Task<bool> GetPermisoFlexipago(ServiceUsuario.BEUsuario usuario)
