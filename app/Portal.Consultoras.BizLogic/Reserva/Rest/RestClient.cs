@@ -2,47 +2,23 @@
 using Portal.Consultoras.Common;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Portal.Consultoras.BizLogic.Reserva
+namespace Portal.Consultoras.BizLogic.Reserva.Rest
 {
     public static class RestClient
     {
-        private const string _mediaType = "application/json";
-        private static readonly Dictionary<Enumeradores.RestService, HttpClient> _dictClient;
-
-        static RestClient()
-        {
-            _dictClient = new Dictionary<Enumeradores.RestService, HttpClient>();
-            HttpClient httpClient;
-            string configKey;
-            
-            foreach (Enumeradores.RestService restServiceEnum in Enum.GetValues(typeof(Enumeradores.RestService)))
-            {
-                switch (restServiceEnum)
-                {
-                    case Enumeradores.RestService.ReservaSicc: configKey = Constantes.ConfiguracionManager.UrlServiceSicc; break;
-                    default: configKey = ""; break;
-                }
-
-                httpClient = new HttpClient();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_mediaType));
-                httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings[configKey]);
-
-                _dictClient.Add(restServiceEnum, httpClient);
-            }
-        }
+        private const string MEDIA_TYPE = "application/json";
+        private static readonly DictHttpClient dictClient = new DictHttpClient(MEDIA_TYPE);
 
         public static async Task<IEnumerable<T>> GetAsync<T>(Enumeradores.RestService restServiceEnum, string path) where T : class, new()
         {
             try
             {
-                var _client = _dictClient[restServiceEnum];
+                var _client = dictClient.Get(restServiceEnum);
                 var response = await _client.GetAsync(path);
                 response.EnsureSuccessStatusCode();
 
@@ -69,8 +45,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
         {
             try
             {
-                var _client = _dictClient[restServiceEnum];
-                var postBody = new StringContent(JsonConvert.SerializeObject(obj).ToString(), Encoding.UTF8, _mediaType);
+                var _client = dictClient.Get(restServiceEnum);
+                var postBody = new StringContent(JsonConvert.SerializeObject(obj).ToString(), Encoding.UTF8, MEDIA_TYPE);
                 var response = await _client.PostAsync(path, postBody);
                 response.EnsureSuccessStatusCode();
 
@@ -90,8 +66,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
         {
             try
             {
-                var _client = _dictClient[restServiceEnum];
-                var postBody = new StringContent(JsonConvert.SerializeObject(obj).ToString(), Encoding.UTF8, _mediaType);
+                var _client = dictClient.Get(restServiceEnum);
+                var postBody = new StringContent(JsonConvert.SerializeObject(obj).ToString(), Encoding.UTF8, MEDIA_TYPE);
                 var response = await _client.PutAsync(path, postBody);
                 response.EnsureSuccessStatusCode();
 
