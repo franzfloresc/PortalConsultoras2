@@ -13,6 +13,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace Portal.Consultoras.BizLogic.Pedido
 {
@@ -30,10 +31,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private readonly IMensajeMetaConsultoraBusinessLogic _mensajeMetaConsultoraBusinessLogic;
         private readonly IReservaBusinessLogic _reservaBusinessLogic;
         private readonly ITipoEstrategiaBusinessLogic _tipoEstrategiaBusinessLogic;
+        private readonly IEstrategiaProductoBusinessLogic _estrategiaProductoBusinessLogic;
 
         private string nombreServicio = string.Empty;
 
-        public BLPedidoApp() : this(new BLProducto(), 
+        public BLPedidoApp() : this(new BLProducto(),
                                     new BLPedidoWeb(),
                                     new BLPedidoWebDetalle(),
                                     new BLEstrategia(),
@@ -44,10 +46,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     new BLEscalaDescuento(),
                                     new BLMensajeMetaConsultora(),
                                     new BLReserva(),
-                                    new BLTipoEstrategia())
+                                    new BLTipoEstrategia(),
+                                    new BLEstrategiaProducto())
         { }
 
-        public BLPedidoApp(IProductoBusinessLogic productoBusinessLogic, 
+        public BLPedidoApp(IProductoBusinessLogic productoBusinessLogic,
                             IPedidoWebBusinessLogic pedidoWebBusinessLogic,
                             IPedidoWebDetalleBusinessLogic pedidoWebDetalleBusinessLogic,
                             IEstrategiaBusinessLogic estrategiaBusinessLogic,
@@ -58,7 +61,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             IEscalaDescuentoBusinessLogic escalaDescuentoBusinessLogic,
                             IMensajeMetaConsultoraBusinessLogic mensajeMetaConsultoraBusinessLogic,
                             IReservaBusinessLogic reservaBusinessLogic,
-                            ITipoEstrategiaBusinessLogic tipoEstrategiaBusinessLogic)
+                            ITipoEstrategiaBusinessLogic tipoEstrategiaBusinessLogic,
+                            IEstrategiaProductoBusinessLogic estrategiaProductoBusinessLogic)
         {
             _productoBusinessLogic = productoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
@@ -72,6 +76,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             _mensajeMetaConsultoraBusinessLogic = mensajeMetaConsultoraBusinessLogic;
             _reservaBusinessLogic = reservaBusinessLogic;
             _tipoEstrategiaBusinessLogic = tipoEstrategiaBusinessLogic;
+            _estrategiaProductoBusinessLogic = estrategiaProductoBusinessLogic;
         }
 
         #region Publicos
@@ -467,7 +472,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 LogManager.SaveLog(ex, pedidoDetalle.Usuario.CodigoUsuario, pedidoDetalle.PaisID);
                 return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_INTERNO, ex.Message);
             }
-            
+
         }
 
         public BEConfiguracionPedido GetConfiguracion(int paisID, string codigoUsuario)
@@ -636,7 +641,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 nombreServicio = "DeshacerReserva";
                 LogPerformance("Inicio");
- 
+
                 //Obtener pedido
                 pedido = _pedidoWebBusinessLogic.GetPedidoWebByCampaniaConsultora(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
                 LogPerformance("GetPedidoWebByCampaniaConsultora");
@@ -649,7 +654,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 mensaje = _reservaBusinessLogic.DeshacerPedidoValidado(usuario, Constantes.EstadoPedido.PedidoValidado);
                 LogPerformance("DeshacerPedidoValidado");
                 if (mensaje != string.Empty) return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_DESHACER_PEDIDO, mensaje);
-                 
+
                 return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.SUCCESS);
             }
             catch (Exception ex)
@@ -674,7 +679,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 lstEstrategia = ConsultarEstrategiasHomePedido(string.Empty, codAgrupa, usuario);
 
-                lstEstrategia.Update(x => x.DescripcionCortaCUV2 = Util.SubStrCortarNombre(x.DescripcionCUV2, 40));
+                lstEstrategia = lstEstrategia.Where(x => x.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+
+                foreach (var item in lstEstrategia)
+                {
+                    item.PaisID = usuario.PaisID;
+                    item.DescripcionCortaCUV2 = Util.SubStrCortarNombre(item.DescripcionCUV2, 40);
+                    GetEstrategiaDetalleCarrusel(item);
+                }
             }
             catch (Exception ex)
             {
@@ -752,7 +764,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             };
         }
 
-        private bool ValidarStockEstrategia(BEUsuario usuario, BEPedidoDetalleApp pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle, 
+        private bool ValidarStockEstrategia(BEUsuario usuario, BEPedidoDetalleApp pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle,
             out string mensaje)
         {
             var resultado = false;
@@ -766,7 +778,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return mensaje == string.Empty || resultado;
         }
 
-        private string ValidarMontoMaximo(BEUsuario usuario, BEPedidoDetalleApp pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle, 
+        private string ValidarMontoMaximo(BEUsuario usuario, BEPedidoDetalleApp pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle,
             out bool resul)
         {
             var mensaje = string.Empty;
@@ -907,7 +919,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return obeConfiguracionProgramaNuevas ?? new BEConfiguracionProgramaNuevas();
         }
 
-        private bool AdministradorPedido(BEUsuario usuario, BEPedidoDetalleApp pedidoDetalle, BEPedidoWebDetalle obePedidoWebDetalle, 
+        private bool AdministradorPedido(BEUsuario usuario, BEPedidoDetalleApp pedidoDetalle, BEPedidoWebDetalle obePedidoWebDetalle,
             List<BEPedidoWebDetalle> lstDetalle, string tipoAdm)
         {
             var resultado = true;
@@ -1107,7 +1119,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 PaisID = pedidoDetalle.PaisID,
                 CampaniaID = usuario.CampaniaID,
-                PedidoID = pedidoDetalle.PedidoID, 
+                PedidoID = pedidoDetalle.PedidoID,
                 PedidoDetalleID = pedidoDetalle.PedidoDetalleID,
                 Cantidad = Convert.ToInt32(pedidoDetalle.Cantidad),
                 PrecioUnidad = pedidoDetalle.Producto.PrecioCatalogo,
@@ -1343,7 +1355,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return listModel;
         }
 
-        public List<BEEstrategia> ConsultarEstrategias(string cuv, int campaniaId, string codAgrupacion, BEUsuario usuario)
+        private List<BEEstrategia> ConsultarEstrategias(string cuv, int campaniaId, string codAgrupacion, BEUsuario usuario)
         {
             var listEstrategia = new List<BEEstrategia>();
 
@@ -1354,7 +1366,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 Constantes.TipoEstrategiaCodigo.HerramientasVenta
             };
 
-            if(!lstExcluye.Any(x => x == codAgrupacion))
+            if (!lstExcluye.Any(x => x == codAgrupacion))
             {
                 listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.PackNuevas, usuario));
                 listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.OfertaWeb, usuario));
@@ -1363,8 +1375,17 @@ namespace Portal.Consultoras.BizLogic.Pedido
             switch (codAgrupacion)
             {
                 case Constantes.TipoEstrategiaCodigo.RevistaDigital:
-                    //listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.Lanzamiento, usuario));
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.Lanzamiento, usuario));
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.RevistaDigital, usuario));
+                    break;
+                case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.Lanzamiento, usuario));
+                    break;
+                case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada, usuario));
+                    break;
+                case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.HerramientasVenta, usuario));
                     break;
                 default:
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.OfertaParaTi, usuario));
@@ -1374,7 +1395,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return listEstrategia;
         }
 
-        public List<BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, BEUsuario usuario)
+        private List<BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, BEUsuario usuario)
         {
             var entidad = new BEEstrategia
             {
@@ -1413,6 +1434,60 @@ namespace Portal.Consultoras.BizLogic.Pedido
             listEstrategia = listEstrategia.Where(e => !pedidoWebDetalle.Any(d => d.CUV == e.CUV2)).ToList();
 
             return listEstrategia;
+        }
+
+        private void GetEstrategiaDetalleCarrusel(BEEstrategia estrategia)
+        {
+            var joinCuv = string.Empty;
+
+            var listaProducto = GetEstrategiaDetalleCodigoSAP(estrategia, out joinCuv);
+            if (joinCuv == string.Empty) return;
+
+            estrategia.EstrategiaProductoCodigoSAP = joinCuv;
+            estrategia.EstrategiaProducto = listaProducto;
+        }
+
+        private List<BEEstrategiaProducto> GetEstrategiaDetalleCodigoSAP(BEEstrategia estrategia, out string codigoSap)
+        {
+            codigoSap = "";
+            var separador = "|";
+
+            var txtBuil = new StringBuilder();
+            txtBuil.Append(separador);
+
+            if (estrategia.CodigoEstrategia == Constantes.TipoEstrategiaSet.IndividualConTonos)
+            {
+                var listaHermanosE = _productoBusinessLogic.GetListBrothersByCUV(estrategia.PaisID, estrategia.CampaniaID, estrategia.CUV2).ToList();
+
+                foreach (var item in listaHermanosE)
+                {
+                    item.CodigoSAP = Util.Trim(item.CodigoSAP);
+                    if (item.CodigoSAP != string.Empty && !txtBuil.ToString().Contains(separador + item.CodigoSAP + separador))
+                        txtBuil.Append(item.CodigoSAP + separador);
+                }
+            }
+
+            var listaProducto = new List<BEEstrategiaProducto>();
+            if (estrategia.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija || estrategia.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
+            {
+                listaProducto = _estrategiaProductoBusinessLogic.GetEstrategiaProducto(estrategia);
+
+                foreach (var item in listaProducto)
+                {
+                    item.SAP = Util.Trim(item.SAP);
+                    if (item.SAP != "" && !txtBuil.ToString().Contains(separador + item.SAP + separador))
+                        txtBuil.Append(item.SAP + separador);
+                }
+            }
+
+            codigoSap = txtBuil.ToString();
+
+            if (codigoSap == separador)
+                codigoSap = string.Empty;
+            else
+                codigoSap = codigoSap.Substring(separador.Length, codigoSap.Length - separador.Length * 2);
+
+            return listaProducto;
         }
         #endregion
     }
