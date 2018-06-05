@@ -53,5 +53,9 @@ namespace Portal.Consultoras.Entities.Estrategia
         [DataMember]
         [Column("FechaRegistro")]
         public DateTime? FechaRegistro { get; set; }
+
+        [DataMember]
+        [Column("ImporteReal")]
+        public decimal ImporteReal { get; set; }
     }
 }
