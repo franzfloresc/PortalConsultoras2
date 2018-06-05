@@ -2102,13 +2102,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var productosFaltantes = GetProductosFaltantes(cuv, descripcion , categoria , revista);
-
-                var model = productosFaltantes.GroupBy(pf => pf.CUV).Select(pfg => new ProductoFaltanteModel
-                {
-                    Categoria = pfg.Key,
-                    Detalle = pfg.Select(pf => pf).ToList()
-                });
-
+                ProductoFaltanteModel model = new ProductoFaltanteModel { Detalle = productosFaltantes };
                 return Json(new { result = true, data = model }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
