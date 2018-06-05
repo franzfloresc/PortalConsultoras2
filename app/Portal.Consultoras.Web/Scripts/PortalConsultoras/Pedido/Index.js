@@ -3454,7 +3454,7 @@ function CargarProductoAgotados(identificador) {
             if (response.result) {
                 SetHandlebars("#productos-faltantes-template", response.data, '#tblProductosFaltantes');
              
-                if (response.data.length == 0)
+                if (response.data.Detalle.length == 0)
                     $("#tblProductosFaltantes table").find("#tfoot").removeClass("hidden"); 
                 else
                     $("#tblProductosFaltantes table").find("#tfoot").addClass("hidden"); 
