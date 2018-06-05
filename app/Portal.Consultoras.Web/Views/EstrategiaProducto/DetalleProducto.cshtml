@@ -16,14 +16,9 @@
         }
     </style>
 }
-<!--DETALLE FICHA PRODUCTO-->
 <div id="contenedor-detalle-producto"></div>
-<!--FIN-->
 <hr class="clear" />
-<!--CARRUSEL-->
 @{Html.RenderPartial("MasVendidosDP");}
-<!--FIN-->
-<!--COMENTATIOS-->
 <div class="section_comentarios">
     <div class="content_belcorp">
         <div class="titulo_principal_comentarios">COMENTARIOS</div>
@@ -38,9 +33,7 @@
         </div>
         <a name="ComentariosUsuarios"></a>
         <div class="contentAgregarComentarios">
-            <!--AGREGA COMENTARIOS-->
             <div class="texto_agregarComentarios">AGREGA TU COMENTARIO</div>
-            <!--AÑADIENDO COMENTARIOS-->
             <div class="contentValoracion">
                 <div class="titulo_principal_comentarios">¡VALORAMOS TU OPINIÓN!</div>
                 <div class="subtitulo_comentarios">Cuéntanos tu experiencia con este producto</div>
@@ -61,24 +54,18 @@
                 </div>
                 <hr class="clear" />
             </div>
-            <!--FIN-->
-            <!--CONFIRMACIÓN DE COMENTARIO ENVIADO-->
             <div class="content_confirmacion_comentario">
                 <div class="icono_check_comentario"></div>
                 <div class="titulo_principal_comentarios extra_titulo">¡TU COMENTARIO SE ENVIÓ CON ÉXITO!</div>
                 <div class="subtexto_comentario" style="font-size:14px;">¡Gracias por tu comentario! Revisaremos su contenido para publicarlo en nuestra página</div>
                 <a class="btn_cerrar_comentario">CERRAR</a>
             </div>
-            <!--FIN-->
         </div>
-        <!--FIN-->
-        <!--COMENTARIOS DE USUARIO-->
         
         <div id="contenedorComentarios">
         </div>
     </div>
 </div>
-<!--FIN-->
 <script id="template-detalle-producto" type="text/x-handlebars-template">
     <div>
         <div class="fondo_set_best_seller" >
@@ -155,7 +142,6 @@
         </div>
     </div>
 </script>
-<!--JAIME - LA CLASE QUE SE DEBE AÑADIR ES "respuesta_valida" PARA AMBOS CASOS-->
 @section scripts{
     <script type="text/javascript">
         $(document).ready(function () {

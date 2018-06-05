@@ -81,7 +81,6 @@
 
     @if (!esIngresoUnico)
     {
-        <!-- Menu icon -->
         <div class="menu">
             <div class="content_close">
                 <div class="icon-close">
@@ -103,7 +102,6 @@
         </div>
     }
 
-    <!-- alert-top -->
     <div id="divAlertaPedidosOnline" class="alert-top alert-success alert-top-conline" style="display: none;">
         <a href="@Url.Action("MisPedidos", "ConsultoraOnline", new { area = "Mobile" })">
             <span class="alert-icon"><i class="icon-notificaciones-belcorp"></i></span>
@@ -113,9 +111,7 @@
         <span class="alert-close"><i class="icon-close-belcorp"></i></span>
     </div>
 
-    <!-- header -->
     <header id="new-header">
-        <!--BANNER-->
         @if (ViewBag.mostrarBannerPostulante == true && !esIngresoUnico)
         {
             @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloqueMensajesPostulante.cshtml")
@@ -160,8 +156,6 @@
 
     </header>
 
-
-    <!-- content -->
     <section style="min-height: 380px;">
         @{
             var marginTop = esIngresoUnico ? "0px;" : "60px";
@@ -211,7 +205,6 @@
 
     @if (!esIngresoUnico)
     {
-        <!-- footer -->
         <footer class="footer-page">
             @Html.Partial("_MobileMenuFooter")
             <hr class="clear" />
@@ -219,7 +212,6 @@
     }
     else
     {
-        <!-- footer -->
         <footer class="footer-page" style="background:none"></footer>
     }
 
@@ -244,15 +236,9 @@
 
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/vp_BloquePopupMensajesInformacion.cshtml")
 
-    <!--POP MENSAJE POSTULANTE-->
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupPostulante.cshtml")
-    <!--FIN-->
-    <!--POP COMUNIDAD-->
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupComunidad.cshtml")
-    <!--FIN-->
-    <!--POP MENSAJE SESION FINALIZADA Error-->
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupSesionFinalizada.cshtml")
-    <!--FIN-->
 
     <div style="display:none">
         <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
@@ -316,7 +302,6 @@
         var emt_type = '0';
         var emt_device = ' ';
         var emt_default_message = '@Html.Raw(Constantes.ConfiguracionManager.MensajeChatBienvenida)';
-        // New Chat -->
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
@@ -357,7 +342,6 @@
         }
         window.controllerName = '@ctrl.ToLower()';
         window.actionName     = '@acti.ToLower()';
-        //console.log("controllerName:" + controllerName + " | actionName:" + actionName);
     </script>
 
     @if (ViewBag.MostrarOfertaDelDiaContenedor == true)

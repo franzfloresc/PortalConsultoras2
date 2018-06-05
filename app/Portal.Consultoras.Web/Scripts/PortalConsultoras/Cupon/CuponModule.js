@@ -113,7 +113,7 @@
         });
 
         $(document).keyup(function (e) {
-            if (e.keyCode == 27) { // escape key maps to keycode `27`
+            if (e.keyCode == 27) {
                 cerrarTodosPopupCupones();
             }
         });
@@ -278,7 +278,6 @@
                     mostrarContenedorInfo();        
                 }
                 else {
-                    //mostrarContenedorConocelo();      
                     $(elements.ContenedorPadreCupon).hide();        
                 }
 
@@ -287,10 +286,7 @@
             }
         }
 
-        $('[data-cupon-info-opt]').hide();          
-        //if (setting.PaisISO == "PE") {        
-        //    $('[data-cupon-info-opt]').hide();        
-        //}     
+        $('[data-cupon-info-opt]').hide();    
     }
 
 
@@ -304,8 +300,7 @@
                     setting.Cupon = response.data;
                     if (setting.Cupon) {
                         finishLoadCuponContenedorInfo = true;
-                        setting.MostrarContenedorPadreCupon = setting.TieneCupon;
-                        //setting.MostrarContenedorInfo = (setting.Cupon.EstadoCupon == CONS_CUPON.CUPON_ACTIVO && setting.EsEmailActivo);          
+                        setting.MostrarContenedorPadreCupon = setting.TieneCupon;       
                         setting.MostrarContenedorInfo = (setting.Cupon.EstadoCupon == CONS_CUPON.CUPON_ACTIVO);         
                         mostrarContenedorCuponPorPagina();
                     }
@@ -461,25 +456,18 @@
 
         $(elements.ContenedorTituloGanaste).empty();
                             
-        $(elements.ContenedorTituloGanaste).append(nombreAlias.toUpperCase() + " ¡TIENES UN CUPÓN DE DSCTO!"); 
-        //$(elements.ContenedorTituloGanaste).append(nombreAlias.toUpperCase() + " ¡TIENES UN CUPÓN DE " + valor + simboloPorcen + " DE DSCTO!");             
-        //$(elements.ContenedorTituloGanaste).append("¡ACTIVASTE TU CUPÓN DE " + valor + simboloPorcen + " DE DSCTO!");              
+        $(elements.ContenedorTituloGanaste).append(nombreAlias.toUpperCase() + " ¡TIENES UN CUPÓN DE DSCTO!");           
 
         $(elements.ContenedorTexto02Ganaste).empty();
         $(elements.ContenedorTextoDetalleCuponCampania).empty();    
-        //$(elements.ContenedorTextoDetalleCuponCampania).append("Válido sólo en C" + campania + " (Dscto. máximo " + setting.SimboloMoneda + " " + setting.Cupon.MontoLimiteFormateado + "). El Dscto. se reflejará en tu facturación");     
         $(elements.ContenedorTextoDetalleCuponCampania).append("Tu descuento lo verás reflejado en tu facturación (dscto. hasta " + setting.SimboloMoneda + " " + setting.Cupon.MontoLimiteFormateado + ")");
         $(elements.ContenedorMontoLimitePopupGanaste).empty();  
-        //$(elements.ContenedorMontoLimitePopupGanaste).append("Agrega mínimo 1 oferta Gana+ pasando pedido por el App " + (isEsika ? "Ésika" : "L'bel") + " Conmigo *"); 
         $(elements.ContenedorMontoLimitePopupGanaste).append("Solo válido en la campaña C" + campania + " y pasando pedido por la web o app");
 
         $(elements.PopupGanaste).show();
         $(elements.PopupCuponGana).hide();
         $(elements.PopupConfirmacion).hide();
-
-        //if (setting.PaisISO == "PE") {            
-        //    $('[data-cupon-ganaste-condicion2]').hide();      
-        //}     
+   
     }
 
     var mostrarPopupGana = function () {
