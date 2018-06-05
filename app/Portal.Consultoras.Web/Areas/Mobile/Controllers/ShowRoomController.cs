@@ -321,25 +321,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult DetalleOferta(int id)
         {
-            ActionExecutingMobile();
-            if (!ValidarIngresoShowRoom(false))
-                return RedirectToAction("Index", "Bienvenida");
-
-            var modelo = ViewDetalleOferta(id);
-            modelo.EstrategiaId = id;
-            bool esFacturacion = EsFacturacion();
-
-            var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, configEstrategiaSR.BeShowRoom.EventoID,
-                        configEstrategiaSR.BeShowRoom.CampaniaID);
-            modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
-            modelo.TieneCompraXcompra = configEstrategiaSR.BeShowRoom.TieneCompraXcompra;
-
-            ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
-
-            return View("DetalleOferta", modelo);
+            return RedirectToAction("DetalleOfertaView", new { id = id, ViewName = "DetalleOferta" });
         }
 
         public ActionResult DetalleOfertaPersonalizado(int id)
+        {
+            return RedirectToAction("DetalleOfertaView", new{ id= id, ViewName= "DetalleOfertaPersonalizado" });
+
+        }
+
+        public ActionResult DetalleOfertaView(int id, string ViewName)
         {
             ActionExecutingMobile();
             if (!ValidarIngresoShowRoom(false))
@@ -356,7 +347,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
 
-            return View(modelo);
+            return View(ViewName, modelo);
         }
     }
 }
