@@ -399,7 +399,7 @@ function ArmarCarouselEstrategias(data) {
 
         $('#divListadoEstrategia').not('.slick-initialized').slick({
             lazyLoad: 'ondemand',
-            infinite: false,
+            infinite: true,
             vertical: false,
             slidesToShow: cantProCarrusel,
             slidesToScroll: 1,
