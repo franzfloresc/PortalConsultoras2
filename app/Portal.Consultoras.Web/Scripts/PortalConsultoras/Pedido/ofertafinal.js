@@ -670,7 +670,6 @@ function validarGanoRegalo(totalPedido) {
 
             $('#of-regalo-msg1').hide();
             $('#of-regalo-msg2').hide();
-            //$('#of-regalo-msg3').html('<b>¡MIRA LO QUE<br>TE PUEDES LLEVAR!</b>');
             $('#of-regalo-msg3').html('<b>' + oUpselling.TextoMetaPrincipal + '</b>');
             $('[data-agregar-regalo]').hide();
             $('#btn_sigue_comprando_gana').show();
@@ -1244,11 +1243,9 @@ function GetUpSelling() {
         async: false,
         cache: false,
         success: function (response) {
-            //if (checkTimeout(response)) {
             if (response.Success) {
                 data = response.Data;
             }
-            //}
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -1341,11 +1338,9 @@ function GetUpSellingGanado() {
         async: false,
         cache: false,
         success: function (response) {
-            //if (checkTimeout(response)) {
             if (response.success) {
                 obj = response.data;
             }
-            //}
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
