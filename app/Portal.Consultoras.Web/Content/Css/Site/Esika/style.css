@@ -19682,6 +19682,8 @@ label.checkpop.c_on {
     background-repeat:no-repeat;
     background-position: center 14px;
     background-size: 75%;
+    border-radius:100%;
+    overflow:hidden;
 }
 
     .foto_perfil_home img {
@@ -28289,6 +28291,7 @@ a#cierreMotivoRechazo img {
 .contenedor_img_perfil {
     display: block;
     float: left;
+    position:relative;
 }
 
 .foto_perfil_home:hover .tooltip_foto {
@@ -36588,7 +36591,8 @@ height:30px;
 .titulo_correo_pendiente_confirmacion,
 .icono_correo_sobre,
 .envio_instrucciones_info,
-.enlace_reenviar_instrucciones
+.enlace_reenviar_instrucciones,
+.cambiar_correo_info
 {
     display:block;
 }

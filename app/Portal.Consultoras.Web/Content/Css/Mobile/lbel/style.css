@@ -4598,6 +4598,8 @@ table > thead > tr > th {
     background-repeat:no-repeat;
     background-position: center 12px;
     background-size: 75%;
+    border-radius:100%;
+    overflow:hidden;
 }
 
     .foto_usuaria_mobile img {
@@ -14843,3 +14845,102 @@ span.icon-advertencia {
 .producto_img_mobile_bpt img {
     padding: 10px !important;
 }
+
+/* HD-2524 - POPUP OPTIN (VERIFICACIÓN DE CORREO ELECTRÓNICO PENDIENTE) */
+
+.w-100{
+    width:100%;
+}
+
+.text-bold{
+    font-weight:bold;
+}
+
+.text-center{
+    text-align:center;
+    overflow:initial!important;
+}
+
+.w-100,
+.popup_correo_pendiente_de_confirmar,
+.titulo_correo_pendiente_confirmacion,
+.icono_correo_sobre,
+.envio_instrucciones_info,
+.enlace_reenviar_instrucciones,
+.cambiar_correo_info
+{
+    display:block;
+}
+
+.popup_correo_pendiente_de_confirmar{
+    margin:0 auto;
+    max-width: 290px;
+    background-color: #FFF;
+    padding: 28.3px 17px 15px;
+    position: absolute;
+    top: 14%;
+    left: 9px;
+    right: 0;
+}
+
+.titulo_correo_pendiente_confirmacion,
+.icono_correo_sobre
+{
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.titulo_correo_pendiente_confirmacion{
+    margin-top:0;
+    font-size:16px;
+    line-height:23px;
+    font-family:'Lato', sans-serif;
+    color:#000;
+    font-weight:300!important;
+    margin-top:0;
+    font-size:16px;
+    line-height:23px;
+}
+
+.icono_correo_sobre{
+    margin-bottom:13.5px;
+    background-size:100%;
+    width:78px;
+    height:46px;
+    background-image:url('../../../Images/Lbel/icono_envelope.svg');
+}
+
+.icono_correo_sobre img{
+    width:100%;
+    height:auto;
+}
+
+.envio_instrucciones_info{
+    margin-bottom:50px;
+    font-size:14px;
+    line-height:18px;
+    margin-top:0;
+    margin-left:0;
+    margin-right:0;
+    margin-bottom:35px;
+    padding:0;
+}
+
+.envio_instrucciones_info span:first-child{
+    margin-bottom:7px;
+}
+
+.envio_instrucciones_info span:last-child{
+    font-size:15px;
+}
+
+.enlace_reenviar_instrucciones{
+    font-size:13px;
+    text-decoration:underline;
+}
+
+.cambiar_correo_info{
+    font-size:12px;
+}
+
+/* FIN - HD-2524 - POPUP OPTIN (VERIFICACIÓN DE CORREO ELECTRÓNICO PENDIENTE) */

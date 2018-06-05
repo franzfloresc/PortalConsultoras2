@@ -72,22 +72,22 @@ else
                 <div class="w-71">
                     <input id="CorreoElectronicoConsultora" name="CorreoElectronicoConsultora" class="w-100" type="text" value="" />
                     <label for="CorreoElectronicoConsultora" class="w-100">Correo Electrónico</label>
-                    <div class="tooltip_info_revision_correo">
-                        <div class="icono_info_alerta"></div>
-                        <div class="tooltip_texto">
-                            <p>
-                                Revisa tu correo <span class="text-bold">valeria.tarazona@gmail.com</span><br />para cambiar de cuenta.
-                            </p>
-                            <a href="#" class="enlace_no_cambiar_correo" title="Ya no quiero cambiar mi correo">
-                                Ya no quiero cambiar mi correo
-                            </a>
-                        </div>
-                    </div>
                 </div>
                 <a href="@Url.Action("ActualizarCorreo", "MiPerfil", new {area = "Mobile"})" title="Cambiar" class="enlace_cambiar_dato w-29 text-right">
                     <span class="icono_cambiar_dato"></span>
                     <span class="enlace_texto text-bold">Cambiar</span>
                 </a>
+                <div class="tooltip_info_revision_correo" style="display:none;">
+                    <div class="icono_info_alerta"></div>
+                    <div class="tooltip_texto">
+                        <p>
+                            Revisa tu correo <span class="text-bold">valeria.tarazona@gmail.com</span><br />para cambiar de cuenta.
+                        </p>
+                        <a href="#" class="enlace_no_cambiar_correo" title="Ya no quiero cambiar mi correo">
+                            Ya no quiero cambiar mi correo
+                        </a>
+                    </div>
+                </div>
             </fieldset>
             <fieldset class="grupo_form_cambio_datos text-uppercase">
                 <div class="w-71">
@@ -124,7 +124,7 @@ else
             <div class="linea_separadora"></div>
             <fieldset class="grupo_form_cambio_datos text-uppercase">
                 <div class="w-100 text-right">
-                    <button type="button" class="btn_guardar_datos_nuevos text-uppercase text-bold w-100">
+                    <button type="button" class="btn_guardar_datos_nuevos default-background-color text-uppercase text-bold w-100">
                         Guardar
                     </button>
                 </div>

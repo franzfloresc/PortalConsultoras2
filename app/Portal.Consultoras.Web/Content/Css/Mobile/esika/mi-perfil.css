@@ -309,7 +309,7 @@
 .grupo_form_cambio_datos{
     margin-bottom:16px;
     position:relative;
-    height:57px;
+    min-height:57px;
 }
     
     .grupo_form_cambio_datos label{
@@ -416,9 +416,7 @@
     font-size:11px;
 }
 
-.grupo_form_cambio_datos .label_num_adicional,
-.tooltip_info_revision_correo
-{
+.grupo_form_cambio_datos .label_num_adicional{
     display:none;
 }
 
@@ -461,10 +459,6 @@
     transition: all 0.3s ease;
 }
 
-.btn_guardar_datos_nuevos{
-    background-color:#CDC7C8;
-}
-
     .btn_guardar_datos_nuevos.default-background-color:hover,
     .btn_cambiar_contrasenia:hover,
     .btn_continuar:hover,
@@ -475,12 +469,10 @@
 
 .tooltip_info_revision_correo {
     width: 100%;
-    max-width: 300px;
+    max-width: 310px;
     min-height: 98px;
     padding: 17px 12px;
-    position: absolute;
-    top: 97%;
-    left: 0;
+    position: relative;
     border:1px solid #dcdcdc;
     background-color: #FFF;
     z-index: 4;
@@ -781,7 +773,9 @@
     margin-left:5px;
 }
 
-.sin_numero_celular_registrado{
+.sin_correo_registrado,
+.sin_numero_celular_registrado
+{
     font-size: 14px;
     line-height: 19px;
     margin-bottom: 34px;

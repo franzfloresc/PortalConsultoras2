@@ -43,17 +43,17 @@
         <div class="contenedor_img_perfil" style="display:none;">
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
             {
+                <a href="@Url.Action("Index", "MiPerfil", new {area = ""})" title="Actualizar datos" class="actualizar_datos default-background"></a>
+                <div class="tooltip_info_revision_correo" style="display:none;">
+                    <div class="icono_info_alerta"></div>
+                    <div class="tooltip_texto">
+                        <p>
+                            Ingresa y actualiza tu correo y/o celular para poder contactanos contigo.
+                        </p>
+                    </div>
+                </div>
                 <div class="foto_perfil_home">
                     <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto;" />
-                    <a href="@Url.Action("Index", "MiPerfil", new {area = ""})" title="Actualizar datos" class="actualizar_datos default-background"></a>
-                    <div class="tooltip_info_revision_correo" style="display:none;">
-                        <div class="icono_info_alerta"></div>
-                        <div class="tooltip_texto">
-                            <p>
-                                Ingresa y actualiza tu correo y/o celular para poder contactanos contigo.
-                            </p>
-                        </div>
-                    </div>
                 </div>
             }
             <div class="clear"></div>
@@ -1101,7 +1101,7 @@
     </div>
     <!-- FIN POPUP MIS DATOS -->
     <!-- POPUP VERIFICACIÓN DE CORREO ELECTRÓNICO PENDIENTE -->
-    <div class="popup_correo_pendiente_de_confirmar text-center" id="popupVerificacionCorreoElectronicoPendiente">
+    <div class="popup_correo_pendiente_de_confirmar text-center" id="popupVerificacionCorreoElectronicoPendiente" style="display:none;">
         <div class="btn_cerrar_actualizarMisDatos">
             <a href="javascript:void(0);" id="cerrarPopupMisDatos" title="Cerrar">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
@@ -1120,7 +1120,7 @@
                 </p>
                 <p class="w-100 envio_instrucciones_info">
                     @*<span class="w-100">¿Aún no recibes nuestro correo?</span>*@
-                    <a href="#" title="Reenvíenme las instrucciones" class="enlace_reenviar_instrucciones w-100 text-uppercase text-bold">
+                    <a href="#" title="Ir A Mis Datos" class="enlace_reenviar_instrucciones w-100 text-uppercase text-bold">
                         Ir a mis datos
                     </a>
                 </p>

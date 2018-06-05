@@ -82,17 +82,17 @@
         <div class="content_foto">
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
             {
+                <a href="@Url.Action("Index", "MiPerfil", new {area = "Mobile"})" title="Actualizar datos" class="subir_foto_mobile default-background"></a>
+                <div class="tooltip_info_revision_correo" style="display:none;">
+                    <div class="icono_info_alerta"></div>
+                    <div class="tooltip_texto">
+                        <p>
+                            Ingresa y actualiza tu correo y/o celular para poder contactanos contigo.
+                        </p>
+                    </div>
+                </div>
                 <div class="foto_usuaria_mobile">
                     <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto;" />
-                    <a href="@Url.Action("Index", "MiPerfil", new {area = "Mobile"})" title="Actualizar datos" class="subir_foto_mobile default-background"></a>
-                    <div class="tooltip_info_revision_correo" style="display:none;">
-                        <div class="icono_info_alerta"></div>
-                        <div class="tooltip_texto">
-                            <p>
-                                Ingresa y actualiza tu correo y/o celular para poder contactanos contigo.
-                            </p>
-                        </div>
-                    </div>
                 </div>
             }
         </div>
@@ -591,6 +591,7 @@
 </div>
 
 <!--FIN-->
+
 <!-- POPUP IMAGEN PERFIL PROCESO RECORTE -->
 
 <div class="contenedor_fondo_popup" id="popup_imagenPerfilCorte" style="display: none;">
@@ -705,8 +706,8 @@
         <!--div id="divPlayer"></div-->
 
         <div id="ytMobileBienvenidaIndex"
-             data-youtube="{ width:'100%', enablejsapi:1, playerVars:{rel:0} }"
-             class="yt-video"></div>
+                data-youtube="{ width:'100%', enablejsapi:1, playerVars:{rel:0} }"
+                class="yt-video"></div>
 
     </div>
 </div>
@@ -718,7 +719,7 @@
 }
 <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
 
-@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml",  new ViewDataDictionary {{ "TieneBotones", true }})
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", true } })
 
 <!--SHOWROOM: modal popup -->
 <div class="modal fade" id="PopShowroom">
@@ -819,6 +820,45 @@
 </div>
 
 <!--FIN-->
+
+<!-- POPUP VERIFICACIÓN DE CORREO ELECTRÓNICO PENDIENTE  -->
+
+<div class="contenedor_fondo_popup" id="popupVerificacionCorreoElectronicoPendienteMobile" style="display:none;">
+    <div class="popup_correo_pendiente_de_confirmar w-100 text-center">
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a onclick="return $('#popupVerificacionCorreoElectronicoPendienteMobile').fadeOut();" title="Cerrar" class="cerrar_tutorial">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenido_popUp">
+            <div class="mb-40">
+                <h1 class="titulo_correo_pendiente_confirmacion text-uppercase">
+                    Tienes pendiente<br /><span class="text-bold">confirmar tu correo para<br />actualizarlo</span>
+                </h1>
+                <div class="icono_correo_sobre"></div>
+                <p class="w-100 envio_instrucciones_info">
+                    <span class="w-100">Te hemos enviado las instrucciones a:</span>
+                    <span class="w-100 text-bold">valeria.tarazona@gmail.com</span>
+                </p>
+                <p class="w-100 envio_instrucciones_info">
+                    @*<span class="w-100">¿Aún no recibes nuestro correo?</span>*@
+                    <a href="#" title="Ir A Mis Datos" class="enlace_reenviar_instrucciones w-100 text-uppercase text-bold">
+                        Ir a mis datos
+                    </a>
+                </p>
+                @*<p class="w-100 cambiar_correo_info">
+                        <span>¿Este no es tu correo?</span>
+                        <a href="#" title="Cambia tu correo" class="enlace_cambiar_correo text-bold">Cambia tu correo</a>
+                    </p>*@
+            </div>
+            @*<a href="#" class="enlace_no_cambiar_correo" title="Ya no deseo actualizar mi correo">Ya no deseo actualizar mi correo</a>*@
+        </div>
+    </div>
+</div>
+
+<!-- FIN - POPUP VERIFICACIÓN DE CORREO ELECTRÓNICO PENDIENTE -->
+
 @section scripts{
     <script type="text/javascript">
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
