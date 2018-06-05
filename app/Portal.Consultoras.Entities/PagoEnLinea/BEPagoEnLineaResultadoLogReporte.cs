@@ -80,82 +80,82 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
         public BEPagoEnLineaResultadoLogReporte(IDataRecord datarec)
         {
             if (DataRecord.HasColumn(datarec, "CampaniaId"))
-                CampaniaId = DbConvert.ToInt32(datarec["CampaniaId"]);
+                CampaniaId = Convert.ToInt32(datarec["CampaniaId"]);
 
             if (DataRecord.HasColumn(datarec, "NombreComercio"))
-                NombreComercio = DbConvert.ToString(datarec["NombreComercio"]);
+                NombreComercio = Convert.ToString(datarec["NombreComercio"]);
 
             if (DataRecord.HasColumn(datarec, "IdUnicoTransaccion"))
-                IdUnicoTransaccion = DbConvert.ToString(datarec["IdUnicoTransaccion"]);
+                IdUnicoTransaccion = Convert.ToString(datarec["IdUnicoTransaccion"]);
 
             if (DataRecord.HasColumn(datarec, "PagoEnLineaResultadoLogId"))
-                PagoEnLineaResultadoLogId = DbConvert.ToInt32(datarec["PagoEnLineaResultadoLogId"]);
+                PagoEnLineaResultadoLogId = Convert.ToInt32(datarec["PagoEnLineaResultadoLogId"]);
 
             if (DataRecord.HasColumn(datarec, "PrimerNombre"))
-                PrimerNombre = DbConvert.ToString(datarec["PrimerNombre"]);
+                PrimerNombre = Convert.ToString(datarec["PrimerNombre"]);
 
             if (DataRecord.HasColumn(datarec, "SegundoNombre"))
-                SegundoNombre = DbConvert.ToString(datarec["SegundoNombre"]);
+                SegundoNombre = Convert.ToString(datarec["SegundoNombre"]);
 
             if (DataRecord.HasColumn(datarec, "PrimerApellido"))
-                PrimerApellido = DbConvert.ToString(datarec["PrimerApellido"]);
+                PrimerApellido = Convert.ToString(datarec["PrimerApellido"]);
 
             if (DataRecord.HasColumn(datarec, "SegundoApellido"))
-                SegundoApellido = DbConvert.ToString(datarec["SegundoApellido"]);
+                SegundoApellido = Convert.ToString(datarec["SegundoApellido"]);
 
             if (DataRecord.HasColumn(datarec, "FechaCreacion"))
-                FechaCreacion = DbConvert.ToDateTime(datarec["FechaCreacion"]);
+                FechaCreacion = Convert.ToDateTime(datarec["FechaCreacion"]);
 
             if (DataRecord.HasColumn(datarec, "CodigoConsultora"))
-                CodigoConsultora = DbConvert.ToString(datarec["CodigoConsultora"]);
+                CodigoConsultora = Convert.ToString(datarec["CodigoConsultora"]);
 
             if (DataRecord.HasColumn(datarec, "NumeroDocumento"))
-                NumeroDocumento = DbConvert.ToString(datarec["NumeroDocumento"]);
+                NumeroDocumento = Convert.ToString(datarec["NumeroDocumento"]);
 
             if (DataRecord.HasColumn(datarec, "Canal"))
-                Canal = DbConvert.ToString(datarec["Canal"]);
+                Canal = Convert.ToString(datarec["Canal"]);
 
             if (DataRecord.HasColumn(datarec, "Ciclo"))
-                Ciclo = DbConvert.ToString(datarec["Ciclo"]);
+                Ciclo = Convert.ToString(datarec["Ciclo"]);
 
             if (DataRecord.HasColumn(datarec, "ImporteAutorizado"))
-                ImporteAutorizado = DbConvert.ToDecimal(datarec["ImporteAutorizado"]);
+                ImporteAutorizado = Convert.ToDecimal(datarec["ImporteAutorizado"]);
 
             if (DataRecord.HasColumn(datarec, "MontoGastosAdministrativos"))
-                MontoGastosAdministrativos = DbConvert.ToDecimal(datarec["MontoGastosAdministrativos"]);
+                MontoGastosAdministrativos = Convert.ToDecimal(datarec["MontoGastosAdministrativos"]);
 
             if (DataRecord.HasColumn(datarec, "IVA"))
-                IVA = DbConvert.ToDecimal(datarec["IVA"]);
+                IVA = Convert.ToDecimal(datarec["IVA"]);
 
             if (DataRecord.HasColumn(datarec, "MontoPago"))
-                MontoPago = DbConvert.ToDecimal(datarec["MontoPago"]);
+                MontoPago = Convert.ToDecimal(datarec["MontoPago"]);
 
             if (DataRecord.HasColumn(datarec, "TicketId"))
-                TicketId = DbConvert.ToString(datarec["TicketId"]);
+                TicketId = Convert.ToString(datarec["TicketId"]);
 
             if (DataRecord.HasColumn(datarec, "CodigoRegion"))
-                CodigoRegion = DbConvert.ToString(datarec["CodigoRegion"]);
+                CodigoRegion = Convert.ToString(datarec["CodigoRegion"]);
 
             if (DataRecord.HasColumn(datarec, "CodigoZona"))
-                CodigoZona = DbConvert.ToString(datarec["CodigoZona"]);
+                CodigoZona = Convert.ToString(datarec["CodigoZona"]);
 
             if (DataRecord.HasColumn(datarec, "OrigenTarjeta"))
-                OrigenTarjeta = DbConvert.ToString(datarec["OrigenTarjeta"]);
+                OrigenTarjeta = Convert.ToString(datarec["OrigenTarjeta"]);
 
             if (DataRecord.HasColumn(datarec, "NumeroTarjeta"))
-                NumeroTarjeta = DbConvert.ToString(datarec["NumeroTarjeta"]);
+                NumeroTarjeta = Convert.ToString(datarec["NumeroTarjeta"]);
 
             if (DataRecord.HasColumn(datarec, "NumeroOrdenTienda"))
-                NumeroOrdenTienda = DbConvert.ToString(datarec["NumeroOrdenTienda"]);
+                NumeroOrdenTienda = Convert.ToString(datarec["NumeroOrdenTienda"]);
 
             if (DataRecord.HasColumn(datarec, "CodigoError"))
-                CodigoError = DbConvert.ToString(datarec["CodigoError"]);
+                CodigoError = Convert.ToString(datarec["CodigoError"]);
 
             if (DataRecord.HasColumn(datarec, "MensajeError"))
-                MensajeError = DbConvert.ToString(datarec["MensajeError"]);
+                MensajeError = Convert.ToString(datarec["MensajeError"]);
 
             if (DataRecord.HasColumn(datarec, "FechaTransaccion"))
-                FechaTransaccion = DbConvert.ToDateTime(datarec["FechaTransaccion"]);
+                FechaTransaccion = Convert.ToDateTime(datarec["FechaTransaccion"]);
         }
     }
 }

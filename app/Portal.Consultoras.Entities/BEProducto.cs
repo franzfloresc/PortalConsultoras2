@@ -173,20 +173,20 @@ namespace Portal.Consultoras.Entities
         {
             msCUV = (datarec["CUV"] ?? "").ToString();
             if (DataRecord.HasColumn(datarec, "CodigoSAP"))
-                CodigoSAP = DbConvert.ToString(datarec["CodigoSAP"]);
+                CodigoSAP = Convert.ToString(datarec["CodigoSAP"]);
             if (DataRecord.HasColumn(datarec, "PrecioCatalogo"))
-                mdPrecioCatalogo = DbConvert.ToDecimal(datarec["PrecioCatalogo"]);
+                mdPrecioCatalogo = Convert.ToDecimal(datarec["PrecioCatalogo"]);
 
             if (DataRecord.HasColumn(datarec, "MarcaID"))
-                miMarcaID = DbConvert.ToInt32(datarec["MarcaID"]);
+                miMarcaID = Convert.ToInt32(datarec["MarcaID"]);
 
             if (DataRecord.HasColumn(datarec, "EstaEnRevista"))
-                mbEstaEnRevista = DbConvert.ToBoolean(datarec["EstaEnRevista"]);
+                mbEstaEnRevista = Convert.ToBoolean(datarec["EstaEnRevista"]);
 
             if (DataRecord.HasColumn(datarec, "TieneStock"))
-                mbTieneStock = DbConvert.ToBoolean(datarec["TieneStock"]);
+                mbTieneStock = Convert.ToBoolean(datarec["TieneStock"]);
             if (DataRecord.HasColumn(datarec, "EsExpoOferta"))
-                mbEsExpoOferta = DbConvert.ToBoolean(datarec["EsExpoOferta"]);
+                mbEsExpoOferta = Convert.ToBoolean(datarec["EsExpoOferta"]);
             if (DataRecord.HasColumn(datarec, "CUVRevista"))
                 msCUVRevista = datarec["CUVRevista"].ToString();
             if (DataRecord.HasColumn(datarec, "CUVComplemento"))

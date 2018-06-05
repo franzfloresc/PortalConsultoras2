@@ -35,23 +35,23 @@ namespace Portal.Consultoras.Entities
         public BEConfiguracionProgramaNuevas(IDataRecord datarec)
         {
             if (DataRecord.HasColumn(datarec, "CodigoPrograma"))
-                CodigoPrograma = DbConvert.ToString(datarec["CodigoPrograma"]);
+                CodigoPrograma = Convert.ToString(datarec["CodigoPrograma"]);
             if (DataRecord.HasColumn(datarec, "CampaniaInicio"))
-                CampaniaInicio = DbConvert.ToString(datarec["CampaniaInicio"]);
+                CampaniaInicio = Convert.ToString(datarec["CampaniaInicio"]);
             if (DataRecord.HasColumn(datarec, "CampaniaFin"))
-                CampaniaFin = DbConvert.ToString(datarec["CampaniaFin"]);
+                CampaniaFin = Convert.ToString(datarec["CampaniaFin"]);
             if (DataRecord.HasColumn(datarec, "IndExigVent"))
-                IndExigVent = DbConvert.ToString(datarec["IndExigVent"]);
+                IndExigVent = Convert.ToString(datarec["IndExigVent"]);
             if (DataRecord.HasColumn(datarec, "IndProgObli"))
-                IndProgObli = DbConvert.ToString(datarec["IndProgObli"]);
+                IndProgObli = Convert.ToString(datarec["IndProgObli"]);
             if (DataRecord.HasColumn(datarec, "CuponKit"))
-                CuponKit = DbConvert.ToString(datarec["CuponKit"]);
+                CuponKit = Convert.ToString(datarec["CuponKit"]);
             if (DataRecord.HasColumn(datarec, "CUVKit"))
-                CUVKit = DbConvert.ToString(datarec["CUVKit"]);
+                CUVKit = Convert.ToString(datarec["CUVKit"]);
             if (DataRecord.HasColumn(datarec, "CodigoZona"))
-                CodigoZona = DbConvert.ToString(datarec["CodigoZona"]);
+                CodigoZona = Convert.ToString(datarec["CodigoZona"]);
             if (DataRecord.HasColumn(datarec, "CodigoRegion"))
-                CodigoRegion = DbConvert.ToString(datarec["CodigoRegion"]);
+                CodigoRegion = Convert.ToString(datarec["CodigoRegion"]);
         }
     }
 }

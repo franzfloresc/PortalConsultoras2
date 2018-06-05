@@ -27,19 +27,19 @@ namespace Portal.Consultoras.Entities
         }
         public BEGrupoBanner(IDataRecord row)
         {
-            miCampaniaID = DbConvert.ToInt32(row["CampaniaID"]);
+            miCampaniaID = Convert.ToInt32(row["CampaniaID"]);
             miGrupoBannerID = Convert.ToInt32(row["GrupoBannerID"]);
-            miTiempoRotacion = DbConvert.ToInt32(row["TiempoRotacion"]);
+            miTiempoRotacion = Convert.ToInt32(row["TiempoRotacion"]);
             msNombre = row["Nombre"].ToString();
             msDimension = row["Dimension"].ToString();
-            miAncho = DbConvert.ToInt32(row["Ancho"]);
-            miAlto = DbConvert.ToInt32(row["Alto"]);
+            miAncho = Convert.ToInt32(row["Ancho"]);
+            miAlto = Convert.ToInt32(row["Alto"]);
             if (DataRecord.HasColumn(row, "DimensionEsika"))
                 msDimensionEsika = row["DimensionEsika"].ToString();
             if (DataRecord.HasColumn(row, "DimensionEsika"))
-                miAnchoEsika = DbConvert.ToInt32(row["AnchoEsika"]);
+                miAnchoEsika = Convert.ToInt32(row["AnchoEsika"]);
             if (DataRecord.HasColumn(row, "DimensionEsika"))
-                miAltoEsika = DbConvert.ToInt32(row["AltoEsika"]);
+                miAltoEsika = Convert.ToInt32(row["AltoEsika"]);
 
             moConsultoras = new BEGrupoConsultora[0];
         }
