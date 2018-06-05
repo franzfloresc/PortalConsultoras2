@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServicePROLConsultas;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -17,6 +18,10 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BaseShowRoomController : BaseMobileController
     {
+        protected string CodigoProceso {
+            get { return ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.EmailCodigoProceso]; }
+        }
+
         public BaseShowRoomController():base()
         {
                 

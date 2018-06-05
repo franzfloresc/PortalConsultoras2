@@ -18,7 +18,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     {
         #region Variables
 
-        private static readonly string CodigoProceso = ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.EmailCodigoProceso];
         private int OfertaID = 0;
         private bool blnRecibido = false;
         #endregion

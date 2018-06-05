@@ -25,7 +25,6 @@ namespace Portal.Consultoras.Web.Controllers
     public class ShowRoomController : BaseShowRoomController
     {
         static List<BEConfiguracionOferta> lstConfiguracion = new List<BEConfiguracionOferta>();
-        private static readonly string CodigoProceso = ConfigurationManager.AppSettings["EmailCodigoProceso"];
         private int _ofertaId;
         private bool _blnRecibido;
         protected Models.Estrategia.ShowRoom.ConfigModel configEstrategiaSR;
