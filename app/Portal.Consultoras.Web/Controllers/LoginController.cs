@@ -918,7 +918,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.CambioClave = Convert.ToInt32(usuario.CambioClave);
                     usuarioModel.ConsultoraNueva = usuario.ConsultoraNueva;
                     usuarioModel.EsConsultoraNueva = usuario.EsConsultoraNueva;
-                    usuarioModel.EsConsultoraNueva = usuario.EsConsultoraOficina;
+                    usuarioModel.EsConsultoraOficina = usuario.EsConsultoraOficina;
                     usuarioModel.Telefono = usuario.Telefono;
                     usuarioModel.TelefonoTrabajo = usuario.TelefonoTrabajo;
                     usuarioModel.Celular = usuario.Celular;
