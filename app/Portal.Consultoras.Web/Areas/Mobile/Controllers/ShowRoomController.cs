@@ -18,7 +18,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     {
         #region Variables
 
-        private static readonly string CodigoProceso = ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.EmailCodigoProceso];
         private int OfertaID = 0;
         private bool blnRecibido = false;
         #endregion
@@ -105,23 +104,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 if (lista[0] == CodigoProceso)
                 {
-                    using (PedidoServiceClient sv = new PedidoServiceClient())
-                    {
-                        blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
-                    }
+                    blnRecibido = GetEventoConsultoraRecibido(userData);
 
                     if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !blnRecibido)
                     {
-                        BEShowRoomEventoConsultora entidad = new BEShowRoomEventoConsultora
-                        {
-                            CodigoConsultora = lista[2],
-                            CampaniaID = Convert.ToInt32(lista[3])
-                        };
-
-                        using (PedidoServiceClient sv = new PedidoServiceClient())
-                        {
-                            sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, entidad);
-                        }
+                         UpdShowRoomEventoConsultoraEmailRecibido(lista[2], Convert.ToInt32(lista[3]), userData);
                     }
                 }
                 else
@@ -168,23 +155,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 if (lista[0] == CodigoProceso)
                 {
-                    using (PedidoServiceClient sv = new PedidoServiceClient())
-                    {
-                        blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
-                    }
+                    blnRecibido = GetEventoConsultoraRecibido(userData);
 
                     if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !blnRecibido)
                     {
-                        BEShowRoomEventoConsultora entidad = new BEShowRoomEventoConsultora
-                        {
-                            CodigoConsultora = lista[2],
-                            CampaniaID = Convert.ToInt32(lista[3])
-                        };
-
-                        using (PedidoServiceClient sv = new PedidoServiceClient())
-                        {
-                            sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, entidad);
-                        }
+                       UpdShowRoomEventoConsultoraEmailRecibido(lista[2], Convert.ToInt32(lista[3]), userData);
                     }
                 }
                 else
@@ -197,6 +172,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ? (ActionResult)RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
                 : View(showRoomEventoModel);
         }
+
+
 
         public ActionResult Intriga()
         {
@@ -319,25 +296,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 if (lista[0] == CodigoProceso)
                 {
-                    using (PedidoServiceClient sv = new PedidoServiceClient())
-                    {
-                        blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
-                    }
+                    blnRecibido= GetEventoConsultoraRecibido(userData);
 
                     OfertaID = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
 
                     if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !blnRecibido)
                     {
-                        BEShowRoomEventoConsultora entidad = new BEShowRoomEventoConsultora
-                        {
-                            CodigoConsultora = lista[2],
-                            CampaniaID = Convert.ToInt32(lista[3])
-                        };
-
-                        using (PedidoServiceClient sv = new PedidoServiceClient())
-                        {
-                            sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, entidad);
-                        }
+                        UpdShowRoomEventoConsultoraEmailRecibido(lista[2], Convert.ToInt32(lista[3]),userData);
 
                     }
                 }
@@ -351,28 +316,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return RedirectToAction("DetalleOferta", "ShowRoom", new { area = "Mobile", id = OfertaID });
         }
 
+   
+
         public ActionResult DetalleOferta(int id)
         {
-            ActionExecutingMobile();
-            if (!ValidarIngresoShowRoom(false))
-                return RedirectToAction("Index", "Bienvenida");
-
-            var modelo = ViewDetalleOferta(id);
-            modelo.EstrategiaId = id;
-            bool esFacturacion = EsFacturacion();
-
-            var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, configEstrategiaSR.BeShowRoom.EventoID,
-                        configEstrategiaSR.BeShowRoom.CampaniaID);
-            modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
-            modelo.TieneCompraXcompra = configEstrategiaSR.BeShowRoom.TieneCompraXcompra;
-
-            ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
-
-            return View("DetalleOferta", modelo);
+            return RedirectToAction("DetalleOfertaView", new { id = id, ViewName = "DetalleOferta" });
         }
 
         public ActionResult DetalleOfertaPersonalizado(int id)
         {
+            return RedirectToAction("DetalleOfertaView", new{ id= id, ViewName= "DetalleOfertaPersonalizado" });
+
+        }
+
+        public ActionResult DetalleOfertaView(int id, string ViewName)
+        {
             ActionExecutingMobile();
             if (!ValidarIngresoShowRoom(false))
                 return RedirectToAction("Index", "Bienvenida");
@@ -388,7 +346,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
 
-            return View(modelo);
+            return View(ViewName, modelo);
         }
     }
 }

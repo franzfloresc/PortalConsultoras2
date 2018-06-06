@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServicePROLConsultas;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -17,6 +18,15 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BaseShowRoomController : BaseMobileController
     {
+        protected string CodigoProceso {
+            get { return ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.EmailCodigoProceso]; }
+        }
+
+        public BaseShowRoomController():base()
+        {
+                
+        }
+
         protected void ActionExecutingMobile()
         {
             if (sessionManager.GetUserData() == null) return;
@@ -1053,6 +1063,47 @@ namespace Portal.Consultoras.Web.Controllers
             var tablaLogicaDatosModel = Mapper.Map<List<BETablaLogicaDatos>, List<TablaLogicaDatosModel>>(tablaLogicaDatos);
 
             return tablaLogicaDatosModel;
+        }
+
+        protected void UpdShowRoomEventoConsultoraEmailRecibido(string codigoConsultoraFromQueryString, int campaniaIdFromQueryString, UsuarioModel usuario)
+        {
+            try
+            {
+                var entidad = new BEShowRoomEventoConsultora
+                {
+                    CodigoConsultora = codigoConsultoraFromQueryString,
+                    CampaniaID = campaniaIdFromQueryString
+                };
+
+                using (var sv = new PedidoServiceClient())
+                {
+                    sv.UpdShowRoomEventoConsultoraEmailRecibido(usuario.PaisID, entidad);
+                }
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoConsultora, usuario.CodigoISO, "BaseShowRoomController.GetEventoConsultoraRecibido");
+            }
+        }
+
+        protected bool GetEventoConsultoraRecibido(UsuarioModel usuario)
+        {
+            var result = false;
+
+            try
+            {
+                using (var sv = new PedidoServiceClient())
+                {
+                    result = sv.GetEventoConsultoraRecibido(usuario.PaisID, usuario.CodigoConsultora, usuario.CampaniaID);
+                }
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoConsultora, usuario.CodigoISO, "BaseShowRoomController.GetEventoConsultoraRecibido");
+            }
+            
+
+            return result;
         }
     }
 }

@@ -40,39 +40,39 @@
         <div class="content_item_home_bpt box_producto_mobile_fix">
             <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
             <div data-item-tag="verdetalle"
-                 {{#iff TipoAccionAgregar '!=' '4' }}
-                    onclick="javascript:VerDetalleEstrategia(event);"
-                 {{else}}
-                    onclick="javascript:VerPopupExpGanaMas();"
-                 {{/iff}}>
+                {{#iff TipoAccionAgregar 'ContainsArray' '[4,5]'}}
+                onclick="javascript:VerPopupExpGanaMas();"
+                {{else}}
+                onclick="javascript:VerDetalleEstrategia(event);"
+                {{/iff}}>
                 <div>
                     <div class="producto_img_mobile_bpt">
                         <img data-src="{{ImgSmall FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
                     </div>
                     {{#iff ImagenURL '!=' ''}}
-                        <div class="etiqueta_producto" data-item-tag="etiqueta">
-                            <img data-src="{{ImagenURL}}" alt="Etiqueta Producto" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
-                        </div>
+                    <div class="etiqueta_producto" data-item-tag="etiqueta">
+                        <img data-src="{{ImagenURL}}" alt="Etiqueta Producto" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
+                    </div>
                     {{/iff}}
                 </div>
                 <div class="producto_nombre_descripcion">
                     <div>
                         {{#IsNullOrEmpty DescripcionMarca '!='}}
-                            <h6 {{#iff TipoAccionAgregar '==' '4'}} style="color:gray;" {{/iff}}>{{DescripcionMarca}}</h6>
+                        <h6 {{#iff TipoAccionAgregar '==' '4'}} style="color:gray;" {{/iff}}>{{DescripcionMarca}}</h6>
                         {{else}}
-                            <h6>&ensp;&nbsp;</h6>
+                        <h6>&ensp;&nbsp;</h6>
                         {{/IsNullOrEmpty}}
                         {{#iff DescripcionCortada '!=' ''}}
-                            <p class="nombre_producto" style="cursor: pointer; height: 36px;">
-                                <b class="text_descrition_prd_bpt" {{#iff TipoAccionAgregar '==' '4'}} style="color:gray;" {{/iff}}>{{DescripcionCortada}}</b>
-                            </p>
+                        <p class="nombre_producto" style="cursor: pointer; height: 36px;">
+                            <b class="text_descrition_prd_bpt" {{#iff TipoAccionAgregar '==' '4'}} style="color:gray;" {{/iff}}>{{DescripcionCortada}}</b>
+                        </p>
                         {{/iff}}
 
                         <div class="producto_precio" {{#iff TipoAccionAgregar '==' '4'}} style="color:gray;" {{/iff}}>
                             {{#iff Precio '>' 0}}
-                                <span class="producto_precio_normal">{{SimboloMoneda}} {{PrecioTachado}}</span>
+                            <span class="producto_precio_normal">{{SimboloMoneda}} {{PrecioTachado}}</span>
                             {{else}}
-                                <span class="producto_precio_normal" style="text-decoration: none;">&nbsp;</span>
+                            <span class="producto_precio_normal" style="text-decoration: none;">&nbsp;</span>
                             {{/iff}}
                             <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{PrecioVenta}}</b></span>
                         </div>
