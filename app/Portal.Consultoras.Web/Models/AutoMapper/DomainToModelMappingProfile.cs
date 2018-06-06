@@ -191,6 +191,33 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                  .ForMember(t => t.DescripcionCategoria, f => f.MapFrom(c => c.DescripcionCategoria))
                  .ForMember(t => t.EsSubCampania, f => f.MapFrom(c => c.EsSubCampania));
 
+            //@001 FSV INICIO
+            Mapper.CreateMap<ServiceOferta.BEShowRoomOferta, ShowRoomOfertaModel>()
+                 .ForMember(t => t.OfertaShowRoomID, f => f.MapFrom(c => c.OfertaShowRoomID))
+                 .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                 .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
+                 .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID))
+                 .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
+                 .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                 .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
+                 .ForMember(t => t.PrecioValorizado, f => f.MapFrom(c => c.PrecioValorizado))
+                 .ForMember(t => t.Stock, f => f.MapFrom(c => c.Stock))
+                 .ForMember(t => t.StockInicial, f => f.MapFrom(c => c.StockInicial))
+                 .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
+                 .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
+                 .ForMember(t => t.UnidadesPermitidas, f => f.MapFrom(c => c.UnidadesPermitidas))
+                 .ForMember(t => t.FlagHabilitarProducto, f => f.MapFrom(c => c.FlagHabilitarProducto))
+                 .ForMember(t => t.DescripcionLegal, f => f.MapFrom(c => c.DescripcionLegal))
+                 .ForMember(t => t.CategoriaID, f => f.MapFrom(c => c.CategoriaID))
+                 .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.MarcaID))
+                 .ForMember(t => t.ImagenMini, f => f.MapFrom(c => c.ImagenMini))
+                 .ForMember(t => t.CodigoCategoria, f => f.MapFrom(c => c.CodigoCategoria))
+                 .ForMember(t => t.TipNegocio, f => f.MapFrom(c => c.TipNegocio))
+                 .ForMember(t => t.CodigoProducto, f => f.MapFrom(c => c.CodigoProducto))
+                 .ForMember(t => t.DescripcionCategoria, f => f.MapFrom(c => c.DescripcionCategoria))
+                 .ForMember(t => t.EsSubCampania, f => f.MapFrom(c => c.EsSubCampania));
+            //@002 FSV FIN
+
             Mapper.CreateMap<BEShowRoomOfertaDetalle, ShowRoomOfertaDetalleModel>();
             Mapper.CreateMap<BEPedidoObservacion, ObservacionModel>();
             Mapper.CreateMap<ServiceUsuario.BEConfiguracionPais, ConfiguracionPaisModel>();
