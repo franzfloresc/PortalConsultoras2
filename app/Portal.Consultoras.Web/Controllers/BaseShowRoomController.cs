@@ -509,7 +509,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 Session[Constantes.ConstSession.ListaProductoShowRoomCpc] = listaShowRoomCpcFinal;
-                var listadoProductosCpcModel1 = Mapper.Map<List<m>, List<ShowRoomOfertaModel>>(listaShowRoomCpcFinal);
+                var listadoProductosCpcModel1 = Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomCpcFinal);
                 listadoProductosCpcModel1.Update(x =>
                 {
                     x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
