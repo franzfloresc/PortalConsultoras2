@@ -107,7 +107,7 @@ header {
 .menu_esika_b {
     height: 60px;
     float: right;
-    max-width: 28%;
+    max-width: 31%;
 }
 
 .campana {
@@ -36504,11 +36504,11 @@ height:30px;
 }
 
 .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika{
-    width:729px!important;
+    width:632px!important;
 }
 
 .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
-    min-width:242px!important;
+    min-width:360px!important;
 }
 
 .color_cincuenta_anios_belcorp{
@@ -36533,10 +36533,10 @@ height:30px;
 
 }
 
-@media screen and (min-width:1145px) and (max-width:1240px){
+@media screen and (min-width:1145px) and (max-width:1208px){
 
     .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika{
-        width: 642px!important;
+        width: 629px!important;
     }
 
 }
