@@ -9,7 +9,6 @@ using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
@@ -21,14 +20,9 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ShowRoomController : BaseShowRoomController
     {
-        static List<BEConfiguracionOferta> lstConfiguracion = new List<BEConfiguracionOferta>();
-        private int _ofertaId;
-        private bool _blnRecibido;
-        protected Models.Estrategia.ShowRoom.ConfigModel configEstrategiaSR;
-
         public ShowRoomController() : base()
         {
-            configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
+
         }
 
         public ActionResult Intriga()
@@ -90,33 +84,24 @@ namespace Portal.Consultoras.Web.Controllers
                 if (mostrarPopupIntriga) return RedirectToAction("Intriga", "ShowRoom");
                 if (!ValidarIngresoShowRoom(false)) return RedirectToAction("Index", "Bienvenida");
 
-                if (query != null)
+                if (!string.IsNullOrEmpty(query))
                 {
                     if (GetIsMobileDevice())
                     {
                         return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", query });
                     }
 
-                    var param = Util.Decrypt(query);
-                    var lista = param.Split(';');
+                    var srQsv = new ShowRoomQueryStringValidator(query);
 
-                    if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
+                    if (srQsv.CodigoConsultora != userData.CodigoConsultora && srQsv.CodigoIso != userData.CodigoISO || 
+                        srQsv.CodigoProceso != CodigoProceso)
                     {
                         return RedirectToAction("Index", "Bienvenida");
                     }
 
-                    if (lista[0] == CodigoProceso)
+                    if (srQsv.CampanaId == userData.CampaniaID && !GetEventoConsultoraRecibido(userData))
                     {
-                        _blnRecibido = GetEventoConsultoraRecibido(userData);
-
-                        if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !_blnRecibido)
-                        {
-                            UpdShowRoomEventoConsultoraEmailRecibido(lista[2], Convert.ToInt32(lista[3]), userData);
-                        }
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Bienvenida");
+                        UpdShowRoomEventoConsultoraEmailRecibido(srQsv.CodigoConsultora, srQsv.CampanaId, userData);
                     }
                 }
 
@@ -152,7 +137,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return RedirectToAction("Index", "Bienvenida");
         }
-
+   
         public ActionResult AdministrarShowRoom()
         {
             try
@@ -1587,40 +1572,34 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult DetalleOfertaCUV(string query)
         {
+            var ofertaId = 0;
+
             if (GetIsMobileDevice())
             {
                 return RedirectToAction("DetalleOfertaCUV", "ShowRoom", new { area = "Mobile", query });
             }
 
-            if (query != null)
+            if (string.IsNullOrEmpty(query))
             {
-                string param = Util.Decrypt(query);
-                string[] lista = param.Split(';');
-
-                if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
-                {
-                    return RedirectToAction("Index", "Bienvenida");
-                }
-
-                if (lista[0] == CodigoProceso)
-                {
-                    _blnRecibido = GetEventoConsultoraRecibido(userData);
-                    
-                    _ofertaId = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
-
-                    if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !_blnRecibido)
-                    {
-                        UpdShowRoomEventoConsultoraEmailRecibido(lista[2], Convert.ToInt32(lista[3]), userData);
-                    }
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Bienvenida");
-                }
-
+                return RedirectToAction("DetalleOferta", "ShowRoom", new {id = ofertaId});
             }
 
-            return RedirectToAction("DetalleOferta", "ShowRoom", new { id = _ofertaId });
+            var srQsv = new ShowRoomQueryStringValidator(query);
+
+            if ((srQsv.CodigoConsultora != userData.CodigoConsultora && srQsv.CodigoIso != userData.CodigoISO) || 
+                (srQsv.CodigoProceso != CodigoProceso))
+            {
+                return RedirectToAction("Index", "Bienvenida");
+            }
+
+            ofertaId = srQsv.OfertaId;
+
+            if (srQsv.CampanaId == userData.CampaniaID && !GetEventoConsultoraRecibido(userData))
+            {
+                UpdShowRoomEventoConsultoraEmailRecibido(srQsv.CodigoConsultora, srQsv.CampanaId, userData);
+            }
+
+            return RedirectToAction("DetalleOferta", "ShowRoom", new { id = ofertaId });
         }
 
         public ActionResult DetalleOferta(int id)
@@ -2561,88 +2540,6 @@ namespace Portal.Consultoras.Web.Controllers
                     data = ""
                 });
             }
-        }
-
-        [Obsolete("No se usa")]
-        public ActionResult Personalizado(string query)
-        {
-            ViewBag.TerminoMostrar = 1;
-
-            try
-            {
-                if (!(sessionManager.GetEsShowRoom() && userData.CodigoISO == Constantes.CodigosISOPais.Peru))
-                {
-                    return RedirectToAction("Index");
-                }
-
-                var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
-                var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
-
-                var mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
-
-                if (mostrarPopupIntriga)
-                {
-                    return RedirectToAction("Intriga", "ShowRoom");
-                }
-                if (!ValidarIngresoShowRoom(false))
-                    return RedirectToAction("Index", "Bienvenida");
-
-                if (query != null)
-                {
-                    if (GetIsMobileDevice())
-                    {
-                        return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", query });
-                    }
-
-                    var param = Util.Decrypt(query);
-                    var lista = param.Split(';');
-
-                    if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
-                    {
-                        return RedirectToAction("Index", "Bienvenida");
-                    }
-
-                    if (lista[0] == CodigoProceso)
-                    {
-                        _blnRecibido = GetEventoConsultoraRecibido(userData);
-
-                        if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !_blnRecibido)
-                        {
-                            UpdShowRoomEventoConsultoraEmailRecibido(lista[2], Convert.ToInt32(lista[3]), userData);
-                        }
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Bienvenida");
-                    }
-                }
-
-                var showRoomEventoModel = CargarValoresModel();
-                showRoomEventoModel.ListaShowRoomOferta = ValidarUnidadesPermitidas(showRoomEventoModel.ListaShowRoomOferta);
-                showRoomEventoModel.ListaShowRoomOferta = showRoomEventoModel.ListaShowRoomOferta ?? new List<ShowRoomOfertaModel>();
-                if (!showRoomEventoModel.ListaShowRoomOferta.Any())
-                    return RedirectToAction("Index", "Bienvenida");
-
-                showRoomEventoModel.FiltersBySorting = GetTablaLogicaDatos(Constantes.TablaLogica.OrdenamientoShowRoom);
-
-                var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => !x.EsSubCampania).ToList();
-                ViewBag.PrecioMin = xlistaShowRoom.Any() ? xlistaShowRoom.Min(p => p.PrecioOferta) : Convert.ToDecimal(0);
-                ViewBag.PrecioMax = xlistaShowRoom.Any() ? xlistaShowRoom.Max(p => p.PrecioOferta) : Convert.ToDecimal(0);
-
-                ViewBag.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
-
-                ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-                ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-
-                return View(showRoomEventoModel);
-
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-
-            return RedirectToAction("Index", "Bienvenida");
         }
 
         #endregion

@@ -11,6 +11,7 @@ using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using BEEstrategia = Portal.Consultoras.Web.ServicePedido.BEEstrategia;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -23,7 +24,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public BaseShowRoomController():base()
         {
-                
+            configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new ConfigModel();
         }
 
         protected void ActionExecutingMobile()
@@ -739,6 +740,36 @@ namespace Portal.Consultoras.Web.Controllers
             return ofertaShowRoomModelo;
         }
 
+        public ShowRoomOfertaModel GetOfertaConDetallePrueba(int idOferta)
+        {
+            ShowRoomOfertaModel ofertaShowRoomModelo = new ShowRoomOfertaModel();
+            if (idOferta <= 0) return ofertaShowRoomModelo;
+
+            List<ShowRoomOfertaModel> listadoOfertasTodasModel = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
+            ofertaShowRoomModelo = listadoOfertasTodasModel.Find(o => o.OfertaShowRoomID == idOferta) ?? new ShowRoomOfertaModel();
+            if (ofertaShowRoomModelo.OfertaShowRoomID <= 0) return ofertaShowRoomModelo;
+
+            ofertaShowRoomModelo.ImagenProducto = Util.Trim(ofertaShowRoomModelo.ImagenProducto);
+            ofertaShowRoomModelo.ImagenProducto = ofertaShowRoomModelo.ImagenProducto == "" ?
+                "/Content/Images/showroom/no_disponible.png" :
+                ofertaShowRoomModelo.ImagenProducto;
+
+
+            EstrategiaPersonalizadaProductoModel estrategiaModelo = new EstrategiaPersonalizadaProductoModel
+            {
+                EstrategiaID = idOferta
+            };
+
+            var listaHermanos = GetListaHermanos(estrategiaModelo);
+           
+
+            ofertaShowRoomModelo.ProductoTonos = listaHermanos;
+            //ofertaShowRoomModelo.CodigoEstrategia = codigoVariante;
+            /*TONOS-FIN*/
+
+            return ofertaShowRoomModelo;
+        }
+
         public List<ShowRoomOfertaModel> GetOfertaListadoExcepto(int idOferta)
         {
             var listaOferta = new List<ShowRoomOfertaModel>();
@@ -891,6 +922,52 @@ namespace Portal.Consultoras.Web.Controllers
             
 
             return result;
+        }
+
+        protected class ShowRoomQueryStringValidator
+        {
+            private readonly int CODIGO_PROCESO_INDEX = 0;
+            private readonly int CODIGO_ISO_INDEX = 1;
+            private readonly int CODIGO_CONSULTORA_INDEX = 2;
+            private readonly int CAMPANIA_ID_INDEX = 3;
+            
+            private readonly int OFERTA_ID_INDEX = 5;
+
+            private readonly char SEPARATOR = ';';
+
+            private string QueryString { get; set; }
+            public ShowRoomQueryStringValidator(string queryString)
+            {
+                if (!string.IsNullOrEmpty(queryString))
+                {
+                    LoadParameterValuesFromQueryString(queryString);
+                }
+            }
+
+            private void LoadParameterValuesFromQueryString(string queryString)
+            {
+                QueryString = Util.Decrypt(queryString);
+                var paramValues = QueryString.Split(SEPARATOR);
+                if(CODIGO_PROCESO_INDEX< paramValues.Length) CodigoProceso = paramValues[CODIGO_PROCESO_INDEX];
+                if(CODIGO_ISO_INDEX < paramValues.Length) CodigoIso = paramValues[CODIGO_ISO_INDEX];
+                if(CODIGO_CONSULTORA_INDEX < paramValues.Length) CodigoConsultora = paramValues[CODIGO_CONSULTORA_INDEX];
+                if (CAMPANIA_ID_INDEX < paramValues.Length && !string.IsNullOrEmpty(paramValues[CAMPANIA_ID_INDEX]))
+                    CampanaId = Convert.ToInt32(paramValues[CAMPANIA_ID_INDEX]);
+
+                if (OFERTA_ID_INDEX < paramValues.Length &&
+                    !string.IsNullOrEmpty(paramValues[OFERTA_ID_INDEX]))
+                    OfertaId = Convert.ToInt32(paramValues[OFERTA_ID_INDEX]);
+            }
+
+            public string CodigoProceso { get; private set; }
+
+            public string CodigoIso { get; private set; }
+
+            public string CodigoConsultora { get; private set; }
+
+            public int CampanaId { get; private set; }
+
+            public int OfertaId { get; private set; }
         }
     }
 }
