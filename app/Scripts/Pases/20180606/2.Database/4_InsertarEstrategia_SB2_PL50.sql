@@ -63,7 +63,7 @@ BEGIN
 		WHERE TipoEstrategiaID = @TipoEstrategiaID
 			AND flagNueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa  
+		-- Para calcular la etiqueta Oferta del d√≠a  
 		SELECT @TipoEstrategiaIDOfertaDia = COUNT(1)
 		FROM dbo.TipoEstrategia(NOLOCK)
 		WHERE TipoEstrategiaId = @TipoEstrategiaID
@@ -104,7 +104,7 @@ BEGIN
 			WHERE Descripcion LIKE '%GANANCIA%'
 		END
 
-		-- Obtener el EtiquetaID de la Oferta del dÌa.  
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.  
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID
@@ -123,7 +123,7 @@ BEGIN
 				)
 		BEGIN
 			RAISERROR (
-					'El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.'
+					'El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.'
 					,16
 					,1
 					)
@@ -151,7 +151,7 @@ BEGIN
 					)
 			BEGIN
 				RAISERROR (
-						'El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campaÒa seleccionado.'
+						'El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campa√±a seleccionado.'
 						,16
 						,1
 						)
@@ -181,7 +181,7 @@ BEGIN
 					)
 			BEGIN
 				RAISERROR (
-						'El orden ingresado para la estrategia ya est· siendo utilizado.'
+						'El orden ingresado para la estrategia ya est√° siendo utilizado.'
 						,16
 						,1
 						)
@@ -396,7 +396,7 @@ BEGIN
 		WHERE TipoEstrategiaID = @TipoEstrategiaID
 			AND flagNueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa  
+		-- Para calcular la etiqueta Oferta del d√≠a  
 		SELECT @TipoEstrategiaIDOfertaDia = COUNT(1)
 		FROM dbo.TipoEstrategia(NOLOCK)
 		WHERE TipoEstrategiaId = @TipoEstrategiaID
@@ -437,7 +437,7 @@ BEGIN
 			WHERE Descripcion LIKE '%GANANCIA%'
 		END
 
-		-- Obtener el EtiquetaID de la Oferta del dÌa.  
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.  
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID
@@ -456,7 +456,7 @@ BEGIN
 				)
 		BEGIN
 			RAISERROR (
-					'El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.'
+					'El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.'
 					,16
 					,1
 					)
@@ -484,7 +484,7 @@ BEGIN
 					)
 			BEGIN
 				RAISERROR (
-						'El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campaÒa seleccionado.'
+						'El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campa√±a seleccionado.'
 						,16
 						,1
 						)
@@ -514,7 +514,7 @@ BEGIN
 					)
 			BEGIN
 				RAISERROR (
-						'El orden ingresado para la estrategia ya est· siendo utilizado.'
+						'El orden ingresado para la estrategia ya est√° siendo utilizado.'
 						,16
 						,1
 						)
@@ -729,7 +729,7 @@ BEGIN
 		WHERE TipoEstrategiaID = @TipoEstrategiaID
 			AND flagNueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa  
+		-- Para calcular la etiqueta Oferta del d√≠a  
 		SELECT @TipoEstrategiaIDOfertaDia = COUNT(1)
 		FROM dbo.TipoEstrategia(NOLOCK)
 		WHERE TipoEstrategiaId = @TipoEstrategiaID
@@ -770,7 +770,7 @@ BEGIN
 			WHERE Descripcion LIKE '%GANANCIA%'
 		END
 
-		-- Obtener el EtiquetaID de la Oferta del dÌa.  
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.  
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID
@@ -789,7 +789,7 @@ BEGIN
 				)
 		BEGIN
 			RAISERROR (
-					'El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.'
+					'El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.'
 					,16
 					,1
 					)
@@ -817,7 +817,7 @@ BEGIN
 					)
 			BEGIN
 				RAISERROR (
-						'El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campaÒa seleccionado.'
+						'El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campa√±a seleccionado.'
 						,16
 						,1
 						)
@@ -847,7 +847,7 @@ BEGIN
 					)
 			BEGIN
 				RAISERROR (
-						'El orden ingresado para la estrategia ya est· siendo utilizado.'
+						'El orden ingresado para la estrategia ya est√° siendo utilizado.'
 						,16
 						,1
 						)
@@ -1062,7 +1062,7 @@ BEGIN
 		WHERE TipoEstrategiaID = @TipoEstrategiaID
 			AND flagNueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa  
+		-- Para calcular la etiqueta Oferta del d√≠a  
 		SELECT @TipoEstrategiaIDOfertaDia = COUNT(1)
 		FROM dbo.TipoEstrategia(NOLOCK)
 		WHERE TipoEstrategiaId = @TipoEstrategiaID
@@ -1103,7 +1103,7 @@ BEGIN
 			WHERE Descripcion LIKE '%GANANCIA%'
 		END
 
-		-- Obtener el EtiquetaID de la Oferta del dÌa.  
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.  
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID
@@ -1122,7 +1122,7 @@ BEGIN
 				)
 		BEGIN
 			RAISERROR (
-					'El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.'
+					'El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.'
 					,16
 					,1
 					)
@@ -1150,7 +1150,7 @@ BEGIN
 					)
 			BEGIN
 				RAISERROR (
-						'El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campaÒa seleccionado.'
+						'El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campa√±a seleccionado.'
 						,16
 						,1
 						)
@@ -1180,7 +1180,7 @@ BEGIN
 					)
 			BEGIN
 				RAISERROR (
-						'El orden ingresado para la estrategia ya est· siendo utilizado.'
+						'El orden ingresado para la estrategia ya est√° siendo utilizado.'
 						,16
 						,1
 						)
@@ -1395,7 +1395,7 @@ BEGIN
 		WHERE TipoEstrategiaID = @TipoEstrategiaID
 			AND flagNueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa  
+		-- Para calcular la etiqueta Oferta del d√≠a  
 		SELECT @TipoEstrategiaIDOfertaDia = COUNT(1)
 		FROM dbo.TipoEstrategia(NOLOCK)
 		WHERE TipoEstrategiaId = @TipoEstrategiaID
@@ -1436,7 +1436,7 @@ BEGIN
 			WHERE Descripcion LIKE '%GANANCIA%'
 		END
 
-		-- Obtener el EtiquetaID de la Oferta del dÌa.  
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.  
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID
@@ -1455,7 +1455,7 @@ BEGIN
 				)
 		BEGIN
 			RAISERROR (
-					'El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.'
+					'El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.'
 					,16
 					,1
 					)
@@ -1483,7 +1483,7 @@ BEGIN
 					)
 			BEGIN
 				RAISERROR (
-						'El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campaÒa seleccionado.'
+						'El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campa√±a seleccionado.'
 						,16
 						,1
 						)
@@ -1513,7 +1513,7 @@ BEGIN
 					)
 			BEGIN
 				RAISERROR (
-						'El orden ingresado para la estrategia ya est· siendo utilizado.'
+						'El orden ingresado para la estrategia ya est√° siendo utilizado.'
 						,16
 						,1
 						)
@@ -1728,7 +1728,7 @@ BEGIN
 		WHERE TipoEstrategiaID = @TipoEstrategiaID
 			AND flagNueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa  
+		-- Para calcular la etiqueta Oferta del d√≠a  
 		SELECT @TipoEstrategiaIDOfertaDia = COUNT(1)
 		FROM dbo.TipoEstrategia(NOLOCK)
 		WHERE TipoEstrategiaId = @TipoEstrategiaID
@@ -1769,7 +1769,7 @@ BEGIN
 			WHERE Descripcion LIKE '%GANANCIA%'
 		END
 
-		-- Obtener el EtiquetaID de la Oferta del dÌa.  
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.  
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID
@@ -1788,7 +1788,7 @@ BEGIN
 				)
 		BEGIN
 			RAISERROR (
-					'El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.'
+					'El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.'
 					,16
 					,1
 					)
@@ -1816,7 +1816,7 @@ BEGIN
 					)
 			BEGIN
 				RAISERROR (
-						'El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campaÒa seleccionado.'
+						'El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campa√±a seleccionado.'
 						,16
 						,1
 						)
@@ -1846,7 +1846,7 @@ BEGIN
 					)
 			BEGIN
 				RAISERROR (
-						'El orden ingresado para la estrategia ya est· siendo utilizado.'
+						'El orden ingresado para la estrategia ya est√° siendo utilizado.'
 						,16
 						,1
 						)
@@ -2061,7 +2061,7 @@ BEGIN
 		WHERE TipoEstrategiaID = @TipoEstrategiaID
 			AND flagNueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa  
+		-- Para calcular la etiqueta Oferta del d√≠a  
 		SELECT @TipoEstrategiaIDOfertaDia = COUNT(1)
 		FROM dbo.TipoEstrategia(NOLOCK)
 		WHERE TipoEstrategiaId = @TipoEstrategiaID
@@ -2102,7 +2102,7 @@ BEGIN
 			WHERE Descripcion LIKE '%GANANCIA%'
 		END
 
-		-- Obtener el EtiquetaID de la Oferta del dÌa.  
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.  
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID
@@ -2121,7 +2121,7 @@ BEGIN
 				)
 		BEGIN
 			RAISERROR (
-					'El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.'
+					'El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.'
 					,16
 					,1
 					)
@@ -2149,7 +2149,7 @@ BEGIN
 					)
 			BEGIN
 				RAISERROR (
-						'El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campaÒa seleccionado.'
+						'El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campa√±a seleccionado.'
 						,16
 						,1
 						)
@@ -2179,7 +2179,7 @@ BEGIN
 					)
 			BEGIN
 				RAISERROR (
-						'El orden ingresado para la estrategia ya est· siendo utilizado.'
+						'El orden ingresado para la estrategia ya est√° siendo utilizado.'
 						,16
 						,1
 						)
@@ -2394,7 +2394,7 @@ BEGIN
 		WHERE TipoEstrategiaID = @TipoEstrategiaID
 			AND flagNueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa  
+		-- Para calcular la etiqueta Oferta del d√≠a  
 		SELECT @TipoEstrategiaIDOfertaDia = COUNT(1)
 		FROM dbo.TipoEstrategia(NOLOCK)
 		WHERE TipoEstrategiaId = @TipoEstrategiaID
@@ -2435,7 +2435,7 @@ BEGIN
 			WHERE Descripcion LIKE '%GANANCIA%'
 		END
 
-		-- Obtener el EtiquetaID de la Oferta del dÌa.  
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.  
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID
@@ -2454,7 +2454,7 @@ BEGIN
 				)
 		BEGIN
 			RAISERROR (
-					'El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.'
+					'El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.'
 					,16
 					,1
 					)
@@ -2482,7 +2482,7 @@ BEGIN
 					)
 			BEGIN
 				RAISERROR (
-						'El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campaÒa seleccionado.'
+						'El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campa√±a seleccionado.'
 						,16
 						,1
 						)
@@ -2512,7 +2512,7 @@ BEGIN
 					)
 			BEGIN
 				RAISERROR (
-						'El orden ingresado para la estrategia ya est· siendo utilizado.'
+						'El orden ingresado para la estrategia ya est√° siendo utilizado.'
 						,16
 						,1
 						)
@@ -2727,7 +2727,7 @@ BEGIN
 		WHERE TipoEstrategiaID = @TipoEstrategiaID
 			AND flagNueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa  
+		-- Para calcular la etiqueta Oferta del d√≠a  
 		SELECT @TipoEstrategiaIDOfertaDia = COUNT(1)
 		FROM dbo.TipoEstrategia(NOLOCK)
 		WHERE TipoEstrategiaId = @TipoEstrategiaID
@@ -2768,7 +2768,7 @@ BEGIN
 			WHERE Descripcion LIKE '%GANANCIA%'
 		END
 
-		-- Obtener el EtiquetaID de la Oferta del dÌa.  
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.  
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID
@@ -2787,7 +2787,7 @@ BEGIN
 				)
 		BEGIN
 			RAISERROR (
-					'El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.'
+					'El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.'
 					,16
 					,1
 					)
@@ -2815,7 +2815,7 @@ BEGIN
 					)
 			BEGIN
 				RAISERROR (
-						'El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campaÒa seleccionado.'
+						'El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campa√±a seleccionado.'
 						,16
 						,1
 						)
@@ -2845,7 +2845,7 @@ BEGIN
 					)
 			BEGIN
 				RAISERROR (
-						'El orden ingresado para la estrategia ya est· siendo utilizado.'
+						'El orden ingresado para la estrategia ya est√° siendo utilizado.'
 						,16
 						,1
 						)
@@ -3060,7 +3060,7 @@ BEGIN
 		WHERE TipoEstrategiaID = @TipoEstrategiaID
 			AND flagNueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa  
+		-- Para calcular la etiqueta Oferta del d√≠a  
 		SELECT @TipoEstrategiaIDOfertaDia = COUNT(1)
 		FROM dbo.TipoEstrategia(NOLOCK)
 		WHERE TipoEstrategiaId = @TipoEstrategiaID
@@ -3101,7 +3101,7 @@ BEGIN
 			WHERE Descripcion LIKE '%GANANCIA%'
 		END
 
-		-- Obtener el EtiquetaID de la Oferta del dÌa.  
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.  
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID
@@ -3120,7 +3120,7 @@ BEGIN
 				)
 		BEGIN
 			RAISERROR (
-					'El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.'
+					'El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.'
 					,16
 					,1
 					)
@@ -3148,7 +3148,7 @@ BEGIN
 					)
 			BEGIN
 				RAISERROR (
-						'El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campaÒa seleccionado.'
+						'El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campa√±a seleccionado.'
 						,16
 						,1
 						)
@@ -3178,7 +3178,7 @@ BEGIN
 					)
 			BEGIN
 				RAISERROR (
-						'El orden ingresado para la estrategia ya est· siendo utilizado.'
+						'El orden ingresado para la estrategia ya est√° siendo utilizado.'
 						,16
 						,1
 						)
@@ -3393,7 +3393,7 @@ BEGIN
 		WHERE TipoEstrategiaID = @TipoEstrategiaID
 			AND flagNueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa  
+		-- Para calcular la etiqueta Oferta del d√≠a  
 		SELECT @TipoEstrategiaIDOfertaDia = COUNT(1)
 		FROM dbo.TipoEstrategia(NOLOCK)
 		WHERE TipoEstrategiaId = @TipoEstrategiaID
@@ -3434,7 +3434,7 @@ BEGIN
 			WHERE Descripcion LIKE '%GANANCIA%'
 		END
 
-		-- Obtener el EtiquetaID de la Oferta del dÌa.  
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.  
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID
@@ -3453,7 +3453,7 @@ BEGIN
 				)
 		BEGIN
 			RAISERROR (
-					'El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.'
+					'El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.'
 					,16
 					,1
 					)
@@ -3481,7 +3481,7 @@ BEGIN
 					)
 			BEGIN
 				RAISERROR (
-						'El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campaÒa seleccionado.'
+						'El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campa√±a seleccionado.'
 						,16
 						,1
 						)
@@ -3511,7 +3511,7 @@ BEGIN
 					)
 			BEGIN
 				RAISERROR (
-						'El orden ingresado para la estrategia ya est· siendo utilizado.'
+						'El orden ingresado para la estrategia ya est√° siendo utilizado.'
 						,16
 						,1
 						)
@@ -3726,7 +3726,7 @@ BEGIN
 		WHERE TipoEstrategiaID = @TipoEstrategiaID
 			AND flagNueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa  
+		-- Para calcular la etiqueta Oferta del d√≠a  
 		SELECT @TipoEstrategiaIDOfertaDia = COUNT(1)
 		FROM dbo.TipoEstrategia(NOLOCK)
 		WHERE TipoEstrategiaId = @TipoEstrategiaID
@@ -3767,7 +3767,7 @@ BEGIN
 			WHERE Descripcion LIKE '%GANANCIA%'
 		END
 
-		-- Obtener el EtiquetaID de la Oferta del dÌa.  
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.  
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID
@@ -3786,7 +3786,7 @@ BEGIN
 				)
 		BEGIN
 			RAISERROR (
-					'El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.'
+					'El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.'
 					,16
 					,1
 					)
@@ -3814,7 +3814,7 @@ BEGIN
 					)
 			BEGIN
 				RAISERROR (
-						'El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campaÒa seleccionado.'
+						'El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campa√±a seleccionado.'
 						,16
 						,1
 						)
@@ -3844,7 +3844,7 @@ BEGIN
 					)
 			BEGIN
 				RAISERROR (
-						'El orden ingresado para la estrategia ya est· siendo utilizado.'
+						'El orden ingresado para la estrategia ya est√° siendo utilizado.'
 						,16
 						,1
 						)
