@@ -1,7 +1,8 @@
-﻿var MiPerfil;
+﻿'use strict';
+
+var MiPerfil;
 
 $(document).ready(function () {
-    'use strict';
 
     var vistaMiPerfil;
 

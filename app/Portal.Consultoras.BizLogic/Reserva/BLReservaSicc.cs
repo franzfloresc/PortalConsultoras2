@@ -31,7 +31,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
         public async Task<BEResultadoReservaProl> ReservarPedido(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             BEPedidoSicc respuestaSicc = await ConsumirServExtReservar(input, listPedidoWebDetalle);
-            if (respuestaSicc == null || respuestaSicc.exitCode == 1) return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_Error);
+            if (respuestaSicc == null || respuestaSicc.exitCode == 1) return new BEResultadoReservaProl(Constantes.MensajesError.Pedido_Reserva);
                         
             var resultado = new BEResultadoReservaProl
             {

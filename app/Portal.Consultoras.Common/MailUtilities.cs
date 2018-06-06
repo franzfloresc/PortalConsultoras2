@@ -101,8 +101,7 @@ namespace Portal.Consultoras.Common
             catch { }
         }
 
-        public static void EnviarMailProcesoActualizaMisDatos(string emailFrom, string emailTo, string titulo, string displayname, string logo, string nombre, string url, string fondo,
-            string parametros)
+        public static void EnviarMailProcesoActualizaMisDatos(string emailFrom, string emailTo, string titulo, string displayname, string logo, string nombre, string url, string fondo, string parametros)
         {
             string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\mailing_proceso_actualizar_misdatos.html";
             string htmlTemplate = FileManager.GetContenido(templatePath);
@@ -112,10 +111,8 @@ namespace Portal.Consultoras.Common
             htmlTemplate = htmlTemplate.Replace("#Url#", url);
             htmlTemplate = htmlTemplate.Replace("#Fondo#", fondo);
             htmlTemplate = htmlTemplate.Replace("#Parametros#", parametros);
-
-
+            
             Util.EnviarMailMasivoColas(emailFrom, emailTo, titulo, htmlTemplate, true, displayname);
-
         }
 
         public static string CuerpoMensajePersonalizado(string url, string nombreConsultora, string param_querystring, bool esPaisEsika)
