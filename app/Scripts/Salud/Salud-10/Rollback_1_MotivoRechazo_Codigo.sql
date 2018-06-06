@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 IF EXISTS (SELECT * FROM SYS.INDEXES WHERE NAME='MotivoRechazo_Codigo' 

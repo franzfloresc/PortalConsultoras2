@@ -1,4 +1,4 @@
-USE BelcorpPeru
+ÔªøUSE BelcorpPeru
 GO
 
 alter PROCEDURE GetPedidoWebNoFacturado 
@@ -73,8 +73,8 @@ BEGIN
 						CAST(
 							', ' +
 							CASE MR.Codigo
-								WHEN 'OCC-16' THEN 'MÕNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15))
-								WHEN 'OCC-17' THEN 'M¡XIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15))
+								WHEN 'OCC-16' THEN 'M√çNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15))
+								WHEN 'OCC-17' THEN 'M√ÅXIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15))
 								WHEN 'OCC-19' THEN 'DEUDA: ' + CAST(P1.Valor AS VARCHAR(15))
 								WHEN 'OCC-51' THEN 'MINIMO STOCK'
 							END AS VARCHAR(MAX)
@@ -215,8 +215,8 @@ BEGIN
 						CAST(
 							', ' +
 							CASE MR.Codigo
-								WHEN 'OCC-16' THEN 'MÕNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15))
-								WHEN 'OCC-17' THEN 'M¡XIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15))
+								WHEN 'OCC-16' THEN 'M√çNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15))
+								WHEN 'OCC-17' THEN 'M√ÅXIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15))
 								WHEN 'OCC-19' THEN 'DEUDA: ' + CAST(P1.Valor AS VARCHAR(15))
 								WHEN 'OCC-51' THEN 'MINIMO STOCK'
 							END AS VARCHAR(MAX)
@@ -357,8 +357,8 @@ BEGIN
 						CAST(
 							', ' +
 							CASE MR.Codigo
-								WHEN 'OCC-16' THEN 'MÕNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15))
-								WHEN 'OCC-17' THEN 'M¡XIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15))
+								WHEN 'OCC-16' THEN 'M√çNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15))
+								WHEN 'OCC-17' THEN 'M√ÅXIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15))
 								WHEN 'OCC-19' THEN 'DEUDA: ' + CAST(P1.Valor AS VARCHAR(15))
 								WHEN 'OCC-51' THEN 'MINIMO STOCK'
 							END AS VARCHAR(MAX)
@@ -499,8 +499,8 @@ BEGIN
 						CAST(
 							', ' +
 							CASE MR.Codigo
-								WHEN 'OCC-16' THEN 'MÕNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15))
-								WHEN 'OCC-17' THEN 'M¡XIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15))
+								WHEN 'OCC-16' THEN 'M√çNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15))
+								WHEN 'OCC-17' THEN 'M√ÅXIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15))
 								WHEN 'OCC-19' THEN 'DEUDA: ' + CAST(P1.Valor AS VARCHAR(15))
 								WHEN 'OCC-51' THEN 'MINIMO STOCK'
 							END AS VARCHAR(MAX)
@@ -641,8 +641,8 @@ BEGIN
 						CAST(
 							', ' +
 							CASE MR.Codigo
-								WHEN 'OCC-16' THEN 'MÕNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15))
-								WHEN 'OCC-17' THEN 'M¡XIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15))
+								WHEN 'OCC-16' THEN 'M√çNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15))
+								WHEN 'OCC-17' THEN 'M√ÅXIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15))
 								WHEN 'OCC-19' THEN 'DEUDA: ' + CAST(P1.Valor AS VARCHAR(15))
 								WHEN 'OCC-51' THEN 'MINIMO STOCK'
 							END AS VARCHAR(MAX)
@@ -783,8 +783,8 @@ BEGIN
 						CAST(
 							', ' +
 							CASE MR.Codigo
-								WHEN 'OCC-16' THEN 'MÕNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15))
-								WHEN 'OCC-17' THEN 'M¡XIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15))
+								WHEN 'OCC-16' THEN 'M√çNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15))
+								WHEN 'OCC-17' THEN 'M√ÅXIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15))
 								WHEN 'OCC-19' THEN 'DEUDA: ' + CAST(P1.Valor AS VARCHAR(15))
 								WHEN 'OCC-51' THEN 'MINIMO STOCK'
 							END AS VARCHAR(MAX)
@@ -925,8 +925,8 @@ BEGIN
 						CAST(
 							', ' +
 							CASE MR.Codigo
-								WHEN 'OCC-16' THEN 'MÕNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15))
-								WHEN 'OCC-17' THEN 'M¡XIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15))
+								WHEN 'OCC-16' THEN 'M√çNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15))
+								WHEN 'OCC-17' THEN 'M√ÅXIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15))
 								WHEN 'OCC-19' THEN 'DEUDA: ' + CAST(P1.Valor AS VARCHAR(15))
 								WHEN 'OCC-51' THEN 'MINIMO STOCK'
 							END AS VARCHAR(MAX)
@@ -1067,8 +1067,8 @@ BEGIN
 						CAST(
 							', ' +
 							CASE MR.Codigo
-								WHEN 'OCC-16' THEN 'MÕNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15))
-								WHEN 'OCC-17' THEN 'M¡XIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15))
+								WHEN 'OCC-16' THEN 'M√çNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15))
+								WHEN 'OCC-17' THEN 'M√ÅXIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15))
 								WHEN 'OCC-19' THEN 'DEUDA: ' + CAST(P1.Valor AS VARCHAR(15))
 								WHEN 'OCC-51' THEN 'MINIMO STOCK'
 							END AS VARCHAR(MAX)
@@ -1209,8 +1209,8 @@ BEGIN
 						CAST(
 							', ' +
 							CASE MR.Codigo
-								WHEN 'OCC-16' THEN 'MÕNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15))
-								WHEN 'OCC-17' THEN 'M¡XIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15))
+								WHEN 'OCC-16' THEN 'M√çNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15))
+								WHEN 'OCC-17' THEN 'M√ÅXIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15))
 								WHEN 'OCC-19' THEN 'DEUDA: ' + CAST(P1.Valor AS VARCHAR(15))
 								WHEN 'OCC-51' THEN 'MINIMO STOCK'
 							END AS VARCHAR(MAX)
@@ -1351,8 +1351,8 @@ BEGIN
 						CAST(
 							', ' +
 							CASE MR.Codigo
-								WHEN 'OCC-16' THEN 'MÕNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15))
-								WHEN 'OCC-17' THEN 'M¡XIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15))
+								WHEN 'OCC-16' THEN 'M√çNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15))
+								WHEN 'OCC-17' THEN 'M√ÅXIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15))
 								WHEN 'OCC-19' THEN 'DEUDA: ' + CAST(P1.Valor AS VARCHAR(15))
 								WHEN 'OCC-51' THEN 'MINIMO STOCK'
 							END AS VARCHAR(MAX)
@@ -1493,8 +1493,8 @@ BEGIN
 						CAST(
 							', ' +
 							CASE MR.Codigo
-								WHEN 'OCC-16' THEN 'MÕNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15))
-								WHEN 'OCC-17' THEN 'M¡XIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15))
+								WHEN 'OCC-16' THEN 'M√çNIMO: ' + CAST(C.MontoMinimoPedido AS VARCHAR(15))
+								WHEN 'OCC-17' THEN 'M√ÅXIMO: ' + CAST(C.MontoMaximoPedido AS VARCHAR(15))
 								WHEN 'OCC-19' THEN 'DEUDA: ' + CAST(P1.Valor AS VARCHAR(15))
 								WHEN 'OCC-51' THEN 'MINIMO STOCK'
 							END AS VARCHAR(MAX)
