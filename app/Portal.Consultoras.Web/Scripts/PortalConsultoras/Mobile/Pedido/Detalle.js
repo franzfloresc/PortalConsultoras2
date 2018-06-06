@@ -1329,8 +1329,7 @@ function ValidarPermiso(obj) {
     return true;
 }
 
-function RedirigirPedidoValidado()
-{
+function RedirigirPedidoValidado() {
     setTimeout(function () {
         ShowLoading();
         document.location = urlPedidoValidado;

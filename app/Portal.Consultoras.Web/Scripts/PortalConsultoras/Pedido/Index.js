@@ -2087,35 +2087,31 @@ function EjecutarServicioPROL() {
             var montoEscala = response.data.MontoEscala;
             var montoPedido = response.data.Total - response.data.MontoDescuento;
             var codigoMensajeProl = response.data.CodigoMensajeProl;
-            var cumpleOferta, tipoMensaje ="";
+            var tipoMensaje = (response.data.Reserva || codigoMensajeProl == "00") ? 1 : 2;
+            var cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
 
-            if (response.data.Reserva == true) {
-                if (response.data.ZonaValida == true) {
-                    cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
+            if (response.data.Reserva) {
+                if (response.data.ZonaValida) {
                     if (cumpleOferta.resultado) {
-                        esPedidoValidado = response.data.ProlSinStock != true;
+                        esPedidoValidado = !response.data.ProlSinStock;
                         FlagEnviarCorreo = true;
                     }
                     else {
-                        if (response.data.ProlSinStock == true) {
+                        if (response.data.ProlSinStock) {
                             showDialog("divReservaSatisfactoria3");
                             CargarDetallePedido();
                         } else {
                             $('#dialog_divReservaSatisfactoria').show();
+                            if (!FlagEnviarCorreo && response.flagCorreo == '1') EnviarCorreoPedidoReservado();
+
                             AnalyticsGuardarValidar(response);
                             AnalyticsPedidoValidado(response);
-                            setTimeout(function () {
-                                location.href = baseUrl + 'Pedido/PedidoValidado';
-                            }, 3000);
-
-                            if (!FlagEnviarCorreo && response.flagCorreo == '1')
-                                EnviarCorreoPedidoReservado();
-
+                            RedirigirPedidoValidado();
                             return false;
                         }
                     }
-                } else {
-                    cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
+                }
+                else {
                     if (!cumpleOferta.resultado) {
                         if (viewBagNombrePais == 'Venezuela') showDialog("divReservaSatisfactoriaVE");
                         else if (viewBagNombrePais == 'Colombia') showDialog("divReservaSatisfactoriaCO");
@@ -2124,19 +2120,44 @@ function EjecutarServicioPROL() {
                     CargarDetallePedido();
                 }
             } else {
-                tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
-                cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
                 if (!cumpleOferta.resultado) ShowPopupObservacionesReserva(true);
                 CargarDetallePedido();
+            }
+
+            if (!response.data.Reserva) {
+                if (!cumpleOferta.resultado) ShowPopupObservacionesReserva(true);
+                CargarDetallePedido();
+            }
+            else if (!response.data.ZonaValida) {
+                if (!cumpleOferta.resultado) {
+                    if (viewBagNombrePais == 'Venezuela') showDialog("divReservaSatisfactoriaVE");
+                    else if (viewBagNombrePais == 'Colombia') showDialog("divReservaSatisfactoriaCO");
+                    else showDialog("divReservaSatisfactoria3");
+                }
+                CargarDetallePedido();
+            }
+            else if (cumpleOferta.resultado) {
+                esPedidoValidado = !response.data.ProlSinStock;
+                FlagEnviarCorreo = true;
+            }
+            else if (response.data.ProlSinStock) {
+                showDialog("divReservaSatisfactoria3");
+                CargarDetallePedido();
+            } else {
+                $('#dialog_divReservaSatisfactoria').show();
+                if (!FlagEnviarCorreo && response.flagCorreo == '1') EnviarCorreoPedidoReservado();
+
+                AnalyticsGuardarValidar(response);
+                AnalyticsPedidoValidado(response);
+                RedirigirPedidoValidado();
+                return false;
             }
 
             AnalyticsGuardarValidar(response);
             analyticsGuardarValidarEnviado = true;
             CerrarSplash();            
         },
-        error: function (data, error) {
-            CerrarSplash();
-        }
+        error: function (data, error) { CerrarSplash(); }
     });
 }
 
@@ -2303,8 +2324,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
 function MostrarMensajeProl(response) {
     var data = response.data;
 
-    if (!analyticsGuardarValidarEnviado)
-        AnalyticsGuardarValidar(response);
+    if (!analyticsGuardarValidarEnviado) AnalyticsGuardarValidar(response);
 
     if (data.Reserva) {
         if (data.ZonaValida) {
@@ -2314,24 +2334,18 @@ function MostrarMensajeProl(response) {
             } else {
                 $('#dialog_divReservaSatisfactoria').show(); //EPD-2278
                 AnalyticsPedidoValidado(response);
-                setTimeout(function () {
-                    location.href = baseUrl + 'Pedido/PedidoValidado';
-                }, 3000);
+                RedirigirPedidoValidado();
             }
-        } else {
-            if (viewBagNombrePais == 'Venezuela') {
-                showDialog("divReservaSatisfactoriaVE");
-            } else {
-                if (viewBagNombrePais == 'Colombia') {
-                    showDialog("divReservaSatisfactoriaCO");
-                } else {
-                    showDialog("divReservaSatisfactoria3");
-                }
-            }
+        }
+        else {
+            if (viewBagNombrePais == 'Venezuela') showDialog("divReservaSatisfactoriaVE");
+            else if (viewBagNombrePais == 'Colombia') showDialog("divReservaSatisfactoriaCO");
+            else showDialog("divReservaSatisfactoria3");
 
             CargarDetallePedido();
         }
-    } else {
+    }
+    else {
         ShowPopupObservacionesReserva(true);
         CargarDetallePedido();
     }
@@ -3606,3 +3620,9 @@ function ShowPopupObservacionesReserva(mostrarBoton) {
     $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
 }
 
+function RedirigirPedidoValidado() {
+    setTimeout(function () {
+        AbrirSplash();
+        location.href = baseUrl + 'Pedido/PedidoValidado';
+    }, 3000);
+}
