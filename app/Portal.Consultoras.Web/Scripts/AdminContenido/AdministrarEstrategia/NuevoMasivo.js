@@ -460,6 +460,7 @@
             }
         },
         clickAceptarMasivo1: function () {
+            console.log('clickAceptarMasivo1 Inicio', new Date());
             var params = {
                 CampaniaId: parseInt($("#ddlCampania").val()),
                 TipoConfigurado: 2,
@@ -498,7 +499,7 @@
                             }
                         }
                         else if (data.continuaPaso === true) {
-                            console.log('antes de _fnGrillaEstrategias2');
+                            console.log('antes de _fnGrillaEstrategias2', new Date());
                             closeWaitingDialog();
                             _fnGrillaEstrategias2();
                         }
