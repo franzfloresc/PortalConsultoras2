@@ -83,6 +83,7 @@
     }
 
     var _fnGrillaEstrategias1 = function () {
+        console.log('_fnGrillaEstrategias1 Inicio', new Date());
         $("#listCargaMasiva1").jqGrid("GridUnload");
         jQuery("#listCargaMasiva1").jqGrid({
             url: _config.urlConsultarOfertasPersonalizadas,
@@ -136,6 +137,7 @@
             altclass: "jQGridAltRowClass",
             loadComplete: function () { },
             gridComplete: function () {
+                console.log('_fnGrillaEstrategias1 gridComplete', new Date());
                 if (_variables.cantidadPrecargar == 0) {
                     $("#divMostrarPreCarga").css("display", "none");
                 } else {
@@ -151,7 +153,7 @@
     }
     var _fnGrillaEstrategias2 = function () {
         waitingDialog();
-        console.log('ejecutando de _fnGrillaEstrategias2 - inicio');
+        console.log('ejecutando de _fnGrillaEstrategias2 - inicio', new Date());
         $("#listCargaMasiva2").jqGrid("GridUnload");
         console.log(_config.urlEstrategiaTemporalConsultar);
         jQuery("#listCargaMasiva2").jqGrid({
@@ -205,7 +207,7 @@
             altclass: "jQGridAltRowClass",
             loadComplete: function () { },
             gridComplete: function () {
-                console.log('ejecutando de _fnGrillaEstrategias2 - gridComplete - inicio', _variables.cantidadPrecargar2);
+                console.log('ejecutando de _fnGrillaEstrategias2 - gridComplete - inicio', new Date());
                 closeWaitingDialog();
                 if (_variables.cantidadPrecargar2 == 0) {
                     $("#divMostrarPreCarga2").css("display", "none");
@@ -222,7 +224,6 @@
 
                 $("#divPaso2").removeClass("boton_redondo_admcontenido_off");
                 $("#divPaso2").addClass("boton_redondo_admcontenido_on");
-                console.log('ejecutando de _fnGrillaEstrategias2 - gridComplete - fin');
             }
         });
         jQuery("#listCargaMasiva2").jqGrid("navGrid", "#pagerCargaMasiva2",
@@ -440,6 +441,7 @@
 
     var _eventos = {
         clickNuevoMasivo: function () {
+            console.log('clickNuevoMasivo Inicio', new Date());
             _variablesInicializar();
             if (_validarMasivo()) {
                 $("#divMasivoPaso1").show();
@@ -460,6 +462,7 @@
             }
         },
         clickAceptarMasivo1: function () {
+            console.log('clickAceptarMasivo1 Inicio', new Date());
             var params = {
                 CampaniaId: parseInt($("#ddlCampania").val()),
                 TipoConfigurado: 2,
@@ -481,6 +484,7 @@
                 data: JSON.stringify(params),
                 async: true,
                 success: function (data) {
+                    console.log('Respuesta ' + _config.urlEstrategiaTemporalInsert, new Date());
                     console.log(data);
                     closeWaitingDialog();
                     if (data.success) {
@@ -498,7 +502,7 @@
                             }
                         }
                         else if (data.continuaPaso === true) {
-                            console.log('antes de _fnGrillaEstrategias2');
+                            console.log('antes de _fnGrillaEstrategias2', new Date());
                             closeWaitingDialog();
                             _fnGrillaEstrategias2();
                         }
@@ -516,14 +520,14 @@
         },
         clickAceptarMasivo2: function () {
 
+            console.log('inicio de clickAceptarMasivo2', new Date());
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
                 tipoConfigurado: 1,
                 estrategiaId: $("#ddlTipoEstrategia").find(":selected").data("id"),
                 nroLote: _variables.NroLote
             };
-
-            console.log('ejecutando clickAceptarMasivo2 - inicio', params); 
+            
             waitingDialog();
 
             jQuery.ajax({
@@ -534,8 +538,8 @@
                 data: JSON.stringify(params),
                 async: true,
                 success: function (data) {
-
-                    console.log('ejecutando clickAceptarMasivo2 - ajax - inicio', data); 
+                    console.log('respuesta ' + _config.urlEstrategiaOfertasPersonalizadasInsert, new Date());
+                    console.log(data); 
                     if (data.success) {
                         closeWaitingDialog();
                         $("#divMasivoPaso1").hide();
