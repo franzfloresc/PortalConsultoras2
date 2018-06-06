@@ -446,41 +446,37 @@ function ValidarExcel() {
                 document.getElementById('tablaCuvsInValidos').innerHTML = "";
                 if (rpt[0].length > 0) {
                     var regValidos = "", regInValidos = "";
-                    rpt[0] = rpt[0].replace('¦¬¦', '');
-                    var data = rpt[0].split('¬');
-                    document.getElementById('spanTotales1').innerHTML = data.length;
-                    document.getElementById('spanTotales2').innerHTML = data.length;
-                    createTablaRegistrosValidos();
-                    createTablaRegistrosInValidos();
-                    
-                    
+                    rpt[0] = rpt[0].replace('¦¬¦', '').trim();//replace('¦ ¦ ¦ ¬','')
+                    var data = rpt[0].split('¬');                                     
                     var CampoValidos = rpt[1];
                     var CamposNovalidos = rpt[2];
                     var cuvInValidados = rpt[3];
 
+                    createTablaRegistrosValidos();
+                    createTablaRegistrosInValidos();
+
                     for (var i = 0; i < data.length; i++) {
-                        var colum = data[i].split('¦'); 
+                        var colum = data[i].split('¦');
                         if (CampoValidos.indexOf(colum[0].toString()) >= 0 && cuvInValidados.indexOf(colum[0].toString()) < 0) {
                             contValidos++;
                             regValidos += "<tr style='background-color: white;'>";
                             for (var j = 0; j < 4; j++) {
-                                if (colum[j].trim().length <= 0) continue;
+                                //if (colum[j].trim().length <= 0) continue;
                                 regValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'>";
-                                if (j==2) {
+                                if (j == 2) {
                                     regValidos += parseFloat(colum[j]).toFixed(2);
                                 } else
                                     regValidos += colum[j];
                                 regValidos += "</td>";
                             }
-                            regValidos += "</tr>";      
+                            regValidos += "</tr>";
 
                             if (regValidos.length > 0) {
                                 document.getElementById('divregistrosValidos').style.display = 'Block';
                                 document.getElementById('divProcesarMasivo').style.display = 'Block';
                                 document.getElementById('spanValido').innerHTML = contValidos.toString();
                                 document.getElementById('divTotalRegistrosValidos').style.display = 'Inline-block';
-                            }
-                            else {
+                            } else {
                                 document.getElementById('divregistrosValidos').style.display = 'None';
                                 document.getElementById('divProcesarMasivo').style.display = 'None';
                                 document.getElementById('spanValido').innerHTML = contValidos.toString();
@@ -491,72 +487,81 @@ function ValidarExcel() {
                                 document.getElementById('divRegistrosInvalidos').style.display = 'None';
                                 document.getElementById('divExportarExcel').style.display = 'None';
                                 document.getElementById('spanInValido').innerHTML = contInValidos.toString();
-                               // document.getElementById('divTotalRegistrosInvalidos').style.display = 'None';
                             }
 
 
                         }
-                        else {
-                            
+                        else
+                        {
+                            var cantCol = colum.length;
+                            var cantVacios = 0;
                             var list = CamposNovalidos.split('¬');
                             var listCuvInval = cuvInValidados.split('¬');
-                            contInValidos++;      
-                            var cuv = "";
-                            regInValidos += "<tr style='background-color: white;'>";
-                            for (var j = 0; j < 4; j++) {
-                                cuv = colum[0];
-                                if (colum[j].trim().length <= 0 )continue;
-                                regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'><div contenteditable='true'>";
-                                regInValidos += colum[j];
-                                regInValidos += "</div></td>";
+                            for (var a = 0; a < cantCol; a++) {
+                                if (colum[a].trim().length==0) 
+                                    cantVacios++;
+                                
+                            }
+                            if (cantVacios == cantCol) {
+                                continue;
                             }
 
-                            var Obs = "";
-                            regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'>";
-                            for (var j = 0; j < list.length; j++) {
-                               if (cuv == list[j].split('¦')[0]) Obs += list[j].split('¦')[1];
-                            }
-                            for (var j = 0; j < listCuvInval.length; j++) {
-                                if (cuv == listCuvInval[j].split('¦')[0]) Obs += " - CUV no registrado en campaña seleccionada";
-                            }
+                                contInValidos++;
+                                var cuv = "";
+                                regInValidos += "<tr style='background-color: white;'>";
+                                for (var j = 0; j < 4; j++) {
+                                    cuv = colum[0];
+                                    //if (colum[j].trim().length <= 0 )continue;
+                                    regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'><div contenteditable='true'>";
+                                    regInValidos += colum[j];
+                                    regInValidos += "</div></td>";
+                                }
+
+                                var Obs = "";
+                                regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'>";
+                                for (var p = 0; p < list.length; p++) {
+                                    if (cuv == list[p].split('¦')[0]) Obs += list[p].split('¦')[1];
+                                }
+                                for (var k = 0; j < listCuvInval.length; j++) {
+                                    if (cuv == listCuvInval[k].split('¦')[0]) Obs += " - CUV no registrado en campaña seleccionada";
+                                }
                                 regInValidos += Obs;
-                                regInValidos += "</td>";    
-                          
-                            regInValidos += "</tr>";         
+                                regInValidos += "</td>";
+
+                                regInValidos += "</tr>";
+
+                                if (regInValidos.length > 0) {
+                                    document.getElementById('divRegistrosInvalidos').style.display = 'Block';
+                                    document.getElementById('divExportarExcel').style.display = 'Inline-block';
+                                    document.getElementById('spanInValido').innerHTML = contInValidos.toString();
+                                    document.getElementById('divTotalRegistrosInvalidos').style.display = 'Inline-block';
+                                }
+                                else {
+                                    document.getElementById('divRegistrosInvalidos').style.display = 'None';
+                                    document.getElementById('divExportarExcel').style.display = 'None';
+                                    document.getElementById('spanInValido').innerHTML = contInValidos.toString();
+                                    document.getElementById('divTotalRegistrosInvalidos').style.display = 'None';
+                                }
+
+                                if (contValidos == 0) {
+                                    document.getElementById('divregistrosValidos').style.display = 'None';
+                                    document.getElementById('divProcesarMasivo').style.display = 'None';
+                                    document.getElementById('spanValido').innerHTML = contValidos.toString();
+                                    //document.getElementById('divTotalRegistrosValidos').style.display = 'None';
+                                }
+
+                            //}
 
                         }
 
-                        if (regInValidos.length > 0) {
-                            document.getElementById('divRegistrosInvalidos').style.display = 'Block';
-                            document.getElementById('divExportarExcel').style.display = 'Inline-block';
-                            document.getElementById('spanInValido').innerHTML = contInValidos.toString();
-                            document.getElementById('divTotalRegistrosInvalidos').style.display = 'Inline-block';
-                        }
-                        else {
-                            document.getElementById('divRegistrosInvalidos').style.display = 'None';
-                            document.getElementById('divExportarExcel').style.display = 'None';
-                            document.getElementById('spanInValido').innerHTML = contInValidos.toString();
-                            document.getElementById('divTotalRegistrosInvalidos').style.display = 'None';
-                        }
-
-                        if (contValidos==0) {
-                            document.getElementById('divregistrosValidos').style.display = 'None';
-                            document.getElementById('divProcesarMasivo').style.display = 'None';
-                            document.getElementById('spanValido').innerHTML = contValidos.toString();
-                            //document.getElementById('divTotalRegistrosValidos').style.display = 'None';
-                        }
-                      
-                        
                     }
+
                     document.getElementById('tbValidos').innerHTML = regValidos;
                     document.getElementById('tbInValidos').innerHTML = regInValidos;
 
-                    //if (document.getElementById('tbValidos').offsetHeight < 180) {
-                    //    document.getElementById('tablaCuvsValidos').style.height = (document.getElementById('tbValidos').offsetHeight+20).toString()+"px";
-                    //}
-                    //if (document.getElementById('tbInValidos').offsetHeight < 180) {
-                    //    document.getElementById('tablaCuvsInValidos').style.height = (document.getElementById('tbInValidos').offsetHeight + 40).toString() + "px";
-                    //}
+                    document.getElementById('spanTotales1').innerHTML = (contValidos + contInValidos);
+                    document.getElementById('spanTotales2').innerHTML = (contValidos + contInValidos);
+         
                     
    
                 }
@@ -647,9 +652,13 @@ function ValidarInvalidos() {
                     
                     for (var i = 0; i < data.length; i++) {
                         var colum = data[i].split('¦');
-                        if (CampoValidos.indexOf(colum[0].toString()) >= 0 && cuvInValidados.indexOf(colum[0].toString()) < 0) {
+
+                        
+
+                        if (CampoValidos.indexOf(colum[0].toString()) >= 0 && cuvInValidados.indexOf(colum[0].toString()) < 0 && (colum[0].toString().length > 0 && colum[1].toString().length > 0 && colum[2].toString().length > 0 && colum[3].toString().length > 0)  ) {
                             contValidos++;
-                           
+
+
                             var tabla = document.getElementById('tbValidos');
                             var row = tabla.insertRow(-1);
                             var cell1 = row.insertCell(0);
@@ -716,7 +725,7 @@ function ValidarInvalidos() {
                             regInValidos += "<tr style='background-color: white;'>";
                             for (var j = 0; j < 4; j++) {
                                 cuv = colum[0];
-                                if (colum[j].trim().length <= 0) continue;
+                                //if (colum[j].trim().length <= 0) continue;
                                 regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'><div contenteditable='true'>";
                                 regInValidos += colum[j];
                                 regInValidos += "</div></td>";
