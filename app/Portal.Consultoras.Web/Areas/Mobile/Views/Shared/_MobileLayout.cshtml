@@ -396,8 +396,6 @@
 
         //BANNER APP
         var urlOcultarBannerApp = '@Url.Action("OcultarBannerApp", "Bienvenida", new { area = "Mobile" })';
-        var actionName = '@ViewContext.RouteData.GetRequiredString("action")';
-        var controllerName = '@ViewContext.RouteData.GetRequiredString("controller")';
         var oBannerApp = @Html.Raw(@Json.Encode(ViewBag.BannerApp));
 
         // Seteando Controlador y Accion

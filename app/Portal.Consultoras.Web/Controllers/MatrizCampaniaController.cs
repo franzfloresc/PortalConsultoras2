@@ -632,49 +632,97 @@ namespace Portal.Consultoras.Web.Controllers
             var CUV = "";
             string[] registros = data.Split('¬');
             bool FlagCampoValido = true;
-            for (int j = 0; j < registros.Length; j++)
+            var longCUV = 0;
+            var longDes = 0;
+            var longPrecioProducto = 0;
+            var longFactorRepeticion = 0;
+            var cantFilas = registros.Length;
+            for (int j = 0; j < cantFilas; j++)
             {
 
-                campo = registros[j].Split('¦')[0];
-                CUV += registros[j].Split('¦')[0];
-                CUV += '¬';
-                resultado = uint.TryParse(campo, out numero);
-                if (!resultado || campo.Length != 5)
+                //if (registros[j].Split('¦').Length<=3)
+                //{
+                //    continue;
+                //}
+
+                if (registros[j].Split('¦').Length>0)
                 {
-                    FlagCampoValido = false;
-                    rpta.Append(" CUV no válido - ");
+                    campo = registros[j].Split('¦')[0];
+                    CUV += registros[j].Split('¦')[0];
+                    CUV += '¬';
+                    resultado = uint.TryParse(campo, out numero);
+                    longCUV = campo.Trim().Length;
+                    if (!resultado || campo.Trim().Length != 5)
+                    {
+                        FlagCampoValido = false;
+                        rpta.Append(" CUV no válido - ");
+                    }
+
                 }
-                campo = registros[j].Split('¦')[1];
-                if (campo.Length > 500)
+
+                if (registros[j].Split('¦').Length > 1)
                 {
-                    FlagCampoValido = false;
-                    rpta.Append(" Descripción de Producto con demasiados caracteres - ");
+                    campo = registros[j].Split('¦')[1];
+                    longDes = campo.Trim().Length;
+                    if (campo.Length > 500 || longDes == 0)
+                    {
+                        FlagCampoValido = false;
+                        rpta.Append(" Longitud  de descripción de Producto no válido - ");
+                    }
                 }
-                campo = registros[j].Split('¦')[2];
-                resultado = decimal.TryParse(campo, out numerodecimal);
-                if (!resultado)
+
+                if (registros[j].Split('¦').Length > 2)
                 {
 
-                    FlagCampoValido = false;
-                    rpta.Append(" Precio Producto invalido -");
-                }
-                else
-                {
-                    if (decimal.Parse(campo)<0)
+
+                    campo = registros[j].Split('¦')[2];
+                    longPrecioProducto = campo.Trim().Length;
+                    resultado = decimal.TryParse(campo, out numerodecimal);
+                    if (!resultado)
                     {
                         FlagCampoValido = false;
                         rpta.Append(" Precio Producto invalido -");
                     }
+                    else
+                    {
+                        if (decimal.Parse(campo) < 0)
+                        {
+                            FlagCampoValido = false;
+                            rpta.Append(" Precio Producto invalido -");
+                        }
+                    }
+
                 }
 
 
-                campo = registros[j].Split('¦')[3];
-                resultado = uint.TryParse(campo, out numero);
-                if (!resultado)
+                if (registros[j].Split('¦').Length > 3)
                 {
-                    FlagCampoValido = false;
-                    rpta.Append(" Factor Repetición no válido ");
+
+                    campo = registros[j].Split('¦')[3];
+                    longFactorRepeticion = campo.Trim().Length;
+                    resultado = uint.TryParse(campo, out numero);
+                    if (!resultado)
+                    {
+                        FlagCampoValido = false;
+                        rpta.Append(" Factor Repetición no válido ");
+                    }
+                    else
+                    {
+                        if (numero==0)
+                        {
+                            FlagCampoValido = false;
+                            rpta.Append(" Factor Repetición no válido ");
+                        }
+                    }
                 }
+                if (longCUV==0 && longDes==0 && longPrecioProducto ==0 && longFactorRepeticion ==0)
+                {
+                    FlagCampoValido = true;
+                    rpta.Clear();
+                    continue;
+                }
+
+
                 if (rpta.Length > 0)
                 {
                     CamposNovalidos.Append(registros[j].Split('¦')[0]);
