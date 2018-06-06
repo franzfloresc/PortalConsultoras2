@@ -142,7 +142,6 @@ namespace Portal.Consultoras.Service
             return BLProducto.GetProductoComercialByListaCuv(paisID, campaniaID, regionID, zonaID, codigoRegion, codigoZona, listaCuv);
         }
 
-
         #region Digitacion Distribuida
 
         #region Consultoras
