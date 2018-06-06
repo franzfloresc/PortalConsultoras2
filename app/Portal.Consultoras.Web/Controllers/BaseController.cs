@@ -7,6 +7,8 @@ using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.Providers;
@@ -24,7 +26,6 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -55,8 +56,8 @@ namespace Portal.Consultoras.Web.Controllers
         protected ILogManager logManager;
         private readonly TablaLogicaProvider _tablaLogicaProvider;
         private readonly ShowRoomProvider _showRoomProvider;
-        protected Models.Estrategia.OfertaDelDia.DataModel estrategiaODD;
-        protected Models.Estrategia.ShowRoom.ConfigModel configEstrategiaSR;
+        protected DataModel estrategiaODD;
+        protected ConfigModel configEstrategiaSR;
         #endregion
 
         #region Constructor
