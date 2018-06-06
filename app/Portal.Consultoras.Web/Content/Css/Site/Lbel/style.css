@@ -89,14 +89,15 @@ header {
 }
 
 .user-profile {
-    width: 47px;
-    height: 32px;
+    width: 33px;
+    height: 33px;
+    position:relative;
 }
 
     .user-profile img {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
+        width: auto;
+        height: 100%;
+        /*border-radius: 50%;*/
     }
 
 .menu_new_esika {
@@ -109,7 +110,8 @@ header {
 .menu_esika_b {
     height: 60px;
     float: right;
-    max-width: 28%;
+    width:360px!important;
+    max-width: 31%;
 }
 
 .campana {
@@ -6153,10 +6155,10 @@ a.subir_carousel, a.bajar_carousel {
     display: block;
 }
 
-.user-profile {
+/*.user-profile {
     width: 47px;
     height: 32px;
-}
+}*/
 
 .boton-home a {
     color: black;
@@ -36466,6 +36468,25 @@ height:30px;
     max-width: 1189px;
     margin: 0 80px 0 180px;
 }
+
+/* HD-2521 - HOMOLOGACIÓN Y FOTO */
+
+.ml-26{
+    margin-left:26px;
+}
+
+.foto_consultora_menu{
+    display: block;
+    background-color: #E5E5E5;
+    width: 33px;
+    height: 33px;
+    border-radius: 100%;
+    overflow: hidden;
+    position: relative;
+    top: -2px;
+}
+
+/* FIN - HD-2521 - HOMOLOGACIÓN Y FOTO */
 
 /* HD-2524 - POPUP OPTIN (VERIFICACIÓN DE CORREO ELECTRÓNICO PENDIENTE) */
 
