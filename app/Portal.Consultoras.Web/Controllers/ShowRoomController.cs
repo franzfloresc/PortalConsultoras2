@@ -110,10 +110,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (lista[0] == CodigoProceso)
                     {
-                        using (var sv = new PedidoServiceClient())
-                        {
-                            _blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
-                        }
+                        _blnRecibido = GetEventoConsultoraRecibido(userData);
 
                         if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !_blnRecibido)
                         {
@@ -208,10 +205,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (lista[0] == CodigoProceso)
                     {
-                        using (var sv = new PedidoServiceClient())
-                        {
-                            _blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
-                        }
+                        _blnRecibido = GetEventoConsultoraRecibido(userData);
 
                         if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !_blnRecibido)
                         {
@@ -1926,11 +1920,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (lista[0] == CodigoProceso)
                 {
-                    using (var sv = new PedidoServiceClient())
-                    {
-                        _blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
-                    }
-
+                    _blnRecibido = GetEventoConsultoraRecibido(userData);
+                    
                     _ofertaId = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
 
                     if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !_blnRecibido)

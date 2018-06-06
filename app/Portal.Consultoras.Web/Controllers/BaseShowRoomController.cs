@@ -870,12 +870,24 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        protected bool GetEventoConsultoraRecibido()
+        protected bool GetEventoConsultoraRecibido(UsuarioModel usuario)
         {
-            using (PedidoServiceClient sv = new PedidoServiceClient())
+            var result = false;
+
+            try
             {
-                return Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
+                using (var sv = new PedidoServiceClient())
+                {
+                    result = sv.GetEventoConsultoraRecibido(usuario.PaisID, usuario.CodigoConsultora, usuario.CampaniaID);
+                }
             }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoConsultora, usuario.CodigoISO, "BaseShowRoomController.GetEventoConsultoraRecibido");
+            }
+            
+
+            return result;
         }
     }
 }

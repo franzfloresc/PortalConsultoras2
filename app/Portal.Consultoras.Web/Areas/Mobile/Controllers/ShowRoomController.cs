@@ -104,7 +104,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 if (lista[0] == CodigoProceso)
                 {
-                    blnRecibido = GetEventoConsultoraRecibido();
+                    blnRecibido = GetEventoConsultoraRecibido(userData);
 
                     if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !blnRecibido)
                     {
@@ -155,7 +155,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 if (lista[0] == CodigoProceso)
                 {
-                    blnRecibido = GetEventoConsultoraRecibido();
+                    blnRecibido = GetEventoConsultoraRecibido(userData);
 
                     if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !blnRecibido)
                     {
@@ -296,7 +296,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 if (lista[0] == CodigoProceso)
                 {
-                    blnRecibido= GetEventoConsultoraRecibido();
+                    blnRecibido= GetEventoConsultoraRecibido(userData);
 
                     OfertaID = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
 
