@@ -283,16 +283,12 @@ namespace Portal.Consultoras.Web.Controllers
         private List<ServiceOferta.BEShowRoomOferta> ObtenerListaProductoShowRoomService(int campaniaId, string codigoConsultora)
         {
             List<ServiceOferta.BEShowRoomOferta> listaShowRoomOferta;
-            //@001 FSV INICIO
-            /*using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, campaniaId, codigoConsultora).ToList();
-            }*/
-            using (OfertaServiceClient ofertaService = new OfertaServiceClient("BasicHttpBinding_IOfertaService1"))
+            
+            using (OfertaServiceClient ofertaService = new OfertaServiceClient())
             {
                 listaShowRoomOferta = ofertaService.GetShowRoomOfertasConsultora(userData.PaisID, campaniaId, codigoConsultora).ToList();
             }
-            //@001 FSV FIN
+
             return listaShowRoomOferta;
         }
 
@@ -386,16 +382,12 @@ namespace Portal.Consultoras.Web.Controllers
         private List<ServiceOferta.BEShowRoomOferta> GetProductosCompraPorCompraService(int campaniaId, int eventoId)
         {
             List<ServiceOferta.BEShowRoomOferta> listaShowRoomCpc;
-            //@001 FSV INICIO
-            /*using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                listaShowRoomCpc = sv.GetProductosCompraPorCompra(userData.PaisID, eventoId, campaniaId).ToList();
-            }*/
-            using (OfertaServiceClient ofertaServiceClient = new OfertaServiceClient("BasicHttpBinding_IOfertaService1"))
+            
+            using (OfertaServiceClient ofertaServiceClient = new OfertaServiceClient())
             {
                 listaShowRoomCpc = ofertaServiceClient.GetProductosCompraPorCompra(userData.PaisID, eventoId, campaniaId).ToList();
             }
-            //@001 FSV FIN
+            
             return listaShowRoomCpc;
         }
 
