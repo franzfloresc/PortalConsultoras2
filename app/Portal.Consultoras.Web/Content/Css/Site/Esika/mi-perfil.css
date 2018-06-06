@@ -204,10 +204,10 @@
 }
 
 .consultora_img{
-    width: 80%;
+    width: 100%;
     position: relative;
     margin: 0 auto;
-    top: 17px;
+    top: 0px;
     left: -1px;
     height: auto;
 }

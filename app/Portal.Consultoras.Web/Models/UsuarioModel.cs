@@ -368,5 +368,7 @@ namespace Portal.Consultoras.Web.Models
         public double IVARetailCer { get; set; }
         public double TotalCompraCer { get; set; }
         public double IvaTotalCer { get; set; }
+        public int ServicioSMS { get; set; }
+        public int ActualizaDatos { get; set; }
     }
 }

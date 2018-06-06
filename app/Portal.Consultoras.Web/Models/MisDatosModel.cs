@@ -28,5 +28,10 @@
 
         }
         public string VerCambiarClave { get; set; }
+        public string Zona { get; set; }
+        public int limiteMinimoTelef { get; set; }
+        public int limiteMaximoTelef { get; set; }
+        public int ServiceSMS { get; set; }
+        public int ActualizaDatos { get; set; }
     }
 }

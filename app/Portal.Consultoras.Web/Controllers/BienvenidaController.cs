@@ -922,7 +922,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 model.DigitoVerificador = string.Empty;
-                model.CodigoUsuario = userData.CodigoUsuario + " (Zona: " + userData.CodigoZona + ")";
+                model.CodigoUsuario = userData.CodigoUsuario;
+                model.Zona = userData.CodigoZona;
 
                 var paisesDigitoControl = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
                 if (paisesDigitoControl.Contains(model.PaisISO)

@@ -1247,6 +1247,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                     usuarioModel.EsLebel = GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO);
 
+                    usuarioModel.ActualizaDatos = Convert.ToInt32(DevuelveValorTablaLogica(usuarioModel.PaisID, Convert.ToInt16(Constantes.TablaLogicaDatosValores.ActualizaDatos)));
+                    usuarioModel.ServicioSMS = Convert.ToInt32(DevuelveValorTablaLogica(usuarioModel.PaisID, Convert.ToInt16(Constantes.TablaLogicaDatosValores.ServicioSMS)));
+
                     sessionManager.SetFlagLogCargaOfertas(HabilitarLogCargaOfertas(usuarioModel.PaisID));
                     sessionManager.SetTieneLan(true);
                     sessionManager.SetTieneLanX1(true);
@@ -1269,6 +1272,25 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return usuarioModel;
+        }
+
+        private string DevuelveValorTablaLogica(int PaisID, short Valor)
+        {
+            var valores = new List<BETablaLogicaDatos>();
+            var retorno = "";
+
+            using (var tablaLogica = new SACServiceClient())
+            {
+                valores = tablaLogica.GetTablaLogicaDatos(PaisID, Valor).ToList();
+            }
+
+            foreach (var item in valores)
+            {
+                retorno = item.Valor;
+                break;
+            }
+
+            return retorno;
         }
 
         #region metodos asincronos
