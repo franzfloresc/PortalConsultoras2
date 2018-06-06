@@ -1799,6 +1799,7 @@ namespace Portal.Consultoras.Web.Controllers
             return nombreImagenFinal;
         }
 
+        #region Metodos ShowRoom
         [HttpPost]
         public ActionResult UploadFileSetStrategyShowroom(DescripcionMasivoModel model)
         {
@@ -2086,6 +2087,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
             }
         }
+
+        #endregion
 
         private string ObtenerTextoNiveles(NivelEstrategia[] listaNivelEstrategias)
         {
