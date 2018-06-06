@@ -1,22 +1,21 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Areas.Mobile.Controllers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServicePROLConsultas;
+using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
-using Portal.Consultoras.Web.ServiceSAC;
 using BEEstrategia = Portal.Consultoras.Web.ServicePedido.BEEstrategia;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class BaseShowRoomController : BaseMobileController
+    public class BaseShowRoomController : BaseController
     {
         protected string CodigoProceso {
             get { return ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.EmailCodigoProceso]; }
@@ -256,7 +255,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             });
         }
-
 
         public List<ShowRoomOfertaModel> ObtenerListaProductoShowRoom(int campaniaId, string codigoConsultora, bool esFacturacion = false, bool conFiltroMdo = true)
         {
@@ -834,7 +832,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return Globals.UrlMatriz + "/" + userData.CodigoISO;
         }
-
 
         protected virtual bool GetIsMobileDevice()
         {

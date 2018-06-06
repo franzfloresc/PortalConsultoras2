@@ -3,10 +3,8 @@ using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -121,59 +119,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ? (ActionResult)RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
                 : View(showRoomEventoModel);
         }
-
-        public ActionResult Personalizado(string query)
-        {
-
-            if (!(sessionManager.GetEsShowRoom() && userData.CodigoISO == Constantes.CodigosISOPais.Peru))
-            {
-                return RedirectToAction("Index");
-            }
-
-            var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
-            var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
-
-            bool mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
-
-            if (mostrarPopupIntriga)
-            {
-                return RedirectToAction("Intriga", "ShowRoom", new { area = "Mobile" });
-            }
-
-            ActionExecutingMobile();
-            var showRoomEventoModel = OfertaShowRoom();
-
-            if (!string.IsNullOrEmpty(query))
-            {
-                string param = Util.Decrypt(query);
-                string[] lista = param.Split(';');
-
-                if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
-                {
-                    RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-                }
-
-                if (lista[0] == CodigoProceso)
-                {
-                    blnRecibido = GetEventoConsultoraRecibido(userData);
-
-                    if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !blnRecibido)
-                    {
-                       UpdShowRoomEventoConsultoraEmailRecibido(lista[2], Convert.ToInt32(lista[3]), userData);
-                    }
-                }
-                else
-                {
-                    RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-                }
-            }
-
-            return showRoomEventoModel == null
-                ? (ActionResult)RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
-                : View(showRoomEventoModel);
-        }
-
-
 
         public ActionResult Intriga()
         {
@@ -316,17 +261,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return RedirectToAction("DetalleOferta", "ShowRoom", new { area = "Mobile", id = OfertaID });
         }
 
-   
-
         public ActionResult DetalleOferta(int id)
         {
             return RedirectToAction("DetalleOfertaView", new { id = id, ViewName = "DetalleOferta" });
-        }
-
-        public ActionResult DetalleOfertaPersonalizado(int id)
-        {
-            return RedirectToAction("DetalleOfertaView", new{ id= id, ViewName= "DetalleOfertaPersonalizado" });
-
         }
 
         public ActionResult DetalleOfertaView(int id, string ViewName)
@@ -337,6 +274,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             var modelo = ViewDetalleOferta(id);
             modelo.EstrategiaId = id;
+            var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
+            modelo.ListaOfertaShowRoom = xList;
             bool esFacturacion = EsFacturacion();
 
             var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, configEstrategiaSR.BeShowRoom.EventoID,
@@ -348,5 +287,68 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return View(ViewName, modelo);
         }
+
+        #region Metodos Obsoletos
+
+        [Obsolete("No se usa")]
+        public ActionResult Personalizado(string query)
+        {
+
+            if (!(sessionManager.GetEsShowRoom() && userData.CodigoISO == Constantes.CodigosISOPais.Peru))
+            {
+                return RedirectToAction("Index");
+            }
+
+            var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
+            var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
+
+            bool mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
+
+            if (mostrarPopupIntriga)
+            {
+                return RedirectToAction("Intriga", "ShowRoom", new { area = "Mobile" });
+            }
+
+            ActionExecutingMobile();
+            var showRoomEventoModel = OfertaShowRoom();
+
+            if (!string.IsNullOrEmpty(query))
+            {
+                string param = Util.Decrypt(query);
+                string[] lista = param.Split(';');
+
+                if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
+                {
+                    RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                }
+
+                if (lista[0] == CodigoProceso)
+                {
+                    blnRecibido = GetEventoConsultoraRecibido(userData);
+
+                    if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !blnRecibido)
+                    {
+                        UpdShowRoomEventoConsultoraEmailRecibido(lista[2], Convert.ToInt32(lista[3]), userData);
+                    }
+                }
+                else
+                {
+                    RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                }
+            }
+
+            return showRoomEventoModel == null
+                ? (ActionResult)RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
+                : View(showRoomEventoModel);
+        }
+
+        [Obsolete("No se usa")]
+        public ActionResult DetalleOfertaPersonalizado(int id)
+        {
+            return RedirectToAction("DetalleOfertaView", new { id = id, ViewName = "DetalleOfertaPersonalizado" });
+
+        }
+
+        #endregion
     }
 }

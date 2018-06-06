@@ -22,6 +22,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
                 
         }
+
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);

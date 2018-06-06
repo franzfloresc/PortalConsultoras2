@@ -93,7 +93,6 @@ namespace Portal.Consultoras.BizLogic
             daShowRoomEvento.UpdateShowRoomConsultoraMostrarPopup(campaniaID, codigoConsultora, mostrarPopup);
         }
 
-
         public int GetUnidadesPermitidasByCuvShowRoom(int paisID, int CampaniaID, string CUV)
         {
             var dataAccess = new DAShowRoomEvento(paisID);
