@@ -12,7 +12,7 @@ namespace Portal.Consultoras.Data
         {
         }
 
-        public DataSet GetByUsuarioTipoEnvio(string codigoUsuario, string tipoEnvio)
+        public DataSet GetValidacionDatos(string codigoUsuario, string tipoEnvio)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetValidacionDatos");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
