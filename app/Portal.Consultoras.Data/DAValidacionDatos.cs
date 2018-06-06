@@ -51,10 +51,11 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
         }
 
-        public int DelValidacionDatos(string codigoUsuario)
+        public int DelValidacionDatos(string codigoUsuario, string tipoEnvio)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelValidacionDatos");
-            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.Int32, codigoUsuario);
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+            Context.Database.AddInParameter(command, "@TipoEnvio", DbType.AnsiString, tipoEnvio);
 
             return Context.ExecuteNonQuery(command);
         }
