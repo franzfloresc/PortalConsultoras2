@@ -1120,9 +1120,10 @@ namespace Portal.Consultoras.Common
             public const string LimiteDescargaSobrepasado = "El archivo no se puede descargar debido a que se sobrepaso el máximo de items ({0}).";
             public const string PaqueteDocumentario_ConsumirServicio = "Ocurrió un error al intentar obtener la información. Por favor, vuelva a intentar dentro de unos minutos.";
             public const string Cache_Eliminar = "Ocurrió un error al eliminar la caché. Inténtelo más tarde";
-            public const string Reserva_Error = "Hubo un error al tratar de realizar la validación del pedido, por favor vuelva a intentarlo.";
+            public const string Pedido_Reserva = "Hubo un error al tratar de realizar la validación del pedido, por favor vuelva a intentarlo.";
             public const string Reserva_SinDetalle = "No tiene productos que reservar esta campaña.";
-            public const string DeleteAllPedido_Error = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
+            public const string Pedido_DeleteAll = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
+            public const string MiPerfil_ConfirmacionCorreo = "Ha ocurrido un error con la activación de su correo electrónico.";
         }
 
         public static class ConfiguracionPais
@@ -2064,6 +2065,11 @@ namespace Portal.Consultoras.Common
             public const string ReemplazoCuv = "{remCuv}";
             public const string ReemplazoDesc = "{remDes}";
             public const string Stock = "{stock}";
+        }
+        public class CambioCorreoResult
+        {
+            public const string Valido = "Continúa visitando somosbelcorp.com<br />y descubre todas la ofertas que tenemos para ti.";
+            public const string Invalido = "Esta dirección de correo electrónico ya ha sido activada. ";
         }
 
         #region Pin Autenticidad
