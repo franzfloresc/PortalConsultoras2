@@ -791,10 +791,10 @@ namespace Portal.Consultoras.ServiceContracts
         int EstrategiaTemporalInsertarMasivo(int paisId, int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote);
 
         [OperationContract]
-        bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int nroLote);
+        bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int nroLote, int pagina);
 
         [OperationContract]
-        bool EstrategiaTemporalActualizarSetDetalle(int paisID, int nroLote);
+        bool EstrategiaTemporalActualizarSetDetalle(int paisID, int nroLote, int pagina);
 
         [OperationContract]
         int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote);

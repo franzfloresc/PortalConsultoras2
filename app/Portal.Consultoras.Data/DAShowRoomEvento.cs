@@ -92,54 +92,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        [Obsolete("Migrado PL50-50")]
-        public int UpdOfertaShowRoomStockMasivo(IEnumerable<BEShowRoomOferta> stockProductos)
-        {
-            var ofertaShowRoomReader = new GenericDataReader<BEShowRoomOferta>(stockProductos);
-
-            var command = new SqlCommand("ShowRoom.UpdStockOfertaShowRoomMasivo");
-            command.CommandType = CommandType.StoredProcedure;
-
-            var parameter = new SqlParameter("@StockPrecioOfertaShowRoom", SqlDbType.Structured);
-            parameter.TypeName = "ShowRoom.StockPrecioOfertaShowRoomType";
-            parameter.Value = ofertaShowRoomReader;
-            command.Parameters.Add(parameter);
-
-            return Context.ExecuteNonQuery(command);
-        }
-
-        [Obsolete("Migrado PL50-50")]
-        public int CargarMasivaDescripcionSets(int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle, string nombreArchivoCargado, string nombreArchivoGuardado)
-        {
-            var ofertaShowRoomReader = new GenericDataReader<BEShowRoomOfertaDetalle>(listaShowRoomOfertaDetalle);
-
-            var command = new SqlCommand("ShowRoom.InsertCargaMasivaOfertaDetalle");
-            command.CommandType = CommandType.StoredProcedure;
-
-            var parameter = new SqlParameter("@OfertaShowRoomDetalle", SqlDbType.Structured);
-            parameter.TypeName = "ShowRoom.OfertaShowRoomDetalleType";
-            parameter.Value = ofertaShowRoomReader;
-            command.Parameters.Add(parameter);
-
-            parameter = new SqlParameter("@CampaniaID", SqlDbType.Int);
-            parameter.Value = campaniaID;
-            command.Parameters.Add(parameter);
-
-            parameter = new SqlParameter("@UsuarioCreacion", SqlDbType.VarChar, 50);
-            parameter.Value = usuarioCreacion;
-            command.Parameters.Add(parameter);
-
-            parameter = new SqlParameter("@NombreArchivoCargado", SqlDbType.VarChar, 150);
-            parameter.Value = nombreArchivoCargado;
-            command.Parameters.Add(parameter);
-
-            parameter = new SqlParameter("@NombreArchivoGuardado", SqlDbType.VarChar, 150);
-            parameter.Value = nombreArchivoGuardado;
-            command.Parameters.Add(parameter);
-
-            return Context.ExecuteNonQuery(command);
-        }
-
         public int CargarProductoCpc(int eventoId, string usuarioCreacion, List<BEShowRoomCompraPorCompra> listaShowRoomCompraPorCompra)
         {
             var ofertaShowRoomReader = new GenericDataReader<BEShowRoomCompraPorCompra>(listaShowRoomCompraPorCompra);
@@ -192,140 +144,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@MostrarPopup", DbType.Boolean, mostrarPopup);
 
             Context.ExecuteNonQuery(command);
-        }
-
-        [Obsolete("Migrado PL50-50")]
-        public IDataReader GetProductosShowRoom(int campaniaID)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetProductosShowRoom");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
-
-            return Context.ExecuteReader(command);
-        }
-
-        [Obsolete("Migrado PL50-50")]
-        public int GetOrdenPriorizacionShowRoom(int ConfiguracionOfertaID, int CampaniaID)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetPriorizacionShowRoomByTipoOferta");
-            Context.Database.AddInParameter(command, "@ConfiguracionOfertaID", DbType.Int32, ConfiguracionOfertaID);
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
-
-            return int.Parse(Context.ExecuteScalar(command).ToString());
-        }
-
-        [Obsolete("Migrado PL50-50")]
-        public int ValidarPriorizacionShowRoom(int ConfiguracionOfertaID, int CampaniaID, int Orden)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.ValidarPriorizacionShowRoomByTipoOferta");
-            Context.Database.AddInParameter(command, "@ConfiguracionOfertaID", DbType.Int32, ConfiguracionOfertaID);
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
-            Context.Database.AddInParameter(command, "@Orden", DbType.Int32, Orden);
-
-            return int.Parse(Context.ExecuteScalar(command).ToString());
-        }
-
-        [Obsolete("Migrado PL50-50")]
-        public int ValidadStockOfertaShowRoom(BEShowRoomOferta entity)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.UpdOfertaShowRoomValidaStock");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entity.CampaniaID);
-            Context.Database.AddInParameter(command, "@CUV", DbType.AnsiString, entity.CUV);
-            Context.Database.AddInParameter(command, "@CantidadIncrementa", DbType.Int32, entity.CantidadIncrementa);
-            Context.Database.AddOutParameter(command, "@StockResultado", DbType.Int32, entity.StockResultado);
-            Context.ExecuteNonQuery(command);
-            return Convert.ToInt32(command.Parameters["@StockResultado"].Value);
-        }
-
-        [Obsolete("Migrado PL50-50")]
-        public int InsOfertaShowRoom(BEShowRoomOferta entity)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.InsOfertaShowRoom");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entity.CampaniaID);
-            Context.Database.AddInParameter(command, "@CUV", DbType.AnsiString, entity.CUV);
-            Context.Database.AddInParameter(command, "@TipoOfertaSisID", DbType.Int32, entity.TipoOfertaSisID);
-            Context.Database.AddInParameter(command, "@ConfiguracionOfertaID", DbType.Int32, entity.ConfiguracionOfertaID);
-            Context.Database.AddInParameter(command, "@Descripcion", DbType.AnsiString, entity.Descripcion);
-            Context.Database.AddInParameter(command, "@PrecioValorizado", DbType.Decimal, entity.PrecioValorizado);
-            Context.Database.AddInParameter(command, "@ImagenProducto", DbType.AnsiString, entity.ImagenProducto);
-            Context.Database.AddInParameter(command, "@Orden", DbType.Int32, entity.Orden);
-            Context.Database.AddInParameter(command, "@UnidadesPermitidas", DbType.Int32, entity.UnidadesPermitidas);
-            Context.Database.AddInParameter(command, "@FlagHabilitarProducto", DbType.Byte, entity.FlagHabilitarProducto);
-            Context.Database.AddInParameter(command, "@DescripcionLegal", DbType.AnsiString, entity.DescripcionLegal);
-            Context.Database.AddInParameter(command, "@UsuarioRegistro", DbType.AnsiString, entity.UsuarioRegistro);
-            Context.Database.AddInParameter(command, "@ImagenMini", DbType.AnsiString, entity.ImagenMini);
-            Context.Database.AddInParameter(command, "@PrecioOferta", DbType.Decimal, entity.PrecioOferta);
-            Context.Database.AddInParameter(command, "@EsSubCampania", DbType.Boolean, entity.EsSubCampania);
-
-            return Context.ExecuteNonQuery(command);
-        }
-
-        [Obsolete("Migrado PL50-50")]
-        public int UpdOfertaShowRoom(BEShowRoomOferta entity)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.UpdOfertaShowRoom");
-            Context.Database.AddInParameter(command, "@TipoOfertaSisID", DbType.Int32, entity.TipoOfertaSisID);
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entity.CampaniaID);
-            Context.Database.AddInParameter(command, "@CUV", DbType.AnsiString, entity.CUV);
-            Context.Database.AddInParameter(command, "@Descripcion", DbType.AnsiString, entity.Descripcion);
-            Context.Database.AddInParameter(command, "@ImagenProducto", DbType.AnsiString, entity.ImagenProducto);
-            Context.Database.AddInParameter(command, "@UnidadesPermitidas", DbType.Int32, entity.UnidadesPermitidas);
-            Context.Database.AddInParameter(command, "@FlagHabilitarProducto", DbType.Byte, entity.FlagHabilitarProducto);
-            Context.Database.AddInParameter(command, "@Orden", DbType.Int32, entity.Orden);
-            Context.Database.AddInParameter(command, "@DescripcionLegal", DbType.AnsiString, entity.DescripcionLegal);
-            Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.AnsiString, entity.UsuarioModificacion);
-            Context.Database.AddInParameter(command, "@PrecioValorizado", DbType.Decimal, entity.PrecioValorizado);
-            Context.Database.AddInParameter(command, "@ImagenMini", DbType.AnsiString, entity.ImagenMini);
-            Context.Database.AddInParameter(command, "@Incrementa", DbType.Int32, entity.Incrementa);
-            Context.Database.AddInParameter(command, "@CantidadIncrementa", DbType.Int32, entity.CantidadIncrementa);
-            Context.Database.AddInParameter(command, "@FlagAgotado", DbType.Int32, entity.FlagAgotado);
-            Context.Database.AddInParameter(command, "@PrecioOferta", DbType.Decimal, entity.PrecioOferta);
-            Context.Database.AddInParameter(command, "@EsSubCampania", DbType.Boolean, entity.EsSubCampania);
-
-            return Context.ExecuteNonQuery(command);
-        }
-
-        [Obsolete("Migrado PL50-50")]
-        public int DelOfertaShowRoom(BEShowRoomOferta entity)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.DelOfertaShowRoom");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entity.CampaniaID);
-            Context.Database.AddInParameter(command, "@CUV", DbType.AnsiString, entity.CUV);
-            Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.AnsiString, entity.UsuarioModificacion);
-
-            return Context.ExecuteNonQuery(command);
-        }
-
-        [Obsolete("Migrado PL50-50")]
-        public int InsOrUpdOfertaShowRoom(BEShowRoomOferta entity)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.InsOrUpdOfertaShowRoom");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entity.CampaniaID);
-            Context.Database.AddInParameter(command, "@CUV", DbType.AnsiString, entity.CUV);
-            Context.Database.AddInParameter(command, "@TipoOfertaSisID", DbType.Int32, entity.TipoOfertaSisID);
-            Context.Database.AddInParameter(command, "@ConfiguracionOfertaID", DbType.Int32, entity.ConfiguracionOfertaID);
-            Context.Database.AddInParameter(command, "@Descripcion", DbType.AnsiString, entity.Descripcion);
-            Context.Database.AddInParameter(command, "@PrecioValorizado", DbType.Decimal, entity.PrecioValorizado);
-            Context.Database.AddInParameter(command, "@ImagenProducto", DbType.AnsiString, entity.ImagenProducto);
-            Context.Database.AddInParameter(command, "@Orden", DbType.Int32, entity.Orden);
-            Context.Database.AddInParameter(command, "@UnidadesPermitidas", DbType.Int32, entity.UnidadesPermitidas);
-            Context.Database.AddInParameter(command, "@FlagHabilitarProducto", DbType.Byte, entity.FlagHabilitarProducto);
-            Context.Database.AddInParameter(command, "@DescripcionLegal", DbType.AnsiString, entity.DescripcionLegal);
-            Context.Database.AddInParameter(command, "@Usuario", DbType.AnsiString, entity.UsuarioRegistro);
-            Context.Database.AddInParameter(command, "@ImagenMini", DbType.AnsiString, entity.ImagenMini);
-            Context.Database.AddInParameter(command, "@PrecioOferta", DbType.Decimal, entity.PrecioOferta);
-            Context.Database.AddInParameter(command, "@EsSubCampania", DbType.Boolean, entity.EsSubCampania);
-
-            return Context.ExecuteNonQuery(command);
-        }
-
-        [Obsolete("Migrado PL50-50")]
-        public int RemoverOfertaShowRoom(BEShowRoomOferta entity)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.RemoverOfertaShowRoom");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entity.CampaniaID);
-            Context.Database.AddInParameter(command, "@CUV", DbType.AnsiString, entity.CUV);
-
-            return Context.ExecuteNonQuery(command);
         }
 
         public int GetUnidadesPermitidasByCuvShowRoom(int CampaniaID, string CUV)
@@ -447,62 +265,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        [Obsolete("Migrado PL50-50")]
-        public int InsOfertaShowRoomDetalle(BEShowRoomOfertaDetalle entity)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.InsOfertaShowRoomDetalle");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entity.CampaniaID);
-            Context.Database.AddInParameter(command, "@CUV", DbType.AnsiString, entity.CUV);
-            Context.Database.AddInParameter(command, "@NombreProducto", DbType.AnsiString, entity.NombreProducto);
-            Context.Database.AddInParameter(command, "@Descripcion1", DbType.AnsiString, entity.Descripcion1);
-            Context.Database.AddInParameter(command, "@Descripcion2", DbType.AnsiString, entity.Descripcion2);
-            Context.Database.AddInParameter(command, "@Descripcion3", DbType.AnsiString, entity.Descripcion3);
-            Context.Database.AddInParameter(command, "@Imagen", DbType.AnsiString, entity.Imagen);
-            Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.AnsiString, entity.UsuarioCreacion);
-            Context.Database.AddInParameter(command, "@MarcaProducto", DbType.AnsiString, entity.MarcaProducto);
-
-            return Context.ExecuteNonQuery(command);
-        }
-
-        [Obsolete("Migrado PL50-50")]
-        public int UpdOfertaShowRoomDetalle(BEShowRoomOfertaDetalle entity)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.UpdOfertaShowRoomDetalle");
-            Context.Database.AddInParameter(command, "@OfertaShowRoomDetalleID", DbType.Int32, entity.OfertaShowRoomDetalleID);
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entity.CampaniaID);
-            Context.Database.AddInParameter(command, "@CUV", DbType.AnsiString, entity.CUV);
-            Context.Database.AddInParameter(command, "@NombreProducto", DbType.AnsiString, entity.NombreProducto);
-            Context.Database.AddInParameter(command, "@Descripcion1", DbType.AnsiString, entity.Descripcion1);
-            Context.Database.AddInParameter(command, "@Descripcion2", DbType.AnsiString, entity.Descripcion2);
-            Context.Database.AddInParameter(command, "@Descripcion3", DbType.AnsiString, entity.Descripcion3);
-            Context.Database.AddInParameter(command, "@Imagen", DbType.AnsiString, entity.Imagen);
-            Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.AnsiString, entity.UsuarioModificacion);
-            Context.Database.AddInParameter(command, "@MarcaProducto", DbType.AnsiString, entity.MarcaProducto);
-
-            return Context.ExecuteNonQuery(command);
-        }
-
-        [Obsolete("Migrado PL50-50")]
-        public int EliminarOfertaShowRoomDetalle(BEShowRoomOfertaDetalle entity)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.EliminarOfertaShowRoomDetalle");
-            Context.Database.AddInParameter(command, "@OfertaShowRoomDetalleID", DbType.Int32, entity.OfertaShowRoomDetalleID);
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entity.CampaniaID);
-            Context.Database.AddInParameter(command, "@CUV", DbType.AnsiString, entity.CUV);
-
-            return Context.ExecuteNonQuery(command);
-        }
-
-        [Obsolete("Migrado PL50-50")]
-        public int EliminarOfertaShowRoomDetalleAll(int campaniaID, string cuv)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.EliminarOfertaShowRoomDetalleAll");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
-            Context.Database.AddInParameter(command, "@CUV", DbType.AnsiString, cuv);
-
-            return Context.ExecuteNonQuery(command);
-        }
-
         public int EliminarEstrategiaProductoAll(int estrategiaID, string usuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DeleteEstrategiaProductoAll");
@@ -512,22 +274,10 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-
         public IDataReader GetShowRoomPerfiles(int eventoId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetShowRoomPerfiles");
             Context.Database.AddInParameter(command, "@EventoID", DbType.Int32, eventoId);
-
-            return Context.ExecuteReader(command);
-        }
-
-        [Obsolete("Migrado PL50-50")]
-        public IDataReader GetShowRoomPerfilOfertaCuvs(BEShowRoomPerfilOferta beShowRoomPerfilOferta)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetShowRoomPerfilOfertaCuvs");
-            Context.Database.AddInParameter(command, "@EventoID", DbType.Int32, beShowRoomPerfilOferta.EventoID);
-            Context.Database.AddInParameter(command, "@PerfilID", DbType.Int32, beShowRoomPerfilOferta.PerfilID);
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, beShowRoomPerfilOferta.CampaniaID);
 
             return Context.ExecuteReader(command);
         }

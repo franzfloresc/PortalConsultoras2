@@ -3,10 +3,8 @@ using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -16,12 +14,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class ShowRoomController : BaseShowRoomController
     {
-        #region Variables
-
-        private static readonly string CodigoProceso = ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.EmailCodigoProceso];
-        private int OfertaID = 0;
-        private bool blnRecibido = false;
-        #endregion
+        public ShowRoomController() : base()
+        {
+            
+        }
 
         /// <summary>
         /// Procesa la accion segun se determine si es Intriga o ShowRoom
@@ -95,101 +91,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (!string.IsNullOrEmpty(query))
             {
-                string param = Util.Decrypt(query);
-                string[] lista = param.Split(';');
+                var srQsv = new ShowRoomQueryStringValidator(query);
 
-                if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
+                if (srQsv.CodigoConsultora != userData.CodigoConsultora && srQsv.CodigoIso != userData.CodigoISO ||
+                    srQsv.CodigoProceso != CodigoProceso)
                 {
                     RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
 
-                if (lista[0] == CodigoProceso)
+                if (srQsv.CampanaId == userData.CampaniaID && !GetEventoConsultoraRecibido(userData))
                 {
-                    using (PedidoServiceClient sv = new PedidoServiceClient())
-                    {
-                        blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
-                    }
-
-                    if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !blnRecibido)
-                    {
-                        BEShowRoomEventoConsultora entidad = new BEShowRoomEventoConsultora
-                        {
-                            CodigoConsultora = lista[2],
-                            CampaniaID = Convert.ToInt32(lista[3])
-                        };
-
-                        using (PedidoServiceClient sv = new PedidoServiceClient())
-                        {
-                            sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, entidad);
-                        }
-                    }
-                }
-                else
-                {
-                    RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-                }
-            }
-
-            return showRoomEventoModel == null
-                ? (ActionResult)RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
-                : View(showRoomEventoModel);
-        }
-
-        public ActionResult Personalizado(string query)
-        {
-
-            if (!(sessionManager.GetEsShowRoom() && userData.CodigoISO == Constantes.CodigosISOPais.Peru))
-            {
-                return RedirectToAction("Index");
-            }
-
-            var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
-            var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
-
-            bool mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
-
-            if (mostrarPopupIntriga)
-            {
-                return RedirectToAction("Intriga", "ShowRoom", new { area = "Mobile" });
-            }
-
-            ActionExecutingMobile();
-            var showRoomEventoModel = OfertaShowRoom();
-
-            if (!string.IsNullOrEmpty(query))
-            {
-                string param = Util.Decrypt(query);
-                string[] lista = param.Split(';');
-
-                if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
-                {
-                    RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-                }
-
-                if (lista[0] == CodigoProceso)
-                {
-                    using (PedidoServiceClient sv = new PedidoServiceClient())
-                    {
-                        blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
-                    }
-
-                    if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !blnRecibido)
-                    {
-                        BEShowRoomEventoConsultora entidad = new BEShowRoomEventoConsultora
-                        {
-                            CodigoConsultora = lista[2],
-                            CampaniaID = Convert.ToInt32(lista[3])
-                        };
-
-                        using (PedidoServiceClient sv = new PedidoServiceClient())
-                        {
-                            sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, entidad);
-                        }
-                    }
-                }
-                else
-                {
-                    RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                    UpdShowRoomEventoConsultoraEmailRecibido(srQsv.CodigoConsultora, srQsv.CampanaId, userData);
                 }
             }
 
@@ -307,71 +219,35 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult DetalleOfertaCUV(string query)
         {
-            if (query != null)
+            var ofertaId = 0;
+
+            if (string.IsNullOrEmpty(query))
+                return RedirectToAction("DetalleOferta", "ShowRoom", new {area = "Mobile", id = ofertaId});
+
+            var srQsv = new ShowRoomQueryStringValidator(query);
+
+            if (srQsv.CodigoConsultora != userData.CodigoConsultora && srQsv.CodigoIso != userData.CodigoISO || 
+                srQsv.CodigoProceso != CodigoProceso)
             {
-                string param = Util.Decrypt(query);
-                string[] lista = param.Split(';');
-
-                if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
-                {
-                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-                }
-
-                if (lista[0] == CodigoProceso)
-                {
-                    using (PedidoServiceClient sv = new PedidoServiceClient())
-                    {
-                        blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
-                    }
-
-                    OfertaID = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
-
-                    if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !blnRecibido)
-                    {
-                        BEShowRoomEventoConsultora entidad = new BEShowRoomEventoConsultora
-                        {
-                            CodigoConsultora = lista[2],
-                            CampaniaID = Convert.ToInt32(lista[3])
-                        };
-
-                        using (PedidoServiceClient sv = new PedidoServiceClient())
-                        {
-                            sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, entidad);
-                        }
-
-                    }
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-                }
-
+                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
             }
 
-            return RedirectToAction("DetalleOferta", "ShowRoom", new { area = "Mobile", id = OfertaID });
+            ofertaId = srQsv.OfertaId;
+
+            if (srQsv.CampanaId == userData.CampaniaID && !GetEventoConsultoraRecibido(userData))
+            {
+                UpdShowRoomEventoConsultoraEmailRecibido(srQsv.CodigoConsultora, srQsv.CampanaId, userData);
+            }
+
+            return RedirectToAction("DetalleOferta", "ShowRoom", new { area = "Mobile", id = ofertaId });
         }
 
         public ActionResult DetalleOferta(int id)
         {
-            ActionExecutingMobile();
-            if (!ValidarIngresoShowRoom(false))
-                return RedirectToAction("Index", "Bienvenida");
-
-            var modelo = ViewDetalleOferta(id);
-            modelo.EstrategiaId = id;
-            bool esFacturacion = EsFacturacion();
-
-            var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, configEstrategiaSR.BeShowRoom.EventoID,
-                        configEstrategiaSR.BeShowRoom.CampaniaID);
-            modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
-            modelo.TieneCompraXcompra = configEstrategiaSR.BeShowRoom.TieneCompraXcompra;
-
-            ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
-
-            return View("DetalleOferta", modelo);
+            return RedirectToAction("DetalleOfertaView", new { id = id, ViewName = "DetalleOferta" });
         }
 
-        public ActionResult DetalleOfertaPersonalizado(int id)
+        public ActionResult DetalleOfertaView(int id, string ViewName)
         {
             ActionExecutingMobile();
             if (!ValidarIngresoShowRoom(false))
@@ -379,6 +255,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             var modelo = ViewDetalleOferta(id);
             modelo.EstrategiaId = id;
+            var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
+            modelo.ListaOfertaShowRoom = xList;
             bool esFacturacion = EsFacturacion();
 
             var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, configEstrategiaSR.BeShowRoom.EventoID,
@@ -388,7 +266,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
 
-            return View(modelo);
+            return View(ViewName, modelo);
         }
+
     }
 }

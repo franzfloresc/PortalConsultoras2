@@ -7,6 +7,8 @@ using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.Providers;
@@ -24,7 +26,7 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -38,7 +40,6 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-using System.Drawing;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -55,8 +56,8 @@ namespace Portal.Consultoras.Web.Controllers
         protected ILogManager logManager;
         private readonly TablaLogicaProvider _tablaLogicaProvider;
         private readonly ShowRoomProvider _showRoomProvider;
-        protected Models.Estrategia.OfertaDelDia.DataModel estrategiaODD;
-        protected Models.Estrategia.ShowRoom.ConfigModel configEstrategiaSR;
+        protected DataModel estrategiaODD;
+        protected ConfigModel configEstrategiaSR;
         #endregion
 
         #region Constructor
@@ -1202,8 +1203,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     configEstrategiaSR.ListaNivel = pedidoService.GetShowRoomNivel(model.PaisID).ToList();
 
-
-
                     configEstrategiaSR.ListaPersonalizacionConsultora = Mapper.Map<IList<BEShowRoomPersonalizacion>, IList<ShowRoomPersonalizacionModel>>(pedidoService.GetShowRoomPersonalizacion(model.PaisID).ToList()).ToList();
                     configEstrategiaSR.ShowRoomNivelId = ObtenerNivelId(configEstrategiaSR.ListaNivel);
 
@@ -1401,6 +1400,7 @@ namespace Portal.Consultoras.Web.Controllers
                 || codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento)
             {
                 tipo =  bloqueado && revistaDigital.EsNoSuscritaInactiva() ? 4 : tipo;
+                tipo = bloqueado && revistaDigital.EsSuscritaInactiva() ? 5 : tipo;
             }
             return tipo;
         }
@@ -1669,6 +1669,242 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return fichaProductoModelo;
+        }
+
+        public FichaProductoDetalleModel FichaProductoHermanosPrueba(FichaProductoDetalleModel fichaProductoModelo)
+        {
+            try
+            {
+                if (fichaProductoModelo == null)
+                    return null;
+
+                fichaProductoModelo.Hermanos = new List<ProductoModel>();
+                fichaProductoModelo.TextoLibre = Util.Trim(fichaProductoModelo.TextoLibre);
+                fichaProductoModelo.CodigoVariante = Util.Trim(fichaProductoModelo.CodigoVariante);
+
+                var listaPedido = ObtenerPedidoWebDetalle();
+                fichaProductoModelo.IsAgregado = listaPedido.Any(p => p.CUV == fichaProductoModelo.CUV2);
+
+                if (fichaProductoModelo.CodigoVariante == "")
+                    return fichaProductoModelo;
+
+                fichaProductoModelo.CampaniaID = fichaProductoModelo.CampaniaID > 0 ? fichaProductoModelo.CampaniaID : userData.CampaniaID;
+
+                EstrategiaPersonalizadaProductoModel estrategiaModelo = new EstrategiaPersonalizadaProductoModel
+                {
+                    CodigoVariante = fichaProductoModelo.CodigoVariante,
+                    EstrategiaID = fichaProductoModelo.EstrategiaID
+                };
+
+                estrategiaModelo.Hermanos = GetListaHermanos(estrategiaModelo);
+            }
+            catch (Exception ex)
+            {
+                fichaProductoModelo = new FichaProductoDetalleModel
+                {
+                    Hermanos = new List<ProductoModel>()
+                };
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return fichaProductoModelo;
+        }
+
+        #endregion
+
+        #region Tonos
+
+        public List<ProductoModel> GetListaHermanos(EstrategiaPersonalizadaProductoModel estrategiaModelo)
+        {
+            string joinCuv;
+            var listaProducto = GetEstrategiaDetalleCodigoSAP(estrategiaModelo, out joinCuv);
+            if (joinCuv == "") return null;
+
+            var listaHermanos = GetEstrategiaDetalleGetProductoBySap(estrategiaModelo, joinCuv);
+            if (!listaHermanos.Any()) return null;
+
+            //estrategiaModelo.CodigoVariante = listaProducto.Select(o => o.CodigoEstrategia).FirstOrDefault();
+
+            if (estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
+            {
+                if (listaHermanos.Count == 1)
+                {
+                    listaHermanos = new List<ProductoModel>();
+                    estrategiaModelo.CodigoVariante = "";
+                }
+                else
+                {
+                    listaHermanos.ForEach(h =>
+                    {
+                        h.CUV = Util.Trim(h.CUV);
+                        h.FactorCuadre = 1;
+                    });
+                    listaHermanos = listaHermanos.OrderBy(h => h.Orden).ToList();
+                }
+            }
+            else
+            {
+                #region 2002 - 2003
+                listaHermanos = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaProducto, listaHermanos);
+                #endregion
+            }
+
+            return GetEstrategiaDetalleFactorCuadre(listaHermanos);
+        }
+
+        private List<BEEstrategiaProducto> GetEstrategiaDetalleCodigoSAP(EstrategiaPersonalizadaProductoModel estrategiaModelo, out string codigoSap)
+        {
+            codigoSap = "";
+            string separador = "|";
+            var txtBuil = new StringBuilder();
+            txtBuil.Append(separador);
+
+            var listaProducto = new List<BEEstrategiaProducto>();
+            if (!String.IsNullOrEmpty(estrategiaModelo.CodigoVariante))
+            {
+                
+                var estrategiaX = new EstrategiaPedidoModel() { PaisID = userData.PaisID, EstrategiaID = estrategiaModelo.EstrategiaID };
+                using (PedidoServiceClient svc = new PedidoServiceClient())
+                {
+                    listaProducto = svc.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, Portal.Consultoras.Web.ServicePedido.BEEstrategia>(estrategiaX)).ToList();
+                }
+
+                //listaProducto = listaProducto.Where(x => x.Activo == 1).ToList();
+
+                foreach (var item in listaProducto)
+                {
+                    item.SAP = Util.Trim(item.SAP);
+                    if (item.SAP != "" && !txtBuil.ToString().Contains(separador + item.SAP + separador))
+                        txtBuil.Append(item.SAP + separador);
+                }
+            }
+
+
+            codigoSap = txtBuil.ToString();
+
+            if (codigoSap == separador)
+                codigoSap = "";
+            else
+                codigoSap = codigoSap.Substring(separador.Length, codigoSap.Length - separador.Length * 2);
+
+            return listaProducto;
+        }
+
+        private List<ProductoModel> GetEstrategiaDetalleGetProductoBySap(EstrategiaPersonalizadaProductoModel estrategiaModelo, string joinSap)
+        {
+            List<Producto> listaAppCatalogo;
+            var numeroCampanias = Convert.ToInt32(GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
+            using (ProductoServiceClient svc = new ProductoServiceClient())
+            {
+                listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, estrategiaModelo.CampaniaID, joinSap, numeroCampanias).ToList();
+            }
+
+            if (!listaAppCatalogo.Any()) return new List<ProductoModel>();
+
+            var listaHermanos = Mapper.Map<List<Producto>, List<ProductoModel>>(listaAppCatalogo);
+
+            return listaHermanos;
+        }
+
+        private List<ProductoModel> GetEstrategiaDetalleCompuesta(EstrategiaPersonalizadaProductoModel estrategiaModelo, List<BEEstrategiaProducto> listaProducto, List<ProductoModel> listaHermanos)
+        {
+            var listaHermanosX = new List<ProductoModel>();
+            listaProducto = listaProducto.OrderBy(p => p.Grupo).ToList();
+            listaHermanos = listaHermanos.OrderBy(p => p.CodigoProducto).ToList();
+
+            var idPk = 1;
+            listaHermanos.ForEach(h => h.ID = idPk++);
+
+            idPk = 0;
+            foreach (var item in listaProducto)
+            {
+                var prod = (ProductoModel)(listaHermanos.FirstOrDefault(p => item.SAP == p.CodigoProducto) ?? new ProductoModel()).Clone();
+                if (Util.Trim(prod.CodigoProducto) == "")
+                    continue;
+
+                if (listaHermanos.Count(p => item.SAP == p.CodigoProducto) > 1)
+                {
+                    prod = (ProductoModel)(listaHermanos.FirstOrDefault(p => item.SAP == p.CodigoProducto && p.ID > idPk) ?? new ProductoModel()).Clone();
+                }
+
+                //prod.NombreComercial = item.NombreProducto;
+                //prod.Descripcion = item.Descripcion1;
+                //if (!string.IsNullOrEmpty(item.ImagenProducto))
+                //{
+                //    prod.Imagen = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + userData.CodigoISO, item.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO);
+                //}
+                //if (!string.IsNullOrEmpty(item.NombreMarca))
+                //{
+                //    prod.DescripcionMarca = item.NombreMarca;
+                //}
+
+                prod.Orden = item.Orden;
+                prod.Grupo = item.Grupo;
+                prod.PrecioCatalogo = item.Precio;
+                prod.PrecioCatalogoString = Util.DecimalToStringFormat(item.Precio, userData.CodigoISO);
+                prod.Digitable = item.Digitable;
+                prod.CUV = Util.Trim(item.CUV);
+                prod.Cantidad = item.Cantidad;
+                prod.FactorCuadre = item.FactorCuadre > 0 ? item.FactorCuadre : 1;
+                listaHermanosX.Add(prod);
+                idPk = prod.ID;
+            }
+
+            listaHermanos = listaHermanosX;
+
+            if (estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija)
+            {
+                listaHermanos.ForEach(h => { h.Digitable = 0; h.NombreComercial = Util.Trim(h.NombreComercial); });
+                listaHermanos = listaHermanos.Where(h => h.NombreComercial != "").ToList();
+            }
+            else
+            {
+                var listaHermanosR = new List<ProductoModel>();
+                ProductoModel hermano;
+                foreach (var item in listaHermanos)
+                {
+                    hermano = (ProductoModel)item.Clone();
+                    hermano.Hermanos = new List<ProductoModel>();
+                    if (hermano.Digitable == 1)
+                    {
+                        var existe = false;
+                        foreach (var itemR in listaHermanosR)
+                        {
+                            existe = itemR.Hermanos.Any(h => h.CUV == hermano.CUV);
+                            if (existe) break;
+                        }
+                        if (existe) continue;
+
+                        hermano.Hermanos = listaHermanos.Where(p => p.Grupo == hermano.Grupo).OrderBy(p => p.Orden).ToList();
+                    }
+
+                    listaHermanosR.Add(hermano);
+                }
+
+                listaHermanos = listaHermanosR.OrderBy(p => p.Orden).ToList();
+            }
+
+            return listaHermanos;
+        }
+
+        private List<ProductoModel> GetEstrategiaDetalleFactorCuadre(List<ProductoModel> listaHermanos)
+        {
+            var listaHermanosCuadre = new List<ProductoModel>();
+
+            listaHermanos = listaHermanos ?? new List<ProductoModel>();
+            foreach (var hermano in listaHermanos)
+            {
+                listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
+
+                if (hermano.FactorCuadre > 1)
+                {
+                    for (int i = 0; i < hermano.FactorCuadre - 1; i++)
+                    {
+                        listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
+                    }
+                }
+            }
+
+            return listaHermanosCuadre;
         }
 
         #endregion
