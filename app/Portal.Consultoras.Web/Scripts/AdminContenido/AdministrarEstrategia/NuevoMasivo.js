@@ -83,6 +83,7 @@
     }
 
     var _fnGrillaEstrategias1 = function () {
+        console.log('_fnGrillaEstrategias1 Inicio', new Date());
         $("#listCargaMasiva1").jqGrid("GridUnload");
         jQuery("#listCargaMasiva1").jqGrid({
             url: _config.urlConsultarOfertasPersonalizadas,
@@ -136,6 +137,7 @@
             altclass: "jQGridAltRowClass",
             loadComplete: function () { },
             gridComplete: function () {
+                console.log('_fnGrillaEstrategias1 gridComplete', new Date());
                 if (_variables.cantidadPrecargar == 0) {
                     $("#divMostrarPreCarga").css("display", "none");
                 } else {
@@ -439,6 +441,7 @@
 
     var _eventos = {
         clickNuevoMasivo: function () {
+            console.log('clickNuevoMasivo Inicio', new Date());
             _variablesInicializar();
             if (_validarMasivo()) {
                 $("#divMasivoPaso1").show();
