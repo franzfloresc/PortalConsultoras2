@@ -13,6 +13,7 @@ namespace Portal.Consultoras.Common
         private static string _rutaFileLoadTemporal;
         private static int _sizeLimitImageRevista;
         private static string _urlMatriz;
+        private static string _rutaCdn;
         #endregion
 
         #region Propiedades
@@ -157,6 +158,19 @@ namespace Portal.Consultoras.Common
                 return _sizeLimitImageRevista;
             }
             set { _sizeLimitImageRevista = value; }
+        }
+
+        public static string RutaCdn
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(_rutaCdn))
+                {
+                    return ConfigurationManager.AppSettings["RutaCDN"] ?? String.Empty;
+                }
+                return _rutaCdn;
+            }
+            set { _rutaCdn = value; }
         }
 
         #endregion
