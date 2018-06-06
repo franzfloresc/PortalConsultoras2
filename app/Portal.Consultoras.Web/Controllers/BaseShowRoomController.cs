@@ -11,6 +11,7 @@ using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.ServiceSAC;
 using BEEstrategia = Portal.Consultoras.Web.ServicePedido.BEEstrategia;
 
@@ -24,7 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public BaseShowRoomController():base()
         {
-                
+            configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new ConfigModel();
         }
 
         protected void ActionExecutingMobile()

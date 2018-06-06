@@ -5,32 +5,24 @@ using Portal.Consultoras.Web.Models.Common;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class ShowRoomController : BaseShowRoomController
     {
-        static List<BEConfiguracionOferta> lstConfiguracion = new List<BEConfiguracionOferta>();
-        protected Models.Estrategia.ShowRoom.ConfigModel configEstrategiaSR;
-
         public ShowRoomController():base()
         {
-            configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
+
         }
 
         public ActionResult Intriga()

@@ -3,10 +3,8 @@ using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -16,11 +14,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class ShowRoomController : BaseShowRoomController
     {
-        #region Variables
-
-        private int OfertaID = 0;
-        private bool blnRecibido = false;
-        #endregion
+        public ShowRoomController() : base()
+        {
+            
+        }
 
         /// <summary>
         /// Procesa la accion segun se determine si es Intriga o ShowRoom
