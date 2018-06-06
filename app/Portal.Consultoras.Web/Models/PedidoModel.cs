@@ -86,7 +86,6 @@ namespace Portal.Consultoras.Web.Models
         public string DescripcionLarga { get; set; }
         public int FlagNueva { get; set; }
         public string MensajeError { get; set; }
-        public bool ZonaNuevoPROLM { get; set; }
 
         public bool ValidacionInteractiva { get; set; }
         public string MensajeValidacionInteractiva { get; set; }

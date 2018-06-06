@@ -1066,20 +1066,17 @@ function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMen
     var porcentajeDescuento = 0;
     var tipoMeta = 0;
     var _upselling = null;
+    var productoOfertaFinal = new Object();
 
     var tipoOfertaFinal = $("#hdOfertaFinal").val();
-    var esOfertaFinalZonaValida = $("#hdEsOfertaFinalZonaValida").val();
-    var esFacturacion = $("#hdEsFacturacion").val();
-    var resultado = tipoOfertaFinal == "1" || tipoOfertaFinal == "2";
+    var esOfertaFinalZonaValida = ($("#hdEsOfertaFinalZonaValida").val() == "True");
+    var esFacturacion = ($("#hdEsFacturacion").val() == "True");
+    var ofertaFinalActiva = (tipoOfertaFinal == "1" || tipoOfertaFinal == "2") && esFacturacion && esOfertaFinalZonaValida;
+    var mostrarOfertaFinal = false;
 
-    if (resultado) resultado = esFacturacion == "True" && esOfertaFinalZonaValida == "True";
-
-    var productoOfertaFinal = new Object();
-    if (resultado == true) {
-        resultado = false;
-
+    if (ofertaFinalActiva) {
         if (tipoPopupMostrar == 1) { // supero MM
-            if (codigoMensajeProl == '00') resultado = true;
+            if (codigoMensajeProl == '00') mostrarOfertaFinal = true;
             else {
                 var flagObs = true;
                 for (var i = 0; i < listaObservacionesProl.length; i++) {
@@ -1088,39 +1085,31 @@ function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMen
                         break;
                     }
                 }
-                resultado = flagObs;
+                mostrarOfertaFinal = flagObs;
             }
         }
         else { // MM
             if (codigoMensajeProl == "01") {
                 if (listaObservacionesProl.length == 1) {
                     if (listaObservacionesProl[0].Caso == 95)
-                        resultado = listaObservacionesProl[0].CUV == "XXXXX";
-                }
-            }
-        }
-
-        if (resultado == true) {
-            productoOfertaFinal = ObtenerProductosOfertaFinal(tipoOfertaFinal);
-
-            if (productoOfertaFinal.lista.length != 0) {
-                tipoMeta = productoOfertaFinal.lista[0].TipoMeta;
-                //TODO: si la consultora tiene OFR buscar upselling
-                if (esUpselling) {
-                    _upselling = GetUpSelling();
+                        mostrarOfertaFinal = listaObservacionesProl[0].CUV == "XXXXX";
                 }
             }
         }
     }
-    else {
-        if (tipoOrigen == "1") CerrarSplash()
-        else CloseLoading();
+    else CloseLoadingOF()
+
+    if (mostrarOfertaFinal) {
+        productoOfertaFinal = ObtenerProductosOfertaFinal(tipoOfertaFinal);
+        if (productoOfertaFinal.lista.length != 0) {
+            tipoMeta = productoOfertaFinal.lista[0].TipoMeta;
+            if (esUpselling) _upselling = GetUpSelling();
+        }
     }
 
     tipoOfertaFinal_Log = tipoMeta || 0;
-
     return {
-        resultado: resultado,
+        resultado: mostrarOfertaFinal,
         productosMostrar: productoOfertaFinal.lista || new Array(),
         montoFaltante: montoFaltante,
         porcentajeDescuento: porcentajeDescuento,

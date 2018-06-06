@@ -929,18 +929,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
     }
 
     if (!cumpleOferta.resultado) {
-        var msg = ""
-        if (model.CodigoIso == "VE" && model.ZonaNuevoProlM) {
-            msg = '<h3>Tu pedido se guardó con éxito</h3>';
-            msg += '<p class="text-small">Te recordamos que el monto mínimo para pasar pedido es de Bs.700.</p>';
-            msg += '<p class="text-small">Los productos EXPOFERTAS e IMPERDIBLES CYZONE no suman para el monto mínimo.</p>';
-        } else if (model.CodigoIso == "CO" && model.ZonaNuevoProlM) {
-            msg = '<h3>Tu pedido se guardó con éxito</h3>';
-            msg += '<p>' + mensajeGuardarCO + '</p>';
-        } else {
-            msg = '<h3>Tu pedido se guardó con éxito</h3>';
-        }
-        messageInfoBueno(msg);
+        messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
         AnalyticsGuardarValidar(response);
     }
 
@@ -1241,19 +1230,7 @@ function MostrarMensajeProl(data) {
         return true;
     }
 
-    var msg = ""
-    if (data.CodigoIso == "VE" && data.ZonaNuevoProlM) {
-        msg = '<h3>Tu pedido se guardó con éxito</h3>';
-        msg += '<p class="text-small">Te recordamos que el monto mínimo para pasar pedido es de Bs.700.</p>';
-        msg += '<p class="text-small">Los productos EXPOFERTAS e IMPERDIBLES CYZONE no suman para el monto mínimo.</p>';
-    } else if (data.CodigoIso == "CO" && data.ZonaNuevoProlM) {
-        msg = '<h3>Tu pedido se guardó con éxito</h3>';
-        msg += '<p>' + mensajeGuardarCO + '</p>';
-    } else {
-        msg = '<h3>Tu pedido se guardó con éxito</h3>';
-    }
-    messageInfoBueno(msg);
-
+    messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
     CargarPedido();
     return true;
 }

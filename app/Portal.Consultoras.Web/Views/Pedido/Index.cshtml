@@ -710,14 +710,7 @@
     </div>
     <div class="linea_superior margin_10"></div>
     <div class="pop_pedido_mensaje">
-        @if (Model.ZonaNuevoProlM == true)
-        {
-            <p>¡Lo lograste! Tu pedido fue reservado con éxito.</p>
-        }
-        else
-        {
-            <p>Tu pedido fue validado con éxito. Tus productos fueron reservados.</p>
-        }
+        <p>¡Lo lograste! Tu pedido fue reservado con éxito.</p>
     </div>
 </div>
 
@@ -741,49 +734,6 @@
     </div>
     <div style="text-align: center; margin-top: 30px;">
         <input type="button" value="Cerrar" onclick="$('#divReservaSatisfactoria3').dialog('close');" class="input_modifica_horizontal" style="margin-left: 0;" />
-    </div>
-</div>
-
-<div id="divReservaSatisfactoriaVE" style="display: none;">
-    <div class="terminos_title_2">
-        Felicitaciones
-    </div>
-    <div class="linea_superior margin_10"></div>
-    <div class="pop_pedido_mensaje">
-        ¡Lo lograste! Tu pedido fue guardado con éxito.
-        @if (Model.ZonaNuevoProlM == false)
-        {
-            <div class="modal_1_texto">
-                <ul>
-                    <li>Te recordamos que el monto mínimo para pasar pedido es de Bs.700.</li>
-                    <li>Los productos EXPOFERTAS e IMPERDIBLES CYZONE no suman para el monto mínimo.</li>
-                </ul>
-            </div>
-        }
-    </div>
-    <div style="text-align: center; margin-top: 30px;">
-        <input type="button" value="Cerrar" onclick="$('#divReservaSatisfactoriaVE').dialog('close');" class="input_modifica_horizontal" style="margin-left: 0;" />
-    </div>
-</div>
-
-<div id="divReservaSatisfactoriaCO" style="display: none;">
-    <div class="terminos_title_2">
-        Felicitaciones
-    </div>
-    <div class="linea_superior margin_10"></div>
-    <div class="pop_pedido_mensaje">
-        ¡Lo lograste! Tu pedido fue guardado con éxito.
-        @if (Model.ZonaNuevoProlM == false)
-        {
-            <div class="modal_1_texto" style="padding-left: 20px; padding-right: 20px;">
-                <ul>
-                    <li>@Model.MensajeGuardarColombia</li>
-                </ul>
-            </div>
-        }
-    </div>
-    <div style="text-align: center; margin-top: 30px;">
-        <input type="button" value="Cerrar" onclick="$('#divReservaSatisfactoriaCO').dialog('close');" class="input_modifica_horizontal" style="margin-left: 0;" />
     </div>
 </div>
 
@@ -867,14 +817,7 @@
             <div class="icono_mensaje_alerta icono_check_alerta" id="ofIconoSuperior" style="margin-bottom: 20px;"></div>
             <h1 class="titulo_agregarUnidades"><b>¡LO LOGRASTE!</b></h1>
             <div id="mensajedivReservaSatisfactoria" class="mensaje_agregarUnidades">
-                @if (Model.ZonaNuevoProlM == true)
-                {
-                    <p>Tu pedido fue reservado con éxito.</p>
-                }
-                else
-                {
-                    <p>Tu pedido fue validado con éxito. Tus productos fueron reservados.</p>
-                }
+                <p>Tu pedido fue reservado con éxito.</p>
             </div>
             <button type="button" name="btn_ok" class="btn_ok" onclick="return $('#dialog_divReservaSatisfactoria').hide();">
                 OK

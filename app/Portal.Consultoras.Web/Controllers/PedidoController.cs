@@ -183,27 +183,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
-                #region Mensaje Guardar Colombia
-
-                if (userData.CodigoISO == Constantes.CodigosISOPais.Colombia)
-                {
-                    List<BETablaLogicaDatos> tabla;
-                    using (var sac = new SACServiceClient())
-                    {
-                        tabla = sac.GetTablaLogicaDatos(userData.PaisID, 27).ToList();
-                    }
-
-                    model.MensajeGuardarColombia = tabla.Count != 0
-                        ? tabla[0].Descripcion
-                        : string.Empty;
-                }
-                else
-                {
-                    model.MensajeGuardarColombia = string.Empty;
-                }
-
-                #endregion
-
                 #region Banners
 
                 var urlCarpeta = WebConfigurationManager.AppSettings["Banners"] + "/IngresoPedido/" + userData.CodigoISO;
@@ -228,7 +207,6 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EstadoSimplificacionCuv = userData.EstadoSimplificacionCUV;
                 model.ErrorInsertarProducto = "";
                 model.ListaEstrategias = new List<BEEstrategia>();
-                model.ZonaNuevoProlM = true;
                 model.NombreConsultora = userData.NombreConsultora;
                 model.PaisID = userData.PaisID;
                 model.Simbolo = userData.Simbolo;
@@ -2251,7 +2229,6 @@ namespace Portal.Consultoras.Web.Controllers
                     Total = listPedidoWebDetalle.Sum(d => d.ImporteTotal),
                     EsDiaProl = userData.DiaPROL,
                     ProlSinStock = userData.PROLSinStock,
-                    ZonaNuevoProlM = true,
                     CodigoIso = userData.CodigoISO,
                     CodigoMensajeProl = resultado.CodigoMensaje
                 };
