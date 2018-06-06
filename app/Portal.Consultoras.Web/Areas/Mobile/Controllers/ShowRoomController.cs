@@ -69,6 +69,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }));
         }
 
+        //OK
         public ActionResult Index(string query)
         {
             var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
@@ -110,6 +111,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 : View(showRoomEventoModel);
         }
 
+        //OK
         public ActionResult Intriga()
         {
             try
@@ -242,6 +244,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return RedirectToAction("DetalleOferta", "ShowRoom", new { area = "Mobile", id = ofertaId });
         }
 
+        //OK
         public ActionResult DetalleOferta(int id)
         {
             return RedirectToAction("DetalleOfertaView", new { id = id, ViewName = "DetalleOferta" });

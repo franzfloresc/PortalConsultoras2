@@ -1081,19 +1081,6 @@ namespace Portal.Consultoras.Web.Controllers
             return model;
         }
 
-        private bool CumpleOfertaDelDia()
-        {
-            var result = false;
-            if (!NoMostrarBannerODD())
-            {
-                result = (!userData.TieneOfertaDelDia ||
-                          (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2 || userData.IndicadorGPRSB == 0)
-                          && !userData.CloseOfertaDelDia) && userData.TieneOfertaDelDia;
-            }
-
-            return result;
-        }
-
         private string GetFormatDecimalPais(string isoPais)
         {
             var listaPaises = GetConfiguracionManager(Constantes.ConfiguracionManager.KeyPaisFormatDecimal);
@@ -1165,6 +1152,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return ip;
         }
+
+        #endregion
+
+        #region Metodos ShowRoom
 
         protected void CargarEntidadesShowRoom(UsuarioModel model)
         {
@@ -2333,33 +2324,22 @@ namespace Portal.Consultoras.Web.Controllers
             return sFecha;
         }
 
-        public TimeSpan CountdownODD(UsuarioModel model)
-        {
-            DateTime hoy;
-
-            using (var svc = new SACServiceClient())
-            {
-                hoy = svc.GetFechaHoraPais(model.PaisID);
-            }
-
-            var d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
-            DateTime d2;
-
-            if (model.EsDiasFacturacion)
-            {
-                var t1 = model.HoraCierreZonaNormal;
-                d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
-            }
-            else
-            {
-                d2 = d1.AddDays(1);
-            }
-
-            var t2 = (d2 - hoy);
-            return t2;
-        }
-
         #endregion
+
+        #region Metodos Oferta del Dia
+
+        private bool CumpleOfertaDelDia()
+        {
+            var result = false;
+            if (!NoMostrarBannerODD())
+            {
+                result = (!userData.TieneOfertaDelDia ||
+                          (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2 || userData.IndicadorGPRSB == 0)
+                          && !userData.CloseOfertaDelDia) && userData.TieneOfertaDelDia;
+            }
+
+            return result;
+        }
 
         protected OfertaDelDiaModel GetOfertaDelDiaModel()
         {
@@ -2395,6 +2375,32 @@ namespace Portal.Consultoras.Web.Controllers
             return model;
         }
 
+        public TimeSpan CountdownODD(UsuarioModel model)
+        {
+            DateTime hoy;
+
+            using (var svc = new SACServiceClient())
+            {
+                hoy = svc.GetFechaHoraPais(model.PaisID);
+            }
+
+            var d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
+            DateTime d2;
+
+            if (model.EsDiasFacturacion)
+            {
+                var t1 = model.HoraCierreZonaNormal;
+                d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
+            }
+            else
+            {
+                d2 = d1.AddDays(1);
+            }
+
+            var t2 = (d2 - hoy);
+            return t2;
+        }
+
         public ConfiguracionSeccionHomeModel GetConfiguracionEstrategia(string codigoEstrategia)
         {
             ConfiguracionSeccionHomeModel configuracionModel;
@@ -2410,6 +2416,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             return configuracionModel;
         }
+
+        #endregion
 
         public ShowRoomBannerLateralModel GetShowRoomBannerLateral()
         {
