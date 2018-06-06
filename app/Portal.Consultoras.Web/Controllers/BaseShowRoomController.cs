@@ -296,7 +296,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, campaniaId, codigoConsultora).ToList();
             }*/
-            using (OfertaServiceClient ofertaService = new OfertaServiceClient())
+            using (OfertaServiceClient ofertaService = new OfertaServiceClient("BasicHttpBinding_IOfertaService1"))
             {
                 listaShowRoomOferta = ofertaService.GetShowRoomOfertasConsultora(userData.PaisID, campaniaId, codigoConsultora).ToList();
             }
@@ -514,7 +514,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaShowRoomCpc = sv.GetProductosCompraPorCompra(userData.PaisID, eventoId, campaniaId).ToList();
             }*/
-            using (OfertaServiceClient ofertaServiceClient = new OfertaServiceClient())
+            using (OfertaServiceClient ofertaServiceClient = new OfertaServiceClient("BasicHttpBinding_IOfertaService1"))
             {
                 listaShowRoomCpc = ofertaServiceClient.GetProductosCompraPorCompra(userData.PaisID, eventoId, campaniaId).ToList();
             }
