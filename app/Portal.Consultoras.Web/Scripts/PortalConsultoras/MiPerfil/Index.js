@@ -26,6 +26,26 @@ $(document).ready(function () {
                         $(campoFormulario).addClass('campo_con_datos');
                     }
                 });
+            },
+            mostrarTelefono: function () {
+                if ($('#NumeroAdicionalConsultora').val() != '') {
+                    $('.enlace_agregar_num_adicional').fadeOut(150);
+                    $('.label_num_adicional').fadeIn(100);
+                    $('.contenedor_campos_num_adicional').fadeIn(150);
+                    console.log('asas');
+                }
+            },
+            PuedeActualizar: function () {
+                if ($('#hdn_PuedeActualizar').val() == '0') {
+                    $('#NombreCortoConsultora').prop('disabled', true);
+                    $('#CorreoElectronicoConsultora').prop('disabled', true);
+                    $('#CelularConsultora').prop('disabled', true);
+                    $('#TelefonoFijoConsultora').prop('disabled', true);
+                    $('#btnCambiarCelular').bind('click', false);
+                    $('#btnCambiarEmail').bind('click', false);
+                    $('#btnAgregarOtroNumero').bind('click', false);
+                    $('#btnGuardar').prop('disabled', true);
+                }
             }
         },
         me.Eventos = {
@@ -68,10 +88,16 @@ $(document).ready(function () {
         me.Inicializar = function () {
             me.Funciones.InicializarEventos();
             me.Funciones.CamposFormularioConDatos();
+            me.Funciones.mostrarTelefono();
+            me.Funciones.PuedeActualizar();
         }
     }
 
     MiPerfil = new vistaMiPerfil();
     MiPerfil.Inicializar();
+
+    $('#btnGuardar').click(function () {
+        alert('me hicieron click');
+    });
 
 });

@@ -2084,5 +2084,11 @@ namespace Portal.Consultoras.Common
             public const int EnviarPorSms = 2;
         }
         #endregion  
+
+        public static class TablaLogicaDatosValores
+        {
+            public const int ServicioSMS = 144;
+            public const int ActualizaDatos = 143;
+        }
     }
 }
