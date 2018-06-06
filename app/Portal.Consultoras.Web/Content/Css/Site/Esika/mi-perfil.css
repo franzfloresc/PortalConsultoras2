@@ -411,6 +411,17 @@
     transition: all 0.3s ease;
 }
 
+.btn_acept{
+    line-height:45px;
+}
+
+    .btn_acept:hover,
+    .btn_acept:active
+    {
+        text-decoration:none;
+        color:#FFF;
+    }
+
 .btn_guardar_datos_nuevos{
     width:202px;
 }
