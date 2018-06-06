@@ -1094,6 +1094,7 @@
         jQuery("#listCargaMasiva1").setGridParam({ datatype: "json", page: 1 }).trigger("reloadGrid");
     }
     var _fnGrillaEstrategias2 = function () {
+        console.log('Inicio _fnGrillaEstrategias2 ', new Date());
         $("#listCargaMasiva2").jqGrid("GridUnload");
         jQuery("#listCargaMasiva2").jqGrid({
             url: baseUrl + "AdministrarEstrategia/ConsultarOfertasParaTiTemporal",
@@ -1146,6 +1147,7 @@
             altclass: "jQGridAltRowClass",
             loadComplete: function () { },
             gridComplete: function () {
+                console.log('Inicio _fnGrillaEstrategias2 gridComplete ', new Date());
                 if (_variables.cantidadPrecargar2 == 0) {
                     $("#divMostrarPreCarga2").css("display", "none");
                 } else {
@@ -3668,6 +3670,7 @@
             if (_validarMasivo()) _actualizarTonos();
         },
         clickAceptarMasivo1: function () {
+            console.log('clickAceptarMasivo1 Inicio', new Date());
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
                 tipoConfigurado: 2,
@@ -3690,6 +3693,7 @@
                 data: JSON.stringify(params),
                 async: true,
                 success: function (data) {
+                    console.log('Respuesta InsertEstrategiaTemporal ', new Date());
                     console.log(data);
                     if (data.success) {
                         closeWaitingDialog();
@@ -3698,6 +3702,7 @@
                             _variables.NroLote = data.NroLote;
                             _variables.cantGuardadaTemporal += parseInt(data.cantGuardadaTemporal, 10)
                             if (_variables.cantGuardadaTemporal >= _variables.cantidadPrecargar) {
+                                console.log('antes de _fnGrillaEstrategias2 - 1', new Date());
                                 _fnGrillaEstrategias2();
                             }
                             else {
@@ -3705,6 +3710,7 @@
                             }
                         }
                         else if (_variables.cantGuardadaTemporal > 0) {
+                            console.log('antes de _fnGrillaEstrategias2 - 2', new Date());
                             _fnGrillaEstrategias2();
                         }
                     } else {
@@ -3719,6 +3725,8 @@
             });
         },
         clickAceptarMasivo2: function () {
+
+            console.log('Inicio clickAceptarMasivo2 ', new Date());
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
                 tipoConfigurado: 1,
@@ -3736,6 +3744,7 @@
                 data: JSON.stringify(params),
                 async: true,
                 success: function (data) {
+                    console.log('Inicio clickAceptarMasivo2 respuesta InsertEstrategiaOfertaParaTi', new Date());
                     if (data.success) {
                         closeWaitingDialog();
                         $("#divMasivoPaso1").hide();
