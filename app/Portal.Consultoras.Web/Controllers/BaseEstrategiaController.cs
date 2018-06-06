@@ -198,44 +198,6 @@ namespace Portal.Consultoras.Web.Controllers
             return estrategiaModelo;
         }
 
-        public FichaProductoDetalleModel FichaProductoHermanosPrueba(FichaProductoDetalleModel fichaProductoModelo)
-        {
-            try
-            {
-                if (fichaProductoModelo == null)
-                    return null;
-
-                fichaProductoModelo.Hermanos = new List<ProductoModel>();
-                fichaProductoModelo.TextoLibre = Util.Trim(fichaProductoModelo.TextoLibre);
-                fichaProductoModelo.CodigoVariante = Util.Trim(fichaProductoModelo.CodigoVariante);
-
-                var listaPedido = ObtenerPedidoWebDetalle();
-                fichaProductoModelo.IsAgregado = listaPedido.Any(p => p.CUV == fichaProductoModelo.CUV2);
-
-                if (fichaProductoModelo.CodigoVariante == "")
-                    return fichaProductoModelo;
-
-                fichaProductoModelo.CampaniaID = fichaProductoModelo.CampaniaID > 0 ? fichaProductoModelo.CampaniaID : userData.CampaniaID;
-
-                EstrategiaPersonalizadaProductoModel estrategiaModelo = new EstrategiaPersonalizadaProductoModel
-                {
-                    CodigoVariante = fichaProductoModelo.CodigoVariante,
-                    EstrategiaID = fichaProductoModelo.EstrategiaID
-                };
-
-                estrategiaModelo.Hermanos = GetListaHermanos(estrategiaModelo);
-            }
-            catch (Exception ex)
-            {
-                fichaProductoModelo = new FichaProductoDetalleModel
-                {
-                    Hermanos = new List<ProductoModel>()
-                };
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-            return fichaProductoModelo;
-        }
-
         public EstrategiaPersonalizadaProductoModel EstrategiaGetDetalleCuv(string cuv)
         {
             EstrategiaPersonalizadaProductoModel estrategia;
