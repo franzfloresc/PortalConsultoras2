@@ -108,7 +108,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !blnRecibido)
                     {
-                         UpdShowRoomEventoConsultoraEmailRecibido(lista[2], Convert.ToInt32(lista[3]));
+                         UpdShowRoomEventoConsultoraEmailRecibido(lista[2], Convert.ToInt32(lista[3]), userData);
                     }
                 }
                 else
@@ -159,7 +159,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !blnRecibido)
                     {
-                       UpdShowRoomEventoConsultoraEmailRecibido(lista[2], Convert.ToInt32(lista[3]));
+                       UpdShowRoomEventoConsultoraEmailRecibido(lista[2], Convert.ToInt32(lista[3]), userData);
                     }
                 }
                 else
@@ -302,7 +302,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !blnRecibido)
                     {
-                        UpdShowRoomEventoConsultoraEmailRecibido(lista[2], Convert.ToInt32(lista[3]));
+                        UpdShowRoomEventoConsultoraEmailRecibido(lista[2], Convert.ToInt32(lista[3]),userData);
 
                     }
                 }

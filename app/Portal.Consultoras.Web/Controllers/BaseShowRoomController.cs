@@ -855,18 +855,24 @@ namespace Portal.Consultoras.Web.Controllers
             return tablaLogicaDatosModel;
         }
 
-        protected void UpdShowRoomEventoConsultoraEmailRecibido(string CodigoConsultora, int CampaniaID)
+        protected void UpdShowRoomEventoConsultoraEmailRecibido(string codigoConsultoraFromQueryString, int campaniaIdFromQueryString, UsuarioModel usuario)
         {
-
-            BEShowRoomEventoConsultora entidad = new BEShowRoomEventoConsultora
+            try
             {
-                CodigoConsultora = CodigoConsultora,
-                CampaniaID = CampaniaID
-            };
+                var entidad = new BEShowRoomEventoConsultora
+                {
+                    CodigoConsultora = codigoConsultoraFromQueryString,
+                    CampaniaID = campaniaIdFromQueryString
+                };
 
-            using (PedidoServiceClient sv = new PedidoServiceClient())
+                using (var sv = new PedidoServiceClient())
+                {
+                    sv.UpdShowRoomEventoConsultoraEmailRecibido(usuario.PaisID, entidad);
+                }
+            }
+            catch (Exception ex)
             {
-                sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, entidad);
+                logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoConsultora, usuario.CodigoISO, "BaseShowRoomController.GetEventoConsultoraRecibido");
             }
         }
 

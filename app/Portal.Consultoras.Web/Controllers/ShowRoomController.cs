@@ -114,16 +114,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !_blnRecibido)
                         {
-                            var entidad = new BEShowRoomEventoConsultora
-                            {
-                                CodigoConsultora = lista[2],
-                                CampaniaID = Convert.ToInt32(lista[3])
-                            };
-
-                            using (var sv = new PedidoServiceClient())
-                            {
-                                sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, entidad);
-                            }
+                            UpdShowRoomEventoConsultoraEmailRecibido(lista[2], Convert.ToInt32(lista[3]), userData);
                         }
                     }
                     else
@@ -209,16 +200,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !_blnRecibido)
                         {
-                            var entidad = new BEShowRoomEventoConsultora
-                            {
-                                CodigoConsultora = lista[2],
-                                CampaniaID = Convert.ToInt32(lista[3])
-                            };
-
-                            using (var sv = new PedidoServiceClient())
-                            {
-                                sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, entidad);
-                            }
+                            UpdShowRoomEventoConsultoraEmailRecibido(lista[2], Convert.ToInt32(lista[3]), userData);
                         }
                     }
                     else
@@ -1926,17 +1908,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !_blnRecibido)
                     {
-                        var entidad = new BEShowRoomEventoConsultora
-                        {
-                            CodigoConsultora = lista[2],
-                            CampaniaID = Convert.ToInt32(lista[3])
-                        };
-
-                        using (PedidoServiceClient sv = new PedidoServiceClient())
-                        {
-                            sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, entidad);
-                        }
-
+                        UpdShowRoomEventoConsultoraEmailRecibido(lista[2], Convert.ToInt32(lista[3]), userData);
                     }
                 }
                 else
