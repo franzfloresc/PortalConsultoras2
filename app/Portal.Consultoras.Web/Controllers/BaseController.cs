@@ -1685,6 +1685,8 @@ namespace Portal.Consultoras.Web.Controllers
             var listaHermanos = GetEstrategiaDetalleGetProductoBySap(estrategiaModelo, joinCuv);
             if (!listaHermanos.Any()) return null;
 
+            //estrategiaModelo.CodigoVariante = listaProducto.Select(o => o.CodigoEstrategia).FirstOrDefault();
+
             if (estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
             {
                 if (listaHermanos.Count == 1)
@@ -1728,6 +1730,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listaProducto = svc.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, Portal.Consultoras.Web.ServicePedido.BEEstrategia>(estrategiaX)).ToList();
                 }
+
+                //listaProducto = listaProducto.Where(x => x.Activo == 1).ToList();
 
                 foreach (var item in listaProducto)
                 {
@@ -1784,6 +1788,17 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     prod = (ProductoModel)(listaHermanos.FirstOrDefault(p => item.SAP == p.CodigoProducto && p.ID > idPk) ?? new ProductoModel()).Clone();
                 }
+
+                //prod.NombreComercial = item.NombreProducto;
+                //prod.Descripcion = item.Descripcion1;
+                //if (!string.IsNullOrEmpty(item.ImagenProducto))
+                //{
+                //    prod.Imagen = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + userData.CodigoISO, item.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO);
+                //}
+                //if (!string.IsNullOrEmpty(item.NombreMarca))
+                //{
+                //    prod.DescripcionMarca = item.NombreMarca;
+                //}
 
                 prod.Orden = item.Orden;
                 prod.Grupo = item.Grupo;
