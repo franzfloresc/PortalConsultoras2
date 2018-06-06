@@ -166,6 +166,12 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.FechaRegistro, f => f.MapFrom(c => c.FechaRegistro))
                 .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
 
+            Mapper.CreateMap<BEShowRoomOferta, EstrategiaPedidoModel>();
+            Mapper.CreateMap<EstrategiaPedidoModel, BEShowRoomOferta>();
+
+            Mapper.CreateMap<Portal.Consultoras.Web.ServiceOferta.BEShowRoomOferta, EstrategiaPedidoModel>();
+            Mapper.CreateMap<EstrategiaPedidoModel, Portal.Consultoras.Web.ServiceOferta.BEShowRoomOferta>();
+
             Mapper.CreateMap<BEShowRoomOferta, ShowRoomOfertaModel>()
                  .ForMember(t => t.OfertaShowRoomID, f => f.MapFrom(c => c.OfertaShowRoomID))
                  .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
