@@ -1,4 +1,4 @@
-USE BelcorpPeru
+ï»¿USE BelcorpPeru
 GO
 
 IF EXISTS (
@@ -18,7 +18,7 @@ set nocount on
 select top 0 CampaniaID, CUV, Descripcion,PrecioProducto,FactorRepeticion into #productoDescripcion from dbo.productoDescripcion
 alter table #productoDescripcion alter column PrecioProducto varchar(20)
 alter table #productoDescripcion alter column FactorRepeticion varchar(20)
-select @data = 'select * from(values('''+ replace(replace(@data, '|', ''','''), '¬', '''),(''') +'''))t(a,b,c,d,e)'
+select @data = 'select * from(values('''+ replace(replace(@data, '|', ''','''), 'Â¬', '''),(''') +'''))t(a,b,c,d,e)'
 insert into #productoDescripcion exec(@data)
 
 select distinct * into #productoDescripcion2 from #productoDescripcion
@@ -66,7 +66,7 @@ set nocount on
 select top 0 CampaniaID, CUV, Descripcion,PrecioProducto,FactorRepeticion into #productoDescripcion from dbo.productoDescripcion
 alter table #productoDescripcion alter column PrecioProducto varchar(20)
 alter table #productoDescripcion alter column FactorRepeticion varchar(20)
-select @data = 'select * from(values('''+ replace(replace(@data, '|', ''','''), '¬', '''),(''') +'''))t(a,b,c,d,e)'
+select @data = 'select * from(values('''+ replace(replace(@data, '|', ''','''), 'Â¬', '''),(''') +'''))t(a,b,c,d,e)'
 insert into #productoDescripcion exec(@data)
 
 select distinct * into #productoDescripcion2 from #productoDescripcion
@@ -114,7 +114,7 @@ set nocount on
 select top 0 CampaniaID, CUV, Descripcion,PrecioProducto,FactorRepeticion into #productoDescripcion from dbo.productoDescripcion
 alter table #productoDescripcion alter column PrecioProducto varchar(20)
 alter table #productoDescripcion alter column FactorRepeticion varchar(20)
-select @data = 'select * from(values('''+ replace(replace(@data, '|', ''','''), '¬', '''),(''') +'''))t(a,b,c,d,e)'
+select @data = 'select * from(values('''+ replace(replace(@data, '|', ''','''), 'Â¬', '''),(''') +'''))t(a,b,c,d,e)'
 insert into #productoDescripcion exec(@data)
 
 select distinct * into #productoDescripcion2 from #productoDescripcion
@@ -162,7 +162,7 @@ set nocount on
 select top 0 CampaniaID, CUV, Descripcion,PrecioProducto,FactorRepeticion into #productoDescripcion from dbo.productoDescripcion
 alter table #productoDescripcion alter column PrecioProducto varchar(20)
 alter table #productoDescripcion alter column FactorRepeticion varchar(20)
-select @data = 'select * from(values('''+ replace(replace(@data, '|', ''','''), '¬', '''),(''') +'''))t(a,b,c,d,e)'
+select @data = 'select * from(values('''+ replace(replace(@data, '|', ''','''), 'Â¬', '''),(''') +'''))t(a,b,c,d,e)'
 insert into #productoDescripcion exec(@data)
 
 select distinct * into #productoDescripcion2 from #productoDescripcion
@@ -210,7 +210,7 @@ set nocount on
 select top 0 CampaniaID, CUV, Descripcion,PrecioProducto,FactorRepeticion into #productoDescripcion from dbo.productoDescripcion
 alter table #productoDescripcion alter column PrecioProducto varchar(20)
 alter table #productoDescripcion alter column FactorRepeticion varchar(20)
-select @data = 'select * from(values('''+ replace(replace(@data, '|', ''','''), '¬', '''),(''') +'''))t(a,b,c,d,e)'
+select @data = 'select * from(values('''+ replace(replace(@data, '|', ''','''), 'Â¬', '''),(''') +'''))t(a,b,c,d,e)'
 insert into #productoDescripcion exec(@data)
 
 select distinct * into #productoDescripcion2 from #productoDescripcion
@@ -258,7 +258,7 @@ set nocount on
 select top 0 CampaniaID, CUV, Descripcion,PrecioProducto,FactorRepeticion into #productoDescripcion from dbo.productoDescripcion
 alter table #productoDescripcion alter column PrecioProducto varchar(20)
 alter table #productoDescripcion alter column FactorRepeticion varchar(20)
-select @data = 'select * from(values('''+ replace(replace(@data, '|', ''','''), '¬', '''),(''') +'''))t(a,b,c,d,e)'
+select @data = 'select * from(values('''+ replace(replace(@data, '|', ''','''), 'Â¬', '''),(''') +'''))t(a,b,c,d,e)'
 insert into #productoDescripcion exec(@data)
 
 select distinct * into #productoDescripcion2 from #productoDescripcion
@@ -306,7 +306,7 @@ set nocount on
 select top 0 CampaniaID, CUV, Descripcion,PrecioProducto,FactorRepeticion into #productoDescripcion from dbo.productoDescripcion
 alter table #productoDescripcion alter column PrecioProducto varchar(20)
 alter table #productoDescripcion alter column FactorRepeticion varchar(20)
-select @data = 'select * from(values('''+ replace(replace(@data, '|', ''','''), '¬', '''),(''') +'''))t(a,b,c,d,e)'
+select @data = 'select * from(values('''+ replace(replace(@data, '|', ''','''), 'Â¬', '''),(''') +'''))t(a,b,c,d,e)'
 insert into #productoDescripcion exec(@data)
 
 select distinct * into #productoDescripcion2 from #productoDescripcion
@@ -354,7 +354,7 @@ set nocount on
 select top 0 CampaniaID, CUV, Descripcion,PrecioProducto,FactorRepeticion into #productoDescripcion from dbo.productoDescripcion
 alter table #productoDescripcion alter column PrecioProducto varchar(20)
 alter table #productoDescripcion alter column FactorRepeticion varchar(20)
-select @data = 'select * from(values('''+ replace(replace(@data, '|', ''','''), '¬', '''),(''') +'''))t(a,b,c,d,e)'
+select @data = 'select * from(values('''+ replace(replace(@data, '|', ''','''), 'Â¬', '''),(''') +'''))t(a,b,c,d,e)'
 insert into #productoDescripcion exec(@data)
 
 select distinct * into #productoDescripcion2 from #productoDescripcion
@@ -402,7 +402,7 @@ set nocount on
 select top 0 CampaniaID, CUV, Descripcion,PrecioProducto,FactorRepeticion into #productoDescripcion from dbo.productoDescripcion
 alter table #productoDescripcion alter column PrecioProducto varchar(20)
 alter table #productoDescripcion alter column FactorRepeticion varchar(20)
-select @data = 'select * from(values('''+ replace(replace(@data, '|', ''','''), '¬', '''),(''') +'''))t(a,b,c,d,e)'
+select @data = 'select * from(values('''+ replace(replace(@data, '|', ''','''), 'Â¬', '''),(''') +'''))t(a,b,c,d,e)'
 insert into #productoDescripcion exec(@data)
 
 select distinct * into #productoDescripcion2 from #productoDescripcion
@@ -450,7 +450,7 @@ set nocount on
 select top 0 CampaniaID, CUV, Descripcion,PrecioProducto,FactorRepeticion into #productoDescripcion from dbo.productoDescripcion
 alter table #productoDescripcion alter column PrecioProducto varchar(20)
 alter table #productoDescripcion alter column FactorRepeticion varchar(20)
-select @data = 'select * from(values('''+ replace(replace(@data, '|', ''','''), '¬', '''),(''') +'''))t(a,b,c,d,e)'
+select @data = 'select * from(values('''+ replace(replace(@data, '|', ''','''), 'Â¬', '''),(''') +'''))t(a,b,c,d,e)'
 insert into #productoDescripcion exec(@data)
 
 select distinct * into #productoDescripcion2 from #productoDescripcion
@@ -498,7 +498,7 @@ set nocount on
 select top 0 CampaniaID, CUV, Descripcion,PrecioProducto,FactorRepeticion into #productoDescripcion from dbo.productoDescripcion
 alter table #productoDescripcion alter column PrecioProducto varchar(20)
 alter table #productoDescripcion alter column FactorRepeticion varchar(20)
-select @data = 'select * from(values('''+ replace(replace(@data, '|', ''','''), '¬', '''),(''') +'''))t(a,b,c,d,e)'
+select @data = 'select * from(values('''+ replace(replace(@data, '|', ''','''), 'Â¬', '''),(''') +'''))t(a,b,c,d,e)'
 insert into #productoDescripcion exec(@data)
 
 select distinct * into #productoDescripcion2 from #productoDescripcion
@@ -546,7 +546,7 @@ set nocount on
 select top 0 CampaniaID, CUV, Descripcion,PrecioProducto,FactorRepeticion into #productoDescripcion from dbo.productoDescripcion
 alter table #productoDescripcion alter column PrecioProducto varchar(20)
 alter table #productoDescripcion alter column FactorRepeticion varchar(20)
-select @data = 'select * from(values('''+ replace(replace(@data, '|', ''','''), '¬', '''),(''') +'''))t(a,b,c,d,e)'
+select @data = 'select * from(values('''+ replace(replace(@data, '|', ''','''), 'Â¬', '''),(''') +'''))t(a,b,c,d,e)'
 insert into #productoDescripcion exec(@data)
 
 select distinct * into #productoDescripcion2 from #productoDescripcion
