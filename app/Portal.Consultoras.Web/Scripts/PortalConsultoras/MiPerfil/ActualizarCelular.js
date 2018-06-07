@@ -1,11 +1,38 @@
-﻿function actualizarCelularModule() {
+﻿function actualizarCelularModule(urls) {
     'use strict';
 
     var me = this;
     me.Datos = {
         CelularValido: false,
+        CelularNuevo: '',
         Expired: true
     };
+    me.Services = (function() {
+        function enviarSmsCode (numero) {
+            return $.ajax({
+                url: urls.enviarSmsCodigo,
+                method: 'POST',
+                data: {
+                    celular: numero
+                }
+            });
+        };
+
+        function confirmarSmsCode (code) {
+            return $.ajax({
+                url: urls.confirmarSmsCode,
+                method: 'POST',
+                data: {
+                    smsCode: code
+                }
+            });
+        };
+
+        return {
+            enviarSmsCode: enviarSmsCode,
+            confirmarSmsCode: confirmarSmsCode
+        };
+    })();
     me.Funciones = (function() {
         function inicializarEventos() {
             var body = $('body');
@@ -48,28 +75,28 @@
 
         function validarCelular(numero) {
             if (!numero) {
-                return Promise.resolve({
+                return {
                     Success: false,
                     ErrorMessage: 'El número no puede estar vacío.'
-                });
+                };
             }
             var reg = /^\d+$/;
             if (!reg.test(numero)) {
-                return Promise.resolve({
+                return {
                     Success: false,
                     ErrorMessage: 'No es un número válido.'
-                });
+                };
             }
 
             var result = validarPhonePais(IsoPais, numero);
             if (!result.valid) {
-                return Promise.resolve({
+                return {
                     Success: false,
                     ErrorMessage: 'El número debe tener ' + result.length + ' digitos.'
-                });
+                };
             }
             // call ajax
-            return Promise.resolve({ Success: true });
+            return { Success: true };
         }
 
         function getSmsCode() {
@@ -105,10 +132,6 @@
             if (value < 10) return '0' + value;
 
             return value;
-        }
-
-        function sendSmsCode() {
-            return Promise.resolve({ Success: true });
         }
 
         function redirecToPerfil() {
@@ -154,7 +177,6 @@
             GetSmsCode: getSmsCode,
             ValidarSmsCode: validarSmsCode,
             MarkSmsCodeStatus: markSmsCodeStatus,
-            SendSmsCode: sendSmsCode,
             RedirecToPerfil: redirecToPerfil,
             Counter: counter,
             ShowError: showError
@@ -165,27 +187,25 @@
         function continuar() {
             var nuevoCelular = $('#NuevoCelular').val();
 
-            me.Funciones.ValidarCelular(nuevoCelular)
+            var result = me.Funciones.ValidarCelular(nuevoCelular);
+            if (!result.Success) {
+                me.Funciones.ShowError(result.ErrorMessage);
+                return;
+            }
+
+            me.Datos.CelularNuevo = nuevoCelular;
+            me.Services.enviarSmsCode(nuevoCelular)
                 .then(function(r) {
                     me.Datos.CelularValido = r.Success;
-                    if (!me.Datos.CelularValido) {
+                    if (!r.Success) {
                         me.Funciones.ShowError(r.ErrorMessage);
                         return;
                     }
 
                     $('.form_actualizar_celular').hide();
                     $('.revisa_tu_celular').show();
-                    me.Funciones.SendSmsCode()
-                        .then(function(r) {
-                            if (r.Success) {
-                                // sms enviado
-                                me.Funciones.Counter(3 * 60000);
-                                return;
-                            }
-                            me.Funciones.ShowError(r.ErrorMessage);
-                        });
+                    me.Funciones.Counter(3 * 60000);
                 });
-
         }
 
         function backEdiNumber() {
@@ -196,12 +216,15 @@
         }
 
         function sendSmsCode() {
-            me.Funciones.SendSmsCode()
+            me.Funciones.SendSmsCode(me.Datos.CelularNuevo)
                 .then(function(r) {
-                    if (r.Success) {
-                        // sms enviado
-                        me.Funciones.Counter(3 * 60000);
+                    if (!r.Success) {
+                        // error envio
+
+                        return;
                     }
+
+                    me.Funciones.Counter(3 * 60000);
                 });
         }
 
@@ -256,6 +279,6 @@
 };
 
 $(document).ready(function () {
-    var mod = new actualizarCelularModule();
+    var mod = new actualizarCelularModule(urlProvider);
     mod.Inicializar();
 });

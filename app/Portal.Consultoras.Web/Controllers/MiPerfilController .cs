@@ -157,9 +157,15 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult ConfirmarSmsCode(string smsCode)
+        public async Task<ActionResult> ConfirmarSmsCode(string smsCode)
         {
             // verify timeout and code
+            
+            var result = await new NotExistingPhone().Valid("");
+            if (!result.Success)
+            {
+                return Json(result, JsonRequestBehavior.AllowGet); 
+            }
             // update number phone
 
             return Json(new
