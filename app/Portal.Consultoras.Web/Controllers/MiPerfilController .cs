@@ -137,6 +137,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
+        [HttpPost]
         public async Task<ActionResult> EnviarSmsCodigo(string celular)
         {
             var validator = GetPhoneValidator();
@@ -144,7 +145,7 @@ namespace Portal.Consultoras.Web.Controllers
             var result = await validator.Valid(celular);
             if (!result.Success)
             {
-                return Json(result, JsonRequestBehavior.AllowGet); 
+                return Json(result); 
             }
 
             var code = Util.GenerarCodigoRandom();
@@ -154,24 +155,25 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new
             {
                 Success = true
-            }, JsonRequestBehavior.AllowGet);
+            });
         }
 
+        [HttpPost]
         public async Task<ActionResult> ConfirmarSmsCode(string smsCode)
         {
-            // verify timeout and code
+            // verify timeout and sms code
             
             var result = await new NotExistingPhone().Valid("");
             if (!result.Success)
             {
-                return Json(result, JsonRequestBehavior.AllowGet); 
+                return Json(result); 
             }
             // update number phone
 
             return Json(new
             {
                 Success = true
-            }, JsonRequestBehavior.AllowGet);
+            });
         }
 
         private MultiPhoneValidator GetPhoneValidator()
