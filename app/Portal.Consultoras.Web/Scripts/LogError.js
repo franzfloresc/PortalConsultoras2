@@ -200,7 +200,7 @@ function registrarLogErrorElastic(objError) {
         'Pais': userData.pais,
         'User': userData.codigoConsultora,
         'Navigator': navigator.appVersion,
-        'Exception': objError.StackTrace
+        'Exception': JSON.stringify(objError.StackTrace)
     };
 
     if (urlLogError != "") {

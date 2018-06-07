@@ -273,7 +273,7 @@ namespace Portal.Consultoras.Common
                     Application = application,
                     Pais = logError.IsoPais,
                     User = logError.CodigoUsuario,
-                    Exception = logError.Exception,
+                    Exception = JsonConvert.SerializeObject(logError.Exception),
                     Url = urlRequest,
                     Navigator = browserRequest,
                     Trace = "LogManager"
@@ -308,7 +308,7 @@ namespace Portal.Consultoras.Common
             var pattern = ConfigurationManager.AppSettings.Get("PatternElastic");
 
             string indexName = pattern + DateTime.Now.ToString("yyyy.MM.dd");
-            return endpoint + "/" + indexName + "/LogEvent";
+            return endpoint + indexName + "/LogEvent";
         }
     }
 }
