@@ -51,73 +51,73 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         //OK
-        public ActionResult Index(string query)
-        {
-            ViewBag.TerminoMostrar = 1;
+        //public ActionResult Index(string query)
+        //{
+        //    ViewBag.TerminoMostrar = 1;
 
-            try
-            {
-                var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
-                var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
+        //    try
+        //    {
+        //        var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
+        //        var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
 
-                var mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
+        //        var mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
 
-                if (mostrarPopupIntriga) return RedirectToAction("Intriga", "ShowRoom");
-                if (!ValidarIngresoShowRoom(false)) return RedirectToAction("Index", "Bienvenida");
+        //        if (mostrarPopupIntriga) return RedirectToAction("Intriga", "ShowRoom");
+        //        if (!ValidarIngresoShowRoom(false)) return RedirectToAction("Index", "Bienvenida");
 
-                if (!string.IsNullOrEmpty(query))
-                {
-                    if (GetIsMobileDevice())
-                    {
-                        return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", query });
-                    }
+        //        if (!string.IsNullOrEmpty(query))
+        //        {
+        //            if (GetIsMobileDevice())
+        //            {
+        //                return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", query });
+        //            }
 
-                    var srQsv = new ShowRoomQueryStringValidator(query);
+        //            var srQsv = new ShowRoomQueryStringValidator(query);
 
-                    if (srQsv.CodigoConsultora != userData.CodigoConsultora && srQsv.CodigoIso != userData.CodigoISO ||
-                        srQsv.CodigoProceso != CodigoProceso)
-                    {
-                        return RedirectToAction("Index", "Bienvenida");
-                    }
+        //            if (srQsv.CodigoConsultora != userData.CodigoConsultora && srQsv.CodigoIso != userData.CodigoISO ||
+        //                srQsv.CodigoProceso != CodigoProceso)
+        //            {
+        //                return RedirectToAction("Index", "Bienvenida");
+        //            }
 
-                    if (srQsv.CampanaId == userData.CampaniaID && !GetEventoConsultoraRecibido(userData))
-                    {
-                        UpdShowRoomEventoConsultoraEmailRecibido(srQsv.CodigoConsultora, srQsv.CampanaId, userData);
-                    }
-                }
+        //            if (srQsv.CampanaId == userData.CampaniaID && !GetEventoConsultoraRecibido(userData))
+        //            {
+        //                UpdShowRoomEventoConsultoraEmailRecibido(srQsv.CodigoConsultora, srQsv.CampanaId, userData);
+        //            }
+        //        }
 
-                var showRoomEventoModel = CargarValoresModel();
-                showRoomEventoModel.ListaShowRoomOferta = ValidarUnidadesPermitidas(showRoomEventoModel.ListaShowRoomOferta);
-                showRoomEventoModel.ListaShowRoomOferta = showRoomEventoModel.ListaShowRoomOferta ?? new List<ShowRoomOfertaModel>();
+        //        var showRoomEventoModel = CargarValoresModel();
+        //        showRoomEventoModel.ListaShowRoomOferta = ValidarUnidadesPermitidas(showRoomEventoModel.ListaShowRoomOferta);
+        //        showRoomEventoModel.ListaShowRoomOferta = showRoomEventoModel.ListaShowRoomOferta ?? new List<ShowRoomOfertaModel>();
 
-                if (!showRoomEventoModel.ListaShowRoomOferta.Any()) return RedirectToAction("Index", "Bienvenida");
+        //        if (!showRoomEventoModel.ListaShowRoomOferta.Any()) return RedirectToAction("Index", "Bienvenida");
 
-                showRoomEventoModel.FiltersBySorting = GetTablaLogicaDatos(Constantes.TablaLogica.OrdenamientoShowRoom);
-                var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => !x.EsSubCampania).ToList();
-                ViewBag.PrecioMin = xlistaShowRoom.Any() ? xlistaShowRoom.Min(p => p.PrecioOferta) : Convert.ToDecimal(0);
-                ViewBag.PrecioMax = xlistaShowRoom.Any() ? xlistaShowRoom.Max(p => p.PrecioOferta) : Convert.ToDecimal(0);
+        //        showRoomEventoModel.FiltersBySorting = GetTablaLogicaDatos(Constantes.TablaLogica.OrdenamientoShowRoom);
+        //        var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => !x.EsSubCampania).ToList();
+        //        ViewBag.PrecioMin = xlistaShowRoom.Any() ? xlistaShowRoom.Min(p => p.PrecioOferta) : Convert.ToDecimal(0);
+        //        ViewBag.PrecioMax = xlistaShowRoom.Any() ? xlistaShowRoom.Max(p => p.PrecioOferta) : Convert.ToDecimal(0);
 
-                ViewBag.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
+        //        ViewBag.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
 
-                ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-                ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+        //        ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+        //        ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
-                var dato = ObtenerPerdio(userData.CampaniaID);
-                showRoomEventoModel.ProductosPerdio = dato.Estado;
-                showRoomEventoModel.PerdioTitulo = dato.Valor1;
-                showRoomEventoModel.PerdioSubTitulo = dato.Valor2;
-                showRoomEventoModel.MensajeProductoBloqueado = MensajeProductoBloqueado();
+        //        var dato = ObtenerPerdio(userData.CampaniaID);
+        //        showRoomEventoModel.ProductosPerdio = dato.Estado;
+        //        showRoomEventoModel.PerdioTitulo = dato.Valor1;
+        //        showRoomEventoModel.PerdioSubTitulo = dato.Valor2;
+        //        showRoomEventoModel.MensajeProductoBloqueado = MensajeProductoBloqueado();
 
-                return View(showRoomEventoModel);
+        //        return View(showRoomEventoModel);
 
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //    }
 
-            return RedirectToAction("Index", "Bienvenida");
-        }
+        //    return RedirectToAction("Index", "Bienvenida");
+        //}
 
         //OK
         public JsonResult ConsultarShowRoom(string sidx, string sord, int page, int rows, int paisId, int campaniaId)
@@ -1162,91 +1162,91 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         //OK
-        [HttpPost]
-        public JsonResult CargarProductosShowRoom(BusquedaProductoModel model)
-        {
-            try
-            {
-                if (!ValidarIngresoShowRoom(false))
-                    return ErrorJson(string.Empty);
+       // [HttpPost]
+        //public JsonResult CargarProductosShowRoom(BusquedaProductoModel model)
+        //{
+        //    try
+        //    {
+        //        if (!ValidarIngresoShowRoom(false))
+        //            return ErrorJson(string.Empty);
 
-                bool esFacturacion = EsFacturacion();
-                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion, false);
+        //        bool esFacturacion = EsFacturacion();
+        //        var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion, false);
 
-                var listaNoSubCampania = new List<ShowRoomOfertaModel>();
-                var listaNoSubCampaniaPerdio = new List<ShowRoomOfertaModel>();
+        //        var listaNoSubCampania = new List<ShowRoomOfertaModel>();
+        //        var listaNoSubCampaniaPerdio = new List<ShowRoomOfertaModel>();
                 
-                if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
-                {
-                    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
-                    listaNoSubCampaniaPerdio = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista != Constantes.FlagRevista.Valor0).ToList();
-                }
-                else
-                {
-                    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
-                }
+        //        if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
+        //        {
+        //            listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+        //            listaNoSubCampaniaPerdio = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista != Constantes.FlagRevista.Valor0).ToList();
+        //        }
+        //        else
+        //        {
+        //            listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
+        //        }
                 
-                var totalNoSubCampania = listaNoSubCampania.Count;
+        //        var totalNoSubCampania = listaNoSubCampania.Count;
 
-                if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
-                {
-                    var filtroCategoria = model.ListaFiltro.FirstOrDefault(p => p.Tipo == Constantes.ShowRoomTipoFiltro.Categoria);
-                    if (filtroCategoria != null)
-                    {
-                        var arrayCategoria = filtroCategoria.Valores.ToArray();
-                        listaNoSubCampania = listaNoSubCampania.Where(p => arrayCategoria.Contains(p.CodigoCategoria)).ToList();
-                    }
+        //        if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
+        //        {
+        //            var filtroCategoria = model.ListaFiltro.FirstOrDefault(p => p.Tipo == Constantes.ShowRoomTipoFiltro.Categoria);
+        //            if (filtroCategoria != null)
+        //            {
+        //                var arrayCategoria = filtroCategoria.Valores.ToArray();
+        //                listaNoSubCampania = listaNoSubCampania.Where(p => arrayCategoria.Contains(p.CodigoCategoria)).ToList();
+        //            }
 
-                    var filtroRangoPrecio = model.ListaFiltro.FirstOrDefault(p => p.Tipo == Constantes.ShowRoomTipoFiltro.RangoPrecios);
-                    if (filtroRangoPrecio != null)
-                    {
-                        var valorDesde = filtroRangoPrecio.Valores[0];
-                        var valorHasta = filtroRangoPrecio.Valores[1];
-                        listaNoSubCampania = listaNoSubCampania.Where(p => p.PrecioOferta >= Convert.ToDecimal(valorDesde)
-                                     && p.PrecioOferta <= Convert.ToDecimal(valorHasta)).ToList();
-                    }
-                }
-                if (model.Ordenamiento != null && model.Ordenamiento.Tipo == Constantes.ShowRoomTipoOrdenamiento.Precio)
-                {
-                    switch (model.Ordenamiento.Valor)
-                    {
-                        case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido:
-                            listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.Orden).ToList();
-                            break;
-                        case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor:
-                            listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.PrecioOferta).ToList();
-                            break;
-                        case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor:
-                            listaNoSubCampania = listaNoSubCampania.OrderByDescending(p => p.PrecioOferta).ToList();
-                            break;
-                        default:
-                            listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.Orden).ToList();
-                            break;
-                    }
-                }
+        //            var filtroRangoPrecio = model.ListaFiltro.FirstOrDefault(p => p.Tipo == Constantes.ShowRoomTipoFiltro.RangoPrecios);
+        //            if (filtroRangoPrecio != null)
+        //            {
+        //                var valorDesde = filtroRangoPrecio.Valores[0];
+        //                var valorHasta = filtroRangoPrecio.Valores[1];
+        //                listaNoSubCampania = listaNoSubCampania.Where(p => p.PrecioOferta >= Convert.ToDecimal(valorDesde)
+        //                             && p.PrecioOferta <= Convert.ToDecimal(valorHasta)).ToList();
+        //            }
+        //        }
+        //        if (model.Ordenamiento != null && model.Ordenamiento.Tipo == Constantes.ShowRoomTipoOrdenamiento.Precio)
+        //        {
+        //            switch (model.Ordenamiento.Valor)
+        //            {
+        //                case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido:
+        //                    listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.Orden).ToList();
+        //                    break;
+        //                case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor:
+        //                    listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.PrecioOferta).ToList();
+        //                    break;
+        //                case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor:
+        //                    listaNoSubCampania = listaNoSubCampania.OrderByDescending(p => p.PrecioOferta).ToList();
+        //                    break;
+        //                default:
+        //                    listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.Orden).ToList();
+        //                    break;
+        //            }
+        //        }
 
-                if (model.Limite > 0)
-                    listaNoSubCampania = listaNoSubCampania.Take(model.Limite).ToList();
+        //        if (model.Limite > 0)
+        //            listaNoSubCampania = listaNoSubCampania.Take(model.Limite).ToList();
 
-                var listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania).ToList();
-                listaSubCampania = ValidarUnidadesPermitidas(listaSubCampania);
+        //        var listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania).ToList();
+        //        listaSubCampania = ValidarUnidadesPermitidas(listaSubCampania);
 
-                return Json(new
-                {
-                    success = true,
-                    message = "Ok",
-                    listaNoSubCampania,
-                    totalNoSubCampania,
-                    listaSubCampania,
-                    listaNoSubCampaniaPerdio   //JN: Nueva lista de CUV en Zona Dorada
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
-            }
-        }
+        //        return Json(new
+        //        {
+        //            success = true,
+        //            message = "Ok",
+        //            listaNoSubCampania,
+        //            totalNoSubCampania,
+        //            listaSubCampania,
+        //            listaNoSubCampaniaPerdio   //JN: Nueva lista de CUV en Zona Dorada
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
+        //    }
+        //}
 
         //OK
         [HttpPost]

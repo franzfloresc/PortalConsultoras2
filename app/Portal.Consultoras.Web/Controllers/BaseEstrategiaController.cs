@@ -1051,9 +1051,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         public EstrategiaPedidoModel ViewDetalleOferta(int id)
         {
-            var modelo = GetOfertaConDetalle_Unificado(id);
+            var modelo = GetOfertaConDetalle(id);
             modelo.CodigoISO = userData.CodigoISO;
-            modelo.ListaOfertaShowRoom = GetOfertaListadoExcepto_Unificado(id);
+            modelo.ListaOfertaShowRoom = GetOfertaListadoExcepto(id);
             var listaDetalle = ObtenerPedidoWebDetalle();
             modelo.ListaOfertaShowRoom.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
 
@@ -1073,7 +1073,7 @@ namespace Portal.Consultoras.Web.Controllers
             EstrategiaPedidoModel ofertaShowRoomModelo = new EstrategiaPedidoModel();
             if (idOferta <= 0) return ofertaShowRoomModelo;
 
-            List<EstrategiaPedidoModel> listadoOfertasTodasModel = ObtenerListaProductoShowRoom_Unificado(userData.CampaniaID, userData.CodigoConsultora);
+            List<EstrategiaPedidoModel> listadoOfertasTodasModel = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
             ofertaShowRoomModelo = listadoOfertasTodasModel.Find(o => o.OfertaShowRoomID == idOferta) ?? new EstrategiaPedidoModel();
             if (ofertaShowRoomModelo.OfertaShowRoomID <= 0) return ofertaShowRoomModelo;
 
@@ -1275,7 +1275,7 @@ namespace Portal.Consultoras.Web.Controllers
             var listaOferta = new List<EstrategiaPedidoModel>();
             if (idOferta <= 0) return listaOferta;
 
-            var listadoOfertasTodasModel = ObtenerListaProductoShowRoom_Unificado(userData.CampaniaID, userData.CodigoConsultora);
+            var listadoOfertasTodasModel = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
             listaOferta = listadoOfertasTodasModel.Where(o => o.OfertaShowRoomID != idOferta).ToList();
             return listaOferta;
         }
@@ -1286,7 +1286,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (Session[Constantes.ConstSession.ListaProductoShowRoom] != null)
             {
-                List<EstrategiaPedidoModel> listadoOfertasTodasModel = ObtenerListaProductoShowRoomSession_Unificado(listaDetalle);
+                List<EstrategiaPedidoModel> listadoOfertasTodasModel = ObtenerListaProductoShowRoomSession(listaDetalle);
                 return listadoOfertasTodasModel;
             }
 
@@ -1294,7 +1294,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (conFiltroMdo)
                 listaShowRoomOferta = ObtenerListaProductoShowRoomMdo(listaShowRoomOferta, Constantes.FlagRevista.Valor0);
 
-            var listadoOfertasTodasModel1 = ObtenerListaProductoShowRoomFormato_Unificado(listaShowRoomOferta, listaDetalle, esFacturacion);
+            var listadoOfertasTodasModel1 = ObtenerListaProductoShowRoomFormato(listaShowRoomOferta, listaDetalle, esFacturacion);
 
             return listadoOfertasTodasModel1;
         }
