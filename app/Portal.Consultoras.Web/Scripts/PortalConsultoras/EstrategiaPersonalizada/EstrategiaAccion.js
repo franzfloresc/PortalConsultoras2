@@ -240,35 +240,8 @@ function EstrategiaVerDetalleGeneral(estrategia) {
     $(".indicador_tono").click();
     $(".indicador_tono").click();
 
-    EstrategiaMostrarMasTonos(true);
+    estrategiaVariedadModule.MostrarMasTonos(true);
     TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val());
-
-}
-
-function EstrategiaMostrarMasTonos(menos) {
-    if (!isMobile()) {
-        return false;
-    }
-
-    if (menos) {
-        var tonos = $("#popupDetalleCarousel_lanzamiento [data-tono-div] [data-tono-change]");
-        var h = $(tonos[0]).height();
-        var w = $(tonos[0]).width();
-        var total = tonos.length;
-        var t = $("#popupDetalleCarousel_lanzamiento [data-tono-div]").width();
-        if (w * total > t) {
-            $(".indicador_tono").show();
-        }
-        else {
-            $(".indicador_tono").hide();
-
-        }
-        $("#popupDetalleCarousel_lanzamiento [data-tono-div]").css("height", Math.max(h, w) + 5);
-    }
-    else {
-        $("#popupDetalleCarousel_lanzamiento [data-tono-div]").css("height", "auto");
-    }
-
 }
 
 function EstrategiaGuardarTemporal(obj) {
@@ -384,7 +357,7 @@ function EstrategiaAgregar(event, popup, limite) {
         return false;
     }
 
-    if (EstrategiaValidarSeleccionTono(objInput)) {
+    if (estrategiaVariedadModule.ValidarSeleccionTono(objInput)) {
         return false;
     }
 
@@ -653,24 +626,6 @@ function EstrategiaValidarBloqueada(objInput, estrategia) {
     return true;
 }
 
-function EstrategiaValidarSeleccionTono(objInput) {
-    var attrClass = $.trim($(objInput).attr("class"));
-    if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
-        if (isMobile()) {
-            if (origenPedidoWebEstrategia == 2731) {
-                window.scrollTo(0, 540);
-            }
-        }
-
-        $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']").parent().addClass("tono_no_seleccionado");
-        setTimeout(
-            function () {
-                $(objInput).parents("[data-item]").find("[data-tono-change='1']").parent().removeClass("tono_no_seleccionado");
-            }, 500);
-        return true;
-    }
-    return false;
-}
 
 function AbrirMensajeEstrategia(txt) {
     if (tipoOrigenEstrategia == 1) {
