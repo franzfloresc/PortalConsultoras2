@@ -304,6 +304,9 @@
     <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
     <Compile Include="Controllers\LanzamientosController.cs" />
+    <Compile Include="Infraestructure\Validator\Phone\MatchCountryPhone.cs" />
+    <Compile Include="Infraestructure\Validator\Phone\MultiPhoneValidator.cs" />
+    <Compile Include="Infraestructure\Validator\Phone\NotExistingPhone.cs" />
     <Compile Include="Models\Cache\CacheModel.cs" />
     <Compile Include="Models\Common\ListStringModel.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\BannerInferiorConfiguracion.cs" />
@@ -3697,6 +3700,7 @@
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Mensaje.js" />
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\FichaProducto\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\MiPerfil\ActualizarCelular.js" />
     <Content Include="Scripts\PortalConsultoras\MiPerfil\ActualizarCorreo.js" />
     <Content Include="Scripts\PortalConsultoras\MiPerfil\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\GuiaNegocio\GuiaNegocio-Landing.js" />
