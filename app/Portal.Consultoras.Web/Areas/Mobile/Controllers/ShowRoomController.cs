@@ -31,7 +31,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var zonaHoraria = 0d;
             var fechaInicioCampania = DateTime.Now.Date;
 
-            var userData = sessionManager.GetUserData();
             if (userData != null)
             {
                 CargarEntidadesShowRoom(userData);
