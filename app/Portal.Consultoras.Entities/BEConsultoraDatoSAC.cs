@@ -53,7 +53,7 @@
             if (DataRecord.HasColumn(datarec, "seccion"))
                 seccion = Convert.ToString(datarec["seccion"]);
             if (DataRecord.HasColumn(datarec, "zona"))
-                zona = Convert.ToString(datarec["Zona"]);
+                zona = Convert.ToString(datarec["zona"]);
             if (DataRecord.HasColumn(datarec, "region"))
                 region = Convert.ToString(datarec["region"]);
             if (DataRecord.HasColumn(datarec, "direccionDomicilio"))
