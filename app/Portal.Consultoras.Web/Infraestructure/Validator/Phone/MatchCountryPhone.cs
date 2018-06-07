@@ -44,7 +44,7 @@ namespace Portal.Consultoras.Web.Infraestructure.Validator.Phone
                 return Task.FromResult(result);
             }
 
-            if (number.Length != _length)
+            if (number == null || number.Length != _length)
             {
                 result.ErrorMessage = string.Format("El número debe tener {0} dígitos", number);
 
