@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
-                var listaShowRoom = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<BEShowRoomOferta>();
+                var listaShowRoom = (List<ServiceOferta.BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<ServiceOferta.BEShowRoomOferta>();
                 ViewBag.xlistaProductoSR = listaShowRoom.Count(x => !x.EsSubCampania);
 
                 return View(modelo);

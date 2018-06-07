@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
+using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServicePROLConsultas;
@@ -11,10 +13,7 @@ using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
-using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using BEEstrategia = Portal.Consultoras.Web.ServicePedido.BEEstrategia;
-using Portal.Consultoras.Service;
-using Portal.Consultoras.Web.ServiceOferta;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -526,9 +525,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return null;
             }
         }
-
-            
-           
 
         #endregion
 
