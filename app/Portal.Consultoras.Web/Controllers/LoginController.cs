@@ -1248,7 +1248,8 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.EsLebel = GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO);
 
                     usuarioModel.ActualizaDatos = Convert.ToInt32(DevuelveValorTablaLogica(usuarioModel.PaisID, Convert.ToInt16(Constantes.TablaLogicaDatosValores.ActualizaDatos)));
-                    usuarioModel.ServicioSMS = Convert.ToInt32(DevuelveValorTablaLogica(usuarioModel.PaisID, Convert.ToInt16(Constantes.TablaLogicaDatosValores.ServicioSMS)));
+
+                    usuarioModel.ServicioSMS = 1;// Convert.ToInt32(DevuelveValorTablaLogica(usuarioModel.PaisID, Convert.ToInt16(Constantes.TablaLogicaDatosValores.ServicioSMS)));
 
                     sessionManager.SetFlagLogCargaOfertas(HabilitarLogCargaOfertas(usuarioModel.PaisID));
                     sessionManager.SetTieneLan(true);

@@ -36593,6 +36593,10 @@ height:30px;
     overflow: hidden;
     position: relative;
     top: -2px;
+    background-image: url(../../../Images/icono_avatar_menu.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
 }
 
 /* FIN - HD-2521 - HOMOLOGACIÓN Y FOTO */
