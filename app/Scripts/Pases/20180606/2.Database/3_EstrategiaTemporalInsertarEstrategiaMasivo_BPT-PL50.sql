@@ -13,10 +13,15 @@ CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 )
 AS
 BEGIN
-	set @NroLote = isnull(@NroLote, 0)
+BEGIN TRANSACTION
 
+BEGIN TRY
+	set @NroLoteFinal = 0
+	set @NroLote = isnull(@NroLote, 0)
 	DECLARE @FechaGeneral DATETIME
 	SET @FechaGeneral = dbo.fnObtenerFechaHoraPais()
+
+	-- Insertar EstrategiaProducto
 	INSERT INTO EstrategiaProducto
 	(
 		 EstrategiaId
@@ -53,6 +58,7 @@ BEGIN
 		, IdMarca
 	FROM EstrategiaProductoTemporal
 	where NumeroLote = @NroLote
+	-- Insertar Estrategia
 	INSERT INTO Estrategia
 	(
 		TipoEstrategiaID
@@ -84,11 +90,12 @@ BEGIN
 		, 0, dbo.fnGetTipoEstrategiaId(CodigoTipoEstrategia) as EtiquetaID2
 		,0, 0, '', NULL, 0 , ''
 		,OfertaUltimoMinuto, CodigoEstrategia, TieneVariedad
-
 		,PrecioTachado, PrecioOferta, PrecioPublico, Ganancia, Niveles
 		,UsuarioCreacion,@FechaGeneral,UsuarioCreacion, @FechaGeneral
 	FROM EstrategiaTemporal
 	where NumeroLote = @NroLote
+
+	-- Actualizar EstrategiaID
 	UPDATE EP
 	SET EP.EstrategiaID = E.EstrategiaID
 	FROM EstrategiaProducto EP
@@ -99,10 +106,16 @@ BEGIN
 			ON te.TipoEstrategiaID = E.TipoEstrategiaID
 	WHERE EXISTS(SELECT ET.CampaniaId FROM EstrategiaTemporal ET  WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote and ET.CodigoTipoEstrategia = te.Codigo)
 		AND ISNULL(EP.EstrategiaID, 0) = 0
-
 	set @NroLoteFinal = @NroLote
+
+	COMMIT TRANSACTION
+END TRY
+BEGIN CATCH
+	ROLLBACK TRANSACTION
+END CATCH
 END
 GO
+
 
 GO
 USE BelcorpMexico
@@ -119,10 +132,15 @@ CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 )
 AS
 BEGIN
-	set @NroLote = isnull(@NroLote, 0)
+BEGIN TRANSACTION
 
+BEGIN TRY
+	set @NroLoteFinal = 0
+	set @NroLote = isnull(@NroLote, 0)
 	DECLARE @FechaGeneral DATETIME
 	SET @FechaGeneral = dbo.fnObtenerFechaHoraPais()
+
+	-- Insertar EstrategiaProducto
 	INSERT INTO EstrategiaProducto
 	(
 		 EstrategiaId
@@ -159,6 +177,7 @@ BEGIN
 		, IdMarca
 	FROM EstrategiaProductoTemporal
 	where NumeroLote = @NroLote
+	-- Insertar Estrategia
 	INSERT INTO Estrategia
 	(
 		TipoEstrategiaID
@@ -190,11 +209,12 @@ BEGIN
 		, 0, dbo.fnGetTipoEstrategiaId(CodigoTipoEstrategia) as EtiquetaID2
 		,0, 0, '', NULL, 0 , ''
 		,OfertaUltimoMinuto, CodigoEstrategia, TieneVariedad
-
 		,PrecioTachado, PrecioOferta, PrecioPublico, Ganancia, Niveles
 		,UsuarioCreacion,@FechaGeneral,UsuarioCreacion, @FechaGeneral
 	FROM EstrategiaTemporal
 	where NumeroLote = @NroLote
+
+	-- Actualizar EstrategiaID
 	UPDATE EP
 	SET EP.EstrategiaID = E.EstrategiaID
 	FROM EstrategiaProducto EP
@@ -205,10 +225,16 @@ BEGIN
 			ON te.TipoEstrategiaID = E.TipoEstrategiaID
 	WHERE EXISTS(SELECT ET.CampaniaId FROM EstrategiaTemporal ET  WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote and ET.CodigoTipoEstrategia = te.Codigo)
 		AND ISNULL(EP.EstrategiaID, 0) = 0
-
 	set @NroLoteFinal = @NroLote
+
+	COMMIT TRANSACTION
+END TRY
+BEGIN CATCH
+	ROLLBACK TRANSACTION
+END CATCH
 END
 GO
+
 
 GO
 USE BelcorpColombia
@@ -225,10 +251,15 @@ CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 )
 AS
 BEGIN
-	set @NroLote = isnull(@NroLote, 0)
+BEGIN TRANSACTION
 
+BEGIN TRY
+	set @NroLoteFinal = 0
+	set @NroLote = isnull(@NroLote, 0)
 	DECLARE @FechaGeneral DATETIME
 	SET @FechaGeneral = dbo.fnObtenerFechaHoraPais()
+
+	-- Insertar EstrategiaProducto
 	INSERT INTO EstrategiaProducto
 	(
 		 EstrategiaId
@@ -265,6 +296,7 @@ BEGIN
 		, IdMarca
 	FROM EstrategiaProductoTemporal
 	where NumeroLote = @NroLote
+	-- Insertar Estrategia
 	INSERT INTO Estrategia
 	(
 		TipoEstrategiaID
@@ -296,11 +328,12 @@ BEGIN
 		, 0, dbo.fnGetTipoEstrategiaId(CodigoTipoEstrategia) as EtiquetaID2
 		,0, 0, '', NULL, 0 , ''
 		,OfertaUltimoMinuto, CodigoEstrategia, TieneVariedad
-
 		,PrecioTachado, PrecioOferta, PrecioPublico, Ganancia, Niveles
 		,UsuarioCreacion,@FechaGeneral,UsuarioCreacion, @FechaGeneral
 	FROM EstrategiaTemporal
 	where NumeroLote = @NroLote
+
+	-- Actualizar EstrategiaID
 	UPDATE EP
 	SET EP.EstrategiaID = E.EstrategiaID
 	FROM EstrategiaProducto EP
@@ -311,10 +344,16 @@ BEGIN
 			ON te.TipoEstrategiaID = E.TipoEstrategiaID
 	WHERE EXISTS(SELECT ET.CampaniaId FROM EstrategiaTemporal ET  WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote and ET.CodigoTipoEstrategia = te.Codigo)
 		AND ISNULL(EP.EstrategiaID, 0) = 0
-
 	set @NroLoteFinal = @NroLote
+
+	COMMIT TRANSACTION
+END TRY
+BEGIN CATCH
+	ROLLBACK TRANSACTION
+END CATCH
 END
 GO
+
 
 GO
 USE BelcorpSalvador
@@ -331,10 +370,15 @@ CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 )
 AS
 BEGIN
-	set @NroLote = isnull(@NroLote, 0)
+BEGIN TRANSACTION
 
+BEGIN TRY
+	set @NroLoteFinal = 0
+	set @NroLote = isnull(@NroLote, 0)
 	DECLARE @FechaGeneral DATETIME
 	SET @FechaGeneral = dbo.fnObtenerFechaHoraPais()
+
+	-- Insertar EstrategiaProducto
 	INSERT INTO EstrategiaProducto
 	(
 		 EstrategiaId
@@ -371,6 +415,7 @@ BEGIN
 		, IdMarca
 	FROM EstrategiaProductoTemporal
 	where NumeroLote = @NroLote
+	-- Insertar Estrategia
 	INSERT INTO Estrategia
 	(
 		TipoEstrategiaID
@@ -402,11 +447,12 @@ BEGIN
 		, 0, dbo.fnGetTipoEstrategiaId(CodigoTipoEstrategia) as EtiquetaID2
 		,0, 0, '', NULL, 0 , ''
 		,OfertaUltimoMinuto, CodigoEstrategia, TieneVariedad
-
 		,PrecioTachado, PrecioOferta, PrecioPublico, Ganancia, Niveles
 		,UsuarioCreacion,@FechaGeneral,UsuarioCreacion, @FechaGeneral
 	FROM EstrategiaTemporal
 	where NumeroLote = @NroLote
+
+	-- Actualizar EstrategiaID
 	UPDATE EP
 	SET EP.EstrategiaID = E.EstrategiaID
 	FROM EstrategiaProducto EP
@@ -417,10 +463,16 @@ BEGIN
 			ON te.TipoEstrategiaID = E.TipoEstrategiaID
 	WHERE EXISTS(SELECT ET.CampaniaId FROM EstrategiaTemporal ET  WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote and ET.CodigoTipoEstrategia = te.Codigo)
 		AND ISNULL(EP.EstrategiaID, 0) = 0
-
 	set @NroLoteFinal = @NroLote
+
+	COMMIT TRANSACTION
+END TRY
+BEGIN CATCH
+	ROLLBACK TRANSACTION
+END CATCH
 END
 GO
+
 
 GO
 USE BelcorpPuertoRico
@@ -437,10 +489,15 @@ CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 )
 AS
 BEGIN
-	set @NroLote = isnull(@NroLote, 0)
+BEGIN TRANSACTION
 
+BEGIN TRY
+	set @NroLoteFinal = 0
+	set @NroLote = isnull(@NroLote, 0)
 	DECLARE @FechaGeneral DATETIME
 	SET @FechaGeneral = dbo.fnObtenerFechaHoraPais()
+
+	-- Insertar EstrategiaProducto
 	INSERT INTO EstrategiaProducto
 	(
 		 EstrategiaId
@@ -477,6 +534,7 @@ BEGIN
 		, IdMarca
 	FROM EstrategiaProductoTemporal
 	where NumeroLote = @NroLote
+	-- Insertar Estrategia
 	INSERT INTO Estrategia
 	(
 		TipoEstrategiaID
@@ -508,11 +566,12 @@ BEGIN
 		, 0, dbo.fnGetTipoEstrategiaId(CodigoTipoEstrategia) as EtiquetaID2
 		,0, 0, '', NULL, 0 , ''
 		,OfertaUltimoMinuto, CodigoEstrategia, TieneVariedad
-
 		,PrecioTachado, PrecioOferta, PrecioPublico, Ganancia, Niveles
 		,UsuarioCreacion,@FechaGeneral,UsuarioCreacion, @FechaGeneral
 	FROM EstrategiaTemporal
 	where NumeroLote = @NroLote
+
+	-- Actualizar EstrategiaID
 	UPDATE EP
 	SET EP.EstrategiaID = E.EstrategiaID
 	FROM EstrategiaProducto EP
@@ -523,10 +582,16 @@ BEGIN
 			ON te.TipoEstrategiaID = E.TipoEstrategiaID
 	WHERE EXISTS(SELECT ET.CampaniaId FROM EstrategiaTemporal ET  WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote and ET.CodigoTipoEstrategia = te.Codigo)
 		AND ISNULL(EP.EstrategiaID, 0) = 0
-
 	set @NroLoteFinal = @NroLote
+
+	COMMIT TRANSACTION
+END TRY
+BEGIN CATCH
+	ROLLBACK TRANSACTION
+END CATCH
 END
 GO
+
 
 GO
 USE BelcorpPanama
@@ -543,10 +608,15 @@ CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 )
 AS
 BEGIN
-	set @NroLote = isnull(@NroLote, 0)
+BEGIN TRANSACTION
 
+BEGIN TRY
+	set @NroLoteFinal = 0
+	set @NroLote = isnull(@NroLote, 0)
 	DECLARE @FechaGeneral DATETIME
 	SET @FechaGeneral = dbo.fnObtenerFechaHoraPais()
+
+	-- Insertar EstrategiaProducto
 	INSERT INTO EstrategiaProducto
 	(
 		 EstrategiaId
@@ -583,6 +653,7 @@ BEGIN
 		, IdMarca
 	FROM EstrategiaProductoTemporal
 	where NumeroLote = @NroLote
+	-- Insertar Estrategia
 	INSERT INTO Estrategia
 	(
 		TipoEstrategiaID
@@ -614,11 +685,12 @@ BEGIN
 		, 0, dbo.fnGetTipoEstrategiaId(CodigoTipoEstrategia) as EtiquetaID2
 		,0, 0, '', NULL, 0 , ''
 		,OfertaUltimoMinuto, CodigoEstrategia, TieneVariedad
-
 		,PrecioTachado, PrecioOferta, PrecioPublico, Ganancia, Niveles
 		,UsuarioCreacion,@FechaGeneral,UsuarioCreacion, @FechaGeneral
 	FROM EstrategiaTemporal
 	where NumeroLote = @NroLote
+
+	-- Actualizar EstrategiaID
 	UPDATE EP
 	SET EP.EstrategiaID = E.EstrategiaID
 	FROM EstrategiaProducto EP
@@ -629,10 +701,16 @@ BEGIN
 			ON te.TipoEstrategiaID = E.TipoEstrategiaID
 	WHERE EXISTS(SELECT ET.CampaniaId FROM EstrategiaTemporal ET  WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote and ET.CodigoTipoEstrategia = te.Codigo)
 		AND ISNULL(EP.EstrategiaID, 0) = 0
-
 	set @NroLoteFinal = @NroLote
+
+	COMMIT TRANSACTION
+END TRY
+BEGIN CATCH
+	ROLLBACK TRANSACTION
+END CATCH
 END
 GO
+
 
 GO
 USE BelcorpGuatemala
@@ -649,10 +727,15 @@ CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 )
 AS
 BEGIN
-	set @NroLote = isnull(@NroLote, 0)
+BEGIN TRANSACTION
 
+BEGIN TRY
+	set @NroLoteFinal = 0
+	set @NroLote = isnull(@NroLote, 0)
 	DECLARE @FechaGeneral DATETIME
 	SET @FechaGeneral = dbo.fnObtenerFechaHoraPais()
+
+	-- Insertar EstrategiaProducto
 	INSERT INTO EstrategiaProducto
 	(
 		 EstrategiaId
@@ -689,6 +772,7 @@ BEGIN
 		, IdMarca
 	FROM EstrategiaProductoTemporal
 	where NumeroLote = @NroLote
+	-- Insertar Estrategia
 	INSERT INTO Estrategia
 	(
 		TipoEstrategiaID
@@ -720,11 +804,12 @@ BEGIN
 		, 0, dbo.fnGetTipoEstrategiaId(CodigoTipoEstrategia) as EtiquetaID2
 		,0, 0, '', NULL, 0 , ''
 		,OfertaUltimoMinuto, CodigoEstrategia, TieneVariedad
-
 		,PrecioTachado, PrecioOferta, PrecioPublico, Ganancia, Niveles
 		,UsuarioCreacion,@FechaGeneral,UsuarioCreacion, @FechaGeneral
 	FROM EstrategiaTemporal
 	where NumeroLote = @NroLote
+
+	-- Actualizar EstrategiaID
 	UPDATE EP
 	SET EP.EstrategiaID = E.EstrategiaID
 	FROM EstrategiaProducto EP
@@ -735,10 +820,16 @@ BEGIN
 			ON te.TipoEstrategiaID = E.TipoEstrategiaID
 	WHERE EXISTS(SELECT ET.CampaniaId FROM EstrategiaTemporal ET  WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote and ET.CodigoTipoEstrategia = te.Codigo)
 		AND ISNULL(EP.EstrategiaID, 0) = 0
-
 	set @NroLoteFinal = @NroLote
+
+	COMMIT TRANSACTION
+END TRY
+BEGIN CATCH
+	ROLLBACK TRANSACTION
+END CATCH
 END
 GO
+
 
 GO
 USE BelcorpEcuador
@@ -755,10 +846,15 @@ CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 )
 AS
 BEGIN
-	set @NroLote = isnull(@NroLote, 0)
+BEGIN TRANSACTION
 
+BEGIN TRY
+	set @NroLoteFinal = 0
+	set @NroLote = isnull(@NroLote, 0)
 	DECLARE @FechaGeneral DATETIME
 	SET @FechaGeneral = dbo.fnObtenerFechaHoraPais()
+
+	-- Insertar EstrategiaProducto
 	INSERT INTO EstrategiaProducto
 	(
 		 EstrategiaId
@@ -795,6 +891,7 @@ BEGIN
 		, IdMarca
 	FROM EstrategiaProductoTemporal
 	where NumeroLote = @NroLote
+	-- Insertar Estrategia
 	INSERT INTO Estrategia
 	(
 		TipoEstrategiaID
@@ -826,11 +923,12 @@ BEGIN
 		, 0, dbo.fnGetTipoEstrategiaId(CodigoTipoEstrategia) as EtiquetaID2
 		,0, 0, '', NULL, 0 , ''
 		,OfertaUltimoMinuto, CodigoEstrategia, TieneVariedad
-
 		,PrecioTachado, PrecioOferta, PrecioPublico, Ganancia, Niveles
 		,UsuarioCreacion,@FechaGeneral,UsuarioCreacion, @FechaGeneral
 	FROM EstrategiaTemporal
 	where NumeroLote = @NroLote
+
+	-- Actualizar EstrategiaID
 	UPDATE EP
 	SET EP.EstrategiaID = E.EstrategiaID
 	FROM EstrategiaProducto EP
@@ -841,10 +939,16 @@ BEGIN
 			ON te.TipoEstrategiaID = E.TipoEstrategiaID
 	WHERE EXISTS(SELECT ET.CampaniaId FROM EstrategiaTemporal ET  WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote and ET.CodigoTipoEstrategia = te.Codigo)
 		AND ISNULL(EP.EstrategiaID, 0) = 0
-
 	set @NroLoteFinal = @NroLote
+
+	COMMIT TRANSACTION
+END TRY
+BEGIN CATCH
+	ROLLBACK TRANSACTION
+END CATCH
 END
 GO
+
 
 GO
 USE BelcorpDominicana
@@ -861,10 +965,15 @@ CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 )
 AS
 BEGIN
-	set @NroLote = isnull(@NroLote, 0)
+BEGIN TRANSACTION
 
+BEGIN TRY
+	set @NroLoteFinal = 0
+	set @NroLote = isnull(@NroLote, 0)
 	DECLARE @FechaGeneral DATETIME
 	SET @FechaGeneral = dbo.fnObtenerFechaHoraPais()
+
+	-- Insertar EstrategiaProducto
 	INSERT INTO EstrategiaProducto
 	(
 		 EstrategiaId
@@ -901,6 +1010,7 @@ BEGIN
 		, IdMarca
 	FROM EstrategiaProductoTemporal
 	where NumeroLote = @NroLote
+	-- Insertar Estrategia
 	INSERT INTO Estrategia
 	(
 		TipoEstrategiaID
@@ -932,11 +1042,12 @@ BEGIN
 		, 0, dbo.fnGetTipoEstrategiaId(CodigoTipoEstrategia) as EtiquetaID2
 		,0, 0, '', NULL, 0 , ''
 		,OfertaUltimoMinuto, CodigoEstrategia, TieneVariedad
-
 		,PrecioTachado, PrecioOferta, PrecioPublico, Ganancia, Niveles
 		,UsuarioCreacion,@FechaGeneral,UsuarioCreacion, @FechaGeneral
 	FROM EstrategiaTemporal
 	where NumeroLote = @NroLote
+
+	-- Actualizar EstrategiaID
 	UPDATE EP
 	SET EP.EstrategiaID = E.EstrategiaID
 	FROM EstrategiaProducto EP
@@ -947,10 +1058,16 @@ BEGIN
 			ON te.TipoEstrategiaID = E.TipoEstrategiaID
 	WHERE EXISTS(SELECT ET.CampaniaId FROM EstrategiaTemporal ET  WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote and ET.CodigoTipoEstrategia = te.Codigo)
 		AND ISNULL(EP.EstrategiaID, 0) = 0
-
 	set @NroLoteFinal = @NroLote
+
+	COMMIT TRANSACTION
+END TRY
+BEGIN CATCH
+	ROLLBACK TRANSACTION
+END CATCH
 END
 GO
+
 
 GO
 USE BelcorpCostaRica
@@ -967,10 +1084,15 @@ CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 )
 AS
 BEGIN
-	set @NroLote = isnull(@NroLote, 0)
+BEGIN TRANSACTION
 
+BEGIN TRY
+	set @NroLoteFinal = 0
+	set @NroLote = isnull(@NroLote, 0)
 	DECLARE @FechaGeneral DATETIME
 	SET @FechaGeneral = dbo.fnObtenerFechaHoraPais()
+
+	-- Insertar EstrategiaProducto
 	INSERT INTO EstrategiaProducto
 	(
 		 EstrategiaId
@@ -1007,6 +1129,7 @@ BEGIN
 		, IdMarca
 	FROM EstrategiaProductoTemporal
 	where NumeroLote = @NroLote
+	-- Insertar Estrategia
 	INSERT INTO Estrategia
 	(
 		TipoEstrategiaID
@@ -1038,11 +1161,12 @@ BEGIN
 		, 0, dbo.fnGetTipoEstrategiaId(CodigoTipoEstrategia) as EtiquetaID2
 		,0, 0, '', NULL, 0 , ''
 		,OfertaUltimoMinuto, CodigoEstrategia, TieneVariedad
-
 		,PrecioTachado, PrecioOferta, PrecioPublico, Ganancia, Niveles
 		,UsuarioCreacion,@FechaGeneral,UsuarioCreacion, @FechaGeneral
 	FROM EstrategiaTemporal
 	where NumeroLote = @NroLote
+
+	-- Actualizar EstrategiaID
 	UPDATE EP
 	SET EP.EstrategiaID = E.EstrategiaID
 	FROM EstrategiaProducto EP
@@ -1053,10 +1177,16 @@ BEGIN
 			ON te.TipoEstrategiaID = E.TipoEstrategiaID
 	WHERE EXISTS(SELECT ET.CampaniaId FROM EstrategiaTemporal ET  WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote and ET.CodigoTipoEstrategia = te.Codigo)
 		AND ISNULL(EP.EstrategiaID, 0) = 0
-
 	set @NroLoteFinal = @NroLote
+
+	COMMIT TRANSACTION
+END TRY
+BEGIN CATCH
+	ROLLBACK TRANSACTION
+END CATCH
 END
 GO
+
 
 GO
 USE BelcorpChile
@@ -1073,10 +1203,15 @@ CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 )
 AS
 BEGIN
-	set @NroLote = isnull(@NroLote, 0)
+BEGIN TRANSACTION
 
+BEGIN TRY
+	set @NroLoteFinal = 0
+	set @NroLote = isnull(@NroLote, 0)
 	DECLARE @FechaGeneral DATETIME
 	SET @FechaGeneral = dbo.fnObtenerFechaHoraPais()
+
+	-- Insertar EstrategiaProducto
 	INSERT INTO EstrategiaProducto
 	(
 		 EstrategiaId
@@ -1113,6 +1248,7 @@ BEGIN
 		, IdMarca
 	FROM EstrategiaProductoTemporal
 	where NumeroLote = @NroLote
+	-- Insertar Estrategia
 	INSERT INTO Estrategia
 	(
 		TipoEstrategiaID
@@ -1144,11 +1280,12 @@ BEGIN
 		, 0, dbo.fnGetTipoEstrategiaId(CodigoTipoEstrategia) as EtiquetaID2
 		,0, 0, '', NULL, 0 , ''
 		,OfertaUltimoMinuto, CodigoEstrategia, TieneVariedad
-
 		,PrecioTachado, PrecioOferta, PrecioPublico, Ganancia, Niveles
 		,UsuarioCreacion,@FechaGeneral,UsuarioCreacion, @FechaGeneral
 	FROM EstrategiaTemporal
 	where NumeroLote = @NroLote
+
+	-- Actualizar EstrategiaID
 	UPDATE EP
 	SET EP.EstrategiaID = E.EstrategiaID
 	FROM EstrategiaProducto EP
@@ -1159,10 +1296,16 @@ BEGIN
 			ON te.TipoEstrategiaID = E.TipoEstrategiaID
 	WHERE EXISTS(SELECT ET.CampaniaId FROM EstrategiaTemporal ET  WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote and ET.CodigoTipoEstrategia = te.Codigo)
 		AND ISNULL(EP.EstrategiaID, 0) = 0
-
 	set @NroLoteFinal = @NroLote
+
+	COMMIT TRANSACTION
+END TRY
+BEGIN CATCH
+	ROLLBACK TRANSACTION
+END CATCH
 END
 GO
+
 
 GO
 USE BelcorpBolivia
@@ -1179,10 +1322,15 @@ CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 )
 AS
 BEGIN
-	set @NroLote = isnull(@NroLote, 0)
+BEGIN TRANSACTION
 
+BEGIN TRY
+	set @NroLoteFinal = 0
+	set @NroLote = isnull(@NroLote, 0)
 	DECLARE @FechaGeneral DATETIME
 	SET @FechaGeneral = dbo.fnObtenerFechaHoraPais()
+
+	-- Insertar EstrategiaProducto
 	INSERT INTO EstrategiaProducto
 	(
 		 EstrategiaId
@@ -1219,6 +1367,7 @@ BEGIN
 		, IdMarca
 	FROM EstrategiaProductoTemporal
 	where NumeroLote = @NroLote
+	-- Insertar Estrategia
 	INSERT INTO Estrategia
 	(
 		TipoEstrategiaID
@@ -1250,11 +1399,12 @@ BEGIN
 		, 0, dbo.fnGetTipoEstrategiaId(CodigoTipoEstrategia) as EtiquetaID2
 		,0, 0, '', NULL, 0 , ''
 		,OfertaUltimoMinuto, CodigoEstrategia, TieneVariedad
-
 		,PrecioTachado, PrecioOferta, PrecioPublico, Ganancia, Niveles
 		,UsuarioCreacion,@FechaGeneral,UsuarioCreacion, @FechaGeneral
 	FROM EstrategiaTemporal
 	where NumeroLote = @NroLote
+
+	-- Actualizar EstrategiaID
 	UPDATE EP
 	SET EP.EstrategiaID = E.EstrategiaID
 	FROM EstrategiaProducto EP
@@ -1265,9 +1415,15 @@ BEGIN
 			ON te.TipoEstrategiaID = E.TipoEstrategiaID
 	WHERE EXISTS(SELECT ET.CampaniaId FROM EstrategiaTemporal ET  WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote and ET.CodigoTipoEstrategia = te.Codigo)
 		AND ISNULL(EP.EstrategiaID, 0) = 0
-
 	set @NroLoteFinal = @NroLote
+
+	COMMIT TRANSACTION
+END TRY
+BEGIN CATCH
+	ROLLBACK TRANSACTION
+END CATCH
 END
 GO
+
 
 GO
