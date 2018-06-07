@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Portal.Consultoras.BizLogic.OfertaPersonalizada;
+﻿using Portal.Consultoras.BizLogic.OfertaPersonalizada;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.ServiceContracts;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Service
 {

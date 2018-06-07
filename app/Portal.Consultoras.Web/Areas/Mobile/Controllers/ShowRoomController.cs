@@ -12,7 +12,7 @@ using System.Web.Routing;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
-    public class ShowRoomController : BaseShowRoomController
+    public class ShowRoomController : BaseEstrategiaController
     {
         public ShowRoomController() : base()
         {
@@ -240,43 +240,43 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         #region Metodos Obsoletos
 
-        [Obsolete("No se usa")]
-        public ActionResult DetalleOfertaCUV(string query)
-        {
-            var ofertaId = 0;
+        //[Obsolete("No se usa")]
+        //public ActionResult DetalleOfertaCUV(string query)
+        //{
+        //    var ofertaId = 0;
 
-            if (string.IsNullOrEmpty(query))
-                return RedirectToAction("DetalleOferta", "ShowRoom", new { area = "Mobile", id = ofertaId });
+        //    if (string.IsNullOrEmpty(query))
+        //        return RedirectToAction("DetalleOferta", "ShowRoom", new { area = "Mobile", id = ofertaId });
 
-            var srQsv = new ShowRoomQueryStringValidator(query);
+        //    var srQsv = new ShowRoomQueryStringValidator(query);
 
-            if (srQsv.CodigoConsultora != userData.CodigoConsultora && srQsv.CodigoIso != userData.CodigoISO ||
-                srQsv.CodigoProceso != CodigoProceso)
-            {
-                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-            }
+        //    if (srQsv.CodigoConsultora != userData.CodigoConsultora && srQsv.CodigoIso != userData.CodigoISO ||
+        //        srQsv.CodigoProceso != CodigoProceso)
+        //    {
+        //        return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+        //    }
 
-            ofertaId = srQsv.OfertaId;
+        //    ofertaId = srQsv.OfertaId;
 
-            if (srQsv.CampanaId == userData.CampaniaID && !GetEventoConsultoraRecibido(userData))
-            {
-                UpdShowRoomEventoConsultoraEmailRecibido(srQsv.CodigoConsultora, srQsv.CampanaId, userData);
-            }
+        //    if (srQsv.CampanaId == userData.CampaniaID && !GetEventoConsultoraRecibido(userData))
+        //    {
+        //        UpdShowRoomEventoConsultoraEmailRecibido(srQsv.CodigoConsultora, srQsv.CampanaId, userData);
+        //    }
 
-            return RedirectToAction("DetalleOferta", "ShowRoom", new { area = "Mobile", id = ofertaId });
-        }
+        //    return RedirectToAction("DetalleOferta", "ShowRoom", new { area = "Mobile", id = ofertaId });
+        //}
 
-        [Obsolete("No se usa")]
-        public ActionResult ListadoProductoShowRoom(int id = 0)
-        {
-            var showRoomEventoModel = OfertaShowRoom();
-            if (showRoomEventoModel != null)
-                showRoomEventoModel.PosicionCarrusel = id;
+        //[Obsolete("No se usa")]
+        //public ActionResult ListadoProductoShowRoom(int id = 0)
+        //{
+        //    var showRoomEventoModel = OfertaShowRoom();
+        //    if (showRoomEventoModel != null)
+        //        showRoomEventoModel.PosicionCarrusel = id;
 
-            return showRoomEventoModel == null
-                ? (ActionResult)RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
-                : View("ListadoProductoShowRoom", showRoomEventoModel);
-        }
+        //    return showRoomEventoModel == null
+        //        ? (ActionResult)RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
+        //        : View("ListadoProductoShowRoom", showRoomEventoModel);
+        //}
 
         #endregion
     }
