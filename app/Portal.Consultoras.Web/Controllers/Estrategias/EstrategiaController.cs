@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         [HttpPost]
         public JsonResult RDObtenerProductos(BusquedaProductoModel model)
         {
-            return PreparListaModel(model,(int) TipoListaModel.RDObtenerProductos);
+            return PreparListaModel(model, (int)TipoListaModel.RDObtenerProductos);
         }
 
         private List<EstrategiaPersonalizadaProductoModel> ListaPerdio(int campaniaId, List<EstrategiaPedidoModel> listModelCompleta)
@@ -147,48 +147,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         [HttpPost]
         public JsonResult RDObtenerProductosLan(BusquedaProductoModel model)
         {
-            try
-            {
-                if (!(revistaDigital.TieneRevistaDigital()) || EsCampaniaFalsa(model.CampaniaID))
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "",
-                        lista = new List<ShowRoomOfertaModel>(),
-                        cantidadTotal = 0,
-                        cantidad = 0
-                    });
-                }
-
-                var listaFinal1 = ConsultarEstrategiasModel(model.CampaniaID, Constantes.TipoEstrategiaCodigo.Lanzamiento);
-
-                var perdio = TieneProductosPerdio(model.CampaniaID) ? 1 : 0;
-
-                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, perdio);
-
-                var cantidadTotal = listModel.Count;
-
-                return Json(new
-                {
-                    success = true,
-                    listaLan = listModel,
-                    cantidadTotal = cantidadTotal,
-                    cantidad = cantidadTotal,
-                    campaniaId = model.CampaniaID,
-                    codigo = Constantes.ConfiguracionPais.Lanzamiento
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "Error al cargar los productos",
-                    data = ""
-                });
-            }
+            return PreparListaModel(model, (int)TipoListaModel.RDObtenerProductosLan);
         }
 
         [HttpPost]
