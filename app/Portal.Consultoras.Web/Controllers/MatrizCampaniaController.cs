@@ -726,7 +726,9 @@ namespace Portal.Consultoras.Web.Controllers
                 if (rpta.Length > 0)
                 {
                     CamposNovalidos.Append(registros[j].Split('¦')[0]);
-                    CamposNovalidos.Append("¦");
+                    CamposNovalidos.Append('¦');
+                    CamposNovalidos.Append(registros[j].Split('¦')[1]);
+                    CamposNovalidos.Append('¦');
                     CamposNovalidos.Append(rpta.ToString().TrimEnd('-'));
                     CamposNovalidos.Append("¬");
                 }
