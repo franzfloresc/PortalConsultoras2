@@ -1,14 +1,9 @@
-<<<<<<< HEAD
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Portal.Consultoras.BizLogic.OfertaPersonalizada;
 using Portal.Consultoras.Entities;
-=======
-﻿using Portal.Consultoras.BizLogic.OfertaPersonalizada;
->>>>>>> 15f168d916e492f522846ed083f6e612282a2c82
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.ServiceContracts;
-using System.Collections.Generic;
 
 namespace Portal.Consultoras.Service
 {

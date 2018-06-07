@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Common;
+﻿using System;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.ShowRoom;
