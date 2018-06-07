@@ -949,11 +949,12 @@ namespace Portal.Consultoras.Web.Controllers
             public int OfertaId { get; private set; }
         }
 
+        #region ShowRoom - Metodos que usan con EstrategiaPedidoModel en vez de ShowRoomOfertaModel (lo demas se mantiene)
         public EstrategiaPedidoModel ViewDetalleOferta_Unificado(int id)
         {
             var modelo = GetOfertaConDetalle_Unificado(id);
             modelo.CodigoISO = userData.CodigoISO;
-            modelo.ListaOfertaShowRoom = GetOfertaListadoExcepto(id);
+            modelo.ListaOfertaShowRoom = GetOfertaListadoExcepto_Unificado(id);
             var listaDetalle = ObtenerPedidoWebDetalle();
             modelo.ListaOfertaShowRoom.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
 
@@ -1285,6 +1286,133 @@ namespace Portal.Consultoras.Web.Controllers
             });
             return listadoOfertasTodasModel1;
         }
+
+        public List<EstrategiaPedidoModel> GetOfertaListadoExcepto_Unificado(int idOferta)
+        {
+            var listaOferta = new List<EstrategiaPedidoModel>();
+            if (idOferta <= 0) return listaOferta;
+
+            var listadoOfertasTodasModel = ObtenerListaProductoShowRoom_Unificado(userData.CampaniaID, userData.CodigoConsultora);
+            listaOferta = listadoOfertasTodasModel.Where(o => o.OfertaShowRoomID != idOferta).ToList();
+            return listaOferta;
+        }
+
+
+        public List<EstrategiaPedidoModel> GetProductosCompraPorCompra_Unificado(bool esFacturacion, int eventoId, int campaniaId)
+        {
+            try
+            {
+                if (Session[Constantes.ConstSession.ListaProductoShowRoomCpc] != null)
+                {
+                    var listadoOfertasTodas = (List<ServiceOferta.BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoomCpc];
+                    var listadoOfertasTodasModel = Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listadoOfertasTodas);
+                    listadoOfertasTodasModel.Update(x =>
+                    {
+                        x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
+                        x.CodigoISO = userData.CodigoISO;
+                        x.Simbolo = userData.Simbolo;
+                    });
+                    return listadoOfertasTodasModel;
+                }
+
+                List<ServiceOferta.BEShowRoomOferta> listaShowRoomCpc = GetProductosCompraPorCompraService(eventoId, campaniaId);
+                listaShowRoomCpc = ObtenerListaProductoShowRoomMdo(listaShowRoomCpc);
+
+                var listaTieneStock = new List<Lista>();
+                var txtBuil = new StringBuilder();
+                string codigoSap;
+                if (esFacturacion)
+                {
+                    foreach (var beProducto in listaShowRoomCpc)
+                    {
+                        if (!string.IsNullOrEmpty(beProducto.CodigoProducto))
+                        {
+                            txtBuil.Append(beProducto.CodigoProducto + "|");
+                        }
+                    }
+
+                    codigoSap = txtBuil.ToString();
+                    codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
+
+                    try
+                    {
+                        if (!string.IsNullOrEmpty(codigoSap))
+                        {
+                            using (var sv = new wsConsulta())
+                            {
+                                sv.Url = GetConfiguracionManager(Constantes.ConfiguracionManager.RutaServicePROLConsultas);
+                                listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+
+                        listaTieneStock = new List<Lista>();
+                    }
+                }
+
+                var listaShowRoomCpcFinal = new List<ServiceOferta.BEShowRoomOferta>();
+                txtBuil.Clear();
+                foreach (var beShowRoomOferta in listaShowRoomCpc)
+                {
+                    bool tieneStockProl = true;
+                    if (esFacturacion)
+                    {
+                        var itemStockProl = listaTieneStock.FirstOrDefault(p => p.Codsap.ToString() == beShowRoomOferta.CodigoProducto);
+                        if (itemStockProl != null)
+                            tieneStockProl = itemStockProl.estado == 1;
+                    }
+
+                    if (tieneStockProl)
+                    {
+                        txtBuil.Append(beShowRoomOferta.CodigoProducto + "|");
+                        listaShowRoomCpcFinal.Add(beShowRoomOferta);
+                    }
+                }
+                List<Producto> listaShowRoomProductoCatalogo;
+                var numeroCampanias = Convert.ToInt32(GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
+
+                codigoSap = txtBuil.ToString();
+                codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
+                using (ProductoServiceClient sv = new ProductoServiceClient())
+                {
+                    listaShowRoomProductoCatalogo = sv.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, campaniaId, codigoSap, numeroCampanias).ToList();
+                }
+
+                foreach (var item in listaShowRoomCpcFinal)
+                {
+                    var beCatalogoPro = listaShowRoomProductoCatalogo.FirstOrDefault(p => p.CodigoSap == item.CodigoProducto);
+                    if (beCatalogoPro != null)
+                    {
+                        item.ImagenProducto = beCatalogoPro.Imagen;
+                        item.Descripcion = beCatalogoPro.NombreComercial;
+                        item.DescripcionLegal = beCatalogoPro.Descripcion;
+                    }
+                }
+
+                Session[Constantes.ConstSession.ListaProductoShowRoomCpc] = listaShowRoomCpcFinal;
+                var listadoProductosCpcModel1 = Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listaShowRoomCpcFinal);
+                listadoProductosCpcModel1.Update(x =>
+                {
+                    x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
+                    x.CodigoISO = userData.CodigoISO;
+                    x.Simbolo = userData.Simbolo;
+                });
+
+                return listadoProductosCpcModel1;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return null;
+            }
+        }
+
+        #endregion
+
+
 
         #region Metodos Obsoletos
 

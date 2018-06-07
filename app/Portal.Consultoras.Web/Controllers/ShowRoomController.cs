@@ -1149,7 +1149,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             bool esFacturacion = EsFacturacion();
 
-            var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, estrategiaSR.BeShowRoom.EventoID,
+            var listaCompraPorCompra = GetProductosCompraPorCompra_Unificado(esFacturacion, estrategiaSR.BeShowRoom.EventoID,
                         estrategiaSR.BeShowRoom.CampaniaID);
             modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
             modelo.TieneCompraXcompra = estrategiaSR.BeShowRoom.TieneCompraXcompra;
