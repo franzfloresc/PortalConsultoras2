@@ -61,7 +61,7 @@ namespace Portal.Consultoras.Web.Models
 
         public string Simbolo { get; set; }
 
-        public List<ShowRoomOfertaModel> ListaShowRoomOferta { get; set; }
+        public List<EstrategiaPedidoModel> ListaShowRoomOferta { get; set; }
 
         public int PosicionCarrusel { get; set; }
 
@@ -69,7 +69,7 @@ namespace Portal.Consultoras.Web.Models
 
         public string FormatoCampania { get; set; }
 
-        public List<ShowRoomOfertaModel> ListaShowRoomCompraPorCompra { get; set; }
+        public List<EstrategiaPedidoModel> ListaShowRoomCompraPorCompra { get; set; }
 
         public string UrlTerminosCondiciones { get; set; }
 

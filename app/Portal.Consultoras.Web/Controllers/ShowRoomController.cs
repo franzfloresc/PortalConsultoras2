@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.Models.Common;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -88,7 +87,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var showRoomEventoModel = CargarValoresModel();
                 showRoomEventoModel.ListaShowRoomOferta = ValidarUnidadesPermitidas(showRoomEventoModel.ListaShowRoomOferta);
-                showRoomEventoModel.ListaShowRoomOferta = showRoomEventoModel.ListaShowRoomOferta ?? new List<ShowRoomOfertaModel>();
+                showRoomEventoModel.ListaShowRoomOferta = showRoomEventoModel.ListaShowRoomOferta ?? new List<EstrategiaPedidoModel>();
 
                 if (!showRoomEventoModel.ListaShowRoomOferta.Any()) return RedirectToAction("Index", "Bienvenida");
 
@@ -1141,14 +1140,14 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Bienvenida");
 
             var estrategiaSR = sessionManager.GetEstrategiaSR();
-            var modelo = ViewDetalleOferta_Unificado(id);
+            var modelo = ViewDetalleOferta(id);
             modelo.EstrategiaId = id;
             var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
             modelo.ListaOfertaShowRoom = xList;
 
             bool esFacturacion = EsFacturacion();
 
-            var listaCompraPorCompra = GetProductosCompraPorCompra_Unificado(esFacturacion, estrategiaSR.BeShowRoom.EventoID,
+            var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, estrategiaSR.BeShowRoom.EventoID,
                         estrategiaSR.BeShowRoom.CampaniaID);
             modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
             modelo.TieneCompraXcompra = estrategiaSR.BeShowRoom.TieneCompraXcompra;
@@ -1173,9 +1172,9 @@ namespace Portal.Consultoras.Web.Controllers
                 bool esFacturacion = EsFacturacion();
                 var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion, false);
 
-                var listaNoSubCampania = new List<ShowRoomOfertaModel>();
-                var listaNoSubCampaniaPerdio = new List<ShowRoomOfertaModel>();
-                
+                var listaNoSubCampania = new List<EstrategiaPedidoModel>();
+                var listaNoSubCampaniaPerdio = new List<EstrategiaPedidoModel>();
+
                 if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
                 {
                     listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
@@ -1185,7 +1184,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
                 }
-                
+
                 var totalNoSubCampania = listaNoSubCampania.Count;
 
                 if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
@@ -1559,18 +1558,6 @@ namespace Portal.Consultoras.Web.Controllers
             return nombreImagenFinal;
         }
 
-        //[HttpPost]
-        //private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        //{
-        //    IList<BECampania> lst;
-        //    using (var sv = new ZonificacionServiceClient())
-        //    {
-        //        lst = sv.SelectCampanias(paisId);
-        //    }
-
-        //    return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
-        //}
-
         private List<RptProductoEstrategia> EstrategiaProductoObtenerServicio(ServicePedido.BEEstrategia entidad)
         {
             var respuestaServiceCdr = new List<RptProductoEstrategia>();
@@ -1593,27 +1580,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return respuestaServiceCdr;
         }
-
-        //private int TieneVariedad(string codigo, string cuv)
-        //{
-        //    var tieneVariedad = 0;
-        //    switch (codigo)
-        //    {
-        //        case Constantes.TipoEstrategiaSet.IndividualConTonos:
-        //            List<ServiceODS.BEProducto> listaHermanosE;
-        //            using (var svc = new ODSServiceClient())
-        //            {
-        //                listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, cuv).ToList();
-        //            }
-        //            tieneVariedad = listaHermanosE.Any() ? 1 : 0;
-        //            break;
-        //        case Constantes.TipoEstrategiaSet.CompuestaVariable:
-        //            tieneVariedad = 1;
-        //            break;
-        //    }
-
-        //    return tieneVariedad;
-        //}
 
         private JsonResult InsertarPedidoWebPortal(PedidoDetalleModel model, int tipo)
         {
@@ -1744,17 +1710,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //private IEnumerable<PaisModel> DropDowListPaises()
-        //{
-        //    List<BEPais> lst;
-        //    using (var sv = new ZonificacionServiceClient())
-        //    {
-        //        lst = userData.RolID == 2 ? sv.SelectPaises().ToList() : new List<BEPais> { sv.SelectPais(userData.PaisID) };
-        //    }
-
-        //    return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        //}
-
         private bool CorreoPerteneceAOtraConsultora(MisDatosModel model)
         {
             int cantidad;
@@ -1842,7 +1797,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private List<ShowRoomOfertaModel> ValidarUnidadesPermitidas(List<ShowRoomOfertaModel> listaShowRoomOferta)
+        private List<EstrategiaPedidoModel> ValidarUnidadesPermitidas(List<EstrategiaPedidoModel> listaShowRoomOferta)
         {
             if (listaShowRoomOferta != null)
             {
@@ -1870,184 +1825,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Metodos Obsoletos
 
-        //[Obsolete("No se usa")]
-        //public static bool IsNumeric(object expression)
-        //{
-        //    double retNum;
-        //    var isNum = Double.TryParse(Convert.ToString(expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
-        //    return isNum;
-        //}
-
-        //[Obsolete("No se usa")]
-        //public ActionResult DetalleOfertaCUV(string query)
-        //{
-        //    var ofertaId = 0;
-
-        //    if (GetIsMobileDevice())
-        //    {
-        //        return RedirectToAction("DetalleOfertaCUV", "ShowRoom", new { area = "Mobile", query });
-        //    }
-
-        //    if (string.IsNullOrEmpty(query))
-        //    {
-        //        return RedirectToAction("DetalleOferta", "ShowRoom", new { id = ofertaId });
-        //    }
-
-        //    var srQsv = new ShowRoomQueryStringValidator(query);
-
-        //    if ((srQsv.CodigoConsultora != userData.CodigoConsultora && srQsv.CodigoIso != userData.CodigoISO) ||
-        //        (srQsv.CodigoProceso != CodigoProceso))
-        //    {
-        //        return RedirectToAction("Index", "Bienvenida");
-        //    }
-
-        //    ofertaId = srQsv.OfertaId;
-
-        //    if (srQsv.CampanaId == userData.CampaniaID && !GetEventoConsultoraRecibido(userData))
-        //    {
-        //        UpdShowRoomEventoConsultoraEmailRecibido(srQsv.CodigoConsultora, srQsv.CampanaId, userData);
-        //    }
-
-        //    return RedirectToAction("DetalleOferta", "ShowRoom", new { id = ofertaId });
-        //}
-
-        //[Obsolete("No se usa")]
-        //public JsonResult ObtenerImagenesByCodigoSAP(int paisId, string codigoSap)
-        //{
-        //    List<BEMatrizComercial> lst;
-        //    List<BEMatrizComercial> lstFinal = new List<BEMatrizComercial>();
-
-        //    using (var sv = new PedidoServiceClient())
-        //    {
-        //        lst = sv.GetImagenesByCodigoSAP(paisId, codigoSap).ToList();
-        //    }
-
-        //    var carpetaPais = ObtenerCarpetaPais();
-        //    if (lst.Count > 0)
-        //    {
-        //        lstFinal.Add(new BEMatrizComercial
-        //        {
-        //            IdMatrizComercial = lst[0].IdMatrizComercial,
-        //            CodigoSAP = lst[0].CodigoSAP,
-        //            Descripcion = lst[0].Descripcion,
-        //            PaisID = lst[0].PaisID
-        //        });
-
-        //        if (lst[0].FotoProducto != "")
-        //            lstFinal[0].FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-
-        //        if (lst[1].FotoProducto != "")
-        //            lstFinal[0].FotoProducto02 = ConfigS3.GetUrlFileS3(carpetaPais, lst[1].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-
-        //        if (lst[2].FotoProducto != "")
-        //            lstFinal[0].FotoProducto03 = ConfigS3.GetUrlFileS3(carpetaPais, lst[2].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-        //    }
-        //    return Json(new
-        //    {
-        //        lista = lstFinal
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
-
-        //[Obsolete("Migrado Zona Estrategias")]
-        //public JsonResult ObtenterCampaniasPorPais(int paisId)
-        //{
-        //    var lst = DropDowListCampanias(paisId);
-
-        //    return Json(new
-        //    {
-        //        lista = lst,
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
-
-        //[Obsolete("Migrado Zona Estrategias")]
-        //public JsonResult ObtenerParametroPersonalizacion(int paisId)
-        //{
-        //    var datos = GetTablaLogicaDatos(Constantes.TablaLogica.Plan20);
-
-        //    var campaniaMinimaPersonalizacion = "";
-        //    if (datos.Any())
-        //    {
-        //        var par = datos.FirstOrDefault(d => d.TablaLogicaDatosID == Constantes.TablaLogicaDato.PersonalizacionShowroom);
-        //        if (par != null)
-        //        {
-        //            campaniaMinimaPersonalizacion = par.Codigo;
-        //        }
-        //    }
-
-        //    return Json(new
-        //    {
-        //        campaniaMinimaPersonalizacion
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
-
-        //[Obsolete("Migrado Zona Estrategias")]
-        //[HttpPost]
-        //public JsonResult GuardarImagenShowRoom(int eventoId, string nombreImagen, string nombreImagenAnterior, int tipo)
-        //{
-        //    string nombreImagenFinal = "";
-
-        //    try
-        //    {
-        //        string tempImage01 = nombreImagen ?? "";
-        //        nombreImagen = nombreImagen ?? "";
-        //        nombreImagenAnterior = nombreImagenAnterior ?? "";
-
-        //        string soloImagen = nombreImagen.Split('.')[0];
-        //        string soloExtension = nombreImagen.Split('.')[1];
-
-        //        string iso = Util.GetPaisISO(userData.PaisID);
-        //        var carpetaPais = Globals.UrlMatriz + "/" + iso;
-
-        //        bool esNuevo = nombreImagenAnterior == "";
-
-        //        if (nombreImagen != nombreImagenAnterior)
-        //        {
-        //            string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() +
-        //                          DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-        //            var newfilename = iso + "_" + soloImagen + "_" + time + "_" + "01" + "_" +
-        //                              FileManager.RandomString() + "." + soloExtension;
-
-        //            nombreImagenFinal = newfilename;
-
-        //            if (!esNuevo) ConfigS3.DeleteFileS3(carpetaPais, nombreImagenAnterior);
-        //            ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, tempImage01), carpetaPais, newfilename);
-        //        }
-
-        //        using (var sv = new PedidoServiceClient())
-        //        {
-        //            sv.GuardarImagenShowRoom(userData.PaisID, eventoId, nombreImagenFinal, tipo,
-        //                userData.CodigoConsultora);
-        //        }
-
-        //        return Json(new
-        //        {
-        //            success = true,
-        //            message = "Se registro la imagen satisfactoriamente.",
-        //            extra = nombreImagenFinal
-        //        });
-        //    }
-        //    catch (FaultException ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = ex.Message,
-        //            extra = ""
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = ex.Message,
-        //            extra = ""
-        //        });
-        //    }
-        //}
-
+        
         #endregion
     }
 }
