@@ -706,7 +706,10 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Providers\AdministrarEstrategiaProvider.cs" />
+    <Compile Include="Providers\OfertaBaseProvider.cs" />
     <Compile Include="Providers\PedidoSetProvider.cs" />
+    <Compile Include="Providers\RevistaDigitalProvider.cs" />
     <Compile Include="Providers\ShowRoomProvider.cs" />
     <Compile Include="Providers\OfertaDelDiaProvider.cs" />
     <Compile Include="Providers\TablaLogicaProvider.cs" />

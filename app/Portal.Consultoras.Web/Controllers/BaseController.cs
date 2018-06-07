@@ -55,7 +55,8 @@ namespace Portal.Consultoras.Web.Controllers
         protected ISessionManager sessionManager;
         protected ILogManager logManager;
         private readonly TablaLogicaProvider _tablaLogicaProvider;
-        protected readonly OfertaDelDiaProvider ofertaPersonalizadaProvider;
+        protected readonly AdministrarEstrategiaProvider administrarEstrategiaProvider;
+        protected readonly OfertaDelDiaProvider ofertaDelDiaProvider;
         private readonly ShowRoomProvider _showRoomProvider;
         protected string estrategiaWebApiDisponibilidadTipo;
         protected string paisesMicroservicioPersonalizacion;
@@ -70,7 +71,7 @@ namespace Portal.Consultoras.Web.Controllers
             logManager = LogManager.LogManager.Instance;
             sessionManager = SessionManager.SessionManager.Instance;
             _tablaLogicaProvider = new TablaLogicaProvider();
-            ofertaPersonalizadaProvider = new OfertaDelDiaProvider();
+            administrarEstrategiaProvider = new AdministrarEstrategiaProvider();
             _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
         }
 
@@ -2091,7 +2092,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected OfertaDelDiaModel GetOfertaDelDiaModel()
         {
-            var ofertaDelDia = ofertaPersonalizadaProvider.ObtenerOfertas();
+            var ofertaDelDia = ofertaDelDiaProvider.ObtenerOfertas();
 
             if (ofertaDelDia == null)
                 return null;

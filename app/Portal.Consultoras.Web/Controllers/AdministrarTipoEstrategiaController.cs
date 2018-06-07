@@ -333,12 +333,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (TipoEstrategiaID != "0")
                 {
-                    ofertaPersonalizadaProvider.EditarTipoEstrategiaWebApi(entidad,userData.CodigoISO);
+                    administrarEstrategiaProvider.EditarTipoEstrategiaWebApi(entidad,userData.CodigoISO);
                     operacion = "actualizó";
                 }
                 else
                 {
-                    ofertaPersonalizadaProvider.RegistrarTipoEstrategiaWebApi(entidad, userData.CodigoISO);
+                    administrarEstrategiaProvider.RegistrarTipoEstrategiaWebApi(entidad, userData.CodigoISO);
                 }
 
                 return Json(new
