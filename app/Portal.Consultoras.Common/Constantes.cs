@@ -142,7 +142,7 @@ namespace Portal.Consultoras.Common
             public const int BusquedaNemotecnicoProductoSugerido = 9853;
             public const int BusquedaNemotecnicoZonaEstrategia = 9854;
             public const int Tonos = 9802;
-            
+
             public const int ValoresImagenesResizeWitdhMaxSmall = 12101;
             public const int ValoresImagenesResizeHeightSmall = 12102;
             public const int ValoresImagenesResizeWitdhMaxMedium = 12103;
@@ -311,7 +311,7 @@ namespace Portal.Consultoras.Common
 
             public const string PedidosFacturados = "PedidosFacturados";
 
-            
+
         }
 
         public static class ConfiguracionManager
@@ -427,7 +427,7 @@ namespace Portal.Consultoras.Common
             public const string SubGuion = "_";
             public const string estrategiaWebApiDisponibilidadTipo = "EstrategiaDisponibleMicroservicioPersonalizacion";
             public const string paisesMicroservicioPersonalizacion = "PaisesMicroservicioPersonalizacion";
-            
+
             public const string EnabledRemoveCache = "EnabledRemoveCache";
             public const string UrlServiceSicc = "UrlServiceSicc";
             public const string MenuCondicionesDescripcion = "CONDICIONES DE USO WEB";
@@ -1810,7 +1810,7 @@ namespace Portal.Consultoras.Common
             public class EncenderValidacion
             {
                 public const short TablaLogicaID = 7;
-                public const string Activo = "Activo"; 
+                public const string Activo = "Activo";
             }
 
             public class Rango
@@ -2026,7 +2026,7 @@ namespace Portal.Consultoras.Common
             public const int Valor2 = 2;
             public const int Valor3 = 3;
         }
-        
+
         public class ProlCodigoRechazo
         {
             public const string MontoMinimo = "XXXXX";
@@ -2040,7 +2040,7 @@ namespace Portal.Consultoras.Common
             public const string MontoMinFact = "MontoMinFact";
             public const string MontoMinVentaDesc = "MontoMinVentaDesc";
             public const string MontoMinFactDesc = "MontoMinFactDesc";
-            public const string MontoMaximo  = "MontoMaximo";
+            public const string MontoMaximo = "MontoMaximo";
             public const string LimiteVenta0 = "LimiteVenta0";
             public const string LimiteVenta = "LimiteVenta";
             public const string Promocion2003 = "Promocion2003";
@@ -2080,5 +2080,29 @@ namespace Portal.Consultoras.Common
             public const int EnviarPorSms = 2;
         }
         #endregion  
+
+        public class PersonalizacionOfertasService
+        {
+            #region Administrar Estrategia
+            public const string UrlActivarEstrategias = "estrategia/activar?usuario={0}&pais={1}";
+            public const string UrlCantidadOfertas = "estrategia/contar";
+            public const string UrlCargarWebApi = "estrategia/cargar?pais={0}";
+            public const string UrlDesactivarEstrategias = "estrategia/desactivar?usuario={0}&pais={1}";
+            public const string UrlDesactivarWebApi = "estrategia/desactivar/{0}?usuario={1}&pais={2}";
+            public const string UrlEditarTipoEstrategiaWebApi = "tipo/editar?pais={0}";
+            public const string UrlEditarWebApi = "estrategia/editar?pais={0}";
+            public const string UrlEstrategiaCuv = "estrategia/cuv/{0}/{1}/{2}";
+            public const string UrlFiltrarEstrategia = "estrategia/";
+            public const string UrlListarWebApi = "estrategia/listar/{0}/{1}";
+            public const string UrlPreCargarWebApi = "estrategia/precargar/{0}/{1}";
+            public const string UrlRegistrarTipoEstrategiaWebApi = "tipo/registrar?pais={0}";
+            public const string UrlRegistrarWebApi = "estrategia/registrar?pais={0}";
+            public const string UrlUploadCsv = "estrategia/actualizar?pais={0}";
+            #endregion
+
+            #region Oferta
+            public const string UrlObtenerOfertasDelDia = "api/Oferta/{0}/{1}/{2}/{3}/{4}";
+            #endregion
+        }
     }
 }
