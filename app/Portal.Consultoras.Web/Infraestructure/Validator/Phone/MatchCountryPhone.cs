@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Portal.Consultoras.Common.Validator;
 
@@ -47,6 +48,13 @@ namespace Portal.Consultoras.Web.Infraestructure.Validator.Phone
             if (number == null || number.Length != _length)
             {
                 result.ErrorMessage = string.Format("El número debe tener {0} dígitos", number);
+
+                return Task.FromResult(result);
+            }
+            
+            if (!Regex.IsMatch(number, "^\\d+$"))
+            {
+                result.ErrorMessage = "No es un número válido";
 
                 return Task.FromResult(result);
             }

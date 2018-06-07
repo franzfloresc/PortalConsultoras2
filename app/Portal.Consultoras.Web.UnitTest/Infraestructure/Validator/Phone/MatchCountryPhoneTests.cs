@@ -42,6 +42,8 @@ namespace Portal.Consultoras.Web.UnitTest.Infraestructure.Validator.Phone
         [DataRow("PA", "777")]
         [DataRow("SV", "777")]
         [DataRow("SV", null)]
+        [DataRow("SV", "")]
+        [DataRow("SV", "+44XX")]
         public void ValidPhoneErrorTest(string isoPais, string number)
         {
             _validator.IsoPais = isoPais;

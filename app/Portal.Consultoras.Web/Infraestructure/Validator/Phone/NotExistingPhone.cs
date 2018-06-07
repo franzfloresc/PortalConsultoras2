@@ -8,7 +8,10 @@ namespace Portal.Consultoras.Web.Infraestructure.Validator.Phone
     {
         public Task<SimpleResult> Valid(string number)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(new SimpleResult
+            {
+                Success = true
+            });
         }
     }
 }
