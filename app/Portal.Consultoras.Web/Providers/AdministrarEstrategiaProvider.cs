@@ -71,7 +71,7 @@ namespace Portal.Consultoras.Web.Providers
             int iCantidadActualizada = 0;
             UsuarioModel userData = sessionManager.GetUserData();
             string jsonParameters = JsonConvert.SerializeObject(EstrtegiasIds);
-            string requestUrl = "estrategia/cargar?pais=" + pais;
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlCargarWebApi, pais);
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "put", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -89,7 +89,7 @@ namespace Portal.Consultoras.Web.Providers
             Dictionary<string, int> iCantidadOfertas = new Dictionary<string, int>();
             iCantidadOfertas.Add("EC", -1);
             iCantidadOfertas.Add("EF", -1);
-            string requestUrl = "estrategia/contar";
+            string requestUrl = Constantes.PersonalizacionOfertasService.UrlCantidadOfertas;
             string jsonParameters = "?tipo=" + tipoCodigo + "&campania=" + campania.ToString() + "&pais=" + pais;
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "get", userData));
             Task.WhenAll(taskApi);
@@ -163,7 +163,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             var userData = sessionManager.GetUserData();
             //entidad.Imagen
-            string requestUrl = "estrategia/listar/" + CampaniaID + "/" + tipoEstrategiaCodigo;
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlListarWebApi, CampaniaID, tipoEstrategiaCodigo);
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "get", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -184,7 +184,7 @@ namespace Portal.Consultoras.Web.Providers
             string jsonParameters = "?pais=" + Pais;
 
             //entidad.Imagen
-            string requestUrl = "estrategia/precargar/" + campaniaId + "/" + tipoEstrategiaCodigo;
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlPreCargarWebApi, campaniaId, tipoEstrategiaCodigo);
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "get", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -203,7 +203,7 @@ namespace Portal.Consultoras.Web.Providers
             UsuarioModel userData = sessionManager.GetUserData();
             List<EstrategiaMDbAdapterModel> listaEstrategias = new List<EstrategiaMDbAdapterModel>();
             string jsonParameters = _id + "?pais=" + Pais;
-            string requestUrl = "estrategia/";
+            string requestUrl = Constantes.PersonalizacionOfertasService.UrlFiltrarEstrategia;
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "get", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -222,7 +222,7 @@ namespace Portal.Consultoras.Web.Providers
         public string RegistrarWebApi(BEEstrategia entidad, string Pais)
         {
             UsuarioModel userData = sessionManager.GetUserData();
-            string requestUrl = "estrategia/registrar?pais=" + Pais;
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlRegistrarWebApi, Pais);
             WaEstrategiaModel waModel = getEstrategiaWa(entidad, "");
             string jsonParameters = JsonConvert.SerializeObject(waModel);
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "post", userData));
@@ -234,7 +234,7 @@ namespace Portal.Consultoras.Web.Providers
         public string EditarWebApi(BEEstrategia entidad, string _mongoId, string Pais)
         {
             UsuarioModel userData = sessionManager.GetUserData();
-            string requestUrl = "estrategia/editar?pais=" + Pais;
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlEditarWebApi, Pais);
             WaEstrategiaModel waModel = getEstrategiaWa(entidad, _mongoId);
             string jsonParameters = JsonConvert.SerializeObject(waModel);
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "put", userData));
@@ -313,7 +313,7 @@ namespace Portal.Consultoras.Web.Providers
             UsuarioModel userData = sessionManager.GetUserData();
             bool bDeshabilitado = true;
             string jsonParameters = "";
-            string requestUrl = "estrategia/desactivar/" + _id + "?usuario=" + usuario + "&pais=" + Pais;
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlDesactivarWebApi, _id, usuario, Pais);
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "put", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -330,7 +330,7 @@ namespace Portal.Consultoras.Web.Providers
             UsuarioModel userData = sessionManager.GetUserData();
             bool activarResponse = true; bool inactivarResponse = true;
             string jsonParametersActivas = JsonConvert.SerializeObject(estrategiasActivas);
-            string requestUrl = "estrategia/activar?usuario=" + usuario + "&pais=" + Pais;
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlActivarEstrategias, usuario, Pais);
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParametersActivas, requestUrl, "put", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -342,7 +342,7 @@ namespace Portal.Consultoras.Web.Providers
             content = "";
             //
             string jsonParametersInactivas = JsonConvert.SerializeObject(estrategiasInactivas);
-            string requestUrlInactivar = "estrategia/desactivar?usuario=" + usuario + "&pais=" + Pais;
+            string requestUrlInactivar = string.Format(Constantes.PersonalizacionOfertasService.UrlDesactivarEstrategias, usuario, Pais);
             taskApi = Task.Run(() => respSBMicroservicios(jsonParametersInactivas, requestUrlInactivar, "put", userData));
             Task.WhenAll(taskApi);
             content = taskApi.Result;
@@ -359,7 +359,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             UsuarioModel userData = sessionManager.GetUserData();
             string jsonParameters = "?pais=" + pais + "&prod=" + prod + "&perfil=" + perfil;
-            string requestUrl = "estrategia/cuv/" + campania + "/" + tipoEstrategia + "/" + cuv;
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlEstrategiaCuv, campania, tipoEstrategia, cuv);
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "get", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -393,7 +393,7 @@ namespace Portal.Consultoras.Web.Providers
             }).ToList();
             UsuarioModel userData = sessionManager.GetUserData();
             string jsonParameters = JsonConvert.SerializeObject(descripcionEstrategiaListaWA);
-            string requestUrl = "estrategia/actualizar?pais=" + Pais;
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlUploadCsv, Pais);
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "put", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -426,7 +426,7 @@ namespace Portal.Consultoras.Web.Providers
         public string RegistrarTipoEstrategiaWebApi(BETipoEstrategia entidad, string Pais)
         {
             UsuarioModel userData = sessionManager.GetUserData();
-            string requestUrl = "tipo/registrar?pais=" + Pais;
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlRegistrarTipoEstrategiaWebApi, Pais);
             WaTipoEstrategia waModel = getTipoEstrategiaWa(entidad);
             string jsonParameters = JsonConvert.SerializeObject(waModel);
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "post", userData));
@@ -438,7 +438,7 @@ namespace Portal.Consultoras.Web.Providers
         public string EditarTipoEstrategiaWebApi(BETipoEstrategia entidad, string Pais)
         {
             UsuarioModel userData = sessionManager.GetUserData();
-            string requestUrl = "tipo/editar?pais=" + Pais;
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlEditarTipoEstrategiaWebApi, Pais);
             WaTipoEstrategia waModel = getTipoEstrategiaWa(entidad);
             string jsonParameters = JsonConvert.SerializeObject(waModel);
             var taskApi = Task.Run(() => respSBMicroservicios(jsonParameters, requestUrl, "put", userData));

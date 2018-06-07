@@ -104,7 +104,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var diaInicio = DateTime.Now.Date.Subtract(fechaInicioCampania.Date).Days;
 
-            var path = string.Format("api/Oferta/{0}/ODD/{1}/{2}/{3}", paisIso, campaniaId, codigoConsultora, diaInicio);
+            var path = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertasDelDia, paisIso, campaniaId, codigoConsultora, diaInicio);
 
             var httpResponse = await httpClient.GetAsync(path);
 
