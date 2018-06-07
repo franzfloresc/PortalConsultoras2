@@ -834,8 +834,13 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void GuardarPerfilOfertaShowRoom(int paisId, int perfilId, int eventoId, int campaniaId, string cadenaCuv);
 
+        //@001 FSV INICIO
+        [Obsolete("Optimizacion Ficha-Producto")]
+        //@001 FSV FIN
         [OperationContract]
         IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora);
+
+
 
         [OperationContract]
         BEShowRoomOferta GetShowRoomOfertaById(int paisID, int ofertaShowRoomID);

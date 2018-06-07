@@ -7,11 +7,14 @@ using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServiceODS;
+using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServicePedidoRechazado;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
@@ -24,7 +27,7 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -38,7 +41,6 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-using System.Drawing;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -55,8 +57,8 @@ namespace Portal.Consultoras.Web.Controllers
         protected ILogManager logManager;
         private readonly TablaLogicaProvider _tablaLogicaProvider;
         private readonly ShowRoomProvider _showRoomProvider;
-        protected Models.Estrategia.OfertaDelDia.DataModel estrategiaODD;
-        protected Models.Estrategia.ShowRoom.ConfigModel configEstrategiaSR;
+        protected DataModel estrategiaODD;
+        protected ConfigModel configEstrategiaSR;
         #endregion
 
         #region Constructor
@@ -108,6 +110,10 @@ namespace Portal.Consultoras.Web.Controllers
                 herramientasVenta = sessionManager.GetHerramientasVenta();
                 guiaNegocio = sessionManager.GetGuiaNegocio();
                 estrategiaODD = sessionManager.GetEstrategiaODD();
+
+                configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
+                if (!configEstrategiaSR.CargoEntidadesShowRoom) CargarEntidadesShowRoom(userData);
+
                 if (Request.IsAjaxRequest())
                 {
                     base.OnActionExecuting(filterContext);
@@ -1047,50 +1053,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         public UsuarioModel UserData()
         {
-            UsuarioModel model;
-
-            try
-            {
-                model = sessionManager.GetUserData();
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "UserData - sessionManager.GetUserData()");
-                model = null;
-            }
-
-            if (model == null)
-                return new UsuarioModel();
-
-            #region Cargar variables
-
-            configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
-
-            if (!configEstrategiaSR.CargoEntidadesShowRoom) CargarEntidadesShowRoom(model);
-
-            model.UsuarioNombre = string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre;
-
-            model.FechaHoy = DateTime.Now.AddHours(model.ZonaHoraria).Date;
-            model.EsDiasFacturacion = model.FechaHoy >= model.FechaInicioCampania.Date && model.FechaHoy <= model.FechaFinCampania.Date;
-
+            var model = sessionManager.GetUserData() ?? new UsuarioModel();
+            
             model.MenuNotificaciones = 1;
 
-            #endregion
-
             return model;
-        }
-
-        private bool CumpleOfertaDelDia()
-        {
-            var result = false;
-            if (!NoMostrarBannerODD())
-            {
-                result = (!userData.TieneOfertaDelDia ||
-                          (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2 || userData.IndicadorGPRSB == 0)
-                          && !userData.CloseOfertaDelDia) && userData.TieneOfertaDelDia;
-            }
-
-            return result;
         }
 
         private string GetFormatDecimalPais(string isoPais)
@@ -1165,6 +1132,10 @@ namespace Portal.Consultoras.Web.Controllers
             return ip;
         }
 
+        #endregion
+
+        #region Metodos ShowRoom
+
         protected void CargarEntidadesShowRoom(UsuarioModel model)
         {
             try
@@ -1201,8 +1172,6 @@ namespace Portal.Consultoras.Web.Controllers
                         true);
 
                     configEstrategiaSR.ListaNivel = pedidoService.GetShowRoomNivel(model.PaisID).ToList();
-
-
 
                     configEstrategiaSR.ListaPersonalizacionConsultora = Mapper.Map<IList<BEShowRoomPersonalizacion>, IList<ShowRoomPersonalizacionModel>>(pedidoService.GetShowRoomPersonalizacion(model.PaisID).ToList()).ToList();
                     configEstrategiaSR.ShowRoomNivelId = ObtenerNivelId(configEstrategiaSR.ListaNivel);
@@ -2334,33 +2303,22 @@ namespace Portal.Consultoras.Web.Controllers
             return sFecha;
         }
 
-        public TimeSpan CountdownODD(UsuarioModel model)
-        {
-            DateTime hoy;
-
-            using (var svc = new SACServiceClient())
-            {
-                hoy = svc.GetFechaHoraPais(model.PaisID);
-            }
-
-            var d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
-            DateTime d2;
-
-            if (model.EsDiasFacturacion)
-            {
-                var t1 = model.HoraCierreZonaNormal;
-                d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
-            }
-            else
-            {
-                d2 = d1.AddDays(1);
-            }
-
-            var t2 = (d2 - hoy);
-            return t2;
-        }
-
         #endregion
+
+        #region Metodos Oferta del Dia
+
+        private bool CumpleOfertaDelDia()
+        {
+            var result = false;
+            if (!NoMostrarBannerODD())
+            {
+                result = (!userData.TieneOfertaDelDia ||
+                          (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2 || userData.IndicadorGPRSB == 0)
+                          && !userData.CloseOfertaDelDia) && userData.TieneOfertaDelDia;
+            }
+
+            return result;
+        }
 
         protected OfertaDelDiaModel GetOfertaDelDiaModel()
         {
@@ -2396,6 +2354,32 @@ namespace Portal.Consultoras.Web.Controllers
             return model;
         }
 
+        public TimeSpan CountdownODD(UsuarioModel model)
+        {
+            DateTime hoy;
+
+            using (var svc = new SACServiceClient())
+            {
+                hoy = svc.GetFechaHoraPais(model.PaisID);
+            }
+
+            var d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
+            DateTime d2;
+
+            if (model.EsDiasFacturacion)
+            {
+                var t1 = model.HoraCierreZonaNormal;
+                d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
+            }
+            else
+            {
+                d2 = d1.AddDays(1);
+            }
+
+            var t2 = (d2 - hoy);
+            return t2;
+        }
+
         public ConfiguracionSeccionHomeModel GetConfiguracionEstrategia(string codigoEstrategia)
         {
             ConfiguracionSeccionHomeModel configuracionModel;
@@ -2411,6 +2395,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             return configuracionModel;
         }
+
+        #endregion
 
         public ShowRoomBannerLateralModel GetShowRoomBannerLateral()
         {
@@ -4019,7 +4005,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
 
-                var listaShowRoom = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<BEShowRoomOferta>();
+                var listaShowRoom = (List<ServiceOferta.BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<ServiceOferta.BEShowRoomOferta>();
                 seccion.CantidadProductos = listaShowRoom.Count(x => !x.EsSubCampania);
                 seccion.CantidadMostrar = Math.Min(3, seccion.CantidadProductos);
             }

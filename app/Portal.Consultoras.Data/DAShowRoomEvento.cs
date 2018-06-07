@@ -92,8 +92,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-       
-
         public int CargarProductoCpc(int eventoId, string usuarioCreacion, List<BEShowRoomCompraPorCompra> listaShowRoomCompraPorCompra)
         {
             var ofertaShowRoomReader = new GenericDataReader<BEShowRoomCompraPorCompra>(listaShowRoomCompraPorCompra);
@@ -147,7 +145,6 @@ namespace Portal.Consultoras.Data
 
             Context.ExecuteNonQuery(command);
         }
-
 
         public int GetUnidadesPermitidasByCuvShowRoom(int CampaniaID, string CUV)
         {
