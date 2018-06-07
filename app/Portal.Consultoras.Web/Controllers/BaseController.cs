@@ -110,6 +110,10 @@ namespace Portal.Consultoras.Web.Controllers
                 herramientasVenta = sessionManager.GetHerramientasVenta();
                 guiaNegocio = sessionManager.GetGuiaNegocio();
                 estrategiaODD = sessionManager.GetEstrategiaODD();
+
+                configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
+                if (!configEstrategiaSR.CargoEntidadesShowRoom) CargarEntidadesShowRoom(userData);
+
                 if (Request.IsAjaxRequest())
                 {
                     base.OnActionExecuting(filterContext);
@@ -1049,35 +1053,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         public UsuarioModel UserData()
         {
-            UsuarioModel model;
-
-            try
-            {
-                model = sessionManager.GetUserData();
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "UserData - sessionManager.GetUserData()");
-                model = null;
-            }
-
-            if (model == null)
-                return new UsuarioModel();
-
-            #region Cargar variables
-
-            configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
-
-            if (!configEstrategiaSR.CargoEntidadesShowRoom) CargarEntidadesShowRoom(model);
-
-            model.UsuarioNombre = string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre;
-
-            model.FechaHoy = DateTime.Now.AddHours(model.ZonaHoraria).Date;
-            model.EsDiasFacturacion = model.FechaHoy >= model.FechaInicioCampania.Date && model.FechaHoy <= model.FechaFinCampania.Date;
-
+            var model = sessionManager.GetUserData() ?? new UsuarioModel();
+            
             model.MenuNotificaciones = 1;
-
-            #endregion
 
             return model;
         }

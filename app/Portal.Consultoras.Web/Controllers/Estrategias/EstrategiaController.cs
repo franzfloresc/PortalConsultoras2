@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         [HttpPost]
         public JsonResult RDObtenerProductos(BusquedaProductoModel model)
         {
-            return PreparListaModel(model,(int) TipoListaModel.RDObtenerProductos);
+            return PreparListaModel(model, (int)TipoListaModel.RDObtenerProductos);
         }
 
         private List<EstrategiaPersonalizadaProductoModel> ListaPerdio(int campaniaId, List<EstrategiaPedidoModel> listModelCompleta)
@@ -56,139 +56,19 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         [HttpPost]
         public JsonResult GNDObtenerProductos(BusquedaProductoModel model)
         {
-            try
-            {
-                if (!GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "",
-                        data = ""
-                    });
-                }
-
-                var listaFinal1 = ConsultarEstrategiasModel(0, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
-
-                if (revistaDigital.TieneRDCR)
-                {
-                    if (GetConfiguracionManagerContains(Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_2 + userData.CodigoISO, userData.CodigoZona))
-                    {
-                        listaFinal1 = listaFinal1.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor1 || e.FlagRevista == Constantes.FlagRevista.Valor3).ToList();
-                    }
-                    else
-                    {
-                        listaFinal1 = listaFinal1.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor1).ToList();
-                    }
-                }
-
-                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
-
-                int cantidadTotal = listModel.Count;
-
-                return Json(new
-                {
-                    success = true,
-                    lista = listModel,
-                    campaniaId = model.CampaniaID,
-                    cantidadTotal = cantidadTotal,
-                    cantidad = cantidadTotal
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "Error al cargar los productos",
-                    data = ""
-                });
-            }
+            return PreparListaModel(model, (int)TipoListaModel.GNDObtenerProductos);
         }
 
         [HttpPost]
         public JsonResult HVObtenerProductos(BusquedaProductoModel model)
         {
-            try
-            {
-                var listaFinal1 = ConsultarEstrategiasModel(model.CampaniaID, Constantes.TipoEstrategiaCodigo.HerramientasVenta);
-                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
-
-                listModel = listModel
-                    .OrderByDescending(x => x.MarcaID == Constantes.Marca.Esika)
-                    .ThenByDescending(x => x.MarcaID == Constantes.Marca.LBel)
-                    .ThenByDescending(x => x.MarcaID == Constantes.Marca.Cyzone)
-                    .ToList();
-                int cantidadTotal = listModel.Count;
-
-                return Json(new
-                {
-                    success = true,
-                    lista = listModel,
-                    campaniaId = model.CampaniaID,
-                    cantidadTotal = cantidadTotal,
-                    cantidad = cantidadTotal,
-                    codigo = Constantes.ConfiguracionPais.HerramientasVenta
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "Error al cargar los productos",
-                    data = ""
-                });
-            }
+            return PreparListaModel(model, (int)TipoListaModel.HVObtenerProductos);
         }
 
         [HttpPost]
         public JsonResult RDObtenerProductosLan(BusquedaProductoModel model)
         {
-            try
-            {
-                if (!(revistaDigital.TieneRevistaDigital()) || EsCampaniaFalsa(model.CampaniaID))
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "",
-                        lista = new List<ShowRoomOfertaModel>(),
-                        cantidadTotal = 0,
-                        cantidad = 0
-                    });
-                }
-
-                var listaFinal1 = ConsultarEstrategiasModel(model.CampaniaID, Constantes.TipoEstrategiaCodigo.Lanzamiento);
-
-                var perdio = TieneProductosPerdio(model.CampaniaID) ? 1 : 0;
-
-                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, perdio);
-
-                var cantidadTotal = listModel.Count;
-
-                return Json(new
-                {
-                    success = true,
-                    listaLan = listModel,
-                    cantidadTotal = cantidadTotal,
-                    cantidad = cantidadTotal,
-                    campaniaId = model.CampaniaID,
-                    codigo = Constantes.ConfiguracionPais.Lanzamiento
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "Error al cargar los productos",
-                    data = ""
-                });
-            }
+            return PreparListaModel(model, (int)TipoListaModel.RDObtenerProductosLan);
         }
 
         [HttpPost]
