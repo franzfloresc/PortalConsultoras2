@@ -580,7 +580,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (producto.SAP != string.Empty && !listaCodigosSAP.ToString().Contains(separador + producto.SAP + separador))
                     {
                         listaCodigosSAP.Append(producto.SAP + separador);
-                    }
+                    }           
                 }
             }
             else if (codigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
@@ -762,6 +762,7 @@ namespace Portal.Consultoras.Web.Controllers
             };
 
             var listaHermanos = GetListaHermanos(estrategiaModelo);
+
            
 
             ofertaShowRoomModelo.ProductoTonos = listaHermanos;
