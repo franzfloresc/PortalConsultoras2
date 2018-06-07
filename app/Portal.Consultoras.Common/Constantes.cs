@@ -2101,7 +2101,7 @@ namespace Portal.Consultoras.Common
             #endregion
 
             #region Oferta
-            public const string UrlObtenerOfertasDelDia = "api/Oferta/{0}/ODD/{1}/{2}/{3}";
+            public const string UrlObtenerOfertasDelDia = "api/Oferta/{0}/{1}/{2}/{3}/{4}";
             #endregion
         }
     }
