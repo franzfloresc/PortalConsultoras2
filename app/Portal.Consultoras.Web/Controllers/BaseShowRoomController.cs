@@ -479,6 +479,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region Compra Por Compra
+
         public List<ShowRoomOfertaModel> GetProductosCompraPorCompra(bool esFacturacion, int eventoId, int campaniaId)
         {
             try
@@ -909,12 +910,10 @@ namespace Portal.Consultoras.Web.Controllers
             private readonly int CODIGO_ISO_INDEX = 1;
             private readonly int CODIGO_CONSULTORA_INDEX = 2;
             private readonly int CAMPANIA_ID_INDEX = 3;
-            
             private readonly int OFERTA_ID_INDEX = 5;
-
             private readonly char SEPARATOR = ';';
-
             private string QueryString { get; set; }
+
             public ShowRoomQueryStringValidator(string queryString)
             {
                 if (!string.IsNullOrEmpty(queryString))
@@ -939,17 +938,14 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             public string CodigoProceso { get; private set; }
-
             public string CodigoIso { get; private set; }
-
             public string CodigoConsultora { get; private set; }
-
             public int CampanaId { get; private set; }
-
             public int OfertaId { get; private set; }
         }
 
         #region ShowRoom - Metodos que usan con EstrategiaPedidoModel en vez de ShowRoomOfertaModel (lo demas se mantiene)
+
         public EstrategiaPedidoModel ViewDetalleOferta_Unificado(int id)
         {
             var modelo = GetOfertaConDetalle_Unificado(id);
@@ -1297,7 +1293,6 @@ namespace Portal.Consultoras.Web.Controllers
             return listaOferta;
         }
 
-
         public List<EstrategiaPedidoModel> GetProductosCompraPorCompra_Unificado(bool esFacturacion, int eventoId, int campaniaId)
         {
             try
@@ -1411,8 +1406,6 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-
-
 
         #region Metodos Obsoletos
 

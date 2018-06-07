@@ -3,7 +3,6 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Common;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
-using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
@@ -18,7 +17,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class ShowRoomController : BaseShowRoomController
+    public class ShowRoomController : BaseEstrategiaController
     {
         public ShowRoomController() : base()
         {
@@ -1158,8 +1157,8 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
             return View("DetalleSet", modelo);
-
         }
+
         #endregion
 
         //OK
@@ -1562,17 +1561,17 @@ namespace Portal.Consultoras.Web.Controllers
             return nombreImagenFinal;
         }
 
-        [HttpPost]
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
-        {
-            IList<BECampania> lst;
-            using (var sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectCampanias(paisId);
-            }
+        //[HttpPost]
+        //private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
+        //{
+        //    IList<BECampania> lst;
+        //    using (var sv = new ZonificacionServiceClient())
+        //    {
+        //        lst = sv.SelectCampanias(paisId);
+        //    }
 
-            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
-        }
+        //    return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
+        //}
 
         private List<RptProductoEstrategia> EstrategiaProductoObtenerServicio(ServicePedido.BEEstrategia entidad)
         {
@@ -1873,183 +1872,183 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Metodos Obsoletos
 
-        [Obsolete("No se usa")]
-        public static bool IsNumeric(object expression)
-        {
-            double retNum;
-            var isNum = Double.TryParse(Convert.ToString(expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
-            return isNum;
-        }
+        //[Obsolete("No se usa")]
+        //public static bool IsNumeric(object expression)
+        //{
+        //    double retNum;
+        //    var isNum = Double.TryParse(Convert.ToString(expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
+        //    return isNum;
+        //}
 
-        [Obsolete("No se usa")]
-        public ActionResult DetalleOfertaCUV(string query)
-        {
-            var ofertaId = 0;
+        //[Obsolete("No se usa")]
+        //public ActionResult DetalleOfertaCUV(string query)
+        //{
+        //    var ofertaId = 0;
 
-            if (GetIsMobileDevice())
-            {
-                return RedirectToAction("DetalleOfertaCUV", "ShowRoom", new { area = "Mobile", query });
-            }
+        //    if (GetIsMobileDevice())
+        //    {
+        //        return RedirectToAction("DetalleOfertaCUV", "ShowRoom", new { area = "Mobile", query });
+        //    }
 
-            if (string.IsNullOrEmpty(query))
-            {
-                return RedirectToAction("DetalleOferta", "ShowRoom", new { id = ofertaId });
-            }
+        //    if (string.IsNullOrEmpty(query))
+        //    {
+        //        return RedirectToAction("DetalleOferta", "ShowRoom", new { id = ofertaId });
+        //    }
 
-            var srQsv = new ShowRoomQueryStringValidator(query);
+        //    var srQsv = new ShowRoomQueryStringValidator(query);
 
-            if ((srQsv.CodigoConsultora != userData.CodigoConsultora && srQsv.CodigoIso != userData.CodigoISO) ||
-                (srQsv.CodigoProceso != CodigoProceso))
-            {
-                return RedirectToAction("Index", "Bienvenida");
-            }
+        //    if ((srQsv.CodigoConsultora != userData.CodigoConsultora && srQsv.CodigoIso != userData.CodigoISO) ||
+        //        (srQsv.CodigoProceso != CodigoProceso))
+        //    {
+        //        return RedirectToAction("Index", "Bienvenida");
+        //    }
 
-            ofertaId = srQsv.OfertaId;
+        //    ofertaId = srQsv.OfertaId;
 
-            if (srQsv.CampanaId == userData.CampaniaID && !GetEventoConsultoraRecibido(userData))
-            {
-                UpdShowRoomEventoConsultoraEmailRecibido(srQsv.CodigoConsultora, srQsv.CampanaId, userData);
-            }
+        //    if (srQsv.CampanaId == userData.CampaniaID && !GetEventoConsultoraRecibido(userData))
+        //    {
+        //        UpdShowRoomEventoConsultoraEmailRecibido(srQsv.CodigoConsultora, srQsv.CampanaId, userData);
+        //    }
 
-            return RedirectToAction("DetalleOferta", "ShowRoom", new { id = ofertaId });
-        }
+        //    return RedirectToAction("DetalleOferta", "ShowRoom", new { id = ofertaId });
+        //}
 
-        [Obsolete("No se usa")]
-        public JsonResult ObtenerImagenesByCodigoSAP(int paisId, string codigoSap)
-        {
-            List<BEMatrizComercial> lst;
-            List<BEMatrizComercial> lstFinal = new List<BEMatrizComercial>();
+        //[Obsolete("No se usa")]
+        //public JsonResult ObtenerImagenesByCodigoSAP(int paisId, string codigoSap)
+        //{
+        //    List<BEMatrizComercial> lst;
+        //    List<BEMatrizComercial> lstFinal = new List<BEMatrizComercial>();
 
-            using (var sv = new PedidoServiceClient())
-            {
-                lst = sv.GetImagenesByCodigoSAP(paisId, codigoSap).ToList();
-            }
+        //    using (var sv = new PedidoServiceClient())
+        //    {
+        //        lst = sv.GetImagenesByCodigoSAP(paisId, codigoSap).ToList();
+        //    }
 
-            var carpetaPais = ObtenerCarpetaPais();
-            if (lst.Count > 0)
-            {
-                lstFinal.Add(new BEMatrizComercial
-                {
-                    IdMatrizComercial = lst[0].IdMatrizComercial,
-                    CodigoSAP = lst[0].CodigoSAP,
-                    Descripcion = lst[0].Descripcion,
-                    PaisID = lst[0].PaisID
-                });
+        //    var carpetaPais = ObtenerCarpetaPais();
+        //    if (lst.Count > 0)
+        //    {
+        //        lstFinal.Add(new BEMatrizComercial
+        //        {
+        //            IdMatrizComercial = lst[0].IdMatrizComercial,
+        //            CodigoSAP = lst[0].CodigoSAP,
+        //            Descripcion = lst[0].Descripcion,
+        //            PaisID = lst[0].PaisID
+        //        });
 
-                if (lst[0].FotoProducto != "")
-                    lstFinal[0].FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+        //        if (lst[0].FotoProducto != "")
+        //            lstFinal[0].FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
 
-                if (lst[1].FotoProducto != "")
-                    lstFinal[0].FotoProducto02 = ConfigS3.GetUrlFileS3(carpetaPais, lst[1].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+        //        if (lst[1].FotoProducto != "")
+        //            lstFinal[0].FotoProducto02 = ConfigS3.GetUrlFileS3(carpetaPais, lst[1].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
 
-                if (lst[2].FotoProducto != "")
-                    lstFinal[0].FotoProducto03 = ConfigS3.GetUrlFileS3(carpetaPais, lst[2].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-            }
-            return Json(new
-            {
-                lista = lstFinal
-            }, JsonRequestBehavior.AllowGet);
-        }
+        //        if (lst[2].FotoProducto != "")
+        //            lstFinal[0].FotoProducto03 = ConfigS3.GetUrlFileS3(carpetaPais, lst[2].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+        //    }
+        //    return Json(new
+        //    {
+        //        lista = lstFinal
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
-        [Obsolete("Migrado Zona Estrategias")]
-        public JsonResult ObtenterCampaniasPorPais(int paisId)
-        {
-            var lst = DropDowListCampanias(paisId);
+        //[Obsolete("Migrado Zona Estrategias")]
+        //public JsonResult ObtenterCampaniasPorPais(int paisId)
+        //{
+        //    var lst = DropDowListCampanias(paisId);
 
-            return Json(new
-            {
-                lista = lst,
-            }, JsonRequestBehavior.AllowGet);
-        }
+        //    return Json(new
+        //    {
+        //        lista = lst,
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
-        [Obsolete("Migrado Zona Estrategias")]
-        public JsonResult ObtenerParametroPersonalizacion(int paisId)
-        {
-            var datos = GetTablaLogicaDatos(Constantes.TablaLogica.Plan20);
+        //[Obsolete("Migrado Zona Estrategias")]
+        //public JsonResult ObtenerParametroPersonalizacion(int paisId)
+        //{
+        //    var datos = GetTablaLogicaDatos(Constantes.TablaLogica.Plan20);
 
-            var campaniaMinimaPersonalizacion = "";
-            if (datos.Any())
-            {
-                var par = datos.FirstOrDefault(d => d.TablaLogicaDatosID == Constantes.TablaLogicaDato.PersonalizacionShowroom);
-                if (par != null)
-                {
-                    campaniaMinimaPersonalizacion = par.Codigo;
-                }
-            }
+        //    var campaniaMinimaPersonalizacion = "";
+        //    if (datos.Any())
+        //    {
+        //        var par = datos.FirstOrDefault(d => d.TablaLogicaDatosID == Constantes.TablaLogicaDato.PersonalizacionShowroom);
+        //        if (par != null)
+        //        {
+        //            campaniaMinimaPersonalizacion = par.Codigo;
+        //        }
+        //    }
 
-            return Json(new
-            {
-                campaniaMinimaPersonalizacion
-            }, JsonRequestBehavior.AllowGet);
-        }
+        //    return Json(new
+        //    {
+        //        campaniaMinimaPersonalizacion
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
-        [Obsolete("Migrado Zona Estrategias")]
-        [HttpPost]
-        public JsonResult GuardarImagenShowRoom(int eventoId, string nombreImagen, string nombreImagenAnterior, int tipo)
-        {
-            string nombreImagenFinal = "";
+        //[Obsolete("Migrado Zona Estrategias")]
+        //[HttpPost]
+        //public JsonResult GuardarImagenShowRoom(int eventoId, string nombreImagen, string nombreImagenAnterior, int tipo)
+        //{
+        //    string nombreImagenFinal = "";
 
-            try
-            {
-                string tempImage01 = nombreImagen ?? "";
-                nombreImagen = nombreImagen ?? "";
-                nombreImagenAnterior = nombreImagenAnterior ?? "";
+        //    try
+        //    {
+        //        string tempImage01 = nombreImagen ?? "";
+        //        nombreImagen = nombreImagen ?? "";
+        //        nombreImagenAnterior = nombreImagenAnterior ?? "";
 
-                string soloImagen = nombreImagen.Split('.')[0];
-                string soloExtension = nombreImagen.Split('.')[1];
+        //        string soloImagen = nombreImagen.Split('.')[0];
+        //        string soloExtension = nombreImagen.Split('.')[1];
 
-                string iso = Util.GetPaisISO(userData.PaisID);
-                var carpetaPais = Globals.UrlMatriz + "/" + iso;
+        //        string iso = Util.GetPaisISO(userData.PaisID);
+        //        var carpetaPais = Globals.UrlMatriz + "/" + iso;
 
-                bool esNuevo = nombreImagenAnterior == "";
+        //        bool esNuevo = nombreImagenAnterior == "";
 
-                if (nombreImagen != nombreImagenAnterior)
-                {
-                    string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() +
-                                  DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                    var newfilename = iso + "_" + soloImagen + "_" + time + "_" + "01" + "_" +
-                                      FileManager.RandomString() + "." + soloExtension;
+        //        if (nombreImagen != nombreImagenAnterior)
+        //        {
+        //            string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() +
+        //                          DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
+        //            var newfilename = iso + "_" + soloImagen + "_" + time + "_" + "01" + "_" +
+        //                              FileManager.RandomString() + "." + soloExtension;
 
-                    nombreImagenFinal = newfilename;
+        //            nombreImagenFinal = newfilename;
 
-                    if (!esNuevo) ConfigS3.DeleteFileS3(carpetaPais, nombreImagenAnterior);
-                    ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, tempImage01), carpetaPais, newfilename);
-                }
+        //            if (!esNuevo) ConfigS3.DeleteFileS3(carpetaPais, nombreImagenAnterior);
+        //            ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, tempImage01), carpetaPais, newfilename);
+        //        }
 
-                using (var sv = new PedidoServiceClient())
-                {
-                    sv.GuardarImagenShowRoom(userData.PaisID, eventoId, nombreImagenFinal, tipo,
-                        userData.CodigoConsultora);
-                }
+        //        using (var sv = new PedidoServiceClient())
+        //        {
+        //            sv.GuardarImagenShowRoom(userData.PaisID, eventoId, nombreImagenFinal, tipo,
+        //                userData.CodigoConsultora);
+        //        }
 
-                return Json(new
-                {
-                    success = true,
-                    message = "Se registro la imagen satisfactoriamente.",
-                    extra = nombreImagenFinal
-                });
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                });
-            }
-        }
+        //        return Json(new
+        //        {
+        //            success = true,
+        //            message = "Se registro la imagen satisfactoriamente.",
+        //            extra = nombreImagenFinal
+        //        });
+        //    }
+        //    catch (FaultException ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = ex.Message,
+        //            extra = ""
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = ex.Message,
+        //            extra = ""
+        //        });
+        //    }
+        //}
 
         #endregion
     }
