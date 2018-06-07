@@ -31,42 +31,48 @@ INSERT INTO @tablaCuvFaltante (CUV)
     CUV
   FROM dbo.ObtenerCuvFaltante (@CampaniaID, @CodigoConsultora)
 
-INSERT INTO @OfertasPersonalizadas
-  SELECT
-    ISNULL(Orden, 0),
-    CUV,
-    TipoPersonalizacion,
-    FlagRevista,
-    CONVERT(int, AnioCampanaVenta)
-  FROM ods.OfertasPersonalizadas op WITH (NOLOCK)
-  WHERE op.CodConsultora = @CodigoConsultora
-	  AND op.AnioCampanaVenta = @StrCampaniaID
-	  AND op.TipoPersonalizacion = 'GND'
 
-IF NOT EXISTS (SELECT   CUV  FROM @OfertasPersonalizadas)
-BEGIN
-  DECLARE @codConsultoraDefault varchar(9)
-  SELECT
-    @codConsultoraDefault = Codigo
-  FROM dbo.TablaLogicaDatos WITH (NOLOCK)
-  WHERE TablaLogicaDatosID = 10001
+  	DECLARE @codConsultoraForzada VARCHAR(9) = ''
+	DECLARE @codConsultoraDefault VARCHAR(9) = ''
+	SELECT @codConsultoraForzada = Codigo FROM TablaLogicaDatos with(nolock) WHERE TablaLogicaDatosID = 10002
+	SELECT @codConsultoraDefault = Codigo FROM TablaLogicaDatos with(nolock) WHERE TablaLogicaDatosID = 10001
 
-  INSERT INTO @OfertasPersonalizadas
-    SELECT
-      ISNULL(Orden, 0),
-      CUV,
-      TipoPersonalizacion,
-      FlagRevista,
-      CONVERT(int, AnioCampanaVenta)
-    FROM ods.OfertasPersonalizadas op WITH (NOLOCK)
-    WHERE op.CodConsultora = @codConsultoraDefault
-		AND op.AnioCampanaVenta = @StrCampaniaID
-		AND op.TipoPersonalizacion = 'GND'
-END
+	IF(@codConsultoraForzada <> @CodigoConsultora)
+	BEGIN
+		INSERT INTO @OfertasPersonalizadas
+		SELECT
+		ISNULL(Orden, 0),
+		CUV,
+		TipoPersonalizacion,
+		FlagRevista,
+		CONVERT(int, AnioCampanaVenta)
+		FROM ods.OfertasPersonalizadas op WITH (NOLOCK)
+		WHERE op.CodConsultora = @CodigoConsultora
+			AND op.AnioCampanaVenta = @StrCampaniaID
+			AND op.TipoPersonalizacion = 'GND'
 
-INSERT INTO @OfertasPersonalizadas(Orden, CUV, TipoPersonalizacion, FlagRevista, AnioCampanaVenta)
-	SELECT Orden, CUV, TipoPersonalizacion, FlagRevista, AnioCampanaVenta 
-	FROM dbo.ListarEstrategiasForzadas(@CampaniaID, @EstrategiaCodigo)
+		IF NOT EXISTS (SELECT   CUV  FROM @OfertasPersonalizadas)
+		BEGIN
+		  INSERT INTO @OfertasPersonalizadas
+			SELECT
+			  ISNULL(Orden, 0),
+			  CUV,
+			  TipoPersonalizacion,
+			  FlagRevista,
+			  CONVERT(int, AnioCampanaVenta)
+			FROM ods.OfertasPersonalizadas op WITH (NOLOCK)
+			WHERE op.CodConsultora = @codConsultoraDefault
+				AND op.AnioCampanaVenta = @StrCampaniaID
+				AND op.TipoPersonalizacion = 'GND'
+		END
+	END
+
+	IF(@codConsultoraDefault<>@CodigoConsultora)
+	BEGIN
+		INSERT INTO @OfertasPersonalizadas(Orden, CUV, TipoPersonalizacion, FlagRevista, AnioCampanaVenta)
+		SELECT Orden, CUV, TipoPersonalizacion, FlagRevista, AnioCampanaVenta 
+		FROM dbo.ListarEstrategiasForzadas(@CampaniaID, @EstrategiaCodigo)
+	END
 
 SELECT DISTINCT
     EstrategiaID,
@@ -116,3 +122,4 @@ SELECT DISTINCT
 
   SET NOCOUNT OFF
 END
+GO

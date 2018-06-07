@@ -18,6 +18,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     [ClearSessionMobileApp(UniqueRoute.IdentifierKey, "MobileAppConfiguracion", "StartSession")]
     public class BaseMobileController : BaseController
     {
+        public BaseMobileController():base()
+        {
+                
+        }
+
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);

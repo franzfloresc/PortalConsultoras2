@@ -12,6 +12,23 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLProducto : IProductoBusinessLogic
     {
+        [Obsolete("Migrado PL50-50")]
+        public IList<BEProducto> GetProductoComercialByListaCuv(int paisID, int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv)
+        {
+            IList<BEProducto> productos = new List<BEProducto>();
+            var daProducto = new DAProducto(paisID);
+
+            using (IDataReader reader = daProducto.GetProductoComercialByListaCuv(campaniaID, regionID, zonaID, codigoRegion, codigoZona, listaCuv))
+            {
+                while (reader.Read())
+                {
+                    productos.Add(new BEProducto(reader));
+                }
+            }
+
+            return productos;
+        }
+
         public List<BEProductoDescripcion> GetProductoDescripcionByCUVandCampania(int paisID, int campaniaID, string CUV)
         {
             List<BEProductoDescripcion> productoDescripcion = new List<BEProductoDescripcion>();
@@ -112,6 +129,15 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
 
+            productos.Update(p =>
+            {
+                if (p.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ShowRoom)
+                {
+                    p.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;
+                    p.ConfiguracionOfertaID = 11;
+                }
+            });
+
             return (from producto in productos
                     orderby (criterio == 1 ? producto.CUV : producto.Descripcion)
                     select producto).ToList();
@@ -203,23 +229,6 @@ namespace Portal.Consultoras.BizLogic
             return (from producto in productos
                     orderby producto.CUV
                     select producto).ToList();
-        }
-
-        [Obsolete("Migrado PL50-50")]
-        public IList<BEProducto> GetProductoComercialByListaCuv(int paisID, int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv)
-        {
-            IList<BEProducto> productos = new List<BEProducto>();
-            var daProducto = new DAProducto(paisID);
-
-            using (IDataReader reader = daProducto.GetProductoComercialByListaCuv(campaniaID, regionID, zonaID, codigoRegion, codigoZona, listaCuv))
-            {
-                while (reader.Read())
-                {
-                    productos.Add(new BEProducto(reader));
-                }
-            }
-
-            return productos;
         }
 
         public int UpdProductoDescripcion(BEProductoDescripcion producto, string codigoUsuario)

@@ -465,6 +465,7 @@
     <Compile Include="Models\Estrategia\UpSellingModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingRegaloModel.cs" />
     <Compile Include="Models\GuiaNegocioModel.cs" />
+    <Compile Include="Models\ObservacionModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaReporteModel.cs" />
     <Compile Include="Models\PartialSectionBpt.cs" />
     <Compile Include="Models\BusquedaProductoModel.cs" />
@@ -490,6 +491,7 @@
     <Compile Include="Models\MensajesCDRExpressModel.cs" />
     <Compile Include="Models\PedidoCrudModel.cs" />
     <Compile Include="Models\PagoEnLineaConfiguracion.cs" />
+    <Compile Include="Models\PedidoDetalleModel.cs" />
     <Compile Include="Models\Pedido\PedidoWebSetDetalleModel.cs" />
     <Compile Include="Models\PagoEnlineaInfoModel.cs" />
     <Compile Include="Models\PagoEnLinea\DataToken.cs" />
@@ -629,7 +631,6 @@
     <Compile Include="Models\PedidoAsociadoModel.cs" />
     <Compile Include="Models\PedidoDetalleCarritoModel.cs" />
     <Compile Include="Models\PedidoFICModel.cs" />
-    <Compile Include="Models\PedidoModel.cs" />
     <Compile Include="Models\PedidoSb2Model.cs" />
     <Compile Include="Models\PedidoWebDetalleModel.cs" />
     <Compile Include="Models\PercepcionesModel.cs" />
@@ -639,6 +640,7 @@
     <Compile Include="Models\ProductoCompartidoModel.cs" />
     <Compile Include="Models\ProductoFaltanteModel.cs" />
     <Compile Include="Models\Pedido\PedidoWebSetModel.cs" />
+    <Compile Include="Models\ProductoModel.cs" />
     <Compile Include="Models\ProveedorDespachoCobranzaModel.cs" />
     <Compile Include="Models\RechazoModel.cs" />
     <Compile Include="Models\OfertaFinalRegaloModel.cs" />
@@ -755,6 +757,11 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Service References\ServiceODS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ServiceOferta\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -4252,6 +4259,16 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\ServiceOferta\OfertaService.wsdl" />
+    <None Include="Service References\ServiceOferta\OfertaService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceOferta\OfertaService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceOferta\OfertaService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.wsdl" />
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.xsd">
       <SubType>Designer</SubType>
@@ -4705,6 +4722,13 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Service References\ServiceUsuario\UsuarioService.disco" />
+    <None Include="Service References\ServiceOferta\OfertaService.disco" />
+    <None Include="Service References\ServiceOferta\configuration91.svcinfo" />
+    <None Include="Service References\ServiceOferta\configuration.svcinfo" />
+    <None Include="Service References\ServiceOferta\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Service References\ServicioGenerarLideres\configuration91.svcinfo" />
     <Content Include="Service References\ServicioGenerarLideres\configuration.svcinfo" />
     <Content Include="Service References\ServicioGenerarLideres\Reference.svcmap">
@@ -5395,6 +5419,10 @@
       <Project>{136fa1d7-ab98-4ffa-8c03-c011d34d8d27}</Project>
       <Name>Portal.Consultoras.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Portal.Consultoras.Service\Portal.Consultoras.Service.csproj">
+      <Project>{B3AD057A-2326-4F70-8723-0B2B3AFCE4EA}</Project>
+      <Name>Portal.Consultoras.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
@@ -5499,6 +5527,7 @@
     <WCFMetadataStorage Include="Service References\ServiceContenido\" />
     <WCFMetadataStorage Include="Service References\ServiceEvaluacionCrediticia\" />
     <WCFMetadataStorage Include="Service References\ServiceODS\" />
+    <WCFMetadataStorage Include="Service References\ServiceOferta\" />
     <WCFMetadataStorage Include="Service References\ServicePedidoRechazado\" />
     <WCFMetadataStorage Include="Service References\ServicePedido\" />
     <WCFMetadataStorage Include="Service References\ServiceProductoCatalogoPersonalizado\" />

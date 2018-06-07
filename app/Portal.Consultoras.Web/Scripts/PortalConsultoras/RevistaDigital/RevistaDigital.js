@@ -330,7 +330,11 @@ function OfertaArmarEstrategias(response, busquedaModel) {
             }
         } else {
             $("#block_inscribete").hide();
+            $("#divOfertaProductosPerdio").remove();
         }
+    }
+    else {
+        $("#divOfertaProductosPerdio").remove();
     }
    
 
@@ -403,6 +407,7 @@ function OfertaArmarEstrategiasContenedorSeccion(response) {
         return false;
     }
     response.listaPerdio = response.listaPerdio || [];
+    response.listaLan = response.listaLan || [];
     response.lista = response.lista || [];
     response.CantidadProductos = response.lista.length + response.listaPerdio.length;
     var cant = response.Seccion.CantidadProductos || 0;

@@ -17,6 +17,20 @@ namespace Portal.Consultoras.Data
 
         }
 
+        [Obsolete("Migrado PL50-50")]
+        public IDataReader GetProductoComercialByListaCuv(int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByListaCuv");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@RegionID", DbType.Int32, regionID);
+            Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, zonaID);
+            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, codigoRegion);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, codigoZona);
+            Context.Database.AddInParameter(command, "@ListaCuv", DbType.String, listaCuv);
+
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetProductoComercialByCampania(int CampaniaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByCampania");
@@ -57,16 +71,23 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetProductoComercialByCampaniaBySearchRegionZona(int CampaniaID, int RowCount, int Criterio, string CodigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, bool validarOpt)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByCampaniaBySearchRegionZona_SB2");
+            bool busquedaCuv = Criterio == 1;
+
+            DbCommand command;
+            if (busquedaCuv)
+                command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByCuvByFilter");
+            else
+                command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByDescripcionByFilter");
+
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
             Context.Database.AddInParameter(command, "@RowCount", DbType.Int32, RowCount);
-            Context.Database.AddInParameter(command, "@Criterio", DbType.Int32, Criterio);
+            //Context.Database.AddInParameter(command, "@Criterio", DbType.Int32, Criterio);
             Context.Database.AddInParameter(command, "@CodigoDescripcion", DbType.String, CodigoDescripcion);
             Context.Database.AddInParameter(command, "@RegionID", DbType.Int32, RegionID);
             Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, ZonaID);
             Context.Database.AddInParameter(command, "@CodigoRegion", DbType.AnsiString, CodigoRegion);
             Context.Database.AddInParameter(command, "@CodigoZona", DbType.AnsiString, CodigoZona);
-            Context.Database.AddInParameter(command, "@ValidarOPT", DbType.Boolean, validarOpt);
+            //Context.Database.AddInParameter(command, "@ValidarOPT", DbType.Boolean, validarOpt);
 
             return Context.ExecuteReader(command);
         }
@@ -96,20 +117,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoRegion", DbType.AnsiString, codigoRegion);
             Context.Database.AddInParameter(command, "@CodigoZona", DbType.AnsiString, codigoZona);
             Context.Database.AddInParameter(command, "@ValidarOPT", DbType.Boolean, validarOpt);
-
-            return Context.ExecuteReader(command);
-        }
-
-        [Obsolete("Migrado PL50-50")]
-        public IDataReader GetProductoComercialByListaCuv(int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByListaCuv");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
-            Context.Database.AddInParameter(command, "@RegionID", DbType.Int32, regionID);
-            Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, zonaID);
-            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, codigoRegion);
-            Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, codigoZona);
-            Context.Database.AddInParameter(command, "@ListaCuv", DbType.String, listaCuv);
 
             return Context.ExecuteReader(command);
         }

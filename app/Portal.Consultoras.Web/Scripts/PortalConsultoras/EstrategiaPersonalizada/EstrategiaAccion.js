@@ -492,7 +492,7 @@ function EstrategiaAgregar(event, popup, limite) {
                     ActualizarGanancia(data.DataBarra);
 
                 if (typeof CargarCarouselEstrategias != "undefined")
-                    CargarCarouselEstrategias(cuv);
+                    CargarCarouselEstrategias();
 
                 if (typeof tieneMasVendidos != "undefined") {
                     if (tieneMasVendidos === 1) {
@@ -507,7 +507,7 @@ function EstrategiaAgregar(event, popup, limite) {
 
 
                 cierreCarouselEstrategias();
-                CargarCarouselEstrategias(cuv);
+                CargarCarouselEstrategias();
                 HideDialog("divVistaPrevia");
 
                 tieneMicroefecto = true;
@@ -530,7 +530,7 @@ function EstrategiaAgregar(event, popup, limite) {
                     }
                 }
                 else if (tipoOrigenEstrategia != 272) {
-                    CargarCarouselEstrategias(cuv);
+                    CargarCarouselEstrategias();
 
                     if (tieneMasVendidos === 1) {
                         CargarCarouselMasVendidos('mobile');

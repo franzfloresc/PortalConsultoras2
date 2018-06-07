@@ -79,7 +79,7 @@ namespace Portal.Consultoras.Web.Models
 
         public List<ShowRoomCategoriaModel> ListaCategoria { get; set; }
 
-        public List<BETablaLogicaDatos> FiltersBySorting { get; set; }
+        public List<TablaLogicaDatosModel> FiltersBySorting { get; set; }
 
         public string TextoInicialOfertaSubCampania { get; set; }
 

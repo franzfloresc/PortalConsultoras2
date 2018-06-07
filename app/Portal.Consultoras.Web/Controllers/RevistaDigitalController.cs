@@ -152,7 +152,9 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = revistaDigital.EstadoSuscripcion > 0,
-                    message = revistaDigital.EstadoSuscripcion > 0 ? "" : "Ocurrió un error, vuelva a intentarlo."
+                    message = revistaDigital.EstadoSuscripcion > 0 ? "" : "Ocurrió un error, vuelva a intentarlo.",
+                    revistaDigital = getRevistaDigitalShortModel(),
+                    CampaniaID = userData.CampaniaID
                 }, JsonRequestBehavior.AllowGet);
 
             }
@@ -238,11 +240,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void RecargarPalancas()
         {
-            ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
-            ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.Lanzamiento);
-            ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
-            ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.LosMasVendidos);
-            ConsultarEstrategias(string.Empty, userData.CampaniaID, string.Empty);
+            ConsultarEstrategias(userData.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
+            ConsultarEstrategias(userData.CampaniaID, Constantes.TipoEstrategiaCodigo.Lanzamiento);
+            ConsultarEstrategias(userData.CampaniaID, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
+            ConsultarEstrategias(userData.CampaniaID, Constantes.TipoEstrategiaCodigo.LosMasVendidos);
+            ConsultarEstrategias(userData.CampaniaID, string.Empty);
         }
 
         private string RegistroSuscripcionValidar(int tipo)

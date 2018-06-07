@@ -50,7 +50,7 @@ $(document).ready(function () {
 
     });
     
-    CargarCarouselEstrategias("");
+    CargarCarouselEstrategias();
 
     if (tieneMasVendidos === 1) {
         masVendidosModule.readVariables({

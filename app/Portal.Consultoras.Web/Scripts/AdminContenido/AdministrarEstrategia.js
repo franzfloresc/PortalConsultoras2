@@ -1,4 +1,4 @@
-var AdministrarEstrategia = (function (config) {
+Ôªøvar AdministrarEstrategia = (function (config) {
     //'use strict';
     var _config = {
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction || "",
@@ -484,7 +484,7 @@ var AdministrarEstrategia = (function (config) {
                 $("#txtOrden").val("");
                 $("#div-orden").hide();
 
-                $("#txt1-estrella").html("Oferta de Último Minuto");
+                $("#txt1-estrella").html("Oferta de √öltimo Minuto");
                 $("#txt2-estrella").hide();
             } else {
                 $("#txtOrden").val(data.Orden);
@@ -1041,7 +1041,7 @@ var AdministrarEstrategia = (function (config) {
         }
 
         if (filename.substring(filename.lastIndexOf(".") + 1) !== "csv") {
-            _toastHelper.error("El archivo no tiene la extensión correcta.");
+            _toastHelper.error("El archivo no tiene la extensi√≥n correcta.");
             return false;
         }
 
@@ -1111,11 +1111,11 @@ var AdministrarEstrategia = (function (config) {
 
     var _basicFieldsValidation = function () {
         if ($("#ddlPais").val() === "") {
-            _toastHelper.error("Debe seleccionar el País, verifique.");
+            _toastHelper.error("Debe seleccionar el Pa√≠s, verifique.");
             return false;
         }
         if ($("#ddlCampania").val() === "") {
-            _toastHelper.error("Debe seleccionar la Campaña, verifique.");
+            _toastHelper.error("Debe seleccionar la Campa√±a, verifique.");
             return false;
         }
         if ($("#ddlTipoEstrategia").val() === "") {
@@ -1158,7 +1158,7 @@ var AdministrarEstrategia = (function (config) {
                 codigo == _codigoEstrategia.HerramientaVenta),
             multiselectWidth: 35,
             colNames: [
-                "EstrategiaID", "Orden", "#", "Pedido Asociado", "Precio", "CUV2", "Descripción", "Limite Venta", "Código SAP", "ImagenURL",
+                "EstrategiaID", "Orden", "#", "Pedido Asociado", "Precio", "CUV2", "Descripci√≥n", "Limite Venta", "C√≥digo SAP", "ImagenURL",
                 "Foto", colNameActions, "Productos", "EsOfertaIndependiente"
             ],
             colModel: [
@@ -1295,7 +1295,7 @@ var AdministrarEstrategia = (function (config) {
             viewrecords: true,
             height: "auto",
             width: 930,
-            pgtext: "Pág: {0} de {1}",
+            pgtext: "P√°g: {0} de {1}",
             altRows: true,
             altclass: "jQGridAltRowClass",
             loadComplete: function (data) {
@@ -1376,11 +1376,11 @@ var AdministrarEstrategia = (function (config) {
     }
     var _validarMasivo = function () {
         if ($("#ddlPais").val() === "") {
-            _toastHelper.error("Debe seleccionar el País, verifique.");
+            _toastHelper.error("Debe seleccionar el Pa√≠s, verifique.");
             return false;
         }
         if ($("#ddlCampania").val() === "") {
-            _toastHelper.error("Debe seleccionar la Campaña, verifique.");
+            _toastHelper.error("Debe seleccionar la Campa√±a, verifique.");
             return false;
         }
         if ($("#ddlTipoEstrategia").val() === "") {
@@ -1455,7 +1455,7 @@ var AdministrarEstrategia = (function (config) {
             }),
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
-            colNames: ["ID", "CUV", "Descripción", "Precio", "Tipo", "Talla/Color", "Desc T/C", "", ""],
+            colNames: ["ID", "CUV", "Descripci√≥n", "Precio", "Tipo", "Talla/Color", "Desc T/C", "", ""],
             colModel: [
                 { name: "ID", index: "ID", width: 0, editable: true, resizable: false, hidden: true },
                 { name: "CUV", index: "CUV", width: 20, editable: true, resizable: false, hidden: false },
@@ -1527,7 +1527,7 @@ var AdministrarEstrategia = (function (config) {
             multiselect: false,
             height: "auto",
             width: 650,
-            pgtext: "Pág: {0} de {1}",
+            pgtext: "P√°g: {0} de {1}",
             altRows: true,
             altclass: "jQGridAltRowClass",
             loadComplete: function () { },
@@ -1735,7 +1735,7 @@ var AdministrarEstrategia = (function (config) {
             }),
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
-            colNames: ["EventoID", "Nombre", "Tema", "Dias Antes Fact.", "Dias Despues Fact.", "Personalización", "# Perfiles", "Imagen1", "Imagen2", "ImagenCabeceraProducto", "ImagenVentaSetPopup", "ImagenVentaTagLateral", "ImagenPestaniaShowRoom", "ImagenPreventaDigital", ""],
+            colNames: ["EventoID", "Nombre", "Tema", "Dias Antes Fact.", "Dias Despues Fact.", "Personalizaci√≥n", "# Perfiles", "Imagen1", "Imagen2", "ImagenCabeceraProducto", "ImagenVentaSetPopup", "ImagenVentaTagLateral", "ImagenPestaniaShowRoom", "ImagenPreventaDigital", ""],
             colModel: [
                 { name: "id", width: 50, editable: true, resizable: false },
                 { name: "Nombre", width: 80, editable: true, resizable: false },
@@ -1780,7 +1780,7 @@ var AdministrarEstrategia = (function (config) {
             multiselect: false,
             height: "auto",
             width: 930,
-            pgtext: "Pág: {0} de {1}",
+            pgtext: "P√°g: {0} de {1}",
             altRows: true,
             altclass: "jQGridAltRowClass",
             loadComplete: function () {
@@ -1825,7 +1825,7 @@ var AdministrarEstrategia = (function (config) {
 
         var msjex = "";
         if ($("#ddlPais").val() === "")
-            msjex += " - Debe seleccionar un País .\n";
+            msjex += " - Debe seleccionar un Pa√≠s .\n";
         if ($("#ddlCampania").val() === "")
             msjex += " - Debe seleccionar un Campania .\n";
 
@@ -2074,7 +2074,7 @@ var AdministrarEstrategia = (function (config) {
             multiselect: false,
             height: "auto",
             width: 840,
-            pgtext: "Pág: {0} de {1}",
+            pgtext: "P√°g: {0} de {1}",
             altRows: true,
             altclass: "jQGridAltRowClass",
             loadComplete: function () {
@@ -2214,10 +2214,10 @@ var AdministrarEstrategia = (function (config) {
                 $("#listCargaDescMasiva").jqGrid("GridUnload");
                 var mensaje = "";
                 if (data.listActualizado == 0 && data.listInsertado == 0) {
-                    mensaje = 'No se realizó ninguna actualización ni inserción (Verificar que los CUVs existan en la tabla "ods.OfertasPersonalizadas").';
+                    mensaje = 'No se realiz√≥ ninguna actualizaci√≥n ni inserci√≥n (Verificar que los CUVs existan en la tabla "ods.OfertasPersonalizadas").';
                 }
                 else {
-                    mensaje = "El procedimiento culmino con éxito, <br /> - Se actualizaron " + data.listActualizado + " Set(s) <br /> - Se insertaron " + data.listInsertado + " Set(s)";
+                    mensaje = "El procedimiento culmino con √©xito, <br /> - Se actualizaron " + data.listActualizado + " Set(s) <br /> - Se insertaron " + data.listInsertado + " Set(s)";
                 }
                 closeWaitingDialog();
                 $("#estadoCargaMasiva").css("color", "black");
@@ -2264,10 +2264,10 @@ var AdministrarEstrategia = (function (config) {
                 $("#listCargaDescMasiva").jqGrid("GridUnload");
                 var mensaje = '';
                 if (data.listActualizado == 0) {
-                    mensaje = 'No se realizó ninguna actualización (Verificar que los CUVs existan en la tabla "ods.EstrategiaProducto").';
+                    mensaje = 'No se realiz√≥ ninguna actualizaci√≥n (Verificar que los CUVs existan en la tabla "ods.EstrategiaProducto").';
                 }
                 else {
-                    mensaje = "El procedimiento culmino con éxito, se actualizaron " + data.listActualizado + " producto(s)";
+                    mensaje = "El procedimiento culmino con √©xito, se actualizaron " + data.listActualizado + " producto(s)";
                 }
                 closeWaitingDialog();
                 $("#estadoCargaMasiva").css('color', 'black');
@@ -2315,21 +2315,21 @@ var AdministrarEstrategia = (function (config) {
                     }
                     if ($(".DatosNuevas").css("display") == "block") {
                         if ($("#ddlCampaniaFin").val() == "") {
-                            _toastHelper.error("Seleccione la campaña de vigencia hasta.");
+                            _toastHelper.error("Seleccione la campa√±a de vigencia hasta.");
                             return false;
                         }
                         var campaniaIni = $("#spanCampania").val();
                         var campaniaFin = $("#ddlCampaniaFin").val();
                         if (parseInt(campaniaFin) < parseInt(campaniaIni)) {
                             _toastHelper.error(
-                                "La campaña de vigencia final  no puede ser menor a la campaña de inicio.");
+                                "La campa√±a de vigencia final  no puede ser menor a la campa√±a de inicio.");
                             return false;
                         }
                     }
 
                     var valor = $("#txtDescripcion").val();
                     if ($.trim(valor) == "") {
-                        _toastHelper.error("Ingrese el valor del CUV2 para obtener la descripción o ingrese una.");
+                        _toastHelper.error("Ingrese el valor del CUV2 para obtener la descripci√≥n o ingrese una.");
                         return false;
                     }
                     var m = "";
@@ -2360,7 +2360,7 @@ var AdministrarEstrategia = (function (config) {
                     if ($("#idEstrella").css("display") == "block") {
                         if (!$("#chkEstrella").attr("checked")) {
                             _toastHelper.error(
-                                "Debe activar el la opción para mostrar estrella en la zona de producto.  ");
+                                "Debe activar el la opci√≥n para mostrar estrella en la zona de producto.  ");
                             return false;
                         }
                     }
@@ -2565,7 +2565,7 @@ var AdministrarEstrategia = (function (config) {
                         zonas = zonas.substring(0, zonas.length - 1);
                     }
                     if (zonas == "") {
-                        _toastHelper.error("No se ha marcado ninguna zona o región.");
+                        _toastHelper.error("No se ha marcado ninguna zona o regi√≥n.");
                         return false;
                     }
                     $("#hdZonas").val(zonas);
@@ -2656,7 +2656,7 @@ var AdministrarEstrategia = (function (config) {
                     }
 
                     if ($("#txtDescripcionTC").val() == "") {
-                        msj += "- Ingrese descripción (Talla/Color)." + "\n";
+                        msj += "- Ingrese descripci√≥n (Talla/Color)." + "\n";
                     }
 
                     if (msj != "") {
@@ -2771,13 +2771,13 @@ var AdministrarEstrategia = (function (config) {
                     if (jQuery.trim($("#txtEventoTema").val()) == "")
                         vMessage += "- Debe ingresar el Tema del Evento.\n";
                     if (jQuery.trim($("#txtEventoDiasAntes").val()) == "")
-                        vMessage += "- Debe ingresar la cantidad de dias antes de la Facturación.\n";
+                        vMessage += "- Debe ingresar la cantidad de dias antes de la Facturaci√≥n.\n";
                     if (parseInt(jQuery.trim($("#txtEventoDiasAntes").val())) <= 0)
-                        vMessage += "- La cantidad de dias antes de la Facturación debe ser mayor a cero.\n";
+                        vMessage += "- La cantidad de dias antes de la Facturaci√≥n debe ser mayor a cero.\n";
                     if (jQuery.trim($("#txtEventoDiasDespues").val()) == "")
-                        vMessage += "- Debe ingresar la cantidad de dias después de la Facturación.\n";
+                        vMessage += "- Debe ingresar la cantidad de dias despu√©s de la Facturaci√≥n.\n";
                     if (parseInt(jQuery.trim($("#txtEventoDiasDespues").val())) <= 0)
-                        vMessage += "- La cantidad de dias después de la Facturación debe ser mayor a cero.\n";
+                        vMessage += "- La cantidad de dias despu√©s de la Facturaci√≥n debe ser mayor a cero.\n";
                     
                     if (vMessage != "") {
                         alert(vMessage);
@@ -2812,7 +2812,7 @@ var AdministrarEstrategia = (function (config) {
                         vMessage += "- Debe seleccionar el evento.\n";
 
                     if (nivelId == "")
-                        vMessage += "- Debe seleccionar el nivel de la personalización.\n";
+                        vMessage += "- Debe seleccionar el nivel de la personalizaci√≥n.\n";
 
                     if (vMessage != "") {
                         alert(vMessage);
@@ -2836,7 +2836,7 @@ var AdministrarEstrategia = (function (config) {
             closeOnEscape: true,
             width: 900,
             draggable: true,
-            title: "Edición de Productos"
+            title: "Edici√≥n de Productos"
         });
 
         $("#DialogRegistroOfertaShowRoomDetalleEditar").dialog({
@@ -2846,7 +2846,7 @@ var AdministrarEstrategia = (function (config) {
             closeOnEscape: true,
             width: 800,
             draggable: true,
-            title: "Registro / Edición de Productos",
+            title: "Registro / Edici√≥n de Productos",
             buttons:
             {
                 "Guardar": function () {
@@ -2935,7 +2935,7 @@ var AdministrarEstrategia = (function (config) {
                 $("#txtOrden").val("");
                 $("#div-orden").hide();
 
-                $("#txt1-estrella").html("Oferta de Último Minuto");
+                $("#txt1-estrella").html("Oferta de √öltimo Minuto");
                 $("#txt2-estrella").hide();
             } else {
                 $("#div-orden").show();
@@ -3017,7 +3017,7 @@ var AdministrarEstrategia = (function (config) {
             return true;
         },
         clickActivarDesactivar: function () {
-            var proceder = confirm("¿ Desea habilitar/deshabiltar las estrategias?");
+            var proceder = confirm("¬ø Desea habilitar/deshabiltar las estrategias?");
             if (!proceder)
                 return false;
 
@@ -3391,11 +3391,11 @@ var AdministrarEstrategia = (function (config) {
             $("#hdTipoCargaShowroom").val("ProductoShowroom");
             $("#fileDescMasivo").val("");
             if ($("#ddlPais").val() == "") {
-                _toastHelper.error("Debe seleccionar el País, verifique.");
+                _toastHelper.error("Debe seleccionar el Pa√≠s, verifique.");
                 return false;
             }
             if ($("#ddlCampania").val() == "") {
-                _toastHelper.error("Debe seleccionar la Campaña, verifique.");
+                _toastHelper.error("Debe seleccionar la Campa√±a, verifique.");
                 return false;
             }
             if ($("#ddlTipoEstrategia").val() == "") {
@@ -3834,7 +3834,7 @@ var AdministrarEstrategia = (function (config) {
         event.preventDefault();
         event.stopPropagation();
 
-        var elimina = confirm("¿Está seguro que desea deshabiltar la estrategia seleccionada?");
+        var elimina = confirm("¬øEst√° seguro que desea deshabiltar la estrategia seleccionada?");
         if (!elimina)
             return false;
 
@@ -3871,7 +3871,7 @@ var AdministrarEstrategia = (function (config) {
     function Remover(id, event) {
         event.preventDefault();
         event.stopPropagation();
-        var elimina = confirm("¿Está seguro que desea eliminar el set seleccionado?");
+        var elimina = confirm("¬øEst√° seguro que desea eliminar el set seleccionado?");
         if (!elimina) {
             return false;
         }
@@ -3926,7 +3926,7 @@ var AdministrarEstrategia = (function (config) {
     }
 
     function DeshabilitarEvento(ID, CampaniaID) {
-        var deshabilitar = confirm("¿ Está seguro que desea deshabilitar el evento?");
+        var deshabilitar = confirm("¬ø Est√° seguro que desea deshabilitar el evento?");
         if (!deshabilitar)
             return false;
 
@@ -3965,7 +3965,7 @@ var AdministrarEstrategia = (function (config) {
     }
 
     function EliminarEvento(ID, CampaniaID) {
-        var eliminar = confirm("¿ Está seguro que desea eliminar el evento?");
+        var eliminar = confirm("¬ø Est√° seguro que desea eliminar el evento?");
         if (!eliminar)
             return false;
 
@@ -4036,7 +4036,7 @@ var AdministrarEstrategia = (function (config) {
             event.stopPropagation();
         }
 
-        var eliminar = confirm("¿ Está seguro que desea deshabilitar todos los productos del set ?");
+        var eliminar = confirm("¬ø Est√° seguro que desea deshabilitar todos los productos del set ?");
         if (!eliminar)
             return false;
 
@@ -4114,7 +4114,7 @@ var AdministrarEstrategia = (function (config) {
     }
 
     function EliminarProductoDetalle(ID, EstrategiaID, CUV) {
-        var eliminar = confirm("¿ Está seguro que desea deshabilitar el producto ?");
+        var eliminar = confirm("¬ø Est√° seguro que desea deshabilitar el producto ?");
         if (!eliminar)
             return false;
 
@@ -4214,6 +4214,5 @@ var AdministrarEstrategia = (function (config) {
         EliminarProducto: EliminarProducto,
         EditarProductoDetalle: EditarProductoDetalle,
         EliminarProductoDetalle: EliminarProductoDetalle
-        //variables: _variables
     }
 });
