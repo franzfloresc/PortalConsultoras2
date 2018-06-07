@@ -188,7 +188,7 @@ function registrarLogErrorElastic(objError) {
     var data = {
         'Date': new Date(),
         'Path': window.location.pathname,
-        'Hostname': window.location.origin,
+        'HostName': window.location.origin,
         'Ajax': objError.Url,
         'Class': controllerName,
         'Method': actionName,
