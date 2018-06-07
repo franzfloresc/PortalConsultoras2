@@ -1,11 +1,11 @@
 ﻿GO
 USE BelcorpPeru
 GO
+
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalInsertarEstrategiaMasivo') AND type IN ( N'P', N'PC' ) )
 	DROP PROCEDURE dbo.EstrategiaTemporalInsertarEstrategiaMasivo
 GO
-
 CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 (
 	@NroLote int = 0,
@@ -53,7 +53,6 @@ BEGIN
 		, IdMarca
 	FROM EstrategiaProductoTemporal
 	where NumeroLote = @NroLote
-
 	INSERT INTO Estrategia
 	(
 		TipoEstrategiaID
@@ -79,7 +78,6 @@ BEGIN
 		,LimiteVenta
 		,Descripcion
 		,CUV
-
 		,0, 1,'',0
 		,0, 0, 0
 		,1, ''
@@ -93,11 +91,13 @@ BEGIN
 	where NumeroLote = @NroLote
 	UPDATE EP
 	SET EP.EstrategiaID = E.EstrategiaID
-	FROM Estrategia E
-		INNER JOIN EstrategiaProducto EP
+	FROM EstrategiaProducto EP
+		INNER JOIN  Estrategia E
 			ON E.CampaniaId = EP.Campania
 			AND E.CUV2 = EP.CUV2
-	WHERE EXISTS(SELECT CampaniaId FROM EstrategiaTemporal ET WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote)
+		INNER JOIN TipoEstrategia te
+			ON te.TipoEstrategiaID = E.TipoEstrategiaID
+	WHERE EXISTS(SELECT ET.CampaniaId FROM EstrategiaTemporal ET  WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote and ET.CodigoTipoEstrategia = te.Codigo)
 		AND ISNULL(EP.EstrategiaID, 0) = 0
 
 	set @NroLoteFinal = @NroLote
@@ -107,11 +107,11 @@ GO
 GO
 USE BelcorpMexico
 GO
+
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalInsertarEstrategiaMasivo') AND type IN ( N'P', N'PC' ) )
 	DROP PROCEDURE dbo.EstrategiaTemporalInsertarEstrategiaMasivo
 GO
-
 CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 (
 	@NroLote int = 0,
@@ -159,7 +159,6 @@ BEGIN
 		, IdMarca
 	FROM EstrategiaProductoTemporal
 	where NumeroLote = @NroLote
-
 	INSERT INTO Estrategia
 	(
 		TipoEstrategiaID
@@ -185,7 +184,6 @@ BEGIN
 		,LimiteVenta
 		,Descripcion
 		,CUV
-
 		,0, 1,'',0
 		,0, 0, 0
 		,1, ''
@@ -199,11 +197,13 @@ BEGIN
 	where NumeroLote = @NroLote
 	UPDATE EP
 	SET EP.EstrategiaID = E.EstrategiaID
-	FROM Estrategia E
-		INNER JOIN EstrategiaProducto EP
+	FROM EstrategiaProducto EP
+		INNER JOIN  Estrategia E
 			ON E.CampaniaId = EP.Campania
 			AND E.CUV2 = EP.CUV2
-	WHERE EXISTS(SELECT CampaniaId FROM EstrategiaTemporal ET WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote)
+		INNER JOIN TipoEstrategia te
+			ON te.TipoEstrategiaID = E.TipoEstrategiaID
+	WHERE EXISTS(SELECT ET.CampaniaId FROM EstrategiaTemporal ET  WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote and ET.CodigoTipoEstrategia = te.Codigo)
 		AND ISNULL(EP.EstrategiaID, 0) = 0
 
 	set @NroLoteFinal = @NroLote
@@ -213,11 +213,11 @@ GO
 GO
 USE BelcorpColombia
 GO
+
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalInsertarEstrategiaMasivo') AND type IN ( N'P', N'PC' ) )
 	DROP PROCEDURE dbo.EstrategiaTemporalInsertarEstrategiaMasivo
 GO
-
 CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 (
 	@NroLote int = 0,
@@ -265,7 +265,6 @@ BEGIN
 		, IdMarca
 	FROM EstrategiaProductoTemporal
 	where NumeroLote = @NroLote
-
 	INSERT INTO Estrategia
 	(
 		TipoEstrategiaID
@@ -291,7 +290,6 @@ BEGIN
 		,LimiteVenta
 		,Descripcion
 		,CUV
-
 		,0, 1,'',0
 		,0, 0, 0
 		,1, ''
@@ -305,11 +303,13 @@ BEGIN
 	where NumeroLote = @NroLote
 	UPDATE EP
 	SET EP.EstrategiaID = E.EstrategiaID
-	FROM Estrategia E
-		INNER JOIN EstrategiaProducto EP
+	FROM EstrategiaProducto EP
+		INNER JOIN  Estrategia E
 			ON E.CampaniaId = EP.Campania
 			AND E.CUV2 = EP.CUV2
-	WHERE EXISTS(SELECT CampaniaId FROM EstrategiaTemporal ET WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote)
+		INNER JOIN TipoEstrategia te
+			ON te.TipoEstrategiaID = E.TipoEstrategiaID
+	WHERE EXISTS(SELECT ET.CampaniaId FROM EstrategiaTemporal ET  WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote and ET.CodigoTipoEstrategia = te.Codigo)
 		AND ISNULL(EP.EstrategiaID, 0) = 0
 
 	set @NroLoteFinal = @NroLote
@@ -319,11 +319,11 @@ GO
 GO
 USE BelcorpSalvador
 GO
+
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalInsertarEstrategiaMasivo') AND type IN ( N'P', N'PC' ) )
 	DROP PROCEDURE dbo.EstrategiaTemporalInsertarEstrategiaMasivo
 GO
-
 CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 (
 	@NroLote int = 0,
@@ -371,7 +371,6 @@ BEGIN
 		, IdMarca
 	FROM EstrategiaProductoTemporal
 	where NumeroLote = @NroLote
-
 	INSERT INTO Estrategia
 	(
 		TipoEstrategiaID
@@ -397,7 +396,6 @@ BEGIN
 		,LimiteVenta
 		,Descripcion
 		,CUV
-
 		,0, 1,'',0
 		,0, 0, 0
 		,1, ''
@@ -411,11 +409,13 @@ BEGIN
 	where NumeroLote = @NroLote
 	UPDATE EP
 	SET EP.EstrategiaID = E.EstrategiaID
-	FROM Estrategia E
-		INNER JOIN EstrategiaProducto EP
+	FROM EstrategiaProducto EP
+		INNER JOIN  Estrategia E
 			ON E.CampaniaId = EP.Campania
 			AND E.CUV2 = EP.CUV2
-	WHERE EXISTS(SELECT CampaniaId FROM EstrategiaTemporal ET WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote)
+		INNER JOIN TipoEstrategia te
+			ON te.TipoEstrategiaID = E.TipoEstrategiaID
+	WHERE EXISTS(SELECT ET.CampaniaId FROM EstrategiaTemporal ET  WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote and ET.CodigoTipoEstrategia = te.Codigo)
 		AND ISNULL(EP.EstrategiaID, 0) = 0
 
 	set @NroLoteFinal = @NroLote
@@ -425,11 +425,11 @@ GO
 GO
 USE BelcorpPuertoRico
 GO
+
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalInsertarEstrategiaMasivo') AND type IN ( N'P', N'PC' ) )
 	DROP PROCEDURE dbo.EstrategiaTemporalInsertarEstrategiaMasivo
 GO
-
 CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 (
 	@NroLote int = 0,
@@ -477,7 +477,6 @@ BEGIN
 		, IdMarca
 	FROM EstrategiaProductoTemporal
 	where NumeroLote = @NroLote
-
 	INSERT INTO Estrategia
 	(
 		TipoEstrategiaID
@@ -503,7 +502,6 @@ BEGIN
 		,LimiteVenta
 		,Descripcion
 		,CUV
-
 		,0, 1,'',0
 		,0, 0, 0
 		,1, ''
@@ -517,11 +515,13 @@ BEGIN
 	where NumeroLote = @NroLote
 	UPDATE EP
 	SET EP.EstrategiaID = E.EstrategiaID
-	FROM Estrategia E
-		INNER JOIN EstrategiaProducto EP
+	FROM EstrategiaProducto EP
+		INNER JOIN  Estrategia E
 			ON E.CampaniaId = EP.Campania
 			AND E.CUV2 = EP.CUV2
-	WHERE EXISTS(SELECT CampaniaId FROM EstrategiaTemporal ET WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote)
+		INNER JOIN TipoEstrategia te
+			ON te.TipoEstrategiaID = E.TipoEstrategiaID
+	WHERE EXISTS(SELECT ET.CampaniaId FROM EstrategiaTemporal ET  WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote and ET.CodigoTipoEstrategia = te.Codigo)
 		AND ISNULL(EP.EstrategiaID, 0) = 0
 
 	set @NroLoteFinal = @NroLote
@@ -531,11 +531,11 @@ GO
 GO
 USE BelcorpPanama
 GO
+
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalInsertarEstrategiaMasivo') AND type IN ( N'P', N'PC' ) )
 	DROP PROCEDURE dbo.EstrategiaTemporalInsertarEstrategiaMasivo
 GO
-
 CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 (
 	@NroLote int = 0,
@@ -583,7 +583,6 @@ BEGIN
 		, IdMarca
 	FROM EstrategiaProductoTemporal
 	where NumeroLote = @NroLote
-
 	INSERT INTO Estrategia
 	(
 		TipoEstrategiaID
@@ -609,7 +608,6 @@ BEGIN
 		,LimiteVenta
 		,Descripcion
 		,CUV
-
 		,0, 1,'',0
 		,0, 0, 0
 		,1, ''
@@ -623,11 +621,13 @@ BEGIN
 	where NumeroLote = @NroLote
 	UPDATE EP
 	SET EP.EstrategiaID = E.EstrategiaID
-	FROM Estrategia E
-		INNER JOIN EstrategiaProducto EP
+	FROM EstrategiaProducto EP
+		INNER JOIN  Estrategia E
 			ON E.CampaniaId = EP.Campania
 			AND E.CUV2 = EP.CUV2
-	WHERE EXISTS(SELECT CampaniaId FROM EstrategiaTemporal ET WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote)
+		INNER JOIN TipoEstrategia te
+			ON te.TipoEstrategiaID = E.TipoEstrategiaID
+	WHERE EXISTS(SELECT ET.CampaniaId FROM EstrategiaTemporal ET  WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote and ET.CodigoTipoEstrategia = te.Codigo)
 		AND ISNULL(EP.EstrategiaID, 0) = 0
 
 	set @NroLoteFinal = @NroLote
@@ -637,11 +637,11 @@ GO
 GO
 USE BelcorpGuatemala
 GO
+
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalInsertarEstrategiaMasivo') AND type IN ( N'P', N'PC' ) )
 	DROP PROCEDURE dbo.EstrategiaTemporalInsertarEstrategiaMasivo
 GO
-
 CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 (
 	@NroLote int = 0,
@@ -689,7 +689,6 @@ BEGIN
 		, IdMarca
 	FROM EstrategiaProductoTemporal
 	where NumeroLote = @NroLote
-
 	INSERT INTO Estrategia
 	(
 		TipoEstrategiaID
@@ -715,7 +714,6 @@ BEGIN
 		,LimiteVenta
 		,Descripcion
 		,CUV
-
 		,0, 1,'',0
 		,0, 0, 0
 		,1, ''
@@ -729,11 +727,13 @@ BEGIN
 	where NumeroLote = @NroLote
 	UPDATE EP
 	SET EP.EstrategiaID = E.EstrategiaID
-	FROM Estrategia E
-		INNER JOIN EstrategiaProducto EP
+	FROM EstrategiaProducto EP
+		INNER JOIN  Estrategia E
 			ON E.CampaniaId = EP.Campania
 			AND E.CUV2 = EP.CUV2
-	WHERE EXISTS(SELECT CampaniaId FROM EstrategiaTemporal ET WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote)
+		INNER JOIN TipoEstrategia te
+			ON te.TipoEstrategiaID = E.TipoEstrategiaID
+	WHERE EXISTS(SELECT ET.CampaniaId FROM EstrategiaTemporal ET  WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote and ET.CodigoTipoEstrategia = te.Codigo)
 		AND ISNULL(EP.EstrategiaID, 0) = 0
 
 	set @NroLoteFinal = @NroLote
@@ -743,11 +743,11 @@ GO
 GO
 USE BelcorpEcuador
 GO
+
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalInsertarEstrategiaMasivo') AND type IN ( N'P', N'PC' ) )
 	DROP PROCEDURE dbo.EstrategiaTemporalInsertarEstrategiaMasivo
 GO
-
 CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 (
 	@NroLote int = 0,
@@ -795,7 +795,6 @@ BEGIN
 		, IdMarca
 	FROM EstrategiaProductoTemporal
 	where NumeroLote = @NroLote
-
 	INSERT INTO Estrategia
 	(
 		TipoEstrategiaID
@@ -821,7 +820,6 @@ BEGIN
 		,LimiteVenta
 		,Descripcion
 		,CUV
-
 		,0, 1,'',0
 		,0, 0, 0
 		,1, ''
@@ -835,11 +833,13 @@ BEGIN
 	where NumeroLote = @NroLote
 	UPDATE EP
 	SET EP.EstrategiaID = E.EstrategiaID
-	FROM Estrategia E
-		INNER JOIN EstrategiaProducto EP
+	FROM EstrategiaProducto EP
+		INNER JOIN  Estrategia E
 			ON E.CampaniaId = EP.Campania
 			AND E.CUV2 = EP.CUV2
-	WHERE EXISTS(SELECT CampaniaId FROM EstrategiaTemporal ET WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote)
+		INNER JOIN TipoEstrategia te
+			ON te.TipoEstrategiaID = E.TipoEstrategiaID
+	WHERE EXISTS(SELECT ET.CampaniaId FROM EstrategiaTemporal ET  WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote and ET.CodigoTipoEstrategia = te.Codigo)
 		AND ISNULL(EP.EstrategiaID, 0) = 0
 
 	set @NroLoteFinal = @NroLote
@@ -849,11 +849,11 @@ GO
 GO
 USE BelcorpDominicana
 GO
+
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalInsertarEstrategiaMasivo') AND type IN ( N'P', N'PC' ) )
 	DROP PROCEDURE dbo.EstrategiaTemporalInsertarEstrategiaMasivo
 GO
-
 CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 (
 	@NroLote int = 0,
@@ -901,7 +901,6 @@ BEGIN
 		, IdMarca
 	FROM EstrategiaProductoTemporal
 	where NumeroLote = @NroLote
-
 	INSERT INTO Estrategia
 	(
 		TipoEstrategiaID
@@ -927,7 +926,6 @@ BEGIN
 		,LimiteVenta
 		,Descripcion
 		,CUV
-
 		,0, 1,'',0
 		,0, 0, 0
 		,1, ''
@@ -941,11 +939,13 @@ BEGIN
 	where NumeroLote = @NroLote
 	UPDATE EP
 	SET EP.EstrategiaID = E.EstrategiaID
-	FROM Estrategia E
-		INNER JOIN EstrategiaProducto EP
+	FROM EstrategiaProducto EP
+		INNER JOIN  Estrategia E
 			ON E.CampaniaId = EP.Campania
 			AND E.CUV2 = EP.CUV2
-	WHERE EXISTS(SELECT CampaniaId FROM EstrategiaTemporal ET WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote)
+		INNER JOIN TipoEstrategia te
+			ON te.TipoEstrategiaID = E.TipoEstrategiaID
+	WHERE EXISTS(SELECT ET.CampaniaId FROM EstrategiaTemporal ET  WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote and ET.CodigoTipoEstrategia = te.Codigo)
 		AND ISNULL(EP.EstrategiaID, 0) = 0
 
 	set @NroLoteFinal = @NroLote
@@ -955,11 +955,11 @@ GO
 GO
 USE BelcorpCostaRica
 GO
+
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalInsertarEstrategiaMasivo') AND type IN ( N'P', N'PC' ) )
 	DROP PROCEDURE dbo.EstrategiaTemporalInsertarEstrategiaMasivo
 GO
-
 CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 (
 	@NroLote int = 0,
@@ -1007,7 +1007,6 @@ BEGIN
 		, IdMarca
 	FROM EstrategiaProductoTemporal
 	where NumeroLote = @NroLote
-
 	INSERT INTO Estrategia
 	(
 		TipoEstrategiaID
@@ -1033,7 +1032,6 @@ BEGIN
 		,LimiteVenta
 		,Descripcion
 		,CUV
-
 		,0, 1,'',0
 		,0, 0, 0
 		,1, ''
@@ -1047,11 +1045,13 @@ BEGIN
 	where NumeroLote = @NroLote
 	UPDATE EP
 	SET EP.EstrategiaID = E.EstrategiaID
-	FROM Estrategia E
-		INNER JOIN EstrategiaProducto EP
+	FROM EstrategiaProducto EP
+		INNER JOIN  Estrategia E
 			ON E.CampaniaId = EP.Campania
 			AND E.CUV2 = EP.CUV2
-	WHERE EXISTS(SELECT CampaniaId FROM EstrategiaTemporal ET WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote)
+		INNER JOIN TipoEstrategia te
+			ON te.TipoEstrategiaID = E.TipoEstrategiaID
+	WHERE EXISTS(SELECT ET.CampaniaId FROM EstrategiaTemporal ET  WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote and ET.CodigoTipoEstrategia = te.Codigo)
 		AND ISNULL(EP.EstrategiaID, 0) = 0
 
 	set @NroLoteFinal = @NroLote
@@ -1061,11 +1061,11 @@ GO
 GO
 USE BelcorpChile
 GO
+
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalInsertarEstrategiaMasivo') AND type IN ( N'P', N'PC' ) )
 	DROP PROCEDURE dbo.EstrategiaTemporalInsertarEstrategiaMasivo
 GO
-
 CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 (
 	@NroLote int = 0,
@@ -1113,7 +1113,6 @@ BEGIN
 		, IdMarca
 	FROM EstrategiaProductoTemporal
 	where NumeroLote = @NroLote
-
 	INSERT INTO Estrategia
 	(
 		TipoEstrategiaID
@@ -1139,7 +1138,6 @@ BEGIN
 		,LimiteVenta
 		,Descripcion
 		,CUV
-
 		,0, 1,'',0
 		,0, 0, 0
 		,1, ''
@@ -1153,11 +1151,13 @@ BEGIN
 	where NumeroLote = @NroLote
 	UPDATE EP
 	SET EP.EstrategiaID = E.EstrategiaID
-	FROM Estrategia E
-		INNER JOIN EstrategiaProducto EP
+	FROM EstrategiaProducto EP
+		INNER JOIN  Estrategia E
 			ON E.CampaniaId = EP.Campania
 			AND E.CUV2 = EP.CUV2
-	WHERE EXISTS(SELECT CampaniaId FROM EstrategiaTemporal ET WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote)
+		INNER JOIN TipoEstrategia te
+			ON te.TipoEstrategiaID = E.TipoEstrategiaID
+	WHERE EXISTS(SELECT ET.CampaniaId FROM EstrategiaTemporal ET  WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote and ET.CodigoTipoEstrategia = te.Codigo)
 		AND ISNULL(EP.EstrategiaID, 0) = 0
 
 	set @NroLoteFinal = @NroLote
@@ -1167,11 +1167,11 @@ GO
 GO
 USE BelcorpBolivia
 GO
+
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalInsertarEstrategiaMasivo') AND type IN ( N'P', N'PC' ) )
 	DROP PROCEDURE dbo.EstrategiaTemporalInsertarEstrategiaMasivo
 GO
-
 CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 (
 	@NroLote int = 0,
@@ -1219,7 +1219,6 @@ BEGIN
 		, IdMarca
 	FROM EstrategiaProductoTemporal
 	where NumeroLote = @NroLote
-
 	INSERT INTO Estrategia
 	(
 		TipoEstrategiaID
@@ -1245,7 +1244,6 @@ BEGIN
 		,LimiteVenta
 		,Descripcion
 		,CUV
-
 		,0, 1,'',0
 		,0, 0, 0
 		,1, ''
@@ -1259,11 +1257,13 @@ BEGIN
 	where NumeroLote = @NroLote
 	UPDATE EP
 	SET EP.EstrategiaID = E.EstrategiaID
-	FROM Estrategia E
-		INNER JOIN EstrategiaProducto EP
+	FROM EstrategiaProducto EP
+		INNER JOIN  Estrategia E
 			ON E.CampaniaId = EP.Campania
 			AND E.CUV2 = EP.CUV2
-	WHERE EXISTS(SELECT CampaniaId FROM EstrategiaTemporal ET WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote)
+		INNER JOIN TipoEstrategia te
+			ON te.TipoEstrategiaID = E.TipoEstrategiaID
+	WHERE EXISTS(SELECT ET.CampaniaId FROM EstrategiaTemporal ET  WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote and ET.CodigoTipoEstrategia = te.Codigo)
 		AND ISNULL(EP.EstrategiaID, 0) = 0
 
 	set @NroLoteFinal = @NroLote

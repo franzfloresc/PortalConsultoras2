@@ -33,8 +33,7 @@ $(document).ready(function () {
     });
     $(".ver_video_introductorio").click(function () {
         $('#VideoIntroductorio').show();
-
-        //ConfigurarYoutube();
+        
         var player = oYTPlayers['ytMobileBienvenidaIndex'].instance;
         setTimeout(function () { playVideo(); }, 500);
 
@@ -785,28 +784,3 @@ var bannerFunc = (function () {
         });
     }
 })();
-/*
-function ConfigurarYoutube() {
-    if (tag == null) {
-        tag = document.createElement("script");
-        tag.src = "https://www.youtube.com/iframe_api";
-
-        firstScriptTag = document.getElementsByTagName("script")[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    }
-}
-
-function onYouTubeIframeAPIReady(playerId) {
-    var videoIdMostrar;
-    if (isEsika) {
-        videoIdMostrar = "jNoP8OoMmW4"; //Video Esika
-    }
-    else {
-        videoIdMostrar = "djSn0tFcQ0w"; //Video Lbel
-    }
-    player = new YT.Player("divPlayer", {
-        width: "100%",
-        videoId: videoIdMostrar,
-        playerVars: { rel: 0 }
-    });
-}*/
