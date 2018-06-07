@@ -5,7 +5,8 @@
     me.Datos = {
         CelularValido: false,
         CelularNuevo: '',
-        Expired: true
+        Expired: true,
+        IsoPais: IsoPais
     };
     me.Services = (function() {
         function enviarSmsCode (numero) {
@@ -34,6 +35,14 @@
         };
     })();
     me.Funciones = (function() {
+        var panels = [
+            $('.form_actualizar_celular'),
+            $('.revisa_tu_celular'),
+            $('.celular_actualizado')
+        ];
+        var interval;
+        var counterElement = $('#time_counter');
+
         function inicializarEventos() {
             var body = $('body');
             body.on('click', '.btn_continuar', me.Eventos.Continuar);
@@ -75,22 +84,22 @@
             if (!numero) {
                 return {
                     Success: false,
-                    ErrorMessage: 'El número no puede estar vacío.'
+                    Message: 'El número no puede estar vacío.'
                 };
             }
             var reg = /^\d+$/;
             if (!reg.test(numero)) {
                 return {
                     Success: false,
-                    ErrorMessage: 'No es un número válido.'
+                    Message: 'No es un número válido.'
                 };
             }
 
-            var result = validarPhonePais(IsoPais, numero);
+            var result = validarPhonePais(me.Datos.IsoPais, numero);
             if (!result.valid) {
                 return {
                     Success: false,
-                    ErrorMessage: 'El número debe tener ' + result.length + ' digitos.'
+                    Message: 'El número debe tener ' + result.length + ' digitos.'
                 };
             }
             // call ajax
@@ -104,11 +113,6 @@
             });
 
             return code;
-        }
-
-        function validarSmsCode(code) {
-            // call ajax
-            return Promise.resolve({ Success: true });
         }
 
         function markSmsCodeStatus(valid) {
@@ -132,16 +136,14 @@
             return value;
         }
 
-        function counter(segs) {
+        function stepCounter(segs) {
+            clearInterval(interval);
+
             me.Datos.Expired = false;
             var now = 0;
-            var element = document.getElementById("time_counter");
             // Update the count down every 1 second
-            var x = setInterval(function() {
-
-                    // Get todays date and time
-
-                    // Find the distance between now an the count down date
+            interval = setInterval(function() {
+                
                     now += 1000;
                     var distance = segs - now;
 
@@ -149,31 +151,74 @@
                     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
                     // Output the result in an element with id="demo"
-                    element.innerHTML = format2(minutes) + ":" + format2(seconds);
+                    counterElement.text(format2(minutes) + ":" + format2(seconds));
 
                     // If the count down is over, write some text 
                     if (distance < 0) {
                         me.Datos.Expired = true;
-                        clearInterval(x);
-                        element.innerHTML = "EXPIRED";
+                        clearInterval(interval);
+                        counterElement.text("EXPIRÓ");
                     }
                 },
-                1000);
+                500);
+        }
+
+        function counter() {
+            counterElement.text('03:00');
+            stepCounter(3 * 60000);
         }
 
         function showError(text) {
             $('.text-error').text(text);
         }
 
+        function verifySmsCode(code) {
+            if (me.Datos.Expired) {
+                return;
+            }
+
+            var resultSmsCode = function(r) {
+                if (!r.Success) {
+                    if (r.PhoneError) {
+                        me.Funciones.ShowError(r.PhoneError);
+                        me.Funciones.NavigatePanel(0);
+                    } else {
+                        me.Funciones.MarkSmsCodeStatus(false);
+                    }
+                    return;
+                }
+
+                me.Funciones.MarkSmsCodeStatus(true);
+
+                setTimeout(function() {
+                        me.Funciones.NavigatePanel(2);
+                    },
+                    1000);
+            };
+
+            me.Services.confirmarSmsCode(code)
+                .then(resultSmsCode);
+        }
+
+        function navigatePanel(index) {
+            panels.forEach(function(item, idx) {
+                if (idx === index) {
+                    item.show();
+                } else {
+                    item.hide();
+                }
+            });
+        }
+
         return {
             InicializarEventos: inicializarEventos,
             ValidarCelular: validarCelular,
             GetSmsCode: getSmsCode,
-            ValidarSmsCode: validarSmsCode,
             MarkSmsCodeStatus: markSmsCodeStatus,
-            RedirecToPerfil: redirecToPerfil,
-            Counter: counter,
-            ShowError: showError
+            InitCounter: counter,
+            VerifySmsCode: verifySmsCode,
+            ShowError: showError,
+            NavigatePanel: navigatePanel
         };
 
     })();
@@ -183,7 +228,7 @@
 
             var result = me.Funciones.ValidarCelular(nuevoCelular);
             if (!result.Success) {
-                me.Funciones.ShowError(result.ErrorMessage);
+                me.Funciones.ShowError(result.Message);
                 return;
             }
 
@@ -192,33 +237,32 @@
                 .then(function(r) {
                     me.Datos.CelularValido = r.Success;
                     if (!r.Success) {
-                        me.Funciones.ShowError(r.ErrorMessage);
+                        me.Funciones.ShowError(r.Message);
                         return;
                     }
+                    me.Funciones.NavigatePanel(1);
+                    $('.icono_validacion_codigo_sms').hide();
+                    me.Funciones.ShowError('');
 
-                    $('.form_actualizar_celular').hide();
-                    $('.revisa_tu_celular').show();
-                    me.Funciones.Counter(3 * 60000);
+                    me.Funciones.InitCounter();
                 });
         }
 
         function backEdiNumber() {
-            $('.revisa_tu_celular').hide();
-            $('.form_actualizar_celular').show();
-
-            $('.icono_validacion_codigo_sms').hide();
+            me.Funciones.NavigatePanel(0);
         }
 
         function sendSmsCode() {
             me.Funciones.SendSmsCode(me.Datos.CelularNuevo)
                 .then(function(r) {
                     if (!r.Success) {
-                        // error envio
+                        me.Funciones.ShowError(r.Message);
+                        me.Funciones.NavigatePanel(0);
 
                         return;
                     }
 
-                    me.Funciones.Counter(3 * 60000);
+                    me.Funciones.InitCounter();
                 });
         }
 
@@ -229,29 +273,11 @@
             }
 
             var code = me.Funciones.GetSmsCode();
-            console.log("Code: " + code);
             if (code.length !== 6) {
                 return;
             }
 
-            if (me.Datos.Expired) {
-                return;
-            }
-
-            me.Funciones.ValidarSmsCode(code)
-                .then(function(r) {
-                    if (!r.Success) {
-                        me.Funciones.MarkSmsCodeStatus(false);
-                        return;
-                    }
-                    me.Funciones.MarkSmsCodeStatus(true);
-
-                    setTimeout(function() {
-                            $('.revisa_tu_celular').hide();
-                            $('.celular_actualizado').show();
-                        },
-                        1000);
-                });
+            me.Funciones.VerifySmsCode(code);
         }
 
         return {

@@ -40,21 +40,21 @@ namespace Portal.Consultoras.Web.Infraestructure.Validator.Phone
 
             if (_length == -1)
             {
-                result.ErrorMessage = "Pais no configurado";
+                result.Message = "Pais no configurado";
 
                 return Task.FromResult(result);
             }
 
             if (number == null || number.Length != _length)
             {
-                result.ErrorMessage = string.Format("El número debe tener {0} dígitos", number);
+                result.Message = string.Format("El número debe tener {0} dígitos", number);
 
                 return Task.FromResult(result);
             }
             
             if (!Regex.IsMatch(number, "^\\d+$"))
             {
-                result.ErrorMessage = "No es un número válido";
+                result.Message = "No es un número válido";
 
                 return Task.FromResult(result);
             }

@@ -61,7 +61,7 @@ namespace Portal.Consultoras.Web.UnitTest.Infraestructure.Validator.Phone
             result.Wait();
             
             Assert.IsFalse(result.Result.Success);
-            Assert.IsTrue(result.Result.ErrorMessage.Contains("no configurado"));
+            Assert.IsTrue(result.Result.Message.Contains("no configurado"));
         }
     }
 }

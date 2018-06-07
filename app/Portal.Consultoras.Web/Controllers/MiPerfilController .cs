@@ -166,7 +166,11 @@ namespace Portal.Consultoras.Web.Controllers
             var result = await new NotExistingPhone().Valid("");
             if (!result.Success)
             {
-                return Json(result); 
+                return Json(new
+                {
+                    result.Success,
+                    PhoneError = result.Message
+                }); 
             }
             // update number phone
 
