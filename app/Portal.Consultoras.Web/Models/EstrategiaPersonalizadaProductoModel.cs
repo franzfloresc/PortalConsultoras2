@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Portal.Consultoras.Web.Models
 {
     [Serializable]
-    public class EstrategiaPersonalizadaProductoModel
+    public class EstrategiaPersonalizadaProductoModel 
     {
         public EstrategiaPersonalizadaProductoModel()
         {
