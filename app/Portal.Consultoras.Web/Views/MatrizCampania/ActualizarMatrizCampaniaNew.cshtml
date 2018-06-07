@@ -32,14 +32,12 @@
                                 <div class="div-3">
                                     <div class="titI">País:</div>
                                     <div class="selectA borde_redondeado">
-                                        @*@Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })*@
                                         <select id="ddlPais"></select>
                                     </div>
                                 </div>
                                 <div class="div-3">
                                     <div class="titI">Año campaña:</div>
                                     <div class="selectA borde_redondeado">
-                                        @*@Html.DropDownListFor(x => x.Nombre, new SelectList(Model.DropDownListCampania, "CampaniaID", "Codigo"), new { id = "ddlCampania" })*@
                                         <select id="ddlCampania"></select>
                                     </div>
                                     <div class="titC">Cod. Venta:</div>
@@ -141,23 +139,20 @@
 
                 </div>
                 <div id="tab-masiva" class="contenido_tab">
-                    @*@using (Html.BeginForm("ProcesarMasivo", "MatrizCampania", FormMethod.Post, new { id = "frmProcesarMasivo", enctype = "multipart/form-data" }))
-                        {*@
+                    
                     <div class="div-3">
                         <div class="titB">País:</div>
                         <div class="selectA borde_redondeado">
-                            @*@Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPaisM" })*@
                             <select id="ddlPaisM"></select>
                         </div>
                         @*</div>
                             <div class="div-3">*@
                         <div class="titI">Año Campaña:</div>
                         <div class="selectA borde_redondeado">
-                            @*@Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.DropDownListCampaniaMasiva, "CampaniaID", "Codigo"), new { id = "ddlCampaniaM" })*@
-                            <select id="ddlCampaniaM" disabled></select>
+                         <select id="ddlCampaniaM" disabled></select>
 
                         </div>
-                        @*<img src="~/Content/Images/check.png" id="imgValidar" />*@
+                    
 
 
                     </div>
@@ -179,17 +174,7 @@
                         </div>
 
                     </div>
-                    @*<div class="div-3" id="divProcesarMasivo" style="display:none">
-                            <div class="titB"></div>
-                            <div class="input_modifica_horizontal">
-                                <div style="float:right;">
-                                    <input id="btnProcesarMasivo" type="button" value="Grabar"  />
-                                </div>
-
-                            </div>
-                        </div>*@
-
-
+                    
                     <div class="div-3" id="divRegistrosInvalidos" style="display:none">
                         <div class="titB">Registros Invalidos:</div>
 
@@ -212,51 +197,7 @@
                         </div>
 
                     </div>
-                    @*<div class="div-3" id="divExportarExcel" style="display:none">
-                            <div class="titB"></div>
-                            <div class="input_modifica_horizontal">
-                                <div style="float:right;">
-                                    <input id="btnValidar" type="button" value="Validar" />
-                                </div>
-                                <div style="float:right;">
-                                    <input id="btnExcel" type="button" value="Exportar Excel" />
-                                </div>
-                            </div>
-                        </div>*@
-
-
-
-
-                    @*<div style="clear: both">
-                            <div style="clear: both">
-                                <div style="width: 300px; padding: 30px 0">
-                                    <div style="width: 150px; float: left; text-align: center">
-                                    </div>
-                                    <div style="width: 150px; float: left; text-align: center">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>*@
-                    @*@Html.HiddenFor(model => model.PaisID, new { id = "hdpaisID", value = "0" })
-                        @Html.HiddenFor(model => model.CampaniaID, new { id = "hdcampaniaID", value = "0" })*@
-                    @*}*@
-
-
-                    @*@if (@ViewBag.succesRow > 0)
-                        {
-                            <div class="text_actualizada"> @(ViewBag.succesRow) registros cargados satisfactoriamente.</div>
-                        }*@
-
-                    @*<div class="wrap">
-                            <div class="container clearfix">
-                                <div class="border-wrapper">
-
-                                    <table id="list"></table>
-                                    <div id="pager"></div>
-
-                                </div>
-                            </div>
-                        </div>*@
+                    
                     <div id="loadingScreen"></div>
 
                 </div>
@@ -267,7 +208,6 @@
 </div>
 <input id="hdfUrlRaiz" type="hidden" value='@Url.Content("~")' />
 @section scripts{
-    @*<script src="@Url.Content("~/Scripts/jquery.paging.min.js")" type="text/javascript"></script>*@
     <script type="text/javascript" src="~/Scripts/jquery.form.js"></script>
-    <script src="~/Scripts/PortalConsultoras/MatrizCampania/ActualizarMatrizCamapaniaJS.js?v=12"></script>
+    <script src="~/Scripts/PortalConsultoras/MatrizCampania/ActualizarMatrizCamapaniaJS.js?v=0"></script>
 }
