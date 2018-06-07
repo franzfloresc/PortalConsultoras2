@@ -309,9 +309,9 @@
         transition: all 0.2s ease;
     }
 
-    .grupo_form_cambio_datos input[disabled]{
+    /*.grupo_form_cambio_datos input[disabled]{
         background-color:#FFF;
-    }
+    }*/
 
     .grupo_form_cambio_datos input {
         background-color:transparent;
