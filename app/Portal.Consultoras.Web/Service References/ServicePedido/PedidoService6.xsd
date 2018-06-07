@@ -700,6 +700,7 @@
       <xs:element minOccurs="0" name="Ciudad" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
       <xs:element minOccurs="0" name="DescripcionEstado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DocumentoResponsable" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaIngresoConsultora" type="xs:dateTime" />
       <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
