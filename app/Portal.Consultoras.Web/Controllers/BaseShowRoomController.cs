@@ -154,8 +154,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected ShowRoomOfertaModel ObtenerPrimeraOfertaShowRoom()
         {
-            var ofertasShowRoom = ObtenerListaProductoShowRoomService(userData.CampaniaID, userData.CodigoConsultora);
-            ofertasShowRoom = ObtenerListaProductoShowRoomMdo(ofertasShowRoom);
+            var ofertasShowRoom = ObtenerListaProductoShowRoomService(userData.CampaniaID, userData.CodigoConsultora,true);
+            
             ActualizarUrlImagenes(ofertasShowRoom);
 
 
@@ -342,16 +342,18 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        private List<ServiceOferta.BEShowRoomOferta> ObtenerListaProductoShowRoomService(int campaniaId, string codigoConsultora)
+        private List<ServiceOferta.BEShowRoomOferta> ObtenerListaProductoShowRoomService(int campaniaId, string codigoConsultora, bool conFiltroMdo)
         {
-            List<ServiceOferta.BEShowRoomOferta> listaShowRoomOferta;
+            List<ServiceOferta.BEShowRoomOferta> ofertasShowRoom;
             
-            using (OfertaServiceClient ofertaService = new OfertaServiceClient())
+            using (var ofertaService = new OfertaServiceClient())
             {
-                listaShowRoomOferta = ofertaService.GetShowRoomOfertasConsultora(userData.PaisID, campaniaId, codigoConsultora).ToList();
+                ofertasShowRoom = ofertaService.GetShowRoomOfertasConsultora(userData.PaisID, campaniaId, codigoConsultora).ToList();
             }
 
-            return listaShowRoomOferta;
+            if(conFiltroMdo) ofertasShowRoom = ObtenerListaProductoShowRoomMdo(ofertasShowRoom);
+
+            return ofertasShowRoom;
         }
 
         private List<ShowRoomOfertaModel> ObtenerListaProductoShowRoomFormato(List<ServiceOferta.BEShowRoomOferta> listaShowRoomOferta, List<BEPedidoWebDetalle> listaPedidoDetalle, bool esFacturacion)
@@ -467,9 +469,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return listadoOfertasTodasModel;
             }
 
-            var listaShowRoomOferta = ObtenerListaProductoShowRoomService(campaniaId, codigoConsultora);
-            if(conFiltroMdo)
-                listaShowRoomOferta = ObtenerListaProductoShowRoomMdo(listaShowRoomOferta);
+            var listaShowRoomOferta = ObtenerListaProductoShowRoomService(campaniaId, codigoConsultora, conFiltroMdo);
             
             var listadoOfertasTodasModel1 = ObtenerListaProductoShowRoomFormato(listaShowRoomOferta, listaDetalle, esFacturacion);
             
@@ -1181,9 +1181,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return listadoOfertasTodasModel;
             }
 
-            var listaShowRoomOferta = ObtenerListaProductoShowRoomService(campaniaId, codigoConsultora);
-            if (conFiltroMdo)
-                listaShowRoomOferta = ObtenerListaProductoShowRoomMdo(listaShowRoomOferta);
+            var listaShowRoomOferta = ObtenerListaProductoShowRoomService(campaniaId, codigoConsultora, conFiltroMdo);
 
             var listadoOfertasTodasModel1 = ObtenerListaProductoShowRoomFormato_Unificado(listaShowRoomOferta, listaDetalle, esFacturacion);
 
