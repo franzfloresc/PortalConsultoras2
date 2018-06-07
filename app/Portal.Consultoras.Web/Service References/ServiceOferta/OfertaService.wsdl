@@ -30,6 +30,7 @@
       <xsd:import schemaLocation="http://localhost:41615/OfertaService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:41615/OfertaService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:41615/OfertaService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
+      <xsd:import schemaLocation="http://localhost:41615/OfertaService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IOfertaService_GetShowRoomOfertasConsultora_InputMessage">
@@ -44,6 +45,12 @@
   <wsdl:message name="IOfertaService_GetProductosCompraPorCompra_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetProductosCompraPorCompraResponse" />
   </wsdl:message>
+  <wsdl:message name="IOfertaService_GetEstrategiaODD_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstrategiaODD" />
+  </wsdl:message>
+  <wsdl:message name="IOfertaService_GetEstrategiaODD_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstrategiaODDResponse" />
+  </wsdl:message>
   <wsdl:portType name="IOfertaService">
     <wsdl:operation name="GetShowRoomOfertasConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/IOfertaService/GetShowRoomOfertasConsultora" message="tns:IOfertaService_GetShowRoomOfertasConsultora_InputMessage" />
@@ -52,6 +59,10 @@
     <wsdl:operation name="GetProductosCompraPorCompra">
       <wsdl:input wsaw:Action="http://tempuri.org/IOfertaService/GetProductosCompraPorCompra" message="tns:IOfertaService_GetProductosCompraPorCompra_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IOfertaService/GetProductosCompraPorCompraResponse" message="tns:IOfertaService_GetProductosCompraPorCompra_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEstrategiaODD">
+      <wsdl:input wsaw:Action="http://tempuri.org/IOfertaService/GetEstrategiaODD" message="tns:IOfertaService_GetEstrategiaODD_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IOfertaService/GetEstrategiaODDResponse" message="tns:IOfertaService_GetEstrategiaODD_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IOfertaService" type="tns:IOfertaService">
@@ -74,6 +85,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetEstrategiaODD">
+      <soap:operation soapAction="http://tempuri.org/IOfertaService/GetEstrategiaODD" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="BasicHttpsBinding_IOfertaService" type="tns:IOfertaService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IOfertaService_policy" />
@@ -89,6 +109,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetProductosCompraPorCompra">
       <soap:operation soapAction="http://tempuri.org/IOfertaService/GetProductosCompraPorCompra" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstrategiaODD">
+      <soap:operation soapAction="http://tempuri.org/IOfertaService/GetEstrategiaODD" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -8,6 +8,7 @@ using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceContenido;
+using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -1522,7 +1523,8 @@ namespace Portal.Consultoras.Web.Controllers
             return ofertasDelDiaModel;
         }
 
-        private async Task<List<ServicePedido.BEEstrategia>> ObtenerOfertasDelDia(UsuarioModel model)
+        //@001 FSV INICIO
+        /*private async Task<List<ServicePedido.BEEstrategia>> ObtenerOfertasDelDia(UsuarioModel model)
         {
             List<ServicePedido.BEEstrategia> ofertasDelDia;
 
@@ -1530,10 +1532,21 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var lst = await svc.GetEstrategiaODDAsync(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.FechaInicioCampania.Date);
                 ofertasDelDia = lst.ToList();
+            }           
+            return ofertasDelDia;
+        }*/
+        
+        private async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDelDia(UsuarioModel model)
+        {
+            List<ServiceOferta.BEEstrategia> ofertasDelDia;
+            using (OfertaServiceClient osc = new OfertaServiceClient())
+            {
+                var lst = await osc.GetEstrategiaODDAsync(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.FechaInicioCampania.Date);
+                ofertasDelDia = lst.ToList();
             }
-
             return ofertasDelDia;
         }
+        //@001 FSV FIN
 
         private async Task<List<BETablaLogicaDatos>> ObtenerPersonalizacionesOfertaDelDia(UsuarioModel model)
         {

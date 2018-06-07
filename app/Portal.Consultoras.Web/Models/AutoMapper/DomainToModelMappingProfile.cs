@@ -222,6 +222,9 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                  .ForMember(t => t.CodigoProducto, f => f.MapFrom(c => c.CodigoProducto))
                  .ForMember(t => t.DescripcionCategoria, f => f.MapFrom(c => c.DescripcionCategoria))
                  .ForMember(t => t.EsSubCampania, f => f.MapFrom(c => c.EsSubCampania));
+            Mapper.CreateMap<ServiceOferta.BEEstrategia, EstrategiaPedidoModel>()
+                .ForMember(t => t.EstrategiaDetalle, f => f.MapFrom(c => c.EstrategiaDetalle))
+                .ForMember(t => t.TipoEstrategia, f => f.MapFrom(c => c.TipoEstrategia));
             //@002 FSV FIN
 
             Mapper.CreateMap<BEShowRoomOfertaDetalle, ShowRoomOfertaDetalleModel>();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ServiceModel;
+using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.ShowRoom;
 
 namespace Portal.Consultoras.ServiceContracts
@@ -13,5 +14,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEShowRoomOferta> GetProductosCompraPorCompra(int paisId, int EventoID, int CampaniaID);
+
+        [OperationContract]
+        List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact);
     }
 }
