@@ -17,9 +17,51 @@
             body.on('click', '.enlace_cancelar', me.Eventos.Cancelar);
             body.on('change', '.campo_ingreso_codigo_sms', me.Eventos.ChangeCodeSms);
         },
+        ValidarPhonePais: function(iso, numero) {
+            var paises = {
+                'PE': 9,
+                'MX': 15,
+                'EC': 10,
+                'CL': 15,
+                'BO': 15,
+                'PR': 15,
+                'DO': 15,
+                'CR': 8,
+                'GT': 8,
+                'PA': 8,
+                'SV': 8
+            };
+
+            var length = paises[iso];
+            if (!length) {
+                return {
+                    valid: false,
+                    length: 0
+                };
+            }
+
+            return {
+                valid: numero.length === length,
+                length: length
+            };
+        },
         ValidarCelular: function(numero) {
+            if (!numero) {
+                return Promise.resolve({
+                    Success: false,
+                    ErrorMessage: 'El número no puede estar vacío.'
+                });
+            }
+
+            var result = me.Funciones.ValidarPhonePais(IsoPais, numero);
+            if (!result.valid) {
+                return Promise.resolve({
+                    Success: false,
+                    ErrorMessage: 'El número debe tener ' + result.length + ' digitos.'
+                });
+            }
             // call ajax
-            return Promise.resolve({valid: true});
+            return Promise.resolve({Success: true});
         },
         GetSmsCode: function() {
             var code = '';
@@ -31,7 +73,7 @@
         },
         ValidarSmsCode: function(code) {
             // call ajax
-            return Promise.resolve({valid: true});
+            return Promise.resolve({Success: true});
         },
         MarkSmsCodeStatus: function(valid) {
             var icon = $('.icono_validacion_codigo_sms');
@@ -84,6 +126,9 @@
                     element.innerHTML = "EXPIRED";
                 }
             }, 1000);
+        },
+        ShowError: function(text) {
+            $('.text-error').text(text);
         }
     };
     me.Eventos = {
@@ -92,9 +137,10 @@
 
             me.Funciones.ValidarCelular(nuevoCelular)
                 .then(function(r) {
-                    me.Datos.CelularValido = r.valid;
+                    me.Datos.CelularValido = r.Success;
                     if (!me.Datos.CelularValido) {
-                        // show errros
+                        me.Funciones.ShowError(r.ErrorMessage);
+                        return;
                     }
                     
                     $('.form_actualizar_celular').hide();
@@ -104,7 +150,9 @@
                             if (r.Success) {
                                 // sms enviado
                                 me.Funciones.Counter(3 * 60000);
+                                return;
                             }
+                            me.Funciones.ShowError(r.ErrorMessage);
                         });
                 });
 
@@ -137,7 +185,7 @@
 
             me.Funciones.ValidarSmsCode(code)
                 .then(function(r) {
-                    if (!r.valid) {
+                    if (!r.Success) {
                         me.Funciones.MarkSmsCodeStatus(false);
                         return;
                     }
