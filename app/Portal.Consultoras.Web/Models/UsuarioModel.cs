@@ -162,7 +162,12 @@ namespace Portal.Consultoras.Web.Models
         public decimal MontoMaximo { get; set; }
         public string Segmento { get; set; }
         public string Sobrenombre { get; set; }
-        public string UsuarioNombre { get; set; }
+
+        public string UsuarioNombre
+        {
+            get { return string.IsNullOrEmpty(Sobrenombre) ? NombreConsultora : Sobrenombre; }
+        }
+
         public string SobrenombreOriginal { get; set; }
         public int IndicadorDupla { get; set; }
         public int DiasAntes { get; set; }
@@ -304,7 +309,11 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneOfertaDelDia { get; set; }
         public bool CloseOfertaDelDia { get; set; }
         public bool CloseBannerPL20 { get; set; }
-        public bool EsDiasFacturacion { get; set; }
+
+        public bool EsDiasFacturacion
+        {
+            get { return FechaHoy >= FechaInicioCampania.Date && FechaHoy <= FechaFinCampania.Date; }
+        }
 
         public bool HizoLoginExterno { get; set; }
         public bool TieneLoginExterno { get; set; }
@@ -334,7 +343,10 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoPrograma { get; set; }
         public int ConsecutivoNueva { get; set; }
 
-        public DateTime FechaHoy { get; set; }
+        public DateTime FechaHoy
+        {
+            get { return DateTime.Now.AddHours(ZonaHoraria).Date; }
+        } 
 
         public string FotoPerfil { get; set; }
 
