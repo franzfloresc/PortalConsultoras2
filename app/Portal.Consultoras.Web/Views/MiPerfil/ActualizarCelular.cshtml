@@ -23,7 +23,7 @@ else
 <section class="vista_actualizar_celular">
     <div class="wrapper_content_actualizar_celular">
         <div>
-            <a href="#" title="Volver" class="enlace_volver_a_mi_perfil text-uppercase text-bold">
+            <a href="@Url.Action("Index")" title="Volver" class="enlace_volver_a_mi_perfil text-uppercase text-bold">
                 <span class="icono_back_arrow">
                     <img src="@Url.Content("~/Content/Images/icono_volver.svg")" alt="Volver" />
                 </span>
@@ -45,14 +45,14 @@ else
                 }
                 <fieldset class="grupo_form_cambio_datos text-uppercase">
                     <div class="w-100">
-                        <input id="NuevoCelular" name="NuevoCelular" class="w-100" type="number" value=""/>
+                        <input id="NuevoCelular" name="NuevoCelular" class="w-100" type="text" value=""/>
                         <label for="NuevoCelular" class="w-100">Ingresa tu nuevo número</label>
                     </div>
                     <div class="text-error"></div>
                 </fieldset>
                 <fieldset class="grupo_form_cambio_datos text-uppercase">
                     <div class="w-50 text-left v-alignMiddle">
-                        <a href="#" title="Cancelar" class="enlace_cancelar">Cancelar</a>
+                        <a href="@Url.Action("Index")" title="Cancelar" class="enlace_cancelar">Cancelar</a>
                     </div>
                     <div class="w-50 text-right v-alignMiddle">
                         <button type="button"
@@ -107,7 +107,7 @@ else
             <p class="mensaje_celular_actualizado">
                 Continúa visitando somosbelcorp.com<br />y descubre todas la ofertas que tenemos para ti.
             </p>
-            <button type="button" class="btn_acept text-uppercase text-bold default-background-color">Ok</button>
+            <a href="@Url.Action("Index")" class="btn_acept text-uppercase text-bold default-background-color">Ok</a>
         </div>
     </div>
 </section>

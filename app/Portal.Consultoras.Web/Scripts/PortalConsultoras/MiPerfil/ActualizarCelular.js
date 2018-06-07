@@ -39,9 +39,7 @@
             body.on('click', '.btn_continuar', me.Eventos.Continuar);
             body.on('click', '.enlace_cambiar_correo', me.Eventos.BackEdiNumber);
             body.on('click', '.enlace_reenviar_instrucciones', me.Eventos.SendSmsCode);
-            body.on('click', '.btn_acept', me.Eventos.Finish);
-            body.on('click', '.enlace_cancelar', me.Eventos.Cancelar);
-            body.on('change', '.campo_ingreso_codigo_sms', me.Eventos.ChangeCodeSms);
+            body.on('keyup', '.campo_ingreso_codigo_sms', me.Eventos.ChangeCodeSms);
         };
 
         function validarPhonePais(iso, numero) {
@@ -132,10 +130,6 @@
             if (value < 10) return '0' + value;
 
             return value;
-        }
-
-        function redirecToPerfil() {
-            window.location.href = "/MiPerfil";
         }
 
         function counter(segs) {
@@ -229,6 +223,11 @@
         }
 
         function changeCodeSms() {
+            var input = $(this);
+            if (input.val()) {
+                input.next().focus();
+            }
+
             var code = me.Funciones.GetSmsCode();
             console.log("Code: " + code);
             if (code.length !== 6) {
@@ -255,21 +254,11 @@
                 });
         }
 
-        function finish() {
-            me.Funciones.RedirecToPerfil();
-        }
-
-        function cancelar() {
-            me.Funciones.RedirecToPerfil();
-        }
-
         return {
             Continuar: continuar,
             BackEdiNumber: backEdiNumber,
             SendSmsCode: sendSmsCode,
-            ChangeCodeSms: changeCodeSms,
-            Finish: finish,
-            Cancelar: cancelar
+            ChangeCodeSms: changeCodeSms
         };
     })();
     me.Inicializar = function() {
