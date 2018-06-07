@@ -1,4 +1,4 @@
-USE BelcorpPeru
+ï»¿USE BelcorpPeru
 GO
 
 IF EXISTS (
@@ -19,10 +19,10 @@ begin
     IF OBJECT_ID('tempdb..#productoComercialInput') IS NOT NULL
 	DROP TABLE #productoComercialInput
 	select top 0 CUV into #productoComercialInput from ODS.PRODUCTOCOMERCIAL
-	select @CUVs = 'select * from(values('''+ replace(replace(@CUVs, '|', ''','''), '¬', '''),(''') +'''))t(CUV)'
+	select @CUVs = 'select * from(values('''+ replace(replace(@CUVs, '|', ''','''), 'Â¬', '''),(''') +'''))t(CUV)'
 	insert into #productoComercialInput exec(@CUVs)
 
-	Select isnull( STUFF((Select '¬' +  isnull(a.CUV,'') from (
+	Select isnull( STUFF((Select 'Â¬' +  isnull(a.CUV,'') from (
 		select CUV from #productoComercialInput
 		EXCEPT  
 		select b.CUV from  ODS.PRODUCTOCOMERCIAL a  inner join #productoComercialInput b on  a.CUV=b.CUV
@@ -52,10 +52,10 @@ begin
     IF OBJECT_ID('tempdb..#productoComercialInput') IS NOT NULL
 	DROP TABLE #productoComercialInput
 	select top 0 CUV into #productoComercialInput from ODS.PRODUCTOCOMERCIAL
-	select @CUVs = 'select * from(values('''+ replace(replace(@CUVs, '|', ''','''), '¬', '''),(''') +'''))t(CUV)'
+	select @CUVs = 'select * from(values('''+ replace(replace(@CUVs, '|', ''','''), 'Â¬', '''),(''') +'''))t(CUV)'
 	insert into #productoComercialInput exec(@CUVs)
 
-	Select isnull( STUFF((Select '¬' +  isnull(a.CUV,'') from (
+	Select isnull( STUFF((Select 'Â¬' +  isnull(a.CUV,'') from (
 		select CUV from #productoComercialInput
 		EXCEPT  
 		select b.CUV from  ODS.PRODUCTOCOMERCIAL a  inner join #productoComercialInput b on  a.CUV=b.CUV
@@ -85,10 +85,10 @@ begin
     IF OBJECT_ID('tempdb..#productoComercialInput') IS NOT NULL
 	DROP TABLE #productoComercialInput
 	select top 0 CUV into #productoComercialInput from ODS.PRODUCTOCOMERCIAL
-	select @CUVs = 'select * from(values('''+ replace(replace(@CUVs, '|', ''','''), '¬', '''),(''') +'''))t(CUV)'
+	select @CUVs = 'select * from(values('''+ replace(replace(@CUVs, '|', ''','''), 'Â¬', '''),(''') +'''))t(CUV)'
 	insert into #productoComercialInput exec(@CUVs)
 
-	Select isnull( STUFF((Select '¬' +  isnull(a.CUV,'') from (
+	Select isnull( STUFF((Select 'Â¬' +  isnull(a.CUV,'') from (
 		select CUV from #productoComercialInput
 		EXCEPT  
 		select b.CUV from  ODS.PRODUCTOCOMERCIAL a  inner join #productoComercialInput b on  a.CUV=b.CUV
@@ -118,10 +118,10 @@ begin
     IF OBJECT_ID('tempdb..#productoComercialInput') IS NOT NULL
 	DROP TABLE #productoComercialInput
 	select top 0 CUV into #productoComercialInput from ODS.PRODUCTOCOMERCIAL
-	select @CUVs = 'select * from(values('''+ replace(replace(@CUVs, '|', ''','''), '¬', '''),(''') +'''))t(CUV)'
+	select @CUVs = 'select * from(values('''+ replace(replace(@CUVs, '|', ''','''), 'Â¬', '''),(''') +'''))t(CUV)'
 	insert into #productoComercialInput exec(@CUVs)
 
-	Select isnull( STUFF((Select '¬' +  isnull(a.CUV,'') from (
+	Select isnull( STUFF((Select 'Â¬' +  isnull(a.CUV,'') from (
 		select CUV from #productoComercialInput
 		EXCEPT  
 		select b.CUV from  ODS.PRODUCTOCOMERCIAL a  inner join #productoComercialInput b on  a.CUV=b.CUV
@@ -151,10 +151,10 @@ begin
     IF OBJECT_ID('tempdb..#productoComercialInput') IS NOT NULL
 	DROP TABLE #productoComercialInput
 	select top 0 CUV into #productoComercialInput from ODS.PRODUCTOCOMERCIAL
-	select @CUVs = 'select * from(values('''+ replace(replace(@CUVs, '|', ''','''), '¬', '''),(''') +'''))t(CUV)'
+	select @CUVs = 'select * from(values('''+ replace(replace(@CUVs, '|', ''','''), 'Â¬', '''),(''') +'''))t(CUV)'
 	insert into #productoComercialInput exec(@CUVs)
 
-	Select isnull( STUFF((Select '¬' +  isnull(a.CUV,'') from (
+	Select isnull( STUFF((Select 'Â¬' +  isnull(a.CUV,'') from (
 		select CUV from #productoComercialInput
 		EXCEPT  
 		select b.CUV from  ODS.PRODUCTOCOMERCIAL a  inner join #productoComercialInput b on  a.CUV=b.CUV
@@ -184,10 +184,10 @@ begin
     IF OBJECT_ID('tempdb..#productoComercialInput') IS NOT NULL
 	DROP TABLE #productoComercialInput
 	select top 0 CUV into #productoComercialInput from ODS.PRODUCTOCOMERCIAL
-	select @CUVs = 'select * from(values('''+ replace(replace(@CUVs, '|', ''','''), '¬', '''),(''') +'''))t(CUV)'
+	select @CUVs = 'select * from(values('''+ replace(replace(@CUVs, '|', ''','''), 'Â¬', '''),(''') +'''))t(CUV)'
 	insert into #productoComercialInput exec(@CUVs)
 
-	Select isnull( STUFF((Select '¬' +  isnull(a.CUV,'') from (
+	Select isnull( STUFF((Select 'Â¬' +  isnull(a.CUV,'') from (
 		select CUV from #productoComercialInput
 		EXCEPT  
 		select b.CUV from  ODS.PRODUCTOCOMERCIAL a  inner join #productoComercialInput b on  a.CUV=b.CUV
@@ -217,10 +217,10 @@ begin
     IF OBJECT_ID('tempdb..#productoComercialInput') IS NOT NULL
 	DROP TABLE #productoComercialInput
 	select top 0 CUV into #productoComercialInput from ODS.PRODUCTOCOMERCIAL
-	select @CUVs = 'select * from(values('''+ replace(replace(@CUVs, '|', ''','''), '¬', '''),(''') +'''))t(CUV)'
+	select @CUVs = 'select * from(values('''+ replace(replace(@CUVs, '|', ''','''), 'Â¬', '''),(''') +'''))t(CUV)'
 	insert into #productoComercialInput exec(@CUVs)
 
-	Select isnull( STUFF((Select '¬' +  isnull(a.CUV,'') from (
+	Select isnull( STUFF((Select 'Â¬' +  isnull(a.CUV,'') from (
 		select CUV from #productoComercialInput
 		EXCEPT  
 		select b.CUV from  ODS.PRODUCTOCOMERCIAL a  inner join #productoComercialInput b on  a.CUV=b.CUV
@@ -250,10 +250,10 @@ begin
     IF OBJECT_ID('tempdb..#productoComercialInput') IS NOT NULL
 	DROP TABLE #productoComercialInput
 	select top 0 CUV into #productoComercialInput from ODS.PRODUCTOCOMERCIAL
-	select @CUVs = 'select * from(values('''+ replace(replace(@CUVs, '|', ''','''), '¬', '''),(''') +'''))t(CUV)'
+	select @CUVs = 'select * from(values('''+ replace(replace(@CUVs, '|', ''','''), 'Â¬', '''),(''') +'''))t(CUV)'
 	insert into #productoComercialInput exec(@CUVs)
 
-	Select isnull( STUFF((Select '¬' +  isnull(a.CUV,'') from (
+	Select isnull( STUFF((Select 'Â¬' +  isnull(a.CUV,'') from (
 		select CUV from #productoComercialInput
 		EXCEPT  
 		select b.CUV from  ODS.PRODUCTOCOMERCIAL a  inner join #productoComercialInput b on  a.CUV=b.CUV
@@ -283,10 +283,10 @@ begin
     IF OBJECT_ID('tempdb..#productoComercialInput') IS NOT NULL
 	DROP TABLE #productoComercialInput
 	select top 0 CUV into #productoComercialInput from ODS.PRODUCTOCOMERCIAL
-	select @CUVs = 'select * from(values('''+ replace(replace(@CUVs, '|', ''','''), '¬', '''),(''') +'''))t(CUV)'
+	select @CUVs = 'select * from(values('''+ replace(replace(@CUVs, '|', ''','''), 'Â¬', '''),(''') +'''))t(CUV)'
 	insert into #productoComercialInput exec(@CUVs)
 
-	Select isnull( STUFF((Select '¬' +  isnull(a.CUV,'') from (
+	Select isnull( STUFF((Select 'Â¬' +  isnull(a.CUV,'') from (
 		select CUV from #productoComercialInput
 		EXCEPT  
 		select b.CUV from  ODS.PRODUCTOCOMERCIAL a  inner join #productoComercialInput b on  a.CUV=b.CUV
@@ -316,10 +316,10 @@ begin
     IF OBJECT_ID('tempdb..#productoComercialInput') IS NOT NULL
 	DROP TABLE #productoComercialInput
 	select top 0 CUV into #productoComercialInput from ODS.PRODUCTOCOMERCIAL
-	select @CUVs = 'select * from(values('''+ replace(replace(@CUVs, '|', ''','''), '¬', '''),(''') +'''))t(CUV)'
+	select @CUVs = 'select * from(values('''+ replace(replace(@CUVs, '|', ''','''), 'Â¬', '''),(''') +'''))t(CUV)'
 	insert into #productoComercialInput exec(@CUVs)
 
-	Select isnull( STUFF((Select '¬' +  isnull(a.CUV,'') from (
+	Select isnull( STUFF((Select 'Â¬' +  isnull(a.CUV,'') from (
 		select CUV from #productoComercialInput
 		EXCEPT  
 		select b.CUV from  ODS.PRODUCTOCOMERCIAL a  inner join #productoComercialInput b on  a.CUV=b.CUV
@@ -349,10 +349,10 @@ begin
     IF OBJECT_ID('tempdb..#productoComercialInput') IS NOT NULL
 	DROP TABLE #productoComercialInput
 	select top 0 CUV into #productoComercialInput from ODS.PRODUCTOCOMERCIAL
-	select @CUVs = 'select * from(values('''+ replace(replace(@CUVs, '|', ''','''), '¬', '''),(''') +'''))t(CUV)'
+	select @CUVs = 'select * from(values('''+ replace(replace(@CUVs, '|', ''','''), 'Â¬', '''),(''') +'''))t(CUV)'
 	insert into #productoComercialInput exec(@CUVs)
 
-	Select isnull( STUFF((Select '¬' +  isnull(a.CUV,'') from (
+	Select isnull( STUFF((Select 'Â¬' +  isnull(a.CUV,'') from (
 		select CUV from #productoComercialInput
 		EXCEPT  
 		select b.CUV from  ODS.PRODUCTOCOMERCIAL a  inner join #productoComercialInput b on  a.CUV=b.CUV
@@ -382,10 +382,10 @@ begin
     IF OBJECT_ID('tempdb..#productoComercialInput') IS NOT NULL
 	DROP TABLE #productoComercialInput
 	select top 0 CUV into #productoComercialInput from ODS.PRODUCTOCOMERCIAL
-	select @CUVs = 'select * from(values('''+ replace(replace(@CUVs, '|', ''','''), '¬', '''),(''') +'''))t(CUV)'
+	select @CUVs = 'select * from(values('''+ replace(replace(@CUVs, '|', ''','''), 'Â¬', '''),(''') +'''))t(CUV)'
 	insert into #productoComercialInput exec(@CUVs)
 
-	Select isnull( STUFF((Select '¬' +  isnull(a.CUV,'') from (
+	Select isnull( STUFF((Select 'Â¬' +  isnull(a.CUV,'') from (
 		select CUV from #productoComercialInput
 		EXCEPT  
 		select b.CUV from  ODS.PRODUCTOCOMERCIAL a  inner join #productoComercialInput b on  a.CUV=b.CUV
