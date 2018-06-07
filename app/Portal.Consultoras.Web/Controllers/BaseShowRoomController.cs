@@ -432,11 +432,11 @@ namespace Portal.Consultoras.Web.Controllers
             return listadoOfertasTodasModel1;
         }
 
-        private List<ServiceOferta.BEShowRoomOferta> ObtenerListaProductoShowRoomMdo(List<ServiceOferta.BEShowRoomOferta> listaShowRoomOferta, int flagRevistaValor = 0)
+        private List<ServiceOferta.BEShowRoomOferta> ObtenerListaProductoShowRoomMdo(List<ServiceOferta.BEShowRoomOferta> listaShowRoomOferta)
         {
             if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
             {
-                listaShowRoomOferta = listaShowRoomOferta.Where(p => p.FlagRevista == (flagRevistaValor == 0 ? Constantes.FlagRevista.Valor0 : flagRevistaValor)).ToList();
+                listaShowRoomOferta = listaShowRoomOferta.Where(p => p.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
             }
             return listaShowRoomOferta;
         }
@@ -469,7 +469,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var listaShowRoomOferta = ObtenerListaProductoShowRoomService(campaniaId, codigoConsultora);
             if(conFiltroMdo)
-                listaShowRoomOferta = ObtenerListaProductoShowRoomMdo(listaShowRoomOferta, Constantes.FlagRevista.Valor0);
+                listaShowRoomOferta = ObtenerListaProductoShowRoomMdo(listaShowRoomOferta);
             
             var listadoOfertasTodasModel1 = ObtenerListaProductoShowRoomFormato(listaShowRoomOferta, listaDetalle, esFacturacion);
             
@@ -1183,7 +1183,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var listaShowRoomOferta = ObtenerListaProductoShowRoomService(campaniaId, codigoConsultora);
             if (conFiltroMdo)
-                listaShowRoomOferta = ObtenerListaProductoShowRoomMdo(listaShowRoomOferta, Constantes.FlagRevista.Valor0);
+                listaShowRoomOferta = ObtenerListaProductoShowRoomMdo(listaShowRoomOferta);
 
             var listadoOfertasTodasModel1 = ObtenerListaProductoShowRoomFormato_Unificado(listaShowRoomOferta, listaDetalle, esFacturacion);
 

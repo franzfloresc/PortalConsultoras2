@@ -1177,8 +1177,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaNoSubCampania = new List<ShowRoomOfertaModel>();
                 var listaNoSubCampaniaPerdio = new List<ShowRoomOfertaModel>();
                 
-                //var listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
-
                 if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
                 {
                     listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
