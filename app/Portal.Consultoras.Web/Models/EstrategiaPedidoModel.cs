@@ -107,14 +107,9 @@ namespace Portal.Consultoras.Web.Models
         public int FlagRevista { get; set; }
 
 
+        #region Campos que vienen de ShowRoom (estos campos aun estan en revision y mejora)
 
 
-
-        //
-        //
-        //
-        //
-        //Showroom fields
 
         public int OfertaShowRoomID { get; set; }
 
@@ -163,9 +158,9 @@ namespace Portal.Consultoras.Web.Models
 
         public string ImagenMiniAnterior { get; set; }
 
-        public IList<ShowRoomOfertaModel> ListaOfertaShowRoom { get; set; }
+        public IList<EstrategiaPedidoModel> ListaOfertaShowRoom { get; set; }
 
-        public IList<ShowRoomOfertaModel> ListaShowRoomCompraPorCompra { get; set; }
+        public IList<EstrategiaPedidoModel> ListaShowRoomCompraPorCompra { get; set; }
 
         public string Subtitulo { get; set; }
         public int Incrementa { get; set; }
@@ -196,16 +191,13 @@ namespace Portal.Consultoras.Web.Models
         public List<ProductoModel> ProductoTonos { get; set; }
 
         public int EstrategiaId { get; set; }
-
-        /// <summary>
-        /// 1: AGRÉGALO - No alterar cantidad, caso pack nuevas
-        /// 2: AGRÉGALO - Si puede alterar cantidad
-        /// 3: ELIGE TU OPCIÓN
-        /// 4: ¿LO QUIERES?
-        /// </summary>
+        
         public int TipoAccionAgregar { get; set; }
 
         public string FBMensaje { get; set; }
         public string WAMensaje { get; set; }
+        #endregion
+
+
     }
 }
