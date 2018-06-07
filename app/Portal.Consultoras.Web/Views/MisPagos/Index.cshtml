@@ -4,20 +4,15 @@
     ViewBag.Title = "Mis Pagos";
 }
 
-<!-- POPUP PERCEPCIONES -->
-
 <div class="contenedor_popup_percepciones">
     <div class="popup_Percepcion">
     </div>
 </div>
 
-<!-- FIN POPUP PERCEPCIONES -->
-
 <div class="fondo_f9f9f9">
     <div class="content_belcorp">
         <div class="fondo_negro_lateral"></div>
         <div class="titulo_interiores titulo_misPagos">MIS <span>PAGOS</span></div>
-        <!--INICIO PESTAÑAS-->
         <div class="titulo_tabs">
             <ul class="tabs_pagos" data-tab="tab">
                 <li class="one">
@@ -54,7 +49,6 @@
                 <hr id="barCursor" style="opacity:0;" />
             </ul>
         </div>
-        <!--FIN PESTAÑAS-->
     </div>
     <hr class="clear" />
     <div class="linea_separadora" style="margin-top:-1px"></div>
@@ -62,14 +56,12 @@
 
 <div class="content_belcorp">
     <div class="pestana_lbel"></div>
-    <!--INCIO TAB ESTADO DE CUENTA-->
     <div data-tag-html="@Constantes.PestanhasMisPagos.EstadoCuenta" style="display:none;">
         <div class="EstadoCuenta">
             <div class="content_left_pagos">
                 @Html.Hidden("hdn_Correo", Model.CorreoConsultora)
                 @Html.Hidden("hdn_FechaVencimiento", Model.FechaVencimiento)
                 @Html.Hidden("hdn_MontoPagar", Model.MontoPagar)
-                <!--CONTENIDO DE TITULO -->
                 <div class="titulo_detalle_pago">
                     <div class="titulo_detalle_pago_img"></div>
                     <div>MI ESTADO<b> DE CUENTA</b></div>
@@ -84,8 +76,6 @@
                 <a href="#" class="acciones_pagos"><img src="@Url.Content("~/Content/Images/Esika/imprimir.png")" id="lblCorreoEnviar" /></a>
                 <hr class="clear" />
                 <div class="linea_separadora" style="height:2px"></div>
-                <!--FIN CONTENIDO TITULO -->
-                <!--CONTENIDO DE TABLAS -->
                 <div class="content_datos_mispagos">
                     <div class="fecha_pagos texto_gris">Fecha</div>
                     <div class="movimientos_pagos texto_gris">Últimos Movimientos</div>
@@ -100,7 +90,6 @@
                         <br />
                     </div>
                 </div>
-                <!--FIN CONTENIDO TABLAS-->
 
                 <div class="linea_inferior_roja"></div>
                 <div class="num_total_pago" id="montoPagarEstadoCuenta"> @Model.Simbolo @Model.MontoPagar</div>
@@ -138,8 +127,6 @@
             }
         </div>
     </div>
-    <!--FIN TAB ESTADO DE CUENTA-->
-    <!--INCIO TAB LUGARES DE PAGO-->
     <div data-tag-html="@Constantes.PestanhasMisPagos.LugaresPago" style="display:none;">
         <div class="LugaresPago">
             <div class="content_left_pagos">
@@ -169,14 +156,10 @@
         </div>
         <hr class="clear" />
     </div>
-    <!--FIN TAB LUGARES DE PAGO-->
-    <!--INCIO TAB PERCEPCIONES-->
     @if (Model.CodigoISO.Equals(Constantes.CodigosISOPais.Peru))
     {
         <div class="MisPercepciones" data-tag-html="@Constantes.PestanhasMisPagos.MisPercepciones" style="display:none;">
-            <!--CONTENEDOR IZQUIERDO-->
             <div class="content_left_pagos">
-                <!--CONTENIDO DE TITULO -->
                 <div class="titulo_detalle_pago">
                     <div class="titulo_detalle_percepciones_img"></div>
                     <div>MIS<b> PERCEPCIONES HISTÓRICAS</b></div>
@@ -187,8 +170,6 @@
                 <ul class="paginador_notificaciones js-paginador-percepciones" data-paginacion="block" style="padding-top:20px; padding-bottom:20px;"></ul>
                 <hr class="clear" />
                 <div class="linea_separadora" style="height:1px"></div>
-                <!--FIN CONTENIDO TITULO -->
-                <!--CONTENIDO DE TABLAS -->
                 <div class="content_datos_misPercepciones">
                     <div class="num_comprobante texto_gris">Nro Comprobante</div>
                     <div class="fecha_emision_comprobante texto_gris">Fecha de Emisión</div>
@@ -203,13 +184,10 @@
                         <br />
                     </div>
                 </div>
-                <!--FIN CONTENIDO TABLAS-->
             </div>
             <hr class="clear" />
         </div>
     }
-    <!--FIN TAB PERCEPCIONES-->
-
 
 </div>
 
@@ -347,7 +325,6 @@
             <div class="montoTotalPercepcion texto_gris_popup padding_tabla_percepcion">Monto Total (S/.)</div>
         </div>
         <div class="linea_separadora" style="margin-top:-1px"></div>
-        <!--CONTENIDO DE TABLAS PERCEPCIÓN-->
         <div style="max-height:419px; overflow:auto;">
             {{#each this.ListaDetalle as |detalle|}}
             <div class="content_datos_percepciones">
@@ -367,7 +344,6 @@
             <div class="totalTexto texto_bold">TOTAL:</div>
             <div class="totalNumero texto_bold">@Html.Raw(Model.Simbolo) {{ImportePercepcion}}</div>
         </div>
-        <!--FIN CONTENIDO TABLAS PERCEPCIÓN-->
         <div class="linea_separadora" style="height:1px;"></div>
         <div class="datos_impresion">
             <div class="numeroAutorizacion">
@@ -387,7 +363,6 @@
     <script type="text/javascript">
         var ViewBagRutaChile = '@Model.RutaChile';
         var viewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
-        var ViewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
 
         var pestanhaInicial = '@Model.PestanhaInicial';
         var CE_SNAPSHOT_NAME = "Estado_Cuenta";

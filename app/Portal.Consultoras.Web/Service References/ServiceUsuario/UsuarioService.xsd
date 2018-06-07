@@ -260,6 +260,7 @@
       <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="GPRBannerUrl" type="q1:Enumeradores.RechazoBannerUrl" />
       <xs:element minOccurs="0" name="GPRMostrarBannerRechazo" type="xs:boolean" />
       <xs:element minOccurs="0" name="GPRTextovinculo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GuiaNegocio" nillable="true" type="tns:BEGuiaNegocio" />
       <xs:element minOccurs="0" name="HabilitarRestriccionHoraria" type="xs:boolean" />
       <xs:element minOccurs="0" name="HoraCierreNoFacturable" type="ser:duration" />
       <xs:element minOccurs="0" name="HoraCierreZonaDemAnti" type="ser:duration" />
@@ -304,6 +305,7 @@
       <xs:element minOccurs="0" name="NuevoPROL" type="xs:boolean" />
       <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OfertaDelDia" type="xs:boolean" />
+      <xs:element minOccurs="0" name="OfertaDelDiaModel" nillable="true" type="tns:BEOfertaDelDia" />
       <xs:element minOccurs="0" name="OfertaFinal" type="xs:int" />
       <xs:element minOccurs="0" name="OfertaFinalGanaMas" type="xs:int" />
       <xs:element minOccurs="0" name="OptBloqueoProductoDigital" type="xs:boolean" />
@@ -376,16 +378,32 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEUsuario" nillable="true" type="tns:BEUsuario" />
+  <xs:complexType name="BEGuiaNegocio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BloqueoProductoDigital" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ConfiguracionPaisDatos" nillable="true" type="tns:ArrayOfBEConfiguracionPaisDatos" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEGuiaNegocio" nillable="true" type="tns:BEGuiaNegocio" />
+  <xs:complexType name="BEOfertaDelDia">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BloqueoProductoDigital" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEOfertaDelDia" nillable="true" type="tns:BEOfertaDelDia" />
   <xs:complexType name="BERevistaDigital">
     <xs:sequence>
       <xs:element minOccurs="0" name="BloquearRevistaImpresaGeneral" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="BloqueoProductoDigital" type="xs:boolean" />
       <xs:element minOccurs="0" name="BloqueoRevistaImpresa" type="xs:boolean" />
       <xs:element minOccurs="0" name="CantidadCampaniaEfectiva" type="xs:int" />
       <xs:element minOccurs="0" name="EsActiva" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsSuscrita" type="xs:boolean" />
+      <xs:element minOccurs="0" name="SociaEmpresariaExperienciaGanaMas" type="xs:boolean" />
       <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" minOccurs="0" name="SuscripcionEfectiva" nillable="true" type="q2:BERevistaDigitalSuscripcion" />
       <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" minOccurs="0" name="SuscripcionModel" nillable="true" type="q3:BERevistaDigitalSuscripcion" />
       <xs:element minOccurs="0" name="TieneRDC" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TieneRDCR" type="xs:boolean" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BERevistaDigital" nillable="true" type="tns:BERevistaDigital" />

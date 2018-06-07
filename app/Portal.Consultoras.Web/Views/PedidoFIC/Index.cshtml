@@ -29,9 +29,7 @@
 
 <h1 class="titulo_principal_interiores pedido_left" style="margin-top:0px">INGRESA <strong>TU PEDIDO</strong></h1>
 <div class="wrapper_general2">
-
-    <input id="hdSimbolo" type="hidden" value="@Model.Simbolo" />
-
+    
     <h1 class="titulo_principal_interiores pedido_left" style="margin-top: -10px;">
         INGRESA <strong>TU PEDIDO FIC - @ViewBag.PedidoFIC @ViewBag.MensajeFIC</strong>
     </h1>
@@ -110,10 +108,8 @@
             <div class="titulo_pedidos_fic">
                 <h1>MIS <b>PRODUCTOS</b></h1>
             </div>
-            <!--PAGINADOR-->
             <div id="paginadorCab" class="content_paginador" style="margin-top:22px;">
             </div>
-            <!--FIN-->
             <div class="clearfix"></div>
         </div>
         <div class="grilla_pedidos" data-tag="table" id="tbListaPedido">
@@ -131,16 +127,12 @@
                 </div>
                 <div class="texto_encabezado_pedidos acciones_fic"></div>
             </div>
-            <!--LISTADO 1-->
             <div id="tbobyDetallePedido"></div>
         </div>
-        <!--PAGINADOR INFERIOR-->
         <div class="paginador_pedidos mostrarPaginadorPedidos inferior">
             <div id="paginadorPie">
             </div>
         </div>
-        <!--FIN-->
-        <!--MONTOS-->
         <div class="caja_guardar_pedido">
             <div class="contenedor_guardadoPedido">
                 <div class="bloque_montosPedido">
@@ -186,7 +178,6 @@
             <div id="divContendorPrincipal">
             </div>
         </div>
-        <!--FIN-->
         <div class="contenedor_eliminacion_pedido">
             <p class="texto_eliminar_pedido">
                 <span class="texto_pedido_completo">
@@ -306,14 +297,14 @@
         </div>
         <div class="texto_pedidos precioUnitario_fic oculto_1092">
             <input type="hidden" name="hdfLPPrecioU{{PedidoDetalleID}}" id="hdfLPPrecioU{{PedidoDetalleID}}" value="{{PrecioUnidad}}" class="classPrecioUnidad" />
-            {{Simbolo}} {{FormatoPrecioUnidad}}
+            {{SimboloMoneda}} {{FormatoPrecioUnidad}}
         </div>
         <div class="texto_pedidos subtotal_fic">
             <span class="precio">
-                {{Simbolo}} {{FormatoPrecioUnidad}}
+                {{SimboloMoneda}} {{FormatoPrecioUnidad}}
             </span>
             <span>
-                {{Simbolo}}
+                {{SimboloMoneda}}
                 <label for="item_ImporteTotal" id="lblLPImpTotal{{PedidoDetalleID}}" class="classImporteTotal">{{FormatoImporteTotal}}</label>
             </span>
         </div>

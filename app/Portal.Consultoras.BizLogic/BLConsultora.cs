@@ -27,13 +27,23 @@ namespace Portal.Consultoras.BizLogic
             return consultorasCodigo;
         }
 
+        private List<BEConsultoraCodigo> SelectConsultoraPorCodigoYRowCount(int paisId, string codigo , int rowCount)
+        {
+            List<BEConsultoraCodigo>  consultorasCodigo = new List<BEConsultoraCodigo>();
+            var daConsultora = new DAConsultora(paisId);
+            using (IDataReader reader = daConsultora.GetConsultoraCodigoPorCodigoYRowCount(codigo,rowCount))
+            while (reader.Read())
+            {
+                consultorasCodigo.Add(new BEConsultoraCodigo(reader));
+            }
+            return consultorasCodigo;
+        }
+
         public IList<BEConsultoraCodigo> SelectConsultoraCodigo(int paisID, string codigo, int rowCount)
         {
-            IList<BEConsultoraCodigo> consultoras = SelectConsultoraCodigo(paisID);
+            IList<BEConsultoraCodigo> consultoras = SelectConsultoraPorCodigoYRowCount(paisID, codigo , rowCount);
 
-            return (from consultora in consultoras
-                    where consultora.Codigo.Contains(codigo)
-                    select consultora).Take(rowCount).ToList();
+            return consultoras.OrderBy(x => x.Codigo).ToList();
         }
 
         public IList<BEConsultoraCodigo> SelectConsultoraCodigo(int paisID, string codigo)

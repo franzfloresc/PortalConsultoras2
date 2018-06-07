@@ -12,8 +12,11 @@ using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Portal.Consultoras.Common.Reader;
+using Portal.Consultoras.Web.Infraestructure.Reader;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -162,7 +165,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 lstGrupoConsultora.RemoveAll(x => x.PaisID == 0);
 
-                BEGrupoBanner obeGrupo = new BEGrupoBanner
+                var obeGrupo = new BEGrupoBanner
                 {
                     CampaniaID = model.CampaniaID,
                     GrupoBannerID = model.GrupoBannerID,
@@ -1093,17 +1096,19 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (obeBannerSegmentoZona == null)
             {
-                obeBannerSegmentoZona = new BEBannerSegmentoZona()
+                obeBannerSegmentoZona = new BEBannerSegmentoZona
                 {
                     Segmento = -1,
-                    ConfiguracionZona = string.Empty
+                    ConfiguracionZona = string.Empty,
+                    TipoAcceso = -1
                 };
             }
 
             return Json(new
             {
-                Segmento = obeBannerSegmentoZona.Segmento,
-                ConfiguracionZona = obeBannerSegmentoZona.ConfiguracionZona
+                obeBannerSegmentoZona.Segmento,
+                obeBannerSegmentoZona.ConfiguracionZona,
+                obeBannerSegmentoZona.TipoAcceso
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -1118,26 +1123,16 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEBannerSegmentoZona>, IEnumerable<PaisModel>>(lst);
         }
 
-        public JsonResult UpdBannerPaisSegmentoZona(int BannerId, int CampaniaId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInternoId)
+        [HttpPost]
+        public async Task<JsonResult> UpdBannerPaisSegmentoZona(HttpPostedFileBase csvConsultoras, BEBannerSegmentoZona segmentoZona)
         {
-            string mensaje;
-            try
-            {
-                using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                {
-                    sv.UpdBannerPaisSegmentoZona(CampaniaId, BannerId, PaisId, Segmento, ConfiguracionZona, SegmentoInternoId);
-                }
-                mensaje = "La información se guardó con éxito.";
-            }
-            catch (Exception ex)
-            {
-                mensaje = "Ocurrió un error: " + ex.Message;
-            }
+            segmentoZona.CodigosConsultora = await GetCodes(csvConsultoras); 
+            var mensaje = UpdateBannerPaisSegmentoZonaInternal(segmentoZona);
 
             return Json(new
             {
                 Mensaje = mensaje
-            }, JsonRequestBehavior.AllowGet);
+            });
         }
 
         public void EliminarCacheBanner(int campaniaId)
@@ -1170,6 +1165,39 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        #endregion
+
+        #region Private Methods
+        private string UpdateBannerPaisSegmentoZonaInternal(BEBannerSegmentoZona segmentoZona)
+        {
+            string mensaje;
+            try
+            {
+                using (var sv = new ContenidoServiceClient())
+                {
+                    sv.UpdBannerPaisSegmentoZona(segmentoZona);
+                }
+
+                mensaje = "La información se guardó con éxito.";
+            }
+            catch (Exception ex)
+            {
+                mensaje = "Ocurrió un error: " + ex.Message;
+            }
+
+            return mensaje;
+        }
+
+        private async Task<string> GetCodes(HttpPostedFileBase postFile)
+        {
+            if (postFile == null)
+            {
+                return null;
+            }
+            IStreamReader reader = new DefaultStreamReader();
+
+            return await reader.Read(postFile.InputStream, new ColumnCsvTransform()); 
+        }
         #endregion
 
     }

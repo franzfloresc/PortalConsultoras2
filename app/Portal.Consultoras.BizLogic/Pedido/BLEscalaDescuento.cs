@@ -2,6 +2,8 @@
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
 using System.Collections.Generic;
+using Portal.Consultoras.Common;
+
 using System.Data;
 using System.Linq;
 
@@ -11,35 +13,20 @@ namespace Portal.Consultoras.BizLogic
     {
         public List<BEEscalaDescuento> GetEscalaDescuento(int paisID)
         {
-            List<BEEscalaDescuento> lstEscalaDescuento = (List<BEEscalaDescuento>)CacheManager<BEEscalaDescuento>.GetData(paisID, ECacheItem.EscalaDescuento);
+            var lstEscalaDescuento = (List<BEEscalaDescuento>)CacheManager<BEEscalaDescuento>.GetData(paisID, ECacheItem.EscalaDescuento);
 
             if (lstEscalaDescuento == null || lstEscalaDescuento.Count == 0)
             {
-                var blPais = new BLPais();
-
-                if (!blPais.EsPaisHana(paisID)) // Validar si informacion de pais es de origen Normal o Hana
+                if (!new BLPais().EsPaisHana(paisID)) // Validar si informacion de pais es de origen Normal o Hana
                 {
-                    DAEscalaDescuento daEscalaDescuento = new DAEscalaDescuento(paisID);
-
-
-                    List<BEEscalaDescuento> lstEscalaDescuentoTemp = new List<BEEscalaDescuento>();
-                    using (IDataReader reader = daEscalaDescuento.GetEscalaDescuento())
-                        while (reader.Read())
-                        {
-                            var entidad = new BEEscalaDescuento(reader);
-                            lstEscalaDescuentoTemp.Add(entidad);
-                        }
-
-                    lstEscalaDescuento = new List<BEEscalaDescuento>();
-                    if (lstEscalaDescuentoTemp.Count > 0)
+                    using (var reader = new DAEscalaDescuento(paisID).GetEscalaDescuento())
                     {
-                        lstEscalaDescuento.AddRange(lstEscalaDescuentoTemp);
+                        lstEscalaDescuento = reader.MapToCollection<BEEscalaDescuento>();
                     }
                 }
                 else
                 {
-                    var dahEscalaDescuento = new DAHEscalaDescuento();
-                    lstEscalaDescuento = dahEscalaDescuento.GetEscalaDescuento(paisID);
+                    lstEscalaDescuento = new DAHEscalaDescuento().GetEscalaDescuento(paisID);
                 }
 
                 CacheManager<BEEscalaDescuento>.AddData(paisID, ECacheItem.EscalaDescuento, lstEscalaDescuento);

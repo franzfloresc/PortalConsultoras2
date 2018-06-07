@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 CargarEntidadesShowRoom(userData);
 
-                model.BEShowRoom = userData.BeShowRoom;
+                model.BEShowRoom = configEstrategiaSR.BeShowRoom;
                 zonaHoraria = userData.ZonaHoraria;
                 fechaInicioCampania = userData.FechaInicioCampania;
             }
@@ -228,7 +228,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
                 ViewBag.EstadoActivo = showRoomBannerLateral.EstadoActivo;
 
-                var eventoConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
+                var eventoConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
                 eventoConsultora.CorreoEnvioAviso = Util.Trim(eventoConsultora.CorreoEnvioAviso);
 
                 model.Suscripcion = eventoConsultora.Suscripcion;
@@ -273,9 +273,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (!showRoomEventoModel.ListaShowRoomOferta.Any())
                     return null;
 
-                if (userData.ListaShowRoomPersonalizacionConsultora != null)
+                if (configEstrategiaSR.ListaPersonalizacionConsultora != null)
                 {
-                    var terminosCondiciones = userData.ListaShowRoomPersonalizacionConsultora.FirstOrDefault(
+                    var terminosCondiciones = configEstrategiaSR.ListaPersonalizacionConsultora.FirstOrDefault(
                         p => p.Atributo == Constantes.ShowRoomPersonalizacion.Mobile.UrlTerminosCondiciones);
                     showRoomEventoModel.UrlTerminosCondiciones = terminosCondiciones == null
                         ? ""
@@ -357,11 +357,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             var modelo = ViewDetalleOferta(id);
             modelo.EstrategiaId = id;
+            var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
+            modelo.ListaOfertaShowRoom = xList;
             bool esFacturacion = EsFacturacion();
 
-            var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, userData.BeShowRoom.EventoID, userData.BeShowRoom.CampaniaID);
+            var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, configEstrategiaSR.BeShowRoom.EventoID,
+                        configEstrategiaSR.BeShowRoom.CampaniaID);
             modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
-            modelo.TieneCompraXcompra = userData.BeShowRoom.TieneCompraXcompra;
+            modelo.TieneCompraXcompra = configEstrategiaSR.BeShowRoom.TieneCompraXcompra;
 
             ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
 
@@ -378,9 +381,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             modelo.EstrategiaId = id;
             bool esFacturacion = EsFacturacion();
 
-            var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, userData.BeShowRoom.EventoID, userData.BeShowRoom.CampaniaID);
+            var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, configEstrategiaSR.BeShowRoom.EventoID,
+                        configEstrategiaSR.BeShowRoom.CampaniaID);
             modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
-            modelo.TieneCompraXcompra = userData.BeShowRoom.TieneCompraXcompra;
+            modelo.TieneCompraXcompra = configEstrategiaSR.BeShowRoom.TieneCompraXcompra;
 
             ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
 
