@@ -6,8 +6,11 @@ using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Linq;
 using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.IO;
+using Portal.Consultoras.Common.Validator;
+using Portal.Consultoras.Web.Infraestructure.Validator.Phone;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -133,36 +136,6 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult CambiarFotoPerfil()
         {
             return View();
-        } 
-
-        [HttpPost]
-        public ActionResult EliminarFoto()
-        {
-            try
-            {
-                using (var sv = new UsuarioServiceClient())
-                {
-                    var upd = sv.UpdUsuarioFotoPerfil(userData.PaisID, userData.CodigoConsultora, null);
-                }
-
-                if (!Util.IsUrl(userData.FotoOriginalSinModificar))
-                {
-                    var carpetaPais = Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora];
-                    ConfigS3.DeleteFileS3(carpetaPais, userData.FotoOriginalSinModificar);
-                }
-
-                userData.FotoPerfil = "../../Content/Images/icono_avatar.svg";
-
-                SetUserData(userData);
-
-                return Json(new { success = true, error = false, name = "Foto Eliminada correctamente." }, "text/html");
-
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "");
-                return Json(new { success = false, error = true, message = "Hubo un error al intentar eliminar la foto, intente nuevamente." }, "text/html");
-            }
         }
 
         [HttpPost]
@@ -243,5 +216,64 @@ namespace Portal.Consultoras.Web.Controllers
                 return ms.ToArray();
             }
         }
+
+        [HttpPost]
+        public async Task<ActionResult> EnviarSmsCodigo(string celular)
+        {
+            var validator = GetPhoneValidator();
+
+            var result = await validator.Valid(celular);
+            if (!result.Success)
+            {
+                return Json(result);
+            }
+
+            var code = Util.GenerarCodigoRandom();
+
+            // send SmsCode
+            // save SmsCode
+            return Json(new
+            {
+                Success = true
+            });
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult> ConfirmarSmsCode(string smsCode)
+        {
+            // verify timeout and sms code
+
+            var result = await new NotExistingPhone().Valid("");
+            if (!result.Success)
+            {
+                return Json(new
+                {
+                    result.Success,
+                    PhoneError = result.Message
+                });
+            }
+            // update number phone
+
+            return Json(new
+            {
+                Success = true
+            });
+        }
+
+        private MultiPhoneValidator GetPhoneValidator()
+        {
+            var matchCountry = new MatchCountryPhone { IsoPais = userData.CodigoISO };
+
+            var validators = new IPhoneValidator[]
+            {
+                matchCountry,
+                new NotExistingPhone()
+            };
+            var validator = new MultiPhoneValidator(validators);
+            return validator;
+        }
+
     }
+
 }

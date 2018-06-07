@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Actualiza tu numero de celular";
-    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    ViewBag.Celular = "987 654 321";
 }
 
 @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
@@ -23,32 +23,40 @@ else
 <section class="vista_actualizar_celular">
     <div class="wrapper_content_actualizar_celular">
         <div>
-            <a href="#" title="Volver" class="enlace_volver_a_mi_perfil text-uppercase text-bold">
+            <a href="@Url.Action("Index")" title="Volver" class="enlace_volver_a_mi_perfil text-uppercase text-bold">
                 <span class="icono_back_arrow">
                     <img src="@Url.Content("~/Content/Images/icono_volver.svg")" alt="Volver" />
                 </span>
                 <span class="enlace_texto">Volver</span>
             </a>
             <div class="form_actualizar_celular">
-                <div class="sin_numero_celular_registrado">
-                    <span>Aún no has registrado un número de celular. Llena el siguiente campo para añadirlo.</span>
-                </div>
-                <div class="celular_actual" style="display:none;">
-                    <span class="w-100 text-uppercase">Tu número actual es :</span>
-                    <span class="w-100">987 654 321</span>
-                </div>
+                @if (string.IsNullOrWhiteSpace(ViewBag.Celular))
+                {
+                    <div class="sin_numero_celular_registrado">
+                        <span>Aún no has registrado un número de celular. Llena el siguiente campo para añadirlo.</span>
+                    </div>
+                }
+                else
+                {
+                    <div class="celular_actual">
+                        <span class="w-100 text-uppercase">Tu número actual es :</span>
+                        <span class="w-100">@ViewBag.Celular</span>
+                    </div>
+                }
                 <fieldset class="grupo_form_cambio_datos text-uppercase">
                     <div class="w-100">
-                        <input id="NuevoCelular" name="NuevoCelular" class="w-100" type="text" value="" />
+                        <input id="NuevoCelular" name="NuevoCelular" class="w-100" type="text" value=""/>
                         <label for="NuevoCelular" class="w-100">Ingresa tu nuevo número</label>
                     </div>
+                    <div class="text-error"></div>
                 </fieldset>
                 <fieldset class="grupo_form_cambio_datos text-uppercase">
                     <div class="w-50 text-left v-alignMiddle">
-                        <a href="#" title="Cancelar" class="enlace_cancelar">Cancelar</a>
+                        <a href="@Url.Action("Index")" title="Cancelar" class="enlace_cancelar">Cancelar</a>
                     </div>
                     <div class="w-50 text-right v-alignMiddle">
-                        <button type="button" class="btn_continuar text-uppercase text-bold default-background-color mt-31">
+                        <button type="button"
+                                class="btn_continuar text-uppercase text-bold default-background-color mt-31">
                             Continuar
                         </button>
                     </div>
@@ -74,16 +82,20 @@ else
                         <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
                         <div class="icono_validacion_codigo_sms validacion_erronea"></div>
                     </fieldset>
-                    <div class="codigo_sms_caducidad text-uppercase">El código caduca en <span class="default-color">03:00</span></div>
+                    <div class="codigo_sms_caducidad text-uppercase">El código caduca en <span class="default-color" id="time_counter">03:00</span></div>
                 </div>
                 <p class="w-100 envio_instrucciones_info">
-                    <a href="#" title="Reenvíenme las instrucciones" class="enlace_reenviar_instrucciones w-100 text-uppercase text-bold">
+                    <a href="#"
+                       title="Reenvíenme las instrucciones"
+                       class="enlace_reenviar_instrucciones w-100 text-uppercase text-bold">
                         Reenvíenme el código
                     </a>
                 </p>
                 <p class="w-100 cambiar_correo_info">
                     <span>¿Este no es tu número?</span>
-                    <a href="#" title="Cambia tu correo" class="enlace_cambiar_correo text-bold">Cambia tu número</a>
+                    <a href="#"
+                       title="Cambia tu correo"
+                       class="enlace_cambiar_correo text-bold">Cambia tu número</a>
                 </p>
             </div>
         </div>
@@ -95,13 +107,21 @@ else
             <p class="mensaje_celular_actualizado">
                 Continúa visitando somosbelcorp.com<br />y descubre todas la ofertas que tenemos para ti.
             </p>
-            <button type="button" class="btn_acept text-uppercase text-bold default-background-color">Ok</button>
+            <a href="@Url.Action("Index")" class="btn_acept text-uppercase text-bold default-background-color">Ok</a>
         </div>
     </div>
 </section>
 
-@section scripts{
+@section scripts
+{
+    <script>
+        var urlProvider = {
+            enviarSmsCodigo: '@Url.Action("EnviarSmsCodigo")',
+            confirmarSmsCode: '@Url.Action("ConfirmarSmsCode")'
+        };
+    </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/ActualizarCelular.js")"></script>
 }
 
 
