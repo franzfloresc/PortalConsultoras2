@@ -1,4 +1,4 @@
-USE BelcorpPeru_PL50
+USE BelcorpPeru
 GO  
 
 ALTER PROCEDURE [dbo].[ObtenerEstrategiasOfertaParaTi_SB2] @CampaniaID int,
