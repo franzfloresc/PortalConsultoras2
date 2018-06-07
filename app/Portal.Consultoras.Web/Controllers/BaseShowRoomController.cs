@@ -985,7 +985,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
-        #region ShowRoom - Metodos que usan con EstrategiaPedidoModel en vez de ShowRoomOfertaModel (lo demas se mantiene)
+        #region ShowRoom - Metodos con EstrategiaPedidoModel en vez de ShowRoomOfertaModel (lo demas se mantiene)
 
 
         public EstrategiaPedidoModel ViewDetalleOferta_Unificado(int id)

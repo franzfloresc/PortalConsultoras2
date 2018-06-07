@@ -109,8 +109,6 @@ namespace Portal.Consultoras.Web.Models
 
         #region Campos que vienen de ShowRoom (estos campos aun estan en revision y mejora)
 
-
-
         public int OfertaShowRoomID { get; set; }
 
         public string CUV { get; set; }
