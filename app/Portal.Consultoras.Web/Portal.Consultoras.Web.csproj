@@ -4269,6 +4269,9 @@
     <None Include="Service References\ServiceOferta\OfertaService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceOferta\OfertaService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.wsdl" />
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.xsd">
       <SubType>Designer</SubType>

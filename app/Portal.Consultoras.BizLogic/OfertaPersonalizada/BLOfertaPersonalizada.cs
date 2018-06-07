@@ -1,5 +1,7 @@
-﻿using Portal.Consultoras.Common;
+﻿using System;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
+using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.ShowRoom;
 using System.Collections.Generic;
 using System.Data;
@@ -47,6 +49,30 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
                     lst.Add(entidad);
                 }
             return lst;
+        }
+
+        public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
+        {
+            var listaEstrategias = new List<BEEstrategia>();
+            var daEstrategia = new DAEstrategia(paisID);
+
+            using (var reader = daEstrategia.GetEstrategiaODD(codCampania, codConsultora, fechaInicioFact))
+            {
+                while (reader.Read())
+                {
+                    listaEstrategias.Add(new BEEstrategia(reader));
+                }
+            }
+
+            var codigoIso = Util.GetPaisISO(paisID);
+            var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
+
+            listaEstrategias.ForEach(item =>
+            {
+                item.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, item.FotoProducto01, carpetaPais);
+            });
+
+            return listaEstrategias;
         }
     }
 }
