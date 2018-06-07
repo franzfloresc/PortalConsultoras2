@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Portal.Consultoras.Entities.ShowRoom;
 using System.Collections.Generic;
 using System.ServiceModel;
+<<<<<<< HEAD
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.ShowRoom;
+=======
+>>>>>>> 15f168d916e492f522846ed083f6e612282a2c82
 
 namespace Portal.Consultoras.ServiceContracts
 {
