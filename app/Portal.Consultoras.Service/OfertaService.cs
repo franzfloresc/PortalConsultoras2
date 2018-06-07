@@ -23,5 +23,10 @@ namespace Portal.Consultoras.Service
         {
             return new BLOfertaPersonalizada().GetEstrategiaODD(paisID, codCampania, codConsultora, fechaInicioFact);
         }
+
+        public BEShowRoomEvento GetShowRoomEventoByCampaniaID(int paisID, int campaniaID)
+        {
+            return new BLOfertaPersonalizada().GetShowRoomEventoByCampaniaID(paisID, campaniaID);
+        }
     }
 }

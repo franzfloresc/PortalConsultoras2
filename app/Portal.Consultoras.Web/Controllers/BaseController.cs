@@ -1162,6 +1162,7 @@ namespace Portal.Consultoras.Web.Controllers
                     : model.CodigoConsultora;
                 List<BEShowRoomPersonalizacionNivel> personalizacionesNivel = null;
 
+                //@001 FSV INICIO
                 using (var pedidoService = new PedidoServiceClient())
                 {
                     configEstrategiaSR.BeShowRoom = pedidoService.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
@@ -1182,6 +1183,12 @@ namespace Portal.Consultoras.Web.Controllers
                             configEstrategiaSR.BeShowRoom.EventoID, configEstrategiaSR.ShowRoomNivelId, 0).ToList();
                     }
                 }
+
+                using (OfertaServiceClient osc = new OfertaServiceClient())
+                {
+                    configEstrategiaSR.BeShowRoom = osc.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
+                }
+                //@001 FSV FIN
 
                 if (configEstrategiaSR.BeShowRoom != null && configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO && configEstrategiaSR.BeShowRoomConsultora != null)
                 {

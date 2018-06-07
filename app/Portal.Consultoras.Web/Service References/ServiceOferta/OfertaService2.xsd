@@ -50,4 +50,35 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEShowRoomOferta" nillable="true" type="tns:BEShowRoomOferta" />
+  <xs:complexType name="BEShowRoomEvento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="Descuento" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DiasAntes" type="xs:int" />
+      <xs:element minOccurs="0" name="DiasDespues" type="xs:int" />
+      <xs:element minOccurs="0" name="Estado" type="xs:int" />
+      <xs:element minOccurs="0" name="EventoID" type="xs:int" />
+      <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Imagen1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Imagen2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenCabeceraProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenPestaniaShowRoom" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenPreventaDigital" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenVentaSetPopup" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenVentaTagLateral" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroPerfiles" type="xs:int" />
+      <xs:element minOccurs="0" name="OfertaEstrategia" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Tema" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TextoEstrategia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TieneCategoria" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TieneCompraXcompra" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TienePersonalizacion" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TieneSubCampania" type="xs:boolean" />
+      <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEShowRoomEvento" nillable="true" type="tns:BEShowRoomEvento" />
 </xs:schema>

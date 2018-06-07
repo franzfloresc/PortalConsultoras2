@@ -51,6 +51,12 @@
   <wsdl:message name="IOfertaService_GetEstrategiaODD_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetEstrategiaODDResponse" />
   </wsdl:message>
+  <wsdl:message name="IOfertaService_GetShowRoomEventoByCampaniaID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetShowRoomEventoByCampaniaID" />
+  </wsdl:message>
+  <wsdl:message name="IOfertaService_GetShowRoomEventoByCampaniaID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetShowRoomEventoByCampaniaIDResponse" />
+  </wsdl:message>
   <wsdl:portType name="IOfertaService">
     <wsdl:operation name="GetShowRoomOfertasConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/IOfertaService/GetShowRoomOfertasConsultora" message="tns:IOfertaService_GetShowRoomOfertasConsultora_InputMessage" />
@@ -63,6 +69,10 @@
     <wsdl:operation name="GetEstrategiaODD">
       <wsdl:input wsaw:Action="http://tempuri.org/IOfertaService/GetEstrategiaODD" message="tns:IOfertaService_GetEstrategiaODD_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IOfertaService/GetEstrategiaODDResponse" message="tns:IOfertaService_GetEstrategiaODD_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetShowRoomEventoByCampaniaID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IOfertaService/GetShowRoomEventoByCampaniaID" message="tns:IOfertaService_GetShowRoomEventoByCampaniaID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IOfertaService/GetShowRoomEventoByCampaniaIDResponse" message="tns:IOfertaService_GetShowRoomEventoByCampaniaID_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IOfertaService" type="tns:IOfertaService">
@@ -94,6 +104,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetShowRoomEventoByCampaniaID">
+      <soap:operation soapAction="http://tempuri.org/IOfertaService/GetShowRoomEventoByCampaniaID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="BasicHttpsBinding_IOfertaService" type="tns:IOfertaService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IOfertaService_policy" />
@@ -118,6 +137,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetEstrategiaODD">
       <soap:operation soapAction="http://tempuri.org/IOfertaService/GetEstrategiaODD" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShowRoomEventoByCampaniaID">
+      <soap:operation soapAction="http://tempuri.org/IOfertaService/GetShowRoomEventoByCampaniaID" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

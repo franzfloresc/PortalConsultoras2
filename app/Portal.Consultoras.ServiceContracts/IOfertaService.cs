@@ -17,5 +17,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact);
+
+        [OperationContract]
+        BEShowRoomEvento GetShowRoomEventoByCampaniaID(int paisID, int campaniaID);
     }
 }
