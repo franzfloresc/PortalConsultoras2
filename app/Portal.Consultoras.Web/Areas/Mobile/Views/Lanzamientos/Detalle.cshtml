@@ -102,7 +102,10 @@
                     VIDEO
                 </p>
                 <div class="revista_producto_video" style="width: 100%">
-                    <div id="player"></div>
+                    <div id="ytMobileRevistaDigitalDetalle"
+                         data-youtube="{ height:'415', width:'100%', enablejsapi:1, fs:0, showinfo:0, modestbranding:1, loop:1, videoId:'@Model.TipoEstrategiaDetalle.UrlVideoMobile', playerVars:{autoplay:1, rel:0}}"
+                         data-extra="{'descripcionResumen':'@Model.DescripcionResumen'}"
+                         class="yt-video"></div>
                 </div>
             </div>
         </div>
@@ -157,16 +160,9 @@
     <script type="text/javascript">
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage';
         var tipoOrigenEstrategia = 272;
-        var videoId = '@Model.TipoEstrategiaDetalle.UrlVideoMobile';
-        var descripcionResumen = "@Model.DescripcionResumen";
         $(document).ready(function () {
-            detalleLanzamiento.init({
-                videoId: videoId,
-                descripcionResumen: descripcionResumen
-            });
+            detalleLanzamiento.init();
         });
-        function onYouTubeIframeAPIReady() {
-            detalleLanzamiento.onYouTubeIframeAPIReady();
-        }
+
     </script>
 }

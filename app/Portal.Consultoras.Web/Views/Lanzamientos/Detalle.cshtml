@@ -118,7 +118,10 @@
         <div class="set_encuentras_producto_video" id="video_lanzamiento">
             <div class="content_belcorp">
                 <div class="revista_producto_video" style="width: 100%; position: relative;left: 7%;">
-                    <div id="player"></div>
+                    <div id="ytRevistaDigitalDetalle"
+                         data-youtube="{ height:'415', width:'100%', videoId:'@Model.TipoEstrategiaDetalle.UrlVideoDesktop', playerVars:{rel:0}}"
+                         data-extra="{'descripcionResumen':'@Model.DescripcionResumen'}"
+                         class="yt-video"></div>
                 </div>
             </div>
         </div>
@@ -134,16 +137,8 @@
     <script type="text/javascript">
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage';
         var tipoOrigenEstrategia = 172;
-        var videoId = "@Model.TipoEstrategiaDetalle.UrlVideoDesktop";
-        var descripcionResumen = "@Model.DescripcionResumen"
         $(document).ready(function () {
-            detalleLanzamiento.init({
-                videoId: videoId,
-                descripcionResumen: descripcionResumen
-            });
+            detalleLanzamiento.init();
         });
-        function onYouTubeIframeAPIReady() {
-            detalleLanzamiento.onYouTubeIframeAPIReady();
-        }
     </script>
 }
