@@ -13,6 +13,7 @@ using System.Globalization;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -549,7 +550,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var beShowRoomConsultora = configEstrategiaSR.BeShowRoomConsultora;
                     var beShowRoom = configEstrategiaSR.BeShowRoom;
 
-                    if (beShowRoomConsultora == null) beShowRoomConsultora = new ServiceOferta.BEShowRoomEventoConsultora();
+                    if (beShowRoomConsultora == null) beShowRoomConsultora = new ShowRoomEventoConsultoraModel();
                     if (beShowRoom == null) beShowRoom = new ShowRoomEventoModel();
 
                     if (beShowRoom.Estado == 1)
@@ -1803,7 +1804,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var showRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ServiceOferta.BEShowRoomEventoConsultora();
+                var showRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ShowRoomEventoConsultoraModel();
                 var mostrarPopupIntriga = showRoomConsultora.MostrarPopup;
                 var mostrarPopupVenta = showRoomConsultora.MostrarPopupVenta;
 

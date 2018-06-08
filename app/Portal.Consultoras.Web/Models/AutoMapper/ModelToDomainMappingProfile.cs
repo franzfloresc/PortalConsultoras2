@@ -5,6 +5,7 @@ using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using Portal.Consultoras.Web.Models.Estrategia;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -452,6 +453,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<OfertaFinalMontoMetaModel, UpSellingMontoMeta>();
 
+            Mapper.CreateMap<ShowRoomEventoConsultoraModel, ServiceOferta.BEShowRoomEventoConsultora>();
         }
     }
 }

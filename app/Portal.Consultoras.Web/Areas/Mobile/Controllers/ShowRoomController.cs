@@ -8,6 +8,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -144,7 +145,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
                 ViewBag.EstadoActivo = showRoomBannerLateral.EstadoActivo;
 
-                var eventoConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ServiceOferta.BEShowRoomEventoConsultora();
+                var eventoConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ShowRoomEventoConsultoraModel();
                 eventoConsultora.CorreoEnvioAviso = Util.Trim(eventoConsultora.CorreoEnvioAviso);
 
                 model.Suscripcion = eventoConsultora.Suscripcion;

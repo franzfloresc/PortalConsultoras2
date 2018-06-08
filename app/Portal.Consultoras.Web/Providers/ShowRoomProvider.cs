@@ -73,5 +73,19 @@ namespace Portal.Consultoras.Web.Providers
                 return Mapper.Map<ServiceOferta.BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
             }
         }
+
+        public ShowRoomEventoConsultoraModel GetShowRoomConsultora(UsuarioModel model)
+        {
+            
+            using (var osc = new OfertaServiceClient())
+            {
+                var  showRoomEventoConsultora = osc.GetShowRoomConsultora(
+                    model.PaisID, 
+                    model.CampaniaID, 
+                    model.GetCodigoConsultora(), 
+                    true);
+                return Mapper.Map<BEShowRoomEventoConsultora, ShowRoomEventoConsultoraModel>(showRoomEventoConsultora);
+            }
+        }
     }
 }
