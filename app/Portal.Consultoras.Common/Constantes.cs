@@ -2144,12 +2144,23 @@ namespace Portal.Consultoras.Common
 
         public class EnviarSMS
         {
-            public class CredencialesSMS
+            public class CredencialesProvedoresSMS
             {
                 public const short TablaLogicaID = 133;
-                public const string USUARIO = "USUARIO";
-                public const string CLAVE = "CLAVE";
-                public const string RutaRecurso = "Api/EnviarSMS";
+                public class Bolivia
+                {
+                    public const string USUARIO = "USUARIO";
+                    public const string CLAVE = "CLAVE";
+                    public const string URL = "URL";
+                    public const string RECURSO = "RECURSO";
+                    public const string MENSAJE = "MENSAJE";
+                }
+            }
+
+            public class SmsConsultoraWs
+            {
+                public const string urlKey = "SmsConsultorasWS";
+                public const string RecursoApi = "/Api/EnviarSms";
             }
 
             public class Mensaje

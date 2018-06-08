@@ -132,10 +132,10 @@ $(document).ready(function () {
         $("#box-pop-up").hide();
     });
 
-    $("#btnLogin").click(function (e) {
-        e.preventDefault();
-        IniciarLogin();
-    });
+    //$("#btnLogin").click(function (e) {
+    //    e.preventDefault();
+    //    IniciarLogin();
+    //});
 
     $("a.helper").mouseover(function () {
         if ($(window).width() > 1093) {
@@ -172,49 +172,49 @@ $(document).ready(function () {
 
     Inicializar();
 
-    //$('#frmLogin').on('submit', function (e) {
+    $('#frmLogin').on('submit', function (e) {
+        debugger
+        if ($('#popupRestaurarClave').is(':visible')) {
+            return false;
+        }       
 
-        //if ($('#popupRestaurarClave').is(':visible')) {
-        //    return false;
-        //}       
+        // validation code here
+        var valid = true;
+        CodigoISO = $('#ddlPais').val();
+        PaisID = getVALbyISO(CodigoISO);
+        CodigoUsuario = jQuery.trim($("#txtUsuario").val());
+        var Contrasenia = jQuery.trim($("#txtContrasenia").val());
 
-        //// validation code here
-        //var valid = true;
-        //CodigoISO = $('#ddlPais').val();
-        //PaisID = getVALbyISO(CodigoISO);
-        //CodigoUsuario = jQuery.trim($("#txtUsuario").val());
-        //var Contrasenia = jQuery.trim($("#txtContrasenia").val());
+        var mensaje = "";
 
-        //var mensaje = "";
+        if (PaisID == "")
+            mensaje += "- Debe seleccionar el País del Usuario.\n";
+        if (CodigoUsuario == "")
+            mensaje += "- Debe ingresar el Usuario.\n";
+        if (Contrasenia == "")
+            mensaje += "- Debe ingresar la Clave Secreta.\n";
 
-        //if (PaisID == "")
-        //    mensaje += "- Debe seleccionar el País del Usuario.\n";
-        //if (CodigoUsuario == "")
-        //    mensaje += "- Debe ingresar el Usuario.\n";
-        //if (Contrasenia == "")
-        //    mensaje += "- Debe ingresar la Clave Secreta.\n";
+        $('#hdeCodigoISO').val(CodigoISO);
+        $('#HdePaisID').val(PaisID);
 
-        //$('#hdeCodigoISO').val(CodigoISO);
-        //$('#HdePaisID').val(PaisID);
+        if (mensaje != "") {
+            valid = false;
+            alert(mensaje);
+            $('#ddlPais').focus();
+        }
 
-        //if (mensaje != "") {
-        //    valid = false;
-        //    alert(mensaje);
-        //    $('#ddlPais').focus();
-        //}
+        if (!valid) {
+            e.preventDefault();
+            return false;
+        }
 
-        //if (!valid) {
-        //    e.preventDefault();
-        //    return false;
-        //}
+        waitingDialog();
 
-        //waitingDialog();
+        preventClick(1, true);
+        $('#btnLoginFB').prop('disabled', true);
 
-        //preventClick(1, true);
-        //$('#btnLoginFB').prop('disabled', true);
-
-        //limpiar_local_storage();
-    //});
+        limpiar_local_storage();
+    });
 
     $("#txtUsuario").keypress(
         function (evt) {
@@ -380,15 +380,15 @@ $(document).ready(function () {
         }
     });
 
-    $(".RecuperarPorCorreo").click(function () {
-            nroIntentosCo = nroIntentosCo + 1;
-            ProcesaEnvioEmail();
-    });
+    //$(".RecuperarPorCorreo").click(function () {
+    //        nroIntentosCo = nroIntentosCo + 1;
+    //        ProcesaEnvioEmail();
+    //});
 
-    $(".opcionSms").click(function () {
-        nroIntentosSms = nroIntentosSms + 1;
-        ProcesaEnvioSMS();
-    });
+    //$(".opcionSms").click(function () {
+    //    nroIntentosSms = nroIntentosSms + 1;
+    //    ProcesaEnvioSMS();
+    //});
 
     $("#vermasopciones1").click(function () {
         waitingDialog();
@@ -658,8 +658,8 @@ function AbrirMensajeLogin(tipo, close) {
 
 function ValidarFormulario() {
     $('#hdfContrasenia').val($('#txtContrasenia').val());
-    IniciarLogin();
-    //$('#SubmitButton').click();
+    //IniciarLogin();
+    $('#SubmitButton').click();
 }
 
 function AsignarHojaEstilos() {
@@ -1143,147 +1143,147 @@ function RecuperarContrasenia() {
     });
 }
 
-function ProcesaEnvioEmail() {
-    if (nroIntentosCo > 2)
-        return false;
-    var parametros = {
-        CantidadEnvios: nroIntentosCo,
-        origenID: origen
-    };
+//function ProcesaEnvioEmail() {
+//    if (nroIntentosCo > 2)
+//        return false;
+//    var parametros = {
+//        CantidadEnvios: nroIntentosCo,
+//        origenID: origen
+//    };
 
-    waitingDialog();
-    $.ajax({
-        type: 'POST',
-        url: urlProcesaEnvioCorreo,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(parametros),
-        async: true,
-        success: function (response) {
-            if (response.success) {
-                procesoEmail = true;
-                procesoSms = false;
+//    waitingDialog();
+//    $.ajax({
+//        type: 'POST',
+//        url: urlProcesaEnvioCorreo,
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        data: JSON.stringify(parametros),
+//        async: true,
+//        success: function (response) {
+//            if (response.success) {
+//                procesoEmail = true;
+//                procesoSms = false;
 
-                if (origen == 2) {/*Origen 2 Pin de autenticacion*/
-                    clearTimeout(t);
-                    $(".pMenCorreoEnviado_RC").hide()
-                    $(".MenCorreoEnviado_Pin").show();
-                    $(".spnMin").html("03");
-                    $(".spnSeg").html("00");
-                } else {
-                    $(".MenCorreoEnviado_Pin").hide()
-                    $(".pMenCorreoEnviado_RC").show();
-                }
+//                if (origen == 2) {/*Origen 2 Pin de autenticacion*/
+//                    clearTimeout(t);
+//                    $(".pMenCorreoEnviado_RC").hide()
+//                    $(".MenCorreoEnviado_Pin").show();
+//                    $(".spnMin").html("03");
+//                    $(".spnSeg").html("00");
+//                } else {
+//                    $(".MenCorreoEnviado_Pin").hide()
+//                    $(".pMenCorreoEnviado_RC").show();
+//                }
 
-                $("#popupRestaurarClave").hide();
-                $("#popup2").show();
-                $("#divPopupIntentosCorreo").show();
-                $(".correoDestino").html("<b>" + correoRecuperar + "</b>");
-                $(".codigoSms").val("");
-                $(".codigoInvalido").hide();
-                $("#1aDigito").focus();
+//                $("#popupRestaurarClave").hide();
+//                $("#popup2").show();
+//                $("#divPopupIntentosCorreo").show();
+//                $(".correoDestino").html("<b>" + correoRecuperar + "</b>");
+//                $(".codigoSms").val("");
+//                $(".codigoInvalido").hide();
+//                $("#1aDigito").focus();
 
-                if (nroIntentosCo === 1) {
-                    $("#divVolverInicio").hide();
-                    $("#men3Intento").hide();
-                    $("#men1y2Intento").show();
-                    $("#divPrimerInteto").show();
+//                if (nroIntentosCo === 1) {
+//                    $("#divVolverInicio").hide();
+//                    $("#men3Intento").hide();
+//                    $("#men1y2Intento").show();
+//                    $("#divPrimerInteto").show();
 
-                } else if (nroIntentosCo >= 2) {
-                    $("#men1y2Intento").hide();
-                    $("#divPrimerInteto").hide();
-                    $("#men3Intento").show();
-                    $("#divVolverInicio").show();
-                }
+//                } else if (nroIntentosCo >= 2) {
+//                    $("#men1y2Intento").hide();
+//                    $("#divPrimerInteto").hide();
+//                    $("#men3Intento").show();
+//                    $("#divVolverInicio").show();
+//                }
 
-                if (origen == 2)
-                    setTimeout(function () { TiempoSMS(59); }, 1000);
+//                if (origen == 2)
+//                    setTimeout(function () { TiempoSMS(59); }, 1000);
 
-            } else {
-                nroIntentosCo = nroIntentosCo - 1;
-                alert(response.message);
-            }
+//            } else {
+//                nroIntentosCo = nroIntentosCo - 1;
+//                alert(response.message);
+//            }
 
-            closeWaitingDialog();
-        },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                closeWaitingDialog();
-            }
-        }
-    });
-}
+//            closeWaitingDialog();
+//        },
+//        error: function (data, error) {
+//            if (checkTimeout(data)) {
+//                closeWaitingDialog();
+//            }
+//        }
+//    });
+//}
 
-function ProcesaEnvioSMS() {
-    clearTimeout(t);
+//function ProcesaEnvioSMS() {
+//    clearTimeout(t);
 
-    if (nroIntentosSms > 2)
-        return false;
+//    if (nroIntentosSms > 2)
+//        return false;
 
-    $(".codigoSms").val("");
+//    $(".codigoSms").val("");
 
-    var parametros = {
-        cantidadEnvios: nroIntentosSms,
-        origenID: origen
-    };
+//    var parametros = {
+//        cantidadEnvios: nroIntentosSms,
+//        origenID: origen
+//    };
 
-    waitingDialog();
-    $.ajax({
-        type: 'POST',
-        url: urlProcesaEnvioSms,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(parametros),
-        async: true,
-        success: function (response) {
-            if (response.success) {
-                procesoEmail = false;
-                procesoSms = true;
+//    waitingDialog();
+//    $.ajax({
+//        type: 'POST',
+//        url: urlProcesaEnvioSms,
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        data: JSON.stringify(parametros),
+//        async: true,
+//        success: function (response) {
+//            if (response.success) {
+//                procesoEmail = false;
+//                procesoSms = true;
 
-                $(".spnMin").html("03");
-                $(".spnSeg").html("00");
+//                $(".spnMin").html("03");
+//                $(".spnSeg").html("00");
 
-                $(".codigoInvalido").hide();
-                $("#popupRestaurarClave").hide();
+//                $(".codigoInvalido").hide();
+//                $("#popupRestaurarClave").hide();
 
-                if ($('#aSeguntoIntentoSms').is(':visible')) {
-                    $('#aSeguntoIntentoSms').hide();
-                    $("#divVolverInicioSms").show();
-                }
+//                if ($('#aSeguntoIntentoSms').is(':visible')) {
+//                    $('#aSeguntoIntentoSms').hide();
+//                    $("#divVolverInicioSms").show();
+//                }
 
-                if (nroIntentosSms == 1) {
-                    $("#MenSegundoIntentoSms").hide();
-                    $("#divVolverInicioSms").hide();
-                    $("#MenPrimerIntentoSms").show();
-                    $("#aSeguntoIntentoSms").show();
+//                if (nroIntentosSms == 1) {
+//                    $("#MenSegundoIntentoSms").hide();
+//                    $("#divVolverInicioSms").hide();
+//                    $("#MenPrimerIntentoSms").show();
+//                    $("#aSeguntoIntentoSms").show();
 
-                } else if (nroIntentosSms >= 2) {
-                    $("#MenPrimerIntentoSms").hide();
-                    $("#aSeguntoIntentoSms").hide();
-                    $("#MenSegundoIntentoSms").show();
-                    $("#divVolverInicioSms").show();
-                }
+//                } else if (nroIntentosSms >= 2) {
+//                    $("#MenPrimerIntentoSms").hide();
+//                    $("#aSeguntoIntentoSms").hide();
+//                    $("#MenSegundoIntentoSms").show();
+//                    $("#divVolverInicioSms").show();
+//                }
 
-                setTimeout(function () { TiempoSMS(59); }, 1000);
-                $("#popup2").show();
-                $("#divPopupIntentosSMS").show();
-                $("#1cDigito").focus();
-            }
-            else {
-                nroIntentosSms = nroIntentosSms - 1;
-                alert(response.message);
-            }
+//                setTimeout(function () { TiempoSMS(59); }, 1000);
+//                $("#popup2").show();
+//                $("#divPopupIntentosSMS").show();
+//                $("#1cDigito").focus();
+//            }
+//            else {
+//                nroIntentosSms = nroIntentosSms - 1;
+//                alert(response.message);
+//            }
 
-            closeWaitingDialog();
-        },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                closeWaitingDialog();
-                setTimeout(function () { alert("No se ha podido enviar el SMS.") }, 1000);
-            }
-        }
-    });
-}
+//            closeWaitingDialog();
+//        },
+//        error: function (data, error) {
+//            if (checkTimeout(data)) {
+//                closeWaitingDialog();
+//                setTimeout(function () { alert("No se ha podido enviar el SMS.") }, 1000);
+//            }
+//        }
+//    });
+//}
 
 function ObtenerCodigoGenerado(CodIngresado) {
     //var paisId = $("#cboPaisCambioClave").val();
@@ -1476,87 +1476,87 @@ function ActivaOpcionSms() {
     $(".mensajeDeBloqueoSMS").hide();
 }
 
-function IniciarLogin() {
-    if ($('#popupRestaurarClave').is(':visible')) {
-        return false;
-    }
+//function IniciarLogin() {
+//    if ($('#popupRestaurarClave').is(':visible')) {
+//        return false;
+//    }
 
-    var valid = true;
-    CodigoISO = $('#ddlPais').val();
-    PaisID = getVALbyISO(CodigoISO);
-    CodigoUsuario = jQuery.trim($("#txtUsuario").val());
-    var _Contrasenia = jQuery.trim($("#txtContrasenia").val());
-    var _ReturnUrl = $('#returnUrl').val();
+//    var valid = true;
+//    CodigoISO = $('#ddlPais').val();
+//    PaisID = getVALbyISO(CodigoISO);
+//    CodigoUsuario = jQuery.trim($("#txtUsuario").val());
+//    var _Contrasenia = jQuery.trim($("#txtContrasenia").val());
+//    var _ReturnUrl = $('#returnUrl').val();
 
-    var _mensaje = "";
+//    var _mensaje = "";
 
-    if (PaisID == "")
-        _mensaje += "- Debe seleccionar el País del Usuario.\n";
-    if (CodigoUsuario == "")
-        _mensaje += "- Debe ingresar el Usuario.\n";
-    if (_Contrasenia == "")
-        _mensaje += "- Debe ingresar la Clave Secreta.\n";
+//    if (PaisID == "")
+//        _mensaje += "- Debe seleccionar el País del Usuario.\n";
+//    if (CodigoUsuario == "")
+//        _mensaje += "- Debe ingresar el Usuario.\n";
+//    if (_Contrasenia == "")
+//        _mensaje += "- Debe ingresar la Clave Secreta.\n";
 
-    $('#hdeCodigoISO').val(CodigoISO);
-    $('#HdePaisID').val(PaisID);
+//    $('#hdeCodigoISO').val(CodigoISO);
+//    $('#HdePaisID').val(PaisID);
 
-    if (_mensaje != "") {
-        valid = false;
-        alert(_mensaje);
-        $('#ddlPais').focus();
-    }
+//    if (_mensaje != "") {
+//        valid = false;
+//        alert(_mensaje);
+//        $('#ddlPais').focus();
+//    }
 
-    if (!valid) {
-        //e.preventDefault();
-        return false;
-    }
+//    if (!valid) {
+//        //e.preventDefault();
+//        return false;
+//    }
 
-    preventClick(1, true);
-    $('#btnLoginFB').prop('disabled', true);
+//    preventClick(1, true);
+//    $('#btnLoginFB').prop('disabled', true);
 
-    limpiar_local_storage();
+//    limpiar_local_storage();
 
-    waitingDialog();
-    var _parametros = {
-        PaisID: PaisID,
-        CodigoISO: CodigoISO,
-        CodigoUsuario: CodigoUsuario,
-        ClaveSecreta: _Contrasenia,
-        returnUrl: _ReturnUrl
-    };
-    $.ajax({
-        type: 'POST',
-        url: urlIniciarLogin,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(_parametros),
-        async: true,
-        success: function (response) {
-            if (response.success) {
-                if (response.data != null) {
-                    var datos = response.data;
-                    PopupVerificacionAutenticidad(datos);
-                    closeWaitingDialog(); 
-                } else if (response.redirectTo !== "") {                     
-                    document.location.href = response.redirectTo;
-                    //closeWaitingDialog(); 
-                }           
-            } else {
-                preventClick(1, false);
-                $('#ErrorTextLabel').html(response.message);
-                $("#ErrorTextLabel").css("padding-left", "20px");
-                closeWaitingDialog(); 
-            }
+//    waitingDialog();
+//    var _parametros = {
+//        PaisID: PaisID,
+//        CodigoISO: CodigoISO,
+//        CodigoUsuario: CodigoUsuario,
+//        ClaveSecreta: _Contrasenia,
+//        returnUrl: _ReturnUrl
+//    };
+//    $.ajax({
+//        type: 'POST',
+//        url: urlIniciarLogin,
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        data: JSON.stringify(_parametros),
+//        async: true,
+//        success: function (response) {
+//            if (response.success) {
+//                if (response.data != null) {
+//                    var datos = response.data;
+//                    PopupVerificacionAutenticidad(datos);
+//                    closeWaitingDialog(); 
+//                } else if (response.redirectTo !== "") {                     
+//                    document.location.href = response.redirectTo;
+//                    //closeWaitingDialog(); 
+//                }           
+//            } else {
+//                preventClick(1, false);
+//                $('#ErrorTextLabel').html(response.message);
+//                $("#ErrorTextLabel").css("padding-left", "20px");
+//                closeWaitingDialog(); 
+//            }
             
-            $('#btnLogin').prop('disabled', false);
-        },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                closeWaitingDialog();
-            }
-        }
-    });
-}
+//            $('#btnLogin').prop('disabled', false);
+//        },
+//        error: function (data, error) {
+//            if (checkTimeout(data)) {
+//                closeWaitingDialog();
+//            }
+//        }
+//    });
+//}
 
 function PopupVerificacionAutenticidad(data) {
     origen = 2

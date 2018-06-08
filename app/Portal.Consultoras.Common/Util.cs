@@ -3151,47 +3151,6 @@ namespace Portal.Consultoras.Common
             return Convert.ToString(rnd.Next(111111, 999999));
         }
 
-        public static bool CallSmsConsultoras(int origenID, string codUsuario, string origenDesc, string usuarioSms, string NroCelular, string mensaje, 
-            string codigoIso, bool esMobile, string urlApiSms, string CodConsultora = "", string claveSms = "", string campaniaID = "0")
-        {
-            if (origenID == 0) return false;
-            if (codUsuario == "") return false;
-            if (origenDesc == "") return false;
-            if (usuarioSms == "") return false;
-            if (NroCelular == "") return false;
-            if (mensaje == "") return false;
-            if (codigoIso == "") return false;
-
-            string requestUrl = Constantes.EnviarSMS.CredencialesSMS.RutaRecurso;
-
-            var data = new
-            {
-                OrgienID = origenID,
-                CodigoUsuario = codUsuario,
-                CodigoConsultora = CodConsultora,
-                OrigenDescripcion = origenDesc,
-                UsuarioSms = usuarioSms,
-                ClaveSms = claveSms,
-                CampaniaID = campaniaID,
-                NroCelular = NroCelular,
-                Mensaje = mensaje,
-                CodigoIso = codigoIso,
-                EsMobile = esMobile
-            };
-
-            HttpClient httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri(urlApiSms);
-            httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            string dataString = JsonConvert.SerializeObject(data);
-            HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = httpClient.PostAsync(requestUrl, contentPost).GetAwaiter().GetResult();
-            bool EstadoEnvio = response.IsSuccessStatusCode;
-            httpClient.Dispose();
-
-            return EstadoEnvio;
-        }
-
         public static string ColorFormato(string colorStr, string defecto = "")
         {
             var transparent = "transparent";

@@ -690,6 +690,7 @@
     <Compile Include="Models\ValidacionAutomaticaModel.cs" />
     <Compile Include="Models\ValidacionStockModel.cs" />
     <Compile Include="Models\ValidacionTelefonicaModel.cs" />
+    <Compile Include="Models\VericaAutenticidadModel.cs" />
     <Compile Include="Models\ZonaModel.cs" />
     <Compile Include="Pdto.aspx.cs">
       <DependentUpon>Pdto.aspx</DependentUpon>
@@ -3675,6 +3676,7 @@
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Index.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Mensaje.js" />
+    <Content Include="Scripts\PortalConsultoras\Login\VerificaAutenticidad.js" />
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\FichaProducto\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\GuiaNegocio\GuiaNegocio-Landing.js" />
@@ -4507,6 +4509,21 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUsuario\UsuarioService52.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService61.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService62.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService63.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService64.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceZonificacion\ZonificacionService.wsdl" />

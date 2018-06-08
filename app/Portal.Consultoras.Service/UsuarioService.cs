@@ -3,6 +3,7 @@ using Portal.Consultoras.BizLogic.CDR;
 using Portal.Consultoras.BizLogic.PagoEnlinea;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.OpcionesVerificacion;
 using Portal.Consultoras.ServiceContracts;
 using System;
 using System.Collections.Generic;
@@ -817,27 +818,27 @@ namespace Portal.Consultoras.Service
             return BLUsuario.GetRestaurarClaveByValor(paisID, valorIngresado, prioridad);
         }
 
-        public Enumeradores.EnvioEmail ProcesaEnvioEmail (int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile)
+        public bool ProcesaEnvioEmail (int paisID, BEUsuarioDatos oUsu, int CantidadEnvios)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.ProcesaEnvioEmail(paisID, valorRestaurar, origenID, CantidadEnvios, esMobile);
+            return BLUsuario.ProcesaEnvioEmail(paisID, oUsu, CantidadEnvios);
         }
 
-        public Enumeradores.EnvioSms ProcesaEnvioSms(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile)
+        public bool ProcesaEnvioSms(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.ProcesaEnvioSms(paisID, valorRestaurar, origenID, CantidadEnvios, esMobile);
+            return BLUsuario.ProcesaEnvioSms(paisID, oUsu, CantidadEnvios);
         }
 
-        public bool VerificarIgualdadCodigoIngresado(int PaisID, int origenID, string codigoUsuario, string codigoIngresado, int IdEstadoActividad)
+        public bool VerificarIgualdadCodigoIngresado(int paisID, BEUsuarioDatos oUsu, string codigoIngresado)
         {
             var BLUsuario = new BLUsuario();
-            return (BLUsuario.VerificarIgualdadCodigoIngresado(PaisID, origenID, codigoUsuario, codigoIngresado, IdEstadoActividad));
+            return (BLUsuario.VerificarIgualdadCodigoIngresado(paisID, oUsu, codigoIngresado));
         }
         #endregion
 
         #region Verificacion de Autenticidad
-        public BEUsuarioCorreo GetVerificacionAutenticidad(int paisID, string CodigoUsuario)
+        public BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario)
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.GetVerificacionAutenticidad(paisID, CodigoUsuario);

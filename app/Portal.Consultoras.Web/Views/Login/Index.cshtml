@@ -181,16 +181,16 @@
 
                     if (response.success) {
 
-                        var resul = "";
-                        if (response.data != null) {
-                            resul = response.data.resultado;
-                        }
+                        //var resul = "";
+                        //if (response.data != null) {
+                        //    resul = response.data.resultado;
+                        //}
 
-                        if (resul.length > 1) {
-                            var datos = response.data;
-                            PopupVerificacionAutenticidad(datos);
-                            closeWaitingDialog();
-                        }
+                        //if (resul.length > 1) {
+                        //    var datos = response.data;
+                        //    PopupVerificacionAutenticidad(datos);
+                        //    closeWaitingDialog();
+                        //}
 
                         if (response.redirectTo !== "") {
                             analytics.invocarEventoPixel("FacebookLoginValidExternalUser");
@@ -1065,7 +1065,7 @@
         <hr class="clear" />
     </div>
 
-    @using (@Html.BeginForm("", "", FormMethod.Post, new { id = "frmLogin" }))
+    @using (@Html.BeginForm("Login", "Login", FormMethod.Post, new { id = "frmLogin" }))
     {
         <div id="loginanterior" class="formCont">
             <input type="hidden" id="hdfContrasenia" />
@@ -1297,11 +1297,11 @@
     var banderaOk = '@ViewBag.BanderaOk';
     var avisoASP = '@ViewBag.AvisoASP';
     var urlGetRestaurarClave = '@Url.Action("GetRestaurarClaveByValor", "Login")';
-    var urlProcesaEnvioCorreo = '@Url.Action("ProcesaEnvioCorreo", "Login")';
-    var urlProcesaEnvioSms = '@Url.Action("ProcesaEnvioSms", "Login")';
+    @*var urlProcesaEnvioCorreo = '@Url.Action("ProcesaEnvioCorreo", "Login")';
+    var urlProcesaEnvioSms = '@Url.Action("ProcesaEnvioSms", "Login")';*@
     var urlLoginAcceder = '@Url.Action("Login", "Login")';
     var urlChatBelCorp = '@Url.Action("ChatBelcorp", "Login")';
-    var urlObtenerCodigoGenerado = '@Url.Action("ObtenerCodigoGenerado", "Login")';
+    @*var urlVerificarCodigoGenerado = '@Url.Action("VerificarCodigoGenerado", "Login")';*@
     var urlIniciarLogin = '@Url.Action("Login", "Login")';
 </script>
 
