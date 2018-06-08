@@ -3,19 +3,13 @@ using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
-using Portal.Consultoras.Web.ServicePROLConsultas;
-using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.ServiceModel;
 using System.Text;
 using BEEstrategia = Portal.Consultoras.Web.ServicePedido.BEEstrategia;
 
@@ -23,11 +17,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BaseEstrategiaController : BaseController
     {
-        protected string CodigoProceso
-        {
-            get { return ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.EmailCodigoProceso]; }
-        }
-
         public BaseEstrategiaController()
             : base()
         {
@@ -119,7 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     PaisID = userData.PaisID,
                     CampaniaID = campaniaId,
-                    ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora,
+                    ConsultoraID = userData.GetCodigoConsultora(),
                     Zona = userData.ZonaID.ToString(),
                     ZonaHoraria = userData.ZonaHoraria,
                     FechaInicioFacturacion = userData.FechaFinCampania,
@@ -130,7 +119,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (tipo == Constantes.TipoEstrategiaCodigo.LosMasVendidos)
                 {
-                    entidad.ConsultoraID = (userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID).ToString();
+                    entidad.ConsultoraID = userData.GetConsultoraId().ToString();
                 }
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -168,7 +157,6 @@ namespace Portal.Consultoras.Web.Controllers
         public EstrategiaPersonalizadaProductoModel EstrategiaGetDetalle(int id, string cuv = "")
         {
             EstrategiaPersonalizadaProductoModel estrategiaModelo;
-
             try
             {
                 estrategiaModelo = sessionManager.GetProductoTemporal();
@@ -182,7 +170,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaPedido = ObtenerPedidoWebDetalle();
                 estrategiaModelo.IsAgregado = listaPedido.Any(p => p.CUV == estrategiaModelo.CUV2);
 
-                if (String.IsNullOrWhiteSpace(estrategiaModelo.CodigoVariante))
+                if (string.IsNullOrWhiteSpace(estrategiaModelo.CodigoVariante))
                     return estrategiaModelo;
 
                 estrategiaModelo.CampaniaID = estrategiaModelo.CampaniaID > 0 ? estrategiaModelo.CampaniaID : userData.CampaniaID;
@@ -191,31 +179,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                estrategiaModelo = new EstrategiaPersonalizadaProductoModel
-                {
-                    Hermanos = new List<ProductoModel>()
-                };
+                estrategiaModelo = new EstrategiaPersonalizadaProductoModel();
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return estrategiaModelo;
-        }
-
-        public EstrategiaPersonalizadaProductoModel EstrategiaGetDetalleCuv(string cuv)
-        {
-            EstrategiaPersonalizadaProductoModel estrategia;
-            try
-            {
-                estrategia = EstrategiaGetDetalle(0, cuv);
-            }
-            catch (Exception ex)
-            {
-                estrategia = new EstrategiaPersonalizadaProductoModel();
-               
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-
-            if (estrategia == null) estrategia = new EstrategiaPersonalizadaProductoModel();
-            return estrategia;
         }
 
         public List<EstrategiaPedidoModel> ConsultarEstrategiasHomePedido(string codAgrupacion = "")
@@ -589,6 +556,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
+<<<<<<< HEAD
         #region ShowRoom
 
         protected void ActionExecutingMobile()
@@ -1502,5 +1470,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
+=======
+>>>>>>> 9320e184dc476dad2fdc85eab37e7858ab8bc6fc
     }
 }
