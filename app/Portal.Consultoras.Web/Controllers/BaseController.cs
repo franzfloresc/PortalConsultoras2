@@ -1755,12 +1755,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, estrategiaModelo.CampaniaID, joinSap, numeroCampanias).ToList();
             }
-
-            if (!listaAppCatalogo.Any()) return new List<ProductoModel>();
-
-            var listaHermanos = Mapper.Map<List<Producto>, List<ProductoModel>>(listaAppCatalogo);
-
-            return listaHermanos;
+            return !listaAppCatalogo.Any() ? new List<ProductoModel>() : Mapper.Map<List<Producto>, List<ProductoModel>>(listaAppCatalogo);
         }
 
         private List<ProductoModel> GetEstrategiaDetalleCompuesta(EstrategiaPersonalizadaProductoModel estrategiaModelo, List<BEEstrategiaProducto> listaProducto, List<ProductoModel> listaHermanos)
