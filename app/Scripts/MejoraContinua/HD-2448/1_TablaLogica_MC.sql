@@ -4,10 +4,10 @@ GO
 IF NOT EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 143)
 BEGIN
 	INSERT INTO tablalogica (tablalogicaid, descripcion)
-    VALUES     (143, 'Actualizacion datos');
+    VALUES     (143, 'Actualización datos enabled');
 
     INSERT INTO tablalogicadatos (tablalogicadatosid, tablalogicaid, codigo, descripcion, valor)
-    VALUES     (14301, 143, 1, 'Actualizacion datos', 0);
+    VALUES     (14301, 143, 1, 'Actualización datos enabled', 0);
 END
 
 GO
@@ -16,10 +16,10 @@ GO
 IF NOT EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 143)
 BEGIN
 	INSERT INTO tablalogica (tablalogicaid, descripcion)
-    VALUES     (143, 'Actualizacion datos');
+    VALUES     (143, 'Actualización datos enabled');
 
     INSERT INTO tablalogicadatos (tablalogicadatosid, tablalogicaid, codigo, descripcion, valor)
-    VALUES     (14301, 143, 1, 'Actualizacion datos', 0);
+    VALUES     (14301, 143, 1, 'Actualización datos enabled', 0);
 END
 
 GO
@@ -28,10 +28,10 @@ GO
 IF NOT EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 143)
 BEGIN
 	INSERT INTO tablalogica (tablalogicaid, descripcion)
-    VALUES     (143, 'Actualizacion datos');
+    VALUES     (143, 'Actualización datos enabled');
 
     INSERT INTO tablalogicadatos (tablalogicadatosid, tablalogicaid, codigo, descripcion, valor)
-    VALUES     (14301, 143, 1, 'Actualizacion datos', 0);
+    VALUES     (14301, 143, 1, 'Actualización datos enabled', 0);
 END
 
 GO
@@ -40,10 +40,10 @@ GO
 IF NOT EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 143)
 BEGIN
 	INSERT INTO tablalogica (tablalogicaid, descripcion)
-    VALUES     (143, 'Actualizacion datos');
+    VALUES     (143, 'Actualización datos enabled');
 
     INSERT INTO tablalogicadatos (tablalogicadatosid, tablalogicaid, codigo, descripcion, valor)
-    VALUES     (14301, 143, 1, 'Actualizacion datos', 0);
+    VALUES     (14301, 143, 1, 'Actualización datos enabled', 0);
 END
 
 GO
@@ -52,10 +52,10 @@ GO
 IF NOT EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 143)
 BEGIN
 	INSERT INTO tablalogica (tablalogicaid, descripcion)
-    VALUES     (143, 'Actualizacion datos');
+    VALUES     (143, 'Actualización datos enabled');
 
     INSERT INTO tablalogicadatos (tablalogicadatosid, tablalogicaid, codigo, descripcion, valor)
-    VALUES     (14301, 143, 1, 'Actualizacion datos', 0);
+    VALUES     (14301, 143, 1, 'Actualización datos enabled', 0);
 END
 
 GO
@@ -64,10 +64,10 @@ GO
 IF NOT EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 143)
 BEGIN
 	INSERT INTO tablalogica (tablalogicaid, descripcion)
-    VALUES     (143, 'Actualizacion datos');
+    VALUES     (143, 'Actualización datos enabled');
 
     INSERT INTO tablalogicadatos (tablalogicadatosid, tablalogicaid, codigo, descripcion, valor)
-    VALUES     (14301, 143, 1, 'Actualizacion datos', 0);
+    VALUES     (14301, 143, 1, 'Actualización datos enabled', 0);
 END
 
 GO
@@ -76,10 +76,10 @@ GO
 IF NOT EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 143)
 BEGIN
 	INSERT INTO tablalogica (tablalogicaid, descripcion)
-    VALUES     (143, 'Actualizacion datos');
+    VALUES     (143, 'Actualización datos enabled');
 
     INSERT INTO tablalogicadatos (tablalogicadatosid, tablalogicaid, codigo, descripcion, valor)
-    VALUES     (14301, 143, 1, 'Actualizacion datos', 0);
+    VALUES     (14301, 143, 1, 'Actualización datos enabled', 0);
 END
 
 GO
@@ -88,10 +88,10 @@ GO
 IF NOT EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 143)
 BEGIN
 	INSERT INTO tablalogica (tablalogicaid, descripcion)
-    VALUES     (143, 'Actualizacion datos');
+    VALUES     (143, 'Actualización datos enabled');
 
     INSERT INTO tablalogicadatos (tablalogicadatosid, tablalogicaid, codigo, descripcion, valor)
-    VALUES     (14301, 143, 1, 'Actualizacion datos', 0);
+    VALUES     (14301, 143, 1, 'Actualización datos enabled', 0);
 END
 
 GO
@@ -100,10 +100,10 @@ GO
 IF NOT EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 143)
 BEGIN
 	INSERT INTO tablalogica (tablalogicaid, descripcion)
-    VALUES     (143, 'Actualizacion datos');
+    VALUES     (143, 'Actualización datos enabled');
 
     INSERT INTO tablalogicadatos (tablalogicadatosid, tablalogicaid, codigo, descripcion, valor)
-    VALUES     (14301, 143, 1, 'Actualizacion datos', 0);
+    VALUES     (14301, 143, 1, 'Actualización datos enabled', 0);
 END
 
 GO
@@ -112,10 +112,10 @@ GO
 IF NOT EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 143)
 BEGIN
 	INSERT INTO tablalogica (tablalogicaid, descripcion)
-    VALUES     (143, 'Actualizacion datos');
+    VALUES     (143, 'Actualización datos enabled');
 
     INSERT INTO tablalogicadatos (tablalogicadatosid, tablalogicaid, codigo, descripcion, valor)
-    VALUES     (14301, 143, 1, 'Actualizacion datos', 0);
+    VALUES     (14301, 143, 1, 'Actualización datos enabled', 0);
 END
 
 GO
@@ -124,10 +124,10 @@ GO
 IF NOT EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 143)
 BEGIN
 	INSERT INTO tablalogica (tablalogicaid, descripcion)
-    VALUES     (143, 'Actualizacion datos');
+    VALUES     (143, 'Actualización datos enabled');
 
     INSERT INTO tablalogicadatos (tablalogicadatosid, tablalogicaid, codigo, descripcion, valor)
-    VALUES     (14301, 143, 1, 'Actualizacion datos', 0);
+    VALUES     (14301, 143, 1, 'Actualización datos enabled', 0);
 END
 
 GO
@@ -136,10 +136,10 @@ GO
 IF NOT EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 143)
 BEGIN
 	INSERT INTO tablalogica (tablalogicaid, descripcion)
-    VALUES     (143, 'Actualizacion datos');
+    VALUES     (143, 'Actualización datos enabled');
 
     INSERT INTO tablalogicadatos (tablalogicadatosid, tablalogicaid, codigo, descripcion, valor)
-    VALUES     (14301, 143, 1, 'Actualizacion datos', 0);
+    VALUES     (14301, 143, 1, 'Actualización datos enabled', 0);
 END
 
 GO
