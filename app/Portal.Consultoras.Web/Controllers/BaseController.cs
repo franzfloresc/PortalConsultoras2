@@ -1153,11 +1153,13 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!PaisTieneShowRoom(model.CodigoISO)) return;
 
                 var codigoConsultora = model.GetCodigoConsultora();
+
                 List<ServiceOferta.BEShowRoomPersonalizacionNivel> personalizacionesNivel = null;
-                
+
+                configEstrategiaSR.BeShowRoom = _showRoomProvider.GetShowRoomEventoByCampaniaId(model);
+
                 using (OfertaServiceClient osc = new OfertaServiceClient())
-                {
-                    configEstrategiaSR.BeShowRoom = osc.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
+                { 
                     configEstrategiaSR.BeShowRoomConsultora = osc.GetShowRoomConsultora(model.PaisID, model.CampaniaID, codigoConsultora, true);
                     configEstrategiaSR.ListaNivel = osc.GetShowRoomNivel(model.PaisID).ToList();
                     var personalizacion = osc.GetShowRoomPersonalizacion(model.PaisID).ToList();
@@ -2379,7 +2381,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
 
             model.BEShowRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ServiceOferta.BEShowRoomEventoConsultora();
-            model.BEShowRoom = configEstrategiaSR.BeShowRoom ?? new ServiceOferta.BEShowRoomEvento();
+            model.BEShowRoom = configEstrategiaSR.BeShowRoom ?? new ShowRoomEventoModel();
 
             if (model.BEShowRoom.Estado != 1)
                 return new ShowRoomBannerLateralModel { EventoNoEncontrado = true };

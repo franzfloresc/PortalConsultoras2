@@ -1269,7 +1269,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 const int SHOWROOM_ESTADO_INACTIVO = 0;
                 const string TIPO_APLICACION_DESKTOP = "Desktop";
-                var showRoom = configEstrategiaSR.BeShowRoom ?? new ServiceOferta.BEShowRoomEvento();
+                var showRoom = configEstrategiaSR.BeShowRoom ?? new ShowRoomEventoModel();
 
                 if (showRoom.Estado == SHOWROOM_ESTADO_INACTIVO)
                 {
@@ -1351,7 +1351,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var showRoom = configEstrategiaSR.BeShowRoom ?? new ServiceOferta.BEShowRoomEvento();
+                var showRoom = configEstrategiaSR.BeShowRoom ?? new ShowRoomEventoModel();
 
                 if (showRoom.Estado == SHOWROOM_ESTADO_INACTIVO)
                 {
