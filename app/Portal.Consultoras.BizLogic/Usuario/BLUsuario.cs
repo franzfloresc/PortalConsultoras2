@@ -364,9 +364,12 @@ namespace Portal.Consultoras.BizLogic
                     usuario.FotoPerfil = "../../Content/Images/icono_avatar.svg";
 
                 var tabla = new BLTablaLogicaDatos();
+
                 var valores = new List<BETablaLogicaDatos>();
-                valores = tabla.GetTablaLogicaDatosCache(usuario.PaisID, Convert.ToInt16(Constantes.TablaLogicaDatosValores.ActualizaDatos));
-                usuario.PuedeActualizar =  Convert.ToBoolean(valores[0].Valor.ToInt());
+                valores = tabla.GetTablaLogicaDatosCache(usuario.PaisID, Convert.ToInt16(Constantes.TablaLogica.ActualizaDatosEnabled));
+                var listado = valores.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(Constantes.TablaLogicaDato.ActualizaDatosEnabled));
+                
+                usuario.PuedeActualizar =  Convert.ToBoolean(listado.Valor.ToInt());
 
                 usuario.PuedeEnviarSMS = false;// En duro por el momento hasta que josé termine
             }
