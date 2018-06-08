@@ -548,13 +548,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (usarMsPer(tipoEstrategiaCodigo))
                 {
-                    Dictionary<string, object> resultByCuv = administrarEstrategiaProvider.ObtenerEstrategiaCuv(CUV2, CampaniaID, tipoEstrategiaCodigo,
+                    var objEstrategia = administrarEstrategiaProvider.ObtenerEstrategiaCuv(CUV2, CampaniaID, tipoEstrategiaCodigo,
+
                         userData.CodigoISO, FlagRecoProduc, FlagRecoPerfil);
-                    success = resultByCuv["success"].ToString().Equals("true");
-                    mensaje = resultByCuv["mensaje"].ToString();
+                    //success = resultByCuv["success"].ToString().Equals("true");
+                   // mensaje = resultByCuv["mensaje"].ToString();
                     if (mensaje.Equals("OK"))
                     {
-                        BEEstrategia estrategiaModel = (BEEstrategia)resultByCuv["result"];
+                        BEEstrategia estrategiaModel = objEstrategia;
                         descripcion = estrategiaModel.DescripcionCUV2;
                         precio = estrategiaModel.Precio.ToString();
                         ganancia = estrategiaModel.Ganancia;
@@ -627,7 +628,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return Json(new
                 {
-                    success = success,
+                    success = true,
                     message = mensaje,
                     descripcion,
                     precio,
@@ -1092,7 +1093,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Se deshabilit� la estrategia correctamente.",
+                    message = "Se deshabilitó la estrategia correctamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1102,7 +1103,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurri� un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1112,7 +1113,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurri� un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1207,7 +1208,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = true,
                     message = resultado > 0
-                        ? "No se activaron algunas estrategias por no contar con los requisitos de l�mite de venta o imagen"
+                        ? "No se activaron algunas estrategias por no contar con los requisitos de límite de venta o imagen"
                         : "Se actualizaron las estrategias correctamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
@@ -1357,8 +1358,8 @@ namespace Portal.Consultoras.Web.Controllers
                     if (usarMsPer(CodigoEstrategia))
                     {
                         Dictionary<string, int> cantidades = administrarEstrategiaProvider.ObtenerCantidadOfertasParaTi(CodigoEstrategia, int.Parse(CampaniaID), userData.CodigoISO);
-                        cantidadEstrategiasConfiguradas = cantidades["EC"];
-                        cantidadEstrategiasSinConfigurar = cantidades["EF"];
+                        cantidadEstrategiasConfiguradas = cantidades["CUV_ZE"];
+                        cantidadEstrategiasSinConfigurar = cantidades["CUV_OP"];
                     }
                     else
                     {
@@ -1808,7 +1809,7 @@ namespace Portal.Consultoras.Web.Controllers
                         Dictionary<string, int> cantidades = administrarEstrategiaProvider.ObtenerCantidadOfertasParaTi(tipoEstrategiaCodigo, int.Parse(CampaniaID), userData.CodigoISO);
                         var estrategiasWA = administrarEstrategiaProvider.PreCargar(CampaniaID, tipoEstrategiaCodigo, userData.CodigoISO);
 
-                        cantidadEstrategiasConfiguradas = cantidades["EF"];
+                        cantidadEstrategiasConfiguradas = cantidades["CUV_OP"];
                         cantidadEstrategiasSinConfigurar = 0;
                         foreach (var item in estrategiasWA)
                         {
