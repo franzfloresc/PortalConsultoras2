@@ -25,7 +25,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<EstrategiaPedidoModel, ServicePedido.BEEstrategia>()
                 .ForMember(t => t.EstrategiaDetalle, f => f.MapFrom(c => c.EstrategiaDetalle))
-                .ForMember(t => t.TipoEstrategia, f => f.MapFrom(c => c.TipoEstrategia));
+                .ForMember(t => t.TipoEstrategia, f => f.MapFrom(c => c.TipoEstrategia))
+                .ForMember(t => t.EsSubCampania, f => f.MapFrom(c=>Convert.ToInt32(c.EsSubCampania)));
 
             Mapper.CreateMap<EstrategiaDetalleModelo, ServicePedido.BEEstrategiaDetalle>();
 

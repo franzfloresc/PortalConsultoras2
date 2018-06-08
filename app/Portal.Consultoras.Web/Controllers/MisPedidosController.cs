@@ -62,7 +62,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 string paisId = usuario.PaisID.ToString();
-                string codigoConsultora = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : usuario.CodigoConsultora;
+                string codigoConsultora = userData.GetCodigoConsultora();
                 string mostrarAyudaWebTracking = Convert.ToInt32(usuario.MostrarAyudaWebTraking).ToString();
                 string paisIso = userData.CodigoISO.Trim();
                 string campanhaId = userData.CampaniaID.ToString();
@@ -252,7 +252,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public string ObtenerRutaPaqueteDocumentario(string campania, string numeroPedido)
         {
-            var lstRVPRFModel = GetListPaqueteDocumentario(userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora, campania, numeroPedido);
+            var lstRVPRFModel = GetListPaqueteDocumentario(userData.GetCodigoConsultora(), campania, numeroPedido);
             return lstRVPRFModel.Count == 1 ? lstRVPRFModel[0].Ruta : "";
         }
 

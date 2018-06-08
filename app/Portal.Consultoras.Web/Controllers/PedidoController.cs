@@ -347,7 +347,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var pedidoServiceClient = new PedidoServiceClient())
                 {
-                    var consultoraId = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID;
+                    var consultoraId = userData.GetConsultoraId();
                     configuracionCampania = pedidoServiceClient.GetEstadoPedido(userData.PaisID, userData.CampaniaID, consultoraId, userData.ZonaID, userData.RegionID);
                 }
 

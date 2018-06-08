@@ -108,7 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     PaisID = userData.PaisID,
                     CampaniaID = campaniaId,
-                    ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora,
+                    ConsultoraID = userData.GetCodigoConsultora(),
                     Zona = userData.ZonaID.ToString(),
                     ZonaHoraria = userData.ZonaHoraria,
                     FechaInicioFacturacion = userData.FechaFinCampania,
@@ -119,7 +119,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (tipo == Constantes.TipoEstrategiaCodigo.LosMasVendidos)
                 {
-                    entidad.ConsultoraID = (userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID).ToString();
+                    entidad.ConsultoraID = userData.GetConsultoraId().ToString();
                 }
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -157,7 +157,6 @@ namespace Portal.Consultoras.Web.Controllers
         public EstrategiaPersonalizadaProductoModel EstrategiaGetDetalle(int id, string cuv = "")
         {
             EstrategiaPersonalizadaProductoModel estrategiaModelo;
-
             try
             {
                 estrategiaModelo = sessionManager.GetProductoTemporal();
@@ -171,7 +170,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaPedido = ObtenerPedidoWebDetalle();
                 estrategiaModelo.IsAgregado = listaPedido.Any(p => p.CUV == estrategiaModelo.CUV2);
 
-                if (String.IsNullOrWhiteSpace(estrategiaModelo.CodigoVariante))
+                if (string.IsNullOrWhiteSpace(estrategiaModelo.CodigoVariante))
                     return estrategiaModelo;
 
                 estrategiaModelo.CampaniaID = estrategiaModelo.CampaniaID > 0 ? estrategiaModelo.CampaniaID : userData.CampaniaID;
@@ -180,31 +179,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                estrategiaModelo = new EstrategiaPersonalizadaProductoModel
-                {
-                    Hermanos = new List<ProductoModel>()
-                };
+                estrategiaModelo = new EstrategiaPersonalizadaProductoModel();
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return estrategiaModelo;
-        }
-
-        public EstrategiaPersonalizadaProductoModel EstrategiaGetDetalleCuv(string cuv)
-        {
-            EstrategiaPersonalizadaProductoModel estrategia;
-            try
-            {
-                estrategia = EstrategiaGetDetalle(0, cuv);
-            }
-            catch (Exception ex)
-            {
-                estrategia = new EstrategiaPersonalizadaProductoModel();
-               
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-
-            if (estrategia == null) estrategia = new EstrategiaPersonalizadaProductoModel();
-            return estrategia;
         }
 
         public List<EstrategiaPedidoModel> ConsultarEstrategiasHomePedido(string codAgrupacion = "")
