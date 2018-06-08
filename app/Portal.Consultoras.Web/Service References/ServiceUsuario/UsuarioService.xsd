@@ -254,6 +254,7 @@
       <xs:element minOccurs="0" name="FechaNacimiento" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaVencimiento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FlagActivacionSuscripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FotoOriginalSinModificar" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FotoPerfil" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="GPRBannerMensaje" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="GPRBannerTitulo" nillable="true" type="xs:string" />
@@ -317,6 +318,8 @@
       <xs:element minOccurs="0" name="PrimerApellido" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ProgramaReconocimiento" type="xs:int" />
+      <xs:element minOccurs="0" name="PuedeActualizar" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PuedeEnviarSMS" type="xs:boolean" />
       <xs:element minOccurs="0" name="Region" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RegionID" type="xs:int" />
       <xs:element minOccurs="0" name="Retail" type="xs:double" />
