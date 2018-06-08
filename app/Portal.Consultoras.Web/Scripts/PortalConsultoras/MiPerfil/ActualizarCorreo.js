@@ -1,71 +1,89 @@
 ﻿'use strict';
 
-var vistaMiPerfil = function () {
-    var me = this;
+var MiPerfil_ActualizarCorreo = function (_config) {
+    var config = {
+        UrlPaginaPrevia: _config.UrlPaginaPrevia || '',
+        UrlActualizarEnviarCorreo: _config.UrlActualizarEnviarCorreo || '',
+        MensajeError: _config.MensajeError || '',
+        VistaActual: 1
+    };
 
-    //me.Globals = {
+    var showError = function (error) { messageInfoError(error); };
+    var showArrayError = function (arrayError) {
+        var mensaje = '';
+        for (var i = 0; i <= arrayError.length - 2; i++) {
+            mensaje += arrayError[i] + '<br/>';
+        }
+        mensaje += arrayError[arrayError.length - 1];
 
-    //},
-    me.Funciones = {
-        InicializarEventos: function () {
-            $('body').on('blur', '.grupo_form_cambio_datos input', me.Eventos.LabelActivo);
-            $('body').on('click', '.enlace_agregar_num_adicional', me.Eventos.AgregarOtroNumero);
-            $('body').on('click', '.enlace_eliminar_numero_adicional', me.Eventos.EliminarNumeroAdicional);
-            $('body').on('click', '.enlace_ver_password', me.Eventos.MostrarPassword);
-        },
-        CamposFormularioConDatos: function () {
-            var camposFormulario = $('.grupo_form_cambio_datos input');
-            $.map(camposFormulario, function (campoFormulario, key) {
-                if ($(campoFormulario).val() != '') {
-                    $(campoFormulario).addClass('campo_con_datos');
+        showError(mensaje);
+    };
+
+    var getData = function () {
+        return {
+            correoNuevo: $.trim(IfNull($('#NuevoCorreo').val(), ''))
+        };
+    };
+    var getDataArrayError = function (data) {
+        var arrayError = [];
+
+        if (data.correoNuevo === '') arrayError.push('Debe ingresar un email.');
+        else if (!validateEmail(data.correoNuevo)) arrayError.push('El formato del email ingresado no es correcto.');
+
+        return arrayError;
+    };
+    var postActualizarEnviarCorreo = function (data, fnSuccess) {
+        AbrirLoad();
+        $.post(config.UrlActualizarEnviarCorreo, data)
+            .done(function (response) {
+                if (!response.success) {
+                    showArrayError(response.message);
+                    return;
                 }
-            });
+
+                if ($.isFunction(fnSuccess)) fnSuccess(data);
+            })
+            .fail(function () { showError(config.MensajeError); })
+            .always(CerrarLoad);
+    };
+    var actualizarEnviarCorreo = function (fnSuccess) {
+        var data = getData();
+        var arrayError = getDataArrayError(data);
+        if (arrayError.length > 0) {
+            showArrayError(arrayError);
+            return;
         }
-    },
-    me.Eventos = {
-        LabelActivo: function () {
-            var campoDatos = $(this).val();
-            if(campoDatos != ''){
-                $(this).addClass('campo_con_datos');
-            } else {
-                $(this).removeClass('campo_con_datos');
-            }
-        },
-        AgregarOtroNumero: function (e) {
-            e.preventDefault();
-            $(this).fadeOut(150);
-            $('.label_num_adicional').fadeIn(100);
-            $('.contenedor_campos_num_adicional').fadeIn(150);
-        },
-        EliminarNumeroAdicional: function (e) {
-            e.preventDefault();
-            $('.contenedor_campos_num_adicional').fadeOut(150);
-            $('.label_num_adicional').fadeOut(100);
-            $('.enlace_agregar_num_adicional').fadeIn(150);
-            $('.contenedor_campos_num_adicional input').val('');
-        },
-        MostrarPassword: function (e) {
-            e.preventDefault();
-            var _this = e.target;
-            var campoPassword = $(_this).parent().find('input');
-            if (campoPassword.val() != '') {
-                if ($(_this).is('.icono_ver_password_activo')) {
-                    $(_this).removeClass('icono_ver_password_activo');
-                    campoPassword.attr('type', 'password');
-                } else {
-                    $(_this).addClass('icono_ver_password_activo');
-                    campoPassword.attr('type', 'text');
-                }
-            }
+
+        postActualizarEnviarCorreo(data, fnSuccess);
+    };
+
+    var irPaginaPrevia = function () { window.location.href = config.UrlPaginaPrevia; }
+    var irVista = function (vistaId) {
+        $('#tabVistas div[vista-id]').hide();
+        $('#tabVistas div[vista-id=' + vistaId + ']').show();
+        config.VistaActual = vistaId;
+    }
+    var irVista2 = function (email) {
+        irVista(2);
+        $('#txtCorreoEnviado').html(email);
+    }
+
+    var asignarEventos = function () {
+        $('#btnVolver').on('click', function () {
+            if (config.VistaActual == 1) irPaginaPrevia();
+            else if (config.VistaActual == 2) irVista(1);
+        });
+        $('#btnCancelar').on('click', irPaginaPrevia);
+        $('#btnReescribirCorreo').on('click', function () { irVista(1); });
+
+        $('#btnReenviameInstruciones').on('click', actualizarEnviarCorreo);
+        $('#btnActualizarCorreo').on('click', function () { actualizarEnviarCorreo(function (data) { irVista2(data.correoNuevo); }); });
+    };
+
+    return {
+        Inicializar: function () {
+            irVista(config.VistaActual);
+            asignarEventos();
         }
-    },
-    me.Inicializar = function () {
-        me.Funciones.InicializarEventos();
-        me.Funciones.CamposFormularioConDatos();
     }
 }
-
-$(document).ready(function () {
-    var MiPerfil = new vistaMiPerfil();
-    MiPerfil.Inicializar();
-});

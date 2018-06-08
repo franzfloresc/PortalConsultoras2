@@ -12,18 +12,9 @@ $(document).ready(function () {
         //},
         me.Funciones = {
             InicializarEventos: function () {
-                $('body').on('blur', '.grupo_form_cambio_datos input', me.Eventos.LabelActivo);
                 $('body').on('click', '.enlace_agregar_num_adicional', me.Eventos.AgregarOtroNumero);
                 $('body').on('click', '.enlace_eliminar_numero_adicional', me.Eventos.EliminarNumeroAdicional);
                 $('body').on('click', '.enlace_ver_password', me.Eventos.MostrarPassword);
-            },
-            CamposFormularioConDatos: function () {
-                var camposFormulario = $('.grupo_form_cambio_datos input');
-                $.map(camposFormulario, function (campoFormulario, key) {
-                    if ($(campoFormulario).val() != '') {
-                        $(campoFormulario).addClass('campo_con_datos');
-                    }
-                });
             },
             mostrarTelefono: function () {
                 if ($('#txtTelefonoTrabajoMD').val() != '') {
@@ -54,14 +45,6 @@ $(document).ready(function () {
             }
         },
         me.Eventos = {
-            LabelActivo: function () {
-                var campoDatos = $(this).val();
-                if(campoDatos != ''){
-                    $(this).addClass('campo_con_datos');
-                } else {
-                    $(this).removeClass('campo_con_datos');
-                }
-            },
             AgregarOtroNumero: function (e) {
                 e.preventDefault();
                 $(this).fadeOut(150);
@@ -92,7 +75,6 @@ $(document).ready(function () {
         },
         me.Inicializar = function () {
             me.Funciones.InicializarEventos();
-            me.Funciones.CamposFormularioConDatos();
             me.Funciones.mostrarTelefono();
             me.Funciones.PuedeActualizar();
             me.Funciones.PuedeCambiarTelefono();

@@ -1124,6 +1124,7 @@ namespace Portal.Consultoras.Common
             public const string Reserva_SinDetalle = "No tiene productos que reservar esta campaña.";
             public const string Pedido_DeleteAll = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
             public const string MiPerfil_ConfirmacionCorreo = "Ha ocurrido un error con la activación de su correo electrónico.";
+            public const string MiPerfil_ActualizarEnviarCorreo = "Ocurrió un error al intentar actualizar su correo. Inténtelo más tarde.";
         }
 
         public static class ConfiguracionPais
