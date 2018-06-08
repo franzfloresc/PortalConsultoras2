@@ -1,25 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.SessionManager;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Providers
 {
     public class AdministrarEstrategiaProvider
     {
-        private readonly ILogManager logManager = LogManager.LogManager.Instance;
         private readonly ISessionManager sessionManager = SessionManager.SessionManager.Instance;
-        private readonly static HttpClient httpClient = new HttpClient();
 
         private static async Task<string> RespSBMicroservicios(string jsonParametros, string requestUrlParam, string responseType, UsuarioModel userData)
         {
@@ -63,6 +60,7 @@ namespace Portal.Consultoras.Web.Providers
                 return content;
             }
         }
+
         public int CargarEstrategia(List<string> estrategiasIds, string pais)
         {
             UsuarioModel userData = sessionManager.GetUserData();
@@ -78,10 +76,11 @@ namespace Portal.Consultoras.Web.Providers
             int iCantidadActualizada = content.Equals("true") ? 1 : 0;
             return iCantidadActualizada;
         }
+
         public Dictionary<string, int> ObtenerCantidadOfertasParaTi(string tipoCodigo, int campania, string pais)
         {
             UsuarioModel userData = sessionManager.GetUserData();
-            Dictionary<string, int> iCantidadOfertas = new Dictionary<string, int> {{"EC", -1}, {"EF", -1}};
+            Dictionary<string, int> iCantidadOfertas = new Dictionary<string, int> { { "EC", -1 }, { "EF", -1 } };
             const string requestUrl = Constantes.PersonalizacionOfertasService.UrlCantidadOfertas;
             string jsonParameters = "?tipo=" + tipoCodigo + "&campania=" + campania + "&pais=" + pais;
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "get", userData));
@@ -94,6 +93,7 @@ namespace Portal.Consultoras.Web.Providers
             iCantidadOfertas = JsonConvert.DeserializeObject<Dictionary<string, int>>(content);
             return iCantidadOfertas;
         }
+
         private static List<EstrategiaMDbAdapterModel> EstablecerEstrategiaList(IEnumerable<WaEstrategiaModel> waModelList)
         {
             List<EstrategiaMDbAdapterModel> mapList = waModelList.Select(d =>
@@ -132,6 +132,7 @@ namespace Portal.Consultoras.Web.Providers
                 }).ToList();
             return mapList;
         }
+
         public List<EstrategiaMDbAdapterModel> Listar(string campaniaID, string tipoEstrategiaCodigo, string pais, int activo = -1, string cuv2 = "", int imagen = -1)
         {
             List<EstrategiaMDbAdapterModel> listaEstrategias = new List<EstrategiaMDbAdapterModel>();
@@ -166,6 +167,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             return listaEstrategias;
         }
+
         public List<EstrategiaMDbAdapterModel> PreCargar(string campaniaId, string tipoEstrategiaCodigo, string pais)
         {
             UsuarioModel userData = sessionManager.GetUserData();
@@ -186,6 +188,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             return listaEstrategias;
         }
+
         public List<EstrategiaMDbAdapterModel> FiltrarEstrategia(string id, string pais)
         {
             UsuarioModel userData = sessionManager.GetUserData();
@@ -196,7 +199,7 @@ namespace Portal.Consultoras.Web.Providers
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
             var WaObject = JsonConvert.DeserializeObject<WaEstrategiaModel>(content);
-            var WaModelList = new List<WaEstrategiaModel> {WaObject};
+            var WaModelList = new List<WaEstrategiaModel> { WaObject };
             if (WaModelList.Any())
             {
                 List<EstrategiaMDbAdapterModel> mapList = EstablecerEstrategiaList(WaModelList);
@@ -205,6 +208,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             return listaEstrategias;
         }
+
         public string RegistrarEstrategia(BEEstrategia entidad, string pais)
         {
             UsuarioModel userData = sessionManager.GetUserData();
@@ -216,6 +220,7 @@ namespace Portal.Consultoras.Web.Providers
             string content = taskApi.Result;
             return content;
         }
+
         public string EditarEstrategia(BEEstrategia entidad, string mongoId, string pais)
         {
             UsuarioModel userData = sessionManager.GetUserData();
@@ -227,6 +232,7 @@ namespace Portal.Consultoras.Web.Providers
             string content = taskApi.Result;
             return content;
         }
+
         private static WaEstrategiaModel ObtenerEstrategia(BEEstrategia entidad, string id)
         {
             WaEstrategiaModel waModel = new WaEstrategiaModel
@@ -263,6 +269,7 @@ namespace Portal.Consultoras.Web.Providers
             };
             return waModel;
         }
+
         private static WaTipoEstrategia ObtenerTipoEstrategia(BETipoEstrategia tipoEstrategia)
         {
             WaTipoEstrategia tipoEstrategiaWa = new WaTipoEstrategia
@@ -289,6 +296,7 @@ namespace Portal.Consultoras.Web.Providers
             };
             return tipoEstrategiaWa;
         }
+
         public bool DesactivarEstrategia(string id, string usuario, string pais)
         {
             UsuarioModel userData = sessionManager.GetUserData();
@@ -304,6 +312,7 @@ namespace Portal.Consultoras.Web.Providers
             bool bDeshabilitado = content.Equals("true");
             return bDeshabilitado;
         }
+
         public bool ActivarDesactivarEstrategias(List<string> estrategiasActivas, List<string> estrategiasInactivas, string usuario, string pais)
         {
             UsuarioModel userData = sessionManager.GetUserData();
@@ -323,6 +332,7 @@ namespace Portal.Consultoras.Web.Providers
 
             return activarResponse || inactivarResponse;
         }
+
         public Dictionary<string, object> ObtenerEstrategiaCuv(string cuv, string campania, string tipoEstrategia, string pais, string prod, string perfil)
         {
             UsuarioModel userData = sessionManager.GetUserData();
@@ -344,13 +354,14 @@ namespace Portal.Consultoras.Web.Providers
                 if (resultDictionary["result"] != null)
                 {
                     WaEstrategiaModel waModel = JsonConvert.DeserializeObject<WaEstrategiaModel>(resultDictionary["result"].ToString());
-                    List<WaEstrategiaModel> waModelList = new List<WaEstrategiaModel> {waModel};
+                    List<WaEstrategiaModel> waModelList = new List<WaEstrategiaModel> { waModel };
                     List<EstrategiaMDbAdapterModel> estrategiaAdapterList = EstablecerEstrategiaList(waModelList);
                     resultDictionary["result"] = estrategiaAdapterList[0].BEEstrategia;
                 }
             }
             return resultDictionary;
         }
+
         public List<DescripcionEstrategiaModel> UploadCsv(List<BEDescripcionEstrategia> descripcionEstrategiaLista, string pais)
         {
             var descripcionEstrategiaListaWA = descripcionEstrategiaLista.Select(d => new
@@ -386,6 +397,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             return descripcionList;
         }
+
         public string RegistrarTipoEstrategia(BETipoEstrategia entidad, string pais)
         {
             UsuarioModel userData = sessionManager.GetUserData();
@@ -397,6 +409,7 @@ namespace Portal.Consultoras.Web.Providers
             string content = taskApi.Result;
             return content;
         }
+
         public string EditarTipoEstrategia(BETipoEstrategia entidad, string pais)
         {
             UsuarioModel userData = sessionManager.GetUserData();

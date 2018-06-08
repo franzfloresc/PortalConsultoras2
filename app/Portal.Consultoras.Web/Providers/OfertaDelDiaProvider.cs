@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.SessionManager;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -18,14 +16,6 @@ namespace Portal.Consultoras.Web.Providers
     {
         private readonly ILogManager logManager = LogManager.LogManager.Instance;
         private readonly ISessionManager sessionManager = SessionManager.SessionManager.Instance;
-        private readonly static HttpClient httpClient = new HttpClient();
-
-        static OfertaDelDiaProvider()
-        {
-            httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSearch);
-            httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        }
 
         public OfertaDelDiaModel ObtenerOfertas()
         {
@@ -45,7 +35,9 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (paisHabilitado)
                 {
-                    var taskApi = Task.Run(() => ObtenerOfertasDesdeApi(userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora, Constantes.ConfiguracionPais.OfertaDelDia, userData.FechaInicioCampania));
+                    var diaInicio = DateTime.Now.Date.Subtract(userData.FechaInicioCampania.Date).Days;
+
+                    var taskApi = Task.Run(() => ObtenerOfertasDesdeApi(userData.CodigoISO, Constantes.ConfiguracionPais.OfertaDelDia, userData.CampaniaID, userData.CodigoConsultora, diaInicio));
 
                     Task.WhenAll(taskApi);
 

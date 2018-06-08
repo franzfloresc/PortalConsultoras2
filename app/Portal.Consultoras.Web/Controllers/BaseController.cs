@@ -73,6 +73,7 @@ namespace Portal.Consultoras.Web.Controllers
             _tablaLogicaProvider = new TablaLogicaProvider();
             administrarEstrategiaProvider = new AdministrarEstrategiaProvider();
             _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
+            ofertaDelDiaProvider = new OfertaDelDiaProvider();
         }
 
         public bool usarMsPer(string TipoEstrategiaCodigo)

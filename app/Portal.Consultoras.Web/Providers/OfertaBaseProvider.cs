@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.ServicePedido;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -14,14 +15,28 @@ namespace Portal.Consultoras.Web.Providers
     {
         private readonly static HttpClient httpClient = new HttpClient();
 
-        public async Task<List<BEEstrategia>> ObtenerOfertasDesdeApi(string paisIso, int campaniaId, string codigoConsultora, string tipoEstrategia, DateTime fechaInicioCampania = default(DateTime))
+        static OfertaBaseProvider()
+        {
+            httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSearch);
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        }
+
+        public async Task<List<BEEstrategia>> ObtenerOfertasDesdeApi(string paisIso, string tipoEstrategia, int campaniaId, string codigoConsultora, int diaInicio)
         {
             var estrategias = new List<BEEstrategia>();
 
-            var diaInicio = DateTime.Now.Date.Subtract(fechaInicioCampania.Date).Days;
+            var path = string.Empty;
 
-            var path = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertasDelDia, paisIso, tipoEstrategia, campaniaId, codigoConsultora, diaInicio);
-
+            switch (tipoEstrategia)
+            {
+                case Constantes.ConfiguracionPais.OfertaDelDia:
+                    path = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertasDelDia, paisIso, tipoEstrategia, campaniaId, codigoConsultora, diaInicio);
+                    break;
+                default:
+                    break;
+            }
+            
             var httpResponse = await httpClient.GetAsync(path);
 
             if (httpResponse.IsSuccessStatusCode)
@@ -55,6 +70,7 @@ namespace Portal.Consultoras.Web.Providers
 
             return estrategias;
         }
+
         public string ObtenerDescripcionOferta(string descripcionCuv2)
         {
             var descripcionOdd = string.Empty;
