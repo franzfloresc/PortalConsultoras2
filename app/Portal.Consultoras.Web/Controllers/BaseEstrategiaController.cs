@@ -556,7 +556,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-<<<<<<< HEAD
         #region ShowRoom
 
         protected void ActionExecutingMobile()
@@ -1470,7 +1469,5 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-=======
->>>>>>> 9320e184dc476dad2fdc85eab37e7858ab8bc6fc
     }
 }

@@ -1152,13 +1152,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!PaisTieneShowRoom(model.CodigoISO)) return;
 
-                var codigoConsultora = model.UsuarioPrueba == 1
-                    ? model.ConsultoraAsociada
-                    : model.CodigoConsultora;
+
+                var codigoConsultora = model.GetCodigoConsultora();
                 //@001 FSV INICIO
                 //List<BEShowRoomPersonalizacionNivel> personalizacionesNivel = null;
                 List<ServiceOferta.BEShowRoomPersonalizacionNivel> personalizacionesNivel = null;
-
+                
                 /*using (var pedidoService = new PedidoServiceClient())
                 {
                     configEstrategiaSR.BeShowRoom = pedidoService.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
