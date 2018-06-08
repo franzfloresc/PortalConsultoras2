@@ -30,22 +30,9 @@ else
             <p class="mensaje_correo_actualizado">
                 @Html.Raw(ViewBag.Mensaje)
             </p>
-            <a id="btnConfirmacionCorreoOk" class="btn_acept text-uppercase text-bold default-background-color">Ok</a>
+            <a href="@Url.Action("Index")" class="btn_acept text-uppercase text-bold default-background-color">Ok</a>
         </div>
     </div>
 </section>
-
-@section scripts{
-    <script type="text/javascript">
-        'use strict';
-
-        var urlPaginaInicio = '@Url.Action("Index","MiPerfil")';
-
-        $(document).ready(function () {
-
-            $('#btnConfirmacionCorreoOk').on('click', function () { window.location.href = urlPaginaInicio; })
-        })
-    </script>
-}
 
 

@@ -807,6 +807,7 @@
 .opcion_foto_perfil {
     width: 260px;
     height: 90px;
+    position:relative;
     padding-left: 38px;
     padding-right: 38px;
     padding-bottom: 29px;
@@ -873,4 +874,15 @@
 .text-error {
     color: red;
 }
+
+.input-file{
+    display:none;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
 /* FIN - CAMBIA TU CONTRASEÑA, ACTUALIZA TU CORREO ELECTRÓNICO, ACTUALIZA TU CELULAR, CAMBIAR FOTO DE PERFIL */

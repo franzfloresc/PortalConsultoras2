@@ -1,13 +1,15 @@
-﻿function actualizarCelularModule(urls) {
+﻿var actualizarCelularModule = (function (urls, $) {
     'use strict';
 
-    var me = this;
-    me.Datos = {
+    var me = {};
+
+    var localData = {
         CelularValido: false,
         CelularNuevo: '',
         Expired: true,
         IsoPais: IsoPais
     };
+
     me.Services = (function() {
         function enviarSmsCode (numero) {
             return $.ajax({
@@ -95,7 +97,7 @@
                 };
             }
 
-            var result = validarPhonePais(me.Datos.IsoPais, numero);
+            var result = validarPhonePais(localData.IsoPais, numero);
             if (!result.valid) {
                 return {
                     Success: false,
@@ -139,7 +141,7 @@
         function stepCounter(segs) {
             clearInterval(interval);
 
-            me.Datos.Expired = false;
+            localData.Expired = false;
             var now = 0;
             // Update the count down every 1 second
             interval = setInterval(function() {
@@ -155,7 +157,7 @@
 
                     // If the count down is over, write some text 
                     if (distance < 0) {
-                        me.Datos.Expired = true;
+                        localData.Expired = true;
                         clearInterval(interval);
                         counterElement.text("EXPIRÓ");
                     }
@@ -173,7 +175,7 @@
         }
 
         function verifySmsCode(code) {
-            if (me.Datos.Expired) {
+            if (localData.Expired) {
                 return;
             }
 
@@ -210,6 +212,10 @@
             });
         }
 
+        function setIsoPais(iso) {
+            localData.IsoPais = iso;
+        }
+
         return {
             InicializarEventos: inicializarEventos,
             ValidarCelular: validarCelular,
@@ -218,7 +224,8 @@
             InitCounter: counter,
             VerifySmsCode: verifySmsCode,
             ShowError: showError,
-            NavigatePanel: navigatePanel
+            NavigatePanel: navigatePanel,
+            SetIsoPais: setIsoPais
         };
 
     })();
@@ -232,10 +239,10 @@
                 return;
             }
 
-            me.Datos.CelularNuevo = nuevoCelular;
+            localData.CelularNuevo = nuevoCelular;
             me.Services.enviarSmsCode(nuevoCelular)
                 .then(function(r) {
-                    me.Datos.CelularValido = r.Success;
+                    localData.CelularValido = r.Success;
                     if (!r.Success) {
                         me.Funciones.ShowError(r.Message);
                         return;
@@ -253,7 +260,7 @@
         }
 
         function sendSmsCode() {
-            me.Funciones.SendSmsCode(me.Datos.CelularNuevo)
+            me.Services.enviarSmsCode(localData.CelularNuevo)
                 .then(function(r) {
                     if (!r.Success) {
                         me.Funciones.ShowError(r.Message);
@@ -291,9 +298,12 @@
         me.Funciones.InicializarEventos();
     };
 
-};
+    return me;
+})(urlProvider, jQuery);
+
+window.actualizarCelularModule = actualizarCelularModule;
 
 $(document).ready(function () {
-    var mod = new actualizarCelularModule(urlProvider);
-    mod.Inicializar();
+    actualizarCelularModule.Funciones.SetIsoPais(IsoPais);
+    actualizarCelularModule.Inicializar();
 });

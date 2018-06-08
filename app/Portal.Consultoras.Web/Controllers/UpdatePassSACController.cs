@@ -91,7 +91,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var item in items)
                 {
-                    RegistrarLogDynamoCambioClave("CONSULTA", item.CodigoConsultora, "", "");
+                    RegistrarLogDynamoCambioClave("CONSULTA", item.CodigoConsultora, "", "", "SAC/ACTUALIZAR CONTRASEÑA", "Mantenimiento de contraseña");
                 }
 
                 BEPager pag = Paginador(grid, lst);
@@ -247,7 +247,7 @@ namespace Portal.Consultoras.Web.Controllers
                 contraseñaCambiada = item.ClaveSecreta;
             }
 
-            RegistrarLogDynamoCambioClave("MODIFICACION", model.CodigoConsultora, contraseñaCambiada, extraeContraseñaAnterior);
+            RegistrarLogDynamoCambioClave("MODIFICACION", model.CodigoConsultora, contraseñaCambiada, extraeContraseñaAnterior, "SAC/ACTUALIZAR CONTRASEÑA", "Mantenimiento de contraseña");
         }
     }
 }

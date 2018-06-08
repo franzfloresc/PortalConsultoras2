@@ -13,6 +13,7 @@ using Portal.Consultoras.Common.Validator;
 using Portal.Consultoras.Web.Infraestructure.Validator.Phone;
 using AutoMapper;
 using System.ServiceModel;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -96,7 +97,76 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ActualizarCorreo()
         {
+            ViewBag.CorreoActual = userData.EMail;
             return View();
+        }
+
+        public JsonResult ActualizarEnviarCorreo(string correoNuevo)
+        {
+            //JsonResult v_retorno = null;
+            //BEUsuario entidad = null;
+            //string resultado = string.Empty;
+            //string[] lst = null;
+            //string v_campomodificacion = string.Empty;
+
+            //string CorreoAnterior = string.Empty;
+
+            try
+            {
+                //var usuario = Mapper.Map<MisDatosModel, BEUsuario>(model);
+
+                //entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
+                //CorreoAnterior = model.CorreoAnterior;
+
+                //entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : userData.CodigoUsuario;
+                //entidad.EMail = (entidad.EMail == null) ? "" : entidad.EMail;
+                //entidad.Telefono = (entidad.Telefono == null) ? "" : entidad.Telefono;
+                //entidad.TelefonoTrabajo = (entidad.TelefonoTrabajo == null) ? "" : entidad.TelefonoTrabajo;
+                //entidad.Celular = (entidad.Celular == null) ? "" : entidad.Celular;
+                //entidad.Sobrenombre = (entidad.Sobrenombre == null) ? "" : entidad.Sobrenombre;
+                //entidad.ZonaID = userData.ZonaID;
+                //entidad.RegionID = userData.RegionID;
+                //entidad.ConsultoraID = userData.ConsultoraID;
+                //entidad.PaisID = userData.PaisID;
+                //entidad.PrimerNombre = userData.PrimerNombre;
+                //entidad.CodigoISO = userData.CodigoISO;
+
+                //using (UsuarioServiceClient svr = new UsuarioServiceClient())
+                //{
+                //    resultado = svr.ActualizarMisDatos(entidad, CorreoAnterior);
+
+                //    if (model != null) ActualizarDatosLogDynamoDB(model, "MI NEGOCIO/MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
+
+                //    lst = resultado.Split('|');
+
+                //    if (lst[0] == "0")
+                //    {
+                //        v_retorno = Json(new
+                //        {
+                //            Cantidad = lst[3],
+                //            success = false,
+                //            message = lst[2],
+                //            extra = ""
+                //        });
+                //    }
+                //    else
+                //    {
+                //        v_retorno = Json(new
+                //        {
+                //            Cantidad = 0,
+                //            success = true,
+                //            message = lst[2],
+                //            extra = ""
+                //        });
+                //    }
+                //}
+                return SuccessJson(string.Empty);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return ErrorJson(Constantes.MensajesError.MiPerfil_ActualizarEnviarCorreo);
+            }
         }
 
         public ActionResult ConfirmacionCorreo(string data)
@@ -420,14 +490,26 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
+                    var contraseñaAnt = "";
+                    var contraseñaCambiada = "";
                     var resultExiste = sv.ExisteUsuario(userData.PaisID, userData.CodigoUsuario, OldPassword);
+                    List<BEUsuario> lst;
+                    List<BEUsuario> lstClave;
 
                     if (resultExiste == Constantes.ValidacionExisteUsuario.Existe)
                     {
+                        lstClave = sv.SelectByNombre(Convert.ToInt32(userData.PaisID), userData.CodigoConsultora).ToList();
+                        contraseñaAnt = lstClave[0].ClaveSecreta;
+
                         var result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
                             NewPassword, "", userData.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
 
                         rslt = result ? 2 : 1;
+
+                        lst = sv.SelectByNombre(Convert.ToInt32(userData.PaisID), userData.CodigoConsultora).ToList();
+                        contraseñaCambiada = lst[0].ClaveSecreta;
+
+                        RegistrarLogDynamoCambioClave("MODIFICACION", userData.CodigoConsultora, contraseñaCambiada, contraseñaAnt, "Mi PERFIL", "ACTUALIZAR CONTRASEÑA");
                     }
                     else
                     {
