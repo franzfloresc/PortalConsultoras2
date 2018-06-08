@@ -1148,14 +1148,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 configEstrategiaSR.BeShowRoomConsultora = null;
                 configEstrategiaSR.BeShowRoom = null;
-
                 configEstrategiaSR.CargoEntidadesShowRoom = false;
 
-                if (!PaisTieneShowRoom(model.CodigoISO))
-                {
-                    SetUserData(model);
-                    return;
-                }
+                if (!PaisTieneShowRoom(model.CodigoISO)) return;
 
                 var codigoConsultora = model.UsuarioPrueba == 1
                     ? model.ConsultoraAsociada
