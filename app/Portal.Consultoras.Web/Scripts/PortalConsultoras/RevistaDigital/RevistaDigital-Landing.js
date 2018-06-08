@@ -253,6 +253,11 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
         async: true,
         success: function (response) {
 
+            if (response.codigo == '005') {
+                response.listaLan = Clone(response.lista);
+                response.lista = [];
+            }
+
             OfertaCargarProductoRespuesta(response, clear, busquedaModel);
 
         },

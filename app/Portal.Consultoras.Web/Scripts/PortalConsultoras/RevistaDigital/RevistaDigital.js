@@ -315,8 +315,8 @@ function OfertaArmarEstrategias(response, busquedaModel) {
     divProd.find("#spnCantidadTotal").html(response.cantidadTotal);
 
     if (response.listaPerdio != undefined) {
-        var divPredio = $("#divOfertaProductosPerdio");
         if (response.listaPerdio.length > 0) {
+            var divPredio = $("#divOfertaProductosPerdio");
             if (divPredio.children('div').length < response.listaPerdio.length) {
                 modeloTemp.lista = response.listaPerdio;
 
