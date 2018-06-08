@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.MisDatosModel
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.MisDatosModel
 @{
     ViewBag.Title = "Mi Perfil";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
@@ -147,6 +148,13 @@ else
                 <div class="datos_obligatorios">
                     <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
                 </div>
+                @if (Model.PaisID == Constantes.PaisID.Colombia)
+                {
+                    <p>&nbsp;</p>
+                    <p>
+                        Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
+                    </p>
+                }
             </div>
             <div class="w-50 text-right v-alignMiddle text-uppercase">
                 <button id="btnGuardar" type="button" class="btn_guardar_datos_nuevos text-uppercase text-bold default-background-color mt-13">

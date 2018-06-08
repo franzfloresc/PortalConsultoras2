@@ -24,7 +24,7 @@ $(document).ready(function () {
                 }
             },
             PuedeActualizar: function () {
-                if ($('#hdn_PuedeActualizar').val() == '0') {
+                if ($('#hdn_PuedeActualizar').val() == '0' || $('#hdn_PuedeActualizar').val() == false) {
                     $('#txtSobrenombreMD').prop('disabled', true);
                     $('#txtEMailMD').prop('disabled', true);
                     $('#txtCelularMD').prop('disabled', true);
@@ -37,7 +37,7 @@ $(document).ready(function () {
                 }
             },
             PuedeCambiarTelefono: function () {
-                if ($('#hdn_ServicioSMS').val() == '0') {
+                if ($('#hdn_ServicioSMS').val() == '0' || $('#hdn_ServicioSMS').val() == false) {
                     $('#btnCambiarCelular').bind('click', false);
                 } else {
                     $('#CelularConsultora').prop('readonly', true);
@@ -87,6 +87,10 @@ $(document).ready(function () {
     $("#btnCambiarPass").click(function () { CambiarContrasenia(); });
 
     $("#btnGuardar").click(function () { actualizarDatos(); });
+
+    $('#btnEliminarFoto').click(function () { eliminarFotoConsultora(); });
+
+    $('#fpImagenPerfil').click(function () { SubirFotoPerfil(); });
 
     $("#txtTelefonoMD").keypress(function (evt) {
         //var charCode = (evt.which) ? evt.which : window.event.keyCode;
@@ -309,7 +313,7 @@ function CambiarContrasenia() {
     if (newPassword02 == "")
         vMessage += "- Debe repetir la Nueva Contraseña.\n";
 
-    if (newPassword01.length <= 3)
+    if (newPassword01.length <= 6)
         vMessage += "- La Nueva Contraseña debe de tener mas de 6 caracteres.\n";
 
     if (newPassword01 != "" && newPassword02 != "") {
@@ -370,4 +374,34 @@ function CambiarContrasenia() {
             }
         });
     }
+}
+
+function eliminarFotoConsultora() {
+    var item = {}
+    waitingDialog({});
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'MiPerfil/EliminarFoto',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(item),
+        async: true,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                closeWaitingDialog();
+                alert(data.name);
+                window.location = $('#volverBienbenida').attr('href');
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                closeWaitingDialog();
+                alert("ERROR");
+            }
+        }
+    });
+}
+
+function SubirFotoPerfil() {
+    waitingDialog({});
 }

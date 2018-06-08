@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Portal.Consultoras.Common.Validator;
 
@@ -39,14 +40,21 @@ namespace Portal.Consultoras.Web.Infraestructure.Validator.Phone
 
             if (_length == -1)
             {
-                result.ErrorMessage = "Pais no configurado";
+                result.Message = "Pais no configurado";
 
                 return Task.FromResult(result);
             }
 
-            if (number.Length != _length)
+            if (number == null || number.Length != _length)
             {
-                result.ErrorMessage = string.Format("El número debe tener {0} dígitos", number);
+                result.Message = string.Format("El número debe tener {0} dígitos", number);
+
+                return Task.FromResult(result);
+            }
+            
+            if (!Regex.IsMatch(number, "^\\d+$"))
+            {
+                result.Message = "No es un número válido";
 
                 return Task.FromResult(result);
             }

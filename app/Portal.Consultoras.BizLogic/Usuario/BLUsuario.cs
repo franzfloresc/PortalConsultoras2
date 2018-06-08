@@ -355,10 +355,20 @@ namespace Portal.Consultoras.BizLogic
                     usuario.CodigoPrograma = beConsultoraProgramaNuevas.CodigoPrograma ?? "";
                 }
 
+                usuario.FotoOriginalSinModificar = usuario.FotoPerfil;
+
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                     usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
 
+                if (string.IsNullOrEmpty(usuario.FotoPerfil))
+                    usuario.FotoPerfil = "../../Content/Images/icono_avatar.svg";
 
+                var tabla = new BLTablaLogicaDatos();
+                var valores = new List<BETablaLogicaDatos>();
+                valores = tabla.GetTablaLogicaDatosCache(usuario.PaisID, Convert.ToInt16(Constantes.TablaLogicaDatosValores.ActualizaDatos));
+                usuario.PuedeActualizar =  Convert.ToBoolean(valores[0].Valor.ToInt());
+
+                usuario.PuedeEnviarSMS = false;// En duro por el momento hasta que josé termine
             }
             catch (Exception ex)
             {
