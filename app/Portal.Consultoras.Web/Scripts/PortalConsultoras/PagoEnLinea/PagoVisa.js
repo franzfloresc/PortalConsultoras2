@@ -12,7 +12,6 @@ $(document).ready(function () {
     if (tipoOrigenPantalla == 1)
         $(boton).css("max-width", "308px");
 
-    //$(boton).html("PAGA CON <div style='display:inline-block; width:44px; height:35px;'><img src='http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/Logo_Visa.png' alt='' style='width:100%; height:auto;'/></div>");
     $(boton).html("PAGA CON VISA");
 
     $(document).on('click', '#formBoton', function () {

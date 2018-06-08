@@ -60,12 +60,12 @@ namespace Portal.Consultoras.Web.WebPages
                     sb.Append("<html><head><title>mail_inscripcion</title><meta http-equiv='Content-Type' content='text/html; charset=utf-8'></head>");
                     sb.Append("<body bgcolor='#FFFFFF' leftmargin='0' topmargin='0' marginwidth='0' marginheight='0'>");
                     sb.Append("<table width='766' height='665' border='0' align='center' cellpadding='0' cellspacing='0' id='Table_01'>");
-                    sb.Append("<tr><td><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/mail_verificacion_01.jpg' width='766' height='240' alt=''></td></tr>");
-                    sb.Append("<tr><td><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/mail_verificacion_02.gif' width='766' height='142' alt=''></td></tr>");
-                    sb.Append("<tr><td><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/mail_verificacion_03.jpg' width='766' height='153' alt=''></td></tr>");
+                    sb.Append("<tr><td><img src='" + Globals.RutaCdn + "/Comunidad/mail_verificacion_01.jpg' width='766' height='240' alt=''></td></tr>");
+                    sb.Append("<tr><td><img src='" + Globals.RutaCdn + "/Comunidad/mail_verificacion_02.gif' width='766' height='142' alt=''></td></tr>");
+                    sb.Append("<tr><td><img src='" + Globals.RutaCdn + "/Comunidad/mail_verificacion_03.jpg' width='766' height='153' alt=''></td></tr>");
                     sb.Append("<tr><td width='766' height='28'>&nbsp;</td></tr>");
                     sb.Append("<tr><td><table id='Table_' width='766' height='46' border='0' cellpadding='0' cellspacing='0'><tr><td width='259'>&nbsp;</td>");
-                    sb.Append(string.Format("<td width='249'><a href='{0}'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/bot_verifica.gif' width='249' height='46' alt=''></a></td>", paginaConfirmacion));
+                    sb.Append(string.Format("<td width='249'><a href='{0}'><img src='" + Globals.RutaCdn + "/Comunidad/bot_verifica.gif' width='249' height='46' alt=''></a></td>", paginaConfirmacion));
                     sb.Append("<td width='258'>&nbsp;</td></tr></table></td></tr>");
                     sb.Append("<tr><td width='766' height='56'>&nbsp;</td></tr></table></body></html>");
 

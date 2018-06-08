@@ -2319,7 +2319,7 @@ namespace Portal.Consultoras.BizLogic
                     string emailFrom = "no-responder@somosbelcorp.com";
                     string emailTo = v_correo;
                     string titulo = "(" + paisISO + ") Cambio de contraseña de Somosbelcorp";
-                    string logo = (esEsika ? "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_esika.png" : "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_lbel.png");
+                    string logo = (esEsika ? Globals.RutaCdn + "/Correo/logo_esika.png" : Globals.RutaCdn + "/Correo/logo_lbel.png");
                     string nombrecorreo = oUsuCorreo.NombreCompleto.Trim().Split(' ').First();
                     string fondo = (esEsika ? "e81c36" : "642f80");
                     string displayname = "Somos Belcorp";
@@ -2395,7 +2395,7 @@ namespace Portal.Consultoras.BizLogic
                     string emailFrom = "no-responder@somosbelcorp.com";
                     string emailTo = v_correo;
                     string titulo = "(" + paisISO + ") PIN de autenticación de Somosbelcorp";
-                    string logo = (esEsika ? "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_esika.png" : "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_lbel.png");
+                    string logo = (esEsika ? Globals.RutaCdn + "/Correo/logo_esika.png" : Globals.RutaCdn + "/Correo/logo_lbel.png");
                     string nombrecorreo = objUsuCorreo.PrimerNombre.Trim();
                     string fondo = (esEsika ? "e81c36" : "642f80");
                     string displayname = "Somos Belcorp";
