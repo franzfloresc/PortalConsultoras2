@@ -214,7 +214,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     var listaPackNueva = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas).ToList();
-                    
+
                     var listaRevista = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi).ToList();
 
                     if (revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
