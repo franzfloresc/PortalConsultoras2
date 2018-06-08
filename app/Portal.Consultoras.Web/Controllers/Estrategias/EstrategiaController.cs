@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers.Estrategias
 {
-    public class EstrategiaController : BaseEstrategiaController
+    public class EstrategiaController : BaseEstrategiaController 
     {
         [HttpPost]
         public JsonResult RDObtenerProductos(BusquedaProductoModel model)
@@ -224,8 +224,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             }, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
-        /// Función que agrupa la construcción de la lista Model de estrategias para
-        /// RDObtenerProductos, RDObtenerProductosLan, GNDObtenerProductos y HVObtenerProductos (JN, JUN-2018)
+        /// Función unificada
         /// </summary>
         private JsonResult PreparListaModel(BusquedaProductoModel model, int tipoListaObtenerProductos)
         {
