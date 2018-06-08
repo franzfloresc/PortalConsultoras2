@@ -69,6 +69,9 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
         else if (tipo == "hv") {
             var lista = "HVLista";
         }
+        else if (tipo == "lan") {
+            var lista = "listaLAN";
+        }
 
         $.each(listaCuv, function (ind, cuvItem) {
             var cuvx = cuvItem.split(';')[0];
@@ -90,7 +93,7 @@ function ActualizarLocalStorageIsAgregado(cuv, valor, lista, indCampania) {
         var data = JSON.parse(valLocalStorage);
 
         ok = actualizarIsAgregado(data.response.listaLan, cuv,  valor);
-        ok = actualizarIsAgregado(data.response.lista, cuv, valor);
+        ok = ok || actualizarIsAgregado(data.response.lista, cuv, valor);
         
         if (ok) {
             localStorage.setItem(lista + campaniaCodigo, JSON.stringify(data));

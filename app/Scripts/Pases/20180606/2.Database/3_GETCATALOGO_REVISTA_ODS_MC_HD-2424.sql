@@ -141,15 +141,3 @@ BEGIN
 	SELECT IdMatrizCatalogo,	CodigoCatalogo	,EstadoActivo	,PaisID	,DescripcionCatalogo	,CheckSumID	,Descripcion  FROM  ods.Catalogo  ORDER BY Descripcion ASC
 END
 GO
-
-USE [BelcorpVenezuela]
-GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GETCATALOGO_REVISTA_ODS]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].GETCATALOGO_REVISTA_ODS
-GO
-CREATE PROCEDURE dbo.GETCATALOGO_REVISTA_ODS
-AS
-BEGIN
-	SELECT IdMatrizCatalogo,	CodigoCatalogo	,EstadoActivo	,PaisID	,DescripcionCatalogo	,CheckSumID	,Descripcion  FROM  ods.Catalogo  ORDER BY Descripcion ASC
-END
-GO
