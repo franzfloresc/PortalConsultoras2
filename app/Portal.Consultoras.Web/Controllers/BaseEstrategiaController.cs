@@ -1188,6 +1188,34 @@ namespace Portal.Consultoras.Web.Controllers
             return ofertaShowRoomModelo;
         }
 
+        public EstrategiaPedidoModel GetOfertaConDetallePrueba(int idOferta)
+        {
+            EstrategiaPedidoModel ofertaShowRoomModelo = new EstrategiaPedidoModel();
+            if (idOferta <= 0) return ofertaShowRoomModelo;
+
+            List<EstrategiaPedidoModel> listadoOfertasTodasModel = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
+            ofertaShowRoomModelo = listadoOfertasTodasModel.Find(o => o.OfertaShowRoomID == idOferta) ?? new EstrategiaPedidoModel();
+            if (ofertaShowRoomModelo.OfertaShowRoomID <= 0) return ofertaShowRoomModelo;
+
+            ofertaShowRoomModelo.ImagenProducto = Util.Trim(ofertaShowRoomModelo.ImagenProducto);
+            ofertaShowRoomModelo.ImagenProducto = ofertaShowRoomModelo.ImagenProducto == "" ?
+                "/Content/Images/showroom/no_disponible.png" :
+                ofertaShowRoomModelo.ImagenProducto;
+
+
+            EstrategiaPersonalizadaProductoModel estrategiaModelo = new EstrategiaPersonalizadaProductoModel
+            {
+                EstrategiaID = idOferta,
+                CampaniaID = userData.CampaniaID,
+                CodigoVariante = ofertaShowRoomModelo.CodigoEstrategia
+            };
+
+            var listaHermanos = GetListaHermanos(estrategiaModelo);
+            ofertaShowRoomModelo.ProductoTonos = listaHermanos;
+
+            return ofertaShowRoomModelo;
+        }
+
         public List<EstrategiaPedidoModel> GetOfertaListadoExcepto(int idOferta)
         {
             var listaOferta = new List<EstrategiaPedidoModel>();
