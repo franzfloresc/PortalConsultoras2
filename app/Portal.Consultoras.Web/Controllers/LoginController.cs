@@ -267,13 +267,12 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 TempData["errorLogin"] = mensaje;
-
-                return Json(new
-                {
-                    success = true,
-                    redirectTo = Url.Action("Index", "Login")
-                });
-                //return RedirectToAction("Index", "Login");
+                //return Json(new
+                //{
+                //    success = true,
+                //    redirectTo = Url.Action("Index", "Login")
+                //});
+                return RedirectToAction("Index", "Login");
             }
             catch (FaultException ex)
             {
@@ -304,14 +303,18 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 TempData["errorLogin"] = "Error al procesar la solicitud";
+                return RedirectToAction("Index", "Login");
             }
 
-            return Json(new
+            if (Request.IsAjaxRequest())
             {
-                success = true,
-                redirectTo = Url.Action("Index", "Login")
-            });
-            //return RedirectToAction("Index", "Login");
+                return Json(new
+                {
+                    success = true,
+                    redirectTo = Url.Action("Index", "Login")
+                });
+            }
+            return RedirectToAction("Index", "Login");
         }
 
         [AllowAnonymous]
@@ -337,27 +340,19 @@ namespace Portal.Consultoras.Web.Controllers
         public async Task<ActionResult> Redireccionar(int paisId, string codigoUsuario, string returnUrl = null,
             bool hizoLoginExterno = false)
         {
-            BEUsuarioCorreo oVerificarAutenticidad = null;
-            bool flagPin = Convert.ToBoolean(TempData["FlagPin"]);
-
-            if (!flagPin)
-            {
-                oVerificarAutenticidad = TieneVerificacionAutenticidad(paisId, codigoUsuario);
-
-                if (oVerificarAutenticidad != null)
+            if (!Convert.ToBoolean(TempData["FlagPin"]))
+                if (TieneVerificacionAutenticidad(paisId, codigoUsuario))
                 {
-                    oVerificarAutenticidad.EsMobile = EsDispositivoMovil();
-
-                    return Json(new
+                    if (Request.IsAjaxRequest())
                     {
-                        success = true,
-                        data = oVerificarAutenticidad,
-                        redirectTo = ""
-                    }, JsonRequestBehavior.AllowGet);
+                        return Json(new
+                        {
+                            success = true,
+                            redirectTo = Url.Action("VerificaAutenticidad", "Login")
+                        });
+                    }
+                    return RedirectToAction("VerificaAutenticidad", "Login");
                 }
-            }
-
-            oVerificarAutenticidad = null;
 
             pasoLog = "Login.Redireccionar";
             var usuario = await GetUserData(paisId, codigoUsuario);
@@ -382,7 +377,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                    	data = oVerificarAutenticidad,
+                    	//data = oVerificarAutenticidad,
                         redirectTo = "Error al procesar la solicitud"
                     });
                 }
@@ -418,54 +413,69 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        SetTempDataAnalyticsLogin(usuario, hizoLoginExterno);
-
-                        if (flagPin)
-                        {
-                            return Json(new
-                            {
-                                success = true,
-                                data = oVerificarAutenticidad,
-                                redirectTo = Url.Action("Index", "MisDatos", new { area = "Mobile" })
-                            });
-                        }
-
                         if (EsAndroid())
                             urlx = Url.Action("Index", "DescargarApp", new { area = "Mobile" });
                         else
                             urlx = Url.Action("Index", "Bienvenida", new { area = "Mobile" });
                     }
 
-                    return Json(new
+                    if (Request.IsAjaxRequest())
                     {
-                        success = true,
-                        data = oVerificarAutenticidad,
-                        redirectTo = urlx
-                    });
+                        return Json(new
+                        {
+                            success = true,
+                            //data = oVerificarAutenticidad,
+                            redirectTo = urlx
+                        });
+                    }
+
+                    SetTempDataAnalyticsLogin(usuario, hizoLoginExterno);
+                    if (Url.IsLocalUrl(decodedUrl))
+                    {
+                        return Redirect(decodedUrl);
+                    }
+                    if (EsAndroid())
+                        return RedirectToAction("Index", "DescargarApp", new { area = "Mobile" });
+                    else
+                        return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
 
                 if (string.IsNullOrEmpty(usuario.EMail) || !usuario.EMailActivo)
                 {
                     Session["PrimeraVezSession"] = 0;
                 }
+                if (Request.IsAjaxRequest())
+                {
+                    var urlx = (Url.IsLocalUrl(decodedUrl)) ? decodedUrl : Url.Action("Index", "Bienvenida");
+                    return Json(new
+                    {
+                        success = true,
+                        //data = oVerificarAutenticidad,
+                        redirectTo = urlx
+                    });
+                }
 
                 SetTempDataAnalyticsLogin(usuario, hizoLoginExterno);
-
-                var urlx2 = (Url.IsLocalUrl(decodedUrl)) ? decodedUrl : Url.Action("Index", "Bienvenida");
+                if (Url.IsLocalUrl(decodedUrl))
+                {
+                    return Redirect(decodedUrl);
+                }
+                return RedirectToAction("Index", "Bienvenida");
+            }
+            if (Request.IsAjaxRequest())
+            {
                 return Json(new
                 {
                     success = true,
-                    data = oVerificarAutenticidad,
-                    redirectTo = urlx2
+                    //data = oVerificarAutenticidad,
+                    redirectTo = Url.Action("Index", "Bienvenida")
                 });
             }
-
-            return Json(new
+            if (Url.IsLocalUrl(decodedUrl))
             {
-                success = true,
-                data = oVerificarAutenticidad,
-                redirectTo = Url.Action("Index", "Bienvenida")
-            });
+                return Redirect(decodedUrl);
+            }
+            return RedirectToAction("Index", "Bienvenida");
         }
 
         [AllowAnonymous]
@@ -557,8 +567,14 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         public ActionResult VerificaAutenticidad()
         {
-
-            return View();
+            if (Session["VerificacionAutenticidad"] == null) return RedirectToAction("Index", "Login");
+            var oPin = (BEUsuarioDatos)Session["VerificacionAutenticidad"];
+            var model = new BEUsuarioDatos();
+            model.PrimerNombre = oPin.PrimerNombre;
+            model.MensajeSaludo = oPin.MensajeSaludo;
+            model.CorreoEnmascarado = oPin.CorreoEnmascarado;
+            model.CelularEnmascarado = oPin.CelularEnmascarado;
+            return View(model);
         }
 
         [HttpPost]
@@ -2824,127 +2840,125 @@ namespace Portal.Consultoras.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public JsonResult ProcesaEnvioCorreo(int CantidadEnvios, int origenID)
+        public JsonResult ProcesaEnvioCorreo(int CantidadEnvios)
         {
+            var oUsu = (BEUsuarioDatos)Session["VerificacionAutenticidad"];
+            if (oUsu == null) return SuccessJson(Constantes.EnviarSMS.Mensaje.NoEnviaSMS, false);
             int paisID = Convert.ToInt32(TempData["PaisID"]);
-            if (paisID == 0) return SuccessJson(Constantes.OlvideContraseña.Mensajes.ErrorPais, false);
-            string valor = Convert.ToString(TempData["valorCodigoUsuario"]);
-            if (valor == "") return SuccessJson(Constantes.OlvideContraseña.Mensajes.ErrorValor, false);
             try
             {
-                Enumeradores.EnvioEmail EstadoEnvio = Enumeradores.EnvioEmail.OkEnviarEmail;
+                TempData["PaisID"] = paisID;
+                bool EstadoEnvio = false;
+                oUsu.EsMobile = EsDispositivoMovil();
+
                 using (var svc = new UsuarioServiceClient())
                 {
-                    EstadoEnvio = svc.ProcesaEnvioEmail(paisID, valor, origenID, CantidadEnvios, EsDispositivoMovil());
+                    EstadoEnvio = svc.ProcesaEnvioEmail(paisID, oUsu, CantidadEnvios);
                 }
-                TempData["PaisID"] = paisID;
-                TempData["valorCodigoUsuario"] = valor;
-                switch (EstadoEnvio)
+                return Json(new
                 {
-                    case Enumeradores.EnvioEmail.OkEnviarEmail:
-                        return SuccessJson("", true);
-                    default:
-                        return SuccessJson(Constantes.EnviarEmail.NoEnvioEmail, false);
-                }
+                    success = EstadoEnvio,
+                    menssage = ""
+                }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {
-                TempData["PaisID"] = paisID;
-                TempData["valorCodigoUsuario"] = valor;
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, valor, Util.GetPaisISO(paisID));
-                return ErrorJson(Constantes.MensajesError.RecuperarContrasenia, true);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, oUsu.CodigoUsuario, Util.GetPaisISO(paisID));
+                return Json(new
+                {
+                    success = false,
+                    menssage = "Sucedio un Error al enviar el SMS. Intentelo mas taarde"
+                }, JsonRequestBehavior.AllowGet);
             }
         }
 
         [AllowAnonymous]
         [HttpPost]
-        public JsonResult ProcesaEnvioSms(int cantidadEnvios, int origenID)
+        public JsonResult ProcesaEnvioSms(int cantidadEnvios)
         {
+            var oUsu = (BEUsuarioDatos)Session["VerificacionAutenticidad"];
+            if(oUsu == null) return SuccessJson(Constantes.EnviarSMS.Mensaje.NoEnviaSMS, false);
             int paisID = Convert.ToInt32(TempData["PaisID"]);
-            if (paisID == 0) return SuccessJson(Constantes.OlvideContraseña.Mensajes.ErrorPais, false);
-            string valor = Convert.ToString(TempData["valorCodigoUsuario"]);
-            if (valor == "") return SuccessJson(Constantes.OlvideContraseña.Mensajes.ErrorValor, false);
             try
             {
-                Enumeradores.EnvioSms EstadoEnvio = Enumeradores.EnvioSms.ErrorEnviarSms;
+                TempData["PaisID"] = paisID;
+                bool EstadoEnvio = false;
+                oUsu.EsMobile = EsDispositivoMovil();
+
                 using (var svc = new UsuarioServiceClient())
                 {
-                    EstadoEnvio = svc.ProcesaEnvioSms(paisID, valor, origenID, cantidadEnvios, EsDispositivoMovil());
+                    EstadoEnvio = svc.ProcesaEnvioSms(paisID, oUsu, cantidadEnvios);
                 }
-                TempData["PaisID"] = paisID;
-                TempData["valorCodigoUsuario"] = valor;
-                switch (EstadoEnvio)
+
+                return Json(new
                 {
-                    case Enumeradores.EnvioSms.OkEnviarSms:
-                        return SuccessJson("", true);
-                    default:
-                        return SuccessJson(Constantes.EnviarSMS.Mensaje.NoEnviaSMS, false);
-                }                
+                    success = EstadoEnvio,
+                    menssage = ""
+                }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {
-                TempData["PaisID"] = paisID;
-                TempData["valorCodigoUsuario"] = valor;
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, valor, Util.GetPaisISO(paisID));
-                return ErrorJson(Constantes.MensajesError.RecuperarContrasenia, true);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, oUsu.CodigoUsuario, Util.GetPaisISO(paisID));
+                return Json(new
+                {
+                    success = false,
+                    menssage = "Sucedio un Error al enviar el SMS. Intentelo mas taarde"
+                }, JsonRequestBehavior.AllowGet);
             }
         }
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult> ObtenerCodigoGenerado(int OrigenID, string Codigoingresado)
+        public async Task<ActionResult> VerificarCodigoGenerado(string Codigoingresado)
         {
+            var oUsu = (BEUsuarioDatos)Session["VerificacionAutenticidad"];
             int paisID = Convert.ToInt32(TempData["PaisID"]);
-            string codigoUsuario = Convert.ToString(TempData["CodigoUsuario"]);
-            string codigoIso = Convert.ToString(TempData["CodigoISO"]);
-            string primerNombre = Convert.ToString(TempData["PrimerNombre"]);
-            int IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
 
             try
             {
                 bool iguales = false;
                 string newUri = "";
+                TempData["PaisID"] = paisID;
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    iguales = sv.VerificarIgualdadCodigoIngresado(paisID, OrigenID, codigoUsuario, Codigoingresado, IdEstadoActividad);
+                    iguales = sv.VerificarIgualdadCodigoIngresado(paisID, oUsu, Codigoingresado);
                 }
 
                 if (iguales)
                 {
-                    switch (OrigenID)
+                    switch (oUsu.OrigenID)
                     {
-                        case 1:
+                        case Constantes.OpcionesDeVerificacion.OrigenOlvideContraseña:
                             {
                                 string urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
                                 DateTime diasolicitud = DateTime.Now;
                                 string fechasolicitud = diasolicitud.ToString("d/M/yyyy HH:mm:ss");
-                                string CodigoIso = codigoIso;
-                                string codigousuario = codigoUsuario;
-                                string nombre = primerNombre;
-                                newUri = Convert.ToString(Portal.Consultoras.Common.Util.GetUrlRecuperarContrasenia(urlportal, paisID, codigoUsuario, CodigoIso, codigousuario, fechasolicitud, nombre));
+                                string CodigoIso = oUsu.CodigoIso;
+                                string codigousuario = oUsu.CodigoUsuario;
+                                string nombre = oUsu.PrimerNombre;
+                                newUri = Convert.ToString(Portal.Consultoras.Common.Util.GetUrlRecuperarContrasenia(urlportal, paisID, oUsu.Correo, CodigoIso, codigousuario, fechasolicitud, nombre));
                             }
                             break;
 
-                        case 2:
+                        case Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad:
                             {
                                 TempData["FlagPin"] = true;
-                                return await Redireccionar(paisID, codigoUsuario);
+                                break;
+                                //return await Redireccionar(paisID, oUsu.CodigoUsuario);
                             };
                     }
                 }
-                SetTemData(paisID, codigoIso, codigoUsuario, primerNombre, IdEstadoActividad);
+
                 return Json(new
                 {
                     success = iguales,
-                    origen = OrigenID,
                     redirectTo = newUri,
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {
-                SetTemData(paisID, codigoIso, codigoUsuario, primerNombre, IdEstadoActividad);
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, codigoUsuario, Util.GetPaisISO(paisID));
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, Codigoingresado, Util.GetPaisISO(paisID));
                 return Json(new
                 {
                     success = false,
@@ -2964,28 +2978,33 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
-        #region Pin Autenticacion
-        public BEUsuarioCorreo TieneVerificacionAutenticidad(int paisID, string codigoUsuario)
+        public bool TieneVerificacionAutenticidad(int paisID, string codigoUsuario)
         {
             try
             {
-
-                var objVerificacion = new BEUsuarioCorreo();
-                var obj = (BEUsuarioCorreo)TempData["Data"];
+                var oVerificacion = new BEUsuarioDatos();
                 using (var sv = new UsuarioServiceClient())
-                    objVerificacion = sv.GetVerificacionAutenticidad(paisID, codigoUsuario);
-                if (objVerificacion != null)
-                    TempData["Data"] = objVerificacion;
-                    SetTemData(paisID, objVerificacion.CodigoISO, objVerificacion.CodigoUsuario, objVerificacion.PrimerNombre, objVerificacion.IdEstadoActividad);
-
-                return objVerificacion;
+                    oVerificacion = sv.GetVerificacionAutenticidad(paisID, codigoUsuario);
+                if (oVerificacion == null) return false;
+                Session["VerificacionAutenticidad"] = oVerificacion;
+                TempData["PaisID"] = paisID;
+                //SetTemData(paisID, objVerificacion.CodigoIso, codigoUsuario, objVerificacion.PrimerNombre, objVerificacion.IdEstadoActividad);
+                return true;
             }
             catch (Exception ex)
             {
                 logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty, "LoginController.PinAutenticacion");
-                return null;
+                return false;
             }
         }
-        #endregion
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<ActionResult> ContinuarLogin()
+        {
+            var oUsu = (BEUsuarioDatos)Session["VerificacionAutenticidad"];
+            int paisID = Convert.ToInt32(TempData["PaisID"]);
+            return await Redireccionar(paisID, oUsu.CodigoUsuario);
+        }
     }
 }

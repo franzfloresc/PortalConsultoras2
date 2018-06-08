@@ -810,4 +810,12 @@ a{
 
 }
 
+.deshabilitar_opciones {
+    cursor: default;
+    opacity: 0.45;
+}
+
+.deshabilitar_opciones .icono_mail:before {
+    color: #5a5a5a;
+}
 /* FIN - RESTABLECE TU CONTRASEÑA, VERIFICACIÓN DE AUTENTICIDAD */

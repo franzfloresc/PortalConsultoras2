@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.OpcionesVerificacion;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -804,37 +805,37 @@ namespace Portal.Consultoras.Data
             return (Context.ExecuteReader(command));
         }        
 
-        public bool VerificarIgualdadCodigoIngresado(int origenID, string codigoUsuario, string codigoIngresado, int IdEstadoActividad)
+        public bool VerificarIgualdadCodigoIngresado(BEUsuarioDatos oUsu, string codigoIngresado)
         {
-            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.GetCodigoGenerado"); ;
-            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
-            Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, origenID);
+            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.GetVerificarCodigo"); ;
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsu.CodigoUsuario);
+            Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsu.OrigenID);
             Context.Database.AddInParameter(command, "@CodigoIngresado", DbType.AnsiString, codigoIngresado);
-            Context.Database.AddInParameter(command, "@IdEstadoActividad", DbType.Int32, IdEstadoActividad);
+            Context.Database.AddInParameter(command, "@IdEstadoActividad", DbType.Int32, oUsu.IdEstadoActividad);
             return Convert.ToBoolean(Context.ExecuteScalar(command));
         }
         #endregion
 
         #region SMS
-        public void InsCodigoGenerado(BEUsuarioCorreo oUsuCorreo, string strOrigen, string tipoEnvio, string codigoGenerado = "")
+        public void InsCodigoGenerado(BEUsuarioDatos oUsu, string tipoEnvio, string codigoGenerado = "")
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsCodigoGenerado");
-            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsuCorreo.CodigoUsuario);
-            Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsuCorreo.OrigenID);
-            Context.Database.AddInParameter(command, "@OrigenDescripcion", DbType.AnsiString, strOrigen);
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsu.CodigoUsuario);
+            Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsu.OrigenID);
+            Context.Database.AddInParameter(command, "@OrigenDescripcion", DbType.AnsiString, oUsu.OrigenDescripcion);
             Context.Database.AddInParameter(command, "@TipoEnvio", DbType.AnsiString, tipoEnvio);
             Context.Database.AddInParameter(command, "@CodigoGenerado", DbType.AnsiString, codigoGenerado);
-            Context.Database.AddInParameter(command, "@OpcionHabilitada", DbType.Boolean, oUsuCorreo.opcionHabilitar);
+            Context.Database.AddInParameter(command, "@OpcionHabilitada", DbType.Boolean, oUsu.opcionHabilitar);
 
             Context.ExecuteNonQuery(command);
         }
 
-        public IDataReader GetConfiguracionSms(int origenID)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("GetConfiguracionSms");
-            Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, origenID);
-            return Context.ExecuteReader(command);
-        }
+        //public IDataReader GetConfiguracionSms(int origenID)
+        //{
+        //    DbCommand command = Context.Database.GetStoredProcCommand("GetConfiguracionSms");
+        //    Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, origenID);
+        //    return Context.ExecuteReader(command);
+        //}
         #endregion
 
         #region Verificacion Autenticidad

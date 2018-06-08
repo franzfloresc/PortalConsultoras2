@@ -1,6 +1,7 @@
-﻿
+﻿@using System.Web.Optimization;
 @{
     Layout = null;
+    ViewBag.Title = "Verifica Tu Autenticidad";
 }
 
 <!DOCTYPE html>
@@ -21,6 +22,7 @@
     {
         <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Lbel/verificacion-pin.css")">
     }
+    @Styles.Render("~/Content/Css/Login")
 </head>
 <body>
     <div class="fondo_f9f9f9">
@@ -49,34 +51,36 @@
                     <span class="inline-block v-alignMiddle enlace_texto">Volver</span>
                 </a>
                 <!-- OPCIONES DE VERIFICACIÓN DE AUTENTICIDAD -->
-                <div class="block opciones_verificacion_autenticidad">
+                <div id="divPaso1" class="block opciones_verificacion_autenticidad">
                     <div class="block mt-20-mobile">
                         <p class="block texto_verificacion_datos">
-                            <span class="block">¡Bienvenida Valeria!</span>
+                            <span class="block">¡Bienvenida @Model.PrimerNombre! </span>
                             <span class="block" style="display:none;">¡Nos alegra que hayas vuelto!</span>
                         </p>
                         <p class="block texto_verificacion_datos">
-                            <span class="block">Por ser la primera vez que ingresas y por tu seguridad vamos a verificar tus datos.</span>
-                            <span class="block" style="display:none;">Como hace tiempo que no sabíamos de ti, por tu seguridad vamos a verificar tus datos.</span>
+                            <span class="block">@Model.MensajeSaludo</span>
+                            @*<span class="block" style="display:none;">Como hace tiempo que no sabíamos de ti, por tu seguridad vamos a verificar tus datos.</span>*@
                         </p>
                         <p class="block texto_verificacion_datos">
                             <span class="block">Elige el que te sea más familiar :</span>
                         </p>
                     </div>
                     <div class="block center-block lista_opciones_verificacion_autenticidad">
-                        <a href="#" title="Opción Correo" class="block opcion_verificacion_autenticidad">
+                        <a title="Opción Correo" class="block opcion_verificacion_autenticidad RecuperarPorCorreo">
                             <div class="inline-block v-alignMiddle icono_opcion_verificacion_autenticidad icono_opcion_correo"></div>
                             <div class="inline-block v-alignMiddle datos_verificacion_autenticidad">
                                 <div class="block text-uppercase">Correo Electrónico</div>
-                                <div class="block text-bold">valeria.tarazona@gmail.com</div>
+                                <div class="block text-bold">@Model.CorreoEnmascarado</div>
                             </div>
+                            <div class="divTiempoRestanteCorreo" style="display:none; margin-top: 15px; font-size: 12px;">Opción disponible dentro de 24 hr</div>
                         </a>
-                        <a href="#" title="Opción Sms" class="block opcion_verificacion_autenticidad">
+                        <a title="Opción Sms" class="block opcion_verificacion_autenticidad RecuperarPorSms">
                             <div class="inline-block v-alignMiddle icono_opcion_verificacion_autenticidad icono_opcion_sms"></div>
                             <div class="inline-block v-alignMiddle datos_verificacion_autenticidad">
                                 <div class="block text-uppercase">Mensaje de texto (sms)</div>
-                                <div class="block text-bold">987 654 321</div>
+                                <div class="block text-bold">@Model.CelularEnmascarado</div>
                             </div>
+                            <div class="divTiempoRestanteSms" style="display:none; margin-top: 15px; font-size: 12px;">Opción disponible dentro de 24 hr</div>
                         </a>
                     </div>
                     <div class="block">
@@ -90,29 +94,36 @@
                 </div>
                 <!-- FIN - OPCIONES DE VERIFICACIÓN DE AUTENTICIDAD -->
                 <!-- VERIFICACIÓN POR CÓDIGO SMS -->
-                <div class="block revisa_tu_celular text-center" style="display:none;">
+                <div id="divPaso2sms" class="block revisa_tu_celular text-center" style="display:none;">
                     <h1 class="block center-block mt-20-mobile titulo_revisa_tu_celular text-uppercase mb-13">
                         Revisa <span class="text-bold">tu celular</span>
                     </h1>
                     <div class="block center-block icono_mensaje_sms"></div>
                     <p class="w-100 envio_instrucciones_info block mb-35">
                         <span class="w-100 block mb-7">Te hemos enviado un código SMS al:</span>
-                        <span class="w-100 block text-bold font-size-17">912 345 678</span>
+                        <span class="w-100 block text-bold font-size-17">@Model.CelularEnmascarado</span>
                     </p>
                     <div class="area_ingreso_codigo_sms block mb-35 mb-20-mobile">
                         <div class="block texto_ingreso_codigo text-uppercase text-bold">Ingresa el código aquí</div>
                         <fieldset class="block center-block campos_ingreso_codigo_sms">
-                            <input class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
-                            <input class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
-                            <input class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
-                            <input class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                            <input id="1Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="2Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="3Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="4Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="5Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="6Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
                             <div class="block icono_validacion_codigo_sms validacion_erronea"></div>
                         </fieldset>
                         <div class="block codigo_sms_caducidad text-uppercase">El código caduca en <span class="default-color">01:00</span></div>
                     </div>
-                    <p class="w-100 envio_instrucciones_info block mb-45 mb-20-mobile">
-                        <a href="#" title="Reenvíenme el código" class="block enlace_reenviar_instrucciones w-100 text-uppercase text-bold">
+                    <p id="linkRenviarSms" class="w-100 envio_instrucciones_info block mb-45 mb-20-mobile">
+                        <a title="Reenvíenme el código" class="block enlace_reenviar_instrucciones w-100 text-uppercase text-bold RecuperarPorSms" style="cursor:pointer;">
                             Reenvíenme el código
+                        </a>
+                    </p>
+                    <p class="w-100 envio_instrucciones_info block mb-45 mb-20-mobile escogeOtraOpcion" style="display:none;">
+                        <a title="Escoger otra opción" class="block enlace_reenviar_instrucciones w-100 text-uppercase text-bold" style="color:red;cursor:pointer;">
+                            Escoger otra opción
                         </a>
                     </p>
                     <p class="w-100 block cambiar_correo_info">
@@ -120,7 +131,7 @@
                         <a href="#" title="Cambia tu correo" class="inline-block v-alignMiddle enlace_cambiar_correo text-bold">Cambia tu número</a>
                     </p>
                 </div>
-                <div class="block celular_validado text-center" style="display:none;">
+                <div id="divPaso3sms" class="block celular_validado text-center" style="display:none;">
                     <div class="block center-block mt-20-mobile icono_validacion_celular_exitosa"></div>
                     <h1 class="block center-block titulo_celular_validado text-uppercase">
                         ¡Validamos<br /><span class="text-bold">tu celular</span>!
@@ -131,12 +142,12 @@
                     <p class="block mensaje_celular_validado mb-45 mb-33-mobile">
                         Te recomendamos además actualizar tu contraseña por tu seguridad.
                     </p>
-                    <a href="#" class="block center-block mb-20-mobile enlace_ir_a_somos_belcorp text-uppercase text-bold default-background-color mb-31">Ir a somos belcorp</a>
-                    <a href="#" title="Actualizar contraseña" class="block enlace_actualizar_contrasenia text-bold">Actualizar contraseña</a>
+                    <a  class="block center-block mb-20-mobile enlace_ir_a_somos_belcorp text-uppercase text-bold default-background-color mb-31 aContinuarLogin">Ir a somos belcorp</a>
+                    <a  title="Actualizar contraseña" class="block enlace_actualizar_contrasenia text-bold aContinuarLogin">Actualizar contraseña</a>
                 </div>
                 <!-- FIN - VERIFICACIÓN POR CÓDIGO SMS -->
                 <!-- VERIFICACIÓN POR CORREO ELECTRÓNICO -->
-                <div class="revisa_tu_correo block text-center" style="display:none;">
+                <div id="divPaso2Email" class="revisa_tu_correo block text-center" style="display:none;">
                     <h1 class="titulo_revisa_tu_correo mt-20-mobile text-uppercase block center-block mb-13">
                         Revisa <span class="text-bold">tu correo</span>
                     </h1>
@@ -156,7 +167,7 @@
                         <a href="#" title="Cambia tu correo" class="inline-block v-alignMiddle enlace_cambiar_correo text-bold">Cambia tu correo</a>
                     </p>
                 </div>
-                <div class="correo_validado block text-center" style="display:none;">
+                <div id="divPaso3Email" class="correo_validado block text-center" style="display:none;">
                     <div class="icono_validacion_correo_exitoso block center-block mt-20-mobile"></div>
                     <h1 class="titulo_correo_validado text-uppercase block center-block">
                         ¡Validamos<br /><span class="text-bold">tu correo</span>!
@@ -167,8 +178,8 @@
                     <p class="mensaje_correo_validado block mb-45 mb-33-mobile">
                         Te recomendamos además actualizar tu contraseña por tu seguridad.
                     </p>
-                    <a href="#" class="block center-block mb-20-mobile enlace_ir_a_somos_belcorp text-uppercase text-bold default-background-color mb-31">Ir a somos belcorp</a>
-                    <a href="#" title="Actualizar contraseña" class="block enlace_actualizar_contrasenia text-bold">Actualizar contraseña</a>
+                    <a href="#" class="block center-block mb-20-mobile enlace_ir_a_somos_belcorp text-uppercase text-bold default-background-color mb-31 aContinuarLogin">Ir a somos belcorp</a>
+                    <a href="#" title="Actualizar contraseña" class="block enlace_actualizar_contrasenia text-bold aContinuarLogin">Actualizar contraseña</a>
                 </div>
                 <!-- FIN - VERIFICACIÓN POR CORREO ELECTRÓNICO -->
             </div>
@@ -177,3 +188,13 @@
     </section>
 </body>
 </html>
+
+<script type="text/javascript">
+    var urlProcesaEnvioCorreo = '@Url.Action("ProcesaEnvioCorreo", "Login")';
+    var urlProcesaEnvioSms = '@Url.Action("ProcesaEnvioSms", "Login")';
+    var urlVerificarCodigoGenerado = '@Url.Action("VerificarCodigoGenerado", "Login")';
+    var urlContinuarLogin = '@Url.Action("ContinuarLogin", "Login")';
+</script>
+
+@System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
+@System.Web.Optimization.Scripts.Render("~/bundles/JS-Login-VerificaAutenticidad")

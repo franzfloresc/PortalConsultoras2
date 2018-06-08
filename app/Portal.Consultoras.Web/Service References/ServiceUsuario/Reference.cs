@@ -6688,6 +6688,404 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEUsuarioDatos", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.OpcionesVerif" +
+        "icacion")]
+    [System.SerializableAttribute()]
+    public partial class BEUsuarioDatos : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CantidadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CelularField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CelularEnmascaradoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoConsultoraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoIsoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoUsuarioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CorreoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CorreoEnmascaradoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsMobileField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int HoraRestanteCorreoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int HoraRestanteSmsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdEstadoActividadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MensajeSaludoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MostrarOpcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OpcionCorreoActivaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OpcionSmsActivaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OrigenDescripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OrigenIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PrimerNombreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TelefonoCentralField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ZonaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int campaniaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool opcionHabilitarField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Cantidad {
+            get {
+                return this.CantidadField;
+            }
+            set {
+                if ((this.CantidadField.Equals(value) != true)) {
+                    this.CantidadField = value;
+                    this.RaisePropertyChanged("Cantidad");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Celular {
+            get {
+                return this.CelularField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CelularField, value) != true)) {
+                    this.CelularField = value;
+                    this.RaisePropertyChanged("Celular");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CelularEnmascarado {
+            get {
+                return this.CelularEnmascaradoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CelularEnmascaradoField, value) != true)) {
+                    this.CelularEnmascaradoField = value;
+                    this.RaisePropertyChanged("CelularEnmascarado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoConsultora {
+            get {
+                return this.CodigoConsultoraField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoConsultoraField, value) != true)) {
+                    this.CodigoConsultoraField = value;
+                    this.RaisePropertyChanged("CodigoConsultora");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoIso {
+            get {
+                return this.CodigoIsoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoIsoField, value) != true)) {
+                    this.CodigoIsoField = value;
+                    this.RaisePropertyChanged("CodigoIso");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoUsuario {
+            get {
+                return this.CodigoUsuarioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoUsuarioField, value) != true)) {
+                    this.CodigoUsuarioField = value;
+                    this.RaisePropertyChanged("CodigoUsuario");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Correo {
+            get {
+                return this.CorreoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CorreoField, value) != true)) {
+                    this.CorreoField = value;
+                    this.RaisePropertyChanged("Correo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CorreoEnmascarado {
+            get {
+                return this.CorreoEnmascaradoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CorreoEnmascaradoField, value) != true)) {
+                    this.CorreoEnmascaradoField = value;
+                    this.RaisePropertyChanged("CorreoEnmascarado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsMobile {
+            get {
+                return this.EsMobileField;
+            }
+            set {
+                if ((this.EsMobileField.Equals(value) != true)) {
+                    this.EsMobileField = value;
+                    this.RaisePropertyChanged("EsMobile");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int HoraRestanteCorreo {
+            get {
+                return this.HoraRestanteCorreoField;
+            }
+            set {
+                if ((this.HoraRestanteCorreoField.Equals(value) != true)) {
+                    this.HoraRestanteCorreoField = value;
+                    this.RaisePropertyChanged("HoraRestanteCorreo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int HoraRestanteSms {
+            get {
+                return this.HoraRestanteSmsField;
+            }
+            set {
+                if ((this.HoraRestanteSmsField.Equals(value) != true)) {
+                    this.HoraRestanteSmsField = value;
+                    this.RaisePropertyChanged("HoraRestanteSms");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdEstadoActividad {
+            get {
+                return this.IdEstadoActividadField;
+            }
+            set {
+                if ((this.IdEstadoActividadField.Equals(value) != true)) {
+                    this.IdEstadoActividadField = value;
+                    this.RaisePropertyChanged("IdEstadoActividad");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MensajeSaludo {
+            get {
+                return this.MensajeSaludoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MensajeSaludoField, value) != true)) {
+                    this.MensajeSaludoField = value;
+                    this.RaisePropertyChanged("MensajeSaludo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MostrarOpcion {
+            get {
+                return this.MostrarOpcionField;
+            }
+            set {
+                if ((this.MostrarOpcionField.Equals(value) != true)) {
+                    this.MostrarOpcionField = value;
+                    this.RaisePropertyChanged("MostrarOpcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OpcionCorreoActiva {
+            get {
+                return this.OpcionCorreoActivaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OpcionCorreoActivaField, value) != true)) {
+                    this.OpcionCorreoActivaField = value;
+                    this.RaisePropertyChanged("OpcionCorreoActiva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OpcionSmsActiva {
+            get {
+                return this.OpcionSmsActivaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OpcionSmsActivaField, value) != true)) {
+                    this.OpcionSmsActivaField = value;
+                    this.RaisePropertyChanged("OpcionSmsActiva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OrigenDescripcion {
+            get {
+                return this.OrigenDescripcionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OrigenDescripcionField, value) != true)) {
+                    this.OrigenDescripcionField = value;
+                    this.RaisePropertyChanged("OrigenDescripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OrigenID {
+            get {
+                return this.OrigenIDField;
+            }
+            set {
+                if ((this.OrigenIDField.Equals(value) != true)) {
+                    this.OrigenIDField = value;
+                    this.RaisePropertyChanged("OrigenID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PrimerNombre {
+            get {
+                return this.PrimerNombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PrimerNombreField, value) != true)) {
+                    this.PrimerNombreField = value;
+                    this.RaisePropertyChanged("PrimerNombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TelefonoCentral {
+            get {
+                return this.TelefonoCentralField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TelefonoCentralField, value) != true)) {
+                    this.TelefonoCentralField = value;
+                    this.RaisePropertyChanged("TelefonoCentral");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ZonaID {
+            get {
+                return this.ZonaIDField;
+            }
+            set {
+                if ((this.ZonaIDField.Equals(value) != true)) {
+                    this.ZonaIDField = value;
+                    this.RaisePropertyChanged("ZonaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int campaniaID {
+            get {
+                return this.campaniaIDField;
+            }
+            set {
+                if ((this.campaniaIDField.Equals(value) != true)) {
+                    this.campaniaIDField = value;
+                    this.RaisePropertyChanged("campaniaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool opcionHabilitar {
+            get {
+                return this.opcionHabilitarField;
+            }
+            set {
+                if ((this.opcionHabilitarField.Equals(value) != true)) {
+                    this.opcionHabilitarField = value;
+                    this.RaisePropertyChanged("opcionHabilitar");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEConsultoraDatos", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
     public partial class BEConsultoraDatos : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -9809,28 +10207,28 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo> GetRestaurarClaveByValorAsync(int paisID, string valorIngresado, int prioridad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmail", ReplyAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailResponse")]
-        Portal.Consultoras.Common.Enumeradores.EnvioEmail ProcesaEnvioEmail(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile);
+        bool ProcesaEnvioEmail(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, int CantidadEnvios);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmail", ReplyAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.EnvioEmail> ProcesaEnvioEmailAsync(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile);
+        System.Threading.Tasks.Task<bool> ProcesaEnvioEmailAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, int CantidadEnvios);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ProcesaEnvioSms", ReplyAction="http://tempuri.org/IUsuarioService/ProcesaEnvioSmsResponse")]
-        Portal.Consultoras.Common.Enumeradores.EnvioSms ProcesaEnvioSms(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile);
+        bool ProcesaEnvioSms(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, int CantidadEnvios);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ProcesaEnvioSms", ReplyAction="http://tempuri.org/IUsuarioService/ProcesaEnvioSmsResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.EnvioSms> ProcesaEnvioSmsAsync(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile);
+        System.Threading.Tasks.Task<bool> ProcesaEnvioSmsAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, int CantidadEnvios);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/VerificarIgualdadCodigoIngresado", ReplyAction="http://tempuri.org/IUsuarioService/VerificarIgualdadCodigoIngresadoResponse")]
-        bool VerificarIgualdadCodigoIngresado(int PaisID, int origenID, string codigoUsuario, string codigoIngresado, int IdEstadoActividad);
+        bool VerificarIgualdadCodigoIngresado(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, string codigoIngresado);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/VerificarIgualdadCodigoIngresado", ReplyAction="http://tempuri.org/IUsuarioService/VerificarIgualdadCodigoIngresadoResponse")]
-        System.Threading.Tasks.Task<bool> VerificarIgualdadCodigoIngresadoAsync(int PaisID, int origenID, string codigoUsuario, string codigoIngresado, int IdEstadoActividad);
+        System.Threading.Tasks.Task<bool> VerificarIgualdadCodigoIngresadoAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, string codigoIngresado);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidad", ReplyAction="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidadResponse")]
-        Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo GetVerificacionAutenticidad(int paisID, string CodigoUsuario);
+        Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidad", ReplyAction="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidadResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo> GetVerificacionAutenticidadAsync(int paisID, string CodigoUsuario);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos> GetVerificacionAutenticidadAsync(int paisID, string CodigoUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnPrograma", ReplyAction="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnProgramaResponse")]
         bool GetConsultoraParticipaEnPrograma(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID);
@@ -10652,35 +11050,35 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.GetRestaurarClaveByValorAsync(paisID, valorIngresado, prioridad);
         }
         
-        public Portal.Consultoras.Common.Enumeradores.EnvioEmail ProcesaEnvioEmail(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile) {
-            return base.Channel.ProcesaEnvioEmail(paisID, valorRestaurar, origenID, CantidadEnvios, esMobile);
+        public bool ProcesaEnvioEmail(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, int CantidadEnvios) {
+            return base.Channel.ProcesaEnvioEmail(paisID, oUsu, CantidadEnvios);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.EnvioEmail> ProcesaEnvioEmailAsync(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile) {
-            return base.Channel.ProcesaEnvioEmailAsync(paisID, valorRestaurar, origenID, CantidadEnvios, esMobile);
+        public System.Threading.Tasks.Task<bool> ProcesaEnvioEmailAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, int CantidadEnvios) {
+            return base.Channel.ProcesaEnvioEmailAsync(paisID, oUsu, CantidadEnvios);
         }
         
-        public Portal.Consultoras.Common.Enumeradores.EnvioSms ProcesaEnvioSms(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile) {
-            return base.Channel.ProcesaEnvioSms(paisID, valorRestaurar, origenID, CantidadEnvios, esMobile);
+        public bool ProcesaEnvioSms(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, int CantidadEnvios) {
+            return base.Channel.ProcesaEnvioSms(paisID, oUsu, CantidadEnvios);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.EnvioSms> ProcesaEnvioSmsAsync(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile) {
-            return base.Channel.ProcesaEnvioSmsAsync(paisID, valorRestaurar, origenID, CantidadEnvios, esMobile);
+        public System.Threading.Tasks.Task<bool> ProcesaEnvioSmsAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, int CantidadEnvios) {
+            return base.Channel.ProcesaEnvioSmsAsync(paisID, oUsu, CantidadEnvios);
         }
         
-        public bool VerificarIgualdadCodigoIngresado(int PaisID, int origenID, string codigoUsuario, string codigoIngresado, int IdEstadoActividad) {
-            return base.Channel.VerificarIgualdadCodigoIngresado(PaisID, origenID, codigoUsuario, codigoIngresado, IdEstadoActividad);
+        public bool VerificarIgualdadCodigoIngresado(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, string codigoIngresado) {
+            return base.Channel.VerificarIgualdadCodigoIngresado(paisID, oUsu, codigoIngresado);
         }
         
-        public System.Threading.Tasks.Task<bool> VerificarIgualdadCodigoIngresadoAsync(int PaisID, int origenID, string codigoUsuario, string codigoIngresado, int IdEstadoActividad) {
-            return base.Channel.VerificarIgualdadCodigoIngresadoAsync(PaisID, origenID, codigoUsuario, codigoIngresado, IdEstadoActividad);
+        public System.Threading.Tasks.Task<bool> VerificarIgualdadCodigoIngresadoAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, string codigoIngresado) {
+            return base.Channel.VerificarIgualdadCodigoIngresadoAsync(paisID, oUsu, codigoIngresado);
         }
         
-        public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo GetVerificacionAutenticidad(int paisID, string CodigoUsuario) {
+        public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario) {
             return base.Channel.GetVerificacionAutenticidad(paisID, CodigoUsuario);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo> GetVerificacionAutenticidadAsync(int paisID, string CodigoUsuario) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos> GetVerificacionAutenticidadAsync(int paisID, string CodigoUsuario) {
             return base.Channel.GetVerificacionAutenticidadAsync(paisID, CodigoUsuario);
         }
         

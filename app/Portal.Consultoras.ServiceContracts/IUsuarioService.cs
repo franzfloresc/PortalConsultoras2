@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.OpcionesVerificacion;
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
@@ -360,18 +361,18 @@ namespace Portal.Consultoras.ServiceContracts
         BEUsuarioCorreo GetRestaurarClaveByValor(int paisID, string valorIngresado, int prioridad);
 
         [OperationContract]
-        Enumeradores.EnvioEmail ProcesaEnvioEmail(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile);
+        bool ProcesaEnvioEmail(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios);
 
         [OperationContract]
-        Enumeradores.EnvioSms ProcesaEnvioSms(int paisID, string valorRestaurar, int origenID, int CantidadEnvios, bool esMobile);
+        bool ProcesaEnvioSms(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios);
 
         [OperationContract]
-        bool VerificarIgualdadCodigoIngresado(int PaisID, int origenID, string codigoUsuario, string codigoIngresado, int IdEstadoActividad);
+        bool VerificarIgualdadCodigoIngresado(int paisID, BEUsuarioDatos oUsu, string codigoIngresado);
         #endregion
 
         #region Pin Autenticidad
         [OperationContract]
-        BEUsuarioCorreo GetVerificacionAutenticidad(int paisID, string CodigoUsuario);
+        BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario);
         #endregion
 
         [OperationContract]
