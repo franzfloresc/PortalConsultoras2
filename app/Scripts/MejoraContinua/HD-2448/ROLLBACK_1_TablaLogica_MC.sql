@@ -6,11 +6,6 @@ BEGIN
 	DELETE FROM TablaLogicaDatos WHERE tablalogicaid = 143
 	DELETE FROM TablaLogica WHERE tablalogicaid = 143
 END
-IF EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 144)
-BEGIN
-	DELETE FROM TablaLogicaDatos WHERE tablalogicaid = 144
-	DELETE FROM TablaLogica WHERE tablalogicaid = 144
-END
 
 GO
 USE BelcorpMexico
@@ -19,11 +14,6 @@ IF EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 143)
 BEGIN
 	DELETE FROM TablaLogicaDatos WHERE tablalogicaid = 143
 	DELETE FROM TablaLogica WHERE tablalogicaid = 143
-END
-IF EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 144)
-BEGIN
-	DELETE FROM TablaLogicaDatos WHERE tablalogicaid = 144
-	DELETE FROM TablaLogica WHERE tablalogicaid = 144
 END
 
 GO
@@ -34,11 +24,6 @@ BEGIN
 	DELETE FROM TablaLogicaDatos WHERE tablalogicaid = 143
 	DELETE FROM TablaLogica WHERE tablalogicaid = 143
 END
-IF EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 144)
-BEGIN
-	DELETE FROM TablaLogicaDatos WHERE tablalogicaid = 144
-	DELETE FROM TablaLogica WHERE tablalogicaid = 144
-END
 
 GO
 USE BelcorpSalvador
@@ -47,11 +32,6 @@ IF EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 143)
 BEGIN
 	DELETE FROM TablaLogicaDatos WHERE tablalogicaid = 143
 	DELETE FROM TablaLogica WHERE tablalogicaid = 143
-END
-IF EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 144)
-BEGIN
-	DELETE FROM TablaLogicaDatos WHERE tablalogicaid = 144
-	DELETE FROM TablaLogica WHERE tablalogicaid = 144
 END
 
 GO
@@ -62,11 +42,6 @@ BEGIN
 	DELETE FROM TablaLogicaDatos WHERE tablalogicaid = 143
 	DELETE FROM TablaLogica WHERE tablalogicaid = 143
 END
-IF EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 144)
-BEGIN
-	DELETE FROM TablaLogicaDatos WHERE tablalogicaid = 144
-	DELETE FROM TablaLogica WHERE tablalogicaid = 144
-END
 
 GO
 USE BelcorpPanama
@@ -75,11 +50,6 @@ IF EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 143)
 BEGIN
 	DELETE FROM TablaLogicaDatos WHERE tablalogicaid = 143
 	DELETE FROM TablaLogica WHERE tablalogicaid = 143
-END
-IF EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 144)
-BEGIN
-	DELETE FROM TablaLogicaDatos WHERE tablalogicaid = 144
-	DELETE FROM TablaLogica WHERE tablalogicaid = 144
 END
 
 GO
@@ -90,11 +60,6 @@ BEGIN
 	DELETE FROM TablaLogicaDatos WHERE tablalogicaid = 143
 	DELETE FROM TablaLogica WHERE tablalogicaid = 143
 END
-IF EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 144)
-BEGIN
-	DELETE FROM TablaLogicaDatos WHERE tablalogicaid = 144
-	DELETE FROM TablaLogica WHERE tablalogicaid = 144
-END
 
 GO
 USE BelcorpEcuador
@@ -103,11 +68,6 @@ IF EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 143)
 BEGIN
 	DELETE FROM TablaLogicaDatos WHERE tablalogicaid = 143
 	DELETE FROM TablaLogica WHERE tablalogicaid = 143
-END
-IF EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 144)
-BEGIN
-	DELETE FROM TablaLogicaDatos WHERE tablalogicaid = 144
-	DELETE FROM TablaLogica WHERE tablalogicaid = 144
 END
 
 GO
@@ -118,11 +78,6 @@ BEGIN
 	DELETE FROM TablaLogicaDatos WHERE tablalogicaid = 143
 	DELETE FROM TablaLogica WHERE tablalogicaid = 143
 END
-IF EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 144)
-BEGIN
-	DELETE FROM TablaLogicaDatos WHERE tablalogicaid = 144
-	DELETE FROM TablaLogica WHERE tablalogicaid = 144
-END
 
 GO
 USE BelcorpCostaRica
@@ -131,11 +86,6 @@ IF EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 143)
 BEGIN
 	DELETE FROM TablaLogicaDatos WHERE tablalogicaid = 143
 	DELETE FROM TablaLogica WHERE tablalogicaid = 143
-END
-IF EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 144)
-BEGIN
-	DELETE FROM TablaLogicaDatos WHERE tablalogicaid = 144
-	DELETE FROM TablaLogica WHERE tablalogicaid = 144
 END
 
 GO
@@ -146,11 +96,6 @@ BEGIN
 	DELETE FROM TablaLogicaDatos WHERE tablalogicaid = 143
 	DELETE FROM TablaLogica WHERE tablalogicaid = 143
 END
-IF EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 144)
-BEGIN
-	DELETE FROM TablaLogicaDatos WHERE tablalogicaid = 144
-	DELETE FROM TablaLogica WHERE tablalogicaid = 144
-END
 
 GO
 USE BelcorpBolivia
@@ -159,11 +104,6 @@ IF EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 143)
 BEGIN
 	DELETE FROM TablaLogicaDatos WHERE tablalogicaid = 143
 	DELETE FROM TablaLogica WHERE tablalogicaid = 143
-END
-IF EXISTS (SELECT 1 FROM tablalogica WHERE tablalogicaid = 144)
-BEGIN
-	DELETE FROM TablaLogicaDatos WHERE tablalogicaid = 144
-	DELETE FROM TablaLogica WHERE tablalogicaid = 144
 END
 
 GO

@@ -1450,5 +1450,11 @@ namespace Portal.Consultoras.Entities
         public bool EsShowRoom { get; set; }
         [DataMember]
         public bool MostrarBotonValidar { get; set; }
+        [DataMember]
+        public string FotoOriginalSinModificar { get; set; }
+        [DataMember]
+        public bool PuedeActualizar { get; set; }
+        [DataMember]
+        public bool PuedeEnviarSMS { get; set; }
     }
 }

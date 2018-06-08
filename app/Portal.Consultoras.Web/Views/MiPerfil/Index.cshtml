@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.MisDatosModel
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.MisDatosModel
 @{
     ViewBag.Title = "Mi Perfil";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
@@ -14,6 +15,7 @@ else
 }
 
 <div class="fondo_f9f9f9">
+    <a href="@Url.Action("Index", "Bienvenida", new { area = "" })" style="display: none;" id="volverBienbenida">Volver</a>
     <div class="content_belcorp">
         <div class="fondo_negro_lateral"></div>
         <div class="titulo_interiores titulo_misPagos"><span>MI</span> PERFIL</div>
@@ -26,7 +28,7 @@ else
         <div class="foto_consultora">
             <a href="@Url.Action("CambiarFotoPerfil", "MiPerfil", new {area = ""})" title="Editar imagen" class="icono_camara default-background-color"></a>
             <div class="contenedor_foto_consultora">
-                <img src="@ViewBag.FotoPerfil" alt="Imagen Consultora" class="consultora_img" />
+                <img id="imgFotoPerfilCambiar" src="@ViewBag.FotoPerfil" alt="Imagen Consultora" class="consultora_img" />
             </div>
         </div>
         <div class="datos_consultora text-left text-uppercase">
@@ -69,14 +71,14 @@ else
     <div class="wrapper_content_mi_perfil">
         <fieldset class="grupo_form_cambio_datos text-uppercase">
             <div class="w-82">
-                <input id="NombreCortoConsultora" name="NombreCortoConsultora" class="w-100" type="text" value="@Model.Sobrenombre" />
-                <label for="NombreCortoConsultora" class="w-100">¿Cómo quieres que te llamemos?</label>
+                <input id="txtSobrenombreMD" name="txtSobrenombreMD" class="w-100" type="text" value="@Model.Sobrenombre" maxlength="80" />
+                <label for="txtSobrenombreMD" class="w-100">¿Cómo quieres que te llamemos?</label>
             </div>
         </fieldset>
         <fieldset class="grupo_form_cambio_datos text-uppercase">
             <div class="w-82">
-                <input id="CorreoElectronicoConsultora" name="CorreoElectronicoConsultora" class="w-100" type="text" value="@Model.EMail" />
-                <label for="CorreoElectronicoConsultora" class="w-100">Correo Electrónico</label>
+                <input id="txtEMailMD" name="txtEMailMD" class="w-100" type="text" value="@Model.EMail" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" readonly />
+                <label for="txtEMailMD" class="w-100">Correo Electrónico</label>
                 <div class="tooltip_info_revision_correo" style="display:none;">
                     <div class="icono_info_alerta"></div>
                     <div class="tooltip_texto">
@@ -96,8 +98,8 @@ else
         </fieldset>
         <fieldset class="grupo_form_cambio_datos text-uppercase">
             <div class="w-82">
-                <input id="CelularConsultora" name="CelularConsultora" class="w-100" type="text" value="@Model.Celular" />
-                <label for="CelularConsultora" class="w-100">Celular</label>
+                <input id="txtCelularMD" name="txtCelularMD" class="w-100" type="text" value="@Model.Celular" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
+                <label for="txtCelularMD" class="w-100">Celular</label>
             </div>
             <a id="btnCambiarCelular" href="@Url.Action("ActualizarCelular", "MiPerfil", new {area = ""})" title="Cambiar" class="enlace_cambiar_dato w-18 text-right">
                 <span class="icono_cambiar_dato"></span>
@@ -106,8 +108,8 @@ else
         </fieldset>
         <fieldset class="grupo_form_cambio_datos text-uppercase">
             <div class="w-82">
-                <input id="TelefonoFijoConsultora" name="CelularConsultora" class="w-100" type="text" value="@Model.Telefono" />
-                <label for="TelefonoFijoConsultora" class="w-100">Número fijo</label>
+                <input id="txtTelefonoMD" name="txtTelefonoMD" class="w-100" type="text" value="@Model.Telefono" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
+                <label for="txtTelefonoMD" class="w-100">Número fijo</label>
             </div>
         </fieldset>
         <fieldset class="grupo_form_cambio_datos text-uppercase mb-61">
@@ -117,8 +119,8 @@ else
             </a>
             <div class="contenedor_campos_num_adicional w-100" style="display:none;">
                 <div class="w-82">
-                    <input id="NumeroAdicionalConsultora" name="NumeroAdicionalConsultora" class="w-100" type="text" value="@Model.TelefonoTrabajo" />
-                    <label for="NumeroAdicionalConsultora" class="label_num_adicional w-100">Número adicional</label>
+                    <input id="txtTelefonoTrabajoMD" name="txtTelefonoTrabajoMD" class="w-100" type="text" value="@Model.TelefonoTrabajo" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
+                    <label for="txtTelefonoTrabajoMD" class="label_num_adicional w-100">Número adicional</label>
                 </div>
                 <a href="#" title="Cambiar" class="enlace_eliminar_numero_adicional w-18 text-right">
                     <span class="icono_eliminar_numero_adicional"></span>
@@ -129,7 +131,7 @@ else
         <div class="linea_separadora"></div>
         <div class="grupo_input_actualizarMisDatos campos_actualizarDatos mt-20">
             <div class="checkbox_condiciones">
-                <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
+                <input type="checkbox" name="chkAceptoContratoMD" id="chkAceptoContratoMD" />
                 <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
                     <span class="asterisco_actualizar_datos">(*)&nbsp;</span>
                     <span>
@@ -146,6 +148,13 @@ else
                 <div class="datos_obligatorios">
                     <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
                 </div>
+                @if (Model.PaisID == Constantes.PaisID.Colombia)
+                {
+                    <p>&nbsp;</p>
+                    <p>
+                        Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
+                    </p>
+                }
             </div>
             <div class="w-50 text-right v-alignMiddle text-uppercase">
                 <button id="btnGuardar" type="button" class="btn_guardar_datos_nuevos text-uppercase text-bold default-background-color mt-13">
@@ -157,7 +166,14 @@ else
 </section>
 
 @section scripts{
+    <script>
+        $('#imgFotoPerfilCambiar').error(function () {
+            $('#imgFotoPerfilCambiar').attr('src', '../../Content/Images/icono_avatar.svg');
+        });
+    </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Index.js")"></script>
 }
+
+
 
 
