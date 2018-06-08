@@ -161,6 +161,7 @@ namespace Portal.Consultoras.Common
             public const int MensajeInformacionPagoExitoso = 12211;
 
             public const int CantidadCuvMasivo_NuevoMasivo = 13701;
+            public const int ActualizaDatosEnabled = 14301;
 
         }
 
@@ -1124,7 +1125,11 @@ namespace Portal.Consultoras.Common
             public const string Reserva_SinDetalle = "No tiene productos que reservar esta campaña.";
             public const string Pedido_DeleteAll = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
             public const string MiPerfil_ConfirmacionCorreo = "Ha ocurrido un error con la activación de su correo electrónico.";
-            public const string MiPerfil_ActualizarEnviarCorreo = "Ocurrió un error al intentar actualizar su correo. Inténtelo más tarde.";
+            public const string UpdCorreoConsultora = "Ocurrió un error al intentar actualizar su correo. Inténtelo más tarde.";
+            public const string UpdCorreoConsultora_NoAutorizado = "Su país no permite la actualización de datos.";
+            public const string UpdCorreoConsultora_CorreoVacio = "Debe ingresar un correo nuevo.";
+            public const string UpdCorreoConsultora_CorreoNoCambia = "Debe ingresar un correo nuevo diferente a su correo actual.";
+            public const string UpdCorreoConsultora_CorreoYaExiste = "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.";
         }
 
         public static class ConfiguracionPais
@@ -1437,6 +1442,7 @@ namespace Portal.Consultoras.Common
             public const int ValoresPagoEnLinea = 122;
             public const int CantidadCuvMasivo = 137;
             public const short ProlObsCod = 5;
+            public const int ActualizaDatosEnabled = 143;
         }
 
         public struct MensajesCDRExpress
@@ -2079,17 +2085,23 @@ namespace Portal.Consultoras.Common
             public const string Activo = "Activo";
             public const string IdEstadoActividad = "IdEstadoActividad";
 
-            public const int RecuperarClave = 1;
-            public const int Autenticacion = 2;
-            public const int EnviarPorEmail = 1;
-            public const int EnviarPorSms = 2;
+            public const int Origen_RecuperarClave = 1;
+            public const int Origen_Autenticacion = 2;
+            public const int Origen_ActualizarCorreo = 3;
+
+            public const int TipoEnvio_Email = 1;
+            public const int TipoEnvio_Sms = 2;
         }
         #endregion  
 
-        public static class TablaLogicaDatosValores
+        public static class ValidacionDatosTipoEnvio
         {
-            public const int ServicioSMS = 144;
-            public const int ActualizaDatos = 143;
+            public const string Email = "email";
+        }
+        public static class ValidacionDatosEstado
+        {
+            public const string Pendiente = "P";
+            public const string Activo = "A";
         }
     }
 }

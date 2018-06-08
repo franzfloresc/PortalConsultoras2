@@ -4,7 +4,7 @@ var MiPerfil_Base = function () {
     var validarCamposConDatos = function () {
         var camposFormulario = $('.grupo_form_cambio_datos input');
         $.each(camposFormulario, function (campoFormulario, key) {
-            if (IsNullOrEmpty(campoFormulario)) $(campoFormulario).addClass('campo_con_datos');
+            if (!IsNullOrEmpty(campoFormulario)) $(campoFormulario).addClass('campo_con_datos');
         });
     };
 

@@ -309,6 +309,9 @@ namespace Portal.Consultoras.ServiceContracts
         string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior);
 
         [OperationContract]
+        BERespuestaServicio ActualizarEmail(BEUsuario usuario, string correoNuevo);
+
+        [OperationContract]
         int EliminarUsuarioPostulante(string paisISO, string numeroDocumento);
 
         [OperationContract]
