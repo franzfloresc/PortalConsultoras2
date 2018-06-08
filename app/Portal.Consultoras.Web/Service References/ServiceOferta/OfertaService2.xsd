@@ -100,4 +100,54 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEShowRoomEventoConsultora" nillable="true" type="tns:BEShowRoomEventoConsultora" />
+  <xs:complexType name="ArrayOfBEShowRoomNivel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEShowRoomNivel" nillable="true" type="tns:BEShowRoomNivel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEShowRoomNivel" nillable="true" type="tns:ArrayOfBEShowRoomNivel" />
+  <xs:complexType name="BEShowRoomNivel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NivelId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEShowRoomNivel" nillable="true" type="tns:BEShowRoomNivel" />
+  <xs:complexType name="ArrayOfBEShowRoomPersonalizacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEShowRoomPersonalizacion" nillable="true" type="tns:BEShowRoomPersonalizacion" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEShowRoomPersonalizacion" nillable="true" type="tns:ArrayOfBEShowRoomPersonalizacion" />
+  <xs:complexType name="BEShowRoomPersonalizacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Atributo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Orden" type="xs:int" />
+      <xs:element minOccurs="0" name="PersonalizacionId" type="xs:int" />
+      <xs:element minOccurs="0" name="TextoAyuda" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoAplicacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoAtributo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoPersonalizacion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEShowRoomPersonalizacion" nillable="true" type="tns:BEShowRoomPersonalizacion" />
+  <xs:complexType name="ArrayOfBEShowRoomPersonalizacionNivel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEShowRoomPersonalizacionNivel" nillable="true" type="tns:BEShowRoomPersonalizacionNivel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEShowRoomPersonalizacionNivel" nillable="true" type="tns:ArrayOfBEShowRoomPersonalizacionNivel" />
+  <xs:complexType name="BEShowRoomPersonalizacionNivel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CategoriaId" type="xs:int" />
+      <xs:element minOccurs="0" name="EventoID" type="xs:int" />
+      <xs:element minOccurs="0" name="NivelId" type="xs:int" />
+      <xs:element minOccurs="0" name="PersonalizacionId" type="xs:int" />
+      <xs:element minOccurs="0" name="PersonalizacionNivelId" type="xs:int" />
+      <xs:element minOccurs="0" name="Valor" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEShowRoomPersonalizacionNivel" nillable="true" type="tns:BEShowRoomPersonalizacionNivel" />
 </xs:schema>

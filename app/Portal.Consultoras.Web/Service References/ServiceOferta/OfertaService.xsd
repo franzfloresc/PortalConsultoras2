@@ -83,4 +83,64 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetShowRoomNivel">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetShowRoomNivelResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="GetShowRoomNivelResult" nillable="true" type="q6:ArrayOfBEShowRoomNivel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetShowRoomPersonalizacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetShowRoomPersonalizacionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="GetShowRoomPersonalizacionResult" nillable="true" type="q7:ArrayOfBEShowRoomPersonalizacion" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetShowRoomPersonalizacionNivel">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisId" type="xs:int" />
+        <xs:element minOccurs="0" name="eventoId" type="xs:int" />
+        <xs:element minOccurs="0" name="nivelId" type="xs:int" />
+        <xs:element minOccurs="0" name="categoriaId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetShowRoomPersonalizacionNivelResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="GetShowRoomPersonalizacionNivelResult" nillable="true" type="q8:ArrayOfBEShowRoomPersonalizacionNivel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ShowRoomProgramarAviso">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="entity" nillable="true" type="q9:BEShowRoomEventoConsultora" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ShowRoomProgramarAvisoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ShowRoomProgramarAvisoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

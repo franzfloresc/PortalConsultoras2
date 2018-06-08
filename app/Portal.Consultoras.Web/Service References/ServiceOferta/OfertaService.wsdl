@@ -63,6 +63,30 @@
   <wsdl:message name="IOfertaService_GetShowRoomConsultora_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetShowRoomConsultoraResponse" />
   </wsdl:message>
+  <wsdl:message name="IOfertaService_GetShowRoomNivel_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetShowRoomNivel" />
+  </wsdl:message>
+  <wsdl:message name="IOfertaService_GetShowRoomNivel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetShowRoomNivelResponse" />
+  </wsdl:message>
+  <wsdl:message name="IOfertaService_GetShowRoomPersonalizacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetShowRoomPersonalizacion" />
+  </wsdl:message>
+  <wsdl:message name="IOfertaService_GetShowRoomPersonalizacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetShowRoomPersonalizacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IOfertaService_GetShowRoomPersonalizacionNivel_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetShowRoomPersonalizacionNivel" />
+  </wsdl:message>
+  <wsdl:message name="IOfertaService_GetShowRoomPersonalizacionNivel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetShowRoomPersonalizacionNivelResponse" />
+  </wsdl:message>
+  <wsdl:message name="IOfertaService_ShowRoomProgramarAviso_InputMessage">
+    <wsdl:part name="parameters" element="tns:ShowRoomProgramarAviso" />
+  </wsdl:message>
+  <wsdl:message name="IOfertaService_ShowRoomProgramarAviso_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ShowRoomProgramarAvisoResponse" />
+  </wsdl:message>
   <wsdl:portType name="IOfertaService">
     <wsdl:operation name="GetShowRoomOfertasConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/IOfertaService/GetShowRoomOfertasConsultora" message="tns:IOfertaService_GetShowRoomOfertasConsultora_InputMessage" />
@@ -83,6 +107,22 @@
     <wsdl:operation name="GetShowRoomConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/IOfertaService/GetShowRoomConsultora" message="tns:IOfertaService_GetShowRoomConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IOfertaService/GetShowRoomConsultoraResponse" message="tns:IOfertaService_GetShowRoomConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetShowRoomNivel">
+      <wsdl:input wsaw:Action="http://tempuri.org/IOfertaService/GetShowRoomNivel" message="tns:IOfertaService_GetShowRoomNivel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IOfertaService/GetShowRoomNivelResponse" message="tns:IOfertaService_GetShowRoomNivel_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetShowRoomPersonalizacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IOfertaService/GetShowRoomPersonalizacion" message="tns:IOfertaService_GetShowRoomPersonalizacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IOfertaService/GetShowRoomPersonalizacionResponse" message="tns:IOfertaService_GetShowRoomPersonalizacion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetShowRoomPersonalizacionNivel">
+      <wsdl:input wsaw:Action="http://tempuri.org/IOfertaService/GetShowRoomPersonalizacionNivel" message="tns:IOfertaService_GetShowRoomPersonalizacionNivel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IOfertaService/GetShowRoomPersonalizacionNivelResponse" message="tns:IOfertaService_GetShowRoomPersonalizacionNivel_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ShowRoomProgramarAviso">
+      <wsdl:input wsaw:Action="http://tempuri.org/IOfertaService/ShowRoomProgramarAviso" message="tns:IOfertaService_ShowRoomProgramarAviso_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IOfertaService/ShowRoomProgramarAvisoResponse" message="tns:IOfertaService_ShowRoomProgramarAviso_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IOfertaService" type="tns:IOfertaService">
@@ -132,6 +172,42 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetShowRoomNivel">
+      <soap:operation soapAction="http://tempuri.org/IOfertaService/GetShowRoomNivel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShowRoomPersonalizacion">
+      <soap:operation soapAction="http://tempuri.org/IOfertaService/GetShowRoomPersonalizacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShowRoomPersonalizacionNivel">
+      <soap:operation soapAction="http://tempuri.org/IOfertaService/GetShowRoomPersonalizacionNivel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShowRoomProgramarAviso">
+      <soap:operation soapAction="http://tempuri.org/IOfertaService/ShowRoomProgramarAviso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="BasicHttpsBinding_IOfertaService" type="tns:IOfertaService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IOfertaService_policy" />
@@ -174,6 +250,42 @@
     </wsdl:operation>
     <wsdl:operation name="GetShowRoomConsultora">
       <soap:operation soapAction="http://tempuri.org/IOfertaService/GetShowRoomConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShowRoomNivel">
+      <soap:operation soapAction="http://tempuri.org/IOfertaService/GetShowRoomNivel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShowRoomPersonalizacion">
+      <soap:operation soapAction="http://tempuri.org/IOfertaService/GetShowRoomPersonalizacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShowRoomPersonalizacionNivel">
+      <soap:operation soapAction="http://tempuri.org/IOfertaService/GetShowRoomPersonalizacionNivel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ShowRoomProgramarAviso">
+      <soap:operation soapAction="http://tempuri.org/IOfertaService/ShowRoomProgramarAviso" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

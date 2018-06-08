@@ -817,7 +817,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var showRoomEvento = configEstrategiaSR.BeShowRoom;
                 var codigoConsultora = userData.CodigoConsultora;
 
-                showRoomEventoModel = Mapper.Map<BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
+                showRoomEventoModel = Mapper.Map<ServiceOferta.BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
                 showRoomEventoModel.Simbolo = userData.Simbolo;
                 showRoomEventoModel.CodigoIso = userData.CodigoISO;
 
@@ -896,7 +896,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var entidad = new BEShowRoomEventoConsultora
+                //@001 FSV INICIO
+                //var entidad = new BEShowRoomEventoConsultora
+                var entidad = new ServicePedido.BEShowRoomEventoConsultora
+                //@001 FSV FIN
                 {
                     CodigoConsultora = codigoConsultoraFromQueryString,
                     CampaniaID = campaniaIdFromQueryString

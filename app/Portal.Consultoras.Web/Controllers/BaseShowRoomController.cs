@@ -14,6 +14,13 @@ using System.Linq;
 using System.Text;
 using BEEstrategia = Portal.Consultoras.Web.ServicePedido.BEEstrategia;
 
+/*
+CONTROL DE CAMBIOS
+CORRELATIVO -   PERSONA -   FECHA       -   MOTIVO
+@001        -   FSV     -   08/06/2018  -   Se traslada llamamientos de ShowRoom y ODD al nuevo servicio unificado "OfertaService".
+@002
+*/
+
 namespace Portal.Consultoras.Web.Controllers
 {
     public class BaseShowRoomController : BaseController
@@ -189,7 +196,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var entidad = new BEShowRoomEventoConsultora
+                //@001 FSV INICIO
+                //var entidad = new BEShowRoomEventoConsultora
+                var entidad = new ServicePedido.BEShowRoomEventoConsultora
+                //@001 FSV FIN
                 {
                     CodigoConsultora = codigoConsultoraFromQueryString,
                     CampaniaID = campaniaIdFromQueryString

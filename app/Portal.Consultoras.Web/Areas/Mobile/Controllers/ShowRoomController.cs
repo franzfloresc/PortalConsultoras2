@@ -10,6 +10,13 @@ using System.ServiceModel;
 using System.Web.Mvc;
 using System.Web.Routing;
 
+/*
+CONTROL DE CAMBIOS
+CORRELATIVO -   PERSONA -   FECHA       -   MOTIVO
+@001        -   FSV     -   08/06/2018  -   Se traslada llamamientos de ShowRoom y ODD al nuevo servicio unificado "OfertaService".
+@002
+*/
+
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class ShowRoomController : BaseEstrategiaController
@@ -149,7 +156,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
                 ViewBag.EstadoActivo = showRoomBannerLateral.EstadoActivo;
 
-                var eventoConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
+                //@001 FSV INICIO
+                //var eventoConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
+                var eventoConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ServiceOferta.BEShowRoomEventoConsultora();
+                //@001 FSV FIN
                 eventoConsultora.CorreoEnvioAviso = Util.Trim(eventoConsultora.CorreoEnvioAviso);
 
                 model.Suscripcion = eventoConsultora.Suscripcion;

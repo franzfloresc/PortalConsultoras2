@@ -39,9 +39,19 @@ namespace Portal.Consultoras.Service
             return new BLOfertaPersonalizada().GetShowRoomNivel(paisId);
         }
 
+        public IList<BEShowRoomPersonalizacion> GetShowRoomPersonalizacion(int paisId)
+        {
+            return new BLOfertaPersonalizada().GetShowRoomPersonalizacion(paisId);
+        }
+
         public IList<BEShowRoomPersonalizacionNivel> GetShowRoomPersonalizacionNivel(int paisId, int eventoId, int nivelId, int categoriaId)
         {
             return new BLOfertaPersonalizada().GetShowRoomPersonalizacionNivel(paisId, eventoId, nivelId, categoriaId);
+        }
+
+        public int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity)
+        {
+            return new BLOfertaPersonalizada().ShowRoomProgramarAviso(paisID, entity);
         }
     }
 }

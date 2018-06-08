@@ -28,6 +28,12 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEShowRoomNivel> GetShowRoomNivel(int paisId);
 
         [OperationContract]
+        IList<BEShowRoomPersonalizacion> GetShowRoomPersonalizacion(int paisId);
+
+        [OperationContract]
         IList<BEShowRoomPersonalizacionNivel> GetShowRoomPersonalizacionNivel(int paisId, int eventoId, int nivelId, int categoriaId);
+
+        [OperationContract]
+        int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity);
     }
 }

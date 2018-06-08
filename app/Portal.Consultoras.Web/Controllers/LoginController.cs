@@ -32,6 +32,13 @@ using System.Web.Routing;
 using System.Web.Security;
 using BEConfiguracionPaisDatos = Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos;
 
+/*
+CONTROL DE CAMBIOS
+CORRELATIVO -   PERSONA -   FECHA       -   MOTIVO
+@001        -   FSV     -   08/06/2018  -   Se traslada llamamientos de ShowRoom y ODD al nuevo servicio unificado "OfertaService".
+@002
+*/
+
 namespace Portal.Consultoras.Web.Controllers
 {
     public class LoginController : Controller
