@@ -16,10 +16,12 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900" rel="stylesheet" type="text/css">
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
     {
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/styleDefault.css")">
         <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/verificacion-pin.css")">
     }
     else
     {
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Lbel/styleDefault.css")">
         <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Lbel/verificacion-pin.css")">
     }
     @Styles.Render("~/Content/Css/Login")
@@ -114,15 +116,13 @@
                             <input id="6Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
                             <div class="block icono_validacion_codigo_sms validacion_erronea"></div>
                         </fieldset>
-                        <div class="block codigo_sms_caducidad text-uppercase">El código caduca en <span class="default-color">01:00</span></div>
+                        <div class="block codigo_sms_caducidad text-uppercase">El código caduca en <span class="default-color">03:00</span></div>
                     </div>
-                    <p id="linkRenviarSms" class="w-100 envio_instrucciones_info block mb-45 mb-20-mobile">
-                        <a title="Reenvíenme el código" class="block enlace_reenviar_instrucciones w-100 text-uppercase text-bold RecuperarPorSms" style="cursor:pointer;">
+                    <p id="linkRenviarSms" class="w-100 envio_instrucciones_info block mb-35 mb-20-mobile">
+                        <a title="Reenvíenme el código" class="block enlace_reenviar_instrucciones w-100 mb-10 text-uppercase text-bold RecuperarPorSms" style="cursor:pointer;">
                             Reenvíenme el código
                         </a>
-                    </p>
-                    <p class="w-100 envio_instrucciones_info block mb-45 mb-20-mobile escogeOtraOpcion" style="display:none;">
-                        <a title="Escoger otra opción" class="block enlace_reenviar_instrucciones w-100 text-uppercase text-bold" style="color:red;cursor:pointer;">
+                        <a title="Escoger otra opción" style="display:none;" class="block escogeOtraOpcion default-color enlace_reenviar_instrucciones w-100 text-uppercase text-bold" style="color:red;cursor:pointer;">
                             Escoger otra opción
                         </a>
                     </p>
