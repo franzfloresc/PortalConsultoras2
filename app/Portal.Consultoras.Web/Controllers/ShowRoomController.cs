@@ -16,14 +16,13 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class ShowRoomController : BaseEstrategiaController
+    public class ShowRoomController : BaseShowRoomController
     {
         public ShowRoomController() : base()
         {
 
         }
 
-        //OK
         public ActionResult Intriga()
         {
             if (!ValidarIngresoShowRoom(true))
@@ -49,7 +48,6 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
-        //OK
         public ActionResult Index(string query)
         {
             ViewBag.TerminoMostrar = 1;
@@ -118,7 +116,6 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
-        //OK
         public JsonResult ConsultarShowRoom(string sidx, string sord, int page, int rows, int paisId, int campaniaId)
         {
             try
@@ -265,7 +262,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //OK
         [HttpPost]
         public JsonResult GetShowRoomNiveles()
         {
@@ -293,7 +289,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //OK
         public JsonResult GuardarShowRoom(ShowRoomEventoModel showRoomEventoModel)
         {
             try
@@ -342,7 +337,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //OK
         [HttpPost]
         public JsonResult DeshabilitarShowRoomEvento(int campaniaId, int eventoId)
         {
@@ -389,7 +383,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //OK
         [HttpPost]
         public JsonResult EliminarShowRoomEvento(int campaniaId, int eventoId)
         {
@@ -436,7 +429,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Compra por Compra
-        [Obsolete("Revisar si se va usar")]
+
         [HttpPost]
         public string CargarProductoCpc(HttpPostedFileBase flCargarProductoCpc, int hdCargarProductoCpcEventoId,
             int hdCargarProductoCpcCampaniaId)
@@ -541,7 +534,6 @@ namespace Portal.Consultoras.Web.Controllers
             return message;
         }
 
-        //OK
         [HttpPost]
         public JsonResult CerrarBannerCompraPorCompra()
         {
@@ -570,7 +562,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-        //OK
         [HttpPost]
         public JsonResult PopupCerrar()
         {
@@ -592,7 +583,6 @@ namespace Portal.Consultoras.Web.Controllers
             });
         }
 
-        //OK
         [HttpPost]
         public JsonResult UpdatePopupShowRoom(bool noMostrarPopup)
         {
@@ -623,7 +613,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //OK
         public JsonResult ValidarUnidadesPermitidasPedidoProducto(string cuv, string precioUnidad, string cantidad)
         {
             int unidadesPermitidas;
@@ -654,7 +643,6 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        //OK
         public JsonResult ObtenerStockActualProducto(string cuv)
         {
             int stock;
@@ -670,21 +658,18 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        //OK
         [HttpPost]
         public JsonResult InsertOfertaWebPortal(PedidoDetalleModel model)
         {
             return InsertarPedidoWebPortal(model, 1);
         }
 
-        //OK
         [HttpPost]
         public JsonResult InsertOfertaWebPortalCpc(PedidoDetalleModel model)
         {
             return InsertarPedidoWebPortal(model, 2);
         }
 
-        //OK
         public ActionResult ConsultarOfertaShowRoomDetalleNew(string sidx, string sord, int page, int rows, int estrategiaId)
         {
             if (ModelState.IsValid)
@@ -772,7 +757,6 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
-        //OK
         [HttpPost]
         public JsonResult InsertOfertaShowRoomDetalleNew(EstrategiaProductoModel model)
         {
@@ -865,7 +849,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //OK
         [HttpPost]
         public JsonResult UpdateOfertaShowRoomDetalleNew(EstrategiaProductoModel model)
         {
@@ -911,7 +894,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //OK
         [HttpPost]
         public JsonResult EliminarOfertaShowRoomDetalleNew(int estrategiaId, string cuv)
         {
@@ -958,7 +940,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //OK
         [HttpPost]
         public JsonResult EliminarOfertaShowRoomDetalleAllNew(int estrategiaId)
         {
@@ -998,7 +979,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //OK
         [HttpPost]
         public JsonResult GetShowRoomPersonalizacionNivel(int eventoId, int nivelId)
         {
@@ -1060,7 +1040,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //OK
         [HttpPost]
         public JsonResult GuardarPersonalizacionNivelShowRoom(List<ShowRoomPersonalizacionNivelModel> lista)
         {
@@ -1133,7 +1112,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Comprar desde Página de Oferta
 
-        //OK
         public ActionResult DetalleOferta(int id)
         {
             if (!ValidarIngresoShowRoom(false))
@@ -1160,7 +1138,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-        //OK
         [HttpPost]
         public JsonResult CargarProductosShowRoom(BusquedaProductoModel model)
         {
@@ -1247,7 +1224,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //OK
         [HttpPost]
         public JsonResult CargarProductosShowRoomOferta(BusquedaProductoModel model)
         {
@@ -1286,7 +1262,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //OK
         [HttpPost]
         public JsonResult GetDataShowRoomIntriga()
         {
@@ -1350,7 +1325,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        [Obsolete("Revisar si se va usar")]
         public JsonResult PopupIntriga()
         {
             try
@@ -1444,7 +1418,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //OK
         [HttpPost]
         public JsonResult ProgramarAviso(MisDatosModel model)
         {
@@ -1523,7 +1496,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //OK
         [HttpGet]
         public JsonResult DesactivarBannerInferior()
         {
@@ -1823,9 +1795,5 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-        #region Metodos Obsoletos
-
-        
-        #endregion
     }
 }
