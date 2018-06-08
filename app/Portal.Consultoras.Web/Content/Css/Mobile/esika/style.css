@@ -14986,7 +14986,7 @@ a {
 }
 
 .enlace_detalleTerminosYCondicionesContrato{
-    text-align: left;
+    text-align: center;
     color: #000;
     font-size: 12px;
     margin-top: 48px;
@@ -14999,8 +14999,13 @@ a {
 .btn_aceptarTerminosYCondicionesContrato {
     margin: 0 auto;
     width: 100%;
+    /*
     height: 45px;
     line-height: 45px;
+    */
+    height: 55px;
+    line-height: 20px;
+
     font-family: 'Lato';
     font-weight: bold;
     text-align: center;

@@ -2182,7 +2182,9 @@ function AbrirAceptacionContrato() {
         }
     }
 }
+
 function AceptarContrato() {
+
     waitingDialog({});
     $.ajax({
         type: "POST",
@@ -2211,6 +2213,7 @@ function AceptarContrato() {
         }
     });
 }
+
 function DownloadAttachPDF() {
     var iframe_ = document.createElement("iframe");
     iframe_.style.display = "none";

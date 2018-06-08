@@ -14,6 +14,10 @@
     var nombreConsultora = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
     var tipoUsuaio = ViewBag.TipoUsuario;
     ViewBag.SourcePage = 1;
+
+    Model.NombreConsultora = Util.SubStr(Model.NombreConsultora, 0).ToUpper();
+    var nombreConsultoraSin = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "");
+
 }
 
 @section styles{
@@ -630,24 +634,24 @@
 
 <!--FIN-->
 <!-- POPUP ACEPTACIÓN DE CONTRATO (COLOMBIA) -->
-<div class="contenedor_fondo_popup" id="fondoComunPopUp" style="display:none;">
-    <div class="popup_aceptacionTerminosYCondicionesContrato" id="popupAceptacionTerminosYCondicionesContrato" style="display:none;">
+<div id="fondoPopup_aceptacionTerminosYCondicionesContrato" class="contenedor_fondo_popup" style="display:none;">
+    <div id="popupAceptacionContrato" class="popup_aceptacionTerminosYCondicionesContrato">
         <div class="contenido_popUp">
             <div class="icono_contrato"></div>
             <h1 class="titulo_aceptacionTerminosYCondicionesContrato">
                 TÉRMINOS Y CONDICIONES DE USO DE <b>SOMOSBELCORP.COM</b>
             </h1>
             <p class="mensaje_popUp_aceptacionTerminosYCondicionesContrato">
-                Querida CAROLINA
+                <b>Querida @(nombreConsultoraSin),</b>
             </p>
             <p class="mensaje_popUp_aceptacionTerminosYCondicionesContrato">
-                Antes de empezar a utilizar Somos Belcorp debes aceptar los términos y condiciones de la Solicitud de Crédito y Autorización de consulta y reporte de datos financieros.
+                Al dar click en el botón, aceptas los términos y condiciones de la Solicitud de Crédito y Autorización de consulta y reporte de datos financieros.
             </p>
             <a href="javascript:;" onclick="return DownloadAttachPDF();" class="enlace_detalleTerminosYCondicionesContrato text-uppercase" title="Revisar términos y condiciones de uso">
-                > Revisar términos y condiciones de uso
+                >  CONOCE EL DETALLE AQUÍ
             </a>
             <button type="button" name="btn_aceptarTerminosYCondicionesContrato" class="btn_aceptarTerminosYCondicionesContrato" onclick="return AceptarContrato();">
-                ¡ACEPTO!
+                <b>¡ACEPTO!</b> <br /> QUIERO EMPREZAR A USARLO
             </button>
         </div>
     </div>
@@ -734,7 +738,7 @@
 }
 <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
 
-@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml",  new ViewDataDictionary {{ "TieneBotones", true }})
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", true } })
 
 <!--SHOWROOM: modal popup -->
 <div class="modal fade" id="PopShowroom">
@@ -836,7 +840,7 @@
 
 <!--FIN-->
 @section scripts{
-    <script type="text/javascript">
+<script type="text/javascript">
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
         var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
@@ -849,6 +853,11 @@
         var viewBagVioTutorial = '@Model.VioTutorial';
         var TipoPopUpMostrar = '@Model.TipoPopUpMostrar';
         var popupRevistaDigitalSuscripcion = '@Constantes.TipoPopUp.RevistaDigitalSuscripcion';
+
+        var popupAceptacionContrato = '@Constantes.TipoPopUp.AceptacionContrato';
+        var urlContratoCOpdf = '@Url.Content("~/Content/FAQ/41577-BELCORP-SolCre-CO-400073315-300916.pdf")';
+        var viewBagCambioClave = '@Model.CambioClave';
+
         var origenPagina = 1;
         var urlUpdatePopupShowRoom = '@Url.Action("UpdatePopupShowRoom", "ShowRoom", new { area = "" })';
         var urlMostrarShowRoomPopup = '@Url.Action("MostrarShowRoomPopup", "Bienvenida", new { area = "" })';
@@ -886,7 +895,7 @@
         var mostrarPopupCuponGanaste = (@Model.TipoPopUpMostrar == 11) ? 'true' : 'false';
         var nombreAlias = '@Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!")';
 
-    </script>
+</script>
     @Scripts.Render("~/bundles/JsMobile/Bienvenida")
 
 }

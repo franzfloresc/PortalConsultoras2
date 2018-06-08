@@ -45,11 +45,14 @@ $(document).ready(function () {
         stopVideo();
         $('#VideoIntroductorio').hide();
     });
-
     $("#imgProductoMobile").click(function () {
 
     });
-    
+
+    if ($('#fondoPopup_aceptacionTerminosYCondicionesContrato').is(':visible')) {
+        $("#fondoPopup_aceptacionTerminosYCondicionesContrato").hide();
+    }
+
     CargarCarouselEstrategias("");
 
     if (tieneMasVendidos === 1) {
@@ -100,10 +103,13 @@ $(document).ready(function () {
 
     if (consultoraNuevaBannerAppMostrar == "False") ObtenerComunicadosPopup();
     EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-home]");
+
 });
+
 $(window).load(function () {
     VerSeccionBienvenida(verSeccion);
 });
+
 function CrearPopShow() {
 
     $("#btnCerrarPopShowroom").click(function () {
@@ -362,6 +368,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
 function CargarPopupsConsultora() {
 
     MostrarDemandaAnticipada();
+
     if (viewBagVioTutorial != '0' && noMostrarPopUpRevistaDig == 'False') {
         rdAnalyticsModule.MostrarPopup();
     }
@@ -371,6 +378,10 @@ function CargarPopupsConsultora() {
     }
     else if (TipoPopUpMostrar == popupRevistaDigitalSuscripcion) {
         rdPopup.Mostrar();
+    }
+    else if (TipoPopUpMostrar == popupAceptacionContrato)
+    {
+        $("#fondoPopup_aceptacionTerminosYCondicionesContrato").show();
     }
 }
 
@@ -496,6 +507,7 @@ function mostrarCatalogoPersonalizado() {
 }
 
 var ComunicadoId = 0;
+
 function ObtenerComunicadosPopup() {
     if (primeraVezSession == 0) return;
 
@@ -711,6 +723,70 @@ function VerTutorialMobile() {
 
     setTimeout(function () { $(window).resize(); }, 50);
 }
+
+function AceptarContrato() {
+    ShowLoading({});
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "Bienvenida/AceptarContrato",
+        data: JSON.stringify({ checkAceptar: 1 }),
+        contentType: 'application/json',
+        success: function (data) {
+            if (checkTimeout(data)) {
+                CloseLoading();
+                if (!data.success) {
+                    alert(data.message);
+                    if (data.extra != "nocorreo") return;
+                }
+
+                $("#fondoPopup_aceptacionTerminosYCondicionesContrato").hide();
+                if (viewBagCambioClave == 0) {
+                    console.log("VERIFICAR SI ABRE ESTA PANTALLA popupActualizarMisDatos")
+                }
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                CloseLoading();
+                alert("Ocurrió un error inesperado al momento de registrar los datos. Consulte con su administrador del sistema para obtener mayor información");
+            }
+        }
+    });
+}
+
+function DownloadAttachPDF() {
+    var iframe_ = document.createElement("iframe");
+    iframe_.style.display = "none";
+    var requestedFile = urlContratoCOpdf;
+    iframe_.setAttribute("src", baseUrl + 'WebPages/DownloadPDF.aspx?file=' + requestedFile);
+
+    if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
+        iframe_.onreadystatechange = function () {
+            switch (this.readyState) {
+                case "loading":
+                    ShowLoading({});
+                    break;
+                case "complete":
+                case "interactive":
+                case "uninitialized":
+                    CloseLoading();
+                    break;
+                default:
+                    CloseLoading();
+                    break;
+            }
+        };
+    }
+    else {
+        // Si es Firefox o Chrome
+        $(iframe_).ready(function () {
+            CloseLoading();
+        });
+    }
+    document.body.appendChild(iframe_);
+}
+
+
 /*
 function ConfigurarYoutube() {
     if (tag == null) {

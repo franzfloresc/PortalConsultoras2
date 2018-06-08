@@ -748,7 +748,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var svr = new UsuarioServiceClient())
                 {
-                    svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora);
+                  svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora , Constantes.ClienteOrigen.OrigenDesktop);
                 }
 
                 userData.IndicadorContrato = 1;

@@ -129,7 +129,7 @@ namespace Portal.Consultoras.ServiceContracts
         String AceptarContrato(BEUsuario usuario);
 
         [OperationContract]
-        int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora);
+        int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora, string origen);
 
         [OperationContract]
         BEUsuario GetSesionUsuarioLoginDD(int paisID, string codigoUsuario, string claveSecreta);
