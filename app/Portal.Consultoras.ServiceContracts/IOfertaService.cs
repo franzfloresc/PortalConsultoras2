@@ -20,5 +20,14 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEShowRoomEvento GetShowRoomEventoByCampaniaID(int paisID, int campaniaID);
+
+        [OperationContract]
+        BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion);
+
+        [OperationContract]
+        IList<BEShowRoomNivel> GetShowRoomNivel(int paisId);
+
+        [OperationContract]
+        IList<BEShowRoomPersonalizacionNivel> GetShowRoomPersonalizacionNivel(int paisId, int eventoId, int nivelId, int categoriaId);
     }
 }

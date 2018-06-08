@@ -1163,7 +1163,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEShowRoomPersonalizacionNivel> personalizacionesNivel = null;
 
                 //@001 FSV INICIO
-                using (var pedidoService = new PedidoServiceClient())
+                /*using (var pedidoService = new PedidoServiceClient())
                 {
                     configEstrategiaSR.BeShowRoom = pedidoService.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
                     configEstrategiaSR.BeShowRoomConsultora = pedidoService.GetShowRoomConsultora(
@@ -1182,11 +1182,19 @@ namespace Portal.Consultoras.Web.Controllers
                         personalizacionesNivel = pedidoService.GetShowRoomPersonalizacionNivel(model.PaisID,
                             configEstrategiaSR.BeShowRoom.EventoID, configEstrategiaSR.ShowRoomNivelId, 0).ToList();
                     }
-                }
+                }*/
 
                 using (OfertaServiceClient osc = new OfertaServiceClient())
                 {
                     configEstrategiaSR.BeShowRoom = osc.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
+                    configEstrategiaSR.BeShowRoomConsultora = osc.GetShowRoomConsultora(model.PaisID, model.CampaniaID, codigoConsultora, true);
+                    configEstrategiaSR.ListaNivel = osc.GetShowRoomNivel(model.PaisID).ToList();
+                    configEstrategiaSR.ListaPersonalizacionConsultora = Mapper.Map<IList<BEShowRoomPersonalizacion>, IList<ShowRoomPersonalizacionModel>>(pedidoService.GetShowRoomPersonalizacion(model.PaisID).ToList()).ToList();
+                    configEstrategiaSR.ShowRoomNivelId = ObtenerNivelId(configEstrategiaSR.ListaNivel);
+                    if (configEstrategiaSR.BeShowRoom != null && configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
+                    {
+                        personalizacionesNivel = osc.GetShowRoomPersonalizacionNivel(model.PaisID, configEstrategiaSR.BeShowRoom.EventoID, configEstrategiaSR.ShowRoomNivelId, 0).ToList();
+                    }
                 }
                 //@001 FSV FIN
 

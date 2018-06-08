@@ -28,5 +28,20 @@ namespace Portal.Consultoras.Service
         {
             return new BLOfertaPersonalizada().GetShowRoomEventoByCampaniaID(paisID, campaniaID);
         }
+
+        public BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion)
+        {
+            return new BLOfertaPersonalizada().GetShowRoomConsultora(paisID, campaniaID, codigoConsultora, tienePersonalizacion);
+        }
+
+        public IList<BEShowRoomNivel> GetShowRoomNivel(int paisId)
+        {
+            return new BLOfertaPersonalizada().GetShowRoomNivel(paisId);
+        }
+
+        public IList<BEShowRoomPersonalizacionNivel> GetShowRoomPersonalizacionNivel(int paisId, int eventoId, int nivelId, int categoriaId)
+        {
+            return new BLOfertaPersonalizada().GetShowRoomPersonalizacionNivel(paisId, eventoId, nivelId, categoriaId);
+        }
     }
 }

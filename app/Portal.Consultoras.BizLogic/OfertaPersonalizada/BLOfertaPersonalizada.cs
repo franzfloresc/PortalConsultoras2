@@ -74,5 +74,49 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
 
             return listaEstrategias;
         }
+
+        public BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion)
+        {
+            BEShowRoomEventoConsultora entidad = null;
+            var daPedidoWeb = new DAShowRoomEvento(paisID);
+
+            using (IDataReader reader = daPedidoWeb.GetShowRoomConsultoraPersonalizacion(campaniaID, codigoConsultora))
+            {
+                if (reader.Read())
+                {
+                    entidad = new BEShowRoomEventoConsultora(reader);
+                }
+            }
+
+            return entidad;
+        }
+
+        public IList<BEShowRoomNivel> GetShowRoomNivel(int paisId)
+        {
+            var lst = new List<BEShowRoomNivel>();
+            var dataAccess = new DAShowRoomEvento(paisId);
+
+            using (IDataReader reader = dataAccess.GetShowRoomNivel())
+                while (reader.Read())
+                {
+                    var entity = new BEShowRoomNivel(reader);
+                    lst.Add(entity);
+                }
+            return lst;
+        }
+
+        public IList<BEShowRoomPersonalizacionNivel> GetShowRoomPersonalizacionNivel(int paisId, int eventoId, int nivelId, int categoriaId)
+        {
+            var lst = new List<BEShowRoomPersonalizacionNivel>();
+            var dataAccess = new DAShowRoomEvento(paisId);
+
+            using (IDataReader reader = dataAccess.GetShowRoomPersonalizacionNivel(eventoId, nivelId, categoriaId))
+                while (reader.Read())
+                {
+                    var entity = new BEShowRoomPersonalizacionNivel(reader);
+                    lst.Add(entity);
+                }
+            return lst;
+        }
     }
 }

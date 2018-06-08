@@ -81,4 +81,23 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEShowRoomEvento" nillable="true" type="tns:BEShowRoomEvento" />
+  <xs:complexType name="BEShowRoomEventoConsultora">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CorreoEnvioAviso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Envio" type="xs:int" />
+      <xs:element minOccurs="0" name="EventoConsultoraID" type="xs:int" />
+      <xs:element minOccurs="0" name="EventoID" type="xs:int" />
+      <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="MostrarPopup" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MostrarPopupVenta" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Segmento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Suscripcion" type="xs:boolean" />
+      <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEShowRoomEventoConsultora" nillable="true" type="tns:BEShowRoomEventoConsultora" />
 </xs:schema>
