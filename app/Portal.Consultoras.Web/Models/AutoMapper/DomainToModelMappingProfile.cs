@@ -15,6 +15,8 @@ using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
+using Portal.Consultoras.Service;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -586,6 +588,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.CUV, f => f.MapFrom(c => c.CuvProducto))
                 .ForMember(t => t.TipoOfertaSisId, f => f.MapFrom(c => c.TipoOfertaSisId));
 
+            Mapper.CreateMap<ServiceOferta.BEShowRoomEventoConsultora, ShowRoomEventoConsultoraModel>();
         }
     }
 }

@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers.Estrategias
 {
-    public class EstrategiaController : BaseEstrategiaController
+    public class EstrategiaController : BaseEstrategiaController 
     {
         private readonly OfertaPersonalizadaProvider _ofertaPersonalizadaProvider;
 
@@ -152,8 +152,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
         /// <summary>
-        /// Función que agrupa la construcción de la lista Model de estrategias para
-        /// RDObtenerProductos, RDObtenerProductosLan, GNDObtenerProductos y HVObtenerProductos (JN, JUN-2018)
+        /// Función unificada
         /// </summary>
         private JsonResult PreparListaModel(BusquedaProductoModel model, int tipoConsulta)
         {

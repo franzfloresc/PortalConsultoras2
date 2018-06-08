@@ -14,6 +14,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -39,7 +40,7 @@ namespace Portal.Consultoras.Web.Controllers
             InicializarViewbag();
             model.Simbolo = userData.Simbolo;
             model.CodigoISO = userData.CodigoISO;
-            model.Suscripcion = (configEstrategiaSR.BeShowRoomConsultora ?? new ServiceOferta.BEShowRoomEventoConsultora()).Suscripcion;
+            model.Suscripcion = (configEstrategiaSR.BeShowRoomConsultora ?? new ShowRoomEventoConsultoraModel()).Suscripcion;
             model.EMail = userData.EMail;
             model.EMailActivo = userData.EMailActivo;
             model.Celular = userData.Celular;
@@ -1363,7 +1364,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var showRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ServiceOferta.BEShowRoomEventoConsultora();
+                var showRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ShowRoomEventoConsultoraModel();
                 var mostrarPopupIntriga = showRoomConsultora.MostrarPopup;
                 var mostrarPopupVenta = showRoomConsultora.MostrarPopupVenta;
 
@@ -1756,15 +1757,18 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void ProgramarAvisoShowRoom(MisDatosModel model)
         {
-            configEstrategiaSR.BeShowRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ServiceOferta.BEShowRoomEventoConsultora();
+            configEstrategiaSR.BeShowRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ShowRoomEventoConsultoraModel();
             configEstrategiaSR.BeShowRoomConsultora.Suscripcion = true;
             configEstrategiaSR.BeShowRoomConsultora.CorreoEnvioAviso = model.EMail;
             configEstrategiaSR.BeShowRoomConsultora.CampaniaID = userData.CampaniaID;
             configEstrategiaSR.BeShowRoomConsultora.CodigoConsultora = userData.CodigoConsultora;
+            var beShowRoomConsultora =
+                Mapper.Map<ShowRoomEventoConsultoraModel, ServiceOferta.BEShowRoomEventoConsultora>(configEstrategiaSR
+                    .BeShowRoomConsultora);
 
             using (OfertaServiceClient osc = new OfertaServiceClient())
             {
-                osc.ShowRoomProgramarAviso(userData.PaisID, configEstrategiaSR.BeShowRoomConsultora);
+                osc.ShowRoomProgramarAviso(userData.PaisID, beShowRoomConsultora);
             }
         }
 

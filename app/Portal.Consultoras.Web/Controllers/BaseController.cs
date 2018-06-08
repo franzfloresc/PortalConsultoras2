@@ -41,6 +41,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+using BEShowRoomEventoConsultora = Portal.Consultoras.Web.ServiceOferta.BEShowRoomEventoConsultora;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -1152,15 +1153,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!PaisTieneShowRoom(model.CodigoISO)) return;
 
-                var codigoConsultora = model.GetCodigoConsultora();
 
                 List<ServiceOferta.BEShowRoomPersonalizacionNivel> personalizacionesNivel = null;
 
                 configEstrategiaSR.BeShowRoom = _showRoomProvider.GetShowRoomEventoByCampaniaId(model);
+                configEstrategiaSR.BeShowRoomConsultora = _showRoomProvider.GetShowRoomConsultora(model);
 
                 using (OfertaServiceClient osc = new OfertaServiceClient())
-                { 
-                    configEstrategiaSR.BeShowRoomConsultora = osc.GetShowRoomConsultora(model.PaisID, model.CampaniaID, codigoConsultora, true);
+                {
+
                     configEstrategiaSR.ListaNivel = osc.GetShowRoomNivel(model.PaisID).ToList();
                     var personalizacion = osc.GetShowRoomPersonalizacion(model.PaisID).ToList();
                     configEstrategiaSR.ListaPersonalizacionConsultora = Mapper.Map<IList<ServiceOferta.BEShowRoomPersonalizacion>, IList<ShowRoomPersonalizacionModel>>(personalizacion).ToList();
@@ -2380,7 +2381,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (!configEstrategiaSR.CargoEntidadesShowRoom)
                 return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
 
-            model.BEShowRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ServiceOferta.BEShowRoomEventoConsultora();
+            model.BEShowRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ShowRoomEventoConsultoraModel();
             model.BEShowRoom = configEstrategiaSR.BeShowRoom ?? new ShowRoomEventoModel();
 
             if (model.BEShowRoom.Estado != 1)
