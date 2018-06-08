@@ -106,5 +106,14 @@ namespace Portal.Consultoras.Web.Providers
                 return Mapper.Map<IList<ServiceOferta.BEShowRoomPersonalizacion>, List<ShowRoomPersonalizacionModel>>(personalizacion).ToList();
             }
         }
+
+        public List<ShowRoomPersonalizacionNivelModel> GetShowRoomPersonalizacionNivel(UsuarioModel model,int eventoId, int showRoomNivelId,int categoriaId)
+        {
+            using (var osc = new OfertaServiceClient())
+            {
+                var personalizacionesNivel = osc.GetShowRoomPersonalizacionNivel(model.PaisID, eventoId, showRoomNivelId, categoriaId).ToList();
+                return Mapper.Map<List<ServiceOferta.BEShowRoomPersonalizacionNivel>, List<ShowRoomPersonalizacionNivelModel>>(personalizacionesNivel).ToList();
+            }
+        }
     }
 }
