@@ -17,5 +17,23 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact);
+
+        [OperationContract]
+        BEShowRoomEvento GetShowRoomEventoByCampaniaID(int paisID, int campaniaID);
+
+        [OperationContract]
+        BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion);
+
+        [OperationContract]
+        IList<BEShowRoomNivel> GetShowRoomNivel(int paisId);
+
+        [OperationContract]
+        IList<BEShowRoomPersonalizacion> GetShowRoomPersonalizacion(int paisId);
+
+        [OperationContract]
+        IList<BEShowRoomPersonalizacionNivel> GetShowRoomPersonalizacionNivel(int paisId, int eventoId, int nivelId, int categoriaId);
+
+        [OperationContract]
+        int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity);
     }
 }

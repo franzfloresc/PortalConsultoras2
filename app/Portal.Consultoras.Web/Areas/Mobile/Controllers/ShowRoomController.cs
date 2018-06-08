@@ -10,9 +10,16 @@ using System.ServiceModel;
 using System.Web.Mvc;
 using System.Web.Routing;
 
+/*
+CONTROL DE CAMBIOS
+CORRELATIVO -   PERSONA -   FECHA       -   MOTIVO
+@001        -   FSV     -   08/06/2018  -   Se traslada llamamientos de ShowRoom y ODD al nuevo servicio unificado "OfertaService".
+@002
+*/
+
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
-    public class ShowRoomController : BaseEstrategiaController
+    public class ShowRoomController : BaseShowRoomController
     {
         public ShowRoomController() : base()
         {
@@ -24,7 +31,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         /// </summary>
         /// <returns></returns>
 
-        //OK
         public ActionResult Procesar()
         {
             var model = new ShowRoomBannerLateralModel();
@@ -70,7 +76,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }));
         }
 
-        //OK
         public ActionResult Index(string query)
         {
             var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
@@ -112,7 +117,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 : View(showRoomEventoModel);
         }
 
-        //OK
         public ActionResult Intriga()
         {
             try
@@ -148,7 +152,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
                 ViewBag.EstadoActivo = showRoomBannerLateral.EstadoActivo;
 
-                var eventoConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
+                //@001 FSV INICIO
+                //var eventoConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
+                var eventoConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ServiceOferta.BEShowRoomEventoConsultora();
+                //@001 FSV FIN
                 eventoConsultora.CorreoEnvioAviso = Util.Trim(eventoConsultora.CorreoEnvioAviso);
 
                 model.Suscripcion = eventoConsultora.Suscripcion;
@@ -168,7 +175,35 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
         }
 
-        //OK
+        public ActionResult DetalleOferta(int id)
+        {
+            return RedirectToAction("DetalleOfertaView", new { id = id, ViewName = "DetalleOferta" });
+        }
+
+        public ActionResult DetalleOfertaView(int id, string ViewName)
+        {
+            ActionExecutingMobile();
+            if (!ValidarIngresoShowRoom(false))
+                return RedirectToAction("Index", "Bienvenida");
+
+            var modelo = ViewDetalleOferta(id);
+            modelo.EstrategiaId = id;
+            var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
+            modelo.ListaOfertaShowRoom = xList;
+            bool esFacturacion = EsFacturacion();
+
+            var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, configEstrategiaSR.BeShowRoom.EventoID,
+                        configEstrategiaSR.BeShowRoom.CampaniaID);
+            modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
+            modelo.TieneCompraXcompra = configEstrategiaSR.BeShowRoom.TieneCompraXcompra;
+
+            ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
+
+            return View(ViewName, modelo);
+        }
+
+        #region Metodos Privados
+
         private ShowRoomEventoModel OfertaShowRoom()
         {
             if (!ValidarIngresoShowRoom(false))
@@ -210,38 +245,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return null;
         }
 
-        //OK
-        public ActionResult DetalleOferta(int id)
-        {
-            return RedirectToAction("DetalleOfertaView", new { id = id, ViewName = "DetalleOferta" });
-        }
-
-        //OK
-        public ActionResult DetalleOfertaView(int id, string ViewName)
-        {
-            ActionExecutingMobile();
-            if (!ValidarIngresoShowRoom(false))
-                return RedirectToAction("Index", "Bienvenida");
-
-            var modelo = ViewDetalleOferta(id);
-            modelo.EstrategiaId = id;
-            var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
-            modelo.ListaOfertaShowRoom = xList;
-            bool esFacturacion = EsFacturacion();
-
-            var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, configEstrategiaSR.BeShowRoom.EventoID,
-                        configEstrategiaSR.BeShowRoom.CampaniaID);
-            modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
-            modelo.TieneCompraXcompra = configEstrategiaSR.BeShowRoom.TieneCompraXcompra;
-
-            ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
-
-            return View(ViewName, modelo);
-        }
-
-        #region Metodos Obsoletos
-
-        
         #endregion
+
     }
 }

@@ -458,7 +458,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected bool ValidarPedidoReservado(out string mensaje)
         {
             mensaje = string.Empty;
-            var consultoraId = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID;
+            var consultoraId = userData.GetConsultoraId();
 
             BEConfiguracionCampania obeConfiguracionCampania;
             using (var sv = new PedidoServiceClient())
@@ -1152,12 +1152,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!PaisTieneShowRoom(model.CodigoISO)) return;
 
-                var codigoConsultora = model.UsuarioPrueba == 1
-                    ? model.ConsultoraAsociada
-                    : model.CodigoConsultora;
-                List<BEShowRoomPersonalizacionNivel> personalizacionesNivel = null;
 
-                using (var pedidoService = new PedidoServiceClient())
+                var codigoConsultora = model.GetCodigoConsultora();
+                //@001 FSV INICIO
+                //List<BEShowRoomPersonalizacionNivel> personalizacionesNivel = null;
+                List<ServiceOferta.BEShowRoomPersonalizacionNivel> personalizacionesNivel = null;
+                
+                /*using (var pedidoService = new PedidoServiceClient())
                 {
                     configEstrategiaSR.BeShowRoom = pedidoService.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
                     configEstrategiaSR.BeShowRoomConsultora = pedidoService.GetShowRoomConsultora(
@@ -1176,7 +1177,21 @@ namespace Portal.Consultoras.Web.Controllers
                         personalizacionesNivel = pedidoService.GetShowRoomPersonalizacionNivel(model.PaisID,
                             configEstrategiaSR.BeShowRoom.EventoID, configEstrategiaSR.ShowRoomNivelId, 0).ToList();
                     }
+                }*/
+
+                using (OfertaServiceClient osc = new OfertaServiceClient())
+                {
+                    configEstrategiaSR.BeShowRoom = osc.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
+                    configEstrategiaSR.BeShowRoomConsultora = osc.GetShowRoomConsultora(model.PaisID, model.CampaniaID, codigoConsultora, true);
+                    configEstrategiaSR.ListaNivel = osc.GetShowRoomNivel(model.PaisID).ToList();
+                    configEstrategiaSR.ListaPersonalizacionConsultora = Mapper.Map<IList<ServiceOferta.BEShowRoomPersonalizacion>, IList<ShowRoomPersonalizacionModel>>(osc.GetShowRoomPersonalizacion(model.PaisID).ToList()).ToList();
+                    configEstrategiaSR.ShowRoomNivelId = ObtenerNivelId(configEstrategiaSR.ListaNivel);
+                    if (configEstrategiaSR.BeShowRoom != null && configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
+                    {
+                        personalizacionesNivel = osc.GetShowRoomPersonalizacionNivel(model.PaisID, configEstrategiaSR.BeShowRoom.EventoID, configEstrategiaSR.ShowRoomNivelId, 0).ToList();
+                    }
                 }
+                //@001 FSV FIN
 
                 if (configEstrategiaSR.BeShowRoom != null && configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO && configEstrategiaSR.BeShowRoomConsultora != null)
                 {
@@ -1251,12 +1266,20 @@ namespace Portal.Consultoras.Web.Controllers
             return tieneShowRoom;
         }
 
-        protected int ObtenerNivelId(List<BEShowRoomNivel> niveles)
+        //@001 FSV INICIO
+        /*protected int ObtenerNivelId(List<BEShowRoomNivel> niveles)
         {
             var showRoomNivelPais = niveles.FirstOrDefault(p => p.Codigo == "PAIS") ??
                                     new BEShowRoomNivel();
             return showRoomNivelPais.NivelId;
+        }*/
+
+        protected int ObtenerNivelId(List<ServiceOferta.BEShowRoomNivel> niveles)
+        {
+            var showRoomNivelPais = niveles.FirstOrDefault(p => p.Codigo == "PAIS") ?? new ServiceOferta.BEShowRoomNivel();
+            return showRoomNivelPais.NivelId;
         }
+        //@001 FSV FIN
 
         #endregion
 
@@ -1267,7 +1290,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 PaisID = userData.PaisID,
                 CampaniaID = campanaId > 0 ? campanaId : userData.CampaniaID,
-                ConsultoraID = (userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID).ToString(),
+                ConsultoraID = userData.GetConsultoraId().ToString(),
                 CUV2 = Util.Trim(cuv),
                 Zona = userData.ZonaID.ToString(),
                 ZonaHoraria = userData.ZonaHoraria,
@@ -1686,8 +1709,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             var listaHermanos = GetEstrategiaDetalleGetProductoBySap(estrategiaModelo, joinCuv);
             if (!listaHermanos.Any()) return null;
-
-            //estrategiaModelo.CodigoVariante = listaProducto.Select(o => o.CodigoEstrategia).FirstOrDefault();
 
             if (estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
             {
@@ -2389,8 +2410,12 @@ namespace Portal.Consultoras.Web.Controllers
             if (!configEstrategiaSR.CargoEntidadesShowRoom)
                 return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
 
-            model.BEShowRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
-            model.BEShowRoom = configEstrategiaSR.BeShowRoom ?? new BEShowRoomEvento();
+            //@001 FSV INICIO
+            //model.BEShowRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
+            //model.BEShowRoom = configEstrategiaSR.BeShowRoom ?? new BEShowRoomEvento();
+            model.BEShowRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ServiceOferta.BEShowRoomEventoConsultora();
+            model.BEShowRoom = configEstrategiaSR.BeShowRoom ?? new ServiceOferta.BEShowRoomEvento();
+            //@001 FSV FIN
 
             if (model.BEShowRoom.Estado != 1)
                 return new ShowRoomBannerLateralModel { EventoNoEncontrado = true };

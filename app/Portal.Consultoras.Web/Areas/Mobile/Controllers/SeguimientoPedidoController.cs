@@ -53,7 +53,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var model = new SeguimientoMobileModel { ListaEstadoSeguimiento = new List<SeguimientoMobileModel>() };
             try
             {
-                var codigoConsultora = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora;
+                var codigoConsultora = userData.GetCodigoConsultora();
                 BETracking[] listaPedidos;
                 using (var service = new PedidoServiceClient())
                 {

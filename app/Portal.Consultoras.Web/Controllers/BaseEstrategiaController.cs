@@ -3,19 +3,13 @@ using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
-using Portal.Consultoras.Web.ServicePROLConsultas;
-using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.ServiceModel;
 using System.Text;
 using BEEstrategia = Portal.Consultoras.Web.ServicePedido.BEEstrategia;
 
@@ -23,11 +17,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BaseEstrategiaController : BaseController
     {
-        protected string CodigoProceso
-        {
-            get { return ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.EmailCodigoProceso]; }
-        }
-
         public BaseEstrategiaController()
             : base()
         {
@@ -119,7 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     PaisID = userData.PaisID,
                     CampaniaID = campaniaId,
-                    ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora,
+                    ConsultoraID = userData.GetCodigoConsultora(),
                     Zona = userData.ZonaID.ToString(),
                     ZonaHoraria = userData.ZonaHoraria,
                     FechaInicioFacturacion = userData.FechaFinCampania,
@@ -130,7 +119,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (tipo == Constantes.TipoEstrategiaCodigo.LosMasVendidos)
                 {
-                    entidad.ConsultoraID = (userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID).ToString();
+                    entidad.ConsultoraID = userData.GetConsultoraId().ToString();
                 }
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -795,7 +784,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var showRoomEvento = configEstrategiaSR.BeShowRoom;
                 var codigoConsultora = userData.CodigoConsultora;
 
-                showRoomEventoModel = Mapper.Map<BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
+                showRoomEventoModel = Mapper.Map<ServiceOferta.BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
                 showRoomEventoModel.Simbolo = userData.Simbolo;
                 showRoomEventoModel.CodigoIso = userData.CodigoISO;
 
@@ -874,7 +863,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var entidad = new BEShowRoomEventoConsultora
+                //@001 FSV INICIO
+                //var entidad = new BEShowRoomEventoConsultora
+                var entidad = new ServicePedido.BEShowRoomEventoConsultora
+                //@001 FSV FIN
                 {
                     CodigoConsultora = codigoConsultoraFromQueryString,
                     CampaniaID = campaniaIdFromQueryString
