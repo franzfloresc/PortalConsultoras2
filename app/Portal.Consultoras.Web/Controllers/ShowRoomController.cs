@@ -15,13 +15,6 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
-/*
-CONTROL DE CAMBIOS
-CORRELATIVO -   PERSONA -   FECHA       -   MOTIVO
-@001        -   FSV     -   08/06/2018  -   Se traslada llamamientos de ShowRoom y ODD al nuevo servicio unificado "OfertaService".
-@002
-*/
-
 namespace Portal.Consultoras.Web.Controllers
 {
     public class ShowRoomController : BaseShowRoomController
@@ -46,10 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
             InicializarViewbag();
             model.Simbolo = userData.Simbolo;
             model.CodigoISO = userData.CodigoISO;
-            //@001 FSV INICIO
-            //model.Suscripcion = (configEstrategiaSR.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora()).Suscripcion;
             model.Suscripcion = (configEstrategiaSR.BeShowRoomConsultora ?? new ServiceOferta.BEShowRoomEventoConsultora()).Suscripcion;
-            //@001 FSV FIN
             model.EMail = userData.EMail;
             model.EMailActivo = userData.EMailActivo;
             model.Celular = userData.Celular;
@@ -278,11 +268,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-
-                //@001 FSV INICIO
-                //var listaShowRoomNivel = configEstrategiaSR.ListaNivel ?? new List<BEShowRoomNivel>();
                 var listaShowRoomNivel = configEstrategiaSR.ListaNivel ?? new List<ServiceOferta.BEShowRoomNivel>();
-                //@001 FSV FIN
 
                 return Json(new
                 {
@@ -1283,11 +1269,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 const int SHOWROOM_ESTADO_INACTIVO = 0;
                 const string TIPO_APLICACION_DESKTOP = "Desktop";
-
-                //@001 FSV INICIO
-                //var showRoom = configEstrategiaSR.BeShowRoom ?? new BEShowRoomEvento();
                 var showRoom = configEstrategiaSR.BeShowRoom ?? new ServiceOferta.BEShowRoomEvento();
-                //@001 FSV FIN
 
                 if (showRoom.Estado == SHOWROOM_ESTADO_INACTIVO)
                 {
@@ -1369,10 +1351,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                //@001 FSV INICIO
-                //var showRoom = configEstrategiaSR.BeShowRoom ?? new BEShowRoomEvento();
                 var showRoom = configEstrategiaSR.BeShowRoom ?? new ServiceOferta.BEShowRoomEvento();
-                //@001 FSV FIN
 
                 if (showRoom.Estado == SHOWROOM_ESTADO_INACTIVO)
                 {
@@ -1384,10 +1363,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                //@001 FSV INICIO
-                //var showRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
                 var showRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ServiceOferta.BEShowRoomEventoConsultora();
-                //@001 FSV FIN
                 var mostrarPopupIntriga = showRoomConsultora.MostrarPopup;
                 var mostrarPopupVenta = showRoomConsultora.MostrarPopupVenta;
 
@@ -1780,25 +1756,16 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void ProgramarAvisoShowRoom(MisDatosModel model)
         {
-            //@001 FSV INICIO
-            //configEstrategiaSR.BeShowRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
             configEstrategiaSR.BeShowRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ServiceOferta.BEShowRoomEventoConsultora();
-            //@001 FSV FIN
             configEstrategiaSR.BeShowRoomConsultora.Suscripcion = true;
             configEstrategiaSR.BeShowRoomConsultora.CorreoEnvioAviso = model.EMail;
             configEstrategiaSR.BeShowRoomConsultora.CampaniaID = userData.CampaniaID;
             configEstrategiaSR.BeShowRoomConsultora.CodigoConsultora = userData.CodigoConsultora;
 
-            //@001 FSV INICIO
-            /*using (PedidoServiceClient sac = new PedidoServiceClient())
-            {
-                sac.ShowRoomProgramarAviso(userData.PaisID, configEstrategiaSR.BeShowRoomConsultora);
-            }*/
             using (OfertaServiceClient osc = new OfertaServiceClient())
             {
                 osc.ShowRoomProgramarAviso(userData.PaisID, configEstrategiaSR.BeShowRoomConsultora);
             }
-            //@001 FSV FIN
         }
 
         private List<EstrategiaPedidoModel> ValidarUnidadesPermitidas(List<EstrategiaPedidoModel> listaShowRoomOferta)

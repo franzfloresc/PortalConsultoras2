@@ -14,13 +14,6 @@ using System.ServiceModel;
 using System.Text;
 using BEEstrategia = Portal.Consultoras.Web.ServicePedido.BEEstrategia;
 
-/*
-CONTROL DE CAMBIOS
-CORRELATIVO -   PERSONA -   FECHA       -   MOTIVO
-@001        -   FSV     -   08/06/2018  -   Se traslada llamamientos de ShowRoom y ODD al nuevo servicio unificado "OfertaService".
-@002
-*/
-
 namespace Portal.Consultoras.Web.Controllers
 {
     public class BaseShowRoomController : BaseEstrategiaController
@@ -181,7 +174,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var showRoomEvento = configEstrategiaSR.BeShowRoom;
                 var codigoConsultora = userData.CodigoConsultora;
 
-                showRoomEventoModel = Mapper.Map<BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
+                showRoomEventoModel = Mapper.Map<ServiceOferta.BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
                 showRoomEventoModel.Simbolo = userData.Simbolo;
                 showRoomEventoModel.CodigoIso = userData.CodigoISO;
 
@@ -260,10 +253,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                //@001 FSV INICIO
-                //var entidad = new BEShowRoomEventoConsultora
                 var entidad = new ServicePedido.BEShowRoomEventoConsultora
-                //@001 FSV FIN
                 {
                     CodigoConsultora = codigoConsultoraFromQueryString,
                     CampaniaID = campaniaIdFromQueryString
@@ -562,32 +552,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<EstrategiaPedidoModel> GetOfertaListadoExcepto(int idOferta)
         {
-            ShowRoomOfertaModel ofertaShowRoomModelo = new ShowRoomOfertaModel();
-            if (idOferta <= 0) return ofertaShowRoomModelo;
-
-            List<ShowRoomOfertaModel> listadoOfertasTodasModel = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
-            ofertaShowRoomModelo = listadoOfertasTodasModel.Find(o => o.OfertaShowRoomID == idOferta) ?? new ShowRoomOfertaModel();
-            if (ofertaShowRoomModelo.OfertaShowRoomID <= 0) return ofertaShowRoomModelo;
-
-            ofertaShowRoomModelo.ImagenProducto = Util.Trim(ofertaShowRoomModelo.ImagenProducto);
-            ofertaShowRoomModelo.ImagenProducto = ofertaShowRoomModelo.ImagenProducto == "" ?
-                "/Content/Images/showroom/no_disponible.png" :
-                ofertaShowRoomModelo.ImagenProducto;
-
-            EstrategiaPersonalizadaProductoModel estrategiaModelo = new EstrategiaPersonalizadaProductoModel
-            {
-                EstrategiaID = idOferta,
-                CampaniaID = userData.CampaniaID,
-                CodigoVariante = ofertaShowRoomModelo.CodigoEstrategia
-            };
-
-            var listaHermanos = GetListaHermanos(estrategiaModelo);
-            ofertaShowRoomModelo.ProductoTonos = listaHermanos;
-            ofertaShowRoomModelo.CodigoEstrategia = ofertaShowRoomModelo.CodigoEstrategia;
-
-            return ofertaShowRoomModelo;
-        }
-        {
             var listaOferta = new List<EstrategiaPedidoModel>();
             if (idOferta <= 0) return listaOferta;
 
@@ -743,6 +707,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Metodos Privados
+
         private void CargarValoresGenerales(UsuarioModel userData)
         {
             if (sessionManager.GetUserData() != null)
