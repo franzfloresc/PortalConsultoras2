@@ -2080,5 +2080,14 @@ namespace Portal.Consultoras.Common
             public const int EnviarPorSms = 2;
         }
         #endregion  
+
+        public class TipoConsultaOfertaPersonalizadas
+        {
+            public const int RDObtenerProductos = 1;
+            public const int RDObtenerProductosLan = 2;
+            public const int GNDObtenerProductos = 3;
+            public const int HVObtenerProductos = 4;
+            public const int OPTObtenerProductos = 5;
+        };
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,34 +11,41 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 {
     public class EstrategiaController : BaseEstrategiaController
     {
+        private readonly OfertaPersonalizadaProvider _ofertaPersonalizadaProvider;
+
+        public EstrategiaController()
+        {
+            _ofertaPersonalizadaProvider = new OfertaPersonalizadaProvider();
+        }
+
         [HttpPost]
         public JsonResult RDObtenerProductos(BusquedaProductoModel model)
         {
-            return PreparListaModel(model, TipoListaModel.RDObtenerProductos);
+            return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos);
         }
 
         [HttpPost]
         public JsonResult GNDObtenerProductos(BusquedaProductoModel model)
         {
-            return PreparListaModel(model, TipoListaModel.GNDObtenerProductos);
+            return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.GNDObtenerProductos);
         }
 
         [HttpPost]
         public JsonResult HVObtenerProductos(BusquedaProductoModel model)
         {
-            return PreparListaModel(model, TipoListaModel.HVObtenerProductos);
+            return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.HVObtenerProductos);
         }
 
         [HttpPost]
         public JsonResult RDObtenerProductosLan(BusquedaProductoModel model)
         {
-            return PreparListaModel(model, TipoListaModel.RDObtenerProductosLan);
+            return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductosLan);
         }
 
         [HttpPost]
         public JsonResult ConsultarEstrategiasOPT(BusquedaProductoModel model)
         {
-            return PreparListaModel(model, TipoListaModel.OPTObtenerProductos);
+            return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.OPTObtenerProductos);
         }
 
         [HttpGet]
@@ -99,8 +107,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 model.Lista = listModel;
 
-                model = BSActualizarPosicion(model);
-                model = BSActualizarPrecioFormateado(model);
+                model = _ofertaPersonalizadaProvider.BSActualizarPosicion(model);
+                model = _ofertaPersonalizadaProvider.BSActualizarPrecioFormateado(model);
 
                 return Json(new { success = true, data = model }, JsonRequestBehavior.AllowGet);
             }
@@ -108,32 +116,6 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             {
                 return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message });
             }
-        }
-
-        private EstrategiaOutModel BSActualizarPosicion(EstrategiaOutModel model)
-        {
-            if (model != null)
-            {
-                for (int i = 0; i <= model.Lista.Count - 1; i++)
-                {
-                    model.Lista[i].Posicion = i + 1;
-                }
-            }
-            return model;
-        }
-
-        private EstrategiaOutModel BSActualizarPrecioFormateado(EstrategiaOutModel model)
-        {
-            if (model != null)
-            {
-                for (int i = 0; i <= model.Lista.Count - 1; i++)
-                {
-                    model.Lista[i].Posicion = i + 1;
-                    model.Lista[i].PrecioTachado = Util.DecimalToStringFormat(model.Lista[i].Precio, userData.CodigoISO);
-                    model.Lista[i].GananciaString = Util.DecimalToStringFormat(model.Lista[i].Ganancia, userData.CodigoISO);
-                }
-            }
-            return model;
         }
 
         [HttpGet]
@@ -173,27 +155,37 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         /// Función que agrupa la construcción de la lista Model de estrategias para
         /// RDObtenerProductos, RDObtenerProductosLan, GNDObtenerProductos y HVObtenerProductos (JN, JUN-2018)
         /// </summary>
-        private JsonResult PreparListaModel(BusquedaProductoModel model, TipoListaModel tipoConsulta)
+        private JsonResult PreparListaModel(BusquedaProductoModel model, int tipoConsulta)
         {
             try
             {
-                //var tipoConsulta = TipoListaModel.RDObtenerProductos;
+                //var tipoConsulta = Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos;
 
                 var jSon = ConsultarOfertasValidarPermiso(model, tipoConsulta);
-                if (jSon != null)
-                    return jSon;
+                if (!jSon)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "",
+                        data = "",
+                        lista = new List<ShowRoomOfertaModel>(),
+                        cantidadTotal = 0,
+                        cantidad = 0
+                    });
+                }
 
-                var palanca = ConsultarOfertasTipoPalanca(model, tipoConsulta);
+                var palanca = _ofertaPersonalizadaProvider.ConsultarOfertasTipoPalanca(model, tipoConsulta);
 
-                var campania = ConsultarOfertasCampania(model, tipoConsulta);
+                var campania = _ofertaPersonalizadaProvider.ConsultarOfertasCampania(model, tipoConsulta);
 
                 var listaFinal1 = ConsultarEstrategiasModel(campania, palanca);
 
                 var listPerdio = ConsultarOfertasListaPerdio(model, listaFinal1, tipoConsulta);
 
-                listaFinal1 = ConsultarOfertasFiltrar(model, listaFinal1, tipoConsulta);
+                listaFinal1 = _ofertaPersonalizadaProvider.ConsultarOfertasFiltrar(model, listaFinal1, tipoConsulta);
 
-                var tipo = ConsultarOfertasTipoPerdio(model, tipoConsulta);
+                var tipo = _ofertaPersonalizadaProvider.ConsultarOfertasTipoPerdio(model, tipoConsulta);
 
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, tipo);
 
@@ -222,225 +214,52 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             }
         }
 
-        private JsonResult ConsultarOfertasValidarPermiso(BusquedaProductoModel model, TipoListaModel tipo)
+        private bool ConsultarOfertasValidarPermiso(BusquedaProductoModel model, int tipo)
         {
-            if (tipo == TipoListaModel.RDObtenerProductos)
+            if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos)
             {
                 if (model == null || !(revistaDigital.TieneRevistaDigital()) || EsCampaniaFalsa(model.CampaniaID))
                 {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "",
-                        lista = new List<ShowRoomOfertaModel>(),
-                        cantidadTotal = 0,
-                        cantidad = 0
-                    });
+                    return false;
                 }
             }
-            else if (tipo == TipoListaModel.GNDObtenerProductos)
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.GNDObtenerProductos)
             {
                 if (!GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
                 {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "",
-                        data = ""
-                    });
+                    return false;
                 }
             }
-            else if (tipo == TipoListaModel.HVObtenerProductos)
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.HVObtenerProductos)
             {
-                return null;
+                return true;
             }
-            else if (tipo == TipoListaModel.RDObtenerProductosLan)
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductosLan)
             {
                 if (!(revistaDigital.TieneRevistaDigital()) || EsCampaniaFalsa(model.CampaniaID))
                 {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "",
-                        lista = new List<ShowRoomOfertaModel>(),
-                        cantidadTotal = 0,
-                        cantidad = 0
-                    });
+                    return false;
                 }
             }
-            else if (tipo == TipoListaModel.OPTObtenerProductos)
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.OPTObtenerProductos)
             {
-                return null;
+                return true;
             }
 
-            return null;
+            return true;
         }
 
-        private string ConsultarOfertasTipoPalanca(BusquedaProductoModel model, TipoListaModel tipo)
-        {
-            var palanca = string.Empty;
-
-            if (tipo == TipoListaModel.RDObtenerProductos)
-            {
-                if (revistaDigital.ActivoMdo)
-                {
-                    palanca = Constantes.TipoEstrategiaCodigo.RevistaDigital;
-                }
-                else
-                {
-                    palanca = model.CampaniaID != userData.CampaniaID
-                        || (revistaDigital.TieneRDC && revistaDigital.EsActiva)
-                        ? Constantes.TipoEstrategiaCodigo.RevistaDigital
-                        : string.Empty;
-                }
-            }
-            else if (tipo == TipoListaModel.GNDObtenerProductos)
-            {
-                palanca = Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada;
-            }
-            else if (tipo == TipoListaModel.HVObtenerProductos)
-            {
-                palanca = Constantes.TipoEstrategiaCodigo.HerramientasVenta;
-            }
-            else if (tipo == TipoListaModel.RDObtenerProductosLan)
-            {
-                palanca = Constantes.TipoEstrategiaCodigo.Lanzamiento;
-            }
-            else if (tipo == TipoListaModel.OPTObtenerProductos)
-            {
-                palanca = Constantes.TipoEstrategiaCodigo.OfertaParaTi;
-            }
-
-            return palanca;
-        }
-
-        private int ConsultarOfertasCampania(BusquedaProductoModel model, TipoListaModel tipo)
-        {
-            var retorno = 0;
-
-            if (tipo == TipoListaModel.RDObtenerProductos)
-            {
-                retorno = model.CampaniaID;
-            }
-            else if (tipo == TipoListaModel.GNDObtenerProductos)
-            {
-                retorno = 0;
-            }
-            else if (tipo == TipoListaModel.HVObtenerProductos)
-            {
-                retorno = model.CampaniaID;
-            }
-            else if (tipo == TipoListaModel.RDObtenerProductosLan)
-            {
-                retorno = model.CampaniaID;
-            }
-            else if (tipo == TipoListaModel.OPTObtenerProductos)
-            {
-                retorno = 0;
-            }
-
-            return retorno;
-        }
-
-        private List<EstrategiaPedidoModel> ConsultarOfertasFiltrar(BusquedaProductoModel model, List<EstrategiaPedidoModel> listaFinal1, TipoListaModel tipo)
-        {
-            var listModel1 = new List<EstrategiaPedidoModel>();
-            if (listaFinal1 == null || !listaFinal1.Any())
-                return listModel1;
-
-            if (tipo == TipoListaModel.RDObtenerProductos)
-            {
-                var mdo0 = revistaDigital.ActivoMdo && !revistaDigital.EsActiva;
-
-                if (mdo0 && model.CampaniaID == userData.CampaniaID)
-                {
-                    var listaRd = listaFinal1.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi || e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso).ToList();
-                    listModel1 = listaFinal1.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.OfertasParaMi && e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackAltoDesembolso).ToList();
-                    listModel1.AddRange(listaRd.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor0));
-                }
-                else
-                {
-                    listModel1 = listaFinal1;
-                }
-            }
-            else if (tipo == TipoListaModel.GNDObtenerProductos)
-            {
-                if (revistaDigital.TieneRDCR)
-                {
-                    if (GetConfiguracionManagerContains(Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_2 + userData.CodigoISO, userData.CodigoZona))
-                    {
-                        listaFinal1 = listaFinal1.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor1 || e.FlagRevista == Constantes.FlagRevista.Valor3).ToList();
-                    }
-                    else
-                    {
-                        listaFinal1 = listaFinal1.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor1).ToList();
-                    }
-                }
-
-                listModel1 = listaFinal1;
-            }
-            else if (tipo == TipoListaModel.HVObtenerProductos)
-            {
-                listaFinal1 = listaFinal1
-                    .OrderByDescending(x => x.MarcaID == Constantes.Marca.Esika)
-                    .ThenByDescending(x => x.MarcaID == Constantes.Marca.LBel)
-                    .ThenByDescending(x => x.MarcaID == Constantes.Marca.Cyzone)
-                    .ToList();
-
-                listModel1 = listaFinal1;
-            }
-            else if (tipo == TipoListaModel.RDObtenerProductosLan)
-            {
-                listModel1 = listaFinal1;
-            }
-            else if (tipo == TipoListaModel.OPTObtenerProductos)
-            {
-                listModel1 = listaFinal1;
-            }
-
-            return listModel1;
-
-        }
-
-        private int ConsultarOfertasTipoPerdio(BusquedaProductoModel model, TipoListaModel tipo)
-        {
-            var retorno = 0;
-
-            if (tipo == TipoListaModel.RDObtenerProductos)
-            {
-                retorno = 2;
-            }
-            else if (tipo == TipoListaModel.GNDObtenerProductos)
-            {
-                retorno = 2;
-            }
-            else if (tipo == TipoListaModel.HVObtenerProductos)
-            {
-                retorno = 2;
-            }
-            else if (tipo == TipoListaModel.RDObtenerProductosLan)
-            {
-                retorno = TieneProductosPerdio(model.CampaniaID) ? 1 : 0;
-            }
-            else if (tipo == TipoListaModel.OPTObtenerProductos)
-            {
-                retorno = 0;
-            }
-
-            return retorno;
-        }
-
-        private List<EstrategiaPersonalizadaProductoModel> ConsultarOfertasListaPerdio(BusquedaProductoModel model, List<EstrategiaPedidoModel> listModelCompleta, TipoListaModel tipo)
+        private List<EstrategiaPersonalizadaProductoModel> ConsultarOfertasListaPerdio(BusquedaProductoModel model, List<EstrategiaPedidoModel> listModelCompleta, int tipo)
         {
             var listaRetorno = new List<EstrategiaPersonalizadaProductoModel>();
-            if (tipo == TipoListaModel.RDObtenerProductos)
+            if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos)
             {
-                listaRetorno = ListaPerdio(model.CampaniaID, listModelCompleta);
+                listaRetorno = ConsultarOfertasListaPerdioRD(model.CampaniaID, listModelCompleta);
             }
             return listaRetorno;
         }
 
-        private List<EstrategiaPersonalizadaProductoModel> ListaPerdio(int campaniaId, List<EstrategiaPedidoModel> listModelCompleta)
+        private List<EstrategiaPersonalizadaProductoModel> ConsultarOfertasListaPerdioRD(int campaniaId, List<EstrategiaPedidoModel> listModelCompleta)
         {
             var listPerdioFormato = new List<EstrategiaPersonalizadaProductoModel>();
             try
@@ -477,13 +296,5 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             return listPerdioFormato;
         }
 
-        enum TipoListaModel
-        {
-            RDObtenerProductos,
-            RDObtenerProductosLan,
-            GNDObtenerProductos,
-            HVObtenerProductos,
-            OPTObtenerProductos
-        };
     }
 }
