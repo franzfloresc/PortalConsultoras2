@@ -19,6 +19,7 @@ namespace Portal.Consultoras.Web.Providers
         private readonly ILogManager logManager = LogManager.LogManager.Instance;
         private readonly ISessionManager sessionManager = SessionManager.SessionManager.Instance;
         private readonly static HttpClient httpClient = new HttpClient();
+
         static OfertaDelDiaProvider()
         {
             httpClient.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSearch);
@@ -44,7 +45,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (paisHabilitado)
                 {
-                    var taskApi = Task.Run(() => ObtenerOfertasDesdeApi(userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora,Constantes.ConfiguracionPais.OfertaDelDia, userData.FechaInicioCampania));
+                    var taskApi = Task.Run(() => ObtenerOfertasDesdeApi(userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora, Constantes.ConfiguracionPais.OfertaDelDia, userData.FechaInicioCampania));
 
                     Task.WhenAll(taskApi);
 
@@ -85,9 +86,9 @@ namespace Portal.Consultoras.Web.Providers
             return model;
         }
 
-        private List<BEEstrategia> ObtenerOfertasDelDiaDesdeSoap(int paisId, int campaniaId, string codigoConsultora, DateTime fechaInicioCampania)
+        private static List<BEEstrategia> ObtenerOfertasDelDiaDesdeSoap(int paisId, int campaniaId, string codigoConsultora, DateTime fechaInicioCampania)
         {
-            BEEstrategia[] estrategias = null;
+            BEEstrategia[] estrategias;
             using (var svc = new PedidoServiceClient())
             {
                 estrategias = svc.GetEstrategiaODD(paisId, campaniaId, codigoConsultora, fechaInicioCampania.Date);
@@ -95,12 +96,8 @@ namespace Portal.Consultoras.Web.Providers
             return estrategias.ToList();
         }
 
-       
-
         private OfertaDelDiaModel ObtenerOfertaDelDiaModel(int paisId, string codigoIso, List<BEEstrategia> ofertasDelDia)
         {
-            OfertaDelDiaModel model = null;
-
             if (!ofertasDelDia.Any())
                 return null;
 
@@ -164,16 +161,16 @@ namespace Portal.Consultoras.Web.Providers
                 ofertasDelDiaModel.Add(oddModel);
             }
 
-            model = ofertasDelDiaModel.First().Clone();
+            OfertaDelDiaModel model = ofertasDelDiaModel.First().Clone();
 
             model.ListaOfertas = ofertasDelDiaModel;
 
             return model;
         }
 
-        private List<BETablaLogicaDatos> ObtenerPersonalizacionesOfertaDelDia(int paisId)
+        private static List<BETablaLogicaDatos> ObtenerPersonalizacionesOfertaDelDia(int paisId)
         {
-            BETablaLogicaDatos[] personalizacionesOfertaDelDia = null;
+            BETablaLogicaDatos[] personalizacionesOfertaDelDia;
 
             using (var svc = new SACServiceClient())
             {
@@ -183,7 +180,7 @@ namespace Portal.Consultoras.Web.Providers
             return personalizacionesOfertaDelDia.ToList();
         }
 
-        private TimeSpan CountdownODD(int paisId, bool esDiasFacturacion, TimeSpan horaCierreZonaNormal)
+        private static TimeSpan CountdownODD(int paisId, bool esDiasFacturacion, TimeSpan horaCierreZonaNormal)
         {
             DateTime hoy;
             DateTime d2;
@@ -206,16 +203,12 @@ namespace Portal.Consultoras.Web.Providers
             return t2;
         }
 
-        private string ObtenerUrlImagenOfertaDelDia(string codigoIso, int cantidadOfertas)
+        private static string ObtenerUrlImagenOfertaDelDia(string codigoIso, int cantidadOfertas)
         {
             var imgSh = string.Format(ConfigurationManager.AppSettings.Get("UrlImgSoloHoyODD"), codigoIso);
             var exte = imgSh.Split('.')[imgSh.Split('.').Length - 1];
             imgSh = imgSh.Substring(0, imgSh.Length - exte.Length - 1) + (cantidadOfertas > 1 ? "s" : "") + "." + exte;
             return imgSh;
         }
-
-       
-
-        
     }
 }

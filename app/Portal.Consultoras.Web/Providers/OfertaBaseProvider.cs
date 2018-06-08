@@ -30,33 +30,27 @@ namespace Portal.Consultoras.Web.Providers
 
                 var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString);
 
-                foreach (var item in list)
-                {
-                    var estrategia = new BEEstrategia
+                estrategias.AddRange(list.Select(item => new BEEstrategia
                     {
-                        EstrategiaID = Convert.ToInt32(item.estrategiaId),
-                        CodigoEstrategia = item.codigoEstrategia,
-                        CUV2 = item.cuV2,
-                        DescripcionCUV2 = item.descripcionCUV2,
-                        Precio = Convert.ToDecimal(item.precio),
-                        Precio2 = Convert.ToDecimal(item.precio2),
-                        FotoProducto01 = item.imagenURL,
-                        ImagenURL = item.imagenEstrategia,
-                        LimiteVenta = Convert.ToInt32(item.limiteVenta),
-                        TextoLibre = item.textoLibre,
-                        MarcaID = Convert.ToInt32(item.marcaId),
-                        DescripcionMarca = item.marcaDescripcion,
-                        IndicadorMontoMinimo = Convert.ToInt32(item.indicadorMontoMinimo),
-                        CodigoProducto = item.codigoProducto,
-                        DescripcionEstrategia = item.descripcionTipoEstrategia,
-                        Orden = Convert.ToInt32(item.orden),
-                        TipoEstrategiaID = Convert.ToInt32(item.tipoEstrategiaId),
-                        FlagNueva = 0,
-                        TipoEstrategiaImagenMostrar = 6
-                    };
-
-                    estrategias.Add(estrategia);
-                }
+                        EstrategiaID = Convert.ToInt32(item.estrategiaId), 
+                        CodigoEstrategia = item.codigoEstrategia, 
+                        CUV2 = item.cuV2, 
+                        DescripcionCUV2 = item.descripcionCUV2, 
+                        Precio = Convert.ToDecimal(item.precio), 
+                        Precio2 = Convert.ToDecimal(item.precio2), 
+                        FotoProducto01 = item.imagenURL, 
+                        ImagenURL = item.imagenEstrategia, 
+                        LimiteVenta = Convert.ToInt32(item.limiteVenta), 
+                        TextoLibre = item.textoLibre, 
+                        MarcaID = Convert.ToInt32(item.marcaId), 
+                        DescripcionMarca = item.marcaDescripcion, 
+                        IndicadorMontoMinimo = Convert.ToInt32(item.indicadorMontoMinimo), 
+                        CodigoProducto = item.codigoProducto, 
+                        DescripcionEstrategia = item.descripcionTipoEstrategia, 
+                        Orden = Convert.ToInt32(item.orden), 
+                        TipoEstrategiaID = Convert.ToInt32(item.tipoEstrategiaId), 
+                        FlagNueva = 0, TipoEstrategiaImagenMostrar = 6
+                    }));
             }
 
             return estrategias;
@@ -71,10 +65,9 @@ namespace Portal.Consultoras.Web.Providers
                 temp = temp.Skip(1).ToList();
 
                 var txtBuil = new StringBuilder();
-                foreach (var item in temp)
+                foreach (var item in temp.Where(item => !string.IsNullOrEmpty(item)))
                 {
-                    if (!string.IsNullOrEmpty(item))
-                        txtBuil.Append(item.Trim() + "|");
+                    txtBuil.Append(item.Trim() + "|");
                 }
 
                 descripcionOdd = txtBuil.ToString();
