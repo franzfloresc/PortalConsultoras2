@@ -218,5 +218,6 @@ input[type='button'], .qq-upload-button {
 }
 
 .titImage {
-    padding-left:0px;
+    padding-left: 0px;
+    padding-top: 0px !important;
 }
