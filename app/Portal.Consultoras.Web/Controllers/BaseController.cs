@@ -458,7 +458,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected bool ValidarPedidoReservado(out string mensaje)
         {
             mensaje = string.Empty;
-            var consultoraId = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID;
+            var consultoraId = userData.GetConsultoraId();
 
             BEConfiguracionCampania obeConfiguracionCampania;
             using (var sv = new PedidoServiceClient())
@@ -1152,9 +1152,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!PaisTieneShowRoom(model.CodigoISO)) return;
 
-                var codigoConsultora = model.UsuarioPrueba == 1
-                    ? model.ConsultoraAsociada
-                    : model.CodigoConsultora;
+                var codigoConsultora = model.GetCodigoConsultora();
                 List<BEShowRoomPersonalizacionNivel> personalizacionesNivel = null;
 
                 using (var pedidoService = new PedidoServiceClient())
@@ -1267,7 +1265,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 PaisID = userData.PaisID,
                 CampaniaID = campanaId > 0 ? campanaId : userData.CampaniaID,
-                ConsultoraID = (userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID).ToString(),
+                ConsultoraID = userData.GetConsultoraId().ToString(),
                 CUV2 = Util.Trim(cuv),
                 Zona = userData.ZonaID.ToString(),
                 ZonaHoraria = userData.ZonaHoraria,

@@ -119,7 +119,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     PaisID = userData.PaisID,
                     CampaniaID = campaniaId,
-                    ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora,
+                    ConsultoraID = userData.GetCodigoConsultora(),
                     Zona = userData.ZonaID.ToString(),
                     ZonaHoraria = userData.ZonaHoraria,
                     FechaInicioFacturacion = userData.FechaFinCampania,
@@ -130,7 +130,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (tipo == Constantes.TipoEstrategiaCodigo.LosMasVendidos)
                 {
-                    entidad.ConsultoraID = (userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID).ToString();
+                    entidad.ConsultoraID = userData.GetConsultoraId().ToString();
                 }
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
