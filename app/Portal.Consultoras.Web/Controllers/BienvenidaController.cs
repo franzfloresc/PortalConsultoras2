@@ -549,8 +549,8 @@ namespace Portal.Consultoras.Web.Controllers
                     var beShowRoomConsultora = configEstrategiaSR.BeShowRoomConsultora;
                     var beShowRoom = configEstrategiaSR.BeShowRoom;
 
-                    if (beShowRoomConsultora == null) beShowRoomConsultora = new BEShowRoomEventoConsultora();
-                    if (beShowRoom == null) beShowRoom = new BEShowRoomEvento();
+                    if (beShowRoomConsultora == null) beShowRoomConsultora = new ServiceOferta.BEShowRoomEventoConsultora();
+                    if (beShowRoom == null) beShowRoom = new ShowRoomEventoModel();
 
                     if (beShowRoom.Estado == 1)
                     {
@@ -1791,7 +1791,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var showRoom = configEstrategiaSR.BeShowRoom ?? new BEShowRoomEvento();
+                var showRoom = configEstrategiaSR.BeShowRoom ?? new ShowRoomEventoModel();
 
                 if (showRoom.Estado == SHOWROOM_ESTADO_INACTIVO)
                 {
@@ -1803,7 +1803,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var showRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
+                var showRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ServiceOferta.BEShowRoomEventoConsultora();
                 var mostrarPopupIntriga = showRoomConsultora.MostrarPopup;
                 var mostrarPopupVenta = showRoomConsultora.MostrarPopupVenta;
 

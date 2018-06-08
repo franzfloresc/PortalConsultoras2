@@ -458,7 +458,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected bool ValidarPedidoReservado(out string mensaje)
         {
             mensaje = string.Empty;
-            var consultoraId = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID;
+            var consultoraId = userData.GetConsultoraId();
 
             BEConfiguracionCampania obeConfiguracionCampania;
             using (var sv = new PedidoServiceClient())
@@ -1148,38 +1148,27 @@ namespace Portal.Consultoras.Web.Controllers
 
                 configEstrategiaSR.BeShowRoomConsultora = null;
                 configEstrategiaSR.BeShowRoom = null;
-
                 configEstrategiaSR.CargoEntidadesShowRoom = false;
 
-                if (!PaisTieneShowRoom(model.CodigoISO))
-                {
-                    SetUserData(model);
-                    return;
-                }
+                if (!PaisTieneShowRoom(model.CodigoISO)) return;
 
-                var codigoConsultora = model.UsuarioPrueba == 1
-                    ? model.ConsultoraAsociada
-                    : model.CodigoConsultora;
-                List<BEShowRoomPersonalizacionNivel> personalizacionesNivel = null;
+                var codigoConsultora = model.GetCodigoConsultora();
 
-                using (var pedidoService = new PedidoServiceClient())
-                {
-                    configEstrategiaSR.BeShowRoom = pedidoService.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
-                    configEstrategiaSR.BeShowRoomConsultora = pedidoService.GetShowRoomConsultora(
-                        model.PaisID,
-                        model.CampaniaID,
-                        codigoConsultora,
-                        true);
+                List<ServiceOferta.BEShowRoomPersonalizacionNivel> personalizacionesNivel = null;
 
-                    configEstrategiaSR.ListaNivel = pedidoService.GetShowRoomNivel(model.PaisID).ToList();
+                configEstrategiaSR.BeShowRoom = _showRoomProvider.GetShowRoomEventoByCampaniaId(model);
 
-                    configEstrategiaSR.ListaPersonalizacionConsultora = Mapper.Map<IList<BEShowRoomPersonalizacion>, IList<ShowRoomPersonalizacionModel>>(pedidoService.GetShowRoomPersonalizacion(model.PaisID).ToList()).ToList();
+                using (OfertaServiceClient osc = new OfertaServiceClient())
+                { 
+                    configEstrategiaSR.BeShowRoomConsultora = osc.GetShowRoomConsultora(model.PaisID, model.CampaniaID, codigoConsultora, true);
+                    configEstrategiaSR.ListaNivel = osc.GetShowRoomNivel(model.PaisID).ToList();
+                    var personalizacion = osc.GetShowRoomPersonalizacion(model.PaisID).ToList();
+                    configEstrategiaSR.ListaPersonalizacionConsultora = Mapper.Map<IList<ServiceOferta.BEShowRoomPersonalizacion>, IList<ShowRoomPersonalizacionModel>>(personalizacion).ToList();
                     configEstrategiaSR.ShowRoomNivelId = ObtenerNivelId(configEstrategiaSR.ListaNivel);
 
                     if (configEstrategiaSR.BeShowRoom != null && configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
                     {
-                        personalizacionesNivel = pedidoService.GetShowRoomPersonalizacionNivel(model.PaisID,
-                            configEstrategiaSR.BeShowRoom.EventoID, configEstrategiaSR.ShowRoomNivelId, 0).ToList();
+                        personalizacionesNivel = osc.GetShowRoomPersonalizacionNivel(model.PaisID, configEstrategiaSR.BeShowRoom.EventoID, configEstrategiaSR.ShowRoomNivelId, 0).ToList();
                     }
                 }
 
@@ -1256,10 +1245,9 @@ namespace Portal.Consultoras.Web.Controllers
             return tieneShowRoom;
         }
 
-        protected int ObtenerNivelId(List<BEShowRoomNivel> niveles)
+        protected int ObtenerNivelId(List<ServiceOferta.BEShowRoomNivel> niveles)
         {
-            var showRoomNivelPais = niveles.FirstOrDefault(p => p.Codigo == "PAIS") ??
-                                    new BEShowRoomNivel();
+            var showRoomNivelPais = niveles.FirstOrDefault(p => p.Codigo == "PAIS") ?? new ServiceOferta.BEShowRoomNivel();
             return showRoomNivelPais.NivelId;
         }
 
@@ -1272,7 +1260,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 PaisID = userData.PaisID,
                 CampaniaID = campanaId > 0 ? campanaId : userData.CampaniaID,
-                ConsultoraID = (userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID).ToString(),
+                ConsultoraID = userData.GetConsultoraId().ToString(),
                 CUV2 = Util.Trim(cuv),
                 Zona = userData.ZonaID.ToString(),
                 ZonaHoraria = userData.ZonaHoraria,
@@ -1692,8 +1680,6 @@ namespace Portal.Consultoras.Web.Controllers
             var listaHermanos = GetEstrategiaDetalleGetProductoBySap(estrategiaModelo, joinCuv);
             if (!listaHermanos.Any()) return null;
 
-            //estrategiaModelo.CodigoVariante = listaProducto.Select(o => o.CodigoEstrategia).FirstOrDefault();
-
             if (estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
             {
                 if (listaHermanos.Count == 1)
@@ -1724,21 +1710,19 @@ namespace Portal.Consultoras.Web.Controllers
         private List<BEEstrategiaProducto> GetEstrategiaDetalleCodigoSAP(EstrategiaPersonalizadaProductoModel estrategiaModelo, out string codigoSap)
         {
             codigoSap = "";
-            string separador = "|";
+            const string separador = "|";
             var txtBuil = new StringBuilder();
             txtBuil.Append(separador);
 
             var listaProducto = new List<BEEstrategiaProducto>();
-            if (!String.IsNullOrEmpty(estrategiaModelo.CodigoVariante))
+            if (!string.IsNullOrEmpty(estrategiaModelo.CodigoVariante))
             {
                 
-                var estrategiaX = new EstrategiaPedidoModel() { PaisID = userData.PaisID, EstrategiaID = estrategiaModelo.EstrategiaID };
-                using (PedidoServiceClient svc = new PedidoServiceClient())
+                var estrategiaX = new EstrategiaPedidoModel{ PaisID = userData.PaisID, EstrategiaID = estrategiaModelo.EstrategiaID };
+                using (var svc = new PedidoServiceClient())
                 {
-                    listaProducto = svc.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, Portal.Consultoras.Web.ServicePedido.BEEstrategia>(estrategiaX)).ToList();
+                    listaProducto = svc.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, ServicePedido.BEEstrategia>(estrategiaX)).ToList();
                 }
-
-                //listaProducto = listaProducto.Where(x => x.Activo == 1).ToList();
 
                 foreach (var item in listaProducto)
                 {
@@ -1748,13 +1732,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-
             codigoSap = txtBuil.ToString();
-
-            if (codigoSap == separador)
-                codigoSap = "";
-            else
-                codigoSap = codigoSap.Substring(separador.Length, codigoSap.Length - separador.Length * 2);
+            codigoSap = codigoSap == separador ? "" : codigoSap.Substring(separador.Length, codigoSap.Length - separador.Length * 2);
 
             return listaProducto;
         }
@@ -1763,16 +1742,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<Producto> listaAppCatalogo;
             var numeroCampanias = Convert.ToInt32(GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
-            using (ProductoServiceClient svc = new ProductoServiceClient())
+            using (var svc = new ProductoServiceClient())
             {
                 listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, estrategiaModelo.CampaniaID, joinSap, numeroCampanias).ToList();
             }
-
-            if (!listaAppCatalogo.Any()) return new List<ProductoModel>();
-
-            var listaHermanos = Mapper.Map<List<Producto>, List<ProductoModel>>(listaAppCatalogo);
-
-            return listaHermanos;
+            return !listaAppCatalogo.Any() ? new List<ProductoModel>() : Mapper.Map<List<Producto>, List<ProductoModel>>(listaAppCatalogo);
         }
 
         private List<ProductoModel> GetEstrategiaDetalleCompuesta(EstrategiaPersonalizadaProductoModel estrategiaModelo, List<BEEstrategiaProducto> listaProducto, List<ProductoModel> listaHermanos)
@@ -1865,12 +1839,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
 
-                if (hermano.FactorCuadre > 1)
+                if (hermano.FactorCuadre <= 1) continue;
+                for (var i = 0; i < hermano.FactorCuadre - 1; i++)
                 {
-                    for (int i = 0; i < hermano.FactorCuadre - 1; i++)
-                    {
-                        listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
-                    }
+                    listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
                 }
             }
 
@@ -2408,8 +2380,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (!configEstrategiaSR.CargoEntidadesShowRoom)
                 return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
 
-            model.BEShowRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
-            model.BEShowRoom = configEstrategiaSR.BeShowRoom ?? new BEShowRoomEvento();
+            model.BEShowRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ServiceOferta.BEShowRoomEventoConsultora();
+            model.BEShowRoom = configEstrategiaSR.BeShowRoom ?? new ShowRoomEventoModel();
 
             if (model.BEShowRoom.Estado != 1)
                 return new ShowRoomBannerLateralModel { EventoNoEncontrado = true };
@@ -2661,7 +2633,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return requestUrl;
         }
-
 
         protected string GetPaisNombreByISO(string paisISO)
         {
@@ -4841,12 +4812,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             return entidad;
         }
+
         public EventoFestivoDataModel GetEventoFestivoData()
         {
             return sessionManager.GetEventoFestivoDataModel() ??
                    new EventoFestivoDataModel();
         }
-
 
         public OfertaFinalModel GetOfertaFinal()
         {
@@ -5963,6 +5934,7 @@ namespace Portal.Consultoras.Web.Controllers
             bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
             return esFacturacion;
         }
+
         public void registraLogDynamoCDR(MisReclamosModel model)
         {
             try
@@ -6139,7 +6111,6 @@ namespace Portal.Consultoras.Web.Controllers
             return false;
         }
         #endregion
-
 
     }
 }

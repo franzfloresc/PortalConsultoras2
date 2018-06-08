@@ -1,6 +1,9 @@
 ﻿using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.SessionManager;
 using System.Linq;
+using AutoMapper;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceOferta;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -60,6 +63,15 @@ namespace Portal.Consultoras.Web.Providers
             session.ShowRoom.BannerInferiorConfiguracion = configuracion;
 
             return configuracion;
+        }
+
+        public ShowRoomEventoModel GetShowRoomEventoByCampaniaId(UsuarioModel model)
+        {
+            using (var osc = new OfertaServiceClient())
+            {
+                var showRoomEvento = osc.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
+                return Mapper.Map<ServiceOferta.BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
+            }
         }
     }
 }

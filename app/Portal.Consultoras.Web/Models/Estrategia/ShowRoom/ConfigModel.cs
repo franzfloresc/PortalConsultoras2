@@ -8,10 +8,10 @@
     public class ConfigModel
     {
         public bool CargoEntidadesShowRoom { get; set; }
-        public BEShowRoomEvento BeShowRoom { get; set; }
-        public BEShowRoomEventoConsultora BeShowRoomConsultora { get; set; }
+        public ShowRoomEventoModel BeShowRoom { get; set; }
+        public ServiceOferta.BEShowRoomEventoConsultora BeShowRoomConsultora { get; set; }
         public int ShowRoomNivelId { get; set; }
-        public List<BEShowRoomNivel> ListaNivel { get; set; }
+        public List<ServiceOferta.BEShowRoomNivel> ListaNivel { get; set; }
         public List<ShowRoomPersonalizacionModel> ListaPersonalizacionConsultora { get; set; }
     }
 }

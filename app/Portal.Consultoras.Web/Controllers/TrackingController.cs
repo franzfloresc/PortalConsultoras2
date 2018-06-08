@@ -20,9 +20,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string paisId = usuario.PaisID.ToString();
 
-                var codigoConsultora = UserData().UsuarioPrueba == 1
-                    ? UserData().ConsultoraAsociada
-                    : usuario.CodigoConsultora;
+                var codigoConsultora = userData.GetCodigoConsultora();
                 string mostrarAyudaWebTracking = Convert.ToInt32(usuario.MostrarAyudaWebTraking).ToString();
                 string paisIso = userData.CodigoISO.Trim();
                 string campanhaId = userData.CampaniaID.ToString();
