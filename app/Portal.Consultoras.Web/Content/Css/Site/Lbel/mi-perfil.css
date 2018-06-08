@@ -875,6 +875,7 @@
 }
 
 .input-file{
+    display:none;
     width: 0.1px;
     height: 0.1px;
     opacity: 0;
