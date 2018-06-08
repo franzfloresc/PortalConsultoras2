@@ -801,7 +801,34 @@ namespace Portal.Consultoras.Web.Controllers
             return ofertaShowRoomModelo;
         }
 
+        public ShowRoomOfertaModel GetOfertaConDetallePrueba(int idOferta)
+        {
+            ShowRoomOfertaModel ofertaShowRoomModelo = new ShowRoomOfertaModel();
+            if (idOferta <= 0) return ofertaShowRoomModelo;
 
+            List<ShowRoomOfertaModel> listadoOfertasTodasModel = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
+            ofertaShowRoomModelo = listadoOfertasTodasModel.Find(o => o.OfertaShowRoomID == idOferta) ?? new ShowRoomOfertaModel();
+            if (ofertaShowRoomModelo.OfertaShowRoomID <= 0) return ofertaShowRoomModelo;
+
+            ofertaShowRoomModelo.ImagenProducto = Util.Trim(ofertaShowRoomModelo.ImagenProducto);
+            ofertaShowRoomModelo.ImagenProducto = ofertaShowRoomModelo.ImagenProducto == "" ?
+                "/Content/Images/showroom/no_disponible.png" :
+                ofertaShowRoomModelo.ImagenProducto;
+
+
+            EstrategiaPersonalizadaProductoModel estrategiaModelo = new EstrategiaPersonalizadaProductoModel
+            {
+                EstrategiaID = idOferta,
+                CampaniaID = userData.CampaniaID,
+                CodigoVariante = ofertaShowRoomModelo.CodigoEstrategia
+            };
+
+            var listaHermanos = GetListaHermanos(estrategiaModelo);
+            ofertaShowRoomModelo.ProductoTonos = listaHermanos;
+            ofertaShowRoomModelo.CodigoEstrategia = ofertaShowRoomModelo.CodigoEstrategia;
+
+            return ofertaShowRoomModelo;
+        }
         public List<ShowRoomOfertaModel> GetOfertaListadoExcepto(int idOferta)
         {
             var listaOferta = new List<ShowRoomOfertaModel>();

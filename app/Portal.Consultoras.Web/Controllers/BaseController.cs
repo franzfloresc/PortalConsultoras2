@@ -1687,8 +1687,6 @@ namespace Portal.Consultoras.Web.Controllers
             var listaHermanos = GetEstrategiaDetalleGetProductoBySap(estrategiaModelo, joinCuv);
             if (!listaHermanos.Any()) return null;
 
-            //estrategiaModelo.CodigoVariante = listaProducto.Select(o => o.CodigoEstrategia).FirstOrDefault();
-
             if (estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
             {
                 if (listaHermanos.Count == 1)
