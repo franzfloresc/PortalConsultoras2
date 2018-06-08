@@ -12,6 +12,7 @@ $(document).ready(function () {
         //},
         me.Funciones = {
             InicializarEventos: function () {
+                $('body').on('blur', '.grupo_form_cambio_datos input', me.Eventos.LabelActivo);
                 $('body').on('click', '.enlace_agregar_num_adicional', me.Eventos.AgregarOtroNumero);
                 $('body').on('click', '.enlace_eliminar_numero_adicional', me.Eventos.EliminarNumeroAdicional);
                 $('body').on('click', '.enlace_ver_password', me.Eventos.MostrarPassword);
@@ -42,9 +43,25 @@ $(document).ready(function () {
                 } else {
                     $('#CelularConsultora').prop('readonly', true);
                 }
+            },
+            CamposFormularioConDatos: function () {
+                var camposFormulario = $('.grupo_form_cambio_datos input');
+                $.map(camposFormulario, function (campoFormulario, key) {
+                    if ($(campoFormulario).val() != '') {
+                        $(campoFormulario).addClass('campo_con_datos');
+                    }
+                });
             }
         },
         me.Eventos = {
+            LabelActivo: function () {
+                var campoDatos = $(this).val();
+                if (campoDatos != '') {
+                    $(this).addClass('campo_con_datos');
+                } else {
+                    $(this).removeClass('campo_con_datos');
+                }
+            },
             AgregarOtroNumero: function (e) {
                 e.preventDefault();
                 $(this).fadeOut(150);
@@ -75,6 +92,7 @@ $(document).ready(function () {
         },
         me.Inicializar = function () {
             me.Funciones.InicializarEventos();
+            me.Funciones.CamposFormularioConDatos();
             me.Funciones.mostrarTelefono();
             me.Funciones.PuedeActualizar();
             me.Funciones.PuedeCambiarTelefono();
@@ -89,8 +107,6 @@ $(document).ready(function () {
     $("#btnGuardar").click(function () { actualizarDatos(); });
 
     $('#btnEliminarFoto').click(function () { eliminarFotoConsultora(); });
-
-    $('#fpImagenPerfil').click(function () { SubirFotoPerfil(); });
 
     $("#txtTelefonoMD").keypress(function (evt) {
         //var charCode = (evt.which) ? evt.which : window.event.keyCode;
@@ -218,7 +234,7 @@ function actualizarDatos() {
 
     jQuery.ajax({
         type: 'POST',
-        url: baseUrl + 'MisDatos/ActualizarDatos',
+        url: baseUrl + 'MiPerfil/ActualizarDatos',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
@@ -334,7 +350,7 @@ function CambiarContrasenia() {
         waitingDialog({});
         jQuery.ajax({
             type: 'POST',
-            url: baseUrl + 'MisDatos/CambiarContrasenia',
+            url: baseUrl + 'MiPerfil/CambiarContrasenia',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(item),
@@ -385,11 +401,12 @@ function eliminarFotoConsultora() {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
-        async: true,
+        async: false,
+        cache: false,
         success: function (data) {
             if (checkTimeout(data)) {
                 closeWaitingDialog();
-                alert(data.name);
+                alert(data.message);
                 window.location = $('#volverBienbenida').attr('href');
             }
         },
@@ -402,6 +419,35 @@ function eliminarFotoConsultora() {
     });
 }
 
-function SubirFotoPerfil() {
+function SubirImagen(url, image) {
+    var item = {
+        nameImage: image
+    }
+
     waitingDialog({});
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'MiPerfil/SubirImagen',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(item),
+        async: false,
+        cache: false,
+        success: function (data) {
+            if (data.success) {
+                closeWaitingDialog();
+                alert('Su foto de pefil se cambio correctamente.');
+                window.location = url;
+            } else {
+                alert('Hubo un error al cargar el archivo, intente nuevamente.');
+                closeWaitingDialog();
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                closeWaitingDialog();
+                alert("ERROR");
+            }
+        }
+    });
 }

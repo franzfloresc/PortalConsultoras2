@@ -2734,44 +2734,40 @@ namespace Portal.Consultoras.Web.Controllers
                     paisesAdmitidos = tablaLogica.GetTablaLogicaDatos(userData.PaisID, codigoTablaLogica).ToList();
                 }
 
-                foreach (var item in paisesAdmitidos)
+                if (paisesAdmitidos.Count > 0 && Convert.ToInt32(paisesAdmitidos[0].Codigo) == Convert.ToInt32(userData.PaisID))
                 {
-                    if (Convert.ToInt32(item.Codigo) == Convert.ToInt32(userData.PaisID))
+                    data = new
                     {
-                        data = new
-                        {
-                            Usuario = userData.CodigoUsuario,
-                            CodigoConsultora = userData.CodigoConsultora,
-                            CampoModificacion = campomodificacion,
-                            ValorActual = valoractual,
-                            ValorAnterior = valoranterior,
-                            Origen = origen,
-                            Aplicacion = aplicacion,
-                            Pais = userData.NombrePais,
-                            Rol = userData.RolDescripcion,
-                            Dispositivo = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB",
-                            Accion = accion,
-                            UsuarioConsultado = codigoconsultorabuscado,
-                            Seccion = seccion
-                        };
+                        Usuario = userData.CodigoUsuario,
+                        CodigoConsultora = userData.CodigoConsultora,
+                        CampoModificacion = campomodificacion,
+                        ValorActual = valoractual,
+                        ValorAnterior = valoranterior,
+                        Origen = origen,
+                        Aplicacion = aplicacion,
+                        Pais = userData.NombrePais,
+                        Rol = userData.RolDescripcion,
+                        Dispositivo = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB",
+                        Accion = accion,
+                        UsuarioConsultado = codigoconsultorabuscado,
+                        Seccion = seccion
+                    };
 
-                        urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
-                        apiController = ConfigurationManager.AppSettings.Get("UrlLogDynamoApiController");
+                    urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
+                    apiController = ConfigurationManager.AppSettings.Get("UrlLogDynamoApiController");
 
-                        if (string.IsNullOrEmpty(urlApi)) return;
+                    if (string.IsNullOrEmpty(urlApi)) return;
 
-                        HttpClient httpClient = new HttpClient();
-                        httpClient.BaseAddress = new Uri(urlApi);
-                        httpClient.DefaultRequestHeaders.Accept.Clear();
-                        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpClient httpClient = new HttpClient();
+                    httpClient.BaseAddress = new Uri(urlApi);
+                    httpClient.DefaultRequestHeaders.Accept.Clear();
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                        dataString = JsonConvert.SerializeObject(data);
-                        HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-                        HttpResponseMessage response = httpClient.PostAsync(apiController, contentPost).GetAwaiter().GetResult();
-                        noQuitar = response.IsSuccessStatusCode;
-                        httpClient.Dispose();
-                        break;
-                    }
+                    dataString = JsonConvert.SerializeObject(data);
+                    HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = httpClient.PostAsync(apiController, contentPost).GetAwaiter().GetResult();
+                    noQuitar = response.IsSuccessStatusCode;
+                    httpClient.Dispose();
                 }
             }
             catch (Exception ex)
@@ -5847,11 +5843,11 @@ namespace Portal.Consultoras.Web.Controllers
             return descripcion;
         }
 
-        public void RegistrarLogDynamoCambioClave(string accion, string consultora, string v_valoractual, string v_valoranterior)
+        public void RegistrarLogDynamoCambioClave(string accion, string consultora, string v_valoractual, string v_valoranterior, string Ruta, string Seccion)
         {
             object data = null;
-            var p_origen = "SAC/ACTUALIZAR CONTRASEÑA";
-            var p_seccion = "Mantenimiento de contraseña";
+            var p_origen = Ruta;
+            var p_seccion = Seccion;
             var p_aplicacion = Constantes.LogDynamoDB.AplicacionPortalConsultoras;
 
             if (accion.Trim().ToUpper() == "MODIFICACION")

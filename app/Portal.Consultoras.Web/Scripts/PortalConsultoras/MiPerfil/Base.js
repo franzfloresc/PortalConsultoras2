@@ -10,8 +10,8 @@ var MiPerfil_Base = function () {
 
     var validarLabelActivo = function () {
         var valor = $(this).val();
-        if (IsNullOrEmpty(valor)) $(this).addClass('campo_con_datos');
-        else $(this).removeClass('campo_con_datos');
+        if (IsNullOrEmpty(valor)) $(this).removeClass('campo_con_datos');
+        else $(this).addClass('campo_con_datos');
     };
 
     var asignarEventos = function () {

@@ -161,6 +161,7 @@ namespace Portal.Consultoras.Common
             public const int MensajeInformacionPagoExitoso = 12211;
 
             public const int CantidadCuvMasivo_NuevoMasivo = 13701;
+            public const int ActualizaDatosEnabled = 14301;
 
         }
 
@@ -1441,6 +1442,7 @@ namespace Portal.Consultoras.Common
             public const int ValoresPagoEnLinea = 122;
             public const int CantidadCuvMasivo = 137;
             public const short ProlObsCod = 5;
+            public const int ActualizaDatosEnabled = 143;
         }
 
         public struct MensajesCDRExpress
@@ -2091,12 +2093,6 @@ namespace Portal.Consultoras.Common
             public const int TipoEnvio_Sms = 2;
         }
         #endregion  
-
-        public static class TablaLogicaDatosValores
-        {
-            public const int ServicioSMS = 144;
-            public const int ActualizaDatos = 143;
-        }
 
         public static class ValidacionDatosTipoEnvio
         {

@@ -51,22 +51,20 @@ else
                             var uploader = new qq.FileUploader({
                                 allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
                                 element: document.getElementById('fpImagenPerfil'),
-                                action: '@Url.Action("SubirFotoPerfil", "MiPerfil")',
-                                onComplete: function(id, fileName, responseJSON) {
+                                    action: '@Url.Action("MoverFotoPerfil", "MiPerfil")',
+                                    onComplete: function (id, fileName, responseJSON) {
                                     if (checkTimeout(responseJSON)) {
                                         $(".qq-upload-list").css("display", "none");
                                         if (responseJSON.success) {
-                                            closeWaitingDialog();
-                                            window.location = '@Url.Action("Index", "Bienvenida", new { area = "" })';
+                                                SubirImagen('@Url.Action("Index", "Bienvenida", new { area = "" })', responseJSON.name);
                                         } else {
-                                            closeWaitingDialog();
-                                            alert(responseJSON.message);
+                                                alert('Hubo un error al cargar el archivo, intente nuevamente.');
                                         }
                                     }
                                 },
-                                onSubmit: function(id, fileName) { $(".qq-upload-list").css("display", "none"); },
-                                onProgress: function(id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
-                                onCancel: function(id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                                    onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); console.log('cancelo');},
+                                    onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); console.log('cancelo');},
+                                    onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); console.log('cancelo'); }
                             });
                             inputElegirImagen = document.querySelector('input[type="file"]');
                             inputElegirImagen.setAttribute("id", "ElegirImagen");
