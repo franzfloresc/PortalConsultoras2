@@ -1160,13 +1160,11 @@ namespace Portal.Consultoras.Web.Controllers
                 configEstrategiaSR.BeShowRoom = _showRoomProvider.GetShowRoomEventoByCampaniaId(model);
                 configEstrategiaSR.BeShowRoomConsultora = _showRoomProvider.GetShowRoomConsultora(model);
                 configEstrategiaSR.ListaNivel = _showRoomProvider.GetShowRoomNivel(model);
+                configEstrategiaSR.ShowRoomNivelId = ObtenerNivelId(configEstrategiaSR.ListaNivel);
+                configEstrategiaSR.ListaPersonalizacionConsultora = _showRoomProvider.GetShowRoomPersonalizacion(model);
 
                 using (OfertaServiceClient osc = new OfertaServiceClient())
                 {
-                    var personalizacion = osc.GetShowRoomPersonalizacion(model.PaisID).ToList();
-                    configEstrategiaSR.ListaPersonalizacionConsultora = Mapper.Map<IList<ServiceOferta.BEShowRoomPersonalizacion>, IList<ShowRoomPersonalizacionModel>>(personalizacion).ToList();
-                    configEstrategiaSR.ShowRoomNivelId = ObtenerNivelId(configEstrategiaSR.ListaNivel);
-
                     if (configEstrategiaSR.BeShowRoom != null && configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
                     {
                         personalizacionesNivel = osc.GetShowRoomPersonalizacionNivel(model.PaisID, configEstrategiaSR.BeShowRoom.EventoID, configEstrategiaSR.ShowRoomNivelId, 0).ToList();
