@@ -69,6 +69,9 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
         else if (tipo == "hv") {
             var lista = "HVLista";
         }
+        else if (tipo == "lan") {
+            var lista = "listaLAN";
+        }
 
         $.each(listaCuv, function (ind, cuvItem) {
             var cuvx = cuvItem.split(';')[0];

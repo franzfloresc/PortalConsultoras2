@@ -1122,6 +1122,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                         ActualizarLocalStorageAgregado("rd", param.CUV, true);
                         ActualizarLocalStorageAgregado("gn", param.CUV, true);
                         ActualizarLocalStorageAgregado("hv", param.CUV, true);
+                        ActualizarLocalStorageAgregado("lan", param.CUV, true);
 
                         ProcesarActualizacionMostrarContenedorCupon();
                     },
