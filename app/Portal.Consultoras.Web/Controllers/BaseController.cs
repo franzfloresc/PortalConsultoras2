@@ -1717,21 +1717,19 @@ namespace Portal.Consultoras.Web.Controllers
         private List<BEEstrategiaProducto> GetEstrategiaDetalleCodigoSAP(EstrategiaPersonalizadaProductoModel estrategiaModelo, out string codigoSap)
         {
             codigoSap = "";
-            string separador = "|";
+            const string separador = "|";
             var txtBuil = new StringBuilder();
             txtBuil.Append(separador);
 
             var listaProducto = new List<BEEstrategiaProducto>();
-            if (!String.IsNullOrEmpty(estrategiaModelo.CodigoVariante))
+            if (!string.IsNullOrEmpty(estrategiaModelo.CodigoVariante))
             {
                 
-                var estrategiaX = new EstrategiaPedidoModel() { PaisID = userData.PaisID, EstrategiaID = estrategiaModelo.EstrategiaID };
-                using (PedidoServiceClient svc = new PedidoServiceClient())
+                var estrategiaX = new EstrategiaPedidoModel{ PaisID = userData.PaisID, EstrategiaID = estrategiaModelo.EstrategiaID };
+                using (var svc = new PedidoServiceClient())
                 {
-                    listaProducto = svc.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, Portal.Consultoras.Web.ServicePedido.BEEstrategia>(estrategiaX)).ToList();
+                    listaProducto = svc.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, ServicePedido.BEEstrategia>(estrategiaX)).ToList();
                 }
-
-                //listaProducto = listaProducto.Where(x => x.Activo == 1).ToList();
 
                 foreach (var item in listaProducto)
                 {
@@ -1741,13 +1739,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-
             codigoSap = txtBuil.ToString();
-
-            if (codigoSap == separador)
-                codigoSap = "";
-            else
-                codigoSap = codigoSap.Substring(separador.Length, codigoSap.Length - separador.Length * 2);
+            codigoSap = codigoSap == separador ? "" : codigoSap.Substring(separador.Length, codigoSap.Length - separador.Length * 2);
 
             return listaProducto;
         }
@@ -1756,16 +1749,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<Producto> listaAppCatalogo;
             var numeroCampanias = Convert.ToInt32(GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
-            using (ProductoServiceClient svc = new ProductoServiceClient())
+            using (var svc = new ProductoServiceClient())
             {
                 listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, estrategiaModelo.CampaniaID, joinSap, numeroCampanias).ToList();
             }
-
-            if (!listaAppCatalogo.Any()) return new List<ProductoModel>();
-
-            var listaHermanos = Mapper.Map<List<Producto>, List<ProductoModel>>(listaAppCatalogo);
-
-            return listaHermanos;
+            return !listaAppCatalogo.Any() ? new List<ProductoModel>() : Mapper.Map<List<Producto>, List<ProductoModel>>(listaAppCatalogo);
         }
 
         private List<ProductoModel> GetEstrategiaDetalleCompuesta(EstrategiaPersonalizadaProductoModel estrategiaModelo, List<BEEstrategiaProducto> listaProducto, List<ProductoModel> listaHermanos)
@@ -1858,12 +1846,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
 
-                if (hermano.FactorCuadre > 1)
+                if (hermano.FactorCuadre <= 1) continue;
+                for (var i = 0; i < hermano.FactorCuadre - 1; i++)
                 {
-                    for (int i = 0; i < hermano.FactorCuadre - 1; i++)
-                    {
-                        listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
-                    }
+                    listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
                 }
             }
 
