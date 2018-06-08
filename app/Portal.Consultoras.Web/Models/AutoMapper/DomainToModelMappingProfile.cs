@@ -601,6 +601,14 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
                 .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
 
+            Mapper.CreateMap<ServiceOferta.BEShowRoomPersonalizacionNivel, ShowRoomPersonalizacionNivelModel>()
+                .ForMember(t => t.PersonalizacionNivelId, f => f.MapFrom(c => c.PersonalizacionNivelId))
+                .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
+                .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
+                .ForMember(t => t.CategoriaId, f => f.MapFrom(c => c.CategoriaId))
+                .ForMember(t => t.Valor, f => f.MapFrom(c => c.Valor));
+
+
         }
     }
 }
