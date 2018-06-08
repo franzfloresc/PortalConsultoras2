@@ -171,10 +171,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var showRoomEvento = configEstrategiaSR.BeShowRoom;
+                showRoomEventoModel = configEstrategiaSR.BeShowRoom;
                 var codigoConsultora = userData.CodigoConsultora;
 
-                showRoomEventoModel = Mapper.Map<ServiceOferta.BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
                 showRoomEventoModel.Simbolo = userData.Simbolo;
                 showRoomEventoModel.CodigoIso = userData.CodigoISO;
 

@@ -9,14 +9,10 @@ namespace Portal.Consultoras.Web.Models
         public bool ConsultoraNoEncontrada { get; set; }
         public bool EventoNoEncontrado { get; set; }
 
-        //@001 FSV INICIO
-        //public BEShowRoomEventoConsultora BEShowRoomConsultora { get; set; }
-
-        //public BEShowRoomEvento BEShowRoom { get; set; }
         public ServiceOferta.BEShowRoomEventoConsultora BEShowRoomConsultora { get; set; }
 
-        public ServiceOferta.BEShowRoomEvento BEShowRoom { get; set; }
-        //@001 FSV FIN
+        public ShowRoomEventoModel BEShowRoom { get; set; }
+
 
         public int DiasFaltantes { get; set; }
 

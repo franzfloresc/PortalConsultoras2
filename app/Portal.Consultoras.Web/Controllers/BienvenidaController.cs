@@ -14,13 +14,6 @@ using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
 
-/*
-CONTROL DE CAMBIOS
-CORRELATIVO -   PERSONA -   FECHA       -   MOTIVO
-@001        -   FSV     -   08/06/2018  -   Se traslada llamamientos de ShowRoom y ODD al nuevo servicio unificado "OfertaService".
-@002
-*/
-
 namespace Portal.Consultoras.Web.Controllers
 {
     public class BienvenidaController : BaseController
@@ -556,12 +549,8 @@ namespace Portal.Consultoras.Web.Controllers
                     var beShowRoomConsultora = configEstrategiaSR.BeShowRoomConsultora;
                     var beShowRoom = configEstrategiaSR.BeShowRoom;
 
-                    //@001 FSV INICIO
-                    //if (beShowRoomConsultora == null) beShowRoomConsultora = new BEShowRoomEventoConsultora();
-                    //if (beShowRoom == null) beShowRoom = new BEShowRoomEvento();
                     if (beShowRoomConsultora == null) beShowRoomConsultora = new ServiceOferta.BEShowRoomEventoConsultora();
-                    if (beShowRoom == null) beShowRoom = new ServiceOferta.BEShowRoomEvento();
-                    //@001 FSV FIN
+                    if (beShowRoom == null) beShowRoom = new ShowRoomEventoModel();
 
                     if (beShowRoom.Estado == 1)
                     {
@@ -1802,10 +1791,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                //@001 FSV INICIO
-                //var showRoom = configEstrategiaSR.BeShowRoom ?? new BEShowRoomEvento();
-                var showRoom = configEstrategiaSR.BeShowRoom ?? new ServiceOferta.BEShowRoomEvento();
-                //@001 FSV FIN
+                var showRoom = configEstrategiaSR.BeShowRoom ?? new ShowRoomEventoModel();
 
                 if (showRoom.Estado == SHOWROOM_ESTADO_INACTIVO)
                 {
@@ -1817,10 +1803,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                //@001 FSV INICIO
-                //var showRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
                 var showRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ServiceOferta.BEShowRoomEventoConsultora();
-                //@001 FSV FIN
                 var mostrarPopupIntriga = showRoomConsultora.MostrarPopup;
                 var mostrarPopupVenta = showRoomConsultora.MostrarPopupVenta;
 
