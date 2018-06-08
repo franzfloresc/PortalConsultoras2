@@ -42,6 +42,7 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
 using BEShowRoomEventoConsultora = Portal.Consultoras.Web.ServiceOferta.BEShowRoomEventoConsultora;
+using BEShowRoomNivel = Portal.Consultoras.Web.ServiceOferta.BEShowRoomNivel;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -1158,11 +1159,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 configEstrategiaSR.BeShowRoom = _showRoomProvider.GetShowRoomEventoByCampaniaId(model);
                 configEstrategiaSR.BeShowRoomConsultora = _showRoomProvider.GetShowRoomConsultora(model);
+                configEstrategiaSR.ListaNivel = _showRoomProvider.GetShowRoomNivel(model);
 
                 using (OfertaServiceClient osc = new OfertaServiceClient())
                 {
-
-                    configEstrategiaSR.ListaNivel = osc.GetShowRoomNivel(model.PaisID).ToList();
                     var personalizacion = osc.GetShowRoomPersonalizacion(model.PaisID).ToList();
                     configEstrategiaSR.ListaPersonalizacionConsultora = Mapper.Map<IList<ServiceOferta.BEShowRoomPersonalizacion>, IList<ShowRoomPersonalizacionModel>>(personalizacion).ToList();
                     configEstrategiaSR.ShowRoomNivelId = ObtenerNivelId(configEstrategiaSR.ListaNivel);
@@ -1246,9 +1246,9 @@ namespace Portal.Consultoras.Web.Controllers
             return tieneShowRoom;
         }
 
-        protected int ObtenerNivelId(List<ServiceOferta.BEShowRoomNivel> niveles)
+        protected int ObtenerNivelId(List<ShowRoomNivelModel> niveles)
         {
-            var showRoomNivelPais = niveles.FirstOrDefault(p => p.Codigo == "PAIS") ?? new ServiceOferta.BEShowRoomNivel();
+            var showRoomNivelPais = niveles.FirstOrDefault(p => p.Codigo == "PAIS") ?? new ShowRoomNivelModel();
             return showRoomNivelPais.NivelId;
         }
 
