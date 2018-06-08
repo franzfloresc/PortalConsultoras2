@@ -2090,7 +2090,7 @@ namespace Portal.Consultoras.Common
             //api/Estrategia/contar/{pais}/{tipo}/{campania}
             public const string UrlCantidadOfertas = "estrategia/contar/{0}/{1}/{2}";
 
-            ///api/Estrategia/precargar/{pais}/{tipo}/{campania}
+            //api/Estrategia/precargar/{pais}/{tipo}/{campania}
             public const string UrlPreCargarWebApi = "estrategia/precargar/{0}/{1}/{2}";
 
             //api/Estrategia/cargar/{pais}
@@ -2103,35 +2103,39 @@ namespace Portal.Consultoras.Common
             public const string UrlEditarWebApi = "estrategia/editar/{0}";
 
 
-            //api/Estrategia/activar/{pais}/{id} --REVISAR
-            //api/Estrategia/activar/{pais}
-            public const string UrlActivarEstrategias = "estrategia/activar/{0}/{1}";
-            //public const string UrlActivarEstrategias = "estrategia/activar?usuario={0}&pais={1}";
+            //api/Estrategia/activar/{pais}/{id}?Usuario=
+            public const string UrlActivarEstrategia = "estrategia/activar/{0}/{1}?Usuario={2}";
+
+            //api/Estrategia/activar/{pais}?Usuario=
+            public const string UrlActivarEstrategias = "estrategia/activar/{0}?usuario={0}";
 
 
-            //api/Estrategia/desactivar/{pais}/{id} --REVISAR
-            //api/Estrategia/desactivar/{pais}
-            public const string UrlDesactivarWebApi = "estrategia/desactivar/{0}/{1}";
-            //public const string UrlDesactivarWebApi = "estrategia/desactivar/{0}?usuario={1}&pais={2}";
+            //api/Estrategia/desactivar/{pais}/{id}?Usuario=           
+            public const string UrlDesactivarWebApi = "estrategia/desactivar/{0}/{1}?Usuario={2}";
+
+            //api/Estrategia/desactivar/{pais}?Usuario=
+            public const string UrlDesactivarEstrategias = "estrategia/desactivar/{0}?Usuario={1}";
 
             //api/Estrategia/actualizar/{pais}
-            public const string UrlUploadCsv = "estrategia/actualizar?pais={0}";
+            public const string UrlUploadCsv = "estrategia/actualizar/{0}";
 
             //api/Estrategia/cuv/{pais}/{tipo}/{campania}/{cuv}
-            public const string UrlEstrategiaCuv = "estrategia/cuv/{0}/{1}/{2}";
+            public const string UrlEstrategiaCuv = "estrategia/cuv/{0}/{1}/{2}/{3}";
 
-            public const string UrlEditarTipoEstrategiaWebApi = "tipo/editar?pais={0}";
+            //api/Estrategia/registrar/{pais}
+            public const string UrlRegistrarWebApi = "estrategia/registrar/{0}";
+
+            //api/TipoEstrategia/editar/{pais}
+            public const string UrlEditarTipoEstrategiaWebApi = "tipo/editar/{0}";
+
+            //api/TipoEstrategia/registrar/{pais}
+            public const string UrlRegistrarTipoEstrategiaWebApi = "tipo/registrar/{0}";
 
 
-
-            public const string UrlDesactivarEstrategias = "estrategia/desactivar?usuario={0}&pais={1}";
-
-            public const string UrlRegistrarTipoEstrategiaWebApi = "tipo/registrar?pais={0}";
-            public const string UrlRegistrarWebApi = "estrategia/registrar?pais={0}";
-            
             #endregion
 
             #region Oferta
+            //api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{diaInicio}
             public const string UrlObtenerOfertasDelDia = "api/Oferta/{0}/{1}/{2}/{3}/{4}";
             #endregion
         }

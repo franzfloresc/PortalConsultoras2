@@ -85,10 +85,11 @@ namespace Portal.Consultoras.Web.Providers
         {
             UsuarioModel userData = sessionManager.GetUserData();
             Dictionary<string, int> iCantidadOfertas = new Dictionary<string, int> { { "CUV_ZE", -1 }, { "CUV_OP", -1 } };
-            const string requestUrl = Constantes.PersonalizacionOfertasService.UrlCantidadOfertas;
-            string jsonParameters = "?tipo=" + tipoCodigo + "&campania=" + campania + "&pais=" + pais;
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlCantidadOfertas, pais, tipoCodigo, campania);
 
-            var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "get", userData));
+            //string jsonParameters = "?tipo=" + tipoCodigo + "&campania=" + campania + "&pais=" + pais;
+
+            var taskApi = Task.Run(() => RespSBMicroservicios("", requestUrl, "get", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
             if (string.IsNullOrEmpty(content))
@@ -147,7 +148,7 @@ namespace Portal.Consultoras.Web.Providers
         public List<EstrategiaMDbAdapterModel> Listar(string campaniaID, string tipoEstrategiaCodigo, string pais, int activo = -1, string cuv2 = "", int imagen = -1)
         {
             List<EstrategiaMDbAdapterModel> listaEstrategias = new List<EstrategiaMDbAdapterModel>();
-            string jsonParameters = "?pais=" + pais;
+            string jsonParameters = "";
             if (activo != -1)
             {
                 jsonParameters += jsonParameters.Length > 1 ? "&" : "";
@@ -165,7 +166,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             var userData = sessionManager.GetUserData();
             //entidad.Imagen
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlListarWebApi, campaniaID, tipoEstrategiaCodigo);
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlListarWebApi, pais, tipoEstrategiaCodigo, campaniaID);
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "get", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -187,10 +188,10 @@ namespace Portal.Consultoras.Web.Providers
         {
             UsuarioModel userData = sessionManager.GetUserData();
             List<EstrategiaMDbAdapterModel> listaEstrategias = new List<EstrategiaMDbAdapterModel>();
-            string jsonParameters = "?pais=" + pais;
+            string jsonParameters = "";
 
             //entidad.Imagen
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlPreCargarWebApi, campaniaId, tipoEstrategiaCodigo);
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlPreCargarWebApi, pais, tipoEstrategiaCodigo, campaniaId);
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "get", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -211,8 +212,8 @@ namespace Portal.Consultoras.Web.Providers
         {
             UsuarioModel userData = sessionManager.GetUserData();
             List<EstrategiaMDbAdapterModel> listaEstrategias = new List<EstrategiaMDbAdapterModel>();
-            string jsonParameters = id + "?pais=" + pais;
-            const string requestUrl = Constantes.PersonalizacionOfertasService.UrlFiltrarEstrategia;
+            string jsonParameters = "";
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlFiltrarEstrategia, pais);
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "get", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -334,7 +335,7 @@ namespace Portal.Consultoras.Web.Providers
             UsuarioModel userData = sessionManager.GetUserData();
 
             const string jsonParameters = "";
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlDesactivarWebApi, id, usuario, pais);
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlDesactivarWebApi, pais,id , usuario);
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "put", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -351,14 +352,14 @@ namespace Portal.Consultoras.Web.Providers
         {
             UsuarioModel userData = sessionManager.GetUserData();
             string jsonParametersActivas = JsonConvert.SerializeObject(estrategiasActivas);
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlActivarEstrategias, usuario, pais);
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlActivarEstrategias, pais, usuario);
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParametersActivas, requestUrl, "put", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
             bool activarResponse = !string.IsNullOrEmpty(content) && content.Equals("true");
 
             string jsonParametersInactivas = JsonConvert.SerializeObject(estrategiasInactivas);
-            string requestUrlInactivar = string.Format(Constantes.PersonalizacionOfertasService.UrlDesactivarEstrategias, usuario, pais);
+            string requestUrlInactivar = string.Format(Constantes.PersonalizacionOfertasService.UrlDesactivarEstrategias, pais, usuario);
             taskApi = Task.Run(() => RespSBMicroservicios(jsonParametersInactivas, requestUrlInactivar, "put", userData));
             Task.WhenAll(taskApi);
             content = taskApi.Result;
@@ -370,8 +371,8 @@ namespace Portal.Consultoras.Web.Providers
         public BEEstrategia ObtenerEstrategiaCuv(string cuv, string campania, string tipoEstrategia, string pais, string prod, string perfil)
         {
             UsuarioModel userData = sessionManager.GetUserData();
-            string jsonParameters = "?pais=" + pais + "&prod=" + prod + "&perfil=" + perfil;
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlEstrategiaCuv, campania, tipoEstrategia, cuv);
+            string jsonParameters = "?prod=" + prod + "&perfil=" + perfil;
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlEstrategiaCuv, pais, tipoEstrategia, campania, cuv);
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "get", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
