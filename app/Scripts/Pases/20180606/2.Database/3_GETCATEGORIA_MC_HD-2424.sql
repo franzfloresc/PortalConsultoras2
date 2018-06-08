@@ -142,15 +142,4 @@ BEGIN
 END
 GO
 
-USE [BelcorpVenezuela]
-GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GETCATEGORIA]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].GETCATEGORIA
-GO
-CREATE PROCEDURE dbo.GETCATEGORIA
-AS
-BEGIN
-	SELECT DISTINCT CodigoCategoria	,DescripcionCategoria	,Eliminado   FROM  ods.SAP_CATEGORIA ORDER BY  DescripcionCategoria ASC 
-END
-GO
 

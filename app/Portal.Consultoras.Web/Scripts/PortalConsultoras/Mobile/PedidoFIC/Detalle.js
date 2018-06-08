@@ -454,6 +454,8 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
 
                 ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
                 ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
+                ActualizarLocalStorageAgregado("hv", data.data.CUV, false);
+                ActualizarLocalStorageAgregado("lan", data.data.CUV, false);
             },
             error: function (data, error) {
                 CloseLoading();
@@ -583,6 +585,8 @@ function PedidoDetalleEliminarTodo() {
 
             ActualizarLocalStorageAgregado("rd", "todo", false);
             ActualizarLocalStorageAgregado("gn", "todo", false);
+            ActualizarLocalStorageAgregado("hv", "todo", false);
+            ActualizarLocalStorageAgregado("lan", "todo", false);
 
             location.reload();
 
