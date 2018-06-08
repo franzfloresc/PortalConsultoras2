@@ -14,6 +14,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -190,6 +191,61 @@ namespace Portal.Consultoras.BizLogic
             var daUsuario = new DAUsuario(paisID);
             bool activado = daUsuario.ActiveEmail(codigoUsuario);
             return activado;
+        }
+
+        public BERespuestaServicio ActivarEmail(int paisID, string codigoConsultora)
+        {
+            //try
+            //{
+            //    if (!usuario.PuedeActualizar) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_NoAutorizado };
+            //    if (string.IsNullOrEmpty(correoNuevo)) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoVacio };
+            //    if (usuario.EMail == correoNuevo) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoNoCambia };
+
+            //    int cantidad = this.ValidarEmailConsultora(usuario.PaisID, correoNuevo, usuario.CodigoUsuario);
+            //    if (cantidad > 0) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste };
+
+            //    var dAValidacionDatos = new DAValidacionDatos(paisID);
+            //    TransactionOptions transOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted };
+            //    using (TransactionScope transScope = new TransactionScope(TransactionScopeOption.Required, transOptions))
+            //    {
+            //        BEValidacionDatos validacionDato;
+            //        using (var reader = dAValidacionDatos.GetValidacionDatos(usuario.CodigoUsuario, Constantes.ValidacionDatosTipoEnvio.Email))
+            //        {
+            //            validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader);
+            //        }
+
+            //        if (validacionDato == null)
+            //        {
+            //            validacionDato = new BEValidacionDatos
+            //            {
+            //                TipoEnvio = Constantes.ValidacionDatosTipoEnvio.Email,
+            //                DatoAntiguo = usuario.EMail,
+            //                DatoNuevo = correoNuevo,
+            //                CodigoUsuario = usuario.CodigoUsuario,
+            //                Estado = Constantes.ValidacionDatosEstado.Pendiente,
+            //                UsuarioModificacion = usuario.CodigoUsuario
+            //            };
+            //            dAValidacionDatos.InsValidacionDatos(validacionDato);
+            //        }
+            //        else
+            //        {
+            //            validacionDato.DatoAntiguo = usuario.EMail;
+            //            validacionDato.DatoNuevo = correoNuevo;
+            //            validacionDato.Estado = Constantes.ValidacionDatosEstado.Pendiente;
+            //            validacionDato.UsuarioModificacion = usuario.CodigoUsuario;
+            //            dAValidacionDatos.UpdValidacionDatos(validacionDato);
+            //        }
+
+            //        EnviarEmailActualizarCorreo(usuario, correoNuevo);
+            //        transScope.Complete();
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    LogManager.SaveLog(ex, usuario.CodigoUsuario, string.Empty);
+            //    return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora };
+            //}
+            return new BERespuestaServicio { Succcess = true };
         }
 
         public int setUsuarioVideoIntroductorio(int paisID, string CodigoUsuario)
@@ -1742,22 +1798,7 @@ namespace Portal.Consultoras.BizLogic
 
                         if (usuario.EMail != CorreoAnterior)
                         {
-                            string emailFrom = "no-responder@somosbelcorp.com";
-                            string emailTo = usuario.EMail;
-                            string titulo = "Confirmación de Correo";
-                            string displayname = usuario.Nombre;
-                            string url = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
-                            string nomconsultora = (string.IsNullOrEmpty(usuario.Sobrenombre) ? usuario.PrimerNombre : usuario.Sobrenombre);
-
-                            string[] parametros = new string[] { usuario.CodigoUsuario, usuario.PaisID.ToString(), usuario.CodigoISO, usuario.EMail };
-                            string paramQuerystring = Common.Util.Encrypt(string.Join(";", parametros));
-                            LogManager.SaveLog(new Exception(), usuario.CodigoUsuario, usuario.CodigoISO, " | data=" + paramQuerystring + " | parametros = " + string.Join("|", parametros));
-                            bool esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(usuario.CodigoISO);
-                            string logo = (esEsika ? "http://www.genesis-peru.com/mailing-belcorp/logo.png" : "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/jG6i4d6VUyIaUwi/logod.png");
-                            string fondo = (esEsika ? "e81c36" : "642f80");
-
-                            MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, logo, nomconsultora, url, fondo, paramQuerystring);
-
+                            EnviarEmailActualizarCorreo(usuario, usuario.EMail);
                             resultado = string.Format("{0}|{1}|{2}|0", "1", "2", "- Sus datos se actualizaron correctamente.\n - Se ha enviado un correo electrónico de verificación a la dirección ingresada.");
                         }
                         else
@@ -1774,6 +1815,89 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return resultado;
+        }
+
+        public BERespuestaServicio ActualizarEmail(BEUsuario usuario, string correoNuevo)
+        {
+            try
+            {
+                if (!usuario.PuedeActualizar) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_NoAutorizado };
+                if (string.IsNullOrEmpty(correoNuevo)) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoVacio };
+                if (usuario.EMail == correoNuevo) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoNoCambia };
+
+                int cantidad = this.ValidarEmailConsultora(usuario.PaisID, correoNuevo, usuario.CodigoUsuario);
+                if (cantidad > 0) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste };
+
+                var dAValidacionDatos = new DAValidacionDatos(usuario.PaisID);
+                var dAUsuario = new DAUsuario(usuario.PaisID);
+
+                TransactionOptions transOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted };
+                using (TransactionScope transScope = new TransactionScope(TransactionScopeOption.Required, transOptions))
+                {
+                    BEValidacionDatos validacionDato;
+                    using (var reader = dAValidacionDatos.GetValidacionDatos(usuario.CodigoUsuario, Constantes.ValidacionDatosTipoEnvio.Email))
+                    {
+                        validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader);
+                    }
+
+                    if (validacionDato == null)
+                    {
+                        dAValidacionDatos.InsValidacionDatos(new BEValidacionDatos
+                        {
+                            TipoEnvio = Constantes.ValidacionDatosTipoEnvio.Email,
+                            DatoAntiguo = usuario.EMail,
+                            DatoNuevo = correoNuevo,
+                            CodigoUsuario = usuario.CodigoUsuario,
+                            Estado = Constantes.ValidacionDatosEstado.Pendiente,
+                            UsuarioModificacion = usuario.CodigoUsuario
+                        });
+                    }
+                    else
+                    {
+                        validacionDato.DatoAntiguo = usuario.EMail;
+                        validacionDato.DatoNuevo = correoNuevo;
+                        validacionDato.Estado = Constantes.ValidacionDatosEstado.Pendiente;
+                        validacionDato.UsuarioModificacion = usuario.CodigoUsuario;
+                        dAValidacionDatos.UpdValidacionDatos(validacionDato);
+                    }
+
+                    dAUsuario.InsCodigoGenerado(new BEUsuarioCorreo {
+                        OrigenID = Constantes.EnviarCorreoYSms.Origen_ActualizarCorreo,
+                        //origenDescripcion = actualizar datos,
+                        tipoEnvio = Constantes.EnviarCorreoYSms.TipoEnvio_Email,
+                        CodigoUsuario = usuario.CodigoUsuario,
+                        opcionHabilitar = true
+                    });
+
+                    EnviarEmailActualizarCorreo(usuario, correoNuevo);
+                    transScope.Complete();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, usuario.CodigoUsuario, string.Empty);
+                return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora };
+            }
+            return new BERespuestaServicio { Succcess = true };
+        }
+
+        private void EnviarEmailActualizarCorreo(BEUsuario usuario, string correoNuevo)
+        {
+            string emailFrom = "no-responder@somosbelcorp.com";
+            string emailTo = correoNuevo;
+            string titulo = "Confirmación de Correo";
+            string displayname = usuario.Nombre;
+            string url = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
+            string nomconsultora = (string.IsNullOrEmpty(usuario.Sobrenombre) ? usuario.PrimerNombre : usuario.Sobrenombre);
+
+            string[] parametros = new string[] { usuario.CodigoUsuario, usuario.PaisID.ToString(), usuario.CodigoISO, usuario.EMail };
+            string paramQuerystring = Common.Util.Encrypt(string.Join(";", parametros));
+            LogManager.SaveLog(new Exception(), usuario.CodigoUsuario, usuario.CodigoISO, " | data=" + paramQuerystring + " | parametros = " + string.Join("|", parametros));
+            bool esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(usuario.CodigoISO);
+            string logo = (esEsika ? "http://www.genesis-peru.com/mailing-belcorp/logo.png" : "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/jG6i4d6VUyIaUwi/logod.png");
+            string fondo = (esEsika ? "e81c36" : "642f80");
+
+            MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, logo, nomconsultora, url, fondo, paramQuerystring);
         }
 
         public string AceptarContratoColombia(BEUsuario usuario)
@@ -2263,7 +2387,7 @@ namespace Portal.Consultoras.BizLogic
 
             if (oRecuperar != null)
             {
-                using (IDataReader rd = DAUsuario.GetOpcionHabilitada(oRecuperar.CodigoUsuario, Constantes.EnviarCorreoYSms.RecuperarClave))
+                using (IDataReader rd = DAUsuario.GetOpcionHabilitada(oRecuperar.CodigoUsuario, Constantes.EnviarCorreoYSms.Origen_RecuperarClave))
                     if (rd.Read())
                     {
                         oRecuperar.OpcionCorreoActiva = rd.GetString(0);
@@ -2347,7 +2471,7 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 oUsuCorreo.codigoGenerado = ""; //En recuperar contraseña no hay codigo generado.
-                oUsuCorreo.tipoEnvio = Constantes.EnviarCorreoYSms.EnviarPorEmail;
+                oUsuCorreo.tipoEnvio = Constantes.EnviarCorreoYSms.TipoEnvio_Email;
 
                 var DAUsuario = new DAUsuario(paisId);
                 DAUsuario.InsCodigoGenerado(oUsuCorreo);
@@ -2376,7 +2500,7 @@ namespace Portal.Consultoras.BizLogic
 
             if (oPin != null)
             {
-                using (IDataReader rd = DAUsuario.GetOpcionHabilitada(CodigoUsuario, Constantes.EnviarCorreoYSms.Autenticacion))
+                using (IDataReader rd = DAUsuario.GetOpcionHabilitada(CodigoUsuario, Constantes.EnviarCorreoYSms.Origen_Autenticacion))
                     if (rd.Read())
                     {
                         oPin.OpcionCorreoActiva = rd.GetString(0);
@@ -2422,7 +2546,7 @@ namespace Portal.Consultoras.BizLogic
                         objUsuCorreo.opcionHabilitar = false;
 
                     //Registrando PIN
-                    objUsuCorreo.tipoEnvio = Constantes.EnviarCorreoYSms.EnviarPorEmail;
+                    objUsuCorreo.tipoEnvio = Constantes.EnviarCorreoYSms.TipoEnvio_Email;
 
                     var DAUsuario = new DAUsuario(paisID);
                     DAUsuario.InsCodigoGenerado(objUsuCorreo);

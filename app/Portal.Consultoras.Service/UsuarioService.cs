@@ -138,6 +138,11 @@ namespace Portal.Consultoras.Service
             return blUsuario.ActiveEmail(paisID, codigoUsuario, iso, email);
         }
 
+        public BERespuestaServicio ActivarEmail(int paisID, string codigoConsultora)
+        {
+            return new BLUsuario().ActivarEmail(paisID, codigoConsultora);
+        }
+
         public BEUsuario GetSesionUsuario(int paisID, string codigoUsuario)
         {
             var blUsuario = new BLUsuario();
@@ -207,7 +212,7 @@ namespace Portal.Consultoras.Service
         {
             var blUsuario = new BLUsuario();
             return blUsuario.UpdActualizarDatos(paisID, CodigoUsuario, Email, Celular, Telefono);
-        }
+        }   
 
         public string GetNroDocumentoConsultora(int paisID, string CodigoConsultora)
         {
@@ -716,6 +721,11 @@ namespace Portal.Consultoras.Service
         {
             var blUsuario = new BLUsuario();
             return blUsuario.ActualizarMisDatos(usuario, CorreoAnterior);
+        }
+
+        public BERespuestaServicio ActualizarEmail(BEUsuario usuario, string correoNuevo)
+        {
+            return new BLUsuario().ActualizarEmail(usuario, correoNuevo);
         }
 
         public string AceptarContrato(BEUsuario usuario)

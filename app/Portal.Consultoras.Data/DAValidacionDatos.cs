@@ -12,13 +12,13 @@ namespace Portal.Consultoras.Data
         {
         }
 
-        public DataSet GetValidacionDatos(string codigoUsuario, string tipoEnvio)
+        public IDataReader GetValidacionDatos(string codigoUsuario, string tipoEnvio)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetValidacionDatos");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
             Context.Database.AddInParameter(command, "@TipoEnvio", DbType.AnsiString, tipoEnvio);
 
-            return Context.ExecuteDataSet(command);
+            return Context.ExecuteReader(command);
         }
 
         public int InsValidacionDatos(BEValidacionDatos validacion)

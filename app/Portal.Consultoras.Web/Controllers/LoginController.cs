@@ -3039,7 +3039,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     SetTemData(oUsuCorreo, PaisID);
-                    TempData["TipoEnvio"] = Constantes.EnviarCorreoYSms.EnviarPorEmail;
+                    TempData["TipoEnvio"] = Constantes.EnviarCorreoYSms.TipoEnvio_Email;
 
                     if (envioCorreo)
                         return SuccessJson("", true);
@@ -3113,7 +3113,7 @@ namespace Portal.Consultoras.Web.Controllers
                     httpClient.Dispose();
 
                     SetTemData(oUsuCorreo, PaisID);
-                    TempData["TipoEnvio"] = Constantes.EnviarCorreoYSms.EnviarPorSms;
+                    TempData["TipoEnvio"] = Constantes.EnviarCorreoYSms.TipoEnvio_Sms;
                 }
 
                 if (EnvioSms)
