@@ -1,19 +1,31 @@
-﻿using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Controllers;
+﻿using Newtonsoft.Json;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.SessionManager;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 
 namespace Portal.Consultoras.Web.Providers
 {
     public class OfertaPersonalizadaProvider
     {
         private readonly ISessionManager sessionManager = SessionManager.SessionManager.Instance;
+        
+        private readonly ConfiguracionManagerProvider _configuracionManagerProvider;
+
+        public OfertaPersonalizadaProvider()
+        {
+            _configuracionManagerProvider = new ConfiguracionManagerProvider();
+        }
 
         #region Metodos de Estrategia Controller
-        
+
         public string ConsultarOfertasTipoPalanca(BusquedaProductoModel model, int tipo)
         {
 
@@ -263,7 +275,7 @@ namespace Portal.Consultoras.Web.Providers
         #endregion
 
         #region Metodos de Base estrategia Controller
-
+        
         public bool EsCampaniaFalsa(int campaniaId)
         {
             var userData = sessionManager.GetUserData();
@@ -284,6 +296,46 @@ namespace Portal.Consultoras.Web.Providers
                     return Constantes.ConfiguracionPais.OfertasParaTi;
             }
         }
+
+        public void EnviarLogOferta(int campaniaId, string tipo, bool esMObile)
+        {
+            object data = CrearDataLog(campaniaId, ObtenerConstanteConfPais(tipo), esMObile);
+            var urlApi = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
+
+            if (string.IsNullOrEmpty(urlApi)) return;
+
+            var httpClient = new HttpClient { BaseAddress = new Uri(urlApi) };
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var dataString = JsonConvert.SerializeObject(data);
+
+            HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+
+            var response = httpClient.PostAsync("Api/LogCargaOfertas", contentPost).GetAwaiter().GetResult();
+
+            var noQuitar = response.IsSuccessStatusCode;
+
+            httpClient.Dispose();
+        }
+
+        private object CrearDataLog(int campaniaOferta, string palanca, bool esMObile)
+        {
+            var userData = sessionManager.GetUserData();
+
+            return new
+            {
+                Pais = userData.CodigoISO,
+                CodigoConsultora = userData.CodigoConsultora,
+                Fecha = userData.FechaActualPais.ToString("yyyyMMdd"),
+                Campania = userData.CampaniaID,
+                CampaniaOferta = campaniaOferta == 0 ? userData.CampaniaID.ToString() : campaniaOferta.ToString(),
+                Palanca = palanca,
+                Dispositivo = esMObile ? "Mobile" : "Desktop",
+                Motivo = "Log carga oferta desde portal consultoras"
+            };
+        }
+
         #endregion
 
     }
