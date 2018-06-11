@@ -2380,7 +2380,12 @@ namespace Portal.Consultoras.Service
         public BEPedidoDetalleAppResult DeshacerReservaPedidoApp(BEUsuario usuario)
         {
             return _pedidoAppBusinessLogic.DeshacerReserva(usuario);
-        }        
+        }
+
+        public List<BEEstrategia> GetEstrategiaCarrusel(BEUsuario usuario)
+        {
+            return _pedidoAppBusinessLogic.GetEstrategiaCarrusel(usuario);
+        }
         #endregion
 
         public void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario)
