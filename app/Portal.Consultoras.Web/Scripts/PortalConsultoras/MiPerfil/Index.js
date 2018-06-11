@@ -41,7 +41,7 @@ $(document).ready(function () {
                 if ($('#hdn_ServicioSMS').val() == '0' || $('#hdn_ServicioSMS').val() == false) {
                     $('#btnCambiarCelular').bind('click', false);
                 } else {
-                    $('#CelularConsultora').prop('readonly', true);
+                    $('#txtCelularMD').prop('readonly', true);
                 }
             },
             CamposFormularioConDatos: function () {
