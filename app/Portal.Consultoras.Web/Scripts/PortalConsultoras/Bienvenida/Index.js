@@ -49,10 +49,6 @@ $(document).ready(function () {
     });
 
     $('.contenedor_img_perfil').on('click', CargarCamara);
-    $('#imgFotoUsuario').error(function () {
-        $('#imgFotoUsuario').hide();
-        $('#imgFotoUsuarioDefault').show();
-    });
 
     $('#salvavidaTutorial').show();
 

@@ -102,6 +102,12 @@ $(document).ready(function () {
     MiPerfil = new vistaMiPerfil();
     MiPerfil.Inicializar();
 
+    if ($('#imgFotoPerfilCambiar').width() < $('#imgFotoPerfilCambiar').height()) {
+        $('#imgFotoPerfilCambiar').css({ 'width': '100%', 'height': 'auto' });
+    } else {
+        $('#imgFotoPerfilCambiar').css({ 'width': 'auto', 'height': '100%' });
+    }
+
     $("#btnCambiarPass").click(function () { CambiarContrasenia(); });
 
     $("#btnGuardar").click(function () { actualizarDatos(); });
@@ -436,7 +442,7 @@ function SubirImagen(url, image) {
         success: function (data) {
             if (data.success) {
                 closeWaitingDialog();
-                alert('Su foto de pefil se cambio correctamente.');
+                alert('Su foto de perfil se cambio correctamente.');
                 window.location = url;
             } else {
                 alert('Hubo un error al cargar el archivo, intente nuevamente.');

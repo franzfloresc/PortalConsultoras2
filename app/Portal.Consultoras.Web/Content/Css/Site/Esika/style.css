@@ -19680,10 +19680,10 @@ label.checkpop.c_on {
     position: relative;
     float: left;
     background-color:rgba(229,229,229,1);
-    background-image:url('../../../Images/icono_avatar.svg');
+    /*background-image:url('../../../Images/icono_avatar.svg');
     background-repeat:no-repeat;
     background-position: center 14px;
-    background-size: 75%;
+    background-size: 75%;*/
     border-radius:100%;
     overflow:hidden;
 }
@@ -36593,10 +36593,10 @@ height:30px;
     overflow: hidden;
     position: relative;
     top: -2px;
-    background-image: url(../../../Images/icono_avatar_menu.svg);
+    /*background-image: url(../../../Images/icono_avatar_menu.svg);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 100%;
+    background-size: 100%;*/
 }
 
 /* FIN - HD-2521 - HOMOLOGACIÓN Y FOTO */
