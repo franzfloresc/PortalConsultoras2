@@ -42,7 +42,9 @@ namespace Portal.Consultoras.BizLogic
         TablaLogicaDatos,
         CuponesProgramaNuevas,
         ProductoProgramaNuevas,
-        ProductosExclusivos
+        ProductosExclusivos,
+        OpcionesVerificacion,
+        CredencialesSMS,
     }
 
     internal class CacheManager<T>

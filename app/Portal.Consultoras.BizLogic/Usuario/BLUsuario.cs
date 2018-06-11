@@ -5,6 +5,7 @@ using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Cupon;
+using Portal.Consultoras.Entities.OpcionesVerificacion;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.PublicService.Cryptography;
 using System;
@@ -427,7 +428,10 @@ namespace Portal.Consultoras.BizLogic
                 
                 usuario.PuedeActualizar =  Convert.ToBoolean(listado.Valor.ToInt());
 
-                usuario.PuedeEnviarSMS = false;// En duro por el momento hasta que josé termine
+                var verificacion = new BLOpcionesVerificacion();
+                var verificacionResult = new BEOpcionesVerificacion();
+                verificacionResult = verificacion.GetOpcionesVerificacionCache(usuario.PaisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos);
+                usuario.PuedeEnviarSMS = (verificacionResult == null ? false : verificacionResult.OpcionSms);
             }
             catch (Exception ex)
             {

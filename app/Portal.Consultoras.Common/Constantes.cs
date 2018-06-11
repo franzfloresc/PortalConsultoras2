@@ -2073,6 +2073,14 @@ namespace Portal.Consultoras.Common
             public const string ReemplazoDesc = "{remDes}";
             public const string Stock = "{stock}";
         }
+
+        public class OpcionesDeVerificacion
+        {
+            public const int OrigenOlvideContraseña = 1;
+            public const int OrigenVericacionAutenticidad = 2;
+            public const int OrigenActulizarDatos = 3;
+        }
+
         public class CambioCorreoResult
         {
             public const string Valido = "Continúa visitando somosbelcorp.com<br />y descubre todas la ofertas que tenemos para ti.";
