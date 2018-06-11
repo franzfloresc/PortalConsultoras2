@@ -85,10 +85,11 @@ namespace Portal.Consultoras.Web.Controllers
             return listEstrategia;
         }
 
-        //protected virtual List<BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, int campaniaId = 0)
 =======
         private List<BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, int campaniaId = 0)
 >>>>>>> 22170ac250743ce87b09ec26065532a7ed362d97
+        //private List<BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, int campaniaId = 0)
+        private List<ServiceOferta.BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, int campaniaId = 0)
         {
             //var listEstrategia = new List<BEEstrategia>();
             var listEstrategia = new List<ServiceOferta.BEEstrategia>();
