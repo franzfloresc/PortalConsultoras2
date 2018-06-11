@@ -1,5 +1,6 @@
 ﻿var nroIntentosCo = 0;
 var nroIntentosSms = 0;
+var t; 
 
 $(document).ready(function () {
     $(".RecuperarPorCorreo").click(function () {
@@ -33,7 +34,6 @@ $(document).ready(function () {
 
     $(".campo_ingreso_codigo_sms").keypress(
         function (evt) {
-            debugger
             if (evt.charCode >= 48 && evt.charCode <= 57) {
                 var oID = $(this).attr("id");
                 //var indicadorID = oID.substring(1, 2);
@@ -48,7 +48,6 @@ $(document).ready(function () {
 
     $(".campo_ingreso_codigo_sms").keydown(
         function (e) {
-            debugger
             tecla = (document.all) ? e.keyCode : e.which; 
             if (tecla == 8) {
                 var oID = $(this).attr("id");
@@ -82,14 +81,12 @@ $(document).ready(function () {
 
             if (verificar) {
                 var CodigosmsIngresado = $("#1" + "Digito").val() + $("#2" + "Digito").val() + $("#3" + "Digito").val() + $("#4" + "Digito").val() + $("#5" + "Digito").val() + $("#6" + "Digito").val();
-                debugger
                 VerificarCodigo(CodigosmsIngresado);
             }
         });
 });
 
 function ProcesaEnvioEmail() {
-    debugger
     if (nroIntentosCo > 2)
         return false;
     var parametros = {
@@ -106,7 +103,6 @@ function ProcesaEnvioEmail() {
         async: true,
         success: function (response) {
             if (response.success) {
-                debugger
                 if (nroIntentosCo == 1) {
                     $("#divPaso2Email").show();
                     //$("#1Digito").focus();
@@ -136,7 +132,6 @@ function ProcesaEnvioEmail() {
 
 function ProcesaEnvioSMS() {
     //clearTimeout(t);
-    debugger
     if (nroIntentosSms > 2)
         return false;
 
@@ -151,6 +146,7 @@ function ProcesaEnvioSMS() {
         $(".escogeOtraOpcion").show();
     }
     nroIntentosSms = nroIntentosSms++;
+    TiempoSMS(59);
 
     //$(".codigoSms").val("");
 
@@ -169,7 +165,6 @@ function ProcesaEnvioSMS() {
     //    async: true,
     //    success: function (response) {
     //        if (response.success) {
-    //            debugger
     //            if (nroIntentosSms == 1) {
     //                $("#divPaso2sms").show();
     //                $("#1Digito").focus();
@@ -243,9 +238,7 @@ function ContinuarLogin()
         contentType: 'application/json; charset=utf-8',
         async: true,
         success: function (response) {
-            debugger
             document.location.href = response.redirectTo 
-            
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -254,7 +247,6 @@ function ContinuarLogin()
         }
     });
 }
-
 
 function BloqueaOpcionSms(hrSms) {
     $(".RecuperarPorSms").addClass("deshabilitar_opciones");
@@ -268,4 +260,40 @@ function BloqueaOpcionCorreo(hrCo) {
     $(".RecuperarPorCorreo").css("pointer-events", "none");
     $(".divTiempoRestanteCorreo").html("Opción disponible dentro de " + hrSms + "hr.");
     $(".divTiempoRestanteCorreo").show();
+}
+
+function TiempoSMS(tempo) {
+    var cantMinutos = 2;
+    var segundos = 0;
+
+    t = setInterval(function () {
+
+        if (tempo == -1) {
+            tempo = 59;
+            cantMinutos--;
+            $("#spnMin").html("0" + cantMinutos);
+        }
+
+        if (tempo != -1 && cantMinutos != -1) {
+            segundos = tempo < 10 ? "0" + tempo : tempo;
+            $("#spnMin").html("0" + cantMinutos);
+            $("#spnSeg").html(segundos);
+            tempo--;
+        }
+        else {
+            clearTimeout(t);
+            if (nroIntentosSms >= 2 || nroIntentosCo >= 2) {
+                $(".escogeOtraOpcion").trigger("click");
+            } else {
+                //if (procesoSms) {
+                    nroIntentosSms = nroIntentosSms + 1
+                    ProcesaEnvioSMS();
+                //}
+                //else if (procesoEmail) {
+                //    nroIntentosCo = nroIntentosCo + 1
+                //    //ProcesaEnvioEmail();
+                //}
+            }
+        }
+    }, 1000, "JavaScript");
 }

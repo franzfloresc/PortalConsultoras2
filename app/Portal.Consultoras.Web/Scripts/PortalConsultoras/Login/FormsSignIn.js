@@ -173,7 +173,6 @@ $(document).ready(function () {
     Inicializar();
 
     $('#frmLogin').on('submit', function (e) {
-        debugger
         if ($('#popupRestaurarClave').is(':visible')) {
             return false;
         }       

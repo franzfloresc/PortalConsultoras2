@@ -66,14 +66,6 @@
                         </p>
                     </div>
                     <div class="block center-block lista_opciones_verificacion_autenticidad">
-                        <a title="Opción Correo" class="block opcion_verificacion_autenticidad RecuperarPorCorreo">
-                            <div class="inline-block v-alignMiddle icono_opcion_verificacion_autenticidad icono_opcion_correo"></div>
-                            <div class="inline-block v-alignMiddle datos_verificacion_autenticidad">
-                                <div class="block text-uppercase">Correo Electrónico</div>
-                                <div class="block text-bold">@Model.CorreoEnmascarado</div>
-                            </div>
-                            <div class="divTiempoRestanteCorreo" style="display:none; margin-top: 15px; font-size: 12px;">Opción disponible dentro de 24 hr</div>
-                        </a>
                         <a title="Opción Sms" class="block opcion_verificacion_autenticidad RecuperarPorSms">
                             <div class="inline-block v-alignMiddle icono_opcion_verificacion_autenticidad icono_opcion_sms"></div>
                             <div class="inline-block v-alignMiddle datos_verificacion_autenticidad">
@@ -81,6 +73,14 @@
                                 <div class="block text-bold">@Model.CelularEnmascarado</div>
                             </div>
                             <div class="divTiempoRestanteSms" style="display:none; margin-top: 15px; font-size: 12px;">Opción disponible dentro de 24 hr</div>
+                        </a>
+                        <a title="Opción Correo" class="block opcion_verificacion_autenticidad RecuperarPorCorreo">
+                            <div class="inline-block v-alignMiddle icono_opcion_verificacion_autenticidad icono_opcion_correo"></div>
+                            <div class="inline-block v-alignMiddle datos_verificacion_autenticidad">
+                                <div class="block text-uppercase">Correo Electrónico</div>
+                                <div class="block text-bold">@Model.CorreoEnmascarado</div>
+                            </div>
+                            <div class="divTiempoRestanteCorreo" style="display:none; margin-top: 15px; font-size: 12px;">Opción disponible dentro de 24 hr</div>
                         </a>
                     </div>
                     <div class="block">
@@ -114,7 +114,7 @@
                             <input id="6Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
                             <div class="block icono_validacion_codigo_sms validacion_erronea"></div>
                         </fieldset>
-                        <div class="block codigo_sms_caducidad text-uppercase">El código caduca en <span class="default-color">01:00</span></div>
+                        <div class="block codigo_sms_caducidad text-uppercase">El código caduca en <span id="spnMin" class="default-color">03</span>:<span id="spnSeg" class="default-color">00</span></div>
                     </div>
                     <p id="linkRenviarSms" class="w-100 envio_instrucciones_info block mb-45 mb-20-mobile">
                         <a title="Reenvíenme el código" class="block enlace_reenviar_instrucciones w-100 text-uppercase text-bold RecuperarPorSms" style="cursor:pointer;">
@@ -126,10 +126,10 @@
                             Escoger otra opción
                         </a>
                     </p>
-                    <p class="w-100 block cambiar_correo_info">
+                    @*<p class="w-100 block cambiar_correo_info">
                         <span class="inline-block v-alignMiddle">¿Este no es tu número?</span>
                         <a href="#" title="Cambia tu correo" class="inline-block v-alignMiddle enlace_cambiar_correo text-bold">Cambia tu número</a>
-                    </p>
+                    </p>*@
                 </div>
                 <div id="divPaso3sms" class="block celular_validado text-center" style="display:none;">
                     <div class="block center-block mt-20-mobile icono_validacion_celular_exitosa"></div>

@@ -574,6 +574,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.MensajeSaludo = oPin.MensajeSaludo;
             model.CorreoEnmascarado = oPin.CorreoEnmascarado;
             model.CelularEnmascarado = oPin.CelularEnmascarado;
+            
             return View(model);
         }
 
@@ -2867,7 +2868,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    menssage = "Sucedio un Error al enviar el SMS. Intentelo mas taarde"
+                    menssage = "Sucedio un Error al enviar el SMS. Intentelo mas tarde"
                 }, JsonRequestBehavior.AllowGet);
             }
         }
