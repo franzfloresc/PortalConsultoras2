@@ -7,7 +7,7 @@ namespace Portal.Consultoras.Entities
     public class BEValidacionDatos
     {
         [DataMember]
-        public int ValidacionId { get; set; }
+        public long ValidacionId { get; set; }
         [DataMember]
         public string TipoEnvio { get; set; }
         [DataMember]
