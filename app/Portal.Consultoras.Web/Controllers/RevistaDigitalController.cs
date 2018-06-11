@@ -188,7 +188,7 @@ namespace Portal.Consultoras.Web.Controllers
                 EstadoEnvio = 0,
                 IsoPais = userData.CodigoISO,
                 EMail = userData.EMail,
-                CampaniaEfectiva = AddCampaniaAndNumero(userData.CampaniaID, revistaDigital.CantidadCampaniaEfectiva)
+                CampaniaEfectiva = Util.AddCampaniaAndNumero(userData.CampaniaID, revistaDigital.CantidadCampaniaEfectiva, userData.NroCampanias)
             };
 
             switch (tipo)

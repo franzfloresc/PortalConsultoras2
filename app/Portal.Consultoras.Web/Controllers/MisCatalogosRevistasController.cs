@@ -25,8 +25,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 PaisNombre = GetPaisNombreByISO(userData.CodigoISO),
                 CampaniaActual = userData.CampaniaID.ToString(),
-                CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString(),
-                CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString(),
+                CampaniaAnterior = Util.AddCampaniaAndNumero(userData.CampaniaID, -1, userData.NroCampanias).ToString(),
+                CampaniaSiguiente = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).ToString(),
                 TieneSeccionRD = (revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI,
                 TieneSeccionRevista = !revistaDigital.TieneRDC || !revistaDigital.EsActiva,
                 TieneGND = userData.TieneGND
