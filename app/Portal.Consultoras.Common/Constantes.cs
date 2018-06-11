@@ -1124,12 +1124,13 @@ namespace Portal.Consultoras.Common
             public const string Pedido_Reserva = "Hubo un error al tratar de realizar la validación del pedido, por favor vuelva a intentarlo.";
             public const string Reserva_SinDetalle = "No tiene productos que reservar esta campaña.";
             public const string Pedido_DeleteAll = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
-            public const string MiPerfil_ConfirmacionCorreo = "Ha ocurrido un error con la activación de su correo electrónico.";
             public const string UpdCorreoConsultora = "Ocurrió un error al intentar actualizar su correo. Inténtelo más tarde.";
             public const string UpdCorreoConsultora_NoAutorizado = "Su país no permite la actualización de datos.";
             public const string UpdCorreoConsultora_CorreoVacio = "Debe ingresar un correo nuevo.";
             public const string UpdCorreoConsultora_CorreoNoCambia = "Debe ingresar un correo nuevo diferente a su correo actual.";
             public const string UpdCorreoConsultora_CorreoYaExiste = "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.";
+            public const string ActivacionCorreo = "Ha ocurrido un error con la activación de su correo electrónico.";
+            public const string ActivacionCorreo_NoExiste = "No existe una activación de correo pendiente.";
         }
 
         public static class ConfiguracionPais

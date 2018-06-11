@@ -193,58 +193,41 @@ namespace Portal.Consultoras.BizLogic
             return activado;
         }
 
-        public BERespuestaServicio ActivarEmail(int paisID, string codigoConsultora)
+        public BERespuestaServicio ActivarEmail(int paisID, string codigoUsuario, int campania)
         {
-            //try
-            //{
-            //    if (!usuario.PuedeActualizar) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_NoAutorizado };
-            //    if (string.IsNullOrEmpty(correoNuevo)) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoVacio };
-            //    if (usuario.EMail == correoNuevo) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoNoCambia };
+            try
+            {
+                var daUsuario = new DAUsuario(paisID);
+                var dAValidacionDatos = new DAValidacionDatos(paisID);
 
-            //    int cantidad = this.ValidarEmailConsultora(usuario.PaisID, correoNuevo, usuario.CodigoUsuario);
-            //    if (cantidad > 0) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste };
+                TransactionOptions transOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted };
+                using (TransactionScope transScope = new TransactionScope(TransactionScopeOption.Required, transOptions))
+                {
+                    BEValidacionDatos validacionDato;
+                    using (var reader = dAValidacionDatos.GetValidacionDatosByTipoEnvioAndUsuario(Constantes.ValidacionDatosTipoEnvio.Email, codigoUsuario))
+                    {
+                        validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader);
+                    }
+                    if (validacionDato == null || validacionDato.Estado != Constantes.ValidacionDatosEstado.Pendiente)
+                    {
+                        return new BERespuestaServicio { Message = Constantes.MensajesError.ActivacionCorreo };
+                    }
 
-            //    var dAValidacionDatos = new DAValidacionDatos(paisID);
-            //    TransactionOptions transOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted };
-            //    using (TransactionScope transScope = new TransactionScope(TransactionScopeOption.Required, transOptions))
-            //    {
-            //        BEValidacionDatos validacionDato;
-            //        using (var reader = dAValidacionDatos.GetValidacionDatos(usuario.CodigoUsuario, Constantes.ValidacionDatosTipoEnvio.Email))
-            //        {
-            //            validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader);
-            //        }
+                    validacionDato.Estado = Constantes.ValidacionDatosEstado.Activo;
+                    validacionDato.UsuarioModificacion = codigoUsuario;
+                    validacionDato.CampaniaActivacion = campania;
+                    dAValidacionDatos.UpdValidacionDatos(validacionDato);
 
-            //        if (validacionDato == null)
-            //        {
-            //            validacionDato = new BEValidacionDatos
-            //            {
-            //                TipoEnvio = Constantes.ValidacionDatosTipoEnvio.Email,
-            //                DatoAntiguo = usuario.EMail,
-            //                DatoNuevo = correoNuevo,
-            //                CodigoUsuario = usuario.CodigoUsuario,
-            //                Estado = Constantes.ValidacionDatosEstado.Pendiente,
-            //                UsuarioModificacion = usuario.CodigoUsuario
-            //            };
-            //            dAValidacionDatos.InsValidacionDatos(validacionDato);
-            //        }
-            //        else
-            //        {
-            //            validacionDato.DatoAntiguo = usuario.EMail;
-            //            validacionDato.DatoNuevo = correoNuevo;
-            //            validacionDato.Estado = Constantes.ValidacionDatosEstado.Pendiente;
-            //            validacionDato.UsuarioModificacion = usuario.CodigoUsuario;
-            //            dAValidacionDatos.UpdValidacionDatos(validacionDato);
-            //        }
+                    daUsuario.UpdUsuarioEmail(codigoUsuario, validacionDato.DatoNuevo, campania);
 
-            //        EnviarEmailActualizarCorreo(usuario, correoNuevo);
-            //        transScope.Complete();
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    LogManager.SaveLog(ex, usuario.CodigoUsuario, string.Empty);
-            //    return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora };
-            //}
+                    transScope.Complete();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, codigoUsuario, string.Empty);
+                return new BERespuestaServicio { Message = Constantes.MensajesError.ActivacionCorreo };
+            }
             return new BERespuestaServicio { Succcess = true };
         }
 
@@ -1838,7 +1821,7 @@ namespace Portal.Consultoras.BizLogic
                 using (TransactionScope transScope = new TransactionScope(TransactionScopeOption.Required, transOptions))
                 {
                     BEValidacionDatos validacionDato;
-                    using (var reader = dAValidacionDatos.GetValidacionDatos(usuario.CodigoUsuario, Constantes.ValidacionDatosTipoEnvio.Email))
+                    using (var reader = dAValidacionDatos.GetValidacionDatosByTipoEnvioAndUsuario(Constantes.ValidacionDatosTipoEnvio.Email, usuario.CodigoUsuario))
                     {
                         validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader);
                     }

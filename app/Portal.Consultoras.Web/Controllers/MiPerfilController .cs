@@ -103,77 +103,38 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ActualizarEnviarCorreo(string correoNuevo)
         {
-            //JsonResult v_retorno = null;
-            //BEUsuario entidad = null;
-            //string resultado = string.Empty;
-            //string[] lst = null;
-            //string v_campomodificacion = string.Empty;
-
-            //string CorreoAnterior = string.Empty;
-
+            BERespuestaServicio respuesta;
+            BEUsuario usuario;
             try
             {
-                //var usuario = Mapper.Map<MisDatosModel, BEUsuario>(model);
-
-                //entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
-                //CorreoAnterior = model.CorreoAnterior;
-
-                //entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : userData.CodigoUsuario;
-                //entidad.EMail = (entidad.EMail == null) ? "" : entidad.EMail;
-                //entidad.Telefono = (entidad.Telefono == null) ? "" : entidad.Telefono;
-                //entidad.TelefonoTrabajo = (entidad.TelefonoTrabajo == null) ? "" : entidad.TelefonoTrabajo;
-                //entidad.Celular = (entidad.Celular == null) ? "" : entidad.Celular;
-                //entidad.Sobrenombre = (entidad.Sobrenombre == null) ? "" : entidad.Sobrenombre;
-                //entidad.ZonaID = userData.ZonaID;
-                //entidad.RegionID = userData.RegionID;
-                //entidad.ConsultoraID = userData.ConsultoraID;
-                //entidad.PaisID = userData.PaisID;
-                //entidad.PrimerNombre = userData.PrimerNombre;
-                //entidad.CodigoISO = userData.CodigoISO;
-
-                //using (UsuarioServiceClient svr = new UsuarioServiceClient())
-                //{
-                //    resultado = svr.ActualizarMisDatos(entidad, CorreoAnterior);
-
-                //    if (model != null) ActualizarDatosLogDynamoDB(model, "MI NEGOCIO/MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
-
-                //    lst = resultado.Split('|');
-
-                //    if (lst[0] == "0")
-                //    {
-                //        v_retorno = Json(new
-                //        {
-                //            Cantidad = lst[3],
-                //            success = false,
-                //            message = lst[2],
-                //            extra = ""
-                //        });
-                //    }
-                //    else
-                //    {
-                //        v_retorno = Json(new
-                //        {
-                //            Cantidad = 0,
-                //            success = true,
-                //            message = lst[2],
-                //            extra = ""
-                //        });
-                //    }
-                //}
-                return SuccessJson(string.Empty);
+                usuario = Mapper.Map<BEUsuario>(userData);
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    respuesta = sv.ActualizarEmail(usuario, correoNuevo);
+                }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return ErrorJson(Constantes.MensajesError.UpdCorreoConsultora);
             }
+            
+            try
+            {
+                var misDatosModel = Mapper.Map<MisDatosModel>(usuario);
+                misDatosModel.EMail = correoNuevo;
+                ActualizarDatosLogDynamoDB(misDatosModel, "MI NEGOCIO/MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
+            }
+            catch (Exception ex) { LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO); }
+
+            return Json(new { success = respuesta.Succcess, message = respuesta.Message });
         }
 
         public ActionResult ConfirmacionCorreo(string data)
         {
             if (string.IsNullOrEmpty(data))
             {
-                ViewBag.Mensaje = Constantes.MensajesError.MiPerfil_ConfirmacionCorreo;
+                ViewBag.Mensaje = Constantes.MensajesError.ActivacionCorreo;
                 return View();
             }
 
@@ -193,7 +154,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoUsuario, userData.CodigoISO, "EncryptData=" + data);
-                mensaje = Constantes.MensajesError.MiPerfil_ConfirmacionCorreo;
+                mensaje = Constantes.MensajesError.ActivacionCorreo;
             }
 
             ViewBag.Mensaje = mensaje;

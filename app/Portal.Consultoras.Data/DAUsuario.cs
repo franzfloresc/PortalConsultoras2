@@ -235,12 +235,22 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        public bool ActiveEmail(string CodigoUsuario)
+        public bool ActiveEmail(string codigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioEMailActivo");
-            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
 
             return Convert.ToBoolean(Context.ExecuteScalar(command));
+        }
+
+        public void UpdUsuarioEmail(string codigoUsuario, string email, int campania)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioEmail");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+            Context.Database.AddInParameter(command, "@Email", DbType.AnsiString, email);
+            Context.Database.AddInParameter(command, "@CampaniaActivacionEmail", DbType.Int32, campania);
+
+            Context.ExecuteNonQuery(command);
         }
 
         public IDataReader GetSesionUsuario(string CodigoUsuario)

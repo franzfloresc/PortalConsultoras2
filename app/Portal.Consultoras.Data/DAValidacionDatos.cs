@@ -12,9 +12,9 @@ namespace Portal.Consultoras.Data
         {
         }
 
-        public IDataReader GetValidacionDatos(string codigoUsuario, string tipoEnvio)
+        public IDataReader GetValidacionDatosByTipoEnvioAndUsuario(string tipoEnvio, string codigoUsuario)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetValidacionDatos");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetValidacionDatosByTipoEnvioAndUsuario");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
             Context.Database.AddInParameter(command, "@TipoEnvio", DbType.AnsiString, tipoEnvio);
 
@@ -29,8 +29,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@DatoNuevo", DbType.AnsiString, validacion.DatoNuevo);
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, validacion.CodigoUsuario);
             Context.Database.AddInParameter(command, "@Estado", DbType.AnsiString, validacion.Estado);
-            Context.Database.AddInParameter(command, "@CampaniaActivacion", DbType.Int32, validacion.CampaniaActivacion);
-            Context.Database.AddInParameter(command, "@FechaCreacion", DbType.DateTime, validacion.FechaCreacion);
             Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.AnsiString, validacion.UsuarioCreacion);
 
             return Convert.ToInt32(Context.ExecuteScalar(command));
@@ -39,14 +37,12 @@ namespace Portal.Consultoras.Data
         public void UpdValidacionDatos(BEValidacionDatos validacion)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdValidacionDatos");
-            Context.Database.AddInParameter(command, "@TipoEnvio", DbType.AnsiString, validacion.TipoEnvio);
+            Context.Database.AddInParameter(command, "@ValidacionId", DbType.Int64, validacion.ValidacionId);
             Context.Database.AddInParameter(command, "@DatoAntiguo", DbType.AnsiString, validacion.DatoAntiguo);
             Context.Database.AddInParameter(command, "@DatoNuevo", DbType.AnsiString, validacion.DatoNuevo);
-            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, validacion.CodigoUsuario);
             Context.Database.AddInParameter(command, "@Estado", DbType.AnsiString, validacion.Estado);
             Context.Database.AddInParameter(command, "@CampaniaActivacion", DbType.Int32, validacion.CampaniaActivacion);
-            Context.Database.AddInParameter(command, "@FechaCreacion", DbType.DateTime, validacion.UsuarioModificacion);
-            Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.AnsiString, validacion.FechaModificacion);
+            Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.AnsiString, validacion.UsuarioModificacion);
 
             Context.ExecuteNonQuery(command);
         }

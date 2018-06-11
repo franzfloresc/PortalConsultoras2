@@ -4914,6 +4914,67 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BERespuestaServicio", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BERespuestaServicio : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MessageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool SucccessField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Message {
+            get {
+                return this.MessageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MessageField, value) != true)) {
+                    this.MessageField = value;
+                    this.RaisePropertyChanged("Message");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Succcess {
+            get {
+                return this.SucccessField;
+            }
+            set {
+                if ((this.SucccessField.Equals(value) != true)) {
+                    this.SucccessField = value;
+                    this.RaisePropertyChanged("Succcess");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEUsuarioExterno", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
     public partial class BEUsuarioExterno : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -9803,6 +9864,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceUsuario.IUsuarioService")]
     public interface IUsuarioService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdNotificacionPagoEnLineaVisualizacion", ReplyAction="http://tempuri.org/IUsuarioService/UpdNotificacionPagoEnLineaVisualizacionRespons" +
+            "e")]
+        void UpdNotificacionPagoEnLineaVisualizacion(int paisId, int procesoId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdNotificacionPagoEnLineaVisualizacion", ReplyAction="http://tempuri.org/IUsuarioService/UpdNotificacionPagoEnLineaVisualizacionRespons" +
+            "e")]
+        System.Threading.Tasks.Task UpdNotificacionPagoEnLineaVisualizacionAsync(int paisId, int procesoId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdateUsuarioEmailTelefono", ReplyAction="http://tempuri.org/IUsuarioService/UpdateUsuarioEmailTelefonoResponse")]
         int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono);
         
@@ -9906,6 +9975,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarMisDatos", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarMisDatosResponse")]
         System.Threading.Tasks.Task<string> ActualizarMisDatosAsync(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario, string CorreoAnterior);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarEmail", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarEmailResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio ActualizarEmail(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario, string correoNuevo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarEmail", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarEmailResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> ActualizarEmailAsync(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario, string correoNuevo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/EliminarUsuarioPostulante", ReplyAction="http://tempuri.org/IUsuarioService/EliminarUsuarioPostulanteResponse")]
         int EliminarUsuarioPostulante(string paisISO, string numeroDocumento);
@@ -10146,6 +10221,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActiveEmail", ReplyAction="http://tempuri.org/IUsuarioService/ActiveEmailResponse")]
         System.Threading.Tasks.Task<bool> ActiveEmailAsync(int paisID, string codigoUsuario, string iso, string email);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActivarEmail", ReplyAction="http://tempuri.org/IUsuarioService/ActivarEmailResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio ActivarEmail(int paisID, string codigoConsultora, int campania);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActivarEmail", ReplyAction="http://tempuri.org/IUsuarioService/ActivarEmailResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> ActivarEmailAsync(int paisID, string codigoConsultora, int campania);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetSesionUsuario", ReplyAction="http://tempuri.org/IUsuarioService/GetSesionUsuarioResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario GetSesionUsuario(int paisID, string codigoUsuario);
@@ -10554,14 +10635,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacion", ReplyAction="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacionRespon" +
             "se")]
         System.Threading.Tasks.Task UpdNotificacionCdrCulminadoVisualizacionAsync(int paisID, long procesoId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdNotificacionPagoEnLineaVisualizacion", ReplyAction="http://tempuri.org/IUsuarioService/UpdNotificacionPagoEnLineaVisualizacionRespons" +
-            "e")]
-        void UpdNotificacionPagoEnLineaVisualizacion(int paisId, int procesoId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdNotificacionPagoEnLineaVisualizacion", ReplyAction="http://tempuri.org/IUsuarioService/UpdNotificacionPagoEnLineaVisualizacionRespons" +
-            "e")]
-        System.Threading.Tasks.Task UpdNotificacionPagoEnLineaVisualizacionAsync(int paisId, int procesoId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -10589,6 +10662,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public UsuarioServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public void UpdNotificacionPagoEnLineaVisualizacion(int paisId, int procesoId) {
+            base.Channel.UpdNotificacionPagoEnLineaVisualizacion(paisId, procesoId);
+        }
+        
+        public System.Threading.Tasks.Task UpdNotificacionPagoEnLineaVisualizacionAsync(int paisId, int procesoId) {
+            return base.Channel.UpdNotificacionPagoEnLineaVisualizacionAsync(paisId, procesoId);
         }
         
         public int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono) {
@@ -10725,6 +10806,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<string> ActualizarMisDatosAsync(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario, string CorreoAnterior) {
             return base.Channel.ActualizarMisDatosAsync(usuario, CorreoAnterior);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio ActualizarEmail(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario, string correoNuevo) {
+            return base.Channel.ActualizarEmail(usuario, correoNuevo);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> ActualizarEmailAsync(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario, string correoNuevo) {
+            return base.Channel.ActualizarEmailAsync(usuario, correoNuevo);
         }
         
         public int EliminarUsuarioPostulante(string paisISO, string numeroDocumento) {
@@ -11045,6 +11134,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<bool> ActiveEmailAsync(int paisID, string codigoUsuario, string iso, string email) {
             return base.Channel.ActiveEmailAsync(paisID, codigoUsuario, iso, email);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio ActivarEmail(int paisID, string codigoConsultora, int campania) {
+            return base.Channel.ActivarEmail(paisID, codigoConsultora, campania);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> ActivarEmailAsync(int paisID, string codigoConsultora, int campania) {
+            return base.Channel.ActivarEmailAsync(paisID, codigoConsultora, campania);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuario GetSesionUsuario(int paisID, string codigoUsuario) {
@@ -11565,14 +11662,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task UpdNotificacionCdrCulminadoVisualizacionAsync(int paisID, long procesoId) {
             return base.Channel.UpdNotificacionCdrCulminadoVisualizacionAsync(paisID, procesoId);
-        }
-        
-        public void UpdNotificacionPagoEnLineaVisualizacion(int paisId, int procesoId) {
-            base.Channel.UpdNotificacionPagoEnLineaVisualizacion(paisId, procesoId);
-        }
-        
-        public System.Threading.Tasks.Task UpdNotificacionPagoEnLineaVisualizacionAsync(int paisId, int procesoId) {
-            return base.Channel.UpdNotificacionPagoEnLineaVisualizacionAsync(paisId, procesoId);
         }
     }
 }
