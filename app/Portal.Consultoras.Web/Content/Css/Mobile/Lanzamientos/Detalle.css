@@ -393,6 +393,7 @@ list-style: none;
 }
 section.tabs ul li {
 width:100%;
+border-bottom: 1px solid #00000057;
 }
 section.tabs ul li a {
 display: block;
@@ -402,14 +403,13 @@ font-weight: 700;
 letter-spacing: 1.5px;
 color: black;
 text-decoration: none;
-border-bottom: 1px solid #00000057;
 background: url(../../../../Content/Images/mobile/dropdown-arrow.png);
 background-repeat: no-repeat;
 background-position: right center;
 background-size: 12px;
 font-size: 11px;
 }
-section.tabs ul li:first-child a {
+section.tabs ul li:first-child {
 border-top: 1px solid #00000057;
 }
 section.tabs ul li a.abierto{
