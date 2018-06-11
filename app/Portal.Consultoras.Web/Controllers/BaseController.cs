@@ -64,6 +64,7 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly BaseProvider _baseProvider;
         private readonly GuiaNegocioProvider _guiaNegocioProvider;
         public readonly OfertaPersonalizadaProvider _ofertaPersonalizadaProvider;
+        public readonly ConfiguracionManagerProvider _configuracionManagerProvider;
         #endregion
 
         #region Constructor
@@ -80,6 +81,7 @@ namespace Portal.Consultoras.Web.Controllers
             _baseProvider = new BaseProvider();
             _guiaNegocioProvider = new GuiaNegocioProvider();
             _ofertaPersonalizadaProvider = new OfertaPersonalizadaProvider();
+            _configuracionManagerProvider = new ConfiguracionManagerProvider();
         }
 
         public BaseController(ISessionManager sessionManager)
@@ -338,7 +340,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var cuvs = string.Join("|", detallesPedidoWeb.Select(p => p.CUV).ToArray());
                 var cantidades = string.Join("|", detallesPedidoWeb.Select(p => p.Cantidad).ToArray());
 
-                var ambiente = GetConfiguracionManager(Constantes.ConfiguracionManager.Ambiente);
+                var ambiente = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Ambiente);
                 var keyWeb = ambiente.ToUpper() == "QA" ? "QA_Prol_ServicesCalculos" : "PR_Prol_ServicesCalculos";
 
                 using (var sv = new ServicesCalculoPrecioNiveles())
@@ -691,19 +693,19 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected virtual bool GetMostrarPedidosPendientesFromConfig()
         {
-            var mostrarPedidoAppSetting = GetConfiguracionManager(Constantes.ConfiguracionManager.MostrarPedidosPendientes);
+            var mostrarPedidoAppSetting = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.MostrarPedidosPendientes);
 
             return mostrarPedidoAppSetting == "1";
         }
 
         protected string GetPaisesConConsultoraOnlineFromConfig()
         {
-            return GetConfiguracionManager(Constantes.ConfiguracionManager.Permisos_CCC);
+            return _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Permisos_CCC);
         }
 
         protected virtual string GetDefaultGifMenuOfertas()
         {
-            return GetConfiguracionManager(Constantes.ConfiguracionManager.GIF_MENU_DEFAULT_OFERTAS);
+            return _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.GIF_MENU_DEFAULT_OFERTAS);
         }
 
         public virtual string GetUrlImagenMenuOfertas(UsuarioModel userData, RevistaDigitalModel revistaDigital)
@@ -1069,7 +1071,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string GetFormatDecimalPais(string isoPais)
         {
-            var listaPaises = GetConfiguracionManager(Constantes.ConfiguracionManager.KeyPaisFormatDecimal);
+            var listaPaises = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.KeyPaisFormatDecimal);
             if (listaPaises == "" || isoPais == "") return ",|.|2";
             if (listaPaises.Contains(isoPais)) return ".||0";
             return ",|.|2";
@@ -1247,7 +1249,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (string.IsNullOrEmpty(codigoIsoPais))
                 return false;
 
-            var paisesShowRoom = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesShowRoom);
+            var paisesShowRoom = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesShowRoom);
             var tieneShowRoom = paisesShowRoom.Contains(codigoIsoPais);
             return tieneShowRoom;
         }
@@ -1748,7 +1750,7 @@ namespace Portal.Consultoras.Web.Controllers
         private List<ProductoModel> GetEstrategiaDetalleGetProductoBySap(EstrategiaPersonalizadaProductoModel estrategiaModelo, string joinSap)
         {
             List<Producto> listaAppCatalogo;
-            var numeroCampanias = Convert.ToInt32(GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
+            var numeroCampanias = Convert.ToInt32(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
             using (var svc = new ProductoServiceClient())
             {
                 listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, estrategiaModelo.CampaniaID, joinSap, numeroCampanias).ToList();
@@ -2461,7 +2463,7 @@ namespace Portal.Consultoras.Web.Controllers
             string codigo = null;
             string requestUrl = null;
             bool esRevistaPiloto = false;
-            var Grupos = GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Grupos + userData.CodigoISO + campania);
+            var Grupos = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Grupos + userData.CodigoISO + campania);
             string codeGrupo = null;
             string nroCampania = string.Empty;
             string anioCampania = string.Empty;
@@ -2470,7 +2472,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 foreach (var grupo in Grupos.Split(','))
                 {
-                    var zonas = GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Zonas + userData.CodigoISO + campania + "_" + grupo);
+                    var zonas = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Zonas + userData.CodigoISO + campania + "_" + grupo);
                     esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(userData.CodigoZona);
                     if (esRevistaPiloto)
                     {
@@ -2482,7 +2484,7 @@ namespace Portal.Consultoras.Web.Controllers
             else
                 esRevistaPiloto = false;
 
-            codigo = GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoRevistaIssuu);
+            codigo = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoRevistaIssuu);
             if (campania.Length >= 6)
                 nroCampania = campania.Substring(4, 2);
             if (campania.Length >= 6)
@@ -2508,7 +2510,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return codigoRevista;
 
                 string tipo = "1";
-                if (GetConfiguracionManagerContains(Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_2 + userData.CodigoISO, userData.CodigoZona))
+                if (_configuracionManagerProvider.GetConfiguracionManagerContains(Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_2 + userData.CodigoISO, userData.CodigoZona))
                 {
                     tipo = "2";
                 }
@@ -2525,12 +2527,12 @@ namespace Portal.Consultoras.Web.Controllers
             string nroCampania = string.Empty;
             string anioCampania = string.Empty;
 
-            var zonas = GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Zonas + userData.CodigoISO + campania);
+            var zonas = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Zonas + userData.CodigoISO + campania);
             var esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(userData.CodigoZona);
-            if (esRevistaPiloto) codigo = GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Codigo + userData.CodigoISO + campania);
+            if (esRevistaPiloto) codigo = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Codigo + userData.CodigoISO + campania);
             if (!string.IsNullOrEmpty(codigo)) return codigo;
 
-            codigo = GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoRevistaIssuu);
+            codigo = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoRevistaIssuu);
 
             if (campania.Length >= 6)
                 nroCampania = campania.Substring(4, 2);
@@ -2567,7 +2569,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (esCatalogoPiloto) codigo = ConfigurationManager.AppSettings[nombreCatalogoConfig + "Piloto_Codigo_" + userData.CodigoISO + campania];
             if (!string.IsNullOrEmpty(codigo)) return codigo;
 
-            codigo = GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoCatalogoIssuu);
+            codigo = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoCatalogoIssuu);
             return string.Format(codigo, nombreCatalogoIssuu, GetPaisNombreByISO(userData.CodigoISO), campania.Substring(4, 2), campania.Substring(0, 4));
         }
 
@@ -2582,7 +2584,7 @@ namespace Portal.Consultoras.Web.Controllers
             string requestUrl = null;
             bool esRevistaPiloto = false;
             string Grupos = null;
-            string marcas = GetConfiguracionManager(Constantes.ConfiguracionManager.Catalogo_Marca_Piloto + userData.CodigoISO + campania) ?? "";
+            string marcas = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Catalogo_Marca_Piloto + userData.CodigoISO + campania) ?? "";
             bool esMarcaEspecial = false;
 
             switch (idMarcaCatalogo)
@@ -2604,7 +2606,7 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
             }
 
-            Grupos = GetConfiguracionManager(Constantes.ConfiguracionManager.Catalogo_Piloto_Grupos + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + userData.CodigoISO + campania);
+            Grupos = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Catalogo_Piloto_Grupos + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + userData.CodigoISO + campania);
             esMarcaEspecial = marcas.Split(new char[1] { ',' }).Select(marca => marca.Trim()).Contains(nombreCatalogoConfig);
 
 
@@ -2612,7 +2614,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 foreach (var grupo in Grupos.Split(','))
                 {
-                    var zonas = GetConfiguracionManager(Constantes.ConfiguracionManager.Catalogo_Piloto_Zonas + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + userData.CodigoISO + campania + Constantes.ConfiguracionManager.SubGuion + grupo);
+                    var zonas = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Catalogo_Piloto_Zonas + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + userData.CodigoISO + campania + Constantes.ConfiguracionManager.SubGuion + grupo);
                     esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(userData.CodigoZona);
                     if (esRevistaPiloto)
                     {
@@ -2624,7 +2626,7 @@ namespace Portal.Consultoras.Web.Controllers
             else
                 esRevistaPiloto = false;
 
-            codigo = GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoCatalogoIssuu);
+            codigo = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoCatalogoIssuu);
             if (campania.Length >= 6)
                 nroCampania = campania.Substring(4, 2);
             if (campania.Length >= 6)
@@ -2722,7 +2724,7 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
 
-                var urlApi = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
+                var urlApi = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
 
                 if (string.IsNullOrEmpty(urlApi)) return;
 
@@ -3000,7 +3002,7 @@ namespace Portal.Consultoras.Web.Controllers
             var dataString = string.Empty;
             try
             {
-                var urlApi = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
+                var urlApi = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
                 if (string.IsNullOrEmpty(urlApi)) return;
 
                 var data = new
@@ -3704,7 +3706,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected string GetPaisesEsikaFromConfig()
         {
-            return GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika);
+            return _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika);
         }
 
         #region Configuracion Seccion Palanca
@@ -4846,18 +4848,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             key = Util.Trim(key);
             if (key == "") return "";
-
             var keyvalor = ConfigurationManager.AppSettings.Get(key);
-
             return Util.Trim(keyvalor);
         }
-
-        public bool GetConfiguracionManagerContains(string key, string compara)
-        {
-            var keyCongi = GetConfiguracionManager(key);
-            return keyCongi.Contains(compara);
-        }
-
+        
         #endregion
 
         #region Resize Imagen Default       
@@ -5326,7 +5320,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected string GetBucketNameFromConfig()
         {
-            return GetConfiguracionManager(Constantes.ConfiguracionManager.BUCKET_NAME);
+            return _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.BUCKET_NAME);
         }
 
         protected int GetMostradoPopupPrecargados()
@@ -5414,7 +5408,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Campana = campania,
                     NumeroPedido = numeroPedido
                 };
-                var urlService = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_PDF_NEW);
+                var urlService = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_PDF_NEW);
                 var wrapper = ConsumirServicio<WrapperPDFWeb>(input, urlService);
 
                 var result = (wrapper ?? new WrapperPDFWeb()).GET_URLResult;
@@ -5454,7 +5448,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Tipo = "1",
                     CodigoConsultora = codigoConsultora
                 };
-                var urlService = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_Campanias_NEW);
+                var urlService = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_Campanias_NEW);
                 var wrapper = ConsumirServicio<WrapperCampanias>(input, urlService);
 
                 var result = (wrapper ?? new WrapperCampanias()).LIS_CampanaResult;
@@ -5541,8 +5535,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public string GetUrlTerminosCondicionesDatosUsuario()
         {
-            var nombreCarpetaTc = GetConfiguracionManager(Constantes.ConfiguracionManager.NombreCarpetaTC);
-            var nombreArchivoTc = GetConfiguracionManager(Constantes.ConfiguracionManager.NombreArchivoTC) + ".pdf";
+            var nombreCarpetaTc = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.NombreCarpetaTC);
+            var nombreArchivoTc = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.NombreArchivoTC) + ".pdf";
             return ConfigS3.GetUrlFileS3(nombreCarpetaTc, userData.CodigoISO + "/" + nombreArchivoTc, String.Empty);
         }
 

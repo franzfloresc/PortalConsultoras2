@@ -82,7 +82,7 @@ namespace Portal.Consultoras.Web.Controllers
             return listEstrategia;
         }
 
-        protected  virtual List<BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, int campaniaId = 0)
+        protected virtual List<BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, int campaniaId = 0)
         {
             var listEstrategia = new List<BEEstrategia>();
             try
@@ -506,7 +506,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void EnviarLogOferta(object data)
         {
-            var urlApi = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
+            var urlApi = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
 
             if (string.IsNullOrEmpty(urlApi)) return;
 
