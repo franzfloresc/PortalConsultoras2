@@ -3516,6 +3516,8 @@ namespace Portal.Consultoras.Web.Controllers
                         return;
                     }
                 }
+
+                if (userData.EsConsultoraOficina) return;
                 if (userData.DiaPROL && !EsHoraReserva(userData, DateTime.Now.AddHours(userData.ZonaHoraria))) return;
 
                 var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");

@@ -78,6 +78,7 @@ namespace Portal.Consultoras.Web.Models
         public int CambioClave { get; set; }
         public int ConsultoraNueva { get; set; }
         public bool EsConsultoraNueva { get; set; }
+        public bool EsConsultoraOficina { get; set; }
         public string NombrePais { get; set; }
         public string BanderaImagen { get; set; }
         public string CodigoFuente { get; set; }
