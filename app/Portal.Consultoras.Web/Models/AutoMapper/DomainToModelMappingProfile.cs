@@ -90,8 +90,12 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.TipoEstrategia, f => f.MapFrom(c => c.TipoEstrategia));
 
             Mapper.CreateMap<ServicePedido.BEEstrategiaDetalle, EstrategiaDetalleModelo>();
+            Mapper.CreateMap<ServiceOferta.BEEstrategiaDetalle, EstrategiaDetalleModelo>();
 
             Mapper.CreateMap<ServicePedido.BETipoEstrategia, TipoEstrategiaModelo>()
+                .ForMember(t => t.FlagActivo, f => f.MapFrom(c => c.FlagActivo == 1));
+
+            Mapper.CreateMap<ServiceOferta.BETipoEstrategia, TipoEstrategiaModelo>()
                 .ForMember(t => t.FlagActivo, f => f.MapFrom(c => c.FlagActivo == 1));
 
             Mapper.CreateMap<ServicePedido.BETipoEstrategia, TipoEstrategiaModel>()
@@ -105,6 +109,18 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.CodigoPrograma, f => f.MapFrom(c => c.CodigoPrograma))
                 .ForMember(t => t.FlagValidarImagen, f => f.MapFrom(c => c.FlagValidarImagen))
                 .ForMember(t => t.PesoMaximoImagen, f => f.MapFrom(c => c.PesoMaximoImagen));
+
+            Mapper.CreateMap<ServiceOferta.BETipoEstrategia, TipoEstrategiaModel>()
+               .ForMember(t => t.TipoEstrategiaID, f => f.MapFrom(c => c.TipoEstrategiaID))
+               .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.DescripcionEstrategia))
+               .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+               .ForMember(t => t.FlagNueva, f => f.MapFrom(c => c.FlagNueva))
+               .ForMember(t => t.FlagRecoPerfil, f => f.MapFrom(c => c.FlagRecoPerfil))
+               .ForMember(t => t.FlagRecoProduc, f => f.MapFrom(c => c.FlagRecoProduc))
+               .ForMember(t => t.Imagen, f => f.MapFrom(c => c.ImagenEstrategia))
+               .ForMember(t => t.CodigoPrograma, f => f.MapFrom(c => c.CodigoPrograma))
+               .ForMember(t => t.FlagValidarImagen, f => f.MapFrom(c => c.FlagValidarImagen))
+               .ForMember(t => t.PesoMaximoImagen, f => f.MapFrom(c => c.PesoMaximoImagen));
 
             Mapper.CreateMap<BEPedidoFICDetalle, PedidoWebDetalleModel>();
 
