@@ -46,6 +46,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index(bool lanzarTabConsultoraOnline = false, string cuv = "", int campana = 0)
         {
+            if (EsDispositivoMovil())
+            {
+                return RedirectToAction("Index", "Pedido", new { area = "Mobile" });
+            }
+
             var model = new PedidoSb2Model();
 
             try
