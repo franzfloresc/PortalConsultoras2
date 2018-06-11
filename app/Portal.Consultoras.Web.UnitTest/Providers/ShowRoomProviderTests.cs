@@ -5,6 +5,7 @@ using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.SessionManager;
 using System.Collections.Generic;
+using Portal.Consultoras.Web.ServiceOferta;
 
 namespace Portal.Consultoras.Web.UnitTest.Providers
 {
@@ -124,6 +125,8 @@ namespace Portal.Consultoras.Web.UnitTest.Providers
                     bannerInferiorConfiguracion = value;
                 }
             }
+
+            public List<BEShowRoomOferta> Ofertas { get; set; }
         }
 
     }

@@ -43,6 +43,7 @@ using System.Web.Script.Serialization;
 using System.Web.Security;
 using BEShowRoomEventoConsultora = Portal.Consultoras.Web.ServiceOferta.BEShowRoomEventoConsultora;
 using BEShowRoomNivel = Portal.Consultoras.Web.ServiceOferta.BEShowRoomNivel;
+using BEShowRoomOferta = Portal.Consultoras.Web.ServiceOferta.BEShowRoomOferta;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -3985,7 +3986,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
 
-                var listaShowRoom = (List<ServiceOferta.BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<ServiceOferta.BEShowRoomOferta>();
+                var listaShowRoom = sessionManager.ShowRoom.Ofertas ?? new List<BEShowRoomOferta>();
                 seccion.CantidadProductos = listaShowRoom.Count(x => !x.EsSubCampania);
                 seccion.CantidadMostrar = Math.Min(3, seccion.CantidadProductos);
             }
