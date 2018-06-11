@@ -31,6 +31,10 @@ a{
     cursor:pointer;
 }
 
+input:focus{
+    outline:0;
+}
+
 fieldset{
     border:none!important;
 }
@@ -439,8 +443,8 @@ a{
 
 .lista_opciones_verificacion_autenticidad{
     margin-top:29.5px;
-    margin-bottom:70px;
-    width:286px;
+    margin-bottom:54px;
+    width:318px;
 }
 
 .opcion_verificacion_autenticidad {
