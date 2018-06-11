@@ -32,8 +32,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (userData != null)
             {
-                CargarEntidadesShowRoom(userData);
-
                 model.BEShowRoom = configEstrategiaSR.BeShowRoom;
                 zonaHoraria = userData.ZonaHoraria;
                 fechaInicioCampania = userData.FechaInicioCampania;
