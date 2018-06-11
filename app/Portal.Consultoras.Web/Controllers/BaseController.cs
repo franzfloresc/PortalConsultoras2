@@ -1178,7 +1178,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     sessionManager.SetEsShowRoom("1");
 
-                    var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+                    var fechaHoy = userData.FechaHoy;
 
                     if (userData.FechaInicioCampania != default(DateTime))
                         ViewBag.DiasFaltan = (userData.FechaInicioCampania.AddDays(-configEstrategiaSR.BeShowRoom.DiasAntes) - fechaHoy).Days;
@@ -1193,8 +1193,6 @@ namespace Portal.Consultoras.Web.Controllers
                         sessionManager.SetMostrarShowRoomProductosExpiro("1");
                 }
 
-                
-
                 configEstrategiaSR.CargoEntidadesShowRoom = true;
             }
             catch (Exception ex)
@@ -1203,7 +1201,6 @@ namespace Portal.Consultoras.Web.Controllers
                 configEstrategiaSR.CargoEntidadesShowRoom = false;
             }
 
-            SetUserData(model);
             sessionManager.SetEstrategiaSR(configEstrategiaSR);
         }
 
