@@ -1,18 +1,23 @@
-﻿using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
+﻿using Portal.Consultoras.Web.Providers;
 using System;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class GuiaNegocioController : BaseGuiaNegocioController
     {
+        private readonly GuiaNegocioProvider _guiaNegocioProvider;
+
+        public GuiaNegocioController()
+        {
+            _guiaNegocioProvider = new GuiaNegocioProvider();
+        }
+
         public ActionResult Index()
         {
             try
             {
-                if (GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
+                if (_guiaNegocioProvider.GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
                 {
                     return ViewLanding();
                 }

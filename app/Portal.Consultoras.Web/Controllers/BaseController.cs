@@ -61,6 +61,8 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly ShowRoomProvider _showRoomProvider;
         protected DataModel estrategiaODD;
         protected ConfigModel configEstrategiaSR;
+        private readonly BaseProvider _baseProvider;
+        private readonly GuiaNegocioProvider _guiaNegocioProvider;
         #endregion
 
         #region Constructor
@@ -74,7 +76,8 @@ namespace Portal.Consultoras.Web.Controllers
             _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
             //estrategiaODD = sessionManager.GetEstrategiaODD() ?? new Models.Estrategia.OfertaDelDia.DataModel();
             //configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
-
+            _baseProvider = new BaseProvider();
+            _guiaNegocioProvider = new GuiaNegocioProvider();
         }
 
         public BaseController(ISessionManager sessionManager)
@@ -1162,16 +1165,16 @@ namespace Portal.Consultoras.Web.Controllers
                 configEstrategiaSR.ShowRoomNivelId = ObtenerNivelId(configEstrategiaSR.ListaNivel);
                 configEstrategiaSR.ListaPersonalizacionConsultora = _showRoomProvider.GetShowRoomPersonalizacion(model);
 
-                List<ShowRoomPersonalizacionNivelModel> personalizacionesNivel = null;
                 if (configEstrategiaSR.BeShowRoom != null &&
                     configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
                 {
-                    personalizacionesNivel = _showRoomProvider.GetShowRoomPersonalizacionNivel(model,
-                        configEstrategiaSR.BeShowRoom.EventoID, configEstrategiaSR.ShowRoomNivelId, 0);
+                    ActualizarValorPersonalizacionesShowRoom(model, configEstrategiaSR.ListaPersonalizacionConsultora);
                 }
 
 
-                if (configEstrategiaSR.BeShowRoom != null && configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO && configEstrategiaSR.BeShowRoomConsultora != null)
+                if (configEstrategiaSR.BeShowRoom != null && 
+                    configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO && 
+                    configEstrategiaSR.BeShowRoomConsultora != null)
                 {
                     sessionManager.SetEsShowRoom("1");
 
@@ -1190,37 +1193,7 @@ namespace Portal.Consultoras.Web.Controllers
                         sessionManager.SetMostrarShowRoomProductosExpiro("1");
                 }
 
-                if (personalizacionesNivel != null && personalizacionesNivel.Any())
-                {
-                    var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
-                    Session["carpetaPais"] = carpetaPais;
-
-                    foreach (var item in configEstrategiaSR.ListaPersonalizacionConsultora)
-                    {
-                        var personalizacionNivel = personalizacionesNivel.FirstOrDefault(
-                            p => p.NivelId == configEstrategiaSR.ShowRoomNivelId &&
-                                 p.EventoID == configEstrategiaSR.BeShowRoom.EventoID &&
-                                 p.PersonalizacionId == item.PersonalizacionId);
-
-                        if (personalizacionNivel == null)
-                        {
-                            item.PersonalizacionNivelId = 0;
-                            item.Valor = string.Empty;
-                            continue;
-                        }
-
-                        item.PersonalizacionNivelId = personalizacionNivel.PersonalizacionNivelId;
-                        item.Valor = personalizacionNivel.Valor;
-
-                        if (item.TipoAtributo == "IMAGEN")
-                        {
-                            item.Valor = string.IsNullOrEmpty(item.Valor)
-                                ? string.Empty
-                                : ConfigS3.GetUrlFileS3(carpetaPais, item.Valor,
-                                    Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                        }
-                    }
-                }
+                
 
                 configEstrategiaSR.CargoEntidadesShowRoom = true;
             }
@@ -1232,6 +1205,42 @@ namespace Portal.Consultoras.Web.Controllers
 
             SetUserData(model);
             sessionManager.SetEstrategiaSR(configEstrategiaSR);
+        }
+
+        private void ActualizarValorPersonalizacionesShowRoom(UsuarioModel model,IEnumerable<ShowRoomPersonalizacionModel> personalizaciones)
+        {
+            var personalizacionesNivel = _showRoomProvider.GetShowRoomPersonalizacionNivel(model,
+                                    configEstrategiaSR.BeShowRoom.EventoID, 
+                                    configEstrategiaSR.ShowRoomNivelId, 
+                                    0);
+
+            if (personalizacionesNivel == null || !personalizacionesNivel.Any()) return;
+
+            foreach (var item in personalizaciones)
+            {
+                item.PersonalizacionNivelId = 0;
+                item.Valor = string.Empty;
+
+                var personalizacionNivel = personalizacionesNivel.Find(
+                    p => p.NivelId == configEstrategiaSR.ShowRoomNivelId &&
+                         p.EventoID == configEstrategiaSR.BeShowRoom.EventoID &&
+                         p.PersonalizacionId == item.PersonalizacionId);
+
+                if (personalizacionNivel == null) continue;
+                item.PersonalizacionNivelId = personalizacionNivel.PersonalizacionNivelId;
+                item.Valor = personalizacionNivel.Valor;
+
+                if (item.TipoAtributo != "IMAGEN") continue;
+                if (string.IsNullOrEmpty(item.Valor))
+                {
+                    item.Valor = string.Empty;
+                    continue;
+                }
+
+                var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
+                item.Valor = ConfigS3.GetUrlFileS3(carpetaPais, item.Valor,
+                    Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+            }
         }
 
         protected bool PaisTieneShowRoom(string codigoIsoPais)
@@ -3801,7 +3810,7 @@ namespace Portal.Consultoras.Web.Controllers
                     switch (entConf.ConfiguracionPais.Codigo)
                     {
                         case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
-                            if (!GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
+                            if (!_guiaNegocioProvider.GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
                                 continue;
 
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "GuiaNegocio";
@@ -4432,7 +4441,7 @@ namespace Portal.Consultoras.Web.Controllers
                         config.UrlMenu = "#";
                         break;
                     case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
-                        if (!GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
+                        if (!_guiaNegocioProvider.GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
                             continue;
 
                         config.UrlMenu = "GuiaNegocio";
@@ -4666,14 +4675,14 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
-        #region Guia de Negocio Digitalizada
-        public virtual bool GNDValidarAcceso(bool esConsultoraLider, GuiaNegocioModel guiaNegocio, RevistaDigitalModel revistaDigital)
-        {
-            var tieneAcceso = (guiaNegocio.TieneGND && !(revistaDigital.EsSuscritaActiva() || revistaDigital.EsNoSuscritaActiva())) ||
-                (esConsultoraLider && guiaNegocio.TieneGND && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva());
-            return tieneAcceso;
-        }
-        #endregion
+        //#region Guia de Negocio Digitalizada
+        //public virtual bool GNDValidarAcceso(bool esConsultoraLider, GuiaNegocioModel guiaNegocio, RevistaDigitalModel revistaDigital)
+        //{
+        //    var tieneAcceso = (guiaNegocio.TieneGND && !(revistaDigital.EsSuscritaActiva() || revistaDigital.EsNoSuscritaActiva())) ||
+        //        (esConsultoraLider && guiaNegocio.TieneGND && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva());
+        //    return tieneAcceso;
+        //}
+        //#endregion
 
         #region Helper contenedor 
         private ConfiguracionPaisModel ActualizarTituloYSubtituloMenu(ConfiguracionPaisModel config)

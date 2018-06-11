@@ -12,10 +12,12 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
     public class EstrategiaController : BaseEstrategiaController 
     {
         private readonly OfertaPersonalizadaProvider _ofertaPersonalizadaProvider;
+        private readonly GuiaNegocioProvider _guiaNegocioProvider;
 
         public EstrategiaController()
         {
             _ofertaPersonalizadaProvider = new OfertaPersonalizadaProvider();
+            _guiaNegocioProvider = new GuiaNegocioProvider();
         }
 
         [HttpPost]
@@ -224,7 +226,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             }
             else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.GNDObtenerProductos)
             {
-                if (!GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
+                if (!_guiaNegocioProvider.GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
                 {
                     return false;
                 }
