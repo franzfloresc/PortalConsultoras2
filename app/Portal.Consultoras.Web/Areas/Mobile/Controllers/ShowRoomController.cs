@@ -178,9 +178,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
           
             var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
             modelo.ListaOfertaShowRoom = xList;
-            bool esFacturacion = EsFacturacion();
 
-            var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, configEstrategiaSR.BeShowRoom.EventoID,
+            var listaCompraPorCompra = GetProductosCompraPorCompra(userData.EsDiasFacturacion, configEstrategiaSR.BeShowRoom.EventoID,
                         configEstrategiaSR.BeShowRoom.CampaniaID);
             modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
             modelo.TieneCompraXcompra = configEstrategiaSR.BeShowRoom.TieneCompraXcompra;

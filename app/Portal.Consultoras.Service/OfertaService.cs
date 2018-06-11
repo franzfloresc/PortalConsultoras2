@@ -53,5 +53,10 @@ namespace Portal.Consultoras.Service
         {
             return new BLOfertaPersonalizada().ShowRoomProgramarAviso(paisID, entity);
         }
+
+        public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad)
+        {
+            return new BLOfertaPersonalizada().GetEstrategiasPedido(entidad);
+        }
     }
 }

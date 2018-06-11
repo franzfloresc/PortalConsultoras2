@@ -5930,13 +5930,6 @@ namespace Portal.Consultoras.Web.Controllers
             return resultado;
         }
 
-        protected bool EsFacturacion()
-        {
-            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-            bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
-            return esFacturacion;
-        }
-
         public void registraLogDynamoCDR(MisReclamosModel model)
         {
             try

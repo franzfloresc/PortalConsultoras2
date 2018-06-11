@@ -1124,9 +1124,8 @@ namespace Portal.Consultoras.Web.Controllers
             var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
             modelo.ListaOfertaShowRoom = xList;
 
-            bool esFacturacion = EsFacturacion();
 
-            var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, estrategiaSR.BeShowRoom.EventoID,
+            var listaCompraPorCompra = GetProductosCompraPorCompra(userData.EsDiasFacturacion, estrategiaSR.BeShowRoom.EventoID,
                         estrategiaSR.BeShowRoom.CampaniaID);
             modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
             modelo.TieneCompraXcompra = estrategiaSR.BeShowRoom.TieneCompraXcompra;
@@ -1147,8 +1146,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!ValidarIngresoShowRoom(false))
                     return ErrorJson(string.Empty);
 
-                bool esFacturacion = EsFacturacion();
-                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion, false);
+                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, false);
 
                 var listaNoSubCampania = new List<EstrategiaPedidoModel>();
                 var listaNoSubCampaniaPerdio = new List<EstrategiaPedidoModel>();
@@ -1233,8 +1231,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!ValidarIngresoShowRoom(esIntriga: false))
                     return ErrorJson(string.Empty);
 
-                var esFacturacion = EsFacturacion();
-                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
+                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion);
 
                 if (model.Limite > 0 && productosShowRoom.Count > 0)
                 {

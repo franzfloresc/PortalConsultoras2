@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.SessionManager;
@@ -47,10 +48,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public List<BEEstrategia> ConsultarEstrategias(int campaniaId = 0, string codAgrupacion = "")
+        public List<ServiceOferta.BEEstrategia> ConsultarEstrategias(int campaniaId = 0, string codAgrupacion = "")
         {
             codAgrupacion = Util.Trim(codAgrupacion);
-            var listEstrategia = new List<BEEstrategia>();
+            var listEstrategia = new List<ServiceOferta.BEEstrategia>();
 
             switch (codAgrupacion)
             {
@@ -82,9 +83,9 @@ namespace Portal.Consultoras.Web.Controllers
             return listEstrategia;
         }
 
-        protected virtual List<BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, int campaniaId = 0)
+        private List<ServiceOferta.BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, int campaniaId = 0)
         {
-            var listEstrategia = new List<BEEstrategia>();
+            var listEstrategia = new List<ServiceOferta.BEEstrategia>();
             try
             {
                 campaniaId = campaniaId > 0 ? campaniaId : userData.CampaniaID;
@@ -93,7 +94,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (Session[varSession] != null && campaniaId == userData.CampaniaID)
                 {
-                    listEstrategia = (List<BEEstrategia>)Session[varSession];
+                    listEstrategia = (List<ServiceOferta.BEEstrategia>)Session[varSession];
                     if (listEstrategia.Any())
                     {
                         if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas && listEstrategia.Any())
@@ -105,7 +106,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                var entidad = new BEEstrategia
+                var entidad = new ServiceOferta.BEEstrategia
                 {
                     PaisID = userData.PaisID,
                     CampaniaID = campaniaId,
@@ -123,9 +124,9 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.ConsultoraID = userData.GetConsultoraId().ToString();
                 }
 
-                using (PedidoServiceClient sv = new PedidoServiceClient())
+                using (OfertaServiceClient osc = new OfertaServiceClient())
                 {
-                    listEstrategia = sv.GetEstrategiasPedido(entidad).ToList();
+                    listEstrategia = osc.GetEstrategiasPedido(entidad).ToList();
                 }
 
                 if (campaniaId == userData.CampaniaID)
@@ -188,9 +189,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<EstrategiaPedidoModel> ConsultarEstrategiasHomePedido(string codAgrupacion = "")
         {
-            List<BEEstrategia> listModel;
+            List<ServiceOferta.BEEstrategia> listModel;
             if (Session[Constantes.ConstSession.ListaEstrategia] != null)
-                listModel = (List<BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia];
+                listModel = (List<ServiceOferta.BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia];
             else
             {
                 listModel = ConsultarEstrategias(0, codAgrupacion);
@@ -206,7 +207,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (codAgrupacion == Constantes.TipoEstrategiaCodigo.RevistaDigital)
                 {
                     var listModelLan = ConsultarEstrategias(0, Constantes.TipoEstrategiaCodigo.Lanzamiento);
-                    var estrategiaLanzamiento = listModelLan.FirstOrDefault() ?? new BEEstrategia();
+                    var estrategiaLanzamiento = listModelLan.FirstOrDefault() ?? new ServiceOferta.BEEstrategia();
 
                     if (!listModel.Any() && estrategiaLanzamiento.EstrategiaID <= 0)
                     {
@@ -233,7 +234,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (listaPackNueva.Count > 0 && listaPackNueva.Count > cantMax - top)
                         listaPackNueva.RemoveRange(cantMax - top, listaPackNueva.Count - (cantMax - top));
 
-                    listModel = new List<BEEstrategia>();
+                    listModel = new List<ServiceOferta.BEEstrategia>();
                     if (estrategiaLanzamiento.EstrategiaID > 0)
                         listModel.Add(estrategiaLanzamiento);
 
@@ -386,19 +387,19 @@ namespace Portal.Consultoras.Web.Controllers
         public List<EstrategiaPedidoModel> ConsultarMasVendidosModel()
         {
             var listaProducto = ConsultarEstrategias(0, Constantes.TipoEstrategiaCodigo.LosMasVendidos);
-            var listaProductoModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
+            var listaProductoModel = Mapper.Map<List<ServiceOferta.BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
             listaProductoModel = ConsultarEstrategiasModelFormato(listaProductoModel);
             return listaProductoModel;
         }
 
-        //public bool EsCampaniaFalsa(int campaniaId)
-        //{
-        //    return (campaniaId < userData.CampaniaID || campaniaId > Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias));
-        //}
+        public bool EsCampaniaFalsa(int campaniaId)
+        {
+            return (campaniaId < userData.CampaniaID || campaniaId > Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias));
+        }
 
         #region Metodos Privados
 
-        private List<BEEstrategia> ConsultarEstrategiasFiltrarPackNuevasPedido(List<BEEstrategia> listEstrategia)
+        private List<ServiceOferta.BEEstrategia> ConsultarEstrategiasFiltrarPackNuevasPedido(List<ServiceOferta.BEEstrategia> listEstrategia)
         {
             var pedidoWebDetalle = ObtenerPedidoWebDetalle();
             listEstrategia = listEstrategia.Where(e => !pedidoWebDetalle.Any(d => d.CUV == e.CUV2)).ToList();
@@ -406,10 +407,10 @@ namespace Portal.Consultoras.Web.Controllers
             return listEstrategia;
         }
 
-        private List<EstrategiaPedidoModel> ConsultarEstrategiasModelFormato(List<BEEstrategia> listaProducto)
+        private List<EstrategiaPedidoModel> ConsultarEstrategiasModelFormato(List<ServiceOferta.BEEstrategia> listaProducto)
         {
-            listaProducto = listaProducto ?? new List<BEEstrategia>();
-            List<EstrategiaPedidoModel> listaProductoModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
+            listaProducto = listaProducto ?? new List<ServiceOferta.BEEstrategia>();
+            List<EstrategiaPedidoModel> listaProductoModel = Mapper.Map<List<ServiceOferta.BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
             return ConsultarEstrategiasModelFormato(listaProductoModel);
         }
 

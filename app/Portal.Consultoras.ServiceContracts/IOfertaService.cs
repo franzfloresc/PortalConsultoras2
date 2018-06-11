@@ -35,5 +35,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity);
+
+        [OperationContract]
+        List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad);
     }
 }
