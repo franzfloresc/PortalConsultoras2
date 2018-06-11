@@ -1165,16 +1165,16 @@ namespace Portal.Consultoras.Web.Controllers
                 configEstrategiaSR.ShowRoomNivelId = ObtenerNivelId(configEstrategiaSR.ListaNivel);
                 configEstrategiaSR.ListaPersonalizacionConsultora = _showRoomProvider.GetShowRoomPersonalizacion(model);
 
-                List<ShowRoomPersonalizacionNivelModel> personalizacionesNivel = null;
                 if (configEstrategiaSR.BeShowRoom != null &&
                     configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
                 {
-                    personalizacionesNivel = _showRoomProvider.GetShowRoomPersonalizacionNivel(model,
-                        configEstrategiaSR.BeShowRoom.EventoID, configEstrategiaSR.ShowRoomNivelId, 0);
+                    ActualizarValorPersonalizacionesShowRoom(model, configEstrategiaSR.ListaPersonalizacionConsultora);
                 }
 
 
-                if (configEstrategiaSR.BeShowRoom != null && configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO && configEstrategiaSR.BeShowRoomConsultora != null)
+                if (configEstrategiaSR.BeShowRoom != null && 
+                    configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO && 
+                    configEstrategiaSR.BeShowRoomConsultora != null)
                 {
                     sessionManager.SetEsShowRoom("1");
 
@@ -1193,37 +1193,7 @@ namespace Portal.Consultoras.Web.Controllers
                         sessionManager.SetMostrarShowRoomProductosExpiro("1");
                 }
 
-                if (personalizacionesNivel != null && personalizacionesNivel.Any())
-                {
-                    var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
-                    Session["carpetaPais"] = carpetaPais;
-
-                    foreach (var item in configEstrategiaSR.ListaPersonalizacionConsultora)
-                    {
-                        var personalizacionNivel = personalizacionesNivel.FirstOrDefault(
-                            p => p.NivelId == configEstrategiaSR.ShowRoomNivelId &&
-                                 p.EventoID == configEstrategiaSR.BeShowRoom.EventoID &&
-                                 p.PersonalizacionId == item.PersonalizacionId);
-
-                        if (personalizacionNivel == null)
-                        {
-                            item.PersonalizacionNivelId = 0;
-                            item.Valor = string.Empty;
-                            continue;
-                        }
-
-                        item.PersonalizacionNivelId = personalizacionNivel.PersonalizacionNivelId;
-                        item.Valor = personalizacionNivel.Valor;
-
-                        if (item.TipoAtributo == "IMAGEN")
-                        {
-                            item.Valor = string.IsNullOrEmpty(item.Valor)
-                                ? string.Empty
-                                : ConfigS3.GetUrlFileS3(carpetaPais, item.Valor,
-                                    Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                        }
-                    }
-                }
+                
 
                 configEstrategiaSR.CargoEntidadesShowRoom = true;
             }
@@ -1235,6 +1205,42 @@ namespace Portal.Consultoras.Web.Controllers
 
             SetUserData(model);
             sessionManager.SetEstrategiaSR(configEstrategiaSR);
+        }
+
+        private void ActualizarValorPersonalizacionesShowRoom(UsuarioModel model,IEnumerable<ShowRoomPersonalizacionModel> personalizaciones)
+        {
+            var personalizacionesNivel = _showRoomProvider.GetShowRoomPersonalizacionNivel(model,
+                                    configEstrategiaSR.BeShowRoom.EventoID, 
+                                    configEstrategiaSR.ShowRoomNivelId, 
+                                    0);
+
+            if (personalizacionesNivel == null || !personalizacionesNivel.Any()) return;
+
+            foreach (var item in personalizaciones)
+            {
+                item.PersonalizacionNivelId = 0;
+                item.Valor = string.Empty;
+
+                var personalizacionNivel = personalizacionesNivel.Find(
+                    p => p.NivelId == configEstrategiaSR.ShowRoomNivelId &&
+                         p.EventoID == configEstrategiaSR.BeShowRoom.EventoID &&
+                         p.PersonalizacionId == item.PersonalizacionId);
+
+                if (personalizacionNivel == null) continue;
+                item.PersonalizacionNivelId = personalizacionNivel.PersonalizacionNivelId;
+                item.Valor = personalizacionNivel.Valor;
+
+                if (item.TipoAtributo != "IMAGEN") continue;
+                if (string.IsNullOrEmpty(item.Valor))
+                {
+                    item.Valor = string.Empty;
+                    continue;
+                }
+
+                var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
+                item.Valor = ConfigS3.GetUrlFileS3(carpetaPais, item.Valor,
+                    Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+            }
         }
 
         protected bool PaisTieneShowRoom(string codigoIsoPais)
