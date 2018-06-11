@@ -348,8 +348,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (idOferta <= 0) return ofertaShowRoomModelo;
 
             List<EstrategiaPedidoModel> listadoOfertasTodasModel = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
-            ofertaShowRoomModelo = listadoOfertasTodasModel.Find(o => o.OfertaShowRoomID == idOferta) ?? new EstrategiaPedidoModel();
-            if (ofertaShowRoomModelo.OfertaShowRoomID <= 0) return ofertaShowRoomModelo;
+            ofertaShowRoomModelo = listadoOfertasTodasModel.Find(o => o.EstrategiaID == idOferta) ?? new EstrategiaPedidoModel();
+            if (ofertaShowRoomModelo.EstrategiaID <= 0) return ofertaShowRoomModelo;
 
             ofertaShowRoomModelo.ImagenProducto = Util.Trim(ofertaShowRoomModelo.ImagenProducto);
             ofertaShowRoomModelo.ImagenProducto = ofertaShowRoomModelo.ImagenProducto == "" ?
@@ -550,8 +550,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (idOferta <= 0) return ofertaShowRoomModelo;
 
             List<EstrategiaPedidoModel> listadoOfertasTodasModel = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
-            ofertaShowRoomModelo = listadoOfertasTodasModel.Find(o => o.OfertaShowRoomID == idOferta) ?? new EstrategiaPedidoModel();
-            if (ofertaShowRoomModelo.OfertaShowRoomID <= 0) return ofertaShowRoomModelo;
+            ofertaShowRoomModelo = listadoOfertasTodasModel.Find(o => o.EstrategiaID == idOferta) ?? new EstrategiaPedidoModel();
+            if (ofertaShowRoomModelo.EstrategiaID <= 0) return ofertaShowRoomModelo;
 
             ofertaShowRoomModelo.ImagenProducto = Util.Trim(ofertaShowRoomModelo.ImagenProducto);
             ofertaShowRoomModelo.ImagenProducto = ofertaShowRoomModelo.ImagenProducto == "" ?
@@ -578,7 +578,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (idOferta <= 0) return listaOferta;
 
             var listadoOfertasTodasModel = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
-            listaOferta = listadoOfertasTodasModel.Where(o => o.OfertaShowRoomID != idOferta).ToList();
+            listaOferta = listadoOfertasTodasModel.Where(o => o.EstrategiaID != idOferta).ToList();
             return listaOferta;
         }
 

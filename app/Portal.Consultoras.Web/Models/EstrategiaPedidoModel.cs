@@ -109,7 +109,7 @@ namespace Portal.Consultoras.Web.Models
 
         #region Campos que vienen de ShowRoom (estos campos aun estan en revision y mejora)
 
-        public int OfertaShowRoomID { get; set; }
+      //  public int OfertaShowRoomID { get; set; }
 
         public string CUV { get; set; }
 
@@ -187,7 +187,6 @@ namespace Portal.Consultoras.Web.Models
         public int UnidadesPermitidasRestantes { get; set; }
 
         //public List<ProductoModel> ProductoTonos { get; set; }
-
         //public int EstrategiaId { get; set; }
         
         public int TipoAccionAgregar { get; set; }

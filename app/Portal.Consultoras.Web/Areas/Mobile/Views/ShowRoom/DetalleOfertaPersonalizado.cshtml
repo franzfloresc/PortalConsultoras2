@@ -54,7 +54,7 @@
         <input type="hidden" id="swdetdescripcion" value="@Model.Descripcion" />
         <input type="hidden" id="swdetmarca" value="@Model.DescripcionMarca" />
         <input type="hidden" id="swdetprecio" value="@Model.PrecioOferta" />
-        <input type="hidden" id="swdeteventoofertaid" value="@Model.OfertaShowRoomID" />
+        <input type="hidden" id="swdeteventoofertaid" value="@Model.EstrategiaID" />
         <div class="price_product">
             <s class="price_offer">@Model.Simbolo @Model.FormatoPrecioValorizado</s>
             <span class="price">Precio para ti <b>@Model.Simbolo @Model.FormatoPrecioOferta</b></span>
@@ -245,9 +245,9 @@
                             {
                                 descripcion = descripcion.Substring(0, 40) + " ...";
                             }
-                            <div data-posicion="@posicionCpc" data-item="@item.OfertaShowRoomID">
+                            <div data-posicion="@posicionCpc" data-item="@item.EstrategiaID">
                                 <div data-campos="">
-                                    <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
+                                    <input type="hidden" class="hdOfertaShowRoomID" value="@item.EstrategiaID" />
                                     <input type="hidden" class="valorCuv" value="@item.CUV" />
                                     <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
                                     <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioOferta" />
@@ -304,9 +304,9 @@
                     }
 
                     posicionx++;
-                    <div class="slider_item" data-posicion="@posicionx" data-item="@oferta.OfertaShowRoomID" data-position="@posicionx">
+                    <div class="slider_item" data-posicion="@posicionx" data-item="@oferta.EstrategiaID" data-position="@posicionx">
                         <div data-campos="" style="display: none;">
-                            <input type="hidden" class="hdOfertaShowRoomID" value="@oferta.OfertaShowRoomID" />
+                            <input type="hidden" class="hdOfertaShowRoomID" value="@oferta.EstrategiaID" />
                             <input type="hidden" class="valorCuv" value="@oferta.CUV" />
                             <input type="hidden" class="claseMarcaID" value="@oferta.MarcaID" />
                             <input type="hidden" class="clasePrecioUnidad" value="@oferta.PrecioOferta" />
@@ -315,7 +315,7 @@
                             <input type="hidden" class="DescripcionMarca" value="@oferta.DescripcionMarca" />
                             <input type="hidden" class="posicionEstrategia" value="@posicionx" />
                         </div>
-                        <a href="@Url.Action("DetalleOferta", "ShowRoom", new {id = oferta.OfertaShowRoomID, area = "Mobile"})" class="slider_item_content">
+                        <a href="@Url.Action("DetalleOferta", "ShowRoom", new {id = oferta.EstrategiaID, area = "Mobile"})" class="slider_item_content">
                             <div data-img="">
                                 <img src="@oferta.ImagenProducto" data-img-lazy="1" />
                             </div>
@@ -348,7 +348,7 @@
             <div class="content">@Model.TipNegocio</div>
         </div>
     }
-    <div class="share_social_nertwoks" data-posicion="0" data-item="@Model.OfertaShowRoomID">
+    <div class="share_social_nertwoks" data-posicion="0" data-item="@Model.EstrategiaID">
         <div data-compartir-campos="" style="display: none;">
             <input type="hidden" class="CUV" value="@Model.CUV" />
             <input type="hidden" class="rsFBMensaje" value="@Model.FBMensaje" />
@@ -375,9 +375,9 @@
         }
     </div>
 </div>
-<div class="content_btn_agregar" data-posicion="0" data-item="@Model.OfertaShowRoomID">
+<div class="content_btn_agregar" data-posicion="0" data-item="@Model.EstrategiaID">
     <div data-campos="" style="display:none;">
-        <input type="hidden" class="hdOfertaShowRoomID" value="@Model.OfertaShowRoomID" />
+        <input type="hidden" class="hdOfertaShowRoomID" value="@Model.EstrategiaID" />
         <input type="hidden" class="valorCuv" value="@Model.CUV" />
         <input type="hidden" class="claseMarcaID" value="@Model.MarcaID" />
         <input type="hidden" class="clasePrecioUnidad" value="@Model.PrecioOferta" />
@@ -423,9 +423,9 @@
                         {
                             descripcion = descripcion.Substring(0, 40) + " ...";
                         }
-                        <div data-posicion="@posicionCpc" data-item="@item.OfertaShowRoomID">
+                        <div data-posicion="@posicionCpc" data-item="@item.EstrategiaID">
                             <div data-campos="">
-                                <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
+                                <input type="hidden" class="hdOfertaShowRoomID" value="@item.EstrategiaID" />
                                 <input type="hidden" class="valorCuv" value="@item.CUV" />
                                 <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
                                 <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioOferta" />

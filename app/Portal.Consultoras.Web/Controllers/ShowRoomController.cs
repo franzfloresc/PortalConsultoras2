@@ -1242,7 +1242,7 @@ namespace Portal.Consultoras.Web.Controllers
                 productosShowRoom.Each(x =>
                 {
                     x.Posicion = index++;
-                    x.UrlDetalle = Url.Action("DetalleOferta", new { id = x.OfertaShowRoomID });
+                    x.UrlDetalle = Url.Action("DetalleOferta", new { id = x.EstrategiaID });
                 });
 
                 return Json(new
