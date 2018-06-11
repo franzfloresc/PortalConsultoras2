@@ -79,7 +79,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.CampaniasConsultoraOnline = new List<CampaniaModel>();
                     for (int i = 0; i <= 4; i++)
                     {
-                        model.CampaniasConsultoraOnline.Add(new CampaniaModel { CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, -i) });
+                        model.CampaniasConsultoraOnline.Add(new CampaniaModel { CampaniaID = Util.AddCampaniaAndNumero(userData.CampaniaID, -i, userData.NroCampanias) });
                     }
                     model.CampaniasConsultoraOnline.Update(campania => campania.NombreCorto = campania.CampaniaID.ToString().Substring(0, 4) + "-" + campania.CampaniaID.ToString().Substring(4, 2));
                     model.CampaniaActualConsultoraOnline = userData.CampaniaID;

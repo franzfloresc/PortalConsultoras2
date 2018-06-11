@@ -11,8 +11,8 @@ namespace Portal.Consultoras.Web.Controllers
         public virtual ActionResult ViewLanding()
         {
             ViewBag.CodigoRevistaActual = GetRevistaCodigoIssuu(userData.CampaniaID.ToString());
-            ViewBag.CodigoRevistaAnterior = GetRevistaCodigoIssuu(AddCampaniaAndNumero(userData.CampaniaID, -1).ToString());
-            ViewBag.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(AddCampaniaAndNumero(userData.CampaniaID, 1).ToString());
+            ViewBag.CodigoRevistaAnterior = GetRevistaCodigoIssuu(Util.AddCampaniaAndNumero(userData.CampaniaID, -1, userData.NroCampanias).ToString());
+            ViewBag.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).ToString());
 
             var model = new RevistaDigitalLandingModel
             {

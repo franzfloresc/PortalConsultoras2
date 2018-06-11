@@ -1956,10 +1956,10 @@ namespace Portal.Consultoras.Web.Controllers
             return new Converter<decimal, string>(p => p.ToString("n2", new System.Globalization.CultureInfo("es-PE")));
         }
 
-        protected int AddCampaniaAndNumero(int campania, int numero)
-        {
-            return Util.AddCampaniaAndNumero(campania, numero, userData.NroCampanias);
-        }
+        //protected int AddCampaniaAndNumero(int campania, int numero)
+        //{
+        //    return Util.AddCampaniaAndNumero(campania, numero, userData.NroCampanias);
+        //}
 
         public string FormatearHora(TimeSpan hora)
         {
@@ -4027,7 +4027,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (revistaDigital.TieneRDC || herramientasVenta.TieneHV)
             {
                 menuActivo.CampaniaX0 = userData.CampaniaID;
-                menuActivo.CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                menuActivo.CampaniaX1 = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
             }
             if (revistaDigital.TieneRDI)
             {
@@ -4061,7 +4061,7 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
                 case Constantes.UrlMenuContenedor.InicioRevisar:
                     menuActivo.Codigo = revistaDigital.TieneRevistaDigital() ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
-                    menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                    menuActivo.CampaniaId = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
                     menuActivo.OrigenPantalla = IsMobile()
                         ? Constantes.OrigenPantallaWeb.MContenedorHomeRevisar
                         : Constantes.OrigenPantallaWeb.DContenedorHomeRevisar;
@@ -4074,7 +4074,7 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
                 case Constantes.UrlMenuContenedor.RdRevisar:
                     menuActivo.Codigo = revistaDigital.TieneRDC ? Constantes.ConfiguracionPais.RevistaDigital : Constantes.ConfiguracionPais.RevistaDigitalReducida;
-                    menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                    menuActivo.CampaniaId = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
                     menuActivo.OrigenPantalla = IsMobile()
                         ? Constantes.OrigenPantallaWeb.MRevistaDigitalRevisar
                         : Constantes.OrigenPantallaWeb.DRevistaDigitalRevisar;
@@ -4126,7 +4126,7 @@ namespace Portal.Consultoras.Web.Controllers
                         : Constantes.OrigenPantallaWeb.DHerramientaVenta;
                     break;
                 case Constantes.UrlMenuContenedor.HerramientasVentaRevisar:
-                    menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                    menuActivo.CampaniaId = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
                     menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVenta;
                     menuActivo.OrigenPantalla = IsMobile()
                         ? Constantes.OrigenPantallaWeb.MHerramientaVenta
@@ -4566,25 +4566,25 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.ConfiguracionPais.InicioRD:
                         config = (ConfiguracionPaisModel)configuracionPais.Clone();
                         config.UrlMenu = "/Ofertas/Revisar";
-                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                        config.CampaniaId = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
                         menuContenedorBloqueado.Add(config);
                         break;
                     case Constantes.ConfiguracionPais.Lanzamiento:
                         config = (ConfiguracionPaisModel)configuracionPais.Clone();
                         config.UrlMenu = "#";
-                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                        config.CampaniaId = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
                         menuContenedorBloqueado.Add(config);
                         break;
                     case Constantes.ConfiguracionPais.RevistaDigital:
                         config = (ConfiguracionPaisModel)configuracionPais.Clone();
                         config.UrlMenu = "/RevistaDigital/Revisar";
-                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                        config.CampaniaId = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
                         menuContenedorBloqueado.Add(config);
                         break;
                     case Constantes.ConfiguracionPais.HerramientasVenta:
                         config = (ConfiguracionPaisModel)configuracionPais.Clone();
                         config.UrlMenu = "/HerramientasVenta/Revisar";
-                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                        config.CampaniaId = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
                         menuContenedorBloqueado.Add(config);
                         break;
                 }

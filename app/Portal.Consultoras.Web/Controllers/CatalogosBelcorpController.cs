@@ -45,8 +45,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             CatalogosRevistas.PaisNombre = GetPaisNombreByISO(userData.CodigoISO);
             CatalogosRevistas.CampaniaActual = campaniaActiva;
-            CatalogosRevistas.CampaniaAnterior = AddCampaniaAndNumero(Convert.ToInt32(campaniaActiva), -1).ToString();
-            CatalogosRevistas.CampaniaSiguiente = AddCampaniaAndNumero(Convert.ToInt32(campaniaActiva), 1).ToString();
+            CatalogosRevistas.CampaniaAnterior = Util.AddCampaniaAndNumero(Convert.ToInt32(campaniaActiva), -1, userData.NroCampanias).ToString();
+            CatalogosRevistas.CampaniaSiguiente = Util.AddCampaniaAndNumero(Convert.ToInt32(campaniaActiva), 1, userData.NroCampanias).ToString();
 
             CatalogosRevistas.CodigoRevistaActual = GetRevistaCodigoIssuu(CatalogosRevistas.CampaniaActual);
             CatalogosRevistas.CodigoRevistaAnterior = GetRevistaCodigoIssuu(CatalogosRevistas.CampaniaAnterior);

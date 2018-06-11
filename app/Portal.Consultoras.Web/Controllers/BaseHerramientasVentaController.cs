@@ -10,7 +10,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult ViewLanding(int tipo)
         {
-            var id = tipo == 1 ? userData.CampaniaID : AddCampaniaAndNumero(userData.CampaniaID, 1);
+            var id = tipo == 1 ? userData.CampaniaID : Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
 
             var model = new RevistaDigitalLandingModel
             {
@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool EsCampaniaFalsa(int campaniaId)
         {
-            return (campaniaId < userData.CampaniaID || campaniaId > AddCampaniaAndNumero(userData.CampaniaID, 1));
+            return (campaniaId < userData.CampaniaID || campaniaId > Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias));
         }
 
         public List<BETablaLogicaDatos> GetFiltersBySorting()

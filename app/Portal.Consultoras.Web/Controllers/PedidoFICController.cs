@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.PROLDes = "Guarda los productos que haz ingresado";
                 ViewBag.ModPedido = "display:none;";
                 ViewBag.NombreConsultora = userData.NombreConsultora;
-                ViewBag.PedidoFIC = "C" + AddCampaniaAndNumero(userData.CampaniaID, 1);
+                ViewBag.PedidoFIC = "C" + Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
                 ViewBag.MensajeFIC = "hasta el " + userData.FechaFinFIC.Day + " de " + NombreMes(userData.FechaFinFIC.Month);
 
                 var olstPedidoFicDetalle = ObtenerPedidoFICDetalle();
@@ -154,7 +154,7 @@ namespace Portal.Consultoras.Web.Controllers
             BEPedidoFICDetalle obePedidoFicDetalle = new BEPedidoFICDetalle
             {
                 IPUsuario = userData.IPUsuario,
-                CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, 1),
+                CampaniaID = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias),
                 ConsultoraID = userData.ConsultoraID,
                 PaisID = userData.PaisID,
                 TipoOfertaSisID = model.TipoOfertaSisID,
@@ -306,7 +306,7 @@ namespace Portal.Consultoras.Web.Controllers
                 bool eliminacionMasiva;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    eliminacionMasiva = sv.DelPedidoFICDetalleMasivo(userData.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), userData.PedidoID);
+                    eliminacionMasiva = sv.DelPedidoFICDetalleMasivo(userData.PaisID, Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias), userData.PedidoID);
                 }
                 if (!eliminacionMasiva)
                 {
@@ -393,7 +393,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<ServiceODS.BEProducto> olstProducto;
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), term, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 5, true).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias), term, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 5, true).ToList();
                 }
 
                 foreach (var item in olstProducto)
@@ -437,7 +437,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<ServiceODS.BEProducto> olstProducto;
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), model.CUV, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, true).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias), model.CUV, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, true).ToList();
                 }
 
                 if (olstProducto.Count != 0)
@@ -482,7 +482,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<ServiceODS.BEProducto> olstProducto;
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), term, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 2, 5, true).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias), term, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 2, 5, true).ToList();
                 }
 
                 foreach (var item in olstProducto)
@@ -529,7 +529,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPedidoFICDetalle> list;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                list = sv.SelectFICByCampania(userData.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), userData.ConsultoraID, userData.NombreConsultora).ToList();
+                list = sv.SelectFICByCampania(userData.PaisID, Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias), userData.ConsultoraID, userData.NombreConsultora).ToList();
             }
             Session[Constantes.ConstSession.PedidoFIC] = list;
             return list;
