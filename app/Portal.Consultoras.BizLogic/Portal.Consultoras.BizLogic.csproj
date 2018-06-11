@@ -91,12 +91,14 @@
   <ItemGroup>
     <Compile Include="App\IMenuAppBusinessLogic.cs" />
     <Compile Include="BLCategoria.cs" />
+    <Compile Include="BLActivarPremioNuevas.cs" />
     <Compile Include="BLCuponesProgramaNuevas.cs" />
     <Compile Include="BLHorario.cs" />
     <Compile Include="BLAdministrarEstrategia.cs" />
     <Compile Include="BLConfiguracionOfertasHome.cs" />
     <Compile Include="BLAsesoraOnline.cs" />
     <Compile Include="BLCupon.cs" />
+    <Compile Include="BLPremiosProgramaNuevas.cs" />
     <Compile Include="Cache\BLCache.cs" />
     <Compile Include="Cliente\BLClienteDB.cs" />
     <Compile Include="Cliente\IClienteBusinessLogic.cs" />
