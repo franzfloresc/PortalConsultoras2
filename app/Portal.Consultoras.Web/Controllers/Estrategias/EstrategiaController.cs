@@ -11,12 +11,10 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 {
     public class EstrategiaController : BaseEstrategiaController 
     {
-        private readonly OfertaPersonalizadaProvider _ofertaPersonalizadaProvider;
         private readonly GuiaNegocioProvider _guiaNegocioProvider;
 
         public EstrategiaController()
         {
-            _ofertaPersonalizadaProvider = new OfertaPersonalizadaProvider();
             _guiaNegocioProvider = new GuiaNegocioProvider();
         }
 
@@ -162,7 +160,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             {
                 //var tipoConsulta = Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos;
 
-                var jSon = ConsultarOfertasValidarPermiso(model, tipoConsulta);
+                var jSon = _ofertaPersonalizadaProvider.ConsultarOfertasValidarPermiso(model, tipoConsulta);
                 if (!jSon)
                 {
                     return Json(new
@@ -215,41 +213,6 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             }
         }
 
-        private bool ConsultarOfertasValidarPermiso(BusquedaProductoModel model, int tipo)
-        {
-            if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos)
-            {
-                if (model == null || !(revistaDigital.TieneRevistaDigital()) || EsCampaniaFalsa(model.CampaniaID))
-                {
-                    return false;
-                }
-            }
-            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.GNDObtenerProductos)
-            {
-                if (!_guiaNegocioProvider.GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
-                {
-                    return false;
-                }
-            }
-            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.HVObtenerProductos)
-            {
-                return true;
-            }
-            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductosLan)
-            {
-                if (!(revistaDigital.TieneRevistaDigital()) || EsCampaniaFalsa(model.CampaniaID))
-                {
-                    return false;
-                }
-            }
-            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.OPTObtenerProductos)
-            {
-                return true;
-            }
-
-            return true;
-        }
-
         private List<EstrategiaPersonalizadaProductoModel> ConsultarOfertasListaPerdio(BusquedaProductoModel model, List<EstrategiaPedidoModel> listModelCompleta, int tipo)
         {
             var listaRetorno = new List<EstrategiaPersonalizadaProductoModel>();
@@ -266,7 +229,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             try
             {
                 var listPerdio = new List<EstrategiaPedidoModel>();
-                if (TieneProductosPerdio(campaniaId))
+                if (_ofertaPersonalizadaProvider.TieneProductosPerdio(campaniaId))
                 {
                     var mdo0 = revistaDigital.ActivoMdo && !revistaDigital.EsActiva;
                     if (mdo0)

@@ -391,10 +391,10 @@ namespace Portal.Consultoras.Web.Controllers
             return listaProductoModel;
         }
 
-        public bool EsCampaniaFalsa(int campaniaId)
-        {
-            return (campaniaId < userData.CampaniaID || campaniaId > Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias));
-        }
+        //public bool EsCampaniaFalsa(int campaniaId)
+        //{
+        //    return (campaniaId < userData.CampaniaID || campaniaId > Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias));
+        //}
 
         #region Metodos Privados
 
