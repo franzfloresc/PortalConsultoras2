@@ -14,21 +14,90 @@
         <span style="width:35.4pt; display:inline-block">&#xa0;</span>
         <span style="font-family:Arial">No. @Model.NumeroSecuencia</span>
     </p>
-    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
-        <span style="font-family: Arial;">@Model.Ciudad,</span>
-        <span style="font-family: Arial;">@Model.FechaCreacion</span>
-    </p>
+    @if (Model.Pais == "Peru")
+    {
+        <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+            <span style="font-family: Arial;">&nbsp;</span>
+        </p>
+    }
+    else
+    {
+        <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+            <span style="font-family: Arial;">@Model.Ciudad,</span>
+            <span style="font-family: Arial;">@Model.FechaCreacion</span>
+        </p>
+    }
     <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
         <span style="font-family: Arial;">&nbsp;</span>
     </p>
     <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
         <span style="font-family: Arial;">&nbsp;</span>
     </p>
-    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
-        <span style="font-family: Arial;">&nbsp;</span>
-    </p>
+
+    @if (Model.Pais == "Peru")
+    {
+        <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: center; line-height: 115%; font-size: 15pt;">
+            <span style="font-family: Arial;"><u><b>CONSTANCIA DE NO ADEUDO</b></u></span>
+        </p>
+    }
+    else
+    {
+        <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+            <span style="font-family: Arial;">&nbsp;</span>
+        </p>
+        <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: center; line-height: 115%; font-size: 12pt;">
+            <span style="font-family: Arial;">A QUIEN PUEDA INTERESAR</span>
+        </p>
+        <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+            <span style="font-family: Arial;">&nbsp;</span>
+        </p>
+        <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+            <span style="font-family: Arial;">&nbsp;</span>
+        </p>
+        <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+            <span style="font-family: Arial;">&nbsp;</span>
+        </p>
+        <p style="margin-top: 0pt; margin-bottom: 0pt; text-indent: 35.4pt; line-height: 115%; font-size: 12pt;">
+            <strong><em><span style="font-family: Arial;">Asunto</span></em></strong>
+            <em><span style="font-family: Arial;">: @Model.Asunto</span></em>
+        </p>
+        <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+            <span style="font-family: Arial;">&nbsp;</span>
+        </p>
+        <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+            <span style="font-family: Arial;">&nbsp;</span>
+        </p>
+        <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: center; line-height: 115%; font-size: 12pt;">
+            <span style="font-family: Arial;">La suscrita se permite CERTIFICAR que:</span>
+        </p>
+    }
+
     <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: center; line-height: 115%; font-size: 12pt;">
-        <span style="font-family: Arial;">A QUIEN PUEDA INTERESAR</span>
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+
+        @if (Model.Pais == "Peru")
+        {
+            <span style="font-family: Arial;">Por la presente dejamos constancia que la Sra.(ta) @Model.NombreCompleto.Trim()</span>
+            <span style="font-family: Arial;"> identificada con DNI No. @Model.NumeroDocumento.Trim()</span>
+            <span style="font-family: Arial;"> es consultora BELCORP y a la fecha </span>
+            <span style="font-family: Arial; text-transform: uppercase;">@Model.DescripcionEstado</span>
+            <span style="font-family: Arial;"> pendiente de pago con @Model.RazonSocial</span>
+        }
+        else
+        {
+            <span style="font-family: Arial;">La se&ntilde;ora </span>
+            <span style="font-family: Arial;">@Model.NombreCompleto.Trim()</span>
+            <span style="font-family: Arial;"> identificada con la c&eacute;dula de ciudadan&iacute;a No. </span>
+            <span style="font-family: Arial;">@Model.NumeroDocumento.Trim()</span><span style="font-family: Arial;"> es Consultora Belcorp (compradora) y a la fecha </span>
+            <span style="font-family: Arial; text-transform: uppercase;">@Model.DescripcionEstado</span>
+            <span style="font-family: Arial;"> con la Compa&ntilde;&iacute;a @Model.RazonSocial</span>
+        }
+
     </p>
     <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
         <span style="font-family: Arial;">&nbsp;</span>
@@ -37,34 +106,17 @@
         <span style="font-family: Arial;">&nbsp;</span>
     </p>
     <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
-        <span style="font-family: Arial;">&nbsp;</span>
-    </p>
-    <p style="margin-top: 0pt; margin-bottom: 0pt; text-indent: 35.4pt; line-height: 115%; font-size: 12pt;">
-        <strong><em><span style="font-family: Arial;">Asunto</span></em></strong>
-        <em><span style="font-family: Arial;">: @Model.Asunto</span></em>
-    </p>
-    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
-        <span style="font-family: Arial;">&nbsp;</span>
-    </p>
-    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
-        <span style="font-family: Arial;">&nbsp;</span>
-    </p>
-    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: center; line-height: 115%; font-size: 12pt;">
-        <span style="font-family: Arial;">La suscrita se permite CERTIFICAR que:</span>
-    </p>
-    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: center; line-height: 115%; font-size: 12pt;">
-        <span style="font-family: Arial;">&nbsp;</span>
-    </p>
-    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
-        <span style="font-family: Arial;">&nbsp;</span>
-    </p>
-    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
-        <span style="font-family: Arial;">La se&ntilde;ora </span>
-        <span style="font-family: Arial;">@Model.NombreCompleto.Trim()</span>
-        <span style="font-family: Arial;"> identificada con la c&eacute;dula de ciudadan&iacute;a No. </span>
-        <span style="font-family: Arial;">@Model.NumeroDocumento.Trim()</span><span style="font-family: Arial;"> es Consultora Belcorp (compradora) y a la fecha </span>
-        <span style="font-family: Arial; text-transform: uppercase;">@Model.DescripcionEstado</span>
-        <span style="font-family: Arial;"> con la Compa&ntilde;&iacute;a @Model.RazonSocial</span>
+
+        @if (Model.Pais == "Peru")
+        {
+            <span style="font-family: Arial;">Se expide la presente para los fines que estime conveniente la interesada.</span>
+        }
+        else
+        {
+            <span style="font-family: Arial;">La presente se expide al </span>
+            <span style="font-family: Arial;">@Model.FechaCreacionTexto</span>
+        }
+
     </p>
     <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
         <span style="font-family: Arial;">&nbsp;</span>
@@ -73,17 +125,16 @@
         <span style="font-family: Arial;">&nbsp;</span>
     </p>
     <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
-        <span style="font-family: Arial;">La presente se expide al </span>
-        <span style="font-family: Arial;">@Model.FechaCreacionTexto</span>
-    </p>
-    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
-        <span style="font-family: Arial;">&nbsp;</span>
-    </p>
-    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
-        <span style="font-family: Arial;">&nbsp;</span>
-    </p>
-    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
-        <span style="font-family: Arial;">&nbsp;</span>
+
+        @if (Model.Pais == "Peru")
+        {
+            <span style="font-family: Arial;">@Model.Ciudad, @Model.FechaCreacion</span>
+        }
+        else
+        {
+            <span style="font-family: Arial;">&nbsp;</span>
+        }
+
     </p>
     <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
         <span style="font-family: Arial;">&nbsp;</span>
@@ -113,10 +164,24 @@
         <strong><span style="font-family: Arial;">@Model.Responsable.Trim()</span></strong>
     </p>
     <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 14pt;">
-        <strong><span style="font-family: Arial;">@Model.Cargo.Trim()</span></strong>
+        @if (Model.Pais == "Peru")
+        {
+            <strong><span style="font-family:Arial; ">@Model.DocumentoResponsable</span></strong>
+        }
+        else
+        {
+            <strong><span style="font-family:Arial; ">@Model.Cargo.Trim()</span></strong>
+        }
     </p>
     <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 14pt;">
-        <strong><span style="font-family: Arial;">@Model.RazonSocial</span></strong>
+        @if (Model.Pais == "Peru")
+        {
+            <strong><span style="font-family:Arial; ">@Model.Cargo.Trim()</span></strong>
+        }
+        else
+        {
+            <strong><span style="font-family:Arial; ">@Model.RazonSocial</span></strong>
+        }
     </p>
     <p style="margin-top: 0pt; margin-bottom: 10pt; text-align: justify; line-height: 115%; font-size: 12pt;">
         <span style="font-family: Arial;">&nbsp;</span>
