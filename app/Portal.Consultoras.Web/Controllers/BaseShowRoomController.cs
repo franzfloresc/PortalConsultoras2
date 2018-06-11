@@ -614,7 +614,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return listadoOfertasTodasModel;
                 }
 
-                List<ServiceOferta.BEShowRoomOferta> listaShowRoomCpc = GetProductosCompraPorCompraService(eventoId, campaniaId);
+                List<ServiceOferta.BEShowRoomOferta> listaShowRoomCpc = GetProductosCompraPorCompra(eventoId, campaniaId);
                 listaShowRoomCpc = ObtenerListaProductoShowRoomMdo(listaShowRoomCpc);
 
                 var listaTieneStock = new List<Lista>();
@@ -920,16 +920,13 @@ namespace Portal.Consultoras.Web.Controllers
             return listadoOfertasTodasModel1;
         }
 
-        private List<ServiceOferta.BEShowRoomOferta> GetProductosCompraPorCompraService(int campaniaId, int eventoId)
+        private List<ServiceOferta.BEShowRoomOferta> GetProductosCompraPorCompra(UsuarioModel usuario, int eventoId)
         {
-            List<ServiceOferta.BEShowRoomOferta> listaShowRoomCpc;
-
-            using (OfertaServiceClient ofertaServiceClient = new OfertaServiceClient())
+            using (var ofertaService = new OfertaServiceClient())
             {
-                listaShowRoomCpc = ofertaServiceClient.GetProductosCompraPorCompra(userData.PaisID, eventoId, campaniaId).ToList();
+                var listaShowRoomCpc = ofertaService.GetProductosCompraPorCompra(usuario.PaisID, eventoId, usuario.CampaniaID).ToList();
+                return listaShowRoomCpc;
             }
-
-            return listaShowRoomCpc;
         }
 
         #endregion
