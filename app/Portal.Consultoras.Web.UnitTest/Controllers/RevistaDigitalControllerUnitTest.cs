@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Web.Mvc;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.SessionManager;
-using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceOferta;
 using System.Collections.Generic;
 using Portal.Consultoras.Web.Models.AutoMapper;
 
