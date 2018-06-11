@@ -186,12 +186,11 @@ namespace Portal.Consultoras.Web.Models
         public bool EsSubCampania { get; set; }
         public int UnidadesPermitidasRestantes { get; set; }
 
-        public List<ProductoModel> ProductoTonos { get; set; }
+        //public List<ProductoModel> ProductoTonos { get; set; }
 
-        public int EstrategiaId { get; set; }
+        //public int EstrategiaId { get; set; }
         
         public int TipoAccionAgregar { get; set; }
-
         public string FBMensaje { get; set; }
         public string WAMensaje { get; set; }
         #endregion

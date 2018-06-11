@@ -842,9 +842,10 @@ function EstrategiaAgregarShowRoom(event, popup) {
 
         if (ValidarUnidadesPermitidas(data, cantidad)) {
 
+            debugger;
             var params = ({
                 CuvTonos: $.trim(cuvs),
-                EstrategiaID: $.trim(estrategia.EstrategiaId),
+                EstrategiaID: $.trim(estrategia.OfertaShowRoomID),
                 FlagNueva: "0",
                 Cantidad: $.trim(cantidad),
                 OrigenPedidoWeb: $.trim(origen),

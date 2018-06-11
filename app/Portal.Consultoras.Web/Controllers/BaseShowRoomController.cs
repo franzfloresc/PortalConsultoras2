@@ -537,7 +537,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             #endregion
 
-            ofertaShowRoomModelo.ProductoTonos = listaProductoConFactorCuadre;
+            ofertaShowRoomModelo.Hermanos = listaProductoConFactorCuadre;
             ofertaShowRoomModelo.CodigoEstrategia = codigoVariante;
             /*TONOS-FIN*/
 
@@ -567,7 +567,7 @@ namespace Portal.Consultoras.Web.Controllers
             };
 
             var listaHermanos = GetListaHermanos(estrategiaModelo);
-            ofertaShowRoomModelo.ProductoTonos = listaHermanos;
+            ofertaShowRoomModelo.Hermanos = listaHermanos;
 
             return ofertaShowRoomModelo;
         }

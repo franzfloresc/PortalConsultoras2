@@ -1120,7 +1120,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var estrategiaSR = sessionManager.GetEstrategiaSR();
             var modelo = ViewDetalleOferta(id);
-            modelo.EstrategiaId = id;
+
             var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
             modelo.ListaOfertaShowRoom = xList;
 

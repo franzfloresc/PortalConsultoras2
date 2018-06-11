@@ -100,10 +100,10 @@
                 @if (Model.CodigoProducto != "")
                 {
                     <div data-estrategia="@Model.CodigoEstrategia">
-                        @if (Model.ProductoTonos != null && Model.ProductoTonos.Any())
+                        @if (Model.Hermanos != null && Model.Hermanos.Any())
                             {
                                 <div>
-                                    @foreach (var producto in Model.ProductoTonos)
+                                    @foreach (var producto in Model.Hermanos)
                                     {
                                         if ((producto.NombreComercial ?? "") == "" && producto.Digitable != 1)
                                         {
