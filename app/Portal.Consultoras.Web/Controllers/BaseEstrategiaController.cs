@@ -82,7 +82,7 @@ namespace Portal.Consultoras.Web.Controllers
             return listEstrategia;
         }
 
-        protected virtual List<BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, int campaniaId = 0)
+        private List<BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, int campaniaId = 0)
         {
             var listEstrategia = new List<BEEstrategia>();
             try
@@ -145,7 +145,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!listEstrategia.Any() && sessionManager.GetFlagLogCargaOfertas() &&
                     tipo != Constantes.TipoEstrategiaCodigo.OfertaWeb &&
                     tipo != Constantes.TipoEstrategiaCodigo.PackNuevas)
-                    EnviarLogOferta(CrearDataLog(campaniaId, ObtenerConstanteConfPais(tipo)));
+                    EnviarLogOferta(CrearDataLog(campaniaId, _ofertaPersonalizadaProvider.ObtenerConstanteConfPais(tipo)));
 
             }
             catch (Exception ex)
@@ -540,20 +540,20 @@ namespace Portal.Consultoras.Web.Controllers
             };
         }
 
-        private string ObtenerConstanteConfPais(string codigoAgrupacion)
-        {
-            switch (codigoAgrupacion)
-            {
-                case Constantes.TipoEstrategiaCodigo.RevistaDigital:
-                    return Constantes.ConfiguracionPais.RevistaDigital;
-                case Constantes.TipoEstrategiaCodigo.Lanzamiento:
-                    return Constantes.ConfiguracionPais.Lanzamiento;
-                case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
-                    return Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada;
-                default:
-                    return Constantes.ConfiguracionPais.OfertasParaTi;
-            }
-        }
+        //private string ObtenerConstanteConfPais(string codigoAgrupacion)
+        //{
+        //    switch (codigoAgrupacion)
+        //    {
+        //        case Constantes.TipoEstrategiaCodigo.RevistaDigital:
+        //            return Constantes.ConfiguracionPais.RevistaDigital;
+        //        case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+        //            return Constantes.ConfiguracionPais.Lanzamiento;
+        //        case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+        //            return Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada;
+        //        default:
+        //            return Constantes.ConfiguracionPais.OfertasParaTi;
+        //    }
+        //}
 
         #endregion
     }

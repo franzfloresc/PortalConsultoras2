@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Web.Providers
                     palanca = model.CampaniaID != userData.CampaniaID
                         || (revistaDigital.TieneRDC && revistaDigital.EsActiva)
                         ? Constantes.TipoEstrategiaCodigo.RevistaDigital
-                        : string.Empty;
+                        : Constantes.TipoEstrategiaCodigo.OfertaParaTi;
                 }
             }
             else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.GNDObtenerProductos)
@@ -270,6 +270,20 @@ namespace Portal.Consultoras.Web.Providers
             return (campaniaId < userData.CampaniaID || campaniaId > Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias));
         }
 
+        public string ObtenerConstanteConfPais(string codigoAgrupacion)
+        {
+            switch (codigoAgrupacion)
+            {
+                case Constantes.TipoEstrategiaCodigo.RevistaDigital:
+                    return Constantes.ConfiguracionPais.RevistaDigital;
+                case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+                    return Constantes.ConfiguracionPais.Lanzamiento;
+                case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                    return Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada;
+                default:
+                    return Constantes.ConfiguracionPais.OfertasParaTi;
+            }
+        }
         #endregion
 
     }
