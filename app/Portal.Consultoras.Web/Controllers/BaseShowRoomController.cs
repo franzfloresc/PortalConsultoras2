@@ -588,7 +588,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (sessionManager.ShowRoom.Ofertas != null) return sessionManager.ShowRoom.Ofertas;
 
-            var listaShowRoomOferta = ObtenerListaProductoShowRoomService(campaniaId, codigoConsultora);
+            var listaShowRoomOferta = GetShowRoomOfertasConsultora(userData);
+
             if (conFiltroMdo)
                 listaShowRoomOferta = ObtenerListaProductoShowRoomMdo(listaShowRoomOferta, Constantes.FlagRevista.Valor0);
 
@@ -711,7 +712,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected EstrategiaPedidoModel ObtenerPrimeraOfertaShowRoom()
         {
-            var ofertasShowRoom = ObtenerListaProductoShowRoomService(userData.CampaniaID, userData.CodigoConsultora);
+            var ofertasShowRoom = GetShowRoomOfertasConsultora(userData);
             ofertasShowRoom = ObtenerListaProductoShowRoomMdo(ofertasShowRoom);
             ActualizarUrlImagenes(ofertasShowRoom);
 
@@ -818,16 +819,14 @@ namespace Portal.Consultoras.Web.Controllers
             });
         }
 
-        private List<ServiceOferta.BEShowRoomOferta> ObtenerListaProductoShowRoomService(int campaniaId, string codigoConsultora)
+        private List<ServiceOferta.BEShowRoomOferta> GetShowRoomOfertasConsultora(UsuarioModel usuario)
         {
-            List<ServiceOferta.BEShowRoomOferta> listaShowRoomOferta;
 
-            using (OfertaServiceClient ofertaService = new OfertaServiceClient())
+            using (var ofertaService = new OfertaServiceClient())
             {
-                listaShowRoomOferta = ofertaService.GetShowRoomOfertasConsultora(userData.PaisID, campaniaId, codigoConsultora).ToList();
+                var listaShowRoomOferta = ofertaService.GetShowRoomOfertasConsultora(usuario.PaisID, usuario.CampaniaID, usuario.CodigoConsultora).ToList();
+                return listaShowRoomOferta;
             }
-
-            return listaShowRoomOferta;
         }
 
         private List<ServiceOferta.BEShowRoomOferta> ObtenerListaProductoShowRoomMdo(List<ServiceOferta.BEShowRoomOferta> listaShowRoomOferta, int flagRevistaValor = 0)
