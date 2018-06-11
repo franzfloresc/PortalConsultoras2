@@ -20,10 +20,10 @@ namespace Portal.Consultoras.Web.SessionManager
             }
         }
 
-        public List<ServiceOferta.BEShowRoomOferta> Ofertas {
+        public List<EstrategiaPedidoModel> Ofertas {
             get
             {
-                return (List<ServiceOferta.BEShowRoomOferta>) HttpContext.Current.Session[Constantes.ConstSession.ListaProductoShowRoom];
+                return (List<EstrategiaPedidoModel>) HttpContext.Current.Session[Constantes.ConstSession.ListaProductoShowRoom];
             }
             set
             {

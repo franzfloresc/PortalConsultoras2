@@ -586,11 +586,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var listaDetalle = ObtenerPedidoWebDetalle();
 
-            if (sessionManager.ShowRoom.Ofertas != null)
-            {
-                List<EstrategiaPedidoModel> listadoOfertasTodasModel = ObtenerListaProductoShowRoomSession(listaDetalle);
-                return listadoOfertasTodasModel;
-            }
+            if (sessionManager.ShowRoom.Ofertas != null) return sessionManager.ShowRoom.Ofertas;
 
             var listaShowRoomOferta = ObtenerListaProductoShowRoomService(campaniaId, codigoConsultora);
             if (conFiltroMdo)
@@ -834,25 +830,6 @@ namespace Portal.Consultoras.Web.Controllers
             return listaShowRoomOferta;
         }
 
-        private List<EstrategiaPedidoModel> ObtenerListaProductoShowRoomSession(List<BEPedidoWebDetalle> listaPedidoDetalle)
-        {
-            var listadoOfertasTodas = sessionManager.ShowRoom.Ofertas;
-            List<EstrategiaPedidoModel> listadoOfertasTodasModel = Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listadoOfertasTodas);
-            listadoOfertasTodasModel.Update(x =>
-            {
-                x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
-                x.CodigoISO = userData.CodigoISO;
-                x.Simbolo = userData.Simbolo;
-                x.Agregado = (listaPedidoDetalle.Find(p => p.CUV == x.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none";
-                string CodigoEstrategia = listadoOfertasTodas.Where(f => f.CUV == x.CUV).Select(o => o.CodigoEstrategia).FirstOrDefault();
-
-                x.TipoAccionAgregar = TipoAccionAgregar(0, Constantes.TipoEstrategiaCodigo.ShowRoom, false, CodigoEstrategia);
-
-            });
-            return listadoOfertasTodasModel;
-
-        }
-
         private List<ServiceOferta.BEShowRoomOferta> ObtenerListaProductoShowRoomMdo(List<ServiceOferta.BEShowRoomOferta> listaShowRoomOferta, int flagRevistaValor = 0)
         {
             if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
@@ -924,7 +901,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            sessionManager.ShowRoom.Ofertas = listaShowRoomOfertaFinal;
             List<EstrategiaPedidoModel> listadoOfertasTodasModel1 = Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listaShowRoomOfertaFinal);
 
             listadoOfertasTodasModel1.Update(x =>
@@ -938,6 +914,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 x.TipoAccionAgregar = TipoAccionAgregar(0, Constantes.TipoEstrategiaCodigo.ShowRoom, false, CodigoEstrategia);
             });
+
+            sessionManager.ShowRoom.Ofertas = listadoOfertasTodasModel1;
+
             return listadoOfertasTodasModel1;
         }
 

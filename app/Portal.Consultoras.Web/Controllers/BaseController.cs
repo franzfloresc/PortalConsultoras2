@@ -14,7 +14,6 @@ using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServiceODS;
-using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServicePedidoRechazado;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
@@ -41,9 +40,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-using BEShowRoomEventoConsultora = Portal.Consultoras.Web.ServiceOferta.BEShowRoomEventoConsultora;
-using BEShowRoomNivel = Portal.Consultoras.Web.ServiceOferta.BEShowRoomNivel;
-using BEShowRoomOferta = Portal.Consultoras.Web.ServiceOferta.BEShowRoomOferta;
+using EstrategiaPedidoModel = Portal.Consultoras.Web.Models.EstrategiaPedidoModel;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -3986,7 +3983,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
 
-                var listaShowRoom = sessionManager.ShowRoom.Ofertas ?? new List<BEShowRoomOferta>();
+                var listaShowRoom = sessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPedidoModel>();
                 seccion.CantidadProductos = listaShowRoom.Count(x => !x.EsSubCampania);
                 seccion.CantidadMostrar = Math.Min(3, seccion.CantidadProductos);
             }
