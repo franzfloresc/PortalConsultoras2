@@ -16,10 +16,12 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900" rel="stylesheet" type="text/css">
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
     {
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/styleDefault.css")">
         <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/verificacion-pin.css")">
     }
     else
     {
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Lbel/styleDefault.css")">
         <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Lbel/verificacion-pin.css")">
     }
     @Styles.Render("~/Content/Css/Login")
@@ -33,12 +35,12 @@
                     <img src="@Url.Content("~/Content/Images/icono_volver_mobile.svg")" alt="" />
                 </a>
                 <div class="inline-block v-alignMiddle">
-                    <span>VERIFICA</span> TU AUTENTICIDAD
+                    <span class="text-bold">VERIFICA</span> TU AUTENTICIDAD
                 </div>
             </div>
         </div>
         <hr class="clear" />
-        <div class="linea_separadora" style="margin-top:-1px"></div>
+        <div class="linea_separadora" style="margin-top:-10px"></div>
     </div>
 
     <section class="block vista_flujo_restablecer_contrasenia">
@@ -116,13 +118,11 @@
                         </fieldset>
                         <div class="block codigo_sms_caducidad text-uppercase">El código caduca en <span id="spnMin" class="default-color">03</span>:<span id="spnSeg" class="default-color">00</span></div>
                     </div>
-                    <p id="linkRenviarSms" class="w-100 envio_instrucciones_info block mb-45 mb-20-mobile">
-                        <a title="Reenvíenme el código" class="block enlace_reenviar_instrucciones w-100 text-uppercase text-bold RecuperarPorSms" style="cursor:pointer;">
+                    <p id="linkRenviarSms" class="w-100 envio_instrucciones_info block mb-35 mb-20-mobile">
+                        <a title="Reenvíenme el código" class="block enlace_reenviar_instrucciones w-100 mb-10 text-uppercase text-bold RecuperarPorSms" style="cursor:pointer;">
                             Reenvíenme el código
                         </a>
-                    </p>
-                    <p class="w-100 envio_instrucciones_info block mb-45 mb-20-mobile escogeOtraOpcion" style="display:none;">
-                        <a title="Escoger otra opción" class="block enlace_reenviar_instrucciones w-100 text-uppercase text-bold" style="color:red;cursor:pointer;">
+                        <a title="Escoger otra opción" style="display:none;" class="block escogeOtraOpcion default-color enlace_reenviar_instrucciones w-100 text-uppercase text-bold" style="color:red;cursor:pointer;">
                             Escoger otra opción
                         </a>
                     </p>
@@ -156,16 +156,29 @@
                         <span class="w-100 block mb-7">Te hemos enviado las instrucciones a:</span>
                         <span class="w-100 block text-bold font-size-17">valeria.tarazona@gmail.com</span>
                     </p>
+                    <div class="area_ingreso_codigo_sms block mb-35 mb-20-mobile">
+                        <div class="block texto_ingreso_codigo text-uppercase text-bold">Ingresa el código aquí</div>
+                        <fieldset class="block center-block campos_ingreso_codigo_sms">
+                            <input id="1Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="2Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="3Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="4Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="5Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="6Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <div class="block icono_validacion_codigo_sms validacion_erronea"></div>
+                        </fieldset>
+                        <div class="block codigo_sms_caducidad text-uppercase">El código caduca en <span class="default-color">03:00</span></div>
+                    </div>
                     <p class="w-100 block envio_instrucciones_info mb-50">
                         <span class="w-100 block mb-13">¿Aún no recibes nuestro correo?</span>
                         <a href="#" title="Reenvíenme las instrucciones" class="block enlace_reenviar_instrucciones w-100 text-uppercase text-bold">
                             Reenvíenme las instrucciones
                         </a>
                     </p>
-                    <p class="w-100 block cambiar_correo_info">
+                    @*<p class="w-100 block cambiar_correo_info">
                         <span class="inline-block v-alignMiddle">¿Este no es tu correo?</span>
                         <a href="#" title="Cambia tu correo" class="inline-block v-alignMiddle enlace_cambiar_correo text-bold">Cambia tu correo</a>
-                    </p>
+                    </p>*@
                 </div>
                 <div id="divPaso3Email" class="correo_validado block text-center" style="display:none;">
                     <div class="icono_validacion_correo_exitoso block center-block mt-20-mobile"></div>
