@@ -57,7 +57,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             {
                 var codAgrupa = (revistaDigital.TieneRDC && revistaDigital.EsActiva)
                     || (revistaDigital.TieneRDC && revistaDigital.ActivoMdo) ?
-                    Constantes.TipoEstrategiaCodigo.RevistaDigital : "";
+                    Constantes.TipoEstrategiaCodigo.RevistaDigital : Constantes.TipoEstrategiaCodigo.OfertaParaTi;
 
                 var listModel = ConsultarEstrategiasHomePedido(codAgrupa);
 

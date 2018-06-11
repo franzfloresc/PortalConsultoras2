@@ -244,7 +244,7 @@ namespace Portal.Consultoras.Web.Controllers
             ConsultarEstrategias(userData.CampaniaID, Constantes.TipoEstrategiaCodigo.Lanzamiento);
             ConsultarEstrategias(userData.CampaniaID, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
             ConsultarEstrategias(userData.CampaniaID, Constantes.TipoEstrategiaCodigo.LosMasVendidos);
-            ConsultarEstrategias(userData.CampaniaID, string.Empty);
+            ConsultarEstrategias(userData.CampaniaID, Constantes.TipoEstrategiaCodigo.OfertaParaTi);
         }
 
         private string RegistroSuscripcionValidar(int tipo)
