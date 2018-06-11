@@ -472,11 +472,14 @@ function ValidarExcel() {
                                         var cuv = "";
                                         regInValidos += "<tr style='background-color: white;'>";
                                         for (var j = 0; j < 4; j++) {
-                                            cuv = colum[0];
-                                        
+                                            cuv = colum[0];                                   
                                             regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'><div contenteditable='true'>";
-                                           if (j == 2) {
-                                                regInValidos += parseFloat(colum[j]).toFixed(2);
+                                           if (j == 2) {                                              
+                                               if (isNaN(colum[j]) || colum[j].trim().length==0) {
+                                                   regInValidos += colum[j];
+                                               } else
+                                                   regInValidos += parseFloat(colum[j]).toFixed(2);
+
                                             } else
                                                 regInValidos += colum[j];
                                             regInValidos += "</div></td>";
@@ -487,9 +490,13 @@ function ValidarExcel() {
                                         for (var p = 0; p < list.length; p++) {
                                             if (cuv == list[p].split('¦')[0]) Obs += list[p].split('¦')[2];
                                         }
-                                        for (var k = 0; k <= listCuvInval.length; k++) {
-                                            if (cuv == listCuvInval[k].split('¦')[0]) Obs += " - CUV no registrado en campaña seleccionada";
+
+                                        if (listCuvInval[0].trim().length>0) {
+                                            for (var k = 0; k <= listCuvInval.length; k++) {
+                                                if (cuv == listCuvInval[k].split('¦')[0]) Obs += " - CUV no registrado en campaña seleccionada";
+                                            }
                                         }
+                                   
                                         regInValidos += Obs;
                                         regInValidos += "</td>";
 
@@ -502,7 +509,10 @@ function ValidarExcel() {
                           
                                 }
 
-                                if (encontro==1) {
+                                if (encontro == 1) {
+                                    document.getElementById('divRegistrosInvalidos').style.display = 'block';
+                                    document.getElementById('divExportarExcel').style.display = 'block';
+                                    document.getElementById('spanInValido').innerHTML = contInValidos.toString();
                                     continue;
                                 }
                    
@@ -512,6 +522,9 @@ function ValidarExcel() {
                                 //if (colum[j].trim().length <= 0) continue;
                                 regValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'>";
                                 if (j == 2) {
+                                    if (isNaN(colum[j]) || colum[j].trim().length == 0) {
+                                        regValidos += colum[j];
+                                    }else
                                     regValidos += parseFloat(colum[j]).toFixed(2);
                                 } else
                                     regValidos += colum[j];
@@ -536,7 +549,6 @@ function ValidarExcel() {
                                 document.getElementById('divExportarExcel').style.display = 'None';
                                 document.getElementById('spanInValido').innerHTML = contInValidos.toString();
                             }
-
 
                         }
                         else
@@ -565,7 +577,10 @@ function ValidarExcel() {
                                     regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'><div contenteditable='true'>";
                                     //regInValidos += colum[j];
                                     if (j == 2) {
-                                        regInValidos += parseFloat(colum[j]).toFixed(2);
+                                        if (isNaN(colum[j]) || colum[j].trim().length == 0) {
+                                            regInValidos += colum[j];
+                                        } else
+                                            regInValidos += parseFloat(colum[j]).toFixed(2);
                                     } else
                                         regInValidos += colum[j];
 
@@ -577,9 +592,13 @@ function ValidarExcel() {
                                 for (var p = 0; p < list.length; p++) {
                                     if (cuv == list[p].split('¦')[0] && descrip == list[p].split('¦')[1] ) Obs += list[p].split('¦')[2];
                                 }
-                                for (var k = 0; k < listCuvInval.length; k++) {
-                                    if (cuv == listCuvInval[k].split('¦')[0] ) Obs += " - CUV no registrado en campaña seleccionada";
+
+                                if (listCuvInval[0].trim().length > 0) {
+                                    for (var k = 0; k < listCuvInval.length; k++) {
+                                        if (cuv == listCuvInval[k].split('¦')[0]) Obs += " - CUV no registrado en campaña seleccionada";
+                                    }
                                 }
+                              
                                 regInValidos += Obs;
                                 regInValidos += "</td>";
 
@@ -730,7 +749,11 @@ function ValidarInvalidos() {
                                         regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'><div contenteditable='true'>";
                                         //regInValidos += colum[j];
                                         if (j == 2) {
-                                            regInValidos += parseFloat(colum[j]).toFixed(2);
+                                       
+                                            if (isNaN(colum[j]) || colum[j].trim().length == 0) {
+                                                regInValidos += colum[j];
+                                            } else
+                                                regInValidos += parseFloat(colum[j]).toFixed(2);
                                         } else
                                             regInValidos += colum[j];
 
@@ -743,10 +766,12 @@ function ValidarInvalidos() {
                                     for (var p = 0; p < list.length; p++) {
                                         if (cuv == list[p].split('¦')[0] && descrip == list[p].split('¦')[1]) Obs += list[p].split('¦')[2];
                                     }
-                                    for (var k = 0; k < listCuvInval.length; k++) {
-                                        if (cuv == listCuvInval[k].split('¦')[0]) Obs += " - CUV no registrado en campaña seleccionada";//&& descrip == list[p].split('¦')[1]
-                                    }
 
+                                    if (listCuvInval[0].trim().length > 0) {
+                                        for (var k = 0; k < listCuvInval.length; k++) {
+                                            if (cuv == listCuvInval[k].split('¦')[0]) Obs += " - CUV no registrado en campaña seleccionada";//&& descrip == list[p].split('¦')[1]
+                                        }
+                                    }
 
                                     regInValidos += Obs;
                                     regInValidos += "</td>";
@@ -799,8 +824,6 @@ function ValidarInvalidos() {
                             cell3.style.textAlign  = "center";
                             cell4.style.textAlign  = "center";
                         
-                         
-                              
                                 document.getElementById('divregistrosValidos').style.display = 'Block';
                                 document.getElementById('divProcesarMasivo').style.display = 'Block';
                                 document.getElementById('spanValido').innerHTML = contValidos.toString();
@@ -831,7 +854,10 @@ function ValidarInvalidos() {
                                 regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'><div contenteditable='true'>";
                                 //regInValidos += colum[j];
                                 if (j == 2) {
-                                    regInValidos += parseFloat(colum[j]).toFixed(2);
+                                    if (isNaN(colum[j]) || colum[j].trim().length == 0) {
+                                        regInValidos += colum[j];
+                                    } else
+                                        regInValidos += parseFloat(colum[j]).toFixed(2);
                                 } else
                                     regInValidos += colum[j];
 
@@ -845,10 +871,11 @@ function ValidarInvalidos() {
                             for (var p = 0; p < list.length; p++) {
                                         if (cuv == list[p].split('¦')[0] && descrip == list[p].split('¦')[1]) Obs += list[p].split('¦')[2];
                             }
-                            for (var k = 0; k < listCuvInval.length; k++) {
-                                        if (cuv == listCuvInval[k].split('¦')[0] ) Obs += " - CUV no registrado en campaña seleccionada";
+                            if (listCuvInval[0].trim().length > 0) {
+                                for (var k = 0; k < listCuvInval.length; k++) {
+                                    if (cuv == listCuvInval[k].split('¦')[0]) Obs += " - CUV no registrado en campaña seleccionada";
+                                }
                             }
-
                             regInValidos += Obs;
                             regInValidos += "</td>";
 
