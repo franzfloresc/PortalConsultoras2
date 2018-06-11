@@ -172,18 +172,13 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 showRoomEventoModel = configEstrategiaSR.BeShowRoom;
-                var codigoConsultora = userData.CodigoConsultora;
-
                 showRoomEventoModel.Simbolo = userData.Simbolo;
                 showRoomEventoModel.CodigoIso = userData.CodigoISO;
 
-                var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-                bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
-
-                var listaShowRoomOferta = ObtenerListaProductoShowRoom(userData.CampaniaID, codigoConsultora, esFacturacion);
+                var listaShowRoomOferta = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion);
                 showRoomEventoModel.ListaShowRoomOferta = listaShowRoomOferta;
 
-                var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, showRoomEventoModel.EventoID, showRoomEventoModel.CampaniaID);
+                var listaCompraPorCompra = GetProductosCompraPorCompra(userData.EsDiasFacturacion, showRoomEventoModel.EventoID, showRoomEventoModel.CampaniaID);
                 showRoomEventoModel.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
 
                 var listaCategoria = new List<ShowRoomCategoriaModel>();
