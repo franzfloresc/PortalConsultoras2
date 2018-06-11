@@ -44,7 +44,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var modelo = sessionManager.GetProductoTemporal();
-                if (modelo == null || modelo.EstrategiaID == 0 || EsCampaniaFalsa(modelo.CampaniaID) ||
+                if (modelo == null || modelo.EstrategiaID == 0 || _ofertaPersonalizadaProvider.EsCampaniaFalsa(modelo.CampaniaID) ||
                     modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
                 {
                     return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });

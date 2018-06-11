@@ -63,6 +63,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected ConfigModel configEstrategiaSR;
         private readonly BaseProvider _baseProvider;
         private readonly GuiaNegocioProvider _guiaNegocioProvider;
+        public readonly OfertaPersonalizadaProvider _ofertaPersonalizadaProvider;
         #endregion
 
         #region Constructor
@@ -78,6 +79,7 @@ namespace Portal.Consultoras.Web.Controllers
             //configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
             _baseProvider = new BaseProvider();
             _guiaNegocioProvider = new GuiaNegocioProvider();
+            _ofertaPersonalizadaProvider = new OfertaPersonalizadaProvider();
         }
 
         public BaseController(ISessionManager sessionManager)
@@ -6068,7 +6070,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ConfiguracionPaisDatosModel ObtenerPerdio(int campaniaId)
         {
             var dato = new ConfiguracionPaisDatosModel();
-            if (TieneProductosPerdio(campaniaId))
+            if (_ofertaPersonalizadaProvider.TieneProductosPerdio(campaniaId))
             {
                 var codigo = "";
                 bool upper = false;
@@ -6107,14 +6109,13 @@ namespace Portal.Consultoras.Web.Controllers
             return dato;
         }
         
-        public bool TieneProductosPerdio(int campaniaId)
-        {
-            if (revistaDigital.TieneRDC && !revistaDigital.EsActiva &&
-                campaniaId == userData.CampaniaID)
-                return true;
-
-            return false;
-        }
+        //public bool TieneProductosPerdio(int campaniaId)
+        //{
+        //    if (revistaDigital.TieneRDC && !revistaDigital.EsActiva &&
+        //        campaniaId == userData.CampaniaID)
+        //        return true;
+        //    return false;
+        //}
         #endregion
 
     }

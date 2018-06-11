@@ -70,7 +70,7 @@ namespace Portal.Consultoras.Web.Controllers
             var id = tipo == 1 ? userData.CampaniaID : Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
 
             var model = new RevistaDigitalLandingModel();
-            if (EsCampaniaFalsa(id)) return PartialView("template-landing", model);
+            if (_ofertaPersonalizadaProvider.EsCampaniaFalsa(id)) return PartialView("template-landing", model);
 
             model.CampaniaID = id;
             model.IsMobile = IsMobile();
@@ -129,7 +129,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
             }
 
-            if (EsCampaniaFalsa(modelo.CampaniaID))
+            if (_ofertaPersonalizadaProvider.EsCampaniaFalsa(modelo.CampaniaID))
             {
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
             }
@@ -153,48 +153,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
         
-        private ConfiguracionPaisDatosModel ObtenerPerdio(int campaniaId)
-        {
-            var dato = new ConfiguracionPaisDatosModel();
-            if (TieneProductosPerdio(campaniaId))
-            {
-                var codigo = "";
-                bool upper = false;
-                if (!revistaDigital.EsSuscrita)
-                {
-                    codigo = Constantes.ConfiguracionPaisDatos.RD.NSPerdiste;
-                    upper = true;
-                }
-                else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
-                {
-                    codigo = Constantes.ConfiguracionPaisDatos.RD.SNAPerdiste;
-                    upper = true;
-                }
-                else
-                {
-                    codigo = IsMobile() ? Constantes.ConfiguracionPaisDatos.RD.MPerdiste : Constantes.ConfiguracionPaisDatos.RD.DPerdiste;
-                }
-
-                dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
-
-                dato.Valor1 = RemplazaTag(dato.Valor1, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
-                dato.Valor2 = RemplazaTag(dato.Valor2, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
-
-                if (upper)
-                {
-                    dato.Valor1 = dato.Valor1.ToUpper();
-                    dato.Valor2 = dato.Valor2.ToUpper();
-                }
-                
-                dato.Estado = true;
-            }
-
-            dato.Valor1 = Util.Trim(dato.Valor1);
-            dato.Valor2 = Util.Trim(dato.Valor2);
-
-            return dato;
-        }
-
         private string GetVideoInformativo()
         {
             var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.InformativoVideo) ?? new ConfiguracionPaisDatosModel();

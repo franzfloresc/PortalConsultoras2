@@ -1,7 +1,7 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.SessionManager;
-using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -11,6 +11,8 @@ namespace Portal.Consultoras.Web.Providers
     public class OfertaPersonalizadaProvider
     {
         private readonly ISessionManager sessionManager = SessionManager.SessionManager.Instance;
+
+        #region Metodos de Estrategia Controller
         
         public string ConsultarOfertasTipoPalanca(BusquedaProductoModel model, int tipo)
         {
@@ -176,7 +178,7 @@ namespace Portal.Consultoras.Web.Providers
             return retorno;
         }
         
-        private bool TieneProductosPerdio(int campaniaId)
+        public bool TieneProductosPerdio(int campaniaId)
         {
             var revistaDigital = sessionManager.GetRevistaDigital();
             var userData = sessionManager.GetUserData();
@@ -186,6 +188,47 @@ namespace Portal.Consultoras.Web.Providers
                 return true;
 
             return false;
+        }
+
+        public bool ConsultarOfertasValidarPermiso(BusquedaProductoModel model, int tipo)
+        {
+            var revistaDigital = sessionManager.GetRevistaDigital();
+            var _guiaNegocioProvider = new GuiaNegocioProvider();
+
+            if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos)
+            {
+                if (model == null || !(revistaDigital.TieneRevistaDigital()) || EsCampaniaFalsa(model.CampaniaID))
+                {
+                    return false;
+                }
+            }
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.GNDObtenerProductos)
+            {
+                var userData = sessionManager.GetUserData();
+                var guiaNegocio = sessionManager.GetGuiaNegocio();
+
+                if (!_guiaNegocioProvider.GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
+                {
+                    return false;
+                }
+            }
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.HVObtenerProductos)
+            {
+                return true;
+            }
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductosLan)
+            {
+                if (!(revistaDigital.TieneRevistaDigital()) || EsCampaniaFalsa(model.CampaniaID))
+                {
+                    return false;
+                }
+            }
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.OPTObtenerProductos)
+            {
+                return true;
+            }
+
+            return true;
         }
 
         #region Mas Vendidos
@@ -216,6 +259,19 @@ namespace Portal.Consultoras.Web.Providers
             return model;
         }
         #endregion
+
+        #endregion
+
+        #region Metodos de Base estrategia Controller
+
+        public bool EsCampaniaFalsa(int campaniaId)
+        {
+            var userData = sessionManager.GetUserData();
+            return (campaniaId < userData.CampaniaID || campaniaId > Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias));
+        }
+
+        #endregion
+
     }
 
 }

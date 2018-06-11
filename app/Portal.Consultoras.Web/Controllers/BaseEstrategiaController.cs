@@ -409,7 +409,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool EsCampaniaFalsa(int campaniaId)
         {
-            return (campaniaId < userData.CampaniaID || campaniaId > AddCampaniaAndNumero(userData.CampaniaID, 1));
+            return (campaniaId < userData.CampaniaID || campaniaId > Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias));
         }
 
         #region Metodos Privados
