@@ -102,6 +102,7 @@
 
             if (btnActivar) {
                 prod.parents("[data-item]").find("#tbnAgregarProducto").removeClass("btn_desactivado_general");
+                prod.parents("[data-item]").find('#btnAgregalo').removeClass('btn_desactivado_general');
             }
         },
         mouseMoveTono: function() {

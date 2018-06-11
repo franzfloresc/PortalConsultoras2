@@ -138,16 +138,16 @@
                                                     {
                                                         <div class="tonos_set_individual">
                                                             <div class="tono_select_opt">
-                                                                <div class="content_tono_elegido texto_sin_tono" data-tono-showroom-change="1">
+                                                                <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
                                                                     <div class="tono_seleccionado" style="display: none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
                                                                     <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
                                                                     <hr class="clear" />
                                                                 </div>
-                                                                <div class="content_tonos_select" style="width:102%;">
+                                                                <div class="content_tonos_select" style="width:102%;" data-tono-select-area="1">
                                                                     @foreach (var tono in producto.Hermanos)
                                                                     {
                                                                         btnDesabled = 1;
-                                                                        <div class="content_tono_elegido" data-tono-showroom-change="2" data-tono-cuv="@tono.CUV" data-tono-nombre="@tono.NombreBulk" data-tono-descripcion="@tono.NombreComercial">
+                                                                        <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@tono.CUV" data-tono-nombre="@tono.NombreBulk" data-tono-descripcion="@tono.NombreComercial">
                                                                             <div class="tono_seleccionado"><img src="@tono.ImagenBulk" alt=""></div>
                                                                             <div class="texto_tono_seleccionado">@tono.NombreBulk</div>
                                                                             <hr class="clear" />
@@ -391,6 +391,7 @@
 
 
 @section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Estrategia/EstrategiaVariedad.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
     <script type="text/javascript">
         var tipoOrigenPantalla = 11;

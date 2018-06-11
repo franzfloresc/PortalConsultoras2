@@ -311,6 +311,7 @@
     <Compile Include="Models\Estrategia\ShowRoom\BannerInferiorConfiguracion.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\ConfigModel.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\IBannerInferiorConfiguracion.cs" />
+    <Compile Include="Models\Estrategia\ShowRoom\ShowRoomEventoConsultoraModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingFullModel.cs" />
     <Compile Include="Controllers\MisCertificadosController.cs" />
     <Compile Include="Controllers\OfertasController.cs" />

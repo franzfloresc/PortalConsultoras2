@@ -41,6 +41,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+using BEShowRoomEventoConsultora = Portal.Consultoras.Web.ServiceOferta.BEShowRoomEventoConsultora;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -458,7 +459,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected bool ValidarPedidoReservado(out string mensaje)
         {
             mensaje = string.Empty;
-            var consultoraId = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID;
+            var consultoraId = userData.GetConsultoraId();
 
             BEConfiguracionCampania obeConfiguracionCampania;
             using (var sv = new PedidoServiceClient())
@@ -1152,29 +1153,23 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!PaisTieneShowRoom(model.CodigoISO)) return;
 
-                var codigoConsultora = model.UsuarioPrueba == 1
-                    ? model.ConsultoraAsociada
-                    : model.CodigoConsultora;
-                List<BEShowRoomPersonalizacionNivel> personalizacionesNivel = null;
 
-                using (var pedidoService = new PedidoServiceClient())
+                List<ServiceOferta.BEShowRoomPersonalizacionNivel> personalizacionesNivel = null;
+
+                configEstrategiaSR.BeShowRoom = _showRoomProvider.GetShowRoomEventoByCampaniaId(model);
+                configEstrategiaSR.BeShowRoomConsultora = _showRoomProvider.GetShowRoomConsultora(model);
+
+                using (OfertaServiceClient osc = new OfertaServiceClient())
                 {
-                    configEstrategiaSR.BeShowRoom = pedidoService.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
-                    configEstrategiaSR.BeShowRoomConsultora = pedidoService.GetShowRoomConsultora(
-                        model.PaisID,
-                        model.CampaniaID,
-                        codigoConsultora,
-                        true);
 
-                    configEstrategiaSR.ListaNivel = pedidoService.GetShowRoomNivel(model.PaisID).ToList();
-
-                    configEstrategiaSR.ListaPersonalizacionConsultora = Mapper.Map<IList<BEShowRoomPersonalizacion>, IList<ShowRoomPersonalizacionModel>>(pedidoService.GetShowRoomPersonalizacion(model.PaisID).ToList()).ToList();
+                    configEstrategiaSR.ListaNivel = osc.GetShowRoomNivel(model.PaisID).ToList();
+                    var personalizacion = osc.GetShowRoomPersonalizacion(model.PaisID).ToList();
+                    configEstrategiaSR.ListaPersonalizacionConsultora = Mapper.Map<IList<ServiceOferta.BEShowRoomPersonalizacion>, IList<ShowRoomPersonalizacionModel>>(personalizacion).ToList();
                     configEstrategiaSR.ShowRoomNivelId = ObtenerNivelId(configEstrategiaSR.ListaNivel);
 
                     if (configEstrategiaSR.BeShowRoom != null && configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
                     {
-                        personalizacionesNivel = pedidoService.GetShowRoomPersonalizacionNivel(model.PaisID,
-                            configEstrategiaSR.BeShowRoom.EventoID, configEstrategiaSR.ShowRoomNivelId, 0).ToList();
+                        personalizacionesNivel = osc.GetShowRoomPersonalizacionNivel(model.PaisID, configEstrategiaSR.BeShowRoom.EventoID, configEstrategiaSR.ShowRoomNivelId, 0).ToList();
                     }
                 }
 
@@ -1251,10 +1246,9 @@ namespace Portal.Consultoras.Web.Controllers
             return tieneShowRoom;
         }
 
-        protected int ObtenerNivelId(List<BEShowRoomNivel> niveles)
+        protected int ObtenerNivelId(List<ServiceOferta.BEShowRoomNivel> niveles)
         {
-            var showRoomNivelPais = niveles.FirstOrDefault(p => p.Codigo == "PAIS") ??
-                                    new BEShowRoomNivel();
+            var showRoomNivelPais = niveles.FirstOrDefault(p => p.Codigo == "PAIS") ?? new ServiceOferta.BEShowRoomNivel();
             return showRoomNivelPais.NivelId;
         }
 
@@ -1267,7 +1261,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 PaisID = userData.PaisID,
                 CampaniaID = campanaId > 0 ? campanaId : userData.CampaniaID,
-                ConsultoraID = (userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID).ToString(),
+                ConsultoraID = userData.GetConsultoraId().ToString(),
                 CUV2 = Util.Trim(cuv),
                 Zona = userData.ZonaID.ToString(),
                 ZonaHoraria = userData.ZonaHoraria,
@@ -2387,8 +2381,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (!configEstrategiaSR.CargoEntidadesShowRoom)
                 return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
 
-            model.BEShowRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
-            model.BEShowRoom = configEstrategiaSR.BeShowRoom ?? new BEShowRoomEvento();
+            model.BEShowRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ShowRoomEventoConsultoraModel();
+            model.BEShowRoom = configEstrategiaSR.BeShowRoom ?? new ShowRoomEventoModel();
 
             if (model.BEShowRoom.Estado != 1)
                 return new ShowRoomBannerLateralModel { EventoNoEncontrado = true };
@@ -2640,7 +2634,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return requestUrl;
         }
-
 
         protected string GetPaisNombreByISO(string paisISO)
         {
@@ -4820,12 +4813,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             return entidad;
         }
+
         public EventoFestivoDataModel GetEventoFestivoData()
         {
             return sessionManager.GetEventoFestivoDataModel() ??
                    new EventoFestivoDataModel();
         }
-
 
         public OfertaFinalModel GetOfertaFinal()
         {
@@ -5942,6 +5935,7 @@ namespace Portal.Consultoras.Web.Controllers
             bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
             return esFacturacion;
         }
+
         public void registraLogDynamoCDR(MisReclamosModel model)
         {
             try
@@ -6118,7 +6112,6 @@ namespace Portal.Consultoras.Web.Controllers
             return false;
         }
         #endregion
-
 
     }
 }

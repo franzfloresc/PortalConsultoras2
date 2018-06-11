@@ -1,5 +1,5 @@
-﻿using Portal.Consultoras.Web.ServicePedido;
-using System;
+﻿using System;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -9,9 +9,10 @@ namespace Portal.Consultoras.Web.Models
         public bool ConsultoraNoEncontrada { get; set; }
         public bool EventoNoEncontrado { get; set; }
 
-        public BEShowRoomEventoConsultora BEShowRoomConsultora { get; set; }
+        public ShowRoomEventoConsultoraModel BEShowRoomConsultora { get; set; }
 
-        public BEShowRoomEvento BEShowRoom { get; set; }
+        public ShowRoomEventoModel BEShowRoom { get; set; }
+
 
         public int DiasFaltantes { get; set; }
 

@@ -361,5 +361,19 @@ namespace Portal.Consultoras.Web.Models
         public double IVARetailCer { get; set; }
         public double TotalCompraCer { get; set; }
         public double IvaTotalCer { get; set; }
+
+        public string GetCodigoConsultora()
+        {
+            return UsuarioPrueba == 1
+                ? ConsultoraAsociada
+                : CodigoConsultora;
+        }
+
+        public long GetConsultoraId()
+        {
+            return UsuarioPrueba == 1
+                ? ConsultoraAsociadaID
+                : ConsultoraID;
+        }
     }
 }
