@@ -59,10 +59,12 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly ShowRoomProvider _showRoomProvider;
         protected DataModel estrategiaODD;
         protected ConfigModel configEstrategiaSR;
-        private readonly BaseProvider _baseProvider;
+        public readonly BaseProvider _baseProvider;
         private readonly GuiaNegocioProvider _guiaNegocioProvider;
         public readonly OfertaPersonalizadaProvider _ofertaPersonalizadaProvider;
         public readonly ConfiguracionManagerProvider _configuracionManagerProvider;
+        public readonly OfertaViewProvider _ofertasViewProvider;
+        public readonly RevistaDigitalProvider _revistaDigitalProvider;
         #endregion
 
         #region Constructor
@@ -80,6 +82,8 @@ namespace Portal.Consultoras.Web.Controllers
             _guiaNegocioProvider = new GuiaNegocioProvider();
             _ofertaPersonalizadaProvider = new OfertaPersonalizadaProvider();
             _configuracionManagerProvider = new ConfiguracionManagerProvider();
+            _ofertasViewProvider = new OfertaViewProvider();
+            _revistaDigitalProvider = new RevistaDigitalProvider();
         }
 
         public BaseController(ISessionManager sessionManager)
@@ -3103,12 +3107,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-
-        protected int GetDiasFaltantesFacturacion(DateTime fechaInicioCampania, double zonaHoraria)
-        {
-            var fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
-            return fechaHoy >= fechaInicioCampania.Date ? 0 : (fechaInicioCampania.Subtract(DateTime.Now.AddHours(zonaHoraria)).Days + 1);
-        }
+        
+        //protected int GetDiasFaltantesFacturacion(DateTime fechaInicioCampania, double zonaHoraria)
+        //{
+        //    var fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
+        //    return fechaHoy >= fechaInicioCampania.Date ? 0 : (fechaInicioCampania.Subtract(DateTime.Now.AddHours(zonaHoraria)).Days + 1);
+        //}
 
         protected JsonResult ErrorJson(string message, bool allowGet = false)
         {
@@ -3337,7 +3341,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (userData.IndicadorBloqueoCDR == 1) return Constantes.CdrWebMensajes.ConsultoraBloqueada;
             if (CumpleRangoCampaniaCDR() == 0) return Constantes.CdrWebMensajes.SinPedidosDisponibles;
 
-            var diasFaltantes = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
+            var diasFaltantes = _baseProvider.GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
             if (diasFaltantes == 0) return Constantes.CdrWebMensajes.FueraDeFecha;
 
             var cdrDiasAntesFacturacion = 0;
@@ -5066,7 +5070,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            ViewBag.Dias = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
+            ViewBag.Dias = _baseProvider.GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
             ViewBag.PeriodoAnalytics = userData.FechaHoy >= userData.FechaInicioCampania.Date && userData.FechaHoy <= userData.FechaFinCampania.Date ? "Facturacion" : "Venta";
             ViewBag.SemanaAnalytics = "No Disponible";
 
@@ -5530,14 +5534,15 @@ namespace Portal.Consultoras.Web.Controllers
 
             return model;
         }
+        
+        //public string GetUrlTerminosCondicionesDatosUsuario()
+        //{
+        //    var nombreCarpetaTc = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.NombreCarpetaTC);
+        //    var nombreArchivoTc = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.NombreArchivoTC) + ".pdf";
+        //    return ConfigS3.GetUrlFileS3(nombreCarpetaTc, userData.CodigoISO + "/" + nombreArchivoTc, String.Empty);
+        //}
 
-        public string GetUrlTerminosCondicionesDatosUsuario()
-        {
-            var nombreCarpetaTc = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.NombreCarpetaTC);
-            var nombreArchivoTc = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.NombreArchivoTC) + ".pdf";
-            return ConfigS3.GetUrlFileS3(nombreCarpetaTc, userData.CodigoISO + "/" + nombreArchivoTc, String.Empty);
-        }
-
+        // Movido a OfertaProvider
         public void GetLimitNumberPhone(out int limiteMinimoTelef, out int limiteMaximoTelef)
         {
             switch (userData.PaisID)

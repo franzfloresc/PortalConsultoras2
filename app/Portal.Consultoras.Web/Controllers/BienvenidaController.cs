@@ -45,7 +45,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.PartialSectionBpt = GetPartialSectionBptModel(revistaDigital);
                 ViewBag.UrlImgMiAcademia = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImgMiAcademia) + "/" + userData.CodigoISO + "/academia.png";
                 ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
-                ViewBag.UrlPdfTerminosyCondiciones = GetUrlTerminosCondicionesDatosUsuario();
+                ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
                 ViewBag.UrlImagenFAVHome = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVHome), userData.CodigoISO);
 
                 #region Montos
@@ -179,7 +179,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region limite Min - Max Telef
                 int limiteMinimoTelef, limiteMaximoTelef;
-                GetLimitNumberPhone(out limiteMinimoTelef, out limiteMaximoTelef);
+                _baseProvider.GetLimitNumberPhone( userData.PaisID, out limiteMinimoTelef, out limiteMaximoTelef);
                 model.limiteMinimoTelef = limiteMinimoTelef;
                 model.limiteMaximoTelef = limiteMaximoTelef;
                 #endregion

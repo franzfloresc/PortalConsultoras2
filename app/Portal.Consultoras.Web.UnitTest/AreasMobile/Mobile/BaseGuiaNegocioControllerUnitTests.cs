@@ -8,6 +8,7 @@ using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.UnitTest.AreasMobile.Mobile
 {
@@ -55,9 +56,9 @@ namespace Portal.Consultoras.Web.UnitTest.AreasMobile.Mobile
             [TestMethod]
             public void GetFiltersBySorting_WhenIsMobile_ReturnsAlistWith03Elements()
             {
-                var controller = new BaseGuiaNegocioControllerStub01();
+                var controller = new OfertaViewProvider();
 
-                var filters = controller.GetFiltersBySorting();
+                var filters = controller.GetFiltersBySorting(false);
 
                 Assert.AreEqual(3, filters.Count);
                 //
@@ -82,7 +83,7 @@ namespace Portal.Consultoras.Web.UnitTest.AreasMobile.Mobile
             [TestMethod]
             public void GetFiltersByBrand_WhenIsMobile_ReturnsAlistWith04Elements()
             {
-                var controller = new BaseGuiaNegocioControllerStub01();
+                var controller = new OfertaViewProvider();
 
                 var filters = controller.GetFiltersByBrand();
 
