@@ -61,6 +61,8 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly ShowRoomProvider _showRoomProvider;
         protected DataModel estrategiaODD;
         protected ConfigModel configEstrategiaSR;
+        private readonly BaseProvider _baseProvider;
+        private readonly GuiaNegocioProvider _guiaNegocioProvider;
         #endregion
 
         #region Constructor
@@ -74,7 +76,8 @@ namespace Portal.Consultoras.Web.Controllers
             _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
             //estrategiaODD = sessionManager.GetEstrategiaODD() ?? new Models.Estrategia.OfertaDelDia.DataModel();
             //configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
-
+            _baseProvider = new BaseProvider();
+            _guiaNegocioProvider = new GuiaNegocioProvider();
         }
 
         public BaseController(ISessionManager sessionManager)
@@ -3801,7 +3804,7 @@ namespace Portal.Consultoras.Web.Controllers
                     switch (entConf.ConfiguracionPais.Codigo)
                     {
                         case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
-                            if (!GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
+                            if (!_guiaNegocioProvider.GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
                                 continue;
 
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "GuiaNegocio";
@@ -4432,7 +4435,7 @@ namespace Portal.Consultoras.Web.Controllers
                         config.UrlMenu = "#";
                         break;
                     case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
-                        if (!GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
+                        if (!_guiaNegocioProvider.GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
                             continue;
 
                         config.UrlMenu = "GuiaNegocio";
@@ -4666,14 +4669,14 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
-        #region Guia de Negocio Digitalizada
-        public virtual bool GNDValidarAcceso(bool esConsultoraLider, GuiaNegocioModel guiaNegocio, RevistaDigitalModel revistaDigital)
-        {
-            var tieneAcceso = (guiaNegocio.TieneGND && !(revistaDigital.EsSuscritaActiva() || revistaDigital.EsNoSuscritaActiva())) ||
-                (esConsultoraLider && guiaNegocio.TieneGND && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva());
-            return tieneAcceso;
-        }
-        #endregion
+        //#region Guia de Negocio Digitalizada
+        //public virtual bool GNDValidarAcceso(bool esConsultoraLider, GuiaNegocioModel guiaNegocio, RevistaDigitalModel revistaDigital)
+        //{
+        //    var tieneAcceso = (guiaNegocio.TieneGND && !(revistaDigital.EsSuscritaActiva() || revistaDigital.EsNoSuscritaActiva())) ||
+        //        (esConsultoraLider && guiaNegocio.TieneGND && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva());
+        //    return tieneAcceso;
+        //}
+        //#endregion
 
         #region Helper contenedor 
         private ConfiguracionPaisModel ActualizarTituloYSubtituloMenu(ConfiguracionPaisModel config)

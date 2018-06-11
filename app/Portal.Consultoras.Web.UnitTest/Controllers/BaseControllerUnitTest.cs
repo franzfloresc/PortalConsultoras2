@@ -1,19 +1,18 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using MvcContrib.TestHelper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Controllers;
+using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Layout;
+using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.SessionManager;
 using Portal.Consultoras.Web.UnitTest.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Portal.Consultoras.Web.ServiceSeguridad;
-using Portal.Consultoras.Web.Models.Layout;
-using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.LogManager;
 
 namespace Portal.Consultoras.Web.UnitTest.Controllers
 {
@@ -1078,7 +1077,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var esSociaEmpresaria = false;
                 var guiaNegocio = new GuiaNegocioModel { };
                 var revistaDigital = new RevistaDigitalModel { };
-                var controller = new BaseController();
+                var controller = new GuiaNegocioProvider();
 
 
                 var result = controller.GNDValidarAcceso(esSociaEmpresaria, guiaNegocio, revistaDigital);
@@ -1091,8 +1090,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             {
                 var esSociaEmpresaria = false;
                 var guiaNegocio = new GuiaNegocioModel { TieneGND = true };
-                var revistaDigital = new RevistaDigitalModel { TieneRDC =false };
-                var controller = new BaseController();
+                var revistaDigital = new RevistaDigitalModel { TieneRDC = false };
+                var controller = new GuiaNegocioProvider();
 
 
                 var result = controller.GNDValidarAcceso(esSociaEmpresaria, guiaNegocio, revistaDigital);
@@ -1101,14 +1100,14 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             }
 
             [DataRow(true, DisplayName = "Suscrita, NoActiva")]
-            [DataRow(false,DisplayName ="No Suscrita, NoActiva")]
+            [DataRow(false, DisplayName = "No Suscrita, NoActiva")]
             [DataTestMethod]
             public void EsConsultoraYTieneGuiaNegocioYEsNoActiva_RetornaVerdadero(bool esSuscrita)
             {
                 var esSociaEmpresaria = false;
-                var guiaNegocio = new GuiaNegocioModel { TieneGND =true };
-                var revistaDigital = new RevistaDigitalModel { TieneRDC=true,EsSuscrita= esSuscrita, EsActiva =false };
-                var controller = new BaseController();
+                var guiaNegocio = new GuiaNegocioModel { TieneGND = true };
+                var revistaDigital = new RevistaDigitalModel { TieneRDC = true, EsSuscrita = esSuscrita, EsActiva = false };
+                var controller = new GuiaNegocioProvider();
 
                 var result = controller.GNDValidarAcceso(esSociaEmpresaria, guiaNegocio, revistaDigital);
 
@@ -1123,7 +1122,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var esSociaEmpresaria = false;
                 var guiaNegocio = new GuiaNegocioModel { TieneGND = true };
                 var revistaDigital = new RevistaDigitalModel { TieneRDC = true, EsSuscrita = esSuscrita, EsActiva = true };
-                var controller = new BaseController();
+                var controller = new GuiaNegocioProvider();
 
                 var result = controller.GNDValidarAcceso(esSociaEmpresaria, guiaNegocio, revistaDigital);
 
@@ -1138,7 +1137,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var esSociaEmpresaria = true;
                 var guiaNegocio = new GuiaNegocioModel { };
                 var revistaDigital = new RevistaDigitalModel { };
-                var controller = new BaseController();
+                var controller = new GuiaNegocioProvider();
 
                 var result = controller.GNDValidarAcceso(esSociaEmpresaria, guiaNegocio, revistaDigital);
 
@@ -1151,7 +1150,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var esSociaEmpresaria = true;
                 var guiaNegocio = new GuiaNegocioModel { TieneGND = true };
                 var revistaDigital = new RevistaDigitalModel { };
-                var controller = new BaseController();
+                var controller = new GuiaNegocioProvider();
 
 
                 var result = controller.GNDValidarAcceso(esSociaEmpresaria, guiaNegocio, revistaDigital);
@@ -1172,7 +1171,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     EsSuscrita = esSuscrita,
                     EsActiva = false
                 };
-                var controller = new BaseController();
+                var controller = new GuiaNegocioProvider();
 
                 var result = controller.GNDValidarAcceso(esSociaEmpresaria, guiaNegocio, revistaDigital);
 
@@ -1192,9 +1191,9 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     EsSuscrita = esSuscrita,
                     EsActiva = true,
                     //
-                    SociaEmpresariaExperienciaGanaMas=false
+                    SociaEmpresariaExperienciaGanaMas = false
                 };
-                var controller = new BaseController();
+                var controller = new GuiaNegocioProvider();
 
                 var result = controller.GNDValidarAcceso(esSociaEmpresaria, guiaNegocio, revistaDigital);
 
@@ -1214,7 +1213,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     //
                     SociaEmpresariaExperienciaGanaMas = true
                 };
-                var controller = new BaseController();
+                var controller = new GuiaNegocioProvider();
 
                 var result = controller.GNDValidarAcceso(esSociaEmpresaria, guiaNegocio, revistaDigital);
 
@@ -1234,7 +1233,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     //
                     SociaEmpresariaExperienciaGanaMas = true
                 };
-                var controller = new BaseController();
+                var controller = new GuiaNegocioProvider();
 
                 var result = controller.GNDValidarAcceso(esSociaEmpresaria, guiaNegocio, revistaDigital);
 

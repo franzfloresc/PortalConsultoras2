@@ -27,10 +27,10 @@ namespace Portal.Consultoras.Web.UnitTest.AreasMobile.Mobile
                     this.logManager = logManager;
                 }
 
-                public override bool GNDValidarAcceso(bool esConsultoraLider, GuiaNegocioModel guiaNegocio, RevistaDigitalModel revistaDigital)
-                {
-                    return true;
-                }
+                //public override bool GNDValidarAcceso(bool esConsultoraLider, GuiaNegocioModel guiaNegocio, RevistaDigitalModel revistaDigital)
+                //{
+                //    return true;
+                //}
             }
 
             [TestMethod]

@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Infraestructure;
+using Portal.Consultoras.Web.Providers;
 using System;
 using System.Web.Mvc;
 
@@ -10,11 +11,18 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     [ClearSessionMobileApp(UniqueRoute.IdentifierKey, "MobileAppConfiguracion", "StartSession")]
     public class GuiaNegocioController : BaseGuiaNegocioController
     {
+        private readonly GuiaNegocioProvider _guiaNegocioProvider;
+
+        public GuiaNegocioController()
+        {
+            _guiaNegocioProvider = new GuiaNegocioProvider();
+        }
+
         public ActionResult Index()
         {
             try
             {
-                if (GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
+                if (_guiaNegocioProvider.GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
                 {
                     return ViewLanding();
                 }
