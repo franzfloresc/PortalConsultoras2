@@ -85,8 +85,12 @@ namespace Portal.Consultoras.Web.Controllers
             return listEstrategia;
         }
 
+<<<<<<< HEAD
         //private List<BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, int campaniaId = 0)
         private List<ServiceOferta.BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, int campaniaId = 0)
+=======
+        protected virtual List<BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, int campaniaId = 0)
+>>>>>>> ec961d42d003217f3965b0df10bba9939fc41254
         {
             //var listEstrategia = new List<BEEstrategia>();
             var listEstrategia = new List<ServiceOferta.BEEstrategia>();
@@ -526,7 +530,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void EnviarLogOferta(object data)
         {
-            var urlApi = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
+            var urlApi = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
 
             if (string.IsNullOrEmpty(urlApi)) return;
 
