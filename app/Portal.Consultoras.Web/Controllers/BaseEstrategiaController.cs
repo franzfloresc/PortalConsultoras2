@@ -83,7 +83,7 @@ namespace Portal.Consultoras.Web.Controllers
             return listEstrategia;
         }
 
-        private List<ServiceOferta.BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, int campaniaId = 0)
+        protected virtual List<ServiceOferta.BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, int campaniaId = 0)
         {
             var listEstrategia = new List<ServiceOferta.BEEstrategia>();
             try
