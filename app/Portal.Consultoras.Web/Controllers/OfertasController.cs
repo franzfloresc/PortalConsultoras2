@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
-                var listaShowRoom = (List<ServiceOferta.BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<ServiceOferta.BEShowRoomOferta>();
+                var listaShowRoom = sessionManager.ShowRoom.Ofertas ?? new List<ServiceOferta.BEShowRoomOferta>();
                 ViewBag.xlistaProductoSR = listaShowRoom.Count(x => !x.EsSubCampania);
 
                 return View(modelo);

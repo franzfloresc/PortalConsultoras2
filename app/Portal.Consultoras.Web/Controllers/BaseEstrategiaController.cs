@@ -146,7 +146,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!listEstrategia.Any() && sessionManager.GetFlagLogCargaOfertas() &&
                     tipo != Constantes.TipoEstrategiaCodigo.OfertaWeb &&
                     tipo != Constantes.TipoEstrategiaCodigo.PackNuevas)
-                    EnviarLogOferta(CrearDataLog(campaniaId, _ofertaPersonalizadaProvider.ObtenerConstanteConfPais(tipo)));
+                    _ofertaPersonalizadaProvider.EnviarLogOferta(campaniaId, tipo, IsMobile());
 
             }
             catch (Exception ex)
@@ -505,41 +505,34 @@ namespace Portal.Consultoras.Web.Controllers
             return listaProductoModel;
         }
 
-        private void EnviarLogOferta(object data)
-        {
-            var urlApi = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
+        //private void EnviarLogOferta(object data)
+        //{
+        //    var urlApi = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
+        //    if (string.IsNullOrEmpty(urlApi)) return;
+        //    var httpClient = new HttpClient { BaseAddress = new Uri(urlApi) };
+        //    httpClient.DefaultRequestHeaders.Accept.Clear();
+        //    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //    var dataString = JsonConvert.SerializeObject(data);
+        //    HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+        //    var response = httpClient.PostAsync("Api/LogCargaOfertas", contentPost).GetAwaiter().GetResult();
+        //    var noQuitar = response.IsSuccessStatusCode;
+        //    httpClient.Dispose();
+        //}
 
-            if (string.IsNullOrEmpty(urlApi)) return;
-
-            var httpClient = new HttpClient { BaseAddress = new Uri(urlApi) };
-            httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            var dataString = JsonConvert.SerializeObject(data);
-
-            HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-
-            var response = httpClient.PostAsync("Api/LogCargaOfertas", contentPost).GetAwaiter().GetResult();
-
-            var noQuitar = response.IsSuccessStatusCode;
-
-            httpClient.Dispose();
-        }
-
-        private object CrearDataLog(int campaniaOferta, string palanca)
-        {
-            return new
-            {
-                Pais = userData.CodigoISO,
-                CodigoConsultora = userData.CodigoConsultora,
-                Fecha = userData.FechaActualPais.ToString("yyyyMMdd"),
-                Campania = userData.CampaniaID,
-                CampaniaOferta = campaniaOferta == 0 ? userData.CampaniaID.ToString() : campaniaOferta.ToString(),
-                Palanca = palanca,
-                Dispositivo = IsMobile() ? "Mobile" : "Desktop",
-                Motivo = "Log carga oferta desde portal consultoras"
-            };
-        }
+        //private object CrearDataLog(int campaniaOferta, string palanca)
+        //{
+        //    return new
+        //    {
+        //        Pais = userData.CodigoISO,
+        //        CodigoConsultora = userData.CodigoConsultora,
+        //        Fecha = userData.FechaActualPais.ToString("yyyyMMdd"),
+        //        Campania = userData.CampaniaID,
+        //        CampaniaOferta = campaniaOferta == 0 ? userData.CampaniaID.ToString() : campaniaOferta.ToString(),
+        //        Palanca = palanca,
+        //        Dispositivo = IsMobile() ? "Mobile" : "Desktop",
+        //        Motivo = "Log carga oferta desde portal consultoras"
+        //    };
+        //}
 
         //private string ObtenerConstanteConfPais(string codigoAgrupacion)
         //{

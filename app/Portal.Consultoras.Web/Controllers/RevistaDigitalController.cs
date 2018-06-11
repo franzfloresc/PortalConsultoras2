@@ -535,7 +535,7 @@ namespace Portal.Consultoras.Web.Controllers
             Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.OfertaWeb)] = null;
             Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.PackNuevas)] = null;
             Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.RevistaDigital)] = null;
-            Session[Constantes.ConstSession.ListaProductoShowRoom] = null;
+            sessionManager.ShowRoom.Ofertas = null;
             sessionManager.SetEstrategiaODD(null);
 
             //Limpia cache de Redis

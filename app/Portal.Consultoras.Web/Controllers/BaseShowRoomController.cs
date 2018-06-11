@@ -586,7 +586,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var listaDetalle = ObtenerPedidoWebDetalle();
 
-            if (Session[Constantes.ConstSession.ListaProductoShowRoom] != null)
+            if (sessionManager.ShowRoom.Ofertas != null)
             {
                 List<EstrategiaPedidoModel> listadoOfertasTodasModel = ObtenerListaProductoShowRoomSession(listaDetalle);
                 return listadoOfertasTodasModel;
@@ -836,7 +836,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<EstrategiaPedidoModel> ObtenerListaProductoShowRoomSession(List<BEPedidoWebDetalle> listaPedidoDetalle)
         {
-            var listadoOfertasTodas = (List<ServiceOferta.BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom];
+            var listadoOfertasTodas = sessionManager.ShowRoom.Ofertas;
             List<EstrategiaPedidoModel> listadoOfertasTodasModel = Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listadoOfertasTodas);
             listadoOfertasTodasModel.Update(x =>
             {
@@ -924,7 +924,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            Session[Constantes.ConstSession.ListaProductoShowRoom] = listaShowRoomOfertaFinal;
+            sessionManager.ShowRoom.Ofertas = listaShowRoomOfertaFinal;
             List<EstrategiaPedidoModel> listadoOfertasTodasModel1 = Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listaShowRoomOfertaFinal);
 
             listadoOfertasTodasModel1.Update(x =>
