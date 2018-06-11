@@ -312,6 +312,7 @@
     <Compile Include="Models\Estrategia\ShowRoom\ConfigModel.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\IBannerInferiorConfiguracion.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\ShowRoomEventoConsultoraModel.cs" />
+    <Compile Include="Models\Estrategia\ShowRoom\ShowRoomNivelModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingFullModel.cs" />
     <Compile Include="Controllers\MisCertificadosController.cs" />
     <Compile Include="Controllers\OfertasController.cs" />
@@ -712,6 +713,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Providers\OfertaPersonalizadaProvider.cs" />
     <Compile Include="Providers\PedidoSetProvider.cs" />
     <Compile Include="Providers\ShowRoomProvider.cs" />
     <Compile Include="Providers\TablaLogicaProvider.cs" />

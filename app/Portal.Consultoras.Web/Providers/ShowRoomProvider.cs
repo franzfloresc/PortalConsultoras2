@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
+﻿using System.Collections.Generic;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.SessionManager;
 using System.Linq;
 using AutoMapper;
@@ -85,6 +86,33 @@ namespace Portal.Consultoras.Web.Providers
                     model.GetCodigoConsultora(), 
                     true);
                 return Mapper.Map<BEShowRoomEventoConsultora, ShowRoomEventoConsultoraModel>(showRoomEventoConsultora);
+            }
+        }
+
+        public List<ShowRoomNivelModel> GetShowRoomNivel(UsuarioModel model)
+        {
+            using (var osc = new OfertaServiceClient())
+            {
+                var showRoomNiveles = osc.GetShowRoomNivel(model.PaisID).ToList();
+                return Mapper.Map<List<BEShowRoomNivel> , List<ShowRoomNivelModel>>(showRoomNiveles);
+            }
+        }
+
+        public List<ShowRoomPersonalizacionModel> GetShowRoomPersonalizacion(UsuarioModel model)
+        {
+            using (var osc = new OfertaServiceClient())
+            {
+                var personalizacion = osc.GetShowRoomPersonalizacion(model.PaisID).ToList();
+                return Mapper.Map<IList<ServiceOferta.BEShowRoomPersonalizacion>, List<ShowRoomPersonalizacionModel>>(personalizacion).ToList();
+            }
+        }
+
+        public List<ShowRoomPersonalizacionNivelModel> GetShowRoomPersonalizacionNivel(UsuarioModel model,int eventoId, int showRoomNivelId,int categoriaId)
+        {
+            using (var osc = new OfertaServiceClient())
+            {
+                var personalizacionesNivel = osc.GetShowRoomPersonalizacionNivel(model.PaisID, eventoId, showRoomNivelId, categoriaId).ToList();
+                return Mapper.Map<List<ServiceOferta.BEShowRoomPersonalizacionNivel>, List<ShowRoomPersonalizacionNivelModel>>(personalizacionesNivel).ToList();
             }
         }
     }

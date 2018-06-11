@@ -10,7 +10,7 @@
         public ShowRoomEventoModel BeShowRoom { get; set; }
         public ShowRoomEventoConsultoraModel BeShowRoomConsultora { get; set; }
         public int ShowRoomNivelId { get; set; }
-        public List<ServiceOferta.BEShowRoomNivel> ListaNivel { get; set; }
+        public List<ShowRoomNivelModel> ListaNivel { get; set; }
         public List<ShowRoomPersonalizacionModel> ListaPersonalizacionConsultora { get; set; }
     }
 }

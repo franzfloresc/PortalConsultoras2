@@ -269,7 +269,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var listaShowRoomNivel = configEstrategiaSR.ListaNivel ?? new List<ServiceOferta.BEShowRoomNivel>();
+                var listaShowRoomNivel = configEstrategiaSR.ListaNivel ?? new List<ShowRoomNivelModel>();
 
                 return Json(new
                 {

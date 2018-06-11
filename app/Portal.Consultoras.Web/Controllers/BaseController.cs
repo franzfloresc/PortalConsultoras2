@@ -42,6 +42,7 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
 using BEShowRoomEventoConsultora = Portal.Consultoras.Web.ServiceOferta.BEShowRoomEventoConsultora;
+using BEShowRoomNivel = Portal.Consultoras.Web.ServiceOferta.BEShowRoomNivel;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -1154,24 +1155,21 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!PaisTieneShowRoom(model.CodigoISO)) return;
 
 
-                List<ServiceOferta.BEShowRoomPersonalizacionNivel> personalizacionesNivel = null;
 
                 configEstrategiaSR.BeShowRoom = _showRoomProvider.GetShowRoomEventoByCampaniaId(model);
                 configEstrategiaSR.BeShowRoomConsultora = _showRoomProvider.GetShowRoomConsultora(model);
+                configEstrategiaSR.ListaNivel = _showRoomProvider.GetShowRoomNivel(model);
+                configEstrategiaSR.ShowRoomNivelId = ObtenerNivelId(configEstrategiaSR.ListaNivel);
+                configEstrategiaSR.ListaPersonalizacionConsultora = _showRoomProvider.GetShowRoomPersonalizacion(model);
 
-                using (OfertaServiceClient osc = new OfertaServiceClient())
+                List<ShowRoomPersonalizacionNivelModel> personalizacionesNivel = null;
+                if (configEstrategiaSR.BeShowRoom != null &&
+                    configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
                 {
-
-                    configEstrategiaSR.ListaNivel = osc.GetShowRoomNivel(model.PaisID).ToList();
-                    var personalizacion = osc.GetShowRoomPersonalizacion(model.PaisID).ToList();
-                    configEstrategiaSR.ListaPersonalizacionConsultora = Mapper.Map<IList<ServiceOferta.BEShowRoomPersonalizacion>, IList<ShowRoomPersonalizacionModel>>(personalizacion).ToList();
-                    configEstrategiaSR.ShowRoomNivelId = ObtenerNivelId(configEstrategiaSR.ListaNivel);
-
-                    if (configEstrategiaSR.BeShowRoom != null && configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
-                    {
-                        personalizacionesNivel = osc.GetShowRoomPersonalizacionNivel(model.PaisID, configEstrategiaSR.BeShowRoom.EventoID, configEstrategiaSR.ShowRoomNivelId, 0).ToList();
-                    }
+                    personalizacionesNivel = _showRoomProvider.GetShowRoomPersonalizacionNivel(model,
+                        configEstrategiaSR.BeShowRoom.EventoID, configEstrategiaSR.ShowRoomNivelId, 0);
                 }
+
 
                 if (configEstrategiaSR.BeShowRoom != null && configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO && configEstrategiaSR.BeShowRoomConsultora != null)
                 {
@@ -1246,9 +1244,9 @@ namespace Portal.Consultoras.Web.Controllers
             return tieneShowRoom;
         }
 
-        protected int ObtenerNivelId(List<ServiceOferta.BEShowRoomNivel> niveles)
+        protected int ObtenerNivelId(List<ShowRoomNivelModel> niveles)
         {
-            var showRoomNivelPais = niveles.FirstOrDefault(p => p.Codigo == "PAIS") ?? new ServiceOferta.BEShowRoomNivel();
+            var showRoomNivelPais = niveles.FirstOrDefault(p => p.Codigo == "PAIS") ?? new ShowRoomNivelModel();
             return showRoomNivelPais.NivelId;
         }
 
