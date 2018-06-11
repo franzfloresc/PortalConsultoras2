@@ -87,6 +87,12 @@
   <wsdl:message name="IOfertaService_ShowRoomProgramarAviso_OutputMessage">
     <wsdl:part name="parameters" element="tns:ShowRoomProgramarAvisoResponse" />
   </wsdl:message>
+  <wsdl:message name="IOfertaService_GetEstrategiasPedido_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstrategiasPedido" />
+  </wsdl:message>
+  <wsdl:message name="IOfertaService_GetEstrategiasPedido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstrategiasPedidoResponse" />
+  </wsdl:message>
   <wsdl:portType name="IOfertaService">
     <wsdl:operation name="GetShowRoomOfertasConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/IOfertaService/GetShowRoomOfertasConsultora" message="tns:IOfertaService_GetShowRoomOfertasConsultora_InputMessage" />
@@ -123,6 +129,10 @@
     <wsdl:operation name="ShowRoomProgramarAviso">
       <wsdl:input wsaw:Action="http://tempuri.org/IOfertaService/ShowRoomProgramarAviso" message="tns:IOfertaService_ShowRoomProgramarAviso_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IOfertaService/ShowRoomProgramarAvisoResponse" message="tns:IOfertaService_ShowRoomProgramarAviso_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEstrategiasPedido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IOfertaService/GetEstrategiasPedido" message="tns:IOfertaService_GetEstrategiasPedido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IOfertaService/GetEstrategiasPedidoResponse" message="tns:IOfertaService_GetEstrategiasPedido_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IOfertaService" type="tns:IOfertaService">
@@ -208,6 +218,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetEstrategiasPedido">
+      <soap:operation soapAction="http://tempuri.org/IOfertaService/GetEstrategiasPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="BasicHttpsBinding_IOfertaService" type="tns:IOfertaService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IOfertaService_policy" />
@@ -286,6 +305,15 @@
     </wsdl:operation>
     <wsdl:operation name="ShowRoomProgramarAviso">
       <soap:operation soapAction="http://tempuri.org/IOfertaService/ShowRoomProgramarAviso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstrategiasPedido">
+      <soap:operation soapAction="http://tempuri.org/IOfertaService/GetEstrategiasPedido" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
