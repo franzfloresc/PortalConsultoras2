@@ -1,0 +1,93 @@
+﻿<div id="DialogNuevoMasivo" style="display: none;">
+    <div class="Content_modal">
+        <div class="div-3" style="text-align: center;">
+            <div class="boton_redondo_admcontenido_on" id="divPaso1">1</div>
+            <div class="signo_admcontenido_estrategia">></div>
+            <div class="boton_redondo_admcontenido_off" id="divPaso2">2</div>
+            <div class="signo_admcontenido_estrategia">></div>
+            <div class="boton_redondo_admcontenido_off" id="divPaso3">3</div>
+        </div>
+        <div id="divMasivoPaso1">
+            <div class="div-3" style="text-align: center; color: #00A2E8;">
+                Pre Carga de CUVS pendientes por configurar en Zona de Estrategias
+            </div>
+            <div class="container" style="width: auto;">
+                <div class="border-wrapper">
+                    <table id="listCargaMasiva1"></table>
+                    <div id="pagerCargaMasiva1"></div>
+                </div>
+            </div>
+            <div id="divMostrarPreCarga">
+                <div class="div-3" style="text-align: center; color: #00A2E8; margin-top: 20px;">
+                    ¿Deseas pre cargar la información de los CUVS pendientes por configurar? (<span id="spnCantidadConfigurar1">11</span>) CUVS
+                </div>
+                <div class="div-3">
+                    <div class="input_horizontal" style="text-align: center;">
+                        <input type="button" name="btnAceptarMasivo1" id="btnAceptarMasivo1" value="Aceptar" style="float: none;" />
+                        <input type="button" name="btnCancelarMasivo1" id="btnCancelarMasivo1" value="Cancelar" style="float: none;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divMasivoPaso2" style="display: none;">
+            <div class="div-3" style="text-align: center; color: #00A2E8;">
+                Grabar información en Zona de Estrategias
+            </div>
+            <div class="container" style="width: auto;">
+                <div class="border-wrapper">
+                    <table id="listCargaMasiva2"></table>
+                    <div id="pagerCargaMasiva2"></div>
+                </div>
+            </div>
+            <div id="divMostrarPreCarga2">
+                <div class="div-3" style="text-align: center; color: #00A2E8; margin-top: 20px;">
+                    ¿Deseas grabar la información de los CUVS pre cargados correctamente en la Zona de Estrategias? (<span id="spnCantidadConfigurar2">11</span>) CUVS
+                </div>
+                <div class="div-3">
+                    <div class="input_horizontal" style="text-align: center;">
+                        <input type="button" name="btnAceptarMasivo2" id="btnAceptarMasivo2" value="Aceptar" style="float: none;" />
+                        <input type="button" name="btnCancelarMasivo2" id="btnCancelarMasivo2" value="Cancelar" style="float: none;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divMasivoPaso3" style="display: none;">
+            <div class="div-3" style="text-align: center; color: #00A2E8;">
+                Confirmación de grabación en Zona de Estrategias
+            </div>
+            <div class="div-3" style="text-align: center; margin-top: 20px;">
+                Se grabó la información de los <a onclick="admNuevoMasivoModulo.VerCuvsTipo2(1); "><span id="spnCantidadConfigurar3">11</span> CUVS</a>
+            </div>
+            <div id="divMostrarNoCargados" class="div-3" style="text-align: center; margin-top: 20px;">
+                Quedan <a onclick="admNuevoMasivoModulo.VerCuvsTipo2(2); "><span id="spnCantidadNoConfigurar3">11</span> CUVS</a> pendientes para cargar.
+            </div>
+            <div class="div-3">
+                <div class="input_horizontal" style="text-align: center;">
+                    <input type="button" name="btnAceptarMasivo3" id="btnAceptarMasivo3" value="Aceptar" style="float: none;" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DialogGrillaCuv1">
+    <div class="Content_modal">
+        <div class="container" style="width: auto;">
+            <div class="border-wrapper">
+                <table id="listGrillaCuv1"></table>
+                <div id="pagerGrillaCuv1"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="DialogGrillaCuv2">
+    <div class="Content_modal">
+        <div class="container" style="width: auto;">
+            <div class="border-wrapper">
+                <table id="listGrillaCuv2"></table>
+                <div id="pagerGrillaCuv2"></div>
+            </div>
+        </div>
+    </div>
+</div>

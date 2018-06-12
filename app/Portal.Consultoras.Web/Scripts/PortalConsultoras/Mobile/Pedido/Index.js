@@ -502,7 +502,7 @@ function ObservacionesProducto(item) {
 
     $("#txtCantidad, #suma, #resta").attr("disabled", item.FlagNueva == "1");
 
-    $("#spnPrecio").html(simbolo + " " + DecimalToStringFormat(item.PrecioCatalogo));
+    $("#spnPrecio").html(variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(item.PrecioCatalogo));
 
     $("#divNombreProducto").html(item.Descripcion);
 

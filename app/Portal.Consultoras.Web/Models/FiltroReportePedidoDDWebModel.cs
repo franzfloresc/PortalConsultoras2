@@ -18,6 +18,7 @@
         public int Page { get; set; }
         public int Rows { get; set; }
 
+        public bool EsPrimeraBusqueda { get; set; }
         public string UniqueId
         {
             get { return PaisID + Campania + Consultora + RegionID + ZonaID + Origen + EstadoValidacion + EsRechazado + FechaInicio + FechaFin; }

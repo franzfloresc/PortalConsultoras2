@@ -1,0 +1,213 @@
+﻿@{
+// ViewBag.Title = "Actualización – Matriz Campaña";
+//var imagenVacia = "prod_grilla_vacio.png";
+}
+
+<div class="wrap_cab">
+    <div class="filtros2">
+        <div class="elements">
+            <div class="div-2">
+                <h1>Actualización de <span>Matriz Campaña</span></h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap">
+    <div class="container-dato-consultora clearfix">
+        <div class="border-wrapper">
+            <ul class="tabs">
+                <li><a href="#tab-datoConsultora">Actualización</a></li>
+                <li><a href="#tab-masiva">Carga Masiva</a></li>
+            </ul>
+            <div class="contenedor_tab">
+                <div id="tab-datoConsultora" class="contenido_tab">
+
+                    <div class="wrap">
+                        <section class="container clearfix">
+                            <div class="ofertas_detalle">
+                                Ingrese el año de la campaña y el código de venta del producto que se actualizara la descripción:
+                            </div>
+                            <div class="border-wrapper_reg">
+                                <div class="div-3">
+                                    <div class="titI">País:</div>
+                                    <div class="selectA borde_redondeado">
+                                        <select id="ddlPais"></select>
+                                    </div>
+                                </div>
+                                <div class="div-3">
+                                    <div class="titI">Año campaña:</div>
+                                    <div class="selectA borde_redondeado">
+                                        <select id="ddlCampania"></select>
+                                    </div>
+                                    <div class="titC">Cod. Venta:</div>
+                                    <div class="selectP2 borde_redondeado">
+                                        <input id="txtCodVenta" type="text" maxlength="6" /><img alt="Buscar Cod. Venta" src="" style="display: none" />
+                                    </div>
+                                    <div class="input_search">
+                                        <input id="btnBuscar" type="button" value="Buscar" />
+                                    </div>
+                                </div>
+
+                                <div class="div-3">
+                                    <div class="titI alignright">
+                                        <h3>Original:</h3>
+                                    </div>
+                                </div>
+                                <div class="div-3">
+                                    <div class="titI">Descripción:</div>
+                                    <div class="selectA borde_redondeado">
+                                        <input id="hdnSap" type="hidden" />
+                                        <input id="hdnIdMatrizComercial" type="hidden" />
+                                        <input id="hdnIdMatrizComercialImagen" type="hidden" />
+                                        <input id="txtDescripcion" type="text" maxlength="250" readonly="readonly" />
+                                    </div>
+                                    <div class="titC">Precio:</div>
+                                    <div class="selectP2 borde_redondeado">
+                                        <input id="txtPrecio" type="text" maxlength="8" readonly="readonly" />
+                                    </div>
+                                </div>
+                                <div class="div-3">
+                                    <div class="titI">Precio * Factor Rep.:</div>
+                                    <div class="selectA borde_redondeado">
+                                        <input id="txtFactorRepeticion" type="text" maxlength="3" readonly="readonly" /><img alt="Buscar Cod. Venta" src="" style="display: none" />
+                                    </div>
+                                </div>
+
+                                <div class="div-3">
+                                    <div class="titI alignright">
+                                        <h3>Nuevo:</h3>
+                                    </div>
+                                </div>
+                                <div class="div-3">
+                                    <div class="titI">Descripción:</div>
+                                    <div class="selectA borde_redondeado">
+                                        <input id="txtDescripcionNueva" type="text" maxlength="250" /><img alt="Buscar Cod. Venta" src="" style="display: none" />
+                                    </div>
+                                    <div class="titC">Precio:</div>
+                                    <div class="selectP2 borde_redondeado">
+                                        <input id="txtPrecioNuevo" type="text" maxlength="10" />
+                                    </div>
+                                </div>
+                                <div class="div-3">
+                                    <div class="titI">Precio * Factor Rep.:</div>
+                                    <div class="selectA borde_redondeado">
+                                        <input id="txtFactorRepeticionNuevo" type="text" maxlength="3" /><img alt="Buscar Cod. Venta" src="" style="display: none" />
+                                    </div>
+                                </div>
+
+                                @*@if (ViewBag.HabilitarRegalo)
+                                    {
+                                        <div class="div-3">
+                                            <div class="titI">Descripción Regalo:</div>
+                                            <div class="selectA borde_redondeado">
+                                                <textarea id="txtRegaloDescripcion" maxlength="500" cols="29"></textarea>
+                                            </div>
+                                            <div class="titC">
+                                                <span>Imagen Seleccionada:</span>
+                                            </div>
+                                            <div class="pdr_modal borde_redondeado">
+                                                <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="imgSeleccionada" class="img-matriz-preview" data-id="">
+                                            </div>
+                                        </div>
+                                        <div class="div-3" id="matriz-comercial" style="display:none">
+                                            <div class="titI" style="visibility:hidden">Descripción Regalo:</div>
+                                            <div class="Content_modal" style="margin-left: 10px; padding-top: 10px; padding-bottom: 0; width:545px">
+                                                <div id="matriz-comercial-header">
+                                                    <div id="matriz-imagenes-paginacion"></div>
+                                                </div>
+                                                <div class="actions">
+                                                    <div class="file-upload" id="file-upload"></div>
+                                                </div>
+                                                <div class="div-3">
+                                                    <div id="matriz-comercial-images" class="matsriz-comercial-list matriz-campania">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }*@
+
+                                <div class="div-3">
+                                    <div class="titI"></div>
+                                    <div class="input_search">
+                                        <input id="btnGrabar" type="submit" value="Grabar" />
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                </div>
+                <div id="tab-masiva" class="contenido_tab">
+                    
+                    <div class="div-3">
+                        <div class="titB">País:</div>
+                        <div class="selectA borde_redondeado">
+                            <select id="ddlPaisM"></select>
+                        </div>
+                        @*</div>
+                            <div class="div-3">*@
+                        <div class="titI">Año Campaña:</div>
+                        <div class="selectA borde_redondeado">
+                         <select id="ddlCampaniaM" disabled></select>
+
+                        </div>
+                    
+
+
+                    </div>
+                    <div class="div-3" id="divArchivo" style="display:none">
+                        <div class="titB">Archivo:</div>
+                        <div id="divuplArchivo" class="titB">
+                            @*<input id="uplArchivo" name="uplArchivo" type="file" />*@
+                            <input type="file" id="uplArchivo" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel,.xlsx" />
+                        </div>
+                    </div>
+                    <div class="div-3" id="divregistrosValidos" style="display:none">
+                        <div class="titB">Registros Válidos:</div>
+                        <div style="float:right;width:90%">
+                            <div id="divTotalRegistrosValidos" style="float:left;width:100%">Registros Totales : <span id="spanTotales1"></span> - Registros Válidos : <span id="spanValido"></span></div>
+                            <div style="float:left;width:100%">
+                                <div id="tablaCuvsValidos" style="height:200px; overflow:auto; float:left ;width:95%"> </div>
+                                <div id="divProcesarMasivo" style="float:left;display:none"><img src="~/Content/Images/update.png" id="btnProcesarMasivo" title="Actualizar Productos" /></div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <div class="div-3" id="divRegistrosInvalidos" style="display:none">
+                        <div class="titB">Registros Invalidos:</div>
+
+                        <div style="float:right;width:90%">
+                            <div id="divTotalRegistrosInvalidos">
+                                Registros Totales : <span id="spanTotales2"></span> - Registros No Válidos : <span id="spanInValido"></span>
+                            </div>
+
+                            <div>
+                                <div id="tablaCuvsInValidos" style="height:200px; overflow:auto; float:left ;width:95%"> </div>
+                                <div id="divExportarExcel" style="display:none">
+                                    <div style="display:block"><img src="~/Content/Images/check.png" id="btnValidar" title="Validar Productos" /></div>
+                                    <div style="display:block"><img src="~/Content/Images/Esika/excel.png" id="btnExcel" title="Exportar Productos" /></div>
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+                    
+                    <div id="loadingScreen"></div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<input id="hdfUrlRaiz" type="hidden" value='@Url.Content("~")' />
+@section scripts{
+    <script type="text/javascript" src="~/Scripts/jquery.form.js"></script>
+    <script src="~/Scripts/PortalConsultoras/MatrizCampania/ActualizarMatrizCamapaniaJS.js?v=2"></script>
+}

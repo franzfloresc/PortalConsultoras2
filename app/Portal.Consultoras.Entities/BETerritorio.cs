@@ -7,59 +7,34 @@ namespace Portal.Consultoras.Entities
     [DataContract]
     public class BETerritorio
     {
-        private int miRegionID;
-        private int miZonaID;
-        private int miTerritorioID;
-        private string msCodigo;
-        private string msDescripcion;
-        private int miSeccionID;
+        [DataMember]
+        public int RegionID { get; set; }
+
+        [DataMember]
+        public int ZonaID { get; set; }
+
+        [DataMember]
+        public int TerritorioID { get; set; }
+
+        [DataMember]
+        public string Codigo { get; set; }
+
+        [DataMember]
+        public string Descripcion { get; set; }
+
+        [DataMember]
+        public int SeccionID { get; set; }
 
         public BETerritorio() { }
         public BETerritorio(IDataRecord row)
         {
-            miRegionID = Convert.ToInt32(row["RegionID"]);
-            miZonaID = Convert.ToInt32(row["ZonaID"]);
-            miTerritorioID = Convert.ToInt32(row["TerritorioID"]);
-            msCodigo = row["Codigo"].ToString();
-            msDescripcion = row["Descripcion"].ToString();
-            miSeccionID = Convert.ToInt32(row["SeccionID"]);
+            RegionID = Convert.ToInt32(row["RegionID"]);
+            ZonaID = Convert.ToInt32(row["ZonaID"]);
+            TerritorioID = Convert.ToInt32(row["TerritorioID"]);
+            Codigo = row["Codigo"].ToString();
+            Descripcion = row["Descripcion"].ToString();
+            SeccionID = Convert.ToInt32(row["SeccionID"]);
         }
 
-        [DataMember]
-        public int RegionID
-        {
-            get { return miRegionID; }
-            set { miRegionID = value; }
-        }
-        [DataMember]
-        public int ZonaID
-        {
-            get { return miZonaID; }
-            set { miZonaID = value; }
-        }
-        [DataMember]
-        public int TerritorioID
-        {
-            get { return miTerritorioID; }
-            set { miTerritorioID = value; }
-        }
-        [DataMember]
-        public string Codigo
-        {
-            get { return msCodigo; }
-            set { msCodigo = value; }
-        }
-        [DataMember]
-        public string Descripcion
-        {
-            get { return msDescripcion; }
-            set { msDescripcion = value; }
-        }
-        [DataMember]
-        public int SeccionID
-        {
-            get { return miSeccionID; }
-            set { miSeccionID = value; }
-        }
     }
 }
