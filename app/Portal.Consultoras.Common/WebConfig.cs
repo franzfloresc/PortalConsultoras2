@@ -82,7 +82,12 @@ namespace Portal.Consultoras.Common
             }
         }
 
-
+        public static string UrlMicroservicioPersonalizacionConfig {
+            get
+            {
+                return ConfigurationManager.AppSettings["UrlMicroservicioPersonalizacionConfig"] ?? string.Empty;
+            }
+        }
 
         public static string PaisesShowRoom
         {

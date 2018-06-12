@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             using (var client = new HttpClient())
             {
-                string url = WebConfig.UrlMicroservicioPersonalizacionSearch;
+                string url = WebConfig.UrlMicroservicioPersonalizacionConfig;
                 client.BaseAddress = new Uri(url);
                 string jsonString = jsonParametros;
 
@@ -118,6 +118,7 @@ namespace Portal.Consultoras.Web.Providers
                         LimiteVenta = d.LimiteVenta,
                         DescripcionCUV2 = d.DescripcionCUV2,
                         Precio = (decimal)d.Precio,
+                        Precio2 = (decimal)d.Precio2,
                         CUV2 = d.CUV2,
                         Orden = d.Orden,
                         FlagNueva = d.FlagNueva ? 1 : 0,
@@ -209,7 +210,7 @@ namespace Portal.Consultoras.Web.Providers
             UsuarioModel userData = sessionManager.GetUserData();
             List<EstrategiaMDbAdapterModel> listaEstrategias = new List<EstrategiaMDbAdapterModel>();
             string jsonParameters = "";
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlFiltrarEstrategia, pais);
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlFiltrarEstrategia, pais,id);
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "get", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;

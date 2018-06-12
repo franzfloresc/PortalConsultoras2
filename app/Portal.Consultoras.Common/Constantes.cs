@@ -2085,51 +2085,51 @@ namespace Portal.Consultoras.Common
         {
             #region Administrar Estrategia
             //api/Estrategia/listar/{pais}/{tipo}/{campania}
-            public const string UrlListarWebApi = "estrategia/listar/{0}/{1}/{2}";
+            public const string UrlListarWebApi = "api/estrategia/listar/{0}/{1}/{2}";
 
             //api/Estrategia/contar/{pais}/{tipo}/{campania}
-            public const string UrlCantidadOfertas = "estrategia/contar/{0}/{1}/{2}";
+            public const string UrlCantidadOfertas = "api/estrategia/contar/{0}/{1}/{2}";
 
             //api/Estrategia/precargar/{pais}/{tipo}/{campania}
-            public const string UrlPreCargarWebApi = "estrategia/precargar/{0}/{1}/{2}";
+            public const string UrlPreCargarWebApi = "api/estrategia/precargar/{0}/{1}/{2}";
 
             //api/Estrategia/cargar/{pais}
-            public const string UrlCargarWebApi = "estrategia/cargar/{0}";
+            public const string UrlCargarWebApi = "api/estrategia/cargar/{0}";
 
             //api/Estrategia/{pais}/{id} --REVISAR
-            public const string UrlFiltrarEstrategia = "estrategia/{0}/{1}";
+            public const string UrlFiltrarEstrategia = "api/estrategia/{0}/{1}";
 
             //api/Estrategia/editar/{pais}
-            public const string UrlEditarWebApi = "estrategia/editar/{0}";
+            public const string UrlEditarWebApi = "api/estrategia/editar/{0}";
 
 
             //api/Estrategia/activar/{pais}/{id}?Usuario=
-            public const string UrlActivarEstrategia = "estrategia/activar/{0}/{1}?Usuario={2}";
+            public const string UrlActivarEstrategia = "api/estrategia/activar/{0}/{1}?Usuario={2}";
 
             //api/Estrategia/activar/{pais}?Usuario=
-            public const string UrlActivarEstrategias = "estrategia/activar/{0}?usuario={0}";
+            public const string UrlActivarEstrategias = "api/estrategia/activar/{0}?usuario={0}";
 
 
             //api/Estrategia/desactivar/{pais}/{id}?Usuario=           
-            public const string UrlDesactivarWebApi = "estrategia/desactivar/{0}/{1}?Usuario={2}";
+            public const string UrlDesactivarWebApi = "api/estrategia/desactivar/{0}/{1}?Usuario={2}";
 
             //api/Estrategia/desactivar/{pais}?Usuario=
-            public const string UrlDesactivarEstrategias = "estrategia/desactivar/{0}?Usuario={1}";
+            public const string UrlDesactivarEstrategias = "api/estrategia/desactivar/{0}?Usuario={1}";
 
             //api/Estrategia/actualizar/{pais}
-            public const string UrlUploadCsv = "estrategia/actualizar/{0}";
+            public const string UrlUploadCsv = "api/estrategia/actualizar/{0}";
 
             //api/Estrategia/cuv/{pais}/{tipo}/{campania}/{cuv}
-            public const string UrlEstrategiaCuv = "estrategia/cuv/{0}/{1}/{2}/{3}";
+            public const string UrlEstrategiaCuv = "api/estrategia/cuv/{0}/{1}/{2}/{3}";
 
             //api/Estrategia/registrar/{pais}
-            public const string UrlRegistrarWebApi = "estrategia/registrar/{0}";
+            public const string UrlRegistrarWebApi = "api/estrategia/registrar/{0}";
 
             //api/TipoEstrategia/editar/{pais}
-            public const string UrlEditarTipoEstrategiaWebApi = "tipo/editar/{0}";
+            public const string UrlEditarTipoEstrategiaWebApi = "api/tipo/editar/{0}";
 
             //api/TipoEstrategia/registrar/{pais}
-            public const string UrlRegistrarTipoEstrategiaWebApi = "tipo/registrar/{0}";
+            public const string UrlRegistrarTipoEstrategiaWebApi = "api/tipo/registrar/{0}";
 
 
             #endregion
