@@ -602,9 +602,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (Session[Constantes.ConstSession.ListaProductoShowRoomCpc] != null)
+                if (sessionManager.ShowRoom.OfertasCompraPorCompra != null)
                 {
-                    var listadoOfertasTodas = (List<ServiceOferta.BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoomCpc];
+                    var listadoOfertasTodas = sessionManager.ShowRoom.OfertasCompraPorCompra;
                     var listadoOfertasTodasModel = Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listadoOfertasTodas);
                     listadoOfertasTodasModel.Update(x =>
                     {
@@ -692,7 +692,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                Session[Constantes.ConstSession.ListaProductoShowRoomCpc] = listaShowRoomCpcFinal;
+                sessionManager.ShowRoom.OfertasCompraPorCompra = listaShowRoomCpcFinal;
                 var listadoProductosCpcModel1 = Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listaShowRoomCpcFinal);
                 listadoProductosCpcModel1.Update(x =>
                 {

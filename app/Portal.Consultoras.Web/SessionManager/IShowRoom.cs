@@ -9,5 +9,6 @@ namespace Portal.Consultoras.Web.SessionManager
         IBannerInferiorConfiguracion BannerInferiorConfiguracion { get; set; }
 
         List<EstrategiaPedidoModel> Ofertas { get; set; }
+        List<ServiceOferta.BEShowRoomOferta> OfertasCompraPorCompra { get; set; }
     }
 }
