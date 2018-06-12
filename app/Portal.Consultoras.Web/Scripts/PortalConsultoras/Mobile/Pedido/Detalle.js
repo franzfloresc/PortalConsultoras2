@@ -928,12 +928,10 @@ function EjecutarServicioPROLSinOfertaFinal() {
         async: true,
         cache: false,
         success: function (response) {
-            if (checkTimeout(response)) {
-                if (response.flagCorreo == "1") {
-                    EnviarCorreoPedidoReservado();
-                }
-                RespuestaEjecutarServicioPROL(response, false);
-            }
+            if (checkTimeout(response)) return;
+
+            if (response.flagCorreo == "1") EnviarCorreoPedidoReservado();
+            RespuestaEjecutarServicioPROL(response, false);
         },
         error: function (data, error) {
             CloseLoading();
@@ -969,7 +967,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
     codigoMensajeProl = inicio ? response.data.CodigoMensajeProl : "";
 
     var cumpleOferta = { resultado: false };
-    if (model.Reserva != true) {
+    if (!model.Reserva) {
         if (inicio) {
             tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
             cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);

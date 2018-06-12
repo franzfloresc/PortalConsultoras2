@@ -2252,6 +2252,67 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
     $('.tooltip_importanteGuardarPedido')[0].children[1].innerHTML = tooltips[1];
 }
 
+function ActualizarObjMontosTotales(data) {
+    $("#spnMontoGanancia").html(data.FormatoMontoGanancia);
+
+    var montoDescuento = parseFloat(data.MontoDescuento);
+    if (montoDescuento > 0) {
+        var htmlTexto = "";
+        htmlTexto += '<p class="monto_descuento">';
+        htmlTexto += '<span class="display: inline-block;">DESCUENTO</span><span class="icon-advertencia"></span>:';
+        htmlTexto += '</p>';
+        htmlTexto += '<p class="monto_montodescuento">';
+        htmlTexto += 'MONTO DESCUENTO :';
+        htmlTexto += '</p>';
+
+        var htmlTexto =
+            '<p class="monto_descuento">\
+                <span class="display: inline-block;">DESCUENTO</span><span class="icon-advertencia"></span>:\
+            </p>\
+            <p class="monto_montodescuento">MONTO DESCUENTO :</p>';
+
+        $("#divMontosEscalaDescuentoTexto").html(
+            '<p class="monto_descuento">\
+                <span class="display: inline-block;">DESCUENTO</span><span class="icon-advertencia"></span>:\
+            </p>\
+            <p class="monto_montodescuento">MONTO DESCUENTO :</p>'
+        ).show();
+
+        var htmlMontos = "";
+        htmlMontos += '<p class="monto_descuento">';
+        htmlMontos += '<b>';
+        htmlMontos += $("#hdSimbolo").val() + ' <span class="num" id="spnMontoDescuento"></span>';
+        htmlMontos += '</b>';
+        htmlMontos += '</p>';
+        htmlMontos += '<p class="monto_montodescuento">';
+        htmlMontos += '<b>';
+        htmlMontos += $("#hdSimbolo").val() + '<span class="num" id="spnMontoEscala"></span>';
+        htmlMontos += '</b>';
+        htmlMontos += '</p>';
+
+        $("#divMontosEscalaDescuento").html("");
+        $("#divMontosEscalaDescuento").html(htmlMontos);
+
+        var totalConDescuento = Number($("#hdfTotal").val()) - montoDescuento;
+
+        $("#spnMontoDescuento").html(DecimalToStringFormat(montoDescuento));
+        $("#spnMontoEscala").html(" " + DecimalToStringFormat(totalConDescuento));
+        $("#divMontosEscalaDescuento").css("display", "block");
+    }
+    else {
+        $("#divMontosEscalaDescuentoTexto").html("");
+        $("#divMontosEscalaDescuento").html("");
+
+        $("#divMontosEscalaDescuentoTexto").css("display", "none");
+        $("#divMontosEscalaDescuento").css("display", "none");
+    }
+
+    var tooltips = data.ProlTooltip.split('|');
+    $('.tooltip_importanteGuardarPedido')[0].children[0].innerHTML = tooltips[0];
+    $('.tooltip_importanteGuardarPedido')[0].children[1].innerHTML = tooltips[1];
+    $('#btnValidarPROL').val(data.Prol);
+}
+
 function MostrarMensajeProl(response) {
     var data = response.data;
 
