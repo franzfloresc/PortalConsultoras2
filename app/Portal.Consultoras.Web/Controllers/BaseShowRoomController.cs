@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServicePROLConsultas;
@@ -588,7 +587,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (sessionManager.ShowRoom.Ofertas != null) return sessionManager.ShowRoom.Ofertas;
 
-            var listaShowRoomOferta = GetShowRoomOfertasConsultora(userData);
+            var listaShowRoomOferta = _ofertaPersonalizadaProvider.GetShowRoomOfertasConsultora(userData);
 
             if (conFiltroMdo)
                 listaShowRoomOferta = ObtenerListaProductoShowRoomMdo(listaShowRoomOferta, Constantes.FlagRevista.Valor0);
@@ -614,7 +613,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return listadoOfertasTodasModel;
                 }
 
-                var listaShowRoomCpc = GetProductosCompraPorCompra(userData, eventoId);
+                var listaShowRoomCpc = _ofertaPersonalizadaProvider.GetProductosCompraPorCompra(userData, eventoId);
                 listaShowRoomCpc = ObtenerListaProductoShowRoomMdo(listaShowRoomCpc);
 
                 var listaTieneStock = new List<Lista>();
@@ -709,7 +708,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected EstrategiaPedidoModel ObtenerPrimeraOfertaShowRoom()
         {
-            var ofertasShowRoom = GetShowRoomOfertasConsultora(userData);
+            var ofertasShowRoom = _ofertaPersonalizadaProvider.GetShowRoomOfertasConsultora(userData);
 
             ofertasShowRoom = ObtenerListaProductoShowRoomMdo(ofertasShowRoom);
             ActualizarUrlImagenes(ofertasShowRoom);
@@ -812,16 +811,6 @@ namespace Portal.Consultoras.Web.Controllers
             });
         }
 
-        private List<EstrategiaPedidoModel> GetShowRoomOfertasConsultora(UsuarioModel usuario)
-        {
-
-            using (var ofertaService = new OfertaServiceClient())
-            {
-                var listaShowRoomOferta = ofertaService.GetShowRoomOfertasConsultora(usuario.PaisID, usuario.CampaniaID, usuario.CodigoConsultora).ToList();
-                return Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listaShowRoomOferta);
-            }
-        }
-
         private List<EstrategiaPedidoModel> ObtenerListaProductoShowRoomMdo(List<EstrategiaPedidoModel> listaShowRoomOferta, int flagRevistaValor = 0)
         {
             if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
@@ -907,15 +896,6 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.ShowRoom.Ofertas = listaShowRoomOfertaFinal;
 
             return listaShowRoomOfertaFinal;
-        }
-
-        private List<EstrategiaPedidoModel> GetProductosCompraPorCompra(UsuarioModel usuario, int eventoId)
-        {
-            using (var ofertaService = new OfertaServiceClient())
-            {
-                var listaShowRoomCpc = ofertaService.GetProductosCompraPorCompra(usuario.PaisID, eventoId, usuario.CampaniaID).ToList();
-                return Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listaShowRoomCpc);
-            }
         }
 
         #endregion

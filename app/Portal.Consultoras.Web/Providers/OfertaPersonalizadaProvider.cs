@@ -2,7 +2,6 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceOferta;
-using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
@@ -11,6 +10,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using AutoMapper;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -335,6 +335,29 @@ namespace Portal.Consultoras.Web.Providers
                 Dispositivo = esMObile ? "Mobile" : "Desktop",
                 Motivo = "Log carga oferta desde portal consultoras"
             };
+        }
+
+        #endregion
+
+        #region ShowRoom
+
+        public List<EstrategiaPedidoModel> GetShowRoomOfertasConsultora(UsuarioModel usuario)
+        {
+
+            using (var ofertaService = new OfertaServiceClient())
+            {
+                var listaShowRoomOferta = ofertaService.GetShowRoomOfertasConsultora(usuario.PaisID, usuario.CampaniaID, usuario.CodigoConsultora).ToList();
+                return Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listaShowRoomOferta);
+            }
+        }
+
+        public List<EstrategiaPedidoModel> GetProductosCompraPorCompra(UsuarioModel usuario, int eventoId)
+        {
+            using (var ofertaService = new OfertaServiceClient())
+            {
+                var listaShowRoomCpc = ofertaService.GetProductosCompraPorCompra(usuario.PaisID, eventoId, usuario.CampaniaID).ToList();
+                return Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listaShowRoomCpc);
+            }
         }
 
         #endregion
