@@ -53,9 +53,9 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "NumeroComprobanteSerie"))
                 NumeroComprobanteSerie = Convert.ToString(row["NumeroComprobanteSerie"]);
             if (DataRecord.HasColumn(row, "FechaEmision"))
-                FechaEmision = DbConvert.ToDateTime(row["FechaEmision"]);
+                FechaEmision = Convert.ToDateTime(row["FechaEmision"]);
             if (DataRecord.HasColumn(row, "ImportePercepcion"))
-                ImportePercepcion = DbConvert.ToDecimal(row["ImportePercepcion"]);
+                ImportePercepcion = Convert.ToDecimal(row["ImportePercepcion"]);
             if (DataRecord.HasColumn(row, "NombreAgentePerceptor"))
                 NombreAgentePerceptor = Convert.ToString(row["NombreAgentePerceptor"]);
             if (DataRecord.HasColumn(row, "RUCAgentePerceptor"))

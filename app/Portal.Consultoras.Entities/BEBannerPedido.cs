@@ -57,35 +57,35 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "Nombre"))
                 PaisNombre = Convert.ToString(row["Nombre"]);
             if (DataRecord.HasColumn(row, "CampaniaIDInicio"))
-                CampaniaIDInicio = DbConvert.ToInt32(row["CampaniaIDInicio"]);
+                CampaniaIDInicio = Convert.ToInt32(row["CampaniaIDInicio"]);
             if (DataRecord.HasColumn(row, "CampaniaIDFin"))
-                CampaniaIDFin = DbConvert.ToInt32(row["CampaniaIDFin"]);
+                CampaniaIDFin = Convert.ToInt32(row["CampaniaIDFin"]);
             if (DataRecord.HasColumn(row, "NombreCortoInicio"))
-                NombreCortoInicio = DbConvert.ToString(row["NombreCortoInicio"]);
+                NombreCortoInicio = Convert.ToString(row["NombreCortoInicio"]);
             if (DataRecord.HasColumn(row, "NombreCortoFin"))
-                NombreCortoFin = DbConvert.ToString(row["NombreCortoFin"]);
+                NombreCortoFin = Convert.ToString(row["NombreCortoFin"]);
             if (DataRecord.HasColumn(row, "ConsultoraID"))
-                ConsultoraID = DbConvert.ToInt64(row["ConsultoraID"]);
+                ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
             if (DataRecord.HasColumn(row, "ArchivoPortada"))
-                ArchivoPortada = DbConvert.ToString(row["ArchivoPortada"]);
+                ArchivoPortada = Convert.ToString(row["ArchivoPortada"]);
             if (DataRecord.HasColumn(row, "Archivo"))
-                Archivo = DbConvert.ToString(row["Archivo"]);
+                Archivo = Convert.ToString(row["Archivo"]);
             if (DataRecord.HasColumn(row, "Url"))
-                Url = DbConvert.ToString(row["Url"]);
+                Url = Convert.ToString(row["Url"]);
             if (DataRecord.HasColumn(row, "Posicion"))
                 Posicion = Convert.ToInt32(row["Posicion"]);
             if (DataRecord.HasColumn(row, "TipoUrl"))
-                TipoUrl = DbConvert.ToString(row["TipoUrl"]);
+                TipoUrl = Convert.ToString(row["TipoUrl"]);
             else
                 TipoUrl = string.Empty;
 
             if (DataRecord.HasColumn(row, "UsuarioCreacion"))
-                UsuarioCreacion = DbConvert.ToString(row["UsuarioCreacion"]);
+                UsuarioCreacion = Convert.ToString(row["UsuarioCreacion"]);
             else
                 UsuarioCreacion = string.Empty;
 
             if (DataRecord.HasColumn(row, "UsuarioModificacion"))
-                UsuarioModificacion = DbConvert.ToString(row["UsuarioModificacion"]);
+                UsuarioModificacion = Convert.ToString(row["UsuarioModificacion"]);
             else
                 UsuarioModificacion = string.Empty;
         }

@@ -256,7 +256,6 @@
     <Compile Include="Areas\Mobile\Models\PedidoDetalleMobileDetalleModel.cs" />
     <Compile Include="Areas\Mobile\Models\PedidoFICDetalleMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\PedidoDetalleMobileModel.cs" />
-    <Compile Include="Areas\Mobile\Models\PedidoValidacionPROLMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\PedidoMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\PedidoWebClienteMobilModel.cs" />
     <Compile Include="Areas\Mobile\Models\PedidoWebClientePrincipalMobilModel.cs" />

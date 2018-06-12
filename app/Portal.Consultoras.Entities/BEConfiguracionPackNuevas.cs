@@ -19,9 +19,9 @@ namespace Portal.Consultoras.Entities
         public BEConfiguracionPackNuevas(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "CodigoPrograma"))
-                CodigoPrograma = DbConvert.ToString(row["CodigoPrograma"]);
+                CodigoPrograma = Convert.ToString(row["CodigoPrograma"]);
             if (DataRecord.HasColumn(row, "PedidoAsociado"))
-                PedidoAsociado = DbConvert.ToString(row["PedidoAsociado"]);
+                PedidoAsociado = Convert.ToString(row["PedidoAsociado"]);
         }
     }
 

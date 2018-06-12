@@ -50,19 +50,17 @@ namespace Portal.Consultoras.Entities
 
         public BEGrupoBanner(IDataRecord row)
         {
-            CampaniaID = DbConvert.ToInt32(row["CampaniaID"]);
-            GrupoBannerID = Convert.ToInt32(row["GrupoBannerID"]);
-            TiempoRotacion = DbConvert.ToInt32(row["TiempoRotacion"]);
             Nombre = row["Nombre"].ToString();
             Dimension = row["Dimension"].ToString();
-            Ancho = DbConvert.ToInt32(row["Ancho"]);
-            Alto = DbConvert.ToInt32(row["Alto"]);
-            if (DataRecord.HasColumn(row, "DimensionEsika"))
-                DimensionEsika = row["DimensionEsika"].ToString();
-            if (DataRecord.HasColumn(row, "DimensionEsika"))
-                AnchoEsika = DbConvert.ToInt32(row["AnchoEsika"]);
-            if (DataRecord.HasColumn(row, "DimensionEsika"))
-                AltoEsika = DbConvert.ToInt32(row["AltoEsika"]);
+
+            if (DataRecord.HasColumn(row, "CampaniaID")) CampaniaID = Convert.ToInt32(row["CampaniaID"]);
+            if (DataRecord.HasColumn(row, "GrupoBannerID")) GrupoBannerID = Convert.ToInt32(row["GrupoBannerID"]);
+            if (DataRecord.HasColumn(row, "TiempoRotacion")) TiempoRotacion = Convert.ToInt32(row["TiempoRotacion"]);
+            if (DataRecord.HasColumn(row, "Ancho")) Ancho = Convert.ToInt32(row["Ancho"]);
+            if (DataRecord.HasColumn(row, "Alto")) Alto = Convert.ToInt32(row["Alto"]);
+            if (DataRecord.HasColumn(row, "DimensionEsika")) DimensionEsika = row["DimensionEsika"].ToString();
+            if (DataRecord.HasColumn(row, "DimensionEsika")) AnchoEsika = DbConvert.ToInt32(row["AnchoEsika"]);
+            if (DataRecord.HasColumn(row, "DimensionEsika")) AltoEsika = DbConvert.ToInt32(row["AltoEsika"]);
 
             Consultoras = new BEGrupoConsultora[0];
         }

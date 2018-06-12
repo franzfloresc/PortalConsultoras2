@@ -2746,15 +2746,13 @@ namespace Portal.Consultoras.Web.Controllers
             string v_valoractual = string.Empty;
             string dataString = string.Empty;
 
-            try
+            //Data actual viene del Model       => model
+            //Data anterior viene del userData  => userData 
+            if (userData != null && p_modelo != null && p_Accion.Trim().ToUpper() == "MODIFICACION")
             {
-                //Data actual viene del Model       => model
-                //Data anterior viene del userData  => userData 
-
-                if (userData != null && p_modelo != null && p_Accion.Trim().ToUpper() == "MODIFICACION")
+                string _seccion = "Mis Datos";
+                try
                 {
-                    string _seccion = "Mis Datos";
-
                     if (string.IsNullOrEmpty(userData.Sobrenombre)) userData.Sobrenombre = "";
                     if (string.IsNullOrEmpty(userData.EMail)) userData.EMail = "";
                     if (string.IsNullOrEmpty(userData.Telefono)) userData.Telefono = "";
@@ -2814,16 +2812,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                     SetUserData(userData);
                 }
-                else if (p_Accion.Trim().ToUpper() == "CONSULTA")
+                catch (Exception ex)
                 {
-                    EjecutarLogDynamoDB(data, "", "", "", p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, p_Seccion);
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
                 }
             }
-            catch (Exception ex)
+            else if (p_Accion.Trim().ToUpper() == "CONSULTA")
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
+                EjecutarLogDynamoDB(data, "", "", "", p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, p_Seccion);
             }
-
         }
 
         protected void EjecutarLogDynamoDB(object data, string campomodificacion, string valoractual, string valoranterior, string origen, string aplicacion, string accion, string codigoconsultorabuscado, string seccion = "")
@@ -5966,6 +5963,16 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 EjecutarLogDynamoDB(data, "", "", "", p_origen, p_aplicacion, accion, consultora, p_seccion);
             }
+        }
+
+        protected void GetNotificacionesValAutoProl(long procesoId, int tipoOrigen, out List<BENotificacionesDetalle> lstObservaciones, out List<BENotificacionesDetallePedido> lstObservacionesPedido)
+        {
+            using (var service = new UsuarioServiceClient())
+            {
+                lstObservaciones = service.GetNotificacionesConsultoraDetalle(userData.PaisID, procesoId, tipoOrigen).ToList();
+                lstObservacionesPedido = service.GetNotificacionesConsultoraDetallePedido(userData.PaisID, procesoId, tipoOrigen).ToList();
+            }
+            lstObservaciones = lstObservaciones.GroupBy(o => o.CUV).Select(g => g.First()).ToList();
         }
 
         public bool EsDispositivoMovil()

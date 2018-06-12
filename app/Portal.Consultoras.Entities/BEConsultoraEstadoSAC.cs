@@ -43,35 +43,35 @@
         public BEConsultoraEstadoSAC(IDataRecord datarec)
         {
             if (DataRecord.HasColumn(datarec, "consultoraID"))
-                consultoraID = DbConvert.ToInt32(datarec["consultoraID"]);
+                consultoraID = Convert.ToInt32(datarec["consultoraID"]);
             if (DataRecord.HasColumn(datarec, "codigo"))
-                codigo = DbConvert.ToString(datarec["codigo"]);
+                codigo = Convert.ToString(datarec["codigo"]);
             if (DataRecord.HasColumn(datarec, "estadoConsultora"))
-                estadoConsultora = DbConvert.ToString(datarec["estadoConsultora"]);
+                estadoConsultora = Convert.ToString(datarec["estadoConsultora"]);
             if (DataRecord.HasColumn(datarec, "campanaIngreso"))
-                campanaIngreso = DbConvert.ToInt32(datarec["campanaIngreso"]);
+                campanaIngreso = Convert.ToInt32(datarec["campanaIngreso"]);
             if (DataRecord.HasColumn(datarec, "montoMinimo"))
-                montoMinimo = DbConvert.ToDouble(datarec["montoMinimo"]);
+                montoMinimo = Convert.ToDouble(datarec["montoMinimo"]);
             if (DataRecord.HasColumn(datarec, "segmento"))
-                segmento = DbConvert.ToString(datarec["segmento"]);
+                segmento = Convert.ToString(datarec["segmento"]);
             if (DataRecord.HasColumn(datarec, "ultimaCampanaFacturada"))
-                ultimaCampanaFacturada = DbConvert.ToInt32(datarec["ultimaCampanaFacturada"]);
+                ultimaCampanaFacturada = Convert.ToInt32(datarec["ultimaCampanaFacturada"]);
             if (DataRecord.HasColumn(datarec, "montoMaximoPedido"))
-                montoMaximoPedido = DbConvert.ToDouble(datarec["montoMaximoPedido"]);
+                montoMaximoPedido = Convert.ToDouble(datarec["montoMaximoPedido"]);
             if (DataRecord.HasColumn(datarec, "autorizaPasarPedido"))
-                autorizaPasarPedido = DbConvert.ToString(datarec["autorizaPasarPedido"]);
+                autorizaPasarPedido = Convert.ToString(datarec["autorizaPasarPedido"]);
             if (DataRecord.HasColumn(datarec, "montoUltimoPedido"))
-                montoUltimoPedido = DbConvert.ToDouble(datarec["montoUltimoPedido"]);
+                montoUltimoPedido = Convert.ToDouble(datarec["montoUltimoPedido"]);
             if (DataRecord.HasColumn(datarec, "montoSaldoActual"))
-                montoSaldoActual = DbConvert.ToDouble(datarec["montoSaldoActual"]);
+                montoSaldoActual = Convert.ToDouble(datarec["montoSaldoActual"]);
             if (DataRecord.HasColumn(datarec, "campanaVigente"))
-                campanaVigente = DbConvert.ToInt32(datarec["campanaVigente"]);
+                campanaVigente = Convert.ToInt32(datarec["campanaVigente"]);
             if (DataRecord.HasColumn(datarec, "fechaFacturacion"))
-                fechaFacturacion = DbConvert.ToString(datarec["fechaFacturacion"]);
+                fechaFacturacion = Convert.ToString(datarec["fechaFacturacion"]);
             if (DataRecord.HasColumn(datarec, "pedidoFacturado"))
-                pedidoFacturado = DbConvert.ToInt32(datarec["pedidoFacturado"]);
+                pedidoFacturado = Convert.ToInt32(datarec["pedidoFacturado"]);
             if (DataRecord.HasColumn(datarec, "numeroCampania"))
-                numeroCampania = DbConvert.ToInt32(datarec["numeroCampania"]);
+                numeroCampania = Convert.ToInt32(datarec["numeroCampania"]);
         }
     }
 }

@@ -31,23 +31,23 @@ namespace Portal.Consultoras.Entities.Cupon
         public BECupon(IDataRecord datarec)
         {
             if (DataRecord.HasColumn(datarec, "CuponId"))
-                CuponId = DbConvert.ToInt32(datarec["CuponId"]);
+                CuponId = Convert.ToInt32(datarec["CuponId"]);
             if (DataRecord.HasColumn(datarec, "Tipo"))
-                Tipo = DbConvert.ToString(datarec["Tipo"]);
+                Tipo = Convert.ToString(datarec["Tipo"]);
             if (DataRecord.HasColumn(datarec, "Descripcion"))
-                Descripcion = DbConvert.ToString(datarec["Descripcion"]);
+                Descripcion = Convert.ToString(datarec["Descripcion"]);
             if (DataRecord.HasColumn(datarec, "CampaniaId"))
-                CampaniaId = DbConvert.ToInt32(datarec["CampaniaId"]);
+                CampaniaId = Convert.ToInt32(datarec["CampaniaId"]);
             if (DataRecord.HasColumn(datarec, "Estado"))
-                Estado = DbConvert.ToBoolean(datarec["Estado"]);
+                Estado = Convert.ToBoolean(datarec["Estado"]);
             if (DataRecord.HasColumn(datarec, "FechaCreacion"))
-                FechaCreacion = DbConvert.ToDateTime(datarec["FechaCreacion"]);
+                FechaCreacion = Convert.ToDateTime(datarec["FechaCreacion"]);
             if (DataRecord.HasColumn(datarec, "FechaModificacion"))
-                FechaModificacion = DbConvert.ToDateTime(datarec["FechaModificacion"]);
+                FechaModificacion = Convert.ToDateTime(datarec["FechaModificacion"]);
             if (DataRecord.HasColumn(datarec, "UsuarioCreacion"))
-                UsuarioCreacion = DbConvert.ToString(datarec["UsuarioCreacion"]);
+                UsuarioCreacion = Convert.ToString(datarec["UsuarioCreacion"]);
             if (DataRecord.HasColumn(datarec, "UsuarioModificacion"))
-                UsuarioModificacion = DbConvert.ToString(datarec["UsuarioModificacion"]);
+                UsuarioModificacion = Convert.ToString(datarec["UsuarioModificacion"]);
         }
     }
 }

@@ -214,7 +214,8 @@
     <Compile Include="Pedido\IPedidoWebSetBusinessLogic.cs" />
     <Compile Include="Reserva\IReservaExternaBL.cs" />
     <Compile Include="Reserva\BLReservaProl2.cs" />
-    <Compile Include="Reserva\RestClient.cs" />
+    <Compile Include="Reserva\Rest\DictHttpClient.cs" />
+    <Compile Include="Reserva\Rest\RestClient.cs" />
     <Compile Include="Resources\IncentivoMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
