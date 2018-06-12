@@ -14,7 +14,6 @@ using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServiceODS;
-using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServicePedidoRechazado;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
@@ -41,8 +40,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-using BEShowRoomEventoConsultora = Portal.Consultoras.Web.ServiceOferta.BEShowRoomEventoConsultora;
-using BEShowRoomNivel = Portal.Consultoras.Web.ServiceOferta.BEShowRoomNivel;
+using EstrategiaPedidoModel = Portal.Consultoras.Web.Models.EstrategiaPedidoModel;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -50,45 +48,55 @@ namespace Portal.Consultoras.Web.Controllers
     public partial class BaseController : Controller
     {
         #region Variables
-
         protected UsuarioModel userData;
         protected RevistaDigitalModel revistaDigital;
         protected HerramientasVentaModel herramientasVenta;
         protected GuiaNegocioModel guiaNegocio;
-        protected ISessionManager sessionManager;
-        protected ILogManager logManager;
-        private readonly TablaLogicaProvider _tablaLogicaProvider;
-        private readonly ShowRoomProvider _showRoomProvider;
         protected DataModel estrategiaODD;
         protected ConfigModel configEstrategiaSR;
-        private readonly BaseProvider _baseProvider;
-        private readonly GuiaNegocioProvider _guiaNegocioProvider;
+
+        protected ISessionManager sessionManager;
+        protected ILogManager logManager;
+
+        protected readonly TablaLogicaProvider _tablaLogicaProvider;
+        protected readonly BaseProvider _baseProvider;
+        protected readonly GuiaNegocioProvider _guiaNegocioProvider;
+        private readonly ShowRoomProvider _showRoomProvider;
+        private readonly OfertaDelDiaProvider _ofertaDelDiaProvider;
+        protected readonly OfertaPersonalizadaProvider _ofertaPersonalizadaProvider;
+        protected readonly ConfiguracionManagerProvider _configuracionManagerProvider;
+        protected readonly OfertaViewProvider _ofertasViewProvider;
+        protected readonly RevistaDigitalProvider _revistaDigitalProvider;
         #endregion
 
         #region Constructor
 
-        public BaseController()
+        public BaseController():this(SessionManager.SessionManager.Instance, LogManager.LogManager.Instance)
         {
             userData = new UsuarioModel();
-            logManager = LogManager.LogManager.Instance;
-            sessionManager = SessionManager.SessionManager.Instance;
+            //
             _tablaLogicaProvider = new TablaLogicaProvider();
-            _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
-            //estrategiaODD = sessionManager.GetEstrategiaODD() ?? new Models.Estrategia.OfertaDelDia.DataModel();
-            //configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
             _baseProvider = new BaseProvider();
             _guiaNegocioProvider = new GuiaNegocioProvider();
+            _ofertaPersonalizadaProvider = new OfertaPersonalizadaProvider();
+            _configuracionManagerProvider = new ConfiguracionManagerProvider();
+            _ofertasViewProvider = new OfertaViewProvider();
+            _revistaDigitalProvider = new RevistaDigitalProvider();
+            _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
+            _ofertaDelDiaProvider = new OfertaDelDiaProvider();
         }
 
         public BaseController(ISessionManager sessionManager)
-            : this()
         {
+            userData = new UsuarioModel();
+            //
             this.sessionManager = sessionManager;
         }
 
         public BaseController(ISessionManager sessionManager, ILogManager logManager)
-            : this()
         {
+            userData = new UsuarioModel();
+            //
             this.sessionManager = sessionManager;
             this.logManager = logManager;
         }
@@ -115,8 +123,7 @@ namespace Portal.Consultoras.Web.Controllers
                 herramientasVenta = sessionManager.GetHerramientasVenta();
                 guiaNegocio = sessionManager.GetGuiaNegocio();
                 estrategiaODD = sessionManager.GetEstrategiaODD();
-
-                configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
+                configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new ConfigModel();
                 if (!configEstrategiaSR.CargoEntidadesShowRoom) CargarEntidadesShowRoom(userData);
 
                 if (Request.IsAjaxRequest())
@@ -274,7 +281,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var observacionesProl = sessionManager.GetObservacionesProl();
                 if (detallesPedidoWeb.Count > 0 && observacionesProl != null)
                 {
-                    detallesPedidoWeb = PedidoConObservaciones(detallesPedidoWeb, observacionesProl);
+                    detallesPedidoWeb = PedidoConObservacionesAgrupado(detallesPedidoWeb, observacionesProl);
                 }
 
                 userData.PedidoID = detallesPedidoWeb.Count > 0 ? detallesPedidoWeb[0].PedidoID : 0;
@@ -293,6 +300,53 @@ namespace Portal.Consultoras.Web.Controllers
 
             return detallesPedidoWeb;
         }
+
+
+        protected List<BEPedidoWebDetalle> PedidoConObservacionesAgrupado(List<BEPedidoWebDetalle> pedido, List<ObservacionModel> observaciones)
+        {
+            var pedObs = pedido;
+            List<string> listaCUVsAEvaluar;
+            var txtBuil = new StringBuilder();
+            var nuevasObservaciones = new List<ObservacionModel>();
+
+            List<BEPedidoWebDetalle> cuvHijos = TraerHijosFaltantesEnObsPROL(pedido);
+
+            foreach (var item in pedObs)
+            {
+                listaCUVsAEvaluar = new List<string>();
+                item.Mensaje = string.Empty;
+
+                listaCUVsAEvaluar.Add(item.CUV);
+
+                if (cuvHijos.Any(x => x.SetID == item.SetID))
+                {
+                    listaCUVsAEvaluar.AddRange(cuvHijos.Where(x => x.SetID == item.SetID).Select(x => x.CUV));
+                }
+
+                // var temp = observaciones.Where(o => o.CUV == item.CUV).ToList();
+                var temp = observaciones.Where(o => listaCUVsAEvaluar.Contains(o.CUV)).ToList();
+
+
+                if (temp.Count != 0)
+                {
+                    if (temp.Any(o => o.Caso == 0)) item.TipoObservacion = 0;
+                    else item.TipoObservacion = temp[0].Tipo;
+
+                    foreach (var ob in temp)
+                    {
+                        txtBuil.Append(ob.Descripcion + "<br/>");
+                    }
+                    item.Mensaje = txtBuil.ToString();
+                    txtBuil.Clear();
+                }
+                else item.TipoObservacion = 0;
+            }
+
+            sessionManager.SetObservacionesProl(null);
+
+            return pedObs.OrderByDescending(p => p.TipoObservacion).ToList();
+        }
+
 
         protected List<BEPedidoWebDetalle> PedidoConObservaciones(List<BEPedidoWebDetalle> pedido, List<ObservacionModel> observaciones)
         {
@@ -319,6 +373,22 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return pedObs.OrderByDescending(p => p.TipoObservacion).ToList();
         }
+        private List<BEPedidoWebDetalle> TraerHijosFaltantesEnObsPROL(List<BEPedidoWebDetalle> pedido)
+        {
+            var idSetList = pedido.Where(x => x.SetID != 0).Select(x => x.SetID).ToList();
+            var cuvHijos = new List<BEPedidoWebDetalle>();
+
+            if (idSetList.Any())
+            {
+                using (var sv = new PedidoServiceClient())
+                {
+                    cuvHijos = sv.ObtenerCuvSetDetalle(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.PedidoID, String.Join(",", idSetList)).ToList();
+
+                }
+            }
+
+            return cuvHijos;
+        }
 
         protected List<ObjMontosProl> ServicioProl_CalculoMontosProl(bool session = true)
         {
@@ -336,7 +406,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var cuvs = string.Join("|", detallesPedidoWeb.Select(p => p.CUV).ToArray());
                 var cantidades = string.Join("|", detallesPedidoWeb.Select(p => p.Cantidad).ToArray());
 
-                var ambiente = GetConfiguracionManager(Constantes.ConfiguracionManager.Ambiente);
+                var ambiente = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Ambiente);
                 var keyWeb = ambiente.ToUpper() == "QA" ? "QA_Prol_ServicesCalculos" : "PR_Prol_ServicesCalculos";
 
                 using (var sv = new ServicesCalculoPrecioNiveles())
@@ -689,19 +759,19 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected virtual bool GetMostrarPedidosPendientesFromConfig()
         {
-            var mostrarPedidoAppSetting = GetConfiguracionManager(Constantes.ConfiguracionManager.MostrarPedidosPendientes);
+            var mostrarPedidoAppSetting = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.MostrarPedidosPendientes);
 
             return mostrarPedidoAppSetting == "1";
         }
 
         protected string GetPaisesConConsultoraOnlineFromConfig()
         {
-            return GetConfiguracionManager(Constantes.ConfiguracionManager.Permisos_CCC);
+            return _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Permisos_CCC);
         }
 
         protected virtual string GetDefaultGifMenuOfertas()
         {
-            return GetConfiguracionManager(Constantes.ConfiguracionManager.GIF_MENU_DEFAULT_OFERTAS);
+            return _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.GIF_MENU_DEFAULT_OFERTAS);
         }
 
         public virtual string GetUrlImagenMenuOfertas(UsuarioModel userData, RevistaDigitalModel revistaDigital)
@@ -1067,7 +1137,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string GetFormatDecimalPais(string isoPais)
         {
-            var listaPaises = GetConfiguracionManager(Constantes.ConfiguracionManager.KeyPaisFormatDecimal);
+            var listaPaises = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.KeyPaisFormatDecimal);
             if (listaPaises == "" || isoPais == "") return ",|.|2";
             if (listaPaises.Contains(isoPais)) return ".||0";
             return ",|.|2";
@@ -1075,15 +1145,15 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected List<BEProductoFaltante> GetProductosFaltantes()
         {
-            return this.GetProductosFaltantes("", "");
+            return this.GetProductosFaltantes("", "" , "" , "");
         }
 
-        protected List<BEProductoFaltante> GetProductosFaltantes(string cuv, string descripcion)
+        protected List<BEProductoFaltante> GetProductosFaltantes(string cuv, string descripcion ,string codCategoria , string codCatalogoRevista)
         {
             List<BEProductoFaltante> olstProductoFaltante;
             using (var sv = new SACServiceClient())
             {
-                olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID, cuv, descripcion).ToList();
+                olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID, cuv, descripcion , codCategoria , codCatalogoRevista).ToList();
             }
             return olstProductoFaltante ?? new List<BEProductoFaltante>();
         }
@@ -1178,7 +1248,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     sessionManager.SetEsShowRoom("1");
 
-                    var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+                    var fechaHoy = userData.FechaHoy;
 
                     if (userData.FechaInicioCampania != default(DateTime))
                         ViewBag.DiasFaltan = (userData.FechaInicioCampania.AddDays(-configEstrategiaSR.BeShowRoom.DiasAntes) - fechaHoy).Days;
@@ -1193,8 +1263,6 @@ namespace Portal.Consultoras.Web.Controllers
                         sessionManager.SetMostrarShowRoomProductosExpiro("1");
                 }
 
-                
-
                 configEstrategiaSR.CargoEntidadesShowRoom = true;
             }
             catch (Exception ex)
@@ -1203,7 +1271,6 @@ namespace Portal.Consultoras.Web.Controllers
                 configEstrategiaSR.CargoEntidadesShowRoom = false;
             }
 
-            SetUserData(model);
             sessionManager.SetEstrategiaSR(configEstrategiaSR);
         }
 
@@ -1248,7 +1315,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (string.IsNullOrEmpty(codigoIsoPais))
                 return false;
 
-            var paisesShowRoom = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesShowRoom);
+            var paisesShowRoom = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesShowRoom);
             var tieneShowRoom = paisesShowRoom.Contains(codigoIsoPais);
             return tieneShowRoom;
         }
@@ -1750,7 +1817,7 @@ namespace Portal.Consultoras.Web.Controllers
         private List<ProductoModel> GetEstrategiaDetalleGetProductoBySap(EstrategiaPersonalizadaProductoModel estrategiaModelo, string joinSap)
         {
             List<Producto> listaAppCatalogo;
-            var numeroCampanias = Convert.ToInt32(GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
+            var numeroCampanias = Convert.ToInt32(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
             using (var svc = new ProductoServiceClient())
             {
                 listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, estrategiaModelo.CampaniaID, joinSap, numeroCampanias).ToList();
@@ -1971,10 +2038,10 @@ namespace Portal.Consultoras.Web.Controllers
             return new Converter<decimal, string>(p => p.ToString("n2", new System.Globalization.CultureInfo("es-PE")));
         }
 
-        protected int AddCampaniaAndNumero(int campania, int numero)
-        {
-            return Util.AddCampaniaAndNumero(campania, numero, userData.NroCampanias);
-        }
+        //protected int AddCampaniaAndNumero(int campania, int numero)
+        //{
+        //    return Util.AddCampaniaAndNumero(campania, numero, userData.NroCampanias);
+        //}
 
         public string FormatearHora(TimeSpan hora)
         {
@@ -2317,21 +2384,42 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected OfertaDelDiaModel GetOfertaDelDiaModel()
         {
-            if (estrategiaODD.ListaDeOferta == null)
-                return null;
+            if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                return new OfertaDelDiaModel();
 
-            if (!estrategiaODD.ListaDeOferta.Any())
-                return null;
+            var sessionOfertaDelDia = sessionManager.GetEstrategiaODD();
+
+            if (sessionOfertaDelDia != null)
+            {
+                if (sessionOfertaDelDia.ListaDeOferta != null && sessionOfertaDelDia.ListaDeOferta.Any())
+                    return sessionOfertaDelDia.ListaDeOferta.First();
+            }
+
+            var listaOfertas = _ofertaDelDiaProvider.GetOfertaDelDiaModel(userData);
+
+            if (listaOfertas == null)
+                return new OfertaDelDiaModel();
+
+            estrategiaODD.ListaDeOferta = listaOfertas;
+            userData.TieneOfertaDelDia = estrategiaODD.ListaDeOferta.Any();
+
+            //if (estrategiaODD.ListaDeOferta == null)
+            //    return null;
+
+            //if (!estrategiaODD.ListaDeOferta.Any())
+            //    return null;
 
             var model = estrategiaODD.ListaDeOferta.First().Clone();
             model.ListaOfertas = estrategiaODD.ListaDeOferta;
-            short posicion = 1;
             var tiposEstrategia = sessionManager.GetTiposEstrategia();
+            short posicion = 1;
+
             if (tiposEstrategia == null)
             {
                 tiposEstrategia = GetTipoEstrategias();
                 sessionManager.SetTiposEstrategia(tiposEstrategia);
             }
+
             foreach (var oferta in model.ListaOfertas)
             {
                 oferta.Position = posicion++;
@@ -2343,9 +2431,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             model.TeQuedan = CountdownODD(userData);
-
             var configOdd = GetConfiguracionEstrategia(Constantes.ConfiguracionPais.OfertaDelDia);
             model.ConfiguracionContenedor = configOdd;
+            sessionManager.SetEstrategiaODD(estrategiaODD);
+
             return model;
         }
 
@@ -2373,6 +2462,22 @@ namespace Portal.Consultoras.Web.Controllers
 
             var t2 = (d2 - hoy);
             return t2;
+        }
+
+        private bool NoMostrarBannerODD()
+        {
+            var controllerName = ControllerContext.RouteData.Values["controller"].ToString();
+            switch (controllerName)
+            {
+                case "OfertaLiquidacion":
+                    return true;
+                case "CatalogoPersonalizado":
+                    return true;
+                case "ShowRoom":
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         public ConfiguracionSeccionHomeModel GetConfiguracionEstrategia(string codigoEstrategia)
@@ -2477,7 +2582,7 @@ namespace Portal.Consultoras.Web.Controllers
             string codigo = null;
             string requestUrl = null;
             bool esRevistaPiloto = false;
-            var Grupos = GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Grupos + userData.CodigoISO + campania);
+            var Grupos = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Grupos + userData.CodigoISO + campania);
             string codeGrupo = null;
             string nroCampania = string.Empty;
             string anioCampania = string.Empty;
@@ -2486,7 +2591,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 foreach (var grupo in Grupos.Split(','))
                 {
-                    var zonas = GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Zonas + userData.CodigoISO + campania + "_" + grupo);
+                    var zonas = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Zonas + userData.CodigoISO + campania + "_" + grupo);
                     esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(userData.CodigoZona);
                     if (esRevistaPiloto)
                     {
@@ -2498,7 +2603,7 @@ namespace Portal.Consultoras.Web.Controllers
             else
                 esRevistaPiloto = false;
 
-            codigo = GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoRevistaIssuu);
+            codigo = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoRevistaIssuu);
             if (campania.Length >= 6)
                 nroCampania = campania.Substring(4, 2);
             if (campania.Length >= 6)
@@ -2524,7 +2629,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return codigoRevista;
 
                 string tipo = "1";
-                if (GetConfiguracionManagerContains(Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_2 + userData.CodigoISO, userData.CodigoZona))
+                if (_configuracionManagerProvider.GetConfiguracionManagerContains(Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_2 + userData.CodigoISO, userData.CodigoZona))
                 {
                     tipo = "2";
                 }
@@ -2541,12 +2646,12 @@ namespace Portal.Consultoras.Web.Controllers
             string nroCampania = string.Empty;
             string anioCampania = string.Empty;
 
-            var zonas = GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Zonas + userData.CodigoISO + campania);
+            var zonas = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Zonas + userData.CodigoISO + campania);
             var esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(userData.CodigoZona);
-            if (esRevistaPiloto) codigo = GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Codigo + userData.CodigoISO + campania);
+            if (esRevistaPiloto) codigo = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Codigo + userData.CodigoISO + campania);
             if (!string.IsNullOrEmpty(codigo)) return codigo;
 
-            codigo = GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoRevistaIssuu);
+            codigo = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoRevistaIssuu);
 
             if (campania.Length >= 6)
                 nroCampania = campania.Substring(4, 2);
@@ -2583,7 +2688,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (esCatalogoPiloto) codigo = ConfigurationManager.AppSettings[nombreCatalogoConfig + "Piloto_Codigo_" + userData.CodigoISO + campania];
             if (!string.IsNullOrEmpty(codigo)) return codigo;
 
-            codigo = GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoCatalogoIssuu);
+            codigo = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoCatalogoIssuu);
             return string.Format(codigo, nombreCatalogoIssuu, GetPaisNombreByISO(userData.CodigoISO), campania.Substring(4, 2), campania.Substring(0, 4));
         }
 
@@ -2598,7 +2703,7 @@ namespace Portal.Consultoras.Web.Controllers
             string requestUrl = null;
             bool esRevistaPiloto = false;
             string Grupos = null;
-            string marcas = GetConfiguracionManager(Constantes.ConfiguracionManager.Catalogo_Marca_Piloto + userData.CodigoISO + campania) ?? "";
+            string marcas = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Catalogo_Marca_Piloto + userData.CodigoISO + campania) ?? "";
             bool esMarcaEspecial = false;
 
             switch (idMarcaCatalogo)
@@ -2620,7 +2725,7 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
             }
 
-            Grupos = GetConfiguracionManager(Constantes.ConfiguracionManager.Catalogo_Piloto_Grupos + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + userData.CodigoISO + campania);
+            Grupos = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Catalogo_Piloto_Grupos + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + userData.CodigoISO + campania);
             esMarcaEspecial = marcas.Split(new char[1] { ',' }).Select(marca => marca.Trim()).Contains(nombreCatalogoConfig);
 
 
@@ -2628,7 +2733,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 foreach (var grupo in Grupos.Split(','))
                 {
-                    var zonas = GetConfiguracionManager(Constantes.ConfiguracionManager.Catalogo_Piloto_Zonas + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + userData.CodigoISO + campania + Constantes.ConfiguracionManager.SubGuion + grupo);
+                    var zonas = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Catalogo_Piloto_Zonas + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + userData.CodigoISO + campania + Constantes.ConfiguracionManager.SubGuion + grupo);
                     esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(userData.CodigoZona);
                     if (esRevistaPiloto)
                     {
@@ -2640,7 +2745,7 @@ namespace Portal.Consultoras.Web.Controllers
             else
                 esRevistaPiloto = false;
 
-            codigo = GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoCatalogoIssuu);
+            codigo = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoCatalogoIssuu);
             if (campania.Length >= 6)
                 nroCampania = campania.Substring(4, 2);
             if (campania.Length >= 6)
@@ -2738,7 +2843,7 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
 
-                var urlApi = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
+                var urlApi = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
 
                 if (string.IsNullOrEmpty(urlApi)) return;
 
@@ -2950,7 +3055,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string dataString = string.Empty;
             string apiController = string.Empty;
-
+            
             try
             {
                 string urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
@@ -2996,6 +3101,7 @@ namespace Portal.Consultoras.Web.Controllers
                         httpClient.BaseAddress = new Uri(urlApi);
                         httpClient.DefaultRequestHeaders.Accept.Clear();
                         httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
                         dataString = JsonConvert.SerializeObject(data);
                         HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
                         HttpResponseMessage response = httpClient.PostAsync(apiController, contentPost).GetAwaiter().GetResult();
@@ -3004,6 +3110,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     }
                 }
+                
             }
             catch (Exception ex)
             {
@@ -3016,7 +3123,7 @@ namespace Portal.Consultoras.Web.Controllers
             var dataString = string.Empty;
             try
             {
-                var urlApi = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
+                var urlApi = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
                 if (string.IsNullOrEmpty(urlApi)) return;
 
                 var data = new
@@ -3119,12 +3226,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-
-        protected int GetDiasFaltantesFacturacion(DateTime fechaInicioCampania, double zonaHoraria)
-        {
-            var fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
-            return fechaHoy >= fechaInicioCampania.Date ? 0 : (fechaInicioCampania.Subtract(DateTime.Now.AddHours(zonaHoraria)).Days + 1);
-        }
+        
+        //protected int GetDiasFaltantesFacturacion(DateTime fechaInicioCampania, double zonaHoraria)
+        //{
+        //    var fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
+        //    return fechaHoy >= fechaInicioCampania.Date ? 0 : (fechaInicioCampania.Subtract(DateTime.Now.AddHours(zonaHoraria)).Days + 1);
+        //}
 
         protected JsonResult ErrorJson(string message, bool allowGet = false)
         {
@@ -3134,22 +3241,6 @@ namespace Portal.Consultoras.Web.Controllers
         protected JsonResult SuccessJson(string message, bool allowGet = false)
         {
             return Json(new { success = true, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
-        }
-
-        private bool NoMostrarBannerODD()
-        {
-            var controllerName = ControllerContext.RouteData.Values["controller"].ToString();
-            switch (controllerName)
-            {
-                case "OfertaLiquidacion":
-                    return true;
-                case "CatalogoPersonalizado":
-                    return true;
-                case "ShowRoom":
-                    return true;
-                default:
-                    return false;
-            }
         }
 
         public string ObtenerValorPersonalizacionShowRoom(string codigoAtributo, string tipoAplicacion)
@@ -3353,7 +3444,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (userData.IndicadorBloqueoCDR == 1) return Constantes.CdrWebMensajes.ConsultoraBloqueada;
             if (CumpleRangoCampaniaCDR() == 0) return Constantes.CdrWebMensajes.SinPedidosDisponibles;
 
-            var diasFaltantes = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
+            var diasFaltantes = _baseProvider.GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
             if (diasFaltantes == 0) return Constantes.CdrWebMensajes.FueraDeFecha;
 
             var cdrDiasAntesFacturacion = 0;
@@ -3720,7 +3811,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected string GetPaisesEsikaFromConfig()
         {
-            return GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika);
+            return _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika);
         }
 
         #region Configuracion Seccion Palanca
@@ -3999,7 +4090,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
 
-                var listaShowRoom = (List<ServiceOferta.BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<ServiceOferta.BEShowRoomOferta>();
+                var listaShowRoom = sessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPedidoModel>();
                 seccion.CantidadProductos = listaShowRoom.Count(x => !x.EsSubCampania);
                 seccion.CantidadMostrar = Math.Min(3, seccion.CantidadProductos);
             }
@@ -4042,7 +4133,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (revistaDigital.TieneRDC || herramientasVenta.TieneHV)
             {
                 menuActivo.CampaniaX0 = userData.CampaniaID;
-                menuActivo.CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                menuActivo.CampaniaX1 = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
             }
             if (revistaDigital.TieneRDI)
             {
@@ -4076,7 +4167,7 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
                 case Constantes.UrlMenuContenedor.InicioRevisar:
                     menuActivo.Codigo = revistaDigital.TieneRevistaDigital() ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
-                    menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                    menuActivo.CampaniaId = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
                     menuActivo.OrigenPantalla = IsMobile()
                         ? Constantes.OrigenPantallaWeb.MContenedorHomeRevisar
                         : Constantes.OrigenPantallaWeb.DContenedorHomeRevisar;
@@ -4089,7 +4180,7 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
                 case Constantes.UrlMenuContenedor.RdRevisar:
                     menuActivo.Codigo = revistaDigital.TieneRDC ? Constantes.ConfiguracionPais.RevistaDigital : Constantes.ConfiguracionPais.RevistaDigitalReducida;
-                    menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                    menuActivo.CampaniaId = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
                     menuActivo.OrigenPantalla = IsMobile()
                         ? Constantes.OrigenPantallaWeb.MRevistaDigitalRevisar
                         : Constantes.OrigenPantallaWeb.DRevistaDigitalRevisar;
@@ -4141,7 +4232,7 @@ namespace Portal.Consultoras.Web.Controllers
                         : Constantes.OrigenPantallaWeb.DHerramientaVenta;
                     break;
                 case Constantes.UrlMenuContenedor.HerramientasVentaRevisar:
-                    menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                    menuActivo.CampaniaId = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
                     menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVenta;
                     menuActivo.OrigenPantalla = IsMobile()
                         ? Constantes.OrigenPantallaWeb.MHerramientaVenta
@@ -4581,25 +4672,25 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.ConfiguracionPais.InicioRD:
                         config = (ConfiguracionPaisModel)configuracionPais.Clone();
                         config.UrlMenu = "/Ofertas/Revisar";
-                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                        config.CampaniaId = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
                         menuContenedorBloqueado.Add(config);
                         break;
                     case Constantes.ConfiguracionPais.Lanzamiento:
                         config = (ConfiguracionPaisModel)configuracionPais.Clone();
                         config.UrlMenu = "#";
-                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                        config.CampaniaId = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
                         menuContenedorBloqueado.Add(config);
                         break;
                     case Constantes.ConfiguracionPais.RevistaDigital:
                         config = (ConfiguracionPaisModel)configuracionPais.Clone();
                         config.UrlMenu = "/RevistaDigital/Revisar";
-                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                        config.CampaniaId = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
                         menuContenedorBloqueado.Add(config);
                         break;
                     case Constantes.ConfiguracionPais.HerramientasVenta:
                         config = (ConfiguracionPaisModel)configuracionPais.Clone();
                         config.UrlMenu = "/HerramientasVenta/Revisar";
-                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                        config.CampaniaId = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
                         menuContenedorBloqueado.Add(config);
                         break;
                 }
@@ -4634,61 +4725,61 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-        #region RD
-        public virtual MensajeProductoBloqueadoModel MensajeProductoBloqueado()
-        {
-            var model = new MensajeProductoBloqueadoModel();
+        //#region RD
+        //public virtual MensajeProductoBloqueadoModel MensajeProductoBloqueado()
+        //{
+        //    var model = new MensajeProductoBloqueadoModel();
 
-            if (!revistaDigital.TieneRDC) return model;
+        //    if (!revistaDigital.TieneRDC) return model;
 
-            model.IsMobile = IsMobile();
+        //    model.IsMobile = IsMobile();
 
-            string codigo = String.Empty;
-            ConfiguracionPaisDatosModel dato;
-            if (revistaDigital.EsActiva)
-            {
-                model.MensajeIconoSuperior = true;
-                model.BtnInscribirse = false;
+        //    string codigo = String.Empty;
+        //    ConfiguracionPaisDatosModel dato;
+        //    if (revistaDigital.EsActiva)
+        //    {
+        //        model.MensajeIconoSuperior = true;
+        //        model.BtnInscribirse = false;
 
-                codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaSuscrita;
-                dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
-                model.MensajeTitulo = Util.Trim(dato.Valor1);
-                return model;
-            }
-            else
-            {
-                model.MensajeIconoSuperior = false;
-                model.BtnInscribirse = !revistaDigital.EsSuscrita;
+        //        codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaSuscrita;
+        //        dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+        //        model.MensajeTitulo = Util.Trim(dato.Valor1);
+        //        return model;
+        //    }
+        //    else
+        //    {
+        //        model.MensajeIconoSuperior = false;
+        //        model.BtnInscribirse = !revistaDigital.EsSuscrita;
 
-                codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaNoSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaNoSuscrita;
-                dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
-                model.MensajeTitulo = Util.Trim(dato.Valor1);
-            }
+        //        codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaNoSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaNoSuscrita;
+        //        dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+        //        model.MensajeTitulo = Util.Trim(dato.Valor1);
+        //    }
 
-            if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
-            {
-                model.MensajeBtnPopup = "DE ACUERDO";
-                model.IdPopup = !model.IsMobile ? "divSNAPopupBloqueadoDesk" : "divSNAPopupBloqueadoMob";
-                model.UrlBtnPopup = "javascript: void(0)";
+        //    if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+        //    {
+        //        model.MensajeBtnPopup = "DE ACUERDO";
+        //        model.IdPopup = !model.IsMobile ? "divSNAPopupBloqueadoDesk" : "divSNAPopupBloqueadoMob";
+        //        model.UrlBtnPopup = "javascript: void(0)";
 
-                codigo = Constantes.ConfiguracionPaisDatos.RD.PopupBloqueadoSNA;
-            }
-            else if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
-            {
-                model.MensajeBtnPopup = "SUSCRIBETE GRATIS";
-                model.IdPopup = !model.IsMobile ? "divNSPopupBloqueadoDesk" : "divNSPopupBloqueadoMob";
-                model.UrlBtnPopup = (model.IsMobile ? "/Mobile" : "") + "/RevistaDigital/Informacion/";
+        //        codigo = Constantes.ConfiguracionPaisDatos.RD.PopupBloqueadoSNA;
+        //    }
+        //    else if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+        //    {
+        //        model.MensajeBtnPopup = "SUSCRIBETE GRATIS";
+        //        model.IdPopup = !model.IsMobile ? "divNSPopupBloqueadoDesk" : "divNSPopupBloqueadoMob";
+        //        model.UrlBtnPopup = (model.IsMobile ? "/Mobile" : "") + "/RevistaDigital/Informacion/";
 
-                codigo = Constantes.ConfiguracionPaisDatos.RD.PopupBloqueadoNS;
-            }
+        //        codigo = Constantes.ConfiguracionPaisDatos.RD.PopupBloqueadoNS;
+        //    }
 
-            dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
-            model.MensajePopupPrimero = RemplazaTag(dato.Valor1, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
-            model.MensajePopupSegundo = RemplazaTag(dato.Valor2, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
+        //    dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+        //    model.MensajePopupPrimero = RemplazaTag(dato.Valor1, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
+        //    model.MensajePopupSegundo = RemplazaTag(dato.Valor2, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
 
-            return model;
-        }
-        #endregion
+        //    return model;
+        //}
+        //#endregion
 
         //#region Guia de Negocio Digitalizada
         //public virtual bool GNDValidarAcceso(bool esConsultoraLider, GuiaNegocioModel guiaNegocio, RevistaDigitalModel revistaDigital)
@@ -4719,40 +4810,38 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void RemplazarTagNombreConfiguracionOferta(ref BEConfiguracionOfertasHome config, string tag, string valor)
         {
-            config.DesktopTitulo = RemplazaTag(config.DesktopTitulo, tag, valor);
-            config.DesktopSubTitulo = RemplazaTag(config.DesktopSubTitulo, tag, valor);
-            config.MobileTitulo = RemplazaTag(config.MobileTitulo, tag, valor);
-            config.MobileSubTitulo = RemplazaTag(config.MobileSubTitulo, tag, valor);
+            config.DesktopTitulo = _baseProvider.RemplazaTag(config.DesktopTitulo, tag, valor);
+            config.DesktopSubTitulo = _baseProvider.RemplazaTag(config.DesktopSubTitulo, tag, valor);
+            config.MobileTitulo = _baseProvider.RemplazaTag(config.MobileTitulo, tag, valor);
+            config.MobileSubTitulo = _baseProvider.RemplazaTag(config.MobileSubTitulo, tag, valor);
         }
 
         private ConfiguracionPaisModel RemplazarTagNombre(ConfiguracionPaisModel config, string tag, string valor)
         {
             if (config == null || string.IsNullOrEmpty(tag)) return config;
 
-            config.DesktopTituloBanner = RemplazaTag(config.DesktopTituloBanner, tag, valor);
-            config.DesktopSubTituloBanner = RemplazaTag(config.DesktopSubTituloBanner, tag, valor);
-            config.MobileTituloBanner = RemplazaTag(config.MobileTituloBanner, tag, valor);
-            config.MobileSubTituloBanner = RemplazaTag(config.MobileSubTituloBanner, tag, valor);
-            config.DesktopTituloMenu = RemplazaTag(config.DesktopTituloMenu, tag, valor);
-            config.DesktopSubTituloMenu = RemplazaTag(config.DesktopSubTituloMenu, tag, valor);
-            config.MobileTituloMenu = RemplazaTag(config.MobileTituloMenu, tag, valor);
-            config.MobileSubTituloMenu = RemplazaTag(config.MobileSubTituloMenu, tag, valor);
+            config.DesktopTituloBanner = _baseProvider.RemplazaTag(config.DesktopTituloBanner, tag, valor);
+            config.DesktopSubTituloBanner = _baseProvider.RemplazaTag(config.DesktopSubTituloBanner, tag, valor);
+            config.MobileTituloBanner = _baseProvider.RemplazaTag(config.MobileTituloBanner, tag, valor);
+            config.MobileSubTituloBanner = _baseProvider.RemplazaTag(config.MobileSubTituloBanner, tag, valor);
+            config.DesktopTituloMenu = _baseProvider.RemplazaTag(config.DesktopTituloMenu, tag, valor);
+            config.DesktopSubTituloMenu = _baseProvider.RemplazaTag(config.DesktopSubTituloMenu, tag, valor);
+            config.MobileTituloMenu = _baseProvider.RemplazaTag(config.MobileTituloMenu, tag, valor);
+            config.MobileSubTituloMenu = _baseProvider.RemplazaTag(config.MobileSubTituloMenu, tag, valor);
 
             return config;
         }
 
-        public string RemplazaTag(string cadena, string tag, string valor)
-        {
-            cadena = cadena ?? "";
-            tag = tag ?? "";
-            valor = valor ?? "";
-
-            cadena = cadena.Replace(tag, valor);
-            cadena = cadena.Replace(tag.ToLower(), valor);
-            cadena = cadena.Replace(tag.ToUpper(), valor);
-
-            return cadena;
-        }
+        //public string RemplazaTag(string cadena, string tag, string valor)
+        //{
+        //    cadena = cadena ?? "";
+        //    tag = tag ?? "";
+        //    valor = valor ?? "";
+        //    cadena = cadena.Replace(tag, valor);
+        //    cadena = cadena.Replace(tag.ToLower(), valor);
+        //    cadena = cadena.Replace(tag.ToUpper(), valor);
+        //    return cadena;
+        //}
 
         protected string GetDescripcionMarca(int marcaId)
         {
@@ -4862,18 +4951,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             key = Util.Trim(key);
             if (key == "") return "";
-
             var keyvalor = ConfigurationManager.AppSettings.Get(key);
-
             return Util.Trim(keyvalor);
         }
-
-        public bool GetConfiguracionManagerContains(string key, string compara)
-        {
-            var keyCongi = GetConfiguracionManager(key);
-            return keyCongi.Contains(compara);
-        }
-
+        
         #endregion
 
         #region Resize Imagen Default       
@@ -5090,7 +5171,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            ViewBag.Dias = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
+            ViewBag.Dias = _baseProvider.GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
             ViewBag.PeriodoAnalytics = userData.FechaHoy >= userData.FechaInicioCampania.Date && userData.FechaHoy <= userData.FechaFinCampania.Date ? "Facturacion" : "Venta";
             ViewBag.SemanaAnalytics = "No Disponible";
 
@@ -5342,7 +5423,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected string GetBucketNameFromConfig()
         {
-            return GetConfiguracionManager(Constantes.ConfiguracionManager.BUCKET_NAME);
+            return _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.BUCKET_NAME);
         }
 
         protected int GetMostradoPopupPrecargados()
@@ -5430,7 +5511,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Campana = campania,
                     NumeroPedido = numeroPedido
                 };
-                var urlService = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_PDF_NEW);
+                var urlService = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_PDF_NEW);
                 var wrapper = ConsumirServicio<WrapperPDFWeb>(input, urlService);
 
                 var result = (wrapper ?? new WrapperPDFWeb()).GET_URLResult;
@@ -5470,7 +5551,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Tipo = "1",
                     CodigoConsultora = codigoConsultora
                 };
-                var urlService = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_Campanias_NEW);
+                var urlService = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_Campanias_NEW);
                 var wrapper = ConsumirServicio<WrapperCampanias>(input, urlService);
 
                 var result = (wrapper ?? new WrapperCampanias()).LIS_CampanaResult;
@@ -5554,14 +5635,15 @@ namespace Portal.Consultoras.Web.Controllers
 
             return model;
         }
+        
+        //public string GetUrlTerminosCondicionesDatosUsuario()
+        //{
+        //    var nombreCarpetaTc = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.NombreCarpetaTC);
+        //    var nombreArchivoTc = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.NombreArchivoTC) + ".pdf";
+        //    return ConfigS3.GetUrlFileS3(nombreCarpetaTc, userData.CodigoISO + "/" + nombreArchivoTc, String.Empty);
+        //}
 
-        public string GetUrlTerminosCondicionesDatosUsuario()
-        {
-            var nombreCarpetaTc = GetConfiguracionManager(Constantes.ConfiguracionManager.NombreCarpetaTC);
-            var nombreArchivoTc = GetConfiguracionManager(Constantes.ConfiguracionManager.NombreArchivoTC) + ".pdf";
-            return ConfigS3.GetUrlFileS3(nombreCarpetaTc, userData.CodigoISO + "/" + nombreArchivoTc, String.Empty);
-        }
-
+        // Movido a OfertaProvider
         public void GetLimitNumberPhone(out int limiteMinimoTelef, out int limiteMaximoTelef)
         {
             switch (userData.PaisID)
@@ -5951,13 +6033,6 @@ namespace Portal.Consultoras.Web.Controllers
             return resultado;
         }
 
-        protected bool EsFacturacion()
-        {
-            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-            bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
-            return esFacturacion;
-        }
-
         public void registraLogDynamoCDR(MisReclamosModel model)
         {
             try
@@ -6083,56 +6158,55 @@ namespace Portal.Consultoras.Web.Controllers
         }
         
         #region Revista digital y Sección DORADA
-        public ConfiguracionPaisDatosModel ObtenerPerdio(int campaniaId)
-        {
-            var dato = new ConfiguracionPaisDatosModel();
-            if (TieneProductosPerdio(campaniaId))
-            {
-                var codigo = "";
-                bool upper = false;
-                if (!revistaDigital.EsSuscrita)
-                {
-                    codigo = Constantes.ConfiguracionPaisDatos.RD.NSPerdiste;
-                    upper = true;
-                }
-                else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
-                {
-                    codigo = Constantes.ConfiguracionPaisDatos.RD.SNAPerdiste;
-                    upper = true;
-                }
-                else
-                {
-                    codigo = IsMobile() ? Constantes.ConfiguracionPaisDatos.RD.MPerdiste : Constantes.ConfiguracionPaisDatos.RD.DPerdiste;
-                }
+        //public ConfiguracionPaisDatosModel ObtenerPerdio(int campaniaId)
+        //{
+        //    var dato = new ConfiguracionPaisDatosModel();
+        //    if (_ofertaPersonalizadaProvider.TieneProductosPerdio(campaniaId))
+        //    {
+        //        var codigo = "";
+        //        bool upper = false;
+        //        if (!revistaDigital.EsSuscrita)
+        //        {
+        //            codigo = Constantes.ConfiguracionPaisDatos.RD.NSPerdiste;
+        //            upper = true;
+        //        }
+        //        else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+        //        {
+        //            codigo = Constantes.ConfiguracionPaisDatos.RD.SNAPerdiste;
+        //            upper = true;
+        //        }
+        //        else
+        //        {
+        //            codigo = IsMobile() ? Constantes.ConfiguracionPaisDatos.RD.MPerdiste : Constantes.ConfiguracionPaisDatos.RD.DPerdiste;
+        //        }
 
-                dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+        //        dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
 
-                dato.Valor1 = RemplazaTag(dato.Valor1, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
-                dato.Valor2 = RemplazaTag(dato.Valor2, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
+        //        dato.Valor1 = _baseProvider.RemplazaTag(dato.Valor1, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
+        //        dato.Valor2 = _baseProvider.RemplazaTag(dato.Valor2, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
 
-                if (upper)
-                {
-                    dato.Valor1 = dato.Valor1.ToUpper();
-                    dato.Valor2 = dato.Valor2.ToUpper();
-                }
+        //        if (upper)
+        //        {
+        //            dato.Valor1 = dato.Valor1.ToUpper();
+        //            dato.Valor2 = dato.Valor2.ToUpper();
+        //        }
 
-                dato.Estado = true;
-            }
+        //        dato.Estado = true;
+        //    }
 
-            dato.Valor1 = Util.Trim(dato.Valor1);
-            dato.Valor2 = Util.Trim(dato.Valor2);
+        //    dato.Valor1 = Util.Trim(dato.Valor1);
+        //    dato.Valor2 = Util.Trim(dato.Valor2);
 
-            return dato;
-        }
+        //    return dato;
+        //}
         
-        public bool TieneProductosPerdio(int campaniaId)
-        {
-            if (revistaDigital.TieneRDC && !revistaDigital.EsActiva &&
-                campaniaId == userData.CampaniaID)
-                return true;
-
-            return false;
-        }
+        //public bool TieneProductosPerdio(int campaniaId)
+        //{
+        //    if (revistaDigital.TieneRDC && !revistaDigital.EsActiva &&
+        //        campaniaId == userData.CampaniaID)
+        //        return true;
+        //    return false;
+        //}
         #endregion
 
     }

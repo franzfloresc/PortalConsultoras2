@@ -34,6 +34,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "ImagenProducto", DbType.String, entity.ImagenProducto);
             Context.Database.AddInParameter(command, "Estado", DbType.Int32, entity.Estado);
             Context.Database.AddInParameter(command, "UsuarioRegistro", DbType.String, entity.UsuarioRegistro);
+            Context.Database.AddInParameter(command, "MostrarAgotado", DbType.Int32, entity.MostrarAgotado);
 
             Context.ExecuteNonQuery(command);
             var id = (string)Context.Database.GetParameterValue(command, "Return");
@@ -52,6 +53,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "ImagenProducto", DbType.String, entity.ImagenProducto);
             Context.Database.AddInParameter(command, "Estado", DbType.Int32, entity.Estado);
             Context.Database.AddInParameter(command, "UsuarioModificacion", DbType.String, entity.UsuarioModificacion);
+            Context.Database.AddInParameter(command, "MostrarAgotado", DbType.Int32, entity.MostrarAgotado);
 
             Context.ExecuteNonQuery(command);
             var id = (string)Context.Database.GetParameterValue(command, "Return");

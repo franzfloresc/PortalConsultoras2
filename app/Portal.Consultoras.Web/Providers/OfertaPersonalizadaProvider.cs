@@ -1,17 +1,32 @@
-﻿using Portal.Consultoras.Common;
+﻿using Newtonsoft.Json;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using AutoMapper;
 
 namespace Portal.Consultoras.Web.Providers
 {
-    public class OfertaPersonalizadaProvider
+    public class OfertaPersonalizadaProvider : BaseProvider
     {
         private readonly ISessionManager sessionManager = SessionManager.SessionManager.Instance;
         
+        private readonly ConfiguracionManagerProvider _configuracionManagerProvider;
+
+        public OfertaPersonalizadaProvider()
+        {
+            _configuracionManagerProvider = new ConfiguracionManagerProvider();
+        }
+
+        #region Metodos de Estrategia Controller
+
         public string ConsultarOfertasTipoPalanca(BusquedaProductoModel model, int tipo)
         {
 
@@ -30,7 +45,7 @@ namespace Portal.Consultoras.Web.Providers
                     palanca = model.CampaniaID != userData.CampaniaID
                         || (revistaDigital.TieneRDC && revistaDigital.EsActiva)
                         ? Constantes.TipoEstrategiaCodigo.RevistaDigital
-                        : string.Empty;
+                        : Constantes.TipoEstrategiaCodigo.OfertaParaTi;
                 }
             }
             else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.GNDObtenerProductos)
@@ -176,7 +191,7 @@ namespace Portal.Consultoras.Web.Providers
             return retorno;
         }
         
-        private bool TieneProductosPerdio(int campaniaId)
+        public bool TieneProductosPerdio(int campaniaId)
         {
             var revistaDigital = sessionManager.GetRevistaDigital();
             var userData = sessionManager.GetUserData();
@@ -186,6 +201,47 @@ namespace Portal.Consultoras.Web.Providers
                 return true;
 
             return false;
+        }
+
+        public bool ConsultarOfertasValidarPermiso(BusquedaProductoModel model, int tipo)
+        {
+            var revistaDigital = sessionManager.GetRevistaDigital();
+            var _guiaNegocioProvider = new GuiaNegocioProvider();
+
+            if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos)
+            {
+                if (model == null || !(revistaDigital.TieneRevistaDigital()) || EsCampaniaFalsa(model.CampaniaID))
+                {
+                    return false;
+                }
+            }
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.GNDObtenerProductos)
+            {
+                var userData = sessionManager.GetUserData();
+                var guiaNegocio = sessionManager.GetGuiaNegocio();
+
+                if (!_guiaNegocioProvider.GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
+                {
+                    return false;
+                }
+            }
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.HVObtenerProductos)
+            {
+                return true;
+            }
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductosLan)
+            {
+                if (!(revistaDigital.TieneRevistaDigital()) || EsCampaniaFalsa(model.CampaniaID))
+                {
+                    return false;
+                }
+            }
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.OPTObtenerProductos)
+            {
+                return true;
+            }
+
+            return true;
         }
 
         #region Mas Vendidos
@@ -216,6 +272,96 @@ namespace Portal.Consultoras.Web.Providers
             return model;
         }
         #endregion
+
+        #endregion
+
+        #region Metodos de Base estrategia Controller
+        
+        public bool EsCampaniaFalsa(int campaniaId)
+        {
+            var userData = sessionManager.GetUserData();
+            return (campaniaId < userData.CampaniaID || campaniaId > Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias));
+        }
+
+        public string ObtenerConstanteConfPais(string codigoAgrupacion)
+        {
+            switch (codigoAgrupacion)
+            {
+                case Constantes.TipoEstrategiaCodigo.RevistaDigital:
+                    return Constantes.ConfiguracionPais.RevistaDigital;
+                case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+                    return Constantes.ConfiguracionPais.Lanzamiento;
+                case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                    return Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada;
+                default:
+                    return Constantes.ConfiguracionPais.OfertasParaTi;
+            }
+        }
+
+        public void EnviarLogOferta(int campaniaId, string tipo, bool esMObile)
+        {
+            object data = CrearDataLog(campaniaId, ObtenerConstanteConfPais(tipo), esMObile);
+            var urlApi = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
+
+            if (string.IsNullOrEmpty(urlApi)) return;
+
+            var httpClient = new HttpClient { BaseAddress = new Uri(urlApi) };
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var dataString = JsonConvert.SerializeObject(data);
+
+            HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+
+            var response = httpClient.PostAsync("Api/LogCargaOfertas", contentPost).GetAwaiter().GetResult();
+
+            var noQuitar = response.IsSuccessStatusCode;
+
+            httpClient.Dispose();
+        }
+
+        private object CrearDataLog(int campaniaOferta, string palanca, bool esMObile)
+        {
+            var userData = sessionManager.GetUserData();
+
+            return new
+            {
+                Pais = userData.CodigoISO,
+                CodigoConsultora = userData.CodigoConsultora,
+                Fecha = userData.FechaActualPais.ToString("yyyyMMdd"),
+                Campania = userData.CampaniaID,
+                CampaniaOferta = campaniaOferta == 0 ? userData.CampaniaID.ToString() : campaniaOferta.ToString(),
+                Palanca = palanca,
+                Dispositivo = esMObile ? "Mobile" : "Desktop",
+                Motivo = "Log carga oferta desde portal consultoras"
+            };
+        }
+
+        #endregion
+
+        #region ShowRoom
+
+        public List<EstrategiaPedidoModel> GetShowRoomOfertasConsultora(UsuarioModel usuario)
+        {
+
+            using (var ofertaService = new OfertaServiceClient())
+            {
+                var listaShowRoomOferta = ofertaService.GetShowRoomOfertasConsultora(usuario.PaisID, usuario.CampaniaID, usuario.CodigoConsultora).ToList();
+                return Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listaShowRoomOferta);
+            }
+        }
+
+        public List<EstrategiaPedidoModel> GetProductosCompraPorCompra(UsuarioModel usuario, int eventoId)
+        {
+            using (var ofertaService = new OfertaServiceClient())
+            {
+                var listaShowRoomCpc = ofertaService.GetProductosCompraPorCompra(usuario.PaisID, eventoId, usuario.CampaniaID).ToList();
+                return Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listaShowRoomCpc);
+            }
+        }
+
+        #endregion
+
     }
 
 }

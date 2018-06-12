@@ -90,7 +90,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     using (ODSServiceClient srv = new ODSServiceClient())
                     {
-                        int campaniaAnterior = AddCampaniaAndNumero(model.CampaniaID, -1);
+                        int campaniaAnterior = Util.AddCampaniaAndNumero(model.CampaniaID, -1, userData.NroCampanias);
                         foreach (string cuv in productosAValidar)
                         {
                             List<ServiceODS.BEProductoDescripcion> productoFaltante = srv.GetProductoComercialByPaisAndCampania(campaniaAnterior, cuv, model.PaisID, 1).ToList();

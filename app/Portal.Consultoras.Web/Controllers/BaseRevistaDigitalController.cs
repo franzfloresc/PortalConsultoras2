@@ -32,85 +32,39 @@ namespace Portal.Consultoras.Web.Controllers
             if (revistaDigital.TieneRDI)
                 return View("template-informativa-rdi");
 
+            var esMobile = IsMobile();
             if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDS)
-                return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
-
-            int limiteMinimoTelef, limiteMaximoTelef;
-            GetLimitNumberPhone(out limiteMinimoTelef, out limiteMaximoTelef);
-            var modelo = new RevistaDigitalInformativoModel();
-            modelo.EsSuscrita = revistaDigital.EsSuscrita;
-            modelo.EstadoSuscripcion = revistaDigital.EstadoSuscripcion;
-            modelo.Video = GetVideoInformativo();
-            modelo.UrlTerminosCondiciones = GetValorDato(Constantes.ConfiguracionManager.RDUrlTerminosCondiciones);
-            modelo.UrlPreguntasFrecuentes = GetValorDato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes);
-            modelo.Origen = revistaDigital.SuscripcionEfectiva.Origen;
-            modelo.NombreConsultora = userData.Sobrenombre.ToUpper();
-            modelo.Email = userData.EMail;
-            modelo.Celular = userData.Celular;
-            modelo.LimiteMax = limiteMaximoTelef;
-            modelo.LimiteMin = limiteMinimoTelef;
-            modelo.UrlTerminosCondicionesDatosUsuario = GetUrlTerminosCondicionesDatosUsuario();
-            modelo.CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString().Substring(4);
-            modelo.MostrarCancelarSuscripcion = !(userData.esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas &&
-                ((!revistaDigital.EsSuscrita && (!revistaDigital.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion || !revistaDigital.SociaEmpresariaSuscritaActivaCancelarSuscripcion)) ||
-                (revistaDigital.EsSuscrita && !revistaDigital.EsActiva && !revistaDigital.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion) ||
-                (revistaDigital.EsSuscrita && revistaDigital.EsActiva && !revistaDigital.SociaEmpresariaSuscritaActivaCancelarSuscripcion)));
-            modelo.CancelarSuscripcion = CancelarSuscripcion(revistaDigital.SuscripcionEfectiva.Origen, userData.CodigoISO);
-            modelo.EsSuscripcionInmediata = EsSuscripcionInmediata();
+                return RedirectToAction("Index", "Ofertas", new { area = esMobile ? "Mobile" : "" });
+            
+            var modelo = _revistaDigitalProvider.InformativoModel(IsMobile());
             return View("template-informativa", modelo);
         }
 
-        public bool EsSuscripcionInmediata()
-        {
-            return revistaDigital.SuscripcionModel != null ? (revistaDigital.ActivoMdo&&(revistaDigital.SuscripcionModel.CampaniaEfectiva == revistaDigital.SuscripcionModel.CampaniaID)&& revistaDigital.CantidadCampaniaEfectiva==0) : false;
-        }
+        //public bool EsSuscripcionInmediata()
+        //{
+        //    return revistaDigital.SuscripcionModel != null ? (revistaDigital.ActivoMdo&&(revistaDigital.SuscripcionModel.CampaniaEfectiva == revistaDigital.SuscripcionModel.CampaniaID)&& revistaDigital.CantidadCampaniaEfectiva==0) : false;
+        //}
 
         public ActionResult ViewLanding(int tipo)
         {
-            var id = tipo == 1 ? userData.CampaniaID : AddCampaniaAndNumero(userData.CampaniaID, 1);
+            var id = tipo == 1 ? userData.CampaniaID : Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
 
-            var model = new RevistaDigitalLandingModel();
-            if (EsCampaniaFalsa(id)) return PartialView("template-landing", model);
-
-            model.CampaniaID = id;
-            model.IsMobile = IsMobile();
-
-            model.FiltersBySorting = new List<BETablaLogicaDatos>
+            var model = new RevistaDigitalLandingModel
             {
-                new BETablaLogicaDatos
-                {
-                    Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido,
-                    Descripcion = model.IsMobile ? "ORDENAR POR" : "ORDENAR POR PRECIO"
-                },
-                new BETablaLogicaDatos
-                {
-                    Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor,
-                    Descripcion = model.IsMobile ? "MENOR PRECIO" : "MENOR A MAYOR PRECIO"
-                },
-                new BETablaLogicaDatos
-                {
-                    Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor,
-                    Descripcion = model.IsMobile ? "MAYOR PRECIO" : "MAYOR A MENOR PRECIO"
-                }
+                CampaniaID = id,
+                IsMobile = IsMobile(),
+                FiltersBySorting = _ofertasViewProvider.GetFiltersBySorting(IsMobile()),
+                FiltersByBrand = _ofertasViewProvider.GetFiltersByBrand(),
+                Success = true,
+                MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile()),
+                CantidadFilas = 15
             };
 
-            model.FiltersByBrand = new List<BETablaLogicaDatos>
-            {
-                new BETablaLogicaDatos {Codigo = "-", Descripcion = model.IsMobile ? "MARCAS" : "FILTRAR POR MARCA"},
-                new BETablaLogicaDatos {Codigo = "CYZONE", Descripcion = "CYZONE"},
-                new BETablaLogicaDatos {Codigo = "ÉSIKA", Descripcion = "ÉSIKA"},
-                new BETablaLogicaDatos {Codigo = "LBEL", Descripcion = "LBEL"}
-            };
-
-            model.Success = true;
-            var dato = ObtenerPerdio(model.CampaniaID);
+            var dato = _ofertasViewProvider.ObtenerPerdioTitulo(model.CampaniaID, IsMobile());
             model.ProductosPerdio = dato.Estado;
             model.PerdioTitulo = dato.Valor1;
             model.PerdioSubTitulo = dato.Valor2;
-
-            model.MensajeProductoBloqueado = MensajeProductoBloqueado();
-            model.CantidadFilas = 15;
-
+            
             model.MostrarFiltros = !model.ProductosPerdio && !(revistaDigital.TieneRDC && !revistaDigital.EsActiva);
 
             return PartialView("template-landing", model);
@@ -128,7 +82,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
             }
-            if (EsCampaniaFalsa(modelo.CampaniaID))
+
+            if (_ofertaPersonalizadaProvider.EsCampaniaFalsa(modelo.CampaniaID))
             {
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
             }
@@ -142,7 +97,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
 
-            var dato = ObtenerPerdio(modelo.CampaniaID);
+            var dato = _ofertasViewProvider.ObtenerPerdioTitulo(modelo.CampaniaID, IsMobile());
             ViewBag.TieneProductosPerdio = dato.Estado;
             ViewBag.PerdioTitulo = dato.Valor1;
             ViewBag.PerdioSubTitulo = dato.Valor2;
@@ -152,84 +107,42 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
         
-        private ConfiguracionPaisDatosModel ObtenerPerdio(int campaniaId)
-        {
-            var dato = new ConfiguracionPaisDatosModel();
-            if (TieneProductosPerdio(campaniaId))
-            {
-                var codigo = "";
-                bool upper = false;
-                if (!revistaDigital.EsSuscrita)
-                {
-                    codigo = Constantes.ConfiguracionPaisDatos.RD.NSPerdiste;
-                    upper = true;
-                }
-                else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
-                {
-                    codigo = Constantes.ConfiguracionPaisDatos.RD.SNAPerdiste;
-                    upper = true;
-                }
-                else
-                {
-                    codigo = IsMobile() ? Constantes.ConfiguracionPaisDatos.RD.MPerdiste : Constantes.ConfiguracionPaisDatos.RD.DPerdiste;
-                }
+        //private string GetVideoInformativo()
+        //{
+        //    var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.InformativoVideo) ?? new ConfiguracionPaisDatosModel();
+        //    return Util.Trim(IsMobile() ? dato.Valor2 : dato.Valor1);
+        //}
 
-                dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+        //public string GetValorDato(string codigo, int valor = 1)
+        //{
+        //    var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+        //    var valorDato = "";
+        //    switch (valor)
+        //    {
+        //        case 0: valorDato = IsMobile() ? dato.Valor2 : dato.Valor1; break;
+        //        case 1: valorDato = dato.Valor1; break;
+        //        case 2: valorDato = dato.Valor2; break;
+        //        case 3: valorDato = dato.Valor3; break;
+        //        default: valorDato = dato.Valor1; break;
+        //    }
+        //    return Util.Trim(valorDato);
+        //}
 
-                dato.Valor1 = RemplazaTag(dato.Valor1, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
-                dato.Valor2 = RemplazaTag(dato.Valor2, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
-
-                if (upper)
-                {
-                    dato.Valor1 = dato.Valor1.ToUpper();
-                    dato.Valor2 = dato.Valor2.ToUpper();
-                }
-                
-                dato.Estado = true;
-            }
-
-            dato.Valor1 = Util.Trim(dato.Valor1);
-            dato.Valor2 = Util.Trim(dato.Valor2);
-
-            return dato;
-        }
-
-        private string GetVideoInformativo()
-        {
-            var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.InformativoVideo) ?? new ConfiguracionPaisDatosModel();
-            return Util.Trim(IsMobile() ? dato.Valor2 : dato.Valor1);
-        }
-
-        public string GetValorDato(string codigo, int valor = 1)
-        {
-            var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
-            var valorDato = "";
-            switch (valor)
-            {
-                case 0: valorDato = IsMobile() ? dato.Valor2 : dato.Valor1; break;
-                case 1: valorDato = dato.Valor1; break;
-                case 2: valorDato = dato.Valor2; break;
-                case 3: valorDato = dato.Valor3; break;
-                default: valorDato = dato.Valor1; break;
-            }
-            return Util.Trim(valorDato);
-        }
-
-        private bool CancelarSuscripcion(string origen, string pais)
-        {
-            if (origen.IsNullOrEmptyTrim()) return false;
-            string paises;
-            if (origen.Equals(Constantes.RevistaDigitalOrigen.Unete))
-            {
-                paises = ConfigurationManager.AppSettings.Get(Constantes.ConfiguracionManager.PaisesCancelarSuscripcionRDUnete) ?? string.Empty;
-                if (paises.Contains(pais)) return true;
-            }
-            else if (origen.Equals(Constantes.RevistaDigitalOrigen.Nueva))
-            {
-                paises = ConfigurationManager.AppSettings.Get(Constantes.ConfiguracionManager.PaisesCancelarSuscripcionRDNuevas) ?? string.Empty;
-                if (paises.Contains(pais)) return true;
-            }
-            return false;
-        }
+        //private bool CancelarSuscripcion(string origen, string pais)
+        //{
+        //    if (origen.IsNullOrEmptyTrim()) return false;
+        //    string paises;
+        //    if (origen.Equals(Constantes.RevistaDigitalOrigen.Unete))
+        //    {
+        //        paises = ConfigurationManager.AppSettings.Get(Constantes.ConfiguracionManager.PaisesCancelarSuscripcionRDUnete) ?? string.Empty;
+        //        if (paises.Contains(pais)) return true;
+        //    }
+        //    else if (origen.Equals(Constantes.RevistaDigitalOrigen.Nueva))
+        //    {
+        //        paises = ConfigurationManager.AppSettings.Get(Constantes.ConfiguracionManager.PaisesCancelarSuscripcionRDNuevas) ?? string.Empty;
+        //        if (paises.Contains(pais)) return true;
+        //    }
+        //    return false;
+        //}
     }
 }

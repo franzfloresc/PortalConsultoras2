@@ -203,7 +203,7 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEBannerSegmentoZona> GetBannerPaisesAsignados(int CampaniaId, int BannerId);
 
         [OperationContract]
-        void UpdBannerPaisSegmentoZona(int CampaniaId, int BannerId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInterno);
+        void UpdBannerPaisSegmentoZona(BEBannerSegmentoZona segmentoZona);
 
         [OperationContract]
         void DeleteCacheBanner(int CampaniaID);

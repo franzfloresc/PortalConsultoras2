@@ -4051,6 +4051,12 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOfertaService/ShowRoomProgramarAviso", ReplyAction="http://tempuri.org/IOfertaService/ShowRoomProgramarAvisoResponse")]
         System.Threading.Tasks.Task<int> ShowRoomProgramarAvisoAsync(int paisID, Portal.Consultoras.Web.ServiceOferta.BEShowRoomEventoConsultora entity);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOfertaService/GetEstrategiasPedido", ReplyAction="http://tempuri.org/IOfertaService/GetEstrategiasPedidoResponse")]
+        Portal.Consultoras.Web.ServiceOferta.BEEstrategia[] GetEstrategiasPedido(Portal.Consultoras.Web.ServiceOferta.BEEstrategia entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOfertaService/GetEstrategiasPedido", ReplyAction="http://tempuri.org/IOfertaService/GetEstrategiasPedidoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceOferta.BEEstrategia[]> GetEstrategiasPedidoAsync(Portal.Consultoras.Web.ServiceOferta.BEEstrategia entidad);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -4150,6 +4156,14 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         
         public System.Threading.Tasks.Task<int> ShowRoomProgramarAvisoAsync(int paisID, Portal.Consultoras.Web.ServiceOferta.BEShowRoomEventoConsultora entity) {
             return base.Channel.ShowRoomProgramarAvisoAsync(paisID, entity);
+        }
+        
+        public Portal.Consultoras.Web.ServiceOferta.BEEstrategia[] GetEstrategiasPedido(Portal.Consultoras.Web.ServiceOferta.BEEstrategia entidad) {
+            return base.Channel.GetEstrategiasPedido(entidad);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceOferta.BEEstrategia[]> GetEstrategiasPedidoAsync(Portal.Consultoras.Web.ServiceOferta.BEEstrategia entidad) {
+            return base.Channel.GetEstrategiasPedidoAsync(entidad);
         }
     }
 }

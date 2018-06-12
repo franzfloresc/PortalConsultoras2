@@ -3,6 +3,8 @@ using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceOferta;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.SessionManager;
 using System;
@@ -46,10 +48,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public List<BEEstrategia> ConsultarEstrategias(int campaniaId = 0, string codAgrupacion = "")
+        public List<ServiceOferta.BEEstrategia> ConsultarEstrategias(int campaniaId = 0, string codAgrupacion = "")
         {
             codAgrupacion = Util.Trim(codAgrupacion);
-            var listEstrategia = new List<BEEstrategia>();
+            var listEstrategia = new List<ServiceOferta.BEEstrategia>();
 
             switch (codAgrupacion)
             {
@@ -81,9 +83,9 @@ namespace Portal.Consultoras.Web.Controllers
             return listEstrategia;
         }
 
-        protected virtual List<BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, int campaniaId = 0)
+        protected virtual List<ServiceOferta.BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, int campaniaId = 0)
         {
-            var listEstrategia = new List<BEEstrategia>();
+            var listEstrategia = new List<ServiceOferta.BEEstrategia>();
             try
             {
                 campaniaId = campaniaId > 0 ? campaniaId : userData.CampaniaID;
@@ -92,7 +94,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (Session[varSession] != null && campaniaId == userData.CampaniaID)
                 {
-                    listEstrategia = (List<BEEstrategia>)Session[varSession];
+                    listEstrategia = (List<ServiceOferta.BEEstrategia>)Session[varSession];
                     if (listEstrategia.Any())
                     {
                         if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas && listEstrategia.Any())
@@ -104,7 +106,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                var entidad = new BEEstrategia
+                var entidad = new ServiceOferta.BEEstrategia
                 {
                     PaisID = userData.PaisID,
                     CampaniaID = campaniaId,
@@ -122,9 +124,9 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.ConsultoraID = userData.GetConsultoraId().ToString();
                 }
 
-                using (PedidoServiceClient sv = new PedidoServiceClient())
+                using (OfertaServiceClient osc = new OfertaServiceClient())
                 {
-                    listEstrategia = sv.GetEstrategiasPedido(entidad).ToList();
+                    listEstrategia = osc.GetEstrategiasPedido(entidad).ToList();
                 }
 
                 if (campaniaId == userData.CampaniaID)
@@ -144,7 +146,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!listEstrategia.Any() && sessionManager.GetFlagLogCargaOfertas() &&
                     tipo != Constantes.TipoEstrategiaCodigo.OfertaWeb &&
                     tipo != Constantes.TipoEstrategiaCodigo.PackNuevas)
-                    EnviarLogOferta(CrearDataLog(campaniaId, ObtenerConstanteConfPais(tipo)));
+                    _ofertaPersonalizadaProvider.EnviarLogOferta(campaniaId, tipo, IsMobile());
 
             }
             catch (Exception ex)
@@ -187,9 +189,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<EstrategiaPedidoModel> ConsultarEstrategiasHomePedido(string codAgrupacion = "")
         {
-            List<BEEstrategia> listModel;
+            List<ServiceOferta.BEEstrategia> listModel;
             if (Session[Constantes.ConstSession.ListaEstrategia] != null)
-                listModel = (List<BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia];
+                listModel = (List<ServiceOferta.BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia];
             else
             {
                 listModel = ConsultarEstrategias(0, codAgrupacion);
@@ -205,7 +207,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (codAgrupacion == Constantes.TipoEstrategiaCodigo.RevistaDigital)
                 {
                     var listModelLan = ConsultarEstrategias(0, Constantes.TipoEstrategiaCodigo.Lanzamiento);
-                    var estrategiaLanzamiento = listModelLan.FirstOrDefault() ?? new BEEstrategia();
+                    var estrategiaLanzamiento = listModelLan.FirstOrDefault() ?? new ServiceOferta.BEEstrategia();
 
                     if (!listModel.Any() && estrategiaLanzamiento.EstrategiaID <= 0)
                     {
@@ -232,7 +234,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (listaPackNueva.Count > 0 && listaPackNueva.Count > cantMax - top)
                         listaPackNueva.RemoveRange(cantMax - top, listaPackNueva.Count - (cantMax - top));
 
-                    listModel = new List<BEEstrategia>();
+                    listModel = new List<ServiceOferta.BEEstrategia>();
                     if (estrategiaLanzamiento.EstrategiaID > 0)
                         listModel.Add(estrategiaLanzamiento);
 
@@ -385,19 +387,19 @@ namespace Portal.Consultoras.Web.Controllers
         public List<EstrategiaPedidoModel> ConsultarMasVendidosModel()
         {
             var listaProducto = ConsultarEstrategias(0, Constantes.TipoEstrategiaCodigo.LosMasVendidos);
-            var listaProductoModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
+            var listaProductoModel = Mapper.Map<List<ServiceOferta.BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
             listaProductoModel = ConsultarEstrategiasModelFormato(listaProductoModel);
             return listaProductoModel;
         }
 
         public bool EsCampaniaFalsa(int campaniaId)
         {
-            return (campaniaId < userData.CampaniaID || campaniaId > AddCampaniaAndNumero(userData.CampaniaID, 1));
+            return (campaniaId < userData.CampaniaID || campaniaId > Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias));
         }
 
         #region Metodos Privados
 
-        private List<BEEstrategia> ConsultarEstrategiasFiltrarPackNuevasPedido(List<BEEstrategia> listEstrategia)
+        private List<ServiceOferta.BEEstrategia> ConsultarEstrategiasFiltrarPackNuevasPedido(List<ServiceOferta.BEEstrategia> listEstrategia)
         {
             var pedidoWebDetalle = ObtenerPedidoWebDetalle();
             listEstrategia = listEstrategia.Where(e => !pedidoWebDetalle.Any(d => d.CUV == e.CUV2)).ToList();
@@ -405,10 +407,10 @@ namespace Portal.Consultoras.Web.Controllers
             return listEstrategia;
         }
 
-        private List<EstrategiaPedidoModel> ConsultarEstrategiasModelFormato(List<BEEstrategia> listaProducto)
+        private List<EstrategiaPedidoModel> ConsultarEstrategiasModelFormato(List<ServiceOferta.BEEstrategia> listaProducto)
         {
-            listaProducto = listaProducto ?? new List<BEEstrategia>();
-            List<EstrategiaPedidoModel> listaProductoModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
+            listaProducto = listaProducto ?? new List<ServiceOferta.BEEstrategia>();
+            List<EstrategiaPedidoModel> listaProductoModel = Mapper.Map<List<ServiceOferta.BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
             return ConsultarEstrategiasModelFormato(listaProductoModel);
         }
 
@@ -503,56 +505,49 @@ namespace Portal.Consultoras.Web.Controllers
             return listaProductoModel;
         }
 
-        private void EnviarLogOferta(object data)
-        {
-            var urlApi = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
+        //private void EnviarLogOferta(object data)
+        //{
+        //    var urlApi = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
+        //    if (string.IsNullOrEmpty(urlApi)) return;
+        //    var httpClient = new HttpClient { BaseAddress = new Uri(urlApi) };
+        //    httpClient.DefaultRequestHeaders.Accept.Clear();
+        //    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //    var dataString = JsonConvert.SerializeObject(data);
+        //    HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+        //    var response = httpClient.PostAsync("Api/LogCargaOfertas", contentPost).GetAwaiter().GetResult();
+        //    var noQuitar = response.IsSuccessStatusCode;
+        //    httpClient.Dispose();
+        //}
 
-            if (string.IsNullOrEmpty(urlApi)) return;
+        //private object CrearDataLog(int campaniaOferta, string palanca)
+        //{
+        //    return new
+        //    {
+        //        Pais = userData.CodigoISO,
+        //        CodigoConsultora = userData.CodigoConsultora,
+        //        Fecha = userData.FechaActualPais.ToString("yyyyMMdd"),
+        //        Campania = userData.CampaniaID,
+        //        CampaniaOferta = campaniaOferta == 0 ? userData.CampaniaID.ToString() : campaniaOferta.ToString(),
+        //        Palanca = palanca,
+        //        Dispositivo = IsMobile() ? "Mobile" : "Desktop",
+        //        Motivo = "Log carga oferta desde portal consultoras"
+        //    };
+        //}
 
-            var httpClient = new HttpClient { BaseAddress = new Uri(urlApi) };
-            httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            var dataString = JsonConvert.SerializeObject(data);
-
-            HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-
-            var response = httpClient.PostAsync("Api/LogCargaOfertas", contentPost).GetAwaiter().GetResult();
-
-            var noQuitar = response.IsSuccessStatusCode;
-
-            httpClient.Dispose();
-        }
-
-        private object CrearDataLog(int campaniaOferta, string palanca)
-        {
-            return new
-            {
-                Pais = userData.CodigoISO,
-                CodigoConsultora = userData.CodigoConsultora,
-                Fecha = userData.FechaActualPais.ToString("yyyyMMdd"),
-                Campania = userData.CampaniaID,
-                CampaniaOferta = campaniaOferta == 0 ? userData.CampaniaID.ToString() : campaniaOferta.ToString(),
-                Palanca = palanca,
-                Dispositivo = IsMobile() ? "Mobile" : "Desktop",
-                Motivo = "Log carga oferta desde portal consultoras"
-            };
-        }
-
-        private string ObtenerConstanteConfPais(string codigoAgrupacion)
-        {
-            switch (codigoAgrupacion)
-            {
-                case Constantes.TipoEstrategiaCodigo.RevistaDigital:
-                    return Constantes.ConfiguracionPais.RevistaDigital;
-                case Constantes.TipoEstrategiaCodigo.Lanzamiento:
-                    return Constantes.ConfiguracionPais.Lanzamiento;
-                case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
-                    return Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada;
-                default:
-                    return Constantes.ConfiguracionPais.OfertasParaTi;
-            }
-        }
+        //private string ObtenerConstanteConfPais(string codigoAgrupacion)
+        //{
+        //    switch (codigoAgrupacion)
+        //    {
+        //        case Constantes.TipoEstrategiaCodigo.RevistaDigital:
+        //            return Constantes.ConfiguracionPais.RevistaDigital;
+        //        case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+        //            return Constantes.ConfiguracionPais.Lanzamiento;
+        //        case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+        //            return Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada;
+        //        default:
+        //            return Constantes.ConfiguracionPais.OfertasParaTi;
+        //    }
+        //}
 
         #endregion
     }

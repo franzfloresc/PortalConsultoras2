@@ -1,7 +1,5 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceOferta;
-using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,12 +16,12 @@ namespace Portal.Consultoras.Web.Controllers
                 var modelo = new EstrategiaPersonalizadaModel
                 {
                     ListaSeccion = ObtenerConfiguracionSeccion(revistaDigital),
-                    MensajeProductoBloqueado = MensajeProductoBloqueado()
+                    MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile())
                 };
 
                 ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
-                var listaShowRoom = (List<ServiceOferta.BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<ServiceOferta.BEShowRoomOferta>();
+                var listaShowRoom = sessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPedidoModel>();
                 ViewBag.xlistaProductoSR = listaShowRoom.Count(x => !x.EsSubCampania);
 
                 return View(modelo);
@@ -43,7 +41,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var modelo = new EstrategiaPersonalizadaModel
                 {
                     ListaSeccion = ObtenerConfiguracionSeccion(revistaDigital),
-                    MensajeProductoBloqueado = MensajeProductoBloqueado(),
+                    MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile()),
                     MensajeProductoBloqueado2 = HVMensajeProductoBloqueado()
 
                 };

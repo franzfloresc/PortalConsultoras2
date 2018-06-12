@@ -62,7 +62,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                return PartialView("template-mensaje-bloqueado", MensajeProductoBloqueado());
+                return PartialView("template-mensaje-bloqueado", HVMensajeProductoBloqueado());
             }
             catch (Exception ex)
             {

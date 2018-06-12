@@ -1,10 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.SessionManager;
 using System.Linq;
 using AutoMapper;
+using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceOferta;
+using Portal.Consultoras.Web.ServicePedido;
+using BEShowRoomEventoConsultora = Portal.Consultoras.Web.ServiceOferta.BEShowRoomEventoConsultora;
+using BEShowRoomNivel = Portal.Consultoras.Web.ServiceOferta.BEShowRoomNivel;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -20,9 +25,11 @@ namespace Portal.Consultoras.Web.Providers
         private const short Pl50Key = 98;
 
         private readonly TablaLogicaProvider _tablaLogicaProvider;
+        private readonly ILogManager _logManager;
         public ShowRoomProvider(TablaLogicaProvider tablaLogicaProvider)
         {
             _tablaLogicaProvider = tablaLogicaProvider;
+            _logManager = LogManager.LogManager.Instance;
         }
 
         /// <summary>
@@ -113,6 +120,58 @@ namespace Portal.Consultoras.Web.Providers
             {
                 var personalizacionesNivel = osc.GetShowRoomPersonalizacionNivel(model.PaisID, eventoId, showRoomNivelId, categoriaId).ToList();
                 return Mapper.Map<List<ServiceOferta.BEShowRoomPersonalizacionNivel>, List<ShowRoomPersonalizacionNivelModel>>(personalizacionesNivel).ToList();
+            }
+        }
+
+        public void ShowRoomProgramarAviso(int paisId, ShowRoomEventoConsultoraModel showRoomConsultora)
+        {
+            var beShowRoomConsultora =
+                Mapper.Map<ShowRoomEventoConsultoraModel, ServiceOferta.BEShowRoomEventoConsultora>(showRoomConsultora);
+
+            using (var osc = new OfertaServiceClient())
+            {
+                osc.ShowRoomProgramarAviso(paisId, beShowRoomConsultora);
+            }
+        }
+
+        public bool GetEventoConsultoraRecibido(UsuarioModel usuario)
+        {
+            var result = false;
+
+            try
+            {
+                using (var sv = new PedidoServiceClient())
+                {
+                    result = sv.GetEventoConsultoraRecibido(usuario.PaisID, usuario.CodigoConsultora, usuario.CampaniaID);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoConsultora, usuario.CodigoISO, "ShowRoomProvider.GetEventoConsultoraRecibido");
+            }
+
+
+            return result;
+        }
+
+        public void UpdShowRoomEventoConsultoraEmailRecibido(string codigoConsultoraFromQueryString, int campaniaIdFromQueryString, UsuarioModel usuario)
+        {
+            try
+            {
+                var entidad = new ServicePedido.BEShowRoomEventoConsultora
+                {
+                    CodigoConsultora = codigoConsultoraFromQueryString,
+                    CampaniaID = campaniaIdFromQueryString
+                };
+
+                using (var sv = new PedidoServiceClient())
+                {
+                    sv.UpdShowRoomEventoConsultoraEmailRecibido(usuario.PaisID, entidad);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoConsultora, usuario.CodigoISO, "ShowRoomProvider.GetEventoConsultoraRecibido");
             }
         }
     }

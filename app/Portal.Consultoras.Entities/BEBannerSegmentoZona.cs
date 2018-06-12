@@ -19,10 +19,9 @@ namespace Portal.Consultoras.Entities
         public string NombrePais { set; get; }
         [DataMember]
         public string SegmentoInterno { get; set; }
-
-        public BEBannerSegmentoZona()
-        {
-
-        }
+        [DataMember]
+        public int TipoAcceso { set; get; }
+        [DataMember]
+        public string CodigosConsultora { get; set; }
     }
 }

@@ -11,64 +11,21 @@ namespace Portal.Consultoras.Web.Controllers
         public virtual ActionResult ViewLanding()
         {
             ViewBag.CodigoRevistaActual = GetRevistaCodigoIssuu(userData.CampaniaID.ToString());
-            ViewBag.CodigoRevistaAnterior = GetRevistaCodigoIssuu(AddCampaniaAndNumero(userData.CampaniaID, -1).ToString());
-            ViewBag.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(AddCampaniaAndNumero(userData.CampaniaID, 1).ToString());
+            ViewBag.CodigoRevistaAnterior = GetRevistaCodigoIssuu(Util.AddCampaniaAndNumero(userData.CampaniaID, -1, userData.NroCampanias).ToString());
+            ViewBag.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).ToString());
 
             var model = new RevistaDigitalLandingModel
             {
                 CampaniaID = userData.CampaniaID,
                 IsMobile = IsMobile(),
-                FiltersBySorting = GetFiltersBySorting(),
-                FiltersByBrand = GetFiltersByBrand(),
+                FiltersBySorting = _ofertasViewProvider.GetFiltersBySorting(IsMobile()),
+                FiltersByBrand = _ofertasViewProvider.GetFiltersByBrand(),
                 Success = true,
+                MensajeProductoBloqueado = new MensajeProductoBloqueadoModel(),
                 CantidadFilas = 10
             };
 
             return PartialView("Index", model);
         }
-
-        public List<BETablaLogicaDatos> GetFiltersBySorting()
-        {
-            var filtersBySorting = new List<BETablaLogicaDatos>
-            {
-                new BETablaLogicaDatos
-                {
-                    Codigo = Constantes.GuiaNegocioTipoOrdenamiento.ValorPrecio.Predefinido,
-                    Descripcion = IsMobile() ? "ORDENAR POR" : "ORDENAR POR PRECIO"
-                },
-                new BETablaLogicaDatos
-                {
-                    Codigo = Constantes.GuiaNegocioTipoOrdenamiento.ValorPrecio.MenorAMayor,
-                    Descripcion = IsMobile() ? "MENOR PRECIO" : "MENOR A MAYOR PRECIO"
-                },
-                new BETablaLogicaDatos
-                {
-                    Codigo = Constantes.GuiaNegocioTipoOrdenamiento.ValorPrecio.MayorAMenor,
-                    Descripcion = IsMobile() ? "MAYOR PRECIO" : "MAYOR A MENOR PRECIO"
-                }
-            };
-            return filtersBySorting;
-        }
-
-        public List<BETablaLogicaDatos> GetFiltersByBrand()
-        {
-            var filterByBrand = new List<BETablaLogicaDatos>
-            {
-                new BETablaLogicaDatos
-                {
-                    Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.Predefinido,
-                    Descripcion = IsMobile() ? "MARCA" : "FILTRAR POR MARCA"
-                },
-                new BETablaLogicaDatos
-                {
-                    Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.Cyzone,
-                    Descripcion = "CYZONE"
-                },
-                new BETablaLogicaDatos {Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.Esika, Descripcion = "ÉSIKA"},
-                new BETablaLogicaDatos {Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.LBel, Descripcion = "LBEL"}
-            };
-            return filterByBrand;
-        }
-
     }
 }

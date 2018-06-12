@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServicePROLConsultas;
-using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -121,26 +119,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        protected bool GetEventoConsultoraRecibido(UsuarioModel usuario)
-        {
-            var result = false;
-
-            try
-            {
-                using (var sv = new PedidoServiceClient())
-                {
-                    result = sv.GetEventoConsultoraRecibido(usuario.PaisID, usuario.CodigoConsultora, usuario.CampaniaID);
-                }
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoConsultora, usuario.CodigoISO, "BaseShowRoomController.GetEventoConsultoraRecibido");
-            }
-
-
-            return result;
-        }
-
         public bool ValidarIngresoShowRoom(bool esIntriga)
         {
             if (!configEstrategiaSR.CargoEntidadesShowRoom)
@@ -172,42 +150,14 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 showRoomEventoModel = configEstrategiaSR.BeShowRoom;
-                var codigoConsultora = userData.CodigoConsultora;
-
                 showRoomEventoModel.Simbolo = userData.Simbolo;
                 showRoomEventoModel.CodigoIso = userData.CodigoISO;
+                showRoomEventoModel.ListaShowRoomOferta = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion);
+                showRoomEventoModel.ListaShowRoomCompraPorCompra = GetProductosCompraPorCompra(userData.EsDiasFacturacion, showRoomEventoModel.EventoID, showRoomEventoModel.CampaniaID);
+                showRoomEventoModel.ListaCategoria = GetCategoriasProductoShowRoom(showRoomEventoModel);
 
-                var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-                bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
-
-                var listaShowRoomOferta = ObtenerListaProductoShowRoom(userData.CampaniaID, codigoConsultora, esFacturacion);
-                showRoomEventoModel.ListaShowRoomOferta = listaShowRoomOferta;
-
-                var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, showRoomEventoModel.EventoID, showRoomEventoModel.CampaniaID);
-                showRoomEventoModel.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
-
-                var listaCategoria = new List<ShowRoomCategoriaModel>();
-                var categorias = listaShowRoomOferta.GroupBy(p => p.CodigoCategoria).Select(p => p.First());
-                foreach (var item in categorias)
-                {
-                    if (!string.IsNullOrEmpty(item.DescripcionCategoria))
-                    {
-                        var beCategoria = new ShowRoomCategoriaModel
-                        {
-                            Codigo = item.CodigoCategoria,
-                            Descripcion = item.DescripcionCategoria,
-                            EventoID = showRoomEventoModel.EventoID
-                        };
-                        listaCategoria.Add(beCategoria);
-                    }
-                }
-
-                listaCategoria = listaCategoria.OrderBy(p => p.Descripcion).ToList();
-
-                showRoomEventoModel.ListaCategoria = listaCategoria;
-
-                var tipoAplicacion = GetIsMobileDevice() ? Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile
-                    : Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop;
+                var tipoAplicacion = Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop;
+                if (GetIsMobileDevice()) tipoAplicacion = Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile;
 
                 showRoomEventoModel.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.UrlTerminosCondiciones, tipoAplicacion);
                 showRoomEventoModel.TextoCondicionCompraCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoCondicionCompraCpc, tipoAplicacion);
@@ -228,6 +178,7 @@ namespace Portal.Consultoras.Web.Controllers
                     showRoomEventoModel.TextoTituloOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.TextoTituloOfertaSubCampania, tipoAplicacion);
                     showRoomEventoModel.ColorTextoTituloOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ColorTextoTituloOfertaSubCampania, tipoAplicacion);
                     showRoomEventoModel.ColorFondoTituloOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ColorFondoTituloOfertaSubCampania, tipoAplicacion);
+
                     showRoomEventoModel.ImagenFondoTituloOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoTituloOfertaSubCampania, tipoAplicacion);
                     showRoomEventoModel.ColorFondoContenidoOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ColorFondoContenidoOfertaSubCampania, tipoAplicacion);
                     showRoomEventoModel.TextoBotonVerMasOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.TextoBotonVerMasOfertaSubCampania, tipoAplicacion);
@@ -243,31 +194,27 @@ namespace Portal.Consultoras.Web.Controllers
             return showRoomEventoModel;
         }
 
+        private List<ShowRoomCategoriaModel> GetCategoriasProductoShowRoom(ShowRoomEventoModel showRoomEventoModel)
+        {
+            var categorias = showRoomEventoModel.ListaShowRoomOferta.GroupBy(p => p.CodigoCategoria).Select(p => p.First());
+            var listaCategoria = categorias
+                .Where(x => !string.IsNullOrEmpty(x.DescripcionCategoria))
+                .Select(x => new ShowRoomCategoriaModel
+                {
+                    Codigo = x.CodigoCategoria,
+                    Descripcion = x.DescripcionCategoria,
+                    EventoID = showRoomEventoModel.EventoID
+                })
+                .OrderBy(p => p.Descripcion).ToList();
+            return listaCategoria;
+        }
+
         protected virtual bool GetIsMobileDevice()
         {
             return Request.Browser.IsMobileDevice;
         }
 
-        protected void UpdShowRoomEventoConsultoraEmailRecibido(string codigoConsultoraFromQueryString, int campaniaIdFromQueryString, UsuarioModel usuario)
-        {
-            try
-            {
-                var entidad = new ServicePedido.BEShowRoomEventoConsultora
-                {
-                    CodigoConsultora = codigoConsultoraFromQueryString,
-                    CampaniaID = campaniaIdFromQueryString
-                };
-
-                using (var sv = new PedidoServiceClient())
-                {
-                    sv.UpdShowRoomEventoConsultoraEmailRecibido(usuario.PaisID, entidad);
-                }
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoConsultora, usuario.CodigoISO, "BaseShowRoomController.GetEventoConsultoraRecibido");
-            }
-        }
+        
 
         protected class ShowRoomQueryStringValidator
         {
@@ -309,20 +256,6 @@ namespace Portal.Consultoras.Web.Controllers
             public int OfertaId { get; private set; }
         }
 
-        protected virtual List<TablaLogicaDatosModel> GetTablaLogicaDatos(short tablaLogicaId)
-        {
-            List<BETablaLogicaDatos> tablaLogicaDatos;
-
-            using (var svc = new SACServiceClient())
-            {
-                tablaLogicaDatos = svc.GetTablaLogicaDatos(userData.PaisID, tablaLogicaId).ToList();
-            }
-
-            var tablaLogicaDatosModel = Mapper.Map<List<BETablaLogicaDatos>, List<TablaLogicaDatosModel>>(tablaLogicaDatos);
-
-            return tablaLogicaDatosModel;
-        }
-
         protected virtual string ObtenerCarpetaPais()
         {
             return Globals.UrlMatriz + "/" + userData.CodigoISO;
@@ -353,8 +286,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (idOferta <= 0) return ofertaShowRoomModelo;
 
             List<EstrategiaPedidoModel> listadoOfertasTodasModel = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
-            ofertaShowRoomModelo = listadoOfertasTodasModel.Find(o => o.OfertaShowRoomID == idOferta) ?? new EstrategiaPedidoModel();
-            if (ofertaShowRoomModelo.OfertaShowRoomID <= 0) return ofertaShowRoomModelo;
+            ofertaShowRoomModelo = listadoOfertasTodasModel.Find(o => o.EstrategiaID == idOferta) ?? new EstrategiaPedidoModel();
+            if (ofertaShowRoomModelo.EstrategiaID <= 0) return ofertaShowRoomModelo;
 
             ofertaShowRoomModelo.ImagenProducto = Util.Trim(ofertaShowRoomModelo.ImagenProducto);
             ofertaShowRoomModelo.ImagenProducto = ofertaShowRoomModelo.ImagenProducto == "" ?
@@ -542,7 +475,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             #endregion
 
-            ofertaShowRoomModelo.ProductoTonos = listaProductoConFactorCuadre;
+            ofertaShowRoomModelo.Hermanos = listaProductoConFactorCuadre;
             ofertaShowRoomModelo.CodigoEstrategia = codigoVariante;
             /*TONOS-FIN*/
 
@@ -555,8 +488,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (idOferta <= 0) return ofertaShowRoomModelo;
 
             List<EstrategiaPedidoModel> listadoOfertasTodasModel = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
-            ofertaShowRoomModelo = listadoOfertasTodasModel.Find(o => o.OfertaShowRoomID == idOferta) ?? new EstrategiaPedidoModel();
-            if (ofertaShowRoomModelo.OfertaShowRoomID <= 0) return ofertaShowRoomModelo;
+            ofertaShowRoomModelo = listadoOfertasTodasModel.Find(o => o.EstrategiaID == idOferta) ?? new EstrategiaPedidoModel();
+            if (ofertaShowRoomModelo.EstrategiaID <= 0) return ofertaShowRoomModelo;
 
             ofertaShowRoomModelo.ImagenProducto = Util.Trim(ofertaShowRoomModelo.ImagenProducto);
             ofertaShowRoomModelo.ImagenProducto = ofertaShowRoomModelo.ImagenProducto == "" ?
@@ -572,7 +505,7 @@ namespace Portal.Consultoras.Web.Controllers
             };
 
             var listaHermanos = GetListaHermanos(estrategiaModelo);
-            ofertaShowRoomModelo.ProductoTonos = listaHermanos;
+            ofertaShowRoomModelo.Hermanos = listaHermanos;
 
             return ofertaShowRoomModelo;
         }
@@ -583,7 +516,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (idOferta <= 0) return listaOferta;
 
             var listadoOfertasTodasModel = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
-            listaOferta = listadoOfertasTodasModel.Where(o => o.OfertaShowRoomID != idOferta).ToList();
+            listaOferta = listadoOfertasTodasModel.Where(o => o.EstrategiaID != idOferta).ToList();
             return listaOferta;
         }
 
@@ -591,13 +524,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var listaDetalle = ObtenerPedidoWebDetalle();
 
-            if (Session[Constantes.ConstSession.ListaProductoShowRoom] != null)
-            {
-                List<EstrategiaPedidoModel> listadoOfertasTodasModel = ObtenerListaProductoShowRoomSession(listaDetalle);
-                return listadoOfertasTodasModel;
-            }
+            if (sessionManager.ShowRoom.Ofertas != null) return sessionManager.ShowRoom.Ofertas;
 
-            var listaShowRoomOferta = ObtenerListaProductoShowRoomService(campaniaId, codigoConsultora);
+            var listaShowRoomOferta = _ofertaPersonalizadaProvider.GetShowRoomOfertasConsultora(userData);
+
             if (conFiltroMdo)
                 listaShowRoomOferta = ObtenerListaProductoShowRoomMdo(listaShowRoomOferta, Constantes.FlagRevista.Valor0);
 
@@ -610,10 +540,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (Session[Constantes.ConstSession.ListaProductoShowRoomCpc] != null)
+                if (sessionManager.ShowRoom.OfertasCompraPorCompra != null)
                 {
-                    var listadoOfertasTodas = (List<ServiceOferta.BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoomCpc];
-                    var listadoOfertasTodasModel = Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listadoOfertasTodas);
+                    var listadoOfertasTodasModel = sessionManager.ShowRoom.OfertasCompraPorCompra;
                     listadoOfertasTodasModel.Update(x =>
                     {
                         x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
@@ -623,7 +552,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return listadoOfertasTodasModel;
                 }
 
-                List<ServiceOferta.BEShowRoomOferta> listaShowRoomCpc = GetProductosCompraPorCompraService(eventoId, campaniaId);
+                var listaShowRoomCpc = _ofertaPersonalizadaProvider.GetProductosCompraPorCompra(userData, eventoId);
                 listaShowRoomCpc = ObtenerListaProductoShowRoomMdo(listaShowRoomCpc);
 
                 var listaTieneStock = new List<Lista>();
@@ -661,7 +590,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                var listaShowRoomCpcFinal = new List<ServiceOferta.BEShowRoomOferta>();
+                var listaShowRoomCpcFinal = new List<EstrategiaPedidoModel>();
                 txtBuil.Clear();
                 foreach (var beShowRoomOferta in listaShowRoomCpc)
                 {
@@ -700,16 +629,14 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                Session[Constantes.ConstSession.ListaProductoShowRoomCpc] = listaShowRoomCpcFinal;
-                var listadoProductosCpcModel1 = Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listaShowRoomCpcFinal);
-                listadoProductosCpcModel1.Update(x =>
+                listaShowRoomCpcFinal.Update(x =>
                 {
                     x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
                     x.CodigoISO = userData.CodigoISO;
                     x.Simbolo = userData.Simbolo;
                 });
-
-                return listadoProductosCpcModel1;
+                sessionManager.ShowRoom.OfertasCompraPorCompra = listaShowRoomCpcFinal;
+                return listaShowRoomCpcFinal;
             }
             catch (Exception ex)
             {
@@ -720,17 +647,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected EstrategiaPedidoModel ObtenerPrimeraOfertaShowRoom()
         {
-            var ofertasShowRoom = ObtenerListaProductoShowRoomService(userData.CampaniaID, userData.CodigoConsultora);
+            var ofertasShowRoom = _ofertaPersonalizadaProvider.GetShowRoomOfertasConsultora(userData);
+
             ofertasShowRoom = ObtenerListaProductoShowRoomMdo(ofertasShowRoom);
             ActualizarUrlImagenes(ofertasShowRoom);
+            ofertasShowRoom.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
 
-
-            var ofertasShowRoomModel = Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(ofertasShowRoom);
-            ofertasShowRoomModel.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
-
-            var ofertaShowRoomModel = ofertasShowRoomModel.FirstOrDefault();
-
-            return ofertaShowRoomModel;
+            return ofertasShowRoom.FirstOrDefault();
         }
 
         #region Metodos Privados
@@ -810,7 +733,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        private void ActualizarUrlImagenes(List<ServiceOferta.BEShowRoomOferta> ofertasShowRoom)
+        private void ActualizarUrlImagenes(List<EstrategiaPedidoModel> ofertasShowRoom)
         {
             ofertasShowRoom.Update(x =>
             {
@@ -827,57 +750,18 @@ namespace Portal.Consultoras.Web.Controllers
             });
         }
 
-        private List<ServiceOferta.BEShowRoomOferta> ObtenerListaProductoShowRoomService(int campaniaId, string codigoConsultora)
-        {
-            List<ServiceOferta.BEShowRoomOferta> listaShowRoomOferta;
-
-            using (OfertaServiceClient ofertaService = new OfertaServiceClient())
-            {
-                listaShowRoomOferta = ofertaService.GetShowRoomOfertasConsultora(userData.PaisID, campaniaId, codigoConsultora).ToList();
-            }
-
-            return listaShowRoomOferta;
-        }
-
-        private List<EstrategiaPedidoModel> ObtenerListaProductoShowRoomSession(List<BEPedidoWebDetalle> listaPedidoDetalle)
-        {
-            var listadoOfertasTodas = (List<ServiceOferta.BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom];
-            List<EstrategiaPedidoModel> listadoOfertasTodasModel = Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listadoOfertasTodas);
-            listadoOfertasTodasModel.Update(x =>
-            {
-                x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
-                x.CodigoISO = userData.CodigoISO;
-                x.Simbolo = userData.Simbolo;
-                x.Agregado = (listaPedidoDetalle.Find(p => p.CUV == x.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none";
-                string CodigoEstrategia = listadoOfertasTodas.Where(f => f.CUV == x.CUV).Select(o => o.CodigoEstrategia).FirstOrDefault();
-
-                x.TipoAccionAgregar = TipoAccionAgregar(0, Constantes.TipoEstrategiaCodigo.ShowRoom, false, CodigoEstrategia);
-
-            });
-            return listadoOfertasTodasModel;
-
-        }
-
-        private List<ServiceOferta.BEShowRoomOferta> ObtenerListaProductoShowRoomMdo(List<ServiceOferta.BEShowRoomOferta> listaShowRoomOferta, int flagRevistaValor = 0)
+        private List<EstrategiaPedidoModel> ObtenerListaProductoShowRoomMdo(List<EstrategiaPedidoModel> listaShowRoomOferta, int flagRevistaValor = 0)
         {
             if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
             {
                 listaShowRoomOferta = listaShowRoomOferta.Where(p => p.FlagRevista == (flagRevistaValor == 0 ? Constantes.FlagRevista.Valor0 : flagRevistaValor)).ToList();
             }
             return listaShowRoomOferta;
-
         }
 
-        private List<EstrategiaPedidoModel> ObtenerListaProductoShowRoomFormato(List<ServiceOferta.BEShowRoomOferta> listaShowRoomOferta, List<BEPedidoWebDetalle> listaPedidoDetalle, bool esFacturacion)
+        private List<EstrategiaPedidoModel> ObtenerListaProductoShowRoomFormato(List<EstrategiaPedidoModel> listaShowRoomOferta, List<BEPedidoWebDetalle> listaPedidoDetalle, bool esFacturacion)
         {
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            if (listaShowRoomOferta.Any())
-            {
-                listaShowRoomOferta.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto)
-                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
-                listaShowRoomOferta.Update(x => x.ImagenMini = string.IsNullOrEmpty(x.ImagenMini)
-                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.UrlMatriz + "/" + userData.CodigoISO));
-            }
+            ActualizarUrlImagenes(listaShowRoomOferta);
 
             var listaTieneStock = new List<Lista>();
             if (esFacturacion)
@@ -913,7 +797,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            var listaShowRoomOfertaFinal = new List<ServiceOferta.BEShowRoomOferta>();
+            var listaShowRoomOfertaFinal = new List<EstrategiaPedidoModel>();
             foreach (var beShowRoomOferta in listaShowRoomOferta)
             {
                 bool tieneStockProl = true;
@@ -929,10 +813,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            Session[Constantes.ConstSession.ListaProductoShowRoom] = listaShowRoomOfertaFinal;
-            List<EstrategiaPedidoModel> listadoOfertasTodasModel1 = Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listaShowRoomOfertaFinal);
-
-            listadoOfertasTodasModel1.Update(x =>
+            listaShowRoomOfertaFinal.Update(x =>
             {
                 x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
                 x.CodigoISO = userData.CodigoISO;
@@ -943,19 +824,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 x.TipoAccionAgregar = TipoAccionAgregar(0, Constantes.TipoEstrategiaCodigo.ShowRoom, false, CodigoEstrategia);
             });
-            return listadoOfertasTodasModel1;
-        }
 
-        private List<ServiceOferta.BEShowRoomOferta> GetProductosCompraPorCompraService(int campaniaId, int eventoId)
-        {
-            List<ServiceOferta.BEShowRoomOferta> listaShowRoomCpc;
+            sessionManager.ShowRoom.Ofertas = listaShowRoomOfertaFinal;
 
-            using (OfertaServiceClient ofertaServiceClient = new OfertaServiceClient())
-            {
-                listaShowRoomCpc = ofertaServiceClient.GetProductosCompraPorCompra(userData.PaisID, eventoId, campaniaId).ToList();
-            }
-
-            return listaShowRoomCpc;
+            return listaShowRoomOfertaFinal;
         }
 
         #endregion

@@ -8,7 +8,6 @@ using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceContenido;
-using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -31,13 +30,6 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using BEConfiguracionPaisDatos = Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos;
-
-/*
-CONTROL DE CAMBIOS
-CORRELATIVO -   PERSONA -   FECHA       -   MOTIVO
-@001        -   FSV     -   08/06/2018  -   Se traslada llamamientos de ShowRoom y ODD al nuevo servicio unificado "OfertaService".
-@002
-*/
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -883,7 +875,8 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.SetIsOfertaPack(1);
 
             var usuarioModel = (UsuarioModel)null;
-            var estrategiaODD = (Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel)null;
+            //var estrategiaODD = (Models.Estrategia.OfertaDelDia.DataModel)null;
+
             try
             {
                 if (paisId == 0)
@@ -1136,13 +1129,14 @@ namespace Portal.Consultoras.Web.Controllers
                         #region llamadas asincronas para GPR, ODD, RegaloPN, LoginFB, EventoFestivo, IncentivosConcursos
 
                         var motivoRechazoTask = Task.Run(() => GetMotivoRechazo(usuario, usuarioModel.MontoDeuda, esAppMobile));
-                        var ofertaDelDiaTask = Task.Run(() => GetOfertaDelDiaModel(usuarioModel, usuario));
+                        //var ofertaDelDiaTask = Task.Run(() => GetOfertaDelDiaModel(usuarioModel, usuario));
                         var regaloProgramaNuevas = Task.Run(() => GetConsultoraRegaloProgramaNuevas(usuarioModel));
                         var loginExternoTask = Task.Run(() => GetListaLoginExterno(usuario));
                         var eventoFestivoTask = Task.Run(() => ConfigurarEventoFestivo(usuarioModel));
                         var incentivoConcursoTask = Task.Run(() => ConfigurarIncentivosConcursos(usuarioModel));
 
-                        Task.WaitAll(motivoRechazoTask, ofertaDelDiaTask, regaloProgramaNuevas, loginExternoTask, eventoFestivoTask, incentivoConcursoTask);
+                        //Task.WaitAll(motivoRechazoTask, ofertaDelDiaTask, regaloProgramaNuevas, loginExternoTask, eventoFestivoTask, incentivoConcursoTask);
+                        Task.WaitAll(motivoRechazoTask, regaloProgramaNuevas, loginExternoTask, eventoFestivoTask, incentivoConcursoTask);
 
                         #region GPR
 
@@ -1161,6 +1155,7 @@ namespace Portal.Consultoras.Web.Controllers
                         #endregion
 
                         #region ODD
+                        /*
                         if (ofertaDelDiaTask.Result != null)
                         {
                             estrategiaODD = new Models.Estrategia.OfertaDelDia.DataModel
@@ -1170,7 +1165,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                        
                         usuarioModel.TieneOfertaDelDia = estrategiaODD.ListaDeOferta.Any();
-
+                        */
                         #endregion
 
                         #region RegaloPN
@@ -1272,7 +1267,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 sessionManager.SetUserData(usuarioModel);
-                sessionManager.SetEstrategiaODD(estrategiaODD);
+                //sessionManager.SetEstrategiaODD(estrategiaODD);
             }
             catch (Exception ex)
             {
@@ -1460,136 +1455,173 @@ namespace Portal.Consultoras.Web.Controllers
             return gprBanner;
         }
 
-        private async Task<List<OfertaDelDiaModel>> GetOfertaDelDiaModel(UsuarioModel model, ServiceUsuario.BEUsuario usuario)
-        {
-            if (!(usuario.OfertaDelDia && usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)) return new List<OfertaDelDiaModel>();
+        #region Metodos Oferta del Dia
+        //private async Task<List<OfertaDelDiaModel>> GetOfertaDelDiaModel(UsuarioModel model, ServiceUsuario.BEUsuario usuario)
+        //{
+        //    if (!(usuario.OfertaDelDia && usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)) return new List<OfertaDelDiaModel>();
 
-            var ofertasDelDiaModel = new List<OfertaDelDiaModel>();
+        //    var ofertasDelDiaModel = new List<OfertaDelDiaModel>();
 
-            try
-            {
-                var ofertasDelDia = await ObtenerOfertasDelDia(model);
+        //    try
+        //    {
+        //        var ofertasDelDia = await ObtenerOfertasDelDia(model);
 
-                if (!ofertasDelDia.Any())
-                    return ofertasDelDiaModel;
+        //        if (!ofertasDelDia.Any())
+        //            return ofertasDelDiaModel;
 
-                var personalizacionesOfertaDelDia = await ObtenerPersonalizacionesOfertaDelDia(model);
-                if (!personalizacionesOfertaDelDia.Any())
-                    return ofertasDelDiaModel;
+        //        var personalizacionesOfertaDelDia = await ObtenerPersonalizacionesOfertaDelDia(model);
+        //        if (!personalizacionesOfertaDelDia.Any())
+        //            return ofertasDelDiaModel;
 
-                ofertasDelDia = ofertasDelDia.OrderBy(odd => odd.Orden).ToList();
-                var countdown = await CountdownODD(model);
+        //        ofertasDelDia = ofertasDelDia.OrderBy(odd => odd.Orden).ToList();
+        //        var countdown = await CountdownODD(model);
 
-                var tablaLogica9301 = personalizacionesOfertaDelDia.FirstOrDefault(x => x.TablaLogicaDatosID == 9301) ?? new BETablaLogicaDatos();
-                var tablaLogica9302 = personalizacionesOfertaDelDia.FirstOrDefault(x => x.TablaLogicaDatosID == 9302) ?? new BETablaLogicaDatos();
+        //        var tablaLogica9301 = personalizacionesOfertaDelDia.FirstOrDefault(x => x.TablaLogicaDatosID == 9301) ?? new BETablaLogicaDatos();
+        //        var tablaLogica9302 = personalizacionesOfertaDelDia.FirstOrDefault(x => x.TablaLogicaDatosID == 9302) ?? new BETablaLogicaDatos();
 
-                var contOdd = 0;
-                var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
-                foreach (var oferta in ofertasDelDia)
-                {
-                    oferta.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, oferta.ImagenURL, carpetaPais);
+        //        var contOdd = 0;
+        //        var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
+        //        foreach (var oferta in ofertasDelDia)
+        //        {
+        //            oferta.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, oferta.ImagenURL, carpetaPais);
 
-                    var oddModel = new OfertaDelDiaModel
-                    {
-                        CodigoIso = model.CodigoISO,
-                        TipoEstrategiaID = oferta.TipoEstrategiaID,
-                        EstrategiaID = oferta.EstrategiaID,
-                        MarcaID = oferta.MarcaID,
-                        CUV2 = oferta.CUV2,
-                        LimiteVenta = oferta.LimiteVenta,
-                        IndicadorMontoMinimo = oferta.IndicadorMontoMinimo,
-                        TipoEstrategiaImagenMostrar = oferta.TipoEstrategiaImagenMostrar,
-                        TeQuedan = countdown,
-                        ImagenFondo1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo1ODD"),
-                            model.CodigoISO),
-                        ColorFondo1 = tablaLogica9301.Codigo ?? string.Empty,
-                        ImagenBanner = oferta.FotoProducto01,
-                        ImagenSoloHoy = ObtenerUrlImagenOfertaDelDia(model.CodigoISO, ofertasDelDia.Count),
-                        ImagenFondo2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo2ODD"),
-                            model.CodigoISO),
-                        ColorFondo2 = tablaLogica9302.Codigo ?? string.Empty,
-                        ImagenDisplay = oferta.FotoProducto01,
-                        ID = contOdd++,
-                        NombreOferta = ObtenerNombreOfertaDelDia(oferta.DescripcionCUV2),
-                        DescripcionOferta = ObtenerDescripcionOfertaDelDia(oferta.DescripcionCUV2),
-                        PrecioOferta = oferta.Precio2,
-                        PrecioCatalogo = oferta.Precio,
-                        TieneOfertaDelDia = true,
-                        Orden = oferta.Orden
-                    };
+        //            var oddModel = new OfertaDelDiaModel
+        //            {
+        //                CodigoIso = model.CodigoISO,
+        //                TipoEstrategiaID = oferta.TipoEstrategiaID,
+        //                EstrategiaID = oferta.EstrategiaID,
+        //                MarcaID = oferta.MarcaID,
+        //                CUV2 = oferta.CUV2,
+        //                LimiteVenta = oferta.LimiteVenta,
+        //                IndicadorMontoMinimo = oferta.IndicadorMontoMinimo,
+        //                TipoEstrategiaImagenMostrar = oferta.TipoEstrategiaImagenMostrar,
+        //                TeQuedan = countdown,
+        //                ImagenFondo1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo1ODD"),
+        //                    model.CodigoISO),
+        //                ColorFondo1 = tablaLogica9301.Codigo ?? string.Empty,
+        //                ImagenBanner = oferta.FotoProducto01,
+        //                ImagenSoloHoy = ObtenerUrlImagenOfertaDelDia(model.CodigoISO, ofertasDelDia.Count),
+        //                ImagenFondo2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo2ODD"),
+        //                    model.CodigoISO),
+        //                ColorFondo2 = tablaLogica9302.Codigo ?? string.Empty,
+        //                ImagenDisplay = oferta.FotoProducto01,
+        //                ID = contOdd++,
+        //                NombreOferta = ObtenerNombreOfertaDelDia(oferta.DescripcionCUV2),
+        //                DescripcionOferta = ObtenerDescripcionOfertaDelDia(oferta.DescripcionCUV2),
+        //                PrecioOferta = oferta.Precio2,
+        //                PrecioCatalogo = oferta.Precio,
+        //                TieneOfertaDelDia = true,
+        //                Orden = oferta.Orden
+        //            };
 
-                    ofertasDelDiaModel.Add(oddModel);
-                }
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, model.CodigoUsuario, model.PaisID.ToString(),
-                    "LoginController.GetOfertaDelDiaModel");
-            }
+        //            ofertasDelDiaModel.Add(oddModel);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        logManager.LogErrorWebServicesBusWrap(ex, model.CodigoUsuario, model.PaisID.ToString(),
+        //            "LoginController.GetOfertaDelDiaModel");
+        //    }
 
-            return ofertasDelDiaModel;
-        }
+        //    return ofertasDelDiaModel;
+        //}
 
-        //@001 FSV INICIO
-        /*private async Task<List<ServicePedido.BEEstrategia>> ObtenerOfertasDelDia(UsuarioModel model)
-        {
-            List<ServicePedido.BEEstrategia> ofertasDelDia;
+        //private async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDelDia(UsuarioModel model)
+        //{
+        //    List<ServiceOferta.BEEstrategia> ofertasDelDia;
+        //    using (OfertaServiceClient osc = new OfertaServiceClient())
+        //    {
+        //        var lst = await osc.GetEstrategiaODDAsync(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.FechaInicioCampania.Date);
+        //        ofertasDelDia = lst.ToList();
+        //    }
+        //    return ofertasDelDia;
+        //}
 
-            using (var svc = new PedidoServiceClient())
-            {
-                var lst = await svc.GetEstrategiaODDAsync(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.FechaInicioCampania.Date);
-                ofertasDelDia = lst.ToList();
-            }           
-            return ofertasDelDia;
-        }*/
-        
-        private async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDelDia(UsuarioModel model)
-        {
-            List<ServiceOferta.BEEstrategia> ofertasDelDia;
-            using (OfertaServiceClient osc = new OfertaServiceClient())
-            {
-                var lst = await osc.GetEstrategiaODDAsync(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.FechaInicioCampania.Date);
-                ofertasDelDia = lst.ToList();
-            }
-            return ofertasDelDia;
-        }
-        //@001 FSV FIN
+        //private async Task<List<BETablaLogicaDatos>> ObtenerPersonalizacionesOfertaDelDia(UsuarioModel model)
+        //{
+        //    List<BETablaLogicaDatos> personalizacionesOfertaDelDia;
 
-        private async Task<List<BETablaLogicaDatos>> ObtenerPersonalizacionesOfertaDelDia(UsuarioModel model)
-        {
-            List<BETablaLogicaDatos> personalizacionesOfertaDelDia;
+        //    using (var svc = new SACServiceClient())
+        //    {
+        //        var lst = await svc.GetTablaLogicaDatosAsync(model.PaisID, Constantes.TablaLogica.PersonalizacionODD);
+        //        personalizacionesOfertaDelDia = lst.ToList();
+        //    }
 
-            using (var svc = new SACServiceClient())
-            {
-                var lst = await svc.GetTablaLogicaDatosAsync(model.PaisID, Constantes.TablaLogica.PersonalizacionODD);
-                personalizacionesOfertaDelDia = lst.ToList();
-            }
+        //    return personalizacionesOfertaDelDia;
+        //}
 
-            return personalizacionesOfertaDelDia;
-        }
+        //private async Task<TimeSpan> CountdownODD(UsuarioModel model)
+        //{
+        //    DateTime hoy;
+        //    DateTime d2;
+        //    using (var svc = new SACServiceClient())
+        //    {
+        //        hoy = await svc.GetFechaHoraPaisAsync(model.PaisID);
+        //    }
+        //    var d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
 
-        private async Task<TimeSpan> CountdownODD(UsuarioModel model)
-        {
-            DateTime hoy;
-            DateTime d2;
-            using (var svc = new SACServiceClient())
-            {
-                hoy = await svc.GetFechaHoraPaisAsync(model.PaisID);
-            }
-            var d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
+        //    if (model.EsDiasFacturacion)
+        //    {
+        //        var t1 = model.HoraCierreZonaNormal;
+        //        d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
+        //    }
+        //    else
+        //    {
+        //        d2 = d1.AddDays(1);
+        //    }
+        //    var t2 = (d2 - hoy);
+        //    return t2;
+        //}
 
-            if (model.EsDiasFacturacion)
-            {
-                var t1 = model.HoraCierreZonaNormal;
-                d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
-            }
-            else
-            {
-                d2 = d1.AddDays(1);
-            }
-            var t2 = (d2 - hoy);
-            return t2;
-        }
+        //private string ObtenerNombreOfertaDelDia(string descripcionCuv2)
+        //{
+        //    var nombreOferta = string.Empty;
+
+        //    if (!string.IsNullOrWhiteSpace(descripcionCuv2))
+        //    {
+        //        nombreOferta = descripcionCuv2.Split('|').First();
+        //    }
+
+        //    return nombreOferta;
+        //}
+
+        //private string ObtenerDescripcionOfertaDelDia(string descripcionCuv2)
+        //{
+        //    var descripcionOdd = string.Empty;
+
+        //    if (!string.IsNullOrWhiteSpace(descripcionCuv2))
+        //    {
+        //        var temp = descripcionCuv2.Split('|').ToList();
+        //        temp = temp.Skip(1).ToList();
+
+        //        var txtBuil = new StringBuilder();
+        //        foreach (var item in temp)
+        //        {
+        //            if (!string.IsNullOrEmpty(item))
+        //                txtBuil.Append(item.Trim() + "|");
+        //        }
+
+        //        descripcionOdd = txtBuil.ToString();
+        //        descripcionOdd = descripcionOdd == string.Empty
+        //            ? string.Empty
+        //            : descripcionOdd.Substring(0, descripcionOdd.Length - 1);
+        //        descripcionOdd = descripcionOdd.Replace("|", " +<br />");
+        //        descripcionOdd = descripcionOdd.Replace("\\", "");
+        //        descripcionOdd = descripcionOdd.Replace("(GRATIS)", "<b>GRATIS</b>");
+        //    }
+
+        //    return descripcionOdd;
+        //}
+
+        //private string ObtenerUrlImagenOfertaDelDia(string codigoIso, int cantidadOfertas)
+        //{
+        //    var imgSh = string.Format(ConfigurationManager.AppSettings.Get("UrlImgSoloHoyODD"), codigoIso);
+        //    var exte = imgSh.Split('.')[imgSh.Split('.').Length - 1];
+        //    imgSh = imgSh.Substring(0, imgSh.Length - exte.Length - 1) + (cantidadOfertas > 1 ? "s" : "") + "." + exte;
+        //    return imgSh;
+        //}
+
+        #endregion
 
         private async Task<ConsultoraRegaloProgramaNuevasModel> GetConsultoraRegaloProgramaNuevas(UsuarioModel model)
         {
@@ -1856,7 +1888,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var revistaDigitalModel = new RevistaDigitalModel();
                 var ofertaFinalModel = new OfertaFinalModel();
                 var herramientasVentaModel = new HerramientasVentaModel();
-                var estrategiaODD = new Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel();
+                //var estrategiaODD = new Models.Estrategia.OfertaDelDia.DataModel();
                 var configuracionesPaisModels = await GetConfiguracionPais(usuarioModel);
                 var listaConfiPaisModel = new List<ConfiguracionPaisModel>();
                 if (configuracionesPaisModels.Any())
@@ -2516,54 +2548,6 @@ namespace Portal.Consultoras.Web.Controllers
             };
         }
 
-        private string ObtenerNombreOfertaDelDia(string descripcionCuv2)
-        {
-            var nombreOferta = string.Empty;
-
-            if (!string.IsNullOrWhiteSpace(descripcionCuv2))
-            {
-                nombreOferta = descripcionCuv2.Split('|').First();
-            }
-
-            return nombreOferta;
-        }
-
-        private string ObtenerDescripcionOfertaDelDia(string descripcionCuv2)
-        {
-            var descripcionOdd = string.Empty;
-
-            if (!string.IsNullOrWhiteSpace(descripcionCuv2))
-            {
-                var temp = descripcionCuv2.Split('|').ToList();
-                temp = temp.Skip(1).ToList();
-
-                var txtBuil = new StringBuilder();
-                foreach (var item in temp)
-                {
-                    if (!string.IsNullOrEmpty(item))
-                        txtBuil.Append(item.Trim() + "|");
-                }
-
-                descripcionOdd = txtBuil.ToString();
-                descripcionOdd = descripcionOdd == string.Empty
-                    ? string.Empty
-                    : descripcionOdd.Substring(0, descripcionOdd.Length - 1);
-                descripcionOdd = descripcionOdd.Replace("|", " +<br />");
-                descripcionOdd = descripcionOdd.Replace("\\", "");
-                descripcionOdd = descripcionOdd.Replace("(GRATIS)", "<b>GRATIS</b>");
-            }
-
-            return descripcionOdd;
-        }
-
-        private string ObtenerUrlImagenOfertaDelDia(string codigoIso, int cantidadOfertas)
-        {
-            var imgSh = string.Format(ConfigurationManager.AppSettings.Get("UrlImgSoloHoyODD"), codigoIso);
-            var exte = imgSh.Split('.')[imgSh.Split('.').Length - 1];
-            imgSh = imgSh.Substring(0, imgSh.Length - exte.Length - 1) + (cantidadOfertas > 1 ? "s" : "") + "." + exte;
-            return imgSh;
-        }
-
         private void SetTempDataAnalyticsLogin(UsuarioModel usuario, bool hizoLoginExterno)
         {
             var listAnalytics = GetLoginAnalyticsModel();
@@ -2613,6 +2597,7 @@ namespace Portal.Consultoras.Web.Controllers
             return modelo;
         }
 
+        [Obsolete("No se usa")]
         private OfertaDelDiaModel ConfiguracionPaisDatosOfertaDelDia(OfertaDelDiaModel modelo, List<BEConfiguracionPaisDatos> listaDatos)
         {
             try

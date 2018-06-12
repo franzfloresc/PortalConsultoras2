@@ -608,7 +608,7 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
         $.each(response.listaNoSubCampania, function (index, value) {
             value.Descripcion = IfNull(value.Descripcion, '').SubStrToMax($.trim(tipoOrigenPantalla)[0] == '1' ? 40 : 30, true);
             value.Posicion = index + 1;
-            value.UrlDetalle = urlDetalleShowRoom + '/' + value.OfertaShowRoomID;
+            value.UrlDetalle = urlDetalleShowRoom + '/' + value.EstrategiaID;
         });
 
         SetHandlebars("#template-showroom", response.listaNoSubCampania, '#divProductosShowRoom');
@@ -842,9 +842,10 @@ function EstrategiaAgregarShowRoom(event, popup) {
 
         if (ValidarUnidadesPermitidas(data, cantidad)) {
 
+            debugger;
             var params = ({
                 CuvTonos: $.trim(cuvs),
-                EstrategiaID: $.trim(estrategia.EstrategiaId),
+                EstrategiaID: $.trim(estrategia.EstrategiaID),
                 FlagNueva: "0",
                 Cantidad: $.trim(cantidad),
                 OrigenPedidoWeb: $.trim(origen),

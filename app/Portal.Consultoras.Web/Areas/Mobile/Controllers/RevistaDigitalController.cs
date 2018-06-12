@@ -91,7 +91,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                return PartialView("template-mensaje-bloqueado", MensajeProductoBloqueado());
+                return PartialView("template-mensaje-bloqueado", _ofertasViewProvider.MensajeProductoBloqueado(IsMobile()));
             }
             catch (Exception ex)
             {
@@ -105,7 +105,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             MensajeProductoBloqueadoModel modelo;
             try
             {
-                modelo = RDMensajeProductoBloqueadoLan();
+                modelo = _ofertasViewProvider.RDMensajeProductoBloqueado(IsMobile());
             }
             catch (Exception ex)
             {
@@ -115,85 +115,33 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return PartialView("template-mensaje-bloqueado-Lan-Detalle", modelo);
         }
 
-        public virtual MensajeProductoBloqueadoModel RDMensajeProductoBloqueadoLan()
-        {
-            var model = new MensajeProductoBloqueadoModel();
+        //public virtual MensajeProductoBloqueadoModel RDMensajeProductoBloqueado()
+        //{
+        //    var model = new MensajeProductoBloqueadoModel();
 
-            if (!revistaDigital.TieneRDC) return model;
+        //    if (!revistaDigital.TieneRDC) return model;
 
-            model.IsMobile = IsMobile();
-            string codigo;
+        //    model.IsMobile = IsMobile();
+        //    string codigo;
 
-            if (revistaDigital.EsSuscrita)
-            {
-                model.MensajeIconoSuperior = true;
-                codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaSuscrita;
-                model.BtnInscribirse = false;
-            }
-            else
-            {
-                model.MensajeIconoSuperior = false;
-                codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaNoSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaNoSuscrita;
-                model.BtnInscribirse = true;
-            }
+        //    if (revistaDigital.EsSuscrita)
+        //    {
+        //        model.MensajeIconoSuperior = true;
+        //        codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaSuscrita;
+        //        model.BtnInscribirse = false;
+        //    }
+        //    else
+        //    {
+        //        model.MensajeIconoSuperior = false;
+        //        codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaNoSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaNoSuscrita;
+        //        model.BtnInscribirse = true;
+        //    }
 
-            var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
-            model.MensajeTitulo = dato == null ? "" : Util.Trim(dato.Valor1);
+        //    var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
+        //    model.MensajeTitulo = dato == null ? "" : Util.Trim(dato.Valor1);
 
-            return model;
-        }
-
-        [HttpPost]
-        public JsonResult ActualizarDatos(MisDatosModel model)
-        {
-            try
-            {
-                var usuario = Mapper.Map<MisDatosModel, ServiceUsuario.BEUsuario>(model);
-
-                string resultado = ActualizarMisDatos(usuario, model.CorreoAnterior);
-                var lstRes = resultado.Split('|');
-
-                bool seActualizoMisDatos = lstRes[0] != "0";
-                string message = lstRes.Length >= 3 ? lstRes[2] : "";
-
-                if (seActualizoMisDatos)
-                {
-                    return Json(new
-                    {
-                        success = true,
-                        message,
-                        Cantidad = 0,
-                        extra = string.Empty
-                    });
-                }
-
-                int cantidad = lstRes.Length >= 4 ? int.Parse(lstRes[3]) : 0;
-                return Json(new
-                {
-                    success = false,
-                    message,
-                    Cantidad = cantidad,
-                    extra = string.Empty
-                });
-                
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-            }
-
-            return Json(new
-            {
-                Cantidad = 0,
-                success = false,
-                message = "Ocurrió un error al acceder al servicio, intente nuevamente.",
-                extra = ""
-            });
-        }
-
+        //    return model;
+        //}
+        
     }
 }

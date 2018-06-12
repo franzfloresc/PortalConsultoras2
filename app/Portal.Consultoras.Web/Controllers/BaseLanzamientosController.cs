@@ -38,16 +38,18 @@ namespace Portal.Consultoras.Web.Controllers
                     throw new Exception("revistaDigital no puede ser nulo.");
                 }
 
+                var esMobile = IsMobile();
+
                 if (!revistaDigital.TieneRevistaDigital() || !revistaDigital.EsActiva)
                 {
-                    return RedirectToAction("Index", "Bienvenida", new { area = IsMobile() ? "Mobile" : "" });
+                    return RedirectToAction("Index", "Bienvenida", new { area = esMobile ? "Mobile" : "" });
                 }
 
                 var modelo = sessionManager.GetProductoTemporal();
-                if (modelo == null || modelo.EstrategiaID == 0 || EsCampaniaFalsa(modelo.CampaniaID) ||
+                if (modelo == null || modelo.EstrategiaID == 0 || _ofertaPersonalizadaProvider.EsCampaniaFalsa(modelo.CampaniaID) ||
                     modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
                 {
-                    return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
+                    return RedirectToAction("Index", "Ofertas", new { area = esMobile ? "Mobile" : "" });
                 }
 
                 modelo.TipoEstrategiaDetalle = modelo.TipoEstrategiaDetalle ?? new EstrategiaDetalleModelo();
@@ -77,7 +79,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                modelo.MensajeProductoBloqueado = MensajeProductoBloqueado();
+                modelo.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile);
 
                 ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
                 ViewBag.Campania = campaniaId;

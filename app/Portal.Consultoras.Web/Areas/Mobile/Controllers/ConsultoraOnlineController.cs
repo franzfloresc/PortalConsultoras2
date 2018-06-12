@@ -807,7 +807,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.CampaniasConsultoraOnline = new List<CampaniaModel>();
                 for (int i = 0; i <= 2; i++)
                 {
-                    model.CampaniasConsultoraOnline.Add(new CampaniaModel { CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, -i) });
+                    model.CampaniasConsultoraOnline.Add(new CampaniaModel { CampaniaID = Util.AddCampaniaAndNumero(userData.CampaniaID, -i, userData.NroCampanias) });
                 }
                 model.CampaniasConsultoraOnline.Update(campania =>
                 {

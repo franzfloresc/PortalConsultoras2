@@ -285,9 +285,9 @@
                     @{ var posicionCpc = 1; }
                     @foreach (var item in Model.ListaShowRoomCompraPorCompra)
                     {
-                        <div data-posicion="@posicionCpc" data-item="@item.OfertaShowRoomID">
+                        <div data-posicion="@posicionCpc" data-item="@item.EstrategiaID">
                             <div data-campos="">
-                                <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
+                                <input type="hidden" class="hdOfertaShowRoomID" value="@item.EstrategiaID" />
                                 <input type="hidden" class="valorCuv" value="@item.CUV" />
                                 <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
                                 <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioOferta" />
