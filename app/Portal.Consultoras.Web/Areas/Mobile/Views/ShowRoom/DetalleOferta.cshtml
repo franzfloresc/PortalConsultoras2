@@ -72,13 +72,13 @@
                         @if (Model.CodigoProducto != "")
                         {
                             <div data-estrategia="@Model.CodigoEstrategia">
-                                   @if (Model.ProductoTonos != null && Model.ProductoTonos.Any())
+                                   @if (Model.Hermanos != null && Model.Hermanos.Any())
                                    {
                                        var claseItem = Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija ? "content_producto_individual" : "";
                                        var claseItem3 = Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable ? "content_producto_compuesto" : "";
 
                                         <div class="@claseItem">
-                                            @foreach (var producto in Model.ProductoTonos)
+                                            @foreach (var producto in Model.Hermanos)
                                             {
                                                 if ((producto.NombreComercial ?? "") == "" && producto.Digitable != 1)
                                                 {
