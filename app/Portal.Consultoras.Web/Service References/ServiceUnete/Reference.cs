@@ -11028,6 +11028,14 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.CollectionDataContractAttribute(Name="StringCollection", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collect" +
+        "ions", ItemName="string")]
+    [System.SerializableAttribute()]
+    public class StringCollection : System.Collections.Generic.List<string> {
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceUnete.IPortalService")]
     public interface IPortalService {
@@ -11465,6 +11473,12 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerListaAutocompletarUbigeo", ReplyAction="http://tempuri.org/IPortalService/ObtenerListaAutocompletarUbigeoResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.ParametroUneteCollection> ObtenerListaAutocompletarUbigeoAsync(string codigoIso, string texto);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetZonasNoDigitales", ReplyAction="http://tempuri.org/IPortalService/GetZonasNoDigitalesResponse")]
+        Portal.Consultoras.Web.ServiceUnete.StringCollection GetZonasNoDigitales(string CodigoIso);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetZonasNoDigitales", ReplyAction="http://tempuri.org/IPortalService/GetZonasNoDigitalesResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.StringCollection> GetZonasNoDigitalesAsync(string CodigoIso);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -12036,6 +12050,14 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.ParametroUneteCollection> ObtenerListaAutocompletarUbigeoAsync(string codigoIso, string texto) {
             return base.Channel.ObtenerListaAutocompletarUbigeoAsync(codigoIso, texto);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUnete.StringCollection GetZonasNoDigitales(string CodigoIso) {
+            return base.Channel.GetZonasNoDigitales(CodigoIso);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.StringCollection> GetZonasNoDigitalesAsync(string CodigoIso) {
+            return base.Channel.GetZonasNoDigitalesAsync(CodigoIso);
         }
     }
 }

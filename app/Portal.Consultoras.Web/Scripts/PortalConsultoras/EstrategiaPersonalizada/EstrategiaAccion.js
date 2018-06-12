@@ -290,6 +290,8 @@ function EstrategiaGuardarTemporal(obj) {
         ruta = urlOfertaDetalleProductoTem;
     }
 
+    obj.TipoAccionAgregar = obj.TipoAccionAgregarBack || obj.TipoAccionAgregar;
+
     jQuery.ajax({
         type: 'POST',
         url: ruta,
@@ -583,6 +585,7 @@ function EstrategiaAgregar(event, popup, limite) {
             ActualizarLocalStorageAgregado("rd", params.CuvTonos || params.CUV, true);
             ActualizarLocalStorageAgregado("gn", params.CuvTonos || params.CUV, true);
             ActualizarLocalStorageAgregado("hv", params.CuvTonos || params.CUV, true);
+            ActualizarLocalStorageAgregado("lan", params.CuvTonos || params.CUV, true);
 
             ProcesarActualizacionMostrarContenedorCupon();
 

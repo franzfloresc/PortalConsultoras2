@@ -38,7 +38,6 @@
     <input id="hdnHasFlexipago" type="hidden" value="@Model.IndicadorFlexiPago" />
     <input id="hdfEstadoPedido" type="hidden" value="@Model.EstadoPedido" />
     <input id="hdfNomConsultora" type="hidden" value="@Model.NombreConsultora" />
-    <input id="hdSimbolo" type="hidden" value="@Model.Simbolo" />
 
     <h1 class="titulo_principal_interiores pedido_left">INGRESA <strong>TU PEDIDO</strong></h1>
     <div class="clear"></div>
@@ -459,7 +458,7 @@
                     }
 
                     <li data-id="4" data-name="Productos Agotados" data-position="pedido-inferior-4">
-                        <a onclick="AnalyticsBannersInferiores({ id: '4', name: 'Productos Agotados', position: 'pedido-inferior-4' }); CargarProductoAgotados();" href="javascript:;" title="Productos Agotados">
+                        <a onclick="AnalyticsBannersInferiores({ id: '4', name: 'Productos Agotados', position: 'pedido-inferior-4' }); CargarProductoAgotados(1);" href="javascript:;" title="Productos Agotados">
                             <div class="imagen_banner_inferior">
                                 <img data-src="@Model.UrlBanner03" alt="Infórmate aquí" data-lazy-seccion-banner-pedido="" />
                             </div>
@@ -883,15 +882,33 @@
         </div>
         <div class="contenedor_lista_productosAgotados">
             <h6>PRODUCTOS <b>AGOTADOS</b> de <b>@((string)ViewBag.Campania.ToUpper())</b></h6>
+
             <div class="content_cuv">
-                CUV:
-                <input id="producto-faltante-busqueda-cuv" type="text" class="producto_faltante ValidaNumeralPedido" maxlength="5">
-                Producto:
-                <input id="producto-faltante-busqueda-descripcion" type="text" class="producto_faltante">
-                <input type="button" onclick="CargarProductoAgotados();" class="buscar_icono">
+                <section>
+                    <div class="filtroInput">
+                        <label  for="ddlCategoriaProductoAgotado">Categoria</label>
+                        <select id="ddlCategoriaProductoAgotado" class="producto_faltante"></select>
+                    </div>
+                    <div class="filtroInput">
+                        <label for="producto-faltante-busqueda-cuv">CUV</label>
+                        <input id="producto-faltante-busqueda-cuv" type="text" class="producto_faltante ValidaNumeralPedido" maxlength="5">
+                    </div>
+                    <div class="filtroInput">
+                        <label for="producto-faltante-busqueda-descripcion">Producto</label>
+                        <input id="producto-faltante-busqueda-descripcion" type="text" class="producto_faltante">
+                    </div>
+                    <div class="filtroInput">
+                        <label  for="ddlCatalogoRevistaProductoAgotado">Catalogo o Revista</label>
+                        <select id="ddlCatalogoRevistaProductoAgotado"  class="producto_faltante"></select>
+                    </div>
+                    <div class="filtroButton">
+                        <input type="button" onclick="CargarProductoAgotados(0);" class="buscar_icono">
+                    </div>
+                    <br style="clear:both;" />
+                </section>
             </div>
-            <div class="tabla_productos_agotados" id="tblProductosFaltantes" style="overflow-y:hidden;">
-            </div>
+
+            <div class="tabla_productos_agotados" id="tblProductosFaltantes" style="overflow-y:hidden;"></div>
         </div>
         <div class="clear"></div>
     </div>
@@ -1177,7 +1194,6 @@
             </div>
         </div>
     </div>
-
     <div class="tapsPedidos"></div>
 
     <script id="pedidopend-template" type="text/x-handlebars-template">
@@ -1203,7 +1219,7 @@
             </div>
 
             <div class="padding_tabla_percepcion dinamicostable grillaPendientes">{{FormartoFechaSolicitud}}</div>
-            <div class="padding_tabla_percepcion dinamicostablemedio grillaPendientes">@Model.Simbolo {{FormatoPrecioTotal}}</div>
+            <div class="padding_tabla_percepcion dinamicostablemedio grillaPendientes">{{SimboloMoneda}} {{FormatoPrecioTotal}}</div>
             <div class="padding_tabla_percepcion dinamicostablegrande grillaPendientes">
 
                 <input type="hidden" id="pedidopend_{{PedidoId}}" value="{{PedidoId}}|{{MarcaID}}|{{Campania}}|{{Cliente}}|{{Telefono}}|{{Direccion}}|{{Email}}|{{Mensaje}}|{{Leido}}|{{NumIteracion}}|{{CodigoUbigeo}}|{{FechaSolicitud}}|{{MedioContacto}}|{{FormatoPrecioTotal}}|{{SaldoHoras}}|{{FlagConsultora}}" />
@@ -1292,7 +1308,7 @@
             <div class="linea_separadora" style="height:2px;"></div>
 
             <div class="calculo_PendientesTotal">
-                <h4 class="txtderecha">TOTAL PEDIDO: <span>@Model.Simbolo {{PrecioTotal}}</span></h4>
+                <h4 class="txtderecha">TOTAL PEDIDO: <span>{{SimboloMoneda}} {{PrecioTotal}}</span></h4>
             </div>
 
             <div class="linea_separadora_roja" style="height: 2px;"></div>
@@ -1375,7 +1391,7 @@
             <div class="linea_separadora" style="height:2px;"></div>
 
             <div class="calculo_PendientesTotal">
-                <h4 class="txtderecha">TOTAL PEDIDO: <span>@Model.Simbolo {{PrecioTotal}}</span></h4>
+                <h4 class="txtderecha">TOTAL PEDIDO: <span>{{SimboloMoneda}} {{PrecioTotal}}</span></h4>
             </div>
 
             <div class="linea_separadora_roja" style="height: 2px;"></div>
@@ -1399,8 +1415,8 @@
             <div class="padding_tabla_percepcion dinamicostablemini">{{CUV}}</div>
             <div class="padding_tabla_percepcion dinamicostablemedio">{{Producto}}</div>
             <div class="padding_tabla_percepcion dinamicostable" id="pedpend-deta2-cantidad">{{Cantidad}}</div>
-            <div class="padding_tabla_percepcion dinamicostable">@Model.Simbolo {{PrecioUnitario}}</div>
-            <div class="padding_tabla_percepcion dinamicostable">@Model.Simbolo {{PrecioTotal}}</div>
+            <div class="padding_tabla_percepcion dinamicostable">{{SimboloMoneda}} {{PrecioUnitario}}</div>
+            <div class="padding_tabla_percepcion dinamicostable">{{SimboloMoneda}} {{PrecioTotal}}</div>
             <div class="padding_tabla_percepcion dinamicostablegrande">
                 {{#if_eq TieneStock '1'}}
                 <select class="oscurece" id="ddlAtender_{{@@index}}">
@@ -1430,8 +1446,8 @@
             <input type="hidden" value="{{PedidoDetalleId}}" />
             <div class="padding_tabla_percepcion dinamicostableextragrande izq">{{Producto}}</div>
             <div class="padding_tabla_percepcion dinamicostableextragrande">{{Cantidad}}</div>
-            <div class="padding_tabla_percepcion dinamicostableextragrande">@Model.Simbolo {{PrecioUnitario}}</div>
-            <div class="padding_tabla_percepcion dinamicostableextragrande">@Model.Simbolo {{PrecioTotal}}</div>
+            <div class="padding_tabla_percepcion dinamicostableextragrande">{{SimboloMoneda}} {{PrecioUnitario}}</div>
+            <div class="padding_tabla_percepcion dinamicostableextragrande">{{SimboloMoneda}} {{PrecioTotal}}</div>
         </div>
 
         {{/each}}
@@ -1468,7 +1484,7 @@
                         <b>{{Descripcion}}</b>
                     </p>
                     <div class="producto_precio">
-                        <span class="producto_precio_oferta"><b>@Model.Simbolo {{PrecioCatalogoString}}</b></span>
+                        <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{PrecioCatalogoString}}</b></span>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -1581,14 +1597,14 @@
         </div>
         <div class="texto_pedidos precioUnitario">
                     <input type="hidden" name="hdfLPPrecioU{{PedidoDetalleID}}" value="{{PrecioUnidad}}" class="classPrecioUnidad hdfLPPrecioU" />
-            {{Simbolo}} {{FormatoPrecioUnidad}}
+            {{SimboloMoneda}} {{FormatoPrecioUnidad}}
         </div>
         <div class="texto_pedidos subtotal">
             <span class="precio">
-                {{Simbolo}} {{FormatoPrecioUnidad}}
+                {{SimboloMoneda}} {{FormatoPrecioUnidad}}
             </span>
             <span>
-                {{Simbolo}}
+                {{SimboloMoneda}}
                         <label for="item_ImporteTotal" class="classImporteTotal lblLPImpTotal">{{FormatoImporteTotal}}</label>
                 {{#if EstadoSimplificacionCuv}}
                 {{#if IndicadorOfertaCUV}}
@@ -1696,21 +1712,21 @@
         <tr>
             <td colspan="5" style="padding-right: 0;">
                 <table style="max-height:308px; overflow-y: auto; display: block;">
-                    {{#each this}}
-                    {{#each Detalle}}
+                    {{#each this.Detalle}}
                     <tr>
-                        <td class="categoria_productoAgotado">{{../Categoria}}</td>
-                        <td class="codigo_productoAgotado">{{CUV}}</tdclass="codigo_productoAgotado">
+                        <td class="categoria_productoAgotado">{{Categoria}}</td>
+                        <td class="codigo_productoAgotado">{{CUV}}</td>
                         <td class="producto_productoAgotado">{{Descripcion}}</td>
                         <td class="catalogo_productoAgotado">{{Catalogo}}</td>
                         <td class="pagina_productoAgotado text-right">{{NumeroPagina}}</td>
                     </tr>
                     {{/each}}
-                    {{/each}}
                 </table>
             </td>
         </tr>
-
+        <tr id="tfoot">
+            <td colspan="5" style="text-align: right;"> No se encontró información</td>
+        </tr>
     </table>
 </script>
 
@@ -1820,7 +1836,7 @@
                 <div>
                     <h1 class="titulo_ofertaFinal mb-13" id="spnTituloOfertaFinal">
                         {{#if_eq TipoMeta 'MM'}}
-                        <span><b>AÚN TE FALTA {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> PARA LLEGAR AL MONTO MÍNIMO</b></span>
+                        <span><b>AÚN TE FALTA {{SimboloMoneda}} <span data-monto="">{{MetaMontoStr}}</span> PARA LLEGAR AL MONTO MÍNIMO</b></span>
                         {{else if_eq TipoMeta 'GM'}}
                         <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b>!</span>
                         {{else}}
@@ -1840,7 +1856,7 @@
                         {{else if_eq TipoMeta 'RG'}}
                         <span>@ViewBag.NombreConsultora, APROVECHA ESTAS OFERTAS Y <b>GANA PREMIOS INCREÍBLES</b></span>
                         {{else}} 
-                        <span>ALCANZA EL <b style="font-size:23px;">{{MetaPorcentaje}}%</b> DSCTO AGREGANDO {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> DE ESTAS OFERTAS</span>
+                        <span>ALCANZA EL <b style="font-size:23px;">{{MetaPorcentaje}}%</b> DSCTO AGREGANDO {{SimboloMoneda}} <span data-monto="">{{MetaMontoStr}}</span> DE ESTAS OFERTAS</span>
                         {{/if_eq}}
                     </div>
                 </div>
@@ -1884,7 +1900,6 @@
                                     <input type="hidden" class="hdOfertaFinalPrecioValorizadoString" value="{{PrecioValorizadoString}}" />
                                     <input type="hidden" class="hdOfertaFinalPrecioCatalogoString" value="{{PrecioCatalogoString}}" />
                                     <input type="hidden" class="hdOfertaFinalDescripcionComercial" value="{{DescripcionComercial}}" />
-                                    <input type="hidden" class="hdOfertaFinalUrlCompartirFB" value="{{UrlCompartirFB}}" />
                                     <input type="hidden" class="hdOfertaFinalDescripcionRelacionado" value="{{CUVPedidoNombre}}" />
                                     <input type="hidden" class="hdOfertaFinalCUVPedidoImagen" value="{{CUVPedidoImagen}}" />
                                     <input type="hidden" class="hdTipoMeta" value="{{TipoMeta}}" />
@@ -1907,9 +1922,9 @@
                                         </div>
                                         <div class="producto_precio">
                                             {{#iff PrecioValorizado '>' '0'}}
-                                            <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
+                                            <span class="producto_precio_normal">{{SimboloMoneda}} {{PrecioValorizadoString}}</span>
                                             {{/iff}}
-                                            <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
+                                            <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{PrecioCatalogoString}}</b></span>
                                         </div>
                                         <div class="liquidacion_rango_home">
                                             <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad">
@@ -1960,9 +1975,7 @@
         <div data-compartir-campos="" style="display:none;">
             <input type="hidden" class="CUV" value="{{CUV}}" />
             <input type="hidden" class="rsFBMensaje" value="" />
-            <input type="hidden" class="rsFBRuta" value="{{UrlCompartirFB}}" />
             <input type="hidden" class="rsWAMensaje" value="" />
-            <input type="hidden" class="rsWARuta" value="{{UrlCompartirFB}}" />
             <input type="hidden" class="rsFBRutaImagen" value="{{ImagenProductoSugerido}}" />
             <input type="hidden" class="rsWARutaImagen" value="{{ImagenProductoSugerido}}" />
             <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
@@ -2001,9 +2014,9 @@
                 <div class="descripcion_ficha_producto">{{DescripcionComercial}}</div>
                 <div class="precio_ficha_producto">
                     {{#iff PrecioValorizado '>' 0}}
-                    <span class="precio_tachado_ficha">{{Simbolo}} {{PrecioValorizadoString}}</span>
+                    <span class="precio_tachado_ficha">{{SimboloMoneda}} {{PrecioValorizadoString}}</span>
                     {{/iff}}
-                    {{Simbolo}} {{PrecioCatalogoString}}
+                    {{SimboloMoneda}} {{PrecioCatalogoString}}
                 </div>
             </div>
             {{#iff DescripcionRelacionado '!=' ''}}
@@ -2046,7 +2059,6 @@
         var viewBagNombrePais = '@ViewBag.NombrePais';
         var isShown = false;
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-        var vbSimbolo = '@Html.Raw(Model.Simbolo)';
         var urlEsikaMenos = '@Url.Content("~/Content/Images/Esika/menos.png")';
         var urlEsikaMas = '@Url.Content("~/Content/Images/Esika/mas.png")';
         var heightReference = 0;
@@ -2080,7 +2092,6 @@
         var mobileDevice = false;
         var indicadorGPRSB = '@Model.IndicadorGPRSB';
         var viewBagCampaniaActual = '@Model.CampaniaActual';
-        var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
         var tieneCupon = '@Model.TieneCupon';
         var paginaOrigenCupon = 11;
         var esEmailActivo = '@Model.EmailActivo';

@@ -27,6 +27,7 @@
         @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
     }
 
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpVariablesGeneralesPortal.cshtml")
     <script type="text/javascript">
         var isEsika = '@ViewContext.EsPaisEsika().ToString().ToLower()';
         window.urlLogDynamo = '@Portal.Consultoras.Web.Infraestructure.Settings.Instance.UrlLogDynamo';
@@ -193,7 +194,6 @@
     var urlGetCantidadProductos = '@Url.Action("GetResumenCampaniaAgrupado", "GestionContenido", new { area = "" })';
     var urlGetNotificacionesSinLeer = '@Url.Action("GetNotificacionesSinLeer", "Notificaciones", new { area = "" })';
     var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
-    var vbSimbolo = '@ViewBag.Simbolo';
     var ViewBagEsMobile = '@ViewBag.EsMobile';
     var urlChatbot = '@Portal.Consultoras.Web.Infraestructure.Settings.Instance.UrlChatBot';
     var ingresoExterno = '@ViewContext.GetUniqueSession("IngresoExterno")';

@@ -117,13 +117,16 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetProductoFaltanteByCampaniaAndZonaID(int CampaniaID, int ZonaID, string cuv, string descripcion)
+        public IDataReader GetProductoFaltanteByCampaniaAndZonaID(int CampaniaID, int ZonaID, string cuv, string descripcion, string codCategoria, string codCatalogoRevista) 
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoFaltanteByCampaniaAndZonaID");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
             Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, ZonaID);
             Context.Database.AddInParameter(command, "@CUV", DbType.String, cuv);
             Context.Database.AddInParameter(command, "@DescripcionProducto", DbType.String, descripcion);
+
+            Context.Database.AddInParameter(command, "@CodCategoria", DbType.String, codCategoria);
+            Context.Database.AddInParameter(command, "@CodCatalogo", DbType.String, codCatalogoRevista);
 
             return Context.ExecuteReader(command);
         }

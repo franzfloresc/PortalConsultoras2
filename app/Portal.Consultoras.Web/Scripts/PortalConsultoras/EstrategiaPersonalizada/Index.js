@@ -5,6 +5,8 @@ var sElementos = {
     listadoProductos: "[data-seccion-productos]"
 };
 
+var listaLAN = listaLAN || "listaLAN";
+
 var CONS_TIPO_PRESENTACION = {
     CarruselSimple: 1,
     CarruselPrevisuales: 2,
@@ -32,7 +34,8 @@ var timer;
 
 var varContenedor = {
     CargoRevista: false,
-    CargoHv: false
+    CargoHv: false,
+    CargoLan: false
 }
 
 $(document).ready(function () {
@@ -118,6 +121,14 @@ function SeccionCargarProductos(objConsulta) {
         if (!varContenedor.CargoHv) {
             varContenedor.CargoHv = true;
             OfertaCargarProductos({ VarListaStorage: "HVLista", UrlCargarProductos: urlCargarProductosHv }, false, objConsulta);
+        }
+        return false;
+    }
+
+    if (objConsulta.Codigo === CONS_CODIGO_SECCION.LAN) {
+        if (!varContenedor.CargoLan) {
+            varContenedor.CargoLan = true;
+            OfertaCargarProductos({ VarListaStorage: listaLAN , UrlCargarProductos: baseUrl + objConsulta.UrlObtenerProductos }, false, objConsulta);
         }
         return false;
     }
@@ -209,8 +220,10 @@ function SeccionMostrarProductos(data) {
                 tieneIndividual = true;
             }
         });
+        data.lista = new Array();
+        data.lista = data.listaLan;
         if (data.listaLan !== undefined && data.listaLan.length > 0 && tieneIndividual) {
-            RDLocalStorageListado(lsListaRD + data.campaniaId, data, CONS_CODIGO_SECCION.LAN);
+            RDLocalStorageListado(listaLAN + data.campaniaId, data, CONS_CODIGO_SECCION.LAN);
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
         } else {
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
@@ -268,27 +281,7 @@ function SeccionMostrarProductos(data) {
             item.EsLanzamiento = false;
         });
     }
-
-    if (revistaDigital) {
-        if (revistaDigital.TieneRDC) {
-            if (data.Seccion.Codigo === CONS_CODIGO_SECCION.RD) {
-                if (!revistaDigital.EsActiva) {
-                    var ExperienciaGanaMas = new Object();
-                    ExperienciaGanaMas.OcultarAgregar = true;
-                    ExperienciaGanaMas.OcultarVerDetalle = true;
-                    ExperienciaGanaMas.MostrarLoQuieres = !revistaDigital.EsSuscrita && !revistaDigital.EsActiva ? true : false;
-
-                    $.each(data.lista, function (ind, tem) {
-                        if (tem.ClaseBloqueada != '') {
-                            tem.ExperienciaGanaMas = ExperienciaGanaMas;
-                            tem.TieneVerDetalle = !ExperienciaGanaMas.OcultarVerDetalle;
-                        }
-                    });
-                }
-            }
-        }
-    }
-
+    
     SetHandlebars(data.Seccion.TemplateProducto, data, divListadoProductos);
 
     if (data.Seccion.TemplateProducto == "#producto-landing-template") {
