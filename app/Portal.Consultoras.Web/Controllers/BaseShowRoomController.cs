@@ -712,16 +712,12 @@ namespace Portal.Consultoras.Web.Controllers
         protected EstrategiaPedidoModel ObtenerPrimeraOfertaShowRoom()
         {
             var ofertasShowRoom = GetShowRoomOfertasConsultora(userData);
+
             ofertasShowRoom = ObtenerListaProductoShowRoomMdo(ofertasShowRoom);
             ActualizarUrlImagenes(ofertasShowRoom);
+            ofertasShowRoom.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
 
-
-            var ofertasShowRoomModel = Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(ofertasShowRoom);
-            ofertasShowRoomModel.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
-
-            var ofertaShowRoomModel = ofertasShowRoomModel.FirstOrDefault();
-
-            return ofertaShowRoomModel;
+            return ofertasShowRoom.FirstOrDefault();
         }
 
         #region Metodos Privados
@@ -801,7 +797,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        private void ActualizarUrlImagenes(List<ServiceOferta.BEShowRoomOferta> ofertasShowRoom)
+        private void ActualizarUrlImagenes(List<EstrategiaPedidoModel> ofertasShowRoom)
         {
             ofertasShowRoom.Update(x =>
             {
@@ -818,13 +814,13 @@ namespace Portal.Consultoras.Web.Controllers
             });
         }
 
-        private List<ServiceOferta.BEShowRoomOferta> GetShowRoomOfertasConsultora(UsuarioModel usuario)
+        private List<EstrategiaPedidoModel> GetShowRoomOfertasConsultora(UsuarioModel usuario)
         {
 
             using (var ofertaService = new OfertaServiceClient())
             {
                 var listaShowRoomOferta = ofertaService.GetShowRoomOfertasConsultora(usuario.PaisID, usuario.CampaniaID, usuario.CodigoConsultora).ToList();
-                return listaShowRoomOferta;
+                return Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listaShowRoomOferta);
             }
         }
 
@@ -835,10 +831,18 @@ namespace Portal.Consultoras.Web.Controllers
                 listaShowRoomOferta = listaShowRoomOferta.Where(p => p.FlagRevista == (flagRevistaValor == 0 ? Constantes.FlagRevista.Valor0 : flagRevistaValor)).ToList();
             }
             return listaShowRoomOferta;
-
         }
 
-        private List<EstrategiaPedidoModel> ObtenerListaProductoShowRoomFormato(List<ServiceOferta.BEShowRoomOferta> listaShowRoomOferta, List<BEPedidoWebDetalle> listaPedidoDetalle, bool esFacturacion)
+        private List<EstrategiaPedidoModel> ObtenerListaProductoShowRoomMdo(List<EstrategiaPedidoModel> listaShowRoomOferta, int flagRevistaValor = 0)
+        {
+            if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
+            {
+                listaShowRoomOferta = listaShowRoomOferta.Where(p => p.FlagRevista == (flagRevistaValor == 0 ? Constantes.FlagRevista.Valor0 : flagRevistaValor)).ToList();
+            }
+            return listaShowRoomOferta;
+        }
+
+        private List<EstrategiaPedidoModel> ObtenerListaProductoShowRoomFormato(List<EstrategiaPedidoModel> listaShowRoomOferta, List<BEPedidoWebDetalle> listaPedidoDetalle, bool esFacturacion)
         {
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
             if (listaShowRoomOferta.Any())
@@ -883,7 +887,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            var listaShowRoomOfertaFinal = new List<ServiceOferta.BEShowRoomOferta>();
+            var listaShowRoomOfertaFinal = new List<EstrategiaPedidoModel>();
             foreach (var beShowRoomOferta in listaShowRoomOferta)
             {
                 bool tieneStockProl = true;
@@ -899,9 +903,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            List<EstrategiaPedidoModel> listadoOfertasTodasModel1 = Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listaShowRoomOfertaFinal);
-
-            listadoOfertasTodasModel1.Update(x =>
+            listaShowRoomOfertaFinal.Update(x =>
             {
                 x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
                 x.CodigoISO = userData.CodigoISO;
@@ -913,9 +915,9 @@ namespace Portal.Consultoras.Web.Controllers
                 x.TipoAccionAgregar = TipoAccionAgregar(0, Constantes.TipoEstrategiaCodigo.ShowRoom, false, CodigoEstrategia);
             });
 
-            sessionManager.ShowRoom.Ofertas = listadoOfertasTodasModel1;
+            sessionManager.ShowRoom.Ofertas = listaShowRoomOfertaFinal;
 
-            return listadoOfertasTodasModel1;
+            return listaShowRoomOfertaFinal;
         }
 
         private List<ServiceOferta.BEShowRoomOferta> GetProductosCompraPorCompra(UsuarioModel usuario, int eventoId)
