@@ -173,35 +173,12 @@ namespace Portal.Consultoras.Web.Controllers
                 showRoomEventoModel = configEstrategiaSR.BeShowRoom;
                 showRoomEventoModel.Simbolo = userData.Simbolo;
                 showRoomEventoModel.CodigoIso = userData.CodigoISO;
+                showRoomEventoModel.ListaShowRoomOferta = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion);
+                showRoomEventoModel.ListaShowRoomCompraPorCompra = GetProductosCompraPorCompra(userData.EsDiasFacturacion, showRoomEventoModel.EventoID, showRoomEventoModel.CampaniaID);
+                showRoomEventoModel.ListaCategoria = GetCategoriasProductoShowRoom(showRoomEventoModel);
 
-                var listaShowRoomOferta = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion);
-                showRoomEventoModel.ListaShowRoomOferta = listaShowRoomOferta;
-
-                var listaCompraPorCompra = GetProductosCompraPorCompra(userData.EsDiasFacturacion, showRoomEventoModel.EventoID, showRoomEventoModel.CampaniaID);
-                showRoomEventoModel.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
-
-                var listaCategoria = new List<ShowRoomCategoriaModel>();
-                var categorias = listaShowRoomOferta.GroupBy(p => p.CodigoCategoria).Select(p => p.First());
-                foreach (var item in categorias)
-                {
-                    if (!string.IsNullOrEmpty(item.DescripcionCategoria))
-                    {
-                        var beCategoria = new ShowRoomCategoriaModel
-                        {
-                            Codigo = item.CodigoCategoria,
-                            Descripcion = item.DescripcionCategoria,
-                            EventoID = showRoomEventoModel.EventoID
-                        };
-                        listaCategoria.Add(beCategoria);
-                    }
-                }
-
-                listaCategoria = listaCategoria.OrderBy(p => p.Descripcion).ToList();
-
-                showRoomEventoModel.ListaCategoria = listaCategoria;
-
-                var tipoAplicacion = GetIsMobileDevice() ? Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile
-                    : Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop;
+                var tipoAplicacion = Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop;
+                if (GetIsMobileDevice()) tipoAplicacion = Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile;
 
                 showRoomEventoModel.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.UrlTerminosCondiciones, tipoAplicacion);
                 showRoomEventoModel.TextoCondicionCompraCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoCondicionCompraCpc, tipoAplicacion);
@@ -222,6 +199,7 @@ namespace Portal.Consultoras.Web.Controllers
                     showRoomEventoModel.TextoTituloOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.TextoTituloOfertaSubCampania, tipoAplicacion);
                     showRoomEventoModel.ColorTextoTituloOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ColorTextoTituloOfertaSubCampania, tipoAplicacion);
                     showRoomEventoModel.ColorFondoTituloOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ColorFondoTituloOfertaSubCampania, tipoAplicacion);
+
                     showRoomEventoModel.ImagenFondoTituloOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoTituloOfertaSubCampania, tipoAplicacion);
                     showRoomEventoModel.ColorFondoContenidoOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ColorFondoContenidoOfertaSubCampania, tipoAplicacion);
                     showRoomEventoModel.TextoBotonVerMasOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.TextoBotonVerMasOfertaSubCampania, tipoAplicacion);
@@ -235,6 +213,21 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return showRoomEventoModel;
+        }
+
+        private List<ShowRoomCategoriaModel> GetCategoriasProductoShowRoom(ShowRoomEventoModel showRoomEventoModel)
+        {
+            var categorias = showRoomEventoModel.ListaShowRoomOferta.GroupBy(p => p.CodigoCategoria).Select(p => p.First());
+            var listaCategoria = categorias
+                .Where(x => !string.IsNullOrEmpty(x.DescripcionCategoria))
+                .Select(x => new ShowRoomCategoriaModel
+                {
+                    Codigo = x.CodigoCategoria,
+                    Descripcion = x.DescripcionCategoria,
+                    EventoID = showRoomEventoModel.EventoID
+                })
+                .OrderBy(p => p.Descripcion).ToList();
+            return listaCategoria;
         }
 
         protected virtual bool GetIsMobileDevice()
