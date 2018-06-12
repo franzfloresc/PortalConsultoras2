@@ -296,20 +296,6 @@ namespace Portal.Consultoras.Web.Controllers
             public int OfertaId { get; private set; }
         }
 
-        protected virtual List<TablaLogicaDatosModel> GetTablaLogicaDatos(short tablaLogicaId)
-        {
-            List<BETablaLogicaDatos> tablaLogicaDatos;
-
-            using (var svc = new SACServiceClient())
-            {
-                tablaLogicaDatos = svc.GetTablaLogicaDatos(userData.PaisID, tablaLogicaId).ToList();
-            }
-
-            var tablaLogicaDatosModel = Mapper.Map<List<BETablaLogicaDatos>, List<TablaLogicaDatosModel>>(tablaLogicaDatos);
-
-            return tablaLogicaDatosModel;
-        }
-
         protected virtual string ObtenerCarpetaPais()
         {
             return Globals.UrlMatriz + "/" + userData.CodigoISO;

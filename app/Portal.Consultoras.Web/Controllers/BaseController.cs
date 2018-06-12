@@ -48,23 +48,24 @@ namespace Portal.Consultoras.Web.Controllers
     public partial class BaseController : Controller
     {
         #region Variables
-
         protected UsuarioModel userData;
         protected RevistaDigitalModel revistaDigital;
         protected HerramientasVentaModel herramientasVenta;
         protected GuiaNegocioModel guiaNegocio;
-        protected ISessionManager sessionManager;
-        protected ILogManager logManager;
-        private readonly TablaLogicaProvider _tablaLogicaProvider;
-        private readonly ShowRoomProvider _showRoomProvider;
         protected DataModel estrategiaODD;
         protected ConfigModel configEstrategiaSR;
-        public readonly BaseProvider _baseProvider;
-        private readonly GuiaNegocioProvider _guiaNegocioProvider;
-        public readonly OfertaPersonalizadaProvider _ofertaPersonalizadaProvider;
-        public readonly ConfiguracionManagerProvider _configuracionManagerProvider;
-        public readonly OfertaViewProvider _ofertasViewProvider;
-        public readonly RevistaDigitalProvider _revistaDigitalProvider;
+
+        protected ISessionManager sessionManager;
+        protected ILogManager logManager;
+
+        protected readonly TablaLogicaProvider _tablaLogicaProvider;
+        protected readonly ShowRoomProvider _showRoomProvider;
+        protected readonly BaseProvider _baseProvider;
+        protected readonly GuiaNegocioProvider _guiaNegocioProvider;
+        protected readonly OfertaPersonalizadaProvider _ofertaPersonalizadaProvider;
+        protected readonly ConfiguracionManagerProvider _configuracionManagerProvider;
+        protected readonly OfertaViewProvider _ofertasViewProvider;
+        protected readonly RevistaDigitalProvider _revistaDigitalProvider;
         #endregion
 
         #region Constructor
@@ -121,7 +122,6 @@ namespace Portal.Consultoras.Web.Controllers
                 herramientasVenta = sessionManager.GetHerramientasVenta();
                 guiaNegocio = sessionManager.GetGuiaNegocio();
                 estrategiaODD = sessionManager.GetEstrategiaODD();
-
                 configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
                 if (!configEstrategiaSR.CargoEntidadesShowRoom) CargarEntidadesShowRoom(userData);
 

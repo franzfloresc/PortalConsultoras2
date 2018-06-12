@@ -214,7 +214,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         : terminosCondiciones.Valor;
                 }
 
-                showRoomEventoModel.FiltersBySorting = GetTablaLogicaDatos(Constantes.TablaLogica.OrdenamientoShowRoom);
+                showRoomEventoModel.FiltersBySorting =
+                    _tablaLogicaProvider.ObtenerConfiguracion(userData.PaisID,
+                        Constantes.TablaLogica.OrdenamientoShowRoom);
 
                 var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => !x.EsSubCampania).ToList();
                 ViewBag.PrecioMin = xlistaShowRoom.Any() ? xlistaShowRoom.Min(p => p.PrecioOferta) : Convert.ToDecimal(0);
