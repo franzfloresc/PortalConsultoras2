@@ -761,14 +761,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<EstrategiaPedidoModel> ObtenerListaProductoShowRoomFormato(List<EstrategiaPedidoModel> listaShowRoomOferta, List<BEPedidoWebDetalle> listaPedidoDetalle, bool esFacturacion)
         {
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            if (listaShowRoomOferta.Any())
-            {
-                listaShowRoomOferta.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto)
-                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
-                listaShowRoomOferta.Update(x => x.ImagenMini = string.IsNullOrEmpty(x.ImagenMini)
-                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.UrlMatriz + "/" + userData.CodigoISO));
-            }
+            ActualizarUrlImagenes(listaShowRoomOferta);
 
             var listaTieneStock = new List<Lista>();
             if (esFacturacion)
