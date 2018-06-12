@@ -620,12 +620,12 @@
                        while (index >= 0) {
                            if (text_[index] && (text_[index] == "" || text_[index].toLowerCase() == ui.item.label.toLowerCase())) {
                                text_.splice(index, 1);
-                               index = text_.length
+                               index = text_.length;
                            }
                            else index--;
                        }
 
-                       text_.push(ui.item.label)
+                       text_.push(ui.item.label);
                        jsonb = {
                            codigo: ui.item.label.toLowerCase(),
                            id: ui.item.value
@@ -640,7 +640,7 @@
                        while (index >= 0) {
                            if (ext[index] && (ext[index] == "" || ext[index].toLowerCase() == ui.item.label.toLowerCase())) {
                                ext.splice(index, 1);
-                               index = ext.length
+                               index = ext.length;
                            }
                            else index--;
                        }

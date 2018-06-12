@@ -1081,15 +1081,15 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected List<BEProductoFaltante> GetProductosFaltantes()
         {
-            return this.GetProductosFaltantes("", "");
+            return this.GetProductosFaltantes("", "" , "" , "");
         }
 
-        protected List<BEProductoFaltante> GetProductosFaltantes(string cuv, string descripcion)
+        protected List<BEProductoFaltante> GetProductosFaltantes(string cuv, string descripcion ,string codCategoria , string codCatalogoRevista)
         {
             List<BEProductoFaltante> olstProductoFaltante;
             using (var sv = new SACServiceClient())
             {
-                olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID, cuv, descripcion).ToList();
+                olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID, cuv, descripcion , codCategoria , codCatalogoRevista).ToList();
             }
             return olstProductoFaltante ?? new List<BEProductoFaltante>();
         }
@@ -2938,7 +2938,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string dataString = string.Empty;
             string apiController = string.Empty;
-
+            
             try
             {
                 string urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
@@ -2984,6 +2984,7 @@ namespace Portal.Consultoras.Web.Controllers
                         httpClient.BaseAddress = new Uri(urlApi);
                         httpClient.DefaultRequestHeaders.Accept.Clear();
                         httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
                         dataString = JsonConvert.SerializeObject(data);
                         HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
                         HttpResponseMessage response = httpClient.PostAsync(apiController, contentPost).GetAwaiter().GetResult();
@@ -2992,6 +2993,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     }
                 }
+                
             }
             catch (Exception ex)
             {

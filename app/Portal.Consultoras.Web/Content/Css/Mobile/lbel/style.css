@@ -14753,3 +14753,34 @@ span.icon-advertencia {
 .producto_img_mobile_bpt img {
     padding: 10px !important;
 }
+
+/* HD-2513 - 50 AÑOS BELCORP */
+
+.agregarBackgroundCincuentaAniosBelcorp{
+    background-image:url('../../../Images/mobile/cincuenta_anios_belcorp_cabecera_mobile.svg');
+    background-repeat:no-repeat;
+    background-position:-23px top;
+}
+
+.icono_menuMobile_cincuenta_anios_belcorp img{
+    width: 22px!important;
+    height: 22px;
+    position: relative;
+    left: -5px!important;
+}
+
+.color_cincuenta_anios_belcorp{
+    color:#A06219;
+}
+
+.boton_cincuenta_anios_belcorp input{
+    background:#BA8B47;
+    border:2px solid #BA8B47;
+}
+
+    .boton_cincuenta_anios_belcorp input:hover{
+        background:#BA8B47;
+        color:#BA8B47;
+    }
+
+/* FIN - HD-2513 - 50 AÑOS BELCORP */
