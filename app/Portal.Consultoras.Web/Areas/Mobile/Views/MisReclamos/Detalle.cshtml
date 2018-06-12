@@ -38,7 +38,6 @@
 {
 	<div class="wrapper_resumen_mobile tipografia_lato bloqueCDRRegistro pt-50">
 
-		<!-- VISTA SOLICITUD ENVIADA -->
 		<div class="content_mensaje_solicitud_enviada">
 			<div class="icono_solicitud_enviada">
 				<img src="@Url.Content("~/Content/Images/Esika/icono_check_esika.svg")" alt="Solicitud Enviada">
@@ -153,21 +152,17 @@
 				</div>
 			</div>
 		</div>
-		<!-- FIN VISTA SOLICITUD ENVIADA -->
-		<!-- INICIO BOTÓN VER SOLICITUDES ANTERIORES -->
 		<a href="#" class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Ver solicitudes">
 			<span class="icono_arrow_left">
 				<img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver tus solicitudes" />
 			</span>
 			<span>VER TUS SOLICITUDES</span>
 		</a>
-		<!-- FIN BOTÓN VER SOLICITUDES ANTERIORES -->
 
 	</div>
 }
 else if (ViewBag.Origen == "1")
 {
-	<!-- INICIO VISTA DETALLE SOLICITUD CDR -->
 	<div class="datos_solicitud_cdr_consulta tipografia_lato bloqueCDRDetalle pt-78">
 		<div class="wrapper_resumen_mobile">
 			<div class="datos_solicitud_cdr_titulo tipografia_lato_bold">
@@ -252,5 +247,4 @@ else if (ViewBag.Origen == "1")
 		</div>
 
 	</div>
-	<!-- FIN VISTA DETALLE SOLICITUD CDR -->
 }

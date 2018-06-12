@@ -1,4 +1,7 @@
 ﻿using System.Runtime.Serialization;
+using System.Collections.Generic;
+
+using Portal.Consultoras.Entities.ReservaProl;
 
 namespace Portal.Consultoras.Entities.Pedido.App
 {
@@ -9,5 +12,16 @@ namespace Portal.Consultoras.Entities.Pedido.App
         public string CodigoRespuesta { get; set; }
         [DataMember]
         public string MensajeRespuesta { get; set; }
+    }
+
+    [DataContract]
+    public class BEPedidoReservaAppResult
+    {
+        [DataMember]
+        public string CodigoRespuesta { get; set; }
+        [DataMember]
+        public string MensajeRespuesta { get; set; }
+        [DataMember]
+        public List<BEPedidoObservacion> Observaciones { get; set; }
     }
 }

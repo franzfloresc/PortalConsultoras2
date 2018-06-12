@@ -13,6 +13,7 @@ namespace Portal.Consultoras.Web.Models
         public Int32 PaisID { get; set; }
 
         public List<BECampania> DropDownListCampania { get; set; }
+        public List<BECampania> DropDownListCampaniaMasiva { get; set; }
         public IEnumerable<PaisModel> listaPaises { get; set; }
 
         public string CUV { get; set; }
@@ -22,6 +23,14 @@ namespace Portal.Consultoras.Web.Models
         public int FactorRepeticion { get; set; }
         public string RegaloDescripcion { get; set; }
         public string RegaloImagenUrl { get; set; }
+        public string ErrorCargaMasiva { get; set; }
 
+        public IList<MatrizCampaniaModel> ListaErrores { get; set; }
+        public MatrizCampaniaModel()
+        {
+            //listaCampania = new List<CampaniaModel>();
+            listaPaises = new List<PaisModel>();
+            //Eliminar = false;
+        }
     }
 }

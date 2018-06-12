@@ -9,11 +9,9 @@
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="{{CUV2}}" />
                 <input type="hidden" class="rsFBMensaje" value="" />
-                <input type="hidden" class="rsFBRuta" value="{{UrlCompartir}}" />
                 <input type="hidden" class="rsWAMensaje" value="" />
-                <input type="hidden" class="rsWARuta" value="{{UrlCompartir}}" />
-                <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
-                <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
+                <input type="hidden" class="rsFBRutaImagen" value="{{ImgUrl FotoProducto01}}" />
+                <input type="hidden" class="rsWARutaImagen" value="{{ImgUrl FotoProducto01}}" />
                 <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
                 <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
                 <input type="hidden" class="Nombre" value="{{DescripcionCompleta}}" />
@@ -29,7 +27,7 @@
                 {{/iff}}
                 <div class="content_ficha_producto content_ficha_producto_fix">
                     <div class="cont_etiqueta_producto">
-                        <img id="fav_imagen_prod" src="{{FotoProducto01}}">
+                        <img id="fav_imagen_prod" src="{{ImgUrl FotoProducto01}}">
                     </div>
                 </div>
                 {{#iff CodigoEstrategia '!=' '011'}}
@@ -59,7 +57,7 @@
                         <div class="precio_ficha_producto">
                             {{#iff Precio '>' 0}}
                             <div style="margin-top:-5px;">
-                                <span class="texto_precio_ficha">Valorizado a:</span> <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
+                                <span class="texto_precio_ficha">Valorizado a:</span> <span class="producto_precio_normal">{{SimboloMoneda}} {{PrecioTachado}}</span>
                                 <div style="clear:both;"></div>
                             </div>
                             {{/iff}}
@@ -67,7 +65,7 @@
                                 <span class="texto_precio_ficha">Precio para ti:</span>
                                 <div class="precios_para_ti">
                                     <p style="font-size:13px;">
-                                        {{#iff  PrecioNiveles '!=' ''}}1x{{/iff}} {{Simbolo}} {{PrecioVenta}}
+                                        {{#iff  PrecioNiveles '!=' ''}}1x{{/iff}} {{SimboloMoneda}} {{PrecioVenta}}
                                     </p>
                                     {{#iff PrecioNiveles '!=' ''}}
                                     {{#each lstPrecioNiveles as |item|}}
@@ -79,7 +77,7 @@
                             </div>
                             {{#iff Ganancia '>' 0}}
                             <div style="color: #e81c36; letter-spacing: .5px; text-transform: uppercase;font-weight: 700;font-size: 16px;line-height: 17.6px;">
-                                Gana: {{Simbolo}} {{GananciaString}}
+                                Gana: {{SimboloMoneda}} {{GananciaString}}
                             </div>
                             {{/iff}}
                         </div>
@@ -116,7 +114,6 @@
                                 </div>
                                 {{/each}}
                             </div>
-                            <!--FIN-->
                         </div>
                         {{/iff}}
                         {{#iff CodigoVariante 'ContainsArray' '[2002,2003]'}}
@@ -164,7 +161,7 @@
                     </div>
                 </div>
                 <hr class="clear" />
-                {{#iff PuedeAgregarProducto '==' true}}
+                {{#iff TipoAccionAgregar '>' 0}}
                 <div class="liquidacion_rango_home liquidacion_rango_home_fix">
                     <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral {{ClaseBloqueada}}" data-input="cantidad" data-cantidad-input="-" {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
                     <div class="liquidacion_rango_right_pedido">

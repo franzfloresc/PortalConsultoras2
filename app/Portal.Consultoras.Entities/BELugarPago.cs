@@ -60,7 +60,7 @@ namespace Portal.Consultoras.Entities
                 ArchivoInstructivo = Convert.ToString(row["ArchivoInstructivo"]);
             if (DataRecord.HasColumn(row, "TextoPago"))
                 TextoPago = Convert.ToString(row["TextoPago"]);
-            if (DataRecord.HasColumn(row, "ArchivoInstructivo"))
+            if (DataRecord.HasColumn(row, "Posicion"))
                 Posicion = Convert.ToInt32(row["Posicion"]);
         }
     }

@@ -1,4 +1,4 @@
-﻿
+﻿@using Portal.Consultoras.Common
 @model List<Portal.Consultoras.Web.Models.MisCertificados.MiCertificadoModel>
 
     @{
@@ -42,7 +42,14 @@
             }
         </div>
         <div>
-            <p>*El documento que se emitirá a través de este canal puede no tener validez legal para ciertas entidades que exigen un sello o firma física del mismo. Para estos casos, usted deberá realizar la solicitud de su Certificado directamente en las oficinas de Belcorp @ViewBag.NombrePais</p>
+            @if (Constantes.PaisID.Peru == ViewBag.PaisUser)
+            {
+                <p>*El documento que se emitir&aacute; a trav&eacute;s de este canal puede no tener validez legal para ciertas entidades que exigen un sello o firma f&iacute;sica del mismo. Para estos casos, usted deber&aacute; realizar la solicitud de su CONSTANCIA DE NO ADEUDO o CERTIFICACION COMERCIAL por el <a id="enlaceChat" href="javascript:;" style="display: inline-block;text-decoration: underline;font-weight: 600;">chat</a>.</p>
+            }
+            else
+            {
+                <p>*El documento que se emitir&aacute; a trav&eacute;s de este canal puede no tener validez legal para ciertas entidades que exigen un sello o firma f&iacute;sica del mismo. Para estos casos, usted deber&aacute; realizar la solicitud de su Certificado directamente en las oficinas de Belcorp @ViewBag.NombrePais</p>
+            }
         </div>
     </div>
 
@@ -81,6 +88,21 @@
 
                     e.preventDefault();
                 });
+            });
+
+            $('#enlaceChat').click(function (e) {
+                var btnInit = $('#btn_init').css('display');
+                var btnOpen = $('#btn_open').css('display');
+
+                if (btnInit == 'block') {
+                    $('#btn_init').click();
+                }
+
+                if (btnOpen == 'block') {
+                    $('#btn_open').click(); 
+                }
+
+                e.preventDefault();
             });
         </script>
     }
