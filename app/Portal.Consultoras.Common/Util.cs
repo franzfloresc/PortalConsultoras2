@@ -3128,6 +3128,16 @@ namespace Portal.Consultoras.Common
             return result;
         }
 
+        public static string GenerarRutaImagenResizeMedium(string rutaImagen)
+        {
+            return GenerarRutaImagenResize(rutaImagen, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium);
+        }
+
+        public static string GenerarRutaImagenResizeSmall(string rutaImagen)
+        {
+            return GenerarRutaImagenResize(rutaImagen, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
+        }
+
         public static string GenerarRutaImagenResize(string rutaImagen, string rutaNombreExtension)
         {
             if (string.IsNullOrEmpty(rutaImagen))

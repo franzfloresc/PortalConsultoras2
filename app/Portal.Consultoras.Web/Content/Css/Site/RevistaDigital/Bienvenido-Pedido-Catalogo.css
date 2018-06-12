@@ -1030,10 +1030,6 @@
 }
 
 .prev-flecha-dorada {
-    /*background: #c39934 url('/Content/Css/Site/Images/carrusel_prev_blanco_dorado.png') no-repeat 12px 3px !important;
-    border-radius: 25px 25px 0px 0px;
-    border-bottom: 1px solid #e7e1e1 !important;
-    background-position-y: 8px !important;*/
     margin-left: -24px !important;
     top: 6px;
 }

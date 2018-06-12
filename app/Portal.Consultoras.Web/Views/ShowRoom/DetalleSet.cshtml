@@ -45,9 +45,7 @@
             <div data-compartir-campos="" style="display: none;">
                 <input type="hidden" id="hcuv" class="CUV" value="@Model.CUV" />
                 <input type="hidden" class="rsFBMensaje" value="@Model.FBMensaje" />
-                <input type="hidden" class="rsFBRuta" value="@Model.FBRuta" />
                 <input type="hidden" class="rsWAMensaje" value="@Model.FBMensaje" />
-                <input type="hidden" class="rsWARuta" value="@Model.FBRuta" />
                 <input type="hidden" class="rsFBRutaImagen" value="@Model.ImagenProducto" />
                 <input type="hidden" class="rsWARutaImagen" value="@Model.ImagenProducto" />
                 <input type="hidden" id="hnombrecuv" class="Nombre" value="@Model.Descripcion" />
@@ -133,7 +131,7 @@
                                                     }
                                                     <div class="nombre_set_individual">
                                                         <span data-tono-cuv-producto="@producto.CUV" data-tono-select-nombrecomercial="">@producto.NombreComercial</span>
-                                                        <span class="detalle_set_showroom">@producto.Descripcion</span>@*DescripcionComercial*@
+                                                        <span class="detalle_set_showroom">@producto.Descripcion</span>
                                                         <span class="detalle_set_showroom"></span>
                                                     </div>
                                                     @if (producto.Digitable == 1)
@@ -248,7 +246,6 @@
 <div class="catalogoPersonalizadoBloque" style="margin-top:85px; padding-bottom: 30px; overflow:hidden;">
     <div class="content_belcorp" style="width: 85%">
         <div class="titulo_carrusel_showroom"><b>VER MÁS SETS </b>EXCLUSIVOS PARA TI</div>
-        <!--CARRUSEL-->
         <div class="responsive" style="margin-left: 10em;">
             @{ var posicionx = 1; }
             @foreach (var oferta in Model.ListaOfertaShowRoom)

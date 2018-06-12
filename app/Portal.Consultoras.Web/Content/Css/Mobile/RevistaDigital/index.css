@@ -382,6 +382,10 @@
     padding: 15px 0px;
 }
 
+.contenido_zona_dorada {
+    background-image: linear-gradient(to left, #d9b43c, #cdaa37);
+}
+
 .contenido_zona_dorada_contenedor_desktop {
     width: 100%;
     height: 157px;
@@ -444,7 +448,6 @@
         }
 
 .fix_zona_dorada_mobile {
-    background-image: linear-gradient(to left, #d9b43c, #cdaa37);
     margin-top: -1px;
     padding: 0px 15px 17px 15px;
 }
@@ -472,7 +475,6 @@
 }
 
 .scroll_posicionar_fix-zona-dorada {
-    /*height: 102px !important;*/
 }
 
 .scroll_posicionar_zona_dorada_items {

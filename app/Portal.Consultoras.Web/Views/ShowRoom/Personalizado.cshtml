@@ -16,7 +16,6 @@
 
 <input type="hidden" id="hdListaProductosEnShowRoom" value="@JsonConvert.SerializeObject(Model.ListaShowRoomOferta)" />
 <input type="hidden" id="hdTotalProductos" value="@Model.ListaShowRoomOferta.Count" />
-<!--MAQUETADO NUEVO-->
 <div class="catalogoPersonalizadoBloque">
     <div class="content_belcorp">
         <div class="content-left-item content_new_showroom">
@@ -252,7 +251,6 @@
         </div>
                             }
                         }
-<!--FIN-->
 
 <div id="divMensajeProductoAgregado" class="divAgregarShowRoom" style="display: none;">
     <div class="titulo_producto_agregado">
@@ -300,8 +298,8 @@
                     {{detalle.NombreProducto}} <br />
                     {{/each}}
                 </div>
-                <div class="precio_set_especial_showroom">VALORIZADO EN {{Simbolo}} {{producto.FormatoPrecioValorizado}}</div>
-                <div class="precio_set_especial_showroom" style="margin-top: -3px;"> A SOLO <span class="precio_real_set">{{Simbolo}} {{producto.FormatoPrecioOferta}}</span></div>
+                <div class="precio_set_especial_showroom">VALORIZADO EN {{SimboloMoneda}} {{producto.FormatoPrecioValorizado}}</div>
+                <div class="precio_set_especial_showroom" style="margin-top: -3px;"> A SOLO <span class="precio_real_set">{{SimboloMoneda}} {{producto.FormatoPrecioOferta}}</span></div>
             </div>
             <div class="producto_nombre_descripcion" style="padding-bottom: 15px">
                 <div class="liquidacion_rango_home js-no-popup">
@@ -347,15 +345,14 @@
             <img data-src="{{ImagenProducto}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" data-lazy-seccion-showroom="" />
             {{/IsNullOrEmpty}}
 
-            @*<a class="ver_detalle_carrusel" href="{{UrlDetalle}}">VER DETALLE</a>*@
         </div>
         <div class="producto_nombre_descripcion">
             <p class="nombre-producto-set">{{Descripcion}}</p>
             <div class="producto_precio" style="margin-bottom: 3px;">
-                <span class="precio-oferta-normal">{{Simbolo}} {{FormatoPrecioValorizado}}</span>
-                <span class="precio-oferta-venta"><b>{{Simbolo}} {{FormatoPrecioOferta}}</b></span>
+                <span class="precio-oferta-normal">{{SimboloMoneda}} {{FormatoPrecioValorizado}}</span>
+                <span class="precio-oferta-venta"><b>{{SimboloMoneda}} {{FormatoPrecioOferta}}</b></span>
             </div>
-            {{#iff TipoAccionAgregar '==' '0'}}
+            {{#iff TipoAccionAgregar '==' '2'}}
             <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                 <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
                        class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
@@ -370,7 +367,7 @@
                 AGRÉGALO
             </a>
             {{/iff}}
-            {{#iff TipoAccionAgregar '==' '1'}}
+            {{#iff TipoAccionAgregar '==' '3'}}
             <a class="btn_elige_tono" href="{{UrlDetalle}}">
                 <b style="color:#000000">ELIGE TU OPCIÓN</b>
             </a>
@@ -397,7 +394,6 @@
         var urlTerminosCondiciones = '@Model.UrlTerminosCondiciones';
         var precioMin = '@ViewBag.PrecioMin';
         var precioMax = '@ViewBag.PrecioMax';
-        var simbolo = '@Model.Simbolo';
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom")';
         var closeBannerCompraPorCompra = '@ViewBag.CloseBannerCompraPorCompra';
         var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.DesktopShowRoomLandingCompra';

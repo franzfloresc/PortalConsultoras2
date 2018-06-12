@@ -39,7 +39,7 @@
         </div>
         <div class="mobile_producto_lanzamientos_contenedor">
             <div class="mobile_producto_lanzamientos_sbcont" data-acortartxt="">
-                <img href="javascript:;" onclick="javascript:VerPopupExpGanaMas(); " class="imgportada" src="{{lan.FotoProductoSmall}}" />
+                <img href="javascript:;" onclick="javascript:VerPopupExpGanaMas(); " class="imgportada" src="{{ImgSmall lan.FotoProducto01}}" />
                 <p class="titulo">{{lan.DescripcionResumen}}</p>
                 @if (revistaDigital.EsActiva)
                 {
@@ -51,7 +51,6 @@
                     if (revistaDigital.EsSuscrita)
                     {
                         <span class="slogan-uno slogan-uno-fix">{{lan.TipoEstrategiaDetalle.Slogan}}</span>
-                        @*<span class="slogan-uno"></span>*@
                         <span class="slogan-dos">ENCUÉNTRALO EN @camapaniaEfectiva</span>
                     }
                     else

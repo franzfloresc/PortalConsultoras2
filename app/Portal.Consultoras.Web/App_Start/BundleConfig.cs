@@ -83,6 +83,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
                 "~/Scripts/LogError.js",
                 "~/Scripts/menu.js",
+                "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js",
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js",
                 "~/Scripts/PortalConsultoras/Shared/MenuContenedor.js"
@@ -103,6 +104,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
                 "~/Scripts/LogError.js",
                 "~/Scripts/menu.js",
+                "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js",
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
@@ -116,6 +118,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/jquery.validate.unobtrusive.js",
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/fingerprint2.js",
+                "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js",
                 "~/Scripts/General.js",
                 "~/Scripts/LogError.js"
             ));
@@ -233,6 +236,7 @@ namespace Portal.Consultoras.Web
             bundles.Add(new ScriptBundle("~/bundles/JsSB2").Include(
                 "~/Scripts/modernizr.custom.js",
                 "~/Scripts/respond.js",
+                "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js",
                 "~/Scripts/General.js",
                 "~/Scripts/JsonSupport.js",
                 "~/Scripts/handlebars.js",
@@ -542,9 +546,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/flexslider.css",
                 "~/Content/Css/Mobile/RevistaDigital/RedimensionLandingRD.css"
             ));
-            
+
             bundles.Add(new ScriptBundle("~/bundles/JsMobile/CDRWeb").Include(
-                "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Mobile/MisReclamos/Index.js"
             ));
 
@@ -559,7 +562,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
             ));
 
-           
+
 
             #region GuiaNegocio
 
