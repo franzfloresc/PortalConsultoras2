@@ -346,7 +346,6 @@
                 $("#divPrecioValorizado").html("Ganancia");
             else
                 $("#divPrecioValorizado").html("Precio Valorizado");
-
             $("#_id").val(_editData.mongoIdVal);
             showDialog("DialogAdministracionEstrategia");
             _ActualizarFlagIndividual(data);
@@ -549,7 +548,6 @@
             }
 
             $("#file-upload").show();
-
             _editData.imagen = _obtenerImagenGrilla(id);
 
             if (data.FlagEstrella == "1") $("#chkOfertaUltimoMinuto").attr("checked", true);
@@ -2987,12 +2985,12 @@
                     var DescripcionEstrategiaVal = $('#DescripcionEstrategia').val();
                     var MarcaIDVal = $('#MarcaID').val();
                     var DescripcionMarcaVal = $('#MarcaDescripcion').val();
-                    var CodigoProductoVal = $('#CodigoProducto').val();
-                    var CodigoSAPVal = $('#CodigoSAP').val();
+                    var CodigoProductoVal = $('#hdnCodigoSAP').val();
+                    var CodigoSAPVal = '';
+                    //var CodigoSAPVal = $('#hdnCodigoSAP').val();
                     //TODO Validar yrdsf
                     var flagIndividual = $("#chkFlagIndividual").is(":checked");
                     var slogan = $("#txtSlogan").val() || "";
-
                     var params = {
                         EstrategiaID: EstrategiaID,
                         TipoEstrategiaID: TipoEstrategiaID,

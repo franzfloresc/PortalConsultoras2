@@ -536,7 +536,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                bool success = false;
                 string mensaje = "", descripcion = "", precio = "";
                 decimal wspreciopack, ganancia = 0;
                 string niveles = "";
@@ -548,18 +547,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (usarMsPer(tipoEstrategiaCodigo))
                 {
-                    var objEstrategia = administrarEstrategiaProvider.ObtenerEstrategiaCuv(CUV2, CampaniaID, tipoEstrategiaCodigo,
-
-                        userData.CodigoISO, FlagRecoProduc, FlagRecoPerfil);
+                    var objEstrategia = administrarEstrategiaProvider.ObtenerEstrategiaCuv(CUV2,
+                                                                CampaniaID, tipoEstrategiaCodigo,
+                                                                userData.CodigoISO, FlagRecoProduc, FlagRecoPerfil);
                     //success = resultByCuv["success"].ToString().Equals("true");
-                   // mensaje = resultByCuv["mensaje"].ToString();
-                    if (mensaje.Equals("OK"))
+
+                    if (objEstrategia != null)
                     {
-                        BEEstrategia estrategiaModel = objEstrategia;
-                        descripcion = estrategiaModel.DescripcionCUV2;
-                        precio = estrategiaModel.Precio.ToString();
-                        ganancia = estrategiaModel.Ganancia;
-                        codigoSap = estrategiaModel.CodigoSAP;
+                        mensaje = "OK";
+                        beEstrategia = objEstrategia;
+                        descripcion = beEstrategia.DescripcionCUV2;
+                        precio = beEstrategia.Precio.ToString();
+                        ganancia = beEstrategia.Ganancia;
+                        codigoSap = beEstrategia.CodigoSAP;
+                        enMatrizComercial = beEstrategia.EnMatrizComercial.ToInt();
+                        idMatrizComercial = beEstrategia.IdMatrizComercial.ToInt();
                     }
                 }
                 else
@@ -607,6 +609,15 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     mensaje = "OK";
 
+                    beEstrategia = lst[0];
+                    descripcion = beEstrategia.DescripcionCUV2;
+                    enMatrizComercial = beEstrategia.EnMatrizComercial.ToInt();
+                    idMatrizComercial = beEstrategia.IdMatrizComercial.ToInt();
+                    codigoSap = beEstrategia.CodigoSAP;
+                }
+
+                if (mensaje == "OK")
+                {
                     using (var svs = new WsGestionWeb())
                     {
                         var preciosEstrategia = svs.ObtenerPrecioEstrategia(CUV2, userData.CodigoISO, CampaniaID);
@@ -615,15 +626,9 @@ namespace Portal.Consultoras.Web.Controllers
                         niveles = ObtenerTextoNiveles(preciosEstrategia.listaniveles);
                     }
 
-                    beEstrategia = lst[0];
 
-                    descripcion = lst[0].DescripcionCUV2;
-                    precio = (wspreciopack + ganancia).ToString("F2");
-                    codigoSap = lst[0].CodigoSAP;
-                    enMatrizComercial = lst[0].EnMatrizComercial.ToInt();
-                    idMatrizComercial = lst[0].IdMatrizComercial.ToInt();
-                    wsprecio = wspreciopack.ToString("F2");
-                    success = true;
+                    precio = (wspreciopack + ganancia).ToString("F1");
+                    wsprecio = wspreciopack.ToString("F1");
                 }
 
                 return Json(new
@@ -921,8 +926,8 @@ namespace Portal.Consultoras.Web.Controllers
                     CampaniaID = Convert.ToInt32(CampaniaID),
                     TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
                     CUV2 = cuv2,
-                     AgregarEnMatriz=true,
-                     UsuarioRegistro = userData.CodigoConsultora
+                    AgregarEnMatriz = true,
+                    UsuarioRegistro = userData.CodigoConsultora
                 };
 
                 if (usarMsPer(tipoEstrategiaCodigo))

@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             using (var client = new HttpClient())
             {
-                string url = WebConfig.UrlMicroservicioPersonalizacionSearch;
+                string url = WebConfig.UrlMicroservicioPersonalizacionConfig;
                 client.BaseAddress = new Uri(url);
                 string jsonString = jsonParametros;
 
@@ -118,6 +118,7 @@ namespace Portal.Consultoras.Web.Providers
                         LimiteVenta = d.LimiteVenta,
                         DescripcionCUV2 = d.DescripcionCUV2,
                         Precio = (decimal)d.Precio,
+                        Precio2 = (decimal)d.Precio2,
                         CUV2 = d.CUV2,
                         Orden = d.Orden,
                         FlagNueva = d.FlagNueva ? 1 : 0,
@@ -209,7 +210,7 @@ namespace Portal.Consultoras.Web.Providers
             UsuarioModel userData = sessionManager.GetUserData();
             List<EstrategiaMDbAdapterModel> listaEstrategias = new List<EstrategiaMDbAdapterModel>();
             string jsonParameters = "";
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlFiltrarEstrategia, pais);
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlFiltrarEstrategia, pais,id);
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "get", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -395,6 +396,7 @@ namespace Portal.Consultoras.Web.Providers
                 d.Descripcion,
                 d.Estado
             }).ToList();
+
             UsuarioModel userData = sessionManager.GetUserData();
             string jsonParameters = JsonConvert.SerializeObject(descripcionEstrategiaListaWA);
             string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlUploadCsv, pais);
@@ -407,22 +409,14 @@ namespace Portal.Consultoras.Web.Providers
 
             if (respuesta.Success)
             {
-                Dictionary<string, object> resultDictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(respuesta.Result.ToString());
+                List<Dictionary<string, object>> resultDictionary = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(respuesta.Result.ToString());
 
-                if (resultDictionary["result"] != null)
-                {
-                    var descripcionEstrategiaList = JsonConvert.DeserializeObject<List<dynamic>>(resultDictionary["result"].ToString());
-
-                    List<DescripcionEstrategiaModel> estrategiaDescripcionList = descripcionEstrategiaList.Select(d =>
-                        new DescripcionEstrategiaModel
-                        {
-                            Cuv = d.cuv,
-                            Descripcion = d.descripcion,
-                            Estado = (bool)d.estado ? 1 : 0
-                        }
-                    ).ToList();
-                    descripcionList.AddRange(estrategiaDescripcionList);
-                }
+                descripcionList.AddRange(resultDictionary.Select(item => new DescripcionEstrategiaModel
+                    {
+                        Cuv = item["cuv"].ToString(),
+                        Descripcion = item["descripcion"].ToString(), 
+                        Estado = (bool) item["estado"] ? 1 : 0
+                    }));
             }
             return descripcionList;
         }
