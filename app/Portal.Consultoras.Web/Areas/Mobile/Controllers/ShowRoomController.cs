@@ -97,7 +97,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
 
-                if (srQsv.CampanaId == userData.CampaniaID && !GetEventoConsultoraRecibido(userData))
+                if (srQsv.CampanaId == userData.CampaniaID && !_showRoomProvider.GetEventoConsultoraRecibido(userData))
                 {
                     UpdShowRoomEventoConsultoraEmailRecibido(srQsv.CodigoConsultora, srQsv.CampanaId, userData);
                 }
