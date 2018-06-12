@@ -115,5 +115,16 @@ namespace Portal.Consultoras.Web.Providers
                 return Mapper.Map<List<ServiceOferta.BEShowRoomPersonalizacionNivel>, List<ShowRoomPersonalizacionNivelModel>>(personalizacionesNivel).ToList();
             }
         }
+
+        public void ShowRoomProgramarAviso(int paisId, ShowRoomEventoConsultoraModel showRoomConsultora)
+        {
+            var beShowRoomConsultora =
+                Mapper.Map<ShowRoomEventoConsultoraModel, ServiceOferta.BEShowRoomEventoConsultora>(showRoomConsultora);
+
+            using (var osc = new OfertaServiceClient())
+            {
+                osc.ShowRoomProgramarAviso(paisId, beShowRoomConsultora);
+            }
+        }
     }
 }

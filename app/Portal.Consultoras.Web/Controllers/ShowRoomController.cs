@@ -3,7 +3,6 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Common;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
-using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
@@ -1761,14 +1760,7 @@ namespace Portal.Consultoras.Web.Controllers
             configEstrategiaSR.BeShowRoomConsultora.CorreoEnvioAviso = model.EMail;
             configEstrategiaSR.BeShowRoomConsultora.CampaniaID = userData.CampaniaID;
             configEstrategiaSR.BeShowRoomConsultora.CodigoConsultora = userData.CodigoConsultora;
-            var beShowRoomConsultora =
-                Mapper.Map<ShowRoomEventoConsultoraModel, ServiceOferta.BEShowRoomEventoConsultora>(configEstrategiaSR
-                    .BeShowRoomConsultora);
-
-            using (OfertaServiceClient osc = new OfertaServiceClient())
-            {
-                osc.ShowRoomProgramarAviso(userData.PaisID, beShowRoomConsultora);
-            }
+            _showRoomProvider.ShowRoomProgramarAviso(userData.PaisID, configEstrategiaSR.BeShowRoomConsultora);
         }
 
         private List<EstrategiaPedidoModel> ValidarUnidadesPermitidas(List<EstrategiaPedidoModel> listaShowRoomOferta)
