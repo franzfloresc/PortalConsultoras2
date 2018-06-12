@@ -108,7 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                return PartialView("template-mensaje-bloqueado", MensajeProductoBloqueado());
+                return PartialView("template-mensaje-bloqueado", _ofertasViewProvider.MensajeProductoBloqueado(IsMobile()));
             }
             catch (Exception ex)
             {

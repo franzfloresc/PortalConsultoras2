@@ -56,11 +56,11 @@ namespace Portal.Consultoras.Web.Controllers
                 FiltersBySorting = _ofertasViewProvider.GetFiltersBySorting(IsMobile()),
                 FiltersByBrand = _ofertasViewProvider.GetFiltersByBrand(),
                 Success = true,
-                MensajeProductoBloqueado = MensajeProductoBloqueado(),
+                MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile()),
                 CantidadFilas = 15
             };
 
-            var dato = ObtenerPerdio(model.CampaniaID);
+            var dato = _ofertasViewProvider.ObtenerPerdioTitulo(model.CampaniaID, IsMobile());
             model.ProductosPerdio = dato.Estado;
             model.PerdioTitulo = dato.Valor1;
             model.PerdioSubTitulo = dato.Valor2;
@@ -97,7 +97,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
 
-            var dato = ObtenerPerdio(modelo.CampaniaID);
+            var dato = _ofertasViewProvider.ObtenerPerdioTitulo(modelo.CampaniaID, IsMobile());
             ViewBag.TieneProductosPerdio = dato.Estado;
             ViewBag.PerdioTitulo = dato.Valor1;
             ViewBag.PerdioSubTitulo = dato.Valor2;

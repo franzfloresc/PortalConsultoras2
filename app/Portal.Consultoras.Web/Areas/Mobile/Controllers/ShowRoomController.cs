@@ -81,11 +81,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ActionExecutingMobile();
 
             var showRoomEventoModel = OfertaShowRoom();
-            var dato = ObtenerPerdio(userData.CampaniaID);
+            var dato = _ofertasViewProvider.ObtenerPerdioTitulo(userData.CampaniaID, IsMobile());
             showRoomEventoModel.ProductosPerdio = dato.Estado;
             showRoomEventoModel.PerdioTitulo = dato.Valor1;
             showRoomEventoModel.PerdioSubTitulo = dato.Valor2;
-            showRoomEventoModel.MensajeProductoBloqueado = MensajeProductoBloqueado();
+            showRoomEventoModel.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile());
 
             if (!string.IsNullOrEmpty(query))
             {

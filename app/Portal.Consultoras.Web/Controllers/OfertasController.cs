@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var modelo = new EstrategiaPersonalizadaModel
                 {
                     ListaSeccion = ObtenerConfiguracionSeccion(revistaDigital),
-                    MensajeProductoBloqueado = MensajeProductoBloqueado()
+                    MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile())
                 };
 
                 ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var modelo = new EstrategiaPersonalizadaModel
                 {
                     ListaSeccion = ObtenerConfiguracionSeccion(revistaDigital),
-                    MensajeProductoBloqueado = MensajeProductoBloqueado(),
+                    MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile()),
                     MensajeProductoBloqueado2 = HVMensajeProductoBloqueado()
 
                 };

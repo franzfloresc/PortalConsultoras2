@@ -101,11 +101,11 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
-                var dato = ObtenerPerdio(userData.CampaniaID);
+                var dato = _ofertasViewProvider.ObtenerPerdioTitulo(userData.CampaniaID, IsMobile());
                 showRoomEventoModel.ProductosPerdio = dato.Estado;
                 showRoomEventoModel.PerdioTitulo = dato.Valor1;
                 showRoomEventoModel.PerdioSubTitulo = dato.Valor2;
-                showRoomEventoModel.MensajeProductoBloqueado = MensajeProductoBloqueado();
+                showRoomEventoModel.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile());
 
                 return View(showRoomEventoModel);
 

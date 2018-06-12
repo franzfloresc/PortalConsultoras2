@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 var modelo = new EstrategiaPersonalizadaModel
                 {
                     ListaSeccion = ObtenerConfiguracionSeccion(revistaDigital),
-                    MensajeProductoBloqueado = MensajeProductoBloqueado()
+                    MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile())
                 };
 
                 return View(modelo);
@@ -33,7 +33,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 var modelo = new EstrategiaPersonalizadaModel
                 {
                     ListaSeccion = ObtenerConfiguracionSeccion(revistaDigital),
-                    MensajeProductoBloqueado = MensajeProductoBloqueado()
+                    MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile())
                 };
 
                 return View("Index", modelo);

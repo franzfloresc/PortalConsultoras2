@@ -14,7 +14,7 @@ using System.Text;
 
 namespace Portal.Consultoras.Web.Providers
 {
-    public class OfertaPersonalizadaProvider
+    public class OfertaPersonalizadaProvider : BaseProvider
     {
         private readonly ISessionManager sessionManager = SessionManager.SessionManager.Instance;
         

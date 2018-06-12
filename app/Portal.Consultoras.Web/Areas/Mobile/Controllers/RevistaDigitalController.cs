@@ -91,7 +91,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                return PartialView("template-mensaje-bloqueado", MensajeProductoBloqueado());
+                return PartialView("template-mensaje-bloqueado", _ofertasViewProvider.MensajeProductoBloqueado(IsMobile()));
             }
             catch (Exception ex)
             {
@@ -105,7 +105,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             MensajeProductoBloqueadoModel modelo;
             try
             {
-                modelo = _revistaDigitalProvider.RDMensajeProductoBloqueado(IsMobile());
+                modelo = _ofertasViewProvider.RDMensajeProductoBloqueado(IsMobile());
             }
             catch (Exception ex)
             {

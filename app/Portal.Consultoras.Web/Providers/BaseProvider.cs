@@ -65,6 +65,19 @@ namespace Portal.Consultoras.Web.Providers
             var fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
             return fechaHoy >= fechaInicioCampania.Date ? 0 : (fechaInicioCampania.Subtract(DateTime.Now.AddHours(zonaHoraria)).Days + 1);
         }
+
+        public string RemplazaTag(string cadena, string tag, string valor)
+        {
+            cadena = cadena ?? "";
+            tag = tag ?? "";
+            valor = valor ?? "";
+
+            cadena = cadena.Replace(tag, valor);
+            cadena = cadena.Replace(tag.ToLower(), valor);
+            cadena = cadena.Replace(tag.ToUpper(), valor);
+
+            return cadena;
+        }
     }
 
 }
