@@ -1238,6 +1238,9 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia, string campaniaID);
+        
+        [OperationContract]
+        List<BEPedidoWebDetalle> ObtenerCuvSetDetalle(int paisID,int campaniaID, long consultoraID, int pedidoID, string ListaSet);
 
         [OperationContract]
         List<BEReporteValidacionSROferta> GetReporteShowRoomOferta(int paisID, int campaniaID);
