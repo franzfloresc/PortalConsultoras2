@@ -328,7 +328,7 @@ function MostrarBarra(datax, destino) {
     $.each(listaLimite, function (ind, limite) {
         var htmlSet = indPuntoLimite == ind && ind > 0 ? vLogro < vLimite ? htmlPuntoLimite : htmlPunto : htmlPunto;
         htmlSet = ind == 1 && indPuntoLimite == 0 && mn == 0 ? htmlPuntoLimite : htmlSet;
-        htmlSet = limite.tipoMensaje == 'TippingPoint' ? htmlTippintPoint : htmlSet; // validar esto
+        htmlSet = limite.tipoMensaje == 'TippingPoint' ? htmlTippintPoint : htmlSet;
 
         var selectPunto = "0";
         var wText = ind == 0 ? "130" : "90";

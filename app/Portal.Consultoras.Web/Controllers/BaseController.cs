@@ -1786,9 +1786,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         private BarraTippingPoint GetTippingPoint(string TippingPointParticipa, string TippingPointStr)
         {
-            BarraTippingPoint TippingPoint                      = new BarraTippingPoint { ActiveTooltip = false, ActiveMonto = false };
-            string nivel                                        = Convert.ToString(userData.ConsecutivoNueva + 1).PadLeft(2, '0');
-            string FlagParticipa                                = getValidaConsultoraProgramaNueva(TippingPointParticipa);
+            BarraTippingPoint TippingPoint = new BarraTippingPoint { ActiveTooltip = false, ActiveMonto = false };
+            string nivel = Convert.ToString(userData.ConsecutivoNueva + 1).PadLeft(2, '0');
+            string FlagParticipa = getValidaConsultoraProgramaNueva(TippingPointParticipa);
             try
             {
                 // verifica si participa al programa de nuevas.
@@ -1796,11 +1796,11 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (var sv = new PedidoServiceClient())
                     {
-                        BEActivarPremioNuevas beActive = sv.GetActivarPremioNuevas(userData.PaisID,Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo,userData.CampaniaID, nivel);
-                        TippingPoint.ActiveTooltip              = beActive == null ? false : beActive.ActiveTooltip;
-                        TippingPoint.ActiveMonto                = beActive == null ? false : beActive.ActiveMontoTooltip ;
-                        TippingPoint.Active                     = beActive == null ? false : beActive.Active;
-                        TippingPoint.TippingPointMontoStr       = TippingPointStr;
+                        BEActivarPremioNuevas beActive = sv.GetActivarPremioNuevas(userData.PaisID, Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo, userData.CampaniaID, nivel);
+                        TippingPoint.ActiveTooltip = beActive == null ? false : beActive.ActiveTooltip;
+                        TippingPoint.ActiveMonto = beActive == null ? false : beActive.ActiveMontoTooltip;
+                        TippingPoint.Active = beActive == null ? false : beActive.Active;
+                        TippingPoint.TippingPointMontoStr = TippingPointStr;
                         // verifica si esta activado el tooltip
                         if (TippingPoint.ActiveTooltip == true)
                         {
@@ -1808,19 +1808,19 @@ namespace Portal.Consultoras.Web.Controllers
                                                                                Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo,
                                                                                userData.CampaniaID,
                                                                                nivel);
-                           
-                            TippingPoint.CampaniaID             = estrategia == null ? default(int) : estrategia.CampaniaID             ;
-                            TippingPoint.CampaniaIDFin          = estrategia == null ? default(int) : estrategia.CampaniaIDFin          ;
-                            TippingPoint.CUV1                   = estrategia == null ? default(string) : estrategia.CUV1                ;
-                            TippingPoint.CUV2                   = estrategia == null ? default(string) : estrategia.CUV2                ;
-                            TippingPoint.ImagenURL              = estrategia == null ? default(string) : estrategia.ImagenURL           ;
-                            TippingPoint.DescripcionCUV2        = estrategia == null ? default(string) : estrategia.DescripcionCUV2     ;
-                            TippingPoint.Ganancia               = estrategia == null ? default(decimal) : estrategia.Ganancia           ;
-                            TippingPoint.Precio                 = estrategia == null ? default(decimal) : estrategia.Precio             ;
-                            TippingPoint.Precio2                = estrategia == null ? default(decimal) : estrategia.Precio2            ;
-                            TippingPoint.PrecioPublico          = estrategia == null ? default(decimal) : estrategia.PrecioPublico      ;
-                            TippingPoint.PrecioUnitario         = estrategia == null ? default(decimal) : estrategia.PrecioUnitario     ;
-                            TippingPoint.LinkURL                = getUrlTippingPoint(estrategia.ImagenURL)                              ;
+
+                            TippingPoint.CampaniaID = estrategia == null ? default(int) : estrategia.CampaniaID;
+                            TippingPoint.CampaniaIDFin = estrategia == null ? default(int) : estrategia.CampaniaIDFin;
+                            TippingPoint.CUV1 = estrategia == null ? default(string) : estrategia.CUV1;
+                            TippingPoint.CUV2 = estrategia == null ? default(string) : estrategia.CUV2;
+                            TippingPoint.ImagenURL = estrategia == null ? default(string) : estrategia.ImagenURL;
+                            TippingPoint.DescripcionCUV2 = estrategia == null ? default(string) : estrategia.DescripcionCUV2;
+                            TippingPoint.Ganancia = estrategia == null ? default(decimal) : estrategia.Ganancia;
+                            TippingPoint.Precio = estrategia == null ? default(decimal) : estrategia.Precio;
+                            TippingPoint.Precio2 = estrategia == null ? default(decimal) : estrategia.Precio2;
+                            TippingPoint.PrecioPublico = estrategia == null ? default(decimal) : estrategia.PrecioPublico;
+                            TippingPoint.PrecioUnitario = estrategia == null ? default(decimal) : estrategia.PrecioUnitario;
+                            TippingPoint.LinkURL = getUrlTippingPoint(estrategia.ImagenURL);
                         }
                     }
                 }
@@ -1852,11 +1852,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string getValidaConsultoraProgramaNueva(string participa)
         {
-            string resultado            = string.Empty;
+            string resultado = string.Empty;
             // si el idestadoActividad es mayor a 1 o diferente a  1 entonces significa que el usuario pertenece al programa de nuevas[campo ConsecutivoNueva]
-            int ConsecutivoNueva        = userData.ConsecutivoNueva;
+            int ConsecutivoNueva = userData.ConsecutivoNueva;
             // este es el campo IdEstadoActividad en bd
-            int ConsultoraNueva         = userData.ConsultoraNueva;
+            int ConsultoraNueva = userData.ConsultoraNueva;
             try
             {
                 resultado = participa == null ? "" : participa.Trim();
@@ -1872,13 +1872,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                     resultado = Constantes.TipoEstrategiaCodigo.NotParticipaProgramaNuevas;
                     */
-
             }
-            catch 
+            catch
             {
-                resultado               = string.Empty;
+                resultado = string.Empty;
             }
-            return resultado;    
+            return resultado;
         }
 
 

@@ -10,31 +10,29 @@ using System.Threading.Tasks;
 namespace Portal.Consultoras.Entities
 {
     [DataContract]
-    public class BEActivarPremioNuevas 
+    public class BEActivarPremioNuevas
     {
         [DataMember]
-        public string       CodigoPrograma          { get; set; }
+        public string CodigoPrograma { get; set; }
         [DataMember]
-        public int          AnioCampana             { get; set; }
+        public int AnioCampana { get; set; }
         [DataMember]
-        public string       Nivel                   { get; set; }
+        public string Nivel { get; set; }
         [DataMember]
-        public bool         ActiveTooltip           { get; set; }
+        public bool ActiveTooltip { get; set; }
         [DataMember]
-        public DateTime     FechaCreate             { get; set; }
+        public DateTime FechaCreate { get; set; }
         [DataMember]
-        public bool         ActiveMontoTooltip      { get; set; }
+        public bool ActiveMontoTooltip { get; set; }
         [DataMember]
-        public bool         Active                  { get; set; }
+        public bool Active { get; set; }
 
         public BEActivarPremioNuevas()
         {
-            this.CodigoPrograma         = default(string);
-            this.AnioCampana            = default(int);
-            this.Nivel                  = default(string);
-            this.FechaCreate            = default(DateTime);
-            //this.ActiveTooltip          = false;
-            //this.ActiveMontoTooltip     = false;
+            this.CodigoPrograma = default(string);
+            this.AnioCampana = default(int);
+            this.Nivel = default(string);
+            this.FechaCreate = default(DateTime);
         }
 
         public BEActivarPremioNuevas(IDataRecord dr)

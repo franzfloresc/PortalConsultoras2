@@ -11,14 +11,14 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLPremiosProgramaNuevas
     {
-        public BEPremiosProgramaNuevas  GetPremiosProgramaNuevas ( BEPremiosProgramaNuevas entidad)
+        public BEPremiosProgramaNuevas GetPremiosProgramaNuevas(BEPremiosProgramaNuevas entidad)
         {
-          BEPremiosProgramaNuevas  data         = new BEPremiosProgramaNuevas ();
-            var da                              = new DAPremiosProgramaNuevas(entidad.PaisID);
-            using (IDataReader reader           = da.GetPremiosProgramaNuevas(entidad))
+            BEPremiosProgramaNuevas data = new BEPremiosProgramaNuevas();
+            var da = new DAPremiosProgramaNuevas(entidad.PaisID);
+            using (IDataReader reader = da.GetPremiosProgramaNuevas(entidad))
                 if (reader.Read())
-                    data                        = new BEPremiosProgramaNuevas(reader);
-               
+                    data = new BEPremiosProgramaNuevas(reader);
+
             return data;
         }
 
