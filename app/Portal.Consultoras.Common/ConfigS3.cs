@@ -15,6 +15,11 @@ namespace Portal.Consultoras.Common
         private static readonly string URL_S3 = System.Configuration.ConfigurationManager.AppSettings["URL_S3"];
         private static readonly string rutaRevistaDigital = System.Configuration.ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.CarpetaRevistaDigital] ?? string.Empty;
 
+        public static string GetUrlFileS3Base(string carpetaPais)
+        {
+            return URL_S3 + "/" + BUCKET_NAME + "/" + ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "");
+        }
+
         public static string GetUrlFileS3(string carpetaPais, string fileName, string carpetaAnterior = "")
         {
             fileName = (fileName ?? "").Trim();

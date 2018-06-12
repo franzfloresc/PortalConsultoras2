@@ -26,7 +26,6 @@ namespace Portal.Consultoras.Web.Controllers
                     return RedirectToAction("Index", "Bienvenida");
                 ViewBag.CampaniaID = userData.CampaniaID.ToString();
                 ViewBag.ISO = userData.CodigoISO;
-                ViewBag.Simbolo = userData.Simbolo.Trim();
                 ViewBag.PaisID = userData.PaisID.ToString().Trim();
                 BEConfiguracionCampania obeConfiguracionCampania;
                 using (PedidoServiceClient sv = new PedidoServiceClient())

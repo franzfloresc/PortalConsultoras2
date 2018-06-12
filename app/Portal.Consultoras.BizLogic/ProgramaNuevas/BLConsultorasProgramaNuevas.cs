@@ -1,6 +1,6 @@
 ﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using System.Data;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -8,13 +8,10 @@ namespace Portal.Consultoras.BizLogic
     {
         public BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, BEConsultorasProgramaNuevas entidad)
         {
-            BEConsultorasProgramaNuevas data = null;
-            var da = new DAConsultorasProgramaNuevas(paisID);
-            using (IDataReader reader = da.GetConsultorasProgramaNuevas(entidad))
-                if (reader.Read())
-                    data = new BEConsultorasProgramaNuevas(reader);
-
-            return data;
+            using (var reader = new DAConsultorasProgramaNuevas(paisID).GetConsultorasProgramaNuevas(entidad))
+            {
+                return reader.MapToObject<BEConsultorasProgramaNuevas>(true);
+            }
         }
     }
 }

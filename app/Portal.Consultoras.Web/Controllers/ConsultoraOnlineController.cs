@@ -690,7 +690,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             ViewBag.ConsultoraID = userData.ConsultoraID;
             ViewBag.NombreConsultora = userData.PrimerNombre;
-            ViewBag.Simbolo = userData.Simbolo;
 
             var model = new MisPedidosModel();
 
@@ -988,7 +987,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ObtenerPagina(string Pagina)
         {
-            ViewBag.Simbolo = userData.Simbolo;
             objMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
             ViewBag.CantidadPedidos = objMisPedidos.ListaPedidos.Count(p => string.IsNullOrEmpty(p.Estado));
             indiceActualPagina = (int)TempData["indiceActualPagina"];

@@ -29,7 +29,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ViewBag.CampaniaID = userData.CampaniaID.ToString();
                 ViewBag.ISO = userData.CodigoISO;
-                ViewBag.Simbolo = userData.Simbolo.Trim();
                 BEConfiguracionCampania obeConfiguracionCampania;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -113,7 +112,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lst = sv.GetOfertaProductosPortal2(userData.PaisID, Constantes.ConfiguracionOferta.Liquidacion, 1, userData.CampaniaID, offset, cantidad).ToList();
                 }
-                ViewBag.Simbolo = userData.Simbolo.Trim();
 
                 if (lst.Count > 0)
                 {

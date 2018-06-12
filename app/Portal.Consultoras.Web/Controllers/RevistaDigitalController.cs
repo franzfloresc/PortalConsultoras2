@@ -76,6 +76,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (modelo != null)
             {
+                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                 modelo.ClaseBloqueada = Util.Trim(modelo.ClaseBloqueada);
                 modelo.ClaseEstrategia = Util.Trim(modelo.ClaseEstrategia);
                 modelo.CodigoEstrategia = Util.Trim(modelo.CodigoEstrategia);
@@ -85,7 +86,7 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.PrecioTachado = Util.Trim(modelo.PrecioTachado);
                 modelo.CodigoVariante = Util.Trim(modelo.CodigoVariante);
                 modelo.TextoLibre = Util.Trim(modelo.TextoLibre);
-                modelo.UrlCompartir = Util.Trim(modelo.UrlCompartir);
+                modelo.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, modelo.FotoProducto01);
             }
 
             sessionManager.SetProductoTemporal(modelo);
@@ -155,48 +156,27 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
-                var listModelCompleta = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
 
-                listModelCompleta = listModelCompleta.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
-
-                var listModel = listModelCompleta;
+                List<EstrategiaPedidoModel> listModel1;
 
                 var mdo0 = revistaDigital.ActivoMdo && !revistaDigital.EsActiva;
 
                 if (mdo0 && model.CampaniaID == userData.CampaniaID)
                 {
-                    var listaRd = listModelCompleta.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi || e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso).ToList();
-                    listModel = listModelCompleta.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.OfertasParaMi && e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.PackAltoDesembolso).ToList();
-                    listModel.AddRange(listaRd.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor0));
+                    var listaRd = listaFinal1.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi || e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso).ToList();
+                    listModel1 = listaFinal1.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.OfertasParaMi && e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackAltoDesembolso).ToList();
+                    listModel1.AddRange(listaRd.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor0));
                 }
+                else
+                {
+                    listModel1 = listaFinal1;
+                }
+
+                var listModel = ConsultarEstrategiasFormatearModelo(listModel1, 2);
 
                 var cantidadTotal = listModel.Count;
 
-                var listPerdio = new List<EstrategiaPersonalizadaProductoModel>();
-                if (TieneProductosPerdio(model.CampaniaID))
-                {
-                    if (mdo0)
-                    {
-                        listPerdio = listModelCompleta.Where(e =>
-                            (e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-                            || e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso)
-                            && e.FlagRevista == Constantes.FlagRevista.Valor2
-                            ).ToList();
-
-                        listPerdio.ForEach(e =>
-                        {
-                            e.ClaseBloqueada = "btn_desactivado_general";
-                            e.IsAgregado = false;
-                        });
-                    }
-                    else
-                    {
-                        var listPerdio1 = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
-                        listPerdio1 = listPerdio1.Where(p => p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas && p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
-                        listPerdio = ConsultarEstrategiasFormatearModelo(listPerdio1, 1);
-                    }
-                }
-
+                var listPerdio = ListaPerdio(model.CampaniaID, listaFinal1);
 
                 return Json(new
                 {
@@ -218,6 +198,42 @@ namespace Portal.Consultoras.Web.Controllers
                     data = ""
                 });
             }
+        }
+
+        private List<EstrategiaPersonalizadaProductoModel> ListaPerdio(int campaniaId, List<EstrategiaPedidoModel> listModelCompleta)
+        {
+            var listPerdioFormato = new List<EstrategiaPersonalizadaProductoModel>();
+            try
+            {
+                var listPerdio = new List<EstrategiaPedidoModel>();
+                if (TieneProductosPerdio(campaniaId))
+                {
+                    var mdo0 = revistaDigital.ActivoMdo && !revistaDigital.EsActiva;
+                    if (mdo0)
+                    {
+                        listPerdio = listModelCompleta.Where(e =>
+                            (e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+                            || e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso)
+                            && e.FlagRevista == Constantes.FlagRevista.Valor2
+                            ).ToList();
+                    }
+                    else
+                    {
+                        var listPerdio1 = ConsultarEstrategiasModel("", campaniaId, Constantes.TipoEstrategiaCodigo.RevistaDigital);
+                        listPerdio = listPerdio1.Where(p => p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas && p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                    }
+
+                    listPerdioFormato = ConsultarEstrategiasFormatearModelo(listPerdio, 1);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                listPerdioFormato = new List<EstrategiaPersonalizadaProductoModel>();
+
+            }
+            return listPerdioFormato;
         }
 
         [HttpPost]
@@ -255,7 +271,9 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = revistaDigital.EstadoSuscripcion > 0,
-                    message = revistaDigital.EstadoSuscripcion > 0 ? "" : "Ocurrió un error, vuelva a intentarlo."
+                    message = revistaDigital.EstadoSuscripcion > 0 ? "" : "Ocurrió un error, vuelva a intentarlo.",
+                    revistaDigital = getRevistaDigitalShortModel(),
+                    CampaniaID = userData.CampaniaID
                 }, JsonRequestBehavior.AllowGet);
 
             }

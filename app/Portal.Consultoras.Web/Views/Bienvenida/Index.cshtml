@@ -57,7 +57,7 @@
             @if (!string.IsNullOrEmpty(ViewBag.MensajeAniversario))
             {
 
-            <div class="nombre_consultora_2018">
+            <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                 ¡Feliz Aniversario @nombreConsultora 
                 @if (ViewBag.TipoUsuario != 2)
                 {
@@ -67,7 +67,7 @@
             }
             else if (!string.IsNullOrEmpty(ViewBag.MensajeCumpleanos))
             {
-                <div class="nombre_consultora_2018">
+                <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                     ¡Feliz Cumpleaños @nombreConsultora @if (ViewBag.TipoUsuario != 2)
                 {
                 <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
@@ -76,7 +76,7 @@
             }
             else if (!string.IsNullOrEmpty(ViewBag.SaludoFestivo))
             {
-                <div class="nombre_consultora_2018">
+                <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                     ¡@ViewBag.SaludoFestivo @nombreConsultora @if (ViewBag.TipoUsuario != 2)
                 {
                     <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
@@ -86,7 +86,7 @@
             }
             else if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
             {
-                <div class="nombre_consultora_2018">
+                <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                     ¡Bienvenida al <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Club Gana+</a><br/>@nombreConsultora @if (ViewBag.TipoUsuario != 2)
                 {
                 <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
@@ -100,7 +100,7 @@
 
                 if (CampaniaEfectiva.Equals(CampaniaActual))
                 {
-                        <div class="nombre_consultora_2018">
+                        <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                             ¡Bienvenida al <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Club Gana+</a><br/>@nombreConsultora @if (ViewBag.TipoUsuario != 2)
                         {
                         <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
@@ -109,7 +109,7 @@
                 }
                 else
                 {
-                        <div class="nombre_consultora_2018">
+                        <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                             ¡Hola @nombreConsultora @if (ViewBag.TipoUsuario != 2)
                         {
                             <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
@@ -119,7 +119,7 @@
             }
             else
             {
-                <div class="nombre_consultora_2018">
+                <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                     ¡Hola @nombreConsultora @if (ViewBag.TipoUsuario != 2)
                 {
                 <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
@@ -137,7 +137,7 @@
             </div>
         </div>
         <div class="pedido_resumen_home">
-            <a role="link" region="Cuerpo" parent="Ingresa tu Pedido" title="Ingresa tu Pedido" class="boton_home_guardar" href="@Url.Action("Index", "Pedido")">INGRESA TU PEDIDO</a>
+            <a role="link" region="Cuerpo" parent="Ingresa tu Pedido" title="Ingresa tu Pedido" class="boton_home_guardar boton_cincuenta_anios_belcorp" href="@Url.Action("Index", "Pedido")">INGRESA TU PEDIDO</a>
         </div>
         <div class="socia_negocio_home">
             <div class="notificaciones_resumen">
@@ -182,7 +182,6 @@
         </div>
         <hr class="clear" />
         <div class="info_centro">
-            <!-- AÑADIR LA CLASES "mt_47" PARA CENTRAR LA INFORMACIÓN -->
             Mi deuda actual es:
             <div class="deuda_home" id="spanDeuda">
                 @Model.Simbolo
@@ -197,31 +196,31 @@
         {
             <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" 
                href="@Url.Action("Index","PagoEnLinea")" class="btn_paga_online btn_100_paga"
-               style="margin-top: 10px;"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
+               style="margin-top: 10px;"> PAGA EN L&Iacute;NEA</a>
             if (Model.PaisID == Constantes.PaisID.Ecuador || Model.PaisID == Constantes.PaisID.Peru)
             {
                 <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Electrónica" class="boton_facturacion_e btn_100_facturacion" 
                    href="@Url.Action("Index", "FacturaElectronica")" target="_blank"
-                   style="margin-top: 10px;"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a> <!-- AGREGAR LA CLASES="btn_100_facturacion"-->
+                   style="margin-top: 10px;"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a> 
             }
         }
         else
         {
             if (Model.PaisID == Constantes.PaisID.Chile)
             {
-                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
+                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a>
             }
             else if (Model.PaisID == Constantes.PaisID.Colombia)
             {
-                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="https://www.zonapagos.com/t_belstar/pagos.asp"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
+                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="https://www.zonapagos.com/t_belstar/pagos.asp"> PAGA EN L&Iacute;NEA</a>
             }
             else if (Model.PaisID == Constantes.PaisID.PuertoRico)
             {
-                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="@Url.Action("Index", "Paypal")"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
+                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="@Url.Action("Index", "Paypal")"> PAGA EN L&Iacute;NEA</a>
             }
             else if (Model.PaisID == Constantes.PaisID.Ecuador || Model.PaisID == Constantes.PaisID.Peru)
             {
-                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Electrónica" class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a> <!-- AGREGAR LA CLASES="btn_100_facturacion"-->
+                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Electrónica" class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a> 
             }
             else if (Model.PaisID == Constantes.PaisID.Venezuela)
             {
@@ -282,7 +281,6 @@
             </div>
             <span>Pedido ingresado: <span id="spanPedidoIngresado"></span></span>
         </div>
-        <!--ESCALA DE DESCUENTO-->
         <div class="content_escala" data-divescala="cuadrado" data-barra-width="">
             <div id="divBarra">
                 <div id="divBarraLimite"></div>
@@ -294,7 +292,6 @@
                 </div>
             </div>
         </div>
-        <!--FIN ESCALA DE DESCUENTO-->
     </div>
     <div class="item_catalogo">
         <img src="@Model.UrlImagenCompartirCatalogo" style="max-width: 100%!important;" />
@@ -308,18 +305,11 @@
 {
     Html.RenderPartial("MasVendidos");
 }
-<!--CAROUSEL OFERTAS PARA TI-->
 <div id="divListaEstrategias" class="fondo_gris" style="display:none;">
     @Html.Partial("~/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
 </div>
-<!--FIN CAROUSEL OFERTAS PARA TI-->
-<!--REVISTA DIGITAL -->
 <div class="fondo_gris content_belcorp" id="divRevistaDigital"></div>
-<!-- FIN REVISTA DIGITAL -->
-<!--SHOWROOM -->
 <div class="content_belcorp" id="divProductosShowRoom"></div>
-<!-- FIN-->
-<!--CATALOGO PERSONALIZADO-->
 @if (Model.CatalogoPersonalizadoDesktop != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
     <div class="content_belcorp">
@@ -345,11 +335,8 @@
     </div>
 }
 
-<!--FIN CATALOGO PERSONALIZADO-->
-
 <div class="content_belcorp" id="seccionMiAcademiaLiquidacion">
     <div class="linea_separadora" id="linea_separadoraCP" style="display:none;"></div>
-    <!--TUTORIALES-->
     <div class="content_video_home" style="display:block;@(Model.PrefijoPais == "VE" ? "width:100%;" : "")" id="divTutoriales">
         <div class="titulo_video">
             <div>MI ACADEMIA</div>
@@ -365,8 +352,6 @@
         </div>
 
     </div>
-    <!-- FIN TUTORIALES-->
-    <!-- SIN TUTORIALES -->
     <div class="content_video_home sinTutoriales" style="display:none;@(Model.PrefijoPais == "VE" ? "width:100%;" : "")" id="divSinTutoriales">
         <div class="titulo_video">
             <div>MI ACADEMIA</div>
@@ -383,8 +368,6 @@
         </div>
     </div>
 
-    <!-- FIN SIN TUTORIALES-->
-    <!-- TUTORIALES PARA VENEZUELA -->
     <div class="content_video_home miAcademia_venezuela" style="display:none;" id="divTutorialesV">
         <div class="titulo_video">
             <div>MI ACADEMIA</div>
@@ -398,8 +381,6 @@
             <div id="divMisCursosV"></div>
         </div>
     </div>
-    <!-- FIN TUTORIALES PARA VENEZUELA -->
-    <!--CAROUSEL LIQUIDACION HOME-->
     <div class="carrusel_liquidacion" style="@(Model.PrefijoPais == "VE" ? "display:none;" : "display:block;")">
         <div class="titulo_carrusel_liquidacion">
             LIQUIDACIONES WEB
@@ -412,8 +393,6 @@
             </div>
         </div>
     </div>
-    <!--FIN CAROUSEL LIQUIDACION HOME-->
-    <!--ENLACES-->
     <hr class="clear" />
     <div id="bannerBajos" class="center">
         <br />
@@ -428,7 +407,6 @@
     <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll">
     </a>
 </div>
-<!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
 <div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; overflow: hidden;">
     <div class="Content_modal_ZE texto-centrado" style="overflow: hidden;">
         <div style="position: absolute; width: 100%;">
@@ -471,8 +449,6 @@
         </table>
     </div>
 </div>
-<!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
-<!-- POPUP ESCOGER TONO -->
 <div class="contenedor_popup_escogerTono js-contenedor-popup-tonotalla">
     <div class="popup_escogerTono" id="divTonosTallas">
         <input type="hidden" id="MarcaID" value="">
@@ -535,8 +511,6 @@
         <div class="clear"></div>
     </div>
 </div>
-<!-- FIN POPUP ESCOGER TONO -->
-<!-- POPUP AGREGASTE UNIDADES -->
 <div class="contenedor_popup_agregarUnidades" id="dialog_AgregasteUnidades" style="display: none;">
     <div id="popupConfirmacionDatos" class="popup_agregarUnidades">
         <div class="btn_cerrar_agregarUnidades">
@@ -557,16 +531,10 @@
         </div>
     </div>
 </div>
-<!-- FIN AGREGASTE UNIDADES -->
-<!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
-<!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
-<!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
 
-<!-- POPUPs HOME -->
 <div class="contenedor_fondo_popup" id="fondoComunPopUp" style="display:none;">
-    <!-- POPUP INSCRIPCION COACH VIRTUAL -->
     <div id="virtual-coach-dialog" class="popup_inscripcion_asesoria_online tipografia_lato" style="display:none;">
         <a id="cerrar-virtual-coach-dialog" class="cerrar_popup_inscripcion" title="Cerrar">
         </a>
@@ -632,17 +600,12 @@
             No volver a ver este mensaje
         </a>
     </div>
-    <!-- FIN POPUP INSCRIPCION COACH VIRTUAL -->
-    <!-- POPUP VIDEO INTRODUCTORIO -->
     <div class="popup_video_introductorio" style="display:none;" id="videoIntroductorio">
         <div class="contenedor_video_introductorio">
-            <!--divPlayer-->
-            <!-- Cargador de Youtube (usando script: implements/youtube.js) -------------------------------- -->
             <div id="ytBienvenidaIndex"
                  data-youtube="{ width:'100%', enablejsapi:1, playerVars:{rel:0} }"
                  class="yt-video"
             ></div>
-            <!-- -------------------------------------------------------------------------------------------- -->
         </div>
         <div class="btn_cerrar_actualizarMisDatos">
             <a href="javascript:;" id="cerrarVideoIntroductorio">
@@ -651,8 +614,6 @@
             </a>
         </div>
     </div>
-    <!-- FIN POPUP VIDEO INTRODUCTORIO -->
-    <!-- POPUP ACTUALIZACIÓN DATOS -->
     <div class="popup_actualizarMisDatos" id="popupActualizarMisDatosMexico" style="display: none;">
         <div class="btn_cerrar_actualizarMisDatos">
             <a href="javascript:;" title="Cerrar" id="btnCerrarActualizarDatosMexico">
@@ -811,8 +772,6 @@
             </form>
         </div>
     </div>
-    <!-- FIN POPUP ACTUALIZACIÓN DATOS -->
-    <!-- POPUP ACEPTACIÓN DE CONTRATO -->
     <div class="popup_aceptacionContrato" id="popupAceptacionContrato" style="display: none;">
         <div class="btn_cerrar_aceptacionContrato">
             <a href="javascript:;" id="cerrarAceptacionContrato" title="Cerrar">
@@ -834,8 +793,6 @@
             </button>
         </div>
     </div>
-    <!-- FIN POPUP ACEPTACIÓN DE CONTRATO -->
-    <!-- POPUP DEMANDA ANTICIPADA -->
     <div class="popup_demandaAnticipada" id="popupDemandaAnticipada" style="display: none;">
         <div class="contenido_popUp">
             <h1 class="titulo_demandaAnticipada">
@@ -882,8 +839,6 @@
             </div>
         </div>
     </div>
-    <!-- FIN POPUP DEMANDA ANTICIPADA -->
-    <!-- POPUP INVITACIÓN A FLEXIPAGO -->
     <div class="popup_invitacionFlexiPago" id="popupInvitaionFlexipago" style="display: none;">
         <div class="btn_cerrar_invitacionFlexipago">
             <a href="javascript:;" id="cerrarInvitacionFlexipago" title="Cerrar">
@@ -909,8 +864,6 @@
         </div>
         <div class="clear"></div>
     </div>
-    <!-- FIN POPUP INVITACIÓN A FLEXIPAGO -->
-    <!-- POPUP MIS DATOS -->
     <div class="popup_actualizarMisDatos" id="popupMisDatos" style="display: none;">
         <div class="btn_cerrar_actualizarMisDatos">
             <a href="javascript:void(0);" id="cerrarPopupMisDatos" title="Cerrar">
@@ -1094,8 +1047,6 @@
             </form>
         </div>
     </div>
-    <!-- FIN POPUP MIS DATOS -->
-    <!-- POPUP TUTORIAL HOME-->
     <div id="popup_tutorial_home" style="display: none;">
         <div class="popup_tutorial_home" style="position: relative; margin: 0 auto; display: block; min-width: 900px !important;">
             <div id="slide1_container" class="shadow">
@@ -1120,15 +1071,9 @@
             </div>
         </div>
     </div>
-    <!-- FIN POPUP TUTORIAL -->
-    <!-- POPUP COMUNICADOS -->
     <div id="popupComunicados" style="display:none;"></div>
-    <!-- FIN POPUP COMUNICADOS -->
 </div>
 
-<!-- FIN POPUP POPUPs HOME -->
-<!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
-<!--POP UP FOTO CARGADA-->
 <div class="popup_actualizarMisDatos" id="CamaraIntroductoria" style="display: none;">
     <div class="btn_cerrar_actualizarMisDatos">
         <a href="javascript:CerrarCamara();" title="Cerrar">
@@ -1170,8 +1115,6 @@
         <a class="btn_tomar_foto">TOMAR FOTO</a>
     </div>
 </div>
-<!--FIN POP UP FOTO CARGADA-->
-<!--POP UP FOTO ACTUALIZADA-->
 <div id="PopUpFotoActualizada" class="CompartirCorreoPop" style="display:none">
     <div class="content_foto_cargada">
         <a class="cerrar_compartir" href="javascript:;" onclick="javascript: $('#PopUpFotoActualizada').hide();">
@@ -1185,8 +1128,6 @@
         <div class="sub_text_actualizada">Tu foto se ha actualizado</div>
     </div>
 </div>
-<!--FIN POP UP FOTO ACTUALIZADA-->
-<!-- POPUP IMAGEN PERFIL -->
 <div class="contenedor_fondo_popup" id="PopUpFotoActualizada2" style="display: none;">
     <div class="popup_img_perfil">
         <h1>MI <b>FOTO</b></h1>
@@ -1225,11 +1166,7 @@
         <div class="sub_text_actualizada">Tu foto se ha actualizado</div>
     </div>
 </div>
-<!-- FIN POPUP IMAGEN PERFIL -->
-<!-- POPUP OFERTAS 003, 048 -->
 <div data-oferta=""></div>
-<!-- FIN POPUP OFERTAS 003, 048 -->
-<!-- POP UP SHOWROOM HTML-->
 <div id="DialogoMensajeBannerShowRoom" class="fondo_popupShowRoom" style="display: none;">
     <div style="background: white; overflow: inherit; position: relative; top: 50%; margin: -240px auto 0 auto; width: 821px; height: 480px; padding: 0; z-index: 1100; ">
         <div id="btnCerrarPopShowroom" class="btnCerrarShowroom" style="margin-right:-50px"></div>
@@ -1305,9 +1242,7 @@
     </div>
 </div>
 
-<!--POP UP FICHA PRODUCTO NUEVA-->
 <div id="PopFichaProductoNueva" class="Content_general_pop_up"></div>
-<!--FIN-->
 
 <div id="divConfirmarCUVBanner" style="display: none;">
     <div class="terminos_title_2">
@@ -1349,7 +1284,7 @@
                     <b>{{Descripcion}}</b>
                 </p>
                 <div class="producto_precio">
-                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                    <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{PrecioString}}</b></span>
                 </div>
                 {{#if TieneTallaColor}}
                 <a class="boton_Agregalo_home js-agregar-liquidacion-tallacolor" tipo-tonotalla="{{TipoTallaColor}}" data-array-tonostallas="{{TallaColor}}" style="width:100%;">
@@ -1469,10 +1404,10 @@
                     <div class="producto_nombre_descripcion">
                         <p class="nombre-producto-set">{{Descripcion}}</p>
                         <div class="producto_precio" style="margin-bottom: 3px;">
-                            <span class="precio-oferta-normal">{{Simbolo}} {{FormatoPrecioValorizado}}</span>
-                            <span class="precio-oferta-venta"><b>{{Simbolo}} {{FormatoPrecioOferta}}</b></span>
+                            <span class="precio-oferta-normal">{{SimboloMoneda}} {{FormatoPrecioValorizado}}</span>
+                            <span class="precio-oferta-venta"><b>{{SimboloMoneda}} {{FormatoPrecioOferta}}</b></span>
                         </div>
-                        {{#iff TipoAccionAgregar '==' '0'}}
+                        {{#iff TipoAccionAgregar '==' '2'}}
                         <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                             <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
                                    class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
@@ -1485,7 +1420,7 @@
                         </div>
                         <a class="boton_Agregalo_home" data-btn-agregar-sr="">AGRÉGALO</a>
                         {{/iff}}
-                        {{#iff TipoAccionAgregar '==' '1'}}
+                        {{#iff TipoAccionAgregar '==' '3'}}
                         <a class="btn_elige_tono" href="{{UrlDetalle}}">
                             <b style="color:#000000">ELIGE TU OPCIÓN</b>
                         </a>
@@ -1546,8 +1481,8 @@
                     <b>{{Descripcion}}</b>
                 </p>
                 <div class="producto_precio" style="margin-bottom:28px;">
-                    <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
-                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
+                    <span class="producto_precio_normal">{{SimboloMoneda}} {{PrecioValorizadoString}}</span>
+                    <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{PrecioCatalogoString}}</b></span>
                 </div>
                 {{#if TieneOfertaEnRevista}}
                 <div class="seguir_pedido enlace_popupCatalogoPersonalizado" style="width:auto; left:50%; margin-left:-52.5px;">
@@ -1624,8 +1559,8 @@
             <div class="producto_nombre_descripcion">
                 <h6></h6>
                 <span>{{Descripcion}}</span>
-                <span>{{Simbolo}} {{DecimalToStringFormat precio_revista}}</span>
-                <span>{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</span>
+                <span>{{SimboloMoneda}} {{DecimalToStringFormat precio_revista}}</span>
+                <span>{{TxtGanancia}}: {{SimboloMoneda}} {{DecimalToStringFormat ganancia}}</span>
                 <hr class="clear">
                 <div class="clear"></div>
             </div>
@@ -1647,7 +1582,7 @@
         <div class="pos-baja">
             <div class="informa">
                 <h6>También puedes comprarlo con el precio catálogo:</h6>
-                <span>{{Simbolo}} {{DecimalToStringFormat precio_catalogo}}</span>
+                <span>{{SimboloMoneda}} {{DecimalToStringFormat precio_catalogo}}</span>
             </div>
 
             <div class="mod-cantidades">
@@ -1715,8 +1650,8 @@
                             {{/IsNullOrEmpty}}
                         </div>
                         <div class="titulo_pack">{{Descripcion}}</div>
-                        <div class="texto_unidad_pack">Precio para ti {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
-                        <div class="texto_ganancia_pack">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
+                        <div class="texto_unidad_pack">Precio para ti {{SimboloMoneda}} {{DecimalToStringFormat precio_revista}}</div>
+                        <div class="texto_ganancia_pack">{{TxtGanancia}}: {{SimboloMoneda}} {{DecimalToStringFormat ganancia}}</div>
                     </div>
                 </div>
                 {{#each lista_ObjNivel as |nivel|}}
@@ -1736,8 +1671,8 @@
                                 </div>
                             </div>
                             <br />
-                            <div class="titulo_pack" style="height: auto">Precio para ti {{../Simbolo}} {{DecimalToStringFormat nivel.precio_nivel}}</div>
-                            <div class="texto_ganancia_pack_048">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat nivel.ganancia_nivel}}</div>
+                            <div class="titulo_pack" style="height: auto">Precio para ti {{SimboloMoneda}} {{DecimalToStringFormat nivel.precio_nivel}}</div>
+                            <div class="texto_ganancia_pack_048">{{../TxtGanancia}}: {{SimboloMoneda}} {{DecimalToStringFormat nivel.ganancia_nivel}}</div>
                             <br />
                             <div style="width: 100%; border-top: 1px solid #dadada;"></div>
                             <br />
@@ -1787,7 +1722,7 @@
         </div>
         <div class="row_40">
             <div class="sombra_oferta">
-                <div class="texto_sombra">También puedes comprarlo con el precio catálogo: <br /><span>{{Simbolo}} {{DecimalToStringFormat precio_catalogo}}</span></div>
+                <div class="texto_sombra">También puedes comprarlo con el precio catálogo: <br /><span>{{SimboloMoneda}} {{DecimalToStringFormat precio_catalogo}}</span></div>
                 <div style="width:215px; float:left; margin-top:12px;">
                     <div class="liquidacion_rango_home js-no-popup">
                         <input type="text" value="1" size="2" maxlength="2" id="txtCantidad"
@@ -1845,7 +1780,6 @@
                 <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.CatalogoPersonalizadoDesktopHomePopUp" />
             </div>
         </div>
-        <!--ITEM 1-->
         <div class="item_pack_personalizado">
             <div class="content_item_pack">
                 <div class="img_principal_pack">
@@ -1854,8 +1788,8 @@
                     {{/IsNullOrEmpty}}
                 </div>
                 <div class="titulo_pack">{{Descripcion}}</div>
-                <div class="texto_unidad_pack">Precio para ti {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
-                <div class="texto_ganancia_pack">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
+                <div class="texto_unidad_pack">Precio para ti {{SimboloMoneda}} {{DecimalToStringFormat precio_revista}}</div>
+                <div class="texto_ganancia_pack">{{TxtGanancia}}: {{SimboloMoneda}} {{DecimalToStringFormat ganancia}}</div>
             </div>
             <div style="width:215px; margin:0 auto; margin-top:10px;">
                 <div class="liquidacion_rango_home js-no-popup">
@@ -1870,7 +1804,6 @@
         </div>
         <div class="content_66">
             <div class="content_carrusel_pack" id="divCarruselPack">
-                <!--ITEM 2-->
                 {{#each lista_oObjPack as |pack|}}
                 <div class="item_pack_personalizado linea_d">
                     <input type="hidden" class="hdItemPackCuv" value="{{pack.cuv_pack}}" />
@@ -1879,8 +1812,8 @@
                     <div class="content_item_pack">
                         <div class="fondo_negro_pack">{{pack.nombre_pack}}</div>
                         <div class="pack_inter width_100">
-                            <div class="titulo_pack" style="height: auto">Precio para ti: {{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
-                            <div class="texto_ganancia_pack_048">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
+                            <div class="titulo_pack" style="height: auto">Precio para ti: {{SimboloMoneda}} {{DecimalToStringFormat pack.precio_pack}}</div>
+                            <div class="texto_ganancia_pack_048">{{../TxtGanancia}}: {{SimboloMoneda}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
                             <div class="content_sub_items">
                                 {{#each ../lista_oObjItemPack as |item|}}
                                 {{#if_eq pack.cuv_pack item.cuv_pack_item}}
@@ -1924,7 +1857,7 @@
         </div>
         <div class="row_40">
             <div class="sombra_oferta">
-                <div class="texto_sombra">También puedes comprarlo con el precio catálogo: <br /><span>{{Simbolo}} {{DecimalToStringFormat precio_catalogo}}</span></div>
+                <div class="texto_sombra">También puedes comprarlo con el precio catálogo: <br /><span>{{SimboloMoneda}} {{DecimalToStringFormat precio_catalogo}}</span></div>
                 <div style="width:215px; float:left; margin-top:12px;">
                     <div class="liquidacion_rango_home js-no-popup">
                         <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="catalogo">
@@ -1993,9 +1926,7 @@
         <div data-compartir-campos="" style="display:none;">
             <input type="hidden" class="CUV" value="{{CUV}}" />
             <input type="hidden" class="rsFBMensaje" value="" />
-            <input type="hidden" class="rsFBRuta" value="{{UrlCompartirFB}}" />
             <input type="hidden" class="rsWAMensaje" value="" />
-            <input type="hidden" class="rsWARuta" value="{{UrlCompartirFB}}" />
             <input type="hidden" class="rsFBRutaImagen" value="{{ImagenProductoSugerido}}" />
             <input type="hidden" class="rsWARutaImagen" value="{{ImagenProductoSugerido}}" />
             <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
@@ -2025,12 +1956,11 @@
             <div class="peso_ficha_producto">{{Volumen}}</div>
             <div id="fav_descripcion_prod" class="descripcion_ficha_producto">{{DescripcionComercial}}</div>
             <div class="precio_ficha_producto">
-                <span class="precio_tachado_ficha">{{Simbolo}} {{PrecioValorizadoString}}</span>{{Simbolo}} {{PrecioCatalogoString}}
+                <span class="precio_tachado_ficha">{{SimboloMoneda}} {{PrecioValorizadoString}}</span>{{SimboloMoneda}} {{PrecioCatalogoString}}
             </div>
             {{#if EsMaquillaje }}
             <div class="content_tonos">
                 <div class="linea_gris" style="height:1px;"></div>
-                <!--SELECCION DE TONOS-->
                 <div class="content_tonos_maquillaje">
                     {{#each Hermanos as |item1|}}
                     <div id="fav_tono_{{CUV}}" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'{{item1.CUV}}',1)">
@@ -2045,7 +1975,6 @@
                     <option value="{{item2.CUV}}">{{item2.NombreBulk}}</option>
                     {{/each}}
                 </select>
-                <!--FIN-->
             </div>
             {{/if}}
             <div class="liquidacion_rango_home">
@@ -2064,8 +1993,6 @@
 
 <input type="hidden" id="hdDataBarra" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.DataBarra)" />
 
-<!--FIN-->
-<!--NUEVO POP UP DE SHOWROOM Venta-->
 <div class="Content_general_pop_up" style="display: none;" id="PopShowroomVenta" data-popup-main="" data-popup-function-hide="SRPopupCerrar('V')">
     <div class="content_pop_up_intriga" data-popup-body>
         <input type="hidden" id="hdEventoIDShowRoomVenta" />
@@ -2085,22 +2012,14 @@
     </div>
 
 </div>
-<!--FIN-->
-<!--POP UP DE CUPON-->
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGana.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmar.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaste.cshtml")
 
-<!--FIN-->
-<!--REVISTA DIGITAL -->
-<!-- POPUP REVISTA DIGITAL Suscripcion -->
 @if (revistaDigital.TieneRDS == true)
 {
     @Html.Partial("~/Views/RevistaDigital/template-popup-suscripcion.cshtml")
 }
-<!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
-<!--FIN REVISTA DIGITAL-->
-<!--EPD-1204 INICIO-->
 <script id="js-LugaresPago" type="text/x-handlebars-template">
     {{#each this.listaLugaresPago as |lugar|}}
     <div>
@@ -2113,7 +2032,6 @@
 
 @System.Web.Optimization.Scripts.Render("~/Scripts/PortalConsultoras/Bienvenida/AsesoraOnline.js")
 
-<!--EPD-1204 FIN-->
 @section scripts{
 <script type="text/javascript">
         var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
@@ -2142,7 +2060,6 @@
         var viewBagValidaSegmento = '@Model.ValidaSegmento';
         var urlContratoCOpdf = '@Url.Content("~/Content/FAQ/41577-BELCORP-SolCre-CO-400073315-300916.pdf")';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-        var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
         var cantProdCarouselLiquidaciones = '@Model.CantProductosCarouselLiq';
         var contadorFondoPopUp = 0;
         var viewBagVioVideo = '@Model.VioVideoBienvenidaModel';

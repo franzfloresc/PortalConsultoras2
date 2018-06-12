@@ -27,7 +27,6 @@ namespace Portal.Consultoras.Web.Controllers
                     return RedirectToAction("Index", "Bienvenida");
                 ViewBag.CampaniaID = userData.CampaniaID.ToString();
                 ViewBag.ISO = userData.CodigoISO;
-                ViewBag.Simbolo = userData.Simbolo.Trim();
                 var lista = GetListadoOfertasFlexipago();
                 if (lista != null && lista.Count > 0)
                 {
