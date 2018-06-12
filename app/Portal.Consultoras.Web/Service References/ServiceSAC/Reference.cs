@@ -6017,6 +6017,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private System.Nullable<System.DateTime> FechaRegistroField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal ImporteRealField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal MontoAgregarField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -6098,6 +6101,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.FechaRegistroField.Equals(value) != true)) {
                     this.FechaRegistroField = value;
                     this.RaisePropertyChanged("FechaRegistro");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal ImporteReal {
+            get {
+                return this.ImporteRealField;
+            }
+            set {
+                if ((this.ImporteRealField.Equals(value) != true)) {
+                    this.ImporteRealField = value;
+                    this.RaisePropertyChanged("ImporteReal");
                 }
             }
         }

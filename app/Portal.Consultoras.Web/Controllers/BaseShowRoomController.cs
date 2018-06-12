@@ -4,7 +4,6 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServicePROLConsultas;
-using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -120,26 +119,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        protected bool GetEventoConsultoraRecibido(UsuarioModel usuario)
-        {
-            var result = false;
-
-            try
-            {
-                using (var sv = new PedidoServiceClient())
-                {
-                    result = sv.GetEventoConsultoraRecibido(usuario.PaisID, usuario.CodigoConsultora, usuario.CampaniaID);
-                }
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoConsultora, usuario.CodigoISO, "BaseShowRoomController.GetEventoConsultoraRecibido");
-            }
-
-
-            return result;
-        }
-
         public bool ValidarIngresoShowRoom(bool esIntriga)
         {
             if (!configEstrategiaSR.CargoEntidadesShowRoom)
@@ -235,26 +214,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Request.Browser.IsMobileDevice;
         }
 
-        protected void UpdShowRoomEventoConsultoraEmailRecibido(string codigoConsultoraFromQueryString, int campaniaIdFromQueryString, UsuarioModel usuario)
-        {
-            try
-            {
-                var entidad = new ServicePedido.BEShowRoomEventoConsultora
-                {
-                    CodigoConsultora = codigoConsultoraFromQueryString,
-                    CampaniaID = campaniaIdFromQueryString
-                };
-
-                using (var sv = new PedidoServiceClient())
-                {
-                    sv.UpdShowRoomEventoConsultoraEmailRecibido(usuario.PaisID, entidad);
-                }
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoConsultora, usuario.CodigoISO, "BaseShowRoomController.GetEventoConsultoraRecibido");
-            }
-        }
+        
 
         protected class ShowRoomQueryStringValidator
         {
@@ -294,20 +254,6 @@ namespace Portal.Consultoras.Web.Controllers
             public string CodigoConsultora { get; private set; }
             public int CampanaId { get; private set; }
             public int OfertaId { get; private set; }
-        }
-
-        protected virtual List<TablaLogicaDatosModel> GetTablaLogicaDatos(short tablaLogicaId)
-        {
-            List<BETablaLogicaDatos> tablaLogicaDatos;
-
-            using (var svc = new SACServiceClient())
-            {
-                tablaLogicaDatos = svc.GetTablaLogicaDatos(userData.PaisID, tablaLogicaId).ToList();
-            }
-
-            var tablaLogicaDatosModel = Mapper.Map<List<BETablaLogicaDatos>, List<TablaLogicaDatosModel>>(tablaLogicaDatos);
-
-            return tablaLogicaDatosModel;
         }
 
         protected virtual string ObtenerCarpetaPais()
@@ -815,14 +761,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<EstrategiaPedidoModel> ObtenerListaProductoShowRoomFormato(List<EstrategiaPedidoModel> listaShowRoomOferta, List<BEPedidoWebDetalle> listaPedidoDetalle, bool esFacturacion)
         {
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            if (listaShowRoomOferta.Any())
-            {
-                listaShowRoomOferta.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto)
-                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
-                listaShowRoomOferta.Update(x => x.ImagenMini = string.IsNullOrEmpty(x.ImagenMini)
-                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.UrlMatriz + "/" + userData.CodigoISO));
-            }
+            ActualizarUrlImagenes(listaShowRoomOferta);
 
             var listaTieneStock = new List<Lista>();
             if (esFacturacion)

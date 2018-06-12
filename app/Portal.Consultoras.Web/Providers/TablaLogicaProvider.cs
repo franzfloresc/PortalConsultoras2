@@ -12,12 +12,7 @@ namespace Portal.Consultoras.Web.Providers
             using (var cliente = new SACServiceClient())
             {
                 var datos = cliente.GetTablaLogicaDatos(paisId, key);
-                if (datos == null)
-                    return new List<TablaLogicaDatosModel>();
-
-                var mapped = Mapper.Map<IEnumerable<BETablaLogicaDatos>, List<TablaLogicaDatosModel>>(datos);
-
-                return mapped ?? new List<TablaLogicaDatosModel>();
+                return Mapper.Map<IEnumerable<BETablaLogicaDatos>, List<TablaLogicaDatosModel>>(datos);
             }
         }
     }

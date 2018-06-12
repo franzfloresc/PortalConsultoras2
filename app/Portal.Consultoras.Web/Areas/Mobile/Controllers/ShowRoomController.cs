@@ -97,9 +97,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
 
-                if (srQsv.CampanaId == userData.CampaniaID && !GetEventoConsultoraRecibido(userData))
+                if (srQsv.CampanaId == userData.CampaniaID && !_showRoomProvider.GetEventoConsultoraRecibido(userData))
                 {
-                    UpdShowRoomEventoConsultoraEmailRecibido(srQsv.CodigoConsultora, srQsv.CampanaId, userData);
+                    _showRoomProvider.UpdShowRoomEventoConsultoraEmailRecibido(srQsv.CodigoConsultora, srQsv.CampanaId, userData);
                 }
             }
 
@@ -214,7 +214,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         : terminosCondiciones.Valor;
                 }
 
-                showRoomEventoModel.FiltersBySorting = GetTablaLogicaDatos(Constantes.TablaLogica.OrdenamientoShowRoom);
+                showRoomEventoModel.FiltersBySorting =
+                    _tablaLogicaProvider.ObtenerConfiguracion(userData.PaisID,
+                        Constantes.TablaLogica.OrdenamientoShowRoom);
 
                 var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => !x.EsSubCampania).ToList();
                 ViewBag.PrecioMin = xlistaShowRoom.Any() ? xlistaShowRoom.Min(p => p.PrecioOferta) : Convert.ToDecimal(0);

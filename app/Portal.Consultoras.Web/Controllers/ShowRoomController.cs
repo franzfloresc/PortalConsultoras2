@@ -3,7 +3,6 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Common;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
-using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
@@ -79,9 +78,9 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToAction("Index", "Bienvenida");
                     }
 
-                    if (srQsv.CampanaId == userData.CampaniaID && !GetEventoConsultoraRecibido(userData))
+                    if (srQsv.CampanaId == userData.CampaniaID && !_showRoomProvider.GetEventoConsultoraRecibido(userData))
                     {
-                        UpdShowRoomEventoConsultoraEmailRecibido(srQsv.CodigoConsultora, srQsv.CampanaId, userData);
+                        _showRoomProvider.UpdShowRoomEventoConsultoraEmailRecibido(srQsv.CodigoConsultora, srQsv.CampanaId, userData);
                     }
                 }
 
@@ -91,7 +90,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!showRoomEventoModel.ListaShowRoomOferta.Any()) return RedirectToAction("Index", "Bienvenida");
 
-                showRoomEventoModel.FiltersBySorting = GetTablaLogicaDatos(Constantes.TablaLogica.OrdenamientoShowRoom);
+                showRoomEventoModel.FiltersBySorting =
+                    _tablaLogicaProvider.ObtenerConfiguracion(userData.PaisID,
+                        Constantes.TablaLogica.OrdenamientoShowRoom);
                 var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => !x.EsSubCampania).ToList();
                 ViewBag.PrecioMin = xlistaShowRoom.Any() ? xlistaShowRoom.Min(p => p.PrecioOferta) : Convert.ToDecimal(0);
                 ViewBag.PrecioMax = xlistaShowRoom.Any() ? xlistaShowRoom.Max(p => p.PrecioOferta) : Convert.ToDecimal(0);
@@ -1759,14 +1760,7 @@ namespace Portal.Consultoras.Web.Controllers
             configEstrategiaSR.BeShowRoomConsultora.CorreoEnvioAviso = model.EMail;
             configEstrategiaSR.BeShowRoomConsultora.CampaniaID = userData.CampaniaID;
             configEstrategiaSR.BeShowRoomConsultora.CodigoConsultora = userData.CodigoConsultora;
-            var beShowRoomConsultora =
-                Mapper.Map<ShowRoomEventoConsultoraModel, ServiceOferta.BEShowRoomEventoConsultora>(configEstrategiaSR
-                    .BeShowRoomConsultora);
-
-            using (OfertaServiceClient osc = new OfertaServiceClient())
-            {
-                osc.ShowRoomProgramarAviso(userData.PaisID, beShowRoomConsultora);
-            }
+            _showRoomProvider.ShowRoomProgramarAviso(userData.PaisID, configEstrategiaSR.BeShowRoomConsultora);
         }
 
         private List<EstrategiaPedidoModel> ValidarUnidadesPermitidas(List<EstrategiaPedidoModel> listaShowRoomOferta)
