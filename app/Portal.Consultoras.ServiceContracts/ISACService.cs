@@ -68,7 +68,7 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEProductoFaltante> GetProductoFaltanteByEntity(int paisID, BEProductoFaltante productofaltante, string ColumnaOrden, string Ordenamiento, int PaginaActual, int FlagPaginacion, int RegistrosPorPagina);
 
         [OperationContract]
-        IList<BEProductoFaltante> GetProductoFaltanteByCampaniaAndZonaID(int paisID, int campaniaID, int ZonaID, string cuv, string descripcion);
+        IList<BEProductoFaltante> GetProductoFaltanteByCampaniaAndZonaID(int paisID, int campaniaID, int ZonaID, string cuv, string descripcion, string codCategoria, string codCatalogoRevista);
 
         [OperationContract]
         string InsProductoFaltanteMasivo(int paisID, string paisISO, string CodigoUsuario, int campaniaID, IList<BEProductoFaltante> productosFaltantes, bool FaltanteUltimoMinuto);
@@ -111,6 +111,15 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void UpdProductoDescripcion(BEProductoDescripcion producto, string codigoUsuario);
+
+        [OperationContract]
+        void UpdProductoDescripcionMasivo(int paisID, int campaniaID, IList<BEProductoDescripcion> listaProductos, string codigoUsuario);
+
+        [OperationContract]
+        string ValidarMatrizCampaniaMasivo(int paisID, string CUVs, int AnioCampania);
+
+        [OperationContract]
+        string RegistrarProductoMasivo(int paisID, string data);
 
         #endregion
 
@@ -770,7 +779,24 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         string RemoveDataCache(int paisID, string cacheItemString, string customKey);
 
-        #region Nuevo Masivo
+        #region Categoria 
+
+        [OperationContract]
+        IList<BECategoria> SelectCategoria(int paisID);
+
+        #endregion
+
+        #region Catálogos y Revistas
+       
+        [OperationContract]
+        IList<BECatalogoRevista_ODS> SelectCatalogoRevista_Filtro(int paisID);
+
+        [OperationContract]
+        IList<BECatalogoRevista_ODS> SelectCatalogoRevista_ODS(int paisID);
+
+        #endregion
+
+         #region Nuevo Masivo
 
         [OperationContract]
         int GetCantidadOfertasPersonalizadas(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia);
@@ -791,10 +817,10 @@ namespace Portal.Consultoras.ServiceContracts
         int EstrategiaTemporalInsertarMasivo(int paisId, int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote);
 
         [OperationContract]
-        bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int nroLote);
+        bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int nroLote, int pagina);
 
         [OperationContract]
-        bool EstrategiaTemporalActualizarSetDetalle(int paisID, int nroLote);
+        bool EstrategiaTemporalActualizarSetDetalle(int paisID, int nroLote, int pagina);
 
         [OperationContract]
         int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote);

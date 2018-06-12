@@ -1048,7 +1048,7 @@ namespace Portal.Consultoras.Web.Controllers
             string message;
             try
             {
-                if(ReservadoEnHorarioRestringido(out message)) return ErrorJson(message, true);
+                if (ReservadoEnHorarioRestringido(out message)) return ErrorJson(message, true);
 
                 var usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
                 using (var sv = new PedidoServiceClient())
@@ -1679,7 +1679,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var lista = new List<string>();
 
-            using(PedidoServiceClient ps = new PedidoServiceClient())
+            using (PedidoServiceClient ps = new PedidoServiceClient())
             {
                 lista = ps.ObtenerListadoCuvCupon(userData.PaisID, userData.CampaniaID).ToList();
             }
@@ -1716,22 +1716,11 @@ namespace Portal.Consultoras.Web.Controllers
             if (!revistaDigital.TieneRDC) return;
 
             if (!revistaDigital.EsActiva) return;
-
-            if (revistaDigital.BloquearRevistaImpresaGeneral != null)
+            
+            if (revistaDigital.BloquearRevistaImpresaGeneral == 1 || revistaDigital.BloqueoRevistaImpresa)
             {
-                if (revistaDigital.BloquearRevistaImpresaGeneral == 1)
-                {
-                    beProductos = beProductos
-                        .Where(x => userData.CodigosRevistaImpresa != null && !userData.CodigosRevistaImpresa.Contains(x.CodigoCatalogo.ToString())).ToList();
-                }
-            }
-            else
-            {
-                if (revistaDigital.BloqueoRevistaImpresa)
-                {
-                    beProductos = beProductos
-                        .Where(x => !userData.CodigosRevistaImpresa.Contains(x.CodigoCatalogo.ToString())).ToList();
-                }
+                beProductos = beProductos
+                    .Where(x => userData.CodigosRevistaImpresa != null && !userData.CodigosRevistaImpresa.Contains(x.CodigoCatalogo.ToString())).ToList();
             }
         }
 
@@ -1803,7 +1792,7 @@ namespace Portal.Consultoras.Web.Controllers
                 TieneSugerido = 0
             };
         }
-        
+
         private ProductoModel GetValidacionProgramaNuevas(string mensaje)
         {
             return new ProductoModel()
@@ -2097,16 +2086,12 @@ namespace Portal.Consultoras.Web.Controllers
         #region Productos Faltantes
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public JsonResult GetProductoFaltante(string cuv, string descripcion)
+        public JsonResult GetProductoFaltante(string cuv, string descripcion, string categoria, string revista)
         {
             try
             {
-                var productosFaltantes = GetProductosFaltantes(cuv, descripcion);
-                var model = productosFaltantes.GroupBy(pf => pf.Categoria).Select(pfg => new ProductoFaltanteModel
-                {
-                    Categoria = pfg.Key,
-                    Detalle = pfg.Select(pf => pf).OrderBy(pf => pf.Catalogo).ThenBy(pf => pf.NumeroPagina).ToList()
-                });
+                var productosFaltantes = GetProductosFaltantes(cuv, descripcion, categoria, revista);
+                ProductoFaltanteModel model = new ProductoFaltanteModel { Detalle = productosFaltantes };
                 return Json(new { result = true, data = model }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -2115,7 +2100,31 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new { result = false, data = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public JsonResult GetFiltrosProductoFaltante()
+        {
+            try
+            {
+                BECategoria[] beCategoria;
+                BECatalogoRevista_ODS[] beCatalogoRevista_ODS;
 
+                using (var sv = new SACServiceClient())
+                {
+                    beCategoria = sv.SelectCategoria(userData.PaisID);
+                    beCatalogoRevista_ODS = sv.SelectCatalogoRevista_Filtro(userData.PaisID);
+                }
+                return Json(new
+                {
+                    result = true,
+                    data = beCategoria,
+                    data1 = beCatalogoRevista_ODS
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new { result = false, data = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         #endregion
 
         #region Clientes
@@ -2459,7 +2468,6 @@ namespace Portal.Consultoras.Web.Controllers
                 eMail = userData.EMail
             };
 
-            ViewBag.Simbolo = model.Simbolo;
             ViewBag.Total_Minimo = model.Total_Minimo;
             ViewBag.CodigoISOPais = userData.CodigoISO;
 
@@ -3491,7 +3499,7 @@ namespace Portal.Consultoras.Web.Controllers
                         userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Reactivada ||
                         userData.ConsecutivoNueva == Constantes.ConsecutivoNuevaConsultora.Consecutivo3)
                     {
-                        var  PaisesFraccionKit = WebConfigurationManager.AppSettings["PaisesFraccionKitNuevas"];
+                        var PaisesFraccionKit = WebConfigurationManager.AppSettings["PaisesFraccionKitNuevas"];
 
                         if (PaisesFraccionKit != null && userData.CodigoISO != null && !PaisesFraccionKit.Contains(userData.CodigoISO))
                         {
@@ -3662,7 +3670,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false,
                     message = "OK",
                     data = model,
-                    dataBarra = GetDataBarra(true,false,true)
+                    dataBarra = GetDataBarra(true, false, true)
                 });
             }
             catch (Exception ex)
@@ -3971,7 +3979,7 @@ namespace Portal.Consultoras.Web.Controllers
                 TipoProductoMostrar = tipoProductoMostrar,
                 Algoritmo = ofertaFinal.Algoritmo,
                 Estado = ofertaFinal.Estado,
-                //TieneMDO = revistaDigital.ActivoMdo   --sin pruebas
+                TieneMDO = revistaDigital.ActivoMdo
             };
 
             List<Producto> lista;
@@ -3995,7 +4003,6 @@ namespace Portal.Consultoras.Web.Controllers
                     p.PrecioValorizadoString = Util.DecimalToStringFormat(p.PrecioValorizado, userData.CodigoISO);
                     p.MetaMontoStr = Util.DecimalToStringFormat(p.MontoMeta, userData.CodigoISO);
                     p.Simbolo = userData.Simbolo;
-                    p.UrlCompartirFB = GetUrlCompartirFB();
                     p.NombreComercialCorto = Util.SubStrCortarNombre(p.NombreComercial, 40, "...");
                     var imagenUrl = Util.SubStr(p.Imagen, 0);
 
@@ -4314,7 +4321,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string mensaje = "", urlRedireccionar = "", CuvSet=string.Empty;
+                string mensaje = "", urlRedireccionar = "", CuvSet = string.Empty;
 
                 #region SesiónExpirada
                 if (userData == null)
@@ -4373,12 +4380,12 @@ namespace Portal.Consultoras.Web.Controllers
                 estrategia.Cantidad = Convert.ToInt32(model.Cantidad);
 
                 var PedidosAgregados = ObtenerPedidoWebSetDetalleAgrupado();
-             
+
                 if (PedidosAgregados.Any(x => x.CUV == estrategia.CUV2 && x.SetID != 0))
                 {
                     int CantidadActual = PedidosAgregados.Where(x => x.CUV == estrategia.CUV2 && x.SetID != 0).Sum(x => x.Cantidad);
 
-                    if (CantidadActual+ model.Cantidad.ToInt()> estrategia.LimiteVenta)
+                    if (CantidadActual + model.Cantidad.ToInt() > estrategia.LimiteVenta)
                     {
                         mensaje = "La cantidad no debe ser mayor que la cantidad limite ( " + estrategia.LimiteVenta + " ).";
                         return Json(new
@@ -4402,7 +4409,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                 }
-  
+
 
                 var listCuvTonos = Util.Trim(model.CuvTonos);
                 if (listCuvTonos == "")
@@ -4422,7 +4429,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
 
-                    respuesta = EstrategiaAgregarProducto(ref mensaje, estrategia, model,false);
+                    respuesta = EstrategiaAgregarProducto(ref mensaje, estrategia, model, false);
                     ListaCuvsTemporal.Add(listSp.Length > 0 ? listSp[0] : estrategia.CUV2);
                 }
 
@@ -4463,7 +4470,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private JsonResult EstrategiaAgregarProducto(ref string mensaje, ServicePedido.BEEstrategia estrategia, PedidoCrudModel model, bool revisionIndividualStock =true)
+        private JsonResult EstrategiaAgregarProducto(ref string mensaje, ServicePedido.BEEstrategia estrategia, PedidoCrudModel model, bool revisionIndividualStock = true)
         {
             #region Validar Stock Estrategia
             var ofertas = estrategia.DescripcionCUV2.Split('|');

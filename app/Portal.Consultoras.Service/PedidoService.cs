@@ -1887,10 +1887,6 @@ namespace Portal.Consultoras.Service
             BLPedidoWeb.DeshacerUltimaDescargaPedido(PaisID);
         }
 
-        public int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int nroLote)
-        {
-            return new BLEstrategia().InsertEstrategiaTemporal(paisId, lista, campaniaId, codigoUsuario, nroLote);
-        }
         public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
             return blEstrategia.GetEstrategiaODD(paisID, codCampania, codConsultora, fechaInicioFact);
@@ -2345,8 +2341,8 @@ namespace Portal.Consultoras.Service
             return BLCuponesProgramaNuevas.ObtenerListadoCuvCupon(paisId, campaniaId);
         }
 
-    #region PedidoApp
-    public BEProductoApp GetCUVApp(BEProductoAppBuscar productoBuscar)
+        #region PedidoApp
+        public BEProductoApp GetCUVApp(BEProductoAppBuscar productoBuscar)
         {
             return _pedidoAppBusinessLogic.GetCUV(productoBuscar);
         }
@@ -2381,14 +2377,14 @@ namespace Portal.Consultoras.Service
             return await _pedidoAppBusinessLogic.Delete(pedidoDetalle);
         }
 
-        public async Task<BEPedidoDetalleAppResult> ReservaPedidoDetalleApp(BEUsuario usuario)
+        public async Task<BEPedidoReservaAppResult> ReservaPedidoDetalleApp(BEUsuario usuario)
         {
             return await _pedidoAppBusinessLogic.Reserva(usuario);
         }
 
         public BEPedidoDetalleAppResult DeshacerReservaPedidoApp(BEUsuario usuario)
         {
-            return _pedidoAppBusinessLogic.DeshacerReservaPedido(usuario);
+            return _pedidoAppBusinessLogic.DeshacerReserva(usuario);
         }        
         #endregion
 

@@ -99,12 +99,12 @@ namespace Portal.Consultoras.BizLogic
             }
         }
         
-        public bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int nroLote)
+        public bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int nroLote, int pagina)
         {
             try
             {
                 var daEstrategia = new DAEstrategia(paisId);
-                return daEstrategia.EstrategiaTemporalActualizarPrecioNivel(nroLote);
+                return daEstrategia.EstrategiaTemporalActualizarPrecioNivel(nroLote, pagina);
             }
             catch (Exception ex)
             {
@@ -113,12 +113,12 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        public bool EstrategiaTemporalActualizarSetDetalle(int paisId, int nroLote)
+        public bool EstrategiaTemporalActualizarSetDetalle(int paisId, int nroLote, int pagina)
         {
             try
             {
                 var daEstrategia = new DAEstrategia(paisId);
-                return daEstrategia.EstrategiaTemporalActualizarSetDetalle(nroLote);
+                return daEstrategia.EstrategiaTemporalActualizarSetDetalle(nroLote, pagina);
             }
             catch (Exception ex)
             {

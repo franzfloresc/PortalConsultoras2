@@ -78,6 +78,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (modelo != null)
             {
+                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                 modelo.ClaseBloqueada = Util.Trim(modelo.ClaseBloqueada);
                 modelo.ClaseEstrategia = Util.Trim(modelo.ClaseEstrategia);
                 modelo.CodigoEstrategia = Util.Trim(modelo.CodigoEstrategia);
@@ -87,7 +88,7 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.PrecioTachado = Util.Trim(modelo.PrecioTachado);
                 modelo.CodigoVariante = Util.Trim(modelo.CodigoVariante);
                 modelo.TextoLibre = Util.Trim(modelo.TextoLibre);
-                modelo.UrlCompartir = Util.Trim(modelo.UrlCompartir);
+                modelo.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, modelo.FotoProducto01);
             }
 
             sessionManager.SetProductoTemporal(modelo);
@@ -173,7 +174,7 @@ namespace Portal.Consultoras.Web.Controllers
                     listModel1 = listaFinal1;
                 }
 
-                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
+                var listModel = ConsultarEstrategiasFormatearModelo(listModel1, 2);
 
                 var cantidadTotal = listModel.Count;
 
@@ -217,12 +218,6 @@ namespace Portal.Consultoras.Web.Controllers
                             || e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso)
                             && e.FlagRevista == Constantes.FlagRevista.Valor2
                             ).ToList();
-
-                        listPerdio.ForEach(e =>
-                        {
-                            e.ClaseBloqueada = "btn_desactivado_general";
-                            e.IsAgregado = false;
-                        });
                     }
                     else
                     {
@@ -278,7 +273,9 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = revistaDigital.EstadoSuscripcion > 0,
-                    message = revistaDigital.EstadoSuscripcion > 0 ? "" : "Ocurrió un error, vuelva a intentarlo."
+                    message = revistaDigital.EstadoSuscripcion > 0 ? "" : "Ocurrió un error, vuelva a intentarlo.",
+                    revistaDigital = getRevistaDigitalShortModel(),
+                    CampaniaID = userData.CampaniaID
                 }, JsonRequestBehavior.AllowGet);
 
             }

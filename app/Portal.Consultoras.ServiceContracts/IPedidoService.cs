@@ -1238,7 +1238,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         Task<BEPedidoDetalleAppResult> DeletePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
         [OperationContract]
-        Task<BEPedidoDetalleAppResult> ReservaPedidoDetalleApp(BEUsuario usuario);
+        Task<BEPedidoReservaAppResult> ReservaPedidoDetalleApp(BEUsuario usuario);
         [OperationContract]
         BEPedidoDetalleAppResult DeshacerReservaPedidoApp(BEUsuario usuario);
         #endregion

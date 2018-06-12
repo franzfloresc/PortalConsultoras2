@@ -9953,6 +9953,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetValidarLoginSB2", ReplyAction="http://tempuri.org/IUsuarioService/GetValidarLoginSB2Response")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2> GetValidarLoginSB2Async(int paisID, string codigoUsuario, string contrasenia);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetValidarLoginJsonWebToken", ReplyAction="http://tempuri.org/IUsuarioService/GetValidarLoginJsonWebTokenResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2 GetValidarLoginJsonWebToken(int paisID, string documento);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetValidarLoginJsonWebToken", ReplyAction="http://tempuri.org/IUsuarioService/GetValidarLoginJsonWebTokenResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2> GetValidarLoginJsonWebTokenAsync(int paisID, string documento);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetValidarAutoLogin", ReplyAction="http://tempuri.org/IUsuarioService/GetValidarAutoLoginResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2 GetValidarAutoLogin(int paisID, string codigoUsuario, string proveedor);
         
@@ -10737,6 +10743,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2> GetValidarLoginSB2Async(int paisID, string codigoUsuario, string contrasenia) {
             return base.Channel.GetValidarLoginSB2Async(paisID, codigoUsuario, contrasenia);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2 GetValidarLoginJsonWebToken(int paisID, string documento) {
+            return base.Channel.GetValidarLoginJsonWebToken(paisID, documento);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2> GetValidarLoginJsonWebTokenAsync(int paisID, string documento) {
+            return base.Channel.GetValidarLoginJsonWebTokenAsync(paisID, documento);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2 GetValidarAutoLogin(int paisID, string codigoUsuario, string proveedor) {

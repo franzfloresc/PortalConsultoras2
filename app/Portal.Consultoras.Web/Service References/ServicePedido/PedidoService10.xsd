@@ -620,8 +620,6 @@
           <xs:element minOccurs="0" name="FlagTextoLibre" type="xs:int" />
           <xs:element minOccurs="0" name="FlagValidarImagen" type="xs:int" />
           <xs:element minOccurs="0" name="FotoProducto01" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="FotoProductoMedium" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="FotoProductoSmall" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Ganancia" type="xs:decimal" />
           <xs:element minOccurs="0" name="GananciaString" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ID" type="xs:int" />
@@ -668,7 +666,6 @@
           <xs:element minOccurs="0" name="TipoEstrategiaImagenMostrar" type="xs:int" />
           <xs:element minOccurs="0" name="TipoOferta" type="xs:int" />
           <xs:element minOccurs="0" name="TipoTallaColor" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="URLCompartir" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="UrlVideoDesktop" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="UrlVideoMobile" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
@@ -1157,7 +1154,6 @@
       <xs:element minOccurs="0" name="TipoEstrategiaImagenMostrar" type="xs:int" />
       <xs:element minOccurs="0" name="TipoOferta" type="xs:int" />
       <xs:element minOccurs="0" name="TipoTallaColor" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="URLCompartir" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ValidarPeriodoFacturacion" type="xs:boolean" />
@@ -1180,6 +1176,7 @@
       <xs:element minOccurs="0" name="Ciudad" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
       <xs:element minOccurs="0" name="DescripcionEstado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DocumentoResponsable" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaIngresoConsultora" type="xs:dateTime" />
       <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
@@ -1258,6 +1255,7 @@
       <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
       <xs:element minOccurs="0" name="ImagenProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MostrarAgotado" type="xs:int" />
       <xs:element minOccurs="0" name="Orden" type="xs:int" />
       <xs:element minOccurs="0" name="ProductoSugeridoID" type="xs:int" />
       <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />

@@ -31,8 +31,6 @@ $(document).ready(function () {
             InicializarAcciones: function () {
                 me.globals.barraActivacion.toggleClass('activado');
                 me.globals.barraActivacion.attr('data-estado', 1);
-                //$('.tooltip_terminos_y_condiciones').fadeOut();
-                //$("#divTooltipTerminosCondiciones").hide();
             }
         },
         me.Eventos = {

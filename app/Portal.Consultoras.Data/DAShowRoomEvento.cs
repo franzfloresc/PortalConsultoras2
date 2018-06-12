@@ -373,7 +373,6 @@ namespace Portal.Consultoras.Data
         public int UpdOfertaShowRoomStockAgregar(int campaniaID, string cuv, int stock)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.UpdStockOfertaShowRoom");
-            //Context.Database.AddInParameter(command, "@TipoOfertaSisID", DbType.Int32, tipoOfertaSisID);
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
             Context.Database.AddInParameter(command, "@CUV", DbType.AnsiString, cuv);
             Context.Database.AddInParameter(command, "@Stock", DbType.Int32, stock);
@@ -384,7 +383,6 @@ namespace Portal.Consultoras.Data
         public int UpdOfertaShowRoomStockActualizar(int CampaniaID, string CUV, int Stock, int Flag)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.UpdStockOfertaShowRoomUpd");
-            //Context.Database.AddInParameter(command, "@TipoOfertaSisID", DbType.Int32, TipoOfertaSisID);
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
             Context.Database.AddInParameter(command, "@CUV", DbType.AnsiString, CUV);
             Context.Database.AddInParameter(command, "@Stock", DbType.Int32, Stock);
@@ -396,7 +394,6 @@ namespace Portal.Consultoras.Data
         public int UpdOfertaShowRoomStockEliminar(int CampaniaID, string CUV, int Stock)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.UpdStockOfertaShowRoomDel");
-            //Context.Database.AddInParameter(command, "@TipoOfertaSisID", DbType.Int32, TipoOfertaSisID);
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
             Context.Database.AddInParameter(command, "@CUV", DbType.AnsiString, CUV);
             Context.Database.AddInParameter(command, "@Stock", DbType.Int32, Stock);
@@ -544,15 +541,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CadenaCuv", DbType.String, cadenaCuv);
             Context.ExecuteNonQuery(command);
         }
-
-        //public IDataReader GetShowRoomOfertasConsultora(int campaniaID, string codigoConsultora)
-        //{
-        //    DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetShowRoomOfertasConsultora");
-        //    Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
-        //    Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
-
-        //    return Context.ExecuteReader(command);
-        //}
 
         public IDataReader GetShowRoomOfertasConsultoraPersonalizada(int campaniaID, string codigoConsultora)
         {

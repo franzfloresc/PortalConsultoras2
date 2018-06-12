@@ -56,37 +56,24 @@
 	</div>
 	<div class="contenedor_proceso_registro_cdr">
 		<div class="pasos_proceso_registro texto-mensaje-cdr">
-			<!-- Status icono off -->
-			<!-- Fin Status icono off -->
-			<!-- Status icono on -->
 			<div class="icono_paso icono_producto icono_paso_activo">
 				<img src="@Url.Content("~/Content/Images/mobile/cdr_paso1_activo.png")" />
 			</div>
-			<!-- Fin Status icono on -->
-			<!-- Status icono off -->
 			<div id="pasodos" class="icono_paso icono_solucion_elegida">
 				<img src="@Url.Content("~/Content/Images/mobile/cdr_paso2.png")" />
 			</div>
-			<!-- Fin Status icono off -->
-			<!-- Status icono on -->
 			<div id="pasodosactivo" class="icono_paso icono_solucion_elegida icono_paso_activo" style="display:none;">
 				<img src="@Url.Content("~/Content/Images/mobile/cdr_paso2_activo.png")" />
 			</div>
-			<!-- Fin Status icono on -->
-			<!-- Status icono off -->
 			<div id="pasotres" class="icono_paso icono_solucion_elegida">
 				<img src="@Url.Content("~/Content/Images/mobile/cdr_paso3.png")" />
 			</div>
-			<!-- Fin Status icono off -->
-			<!-- Status icono on -->
 			<div id="pasotresactivo" class="icono_paso icono_envio_solicitud_cdr icono_paso_activo" style="display:none;">
 				<img src="@Url.Content("~/Content/Images/mobile/cdr_paso3_activo.png")" />
 			</div>
-			<!-- Fin Status icono on -->
 			<div class="linea_conexion_pasos"></div>
 		</div>
 
-		<!-- INICIO VISTA CON QUÉ PRODUCTO HAS TENIDO INCONVENIENTES -->
 		<div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold Registro1" id="divUltimasSolicitudes">
 			¿Con qué producto has tenido inconvenientes?
 			<div class="mi_solicitud_cdr">
@@ -121,10 +108,7 @@
 		<div class="campos_registro_solicitud_cdr Registro1">
 			<div class="formulario_inscripcion_cdr">
 				@Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "select_reclamo", @required = "required" })
-				<!-- INICIO CAMPO PARA INGRESAR CÓDIGO PRODUCTO -->
 				<input id="cuvmobile" class="tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral valid" type="text" value="" placeholder="Código del producto" />
-				<!-- FIN CAMPO PARA INGRESAR CÓDIGO PRODUCTO -->
-				<!-- INICIO SE MUESTRA CUANDO SE TIENE EL CASO DE QUE UNA CONSULTORA TIENE EL MISMO PRODUCTO EN 2 O MÁS PEDIDOS -->
 				<div class="content_eligeTuPedido" id="divPopupPedido" style="display:none;">
 					<div class="titulo_eligeTuPedido tipografia_lato_bold">ELIGE UN PEDIDO</div>
 					<div class="selecciona_tuPedido tipografia_lato_regular">Selecciona el pedido en el cual deseas aplicar la solicitud :</div>
@@ -132,9 +116,6 @@
 
 					</div>
 				</div>
-				<!-- FIN SE MUESTRA CUANDO SE TIENE EL CASO DE QUE UNA CONSULTORA TIENE EL MISMO PRODUCTO EN 2 O MÁS PEDIDOS -->
-
-
 
 				<div id="DescripcionCuv" class="producto_cdr" style="font-size:13px; display:none;">
 					<span id="txtCuv" class="codigo_producto_cdr tipografia_lato_bold">00411</span>
@@ -152,16 +133,13 @@
 					</div>
 				</div>
 			</div>
-			<!-- INICIO BOTÓN VER SOLICITUDES ANTERIORES -->
 			<a class="btn_agrega_otro_reclamo" href="@Url.Action("Index")" title="Ver solicitudes anteriores">
 				<span class="icono_arrow_left">
 					<img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver solicitudes anteriores" />
 				</span>
 				<span>VER SOLICITUDES ANTERIORES</span>
 			</a>
-			<!-- FIN BOTÓN VER SOLICITUDES ANTERIORES -->
 		</div>
-		<!--PASO A PASO RECLAMOS-->
 		<div style="display:none;">
 			<input type="hidden" name="CDRWebID" id="CDRWebID" value="@Model.CDRWebID" />
 			<input type="hidden" id="hdMontoMinimoPedido" value="@Model.MontoMinimo" />
@@ -175,8 +153,6 @@
 			<input type="hidden" id="hdCdrWebDatos_Ssic" />
 			<input type="hidden" id="hdCuvPrecio2" />
 		</div>
-		<!-- FIN VISTA CON QUÉ PRODUCTO HAS TENIDO INCONVENIENTES -->
-		<!-- INICIO VISTA CUÁL FUE EL INCONVENIENTE -->
 		<div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold Registro2" style="display:none;">
 			¿Cuál fue el inconveniente?
 		</div>
@@ -185,24 +161,18 @@
 				<div id="listaMotivos" class="lista_opciones_motivo_cdr">
 				</div>
 			</div>
-			<!-- INICIO BOTÓN VER SOLICITUDES ANTERIORES -->
 			<a class="btn_agrega_otro_reclamo" href="@Url.Action("Index")" title="Ver solicitudes anteriores">
 				<span class="icono_arrow_left">
 					<img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver solicitudes anteriores" />
 				</span>
 				<span>VER SOLICITUDES ANTERIORES</span>
 			</a>
-			<!-- FIN BOTÓN VER SOLICITUDES ANTERIORES -->
 		</div>
-		<!-- FIN VISTA CUÁL FUE EL INCONVENIENTE -->
-		<!-- INICIO VISTA SOLUCIÓN REFERENTE AL CAMBIO O DEVOLUCIÓN -->
 		<div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold mb-23 Registro3" style="display:none;">
 			Escoge una solución
 		</div>
 		<div class="listado_soluciones_cdr tipografia_lato Registro3" id="divlistado_soluciones_cdr" style="display:none;">
 		</div>
-		<!-- FIN VISTA SOLUCIÓN REFERENTE AL CAMBIO O DEVOLUCIÓN -->
-		<!--INICIO DE VISTA CAMBIARLO POR OTRO PRODUCTO-->
 		<div class="eleccion_solucion_cdr tipografia_lato Registro4" id="Cambio2" style="display:none;">
 			<div class="titulo_eleccion_cdr tipografia_lato_bold">
 				<span>ELEGISTE:</span>
@@ -251,11 +221,9 @@
 				<div id="spnMensajeTenerEnCuentaCambio" class="content_info_cdr tipografia_lato_regular">
 				</div>
 			</div>
-			<!-- INICIO ENLACE QUIERO VER OTRA ALTERNATIVA -->
 			<a href="#" class="enlace_quiero_ver_otra_alternativa tipografia_lato tipografia_lato_regular" title="Quiero ver otra alternativa">
 				QUIERO VER OTRA ALTERNATIVA
 			</a>
-			<!-- FIN ENLACE QUIERO VER OTRA ALTERNATIVA -->
 			<a class="btn_agrega_otro_reclamo" href="@Url.Action("Index")" title="Ver solicitudes anteriores">
 				<span class="icono_arrow_left">
 					<img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver solicitudes anteriores" />
@@ -263,8 +231,6 @@
 				<span>VER SOLICITUDES ANTERIORES</span>
 			</a>
 		</div>
-		<!--FIN DE VISTA CAMBIARLO POR OTRO PRODUCTO-->
-		<!-- INICIO VISTA FINALIZACIÓN DE SOLICITUD -->
 		<div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold mb-23 AceptarSolucion" style="display:none;">
 			<span class="titulo_revision_resumen">Revisa el resumen, finaliza y envía tu solicitud</span>
 			<span class="mensaje_vista_cdr tipografia_lato_regular">
@@ -272,7 +238,6 @@
 			</span>
 		</div>
 		<div id="divDetallePaso3" class="AceptarSolucion UltimasSolicitudes" style="display:none;">
-			<!--template-detalle-banner-->
 		</div>
 
 		<div class="validacion_datos tipografia_lato AceptarSolucion" style="display:none;">
@@ -328,10 +293,7 @@
 				<span>AGREGA OTRO PRODUCTO A LA SOLICITUD</span>
 			</a>
 		</div>
-		<!-- FIN VISTA FINALIZACIÓN DE SOLICITUD -->
-		<!--SOLICITUD ENVIADA-->
 		<div class="wrapper_resumen_mobile tipografia_lato bloqueCDRRegistro" id="SolicitudEnviada" style="display:none;">
-			<!-- VISTA SOLICITUD ENVIADA -->
 			<div class="content_mensaje_solicitud_enviada">
 				<div class="icono_solicitud_enviada">
 					<img src="@Url.Content("~/Content/Images/Esika/icono_check_esika.svg")" alt="Solicitud Enviada">
@@ -362,19 +324,14 @@
 				<div class="detalle_solicitud_listado" id="divDetalleEnviar">
 				</div>
 			</div>
-			<!-- FIN VISTA SOLICITUD ENVIADA -->
-			<!-- INICIO BOTÓN VER SOLICITUDES ANTERIORES -->
 			<a class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Ver solicitudes" href="@Url.Action("Index")">
 				<span class="icono_arrow_left">
 					<img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver tus solicitudes" />
 				</span>
 				<span>VER TUS SOLICITUDES</span>
 			</a>
-			<!-- FIN BOTÓN VER SOLICITUDES ANTERIORES -->
 
 		</div>
-		<!--FIN SOLICITUD ENVIADA-->
-		<!-- INICIO VISTA CONFIRMACIÓN ELECCIÓN -->
 		<div id="Cambio3" style="display:none;">
 			<div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold mb-23">
 				Confirma tu elección
@@ -408,19 +365,16 @@
 				</div>
 			</div>
 		</div>
-		<!-- FIN VISTA CONFIRMACIÓN ELECCIÓN -->
 
 		<div class="listado_soluciones_cdr tipografia_lato">
 			<a class="btn_agrega_otro_reclamo solucion_cdr tipografia_lato_bold" id="IrSolicitudInicial" title="Agrega otro producto a la solicitud" style="display:none;">
 				<span>AGREGA OTRO PRODUCTO A LA SOLICITUD</span>
 			</a>
 		</div>
-		<!-- FIN BOTÓN VER SOLICITUDES ANTERIORES -->
 
 	</div>
 </div>
 
-<!-- INICIO BOTONES CTA (CALL TO ACTION) -->
 <button id="btnSiguiente1"
 		class="btn_cta_cdr tipografia_lato tipografia_lato_bold">
 	SIGUIENTE
@@ -446,7 +400,6 @@
 		style="display:none;">
 	FINALIZA Y ENVÍA TU SOLICITUD
 </button>
-<!-- FIN BOTONES CTA (CALL TO ACTION) -->
 
 <script id="template-pedido" type="text/x-handlebars-template">
 	{{#each this as |item|}}
@@ -506,7 +459,7 @@
 				<b>{{item.SolucionSolicitada}}</b><br />
 				{{item.CUV}} - {{item.Descripcion}}<br />
 				{{item.Cantidad}} unidades<br />
-				Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio}}
+				Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}
 			</div>
 			<div class="listado_solicitud_reclamo">
 				<b>{{item.Solicitud}}</b>
@@ -524,7 +477,7 @@
 				{{item.CUV2}}<br />
 				{{item.Descripcion2}} <br />
 				{{item.Cantidad2}} unidades<br />
-				Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
+				Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
 				{{else}}
 				{{/if_eq}}
 			</div>
@@ -545,7 +498,7 @@
 			<b>{{item.SolucionSolicitada}}</b><br />
 			{{item.CUV}} - {{item.Descripcion}}<br />
 			{{item.Cantidad}} unidades<br />
-			Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio}}
+			Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}
 		</div>
 		<div class="listado_solicitud_reclamo">
 			<b>{{item.Solicitud}}</b>
@@ -563,7 +516,7 @@
 			{{item.CUV2}}<br />
 			{{item.Descripcion2}} <br />
 			{{item.Cantidad2}} unidades<br />
-			Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
+			Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
 			{{else}}
 			{{/if_eq}}
 		</div>
