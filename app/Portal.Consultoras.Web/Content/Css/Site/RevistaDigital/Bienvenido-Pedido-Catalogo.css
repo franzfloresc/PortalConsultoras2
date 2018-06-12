@@ -751,7 +751,7 @@
                 margin-left: 5px;
             }
 
-        .bc_productos .bc_productos_contenido .grid-item .3 {
+        .bc_productos .bc_productos_contenido .grid-item {
             width: 100% !important;
             overflow: hidden !important;
             display: inline-block !important;
