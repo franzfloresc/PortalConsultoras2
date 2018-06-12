@@ -1,0 +1,77 @@
+﻿USE [BelcorpPeru] 
+GO
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GETCATALOGO_REVISTA_ODS]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].GETCATALOGO_REVISTA_ODS
+GO
+
+USE [BelcorpBolivia]
+GO
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GETCATALOGO_REVISTA_ODS]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].GETCATALOGO_REVISTA_ODS
+GO
+
+USE [BelcorpChile]
+GO
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GETCATALOGO_REVISTA_ODS]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].GETCATALOGO_REVISTA_ODS
+GO
+
+USE [BelcorpColombia]
+GO
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GETCATALOGO_REVISTA_ODS]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].GETCATALOGO_REVISTA_ODS
+GO
+
+USE [BelcorpCostaRica]
+GO
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GETCATALOGO_REVISTA_ODS]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].GETCATALOGO_REVISTA_ODS
+GO
+
+USE [BelcorpDominicana]
+GO
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GETCATALOGO_REVISTA_ODS]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].GETCATALOGO_REVISTA_ODS
+GO
+
+USE [BelcorpEcuador]
+GO
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GETCATALOGO_REVISTA_ODS]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].GETCATALOGO_REVISTA_ODS
+GO
+
+USE [BelcorpGuatemala]
+GO
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GETCATALOGO_REVISTA_ODS]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].GETCATALOGO_REVISTA_ODS
+GO
+
+USE [BelcorpMexico]
+GO
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GETCATALOGO_REVISTA_ODS]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].GETCATALOGO_REVISTA_ODS
+GO
+
+USE [BelcorpPanama]
+GO
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GETCATALOGO_REVISTA_ODS]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].GETCATALOGO_REVISTA_ODS
+GO
+
+USE [BelcorpPuertoRico]
+GO
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GETCATALOGO_REVISTA_ODS]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].GETCATALOGO_REVISTA_ODS
+GO
+
+USE [BelcorpSalvador]
+GO
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GETCATALOGO_REVISTA_ODS]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].GETCATALOGO_REVISTA_ODS
+GO
+
+USE [BelcorpVenezuela]
+GO
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[GETCATALOGO_REVISTA_ODS]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].GETCATALOGO_REVISTA_ODS
+GO

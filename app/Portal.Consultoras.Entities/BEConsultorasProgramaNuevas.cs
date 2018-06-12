@@ -12,17 +12,22 @@ namespace Portal.Consultoras.Entities
     public class BEConsultorasProgramaNuevas
     {
         [DataMember]
+        [Column("Campania")]
         public string Campania { get; set; }
         [DataMember]
+        [Column("CodigoConsultora")]
         public string CodigoConsultora { get; set; }
         [DataMember]
         [Column("CodigoPrograma")]
         public string CodigoPrograma { get; set; }
         [DataMember]
+        [Column("Participa")]
         public string Participa { get; set; }
         [DataMember]
+        [Column("Motivo")]
         public string Motivo { get; set; }
         [DataMember]
+        [Column("MontoVentaExigido")]
         public decimal MontoVentaExigido { get; set; }
 
         [DataMember]

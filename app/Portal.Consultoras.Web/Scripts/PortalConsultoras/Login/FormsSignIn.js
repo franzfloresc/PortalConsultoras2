@@ -620,44 +620,46 @@ function ValidarFormulario() {
 }
 
 function AsignarHojaEstilos() {
-    var objEstiloEsika = $('#cssStyle>link');
-    var objEstiloLbel = $('#cssStyleLbel>link');
+    //var objEstiloEsika = $('#cssStyle>link');
+    //var objEstiloLbel = $('#cssStyleLbel>link')
+
+    // Segun el nuevo cambio dentro del _LoginLayout.cshtml
+    // solo habra un objeto <link src="current/src/style" /> el src cambiara dinamicamente con JS
+    var $currentBelcorpStyle = $(".current-belcorp-style");
+    var $currentLink = $currentBelcorpStyle.find("link");
 
     if (paisesEsika.indexOf(imgISO) != -1) {
-        if (objEstiloEsika.prop('disabled') !== undefined) {
-            $("body").css("visibility", "hidden");
+
             document.title = ' ÉSIKA ';
             $("link[data-id='iconPagina']").attr("href", "/Content/Images/Esika/favicon.ico");
-            objEstiloEsika.prop('disabled', false);
-            objEstiloLbel.prop('disabled', true);
+
+            $currentLink.attr('href', $currentBelcorpStyle.data("srcesika"));
+
             Fondofestivo("hddFondoFestivoEsika");
-            window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
-        }
+
         $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
         $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
     }
     else if (paisesLBel.indexOf(imgISO) != -1) {
-        if (objEstiloLbel.prop('disabled') !== undefined) {
-            $("body").css("visibility", "hidden");
+
             document.title = " L'BEL ";
             $("link[data-id='iconPagina']").attr("href", "/Content/Images/Lbel/favicon.ico");
-            objEstiloEsika.prop('disabled', true);
-            objEstiloLbel.prop('disabled', false);
+
+            $currentLink.attr('href', $currentBelcorpStyle.data("srclbel"));
+
             Fondofestivo("hddFondoFestivoLebel");
-            window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
-        }
+
         $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
         $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
     } else {
-        if (objEstiloEsika.attr('disabled') !== undefined) {
-            $("body").css("visibility", "hidden");
+
             document.title = ' ÉSIKA ';
             $("link[data-id='iconPagina']").attr("href", "/Content/Images/Esika/favicon.ico");
-            objEstiloEsika.prop('disabled', false);
-            objEstiloLbel.prop('disabled', true);
+
+            $currentLink.attr('href', $currentBelcorpStyle.data("srcesika"));
+
             Fondofestivo("hddFondoFestivoEsika");
-            window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
-        }
+
         $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top -7px left -10px no-repeat");
         $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top -7px left -10px no-repeat");
     }

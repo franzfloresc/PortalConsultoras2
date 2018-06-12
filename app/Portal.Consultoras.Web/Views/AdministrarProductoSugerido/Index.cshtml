@@ -1,4 +1,5 @@
 ﻿@using Mensajes = Portal.Consultoras.Common.Constantes.MatrizNemotecnicoMensajes
+@using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.AdministrarProductoSugeridoModel
 @{
     ViewBag.Title = "Administración de Producto Sugerido";
@@ -31,7 +32,7 @@
             <div class="div-3">
                 <div class="titG">País:</div>
                 <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.lstPais, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })                    
+                    @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.lstPais, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
                 </div>
                 <span class="color_red" style="width:5px;">*</span>
                 <div class="titG">Campaña:</div>
@@ -55,7 +56,7 @@
                     <input type="text" id="txtCUVSugerido" />
                 </div>
                 <span class="color_red" style="width:5px;"></span>
-            </div>  
+            </div>
             <div class="div-3">
                 <div class="titG"><span class="color_red" style="float: none;width:5px;">*</span></div>
                 <div class="selectA borde_redondeado" style="border: none; padding: 9px 18px 9px 0;">
@@ -69,9 +70,9 @@
                     </div>
                     <div class="input_search titD" style="width: 100px;">
                         <input type="button" value="Nuevo" id="btnNuevo" name="">
-                    </div>                    
+                    </div>
                 </div>
-            </div>          
+            </div>
         </div>
     </div>
 </div>
@@ -93,7 +94,7 @@
         <div class="div-3">
             <div class="titG">Campaña:</div>
             <div class="selectA borde_redondeado">
-                @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.lstCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampaniaModal", @class ="man" })
+                @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.lstCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampaniaModal", @class = "man" })
             </div>
             <span class="color_red" style="width: 5px;">*</span>
         </div>
@@ -122,10 +123,10 @@
                 <input type="hidden" id="hdnIdMatrizComercial" />
                 <input type="hidden" id="hdnDescripcion" />
                 <input type="hidden" id="hdnDescripcionOriginal" />
-                <input type="text" id="txtDescripcionProductoComercial" readonly="readonly"/>
+                <input type="text" id="txtDescripcionProductoComercial" readonly="readonly" />
             </div>
 
-            <div class="titG" style="display: none;" >¿Habilitar Producto Sugerido?</div>
+            <div class="titG" style="display: none;">¿Habilitar Producto Sugerido?</div>
             <div class="selectCheck borde_redondeado" style="display: none;">
                 <input type="checkbox" class="check" id="chkHabilitar" />
             </div>
@@ -135,11 +136,18 @@
             <div class="titG2">
                 <div class="pdr_modal borde_redondeado aligncenter">
                     <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="previewAppCatalogo" class="img-matriz-preview">
-            </div>
+                </div>
                 <div class="pdr_modal_check aligncenter">
                     <input type="checkbox" id="chkImagenProductoAppCatalogo" class="chkImagenProducto">
                 </div>
             </div>
+            @if (Convert.ToInt32(Model.MostrarAgotado) == 1)
+            {
+                <div class="titG2" style="margin-left: 80px;width: 250px;">
+                    <input type="checkbox" id="chkMostrarAgotado" style="display: inline-block !important;vertical-align: middle;">
+                    <label style="display: inline-block;">Mostrar s&oacute;lo cuando est&eacute; agotado</label>
+                </div>
+            }
         </div>
         <div class="div-3 divPanelImagen" style="padding-bottom:0px; margin-bottom:0px">
             @Html.Partial("ListadoImagenesMatriz")
@@ -207,7 +215,7 @@
             productoSugeridoObj.editarDescripcionComercial(idImagen);
         };
     });
-    
+
 </script>
 <script type="text/javascript" id="js-FuctReady">
     function CargarEventos() {
@@ -222,7 +230,7 @@
             }
             CargarCampaniaModal(Id, 'ddlCampania, ddlCampaniaModal');
         });
-    
+
         $("#btnBuscar").click(function () {
             var msjex = "";
             if ($("#ddlPais").val() == "")
@@ -241,7 +249,7 @@
 
             fnGrilla();
         });
-        
+
         $("#btnNuevo").click(function () {
             var op = $("#ddlCampaniaModal option").length;
             if (op == 1) {
@@ -254,7 +262,7 @@
 
             showDialog("DialogRegistroProductoSugerido");
         });
-               
+
         $("#txtCUVSugeridoModal,#ddlCampaniaModal").change(function () {
             CargarImagenSugerido();
         });
@@ -277,7 +285,7 @@
         var imagenOnClick = function () {
             $("#imgPreview").attr("src", $(this).attr("src"));
             var index = $(this).attr("id").split("-");
-            var descripcionComercial = $("#descripcion-comercial-"+index[2]).attr("value");
+            var descripcionComercial = $("#descripcion-comercial-" + index[2]).attr("value");
             var idMatrizComercial = $("#id-matriz-comercial-imagen-" + index[2]).attr("value");
             var editData = {
                 IdMatrizComercialImagen: idMatrizComercial,
@@ -305,24 +313,24 @@
             width: 800,
             draggable: true,
             title: "Ingreso/Edición Reemplazos Sugeridos",
-            open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
+            open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
             buttons:
-            {
-                "Guardar": function () {
-                    var vMessage = RegistroValidar();
-                    if (vMessage != "") {
-                        alert(vMessage);
-                        return false;
+                {
+                    "Guardar": function () {
+                        var vMessage = RegistroValidar();
+                        if (vMessage != "") {
+                            alert(vMessage);
+                            return false;
+                        }
+
+                        RegistrarProductoSugerido();
+                    },
+                    "Cancelar": function () {
+                        $(this).dialog('close');
                     }
-                    
-                    RegistrarProductoSugerido();                    
-                },
-                "Cancelar": function () {
-                    $(this).dialog('close');
                 }
-            }
         });
-        
+
         $('#divVistaPrevia').dialog({
             autoOpen: false,
             resizable: false,
@@ -332,19 +340,19 @@
             draggable: false,
             title: "Vista previa",
             buttons:
-             {
-                 "Cerrar": function () {
-                     if(isVistaPreviaOpened){
-                         var params =  { idMatrizComercial : $('#hdnIdMatrizComercial').val()};
-                         productoSugeridoObj.obtenerImagenes(params, 1, true).done(function () {
-                             showDialog("matriz-comercial-dialog");
-                             closeWaitingDialog();
-                         });
-                     }
-                     isVistaPreviaOpened = false;
-                     $(this).dialog('close');
-                 }
-             }
+                {
+                    "Cerrar": function () {
+                        if (isVistaPreviaOpened) {
+                            var params = { idMatrizComercial: $('#hdnIdMatrizComercial').val() };
+                            productoSugeridoObj.obtenerImagenes(params, 1, true).done(function () {
+                                showDialog("matriz-comercial-dialog");
+                                closeWaitingDialog();
+                            });
+                        }
+                        isVistaPreviaOpened = false;
+                        $(this).dialog('close');
+                    }
+                }
         });
     }
 
@@ -374,7 +382,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['Id', 'Campaña', 'CUV Agotado', 'CUV Sugerido', 'Orden', 'ImagenProducto', 'Estado', 'Foto', 'Opciones'],
+            colNames: ['Id', 'Campaña', 'CUV Agotado', 'CUV Sugerido', 'Orden', 'ImagenProducto', 'Estado', 'MostrarAgotado', 'Foto', 'Opciones'],
             colModel: [
                 { name: 'ProductoSugeridoID', index: 'ProductoSugeridoID', key: true, hidden: true },
                 { name: 'CampaniaID', index: 'CampaniaID', width: 50, align: 'center', resizable: false },
@@ -383,6 +391,7 @@
                 { name: 'Orden', index: 'Orden', width: 35, align: 'center', resizable: false },
                 { name: 'ImagenProducto', index: 'ImagenProducto', hidden: true },
                 { name: 'Estado', index: 'Estado', hidden: true },
+                { name: 'MostrarAgotado', index: 'MostrarAgotado', hidden: true},
                 { name: 'Imagen', index: 'Imagen', width: 55, align: 'center', resizable: false, formatter: ShowImage },
                 { name: 'Options', index: 'Options', width: 60, sortable: false, align: 'center', resizable: false, formatter: ShowActions }
             ],
@@ -423,7 +432,7 @@
         function ShowImage(cellvalue, options, rowObject) {
             var image = $.trim(rowObject[5]);
             var filename = image.replace(/^.*[\\\/]/, '');
-            image = '<img src="' + (filename != "" ? image : imageUrlVacio) + '" alt="" width="70px" height="60px" title="" border="0" />';            
+            image = '<img src="' + (filename != "" ? image : imageUrlVacio) + '" alt="" width="70px" height="60px" title="" border="0" />';
             return image;
         };
 
@@ -456,19 +465,19 @@
             $.each(listaCombo, function (index, combo) {
                 LimpiarDependencias($.trim(combo));
             });
-            
+
             data = data || new Object();
             data.lista = data.lista || new Array();
             if (data.lista.length == 0) {
                 closeWaitingDialog();
                 return false;
             }
-            
+
             productoSugeridoObj.actualizarParNemotecnico(data.habilitarNemotecnico);
 
-            if(data.habilitarNemotecnico) {
+            if (data.habilitarNemotecnico) {
                 $("#matriz-busqueda-nemotecnico").show();
-            }else{
+            } else {
                 $("#matriz-busqueda-nemotecnico").hide();
             }
 
@@ -489,7 +498,7 @@
             });
 
             closeWaitingDialog();
-            
+
         });
     }
 
@@ -506,7 +515,7 @@
 
         waitingDialog({});
         var params = { paisID: paisID, campaniaID: campaniaID, cuv: cuv };
-        
+
         productoSugeridoObj.obtenerMatriz(params).done(function (data) {
             if (data) {
                 $(".divPanelImagen img").attr("src", imageUrlVacio);
@@ -566,7 +575,7 @@
         var vMessage = "";
         if (jQuery.trim($('#ddlCampaniaModal').val()) == "")
             vMessage += "- Debe seleccionar una campaña.\n";
-        
+
         if (jQuery.trim($('#txtCUVModal').val()) == "")
             vMessage += "- Debe ingresar un CUV agotado.\n";
 
@@ -575,7 +584,7 @@
 
         if (jQuery.trim($('#txtOrdenModal').val()) == "")
             vMessage += "- Debe ingresar el orden.\n";
-        
+
         if (vMessage != "") {
             vMessage = "La información ingresada se encuentra incompleta. Por favor, revisar." + "\n" + vMessage;
         }
@@ -593,7 +602,8 @@
             Estado: $("#chkHabilitar").attr('checked') ? 1 : 0,
             DescripcionComercial: $('#txtDescripcionProductoComercial').val(),
             ImagenProducto: imagen,
-            PaisID: paisID
+            PaisID: paisID,
+            MostrarAgotado: $('#chkMostrarAgotado').length ? $('#chkMostrarAgotado').attr('checked') ? 1 : 0 : 0
         };
         jQuery.ajax({
             type: 'POST',
@@ -623,7 +633,7 @@
         });
 
     }
-    
+
     function CargarDatosMatrizComercial(matriz, imgRow) {
         LimpiarDatosMatrizComercial();
         imagen = '';
@@ -678,10 +688,18 @@
                     $('#txtCUVSugeridoModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'CUVSugerido'));
                     $('#txtOrdenModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'Orden'));
                     var estado = jQuery("#list").jqGrid('getCell', rowPk, 'Estado');
-                    if (estado == "True" || estado == "true" || estado == "1")
+                    if (estado == "True" || estado == "true" || estado == "1") {
                         $('#chkHabilitar').attr('checked', true);
-                    else
+                    } else {
                         $('#chkHabilitar').removeAttr('checked');
+                    }
+
+                    var mostrarAgotado = jQuery("#list").jqGrid('getCell', rowPk, 'MostrarAgotado');
+                    if (mostrarAgotado == "1" || mostrarAgotado == 1) {
+                        $('#chkMostrarAgotado').prop('checked', true);
+                    } else {
+                        $('#chkMostrarAgotado').prop('checked', false);
+                    }
 
                     var imgRow = jQuery("#list").jqGrid('getCell', rowPk, 'ImagenProducto') || "";
                     imgRow = imgRow == imageUrlVacio ? "" : $.trim(imgRow);
@@ -735,7 +753,7 @@
                     alert(data.message);
                     if (data.success == true) {
                         $("#btnBuscar").click();
-                    }                    
+                    }
                 },
                 error: function (data, error) {
                     if (checkTimeout(data)) {

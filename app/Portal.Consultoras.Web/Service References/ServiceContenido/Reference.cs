@@ -394,6 +394,9 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         private int CampaniaIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigosConsultoraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ConfiguracionZonaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -407,6 +410,9 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SegmentoInternoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TipoAccesoField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -440,6 +446,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((this.CampaniaIdField.Equals(value) != true)) {
                     this.CampaniaIdField = value;
                     this.RaisePropertyChanged("CampaniaId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigosConsultora {
+            get {
+                return this.CodigosConsultoraField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigosConsultoraField, value) != true)) {
+                    this.CodigosConsultoraField = value;
+                    this.RaisePropertyChanged("CodigosConsultora");
                 }
             }
         }
@@ -505,6 +524,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((object.ReferenceEquals(this.SegmentoInternoField, value) != true)) {
                     this.SegmentoInternoField = value;
                     this.RaisePropertyChanged("SegmentoInterno");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TipoAcceso {
+            get {
+                return this.TipoAccesoField;
+            }
+            set {
+                if ((this.TipoAccesoField.Equals(value) != true)) {
+                    this.TipoAccesoField = value;
+                    this.RaisePropertyChanged("TipoAcceso");
                 }
             }
         }
@@ -3294,10 +3326,10 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEBannerSegmentoZona[]> GetBannerPaisesAsignadosAsync(int CampaniaId, int BannerId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/UpdBannerPaisSegmentoZona", ReplyAction="http://tempuri.org/IContenidoService/UpdBannerPaisSegmentoZonaResponse")]
-        void UpdBannerPaisSegmentoZona(int CampaniaId, int BannerId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInterno);
+        void UpdBannerPaisSegmentoZona(Portal.Consultoras.Web.ServiceContenido.BEBannerSegmentoZona segmentoZona);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/UpdBannerPaisSegmentoZona", ReplyAction="http://tempuri.org/IContenidoService/UpdBannerPaisSegmentoZonaResponse")]
-        System.Threading.Tasks.Task UpdBannerPaisSegmentoZonaAsync(int CampaniaId, int BannerId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInterno);
+        System.Threading.Tasks.Task UpdBannerPaisSegmentoZonaAsync(Portal.Consultoras.Web.ServiceContenido.BEBannerSegmentoZona segmentoZona);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/DeleteCacheBanner", ReplyAction="http://tempuri.org/IContenidoService/DeleteCacheBannerResponse")]
         void DeleteCacheBanner(int CampaniaID);
@@ -3893,12 +3925,12 @@ namespace Portal.Consultoras.Web.ServiceContenido {
             return base.Channel.GetBannerPaisesAsignadosAsync(CampaniaId, BannerId);
         }
         
-        public void UpdBannerPaisSegmentoZona(int CampaniaId, int BannerId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInterno) {
-            base.Channel.UpdBannerPaisSegmentoZona(CampaniaId, BannerId, PaisId, Segmento, ConfiguracionZona, SegmentoInterno);
+        public void UpdBannerPaisSegmentoZona(Portal.Consultoras.Web.ServiceContenido.BEBannerSegmentoZona segmentoZona) {
+            base.Channel.UpdBannerPaisSegmentoZona(segmentoZona);
         }
         
-        public System.Threading.Tasks.Task UpdBannerPaisSegmentoZonaAsync(int CampaniaId, int BannerId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInterno) {
-            return base.Channel.UpdBannerPaisSegmentoZonaAsync(CampaniaId, BannerId, PaisId, Segmento, ConfiguracionZona, SegmentoInterno);
+        public System.Threading.Tasks.Task UpdBannerPaisSegmentoZonaAsync(Portal.Consultoras.Web.ServiceContenido.BEBannerSegmentoZona segmentoZona) {
+            return base.Channel.UpdBannerPaisSegmentoZonaAsync(segmentoZona);
         }
         
         public void DeleteCacheBanner(int CampaniaID) {

@@ -150,7 +150,7 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo);
 
         EstrategiaPersonalizadaProductoModel GetProductoTemporal();
-        
+
         void SetEstrategiaODD(Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel data);
 
         Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel GetEstrategiaODD();

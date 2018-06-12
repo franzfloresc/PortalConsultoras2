@@ -1,8 +1,5 @@
-﻿using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Common;
-using System;
-using System.Data;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Portal.Consultoras.Entities
 {
@@ -10,25 +7,13 @@ namespace Portal.Consultoras.Entities
     public class BEMensajeMetaConsultora
     {
         [DataMember]
+        [Column("TipoMensaje")]
         public string TipoMensaje { get; set; }
         [DataMember]
+        [Column("Titulo")]
         public string Titulo { get; set; }
         [DataMember]
+        [Column("Mensaje")]
         public string Mensaje { get; set; }
-
-        public BEMensajeMetaConsultora()
-        {
-
-        }
-        public BEMensajeMetaConsultora(IDataRecord datarec)
-        {
-            if (DataRecord.HasColumn(datarec, "TipoMensaje"))
-                TipoMensaje = DbConvert.ToString(datarec["TipoMensaje"]);
-            if (DataRecord.HasColumn(datarec, "Titulo"))
-                Titulo = DbConvert.ToString(datarec["Titulo"]);
-            if (DataRecord.HasColumn(datarec, "Mensaje"))
-                Mensaje = DbConvert.ToString(datarec["Mensaje"]);
-
-        }
     }
 }
