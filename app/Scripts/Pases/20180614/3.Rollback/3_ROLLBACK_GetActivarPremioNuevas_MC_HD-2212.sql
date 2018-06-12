@@ -69,11 +69,3 @@ GO
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.GetActivarPremioNuevas') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE dbo.GetActivarPremioNuevas
 GO
-
-USE [BelcorpVenezuela]
-GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.GetActivarPremioNuevas') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE dbo.GetActivarPremioNuevas
-GO
-
-

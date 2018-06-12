@@ -334,33 +334,3 @@ BEGIN
 
 END
 GO
-
-USE [BelcorpVenezuela]
-GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.GetActivarPremioNuevas') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE dbo.GetActivarPremioNuevas
-GO
-CREATE PROCEDURE dbo.GetActivarPremioNuevas
-@CodigoPrograma				varchar(10),
-@CampaniaID					int, 
-@CodigoNivel				varchar (10)
-AS
-BEGIN
-
-	select 
-		CodigoPrograma		,
-		AnoCampana			,
-		Nivel				,
-		ActiveTooltip		,
-		ActiveTooltipMonto	,
-		Active				,
-		FechaCreate				
-	from dbo.ActivarPremioNuevas  
-	where codigoprograma= @CodigoPrograma 
-		and anocampana= @CampaniaID 
-		and (@CodigoNivel = '' or Nivel = @CodigoNivel)
-
-END
-GO
-
-
