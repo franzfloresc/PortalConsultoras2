@@ -37,9 +37,9 @@ namespace Portal.Consultoras.Web.SessionManager
 
         bool GetMostrarShowRoomProductosExpiro();
 
-        void SetTiposEstrategia(List<BETipoEstrategia> tiposEstrategia);
+        void SetTiposEstrategia(List<ServicePedido.BETipoEstrategia> tiposEstrategia);
 
-        List<BETipoEstrategia> GetTiposEstrategia();
+        List<ServicePedido.BETipoEstrategia> GetTiposEstrategia();
 
         void SetRevistaDigital(RevistaDigitalModel revistaDigital);
 
@@ -150,7 +150,14 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo);
 
         EstrategiaPersonalizadaProductoModel GetProductoTemporal();
-        
+
+        void SetEstrategiaODD(Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel data);
+
+        Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel GetEstrategiaODD();
+
+        void SetEstrategiaSR(Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel data);
+        Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel GetEstrategiaSR();
+
         void SetPedidosFacturados(PedidoWebClientePrincipalMobilModel model);
 
         PedidoWebClientePrincipalMobilModel GetPedidosFacturados();

@@ -1,4 +1,6 @@
 ﻿
+var lsListaRD = lsListaRD || "ListaRD";
+
 $(document).ready(function () {
     "use strict";
     var clickabrir = 1;
@@ -88,6 +90,11 @@ function RDSuscripcion() {
                 return false;
             }
 
+            if (data.revistaDigital) {
+                var key = lsListaRD + data.CampaniaID;
+                RDActualizarTipoAccionAgregar(data.revistaDigital, key);
+            }
+
             $("#PopRDSuscripcion").css("display", "block");
 
             $(".popup_confirmacion_datos .form-datos input").keyup(); //to update button style
@@ -138,19 +145,17 @@ function RDDesuscripcion() {
                 return false;
             }
 
+            if (data.revistaDigital) {
+                var key = lsListaRD + data.CampaniaID;
+                RDActualizarTipoAccionAgregar(data.revistaDigital, key);
+            }
+
             window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
         },
         error: function (data, error) {
             CerrarLoad();
         }
     });
-}
-
-function RDRedireccionarDetalle(event) {
-    var obj = EstrategiaObtenerObj(event);
-    EstrategiaGuardarTemporal(obj);
-    var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital/Detalle");
-    window.location = url + "?cuv=" + obj.CUV2 + "&campaniaId=" + obj.CampaniaID;
 }
 
 function MostrarTerminos() {

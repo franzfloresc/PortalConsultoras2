@@ -450,7 +450,7 @@
     };
 
     var mostrarPopupGanaste = function () {
-        var simbolo = "%";
+        var simboloPorcen = "%";
         var valor = parseInt(setting.Cupon.FormatoValorAsociado);
         var campania = setting.CampaniaActual.substring(4);
 
@@ -492,7 +492,7 @@
 
     var mostrarContenedorInfo = function () {
         var mensaje = "";
-        var simbolo = (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO ? setting.SimboloMoneda : "%");
+        var simboloValor = (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO ? setting.SimboloMoneda : "%");
         var valor = (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO ? setting.Cupon.FormatoValorAsociado : parseInt(setting.Cupon.FormatoValorAsociado));
         var ofertasPlan20Promise = obtenerOfertasPlan20EnPedidoPormise();
 
@@ -502,9 +502,9 @@
                 setting.TieneOfertasPlan20 = response.tieneOfertasPlan20;
                 if (response.tieneOfertasPlan20) {      
                     if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {       
-                        mensaje = "<b style='font-weight: 900'>¡TIENES UN CUPÓN DE DSCTO DE " + simbolo + " " + valor + "!</b><br>MONTO MÁXIMO DE DSCTO DE " + setting.SimboloMoneda + " " + setting.Cupon.MontoLimiteFormateado +" <br>Lo verás reflejado en tu facturación";      
+                        mensaje = "<b style='font-weight: 900'>¡TIENES UN CUPÓN DE DSCTO DE " + simboloValor + " " + valor + "!</b><br>MONTO MÁXIMO DE DSCTO DE " + setting.SimboloMoneda + " " + setting.Cupon.MontoLimiteFormateado +" <br>Lo verás reflejado en tu facturación";      
                     } else {
-                        mensaje = "<b style='font-weight: 900'>¡TIENES UN CUPÓN DE DSCTO DE " + valor + simbolo + "!</b><br>MONTO MÁXIMO DE DSCTO DE " + setting.SimboloMoneda + " " + setting.Cupon.MontoLimiteFormateado + "<br>Lo verás reflejado en tu facturación";
+                        mensaje = "<b style='font-weight: 900'>¡TIENES UN CUPÓN DE DSCTO DE " + valor + simboloValor + "!</b><br>MONTO MÁXIMO DE DSCTO DE " + setting.SimboloMoneda + " " + setting.Cupon.MontoLimiteFormateado + "<br>Lo verás reflejado en tu facturación";
                     }
 
                     $("#divCondicionesCupon").hide();       
@@ -512,9 +512,9 @@
                 else {
                     var marca = isEsika ? "Ésika" : "L'bel";      
                     if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {       
-                        mensaje = "Agrega 1 oferta de Gana+ pasando pedido por el app " + marca + " Conmigo para hacer <span><b style='font-weight: 900'>válido tu " + simbolo + " " + valor + " DSCTO *</b></span>";       
+                        mensaje = "Agrega 1 oferta de Gana+ pasando pedido por el app " + marca + " Conmigo para hacer <span><b style='font-weight: 900'>válido tu " + simboloValor + " " + valor + " DSCTO *</b></span>";       
                     } else {    
-                        mensaje = "Agrega 1 oferta de Gana+ pasando pedido por el app " + marca + " Conmigo para hacer <span><b style='font-weight: 900'>válido tu " + valor + simbolo + " DSCTO *</b></span>";     
+                        mensaje = "Agrega 1 oferta de Gana+ pasando pedido por el app " + marca + " Conmigo para hacer <span><b style='font-weight: 900'>válido tu " + valor + simboloValor + " DSCTO *</b></span>";     
                     }   
 
                     $("#divCondicionesCupon").show();   

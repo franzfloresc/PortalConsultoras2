@@ -459,7 +459,7 @@
 				<b>{{item.SolucionSolicitada}}</b><br />
 				{{item.CUV}} - {{item.Descripcion}}<br />
 				{{item.Cantidad}} unidades<br />
-				Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio}}
+				Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}
 			</div>
 			<div class="listado_solicitud_reclamo">
 				<b>{{item.Solicitud}}</b>
@@ -477,7 +477,7 @@
 				{{item.CUV2}}<br />
 				{{item.Descripcion2}} <br />
 				{{item.Cantidad2}} unidades<br />
-				Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
+				Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
 				{{else}}
 				{{/if_eq}}
 			</div>
@@ -498,7 +498,7 @@
 			<b>{{item.SolucionSolicitada}}</b><br />
 			{{item.CUV}} - {{item.Descripcion}}<br />
 			{{item.Cantidad}} unidades<br />
-			Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio}}
+			Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}
 		</div>
 		<div class="listado_solicitud_reclamo">
 			<b>{{item.Solicitud}}</b>
@@ -516,7 +516,7 @@
 			{{item.CUV2}}<br />
 			{{item.Descripcion2}} <br />
 			{{item.Cantidad2}} unidades<br />
-			Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
+			Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
 			{{else}}
 			{{/if_eq}}
 		</div>

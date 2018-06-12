@@ -37,6 +37,7 @@
 
     <link href="@Url.Content("~/Content/Css/Mobile/flexslider.css")" rel="stylesheet" type="text/css" />
 
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpVariablesGeneralesPortal.cshtml")
     <script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))' == "True";
     </script>
@@ -103,6 +104,7 @@
     <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
     <script src="/Scripts/bootstrap.js"></script>
     <script src="/Scripts/accordion.js"></script>
+    <script src="~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js"></script>
     <script src="/Scripts/General.js"></script>
     <script src="/Scripts/LogError.js"></script>
 
@@ -125,7 +127,6 @@
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
 
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
-        var vbSimbolo = '@ViewBag.Simbolo';
         var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
         var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
         var estaRechazado = '@ViewBag.IndicadorGPRSB';
