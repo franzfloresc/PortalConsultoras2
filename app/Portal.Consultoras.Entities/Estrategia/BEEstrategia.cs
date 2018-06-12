@@ -291,6 +291,10 @@ namespace Portal.Consultoras.Entities
         public string EstrategiaProductoCodigoSAP { get; set; }
         [DataMember]
         public List<BEEstrategiaProducto> EstrategiaProducto { get; set; }
+        [DataMember]
+        public string FotoProductoSmall { get; set; }
+        [DataMember]
+        public string FotoProductoMedium { get; set; }
 
 
         public BEEstrategia()
