@@ -70,15 +70,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Constructor
 
-        public BaseController()
+        public BaseController():this(SessionManager.SessionManager.Instance, LogManager.LogManager.Instance)
         {
             userData = new UsuarioModel();
-            logManager = LogManager.LogManager.Instance;
-            sessionManager = SessionManager.SessionManager.Instance;
+            //
             _tablaLogicaProvider = new TablaLogicaProvider();
             _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
-            //estrategiaODD = sessionManager.GetEstrategiaODD() ?? new Models.Estrategia.OfertaDelDia.DataModel();
-            //configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
             _baseProvider = new BaseProvider();
             _guiaNegocioProvider = new GuiaNegocioProvider();
             _ofertaPersonalizadaProvider = new OfertaPersonalizadaProvider();
@@ -88,14 +85,16 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public BaseController(ISessionManager sessionManager)
-            : this()
         {
+            userData = new UsuarioModel();
+            //
             this.sessionManager = sessionManager;
         }
 
         public BaseController(ISessionManager sessionManager, ILogManager logManager)
-            : this()
         {
+            userData = new UsuarioModel();
+            //
             this.sessionManager = sessionManager;
             this.logManager = logManager;
         }
