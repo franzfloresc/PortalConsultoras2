@@ -56,7 +56,6 @@ namespace Portal.Consultoras.Web.Controllers
         protected ISessionManager sessionManager;
         protected ILogManager logManager;
         private readonly TablaLogicaProvider _tablaLogicaProvider;
-        private readonly ShowRoomProvider _showRoomProvider;
         protected DataModel estrategiaODD;
         protected ConfigModel configEstrategiaSR;
         public readonly BaseProvider _baseProvider;
@@ -65,6 +64,8 @@ namespace Portal.Consultoras.Web.Controllers
         public readonly ConfiguracionManagerProvider _configuracionManagerProvider;
         public readonly OfertaViewProvider _ofertasViewProvider;
         public readonly RevistaDigitalProvider _revistaDigitalProvider;
+        private readonly ShowRoomProvider _showRoomProvider;
+        private readonly OfertaDelDiaProvider _ofertaDelDiaProvider;
         #endregion
 
         #region Constructor
@@ -75,15 +76,14 @@ namespace Portal.Consultoras.Web.Controllers
             logManager = LogManager.LogManager.Instance;
             sessionManager = SessionManager.SessionManager.Instance;
             _tablaLogicaProvider = new TablaLogicaProvider();
-            _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
-            //estrategiaODD = sessionManager.GetEstrategiaODD() ?? new Models.Estrategia.OfertaDelDia.DataModel();
-            //configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
             _baseProvider = new BaseProvider();
             _guiaNegocioProvider = new GuiaNegocioProvider();
             _ofertaPersonalizadaProvider = new OfertaPersonalizadaProvider();
             _configuracionManagerProvider = new ConfiguracionManagerProvider();
             _ofertasViewProvider = new OfertaViewProvider();
             _revistaDigitalProvider = new RevistaDigitalProvider();
+            _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
+            _ofertaDelDiaProvider = new OfertaDelDiaProvider();
         }
 
         public BaseController(ISessionManager sessionManager)
@@ -122,7 +122,7 @@ namespace Portal.Consultoras.Web.Controllers
                 guiaNegocio = sessionManager.GetGuiaNegocio();
                 estrategiaODD = sessionManager.GetEstrategiaODD();
 
-                configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
+                configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new ConfigModel();
                 if (!configEstrategiaSR.CargoEntidadesShowRoom) CargarEntidadesShowRoom(userData);
 
                 if (Request.IsAjaxRequest())
@@ -2305,21 +2305,42 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected OfertaDelDiaModel GetOfertaDelDiaModel()
         {
-            if (estrategiaODD.ListaDeOferta == null)
-                return null;
+            if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                return new OfertaDelDiaModel();
 
-            if (!estrategiaODD.ListaDeOferta.Any())
-                return null;
+            var sessionOfertaDelDia = sessionManager.GetEstrategiaODD();
+
+            if (sessionOfertaDelDia != null)
+            {
+                if (sessionOfertaDelDia.ListaDeOferta != null && sessionOfertaDelDia.ListaDeOferta.Any())
+                    return sessionOfertaDelDia.ListaDeOferta.First();
+            }
+
+            var listaOfertas = _ofertaDelDiaProvider.GetOfertaDelDiaModel(userData);
+
+            if (listaOfertas == null)
+                return new OfertaDelDiaModel();
+
+            estrategiaODD.ListaDeOferta = listaOfertas;
+            userData.TieneOfertaDelDia = estrategiaODD.ListaDeOferta.Any();
+
+            //if (estrategiaODD.ListaDeOferta == null)
+            //    return null;
+
+            //if (!estrategiaODD.ListaDeOferta.Any())
+            //    return null;
 
             var model = estrategiaODD.ListaDeOferta.First().Clone();
             model.ListaOfertas = estrategiaODD.ListaDeOferta;
-            short posicion = 1;
             var tiposEstrategia = sessionManager.GetTiposEstrategia();
+            short posicion = 1;
+
             if (tiposEstrategia == null)
             {
                 tiposEstrategia = GetTipoEstrategias();
                 sessionManager.SetTiposEstrategia(tiposEstrategia);
             }
+
             foreach (var oferta in model.ListaOfertas)
             {
                 oferta.Position = posicion++;
@@ -2331,9 +2352,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             model.TeQuedan = CountdownODD(userData);
-
             var configOdd = GetConfiguracionEstrategia(Constantes.ConfiguracionPais.OfertaDelDia);
             model.ConfiguracionContenedor = configOdd;
+            sessionManager.SetEstrategiaODD(estrategiaODD);
+
             return model;
         }
 
@@ -2361,6 +2383,22 @@ namespace Portal.Consultoras.Web.Controllers
 
             var t2 = (d2 - hoy);
             return t2;
+        }
+
+        private bool NoMostrarBannerODD()
+        {
+            var controllerName = ControllerContext.RouteData.Values["controller"].ToString();
+            switch (controllerName)
+            {
+                case "OfertaLiquidacion":
+                    return true;
+                case "CatalogoPersonalizado":
+                    return true;
+                case "ShowRoom":
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         public ConfiguracionSeccionHomeModel GetConfiguracionEstrategia(string codigoEstrategia)
@@ -3124,22 +3162,6 @@ namespace Portal.Consultoras.Web.Controllers
         protected JsonResult SuccessJson(string message, bool allowGet = false)
         {
             return Json(new { success = true, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
-        }
-
-        private bool NoMostrarBannerODD()
-        {
-            var controllerName = ControllerContext.RouteData.Values["controller"].ToString();
-            switch (controllerName)
-            {
-                case "OfertaLiquidacion":
-                    return true;
-                case "CatalogoPersonalizado":
-                    return true;
-                case "ShowRoom":
-                    return true;
-                default:
-                    return false;
-            }
         }
 
         public string ObtenerValorPersonalizacionShowRoom(string codigoAtributo, string tipoAplicacion)

@@ -52,6 +52,7 @@ $(document).ready(function () {
     };
 
     self.CargarODD = function () {
+        debugger;
         if (props.EsPaginaIntriga) {
             return false;
         }
@@ -169,6 +170,7 @@ $(document).ready(function () {
 
     var seAtacharonEventosOdd = false;
     self.CargarODDEscritorio = function (tipoOrigenPantallaODD) {
+        debugger;
         var contenedorOfertas = '';
 
         if (tipoOrigenPantallaODD == CONS_TIPO_ORIGEN.ESCRITORIO_HOME)
