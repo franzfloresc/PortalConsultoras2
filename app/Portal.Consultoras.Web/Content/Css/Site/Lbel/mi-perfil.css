@@ -57,6 +57,10 @@
     vertical-align:middle!important;
 }
 
+input:focus{
+    outline:0;
+}
+
 /* FIN - HELPERS */
 
 /* MI PERFIL */
