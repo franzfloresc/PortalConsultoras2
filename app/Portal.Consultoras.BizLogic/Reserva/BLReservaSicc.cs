@@ -1,4 +1,5 @@
 ﻿using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
+using Portal.Consultoras.BizLogic.Reserva.Rest;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
@@ -31,7 +32,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
         public async Task<BEResultadoReservaProl> ReservarPedido(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             BEPedidoSicc respuestaSicc = await ConsumirServExtReservar(input, listPedidoWebDetalle);
-            if (respuestaSicc == null || respuestaSicc.exitCode == 1) return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_Error);
+            if (respuestaSicc == null || respuestaSicc.exitCode == 1) return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_Error, false);
                         
             var resultado = new BEResultadoReservaProl
             {
@@ -41,13 +42,20 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 MontoAhorroRevista = 0,
                 MontoEscala = respuestaSicc.montoBaseDcto.ToDecimalSecure()
             };
-            
+
+            if (respuestaSicc.incentivos != null)
+            {
+                resultado.ListaConcursosCodigos = string.Join("|", respuestaSicc.incentivos.Select(i => i.codigoConcurso).ToArray());
+                resultado.ListaConcursosPuntaje = string.Join("|", respuestaSicc.incentivos.Select(i => i.puntajeTotal).ToArray());
+                resultado.ListaConcursosPuntajeExigido = string.Join("|", respuestaSicc.incentivos.Select(i => (i.puntajeExigido)).ToArray());
+            }
+
             var listMensajeObs = blTablaLogicaDatos.GetTablaLogicaDatosCache(input.PaisID, Constantes.TablaLogica.ProlObsCod);
             var pedidoObservacion = CreateCabPedidoObs(input, respuestaSicc, listMensajeObs);
             if (pedidoObservacion != null) resultado.ListPedidoObservacion.Add(pedidoObservacion);
 
             bool validarSap = input.FechaHoraReserva && respuestaSicc.indDeuda != "2";
-            var listDetExp = NewListPedidoWebDetalleExplotado(input, respuestaSicc.posiciones, listPedidoWebDetalle);
+            var listDetExp = NewListPedidoWebDetalleExplotado(input, respuestaSicc.posiciones);
             SetOrigPedWebAndListCuvOrigen(listDetExp, listPedidoWebDetalle);
             foreach (var detExp in listDetExp)
             {
@@ -103,7 +111,6 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 codigoCliente = input.CodigoConsultora,
                 indValiProl = input.FechaHoraReserva ? "1" : "0",
                 oidPedidoSap = pedidoSapId == 0 ? "" : pedidoSapId.ToString(),
-                //FALTA CODIGO CONCURSOS
                 posiciones = listPedidoWebDetalle.GroupBy(d => d.CUV).Select(g => new BEDetalleSicc
                 {
                     CUV = g.Key,
@@ -121,7 +128,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             return await RestClient.PutAsync<string>(Enumeradores.RestService.ReservaSicc, path, "");
         }
 
-        private List<BEPedidoWebDetalleExplotado> NewListPedidoWebDetalleExplotado(BEInputReservaProl input, BEDetalleSicc[] arrayDetalle, List<BEPedidoWebDetalle> listDetalle)
+        private List<BEPedidoWebDetalleExplotado> NewListPedidoWebDetalleExplotado(BEInputReservaProl input, BEDetalleSicc[] arrayDetalle)
         {
             return arrayDetalle.Select(d => new BEPedidoWebDetalleExplotado
             {
@@ -203,9 +210,9 @@ namespace Portal.Consultoras.BizLogic.Reserva
             BEPedidoWebDetalleExplotado detExp;
             BEPedidoWebDetalle original;
             string obsReemp;
-
+            
             //Primero oferta de niveles por separado para agregar los CUV's originales que no fueron devueltos por el servicio.
-            arbolExp.Where(nodExp => !string.IsNullOrEmpty(nodExp.Actual.ValCodiOrig)).ForEach(nodExp => {
+            arbolExp.Where(nodExp => EsExpOfertaNivel(nodExp.Actual)).ForEach(nodExp => {
                 nodo = arbolExp.FirstOrDefault(nx => nx.Actual.CUV == nodExp.Actual.ValCodiOrig);
                 if (nodo == null)
                 {
@@ -217,7 +224,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             });
             arbolExp.AddRange(listNodoOfertaNivel);
 
-            arbolExp.Where(nodExp => string.IsNullOrEmpty(nodExp.Actual.ValCodiOrig)).ForEach(nodExp => {
+            arbolExp.Where(nodExp => !EsExpOfertaNivel(nodExp.Actual)).ForEach(nodExp => {
                 if (nodExp.Actual.UnidadesDemandadas == 0)
                 {
                     listNodo = arbolExp.Where(d => d.Actual.IdOferta == nodExp.Actual.IdOferta && d.Actual.UnidadesDemandadas > 0).ToList();
@@ -243,7 +250,12 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
             return raiz;
         }
-        
+
+        private bool EsExpOfertaNivel(BEPedidoWebDetalleExplotado detExp)
+        {
+            return !string.IsNullOrEmpty(detExp.ValCodiOrig) && detExp.ValCodiOrig != detExp.CUV;
+        }
+
         private List<BEPedidoWebDetalleExplotado> GetExplotadoSinKitNueva(List<BEPedidoWebDetalleExplotado> listDetalleExp, List<BEPedidoWebDetalle> listDetalle)
         {
             var detKitNueva = listDetalle.FirstOrDefault(det => det.EsKitNueva);

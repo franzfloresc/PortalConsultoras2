@@ -48,25 +48,25 @@ namespace Portal.Consultoras.Entities.ShowRoom
         public BEShowRoomCompraPorCompra(IDataRecord datarec)
         {
             if (datarec.HasColumn("CompraxCompraID"))
-                CompraxCompraID = DbConvert.ToInt32(datarec["CompraxCompraID"]);
+                CompraxCompraID = Convert.ToInt32(datarec["CompraxCompraID"]);
             if (datarec.HasColumn("EventoID"))
-                EventoID = DbConvert.ToInt32(datarec["EventoID"]);
+                EventoID = Convert.ToInt32(datarec["EventoID"]);
             if (datarec.HasColumn("CUV"))
-                CUV = DbConvert.ToString(datarec["CUV"]);
+                CUV = Convert.ToString(datarec["CUV"]);
             if (datarec.HasColumn("SAP"))
-                SAP = DbConvert.ToString(datarec["SAP"]);
+                SAP = Convert.ToString(datarec["SAP"]);
             if (datarec.HasColumn("Orden"))
-                Orden = DbConvert.ToInt32(datarec["Orden"]);
+                Orden = Convert.ToInt32(datarec["Orden"]);
             if (datarec.HasColumn("PrecioValorizado"))
-                PrecioValorizado = DbConvert.ToDecimal(datarec["PrecioValorizado"]);
+                PrecioValorizado = Convert.ToDecimal(datarec["PrecioValorizado"]);
             if (datarec.HasColumn("UsuarioCreacion"))
-                UsuarioCreacion = DbConvert.ToString(datarec["UsuarioCreacion"]);
+                UsuarioCreacion = Convert.ToString(datarec["UsuarioCreacion"]);
             if (datarec.HasColumn("FechaCreacion"))
-                FechaCreacion = DbConvert.ToDateTime(datarec["FechaCreacion"]);
+                FechaCreacion = Convert.ToDateTime(datarec["FechaCreacion"]);
             if (datarec.HasColumn("UsuarioModificacion"))
-                UsuarioModificacion = DbConvert.ToString(datarec["UsuarioModificacion"]);
+                UsuarioModificacion = Convert.ToString(datarec["UsuarioModificacion"]);
             if (datarec.HasColumn("FechaModificacion"))
-                FechaModificacion = DbConvert.ToDateTime(datarec["FechaModificacion"]);
+                FechaModificacion = Convert.ToDateTime(datarec["FechaModificacion"]);
         }
     }
 }

@@ -47,21 +47,21 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "PaisNombre"))
                 PaisNombre = Convert.ToString(row["PaisNombre"]);
             if (DataRecord.HasColumn(row, "NombreCorto"))
-                NombreCorto = DbConvert.ToString(row["NombreCorto"]);
+                NombreCorto = Convert.ToString(row["NombreCorto"]);
             if (DataRecord.HasColumn(row, "ConsultoraID"))
-                ConsultoraID = DbConvert.ToInt64(row["ConsultoraID"]);
+                ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
             if (DataRecord.HasColumn(row, "Nombre"))
-                Nombre = DbConvert.ToString(row["Nombre"]);
+                Nombre = Convert.ToString(row["Nombre"]);
             if (DataRecord.HasColumn(row, "UrlSitio"))
-                UrlSitio = DbConvert.ToString(row["UrlSitio"]);
+                UrlSitio = Convert.ToString(row["UrlSitio"]);
             if (DataRecord.HasColumn(row, "ArchivoLogo"))
-                ArchivoLogo = DbConvert.ToString(row["ArchivoLogo"]);
+                ArchivoLogo = Convert.ToString(row["ArchivoLogo"]);
             if (DataRecord.HasColumn(row, "ArchivoInstructivo"))
-                ArchivoInstructivo = DbConvert.ToString(row["ArchivoInstructivo"]);
+                ArchivoInstructivo = Convert.ToString(row["ArchivoInstructivo"]);
             if (DataRecord.HasColumn(row, "TextoPago"))
-                TextoPago = DbConvert.ToString(row["TextoPago"]);
-            if (DataRecord.HasColumn(row, "ArchivoInstructivo"))
-                Posicion = DbConvert.ToInt32(row["Posicion"]);
+                TextoPago = Convert.ToString(row["TextoPago"]);
+            if (DataRecord.HasColumn(row, "Posicion"))
+                Posicion = Convert.ToInt32(row["Posicion"]);
         }
     }
 }

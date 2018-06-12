@@ -21,11 +21,11 @@ namespace Portal.Consultoras.Entities.ShowRoom
         public BEShowRoomPerfil(IDataRecord datarec)
         {
             if (DataRecord.HasColumn(datarec, "PerfilID"))
-                PerfilID = DbConvert.ToInt32(datarec["PerfilID"]);
+                PerfilID = Convert.ToInt32(datarec["PerfilID"]);
             if (DataRecord.HasColumn(datarec, "PerfilDescripcion"))
-                PerfilDescripcion = DbConvert.ToString(datarec["PerfilDescripcion"]);
+                PerfilDescripcion = Convert.ToString(datarec["PerfilDescripcion"]);
             if (DataRecord.HasColumn(datarec, "EventoID"))
-                EventoID = DbConvert.ToInt32(datarec["EventoID"]);
+                EventoID = Convert.ToInt32(datarec["EventoID"]);
         }
     }
 }
