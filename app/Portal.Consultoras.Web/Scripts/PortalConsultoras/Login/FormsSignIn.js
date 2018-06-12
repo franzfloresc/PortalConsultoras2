@@ -175,51 +175,7 @@ $(document).ready(function () {
     });
 
     Inicializar();
-
-    //$('#frmLogin').on('submit', function (e) {
-
-        //if ($('#popupRestaurarClave').is(':visible')) {
-        //    return false;
-        //}       
-
-        //// validation code here
-        //var valid = true;
-        //CodigoISO = $('#ddlPais').val();
-        //PaisID = getVALbyISO(CodigoISO);
-        //CodigoUsuario = jQuery.trim($("#txtUsuario").val());
-        //var Contrasenia = jQuery.trim($("#txtContrasenia").val());
-
-        //var mensaje = "";
-
-        //if (PaisID == "")
-        //    mensaje += "- Debe seleccionar el País del Usuario.\n";
-        //if (CodigoUsuario == "")
-        //    mensaje += "- Debe ingresar el Usuario.\n";
-        //if (Contrasenia == "")
-        //    mensaje += "- Debe ingresar la Clave Secreta.\n";
-
-        //$('#hdeCodigoISO').val(CodigoISO);
-        //$('#HdePaisID').val(PaisID);
-
-        //if (mensaje != "") {
-        //    valid = false;
-        //    alert(mensaje);
-        //    $('#ddlPais').focus();
-        //}
-
-        //if (!valid) {
-        //    e.preventDefault();
-        //    return false;
-        //}
-
-        //waitingDialog();
-
-        //preventClick(1, true);
-        //$('#btnLoginFB').prop('disabled', true);
-
-        //limpiar_local_storage();
-    //});
-
+    
     $("#txtUsuario").keypress(
         function (evt) {
             var charCode = (evt.which) ? evt.which : window.event.keyCode;
@@ -260,7 +216,6 @@ $(document).ready(function () {
             var charCode = (evt.which) ? evt.which : window.event.keyCode;
             if (charCode <= 13) {
                 $('#btnLogin2').focus();
-                //login2();
                 return false;
             }
         });
@@ -662,48 +617,49 @@ function AbrirMensajeLogin(tipo, close) {
 function ValidarFormulario() {
     $('#hdfContrasenia').val($('#txtContrasenia').val());
     IniciarLogin();
-    //$('#SubmitButton').click();
 }
 
 function AsignarHojaEstilos() {
-    var objEstiloEsika = $('#cssStyle>link');
-    var objEstiloLbel = $('#cssStyleLbel>link');
+    //var objEstiloEsika = $('#cssStyle>link');
+    //var objEstiloLbel = $('#cssStyleLbel>link')
+
+    // Segun el nuevo cambio dentro del _LoginLayout.cshtml
+    // solo habra un objeto <link src="current/src/style" /> el src cambiara dinamicamente con JS
+    var $currentBelcorpStyle = $(".current-belcorp-style");
+    var $currentLink = $currentBelcorpStyle.find("link");
 
     if (paisesEsika.indexOf(imgISO) != -1) {
-        if (objEstiloEsika.prop('disabled') !== undefined) {
-            $("body").css("visibility", "hidden");
+
             document.title = ' ÉSIKA ';
             $("link[data-id='iconPagina']").attr("href", "/Content/Images/Esika/favicon.ico");
-            objEstiloEsika.prop('disabled', false);
-            objEstiloLbel.prop('disabled', true);
+
+            $currentLink.attr('href', $currentBelcorpStyle.data("srcesika"));
+
             Fondofestivo("hddFondoFestivoEsika");
-            window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
-        }
+
         $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
         $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
     }
     else if (paisesLBel.indexOf(imgISO) != -1) {
-        if (objEstiloLbel.prop('disabled') !== undefined) {
-            $("body").css("visibility", "hidden");
+
             document.title = " L'BEL ";
             $("link[data-id='iconPagina']").attr("href", "/Content/Images/Lbel/favicon.ico");
-            objEstiloEsika.prop('disabled', true);
-            objEstiloLbel.prop('disabled', false);
+
+            $currentLink.attr('href', $currentBelcorpStyle.data("srclbel"));
+
             Fondofestivo("hddFondoFestivoLebel");
-            window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
-        }
+
         $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
         $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
     } else {
-        if (objEstiloEsika.attr('disabled') !== undefined) {
-            $("body").css("visibility", "hidden");
+
             document.title = ' ÉSIKA ';
             $("link[data-id='iconPagina']").attr("href", "/Content/Images/Esika/favicon.ico");
-            objEstiloEsika.prop('disabled', false);
-            objEstiloLbel.prop('disabled', true);
+
+            $currentLink.attr('href', $currentBelcorpStyle.data("srcesika"));
+
             Fondofestivo("hddFondoFestivoEsika");
-            window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
-        }
+
         $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top -7px left -10px no-repeat");
         $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top -7px left -10px no-repeat");
     }
@@ -813,7 +769,6 @@ function login2() {
         dataType: 'json',
         //contentType: 'application/json; charset=utf-8',
         success: function (response) {
-            //console.log(response);
 
             var resul = "";
             if (response.data != null) {
@@ -1159,8 +1114,7 @@ function RecuperarContrasenia() {
                 var e_correo = "";
                 var e_numero = "";
                 correoRecuperar = Enmascarar_Correo(email);
-
-                //$("#hd_CONTEXTO_BASE").val(response.data.ContextoBase);
+                
                 $("#linkvolverInicio").hide();  
                 $("#vermasopciones1").hide();
 
@@ -1246,8 +1200,7 @@ function RecuperarContrasenia() {
                             emt_id = datos.CodigoUsuario;
                             emt_type = '1';
                             //fin set variables nuevo chat
-
-                            //v_IsMovilDevice = $(".lk_chat").attr("ismovildevice");                            
+                           
                             $("#hdCodigoConsultora").val(datos.CodigoUsuario);
                             $("#divHoraiosAtencion").html(datos.descripcionHorario);
 
@@ -1384,7 +1337,6 @@ function OcultarContenidoPopup()
 
 function ObtenerCodigoGenerado(CodIngresado)
 {
-    //var paisId = $("#cboPaisCambioClave").val();
     var parametros = {
         OrigenID: origen,
         Codigoingresado: CodIngresado
@@ -1607,7 +1559,6 @@ function IniciarLogin() {
                     closeWaitingDialog(); 
                 } else if (response.redirectTo !== "") {                     
                     document.location.href = response.redirectTo;
-                    //closeWaitingDialog(); 
                 }           
             } else {
                 preventClick(1, false);
@@ -1633,7 +1584,6 @@ function MostrarPopupPin(data) {
     var nroCelular = $.trim(data.Celular);
     var email = $.trim(data.Email);
     var primerNombre = $.trim(data.PrimerNombre) + ", ";
-    //var muestraPopup = false;
 
     var tituloPopup = "VERIFICACIÓN DE <b>AUTENTICIDAD</b>"
     $("#tituloPopup").empty();

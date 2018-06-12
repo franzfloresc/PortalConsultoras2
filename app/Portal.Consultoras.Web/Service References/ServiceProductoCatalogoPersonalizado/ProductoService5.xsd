@@ -64,6 +64,7 @@
       <xs:element minOccurs="0" name="MontoEscala" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoMinimo" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoTotal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TieneMDO" type="xs:boolean" />
       <xs:element minOccurs="0" name="TipoOfertaFinal" type="xs:int" />
       <xs:element minOccurs="0" name="TipoProductoMostrar" type="xs:int" />
       <xs:element minOccurs="0" name="ZonaID" type="xs:int" />

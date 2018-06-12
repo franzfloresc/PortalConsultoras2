@@ -13,6 +13,7 @@ namespace Portal.Consultoras.Data.Hana
         public BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(int paisId, BEConfiguracionProgramaNuevas entidad)
         {
             var programaNueva = new BEConfiguracionProgramaNuevas();
+
             try
             {
                 var codigoIsoHana = Common.Util.GetPaisIsoSicc(paisId);

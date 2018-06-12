@@ -223,12 +223,10 @@ $("#btnGuardar").click(function (e) {
     var imagenCorrecta = true;
     var imagenSeleccionada = "";
     if (rutaImagen == null || rutaImagen == "" || rutaImagen == rutaImagenVacia) imagenCorrecta = false;
-    //if ($("#Activo").is(":checked")) {
         if (!imagenCorrecta) {
             alert("Seleccione una imagen a mostrar.");
             return;
         }
-    //}
     if (imagenCorrecta) imagenSeleccionada = rutaImagen.substr(rutaImagen.lastIndexOf("/") + 1);
 
     if ($.trim($("#Precio").val()) == "") $("#Precio").val("0");

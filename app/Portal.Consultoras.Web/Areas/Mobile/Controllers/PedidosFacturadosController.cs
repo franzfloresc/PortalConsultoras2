@@ -61,7 +61,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
 
                 sessionManager.SetPedidosFacturados(model);
-                //Session["PedidosFacturados"] = model;
             }
             catch (FaultException ex)
             {
@@ -81,7 +80,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var model = new PedidoWebMobilModel();
             try
             {
-                //var pedidosFacturados = Session["PedidosFacturados"] as PedidoWebClientePrincipalMobilModel;
                 var pedidosFacturados = sessionManager.GetPedidosFacturados();
                 if (pedidosFacturados == null) return PartialView("Detalle", model);
 
@@ -95,7 +93,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.Flete = pedidoWebMobile.Flete;
 
                 BEPedidoFacturado[] listaPedidosFacturadosDetalle;
-                //
                 using (var service = new SACServiceClient())
                 {
 

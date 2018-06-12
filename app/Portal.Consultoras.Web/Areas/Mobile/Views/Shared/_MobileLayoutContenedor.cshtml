@@ -42,6 +42,7 @@
     }
     <link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
 
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpVariablesGeneralesPortal.cshtml")
     <script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
         var revistaDigital = @Html.Raw(Json.Encode(ViewBag.revistaDigital));
@@ -80,7 +81,6 @@
 
     @if (!esIngresoUnico)
     {
-        <!-- Menu icon -->
         <div class="menu">
             <div class="content_close">
                 <div class="icon-close">
@@ -102,7 +102,6 @@
         </div>
     }
 
-    <!-- alert-top -->
     <div id="divAlertaPedidosOnline" class="alert-top alert-success alert-top-conline" style="display: none;">
         <a href="@Url.Action("MisPedidos", "ConsultoraOnline", new { area = "Mobile" })">
             <span class="alert-icon"><i class="icon-notificaciones-belcorp"></i></span>
@@ -112,9 +111,7 @@
         <span class="alert-close"><i class="icon-close-belcorp"></i></span>
     </div>
 
-    <!-- header -->
     <header id="new-header">
-        <!--BANNER-->
         @if (ViewBag.mostrarBannerPostulante == true && !esIngresoUnico)
         {
             @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloqueMensajesPostulante.cshtml")
@@ -159,8 +156,6 @@
 
     </header>
 
-
-    <!-- content -->
     <section style="min-height: 380px;">
         @{
             var marginTop = esIngresoUnico ? "0px;" : "60px";
@@ -210,7 +205,6 @@
 
     @if (!esIngresoUnico)
     {
-        <!-- footer -->
         <footer class="footer-page">
             @Html.Partial("_MobileMenuFooter")
             <hr class="clear" />
@@ -218,7 +212,6 @@
     }
     else
     {
-        <!-- footer -->
         <footer class="footer-page" style="background:none"></footer>
     }
 
@@ -243,15 +236,9 @@
 
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/vp_BloquePopupMensajesInformacion.cshtml")
 
-    <!--POP MENSAJE POSTULANTE-->
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupPostulante.cshtml")
-    <!--FIN-->
-    <!--POP COMUNIDAD-->
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupComunidad.cshtml")
-    <!--FIN-->
-    <!--POP MENSAJE SESION FINALIZADA Error-->
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupSesionFinalizada.cshtml")
-    <!--FIN-->
 
     <div style="display:none">
         <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
@@ -281,7 +268,6 @@
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
 
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
-        var vbSimbolo = '@ViewBag.Simbolo';
         var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
         var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
 
@@ -314,7 +300,8 @@
         var emt_first_name = '@ViewBag.NombreC';
         var emt_id = '@ViewBag.CodigoUsuario';
         var emt_type = '0';
-        // New Chat -->
+        var emt_device = ' ';
+        var emt_default_message = '@Html.Raw(Constantes.ConfiguracionManager.MensajeChatBienvenida)';
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
@@ -355,7 +342,6 @@
         }
         window.controllerName = '@ctrl.ToLower()';
         window.actionName     = '@acti.ToLower()';
-        //console.log("controllerName:" + controllerName + " | actionName:" + actionName);
     </script>
 
     @if (ViewBag.MostrarOfertaDelDiaContenedor == true)
@@ -581,7 +567,7 @@
             <link href="@Url.Content("~/emt_chat/css/style-client.css")" rel="stylesheet">
             <link rel="stylesheet" href="@Url.Content("~/emt_chat/css/font-awesome.min.css")">
             <div class="CMXD-containment-wrapper"></div><div id="marca"> <div class="CMXD-btn-help"> <div id="btn_init" class="CMXD-help"></div><div id="btn_open" class="CMXD-open" style="display: none"></div></div><div class="container-movil"></div><div id="CMXD-container-chat" class="CMXD-container-chat" style="display: none"> <div class="CMXD-header-chat"> <i class="fa fa-comments-o" aria-hidden="true"></i> CHAT EN LÍNEA <div class="CMXD-icons"> <a class="display-a" id="btn_minimize" href=""> <i class="fa fa-minus" aria-hidden="true"></i> </a> <a class="display-a" id="btn_wClose" href="" style="display: none"> <i class="fa fa-times" aria-hidden="true"></i> </a> </div><hr class="CMXD-line"> </div><div id="chat"> <div id="interaction" class="CMXD-container-welcome" style="display: none"> <div class='chat-wrapper'> <div id="transcript" class='chat-message padding container-chat'></div></div><div id="slideDownTranscript" class="message-end CMXD-animate2"> <span class="fa fa-angle-double-down"></span> </div><div class="container-txt"> <textarea class="txtarea" rows="2" id="Entry" placeholder="Escribe un Mensaje..."></textarea> <a class="" href=""> <div class="send send2" id="btn_Send"> <i class="fa fa-paper-plane-o" aria-hidden="true"></i><br>Enviar </div></a> </div></div><div id="loading" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="loading_image" src="" alt=""> </div><div id="loading_title" class="CMXD-welcome"> Bienvenida a nuestro <br>chat en línea </div><div id="loading_description" class="CMXD-description"> En un momento uno de nuestros asesores estará contigo </div></div></div><div id="schedule" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="schedule_image" src="" alt="Imagen fuera de horario"> </div><div id="schedule_title" class="CMXD-welcome"> </div><div id="schedule_description" class="CMXD-description"> </div></div></div><div id="Error" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="Error_image" src="" alt=""> </div><div class="CMXD-welcome"> Error de conexión </div><div class="CMXD-description"> En estos momentos no es posible establecer conexión. Por favor intenta más tarde. <br /><br /> <a href="" class="btn-no display-a" id="btn_mclose"> OK</a> </div></div></div><div id="alert" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="alert_image" src="" alt=""> </div><div class="CMXD-welcome"> ¿Desea cerrar la sesión de chat? </div><div class="CMXD-description"> <a href="" class="btn-yes display-a" id="btn_close"> Si</a> <a href="" class="btn-no display-a" id="btn_nwClose"> No</a> </div></div></div></div><div id="poll" class="pop-up"> <div class="CMXD-container-welcome"> <div id="poll_title" class="CMXD-welcome"> <br />Encuesta de Satisfacción </div><div id="poll_description" class="CMXD-description"> </div></div></div></div></div>
-            <script type="text/javascript" src="@Url.Content("~/emt_chat/js/gen.js")"></script>
+            <script type="text/javascript" src="@Url.Content("~/emt_chat/js/gen.js")?v1"></script>
         }
     }
 

@@ -346,10 +346,10 @@ namespace Portal.Consultoras.Service
             return blBanner.GetBannerPaisesAsignados(CampaniaId, BannerId);
         }
 
-        public void UpdBannerPaisSegmentoZona(int CampaniaId, int BannerId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInterno)
+        public void UpdBannerPaisSegmentoZona(BEBannerSegmentoZona segmentoZona)
         {
             var blBanner = new BLBanner();
-            blBanner.UpdBannerPaisSegmentoZona(CampaniaId, BannerId, PaisId, Segmento, ConfiguracionZona, SegmentoInterno);
+            blBanner.UpdBannerPaisSegmentoZona(segmentoZona);
         }
 
         public void DeleteCacheBanner(int CampaniaID)
