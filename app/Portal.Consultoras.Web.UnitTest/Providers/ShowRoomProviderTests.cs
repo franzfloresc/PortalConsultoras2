@@ -127,7 +127,7 @@ namespace Portal.Consultoras.Web.UnitTest.Providers
             }
 
             public List<EstrategiaPedidoModel> Ofertas { get; set; }
-            public List<BEShowRoomOferta> OfertasCompraPorCompra { get; set; }
+            public List<EstrategiaPedidoModel> OfertasCompraPorCompra { get; set; }
         }
 
     }

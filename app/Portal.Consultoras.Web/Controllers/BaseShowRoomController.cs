@@ -604,8 +604,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (sessionManager.ShowRoom.OfertasCompraPorCompra != null)
                 {
-                    var listadoOfertasTodas = sessionManager.ShowRoom.OfertasCompraPorCompra;
-                    var listadoOfertasTodasModel = Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listadoOfertasTodas);
+                    var listadoOfertasTodasModel = sessionManager.ShowRoom.OfertasCompraPorCompra;
                     listadoOfertasTodasModel.Update(x =>
                     {
                         x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
@@ -692,7 +691,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                sessionManager.ShowRoom.OfertasCompraPorCompra = listaShowRoomCpcFinal;
+                
                 var listadoProductosCpcModel1 = Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listaShowRoomCpcFinal);
                 listadoProductosCpcModel1.Update(x =>
                 {
@@ -700,7 +699,7 @@ namespace Portal.Consultoras.Web.Controllers
                     x.CodigoISO = userData.CodigoISO;
                     x.Simbolo = userData.Simbolo;
                 });
-
+                sessionManager.ShowRoom.OfertasCompraPorCompra = listadoProductosCpcModel1;
                 return listadoProductosCpcModel1;
             }
             catch (Exception ex)

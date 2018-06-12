@@ -32,10 +32,10 @@ namespace Portal.Consultoras.Web.SessionManager
             }
         }
 
-        public List<BEShowRoomOferta> OfertasCompraPorCompra {
+        public List<EstrategiaPedidoModel> OfertasCompraPorCompra {
             get
             {
-                return (List<ServiceOferta.BEShowRoomOferta>)HttpContext.Current.Session[Constantes.ConstSession.ListaProductoShowRoomCpc];
+                return (List<EstrategiaPedidoModel>)HttpContext.Current.Session[Constantes.ConstSession.ListaProductoShowRoomCpc];
             }
             set
             {
