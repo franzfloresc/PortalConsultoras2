@@ -574,6 +574,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private string CanalIngresoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CantidadCuvField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CantidadProductosField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -607,7 +610,7 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private string DireccionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private byte EstadoPedidoField;
+        private short EstadoPedidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string EstadoPedidoDescField;
@@ -674,6 +677,15 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal SaldoDeudaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal TippingPointField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ValidacionAbiertaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private byte VersionProlField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServiceCliente.BEPedidoWebDetalle[] olstBEPedidoWebDetalleField;
@@ -749,6 +761,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((object.ReferenceEquals(this.CanalIngresoField, value) != true)) {
                     this.CanalIngresoField = value;
                     this.RaisePropertyChanged("CanalIngreso");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CantidadCuv {
+            get {
+                return this.CantidadCuvField;
+            }
+            set {
+                if ((this.CantidadCuvField.Equals(value) != true)) {
+                    this.CantidadCuvField = value;
+                    this.RaisePropertyChanged("CantidadCuv");
                 }
             }
         }
@@ -897,7 +922,7 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public byte EstadoPedido {
+        public short EstadoPedido {
             get {
                 return this.EstadoPedidoField;
             }
@@ -1196,6 +1221,45 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal TippingPoint {
+            get {
+                return this.TippingPointField;
+            }
+            set {
+                if ((this.TippingPointField.Equals(value) != true)) {
+                    this.TippingPointField = value;
+                    this.RaisePropertyChanged("TippingPoint");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ValidacionAbierta {
+            get {
+                return this.ValidacionAbiertaField;
+            }
+            set {
+                if ((this.ValidacionAbiertaField.Equals(value) != true)) {
+                    this.ValidacionAbiertaField = value;
+                    this.RaisePropertyChanged("ValidacionAbierta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public byte VersionProl {
+            get {
+                return this.VersionProlField;
+            }
+            set {
+                if ((this.VersionProlField.Equals(value) != true)) {
+                    this.VersionProlField = value;
+                    this.RaisePropertyChanged("VersionProl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public Portal.Consultoras.Web.ServiceCliente.BEPedidoWebDetalle[] olstBEPedidoWebDetalle {
             get {
                 return this.olstBEPedidoWebDetalleField;
@@ -1262,6 +1326,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CodigoCatalagoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoTipoOfertaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoUsuarioCreacionField;
@@ -1400,6 +1467,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ProgramaNuevoActivadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int SetIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SimboloField;
@@ -1590,6 +1660,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.CodigoCatalagoField.Equals(value) != true)) {
                     this.CodigoCatalagoField = value;
                     this.RaisePropertyChanged("CodigoCatalago");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoTipoOferta {
+            get {
+                return this.CodigoTipoOfertaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoTipoOfertaField, value) != true)) {
+                    this.CodigoTipoOfertaField = value;
+                    this.RaisePropertyChanged("CodigoTipoOferta");
                 }
             }
         }
@@ -2188,6 +2271,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.ProgramaNuevoActivadoField.Equals(value) != true)) {
                     this.ProgramaNuevoActivadoField = value;
                     this.RaisePropertyChanged("ProgramaNuevoActivado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SetID {
+            get {
+                return this.SetIDField;
+            }
+            set {
+                if ((this.SetIDField.Equals(value) != true)) {
+                    this.SetIDField = value;
+                    this.RaisePropertyChanged("SetID");
                 }
             }
         }
@@ -4883,10 +4979,10 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[]> GetListCatalogoRevistaPublicadoWithTituloAsync(string paisISO, string codigoZona, int campania);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/GetCatalogoRevista", ReplyAction="http://tempuri.org/IClienteService/GetCatalogoRevistaResponse")]
-        Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[] GetCatalogoRevista(string paisISO, string codigoZona, string campanias);
+        Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[] GetCatalogoRevista(string paisISO, string codigoZona, int[] campanias);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/GetCatalogoRevista", ReplyAction="http://tempuri.org/IClienteService/GetCatalogoRevistaResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[]> GetCatalogoRevistaAsync(string paisISO, string codigoZona, string campanias);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[]> GetCatalogoRevistaAsync(string paisISO, string codigoZona, int[] campanias);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/GetPedidosWebAnterioresByConsultora", ReplyAction="http://tempuri.org/IClienteService/GetPedidosWebAnterioresByConsultoraResponse")]
         Portal.Consultoras.Web.ServiceCliente.BEPedidoWeb[] GetPedidosWebAnterioresByConsultora(int paisID, long consultoraID);
@@ -5182,11 +5278,11 @@ namespace Portal.Consultoras.Web.ServiceCliente {
             return base.Channel.GetListCatalogoRevistaPublicadoWithTituloAsync(paisISO, codigoZona, campania);
         }
         
-        public Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[] GetCatalogoRevista(string paisISO, string codigoZona, string campanias) {
+        public Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[] GetCatalogoRevista(string paisISO, string codigoZona, int[] campanias) {
             return base.Channel.GetCatalogoRevista(paisISO, codigoZona, campanias);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[]> GetCatalogoRevistaAsync(string paisISO, string codigoZona, string campanias) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[]> GetCatalogoRevistaAsync(string paisISO, string codigoZona, int[] campanias) {
             return base.Channel.GetCatalogoRevistaAsync(paisISO, codigoZona, campanias);
         }
         

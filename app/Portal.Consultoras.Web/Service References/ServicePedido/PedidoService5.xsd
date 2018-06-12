@@ -1,43 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
-  <xs:complexType name="BEConfiguracionProgramaNuevasApp">
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido.App" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido.App" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
+  <xs:complexType name="BEProductoAppBuscar">
     <xs:sequence>
-      <xs:element minOccurs="0" name="ArchivoBannerCupon" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ArchivoBannerPremio" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoNivel" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ConfiguracionProgramaNuevasAppID" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoDescripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Criterio" type="xs:int" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element minOccurs="0" name="TextoCupon" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TextoCuponIndependiente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RowCount" type="xs:int" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Usuario" nillable="true" type="q1:BEUsuario" />
+      <xs:element minOccurs="0" name="ValidarOpt" type="xs:boolean" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="BEConfiguracionProgramaNuevasApp" nillable="true" type="tns:BEConfiguracionProgramaNuevasApp" />
-  <xs:complexType name="ArrayOfBEConfiguracionProgramaNuevasApp">
+  <xs:element name="BEProductoAppBuscar" nillable="true" type="tns:BEProductoAppBuscar" />
+  <xs:complexType name="BEProductoApp">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEConfiguracionProgramaNuevasApp" nillable="true" type="tns:BEConfiguracionProgramaNuevasApp" />
+      <xs:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Producto" nillable="true" type="q2:BEProducto" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfBEConfiguracionProgramaNuevasApp" nillable="true" type="tns:ArrayOfBEConfiguracionProgramaNuevasApp" />
-  <xs:complexType name="BEEstrategiaMasiva">
-    <xs:complexContent mixed="false">
-      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" base="q1:BaseEntidad">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
-          <xs:element minOccurs="0" name="EstrategiaXML" nillable="true">
-            <xs:complexType>
-              <xs:sequence>
-                <xs:any minOccurs="0" processContents="lax" />
-              </xs:sequence>
-            </xs:complexType>
-          </xs:element>
-          <xs:element minOccurs="0" name="TipoEstrategiaID" type="xs:int" />
-          <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
+  <xs:element name="BEProductoApp" nillable="true" type="tns:BEProductoApp" />
+  <xs:complexType name="BEPedidoDetalleApp">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+      <xs:element minOccurs="0" name="ClienteDescripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ClienteID" type="xs:short" />
+      <xs:element minOccurs="0" name="EsKitNueva" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IPUsuario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Identifier" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ObservacionPROL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="PedidoDetalleID" type="xs:short" />
+      <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Producto" nillable="true" type="q3:BEProducto" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Usuario" nillable="true" type="q4:BEUsuario" />
+    </xs:sequence>
   </xs:complexType>
-  <xs:element name="BEEstrategiaMasiva" nillable="true" type="tns:BEEstrategiaMasiva" />
+  <xs:element name="BEPedidoDetalleApp" nillable="true" type="tns:BEPedidoDetalleApp" />
+  <xs:complexType name="BEPedidoDetalleAppResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPedidoDetalleAppResult" nillable="true" type="tns:BEPedidoDetalleAppResult" />
+  <xs:complexType name="BEPedidoReservaAppResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" minOccurs="0" name="Observaciones" nillable="true" type="q5:ArrayOfBEPedidoObservacion" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPedidoReservaAppResult" nillable="true" type="tns:BEPedidoReservaAppResult" />
 </xs:schema>

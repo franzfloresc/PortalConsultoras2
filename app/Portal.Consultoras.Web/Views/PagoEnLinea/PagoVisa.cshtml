@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/pago-en-linea.css")">
 }
 
-<!-- Titulo -->
 <div class="fondo_f9f9f9">
     <div class="content_belcorp content_belcorp_misPedidos">
         <div class="fondo_negro_lateral"></div>
@@ -18,30 +17,20 @@
     <hr class="clear" />
     <div class="linea_separadora" style="margin-top:-1px"></div>
 </div>
-<!-- Fin - titulo-->
 
 <div class="content_belcorp">
     <div class="pestana_lbel"></div>
 
-    <!-- VISTA PROCESO DE PAGO EN LÍNEA -->
-
     <div class="proceso_de_pago_en_linea">
         <div class="cantidad_pasos_proceso_pago">
 
-            <!-- CANTIDAD DE PASOS PROCESO PAGO EN LÍNEA -->
-
-            <!--  Cuando el paso esté en proceso, agregar la clase paso_activo, cuando esté el paso completado agregar la clase paso_completado también -->
             <span class="paso_proceso_pago_en_linea paso_activo paso_completado">1</span>
             <span class="paso_proceso_pago_en_linea paso_activo mr-0">2</span>
-
-            <!-- FIN - CANTIDAD DE PASOS PROCESO PAGO EN LÍNEA -->
 
             <div class="linea_conectora_pasos">
                 <span class="fondo_pasos_proceso_pago_avance"></span>
             </div>
         </div>
-
-        <!-- VISTA SELECCIÓN DE MONTO A PAGAR -->
 
         <div class="vista_confirmacion_pago">
             <h3 class="titulo_seleccion_monto_a_pagar">Confirma el monto final</h3>
@@ -61,10 +50,6 @@
             </div>
         </div>
 
-        <!-- FIN - VISTA SELECCIÓN DE MONTO A PAGAR -->
-
-        <!-- INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA (OCULTAR CUANDO LA VISTA PAGO EXITOSO ESTÉ ACTIVA) -->
-
         <div class="contenedor_info_pago_seguro_y_ctas mt-27">
             <div class="info_pago_seguro_con_tarjetas">
                 <div class="icono_pago_seguro">
@@ -80,8 +65,6 @@
             </div>
 
         </div>
-
-        <!-- FIN - INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA (OCULTAR CUANDO LA VISTA PAGO EXITOSO ESTÉ ACTIVA) -->
 
         <div class="contenedor_btn_pagar_con_visa">
             <a id="linkRegresar" class="btn_paso_anterior_pago_en_linea" href="@Url.Action("Index","PagoEnLinea")">REGRESAR</a>
@@ -99,8 +82,6 @@
         </div>
 
     </div>
-
-    <!-- FIN - VISTA PROCESO DE PAGO EN LÍNEA -->
 
 </div>
 
