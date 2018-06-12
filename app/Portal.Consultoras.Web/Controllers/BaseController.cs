@@ -74,7 +74,6 @@ namespace Portal.Consultoras.Web.Controllers
         public BaseController():this(SessionManager.SessionManager.Instance, LogManager.LogManager.Instance)
         {
             userData = new UsuarioModel();
-            //
             _tablaLogicaProvider = new TablaLogicaProvider();
             _baseProvider = new BaseProvider();
             _guiaNegocioProvider = new GuiaNegocioProvider();
@@ -89,14 +88,12 @@ namespace Portal.Consultoras.Web.Controllers
         public BaseController(ISessionManager sessionManager)
         {
             userData = new UsuarioModel();
-            //
             this.sessionManager = sessionManager;
         }
 
         public BaseController(ISessionManager sessionManager, ILogManager logManager)
         {
             userData = new UsuarioModel();
-            //
             this.sessionManager = sessionManager;
             this.logManager = logManager;
         }
@@ -322,8 +319,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listaCUVsAEvaluar.AddRange(cuvHijos.Where(x => x.SetID == item.SetID).Select(x => x.CUV));
                 }
-
-                // var temp = observaciones.Where(o => o.CUV == item.CUV).ToList();
+                
                 var temp = observaciones.Where(o => listaCUVsAEvaluar.Contains(o.CUV)).ToList();
 
 
@@ -1133,14 +1129,6 @@ namespace Portal.Consultoras.Web.Controllers
             model.MenuNotificaciones = 1;
 
             return model;
-        }
-
-        private string GetFormatDecimalPais(string isoPais)
-        {
-            var listaPaises = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.KeyPaisFormatDecimal);
-            if (listaPaises == "" || isoPais == "") return ",|.|2";
-            if (listaPaises.Contains(isoPais)) return ".||0";
-            return ",|.|2";
         }
 
         protected List<BEProductoFaltante> GetProductosFaltantes()
@@ -2037,12 +2025,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (paisId == 4) return new Converter<decimal, string>(p => p.ToString("n0", new System.Globalization.CultureInfo("es-CO")));
             return new Converter<decimal, string>(p => p.ToString("n2", new System.Globalization.CultureInfo("es-PE")));
         }
-
-        //protected int AddCampaniaAndNumero(int campania, int numero)
-        //{
-        //    return Util.AddCampaniaAndNumero(campania, numero, userData.NroCampanias);
-        //}
-
+        
         public string FormatearHora(TimeSpan hora)
         {
             var tiempo = DateTime.Today.Add(hora);
@@ -2922,37 +2905,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     }
                 }
-
-                //data = new
-                //{
-                //    Usuario = userData.CodigoUsuario,
-                //    CodigoConsultora = userData.CodigoConsultora,
-                //    CampoModificacion = campomodificacion,
-                //    ValorActual = valoractual,
-                //    ValorAnterior = valoranterior,
-                //    Origen = origen,
-                //    Aplicacion = aplicacion,
-                //    Pais = userData.NombrePais,
-                //    Rol = userData.RolDescripcion,
-                //    Dispositivo = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB",
-                //    Accion = accion,
-                //    UsuarioConsultado = codigoconsultorabuscado,
-                //    Seccion = seccion
-                //};
-
-                //urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
-                //if (string.IsNullOrEmpty(urlApi)) return;
-
-                //HttpClient httpClient = new HttpClient();
-                //httpClient.BaseAddress = new Uri(urlApi);
-                //httpClient.DefaultRequestHeaders.Accept.Clear();
-                //httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                //dataString = JsonConvert.SerializeObject(data);
-                //HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-                //HttpResponseMessage response = httpClient.PostAsync(requestUrl, contentPost).GetAwaiter().GetResult();
-                //noQuitar = response.IsSuccessStatusCode;
-                //httpClient.Dispose();
+                
             }
             catch (Exception ex)
             {
@@ -3227,12 +3180,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
         
-        //protected int GetDiasFaltantesFacturacion(DateTime fechaInicioCampania, double zonaHoraria)
-        //{
-        //    var fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
-        //    return fechaHoy >= fechaInicioCampania.Date ? 0 : (fechaInicioCampania.Subtract(DateTime.Now.AddHours(zonaHoraria)).Days + 1);
-        //}
-
         protected JsonResult ErrorJson(string message, bool allowGet = false)
         {
             return Json(new { success = false, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
@@ -4724,72 +4671,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-
-        //#region RD
-        //public virtual MensajeProductoBloqueadoModel MensajeProductoBloqueado()
-        //{
-        //    var model = new MensajeProductoBloqueadoModel();
-
-        //    if (!revistaDigital.TieneRDC) return model;
-
-        //    model.IsMobile = IsMobile();
-
-        //    string codigo = String.Empty;
-        //    ConfiguracionPaisDatosModel dato;
-        //    if (revistaDigital.EsActiva)
-        //    {
-        //        model.MensajeIconoSuperior = true;
-        //        model.BtnInscribirse = false;
-
-        //        codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaSuscrita;
-        //        dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
-        //        model.MensajeTitulo = Util.Trim(dato.Valor1);
-        //        return model;
-        //    }
-        //    else
-        //    {
-        //        model.MensajeIconoSuperior = false;
-        //        model.BtnInscribirse = !revistaDigital.EsSuscrita;
-
-        //        codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaNoSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaNoSuscrita;
-        //        dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
-        //        model.MensajeTitulo = Util.Trim(dato.Valor1);
-        //    }
-
-        //    if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
-        //    {
-        //        model.MensajeBtnPopup = "DE ACUERDO";
-        //        model.IdPopup = !model.IsMobile ? "divSNAPopupBloqueadoDesk" : "divSNAPopupBloqueadoMob";
-        //        model.UrlBtnPopup = "javascript: void(0)";
-
-        //        codigo = Constantes.ConfiguracionPaisDatos.RD.PopupBloqueadoSNA;
-        //    }
-        //    else if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
-        //    {
-        //        model.MensajeBtnPopup = "SUSCRIBETE GRATIS";
-        //        model.IdPopup = !model.IsMobile ? "divNSPopupBloqueadoDesk" : "divNSPopupBloqueadoMob";
-        //        model.UrlBtnPopup = (model.IsMobile ? "/Mobile" : "") + "/RevistaDigital/Informacion/";
-
-        //        codigo = Constantes.ConfiguracionPaisDatos.RD.PopupBloqueadoNS;
-        //    }
-
-        //    dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
-        //    model.MensajePopupPrimero = RemplazaTag(dato.Valor1, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
-        //    model.MensajePopupSegundo = RemplazaTag(dato.Valor2, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
-
-        //    return model;
-        //}
-        //#endregion
-
-        //#region Guia de Negocio Digitalizada
-        //public virtual bool GNDValidarAcceso(bool esConsultoraLider, GuiaNegocioModel guiaNegocio, RevistaDigitalModel revistaDigital)
-        //{
-        //    var tieneAcceso = (guiaNegocio.TieneGND && !(revistaDigital.EsSuscritaActiva() || revistaDigital.EsNoSuscritaActiva())) ||
-        //        (esConsultoraLider && guiaNegocio.TieneGND && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva());
-        //    return tieneAcceso;
-        //}
-        //#endregion
-
+        
         #region Helper contenedor 
         private ConfiguracionPaisModel ActualizarTituloYSubtituloMenu(ConfiguracionPaisModel config)
         {
@@ -4831,18 +4713,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return config;
         }
-
-        //public string RemplazaTag(string cadena, string tag, string valor)
-        //{
-        //    cadena = cadena ?? "";
-        //    tag = tag ?? "";
-        //    valor = valor ?? "";
-        //    cadena = cadena.Replace(tag, valor);
-        //    cadena = cadena.Replace(tag.ToLower(), valor);
-        //    cadena = cadena.Replace(tag.ToUpper(), valor);
-        //    return cadena;
-        //}
-
+        
         protected string GetDescripcionMarca(int marcaId)
         {
             string result;
@@ -5624,48 +5495,6 @@ namespace Portal.Consultoras.Web.Controllers
             return model;
         }
         
-        //public string GetUrlTerminosCondicionesDatosUsuario()
-        //{
-        //    var nombreCarpetaTc = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.NombreCarpetaTC);
-        //    var nombreArchivoTc = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.NombreArchivoTC) + ".pdf";
-        //    return ConfigS3.GetUrlFileS3(nombreCarpetaTc, userData.CodigoISO + "/" + nombreArchivoTc, String.Empty);
-        //}
-
-        // Movido a OfertaProvider
-        public void GetLimitNumberPhone(out int limiteMinimoTelef, out int limiteMaximoTelef)
-        {
-            switch (userData.PaisID)
-            {
-                case Constantes.PaisID.Mexico:
-                    limiteMinimoTelef = 5;
-                    limiteMaximoTelef = 15;
-                    break;
-                case Constantes.PaisID.Peru:
-                    limiteMinimoTelef = 7;
-                    limiteMaximoTelef = 9;
-                    break;
-                case Constantes.PaisID.Colombia:
-                    limiteMinimoTelef = 10;
-                    limiteMaximoTelef = 10;
-                    break;
-                case Constantes.PaisID.Guatemala:
-                case Constantes.PaisID.ElSalvador:
-                case Constantes.PaisID.Panama:
-                case Constantes.PaisID.CostaRica:
-                    limiteMinimoTelef = 8;
-                    limiteMaximoTelef = 8;
-                    break;
-                case Constantes.PaisID.Ecuador:
-                    limiteMinimoTelef = 9;
-                    limiteMaximoTelef = 10;
-                    break;
-                default:
-                    limiteMinimoTelef = 0;
-                    limiteMaximoTelef = 15;
-                    break;
-            }
-        }
-
         public RevistaDigitalShortModel getRevistaDigitalShortModel()
         {
             RevistaDigitalShortModel _RevistaDigitalShortModel = null;
@@ -6145,57 +5974,5 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
         
-        #region Revista digital y Sección DORADA
-        //public ConfiguracionPaisDatosModel ObtenerPerdio(int campaniaId)
-        //{
-        //    var dato = new ConfiguracionPaisDatosModel();
-        //    if (_ofertaPersonalizadaProvider.TieneProductosPerdio(campaniaId))
-        //    {
-        //        var codigo = "";
-        //        bool upper = false;
-        //        if (!revistaDigital.EsSuscrita)
-        //        {
-        //            codigo = Constantes.ConfiguracionPaisDatos.RD.NSPerdiste;
-        //            upper = true;
-        //        }
-        //        else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
-        //        {
-        //            codigo = Constantes.ConfiguracionPaisDatos.RD.SNAPerdiste;
-        //            upper = true;
-        //        }
-        //        else
-        //        {
-        //            codigo = IsMobile() ? Constantes.ConfiguracionPaisDatos.RD.MPerdiste : Constantes.ConfiguracionPaisDatos.RD.DPerdiste;
-        //        }
-
-        //        dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
-
-        //        dato.Valor1 = _baseProvider.RemplazaTag(dato.Valor1, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
-        //        dato.Valor2 = _baseProvider.RemplazaTag(dato.Valor2, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
-
-        //        if (upper)
-        //        {
-        //            dato.Valor1 = dato.Valor1.ToUpper();
-        //            dato.Valor2 = dato.Valor2.ToUpper();
-        //        }
-
-        //        dato.Estado = true;
-        //    }
-
-        //    dato.Valor1 = Util.Trim(dato.Valor1);
-        //    dato.Valor2 = Util.Trim(dato.Valor2);
-
-        //    return dato;
-        //}
-        
-        //public bool TieneProductosPerdio(int campaniaId)
-        //{
-        //    if (revistaDigital.TieneRDC && !revistaDigital.EsActiva &&
-        //        campaniaId == userData.CampaniaID)
-        //        return true;
-        //    return false;
-        //}
-        #endregion
-
     }
 }

@@ -80,7 +80,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.MontoMinimo = userData.MontoMinimo;
 
             int limiteMinimoTelef, limiteMaximoTelef;
-            GetLimitNumberPhone(out limiteMinimoTelef, out limiteMaximoTelef);
+            _baseProvider.GetLimitNumberPhone(userData.PaisID, out limiteMinimoTelef, out limiteMaximoTelef);
             model.limiteMinimoTelef = limiteMinimoTelef;
             model.limiteMaximoTelef = limiteMaximoTelef;
 

@@ -1,11 +1,8 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.SessionManager;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -39,12 +36,7 @@ namespace Portal.Consultoras.Web.Controllers
             var modelo = _revistaDigitalProvider.InformativoModel(IsMobile());
             return View("template-informativa", modelo);
         }
-
-        //public bool EsSuscripcionInmediata()
-        //{
-        //    return revistaDigital.SuscripcionModel != null ? (revistaDigital.ActivoMdo&&(revistaDigital.SuscripcionModel.CampaniaEfectiva == revistaDigital.SuscripcionModel.CampaniaID)&& revistaDigital.CantidadCampaniaEfectiva==0) : false;
-        //}
-
+        
         public ActionResult ViewLanding(int tipo)
         {
             var id = tipo == 1 ? userData.CampaniaID : Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
@@ -107,42 +99,5 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
         
-        //private string GetVideoInformativo()
-        //{
-        //    var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.InformativoVideo) ?? new ConfiguracionPaisDatosModel();
-        //    return Util.Trim(IsMobile() ? dato.Valor2 : dato.Valor1);
-        //}
-
-        //public string GetValorDato(string codigo, int valor = 1)
-        //{
-        //    var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
-        //    var valorDato = "";
-        //    switch (valor)
-        //    {
-        //        case 0: valorDato = IsMobile() ? dato.Valor2 : dato.Valor1; break;
-        //        case 1: valorDato = dato.Valor1; break;
-        //        case 2: valorDato = dato.Valor2; break;
-        //        case 3: valorDato = dato.Valor3; break;
-        //        default: valorDato = dato.Valor1; break;
-        //    }
-        //    return Util.Trim(valorDato);
-        //}
-
-        //private bool CancelarSuscripcion(string origen, string pais)
-        //{
-        //    if (origen.IsNullOrEmptyTrim()) return false;
-        //    string paises;
-        //    if (origen.Equals(Constantes.RevistaDigitalOrigen.Unete))
-        //    {
-        //        paises = ConfigurationManager.AppSettings.Get(Constantes.ConfiguracionManager.PaisesCancelarSuscripcionRDUnete) ?? string.Empty;
-        //        if (paises.Contains(pais)) return true;
-        //    }
-        //    else if (origen.Equals(Constantes.RevistaDigitalOrigen.Nueva))
-        //    {
-        //        paises = ConfigurationManager.AppSettings.Get(Constantes.ConfiguracionManager.PaisesCancelarSuscripcionRDNuevas) ?? string.Empty;
-        //        if (paises.Contains(pais)) return true;
-        //    }
-        //    return false;
-        //}
     }
 }

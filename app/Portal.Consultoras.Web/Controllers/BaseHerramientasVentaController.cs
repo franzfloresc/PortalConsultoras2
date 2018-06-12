@@ -1,7 +1,5 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceSAC;
-using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -26,14 +24,5 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("template-landing", model);
         }
 
-        //public bool EsCampaniaFalsa(int campaniaId)
-        //{
-        //    return (campaniaId < userData.CampaniaID || campaniaId > Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias));
-        //}
-        
-        //public override MensajeProductoBloqueadoModel MensajeProductoBloqueado()
-        //{
-        //    return HVMensajeProductoBloqueado();
-        //}
     }
 }

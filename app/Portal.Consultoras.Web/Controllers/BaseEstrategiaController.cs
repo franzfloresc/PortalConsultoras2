@@ -1,19 +1,12 @@
 ﻿using AutoMapper;
-using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceOferta;
-using Portal.Consultoras.Web.Providers;
-using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using BEEstrategia = Portal.Consultoras.Web.ServicePedido.BEEstrategia;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -504,51 +497,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return listaProductoModel;
         }
-
-        //private void EnviarLogOferta(object data)
-        //{
-        //    var urlApi = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
-        //    if (string.IsNullOrEmpty(urlApi)) return;
-        //    var httpClient = new HttpClient { BaseAddress = new Uri(urlApi) };
-        //    httpClient.DefaultRequestHeaders.Accept.Clear();
-        //    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        //    var dataString = JsonConvert.SerializeObject(data);
-        //    HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-        //    var response = httpClient.PostAsync("Api/LogCargaOfertas", contentPost).GetAwaiter().GetResult();
-        //    var noQuitar = response.IsSuccessStatusCode;
-        //    httpClient.Dispose();
-        //}
-
-        //private object CrearDataLog(int campaniaOferta, string palanca)
-        //{
-        //    return new
-        //    {
-        //        Pais = userData.CodigoISO,
-        //        CodigoConsultora = userData.CodigoConsultora,
-        //        Fecha = userData.FechaActualPais.ToString("yyyyMMdd"),
-        //        Campania = userData.CampaniaID,
-        //        CampaniaOferta = campaniaOferta == 0 ? userData.CampaniaID.ToString() : campaniaOferta.ToString(),
-        //        Palanca = palanca,
-        //        Dispositivo = IsMobile() ? "Mobile" : "Desktop",
-        //        Motivo = "Log carga oferta desde portal consultoras"
-        //    };
-        //}
-
-        //private string ObtenerConstanteConfPais(string codigoAgrupacion)
-        //{
-        //    switch (codigoAgrupacion)
-        //    {
-        //        case Constantes.TipoEstrategiaCodigo.RevistaDigital:
-        //            return Constantes.ConfiguracionPais.RevistaDigital;
-        //        case Constantes.TipoEstrategiaCodigo.Lanzamiento:
-        //            return Constantes.ConfiguracionPais.Lanzamiento;
-        //        case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
-        //            return Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada;
-        //        default:
-        //            return Constantes.ConfiguracionPais.OfertasParaTi;
-        //    }
-        //}
-
+        
         #endregion
     }
 }
