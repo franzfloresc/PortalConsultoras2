@@ -2082,23 +2082,24 @@ namespace Portal.Consultoras.BizLogic
 
         public BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR = true, bool validarReservado = true, bool validarHorario = true, bool validarFacturado = true)
         {
+            BEUsuario usuario = null;
+            BEConfiguracionCampania configuracion = null;
+
             try
             {
-                BEUsuario usuario = null;
-                using (IDataReader reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
+                using (var reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
                 {
-                    if (reader.Read()) usuario = new BEUsuario(reader, true);
+                    if (reader.Read()) usuario = new BEUsuario(reader, true, true);
                 }
 
-                BEConfiguracionCampania configuracion = null;
                 if (usuario != null)
                 {
-                    using (IDataReader reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
+                    using (var reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
                     {
-                        if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
+                          configuracion =  reader.MapToObject<BEConfiguracionCampania>(true); 
                     }
                 }
-
+            
                 if (configuracion != null)
                 {
                     if (validarGPR && configuracion.IndicadorGPRSB == 1)
@@ -2128,7 +2129,8 @@ namespace Portal.Consultoras.BizLogic
                 }
                 if (validarHorario)
                 {
-                    string mensajeHorarioRestringido = this.ValidarHorarioRestringido(usuario, campania);
+                    var mensajeHorarioRestringido = this.ValidarHorarioRestringido(usuario, campania);
+
                     if (!string.IsNullOrEmpty(mensajeHorarioRestringido))
                     {
                         return new BEValidacionModificacionPedido
@@ -2149,19 +2151,19 @@ namespace Portal.Consultoras.BizLogic
 
         private string ValidarHorarioRestringido(BEUsuario usuario, int campania)
         {
-            DateTime fechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
+            var fechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
             if (!usuario.HabilitarRestriccionHoraria) return null;
             if (fechaHoraActual <= usuario.FechaInicioFacturacion || usuario.FechaFinFacturacion.AddDays(1) <= fechaHoraActual) return null;
 
-            TimeSpan horaActual = new TimeSpan(fechaHoraActual.Hour, fechaHoraActual.Minute, 0);
-            TimeSpan horaAdicional = TimeSpan.Parse(usuario.HorasDuracionRestriccion.ToString() + ":00");
+            var horaActual = new TimeSpan(fechaHoraActual.Hour, fechaHoraActual.Minute, 0);
+            var horaAdicional = TimeSpan.Parse(usuario.HorasDuracionRestriccion.ToString() + ":00");
 
-            bool enHorarioRestringido;
+            var enHorarioRestringido = false;
             if (usuario.EsZonaDemAnti != 0) enHorarioRestringido = (horaActual > usuario.HoraCierreZonaDemAnti);
             else enHorarioRestringido = (usuario.HoraCierreZonaNormal < horaActual && horaActual < usuario.HoraCierreZonaNormal + horaAdicional);
             if (!enHorarioRestringido) return null;
 
-            TimeSpan horaCierre = usuario.EsZonaDemAnti != 0 ? usuario.HoraCierreZonaDemAnti : usuario.HoraCierreZonaNormal;
+            var horaCierre = usuario.EsZonaDemAnti != 0 ? usuario.HoraCierreZonaDemAnti : usuario.HoraCierreZonaNormal;
             return string.Format("En este momento nos encontramos facturando tu pedido de C-{0}. Todos los códigos ingresados hasta las {1} horas han sido registrados en el sistema. Gracias!", campania.Substring(4, 2), horaCierre.ToString(@"hh\:mm"));
         }
 

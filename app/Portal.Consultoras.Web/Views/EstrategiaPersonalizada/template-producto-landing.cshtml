@@ -13,174 +13,128 @@
         </div>
     </div>
     {{else}}
-        {{#if EsLanzamiento}}
-        <div data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
-            <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-            <div class="content_item_carrusel content_item_carrusel_clubganamas content_item_carrusel_clubganamas_off" style="cursor:pointer; ">
-                {{#iff TipoEstrategiaDetalle.ImgFichaDesktop '!=' ''}}
-                    <img src="{{TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" class="clubganamas_logo" />
-                {{/iff}}
-                {{#iff TipoEstrategiaDetalle.ImgHomeDesktop '!=' ''}}
+    {{#if EsLanzamiento}}
+    <div data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
+        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
+        <div class="content_item_carrusel content_item_carrusel_clubganamas content_item_carrusel_clubganamas_off" style="cursor:pointer; ">
+            {{#iff TipoEstrategiaDetalle.ImgFichaDesktop '!=' ''}}
+                <img src="{{TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" class="clubganamas_logo" />
+            {{/iff}}
+            {{#iff TipoEstrategiaDetalle.ImgHomeDesktop '!=' ''}}
                 <img src="{{TipoEstrategiaDetalle.ImgHomeDesktop}}" class="portada" />
-                {{/iff}}
-                <p class="tercero">Conoce {{DescripcionResumen}}</p>
-                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeLanzamiento, '@Constantes.ConfiguracionPais.Lanzamiento')" class="portada portada_off">VER LANZAMIENTOS</a>
-            </div>
+            {{/iff}}
+            <p class="tercero">Conoce {{DescripcionResumen}}</p>
+            <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeLanzamiento, '@Constantes.ConfiguracionPais.Lanzamiento')" 
+               class="portada portada_off">VER LANZAMIENTOS</a>
         </div>
-        {{else}}
-        <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
-            <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-            <div data-item-tag="body" class="content_item_carrusel" {{#iff TieneVerDetalle }} style="cursor:pointer;" {{/iff}}>
-                <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
-                <div data-item-tag="contenido" {{#iff TieneVerDetalle }} onclick="javascript:VerDetalleEstrategia(event);" {{/iff}} {{#if this.ExperienciaGanaMas includeZero=true}} {{#iff ExperienciaGanaMas.MostrarLoQuieres '==' false }} onclick="javascript:VerPopupExpGanaMas();" {{/iff}}{{/if}}>
-                    <div class="producto_img_home" data-item-tag="foto">
-                        <img class="imagen_producto" style="max-width: 100% !important;" data-src="{{FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
-                        {{#iff TieneVerDetalle}}
-                        <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
-                        {{/iff}}
-                    </div>
-                    {{#iff EsOfertaIndependiente '==' '1'}}
-                    {{#iff MostrarImgOfertaIndependiente '==' '1'}}
-                    <div class="etiqueta_producto" data-item-tag="etiqueta">
-                        <img src="{{ImagenOfertaIndependiente}}" alt="Etiqueta Producto" />
-                    </div>
+    </div>
+    {{else}}
+    <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
+        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
+        <div data-item-tag="body" class="content_item_carrusel" {{#iff TipoAccionAgregar '!=' '4' }} style="cursor:pointer;" {{/iff}}>
+            <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
+            <div data-item-tag="contenido"
+                 {{#iff TipoAccionAgregar 'ContainsArray' '[4,5]'}}
+                    onclick="javascript:VerPopupExpGanaMas();"
+                 {{else}}
+                    onclick="javascript:VerDetalleEstrategia(event);"
+                 {{/iff}}>
+                <div class="producto_img_home" data-item-tag="foto">
+                    <img class="imagen_producto" style="max-width: 100% !important;" data-src="{{ImgUrl FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
+                    {{#iff TipoAccionAgregar 'ContainsArray' '[1,2,3]'}}
+                    <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
                     {{/iff}}
-                    {{else}}
-                    {{#iff ImagenURL '!=' ''}}
+                </div>
+                {{#iff ImagenURL '!=' ''}}
                     <div class="etiqueta_producto" data-item-tag="etiqueta">
                         <img alt="Etiqueta Producto" data-src="{{ImagenURL}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
                     </div>
-                    {{/iff}}
-                    {{/iff}}
-                    <div class="producto_nombre_descripcion" data-item-tag="descripcion">
-                        {{#IsNullOrEmpty DescripcionMarca '!='}}
-                            <h6>{{DescripcionMarca}}</h6>
-                        {{else}}
-                            <h6>&ensp;&nbsp;</h6>
-                        {{/IsNullOrEmpty}}
-                        {{#iff DescripcionCortada '!=' ''}}
-                        <p class="nombre_producto"><b>{{DescripcionCortada}}</b></p>
-                        {{/iff}}
-                    </div>
-                    <div class="producto_nombre_descripcion" data-item-tag="precio">
-                        <div>
-                            {{#iff FlagNueva '==' '1'}}
-                            <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioVenta}}</b></span>
-                            {{else}}
-                            {{#iff Precio '>' 0}}
-                            <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
-                            {{/iff}}
-                            <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioVenta}}</b></span>
-                            {{/iff}}
-                        </div>
-                    </div>
-                </div>
-                <div class="clear"></div>
-
-                {{#if this.ExperienciaGanaMas includeZero=true}}
-                    {{#iff this.ExperienciaGanaMas.MostrarLoQuieres}}
-                    <div class="producto_nombre_descripcion" data-item-tag="agregar">
-                        <div>
-                            <div class="texto_elige_tono"></div>
-                            <div class="clear"></div>
-                            <a href="javascript:;" class="btn_elige_tono js-no-popup" data-bloqueada="{{ClaseBloqueada}}"
-                               onclick="javascript:VerPopupExpGanaMas(); ">
-                                ¿LO QUIERES?
-                            </a>
-                        </div>
-                        <div class="clear"></div>
-                        <div style="margin: 9px 0;height: 15px;">
-                            <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
-                                AGREGADO
-                                <div class="icono"></div>
-                            </div>
-                        </div>
-                    </div>
+                {{/iff}}
+                <div class="producto_nombre_descripcion" data-item-tag="descripcion">
+                    {{#IsNullOrEmpty DescripcionMarca '!='}}
+                        <h6>{{DescripcionMarca}}</h6>
                     {{else}}
-                        {{#iff this.ExperienciaGanaMas.OcultarAgregar}}
-                            <div></div>
-                        {{else}}
-                            <div class="producto_nombre_descripcion" data-item-tag="agregar">
-                                <div class="texto_elige_tono"></div>
-                                <div class="clear"></div>
-                                <div class="liquidacion_rango_home js-no-popup">
-                                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup {{ClaseBloqueada}}" data-input='cantidad' {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}} />
-                                    <div class="liquidacion_rango_right_pedido js-no-popup">
-                                        <a href="javascript:;" class="mas js-no-popup" data-bloqueada="{{ClaseBloqueada}}"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="" /></a>
-                                        <a href="javascript:;" class="menos js-no-popup" data-bloqueada="{{ClaseBloqueada}}"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" /></a>
-                                    </div>
-                                </div>
-                                <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
-                                   onclick="javascript:EstrategiaAgregar(event); ">
-                                    AGR&Eacute;GALO
-                                </a>
-                                <div class="clear"></div>
-                                <div style="margin: 9px 0;height: 15px;">
-                                    <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
-                                        AGREGADO
-                                        <div class="icono"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        {{/iff}}
-                    
+                        <h6>&ensp;&nbsp;</h6>
+                    {{/IsNullOrEmpty}}
+                    {{#iff DescripcionCortada '!=' ''}}
+                        <p class="nombre_producto"><b>{{DescripcionCortada}}</b></p>
                     {{/iff}}
-             {{else}}
-
-                    <div class="producto_nombre_descripcion" data-item-tag="agregar">
-                        {{#iff PuedeAgregarProducto '==' true}}
-                        <div>
-                            {{#iff TipoAccionAgregar '==' '1'}}
-                            <div class="texto_elige_tono"></div>
-                            <div class="clear"></div>
-                            <div class="liquidacion_rango_home">
-                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input='cantidad' style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled />
-                            </div>
-                            <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
-                               onclick="javascript:EstrategiaAgregar(event, true, 1); ">
-                                AGR&Eacute;GALO
-                            </a>
-                            {{/iff}}
-                            {{#iff TipoAccionAgregar '==' '2'}}
-                            <div class="texto_elige_tono"></div>
-                            <div class="clear"></div>
-                            <div class="liquidacion_rango_home js-no-popup">
-                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup {{ClaseBloqueada}}" data-input='cantidad' {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}} />
-                                <div class="liquidacion_rango_right_pedido js-no-popup">
-                                    <a href="javascript:;" class="mas js-no-popup" data-bloqueada="{{ClaseBloqueada}}"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="" /></a>
-                                    <a href="javascript:;" class="menos js-no-popup" data-bloqueada="{{ClaseBloqueada}}"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" /></a>
-                                </div>
-                            </div>
-                            <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
-                               onclick="javascript:EstrategiaAgregar(event); ">
-                                AGR&Eacute;GALO
-                            </a>
-                            {{/iff}}
-                            {{#iff TipoAccionAgregar '==' '3'}}
-                            <div onclick="javascript: VerDetalleEstrategia(event);">
-                                <div class="texto_elige_tono">¡AHORA ELIGE TU TONO!</div>
-                                <div class="clear"></div>
-                                <a href="javascript:;" class="btn_elige_tono js-no-popup" data-item-tag="eligetuopcion">
-                                    <div>ELIGE TU OPCIÓN</div>
-                                </a>
-                            </div>
-                            {{/iff}}
-                        </div>
-                        <div class="clear"></div>
+                </div>
+                <div class="producto_nombre_descripcion" data-item-tag="precio">
+                    <div>
+                        {{#iff Precio '>' 0}}
+                            <span class="producto_precio_normal">{{SimboloMoneda}} {{PrecioTachado}}</span>
                         {{/iff}}
-                        <div style="margin: 9px 0;height: 15px;">
-                            <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
-                                AGREGADO
-                                <div class="icono"></div>
-                            </div>
-                        </div>
+                        <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{PrecioVenta}}</b></span>
                     </div>
-
-                    {{/if}}
-
                 </div>
             </div>
-        {{/if}}
+            <div class="clear"></div>
+
+            <div class="producto_nombre_descripcion" data-item-tag="agregar">
+                {{#iff TipoAccionAgregar '>' 0}}
+                <div>
+                    {{#iff TipoAccionAgregar '==' '1'}}
+                        <div class="texto_elige_tono"></div>
+                        <div class="clear"></div>
+                        <div class="liquidacion_rango_home">
+                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad' disabled="disabled" 
+                                   class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" 
+                                   style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" />
+                        </div>
+                        <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
+                           onclick="javascript:EstrategiaAgregar(event, true, 1); ">
+                            AGR&Eacute;GALO
+                        </a>
+                    {{/iff}}
+                    {{#iff TipoAccionAgregar '==' '2'}}
+                        <div class="texto_elige_tono"></div>
+                        <div class="clear"></div>
+                        <div class="liquidacion_rango_home js-no-popup">
+                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad'
+                                   class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup {{ClaseBloqueada}}" 
+                                   {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}} />
+                            <div class="liquidacion_rango_right_pedido js-no-popup">
+                                <a href="javascript:;" class="mas js-no-popup" data-bloqueada="{{ClaseBloqueada}}"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="" /></a>
+                                <a href="javascript:;" class="menos js-no-popup" data-bloqueada="{{ClaseBloqueada}}"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" /></a>
+                            </div>
+                        </div>
+                        <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
+                           onclick="javascript:EstrategiaAgregar(event); ">
+                            AGR&Eacute;GALO
+                        </a>
+                    {{/iff}}
+                    {{#iff TipoAccionAgregar '==' '3'}}
+                        <div onclick="javascript: VerDetalleEstrategia(event);">
+                            <div class="texto_elige_tono">¡AHORA ELIGE TU TONO!</div>
+                            <div class="clear"></div>
+                            <a href="javascript:;" class="btn_elige_tono js-no-popup" data-item-tag="eligetuopcion">
+                                <div>ELIGE TU OPCIÓN</div>
+                            </a>
+                        </div>
+                    {{/iff}}
+                    {{#iff TipoAccionAgregar '==' '4'}}
+                        <div class="texto_elige_tono"></div>
+                        <div class="clear"></div>
+                        <a href="javascript:;" class="btn_elige_tono js-no-popup" data-bloqueada="{{ClaseBloqueada}}"
+                           onclick="javascript:VerPopupExpGanaMas(); ">
+                            ¿LO QUIERES?
+                        </a>
+                    {{/iff}}
+                </div>
+                <div class="clear"></div>
+                {{/iff}}
+                <div style="margin: 9px 0;height: 15px;">
+                    <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                        AGREGADO
+                        <div class="icono"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {{/if}}
     {{/if}}
     {{/each}}
 

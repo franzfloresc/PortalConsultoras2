@@ -2,9 +2,8 @@
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
-using System.Collections.Generic;
-using System.Data;
 using Portal.Consultoras.Entities.Estrategia;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -12,44 +11,31 @@ namespace Portal.Consultoras.BizLogic
     {
         public BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(int paisID, BEConfiguracionProgramaNuevas entidad)
         {
-            BEConfiguracionProgramaNuevas data = null;
-
-            var blPais = new BLPais();
-
-            if (!blPais.EsPaisHana(paisID)) // Validar si informacion de pais es de origen Normal o Hana
+            if (!new BLPais().EsPaisHana(paisID)) // Validar si informacion de pais es de origen Normal o Hana
             {
-                var da = new DAConfiguracionProgramaNuevas(paisID);
-                using (IDataReader reader = da.GetConfiguracionProgramaNuevas(entidad))
-                    if (reader.Read())
-                        data = new BEConfiguracionProgramaNuevas(reader);
+                using (var reader = new DAConfiguracionProgramaNuevas(paisID).GetConfiguracionProgramaNuevas(entidad))
+                {
+                    return reader.MapToObject<BEConfiguracionProgramaNuevas>(true);
+                }
             }
             else
             {
-                var dahConfiguracionProgramaNuevas = new DAHConfiguracionProgramaNuevas();
-
-                data = dahConfiguracionProgramaNuevas.GetConfiguracionProgramaNuevas(paisID, entidad);
+                return new DAHConfiguracionProgramaNuevas().GetConfiguracionProgramaNuevas(paisID, entidad);
             }
-
-            return data;
         }
 
         public BEConfiguracionProgramaNuevas GetConfiguracionProgramaDespuesPrimerPedido(int paisID, BEConfiguracionProgramaNuevas entidad)
         {
-            BEConfiguracionProgramaNuevas data = null;
-            var da = new DAConfiguracionProgramaNuevas(paisID);
-            using (IDataReader reader = da.GetConfiguracionProgramaDespuesPrimerPedido(entidad))
+            using (var reader = new DAConfiguracionProgramaNuevas(paisID).GetConfiguracionProgramaDespuesPrimerPedido(entidad))
             {
-                if (reader.Read())
-                    data = new BEConfiguracionProgramaNuevas(reader);
+                return reader.MapToObject<BEConfiguracionProgramaNuevas>(true);
             }
-
-            return data;
         }
 
         #region ConfiguracionApp
         public List<BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(BEConfiguracionProgramaNuevasApp entidad)
         {
-            using (IDataReader reader = new DAConfiguracionProgramaNuevas(entidad.PaisID).GetConfiguracionProgramaNuevasApp(entidad))
+            using (var reader = new DAConfiguracionProgramaNuevas(entidad.PaisID).GetConfiguracionProgramaNuevasApp(entidad))
             {
                 return reader.MapToCollection<BEConfiguracionProgramaNuevasApp>();
             }

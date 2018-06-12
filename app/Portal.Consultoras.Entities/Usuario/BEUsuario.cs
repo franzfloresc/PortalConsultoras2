@@ -1443,6 +1443,10 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CodigosRevistaImpresa { get; set; }
         [DataMember]
+        public BEOfertaDelDia OfertaDelDiaModel { get; set; }
+        [DataMember]
+        public BEGuiaNegocio GuiaNegocio { get; set; }
+        [DataMember]
         public bool OptBloqueoProductoDigital { get; set; }
         [DataMember]
         public bool TieneValidacionMontoMaximo { get; set; }
@@ -1450,5 +1454,21 @@ namespace Portal.Consultoras.Entities
         public bool EsShowRoom { get; set; }
         [DataMember]
         public bool MostrarBotonValidar { get; set; }
+
+        public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
+        {
+            if (DataRecord.HasColumn(row, "ConsultoraID")) miConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
+            if (DataRecord.HasColumn(row, "ConsultoraAsociadoID")) consultoraAsociadoID = Convert.ToInt64(row["ConsultoraAsociadoID"]);
+            if (DataRecord.HasColumn(row, "ZonaHoraria")) ZonaHoraria = Convert.ToDouble(row["ZonaHoraria"]);
+            if (DataRecord.HasColumn(row, "HabilitarRestriccionHoraria")) HabilitarRestriccionHoraria = Convert.ToBoolean(row["HabilitarRestriccionHoraria"]);
+            if (DataRecord.HasColumn(row, "FechaInicioFacturacion")) FechaInicioFacturacion = Convert.ToDateTime(row["FechaInicioFacturacion"]);
+            if (DataRecord.HasColumn(row, "FechaFinFacturacion")) FechaFinFacturacion = Convert.ToDateTime(row["FechaFinFacturacion"]);
+            if (DataRecord.HasColumn(row, "HorasDuracionRestriccion")) HorasDuracionRestriccion = Convert.ToInt32(row["HorasDuracionRestriccion"]);
+            if (DataRecord.HasColumn(row, "EsZonaDemAnti")) EsZonaDemAnti = Convert.ToInt32(row["EsZonaDemAnti"]);
+            if (DataRecord.HasColumn(row, "HoraCierreZonaDemAnti")) HoraCierreZonaDemAnti = DbConvert.ToTimeSpan(row["HoraCierreZonaDemAnti"]);
+            if (DataRecord.HasColumn(row, "HoraCierreZonaNormal")) HoraCierreZonaNormal = DbConvert.ToTimeSpan(row["HoraCierreZonaNormal"]);
+
+
+        }
     }
 }

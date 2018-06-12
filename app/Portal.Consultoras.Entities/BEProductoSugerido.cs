@@ -31,6 +31,8 @@ namespace Portal.Consultoras.Entities
         public string UsuarioModificacion { get; set; }
         [DataMember]
         public DateTime FechaModificacion { get; set; }
+        [DataMember]
+        public int MostrarAgotado { get; set; }
 
         public BEProductoSugerido(IDataRecord datarec)
         {
@@ -58,6 +60,8 @@ namespace Portal.Consultoras.Entities
                 FechaModificacion = Convert.ToDateTime(datarec["FechaModificacion"]);
             if (DataRecord.HasColumn(datarec, "UsuarioModificacion"))
                 UsuarioModificacion = Convert.ToString(datarec["UsuarioModificacion"]);
+            if (DataRecord.HasColumn(datarec, "MostrarAgotado"))
+                MostrarAgotado = Convert.ToInt32(datarec["MostrarAgotado"]);
         }
     }
 }

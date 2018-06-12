@@ -23,6 +23,7 @@
     @System.Web.Optimization.Styles.Render("~/Content/Css/Site/AsesoraOnline")
     <link href="@Url.Content("~/Content/Css/Site/calc.css")" rel="stylesheet" type="text/css" />
 
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpVariablesGeneralesPortal.cshtml")
     <script type="text/javascript">
      var baseUrl = "@Url.Content("~")";
     </script>
@@ -32,7 +33,6 @@
     <script type="text/javascript" src="https://ok383.infusionsoft.com/app/webTracking/getTrackingCode"></script>
 </head>
 <body>
-    <!-- Google Tag Manager -->
     <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <script>
         (function (w, d, s, l, i) {
@@ -41,7 +41,6 @@
             j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-M8QMC8');
     </script>
-    <!-- End Google Tag Manager -->
     <div>
         @RenderBody()
     </div>

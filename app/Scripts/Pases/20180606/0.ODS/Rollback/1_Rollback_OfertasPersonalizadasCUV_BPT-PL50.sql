@@ -1,0 +1,222 @@
+GO
+USE ODS_PE
+GO
+
+GO
+PRINT DB_NAME()
+GO
+IF EXISTS(	SELECT 1
+			FROM SYS.TABLES T
+			WHERE T.TYPE = 'U'
+			AND T.NAME = 'OfertasPersonalizadasCUV')
+BEGIN
+	PRINT 'ELIMINANDO TABLA OfertasPersonalizadasCUV'
+	DROP TABLE OfertasPersonalizadasCUV
+END
+
+
+GO
+USE ODS_MX
+GO
+
+GO
+PRINT DB_NAME()
+GO
+IF EXISTS(	SELECT 1
+			FROM SYS.TABLES T
+			WHERE T.TYPE = 'U'
+			AND T.NAME = 'OfertasPersonalizadasCUV')
+BEGIN
+	PRINT 'ELIMINANDO TABLA OfertasPersonalizadasCUV'
+	DROP TABLE OfertasPersonalizadasCUV
+END
+
+
+GO
+USE ODS_CO
+GO
+
+GO
+PRINT DB_NAME()
+GO
+IF EXISTS(	SELECT 1
+			FROM SYS.TABLES T
+			WHERE T.TYPE = 'U'
+			AND T.NAME = 'OfertasPersonalizadasCUV')
+BEGIN
+	PRINT 'ELIMINANDO TABLA OfertasPersonalizadasCUV'
+	DROP TABLE OfertasPersonalizadasCUV
+END
+
+
+GO
+USE ODS_VE
+GO
+
+GO
+PRINT DB_NAME()
+GO
+IF EXISTS(	SELECT 1
+			FROM SYS.TABLES T
+			WHERE T.TYPE = 'U'
+			AND T.NAME = 'OfertasPersonalizadasCUV')
+BEGIN
+	PRINT 'ELIMINANDO TABLA OfertasPersonalizadasCUV'
+	DROP TABLE OfertasPersonalizadasCUV
+END
+
+
+GO
+USE ODS_SV
+GO
+
+GO
+PRINT DB_NAME()
+GO
+IF EXISTS(	SELECT 1
+			FROM SYS.TABLES T
+			WHERE T.TYPE = 'U'
+			AND T.NAME = 'OfertasPersonalizadasCUV')
+BEGIN
+	PRINT 'ELIMINANDO TABLA OfertasPersonalizadasCUV'
+	DROP TABLE OfertasPersonalizadasCUV
+END
+
+
+GO
+USE ODS_PR
+GO
+
+GO
+PRINT DB_NAME()
+GO
+IF EXISTS(	SELECT 1
+			FROM SYS.TABLES T
+			WHERE T.TYPE = 'U'
+			AND T.NAME = 'OfertasPersonalizadasCUV')
+BEGIN
+	PRINT 'ELIMINANDO TABLA OfertasPersonalizadasCUV'
+	DROP TABLE OfertasPersonalizadasCUV
+END
+
+
+GO
+USE ODS_PA
+GO
+
+GO
+PRINT DB_NAME()
+GO
+IF EXISTS(	SELECT 1
+			FROM SYS.TABLES T
+			WHERE T.TYPE = 'U'
+			AND T.NAME = 'OfertasPersonalizadasCUV')
+BEGIN
+	PRINT 'ELIMINANDO TABLA OfertasPersonalizadasCUV'
+	DROP TABLE OfertasPersonalizadasCUV
+END
+
+
+GO
+USE ODS_GT
+GO
+
+GO
+PRINT DB_NAME()
+GO
+IF EXISTS(	SELECT 1
+			FROM SYS.TABLES T
+			WHERE T.TYPE = 'U'
+			AND T.NAME = 'OfertasPersonalizadasCUV')
+BEGIN
+	PRINT 'ELIMINANDO TABLA OfertasPersonalizadasCUV'
+	DROP TABLE OfertasPersonalizadasCUV
+END
+
+
+GO
+USE ODS_EC
+GO
+
+GO
+PRINT DB_NAME()
+GO
+IF EXISTS(	SELECT 1
+			FROM SYS.TABLES T
+			WHERE T.TYPE = 'U'
+			AND T.NAME = 'OfertasPersonalizadasCUV')
+BEGIN
+	PRINT 'ELIMINANDO TABLA OfertasPersonalizadasCUV'
+	DROP TABLE OfertasPersonalizadasCUV
+END
+
+
+GO
+USE ODS_DO
+GO
+
+GO
+PRINT DB_NAME()
+GO
+IF EXISTS(	SELECT 1
+			FROM SYS.TABLES T
+			WHERE T.TYPE = 'U'
+			AND T.NAME = 'OfertasPersonalizadasCUV')
+BEGIN
+	PRINT 'ELIMINANDO TABLA OfertasPersonalizadasCUV'
+	DROP TABLE OfertasPersonalizadasCUV
+END
+
+
+GO
+USE ODS_CR
+GO
+
+GO
+PRINT DB_NAME()
+GO
+IF EXISTS(	SELECT 1
+			FROM SYS.TABLES T
+			WHERE T.TYPE = 'U'
+			AND T.NAME = 'OfertasPersonalizadasCUV')
+BEGIN
+	PRINT 'ELIMINANDO TABLA OfertasPersonalizadasCUV'
+	DROP TABLE OfertasPersonalizadasCUV
+END
+
+
+GO
+USE ODS_CL
+GO
+
+GO
+PRINT DB_NAME()
+GO
+IF EXISTS(	SELECT 1
+			FROM SYS.TABLES T
+			WHERE T.TYPE = 'U'
+			AND T.NAME = 'OfertasPersonalizadasCUV')
+BEGIN
+	PRINT 'ELIMINANDO TABLA OfertasPersonalizadasCUV'
+	DROP TABLE OfertasPersonalizadasCUV
+END
+
+
+GO
+USE ODS_BO
+GO
+
+GO
+PRINT DB_NAME()
+GO
+IF EXISTS(	SELECT 1
+			FROM SYS.TABLES T
+			WHERE T.TYPE = 'U'
+			AND T.NAME = 'OfertasPersonalizadasCUV')
+BEGIN
+	PRINT 'ELIMINANDO TABLA OfertasPersonalizadasCUV'
+	DROP TABLE OfertasPersonalizadasCUV
+END
+
+
+GO

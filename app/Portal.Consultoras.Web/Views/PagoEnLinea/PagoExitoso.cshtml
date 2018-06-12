@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/pago-en-linea.css")">
 }
 
-<!-- Titulo -->
 <div class="fondo_f9f9f9">
     <div class="content_belcorp content_belcorp_misPedidos">
         <div class="fondo_negro_lateral"></div>
@@ -18,16 +17,11 @@
     <hr class="clear" />
     <div class="linea_separadora" style="margin-top:-1px"></div>
 </div>
-<!-- Fin - titulo-->
 
 <div class="content_belcorp">
     <div class="pestana_lbel"></div>
 
-    <!-- VISTA PROCESO DE PAGO EN LÍNEA -->
-
     <div class="proceso_de_pago_en_linea">
-
-        <!-- VISTA PAGO EXITOSO -->
 
         <div class="pago_exitoso">
             <h3 class="titulo_pago_exitoso">
@@ -92,23 +86,17 @@
             <p class="terminos_web">Revisar Términos y Condiciones de Uso Web <a href="@ViewBag.UrlCondiciones" class="enlace_ir_a_notificaciones" target="_blank">Aquí</a></p>
         </div>
 
-        <!-- FIN - VISTA PAGO EXITOSO -->
-
     </div>
-
-    <!-- FIN - VISTA PROCESO DE PAGO EN LÍNEA -->
 
  </div>
 
 @section scripts{
     <script type="text/javascript">
-        //var timeCloseRain = 60000;
         var listaIconoLluvia = new Array();
 
         listaIconoLluvia[0] = '@Url.Content("~/Content/Images/confetti-rombo.svg")';
         listaIconoLluvia[1] = '@Url.Content("~/Content/Images/confetti-estrella.svg")';
         listaIconoLluvia[2] = '@Url.Content("~/Content/Images/confetti-circulo.svg")';
-        //listaIconoLluvia[3] = '@Url.Content("~/Content/Images/confetti-tiras.svg")';
         listaIconoLluvia[3] = '@Url.Content("~/Content/Images/confetti-ondas.svg")';
 
         $(document).ready(function () {

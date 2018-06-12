@@ -110,7 +110,6 @@
         {
             var solicitudes = new List<BESolicitudCredito>();
             DASolicitudCredito daSolicitudCredito = new DASolicitudCredito(paisID);
-            // C20150926 - CAH --> Se agrego el parametro paisID
             using (IDataReader reader = daSolicitudCredito.BuscarSolicitudCredito(paisID, codigoZona, codigoTerritorio, fechaInicioSolicitud, fechaFinSolicitud, numeroDocumento, estadoSolicitud, TipoSolicitud, CodigoConsultora))
             {
                 var columns = ((IDataRecord)reader).GetAllNames();
