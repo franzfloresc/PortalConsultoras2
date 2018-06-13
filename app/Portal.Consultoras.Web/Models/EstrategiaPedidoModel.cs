@@ -108,33 +108,32 @@ namespace Portal.Consultoras.Web.Models
 
 
         #region Campos que vienen de ShowRoom (estos campos aun estan en revision y mejora)
+        
+        
 
-
-        public string CUV { get; set; }
-        public string ISOPais { get; set; }
-        public string CodigoISO { get; set; }
         public string Agregado { get; set; }
+        public decimal PrecioOferta { get; set; }
+        public decimal PrecioValorizado { get; set; }
+
         public int Agotado { get; set; }
         public int TipoOfertaSisID { get; set; }
         public int ConfiguracionOfertaID { get; set; }
-        public decimal PrecioOferta { get; set; }
-        public decimal PrecioValorizado { get; set; }
         public int Stock { get; set; }
         public int StockInicial { get; set; }
+        public bool FlagHabilitarProducto { get; set; }
+         public string CodigoCampania { get; set; }
+       
+
+        public string CUV { get; set; }
+        public string CodigoISO { get; set; }
         public string ImagenProducto { get; set; }
-        public int UnidadesPermitidas { get; set; }
-        public bool FlagHabilitarProducto { get; set; }       
-        public string ImagenMini { get; set; }
-        public int NroOrden { get; set; }
-        public string CodigoCampania { get; set; }
-        public string CodigoTipoOferta { get; set; }      
         public string ImagenProductoAnterior { get; set; }
-        public string ImagenMiniAnterior { get; set; }        
+        public string ImagenMiniAnterior { get; set; }
+        public string ImagenMini { get; set; }
         public string Subtitulo { get; set; }
+        public int UnidadesPermitidas { get; set; }
         public int Incrementa { get; set; }
         public int CantidadIncrementa { get; set; }
-
-     //   public string CategoriaID { get; set; }
         public IList<EstrategiaPedidoModel> ListaOfertaShowRoom { get; set; }
         public IList<EstrategiaPedidoModel> ListaShowRoomCompraPorCompra { get; set; }
         public string DescripcionLegal { get; set; }
