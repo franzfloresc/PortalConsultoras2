@@ -64,7 +64,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 var listModel = ConsultarEstrategiasHomePedido(codAgrupa);
 
-                model.CodigoEstrategia = GetCodigoEstrategia();
+                model.CodigoEstrategia = _revistaDigitalProvider.GetCodigoEstrategia();
                 model.Consultora = userData.Sobrenombre;
                 model.Titulo = userData.Sobrenombre + " LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA";
                 model.TituloDescripcion = tipoOrigenEstrategia == "1" ? "ENCUENTRA MÁS OFERTAS, MÁS BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS Y AUMENTA TUS GANANCIAS" :

@@ -2185,6 +2185,17 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction(accion, controlador, new { area = area });
         }
 
+        private List<BEComunicado> ObtenerComunicadoPorConsultora()
+        {
+            using (var sac = new SACServiceClient())
+            {
+                var lstComunicados = sac.ObtenerComunicadoPorConsultora(UserData().PaisID, UserData().CodigoConsultora,
+                        Constantes.ComunicadoTipoDispositivo.Desktop, UserData().CodigorRegion, UserData().CodigoZona, UserData().ConsultoraNueva);
+
+                return lstComunicados.ToList();
+            }
+        }
+
         private void EnviarCorreoActivacionCupon()
         {
             var url = Util.GetUrlHost(this.HttpContext.Request).ToString();

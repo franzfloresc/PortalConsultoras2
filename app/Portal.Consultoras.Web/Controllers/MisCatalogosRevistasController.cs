@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var clienteModel = new MisCatalogosRevistasModel
             {
-                PaisNombre = GetPaisNombreByISO(userData.CodigoISO),
+                PaisNombre = Util.GetPaisNombreByISO(userData.CodigoISO),
                 CampaniaActual = userData.CampaniaID.ToString(),
                 CampaniaAnterior = Util.AddCampaniaAndNumero(userData.CampaniaID, -1, userData.NroCampanias).ToString(),
                 CampaniaSiguiente = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).ToString(),

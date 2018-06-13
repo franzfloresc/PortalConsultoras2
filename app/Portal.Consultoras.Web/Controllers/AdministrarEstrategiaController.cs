@@ -3,6 +3,7 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.MagickNet;
 using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
@@ -27,6 +28,13 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarEstrategiaController : BaseController
     {
+        protected RenderImgProvider _renderImgProvider;
+
+        public AdministrarEstrategiaController()
+        {
+            _renderImgProvider = new RenderImgProvider();
+        }
+
         public ActionResult Index(int TipoVistaEstrategia = 0)
         {
             EstrategiaModel estrategiaModel;
@@ -756,7 +764,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         #region Imagen Resize  
 
-                        mensajeErrorImagenResize = ImagenesResizeProceso(model.RutaImagenCompleta);
+                        mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(model.RutaImagenCompleta, userData.CodigoISO);
 
                         #endregion
 
