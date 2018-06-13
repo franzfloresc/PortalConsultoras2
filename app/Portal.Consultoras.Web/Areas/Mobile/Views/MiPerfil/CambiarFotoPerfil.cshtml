@@ -41,12 +41,38 @@ else
                         </span>
                         <span class="descrip_opcion_foto_perfil text-uppercase v-alignMiddle">Tomar una foto</span>
                     </a>
-                    <a href="#" title="Desde mi galería" class="opcion_foto_perfil opcion_cargar_foto_desde_galeria">
+                    <label for="ElegirImagen"  title="Desde mi galería" class="opcion_foto_perfil opcion_cargar_foto_desde_galeria">
                         <span class="icono_opcion_foto_perfil icono_cargar_foto_desde_galeria v-alignMiddle">
                             <img src="@Url.Content("~/Content/Images/icono_cargar_foto_desde_galeria.svg")" alt="Desde mi galería" />
                         </span>
                         <span class="descrip_opcion_foto_perfil text-uppercase v-alignMiddle">Desde mi galería</span>
-                    </a>
+                    </label>
+                    <div class="input-file">
+                        <div id="fpImagenPerfil">
+                            <script type="text/javascript">
+                            var uploader = new qq.FileUploader({
+                                allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
+                                element: document.getElementById('fpImagenPerfil'),
+                                    action: '@Url.Action("MoverFotoPerfil", "MiPerfil")',
+                                    onComplete: function (id, fileName, responseJSON) {
+                                    if (checkTimeout(responseJSON)) {
+                                        $(".qq-upload-list").css("display", "none");
+                                        if (responseJSON.success) {
+                                                SubirImagen('@Url.Action("Index", "Bienvenida", new { area = "Mobile" })', responseJSON.name);
+                                        } else {
+                                                alert('Hubo un error al cargar el archivo, intente nuevamente.');
+                                        }
+                                    }
+                                },
+                                    onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); console.log('cancelo');},
+                                    onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); console.log('cancelo');},
+                                    onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); console.log('cancelo'); }
+                            });
+                            inputElegirImagen = document.querySelector('input[type="file"]');
+                            inputElegirImagen.setAttribute("id", "ElegirImagen");
+                            </script>
+                        </div>
+                    </div>
                     <a href="#" title="Eliminar foto" class="opcion_foto_perfil opcion_eliminar_foto">
                         <span class="icono_opcion_foto_perfil icono_eliminar_foto v-alignMiddle">
                             <img src="@Url.Content("~/Content/Images/icono_eliminar.svg")" alt="Eliminar foto" />
