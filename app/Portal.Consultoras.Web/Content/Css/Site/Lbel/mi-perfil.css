@@ -57,6 +57,10 @@
     vertical-align:middle!important;
 }
 
+input:focus{
+    outline:0;
+}
+
 /* FIN - HELPERS */
 
 /* MI PERFIL */
@@ -68,7 +72,7 @@
 .icono_camara,
 .icono_camara_img,
 .consultora_img,
-.nombre_consultora,
+.nom_consultora,
 .datos_codigo_y_zona,
 .datos_gerente_zona,
 .form_cambio_datos,
@@ -150,7 +154,7 @@
 .w-50,
 .w-82,
 .foto_consultora,
-.datos_consultora,
+.datos_consultora_mi_perfil,
 .datos_codigo,
 .datos_zona,
 .icono_cambio_password,
@@ -235,7 +239,11 @@
     z-index:2;
 }
 
-.nombre_consultora{
+.datos_consultora_mi_perfil{
+    max-width: 347px;
+}
+
+.nom_consultora{
     font-size:19px;
     margin-bottom:15px;
 }
