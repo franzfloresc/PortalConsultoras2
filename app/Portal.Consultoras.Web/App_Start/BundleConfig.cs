@@ -334,6 +334,8 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JS-Login-VerificaAutenticidad").Include(
+                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery-ui-1.9.2.custom.js",
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Login/VerificaAutenticidad.js"
             ));

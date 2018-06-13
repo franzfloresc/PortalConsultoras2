@@ -2577,7 +2577,7 @@ namespace Portal.Consultoras.BizLogic
         private BEOpcionesVerificacion GetOpcionesVerificacion(int paisID, int origenID)
         {
             var BLobj = new BLOpcionesVerificacion();
-            return BLobj.GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
+            return BLobj.GetOpcionesVerificacionCache(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
         }
 
         private BEOpcionesVerificacion GetOpcionesVerificacionCache(int paisID, int orgienID)
