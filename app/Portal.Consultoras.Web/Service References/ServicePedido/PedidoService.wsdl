@@ -29,69 +29,21 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido.App" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido.App" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.PagoEnLinea" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd12" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd13" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd14" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IPedidoService_CargarSesionAndEjecutarReservaProl_InputMessage">
-    <wsdl:part name="parameters" element="tns:CargarSesionAndEjecutarReservaProl" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_CargarSesionAndEjecutarReservaProl_OutputMessage">
-    <wsdl:part name="parameters" element="tns:CargarSesionAndEjecutarReservaProlResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_EjecutarReservaProl_InputMessage">
-    <wsdl:part name="parameters" element="tns:EjecutarReservaProl" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_EjecutarReservaProl_OutputMessage">
-    <wsdl:part name="parameters" element="tns:EjecutarReservaProlResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_EnviarCorreoReservaProl_InputMessage">
-    <wsdl:part name="parameters" element="tns:EnviarCorreoReservaProl" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_EnviarCorreoReservaProl_OutputMessage">
-    <wsdl:part name="parameters" element="tns:EnviarCorreoReservaProlResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_RDSuscripcion_InputMessage">
-    <wsdl:part name="parameters" element="tns:RDSuscripcion" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_RDSuscripcion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:RDSuscripcionResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_RDDesuscripcion_InputMessage">
-    <wsdl:part name="parameters" element="tns:RDDesuscripcion" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_RDDesuscripcion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:RDDesuscripcionResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_RDGetSuscripcion_InputMessage">
-    <wsdl:part name="parameters" element="tns:RDGetSuscripcion" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_RDGetSuscripcion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:RDGetSuscripcionResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_RDGetSuscripcionActiva_InputMessage">
-    <wsdl:part name="parameters" element="tns:RDGetSuscripcionActiva" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_RDGetSuscripcionActiva_OutputMessage">
-    <wsdl:part name="parameters" element="tns:RDGetSuscripcionActivaResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_InsertarDesglose_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsertarDesglose" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_InsertarDesglose_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsertarDesgloseResponse" />
-  </wsdl:message>
   <wsdl:message name="IPedidoService_CargarSesionAndDeshacerPedidoValidado_InputMessage">
     <wsdl:part name="parameters" element="tns:CargarSesionAndDeshacerPedidoValidado" />
   </wsdl:message>
@@ -476,12 +428,6 @@
   <wsdl:message name="IPedidoService_DescargaPedidosCliente_OutputMessage">
     <wsdl:part name="parameters" element="tns:DescargaPedidosClienteResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetOrdenPriorizacionShowRoom_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetOrdenPriorizacionShowRoom" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetOrdenPriorizacionShowRoom_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetOrdenPriorizacionShowRoomResponse" />
-  </wsdl:message>
   <wsdl:message name="IPedidoService_ValidarPriorizacionShowRoom_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidarPriorizacionShowRoom" />
   </wsdl:message>
@@ -854,48 +800,6 @@
   <wsdl:message name="IPedidoService_ObtenerUltimaDescargaExitosa_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerUltimaDescargaExitosaResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetCantidadOfertasParaTi_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetCantidadOfertasParaTi" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetCantidadOfertasParaTi_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetCantidadOfertasParaTiResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetOfertasParaTiByTipoConfigurado_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetOfertasParaTiByTipoConfigurado" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetOfertasParaTiByTipoConfigurado_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetOfertasParaTiByTipoConfiguradoResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_InsertEstrategiaTemporal_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsertEstrategiaTemporal" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_InsertEstrategiaTemporal_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsertEstrategiaTemporalResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetCantidadOfertasParaTiTemporal_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetCantidadOfertasParaTiTemporal" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetCantidadOfertasParaTiTemporal_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetCantidadOfertasParaTiTemporalResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetOfertasParaTiByTipoConfiguradoTemporal_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetOfertasParaTiByTipoConfiguradoTemporal" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetOfertasParaTiByTipoConfiguradoTemporal_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetOfertasParaTiByTipoConfiguradoTemporalResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_DeleteEstrategiaTemporal_InputMessage">
-    <wsdl:part name="parameters" element="tns:DeleteEstrategiaTemporal" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_DeleteEstrategiaTemporal_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DeleteEstrategiaTemporalResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_InsertEstrategiaOfertaParaTi_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsertEstrategiaOfertaParaTi" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_InsertEstrategiaOfertaParaTi_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsertEstrategiaOfertaParaTiResponse" />
-  </wsdl:message>
   <wsdl:message name="IPedidoService_GetEstrategiaODD_InputMessage">
     <wsdl:part name="parameters" element="tns:GetEstrategiaODD" />
   </wsdl:message>
@@ -985,6 +889,54 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetConsultoraRegaloProgramaNuevas_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetConsultoraRegaloProgramaNuevasResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_CargarSesionAndEjecutarReservaProl_InputMessage">
+    <wsdl:part name="parameters" element="tns:CargarSesionAndEjecutarReservaProl" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_CargarSesionAndEjecutarReservaProl_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CargarSesionAndEjecutarReservaProlResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_EjecutarReservaProl_InputMessage">
+    <wsdl:part name="parameters" element="tns:EjecutarReservaProl" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_EjecutarReservaProl_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EjecutarReservaProlResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_EnviarCorreoReservaProl_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoReservaProl" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_EnviarCorreoReservaProl_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoReservaProlResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RDSuscripcion_InputMessage">
+    <wsdl:part name="parameters" element="tns:RDSuscripcion" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RDSuscripcion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RDSuscripcionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RDDesuscripcion_InputMessage">
+    <wsdl:part name="parameters" element="tns:RDDesuscripcion" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RDDesuscripcion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RDDesuscripcionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RDGetSuscripcion_InputMessage">
+    <wsdl:part name="parameters" element="tns:RDGetSuscripcion" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RDGetSuscripcion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RDGetSuscripcionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RDGetSuscripcionActiva_InputMessage">
+    <wsdl:part name="parameters" element="tns:RDGetSuscripcionActiva" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RDGetSuscripcionActiva_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RDGetSuscripcionActivaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsertarDesglose_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarDesglose" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsertarDesglose_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarDesgloseResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_HabilitaPedidoMultipleInformacionConsultoras_InputMessage">
     <wsdl:part name="parameters" element="tns:HabilitaPedidoMultipleInformacionConsultoras" />
@@ -1183,12 +1135,6 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetEstrategiasPedido_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetEstrategiasPedidoResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetMasVendidos_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetMasVendidos" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetMasVendidos_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetMasVendidosResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_FiltrarEstrategiaPedido_InputMessage">
     <wsdl:part name="parameters" element="tns:FiltrarEstrategiaPedido" />
@@ -1495,6 +1441,12 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetProductosShowRoom_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetProductosShowRoomResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetOrdenPriorizacionShowRoom_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOrdenPriorizacionShowRoom" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetOrdenPriorizacionShowRoom_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOrdenPriorizacionShowRoomResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_DelPedidoWebDetalleMasivo_InputMessage">
     <wsdl:part name="parameters" element="tns:DelPedidoWebDetalleMasivo" />
@@ -2517,38 +2469,6 @@
     <wsdl:part name="parameters" element="tns:GetCUVAsociadoByFilterResponse" />
   </wsdl:message>
   <wsdl:portType name="IPedidoService">
-    <wsdl:operation name="CargarSesionAndEjecutarReservaProl">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/CargarSesionAndEjecutarReservaProl" message="tns:IPedidoService_CargarSesionAndEjecutarReservaProl_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/CargarSesionAndEjecutarReservaProlResponse" message="tns:IPedidoService_CargarSesionAndEjecutarReservaProl_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="EjecutarReservaProl">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/EjecutarReservaProl" message="tns:IPedidoService_EjecutarReservaProl_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/EjecutarReservaProlResponse" message="tns:IPedidoService_EjecutarReservaProl_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="EnviarCorreoReservaProl">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/EnviarCorreoReservaProl" message="tns:IPedidoService_EnviarCorreoReservaProl_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/EnviarCorreoReservaProlResponse" message="tns:IPedidoService_EnviarCorreoReservaProl_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="RDSuscripcion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RDSuscripcion" message="tns:IPedidoService_RDSuscripcion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RDSuscripcionResponse" message="tns:IPedidoService_RDSuscripcion_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="RDDesuscripcion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RDDesuscripcion" message="tns:IPedidoService_RDDesuscripcion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RDDesuscripcionResponse" message="tns:IPedidoService_RDDesuscripcion_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="RDGetSuscripcion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RDGetSuscripcion" message="tns:IPedidoService_RDGetSuscripcion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RDGetSuscripcionResponse" message="tns:IPedidoService_RDGetSuscripcion_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="RDGetSuscripcionActiva">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RDGetSuscripcionActiva" message="tns:IPedidoService_RDGetSuscripcionActiva_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RDGetSuscripcionActivaResponse" message="tns:IPedidoService_RDGetSuscripcionActiva_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InsertarDesglose">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarDesglose" message="tns:IPedidoService_InsertarDesglose_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertarDesgloseResponse" message="tns:IPedidoService_InsertarDesglose_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="CargarSesionAndDeshacerPedidoValidado">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/CargarSesionAndDeshacerPedidoValidado" message="tns:IPedidoService_CargarSesionAndDeshacerPedidoValidado_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/CargarSesionAndDeshacerPedidoValidadoResponse" message="tns:IPedidoService_CargarSesionAndDeshacerPedidoValidado_OutputMessage" />
@@ -2805,10 +2725,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DescargaPedidosCliente" message="tns:IPedidoService_DescargaPedidosCliente_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DescargaPedidosClienteResponse" message="tns:IPedidoService_DescargaPedidosCliente_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetOrdenPriorizacionShowRoom">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetOrdenPriorizacionShowRoom" message="tns:IPedidoService_GetOrdenPriorizacionShowRoom_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetOrdenPriorizacionShowRoomResponse" message="tns:IPedidoService_GetOrdenPriorizacionShowRoom_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="ValidarPriorizacionShowRoom">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ValidarPriorizacionShowRoom" message="tns:IPedidoService_ValidarPriorizacionShowRoom_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ValidarPriorizacionShowRoomResponse" message="tns:IPedidoService_ValidarPriorizacionShowRoom_OutputMessage" />
@@ -3057,34 +2973,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaExitosa" message="tns:IPedidoService_ObtenerUltimaDescargaExitosa_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaExitosaResponse" message="tns:IPedidoService_ObtenerUltimaDescargaExitosa_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetCantidadOfertasParaTi">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetCantidadOfertasParaTi" message="tns:IPedidoService_GetCantidadOfertasParaTi_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetCantidadOfertasParaTiResponse" message="tns:IPedidoService_GetCantidadOfertasParaTi_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetOfertasParaTiByTipoConfigurado">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetOfertasParaTiByTipoConfigurado" message="tns:IPedidoService_GetOfertasParaTiByTipoConfigurado_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetOfertasParaTiByTipoConfiguradoResponse" message="tns:IPedidoService_GetOfertasParaTiByTipoConfigurado_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InsertEstrategiaTemporal">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertEstrategiaTemporal" message="tns:IPedidoService_InsertEstrategiaTemporal_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertEstrategiaTemporalResponse" message="tns:IPedidoService_InsertEstrategiaTemporal_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetCantidadOfertasParaTiTemporal">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetCantidadOfertasParaTiTemporal" message="tns:IPedidoService_GetCantidadOfertasParaTiTemporal_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetCantidadOfertasParaTiTemporalResponse" message="tns:IPedidoService_GetCantidadOfertasParaTiTemporal_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetOfertasParaTiByTipoConfiguradoTemporal">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetOfertasParaTiByTipoConfiguradoTemporal" message="tns:IPedidoService_GetOfertasParaTiByTipoConfiguradoTemporal_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetOfertasParaTiByTipoConfiguradoTemporalResponse" message="tns:IPedidoService_GetOfertasParaTiByTipoConfiguradoTemporal_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="DeleteEstrategiaTemporal">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DeleteEstrategiaTemporal" message="tns:IPedidoService_DeleteEstrategiaTemporal_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DeleteEstrategiaTemporalResponse" message="tns:IPedidoService_DeleteEstrategiaTemporal_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InsertEstrategiaOfertaParaTi">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertEstrategiaOfertaParaTi" message="tns:IPedidoService_InsertEstrategiaOfertaParaTi_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertEstrategiaOfertaParaTiResponse" message="tns:IPedidoService_InsertEstrategiaOfertaParaTi_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="GetEstrategiaODD">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaODD" message="tns:IPedidoService_GetEstrategiaODD_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaODDResponse" message="tns:IPedidoService_GetEstrategiaODD_OutputMessage" />
@@ -3144,6 +3032,38 @@
     <wsdl:operation name="GetConsultoraRegaloProgramaNuevas">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetConsultoraRegaloProgramaNuevas" message="tns:IPedidoService_GetConsultoraRegaloProgramaNuevas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetConsultoraRegaloProgramaNuevasResponse" message="tns:IPedidoService_GetConsultoraRegaloProgramaNuevas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CargarSesionAndEjecutarReservaProl">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/CargarSesionAndEjecutarReservaProl" message="tns:IPedidoService_CargarSesionAndEjecutarReservaProl_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/CargarSesionAndEjecutarReservaProlResponse" message="tns:IPedidoService_CargarSesionAndEjecutarReservaProl_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EjecutarReservaProl">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/EjecutarReservaProl" message="tns:IPedidoService_EjecutarReservaProl_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/EjecutarReservaProlResponse" message="tns:IPedidoService_EjecutarReservaProl_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoReservaProl">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/EnviarCorreoReservaProl" message="tns:IPedidoService_EnviarCorreoReservaProl_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/EnviarCorreoReservaProlResponse" message="tns:IPedidoService_EnviarCorreoReservaProl_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RDSuscripcion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RDSuscripcion" message="tns:IPedidoService_RDSuscripcion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RDSuscripcionResponse" message="tns:IPedidoService_RDSuscripcion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RDDesuscripcion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RDDesuscripcion" message="tns:IPedidoService_RDDesuscripcion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RDDesuscripcionResponse" message="tns:IPedidoService_RDDesuscripcion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RDGetSuscripcion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RDGetSuscripcion" message="tns:IPedidoService_RDGetSuscripcion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RDGetSuscripcionResponse" message="tns:IPedidoService_RDGetSuscripcion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RDGetSuscripcionActiva">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RDGetSuscripcionActiva" message="tns:IPedidoService_RDGetSuscripcionActiva_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RDGetSuscripcionActivaResponse" message="tns:IPedidoService_RDGetSuscripcionActiva_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertarDesglose">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarDesglose" message="tns:IPedidoService_InsertarDesglose_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertarDesgloseResponse" message="tns:IPedidoService_InsertarDesglose_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="HabilitaPedidoMultipleInformacionConsultoras">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/HabilitaPedidoMultipleInformacionConsultoras" message="tns:IPedidoService_HabilitaPedidoMultipleInformacionConsultoras_InputMessage" />
@@ -3276,10 +3196,6 @@
     <wsdl:operation name="GetEstrategiasPedido">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiasPedido" message="tns:IPedidoService_GetEstrategiasPedido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiasPedidoResponse" message="tns:IPedidoService_GetEstrategiasPedido_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetMasVendidos">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetMasVendidos" message="tns:IPedidoService_GetMasVendidos_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetMasVendidosResponse" message="tns:IPedidoService_GetMasVendidos_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="FiltrarEstrategiaPedido">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/FiltrarEstrategiaPedido" message="tns:IPedidoService_FiltrarEstrategiaPedido_InputMessage" />
@@ -3484,6 +3400,10 @@
     <wsdl:operation name="GetProductosShowRoom">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetProductosShowRoom" message="tns:IPedidoService_GetProductosShowRoom_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetProductosShowRoomResponse" message="tns:IPedidoService_GetProductosShowRoom_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrdenPriorizacionShowRoom">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetOrdenPriorizacionShowRoom" message="tns:IPedidoService_GetOrdenPriorizacionShowRoom_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetOrdenPriorizacionShowRoomResponse" message="tns:IPedidoService_GetOrdenPriorizacionShowRoom_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="DelPedidoWebDetalleMasivo">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DelPedidoWebDetalleMasivo" message="tns:IPedidoService_DelPedidoWebDetalleMasivo_InputMessage" />
@@ -4168,78 +4088,6 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPedidoService" type="tns:IPedidoService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="CargarSesionAndEjecutarReservaProl">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/CargarSesionAndEjecutarReservaProl" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EjecutarReservaProl">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/EjecutarReservaProl" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EnviarCorreoReservaProl">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/EnviarCorreoReservaProl" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RDSuscripcion">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDSuscripcion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RDDesuscripcion">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDDesuscripcion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RDGetSuscripcion">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDGetSuscripcion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RDGetSuscripcionActiva">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDGetSuscripcionActiva" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertarDesglose">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertarDesglose" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="CargarSesionAndDeshacerPedidoValidado">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/CargarSesionAndDeshacerPedidoValidado" style="document" />
       <wsdl:input>
@@ -4816,15 +4664,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetOrdenPriorizacionShowRoom">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetOrdenPriorizacionShowRoom" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="ValidarPriorizacionShowRoom">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ValidarPriorizacionShowRoom" style="document" />
       <wsdl:input>
@@ -5383,69 +5222,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetCantidadOfertasParaTi">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCantidadOfertasParaTi" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetOfertasParaTiByTipoConfigurado">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetOfertasParaTiByTipoConfigurado" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertEstrategiaTemporal">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertEstrategiaTemporal" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCantidadOfertasParaTiTemporal">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCantidadOfertasParaTiTemporal" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetOfertasParaTiByTipoConfiguradoTemporal">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetOfertasParaTiByTipoConfiguradoTemporal" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DeleteEstrategiaTemporal">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/DeleteEstrategiaTemporal" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertEstrategiaOfertaParaTi">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertEstrategiaOfertaParaTi" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetEstrategiaODD">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategiaODD" style="document" />
       <wsdl:input>
@@ -5574,6 +5350,78 @@
     </wsdl:operation>
     <wsdl:operation name="GetConsultoraRegaloProgramaNuevas">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConsultoraRegaloProgramaNuevas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CargarSesionAndEjecutarReservaProl">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/CargarSesionAndEjecutarReservaProl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EjecutarReservaProl">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/EjecutarReservaProl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoReservaProl">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/EnviarCorreoReservaProl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RDSuscripcion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDSuscripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RDDesuscripcion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDDesuscripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RDGetSuscripcion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDGetSuscripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RDGetSuscripcionActiva">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDGetSuscripcionActiva" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarDesglose">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertarDesglose" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5871,15 +5719,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetEstrategiasPedido">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategiasPedido" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetMasVendidos">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetMasVendidos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -6339,6 +6178,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetProductosShowRoom">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetProductosShowRoom" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrdenPriorizacionShowRoom">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetOrdenPriorizacionShowRoom" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7880,78 +7728,6 @@
   <wsdl:binding name="BasicHttpsBinding_IPedidoService" type="tns:IPedidoService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IPedidoService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="CargarSesionAndEjecutarReservaProl">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/CargarSesionAndEjecutarReservaProl" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EjecutarReservaProl">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/EjecutarReservaProl" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EnviarCorreoReservaProl">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/EnviarCorreoReservaProl" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RDSuscripcion">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDSuscripcion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RDDesuscripcion">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDDesuscripcion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RDGetSuscripcion">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDGetSuscripcion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RDGetSuscripcionActiva">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDGetSuscripcionActiva" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertarDesglose">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertarDesglose" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="CargarSesionAndDeshacerPedidoValidado">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/CargarSesionAndDeshacerPedidoValidado" style="document" />
       <wsdl:input>
@@ -8528,15 +8304,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetOrdenPriorizacionShowRoom">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetOrdenPriorizacionShowRoom" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="ValidarPriorizacionShowRoom">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ValidarPriorizacionShowRoom" style="document" />
       <wsdl:input>
@@ -9095,69 +8862,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetCantidadOfertasParaTi">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCantidadOfertasParaTi" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetOfertasParaTiByTipoConfigurado">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetOfertasParaTiByTipoConfigurado" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertEstrategiaTemporal">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertEstrategiaTemporal" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCantidadOfertasParaTiTemporal">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCantidadOfertasParaTiTemporal" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetOfertasParaTiByTipoConfiguradoTemporal">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetOfertasParaTiByTipoConfiguradoTemporal" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DeleteEstrategiaTemporal">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/DeleteEstrategiaTemporal" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertEstrategiaOfertaParaTi">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertEstrategiaOfertaParaTi" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetEstrategiaODD">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategiaODD" style="document" />
       <wsdl:input>
@@ -9286,6 +8990,78 @@
     </wsdl:operation>
     <wsdl:operation name="GetConsultoraRegaloProgramaNuevas">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConsultoraRegaloProgramaNuevas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CargarSesionAndEjecutarReservaProl">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/CargarSesionAndEjecutarReservaProl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EjecutarReservaProl">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/EjecutarReservaProl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoReservaProl">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/EnviarCorreoReservaProl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RDSuscripcion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDSuscripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RDDesuscripcion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDDesuscripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RDGetSuscripcion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDGetSuscripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RDGetSuscripcionActiva">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDGetSuscripcionActiva" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarDesglose">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertarDesglose" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9583,15 +9359,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetEstrategiasPedido">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategiasPedido" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetMasVendidos">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetMasVendidos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10051,6 +9818,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetProductosShowRoom">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetProductosShowRoom" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrdenPriorizacionShowRoom">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetOrdenPriorizacionShowRoom" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

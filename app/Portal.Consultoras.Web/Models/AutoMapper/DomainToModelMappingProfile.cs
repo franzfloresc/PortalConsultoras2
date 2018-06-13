@@ -83,16 +83,16 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.UnidadesPermitidas, f => f.MapFrom(c => c.UnidadesPermitidas))
                 .ForMember(t => t.IndicadorPedido, f => f.MapFrom(c => c.IndicadorPedido));
 
-            Mapper.CreateMap<BEEstrategia, EstrategiaPedidoModel>()
+            Mapper.CreateMap<ServicePedido.BEEstrategia, EstrategiaPedidoModel>()
                 .ForMember(t => t.EstrategiaDetalle, f => f.MapFrom(c => c.EstrategiaDetalle))
                 .ForMember(t => t.TipoEstrategia, f => f.MapFrom(c => c.TipoEstrategia));
 
-            Mapper.CreateMap<BEEstrategiaDetalle, EstrategiaDetalleModelo>();
+            Mapper.CreateMap<ServicePedido.BEEstrategiaDetalle, EstrategiaDetalleModelo>();
 
-            Mapper.CreateMap<BETipoEstrategia, TipoEstrategiaModelo>()
+            Mapper.CreateMap<ServicePedido.BETipoEstrategia, TipoEstrategiaModelo>()
                 .ForMember(t => t.FlagActivo, f => f.MapFrom(c => c.FlagActivo == 1));
 
-            Mapper.CreateMap<BETipoEstrategia, TipoEstrategiaModel>()
+            Mapper.CreateMap<ServicePedido.BETipoEstrategia, TipoEstrategiaModel>()
                 .ForMember(t => t.TipoEstrategiaID, f => f.MapFrom(c => c.TipoEstrategiaID))
                 .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.DescripcionEstrategia))
                 .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
@@ -543,7 +543,6 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.MensajePedidoMobile, f => f.MapFrom(c => c.TipoUsuario == Constantes.TipoUsuario.Postulante ? c.MensajePedidoMobile : 0))
                 .ForMember(t => t.MontoMinimo, f => f.MapFrom(c => c.MontoMinimoPedido))
                 .ForMember(t => t.MontoMaximo, f => f.MapFrom(c => c.MontoMaximoPedido))
-                .ForMember(t => t.OfertaDelDia, f => f.MapFrom(c => new OfertaDelDiaModel()))
                 .ForMember(t => t.ListaLoginExterno, f => f.MapFrom(c => new List<UsuarioExternoModel>()))
                 .ForMember(t => t.CodigosConcursos, f => f.MapFrom(c => string.Empty))
                 .ForMember(t => t.CodigosProgramaNuevas, f => f.MapFrom(c => string.Empty));

@@ -48,8 +48,11 @@ namespace Portal.Consultoras.Service
         private readonly BLParticipantesDemandaAnticipada BLParticipantesDemandaAnticipada;
         private readonly BLPopupPais BLPopupPais;
         private readonly BLApp _blApp;
-
+        private readonly BLAdministrarEstrategia _blAdministrarEstrategia;
         private readonly IComunicadoBusinessLogic _comunicadoBusinessLogic;
+
+        private readonly BLCategoria _blCategoria;
+        private readonly BLCatalogo _bLCatalogo;  
 
         public SACService() : this(new BLComunicado())
         {
@@ -86,6 +89,9 @@ namespace Portal.Consultoras.Service
             BLParticipantesDemandaAnticipada = new BLParticipantesDemandaAnticipada();
             BLPopupPais = new BLPopupPais();
             _blApp = new BLApp();
+            _blAdministrarEstrategia = new BLAdministrarEstrategia();
+            _blCategoria = new BLCategoria();
+            _bLCatalogo = new BLCatalogo();
         }
 
         public SACService(IComunicadoBusinessLogic comunicadoBusinessLogic)
@@ -181,9 +187,9 @@ namespace Portal.Consultoras.Service
             return BLproductofaltante.GetProductoFaltanteByEntity(paisID, productofaltante, ColumnaOrden, Ordenamiento, PaginaActual, FlagPaginacion, RegistrosPorPagina);
         }
 
-        public IList<BEProductoFaltante> GetProductoFaltanteByCampaniaAndZonaID(int paisID, int campaniaID, int ZonaID, string cuv, string descripcion)
+        public IList<BEProductoFaltante> GetProductoFaltanteByCampaniaAndZonaID(int paisID, int campaniaID, int ZonaID, string cuv, string descripcion , string codCategoria , string codCatalogoRevista)
         {
-            return BLproductofaltante.GetProductoFaltanteByCampaniaAndZonaID(paisID, campaniaID, ZonaID, cuv, descripcion);
+            return BLproductofaltante.GetProductoFaltanteByCampaniaAndZonaID(paisID, campaniaID, ZonaID, cuv, descripcion , codCategoria  , codCatalogoRevista);
         }
 
         public string InsProductoFaltanteMasivo(int paisID, string paisISO, string CodigoUsuario, int campaniaID, IList<BEProductoFaltante> productosFaltantes, bool FaltanteUltimoMinuto)
@@ -256,6 +262,21 @@ namespace Portal.Consultoras.Service
         public void UpdProductoDescripcion(BEProductoDescripcion producto, string codigoUsuario)
         {
             BLProducto.UpdProductoDescripcion(producto, codigoUsuario);
+        }
+
+
+        public void UpdProductoDescripcionMasivo(int paisID, int campaniaID, IList<BEProductoDescripcion> listaProductos, string codigoUsuario)
+        {
+            BLProducto.UpdProductoDescripcionMasivo(paisID, campaniaID, listaProductos, codigoUsuario);
+        }
+        public string ValidarMatrizCampaniaMasivo(int paisID, string CUVs, int AnioCampania)
+        {
+            return BLProducto.ValidarMatrizCampaniaMasivo(paisID, CUVs, AnioCampania);
+        }
+
+        public string RegistrarProductoMasivo(int paisID, string data)
+        {
+            return BLProducto.RegistrarProductoMasivo(paisID, data);
         }
 
         #endregion
@@ -844,7 +865,7 @@ namespace Portal.Consultoras.Service
         }
         #endregion
 
-        #region "Banner en Pase de Pedido"
+        #region Banner en Pase de Pedido
         public IList<BEBannerPedido> SelectBannerPedido(int paisID, int campaniaID)
         {
             try
@@ -1405,13 +1426,6 @@ namespace Portal.Consultoras.Service
             var bl = new BLAdministrarEstrategia();
             return bl.ActualizarDescripcionEstrategia(paisId, campaniaId, tipoEstrategiaId, listaDescripcionEstrategias);
         }
-
-        public int ActualizarTonoEstrategia(int paisId, int estrategiaId, string codigoEstrategia, int tieneVariedad)
-        {
-            var bl = new BLAdministrarEstrategia();
-            return bl.ActualizarTonoEstrategia(paisId, estrategiaId, codigoEstrategia, tieneVariedad);
-        }
-
         #endregion
 
         #region UpSelling
@@ -1518,8 +1532,78 @@ namespace Portal.Consultoras.Service
         {
             return new UpsellingMarcaCategoriaBusinessLogic(paisId).UpsellingMarcaCategoriaFlagsEditar(upSellingId, CategoriaApoyada, CategoriaMonto);
         }
-     
 
         #endregion
+
+        #region Categoria 
+
+        public IList<BECategoria> SelectCategoria(int paisID)
+        {
+            return _blCategoria.SelectCategorias(paisID);
+        }
+      
+        #endregion
+
+        #region Catálogos y Revistas
+      
+        public IList<BECatalogoRevista_ODS> SelectCatalogoRevista_Filtro(int paisID)
+        {
+            return _bLCatalogo.PS_CatalogoRevistas_ODS(paisID);
+        }
+
+        public IList<BECatalogoRevista_ODS> SelectCatalogoRevista_ODS(int paisID)
+        {
+            return _bLCatalogo.SelectCatalogoRevistas_ODS(paisID);
+        }
+        #endregion
+
+        #region Nuevo Masivo
+
+        public int GetCantidadOfertasPersonalizadas(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia)
+        {
+            return _blAdministrarEstrategia.GetCantidadOfertasPersonalizadas(paisId, campaniaId, tipoConfigurado, codigoEstrategia);
+        }
+        
+        public List<BEEstrategia> GetOfertasPersonalizadasByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv)
+        {
+            return _blAdministrarEstrategia.GetOfertasPersonalizadasByTipoConfigurado(paisId, campaniaId, tipoConfigurado, estrategiaCodigo, pagina, cantidadCuv);
+        }
+
+        public int GetCantidadOfertasPersonalizadasTemporal(int paisId, int nroLote, int tipoConfigurado)
+        {
+            return _blAdministrarEstrategia.GetCantidadOfertasPersonalizadasTemporal(paisId, nroLote, tipoConfigurado);
+        }
+
+        public int EstrategiaTemporalDelete(int paisId, int nroLote)
+        {
+            return _blAdministrarEstrategia.EstrategiaTemporalDelete(paisId, nroLote);
+        }
+        
+        public List<BEEstrategia> GetOfertasPersonalizadasByTipoConfiguradoTemporal(int paisId, int tipoConfigurado, int nroLote)
+        {
+            return _blAdministrarEstrategia.GetOfertasPersonalizadasByTipoConfiguradoTemporal(paisId, tipoConfigurado, nroLote);
+        }
+
+        public int EstrategiaTemporalInsertarMasivo(int paisId, int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote)
+        {
+            return _blAdministrarEstrategia.EstrategiaTemporalInsertarMasivo(paisId, campaniaId, estrategiaCodigo, pagina, cantidadCuv, nroLote);
+        }
+
+        public bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int nroLote, int pagina)
+        {
+            return _blAdministrarEstrategia.EstrategiaTemporalActualizarPrecioNivel(paisId, nroLote, pagina);
+        }
+
+        public bool EstrategiaTemporalActualizarSetDetalle(int paisId, int nroLote, int pagina)
+        {
+            return _blAdministrarEstrategia.EstrategiaTemporalActualizarSetDetalle(paisId, nroLote, pagina);
+        }
+
+        public int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote)
+        {
+            return _blAdministrarEstrategia.EstrategiaTemporalInsertarEstrategiaMasivo(paisId, nroLote);
+        }
+        #endregion
+
     }
 }

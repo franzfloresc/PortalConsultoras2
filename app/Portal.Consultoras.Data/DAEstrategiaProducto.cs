@@ -60,10 +60,8 @@ namespace Portal.Consultoras.Data
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdateEstrategiaProducto"))
             {
                 Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
-                //Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV);
                 Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV);
                 Context.Database.AddInParameter(command, "@Precio", DbType.Decimal, entidad.Precio);
-                //Context.Database.AddInParameter(command, "@PrecioValorizado", DbType.Decimal, entidad.PrecioValorizado);
                 Context.Database.AddInParameter(command, "@NombreProducto", DbType.String, entidad.NombreProducto);
                 Context.Database.AddInParameter(command, "@Descripcion1", DbType.String, entidad.Descripcion1);
                 Context.Database.AddInParameter(command, "@ImagenProducto", DbType.String, entidad.ImagenProducto);
