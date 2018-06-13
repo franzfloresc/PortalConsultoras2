@@ -310,6 +310,7 @@
     <Compile Include="Infraestructure\Validator\Phone\MultiPhoneValidator.cs" />
     <Compile Include="Infraestructure\Validator\Phone\NotExistingPhone.cs" />
     <Compile Include="Infraestructure\Reader\ColumnCsvTransform.cs" />
+    <Compile Include="Infraestructure\Validator\Phone\NotSamePhoneValidator.cs" />
     <Compile Include="Models\AdministrarEstrategia\AdministrarEstrategiaMasivoModel.cs" />
     <Compile Include="Models\Estrategia\OfertaDelDia\DataModel.cs" />
     <Compile Include="Models\Cache\CacheModel.cs" />

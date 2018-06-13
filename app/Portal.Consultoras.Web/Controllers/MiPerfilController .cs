@@ -343,14 +343,24 @@ namespace Portal.Consultoras.Web.Controllers
 
         private MultiPhoneValidator GetPhoneValidator()
         {
-            var matchCountry = new MatchCountryPhone { IsoPais = userData.CodigoISO };
-
             var validators = new IPhoneValidator[]
             {
-                matchCountry,
-                new NotExistingPhone()
+                new MatchCountryPhone
+                {
+                    IsoPais = userData.CodigoISO
+                },
+                new NotSamePhoneValidator
+                {
+                    OriginalPhone = userData.Celular
+                },
+                new NotExistingPhone
+                {
+                    PaisId = userData.PaisID,
+                    CodigoConsultora = userData.CodigoConsultora
+                }
             };
             var validator = new MultiPhoneValidator(validators);
+
             return validator;
         }
 
