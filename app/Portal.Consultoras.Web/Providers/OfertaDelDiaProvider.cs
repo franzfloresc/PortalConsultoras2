@@ -21,14 +21,11 @@ namespace Portal.Consultoras.Web.Providers
 
             try
             {
-                var ofertasDelDia = ObtenerOfertasDelDia(model);
+                var ofertasDelDia = GetOfertas(model);
+                if (!ofertasDelDia.Any()) return ofertasDelDiaModel;
 
-                if (!ofertasDelDia.Any())
-                    return ofertasDelDiaModel;
-
-                var personalizacionesOfertaDelDia = ObtenerPersonalizacionesOfertaDelDia(model);
-                if (!personalizacionesOfertaDelDia.Any())
-                    return ofertasDelDiaModel;
+                var personalizacionesOfertaDelDia = GetPersonalizaciones(model);
+                if (!personalizacionesOfertaDelDia.Any()) return ofertasDelDiaModel;
 
                 var countdown = CountdownOdd(model);
 
@@ -83,7 +80,7 @@ namespace Portal.Consultoras.Web.Providers
             return ofertasDelDiaModel;
         }
 
-        public List<ServiceOferta.BEEstrategia> ObtenerOfertasDelDia(UsuarioModel model)
+        public List<ServiceOferta.BEEstrategia> GetOfertas(UsuarioModel model)
         {
             List<ServiceOferta.BEEstrategia> ofertasDelDia;
 
@@ -97,13 +94,13 @@ namespace Portal.Consultoras.Web.Providers
             return ofertasDelDia;
         }
 
-        public List<BETablaLogicaDatos> ObtenerPersonalizacionesOfertaDelDia(UsuarioModel model)
+        public List<BETablaLogicaDatos> GetPersonalizaciones(UsuarioModel model)
         {
             List<BETablaLogicaDatos> personalizacionesOfertaDelDia;
+
             using (var svc = new SACServiceClient())
             {
-                var lst = svc.GetTablaLogicaDatos(model.PaisID, Constantes.TablaLogica.PersonalizacionODD);
-                personalizacionesOfertaDelDia = lst.ToList();
+                personalizacionesOfertaDelDia = svc.GetTablaLogicaDatos(model.PaisID, Constantes.TablaLogica.PersonalizacionODD).ToList();
             }
 
             return personalizacionesOfertaDelDia;
