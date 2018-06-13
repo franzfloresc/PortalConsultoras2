@@ -35,11 +35,17 @@ else
         <div class="wrapper_content_cambiar_foto_perfil">
             <div>
                 <div class="opciones_foto_perfil">
-                    <label for="ElegirImagen" href="#" title="Tomar una foto" class="opcion_foto_perfil opcion_tomar_foto">
+                    <a href="#" title="Tomar una foto" class="opcion_foto_perfil opcion_tomar_foto">
                         <span class="icono_opcion_foto_perfil icono_tomar_foto v-alignMiddle">
                             <img src="@Url.Content("~/Content/Images/icono_tomar_foto.svg")" alt="Tomar una foto" />
                         </span>
                         <span class="descrip_opcion_foto_perfil text-uppercase v-alignMiddle">Tomar una foto</span>
+                    </a>
+                    <label for="ElegirImagen"  title="Desde mi galería" class="opcion_foto_perfil opcion_cargar_foto_desde_galeria">
+                        <span class="icono_opcion_foto_perfil icono_cargar_foto_desde_galeria v-alignMiddle">
+                            <img src="@Url.Content("~/Content/Images/icono_cargar_foto_desde_galeria.svg")" alt="Desde mi galería" />
+                        </span>
+                        <span class="descrip_opcion_foto_perfil text-uppercase v-alignMiddle">Desde mi galería</span>
                     </label>
                     <div class="input-file">
                         <div id="fpImagenPerfil">
@@ -67,12 +73,6 @@ else
                             </script>
                         </div>
                     </div>
-                    <a href="#" title="Desde mi galería" class="opcion_foto_perfil opcion_cargar_foto_desde_galeria">
-                        <span class="icono_opcion_foto_perfil icono_cargar_foto_desde_galeria v-alignMiddle">
-                            <img src="@Url.Content("~/Content/Images/icono_cargar_foto_desde_galeria.svg")" alt="Desde mi galería" />
-                        </span>
-                        <span class="descrip_opcion_foto_perfil text-uppercase v-alignMiddle">Desde mi galería</span>
-                    </a>
                     <a href="#" title="Eliminar foto" class="opcion_foto_perfil opcion_eliminar_foto">
                         <span class="icono_opcion_foto_perfil icono_eliminar_foto v-alignMiddle">
                             <img src="@Url.Content("~/Content/Images/icono_eliminar.svg")" alt="Eliminar foto" />
