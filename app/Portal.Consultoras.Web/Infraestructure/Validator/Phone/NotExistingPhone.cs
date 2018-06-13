@@ -1,16 +1,32 @@
 ﻿using System.Threading.Tasks;
 using Portal.Consultoras.Common.Validator;
+using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.Infraestructure.Validator.Phone
 {
     public class NotExistingPhone : IPhoneValidator
     {
-        public Task<SimpleResult> Valid(string number)
+        private const string ErrorMessage = "El número ya esta en uso.";
+
+        public int PaisId { get; set; }
+        public string CodigoConsultora { get; set; }
+
+        public async Task<SimpleResult> Valid(string number)
         {
-            return Task.FromResult(new SimpleResult
+            var result = new SimpleResult();
+
+            using (var sv = new UsuarioServiceClient())
             {
-                Success = true
-            });
+                var count = await sv.ValidarTelefonoConsultoraAsync(PaisId, number, CodigoConsultora);
+                result.Success = count == 0;
+            }
+
+            if (!result.Success)
+            {
+                result.Message = ErrorMessage;
+            }
+
+            return result;
         }
     }
 }
