@@ -1947,33 +1947,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Json(listaProductoModel, JsonRequestBehavior.AllowGet);
         }
-
-        public string ObtenerRutaImagenResize(string rutaImagen, string rutaNombreExtension)
-        {
-            string ruta = "";
-
-            if (string.IsNullOrEmpty(rutaImagen))
-                return ruta;
-
-            var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
-
-            if (rutaImagen.ToLower().Contains(valorAppCatalogo))
-            {
-                string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
-                string soloExtension = Path.GetExtension(rutaImagen);
-
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
-                ruta = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + rutaNombreExtension + soloExtension);
-            }
-            else
-            {
-                ruta = Util.GenerarRutaImagenResize(rutaImagen, rutaNombreExtension);
-            }
-
-            return ruta;
-        }
-
+       
         [HttpPost]
         public JsonResult ValidarCuvMarquesina(string CampaniaID, string Cuv, string IdBanner)
         {
@@ -3709,33 +3683,6 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
-        public JsonResult ObtenerProductosOfertaFinal(int tipoOfertaFinal)
-        {
-            try
-            {
-                var listaProductoModel = ObtenerListadoProductosOfertaFinal(tipoOfertaFinal);
-
-                return Json(new
-                {
-                    success = true,
-                    message = "OK",
-                    data = listaProductoModel
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    data = "",
-                    limiteJetlore = 0
-                });
-            }
-        }
-
-
         public bool VerificarConsultoraNueva()
         {
             int segmentoId;
@@ -3849,83 +3796,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
-        private List<ProductoModel> ObtenerListadoProductosOfertaFinal(int tipoOfertaFinal)
-        {
-            var paisesConPcm = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesConPcm);
-
-            var tipoProductoMostrar = userData.CodigoISO != null && paisesConPcm.Contains(userData.CodigoISO) ? 2 : 1;
-
-            var limiteJetlore = int.Parse(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreOfertaFinal));
-
-            var listPedido = ObtenerPedidoWebDetalle();
-
-            decimal descuentoprol = 0;
-
-            if (listPedido.Any())
-            {
-                descuentoprol = listPedido[0].DescuentoProl;
-            }
-
-            var ofertaFinal = sessionManager.GetOfertaFinalModel();
-            var objOfertaFinal = new ListaParametroOfertaFinal
-            {
-                ZonaID = userData.ZonaID,
-                CampaniaID = userData.CampaniaID,
-                CodigoConsultora = userData.CodigoConsultora,
-                CodigoISO = userData.CodigoISO,
-                CodigoRegion = userData.CodigorRegion,
-                CodigoZona = userData.CodigoZona,
-                Limite = limiteJetlore,
-                MontoEscala = GetDataBarra().MontoEscala,
-                MontoMinimo = userData.MontoMinimo,
-                MontoTotal = listPedido.Sum(p => p.ImporteTotal) - descuentoprol,
-                TipoOfertaFinal = tipoOfertaFinal,
-                TipoProductoMostrar = tipoProductoMostrar,
-                Algoritmo = ofertaFinal.Algoritmo,
-                Estado = ofertaFinal.Estado,
-                TieneMDO = revistaDigital.ActivoMdo
-            };
-
-            List<Producto> lista;
-            using (var ps = new ProductoServiceClient())
-            {
-                lista = ps.ObtenerProductosOfertaFinal(objOfertaFinal).ToList();
-            }
-
-            var listaProductoModel = Mapper.Map<List<Producto>, List<ProductoModel>>(lista);
-            if (listaProductoModel.Count(x => x.ID == 0) == listaProductoModel.Count)
-            {
-                for (var i = 0; i <= listaProductoModel.Count - 1; i++) { listaProductoModel[i].ID = i; }
-            }
-
-            if (lista.Count != 0)
-            {
-                var tipoCross = lista[0].TipoCross;
-                listaProductoModel.Update(p =>
-                {
-                    p.PrecioCatalogoString = Util.DecimalToStringFormat(p.PrecioCatalogo, userData.CodigoISO);
-                    p.PrecioValorizadoString = Util.DecimalToStringFormat(p.PrecioValorizado, userData.CodigoISO);
-                    p.MetaMontoStr = Util.DecimalToStringFormat(p.MontoMeta, userData.CodigoISO);
-                    p.Simbolo = userData.Simbolo;
-                    p.NombreComercialCorto = Util.SubStrCortarNombre(p.NombreComercial, 40, "...");
-                    var imagenUrl = Util.SubStr(p.Imagen, 0);
-
-                    if (!tipoCross && userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
-                    {
-                        var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                        imagenUrl = ConfigS3.GetUrlFileS3(carpetapais, imagenUrl, carpetapais);
-                    }
-                    p.ImagenProductoSugerido = imagenUrl;
-                    p.ImagenProductoSugeridoSmall = ObtenerRutaImagenResize(p.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
-                    p.ImagenProductoSugeridoMedium = ObtenerRutaImagenResize(p.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium);
-                    p.TipoCross = tipoCross;
-                });
-            }
-
-            return listaProductoModel;
-        }
-
+        
         public JsonResult GetOfertaDelDia()
         {
             try

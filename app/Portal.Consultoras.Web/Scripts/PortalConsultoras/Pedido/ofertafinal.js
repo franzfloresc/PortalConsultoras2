@@ -1197,10 +1197,10 @@ function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMen
 function ObtenerProductosOfertaFinal(tipoOfertaFinal) {
     var item = { tipoOfertaFinal: tipoOfertaFinal };
     var lista = null;
-
+        
     jQuery.ajax({
         type: 'POST',
-        url: baseUrl + 'Pedido/ObtenerProductosOfertaFinal',
+        url: baseUrl + 'Estrategia/ObtenerProductosOfertaFinal',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
