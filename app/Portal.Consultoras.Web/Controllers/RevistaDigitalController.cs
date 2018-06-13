@@ -232,7 +232,7 @@ namespace Portal.Consultoras.Web.Controllers
                         listPerdio = listModelCompleta.Where(e =>
                             (e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
                             || e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso)
-                            && e.FlagRevista == Constantes.FlagRevista.Valor2
+                            && (e.FlagRevista == Constantes.FlagRevista.Valor1 || e.FlagRevista == Constantes.FlagRevista.Valor2)
                             ).ToList();
                     }
                     else
