@@ -584,7 +584,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private string mensajeConsultora(string consultora, string url)
         {
-            string tlfBelcorpResponde = GetConfiguracionManager(String.Format(Constantes.ConfiguracionManager.BelcorpRespondeTEL, UserData().CodigoISO));
+            string tlfBelcorpResponde = _configuracionManagerProvider.GetConfiguracionManager(String.Format(Constantes.ConfiguracionManager.BelcorpRespondeTEL, UserData().CodigoISO));
             string carpetaPais = "Correo/CCC";
             string spacerGif = ConfigS3.GetUrlFileS3(carpetaPais, "spacer.gif", string.Empty);
             string mailing03 = ConfigS3.GetUrlFileS3(carpetaPais, "1-Mailing_03.png", string.Empty);

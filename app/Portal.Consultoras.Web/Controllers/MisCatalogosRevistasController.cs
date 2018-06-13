@@ -84,7 +84,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<Catalogo> catalogos = new List<Catalogo>();
             string urlIssuuSearch = "http:" + Constantes.CatalogoUrlIssu.Buscador;
-            string urlIssuuVisor = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlIssuu);
+            string urlIssuuVisor = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlIssuu);
 
             try
             {
@@ -546,7 +546,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string codigo = GetRevistaCodigoIssuu(campania);
                 if (string.IsNullOrEmpty(codigo)) return Json(new { success = false }, JsonRequestBehavior.AllowGet);
                 
-                string url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlIssuu);
+                string url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlIssuu);
                 url = string.Format(url, codigo);
                 return Json(new { success = true, urlRevista = url }, JsonRequestBehavior.AllowGet);
             }
@@ -559,7 +559,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool EsCatalogoUnificado(int campania)
         {
-            string paisesCatalogoUnificado = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoUnificado);
+            string paisesCatalogoUnificado = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoUnificado);
             if (!paisesCatalogoUnificado.Contains(userData.CodigoISO)) return false;
 
             string paisUnificado = paisesCatalogoUnificado.Split(';').FirstOrDefault(pais => pais.Contains(userData.CodigoISO));

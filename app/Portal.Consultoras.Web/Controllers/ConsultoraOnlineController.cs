@@ -396,7 +396,7 @@ namespace Portal.Consultoras.Web.Controllers
         public string mensajeConsultora(string consultora, string url)
         {
             string tlfBelcorpResponde =
-                GetConfiguracionManager(String.Format(Constantes.ConfiguracionManager.BelcorpRespondeTEL,
+                _configuracionManagerProvider.GetConfiguracionManager(String.Format(Constantes.ConfiguracionManager.BelcorpRespondeTEL,
                     userData.CodigoISO));
             string carpetaPais = "Correo/CCC";
             string spacerGif = ConfigS3.GetUrlFileS3(carpetaPais, "spacer.gif", string.Empty);
@@ -1255,7 +1255,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 sessionManager.SetDetallesPedido(null);
                 sessionManager.SetDetallesPedidoSetAgrupado(null);
-                string emailDe = GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
+                string emailDe = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
 
                 if (pedidoAux.FlagMedio == "01")
                 {
@@ -1935,7 +1935,7 @@ namespace Portal.Consultoras.Web.Controllers
                         try
                         {
                             string emailDe =
-                                GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
+                                _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
                             if (typeAction == "1")
                             {
                                 Util.EnviarMail3(emailDe, pedido.Email, titulocliente, mensajecliente.ToString(), true,

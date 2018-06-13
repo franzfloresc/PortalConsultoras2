@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Bienvenida");
             }
             
-            ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
+            ViewBag.RutaImagenNoDisponible = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
 
             if (Session["ListFiltersFAV"] != null)
             {
@@ -51,7 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var sobrenombre = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
                 ViewBag.NombreConsultoraFAV = sobrenombre.First().ToString().ToUpper() + sobrenombre.ToLower().Substring(1);
-                ViewBag.UrlImagenFAVLanding = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVLanding), userData.CodigoISO);
+                ViewBag.UrlImagenFAVLanding = string.Format(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVLanding), userData.CodigoISO);
             }
 
             return View(model);
@@ -69,13 +69,13 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
 
-            int cantProFav = Convert.ToInt32(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizadoHome));
+            int cantProFav = Convert.ToInt32(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizadoHome));
             return ObtenerProductos(cantProFav);
         }
 
         public JsonResult ObtenerProductosCatalogoPersonalizado(int cantidad, int offset, List<FiltroResultadoModel> lstFilters = null, int tipoOrigen = 0)
         {
-            int limiteJetloreCatalogoPersonalizado = int.Parse(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizado));
+            int limiteJetloreCatalogoPersonalizado = int.Parse(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizado));
             cantidad = (offset + cantidad > limiteJetloreCatalogoPersonalizado) ? (limiteJetloreCatalogoPersonalizado - offset) : cantidad;
             return ObtenerProductos(cantidad, offset, lstFilters, tipoOrigen);
         }
@@ -129,7 +129,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #region obtener catalogo personalizado
                 if (Session["ProductosCatalogoPersonalizado"] == null)
                 {
-                    string paisesConPcm = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesConPcm);
+                    string paisesConPcm = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesConPcm);
                     int tipoProductoMostrar = paisesConPcm.Contains(userData.CodigoISO) ? 2 : 1;
 
                     List<Producto> lista;
@@ -146,7 +146,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (lista.Any())
                     {
-                        int limiteJetlore = int.Parse(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizado));
+                        int limiteJetlore = int.Parse(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizado));
                         lista = lista.Take(limiteJetlore).ToList();
 
                         string codigosCuv = string.Join(",", lista.Select(p => p.Cuv));
@@ -254,7 +254,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listaProductoModel.Update(c => c.IsAgregado = listaPedido.Any(p => p.CUV == c.CUV));
 
                 #region filtros
-                var totalRegistros = int.Parse(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizado));
+                var totalRegistros = int.Parse(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizado));
                 var prodModel = listaProductoModel.OrderBy(x => x.PrecioCatalogo).FirstOrDefault() ?? new ProductoModel();
                 var precioMinimo = prodModel.PrecioCatalogoString;
                 prodModel = listaProductoModel.OrderByDescending(x => x.PrecioCatalogo).FirstOrDefault() ?? new ProductoModel();
@@ -411,7 +411,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var ambiente = GetConfiguracionManager(Constantes.ConfiguracionManager.Ambiente);
+                var ambiente = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Ambiente);
                 var keyWeb = ambiente.ToUpper() == "QA" ? "QA_Prol_ServicesCalculos" : "PR_Prol_ServicesCalculos";
 
                 ObjOfertaCatalogos dataProl;

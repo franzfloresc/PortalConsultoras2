@@ -51,7 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ListaEtiquetas = DropDowListEtiqueta(),
                     UrlS3 = urlS3,
                     habilitarNemotecnico = habilitarNemotecnico == "1",
-                    ExpValidacionNemotecnico = GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico),
+                    ExpValidacionNemotecnico = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico),
                     TipoVistaEstrategia = TipoVistaEstrategia,
                     PaisID = userData.PaisID
                 };

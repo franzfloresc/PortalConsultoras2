@@ -43,10 +43,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
 
                 model.PartialSectionBpt = GetPartialSectionBptModel(revistaDigital);
-                ViewBag.UrlImgMiAcademia = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImgMiAcademia) + "/" + userData.CodigoISO + "/academia.png";
-                ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
+                ViewBag.UrlImgMiAcademia = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImgMiAcademia) + "/" + userData.CodigoISO + "/academia.png";
+                ViewBag.RutaImagenNoDisponible = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
                 ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
-                ViewBag.UrlImagenFAVHome = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVHome), userData.CodigoISO);
+                ViewBag.UrlImagenFAVHome = string.Format(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVHome), userData.CodigoISO);
 
                 #region Montos
                 var bePedidoWeb = ObtenerPedidoWeb();
@@ -86,8 +86,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Celular = userData.Celular;
                 model.NombreGerenteZonal = userData.NombreGerenteZonal;
 
-                var carpetaPais = GetConfiguracionManager(Constantes.ConfiguracionManager.CarpetaImagenCompartirCatalogo) + userData.CodigoISO;
-                var nombreImagenCatalogo = GetConfiguracionManager(Constantes.ConfiguracionManager.NombreImagenCompartirCatalogo);
+                var carpetaPais = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.CarpetaImagenCompartirCatalogo) + userData.CodigoISO;
+                var nombreImagenCatalogo = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.NombreImagenCompartirCatalogo);
                 model.UrlImagenCompartirCatalogo = ConfigS3.GetUrlFileS3(carpetaPais, nombreImagenCatalogo, String.Empty);
                 model.PrimeraVez = userData.CambioClave;
                 model.Simbolo = userData.Simbolo;
@@ -111,7 +111,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.IndicadorFlexipago = userData.IndicadorFlexiPago;
                 model.CantProductosCarouselLiq = configCarouselLiquidacion.Count > 0 ? Convert.ToInt32(configCarouselLiquidacion[0].Codigo) : 1;
                 model.BotonAnalytics = datGaBoton.Count > 0 ? datGaBoton[0].Descripcion : "";
-                model.UrlFlexipagoCL = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaFlexipagoCL);
+                model.UrlFlexipagoCL = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.rutaFlexipagoCL);
                 model.PopupInicialCerrado = userData.PopupBienvenidaCerrado;
                 if (userData.CodigoISO == Constantes.CodigosISOPais.Chile || userData.CodigoISO == Constantes.CodigosISOPais.Colombia)
                 {
@@ -123,7 +123,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     model.NroCampana = (tabla.FirstOrDefault(x => x.TablaLogicaDatosID == 6001) ?? new BETablaLogicaDatos()).Codigo;
 
-                    model.rutaChile = userData.CodigoISO == Constantes.CodigosISOPais.Chile ? GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile) : string.Empty;
+                    model.rutaChile = userData.CodigoISO == Constantes.CodigosISOPais.Chile ? _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile) : string.Empty;
                 }
                 else
                 {
@@ -131,7 +131,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.rutaChile = string.Empty;
                 }
 
-                var nombreArchivoContrato = GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
+                var nombreArchivoContrato = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
                 model.ContratoActualizarDatos = nombreArchivoContrato;
 
                 var parametro = userData.CodigoConsultora + "|" + DateTime.Now.ToShortDateString() + " 23:59:59" + "|" + userData.CodigoISO;
@@ -763,7 +763,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var filePath = Server.MapPath("~/Content/FAQ/Contrato_CO.pdf");
-                var indicadorEnvio = GetConfiguracionManager(Constantes.ConfiguracionManager.indicadorContrato);
+                var indicadorEnvio = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.indicadorContrato);
                 if (indicadorEnvio == "1")
                 {
                     try
@@ -855,7 +855,7 @@ namespace Portal.Consultoras.Web.Controllers
             string urlRedirect;
             if (pp == Constantes.CodigosISOPais.Chile)
             {
-                urlRedirect = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaFlexipagoCL) + "/index.html";
+                urlRedirect = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.rutaFlexipagoCL) + "/index.html";
             }
             else
             {
@@ -902,7 +902,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CompartirDatos = beusuario.CompartirDatos;
                 model.AceptoContrato = beusuario.AceptoContrato;
                 model.UsuarioPrueba = userData.UsuarioPrueba;
-                model.NombreArchivoContrato = GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
+                model.NombreArchivoContrato = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
 
                 BEZona[] bezona;
                 using (var sv = new ZonificacionServiceClient())
@@ -925,7 +925,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.DigitoVerificador = string.Empty;
                 model.CodigoUsuario = userData.CodigoUsuario + " (Zona: " + userData.CodigoZona + ")";
 
-                var paisesDigitoControl = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
+                var paisesDigitoControl = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
                 if (paisesDigitoControl.Contains(model.PaisISO)
                     && !String.IsNullOrEmpty(beusuario.DigitoVerificador))
                 {
@@ -2140,10 +2140,10 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ChatBelcorp()
         {
             var url = "";
-            if (GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesBelcorpChatEMTELCO).Contains(userData.CodigoISO))
+            if (_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesBelcorpChatEMTELCO).Contains(userData.CodigoISO))
             {
                 url = String.Format(
-                    GetConfiguracionManager(Constantes.ConfiguracionManager.UrlBelcorpChat),
+                    _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlBelcorpChat),
                     userData.SegmentoAbreviatura.Trim(),
                     userData.CodigoUsuario.Trim(),
                     userData.PrimerNombre.Split(' ').First().Trim(),

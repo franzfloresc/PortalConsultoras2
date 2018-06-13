@@ -219,7 +219,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "UpdatePassSAC/MantenimientoUsuarioGZ"))
                 return RedirectToAction("Index", "Bienvenida");
-            string url = GetConfiguracionManager(Constantes.ConfiguracionManager.GZURL) + "?PAIS=" + UserData().CodigoISO + "&USUARIO=" + UserData().CodigoUsuario;
+            string url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.GZURL) + "?PAIS=" + UserData().CodigoISO + "&USUARIO=" + UserData().CodigoUsuario;
             return Redirect(url);
         }
 

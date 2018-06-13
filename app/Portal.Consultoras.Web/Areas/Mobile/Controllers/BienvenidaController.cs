@@ -91,7 +91,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 model.PartialSectionBpt = GetPartialSectionBptModel();
                 ViewBag.NombreConsultoraFAV = ObtenerNombreConsultoraFav();
-                ViewBag.UrlImagenFAVMobile = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVMobile), userData.CodigoISO);
+                ViewBag.UrlImagenFAVMobile = string.Format(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVMobile), userData.CodigoISO);
 
                 if (Session[Constantes.ConstSession.IngresoPortalConsultoras] == null)
                 {
@@ -157,7 +157,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var rutaChile = string.Empty;
             if (userData.CodigoISO == Constantes.CodigosISOPais.Chile)
             {
-                rutaChile = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile);
+                rutaChile = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile);
             }
 
             return rutaChile;
@@ -200,7 +200,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private int ObtenerActivacionAppCatalogoWhastUp()
         {
-            string paisesCatalogoWhatsUp = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
+            string paisesCatalogoWhatsUp = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
 
             var activacionAppCatalogoWhastUp = paisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;
 
@@ -333,10 +333,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult ChatBelcorp()
         {
             string url = "";
-            if (GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesBelcorpChatEMTELCO).Contains(userData.CodigoISO))
+            if (_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesBelcorpChatEMTELCO).Contains(userData.CodigoISO))
             {
                 url = String.Format(
-                    GetConfiguracionManager(Constantes.ConfiguracionManager.UrlBelcorpChat),
+                    _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlBelcorpChat),
                     userData.SegmentoAbreviatura.Trim(),
                     userData.CodigoUsuario.Trim(),
                     userData.PrimerNombre.Split(' ').First().Trim(),

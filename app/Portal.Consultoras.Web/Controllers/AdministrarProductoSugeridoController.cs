@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lstCampania = new List<CampaniaModel>(),
                 lstPais = DropDowListPaises(),
                 PaisIDUser = userData.PaisID,
-                ExpValidacionNemotecnico = GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico),
+                ExpValidacionNemotecnico = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico),
                 MostrarAgotado = MostrarCheckAgotado()
             };
             return View(model);
@@ -168,7 +168,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 int nroCampaniasAtras;
-                Int32.TryParse(GetConfiguracionManager(Constantes.ConfiguracionManager.ProductoSugeridoAppCatalogosNroCampaniasAtras), out nroCampaniasAtras);
+                Int32.TryParse(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ProductoSugeridoAppCatalogosNroCampaniasAtras), out nroCampaniasAtras);
                 if (nroCampaniasAtras <= 0) nroCampaniasAtras = 3;
 
                 string paisesCcc = GetPaisesConConsultoraOnlineFromConfig();

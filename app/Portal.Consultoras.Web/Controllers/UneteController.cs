@@ -893,7 +893,7 @@ namespace Portal.Consultoras.Web.Controllers
                 new Crypto().EncryptToString(string.Format("{0}|{1}|{2}", solicitudPostulante.NumeroDocumento,
                     solicitudPostulante.CorreoElectronico, user.CodigoISO));
 
-            var urlConfirmacion = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlUneteBelcorp) + "?id=" +
+            var urlConfirmacion = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlUneteBelcorp) + "?id=" +
                                   token + "&p=" +
                                   user.CodigoISO +
                                   "&utm_source=Transaccional&utm_medium=email&utm_content=Completa_datos&utm_campaign=Unete_a_Belcorp";
@@ -1606,7 +1606,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private JObject ConsultarServicio(object data, string metodo)
         {
-            var urlWsgeo = GetConfiguracionManager(Constantes.ConfiguracionManager.WSGEO_Url);
+            var urlWsgeo = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.WSGEO_Url);
             var bytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(data));
 
             var url = string.Format("{0}/{1}", urlWsgeo, metodo);
@@ -1940,7 +1940,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public string getHTMLSACUnete(string action, string urlParams)
         {
-            string urlSacUente = GetConfiguracionManager(Constantes.ConfiguracionManager.UneteURL);
+            string urlSacUente = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UneteURL);
             string responseHtml = string.Empty;
             string url = string.Format("{0}/{1}?p={2}", urlSacUente, action, CodigoISO);
 
@@ -1969,7 +1969,7 @@ namespace Portal.Consultoras.Web.Controllers
             var byteContent = new ByteArrayContent(buffer);
             byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
 
-            string urlSacUente = GetConfiguracionManager(Constantes.ConfiguracionManager.UneteURL);
+            string urlSacUente = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UneteURL);
             string responseHtml = string.Empty;
             string url = string.Format("{0}/{1}", urlSacUente, Action);
 

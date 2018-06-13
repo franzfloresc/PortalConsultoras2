@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -33,16 +32,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if(revistaDigital == null)
-                {
-                    throw new Exception("revistaDigital no puede ser nulo.");
-                }
-
                 var esMobile = IsMobile();
 
                 if (!revistaDigital.TieneRevistaDigital() || !revistaDigital.EsActiva)
                 {
-                    return RedirectToAction("Index", "Bienvenida", new { area = esMobile ? "Mobile" : "" });
+                    return RedirectToAction("Index", "Ofertas", new { area = esMobile ? "Mobile" : "" });
                 }
 
                 var modelo = sessionManager.GetProductoTemporal();

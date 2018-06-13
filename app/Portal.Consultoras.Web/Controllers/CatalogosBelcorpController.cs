@@ -79,7 +79,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<Catalogo> catalogos = new List<Catalogo>();
             const string urlIssuuSearch = "http:" + Constantes.CatalogoUrlIssu.Buscador;
-            string urlIssuuVisor = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlIssuu);
+            string urlIssuuVisor = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlIssuu);
             List<String> preferences = new List<String> { "LBel", "Esika", "Cyzone" };
 
             try

@@ -290,7 +290,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
-                ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.oferta_final_regalo_url_s3), userData.CodigoISO);
+                ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.oferta_final_regalo_url_s3), userData.CodigoISO);
                 model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
 
                 ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
@@ -328,7 +328,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
 
-            ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.oferta_final_regalo_url_s3), userData.CodigoISO);
+            ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.oferta_final_regalo_url_s3), userData.CodigoISO);
 
             if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
             {
@@ -396,7 +396,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string GetPaisesFlexiPago()
         {
-            return GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesFlexipago);
+            return _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesFlexipago);
         }
 
         private bool PaisTieneFlexiPago(string codigoIso)
@@ -1884,7 +1884,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             using (var sv = new wsConsulta())
                             {
-                                sv.Url = GetConfiguracionManager(Constantes.ConfiguracionManager.RutaServicePROLConsultas);
+                                sv.Url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.RutaServicePROLConsultas);
                                 listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
                             }
                         }
@@ -3852,11 +3852,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<ProductoModel> ObtenerListadoProductosOfertaFinal(int tipoOfertaFinal)
         {
-            var paisesConPcm = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesConPcm);
+            var paisesConPcm = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesConPcm);
 
             var tipoProductoMostrar = userData.CodigoISO != null && paisesConPcm.Contains(userData.CodigoISO) ? 2 : 1;
 
-            var limiteJetlore = int.Parse(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreOfertaFinal));
+            var limiteJetlore = int.Parse(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreOfertaFinal));
 
             var listPedido = ObtenerPedidoWebDetalle();
 

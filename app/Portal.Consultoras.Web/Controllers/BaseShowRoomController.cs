@@ -4,7 +4,6 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServicePROLConsultas;
-using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -120,26 +119,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        protected bool GetEventoConsultoraRecibido(UsuarioModel usuario)
-        {
-            var result = false;
-
-            try
-            {
-                using (var sv = new PedidoServiceClient())
-                {
-                    result = sv.GetEventoConsultoraRecibido(usuario.PaisID, usuario.CodigoConsultora, usuario.CampaniaID);
-                }
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoConsultora, usuario.CodigoISO, "BaseShowRoomController.GetEventoConsultoraRecibido");
-            }
-
-
-            return result;
-        }
-
         public bool ValidarIngresoShowRoom(bool esIntriga)
         {
             if (!configEstrategiaSR.CargoEntidadesShowRoom)
@@ -235,26 +214,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Request.Browser.IsMobileDevice;
         }
 
-        protected void UpdShowRoomEventoConsultoraEmailRecibido(string codigoConsultoraFromQueryString, int campaniaIdFromQueryString, UsuarioModel usuario)
-        {
-            try
-            {
-                var entidad = new ServicePedido.BEShowRoomEventoConsultora
-                {
-                    CodigoConsultora = codigoConsultoraFromQueryString,
-                    CampaniaID = campaniaIdFromQueryString
-                };
-
-                using (var sv = new PedidoServiceClient())
-                {
-                    sv.UpdShowRoomEventoConsultoraEmailRecibido(usuario.PaisID, entidad);
-                }
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoConsultora, usuario.CodigoISO, "BaseShowRoomController.GetEventoConsultoraRecibido");
-            }
-        }
+        
 
         protected class ShowRoomQueryStringValidator
         {
@@ -380,7 +340,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (listaCodigosSAP.ToString() != separador)
             {
                 string listaDeCUV = listaCodigosSAP.ToString().Substring(1, listaCodigosSAP.ToString().Length - 2);
-                int numeroCampanias = Convert.ToInt32(GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
+                int numeroCampanias = Convert.ToInt32(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
                 using (ProductoServiceClient svc = new ProductoServiceClient())
                 {
                     listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, userData.CampaniaID, listaDeCUV, numeroCampanias).ToList();
@@ -617,7 +577,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             using (var sv = new wsConsulta())
                             {
-                                sv.Url = GetConfiguracionManager(Constantes.ConfiguracionManager.RutaServicePROLConsultas);
+                                sv.Url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.RutaServicePROLConsultas);
                                 listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
                             }
                         }
@@ -649,7 +609,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 List<Producto> listaShowRoomProductoCatalogo;
-                var numeroCampanias = Convert.ToInt32(GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
+                var numeroCampanias = Convert.ToInt32(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
 
                 codigoSap = txtBuil.ToString();
                 codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
@@ -801,14 +761,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<EstrategiaPedidoModel> ObtenerListaProductoShowRoomFormato(List<EstrategiaPedidoModel> listaShowRoomOferta, List<BEPedidoWebDetalle> listaPedidoDetalle, bool esFacturacion)
         {
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            if (listaShowRoomOferta.Any())
-            {
-                listaShowRoomOferta.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto)
-                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
-                listaShowRoomOferta.Update(x => x.ImagenMini = string.IsNullOrEmpty(x.ImagenMini)
-                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.UrlMatriz + "/" + userData.CodigoISO));
-            }
+            ActualizarUrlImagenes(listaShowRoomOferta);
 
             var listaTieneStock = new List<Lista>();
             if (esFacturacion)
@@ -831,7 +784,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         using (var sv = new wsConsulta())
                         {
-                            sv.Url = GetConfiguracionManager(Constantes.ConfiguracionManager.RutaServicePROLConsultas);
+                            sv.Url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.RutaServicePROLConsultas);
                             listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
                         }
                     }
