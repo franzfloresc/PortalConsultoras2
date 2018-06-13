@@ -124,7 +124,8 @@ namespace Portal.Consultoras.Web.Providers
                         FlagNueva = d.FlagNueva ? 1 : 0,
                         CodigoEstrategia = d.CodigoEstrategia,
                         CodigoTipoEstrategia = d.CodigoTipoEstrategia,
-                        CodigoProducto = d.CodigoProducto,
+                        //cambiar por CodigoProducto cuando se correija el servicio
+                        CodigoProducto = d.CodigoSap,
                         IndicadorMontoMinimo = d.IndicadorMontoMinimo ? 1 : 0,
                         MarcaID = d.MarcaId,
                         DescripcionMarca = d.MarcaDescripcion,
@@ -133,7 +134,7 @@ namespace Portal.Consultoras.Web.Providers
                         ImagenMiniaturaURL = "",
                         TipoEstrategiaID = d.TipoEstrategiaId,
                         Imagen = d.FlagImagenURL ? 1 : 0,
-                        DescripcionEstrategia = d.DescripcionTipoEstrategia,
+                        DescripcionEstrategia = d.DescripcionTipoEstrategia,                    
                         CodigoSAP = d.CodigoSap,
                         Zona = d.Zona
                     }
