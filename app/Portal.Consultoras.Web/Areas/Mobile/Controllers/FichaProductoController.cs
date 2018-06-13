@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                     producto = FichaProductoFormatearModelo(lst).SingleOrDefault();
                     producto = FichaProductoHermanos(producto);
-                    producto.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, producto.FotoProducto01);
+                    producto.FotoProducto01 = ConfigCdn.GetUrlFileCdn(carpetaPais, producto.FotoProducto01);
                     Session[Constantes.SessionNames.FichaProductoTemporal] = producto;
                 }
                 if (producto == null)

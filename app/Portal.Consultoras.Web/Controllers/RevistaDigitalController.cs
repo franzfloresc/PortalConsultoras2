@@ -86,7 +86,7 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.PrecioTachado = Util.Trim(modelo.PrecioTachado);
                 modelo.CodigoVariante = Util.Trim(modelo.CodigoVariante);
                 modelo.TextoLibre = Util.Trim(modelo.TextoLibre);
-                modelo.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, modelo.FotoProducto01);
+                modelo.FotoProducto01 = ConfigCdn.GetUrlFileCdn(carpetaPais, modelo.FotoProducto01);
             }
 
             sessionManager.SetProductoTemporal(modelo);

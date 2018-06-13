@@ -640,7 +640,7 @@ namespace Portal.Consultoras.Web.Controllers
                     prodModel.EsOfertaIndependiente = estrategia.EsOfertaIndependiente;
                     if (estrategia.EsOfertaIndependiente && estrategia.MostrarImgOfertaIndependiente)
                     {
-                        prodModel.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenOfertaIndependiente);
+                        prodModel.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetaPais, estrategia.ImagenOfertaIndependiente);
                     }
                 }
                 else if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.HerramientasVenta)
