@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            ServiceUsuario.BEUsuario beusuario;
+            BEUsuario beusuario;
             var model = new MisDatosModel();
 
             using (var sv = new UsuarioServiceClient())
@@ -389,7 +389,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     resultado = svr.ActualizarMisDatos(entidad, CorreoAnterior);
 
-                    if (model != null) ActualizarDatosLogDynamoDB(model, "MI PERFIL", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
+                    ActualizarDatosLogDynamoDB(model, "MI PERFIL", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
 
                     lst = resultado.Split('|');
 
