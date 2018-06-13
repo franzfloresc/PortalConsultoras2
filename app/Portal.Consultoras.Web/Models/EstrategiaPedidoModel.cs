@@ -107,23 +107,19 @@ namespace Portal.Consultoras.Web.Models
         public int FlagRevista { get; set; }
 
 
-        #region Campos que vienen de ShowRoom (estos campos aun estan en revision y mejora)
-        
-        
+        #region Campos que vienen de ShowRoom 
 
         public string Agregado { get; set; }
         public decimal PrecioOferta { get; set; }
         public decimal PrecioValorizado { get; set; }
+        public int Agotado { get; set; }      
+        public string CodigoCampania { get; set; }
 
-        public int Agotado { get; set; }
         public int TipoOfertaSisID { get; set; }
         public int ConfiguracionOfertaID { get; set; }
+        public bool FlagHabilitarProducto { get; set; }
         public int Stock { get; set; }
         public int StockInicial { get; set; }
-        public bool FlagHabilitarProducto { get; set; }
-         public string CodigoCampania { get; set; }
-       
-
         public string CUV { get; set; }
         public string CodigoISO { get; set; }
         public string ImagenProducto { get; set; }
