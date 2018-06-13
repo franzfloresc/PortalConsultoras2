@@ -1368,7 +1368,7 @@ function ObtenerProductosSugeridos(CUV) {
     AbrirSplash();
     jQuery.ajax({
         type: 'POST',
-        url: baseUrl + 'Pedido/ObtenerProductosSugeridos',
+        url: baseUrl + 'Estrategia/ObtenerProductosSugeridos',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
