@@ -36570,6 +36570,18 @@ h1#penmostreo .campana {
     margin-left:14px;
 }
 
+.borde_der_foto_consultora{
+    float:none;
+    position: absolute;
+    top: 3px;
+    right: -1px;
+    margin: 0;
+}
+
+.posicion_der{
+    right:-6px;
+}
+
 .foto_consultora_menu{
     display: block;
     background-color: #E5E5E5;
@@ -36682,6 +36694,7 @@ h1#penmostreo .campana {
 }
 
 /* FIN - HD-2524 - POPUP OPTIN (VERIFICACIÓN DE CORREO ELECTRÓNICO PENDIENTE) */
+
 /* HD-2513 - 50 AÑOS BELCORP */
 
 .wrapper_header_cincuenta_anios_belcorp{

@@ -7,8 +7,9 @@
 <div class="menu_esika_b">
     <div style="float:right;">
         <div class="campana user-profile">
+            <div class="borde_c borde_der_foto_consultora @(controllerAction == "bienvenidaindex" ? "posicion_der" : "")"></div>
             <div class="foto_consultora_menu">
-            <img id="imgFotoUsuarioHeader" class="mostrar_perfil" region="Superior" src="@ViewBag.FotoPerfil" alt="Foto de consultora">
+                <img id="imgFotoUsuarioHeader" class="mostrar_perfil" region="Superior" src="@ViewBag.FotoPerfil" alt="Foto de consultora">
             </div>
         </div>
         <div class="campana margenIzquierdoOpcionNotificacion @(controllerAction == "bienvenidaindex" ? "oculto" : "")">
