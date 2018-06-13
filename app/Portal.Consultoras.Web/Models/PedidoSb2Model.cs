@@ -267,7 +267,7 @@ namespace Portal.Consultoras.Web.Models
 
         public string EsPais { get; set; }
 
-        public List<BEEscalaDescuento> ListaParametriaOfertaFinal { get; set; }
+        public List<ServiceOferta.BEEscalaDescuento> ListaParametriaOfertaFinal { get; set; }
 
         public bool EsConsultoraNueva { get; set; }
 

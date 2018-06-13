@@ -157,4 +157,19 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetParametriaOfertaFinal">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="algoritmo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetParametriaOfertaFinalResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetParametriaOfertaFinalResult" nillable="true" type="q12:ArrayOfBEEscalaDescuento" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

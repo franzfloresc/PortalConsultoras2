@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServiceODS;
+using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServicePROLConsultas;
@@ -3688,21 +3689,28 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Parametria Oferta Final
 
-        private List<BEEscalaDescuento> GetParametriaOfertaFinal(string algoritmo)
+        //private List<BEEscalaDescuento> GetParametriaOfertaFinal(string algoritmo)
+        private List<ServiceOferta.BEEscalaDescuento> GetParametriaOfertaFinal(string algoritmo)
         {
-            List<BEEscalaDescuento> listaParametriaOfertaFinal;
+            //List<BEEscalaDescuento> listaParametriaOfertaFinal;
+            List<ServiceOferta.BEEscalaDescuento> listaParametriaOfertaFinal;
 
             try
             {
-                using (var sv = new PedidoServiceClient())
+                //using (var sv = new PedidoServiceClient())
+                //{
+                //    listaParametriaOfertaFinal = sv.GetParametriaOfertaFinal(userData.PaisID, algoritmo).ToList();
+                //}
+                using (var osc = new OfertaServiceClient())
                 {
-                    listaParametriaOfertaFinal = sv.GetParametriaOfertaFinal(userData.PaisID, algoritmo).ToList();
+                    listaParametriaOfertaFinal = osc.GetParametriaOfertaFinal(userData.PaisID, algoritmo).ToList();
                 }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                listaParametriaOfertaFinal = new List<BEEscalaDescuento>();
+                //listaParametriaOfertaFinal = new List<BEEscalaDescuento>();
+                listaParametriaOfertaFinal = new List<ServiceOferta.BEEscalaDescuento>();
             }
 
             return listaParametriaOfertaFinal;
