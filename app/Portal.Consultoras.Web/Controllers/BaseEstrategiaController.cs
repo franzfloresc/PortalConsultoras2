@@ -170,7 +170,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 estrategiaModelo.CampaniaID = estrategiaModelo.CampaniaID > 0 ? estrategiaModelo.CampaniaID : userData.CampaniaID;
 
-                estrategiaModelo.Hermanos = GetListaHermanos(estrategiaModelo);
+                estrategiaModelo.Hermanos = GetListaHermanos(estrategiaModelo,String.Empty);
             }
             catch (Exception ex)
             {
