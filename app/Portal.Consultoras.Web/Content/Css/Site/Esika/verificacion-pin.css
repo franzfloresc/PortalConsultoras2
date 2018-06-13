@@ -31,6 +31,10 @@ a{
     cursor:pointer;
 }
 
+input:focus{
+    outline:0;
+}
+
 fieldset{
     border:none!important;
 }
@@ -163,6 +167,7 @@ body
     height:auto;
     box-sizing:border-box;
     font-family:'Lato', sans-serif;
+    margin:0;
 }
 
 a{
@@ -439,8 +444,8 @@ a{
 
 .lista_opciones_verificacion_autenticidad{
     margin-top:29.5px;
-    margin-bottom:70px;
-    width:286px;
+    margin-bottom:54px;
+    width:318px;
 }
 
 .opcion_verificacion_autenticidad {
@@ -602,7 +607,7 @@ a{
 .validacion_erronea{
     border-color:#e81c36;
     background-image:url("../../../Images/icono_validacion_codigo_sms_erroneo.svg");
-    background-position-x:6px;
+    background-position:6px 6px;
 }
 
 .validacion_exitosa{
@@ -836,4 +841,5 @@ a{
 .deshabilitar_opciones .icono_mail:before {
     color: #5a5a5a;
 }
+
 /* FIN - RESTABLECE TU CONTRASEÑA, VERIFICACIÓN DE AUTENTICIDAD */
