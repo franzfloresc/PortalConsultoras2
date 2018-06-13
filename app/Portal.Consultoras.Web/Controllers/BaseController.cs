@@ -61,8 +61,8 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly TablaLogicaProvider _tablaLogicaProvider;
         protected readonly BaseProvider _baseProvider;
         protected readonly GuiaNegocioProvider _guiaNegocioProvider;
-        private readonly ShowRoomProvider _showRoomProvider;
-        private readonly OfertaDelDiaProvider _ofertaDelDiaProvider;
+        protected readonly ShowRoomProvider _showRoomProvider;
+        protected readonly OfertaDelDiaProvider _ofertaDelDiaProvider;
         protected readonly OfertaPersonalizadaProvider _ofertaPersonalizadaProvider;
         protected readonly ConfiguracionManagerProvider _configuracionManagerProvider;
         protected readonly OfertaViewProvider _ofertasViewProvider;
