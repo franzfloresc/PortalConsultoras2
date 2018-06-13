@@ -64,7 +64,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly ShowRoomProvider _showRoomProvider;
         protected readonly OfertaDelDiaProvider _ofertaDelDiaProvider;
         protected readonly OfertaPersonalizadaProvider _ofertaPersonalizadaProvider;
-        protected readonly ConfiguracionManagerProvider _configuracionManagerProvider;
+        protected ConfiguracionManagerProvider _configuracionManagerProvider;
         protected readonly OfertaViewProvider _ofertasViewProvider;
         protected readonly RevistaDigitalProvider _revistaDigitalProvider;
         #endregion
