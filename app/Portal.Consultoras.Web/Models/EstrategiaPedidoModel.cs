@@ -109,68 +109,38 @@ namespace Portal.Consultoras.Web.Models
 
         #region Campos que vienen de ShowRoom (estos campos aun estan en revision y mejora)
 
-      //  public int OfertaShowRoomID { get; set; }
 
         public string CUV { get; set; }
-
-        public int TipoOfertaSisID { get; set; }
-
-        public int ConfiguracionOfertaID { get; set; }
-
-        public decimal PrecioOferta { get; set; }
-
-        public decimal PrecioValorizado { get; set; }
-
-        public int Stock { get; set; }
-
-        public int StockInicial { get; set; }
-
-        public string ImagenProducto { get; set; }
-
-        public int UnidadesPermitidas { get; set; }
-
-        public bool FlagHabilitarProducto { get; set; }
-
-        public string DescripcionLegal { get; set; }
-
-        public string CategoriaID { get; set; }
-
-        public string UsuarioRegistro { get; set; }
-
-        public DateTime FechaRegistro { get; set; }
-
-        public DateTime FechaModificacion { get; set; }
-
-        public string ImagenMini { get; set; }
-
-        public int NroOrden { get; set; }
-
-        public string CodigoCampania { get; set; }
-
-        public string CodigoTipoOferta { get; set; }
-
         public string ISOPais { get; set; }
-
-
+        public string CodigoISO { get; set; }
+        public string Agregado { get; set; }
+        public int Agotado { get; set; }
+        public int TipoOfertaSisID { get; set; }
+        public int ConfiguracionOfertaID { get; set; }
+        public decimal PrecioOferta { get; set; }
+        public decimal PrecioValorizado { get; set; }
+        public int Stock { get; set; }
+        public int StockInicial { get; set; }
+        public string ImagenProducto { get; set; }
+        public int UnidadesPermitidas { get; set; }
+        public bool FlagHabilitarProducto { get; set; }       
+        public string ImagenMini { get; set; }
+        public int NroOrden { get; set; }
+        public string CodigoCampania { get; set; }
+        public string CodigoTipoOferta { get; set; }      
         public string ImagenProductoAnterior { get; set; }
-
-        public string ImagenMiniAnterior { get; set; }
-
-        public IList<EstrategiaPedidoModel> ListaOfertaShowRoom { get; set; }
-
-        public IList<EstrategiaPedidoModel> ListaShowRoomCompraPorCompra { get; set; }
-
+        public string ImagenMiniAnterior { get; set; }        
         public string Subtitulo { get; set; }
         public int Incrementa { get; set; }
         public int CantidadIncrementa { get; set; }
-        public int Agotado { get; set; }
+
+     //   public string CategoriaID { get; set; }
+        public IList<EstrategiaPedidoModel> ListaOfertaShowRoom { get; set; }
+        public IList<EstrategiaPedidoModel> ListaShowRoomCompraPorCompra { get; set; }
+        public string DescripcionLegal { get; set; }
         public string CodigoCategoria { get; set; }
         public string TipNegocio { get; set; }
-        public string CodigoISO { get; set; }
-
-        public string Agregado { get; set; }
         public bool TieneCompraXcompra { get; set; }
-
         public string TextoCondicionCompraCpc { get; set; }
         public string TextoDescripcionLegalCpc { get; set; }
         public decimal Gana { get { return Math.Abs(PrecioValorizado - PrecioOferta); } }
@@ -182,13 +152,8 @@ namespace Portal.Consultoras.Web.Models
         public string Celular { get; set; }
         public bool Suscripcion { get; set; }
         public string UrlTerminosCondiciones { get; set; }
-
         public bool EsSubCampania { get; set; }
         public int UnidadesPermitidasRestantes { get; set; }
-
-        //public List<ProductoModel> ProductoTonos { get; set; }
-        //public int EstrategiaId { get; set; }
-        
         public int TipoAccionAgregar { get; set; }
         public string FBMensaje { get; set; }
         public string WAMensaje { get; set; }
