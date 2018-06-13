@@ -1,23 +1,28 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Common.MagickNet;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.ServiceModel;
-using System.Text;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarProductoSugeridoController : BaseController
     {
+        protected RenderImgProvider _renderImgProvider;
+
+        public AdministrarProductoSugeridoController()
+        {
+            _renderImgProvider = new RenderImgProvider();
+        }
+
         public ActionResult Index()
         {
             var model = new AdministrarProductoSugeridoModel()
@@ -237,7 +242,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
 
-                ImagenesResizeProceso(entidad.ImagenProducto, rutaImagen.ToLower().Contains(valorAppCatalogo));
+                _renderImgProvider.ImagenesResizeProceso(entidad.ImagenProducto, userData.CodigoISO, rutaImagen.ToLower().Contains(valorAppCatalogo));
                 
                 #endregion
 

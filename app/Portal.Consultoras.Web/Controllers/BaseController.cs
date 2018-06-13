@@ -2946,17 +2946,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ? string.Empty
                 : model.Valor;
         }
-
-        public string GetCodigoEstrategia()
-        {
-            var codigo = Constantes.TipoEstrategiaCodigo.OfertaParaTi;
-            if (revistaDigital.TieneRevistaDigital())
-            {
-                codigo = Constantes.TipoEstrategiaCodigo.RevistaDigital;
-            }
-            return codigo;
-        }
-
+        
         public bool ValidarPermiso(string codigo, string codigoConfig = "")
         {
             codigo = Util.Trim(codigo).ToLower();
@@ -4464,183 +4454,30 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region Sesiones 
-        public object GetSession(string nameSession)
-        {
-            return System.Web.HttpContext.Current.Session[nameSession] ?? new object();
-        }
+        //public object GetSession(string nameSession)
+        //{
+        //    return System.Web.HttpContext.Current.Session[nameSession] ?? new object();
+        //}
 
-        public List<ConfiguracionPaisModel> ListConfiguracionPais()
-        {
-            return sessionManager.GetConfiguracionesPaisModel() ??
-                   new List<ConfiguracionPaisModel>();
-        }
+        //public ConfiguracionPaisModel ConfiguracionPaisObtener(string codigo)
+        //{
+        //    codigo = Util.Trim(codigo).ToUpper();
+        //    var listado = sessionManager.GetConfiguracionesPaisModel() ?? new List<ConfiguracionPaisModel>();
+        //    var entidad = listado.FirstOrDefault(c => c.Codigo == codigo) ?? new ConfiguracionPaisModel();
+        //    return entidad;
+        //}
 
-        public ConfiguracionPaisModel ConfiguracionPaisObtener(string codigo)
-        {
-            codigo = Util.Trim(codigo).ToUpper();
-            var listado = ListConfiguracionPais();
-            var entidad = listado.FirstOrDefault(c => c.Codigo == codigo) ?? new ConfiguracionPaisModel();
+        //public EventoFestivoDataModel GetEventoFestivoData()
+        //{
+        //    return sessionManager.GetEventoFestivoDataModel() ??
+        //           new EventoFestivoDataModel();
+        //}
 
-            return entidad;
-        }
-
-        public EventoFestivoDataModel GetEventoFestivoData()
-        {
-            return sessionManager.GetEventoFestivoDataModel() ??
-                   new EventoFestivoDataModel();
-        }
-
-        public OfertaFinalModel GetOfertaFinal()
-        {
-            return sessionManager.GetOfertaFinalModel() ??
-                   new OfertaFinalModel();
-        }
-
-        public MenuContenedorModel GetSessionMenuActivo()
-        {
-            return GetSession(Constantes.ConstSession.MenuContenedorActivo) as MenuContenedorModel ??
-                   new MenuContenedorModel();
-        }
-
-        #endregion
-
-        #region Resize Imagen Default       
-
-        public string ImagenesResizeProceso(string urlImagen, bool esAppCalatogo = false)
-        {
-            string mensajeErrorImagenResize = "";
-            bool actualizar = true;
-            var listaImagenesResize = ObtenerListaImagenesResize(urlImagen, esAppCalatogo, actualizar);
-            if (listaImagenesResize != null && listaImagenesResize.Count > 0)
-                mensajeErrorImagenResize = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize, actualizar);
-            return mensajeErrorImagenResize;
-        }
-
-        public List<EntidadMagickResize> ObtenerListaImagenesResize(string rutaImagen, bool esAppCalatogo = false, bool actualizar = false)
-        {
-            var listaImagenesResize = new List<EntidadMagickResize>();
-
-            if (Util.ExisteUrlRemota(rutaImagen))
-            {
-                var rutaImagenSmall = "";
-                var rutaImagenMedium = "";
-
-                if (esAppCalatogo)
-                {
-                    string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
-                    string soloExtension = Path.GetExtension(rutaImagen);
-
-                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
-                    var extensionNombreImagenSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall;
-                    var extensionNombreImagenMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium;
-
-                    rutaImagenSmall = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + extensionNombreImagenSmall + soloExtension);
-                    rutaImagenMedium = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + extensionNombreImagenMedium + soloExtension);
-                }
-                else
-                {
-                    rutaImagenSmall = Util.GenerarRutaImagenResize(rutaImagen, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
-                    rutaImagenMedium = Util.GenerarRutaImagenResize(rutaImagen, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium);
-                }
-
-                var listaValoresImagenesResize = _tablaLogicaProvider.ObtenerParametrosTablaLogica(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, true);
-
-                int ancho = 0;
-                int alto = 0;
-
-                EntidadMagickResize entidadResize;
-                if (!Util.ExisteUrlRemota(rutaImagenSmall) || actualizar)
-                {
-                    GetDimensionesImagen(rutaImagen, listaValoresImagenesResize, Constantes.ConfiguracionImagenResize.TipoImagenSmall, out alto, out ancho);
-
-                    if (ancho > 0 && alto > 0)
-                    {
-                        entidadResize = new EntidadMagickResize
-                        {
-                            RutaImagenOriginal = rutaImagen,
-                            RutaImagenResize = rutaImagenSmall,
-                            Width = ancho,
-                            Height = alto,
-                            TipoImagen = Constantes.ConfiguracionImagenResize.TipoImagenSmall,
-                            CodigoIso = userData.CodigoISO
-                        };
-                        listaImagenesResize.Add(entidadResize);
-                    }
-                }
-
-                if (!Util.ExisteUrlRemota(rutaImagenMedium) || actualizar)
-                {
-                    GetDimensionesImagen(rutaImagen, listaValoresImagenesResize, Constantes.ConfiguracionImagenResize.TipoImagenMedium, out alto, out ancho);
-
-                    if (ancho > 0 && alto > 0)
-                    {
-                        entidadResize = new EntidadMagickResize
-                        {
-                            RutaImagenOriginal = rutaImagen,
-                            RutaImagenResize = rutaImagenMedium,
-                            Width = ancho,
-                            Height = alto,
-                            TipoImagen = Constantes.ConfiguracionImagenResize.TipoImagenMedium,
-                            CodigoIso = userData.CodigoISO
-                        };
-                        listaImagenesResize.Add(entidadResize);
-                    }
-                }
-            }
-
-            return listaImagenesResize;
-        }
-
-        private void GetDimensionesImagen(string urlImagen, List<TablaLogicaDatosModel> datosImg, string tipoImg, out int alto, out int ancho)
-        {
-            ancho = 0;
-            alto = 0;
-
-            if (!datosImg.Any())
-                return;
-
-            // valores estandar de base de datos
-            var hBase = 0;
-            var wMax = 0;
-            if (tipoImg == Constantes.ConfiguracionImagenResize.TipoImagenSmall)
-            {
-                hBase = _tablaLogicaProvider.ObtenerValorTablaLogicaInt(datosImg, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightSmall);
-                wMax = _tablaLogicaProvider.ObtenerValorTablaLogicaInt(datosImg, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMaxSmall);
-            }
-            else if (tipoImg == Constantes.ConfiguracionImagenResize.TipoImagenMedium)
-            {
-                hBase = _tablaLogicaProvider.ObtenerValorTablaLogicaInt(datosImg, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightMedium);
-                wMax = _tablaLogicaProvider.ObtenerValorTablaLogicaInt(datosImg, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMaxMedium);
-            }
-
-            if (hBase == 0 && wMax == 0)
-                return;
-
-            // Obtener las dimensiones
-            byte[] imageData = new WebClient().DownloadData(urlImagen);
-            MemoryStream imgStream = new MemoryStream(imageData);
-            Image img = Image.FromStream(imgStream);
-
-            imgStream.Close();
-
-            ancho = img.Width;
-            alto = img.Height;
-
-            img.Dispose();
-
-            // calculo matematico para escalar
-            if (alto > hBase && hBase > 0)
-            {
-                ancho = Convert.ToInt32(ancho * (Convert.ToDecimal(hBase) / Convert.ToDecimal(alto)));
-                alto = hBase;
-            }
-            if (ancho > wMax && wMax > 0)
-            {
-                alto = Convert.ToInt32(alto * (Convert.ToDecimal(wMax) / Convert.ToDecimal(ancho)));
-                ancho = wMax;
-            }
-        }
+        //public MenuContenedorModel GetSessionMenuActivo()
+        //{
+        //    return GetSession(Constantes.ConstSession.MenuContenedorActivo) as MenuContenedorModel ??
+        //           new MenuContenedorModel();
+        //}
 
         #endregion
 
@@ -4904,7 +4741,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.FotoPerfil = userData.FotoPerfil;
 
             ViewBag.TokenPedidoAutenticoOk = (Session["TokenPedidoAutentico"] != null) ? 1 : 0;
-            ViewBag.CodigoEstrategia = GetCodigoEstrategia();
+            ViewBag.CodigoEstrategia = _revistaDigitalProvider.GetCodigoEstrategia();
             ViewBag.BannerInferior = _showRoomProvider.EvaluarBannerConfiguracion(userData.PaisID, sessionManager);
             ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
             int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
@@ -5021,6 +4858,8 @@ namespace Portal.Consultoras.Web.Controllers
             return resultado;
         }
 
+        #region PaqueteDocumentario
+
         protected List<RVPRFModel> GetListPaqueteDocumentario(string codigoConsultora, string campania, string numeroPedido)
         {
             string errorMessage;
@@ -5128,17 +4967,8 @@ namespace Portal.Consultoras.Web.Controllers
             return serializer.Deserialize<T>(outputJson);
         }
 
-        public List<BEComunicado> ObtenerComunicadoPorConsultora()
-        {
-            using (var sac = new SACServiceClient())
-            {
-                var lstComunicados = sac.ObtenerComunicadoPorConsultora(UserData().PaisID, UserData().CodigoConsultora,
-                        Constantes.ComunicadoTipoDispositivo.Desktop, UserData().CodigorRegion, UserData().CodigoZona, UserData().ConsultoraNueva);
-
-                return lstComunicados.ToList();
-            }
-        }
-
+        #endregion
+        
         public async Task<List<BEComunicado>> ObtenerComunicadoPorConsultoraAsync()
         {
             using (var sac = new SACServiceClient())

@@ -195,5 +195,15 @@ namespace Portal.Consultoras.Web.Providers
                 }
             }
         }
+
+        public string GetCodigoEstrategia()
+        {
+            var codigo = Constantes.TipoEstrategiaCodigo.OfertaParaTi;
+            if (revistaDigital.TieneRevistaDigital())
+            {
+                codigo = Constantes.TipoEstrategiaCodigo.RevistaDigital;
+            }
+            return codigo;
+        }
     }
 }
