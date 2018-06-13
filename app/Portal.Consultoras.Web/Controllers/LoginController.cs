@@ -1408,7 +1408,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private async Task<BEOfertaFlexipago> GetLineaCreditoFlexipago(UsuarioModel usuarioModel)
         {
-            if (!(usuarioModel.IndicadorFlexiPago > 0 && usuarioModel.TipoUsuario == Constantes.TipoUsuario.Consultora)) return null;
+            if (!(usuarioModel.IndicadorFlexiPago > 0 && usuarioModel.EsConsultora())) return null;
 
             BEOfertaFlexipago ofertaFlexipago;
 
@@ -1458,7 +1458,7 @@ namespace Portal.Consultoras.Web.Controllers
         #region Metodos Oferta del Dia
         //private async Task<List<OfertaDelDiaModel>> GetOfertaDelDiaModel(UsuarioModel model, ServiceUsuario.BEUsuario usuario)
         //{
-        //    if (!(usuario.OfertaDelDia && usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)) return new List<OfertaDelDiaModel>();
+        //    if (!(usuario.OfertaDelDia && usuario.EsConsultora())) return new List<OfertaDelDiaModel>();
 
         //    var ofertasDelDiaModel = new List<OfertaDelDiaModel>();
 

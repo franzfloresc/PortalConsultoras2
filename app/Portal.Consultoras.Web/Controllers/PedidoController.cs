@@ -153,7 +153,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Pedido Web y Detalle
 
-                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                if (userData.EsConsultora())
                 {
                     var pedidoWeb = ObtenerPedidoWeb();
 
@@ -269,7 +269,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var paisesConsultoraOnline = GetPaisesConConsultoraOnlineFromConfig();
                     if (paisesConsultoraOnline.Contains(userData.CodigoISO)
-                        && userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                        && userData.EsConsultora())
                     {
                         using (var svc = new UsuarioServiceClient())
                         {
@@ -344,7 +344,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             BEConfiguracionCampania configuracionCampania;
 
-            if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+            if (userData.EsConsultora())
             {
                 using (var pedidoServiceClient = new PedidoServiceClient())
                 {

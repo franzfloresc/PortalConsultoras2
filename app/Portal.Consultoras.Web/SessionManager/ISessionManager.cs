@@ -153,10 +153,6 @@ namespace Portal.Consultoras.Web.SessionManager
 
         EstrategiaPersonalizadaProductoModel GetProductoTemporal();
 
-        void SetEstrategiaODD(Models.Estrategia.OfertaDelDia.DataModel data);
-
-        Models.Estrategia.OfertaDelDia.DataModel GetEstrategiaODD();
-
         void SetEstrategiaSR(Models.Estrategia.ShowRoom.ConfigModel data);
         Models.Estrategia.ShowRoom.ConfigModel GetEstrategiaSR();
 

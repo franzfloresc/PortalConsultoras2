@@ -119,7 +119,7 @@ namespace Portal.Consultoras.Web.Controllers
                 revistaDigital = sessionManager.GetRevistaDigital();
                 herramientasVenta = sessionManager.GetHerramientasVenta();
                 guiaNegocio = sessionManager.GetGuiaNegocio();
-                estrategiaODD = sessionManager.GetEstrategiaODD();
+                estrategiaODD = sessionManager.OfertaDelDia.Estrategia;
                 configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new ConfigModel();
                 if (!configEstrategiaSR.CargoEntidadesShowRoom) CargarEntidadesShowRoom(userData);
 
@@ -2367,10 +2367,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected OfertaDelDiaModel GetOfertaDelDiaModel()
         {
-            if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+            if (userData.EsConsultora())
                 return new OfertaDelDiaModel();
 
-            var sessionOfertaDelDia = sessionManager.GetEstrategiaODD();
+            var sessionOfertaDelDia = sessionManager.OfertaDelDia.Estrategia;
 
             if (sessionOfertaDelDia != null)
             {
@@ -2413,38 +2413,12 @@ namespace Portal.Consultoras.Web.Controllers
                     oferta.TipoEstrategiaDescripcion = tiposEstrategia.First(x => x.TipoEstrategiaID == oferta.TipoEstrategiaID).DescripcionEstrategia ?? string.Empty;
             }
 
-            model.TeQuedan = CountdownODD(userData);
+            model.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData);
             var configOdd = GetConfiguracionEstrategia(Constantes.ConfiguracionPais.OfertaDelDia);
             model.ConfiguracionContenedor = configOdd;
-            sessionManager.SetEstrategiaODD(estrategiaODD);
+            sessionManager.OfertaDelDia.Estrategia = estrategiaODD;
 
             return model;
-        }
-
-        public TimeSpan CountdownODD(UsuarioModel model)
-        {
-            DateTime hoy;
-
-            using (var svc = new SACServiceClient())
-            {
-                hoy = svc.GetFechaHoraPais(model.PaisID);
-            }
-
-            var d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
-            DateTime d2;
-
-            if (model.EsDiasFacturacion)
-            {
-                var t1 = model.HoraCierreZonaNormal;
-                d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
-            }
-            else
-            {
-                d2 = d1.AddDays(1);
-            }
-
-            var t2 = (d2 - hoy);
-            return t2;
         }
 
         private bool NoMostrarBannerODD()
