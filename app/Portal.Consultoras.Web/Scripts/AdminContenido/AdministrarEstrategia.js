@@ -391,14 +391,14 @@
                 closeWaitingDialog();
                 return false;
             }
-
+            
             $('#CodigoEstrategia').val(data.CodigoEstrategia);
             $('#flagImagenUrl').val(data.Imagen);
             $('#DescripcionEstrategia').val(data.DescripcionEstrategia);
             $('#MarcaID').val(data.MarcaID);
             $('#MarcaDescripcion').val(data.DescripcionMarca);
             $('#CodigoProducto').val(data.CodigoProducto);
-            $('#CodigoSAP').val(data.CodigoSAP);
+            $('#hdnCodigoSAP').val(data.CodigoSAP);
 
             $("#hdSimbolo").val(data.Simbolo);
 
@@ -909,7 +909,6 @@
 
                     if (data.message == "OK") {
                         $("#txtDescripcion").val(data.descripcion);
-
                         if (data.wsprecio > 0) {
                             $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
                             $("#txtPrecio").val(data.precio);
@@ -2986,8 +2985,8 @@
                     var MarcaIDVal = $('#MarcaID').val();
                     var DescripcionMarcaVal = $('#MarcaDescripcion').val();
                     var CodigoProductoVal = $('#hdnCodigoSAP').val();
-                    var CodigoSAPVal = '';
-                    //var CodigoSAPVal = $('#hdnCodigoSAP').val();
+                    //var CodigoSAPVal = '';
+                    var CodigoSAPVal = $('#hdnCodigoSAP').val();
                     //TODO Validar yrdsf
                     var flagIndividual = $("#chkFlagIndividual").is(":checked");
                     var slogan = $("#txtSlogan").val() || "";
