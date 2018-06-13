@@ -30,7 +30,6 @@ namespace Portal.Consultoras.Web.Providers
                 if (!personalizacionesOfertaDelDia.Any())
                     return ofertasDelDiaModel;
 
-                ofertasDelDia = ofertasDelDia.OrderBy(odd => odd.Orden).ToList();
                 var countdown = CountdownOdd(model);
 
                 var tablaLogica9301 = personalizacionesOfertaDelDia.FirstOrDefault(x => x.TablaLogicaDatosID == 9301) ?? new BETablaLogicaDatos();
@@ -87,11 +86,14 @@ namespace Portal.Consultoras.Web.Providers
         public List<ServiceOferta.BEEstrategia> ObtenerOfertasDelDia(UsuarioModel model)
         {
             List<ServiceOferta.BEEstrategia> ofertasDelDia;
-            using (OfertaServiceClient osc = new OfertaServiceClient())
+
+            using (var osc = new OfertaServiceClient())
             {
-                var lst = osc.GetEstrategiaODD(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.FechaInicioCampania.Date);
-                ofertasDelDia = lst.ToList();
+                ofertasDelDia = osc.GetEstrategiaODD(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.FechaInicioCampania.Date).ToList();
             }
+
+            ofertasDelDia = ofertasDelDia.OrderBy(odd => odd.Orden).ToList();
+
             return ofertasDelDia;
         }
 
