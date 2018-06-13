@@ -681,10 +681,15 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 lstEstrategia = lstEstrategia.Where(x => x.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
 
+                var carpetaPais = string.Format("{0}/{1}", Globals.UrlMatriz, usuario.CodigoISO);
+
                 foreach (var item in lstEstrategia)
                 {
                     item.PaisID = usuario.PaisID;
                     item.DescripcionCortaCUV2 = Util.SubStrCortarNombre(item.DescripcionCUV2, 40);
+                    item.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, item.FotoProducto01, carpetaPais);
+                    item.FotoProductoSmall = Util.GenerarRutaImagenResize(item.FotoProducto01, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
+                    item.FotoProductoMedium = Util.GenerarRutaImagenResize(item.FotoProducto01, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium);
                     GetEstrategiaDetalleCarrusel(item);
                 }
             }
@@ -1359,35 +1364,16 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             var listEstrategia = new List<BEEstrategia>();
 
-            var lstExcluye = new List<string>()
-            {
-                Constantes.TipoEstrategiaCodigo.Lanzamiento,
-                Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada,
-                Constantes.TipoEstrategiaCodigo.HerramientasVenta
-            };
-
-            if (!lstExcluye.Any(x => x == codAgrupacion))
-            {
-                listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.PackNuevas, usuario));
-                listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.OfertaWeb, usuario));
-            }
-
             switch (codAgrupacion)
             {
                 case Constantes.TipoEstrategiaCodigo.RevistaDigital:
-                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.Lanzamiento, usuario));
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.PackNuevas, usuario));
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.OfertaWeb, usuario));
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.RevistaDigital, usuario));
                     break;
-                case Constantes.TipoEstrategiaCodigo.Lanzamiento:
-                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.Lanzamiento, usuario));
-                    break;
-                case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
-                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada, usuario));
-                    break;
-                case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
-                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.HerramientasVenta, usuario));
-                    break;
                 default:
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.PackNuevas, usuario));
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.OfertaWeb, usuario));
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.OfertaParaTi, usuario));
                     break;
             }
