@@ -94,13 +94,32 @@ $(document).ready(function () {
                 var CodigosmsIngresado = $("#1" + a + "Digito").val() + $("#2" + a + "Digito").val() + $("#3" + a + "Digito").val() + $("#4" + a + "Digito").val() + $("#5" + a + "Digito").val() + $("#6" + a + "Digito").val();
                 VerificarCodigo(CodigosmsIngresado);
         });
+
+    $("#aChatearConNosotros").click(function () {
+        $('#marca').css('display', 'block');
+
+        var connected = localStorage.getItem('connected');
+        var idBtn = connected ? '#btn_open' : '#btn_init';
+        $(idBtn).trigger("click");
+    });
+
+    $("#divVolver").click(function () {
+        if (($("#divPaso1").is(":visible")) || ($("#divPaso3Email").is(":visible")) || ($("#divPaso3sms").is(":visible"))) {
+            document.location.href = UrlLogin;
+        }
+        else {
+            Limpiar();
+            $("#divPaso2sms").hide();
+            $("#divPaso2Email").hide();
+            $("#divPaso1").show();
+            if (nroIntentosCo >= 2) BloqueaOpcionCorreo(24);
+            if (nroIntentosSms >= 2) BloqueaOpcionSms(24);
+        }
+    });
 });
 
 function ProcesaEnvioSMS() {
-    $(".IconoError").hide();
-    $(".escogeOtraOpcion").hide();
-    $(".codigoSms").val("");
-
+    Limpiar();
     var parametros = {
         cantidadEnvios: nroIntentosSms,
     };
@@ -116,12 +135,10 @@ function ProcesaEnvioSMS() {
         success: function (response) {
             if (response.success) {
 
-                if (nroIntentosSms == 1) {
                     $("#divPaso2sms").show();
-                    $("#1Digito").focus();
                     $("#divPaso1").hide();
-                }
-                if (nroIntentosSms == 2) {
+                    if (nroIntentosSms == 2) {
+                    $(".reenvios").show();
                     $(".campo_ingreso_codigo_sms").val("");
                     $("#linkRenviarSms").hide();
                     $(".escogeOtraOpcion").show();
@@ -144,11 +161,16 @@ function ProcesaEnvioSMS() {
     });
 }
 
-function ProcesaEnvioEmail() {
+function Limpiar() {
+    clearTimeout(t);
     $(".IconoError").hide();
     $(".escogeOtraOpcion").hide();
-    $(".codigoSms").val("");
+    $(".reenvios").hide();
+    $(".codigoSms").val("");    
+}
 
+function ProcesaEnvioEmail() {
+    Limpiar();
     var parametros = {
         cantidadEnvios: nroIntentosCo,
     };
@@ -163,11 +185,10 @@ function ProcesaEnvioEmail() {
         async: true,
         success: function (response) {
             if (response.success) {
-                if (nroIntentosCo == 1) {
                     $("#divPaso2Email").show();
                     $("#divPaso1").hide();
-                }
-                if (nroIntentosCo == 2) {
+                    if (nroIntentosCo == 2) {
+                    $(".reenvios").show();
                     $(".campo_ingreso_codigo_sms").val("");
                     $("#linkRenviarCorreo").hide();
                     $(".escogeOtraOpcion").show();
@@ -216,12 +237,12 @@ function VerificarCodigo(CodIngresado) {
                     $("#divPaso2sms").hide();
                     $("#divPaso3sms").show();
                 }
+                Limpiar();
             } else {
                 if (tipo == 1) $("#6cDigito").focus();
                 if (tipo == 2) $("#6sDigito").focus();                    
                 $(".IconoError").show();
             }
-
             closeWaitingDialog();
         },
         error: function (data, error) {

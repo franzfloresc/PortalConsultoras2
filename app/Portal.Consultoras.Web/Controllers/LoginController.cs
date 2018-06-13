@@ -578,6 +578,11 @@ namespace Portal.Consultoras.Web.Controllers
             model.OpcionSmsActiva = obj.OpcionSmsActiva;
             model.HoraRestanteCorreo = obj.HoraRestanteCorreo;
             model.HoraRestanteSms = obj.HoraRestanteSms;
+            model.IdEstadoActividad = obj.IdEstadoActividad;
+            model.CodigoIso = obj.CodigoIso;
+            model.PrimerNombre = obj.PrimerNombre;
+            model.CodigoUsuario = obj.CodigoUsuario;
+            model.Correo = obj.Correo;
 
             return View(model);
         }

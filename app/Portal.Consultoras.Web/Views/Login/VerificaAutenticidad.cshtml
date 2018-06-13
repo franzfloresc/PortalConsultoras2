@@ -25,6 +25,10 @@
         <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Lbel/verificacion-pin.css")">
     }
     @Styles.Render("~/Content/Css/Login")
+
+    <script type="text/javascript"> 
+
+    </script>
 </head>
 <body>
     <div class="fondo_f9f9f9">
@@ -47,7 +51,7 @@
     <section class="block vista_flujo_restablecer_contrasenia">
         <div class="block center-block wrapper_content_verificacion_autenticidad">
             <div class="block">
-                <a href="@Url.Action("Index", "Login")" title="Volver" class="block enlace_volver_a_mi_perfil text-uppercase text-bold">
+                <a id="divVolver" title="Volver" class="block enlace_volver_a_mi_perfil text-uppercase text-bold">
                     <span class="inline-block v-alignMiddle icono_back_arrow">
                         <img src="@Url.Content("~/Content/Images/icono_volver.svg")" alt="Volver" />
                     </span>
@@ -90,7 +94,7 @@
                         <p class="texto_alternativa_call_center block">
                             <span class="inline-block v-alignMiddle">
                                 Si no reconoces tu celular o correo, comunícate con nuestro
-                                <a href="#" title="Chat" class="inline-block v-alignBottom enlace_call_center text-bold">Chat</a>
+                                <a href="#" title="Chat" id="aChatearConNosotros" class="inline-block v-alignBottom enlace_call_center text-bold">Chat</a>
                             </span>
                         </p>
                     </div>
@@ -118,6 +122,7 @@
                             <div class="IconoError block icono_validacion_codigo_sms validacion_erronea"></div>
                         </fieldset>
                         <div class="block codigo_sms_caducidad text-uppercase">El código caduca en <span class="spnMin default-color">03</span>:<span class="spnSeg default-color">00</span></div>
+                        <div class="reenvios" style="display:none;"><b>Agotaste tus dos intentos de reenvío</b></div>
                     </div>
                     <p class="w-100 envio_instrucciones_info block mb-35 mb-20-mobile">
                         <span class="w-100 block mb-13">¿Aún no recibes el mensaje de texto?</span>
@@ -128,10 +133,6 @@
                             Escoger otra opción
                         </a>
                     </p>
-                    @*<p class="w-100 block cambiar_correo_info">
-                        <span class="inline-block v-alignMiddle">¿Este no es tu número?</span>
-                        <a href="#" title="Cambia tu correo" class="inline-block v-alignMiddle enlace_cambiar_correo text-bold">Cambia tu número</a>
-                    </p>*@
                 </div>
                 <div id="divPaso3sms" class="block celular_validado text-center" style="display:none;">
                     <div class="block center-block mt-20-mobile icono_validacion_celular_exitosa"></div>
@@ -170,8 +171,9 @@
                             <div class="IconoError block icono_validacion_codigo_sms validacion_erronea"></div>
                         </fieldset>
                         <div class="block codigo_sms_caducidad text-uppercase">El código caduca en <span class="spnMin default-color">03</span>:<span class="spnSeg default-color">00</span></div>
+                        <div class="reenvios" style="display:none;"><b>Agotaste tus dos intentos de reenvío</b></div>
                     </div>
-                    <p class="w-100 block envio_instrucciones_info mb-50">
+                    <p class="w-100 block envio_instrucciones_info mb-50">                        
                         <span class="w-100 block mb-13">¿Aún no recibes nuestro correo?</span>
                         <a id="linkRenviarCorreo" title="Reenvíenme las instrucciones" class="block enlace_reenviar_instrucciones w-100 text-uppercase text-bold RecuperarPorCorreo">
                             Reenvíenme el código
@@ -180,10 +182,6 @@
                             Escoger otra opción
                         </a>
                     </p>
-                    @*<p class="w-100 block cambiar_correo_info">
-                        <span class="inline-block v-alignMiddle">¿Este no es tu correo?</span>
-                        <a href="#" title="Cambia tu correo" class="inline-block v-alignMiddle enlace_cambiar_correo text-bold">Cambia tu correo</a>
-                    </p>*@
                 </div>
                 <div id="divPaso3Email" class="correo_validado block text-center" style="display:none;">
                     <div class="icono_validacion_correo_exitoso block center-block mt-20-mobile"></div>
@@ -202,7 +200,6 @@
                 <!-- FIN - VERIFICACIÓN POR CORREO ELECTRÓNICO -->
             </div>
         </div>
-
     </section>
 </body>
 </html>
@@ -218,7 +215,31 @@
     var HoraRestanteSms = '@Model.HoraRestanteSms';
     var CorreoEnmascarado = '@Model.CorreoEnmascarado';
     var CelularEnmascarado = '@Model.CelularEnmascarado';
+    var emt_client_type = '@Model.IdEstadoActividad';
+    var emt_country = '@Model.CodigoIso';
+    var emt_email_address = '@Model.Correo';
+    var emt_first_name = '@Model.PrimerNombre';
+    var emt_id = '@Model.CodigoUsuario';
+    var emt_type = '1';
+    var UrlLogin = '@Url.Action("Index", "Login")';
 </script>
 
 @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
 @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login-VerificaAutenticidad")
+
+@{
+    if (Request.Browser.IsMobileDevice)
+    {
+        <link href="@Url.Content("~/emt_chat/css/style-client.css")" rel="stylesheet">
+        <link rel="stylesheet" href="@Url.Content("~/emt_chat/css/font-awesome.min.css")">
+        <div class="CMXD-containment-wrapper"></div><div id="marca"> <div class="CMXD-btn-help"> <div id="btn_init" class="CMXD-help_rc" style="display:none;"></div><div id="btn_open" class="CMXD-open" style="display: none"></div></div><div class="container-movil"></div><div id="CMXD-container-chat" class="CMXD-container-chat" style="display: none"> <div class="CMXD-header-chat"> <i class="fa fa-comments-o" aria-hidden="true"></i> CHAT EN LÍNEA <div class="CMXD-icons"> <a class="display-a" id="btn_minimize" href=""> <i class="fa fa-minus" aria-hidden="true"></i> </a> <a class="display-a" id="btn_wClose" href="" style="display: none"> <i class="fa fa-times" aria-hidden="true"></i> </a> </div><hr class="CMXD-line"> </div><div id="chat"> <div id="interaction" class="CMXD-container-welcome" style="display: none"> <div class='chat-wrapper'> <div id="transcript" class='chat-message padding container-chat'></div></div><div id="slideDownTranscript" class="message-end CMXD-animate2"> <span class="fa fa-angle-double-down"></span> </div><div class="container-txt"> <textarea class="txtarea" rows="2" id="Entry" placeholder="Escribe un Mensaje..."></textarea> <a class="" href=""> <div class="send send2" id="btn_Send"> <i class="fa fa-paper-plane-o" aria-hidden="true"></i><br>Enviar </div></a> </div></div><div id="loading" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="loading_image" src="" alt=""> </div><div id="loading_title" class="CMXD-welcome"> Bienvenida a nuestro <br>chat en línea </div><div id="loading_description" class="CMXD-description"> En un momento uno de nuestros asesores estará contigo </div></div></div><div id="schedule" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="schedule_image" src="" alt="Imagen fuera de horario"> </div><div id="schedule_title" class="CMXD-welcome"> </div><div id="schedule_description" class="CMXD-description"> </div></div></div><div id="Error" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="Error_image" src="" alt=""> </div><div class="CMXD-welcome"> Error de conexión </div><div class="CMXD-description"> En estos momentos no es posible establecer conexión. Por favor intenta más tarde. <br /><br /> <a href="" class="btn-no display-a" id="btn_mclose"> OK</a> </div></div></div><div id="alert" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="alert_image" src="" alt=""> </div><div class="CMXD-welcome"> ¿Desea cerrar la sesión de chat? </div><div class="CMXD-description"> <a href="" class="btn-yes display-a" id="btn_close"> Si</a> <a href="" class="btn-no display-a" id="btn_nwClose"> No</a> </div></div></div></div><div id="poll" class="pop-up"> <div class="CMXD-container-welcome"> <div id="poll_title" class="CMXD-welcome"> <br />Encuesta de Satisfacción </div><div id="poll_description" class="CMXD-description"> </div></div></div></div></div>
+        <script type="text/javascript" src="@Url.Content("~/emt_chat/js/gen.js")"></script>
+    }
+    else
+    {
+        <link href="@Url.Content("~/emt_chat/css/style-client.css")" rel="stylesheet">
+        <link rel="stylesheet" href="@Url.Content("~/emt_chat/css/font-awesome.min.css")">
+        <div class="CMXD-containment-wrapper"></div><div id="marca"> <div class="CMXD-btn-help"> <div id="btn_init" class="CMXD-help_rc" style="display:none;"></div><div id="btn_open" class="CMXD-open" style="display: none"></div></div><div class="container-movil"></div><div id="CMXD-container-chat" class="CMXD-container-chat" style="display: none"> <div class="CMXD-header-chat"> <i class="fa fa-comments-o" aria-hidden="true"></i> CHAT EN LÍNEA <div class="CMXD-icons"> <a class="display-a" id="btn_minimize" href=""> <i class="fa fa-minus" aria-hidden="true"></i> </a> <a class="display-a" id="btn_wClose" href="" style="display: none"> <i class="fa fa-times" aria-hidden="true"></i> </a> </div><hr class="CMXD-line"> </div><div id="chat"> <div id="interaction" class="CMXD-container-welcome" style="display: none"> <div class='chat-wrapper'> <div id="transcript" class='chat-message padding container-chat'></div></div><div class="container-txt"> <textarea class="txtarea" rows="2" id="Entry" placeholder="Escribe un Mensaje..."></textarea> <a class="" href=""> <div class="send send2" id="btn_Send"> <i class="fa fa-paper-plane-o" aria-hidden="true"></i><br>Enviar </div></a> </div></div><div id="loading" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="loading_image" src="" alt=""> </div><div id="loading_title" class="CMXD-welcome"> Bienvenida a nuestro <br>chat en línea </div><div id="loading_description" class="CMXD-description"> En un momento uno de nuestros asesores estará contigo </div></div></div><div id="schedule" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="schedule_image" src="" alt="Imagen fuera de horario"> </div><div id="schedule_title" class="CMXD-welcome"> </div><div id="schedule_description" class="CMXD-description"> </div></div></div><div id="Error" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="Error_image" src="" alt=""> </div><div class="CMXD-welcome"> Error de conexión </div><div class="CMXD-description"> En estos momentos no es posible establecer conexión. Por favor intenta más tarde. <br /><br /> <a href="" class="btn-no display-a" id="btn_mclose"> OK</a> </div></div></div><div id="alert" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="alert_image" src="" alt=""> </div><div class="CMXD-welcome"> ¿Desea cerrar la sesión de chat? </div><div class="CMXD-description"> <a href="" class="btn-yes display-a" id="btn_close"> Si</a> <a href="" class="btn-no display-a" id="btn_nwClose"> No</a> </div></div></div></div><div id="poll" class="pop-up"> <div class="CMXD-container-welcome"> <div id="poll_title" class="CMXD-welcome"> <br />Encuesta de Satisfacción </div><div id="poll_description" class="CMXD-description"> </div></div></div></div></div>
+        <script type="text/javascript" src="@Url.Content("~/emt_chat/js/gen.js")"></script>
+    }
+}
