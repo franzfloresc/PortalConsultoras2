@@ -10,28 +10,32 @@ using Portal.Consultoras.Web.ServicesCalculosPROL;
 using System;
 using System.Collections.Generic;
 using System.Web;
+using Portal.Consultoras.Web.SessionManager.OfertaDelDia;
+using Portal.Consultoras.Web.SessionManager.ShowRoom;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
     public class SessionManager : ISessionManager
     {
         private static ISessionManager _instance;
+        //
         private static IShowRoom _showRoom;
+        private static IOfertaDelDia _ofertaDelDia;
 
         public SessionManager()
         {
             if (_showRoom == null)
-                _showRoom = new ShowRoom();
+                _showRoom = new ShowRoom.ShowRoom();
+
+            if (_ofertaDelDia == null)
+                _ofertaDelDia = new OfertaDelDia.OfertaDelDia();
         }
 
         public static ISessionManager Instance
         {
             get
             {
-                if (_instance == null)
-                    _instance = new SessionManager();
-
-                return _instance;
+                return _instance ?? (_instance = new SessionManager());
             }
         }
 
@@ -42,6 +46,14 @@ namespace Portal.Consultoras.Web.SessionManager
                 return _showRoom;
             }
         }
+
+        public IOfertaDelDia OfertaDelDia {
+            get
+            {
+                return _ofertaDelDia;
+            }
+        }
+
 
         BEPedidoWeb ISessionManager.GetPedidoWeb()
         {
@@ -437,6 +449,7 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (List<ServiceUsuario.BEUsuario>)HttpContext.Current.Session["BEUsuarioModel"];
         }
+
 
         EstrategiaPersonalizadaProductoModel ISessionManager.ProductoTemporal
         {

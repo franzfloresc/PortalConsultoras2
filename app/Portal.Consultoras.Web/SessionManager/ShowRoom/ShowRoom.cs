@@ -3,9 +3,8 @@ using System.Web;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
-using Portal.Consultoras.Web.ServiceOferta;
 
-namespace Portal.Consultoras.Web.SessionManager
+namespace Portal.Consultoras.Web.SessionManager.ShowRoom
 {
     public class ShowRoom : IShowRoom
     {

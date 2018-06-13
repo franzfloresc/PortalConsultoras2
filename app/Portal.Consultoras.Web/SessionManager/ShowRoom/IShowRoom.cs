@@ -2,7 +2,7 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 
-namespace Portal.Consultoras.Web.SessionManager
+namespace Portal.Consultoras.Web.SessionManager.ShowRoom
 {
     public interface IShowRoom
     {

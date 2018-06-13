@@ -8,6 +8,8 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
 using System;
 using System.Collections.Generic;
+using Portal.Consultoras.Web.SessionManager.OfertaDelDia;
+using Portal.Consultoras.Web.SessionManager.ShowRoom;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -178,5 +180,7 @@ namespace Portal.Consultoras.Web.SessionManager
         void setBEUsuarioModel (List<ServiceUsuario.BEUsuario> model);
 
         List<ServiceUsuario.BEUsuario> getBEUsuarioModel();
+
+        IOfertaDelDia OfertaDelDia { get; }
     }
 }
