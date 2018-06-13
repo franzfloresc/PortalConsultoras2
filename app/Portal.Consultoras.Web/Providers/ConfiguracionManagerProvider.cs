@@ -21,5 +21,36 @@ namespace Portal.Consultoras.Web.Providers
             return keyCongi.Contains(compara);
         }
 
+        public string GetBucketNameFromConfig()
+        {
+            return GetConfiguracionManager(Constantes.ConfiguracionManager.BUCKET_NAME);
+        }
+
+        public bool GetMostrarPedidosPendientesFromConfig()
+        {
+            var mostrarPedidoAppSetting = GetConfiguracionManager(Constantes.ConfiguracionManager.MostrarPedidosPendientes);
+
+            return mostrarPedidoAppSetting == "1";
+        }
+
+        public string GetPaisesConConsultoraOnlineFromConfig()
+        {
+            return GetConfiguracionManager(Constantes.ConfiguracionManager.Permisos_CCC);
+        }
+
+        public bool GetMostrarOpcionClienteOnline(string codigoIso)
+        {
+            return GetMostrarPedidosPendientesFromConfig() && GetPaisesConConsultoraOnlineFromConfig().Contains(codigoIso);
+        }
+
+        public string GetDefaultGifMenuOfertas()
+        {
+            return GetConfiguracionManager(Constantes.ConfiguracionManager.GIF_MENU_DEFAULT_OFERTAS);
+        }
+
+        public string GetPaisesEsikaFromConfig()
+        {
+            return GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika);
+        }
     }
 }

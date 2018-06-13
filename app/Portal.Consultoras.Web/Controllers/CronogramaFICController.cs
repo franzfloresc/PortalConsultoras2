@@ -149,7 +149,7 @@ namespace Portal.Consultoras.Web.Controllers
                                {
                                    a.Campania,
                                    a.Zona,
-                                   a.FechaFin == null ? "" : Convert.ToDateTime(a.FechaFin.ToString()).Day.ToString() + " de " + NombreMes(Convert.ToDateTime(a.FechaFin.ToString()).Month),
+                                   a.FechaFin == null ? "" : Convert.ToDateTime(a.FechaFin.ToString()).Day.ToString() + " de " + Util.NombreMes(Convert.ToDateTime(a.FechaFin.ToString()).Month),
                                    a.ZonaID.ToString(),
                                    a.CampaniaID.ToString()
                                 }

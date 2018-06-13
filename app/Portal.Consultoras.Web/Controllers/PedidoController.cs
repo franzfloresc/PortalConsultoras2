@@ -8,7 +8,6 @@ using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServicePROLConsultas;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
@@ -16,7 +15,6 @@ using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -110,7 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var horaCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
                 var diaActual = DateTime.Today.Add(horaCierrePortal);
-                var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month);
+                var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + Util.NombreMes(userData.FechaInicioCampania.Month);
 
                 if (!userData.DiaPROL)  // Periodo de venta
                 {
@@ -265,9 +263,9 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.MostrarPedidosPendientes = "0";
                 ViewBag.LanzarTabConsultoraOnline = (lanzarTabConsultoraOnline) ? "1" : "0";
 
-                if (GetMostrarPedidosPendientesFromConfig())
+                if (_configuracionManagerProvider.GetMostrarPedidosPendientesFromConfig())
                 {
-                    var paisesConsultoraOnline = GetPaisesConConsultoraOnlineFromConfig();
+                    var paisesConsultoraOnline = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
                     if (paisesConsultoraOnline.Contains(userData.CodigoISO)
                         && userData.EsConsultora())
                     {
@@ -311,13 +309,13 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EmailActivo = userData.EMailActivo;
                 #endregion
                 ViewBag.paisISO = userData.CodigoISO;
-                ViewBag.Ambiente = GetBucketNameFromConfig();
+                ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
                 ViewBag.CodigoConsultora = userData.CodigoConsultora;
                 model.TieneMasVendidos = userData.TieneMasVendidos;
                 var ofertaFinal = sessionManager.GetOfertaFinalModel();
                 ViewBag.OfertaFinalEstado = ofertaFinal.Estado;
                 ViewBag.OfertaFinalAlgoritmo = ofertaFinal.Algoritmo;
-                ViewBag.UrlFranjaNegra = GetUrlFranjaNegra();
+                ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
             }
             catch (FaultException ex)
             {
@@ -392,7 +390,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string GetMarcaPorCodigoIso(string codigoIso)
         {
-            return GetPaisesEsikaFromConfig().Contains(codigoIso) ? "Ésika" : "L'bel";
+            return _configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(codigoIso) ? "Ésika" : "L'bel";
         }
 
         private string GetPaisesFlexiPago()
@@ -2183,7 +2181,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void SetMensajesBotonesProl(PedidoSb2Model model, bool reservaProl)
         {
-            var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month);
+            var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + Util.NombreMes(userData.FechaInicioCampania.Month);
             var horaCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
             var diaActual = DateTime.Today.Add(horaCierrePortal);
 
@@ -2436,7 +2434,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var horaCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
             var diaActual = DateTime.Today.Add(horaCierrePortal);
-            var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month);
+            var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + Util.NombreMes(userData.FechaInicioCampania.Month);
 
             if (!userData.DiaPROL)
             {
@@ -2485,7 +2483,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion
 
-            ViewBag.UrlFranjaNegra = GetUrlFranjaNegra();
+            ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
 
             return View(model);
         }

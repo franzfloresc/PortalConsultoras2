@@ -15,6 +15,16 @@ namespace Portal.Consultoras.Web.SessionManager
 {
     public interface ISessionManager
     {
+        #region TablaLogica
+        TablaLogicaDatosModel GetTablaLogicaDatos(string key);
+
+        void SetTablaLogicaDatos(string key, TablaLogicaDatosModel datoLogico);
+
+        List<TablaLogicaDatosModel> GetTablaLogicaDatosLista(string key);
+
+        void SetTablaLogicaDatosLista(string key, List<TablaLogicaDatosModel> datoLogico);
+        #endregion
+
         BEPedidoWeb GetPedidoWeb();
 
         void SetPedidoWeb(BEPedidoWeb pedidoWeb);

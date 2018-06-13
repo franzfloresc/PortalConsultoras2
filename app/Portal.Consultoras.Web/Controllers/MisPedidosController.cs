@@ -72,8 +72,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.URLWebTracking = url;
                 ViewBag.PaisISO = userData.CodigoISO;
 
-                string strpaises = GetPaisesConConsultoraOnlineFromConfig();
-                model.MostrarClienteOnline = (GetMostrarPedidosPendientesFromConfig() && strpaises.Contains(userData.CodigoISO));
+                string strpaises = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
+                model.MostrarClienteOnline = (_configuracionManagerProvider.GetMostrarPedidosPendientesFromConfig() && strpaises.Contains(userData.CodigoISO));
                 if (model.MostrarClienteOnline)
                 {
                     model.CampaniasConsultoraOnline = new List<CampaniaModel>();
@@ -261,7 +261,7 @@ namespace Portal.Consultoras.Web.Controllers
             var dia = fecha.Day;
             var mes = fecha.Month;
 
-            var resultado = dia + NombreMes(mes);
+            var resultado = dia + Util.NombreMes(mes);
 
             return resultado;
         }

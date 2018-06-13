@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             this.registrosPagina = 5;
 
-            if (userData.CodigoISO != null && GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
+            if (userData.CodigoISO != null && _configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
             {
                 isEsika = true;
             }
@@ -81,7 +81,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Informacion()
         {
-            string strpaises = GetPaisesConConsultoraOnlineFromConfig();
+            string strpaises = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
             if (!strpaises.Contains(userData.CodigoISO))
                 return RedirectToAction("Index", "Bienvenida");
 
@@ -266,7 +266,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult EnviaCorreo()
         {
-            string strpaises = GetPaisesConConsultoraOnlineFromConfig();
+            string strpaises = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
             if (!strpaises.Contains(userData.CodigoISO))
                 return RedirectToAction("Index", "Bienvenida");
 

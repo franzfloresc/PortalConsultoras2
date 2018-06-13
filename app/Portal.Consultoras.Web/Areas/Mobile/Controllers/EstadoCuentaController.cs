@@ -33,7 +33,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         {
                             Glosa = item.Glosa,
                             FechaVencimiento = item.Fecha.ToString("dd/MM/yyyy"),
-                            FechaVencimientoFormatDiaMes = ObtenerFormatoDiaMes(item.Fecha),
+                            FechaVencimientoFormatDiaMes = Util.ObtenerFormatoDiaMes(item.Fecha),
                             TipoMovimiento = item.Abono > 0
                                 ? Constantes.EstadoCuentaTipoMovimiento.Abono
                                 : item.Cargo > 0

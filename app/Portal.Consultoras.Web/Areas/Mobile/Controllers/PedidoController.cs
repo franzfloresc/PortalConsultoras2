@@ -105,8 +105,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.MobileApp = isMobileApp;
             ViewBag.MensajePedidoMobile = userData.MensajePedidoMobile;
             ViewBag.paisISO = userData.CodigoISO;
-            ViewBag.Ambiente = GetBucketNameFromConfig();
-            ViewBag.UrlFranjaNegra = GetUrlFranjaNegra();
+            ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
+            ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
             ViewBag.DataBarra = GetDataBarra(true, true);
 
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
@@ -211,7 +211,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             TimeSpan horaCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
             DateTime diaActual = DateTime.Today.Add(horaCierrePortal);
-            var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month);
+            var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + Util.NombreMes(userData.FechaInicioCampania.Month);
 
             if (!userData.DiaPROL)  // Periodo de venta
             {
@@ -296,7 +296,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.EMail = userData.EMail;
             model.Celular = userData.Celular;
             ViewBag.paisISO = userData.CodigoISO;
-            ViewBag.Ambiente = GetBucketNameFromConfig();
+            ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
 
             ViewBag.NombreConsultora = userData.Sobrenombre;
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
@@ -421,7 +421,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             TimeSpan horaCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
             DateTime diaActual = DateTime.Today.Add(horaCierrePortal);
-            var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month);
+            var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + Util.NombreMes(userData.FechaInicioCampania.Month);
 
             if (!userData.DiaPROL)  // Periodo de venta
             {

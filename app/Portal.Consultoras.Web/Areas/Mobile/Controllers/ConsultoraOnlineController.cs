@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ConsultoraOnlineController()
         {
-            if (GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
+            if (_configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
             {
                 isEsika = true;
             }
@@ -82,7 +82,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult Informacion()
         {
             var userData = UserData();
-            var strpaises = GetPaisesConConsultoraOnlineFromConfig();
+            var strpaises = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
             if (!strpaises.Contains(userData.CodigoISO))
                 return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
 
@@ -299,7 +299,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public JsonResult EnviaCorreo()
         {
             var userData = UserData();
-            var strpaises = GetPaisesConConsultoraOnlineFromConfig();
+            var strpaises = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
             if (!strpaises.Contains(userData.CodigoISO))
                 return Json(new
                 {

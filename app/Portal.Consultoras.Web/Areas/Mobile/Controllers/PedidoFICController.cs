@@ -46,7 +46,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.ModPedido = "display:none;";
             ViewBag.NombreConsultora = userData.NombreConsultora;
             ViewBag.PedidoFIC = "C" + (campaniaActual.Length == 6 ? campaniaActual.Substring (4,2) : campaniaActual);
-            ViewBag.MensajeFIC = "antes del " + userData.FechaFinFIC.Day + " de " + NombreMes(userData.FechaFinFIC.Month);
+            ViewBag.MensajeFIC = "antes del " + userData.FechaFinFIC.Day + " de " + Util.NombreMes(userData.FechaFinFIC.Month);
             ViewBag.FinFIc = userData.FechaFinFIC.ToString("dd/MM");
             ViewBag.FechaFinFIC = userData.FechaFinFIC.ToString("dd'/'MM");
             ViewBag.Campania = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).Substring(4,2);
@@ -110,8 +110,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.MobileApp = isMobileApp;
             ViewBag.MensajePedidoMobile = userData.MensajePedidoMobile;
             ViewBag.paisISO = userData.CodigoISO;
-            ViewBag.Ambiente = GetBucketNameFromConfig();
-            ViewBag.UrlFranjaNegra = GetUrlFranjaNegra();
+            ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
+            ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
             ViewBag.DataBarra = GetDataBarra2(true, true);
 
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
@@ -209,7 +209,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             ValidarStatusCampania(beConfiguracionCampania);
             
-            var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month);
+            var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + Util.NombreMes(userData.FechaInicioCampania.Month);
 
             if (!userData.DiaPROL)  // Periodo de venta
             {
@@ -270,7 +270,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.EMail = userData.EMail;
             model.Celular = userData.Celular;
             ViewBag.paisISO = userData.CodigoISO;
-            ViewBag.Ambiente = GetBucketNameFromConfig();
+            ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
 
             ViewBag.NombreConsultora = userData.Sobrenombre;
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
@@ -492,7 +492,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.Email = userData.EMail;
             }
 
-            var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month);
+            var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + Util.NombreMes(userData.FechaInicioCampania.Month);
 
             if (!userData.DiaPROL)  // Periodo de venta
             {

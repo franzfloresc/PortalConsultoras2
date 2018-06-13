@@ -3027,7 +3027,7 @@ namespace Portal.Consultoras.Common
             return ConfigurationManager.AppSettings["CONTEXTO_BASE"] + "/" + partialUrl;
         }
 
-        public static string NombreMes(int Mes)
+        public static string NombreMesAbrev(int Mes)
         {
             string result = string.Empty;
             switch (Mes)
@@ -3070,6 +3070,62 @@ namespace Portal.Consultoras.Common
                     break;
             }
             return result;
+        }
+        
+        public static string NombreMes(int mes)
+        {
+            var result = string.Empty;
+            switch (mes)
+            {
+                case 1:
+                    result = "Enero";
+                    break;
+                case 2:
+                    result = "Febrero";
+                    break;
+                case 3:
+                    result = "Marzo";
+                    break;
+                case 4:
+                    result = "Abril";
+                    break;
+                case 5:
+                    result = "Mayo";
+                    break;
+                case 6:
+                    result = "Junio";
+                    break;
+                case 7:
+                    result = "Julio";
+                    break;
+                case 8:
+                    result = "Agosto";
+                    break;
+                case 9:
+                    result = "Septiembre";
+                    break;
+                case 10:
+                    result = "Octubre";
+                    break;
+                case 11:
+                    result = "Noviembre";
+                    break;
+                case 12:
+                    result = "Diciembre";
+                    break;
+            }
+            return result;
+        }
+        
+        public static string ObtenerFormatoDiaMes(DateTime fecha)
+        {
+            string resultado = "";
+
+            var nombreMes = Util.NombreMesAbrev(fecha.Month);
+
+            resultado = fecha.Day + " " + nombreMes;
+
+            return resultado;
         }
 
         public static int AddCampaniaAndNumero(int campania, int numero, int nroCampanias)

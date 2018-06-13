@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.ModPedido = "display:none;";
                 ViewBag.NombreConsultora = userData.NombreConsultora;
                 ViewBag.PedidoFIC = "C" + Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias);
-                ViewBag.MensajeFIC = "hasta el " + userData.FechaFinFIC.Day + " de " + NombreMes(userData.FechaFinFIC.Month);
+                ViewBag.MensajeFIC = "hasta el " + userData.FechaFinFIC.Day + " de " + Util.NombreMes(userData.FechaFinFIC.Month);
 
                 var olstPedidoFicDetalle = ObtenerPedidoFICDetalle();
 
@@ -55,7 +55,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SetUserData(userData);
                 }
 
-                ViewBag.UrlFranjaNegra = GetUrlFranjaNegra();
+                ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
 
                 return View(pedidoModelo);
             }

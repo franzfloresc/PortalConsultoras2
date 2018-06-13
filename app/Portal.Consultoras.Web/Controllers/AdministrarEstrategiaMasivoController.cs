@@ -396,7 +396,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (entidadMasivo.CantidadCuv <= 0)
             {
-                entidadMasivo.CantidadCuv = ObtenerValorTablaLogicaInt(userData.PaisID, Constantes.TablaLogica.CantidadCuvMasivo, Constantes.TablaLogicaDato.CantidadCuvMasivo_NuevoMasivo, true);
+                entidadMasivo.CantidadCuv = _tablaLogicaProvider.ObtenerValorTablaLogicaInt(userData.PaisID, Constantes.TablaLogica.CantidadCuvMasivo, Constantes.TablaLogicaDato.CantidadCuvMasivo_NuevoMasivo, true);
             }
             return entidadMasivo.CantidadCuv;
         }
@@ -478,7 +478,7 @@ namespace Portal.Consultoras.Web.Controllers
             bool rpta = false;
             try
             {
-                var codigo = ObtenerValorTablaLogicaInt(userData.PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.Tonos, true);
+                var codigo = _tablaLogicaProvider.ObtenerValorTablaLogicaInt(userData.PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.Tonos, true);
                 if (codigo > entidadMasivo.CampaniaId)
                     return rpta;
 

@@ -39,6 +39,29 @@ namespace Portal.Consultoras.Web.SessionManager
             }
         }
 
+
+        #region TablaLogica
+        public TablaLogicaDatosModel GetTablaLogicaDatos(string key)
+        {
+            return (TablaLogicaDatosModel)HttpContext.Current.Session[key];
+        }
+
+        public void SetTablaLogicaDatos(string key,TablaLogicaDatosModel datoLogico)
+        {
+            HttpContext.Current.Session[key] = datoLogico;
+        }
+
+        public List<TablaLogicaDatosModel> GetTablaLogicaDatosLista(string key)
+        {
+            return (List<TablaLogicaDatosModel>)HttpContext.Current.Session[key];
+        }
+
+        public void SetTablaLogicaDatosLista(string key, List<TablaLogicaDatosModel> datoLogico)
+        {
+            HttpContext.Current.Session[key] = datoLogico;
+        }
+        #endregion
+
         public IShowRoom ShowRoom
         {
             get
