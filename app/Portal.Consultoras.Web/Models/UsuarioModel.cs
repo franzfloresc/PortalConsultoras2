@@ -375,5 +375,10 @@ namespace Portal.Consultoras.Web.Models
                 ? ConsultoraAsociadaID
                 : ConsultoraID;
         }
+
+        public bool EsConsultora()
+        {
+            return TipoUsuario == Constantes.TipoUsuario.Consultora;
+        }
     }
 }

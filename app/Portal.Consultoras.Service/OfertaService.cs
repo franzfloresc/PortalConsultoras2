@@ -58,5 +58,10 @@ namespace Portal.Consultoras.Service
         {
             return new BLOfertaPersonalizada().GetEstrategiasPedido(entidad);
         }
+
+        public List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID, string algoritmo)
+        {
+            return new BLOfertaPersonalizada().GetParametriaOfertaFinal(paisID, algoritmo);
+        }
     }
 }

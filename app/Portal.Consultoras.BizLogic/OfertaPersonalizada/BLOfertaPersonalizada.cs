@@ -302,5 +302,37 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
             });
             return estrategiasResult;
         }
+
+        public List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID, string algoritmo)
+        {
+            List<BEEscalaDescuento> lstParametriaOfertaFinal = (List<BEEscalaDescuento>)CacheManager<BEEscalaDescuento>.GetData(paisID, ECacheItem.ParametriaOfertaFinal);
+            if (lstParametriaOfertaFinal != null)
+            {
+                lstParametriaOfertaFinal = lstParametriaOfertaFinal.Where(x => x.Algoritmo == algoritmo).ToList();
+            }
+
+            if (lstParametriaOfertaFinal == null || lstParametriaOfertaFinal.Count == 0)
+            {
+                DAEscalaDescuento daEscalaDescuento = new DAEscalaDescuento(paisID);
+
+                List<BEEscalaDescuento> lstEscalaDescuentoTemp = new List<BEEscalaDescuento>();
+                using (IDataReader reader = daEscalaDescuento.GetParametriaOfertaFinal(algoritmo))
+                    while (reader.Read())
+                    {
+                        var entidad = new BEEscalaDescuento(reader);
+                        lstEscalaDescuentoTemp.Add(entidad);
+                    }
+
+                lstParametriaOfertaFinal = new List<BEEscalaDescuento>();
+                if (lstEscalaDescuentoTemp.Count > 0)
+                {
+                    lstParametriaOfertaFinal.AddRange(lstEscalaDescuentoTemp);
+                }
+
+                CacheManager<BEEscalaDescuento>.AddData(paisID, ECacheItem.ParametriaOfertaFinal, lstParametriaOfertaFinal);
+            }
+
+            return lstParametriaOfertaFinal;
+        }
     }
 }

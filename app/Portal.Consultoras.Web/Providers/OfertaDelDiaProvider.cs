@@ -15,7 +15,7 @@ namespace Portal.Consultoras.Web.Providers
         //public async Task<List<OfertaDelDiaModel>> GetOfertaDelDiaModel(UsuarioModel model, ServiceUsuario.BEUsuario usuario)
         public List<OfertaDelDiaModel> GetOfertaDelDiaModel(UsuarioModel model)
         {
-            //if (!(usuario.OfertaDelDia && usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)) return new List<OfertaDelDiaModel>();
+            //if (!(usuario.OfertaDelDia && usuario.EsConsultora())) return new List<OfertaDelDiaModel>();
 
             var ofertasDelDiaModel = new List<OfertaDelDiaModel>();
 
@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Providers
                     return ofertasDelDiaModel;
 
                 ofertasDelDia = ofertasDelDia.OrderBy(odd => odd.Orden).ToList();
-                var countdown = CountdownODD(model);
+                var countdown = CountdownOdd(model);
 
                 var tablaLogica9301 = personalizacionesOfertaDelDia.FirstOrDefault(x => x.TablaLogicaDatosID == 9301) ?? new BETablaLogicaDatos();
                 var tablaLogica9302 = personalizacionesOfertaDelDia.FirstOrDefault(x => x.TablaLogicaDatosID == 9302) ?? new BETablaLogicaDatos();
@@ -107,7 +107,7 @@ namespace Portal.Consultoras.Web.Providers
             return personalizacionesOfertaDelDia;
         }
 
-        public TimeSpan CountdownODD(UsuarioModel model)
+        public TimeSpan CountdownOdd(UsuarioModel model)
         {
             DateTime hoy;
             DateTime d2;

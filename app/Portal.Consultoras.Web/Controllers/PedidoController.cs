@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServiceODS;
+using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServicePROLConsultas;
@@ -152,7 +153,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Pedido Web y Detalle
 
-                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                if (userData.EsConsultora())
                 {
                     var pedidoWeb = ObtenerPedidoWeb();
 
@@ -268,7 +269,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var paisesConsultoraOnline = GetPaisesConConsultoraOnlineFromConfig();
                     if (paisesConsultoraOnline.Contains(userData.CodigoISO)
-                        && userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                        && userData.EsConsultora())
                     {
                         using (var svc = new UsuarioServiceClient())
                         {
@@ -343,7 +344,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             BEConfiguracionCampania configuracionCampania;
 
-            if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+            if (userData.EsConsultora())
             {
                 using (var pedidoServiceClient = new PedidoServiceClient())
                 {
@@ -3662,21 +3663,21 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Parametria Oferta Final
 
-        private List<BEEscalaDescuento> GetParametriaOfertaFinal(string algoritmo)
+        private List<ServiceOferta.BEEscalaDescuento> GetParametriaOfertaFinal(string algoritmo)
         {
-            List<BEEscalaDescuento> listaParametriaOfertaFinal;
+            List<ServiceOferta.BEEscalaDescuento> listaParametriaOfertaFinal;
 
             try
             {
-                using (var sv = new PedidoServiceClient())
+                using (var osc = new OfertaServiceClient())
                 {
-                    listaParametriaOfertaFinal = sv.GetParametriaOfertaFinal(userData.PaisID, algoritmo).ToList();
+                    listaParametriaOfertaFinal = osc.GetParametriaOfertaFinal(userData.PaisID, algoritmo).ToList();
                 }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                listaParametriaOfertaFinal = new List<BEEscalaDescuento>();
+                listaParametriaOfertaFinal = new List<ServiceOferta.BEEscalaDescuento>();
             }
 
             return listaParametriaOfertaFinal;

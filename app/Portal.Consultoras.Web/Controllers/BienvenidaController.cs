@@ -373,7 +373,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
 
                     case Constantes.TipoPopUp.DemandaAnticipada:
-                        if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora
+                        if (userData.EsConsultora()
                             && ValidarConsultoraDemandaAnticipada(model))
                         {
                             tipoPopUpMostrar = Constantes.TipoPopUp.DemandaAnticipada;
@@ -381,7 +381,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
 
                     case Constantes.TipoPopUp.AceptacionContrato:
-                        if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora
+                        if (userData.EsConsultora()
                             && userData.CambioClave == 0 && userData.IndicadorContrato == 0
                             && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia)
                             && sessionManager.GetIsContrato() == 1)
@@ -396,7 +396,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
 
                     case Constantes.TipoPopUp.ActualizarDatos:
-                        if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                        if (userData.EsConsultora())
                         {
                             if (userData.CodigoISO == Constantes.CodigosISOPais.Mexico
                                 && model.ValidaDatosActualizados == 1
@@ -418,7 +418,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
 
                     case Constantes.TipoPopUp.Flexipago:
-                        if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora
+                        if (userData.EsConsultora()
                             && (userData.InvitacionRechazada == "False" || userData.InvitacionRechazada == "0" || userData.InvitacionRechazada == "")
                             && model.InscritaFlexipago == "0"
                             && model.IndicadorFlexipago == 1
@@ -495,7 +495,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                if (userData.EsConsultora())
                 {
                     var comunicados = ObtenerComunicadoPorConsultora();
 

@@ -3994,6 +3994,131 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEEscalaDescuento", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEEscalaDescuento : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal MontoDesdeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal MontoHastaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PorDescuentoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal PrecioMinimoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool SeleccionadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoParametriaOfertaFinalField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal MontoDesde {
+            get {
+                return this.MontoDesdeField;
+            }
+            set {
+                if ((this.MontoDesdeField.Equals(value) != true)) {
+                    this.MontoDesdeField = value;
+                    this.RaisePropertyChanged("MontoDesde");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal MontoHasta {
+            get {
+                return this.MontoHastaField;
+            }
+            set {
+                if ((this.MontoHastaField.Equals(value) != true)) {
+                    this.MontoHastaField = value;
+                    this.RaisePropertyChanged("MontoHasta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PorDescuento {
+            get {
+                return this.PorDescuentoField;
+            }
+            set {
+                if ((this.PorDescuentoField.Equals(value) != true)) {
+                    this.PorDescuentoField = value;
+                    this.RaisePropertyChanged("PorDescuento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal PrecioMinimo {
+            get {
+                return this.PrecioMinimoField;
+            }
+            set {
+                if ((this.PrecioMinimoField.Equals(value) != true)) {
+                    this.PrecioMinimoField = value;
+                    this.RaisePropertyChanged("PrecioMinimo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Seleccionado {
+            get {
+                return this.SeleccionadoField;
+            }
+            set {
+                if ((this.SeleccionadoField.Equals(value) != true)) {
+                    this.SeleccionadoField = value;
+                    this.RaisePropertyChanged("Seleccionado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoParametriaOfertaFinal {
+            get {
+                return this.TipoParametriaOfertaFinalField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoParametriaOfertaFinalField, value) != true)) {
+                    this.TipoParametriaOfertaFinalField = value;
+                    this.RaisePropertyChanged("TipoParametriaOfertaFinal");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceOferta.IOfertaService")]
     public interface IOfertaService {
@@ -4057,6 +4182,12 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOfertaService/GetEstrategiasPedido", ReplyAction="http://tempuri.org/IOfertaService/GetEstrategiasPedidoResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceOferta.BEEstrategia[]> GetEstrategiasPedidoAsync(Portal.Consultoras.Web.ServiceOferta.BEEstrategia entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOfertaService/GetParametriaOfertaFinal", ReplyAction="http://tempuri.org/IOfertaService/GetParametriaOfertaFinalResponse")]
+        Portal.Consultoras.Web.ServiceOferta.BEEscalaDescuento[] GetParametriaOfertaFinal(int paisID, string algoritmo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOfertaService/GetParametriaOfertaFinal", ReplyAction="http://tempuri.org/IOfertaService/GetParametriaOfertaFinalResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceOferta.BEEscalaDescuento[]> GetParametriaOfertaFinalAsync(int paisID, string algoritmo);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -4164,6 +4295,14 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceOferta.BEEstrategia[]> GetEstrategiasPedidoAsync(Portal.Consultoras.Web.ServiceOferta.BEEstrategia entidad) {
             return base.Channel.GetEstrategiasPedidoAsync(entidad);
+        }
+        
+        public Portal.Consultoras.Web.ServiceOferta.BEEscalaDescuento[] GetParametriaOfertaFinal(int paisID, string algoritmo) {
+            return base.Channel.GetParametriaOfertaFinal(paisID, algoritmo);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceOferta.BEEscalaDescuento[]> GetParametriaOfertaFinalAsync(int paisID, string algoritmo) {
+            return base.Channel.GetParametriaOfertaFinalAsync(paisID, algoritmo);
         }
     }
 }

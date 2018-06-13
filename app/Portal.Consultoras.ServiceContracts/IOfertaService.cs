@@ -38,5 +38,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad);
+
+        [OperationContract]
+        List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID, string algoritmo);
     }
 }

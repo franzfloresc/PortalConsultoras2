@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.SessionManager;
 using System.Collections.Generic;
 using Portal.Consultoras.Web.ServiceOferta;
+using Portal.Consultoras.Web.SessionManager.ShowRoom;
 
 namespace Portal.Consultoras.Web.UnitTest.Providers
 {
