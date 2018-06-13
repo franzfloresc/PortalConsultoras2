@@ -15,7 +15,7 @@ namespace Portal.Consultoras.Web.Providers
         //public async Task<List<OfertaDelDiaModel>> GetOfertaDelDiaModel(UsuarioModel model, ServiceUsuario.BEUsuario usuario)
         public List<OfertaDelDiaModel> GetOfertaDelDiaModel(UsuarioModel model)
         {
-            //if (!(usuario.OfertaDelDia && usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)) return new List<OfertaDelDiaModel>();
+            //if (!(usuario.OfertaDelDia && usuario.EsConsultora())) return new List<OfertaDelDiaModel>();
 
             var ofertasDelDiaModel = new List<OfertaDelDiaModel>();
 

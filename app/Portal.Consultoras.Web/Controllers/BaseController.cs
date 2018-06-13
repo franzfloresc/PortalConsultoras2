@@ -2367,7 +2367,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected OfertaDelDiaModel GetOfertaDelDiaModel()
         {
-            if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+            if (userData.EsConsultora())
                 return new OfertaDelDiaModel();
 
             var sessionOfertaDelDia = sessionManager.OfertaDelDia.Estrategia;
