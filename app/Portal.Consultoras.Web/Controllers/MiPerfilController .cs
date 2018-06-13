@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            ServiceUsuario.BEUsuario beusuario;
+            BEUsuario beusuario;
             var model = new MisDatosModel();
 
             using (var sv = new UsuarioServiceClient())
@@ -364,14 +364,24 @@ namespace Portal.Consultoras.Web.Controllers
 
         private MultiPhoneValidator GetPhoneValidator()
         {
-            var matchCountry = new MatchCountryPhone { IsoPais = userData.CodigoISO };
-
             var validators = new IPhoneValidator[]
             {
-                matchCountry,
-                new NotExistingPhone()
+                new MatchCountryPhone
+                {
+                    IsoPais = userData.CodigoISO
+                },
+                new NotSamePhoneValidator
+                {
+                    OriginalPhone = userData.Celular
+                },
+                new NotExistingPhone
+                {
+                    PaisId = userData.PaisID,
+                    CodigoConsultora = userData.CodigoConsultora
+                }
             };
             var validator = new MultiPhoneValidator(validators);
+
             return validator;
         }
 
@@ -410,7 +420,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     resultado = svr.ActualizarMisDatos(entidad, CorreoAnterior);
 
-                    if (model != null) ActualizarDatosLogDynamoDB(model, "MI PERFIL", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
+                    ActualizarDatosLogDynamoDB(model, "MI PERFIL", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
 
                     lst = resultado.Split('|');
 
