@@ -58,7 +58,7 @@ else
                                         if (responseJSON.success) {
                                                 SubirImagen('@Url.Action("Index", "Bienvenida", new { area = "" })', responseJSON.name);
                                         } else {
-                                                alert('Hubo un error al cargar el archivo, intente nuevamente.');
+                                                alert('Hubo un error al cargar el archivo, intente nuevamente en unos minitos.');
                                         }
                                     }
                                 },

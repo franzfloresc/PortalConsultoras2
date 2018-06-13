@@ -402,15 +402,18 @@ namespace Portal.Consultoras.BizLogic
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                     usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
 
-                if (Common.Util.IsUrl(usuario.FotoPerfil))
+                if (Common.Util.IsUrl(usuario.FotoPerfil) && Common.Util.ExisteUrlRemota(usuario.FotoPerfil))
                 {
                     Stream StreamImagen = ConsultarImagen(usuario.FotoPerfil);
                     var imagenConsultada = System.Drawing.Image.FromStream(StreamImagen);
                     usuario.FotoPerfilAncha = (imagenConsultada.Width > imagenConsultada.Height ? true : false);
                 }
 
-                if (string.IsNullOrEmpty(usuario.FotoPerfil))
-                    usuario.FotoPerfil = "../../Content/Images/icono_avatar.svg";                
+                if (string.IsNullOrEmpty(usuario.FotoPerfil) || !Common.Util.ExisteUrlRemota(usuario.FotoPerfil))
+                {
+                    usuario.FotoPerfil = "../../Content/Images/icono_avatar.svg";
+                    usuario.FotoOriginalSinModificar = null;
+                }
 
                 var tabla = new BLTablaLogicaDatos();
 
