@@ -36,7 +36,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 listaCdrWebModel = new List<CDRWebModel>();
             }
 
-            string urlPoliticaCdr = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPoliticasCDR) ?? "{0}";
+            string urlPoliticaCdr = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPoliticasCDR) ?? "{0}";
             model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
             model.ListaCDRWeb = listaCdrWebModel.FindAll(p => p.CantidadDetalle > 0);
             model.MensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitadaYChatEnLinea(mobileConfiguracion.EsAppMobile);
@@ -73,7 +73,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
 
-            string urlPoliticaCdr = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPoliticasCDR) ?? "{0}";
+            string urlPoliticaCdr = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPoliticasCDR) ?? "{0}";
             model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
             model.Email = userData.EMail;
             model.Telefono = userData.Celular;

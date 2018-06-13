@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string DevolverUrl(string isoPais)
         {
-            return GetConfiguracionManager(Constantes.ConfiguracionManager.URL_FAMILIAPROTEGIDA_ + isoPais);
+            return _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URL_FAMILIAPROTEGIDA_ + isoPais);
         }
 
     }

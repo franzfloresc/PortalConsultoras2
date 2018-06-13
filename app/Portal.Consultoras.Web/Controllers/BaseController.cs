@@ -4945,18 +4945,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-        #region ConfigurationManager
-
-        public string GetConfiguracionManager(string key)
-        {
-            key = Util.Trim(key);
-            if (key == "") return "";
-            var keyvalor = ConfigurationManager.AppSettings.Get(key);
-            return Util.Trim(keyvalor);
-        }
-        
-        #endregion
-
         #region Resize Imagen Default       
 
         public string ImagenesResizeProceso(string urlImagen, bool esAppCalatogo = false)

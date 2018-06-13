@@ -10,7 +10,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             UrlModel url = new UrlModel
             {
-                Nombre = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_ABCProductos) + UserData().PaisID
+                Nombre = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URL_ABCProductos) + UserData().PaisID
             };
             return View(url);
         }

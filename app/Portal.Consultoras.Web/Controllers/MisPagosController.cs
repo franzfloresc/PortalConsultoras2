@@ -35,7 +35,7 @@ namespace Portal.Consultoras.Web.Controllers
                 CodigoISO = userData.CodigoISO,
                 UrlChileEncriptada = Util.EncriptarQueryString(parametroAEncriptar),
                 RutaChile = userData.CodigoISO == Constantes.CodigosISOPais.Chile
-                    ? GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile)
+                    ? _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile)
                     : string.Empty,
                 MostrarFE = userData.CodigoISO == Constantes.CodigosISOPais.Ecuador || userData.CodigoISO == Constantes.CodigosISOPais.Peru ? " " : "display: none;",
                 Simbolo = string.Format("{0} ", userData.Simbolo),

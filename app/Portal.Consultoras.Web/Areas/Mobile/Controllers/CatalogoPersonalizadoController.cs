@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
             }
             
-            ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
+            ViewBag.RutaImagenNoDisponible = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
 
             if (Session["ListFiltersFAV"] != null)
             {
@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.FiltersByPublished = lst.Where(x => x.TablaLogicaID == 97).ToList();
             }
 
-            ViewBag.UrlImagenFAVMobile = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVMobile), userData.CodigoISO);
+            ViewBag.UrlImagenFAVMobile = string.Format(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVMobile), userData.CodigoISO);
             ViewBag.EsLebel = userData.EsLebel;
             return View(model);
         }
@@ -78,7 +78,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
             
-            ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
+            ViewBag.RutaImagenNoDisponible = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
             ViewBag.EsLebel = userData.EsLebel;
 
             return View(productoModel);

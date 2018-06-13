@@ -25,8 +25,8 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetMiAcademia(0);
                 }
 
-                string key = GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
-                string urlLms = GetConfiguracionManager(IdCurso == 0 ? Constantes.ConfiguracionManager.UrlLMS : Constantes.ConfiguracionManager.CursosMarquesina);
+                string key = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
+                string urlLms = _configuracionManagerProvider.GetConfiguracionManager(IdCurso == 0 ? Constantes.ConfiguracionManager.UrlLMS : Constantes.ConfiguracionManager.CursosMarquesina);
                 string isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
                 string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
                 string eMail = userData.EMail.Trim() == string.Empty ? eMailNoExiste : userData.EMail;
@@ -91,8 +91,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string key = GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
-                string urlLms = GetConfiguracionManager(Constantes.ConfiguracionManager.CursosMarquesina);
+                string key = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
+                string urlLms = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.CursosMarquesina);
                 string isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
                 string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
                 string eMail = userData.EMail.Trim() == string.Empty ? eMailNoExiste : userData.EMail;
@@ -155,9 +155,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string urlMc = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlMisCursos);
-                string token = GetConfiguracionManager(Constantes.ConfiguracionManager.TokenMisCursos);
-                string urlCurso = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlCursoMiAcademia);
+                string urlMc = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlMisCursos);
+                string token = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.TokenMisCursos);
+                string urlCurso = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlCursoMiAcademia);
                 string isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
                 int max = 4;
                 if (ViewBag.CodigoISODL == Constantes.CodigosISOPais.Venezuela) max = 3;

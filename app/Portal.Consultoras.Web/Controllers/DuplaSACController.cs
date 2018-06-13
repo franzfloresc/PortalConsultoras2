@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Web.Controllers
             string pathData = "Aplicacion=2&CodigoUsuario=" + UserData().NombreConsultora + "&Pais=4";
             string texto = System.Web.HttpUtility.UrlEncode(Util.EncriptarDuplaCyzone(keyPath, pathData));
 
-            string url = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_DUPLACYZONE) + texto;
+            string url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URL_DUPLACYZONE) + texto;
 
             if (UserData().CodigoISO == Constantes.CodigosISOPais.Peru
                 || UserData().CodigoISO == Constantes.CodigosISOPais.Bolivia
@@ -33,7 +33,7 @@ namespace Portal.Consultoras.Web.Controllers
                 || UserData().CodigoISO == Constantes.CodigosISOPais.Guatemala
                 || UserData().CodigoISO == Constantes.CodigosISOPais.PuertoRico
                 || UserData().CodigoISO == Constantes.CodigosISOPais.Salvador)
-                url = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_DUPLACYZONE + UserData().CodigoISO);
+                url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URL_DUPLACYZONE + UserData().CodigoISO);
 
             return Redirect(url);
         }
