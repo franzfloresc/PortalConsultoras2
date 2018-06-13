@@ -397,6 +397,7 @@ namespace Portal.Consultoras.Web.Providers
                 d.Descripcion,
                 d.Estado
             }).ToList();
+
             UsuarioModel userData = sessionManager.GetUserData();
             string jsonParameters = JsonConvert.SerializeObject(descripcionEstrategiaListaWA);
             string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlUploadCsv, pais);
@@ -409,22 +410,14 @@ namespace Portal.Consultoras.Web.Providers
 
             if (respuesta.Success)
             {
-                Dictionary<string, object> resultDictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(respuesta.Result.ToString());
+                List<Dictionary<string, object>> resultDictionary = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(respuesta.Result.ToString());
 
-                if (resultDictionary["result"] != null)
-                {
-                    var descripcionEstrategiaList = JsonConvert.DeserializeObject<List<dynamic>>(resultDictionary["result"].ToString());
-
-                    List<DescripcionEstrategiaModel> estrategiaDescripcionList = descripcionEstrategiaList.Select(d =>
-                        new DescripcionEstrategiaModel
-                        {
-                            Cuv = d.cuv,
-                            Descripcion = d.descripcion,
-                            Estado = (bool)d.estado ? 1 : 0
-                        }
-                    ).ToList();
-                    descripcionList.AddRange(estrategiaDescripcionList);
-                }
+                descripcionList.AddRange(resultDictionary.Select(item => new DescripcionEstrategiaModel
+                    {
+                        Cuv = item["cuv"].ToString(),
+                        Descripcion = item["descripcion"].ToString(), 
+                        Estado = (bool) item["estado"] ? 1 : 0
+                    }));
             }
             return descripcionList;
         }
