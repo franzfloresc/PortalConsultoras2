@@ -119,7 +119,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return ErrorJson(Constantes.MensajesError.UpdCorreoConsultora);
             }
-            
+
             try
             {
                 var misDatosModel = Mapper.Map<MisDatosModel>(usuario);
@@ -465,7 +465,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult CambiarContrasenia(string OldPassword, string NewPassword)
+        public JsonResult CambiarConsultoraPass(string OldPassword, string NewPassword)
         {
             int rslt = 0;
             try
@@ -474,30 +474,23 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var contraseñaAnt = "";
                     var contraseñaCambiada = "";
-                    var resultExiste = sv.ExisteUsuario(userData.PaisID, userData.CodigoUsuario, OldPassword);
+
                     List<BEUsuario> lst;
                     List<BEUsuario> lstClave;
 
-                    if (resultExiste == Constantes.ValidacionExisteUsuario.Existe)
-                    {
-                        lstClave = sv.SelectByNombre(Convert.ToInt32(userData.PaisID), userData.CodigoConsultora).ToList();
-                        contraseñaAnt = lstClave[0].ClaveSecreta;
+                    lstClave = sv.SelectByNombre(Convert.ToInt32(userData.PaisID), userData.CodigoConsultora).ToList();
+                    contraseñaAnt = lstClave[0].ClaveSecreta;
 
-                        var result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
-                            NewPassword, "", userData.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
+                    var result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
+                        NewPassword, "", userData.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
 
-                        rslt = result ? 2 : 1;
+                    rslt = result ? 2 : 1;
 
-                        lst = sv.SelectByNombre(Convert.ToInt32(userData.PaisID), userData.CodigoConsultora).ToList();
-                        contraseñaCambiada = lst[0].ClaveSecreta;
+                    lst = sv.SelectByNombre(Convert.ToInt32(userData.PaisID), userData.CodigoConsultora).ToList();
+                    contraseñaCambiada = lst[0].ClaveSecreta;
 
-                        RegistrarLogDynamoCambioClave("MODIFICACION", userData.CodigoConsultora, contraseñaCambiada, contraseñaAnt, "Mi PERFIL", "ACTUALIZAR CONTRASEÑA");
-                    }
-                    else
-                    {
-                        if (resultExiste == Constantes.ValidacionExisteUsuario.ExisteDiferenteClave)
-                            rslt = 0;
-                    }
+                    RegistrarLogDynamoCambioClave("MODIFICACION", userData.CodigoConsultora, contraseñaCambiada, contraseñaAnt, "Mi PERFIL", "ACTUALIZAR CONTRASEÑA");
+
                 }
 
                 return Json(new
@@ -514,6 +507,43 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false,
                     message = "Ocurrió un erro al Cambiar la Contraseña, Intente nuevamente.",
                     extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un erro al Cambiar la Contraseña, Intente nuevamente.",
+                    extra = ""
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult validaPass(string pass)
+        {
+            try
+            {
+                var rslt = 0;
+                using (var sv = new UsuarioServiceClient())
+                {
+                    var resultExiste = sv.ExisteUsuario(userData.PaisID, userData.CodigoUsuario, pass);
+                    if (resultExiste == Constantes.ValidacionExisteUsuario.Existe)
+                    {
+                        rslt = 1;
+                    }
+                    else
+                    {
+                        if (resultExiste == Constantes.ValidacionExisteUsuario.ExisteDiferenteClave)
+                            rslt = 0;
+                    }
+                }
+                return Json(new
+                {
+                    success = true,
+                    message = rslt
                 });
             }
             catch (Exception ex)

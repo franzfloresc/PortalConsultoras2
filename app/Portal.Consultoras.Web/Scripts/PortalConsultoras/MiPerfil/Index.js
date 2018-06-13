@@ -108,43 +108,11 @@ $(document).ready(function () {
 
     $('#btnEliminarFoto').click(function () { eliminarFotoConsultora(); });
 
-    $("#txtTelefonoMD").keypress(function (evt) {
-        //var charCode = (evt.which) ? evt.which : window.event.keyCode;
-        var charCode = (evt.which) ? evt.which : (window.event ? window.event.keyCode : null);
-        if (!charCode) return false;
-        if (charCode <= 13) {
-            return false;
-        }
-        else {
-            var keyChar = String.fromCharCode(charCode);
-            var re = /[0-9+ *#-]/;
-            return re.test(keyChar);
-        }
-    });
+    $('#txtTelefonoMD').on("cut copy paste", function (e) { e.preventDefault(); });
 
-    $("#txtTelefonoTrabajoMD").keypress(function (evt) {
-        var charCode = (evt.which) ? evt.which : window.event.keyCode;
-        if (charCode <= 13) {
-            return false;
-        }
-        else {
-            var keyChar = String.fromCharCode(charCode);
-            var re = /[0-9+ *#-]/;
-            return re.test(keyChar);
-        }
-    });
+    $('#txtTelefonoTrabajoMD').on("cut copy paste", function (e) { e.preventDefault(); });
 
-    $("#txtCelularMD").keypress(function (evt) {
-        var charCode = (evt.which) ? evt.which : window.event.keyCode;
-        if (charCode <= 13) {
-            return false;
-        }
-        else {
-            var keyChar = String.fromCharCode(charCode);
-            var re = /[0-9+ *#-]/;
-            return re.test(keyChar);
-        }
-    });
+    $('#txtCelularMD').on("cut copy paste", function (e) { e.preventDefault(); });
 
     $("#txtEMailMD").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
@@ -296,12 +264,12 @@ function limitarMinimo(contenido, caracteres, a) {
     return true;
 }
 
-function limitarMaximo(e, contenido, caracteres, id) {
-    var unicode = e.keyCode ? e.keyCode : e.charCode;
-    if (unicode == 8 || unicode == 46 || unicode == 13 || unicode == 9 || unicode == 37 ||
-        unicode == 39 || unicode == 38 || unicode == 40 || unicode == 17 || unicode == 67 || unicode == 86)
-        return true;
+function SoloNumerosInputs(e) {
+    var key = window.Event ? e.which : e.keyCode
+    return ((key >= 48 && key <= 57) || (key == 8))
+}
 
+function limitarMaximo(e, contenido, caracteres, id) {
     if (contenido.length >= caracteres) {
         var selectedText = document.getSelection();
         if (selectedText == contenido) {
@@ -314,6 +282,42 @@ function limitarMaximo(e, contenido, caracteres, id) {
         }
     }
     return true;
+}
+
+function validaPass() {
+    var oldPassword = $("#txtContraseniaAnterior").val();
+    var retorna = true;
+    if (oldPassword != '') {
+        var item = {
+            pass: oldPassword
+        };
+
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'MiPerfil/validaPass',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(item),
+            async: false,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    if (data.success == true) {
+                        if (data.message == "0") {
+                            retorna = false;
+                        } else {
+                            retorna = true;
+                        }
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    retorna = false;
+                }
+            }
+        });
+    }
+    return retorna;
 }
 
 function CambiarContrasenia() {
@@ -333,11 +337,21 @@ function CambiarContrasenia() {
         vMessage += "- Debe repetir la Nueva Contraseña.\n";
 
     if (newPassword01.length <= 6)
-        vMessage += "- La Nueva Contraseña debe de tener mas de 6 caracteres.\n";
+        vMessage += "- La Nueva Contraseña debe de tener más de 6 caracteres.\n";
 
     if (newPassword01 != "" && newPassword02 != "") {
         if (newPassword01 != newPassword02)
             vMessage += "- Los campos de la nueva contraseña deben ser iguales, verifique.\n";
+    }
+
+    if (oldPassword != "" && newPassword01 != "" && newPassword02 != "") {
+        if (newPassword01 == oldPassword || newPassword02 == oldPassword) {
+            vMessage += "- La Nueva Contraseña no debe ser igual a la actual.\n";
+        }
+    }
+
+    if (!validaPass()) {
+        vMessage = "- La contraseña ingresada no coincide con la actual. \n" + vMessage;
     }
 
     if (vMessage != "") {
@@ -353,21 +367,16 @@ function CambiarContrasenia() {
 
         jQuery.ajax({
             type: 'POST',
-            url: baseUrl + 'MiPerfil/CambiarContrasenia',
+            url: baseUrl + 'MiPerfil/CambiarConsultoraPass',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(item),
-            async: true,
+            async: false,
             success: function (data) {
                 if (checkTimeout(data)) {
                     mostratSpinner('cerrar');
                     if (data.success == true) {
-                        if (data.message == "0") {
-                            $("#txtContraseniaAnterior").val('');
-                            $("#txtNuevaContrasenia01").val('');
-                            $("#txtNuevaContrasenia02").val('');
-                            alert("La contraseña anterior ingresada es inválida");
-                        } else if (data.message == "1") {
+                        if (data.message == "1") {
                             $("#txtContraseniaAnterior").val('');
                             $("#txtNuevaContrasenia01").val('');
                             $("#txtNuevaContrasenia02").val('');
