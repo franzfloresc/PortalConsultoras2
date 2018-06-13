@@ -79,7 +79,7 @@ namespace Portal.Consultoras.Web.Providers
             return cadena;
         }
         
-        private string GetFormatDecimalPais(string isoPais)
+        public string GetFormatDecimalPais(string isoPais)
         {
             var listaPaises = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.KeyPaisFormatDecimal);
             if (listaPaises == "" || isoPais == "") return ",|.|2";
