@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.BannerModel
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.BannerModel
 @{
     Layout = "~/Views/Shared/_SACLayout.cshtml";
     ViewBag.Title = "Gestión de Banners";
@@ -986,10 +987,8 @@
                     if (data.listasegmento.length > 0) {
                         for (var item in data.listasegmento) {
                             if (data.listasegmento.hasOwnProperty(+item)) {
-                                ddlSegmentoBanner.append('<div style="display:block"><div style="float:left"><input type="Checkbox" value="' + data.listasegmento[item].BannerSegmentoId + '" style="display:inline-block !important; height: 15px !important;" /></div><div style="float:left;">' + data.listasegmento[item].BannerSegmentoDes + '</div> <div style="clear: both"></div></div>');
-
+                                ddlSegmentoBanner.append('<div style="display:block"><div style="float:left"><input type="Checkbox" value="' + data.listasegmento[item].BannerSegmentoId + '" style="display:inline-block !important; height: 15px !important;" /></div><div style="float:left;">' + data.listasegmento[item].BannerSegmentoDes + '</div> <div style="clear: both"></div></div>');                                
                             }
-
                         }
 
                         var BannerId = $("#hdBannerIdSegZon").val();
@@ -1030,14 +1029,16 @@
         var PaisId = $('#ddlPaisesBanSegZona').val();
         var Segmento = -1;
         var ConfiguracionZona = "";
+        var tipoAcceso = '';
         $.ajaxSetup({
             cache: false,
             async: false
         });
         $.getJSON(baseUrl + 'Banner/ObtenerSegmentoZona', { BannerId: BannerId, CampaniaId: CampaniaId, PaisId: PaisId }, function (data) {
             if (checkTimeout(data)) {
-                Segmento = data.Segmento,
-                ConfiguracionZona = data.ConfiguracionZona
+                Segmento = data.Segmento;
+                ConfiguracionZona = data.ConfiguracionZona;
+                tipoAcceso = data.TipoAcceso > 0 ? data.TipoAcceso : '';
             }
         });
         $.ajaxSetup({
@@ -1045,6 +1046,7 @@
         });
 
         $('#ddlSegmentoBanner').val(Segmento);
+        $('#ddlTipoAcceso').val(tipoAcceso);
         return ConfiguracionZona;
     }
 
@@ -1061,6 +1063,8 @@
         var CampaniaId = $('#ddlCampania').val();
         var PaisId = $('#ddlPaisesBanSegZona').val();
         var Segmento = -100;
+        var TipoAcceso = $('#ddlTipoAcceso').val();
+        var flConsultorasSegmento = $('#flConsultorasSegmento')[0].files;
 
         var SegmentoInterno = "";
 
@@ -1069,6 +1073,12 @@
                 SegmentoInterno += $(this).val() + ",";
             }
         });
+
+        if (SegmentoInterno == "") {
+            alert("No se ha marcado ningún Segmento.");
+            return false;
+        }
+
         if (SegmentoInterno != "") {
             SegmentoInterno = SegmentoInterno.substring(0, SegmentoInterno.length - 1);
         }
@@ -1083,21 +1093,51 @@
         if (zonas != "") {
             zonas = zonas.substring(0, zonas.length - 1);
         }
+
         if (zonas == "") {
             alert("No se ha marcado ninguna zona o región.");
             return false;
         }
+
+        if (!TipoAcceso) {
+            TipoAcceso = -1;
+        }
+
+        var formData = new FormData();
+        formData.append("BannerId", BannerId);
+        formData.append("CampaniaId", CampaniaId);
+        formData.append("PaisId", PaisId);
+        formData.append("Segmento", Segmento);
+        formData.append("ConfiguracionZona", zonas);
+        formData.append("SegmentoInterno", SegmentoInterno);
+        formData.append("TipoAcceso", TipoAcceso);
+
+        if (flConsultorasSegmento && flConsultorasSegmento.length > 0) {
+            formData.append("csvConsultoras", flConsultorasSegmento[0]);
+        }
+
         $.ajaxSetup({
             cache: false,
         });
-        $.getJSON(baseUrl + 'Banner/UpdBannerPaisSegmentoZona', { BannerId: BannerId, CampaniaId: CampaniaId, PaisId: PaisId, Segmento: Segmento, ConfiguracionZona: zonas, SegmentoInternoId: SegmentoInterno }, function (data) {
-            if (checkTimeout(data)) {
-                alert(data.Mensaje);
-                $('#ddlPaisesBanSegZona').val('')
-                $("#arbolRegionZona").html("");
-                $('#ddlSegmentoBanner').empty();
+
+        $.ajax({
+            url: baseUrl + 'Banner/UpdBannerPaisSegmentoZona',
+            data: formData,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    alert(data.Mensaje);
+                    $('#ddlPaisesBanSegZona').val('');
+                    $('#ddlTipoAcceso').val('');
+                    $('#flConsultorasSegmento').val('');
+                    $("#arbolRegionZona").html("");
+                    $('#ddlSegmentoBanner').empty();
+                }
             }
         });
+
         return false;
     }
 
@@ -1342,15 +1382,30 @@
 
     function ShowBannerOptions(val, options, rowObject) {
         var BannerId = rowObject[0];
+
+        var hasGroupNew = HasGroupOrNewConsultora(rowObject);
+
         var SeccionId = (Number)(rowObject[1]);
         $("#hdn_SeccionID").val(SeccionId);
         var editar = "&nbsp;<a href='#' onclick=\"return $('#list').EditBanner(" + BannerId + ", this);\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Banner' title='Editar Banner' border='0' /></a>";
         var eliminar = "&nbsp;<a href='#' onclick=\"return $('#list').DeleteBanner('" + BannerId + "', this);\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Banner' title='Eliminar Banner' border='0' /></a>";
-        var segzona = "&nbsp;<a href='#' onclick=\"return $('#list').SegZonaBanner('" + BannerId + "', this);\" >" + "<img src='@Url.Content("~/Content/Images/configuracion.png")' alt='Configurar Segmento y Zona' title='Configurar Segmento y Zona' border='0' /></a>";
+        var segzona = "&nbsp;<a href='#' onclick=\"return $('#list').SegZonaBanner('" + BannerId + "', " + hasGroupNew + ", this);\" >" + "<img src='@Url.Content("~/Content/Images/configuracion.png")' alt='Configurar Segmento y Zona' title='Configurar Segmento y Zona' border='0' /></a>";
         if(SeccionId < 6 || SeccionId > 9)
             return editar + eliminar + segzona;
         else
             return editar + eliminar;
+    }
+
+    function HasGroupOrNewConsultora(cells) {
+        if (!cells) {
+            return false;
+        }
+
+        if (cells.length < 29) {
+            return false;
+        }
+
+        return cells[27] === 'true' || cells[28] === 'true';
     }
 
     function formatearArchivo(val, options, rowObject) {
@@ -1697,12 +1752,16 @@
             return false;
         },
 
-        SegZonaBanner: function (id, obj) {
+        SegZonaBanner: function (id, hasGroupOrNew, obj) {
             var subgrid = $(obj).closest('table');
             var Titulo = subgrid.jqGrid('getCell', id, 'Titulo');
             var CampaniaId = $('#ddlCampania').val();
             $('#hdBannerIdSegZon').val(id);
             $('#ddlSegmentoBanner').empty();
+            $('#ddlTipoAcceso').val('');
+            $('#flConsultorasSegmento').val('');
+
+            $("#flConsultorasSegmento").prop('disabled', hasGroupOrNew);
 
             flgBnOperacionAct = flgBnOperacion.editar;
 
@@ -2017,7 +2076,6 @@
         </div>
     </div>
 </div>
-<!--/ .wrap-->
 
 <div class="wrap">
     <div class="container clearfix" style="width: 1135px;">
@@ -2173,7 +2231,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div id="div_cuv" style="display: none;">
                 <div class="div-3">
                     <div class="titG">CUV:</div>
@@ -2201,6 +2259,7 @@
         </div>
     </div>
 </div>
+
 <div id="DialogSegZonaBanner" style="display: none">
     <div class="Content_modal">
         @Html.Hidden("hdBannerIdSegZon")
@@ -2210,7 +2269,6 @@
                 <select id="ddlPaisesBanSegZona"></select>
             </div>
         </div>
-
         <div>
             <div style="float:left">
                 <div class="div-3">
@@ -2220,7 +2278,6 @@
                     </div>
                 </div>
             </div>
-
             <div style="float:left">
                 <div class="div-3">
                     <div class="titC">Jerarquía:</div>
@@ -2228,78 +2285,91 @@
                         <div id="arbolRegionZona" class="demo">
                         </div>
                     </div>
-
                 </div>
-
                 <div class="div-3">
                     <div class="titC"></div>
-
                     <div class="titH">
-
                         <div style="float:left">
                             <label id="lblSeleccionar">
                                 <input type="checkbox" id="chkSeleccionar" />
+
                             </label>
                         </div>
                         <div style="float:left; margin-top:10px">
                             Seleccionar todo
                         </div>
-                        
                     </div>
                 </div>
+                <div style="clear: both"></div>
             </div>
-            <div style="clear: both"></div>
+            <div class="div-3">
+                <div class="titC">Tipo de Acceso:</div>
+                <div class="selectA borde_redondeado">
+                    <select id="ddlTipoAcceso">
+                        <option value="">-- Seleccionar --</option>
+                        <option value="@Constantes.TipoAccesoSegmento.Inclusion">Inclusión</option>
+                        <option value="@Constantes.TipoAccesoSegmento.Exclusion">Exclusión</option>
+                    </select>
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titC">Adjuntar Consultoras:</div>
+                <div class="input_file">
+                    <input type="file" id="flConsultorasSegmento" value="" accept=".csv" />
+                    <div style="margin-top:15px">Formato de Archivo (*.csv) <br> - Código Consultora</div>
+                </div>
+            </div>
         </div>
-</div>
+    </div>
 
-<div id="DialogMensajesBanner">
-    <div class="Content_modal">
-        <div class="message_text">
-            Ocurrió un error en la comunicación o la sesión ha expirado. Por favor vuelva a autenticarse.
-        </div>
-    </div>
-</div>
-@Html.Hidden("hdn_SeccionID")
-<div id="DialogPreviewBanPrincipal" style="display: none">
-    <div class="Content_modal">
-        <div class="div-3">
-            <div class="titC">País:</div>
-            <div class="selectA borde_redondeado">
-                <select id="ddlPaisesBanPrinpl"></select>
+    <div id="DialogMensajesBanner">
+        <div class="Content_modal">
+            <div class="message_text">
+                Ocurrió un error en la comunicación o la sesión ha expirado. Por favor vuelva a autenticarse.
             </div>
         </div>
-        <div class="border_banner" id="divBanPPreview">
+    </div>
+    @Html.Hidden("hdn_SeccionID")
+    <div id="DialogPreviewBanPrincipal" style="display: none">
+        <div class="Content_modal">
+            <div class="div-3">
+                <div class="titC">País:</div>
+                <div class="selectA borde_redondeado">
+                    <select id="ddlPaisesBanPrinpl"></select>
+                </div>
+            </div>
+            <div class="border_banner" id="divBanPPreview">
+            </div>
         </div>
     </div>
-</div>
 
-<div id="DialogPreviewBanPrincipalSB2" style="display: none">
-    <div class="Content_modal">
-        <div class="div-3">
-            <div class="titC">País:</div>
-            <div class="selectA borde_redondeado">
-                <select id="ddlPaisesBanPrinpl_SB2"></select>
+    <div id="DialogPreviewBanPrincipalSB2" style="display: none">
+        <div class="Content_modal">
+            <div class="div-3">
+                <div class="titC">País:</div>
+                <div class="selectA borde_redondeado">
+                    <select id="ddlPaisesBanPrinpl_SB2"></select>
+                </div>
+            </div>
+            <div class="border_banner" id="divBanPPreviewSB2">
             </div>
         </div>
-        <div class="border_banner" id="divBanPPreviewSB2">
-        </div>
     </div>
-</div>
 
-<div id="DialogPreviewBanBaja" style="display: none">
-    <div class="Content_modal">
-        <div class="div-3">
-            <div class="titC">País:</div>
-            <div class="selectA borde_redondeado">
-                <select id="ddlPaisesBanBaja"></select>
+    <div id="DialogPreviewBanBaja" style="display: none">
+        <div class="Content_modal">
+            <div class="div-3">
+                <div class="titC">País:</div>
+                <div class="selectA borde_redondeado">
+                    <select id="ddlPaisesBanBaja"></select>
+                </div>
+            </div>
+            <div class="border_banner" id="divBanBPreview">
             </div>
         </div>
-        <div class="border_banner" id="divBanBPreview">
+    </div>
+    <div id="DialogImagenContainer" style="display: none;">
+        <div class="Content_modal">
+            <img src='' id="imgModal" />
         </div>
     </div>
-</div>
-<div id="DialogImagenContainer" style="display: none;">
-    <div class="Content_modal">
-        <img src='' id="imgModal" />
-    </div>
-</div>

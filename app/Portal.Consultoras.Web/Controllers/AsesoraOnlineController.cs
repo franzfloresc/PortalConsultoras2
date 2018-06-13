@@ -161,7 +161,6 @@ namespace Portal.Consultoras.Web.Controllers
                 using (AsesoraOnlineServiceClient sv = new AsesoraOnlineServiceClient())
                 {
                     resul = sv.VuelveASuscripcion(pais, codconsultora);
-                    //pruebas2334
                 }
 
             }

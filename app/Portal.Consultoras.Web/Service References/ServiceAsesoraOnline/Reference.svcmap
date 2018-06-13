@@ -22,6 +22,7 @@
     <MetadataSource Address="http://localhost:41615/AsesoraOnlineService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
+    <MetadataFile FileName="AsesoraOnlineService5.xsd" MetadataType="Schema" ID="d9a55b7d-f656-49d1-8e9b-db99c947ff3b" SourceId="1" SourceUrl="http://localhost:41615/AsesoraOnlineService.svc?xsd=xsd5" />
     <MetadataFile FileName="AsesoraOnlineService1.xsd" MetadataType="Schema" ID="6dd9d738-22e2-4080-a413-5639cb06b45b" SourceId="1" SourceUrl="http://localhost:41615/AsesoraOnlineService.svc?xsd=xsd0" />
     <MetadataFile FileName="AsesoraOnlineService.wsdl" MetadataType="Wsdl" ID="a027eac3-0dd1-43a9-aa10-2390af02e56d" SourceId="1" SourceUrl="http://localhost:41615/AsesoraOnlineService.svc?wsdl" />
     <MetadataFile FileName="AsesoraOnlineService.xsd" MetadataType="Schema" ID="9e5c62fb-111b-4cf7-afb0-fa884190e04f" SourceId="1" SourceUrl="http://localhost:41615/AsesoraOnlineService.svc?xsd=xsd2" />

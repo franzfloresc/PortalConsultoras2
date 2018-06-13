@@ -1765,6 +1765,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string GPRTextovinculoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceUsuario.BEGuiaNegocio GuiaNegocioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool HabilitarRestriccionHorariaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1895,6 +1898,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool OfertaDelDiaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceUsuario.BEOfertaDelDia OfertaDelDiaModelField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int OfertaFinalField;
@@ -3251,6 +3257,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceUsuario.BEGuiaNegocio GuiaNegocio {
+            get {
+                return this.GuiaNegocioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.GuiaNegocioField, value) != true)) {
+                    this.GuiaNegocioField = value;
+                    this.RaisePropertyChanged("GuiaNegocio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool HabilitarRestriccionHoraria {
             get {
                 return this.HabilitarRestriccionHorariaField;
@@ -3818,6 +3837,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.OfertaDelDiaField.Equals(value) != true)) {
                     this.OfertaDelDiaField = value;
                     this.RaisePropertyChanged("OfertaDelDia");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceUsuario.BEOfertaDelDia OfertaDelDiaModel {
+            get {
+                return this.OfertaDelDiaModelField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OfertaDelDiaModelField, value) != true)) {
+                    this.OfertaDelDiaModelField = value;
+                    this.RaisePropertyChanged("OfertaDelDiaModel");
                 }
             }
         }
@@ -4757,6 +4789,112 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEGuiaNegocio", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEGuiaNegocio : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool BloqueoProductoDigitalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] ConfiguracionPaisDatosField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool BloqueoProductoDigital {
+            get {
+                return this.BloqueoProductoDigitalField;
+            }
+            set {
+                if ((this.BloqueoProductoDigitalField.Equals(value) != true)) {
+                    this.BloqueoProductoDigitalField = value;
+                    this.RaisePropertyChanged("BloqueoProductoDigital");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] ConfiguracionPaisDatos {
+            get {
+                return this.ConfiguracionPaisDatosField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ConfiguracionPaisDatosField, value) != true)) {
+                    this.ConfiguracionPaisDatosField = value;
+                    this.RaisePropertyChanged("ConfiguracionPaisDatos");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEOfertaDelDia", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEOfertaDelDia : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool BloqueoProductoDigitalField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool BloqueoProductoDigital {
+            get {
+                return this.BloqueoProductoDigitalField;
+            }
+            set {
+                if ((this.BloqueoProductoDigitalField.Equals(value) != true)) {
+                    this.BloqueoProductoDigitalField = value;
+                    this.RaisePropertyChanged("BloqueoProductoDigital");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BERevistaDigital", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
     public partial class BERevistaDigital : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -4766,6 +4904,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<int> BloquearRevistaImpresaGeneralField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool BloqueoProductoDigitalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool BloqueoRevistaImpresaField;
@@ -4780,6 +4921,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool EsSuscritaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool SociaEmpresariaExperienciaGanaMasField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServiceUsuario.BERevistaDigitalSuscripcion SuscripcionEfectivaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4787,6 +4931,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool TieneRDCField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneRDCRField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -4807,6 +4954,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.BloquearRevistaImpresaGeneralField.Equals(value) != true)) {
                     this.BloquearRevistaImpresaGeneralField = value;
                     this.RaisePropertyChanged("BloquearRevistaImpresaGeneral");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool BloqueoProductoDigital {
+            get {
+                return this.BloqueoProductoDigitalField;
+            }
+            set {
+                if ((this.BloqueoProductoDigitalField.Equals(value) != true)) {
+                    this.BloqueoProductoDigitalField = value;
+                    this.RaisePropertyChanged("BloqueoProductoDigital");
                 }
             }
         }
@@ -4864,6 +5024,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool SociaEmpresariaExperienciaGanaMas {
+            get {
+                return this.SociaEmpresariaExperienciaGanaMasField;
+            }
+            set {
+                if ((this.SociaEmpresariaExperienciaGanaMasField.Equals(value) != true)) {
+                    this.SociaEmpresariaExperienciaGanaMasField = value;
+                    this.RaisePropertyChanged("SociaEmpresariaExperienciaGanaMas");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public Portal.Consultoras.Web.ServiceUsuario.BERevistaDigitalSuscripcion SuscripcionEfectiva {
             get {
                 return this.SuscripcionEfectivaField;
@@ -4898,6 +5071,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.TieneRDCField.Equals(value) != true)) {
                     this.TieneRDCField = value;
                     this.RaisePropertyChanged("TieneRDC");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneRDCR {
+            get {
+                return this.TieneRDCRField;
+            }
+            set {
+                if ((this.TieneRDCRField.Equals(value) != true)) {
+                    this.TieneRDCRField = value;
+                    this.RaisePropertyChanged("TieneRDCR");
                 }
             }
         }

@@ -7,59 +7,33 @@ namespace Portal.Consultoras.Entities
     [DataContract]
     public class BEFormularioDato
     {
-        private int miPaisID;
-        private ETipoFormulario miTipoFormularioID;
-        private int miFormularioDatoID;
-        private string msDescripcion;
-        private string msArchivo;
-        private string msURL;
+        [DataMember]
+        public int PaisID { get; set; }
+
+        [DataMember]
+        public ETipoFormulario TipoFormularioID { get; set; }
+
+        [DataMember]
+        public int FormularioDatoID { get; set; }
+
+        [DataMember]
+        public string Descripcion { get; set; }
+
+        [DataMember]
+        public string Archivo { get; set; }
+
+        [DataMember]
+        public string URL { get; set; }
 
         public BEFormularioDato() { }
         public BEFormularioDato(IDataRecord datarec)
         {
-            miPaisID = Convert.ToInt32(datarec["PaisID"]);
-            miTipoFormularioID = (ETipoFormulario)Convert.ToInt32(datarec["TipoFormularioID"]);
-            miFormularioDatoID = Convert.ToInt32(datarec["FormularioDatoID"]);
-            msDescripcion = (string)datarec["Descripcion"];
-            msArchivo = (string)datarec["Archivo"];
-            msURL = (string)datarec["URL"];
-        }
-
-        [DataMember]
-        public int PaisID
-        {
-            get { return miPaisID; }
-            set { miPaisID = value; }
-        }
-        [DataMember]
-        public ETipoFormulario TipoFormularioID
-        {
-            get { return miTipoFormularioID; }
-            set { miTipoFormularioID = value; }
-        }
-        [DataMember]
-        public int FormularioDatoID
-        {
-            get { return miFormularioDatoID; }
-            set { miFormularioDatoID = value; }
-        }
-        [DataMember]
-        public string Descripcion
-        {
-            get { return msDescripcion; }
-            set { msDescripcion = value; }
-        }
-        [DataMember]
-        public string Archivo
-        {
-            get { return msArchivo; }
-            set { msArchivo = value; }
-        }
-        [DataMember]
-        public string URL
-        {
-            get { return msURL; }
-            set { msURL = value; }
+            PaisID = Convert.ToInt32(datarec["PaisID"]);
+            TipoFormularioID = (ETipoFormulario)Convert.ToInt32(datarec["TipoFormularioID"]);
+            FormularioDatoID = Convert.ToInt32(datarec["FormularioDatoID"]);
+            Descripcion = (string)datarec["Descripcion"];
+            Archivo = (string)datarec["Archivo"];
+            URL = (string)datarec["URL"];
         }
     }
 }

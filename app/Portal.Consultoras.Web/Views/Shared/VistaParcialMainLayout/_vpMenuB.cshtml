@@ -63,17 +63,17 @@
         </div>
         <div class="boton_cam">
             @{
-                @:ESTÁS EN <br />
+                @:ESTÁS EN <br /> 
                 <span>
-                    @if (ViewBag.CampaniaCodigo == null || ViewBag.CampaniaCodigo.ToString().Length < 6)
-            {
-                        @:-
-            }
-            else
-            {
-                        @:C-@(Util.SubStr((ViewBag.CampaniaCodigo ?? "").ToString(), 4, 2))
-            }
-                </span>
+                @if (ViewBag.CampaniaCodigo == null || ViewBag.CampaniaCodigo.ToString().Length < 6)
+                {
+                    @:-
+                }
+                else
+                {
+                    @:C-@(Util.SubStr((ViewBag.CampaniaCodigo ?? "").ToString(), 4, 2))
+                }
+                </span >
             }
         </div>
         <div class="boton_cerrar_s">

@@ -33,8 +33,7 @@ $(document).ready(function () {
     });
     $(".ver_video_introductorio").click(function () {
         $('#VideoIntroductorio').show();
-
-        //ConfigurarYoutube();
+        
         var player = oYTPlayers['ytMobileBienvenidaIndex'].instance;
         setTimeout(function () { playVideo(); }, 500);
 
@@ -100,6 +99,7 @@ $(document).ready(function () {
 
     if (consultoraNuevaBannerAppMostrar == "False") ObtenerComunicadosPopup();
     EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-home]");
+    bannerFunc.showExpoOferta();
 });
 $(window).load(function () {
     VerSeccionBienvenida(verSeccion);
@@ -711,28 +711,76 @@ function VerTutorialMobile() {
 
     setTimeout(function () { $(window).resize(); }, 50);
 }
-/*
-function ConfigurarYoutube() {
-    if (tag == null) {
-        tag = document.createElement("script");
-        tag.src = "https://www.youtube.com/iframe_api";
 
-        firstScriptTag = document.getElementsByTagName("script")[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    }
-}
+var bannerFunc = (function () {
+    return {
+        getBanners: getBanners,
+        showExpoOferta: showExpoOferta,
+    };
 
-function onYouTubeIframeAPIReady(playerId) {
-    var videoIdMostrar;
-    if (isEsika) {
-        videoIdMostrar = "jNoP8OoMmW4"; //Video Esika
+    function getBanners() {
+        return $.ajax({
+            type: 'POST',
+            url: baseUrl + 'Banner/ObtenerBannerPaginaPrincipal',
+            dataType: 'Json',
+        });
     }
-    else {
-        videoIdMostrar = "djSn0tFcQ0w"; //Video Lbel
+
+    function getExpoOferta() {
+        return getBanners().then(function (dataResult) {
+            if (!checkTimeout(dataResult)) {
+                return;
+            }
+
+            if (!dataResult.success) {
+                console.log('No se pudo cargar la configuración de Banners.');
+                return false;
+            }
+
+            var campaniaPrefix = 'C' + numeroCampania;
+            var keyExpoOferta = campaniaPrefix+ '_EXPOFERTAS_' + IsoPais;
+            var keyExpoOferta2 = campaniaPrefix + '_EXPOFERTA_' + IsoPais;
+            var len = dataResult.data.length;
+            for (var i = 0; i < len; i++) {
+                var objData = dataResult.data[i];
+
+                var group = objData.GrupoBannerID;
+                if (!(group == -5 ||
+                    group == -6 ||
+                    group == -7)) {
+                    continue;
+                }
+
+                var title = objData.Titulo;
+                if (!title) {
+                    continue;
+                }
+
+                title = title.toUpperCase();
+                if (title == keyExpoOferta || title == keyExpoOferta2) {
+                    return objData;
+                }
+            }
+
+            return null;
+        });
     }
-    player = new YT.Player("divPlayer", {
-        width: "100%",
-        videoId: videoIdMostrar,
-        playerVars: { rel: 0 }
-    });
-}*/
+
+    function showExpoOferta() {
+        getExpoOferta().then(function (banner) {
+            if (!banner) {
+                return;
+            }
+
+            var titleComment = banner.TituloComentario || 'APROVÉCHALAS';
+                
+            var dvExpoOferta = $('#dvExpoOferta');
+            var links = dvExpoOferta.find('a');
+
+            links.attr('href', banner.URL);
+            links.eq(0).text('¡' + titleComment.toUpperCase() + '!');
+            dvExpoOferta.find('img').attr('src', banner.Archivo);
+            dvExpoOferta.show();
+        });
+    }
+})();

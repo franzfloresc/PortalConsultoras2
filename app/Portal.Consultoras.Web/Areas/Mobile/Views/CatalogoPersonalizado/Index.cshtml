@@ -272,8 +272,8 @@
                 <img src="{{UrlImagen}}" alt="">
             </div>
             <div class="titulo_producto_oferta" id="titulo">{{Descripcion}}</div>
-            <div class="sub_texto_oferta">En Guía de Negocio: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
-            <div class="texto_ganancia_oferta">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
+            <div class="sub_texto_oferta">En Guía de Negocio: {{SimboloMoneda}} {{DecimalToStringFormat precio_revista}}</div>
+            <div class="texto_ganancia_oferta">{{TxtGanancia}}: {{SimboloMoneda}} {{DecimalToStringFormat ganancia}}</div>
             <div class="liquidacion_rango_home">
                 <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                 <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad-revista" data-cantidad-input="revista">
@@ -288,7 +288,7 @@
                     <div class="sub_texto_oferta" style="font-weight: 800;">
                         También puedes comprarlo <br />con el precio catálogo:
                     </div>
-                    <div class="sub_texto_oferta" style="font-weight: 800;">{{Simbolo}} {{DecimalToStringFormat precio_catalogo}}</div>
+                    <div class="sub_texto_oferta" style="font-weight: 800;">{{SimboloMoneda}} {{DecimalToStringFormat precio_catalogo}}</div>
                     <hr class="clear" />
                     <br />
                     <div class="liquidacion_rango_home">
@@ -363,8 +363,8 @@
                         {{#if TieneOfertaEnRevista}}
 
                         {{else}}
-                        <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
-                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
+                        <span class="producto_precio_normal">{{SimboloMoneda}} {{PrecioValorizadoString}}</span>
+                        <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{PrecioCatalogoString}}</b></span>
                         {{/if}}
                     </div>
                     <div>
@@ -425,7 +425,6 @@
         </div>
         <div class="linea_separadora_black" style="margin-top:-10px;"></div>
         <hr class="clear" />
-        <!--PRIMER ITEM-->
         <div class="content_item_oferta">
             <div class="content_imagen_oferta">
                 {{#IsNullOrEmpty UrlImagen '!='}}
@@ -433,8 +432,8 @@
                 {{/IsNullOrEmpty}}
             </div>
             <div class="titulo_producto_oferta" style="font-weight:400;" id="titulo">{{Descripcion}}</div>
-            <div class="sub_texto_oferta">Precio para ti: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
-            <div class="texto_ganancia_oferta" style="text-transform: uppercase;">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
+            <div class="sub_texto_oferta">Precio para ti: {{SimboloMoneda}} {{DecimalToStringFormat precio_revista}}</div>
+            <div class="texto_ganancia_oferta" style="text-transform: uppercase;">{{TxtGanancia}}: {{SimboloMoneda}} {{DecimalToStringFormat ganancia}}</div>
         </div>
         <div>
             {{#each lista_ObjNivel as |nivel|}}
@@ -457,8 +456,8 @@
                     </div>
                 </div>
                 <br />
-                <div class="titulo_pack">Precio para ti: {{../Simbolo}} {{DecimalToStringFormat nivel.precio_nivel}}</div>
-                <div class="texto_ganancia_oferta_048">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat nivel.ganancia_nivel}}</div>
+                <div class="titulo_pack">Precio para ti: {{SimboloMoneda}} {{DecimalToStringFormat nivel.precio_nivel}}</div>
+                <div class="texto_ganancia_oferta_048">{{../TxtGanancia}}: {{SimboloMoneda}} {{DecimalToStringFormat nivel.ganancia_nivel}}</div>
                 <br />
                 <div style="width: 100%; border-top: 1px solid #dadada;"></div>
                 <br />
@@ -489,7 +488,6 @@
             {{/each}}
 
         </div>
-        <!--BOTON AGREGAR SET-->
         <div class="content_item_oferta" style="padding-top:0;">
             <div class="content_pack_niveles">
                 <div class="sub_texto_oferta">
@@ -506,15 +504,13 @@
                 <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista">AGRÉGALO</a>
             </div>
         </div>
-        <!--FIN-->
-        <!--ULTIMO-->
         <div class="row_20">
             <div class="sombra_oferta">
                 <div class="content_item_oferta">
                     <div class="sub_texto_oferta">
                         También puedes comprarlo <br />con el precio catálogo:
                     </div>
-                    <div class="sub_texto_oferta">{{Simbolo}} {{DecimalToStringFormat precio_catalogo}}</div>
+                    <div class="sub_texto_oferta">{{SimboloMoneda}} {{DecimalToStringFormat precio_catalogo}}</div>
                     <hr class="clear" />
                     <br />
                     <div class="liquidacion_rango_home">
@@ -527,7 +523,6 @@
                 </div>
             </div>
         </div>
-        <!--FIN-->
     </div>
 </script>
 <script id="template-mod-ofer3" type="text/x-handlebars-template">
@@ -575,7 +570,6 @@
                 <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.CatalogoPersonalizadoMobilePopUp" />
             </div>
         </div>
-        <!--PRIMER ITEM-->
         <div class="content_item_oferta">
             <div class="content_imagen_oferta">
                 {{#IsNullOrEmpty UrlImagen '!='}}
@@ -583,8 +577,8 @@
                 {{/IsNullOrEmpty}}
             </div>
             <div class="titulo_producto_oferta" id="titulo">{{Descripcion}}</div>
-            <div class="sub_texto_oferta">Precio para ti: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
-            <div class="texto_ganancia_oferta" style="text-transform: uppercase;">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
+            <div class="sub_texto_oferta">Precio para ti: {{SimboloMoneda}} {{DecimalToStringFormat precio_revista}}</div>
+            <div class="texto_ganancia_oferta" style="text-transform: uppercase;">{{TxtGanancia}}: {{SimboloMoneda}} {{DecimalToStringFormat ganancia}}</div>
 
             <div class="liquidacion_rango_home">
                 <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
@@ -595,7 +589,6 @@
             <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista" tabindex="0">AGRÉGALO</a>
         </div>
 
-        <!--FIN-->
         {{#each lista_oObjPack as |pack|}}
         <div class="item_pack_personalizado">
             <input type="hidden" class="hdItemPackCuv" value="{{pack.cuv_pack}}" />
@@ -608,8 +601,8 @@
                 <div class="pestana_lbel"></div>
             </div>
             <div class="content_item_oferta">
-                <div class="titulo_producto_oferta"><span class="texto_unidad_pack">Precio para ti: </span>{{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
-                <div class="texto_ganancia_oferta" style="text-transform: uppercase;">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
+                <div class="titulo_producto_oferta"><span class="texto_unidad_pack">Precio para ti: </span>{{SimboloMoneda}} {{DecimalToStringFormat pack.precio_pack}}</div>
+                <div class="texto_ganancia_oferta" style="text-transform: uppercase;">{{../TxtGanancia}}: {{SimboloMoneda}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
                 <hr class="clear" />
                 {{#each ../lista_oObjItemPack as |item|}}
                 {{#if_eq pack.cuv_pack item.cuv_pack_item}}
@@ -641,14 +634,13 @@
             </div>
         </div>
         {{/each}}
-        <!--ULTIMO-->
         <div class="row_20">
             <div class="sombra_oferta">
                 <div class="content_item_oferta">
                     <div class="sub_texto_oferta">
                         También puedes comprarlo <br />con el precio catálogo:
                     </div>
-                    <div class="sub_texto_oferta">{{Simbolo}} {{DecimalToStringFormat precio_catalogo}}</div>
+                    <div class="sub_texto_oferta">{{SimboloMoneda}} {{DecimalToStringFormat precio_catalogo}}</div>
                     <hr class="clear" />
                     <br />
                     <div class="liquidacion_rango_home">
@@ -661,7 +653,6 @@
                 </div>
             </div>
         </div>
-        <!--FIN-->
     </div>
 </script>
 @section scripts

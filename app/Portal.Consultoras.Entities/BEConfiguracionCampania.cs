@@ -77,6 +77,7 @@ namespace Portal.Consultoras.Entities
         [Column("EstadoPedido")]
         public int EstadoPedido { get; set; }
         [DataMember]
+        [Column("ModificaPedidoReservado")]
         public bool ModificaPedidoReservado { get; set; }
 
         [Column("HoraCierreZonaNormal")]

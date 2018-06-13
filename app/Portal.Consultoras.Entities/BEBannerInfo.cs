@@ -5,151 +5,73 @@ namespace Portal.Consultoras.Entities
     [DataContract]
     public class BEBannerInfo
     {
-        protected int miGrupoBannerID;
-        protected string msTitulo;
-        protected string msArchivo;
-        protected string msURL;
-        protected int miTiempoRotacion;
-        protected int miTipoContenido;
-        protected int miPaginaNueva;
-        protected string msNombre;
-        protected int miCampaniaID;
-        protected int miOrden;
-        protected int miBannerID;
-        protected string msTituloComentario;
-        protected string msTextoComentario;
-        protected int miTipoAccion;
-        protected string miCUVpedido;
-        protected int miCantCUVpedido;
-
         public BEBannerInfo(BEBanner banner)
         {
-            miGrupoBannerID = banner.GrupoBannerID;
-            msTitulo = banner.Titulo;
-            msArchivo = banner.Archivo;
-            msURL = banner.URL;
-            miTiempoRotacion = banner.TiempoRotacion;
-            miTipoContenido = banner.TipoContenido;
-            miPaginaNueva = banner.PaginaNueva;
-            msNombre = banner.Nombre;
-            miCampaniaID = banner.CampaniaID;
-            miOrden = banner.Orden;
-            miBannerID = banner.BannerID;
-            msTituloComentario = banner.TituloComentario;
-            msTextoComentario = banner.TextoComentario;
-            miTipoAccion = banner.TipoAccion;
-            miCUVpedido = banner.CuvPedido;
-            miCantCUVpedido = banner.CantCuvPedido;
+            GrupoBannerID = banner.GrupoBannerID;
+            Titulo = banner.Titulo;
+            Archivo = banner.Archivo;
+            URL = banner.URL;
+            TiempoRotacion = banner.TiempoRotacion;
+            TipoContenido = banner.TipoContenido;
+            PaginaNueva = banner.PaginaNueva;
+            Nombre = banner.Nombre;
+            CampaniaID = banner.CampaniaID;
+            Orden = banner.Orden;
+            BannerID = banner.BannerID;
+            TituloComentario = banner.TituloComentario;
+            TextoComentario = banner.TextoComentario;
+            TipoAccion = banner.TipoAccion;
+            CuvPedido = banner.CuvPedido;
+            CantCuvPedido = banner.CantCuvPedido;
         }
 
         [DataMember]
-        public int GrupoBannerID
-        {
-            get { return miGrupoBannerID; }
-            set { miGrupoBannerID = value; }
-        }
+        public int GrupoBannerID { get; set; }
 
         [DataMember]
-        public string Titulo
-        {
-            get { return msTitulo; }
-            set { msTitulo = value; }
-        }
-        [DataMember]
-        public string Archivo
-        {
-            get { return msArchivo; }
-            set { msArchivo = value; }
-        }
-        [DataMember]
-        public string URL
-        {
-            get { return msURL; }
-            set { msURL = value; }
-        }
+        public string Titulo { get; set; }
 
         [DataMember]
-        public int TiempoRotacion
-        {
-            get { return miTiempoRotacion; }
-            set { miTiempoRotacion = value; }
-        }
+        public string Archivo { get; set; }
 
         [DataMember]
-        public int TipoContenido
-        {
-            get { return miTipoContenido; }
-            set { miTipoContenido = value; }
-        }
+        public string URL { get; set; }
 
         [DataMember]
-        public int PaginaNueva
-        {
-            get { return miPaginaNueva; }
-            set { miPaginaNueva = value; }
-        }
+        public int TiempoRotacion { get; set; }
 
         [DataMember]
-        public string Nombre
-        {
-            get { return msNombre; }
-            set { msNombre = value; }
-        }
+        public int TipoContenido { get; set; }
 
         [DataMember]
-        public int CampaniaID
-        {
-            get { return miCampaniaID; }
-            set { miCampaniaID = value; }
-        }
+        public int PaginaNueva { get; set; }
 
         [DataMember]
-        public int Orden
-        {
-            get { return miOrden; }
-            set { miOrden = value; }
-        }
+        public string Nombre { get; set; }
 
         [DataMember]
-        public int BannerID
-        {
-            get { return miBannerID; }
-            set { miBannerID = value; }
-        }
+        public int CampaniaID { get; set; }
 
         [DataMember]
-        public string TituloComentario
-        {
-            get { return msTituloComentario; }
-            set { msTituloComentario = value; }
-        }
+        public int Orden { get; set; }
 
         [DataMember]
-        public string TextoComentario
-        {
-            get { return msTextoComentario; }
-            set { msTextoComentario = value; }
-        }
-        [DataMember]
-        public int TipoAccion
-        {
-            get { return miTipoAccion; }
-            set { miTipoAccion = value; }
-        }
+        public int BannerID { get; set; }
 
         [DataMember]
-        public string CuvPedido
-        {
-            get { return miCUVpedido; }
-            set { miCUVpedido = value; }
-        }
+        public string TituloComentario { get; set; }
 
         [DataMember]
-        public int CantCuvPedido
-        {
-            get { return miCantCUVpedido; }
-            set { miCantCUVpedido = value; }
-        }
+        public string TextoComentario { get; set; }
+
+        [DataMember]
+        public int TipoAccion { get; set; }
+
+        [DataMember]
+        public string CuvPedido { get; set; }
+
+        [DataMember]
+        public int CantCuvPedido { get; set; }
 
         [DataMember]
         public int Segmento { get; set; }
