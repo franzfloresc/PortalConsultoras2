@@ -8,57 +8,32 @@ namespace Portal.Consultoras.Entities
     [DataContract]
     public class BEGetZonaByPaisParametroCarga
     {
-        private int myZonaID;
-        private int myRegionID;
-        private string myCodigo;
-        private string myNombre;
-        private int myCantidadDias;
+        [DataMember]
+        public int ZonaID { get; set; }
+
+        [DataMember]
+        public int RegionID { get; set; }
+
+        [DataMember]
+        public string Codigo { get; set; }
+
+        [DataMember]
+        public string Nombre { get; set; }
+
+        [DataMember]
+        public int CantidadDias { get; set; }
 
         public BEGetZonaByPaisParametroCarga() { }
 
         public BEGetZonaByPaisParametroCarga(IDataRecord row)
         {
-            myZonaID = Convert.ToInt32(row["ZonaID"]);
-            myRegionID = Convert.ToInt32(row["RegionID"]);
-            myCodigo = row["Codigo"].ToString();
-            myNombre = row["Nombre"].ToString();
+            ZonaID = Convert.ToInt32(row["ZonaID"]);
+            RegionID = Convert.ToInt32(row["RegionID"]);
+            Codigo = row["Codigo"].ToString();
+            Nombre = row["Nombre"].ToString();
             if (DataRecord.HasColumn(row, "CantidadDias"))
-                myCantidadDias = Convert.ToInt32(row["CantidadDias"]);
+                CantidadDias = Convert.ToInt32(row["CantidadDias"]);
         }
 
-        [DataMember]
-        public int ZonaID
-        {
-            get { return myZonaID; }
-            set { myZonaID = value; }
-        }
-
-        [DataMember]
-        public int RegionID
-        {
-            get { return myRegionID; }
-            set { myRegionID = value; }
-        }
-
-        [DataMember]
-        public string Codigo
-        {
-            get { return myCodigo; }
-            set { myCodigo = value; }
-        }
-
-        [DataMember]
-        public string Nombre
-        {
-            get { return myNombre; }
-            set { myNombre = value; }
-        }
-
-        [DataMember]
-        public int CantidadDias
-        {
-            get { return myCantidadDias; }
-            set { myCantidadDias = value; }
-        }
     }
 }

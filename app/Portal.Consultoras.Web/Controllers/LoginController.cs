@@ -273,7 +273,6 @@ namespace Portal.Consultoras.Web.Controllers
                     success = true,
                     redirectTo = Url.Action("Index", "Login")
                 });
-                //return RedirectToAction("Index", "Login");
             }
             catch (FaultException ex)
             {
@@ -311,7 +310,6 @@ namespace Portal.Consultoras.Web.Controllers
                 success = true,
                 redirectTo = Url.Action("Index", "Login")
             });
-            //return RedirectToAction("Index", "Login");
         }
 
         [AllowAnonymous]
@@ -877,7 +875,7 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.SetIsOfertaPack(1);
 
             var usuarioModel = (UsuarioModel)null;
-
+            var estrategiaODD = (Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel)null;
             try
             {
                 if (paisId == 0)
@@ -1155,9 +1153,15 @@ namespace Portal.Consultoras.Web.Controllers
                         #endregion
 
                         #region ODD
-
-                        usuarioModel.OfertasDelDia = ofertaDelDiaTask.Result;
-                        usuarioModel.TieneOfertaDelDia = usuarioModel.OfertasDelDia.Any();
+                        if (ofertaDelDiaTask.Result != null)
+                        {
+                            estrategiaODD = new Models.Estrategia.OfertaDelDia.DataModel
+                            {
+                                ListaDeOferta = ofertaDelDiaTask.Result
+                            };
+                        }
+                       
+                        usuarioModel.TieneOfertaDelDia = estrategiaODD.ListaDeOferta.Any();
 
                         #endregion
 
@@ -1265,6 +1269,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 sessionManager.SetUserData(usuarioModel);
+                sessionManager.SetEstrategiaODD(estrategiaODD);
             }
             catch (Exception ex)
             {
@@ -1522,9 +1527,9 @@ namespace Portal.Consultoras.Web.Controllers
             return ofertasDelDiaModel;
         }
 
-        private async Task<List<BEEstrategia>> ObtenerOfertasDelDia(UsuarioModel model)
+        private async Task<List<ServicePedido.BEEstrategia>> ObtenerOfertasDelDia(UsuarioModel model)
         {
-            List<BEEstrategia> ofertasDelDia;
+            List<ServicePedido.BEEstrategia> ofertasDelDia;
 
             using (var svc = new PedidoServiceClient())
             {
@@ -1836,7 +1841,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var revistaDigitalModel = new RevistaDigitalModel();
                 var ofertaFinalModel = new OfertaFinalModel();
                 var herramientasVentaModel = new HerramientasVentaModel();
-
+                var estrategiaODD = new Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel();
                 var configuracionesPaisModels = await GetConfiguracionPais(usuarioModel);
                 var listaConfiPaisModel = new List<ConfiguracionPaisModel>();
                 if (configuracionesPaisModels.Any())
@@ -1890,9 +1895,6 @@ namespace Portal.Consultoras.Web.Controllers
                                 guiaNegocio = ConfiguracionPaisDatosGuiaNegocio(configuracionPaisDatos);
                                 guiaNegocio.TieneGND = true;
                                 usuarioModel.TieneGND = true;
-                                break;
-                            case Constantes.ConfiguracionPais.OfertaDelDia:
-                                usuarioModel.OfertaDelDia = ConfiguracionPaisDatosOfertaDelDia(usuarioModel.OfertaDelDia, configuracionPaisDatos);
                                 break;
                             case Constantes.ConfiguracionPais.OfertasParaTi:
                                 usuarioModel = ConfiguracionPaisDatosUsuario(usuarioModel, configuracionPaisDatos);

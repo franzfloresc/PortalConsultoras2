@@ -114,8 +114,7 @@ $(document).ready(function () {
             });
         }
     });
-
-   // ReservadoOEnHorarioRestringido(false);
+    
     $("#divProductoMantenedor").hide();
     $(".btn_verMiPedido").on("click", function () {
         
@@ -493,7 +492,7 @@ function ObservacionesProducto(item) {
 
     $("#txtCantidad, #suma, #resta").attr("disabled", item.FlagNueva == "1");
 
-    $("#spnPrecio").html(simbolo + " " + DecimalToStringFormat(item.PrecioCatalogo));
+    $("#spnPrecio").html(variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(item.PrecioCatalogo));
 
     $("#divNombreProducto").html(item.Descripcion);
 
@@ -602,10 +601,6 @@ function CancelarProductosSugeridos() {
 
 function InsertarProductoSugerido(model) {
     ShowLoading();
-    //if (ReservadoOEnHorarioRestringido()) {
-    //    CloseLoading();
-    //    return false;
-    //}
 
     jQuery.ajax({
         type: 'POST',
@@ -662,10 +657,6 @@ function InsertarProductoSugerido(model) {
 function AgregarProductoListado() {
     
     ShowLoading();
-    //if (ReservadoOEnHorarioRestringido()) {
-    //    CloseLoading();
-    //    return false;
-    //}
 
     var CUV = $('#hdfCUV').val();
     $("#hdCuvRecomendado").val(CUV);

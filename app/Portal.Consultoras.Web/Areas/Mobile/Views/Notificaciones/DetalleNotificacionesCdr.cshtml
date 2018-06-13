@@ -44,26 +44,20 @@
         <div class="respuesta_solicitud_cdr tipografia_lato_bold text-center">
             @if (Model.Proceso == "CDR-CULM")
             {
-                <!-- INICIO - CUANDO LA NOTIFICACIÓN ES DE REGISTRO SALE ESTE MENSAJE -->
                 <span>HEMOS RECIBIDO TU SOLICITUD DE CAMBIOS Y DEVOLUCIONES</span>
-                <!-- FIN - CUANDO LA NOTIFICACIÓN ES DE REGISTRO SALE ESTE MENSAJE -->
             }
             else if (Model.Proceso == "CDR")
             {
-                <!-- INICIO - CUANDO LA NOTIFICACIÓN ES DE RESPUESTA SALE ESTE MENSAJE -->
                 <span>ESTA ES LA RESPUESTA A TU SOLICITUD DE CAMBIOS Y DEVOLUCIONES</span>
-                <!-- FIN - CUANDO LA NOTIFICACIÓN ES DE RESPUESTA SALE ESTE MENSAJE -->
             }
         </div>
 
-        <!-- INICIO - CUANDO LA NOTIFICACION ES DE REGISTRO DE SOLICITUD SE MUESTRA ESTE MENSAJE -->
         @if (Model.Proceso == "CDR-CULM")
         {
             <div class="tiempo_respuesta_solicitud_cdr tipografia_lato_regular text-center">
                 En estos momentos la estamos evaluando y en 30 min te daremos una respuesta
             </div>
         }
-        <!-- FIN - CUANDO LA NOTIFICACION ES DE REGISTRO DE SOLICITUD SE MUESTRA ESTE MENSAJE -->
 
         <div class="datos_solicitud_cdr_notificacion tipografia_lato text-center">
             <div class="dato_fecha_solicitud_cdr text-center">
@@ -82,21 +76,17 @@
 
         @if (Model.Proceso == "CDR")
         {
-            <!-- INICIO - ESTE DIV APARECE CUANDO LA NOTIFICACIÓN ES DE RESPUESTA A LA SOLICITUD CDR -->
             <div class="contenedor_mensajes_respuesta_cdr">
                 <div class="resumen_respuesta_cdr">
                     <span class="tipografia_lato_regular">Resumen: </span>
                     <span class="tipografia_lato_bold"> @Model.ResumenResolucion</span>
                 </div>
 
-                <!-- INICIO - CUANDO LA NOTIFICACIÓN ES DE RESPUESTA SE MUESTRA EL SALDO ACTUALIZADO -->
                 <div class="saldo_actualizado">
                     <span class="tipografia_lato_regular">Tu saldo actualizado es de:</span>
                     <span class="tipografia_lato_bold">@Model.Simbolo @Util.DecimalToStringFormat(Model.ConsultoraSaldo, Model.CodigoIso)</span>
                 </div>
-                <!-- FIN - CUANDO LA NOTIFICACIÓN ES DE RESPUESTA SE MUESTRA EL SALDO ACTUALIZADO -->
             </div>
-            <!-- FIN - ESTE DIV APARECE CUANDO LA NOTIFICACIÓN ES DE RESPUESTA A LA SOLICITUD CDR -->
         }
 
         <div class="lista_detalle_notificaciones_cdr">
@@ -127,14 +117,10 @@
                                     ? "Revisa la respuesta en Somos Belcorp."
                                     : "";
 
-                    <!-- INICIO - CUANDO LA SOLICITUD CDR HA SIDO RESPONDIDA SE MUESTRA EL ESTADO DE LA SOLICITUD -->
                     <div class="lista_detalle_estado_solicitud_cdr">
                         <span class="tipografia_lato_bold">Estado de solicitud :</span>
-                        <!-- INICIO - ESTADO APROBADO -->
                         <span class="tipografia_lato_bold color_marca text-right">@descripcionEstado</span>
-                        <!-- FIN - ESTADO APROBADO -->
                     </div>
-                    <!-- FIN - CUANDO LA SOLICITUD CDR HA SIDO RESPONDIDA SE MUESTRA EL ESTADO DE LA SOLICITUD -->
                 }
 
                 <div class="info_detalle_notificacion_cdr">
@@ -148,11 +134,9 @@
                         <span class="detalle_cantidad_producto tipografia_lato_regular">
                             x @item.Cantidad unidades
                         </span>
-                        <!-- INICIO - EL COSTO DEL PRODUCTO SALE CUANDO LA SOLICITUD CDR ES DE CAMBIO DE PRODUCTO -->
                         <span class="detalle_precio_producto tipografia_lato_regular">
                             @Model.Simbolo @Util.DecimalToStringFormat(item.Precio, Model.CodigoIso)
                         </span>
-                        <!-- FIN - EL COSTO DEL PRODUCTO SALE CUANDO LA SOLICITUD CDR ES DE CAMBIO DE PRODUCTO -->
                     </div>
 
                     <div class="detalle_cdr_solucion">
@@ -169,7 +153,6 @@
                         }
                         else
                         {
-                            <!-- INICIO - SOLICITUD CAMBIO DE PRODUCTO -->
                             <span class="detalle_cdr_solucion_titulo color_marca tipografia_lato_bold">
                                 @item.Solicitud
                             </span>
@@ -185,10 +168,8 @@
                             <span class="detalle_precio_producto tipografia_lato_regular">
                                 @Model.Simbolo @Util.DecimalToStringFormat(item.Precio2, Model.CodigoIso)
                             </span>
-                            <!-- FIN - SOLICITUD CAMBIO DE PRODUCTO -->
                         }
 
-                        <!-- INICIO - CUANDO LA SOLICITUD CDR ES RECHAZADA SE MUESTRA EL MOTIVO -->
                         @if (descripcionCompleta != "")
                         {
                             <span class="detalle_cdr_solucion_titulo color_marca tipografia_lato_bold">
@@ -198,7 +179,6 @@
                                 @descripcionCompleta
                             </span>
                         }
-                        <!-- FIN - CUANDO LA SOLICITUD CDR ES RECHAZADA SE MUESTRA EL MOTIVO -->
                     </div>
                 </div>
             }

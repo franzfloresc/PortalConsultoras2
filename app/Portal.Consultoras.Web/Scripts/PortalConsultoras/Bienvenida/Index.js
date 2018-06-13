@@ -20,7 +20,7 @@ var tag = null;
 var firstScriptTag = null;
 
 // oYTPlayers in scripts/_implements/youtube.js
-var /*player = oYTPlayers['ytBienvenidaIndex'].instance,*/ $divPlayer = $("#ytBienvenidaIndex");
+var $divPlayer = $("#ytBienvenidaIndex");
 
 $(document).ready(function () {
     var hdDataBarra = $("#hdDataBarra").val();
@@ -68,7 +68,6 @@ $(document).ready(function () {
     $(".ver_video_introductorio").click(function () {
         $('#fondoComunPopUp').show();
         contadorFondoPopUp++;
-        //ConfigurarYoutube();
         $('#videoIntroductorio').fadeIn(function () {
             $("#videoIntroductorio").delay(200);
             $("#videoIntroductorio").fadeIn(function () {
@@ -340,7 +339,6 @@ $(document).ready(function () {
         }
     });
     $("#txtTelefono, #txtTelefonoMD").keypress(function (evt) {
-        //var charCode = (evt.which) ? evt.which : window.event.keyCode;
         var charCode = (evt.which) ? evt.which : (window.event ? window.event.keyCode : null);
         if (!charCode) return false;
         if (charCode <= 13) {
@@ -694,20 +692,13 @@ function ocultarUbicacionTutorial() {
 
 function mostrarVideoIntroductorio() {
     var oYTPlayer = oYTPlayers['ytBienvenidaIndex'];
-        //, player = oYTPlayers['ytBienvenidaIndex'].instance;
     try {
         if (viewBagVioVideo == "0") {
-            //ConfigurarYoutube();
-
             PopupMostrar('videoIntroductorio');
 
-            //setTimeout(function () { playVideo(); }, 1000);
-
-            //setTimeout(function () {
             oYTPlayer.on('ready', function (player) {
                 if (player.playVideo) { player.playVideo(); }
             });
-            //}, 4000);
 
             return true;
         }
@@ -791,7 +782,7 @@ function CambiarTonoTalla(ddlTonoTalla) {
     $(ddlTonoTalla).parents('#divTonosTallas').find("#DescripcionProd").attr("value", $("option:selected", ddlTonoTalla).attr("desc-talla"));
 
     $(ddlTonoTalla).parents('#divTonosTallas').find('.nombre_producto').html('<b>' + $("option:selected", ddlTonoTalla).attr("desc-talla") + '</b>');
-    $(ddlTonoTalla).parents('#divTonosTallas').find('.producto_precio_oferta').html('<b>' + viewBagSimbolo + " " + $("option:selected", ddlTonoTalla).attr("desc-precio") + '</b>');
+    $(ddlTonoTalla).parents('#divTonosTallas').find('.producto_precio_oferta').html('<b>' + variablesPortal.SimboloMoneda + " " + $("option:selected", ddlTonoTalla).attr("desc-precio") + '</b>');
 }
 
 function alert_unidadesAgregadas(message, exito) {
@@ -980,7 +971,7 @@ function EstructurarDataCarouselLiquidaciones(array) {
         item.DescripcionCompleta = item.Descripcion;
         item.Descripcion = (item.Descripcion.length > 40 ? item.Descripcion.substring(0, 40) + "..." : item.Descripcion);
 
-        item.Simbolo = viewBagSimbolo;
+        item.Simbolo = variablesPortal.SimboloMoneda;
         item.Posicion = i + 1;
         item.TallaColor = $.trim(item.TallaColor);
         if (item.TallaColor.length > 1 && item.TallaColor.indexOf('^') > -1) {
@@ -1772,7 +1763,7 @@ function DownloadAttachPDFMD(requestedFile) {
     iframe_.style.display = "none";
     iframe_.setAttribute("src", baseUrl + 'WebPages/DownloadPDF.aspx?file=' + requestedFile);
 
-    if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
+    if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) {
 
         iframe_.onreadystatechange = function () {
 
@@ -2213,7 +2204,7 @@ function DownloadAttachPDF() {
     var requestedFile = urlContratoCOpdf;
     iframe_.setAttribute("src", baseUrl + 'WebPages/DownloadPDF.aspx?file=' + requestedFile);
 
-    if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
+    if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) {
         iframe_.onreadystatechange = function () {
             switch (this.readyState) {
                 case "loading":
@@ -2510,7 +2501,6 @@ function stopVideo() {
     try {
         if (player) {
 
-            //player.on('ready', function () {
                 if (player.stopVideo) {
                     player.stopVideo();
                 }
@@ -2519,7 +2509,6 @@ function stopVideo() {
                     $divPlayer.attr("src", "");
                     $divPlayer.attr("src", urlVideo);
                 }
-            //});
 
         }
     } catch (e) { }
@@ -2528,7 +2517,6 @@ function playVideo() {
     var player = oYTPlayers['ytBienvenidaIndex'].instance;
     try {
         if (player) {
-            //player.on('ready', function () {
             if (player.playVideo) { player.playVideo(); }
             else {
                 $divPlayer[0].contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
@@ -2539,7 +2527,6 @@ function playVideo() {
                 'action': 'Video de Bienvenida: Iniciar video',
                 'label': 'SomosBelcorp.com ¡se renueva para ti!'
             });
-            //});
         }
     } catch (e) { }
 }
@@ -3323,44 +3310,3 @@ function dataLayerVC(action, label) {
         'label': label
     });
 }
-/*
-function ConfigurarYoutube() {
-    if (tag == null) {
-        tag = document.createElement("script");
-        tag.src = "https://www.youtube.com/iframe_api";
-
-        firstScriptTag = document.getElementsByTagName("script")[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    }
-}*/
-/*
-function onYouTubeIframeAPIReady(playerId) {
-    var videoIdMostrar;
-    if (isEsika) {
-        videoIdMostrar = "jNoP8OoMmW4"; //Video Esika
-    } else {
-        videoIdMostrar = "djSn0tFcQ0w"; //Video Lbel
-    }
-    player = new YT.Player("divPlayer", {
-        width: "100%",
-        videoId: videoIdMostrar,
-        enablejsapi: 1,
-        playerVars: { rel: 0 },
-        events: {
-            'onStateChange': onPlayerStateChange
-        }
-    });
-}
-
-function onPlayerStateChange(event) {
-    // track when video ends
-    if (event.data == YT.PlayerState.ENDED) {
-        dataLayer.push({
-            'event': 'virtualEvent',
-            'category': 'Home',
-            'action': 'Video de Bienvenida: Finalizar video',
-            'label': 'SomosBelcorp.com ¡se renueva para ti!'
-        });
-    }
-}*/
-

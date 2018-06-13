@@ -222,7 +222,7 @@ function DownloadAttachExcelMC() {
     iframe_.style.display = "none";
     iframe_.setAttribute("src", content);
 
-    if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
+    if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) {
         iframe_.onreadystatechange = function () {
             switch (this.readyState) {
                 case "loading":
