@@ -1464,12 +1464,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         //    try
         //    {
-        //        var ofertasDelDia = await ObtenerOfertasDelDia(model);
+        //        var ofertasDelDia = await GetOfertas(model);
 
         //        if (!ofertasDelDia.Any())
         //            return ofertasDelDiaModel;
 
-        //        var personalizacionesOfertaDelDia = await ObtenerPersonalizacionesOfertaDelDia(model);
+        //        var personalizacionesOfertaDelDia = await GetPersonalizaciones(model);
         //        if (!personalizacionesOfertaDelDia.Any())
         //            return ofertasDelDiaModel;
 
@@ -1526,7 +1526,7 @@ namespace Portal.Consultoras.Web.Controllers
         //    return ofertasDelDiaModel;
         //}
 
-        //private async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDelDia(UsuarioModel model)
+        //private async Task<List<ServiceOferta.BEEstrategia>> GetOfertas(UsuarioModel model)
         //{
         //    List<ServiceOferta.BEEstrategia> ofertasDelDia;
         //    using (OfertaServiceClient osc = new OfertaServiceClient())
@@ -1537,7 +1537,7 @@ namespace Portal.Consultoras.Web.Controllers
         //    return ofertasDelDia;
         //}
 
-        //private async Task<List<BETablaLogicaDatos>> ObtenerPersonalizacionesOfertaDelDia(UsuarioModel model)
+        //private async Task<List<BETablaLogicaDatos>> GetPersonalizaciones(UsuarioModel model)
         //{
         //    List<BETablaLogicaDatos> personalizacionesOfertaDelDia;
 
