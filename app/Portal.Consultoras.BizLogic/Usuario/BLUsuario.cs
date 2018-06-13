@@ -2369,10 +2369,10 @@ namespace Portal.Consultoras.BizLogic
             return oRestaurar;
         }
 
-        private BEUsuarioDatos GetOpcionHabilitar(int paisID, string codigoUsuario, int origenID, ref BEUsuarioDatos oDatos)
+        private BEUsuarioDatos GetOpcionHabilitar(int paisID, int origenID, ref BEUsuarioDatos oDatos)
         {
             var DAUsuario = new DAUsuario(paisID);
-            using (IDataReader rd = DAUsuario.GetOpcionHabilitada(codigoUsuario, origenID))
+            using (IDataReader rd = DAUsuario.GetOpcionHabilitada(oDatos.CodigoUsuario, origenID))
                 if (rd.Read())
                 {
                     oDatos.OpcionCorreoActiva = rd.GetString(0);
@@ -2554,7 +2554,7 @@ namespace Portal.Consultoras.BizLogic
                 }
                 httpClient.Dispose();
 
-                if (CantidadEnvios >= 2) oUsu.opcionHabilitar = false;
+                if (CantidadEnvios >= 2) oUsu.OpcionDesabilitado = true;
                 InsCodigoGenerado(oUsu, paisID, Constantes.TipoEnvioEmailSms.EnviarPorSms, codGenerado);
                 if (result.codigo == "OK") return true;
                 return false;
@@ -2577,7 +2577,7 @@ namespace Portal.Consultoras.BizLogic
         private BEOpcionesVerificacion GetOpcionesVerificacion(int paisID, int origenID)
         {
             var BLobj = new BLOpcionesVerificacion();
-            return BLobj.GetOpcionesVerificacionCache(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
+            return BLobj.GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
         }
 
         private BEOpcionesVerificacion GetOpcionesVerificacionCache(int paisID, int orgienID)
@@ -2616,10 +2616,14 @@ namespace Portal.Consultoras.BizLogic
                 var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
                 if (opcion == null) return null;
                 /*validando si tiene Zona*/
-                if (opcion.lstZonas.Count > 0)
+                if (opcion.TieneAlcanse)
+                {
+                    if (opcion.lstZonas.Count == 0) return null;
                     if (!ValidaZona(opcion.lstZonas, oUsu.ZonaID)) return null;
+                }
+
                 /*Validando si corresponde al Usuario*/
-                if (opcion.lstFiltros.Count > 0)
+                if (opcion.lstFiltros.Count >= 0) 
                 {
                     var usuFiltro = opcion.lstFiltros.Where(a => a.IdEstadoActividad == oUsu.IdEstadoActividad).FirstOrDefault();
                     if (usuFiltro == null) return null;
@@ -2643,12 +2647,12 @@ namespace Portal.Consultoras.BizLogic
                         oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarCelular;
                 }
                 if (oUsu.MostrarOpcion == Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion) return null;
-                GetOpcionHabilitar(paisID, oUsu.CodigoUsuario, Constantes.VerificacionAutenticidad.Origen, ref oUsu);
                 oUsu.TelefonoCentral = GetNumeroBelcorpRespondeByPaisID(paisID);
                 oUsu.OrigenID = opcion.OrigenID;
                 oUsu.OrigenDescripcion = opcion.OrigenDescripcion;
                 oUsu.CodigoUsuario = CodigoUsuario;
                 oUsu.CodigoIso = Common.Util.GetPaisISO(paisID);
+                GetOpcionHabilitar(paisID, Constantes.VerificacionAutenticidad.Origen, ref oUsu);
                 return oUsu;
             }
             catch (Exception ex)
@@ -2689,8 +2693,8 @@ namespace Portal.Consultoras.BizLogic
                 string displayname = "Somos Belcorp";
                 string codigoGenerado = Common.Util.GenerarCodigoRandom();
                 Portal.Consultoras.Common.MailUtilities.EnviarMailPinAutenticacion(emailFrom, emailTo, titulo, displayname, logo, nombrecorreo, codigoGenerado);
-                if (CantidadEnvios >= 2) oUsu.opcionHabilitar = false;
-                InsCodigoGenerado(oUsu, paisID, Constantes.TipoEnvioEmailSms.EnviarPorEmail);
+                if (CantidadEnvios >= 2) oUsu.OpcionDesabilitado = true;
+                InsCodigoGenerado(oUsu, paisID, Constantes.TipoEnvioEmailSms.EnviarPorEmail, codigoGenerado);
                 return true;
             }
             catch (Exception ex)

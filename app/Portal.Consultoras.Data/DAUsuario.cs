@@ -825,7 +825,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@OrigenDescripcion", DbType.AnsiString, oUsu.OrigenDescripcion);
             Context.Database.AddInParameter(command, "@TipoEnvio", DbType.AnsiString, tipoEnvio);
             Context.Database.AddInParameter(command, "@CodigoGenerado", DbType.AnsiString, codigoGenerado);
-            Context.Database.AddInParameter(command, "@OpcionHabilitada", DbType.Boolean, oUsu.opcionHabilitar);
+            Context.Database.AddInParameter(command, "@OpcionDesabilitado", DbType.Boolean, oUsu.OpcionDesabilitado);
 
             Context.ExecuteNonQuery(command);
         }

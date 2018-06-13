@@ -46,7 +46,7 @@
     <section class="block vista_flujo_restablecer_contrasenia">
         <div class="block center-block wrapper_content_verificacion_autenticidad">
             <div class="block">
-                <a href="#" title="Volver" class="block enlace_volver_a_mi_perfil text-uppercase text-bold">
+                <a href="@Url.Action("Index", "Login")" title="Volver" class="block enlace_volver_a_mi_perfil text-uppercase text-bold">
                     <span class="inline-block v-alignMiddle icono_back_arrow">
                         <img src="@Url.Content("~/Content/Images/icono_volver.svg")" alt="Volver" />
                     </span>
@@ -64,7 +64,7 @@
                             @*<span class="block" style="display:none;">Como hace tiempo que no sabíamos de ti, por tu seguridad vamos a verificar tus datos.</span>*@
                         </p>
                         <p class="block texto_verificacion_datos">
-                            <span class="block">Elige el que te sea más familiar :</span>
+                            <span class="block">Elige la opción que desees:</span>
                         </p>
                     </div>
                     <div class="block center-block lista_opciones_verificacion_autenticidad">
@@ -74,7 +74,7 @@
                                 <div class="block text-uppercase">Mensaje de texto (sms)</div>
                                 <div class="block text-bold">@Model.CelularEnmascarado</div>
                             </div>
-                            <div class="divTiempoRestanteSms" style="display:none; margin-top: 15px; font-size: 12px;">Opción disponible dentro de 24 hr</div>
+                            <div class="divTiempoRestanteSms" style="display:none; margin-top: 15px; font-size: 12px; text-align:center;">@ViewBag.MensajeOpcionCelular</div>
                         </a>
                         <a title="Opción Correo" class="block opcion_verificacion_autenticidad RecuperarPorCorreo">
                             <div class="inline-block v-alignMiddle icono_opcion_verificacion_autenticidad icono_opcion_correo"></div>
@@ -82,14 +82,14 @@
                                 <div class="block text-uppercase">Correo Electrónico</div>
                                 <div class="block text-bold">@Model.CorreoEnmascarado</div>
                             </div>
-                            <div class="divTiempoRestanteCorreo" style="display:none; margin-top: 15px; font-size: 12px;">Opción disponible dentro de 24 hr</div>
+                            <div class="divTiempoRestanteCorreo" style="display:none; margin-top: 15px; font-size: 12px; text-align:center;">@ViewBag.MensajeOpcionCorreo</div>
                         </a>
                     </div>
                     <div class="block">
                         <p class="texto_alternativa_call_center block">
                             <span class="inline-block v-alignMiddle">
-                                Si no reconoces tu correo o celular, comunícate con nuestro
-                                <a href="#" title="Call Center" class="inline-block v-alignBottom enlace_call_center text-bold">Call Center</a>
+                                Si no reconoces tu celular o correo, comunícate con nuestro
+                                <a href="#" title="Chat" class="inline-block v-alignBottom enlace_call_center text-bold">Chat</a>
                             </span>
                         </p>
                     </div>
@@ -108,21 +108,22 @@
                     <div class="area_ingreso_codigo_sms block mb-35 mb-20-mobile">
                         <div class="block texto_ingreso_codigo text-uppercase text-bold">Ingresa el código aquí</div>
                         <fieldset class="block center-block campos_ingreso_codigo_sms">
-                            <input id="1Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
-                            <input id="2Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
-                            <input id="3Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
-                            <input id="4Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
-                            <input id="5Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
-                            <input id="6Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
-                            <div class="block icono_validacion_codigo_sms validacion_erronea"></div>
+                            <input id="1sDigito" data-tipo="1" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="2sDigito" data-tipo="1" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="3sDigito" data-tipo="1" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="4sDigito" data-tipo="1" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="5sDigito" data-tipo="1" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="6sDigito" data-tipo="1" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <div class="IconoError block icono_validacion_codigo_sms validacion_erronea"></div>
                         </fieldset>
-                        <div class="block codigo_sms_caducidad text-uppercase">El código caduca en <span id="spnMin" class="default-color">03</span>:<span id="spnSeg" class="default-color">00</span></div>
+                        <div class="block codigo_sms_caducidad text-uppercase">El código caduca en <span class="spnMin default-color">03</span>:<span class="spnSeg default-color">00</span></div>
                     </div>
-                    <p id="linkRenviarSms" class="w-100 envio_instrucciones_info block mb-35 mb-20-mobile">
-                        <a title="Reenvíenme el código" class="block enlace_reenviar_instrucciones w-100 mb-10 text-uppercase text-bold RecuperarPorSms" style="cursor:pointer;">
+                    <p class="w-100 envio_instrucciones_info block mb-35 mb-20-mobile">
+                        <span class="w-100 block mb-13">¿Aún no recibes el mensaje de texto?</span>
+                        <a id="linkRenviarSms" title="Reenvíenme el código" class="block enlace_reenviar_instrucciones w-100 mb-10 text-uppercase text-bold RecuperarPorSms" style="cursor:pointer;">
                             Reenvíenme el código
                         </a>
-                        <a title="Escoger otra opción" style="display:none;" class="block escogeOtraOpcion default-color enlace_reenviar_instrucciones w-100 text-uppercase text-bold" style="color:red;cursor:pointer;">
+                        <a title="Escoger otra opción" style="display:none;color:red;cursor:pointer;" class="block escogeOtraOpcion default-color enlace_reenviar_instrucciones w-100 text-uppercase text-bold">
                             Escoger otra opción
                         </a>
                     </p>
@@ -154,25 +155,28 @@
                     <div class="block center-block icono_correo_sobre"></div>
                     <p class="w-100 block envio_instrucciones_info mb-50">
                         <span class="w-100 block mb-7">Te hemos enviado las instrucciones a:</span>
-                        <span class="w-100 block text-bold font-size-17">valeria.tarazona@gmail.com</span>
+                        <span class="w-100 block text-bold font-size-17">@Model.CorreoEnmascarado</span>
                     </p>
                     <div class="area_ingreso_codigo_sms block mb-35 mb-20-mobile">
                         <div class="block texto_ingreso_codigo text-uppercase text-bold">Ingresa el código aquí</div>
                         <fieldset class="block center-block campos_ingreso_codigo_sms">
-                            <input id="1Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
-                            <input id="2Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
-                            <input id="3Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
-                            <input id="4Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
-                            <input id="5Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
-                            <input id="6Digito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
-                            <div class="block icono_validacion_codigo_sms validacion_erronea"></div>
+                            <input id="1cDigito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="2cDigito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="3cDigito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="4cDigito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="5cDigito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="6cDigito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <div class="IconoError block icono_validacion_codigo_sms validacion_erronea"></div>
                         </fieldset>
-                        <div class="block codigo_sms_caducidad text-uppercase">El código caduca en <span class="default-color">03:00</span></div>
+                        <div class="block codigo_sms_caducidad text-uppercase">El código caduca en <span class="spnMin default-color">03</span>:<span class="spnSeg default-color">00</span></div>
                     </div>
                     <p class="w-100 block envio_instrucciones_info mb-50">
                         <span class="w-100 block mb-13">¿Aún no recibes nuestro correo?</span>
-                        <a href="#" title="Reenvíenme las instrucciones" class="block enlace_reenviar_instrucciones w-100 text-uppercase text-bold">
-                            Reenvíenme las instrucciones
+                        <a id="linkRenviarCorreo" title="Reenvíenme las instrucciones" class="block enlace_reenviar_instrucciones w-100 text-uppercase text-bold RecuperarPorCorreo">
+                            Reenvíenme el código
+                        </a>
+                        <a title="Escoger otra opción" style="display:none;color:red;cursor:pointer;" class="block escogeOtraOpcion default-color enlace_reenviar_instrucciones w-100 text-uppercase text-bold">
+                            Escoger otra opción
                         </a>
                     </p>
                     @*<p class="w-100 block cambiar_correo_info">
@@ -191,8 +195,8 @@
                     <p class="mensaje_correo_validado block mb-45 mb-33-mobile">
                         Te recomendamos además actualizar tu contraseña por tu seguridad.
                     </p>
-                    <a href="#" class="block center-block mb-20-mobile enlace_ir_a_somos_belcorp text-uppercase text-bold default-background-color mb-31 aContinuarLogin">Ir a somos belcorp</a>
-                    <a href="#" title="Actualizar contraseña" class="block enlace_actualizar_contrasenia text-bold aContinuarLogin">Actualizar contraseña</a>
+                    <a class="block center-block mb-20-mobile enlace_ir_a_somos_belcorp text-uppercase text-bold default-background-color mb-31 aContinuarLogin">Ir a somos belcorp</a>
+                    <a title="Actualizar contraseña" class="block enlace_actualizar_contrasenia text-bold aContinuarLogin">Actualizar contraseña</a>
                 </div>
                 <!-- FIN - VERIFICACIÓN POR CORREO ELECTRÓNICO -->
             </div>
@@ -207,6 +211,12 @@
     var urlProcesaEnvioSms = '@Url.Action("ProcesaEnvioSms", "Login")';
     var urlVerificarCodigoGenerado = '@Url.Action("VerificarCodigoGenerado", "Login")';
     var urlContinuarLogin = '@Url.Action("ContinuarLogin", "Login")';
+    var EmailDesabilitado = '@Model.OpcionCorreoActiva';
+    var SmsDesabilitado = '@Model.OpcionSmsActiva';
+    var HoraRestanteCorreo = '@Model.HoraRestanteCorreo';
+    var HoraRestanteSms = '@Model.HoraRestanteSms';
+    var CorreoEnmascarado = '@Model.CorreoEnmascarado';
+    var CelularEnmascarado = '@Model.CelularEnmascarado';
 </script>
 
 @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")

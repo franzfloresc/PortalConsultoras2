@@ -568,13 +568,17 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult VerificaAutenticidad()
         {
             if (Session["VerificacionAutenticidad"] == null) return RedirectToAction("Index", "Login");
-            var oPin = (BEUsuarioDatos)Session["VerificacionAutenticidad"];
+            var obj = (BEUsuarioDatos)Session["VerificacionAutenticidad"];
             var model = new BEUsuarioDatos();
-            model.PrimerNombre = oPin.PrimerNombre;
-            model.MensajeSaludo = oPin.MensajeSaludo;
-            model.CorreoEnmascarado = oPin.CorreoEnmascarado;
-            model.CelularEnmascarado = oPin.CelularEnmascarado;
-            
+            model.PrimerNombre = obj.PrimerNombre;
+            model.MensajeSaludo = obj.MensajeSaludo;
+            model.CorreoEnmascarado = obj.CorreoEnmascarado;
+            model.CelularEnmascarado = obj.CelularEnmascarado;
+            model.OpcionCorreoActiva = obj.OpcionCorreoActiva;
+            model.OpcionSmsActiva = obj.OpcionSmsActiva;
+            model.HoraRestanteCorreo = obj.HoraRestanteCorreo;
+            model.HoraRestanteSms = obj.HoraRestanteSms;
+
             return View(model);
         }
 

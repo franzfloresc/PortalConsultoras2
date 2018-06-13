@@ -13,7 +13,7 @@ namespace Portal.Consultoras.BizLogic
             return CacheManager<BEOpcionesVerificacion>.ValidateDataElement(paisID, ECacheItem.OpcionesVerificacion, paisID.ToString() + origenID.ToString(), () => GetOpcionesVerificacion(paisID, origenID));
         }
 
-        private BEOpcionesVerificacion GetOpcionesVerificacion(int paisID, int origenID)
+        public BEOpcionesVerificacion GetOpcionesVerificacion(int paisID, int origenID)
         {
             var obj = new DAOpcionesVerificacion(paisID);
             BEOpcionesVerificacion OpcVeri = null;

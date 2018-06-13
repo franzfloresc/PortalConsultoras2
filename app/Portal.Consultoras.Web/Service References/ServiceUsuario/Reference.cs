@@ -6742,6 +6742,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string OpcionCorreoActivaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool OpcionDesabilitadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string OpcionSmsActivaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -6761,9 +6764,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int campaniaIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool opcionHabilitarField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -6971,6 +6971,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool OpcionDesabilitado {
+            get {
+                return this.OpcionDesabilitadoField;
+            }
+            set {
+                if ((this.OpcionDesabilitadoField.Equals(value) != true)) {
+                    this.OpcionDesabilitadoField = value;
+                    this.RaisePropertyChanged("OpcionDesabilitado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string OpcionSmsActiva {
             get {
                 return this.OpcionSmsActivaField;
@@ -7057,19 +7070,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.campaniaIDField.Equals(value) != true)) {
                     this.campaniaIDField = value;
                     this.RaisePropertyChanged("campaniaID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool opcionHabilitar {
-            get {
-                return this.opcionHabilitarField;
-            }
-            set {
-                if ((this.opcionHabilitarField.Equals(value) != true)) {
-                    this.opcionHabilitarField = value;
-                    this.RaisePropertyChanged("opcionHabilitar");
                 }
             }
         }
