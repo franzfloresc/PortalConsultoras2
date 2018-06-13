@@ -34,7 +34,11 @@ $(document).ready(function () {
         $('div.content_datos').css('max-width', '100%');
         $('div.resumen_belcorp_cam').css('margin-left', '1.5%');
         $('div.resumen_belcorp_cam').css('margin-right', '0%');
-        $('div.socia_negocio_home').css('margin-left', '4.8%');
+        if(window.matchMedia('(min-width:1221px)').matches){
+            $('div.socia_negocio_home').css('margin-left', '4.8%');
+        } else {
+            $('div.socia_negocio_home').css('margin-left', '4%');
+        }
         $('div.contenedor_img_perfil').show();
     } else {
         $('div.resumen_belcorp_cam').css('margin-left', '2%');
