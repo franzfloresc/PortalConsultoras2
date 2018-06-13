@@ -125,7 +125,7 @@ namespace Portal.Consultoras.Web.Providers
                         CodigoEstrategia = d.CodigoEstrategia,
                         CodigoTipoEstrategia = d.CodigoTipoEstrategia,
                         //cambiar por CodigoProducto cuando se correija el servicio
-                        CodigoProducto = d.CodigoSap,
+                        CodigoProducto = string.IsNullOrEmpty(d.CodigoSap)?d.CodigoProducto:d.CodigoSap,
                         IndicadorMontoMinimo = d.IndicadorMontoMinimo ? 1 : 0,
                         MarcaID = d.MarcaId,
                         DescripcionMarca = d.MarcaDescripcion,
