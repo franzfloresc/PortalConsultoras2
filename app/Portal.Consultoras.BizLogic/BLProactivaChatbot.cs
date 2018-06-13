@@ -130,6 +130,7 @@ namespace Portal.Consultoras.BizLogic
         {
             try
             {
+                int paisId = Util.GetPaisID(resultado.PaisISO);
                 resultado.ListMensaje = listProactivaMensaje.Select(pm => new DEChatbotProactivaMensaje
                 {
                     CodigoUsuario = pm.CodigoUsuario,
@@ -140,10 +141,7 @@ namespace Portal.Consultoras.BizLogic
                 TransactionOptions transactionOptions = new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted };
                 using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
                 {
-                    int paisId = Util.GetPaisID(resultado.PaisISO);
-
                     new DABotmakerApiLog(paisId).Insert(resultado);
-
                     transaction.Complete();
                 }
             }

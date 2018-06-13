@@ -89,57 +89,57 @@ namespace Portal.Consultoras.Entities.ShowRoom
         public BEShowRoomEvento(IDataRecord datarec)
         {
             if (DataRecord.HasColumn(datarec, "EventoID"))
-                EventoID = DbConvert.ToInt32(datarec["EventoID"]);
+                EventoID = Convert.ToInt32(datarec["EventoID"]);
             if (DataRecord.HasColumn(datarec, "CampaniaID"))
-                CampaniaID = DbConvert.ToInt32(datarec["CampaniaID"]);
+                CampaniaID = Convert.ToInt32(datarec["CampaniaID"]);
             if (DataRecord.HasColumn(datarec, "Nombre"))
-                Nombre = DbConvert.ToString(datarec["Nombre"]);
+                Nombre = Convert.ToString(datarec["Nombre"]);
             if (DataRecord.HasColumn(datarec, "Imagen1"))
-                Imagen1 = DbConvert.ToString(datarec["Imagen1"]);
+                Imagen1 = Convert.ToString(datarec["Imagen1"]);
             if (DataRecord.HasColumn(datarec, "Imagen2"))
-                Imagen2 = DbConvert.ToString(datarec["Imagen2"]);
+                Imagen2 = Convert.ToString(datarec["Imagen2"]);
             if (DataRecord.HasColumn(datarec, "Descuento"))
-                Descuento = DbConvert.ToDecimal(datarec["Descuento"]);
+                Descuento = Convert.ToDecimal(datarec["Descuento"]);
             if (DataRecord.HasColumn(datarec, "FechaCreacion"))
-                FechaCreacion = DbConvert.ToDateTime(datarec["FechaCreacion"]);
+                FechaCreacion = Convert.ToDateTime(datarec["FechaCreacion"]);
             if (DataRecord.HasColumn(datarec, "UsuarioCreacion"))
-                UsuarioCreacion = DbConvert.ToString(datarec["UsuarioCreacion"]);
+                UsuarioCreacion = Convert.ToString(datarec["UsuarioCreacion"]);
             if (DataRecord.HasColumn(datarec, "FechaModificacion"))
-                FechaModificacion = DbConvert.ToDateTime(datarec["FechaModificacion"]);
+                FechaModificacion = Convert.ToDateTime(datarec["FechaModificacion"]);
             if (DataRecord.HasColumn(datarec, "UsuarioModificacion"))
-                UsuarioModificacion = DbConvert.ToString(datarec["UsuarioModificacion"]);
+                UsuarioModificacion = Convert.ToString(datarec["UsuarioModificacion"]);
             if (DataRecord.HasColumn(datarec, "TextoEstrategia"))
-                TextoEstrategia = DbConvert.ToString(datarec["TextoEstrategia"]);
+                TextoEstrategia = Convert.ToString(datarec["TextoEstrategia"]);
             if (DataRecord.HasColumn(datarec, "OfertaEstrategia"))
-                OfertaEstrategia = DbConvert.ToDecimal(datarec["OfertaEstrategia"]);
+                OfertaEstrategia = Convert.ToDecimal(datarec["OfertaEstrategia"]);
             if (DataRecord.HasColumn(datarec, "Tema"))
-                Tema = DbConvert.ToString(datarec["Tema"]);
+                Tema = Convert.ToString(datarec["Tema"]);
             if (DataRecord.HasColumn(datarec, "DiasAntes"))
-                DiasAntes = DbConvert.ToInt32(datarec["DiasAntes"]);
+                DiasAntes = Convert.ToInt32(datarec["DiasAntes"]);
             if (DataRecord.HasColumn(datarec, "DiasDespues"))
-                DiasDespues = DbConvert.ToInt32(datarec["DiasDespues"]);
+                DiasDespues = Convert.ToInt32(datarec["DiasDespues"]);
             if (DataRecord.HasColumn(datarec, "NumeroPerfiles"))
-                NumeroPerfiles = DbConvert.ToInt32(datarec["NumeroPerfiles"]);
+                NumeroPerfiles = Convert.ToInt32(datarec["NumeroPerfiles"]);
             if (DataRecord.HasColumn(datarec, "ImagenCabeceraProducto"))
-                ImagenCabeceraProducto = DbConvert.ToString(datarec["ImagenCabeceraProducto"]);
+                ImagenCabeceraProducto = Convert.ToString(datarec["ImagenCabeceraProducto"]);
             if (DataRecord.HasColumn(datarec, "ImagenVentaSetPopup"))
-                ImagenVentaSetPopup = DbConvert.ToString(datarec["ImagenVentaSetPopup"]);
+                ImagenVentaSetPopup = Convert.ToString(datarec["ImagenVentaSetPopup"]);
             if (DataRecord.HasColumn(datarec, "ImagenVentaTagLateral"))
-                ImagenVentaTagLateral = DbConvert.ToString(datarec["ImagenVentaTagLateral"]);
+                ImagenVentaTagLateral = Convert.ToString(datarec["ImagenVentaTagLateral"]);
             if (DataRecord.HasColumn(datarec, "ImagenPestaniaShowRoom"))
-                ImagenPestaniaShowRoom = DbConvert.ToString(datarec["ImagenPestaniaShowRoom"]);
+                ImagenPestaniaShowRoom = Convert.ToString(datarec["ImagenPestaniaShowRoom"]);
             if (DataRecord.HasColumn(datarec, "ImagenPreventaDigital"))
-                ImagenPreventaDigital = DbConvert.ToString(datarec["ImagenPreventaDigital"]);
+                ImagenPreventaDigital = Convert.ToString(datarec["ImagenPreventaDigital"]);
             if (DataRecord.HasColumn(datarec, "Estado"))
-                Estado = DbConvert.ToInt32(datarec["Estado"]);
+                Estado = Convert.ToInt32(datarec["Estado"]);
             if (DataRecord.HasColumn(datarec, "TieneCategoria"))
-                TieneCategoria = DbConvert.ToBoolean(datarec["TieneCategoria"]);
+                TieneCategoria = Convert.ToBoolean(datarec["TieneCategoria"]);
             if (DataRecord.HasColumn(datarec, "TieneCompraXcompra"))
-                TieneCompraXcompra = DbConvert.ToBoolean(datarec["TieneCompraXcompra"]);
+                TieneCompraXcompra = Convert.ToBoolean(datarec["TieneCompraXcompra"]);
             if (DataRecord.HasColumn(datarec, "TieneSubCampania"))
-                TieneSubCampania = DbConvert.ToBoolean(datarec["TieneSubCampania"]);
+                TieneSubCampania = Convert.ToBoolean(datarec["TieneSubCampania"]);
             if (DataRecord.HasColumn(datarec, "TienePersonalizacion"))
-                TienePersonalizacion = DbConvert.ToBoolean(datarec["TienePersonalizacion"]);
+                TienePersonalizacion = Convert.ToBoolean(datarec["TienePersonalizacion"]);
         }
     }
 }

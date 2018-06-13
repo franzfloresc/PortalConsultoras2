@@ -45,37 +45,37 @@
         public BEConsultoraDatoSAC(IDataRecord datarec)
         {
             if (DataRecord.HasColumn(datarec, "consultoraID"))
-                consultoraID = DbConvert.ToInt32(datarec["consultoraID"]);
+                consultoraID = Convert.ToInt32(datarec["consultoraID"]);
             if (DataRecord.HasColumn(datarec, "codigo"))
-                codigo = DbConvert.ToString(datarec["codigo"]);
+                codigo = Convert.ToString(datarec["codigo"]);
             if (DataRecord.HasColumn(datarec, "nombreCompleto"))
-                nombreCompleto = DbConvert.ToString(datarec["nombreCompleto"]);
+                nombreCompleto = Convert.ToString(datarec["nombreCompleto"]);
             if (DataRecord.HasColumn(datarec, "seccion"))
-                seccion = DbConvert.ToString(datarec["seccion"]);
+                seccion = Convert.ToString(datarec["seccion"]);
             if (DataRecord.HasColumn(datarec, "zona"))
-                zona = DbConvert.ToString(datarec["Zona"]);
+                zona = Convert.ToString(datarec["zona"]);
             if (DataRecord.HasColumn(datarec, "region"))
-                region = DbConvert.ToString(datarec["region"]);
+                region = Convert.ToString(datarec["region"]);
             if (DataRecord.HasColumn(datarec, "direccionDomicilio"))
-                direccionDomicilio = DbConvert.ToString(datarec["direccionDomicilio"]);
+                direccionDomicilio = Convert.ToString(datarec["direccionDomicilio"]);
             if (DataRecord.HasColumn(datarec, "direccionEntrega"))
-                direccionEntrega = DbConvert.ToString(datarec["direccionEntrega"]);
+                direccionEntrega = Convert.ToString(datarec["direccionEntrega"]);
             if (DataRecord.HasColumn(datarec, "telefono1"))
-                telefono1 = DbConvert.ToString(datarec["telefono1"]);
+                telefono1 = Convert.ToString(datarec["telefono1"]);
             if (DataRecord.HasColumn(datarec, "telefono2"))
-                telefono2 = DbConvert.ToString(datarec["telefono2"]);
+                telefono2 = Convert.ToString(datarec["telefono2"]);
             if (DataRecord.HasColumn(datarec, "email"))
-                email = DbConvert.ToString(datarec["email"]);
+                email = Convert.ToString(datarec["email"]);
             if (DataRecord.HasColumn(datarec, "validoEmail"))
-                validoEmail = DbConvert.ToString(datarec["validoEmail"]);
+                validoEmail = Convert.ToString(datarec["validoEmail"]);
             if (DataRecord.HasColumn(datarec, "fechaNacimiento"))
-                fechaNacimiento = DbConvert.ToString(datarec["fechaNacimiento"]);
+                fechaNacimiento = Convert.ToString(datarec["fechaNacimiento"]);
             if (DataRecord.HasColumn(datarec, "estadoCivil"))
-                estadoCivil = DbConvert.ToString(datarec["estadoCivil"]);
+                estadoCivil = Convert.ToString(datarec["estadoCivil"]);
             if (DataRecord.HasColumn(datarec, "ofertaWeb"))
-                ofertaWeb = DbConvert.ToString(datarec["ofertaWeb"]);
+                ofertaWeb = Convert.ToString(datarec["ofertaWeb"]);
             if (DataRecord.HasColumn(datarec, "cataloVirtual"))
-                cataloVirtual = DbConvert.ToString(datarec["cataloVirtual"]);
+                cataloVirtual = Convert.ToString(datarec["cataloVirtual"]);
 
         }
     }

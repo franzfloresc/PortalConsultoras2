@@ -37,5 +37,7 @@ namespace Portal.Consultoras.Web.Models
 
         public IList<BarraConsultoraEscalaDescuentoModel> ListaEscalaDescuento { get; set; }
         public IList<BEMensajeMetaConsultora> ListaMensajeMeta { get; set; }
-    }
+
+        public BarraTippingPoint TippingPointBarra  { get; set; }
+}
 }

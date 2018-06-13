@@ -21,11 +21,11 @@
         public BEPaqueteDocumentario(IDataRecord datarec)
         {
             if (DataRecord.HasColumn(datarec, "codigoConsultora"))
-                codigoConsultora = DbConvert.ToString(datarec["codigoConsultora"]);
+                codigoConsultora = Convert.ToString(datarec["codigoConsultora"]);
             if (DataRecord.HasColumn(datarec, "campaniaID"))
-                campaniaID = DbConvert.ToString(datarec["campaniaID"]);
+                campaniaID = Convert.ToString(datarec["campaniaID"]);
             if (DataRecord.HasColumn(datarec, "estado"))
-                estado = DbConvert.ToString(datarec["estado"]);
+                estado = Convert.ToString(datarec["estado"]);
         }
     }
 }

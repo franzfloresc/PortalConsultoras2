@@ -42,10 +42,7 @@ namespace Portal.Consultoras.Web.Annotations
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            if (validationContext == null)
-            {
-                throw new ArgumentNullException("validationContext");
-            }
+            if (validationContext == null) throw new ArgumentNullException("validationContext");
 
             var otherProperties = this.OtherProperty.Split('|');
             var otherValueProperties = OtherPropertyValue.ToString().Split('|');
@@ -54,49 +51,28 @@ namespace Portal.Consultoras.Web.Annotations
             for (int i = 0; i < otherProperties.Length; i++)
             {
                 var itemProperty = otherProperties[i];
-                var itemValue = otherValueProperties[i];
                 PropertyInfo otherProperty = validationContext.ObjectType.GetProperty(itemProperty);
-
-
                 if (otherProperty == null)
                 {
-                    return new ValidationResult(
-                        string.Format(CultureInfo.CurrentCulture, "Could not find a property named '{0}'.", this.OtherProperty));
+                    return new ValidationResult(string.Format(CultureInfo.CurrentCulture, "Could not find a property named '{0}'.", this.OtherProperty));
                 }
 
                 object otherValue = otherProperty.GetValue(validationContext.ObjectInstance);
-
-                if (otherValue != null)
-                {
-                    otherValue = otherValue.ToString();
-
-                }
+                if (otherValue != null) otherValue = otherValue.ToString();
+                var itemValue = otherValueProperties[i];
                 var listaValores = itemValue.Split(',');
 
-
                 // check if this value is actually required and validate it
-                if (!this.IsInverted && listaValores.Contains(otherValue) ||
-                    this.IsInverted && !listaValores.Contains(otherValue))
-                {
-                    validateCount++;
-
-
-                }
+                if(listaValores.Contains(otherValue) != this.IsInverted) validateCount++;
             }
 
             if (validateCount == otherProperties.Length)
             {
                 var expresionActual = Expresion;
                 var mensajeErrorActual = ErrorMessage;
-
                 var responseMatch = Regex.IsMatch((string)value ?? string.Empty, expresionActual);
-
-                if ((!responseMatch && !RegexNotMatch) || (responseMatch && RegexNotMatch))
-                {
-                    return new ValidationResult(mensajeErrorActual);
-                }
+                if (responseMatch == RegexNotMatch) return new ValidationResult(mensajeErrorActual);
             }
-
             return ValidationResult.Success;
         }
 

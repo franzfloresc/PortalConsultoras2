@@ -16,9 +16,25 @@ var revistaDigital = revistaDigital || {};
 
 $(document).ready(function () {
     if (isMobile()) {
-        $('[data-tono-change]').click(mostrarListaTonos);
+        var pathname = window.location.pathname;
+        if (pathname == '/Mobile/FichaProducto/Detalle') {
+            
+            $('[data-tono-change]').click(mostrarListaTonosVC);
+        }
+        else {
+            $('[data-tono-change]').click(mostrarListaTonos);
+        }
+       // $('[data-tono-change]').click(mostrarListaTonos);
     } else {
-        $('body').on('click', '[data-tono-change]', mostrarListaTonos);
+       // $('body').on('click', '[data-tono-change]', mostrarListaTonos);
+        var pathname = window.location.pathname;        
+        if (pathname == '/Pedido/virtualCoach') {            
+            $('body').on('click', '[data-tono-change]', mostrarListaTonosVC);
+        }
+        else {
+            $('body').on('click', '[data-tono-change]', mostrarListaTonos);
+        }
+
     }    
 
     function mostrarListaTonos() {
@@ -76,7 +92,90 @@ $(document).ready(function () {
             prod.parents("[data-item]").find("#tbnAgregarProducto").removeClass("btn_desactivado_general");
         }
     }
+    function mostrarListaTonosVC() {
+        
+        var accion = $(this).attr("data-tono-change");
 
+        var hideSelect = $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible");
+        if (hideSelect == "1") {
+            $(this).parents("[data-tono]").find('.content_tonos_select').hide();
+            $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible", "0");
+            $(this).parents("[data-tono]").find("[data-tono-change='1']").parent().removeClass("tono_por_elegir");
+            if (accion == 1)
+                return true;
+        }
+
+        if (accion == 1) {
+            $("[data-tono]").find('.content_tonos_select').hide();
+            $("[data-tono]").find('.content_tonos_select').attr("data-visible", "0");
+            $("[data-tono]").find("[data-tono-change='1']").parent().removeClass("tono_por_elegir");
+
+            $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible", "1");
+            $(this).parents("[data-tono]").find('.content_tonos_select').show();
+            $(this).parent().addClass("tono_por_elegir");
+            return true;
+        }
+
+        var cuv = $.trim($(this).attr("data-tono-cuv"));
+        var prod = $(this).parents("[data-tono]");
+        var objSet = prod.find("[data-tono-change='1']");
+        objSet.find("img").attr("src", $(this).find("img").attr("src"));
+        objSet.find(".tono_seleccionado").show();
+        objSet.find(".texto_tono_seleccionado").html($(this).attr("data-tono-nombre"));
+
+        objSet.parent().addClass("tono_escogido");
+        prod.find("[data-tono-select-nombrecomercial]").html($(this).attr("data-tono-descripcion"));
+        
+        prod.attr("data-tono-select", cuv);
+        
+        prod.find("[data-tono-div]").find("[data-tono-cuv]").removeClass("borde_seleccion_tono");
+        var estrategia = prod.parents("[data-estrategia='2001']").length;
+        if (estrategia > 0) {
+            prod.find("[data-tono-div]").find("[data-tono-cuv='" + cuv + "']").addClass("borde_seleccion_tono");
+        }
+
+        var objCompartir = prod.find("[data-item]").find("[data-compartir-campos]");
+        objCompartir.find(".CUV").val(cuv);
+        objCompartir.find(".Nombre").val($(this).attr("data-tono-descripcion"));
+
+        var listaDigitables = prod.parents("[data-item]").find("[data-tono-digitable='1']");
+        var btnActivar = true;
+        $.each(listaDigitables, function (i, item) {
+            
+            var cuv = $.trim($(item).attr("data-tono-select"));
+            btnActivar = btnActivar ? !(cuv == "") : btnActivar;
+        });
+
+        if (btnActivar) {
+            prod.parents("[data-item]").find("#tbnAgregarProducto").removeClass("btn_desactivado_general");
+        }
+        // PPC
+        
+        if (accion == 2) {
+            var URLactual = window.location.search;
+            var campana = URLactual.substring(12, 18);
+            var fichaPromise = ObtenerProductoPromise(cuv, campana);
+            var producto;
+            $.when(fichaPromise).then(function (response) {
+                if (checkTimeout(response)) {
+                    if (response !== null) {
+                        
+                        var cabecera = document.getElementsByTagName("head")[0];
+                        var nuevoScript = document.createElement('script');
+                        nuevoScript.type = 'text/javascript';
+                        nuevoScript.src = "https://ok383.infusionsoft.com/app/webTracking/getTrackingCode";
+                        nuevoScript.id = "infusionsoft";
+                        cabecera.appendChild(nuevoScript);
+                        producto = response;
+                        
+                        $('#fav_nombre_prod').text(producto.DescripcionCompleta);
+                    }
+                }
+            });
+
+        }
+        // PPC
+    }
     var so = $.trim(tipoOrigenEstrategia)[0];
     if (so == 1) {
         $(document).on('mousemove', '[data-tono-change]', function (e) {
@@ -92,6 +191,27 @@ $(document).ready(function () {
         });
     }
 });
+
+
+function ObtenerProductoPromise(cuv, campaniaId) {
+    
+    var d = $.Deferred();
+    
+    var promise = $.ajax({
+        type: 'GET',
+        url: baseUrl + 'FichaProducto/ObtenerFichaProducto?cuv=' + cuv + '&campanaId=' + campaniaId,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: true
+    });
+
+    promise.done(function (response) {
+        d.resolve(response);
+    })
+    promise.fail(d.reject);
+
+    return d.promise();
+};
 
 function CargarCarouselEstrategias(cuv) {
     $.ajax({

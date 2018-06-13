@@ -206,19 +206,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult ListarObservaciones(long ProcesoId, int TipoOrigen)
         {
-            var userData = UserData();
-            var notificaciones = ObtenerNotificaciones();
-            var notificacion = notificaciones.FirstOrDefault(p => p.ProcesoId == ProcesoId);
             List<BENotificacionesDetalle> lstObservaciones;
             List<BENotificacionesDetallePedido> lstObservacionesPedido;
+            GetNotificacionesValAutoProl(ProcesoId, TipoOrigen, out lstObservaciones, out lstObservacionesPedido);
+
             var model = new NotificacionesMobileModel();
-
-            using (var service = new UsuarioServiceClient())
-            {
-                lstObservaciones = service.GetNotificacionesConsultoraDetalle(userData.PaisID, ProcesoId, TipoOrigen).ToList();
-                lstObservacionesPedido = service.GetNotificacionesConsultoraDetallePedido(userData.PaisID, ProcesoId, TipoOrigen).ToList();
-            }
-
+            model.ListaNotificacionesDetalle = lstObservaciones;
+            model.ListaNotificacionesDetallePedido = lstObservacionesPedido;
+            model.NombreConsultora = userData.NombreConsultora;
+            model.Origen = TipoOrigen;
+            model.TieneDescuentoCuv = userData.EstadoSimplificacionCUV && model.ListaNotificacionesDetallePedido != null &&
+                model.ListaNotificacionesDetallePedido.Any(item => string.IsNullOrEmpty(item.ObservacionPROL) && item.IndicadorOferta == 1);
+            
+            var notificacion = ObtenerNotificaciones().FirstOrDefault(p => p.ProcesoId == ProcesoId);
             if (notificacion != null)
             {
                 model.Asunto = notificacion.Asunto;
@@ -228,13 +228,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.FechaFacturacion = notificacion.FechaFacturacion;
                 model.FacturaHoy = notificacion.FacturaHoy;
             }
-
-            model.ListaNotificacionesDetalle = lstObservaciones;
-            model.ListaNotificacionesDetallePedido = lstObservacionesPedido;
-            model.NombreConsultora = userData.NombreConsultora;
-            model.Origen = TipoOrigen;
-            model.TieneDescuentoCuv = userData.EstadoSimplificacionCUV && model.ListaNotificacionesDetallePedido != null &&
-                model.ListaNotificacionesDetallePedido.Any(item => string.IsNullOrEmpty(item.ObservacionPROL) && item.IndicadorOferta == 1);
 
             if (model.TieneDescuentoCuv)
             {
