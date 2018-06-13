@@ -64,6 +64,7 @@
     <Compile Include="BEAfiliaClienteConsultora.cs" />
     <Compile Include="BEAPISB2Response.cs" />
     <Compile Include="BEEnviarSms.cs" />
+    <Compile Include="BECategoria.cs" />
     <Compile Include="BEHorario.cs" />
     <Compile Include="BEConfiguracionPaisDatos.cs" />
     <Compile Include="BEDescripcionEstrategia.cs" />
@@ -79,6 +80,8 @@
     <Compile Include="DENativeType.cs" />
     <Compile Include="OpcionesVerificacion\BEOpcionesVerificacion.cs" />
     <Compile Include="OpcionesVerificacion\BEFiltrosOpcionesVerificacion.cs" />
+    <Compile Include="Oferta\BEGuiaNegocio.cs" />
+    <Compile Include="Oferta\BEOfertaDelDia.cs" />
     <Compile Include="OpcionesVerificacion\BEZonasOpcionesVerificacion.cs" />
     <Compile Include="ProgramaNuevas\BEProductoProgramaNuevas.cs" />
     <Compile Include="Externos\ReservaSicc\BEDetalleSicc.cs" />

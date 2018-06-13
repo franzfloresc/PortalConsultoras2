@@ -46,12 +46,10 @@
                         }
                         else if (!itemFooter.EsDireccionExterior)
                         {
-                        <!--Cambio link CGI(GOT)-->
                             <a href="javascript:;" onclick="return SetAnalyticsMenu('@itemFooter.UrlItem.Split('/')[1]', '@itemFooter.UrlItem.Split('/')[0]',@Convert.ToInt32(itemFooter.PaginaNueva), '@itemFooter.Descripcion',1, '@itemFooter.RolId')" target="@pageTarget" role="outbound-link" region="Outbound Link" parent="@itemFooter.Descripcion" id="lnk-out-@itemFooter.DescripcionFormateada" title="@itemFooter.Descripcion">@itemFooter.Descripcion</a>
                         }
                         else
                         {
-                        <!--Cambio link CGI(GOT)-->
                             <a href="javascript:;" onclick="return SetAnalyticsMenu('@itemFooter.UrlItem', '',@Convert.ToInt32(itemFooter.PaginaNueva), '@itemFooter.Descripcion',1, '@itemFooter.RolId')" target="@pageTarget" role="outbound-link" region="Outbound Link" parent="@itemFooter.Descripcion" id="lnk-out-@itemFooter.DescripcionFormateada" title="@itemFooter.Descripcion">@itemFooter.Descripcion</a>
                         }
                     </span>

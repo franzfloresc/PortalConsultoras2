@@ -8,11 +8,9 @@
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="{{CUV2}}" />
                 <input type="hidden" class="rsFBMensaje" value="" />
-                <input type="hidden" class="rsFBRuta" value="{{UrlCompartir}}" />
                 <input type="hidden" class="rsWAMensaje" value="" />
-                <input type="hidden" class="rsWARuta" value="{{UrlCompartir}}" />
-                <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
-                <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
+                <input type="hidden" class="rsFBRutaImagen" value="{{ImgUrl FotoProducto01}}" />
+                <input type="hidden" class="rsWARutaImagen" value="{{ImgUrl FotoProducto01}}" />
                 <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
                 <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
                 <input type="hidden" class="Nombre" value="{{DescripcionCompleta}}" />
@@ -27,7 +25,7 @@
                 </div>
                 {{/iff}}
                 <div class="content_ficha_producto">
-                    <img id="fav_imagen_prod" src="{{FotoProducto01}}" style="max-width: 300px !important;">
+                    <img id="fav_imagen_prod" src="{{ImgUrl FotoProducto01}}" style="max-width: 300px !important;">
                 </div>
                 <div class="compartir_redes_ficha" style="padding-left:0;margin-left: -16px;">
                     <div class="texto_compartelo">Compártelo con tus clientes</div>
@@ -51,9 +49,9 @@
                     <div {{#iff CodigoVariante 'ContainsArray' '[2002,2003]'}} class="content_right_ficha" style="text-align:right;" {{/iff}}>
                         <div class="precio_ficha_producto">
                             {{#iff Precio '>' 0}}
-                            <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
+                            <span class="producto_precio_normal">{{SimboloMoneda}} {{PrecioTachado}}</span><br />
                             {{/iff}}
-                            <div style="margin-top:-5px;"><span class="texto_precio_ficha">Precio para ti:</span>{{Simbolo}} {{PrecioVenta}}</div>
+                            <div style="margin-top:-5px;"><span class="texto_precio_ficha">Precio para ti:</span>{{SimboloMoneda}} {{PrecioVenta}}</div>
                         </div>
                     </div>
                     <hr class="clear">
@@ -88,7 +86,6 @@
                                 </div>
                                 {{/each}}
                             </div>
-                            <!--FIN-->
                         </div>
                         {{/iff}}
                         {{#iff CodigoVariante 'ContainsArray' '[2002,2003]'}}

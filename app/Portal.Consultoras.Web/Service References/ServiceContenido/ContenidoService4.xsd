@@ -44,11 +44,13 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="BannerId" type="xs:int" />
       <xs:element minOccurs="0" name="CampaniaId" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigosConsultora" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConfiguracionZona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombrePais" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PaisId" type="xs:int" />
       <xs:element minOccurs="0" name="Segmento" type="xs:int" />
       <xs:element minOccurs="0" name="SegmentoInterno" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoAcceso" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEBannerSegmentoZona" nillable="true" type="tns:BEBannerSegmentoZona" />
@@ -410,18 +412,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEConsultoraMailing" nillable="true" type="tns:BEConsultoraMailing" />
-  <xs:complexType name="ArrayOfBEVisaConfiguracion">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEVisaConfiguracion" nillable="true" type="tns:BEVisaConfiguracion" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEVisaConfiguracion" nillable="true" type="tns:ArrayOfBEVisaConfiguracion" />
-  <xs:complexType name="BEVisaConfiguracion">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Parametro" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Valor" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEVisaConfiguracion" nillable="true" type="tns:BEVisaConfiguracion" />
 </xs:schema>

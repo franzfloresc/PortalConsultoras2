@@ -754,7 +754,7 @@ namespace Portal.Consultoras.Data
             }
             return usuarioChatemtelco;
         }
-        
+
         public int UpdUsuarioExterno(BEUsuarioExterno usuarioexterno)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioExterno");
@@ -837,7 +837,6 @@ namespace Portal.Consultoras.Data
         //    return Context.ExecuteReader(command);
         //}
         #endregion
-
         #region Verificacion Autenticidad
         public IDataReader GetUsuarioVerificacionAutenticidad(int paisID, string CodigoUsuario)
         {
